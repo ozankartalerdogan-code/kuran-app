@@ -35,10 +35,35 @@ const tafsirMapPromise: Promise<Map<number, string>> =
     (entries) => new Map(entries.filter((e) => e.text).map((e) => [e.surahId, e.text as string]))
   );
 
+const ARABIC_SCRIPT_RE = /\p{Script=Arabic}/u;
+
 function buildShortIntroduction(raw: string): string {
-  const normalized = raw.trim().replace(/\s+/g, " ");
-  if (normalized.length <= 300) return normalized;
-  const cut = normalized.slice(0, 300);
+  // Strip header block (e.g. "2-BAKARA:\n---...\n")
+  const withoutHeader = raw.replace(/^[\s\S]*?-{10,}[^\n]*\n+/, "").trim();
+
+  // Normalize whitespace
+  const normalized = withoutHeader.replace(/\s+/g, " ");
+
+  // Split into sentences at sentence-ending punctuation followed by space
+  const sentences = normalized
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  // Start from the first sentence that:
+  //   - contains no Arabic script characters
+  //   - does not start with a quote (stripped Arabic artifact like `" " Bulunduğu...`)
+  const startsWithLetter = /^[A-ZÇĞİÖŞÜa-zçğıöşü0-9(]/;
+  // Empty-quote artifact left behind when Arabic was stripped: "" or " " etc.
+  const hasEmptyQuotes = /"\s*"/;
+  const firstTurkishIdx = sentences.findIndex(
+    (s) => !ARABIC_SCRIPT_RE.test(s) && startsWithLetter.test(s) && !hasEmptyQuotes.test(s)
+  );
+  if (firstTurkishIdx < 0) return "";
+
+  const preview = sentences.slice(firstTurkishIdx).join(" ");
+  if (preview.length <= 300) return preview;
+  const cut = preview.slice(0, 300);
   return cut.replace(/\s+\S*$/, "…");
 }
 

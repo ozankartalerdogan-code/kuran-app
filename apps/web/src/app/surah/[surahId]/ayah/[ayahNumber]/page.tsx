@@ -517,10 +517,12 @@ function getTranslationSourceName(translation: Pick<Translation, "source">): str
   return SOURCE_DISPLAY_NAMES[key] ?? (key || "bilinmeyen kaynak");
 }
 
+function getTranslationSourceKey(translation: Pick<Translation, "source">): string {
+  return translation.source?.split("#").at(-1) ?? "";
+}
+
 function getTranslationBySource(translations: Translation[], source: string): Translation | null {
-  return (
-    translations.find((translation) => getTranslationSourceName(translation) === source) ?? null
-  );
+  return translations.find((translation) => getTranslationSourceKey(translation) === source) ?? null;
 }
 
 function getPrimaryTranslationSelection(
@@ -528,7 +530,7 @@ function getPrimaryTranslationSelection(
 ): PrimaryTranslationSelection {
   const translations = qualities.map((quality) => quality.translation);
   const referenceQuality =
-    qualities.find((quality) => quality.sourceName === primaryReferenceSource) ?? null;
+    qualities.find((quality) => getTranslationSourceKey(quality.translation) === primaryReferenceSource) ?? null;
   const referenceTranslation = referenceQuality?.translation ?? null;
 
   const primaryDisplayName = SOURCE_DISPLAY_NAMES[primaryReferenceSource] ?? primaryReferenceSource;
@@ -1069,120 +1071,7 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
   );
 }
 
-function TafsirBlock({ tafsir }: { tafsir: TafsirSummary | null }) {
-  if (tafsir?.status === "available" && tafsir.summary) {
-    return (
-      <div className="space-y-3">
-        <span className="inline-flex rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-medium text-sky-800">
-          Ayet aralığı tefsiri
-        </span>
-        <p className="whitespace-pre-line text-sm leading-7 text-stone-800">{tafsir.summary}</p>
-      </div>
-    );
-  }
 
-  return (
-    <EmptyState>
-      Bu ayet için ayet bazlı tefsir verisi yok. Sûre düzeyi açıklamalar ayrı değerlendirilir.
-    </EmptyState>
-  );
-}
-
-function RevelationBlock({ context }: { context: RevelationContext | null }) {
-  if (context?.status !== "available") {
-    return <EmptyState>Ayet bazlı nüzûl verisi bulunamadı.</EmptyState>;
-  }
-
-  const isSurahScope = context.scope === "surah";
-
-  return (
-    <div className="space-y-3">
-      <span className="inline-flex rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-xs font-medium text-violet-800">
-        {isSurahScope ? "Sûre bilgisi / nüzûl metadata" : "Ayet bazlı nüzûl"}
-      </span>
-      {context.summary ? (
-        <p className="whitespace-pre-line text-sm leading-7 text-stone-800">{context.summary}</p>
-      ) : (
-        <p className="text-sm text-stone-700">
-          Sûre düzeyi metadata mevcut; ayet bazlı nüzûl özeti bulunamadı.
-        </p>
-      )}
-      {isSurahScope ? <EmptyState>Ayet bazlı nüzûl verisi bulunamadı.</EmptyState> : null}
-    </div>
-  );
-}
-
-function FidelityBlock({
-  fidelity,
-  hiddenSourcesToOmit = []
-}: {
-  fidelity: FidelityAnalysis | null;
-  hiddenSourcesToOmit?: string[];
-}) {
-  if (fidelity?.status !== "available") {
-    return (
-      <EmptyState>
-        Meal karşılaştırması için yeterli temiz veri yok.
-      </EmptyState>
-    );
-  }
-
-  const cleanComparisons = fidelity.comparisons.filter(isCleanComparison);
-  const omittedHiddenSources = new Set(hiddenSourcesToOmit);
-  const filteredSources = [
-    ...new Set(
-      fidelity.comparisons
-        .filter((comparison) => {
-          return (
-            comparison.status === "available" &&
-            !isCleanComparison(comparison) &&
-            !omittedHiddenSources.has(comparison.sourceName)
-          );
-        })
-        .map((comparison) => comparison.sourceName)
-    )
-  ].sort((left, right) => left.localeCompare(right, "tr"));
-
-  return (
-    <div className="space-y-4">
-      <p className="text-sm text-stone-700">
-        Karşılaştırma verisi mevcut. Bu bölüm kaynaklar arası meal metinlerini listeler; otomatik
-        bir doğruluk puanı olarak yorumlanmamalıdır.
-      </p>
-      <p className="text-sm text-stone-600">
-        {cleanComparisons.length} temiz karşılaştırma gösteriliyor; {filteredSources.length} kaynak
-        kalite filtresi nedeniyle gizlendi.
-      </p>
-      {filteredSources.length > 0 ? (
-        <details className="rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-600">
-          <summary className="cursor-pointer font-medium text-stone-700">
-            Gizlenen kaynak listesini göster
-          </summary>
-          <p className="mt-2 leading-6">{filteredSources.join(", ")}</p>
-        </details>
-      ) : null}
-      {cleanComparisons.length > 0 ? (
-        <div className="grid gap-3 md:grid-cols-2">
-          {cleanComparisons.map((comparison) => (
-            <article
-              className="rounded-md border border-stone-200 bg-stone-50 p-4"
-              key={`${comparison.sourceName}-${comparison.text}`}
-            >
-              <h3 className="mb-2 text-sm font-semibold text-stone-700">
-                {comparison.sourceName}
-              </h3>
-              <p className="text-sm leading-6 text-stone-800">{comparison.text}</p>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <EmptyState>
-          Karşılaştırma verisi mevcut; ancak gösterilecek temiz karşılaştırma kaydı bulunamadı.
-        </EmptyState>
-      )}
-    </div>
-  );
-}
 
 function AnalysisEngineBlock({
   analysis,
@@ -1638,7 +1527,11 @@ export default async function Page({ params, searchParams }: PageProps) {
   const verseKey = `${surahId}:${ayahNumber}`;
   const analysis = await getAyahAnalysisEngine(verseKey);
   const readingTrResult = normalizeTransliterationToReadingTrDetailed(detail.ayah.transliteration);
-  const translationSourceQualities = getTranslationSourceQualities(detail.translations);
+  const activeTranslations = detail.translations.filter((t) => {
+    const key = t.source?.split("#").at(-1) ?? "";
+    return preferredPrimarySources.includes(key);
+  });
+  const translationSourceQualities = getTranslationSourceQualities(activeTranslations);
   const displayableTranslations = getDisplayableTranslations(translationSourceQualities);
   const primarySelection = getPrimaryTranslationSelection(translationSourceQualities);
   const primaryTranslation = primarySelection.translation;
@@ -1922,48 +1815,8 @@ export default async function Page({ params, searchParams }: PageProps) {
           )}
         </SectionCard>
 
-        <SectionCard
-          title="Ana Meal"
-          status={sectionStatuses.primaryTranslation}
-          note={primarySelection.note}
-        >
-          {primaryTranslation?.text ? (
-            <div>
-              <p className="mb-2 text-sm font-semibold text-stone-600">
-                {getTranslationSourceName(primaryTranslation)}
-              </p>
-              <p className="text-lg leading-8 text-stone-900">{primaryTranslation.text}</p>
-            </div>
-          ) : (
-            <EmptyState>Ana meal için temiz veri yok.</EmptyState>
-          )}
-        </SectionCard>
-
         <AyahDetailTabs tabs={tabItems} />
 
-        <SectionCard
-          title="Tefsir"
-          status={sectionStatuses.tafsir}
-        >
-          <TafsirBlock tafsir={detail.tafsirSummary} />
-        </SectionCard>
-
-        <SectionCard
-          title="Nüzûl Bağlamı"
-          status={sectionStatuses.revelationContext}
-        >
-          <RevelationBlock context={detail.revelationContext} />
-        </SectionCard>
-
-        <SectionCard
-          title="Meal Tutarlılığı"
-          status={sectionStatuses.fidelity}
-        >
-          <FidelityBlock
-            fidelity={detail.fidelityAnalysis}
-            hiddenSourcesToOmit={hiddenSourcesToOmit}
-          />
-        </SectionCard>
       </div>
     </main>
   );

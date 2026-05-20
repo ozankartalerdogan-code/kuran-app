@@ -23,7 +23,7 @@ export function SurahAboutAccordion({
         onClick={() => setOpen((o) => !o)}
         type="button"
       >
-        <span className="text-sm font-semibold text-stone-900">Sure Hakkında</span>
+        <span className="text-sm font-semibold text-stone-900">Sure Tefsiri</span>
         <svg
           className={`h-4 w-4 shrink-0 text-stone-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           fill="none"
