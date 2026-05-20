@@ -142,10 +142,32 @@ const dictionaryReplacements = new Map<string, string>([
 ]);
 
 const replacementRules: ReplacementRule[] = [
+  // Digraflar önce işlenir (sh/kh/th tek harfe indirilmeden diğer kurallar yanlış ateşlemesin)
+  {
+    name: "sh-to-ş",
+    pattern: /sh/giu,
+    replacement: "ş"
+  },
+  {
+    name: "kh-to-h",
+    pattern: /kh/giu,
+    replacement: "h"
+  },
+  {
+    name: "th-to-s",
+    pattern: /th/giu,
+    replacement: "s"
+  },
   {
     name: "word-initial-wa-to-ve",
     pattern: /\bwa(?=[a-z])/giu,
     replacement: "ve "
+  },
+  // w→v kelime ortasında/sonunda (wa kuralından sonra kalan w'lar)
+  {
+    name: "w-to-v",
+    pattern: /w/giu,
+    replacement: "v"
   },
   {
     name: "sun-letter-alr",
@@ -178,6 +200,11 @@ const replacementRules: ReplacementRule[] = [
     replacement: "u"
   },
   {
+    name: "double-ii",
+    pattern: /ii/giu,
+    replacement: "i"
+  },
+  {
     name: "gh-to-g",
     pattern: /gh/giu,
     replacement: "g"
@@ -201,18 +228,6 @@ const suspiciousPatterns: SuspiciousPattern[] = [
   {
     name: "unresolved-bi-prefix",
     pattern: /\bbial/iu
-  },
-  {
-    name: "english-th-digraph",
-    pattern: /th/iu
-  },
-  {
-    name: "english-kh-digraph",
-    pattern: /kh/iu
-  },
-  {
-    name: "english-sh-digraph",
-    pattern: /sh/iu
   }
 ];
 
