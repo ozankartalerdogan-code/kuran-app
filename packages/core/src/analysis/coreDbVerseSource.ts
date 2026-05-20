@@ -1,5 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
 import { fileURLToPath } from "node:url";
+import { dbAll, dbGet } from "../adapters/shared";
 
 export interface CoreDbVerseTranslation {
   source: string;
@@ -98,52 +99,28 @@ export function readVerseAnalysisContextFromCoreDb(
   database.exec("PRAGMA cache_size=-32768; PRAGMA mmap_size=268435456; PRAGMA temp_store=MEMORY; PRAGMA busy_timeout=5000;");
 
   try {
-    const verse = database
-      .prepare(
-        `
-        SELECT verse_key, arabic_text, primary_translation
-        FROM verses
-        WHERE verse_key = ?
-        `
-      )
-      .get(verseKey) as unknown as VerseRow | undefined;
+    const verse = dbGet<VerseRow>(
+      database.prepare(`SELECT verse_key, arabic_text, primary_translation FROM verses WHERE verse_key = ?`),
+      verseKey
+    );
 
     if (!verse) {
       return null;
     }
 
-    const translations = database
-      .prepare(
-        `
-        SELECT source, text
-        FROM translations
-        WHERE verse_key = ?
-        ORDER BY source ASC, id ASC
-        `
-      )
-      .all(verseKey) as unknown as CoreDbVerseTranslation[];
+    const translations = dbAll<CoreDbVerseTranslation>(
+      database.prepare(`SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source ASC, id ASC`),
+      verseKey
+    );
 
-    const words = database
-      .prepare(
-        `
-        SELECT
-          word_index AS wordIndex,
-          segment_index AS segmentIndex,
-          arabic,
-          root,
-          lemma,
-          pos,
-          morphology,
-          meaning_tr AS meaningTr,
-          gloss_en AS glossEn,
-          confidence,
-          source
-        FROM words
-        WHERE verse_key = ?
-        ORDER BY word_index ASC, segment_index ASC, id ASC
-        `
-      )
-      .all(verseKey) as unknown as CoreDbVerseWord[];
+    const words = dbAll<CoreDbVerseWord>(
+      database.prepare(`
+        SELECT word_index AS wordIndex, segment_index AS segmentIndex, arabic, root, lemma,
+               pos, morphology, meaning_tr AS meaningTr, gloss_en AS glossEn, confidence, source
+        FROM words WHERE verse_key = ? ORDER BY word_index ASC, segment_index ASC, id ASC
+      `),
+      verseKey
+    );
 
     const roots = uniqueNonEmpty(words.map((word) => word.root));
     const lemmas = uniqueNonEmpty(words.map((word) => word.lemma));
@@ -152,70 +129,26 @@ export function readVerseAnalysisContextFromCoreDb(
     let rootMeanings: CoreDbRootMeaning[] = [];
     if (roots.length > 0) {
       const placeholders = roots.map(() => "?").join(", ");
-      rootMeanings = database
-        .prepare(
-          `
-          SELECT DISTINCT
-            root,
-            meaning_tr AS meaningTr,
-            source
-          FROM root_meanings
-          WHERE root IN (${placeholders})
-          ORDER BY root ASC, source ASC, id ASC
-          `
-        )
-        .all(...roots) as unknown as CoreDbRootMeaning[];
+      rootMeanings = dbAll<CoreDbRootMeaning>(
+        database.prepare(`SELECT DISTINCT root, meaning_tr AS meaningTr, source FROM root_meanings WHERE root IN (${placeholders}) ORDER BY root ASC, source ASC, id ASC`),
+        ...roots
+      );
     }
 
-    const translationComparison = database
-      .prepare(
-        `
-        SELECT
-          source,
-          normalized_text AS normalizedText,
-          raw_json AS rawJson
-        FROM translation_comparison
-        WHERE verse_key = ?
-        ORDER BY source ASC, id ASC
-        `
-      )
-      .all(verseKey) as unknown as CoreDbTranslationComparison[];
+    const translationComparison = dbAll<CoreDbTranslationComparison>(
+      database.prepare(`SELECT source, normalized_text AS normalizedText, raw_json AS rawJson FROM translation_comparison WHERE verse_key = ? ORDER BY source ASC, id ASC`),
+      verseKey
+    );
 
-    const fidelitySignals = database
-      .prepare(
-        `
-        SELECT
-          word_index AS wordIndex,
-          root,
-          lemma,
-          signal_type AS signalType,
-          label_tr AS labelTr,
-          confidence,
-          note,
-          raw_json AS rawJson
-        FROM fidelity_signals
-        WHERE verse_key = ?
-        ORDER BY
-          CASE WHEN word_index IS NULL THEN 9999 ELSE word_index END ASC,
-          id ASC
-        `
-      )
-      .all(verseKey) as unknown as CoreDbFidelitySignal[];
+    const fidelitySignals = dbAll<CoreDbFidelitySignal>(
+      database.prepare(`SELECT word_index AS wordIndex, root, lemma, signal_type AS signalType, label_tr AS labelTr, confidence, note, raw_json AS rawJson FROM fidelity_signals WHERE verse_key = ? ORDER BY CASE WHEN word_index IS NULL THEN 9999 ELSE word_index END ASC, id ASC`),
+      verseKey
+    );
 
-    const contextNotes = database
-      .prepare(
-        `
-        SELECT
-          scope,
-          type,
-          source,
-          text
-        FROM context_notes
-        WHERE verse_key = ?
-        ORDER BY scope ASC, type ASC, id ASC
-        `
-      )
-      .all(verseKey) as unknown as CoreDbContextNote[];
+    const contextNotes = dbAll<CoreDbContextNote>(
+      database.prepare(`SELECT scope, type, source, text FROM context_notes WHERE verse_key = ? ORDER BY scope ASC, type ASC, id ASC`),
+      verseKey
+    );
 
     const available: string[] = [];
     const missing: string[] = [];

@@ -1,5 +1,5 @@
 import type { AvailabilityStatus, FidelityAnalysis, MealComparisonEntry } from "@quran-app/types";
-import { getRelativeDataPath, repairText } from "../shared";
+import { getRelativeDataPath, repairText, dbAll } from "../shared";
 import { getAppDb } from "../appDb";
 
 const comparisonSource = getRelativeDataPath("meal-comparison", "by-surah");
@@ -15,13 +15,14 @@ export async function getMealComparison(
   surahId: number,
   ayahNumber: number
 ): Promise<FidelityAnalysis | null> {
-  const rows = getAppDb()
-    .prepare(
+  const rows = dbAll<ComparisonRow>(
+    getAppDb().prepare(
       `SELECT source_name, text, source_url, status
        FROM fidelity_comparisons
        WHERE verse_key = ?`
-    )
-    .all(`${surahId}:${ayahNumber}`) as unknown as ComparisonRow[];
+    ),
+    `${surahId}:${ayahNumber}`
+  );
 
   if (rows.length === 0) {
     return null;

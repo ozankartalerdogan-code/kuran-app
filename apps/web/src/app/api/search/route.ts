@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import path from "path";
 import { type NextRequest, NextResponse } from "next/server";
 import type { SearchResponse } from "./search-types";
+import { dbAll } from "../../../lib/dbUtils";
 
 export type { SearchResponse };
 
@@ -49,9 +50,9 @@ export async function GET(request: NextRequest): Promise<NextResponse<SearchResp
 
   try {
     const db = new DatabaseSync(dbPath, { readOnly: true });
-    const allSurahs = db
-      .prepare("SELECT id, adi_turkce, adi_arapca FROM sureler ORDER BY id")
-      .all() as unknown as SurahRow[];
+    const allSurahs = dbAll<SurahRow>(
+      db.prepare("SELECT id, adi_turkce, adi_arapca FROM sureler ORDER BY id")
+    );
     db.close();
 
     const match = findSurahMatch(q, allSurahs);

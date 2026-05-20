@@ -15,7 +15,7 @@ import { getFidelityAnalysis } from "../adapters/fidelityAdapter";
 import { getMealComparison } from "../adapters/external/mealComparisonAdapter";
 import { readAyahFromLocalData } from "../adapters/quranAdapter";
 import { getRevelationContext } from "../adapters/revelationContextAdapter";
-import { readJsonFile } from "../adapters/shared";
+import { readJsonFile, dbAll, dbGet } from "../adapters/shared";
 import { getTafsirSummary } from "../adapters/tafsirAdapter";
 import { getAyahAnalysisEngine } from "./analysisEngineV1";
 import {
@@ -190,9 +190,10 @@ const dataDirectory = path.resolve(currentDirectory, "../../../../data");
 const data2Directory = path.resolve(currentDirectory, "../../../../data2");
 
 function loadAiMeaningSummary(verseKey: string): string | null {
-  const row = getAppDb()
-    .prepare("SELECT text FROM context_notes WHERE verse_key = ? AND type = 'ai_meaning_summary'")
-    .get(verseKey) as unknown as { text: string } | undefined;
+  const row = dbGet<{ text: string }>(
+    getAppDb().prepare("SELECT text FROM context_notes WHERE verse_key = ? AND type = 'ai_meaning_summary'"),
+    verseKey
+  );
   return row?.text ?? null;
 }
 
@@ -253,15 +254,14 @@ interface WordRow {
 }
 
 function loadCanonicalWordAnalysisFromDb(surahId: number, ayahNumber: number): CanonicalWordAnalysisEntry[] {
-  const rows = getAppDb()
-    .prepare(
+  const rows = dbAll<WordRow>(
+    getAppDb().prepare(
       `SELECT word_index, arabic, root, lemma, pos, role, morphology,
               meaning_tr, gloss_en, confidence, source
-       FROM words
-       WHERE verse_key = ?
-       ORDER BY word_index ASC`
-    )
-    .all(`${surahId}:${ayahNumber}`) as unknown as WordRow[];
+       FROM words WHERE verse_key = ? ORDER BY word_index ASC`
+    ),
+    `${surahId}:${ayahNumber}`
+  );
 
   return rows.map((row): CanonicalWordAnalysisEntry => ({
     position: row.word_index,

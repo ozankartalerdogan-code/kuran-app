@@ -1,6 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { dbAll } from "./shared";
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 const dbPath = path.resolve(currentDirectory, "../../../../data/app.db");
@@ -48,8 +49,8 @@ export function getMorphologyForAyah(surahId: number, ayahNumber: number): Morph
   try {
     const db = getDb();
 
-    const rows = db
-      .prepare(
+    const rows = dbAll<MorphRow>(
+      db.prepare(
         `SELECT
            kelime_sira,
            GROUP_CONCAT(arapca, '') AS arabic_concat,
@@ -60,8 +61,9 @@ export function getMorphologyForAyah(surahId: number, ayahNumber: number): Morph
          WHERE sure = ? AND ayet = ?
          GROUP BY kelime_sira
          ORDER BY kelime_sira`
-      )
-      .all(surahId, ayahNumber) as unknown as MorphRow[];
+      ),
+      surahId, ayahNumber
+    );
 
     return rows.map((row) => ({
       wordIndex: row.kelime_sira,

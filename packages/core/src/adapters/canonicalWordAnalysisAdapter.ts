@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { MissingReason, Translation, WordAnalysis, WordRole } from "@quran-app/types";
+import { dbAll } from "./shared";
 
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -197,12 +198,13 @@ export async function getCanonicalWordAnalysesAsLegacy(
 
   try {
     const db = getDb();
-    const rows = db
-      .prepare(
+    const rows = dbAll<WordRow>(
+      db.prepare(
         "SELECT word_index, arabic, root, lemma, pos, morphology, meaning_tr, gloss_en, confidence, source " +
         "FROM words WHERE verse_key = ? ORDER BY word_index"
-      )
-      .all(verseKey) as unknown as WordRow[];
+      ),
+      verseKey
+    );
 
     return rows.map((row) => mapDbWordToLegacy(row, rootExplanationsV2));
   } catch {

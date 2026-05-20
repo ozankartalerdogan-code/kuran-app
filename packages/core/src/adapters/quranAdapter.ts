@@ -1,7 +1,7 @@
 import type { Ayah, NormalizedArabicAyah, NormalizedSurahMeta, Surah } from "@quran-app/types";
 import { getAyahTranslations } from "./translationAdapter";
 import { getAyahTransliteration } from "./translationAdapter";
-import { getRelativeDataPath, readJsonFile } from "./shared";
+import { getRelativeDataPath, readJsonFile, dbGet } from "./shared";
 import { getAppDb } from "./appDb";
 
 const surahSource = getRelativeDataPath("normalized", "surah-meta.json");
@@ -90,9 +90,10 @@ export async function readSurahByIdFromLocalData(surahId: number): Promise<Surah
 }
 
 export function getSurahFullTafsir(surahId: number): string | null {
-  const row = getAppDb()
-    .prepare("SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili'")
-    .get(surahId) as unknown as { content: string } | undefined;
+  const row = dbGet<{ content: string }>(
+    getAppDb().prepare("SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili'"),
+    surahId
+  );
   return row?.content ?? null;
 }
 

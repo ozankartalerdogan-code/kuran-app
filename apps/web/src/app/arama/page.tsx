@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import type { Metadata } from "next";
 import Link from "next/link";
 import path from "path";
+import { dbAll } from "../../lib/dbUtils";
 
 interface PageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -70,23 +71,19 @@ function runQuery(q: string): PageData {
     const db = new DatabaseSync(dbPath, { readOnly: true });
     db.exec("PRAGMA cache_size=-32768; PRAGMA mmap_size=268435456; PRAGMA temp_store=MEMORY; PRAGMA busy_timeout=5000;");
 
-    const allSurahs = db
-      .prepare("SELECT id, adi_turkce, adi_arapca FROM sureler ORDER BY id")
-      .all() as unknown as SurahRow[];
+    const allSurahs = dbAll<SurahRow>(
+      db.prepare("SELECT id, adi_turkce, adi_arapca FROM sureler ORDER BY id")
+    );
 
     const surahMatch = findSurahMatch(q, allSurahs);
 
     const surahMap = new Map(allSurahs.map((s) => [s.id, s.adi_turkce]));
 
     // ayet_fts already stores sure, ayet and diyanet — no join needed
-    const ftsRows = db
-      .prepare(
-        `SELECT sure, ayet, diyanet
-         FROM ayet_fts
-         WHERE ayet_fts MATCH ?
-         LIMIT 20`
-      )
-      .all(ftsQuery) as unknown as FtsRow[];
+    const ftsRows = dbAll<FtsRow>(
+      db.prepare(`SELECT sure, ayet, diyanet FROM ayet_fts WHERE ayet_fts MATCH ? LIMIT 20`),
+      ftsQuery
+    );
 
     db.close();
 
