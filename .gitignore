@@ -1,0 +1,30 @@
+node_modules
+.next
+dist
+.expo
+.turbo
+coverage
+*.tsbuildinfo
+
+# Veritabanı (büyük, runtime verisi)
+*.db
+*.db-shm
+*.db-wal
+
+# Hassas ortam değişkenleri
+.env.local
+.env*.local
+
+# Büyük veri dizinleri
+data/
+data2/
+elmalili-fix/
+
+# Log dosyaları
+*.log
+*.err.log
+*.out.log
+
+# OS
+.DS_Store
+Thumbs.db

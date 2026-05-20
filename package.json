@@ -1,0 +1,37 @@
+{
+  "name": "quran-app",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w @quran-app/web",
+    "dev:mobile": "npm run dev -w @quran-app/mobile",
+    "build": "npm run build -ws --if-present",
+    "typecheck": "npm run typecheck -ws --if-present",
+    "smoke:surah-context": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-surah-context.ts",
+    "smoke:analysis-engine-v1": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-analysis-engine-v1.ts",
+    "smoke:analysis-engine-v1:snapshots": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-analysis-engine-v1-snapshots.ts",
+    "audit:analysis-engine-v1": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/audit-analysis-engine-v1.ts",
+    "audit:analysis-engine-v1:sources": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/audit-analysis-engine-v1-sources.ts",
+    "build:word-analysis:test": "node data2/scripts/build_word_analysis.js --surah 1 --ayah 1",
+    "build:word-analysis:all": "node data2/scripts/build_word_analysis.js --all",
+    "build:canonical-word-analysis:test": "node data2/scripts/build_canonical_word_analysis.js --surah 1 --ayah 1",
+    "build:canonical-word-analysis:all": "node data2/scripts/build_canonical_word_analysis.js --all",
+    "fill:root-explanations": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/fill-root-explanations.ts",
+    "fill:root-explanations:test": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/fill-root-explanations.ts --test",
+    "generate-meaning-summaries": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/generate-meaning-summaries.ts",
+    "generate-meaning-summaries:test": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/generate-meaning-summaries.ts --test",
+    "repair-meaning-summaries": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/repair-meaning-summaries.ts",
+    "repair-meaning-summaries:dry": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/repair-meaning-summaries.ts --dry-run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.96.0",
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "groq-sdk": "^1.2.0"
+  }
+}
