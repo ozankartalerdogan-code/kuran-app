@@ -23,7 +23,7 @@ const DB_PATH = path.resolve(currentDirectory, "../data/app.db");
 const DELAY_MS   = 200;
 const TEST_LIMIT = 5;
 const NOTE_TYPE  = "ai_meaning_summary";
-const MODEL      = "claude-haiku-4-5";
+const MODEL      = "claude-haiku-4-5-20251001";
 
 function isTestMode(): boolean {
   return process.argv.includes("--test");
