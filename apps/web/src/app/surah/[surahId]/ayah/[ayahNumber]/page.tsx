@@ -144,8 +144,16 @@ interface AyahDetailDebugPayload {
   copyForValidator?: ValidatorCopyPayload;
 }
 
-const primaryReferenceSource = "diyanet";
-const preferredPrimarySources = ["diyanet", "yazir", "bulac", "vakfi", "ozturk"];
+const primaryReferenceSource = "yazir";
+const preferredPrimarySources = ["yazir", "diyanet", "bulac", "vakfi", "ozturk"];
+
+const SOURCE_DISPLAY_NAMES: Record<string, string> = {
+  diyanet: "Diyanet İşleri",
+  yazir:   "Elmalılı H. Yazır",
+  bulac:   "Ali Bulaç",
+  vakfi:   "Diyanet Vakfı",
+  ozturk:  "Yaşar Nuri Öztürk",
+};
 const statusClasses: Record<SectionStatus, string> = {
   ready: "border-emerald-200 bg-emerald-50 text-emerald-800",
   partially_ready: "border-amber-200 bg-amber-50 text-amber-800",
@@ -505,7 +513,8 @@ function ErrorState({ message }: { message: string }) {
 }
 
 function getTranslationSourceName(translation: Pick<Translation, "source">): string {
-  return translation.source?.split("#").at(-1) ?? "bilinmeyen kaynak";
+  const key = translation.source?.split("#").at(-1) ?? "";
+  return SOURCE_DISPLAY_NAMES[key] ?? (key || "bilinmeyen kaynak");
 }
 
 function getTranslationBySource(translations: Translation[], source: string): Translation | null {
@@ -522,10 +531,12 @@ function getPrimaryTranslationSelection(
     qualities.find((quality) => quality.sourceName === primaryReferenceSource) ?? null;
   const referenceTranslation = referenceQuality?.translation ?? null;
 
+  const primaryDisplayName = SOURCE_DISPLAY_NAMES[primaryReferenceSource] ?? primaryReferenceSource;
+
   if (referenceQuality?.isClean) {
     return {
       translation: referenceQuality.translation,
-      note: "Ana meal olarak Diyanet meali gösteriliyor.",
+      note: `Ana meal olarak ${primaryDisplayName} gösteriliyor.`,
       isFallback: false
     };
   }
@@ -538,11 +549,12 @@ function getPrimaryTranslationSelection(
     const matched = getTranslationBySource(translations, source);
 
     if (matched && isCleanTranslation(matched)) {
+      const fallbackName = SOURCE_DISPLAY_NAMES[source] ?? source;
       return {
         translation: matched,
         note: referenceTranslation
-          ? `Diyanet meali bu ayette temiz görüntülenemediği için ${source} meali gösteriliyor.`
-          : `Diyanet meali bu ayette bulunamadığı için ${source} meali gösteriliyor.`,
+          ? `${primaryDisplayName} bu ayette temiz görüntülenemediği için ${fallbackName} gösteriliyor.`
+          : `${primaryDisplayName} bu ayette bulunamadığı için ${fallbackName} gösteriliyor.`,
         isFallback: true
       };
     }
