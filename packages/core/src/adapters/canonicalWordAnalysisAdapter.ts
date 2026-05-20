@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { MissingReason, Translation, WordAnalysis, WordRole } from "@quran-app/types";
-import { repairText } from "./shared";
+
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 const data2Directory = path.resolve(currentDirectory, "../../../../data2");

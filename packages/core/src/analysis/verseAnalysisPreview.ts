@@ -279,7 +279,7 @@ function isReadableTurkishMeaning(value: string): boolean {
   return /[a-zcghiklmnoprstuvy]/u.test(normalized);
 }
 
-function findFallbackMeaning(parts: string[]): string | null {
+function _findFallbackMeaning(parts: string[]): string | null {
   for (const part of parts) {
     const normalizedArabic = normalizeArabicLike(part);
     if (normalizedArabic && fallbackMeaningMap[normalizedArabic]) {

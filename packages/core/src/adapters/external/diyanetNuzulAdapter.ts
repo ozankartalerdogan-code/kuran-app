@@ -4,7 +4,7 @@ const nuzulSource = getRelativeDataPath("revelation-context", "surah", "index.js
 
 export async function getDiyanetRevelationContext(
   surahId: number,
-  ayahNumber: number
+  _ayahNumber: number
 ): Promise<RevelationContext | null> {
   const records = await readJsonFile<SurahRevelationContextCacheEntry[]>(
     "revelation-context",

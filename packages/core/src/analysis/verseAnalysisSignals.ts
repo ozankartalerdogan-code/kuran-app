@@ -338,7 +338,7 @@ function buildTranslationPhraseSignals(
     .slice(0, 6);
 
   const divergentPhrases = ranked
-    .filter(([phrase, count]) => count >= divergentFloor && count < commonThreshold)
+    .filter(([_phrase, count]) => count >= divergentFloor && count < commonThreshold)
     .filter(([phrase]) => phrase.includes(" "))
     .map(([phrase]) => phrase)
     .slice(0, 6);
@@ -523,7 +523,7 @@ function isLowUsefulnessTerm(term: ReadableSignalTerm): boolean {
     return true;
   }
 
-  if ((term.meaning ?? "").trim().length > 0 && /^[\-–]/u.test((term.meaning ?? "").trim())) {
+  if ((term.meaning ?? "").trim().length > 0 && /^[-–]/u.test((term.meaning ?? "").trim())) {
     return true;
   }
 

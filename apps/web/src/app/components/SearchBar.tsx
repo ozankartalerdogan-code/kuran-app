@@ -107,7 +107,7 @@ export function SearchBar() {
 
           {dropdown.kind === "none" && (
             <p className="px-4 py-3 text-sm text-stone-400">
-              Enter'a bas → kelime arama
+              Enter&apos;a bas → kelime arama
             </p>
           )}
 

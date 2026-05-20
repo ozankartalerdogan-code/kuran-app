@@ -40,11 +40,19 @@ export async function getWordAnalyses(
   surahId: number,
   ayahNumber: number
 ): Promise<WordAnalysis[]> {
-  const [morphologyIndex, lookup, rootExplanationLookup] = await Promise.all([
-    morphologyIndexPromise,
-    loadWordMeaningLookup(),
-    loadRootExplanationLookup()
-  ]);
+  let morphologyIndex: Awaited<typeof morphologyIndexPromise>;
+  let lookup: Awaited<ReturnType<typeof loadWordMeaningLookup>>;
+  let rootExplanationLookup: Awaited<ReturnType<typeof loadRootExplanationLookup>>;
+  try {
+    [morphologyIndex, lookup, rootExplanationLookup] = await Promise.all([
+      morphologyIndexPromise,
+      loadWordMeaningLookup(),
+      loadRootExplanationLookup()
+    ]);
+  } catch (err) {
+    console.error(`[getWordAnalyses] ${surahId}:${ayahNumber} yüklenemedi:`, err);
+    return [];
+  }
 
   const entries = morphologyIndex.get(`${surahId}:${ayahNumber}`) ?? [];
 

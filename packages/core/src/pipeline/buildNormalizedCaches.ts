@@ -106,7 +106,7 @@ function stripMarkdown(value: string | null): string | null {
 
   const normalized = withoutHeading
     .replace(/^\s*-{3,}\s*$/gmu, "")
-    .replace(/\\([\\`*_{}\[\]()#+.!-])/g, "$1")
+    .replace(/\\([\\`*_{}[\]()#+.!-])/g, "$1")
     .replace(/\[(.*?)\]\((.*?)\)/gmu, "$1")
     .replace(/`{1,3}([^`]*)`{1,3}/gmu, "$1")
     .replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/gmu, "$1")
@@ -172,7 +172,7 @@ export async function buildNormalizedCaches(): Promise<NormalizationReport> {
     readFile(resolveDataPath(...externalSurahMetaPath), "utf8"),
     readdir(resolveDataPath(...externalTranslationsDirectory)),
     readFile(resolveDataPath(...localTransliterationPath), "utf8").catch(() => null)
-  ]);
+  ]).catch((err) => { throw new Error(`[buildNormalizedCaches] Dosya yüklenemedi: ${err}`); });
 
   const externalSurahMeta = JSON.parse(surahMetaContent) as ExternalSurahMetaRecord[];
   const externalTransliteration =

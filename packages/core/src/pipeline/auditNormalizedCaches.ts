@@ -12,6 +12,7 @@ import { writeDataJson } from "./shared";
 
 const mojibakePattern = /(?:Ã.|Å.|Ä.|Ø.|Ù.|Ð.|Ñ.)/u;
 const replacementPattern = /\uFFFD/u;
+// eslint-disable-next-line no-control-regex
 const controlCharacterPattern = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u;
 const arabicPattern = /[\u0600-\u06FF]/u;
 const latinPattern = /[A-Za-z]/u;

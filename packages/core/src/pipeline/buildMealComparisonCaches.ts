@@ -10,7 +10,7 @@ export async function buildMealComparisonCaches(): Promise<void> {
   const [surahs, normalizedTranslations] = await Promise.all([
     readJsonFile<{ surahId: number; verseCount: number | null }[]>("normalized", "surah-meta.json"),
     readJsonFile<NormalizedAyahTranslations[]>("normalized", "translations.json")
-  ]);
+  ]).catch((err) => { throw new Error(`[buildMealComparisonCaches] Dosya yüklenemedi: ${err}`); });
 
   const bySurah: Record<number, MealComparisonCacheEntry[]> = {};
   const normalizedTranslationSource = getRelativeDataPath("normalized", "translations.json");

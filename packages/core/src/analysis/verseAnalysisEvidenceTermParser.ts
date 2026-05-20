@@ -34,6 +34,7 @@ function containsArabic(value: string): boolean {
 
 function isArabicOnly(value: string): boolean {
   const compact = value.replace(/\s+/gu, "");
+  // eslint-disable-next-line no-misleading-character-class
   return compact.length > 0 && /^[\u0600-\u06FF\u064B-\u065F\u0670\u06D6-\u06EDٰۡـ]+$/u.test(compact);
 }
 

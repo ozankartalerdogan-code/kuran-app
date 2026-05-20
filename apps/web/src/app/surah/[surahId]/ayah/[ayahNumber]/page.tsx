@@ -1191,7 +1191,7 @@ function AnalysisEngineBlock({
     ) : null;
   }
 
-  const hasParticipants = Boolean(
+  const _hasParticipants = Boolean(
     analysis.participants.speaker || analysis.participants.addressee
   );
   const filteredThemes = filterHelperThemes({ analysis, preview });
@@ -1282,6 +1282,7 @@ function AnalysisEngineBlock({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SemanticSummaryCard({
   semanticSummary,
   showEmptyState

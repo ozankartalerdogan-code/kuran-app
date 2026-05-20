@@ -127,7 +127,7 @@ export default function AramaPage({ searchParams }: PageProps) {
 
         {!q && (
           <p className="text-sm text-stone-500">
-            Arama yapmak için üst kısımdaki arama kutusuna kelime yazın ve Enter'a basın.
+            Arama yapmak için üst kısımdaki arama kutusuna kelime yazın ve Enter&apos;a basın.
           </p>
         )}
 
@@ -161,7 +161,7 @@ export default function AramaPage({ searchParams }: PageProps) {
             {results.length === 0 ? (
               <div className="rounded-md border border-stone-200 bg-white p-6">
                 <p className="text-sm text-stone-600">
-                  <span className="font-medium">"{q}"</span> için meal içinde sonuç bulunamadı.
+                  <span className="font-medium">&ldquo;{q}&rdquo;</span> için meal içinde sonuç bulunamadı.
                 </p>
               </div>
             ) : (

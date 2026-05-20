@@ -15,7 +15,7 @@ export async function buildSurahLevelCaches(): Promise<void> {
   const [surahs, normalizedTafsir] = await Promise.all([
     readJsonFile<NormalizedSurahMeta[]>("normalized", "surah-meta.json"),
     readJsonFile<NormalizedTafsirRange[]>("normalized", "tafsir.json")
-  ]);
+  ]).catch((err) => { throw new Error(`[buildSurahLevelCaches] Dosya yüklenemedi: ${err}`); });
 
   const surahTafsirEntries: SurahTafsirCacheEntry[] = [];
   const surahContextEntries: SurahRevelationContextCacheEntry[] = [];

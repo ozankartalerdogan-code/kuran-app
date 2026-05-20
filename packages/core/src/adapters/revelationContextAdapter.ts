@@ -8,11 +8,19 @@ export async function getRevelationContext(
   surahId: number,
   ayahNumber: number
 ): Promise<RevelationContext | null> {
-  const [diyanetContext, tdvReference, surahContexts] = await Promise.all([
-    getDiyanetRevelationContext(surahId, ayahNumber),
-    getTdvMethodologyReference("esbab_i_nuzul"),
-    readJsonFile<SurahRevelationContextCacheEntry[]>("revelation-context", "surah", "index.json")
-  ]);
+  let diyanetContext: Awaited<ReturnType<typeof getDiyanetRevelationContext>>;
+  let tdvReference: Awaited<ReturnType<typeof getTdvMethodologyReference>>;
+  let surahContexts: SurahRevelationContextCacheEntry[];
+  try {
+    [diyanetContext, tdvReference, surahContexts] = await Promise.all([
+      getDiyanetRevelationContext(surahId, ayahNumber),
+      getTdvMethodologyReference("esbab_i_nuzul"),
+      readJsonFile<SurahRevelationContextCacheEntry[]>("revelation-context", "surah", "index.json")
+    ]);
+  } catch (err) {
+    console.error(`[getRevelationContext] ${surahId}:${ayahNumber} yüklenemedi:`, err);
+    return null;
+  }
 
   const surahContext =
     surahContexts.find((entry) => entry.surahId === surahId && entry.status === "available") ?? null;

@@ -167,7 +167,7 @@ function normalizeForWarningMatch(text: string): string {
     .replace(/\p{M}/gu, "")
     .replace(/ı/gu, "i")
     .replace(/[’'`´]/gu, "")
-    .replace(/[".,;:!?()\-]/gu, " ")
+    .replace(/[".,;:!?()\\-]/gu, " ")
     .replace(/\s+/gu, " ")
     .trim();
 }
