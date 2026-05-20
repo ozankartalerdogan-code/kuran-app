@@ -88,7 +88,7 @@ interface RootExplanationCoverageEntry {
   coverageRatio: number;
 }
 
-const targetMealSources = ["sadak", "hayrat", "yilmaz", "ugur", "vakfi", "yildirim-harun"];
+const targetMealSources = ["diyanet", "yazir", "bulac", "vakfi", "ozturk"];
 const externalTranslationsDirectory = [
   "quran",
   "external",
