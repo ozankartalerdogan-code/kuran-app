@@ -119,15 +119,32 @@ function asWordRole(value: string | null | undefined): WordRole | null {
 function posToRole(pos: string | null, morphology: string | null): WordRole | null {
   if (!pos) return null;
 
+  // V anywhere → verb (V+N verb+pronoun suffix stays verb)
+  if (pos.includes("V")) return "verb";
+
   const hasPron = morphology?.includes("PRON") ?? false;
+  // Suffix pronoun attached to a content word (possessive/object): not standalone
+  const isSuffix = morphology?.includes("SUFF") ?? false;
 
-  if (hasPron) return "pronoun";
+  // Pure particle
+  if (pos === "P") return "particle";
 
-  const base = pos.split("+").at(-1) ?? pos;
+  // P+N: article prefix (ال) + content noun/adjective — treat as noun/adjective
+  //       preposition/conj prefix + standalone pronoun — treat as pronoun
+  if (pos.startsWith("P+")) {
+    const hasRoot = morphology?.includes("ROOT:") ?? false;
+    if (hasRoot) {
+      // Content word with prefix (e.g. ٱلۡقَيُّومُ, ٱلسَّمَٰوَٰتِ)
+      const isAdj = morphology?.includes("|ADJ") ?? false;
+      return isAdj ? "adjective" : "noun";
+    }
+    // No root: P + pronoun (لَّهُۥ, وَهُوَ)
+    return hasPron && !isSuffix ? "pronoun" : "particle";
+  }
 
-  if (base === "V") return "verb";
-  if (base === "P") return "particle";
-  if (base === "N") {
+  // N-based
+  if (pos.includes("N")) {
+    if (hasPron && !isSuffix) return "pronoun"; // standalone pronoun (هُوَ, هُمۡ…)
     const isAdj = morphology?.includes("|ADJ") ?? false;
     return isAdj ? "adjective" : "noun";
   }
