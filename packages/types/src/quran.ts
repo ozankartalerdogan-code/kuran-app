@@ -37,6 +37,7 @@ export interface Ayah {
   verseNumber: number;
   arabicText: string | null;
   transliteration: string | null;
+  readingTr: string | null;
   translations: Translation[];
   literalCeviri: string | null;
   hamAnlamOzeti: string | null;

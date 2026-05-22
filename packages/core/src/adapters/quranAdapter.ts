@@ -1,6 +1,5 @@
 import type { Ayah, NormalizedArabicAyah, NormalizedSurahMeta, Surah } from "@quran-app/types";
-import { getAyahTranslations } from "./translationAdapter";
-import { getAyahTransliteration } from "./translationAdapter";
+import { getAyahTranslations, getAyahTransliteration, getAyahReadingTr } from "./translationAdapter";
 import { getRelativeDataPath, readJsonFile, dbGet } from "./shared";
 import { getAppDb } from "./appDb";
 
@@ -141,8 +140,11 @@ export async function readAyahFromLocalData(
 ): Promise<Ayah> {
   const verseIndex = await loadArabicAyahIndex();
   const verseRecord = verseIndex.get(`${surahId}:${ayahNumber}`) ?? null;
-  const translations = await getAyahTranslations(surahId, ayahNumber);
-  const transliteration = await getAyahTransliteration(surahId, ayahNumber);
+  const [translations, transliteration, readingTr] = await Promise.all([
+    getAyahTranslations(surahId, ayahNumber),
+    getAyahTransliteration(surahId, ayahNumber),
+    getAyahReadingTr(surahId, ayahNumber),
+  ]);
   const arabicText = verseRecord?.arabicText ?? null;
 
   const verseKey = `${surahId}:${ayahNumber}`;
@@ -180,6 +182,7 @@ export async function readAyahFromLocalData(
     verseNumber: ayahNumber,
     arabicText,
     transliteration,
+    readingTr,
     translations,
     literalCeviri:  verseRow?.literal_ceviri  ?? null,
     hamAnlamOzeti:  verseRow?.ham_anlam_ozeti  ?? null,

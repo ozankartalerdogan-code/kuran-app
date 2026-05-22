@@ -1356,7 +1356,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 Sûre {detail.surah?.id ?? surahId} · Ayet {detail.ayah.verseNumber}
               </p>
               <div className="mt-4">
-                <AyahJumpForm initialSurahId={surahId} initialAyahNumber={ayahNumber} />
+                <AyahJumpForm initialSurahId={surahId} initialAyahNumber={ayahNumber} surahs={surahs} />
               </div>
             </div>
             <StatusBadge status={sectionStatuses.page} />
@@ -1402,20 +1402,25 @@ export default async function Page({ params, searchParams }: PageProps) {
           {detail.ayah.transliteration ? (
             <div className="space-y-4">
               <p className="text-lg leading-8 text-stone-900">
-                {readingTrResult?.output ?? detail.ayah.transliteration}
+                {detail.ayah.readingTr ?? readingTrResult?.output ?? detail.ayah.transliteration}
               </p>
               {showExperimentalControls ? (
                 <details className="rounded-md border border-stone-200 bg-stone-50 p-4">
                   <summary className="cursor-pointer text-sm font-medium text-stone-700">
                     Teknik okunuşu göster
                   </summary>
+                  {detail.ayah.readingTr ? (
+                    <p className="mt-2 text-xs text-stone-500">
+                      Kaynak: AI (Gemini) — Ham transliteration aşağıda
+                    </p>
+                  ) : null}
                   <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-stone-500">
                     Ham transliteration
                   </p>
                   <p className="mt-1 text-sm leading-7 text-stone-700">
                     {detail.ayah.transliteration}
                   </p>
-                  {readingTrResult?.suspiciousMatches.length ? (
+                  {!detail.ayah.readingTr && readingTrResult?.suspiciousMatches.length ? (
                     <p className="mt-2 text-xs text-stone-600">
                       Şüpheli dönüşüm izleri: {readingTrResult.suspiciousMatches.join(", ")}
                     </p>

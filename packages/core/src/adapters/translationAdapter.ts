@@ -11,8 +11,19 @@ const translationIndexPromise: Promise<Map<string, NormalizedAyahTranslations>> 
     new Map(records.map((record) => [`${record.surahId}:${record.ayahNumber}`, record]))
 );
 
+const readingTrIndexPromise: Promise<Map<string, string>> = readJsonFile<Record<string, string>>(
+  "normalized",
+  "reading_tr.json"
+)
+  .then((obj) => new Map(Object.entries(obj)))
+  .catch(() => new Map());
+
 async function loadTranslationIndex(): Promise<Map<string, NormalizedAyahTranslations>> {
   return translationIndexPromise;
+}
+
+async function loadReadingTrIndex(): Promise<Map<string, string>> {
+  return readingTrIndexPromise;
 }
 
 export async function getAyahTranslations(
@@ -48,6 +59,14 @@ export async function getAyahTransliteration(
   }
 
   return record.transliteration;
+}
+
+export async function getAyahReadingTr(
+  surahId: number,
+  ayahNumber: number
+): Promise<string | null> {
+  const readingTrIndex = await loadReadingTrIndex();
+  return readingTrIndex.get(`${surahId}:${ayahNumber}`) ?? null;
 }
 
 export const translationDataSources = {
