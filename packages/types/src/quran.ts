@@ -38,6 +38,12 @@ export interface Ayah {
   arabicText: string | null;
   transliteration: string | null;
   translations: Translation[];
+  literalCeviri: string | null;
+  hamAnlamOzeti: string | null;
+  farkAnalizi: string | null;
+  temalar: string[] | null;
+  anaTema: string | null;
+  altTaglar: string[] | null;
   status: AvailabilityStatus;
 }
 

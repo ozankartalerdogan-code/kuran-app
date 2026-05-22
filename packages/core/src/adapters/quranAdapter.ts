@@ -75,37 +75,50 @@ async function loadArabicAyahIndex(): Promise<Map<string, NormalizedArabicAyah>>
   return arabicIndexPromise;
 }
 
+// Surahs compute once per process — 11MB tafsir JSON + 114x regex işlemi.
+// Hata durumunda cache temizlenir; bir sonraki istek yeniden dener.
+let _surahsCache: Promise<Surah[]> | null = null;
+
 export async function readSurahsFromLocalData(): Promise<Surah[]> {
-  const [metadata, revCtxMap, tafsirMap] = await Promise.all([
-    loadSurahMetadata(),
-    revelationContextMapPromise,
-    tafsirMapPromise
-  ]);
+  if (_surahsCache) return _surahsCache;
 
-  return metadata.map((record) => {
-    const revCtx = revCtxMap.get(record.surahId);
-    const tafsirText = tafsirMap.get(record.surahId) ?? null;
-    const revelationPlace =
-      revCtx?.revelationType === "mekki" ? "Mekke" :
-      revCtx?.revelationType === "medeni" ? "Medine" : null;
+  _surahsCache = (async (): Promise<Surah[]> => {
+    const [metadata, revCtxMap, tafsirMap] = await Promise.all([
+      loadSurahMetadata(),
+      revelationContextMapPromise,
+      tafsirMapPromise
+    ]);
 
-    return {
-      id: record.surahId,
-      arabicName: record.arabicName,
-      turkishName: {
-        language: "tr",
-        source: surahSource,
-        text: record.turkishName,
-        status: record.turkishName === null ? "missing" : "available"
-      },
-      verseCount: record.verseCount,
-      revelationType: record.revelationType,
-      revelationPlace,
-      revelationOrder: revCtx?.revelationOrder ?? record.revelationOrder ?? null,
-      shortIntroduction: tafsirText ? buildShortIntroduction(tafsirText) : null,
-      status: record.status
-    };
+    return metadata.map((record) => {
+      const revCtx       = revCtxMap.get(record.surahId);
+      const tafsirText   = tafsirMap.get(record.surahId) ?? null;
+      const revelationPlace =
+        revCtx?.revelationType === "mekki"  ? "Mekke"  :
+        revCtx?.revelationType === "medeni" ? "Medine" : null;
+
+      return {
+        id: record.surahId,
+        arabicName: record.arabicName,
+        turkishName: {
+          language: "tr",
+          source: surahSource,
+          text: record.turkishName,
+          status: record.turkishName === null ? "missing" : "available"
+        },
+        verseCount:         record.verseCount,
+        revelationType:     record.revelationType,
+        revelationPlace,
+        revelationOrder:    revCtx?.revelationOrder ?? record.revelationOrder ?? null,
+        shortIntroduction:  tafsirText ? buildShortIntroduction(tafsirText) : null,
+        status:             record.status
+      };
+    });
+  })().catch((err) => {
+    _surahsCache = null; // reject olursa cache temizle; bir sonraki istek yeniden dener
+    throw err;
   });
+
+  return _surahsCache;
 }
 
 export async function readSurahByIdFromLocalData(surahId: number): Promise<Surah | null> {
@@ -132,6 +145,35 @@ export async function readAyahFromLocalData(
   const transliteration = await getAyahTransliteration(surahId, ayahNumber);
   const arabicText = verseRecord?.arabicText ?? null;
 
+  const verseKey = `${surahId}:${ayahNumber}`;
+  const verseRow = dbGet<{
+    literal_ceviri:  string | null;
+    ham_anlam_ozeti: string | null;
+    fark_analizi:    string | null;
+    temalar:         string | null;
+    ana_tema:        string | null;
+    alt_taglar:      string | null;
+  }>(
+    getAppDb().prepare(`
+      SELECT v.literal_ceviri, v.ham_anlam_ozeti, v.fark_analizi, v.temalar,
+             vt.ana_tema, vt.alt_taglar
+      FROM   verses v
+      LEFT   JOIN verse_tags vt ON vt.verse_key = v.verse_key
+      WHERE  v.verse_key = ?
+    `),
+    verseKey
+  );
+
+  let temalar: string[] | null = null;
+  if (verseRow?.temalar) {
+    try { temalar = JSON.parse(verseRow.temalar) as string[]; } catch { temalar = null; }
+  }
+
+  let altTaglar: string[] | null = null;
+  if (verseRow?.alt_taglar) {
+    try { altTaglar = JSON.parse(verseRow.alt_taglar) as string[]; } catch { altTaglar = null; }
+  }
+
   return {
     id: surahId * 1000 + ayahNumber,
     surahId,
@@ -139,6 +181,12 @@ export async function readAyahFromLocalData(
     arabicText,
     transliteration,
     translations,
+    literalCeviri:  verseRow?.literal_ceviri  ?? null,
+    hamAnlamOzeti:  verseRow?.ham_anlam_ozeti  ?? null,
+    farkAnalizi:    verseRow?.fark_analizi     ?? null,
+    temalar,
+    anaTema:    verseRow?.ana_tema  ?? null,
+    altTaglar,
     status: arabicText !== null || translations.length > 0 ? "available" : "missing"
   };
 }

@@ -27,6 +27,10 @@
     "repair-meaning-summaries": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/repair-meaning-summaries.ts",
     "repair-meaning-summaries:dry": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/repair-meaning-summaries.ts --dry-run"
   },
+  "overrides": {
+    "react":     "18.3.1",
+    "react-dom": "18.3.1"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
     "dotenv": "^17.4.2"
@@ -46,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "groq-sdk": "^1.2.0",
     "lint-staged": "^17.0.5",
+    "playwright": "^1.60.0",
     "simple-git-hooks": "^2.13.1"
   }
 }

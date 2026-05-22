@@ -1,17 +1,11 @@
 import {
-  buildVerseAnalysisContext,
-  buildVerseAnalysisPreview,
-  getAyahAnalysisEngine,
   getAyahDetail,
-  getSurahFullTafsir,
   getSurahs,
   normalizeTransliterationToReadingTrDetailed
 } from "@quran-app/core";
 import type { WordAnalysisSource } from "@quran-app/core";
-import type { VerseAnalysisPreview as ProvenAnalysisPreview } from "@quran-app/core";
 import type {
   AvailabilityStatus,
-  AyahAnalysisEngineV1,
   FidelityAnalysis,
   MealComparisonEntry,
   RevelationContext,
@@ -24,8 +18,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   buildUnavailableSemanticSummary,
-  resolveServerSemanticProviderFromEnv,
-  runSelectedSemanticAnalysisWithProvider,
   type SelectedSemanticProviderSummary
 } from "../../../../../lib/analysis/semanticSelectedSummary";
 import { resolveWordAnalysisSource } from "../../../../../experimentalSources";
@@ -289,10 +281,6 @@ function getTextQualityIssue(text: string | null | undefined): string | null {
 
   if (/[&]|(?:Ã|�|Ù|Ø)/u.test(text)) {
     return "encoding_residue";
-  }
-
-  if (text.length > 420) {
-    return "too_long_for_ayah_view";
   }
 
   return null;
@@ -613,120 +601,6 @@ function getNextAyah(surahs: Surah[], currentSurah: Surah, ayahNumber: number): 
   }
 
   return null;
-}
-
-function getSemanticRootSignals(words: WordAnalysis[]): string[] {
-  return Array.from(
-    new Set(
-      words
-        .map((word) => word.root?.trim() ?? "")
-        .filter((root) => root.length > 0)
-    )
-  );
-}
-
-function getSemanticParticipantSignals(analysis: AyahAnalysisEngineV1 | null): string[] {
-  if (analysis === null) {
-    return [];
-  }
-
-  return Array.from(
-    new Set(
-      [analysis.participants.speaker, analysis.participants.addressee].filter(
-        (value): value is string => typeof value === "string" && value.trim().length > 0
-      )
-    )
-  );
-}
-
-function normalizeUiSignal(value: string): string {
-  return value
-    .toLocaleLowerCase("tr-TR")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/gu, "")
-    .replace(/[^\p{L}\p{N}\s]/gu, " ")
-    .replace(/\s+/gu, " ")
-    .trim();
-}
-
-const helperThemeAllowList: Record<ProvenAnalysisPreview["selectedProfile"], string[]> = {
-  tevhid_birlik: ["tevhid"],
-  dua_kulluk: ["ibadet", "dua"],
-  yol_hidayet: ["hidayet"],
-  uyari_inkar: ["uyari", "inkar", "azap"],
-  hukum_istisna: [],
-  ahiret: [],
-  rahmet_magfiret: ["rahmet"],
-  kissa: [],
-  emir_yasak: [],
-  genel_karma: ["iman", "ibadet", "sabir", "infak"]
-};
-
-function filterHelperThemes({
-  analysis,
-  preview
-}: {
-  analysis: AyahAnalysisEngineV1;
-  preview: ProvenAnalysisPreview | null;
-}): string[] {
-  if (analysis.themes.length === 0) {
-    return [];
-  }
-
-  if (preview === null) {
-    return analysis.themes;
-  }
-
-  const allowedThemes = helperThemeAllowList[preview.selectedProfile].map(normalizeUiSignal);
-  return analysis.themes.filter((theme) => allowedThemes.includes(normalizeUiSignal(theme)));
-}
-
-async function getSelectedSemanticSummaryForPage({
-  analysis,
-  detail,
-  primaryTranslation,
-  verseKey
-}: {
-  analysis: AyahAnalysisEngineV1 | null;
-  detail: Awaited<ReturnType<typeof getAyahDetail>>;
-  primaryTranslation: Translation | null;
-  verseKey: string;
-}): Promise<SelectedSemanticProviderSummary> {
-  if (!primaryTranslation?.text) {
-    return buildUnavailableSemanticSummary(
-      "missing_translation",
-      "primary translation unavailable for semantic summary"
-    );
-  }
-
-  if (!detail.ayah.arabicText) {
-    return buildUnavailableSemanticSummary(
-      "missing_ayah_text",
-      "ayah text unavailable for semantic summary"
-    );
-  }
-
-  const provider = resolveServerSemanticProviderFromEnv();
-
-  if (provider === null) {
-    return buildUnavailableSemanticSummary(
-      "provider_missing",
-      "semantic provider env not available"
-    );
-  }
-
-  return runSelectedSemanticAnalysisWithProvider({
-    verseKey,
-    semanticInput: {
-      ayahText: detail.ayah.arabicText,
-      translation: primaryTranslation.text,
-      themes: analysis?.themes ?? [],
-      roots: getSemanticRootSignals(detail.wordAnalyses),
-      participants: getSemanticParticipantSignals(analysis),
-      wordAnalysisCount: detail.wordAnalyses.length
-    },
-    provider
-  });
 }
 
 function AyahNavigation({
@@ -1071,172 +945,9 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
   );
 }
 
-
-
-function AnalysisEngineBlock({
-  analysis,
-  emphasizeSummary,
-  showDebugDetails,
-  preview,
-  showEmptyState
-}: {
-  analysis: AyahAnalysisEngineV1 | null;
-  emphasizeSummary: boolean;
-  showDebugDetails: boolean;
-  preview: ProvenAnalysisPreview | null;
-  showEmptyState: boolean;
-}) {
-  if (analysis === null) {
-    return showEmptyState ? (
-      <EmptyState>Bu ayet icin yardimci tema sinyali henuz uretilemedi.</EmptyState>
-    ) : null;
-  }
-
-  const _hasParticipants = Boolean(
-    analysis.participants.speaker || analysis.participants.addressee
-  );
-  const filteredThemes = filterHelperThemes({ analysis, preview });
-  const hasThemes = filteredThemes.length > 0;
-  const showSummary = Boolean(analysis.summary) && (emphasizeSummary || showDebugDetails);
-  const participantSignals = [
-    analysis.participants.speaker ? `Konusan: ${analysis.participants.speaker}` : null,
-    analysis.participants.addressee ? `Muhatap: ${analysis.participants.addressee}` : null
-  ].filter((value): value is string => value !== null);
-  const hasSignals = hasThemes || participantSignals.length > 0 || showSummary;
-
-  if (!hasSignals && !showEmptyState) {
-    return null;
-  }
-
-  return (
-    <div className="rounded-md border border-stone-200 bg-stone-50 p-4">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="space-y-1">
-          <h3 className="text-sm font-semibold text-stone-700">Tema ve Katilimci Sinyalleri</h3>
-          <p className="text-sm leading-6 text-stone-600">
-            Bu bolum, ayette one cikan tema ve muhatap sinyallerini yardimci bilgi olarak
-            gosterir.
-          </p>
-        </div>
-        <span className="rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-medium text-stone-600">
-          Yardimci katman
-        </span>
-      </div>
-
-      {!hasSignals ? (
-        <p className="mt-4 text-sm leading-6 text-stone-600">
-          Bu bolumde gosterilecek yardimci sinyal bulunmuyor.
-        </p>
-      ) : null}
-
-      {showSummary ? (
-        <div className="mt-4 rounded-md border border-stone-200 bg-white px-3 py-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            {emphasizeSummary ? "Ozet" : "Gelistirici ozeti"}
-          </p>
-          <p className="mt-2 text-sm leading-7 text-stone-800">{analysis.summary}</p>
-        </div>
-      ) : null}
-
-      {hasThemes ? (
-        <div className="mt-4 space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Temalar
-          </h4>
-          <div className="flex flex-wrap gap-2">
-          {filteredThemes.map((theme) => (
-            <span
-              className="rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-medium text-stone-700"
-              key={theme}
-            >
-              {theme}
-            </span>
-          ))}
-        </div>
-        </div>
-      ) : null}
-
-      {participantSignals.length > 0 ? (
-        <div className="mt-4 space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Katilimcilar
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {participantSignals.map((signal) => (
-              <span
-                className="rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-medium text-stone-700"
-                key={signal}
-              >
-                {signal}
-              </span>
-            ))}
-          </div>
-        </div>
-      ) : null}
-
-      {showDebugDetails ? (
-        <p className="mt-4 border-t border-stone-200 pt-3 text-xs text-stone-500">
-          Legacy engine: AnalysisEngineV1
-        </p>
-      ) : null}
-    </div>
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function SemanticSummaryCard({
-  semanticSummary,
-  showEmptyState
-}: {
-  semanticSummary: SelectedSemanticProviderSummary | null;
-  showEmptyState: boolean;
-}) {
-  if (!semanticSummary?.selectedSummary) {
-    return showEmptyState ? (
-      <div className="rounded-md border border-dashed border-stone-300 bg-stone-50 p-4">
-        <h3 className="text-sm font-semibold text-stone-700">Kısa Anlam Özeti</h3>
-        <p className="mt-2 text-sm leading-6 text-stone-600">
-          Bu ayet için kısa anlam özeti henüz hazır değil.
-        </p>
-      </div>
-    ) : null;
-  }
-
-  return (
-    <div className="rounded-md border border-stone-200 bg-stone-50 p-4">
-      <h3 className="text-sm font-semibold text-stone-700">Kısa Anlam Özeti</h3>
-      <p className="mt-2 text-sm leading-7 text-stone-900">{semanticSummary.selectedSummary}</p>
-    </div>
-  );
-}
-
 function isEnglishText(text: string): boolean {
-  return /\b(?:the|and|of|to|in|a|an|is|are|was|were|be|been|being|have|has|had|do|does|did|will|would|could|should|may|might|shall|can|for|on|with|at|by|from|or|but|not|it|its|this|that|these|those|he|she|they|we|you|I|me|him|her|them|us)\b/iu.test(text) ||
+  return /\b(?:the|and|of|to|in|a|an|is|are|was|were|have|has)\b/iu.test(text) ||
     /^[a-z][a-z\s,'-]*$/iu.test(text);
-}
-
-function RawWordTranslationCard({ wordAnalyses }: { wordAnalyses: WordAnalysis[] }) {
-  if (wordAnalyses.length === 0) {
-    return null;
-  }
-
-  const parts = wordAnalyses.map((word) => {
-    const meaning = word.meaning?.text?.trim();
-    if (meaning && !isEnglishText(meaning)) {
-      return meaning;
-    }
-    return word.arabic || `[${word.wordIndex}]`;
-  });
-
-  return (
-    <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
-      <h3 className="text-sm font-semibold text-stone-900">Ham Kelime Çevirisi</h3>
-      <p className="mt-1 text-xs text-stone-500">
-        Kelimelerin sırasıyla doğrudan anlamları, yorum yapılmadan
-      </p>
-      <p className="mt-3 text-sm leading-7 text-stone-700">{parts.join(" ") + "."}</p>
-    </div>
-  );
 }
 
 function RawMeaningSummaryCard({ wordAnalyses }: { wordAnalyses: WordAnalysis[] }) {
@@ -1255,126 +966,8 @@ function RawMeaningSummaryCard({ wordAnalyses }: { wordAnalyses: WordAnalysis[] 
   );
 }
 
-function AiMeaningSummaryCard({ summary }: { summary: string | null }) {
-  if (!summary) return null;
-  return (
-    <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
-      <h3 className="text-sm font-semibold text-stone-900">Anlam Özeti</h3>
-      <p className="mt-2 text-sm leading-6 text-stone-700">{summary}</p>
-    </div>
-  );
-}
 
-function ProvenAnalysisCard({ preview }: { preview: ProvenAnalysisPreview | null }) {
-  if (preview === null) {
-    return null;
-  }
 
-  const hasWeakCorrespondenceSection = preview.weakCorrespondencesPreview.length > 0;
-  const hasEvidenceNotesSection = preview.evidenceNotesPreview.length > 0;
-  const hasSourceStatusSection =
-    Boolean(preview.sourceStatus.mutedText) ||
-    preview.sourceStatus.available.length > 0 ||
-    preview.sourceStatus.missing.length > 0;
-
-  return (
-    <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
-      <h3 className="text-sm font-semibold text-stone-900">Kanıtlı Analiz</h3>
-      <p className="mt-2 text-sm leading-6 text-stone-600">
-        Bu bölüm, ayetin mealleri, kelime verileri ve mevcut kaynak sinyalleri üzerinden
-        üretilen kontrollü bir ön analizdir.
-      </p>
-
-      {preview.mainMeaningAxisPreview.length > 0 ? (
-        <div className="mt-4 space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Ana anlam ekseni
-          </h4>
-          {preview.mainMeaningAxisPreview.map((item) => (
-            <p className="text-sm leading-7 text-stone-900" key={item}>
-              {item}
-            </p>
-          ))}
-        </div>
-      ) : null}
-
-      {preview.keyTermsPreview.length > 0 ? (
-        <div className="mt-4 space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Anahtar terimler
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {preview.keyTermsPreview.map((term) => (
-              <span
-                className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-xs font-medium text-stone-700"
-                key={term}
-              >
-                {term}
-              </span>
-            ))}
-          </div>
-        </div>
-      ) : null}
-
-      {preview.translationDifferencesPreview.length > 0 ? (
-        <div className="mt-4 space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Mealler arası dikkat çeken farklar
-          </h4>
-          <ul className="space-y-2 text-sm leading-6 text-stone-800">
-            {preview.translationDifferencesPreview.map((item) => (
-              <li className="rounded-md border border-stone-200 bg-stone-50 px-3 py-2" key={item}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-
-      {hasWeakCorrespondenceSection ? (
-        <div className="mt-4 space-y-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Dikkat isteyen karşılık alanları
-          </h4>
-          <ul className="space-y-2 text-sm leading-6 text-stone-800">
-            {preview.weakCorrespondencesPreview.map((item) => (
-              <li className="rounded-md border border-stone-200 bg-stone-50 px-3 py-2" key={item}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-
-      {hasEvidenceNotesSection ? (
-        <div className="mt-4 border-t border-stone-100 pt-3">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">
-            Kanıt notları
-          </h4>
-          <ul className="mt-2 space-y-1.5 text-xs leading-5 text-stone-500">
-            {preview.evidenceNotesPreview.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-
-      {hasSourceStatusSection ? (
-        <div className="mt-3 text-xs leading-5 text-stone-500">
-          {preview.sourceStatus.mutedText ? (
-            <p>{preview.sourceStatus.mutedText}</p>
-          ) : (
-            <p>
-              {[...preview.sourceStatus.available, ...preview.sourceStatus.missing]
-                .slice(0, 2)
-                .join(" ")}
-            </p>
-          )}
-        </div>
-      ) : null}
-    </div>
-  );
-}
 
 function buildAyahDetailDebugPayload({
   detail,
@@ -1501,7 +1094,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   }
 
   const surahs = await getSurahs();
-  const surahFullTafsir = getSurahFullTafsir(surahId);
+  // getSurahFullTafsir kaldırıldı — Bakara için 1.5MB, accordion lazy fetch ile alıyor
   const currentSurah = surahs.find((surah) => surah.id === surahId) ?? null;
 
   if (currentSurah === null || !currentSurah.verseCount || ayahNumber > currentSurah.verseCount) {
@@ -1524,8 +1117,8 @@ export default async function Page({ params, searchParams }: PageProps) {
     console.error(`[Page] getAyahDetail ${surahId}:${ayahNumber} başarısız:`, err);
     return <ErrorState message="Ayet verisi yüklenemedi. Lütfen sayfayı yenileyin." />;
   }
-  const verseKey = `${surahId}:${ayahNumber}`;
-  const analysis = await getAyahAnalysisEngine(verseKey);
+  const _verseKey = `${surahId}:${ayahNumber}`;
+  // getAyahAnalysisEngine kaldırıldı — getAyahDetail'i ikinci kez çekerek ~2s gecikmeye yol açıyordu.
   const readingTrResult = normalizeTransliterationToReadingTrDetailed(detail.ayah.transliteration);
   const activeTranslations = detail.translations.filter((t) => {
     const key = t.source?.split("#").at(-1) ?? "";
@@ -1538,42 +1131,12 @@ export default async function Page({ params, searchParams }: PageProps) {
   const isDevelopment = process.env.NODE_ENV === "development";
   const showDeveloperDebug = isDevelopment && showExperimentalControls;
   const primarySourceName = primaryTranslation ? getTranslationSourceName(primaryTranslation) : null;
-  let semanticSummary: SelectedSemanticProviderSummary = buildUnavailableSemanticSummary(
+  // semanticSummary ve provenAnalysisPreview kaldırıldı —
+  // UI'da gösterilmiyordu, her yüklemede Gemini API çağrısı yaparak 3-5s gecikmeye yol açıyordu.
+  const semanticSummary: SelectedSemanticProviderSummary = buildUnavailableSemanticSummary(
     "no_result",
-    "semantic summary not attempted"
+    "disabled"
   );
-  let provenAnalysisPreview: ProvenAnalysisPreview | null = null;
-  let aiMeaningSummary: string | null = null;
-
-  try {
-    semanticSummary = await getSelectedSemanticSummaryForPage({
-      analysis,
-      detail,
-      primaryTranslation,
-      verseKey
-    });
-  } catch (error) {
-    semanticSummary = buildUnavailableSemanticSummary(
-      "provider_error",
-      "semantic summary page integration failed"
-    );
-
-    if (isDevelopment) {
-      console.error("SEMANTIC_SUMMARY_PAGE_ERROR", error);
-    }
-  }
-
-  try {
-    const verseAnalysisContext = await buildVerseAnalysisContext(surahId, ayahNumber, { useRootExplanationsV2: true });
-    provenAnalysisPreview = buildVerseAnalysisPreview(verseAnalysisContext, { sourceStatus: "mapped" });
-    aiMeaningSummary = verseAnalysisContext.aiMeaningSummary;
-  } catch (error) {
-    provenAnalysisPreview = null;
-
-    if (isDevelopment) {
-      console.error("PROVEN_ANALYSIS_PREVIEW_ERROR", error);
-    }
-  }
 
   const hiddenSourcesToOmit =
     primarySelection.isFallback && primarySourceName ? [primarySourceName] : [];
@@ -1618,24 +1181,37 @@ export default async function Page({ params, searchParams }: PageProps) {
   const tabItems: AyahDetailTabItem[] = [
     {
       id: "meal",
-      label: "Meal",
+      label: "Mealler",
       content: (
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold text-stone-950">Ana Meal</h2>
-            <StatusBadge status={sectionStatuses.primaryTranslation} />
-          </div>
-          <p className="text-sm text-stone-600">{primarySelection.note}</p>
-          {primaryTranslation?.text ? (
-            <div>
-              <p className="mb-2 text-sm font-semibold text-stone-600">
-                {getTranslationSourceName(primaryTranslation)}
-              </p>
-              <p className="text-lg leading-8 text-stone-900">{primaryTranslation.text}</p>
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-lg font-semibold text-stone-950">Ana Meal</h2>
+              <StatusBadge status={sectionStatuses.primaryTranslation} />
             </div>
-          ) : (
-            <EmptyState>Ana meal icin temiz veri yok.</EmptyState>
-          )}
+            <p className="text-sm text-stone-600">{primarySelection.note}</p>
+            {primaryTranslation?.text ? (
+              <div>
+                <p className="mb-2 text-sm font-semibold text-stone-600">
+                  {getTranslationSourceName(primaryTranslation)}
+                </p>
+                <p className="text-lg leading-8 text-stone-900">{primaryTranslation.text}</p>
+              </div>
+            ) : (
+              <EmptyState>Ana meal icin temiz veri yok.</EmptyState>
+            )}
+          </div>
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-lg font-semibold text-stone-950">Diğer Türkçe Mealler</h2>
+              <StatusBadge status={sectionStatuses.otherTranslations} />
+            </div>
+            <OtherTranslations
+              displayableTranslations={displayableTranslations}
+              filteredSources={filteredTranslationSources}
+              primaryTranslation={primaryTranslation}
+            />
+          </div>
         </div>
       )
     },
@@ -1694,39 +1270,76 @@ export default async function Page({ params, searchParams }: PageProps) {
         <div className="space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-lg font-semibold text-stone-950">Analiz</h2>
-            <StatusBadge status={analysis === null ? "missing" : "ready"} />
+            <StatusBadge status={detail.ayah.literalCeviri ? "ready" : "partially_ready"} />
           </div>
-          <RawWordTranslationCard wordAnalyses={detail.wordAnalyses} />
-          <RawMeaningSummaryCard wordAnalyses={detail.wordAnalyses} />
-          <AiMeaningSummaryCard summary={aiMeaningSummary} />
-          <ProvenAnalysisCard preview={provenAnalysisPreview} />
-          <AnalysisEngineBlock
-            analysis={analysis}
-            emphasizeSummary={provenAnalysisPreview === null}
-            showDebugDetails={showDeveloperDebug}
-            preview={provenAnalysisPreview}
-            showEmptyState={provenAnalysisPreview === null}
-          />
+          {detail.ayah.hamAnlamOzeti ? (
+            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-stone-900">Ham Kelime Çevirisi</h3>
+              <p className="mt-1 text-xs text-stone-500">
+                Kelimelerin sırasıyla doğrudan anlamları, yorum yapılmadan
+              </p>
+
+              <p className="mt-3 text-sm leading-7 text-stone-700">
+                {detail.ayah.hamAnlamOzeti}
+              </p>
+            </div>
+          ) : (
+            <RawMeaningSummaryCard wordAnalyses={detail.wordAnalyses} />
+          )}
+          {detail.ayah.literalCeviri ? (
+            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-stone-900">Literal Çeviri</h3>
+              <p className="mt-1 text-xs text-stone-500">
+                Kelimelerin orijinal sırasına birebir sadık, Türkçe dil bilgisine uygun çeviri
+              </p>
+              <p className="mt-3 text-sm leading-7 text-stone-700">{detail.ayah.literalCeviri}</p>
+            </div>
+          ) : null}
+          {detail.ayah.farkAnalizi ? (
+            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-stone-900">Fark Analizi</h3>
+              <p className="mt-1 text-xs text-stone-500">
+                Literal çeviri ile meal arasındaki anlam farkının incelemesi
+              </p>
+              <p className="mt-3 whitespace-pre-line text-sm leading-7 text-stone-700">
+                {detail.ayah.farkAnalizi}
+              </p>
+            </div>
+          ) : null}
+          {(detail.ayah.anaTema || (detail.ayah.altTaglar && detail.ayah.altTaglar.length > 0)) ? (
+            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+              <h3 className="text-sm font-semibold text-stone-900">Tema Etiketleri</h3>
+              <p className="mt-1 text-xs text-stone-500">
+                Tıklayarak aynı temadaki tüm ayetleri görün
+              </p>
+              {detail.ayah.anaTema ? (
+                <div className="mt-3">
+                  <Link
+                    href={`/search?tag=${encodeURIComponent(detail.ayah.anaTema)}`}
+                    className="inline-flex items-center rounded-md border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
+                  >
+                    {detail.ayah.anaTema.replace(/_/g, " ")}
+                  </Link>
+                </div>
+              ) : null}
+              {detail.ayah.altTaglar && detail.ayah.altTaglar.length > 0 ? (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {detail.ayah.altTaglar.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/search?tag=${encodeURIComponent(tag)}`}
+                      className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 transition-colors hover:bg-sky-100"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       )
     },
-    {
-      id: "other-translations",
-      label: "Diger Mealler",
-      content: (
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold text-stone-950">Diger Turkce Mealler</h2>
-            <StatusBadge status={sectionStatuses.otherTranslations} />
-          </div>
-          <OtherTranslations
-            displayableTranslations={displayableTranslations}
-            filteredSources={filteredTranslationSources}
-            primaryTranslation={primaryTranslation}
-          />
-        </div>
-      )
-    }
   ];
 
   return (
@@ -1751,9 +1364,9 @@ export default async function Page({ params, searchParams }: PageProps) {
         </header>
 
         <SurahAboutAccordion
+          surahId={surahId}
           revelationOrder={currentSurah.revelationOrder}
           revelationPlace={currentSurah.revelationPlace}
-          tafsir={surahFullTafsir}
         />
 
         <AyahNavigation previous={previousAyah} next={nextAyah} />
