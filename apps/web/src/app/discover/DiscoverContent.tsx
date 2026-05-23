@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import type { ReactNode } from "react";
 
 // ── Tip tanımları ─────────────────────────────────────────────────────────────
 
@@ -319,7 +320,7 @@ function AkordeonItem({
 
 // ── Ana bileşen ───────────────────────────────────────────────────────────────
 
-export function DiscoverContent() {
+export function DiscoverContent({ duaBolumu }: { duaBolumu?: ReactNode }) {
   const router = useRouter();
 
   // Bulgu 2: useCallback ile stabil referans — akordeon re-render önlenir
@@ -360,6 +361,8 @@ export function DiscoverContent() {
             ))}
           </div>
         </section>
+
+        {duaBolumu}
 
       </div>
     </main>

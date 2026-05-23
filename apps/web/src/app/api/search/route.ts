@@ -110,7 +110,7 @@ function searchFts(
         SELECT f.verse_key, f.meal
         FROM   ayet_fts f
         WHERE  ayet_fts MATCH ?
-        ORDER  BY bm25(ayet_fts, 0, 0, 10, 5, 1)
+        ORDER  BY bm25(ayet_fts, 0, 0, 10, 5, 5)
         LIMIT  ?
       `),
       ftsQuery, VERSE_LIMIT
@@ -193,6 +193,22 @@ export async function GET(
     // Tag eşleşmesi
     const tagMatch = findTagMatch(q, db);
     if (tagMatch) {
+      if (tagMatch.tagType === "alt_tag") {
+        const verseRows = dbAll<VerseRow>(
+          db.prepare(`
+            SELECT vti.verse_key, v.primary_translation AS meal
+            FROM   verse_tag_items vti
+            JOIN   verses v ON v.verse_key = vti.verse_key
+            WHERE  vti.tag = ?
+            ORDER  BY v.surah_id, v.ayah_number
+            LIMIT  ?
+          `),
+          tagMatch.tag, VERSE_LIMIT
+        );
+        if (verseRows.length > 0) {
+          return NextResponse.json({ type: "verses", results: verseRows, total: tagMatch.count });
+        }
+      }
       return NextResponse.json({
         type:    "tag",
         tag:     tagMatch.tag,
