@@ -1174,9 +1174,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     wordAnalysisSource
   });
 
-  if (showDeveloperDebug) {
-    console.log("AYAH_DETAIL_DEBUG", ayahDetailDebugPayload);
-  }
+
 
   const tabItems: AyahDetailTabItem[] = [
     {

@@ -15,7 +15,7 @@ Tasarım notları:
 """
 
 import argparse
-import json
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -27,18 +27,12 @@ DB_PATH = Path("data/app.db")
 KORUNMA_PREFIX = "korunma-"
 
 
-def build_fts_tags(base_alt_taglar: str | None, korunma_tags: list[str]) -> str:
-    if base_alt_taglar:
-        try:
-            parts = json.loads(base_alt_taglar)
-            base = ", ".join(f'"{p}"' for p in parts)
-        except (json.JSONDecodeError, TypeError):
-            base = base_alt_taglar.strip()
-    else:
-        base = ""
-
-    korunma_str = " ".join(sorted(set(korunma_tags)))
-    return (base + " " + korunma_str).strip() if korunma_str else base
+def build_fts_tags(current_fts_tags: str, new_tags: list[str], prefix: str) -> str:
+    # Strip existing tokens for this prefix, preserve everything else
+    base = re.sub(r"\b" + re.escape(prefix) + r"\S*", "", current_fts_tags or "")
+    base = re.sub(r"\s{2,}", " ", base).strip()
+    new_str = " ".join(sorted(set(new_tags)))
+    return (base + " " + new_str).strip() if new_str else base
 
 
 def main() -> None:
@@ -76,14 +70,7 @@ def main() -> None:
         r["verse_key"]: (r["rowid"], r["tags"] or "") for r in fts_rows
     }
 
-    # ── 3. verse_tags.alt_taglar taban değeri ─────────────────────────────────
-    alt_rows = con.execute(
-        f"SELECT verse_key, alt_taglar FROM verse_tags WHERE verse_key IN ({placeholders})",
-        list(verse_korunma.keys()),
-    ).fetchall()
-    alt_map: dict[str, str] = {r["verse_key"]: r["alt_taglar"] for r in alt_rows}
-
-    # ── 4. Her ayet için yeni tags değerini hesapla ──────────────────────────
+    # ── 3. Her ayet için yeni tags değerini hesapla ──────────────────────────
     updates: list[tuple[str, int]] = []
     skipped = 0
 
@@ -93,8 +80,7 @@ def main() -> None:
             continue
 
         rowid, current_tags = fts_map[vk]
-        base_alt = alt_map.get(vk)
-        new_tags = build_fts_tags(base_alt, korunma_tags)
+        new_tags = build_fts_tags(current_tags, korunma_tags, KORUNMA_PREFIX)
 
         if new_tags != current_tags:
             updates.append((new_tags, rowid))
