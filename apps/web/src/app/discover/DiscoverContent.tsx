@@ -318,19 +318,29 @@ function AkordeonItem({
   );
 }
 
+// ── Tab tipleri ───────────────────────────────────────────────────────────────
+
+type Tab = "temalar" | "dualar" | "namaz";
+
+const TABS: { id: Tab; label: string; ikon: string }[] = [
+  { id: "temalar", label: "Temalar",        ikon: "🌟" },
+  { id: "dualar",  label: "Dualar & Tesbih",ikon: "🤲" },
+  { id: "namaz",   label: "Namaz",          ikon: "🕌" },
+];
+
 // ── Ana bileşen ───────────────────────────────────────────────────────────────
 
-export function DiscoverContent({ duaBolumu }: { duaBolumu?: ReactNode }) {
+export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactNode; namazBolumu?: ReactNode }) {
   const router = useRouter();
+  const [aktifTab, setAktifTab] = useState<Tab>("temalar");
 
-  // Bulgu 2: useCallback ile stabil referans — akordeon re-render önlenir
   const handleTagClick = useCallback((tag: string) => {
     router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`);
   }, [router]);
 
   return (
     <main className="min-h-screen bg-stone-100 px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-2xl space-y-8">
+      <div className="mx-auto max-w-2xl space-y-6">
 
         <header className="flex items-center gap-3">
           <Link
@@ -348,21 +358,126 @@ export function DiscoverContent({ duaBolumu }: { duaBolumu?: ReactNode }) {
           </div>
         </header>
 
-        <ThemeCardGrid onTagClick={handleTagClick} />
-        <MoodTagsRow   onTagClick={handleTagClick} />
+        {/* ── Tab seçici ── */}
+        <div className="flex gap-1 rounded-xl bg-stone-200/80 p-1">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setAktifTab(tab.id)}
+              className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold transition-all duration-150 ${
+                aktifTab === tab.id
+                  ? "bg-white shadow-sm text-stone-800"
+                  : "text-stone-500 hover:text-stone-700"
+              }`}
+            >
+              <span>{tab.ikon}</span>
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.label.split(" ")[0]}</span>
+            </button>
+          ))}
+        </div>
 
-        <section>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
-            Tüm Temalar
-          </h2>
-          <div className="space-y-2">
-            {AKORDEON_GRUPLARI.map((g) => (
-              <AkordeonItem key={g.baslik} grup={g} onTagClick={handleTagClick} />
-            ))}
+        {/* ── Tab içerikleri — DOM'da kalır, CSS ile göster/gizle ── */}
+        <div className={aktifTab === "temalar" ? "" : "hidden"}>
+          <div className="space-y-8">
+            <ThemeCardGrid onTagClick={handleTagClick} />
+            <MoodTagsRow   onTagClick={handleTagClick} />
+
+            {/* Özel rehber sayfaları */}
+            <section>
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+                Özel Rehberler
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Link
+                  href="/manevi-siginak"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-indigo-700"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-xl leading-none dark:bg-indigo-900/30">
+                    🛡️
+                  </span>
+                  <div className="min-w-0">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-indigo-700 dark:text-stone-100 dark:group-hover:text-indigo-400">
+                      Manevi Sığınak
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                      Büyü, nazar, hased ve vesveseden korunma — Kur&apos;an rehberi
+                    </p>
+                  </div>
+                  <svg
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-indigo-400 dark:text-stone-600"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/namaz"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl leading-none dark:bg-emerald-900/30">
+                    🕌
+                  </span>
+                  <div className="min-w-0">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-emerald-700 dark:text-stone-100 dark:group-hover:text-emerald-400">
+                      Namaz Ayetleri
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                      Namaz vakitleri, huşu, teheccüd ve namaz emirleri
+                    </p>
+                  </div>
+                  <svg
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-emerald-400 dark:text-stone-600"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/manevi-siginak/ismi-azam"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-amber-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-amber-700"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-xl leading-none dark:bg-amber-900/30">
+                    ✨
+                  </span>
+                  <div className="min-w-0">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-amber-700 dark:text-stone-100 dark:group-hover:text-amber-400">
+                      İsmi Azam ve Sekine
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                      Sahih İsmi Azam duaları ve 19 ayetlik Sekine protokolü
+                    </p>
+                  </div>
+                  <svg
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-amber-400 dark:text-stone-600"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+                Tüm Temalar
+              </h2>
+              <div className="space-y-2">
+                {AKORDEON_GRUPLARI.map((g) => (
+                  <AkordeonItem key={g.baslik} grup={g} onTagClick={handleTagClick} />
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
 
-        {duaBolumu}
+        <div className={aktifTab === "dualar" ? "" : "hidden"}>
+          {duaBolumu}
+        </div>
+
+        <div className={aktifTab === "namaz" ? "" : "hidden"}>
+          {namazBolumu}
+        </div>
 
       </div>
     </main>

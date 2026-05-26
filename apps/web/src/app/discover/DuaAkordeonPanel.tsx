@@ -194,7 +194,7 @@ export function DuaAkordeonPanel({
   if (kategoriler.length === 0) return null;
 
   return (
-    <section className="mt-16 border-t border-stone-200 pt-10">
+    <section>
 
       {/* Bölüm başlığı */}
       <div className="mb-6">

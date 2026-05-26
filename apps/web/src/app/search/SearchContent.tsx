@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Pagination } from "../../components/Pagination";
@@ -41,7 +42,31 @@ type PageState =
 
 // ── Yardımcılar ───────────────────────────────────────────────────────────────
 
+const NAMAZ_ISIMLER: Record<string, string> = {
+  genel: "Genel", vakit: "Vakit", husu: "Huşu", teheccud: "Teheccüd",
+  cuma: "Cuma", abdest: "Abdest", korku: "Korku Namazı", sefer: "Sefer",
+};
+const KORUNMA_ISIMLER: Record<string, string> = {
+  genel: "Genel Korunma", sihir: "Büyü / Sihir", nazar: "Nazar",
+  hased: "Hased", siginma: "Sığınma", sifa: "Şifa",
+};
+const ISMIAZAM_ISIMLER: Record<string, string> = {
+  ayet: "İsmi Azam Ayetleri", sekine: "Sekine Duası",
+};
+
 function tagLabel(tag: string, tagType: "ana_tema" | "alt_tag"): string {
+  if (tag.startsWith("namaz-")) {
+    const sub = tag.slice(6);
+    return `Namaz · ${NAMAZ_ISIMLER[sub] ?? sub}`;
+  }
+  if (tag.startsWith("korunma-")) {
+    const sub = tag.slice(8);
+    return `Korunma · ${KORUNMA_ISIMLER[sub] ?? sub}`;
+  }
+  if (tag.startsWith("ismiazam-")) {
+    const sub = tag.slice(9);
+    return `İsmi Azam · ${ISMIAZAM_ISIMLER[sub] ?? sub}`;
+  }
   if (tagType === "alt_tag") return `"${tag}"`;
   const parts = tag.replace(/_%$/, "").split("_");
   if (parts.length >= 2) {
@@ -185,7 +210,7 @@ export function SearchContent() {
               placeholder="Sure adı, tema kodu (F1) veya kelime ara…"
             />
           </div>
-          <a
+          <Link
             href="/discover"
             className="flex shrink-0 items-center gap-1.5 rounded-lg border border-indigo-300 bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700"
           >
@@ -195,7 +220,7 @@ export function SearchContent() {
                 d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
             </svg>
             Keşfet
-          </a>
+          </Link>
         </div>
 
         {/* Aktif tag filtresi */}
@@ -217,8 +242,109 @@ export function SearchContent() {
 
         {/* Durumlar */}
         {state.status === "idle" && (
-          <div className="rounded-lg border border-dashed border-stone-300 bg-white p-10 text-center">
-            <p className="text-stone-500">Aramak için bir şeyler yazın.</p>
+          <div className="space-y-6">
+            {/* Özel koleksiyonlar */}
+            <section>
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+                Özel Koleksiyonlar
+              </h2>
+              <div className="grid gap-2.5 sm:grid-cols-3">
+                {[
+                  { href: "/namaz",                      ikon: "🕌", baslik: "Namaz Ayetleri",        aciklama: "Vakit, huşu, teheccüd" },
+                  { href: "/manevi-siginak",              ikon: "🛡️", baslik: "Manevi Sığınak",         aciklama: "Büyü, nazar, hased, şifa" },
+                  { href: "/manevi-siginak/ismi-azam",    ikon: "✨", baslik: "İsmi Azam ve Sekine",   aciklama: "Sahih dualar ve protokol" },
+                ].map((k) => (
+                  <Link
+                    key={k.href}
+                    href={k.href}
+                    className="group flex items-start gap-3 rounded-xl border border-stone-200 bg-white px-3.5 py-3 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-50 text-lg leading-none">
+                      {k.ikon}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-xs font-semibold text-stone-800 group-hover:text-indigo-700">
+                        {k.baslik}
+                      </p>
+                      <p className="text-[11px] text-stone-400">{k.aciklama}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            {/* Namaz tag filtreleri */}
+            <section>
+              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-400">
+                Namaz Etiketleri
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { tag: "namaz-genel",    label: "Genel",          renk: "emerald" },
+                  { tag: "namaz-vakit",    label: "Vakit",          renk: "teal" },
+                  { tag: "namaz-husu",     label: "Huşu",           renk: "indigo" },
+                  { tag: "namaz-teheccud", label: "Teheccüd",       renk: "violet" },
+                  { tag: "namaz-cuma",     label: "Cuma",           renk: "amber" },
+                  { tag: "namaz-abdest",   label: "Abdest",         renk: "sky" },
+                  { tag: "namaz-korku",    label: "Korku Namazı",   renk: "rose" },
+                  { tag: "namaz-sefer",    label: "Sefer Namazı",   renk: "orange" },
+                ].map(({ tag, label }) => (
+                  <button
+                    key={tag}
+                    onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
+                    className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700 transition-colors hover:bg-teal-100"
+                  >
+                    🕌 {label}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* Korunma tag filtreleri */}
+            <section>
+              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-400">
+                Korunma Etiketleri
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { tag: "korunma-genel",   label: "Genel Korunma" },
+                  { tag: "korunma-sihir",   label: "Büyü / Sihir" },
+                  { tag: "korunma-nazar",   label: "Nazar" },
+                  { tag: "korunma-hased",   label: "Hased" },
+                  { tag: "korunma-siginma", label: "Sığınma" },
+                  { tag: "korunma-sifa",    label: "Şifa" },
+                ].map(({ tag, label }) => (
+                  <button
+                    key={tag}
+                    onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
+                    className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 transition-colors hover:bg-indigo-100"
+                  >
+                    🛡️ {label}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* İsmi Azam tag filtreleri */}
+            <section>
+              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-400">
+                İsmi Azam Etiketleri
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { tag: "ismiazam-ayet",   label: "İsmi Azam Ayetleri" },
+                  { tag: "ismiazam-sekine", label: "Sekine Duası" },
+                ].map(({ tag, label }) => (
+                  <button
+                    key={tag}
+                    onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
+                    className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-100"
+                  >
+                    ✨ {label}
+                  </button>
+                ))}
+              </div>
+            </section>
           </div>
         )}
 
@@ -265,12 +391,12 @@ export function SearchContent() {
             {state.suggestedSurah && (
               <div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2.5">
                 <span className="text-sm text-amber-700">Bunu mu demek istediniz?</span>
-                <a
+                <Link
                   href={`/surah/${state.suggestedSurah.id}/ayah/1`}
                   className="rounded-md border border-amber-300 bg-white px-3 py-1 text-sm font-semibold text-amber-800 hover:bg-amber-100"
                 >
                   {state.suggestedSurah.name} Suresi →
-                </a>
+                </Link>
               </div>
             )}
             <p className="text-sm text-stone-500">
