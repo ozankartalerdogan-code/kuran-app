@@ -12,8 +12,9 @@ import type { SearchResponse } from "../api/search/search-types";
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
 interface SearchVerseResult {
-  verse_key: string;
-  meal:      string | null;
+  verse_key:  string;
+  meal:       string | null;
+  surah_name: string | null;
 }
 
 type PageState =
@@ -69,9 +70,9 @@ function tagLabel(tag: string, tagType: "ana_tema" | "alt_tag"): string {
   }
   if (tagType === "alt_tag") return `"${tag}"`;
   const parts = tag.replace(/_%$/, "").split("_");
-  if (parts.length >= 2) {
-    const prefix = parts.slice(0, 2).join("");
-    const rest   = parts.slice(2).join(" ");
+  if (parts.length >= 1) {
+    const prefix = parts[0];
+    const rest   = parts.slice(1).join(" ").toLowerCase();
     return rest ? `${prefix} · ${rest}` : prefix;
   }
   return tag;
@@ -206,7 +207,7 @@ export function SearchContent() {
         <div className="flex items-center gap-2">
           <div className="flex-1">
             <SearchBar
-              initialValue={qParam || tagParam}
+              initialValue={qParam}
               placeholder="Sure adı, tema kodu (F1) veya kelime ara…"
             />
           </div>
@@ -405,7 +406,6 @@ export function SearchContent() {
             </p>
             <div className="space-y-3">
               {state.results.map((r) => {
-                // Bulgu 3: NaN-safe ayrıştırma
                 const parsed = parseVerseKey(r.verse_key);
                 if (!parsed) return null;
                 return (
@@ -415,6 +415,7 @@ export function SearchContent() {
                       verse_key:   r.verse_key,
                       surah_id:    parsed.surahId,
                       ayah_number: parsed.ayahNumber,
+                      surah_name:  r.surah_name,
                       meal:        r.meal,
                       ana_tema:    null,
                       alt_taglar:  [],

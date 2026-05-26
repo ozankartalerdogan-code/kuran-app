@@ -6,6 +6,7 @@ export interface VerseCardData {
   verse_key:   string;
   surah_id:    number;
   ayah_number: number;
+  surah_name?: string | null;
   meal:        string | null;
   ana_tema:    string | null;
   alt_taglar:  string[];
@@ -18,24 +19,33 @@ interface VerseCardProps {
 
 function formatAnaTemaBadge(code: string): string {
   // "F1_PEYGAMBER_KISSALARI" → "F1 · Peygamber Kıssaları"
-  const parts = code.split("_");
-  const prefix = parts.slice(0, 2).join(""); // "F1"
-  const label  = parts.slice(2).join(" ").toLowerCase();
+  const parts  = code.split("_");
+  const prefix = parts[0];
+  const label  = parts.slice(1).join(" ").toLowerCase();
   return label ? `${prefix} · ${label}` : prefix;
 }
 
 export function VerseCard({ verse, onTagClick }: VerseCardProps) {
-  const { verse_key, surah_id, ayah_number, meal, ana_tema, alt_taglar } = verse;
+  const { verse_key, surah_id, ayah_number, surah_name, meal, ana_tema, alt_taglar } = verse;
 
   return (
-    <article className="rounded-lg border border-stone-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+    <article className="rounded-lg border border-stone-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-stone-700 dark:bg-stone-800">
       {/* Başlık */}
       <div className="mb-3 flex items-center justify-between gap-2">
         <Link
           href={`/surah/${surah_id}/ayah/${ayah_number}`}
-          className="text-sm font-semibold text-indigo-600 hover:underline"
+          className="group flex flex-col hover:underline"
         >
-          {verse_key}
+          {surah_name ? (
+            <>
+              <span className="text-sm font-semibold text-indigo-600 group-hover:text-indigo-700">
+                {surah_name}, {ayah_number}. Ayet
+              </span>
+              <span className="text-xs text-stone-400">{verse_key}</span>
+            </>
+          ) : (
+            <span className="text-sm font-semibold text-indigo-600">{verse_key}</span>
+          )}
         </Link>
         {ana_tema && (
           <button

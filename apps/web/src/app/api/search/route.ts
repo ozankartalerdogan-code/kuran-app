@@ -10,7 +10,7 @@ const MAX_Q_LEN   = 150;
 
 interface SurahRow    { id: number; adi_turkce: string; adi_arapca: string }
 interface CountRow    { total: number }
-interface VerseRow    { verse_key: string; meal: string | null }
+interface VerseRow    { verse_key: string; meal: string | null; surah_name: string | null }
 interface TagCountRow { total: number }
 
 // ── FTS5 sorgu temizleyici ────────────────────────────────────────────────────
@@ -107,8 +107,9 @@ function searchFts(
 
     const results = dbAll<VerseRow>(
       db.prepare(`
-        SELECT f.verse_key, f.meal
+        SELECT f.verse_key, f.meal, s.adi_turkce AS surah_name
         FROM   ayet_fts f
+        JOIN   sureler s ON s.id = CAST(substr(f.verse_key, 1, instr(f.verse_key, ':') - 1) AS INTEGER)
         WHERE  ayet_fts MATCH ?
         ORDER  BY bm25(ayet_fts, 0, 0, 10, 5, 5)
         LIMIT  ?
@@ -134,10 +135,11 @@ function searchLikeFallback(
   );
   const results = dbAll<VerseRow>(
     db.prepare(`
-      SELECT verse_key, primary_translation AS meal
-      FROM   verses
-      WHERE  primary_translation LIKE ?
-      ORDER  BY surah_id, ayah_number
+      SELECT v.verse_key, v.primary_translation AS meal, s.adi_turkce AS surah_name
+      FROM   verses v
+      JOIN   sureler s ON s.id = v.surah_id
+      WHERE  v.primary_translation LIKE ?
+      ORDER  BY v.surah_id, v.ayah_number
       LIMIT  ?
     `),
     pattern, VERSE_LIMIT
@@ -196,9 +198,10 @@ export async function GET(
       if (tagMatch.tagType === "alt_tag") {
         const verseRows = dbAll<VerseRow>(
           db.prepare(`
-            SELECT vti.verse_key, v.primary_translation AS meal
+            SELECT vti.verse_key, v.primary_translation AS meal, s.adi_turkce AS surah_name
             FROM   verse_tag_items vti
             JOIN   verses v ON v.verse_key = vti.verse_key
+            JOIN   sureler s ON s.id = v.surah_id
             WHERE  vti.tag = ?
             ORDER  BY v.surah_id, v.ayah_number
             LIMIT  ?
