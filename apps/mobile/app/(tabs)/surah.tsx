@@ -122,6 +122,12 @@ export default function SurahScreen() {
         initialNumToRender={20}
         maxToRenderPerBatch={20}
         windowSize={10}
+        ListEmptyComponent={
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyText}>Sonuç bulunamadı</Text>
+            <Text style={styles.emptySubText}>Farklı bir sure adı veya numara deneyin</Text>
+          </View>
+        }
       />
     </View>
   );
@@ -151,12 +157,16 @@ const styles = StyleSheet.create({
     color:             "#1c1917",
   },
 
-  listContent: { paddingBottom: 20 },
+  listContent: { paddingBottom: 20, flexGrow: 1 },
+  emptyState:  { flex: 1, alignItems: "center", justifyContent: "center", padding: 40, gap: 8 },
+  emptyText:   { fontSize: 15, fontWeight: "600", color: "#44403c", textAlign: "center" },
+  emptySubText:{ fontSize: 13, color: "#a8a29e", textAlign: "center" },
   separator:   { height: 1, backgroundColor: "#e7e5e4", marginLeft: 72 },
 
   row: {
     flexDirection:  "row",
     alignItems:     "center",
+    minHeight:      44,
     paddingVertical: 12,
     paddingHorizontal: 16,
     backgroundColor:   "#ffffff",

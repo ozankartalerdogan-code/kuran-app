@@ -174,6 +174,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingHorizontal: 20,
     paddingVertical: 10,
+    minHeight:       44,
+    justifyContent:  "center",
     backgroundColor: "#059669",
     borderRadius: 8,
   },
@@ -275,6 +277,8 @@ const styles = StyleSheet.create({
   navBtn: {
     paddingHorizontal: 20,
     paddingVertical:   12,
+    minHeight:         44,
+    justifyContent:    "center",
     backgroundColor:   "#059669",
     borderRadius:      8,
   },

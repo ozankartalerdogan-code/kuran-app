@@ -28,9 +28,9 @@ export default async function SurahListPage() {
   }));
 
   return (
-    <main className="min-h-screen bg-stone-100 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-stone-100 px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-4xl">
-        <h1 className="mb-4 text-2xl font-semibold text-stone-900">Sureler</h1>
+        <h1 className="mb-6 text-2xl font-bold text-stone-900 dark:text-stone-50">Sureler</h1>
         <SurahListClient surahs={items} />
       </div>
     </main>

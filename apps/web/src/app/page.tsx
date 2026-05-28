@@ -219,7 +219,7 @@ export default async function HomePage() {
 
         {/* ── GÜNLÜK AYET ── */}
         {dailyVerse && (
-          <section className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm dark:border-amber-800/40 dark:bg-amber-950/30">
+          <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-md dark:border-amber-800/40 dark:bg-amber-950/30">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-semibold text-amber-800 dark:text-amber-300">
                 ✨ Günün Ayeti
@@ -256,12 +256,12 @@ export default async function HomePage() {
 
         {/* ── NAVİGASYON KARTLARI ── */}
         <section>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {NAV_CARDS.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${card.gradient} p-4 text-white shadow-md transition-transform duration-150 hover:scale-105 hover:shadow-lg`}
+                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.gradient} p-4 text-white shadow-md transition-all duration-150 hover:scale-105 hover:shadow-lg active:scale-95`}
               >
                 <div className="mb-2 text-2xl">{card.icon}</div>
                 <div className="font-semibold leading-tight">{card.title}</div>
@@ -273,7 +273,7 @@ export default async function HomePage() {
 
         {/* ── GÜNÜN DUASI ── */}
         {dailyDua && (
-          <section className="rounded-xl border border-teal-200 bg-teal-50 p-5 shadow-sm dark:border-teal-800/40 dark:bg-teal-900/20">
+          <section className="rounded-2xl border border-teal-200 bg-teal-50 p-6 shadow-md dark:border-teal-800/40 dark:bg-teal-900/20">
             {/* Başlık */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
@@ -324,7 +324,7 @@ export default async function HomePage() {
 
         {/* ── HAFTANIN GÜNÜ KARTI ── */}
         <section
-          className={`rounded-xl border p-5 shadow-sm ${
+          className={`rounded-2xl border p-6 shadow-md ${
             dayTheme.type === "cuma"
               ? "border-emerald-200 bg-emerald-50 dark:border-emerald-800/40 dark:bg-emerald-950/30"
               : dayTheme.type === "oruc"
@@ -366,8 +366,8 @@ export default async function HomePage() {
         </section>
 
         {/* ── HIZLI ERİŞİM ── */}
-        <section className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-700 dark:bg-stone-900">
-          <h2 className="mb-3 text-sm font-semibold text-stone-700 dark:text-stone-200">
+        <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-md dark:border-stone-700 dark:bg-stone-900">
+          <h2 className="mb-4 text-sm font-semibold text-stone-700 dark:text-stone-200">
             📚 Hızlı Erişim
           </h2>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -384,7 +384,7 @@ export default async function HomePage() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-2 rounded-lg border border-stone-100 bg-stone-50 px-3 py-2 text-sm transition-colors hover:border-emerald-200 hover:bg-emerald-50 dark:border-stone-700 dark:bg-stone-800 dark:hover:border-emerald-700 dark:hover:bg-emerald-950/30"
+                className="flex items-center gap-2 rounded-xl border border-stone-100 bg-stone-50 px-3 py-2 text-sm transition-all hover:border-emerald-200 hover:bg-emerald-50 active:scale-95 dark:border-stone-700 dark:bg-stone-800 dark:hover:border-emerald-700 dark:hover:bg-emerald-950/30"
               >
                 <span className="text-xs font-semibold text-stone-400 dark:text-stone-500">{item.num}</span>
                 <span className="font-medium text-stone-700 dark:text-stone-300">{item.label}</span>

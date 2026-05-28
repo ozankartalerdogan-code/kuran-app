@@ -48,12 +48,12 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
     <>
       {/* Toggle */}
       <div className="mb-4 flex items-center gap-3">
-        <div className="flex overflow-hidden rounded-md border border-stone-200 bg-white shadow-sm">
+        <div className="flex overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm dark:border-stone-700 dark:bg-stone-900">
           <button
-            className={`px-4 py-2 text-sm font-medium transition-colors ${
+            className={`px-4 py-2 text-sm font-medium transition-all active:scale-95 ${
               order === "mushaf"
-                ? "bg-stone-900 text-white"
-                : "text-stone-700 hover:bg-stone-50"
+                ? "bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
+                : "text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-800"
             }`}
             onClick={() => setOrder("mushaf")}
             type="button"
@@ -61,10 +61,10 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
             Mushaf Sırası
           </button>
           <button
-            className={`border-l border-stone-200 px-4 py-2 text-sm font-medium transition-colors ${
+            className={`border-l border-stone-200 px-4 py-2 text-sm font-medium transition-all active:scale-95 dark:border-stone-700 ${
               order === "nuzul"
-                ? "bg-stone-900 text-white"
-                : "text-stone-700 hover:bg-stone-50"
+                ? "bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
+                : "text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-800"
             }`}
             onClick={() => setOrder("nuzul")}
             type="button"
@@ -80,7 +80,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
       </div>
 
       {/* Liste */}
-      <div className="rounded-lg border border-stone-300 bg-white shadow-md">
+      <div className="rounded-2xl border border-stone-300 bg-white shadow-md dark:border-stone-700 dark:bg-stone-900">
         <ul role="list">
           {sorted.map((surah, index) => {
             const leftNo =
@@ -91,7 +91,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
             return (
               <li
                 key={surah.id}
-                className={index > 0 ? "border-t border-stone-200" : ""}
+                className={index > 0 ? "border-t border-stone-200 dark:border-stone-700" : ""}
               >
                 <div className="flex items-stretch transition-colors duration-100 hover:bg-stone-50 dark:hover:bg-stone-800/50">
                   <Link
@@ -104,23 +104,23 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
                     </span>
 
                     <span className="min-w-0 flex-1">
-                      <span className="font-medium text-stone-900">
+                      <span className="font-medium text-stone-900 dark:text-stone-100">
                         {surah.name ?? "—"}
                       </span>
                       <span className="mt-0.5 flex flex-wrap items-center gap-1.5">
                         {surah.verseCount != null && (
-                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600">
+                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600 dark:bg-stone-700 dark:text-stone-300">
                             {surah.verseCount} ayet
                           </span>
                         )}
                         {/* Nüzul modundayken Mushaf numarasını göster, Mushaf modundayken nüzul sırasını */}
                         {order === "nuzul" && (
-                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500">
+                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500 dark:bg-stone-700 dark:text-stone-400">
                             Mushaf: {surah.id}
                           </span>
                         )}
                         {order === "mushaf" && surah.revelationOrder != null && (
-                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600">
+                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600 dark:bg-stone-700 dark:text-stone-300">
                             {surah.revelationOrder}. nüzul
                           </span>
                         )}
@@ -135,7 +135,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
 
                     {surah.arabicName != null && (
                       <span
-                        className="shrink-0 self-center text-xl text-stone-700 sm:text-3xl"
+                        className="shrink-0 self-center text-xl text-stone-700 dark:text-stone-200 sm:text-3xl"
                         dir="rtl"
                         lang="ar"
                       >
@@ -144,7 +144,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
                     )}
                   </Link>
 
-                  <div className="flex shrink-0 items-center border-l border-stone-100 px-3 dark:border-stone-800">
+                  <div className="flex shrink-0 items-center border-l border-stone-200 px-3 dark:border-stone-700">
                     <AudioPlayer surahId={surah.id} />
                   </div>
                 </div>

@@ -74,7 +74,7 @@ export function NotlarimClient() {
 
   return (
     <main className="min-h-screen bg-stone-100 px-4 py-8 dark:bg-stone-950 sm:px-6">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
@@ -90,7 +90,7 @@ export function NotlarimClient() {
             <button
               onClick={clearAll}
               type="button"
-              className="rounded-md border border-rose-200 bg-white px-3 py-1.5 text-sm font-medium text-rose-600 hover:bg-rose-50 dark:border-rose-800 dark:bg-stone-900 dark:hover:bg-rose-950/30"
+              className="rounded-xl border border-rose-200 bg-white px-3 py-1.5 text-sm font-medium text-rose-600 transition-transform hover:bg-rose-50 active:scale-95 dark:border-rose-800 dark:bg-stone-900 dark:hover:bg-rose-950/30"
             >
               Tümünü Sil
             </button>
@@ -109,17 +109,17 @@ export function NotlarimClient() {
         )}
 
         {!loading && notes.length === 0 && (
-          <div className="rounded-xl border border-stone-200 bg-white px-8 py-16 text-center shadow-sm dark:border-stone-700 dark:bg-stone-900">
+          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
             <div className="mb-3 text-4xl">📭</div>
-            <p className="text-lg font-medium text-stone-700 dark:text-stone-300">
+            <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Henüz not eklemediniz
             </p>
-            <p className="mt-1 text-sm text-stone-400">
+            <p className="mt-1 text-sm text-stone-400 dark:text-stone-500">
               Ayet detay sayfasındaki &ldquo;Kişisel Not&rdquo; alanından not ekleyebilirsiniz.
             </p>
             <Link
               href="/surah"
-              className="mt-5 inline-block rounded-lg bg-amber-600 px-5 py-2 text-sm font-semibold text-white hover:bg-amber-700"
+              className="mt-5 inline-block rounded-xl bg-amber-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-amber-700 active:scale-95"
             >
               Surelere Göz At
             </Link>
@@ -131,7 +131,7 @@ export function NotlarimClient() {
             {notes.map((note) => (
               <article
                 key={note.verseKey}
-                className="rounded-xl border border-stone-200 bg-white shadow-sm dark:border-stone-700 dark:bg-stone-900"
+                className="rounded-2xl border border-stone-200 bg-white shadow-md dark:border-stone-700 dark:bg-stone-800"
               >
                 <div className="flex items-center justify-between gap-3 border-b border-stone-100 px-4 py-3 dark:border-stone-800">
                   <Link
@@ -154,7 +154,7 @@ export function NotlarimClient() {
                     onClick={() => deleteNote(note.verseKey)}
                     type="button"
                     aria-label="Notu sil"
-                    className="rounded-full p-1.5 text-stone-300 transition-colors hover:bg-rose-50 hover:text-rose-500 dark:text-stone-600 dark:hover:bg-rose-950/30 dark:hover:text-rose-400"
+                    className="rounded-full p-1.5 text-stone-300 transition-all hover:bg-rose-50 hover:text-rose-500 active:scale-95 dark:text-stone-600 dark:hover:bg-rose-950/30 dark:hover:text-rose-400"
                   >
                     <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

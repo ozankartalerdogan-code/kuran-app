@@ -568,7 +568,7 @@ export default function ManeviSiginakPage() {
   const sifa    = fetchVerses("korunma-sifa");
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-8">
+    <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
       {/* Hero */}
       <div className="mb-8">
         <div className="mb-2 flex items-center gap-2.5">

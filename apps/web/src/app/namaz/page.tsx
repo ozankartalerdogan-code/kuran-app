@@ -29,8 +29,8 @@ function KategoriSkeleton() {
 
 export default function NamazPage() {
   return (
-    <main className="mx-auto max-w-2xl px-4 py-10">
-      <div className="mb-10 border-b border-stone-200 pb-8 dark:border-stone-700/60">
+    <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+      <div className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
         <div className="mb-2 flex items-center gap-2.5">
           <span className="text-2xl leading-none">🕌</span>
           <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">

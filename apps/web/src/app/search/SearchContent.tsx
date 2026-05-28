@@ -194,7 +194,7 @@ export function SearchContent() {
 
   return (
     <main className="min-h-screen bg-stone-100 px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl space-y-6">
+      <div className="mx-auto max-w-4xl space-y-6">
 
         <header>
           <h1 className="text-2xl font-semibold text-stone-900">Ayet Ara</h1>
@@ -213,7 +213,7 @@ export function SearchContent() {
           </div>
           <Link
             href="/discover"
-            className="flex shrink-0 items-center gap-1.5 rounded-lg border border-indigo-300 bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700"
+            className="flex shrink-0 items-center gap-1.5 rounded-xl border border-indigo-300 bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 active:scale-95"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <circle cx="12" cy="12" r="3" />
@@ -234,7 +234,7 @@ export function SearchContent() {
             <span className="text-sm text-stone-500">— {state.total} ayet</span>
             <button
               onClick={() => router.push("/search")}
-              className="ml-auto text-xs text-stone-400 underline hover:text-stone-600"
+              className="ml-auto text-xs text-stone-400 underline transition-colors hover:text-stone-600 active:scale-95"
             >
               Filtreyi kaldır
             </button>
@@ -293,7 +293,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700 transition-colors hover:bg-teal-100"
+                    className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700 transition-all hover:bg-teal-100 active:scale-95"
                   >
                     🕌 {label}
                   </button>
@@ -318,7 +318,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 transition-colors hover:bg-indigo-100"
+                    className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 transition-all hover:bg-indigo-100 active:scale-95"
                   >
                     🛡️ {label}
                   </button>
@@ -339,7 +339,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-100"
+                    className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 transition-all hover:bg-amber-100 active:scale-95"
                   >
                     ✨ {label}
                   </button>
@@ -359,13 +359,13 @@ export function SearchContent() {
         )}
 
         {state.status === "error" && (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800/50 dark:bg-red-900/20 dark:text-red-400">
             {state.message}
           </div>
         )}
 
         {state.status === "no_results" && (
-          <div className="rounded-lg border border-dashed border-stone-300 bg-white p-10 text-center">
+          <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center dark:border-stone-600 dark:bg-stone-800">
             <p className="text-stone-500">Sonuç bulunamadı.</p>
           </div>
         )}

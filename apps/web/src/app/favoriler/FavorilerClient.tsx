@@ -58,7 +58,7 @@ export function FavorilerClient() {
             <button
               onClick={clearAll}
               type="button"
-              className="rounded-md border border-rose-200 bg-white px-3 py-1.5 text-sm font-medium text-rose-600 hover:bg-rose-50 dark:border-rose-800 dark:bg-stone-900 dark:hover:bg-rose-950/30"
+              className="rounded-xl border border-rose-200 bg-white px-3 py-1.5 text-sm font-medium text-rose-600 transition-transform hover:bg-rose-50 active:scale-95 dark:border-rose-800 dark:bg-stone-900 dark:hover:bg-rose-950/30"
             >
               Tümünü Temizle
             </button>
@@ -77,17 +77,17 @@ export function FavorilerClient() {
         )}
 
         {!loading && keys.length === 0 && (
-          <div className="rounded-xl border border-stone-200 bg-white px-8 py-16 text-center shadow-sm dark:border-stone-700 dark:bg-stone-900">
+          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
             <div className="mb-3 text-4xl">🤍</div>
-            <p className="text-lg font-medium text-stone-700 dark:text-stone-300">
+            <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Henüz favori ayet eklemediniz
             </p>
-            <p className="mt-1 text-sm text-stone-400">
+            <p className="mt-1 text-sm text-stone-400 dark:text-stone-500">
               Ayet kartlarındaki kalp ikonuna tıklayarak favori ekleyebilirsiniz.
             </p>
             <Link
               href="/surah"
-              className="mt-5 inline-block rounded-lg bg-emerald-600 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+              className="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-emerald-700 active:scale-95"
             >
               Surelere Göz At
             </Link>
