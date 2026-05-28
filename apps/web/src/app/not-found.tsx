@@ -12,7 +12,7 @@ export default function NotFound() {
           Aradığınız sayfa mevcut değil ya da taşınmış olabilir.
         </p>
         <Link
-          href="/surah/1/ayah/1"
+          href="/"
           className="mt-6 inline-block rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
         >
           Ana sayfaya dön

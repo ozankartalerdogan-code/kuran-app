@@ -30,6 +30,14 @@ import {
 import { AyahDetailTabs, type AyahDetailTabItem } from "./AyahDetailTabs";
 import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
+import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
+import dynamic from "next/dynamic";
+import { FavoriteButton } from "../../../../../components/FavoriteButton";
+import { AudioPlayer } from "../../../../../components/AudioPlayer";
+import { ShareButton } from "./ShareButton";
+
+const NoteEditor    = dynamic(() => import("./NoteEditor").then((m) => m.NoteEditor),    { ssr: false });
+const StreakTracker = dynamic(() => import("./StreakTracker").then((m) => m.StreakTracker), { ssr: false });
 
 type SectionStatus = "ready" | "partially_ready" | "missing";
 
@@ -164,20 +172,6 @@ const statusHelpText: Record<SectionStatus, string> = {
   missing: "Bu bölüm için gösterilecek veri bulunmuyor."
 };
 
-const morphologyLabels: Record<string, string> = {
-  particle: "edat",
-  noun: "isim",
-  adjective: "sıfat",
-  verb: "fiil",
-  pronoun: "zamir",
-  adverb: "zarf",
-  article: "belirlilik takısı",
-  determiner: "belirlilik takısı",
-  preposition: "edat",
-  conjunction: "bağlaç",
-  other: "diğer",
-  unknown: "bilinmiyor"
-};
 
 const naturallyRootlessMorphologyLabels: Record<string, string> = {
   particle: "edat",
@@ -377,11 +371,28 @@ function getFidelityStatus(fidelity: FidelityAnalysis | null): SectionStatus {
 }
 
 function getMorphologyLabel(value: string | null): string {
-  if (value === null) {
-    return "missing";
-  }
+  if (value === null) return "missing";
+  return MORPH_LABELS[value] ?? value;
+}
 
-  return morphologyLabels[value] ?? value;
+function MorphBadge({ morphology }: { morphology: string | null }) {
+  if (!morphology) return <span className="text-stone-400">—</span>;
+  const abbr = MORPH_ABBR[morphology] ?? morphology;
+  const label = MORPH_LABELS[morphology] ?? morphology;
+  const hasLabel = label !== abbr;
+  return (
+    <span className="inline-flex flex-col leading-tight">
+      <span>
+        {abbr}
+        {hasLabel && (
+          <span className="hidden sm:inline text-stone-500"> ({label})</span>
+        )}
+      </span>
+      {hasLabel && (
+        <span className="text-[10px] text-stone-400 sm:hidden">{label}</span>
+      )}
+    </span>
+  );
 }
 
 function getNaturallyRootlessLabel(word: WordAnalysis): string | null {
@@ -781,48 +792,86 @@ function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[760px] border-collapse text-left text-sm">
-        <thead>
-          <tr className="border-b border-stone-200 text-xs uppercase text-stone-500">
-            <th
-              className="py-2 pr-4 font-semibold"
-              title="Bu numara ekrandaki görsel sırayı gösterir; ham veri indeksi değildir."
-            >
-              #
-            </th>
-            <th className="py-2 pr-4 font-semibold">Kelime</th>
-            <th className="py-2 pr-4 font-semibold">Tür</th>
-            <th className="py-2 pr-4 font-semibold">Anlam</th>
-            <th className="py-2 pr-4 font-semibold">Kök</th>
-            <th className="py-2 font-semibold">Kök açıklaması</th>
-          </tr>
-        </thead>
-        <tbody>
-          {words.map((word, index) => (
-            <tr
-              className="border-b border-stone-100 align-top"
-              key={`${index + 1}-${word.arabic ?? "missing"}`}
-            >
-              <td className="py-3 pr-4 text-stone-500">{index + 1}</td>
-              <td className="py-3 pr-4 text-xl leading-8 text-stone-950" dir="rtl" lang="ar">
+    <>
+      {/* ── Mobil: kart görünümü ── */}
+      <div className="space-y-3 sm:hidden">
+        {words.map((word, index) => (
+          <div
+            key={`m-${index + 1}-${word.arabic ?? "missing"}`}
+            className="rounded-lg border border-stone-200 bg-stone-50 p-3 text-sm"
+          >
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <span className="text-xs font-semibold text-stone-400">#{index + 1}</span>
+              <span className="text-xl leading-8 text-stone-950" dir="rtl" lang="ar">
                 {word.arabic ?? "Metin yok"}
-              </td>
-              <td className="py-3 pr-4 text-stone-700">
-                {getMorphologyLabel(word.morphology)}
-              </td>
-              <td className="py-3 pr-4 text-stone-700">
-                <WordMeaning word={word} />
-              </td>
-              <td className="py-3 pr-4 text-stone-700">{getRootDisplayText(word)}</td>
-              <td className="py-3 text-stone-700">
-                <RootExplanation word={word} />
-              </td>
+              </span>
+            </div>
+            <dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
+              <div>
+                <dt className="font-semibold uppercase tracking-wide text-stone-400">Tür</dt>
+                <dd className="mt-0.5 text-stone-700"><MorphBadge morphology={word.morphology} /></dd>
+              </div>
+              <div>
+                <dt className="font-semibold uppercase tracking-wide text-stone-400">Anlam</dt>
+                <dd className="mt-0.5 text-stone-700"><WordMeaning word={word} /></dd>
+              </div>
+              <div>
+                <dt className="font-semibold uppercase tracking-wide text-stone-400">Kök</dt>
+                <dd className="mt-0.5 text-stone-700">{getRootDisplayText(word)}</dd>
+              </div>
+              <div className="col-span-2">
+                <dt className="font-semibold uppercase tracking-wide text-stone-400">Kök açıklaması</dt>
+                <dd className="mt-0.5 text-stone-700"><RootExplanation word={word} /></dd>
+              </div>
+            </dl>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Masaüstü: tablo görünümü ── */}
+      <div className="hidden overflow-x-auto sm:block">
+        <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+          <thead>
+            <tr className="border-b border-stone-200 text-xs uppercase text-stone-500">
+              <th
+                className="py-2 pr-4 font-semibold"
+                title="Bu numara ekrandaki görsel sırayı gösterir; ham veri indeksi değildir."
+              >
+                #
+              </th>
+              <th className="py-2 pr-4 font-semibold">Kelime</th>
+              <th className="py-2 pr-4 font-semibold">Tür</th>
+              <th className="py-2 pr-4 font-semibold">Anlam</th>
+              <th className="py-2 pr-4 font-semibold">Kök</th>
+              <th className="py-2 font-semibold">Kök açıklaması</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {words.map((word, index) => (
+              <tr
+                className="border-b border-stone-100 align-top"
+                key={`${index + 1}-${word.arabic ?? "missing"}`}
+              >
+                <td className="py-3 pr-4 text-stone-500">{index + 1}</td>
+                <td className="py-3 pr-4 text-xl leading-8 text-stone-950" dir="rtl" lang="ar">
+                  {word.arabic ?? "Metin yok"}
+                </td>
+                <td className="py-3 pr-4 text-stone-700">
+                  <MorphBadge morphology={word.morphology} />
+                </td>
+                <td className="py-3 pr-4 text-stone-700">
+                  <WordMeaning word={word} />
+                </td>
+                <td className="py-3 pr-4 text-stone-700">{getRootDisplayText(word)}</td>
+                <td className="py-3 text-stone-700">
+                  <RootExplanation word={word} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
@@ -929,9 +978,15 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
           key={rootSummary.root}
         >
           <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-2xl leading-8 text-stone-950" dir="rtl" lang="ar">
+            <Link
+              className="text-2xl leading-8 text-stone-950 hover:text-emerald-700"
+              dir="rtl"
+              href={`/root/${encodeURIComponent(rootSummary.root)}`}
+              lang="ar"
+              title={`${rootSummary.root} kök sayfasını aç`}
+            >
               {rootSummary.root}
-            </h3>
+            </Link>
             <span className="rounded-full border border-stone-200 bg-white px-2.5 py-1 text-xs font-medium text-stone-600">
               {rootSummary.count} kelime
             </span>
@@ -1357,7 +1412,23 @@ export default async function Page({ params, searchParams }: PageProps) {
                 <AyahJumpForm initialSurahId={surahId} initialAyahNumber={ayahNumber} surahs={surahs} />
               </div>
             </div>
-            <StatusBadge status={sectionStatuses.page} />
+            <div className="flex flex-col items-end gap-3">
+              <StatusBadge status={sectionStatuses.page} />
+              <div className="flex items-center gap-2">
+                <AudioPlayer surahId={surahId} variant="detail" />
+                <div className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-stone-50 px-3 py-1.5 dark:border-stone-700 dark:bg-stone-800">
+                  <FavoriteButton verseKey={`${surahId}:${ayahNumber}`} size="lg" />
+                  <span className="text-sm text-stone-500 dark:text-stone-400">Favori</span>
+                </div>
+                <ShareButton
+                  verseKey={`${surahId}:${ayahNumber}`}
+                  meal={primaryTranslation?.text ?? null}
+                  surahName={detail.surah?.turkishName.text ?? null}
+                  surahId={surahId}
+                  ayahNumber={ayahNumber}
+                />
+              </div>
+            </div>
           </div>
         </header>
 
@@ -1432,6 +1503,10 @@ export default async function Page({ params, searchParams }: PageProps) {
         </SectionCard>
 
         <AyahDetailTabs tabs={tabItems} />
+
+        <NoteEditor verseKey={`${surahId}:${ayahNumber}`} />
+
+        <StreakTracker />
 
       </div>
     </main>

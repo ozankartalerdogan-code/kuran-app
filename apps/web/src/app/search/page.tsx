@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SearchContent } from "./SearchContent";
+
+export const metadata: Metadata = {
+  title: "Arama",
+  description: "Sure adı, ayet numarası veya Türkçe kelime arayın; tema etiketlerine göre filtreleyin.",
+};
 
 export default function SearchPage() {
   return (

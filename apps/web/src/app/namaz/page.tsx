@@ -2,7 +2,30 @@ import { Suspense } from "react";
 import { NamazKategorileri } from "./NamazKategorileri";
 import { NamazVakitTablosu } from "./NamazVakitTablosu";
 
-export const metadata = { title: "Namaz — KuranApp" };
+export const metadata = { title: "Namaz" };
+
+function VakitSkeleton() {
+  return (
+    <div className="space-y-2">
+      <div className="h-5 w-32 animate-pulse rounded bg-stone-100 dark:bg-stone-800" />
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-14 animate-pulse rounded-lg bg-stone-100 dark:bg-stone-800" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function KategoriSkeleton() {
+  return (
+    <div className="space-y-3">
+      {[...Array(4)].map((_, i) => (
+        <div key={i} className="h-14 animate-pulse rounded-xl bg-stone-100 dark:bg-stone-800" />
+      ))}
+    </div>
+  );
+}
 
 export default function NamazPage() {
   return (
@@ -19,13 +42,15 @@ export default function NamazPage() {
         </p>
       </div>
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<VakitSkeleton />}>
         <NamazVakitTablosu />
       </Suspense>
 
-      <Suspense fallback={null}>
-        <NamazKategorileri />
-      </Suspense>
+      <div className="mt-8">
+        <Suspense fallback={<KategoriSkeleton />}>
+          <NamazKategorileri />
+        </Suspense>
+      </div>
     </main>
   );
 }

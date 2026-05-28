@@ -1,0 +1,74 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getApiDb, dbAll, dbGet } from "../../../lib/dbUtils";
+
+interface SurahRow {
+  id: number;
+  adi_turkce: string;
+  adi_arapca: string;
+  ayet_sayisi: number;
+  tur: string;
+}
+
+interface VerseRow {
+  ayah_number: number;
+  primary_translation: string | null;
+}
+
+export type VerseItem = {
+  ayahNumber: number;
+  meal: string | null;
+};
+
+export type VerseListResponse = {
+  surah: {
+    id: number;
+    name: string;
+    arabicName: string;
+    verseCount: number;
+    revelationPlace: "Mekke" | "Medine";
+  };
+  verses: VerseItem[];
+};
+
+export function GET(req: NextRequest) {
+  const raw = req.nextUrl.searchParams.get("surah_id");
+  const surahId = Number(raw);
+
+  if (!Number.isInteger(surahId) || surahId < 1 || surahId > 114) {
+    return NextResponse.json({ error: "Geçersiz surah_id (1-114)" }, { status: 400 });
+  }
+
+  const db = getApiDb();
+
+  const surah = dbGet<SurahRow>(
+    db.prepare("SELECT id, adi_turkce, adi_arapca, ayet_sayisi, tur FROM sureler WHERE id = ?"),
+    surahId,
+  );
+
+  if (!surah) {
+    return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
+  }
+
+  const verses = dbAll<VerseRow>(
+    db.prepare(
+      "SELECT ayah_number, primary_translation FROM verses WHERE surah_id = ? ORDER BY ayah_number",
+    ),
+    surahId,
+  );
+
+  const body: VerseListResponse = {
+    surah: {
+      id:              surah.id,
+      name:            surah.adi_turkce,
+      arabicName:      surah.adi_arapca,
+      verseCount:      surah.ayet_sayisi,
+      revelationPlace: surah.tur === "medinan" ? "Medine" : "Mekke",
+    },
+    verses: verses.map((v) => ({
+      ayahNumber: v.ayah_number,
+      meal:       v.primary_translation,
+    })),
+  };
+
+  return NextResponse.json(body);
+}

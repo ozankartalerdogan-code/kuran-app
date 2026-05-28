@@ -13,3 +13,148 @@ body {
   color: #1f1a17;
   font-family: Georgia, serif;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Gece Modu — html.night-mode class ile etkinleşir
+   OS/sistem dark mode'dan BAĞIMSIZ, ayrı bir katman.
+   Tailwind dark: sınıflarından yüksek özgüllük (html.night-mode .cls)
+   sayesinde her iki modda da (sistem dark ON/OFF) baskın gelir.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Zemin ve varsayılan renk */
+html.night-mode body {
+  background-color: #070707 !important;
+  color: #909090 !important;
+}
+
+/* Navbar */
+html.night-mode nav {
+  background-color: #0c0c0c !important;
+  border-color: #1a1a1a !important;
+}
+
+/* Sayfa ana alanı */
+html.night-mode main {
+  background-color: #070707 !important;
+}
+
+/* ── Arka plan rengi geçersizleştirmeleri ─────────────────────────── */
+
+html.night-mode .bg-white {
+  background-color: #101010 !important;
+}
+
+html.night-mode .bg-stone-50 {
+  background-color: #090909 !important;
+}
+
+html.night-mode .bg-stone-100 {
+  background-color: #0a0a0a !important;
+}
+
+html.night-mode .bg-amber-50 {
+  background-color: #080808 !important;
+}
+
+html.night-mode .bg-teal-50 {
+  background-color: #080808 !important;
+}
+
+html.night-mode .bg-sky-50 {
+  background-color: #080808 !important;
+}
+
+html.night-mode .bg-emerald-50 {
+  background-color: #080808 !important;
+}
+
+/* dark: ile gelen koyu kartlar — daha da koyulaştır */
+html.night-mode .bg-stone-800 {
+  background-color: #0e0e0e !important;
+}
+
+html.night-mode .bg-stone-900 {
+  background-color: #080808 !important;
+}
+
+/* Belirli bileşen arka planları */
+html.night-mode .bg-stone-950 {
+  background-color: #050505 !important;
+}
+
+/* ── Kenarlıklar ──────────────────────────────────────────────────── */
+
+html.night-mode .border-stone-100 {
+  border-color: #161616 !important;
+}
+
+html.night-mode .border-stone-200 {
+  border-color: #1c1c1c !important;
+}
+
+html.night-mode .border-stone-300 {
+  border-color: #222 !important;
+}
+
+html.night-mode .border-stone-700 {
+  border-color: #1a1a1a !important;
+}
+
+html.night-mode .border-stone-800 {
+  border-color: #161616 !important;
+}
+
+/* ── Metin renkleri — göz yormayan düşük kontrast ─────────────────── */
+
+html.night-mode .text-stone-950 {
+  color: #c0c0c0 !important;
+}
+
+html.night-mode .text-stone-900 {
+  color: #b0b0b0 !important;
+}
+
+html.night-mode .text-stone-800 {
+  color: #a0a0a0 !important;
+}
+
+html.night-mode .text-stone-700 {
+  color: #909090 !important;
+}
+
+html.night-mode .text-stone-600 {
+  color: #808080 !important;
+}
+
+html.night-mode .text-stone-500 {
+  color: #686868 !important;
+}
+
+html.night-mode .text-stone-400 {
+  color: #505050 !important;
+}
+
+/* ── Arapça metin — okunabilirliği koru ──────────────────────────── */
+/* Mushaf sayfasında büyük font kullanıldığı için biraz daha açık */
+
+html.night-mode [lang="ar"] {
+  color: #d8d8d8 !important;
+}
+
+/* ── Gölgeler — gece modunda minimal ─────────────────────────────── */
+
+html.night-mode .shadow-sm {
+  box-shadow: none !important;
+}
+
+html.night-mode .shadow-md {
+  box-shadow: none !important;
+}
+
+html.night-mode .shadow-xl {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* ── Renk vurguları — yeşil/amber tonlarını koru ─────────────────── */
+/* (emerald, amber, indigo gibi accent renkler kasıtlı bırakıldı —
+    gece modunda bu kontrastı tamamen silmek okunabilirliği bozar) */

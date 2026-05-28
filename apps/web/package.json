@@ -12,6 +12,8 @@
     "@quran-app/core": "0.1.0",
     "@quran-app/types": "0.1.0",
     "@quran-app/ui": "0.1.0",
+    "@types/canvas-confetti": "^1.9.0",
+    "canvas-confetti": "^1.9.4",
     "next": "14.2.28",
     "react": "18.3.1",
     "react-dom": "18.3.1"

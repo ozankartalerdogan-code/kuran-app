@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-
     "baseUrl": ".",
     "paths": {
       "@quran-app/*": ["../../packages/*/src"]
@@ -9,7 +8,8 @@
     "jsx": "react-native",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "plugins": [{ "name": "expo/typescript-plugin" }]
   },
-  "include": ["src", "App.tsx"]
+  "include": ["app", "src", "App.tsx"]
 }

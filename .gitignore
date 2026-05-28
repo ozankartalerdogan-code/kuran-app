@@ -28,3 +28,14 @@ elmalili-fix/
 # OS
 .DS_Store
 Thumbs.db
+
+# Surah ses dosyaları (~1.2 GB, junction ile bağlı)
+public/audio/
+apps/web/public/audio/surah/
+
+# Geçici / test dosyaları
+test_gtts.mp3
+api_test.py
+output_check.txt
+etiketleme_checkpoint.json
+"C\357\200\272Tempayah_page.html"

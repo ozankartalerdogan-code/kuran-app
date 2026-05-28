@@ -1,0 +1,29 @@
+{'harf_id': 1, 'harf_adi': 'Elif', 'harf_sesi': 'E', 'tek_basina': 'ا', 'mahrec': 'Boğaz sonu'}
+{'harf_id': 2, 'harf_adi': 'Be', 'harf_sesi': 'B', 'tek_basina': 'ب', 'mahrec': 'Dudaklar'}
+{'harf_id': 3, 'harf_adi': 'Te', 'harf_sesi': 'T', 'tek_basina': 'ت', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 4, 'harf_adi': 'Se', 'harf_sesi': 'S', 'tek_basina': 'ث', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 5, 'harf_adi': 'Cim', 'harf_sesi': 'C', 'tek_basina': 'ج', 'mahrec': 'Dil ortası-damak'}
+{'harf_id': 6, 'harf_adi': 'Ha', 'harf_sesi': 'H', 'tek_basina': 'ح', 'mahrec': 'Boğaz ortası'}
+{'harf_id': 7, 'harf_adi': 'Hı', 'harf_sesi': 'H (kalın)', 'tek_basina': 'خ', 'mahrec': 'Boğaz başı'}
+{'harf_id': 8, 'harf_adi': 'Dal', 'harf_sesi': 'D', 'tek_basina': 'د', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 9, 'harf_adi': 'Zel', 'harf_sesi': 'Z', 'tek_basina': 'ذ', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 10, 'harf_adi': 'Ra', 'harf_sesi': 'R', 'tek_basina': 'ر', 'mahrec': 'Dil ucu-üst damak'}
+{'harf_id': 11, 'harf_adi': 'Ze', 'harf_sesi': 'Z', 'tek_basina': 'ز', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 12, 'harf_adi': 'Sin', 'harf_sesi': 'S', 'tek_basina': 'س', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 13, 'harf_adi': 'Şın', 'harf_sesi': 'Ş', 'tek_basina': 'ش', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 14, 'harf_adi': 'Sad', 'harf_sesi': 'S (kalın)', 'tek_basina': 'ص', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 15, 'harf_adi': 'Dad', 'harf_sesi': 'D (kalın)', 'tek_basina': 'ض', 'mahrec': 'Dil kenarı-azı dişler'}
+{'harf_id': 16, 'harf_adi': 'Tı', 'harf_sesi': 'T (kalın)', 'tek_basina': 'ط', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 17, 'harf_adi': 'Zı', 'harf_sesi': 'Z (kalın)', 'tek_basina': 'ظ', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 18, 'harf_adi': 'Ayn', 'harf_sesi': 'A (gırtlak)', 'tek_basina': 'ع', 'mahrec': 'Boğaz ortası'}
+{'harf_id': 19, 'harf_adi': 'Ğayn', 'harf_sesi': 'Ğ', 'tek_basina': 'غ', 'mahrec': 'Boğaz başı'}
+{'harf_id': 20, 'harf_adi': 'Fe', 'harf_sesi': 'F', 'tek_basina': 'ف', 'mahrec': 'Alt dudak-üst dişler'}
+{'harf_id': 21, 'harf_adi': 'Kaf', 'harf_sesi': 'K (kalın)', 'tek_basina': 'ق', 'mahrec': 'Dil kökü-küçük dil'}
+{'harf_id': 22, 'harf_adi': 'Kef', 'harf_sesi': 'K', 'tek_basina': 'ك', 'mahrec': 'Dil ortası-damak'}
+{'harf_id': 23, 'harf_adi': 'Lam', 'harf_sesi': 'L', 'tek_basina': 'ل', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 24, 'harf_adi': 'Mim', 'harf_sesi': 'M', 'tek_basina': 'م', 'mahrec': 'Dudaklar'}
+{'harf_id': 25, 'harf_adi': 'Nun', 'harf_sesi': 'N', 'tek_basina': 'ن', 'mahrec': 'Dil ucu-üst dişler'}
+{'harf_id': 26, 'harf_adi': 'Vav', 'harf_sesi': 'V', 'tek_basina': 'و', 'mahrec': 'Dudaklar'}
+{'harf_id': 27, 'harf_adi': 'He', 'harf_sesi': 'H', 'tek_basina': 'ه', 'mahrec': 'Boğaz sonu'}
+{'harf_id': 28, 'harf_adi': 'Ye', 'harf_sesi': 'Y', 'tek_basina': 'ي', 'mahrec': 'Dil ortası-damak'}
+{'harf_id': 29, 'harf_adi': 'Lamelif', 'harf_sesi': 'La', 'tek_basina': 'لا', 'mahrec': 'Birleşik harf (Lam+Elif)'}

@@ -2,10 +2,29 @@
   "expo": {
     "name": "Kuran Analiz",
     "slug": "kuran-analiz",
+    "scheme": "kurananaliz",
     "version": "0.1.0",
     "orientation": "portrait",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kuranapp.mobile"
+    },
+    "android": {
+      "package": "com.kuranapp.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#059669"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }
