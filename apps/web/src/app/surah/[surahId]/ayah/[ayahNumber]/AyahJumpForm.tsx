@@ -89,38 +89,42 @@ export function AyahJumpForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap items-center gap-2">
-      <label className="text-xs text-stone-500" htmlFor="jump-surah">
-        Sûre
-      </label>
-      <select
-        id="jump-surah"
-        value={selectedSurahId}
-        onChange={handleSurahChange}
-        className="rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400"
-      >
-        {surahOptions}
-      </select>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
+      <div className="flex items-center gap-2">
+        <label className="w-10 shrink-0 text-xs text-stone-500" htmlFor="jump-surah">
+          Sûre
+        </label>
+        <select
+          id="jump-surah"
+          value={selectedSurahId}
+          onChange={handleSurahChange}
+          className="min-h-[44px] flex-1 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0 sm:flex-none"
+        >
+          {surahOptions}
+        </select>
+      </div>
 
-      <label className="text-xs text-stone-500" htmlFor="jump-ayah">
-        Ayet
-      </label>
-      <select
-        id="jump-ayah"
-        value={selectedAyah}
-        onChange={handleAyahChange}
-        onFocus={() => setAyahFocused(true)}
-        onBlur={() => setAyahFocused(false)}
-        className="w-20 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400"
-      >
-        {/* Odak yoksa yalnızca aktif değer; odakta tüm liste */}
-        {ayahFocused ? ayahOptions : <option value={selectedAyah}>{selectedAyah}</option>}
-      </select>
+      <div className="flex items-center gap-2">
+        <label className="w-10 shrink-0 text-xs text-stone-500" htmlFor="jump-ayah">
+          Ayet
+        </label>
+        <select
+          id="jump-ayah"
+          value={selectedAyah}
+          onChange={handleAyahChange}
+          onFocus={() => setAyahFocused(true)}
+          onBlur={() => setAyahFocused(false)}
+          className="min-h-[44px] w-20 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0"
+        >
+          {/* Odak yoksa yalnızca aktif değer; odakta tüm liste */}
+          {ayahFocused ? ayahOptions : <option value={selectedAyah}>{selectedAyah}</option>}
+        </select>
+      </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="rounded border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-800 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-400 disabled:opacity-50"
+        className="min-h-[44px] w-full rounded border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-800 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-400 disabled:opacity-50 sm:min-h-0 sm:w-auto"
       >
         {isPending ? "…" : "Git"}
       </button>

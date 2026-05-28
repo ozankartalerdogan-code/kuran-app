@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
+import { MoodTagButton } from "../../components/MoodTagButton";
 
 // ── Tip tanımları ─────────────────────────────────────────────────────────────
 
@@ -240,7 +241,7 @@ function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
   );
 }
 
-function MoodTagsRow({ onTagClick }: { onTagClick: (tag: string) => void }) {
+function MoodTagsRow() {
   return (
     <section>
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
@@ -248,13 +249,7 @@ function MoodTagsRow({ onTagClick }: { onTagClick: (tag: string) => void }) {
       </h2>
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         {MOOD_TAGS.map((m) => (
-          <button
-            key={m.etiket}
-            onClick={() => onTagClick(m.tag)}
-            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors ${m.renk}`}
-          >
-            {m.etiket}
-          </button>
+          <MoodTagButton key={m.tag} etiket={m.etiket} tag={m.tag} renk={m.renk} />
         ))}
       </div>
     </section>
@@ -381,7 +376,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
         <div className={aktifTab === "temalar" ? "" : "hidden"}>
           <div className="space-y-8">
             <ThemeCardGrid onTagClick={handleTagClick} />
-            <MoodTagsRow   onTagClick={handleTagClick} />
+            <MoodTagsRow />
 
             {/* Özel rehber sayfaları */}
             <section>
@@ -455,6 +450,28 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
+                <Link
+                  href="/ibadet-rehberi"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700 sm:col-span-2"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl leading-none dark:bg-emerald-900/30">
+                    📿
+                  </span>
+                  <div className="min-w-0">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-emerald-700 dark:text-stone-100 dark:group-hover:text-emerald-400">
+                      İbadet Rehberi
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                      İslam ve İman şartları · Namaz, Oruç, Zekât, Hac, Kurban · Abdest &amp; Temizlik
+                    </p>
+                  </div>
+                  <svg
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-emerald-400 dark:text-stone-600"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
               </div>
             </section>
 
@@ -478,6 +495,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
         <div className={aktifTab === "namaz" ? "" : "hidden"}>
           {namazBolumu}
         </div>
+
 
       </div>
     </main>

@@ -4,6 +4,7 @@ import { getApiDb, dbGet } from "../lib/dbUtils";
 import { HomeNamazWidget } from "./HomeNamazWidget";
 import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
+import { MoodTagButton } from "../components/MoodTagButton";
 
 export const dynamic = "force-dynamic";
 
@@ -104,24 +105,31 @@ const NAV_CARDS = [
     gradient: "from-emerald-500 to-teal-600",
   },
   {
+    href: "/ibadet-rehberi",
+    icon: "📿",
+    title: "İbadet Rehberi",
+    desc: "İnanç, namaz, oruç, zekât, abdest",
+    gradient: "from-sky-500 to-blue-600",
+  },
+  {
     href: "/namaz",
     icon: "🕌",
     title: "Namaz",
-    desc: "Namaz sureleri, duaları ve rehberi",
-    gradient: "from-blue-500 to-indigo-600",
+    desc: "Namaz sureleri ve duaları",
+    gradient: "from-indigo-500 to-violet-600",
   },
   {
     href: "/manevi-siginak",
     icon: "🤲",
     title: "Manevi Sığınak",
-    desc: "Zor anlarda okunacak dua ve ayetler",
+    desc: "Zor anlarda dua ve ayetler",
     gradient: "from-violet-500 to-purple-600",
   },
   {
     href: "/root",
     icon: "🌿",
     title: "Kelime Kökü",
-    desc: "Arapça kökleri ve türevlerini keşfet",
+    desc: "Arapça kökleri keşfet",
     gradient: "from-amber-500 to-orange-600",
   },
 ];
@@ -251,12 +259,32 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* ── RUH HALİ ETİKETLERİ ── */}
+        <div className="-mx-4 sm:mx-0">
+          <div className="flex gap-2 overflow-x-auto px-4 pb-1 sm:flex-wrap sm:overflow-visible sm:px-0">
+            {([
+              { etiket: "😌 Huzur arıyorum",     tag: "zikir",          renk: "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 dark:border-teal-800/50 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/50" },
+              { etiket: "😰 Stres altındayım",   tag: "sabır",          renk: "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-800/50 dark:bg-amber-950/40 dark:text-amber-300 dark:hover:bg-amber-900/50" },
+              { etiket: "🙏 Tövbe etmek",        tag: "tövbe",          renk: "border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 dark:border-violet-800/50 dark:bg-violet-950/40 dark:text-violet-300 dark:hover:bg-violet-900/50" },
+              { etiket: "💔 Geçim sıkıntısı",    tag: "rızık",          renk: "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50" },
+              { etiket: "😔 Üzüntülüyüm",        tag: "tevekkül",       renk: "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:border-blue-800/50 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/50" },
+              { etiket: "🤍 Şükretmek",          tag: "şükür",          renk: "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 dark:border-yellow-800/50 dark:bg-yellow-950/40 dark:text-yellow-300 dark:hover:bg-yellow-900/50" },
+              { etiket: "⚖️ Haksızlığa uğradım", tag: "adalet",         renk: "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:border-indigo-800/50 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/50" },
+              { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", renk: "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-800/50 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/50" },
+              { etiket: "🌟 İlham almak",         tag: "hidayet",        renk: "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 dark:border-orange-800/50 dark:bg-orange-950/40 dark:text-orange-300 dark:hover:bg-orange-900/50" },
+              { etiket: "💀 Ölümü düşünmek",      tag: "kıyamet",        renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
+            ] as const).map(({ etiket, tag, renk }) => (
+              <MoodTagButton key={tag} etiket={etiket} tag={tag} renk={renk} />
+            ))}
+          </div>
+        </div>
+
         {/* ── STREAK ── */}
         <StreakDisplay />
 
         {/* ── NAVİGASYON KARTLARI ── */}
         <section>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
             {NAV_CARDS.map((card) => (
               <Link
                 key={card.href}

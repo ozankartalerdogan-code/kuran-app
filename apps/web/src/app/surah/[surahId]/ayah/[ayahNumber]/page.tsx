@@ -370,11 +370,6 @@ function getFidelityStatus(fidelity: FidelityAnalysis | null): SectionStatus {
   );
 }
 
-function getMorphologyLabel(value: string | null): string {
-  if (value === null) return "missing";
-  return MORPH_LABELS[value] ?? value;
-}
-
 function MorphBadge({ morphology }: { morphology: string | null }) {
   if (!morphology) return <span className="text-stone-400">—</span>;
   const abbr = MORPH_ABBR[morphology] ?? morphology;
@@ -1414,9 +1409,9 @@ export default async function Page({ params, searchParams }: PageProps) {
             </div>
             <div className="flex flex-col items-end gap-3">
               <StatusBadge status={sectionStatuses.page} />
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                 <AudioPlayer surahId={surahId} variant="detail" />
-                <div className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-stone-50 px-3 py-1.5 dark:border-stone-700 dark:bg-stone-800">
+                <div className="flex flex-1 items-center gap-1.5 rounded-lg border border-stone-200 bg-stone-50 px-3 py-1.5 dark:border-stone-700 dark:bg-stone-800">
                   <FavoriteButton verseKey={`${surahId}:${ayahNumber}`} size="lg" />
                   <span className="text-sm text-stone-500 dark:text-stone-400">Favori</span>
                 </div>
