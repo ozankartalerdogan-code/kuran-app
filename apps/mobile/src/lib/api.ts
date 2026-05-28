@@ -92,6 +92,26 @@ export type VerseListResponse = {
   verses: VerseItem[];
 };
 
+export type AyahDetailResponse = {
+  verseKey:   string;
+  surahId:    number;
+  ayahNumber: number;
+  surahName:  string;
+  arabicName: string;
+  verseCount: number;
+  arabicText: string | null;
+  meal:       string | null;
+  words: {
+    wordIndex:  number;
+    arabic:     string | null;
+    meaningTr:  string | null;
+    pos:        string | null;
+    root:       string | null;
+  }[];
+  prevAyah: { surahId: number; ayahNumber: number } | null;
+  nextAyah: { surahId: number; ayahNumber: number } | null;
+};
+
 // ── API çağrıları ─────────────────────────────────────────────────────────────
 
 export const api = {
@@ -108,6 +128,15 @@ export const api = {
   verses: {
     bySurah: (surahId: number) =>
       withRetry(() => request<VerseListResponse>(`/verses?surah_id=${surahId}`)),
+  },
+
+  ayah: {
+    get: (surahId: number, ayahNumber: number) =>
+      withRetry(() =>
+        request<AyahDetailResponse>(
+          `/ayah?surah_id=${surahId}&ayah_number=${ayahNumber}`,
+        ),
+      ),
   },
 
   elifba: {
