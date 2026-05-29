@@ -18,20 +18,7 @@ export function AyahJumpForm({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [selectedSurahId, setSelectedSurahId] = useState(initialSurahId);
-  const [selectedAyah, setSelectedAyah] = useState(initialAyahNumber);
-  // Ayah dropdown'ı odaklanana kadar <option> elemanları DOM'a basılmaz
-  const [ayahFocused, setAyahFocused] = useState(false);
-
-  // 114 sure seçeneği — surahs referansı değişmediği sürece hiç yeniden hesaplanmaz
-  const surahOptions = useMemo(
-    () =>
-      surahs.map((s) => (
-        <option key={s.id} value={s.id}>
-          {s.id}. {s.turkishName.text ?? "—"}
-        </option>
-      )),
-    [surahs]
-  );
+  const [selectedAyah, setSelectedAyah]       = useState(initialAyahNumber);
 
   const currentSurah = useMemo(
     () => surahs.find((s) => s.id === selectedSurahId) ?? null,
@@ -40,38 +27,26 @@ export function AyahJumpForm({
 
   const verseCount = currentSurah?.verseCount ?? 1;
 
-  // Ayet seçenekleri yalnızca dropdown açıldığında (onFocus) üretilir
-  const ayahOptions = useMemo(() => {
-    if (!ayahFocused) return null;
-    return Array.from({ length: verseCount }, (_, i) => (
-      <option key={i + 1} value={i + 1}>
-        {i + 1}
-      </option>
-    ));
-  }, [ayahFocused, verseCount]);
-
   const handleSurahChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const newId = parseInt(e.target.value, 10);
-      if (!Number.isFinite(newId) || newId < 1) return;
+      if (!Number.isFinite(newId) || newId < 1 || newId > 114) return;
 
       const newSurah = surahs.find((s) => s.id === newId);
-      const newMax = newSurah?.verseCount ?? 1;
-      const clamped = Math.min(selectedAyah, newMax);
+      const newMax   = newSurah?.verseCount ?? 1;
+      const clamped  = Math.min(selectedAyah, newMax);
 
       setSelectedSurahId(newId);
       setSelectedAyah(clamped);
-      // Seçim yapıldığı anda prefetch — "Git" butonuna basmadan önce sayfa hazır
       router.prefetch(`/surah/${newId}/ayah/${clamped}`);
     },
     [surahs, selectedAyah, router]
   );
 
   const handleAyahChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const newAyah = parseInt(e.target.value, 10);
-      if (!Number.isFinite(newAyah) || newAyah < 1) return;
-
+      if (!Number.isFinite(newAyah)) return;
       setSelectedAyah(newAyah);
       router.prefetch(`/surah/${selectedSurahId}/ayah/${newAyah}`);
     },
@@ -80,45 +55,49 @@ export function AyahJumpForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (selectedSurahId > 0 && selectedAyah > 0) {
-      // useTransition: geçiş sırasında mevcut sayfa etkileşimde kalır
+    const clampedAyah = Math.max(1, Math.min(selectedAyah, verseCount));
+    if (selectedSurahId >= 1 && selectedSurahId <= 114) {
       startTransition(() => {
-        router.push(`/surah/${selectedSurahId}/ayah/${selectedAyah}`);
+        router.push(`/surah/${selectedSurahId}/ayah/${clampedAyah}`);
       });
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
+    >
       <div className="flex items-center gap-2">
         <label className="w-10 shrink-0 text-xs text-stone-500" htmlFor="jump-surah">
           Sûre
         </label>
-        <select
+        <input
           id="jump-surah"
+          type="number"
+          min={1}
+          max={114}
           value={selectedSurahId}
           onChange={handleSurahChange}
-          className="min-h-[44px] flex-1 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0 sm:flex-none"
-        >
-          {surahOptions}
-        </select>
+          placeholder="Sure no"
+          className="min-h-[44px] w-24 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0"
+        />
       </div>
 
       <div className="flex items-center gap-2">
         <label className="w-10 shrink-0 text-xs text-stone-500" htmlFor="jump-ayah">
           Ayet
         </label>
-        <select
+        <input
           id="jump-ayah"
+          type="number"
+          min={1}
+          max={286}
           value={selectedAyah}
           onChange={handleAyahChange}
-          onFocus={() => setAyahFocused(true)}
-          onBlur={() => setAyahFocused(false)}
-          className="min-h-[44px] w-20 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0"
-        >
-          {/* Odak yoksa yalnızca aktif değer; odakta tüm liste */}
-          {ayahFocused ? ayahOptions : <option value={selectedAyah}>{selectedAyah}</option>}
-        </select>
+          placeholder="Ayet no"
+          className="min-h-[44px] w-24 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0"
+        />
       </div>
 
       <button

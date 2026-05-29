@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getApiDb, dbAll, dbGet } from "../../../lib/dbUtils";
 
+export const revalidate = false; // Kuran metni değişmez — sonsuz cache
+
 interface SurahRow {
   id: number;
   adi_turkce: string;

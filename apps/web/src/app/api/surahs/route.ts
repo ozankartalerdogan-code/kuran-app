@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getApiDb, dbAll } from "../../../lib/dbUtils";
 
+export const revalidate = false; // 114 sure hiç değişmez — sonsuz cache
+
 interface SurahRow {
   id: number;
   adi_turkce: string;

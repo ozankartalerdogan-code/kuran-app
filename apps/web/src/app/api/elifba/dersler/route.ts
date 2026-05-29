@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getApiDb, dbAll } from "../../../../lib/dbUtils";
 
+export const revalidate = false; // Diyanet müfredatı statik — sonsuz cache
+
 type DersRow = {
   id: number;
   baslik: string;

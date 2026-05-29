@@ -2,8 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { SearchBar } from "./components/SearchBar";
+import dynamic from "next/dynamic";
 import { NightModeToggle } from "./NightModeToggle";
+
+const SearchBar = dynamic(
+  () => import("./components/SearchBar").then((m) => m.SearchBar),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full rounded-lg border border-stone-200 bg-stone-50 py-2.5 px-4 text-sm text-stone-400">
+        Ara…
+      </div>
+    ),
+  },
+);
 
 const NAV_LINKS = [
   { href: "/surah",      label: "Tüm Sureler" },

@@ -109,7 +109,7 @@ SORULAR = [
         "soru": "Fetha (ustun) harekesi harfe hangi sesi ekler?",
         "secenekler": ["A/E sesi", "I/i sesi", "U/U sesi", "Ses yok (kapali)"],
         "dogru_cevap": "A/E sesi",
-        "ipucu": "Fetha harfin ustune konur ve 'A' veya 'E' sesi verir. Ornek: بَ = 'Be'.",
+        "ipucu": "Fetha harfin ustune konur ve 'A' veya 'E' sesi verir. Ornek: بَ = 'Ba'.",
         "zorluk": 1,
     },
     {

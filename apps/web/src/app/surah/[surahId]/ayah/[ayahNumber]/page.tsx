@@ -962,7 +962,7 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
   const roots = getUniqueRootSummaries(words);
 
   if (roots.length === 0) {
-    return <EmptyState>Bu ayet icin kok bilgisi bulunamadi.</EmptyState>;
+    return <EmptyState>Bu ayet için kök bilgisi bulunamadı.</EmptyState>;
   }
 
   return (
@@ -987,7 +987,7 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
             </span>
           </div>
           <p className="text-sm leading-6 text-stone-800">
-            {rootSummary.explanation ?? "Kok aciklamasi yok"}
+            {rootSummary.explanation ?? "Kök açıklaması yok"}
           </p>
         </article>
       ))}
@@ -1246,7 +1246,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 <p className="text-lg leading-8 text-stone-900">{primaryTranslation.text}</p>
               </div>
             ) : (
-              <EmptyState>Ana meal icin temiz veri yok.</EmptyState>
+              <EmptyState>Ana meal için temiz veri yok.</EmptyState>
             )}
           </div>
           <div className="space-y-4">
@@ -1272,7 +1272,7 @@ export default async function Page({ params, searchParams }: PageProps) {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-lg font-semibold text-stone-950">
                 {wordAnalysisSource === "canonical"
-                  ? "Kelime Bazli Morfolojik Analiz"
+                  ? "Kelime Bazlı Morfolojik Analiz"
                   : "Morfolojik Segment Analizi"}
               </h2>
               <StatusBadge status={sectionStatuses.wordAnalysis} />
@@ -1292,13 +1292,13 @@ export default async function Page({ params, searchParams }: PageProps) {
     },
     {
       id: "roots",
-      label: "Kokler",
+      label: "Kökler",
       content: (
         <div className="space-y-6">
           <div className="space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-lg font-semibold text-stone-950">
-                Kok Bilgisi ve Kok Aciklamasi
+                Kök Bilgisi ve Kök Açıklaması
               </h2>
               <StatusBadge status={sectionStatuses.rootExplanations} />
             </div>
@@ -1394,8 +1394,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     <main className="min-h-screen bg-stone-100 px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl space-y-6">
         <header className="rounded-md border border-stone-200 bg-white p-6 shadow-sm">
-          <p className="text-sm font-medium text-stone-500">İlk gerçek ayet detay ekranı</p>
-          <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
+          <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <h1 className="text-3xl font-semibold">
                 {detail.surah?.turkishName.text ?? "Sûre adı bulunamadı"}
@@ -1409,19 +1408,23 @@ export default async function Page({ params, searchParams }: PageProps) {
             </div>
             <div className="flex flex-col items-end gap-3">
               <StatusBadge status={sectionStatuses.page} />
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <AudioPlayer surahId={surahId} variant="detail" />
-                <div className="flex flex-1 items-center gap-1.5 rounded-lg border border-stone-200 bg-stone-50 px-3 py-1.5 dark:border-stone-700 dark:bg-stone-800">
+              <div className="flex w-full flex-col gap-2">
+                <div className="min-h-[44px] w-full">
+                  <AudioPlayer surahId={surahId} variant="detail" />
+                </div>
+                <div className="flex min-h-[44px] w-full items-center gap-1.5 rounded-lg border border-stone-200 bg-stone-50 px-3 py-1.5 dark:border-stone-700 dark:bg-stone-800">
                   <FavoriteButton verseKey={`${surahId}:${ayahNumber}`} size="lg" />
                   <span className="text-sm text-stone-500 dark:text-stone-400">Favori</span>
                 </div>
-                <ShareButton
-                  verseKey={`${surahId}:${ayahNumber}`}
-                  meal={primaryTranslation?.text ?? null}
-                  surahName={detail.surah?.turkishName.text ?? null}
-                  surahId={surahId}
-                  ayahNumber={ayahNumber}
-                />
+                <div className="min-h-[44px] w-full">
+                  <ShareButton
+                    verseKey={`${surahId}:${ayahNumber}`}
+                    meal={primaryTranslation?.text ?? null}
+                    surahName={detail.surah?.turkishName.text ?? null}
+                    surahId={surahId}
+                    ayahNumber={ayahNumber}
+                  />
+                </div>
               </div>
             </div>
           </div>

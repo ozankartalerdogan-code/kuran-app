@@ -6,7 +6,7 @@ import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
 import { MoodTagButton } from "../components/MoodTagButton";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400; // Günlük ayet günde bir değişir — 24 saatlik ISR
 
 export const metadata: Metadata = {
   title: "Kuran Analiz — Kur'an'ı Okuyun, Anlayın, Keşfedin",
@@ -263,7 +263,7 @@ export default async function HomePage() {
         <div className="-mx-4 sm:mx-0">
           <div className="flex gap-2 overflow-x-auto px-4 pb-1 sm:flex-wrap sm:overflow-visible sm:px-0">
             {([
-              { etiket: "😌 Huzur arıyorum",     tag: "zikir",          renk: "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 dark:border-teal-800/50 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/50" },
+              { etiket: "😌 Huzur arıyorum",     tag: "rahmet",         renk: "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 dark:border-teal-800/50 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/50" },
               { etiket: "😰 Stres altındayım",   tag: "sabır",          renk: "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-800/50 dark:bg-amber-950/40 dark:text-amber-300 dark:hover:bg-amber-900/50" },
               { etiket: "🙏 Tövbe etmek",        tag: "tövbe",          renk: "border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 dark:border-violet-800/50 dark:bg-violet-950/40 dark:text-violet-300 dark:hover:bg-violet-900/50" },
               { etiket: "💔 Geçim sıkıntısı",    tag: "rızık",          renk: "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50" },
@@ -272,7 +272,7 @@ export default async function HomePage() {
               { etiket: "⚖️ Haksızlığa uğradım", tag: "adalet",         renk: "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:border-indigo-800/50 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/50" },
               { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", renk: "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-800/50 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/50" },
               { etiket: "🌟 İlham almak",         tag: "hidayet",        renk: "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 dark:border-orange-800/50 dark:bg-orange-950/40 dark:text-orange-300 dark:hover:bg-orange-900/50" },
-              { etiket: "💀 Ölümü düşünmek",      tag: "kıyamet",        renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
+              { etiket: "💀 Ölümü düşünmek",      tag: "ecel",           renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
             ] as const).map(({ etiket, tag, renk }) => (
               <MoodTagButton key={tag} etiket={etiket} tag={tag} renk={renk} />
             ))}

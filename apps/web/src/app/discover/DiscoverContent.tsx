@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
-import { MoodTagButton } from "../../components/MoodTagButton";
 
 // ── Tip tanımları ─────────────────────────────────────────────────────────────
 
@@ -14,12 +13,6 @@ interface ThemeCard {
   aciklama: string;
   gradient: string;
   ikon:     string;
-}
-
-interface MoodTag {
-  etiket: string;
-  tag:    string;   // /api/tags/filter?tag= değeri
-  renk:   string;
 }
 
 interface AkordeonTema {
@@ -79,63 +72,6 @@ const FEATURED_THEMES: ThemeCard[] = [
     aciklama: "Adalet, şura, emanet, fitne",
     gradient: "from-rose-400 to-pink-600",
     ikon:     "⚖️",
-  },
-];
-
-// ── Ruh hali etiketleri ───────────────────────────────────────────────────────
-// Kural 2: Her mood → DB'deki gerçek tag
-// Kural 4: Her duygu için ayrı pastel renk
-
-const MOOD_TAGS: MoodTag[] = [
-  {
-    etiket: "😌 Huzur arıyorum",
-    tag:    "zikir",          // B3_KALBI_IBADETLER → zikir & rahmet
-    renk:   "bg-teal-50 border-teal-200 text-teal-700 hover:bg-teal-100",
-  },
-  {
-    etiket: "😰 Stres altındayım",
-    tag:    "sabır",          // C1_BIREYSEL_ERDEMLER → sabır & tevekkül
-    renk:   "bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100",
-  },
-  {
-    etiket: "🙏 Tövbe etmek",
-    tag:    "tövbe",          // B3_KALBI_IBADETLER → tövbe & bağışlama
-    renk:   "bg-violet-50 border-violet-200 text-violet-700 hover:bg-violet-100",
-  },
-  {
-    etiket: "💔 Geçim sıkıntısı",
-    tag:    "rızık",          // D4_IKTISADI_HAYAT → rızık & infak
-    renk:   "bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100",
-  },
-  {
-    etiket: "😔 Üzüntülüyüm",
-    tag:    "tevekkül",       // C1_BIREYSEL_ERDEMLER → sabır & tevekkül
-    renk:   "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100",
-  },
-  {
-    etiket: "🤍 Şükretmek",
-    tag:    "şükür",
-    renk:   "bg-yellow-50 border-yellow-200 text-yellow-700 hover:bg-yellow-100",
-  },
-  {
-    etiket: "⚖️ Haksızlığa uğradım",
-    tag:    "adalet",
-    renk:   "bg-indigo-50 border-indigo-200 text-indigo-700 hover:bg-indigo-100",
-  },
-  {
-    etiket: "👨‍👩‍👧 Aile meselesi",
-    tag:    "D1_AILE_HUKUKU",
-    renk:   "bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100",
-  },
-  {
-    etiket: "🌟 İlham almak",
-    tag:    "hidayet",
-    renk:   "bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100",
-  },
-  {
-    etiket: "💀 Ölümü düşünmek",
-    tag:    "kıyamet",        // A6_AHIRET_MEAD → ölüm & kıyamet
-    renk:   "bg-slate-100 border-slate-300 text-slate-600 hover:bg-slate-200",
   },
 ];
 
@@ -235,21 +171,6 @@ function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
             <p className="mt-1 text-xs leading-snug text-white/75 line-clamp-2">{t.aciklama}</p>
             <span className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/10" />
           </button>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function MoodTagsRow() {
-  return (
-    <section>
-      <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
-        Ruh Haline Göre
-      </h2>
-      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-        {MOOD_TAGS.map((m) => (
-          <MoodTagButton key={m.tag} etiket={m.etiket} tag={m.tag} renk={m.renk} />
         ))}
       </div>
     </section>
@@ -372,11 +293,11 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
           ))}
         </div>
 
-        {/* ── Tab içerikleri — DOM'da kalır, CSS ile göster/gizle ── */}
-        <div className={aktifTab === "temalar" ? "" : "hidden"}>
+        {/* ── Tab içerikleri — koşullu render, aktif olmayan unmount edilir ── */}
+        {aktifTab === "temalar" && (
+        <div>
           <div className="space-y-8">
             <ThemeCardGrid onTagClick={handleTagClick} />
-            <MoodTagsRow />
 
             {/* Özel rehber sayfaları */}
             <section>
@@ -401,28 +322,6 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   </div>
                   <svg
                     className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-indigo-400 dark:text-stone-600"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/namaz"
-                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700"
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl leading-none dark:bg-emerald-900/30">
-                    🕌
-                  </span>
-                  <div className="min-w-0">
-                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-emerald-700 dark:text-stone-100 dark:group-hover:text-emerald-400">
-                      Namaz Ayetleri
-                    </p>
-                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
-                      Namaz vakitleri, huşu, teheccüd ve namaz emirleri
-                    </p>
-                  </div>
-                  <svg
-                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-emerald-400 dark:text-stone-600"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -487,15 +386,15 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
             </section>
           </div>
         </div>
+        )}
 
-        <div className={aktifTab === "dualar" ? "" : "hidden"}>
-          {duaBolumu}
-        </div>
+        {aktifTab === "dualar" && (
+          <div>{duaBolumu}</div>
+        )}
 
-        <div className={aktifTab === "namaz" ? "" : "hidden"}>
-          {namazBolumu}
-        </div>
-
+        {aktifTab === "namaz" && (
+          <div>{namazBolumu}</div>
+        )}
 
       </div>
     </main>
