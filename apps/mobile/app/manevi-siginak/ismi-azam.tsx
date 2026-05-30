@@ -239,14 +239,14 @@ function DuaKartiFull({ dua, colors }: { dua: DuaKarti; colors: ReturnType<typeo
         </Text>
       </View>
 
-      {/* Meal */}
-      <Text style={[styles.duaAnlam, { color: colors.textSecondary }]}>
-        <Text style={{ fontWeight: "700" }}>Anlamı: </Text>{dua.meal}
+      {/* Okunuş — üstte, belirgin */}
+      <Text style={[styles.duaOkunus, { color: colors.textSecondary }]}>
+        <Text style={{ fontWeight: "700" }}>Okunuşu: </Text>{dua.transkripsiyon}
       </Text>
 
-      {/* Transkripsiyon */}
-      <Text style={[styles.duaOkunus, { color: colors.textMuted }]}>
-        <Text style={{ fontWeight: "700" }}>Okunuşu: </Text>{dua.transkripsiyon}
+      {/* Meal — altta, silik */}
+      <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
+        <Text style={{ fontWeight: "700" }}>Anlamı: </Text>{dua.meal}
       </Text>
 
       {/* Uygulama */}
@@ -292,14 +292,14 @@ function KorunmaKarti({ dua, colors }: { dua: KorunmaDuasi; colors: ReturnType<t
         </Text>
       </View>
 
-      {/* Meal */}
-      <Text style={[styles.duaAnlam, { color: colors.textSecondary }]}>
-        <Text style={{ fontWeight: "700" }}>Anlamı: </Text>{dua.meal}
+      {/* Okunuş — üstte, belirgin */}
+      <Text style={[styles.duaOkunus, { color: colors.textSecondary }]}>
+        <Text style={{ fontWeight: "700" }}>Okunuşu: </Text>{dua.transkripsiyon}
       </Text>
 
-      {/* Transkripsiyon */}
-      <Text style={[styles.duaOkunus, { color: colors.textMuted }]}>
-        <Text style={{ fontWeight: "700" }}>Okunuşu: </Text>{dua.transkripsiyon}
+      {/* Meal — altta, silik */}
+      <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
+        <Text style={{ fontWeight: "700" }}>Anlamı: </Text>{dua.meal}
       </Text>
 
       {/* Uygulama */}
@@ -593,8 +593,8 @@ const styles = StyleSheet.create({
   },
 
   duaBaslik:   { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 1 },
-  duaOkunus:   { fontSize: 12, lineHeight: 19, fontStyle: "italic", marginBottom: 6, fontFamily: "monospace" },
-  duaAnlam:    { fontSize: 12, lineHeight: 19, marginBottom: 4 },
+  duaOkunus:   { fontSize: 13, lineHeight: 20, fontWeight: "600", marginBottom: 6 },
+  duaAnlam:    { fontSize: 11, lineHeight: 17, fontStyle: "italic", marginBottom: 4 },
   duaUygulama: { fontSize: 12, lineHeight: 19 },
   badge:       { borderRadius: 20, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 2 },
   badgeText:   { fontSize: 10, fontWeight: "700" },
