@@ -2,172 +2,225 @@ import {
   ScrollView,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
+  useColorScheme,
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
-import { useFavorites } from "../../../src/hooks/useFavorites";
-import { useNotes }     from "../../../src/hooks/useNotes";
-import { useStreak }    from "../../../src/hooks/useStreak";
 
-// ── Favori Butonu ─────────────────────────────────────────────────────────────
+// ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
-function FavoriteButton({
-  verseKey,
-  isFav,
-  onToggle,
-}: {
-  verseKey:  string;
-  isFav:     boolean;
-  onToggle:  () => void;
-}) {
-  return (
-    <TouchableOpacity
-      style={[styles.actionBtn, isFav && styles.actionBtnActive]}
-      onPress={onToggle}
-      activeOpacity={0.75}
-      hitSlop={8}
-    >
-      <Text style={styles.actionBtnIcon}>{isFav ? "❤️" : "🤍"}</Text>
-      <Text style={[styles.actionBtnLabel, isFav && styles.actionBtnLabelActive]}>
-        {isFav ? "Favoride" : "Favori"}
-      </Text>
-    </TouchableOpacity>
-  );
+const naturallyRootlessPosLabels: Record<string, string> = {
+  particle:     "edat",
+  preposition:  "edat",
+  conjunction:  "bağlaç",
+  article:      "harf",
+  determiner:   "harf",
+};
+
+function getRootDisplayText(word: AyahDetailResponse["words"][number]): string {
+  if (word.root) return word.root;
+  if (word.pos && naturallyRootlessPosLabels[word.pos]) {
+    return `Kök yok (${naturallyRootlessPosLabels[word.pos]})`;
+  }
+  return "Kök bilgisi yok";
 }
 
-// ── Not Editörü ───────────────────────────────────────────────────────────────
+function isRootClickable(word: AyahDetailResponse["words"][number]): boolean {
+  return Boolean(word.root && word.root.trim().length > 0);
+}
 
-function NoteEditor({
-  verseKey,
-  initialNote,
-  onSave,
+// ── Ham Anlam Özeti bileşeni ──────────────────────────────────────────────────
+
+function RawMeaningSummary({
+  words,
+  colors,
 }: {
-  verseKey:    string;
-  initialNote: string;
-  onSave:      (text: string) => void;
+  words: AyahDetailResponse["words"];
+  colors: ThemeColors;
 }) {
-  const [open, setOpen]   = useState(false);
-  const [text, setText]   = useState(initialNote);
-  const [saving, setSaving] = useState(false);
+  const meanings = words
+    .map((w) => w.meaningTr?.trim())
+    .filter((m): m is string => typeof m === "string" && m.length > 0);
 
-  // initialNote dışarıdan değişince senkronize et
-  useEffect(() => { setText(initialNote); }, [initialNote]);
-
-  async function handleSave() {
-    setSaving(true);
-    try {
-      await onSave(text);
-      setOpen(false);
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  function handleDelete() {
-    Alert.alert("Notu Sil", "Bu ayet için yazdığın not silinecek.", [
-      { text: "İptal", style: "cancel" },
-      {
-        text: "Sil", style: "destructive",
-        onPress: async () => {
-          await onSave("");
-          setOpen(false);
-        },
-      },
-    ]);
-  }
-
-  const hasNote = initialNote.trim().length > 0;
+  if (meanings.length === 0) return null;
 
   return (
-    <View style={styles.noteSection}>
-      {/* Başlık + aç/kapat butonu */}
-      <TouchableOpacity
-        style={styles.noteSectionHeader}
-        onPress={() => { setText(initialNote); setOpen((p) => !p); }}
-        activeOpacity={0.75}
-      >
-        <View style={styles.noteLabelRow}>
-          <Text style={styles.noteIcon}>📝</Text>
-          <Text style={styles.sectionLabel}>
-            {hasNote ? "Notun" : "Not Ekle"}
-          </Text>
-          {hasNote && <View style={styles.noteDot} />}
-        </View>
-        <Text style={styles.noteChevron}>{open ? "▲" : "▼"}</Text>
-      </TouchableOpacity>
-
-      {/* Mevcut not önizlemesi */}
-      {hasNote && !open && (
-        <Text style={styles.notePreview} numberOfLines={2}>
-          {initialNote}
-        </Text>
-      )}
-
-      {/* Düzenleme alanı */}
-      {open && (
-        <View style={styles.noteEditor}>
-          <TextInput
-            style={styles.noteInput}
-            value={text}
-            onChangeText={setText}
-            placeholder="Ayet hakkında notunu yaz…"
-            placeholderTextColor="#a8a29e"
-            multiline
-            textAlignVertical="top"
-            autoFocus
-          />
-          <View style={styles.noteBtnRow}>
-            {hasNote && (
-              <TouchableOpacity
-                style={styles.noteDeleteBtn}
-                onPress={handleDelete}
-                activeOpacity={0.75}
-              >
-                <Text style={styles.noteDeleteText}>Sil</Text>
-              </TouchableOpacity>
-            )}
-            <TouchableOpacity
-              style={[styles.noteSaveBtn, saving && styles.noteSaveBtnDisabled]}
-              onPress={handleSave}
-              disabled={saving}
-              activeOpacity={0.75}
-            >
-              <Text style={styles.noteSaveBtnText}>
-                {saving ? "Kaydediliyor…" : "Kaydet"}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
+    <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+      <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>
+        Ham Anlam Özeti
+      </Text>
+      <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
+        Kelimelerin sırasıyla doğrudan anlamları
+      </Text>
+      <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
+        {meanings.join(" ") + "."}
+      </Text>
     </View>
   );
 }
 
+// ── Eşsiz Kök Listesi ─────────────────────────────────────────────────────────
+
+function UniqueRootList({
+  words,
+  colors,
+}: {
+  words: AyahDetailResponse["words"];
+  colors: ThemeColors;
+}) {
+  // Benzersiz kökleri topla
+  const rootMap = new Map<string, number>();
+  for (const w of words) {
+    if (w.root?.trim()) {
+      rootMap.set(w.root.trim(), (rootMap.get(w.root.trim()) ?? 0) + 1);
+    }
+  }
+  const roots = Array.from(rootMap.entries()).sort((a, b) => a[0].localeCompare(b[0], "ar"));
+
+  if (roots.length === 0) {
+    return (
+      <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
+        <Text style={[styles.emptyText, { color: colors.textMuted }]}>
+          Bu ayet için kök bilgisi bulunamadı.
+        </Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.rootsGrid}>
+      {roots.map(([root, count]) => (
+        <TouchableOpacity
+          key={root}
+          style={[styles.rootChip, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
+          onPress={() => router.push(`/root/${encodeURIComponent(root)}`)}
+          activeOpacity={0.7}
+        >
+          <View style={styles.rootChipRow}>
+            <Text style={[styles.rootChipArabic, { color: colors.accent }]}>{root}</Text>
+            <View style={[styles.rootCountBadge, { backgroundColor: colors.accent + "18" }]}>
+              <Text style={[styles.rootCountText, { color: colors.accent }]}>
+                {count} kelime
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+}
+
+// ── Sekme Bileşeni ────────────────────────────────────────────────────────────
+
+type TabId = "meal" | "words" | "roots" | "analysis";
+
+function SegmentedTabs({
+  active,
+  onChange,
+  colors,
+}: {
+  active: TabId;
+  onChange: (id: TabId) => void;
+  colors: ThemeColors;
+}) {
+  const tabs: { id: TabId; label: string }[] = [
+    { id: "meal", label: "Meal" },
+    { id: "words", label: "Kelimeler" },
+    { id: "roots", label: "Kökler" },
+    { id: "analysis", label: "Analiz" },
+  ];
+
+  return (
+    <View style={[styles.tabBar, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}>
+      {tabs.map((t) => {
+        const isActive = active === t.id;
+        return (
+          <TouchableOpacity
+            key={t.id}
+            style={[
+              styles.tabItem,
+              isActive && { backgroundColor: colors.accent },
+              isActive && styles.tabItemActive,
+            ]}
+            onPress={() => onChange(t.id)}
+            activeOpacity={0.7}
+          >
+            <Text
+              style={[
+                styles.tabLabel,
+                { color: isActive ? "#ffffff" : colors.textSecondary },
+              ]}
+            >
+              {t.label}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
+}
+
+// ── Tema Renkleri ─────────────────────────────────────────────────────────────
+
+interface ThemeColors {
+  bg: string;
+  card: string;
+  surfaceAlt: string;
+  border: string;
+  textPrimary: string;
+  textSecondary: string;
+  textMuted: string;
+  accent: string;
+  accentLight: string;
+  error: string;
+}
+
+const lightColors: ThemeColors = {
+  bg:           "#f7f1e4",
+  card:         "#ffffff",
+  surfaceAlt:   "#f5f0e8",
+  border:       "#e7e5e4",
+  textPrimary:  "#1c1917",
+  textSecondary:"#44403c",
+  textMuted:    "#a8a29e",
+  accent:       "#059669",
+  accentLight:  "#d1fae5",
+  error:        "#dc2626",
+};
+
+const darkColors: ThemeColors = {
+  bg:           "#171717",
+  card:         "#262626",
+  surfaceAlt:   "#1f1f1f",
+  border:       "#404040",
+  textPrimary:  "#fafaf9",
+  textSecondary:"#d6d3d1",
+  textMuted:    "#78716c",
+  accent:       "#10b981",
+  accentLight:  "#064e3b",
+  error:        "#f87171",
+};
+
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function AyahDetailScreen() {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+  const colors = isDark ? darkColors : lightColors;
+
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
   const surahId    = Number(rawS);
   const ayahNumber = Number(rawA);
-  const verseKey   = `${surahId}:${ayahNumber}`;
 
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
-
-  // Hooks
-  const { isFavorite, toggle: toggleFav } = useFavorites();
-  const { getNote, saveNote }             = useNotes();
-  useStreak(); // Her ekran açılışında streak'i güncelle
+  const [activeTab, setActiveTab] = useState<TabId>("meal");
 
   useEffect(() => {
     if (!surahId || !ayahNumber) return;
@@ -180,41 +233,50 @@ export default function AyahDetailScreen() {
       .finally(() => setLoading(false));
   }, [surahId, ayahNumber]);
 
-  const navigate = useCallback((s: number, a: number) => {
-    router.replace(`/ayah/${s}/${a}`);
-  }, []);
-
-  const handleToggleFav = useCallback(async () => {
-    await toggleFav(verseKey);
-  }, [verseKey, toggleFav]);
-
-  const handleSaveNote = useCallback(async (text: string) => {
-    await saveNote(verseKey, text);
-  }, [verseKey, saveNote]);
+  const navigate = useCallback(
+    (s: number, a: number) => {
+      router.replace(`/ayah/${s}/${a}`);
+    },
+    [],
+  );
 
   const headerTitle = data
     ? `${data.surahName} · ${data.ayahNumber}. Ayet`
     : "Ayet Detayı";
 
+  const navToRoot = useCallback((root: string) => {
+    router.push(`/root/${encodeURIComponent(root)}`);
+  }, []);
+
+  // ── Yükleme ──
   if (loading) {
     return (
       <>
         <Stack.Screen options={{ title: "Ayet Detayı" }} />
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" color="#059669" />
-          <Text style={styles.loadingText}>Ayet yükleniyor…</Text>
+        <View style={[styles.centered, { backgroundColor: colors.bg }]}>
+          <ActivityIndicator size="large" color={colors.accent} />
+          <Text style={[styles.loadingText, { color: colors.textMuted }]}>
+            Ayet yükleniyor…
+          </Text>
         </View>
       </>
     );
   }
 
+  // ── Hata / Veri yok ──
   if (error || !data) {
     return (
       <>
         <Stack.Screen options={{ title: "Hata" }} />
-        <View style={styles.centered}>
-          <Text style={styles.errorText}>{error ?? "Veri yüklenemedi."}</Text>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
+        <View style={[styles.centered, { backgroundColor: colors.bg }]}>
+          <Text style={[styles.errorText, { color: colors.error }]}>
+            {error ?? "Veri yüklenemedi."}
+          </Text>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={[styles.backBtn, { backgroundColor: colors.accent }]}
+            activeOpacity={0.7}
+          >
             <Text style={styles.backBtnText}>← Geri Dön</Text>
           </TouchableOpacity>
         </View>
@@ -222,109 +284,230 @@ export default function AyahDetailScreen() {
     );
   }
 
-  const isFav    = isFavorite(verseKey);
-  const note     = getNote(verseKey);
-
+  // ── Veri görünümü ──
   return (
     <>
       <Stack.Screen options={{ title: headerTitle }} />
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={88}
+      <ScrollView
+        style={[styles.scroll, { backgroundColor: colors.bg }]}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
       >
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
-          {/* Arapça Metin */}
-          <View style={styles.arabicBox}>
-            <Text style={styles.arabicText}>{data.arabicText ?? "—"}</Text>
-            <Text style={styles.verseKeyBadge}>{data.verseKey}</Text>
-          </View>
+        {/* ═══ Başlık ═══ */}
+        <View style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <Text style={[styles.headerTitle, { color: colors.textPrimary }]}>
+            {data.surahName}
+          </Text>
+          <Text style={[styles.headerSubtitle, { color: colors.textMuted }]}>
+            {data.ayahNumber}. Ayet · {data.verseKey}
+          </Text>
+        </View>
 
-          {/* Aksiyon çubuğu: Favori */}
-          <View style={styles.actionRow}>
-            <FavoriteButton
-              verseKey={verseKey}
-              isFav={isFav}
-              onToggle={handleToggleFav}
-            />
-          </View>
+        {/* ═══ Arapça Metin ═══ */}
+        <View style={[styles.arabicBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
+            {data.arabicText ?? "—"}
+          </Text>
+        </View>
 
-          {/* Meal */}
-          <View style={styles.section}>
-            <Text style={styles.sectionLabel}>Meal</Text>
-            <Text style={styles.mealText}>
-              {data.meal ?? "Meal verisi yok."}
-            </Text>
-          </View>
+        {/* ═══ Sekmeler ═══ */}
+        <SegmentedTabs active={activeTab} onChange={setActiveTab} colors={colors} />
 
-          {/* Not Editörü */}
-          <NoteEditor
-            verseKey={verseKey}
-            initialNote={note}
-            onSave={handleSaveNote}
-          />
-
-          {/* Kelime Kelime */}
-          {data.words.length > 0 && (
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>Kelime Kelime</Text>
-              <View style={styles.wordsGrid}>
-                {data.words.map((w) => (
-                  <View key={w.wordIndex} style={styles.wordChip}>
-                    <Text style={styles.wordArabic}>{w.arabic ?? "—"}</Text>
-                    {w.meaningTr ? (
-                      <Text style={styles.wordMeaning}>{w.meaningTr}</Text>
-                    ) : null}
-                    {w.pos ? (
-                      <Text style={styles.wordPos}>{w.pos}</Text>
-                    ) : null}
-                  </View>
-                ))}
-              </View>
+        {/* ═══ Sekme İçerikleri ═══ */}
+        {activeTab === "meal" && (
+          <View style={styles.tabContent}>
+            {/* Meal */}
+            <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+              <Text style={[styles.sectionTitle, { color: colors.accent }]}>MEAL</Text>
+              <Text style={[styles.mealText, { color: colors.textSecondary }]}>
+                {data.meal ?? "Meal verisi yok."}
+              </Text>
             </View>
-          )}
 
-          {/* Navigasyon */}
-          <View style={styles.navRow}>
-            <TouchableOpacity
-              style={[styles.navBtn, !data.prevAyah && styles.navBtnDisabled]}
-              onPress={() =>
-                data.prevAyah &&
-                navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber)
-              }
-              disabled={!data.prevAyah}
-              activeOpacity={0.7}
-            >
-              <Text style={[styles.navBtnText, !data.prevAyah && styles.navBtnTextDisabled]}>
-                ← Önceki
-              </Text>
-            </TouchableOpacity>
-
-            <Text style={styles.navCenter}>
-              {data.ayahNumber} / {data.verseCount}
-            </Text>
-
-            <TouchableOpacity
-              style={[styles.navBtn, !data.nextAyah && styles.navBtnDisabled]}
-              onPress={() =>
-                data.nextAyah &&
-                navigate(data.nextAyah.surahId, data.nextAyah.ayahNumber)
-              }
-              disabled={!data.nextAyah}
-              activeOpacity={0.7}
-            >
-              <Text style={[styles.navBtnText, !data.nextAyah && styles.navBtnTextDisabled]}>
-                Sonraki →
-              </Text>
-            </TouchableOpacity>
+            {/* Arapça Okunuş (literalCeviri) */}
+            {data.literalCeviri ? (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>ARAPÇA OKUNUŞ</Text>
+                <Text style={[styles.literalText, { color: colors.textMuted }]}>
+                  {data.literalCeviri}
+                </Text>
+              </View>
+            ) : null}
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        )}
+
+        {activeTab === "words" && (
+          <View style={styles.tabContent}>
+            {data.words.length > 0 ? (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>KELİME ANALİZİ</Text>
+                <View style={styles.wordsList}>
+                  {data.words.map((w) => (
+                    <View
+                      key={w.wordIndex}
+                      style={[
+                        styles.wordCard,
+                        { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+                      ]}
+                    >
+                      {/* Arapça kelime */}
+                      <View style={styles.wordTopRow}>
+                        <Text style={[styles.wordIndex, { color: colors.textMuted }]}>
+                          #{w.wordIndex + 1}
+                        </Text>
+                        <Text style={[styles.wordArabicChip, { color: colors.textPrimary }]}>
+                          {w.arabic ?? "—"}
+                        </Text>
+                      </View>
+
+                      {/* Anlam */}
+                      <View style={styles.wordDetailRow}>
+                        <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
+                          Anlam
+                        </Text>
+                        <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
+                          {w.meaningTr ?? "Anlam yok"}
+                        </Text>
+                      </View>
+
+                      {/* Tür */}
+                      {w.pos ? (
+                        <View style={styles.wordDetailRow}>
+                          <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
+                            Tür
+                          </Text>
+                          <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
+                            {w.pos}
+                          </Text>
+                        </View>
+                      ) : null}
+
+                      {/* Kök */}
+                      <View style={styles.wordDetailRow}>
+                        <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
+                          Kök
+                        </Text>
+                        {isRootClickable(w) ? (
+                          <TouchableOpacity
+                            onPress={() => navToRoot(w.root!)}
+                            activeOpacity={0.6}
+                            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                          >
+                            <Text style={[styles.rootLink, { color: colors.accent }]}>
+                              {w.root}
+                            </Text>
+                          </TouchableOpacity>
+                        ) : (
+                          <Text style={[styles.wordDetailValue, { color: colors.textMuted }]}>
+                            {getRootDisplayText(w)}
+                          </Text>
+                        )}
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            ) : (
+              <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
+                <Text style={[styles.emptyText, { color: colors.textMuted }]}>
+                  Kelime analizi verisi yok.
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
+
+        {activeTab === "roots" && (
+          <View style={styles.tabContent}>
+            <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+              <Text style={[styles.sectionTitle, { color: colors.accent }]}>KÖKLER</Text>
+              <UniqueRootList words={data.words} colors={colors} />
+            </View>
+          </View>
+        )}
+
+        {activeTab === "analysis" && (
+          <View style={styles.tabContent}>
+            {/* Fark Analizi */}
+            {data.farkAnalizi ? (
+              <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>
+                  Fark Analizi
+                </Text>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
+                  Meal ile literal çeviri arasındaki anlam farkları
+                </Text>
+                <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
+                  {data.farkAnalizi}
+                </Text>
+              </View>
+            ) : null}
+
+            {/* Ham Anlam Özeti */}
+            <RawMeaningSummary words={data.words} colors={colors} />
+
+            {/* Hiç veri yoksa */}
+            {!data.farkAnalizi && data.words.filter((w) => w.meaningTr?.trim()).length === 0 && (
+              <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
+                <Text style={[styles.emptyText, { color: colors.textMuted }]}>
+                  Bu ayet için analiz verisi bulunamadı.
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
+
+        {/* ═══ Navigasyon ═══ */}
+        <View style={styles.navRow}>
+          <TouchableOpacity
+            style={[
+              styles.navBtn,
+              { backgroundColor: data.prevAyah ? colors.accent : colors.border },
+            ]}
+            onPress={() =>
+              data.prevAyah &&
+              navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber)
+            }
+            disabled={!data.prevAyah}
+            activeOpacity={0.7}
+          >
+            <Text
+              style={[
+                styles.navBtnText,
+                !data.prevAyah && { color: colors.textMuted },
+              ]}
+            >
+              ← Önceki
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={[styles.navCenter, { color: colors.textMuted }]}>
+            {data.ayahNumber} / {data.verseCount}
+          </Text>
+
+          <TouchableOpacity
+            style={[
+              styles.navBtn,
+              { backgroundColor: data.nextAyah ? colors.accent : colors.border },
+            ]}
+            onPress={() =>
+              data.nextAyah &&
+              navigate(data.nextAyah.surahId, data.nextAyah.ayahNumber)
+            }
+            disabled={!data.nextAyah}
+            activeOpacity={0.7}
+          >
+            <Text
+              style={[
+                styles.navBtnText,
+                !data.nextAyah && { color: colors.textMuted },
+              ]}
+            >
+              Sonraki →
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </>
   );
 }
@@ -332,140 +515,162 @@ export default function AyahDetailScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7f1e4" },
+  // ── Merkez / Durum ──
   centered: {
     flex: 1, alignItems: "center", justifyContent: "center",
-    padding: 20, backgroundColor: "#f7f1e4",
+    padding: 20,
   },
-  loadingText: { marginTop: 12, color: "#78716c", fontSize: 14 },
-  errorText:   { color: "#dc2626", fontSize: 14, textAlign: "center" },
-
+  loadingText: { marginTop: 12, fontSize: 14 },
+  errorText:   { fontSize: 14, textAlign: "center" },
   backBtn: {
     marginTop: 16, paddingHorizontal: 20, paddingVertical: 10,
-    minHeight: 44, justifyContent: "center",
-    backgroundColor: "#059669", borderRadius: 8,
+    minHeight: 44, justifyContent: "center", borderRadius: 8,
   },
   backBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
+  // ── Scroll ──
   scroll:        { flex: 1 },
-  scrollContent: { padding: 16, paddingBottom: 48 },
+  scrollContent: { padding: 12, paddingBottom: 48 },
 
-  // ── Arapça ──
+  // ── Başlık kartı ──
+  headerCard: {
+    borderRadius: 12, padding: 16, marginBottom: 8,
+    borderWidth: 1,
+  },
+  headerTitle: {
+    fontSize: 22, fontWeight: "700",
+  },
+  headerSubtitle: {
+    marginTop: 4, fontSize: 13, fontWeight: "500",
+  },
+
+  // ── Arapça metin ──
   arabicBox: {
-    backgroundColor: "#ffffff", borderRadius: 12, padding: 20,
-    marginBottom: 10, alignItems: "center",
-    borderWidth: 1, borderColor: "#e7e5e4",
+    borderRadius: 12, padding: 20, marginBottom: 10,
+    alignItems: "center", borderWidth: 1,
   },
   arabicText: {
-    fontSize: 32, lineHeight: 56, color: "#1c1917",
-    fontFamily: "serif", textAlign: "right", writingDirection: "rtl", width: "100%",
+    fontSize: 36, lineHeight: 60,
+    fontFamily: "serif", textAlign: "right",
+    writingDirection: "rtl", width: "100%",
   },
-  verseKeyBadge: { marginTop: 8, fontSize: 11, color: "#a8a29e", fontWeight: "500" },
 
-  // ── Aksiyon çubuğu ──
-  actionRow: {
-    flexDirection: "row", gap: 10, marginBottom: 10,
+  // ── Sekmeler ──
+  tabBar: {
+    flexDirection: "row", borderRadius: 10,
+    borderWidth: 1, padding: 3, marginBottom: 10,
   },
-  actionBtn: {
-    flexDirection:  "row",
-    alignItems:     "center",
-    gap:            6,
-    backgroundColor: "#ffffff",
-    borderWidth:    1,
-    borderColor:    "#e7e5e4",
-    borderRadius:   10,
-    paddingHorizontal: 16,
-    paddingVertical:   10,
-    minHeight:      44,
-    flex:           1,
-    justifyContent: "center",
+  tabItem: {
+    flex: 1, paddingVertical: 8, borderRadius: 8,
+    alignItems: "center", justifyContent: "center",
+    minHeight: 38,
   },
-  actionBtnActive: { backgroundColor: "#fff1f2", borderColor: "#fca5a5" },
-  actionBtnIcon:  { fontSize: 18 },
-  actionBtnLabel: { fontSize: 13, fontWeight: "600", color: "#44403c" },
-  actionBtnLabelActive: { color: "#dc2626" },
+  tabItemActive: {
+    shadowColor: "#000", shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1, shadowRadius: 2, elevation: 2,
+  },
+  tabLabel: { fontSize: 13, fontWeight: "600" },
 
-  // ── Bölümler ──
-  section: {
-    backgroundColor: "#ffffff", borderRadius: 12,
-    padding: 16, marginBottom: 10,
-    borderWidth: 1, borderColor: "#e7e5e4",
-  },
-  sectionLabel: {
-    fontSize: 11, fontWeight: "700", color: "#059669",
-    letterSpacing: 0.5, textTransform: "uppercase", marginBottom: 8,
-  },
-  mealText: { fontSize: 15, lineHeight: 26, color: "#292524" },
+  tabContent: { gap: 10 },
 
-  // ── Not Editörü ──
-  noteSection: {
-    backgroundColor: "#ffffff", borderRadius: 12,
-    borderWidth: 1, borderColor: "#e7e5e4",
-    marginBottom: 10, overflow: "hidden",
+  // ── Bölüm kartı ──
+  sectionCard: {
+    borderRadius: 12, padding: 16, borderWidth: 1,
   },
-  noteSectionHeader: {
+  sectionTitle: {
+    fontSize: 11, fontWeight: "700",
+    letterSpacing: 0.5, marginBottom: 10,
+  },
+  mealText: { fontSize: 15, lineHeight: 26 },
+  literalText: { fontSize: 14, lineHeight: 24, fontStyle: "italic" },
+
+  // ── Kelime listesi ──
+  wordsList: { gap: 8 },
+  wordCard: {
+    borderRadius: 10, padding: 12, borderWidth: 1,
+  },
+  wordTopRow: {
+    flexDirection: "row", alignItems: "center",
+    justifyContent: "space-between", marginBottom: 8,
+  },
+  wordIndex: { fontSize: 11, fontWeight: "700" },
+  wordArabicChip: {
+    fontSize: 22, fontFamily: "serif",
+    textAlign: "right", writingDirection: "rtl",
+  },
+  wordDetailRow: {
     flexDirection: "row", alignItems: "center",
     justifyContent: "space-between",
-    padding: 16,
+    paddingVertical: 4, borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: "rgba(0,0,0,0.06)",
   },
-  noteLabelRow: { flexDirection: "row", alignItems: "center", gap: 6 },
-  noteIcon:     { fontSize: 15 },
-  noteDot: {
-    width: 7, height: 7, borderRadius: 4,
-    backgroundColor: "#059669", marginLeft: 2,
+  wordDetailLabel: {
+    fontSize: 11, fontWeight: "600",
+    textTransform: "uppercase",
   },
-  noteChevron:  { fontSize: 12, color: "#a8a29e" },
-  notePreview: {
-    fontSize: 13, color: "#78716c", lineHeight: 20,
-    paddingHorizontal: 16, paddingBottom: 14,
+  wordDetailValue: {
+    fontSize: 13, fontWeight: "500",
+    flex: 1, textAlign: "right",
   },
-  noteEditor: { paddingHorizontal: 14, paddingBottom: 14 },
-  noteInput: {
-    backgroundColor: "#f7f1e4",
-    borderRadius: 10, padding: 12,
-    fontSize: 14, color: "#292524", lineHeight: 22,
-    minHeight: 80, textAlignVertical: "top",
-    borderWidth: 1, borderColor: "#e7e5e4",
+  rootLink: {
+    fontSize: 16, fontWeight: "700",
+    textDecorationLine: "underline",
   },
-  noteBtnRow: {
-    flexDirection: "row", justifyContent: "flex-end",
-    gap: 8, marginTop: 8,
-  },
-  noteDeleteBtn: {
-    paddingHorizontal: 16, paddingVertical: 9,
-    borderRadius: 8, borderWidth: 1, borderColor: "#fca5a5",
-    backgroundColor: "#fff1f2",
-  },
-  noteDeleteText: { color: "#dc2626", fontSize: 13, fontWeight: "600" },
-  noteSaveBtn: {
-    paddingHorizontal: 20, paddingVertical: 9,
-    borderRadius: 8, backgroundColor: "#059669",
-  },
-  noteSaveBtnDisabled: { backgroundColor: "#d6d3d1" },
-  noteSaveBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
 
-  // ── Kelimeler ──
-  wordsGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  wordChip: {
-    backgroundColor: "#f5f0e8", borderRadius: 8,
-    paddingHorizontal: 10, paddingVertical: 8, alignItems: "center", minWidth: 60,
+  // ── Kök listesi ──
+  rootsGrid: { gap: 8 },
+  rootChip: {
+    borderRadius: 10, padding: 12, borderWidth: 1,
   },
-  wordArabic:  { fontSize: 18, color: "#1c1917", fontFamily: "serif", textAlign: "center" },
-  wordMeaning: { marginTop: 3, fontSize: 11, color: "#44403c", textAlign: "center" },
-  wordPos:     { marginTop: 2, fontSize: 10, color: "#a8a29e", textAlign: "center", fontStyle: "italic" },
+  rootChipRow: {
+    flexDirection: "row", alignItems: "center",
+    justifyContent: "space-between",
+  },
+  rootChipArabic: {
+    fontSize: 22, fontWeight: "700",
+    fontFamily: "serif",
+  },
+  rootCountBadge: {
+    borderRadius: 12, paddingHorizontal: 10, paddingVertical: 4,
+  },
+  rootCountText: { fontSize: 11, fontWeight: "600" },
+
+  // ── Analiz kartları ──
+  analysisCard: {
+    borderRadius: 12, padding: 16, borderWidth: 1,
+  },
+  analysisCardTitle: {
+    fontSize: 14, fontWeight: "700",
+  },
+  analysisCardSubtitle: {
+    marginTop: 2, fontSize: 11,
+  },
+  analysisCardBody: {
+    marginTop: 8, fontSize: 14, lineHeight: 24,
+  },
+
+  // ── Boş durum ──
+  emptyState: {
+    borderRadius: 10, borderWidth: 1,
+    borderStyle: "dashed", padding: 16, alignItems: "center",
+  },
+  emptyText: { fontSize: 13 },
 
   // ── Navigasyon ──
   navRow: {
     flexDirection: "row", alignItems: "center",
-    justifyContent: "space-between", marginTop: 8,
+    justifyContent: "space-between", marginTop: 14,
   },
   navBtn: {
     paddingHorizontal: 20, paddingVertical: 12,
-    minHeight: 44, justifyContent: "center",
-    backgroundColor: "#059669", borderRadius: 8,
+    minHeight: 44, justifyContent: "center", borderRadius: 8,
   },
-  navBtnDisabled:     { backgroundColor: "#d6d3d1" },
-  navBtnText:         { fontSize: 14, fontWeight: "600", color: "#fff" },
-  navBtnTextDisabled: { color: "#a8a29e" },
-  navCenter:          { fontSize: 13, color: "#78716c" },
+  navBtnText: { fontSize: 14, fontWeight: "600", color: "#fff" },
+  navCenter: { fontSize: 13 },
+
+  // (geriye dönük uyumluluk için kalan)
+  wordRoot: {
+    fontSize: 13, fontWeight: "600",
+    textDecorationLine: "underline",
+  },
 });

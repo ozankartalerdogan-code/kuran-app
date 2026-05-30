@@ -12,6 +12,8 @@ interface VerseRow {
   verse_key: string;
   arabic_text: string | null;
   primary_translation: string | null;
+  literal_ceviri: string | null;
+  fark_analizi: string | null;
 }
 
 interface WordRow {
@@ -31,6 +33,8 @@ export type AyahDetailResponse = {
   verseCount: number;
   arabicText: string | null;
   meal: string | null;
+  literalCeviri: string | null;
+  farkAnalizi: string | null;
   words: {
     wordIndex: number;
     arabic: string | null;
@@ -72,7 +76,7 @@ export async function GET(req: NextRequest) {
   const verseKey = `${surahId}:${ayahNumber}`;
 
   const verse = await dbGet<VerseRow>(
-    "SELECT verse_key, arabic_text, primary_translation FROM verses WHERE verse_key = ?",
+    "SELECT verse_key, arabic_text, primary_translation, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
     verseKey,
   );
 
@@ -106,6 +110,8 @@ export async function GET(req: NextRequest) {
     verseCount:  surah.ayet_sayisi,
     arabicText:  verse.arabic_text,
     meal:        verse.primary_translation,
+    literalCeviri: verse.literal_ceviri ?? null,
+    farkAnalizi: verse.fark_analizi ?? null,
     words: words.map((w) => ({
       wordIndex:  w.word_index,
       arabic:     w.arabic,

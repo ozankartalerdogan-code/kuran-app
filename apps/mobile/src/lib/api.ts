@@ -174,14 +174,16 @@ export type VerseListResponse = {
 };
 
 export type AyahDetailResponse = {
-  verseKey:   string;
-  surahId:    number;
-  ayahNumber: number;
-  surahName:  string;
-  arabicName: string;
-  verseCount: number;
-  arabicText: string | null;
-  meal:       string | null;
+  verseKey:      string;
+  surahId:       number;
+  ayahNumber:    number;
+  surahName:     string;
+  arabicName:    string;
+  verseCount:    number;
+  arabicText:    string | null;
+  meal:          string | null;
+  literalCeviri: string | null;
+  farkAnalizi:   string | null;
   words: {
     wordIndex:  number;
     arabic:     string | null;
