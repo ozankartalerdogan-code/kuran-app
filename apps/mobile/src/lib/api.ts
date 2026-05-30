@@ -64,10 +64,89 @@ export type SurahListItem = {
   revelationPlace: "Mekke" | "Medine";
 };
 
+export type SuggestedSurah = { id: number; name: string };
+
+export type RootItem = {
+  root:       string;
+  meaning_tr: string;
+  frequency:  number;
+};
+
+export type RootDetail = {
+  root:        string;
+  meaningTr:   string;
+  distribution: Record<number, number>;
+  derivedWords: Array<{
+    word:       string;
+    meaning:    string;
+    surahId:    number;
+    ayahNumber: number;
+  }>;
+};
+
+export type FavoriteVerse = {
+  verse_key:   string;
+  surah_id:    number;
+  ayah_number: number;
+  surah_name:  string | null;
+  meal:        string | null;
+  ana_tema:    string | null;
+  alt_taglar:  string[];
+};
+
+export type ElifbaDers = {
+  id:          number;
+  baslik:      string;
+  konu_sirasi: number;
+  seviye:      string;
+  harf_sayisi: number;
+};
+
+export type ElifbaHarf = {
+  harf_id:    number;
+  harf_adi:   string;
+  harf_sesi:  string;
+  tek_basina: string;
+  basta:      string;
+  ortada:     string;
+  sonda:      string;
+  mahrec:     string;
+  kalin_ince: string;
+  grup:       string;
+};
+
+export type ElifbaQuizSoru = {
+  quiz_id:     number;
+  lesson_id:   number;
+  soru:        string;
+  secenekler:  string[];
+  dogru_cevap: string;
+  ipucu:       string | null;
+  zorluk:      number;
+};
+
+export type TagFilterResult = {
+  verse_key:   string;
+  surah_id:    number;
+  ayah_number: number;
+  surah_name:  string | null;
+  meal:        string | null;
+};
+
+export type TagFilterResponse = {
+  type:    "tag_results";
+  tag:     string;
+  tagType: "ana_tema" | "alt_tag";
+  results: TagFilterResult[];
+  total:   number;
+  page:    number;
+  pages:   number;
+};
+
 export type SearchResponse =
   | { type: "none" }
   | { type: "surah"; surahId: number; surahName: string }
-  | { type: "verses"; results: VerseResult[]; total: number }
+  | { type: "verses"; results: VerseResult[]; total: number; suggestedSurah?: SuggestedSurah }
   | { type: "tag"; tag: string; count: number };
 
 export type VerseResult = {
@@ -78,7 +157,9 @@ export type VerseResult = {
 
 export type VerseItem = {
   ayahNumber: number;
-  meal: string | null;
+  meal:       string | null;
+  reading:    string | null;
+  literal:    string | null;
 };
 
 export type VerseListResponse = {
@@ -139,10 +220,37 @@ export const api = {
       ),
   },
 
+  tags: {
+    filter: (tag: string, page = 1) =>
+      withRetry(() =>
+        request<TagFilterResponse>(
+          `/tags/filter?tag=${encodeURIComponent(tag)}&page=${page}`,
+        ),
+      ),
+  },
+
+  roots: {
+    list: () =>
+      withRetry(() => request<RootItem[]>("/roots").then(r => (r as { roots?: RootItem[] }).roots ?? (r as RootItem[]))),
+    detail: (root: string) =>
+      withRetry(() => request<RootDetail>(`/root/${encodeURIComponent(root)}`)),
+  },
+
+  favorites: {
+    fetch: (keys: string[]) =>
+      withRetry(() =>
+        request<FavoriteVerse[]>(
+          `/favorites-verses?keys=${keys.map(encodeURIComponent).join(",")}`,
+        ),
+      ),
+  },
+
   elifba: {
     dersler: () =>
-      withRetry(() => request<unknown[]>("/elifba/dersler")),
+      withRetry(() => request<ElifbaDers[]>("/elifba/dersler")),
+    harfler: (dersId: number) =>
+      withRetry(() => request<ElifbaHarf[]>(`/elifba/dersler/${dersId}/harfler`)),
     quiz: (lessonId: number) =>
-      withRetry(() => request<unknown[]>(`/elifba/quiz/${lessonId}`)),
+      withRetry(() => request<ElifbaQuizSoru[]>(`/elifba/quiz/${lessonId}`)),
   },
 };

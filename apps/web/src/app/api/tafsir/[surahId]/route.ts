@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { dbGet, getApiDb } from "../../../../lib/dbUtils";
+import { dbGet, dbAll, dbRun } from "../../../../lib/dbUtils";
 
 interface TafsirRow { content: string | null }
 
@@ -12,9 +12,8 @@ export async function GET(
     return NextResponse.json({ content: null }, { status: 400 });
   }
 
-  const db  = getApiDb();
-  const row = dbGet<TafsirRow>(
-    db.prepare("SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1"),
+  const row = await dbGet<TafsirRow>(
+    "SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1",
     id
   );
 

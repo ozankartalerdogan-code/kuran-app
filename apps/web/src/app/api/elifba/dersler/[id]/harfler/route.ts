@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getApiDb, dbAll } from "../../../../../../lib/dbUtils";
+import { dbAll } from "../../../../../../lib/dbUtils";
 
 type Harf = {
   harf_id: number;
@@ -14,7 +14,7 @@ type Harf = {
   grup: string;
 };
 
-export function GET(
+export async function GET(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
@@ -23,14 +23,12 @@ export function GET(
     return NextResponse.json({ error: "Geçersiz ders ID" }, { status: 400 });
   }
 
-  const db   = getApiDb();
-  const stmt = db.prepare(`
+  return NextResponse.json(await dbAll<Harf>(`
     SELECT h.harf_id, h.harf_adi, h.harf_sesi, h.tek_basina,
            h.basta, h.ortada, h.sonda, h.mahrec, h.kalin_ince, h.grup
     FROM   elifba_harfler h
     JOIN   elifba_harf_ders hd ON hd.harf_id = h.harf_id
     WHERE  hd.ders_id = ?
     ORDER  BY h.harf_id
-  `);
-  return NextResponse.json(dbAll<Harf>(stmt, dersId));
+  `, dersId));
 }

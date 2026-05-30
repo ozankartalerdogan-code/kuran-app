@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { dbGet, getApiDb } from "../../../../lib/dbUtils";
+import { dbGet, dbAll, dbRun } from "../../../../lib/dbUtils";
 
 interface RandomVerseRow {
   verse_key:   string;
@@ -42,12 +42,11 @@ export async function GET(
     .filter(Boolean)
     .slice(0, 20);
 
-  const db = getApiDb();
 
   try {
     const isAnaTema =
       /^[A-G]\d_/i.test(tag) ||
-      db.prepare("SELECT 1 FROM verse_tags WHERE ana_tema = ? LIMIT 1").get(tag.toUpperCase()) !== undefined;
+      (await dbGet("SELECT 1 FROM verse_tags WHERE ana_tema = ? LIMIT 1", tag.toUpperCase())) !== undefined;
 
     const placeholders = excludeKeys.length
       ? `AND v.verse_key NOT IN (${excludeKeys.map(() => "?").join(",")})`
@@ -62,8 +61,7 @@ export async function GET(
       const cmp         = isExact ? "= ?" : "LIKE ?";
       const bindVal     = isExact ? upper : likePattern;
 
-      row = dbGet<RandomVerseRow>(
-        db.prepare(`
+      row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text,
@@ -75,15 +73,12 @@ export async function GET(
           ${placeholders}
           ORDER  BY RANDOM()
           LIMIT  1
-        `),
-        bindVal,
-        ...excludeKeys
-      );
+        `, bindVal,
+        ...excludeKeys);
     } else {
       const needle = tag.toLocaleLowerCase("tr-TR");
 
-      row = dbGet<RandomVerseRow>(
-        db.prepare(`
+      row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text,
@@ -95,10 +90,8 @@ export async function GET(
           ${placeholders}
           ORDER  BY RANDOM()
           LIMIT  1
-        `),
-        needle,
-        ...excludeKeys
-      );
+        `, needle,
+        ...excludeKeys);
     }
 
     if (!row) {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ManeviVerseList } from "./ManeviVerseList";
 import { BolumAkordeon } from "./BolumAkordeon";
 import { fetchVerses } from "./fetchVerses";
@@ -559,13 +560,13 @@ function GenelIlkeler() {
 
 // ── Ana sayfa ─────────────────────────────────────────────────────────────────
 
-export default function ManeviSiginakPage() {
-  const genel   = fetchVerses("korunma-genel");
-  const sihir   = fetchVerses("korunma-sihir");
-  const nazar   = fetchVerses("korunma-nazar");
-  const hased   = fetchVerses("korunma-hased");
-  const siginma = fetchVerses("korunma-siginma");
-  const sifa    = fetchVerses("korunma-sifa");
+export default async function ManeviSiginakPage() {
+  const genel   = await fetchVerses("korunma-genel");
+  const sihir   = await fetchVerses("korunma-sihir");
+  const nazar   = await fetchVerses("korunma-nazar");
+  const hased   = await fetchVerses("korunma-hased");
+  const siginma = await fetchVerses("korunma-siginma");
+  const sifa    = await fetchVerses("korunma-sifa");
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
@@ -589,6 +590,27 @@ export default function ManeviSiginakPage() {
       </div>
 
       <GuvenilirlikPuani />
+
+      {/* İsmi Azam & Korunma Duaları Linki */}
+      <div className="mb-8">
+        <Link
+          href="/manevi-siginak/ismi-azam"
+          className="group block overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 transition-shadow hover:shadow-md dark:border-amber-800/50 dark:from-amber-950/40 dark:to-yellow-950/20"
+        >
+          <div className="flex items-center gap-4 px-5 py-4">
+            <span className="text-3xl">✨</span>
+            <div className="flex-1">
+              <p className="text-sm font-bold text-amber-800 dark:text-amber-300 group-hover:underline">
+                İsmi Azam & Korunma Duaları
+              </p>
+              <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
+                Allah'ın en büyük ismi, Sekine duası ve sahih korunma duaları — Arapça metinleriyle.
+              </p>
+            </div>
+            <span className="text-amber-400 dark:text-amber-500 transition-transform group-hover:translate-x-0.5">→</span>
+          </div>
+        </Link>
+      </div>
 
       <div className="mb-3 mt-8">
         <div className="mb-1 flex items-center gap-2">

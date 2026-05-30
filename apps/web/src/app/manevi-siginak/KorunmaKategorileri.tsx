@@ -1,4 +1,4 @@
-import { getApiDb, dbAll } from "../../lib/dbUtils";
+import {dbAll } from "../../lib/dbUtils";
 import { KORUNMA_KATEGORILER, type KorunmaKategoriMeta } from "./korunma-data";
 import { KorunmaAkordeonPanel } from "./KorunmaAkordeonPanel";
 
@@ -21,13 +21,8 @@ export interface KorunmaKategoriData extends KorunmaKategoriMeta {
 }
 
 export async function KorunmaKategorileri() {
-  const db = getApiDb();
 
-  const dbRows = dbAll<DbRow>(
-    db.prepare(
-      "SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'korunma-%' ORDER BY verse_key"
-    )
-  );
+  const dbRows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'korunma-%' ORDER BY verse_key");
 
   const grouped = new Map<string, KorunmaVerse[]>(
     KORUNMA_KATEGORILER.map((k) => [k.id, []])

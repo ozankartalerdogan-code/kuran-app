@@ -1,4 +1,4 @@
-import { getApiDb, dbAll } from "../../lib/dbUtils";
+import {dbAll } from "../../lib/dbUtils";
 import {
   NAMAZ_KATEGORILER,
   TAG_ISIM,
@@ -62,13 +62,8 @@ function buildGrouped(rows: Array<{ verseKey: string; tag: string; isim?: string
 // ── Sunucu bileşeni ───────────────────────────────────────────────────────────
 
 export async function NamazKategorileri() {
-  const db = getApiDb();
 
-  const dbRows = dbAll<DbRow>(
-    db.prepare(
-      "SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'namaz-%' ORDER BY verse_key"
-    )
-  );
+  const dbRows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'namaz-%' ORDER BY verse_key");
 
   const grouped = buildGrouped(
     dbRows.map((r) => ({

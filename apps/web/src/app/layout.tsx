@@ -52,10 +52,15 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <nav className="border-b border-stone-200 bg-white px-4 py-3 dark:border-stone-700 dark:bg-stone-900 sm:px-6">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-2">
+          İçeriğe geç
+        </a>
+        <nav aria-label="Ana navigasyon" className="border-b border-stone-200 bg-white px-4 py-3 dark:border-stone-700 dark:bg-stone-900 sm:px-6">
           <NavbarMenu />
         </nav>
-        {children}
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </body>
     </html>
   );

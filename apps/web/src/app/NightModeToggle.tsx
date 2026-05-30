@@ -28,6 +28,7 @@ export function NightModeToggle() {
     <button
       onClick={toggle}
       type="button"
+      aria-label="Gece modunu değiştir"
       title={active ? "Gece modunu kapat" : "Gece modunu aç"}
       aria-pressed={active}
       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${

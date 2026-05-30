@@ -11,8 +11,8 @@ import { useState, useEffect, useCallback } from "react";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
-// Tüm satırlar aynı yükseklikte — getItemLayout için zorunlu
-const ITEM_HEIGHT = 72;
+// Okunuş + meal → her satır daha yüksek
+const ITEM_HEIGHT = 88;
 
 // ── Bileşenler ────────────────────────────────────────────────────────────────
 
@@ -46,7 +46,8 @@ interface VerseRowProps {
 }
 
 function VerseRow({ item, onPress }: VerseRowProps) {
-  const preview = item.meal ? item.meal.slice(0, 100) : "—";
+  const reading = item.reading ? item.reading.slice(0, 110) : null;
+  const meal    = item.meal    ? item.meal.slice(0, 80)     : null;
   return (
     <TouchableOpacity
       style={styles.row}
@@ -56,9 +57,19 @@ function VerseRow({ item, onPress }: VerseRowProps) {
       <View style={styles.numberCircle}>
         <Text style={styles.numberText}>{item.ayahNumber}</Text>
       </View>
-      <Text style={styles.mealText} numberOfLines={2}>
-        {preview}
-      </Text>
+      <View style={styles.rowContent}>
+        {reading && (
+          <Text style={styles.readingText} numberOfLines={2}>
+            {reading}{(item.reading?.length ?? 0) > 110 ? "…" : ""}
+          </Text>
+        )}
+        {meal && (
+          <Text style={styles.mealText} numberOfLines={1}>
+            {meal}{(item.meal?.length ?? 0) > 80 ? "…" : ""}
+          </Text>
+        )}
+        {!reading && !meal && <Text style={styles.mealText}>—</Text>}
+      </View>
     </TouchableOpacity>
   );
 }
@@ -205,11 +216,25 @@ const styles = StyleSheet.create({
   separator:   { height: 1, backgroundColor: "#e7e5e4", marginLeft: 68 },
 
   row: {
-    flexDirection:    "row",
-    alignItems:       "center",
-    height:           ITEM_HEIGHT,
+    flexDirection:     "row",
+    alignItems:        "center",
+    minHeight:         ITEM_HEIGHT,
     paddingHorizontal: 16,
-    backgroundColor:  "#ffffff",
+    paddingVertical:   10,
+    backgroundColor:   "#ffffff",
+  },
+
+  rowContent: {
+    flex:  1,
+    gap:   3,
+  },
+
+  readingText: {
+    flex:       1,
+    fontSize:   13,
+    lineHeight: 19,
+    color:      "#1c1917",
+    fontStyle:  "italic",
   },
 
   numberCircle: {
@@ -225,8 +250,7 @@ const styles = StyleSheet.create({
   numberText: { fontSize: 12, fontWeight: "700", color: "#78716c" },
 
   mealText: {
-    flex:       1,
-    fontSize:   13,
+    fontSize:   11,
     lineHeight: 20,
     color:      "#44403c",
   },

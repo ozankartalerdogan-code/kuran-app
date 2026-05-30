@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getApiDb, dbAll } from "../../lib/dbUtils";
+import {dbAll } from "../../lib/dbUtils";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -153,13 +153,8 @@ function VakitRow({ meta, verses }: { meta: VakitMeta; verses: VerseData[] }) {
 // ── Server bileşeni ───────────────────────────────────────────────────────────
 
 export async function NamazVakitTablosu() {
-  const db = getApiDb();
 
-  const rows = dbAll<DbRow>(
-    db.prepare(
-      "SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag IN ('namaz-vakit','namaz-teheccud') ORDER BY verse_key"
-    )
-  );
+  const rows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag IN ('namaz-vakit','namaz-teheccud') ORDER BY verse_key");
 
   // verse_key → DB verisi
   const dbMap = new Map(rows.map((r) => [r.verse_key, r]));

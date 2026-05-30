@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getApiDb, dbAll, dbGet } from "../../../lib/dbUtils";
+import { dbAll, dbGet, dbRun } from "../../../lib/dbUtils";
 
 interface SurahRow {
   adi_turkce: string;
@@ -41,7 +41,7 @@ export type AyahDetailResponse = {
   nextAyah: { surahId: number; ayahNumber: number } | null;
 };
 
-export function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const rawS = req.nextUrl.searchParams.get("surah_id");
   const rawA = req.nextUrl.searchParams.get("ayah_number");
   const surahId   = Number(rawS);
@@ -54,10 +54,9 @@ export function GET(req: NextRequest) {
     return NextResponse.json({ error: "Geçersiz ayah_number" }, { status: 400 });
   }
 
-  const db = getApiDb();
 
-  const surah = dbGet<SurahRow>(
-    db.prepare("SELECT adi_turkce, adi_arapca, ayet_sayisi FROM sureler WHERE id = ?"),
+  const surah = await dbGet<SurahRow>(
+    "SELECT adi_turkce, adi_arapca, ayet_sayisi FROM sureler WHERE id = ?",
     surahId,
   );
 
@@ -71,10 +70,8 @@ export function GET(req: NextRequest) {
 
   const verseKey = `${surahId}:${ayahNumber}`;
 
-  const verse = dbGet<VerseRow>(
-    db.prepare(
-      "SELECT verse_key, arabic_text, primary_translation FROM verses WHERE verse_key = ?",
-    ),
+  const verse = await dbGet<VerseRow>(
+    "SELECT verse_key, arabic_text, primary_translation FROM verses WHERE verse_key = ?",
     verseKey,
   );
 
@@ -82,8 +79,7 @@ export function GET(req: NextRequest) {
     return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
   }
 
-  const words = dbAll<WordRow>(
-    db.prepare(`
+  const words = await dbAll<WordRow>(`
       SELECT word_index,
              MIN(arabic)     AS arabic,
              MIN(meaning_tr) AS meaning_tr,
@@ -93,9 +89,7 @@ export function GET(req: NextRequest) {
       WHERE verse_key = ?
       GROUP BY word_index
       ORDER BY word_index
-    `),
-    verseKey,
-  );
+    `, verseKey,);
 
   const prevAyah =
     ayahNumber > 1 ? { surahId, ayahNumber: ayahNumber - 1 } : null;

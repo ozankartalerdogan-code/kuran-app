@@ -1,4 +1,4 @@
-import { getApiDb, dbAll } from "../../lib/dbUtils";
+import {dbAll } from "../../lib/dbUtils";
 import { OgrenClient, type DersWithHarfler } from "./OgrenClient";
 
 type DersRow = {
@@ -22,25 +22,20 @@ type HarfDersRow = {
   grup: string;
 };
 
-export function OgrenContent() {
-  const db = getApiDb();
+export async function OgrenContent() {
 
-  const dersler = dbAll<DersRow>(
-    db.prepare(
-      "SELECT id, baslik, konu_sirasi, seviye FROM elifba_dersler ORDER BY konu_sirasi",
-    ),
+  const dersler = await dbAll<DersRow>(
+    "SELECT id, baslik, konu_sirasi, seviye FROM elifba_dersler ORDER BY konu_sirasi",
   );
 
-  const allHarfler = dbAll<HarfDersRow>(
-    db.prepare(`
+  const allHarfler = await dbAll<HarfDersRow>(`
       SELECT hd.ders_id,
              h.harf_id, h.harf_adi, h.harf_sesi, h.tek_basina,
              h.basta, h.ortada, h.sonda, h.mahrec, h.kalin_ince, h.grup
       FROM   elifba_harfler h
       JOIN   elifba_harf_ders hd ON hd.harf_id = h.harf_id
       ORDER  BY hd.ders_id, h.harf_id
-    `),
-  );
+    `);
 
   // Harfleri ders_id'ye göre grupla
   const harflerByDers = new Map<number, HarfDersRow[]>();

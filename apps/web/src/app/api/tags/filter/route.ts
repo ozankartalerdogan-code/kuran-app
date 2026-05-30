@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { dbAll, dbGet, getApiDb } from "../../../../lib/dbUtils";
+import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
 const PAGE_SIZE = 50;
 const MAX_TAG   = 100;
 
@@ -57,12 +57,10 @@ export async function GET(
   const page    = Number.isFinite(rawPage) && rawPage >= 1 ? rawPage : 1;
   const offset  = (page - 1) * PAGE_SIZE;
 
-  const db = getApiDb();
   try {
     const isAnaTema =
       /^[A-G]\d_/i.test(tag) ||
-      db.prepare("SELECT 1 FROM verse_tags WHERE ana_tema = ? LIMIT 1")
-        .get(tag.toUpperCase()) !== undefined;
+      (await dbGet("SELECT 1 FROM verse_tags WHERE ana_tema = ? LIMIT 1", tag.toUpperCase())) !== undefined;
 
     let tagType: "ana_tema" | "alt_tag";
     let countRow: CountRow | undefined;
@@ -79,12 +77,8 @@ export async function GET(
       const bindVal     = isExact ? upper : likePattern;
       const cmp         = isExact ? "= ?" : "LIKE ?";
 
-      countRow = dbGet<CountRow>(
-        db.prepare(`SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema ${cmp}`),
-        bindVal
-      );
-      rows = dbAll<TagFilterRow>(
-        db.prepare(`
+      countRow = await dbGet<CountRow>(`SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema ${cmp}`, bindVal);
+      rows = await dbAll<TagFilterRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.primary_translation AS meal,
@@ -95,25 +89,19 @@ export async function GET(
           WHERE  vt.ana_tema ${cmp}
           ORDER  BY v.surah_id, v.ayah_number
           LIMIT  ? OFFSET ?
-        `),
-        bindVal, PAGE_SIZE, offset
-      );
+        `, bindVal, PAGE_SIZE, offset);
 
     } else {
       // verse_tag_items junction tablosu — json_each full scan yerine index lookup
       tagType = "alt_tag";
       const needle = tag.toLocaleLowerCase("tr-TR");
 
-      countRow = dbGet<CountRow>(
-        db.prepare(`
+      countRow = await dbGet<CountRow>(`
           SELECT COUNT(*) AS total
           FROM   verse_tag_items
           WHERE  tag = ?
-        `),
-        needle
-      );
-      rows = dbAll<TagFilterRow>(
-        db.prepare(`
+        `, needle);
+      rows = await dbAll<TagFilterRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.primary_translation AS meal,
@@ -125,9 +113,7 @@ export async function GET(
           WHERE  vi.tag = ?
           ORDER  BY v.surah_id, v.ayah_number
           LIMIT  ? OFFSET ?
-        `),
-        needle, PAGE_SIZE, offset
-      );
+        `, needle, PAGE_SIZE, offset);
     }
 
     const total = countRow?.total ?? 0;

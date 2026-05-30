@@ -1,4 +1,4 @@
-import { getApiDb, dbAll } from "../../lib/dbUtils";
+import {dbAll } from "../../lib/dbUtils";
 import type { VerseCardData } from "../../components/VerseCard";
 
 interface DbRow {
@@ -12,10 +12,8 @@ interface DbRow {
   tag:         string;
 }
 
-export function fetchVerses(tag: string): VerseCardData[] {
-  const db = getApiDb();
-  const rows = dbAll<DbRow>(
-    db.prepare(`
+export async function fetchVerses(tag: string): Promise<VerseCardData[]> {
+  const rows = await dbAll<DbRow>(`
       SELECT
         vti.verse_key, v.surah_id, v.ayah_number,
         s.adi_turkce AS surah_name,
@@ -28,8 +26,7 @@ export function fetchVerses(tag: string): VerseCardData[] {
       LEFT JOIN verse_tags vt ON vt.verse_key = vti.verse_key
       WHERE vti.tag = ?
       ORDER BY v.surah_id, v.ayah_number
-    `)
-  , tag);
+    `, tag);
   return rows.map((r) => ({
     verse_key:   r.verse_key,
     surah_id:    r.surah_id,

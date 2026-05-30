@@ -12,7 +12,7 @@ const TABS: {
 }[] = [
   { name: "index",     title: "Ana Sayfa", icon: "home-outline",     iconActive: "home"           },
   { name: "surah",     title: "Sureler",   icon: "book-outline",     iconActive: "book"           },
-  { name: "discover",  title: "Keşfet",    icon: "compass-outline",  iconActive: "compass"        },
+  { name: "discover",  title: "Arama",     icon: "search-outline",   iconActive: "search"         },
   { name: "favorites", title: "Favoriler", icon: "heart-outline",    iconActive: "heart"          },
   { name: "notes",     title: "Notlarım",  icon: "create-outline",   iconActive: "create"         },
 ];

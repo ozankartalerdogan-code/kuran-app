@@ -6,17 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "jest",
+    "test:ocr": "jest --testPathPattern=\"meal-no-ocr-errors\""
   },
   "dependencies": {
+    "@libsql/client": "^0.17.3",
     "@quran-app/core": "0.1.0",
     "@quran-app/types": "0.1.0",
     "@quran-app/ui": "0.1.0",
     "@types/canvas-confetti": "^1.9.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "canvas-confetti": "^1.9.4",
     "next": "14.2.28",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "browserslist": [
     "chrome >= 89",
@@ -27,12 +32,15 @@
     "not ie 11"
   ],
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "22.15.3",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
     "autoprefixer": "10.4.21",
+    "jest": "^29.7.0",
     "postcss": "8.5.3",
     "tailwindcss": "3.4.17",
+    "ts-jest": "^29.4.11",
     "typescript": "5.8.3"
   }
 }

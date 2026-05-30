@@ -52,6 +52,7 @@ export function NavbarMenu() {
         {/* Marka / Ana Sayfa */}
         <Link
           href="/"
+          aria-label="Ana sayfaya git"
           className="shrink-0 text-sm font-semibold text-stone-800 hover:text-emerald-700 dark:text-stone-200 dark:hover:text-emerald-400"
         >
           📖 Kuran App
@@ -60,18 +61,21 @@ export function NavbarMenu() {
         {/* Masaüstü: ek linkler */}
         <Link
           href="/surah"
+          aria-label="Sureler sayfasına git"
           className="hidden shrink-0 text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 sm:block"
         >
           Sureler
         </Link>
         <Link
           href="/mushaf"
+          aria-label="Mushaf sayfasına git"
           className="hidden shrink-0 text-sm font-medium text-stone-600 hover:text-amber-700 dark:text-stone-400 dark:hover:text-amber-400 sm:block"
         >
           Mushaf
         </Link>
         <Link
           href="/ogren"
+          aria-label="Elif-Ba öğren sayfasına git"
           className="hidden shrink-0 text-sm font-medium text-stone-600 hover:text-emerald-600 dark:text-stone-400 dark:hover:text-emerald-400 sm:block"
         >
           Elif-Ba
@@ -85,6 +89,7 @@ export function NavbarMenu() {
         {/* Masaüstü: sağ linkler */}
         <Link
           href="/favoriler"
+          aria-label="Favoriler sayfasına git"
           className="hidden shrink-0 items-center gap-1 text-sm font-medium text-stone-600 hover:text-rose-500 dark:text-stone-400 dark:hover:text-rose-400 sm:flex"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
@@ -94,6 +99,7 @@ export function NavbarMenu() {
         </Link>
         <Link
           href="/notlarim"
+          aria-label="Notlarım sayfasına git"
           className="hidden shrink-0 items-center gap-1 text-sm font-medium text-stone-600 hover:text-amber-600 dark:text-stone-400 dark:hover:text-amber-400 sm:flex"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
@@ -103,6 +109,7 @@ export function NavbarMenu() {
         </Link>
         <Link
           href="/discover"
+          aria-label="Keşfet sayfasına git"
           className="hidden shrink-0 items-center gap-1.5 rounded-lg border border-indigo-300 bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700 sm:flex"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
@@ -142,6 +149,7 @@ export function NavbarMenu() {
             <Link
               key={href}
               href={href}
+              aria-label={`${label} sayfasına git`}
               onClick={() => setOpen(false)}
               className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                 accent

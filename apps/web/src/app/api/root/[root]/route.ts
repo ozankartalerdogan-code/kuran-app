@@ -1,0 +1,60 @@
+import { NextResponse } from "next/server";
+import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
+import type { RootDetail } from "../../../../types/rootDetail";
+
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ root: string }> }
+): Promise<NextResponse<RootDetail | { error: string }>> {
+  const { root: encodedRoot } = await params;
+  const root = decodeURIComponent(encodedRoot);
+
+  // a) root_meanings'ten root bilgisi
+  const rootInfo = await dbGet<{ root: string; meaning_tr: string }>(
+    "SELECT root, meaning_tr FROM root_meanings WHERE root = ?",
+    root
+  );
+
+  if (!rootInfo) {
+    return NextResponse.json({ error: "Root not found" }, { status: 404 });
+  }
+
+  // b) surah_distribution: verse_key'den surah_id çıkart
+  const distRows = await dbAll<{ surah_id: number; count: number }>(`
+    SELECT CAST(SUBSTR(verse_key, 1, INSTR(verse_key, ':') - 1) AS INTEGER) AS surah_id,
+           COUNT(*) AS count
+    FROM   words
+    WHERE  root = ?
+    GROUP  BY surah_id`, root);
+
+  const distribution: Record<number, number> = {};
+  for (let i = 1; i <= 114; i++) distribution[i] = 0;
+  for (const row of distRows) distribution[row.surah_id] = row.count;
+
+  // c) derived_words: benzersiz Arapça formlar + bağlam
+  const derivedRows = await dbAll<{
+    arabic:     string;
+    meaning_tr: string | null;
+    verse_key:  string;
+  }>(`
+    SELECT arabic,
+           MIN(meaning_tr) AS meaning_tr,
+           MIN(verse_key)  AS verse_key
+    FROM   words
+    WHERE  root = ?
+    GROUP  BY arabic
+    ORDER  BY arabic
+    LIMIT  50`, root);
+
+  const derivedWords = derivedRows.map((row) => {
+    const [s, a] = (row.verse_key ?? "1:1").split(":").map(Number);
+    return { word: row.arabic, meaning: row.meaning_tr ?? "", surahId: s, ayahNumber: a };
+  });
+
+  return NextResponse.json({
+    root: rootInfo.root,
+    meaningTr: rootInfo.meaning_tr,
+    distribution,
+    derivedWords,
+  });
+}

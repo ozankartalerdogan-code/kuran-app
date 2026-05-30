@@ -1,7 +1,6 @@
-import { DatabaseSync } from "node:sqlite";
 import { type NextRequest, NextResponse } from "next/server";
 import type { SearchResponse, SuggestedSurah } from "./search-types";
-import { dbAll, dbGet, getApiDb } from "../../../lib/dbUtils";
+import { dbAll, dbGet } from "../../../lib/dbUtils";
 
 export type { SearchResponse };
 
@@ -17,8 +16,8 @@ interface TagCountRow { total: number }
 
 function escapeFts(q: string): string {
   return q
-    .replace(/["*^()-]/g, " ")               // FTS5 özel karakterler
-    .replace(/\b(AND|OR|NOT)\b/gi, " ")      // boolean operatörler
+    .replace(/["*^()-]/g, " ")
+    .replace(/\b(AND|OR|NOT)\b/gi, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -34,17 +33,13 @@ function normalizeTR(text: string): string {
     .trim();
 }
 
-// Prefix eşleşmesi için min 3 karakter; tam eşleşme her zaman kabul edilir.
 function findSurahMatch(q: string, surahs: SurahRow[]): SurahRow | null {
   const norm = normalizeTR(q);
-
   for (const s of surahs) if (normalizeTR(s.adi_turkce) === norm) return s;
-
   if (q.length >= 3) {
     for (const s of surahs) if (normalizeTR(s.adi_turkce).startsWith(norm)) return s;
     for (const s of surahs) if (s.adi_arapca.includes(q)) return s;
   }
-
   return null;
 }
 
@@ -52,32 +47,28 @@ function findSurahMatch(q: string, surahs: SurahRow[]): SurahRow | null {
 
 interface TagMatch { tag: string; tagType: "ana_tema" | "alt_tag"; count: number }
 
-function findTagMatch(q: string, db: DatabaseSync): TagMatch | null {
+async function findTagMatch(q: string): Promise<TagMatch | null> {
   const upper = q.toUpperCase();
   const lower = q.toLocaleLowerCase("tr-TR");
 
-  const exact = dbGet<CountRow>(
-    db.prepare("SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema = ?"),
-    upper
+  const exact = await dbGet<CountRow>(
+    "SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema = ?", upper
   );
   if ((exact?.total ?? 0) > 0) {
     return { tag: upper, tagType: "ana_tema", count: exact?.total ?? 0 };
   }
 
   if (/^[A-Ga-g]\d$/i.test(q)) {
-    const prefix = dbGet<CountRow>(
-      db.prepare("SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema LIKE ?"),
-      `${upper}_%`
+    const prefix = await dbGet<CountRow>(
+      "SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema LIKE ?", `${upper}_%`
     );
     if ((prefix?.total ?? 0) > 0) {
       return { tag: `${upper}_%`, tagType: "ana_tema", count: prefix?.total ?? 0 };
     }
   }
 
-  // junction tablo — json_each full scan yerine index lookup
-  const altTag = dbGet<TagCountRow>(
-    db.prepare("SELECT COUNT(*) AS total FROM verse_tag_items WHERE tag = ?"),
-    lower
+  const altTag = await dbGet<TagCountRow>(
+    "SELECT COUNT(*) AS total FROM verse_tag_items WHERE tag = ?", lower
   );
   if ((altTag?.total ?? 0) > 0) {
     return { tag: lower, tagType: "alt_tag", count: altTag?.total ?? 0 };
@@ -88,62 +79,46 @@ function findTagMatch(q: string, db: DatabaseSync): TagMatch | null {
 
 // ── FTS5 metin araması ────────────────────────────────────────────────────────
 
-function searchFts(
-  q: string,
-  db: DatabaseSync
-): { results: VerseRow[]; total: number } {
+async function searchFts(q: string): Promise<{ results: VerseRow[]; total: number }> {
   const safe = escapeFts(q);
   if (!safe) return { results: [], total: 0 };
 
   const ftsQuery = `"${safe}"*`;
 
   try {
-    const countRow = dbGet<CountRow>(
-      db.prepare("SELECT COUNT(*) AS total FROM ayet_fts WHERE ayet_fts MATCH ?"),
-      ftsQuery
+    const countRow = await dbGet<CountRow>(
+      "SELECT COUNT(*) AS total FROM ayet_fts WHERE ayet_fts MATCH ?", ftsQuery
     );
     const total = countRow?.total ?? 0;
     if (total === 0) return { results: [], total: 0 };
 
-    const results = dbAll<VerseRow>(
-      db.prepare(`
+    const results = await dbAll<VerseRow>(`
         SELECT f.verse_key, f.meal, s.adi_turkce AS surah_name
         FROM   ayet_fts f
         JOIN   sureler s ON s.id = CAST(substr(f.verse_key, 1, instr(f.verse_key, ':') - 1) AS INTEGER)
         WHERE  ayet_fts MATCH ?
         ORDER  BY bm25(ayet_fts, 0, 0, 10, 5, 5)
         LIMIT  ?
-      `),
-      ftsQuery, VERSE_LIMIT
-    );
+      `, ftsQuery, VERSE_LIMIT);
     return { results, total };
   } catch {
-    return searchLikeFallback(q, db);
+    return searchLikeFallback(q);
   }
 }
 
-// LIKE fallback — FTS kullanılamadığında devreye girer
-
-function searchLikeFallback(
-  q: string,
-  db: DatabaseSync
-): { results: VerseRow[]; total: number } {
+async function searchLikeFallback(q: string): Promise<{ results: VerseRow[]; total: number }> {
   const pattern = `%${q}%`;
-  const countRow = dbGet<CountRow>(
-    db.prepare("SELECT COUNT(*) AS total FROM verses WHERE primary_translation LIKE ?"),
-    pattern
+  const countRow = await dbGet<CountRow>(
+    "SELECT COUNT(*) AS total FROM verses WHERE primary_translation LIKE ?", pattern
   );
-  const results = dbAll<VerseRow>(
-    db.prepare(`
+  const results = await dbAll<VerseRow>(`
       SELECT v.verse_key, v.primary_translation AS meal, s.adi_turkce AS surah_name
       FROM   verses v
       JOIN   sureler s ON s.id = v.surah_id
       WHERE  v.primary_translation LIKE ?
       ORDER  BY v.surah_id, v.ayah_number
       LIMIT  ?
-    `),
-    pattern, VERSE_LIMIT
-  );
+    `, pattern, VERSE_LIMIT);
   return { results, total: countRow?.total ?? 0 };
 }
 
@@ -154,25 +129,21 @@ export async function GET(
 ): Promise<NextResponse<SearchResponse>> {
   const q = (new URL(request.url).searchParams.get("q") ?? "").trim();
 
-  // Bulgu 3: uzunluk sınırı
   if (q.length < 2 || q.length > MAX_Q_LEN) {
     return NextResponse.json({ type: "none" });
   }
 
-  // Singleton bağlantı — her istekte yeniden açılmaz
-  const db = getApiDb();
   try {
-    const surahs = dbAll<SurahRow>(
-      db.prepare("SELECT id, adi_turkce, adi_arapca FROM sureler ORDER BY id")
+    const surahs = await dbAll<SurahRow>(
+      "SELECT id, adi_turkce, adi_arapca FROM sureler ORDER BY id"
     );
     const surahMatch = findSurahMatch(q, surahs);
 
-    // Tam sure adı eşleşmesi — tag'lerden önce değerlendirilir
     if (surahMatch && normalizeTR(surahMatch.adi_turkce) === normalizeTR(q)) {
       let ftsResults: VerseRow[] = [];
       let ftsTotal = 0;
       if (q.length >= 3) {
-        const fts = searchFts(q, db);
+        const fts = await searchFts(q);
         ftsResults = fts.results;
         ftsTotal   = fts.total;
       }
@@ -192,12 +163,10 @@ export async function GET(
       });
     }
 
-    // Tag eşleşmesi
-    const tagMatch = findTagMatch(q, db);
+    const tagMatch = await findTagMatch(q);
     if (tagMatch) {
       if (tagMatch.tagType === "alt_tag") {
-        const verseRows = dbAll<VerseRow>(
-          db.prepare(`
+        const verseRows = await dbAll<VerseRow>(`
             SELECT vti.verse_key, v.primary_translation AS meal, s.adi_turkce AS surah_name
             FROM   verse_tag_items vti
             JOIN   verses v ON v.verse_key = vti.verse_key
@@ -205,9 +174,7 @@ export async function GET(
             WHERE  vti.tag = ?
             ORDER  BY v.surah_id, v.ayah_number
             LIMIT  ?
-          `),
-          tagMatch.tag, VERSE_LIMIT
-        );
+          `, tagMatch.tag, VERSE_LIMIT);
         if (verseRows.length > 0) {
           return NextResponse.json({ type: "verses", results: verseRows, total: tagMatch.count });
         }
@@ -220,9 +187,8 @@ export async function GET(
       });
     }
 
-    // FTS5 metin araması (min 3 karakter)
     if (q.length >= 3) {
-      const { results, total } = searchFts(q, db);
+      const { results, total } = await searchFts(q);
 
       if (results.length > 0) {
         const suggestedSurah: SuggestedSurah | undefined = surahMatch
@@ -248,5 +214,4 @@ export async function GET(
     console.error("[search] hata:", err);
     return NextResponse.json({ type: "none" });
   }
-  // Singleton — db.close() çağrılmaz, process boyunca açık kalır
 }

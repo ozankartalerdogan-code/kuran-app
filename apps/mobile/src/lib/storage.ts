@@ -6,13 +6,14 @@ export const storage = createTypedStorage(createNativeAdapter(AsyncStorage));
 // ── Anahtar sabitleri — web'deki storageUtils.ts ile senkron ─────────────────
 
 export const STORAGE_KEYS = {
-  favorites:      "favoriteVerses",
-  notes:          "verseNotes",
-  streak:         "readingStreak",
-  mushafBookmark: "mushaf_bookmark",
-  nightMode:      "nightMode",
-  elifbaProgress: "elifbaProgress",
-  quizScores:     "elifbaQuizScores",
+  favorites:       "favoriteVerses",
+  notes:           "verseNotes",
+  streak:          "readingStreak",
+  mushafBookmark:  "mushaf_bookmark",
+  nightMode:       "nightMode",
+  elifbaProgress:  "elifbaProgress",
+  quizScores:      "elifbaQuizScores",
+  recentSearches:  "recentSearches",
 } as const;
 
 // ── Tipli yardımcılar ─────────────────────────────────────────────────────────

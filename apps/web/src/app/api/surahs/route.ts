@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getApiDb, dbAll } from "../../../lib/dbUtils";
+import { dbAll, dbGet, dbRun } from "../../../lib/dbUtils";
 
 export const revalidate = false; // 114 sure hiç değişmez — sonsuz cache
 
@@ -21,12 +21,9 @@ export type SurahListItem = {
   revelationPlace: "Mekke" | "Medine";
 };
 
-export function GET() {
-  const db = getApiDb();
-  const rows = dbAll<SurahRow>(
-    db.prepare(
-      "SELECT id, adi_turkce, adi_arapca, translit, tur, ayet_sayisi FROM sureler ORDER BY id",
-    ),
+export async function GET() {
+  const rows = await dbAll<SurahRow>(
+    "SELECT id, adi_turkce, adi_arapca, translit, tur, ayet_sayisi FROM sureler ORDER BY id",
   );
 
   const surahs: SurahListItem[] = rows.map((r) => ({

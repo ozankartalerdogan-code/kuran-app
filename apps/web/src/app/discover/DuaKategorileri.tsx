@@ -1,4 +1,4 @@
-import { getApiDb, dbAll } from "../../lib/dbUtils";
+import {dbAll } from "../../lib/dbUtils";
 import {
   AYET_ACIKLAMA,
   DUA_KATEGORILER,
@@ -63,13 +63,8 @@ function buildGrouped(rows: Array<{ verseKey: string; tag: string; isim?: string
 // ── Sunucu bileşeni ───────────────────────────────────────────────────────────
 
 export async function DuaKategorileri() {
-  const db = getApiDb();
 
-  const dbRows = dbAll<DbRow>(
-    db.prepare(
-      "SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'dua-%' ORDER BY verse_key"
-    )
-  );
+  const dbRows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'dua-%' ORDER BY verse_key");
 
   let grouped: Map<string, DuaVerse[]>;
 

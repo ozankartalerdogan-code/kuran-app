@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getApiDb, dbAll, dbGet } from "../../../lib/dbUtils";
+import { dbAll, dbGet, dbRun } from "../../../lib/dbUtils";
 
 export const revalidate = false; // Kuran metni değişmez — sonsuz cache
 
@@ -12,13 +12,17 @@ interface SurahRow {
 }
 
 interface VerseRow {
-  ayah_number: number;
+  ayah_number:         number;
   primary_translation: string | null;
+  reading_tr:          string | null;
+  literal_ceviri:      string | null;
 }
 
 export type VerseItem = {
   ayahNumber: number;
-  meal: string | null;
+  meal:       string | null;
+  reading:    string | null;
+  literal:    string | null;
 };
 
 export type VerseListResponse = {
@@ -32,7 +36,7 @@ export type VerseListResponse = {
   verses: VerseItem[];
 };
 
-export function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get("surah_id");
   const surahId = Number(raw);
 
@@ -40,10 +44,9 @@ export function GET(req: NextRequest) {
     return NextResponse.json({ error: "Geçersiz surah_id (1-114)" }, { status: 400 });
   }
 
-  const db = getApiDb();
 
-  const surah = dbGet<SurahRow>(
-    db.prepare("SELECT id, adi_turkce, adi_arapca, ayet_sayisi, tur FROM sureler WHERE id = ?"),
+  const surah = await dbGet<SurahRow>(
+    "SELECT id, adi_turkce, adi_arapca, ayet_sayisi, tur FROM sureler WHERE id = ?",
     surahId,
   );
 
@@ -51,10 +54,8 @@ export function GET(req: NextRequest) {
     return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
   }
 
-  const verses = dbAll<VerseRow>(
-    db.prepare(
-      "SELECT ayah_number, primary_translation FROM verses WHERE surah_id = ? ORDER BY ayah_number",
-    ),
+  const verses = await dbAll<VerseRow>(
+    "SELECT ayah_number, primary_translation, reading_tr, literal_ceviri FROM verses WHERE surah_id = ? ORDER BY ayah_number",
     surahId,
   );
 
@@ -69,6 +70,8 @@ export function GET(req: NextRequest) {
     verses: verses.map((v) => ({
       ayahNumber: v.ayah_number,
       meal:       v.primary_translation,
+      reading:    v.reading_tr,
+      literal:    v.literal_ceviri,
     })),
   };
 

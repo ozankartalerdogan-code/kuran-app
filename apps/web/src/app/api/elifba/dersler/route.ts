@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getApiDb, dbAll } from "../../../../lib/dbUtils";
+import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
 
 export const revalidate = false; // Diyanet müfredatı statik — sonsuz cache
 
@@ -11,15 +11,13 @@ type DersRow = {
   harf_sayisi: number;
 };
 
-export function GET() {
-  const db = getApiDb();
-  const stmt = db.prepare(`
+export async function GET() {
+  return NextResponse.json(await dbAll<DersRow>(`
     SELECT d.id, d.baslik, d.konu_sirasi, d.seviye,
            COUNT(hd.harf_id) AS harf_sayisi
     FROM   elifba_dersler d
     LEFT JOIN elifba_harf_ders hd ON hd.ders_id = d.id
     GROUP  BY d.id
     ORDER  BY d.konu_sirasi
-  `);
-  return NextResponse.json(dbAll<DersRow>(stmt));
+  `));
 }

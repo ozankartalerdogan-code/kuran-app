@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getApiDb, dbGet } from "../lib/dbUtils";
+import {dbGet } from "../lib/dbUtils";
 import { HomeNamazWidget } from "./HomeNamazWidget";
 import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
@@ -135,38 +135,28 @@ const NAV_CARDS = [
 ];
 
 export default async function HomePage() {
-  const db = getApiDb();
 
   // ── Günün Ayeti ─────────────────────────────────────────────────────
-  const totalRow = dbGet<{ cnt: number }>(
-    db.prepare("SELECT COUNT(*) AS cnt FROM verses")
-  );
+  const totalRow = await dbGet<{ cnt: number }>("SELECT COUNT(*) AS cnt FROM verses");
   const total = totalRow?.cnt ?? 6236;
   const offset = getDailyOffset(total);
 
-  const dailyVerse = dbGet<DailyVerse>(
-    db.prepare(`
+  const dailyVerse = await dbGet<DailyVerse>(`
       SELECT v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
              s.adi_turkce AS surah_name
       FROM verses v
       LEFT JOIN sureler s ON s.id = v.surah_id
       LIMIT 1 OFFSET ${offset}
-    `)
-  );
+    `);
 
   // ── Günün Duası ──────────────────────────────────────────────────────
   // verse_tag_items'daki dua-* etiketli ayetlerden tarih-bazlı seed ile seç.
   // Herkes aynı gün aynı duayı görsün; çeviri olarak yazir kaynağı kullanılır.
-  const duaTotalRow = dbGet<{ cnt: number }>(
-    db.prepare(
-      "SELECT COUNT(DISTINCT verse_key) AS cnt FROM verse_tag_items WHERE tag LIKE 'dua-%'"
-    )
-  );
+  const duaTotalRow = await dbGet<{ cnt: number }>("SELECT COUNT(DISTINCT verse_key) AS cnt FROM verse_tag_items WHERE tag LIKE 'dua-%'");
   const duaTotal  = duaTotalRow?.cnt ?? 255;
   const duaOffset = getDailyOffset(duaTotal);
 
-  const dailyDua = dbGet<DailyDua>(
-    db.prepare(`
+  const dailyDua = await dbGet<DailyDua>(`
       SELECT
         vti.verse_key,
         MIN(vti.tag)       AS tag,
@@ -184,9 +174,7 @@ export default async function HomePage() {
       GROUP BY vti.verse_key
       ORDER BY vti.verse_key
       LIMIT 1 OFFSET ?
-    `),
-    duaOffset
-  );
+    `, duaOffset);
 
   const hijriDate = getHijriDate();
   const dayTheme = getDayTheme();
