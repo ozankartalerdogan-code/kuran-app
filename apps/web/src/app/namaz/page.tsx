@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Suspense } from "react";
 import { NamazKategorileri } from "./NamazKategorileri";
 import { NamazVakitTablosu } from "./NamazVakitTablosu";

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { ManeviVerseList } from "../ManeviVerseList";
 import { BolumAkordeon } from "../BolumAkordeon";
 import { fetchVerses } from "../fetchVerses";

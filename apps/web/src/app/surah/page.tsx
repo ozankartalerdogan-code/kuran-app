@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getSurahs } from "@quran-app/core";
 import type { Surah } from "@quran-app/types";
 import type { Metadata } from "next";

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Suspense } from "react";
 import { DiscoverContent } from "./DiscoverContent";
 import { DuaKategorileri } from "./DuaKategorileri";

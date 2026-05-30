@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import type { RootDetail } from "../../../types/rootDetail";
 import RootDetailContent from "./RootDetailContent";

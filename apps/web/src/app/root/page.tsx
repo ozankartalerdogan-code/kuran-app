@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import type { RootItem } from "../../types/root";
 import RootListClient from "./RootListClient";
