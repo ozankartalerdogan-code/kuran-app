@@ -56,7 +56,7 @@ export default function KibleScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Kıble Yönü" }} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center", padding: 24, paddingBottom: 40 }}>
 
         <Text style={styles.title}>🕋 Kıble Yönü</Text>
         <Text style={styles.sub}>Konumunuza göre Kabe'nin yönünü bulun</Text>
@@ -119,13 +119,13 @@ export default function KibleScreen() {
             </TouchableOpacity>
           </View>
         )}
-      </View>
+      </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", padding: 24 },
+  container: { flex: 1, backgroundColor: "#f0fdfa" },
   title:     { fontSize: 26, fontWeight: "700", color: "#134e4a", marginTop: 24 },
   sub:       { fontSize: 13, color: "#5eead4", marginTop: 6, marginBottom: 32, textAlign: "center" },
 

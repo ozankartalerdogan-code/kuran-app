@@ -171,7 +171,8 @@ export default function IbadetRehberiScreen() {
         </View>
 
         <ScrollView
-          contentContainerStyle={styles.list}
+          style={{ flex: 1 }}
+          contentContainerStyle={[styles.list, { paddingBottom: 32 }]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >

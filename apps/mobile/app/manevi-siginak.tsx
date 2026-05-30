@@ -1,6 +1,6 @@
 import {
   View, Text, FlatList, TouchableOpacity,
-  ActivityIndicator, StyleSheet,
+  ActivityIndicator, StyleSheet, ScrollView,
 } from "react-native";
 import { useState } from "react";
 import { router, Stack } from "expo-router";
@@ -49,7 +49,7 @@ export default function ManeviSiginakScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Manevi Sığınak" }} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>🛡️ Manevi Sığınak</Text>
@@ -99,39 +99,30 @@ export default function ManeviSiginakScreen() {
         )}
 
         {/* Ayet listesi */}
-        {!loading && verses.length > 0 && (
-          <FlatList
-            data={verses}
-            keyExtractor={(v) => v.verse_key}
-            contentContainerStyle={styles.verseList}
-            ListHeaderComponent={
-              total > verses.length ? (
-                <Text style={styles.countHint}>{total} ayetten ilk {verses.length} gösteriliyor</Text>
-              ) : null
-            }
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.verseCard}
-                onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
-                activeOpacity={0.75}
-              >
-                <View style={styles.verseHeader}>
-                  <View style={styles.keyBadge}>
-                    <Text style={styles.keyText}>{item.verse_key}</Text>
-                  </View>
-                  {item.surah_name && (
-                    <Text style={styles.surahLabel} numberOfLines={1}>{item.surah_name}</Text>
-                  )}
-                </View>
-                {item.meal && (
-                  <Text style={styles.mealText} numberOfLines={3}>{item.meal}</Text>
-                )}
-              </TouchableOpacity>
+        {!loading && verses.map((item) => (
+          <TouchableOpacity
+            key={item.verse_key}
+            style={styles.verseCard}
+            onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
+            activeOpacity={0.75}
+          >
+            <View style={styles.verseHeader}>
+              <View style={styles.keyBadge}>
+                <Text style={styles.keyText}>{item.verse_key}</Text>
+              </View>
+              {item.surah_name && (
+                <Text style={styles.surahLabel} numberOfLines={1}>{item.surah_name}</Text>
+              )}
+            </View>
+            {item.meal && (
+              <Text style={styles.mealText} numberOfLines={3}>{item.meal}</Text>
             )}
-            ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-          />
+          </TouchableOpacity>
+        ))}
+        {!loading && verses.length > 0 && total > verses.length && (
+          <Text style={styles.countHint}>{total} ayetten ilk {verses.length} gösteriliyor</Text>
         )}
-      </View>
+      </ScrollView>
     </>
   );
 }

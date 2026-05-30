@@ -1,5 +1,5 @@
 import {
-  View, Text, FlatList, TouchableOpacity,
+  View, Text, ScrollView, TouchableOpacity,
   ActivityIndicator, StyleSheet, Switch, Alert,
 } from "react-native";
 import { useState, useEffect } from "react";
@@ -82,7 +82,7 @@ export default function NamazScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Namaz & İbadet" }} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
         {/* Namaz Vakti Bildirimleri */}
         <View style={styles.notifCard}>
           <View style={{ flex: 1 }}>
@@ -123,12 +123,10 @@ export default function NamazScreen() {
             <ActivityIndicator size="large" color="#059669" />
           </View>
         ) : verses.length > 0 ? (
-          <FlatList
-            data={verses}
-            keyExtractor={(v) => v.verse_key}
-            contentContainerStyle={styles.verseList}
-            renderItem={({ item }) => (
+          <View style={styles.verseList}>
+            {verses.map((item) => (
               <TouchableOpacity
+                key={item.verse_key}
                 style={styles.verseCard}
                 onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
                 activeOpacity={0.75}
@@ -145,15 +143,14 @@ export default function NamazScreen() {
                   <Text style={styles.mealText} numberOfLines={3}>{item.meal}</Text>
                 )}
               </TouchableOpacity>
-            )}
-            ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-          />
+            ))}
+          </View>
         ) : activeTag ? (
           <View style={styles.centered}>
             <Text style={styles.noResult}>Ayet bulunamadı.</Text>
           </View>
         ) : null}
-      </View>
+      </ScrollView>
     </>
   );
 }
