@@ -249,7 +249,7 @@ export default async function HomePage() {
 
         {/* ── RUH HALİ ETİKETLERİ ── */}
         <div className="-mx-4 sm:mx-0">
-          <div className="flex gap-2 overflow-x-auto px-4 pb-1 sm:flex-wrap sm:overflow-visible sm:px-0">
+          <div className="flex gap-2 overflow-x-auto px-4 pb-2 [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
             {([
               { etiket: "😌 Huzur arıyorum",     tag: "rahmet",         renk: "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 dark:border-teal-800/50 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/50" },
               { etiket: "😰 Stres altındayım",   tag: "sabır",          renk: "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-800/50 dark:bg-amber-950/40 dark:text-amber-300 dark:hover:bg-amber-900/50" },
@@ -272,16 +272,16 @@ export default async function HomePage() {
 
         {/* ── NAVİGASYON KARTLARI ── */}
         <section>
-          <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {NAV_CARDS.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
                 className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.gradient} p-4 text-white shadow-md transition-all duration-150 hover:scale-105 hover:shadow-lg active:scale-95`}
               >
-                <div className="mb-2 text-2xl">{card.icon}</div>
-                <div className="font-semibold leading-tight">{card.title}</div>
-                <div className="mt-1 text-xs leading-snug text-white/75">{card.desc}</div>
+                <div className="mb-1.5 text-2xl">{card.icon}</div>
+                <div className="text-sm font-semibold leading-tight sm:text-base">{card.title}</div>
+                <div className="mt-1 text-[11px] leading-snug text-white/75 sm:text-xs">{card.desc}</div>
               </Link>
             ))}
           </div>

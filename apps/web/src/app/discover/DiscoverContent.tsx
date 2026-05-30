@@ -280,7 +280,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
             <button
               key={tab.id}
               onClick={() => setAktifTab(tab.id)}
-              className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold transition-all duration-150 ${
+              className={`flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-xs font-semibold transition-all duration-150 ${
                 aktifTab === tab.id
                   ? "bg-white shadow-sm text-stone-800"
                   : "text-stone-500 hover:text-stone-700"

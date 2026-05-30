@@ -95,7 +95,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
                 <div className="flex items-stretch transition-colors duration-100 hover:bg-stone-50 dark:hover:bg-stone-800/50">
                   <Link
                     href={`/surah/${surah.id}/ayah/1`}
-                    className="flex flex-1 items-center gap-4 px-4 py-2.5"
+                    className="flex min-h-[52px] flex-1 items-center gap-4 px-4 py-3"
                   >
                     {/* Sol numara */}
                     <span className="w-9 shrink-0 text-right text-base font-semibold text-stone-400">

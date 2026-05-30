@@ -128,7 +128,7 @@ export function NavbarMenu() {
           type="button"
           aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
           aria-expanded={open}
-          className="flex shrink-0 items-center justify-center rounded-md p-2 text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 sm:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 sm:hidden"
         >
           {open ? (
             <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
