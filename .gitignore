@@ -15,10 +15,10 @@ coverage
 .env.local
 .env*.local
 
-# Büyük veri dizinleri
-data/
-data2/
-elmalili-fix/
+# Büyük veri dizinleri (sadece root seviyesi)
+/data/
+/data2/
+/elmalili-fix/
 
 # Log dosyaları
 *.log
