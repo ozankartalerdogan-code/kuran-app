@@ -23,6 +23,7 @@ interface DailyVerse {
   surah_id: number;
   ayah_number: number;
   arabic_text: string;
+  reading_tr: string | null;
   primary_translation: string | null;
   surah_name: string | null;
 }
@@ -114,7 +115,7 @@ export default async function HomePage() {
   const offset = getDailyOffset(total);
 
   const dailyVerse = await dbGet<DailyVerse>(
-    `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
+    `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr, v.primary_translation,
             s.adi_turkce AS surah_name
      FROM verses v
      LEFT JOIN sureler s ON s.id = v.surah_id
@@ -198,12 +199,17 @@ export default async function HomePage() {
               </span>
             </div>
             <p
-              className="mb-3 text-right font-arabic text-2xl leading-loose text-stone-800 dark:text-stone-100"
+              className="mb-2 text-right font-arabic text-2xl leading-loose text-stone-800 dark:text-stone-100"
               dir="rtl"
               lang="ar"
             >
               {dailyVerse.arabic_text}
             </p>
+            {dailyVerse.reading_tr && (
+              <p className="mb-2 text-xs italic text-amber-700/70 dark:text-amber-400/60">
+                {dailyVerse.reading_tr}
+              </p>
+            )}
             {dailyVerse.primary_translation && (
               <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
                 {dailyVerse.primary_translation}
