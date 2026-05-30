@@ -1,0 +1,13 @@
+node_modules
+.next
+.expo
+data/
+data2/
+public/audio/surah
+apps/web/public/audio/surah
+*.db
+*.db-shm
+*.db-wal
+*.log
+.env.local
+.env*.local
