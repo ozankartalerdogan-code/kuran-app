@@ -74,18 +74,18 @@ export function VerseCard({ verse, onTagClick }: VerseCardProps) {
         </p>
       )}
 
-      {/* Okunuş */}
+      {/* Okunuş — meal'den büyük */}
       {reading_tr && (
-        <p className="mb-2 text-xs italic text-stone-500 dark:text-stone-400">
+        <p className="mb-1.5 text-sm leading-relaxed text-stone-700 dark:text-stone-300">
           {reading_tr}
         </p>
       )}
 
-      {/* Meal metni */}
+      {/* Meal — en küçük */}
       {meal ? (
-        <p className="mb-3 text-sm leading-6 text-stone-800 line-clamp-3 dark:text-stone-200">{meal}</p>
+        <p className="mb-3 text-xs leading-5 text-stone-500 line-clamp-3 dark:text-stone-400">{meal}</p>
       ) : (
-        <p className="mb-3 text-sm italic text-stone-400 dark:text-stone-500">Meal verisi yok.</p>
+        <p className="mb-3 text-xs italic text-stone-400 dark:text-stone-500">Meal verisi yok.</p>
       )}
 
       {/* Alt taglar */}

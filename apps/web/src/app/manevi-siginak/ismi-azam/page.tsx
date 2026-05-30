@@ -99,17 +99,17 @@ function DuaKartiFull({ dua }: { dua: DuaKarti }) {
         </p>
       </div>
 
-      {/* Meal */}
+      {/* Okunuş — meal'den büyük */}
       <div className="border-t border-amber-200/60 px-4 py-2.5 dark:border-amber-800/40">
-        <p className="text-[12px] leading-relaxed text-stone-600 dark:text-stone-400">
-          <span className="font-semibold">Anlamı:</span> {dua.meal}
+        <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+          <span className="font-semibold">Okunuşu:</span> {dua.transkripsiyon}
         </p>
       </div>
 
-      {/* Transkripsiyon (isteğe bağlı) */}
+      {/* Meal — en küçük */}
       <div className="border-t border-amber-200/60 px-4 py-2.5 dark:border-amber-800/40">
-        <p className="font-mono text-[11px] leading-relaxed italic text-stone-500 dark:text-stone-400">
-          <span className="font-semibold not-italic">Okunuşu:</span> {dua.transkripsiyon}
+        <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <span className="font-semibold">Anlamı:</span> {dua.meal}
         </p>
       </div>
 
@@ -154,17 +154,17 @@ function KorunmaKarti({ dua }: { dua: KorunmaDuasi }) {
         </p>
       </div>
 
-      {/* Meal */}
+      {/* Okunuş — meal'den büyük */}
       <div className="border-t border-emerald-200/60 px-4 py-2.5 dark:border-emerald-800/40">
-        <p className="text-[12px] leading-relaxed text-stone-600 dark:text-stone-400">
-          <span className="font-semibold">Anlamı:</span> {dua.meal}
+        <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+          <span className="font-semibold">Okunuşu:</span> {dua.transkripsiyon}
         </p>
       </div>
 
-      {/* Transkripsiyon */}
+      {/* Meal — en küçük */}
       <div className="border-t border-emerald-200/60 px-4 py-2.5 dark:border-emerald-800/40">
-        <p className="font-mono text-[11px] leading-relaxed italic text-stone-500 dark:text-stone-400">
-          <span className="font-semibold not-italic">Okunuşu:</span> {dua.transkripsiyon}
+        <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+          <span className="font-semibold">Anlamı:</span> {dua.meal}
         </p>
       </div>
 
@@ -320,7 +320,7 @@ function Bolum2Icerik({ verses }: { verses: VerseCardData[] }) {
         </div>
         {/* Meal */}
         <div className="border-t border-violet-200/60 px-4 py-2.5 dark:border-violet-800/40">
-          <p className="text-[12px] leading-relaxed text-stone-600 dark:text-stone-400">
+          <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
             <span className="font-semibold">Bakara 248 — Anlamı:</span> {sekineDuasi.meal}
           </p>
         </div>

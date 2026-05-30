@@ -208,12 +208,12 @@ export default async function HomePage() {
               {dailyVerse.arabic_text}
             </p>
             {dailyVerse.reading_tr && (
-              <p className="mb-2 text-xs italic text-amber-700/70 dark:text-amber-400/60">
+              <p className="mb-1.5 text-sm leading-relaxed text-amber-900/80 dark:text-amber-200/80">
                 {dailyVerse.reading_tr}
               </p>
             )}
             {dailyVerse.primary_translation && (
-              <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+              <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-400">
                 {dailyVerse.primary_translation}
               </p>
             )}
