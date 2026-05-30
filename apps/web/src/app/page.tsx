@@ -32,6 +32,7 @@ interface DailyDua {
   verse_key: string;
   tag: string;
   arabic_text: string | null;
+  reading_tr: string | null;
   meal: string | null;
   surah_id: number;
   ayah_number: number;
@@ -113,9 +114,10 @@ export default async function HomePage() {
     `SELECT COUNT(*) AS cnt FROM translations t
      JOIN verses v ON v.verse_key = t.verse_key
      WHERE t.source = 'diyanet' AND t.text IS NOT NULL
+       AND LENGTH(t.text) < 200
        AND v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL`
   ).catch(() => undefined);
-  const total = totalRow?.cnt ?? 5000;
+  const total = totalRow?.cnt ?? 4000;
   const offset = getDailyOffset(total);
 
   const dailyVerse = await dbGet<DailyVerse>(
@@ -126,6 +128,7 @@ export default async function HomePage() {
      JOIN verses v ON v.verse_key = t.verse_key
      JOIN sureler s ON s.id = v.surah_id
      WHERE t.source = 'diyanet' AND t.text IS NOT NULL
+       AND LENGTH(t.text) < 200
        AND v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL
      LIMIT 1 OFFSET ?`,
     offset
@@ -143,6 +146,7 @@ export default async function HomePage() {
         vti.verse_key,
         MIN(vti.tag)       AS tag,
         v.arabic_text,
+        v.reading_tr,
         t.text             AS meal,
         v.surah_id,
         v.ayah_number,
@@ -302,9 +306,16 @@ export default async function HomePage() {
               </p>
             )}
 
+            {/* Okunuş */}
+            {dailyDua.reading_tr && (
+              <p className="mb-1.5 text-sm leading-relaxed text-teal-900/80 dark:text-teal-200/80">
+                {dailyDua.reading_tr}
+              </p>
+            )}
+
             {/* Meal */}
             {dailyDua.meal && (
-              <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
+              <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-400">
                 {dailyDua.meal}
               </p>
             )}
