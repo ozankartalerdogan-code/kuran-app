@@ -181,9 +181,11 @@ export type AyahDetailResponse = {
   arabicName:    string;
   verseCount:    number;
   arabicText:    string | null;
+  readingTr:     string | null;
   meal:          string | null;
   literalCeviri: string | null;
   farkAnalizi:   string | null;
+  translations:  { source: string; text: string | null }[];
   words: {
     wordIndex:  number;
     arabic:     string | null;

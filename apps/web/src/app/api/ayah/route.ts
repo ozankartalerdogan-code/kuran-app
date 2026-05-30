@@ -12,6 +12,7 @@ interface VerseRow {
   verse_key: string;
   arabic_text: string | null;
   primary_translation: string | null;
+  reading_tr: string | null;
   literal_ceviri: string | null;
   fark_analizi: string | null;
 }
@@ -24,6 +25,11 @@ interface WordRow {
   root: string | null;
 }
 
+interface TranslationRow {
+  source: string;
+  text: string | null;
+}
+
 export type AyahDetailResponse = {
   verseKey: string;
   surahId: number;
@@ -32,9 +38,11 @@ export type AyahDetailResponse = {
   arabicName: string;
   verseCount: number;
   arabicText: string | null;
+  readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;
   farkAnalizi: string | null;
+  translations: { source: string; text: string | null }[];
   words: {
     wordIndex: number;
     arabic: string | null;
@@ -75,10 +83,16 @@ export async function GET(req: NextRequest) {
 
   const verseKey = `${surahId}:${ayahNumber}`;
 
-  const verse = await dbGet<VerseRow>(
-    "SELECT verse_key, arabic_text, primary_translation, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
-    verseKey,
-  );
+  const [verse, translations] = await Promise.all([
+    dbGet<VerseRow>(
+      "SELECT verse_key, arabic_text, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
+      verseKey,
+    ),
+    dbAll<TranslationRow>(
+      "SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source",
+      verseKey,
+    ),
+  ]);
 
   if (!verse) {
     return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
@@ -108,10 +122,12 @@ export async function GET(req: NextRequest) {
     surahName:   surah.adi_turkce,
     arabicName:  surah.adi_arapca,
     verseCount:  surah.ayet_sayisi,
-    arabicText:  verse.arabic_text,
-    meal:        verse.primary_translation,
+    arabicText:    verse.arabic_text,
+    readingTr:     verse.reading_tr ?? null,
+    meal:          verse.primary_translation,
     literalCeviri: verse.literal_ceviri ?? null,
-    farkAnalizi: verse.fark_analizi ?? null,
+    farkAnalizi:   verse.fark_analizi ?? null,
+    translations:  translations.map(t => ({ source: t.source, text: t.text })),
     words: words.map((w) => ({
       wordIndex:  w.word_index,
       arabic:     w.arabic,

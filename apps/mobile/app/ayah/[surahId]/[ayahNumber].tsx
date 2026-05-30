@@ -316,21 +316,41 @@ export default function AyahDetailScreen() {
         {/* ═══ Sekme İçerikleri ═══ */}
         {activeTab === "meal" && (
           <View style={styles.tabContent}>
-            {/* Meal */}
-            <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-              <Text style={[styles.sectionTitle, { color: colors.accent }]}>MEAL</Text>
-              <Text style={[styles.mealText, { color: colors.textSecondary }]}>
-                {data.meal ?? "Meal verisi yok."}
-              </Text>
-            </View>
 
-            {/* Arapça Okunuş (literalCeviri) */}
+            {/* Okunuş */}
+            {data.readingTr ? (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>OKUNUŞ</Text>
+                <Text style={[styles.literalText, { color: colors.textMuted }]}>{data.readingTr}</Text>
+              </View>
+            ) : null}
+
+            {/* Birden fazla çeviri varsa hepsini göster */}
+            {(data.translations ?? []).length > 0 ? (
+              (data.translations ?? []).map((t) => (
+                <View key={t.source} style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                  <Text style={[styles.sectionTitle, { color: colors.accent }]}>
+                    {t.source?.split("#").at(-1)?.toUpperCase() ?? "MEAL"}
+                  </Text>
+                  <Text style={[styles.mealText, { color: colors.textSecondary }]}>
+                    {t.text ?? "—"}
+                  </Text>
+                </View>
+              ))
+            ) : (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>MEAL</Text>
+                <Text style={[styles.mealText, { color: colors.textSecondary }]}>
+                  {data.meal ?? "Meal verisi yok."}
+                </Text>
+              </View>
+            )}
+
+            {/* Literal çeviri */}
             {data.literalCeviri ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.sectionTitle, { color: colors.accent }]}>ARAPÇA OKUNUŞ</Text>
-                <Text style={[styles.literalText, { color: colors.textMuted }]}>
-                  {data.literalCeviri}
-                </Text>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>LİTERAL ÇEVİRİ</Text>
+                <Text style={[styles.literalText, { color: colors.textMuted }]}>{data.literalCeviri}</Text>
               </View>
             ) : null}
           </View>
