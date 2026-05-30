@@ -17,11 +17,49 @@ interface AbdestSatiri { organ: string; miktar: number | "—"; aciklama: string
 const ISLAM_SARTLARI = [
   {
     id: "sehadet", ikon: "🌙", baslik: "Kelime-i Şehadet",
-    aciklama: "Allah'tan başka ilah olmadığına ve Hz. Muhammed'in O'nun kulu ve elçisi olduğuna şahitlik etmektir. İslam'a girişin kapısıdır.",
+    aciklama: "Allah'tan başka ilah olmadığına ve Hz. Muhammed'in O'nun kulu ve elçisi olduğuna şahitlik etmektir. İslam'a girişin ve mümin olmanın ilk adımıdır.",
     ayetler: [
       { sureId: 3,  sureAdi: "Âl-i İmrân", ayetNo: 18,  kisaMetin: "Allah, melekler ve ilim sahipleri tek ilah olduğuna şahitlik etti." },
       { sureId: 47, sureAdi: "Muhammed",    ayetNo: 19,  kisaMetin: "Allah'tan başka ilah olmadığını bil." },
       { sureId: 2,  sureAdi: "Bakara",      ayetNo: 255, kisaMetin: "Âyetü'l-Kürsî: Allah, O'ndan başka ilah yoktur." },
+    ] as AyetRef[],
+  },
+  {
+    id: "namaz-inanc", ikon: "🕌", baslik: "Namaz (Salât)",
+    aciklama: "Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an'da en çok emredilen ibadettir; imanın bedene yansımasıdır.",
+    ayetler: [
+      { sureId: 2,  sureAdi: "Bakara",  ayetNo: 43,  kisaMetin: "Namazı kılın, zekâtı verin, rükû edenlerle birlikte rükû edin." },
+      { sureId: 4,  sureAdi: "Nisâ",    ayetNo: 103, kisaMetin: "Namaz, müminlere belirlenmiş vakitlerde farz kılınmıştır." },
+      { sureId: 20, sureAdi: "Tâhâ",    ayetNo: 14,  kisaMetin: "Beni anmak için namaz kıl." },
+      { sureId: 29, sureAdi: "Ankebût", ayetNo: 45,  kisaMetin: "Namaz, hayâsızlıktan ve kötülükten alıkoyar." },
+    ] as AyetRef[],
+  },
+  {
+    id: "oruc-inanc", ikon: "🌟", baslik: "Oruç (Savm)",
+    aciklama: "Ramazan ayında şafaktan güneş batımına kadar yiyecek, içecek ve kötü davranışlardan kaçınmaktır. Takvayı pekiştiren, nefsi terbiye eden bir ibadettir.",
+    ayetler: [
+      { sureId: 2, sureAdi: "Bakara", ayetNo: 183, kisaMetin: "Oruç, sizden öncekilere farz kılındığı gibi size de farz kılındı; umulur ki korunursunuz." },
+      { sureId: 2, sureAdi: "Bakara", ayetNo: 185, kisaMetin: "Ramazan ayı, Kur'an'ın indirildiği, hidayet ve furkan olan aydır." },
+      { sureId: 2, sureAdi: "Bakara", ayetNo: 187, kisaMetin: "Oruç gecesi kadınlarınıza yaklaşmak helal kılındı." },
+    ] as AyetRef[],
+  },
+  {
+    id: "zekat-inanc", ikon: "💛", baslik: "Zekât",
+    aciklama: "Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte 28 yerde zikredilir; servetin arınması ve paylaşılmasıdır.",
+    ayetler: [
+      { sureId: 2, sureAdi: "Bakara", ayetNo: 43,  kisaMetin: "Namazı kılın ve zekâtı verin." },
+      { sureId: 9, sureAdi: "Tevbe",  ayetNo: 60,  kisaMetin: "Sadakalar (zekât) sekiz sınıf için — Allah'tan bir farz." },
+      { sureId: 2, sureAdi: "Bakara", ayetNo: 277, kisaMetin: "İman edip zekâtı verenler için mükâfat vardır." },
+    ] as AyetRef[],
+  },
+  {
+    id: "hac-inanc", ikon: "🕋", baslik: "Hac",
+    aciklama: "Gücü yeten her Müslümanın ömründe en az bir kez Mekke'ye gidip belirli ibadetleri yerine getirmesidir. Tüm müminlerin ırk ve sınıf farkı gözetmeksizin bir araya geldiği kardeşlik törevidir.",
+    ayetler: [
+      { sureId: 3,  sureAdi: "Âl-i İmrân", ayetNo: 97,  kisaMetin: "Yoluna gücü yeten kimseye Allah için Kâbe'yi haccetmek farzdır." },
+      { sureId: 2,  sureAdi: "Bakara",      ayetNo: 196, kisaMetin: "Haccı ve umreyi Allah için tamamlayın." },
+      { sureId: 22, sureAdi: "Hac",         ayetNo: 27,  kisaMetin: "İnsanlar arasında haccı ilan et; uzak yollardan her yolcu gelsin." },
+      { sureId: 22, sureAdi: "Hac",         ayetNo: 29,  kisaMetin: "Kirlerini gidersinler, adaklarını yerine getirsinler, tavaf etsinler." },
     ] as AyetRef[],
   },
 ];
@@ -355,6 +393,7 @@ function BolumCard({ ikon, baslik, children }: { ikon: string; baslik: string; c
 function InancSekme() {
   return (
     <>
+      <View style={s.dividerLabel}><Text style={s.dividerText}>İSLAM'IN 5 ŞARTI</Text></View>
       {ISLAM_SARTLARI.map(b => (
         <BolumCard key={b.id} ikon={b.ikon} baslik={b.baslik}>
           <Text style={s.aciklama}>{b.aciklama}</Text>
