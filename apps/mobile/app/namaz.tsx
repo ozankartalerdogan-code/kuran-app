@@ -17,12 +17,14 @@ const NOTIF_KEY = "namazNotifEnabled";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
 const NAMAZ_TAGS = [
-  { tag: "namaz",       label: "Namaz Ayetleri",     emoji: "🕌", desc: "Namaz emri, huşu ve tesbihat" },
-  { tag: "tövbe",       label: "Tövbe & Bağışlanma", emoji: "🤲", desc: "Dua, istiğfar ve tövbe ayetleri" },
-  { tag: "sabır",       label: "Sabır",               emoji: "💪", desc: "Sabır ve dayanıklılık" },
-  { tag: "rahmet",      label: "Rahmet & Huzur",      emoji: "😌", desc: "Allah'ın rahmeti ve affı" },
-  { tag: "şükür",       label: "Şükür",               emoji: "🌟", desc: "Şükür ve minnet ayetleri" },
-  { tag: "B2_SERI_IBADETLER", label: "Şer'i İbadetler", emoji: "📿", desc: "Namaz, oruç, hac, zekât" },
+  { tag: "namaz-genel",    label: "Genel Namaz Emirleri", emoji: "🕌", desc: "98 ayet — namaz emri, kılma şekli, tesbihat" },
+  { tag: "namaz-vakit",    label: "Namaz Vakitleri",       emoji: "🕐", desc: "12 ayet — sabah, öğle, ikindi, akşam, yatsı" },
+  { tag: "namaz-husu",     label: "Huşu",                  emoji: "🤲", desc: "8 ayet — kalp huzuru, derin teslimiyet" },
+  { tag: "namaz-teheccud", label: "Teheccüd Namazı",       emoji: "🌙", desc: "10 ayet — gece namazı, seçkin kulluk" },
+  { tag: "namaz-cuma",     label: "Cuma Namazı",           emoji: "📿", desc: "2 ayet — Cuma emri ve önemi" },
+  { tag: "namaz-abdest",   label: "Abdest",                emoji: "💧", desc: "2 ayet — temizlik ve abdest hükmü" },
+  { tag: "namaz-korku",    label: "Korku Namazı",          emoji: "⚔️", desc: "2 ayet — savaş ve tehlike anında namaz" },
+  { tag: "namaz-sefer",    label: "Seferi Namaz",          emoji: "🚶", desc: "1 ayet — yolculukta kısaltma" },
 ] as const;
 
 export default function NamazScreen() {
@@ -113,6 +115,7 @@ export default function NamazScreen() {
             >
               <Text style={styles.catEmoji}>{t.emoji}</Text>
               <Text style={styles.catLabel} numberOfLines={2}>{t.label}</Text>
+              <Text style={styles.catDesc} numberOfLines={2}>{t.desc}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -176,6 +179,7 @@ const styles = StyleSheet.create({
   catCardActive: { backgroundColor:"#f0fdf4", borderColor:"#059669" },
   catEmoji:  { fontSize:24 },
   catLabel:  { fontSize:11, fontWeight:"600", color:"#1c1917", textAlign:"center" },
+  catDesc:   { fontSize:9, color:"#78716c", textAlign:"center", lineHeight:13, marginTop:1 },
   centered:  { flex:1, alignItems:"center", justifyContent:"center", padding:32 },
   noResult:  { color:"#78716c", fontSize:14 },
   verseList: { paddingHorizontal:12, paddingBottom:32 },
