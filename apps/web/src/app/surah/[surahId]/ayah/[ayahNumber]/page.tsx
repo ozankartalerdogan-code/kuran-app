@@ -32,13 +32,13 @@ import { AyahDetailTabs, type AyahDetailTabItem } from "./AyahDetailTabs";
 import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
 import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import { FavoriteButton } from "../../../../../components/FavoriteButton";
 import { AudioPlayer } from "../../../../../components/AudioPlayer";
 import { ShareButton } from "./ShareButton";
 
-const NoteEditor    = dynamic(() => import("./NoteEditor").then((m) => m.NoteEditor),    { ssr: false });
-const StreakTracker = dynamic(() => import("./StreakTracker").then((m) => m.StreakTracker), { ssr: false });
+const NoteEditor    = dynamicImport(() => import("./NoteEditor").then((m) => m.NoteEditor),    { ssr: false });
+const StreakTracker = dynamicImport(() => import("./StreakTracker").then((m) => m.StreakTracker), { ssr: false });
 
 type SectionStatus = "ready" | "partially_ready" | "missing";
 
