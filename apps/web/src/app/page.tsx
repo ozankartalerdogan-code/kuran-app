@@ -137,13 +137,18 @@ const NAV_CARDS = [
 export default async function HomePage() {
 
   // ── Günün Ayeti ─────────────────────────────────────────────────────
-  const offset = getDailyOffset(6236);
+  const totalRow = await dbGet<{ cnt: number }>(
+    "SELECT COUNT(*) AS cnt FROM verses WHERE arabic_text IS NOT NULL AND primary_translation IS NOT NULL"
+  ).catch(() => undefined);
+  const total = totalRow?.cnt ?? 6000;
+  const offset = getDailyOffset(total);
 
   const dailyVerse = await dbGet<DailyVerse>(
     `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
             s.adi_turkce AS surah_name
      FROM verses v
      LEFT JOIN sureler s ON s.id = v.surah_id
+     WHERE v.arabic_text IS NOT NULL AND v.primary_translation IS NOT NULL
      LIMIT 1 OFFSET ?`,
     offset
   ).catch(() => undefined);
