@@ -16,6 +16,96 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const NOTIF_KEY = "namazNotifEnabled";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
+// ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
+
+const VAKIT_KEYS: Record<string, { surahId: number; ayahNumber: number; label: string }[]> = {
+  sabah:   [
+    { surahId: 17, ayahNumber: 78,  label: "17:78"  },
+    { surahId: 20, ayahNumber: 130, label: "20:130" },
+    { surahId: 52, ayahNumber: 48,  label: "52:48"  },
+    { surahId: 11, ayahNumber: 114, label: "11:114" },
+  ],
+  ogle:    [{ surahId: 30, ayahNumber: 17, label: "30:17" }],
+  ikindi:  [
+    { surahId: 2,  ayahNumber: 238, label: "2:238"  },
+    { surahId: 50, ayahNumber: 39,  label: "50:39"  },
+  ],
+  aksam:   [
+    { surahId: 40, ayahNumber: 55,  label: "40:55"  },
+    { surahId: 76, ayahNumber: 25,  label: "76:25"  },
+  ],
+  yatsi:   [
+    { surahId: 4,  ayahNumber: 103, label: "4:103"  },
+    { surahId: 24, ayahNumber: 58,  label: "24:58"  },
+    { surahId: 78, ayahNumber: 9,   label: "78:9"   },
+  ],
+};
+
+const VAKIT_META = [
+  { id: "sabah",    ikon: "🌅", ad: "Sabah",    bg: "#f0f9ff", border: "#38bdf8", badge: "#bae6fd", badgeText: "#0c4a6e" },
+  { id: "ogle",     ikon: "☀️", ad: "Öğle",     bg: "#fffbeb", border: "#fbbf24", badge: "#fde68a", badgeText: "#78350f" },
+  { id: "ikindi",   ikon: "🌤️", ad: "İkindi",   bg: "#fff7ed", border: "#fb923c", badge: "#fed7aa", badgeText: "#7c2d12" },
+  { id: "aksam",    ikon: "🌆", ad: "Akşam",    bg: "#fff1f2", border: "#f87171", badge: "#fecaca", badgeText: "#7f1d1d" },
+  { id: "yatsi",    ikon: "🌙", ad: "Yatsı",    bg: "#eef2ff", border: "#818cf8", badge: "#c7d2fe", badgeText: "#3730a3" },
+  { id: "teheccud", ikon: "🌌", ad: "Teheccüd", bg: "#f5f3ff", border: "#a78bfa", badge: "#ddd6fe", badgeText: "#4c1d95" },
+];
+
+const SURE_ADI: Record<number, string> = {
+  2:"Bakara", 4:"Nisâ", 11:"Hûd", 17:"İsrâ", 20:"Tâhâ",
+  24:"Nûr", 30:"Rûm", 40:"Mü'min", 50:"Kâf", 52:"Tûr",
+  76:"İnsân", 78:"Nebe",
+};
+
+function VakitTablosu({ teheccudVerses }: { teheccudVerses: { surahId: number; ayahNumber: number; label: string }[] }) {
+  const allVakitVerse = {
+    ...VAKIT_KEYS,
+    teheccud: teheccudVerses,
+  };
+
+  return (
+    <View style={vt.kapsam}>
+      {/* Başlık */}
+      <View style={vt.baslik}>
+        <Text style={vt.baslikIkon}>🕐</Text>
+        <Text style={vt.baslikMetin}>Namaz Vakitleri & Teheccüd</Text>
+        <View style={vt.adetBadge}>
+          <Text style={vt.adetText}>
+            {Object.values(allVakitVerse).reduce((s, a) => s + a.length, 0)} ayet
+          </Text>
+        </View>
+      </View>
+      {/* Her vakit */}
+      {VAKIT_META.map((m, i) => {
+        const verses = allVakitVerse[m.id] ?? [];
+        if (verses.length === 0) return null;
+        return (
+          <View key={m.id} style={[vt.vakitSatir, i > 0 && vt.vakitSatirBorder]}>
+            {/* Sol — vakit adı */}
+            <View style={[vt.vakitSol, { backgroundColor: m.bg, borderLeftColor: m.border }]}>
+              <Text style={{ fontSize: 22 }}>{m.ikon}</Text>
+              <View style={[vt.vakitBadge, { backgroundColor: m.badge }]}>
+                <Text style={[vt.vakitBadgeText, { color: m.badgeText }]}>{m.ad}</Text>
+              </View>
+              <Text style={vt.vakitAdet}>{verses.length} ayet</Text>
+            </View>
+            {/* Sağ — ayetler */}
+            <View style={vt.vakitSag}>
+              {verses.map((v) => (
+                <TouchableOpacity key={v.label} style={vt.ayetRow}
+                  onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}` as any)} activeOpacity={0.7}>
+                  <View style={vt.keyBadge}><Text style={vt.keyText}>{v.label}</Text></View>
+                  <Text style={vt.sureName}>{SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}</Text>
+                  <Text style={vt.arrow}>›</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
 const NAMAZ_TAGS = [
   { tag: "namaz-genel",    label: "Genel Namaz Emirleri", emoji: "🕌", desc: "98 ayet — namaz emri, kılma şekli, tesbihat" },
   { tag: "namaz-vakit",    label: "Namaz Vakitleri",       emoji: "🕐", desc: "12 ayet — sabah, öğle, ikindi, akşam, yatsı" },
@@ -33,9 +123,18 @@ export default function NamazScreen() {
   const [loading, setLoading]       = useState(false);
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
+  const [teheccudVerses, setTeheccudVerses] = useState<{ surahId: number; ayahNumber: number; label: string }[]>([]);
 
   useEffect(() => {
     AsyncStorage.getItem(NOTIF_KEY).then((v) => setNotifEnabled(v === "1"));
+    // Teheccüd ayetlerini yükle
+    api.tags.filter("namaz-teheccud").then(res => {
+      setTeheccudVerses(res.results.map(r => ({
+        surahId: r.surah_id,
+        ayahNumber: r.ayah_number,
+        label: r.verse_key,
+      })));
+    }).catch(() => {});
   }, []);
 
   async function toggleNotif(val: boolean) {
@@ -103,6 +202,9 @@ export default function NamazScreen() {
               />
           }
         </View>
+
+        {/* Namaz Vakitleri Tablosu */}
+        <VakitTablosu teheccudVerses={teheccudVerses} />
 
         {/* Kategori kartları */}
         <View style={styles.grid}>
@@ -193,4 +295,26 @@ const styles = StyleSheet.create({
   surahLabel:  { fontSize:12, color:"#78716c" },
   readingText: { fontSize:13, color:"#1c1917", fontStyle:"italic", lineHeight:20, marginTop:2 },
   mealText:    { fontSize:11, lineHeight:17, color:"#57534e", marginTop:1 },
+});
+
+// ── Vakit Tablosu Stilleri ────────────────────────────────────────────────────
+const vt = StyleSheet.create({
+  kapsam:        { margin:12, marginBottom:0, borderRadius:16, borderWidth:1, borderColor:"#e7e5e4", overflow:"hidden", backgroundColor:"#fafaf9" },
+  baslik:        { flexDirection:"row", alignItems:"center", gap:8, backgroundColor:"#fff", paddingHorizontal:14, paddingVertical:10, borderBottomWidth:1, borderBottomColor:"#e7e5e4" },
+  baslikIkon:    { fontSize:16 },
+  baslikMetin:   { flex:1, fontSize:11, fontWeight:"700", color:"#78716c", textTransform:"uppercase", letterSpacing:0.5 },
+  adetBadge:     { backgroundColor:"#f0fdf4", borderRadius:12, paddingHorizontal:8, paddingVertical:2 },
+  adetText:      { fontSize:10, fontWeight:"600", color:"#059669" },
+  vakitSatir:    { flexDirection:"row" },
+  vakitSatirBorder: { borderTopWidth:1, borderTopColor:"#e7e5e4" },
+  vakitSol:      { width:72, borderLeftWidth:4, paddingHorizontal:8, paddingVertical:10, alignItems:"center", gap:4 },
+  vakitBadge:    { borderRadius:6, paddingHorizontal:6, paddingVertical:2 },
+  vakitBadgeText:{ fontSize:10, fontWeight:"700" },
+  vakitAdet:     { fontSize:9, color:"#a8a29e" },
+  vakitSag:      { flex:1, paddingVertical:6, paddingRight:8 },
+  ayetRow:       { flexDirection:"row", alignItems:"center", gap:6, paddingVertical:5, paddingHorizontal:4 },
+  keyBadge:      { backgroundColor:"#f5f5f4", borderRadius:5, paddingHorizontal:5, paddingVertical:2 },
+  keyText:       { fontSize:9, fontWeight:"700", color:"#78716c", fontFamily:"monospace" },
+  sureName:      { flex:1, fontSize:12, color:"#1c1917" },
+  arrow:         { fontSize:14, color:"#d1d5db" },
 });
