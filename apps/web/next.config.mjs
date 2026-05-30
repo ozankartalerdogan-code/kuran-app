@@ -1,5 +1,12 @@
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingRoot: path.join(__dirname, "../../"),
   transpilePackages: [
     "@quran-app/core",
     "@quran-app/types",
@@ -14,8 +21,12 @@ const nextConfig = {
       {
         source: "/api/:path*",
         headers: [
-          // TODO prod: ALLOWED_ORIGINS env'den spesifik domain listesi
-          { key: "Access-Control-Allow-Origin",  value: "*" },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: process.env.NODE_ENV === "development"
+              ? "*"
+              : process.env.ALLOWED_ORIGINS || "https://kuranapp.vercel.app",
+          },
           { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
           { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
           { key: "Access-Control-Max-Age",       value: "86400" },
