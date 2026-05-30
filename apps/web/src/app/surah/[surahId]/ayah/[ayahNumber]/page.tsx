@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic";
 import {
-  getAyahDetail,
-  getSurahs,
   normalizeTransliterationToReadingTrDetailed
 } from "@quran-app/core";
 import type { WordAnalysisSource } from "@quran-app/core";
+import { getAyahDetailFromDb } from "../../../../../lib/getAyahDetailFromDb";
+import { dbAll } from "../../../../../lib/dbUtils";
 import type {
   AvailabilityStatus,
   FidelityAnalysis,
@@ -1144,7 +1144,17 @@ export default async function Page({ params, searchParams }: PageProps) {
     return <ErrorState message="Sûre veya ayet numarası pozitif tam sayı olmalı." />;
   }
 
-  const surahs = await getSurahs();
+  interface SurahNavRow { id: number; ayet_sayisi: number; adi_turkce: string; arabicName: string | null; }
+  const surahs = (await dbAll<SurahNavRow>(
+    "SELECT id, ayet_sayisi, adi_turkce, adi_arapca AS arabicName FROM sureler ORDER BY id"
+  )).map((s) => ({
+    id: s.id,
+    verseCount: s.ayet_sayisi,
+    turkishName: { language: "tr" as const, source: null, text: s.adi_turkce, status: "available" as const },
+    arabicName: s.arabicName,
+    revelationType: null, revelationPlace: null, revelationOrder: null, shortIntroduction: null, status: "available" as const,
+  }));
+
   // getSurahFullTafsir kaldırıldı — Bakara için 1.5MB, accordion lazy fetch ile alıyor
   const currentSurah = surahs.find((surah) => surah.id === surahId) ?? null;
 
@@ -1161,9 +1171,9 @@ export default async function Page({ params, searchParams }: PageProps) {
     searchParams?.wa_source,
     searchParams?.debug
   );
-  let detail: Awaited<ReturnType<typeof getAyahDetail>>;
+  let detail: Awaited<ReturnType<typeof getAyahDetailFromDb>>;
   try {
-    detail = await getAyahDetail(surahId, ayahNumber, { wordAnalysisSource });
+    detail = await getAyahDetailFromDb(surahId, ayahNumber);
   } catch (err) {
     console.error(`[Page] getAyahDetail ${surahId}:${ayahNumber} başarısız:`, err);
     return <ErrorState message="Ayet verisi yüklenemedi. Lütfen sayfayı yenileyin." />;
