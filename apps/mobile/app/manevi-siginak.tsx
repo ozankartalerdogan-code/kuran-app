@@ -82,6 +82,7 @@ function VerseList({ tag }: { tag: string }) {
               <View style={sc.verseKey}><Text style={sc.verseKeyText}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
                 {v.surah_name && <Text style={sc.verseSurah}>{v.surah_name}</Text>}
+                {v.reading_tr && <Text style={sc.verseReading} numberOfLines={2}>{v.reading_tr}</Text>}
                 {v.meal && <Text style={sc.verseMeal} numberOfLines={2}>{v.meal}</Text>}
               </View>
             </TouchableOpacity>
@@ -360,6 +361,7 @@ const sc = StyleSheet.create({
   verseRow:  { flexDirection: "row", alignItems: "flex-start", gap: 8, paddingVertical: 6, borderBottomWidth: 1, borderBottomColor: "#f5f5f4" },
   verseKey:  { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2, marginTop: 2 },
   verseKeyText: { fontSize: 10, fontWeight: "700", color: "#065f46" },
-  verseSurah: { fontSize: 10, color: "#78716c" },
-  verseMeal:  { fontSize: 12, color: "#292524", lineHeight: 18 },
+  verseSurah:   { fontSize: 10, color: "#78716c" },
+  verseReading: { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20, marginTop: 1 },
+  verseMeal:    { fontSize: 11, color: "#57534e", lineHeight: 17, marginTop: 1 },
 });

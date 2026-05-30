@@ -36,7 +36,7 @@ const RUH_HALI = [
 
 // ── Accordion ─────────────────────────────────────────────────────────────────
 
-interface VerseItem { verse_key: string; surah_id: number; ayah_number: number; surah_name: string | null; meal: string | null; }
+interface VerseItem { verse_key: string; surah_id: number; ayah_number: number; surah_name: string | null; reading_tr: string | null; meal: string | null; }
 
 function DuaAccordion({ emoji, label, tag, renk }: { emoji: string; label: string; tag: string; renk: string }) {
   const [open, setOpen]       = React.useState(false);
@@ -56,6 +56,7 @@ function DuaAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
           surah_id: r.surah_id,
           ayah_number: r.ayah_number,
           surah_name: r.surah_name,
+          reading_tr: r.reading_tr,
           meal: r.meal,
         }));
         setVerses(items);
@@ -93,6 +94,7 @@ function DuaAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
               </View>
               <View style={{ flex: 1 }}>
                 {v.surah_name ? <Text style={styles.verseSurah}>{v.surah_name}</Text> : null}
+                {v.reading_tr ? <Text style={styles.verseReading} numberOfLines={2}>{v.reading_tr}</Text> : null}
                 {v.meal ? <Text style={styles.verseMeal} numberOfLines={2}>{v.meal}</Text> : null}
               </View>
             </TouchableOpacity>
@@ -200,8 +202,9 @@ const styles = StyleSheet.create({
   },
   verseKeyBox:  { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, marginTop: 2 },
   verseKeyText: { fontSize: 11, fontWeight: "700", color: "#065f46" },
-  verseSurah:   { fontSize: 11, color: "#78716c", marginBottom: 2 },
-  verseMeal:    { fontSize: 13, color: "#292524", lineHeight: 19 },
+  verseSurah:   { fontSize: 11, color: "#78716c", marginBottom: 1 },
+  verseReading: { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20 },
+  verseMeal:    { fontSize: 11, color: "#57534e", lineHeight: 17, marginTop: 1 },
 
   moodGrid:  { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingBottom: 8 },
   moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 10 },

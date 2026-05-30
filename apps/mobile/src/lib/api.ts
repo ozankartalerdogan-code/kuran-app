@@ -130,6 +130,7 @@ export type TagFilterResult = {
   surah_id:    number;
   ayah_number: number;
   surah_name:  string | null;
+  reading_tr:  string | null;
   meal:        string | null;
 };
 

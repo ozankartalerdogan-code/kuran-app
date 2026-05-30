@@ -139,8 +139,11 @@ export default function NamazScreen() {
                     <Text style={styles.surahLabel}>{item.surah_name}</Text>
                   )}
                 </View>
+                {item.reading_tr && (
+                  <Text style={styles.readingText} numberOfLines={2}>{item.reading_tr}</Text>
+                )}
                 {item.meal && (
-                  <Text style={styles.mealText} numberOfLines={3}>{item.meal}</Text>
+                  <Text style={styles.mealText} numberOfLines={2}>{item.meal}</Text>
                 )}
               </TouchableOpacity>
             ))}
@@ -184,5 +187,6 @@ const styles = StyleSheet.create({
   keyBadge:    { backgroundColor:"#d1fae5", borderRadius:8, paddingHorizontal:8, paddingVertical:3 },
   keyText:     { fontSize:11, fontWeight:"700", color:"#065f46" },
   surahLabel:  { fontSize:12, color:"#78716c" },
-  mealText:    { fontSize:13, lineHeight:21, color:"#292524" },
+  readingText: { fontSize:13, color:"#1c1917", fontStyle:"italic", lineHeight:20, marginTop:2 },
+  mealText:    { fontSize:11, lineHeight:17, color:"#57534e", marginTop:1 },
 });
