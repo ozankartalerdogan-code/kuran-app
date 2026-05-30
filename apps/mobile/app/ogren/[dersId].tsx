@@ -6,6 +6,23 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { Audio } from "expo-av";
+
+const API_BASE = process.env.EXPO_PUBLIC_API_URL?.replace("/api/v1", "") ?? "https://kuran-app-web-ozan-s-projects8.vercel.app";
+
+async function playHarfSes(harfId: number) {
+  try {
+    const num = String(harfId).padStart(2, "0");
+    const url = `${API_BASE}/audio/elifba/harf_${num}.mp3`;
+    const { sound } = await Audio.Sound.createAsync({ uri: url });
+    await sound.playAsync();
+    sound.setOnPlaybackStatusUpdate(status => {
+      if (status.isLoaded && status.didJustFinish) sound.unloadAsync();
+    });
+  } catch {
+    // ses çalamazsa sessizce geç
+  }
+}
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
@@ -16,6 +33,15 @@ function Flashcard({ harf, onNext }: { harf: ElifbaHarf; onNext: () => void }) {
 
   return (
     <View style={fc.container}>
+      {/* Ses butonu */}
+      <TouchableOpacity
+        style={fc.playBtn}
+        onPress={() => playHarfSes(harf.harf_id)}
+        activeOpacity={0.7}
+      >
+        <Text style={fc.playIcon}>🔊</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={flipped ? fc.cardBack : fc.cardFront}
         onPress={() => setFlipped((f) => !f)}
@@ -271,6 +297,8 @@ const styles = StyleSheet.create({
 
 const fc = StyleSheet.create({
   container:   { flex:1, padding:16, alignItems:"center" },
+  playBtn:     { alignSelf:"flex-end", padding:10, marginBottom:4 },
+  playIcon:    { fontSize:28 },
   cardFront: {
     width:"100%", minHeight:220, backgroundColor:"#fff", borderRadius:20, borderWidth:1, borderColor:"#e7e5e4",
     alignItems:"center", justifyContent:"center", padding:24,
