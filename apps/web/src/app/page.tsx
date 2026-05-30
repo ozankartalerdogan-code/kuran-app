@@ -104,6 +104,13 @@ const NAV_CARDS = [
     desc: "Arapça kökleri keşfet",
     gradient: "from-amber-500 to-orange-600",
   },
+  {
+    href: "/kible",
+    icon: "🧭",
+    title: "Kıble",
+    desc: "Kabe'nin yönünü bul",
+    gradient: "from-teal-500 to-emerald-600",
+  },
 ];
 
 export default async function HomePage() {
