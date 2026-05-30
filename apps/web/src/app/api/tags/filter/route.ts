@@ -87,7 +87,7 @@ export async function GET(
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text, v.reading_tr,
-                 v.literal_ceviri AS meal,
+                 COALESCE(v.literal_ceviri, v.primary_translation) AS meal,
                  vt.ana_tema, vt.alt_taglar
           FROM   verse_tags vt
           JOIN   verses v ON v.verse_key = vt.verse_key
@@ -111,7 +111,7 @@ export async function GET(
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text, v.reading_tr,
-                 v.literal_ceviri AS meal,
+                 COALESCE(v.literal_ceviri, v.primary_translation) AS meal,
                  vt.ana_tema, vt.alt_taglar
           FROM   verse_tag_items vi
           JOIN   verses v ON v.verse_key = vi.verse_key
