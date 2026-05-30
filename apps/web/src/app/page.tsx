@@ -108,20 +108,25 @@ const NAV_CARDS = [
 export default async function HomePage() {
 
   // ── Günün Ayeti ─────────────────────────────────────────────────────
+  // translations tablosundan diyanet kaynağını kullan — her satır tek ayete karşılık gelir
   const totalRow = await dbGet<{ cnt: number }>(
-    "SELECT COUNT(*) AS cnt FROM verses WHERE arabic_text IS NOT NULL AND primary_translation IS NOT NULL"
+    `SELECT COUNT(*) AS cnt FROM translations t
+     JOIN verses v ON v.verse_key = t.verse_key
+     WHERE t.source = 'diyanet' AND t.text IS NOT NULL
+       AND v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL`
   ).catch(() => undefined);
-  const total = totalRow?.cnt ?? 6000;
+  const total = totalRow?.cnt ?? 5000;
   const offset = getDailyOffset(total);
 
   const dailyVerse = await dbGet<DailyVerse>(
     `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr,
-            COALESCE(t.text, v.primary_translation) AS primary_translation,
+            t.text AS primary_translation,
             s.adi_turkce AS surah_name
-     FROM verses v
-     LEFT JOIN sureler s ON s.id = v.surah_id
-     LEFT JOIN translations t ON t.verse_key = v.verse_key AND t.source = 'diyanet'
-     WHERE v.arabic_text IS NOT NULL AND v.primary_translation IS NOT NULL
+     FROM translations t
+     JOIN verses v ON v.verse_key = t.verse_key
+     JOIN sureler s ON s.id = v.surah_id
+     WHERE t.source = 'diyanet' AND t.text IS NOT NULL
+       AND v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL
      LIMIT 1 OFFSET ?`,
     offset
   ).catch(() => undefined);
