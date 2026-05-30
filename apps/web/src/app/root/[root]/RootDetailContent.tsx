@@ -136,87 +136,117 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
 
       {/* Derived Words — anlama göre gruplandırılmış */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold text-stone-800 night-mode:text-stone-200">
-          Türev Kelimeler ({data.derivedWords.length})
-        </h2>
         {data.derivedWords.length === 0 ? (
           <p className="py-6 text-center text-sm text-stone-400 night-mode:text-stone-500">
             Henüz türev kelime bulunamadı.
           </p>
         ) : (
-          <div className="flex flex-col gap-2">
+          <>
             {(() => {
-              // meaning_tr'ye göre grupla
-              const grouped = new Map<string, typeof data.derivedWords>();
+              // 1. Önce word+meaning bazında benzersiz formları bul, verse listelerini topla
+              type FormEntry = { word: string; verses: { surahId: number; ayahNumber: number }[] };
+              const formMap = new Map<string, FormEntry>();
               for (const dw of data.derivedWords) {
-                const key = dw.meaning || "—";
-                if (!grouped.has(key)) grouped.set(key, []);
-                grouped.get(key)!.push(dw);
+                const formKey = `${dw.word}|||${dw.meaning}`;
+                if (!formMap.has(formKey)) {
+                  formMap.set(formKey, { word: dw.word, verses: [] });
+                }
+                formMap.get(formKey)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
               }
-              return Array.from(grouped.entries()).map(([meaning, words]) => {
-                const isOpen = expandedWord === meaning;
-                return (
-                  <div
-                    key={meaning}
-                    className="rounded-lg border border-stone-200 bg-white night-mode:border-stone-700 night-mode:bg-stone-800"
-                  >
-                    <button
-                      onClick={() => setExpandedWord(isOpen ? null : meaning)}
-                      className="flex w-full items-center justify-between px-4 py-3 text-left"
-                    >
-                      <div className="flex min-w-0 flex-1 items-center gap-3">
-                        <span className="flex flex-wrap gap-1.5" dir="rtl" lang="ar">
-                          {words.map((dw) => (
-                            <span key={dw.word} className="text-lg font-semibold text-stone-900 night-mode:text-stone-100">
-                              {dw.word}
-                            </span>
-                          ))}
-                        </span>
-                        <span className="truncate text-sm text-stone-600 night-mode:text-stone-400">
-                          {meaning}
-                        </span>
-                      </div>
-                      <div className="flex shrink-0 items-center gap-2">
-                        {words.length > 1 && (
-                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500 night-mode:bg-stone-700 night-mode:text-stone-400">
-                            {words.length} form
-                          </span>
-                        )}
-                        <svg
-                          className={`h-4 w-4 text-stone-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                          fill="none" viewBox="0 0 24 24" stroke="currentColor"
+
+              // 2. meaning'e göre form gruplarını topla
+              type MeaningGroup = { meaning: string; forms: FormEntry[] };
+              const meaningMap = new Map<string, MeaningGroup>();
+              for (const [formKey, form] of formMap.entries()) {
+                const meaning = formKey.split("|||")[1] || "—";
+                if (!meaningMap.has(meaning)) {
+                  meaningMap.set(meaning, { meaning, forms: [] });
+                }
+                meaningMap.get(meaning)!.forms.push(form);
+              }
+
+              const groups = Array.from(meaningMap.values());
+
+              return (
+                <>
+                  <h2 className="mb-3 text-lg font-semibold text-stone-800 night-mode:text-stone-200">
+                    Türev Kelimeler
+                    <span className="ml-2 text-sm font-normal text-stone-500">
+                      ({groups.length} anlam, {formMap.size} form)
+                    </span>
+                  </h2>
+                  <div className="flex flex-col gap-2">
+                    {groups.map((group) => {
+                      const isOpen = expandedWord === group.meaning;
+                      const totalVerses = group.forms.reduce((s, f) => s + f.verses.length, 0);
+                      return (
+                        <div
+                          key={group.meaning}
+                          className="rounded-lg border border-stone-200 bg-white night-mode:border-stone-700 night-mode:bg-stone-800"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-                    </button>
-                    {isOpen && (
-                      <div className="divide-y divide-stone-100 border-t border-stone-100 night-mode:divide-stone-700 night-mode:border-stone-700">
-                        {words.map((dw) => (
-                          <div key={dw.word} className="flex items-center justify-between px-4 py-2.5">
-                            <div className="flex items-center gap-3">
-                              <span className="text-base font-medium text-stone-900 night-mode:text-stone-100" dir="rtl" lang="ar">
-                                {dw.word}
+                          <button
+                            onClick={() => setExpandedWord(isOpen ? null : group.meaning)}
+                            className="flex w-full items-center justify-between px-4 py-3 text-left"
+                          >
+                            <div className="flex min-w-0 flex-1 items-center gap-3">
+                              <span className="flex flex-wrap gap-1.5" dir="rtl" lang="ar">
+                                {group.forms.map((f) => (
+                                  <span key={f.word} className="text-lg font-semibold text-stone-900 night-mode:text-stone-100">
+                                    {f.word}
+                                  </span>
+                                ))}
                               </span>
-                              <span className="text-xs text-stone-400 night-mode:text-stone-500">
-                                Sure {dw.surahId}:{dw.ayahNumber}
+                              <span className="truncate text-sm text-stone-600 night-mode:text-stone-400">
+                                {group.meaning}
                               </span>
                             </div>
-                            <button
-                              onClick={() => router.push(`/surah/${dw.surahId}/ayah/${dw.ayahNumber}`)}
-                              className="rounded-md bg-emerald-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-700 night-mode:bg-emerald-500"
-                            >
-                              Git →
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                            <div className="flex shrink-0 items-center gap-2">
+                              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700 night-mode:bg-emerald-900 night-mode:text-emerald-300">
+                                {totalVerses} ayet
+                              </span>
+                              <svg
+                                className={`h-4 w-4 text-stone-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </div>
+                          </button>
+                          {isOpen && (
+                            <div className="divide-y divide-stone-100 border-t border-stone-100 night-mode:divide-stone-700 night-mode:border-stone-700">
+                              {group.forms.map((form) => (
+                                <div key={form.word} className="px-4 py-2.5">
+                                  <div className="mb-1.5 flex items-center gap-2">
+                                    <span className="text-base font-medium text-stone-900 night-mode:text-stone-100" dir="rtl" lang="ar">
+                                      {form.word}
+                                    </span>
+                                    <span className="text-xs text-stone-400">
+                                      {form.verses.length} ayette
+                                    </span>
+                                  </div>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {form.verses.map((v, i) => (
+                                      <button
+                                        key={i}
+                                        onClick={() => router.push(`/surah/${v.surahId}/ayah/${v.ayahNumber}`)}
+                                        className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 night-mode:border-stone-600 night-mode:bg-stone-700 night-mode:text-stone-300"
+                                      >
+                                        {v.surahId}:{v.ayahNumber}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              });
+                </>
+              );
             })()}
-          </div>
+          </>
         )}
       </section>
     </main>
