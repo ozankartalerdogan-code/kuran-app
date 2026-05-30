@@ -1,11 +1,5 @@
 import type { getAyahDetail } from "@quran-app/core";
 import type { AvailabilityStatus, WordAnalysis } from "@quran-app/types";
-import meaningOverridesData from "../../../../../../../../data2/processed/meaning_overrides_tr.json";
-
-interface MeaningOverrideRecord {
-  arabic_key: string;
-  meaning_tr: string;
-}
 
 export interface ValidatorCopyPayload {
   id: string | number;
@@ -31,12 +25,7 @@ export interface ValidatorCopyPayload {
   }>;
 }
 
-const meaningOverridesByArabic = new Map<string, string>(
-  (meaningOverridesData.items as MeaningOverrideRecord[]).map((item) => [
-    item.arabic_key,
-    item.meaning_tr
-  ])
-);
+const meaningOverridesByArabic = new Map<string, string>();
 
 function normalizeArabicLookupKey(value: string | null | undefined): string {
   return (value ?? "")

@@ -1,4 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { dbAll, dbGet } from "../adapters/shared";
 
@@ -88,7 +89,8 @@ function uniqueNonEmpty(values: Array<string | null | undefined>): string[] {
 }
 
 function defaultDbPath(): string {
-  return fileURLToPath(new URL("../../../../data/app.db", import.meta.url));
+  const thisFile = fileURLToPath(import.meta.url);
+  return path.resolve(path.dirname(thisFile), "../../../../data/app.db");
 }
 
 export function readVerseAnalysisContextFromCoreDb(
