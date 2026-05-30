@@ -233,10 +233,7 @@ export default function SearchScreen() {
         setState({ status: "done", data });
 
         // Aramayı son aramalara ekle
-        setRecentSearches((prev) => {
-          addToRecent(trimmed, prev).then(setRecentSearches);
-          return prev;
-        });
+        addToRecent(trimmed, recentSearches).then(setRecentSearches).catch(() => {});
       } catch {
         setState({ status: "done", data: { type: "none" } });
       }
@@ -264,11 +261,9 @@ export default function SearchScreen() {
   }, []);
 
   const handleRecentDelete = useCallback(async (text: string) => {
-    setRecentSearches((prev) => {
-      removeFromRecent(text, prev).then(setRecentSearches);
-      return prev.filter((item) => item !== text);
-    });
-  }, []);
+    setRecentSearches((prev) => prev.filter((item) => item !== text));
+    removeFromRecent(text, recentSearches).then(setRecentSearches).catch(() => {});
+  }, [recentSearches]);
 
   const handleSubmit = useCallback(() => {
     if (debounceTimerRef.current) {
@@ -282,10 +277,7 @@ export default function SearchScreen() {
       .query(trimmed)
       .then((data) => {
         setState({ status: "done", data });
-        setRecentSearches((prev) => {
-          addToRecent(trimmed, prev).then(setRecentSearches);
-          return prev;
-        });
+        addToRecent(trimmed, recentSearches).then(setRecentSearches).catch(() => {});
       })
       .catch(() => {
         setState({ status: "done", data: { type: "none" } });

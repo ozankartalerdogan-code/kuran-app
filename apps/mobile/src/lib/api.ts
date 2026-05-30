@@ -231,7 +231,11 @@ export const api = {
 
   roots: {
     list: () =>
-      withRetry(() => request<RootItem[]>("/roots").then(r => (r as { roots?: RootItem[] }).roots ?? (r as RootItem[]))),
+      withRetry(() => request<unknown>("/roots").then(r => {
+        if (Array.isArray(r)) return r as RootItem[];
+        if (r && typeof r === "object" && "roots" in r) return (r as { roots: RootItem[] }).roots ?? [];
+        return [];
+      })),
     detail: (root: string) =>
       withRetry(() => request<RootDetail>(`/root/${encodeURIComponent(root)}`)),
   },

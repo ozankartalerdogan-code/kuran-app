@@ -153,7 +153,7 @@ export default function SearchScreen() {
         setState({ status: "done", data });
       }
 
-      setRecent((prev) => { addRecent(q, prev).then(setRecent); return prev; });
+      addRecent(q, recent).then(setRecent).catch(() => {});
     } catch {
       setState({ status: "done", data: { type: "none" } });
     }
