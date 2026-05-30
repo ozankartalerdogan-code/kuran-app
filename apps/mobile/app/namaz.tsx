@@ -117,10 +117,56 @@ const NAMAZ_TAGS = [
   { tag: "namaz-sefer",    label: "Seferi Namaz",          emoji: "🚶", desc: "1 ayet — yolculukta kısaltma" },
 ] as const;
 
+function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: string; emoji: string; desc: string }) {
+  const [open, setOpen]       = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [verses, setVerses]   = useState<TagFilterResult[]>([]);
+  const [fetched, setFetched] = useState(false);
+
+  const toggle = async () => {
+    const next = !open;
+    setOpen(next);
+    if (next && !fetched) {
+      setLoading(true);
+      try { const r = await api.tags.filter(tag); setVerses(r.results); }
+      catch {}
+      setLoading(false);
+      setFetched(true);
+    }
+  };
+
+  return (
+    <View style={styles.accordion}>
+      <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.75}>
+        <Text style={{ fontSize: 20 }}>{emoji}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.accordionTitle}>{label}</Text>
+          <Text style={styles.accordionDesc}>{desc}</Text>
+        </View>
+        <Text style={styles.accordionChev}>{open ? "▲" : "▼"}</Text>
+      </TouchableOpacity>
+      {open && (
+        <View style={styles.accordionBody}>
+          {loading ? (
+            <ActivityIndicator color="#059669" style={{ marginVertical: 10 }} />
+          ) : verses.map((item) => (
+            <TouchableOpacity key={item.verse_key} style={styles.verseCard}
+              onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}>
+              <View style={styles.verseHeader}>
+                <View style={styles.keyBadge}><Text style={styles.keyText}>{item.verse_key}</Text></View>
+                {item.surah_name && <Text style={styles.surahLabel}>{item.surah_name}</Text>}
+              </View>
+              {item.reading_tr && <Text style={styles.readingText} numberOfLines={2}>{item.reading_tr}</Text>}
+              {item.meal && <Text style={styles.mealText} numberOfLines={2}>{item.meal}</Text>}
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+}
+
 export default function NamazScreen() {
-  const [activeTag, setActiveTag]   = useState<string | null>(null);
-  const [verses, setVerses]         = useState<TagFilterResult[]>([]);
-  const [loading, setLoading]       = useState(false);
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
   const [teheccudVerses, setTeheccudVerses] = useState<{ surahId: number; ayahNumber: number; label: string }[]>([]);
@@ -169,20 +215,9 @@ export default function NamazScreen() {
     }
   }
 
-  async function loadTag(tag: string) {
-    if (activeTag === tag) { setActiveTag(null); setVerses([]); return; }
-    setActiveTag(tag);
-    setLoading(true);
-    try {
-      const res = await api.tags.filter(tag);
-      setVerses(res.results);
-    } catch { setVerses([]); }
-    finally  { setLoading(false); }
-  }
-
   return (
     <>
-      <Stack.Screen options={{ title: "Namaz & İbadet" }} />
+      <Stack.Screen options={{ title: "Namaz Hakkında" }} />
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
         {/* Namaz Vakti Bildirimleri */}
         <View style={styles.notifCard}>
@@ -206,58 +241,12 @@ export default function NamazScreen() {
         {/* Namaz Vakitleri Tablosu */}
         <VakitTablosu teheccudVerses={teheccudVerses} />
 
-        {/* Kategori kartları */}
-        <View style={styles.grid}>
+        {/* Accordion kategoriler */}
+        <View style={styles.accordionList}>
           {NAMAZ_TAGS.map((t) => (
-            <TouchableOpacity
-              key={t.tag}
-              style={[styles.catCard, activeTag === t.tag && styles.catCardActive]}
-              onPress={() => loadTag(t.tag)}
-              activeOpacity={0.75}
-            >
-              <Text style={styles.catEmoji}>{t.emoji}</Text>
-              <Text style={styles.catLabel} numberOfLines={2}>{t.label}</Text>
-              <Text style={styles.catDesc} numberOfLines={2}>{t.desc}</Text>
-            </TouchableOpacity>
+            <NamazAccordion key={t.tag} tag={t.tag} label={t.label} emoji={t.emoji} desc={t.desc} />
           ))}
         </View>
-
-        {/* Ayetler */}
-        {loading ? (
-          <View style={styles.centered}>
-            <ActivityIndicator size="large" color="#059669" />
-          </View>
-        ) : verses.length > 0 ? (
-          <View style={styles.verseList}>
-            {verses.map((item) => (
-              <TouchableOpacity
-                key={item.verse_key}
-                style={styles.verseCard}
-                onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
-                activeOpacity={0.75}
-              >
-                <View style={styles.verseHeader}>
-                  <View style={styles.keyBadge}>
-                    <Text style={styles.keyText}>{item.verse_key}</Text>
-                  </View>
-                  {item.surah_name && (
-                    <Text style={styles.surahLabel}>{item.surah_name}</Text>
-                  )}
-                </View>
-                {item.reading_tr && (
-                  <Text style={styles.readingText} numberOfLines={2}>{item.reading_tr}</Text>
-                )}
-                {item.meal && (
-                  <Text style={styles.mealText} numberOfLines={2}>{item.meal}</Text>
-                )}
-              </TouchableOpacity>
-            ))}
-          </View>
-        ) : activeTag ? (
-          <View style={styles.centered}>
-            <Text style={styles.noResult}>Ayet bulunamadı.</Text>
-          </View>
-        ) : null}
       </ScrollView>
     </>
   );
@@ -295,6 +284,14 @@ const styles = StyleSheet.create({
   surahLabel:  { fontSize:12, color:"#78716c" },
   readingText: { fontSize:13, color:"#1c1917", fontStyle:"italic", lineHeight:20, marginTop:2 },
   mealText:    { fontSize:11, lineHeight:17, color:"#57534e", marginTop:1 },
+
+  accordionList:   { margin:12, marginTop:8, gap:8 },
+  accordion:       { backgroundColor:"#fff", borderRadius:14, borderWidth:1, borderColor:"#e7e5e4", overflow:"hidden" },
+  accordionHeader: { flexDirection:"row", alignItems:"center", gap:10, padding:14 },
+  accordionTitle:  { fontSize:13, fontWeight:"700", color:"#1c1917" },
+  accordionDesc:   { fontSize:11, color:"#78716c", marginTop:1 },
+  accordionChev:   { fontSize:14, color:"#059669" },
+  accordionBody:   { borderTopWidth:1, borderTopColor:"#f5f5f4", padding:10, gap:6 },
 });
 
 // ── Vakit Tablosu Stilleri ────────────────────────────────────────────────────
