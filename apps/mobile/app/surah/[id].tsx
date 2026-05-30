@@ -11,6 +11,53 @@ import { useState, useEffect, useCallback } from "react";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
+function TafsirAccordion({ surahId }: { surahId: number }) {
+  const [open, setOpen]       = useState(false);
+  const [text, setText]       = useState<string | null>(null);
+  const [loaded, setLoaded]   = useState(false);
+
+  const load = () => {
+    if (loaded) { setOpen(p => !p); return; }
+    api.tafsir.get(surahId)
+      .then(d => { setText(d?.content ?? null); setLoaded(true); setOpen(true); })
+      .catch(() => { setLoaded(true); setOpen(true); });
+  };
+
+  return (
+    <View style={tf.box}>
+      <TouchableOpacity style={tf.header} onPress={load} activeOpacity={0.75}>
+        <View>
+          <Text style={tf.title}>📚 Sure Tefsiri</Text>
+          <Text style={tf.sub}>Elmalılı Hamdi Yazır</Text>
+        </View>
+        <Text style={tf.chevron}>{open ? "▲" : "▼"}</Text>
+      </TouchableOpacity>
+      {open && (
+        <View style={tf.body}>
+          {!loaded ? (
+            <ActivityIndicator color="#059669" />
+          ) : text ? (
+            <Text style={tf.text}>{text}</Text>
+          ) : (
+            <Text style={tf.empty}>Tefsir verisi bulunamadı.</Text>
+          )}
+        </View>
+      )}
+    </View>
+  );
+}
+
+const tf = StyleSheet.create({
+  box:     { margin: 12, borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", backgroundColor: "#fff", overflow: "hidden" },
+  header:  { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
+  title:   { fontSize: 14, fontWeight: "700", color: "#1c1917" },
+  sub:     { fontSize: 11, color: "#a8a29e", marginTop: 1 },
+  chevron: { color: "#059669", fontSize: 16 },
+  body:    { paddingHorizontal: 14, paddingBottom: 14 },
+  text:    { fontSize: 13, lineHeight: 22, color: "#44403c" },
+  empty:   { fontSize: 13, color: "#a8a29e", fontStyle: "italic" },
+});
+
 // Okunuş + meal → her satır daha yüksek
 const ITEM_HEIGHT = 88;
 
@@ -150,7 +197,12 @@ export default function SurahDetailScreen() {
         data={data.verses}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
-        ListHeaderComponent={<SurahHeader data={data.surah} />}
+        ListHeaderComponent={
+          <>
+            <SurahHeader data={data.surah} />
+            <TafsirAccordion surahId={surahId} />
+          </>
+        }
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
