@@ -185,24 +185,57 @@ export default function RootDetailScreen() {
           <HeatGrid distribution={data.distribution} maxCount={maxCount} />
         </View>
 
-        {/* Türev kelimeler */}
+        {/* Türev kelimeler — anlam bazlı gruplandırılmış */}
         {data.derivedWords.length > 0 && (
           <View style={s.section}>
-            <Text style={s.sectionTitle}>Türev Kelimeler ({data.derivedWords.length})</Text>
-            {data.derivedWords.map((w, i) => (
-              <TouchableOpacity
-                key={`${w.word}-${i}`}
-                style={s.derivRow}
-                onPress={() => router.push(`/ayah/${w.surahId}/${w.ayahNumber}`)}
-                activeOpacity={0.75}
-              >
-                <Text style={s.derivWord}>{w.word}</Text>
-                <View style={s.derivRight}>
-                  {w.meaning ? <Text style={s.derivMeaning} numberOfLines={1}>{w.meaning}</Text> : null}
-                  <Text style={s.derivRef}>{w.surahId}:{w.ayahNumber} →</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
+            {(() => {
+              // word bazında grupla
+              const wordMap = new Map<string, { meaning: string; verses: { surahId: number; ayahNumber: number }[] }>();
+              for (const dw of data.derivedWords) {
+                if (!wordMap.has(dw.word)) wordMap.set(dw.word, { meaning: dw.meaning, verses: [] });
+                wordMap.get(dw.word)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
+              }
+              // meaning bazında grupla
+              const meaningMap = new Map<string, { forms: string[]; verses: { word: string; surahId: number; ayahNumber: number }[] }>();
+              for (const [word, { meaning, verses }] of wordMap.entries()) {
+                const key = meaning || "—";
+                if (!meaningMap.has(key)) meaningMap.set(key, { forms: [], verses: [] });
+                const g = meaningMap.get(key)!;
+                if (!g.forms.includes(word)) g.forms.push(word);
+                g.verses.push(...verses.map(v => ({ word, ...v })));
+              }
+              const groups = Array.from(meaningMap.entries());
+              return (
+                <>
+                  <Text style={s.sectionTitle}>
+                    Kullanım Bağlamları ({groups.length} anlam, {data.derivedWords.length} geçiş)
+                  </Text>
+                  {groups.map(([meaning, { forms, verses }]) => (
+                    <View key={meaning} style={s.meaningGroup}>
+                      {/* Anlam başlığı */}
+                      <View style={s.meaningHeader}>
+                        <Text style={s.meaningForms}>{forms.join("  ·  ")}</Text>
+                        <Text style={s.meaningLabel}>{meaning}</Text>
+                        <Text style={s.meaningCount}>{verses.length} ayet</Text>
+                      </View>
+                      {/* Ayet referansları */}
+                      <View style={s.versesWrap}>
+                        {verses.map((v, i) => (
+                          <TouchableOpacity
+                            key={i}
+                            style={s.verseChip}
+                            onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}`)}
+                            activeOpacity={0.7}
+                          >
+                            <Text style={s.verseChipText}>{v.surahId}:{v.ayahNumber}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
+                  ))}
+                </>
+              );
+            })()}
           </View>
         )}
 
@@ -238,6 +271,15 @@ const s = StyleSheet.create({
   derivRight: { flex: 1 },
   derivMeaning:{ fontSize: 12, color: "#44403c", marginBottom: 2 },
   derivRef:   { fontSize: 11, color: "#059669", fontWeight: "600" },
+
+  meaningGroup:  { borderTopWidth: 1, borderTopColor: "#f0fdf4", paddingTop: 10, marginTop: 6 },
+  meaningHeader: { marginBottom: 6 },
+  meaningForms:  { fontSize: 18, color: "#1c1917", textAlign: "right", marginBottom: 2 },
+  meaningLabel:  { fontSize: 13, color: "#44403c", fontWeight: "600" },
+  meaningCount:  { fontSize: 11, color: "#059669", marginTop: 1 },
+  versesWrap:    { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 4 },
+  verseChip:     { backgroundColor: "#f0fdf4", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#86efac" },
+  verseChipText: { fontSize: 12, color: "#065f46", fontWeight: "600" },
 });
 
 const hg = StyleSheet.create({

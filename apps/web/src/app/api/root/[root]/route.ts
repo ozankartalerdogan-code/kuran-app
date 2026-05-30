@@ -32,20 +32,17 @@ export async function GET(
   for (let i = 1; i <= 114; i++) distribution[i] = 0;
   for (const row of distRows) distribution[row.surah_id] = row.count;
 
-  // c) derived_words: benzersiz Arapça formlar + bağlam
+  // c) derived_words: tüm oluşumlar (arabic + meaning + verse) — anlam bazlı gruplama için
   const derivedRows = await dbAll<{
     arabic:     string;
     meaning_tr: string | null;
     verse_key:  string;
   }>(`
-    SELECT arabic,
-           MIN(meaning_tr) AS meaning_tr,
-           MIN(verse_key)  AS verse_key
+    SELECT DISTINCT arabic, meaning_tr, verse_key
     FROM   words
     WHERE  root = ?
-    GROUP  BY arabic
-    ORDER  BY arabic
-    LIMIT  50`, root);
+    ORDER  BY arabic, verse_key
+    LIMIT  200`, root);
 
   const derivedWords = derivedRows.map((row) => {
     const [s, a] = (row.verse_key ?? "1:1").split(":").map(Number);
