@@ -457,7 +457,18 @@ export default function SearchScreen() {
       {/* ── Son Aramalar ── */}
       {showRecent && !isLoading ? (
         <View style={styles.recentSection}>
-          <Text style={styles.recentSectionTitle}>Son Aramalar</Text>
+          <View style={styles.recentHeader}>
+            <Text style={styles.recentSectionTitle}>Son Aramalar</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setRecentSearches([]);
+                storage.setJSON(RECENT_STORAGE_KEY, []).catch(() => {});
+              }}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            >
+              <Text style={styles.clearAllText}>Temizle</Text>
+            </TouchableOpacity>
+          </View>
           {recentSearches.map((item) => (
             <RecentSearchRow
               key={item}
@@ -714,6 +725,17 @@ const styles = StyleSheet.create({
   },
 
   // ── Son Aramalar ──
+  recentHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 6,
+  },
+  clearAllText: {
+    fontSize: 13,
+    color: "#ef4444",
+    fontWeight: "500",
+  },
   recentSection: {
     paddingHorizontal: 14,
     paddingTop: 10,

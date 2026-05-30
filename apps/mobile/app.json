@@ -33,7 +33,15 @@
       "output": "static"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#059669",
+          "sounds": []
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
