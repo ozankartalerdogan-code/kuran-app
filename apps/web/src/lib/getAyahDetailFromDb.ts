@@ -23,6 +23,15 @@ interface VerseRow {
   primary_translation: string | null;
   literal_ceviri: string | null;
   reading_tr: string | null;
+  fark_analizi: string | null;
+}
+
+interface FidelityRow {
+  source_name: string;
+  text: string | null;
+  source_url: string | null;
+  status: string;
+  ayah_status: string | null;
 }
 
 interface TranslationRow {
@@ -69,14 +78,14 @@ export async function getAyahDetailFromDb(
 ): Promise<AyahDetailPayload> {
   const verseKey = `${surahId}:${ayahNumber}`;
 
-  const [surahRow, verseRow, translationRows, wordRows, tagRow, tafsirRow, contextNoteRows] =
+  const [surahRow, verseRow, translationRows, wordRows, tagRow, tafsirRow, contextNoteRows, fidelityRows] =
     await Promise.all([
       dbGet<SurahRow>(
         "SELECT id, adi_turkce, adi_arapca, translit, tur, ayet_sayisi FROM sureler WHERE id = ?",
         surahId
       ),
       dbGet<VerseRow>(
-        "SELECT verse_key, arabic_text, primary_translation, literal_ceviri, reading_tr FROM verses WHERE verse_key = ?",
+        "SELECT verse_key, arabic_text, primary_translation, literal_ceviri, reading_tr, fark_analizi FROM verses WHERE verse_key = ?",
         verseKey
       ),
       dbAll<TranslationRow>(
@@ -101,6 +110,10 @@ export async function getAyahDetailFromDb(
       ),
       dbAll<ContextNoteRow>(
         "SELECT scope, type, source, text FROM context_notes WHERE verse_key = ? ORDER BY type",
+        verseKey
+      ),
+      dbAll<FidelityRow>(
+        "SELECT source_name, text, source_url, status, ayah_status FROM fidelity_comparisons WHERE verse_key = ?",
         verseKey
       ),
     ]);
@@ -168,10 +181,10 @@ export async function getAyahDetailFromDb(
     arabicText: verseRow?.arabic_text ?? null,
     transliteration: verseRow?.reading_tr ?? null,
     readingTr: verseRow?.reading_tr ?? null,
+    farkAnalizi: verseRow?.fark_analizi ?? null,
     translations,
     literalCeviri: verseRow?.literal_ceviri ?? null,
     hamAnlamOzeti: null,
-    farkAnalizi: null,
     temalar: null,
     anaTema: tagRow?.ana_tema ?? null,
     altTaglar,
@@ -204,6 +217,23 @@ export async function getAyahDetailFromDb(
     ? { source: tafsirRow.source, summary: tafsirRow.content, sources: [], status: "available" }
     : null;
 
+  // Fidelity analizi
+  const fidelityAnalysis = fidelityRows.length > 0
+    ? {
+        source: "fidelity_comparisons",
+        level: ((fidelityRows[0].ayah_status ?? "available") === "available" ? "medium" : "unknown") as import("@quran-app/types").FidelityLevel,
+        notes: [],
+        comparisons: fidelityRows.map((row) => ({
+          sourceName: row.source_name,
+          text: row.text,
+          sourceUrl: row.source_url,
+          status: (row.status ?? "available") as import("@quran-app/types").AvailabilityStatus,
+        })),
+        sources: [],
+        status: ((fidelityRows[0].ayah_status ?? "available")) as import("@quran-app/types").AvailabilityStatus,
+      }
+    : null;
+
   const contextNuzulNote = contextNoteRows.find((n) => n.type === "revelation_context");
   const revelationContext = contextNuzulNote
     ? {
@@ -225,7 +255,7 @@ export async function getAyahDetailFromDb(
     wordAnalyses,
     tafsirSummary,
     revelationContext,
-    fidelityAnalysis: null,
+    fidelityAnalysis,
     status: surah !== null && ayah.status === "available" ? "available" : "missing",
   };
 }
