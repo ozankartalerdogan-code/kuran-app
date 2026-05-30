@@ -11,21 +11,12 @@ import { useState, useEffect, useCallback } from "react";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
-function TafsirAccordion({ surahId }: { surahId: number }) {
-  const [open, setOpen]       = useState(false);
-  const [text, setText]       = useState<string | null>(null);
-  const [loaded, setLoaded]   = useState(false);
-
-  const load = () => {
-    if (loaded) { setOpen(p => !p); return; }
-    api.tafsir.get(surahId)
-      .then(d => { setText(d?.content ?? null); setLoaded(true); setOpen(true); })
-      .catch(() => { setLoaded(true); setOpen(true); });
-  };
+function TafsirAccordion({ text }: { text: string | null | "loading" }) {
+  const [open, setOpen] = useState(false);
 
   return (
     <View style={tf.box}>
-      <TouchableOpacity style={tf.header} onPress={load} activeOpacity={0.75}>
+      <TouchableOpacity style={tf.header} onPress={() => setOpen(p => !p)} activeOpacity={0.75}>
         <View>
           <Text style={tf.title}>📚 Sure Tefsiri</Text>
           <Text style={tf.sub}>Elmalılı Hamdi Yazır</Text>
@@ -34,7 +25,7 @@ function TafsirAccordion({ surahId }: { surahId: number }) {
       </TouchableOpacity>
       {open && (
         <View style={tf.body}>
-          {!loaded ? (
+          {text === "loading" ? (
             <ActivityIndicator color="#059669" />
           ) : text ? (
             <Text style={tf.text}>{text}</Text>
@@ -127,17 +118,21 @@ export default function SurahDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const surahId = Number(id);
 
-  const [data, setData]       = useState<VerseListResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState<string | null>(null);
+  const [data, setData]         = useState<VerseListResponse | null>(null);
+  const [tafsirText, setTafsir] = useState<string | null | "loading">("loading");
+  const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState<string | null>(null);
 
   useEffect(() => {
     if (!surahId) return;
-    api.verses
-      .bySurah(surahId)
-      .then((res) => {
+    // Ayetler + tefsir paralel yükle
+    Promise.all([
+      api.verses.bySurah(surahId),
+      api.tafsir.get(surahId).catch(() => ({ content: null })),
+    ])
+      .then(([res, tafsirRes]) => {
         setData(res);
-        // Sure açılınca ilk ayeti son okunan yer olarak kaydet
+        setTafsir(tafsirRes?.content ?? null);
         storage.setJSON(STORAGE_KEYS.mushafBookmark, `${surahId}:1`).catch(() => {});
       })
       .catch(() => setError("Ayetler yüklenemedi. Bağlantını kontrol et."))
@@ -200,7 +195,7 @@ export default function SurahDetailScreen() {
         ListHeaderComponent={
           <>
             <SurahHeader data={data.surah} />
-            <TafsirAccordion surahId={surahId} />
+            <TafsirAccordion text={tafsirText} />
           </>
         }
         ItemSeparatorComponent={() => <View style={styles.separator} />}
