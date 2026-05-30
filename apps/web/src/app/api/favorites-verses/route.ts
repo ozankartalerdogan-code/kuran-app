@@ -8,6 +8,8 @@ interface VerseRow {
   surah_id:            number;
   ayah_number:         number;
   primary_translation: string | null;
+  arabic_text:         string | null;
+  reading_tr:          string | null;
   temalar:             string | null;
   adi_turkce:          string | null;
 }
@@ -29,8 +31,8 @@ export async function GET(req: NextRequest) {
   const placeholders = keys.map(() => "?").join(",");
 
   const rows = await dbAll<VerseRow>(
-    `SELECT v.verse_key, v.surah_id, v.ayah_number, v.primary_translation, v.temalar,
-            s.adi_turkce
+    `SELECT v.verse_key, v.surah_id, v.ayah_number, v.primary_translation,
+            v.arabic_text, v.reading_tr, v.temalar, s.adi_turkce
      FROM verses v
      LEFT JOIN sureler s ON s.id = v.surah_id
      WHERE v.verse_key IN (${placeholders})`,
@@ -49,6 +51,8 @@ export async function GET(req: NextRequest) {
           surah_id:    row.surah_id,
           ayah_number: row.ayah_number,
           surah_name:  row.adi_turkce,
+          arabic_text: row.arabic_text,
+          reading_tr:  row.reading_tr,
           meal:        row.primary_translation,
           ana_tema:    tagArr[0] ?? null,
           alt_taglar:  tagArr.slice(1),

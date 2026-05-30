@@ -4,13 +4,15 @@ import Link from "next/link";
 import { FavoriteButton } from "./FavoriteButton";
 
 export interface VerseCardData {
-  verse_key:   string;
-  surah_id:    number;
-  ayah_number: number;
-  surah_name?: string | null;
-  meal:        string | null;
-  ana_tema:    string | null;
-  alt_taglar:  string[];
+  verse_key:    string;
+  surah_id:     number;
+  ayah_number:  number;
+  surah_name?:  string | null;
+  arabic_text?: string | null;
+  reading_tr?:  string | null;
+  meal:         string | null;
+  ana_tema:     string | null;
+  alt_taglar:   string[];
 }
 
 interface VerseCardProps {
@@ -27,7 +29,7 @@ function formatAnaTemaBadge(code: string): string {
 }
 
 export function VerseCard({ verse, onTagClick }: VerseCardProps) {
-  const { verse_key, surah_id, ayah_number, surah_name, meal, ana_tema, alt_taglar } = verse;
+  const { verse_key, surah_id, ayah_number, surah_name, arabic_text, reading_tr, meal, ana_tema, alt_taglar } = verse;
 
   return (
     <article className="rounded-lg border border-stone-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-stone-700 dark:bg-stone-800">
@@ -60,6 +62,24 @@ export function VerseCard({ verse, onTagClick }: VerseCardProps) {
           <FavoriteButton verseKey={verse_key} size="sm" />
         </div>
       </div>
+
+      {/* Arapça metin */}
+      {arabic_text && (
+        <p
+          className="mb-2 text-right text-xl leading-loose text-stone-900 dark:text-stone-100"
+          dir="rtl"
+          lang="ar"
+        >
+          {arabic_text}
+        </p>
+      )}
+
+      {/* Okunuş */}
+      {reading_tr && (
+        <p className="mb-2 text-xs italic text-stone-500 dark:text-stone-400">
+          {reading_tr}
+        </p>
+      )}
 
       {/* Meal metni */}
       {meal ? (

@@ -416,6 +416,8 @@ export function SearchContent() {
                       surah_id:    parsed.surahId,
                       ayah_number: parsed.ayahNumber,
                       surah_name:  r.surah_name,
+                      arabic_text: r.arabic_text,
+                      reading_tr:  r.reading_tr,
                       meal:        r.meal,
                       ana_tema:    null,
                       alt_taglar:  [],

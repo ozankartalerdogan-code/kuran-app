@@ -6,6 +6,8 @@ interface DbRow {
   surah_id:    number;
   ayah_number: number;
   surah_name:  string | null;
+  arabic_text: string | null;
+  reading_tr:  string | null;
   meal:        string | null;
   ana_tema:    string | null;
   alt_taglar:  string | null;
@@ -17,6 +19,8 @@ export async function fetchVerses(tag: string): Promise<VerseCardData[]> {
       SELECT
         vti.verse_key, v.surah_id, v.ayah_number,
         s.adi_turkce AS surah_name,
+        v.arabic_text,
+        v.reading_tr,
         v.primary_translation AS meal,
         vt.ana_tema, vt.alt_taglar,
         vti.tag
@@ -32,6 +36,8 @@ export async function fetchVerses(tag: string): Promise<VerseCardData[]> {
     surah_id:    r.surah_id,
     ayah_number: r.ayah_number,
     surah_name:  r.surah_name,
+    arabic_text: r.arabic_text,
+    reading_tr:  r.reading_tr,
     meal:        r.meal,
     ana_tema:    r.ana_tema,
     alt_taglar:  r.alt_taglar
