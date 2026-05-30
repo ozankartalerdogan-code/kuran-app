@@ -6,9 +6,16 @@
     "apps/*",
     "packages/*"
   ],
+  "overrides": {
+    "react":     "18.3.1",
+    "react-dom": "18.3.1"
+  },
   "scripts": {
     "dev:web": "npm run dev -w @quran-app/web",
     "dev:mobile": "npm run dev -w @quran-app/mobile",
+    "upload:audio": "node --input-type=module scripts/upload-audio-to-r2.js",
+    "upload:audio:dry": "node --input-type=module scripts/upload-audio-to-r2.js --dry-run",
+    "upload:audio:force": "node --input-type=module scripts/upload-audio-to-r2.js --force",
     "build": "npm run build -ws --if-present",
     "typecheck": "npm run typecheck -ws --if-present",
     "smoke:surah-context": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-surah-context.ts",
@@ -27,12 +34,9 @@
     "repair-meaning-summaries": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/repair-meaning-summaries.ts",
     "repair-meaning-summaries:dry": "node --no-warnings --env-file=.env.local --loader ./scripts/ts-extension-loader.mjs scripts/repair-meaning-summaries.ts --dry-run"
   },
-  "overrides": {
-    "react":     "18.3.1",
-    "react-dom": "18.3.1"
-  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
+    "ajv": "^8.20.0",
     "dotenv": "^17.4.2"
   },
   "simple-git-hooks": {
@@ -43,6 +47,7 @@
     "packages/**/*.{ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1056.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "eslint": "^8.57.1",
