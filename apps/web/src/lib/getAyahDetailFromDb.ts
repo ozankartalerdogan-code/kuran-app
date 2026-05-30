@@ -56,13 +56,20 @@ interface TafsirRow {
   source: string | null;
 }
 
+interface ContextNoteRow {
+  scope: string;
+  type: string;
+  source: string | null;
+  text: string;
+}
+
 export async function getAyahDetailFromDb(
   surahId: number,
   ayahNumber: number
 ): Promise<AyahDetailPayload> {
   const verseKey = `${surahId}:${ayahNumber}`;
 
-  const [surahRow, verseRow, translationRows, wordRows, tagRow, tafsirRow] =
+  const [surahRow, verseRow, translationRows, wordRows, tagRow, tafsirRow, contextNoteRows] =
     await Promise.all([
       dbGet<SurahRow>(
         "SELECT id, adi_turkce, adi_arapca, translit, tur, ayet_sayisi FROM sureler WHERE id = ?",
@@ -91,6 +98,10 @@ export async function getAyahDetailFromDb(
       dbGet<TafsirRow>(
         "SELECT content, source FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1",
         surahId
+      ),
+      dbAll<ContextNoteRow>(
+        "SELECT scope, type, source, text FROM context_notes WHERE verse_key = ? ORDER BY type",
+        verseKey
       ),
     ]);
 
@@ -193,13 +204,27 @@ export async function getAyahDetailFromDb(
     ? { source: tafsirRow.source, summary: tafsirRow.content, sources: [], status: "available" }
     : null;
 
+  const contextNuzulNote = contextNoteRows.find((n) => n.type === "revelation_context");
+  const revelationContext = contextNuzulNote
+    ? {
+        scope: "surah" as const,
+        source: contextNuzulNote.source,
+        summary: contextNuzulNote.text,
+        relatedSurahId: surahId,
+        relatedAyahId: null,
+        methodology: [],
+        sources: [],
+        status: "available" as const,
+      }
+    : null;
+
   return {
     surah,
     ayah,
     translations,
     wordAnalyses,
     tafsirSummary,
-    revelationContext: null,
+    revelationContext,
     fidelityAnalysis: null,
     status: surah !== null && ayah.status === "available" ? "available" : "missing",
   };
