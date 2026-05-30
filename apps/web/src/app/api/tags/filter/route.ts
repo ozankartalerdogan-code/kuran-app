@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
 const PAGE_SIZE = 50;

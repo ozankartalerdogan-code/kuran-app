@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import type { SearchResponse, SuggestedSurah } from "./search-types";
 import { dbAll, dbGet } from "../../../lib/dbUtils";

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { dbAll, dbGet, dbRun } from "../../../lib/dbUtils";
 import type { RootItem } from "../../../types/root";

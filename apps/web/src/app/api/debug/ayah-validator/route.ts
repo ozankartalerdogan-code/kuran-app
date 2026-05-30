@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAyahDetail } from "@quran-app/core";
 import { NextResponse } from "next/server";
 import { resolveWordAnalysisSource } from "../../../../experimentalSources";
