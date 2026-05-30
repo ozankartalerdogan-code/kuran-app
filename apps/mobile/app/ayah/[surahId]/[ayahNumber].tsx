@@ -253,6 +253,24 @@ export default function AyahDetailScreen() {
       .finally(() => setLoading(false));
   }, [surahId, ayahNumber]);
 
+  // Kök anlamları — Kökler sekmesi açılınca fetch et
+  const [rootMeaningsLocal, setRootMeaningsLocal] = useState<Record<string, string>>({});
+  const rootMeaningsFetched = useState(false);
+
+  const fetchRootMeanings = useCallback(async (words: AyahDetailResponse["words"]) => {
+    if (rootMeaningsFetched[0]) return;
+    rootMeaningsFetched[1](true);
+    const existing = data?.rootMeanings ?? {};
+    const roots = [...new Set(words.map(w => w.root).filter(Boolean))] as string[];
+    const missing = roots.filter(r => !existing[r]);
+    if (missing.length === 0) { setRootMeaningsLocal(existing); return; }
+    const results: Record<string, string> = { ...existing };
+    await Promise.all(missing.map(r =>
+      api.roots.detail(r).then(d => { if (d?.meaningTr) results[r] = d.meaningTr; }).catch(() => {})
+    ));
+    setRootMeaningsLocal(results);
+  }, [data, rootMeaningsFetched]);
+
   const navigate = useCallback(
     (s: number, a: number) => {
       router.replace(`/ayah/${s}/${a}`);
@@ -263,6 +281,12 @@ export default function AyahDetailScreen() {
   const headerTitle = data
     ? `${data.surahName} · ${data.ayahNumber}. Ayet`
     : "Ayet Detayı";
+
+  // Kökler sekmesi açılınca root anlamlarını fetch et
+  useEffect(() => {
+    if (activeTab !== "roots" || !data || rootMeaningsFetched[0]) return;
+    fetchRootMeanings(data.words);
+  }, [activeTab, data]);
 
   const navToRoot = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
@@ -344,25 +368,36 @@ export default function AyahDetailScreen() {
         {activeTab === "meal" && (
           <View style={styles.tabContent}>
 
-            {/* Çeviriler */}
+            {/* Çeviriler — API güncellenince çoğalır, şimdilik primary + literal */}
             {translations.length > 0 ? (
               translations.map((t) => (
                 <View key={t.source} style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                   <Text style={[styles.sectionTitle, { color: colors.accent }]}>
                     {t.source?.split("#").at(-1)?.toUpperCase() ?? "MEAL"}
                   </Text>
-                  <Text style={[styles.mealText, { color: colors.textSecondary }]}>
-                    {t.text ?? "—"}
-                  </Text>
+                  <Text style={[styles.mealText, { color: colors.textSecondary }]}>{t.text ?? "—"}</Text>
                 </View>
               ))
             ) : (
-              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.sectionTitle, { color: colors.accent }]}>MEAL</Text>
-                <Text style={[styles.mealText, { color: colors.textSecondary }]}>
-                  {data.meal ?? "Meal verisi yok."}
-                </Text>
-              </View>
+              <>
+                {data.meal ? (
+                  <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                    <Text style={[styles.sectionTitle, { color: colors.accent }]}>MEAL</Text>
+                    <Text style={[styles.mealText, { color: colors.textSecondary }]}>{data.meal}</Text>
+                  </View>
+                ) : null}
+                {data.literalCeviri ? (
+                  <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                    <Text style={[styles.sectionTitle, { color: colors.accent }]}>LİTERAL ÇEVİRİ</Text>
+                    <Text style={[styles.mealText, { color: colors.textSecondary }]}>{data.literalCeviri}</Text>
+                  </View>
+                ) : null}
+                {!data.meal && !data.literalCeviri && (
+                  <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                    <Text style={[styles.mealText, { color: colors.textMuted }]}>Meal verisi yok.</Text>
+                  </View>
+                )}
+              </>
             )}
 
           </View>
@@ -453,7 +488,7 @@ export default function AyahDetailScreen() {
           <View style={styles.tabContent}>
             <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
               <Text style={[styles.sectionTitle, { color: colors.accent }]}>KÖKLER</Text>
-              <UniqueRootList words={data.words} rootMeanings={data.rootMeanings ?? {}} colors={colors} />
+              <UniqueRootList words={data.words} rootMeanings={Object.keys(rootMeaningsLocal).length > 0 ? rootMeaningsLocal : (data.rootMeanings ?? {})} colors={colors} />
             </View>
           </View>
         )}
