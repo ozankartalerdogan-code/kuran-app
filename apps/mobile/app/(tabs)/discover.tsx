@@ -343,7 +343,7 @@ export default function SearchScreen() {
       )}
 
       {/* Keşfet — arama yokken tam keşfet ekranı */}
-      {!isLoading && query.length < MIN_Q && !showRecent && (
+      {!isLoading && query.length < MIN_Q && (
         <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:12, paddingBottom:32 }} showsVerticalScrollIndicator={false}>
 
           {/* Özel Rehberler */}
