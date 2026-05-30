@@ -218,6 +218,8 @@ export default function AyahDetailScreen() {
   const ayahNumber = Number(rawA);
 
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
+  const [reading, setReading] = useState<string | null>(null);
+  const [translations, setTranslations] = useState<{ source: string; text: string | null }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
@@ -226,9 +228,23 @@ export default function AyahDetailScreen() {
     if (!surahId || !ayahNumber) return;
     setLoading(true);
     setError(null);
-    api.ayah
-      .get(surahId, ayahNumber)
-      .then(setData)
+    Promise.all([
+      api.ayah.get(surahId, ayahNumber),
+      api.verses.bySurah(surahId),
+    ])
+      .then(([ayahData, versesData]) => {
+        setData(ayahData);
+        // API henüz readingTr/translations döndürmüyorsa verses'ten al
+        if (!ayahData.readingTr) {
+          const verse = versesData.verses.find(v => v.ayahNumber === ayahNumber);
+          if (verse?.reading) setReading(verse.reading);
+        } else {
+          setReading(ayahData.readingTr);
+        }
+        if (ayahData.translations?.length) {
+          setTranslations(ayahData.translations);
+        }
+      })
       .catch(() => setError("Ayet yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
   }, [surahId, ayahNumber]);
@@ -317,17 +333,17 @@ export default function AyahDetailScreen() {
         {activeTab === "meal" && (
           <View style={styles.tabContent}>
 
-            {/* Okunuş */}
-            {data.readingTr ? (
+            {/* Okunuş — verses API'den geliyor */}
+            {reading ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>OKUNUŞ</Text>
-                <Text style={[styles.literalText, { color: colors.textMuted }]}>{data.readingTr}</Text>
+                <Text style={[styles.literalText, { color: colors.textMuted }]}>{reading}</Text>
               </View>
             ) : null}
 
-            {/* Birden fazla çeviri varsa hepsini göster */}
-            {(data.translations ?? []).length > 0 ? (
-              (data.translations ?? []).map((t) => (
+            {/* Çeviriler */}
+            {translations.length > 0 ? (
+              translations.map((t) => (
                 <View key={t.source} style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                   <Text style={[styles.sectionTitle, { color: colors.accent }]}>
                     {t.source?.split("#").at(-1)?.toUpperCase() ?? "MEAL"}
