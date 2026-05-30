@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Dimensions,
 } from "react-native";
 import { Stack } from "expo-router";
-import * as Location from "expo-location";
 
 const MECCA = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
@@ -34,27 +33,26 @@ export default function KibleScreen() {
   const [distance, setDistance] = useState<number | null>(null);
   const [city, setCity]         = useState<string | null>(null);
 
-  const locate = useCallback(async () => {
+  const locate = useCallback(() => {
     setStatus("loading");
-    const { status: perm } = await Location.requestForegroundPermissionsAsync();
-    if (perm !== "granted") {
-      Alert.alert("İzin Gerekli", "Konum izni verilmedi.");
+    if (!navigator.geolocation) {
+      Alert.alert("Hata", "Cihazınız konum özelliğini desteklemiyor.");
       setStatus("error");
       return;
     }
-    try {
-      const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
-      const { latitude, longitude } = loc.coords;
-      setQibla(calcQibla(latitude, longitude));
-      setDistance(calcDist(latitude, longitude));
-      setStatus("done");
-      // Şehir adı
-      Location.reverseGeocodeAsync({ latitude, longitude })
-        .then(([r]) => r && setCity(r.city || r.region || null))
-        .catch(() => {});
-    } catch {
-      setStatus("error");
-    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setQibla(calcQibla(latitude, longitude));
+        setDistance(calcDist(latitude, longitude));
+        setStatus("done");
+      },
+      () => {
+        Alert.alert("Konum İzni", "Konum izni verilmedi veya alınamadı.");
+        setStatus("error");
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
   }, []);
 
   return (
