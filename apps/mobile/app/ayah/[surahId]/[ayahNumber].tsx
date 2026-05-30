@@ -186,7 +186,7 @@ const lightColors: ThemeColors = {
   border:       "#e7e5e4",
   textPrimary:  "#1c1917",
   textSecondary:"#44403c",
-  textMuted:    "#a8a29e",
+  textMuted:    "#57534e",
   accent:       "#059669",
   accentLight:  "#d1fae5",
   error:        "#dc2626",
@@ -326,20 +326,19 @@ export default function AyahDetailScreen() {
           </Text>
         </View>
 
+        {/* ═══ Okunuş — Arapça metnin hemen altında ═══ */}
+        {reading ? (
+          <View style={[styles.readingBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <Text style={[styles.readingText, { color: colors.textSecondary }]}>{reading}</Text>
+          </View>
+        ) : null}
+
         {/* ═══ Sekmeler ═══ */}
         <SegmentedTabs active={activeTab} onChange={setActiveTab} colors={colors} />
 
         {/* ═══ Sekme İçerikleri ═══ */}
         {activeTab === "meal" && (
           <View style={styles.tabContent}>
-
-            {/* Okunuş — verses API'den geliyor */}
-            {reading ? (
-              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.sectionTitle, { color: colors.accent }]}>OKUNUŞ</Text>
-                <Text style={[styles.literalText, { color: colors.textMuted }]}>{reading}</Text>
-              </View>
-            ) : null}
 
             {/* Çeviriler */}
             {translations.length > 0 ? (
@@ -587,13 +586,20 @@ const styles = StyleSheet.create({
 
   // ── Arapça metin ──
   arabicBox: {
-    borderRadius: 12, padding: 20, marginBottom: 10,
+    borderRadius: 12, padding: 20, marginBottom: 6,
     alignItems: "center", borderWidth: 1,
   },
   arabicText: {
     fontSize: 36, lineHeight: 60,
     fontFamily: "serif", textAlign: "right",
     writingDirection: "rtl", width: "100%",
+  },
+  readingBox: {
+    borderRadius: 10, paddingHorizontal: 16, paddingVertical: 10,
+    marginBottom: 10, borderWidth: 1,
+  },
+  readingText: {
+    fontSize: 15, lineHeight: 24, textAlign: "center", fontStyle: "italic",
   },
 
   // ── Sekmeler ──
