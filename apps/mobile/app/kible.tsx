@@ -101,6 +101,19 @@ export default function KibleScreen() {
               <Text style={styles.degreeSub}>Kuzeyden saat yönünde</Text>
             </View>
 
+            {/* Kullanım talimatı */}
+            <View style={styles.instructionCard}>
+              <Text style={styles.instructionTitle}>📱 Nasıl Kullanılır?</Text>
+              <Text style={styles.instructionText}>
+                1. Telefonunuzu yatay tutun{"\n"}
+                2. Pusuladaki <Text style={{fontWeight:"700"}}>K (Kuzey)</Text> yönünü gerçek kuzeyle hizalayın{"\n"}
+                3. 🕋 oku Kabe yönünü gösterir
+              </Text>
+              <Text style={styles.instructionHint}>
+                💡 Canlı pusula yakında eklenecek
+              </Text>
+            </View>
+
             <TouchableOpacity onPress={() => setStatus("idle")} style={styles.refreshBtn}>
               <Text style={styles.refreshText}>Şehri Değiştir</Text>
             </TouchableOpacity>
@@ -154,6 +167,13 @@ const styles = StyleSheet.create({
   degreeNum:   { fontSize: 36, fontWeight: "700", color: "#065f46" },
   degreeSub:   { fontSize: 11, color: "#059669", marginTop: 2 },
 
+  instructionCard: {
+    backgroundColor: "#f0fdf4", borderRadius: 14, padding: 16,
+    borderWidth: 1, borderColor: "#bbf7d0", marginTop: 16, width: "100%",
+  },
+  instructionTitle: { fontSize: 14, fontWeight: "700", color: "#14532d", marginBottom: 8 },
+  instructionText:  { fontSize: 13, color: "#166534", lineHeight: 22 },
+  instructionHint:  { fontSize: 12, color: "#86efac", marginTop: 8, fontStyle: "italic" },
   refreshBtn:  { marginTop: 16 },
   refreshText: { fontSize: 13, color: "#059669" },
 });
