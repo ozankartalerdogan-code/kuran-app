@@ -4,11 +4,17 @@
   },
   "build": {
     "preview": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
+      },
       "android": {
         "buildType": "apk"
       }
     },
     "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
+      },
       "android": {
         "buildType": "app-bundle"
       }
