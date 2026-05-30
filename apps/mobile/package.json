@@ -11,10 +11,8 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
-    "@quran-app/core": "0.1.0",
     "@quran-app/storage": "0.1.0",
     "@quran-app/types": "0.1.0",
-    "@quran-app/ui": "0.1.0",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/native": "^7.1.8",
@@ -25,7 +23,6 @@
     "expo-linking": "~8.0.12",
     "expo-notifications": "^56.0.15",
     "expo-router": "~6.0.24",
-    "expo-splash-screen": "^56.0.10",
     "expo-status-bar": "~3.0.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
