@@ -134,77 +134,89 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
         </div>
       </section>
 
-      {/* Derived Words */}
+      {/* Derived Words — anlama göre gruplandırılmış */}
       <section>
         <h2 className="mb-3 text-lg font-semibold text-stone-800 night-mode:text-stone-200">
           Türev Kelimeler ({data.derivedWords.length})
         </h2>
-        <div className="flex flex-col gap-2">
-          {data.derivedWords.map((dw) => {
-            const key = `${dw.word}-${dw.surahId}-${dw.ayahNumber}`;
-            const isOpen = expandedWord === key;
-            return (
-              <div
-                key={key}
-                className="rounded-lg border border-stone-200 bg-white night-mode:border-stone-700 night-mode:bg-stone-800"
-              >
-                <button
-                  onClick={() => setExpandedWord(isOpen ? null : key)}
-                  className="flex w-full items-center justify-between px-4 py-3 text-left"
-                >
-                  <div className="flex min-w-0 flex-1 items-center gap-3">
-                    <span
-                      className="text-lg font-semibold text-stone-900 night-mode:text-stone-100"
-                      dir="rtl"
-                      lang="ar"
-                    >
-                      {dw.word}
-                    </span>
-                    <span className="truncate text-sm text-stone-600 night-mode:text-stone-400">
-                      {dw.meaning}
-                    </span>
-                  </div>
-                  <svg
-                    className={`ml-2 h-4 w-4 shrink-0 text-stone-400 transition-transform ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {isOpen && (
-                  <div className="border-t border-stone-100 px-4 py-3 night-mode:border-stone-700">
-                    <p className="mb-2 text-xs text-stone-500 night-mode:text-stone-400">
-                      İlk geçtiği yer: Sure {dw.surahId}, Ayet {dw.ayahNumber}
-                    </p>
-                    <button
-                      onClick={() =>
-                        router.push(
-                          `/surah/${dw.surahId}/ayah/${dw.ayahNumber}`
-                        )
-                      }
-                      className="rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-700 night-mode:bg-emerald-500 night-mode:hover:bg-emerald-400"
-                    >
-                      Detay → Mushaf'ta gör
-                    </button>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-        {data.derivedWords.length === 0 && (
+        {data.derivedWords.length === 0 ? (
           <p className="py-6 text-center text-sm text-stone-400 night-mode:text-stone-500">
             Henüz türev kelime bulunamadı.
           </p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {(() => {
+              // meaning_tr'ye göre grupla
+              const grouped = new Map<string, typeof data.derivedWords>();
+              for (const dw of data.derivedWords) {
+                const key = dw.meaning || "—";
+                if (!grouped.has(key)) grouped.set(key, []);
+                grouped.get(key)!.push(dw);
+              }
+              return Array.from(grouped.entries()).map(([meaning, words]) => {
+                const isOpen = expandedWord === meaning;
+                return (
+                  <div
+                    key={meaning}
+                    className="rounded-lg border border-stone-200 bg-white night-mode:border-stone-700 night-mode:bg-stone-800"
+                  >
+                    <button
+                      onClick={() => setExpandedWord(isOpen ? null : meaning)}
+                      className="flex w-full items-center justify-between px-4 py-3 text-left"
+                    >
+                      <div className="flex min-w-0 flex-1 items-center gap-3">
+                        <span className="flex flex-wrap gap-1.5" dir="rtl" lang="ar">
+                          {words.map((dw) => (
+                            <span key={dw.word} className="text-lg font-semibold text-stone-900 night-mode:text-stone-100">
+                              {dw.word}
+                            </span>
+                          ))}
+                        </span>
+                        <span className="truncate text-sm text-stone-600 night-mode:text-stone-400">
+                          {meaning}
+                        </span>
+                      </div>
+                      <div className="flex shrink-0 items-center gap-2">
+                        {words.length > 1 && (
+                          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500 night-mode:bg-stone-700 night-mode:text-stone-400">
+                            {words.length} form
+                          </span>
+                        )}
+                        <svg
+                          className={`h-4 w-4 text-stone-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                          fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </button>
+                    {isOpen && (
+                      <div className="divide-y divide-stone-100 border-t border-stone-100 night-mode:divide-stone-700 night-mode:border-stone-700">
+                        {words.map((dw) => (
+                          <div key={dw.word} className="flex items-center justify-between px-4 py-2.5">
+                            <div className="flex items-center gap-3">
+                              <span className="text-base font-medium text-stone-900 night-mode:text-stone-100" dir="rtl" lang="ar">
+                                {dw.word}
+                              </span>
+                              <span className="text-xs text-stone-400 night-mode:text-stone-500">
+                                Sure {dw.surahId}:{dw.ayahNumber}
+                              </span>
+                            </div>
+                            <button
+                              onClick={() => router.push(`/surah/${dw.surahId}/ayah/${dw.ayahNumber}`)}
+                              className="rounded-md bg-emerald-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-700 night-mode:bg-emerald-500"
+                            >
+                              Git →
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              });
+            })()}
+          </div>
         )}
       </section>
     </main>
