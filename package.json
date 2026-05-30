@@ -6,10 +6,6 @@
     "apps/*",
     "packages/*"
   ],
-  "overrides": {
-    "react":     "18.3.1",
-    "react-dom": "18.3.1"
-  },
   "scripts": {
     "dev:web": "npm run dev -w @quran-app/web",
     "dev:mobile": "npm run dev -w @quran-app/mobile",
@@ -37,7 +33,9 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
     "ajv": "^8.20.0",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
