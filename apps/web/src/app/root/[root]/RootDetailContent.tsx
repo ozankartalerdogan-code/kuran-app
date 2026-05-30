@@ -143,66 +143,61 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
         ) : (
           <>
             {(() => {
-              // 1. Önce word+meaning bazında benzersiz formları bul, verse listelerini topla
-              type FormEntry = { word: string; verses: { surahId: number; ayahNumber: number }[] };
-              const formMap = new Map<string, FormEntry>();
+              // word bazında grupla — her benzersiz Arapça form = 1 accordion
+              type Occurrence = { meaning: string; surahId: number; ayahNumber: number };
+              type WordGroup = { word: string; occurrences: Occurrence[] };
+              const wordMap = new Map<string, WordGroup>();
               for (const dw of data.derivedWords) {
-                const formKey = `${dw.word}|||${dw.meaning}`;
-                if (!formMap.has(formKey)) {
-                  formMap.set(formKey, { word: dw.word, verses: [] });
+                if (!wordMap.has(dw.word)) {
+                  wordMap.set(dw.word, { word: dw.word, occurrences: [] });
                 }
-                formMap.get(formKey)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
+                wordMap.get(dw.word)!.occurrences.push({
+                  meaning: dw.meaning,
+                  surahId: dw.surahId,
+                  ayahNumber: dw.ayahNumber,
+                });
               }
+              const groups = Array.from(wordMap.values());
 
-              // 2. meaning'e göre form gruplarını topla
-              type MeaningGroup = { meaning: string; forms: FormEntry[] };
-              const meaningMap = new Map<string, MeaningGroup>();
-              for (const [formKey, form] of formMap.entries()) {
-                const meaning = formKey.split("|||")[1] || "—";
-                if (!meaningMap.has(meaning)) {
-                  meaningMap.set(meaning, { meaning, forms: [] });
-                }
-                meaningMap.get(meaning)!.forms.push(form);
+              // Her formun en sık anlamını başlıkta göster
+              function primaryMeaning(occs: Occurrence[]): string {
+                const freq = new Map<string, number>();
+                for (const o of occs) freq.set(o.meaning, (freq.get(o.meaning) ?? 0) + 1);
+                return [...freq.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "—";
               }
-
-              const groups = Array.from(meaningMap.values());
 
               return (
                 <>
                   <h2 className="mb-3 text-lg font-semibold text-stone-800 night-mode:text-stone-200">
                     Türev Kelimeler
                     <span className="ml-2 text-sm font-normal text-stone-500">
-                      ({groups.length} anlam, {formMap.size} form)
+                      ({groups.length} form)
                     </span>
                   </h2>
                   <div className="flex flex-col gap-2">
                     {groups.map((group) => {
-                      const isOpen = expandedWord === group.meaning;
-                      const totalVerses = group.forms.reduce((s, f) => s + f.verses.length, 0);
+                      const isOpen = expandedWord === group.word;
+                      const mainMeaning = primaryMeaning(group.occurrences);
                       return (
                         <div
-                          key={group.meaning}
+                          key={group.word}
                           className="rounded-lg border border-stone-200 bg-white night-mode:border-stone-700 night-mode:bg-stone-800"
                         >
                           <button
-                            onClick={() => setExpandedWord(isOpen ? null : group.meaning)}
+                            onClick={() => setExpandedWord(isOpen ? null : group.word)}
                             className="flex w-full items-center justify-between px-4 py-3 text-left"
                           >
                             <div className="flex min-w-0 flex-1 items-center gap-3">
-                              <span className="flex flex-wrap gap-1.5" dir="rtl" lang="ar">
-                                {group.forms.map((f) => (
-                                  <span key={f.word} className="text-lg font-semibold text-stone-900 night-mode:text-stone-100">
-                                    {f.word}
-                                  </span>
-                                ))}
+                              <span className="text-lg font-semibold text-stone-900 night-mode:text-stone-100" dir="rtl" lang="ar">
+                                {group.word}
                               </span>
                               <span className="truncate text-sm text-stone-600 night-mode:text-stone-400">
-                                {group.meaning}
+                                {mainMeaning}
                               </span>
                             </div>
                             <div className="flex shrink-0 items-center gap-2">
                               <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700 night-mode:bg-emerald-900 night-mode:text-emerald-300">
-                                {totalVerses} ayet
+                                {group.occurrences.length} ayet
                               </span>
                               <svg
                                 className={`h-4 w-4 text-stone-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -213,29 +208,16 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
                             </div>
                           </button>
                           {isOpen && (
-                            <div className="divide-y divide-stone-100 border-t border-stone-100 night-mode:divide-stone-700 night-mode:border-stone-700">
-                              {group.forms.map((form) => (
-                                <div key={form.word} className="px-4 py-2.5">
-                                  <div className="mb-1.5 flex items-center gap-2">
-                                    <span className="text-base font-medium text-stone-900 night-mode:text-stone-100" dir="rtl" lang="ar">
-                                      {form.word}
-                                    </span>
-                                    <span className="text-xs text-stone-400">
-                                      {form.verses.length} ayette
-                                    </span>
-                                  </div>
-                                  <div className="flex flex-wrap gap-1.5">
-                                    {form.verses.map((v, i) => (
-                                      <button
-                                        key={i}
-                                        onClick={() => router.push(`/surah/${v.surahId}/ayah/${v.ayahNumber}`)}
-                                        className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 night-mode:border-stone-600 night-mode:bg-stone-700 night-mode:text-stone-300"
-                                      >
-                                        {v.surahId}:{v.ayahNumber}
-                                      </button>
-                                    ))}
-                                  </div>
-                                </div>
+                            <div className="flex flex-wrap gap-1.5 border-t border-stone-100 px-4 py-3 night-mode:border-stone-700">
+                              {group.occurrences.map((o, i) => (
+                                <button
+                                  key={i}
+                                  onClick={() => router.push(`/surah/${o.surahId}/ayah/${o.ayahNumber}`)}
+                                  title={o.meaning}
+                                  className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 night-mode:border-stone-600 night-mode:bg-stone-700 night-mode:text-stone-300"
+                                >
+                                  {o.surahId}:{o.ayahNumber}
+                                </button>
                               ))}
                             </div>
                           )}
