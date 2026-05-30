@@ -111,6 +111,13 @@ const NAV_CARDS = [
     desc: "Kabe'nin yönünü bul",
     gradient: "from-teal-500 to-emerald-600",
   },
+  {
+    href: "/hatim",
+    icon: "📖",
+    title: "Hatim",
+    desc: "30 cüz okuma takibi",
+    gradient: "from-rose-500 to-pink-600",
+  },
 ];
 
 export default async function HomePage() {
