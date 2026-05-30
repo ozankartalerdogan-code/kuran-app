@@ -1,0 +1,10 @@
+node_modules
+.next
+data/app.db
+data/normalized
+public/audio/surah
+apps/web/public/audio/surah
+apps/mobile
+.expo
+*.mp3
+*.log
