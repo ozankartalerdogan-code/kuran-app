@@ -1,9 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createNativeAdapter, createTypedStorage } from "@quran-app/storage";
 
-export const storage = createTypedStorage(createNativeAdapter(AsyncStorage));
-
-// ── Anahtar sabitleri — web'deki storageUtils.ts ile senkron ─────────────────
+// AsyncStorage tabanlı basit typed storage — @quran-app/storage bağımlılığı olmadan
 
 export const STORAGE_KEYS = {
   favorites:       "favoriteVerses",
@@ -16,7 +13,24 @@ export const STORAGE_KEYS = {
   recentSearches:  "recentSearches",
 } as const;
 
-// ── Tipli yardımcılar ─────────────────────────────────────────────────────────
+export const storage = {
+  async getJSON<T>(key: string): Promise<T | null> {
+    try {
+      const val = await AsyncStorage.getItem(key);
+      return val ? (JSON.parse(val) as T) : null;
+    } catch {
+      return null;
+    }
+  },
+  async setJSON<T>(key: string, value: T): Promise<void> {
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(value));
+    } catch {}
+  },
+  async remove(key: string): Promise<void> {
+    try { await AsyncStorage.removeItem(key); } catch {}
+  },
+};
 
 export async function getFavorites(): Promise<string[]> {
   return (await storage.getJSON<string[]>(STORAGE_KEYS.favorites)) ?? [];
