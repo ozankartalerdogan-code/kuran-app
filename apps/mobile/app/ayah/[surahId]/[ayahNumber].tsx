@@ -121,32 +121,6 @@ function UniqueRootList({
   );
 }
 
-// ── Sure Tefsiri Accordion ────────────────────────────────────────────────────
-
-function TafsirAccordion({ tafsir, colors }: { tafsir: string; colors: ThemeColors }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <View style={[styles.tafsirBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
-      <TouchableOpacity
-        style={styles.tafsirHeader}
-        onPress={() => setOpen(p => !p)}
-        activeOpacity={0.75}
-      >
-        <View>
-          <Text style={[styles.tafsirTitle, { color: colors.textPrimary }]}>📚 Sure Tefsiri</Text>
-          <Text style={[styles.tafsirSub, { color: colors.textMuted }]}>Elmalılı Hamdi Yazır</Text>
-        </View>
-        <Text style={{ color: colors.accent, fontSize: 18 }}>{open ? "▲" : "▼"}</Text>
-      </TouchableOpacity>
-      {open && (
-        <View style={styles.tafsirBody}>
-          <Text style={[styles.tafsirText, { color: colors.textSecondary }]}>{tafsir}</Text>
-        </View>
-      )}
-    </View>
-  );
-}
-
 // ── Sekme Bileşeni ────────────────────────────────────────────────────────────
 
 type TabId = "meal" | "words" | "roots" | "analysis";
@@ -253,7 +227,6 @@ export default function AyahDetailScreen() {
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [reading, setReading] = useState<string | null>(null);
   const [translations, setTranslations] = useState<{ source: string; text: string | null }[]>([]);
-  const [tafsir, setTafsir]   = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
@@ -265,9 +238,8 @@ export default function AyahDetailScreen() {
     Promise.all([
       api.ayah.get(surahId, ayahNumber),
       api.verses.bySurah(surahId),
-      api.tafsir.get(surahId).catch(() => ({ content: null })),
     ])
-      .then(([ayahData, versesData, tafsirData]) => {
+      .then(([ayahData, versesData]) => {
         setData(ayahData);
         if (!ayahData.readingTr) {
           const verse = versesData.verses.find(v => v.ayahNumber === ayahNumber);
@@ -276,7 +248,6 @@ export default function AyahDetailScreen() {
           setReading(ayahData.readingTr);
         }
         if (ayahData.translations?.length) setTranslations(ayahData.translations);
-        if (tafsirData?.content) setTafsir(tafsirData.content);
       })
       .catch(() => setError("Ayet yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
@@ -581,11 +552,6 @@ export default function AyahDetailScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* ═══ Sure Tefsiri Accordion ═══ */}
-        {tafsir ? (
-          <TafsirAccordion tafsir={tafsir} colors={colors} />
-        ) : null}
 
       </ScrollView>
     </>
