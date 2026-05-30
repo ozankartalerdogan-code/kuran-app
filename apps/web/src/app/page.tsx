@@ -115,10 +115,12 @@ export default async function HomePage() {
   const offset = getDailyOffset(total);
 
   const dailyVerse = await dbGet<DailyVerse>(
-    `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr, v.primary_translation,
+    `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr,
+            COALESCE(t.text, v.primary_translation) AS primary_translation,
             s.adi_turkce AS surah_name
      FROM verses v
      LEFT JOIN sureler s ON s.id = v.surah_id
+     LEFT JOIN translations t ON t.verse_key = v.verse_key AND t.source = 'diyanet'
      WHERE v.arabic_text IS NOT NULL AND v.primary_translation IS NOT NULL
      LIMIT 1 OFFSET ?`,
     offset
