@@ -56,11 +56,6 @@ function getHijriDate(): string {
   }
 }
 
-type DayTheme =
-  | { type: "cuma"; title: string; desc: string; href: string }
-  | { type: "oruc"; title: string; desc: string; href: string }
-  | { type: "genel"; title: string; desc: string; href: string };
-
 // "dua-tevekkul" → "Tevekkul" | "dua-anne-baba" → "Anne Baba"
 function formatDuaTag(tag: string): string {
   return tag
@@ -70,31 +65,6 @@ function formatDuaTag(tag: string): string {
     .join(" ");
 }
 
-function getDayTheme(): DayTheme {
-  const day = new Date().getDay(); // 0=Pazar, 1=Pzt, ..., 5=Cuma
-  if (day === 5) {
-    return {
-      type: "cuma",
-      title: "Cuma Mübarek Olsun",
-      desc: "Bugün Cuma. Kehf Suresi'ni okumak sünnet.",
-      href: "/surah/18/ayah/1",
-    };
-  }
-  if (day === 1 || day === 4) {
-    return {
-      type: "oruc",
-      title: "Pazartesi / Perşembe Orucu",
-      desc: "Bu günlerde nafile oruç tutmak sünnettendir.",
-      href: "/search?q=oruç",
-    };
-  }
-  return {
-    type: "genel",
-    title: "Günün Ayeti",
-    desc: "Her gün bir ayet ile ruhunu dinlendir.",
-    href: "/surah/1/ayah/1",
-  };
-}
 
 const NAV_CARDS = [
   {
@@ -181,7 +151,6 @@ export default async function HomePage() {
     `, duaOffset);
 
   const hijriDate = getHijriDate();
-  const dayTheme = getDayTheme();
 
   return (
     <main className="min-h-screen bg-stone-50 dark:bg-stone-950">
@@ -342,48 +311,6 @@ export default async function HomePage() {
         {/* ── NAMAZ VAKİTLERİ ── */}
         <HomeNamazWidget />
 
-        {/* ── HAFTANIN GÜNÜ KARTI ── */}
-        <section
-          className={`rounded-2xl border p-6 shadow-md ${
-            dayTheme.type === "cuma"
-              ? "border-emerald-200 bg-emerald-50 dark:border-emerald-800/40 dark:bg-emerald-950/30"
-              : dayTheme.type === "oruc"
-              ? "border-sky-200 bg-sky-50 dark:border-sky-800/40 dark:bg-sky-950/30"
-              : "border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-900"
-          }`}
-        >
-          <div className="flex items-start gap-4">
-            <span className="text-3xl">
-              {dayTheme.type === "cuma" ? "🌙" : dayTheme.type === "oruc" ? "🌿" : "📖"}
-            </span>
-            <div className="flex-1">
-              <h2
-                className={`font-semibold ${
-                  dayTheme.type === "cuma"
-                    ? "text-emerald-800 dark:text-emerald-300"
-                    : dayTheme.type === "oruc"
-                    ? "text-sky-800 dark:text-sky-300"
-                    : "text-stone-800 dark:text-stone-200"
-                }`}
-              >
-                {dayTheme.title}
-              </h2>
-              <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{dayTheme.desc}</p>
-              <Link
-                className={`mt-2 inline-block text-xs font-medium ${
-                  dayTheme.type === "cuma"
-                    ? "text-emerald-700 hover:text-emerald-900 dark:text-emerald-400"
-                    : dayTheme.type === "oruc"
-                    ? "text-sky-700 hover:text-sky-900 dark:text-sky-400"
-                    : "text-stone-600 hover:text-stone-900 dark:text-stone-400"
-                }`}
-                href={dayTheme.href}
-              >
-                Keşfet →
-              </Link>
-            </div>
-          </div>
-        </section>
 
         {/* ── HIZLI ERİŞİM ── */}
         <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-md dark:border-stone-700 dark:bg-stone-900">
