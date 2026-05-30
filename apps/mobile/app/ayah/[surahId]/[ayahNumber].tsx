@@ -227,6 +227,7 @@ export default function AyahDetailScreen() {
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [reading, setReading] = useState<string | null>(null);
   const [translations, setTranslations] = useState<{ source: string; text: string | null }[]>([]);
+  const [tafsir, setTafsir]   = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
@@ -238,19 +239,18 @@ export default function AyahDetailScreen() {
     Promise.all([
       api.ayah.get(surahId, ayahNumber),
       api.verses.bySurah(surahId),
+      api.tafsir.get(surahId).catch(() => ({ content: null })),
     ])
-      .then(([ayahData, versesData]) => {
+      .then(([ayahData, versesData, tafsirData]) => {
         setData(ayahData);
-        // API henüz readingTr/translations döndürmüyorsa verses'ten al
         if (!ayahData.readingTr) {
           const verse = versesData.verses.find(v => v.ayahNumber === ayahNumber);
           if (verse?.reading) setReading(verse.reading);
         } else {
           setReading(ayahData.readingTr);
         }
-        if (ayahData.translations?.length) {
-          setTranslations(ayahData.translations);
-        }
+        if (ayahData.translations?.length) setTranslations(ayahData.translations);
+        if (tafsirData?.content) setTafsir(tafsirData.content);
       })
       .catch(() => setError("Ayet yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
@@ -486,6 +486,19 @@ export default function AyahDetailScreen() {
                 </Text>
                 <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
                   {data.farkAnalizi}
+                </Text>
+              </View>
+            ) : null}
+
+            {/* Sure Tefsiri */}
+            {tafsir ? (
+              <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>Sure Tefsiri</Text>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
+                  Elmalılı Hamdi Yazır tefsiri
+                </Text>
+                <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
+                  {tafsir.length > 800 ? tafsir.slice(0, 800) + "…" : tafsir}
                 </Text>
               </View>
             ) : null}

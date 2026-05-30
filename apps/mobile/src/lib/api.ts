@@ -254,6 +254,11 @@ export const api = {
       ),
   },
 
+  tafsir: {
+    get: (surahId: number) =>
+      withRetry(() => request<{ content: string | null }>(`/tafsir/${surahId}`)),
+  },
+
   elifba: {
     dersler: () =>
       withRetry(() => request<ElifbaDers[]>("/elifba/dersler")),
