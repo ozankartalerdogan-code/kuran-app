@@ -110,26 +110,21 @@ export default async function HomePage() {
 
   // ── Günün Ayeti ─────────────────────────────────────────────────────
   // translations tablosundan diyanet kaynağını kullan — her satır tek ayete karşılık gelir
+  // arabic_text + reading_tr + literal_ceviri hepsi aynı verses satırından → her zaman tutarlı
   const totalRow = await dbGet<{ cnt: number }>(
-    `SELECT COUNT(*) AS cnt FROM translations t
-     JOIN verses v ON v.verse_key = t.verse_key
-     WHERE t.source = 'diyanet' AND t.text IS NOT NULL
-       AND LENGTH(t.text) < 200
-       AND v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL`
+    `SELECT COUNT(*) AS cnt FROM verses
+     WHERE arabic_text IS NOT NULL AND reading_tr IS NOT NULL AND literal_ceviri IS NOT NULL`
   ).catch(() => undefined);
   const total = totalRow?.cnt ?? 4000;
   const offset = getDailyOffset(total);
 
   const dailyVerse = await dbGet<DailyVerse>(
     `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr,
-            t.text AS primary_translation,
+            v.literal_ceviri AS primary_translation,
             s.adi_turkce AS surah_name
-     FROM translations t
-     JOIN verses v ON v.verse_key = t.verse_key
+     FROM verses v
      JOIN sureler s ON s.id = v.surah_id
-     WHERE t.source = 'diyanet' AND t.text IS NOT NULL
-       AND LENGTH(t.text) < 200
-       AND v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL
+     WHERE v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL AND v.literal_ceviri IS NOT NULL
      LIMIT 1 OFFSET ?`,
     offset
   ).catch(() => undefined);
@@ -147,16 +142,17 @@ export default async function HomePage() {
         MIN(vti.tag)       AS tag,
         v.arabic_text,
         v.reading_tr,
-        t.text             AS meal,
+        v.literal_ceviri   AS meal,
         v.surah_id,
         v.ayah_number,
         s.adi_turkce       AS surah_name
       FROM verse_tag_items vti
       JOIN   verses       v ON v.verse_key  = vti.verse_key
       LEFT JOIN sureler   s ON s.id         = v.surah_id
-      LEFT JOIN translations t
-             ON t.verse_key = vti.verse_key AND t.source = 'yazir'
       WHERE vti.tag LIKE 'dua-%'
+        AND v.arabic_text IS NOT NULL
+        AND v.reading_tr IS NOT NULL
+        AND v.literal_ceviri IS NOT NULL
       GROUP BY vti.verse_key
       ORDER BY vti.verse_key
       LIMIT 1 OFFSET ?
