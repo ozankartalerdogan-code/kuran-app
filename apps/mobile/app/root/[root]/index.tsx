@@ -153,6 +153,15 @@ export default function RootDetailScreen() {
   const totalOcc = Object.values(data.distribution).reduce((a, b) => a + b, 0);
   const surahCount = Object.values(data.distribution).filter(v => v > 0).length;
 
+  // meaningTr yoksa türev kelimelerden en sık geçen anlamı bul
+  const displayMeaning = data.meaningTr || (() => {
+    const freq = new Map<string, number>();
+    for (const dw of data.derivedWords) {
+      if (dw.meaning) freq.set(dw.meaning, (freq.get(dw.meaning) ?? 0) + 1);
+    }
+    return [...freq.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
+  })();
+
   return (
     <>
       <Stack.Screen options={{ title: root }} />
@@ -161,7 +170,7 @@ export default function RootDetailScreen() {
         {/* Başlık */}
         <View style={s.header}>
           <Text style={s.rootTitle}>{data.root}</Text>
-          <Text style={s.meaning}>{data.meaningTr}</Text>
+          {displayMeaning ? <Text style={s.meaning}>{displayMeaning}</Text> : null}
           <View style={s.statsRow}>
             <View style={s.statBadge}>
               <Text style={s.statNum}>{totalOcc}</Text>
