@@ -6,5 +6,5 @@ public/audio/surah
 apps/web/public/audio/surah
 apps/mobile
 .expo
-*.mp3
+apps/web/public/audio/surah/*.mp3
 *.log
