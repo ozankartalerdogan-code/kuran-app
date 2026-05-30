@@ -22,7 +22,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     const res = await fetch(`${API_BASE}${path}`, {
       ...init,
-      headers: { "Content-Type": "application/json", ...init?.headers },
+      headers: { ...init?.headers, "Content-Type": "application/json; charset=utf-8", "Accept": "application/json" },
       signal: controller.signal,
     });
 
@@ -258,6 +258,22 @@ export const api = {
   tafsir: {
     get: (surahId: number) =>
       withRetry(() => request<{ content: string | null }>(`/tafsir/${surahId}`)),
+  },
+
+  mood: {
+    random: (tag: string, exclude?: string) =>
+      withRetry(() =>
+        request<{
+          verse_key: string;
+          surah_id: number;
+          ayah_number: number;
+          surah_name: string | null;
+          arabic_text: string | null;
+          meal: string | null;
+        }>(
+          `/mood/random?tag=${encodeURIComponent(tag)}${exclude ? `&exclude=${encodeURIComponent(exclude)}` : ""}`,
+        ),
+      ),
   },
 
   elifba: {

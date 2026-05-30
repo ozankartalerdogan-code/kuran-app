@@ -17,12 +17,12 @@ const REHBERLER = [
 ];
 
 const DUA_CATS = [
+  { emoji: "🤲", id: "rabbena",   label: "Rabbena Duaları",        tag: "rabbena",       renk: "#f0fdf4" },
   { emoji: "🛡️", id: "korunma",   label: "Korunma ve Sığınma",    tag: "korunma-genel", renk: "#dbeafe" },
-  { emoji: "👤", id: "peygamber", label: "Peygamber Duaları",      tag: "dua-kabul",     renk: "#fef3c7" },
-  { emoji: "🤲", id: "rabbena",   label: "Rabbena Duaları",        tag: "dua-sabır",     renk: "#f0fdf4" },
   { emoji: "💚", id: "sifa",      label: "Şifa ve Sıkıntı",        tag: "dua-şifa",      renk: "#dcfce7" },
-  { emoji: "⚓", id: "tevekkul",  label: "Tevekkül ve Teslimiyet", tag: "tevekkül",      renk: "#ede9fe" },
-  { emoji: "📿", id: "zikir",     label: "Zikir ve Tesbih",        tag: "zikir",         renk: "#fce7f3" },
+  { emoji: "🙏", id: "bagislanma",label: "Tövbe ve Bağışlanma",    tag: "dua-bağışlanma",renk: "#fce7f3" },
+  { emoji: "⚓", id: "tevekkul",  label: "Tevekkül ve Sabır",      tag: "tevekkül",      renk: "#ede9fe" },
+  { emoji: "📿", id: "zikir",     label: "Zikir ve Tesbih",        tag: "zikir",         renk: "#fef3c7" },
 ];
 
 const RUH_HALI = [
