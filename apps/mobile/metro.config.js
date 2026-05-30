@@ -6,7 +6,7 @@ const monorepoRoot = path.resolve(projectRoot, "../..");
 
 const config = getDefaultConfig(projectRoot);
 
-// Monorepo: Expo varsayılanlarını koru + ek klasörler
+// Monorepo watchFolders
 config.watchFolders = [...(config.watchFolders ?? []), monorepoRoot];
 config.resolver.nodeModulesPaths = [
   ...(config.resolver.nodeModulesPaths ?? []),
@@ -14,11 +14,13 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, "node_modules"),
 ];
 
-// React ve React Native'i her zaman mobile'ın kendi node_modules'undan çöz
+// Tüm react importlarını mobile'ın react@19.1.0'ına yönlendir
+// react-native root'ta ama react@18.3.1 ile birlikte gelmesin
 config.resolver.extraNodeModules = {
   react: path.resolve(projectRoot, "node_modules/react"),
   "react-dom": path.resolve(projectRoot, "node_modules/react-dom"),
-  "react-native": path.resolve(projectRoot, "node_modules/react-native"),
+  // react-native root'ta — doğru yolu ver
+  "react-native": path.resolve(monorepoRoot, "node_modules/react-native"),
 };
 
 // node: protokolünü boş modülle karşıla
