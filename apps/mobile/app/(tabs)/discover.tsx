@@ -342,32 +342,67 @@ export default function SearchScreen() {
         </View>
       )}
 
-      {/* Keşfet kategorileri — sadece arama yokken */}
+      {/* Keşfet — arama yokken tam keşfet ekranı */}
       {!isLoading && query.length < MIN_Q && !showRecent && (
-        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:12 }}>
-          <Text style={styles.recentHeading}>Keşfet</Text>
+        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:12, paddingBottom:32 }} showsVerticalScrollIndicator={false}>
+
+          {/* Özel Rehberler */}
+          <Text style={styles.kesfetSection}>✨ Özel Rehberler</Text>
+          <View style={styles.rehberGrid}>
+            {[
+              { emoji:"🛡️", label:"Manevi Sığınak",  route:"/manevi-siginak",  bg:"#fce7f3" },
+              { emoji:"🕋", label:"İsmi Azam",         route:"/manevi-siginak/ismi-azam", bg:"#fef3c7" },
+              { emoji:"📿", label:"İbadet Rehberi",    route:"/ibadet-rehberi",  bg:"#f0fdf4" },
+              { emoji:"🕌", label:"Namaz",             route:"/namaz",           bg:"#e0e7ff" },
+            ].map(r => (
+              <TouchableOpacity key={r.route} style={[styles.rehberCard, { backgroundColor: r.bg }]}
+                onPress={() => router.push(r.route as any)} activeOpacity={0.75}>
+                <Text style={{ fontSize:28 }}>{r.emoji}</Text>
+                <Text style={styles.rehberLabel}>{r.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* Dua Kategorileri */}
+          <Text style={styles.kesfetSection}>🤲 Dua Kategorileri</Text>
           {[
-            { emoji:"🤲", label:"Dualar",           tag:"dua-sabır" },
-            { emoji:"🕌", label:"Namaz Ayetleri",   tag:"namaz" },
-            { emoji:"😌", label:"Huzur & Rahmet",   tag:"rahmet" },
-            { emoji:"💪", label:"Sabır",             tag:"sabır" },
-            { emoji:"🙏", label:"Tövbe",             tag:"tövbe" },
-            { emoji:"🌟", label:"Şükür",             tag:"şükür" },
-            { emoji:"💔", label:"Rızık",             tag:"rızık" },
-            { emoji:"⚖️", label:"Adalet",            tag:"adalet" },
-            { emoji:"🛡️", label:"Korunma",           tag:"korunma-genel" },
-          ].map((cat) => (
-            <TouchableOpacity
-              key={cat.tag}
-              style={styles.kesfetRow}
-              onPress={() => { setQuery(cat.label); }}
-              activeOpacity={0.7}
-            >
+            { emoji:"🛡️", label:"Korunma ve Sığınma",    tag:"korunma-genel" },
+            { emoji:"👤", label:"Peygamber Duaları",      tag:"dua-kabul" },
+            { emoji:"🤲", label:"Rabbena Duaları",        tag:"dua-sabır" },
+            { emoji:"💚", label:"Şifa ve Sıkıntı",        tag:"dua-sıkıntı" },
+            { emoji:"⚓", label:"Tevekkül ve Teslimiyet", tag:"tevekkül" },
+            { emoji:"📿", label:"Zikir ve Tesbih",        tag:"zikir" },
+          ].map(cat => (
+            <TouchableOpacity key={cat.tag} style={styles.kesfetRow}
+              onPress={() => setQuery(cat.label)}
+              activeOpacity={0.7}>
               <Text style={{ fontSize:22 }}>{cat.emoji}</Text>
               <Text style={styles.kesfetLabel}>{cat.label}</Text>
               <Text style={{ fontSize:18, color:"#d1d5db" }}>›</Text>
             </TouchableOpacity>
           ))}
+
+          {/* Ruh Hali Temalar */}
+          <Text style={styles.kesfetSection}>💭 Ruh Haline Göre</Text>
+          <View style={styles.moodGrid}>
+            {[
+              { emoji:"😌", label:"Huzur",   tag:"rahmet",  bg:"#d1fae5" },
+              { emoji:"💪", label:"Sabır",   tag:"sabır",   bg:"#fef3c7" },
+              { emoji:"🙏", label:"Tövbe",   tag:"tövbe",   bg:"#ede9fe" },
+              { emoji:"🌟", label:"Şükür",   tag:"şükür",   bg:"#fef9c3" },
+              { emoji:"⚖️", label:"Adalet",  tag:"adalet",  bg:"#e0e7ff" },
+              { emoji:"💔", label:"Rızık",   tag:"rızık",   bg:"#ffe4e6" },
+              { emoji:"😔", label:"Tevekkül",tag:"tevekkül",bg:"#dbeafe" },
+              { emoji:"🕌", label:"Namaz",   tag:"namaz",   bg:"#e0e7ff" },
+            ].map(m => (
+              <TouchableOpacity key={m.tag} style={[styles.moodChip, { backgroundColor: m.bg }]}
+                onPress={() => setQuery(m.label)} activeOpacity={0.7}>
+                <Text style={{ fontSize:20 }}>{m.emoji}</Text>
+                <Text style={styles.moodLabel}>{m.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
         </ScrollView>
       )}
     </View>
@@ -456,6 +491,23 @@ const styles = StyleSheet.create({
   emptyTitle: { fontSize: 16, fontWeight: "700", color: "#44403c" },
   emptySub:   { fontSize: 13, color: "#a8a29e", textAlign: "center", lineHeight: 20 },
 
+  kesfetSection: {
+    fontSize: 13, fontWeight: "700", color: "#78716c",
+    textTransform: "uppercase", letterSpacing: 0.5,
+    marginTop: 16, marginBottom: 8,
+  },
+  rehberGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 },
+  rehberCard: {
+    width: "47%", borderRadius: 14, padding: 16,
+    alignItems: "center", gap: 6,
+  },
+  rehberLabel: { fontSize: 12, fontWeight: "600", color: "#1c1917", textAlign: "center" },
+  moodGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  moodChip: {
+    flexDirection: "row", alignItems: "center", gap: 6,
+    borderRadius: 20, paddingHorizontal: 12, paddingVertical: 8,
+  },
+  moodLabel: { fontSize: 13, fontWeight: "600", color: "#1c1917" },
   kesfetRow: {
     flexDirection: "row", alignItems: "center", gap: 12,
     backgroundColor: "#fff", borderRadius: 12, padding: 14,
