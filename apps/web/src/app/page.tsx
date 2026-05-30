@@ -7,7 +7,6 @@ import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
 import { MoodTagButton } from "../components/MoodTagButton";
 
-export const revalidate = 86400; // Günlük ayet günde bir değişir — 24 saatlik ISR
 
 export const metadata: Metadata = {
   title: "Kuran Analiz — Kur'an'ı Okuyun, Anlayın, Keşfedin",
@@ -138,17 +137,16 @@ const NAV_CARDS = [
 export default async function HomePage() {
 
   // ── Günün Ayeti ─────────────────────────────────────────────────────
-  const totalRow = await dbGet<{ cnt: number }>("SELECT COUNT(*) AS cnt FROM verses");
-  const total = totalRow?.cnt ?? 6236;
-  const offset = getDailyOffset(total);
+  const offset = getDailyOffset(6236);
 
-  const dailyVerse = await dbGet<DailyVerse>(`
-      SELECT v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
-             s.adi_turkce AS surah_name
-      FROM verses v
-      LEFT JOIN sureler s ON s.id = v.surah_id
-      LIMIT 1 OFFSET ${offset}
-    `);
+  const dailyVerse = await dbGet<DailyVerse>(
+    `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
+            s.adi_turkce AS surah_name
+     FROM verses v
+     LEFT JOIN sureler s ON s.id = v.surah_id
+     LIMIT 1 OFFSET ?`,
+    offset
+  ).catch(() => undefined);
 
   // ── Günün Duası ──────────────────────────────────────────────────────
   // verse_tag_items'daki dua-* etiketli ayetlerden tarih-bazlı seed ile seç.
