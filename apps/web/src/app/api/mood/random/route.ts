@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
-import { dbGet, dbAll, dbRun } from "../../../../lib/dbUtils";
+import { dbGet } from "../../../../lib/dbUtils";
 
 interface RandomVerseRow {
   verse_key:   string;
@@ -34,7 +34,10 @@ export async function GET(
   const exclude = params.get("exclude") ?? "";
 
   if (!tag || tag.length > 100) {
-    return NextResponse.json({ error: "tag parametresi gerekli" }, { status: 400 });
+    return NextResponse.json({ error: "tag parametresi gerekli" }, {
+      status: 400,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
   }
 
   const excludeKeys = exclude
@@ -96,7 +99,10 @@ export async function GET(
     }
 
     if (!row) {
-      return NextResponse.json({ error: "Bu etiket için ayet bulunamadı" }, { status: 404 });
+      return NextResponse.json({ error: "Bu etiket için ayet bulunamadı" }, {
+      status: 404,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
     }
 
     return NextResponse.json({
@@ -106,9 +112,14 @@ export async function GET(
       surah_name:  row.surah_name,
       arabic_text: row.arabic_text,
       meal:        row.meal,
+    }, {
+      headers: { "Content-Type": "application/json; charset=utf-8" },
     });
   } catch (err) {
     console.error("[mood/random] hata:", err);
-    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+    return NextResponse.json({ error: "Sunucu hatası" }, {
+      status: 500,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
   }
 }

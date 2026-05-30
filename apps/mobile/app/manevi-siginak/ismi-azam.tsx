@@ -1,5 +1,6 @@
+import React from "react";
 import {
-  View, Text, ScrollView, useColorScheme, StyleSheet, I18nManager,
+  View, Text, ScrollView, TouchableOpacity, useColorScheme, StyleSheet,
 } from "react-native";
 import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -314,27 +315,65 @@ function KorunmaKarti({ dua, colors }: { dua: KorunmaDuasi; colors: ReturnType<t
 
 function MetotKutusu({
   baslik, kaynak, aciklama, uygulama, colors, puan,
+  ayetler, accordion,
 }: {
   baslik: string; kaynak: string; aciklama: string; uygulama: string;
   colors: ReturnType<typeof useColors>; puan?: "10/10" | "8/10";
+  ayetler?: { arapca: string; transkripsiyon: string; anlam: string; ref: string }[];
+  accordion?: boolean;
 }) {
+  const [expanded, setExpanded] = React.useState(false);
   const isSekiz    = puan === "8/10";
   const bg         = isSekiz ? colors.violetBg      : colors.amberBg;
   const border     = isSekiz ? colors.violetBorder  : colors.amberBorder;
   const labelColor = isSekiz ? colors.violetText    : colors.amberText;
   const emoji      = isSekiz ? "🟡" : "🟢";
+  const showAyetler = !accordion || expanded;
 
   return (
     <View style={[styles.kutu, { backgroundColor: bg, borderColor: border }]}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
+      {/* Başlık */}
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
         <Text>{emoji}</Text>
-        <Text style={[styles.duaBaslik, { color: labelColor }]}>{baslik}</Text>
+        <Text style={[styles.duaBaslik, { color: labelColor, flex: 1 }]}>{baslik}</Text>
         <View style={[styles.badge, { backgroundColor: bg, borderColor: border }]}>
           <Text style={[styles.badgeText, { color: labelColor }]}>{kaynak}</Text>
         </View>
       </View>
-      <Text style={[styles.bodyText, { color: colors.textSecondary, marginBottom: 6 }]}>{aciklama}</Text>
-      <Text style={[styles.bodyText, { color: labelColor }]}>
+      <Text style={[styles.bodyText, { color: colors.textSecondary, marginBottom: 10 }]}>{aciklama}</Text>
+
+      {/* Accordion toggle */}
+      {accordion && ayetler && (
+        <TouchableOpacity
+          onPress={() => setExpanded(v => !v)}
+          style={[styles.badge, { borderColor: border, alignSelf: "flex-start", paddingVertical: 6, paddingHorizontal: 12, marginBottom: 10 }]}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.badgeText, { color: labelColor }]}>
+            {expanded ? "▲ Ayetleri Gizle" : `▼ Ayetleri Göster (${ayetler.length} ayet)`}
+          </Text>
+        </TouchableOpacity>
+      )}
+
+      {/* Ayet metinleri — DuaKartiFull tarzında */}
+      {showAyetler && ayetler && ayetler.map((a, i) => (
+        <View key={i} style={{ marginBottom: 14 }}>
+          <Text style={[styles.badgeText, { color: labelColor, marginBottom: 6 }]}>{a.ref}</Text>
+          <View style={[styles.arabicBox, { borderColor: border }]}>
+            <Text style={[styles.arabicText, { color: colors.text, writingDirection: "rtl" as const }]}>
+              {a.arapca}
+            </Text>
+          </View>
+          <Text style={[styles.duaOkunus, { color: colors.textSecondary }]}>
+            <Text style={{ fontWeight: "700" }}>Okunuşu: </Text>{a.transkripsiyon}
+          </Text>
+          <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
+            <Text style={{ fontWeight: "700" }}>Anlamı: </Text>{a.anlam}
+          </Text>
+        </View>
+      ))}
+
+      <Text style={[styles.duaUygulama, { color: labelColor }]}>
         <Text style={{ fontWeight: "700" }}>Uygulama: </Text>{uygulama}
       </Text>
     </View>
@@ -438,25 +477,140 @@ export default function IsmiAzamScreen() {
           baslik="el-Hayyü'l-Kayyûm Sırrı — Übey b. Kâ'b Rivayeti"
           kaynak="Tirmizî · Sahih"
           aciklama="Hz. Peygamber, İsmi Azam'ın Bakara, Âl-i İmrân ve Tâhâ surelerinde olduğunu bildirmiştir. Bu üç surede ortak olan vasıf: «el-Hayyü'l-Kayyûm» — Ebedî diri, her şeyi ayakta tutan."
-          uygulama="«Yâ Hayyü, Yâ Kayyûm» diyerek Allah'a yönel; Bakara 255, Âl-i İmrân 2 ve Tâhâ 111'i oku."
+          uygulama="«Yâ Hayyü, Yâ Kayyûm» diyerek Allah'a yönel; aşağıdaki üç ayeti sırasıyla oku."
           colors={colors}
+          ayetler={[
+            {
+              ref: "Bakara 2:255 — Âyetü'l-Kürsî (başı)",
+              arapca: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+              transkripsiyon: "Allâhü lâ ilâhe illâ hüvel-Hayyül-Kayyûm",
+              anlam: "Allah, O'ndan başka ilah yoktur; O Hayy (diri) ve Kayyûm (her şeyi ayakta tutan)'dur.",
+            },
+            {
+              ref: "Âl-i İmrân 3:2",
+              arapca: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+              transkripsiyon: "Allâhü lâ ilâhe illâ hüvel-Hayyül-Kayyûm",
+              anlam: "Allah, O'ndan başka ilah yoktur; O Hayy ve Kayyûm'dur.",
+            },
+            {
+              ref: "Tâhâ 20:111",
+              arapca: "وَعَنَتِ الْوُجُوهُ لِلْحَيِّ الْقَيُّومِ ۖ وَقَدْ خَابَ مَنْ حَمَلَ ظُلْمًا",
+              transkripsiyon: "Ve anetel-vücûhü lil-Hayyil-Kayyûm, ve kad hâbe men hamele zulmâ",
+              anlam: "Tüm yüzler, Hayy ve Kayyûm olan Allah için boyun eğmiştir. Kim zulüm taşırsa şüphesiz perişan olur.",
+            },
+          ]}
         />
 
         <MetotKutusu
           baslik="Esma binti Yezid (r.anha) Rivayeti"
           kaynak="İbn Mâce · Sahih"
           aciklama="Hz. Peygamber şöyle buyurdu: «Allah'ın İsmi Azam'ı şu iki ayettedir: Bakara 163 ve Âl-i İmrân 2.»"
-          uygulama="Bu iki ayeti 3'er defa oku; «Yâ Rahmân, Yâ Rahîm, Yâ Hayy, Yâ Kayyûm» diyerek dua et."
+          uygulama="Bu iki ayeti 3'er defa oku; ardından «Yâ Rahmân, Yâ Rahîm, Yâ Hayy, Yâ Kayyûm» diyerek dua et."
           colors={colors}
+          ayetler={[
+            {
+              ref: "Bakara 2:163",
+              arapca: "وَإِلَٰهُكُمْ إِلَٰهٌ وَاحِدٌ ۖ لَّا إِلَٰهَ إِلَّا هُوَ الرَّحْمَٰنُ الرَّحِيمُ",
+              transkripsiyon: "Ve ilâhüküm ilâhün vâhid, lâ ilâhe illâ hüver-Rahmânür-Rahîm",
+              anlam: "İlâhınız tek bir İlâh'tır; O'ndan başka ilah yoktur. O Rahman ve Rahim'dir.",
+            },
+            {
+              ref: "Âl-i İmrân 3:2",
+              arapca: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+              transkripsiyon: "Allâhü lâ ilâhe illâ hüvel-Hayyül-Kayyûm",
+              anlam: "Allah, O'ndan başka ilah yoktur; O Hayy ve Kayyûm'dur.",
+            },
+          ]}
         />
 
         <MetotKutusu
           baslik="Hz. Ali (r.a.) Tavsiyesi"
           kaynak="Sahih Sahabi Uygulaması"
-          aciklama="Hz. Ali şöyle buyurdu: «Allah'a İsmi Azam'ı ile dua etmek istediğinde, Hadid Suresi'nin ilk on ayetini ve Haşr Suresi'nin son üç ayetini oku.»"
-          uygulama="Önce Hadid 1–10, sonra Haşr 22–24 oku; secdede isteklerini dile getir."
+          aciklama="Hz. Ali şöyle buyurdu: «Allah'a İsmi Azam'ı ile dua etmek istediğinde, Hadid Suresi'nin ilk on ayetini ve Haşr Suresi'nin son üç ayetini oku.» (Toplam 13 ayet)"
+          uygulama="Hadid 1–10 ardından Haşr 22–24 oku; secdede isteklerini dile getir."
           puan="8/10"
+          accordion
           colors={colors}
+          ayetler={[
+            {
+              ref: "Hadid 57:1",
+              arapca: "سَبَّحَ لِلَّهِ مَا فِي السَّمَاوَاتِ وَالْأَرْضِ ۖ وَهُوَ الْعَزِيزُ الْحَكِيمُ",
+              transkripsiyon: "Sebbehe lillâhi mâ fis-semâvâti vel-ard, ve hüvel-azîzül-hakîm",
+              anlam: "Göklerde ve yerde ne varsa Allah'ı tesbih eder. O, Aziz ve Hakimdir.",
+            },
+            {
+              ref: "Hadid 57:2",
+              arapca: "لَهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ ۖ يُحْيِي وَيُمِيتُ ۖ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+              transkripsiyon: "Lehü mülküs-semâvâti vel-ard, yuhyî ve yümît, ve hüve alâ külli şey'in kadîr",
+              anlam: "Göklerin ve yerin hükümranlığı O'nundur; diriltir ve öldürür. O her şeye kadirdir.",
+            },
+            {
+              ref: "Hadid 57:3",
+              arapca: "هُوَ الْأَوَّلُ وَالْآخِرُ وَالظَّاهِرُ وَالْبَاطِنُ ۖ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ",
+              transkripsiyon: "Hüvel-Evvelü vel-Âhiru vez-Zâhiru vel-Bâtın, ve hüve bikülli şey'in alîm",
+              anlam: "O Evvel ve Âhirdir, Zâhir ve Bâtındır. O her şeyi bilendir.",
+            },
+            {
+              ref: "Hadid 57:4",
+              arapca: "هُوَ الَّذِي خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ فِي سِتَّةِ أَيَّامٍ ثُمَّ اسْتَوَىٰ عَلَى الْعَرْشِ ۚ يَعْلَمُ مَا يَلِجُ فِي الْأَرْضِ وَمَا يَخْرُجُ مِنْهَا وَمَا يَنزِلُ مِنَ السَّمَاءِ وَمَا يَعْرُجُ فِيهَا ۖ وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ ۚ وَاللَّهُ بِمَا تَعْمَلُونَ بَصِيرٌ",
+              transkripsiyon: "Hüvellezî halekas-semâvâti vel-arda fî sitteti eyyâm, sümmestevâ alel-arş, ya'lemü mâ yeliçü fil-ardi ve mâ yahrucü minhâ ve mâ yenzilü mines-semâi ve mâ ya'rucü fîhâ, ve hüve meaküm eyne mâ küntüm, vallâhü bimâ ta'melûne basîr",
+              anlam: "O, gökleri ve yeri altı günde yaratan; yere gireni, yerden çıkanı, gökten ineni ve göğe çıkanı bilendir. Nerede olursanız olun O sizinledir. Allah yaptıklarınızı görendir.",
+            },
+            {
+              ref: "Hadid 57:5",
+              arapca: "لَّهُ مُلْكُ السَّمَاوَاتِ وَالْأَرْضِ ۚ وَإِلَى اللَّهِ تُرْجَعُ الْأُمُورُ",
+              transkripsiyon: "Lehü mülküs-semâvâti vel-ard, ve ilallâhi türce'ul-umûr",
+              anlam: "Göklerin ve yerin hükümranlığı O'nundur; bütün işler Allah'a döndürülür.",
+            },
+            {
+              ref: "Hadid 57:6",
+              arapca: "يُولِجُ اللَّيْلَ فِي النَّهَارِ وَيُولِجُ النَّهَارَ فِي اللَّيْلِ ۚ وَهُوَ عَلِيمٌ بِذَاتِ الصُّدُورِ",
+              transkripsiyon: "Yûlicül-leyle fin-nehâri ve yûlicün-nehâre fil-leyl, ve hüve alîmün bizâtis-sudûr",
+              anlam: "Geceyi gündüze, gündüzü geceye katar. O, göğüslerin özündekini bilendir.",
+            },
+            {
+              ref: "Hadid 57:7",
+              arapca: "آمِنُوا بِاللَّهِ وَرَسُولِهِ وَأَنفِقُوا مِمَّا جَعَلَكُم مُّسْتَخْلَفِينَ فِيهِ ۖ فَالَّذِينَ آمَنُوا مِنكُمْ وَأَنفَقُوا لَهُمْ أَجْرٌ كَبِيرٌ",
+              transkripsiyon: "Âminû billâhi ve resûlihî ve enfiku mimmâ cealekum müstahlegîne fîh, fellezîne âmenû minküm ve enfekû lehüm ecrun kebîr",
+              anlam: "Allah'a ve Resulüne iman edin; sizi üzerinde halife kıldığı şeyden infak edin. Sizden iman edip infak edenlere büyük mükâfat vardır.",
+            },
+            {
+              ref: "Hadid 57:8",
+              arapca: "وَمَا لَكُمْ لَا تُؤْمِنُونَ بِاللَّهِ ۙ وَالرَّسُولُ يَدْعُوكُمْ لِتُؤْمِنُوا بِرَبِّكُمْ وَقَدْ أَخَذَ مِيثَاقَكُمْ إِن كُنتُم مُّؤْمِنِينَ",
+              transkripsiyon: "Ve mâ leküm lâ tü'minûne billâh, ver-resûlü yed'ûküm litü'minû birabbküm ve kad ehaze mîsâkaküm in küntüm mü'minîn",
+              anlam: "Allah'a iman etmemeniz için ne engeliniz var? Resulü sizi Rabbinize iman etmeye çağırıyor. Eğer mü'minseniz, O sizden söz almıştır.",
+            },
+            {
+              ref: "Hadid 57:9",
+              arapca: "هُوَ الَّذِي يُنَزِّلُ عَلَىٰ عَبْدِهِ آيَاتٍ بَيِّنَاتٍ لِّيُخْرِجَكُم مِّنَ الظُّلُمَاتِ إِلَى النُّورِ ۚ وَإِنَّ اللَّهَ بِكُمْ لَرَءُوفٌ رَّحِيمٌ",
+              transkripsiyon: "Hüvellezî yünezzilü alâ abdihî âyâtin beyyinâtin liyuhricaküm minez-zulümâti ilen-nûr, ve innallâhe biküm le-raûfün rahîm",
+              anlam: "O, kuluna açık âyetler indirip sizi karanlıklardan nura çıkarmak isteyendir. Allah size karşı şefkatli ve merhametlidir.",
+            },
+            {
+              ref: "Hadid 57:10",
+              arapca: "وَمَا لَكُمْ أَلَّا تُنفِقُوا فِي سَبِيلِ اللَّهِ وَلِلَّهِ مِيرَاثُ السَّمَاوَاتِ وَالْأَرْضِ ۚ لَا يَسْتَوِي مِنكُم مَّنْ أَنفَقَ مِن قَبْلِ الْفَتْحِ وَقَاتَلَ ۚ أُولَٰئِكَ أَعْظَمُ دَرَجَةً مِّنَ الَّذِينَ أَنفَقُوا مِن بَعْدُ وَقَاتَلُوا ۚ وَكُلًّا وَعَدَ اللَّهُ الْحُسْنَىٰ ۚ وَاللَّهُ بِمَا تَعْمَلُونَ خَبِيرٌ",
+              transkripsiyon: "Ve mâ leküm ellâ tünfiku fî sebîlillâh, ve lillâhi mîrâsüs-semâvâti vel-ard, lâ yestevî minküm men enfeka min kablil-fethi ve kâtel, ülâike a'zamü dereceten minellezîne enfekû min ba'dü ve kâtelû, ve küllen veadallâhul-husnâ, vallâhü bimâ ta'melûne habîr",
+              anlam: "Allah'ın yolunda infak etmemeniz için ne var? Göklerin ve yerin mirası Allah'ındır. Fetihten önce infak edip savaşanlar diğerleriyle eşit değildir; onlar daha büyük derecelidir. Allah hepsine güzeli vaat etmiş, yaptıklarınızdan haberdardır.",
+            },
+            {
+              ref: "Haşr 59:22",
+              arapca: "هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ ۖ عَالِمُ الْغَيْبِ وَالشَّهَادَةِ ۖ هُوَ الرَّحْمَٰنُ الرَّحِيمُ",
+              transkripsiyon: "Hüvallâhüllezî lâ ilâhe illâ hû, âlimül-ğaybi veş-şehâdeh, hüver-Rahmânür-Rahîm",
+              anlam: "O Allah ki O'ndan başka ilah yoktur; gaybı ve aşikârı bilendir. O Rahman ve Rahimdir.",
+            },
+            {
+              ref: "Haşr 59:23",
+              arapca: "هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ ۚ سُبْحَانَ اللَّهِ عَمَّا يُشْرِكُونَ",
+              transkripsiyon: "Hüvallâhüllezî lâ ilâhe illâ hü, el-Melikül-Kuddûsüs-Selâmül-Mü'minül-Müheyminül-Azîzül-Cebbârül-Mütekebbir, sübhânallâhi ammâ yüşrikûn",
+              anlam: "O Allah: Melik, Kuddûs, Selâm, Mü'min, Müheymin, Aziz, Cebbâr ve Mütekebbir'dir. Allah, müşriklerin ortak koştuklarından münezzehtir.",
+            },
+            {
+              ref: "Haşr 59:24",
+              arapca: "هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ ۖ لَهُ الْأَسْمَاءُ الْحُسْنَىٰ ۚ يُسَبِّحُ لَهُ مَا فِي السَّمَاوَاتِ وَالْأَرْضِ ۖ وَهُوَ الْعَزِيزُ الْحَكِيمُ",
+              transkripsiyon: "Hüvallâhül-Hâlikul-Bâriül-Musavvir, lehül-esmâül-hüsnâ, yüsebbihü lehü mâ fis-semâvâti vel-ard, ve hüvel-azîzül-hakîm",
+              anlam: "O Allah: Yaratıcı, yoktan var edici ve şekil vericidir. En güzel isimler O'nundur. Göklerde ve yerde ne varsa O'nu tesbih eder. O Aziz ve Hakimdir.",
+            },
+          ]}
         />
 
         <VerseSubHeader label="İsmi Azam Ayetleri" colors={colors} />

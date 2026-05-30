@@ -50,7 +50,7 @@ export function useDailyContent() {
         if (cached.date === todayKey() && cached.timings) {
           setPrayers(cached.timings);
         }
-      } catch {}
+      } catch (_e) { /* stale cache — ignore */ }
     });
 
     // 2. Günün Ayeti
@@ -69,23 +69,23 @@ export function useDailyContent() {
     }).catch(() => {});
 
     // 3. Günün Duası
-    fetch(`${process.env.EXPO_PUBLIC_API_URL ?? ""}/mood/random?tag=${encodeURIComponent("sabır")}`)
-      .then(r => r.json())
-      .then((d) => {
-        if (d?.verse_key) setDua({
-          verse_key: d.verse_key,
-          surah_id: d.surah_id,
-          ayah_number: d.ayah_number,
-          surah_name: d.surah_name,
-          arabic_text: d.arabic_text ?? null,
-          reading_tr: null,
-          meal: d.meal,
-        });
-      }).catch(() => {});
+    api.mood.random("sabır").then((d) => {
+      if (d?.verse_key) setDua({
+        verse_key: d.verse_key,
+        surah_id: d.surah_id,
+        ayah_number: d.ayah_number,
+        surah_name: d.surah_name,
+        arabic_text: d.arabic_text ?? null,
+        reading_tr: null,
+        meal: d.meal,
+      });
+    }).catch(() => {});
 
     // 4. Namaz vakitlerini API'den çek ve cache'e yaz
     const ts = `${new Date().getDate().toString().padStart(2,"0")}-${(new Date().getMonth()+1).toString().padStart(2,"0")}-${new Date().getFullYear()}`;
-    fetch(`https://api.aladhan.com/v1/timings/${ts}?latitude=${ISTANBUL.lat}&longitude=${ISTANBUL.lon}&method=13`)
+    fetch(`https://api.aladhan.com/v1/timings/${ts}?latitude=${ISTANBUL.lat}&longitude=${ISTANBUL.lon}&method=13`, {
+      headers: { "Accept": "application/json" },
+    })
       .then(r => r.json())
       .then((d) => {
         if (d?.data?.timings) {

@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import { dbAll, dbGet, dbRun } from "../../../lib/dbUtils";
+import { dbAll, dbGet } from "../../../lib/dbUtils";
 
 export const revalidate = false; // Kuran metni değişmez — sonsuz cache
 
@@ -76,5 +76,7 @@ export async function GET(req: NextRequest) {
     })),
   };
 
-  return NextResponse.json(body);
+  return NextResponse.json(body, {
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
 }
