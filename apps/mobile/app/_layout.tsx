@@ -26,7 +26,7 @@ export default function RootLayout() {
         <Stack.Screen name="manevi-siginak"                 options={{ title: "Manevi Sığınak", headerBackTitle: "Geri" }} />
         <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: "İsmi Azam & Sekine", headerBackTitle: "Geri" }} />
         <Stack.Screen name="search"                         options={{ title: "Arama", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="mushaf"                               options={{ title: "Mushaf", headerBackTitle: "Geri", headerShown: false }} />
+        <Stack.Screen name="mushaf/index"                         options={{ title: "Mushaf", headerBackTitle: "Geri", headerShown: false }} />
         <Stack.Screen name="mushaf/[surahId]/[ayahNumber]"        options={{ headerBackTitle: "Mushaf", headerShown: false }} />
         <Stack.Screen name="root/index"                           options={{ title: "Kelime Kökleri", headerBackTitle: "Geri" }} />
         <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: "Kökler" }} />

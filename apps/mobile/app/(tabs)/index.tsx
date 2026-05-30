@@ -13,7 +13,7 @@ const NAV_CARDS = [
   { label: "İbadet Rehberi", emoji: "📿", route: "/ibadet-rehberi",  bg: "#f0fdf4", border: "#86efac" },
   { label: "Manevi Sığınak", emoji: "🛡️", route: "/manevi-siginak", bg: "#fce7f3", border: "#f9a8d4" },
   { label: "Kelime Kökü",    emoji: "🌿", route: "/root",            bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Mushaf",         emoji: "📜", route: "/mushaf",          bg: "#ede9fe", border: "#c4b5fd" },
+  { label: "Mushaf",         emoji: "📜", route: "/mushaf/1/1",      bg: "#ede9fe", border: "#c4b5fd" },
   { label: "Kıble",          emoji: "🧭", route: "/kible",           bg: "#ecfeff", border: "#67e8f9" },
   { label: "Hatim",          emoji: "📗", route: "/hatim",           bg: "#f0fdf4", border: "#86efac" },
   { label: "Favorilerim",    emoji: "❤️", route: "/favorites",       bg: "#fff1f2", border: "#fca5a5" },
