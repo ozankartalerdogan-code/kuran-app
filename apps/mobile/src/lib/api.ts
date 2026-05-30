@@ -186,6 +186,7 @@ export type AyahDetailResponse = {
   literalCeviri: string | null;
   farkAnalizi:   string | null;
   translations:  { source: string; text: string | null }[];
+  rootMeanings:  Record<string, string>;
   words: {
     wordIndex:  number;
     arabic:     string | null;

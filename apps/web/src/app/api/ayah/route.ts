@@ -43,6 +43,7 @@ export type AyahDetailResponse = {
   literalCeviri: string | null;
   farkAnalizi: string | null;
   translations: { source: string; text: string | null }[];
+  rootMeanings: Record<string, string>;
   words: {
     wordIndex: number;
     arabic: string | null;
@@ -110,6 +111,18 @@ export async function GET(req: NextRequest) {
       ORDER BY word_index
     `, verseKey,);
 
+  // Kök anlamları
+  const uniqueRoots = [...new Set(words.map(w => w.root).filter(Boolean))] as string[];
+  const rootMeanings: Record<string, string> = {};
+  if (uniqueRoots.length > 0) {
+    const placeholders = uniqueRoots.map(() => "?").join(",");
+    const rmRows = await dbAll<{ root: string; meaning_tr: string }>(
+      `SELECT root, MIN(meaning_tr) AS meaning_tr FROM root_meanings WHERE root IN (${placeholders}) GROUP BY root`,
+      ...uniqueRoots
+    );
+    rmRows.forEach(r => { if (r.root && r.meaning_tr) rootMeanings[r.root] = r.meaning_tr; });
+  }
+
   const prevAyah =
     ayahNumber > 1 ? { surahId, ayahNumber: ayahNumber - 1 } : null;
   const nextAyah =
@@ -128,6 +141,7 @@ export async function GET(req: NextRequest) {
     literalCeviri: verse.literal_ceviri ?? null,
     farkAnalizi:   verse.fark_analizi ?? null,
     translations:  translations.map(t => ({ source: t.source, text: t.text })),
+    rootMeanings,
     words: words.map((w) => ({
       wordIndex:  w.word_index,
       arabic:     w.arabic,

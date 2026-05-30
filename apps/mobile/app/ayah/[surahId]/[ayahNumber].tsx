@@ -67,12 +67,13 @@ function RawMeaningSummary({
 
 function UniqueRootList({
   words,
+  rootMeanings,
   colors,
 }: {
   words: AyahDetailResponse["words"];
+  rootMeanings: Record<string, string>;
   colors: ThemeColors;
 }) {
-  // Benzersiz kökleri topla
   const rootMap = new Map<string, number>();
   for (const w of words) {
     if (w.root?.trim()) {
@@ -93,23 +94,29 @@ function UniqueRootList({
 
   return (
     <View style={styles.rootsGrid}>
-      {roots.map(([root, count]) => (
-        <TouchableOpacity
-          key={root}
-          style={[styles.rootChip, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
-          onPress={() => router.push(`/root/${encodeURIComponent(root)}`)}
-          activeOpacity={0.7}
-        >
-          <View style={styles.rootChipRow}>
-            <Text style={[styles.rootChipArabic, { color: colors.accent }]}>{root}</Text>
-            <View style={[styles.rootCountBadge, { backgroundColor: colors.accent + "18" }]}>
-              <Text style={[styles.rootCountText, { color: colors.accent }]}>
-                {count} kelime
-              </Text>
+      {roots.map(([root, count]) => {
+        const meaning = rootMeanings[root];
+        return (
+          <TouchableOpacity
+            key={root}
+            style={[styles.rootChip, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
+            onPress={() => router.push(`/root/${encodeURIComponent(root)}`)}
+            activeOpacity={0.7}
+          >
+            <View style={styles.rootChipRow}>
+              <Text style={[styles.rootChipArabic, { color: colors.accent }]}>{root}</Text>
+              <View style={[styles.rootCountBadge, { backgroundColor: colors.accent + "18" }]}>
+                <Text style={[styles.rootCountText, { color: colors.accent }]}>{count} kelime</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      ))}
+            {meaning ? (
+              <Text style={[styles.rootChipMeaning, { color: colors.textSecondary }]} numberOfLines={1}>
+                {meaning}
+              </Text>
+            ) : null}
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }
@@ -449,7 +456,7 @@ export default function AyahDetailScreen() {
           <View style={styles.tabContent}>
             <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
               <Text style={[styles.sectionTitle, { color: colors.accent }]}>KÖKLER</Text>
-              <UniqueRootList words={data.words} colors={colors} />
+              <UniqueRootList words={data.words} rootMeanings={data.rootMeanings ?? {}} colors={colors} />
             </View>
           </View>
         )}
@@ -680,7 +687,8 @@ const styles = StyleSheet.create({
   rootCountBadge: {
     borderRadius: 12, paddingHorizontal: 10, paddingVertical: 4,
   },
-  rootCountText: { fontSize: 11, fontWeight: "600" },
+  rootCountText:   { fontSize: 11, fontWeight: "600" },
+  rootChipMeaning: { fontSize: 11, marginTop: 3 },
 
   // ── Analiz kartları ──
   analysisCard: {
