@@ -324,27 +324,27 @@ export default function SearchScreen() {
         );
       })()}
 
-      {/* Son aramalar */}
-      {showRecent && !isLoading && (
-        <View style={styles.recentWrap}>
-          <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"center" }}>
-            <Text style={styles.recentHeading}>Son aramalar</Text>
-            <TouchableOpacity onPress={() => { setRecent([]); storage.setJSON(STORAGE_KEYS.recentSearches, []).catch(()=>{}); }}>
-              <Text style={{ fontSize:12, color:"#ef4444" }}>Temizle</Text>
-            </TouchableOpacity>
-          </View>
-          {recent.map((r) => (
-            <Pressable key={r} style={styles.recentRow} onPress={() => onRecentPress(r)}>
-              <Text style={styles.recentIcon}>🕐</Text>
-              <Text style={styles.recentText} numberOfLines={1}>{r}</Text>
-            </Pressable>
-          ))}
-        </View>
-      )}
-
-      {/* Keşfet — arama yokken tam keşfet ekranı */}
+      {/* Boş durum: son aramalar + Keşfet tek ScrollView */}
       {!isLoading && query.length < MIN_Q && (
-        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:12, paddingBottom:32 }} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={{ paddingBottom:32 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+
+          {/* Son aramalar */}
+          {showRecent && (
+            <View style={styles.recentWrap}>
+              <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"center" }}>
+                <Text style={styles.recentHeading}>Son aramalar</Text>
+                <TouchableOpacity onPress={() => { setRecent([]); storage.setJSON(STORAGE_KEYS.recentSearches, []).catch(()=>{}); }}>
+                  <Text style={{ fontSize:12, color:"#ef4444" }}>Temizle</Text>
+                </TouchableOpacity>
+              </View>
+              {recent.map((r) => (
+                <Pressable key={r} style={styles.recentRow} onPress={() => onRecentPress(r)}>
+                  <Text style={styles.recentIcon}>🕐</Text>
+                  <Text style={styles.recentText} numberOfLines={1}>{r}</Text>
+                </Pressable>
+              ))}
+            </View>
+          )}
 
           {/* Özel Rehberler */}
           <Text style={styles.kesfetSection}>✨ Özel Rehberler</Text>

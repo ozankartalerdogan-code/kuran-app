@@ -19,8 +19,8 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerShown: false }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
-        <Stack.Screen name="ogren/index"                    options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="ogren/[dersId]"                 options={{ headerBackTitle: "Dersler" }} />
+        <Stack.Screen name="ogren/index"                           options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="ogren/[dersId]"                       options={{ headerBackTitle: "Dersler" }} />
         <Stack.Screen name="ibadet-rehberi"                  options={{ title: "İbadet Rehberi", headerBackTitle: "Geri" }} />
         <Stack.Screen name="namaz"                          options={{ title: "Namaz & İbadet", headerBackTitle: "Geri" }} />
         <Stack.Screen name="manevi-siginak"                 options={{ title: "Manevi Sığınak", headerBackTitle: "Geri" }} />

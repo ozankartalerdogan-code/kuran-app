@@ -6,22 +6,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
-import { Audio } from "expo-av";
-
-const API_BASE = process.env.EXPO_PUBLIC_API_URL?.replace("/api/v1", "") ?? "https://kuran-app-web-ozan-s-projects8.vercel.app";
-
-async function playHarfSes(harfId: number) {
-  try {
-    const num = String(harfId).padStart(2, "0");
-    const url = `${API_BASE}/audio/elifba/harf_${num}.mp3`;
-    const { sound } = await Audio.Sound.createAsync({ uri: url });
-    await sound.playAsync();
-    sound.setOnPlaybackStatusUpdate(status => {
-      if (status.isLoaded && status.didJustFinish) sound.unloadAsync();
-    });
-  } catch {
-    // ses çalamazsa sessizce geç
-  }
+// expo-av yeni APK build gerektiriyor — şimdilik placeholder
+async function playHarfSes(_harfId: number) {
+  // Yeni APK build'inde expo-av ile aktif edilecek
 }
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
