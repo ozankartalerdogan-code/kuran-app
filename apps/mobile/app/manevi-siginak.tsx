@@ -260,6 +260,13 @@ export default function ManeviSiginakScreen() {
             uygulama="Sağ el ağrıyan yere konur, 3 Bismillah'tan sonra 7 defa okunur."
           />
           <UyariBox renk="amber" mesaj="⚠️ Uyarı: Doktora gitmeyi ihmal etme. Tıbbi tedavi ile Kur'an birbirini dışlamaz." />
+          <Text style={[s.boxTitle, { marginTop: 8 }]}>Manevi Sıkıntı ve Depresyon İçin (🟡 8/10)</Text>
+          <StepList steps={[
+            "Her gün Fatiha'yı anlamını düşünerek oku.",
+            "Günde 100 kez: «Lâ ilâhe illâ ente sübhâneke innî küntü minez-zâlimîn» (Yunus'un duası) oku.",
+            "İsra 82'yi su üzerine 7 defa oku, 7 gün iç.",
+            "Çok istiğfar et: «Estağfirullâh» günde yüzlerce kez.",
+          ]} />
           <VerseList tag="korunma-sifa" />
         </Bolum>
 
@@ -267,23 +274,32 @@ export default function ManeviSiginakScreen() {
         <Text style={s.sectionLabel}>MİT AVCISI — YAP / YAPMA</Text>
         <View style={s.mitCard}>
           <Text style={s.mitTitle}>🟢 YAP — Meşru Yöntemler</Text>
-          {["Kur'an'dan duaları bizzat oku.",
-            "Şifayı Allah'tan iste.",
-            "Sabah-akşam Ayetel Kürsi oku.",
-            "Nazar için Felak ve Nas surelerini oku.",
-            "Vesvese gelince istiacze et.",
+          {[
+            "Kur'an'dan duaları bizzat oku — en güvenilir kaynak.",
+            "Şifayı ve korumayı yalnız Allah'tan iste.",
+            "Sabah-akşam: Ayetel Kürsi + 3 İhlas + Felak + Nas.",
+            "Nazar için: Kalem 51-52 ve Felak-Nas oku.",
+            "Vesvese gelince: «Eûzü billâh» de ve geç.",
+            "Hastalıkta: doktor + Kur'an ikilisini birlikte kullan.",
           ].map((i, idx) => <Text key={idx} style={s.mitGreen}>✓ {i}</Text>)}
         </View>
         <View style={[s.mitCard, { borderColor: "#fca5a5" }]}>
           <Text style={[s.mitTitle, { color: "#991b1b" }]}>🔴 YAPMA — Yasak Uygulamalar</Text>
           {[
-            "Nazar boncuğu takma → Şirk riski",
-            "Kurşun döktürme → Batıl",
-            "Sirke-tuz-su karışımı → Hurafe",
-            "Cinci / medyum / falcı → Büyük günah",
-            "Yıldızname / astroloji → Küfür riski",
-            "Muska / temime → Şirk",
-          ].map((i, idx) => <Text key={idx} style={s.mitRed}>✗ {i}</Text>)}
+            { item: "Nazar Boncuğu", aciklama: "Şirk riski — Nesneye koruyan güç atfetmek shirktir. Alternati: Ayetel Kürsi oku." },
+            { item: "Kurşun Döktürmek", aciklama: "Batıl — İslam kaynağı yok. Doğrusu: Felak ve Nas oku." },
+            { item: "Sirke-Tuz-Su Karışımı", aciklama: "Hurafe — Maddeye metafizik güç atfetmek şirke kapı açar." },
+            { item: "Cinci / Medyum / Falcı", aciklama: "Büyük günah — «Falcıya gidip inanan küfre girmiştir» (Hadis)." },
+            { item: "Yıldızname / Astroloji", aciklama: "Küfür riski — Gaybı yalnız Allah bilir." },
+            { item: "Muska / Temîme", aciklama: "Şirk — Hz. Peygamber yasaklamıştır; Kur'an bizzat okunmalıdır." },
+            { item: "«Büyülü» Su Satanlar", aciklama: "Sahtekârlık + haram — Suyu bizzat kendin oku; başkasından alma." },
+            { item: "Defne Yaprağı / Tütsü", aciklama: "Hurafe — Dumanın cin kovan gücü yoktur. Kur'an oku." },
+          ].map((m, idx) => (
+            <View key={idx} style={s.mitDetailRow}>
+              <Text style={s.mitRed}>✗ {m.item}</Text>
+              <Text style={s.mitDetailAciklama}>{m.aciklama}</Text>
+            </View>
+          ))}
         </View>
 
         <View style={s.footer}>
@@ -329,7 +345,9 @@ const s = StyleSheet.create({
   mitCard:  { margin: 12, marginBottom: 6, borderRadius: 14, padding: 14, backgroundColor: "#fff", borderWidth: 1, borderColor: "#86efac", gap: 4 },
   mitTitle: { fontSize: 13, fontWeight: "700", color: "#065f46", marginBottom: 6 },
   mitGreen: { fontSize: 13, color: "#166534", lineHeight: 20 },
-  mitRed:   { fontSize: 13, color: "#991b1b", lineHeight: 20 },
+  mitRed:   { fontSize: 13, color: "#991b1b", lineHeight: 20, fontWeight: "600" },
+  mitDetailRow:    { borderTopWidth: 1, borderTopColor: "#fee2e2", paddingTop: 6, marginTop: 2 },
+  mitDetailAciklama: { fontSize: 11, color: "#78716c", marginTop: 1, lineHeight: 16 },
 
   footer:     { margin: 16, padding: 14, backgroundColor: "#f0fdf4", borderRadius: 12, borderWidth: 1, borderColor: "#bbf7d0" },
   footerText: { fontSize: 13, color: "#166534", fontStyle: "italic", textAlign: "center", lineHeight: 20 },
