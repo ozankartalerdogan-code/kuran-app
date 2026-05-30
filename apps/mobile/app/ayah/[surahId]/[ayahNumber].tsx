@@ -121,6 +121,32 @@ function UniqueRootList({
   );
 }
 
+// ── Sure Tefsiri Accordion ────────────────────────────────────────────────────
+
+function TafsirAccordion({ tafsir, colors }: { tafsir: string; colors: ThemeColors }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <View style={[styles.tafsirBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
+      <TouchableOpacity
+        style={styles.tafsirHeader}
+        onPress={() => setOpen(p => !p)}
+        activeOpacity={0.75}
+      >
+        <View>
+          <Text style={[styles.tafsirTitle, { color: colors.textPrimary }]}>📚 Sure Tefsiri</Text>
+          <Text style={[styles.tafsirSub, { color: colors.textMuted }]}>Elmalılı Hamdi Yazır</Text>
+        </View>
+        <Text style={{ color: colors.accent, fontSize: 18 }}>{open ? "▲" : "▼"}</Text>
+      </TouchableOpacity>
+      {open && (
+        <View style={styles.tafsirBody}>
+          <Text style={[styles.tafsirText, { color: colors.textSecondary }]}>{tafsir}</Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
 // ── Sekme Bileşeni ────────────────────────────────────────────────────────────
 
 type TabId = "meal" | "words" | "roots" | "analysis";
@@ -490,18 +516,6 @@ export default function AyahDetailScreen() {
               </View>
             ) : null}
 
-            {/* Sure Tefsiri */}
-            {tafsir ? (
-              <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>Sure Tefsiri</Text>
-                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
-                  Elmalılı Hamdi Yazır tefsiri
-                </Text>
-                <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
-                  {tafsir.length > 800 ? tafsir.slice(0, 800) + "…" : tafsir}
-                </Text>
-              </View>
-            ) : null}
 
             {/* Ham Anlam Özeti */}
             <RawMeaningSummary words={data.words} colors={colors} />
@@ -567,6 +581,12 @@ export default function AyahDetailScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {/* ═══ Sure Tefsiri Accordion ═══ */}
+        {tafsir ? (
+          <TafsirAccordion tafsir={tafsir} colors={colors} />
+        ) : null}
+
       </ScrollView>
     </>
   );
@@ -702,6 +722,13 @@ const styles = StyleSheet.create({
   },
   rootCountText:   { fontSize: 11, fontWeight: "600" },
   rootChipMeaning: { fontSize: 11, marginTop: 3 },
+
+  tafsirBox:    { marginTop: 12, borderRadius: 14, borderWidth: 1, overflow: "hidden" },
+  tafsirHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 16 },
+  tafsirTitle:  { fontSize: 15, fontWeight: "700" },
+  tafsirSub:    { fontSize: 11, marginTop: 2 },
+  tafsirBody:   { paddingHorizontal: 16, paddingBottom: 16 },
+  tafsirText:   { fontSize: 13, lineHeight: 22 },
 
   // ── Analiz kartları ──
   analysisCard: {
