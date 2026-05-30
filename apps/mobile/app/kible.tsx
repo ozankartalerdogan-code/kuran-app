@@ -1,12 +1,25 @@
 import React, { useState, useCallback } from "react";
 import {
-  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Dimensions,
+  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Dimensions, ScrollView,
 } from "react-native";
 import { Stack } from "expo-router";
 
 const MECCA = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
 const COMPASS_SIZE = Math.min(width - 64, 280);
+
+const CITIES = [
+  { name: "İstanbul",  lat: 41.0082, lng: 28.9784 },
+  { name: "Ankara",    lat: 39.9334, lng: 32.8597 },
+  { name: "İzmir",     lat: 38.4189, lng: 27.1287 },
+  { name: "Bursa",     lat: 40.1885, lng: 29.0610 },
+  { name: "Antalya",   lat: 36.8969, lng: 30.7133 },
+  { name: "Konya",     lat: 37.8714, lng: 32.4846 },
+  { name: "Adana",     lat: 37.0000, lng: 35.3213 },
+  { name: "Trabzon",   lat: 41.0015, lng: 39.7178 },
+  { name: "Diyarbakır",lat: 37.9144, lng: 40.2306 },
+  { name: "Erzurum",   lat: 39.9208, lng: 41.2671 },
+];
 
 function toRad(d: number) { return (d * Math.PI) / 180; }
 function toDeg(r: number) { return (r * 180) / Math.PI; }
@@ -28,31 +41,16 @@ function calcDist(lat: number, lng: number): number {
 }
 
 export default function KibleScreen() {
-  const [status, setStatus]     = useState<"idle"|"loading"|"done"|"error">("idle");
+  const [status, setStatus]     = useState<"idle"|"done">("idle");
   const [qibla, setQibla]       = useState<number | null>(null);
   const [distance, setDistance] = useState<number | null>(null);
   const [city, setCity]         = useState<string | null>(null);
 
-  const locate = useCallback(() => {
-    setStatus("loading");
-    if (!navigator.geolocation) {
-      Alert.alert("Hata", "Cihazınız konum özelliğini desteklemiyor.");
-      setStatus("error");
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setQibla(calcQibla(latitude, longitude));
-        setDistance(calcDist(latitude, longitude));
-        setStatus("done");
-      },
-      () => {
-        Alert.alert("Konum İzni", "Konum izni verilmedi veya alınamadı.");
-        setStatus("error");
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
+  const selectCity = useCallback((c: typeof CITIES[0]) => {
+    setQibla(calcQibla(c.lat, c.lng));
+    setDistance(calcDist(c.lat, c.lng));
+    setCity(c.name);
+    setStatus("done");
   }, []);
 
   return (
@@ -64,19 +62,15 @@ export default function KibleScreen() {
         <Text style={styles.sub}>Konumunuza göre Kabe'nin yönünü bulun</Text>
 
         {status === "idle" && (
-          <TouchableOpacity style={styles.btn} onPress={locate}>
-            <Text style={styles.btnText}>📍 Konumumu Bul</Text>
-          </TouchableOpacity>
-        )}
-
-        {status === "loading" && (
-          <ActivityIndicator size="large" color="#059669" style={{ marginTop: 40 }} />
-        )}
-
-        {status === "error" && (
-          <TouchableOpacity style={[styles.btn, { backgroundColor: "#ef4444" }]} onPress={locate}>
-            <Text style={styles.btnText}>Tekrar Dene</Text>
-          </TouchableOpacity>
+          <View style={{ width: "100%" }}>
+            <Text style={styles.cityTitle}>Şehrinizi seçin</Text>
+            {CITIES.map((c) => (
+              <TouchableOpacity key={c.name} style={styles.cityRow} onPress={() => selectCity(c)} activeOpacity={0.7}>
+                <Text style={styles.cityName}>📍 {c.name}</Text>
+                <Text style={styles.cityDeg}>{Math.round(calcQibla(c.lat, c.lng))}°</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         )}
 
         {status === "done" && qibla !== null && (
@@ -107,8 +101,8 @@ export default function KibleScreen() {
               <Text style={styles.degreeSub}>Kuzeyden saat yönünde</Text>
             </View>
 
-            <TouchableOpacity onPress={locate} style={styles.refreshBtn}>
-              <Text style={styles.refreshText}>Konumu Yenile</Text>
+            <TouchableOpacity onPress={() => setStatus("idle")} style={styles.refreshBtn}>
+              <Text style={styles.refreshText}>Şehri Değiştir</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -124,6 +118,14 @@ const styles = StyleSheet.create({
 
   btn:     { backgroundColor: "#059669", borderRadius: 14, paddingHorizontal: 32, paddingVertical: 14 },
   btnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  cityTitle: { fontSize: 16, fontWeight: "700", color: "#134e4a", marginBottom: 12, textAlign: "center" },
+  cityRow: {
+    flexDirection: "row", justifyContent: "space-between", alignItems: "center",
+    backgroundColor: "#fff", borderRadius: 12, paddingHorizontal: 16, paddingVertical: 14,
+    marginBottom: 8, borderWidth: 1, borderColor: "#99f6e4",
+  },
+  cityName: { fontSize: 15, color: "#134e4a", fontWeight: "600" },
+  cityDeg:  { fontSize: 13, color: "#5eead4" },
 
   result:   { alignItems: "center", width: "100%" },
   city:     { fontSize: 15, color: "#134e4a", fontWeight: "600" },
