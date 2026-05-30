@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { api } from "../lib/api";
 
 interface DailyVerse {
@@ -21,6 +22,12 @@ const PRAYER_LABELS: Record<string, string> = {
   Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle",
   Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı",
 };
+const PRAYER_CACHE_KEY = "prayerTimesCache";
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
 
 function getDailyOffset(total: number): number {
   const now = new Date();
@@ -29,56 +36,68 @@ function getDailyOffset(total: number): number {
 }
 
 export function useDailyContent() {
-  const [verse, setVerse]   = useState<DailyVerse | null>(null);
-  const [dua, setDua]       = useState<DailyVerse | null>(null);
+  const [verse, setVerse]     = useState<DailyVerse | null>(null);
+  const [dua, setDua]         = useState<DailyVerse | null>(null);
   const [prayers, setPrayers] = useState<PrayerTimes | null>(null);
-  const [prayerCity, setPrayerCity] = useState(ISTANBUL.city);
+  const prayerCity = ISTANBUL.city;
 
   useEffect(() => {
-    // Günün Ayeti
+    // 1. Namaz vakitlerini önce cache'den yükle (anında)
+    AsyncStorage.getItem(PRAYER_CACHE_KEY).then(raw => {
+      if (!raw) return;
+      try {
+        const cached = JSON.parse(raw);
+        if (cached.date === todayKey() && cached.timings) {
+          setPrayers(cached.timings);
+        }
+      } catch {}
+    });
+
+    // 2. Günün Ayeti
     api.verses.bySurah(89).then((res) => {
       const offset = getDailyOffset(res.verses.length);
       const v = res.verses[offset];
-      if (v) {
-        setVerse({
-          verse_key: `89:${v.ayahNumber}`,
-          surah_id: 89,
-          ayah_number: v.ayahNumber,
-          surah_name: res.surah.name,
-          arabic_text: null,
-          reading_tr: v.reading ?? null,
-          meal: v.meal,
-        });
-      }
+      if (v) setVerse({
+        verse_key: `89:${v.ayahNumber}`,
+        surah_id: 89,
+        ayah_number: v.ayahNumber,
+        surah_name: res.surah.name,
+        arabic_text: null,
+        reading_tr: v.reading ?? null,
+        meal: v.meal,
+      });
     }).catch(() => {});
 
-    // Günün Duası — dua-sabır tag'ından
+    // 3. Günün Duası
     fetch(`${process.env.EXPO_PUBLIC_API_URL ?? ""}/mood/random?tag=${encodeURIComponent("sabır")}`)
       .then(r => r.json())
       .then((d) => {
-        if (d?.verse_key) {
-          setDua({
-            verse_key: d.verse_key,
-            surah_id: d.surah_id,
-            ayah_number: d.ayah_number,
-            surah_name: d.surah_name,
-            arabic_text: d.arabic_text ?? null,
-            reading_tr: null,
-            meal: d.meal,
-          });
-        }
+        if (d?.verse_key) setDua({
+          verse_key: d.verse_key,
+          surah_id: d.surah_id,
+          ayah_number: d.ayah_number,
+          surah_name: d.surah_name,
+          arabic_text: d.arabic_text ?? null,
+          reading_tr: null,
+          meal: d.meal,
+        });
       }).catch(() => {});
 
-    // Namaz Vakitleri (İstanbul, Aladhan API)
+    // 4. Namaz vakitlerini API'den çek ve cache'e yaz
     const ts = `${new Date().getDate().toString().padStart(2,"0")}-${(new Date().getMonth()+1).toString().padStart(2,"0")}-${new Date().getFullYear()}`;
     fetch(`https://api.aladhan.com/v1/timings/${ts}?latitude=${ISTANBUL.lat}&longitude=${ISTANBUL.lon}&method=13`)
       .then(r => r.json())
       .then((d) => {
-        if (d?.data?.timings) setPrayers(d.data.timings);
+        if (d?.data?.timings) {
+          setPrayers(d.data.timings);
+          AsyncStorage.setItem(PRAYER_CACHE_KEY, JSON.stringify({
+            date: todayKey(),
+            timings: d.data.timings,
+          })).catch(() => {});
+        }
       }).catch(() => {});
   }, []);
 
-  // Sonraki namaz vakti
   const nextPrayer = prayers ? (() => {
     const now = new Date();
     const nowMin = now.getHours() * 60 + now.getMinutes();
