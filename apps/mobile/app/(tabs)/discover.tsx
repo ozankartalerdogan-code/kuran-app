@@ -3,6 +3,7 @@ import {
   Text,
   TextInput,
   FlatList,
+  ScrollView,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
@@ -326,7 +327,12 @@ export default function SearchScreen() {
       {/* Son aramalar */}
       {showRecent && !isLoading && (
         <View style={styles.recentWrap}>
-          <Text style={styles.recentHeading}>Son aramalar</Text>
+          <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"center" }}>
+            <Text style={styles.recentHeading}>Son aramalar</Text>
+            <TouchableOpacity onPress={() => { setRecent([]); storage.setJSON(STORAGE_KEYS.recentSearches, []).catch(()=>{}); }}>
+              <Text style={{ fontSize:12, color:"#ef4444" }}>Temizle</Text>
+            </TouchableOpacity>
+          </View>
           {recent.map((r) => (
             <Pressable key={r} style={styles.recentRow} onPress={() => onRecentPress(r)}>
               <Text style={styles.recentIcon}>🕐</Text>
@@ -334,6 +340,35 @@ export default function SearchScreen() {
             </Pressable>
           ))}
         </View>
+      )}
+
+      {/* Keşfet kategorileri — sadece arama yokken */}
+      {!isLoading && query.length < MIN_Q && !showRecent && (
+        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:12 }}>
+          <Text style={styles.recentHeading}>Keşfet</Text>
+          {[
+            { emoji:"🤲", label:"Dualar",           tag:"dua-sabır" },
+            { emoji:"🕌", label:"Namaz Ayetleri",   tag:"namaz" },
+            { emoji:"😌", label:"Huzur & Rahmet",   tag:"rahmet" },
+            { emoji:"💪", label:"Sabır",             tag:"sabır" },
+            { emoji:"🙏", label:"Tövbe",             tag:"tövbe" },
+            { emoji:"🌟", label:"Şükür",             tag:"şükür" },
+            { emoji:"💔", label:"Rızık",             tag:"rızık" },
+            { emoji:"⚖️", label:"Adalet",            tag:"adalet" },
+            { emoji:"🛡️", label:"Korunma",           tag:"korunma-genel" },
+          ].map((cat) => (
+            <TouchableOpacity
+              key={cat.tag}
+              style={styles.kesfetRow}
+              onPress={() => { setQuery(cat.label); }}
+              activeOpacity={0.7}
+            >
+              <Text style={{ fontSize:22 }}>{cat.emoji}</Text>
+              <Text style={styles.kesfetLabel}>{cat.label}</Text>
+              <Text style={{ fontSize:18, color:"#d1d5db" }}>›</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       )}
     </View>
   );
@@ -421,6 +456,12 @@ const styles = StyleSheet.create({
   emptyTitle: { fontSize: 16, fontWeight: "700", color: "#44403c" },
   emptySub:   { fontSize: 13, color: "#a8a29e", textAlign: "center", lineHeight: 20 },
 
+  kesfetRow: {
+    flexDirection: "row", alignItems: "center", gap: 12,
+    backgroundColor: "#fff", borderRadius: 12, padding: 14,
+    marginBottom: 8, borderWidth: 1, borderColor: "#e7e5e4",
+  },
+  kesfetLabel: { flex: 1, fontSize: 15, fontWeight: "600", color: "#1c1917" },
   recentWrap:    { paddingHorizontal: 16, paddingTop: 4 },
   recentHeading: {
     fontSize: 12, fontWeight: "600", color: "#a8a29e",
