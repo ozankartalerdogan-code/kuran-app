@@ -346,13 +346,6 @@ export default function AyahDetailScreen() {
               </View>
             )}
 
-            {/* Literal çeviri */}
-            {data.literalCeviri ? (
-              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.sectionTitle, { color: colors.accent }]}>LİTERAL ÇEVİRİ</Text>
-                <Text style={[styles.literalText, { color: colors.textMuted }]}>{data.literalCeviri}</Text>
-              </View>
-            ) : null}
           </View>
         )}
 
@@ -448,12 +441,24 @@ export default function AyahDetailScreen() {
 
         {activeTab === "analysis" && (
           <View style={styles.tabContent}>
+
+            {/* Literal Çeviri */}
+            {data.literalCeviri ? (
+              <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>Literal Çeviri</Text>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
+                  Kelimenin kelime karşılığı
+                </Text>
+                <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
+                  {data.literalCeviri}
+                </Text>
+              </View>
+            ) : null}
+
             {/* Fark Analizi */}
             {data.farkAnalizi ? (
               <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>
-                  Fark Analizi
-                </Text>
+                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>Fark Analizi</Text>
                 <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
                   Meal ile literal çeviri arasındaki anlam farkları
                 </Text>
