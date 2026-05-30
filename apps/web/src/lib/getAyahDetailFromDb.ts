@@ -22,6 +22,7 @@ interface VerseRow {
   arabic_text: string | null;
   primary_translation: string | null;
   literal_ceviri: string | null;
+  reading_tr: string | null;
 }
 
 interface TranslationRow {
@@ -68,7 +69,7 @@ export async function getAyahDetailFromDb(
         surahId
       ),
       dbGet<VerseRow>(
-        "SELECT verse_key, arabic_text, primary_translation, literal_ceviri FROM verses WHERE verse_key = ?",
+        "SELECT verse_key, arabic_text, primary_translation, literal_ceviri, reading_tr FROM verses WHERE verse_key = ?",
         verseKey
       ),
       dbAll<TranslationRow>(
@@ -154,8 +155,8 @@ export async function getAyahDetailFromDb(
     surahId,
     verseNumber: ayahNumber,
     arabicText: verseRow?.arabic_text ?? null,
-    transliteration: null,
-    readingTr: null,
+    transliteration: verseRow?.reading_tr ?? null,
+    readingTr: verseRow?.reading_tr ?? null,
     translations,
     literalCeviri: verseRow?.literal_ceviri ?? null,
     hamAnlamOzeti: null,
