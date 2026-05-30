@@ -33,8 +33,7 @@
       "output": "static"
     },
     "plugins": [
-      "expo-router",
-      "expo-splash-screen"
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
