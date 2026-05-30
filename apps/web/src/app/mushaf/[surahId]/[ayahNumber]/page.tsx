@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
-import { getAyah, getSurahs } from "@quran-app/core";
 import type { Metadata } from "next";
+import { dbAll, dbGet } from "../../../../lib/dbUtils";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AudioPlayer } from "../../../../components/AudioPlayer";
@@ -20,13 +20,15 @@ function parsePositiveInteger(value: string): number | null {
   return Number.isInteger(parsed) && parsed >= 1 ? parsed : null;
 }
 
+interface SurahRow { id: number; adi_turkce: string; adi_arapca: string | null; ayet_sayisi: number; }
+interface VerseRow { arabic_text: string | null; }
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const surahId = parsePositiveInteger(params.surahId);
   if (!surahId) return { title: "Mushaf" };
-  const surahs = await getSurahs();
-  const surah = surahs.find((s) => s.id === surahId);
+  const surah = await dbGet<SurahRow>("SELECT id, adi_turkce, ayet_sayisi, adi_arapca FROM sureler WHERE id = ?", surahId);
   return {
-    title: surah ? `${surah.turkishName.text ?? "Sure"} — Mushaf` : "Mushaf",
+    title: surah ? `${surah.adi_turkce ?? "Sure"} — Mushaf` : "Mushaf",
   };
 }
 
@@ -66,18 +68,19 @@ export default async function MushafPage({ params }: PageProps) {
 
   if (!surahId || !ayahNumber) redirect("/mushaf/1/1");
 
-  const [surahs, ayah] = await Promise.all([
-    getSurahs(),
-    getAyah(surahId, ayahNumber),
+  const [surahs, ayahRow] = await Promise.all([
+    dbAll<SurahRow>("SELECT id, adi_turkce, adi_arapca, ayet_sayisi FROM sureler ORDER BY id"),
+    dbGet<VerseRow>("SELECT arabic_text FROM verses WHERE surah_id = ? AND ayah_number = ?", surahId, ayahNumber),
   ]);
 
   const currentSurah = surahs.find((s) => s.id === surahId) ?? null;
+  const ayah = { arabicText: ayahRow?.arabic_text ?? null };
 
-  if (!currentSurah || !currentSurah.verseCount || ayahNumber > currentSurah.verseCount) {
+  if (!currentSurah || !currentSurah.ayet_sayisi || ayahNumber > currentSurah.ayet_sayisi) {
     redirect("/mushaf/1/1");
   }
 
-  const verseCount = currentSurah.verseCount as number;
+  const verseCount = currentSurah.ayet_sayisi;
   const prevSurah = surahs.find((s) => s.id === surahId - 1) ?? null;
   const nextSurah = surahs.find((s) => s.id === surahId + 1) ?? null;
 
@@ -98,7 +101,7 @@ export default async function MushafPage({ params }: PageProps) {
 
   const surahOptions: SurahOption[] = surahs.map((s) => ({
     id: s.id,
-    name: s.turkishName.text ?? null,
+    name: s.adi_turkce ?? null,
   }));
 
   return (
@@ -125,15 +128,15 @@ export default async function MushafPage({ params }: PageProps) {
         {/* ── Sure başlığı ── */}
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-semibold text-stone-800 dark:text-stone-100">
-            {currentSurah.turkishName.text ?? "—"}
+            {currentSurah.adi_turkce ?? "—"}
           </h1>
-          {currentSurah.arabicName ? (
+          {currentSurah.adi_arapca ? (
             <p
               className="mt-1 text-xl text-stone-500 dark:text-stone-400"
               dir="rtl"
               lang="ar"
             >
-              {currentSurah.arabicName}
+              {currentSurah.adi_arapca}
             </p>
           ) : null}
           <p className="mt-2 text-sm text-stone-400 dark:text-stone-500">
