@@ -94,7 +94,7 @@ async function searchFts(q: string): Promise<{ results: VerseRow[]; total: numbe
     if (total === 0) return { results: [], total: 0 };
 
     const results = await dbAll<VerseRow>(`
-        SELECT f.verse_key, f.meal, s.adi_turkce AS surah_name,
+        SELECT f.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
                v.arabic_text, v.reading_tr
         FROM   ayet_fts f
         JOIN   sureler s ON s.id = CAST(substr(f.verse_key, 1, instr(f.verse_key, ':') - 1) AS INTEGER)
@@ -112,14 +112,14 @@ async function searchFts(q: string): Promise<{ results: VerseRow[]; total: numbe
 async function searchLikeFallback(q: string): Promise<{ results: VerseRow[]; total: number }> {
   const pattern = `%${q}%`;
   const countRow = await dbGet<CountRow>(
-    "SELECT COUNT(*) AS total FROM verses WHERE primary_translation LIKE ?", pattern
+    "SELECT COUNT(*) AS total FROM verses WHERE literal_ceviri LIKE ?", pattern
   );
   const results = await dbAll<VerseRow>(`
-      SELECT v.verse_key, v.primary_translation AS meal, s.adi_turkce AS surah_name,
+      SELECT v.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
              v.arabic_text, v.reading_tr
       FROM   verses v
       JOIN   sureler s ON s.id = v.surah_id
-      WHERE  v.primary_translation LIKE ?
+      WHERE  v.literal_ceviri LIKE ?
       ORDER  BY v.surah_id, v.ayah_number
       LIMIT  ?
     `, pattern, VERSE_LIMIT);
@@ -171,7 +171,7 @@ export async function GET(
     if (tagMatch) {
       if (tagMatch.tagType === "alt_tag") {
         const verseRows = await dbAll<VerseRow>(`
-            SELECT vti.verse_key, v.primary_translation AS meal, s.adi_turkce AS surah_name,
+            SELECT vti.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
                    v.arabic_text, v.reading_tr
             FROM   verse_tag_items vti
             JOIN   verses v ON v.verse_key = vti.verse_key
