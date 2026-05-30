@@ -3,6 +3,16 @@
     "version": ">= 16.0.0"
   },
   "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "preview": {
       "env": {
         "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
