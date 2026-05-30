@@ -6,14 +6,15 @@ const monorepoRoot = path.resolve(projectRoot, "../..");
 
 const config = getDefaultConfig(projectRoot);
 
-// Monorepo: kök node_modules'u da tara
-config.watchFolders = [monorepoRoot];
+// Monorepo: Expo'nun varsayılanlarını koru, ek klasörler ekle
+config.watchFolders = [...(config.watchFolders ?? []), monorepoRoot];
 config.resolver.nodeModulesPaths = [
+  ...(config.resolver.nodeModulesPaths ?? []),
   path.resolve(projectRoot, "node_modules"),
   path.resolve(monorepoRoot, "node_modules"),
 ];
 
-// node: protokolünü React Native'de boş modülle karşıla (crash önleme)
+// node: protokolünü boş modülle karşıla
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (moduleName.startsWith("node:")) {
