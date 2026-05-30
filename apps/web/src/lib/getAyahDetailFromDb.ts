@@ -51,7 +51,7 @@ interface TagRow {
 }
 
 interface TafsirRow {
-  text: string | null;
+  content: string | null;
   source: string | null;
 }
 
@@ -88,7 +88,7 @@ export async function getAyahDetailFromDb(
         verseKey
       ),
       dbGet<TafsirRow>(
-        "SELECT text, source FROM surah_tafsir WHERE surah_id = ? LIMIT 1",
+        "SELECT content, source FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1",
         surahId
       ),
     ]);
@@ -188,8 +188,8 @@ export async function getAyahDetailFromDb(
   });
 
   // Tefsir özeti
-  const tafsirSummary: TafsirSummary | null = tafsirRow?.text
-    ? { source: tafsirRow.source, summary: tafsirRow.text, sources: [], status: "available" }
+  const tafsirSummary: TafsirSummary | null = tafsirRow?.content
+    ? { source: tafsirRow.source, summary: tafsirRow.content, sources: [], status: "available" }
     : null;
 
   return {
