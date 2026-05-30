@@ -198,20 +198,24 @@ export default function RootDetailScreen() {
         {data.derivedWords.length > 0 && (
           <View style={s.section}>
             {(() => {
-              // word bazında grupla
-              const wordMap = new Map<string, { meaning: string; verses: { surahId: number; ayahNumber: number }[] }>();
+              // Unicode normalize — aynı görünen farklı encoding'leri birleştir
+              const norm = (s: string) => s.normalize("NFC").trim();
+
+              // word bazında grupla (normalize edilmiş key)
+              const wordMap = new Map<string, { display: string; meaning: string; verses: { surahId: number; ayahNumber: number }[] }>();
               for (const dw of data.derivedWords) {
-                if (!wordMap.has(dw.word)) wordMap.set(dw.word, { meaning: dw.meaning, verses: [] });
-                wordMap.get(dw.word)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
+                const key = norm(dw.word);
+                if (!wordMap.has(key)) wordMap.set(key, { display: dw.word, meaning: dw.meaning, verses: [] });
+                wordMap.get(key)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
               }
               // meaning bazında grupla
               const meaningMap = new Map<string, { forms: string[]; verses: { word: string; surahId: number; ayahNumber: number }[] }>();
-              for (const [word, { meaning, verses }] of wordMap.entries()) {
-                const key = meaning || "—";
+              for (const [, { display, meaning, verses }] of wordMap.entries()) {
+                const key = norm(meaning) || "—";
                 if (!meaningMap.has(key)) meaningMap.set(key, { forms: [], verses: [] });
                 const g = meaningMap.get(key)!;
-                if (!g.forms.includes(word)) g.forms.push(word);
-                g.verses.push(...verses.map(v => ({ word, ...v })));
+                if (!g.forms.some(f => norm(f) === norm(display))) g.forms.push(display);
+                g.verses.push(...verses.map(v => ({ word: display, ...v })));
               }
               const groups = Array.from(meaningMap.entries());
               return (
