@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { dbAll, dbGet } from "../../../../lib/dbUtils";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AudioPlayer } from "../../../../components/AudioPlayer";
 import { MushafSurahSelect } from "./MushafSurahSelect";
 import type { SurahOption } from "./MushafSurahSelect";
 import { JuzTracker } from "./JuzTracker";
@@ -122,7 +121,6 @@ export default async function MushafPage({ params }: PageProps) {
             </NavButton>
           </div>
 
-          <AudioPlayer surahId={surahId} variant="detail" />
         </nav>
 
         {/* ── Sure başlığı ── */}

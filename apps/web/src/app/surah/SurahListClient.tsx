@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ExpandableText } from "./ExpandableText";
-import { AudioPlayer } from "../../components/AudioPlayer";
 
 export interface SurahItem {
   id: number;
@@ -144,9 +143,6 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
                     )}
                   </Link>
 
-                  <div className="flex shrink-0 items-center border-l border-stone-200 px-3 dark:border-stone-700">
-                    <AudioPlayer surahId={surah.id} />
-                  </div>
                 </div>
               </li>
             );
