@@ -7,7 +7,7 @@ import { useDailyContent } from "../../src/hooks/useDailyContent";
 
 const NAV_CARDS = [
   { label: "Sureler",        emoji: "📖", route: "/surah",           bg: "#d1fae5", border: "#6ee7b7" },
-  { label: "Arama",          emoji: "🔍", route: "/discover",        bg: "#dbeafe", border: "#93c5fd" },
+  { label: "Keşfet",         emoji: "🔍", route: "/discover",        bg: "#dbeafe", border: "#93c5fd" },
   { label: "Elif-Ba",        emoji: "🔤", route: "/ogren",           bg: "#fef3c7", border: "#fcd34d" },
   { label: "Namaz",          emoji: "🕌", route: "/namaz",           bg: "#e0e7ff", border: "#a5b4fc" },
   { label: "İbadet Rehberi", emoji: "📿", route: "/ibadet-rehberi",  bg: "#f0fdf4", border: "#86efac" },
