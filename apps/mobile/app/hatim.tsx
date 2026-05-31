@@ -1,43 +1,50 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet,
 } from "react-native";
-import { Stack, router } from "expo-router";
+import { Stack } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MushafReader } from "../src/components/MushafReader";
 
 const STORAGE_KEY = "hatimTakibi";
 
-const JUZ_DATA = [
-  { juz:  1, start: "Fâtiha 1",    end: "Bakara 141"   },
-  { juz:  2, start: "Bakara 142",  end: "Bakara 252"   },
-  { juz:  3, start: "Bakara 253",  end: "Âl-i İmrân 92"},
-  { juz:  4, start: "Âl-i İmrân 93", end: "Nisâ 23"   },
-  { juz:  5, start: "Nisâ 24",     end: "Nisâ 147"     },
-  { juz:  6, start: "Nisâ 148",    end: "Mâide 81"     },
-  { juz:  7, start: "Mâide 82",    end: "En'âm 110"    },
-  { juz:  8, start: "En'âm 111",   end: "A'râf 87"     },
-  { juz:  9, start: "A'râf 88",    end: "Enfâl 40"     },
-  { juz: 10, start: "Enfâl 41",    end: "Tevbe 92"     },
-  { juz: 11, start: "Tevbe 93",    end: "Hûd 5"        },
-  { juz: 12, start: "Hûd 6",       end: "Yûsuf 52"     },
-  { juz: 13, start: "Yûsuf 53",    end: "İbrâhîm 52"   },
-  { juz: 14, start: "Hicr 1",      end: "Nahl 128"     },
-  { juz: 15, start: "İsrâ 1",      end: "Kehf 74"      },
-  { juz: 16, start: "Kehf 75",     end: "Tâhâ 135"     },
-  { juz: 17, start: "Enbiyâ 1",    end: "Hac 78"       },
-  { juz: 18, start: "Mü'minûn 1",  end: "Furkân 20"    },
-  { juz: 19, start: "Furkân 21",   end: "Neml 55"      },
-  { juz: 20, start: "Neml 56",     end: "Ankebût 45"   },
-  { juz: 21, start: "Ankebût 46",  end: "Ahzâb 30"     },
-  { juz: 22, start: "Ahzâb 31",    end: "Yâsîn 27"     },
-  { juz: 23, start: "Yâsîn 28",    end: "Zümer 31"     },
-  { juz: 24, start: "Zümer 32",    end: "Fussilet 46"  },
-  { juz: 25, start: "Fussilet 47", end: "Câsiye 37"    },
-  { juz: 26, start: "Ahkâf 1",     end: "Zâriyât 30"   },
-  { juz: 27, start: "Zâriyât 31",  end: "Hadîd 29"     },
-  { juz: 28, start: "Mücâdele 1",  end: "Tahrîm 12"    },
-  { juz: 29, start: "Mülk 1",      end: "Mürselât 50"  },
-  { juz: 30, start: "Nebe 1",      end: "Nâs 6"        },
+interface JuzInfo {
+  juz: number;
+  startSurah: number; startAyah: number; startName: string;
+  endSurah:   number; endAyah:   number; endName:   string;
+}
+
+const JUZ_DATA: JuzInfo[] = [
+  { juz:  1, startSurah:   1, startAyah:   1, startName: "Fâtiha",    endSurah:   2, endAyah: 141, endName: "Bakara"     },
+  { juz:  2, startSurah:   2, startAyah: 142, startName: "Bakara",    endSurah:   2, endAyah: 252, endName: "Bakara"     },
+  { juz:  3, startSurah:   2, startAyah: 253, startName: "Bakara",    endSurah:   3, endAyah:  92, endName: "Âl-i İmrân"},
+  { juz:  4, startSurah:   3, startAyah:  93, startName: "Âl-i İmrân",endSurah:  4, endAyah:  23, endName: "Nisâ"       },
+  { juz:  5, startSurah:   4, startAyah:  24, startName: "Nisâ",      endSurah:   4, endAyah: 147, endName: "Nisâ"       },
+  { juz:  6, startSurah:   4, startAyah: 148, startName: "Nisâ",      endSurah:   5, endAyah:  81, endName: "Mâide"      },
+  { juz:  7, startSurah:   5, startAyah:  82, startName: "Mâide",     endSurah:   6, endAyah: 110, endName: "En'âm"      },
+  { juz:  8, startSurah:   6, startAyah: 111, startName: "En'âm",     endSurah:   7, endAyah:  87, endName: "A'râf"      },
+  { juz:  9, startSurah:   7, startAyah:  88, startName: "A'râf",     endSurah:   8, endAyah:  40, endName: "Enfâl"      },
+  { juz: 10, startSurah:   8, startAyah:  41, startName: "Enfâl",     endSurah:   9, endAyah:  92, endName: "Tevbe"      },
+  { juz: 11, startSurah:   9, startAyah:  93, startName: "Tevbe",     endSurah:  11, endAyah:   5, endName: "Hûd"        },
+  { juz: 12, startSurah:  11, startAyah:   6, startName: "Hûd",       endSurah:  12, endAyah:  52, endName: "Yûsuf"      },
+  { juz: 13, startSurah:  12, startAyah:  53, startName: "Yûsuf",     endSurah:  14, endAyah:  52, endName: "İbrâhîm"    },
+  { juz: 14, startSurah:  15, startAyah:   1, startName: "Hicr",      endSurah:  16, endAyah: 128, endName: "Nahl"       },
+  { juz: 15, startSurah:  17, startAyah:   1, startName: "İsrâ",      endSurah:  18, endAyah:  74, endName: "Kehf"       },
+  { juz: 16, startSurah:  18, startAyah:  75, startName: "Kehf",      endSurah:  20, endAyah: 135, endName: "Tâhâ"       },
+  { juz: 17, startSurah:  21, startAyah:   1, startName: "Enbiyâ",    endSurah:  22, endAyah:  78, endName: "Hac"        },
+  { juz: 18, startSurah:  23, startAyah:   1, startName: "Mü'minûn",  endSurah:  25, endAyah:  20, endName: "Furkân"     },
+  { juz: 19, startSurah:  25, startAyah:  21, startName: "Furkân",    endSurah:  27, endAyah:  55, endName: "Neml"       },
+  { juz: 20, startSurah:  27, startAyah:  56, startName: "Neml",      endSurah:  29, endAyah:  45, endName: "Ankebût"    },
+  { juz: 21, startSurah:  29, startAyah:  46, startName: "Ankebût",   endSurah:  33, endAyah:  30, endName: "Ahzâb"      },
+  { juz: 22, startSurah:  33, startAyah:  31, startName: "Ahzâb",     endSurah:  36, endAyah:  27, endName: "Yâsîn"      },
+  { juz: 23, startSurah:  36, startAyah:  28, startName: "Yâsîn",     endSurah:  39, endAyah:  31, endName: "Zümer"      },
+  { juz: 24, startSurah:  39, startAyah:  32, startName: "Zümer",     endSurah:  41, endAyah:  46, endName: "Fussilet"   },
+  { juz: 25, startSurah:  41, startAyah:  47, startName: "Fussilet",  endSurah:  45, endAyah:  37, endName: "Câsiye"     },
+  { juz: 26, startSurah:  46, startAyah:   1, startName: "Ahkâf",     endSurah:  51, endAyah:  30, endName: "Zâriyât"    },
+  { juz: 27, startSurah:  51, startAyah:  31, startName: "Zâriyât",   endSurah:  57, endAyah:  29, endName: "Hadîd"      },
+  { juz: 28, startSurah:  58, startAyah:   1, startName: "Mücâdele",  endSurah:  66, endAyah:  12, endName: "Tahrîm"     },
+  { juz: 29, startSurah:  67, startAyah:   1, startName: "Mülk",      endSurah:  77, endAyah:  50, endName: "Mürselât"   },
+  { juz: 30, startSurah:  78, startAyah:   1, startName: "Nebe",      endSurah: 114, endAyah:   6, endName: "Nâs"        },
 ];
 
 interface Hatim { id: string; startDate: string; completedDate: string | null; readJuz: number[] }
@@ -51,8 +58,20 @@ function days(a: string, b: string) {
 }
 
 export default function HatimScreen() {
-  const [store, setStore]   = useState<Store>({ hatims: [], currentId: null });
+  const [store, setStore]     = useState<Store>({ hatims: [], currentId: null });
   const [mounted, setMounted] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [activeTab, setActiveTab]   = useState<"takip" | "oku">("takip");
+  const [readerSurah, setReaderSurah] = useState(1);
+  const [readerAyah, setReaderAyah]   = useState(1);
+  const [readerKey, setReaderKey]     = useState(0);
+
+  function openMushaf(surahId: number, ayahNumber: number) {
+    setReaderSurah(surahId);
+    setReaderAyah(ayahNumber);
+    setReaderKey(k => k + 1);
+    setActiveTab("oku");
+  }
 
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY)
@@ -83,12 +102,39 @@ export default function HatimScreen() {
   const current   = store.hatims.find(h => h.id === store.currentId) ?? null;
   const completed = store.hatims.filter(h => h.completedDate !== null);
   const progress  = current?.readJuz.length ?? 0;
+  const pct       = Math.round((progress / 30) * 100);
 
   if (!mounted) return null;
 
   return (
-    <>
-      <Stack.Screen options={{ title: "Hatim Takibi" }} />
+    <View style={{ flex: 1 }}>
+      <Stack.Screen options={{ title: "Hatim & Mushaf" }} />
+
+      {/* Sekme çubuğu */}
+      <View style={styles.tabBar}>
+        <TouchableOpacity
+          style={[styles.tabBtn, activeTab === "takip" && styles.tabBtnActive]}
+          onPress={() => setActiveTab("takip")}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.tabBtnText, activeTab === "takip" && styles.tabBtnTextActive]}>📋 Takip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tabBtn, activeTab === "oku" && styles.tabBtnActive]}
+          onPress={() => setActiveTab("oku")}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.tabBtnText, activeTab === "oku" && styles.tabBtnTextActive]}>📖 Oku</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Oku sekmesi */}
+      {activeTab === "oku" && (
+        <MushafReader key={readerKey} initialSurahId={readerSurah} initialAyahNum={readerAyah} />
+      )}
+
+      {/* Takip sekmesi */}
+      {activeTab === "takip" && (
       <ScrollView style={styles.container} contentContainerStyle={styles.content}>
 
         <Text style={styles.title}>📖 Hatim Takibi</Text>
@@ -115,18 +161,35 @@ export default function HatimScreen() {
                 <Text style={styles.progressCount}>{progress}/30</Text>
               </View>
               <View style={styles.progressBg}>
-                <View style={[styles.progressFill, { width: `${(progress/30)*100}%` as any }]} />
+                <View style={[styles.progressFill, { width: `${pct}%` as any }]} />
               </View>
+              <Text style={styles.progressPct}>%{pct}</Text>
+
+              {/* Eylemler — inline onay */}
               <View style={styles.progressActions}>
-                <TouchableOpacity onPress={() => Alert.alert("Sıfırla", "Mevcut hatimi sıfırlamak istediğinize emin misiniz?", [
-                  { text: "Hayır", style: "cancel" },
-                  { text: "Evet", style: "destructive", onPress: () => persist({ ...store, hatims: store.hatims.map(h => h.id === store.currentId ? { ...h, readJuz: [], completedDate: null } : h) }) }
-                ])}>
-                  <Text style={styles.actionText}>Sıfırla</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={startHatim}>
-                  <Text style={[styles.actionText, { color: "#059669" }]}>+ Yeni Hatim</Text>
-                </TouchableOpacity>
+                {!confirm ? (
+                  <>
+                    <TouchableOpacity onPress={() => setConfirm(true)}>
+                      <Text style={styles.actionText}>Sıfırla</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={startHatim}>
+                      <Text style={[styles.actionText, { color: "#059669" }]}>+ Yeni Hatim</Text>
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.confirmText}>Emin misiniz?</Text>
+                    <TouchableOpacity onPress={() => {
+                      persist({ ...store, hatims: store.hatims.map(h => h.id === store.currentId ? { ...h, readJuz: [], completedDate: null } : h) });
+                      setConfirm(false);
+                    }}>
+                      <Text style={[styles.actionText, { color: "#dc2626", fontWeight: "700" }]}>Evet</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setConfirm(false)}>
+                      <Text style={styles.actionText}>Hayır</Text>
+                    </TouchableOpacity>
+                  </>
+                )}
               </View>
             </View>
 
@@ -134,22 +197,30 @@ export default function HatimScreen() {
             {JUZ_DATA.map(juz => {
               const done = current.readJuz.includes(juz.juz);
               return (
-                <TouchableOpacity
-                  key={juz.juz}
-                  style={[styles.juzRow, done && styles.juzRowDone]}
-                  onPress={() => toggleJuz(juz.juz)}
-                  activeOpacity={0.7}
-                >
-                  <View style={[styles.juzCheck, done && styles.juzCheckDone]}>
-                    <Text style={[styles.juzNum, done && styles.juzNumDone]}>
-                      {done ? "✓" : juz.juz}
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.juzTitle, done && styles.juzTitleDone]}>{juz.juz}. Cüz</Text>
-                    <Text style={styles.juzRange}>{juz.start} – {juz.end}</Text>
-                  </View>
-                </TouchableOpacity>
+                <View key={juz.juz} style={[styles.juzRow, done && styles.juzRowDone]}>
+                  <TouchableOpacity
+                    style={styles.juzMain}
+                    onPress={() => toggleJuz(juz.juz)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={[styles.juzCheck, done && styles.juzCheckDone]}>
+                      <Text style={[styles.juzNum, done && styles.juzNumDone]}>
+                        {done ? "✓" : juz.juz}
+                      </Text>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={[styles.juzTitle, done && styles.juzTitleDone]}>{juz.juz}. Cüz</Text>
+                      <Text style={styles.juzRange}>{juz.startName} {juz.startAyah} – {juz.endName} {juz.endAyah}</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.juzReadBtn}
+                    onPress={() => openMushaf(juz.startSurah, juz.startAyah)}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.juzReadBtnText}>Oku →</Text>
+                  </TouchableOpacity>
+                </View>
               );
             })}
           </>
@@ -161,18 +232,28 @@ export default function HatimScreen() {
             <Text style={styles.historyTitle}>Tamamlanan Hatimler ({completed.length})</Text>
             {completed.map((h, i) => (
               <View key={h.id} style={styles.historyRow}>
-                <Text style={styles.historyLabel}>{completed.length - i}. Hatim — {fmt(h.startDate)}</Text>
+                <View>
+                  <Text style={styles.historyLabel}>{completed.length - i}. Hatim</Text>
+                  <Text style={styles.historyDates}>{fmt(h.startDate)} → {fmt(h.completedDate!)}</Text>
+                </View>
                 <Text style={styles.historyDays}>{days(h.startDate, h.completedDate!)} gün</Text>
               </View>
             ))}
           </View>
         )}
       </ScrollView>
-    </>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  tabBar:        { flexDirection: "row", backgroundColor: "#fff", borderBottomWidth: 1, borderBottomColor: "#e7e5e4" },
+  tabBtn:        { flex: 1, paddingVertical: 12, alignItems: "center" },
+  tabBtnActive:  { borderBottomWidth: 2, borderBottomColor: "#059669" },
+  tabBtnText:    { fontSize: 13, fontWeight: "600", color: "#9ca3af" },
+  tabBtnTextActive: { color: "#059669" },
+
   container: { flex: 1, backgroundColor: "#f0fdf4" },
   content:   { padding: 16, paddingBottom: 32 },
   title:     { fontSize: 22, fontWeight: "700", color: "#14532d", textAlign: "center", marginBottom: 4 },
@@ -190,11 +271,16 @@ const styles = StyleSheet.create({
   progressCount:{ fontSize: 28, fontWeight: "700", color: "#059669" },
   progressBg:   { height: 8, backgroundColor: "#d1fae5", borderRadius: 4, overflow: "hidden" },
   progressFill: { height: 8, backgroundColor: "#059669", borderRadius: 4 },
-  progressActions: { flexDirection: "row", gap: 16, marginTop: 10 },
-  actionText:   { fontSize: 13, color: "#ef4444" },
+  progressPct:     { fontSize: 11, color: "#9ca3af", textAlign: "right", marginTop: 2 },
+  progressActions: { flexDirection: "row", gap: 16, marginTop: 10, alignItems: "center" },
+  actionText:      { fontSize: 13, color: "#ef4444" },
+  confirmText:     { fontSize: 12, color: "#6b7280", flex: 1 },
 
-  juzRow:     { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: "#fff", borderRadius: 12, padding: 12, marginBottom: 6, borderWidth: 1, borderColor: "#e7e5e4" },
+  juzRow:     { flexDirection: "row", alignItems: "center", backgroundColor: "#fff", borderRadius: 12, marginBottom: 6, borderWidth: 1, borderColor: "#e7e5e4", overflow: "hidden" },
   juzRowDone: { backgroundColor: "#f0fdf4", borderColor: "#bbf7d0" },
+  juzMain:    { flex: 1, flexDirection: "row", alignItems: "center", gap: 12, padding: 12 },
+  juzReadBtn: { paddingHorizontal: 12, paddingVertical: 12, borderLeftWidth: 1, borderLeftColor: "#e7e5e4", justifyContent: "center" },
+  juzReadBtnText: { fontSize: 12, fontWeight: "700", color: "#059669" },
   juzCheck:     { width: 32, height: 32, borderRadius: 16, borderWidth: 2, borderColor: "#d1d5db", alignItems: "center", justifyContent: "center" },
   juzCheckDone: { backgroundColor: "#059669", borderColor: "#059669" },
   juzNum:     { fontSize: 13, fontWeight: "700", color: "#9ca3af" },
@@ -206,6 +292,7 @@ const styles = StyleSheet.create({
   historySection: { marginTop: 20 },
   historyTitle:   { fontSize: 14, fontWeight: "700", color: "#6b7280", marginBottom: 8 },
   historyRow:     { flexDirection: "row", justifyContent: "space-between", backgroundColor: "#fff", borderRadius: 10, padding: 12, marginBottom: 6, borderWidth: 1, borderColor: "#e7e5e4" },
-  historyLabel:   { fontSize: 13, color: "#374151" },
+  historyLabel:   { fontSize: 13, fontWeight: "600", color: "#374151" },
+  historyDates:   { fontSize: 11, color: "#9ca3af", marginTop: 1 },
   historyDays:    { fontSize: 13, fontWeight: "600", color: "#059669" },
 });

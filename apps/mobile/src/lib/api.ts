@@ -174,6 +174,21 @@ export type VerseListResponse = {
   verses: VerseItem[];
 };
 
+export type DailyVerseItem = {
+  verse_key:   string;
+  surah_id:    number;
+  ayah_number: number;
+  surah_name:  string | null;
+  arabic_text: string | null;
+  reading_tr:  string | null;
+  meal:        string | null;
+};
+
+export type DailyResponse = {
+  verse: DailyVerseItem | null;
+  dua:   DailyVerseItem | null;
+};
+
 export type AyahDetailResponse = {
   verseKey:      string;
   surahId:       number;
@@ -186,6 +201,8 @@ export type AyahDetailResponse = {
   meal:          string | null;
   literalCeviri: string | null;
   farkAnalizi:   string | null;
+  anaTema:       string | null;
+  altTaglar:     string[];
   translations:  { source: string; text: string | null }[];
   rootMeanings:  Record<string, string>;
   words: {
@@ -258,6 +275,11 @@ export const api = {
   tafsir: {
     get: (surahId: number) =>
       withRetry(() => request<{ content: string | null }>(`/tafsir/${surahId}`)),
+  },
+
+  daily: {
+    get: () =>
+      withRetry(() => request<DailyResponse>("/daily")),
   },
 
   mood: {

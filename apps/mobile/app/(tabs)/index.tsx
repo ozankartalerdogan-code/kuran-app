@@ -1,23 +1,28 @@
+import React from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
 import { router } from "expo-router";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 
-const NAV_CARDS = [
-  { label: "Sureler",        emoji: "📖", route: "/surah",           bg: "#d1fae5", border: "#6ee7b7" },
-  { label: "Keşfet",         emoji: "🔍", route: "/kesfet",          bg: "#dbeafe", border: "#93c5fd" },
-  { label: "Elif-Ba",        emoji: "🔤", route: "/ogren",           bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Namaz",          emoji: "🕌", route: "/namaz",           bg: "#e0e7ff", border: "#a5b4fc" },
-  { label: "İbadet Rehberi", emoji: "📿", route: "/ibadet-rehberi",  bg: "#f0fdf4", border: "#86efac" },
-  { label: "Manevi Sığınak", emoji: "🛡️", route: "/manevi-siginak", bg: "#fce7f3", border: "#f9a8d4" },
-  { label: "Kelime Kökü",    emoji: "🌿", route: "/root",            bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Mushaf",         emoji: "📜", route: "/mushaf/1/1",      bg: "#ede9fe", border: "#c4b5fd" },
-  { label: "Kıble",          emoji: "🧭", route: "/kible",           bg: "#ecfeff", border: "#67e8f9" },
-  { label: "Hatim",          emoji: "📗", route: "/hatim",           bg: "#f0fdf4", border: "#86efac" },
-  { label: "Favorilerim",    emoji: "❤️", route: "/favorites",       bg: "#fff1f2", border: "#fca5a5" },
-] as const;
+const NAV_CARDS: {
+  label: string;
+  icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+  iconColor: string;
+  route: string;
+  bg: string;
+  border: string;
+}[] = [
+  { label: "Sureler",        icon: "book-open-page-variant", iconColor: "#065f46", route: "/surah",     bg: "#d1fae5", border: "#6ee7b7" },
+  { label: "Keşfet",         icon: "magnify-expand",         iconColor: "#1e40af", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
+  { label: "Elif-Ba",        icon: "abjad-arabic",           iconColor: "#92400e", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
+  { label: "Kelime Kökü",    icon: "family-tree",            iconColor: "#78350f", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
+  { label: "Hatim & Mushaf", icon: "book-multiple-outline",   iconColor: "#14532d", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
+  { label: "Kıble",          icon: "compass-rose",           iconColor: "#164e63", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
+  { label: "Favorilerim",    icon: "heart-circle-outline",   iconColor: "#9f1239", route: "/favorites", bg: "#fff1f2", border: "#fca5a5" },
+];
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
@@ -120,7 +125,7 @@ export default function HomeScreen() {
             onPress={() => router.push(card.route)}
             activeOpacity={0.75}
           >
-            <Text style={styles.cardEmoji}>{card.emoji}</Text>
+            <MaterialCommunityIcons name={card.icon} size={36} color={card.iconColor} />
             <Text style={styles.cardLabel}>{card.label}</Text>
           </TouchableOpacity>
         ))}
@@ -187,6 +192,5 @@ const styles = StyleSheet.create({
     padding: 16, alignItems: "center", gap: 6,
     elevation: 2,
   },
-  cardEmoji: { fontSize: 26 },
   cardLabel: { fontSize: 12, fontWeight: "600", color: "#1c1917", textAlign: "center" },
 });

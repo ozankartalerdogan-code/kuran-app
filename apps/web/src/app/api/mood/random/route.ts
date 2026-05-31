@@ -69,10 +69,12 @@ export async function GET(
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text,
-                 v.primary_translation AS meal
+                 COALESCE(yt.text, v.primary_translation) AS meal
           FROM   verse_tags vt
           JOIN   verses  v  ON v.verse_key = vt.verse_key
           JOIN   sureler s  ON s.id = v.surah_id
+          LEFT JOIN translations yt ON yt.verse_key = v.verse_key
+                 AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vt.ana_tema ${cmp}
           ${placeholders}
           ORDER  BY RANDOM()
@@ -86,10 +88,12 @@ export async function GET(
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text,
-                 v.primary_translation AS meal
+                 COALESCE(yt.text, v.primary_translation) AS meal
           FROM   verse_tag_items vi
           JOIN   verses  v  ON v.verse_key = vi.verse_key
           JOIN   sureler s  ON s.id = v.surah_id
+          LEFT JOIN translations yt ON yt.verse_key = v.verse_key
+                 AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vi.tag = ?
           ${placeholders}
           ORDER  BY RANDOM()

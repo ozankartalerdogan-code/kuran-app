@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
+import { cleanMealText } from "../../../lib/cleanMeal";
 
 interface SurahRow {
   adi_turkce: string;
@@ -30,6 +31,11 @@ interface TranslationRow {
   text: string | null;
 }
 
+interface VerseTagRow {
+  ana_tema:  string | null;
+  alt_taglar: string | null; // JSON array
+}
+
 export type AyahDetailResponse = {
   verseKey: string;
   surahId: number;
@@ -42,6 +48,8 @@ export type AyahDetailResponse = {
   meal: string | null;
   literalCeviri: string | null;
   farkAnalizi: string | null;
+  anaTema: string | null;
+  altTaglar: string[];
   translations: { source: string; text: string | null }[];
   rootMeanings: Record<string, string>;
   words: {
@@ -84,7 +92,7 @@ export async function GET(req: NextRequest) {
 
   const verseKey = `${surahId}:${ayahNumber}`;
 
-  const [verse, translations] = await Promise.all([
+  const [verse, translations, tagRow] = await Promise.all([
     dbGet<VerseRow>(
       "SELECT verse_key, arabic_text, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
       verseKey,
@@ -93,7 +101,14 @@ export async function GET(req: NextRequest) {
       "SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source",
       verseKey,
     ),
+    dbGet<VerseTagRow>(
+      "SELECT ana_tema, alt_taglar FROM verse_tags WHERE verse_key = ?",
+      verseKey,
+    ),
   ]);
+
+  let altTaglar: string[] = [];
+  try { altTaglar = tagRow?.alt_taglar ? JSON.parse(tagRow.alt_taglar) : []; } catch { altTaglar = []; }
 
   if (!verse) {
     return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
@@ -137,10 +152,17 @@ export async function GET(req: NextRequest) {
     verseCount:  surah.ayet_sayisi,
     arabicText:    verse.arabic_text,
     readingTr:     verse.reading_tr ?? null,
-    meal:          verse.primary_translation,
-    literalCeviri: verse.literal_ceviri ?? null,
-    farkAnalizi:   verse.fark_analizi ?? null,
-    translations:  translations.map(t => ({ source: t.source, text: t.text })),
+    meal:          cleanMealText(
+      translations.find(t => (t.source ?? "").split("#").at(-1) === "yazir")?.text
+      ?? verse.primary_translation
+    ),
+    literalCeviri: cleanMealText(verse.literal_ceviri),
+    farkAnalizi:   cleanMealText(verse.fark_analizi),
+    anaTema:       tagRow?.ana_tema ?? null,
+    altTaglar,
+    translations:  translations
+      .map(t => ({ source: t.source, text: cleanMealText(t.text) }))
+      .filter(t => t.text !== null),
     rootMeanings,
     words: words.map((w) => ({
       wordIndex:  w.word_index,

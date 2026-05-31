@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
+import { cleanMealText } from "../../../../lib/cleanMeal";
 const PAGE_SIZE = 50;
 const MAX_TAG   = 100;
 
@@ -87,11 +88,13 @@ export async function GET(
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text, v.reading_tr,
-                 COALESCE(v.literal_ceviri, v.primary_translation) AS meal,
+                 COALESCE(yt.text, v.literal_ceviri, v.primary_translation) AS meal,
                  vt.ana_tema, vt.alt_taglar
           FROM   verse_tags vt
           JOIN   verses v ON v.verse_key = vt.verse_key
           JOIN   sureler s ON s.id = v.surah_id
+          LEFT JOIN translations yt ON yt.verse_key = v.verse_key
+                 AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vt.ana_tema ${cmp}
           ORDER  BY v.surah_id, v.ayah_number
           LIMIT  ? OFFSET ?
@@ -111,12 +114,14 @@ export async function GET(
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
                  v.arabic_text, v.reading_tr,
-                 COALESCE(v.literal_ceviri, v.primary_translation) AS meal,
+                 COALESCE(yt.text, v.literal_ceviri, v.primary_translation) AS meal,
                  vt.ana_tema, vt.alt_taglar
           FROM   verse_tag_items vi
           JOIN   verses v ON v.verse_key = vi.verse_key
           JOIN   sureler s ON s.id = v.surah_id
           JOIN   verse_tags vt ON vt.verse_key = vi.verse_key
+          LEFT JOIN translations yt ON yt.verse_key = v.verse_key
+                 AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vi.tag = ?
           ORDER  BY v.surah_id, v.ayah_number
           LIMIT  ? OFFSET ?
@@ -140,7 +145,7 @@ export async function GET(
         surah_name:  r.surah_name,
         arabic_text: r.arabic_text,
         reading_tr:  r.reading_tr,
-        meal:        r.meal,
+        meal:        cleanMealText(r.meal),
         ana_tema:    r.ana_tema,
         alt_taglar: (() => {
           try { return r.alt_taglar ? JSON.parse(r.alt_taglar) as string[] : []; }

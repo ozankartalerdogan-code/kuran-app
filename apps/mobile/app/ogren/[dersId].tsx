@@ -13,7 +13,7 @@ async function playHarfSes(_harfId: number) {
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
-function Flashcard({ harf, onNext }: { harf: ElifbaHarf; onNext: () => void }) {
+function Flashcard({ harf, onNext, onPrev }: { harf: ElifbaHarf; onNext: () => void; onPrev: () => void }) {
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => setFlipped(false), [harf.harf_id]);
@@ -64,9 +64,14 @@ function Flashcard({ harf, onNext }: { harf: ElifbaHarf; onNext: () => void }) {
           </ScrollView>
         )}
       </TouchableOpacity>
-      <TouchableOpacity style={fc.nextBtn} onPress={onNext}>
-        <Text style={fc.nextText}>Sonraki →</Text>
-      </TouchableOpacity>
+      <View style={fc.navRow}>
+        <TouchableOpacity style={fc.navBtn} onPress={onPrev}>
+          <Text style={fc.navBtnText}>← Önceki</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[fc.navBtn, fc.navBtnActive]} onPress={onNext}>
+          <Text style={[fc.navBtnText, { color: "#fff" }]}>Sonraki →</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -170,12 +175,12 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
 type Mode = "flashcard" | "quiz";
 
 export default function DersScreen() {
-  const { dersId: raw } = useLocalSearchParams<{ dersId: string }>();
+  const { dersId: raw, mode: initialMode } = useLocalSearchParams<{ dersId: string; mode?: string }>();
   const dersId = Number(raw);
 
   const [harfler, setHarfler]   = useState<ElifbaHarf[]>([]);
   const [loading, setLoading]   = useState(true);
-  const [mode, setMode]         = useState<Mode>("flashcard");
+  const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
 
@@ -205,6 +210,11 @@ export default function DersScreen() {
   const handleNext = useCallback(() => {
     if (harfler[idx]) markSeen(harfler[idx].harf_id);
     setIdx((i) => (i + 1) % harfler.length);
+  }, [harfler, idx, markSeen]);
+
+  const handlePrev = useCallback(() => {
+    if (harfler[idx]) markSeen(harfler[idx].harf_id);
+    setIdx((i) => (i - 1 + harfler.length) % harfler.length);
   }, [harfler, idx, markSeen]);
 
   const handleQuizFinish = useCallback(async (s: number, t: number) => {
@@ -253,7 +263,29 @@ export default function DersScreen() {
           harfler.length > 0 ? (
             <>
               <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
-              <Flashcard harf={harfler[idx]} onNext={handleNext} />
+              <Flashcard harf={harfler[idx]} onNext={handleNext} onPrev={handlePrev} />
+              {/* Nokta navigasyonu */}
+              {harfler.length <= 30 && (
+                <View style={styles.dots}>
+                  {harfler.map((h, i) => (
+                    <TouchableOpacity
+                      key={h.harf_id}
+                      onPress={() => {
+                        if (harfler[idx]) markSeen(harfler[idx].harf_id);
+                        setIdx(i);
+                      }}
+                      style={[
+                        styles.dot,
+                        i === idx
+                          ? styles.dotActive
+                          : seenIds.includes(h.harf_id)
+                            ? styles.dotSeen
+                            : styles.dotEmpty,
+                      ]}
+                    />
+                  ))}
+                </View>
+              )}
             </>
           ) : (
             <View style={styles.centered}>
@@ -280,6 +312,11 @@ const styles = StyleSheet.create({
   modeBtnText:   { fontSize:13, fontWeight:"600", color:"#44403c" },
   modeBtnTextActive: { color:"#fff" },
   counter:   { textAlign:"center", fontSize:12, color:"#a8a29e", marginBottom:4 },
+  dots:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:7, paddingHorizontal:16, marginTop:14 },
+  dot:       { width:10, height:10, borderRadius:5 },
+  dotActive: { backgroundColor:"#059669", transform:[{ scale:1.35 }] },
+  dotSeen:   { backgroundColor:"#a7f3d0" },
+  dotEmpty:  { backgroundColor:"#d6d3d1" },
 });
 
 const fc = StyleSheet.create({
@@ -309,8 +346,10 @@ const fc = StyleSheet.create({
   badges:      { flexDirection:"row", gap:8 },
   badge:       { borderRadius:8, paddingHorizontal:10, paddingVertical:4 },
   badgeText:   { fontSize:11, fontWeight:"600", color:"#44403c" },
-  nextBtn:     { marginTop:16, backgroundColor:"#059669", borderRadius:12, paddingHorizontal:32, paddingVertical:13, width:"100%" },
-  nextText:    { color:"#fff", fontSize:14, fontWeight:"700", textAlign:"center" },
+  navRow:        { flexDirection:"row", gap:10, marginTop:16, width:"100%" },
+  navBtn:        { flex:1, borderRadius:12, paddingVertical:13, borderWidth:1, borderColor:"#e7e5e4", backgroundColor:"#fff", alignItems:"center" },
+  navBtnActive:  { backgroundColor:"#059669", borderColor:"#059669" },
+  navBtnText:    { fontSize:14, fontWeight:"700", color:"#44403c" },
 });
 
 const qv = StyleSheet.create({

@@ -31,7 +31,7 @@ export default function RootLayout() {
         <Stack.Screen name="root/index"                           options={{ title: "Kelime Kökleri", headerBackTitle: "Geri" }} />
         <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: "Kökler" }} />
         <Stack.Screen name="kible"                                options={{ title: "Kıble Yönü", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="hatim"                                options={{ title: "Hatim Takibi", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="hatim"                                options={{ title: "Hatim & Mushaf", headerBackTitle: "Geri" }} />
         <Stack.Screen name="kesfet"                               options={{ title: "Keşfet", headerBackTitle: "Geri" }} />
       </Stack>
     </SafeAreaProvider>

@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
+import { cleanMealText } from "../../../lib/cleanMeal";
 
 export const revalidate = false; // Kuran metni değişmez — sonsuz cache
 
@@ -55,10 +56,20 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
   }
 
-  const verses = await dbAll<VerseRow>(
-    "SELECT ayah_number, primary_translation, reading_tr, literal_ceviri FROM verses WHERE surah_id = ? ORDER BY ayah_number",
-    surahId,
-  );
+  const [verses, yazirRows] = await Promise.all([
+    dbAll<VerseRow>(
+      "SELECT ayah_number, primary_translation, reading_tr, literal_ceviri FROM verses WHERE surah_id = ? ORDER BY ayah_number",
+      surahId,
+    ),
+    dbAll<{ ayah_number: number; text: string }>(
+      `SELECT CAST(SUBSTR(verse_key, INSTR(verse_key,':')+1) AS INT) AS ayah_number, text
+       FROM translations WHERE CAST(SUBSTR(verse_key,1,INSTR(verse_key,':')-1) AS INT) = ?
+       AND (source = 'yazir' OR source LIKE '%#yazir')`,
+      surahId,
+    ),
+  ]);
+
+  const yazirMap = new Map(yazirRows.map(r => [r.ayah_number, r.text]));
 
   const body: VerseListResponse = {
     surah: {
@@ -70,9 +81,9 @@ export async function GET(req: NextRequest) {
     },
     verses: verses.map((v) => ({
       ayahNumber: v.ayah_number,
-      meal:       v.primary_translation,
+      meal:       cleanMealText(yazirMap.get(v.ayah_number) ?? v.primary_translation),
       reading:    v.reading_tr,
-      literal:    v.literal_ceviri,
+      literal:    cleanMealText(v.literal_ceviri),
     })),
   };
 

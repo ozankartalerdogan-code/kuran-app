@@ -6,7 +6,7 @@ import {
   View, Text, ScrollView, TouchableOpacity, ActivityIndicator,
   StyleSheet, Modal, FlatList, Alert,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, type RootDetail } from "../../../src/lib/api";
 
@@ -116,6 +116,35 @@ export default function RootDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState<string | null>(null);
 
+  // ── Hooks must be above all early returns ──────────────────────────────────
+  const groups = useMemo(() => {
+    if (!data?.derivedWords) return [] as [string, { forms: string[]; verses: { surahId: number; ayahNumber: number }[] }][];
+    const norm = (str: string) => str.normalize("NFC").trim();
+    const wordMap = new Map<string, { display: string; meaning: string; verses: { surahId: number; ayahNumber: number }[] }>();
+    for (const dw of data.derivedWords) {
+      const key = norm(dw.word);
+      if (!wordMap.has(key)) wordMap.set(key, { display: dw.word, meaning: dw.meaning, verses: [] });
+      wordMap.get(key)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
+    }
+    const meaningMap = new Map<string, { forms: string[]; verses: { surahId: number; ayahNumber: number }[] }>();
+    for (const [, { display, meaning, verses }] of wordMap.entries()) {
+      const key = norm(meaning) || "—";
+      if (!meaningMap.has(key)) meaningMap.set(key, { forms: [], verses: [] });
+      const g = meaningMap.get(key)!;
+      if (!g.forms.some(f => norm(f) === norm(display))) g.forms.push(display);
+      g.verses.push(...verses);
+    }
+    return Array.from(meaningMap.entries());
+  }, [data?.derivedWords]);
+
+  const [openMeaning, setOpenMeaning] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (groups.length > 0 && openMeaning === null) {
+      setOpenMeaning(groups[0][0]);
+    }
+  }, [groups]);
+
   useEffect(() => {
     if (!root) return;
     api.roots.detail(root)
@@ -194,61 +223,55 @@ export default function RootDetailScreen() {
           <HeatGrid distribution={data.distribution} maxCount={maxCount} />
         </View>
 
-        {/* Türev kelimeler — anlam bazlı gruplandırılmış */}
-        {data.derivedWords.length > 0 && (
+        {/* Kullanım Bağlamları — anlam bazlı accordion */}
+        {groups.length > 0 && (
           <View style={s.section}>
-            {(() => {
-              // Unicode normalize — aynı görünen farklı encoding'leri birleştir
-              const norm = (s: string) => s.normalize("NFC").trim();
-
-              // word bazında grupla (normalize edilmiş key)
-              const wordMap = new Map<string, { display: string; meaning: string; verses: { surahId: number; ayahNumber: number }[] }>();
-              for (const dw of data.derivedWords) {
-                const key = norm(dw.word);
-                if (!wordMap.has(key)) wordMap.set(key, { display: dw.word, meaning: dw.meaning, verses: [] });
-                wordMap.get(key)!.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
-              }
-              // meaning bazında grupla
-              const meaningMap = new Map<string, { forms: string[]; verses: { word: string; surahId: number; ayahNumber: number }[] }>();
-              for (const [, { display, meaning, verses }] of wordMap.entries()) {
-                const key = norm(meaning) || "—";
-                if (!meaningMap.has(key)) meaningMap.set(key, { forms: [], verses: [] });
-                const g = meaningMap.get(key)!;
-                if (!g.forms.some(f => norm(f) === norm(display))) g.forms.push(display);
-                g.verses.push(...verses.map(v => ({ word: display, ...v })));
-              }
-              const groups = Array.from(meaningMap.entries());
+            <Text style={s.sectionTitle}>
+              Kullanım Bağlamları ({groups.length} anlam, {data.derivedWords.length} geçiş)
+            </Text>
+            {groups.map(([meaning, { forms, verses }], idx) => {
+              const isOpen = openMeaning === meaning;
               return (
-                <>
-                  <Text style={s.sectionTitle}>
-                    Kullanım Bağlamları ({groups.length} anlam, {data.derivedWords.length} geçiş)
-                  </Text>
-                  {groups.map(([meaning, { forms, verses }]) => (
-                    <View key={meaning} style={s.meaningGroup}>
-                      {/* Anlam başlığı */}
-                      <View style={s.meaningHeader}>
-                        <Text style={s.meaningForms}>{forms.join("  ·  ")}</Text>
-                        <Text style={s.meaningLabel}>{meaning}</Text>
-                        <Text style={s.meaningCount}>{verses.length} ayet</Text>
-                      </View>
-                      {/* Ayet referansları */}
-                      <View style={s.versesWrap}>
-                        {verses.map((v, i) => (
-                          <TouchableOpacity
-                            key={i}
-                            style={s.verseChip}
-                            onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}`)}
-                            activeOpacity={0.7}
-                          >
-                            <Text style={s.verseChipText}>{v.surahId}:{v.ayahNumber}</Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
+                <View key={meaning} style={[s.accordionCard, idx > 0 && { marginTop: 6 }]}>
+                  {/* Başlık — dokunulabilir */}
+                  <TouchableOpacity
+                    style={s.accordionHeader}
+                    onPress={() => setOpenMeaning(isOpen ? null : meaning)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={{ flex: 1 }}>
+                      <Text style={s.accordionTitle}>
+                        {meaning}
+                        <Text style={s.accordionCount}> — {verses.length} ayet</Text>
+                      </Text>
+                      {/* Arapça formlar — her zaman görünür */}
+                      <Text style={s.accordionForms} numberOfLines={1}>
+                        {forms.join(" · ")}
+                      </Text>
                     </View>
-                  ))}
-                </>
+                    <Text style={[s.accordionChevron, isOpen && { transform: [{ rotate: "180deg" }] }]}>
+                      ▼
+                    </Text>
+                  </TouchableOpacity>
+
+                  {/* Ayet chip'leri — sadece açıkken */}
+                  {isOpen && (
+                    <View style={s.versesWrap}>
+                      {verses.map((v, i) => (
+                        <TouchableOpacity
+                          key={i}
+                          style={s.verseChip}
+                          onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}`)}
+                          activeOpacity={0.7}
+                        >
+                          <Text style={s.verseChipText}>{v.surahId}:{v.ayahNumber}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                  )}
+                </View>
               );
-            })()}
+            })}
           </View>
         )}
 
@@ -285,12 +308,13 @@ const s = StyleSheet.create({
   derivMeaning:{ fontSize: 12, color: "#44403c", marginBottom: 2 },
   derivRef:   { fontSize: 11, color: "#059669", fontWeight: "600" },
 
-  meaningGroup:  { borderTopWidth: 1, borderTopColor: "#f0fdf4", paddingTop: 10, marginTop: 6 },
-  meaningHeader: { marginBottom: 6 },
-  meaningForms:  { fontSize: 18, color: "#1c1917", textAlign: "right", marginBottom: 2 },
-  meaningLabel:  { fontSize: 13, color: "#44403c", fontWeight: "600" },
-  meaningCount:  { fontSize: 11, color: "#059669", marginTop: 1 },
-  versesWrap:    { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 4 },
+  accordionCard:    { borderWidth: 1, borderColor: "#e7e5e4", borderRadius: 10, overflow: "hidden", backgroundColor: "#fff" },
+  accordionHeader:  { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12, gap: 8 },
+  accordionTitle:   { fontSize: 14, fontWeight: "700", color: "#1c1917" },
+  accordionCount:   { fontSize: 13, fontWeight: "400", color: "#059669" },
+  accordionForms:   { fontSize: 12, color: "#a8a29e", marginTop: 2, textAlign: "right" },
+  accordionChevron: { fontSize: 10, color: "#a8a29e" },
+  versesWrap:    { flexDirection: "row", flexWrap: "wrap", gap: 6, paddingHorizontal: 14, paddingBottom: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#f5f0e8" },
   verseChip:     { backgroundColor: "#f0fdf4", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#86efac" },
   verseChipText: { fontSize: 12, color: "#065f46", fontWeight: "600" },
 });
