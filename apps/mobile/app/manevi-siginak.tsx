@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import { useColors } from "../src/hooks/useColors";
 import { api, type TagFilterResult } from "../src/lib/api";
 
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
@@ -61,7 +62,7 @@ function VerseList({ tag }: { tag: string }) {
     if (next && !fetched) {
       setLoading(true);
       try { const r = await api.tags.filter(tag); setVerses(r.results.slice(0, 15)); }
-      catch {}
+      catch (_e) { /* ignore */ }
       setLoading(false);
       setFetched(true);
     }
@@ -112,10 +113,11 @@ function Bolum({ emoji, baslik, color, children }: { emoji: string; baslik: stri
 // ── Ana ekran ─────────────────────────────────────────────────────────────────
 
 export default function ManeviSiginakScreen() {
+  const c = useColors();
   return (
     <>
       <Stack.Screen options={{ title: "Manevi Sığınak" }} />
-      <ScrollView style={s.container} contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
 
         {/* Başlık */}
         <View style={s.header}>

@@ -9,6 +9,7 @@ import {
 import { useState, useEffect, useMemo } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, type RootDetail } from "../../../src/lib/api";
+import { useColors } from "../../../src/hooks/useColors";
 
 // ── Isı haritası rengi (0-N → beyaz-koyu yeşil) ───────────────────────────────
 
@@ -109,6 +110,7 @@ function HeatGrid({
 // ── Ana ekran ─────────────────────────────────────────────────────────────────
 
 export default function RootDetailScreen() {
+  const c = useColors();
   const { root: encodedRoot } = useLocalSearchParams<{ root: string }>();
   const root = decodeURIComponent(encodedRoot ?? "");
 
@@ -194,12 +196,12 @@ export default function RootDetailScreen() {
   return (
     <>
       <Stack.Screen options={{ title: root }} />
-      <ScrollView style={s.container} contentContainerStyle={s.content}>
+      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={s.content}>
 
         {/* Başlık */}
-        <View style={s.header}>
-          <Text style={s.rootTitle}>{data.root}</Text>
-          {displayMeaning ? <Text style={s.meaning}>{displayMeaning}</Text> : null}
+        <View style={[s.header, { backgroundColor: c.card }]}>
+          <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
+          {displayMeaning ? <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text> : null}
           <View style={s.statsRow}>
             <View style={s.statBadge}>
               <Text style={s.statNum}>{totalOcc}</Text>
@@ -217,22 +219,22 @@ export default function RootDetailScreen() {
         </View>
 
         {/* Isı haritası */}
-        <View style={s.section}>
-          <Text style={s.sectionTitle}>Sure Dağılımı</Text>
-          <Text style={s.sectionHint}>Renkli hücreye dokun → sure bilgisi</Text>
+        <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[s.sectionTitle, { color: c.text }]}>Sure Dağılımı</Text>
+          <Text style={[s.sectionHint, { color: c.textMuted }]}>Renkli hücreye dokun → sure bilgisi</Text>
           <HeatGrid distribution={data.distribution} maxCount={maxCount} />
         </View>
 
         {/* Kullanım Bağlamları — anlam bazlı accordion */}
         {groups.length > 0 && (
-          <View style={s.section}>
-            <Text style={s.sectionTitle}>
+          <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
+            <Text style={[s.sectionTitle, { color: c.text }]}>
               Kullanım Bağlamları ({groups.length} anlam, {data.derivedWords.length} geçiş)
             </Text>
             {groups.map(([meaning, { forms, verses }], idx) => {
               const isOpen = openMeaning === meaning;
               return (
-                <View key={meaning} style={[s.accordionCard, idx > 0 && { marginTop: 6 }]}>
+                <View key={meaning} style={[s.accordionCard, { backgroundColor: c.cardAlt, borderColor: c.border }, idx > 0 && { marginTop: 6 }]}>
                   {/* Başlık — dokunulabilir */}
                   <TouchableOpacity
                     style={s.accordionHeader}

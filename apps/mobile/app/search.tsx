@@ -1,95 +1,132 @@
 import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-  Keyboard,
+  View, Text, TextInput, FlatList, TouchableOpacity,
+  ActivityIndicator, StyleSheet, Keyboard, Platform,
 } from "react-native";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { api, type SearchResponse, type VerseResult, type SuggestedSurah } from "../src/lib/api";
+import { api, type SearchResponse, type VerseResult, type SuggestedSurah, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
+import { useColors } from "../src/hooks/useColors";
 
-// ── Tip tanımlamaları ──────────────────────────────────────────────────────────
+// ── Tipler ────────────────────────────────────────────────────────────────────
 
 type SearchState =
   | { status: "idle" }
   | { status: "loading" }
-  | { status: "done"; data: SearchResponse };
+  | { status: "error"; message: string }
+  | { status: "done"; data: SearchResponse }
+  | { status: "tag_results"; tag: string; results: TagFilterResult[]; total: number; page: number; pages: number };
 
-// ── Sabitler ───────────────────────────────────────────────────────────────────
+type IdleItem =
+  | { kind: "hint"; key: string }
+  | { kind: "section_title"; key: string; title: string }
+  | { kind: "koleksiyon"; key: string; item: typeof KOLEKSIYONLAR[number] }
+  | { kind: "chip_section"; key: string; title: string; chips: { tag: string; label: string }[]; color: { bg: string; border: string; text: string } }
+  | { kind: "recent_header"; key: string }
+  | { kind: "recent_row"; key: string; item: string };
 
-const DEBOUNCE_MS = 400;
-const MIN_QUERY_LENGTH = 2;
-const MAX_RECENT = 5;
-const RECENT_STORAGE_KEY = STORAGE_KEYS.recentSearches;
+// ── Sabitler ──────────────────────────────────────────────────────────────────
 
-// ── Yardımcı fonksiyonlar ──────────────────────────────────────────────────────
+const DEBOUNCE_MS   = 400;
+const MIN_LEN       = 2;
+const MAX_RECENT    = 5;
 
-/** verse_key (örn: "2:255") → { surahId, ayahNumber } */
-function parseVerseKey(key: string): { surahId: number; ayahNumber: number } | null {
-  const [surahStr, ayahStr] = key.split(":");
-  const surahId = Number(surahStr);
-  const ayahNumber = Number(ayahStr);
-  if (!surahId || !ayahNumber || !Number.isFinite(surahId) || !Number.isFinite(ayahNumber)) return null;
-  return { surahId, ayahNumber };
+// ── Veri ─────────────────────────────────────────────────────────────────────
+
+const KOLEKSIYONLAR = [
+  { emoji: "🕌", baslik: "Namaz Ayetleri",      aciklama: "Vakit, huşu, teheccüd",      route: "/namaz" },
+  { emoji: "🛡️", baslik: "Manevi Sığınak",      aciklama: "Büyü, nazar, hased, şifa",   route: "/manevi-siginak" },
+  { emoji: "✨",  baslik: "İsmi Azam ve Sekine", aciklama: "Sahih dualar ve protokol",    route: "/manevi-siginak/ismi-azam" },
+];
+
+const NAMAZ_CHIPS = [
+  { tag: "namaz-genel",    label: "Genel" },
+  { tag: "namaz-vakit",    label: "Vakit" },
+  { tag: "namaz-husu",     label: "Huşu" },
+  { tag: "namaz-teheccud", label: "Teheccüd" },
+  { tag: "namaz-cuma",     label: "Cuma" },
+  { tag: "namaz-abdest",   label: "Abdest" },
+  { tag: "namaz-korku",    label: "Korku Namazı" },
+  { tag: "namaz-sefer",    label: "Sefer" },
+];
+
+const KORUNMA_CHIPS = [
+  { tag: "korunma-genel",   label: "Genel Korunma" },
+  { tag: "korunma-sihir",   label: "Büyü / Sihir" },
+  { tag: "korunma-nazar",   label: "Nazar" },
+  { tag: "korunma-hased",   label: "Hased" },
+  { tag: "korunma-siginma", label: "Sığınma" },
+  { tag: "korunma-sifa",    label: "Şifa" },
+];
+
+const ISMIAZAM_CHIPS = [
+  { tag: "ismiazam-ayet",   label: "İsmi Azam Ayetleri" },
+  { tag: "ismiazam-sekine", label: "Sekine Duası" },
+];
+
+// ── Yardımcılar ───────────────────────────────────────────────────────────────
+
+function parseVerseKey(key: string) {
+  const [s, a] = key.split(":").map(Number);
+  return s && a ? { surahId: s, ayahNumber: a } : null;
 }
 
-async function loadRecentSearches(): Promise<string[]> {
-  try {
-    return (await storage.getJSON<string[]>(RECENT_STORAGE_KEY)) ?? [];
-  } catch {
-    return [];
-  }
+function tagLabel(tag: string): string {
+  if (tag.startsWith("namaz-"))    return `Namaz · ${NAMAZ_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(6)}`;
+  if (tag.startsWith("korunma-"))  return `Korunma · ${KORUNMA_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(8)}`;
+  if (tag.startsWith("ismiazam-")) return `İsmi Azam · ${ISMIAZAM_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(9)}`;
+  if (tag.startsWith("dua-"))      return `Dua · ${tag.slice(4)}`;
+  const parts = tag.replace(/_%$/, "").split("_");
+  return parts.length >= 2 ? `${parts[0]} · ${parts.slice(1).join(" ").toLowerCase()}` : tag;
 }
 
-async function saveRecentSearches(searches: string[]): Promise<void> {
-  try {
-    await storage.setJSON(RECENT_STORAGE_KEY, searches);
-  } catch {
-    /* depolama hatası sessizce yok sayılır */
-  }
+async function loadRecent(): Promise<string[]> {
+  try { return (await storage.getJSON<string[]>(STORAGE_KEYS.recentSearches)) ?? []; }
+  catch { return []; }
+}
+async function saveRecent(list: string[]) {
+  try { await storage.setJSON(STORAGE_KEYS.recentSearches, list); } catch { /* ignore */ }
 }
 
-async function addToRecent(q: string, existing: string[]): Promise<string[]> {
-  const cleaned = q.trim();
-  if (!cleaned) return existing;
-  const filtered = existing.filter((item) => item !== cleaned);
-  const next = [cleaned, ...filtered].slice(0, MAX_RECENT);
-  await saveRecentSearches(next);
-  return next;
+// ── Bileşenler ────────────────────────────────────────────────────────────────
+
+function SkeletonCard() {
+  return <View style={sk.card} />;
 }
 
-async function removeFromRecent(q: string, existing: string[]): Promise<string[]> {
-  const next = existing.filter((item) => item !== q);
-  await saveRecentSearches(next);
-  return next;
-}
-
-// ── Alt bileşenler ─────────────────────────────────────────────────────────────
-
-/** Sure sonucu kartı — tıklanınca /surah/[id] rotasına yönlendirir */
-function SurahResultCard({ surahId, surahName }: { surahId: number; surahName: string }) {
+function ChipRow({ chips, color, onPress }: {
+  chips: { tag: string; label: string }[];
+  color: { bg: string; border: string; text: string };
+  onPress: (tag: string) => void;
+}) {
   return (
-    <TouchableOpacity
-      style={[styles.resultCard, styles.surahCard]}
-      onPress={() => {
-        Keyboard.dismiss();
-        router.push(`/surah/${surahId}`);
-      }}
-      activeOpacity={0.72}
-    >
-      <View style={styles.resultCardInner}>
+    <View style={styles.chipRow}>
+      {chips.map(c => (
+        <TouchableOpacity
+          key={c.tag}
+          style={[styles.chip, { backgroundColor: color.bg, borderColor: color.border }]}
+          onPress={() => onPress(c.tag)}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.chipText, { color: color.text }]}>{c.label}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+}
+
+function SurahCard({ surahId, surahName }: { surahId: number; surahName: string }) {
+  return (
+    <TouchableOpacity style={[styles.resultCard, styles.surahCard]}
+      onPress={() => { Keyboard.dismiss(); router.push(`/surah/${surahId}`); }} activeOpacity={0.72}>
+      <View style={styles.cardInner}>
         <View style={styles.iconCircle}>
           <Ionicons name="book" size={22} color="#059669" />
         </View>
-        <View style={styles.resultCardBody}>
-          <Text style={styles.resultTypeLabel}>Sure Bulundu</Text>
-          <Text style={styles.resultTitle}>{surahName}</Text>
+        <View style={styles.cardBody}>
+          <Text style={styles.typeLabel}>Sure Bulundu</Text>
+          <Text style={styles.cardTitle}>{surahName}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color="#a8a29e" />
       </View>
@@ -97,17 +134,16 @@ function SurahResultCard({ surahId, surahName }: { surahId: number; surahName: s
   );
 }
 
-/** Tema (tag) sonucu kartı */
-function TagResultCard({ tag, count }: { tag: string; count: number }) {
+function TagCard({ tag, count }: { tag: string; count: number }) {
   return (
     <View style={[styles.resultCard, styles.tagCard]}>
-      <View style={styles.resultCardInner}>
-        <View style={[styles.iconCircle, styles.tagIconCircle]}>
+      <View style={styles.cardInner}>
+        <View style={[styles.iconCircle, { backgroundColor: "#fef9c3" }]}>
           <Ionicons name="pricetag" size={20} color="#a16207" />
         </View>
-        <View style={styles.resultCardBody}>
-          <Text style={[styles.resultTypeLabel, styles.tagTypeLabel]}>Tema Bulundu</Text>
-          <Text style={[styles.resultTitle, styles.tagTitle]}>{tag}</Text>
+        <View style={styles.cardBody}>
+          <Text style={[styles.typeLabel, { color: "#a16207" }]}>Tema Bulundu</Text>
+          <Text style={[styles.cardTitle, { color: "#713f12" }]}>{tag}</Text>
           <Text style={styles.tagCount}>{count} ayet içeriyor</Text>
         </View>
       </View>
@@ -115,660 +151,432 @@ function TagResultCard({ tag, count }: { tag: string; count: number }) {
   );
 }
 
-/** Ayet sonucu kartı */
-function VerseResultCard({
-  verseKey,
-  meal,
-  surahName,
-}: {
-  verseKey: string;
-  meal: string | null;
-  surahName: string | null;
+function VerseCard({ verseKey, meal, surahName, readingTr }: {
+  verseKey: string; meal: string | null; surahName: string | null; readingTr?: string | null;
 }) {
   const parsed = parseVerseKey(verseKey);
-  const mealPreview = meal ? (meal.length > 140 ? meal.slice(0, 140) + "…" : meal) : null;
-
   return (
     <TouchableOpacity
       style={[styles.resultCard, styles.verseCard]}
-      onPress={() => {
-        if (!parsed) return;
-        Keyboard.dismiss();
-        router.push(`/ayah/${parsed.surahId}/${parsed.ayahNumber}`);
-      }}
+      onPress={() => { if (!parsed) return; Keyboard.dismiss(); router.push(`/ayah/${parsed.surahId}/${parsed.ayahNumber}`); }}
       activeOpacity={0.72}
     >
       <View style={styles.verseHeader}>
-        <View style={styles.verseKeyBadge}>
-          <Text style={styles.verseKeyText}>{verseKey}</Text>
-        </View>
-        {surahName ? (
-          <Text style={styles.verseSurahLabel} numberOfLines={1}>
-            {surahName}{parsed ? ` · ${parsed.ayahNumber}. Ayet` : ""}
-          </Text>
-        ) : null}
+        <View style={styles.keyBadge}><Text style={styles.keyText}>{verseKey}</Text></View>
+        {surahName ? <Text style={styles.surahLabel} numberOfLines={1}>{surahName}{parsed ? ` · ${parsed.ayahNumber}. Ayet` : ""}</Text> : null}
       </View>
-      {mealPreview ? (
-        <Text style={styles.verseMeal} numberOfLines={3}>
-          {mealPreview}
-        </Text>
-      ) : (
-        <Text style={styles.verseMealEmpty}>Meal bulunamadı</Text>
-      )}
+      {readingTr ? <Text style={styles.reading} numberOfLines={2}>{readingTr}</Text> : null}
+      {meal
+        ? <Text style={styles.meal} numberOfLines={3}>{meal.length > 140 ? meal.slice(0, 140) + "…" : meal}</Text>
+        : <Text style={styles.mealEmpty}>Meal bulunamadı</Text>}
     </TouchableOpacity>
   );
 }
 
-/** Son arama satırı */
-function RecentSearchRow({
-  query,
-  onPress,
-  onDelete,
-}: {
-  query: string;
-  onPress: () => void;
-  onDelete: () => void;
-}) {
+function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: number; onPrev: () => void; onNext: () => void }) {
+  if (pages <= 1) return null;
   return (
-    <View style={styles.recentRow}>
-      <TouchableOpacity style={styles.recentTouchable} onPress={onPress} activeOpacity={0.65}>
-        <Ionicons name="time-outline" size={16} color="#a8a29e" />
-        <Text style={styles.recentText} numberOfLines={1}>
-          {query}
-        </Text>
+    <View style={styles.pagination}>
+      <TouchableOpacity style={[styles.pageBtn, page <= 1 && styles.pageBtnOff]} onPress={onPrev} disabled={page <= 1} activeOpacity={0.7}>
+        <Text style={[styles.pageBtnText, page <= 1 && { color: "#d6d3d1" }]}>← Önceki</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.recentDeleteBtn}
-        onPress={onDelete}
-        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-      >
-        <Ionicons name="close" size={16} color="#a8a29e" />
+      <Text style={styles.pageInfo}>{page} / {pages}</Text>
+      <TouchableOpacity style={[styles.pageBtn, page >= pages && styles.pageBtnOff]} onPress={onNext} disabled={page >= pages} activeOpacity={0.7}>
+        <Text style={[styles.pageBtnText, page >= pages && { color: "#d6d3d1" }]}>Sonraki →</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-// ── Ana arama ekranı ───────────────────────────────────────────────────────────
+// ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function SearchScreen() {
-  // URL params: /search?q=xxx veya /search?tag=xxx
-  const params = useLocalSearchParams<{ q?: string; tag?: string }>();
+  const c = useColors();
+  const params = useLocalSearchParams<{ q?: string; tag?: string; page?: string }>();
   const initialQuery = params.q ?? params.tag ?? "";
 
-  const [query, setQuery] = useState(initialQuery);
-  const [state, setState] = useState<SearchState>({ status: "idle" });
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef = useRef<TextInput>(null);
+  const [query,        setQuery]   = useState(initialQuery);
+  const [state,        setState]   = useState<SearchState>({ status: "idle" });
+  const [recent,       setRecent]  = useState<string[]>([]);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const inputRef    = useRef<TextInput>(null);
 
-  // URL parametresi değişince query'i güncelle
-  useEffect(() => {
-    const q = params.q ?? params.tag ?? "";
-    if (q) setQuery(q);
-  }, [params.q, params.tag]);
+  // Son aramaları yükle
+  useEffect(() => { loadRecent().then(setRecent); }, []);
 
-  // Başlangıçta AsyncStorage'dan son aramaları yükle
+  // URL'den tag gelirse direkt tag filter çağır
   useEffect(() => {
-    loadRecentSearches().then(setRecentSearches);
-  }, []);
-
-  // Debounce: kullanıcı yazmayı bıraktıktan 400ms sonra arama yap
-  useEffect(() => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = null;
+    if (params.tag) {
+      const page = parseInt(params.page ?? "1", 10) || 1;
+      fetchTagResults(params.tag, page);
+      setQuery(params.tag);
+    } else if (params.q) {
+      setQuery(params.q);
     }
+  }, [params.tag, params.q, params.page]);
 
+  // Debounce metin araması
+  useEffect(() => {
+    if (params.tag) return;
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = query.trim();
-    if (trimmed.length < MIN_QUERY_LENGTH) {
-      setState({ status: "idle" });
-      return;
-    }
-
+    if (trimmed.length < MIN_LEN) { setState({ status: "idle" }); return; }
     setState({ status: "loading" });
-
-    debounceTimerRef.current = setTimeout(async () => {
+    debounceRef.current = setTimeout(async () => {
       try {
         const data = await api.search.query(trimmed);
         setState({ status: "done", data });
-
-        // Aramayı son aramalara ekle
-        addToRecent(trimmed, recentSearches).then(setRecentSearches).catch(() => {});
+        const next = [trimmed, ...recent.filter(r => r !== trimmed)].slice(0, MAX_RECENT);
+        setRecent(next);
+        saveRecent(next);
       } catch {
-        setState({ status: "done", data: { type: "none" } });
+        setState({ status: "error", message: "Arama sırasında hata oluştu." });
       }
     }, DEBOUNCE_MS);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+  }, [query, params.tag]);
 
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, [query]);
-
-  // ── Olay yöneticileri ──────────────────────────────────────────────────────
+  const fetchTagResults = useCallback(async (tag: string, page: number) => {
+    setState({ status: "loading" });
+    try {
+      const res = await api.tags.filter(tag, page);
+      setState({ status: "tag_results", tag, results: res.results, total: res.total, page: res.page, pages: res.pages });
+    } catch {
+      setState({ status: "error", message: "Etiket sonuçları yüklenemedi." });
+    }
+  }, []);
 
   const handleClear = useCallback(() => {
     setQuery("");
     setState({ status: "idle" });
+    router.setParams({ tag: undefined, q: undefined, page: undefined });
     inputRef.current?.focus();
   }, []);
 
-  const handleRecentPress = useCallback((text: string) => {
-    setQuery(text);
-    // Imleci input sonuna konumlandırmak için odakla
-    setTimeout(() => inputRef.current?.focus(), 60);
+  const handleTagChip = useCallback((tag: string) => {
+    Keyboard.dismiss();
+    router.push(`/search?tag=${encodeURIComponent(tag)}` as any);
   }, []);
 
-  const handleRecentDelete = useCallback(async (text: string) => {
-    setRecentSearches((prev) => prev.filter((item) => item !== text));
-    removeFromRecent(text, recentSearches).then(setRecentSearches).catch(() => {});
-  }, [recentSearches]);
-
   const handleSubmit = useCallback(() => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = query.trim();
-    if (trimmed.length < MIN_QUERY_LENGTH) return;
-
+    if (trimmed.length < MIN_LEN) return;
     setState({ status: "loading" });
-    api.search
-      .query(trimmed)
-      .then((data) => {
-        setState({ status: "done", data });
-        addToRecent(trimmed, recentSearches).then(setRecentSearches).catch(() => {});
-      })
-      .catch(() => {
-        setState({ status: "done", data: { type: "none" } });
-      });
+    api.search.query(trimmed)
+      .then(data => { setState({ status: "done", data }); })
+      .catch(() => setState({ status: "error", message: "Arama başarısız." }));
   }, [query]);
 
-  // ── Render yardımcıları ────────────────────────────────────────────────────
+  const handlePageChange = useCallback((newPage: number) => {
+    if (params.tag) {
+      router.push(`/search?tag=${encodeURIComponent(params.tag)}&page=${newPage}` as any);
+    }
+  }, [params.tag]);
 
-  const showRecent = query.trim().length < MIN_QUERY_LENGTH && recentSearches.length > 0;
+  const showIdle = state.status === "idle" && query.trim().length < MIN_LEN;
   const isLoading = state.status === "loading";
-  const isDone = state.status === "done";
-  const resultData = isDone ? state.data : null;
 
-  /** Sonuç FlatList'ini render eder */
-  const renderResultsList = useCallback(
-    (verses: VerseResult[], total: number, suggestedSurah?: SuggestedSurah) => {
-      const hasMore = total > verses.length;
+  // Idle ekran FlatList verisi
+  const idleItems = useMemo<IdleItem[]>(() => {
+    const items: IdleItem[] = [];
+    items.push({ kind: "hint", key: "hint" });
+    items.push({ kind: "section_title", key: "st_koll", title: "Özel Koleksiyonlar" });
+    KOLEKSIYONLAR.forEach((k, i) => items.push({ kind: "koleksiyon", key: `koll_${i}`, item: k }));
+    items.push({ kind: "chip_section", key: "st_namaz", title: "🕌 Namaz Etiketleri", chips: NAMAZ_CHIPS, color: { bg: "#f0fdfa", border: "#5eead4", text: "#0d9488" } });
+    items.push({ kind: "chip_section", key: "st_korunma", title: "🛡️ Korunma Etiketleri", chips: KORUNMA_CHIPS, color: { bg: "#eef2ff", border: "#a5b4fc", text: "#4338ca" } });
+    items.push({ kind: "chip_section", key: "st_ismiazam", title: "✨ İsmi Azam Etiketleri", chips: ISMIAZAM_CHIPS, color: { bg: "#fefce8", border: "#fde047", text: "#a16207" } });
+    if (recent.length > 0) {
+      items.push({ kind: "recent_header", key: "recent_hdr" });
+      recent.forEach((r, i) => items.push({ kind: "recent_row", key: `recent_${i}`, item: r }));
+    }
+    return items;
+  }, [recent]);
 
-      return (
-        <FlatList
-          data={verses}
-          keyExtractor={(item) => item.verse_key}
-          renderItem={({ item }) => (
-            <VerseResultCard
-              verseKey={item.verse_key}
-              meal={item.meal}
-              surahName={item.surah_name}
-            />
-          )}
-          ListHeaderComponent={
-            <>
-              {suggestedSurah ? (
-                <View style={styles.listHeaderSection}>
-                  <SurahResultCard
-                    surahId={suggestedSurah.id}
-                    surahName={suggestedSurah.name}
-                  />
-                </View>
-              ) : null}
-              <View style={styles.listHeaderSection}>
-                <Text style={styles.resultCountText}>
-                  {total} sonuç{hasMore ? ` (ilk ${verses.length} gösteriliyor)` : ""}
-                </Text>
-              </View>
-            </>
-          }
-          ListFooterComponent={
-            hasMore ? (
-              <Text style={styles.moreResultsHint}>
-                +{total - verses.length} sonuç daha — aramanızı daraltın
-              </Text>
-            ) : null
-          }
-          contentContainerStyle={styles.listContent}
-          keyboardShouldPersistTaps="handled"
-          ItemSeparatorComponent={() => <View style={styles.listSeparator} />}
-          initialNumToRender={12}
-          windowSize={5}
-          maxToRenderPerBatch={10}
-        />
-      );
-    },
-    [],
-  );
-
-  // ── Ana render ─────────────────────────────────────────────────────────────
+  const renderIdleItem = useCallback(({ item }: { item: IdleItem }) => {
+    switch (item.kind) {
+      case "hint":
+        return <Text style={styles.hint}>Sure adı · ayet metni · tema kodu (A1, F1) · etiket (sabır, namaz)</Text>;
+      case "section_title":
+        return <Text style={styles.idleSection}>{item.title}</Text>;
+      case "koleksiyon":
+        return (
+          <TouchableOpacity
+            style={styles.kollCard}
+            onPress={() => router.push(item.item.route as any)}
+            activeOpacity={0.75}
+          >
+            <Text style={styles.kollEmoji}>{item.item.emoji}</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.kollBaslik}>{item.item.baslik}</Text>
+              <Text style={styles.kollAciklama}>{item.item.aciklama}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color="#a8a29e" />
+          </TouchableOpacity>
+        );
+      case "chip_section":
+        return <ChipRow chips={item.chips} color={item.color} onPress={handleTagChip} />;
+      case "recent_header":
+        return (
+          <View style={styles.recentHeader}>
+            <Text style={styles.idleSection}>Son Aramalar</Text>
+            <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8}>
+              <Text style={styles.recentClear}>Temizle</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      case "recent_row":
+        return (
+          <TouchableOpacity
+            style={styles.recentRow}
+            onPress={() => setQuery(item.item)}
+            activeOpacity={0.65}
+          >
+            <Ionicons name="time-outline" size={16} color="#a8a29e" />
+            <Text style={styles.recentText} numberOfLines={1}>{item.item}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                const next = recent.filter(r => r !== item.item);
+                setRecent(next); saveRecent(next);
+              }}
+              hitSlop={8}
+            >
+              <Ionicons name="close" size={16} color="#a8a29e" />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        );
+      default:
+        return null;
+    }
+  }, [handleTagChip, recent]);
 
   return (
-    <View style={styles.screen}>
-      {/* ── Arama Çubuğu ── */}
-      <View style={styles.searchBarContainer}>
-        <View style={styles.searchBar}>
-          <Ionicons name="search" size={18} color="#a8a29e" style={styles.searchIcon} />
+    <View style={[styles.screen, { backgroundColor: c.bg }]}>
+      {/* Arama çubuğu */}
+      <View style={styles.barWrap}>
+        <View style={[styles.bar, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Ionicons name="search" size={18} color="#a8a29e" style={{ marginRight: 8 }} />
           <TextInput
             ref={inputRef}
-            style={styles.searchInput}
+            style={[styles.input, { color: c.text }]}
             value={query}
-            onChangeText={setQuery}
+            onChangeText={t => { setQuery(t); router.setParams({ tag: undefined }); }}
             placeholder="Sure, ayet veya kelime ara…"
-            placeholderTextColor="#a8a29e"
+            placeholderTextColor={c.textMuted}
             returnKeyType="search"
             onSubmitEditing={handleSubmit}
             autoCorrect={false}
             autoCapitalize="none"
-            clearButtonMode="never"
             selectionColor="#059669"
           />
-          {query.length > 0 ? (
-            <TouchableOpacity
-              style={styles.clearButton}
-              onPress={handleClear}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-            >
+          {query.length > 0 && (
+            <TouchableOpacity onPress={handleClear} hitSlop={8}>
               <Ionicons name="close-circle" size={18} color="#78716c" />
             </TouchableOpacity>
-          ) : null}
+          )}
         </View>
       </View>
 
-      {/* ── İpucu metni ── */}
-      {query.trim().length === 0 ? (
-        <Text style={styles.hintText}>
-          Sure adı · ayet metninden kelime · tema etiketi (sabır, namaz, vb.)
-        </Text>
-      ) : null}
-
-      {/* ── Yükleniyor göstergesi ── */}
-      {isLoading ? (
-        <View style={styles.centeredState}>
-          <ActivityIndicator size="large" color="#059669" />
-          <Text style={styles.loadingText}>Aranıyor…</Text>
-        </View>
-      ) : null}
-
-      {/* ── Sonuçlar ── */}
-      {isDone && resultData && !isLoading ? (
-        (() => {
-          switch (resultData.type) {
-            case "surah":
-              return (
-                <View style={styles.singleResultWrap}>
-                  <View style={styles.searchResultHeader}>
-                    <Text style={styles.searchQueryLabel}>
-                      "{query.trim()}" için sonuç:
-                    </Text>
-                  </View>
-                  <SurahResultCard
-                    surahId={resultData.surahId}
-                    surahName={resultData.surahName}
-                  />
-                </View>
-              );
-
-            case "tag":
-              return (
-                <View style={styles.singleResultWrap}>
-                  <View style={styles.searchResultHeader}>
-                    <Text style={styles.searchQueryLabel}>
-                      "{query.trim()}" için sonuç:
-                    </Text>
-                  </View>
-                  <TagResultCard tag={resultData.tag} count={resultData.count} />
-                </View>
-              );
-
-            case "verses":
-              return (
-                <View style={styles.versesContainer}>
-                  <View style={styles.searchResultHeader}>
-                    <Text style={styles.searchQueryLabel}>
-                      "{query.trim()}" için sonuçlar:
-                    </Text>
-                  </View>
-                  {renderResultsList(
-                    resultData.results,
-                    resultData.total,
-                    resultData.suggestedSurah,
-                  )}
-                </View>
-              );
-
-            case "none":
-            default:
-              return (
-                <View style={styles.centeredState}>
-                  <Ionicons name="search-outline" size={48} color="#d6d3d1" />
-                  <Text style={styles.emptyTitle}>Sonuç bulunamadı</Text>
-                  <Text style={styles.emptySubtitle}>
-                    "{query.trim()}" için eşleşen sure, ayet veya tema bulunamadı.
-                  </Text>
-                </View>
-              );
-          }
-        })()
-      ) : null}
-
-      {/* ── Son Aramalar ── */}
-      {showRecent && !isLoading ? (
-        <View style={styles.recentSection}>
-          <View style={styles.recentHeader}>
-            <Text style={styles.recentSectionTitle}>Son Aramalar</Text>
-            <TouchableOpacity
-              onPress={() => {
-                setRecentSearches([]);
-                storage.setJSON(RECENT_STORAGE_KEY, []).catch(() => {});
-              }}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-            >
-              <Text style={styles.clearAllText}>Temizle</Text>
-            </TouchableOpacity>
+      {/* Aktif filtre göstergesi */}
+      {state.status === "tag_results" && (
+        <View style={styles.filterBar}>
+          <View style={styles.filterBadge}>
+            <Text style={styles.filterText}>{tagLabel(state.tag)} — {state.total} ayet</Text>
           </View>
-          {recentSearches.map((item) => (
-            <RecentSearchRow
-              key={item}
-              query={item}
-              onPress={() => handleRecentPress(item)}
-              onDelete={() => handleRecentDelete(item)}
-            />
-          ))}
+          <TouchableOpacity onPress={handleClear} hitSlop={8}>
+            <Text style={styles.filterClear}>Filtreyi Kaldır</Text>
+          </TouchableOpacity>
         </View>
-      ) : null}
+      )}
+
+      {/* Yükleniyor skeleton */}
+      {isLoading && (
+        <FlatList
+          data={[1, 2, 3, 4]}
+          keyExtractor={(i) => String(i)}
+          renderItem={() => <SkeletonCard />}
+          contentContainerStyle={{ padding: 14, gap: 10 }}
+          scrollEnabled={false}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        />
+      )}
+
+      {/* Hata */}
+      {state.status === "error" && !isLoading && (
+        <View style={styles.errorBox}>
+          <Ionicons name="alert-circle-outline" size={18} color="#dc2626" />
+          <Text style={styles.errorText}>{state.message}</Text>
+        </View>
+      )}
+
+      {/* Tag sonuçları */}
+      {state.status === "tag_results" && !isLoading && (
+        <FlatList
+          data={state.results}
+          keyExtractor={item => item.verse_key}
+          contentContainerStyle={styles.listContent}
+          renderItem={({ item }) => (
+            <VerseCard
+              verseKey={item.verse_key}
+              meal={item.meal}
+              surahName={item.surah_name}
+              readingTr={item.reading_tr}
+            />
+          )}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          ListFooterComponent={
+            <Pagination
+              page={state.page}
+              pages={state.pages}
+              onPrev={() => handlePageChange(state.page - 1)}
+              onNext={() => handlePageChange(state.page + 1)}
+            />
+          }
+          keyboardShouldPersistTaps="handled"
+        />
+      )}
+
+      {/* Metin arama sonuçları */}
+      {state.status === "done" && !isLoading && (() => {
+        const d = state.data;
+        if (d.type === "surah") return (
+          <View style={styles.singleWrap}>
+            <Text style={styles.queryLabel}>"{query.trim()}" için sonuç:</Text>
+            <SurahCard surahId={d.surahId} surahName={d.surahName} />
+          </View>
+        );
+        if (d.type === "tag") return (
+          <View style={styles.singleWrap}>
+            <Text style={styles.queryLabel}>"{query.trim()}" için sonuç:</Text>
+            <TagCard tag={d.tag} count={d.count} />
+          </View>
+        );
+        if (d.type === "verses") return (
+          <FlatList
+            data={d.results}
+            keyExtractor={item => item.verse_key}
+            contentContainerStyle={styles.listContent}
+            renderItem={({ item }) => (
+              <VerseCard verseKey={item.verse_key} meal={item.meal} surahName={item.surah_name} />
+            )}
+            ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+            ListHeaderComponent={
+              <View style={{ marginBottom: 8 }}>
+                {d.suggestedSurah && (
+                  <TouchableOpacity
+                    style={styles.suggestionBox}
+                    onPress={() => router.push(`/surah/${d.suggestedSurah!.id}`)}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.suggestionText}>Bunu mu demek istediniz? </Text>
+                    <Text style={styles.suggestionLink}>{d.suggestedSurah.name} Suresi →</Text>
+                  </TouchableOpacity>
+                )}
+                <Text style={styles.queryLabel}>"{query.trim()}" için {d.total} sonuç{d.total > d.results.length ? ` (ilk ${d.results.length})` : ""}</Text>
+              </View>
+            }
+            keyboardShouldPersistTaps="handled"
+          />
+        );
+        return (
+          <View style={styles.emptyWrap}>
+            <Ionicons name="search-outline" size={48} color="#d6d3d1" />
+            <Text style={styles.emptyTitle}>Sonuç bulunamadı</Text>
+            <Text style={styles.emptySub}>"{query.trim()}" için eşleşen bir şey bulunamadı.</Text>
+          </View>
+        );
+      })()}
+
+      {/* Boş durum */}
+      {showIdle && !isLoading && (
+        <FlatList
+          data={idleItems}
+          keyExtractor={(item) => item.key}
+          renderItem={renderIdleItem}
+          contentContainerStyle={styles.idleContent}
+          keyboardShouldPersistTaps="handled"
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          windowSize={5}
+          removeClippedSubviews={Platform.OS === "android"}
+        />
+      )}
     </View>
   );
 }
 
-// ── Stiller ────────────────────────────────────────────────────────────────────
+// ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  // ── Ana yapı ──
-  screen: {
-    flex: 1,
-    backgroundColor: "#f7f1e4",
-  },
+  screen:   { flex: 1, backgroundColor: "#f7f1e4" },
+  barWrap:  { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4 },
+  bar:      { flexDirection: "row", alignItems: "center", backgroundColor: "#fff", borderRadius: 16, borderWidth: 1, borderColor: "#e7e5e4", paddingHorizontal: 14, paddingVertical: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 2 },
+  input:    { flex: 1, fontSize: 16, color: "#1c1917", paddingVertical: 10 },
 
-  // ── Arama çubuğu ──
-  searchBarContainer: {
-    paddingHorizontal: 14,
-    paddingTop: 12,
-    paddingBottom: 4,
-  },
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#ffffff",
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#e7e5e4",
-    paddingHorizontal: 14,
-    paddingVertical: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 6,
-    elevation: 2,
-  },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: "#1c1917",
-    paddingVertical: 10,
-    padding: 0,
-  },
-  clearButton: {
-    marginLeft: 8,
-    padding: 4,
-  },
+  filterBar:   { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingBottom: 8, gap: 10 },
+  filterBadge: { flex: 1, backgroundColor: "#eef2ff", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#a5b4fc" },
+  filterText:  { fontSize: 12, fontWeight: "600", color: "#4338ca" },
+  filterClear: { fontSize: 12, color: "#ef4444", fontWeight: "600" },
 
-  // ── İpucu ──
-  hintText: {
-    fontSize: 12,
-    color: "#a8a29e",
-    textAlign: "center",
-    paddingHorizontal: 28,
-    paddingTop: 8,
-    paddingBottom: 4,
-    lineHeight: 18,
-  },
+  errorBox:  { flexDirection: "row", alignItems: "center", gap: 8, margin: 14, backgroundColor: "#fef2f2", borderRadius: 12, padding: 14, borderWidth: 1, borderColor: "#fecaca" },
+  errorText: { fontSize: 13, color: "#dc2626", flex: 1 },
 
-  // ── Merkezi durum ──
-  centeredState: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 32,
-    gap: 12,
-  },
-  loadingText: {
-    fontSize: 14,
-    color: "#78716c",
-    marginTop: 4,
-  },
+  listContent: { paddingHorizontal: 14, paddingTop: 4, paddingBottom: 32 },
+  singleWrap:  { padding: 14 },
+  queryLabel:  { fontSize: 12, color: "#a8a29e", marginBottom: 6, paddingLeft: 2 },
 
-  // ── Sonuç başlığı ──
-  searchResultHeader: {
-    paddingHorizontal: 4,
-    marginBottom: 6,
-  },
-  searchQueryLabel: {
-    fontSize: 13,
-    color: "#78716c",
-    fontWeight: "500",
-  },
+  resultCard: { backgroundColor: "#fff", borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", padding: 14, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.03, shadowRadius: 4, elevation: 1 },
+  surahCard:  { backgroundColor: "#f0fdf4", borderColor: "#bbf7d0" },
+  tagCard:    { backgroundColor: "#fefce8", borderColor: "#fef08a" },
+  verseCard:  { backgroundColor: "#fff" },
+  cardInner:  { flexDirection: "row", alignItems: "center", gap: 12 },
+  iconCircle: { width: 44, height: 44, borderRadius: 22, backgroundColor: "#ecfdf5", alignItems: "center", justifyContent: "center" },
+  cardBody:   { flex: 1, gap: 2 },
+  typeLabel:  { fontSize: 10, fontWeight: "700", color: "#059669", textTransform: "uppercase", letterSpacing: 0.6 },
+  cardTitle:  { fontSize: 17, fontWeight: "700", color: "#1c1917" },
+  tagCount:   { fontSize: 12, color: "#a16207", marginTop: 1 },
 
-  // ── Tekil sonuç wrap ──
-  singleResultWrap: {
-    paddingHorizontal: 14,
-    paddingTop: 8,
-  },
+  verseHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 6 },
+  keyBadge:    { backgroundColor: "#d1fae5", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
+  keyText:     { fontSize: 11, fontWeight: "700", color: "#065f46" },
+  surahLabel:  { fontSize: 13, color: "#78716c", flex: 1 },
+  reading:     { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20, marginBottom: 4 },
+  meal:        { fontSize: 14, lineHeight: 22, color: "#292524" },
+  mealEmpty:   { fontSize: 14, color: "#a8a29e", fontStyle: "italic" },
 
-  // ── Ayetler konteyner ──
-  versesContainer: {
-    flex: 1,
-    paddingHorizontal: 14,
-    paddingTop: 8,
-  },
+  suggestionBox:  { flexDirection: "row", alignItems: "center", flexWrap: "wrap", backgroundColor: "#fffbeb", borderRadius: 10, padding: 10, marginBottom: 8, borderWidth: 1, borderColor: "#fde68a" },
+  suggestionText: { fontSize: 13, color: "#92400e" },
+  suggestionLink: { fontSize: 13, fontWeight: "700", color: "#b45309" },
 
-  // ── Sonuç kartları (ortak) ──
-  resultCard: {
-    backgroundColor: "#ffffff",
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: "#e7e5e4",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.03,
-    shadowRadius: 4,
-    elevation: 1,
-  },
-  resultCardInner: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 14,
-    gap: 12,
-  },
-  resultCardBody: {
-    flex: 1,
-    gap: 2,
-  },
-  iconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#ecfdf5",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tagIconCircle: {
-    backgroundColor: "#fef9c3",
-  },
-  resultTypeLabel: {
-    fontSize: 10,
-    fontWeight: "700",
-    color: "#059669",
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-  },
-  tagTypeLabel: {
-    color: "#a16207",
-  },
-  resultTitle: {
-    fontSize: 17,
-    fontWeight: "700",
-    color: "#1c1917",
-  },
-  tagTitle: {
-    color: "#713f12",
-  },
-  tagCount: {
-    fontSize: 12,
-    color: "#a16207",
-    marginTop: 1,
-  },
+  pagination:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 16 },
+  pageBtn:       { backgroundColor: "#fff", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 9, borderWidth: 1, borderColor: "#e7e5e4" },
+  pageBtnOff:    { opacity: 0.4 },
+  pageBtnText:   { fontSize: 13, fontWeight: "600", color: "#059669" },
+  pageInfo:      { fontSize: 13, color: "#78716c" },
 
-  // ── Sure kartı özel ──
-  surahCard: {
-    backgroundColor: "#f0fdf4",
-    borderColor: "#bbf7d0",
-    marginTop: 10,
-  },
+  emptyWrap:  { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, gap: 12 },
+  emptyTitle: { fontSize: 17, fontWeight: "700", color: "#44403c" },
+  emptySub:   { fontSize: 13, color: "#a8a29e", textAlign: "center", lineHeight: 20 },
 
-  // ── Tag kartı özel ──
-  tagCard: {
-    backgroundColor: "#fefce8",
-    borderColor: "#fef08a",
-    marginTop: 10,
-  },
+  idleContent: { padding: 14, paddingBottom: 40 },
+  hint:        { fontSize: 12, color: "#a8a29e", textAlign: "center", marginBottom: 16, lineHeight: 18 },
+  idleSection: { fontSize: 11, fontWeight: "700", color: "#78716c", textTransform: "uppercase", letterSpacing: 0.8, marginTop: 16, marginBottom: 8 },
 
-  // ── Ayet kartı ──
-  verseCard: {
-    backgroundColor: "#ffffff",
-    borderColor: "#e7e5e4",
-  },
-  verseHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginBottom: 8,
-  },
-  verseKeyBadge: {
-    backgroundColor: "#d1fae5",
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-  },
-  verseKeyText: {
-    fontSize: 11,
-    fontWeight: "700",
-    color: "#065f46",
-  },
-  verseSurahLabel: {
-    fontSize: 13,
-    color: "#78716c",
-    flex: 1,
-  },
-  verseMeal: {
-    fontSize: 14,
-    lineHeight: 22,
-    color: "#292524",
-  },
-  verseMealEmpty: {
-    fontSize: 14,
-    color: "#a8a29e",
-    fontStyle: "italic",
-  },
+  chipRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  chip:    { borderRadius: 20, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 6 },
+  chipText:{ fontSize: 12, fontWeight: "600" },
 
-  // ── Ayet listesi ──
-  listContent: {
-    paddingBottom: 32,
-  },
-  listHeaderSection: {
-    marginBottom: 4,
-  },
-  listSeparator: {
-    height: 0,
-  },
-  resultCountText: {
-    fontSize: 12,
-    color: "#a8a29e",
-    paddingTop: 8,
-    paddingBottom: 4,
-    paddingLeft: 2,
-  },
-  moreResultsHint: {
-    textAlign: "center",
-    fontSize: 12,
-    color: "#a8a29e",
-    paddingVertical: 16,
-  },
+  kollCard:    { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: "#fff", borderRadius: 12, padding: 14, marginBottom: 6, borderWidth: 1, borderColor: "#e7e5e4" },
+  kollEmoji:   { fontSize: 22 },
+  kollBaslik:  { fontSize: 13, fontWeight: "700", color: "#1c1917" },
+  kollAciklama:{ fontSize: 11, color: "#78716c", marginTop: 1 },
 
-  // ── Boş sonuç ──
-  emptyTitle: {
-    fontSize: 17,
-    fontWeight: "700",
-    color: "#44403c",
-  },
-  emptySubtitle: {
-    fontSize: 13,
-    color: "#a8a29e",
-    textAlign: "center",
-    lineHeight: 20,
-    paddingHorizontal: 16,
-  },
+  recentHeader:{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  recentClear: { fontSize: 12, color: "#ef4444", fontWeight: "600" },
+  recentRow:   { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: "#f0ede8" },
+  recentText:  { flex: 1, fontSize: 14, color: "#44403c" },
+});
 
-  // ── Son Aramalar ──
-  recentHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 6,
-  },
-  clearAllText: {
-    fontSize: 13,
-    color: "#ef4444",
-    fontWeight: "500",
-  },
-  recentSection: {
-    paddingHorizontal: 14,
-    paddingTop: 10,
-    flex: 1,
-  },
-  recentSectionTitle: {
-    fontSize: 11,
-    fontWeight: "700",
-    color: "#a8a29e",
-    textTransform: "uppercase",
-    letterSpacing: 0.8,
-    marginBottom: 8,
-    paddingLeft: 2,
-  },
-  recentRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0ede8",
-  },
-  recentTouchable: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    paddingVertical: 12,
-  },
-  recentText: {
-    fontSize: 14,
-    color: "#44403c",
-    flex: 1,
-  },
-  recentDeleteBtn: {
-    padding: 8,
-  },
+const sk = StyleSheet.create({
+  card: { height: 90, backgroundColor: "#e7e5e4", borderRadius: 14, opacity: 0.5 },
 });

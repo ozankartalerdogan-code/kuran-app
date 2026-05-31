@@ -5,6 +5,7 @@ import {
 import { Stack } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MushafReader } from "../src/components/MushafReader";
+import { useColors } from "../src/hooks/useColors";
 
 const STORAGE_KEY = "hatimTakibi";
 
@@ -58,6 +59,7 @@ function days(a: string, b: string) {
 }
 
 export default function HatimScreen() {
+  const c = useColors();
   const [store, setStore]     = useState<Store>({ hatims: [], currentId: null });
   const [mounted, setMounted] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -130,12 +132,17 @@ export default function HatimScreen() {
 
       {/* Oku sekmesi */}
       {activeTab === "oku" && (
-        <MushafReader key={readerKey} initialSurahId={readerSurah} initialAyahNum={readerAyah} />
+        <MushafReader
+          key={readerKey}
+          initialSurahId={readerSurah}
+          initialAyahNum={readerAyah}
+          loadBookmark={readerKey === 0}
+        />
       )}
 
       {/* Takip sekmesi */}
       {activeTab === "takip" && (
-      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={styles.content}>
 
         <Text style={styles.title}>📖 Hatim Takibi</Text>
         <Text style={styles.sub}>30 cüzlük okumanızı işaretleyin</Text>
@@ -150,7 +157,7 @@ export default function HatimScreen() {
         ) : (
           <>
             {/* İlerleme */}
-            <View style={styles.progressCard}>
+            <View style={[styles.progressCard, { backgroundColor: c.card, borderColor: c.border }]}>
               <View style={styles.progressRow}>
                 <View>
                   <Text style={styles.progressDate}>Başlangıç: {fmt(current.startDate)}</Text>
@@ -169,23 +176,39 @@ export default function HatimScreen() {
               <View style={styles.progressActions}>
                 {!confirm ? (
                   <>
-                    <TouchableOpacity onPress={() => setConfirm(true)}>
+                    <TouchableOpacity
+                      onPress={() => setConfirm(true)}
+                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                      style={styles.actionBtn}
+                    >
                       <Text style={styles.actionText}>Sıfırla</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={startHatim}>
+                    <TouchableOpacity
+                      onPress={startHatim}
+                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                      style={styles.actionBtn}
+                    >
                       <Text style={[styles.actionText, { color: "#059669" }]}>+ Yeni Hatim</Text>
                     </TouchableOpacity>
                   </>
                 ) : (
                   <>
                     <Text style={styles.confirmText}>Emin misiniz?</Text>
-                    <TouchableOpacity onPress={() => {
-                      persist({ ...store, hatims: store.hatims.map(h => h.id === store.currentId ? { ...h, readJuz: [], completedDate: null } : h) });
-                      setConfirm(false);
-                    }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        persist({ ...store, hatims: store.hatims.map(h => h.id === store.currentId ? { ...h, readJuz: [], completedDate: null } : h) });
+                        setConfirm(false);
+                      }}
+                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                      style={styles.actionBtn}
+                    >
                       <Text style={[styles.actionText, { color: "#dc2626", fontWeight: "700" }]}>Evet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setConfirm(false)}>
+                    <TouchableOpacity
+                      onPress={() => setConfirm(false)}
+                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                      style={styles.actionBtn}
+                    >
                       <Text style={styles.actionText}>Hayır</Text>
                     </TouchableOpacity>
                   </>
@@ -197,7 +220,7 @@ export default function HatimScreen() {
             {JUZ_DATA.map(juz => {
               const done = current.readJuz.includes(juz.juz);
               return (
-                <View key={juz.juz} style={[styles.juzRow, done && styles.juzRowDone]}>
+                <View key={juz.juz} style={[styles.juzRow, { backgroundColor: c.card, borderColor: c.border }, done && styles.juzRowDone]}>
                   <TouchableOpacity
                     style={styles.juzMain}
                     onPress={() => toggleJuz(juz.juz)}
@@ -209,8 +232,8 @@ export default function HatimScreen() {
                       </Text>
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={[styles.juzTitle, done && styles.juzTitleDone]}>{juz.juz}. Cüz</Text>
-                      <Text style={styles.juzRange}>{juz.startName} {juz.startAyah} – {juz.endName} {juz.endAyah}</Text>
+                      <Text style={[styles.juzTitle, { color: c.text }, done && styles.juzTitleDone]}>{juz.juz}. Cüz</Text>
+                      <Text style={[styles.juzRange, { color: c.textMuted }]}>{juz.startName} {juz.startAyah} – {juz.endName} {juz.endAyah}</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -273,6 +296,7 @@ const styles = StyleSheet.create({
   progressFill: { height: 8, backgroundColor: "#059669", borderRadius: 4 },
   progressPct:     { fontSize: 11, color: "#9ca3af", textAlign: "right", marginTop: 2 },
   progressActions: { flexDirection: "row", gap: 16, marginTop: 10, alignItems: "center" },
+  actionBtn:       { paddingVertical: 6, paddingHorizontal: 4 },
   actionText:      { fontSize: 13, color: "#ef4444" },
   confirmText:     { fontSize: 12, color: "#6b7280", flex: 1 },
 

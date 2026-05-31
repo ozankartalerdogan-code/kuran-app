@@ -18,7 +18,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kuranapp.mobile"
+      "bundleIdentifier": "com.kuranapp.mobile",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Konum veriniz cihazınızdan çıkmaz ve hiçbir sunucuya gönderilmez."
+      }
     },
     "android": {
       "package": "com.kuranapp.mobile",
@@ -26,7 +29,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#059669"
-      }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",

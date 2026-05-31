@@ -4,10 +4,12 @@ import {
 } from "react-native";
 import { useState, useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
+import { useColors } from "../../src/hooks/useColors";
 import { useFavorites } from "../../src/hooks/useFavorites";
 import { api, type FavoriteVerse } from "../../src/lib/api";
 
 export default function FavoritesScreen() {
+  const c = useColors();
   const { favorites, loaded, toggle } = useFavorites();
   const [verses, setVerses]   = useState<FavoriteVerse[]>([]);
   const [loading, setLoading] = useState(false);
@@ -36,9 +38,9 @@ export default function FavoritesScreen() {
 
   if (!loaded || loading) {
     return (
-      <View style={styles.loadingContainer}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
         {[1, 2, 3].map(i => (
-          <View key={i} style={styles.skeleton} />
+          <View key={i} style={[styles.skeleton, { backgroundColor: c.border }]} />
         ))}
       </View>
     );
@@ -46,13 +48,13 @@ export default function FavoritesScreen() {
 
   if (verses.length === 0) {
     return (
-      <View style={styles.centered}>
+      <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>🤍</Text>
-        <Text style={styles.emptyTitle}>Henüz favori ayet yok</Text>
-        <Text style={styles.emptySub}>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>Henüz favori ayet yok</Text>
+        <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet sayfasındaki 🤍 butonuna dokunarak favori ekleyebilirsin.
         </Text>
-        <TouchableOpacity style={styles.goBtn} onPress={() => router.push("/surah")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/surah")} activeOpacity={0.8}>
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>
@@ -63,7 +65,7 @@ export default function FavoritesScreen() {
     <FlatList
       data={verses}
       keyExtractor={(v) => v.verse_key}
-      contentContainerStyle={styles.list}
+      contentContainerStyle={[styles.list, { backgroundColor: c.bg }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={styles.count}>{verses.length} ayet kaydedildi</Text>
@@ -74,7 +76,7 @@ export default function FavoritesScreen() {
       }
       renderItem={({ item }) => (
         <TouchableOpacity
-          style={styles.card}
+          style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
           onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
           activeOpacity={0.75}
         >
@@ -84,7 +86,7 @@ export default function FavoritesScreen() {
               <Text style={styles.keyText}>{item.verse_key}</Text>
             </View>
             {item.surah_name && (
-              <Text style={styles.surahText} numberOfLines={1}>
+              <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
                 {item.surah_name} · {item.ayah_number}. ayet
               </Text>
             )}
@@ -95,7 +97,7 @@ export default function FavoritesScreen() {
 
           {/* Meal */}
           {item.meal && (
-            <Text style={styles.mealText} numberOfLines={3}>{item.meal}</Text>
+            <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{item.meal}</Text>
           )}
 
           {/* Tag'ler */}
@@ -125,6 +127,10 @@ export default function FavoritesScreen() {
         </TouchableOpacity>
       )}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
+      windowSize={5}
+      removeClippedSubviews={true}
     />
   );
 }

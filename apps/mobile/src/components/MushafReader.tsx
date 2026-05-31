@@ -143,9 +143,10 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
 interface MushafReaderProps {
   initialSurahId?: number;
   initialAyahNum?: number;
+  loadBookmark?: boolean; // true → bookmark'tan başla (standalone mushaf), false → explicit pozisyon
 }
 
-export function MushafReader({ initialSurahId = 1, initialAyahNum = 1 }: MushafReaderProps) {
+export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookmark = false }: MushafReaderProps) {
   const [surahList, setSurahList]       = useState<SurahListItem[]>([]);
   const [currentSurahId, setCurrentSurahId] = useState(initialSurahId);
   const [currentAyahNum, setCurrentAyahNum] = useState(initialAyahNum);
@@ -163,8 +164,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1 }: MushafR
       const [sId, aNum] = raw.split(":").map(Number);
       if (sId && aNum && Number.isFinite(sId) && Number.isFinite(aNum)) {
         setBookmark({ surahId: sId, ayahNumber: aNum });
-        // Dışarıdan başlangıç verilmediyse bookmark'tan başla
-        if (initialSurahId === 1 && initialAyahNum === 1) {
+        if (loadBookmark) {
           setCurrentSurahId(sId);
           setCurrentAyahNum(aNum);
         }

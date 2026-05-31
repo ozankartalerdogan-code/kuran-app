@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 
 type StreakData = {
@@ -6,6 +6,13 @@ type StreakData = {
   current:    number;
   longest:    number;
 };
+
+export interface UseStreakResult {
+  streak: StreakData;
+  loading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
 
 const DEFAULT: StreakData = { lastDate: null, current: 0, longest: 0 };
 
@@ -19,46 +26,74 @@ function diffDays(a: string, b: string): number {
   );
 }
 
-export function useStreak() {
-  const [streak, setStreak] = useState<StreakData>(DEFAULT);
+/** Geçerli bir StreakData objesi mi? */
+function isValidStreakData(data: unknown): data is StreakData {
+  if (!data || typeof data !== "object") return false;
+  const d = data as Record<string, unknown>;
+  return (
+    (d.lastDate === null || typeof d.lastDate === "string") &&
+    typeof d.current === "number" &&
+    typeof d.longest === "number"
+  );
+}
 
-  useEffect(() => {
-    (async () => {
-      const saved = (await storage.getJSON<StreakData>(STORAGE_KEYS.streak)) ?? DEFAULT;
-      const today  = todayStr();
+export function useStreak(): UseStreakResult {
+  const [streak, setStreak] = useState<StreakData>(DEFAULT);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const compute = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const saved = await storage.getJSON<StreakData>(STORAGE_KEYS.streak, DEFAULT);
+      // undefined/null tutarlılığı
+      const safe: StreakData = isValidStreakData(saved)
+        ? saved
+        : DEFAULT;
+      const today = todayStr();
 
       let next: StreakData;
 
-      if (!saved.lastDate) {
-        // İlk kez giriş
+      if (!safe.lastDate) {
         next = { lastDate: today, current: 1, longest: 1 };
-      } else if (saved.lastDate === today) {
-        // Bugün zaten sayıldı — değiştirme
-        next = saved;
+      } else if (safe.lastDate === today) {
+        next = safe;
       } else {
-        const diff = diffDays(saved.lastDate, today);
+        const diff = diffDays(safe.lastDate, today);
         if (diff === 1) {
-          // Dünden beri ara vermeden geldi
-          const current = saved.current + 1;
+          const current = safe.current + 1;
           next = {
             lastDate: today,
             current,
-            longest: Math.max(current, saved.longest),
+            longest: Math.max(current, safe.longest),
           };
         } else {
-          // Ara verildi — seriyi sıfırla
           next = {
             lastDate: today,
-            current:  1,
-            longest:  saved.longest,
+            current: 1,
+            longest: safe.longest,
           };
         }
       }
 
       await storage.setJSON(STORAGE_KEYS.streak, next);
       setStreak(next);
-    })();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Streak yüklenemedi";
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return streak; // { current, longest, lastDate }
+  useEffect(() => {
+    compute();
+  }, [compute]);
+
+  const refresh = useCallback(async () => {
+    await compute();
+  }, [compute]);
+
+  return { streak, loading, error, refresh };
 }

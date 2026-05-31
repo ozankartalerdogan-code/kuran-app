@@ -2,11 +2,11 @@
   "name": "@quran-app/mobile",
   "version": "0.1.0",
   "private": true,
-  "main": "./index.js",
+  "main": "expo-router/entry",
   "scripts": {
     "dev": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "expo-device": "~8.0.10",
     "expo-linking": "~8.0.12",
     "expo-location": "~19.0.8",
+    "expo-network": "~8.0.8",
     "expo-notifications": "~0.32.17",
     "expo-router": "~6.0.24",
     "expo-status-bar": "~3.0.9",

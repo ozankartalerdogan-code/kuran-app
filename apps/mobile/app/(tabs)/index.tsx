@@ -3,9 +3,10 @@ import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
 import { router } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
+import { useColors, toggleTheme } from "../../src/hooks/useColors";
 
 const NAV_CARDS: {
   label: string;
@@ -19,63 +20,111 @@ const NAV_CARDS: {
   { label: "Keşfet",         icon: "magnify-expand",         iconColor: "#1e40af", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
   { label: "Elif-Ba",        icon: "abjad-arabic",           iconColor: "#92400e", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
   { label: "Kelime Kökü",    icon: "family-tree",            iconColor: "#78350f", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Hatim & Mushaf", icon: "book-multiple-outline",   iconColor: "#14532d", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
+  { label: "Hatim & Mushaf", icon: "book-multiple-outline",  iconColor: "#14532d", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
   { label: "Kıble",          icon: "compass-rose",           iconColor: "#164e63", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
   { label: "Favorilerim",    icon: "heart-circle-outline",   iconColor: "#9f1239", route: "/favorites", bg: "#fff1f2", border: "#fca5a5" },
 ];
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
+const RUH_HALI = [
+  { emoji: "😌", label: "Huzur",           tag: "rahmet",  bg: "#d1fae5" },
+  { emoji: "💪", label: "Sabır",           tag: "sabır",   bg: "#fef3c7" },
+  { emoji: "🙏", label: "Tövbe",           tag: "tövbe",   bg: "#ede9fe" },
+  { emoji: "🌟", label: "Şükür",           tag: "şükür",   bg: "#fef9c3" },
+  { emoji: "⚖️", label: "Adalet",          tag: "adalet",  bg: "#e0e7ff" },
+  { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",   bg: "#ffe4e6" },
+];
+
 export default function HomeScreen() {
-  const streak = useStreak();
+  const c      = useColors();
+  const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, PRAYER_LABELS } = useDailyContent();
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-
+    <ScrollView
+      style={[styles.container, { backgroundColor: c.bg }]}
+      contentContainerStyle={styles.content}
+      showsVerticalScrollIndicator={false}
+    >
       {/* Hero */}
       <View style={styles.hero}>
-        <Text style={styles.heroIcon}>📖</Text>
-        <Text style={styles.heroTitle}>Kuran Analiz</Text>
-        <Text style={styles.heroSub}>Türkçe meal · Kelime analizi · Dua kategorileri</Text>
+        <View style={styles.heroTop}>
+          <View style={{ flex: 1 }} />
+          <Text style={styles.heroIcon}>📖</Text>
+          <View style={{ flex: 1, alignItems: "flex-end" }}>
+            <TouchableOpacity
+              onPress={toggleTheme}
+              activeOpacity={0.75}
+              style={[styles.themeBtn, {
+                backgroundColor: c.isDark ? "#292524" : "#e7e5e4",
+                borderColor: c.isDark ? "#44403c" : "#d6d3d1",
+              }]}
+            >
+              <Ionicons
+                name={c.isDark ? "sunny" : "moon"}
+                size={18}
+                color={c.isDark ? "#fbbf24" : "#6366f1"}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Text style={[styles.heroTitle, { color: c.text }]}>Kuran Analiz</Text>
+        <Text style={[styles.heroSub, { color: c.textMuted }]}>Türkçe meal · Kelime analizi · Dua kategorileri</Text>
       </View>
 
       {/* Streak */}
       {streak.current > 0 && (
-        <View style={styles.streakCard}>
+        <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
           <Text style={styles.streakEmoji}>🔥</Text>
           <View style={{ flex: 1 }}>
-            <Text style={styles.streakTitle}>{streak.current} günlük seri!</Text>
-            <Text style={styles.streakSub}>Rekor: {streak.longest} gün</Text>
+            <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>{streak.current} günlük seri!</Text>
+            <Text style={[styles.streakSub, { color: c.isDark ? "#f97316" : "#c2410c" }]}>Rekor: {streak.longest} gün</Text>
           </View>
         </View>
       )}
 
       {/* Günün Ayeti */}
       <TouchableOpacity
-        style={styles.verseCard}
+        style={[styles.verseCard, { backgroundColor: c.isDark ? "#1c1405" : "#fffbeb", borderColor: c.isDark ? "#78350f" : "#fcd34d" }]}
         onPress={() => verse && router.push(`/ayah/${verse.surah_id}/${verse.ayah_number}`)}
         activeOpacity={0.85}
       >
         <View style={styles.cardHeader}>
-          <Text style={styles.cardBadge}>✨ Günün Ayeti</Text>
-          {verse && <Text style={styles.cardRef}>{verse.surah_name} · {verse.surah_id}:{verse.ayah_number}</Text>}
+          <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>✨ Günün Ayeti</Text>
+          {verse && <Text style={[styles.cardRef, { color: c.isDark ? "#d97706" : "#a16207" }]}>{verse.surah_name} · {verse.surah_id}:{verse.ayah_number}</Text>}
         </View>
         {!verse ? (
           <ActivityIndicator color="#d97706" style={{ marginVertical: 12 }} />
         ) : (
           <>
-            {verse.reading_tr && <Text style={styles.verseReading}>{verse.reading_tr}</Text>}
-            {verse.meal && <Text style={styles.verseMeal} numberOfLines={3}>{verse.meal}</Text>}
+            {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.reading_tr}</Text>}
+            {verse.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]} numberOfLines={3}>{verse.meal}</Text>}
           </>
         )}
       </TouchableOpacity>
 
+      {/* Ruh Haline Göre */}
+      <Text style={[styles.sectionLabel, { color: c.textMuted }]}>💭 Ruh Haline Göre</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
+        {RUH_HALI.map(m => (
+          <TouchableOpacity
+            key={m.tag}
+            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg }]}
+            onPress={() => router.push(`/search?tag=${encodeURIComponent(m.tag)}` as any)}
+            activeOpacity={0.7}
+          >
+            <Text style={{ fontSize: 18 }}>{m.emoji}</Text>
+            <Text style={[styles.moodLabel, { color: c.text }]}>{m.label}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
       {/* Namaz Vakitleri */}
-      <View style={styles.prayerCard}>
+      <View style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
-          <Text style={styles.cardBadge}>🕌 Namaz Vakitleri</Text>
-          <Text style={styles.cardRef}>İstanbul{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
+          <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
+          <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>İstanbul{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
         </View>
         {!prayers ? (
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
@@ -84,9 +133,13 @@ export default function HomeScreen() {
             {PRAYER_ORDER.map((key) => {
               const isNext = nextPrayer?.label === PRAYER_LABELS[key];
               return (
-                <View key={key} style={[styles.prayerItem, isNext && styles.prayerItemActive]}>
-                  <Text style={[styles.prayerLabel, isNext && styles.prayerLabelActive]}>{PRAYER_LABELS[key]}</Text>
-                  <Text style={[styles.prayerTime, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
+                <View key={key} style={[
+                  styles.prayerItem,
+                  { backgroundColor: c.isDark ? "#1e1b4b" : "#fff", borderColor: c.isDark ? "#3730a3" : "#e0e7ff" },
+                  isNext && styles.prayerItemActive,
+                ]}>
+                  <Text style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{PRAYER_LABELS[key]}</Text>
+                  <Text style={[styles.prayerTime, { color: c.isDark ? "#c7d2fe" : "#312e81" }, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
                 </View>
               );
             })}
@@ -96,22 +149,20 @@ export default function HomeScreen() {
 
       {/* Günün Duası */}
       <TouchableOpacity
-        style={styles.duaCard}
+        style={[styles.duaCard, { backgroundColor: c.isDark ? "#042f2e" : "#f0fdfa", borderColor: c.isDark ? "#0f766e" : "#5eead4" }]}
         onPress={() => dua && router.push(`/ayah/${dua.surah_id}/${dua.ayah_number}`)}
         activeOpacity={0.85}
       >
         <View style={styles.cardHeader}>
-          <Text style={styles.cardBadge}>🤲 Günün Duası</Text>
-          {dua && <Text style={styles.cardRef}>{dua.surah_name} · {dua.surah_id}:{dua.ayah_number}</Text>}
+          <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>🤲 Günün Duası</Text>
+          {dua && <Text style={[styles.cardRef, { color: c.isDark ? "#14b8a6" : "#0d9488" }]}>{dua.surah_name} · {dua.surah_id}:{dua.ayah_number}</Text>}
         </View>
         {!dua ? (
           <ActivityIndicator color="#0d9488" style={{ marginVertical: 12 }} />
         ) : (
           <>
-            {dua.arabic_text && (
-              <Text style={styles.duaArabic} dir="rtl">{dua.arabic_text}</Text>
-            )}
-            {dua.meal && <Text style={styles.verseMeal} numberOfLines={3}>{dua.meal}</Text>}
+            {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.arabic_text}</Text>}
+            {dua.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]} numberOfLines={3}>{dua.meal}</Text>}
           </>
         )}
       </TouchableOpacity>
@@ -121,12 +172,12 @@ export default function HomeScreen() {
         {NAV_CARDS.map((card) => (
           <TouchableOpacity
             key={card.route}
-            style={[styles.card, { backgroundColor: card.bg, borderColor: card.border }]}
+            style={[styles.card, { backgroundColor: c.isDark ? c.card : card.bg, borderColor: c.isDark ? c.border : card.border }]}
             onPress={() => router.push(card.route)}
             activeOpacity={0.75}
           >
-            <MaterialCommunityIcons name={card.icon} size={36} color={card.iconColor} />
-            <Text style={styles.cardLabel}>{card.label}</Text>
+            <MaterialCommunityIcons name={card.icon} size={36} color={c.isDark ? c.accent : card.iconColor} />
+            <Text style={[styles.cardLabel, { color: c.text }]}>{card.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -135,62 +186,51 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7f1e4" },
+  container: { flex: 1 },
   content:   { padding: 16, paddingBottom: 32 },
 
-  hero:      { alignItems: "center", paddingVertical: 20 },
+  hero:    { alignItems: "center", paddingVertical: 20 },
+  heroTop: { flexDirection: "row", alignItems: "center", width: "100%", marginBottom: 4 },
   heroIcon:  { fontSize: 44, marginBottom: 8 },
-  heroTitle: { fontSize: 24, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
-  heroSub:   { fontSize: 12, color: "#78716c", textAlign: "center" },
+  heroTitle: { fontSize: 24, fontWeight: "700", marginBottom: 4 },
+  heroSub:   { fontSize: 12, textAlign: "center" },
 
   streakCard: {
     flexDirection: "row", alignItems: "center", gap: 12,
-    backgroundColor: "#fff7ed", borderRadius: 14, padding: 14,
-    borderWidth: 1, borderColor: "#fed7aa", marginBottom: 12,
+    borderRadius: 14, padding: 14,
+    borderWidth: 1, marginBottom: 12,
   },
   streakEmoji: { fontSize: 26 },
-  streakTitle: { fontSize: 14, fontWeight: "700", color: "#9a3412" },
-  streakSub:   { fontSize: 11, color: "#c2410c", marginTop: 2 },
+  streakTitle: { fontSize: 14, fontWeight: "700" },
+  streakSub:   { fontSize: 11, marginTop: 2 },
 
-  // Günün Ayeti
-  verseCard: {
-    backgroundColor: "#fffbeb", borderRadius: 16, padding: 16,
-    borderWidth: 1, borderColor: "#fcd34d", marginBottom: 12,
-  },
-  cardHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
-  cardBadge:  { fontSize: 13, fontWeight: "700", color: "#92400e" },
-  cardRef:    { fontSize: 11, color: "#a16207" },
-  verseReading: { fontSize: 13, color: "#78350f", fontStyle: "italic", marginBottom: 6, lineHeight: 20 },
-  verseMeal:    { fontSize: 13, color: "#451a03", lineHeight: 20 },
+  verseCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
+  cardHeader:{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
+  cardBadge: { fontSize: 13, fontWeight: "700" },
+  cardRef:   { fontSize: 11 },
+  verseReading: { fontSize: 13, fontStyle: "italic", marginBottom: 6, lineHeight: 20 },
+  verseMeal:    { fontSize: 13, lineHeight: 20 },
 
-  // Namaz
-  prayerCard: {
-    backgroundColor: "#eef2ff", borderRadius: 16, padding: 16,
-    borderWidth: 1, borderColor: "#a5b4fc", marginBottom: 12,
-  },
+  prayerCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
   prayerItem: {
     alignItems: "center", paddingHorizontal: 12, paddingVertical: 8,
-    marginRight: 8, borderRadius: 10, backgroundColor: "#fff",
-    borderWidth: 1, borderColor: "#e0e7ff", minWidth: 64,
+    marginRight: 8, borderRadius: 10, borderWidth: 1, minWidth: 64,
   },
-  prayerItemActive: { backgroundColor: "#4f46e5", borderColor: "#4f46e5" },
-  prayerLabel: { fontSize: 11, color: "#6366f1", fontWeight: "600" },
-  prayerLabelActive: { color: "#fff" },
-  prayerTime:  { fontSize: 13, color: "#312e81", fontWeight: "700", marginTop: 2 },
-  prayerTimeActive: { color: "#fff" },
+  prayerItemActive:    { backgroundColor: "#4f46e5", borderColor: "#4f46e5" },
+  prayerLabel:         { fontSize: 11, fontWeight: "600" },
+  prayerLabelActive:   { color: "#fff" },
+  prayerTime:          { fontSize: 13, fontWeight: "700", marginTop: 2 },
+  prayerTimeActive:    { color: "#fff" },
 
-  // Günün Duası
-  duaCard: {
-    backgroundColor: "#f0fdfa", borderRadius: 16, padding: 16,
-    borderWidth: 1, borderColor: "#5eead4", marginBottom: 16,
-  },
-  duaArabic: { fontSize: 18, color: "#134e4a", textAlign: "right", lineHeight: 32, marginBottom: 8 },
+  duaCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 16 },
+  duaArabic: { fontSize: 18, textAlign: "right", lineHeight: 32, marginBottom: 8 },
 
-  grid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
-  card: {
-    width: "47%", borderRadius: 14, borderWidth: 1.5,
-    padding: 16, alignItems: "center", gap: 6,
-    elevation: 2,
-  },
-  cardLabel: { fontSize: 12, fontWeight: "600", color: "#1c1917", textAlign: "center" },
+  themeBtn:     { width: 36, height: 36, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },
+  moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
+  moodLabel: { fontSize: 13, fontWeight: "600" },
+
+  grid:      { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  card:      { width: "47%", borderRadius: 14, borderWidth: 1.5, padding: 16, alignItems: "center", gap: 6, elevation: 2 },
+  cardLabel: { fontSize: 12, fontWeight: "600", textAlign: "center" },
 });

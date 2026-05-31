@@ -1,7 +1,8 @@
 import React from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, useColorScheme, StyleSheet,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet,
 } from "react-native";
+import { useColors as useGlobalColors } from "../../src/hooks/useColors";
 import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -131,8 +132,7 @@ const bakara250: DuaKarti = {
 // ── Renk paleti (dark mode uyumlu) ──────────────────────────────────────────
 
 function useColors() {
-  const scheme = useColorScheme();
-  const dark = scheme === "dark";
+  const { isDark: dark } = useGlobalColors();
   return {
     bg:            dark ? "#1c1917" : "#f7f1e4",
     cardBg:        dark ? "#292524" : "#ffffff",

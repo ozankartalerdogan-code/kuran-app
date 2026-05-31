@@ -6,8 +6,10 @@ import { router, useFocusEffect } from "expo-router";
 import { useCallback } from "react";
 import { useNotes } from "../../src/hooks/useNotes";
 import { api } from "../../src/lib/api";
+import { useColors } from "../../src/hooks/useColors";
 
 export default function NotesScreen() {
+  const c = useColors();
   const { notes, saveNote } = useNotes();
   const [surahNames, setSurahNames] = useState<Record<string, string>>({});
   const [loading, setLoading]       = useState(true);
@@ -55,24 +57,23 @@ export default function NotesScreen() {
   // Yükleniyor
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
         {[1, 2, 3].map(i => (
-          <View key={i} style={styles.skeleton} />
+          <View key={i} style={[styles.skeleton, { backgroundColor: c.border }]} />
         ))}
       </View>
     );
   }
 
-  // Boş durum
   if (noteList.length === 0) {
     return (
-      <View style={styles.centered}>
+      <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>📭</Text>
-        <Text style={styles.emptyTitle}>Henüz not eklemediniz</Text>
-        <Text style={styles.emptySub}>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>Henüz not eklemediniz</Text>
+        <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet detay sayfasının altındaki not alanından not ekleyebilirsiniz.
         </Text>
-        <TouchableOpacity style={styles.goBtn} onPress={() => router.push("/surah")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/surah")} activeOpacity={0.8}>
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>
@@ -83,10 +84,10 @@ export default function NotesScreen() {
     <FlatList
       data={noteList}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={styles.list}
+      contentContainerStyle={[styles.list, { backgroundColor: c.bg }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
-          <Text style={styles.noteCount}>{noteList.length} ayet için not kaydedildi</Text>
+          <Text style={[styles.noteCount, { color: c.textMuted }]}>{noteList.length} ayet için not kaydedildi</Text>
           <TouchableOpacity onPress={handleClearAll} hitSlop={8}>
             <Text style={styles.clearAll}>Tümünü Sil</Text>
           </TouchableOpacity>
@@ -96,7 +97,7 @@ export default function NotesScreen() {
         const { surahId, ayahNumber } = parseKey(item.verseKey);
         return (
           <TouchableOpacity
-            style={styles.card}
+            style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
             onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
             activeOpacity={0.75}
           >
@@ -104,28 +105,32 @@ export default function NotesScreen() {
               <View style={styles.keyBadge}>
                 <Text style={styles.keyText}>{item.verseKey}</Text>
               </View>
-              <Text style={styles.verseLabel} numberOfLines={1}>
+              <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
                 {formatLabel(item.verseKey)}
               </Text>
               <TouchableOpacity onPress={() => saveNote(item.verseKey, "")} hitSlop={8}>
                 <Text style={styles.deleteBtn}>🗑</Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.noteText} numberOfLines={4}>
+            <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
               {item.text}
             </Text>
           </TouchableOpacity>
         );
       }}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
+      windowSize={5}
+      removeClippedSubviews={true}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, backgroundColor: "#f7f1e4", gap: 10 },
-  loadingContainer:{ flex: 1, padding: 12, gap: 10, backgroundColor: "#f7f1e4" },
-  skeleton:        { height: 100, borderRadius: 14, backgroundColor: "#e7e5e4" },
+  centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, gap: 10 },
+  loadingContainer:{ flex: 1, padding: 12, gap: 10 },
+  skeleton:        { height: 100, borderRadius: 14 },
   emptyIcon:       { fontSize: 48 },
   emptyTitle:      { fontSize: 18, fontWeight: "700", color: "#1c1917" },
   emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },

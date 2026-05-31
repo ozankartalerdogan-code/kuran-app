@@ -1,4 +1,5 @@
 // EXPO_PUBLIC_ prefix: Expo build sürecinde bundle'a gömülür
+
 const API_BASE =
   process.env.EXPO_PUBLIC_API_URL ?? "https://kuranapp.vercel.app/api/v1";
 
@@ -9,44 +10,104 @@ class ApiError extends Error {
   constructor(
     public status: number,
     message: string,
+    public retryAfter?: number,
   ) {
     super(message);
     this.name = "ApiError";
   }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-
+async function request<T>(
+  path: string,
+  init?: RequestInit,
+  signal?: AbortSignal,
+): Promise<T> {
   try {
     const res = await fetch(`${API_BASE}${path}`, {
       ...init,
-      headers: { ...init?.headers, "Content-Type": "application/json; charset=utf-8", "Accept": "application/json" },
-      signal: controller.signal,
+      headers: {
+        ...init?.headers,
+        "Content-Type": "application/json; charset=utf-8",
+        Accept: "application/json",
+      },
+      signal: signal,
     });
 
-    if (!res.ok) throw new ApiError(res.status, `HTTP ${res.status}: ${path}`);
-    return (await res.json()) as T;
+    if (!res.ok) {
+      let detail = "";
+      try {
+        const body = await res.json();
+        detail = body?.error ?? body?.message ?? "";
+      } catch {
+        /* gövde JSON değilse boş bırak */
+      }
+      const msg = detail
+        ? `HTTP ${res.status}: ${detail}`
+        : `HTTP ${res.status}: ${path}`;
+
+      let retryAfter: number | undefined;
+      if (res.status === 429) {
+        const ra = res.headers.get("Retry-After");
+        if (ra) {
+          const parsed = parseInt(ra, 10);
+          if (!isNaN(parsed)) retryAfter = parsed;
+        }
+      }
+
+      throw new ApiError(res.status, msg, retryAfter);
+    }
+
+    try {
+      return (await res.json()) as T;
+    } catch {
+      throw new ApiError(0, `Geçersiz JSON yanıtı: ${path}`);
+    }
   } catch (err) {
+    if (err instanceof ApiError) throw err;
     if ((err as Error).name === "AbortError") {
       throw new ApiError(408, `Zaman aşımı: ${path}`);
     }
     throw err;
-  } finally {
-    clearTimeout(timer);
   }
 }
 
-async function withRetry<T>(fn: () => Promise<T>, retries = MAX_RETRIES): Promise<T> {
+async function withRetry<T>(
+  fn: (signal: AbortSignal) => Promise<T>,
+  retries = MAX_RETRIES,
+): Promise<T> {
   for (let attempt = 0; attempt <= retries; attempt++) {
+    const controller = new AbortController();
+    // timeout: 10 sn → 15 sn → 22.5 sn
+    const timeoutMs = TIMEOUT_MS * Math.pow(1.5, attempt);
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+
     try {
-      return await fn();
+      const result = await fn(controller.signal);
+      clearTimeout(timer);
+      return result;
     } catch (err) {
+      clearTimeout(timer);
+
       const isLast = attempt === retries;
+
+      // 429 Retry-After varsa onu bekle
+      if (
+        err instanceof ApiError &&
+        err.status === 429 &&
+        err.retryAfter !== undefined &&
+        !isLast
+      ) {
+        await new Promise((r) => setTimeout(r, err.retryAfter! * 1000));
+        continue;
+      }
+
       const isRetryable =
-        err instanceof ApiError ? err.status >= 500 || err.status === 408 : true;
+        err instanceof ApiError
+          ? err.status >= 500 || err.status === 408 || err.status === 429
+          : true;
+
       if (isLast || !isRetryable) throw err;
+
       await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
     }
   }
@@ -67,87 +128,92 @@ export type SurahListItem = {
 export type SuggestedSurah = { id: number; name: string };
 
 export type RootItem = {
-  root:       string;
+  root: string;
   meaning_tr: string;
-  frequency:  number;
+  frequency: number;
 };
 
 export type RootDetail = {
-  root:        string;
-  meaningTr:   string;
+  root: string;
+  meaningTr: string;
   distribution: Record<number, number>;
   derivedWords: Array<{
-    word:       string;
-    meaning:    string;
-    surahId:    number;
+    word: string;
+    meaning: string;
+    surahId: number;
     ayahNumber: number;
   }>;
 };
 
 export type FavoriteVerse = {
-  verse_key:   string;
-  surah_id:    number;
+  verse_key: string;
+  surah_id: number;
   ayah_number: number;
-  surah_name:  string | null;
-  meal:        string | null;
-  ana_tema:    string | null;
-  alt_taglar:  string[];
+  surah_name: string | null;
+  meal: string | null;
+  ana_tema: string | null;
+  alt_taglar: string[];
 };
 
 export type ElifbaDers = {
-  id:          number;
-  baslik:      string;
+  id: number;
+  baslik: string;
   konu_sirasi: number;
-  seviye:      string;
+  seviye: string;
   harf_sayisi: number;
 };
 
 export type ElifbaHarf = {
-  harf_id:    number;
-  harf_adi:   string;
-  harf_sesi:  string;
+  harf_id: number;
+  harf_adi: string;
+  harf_sesi: string;
   tek_basina: string;
-  basta:      string;
-  ortada:     string;
-  sonda:      string;
-  mahrec:     string;
+  basta: string;
+  ortada: string;
+  sonda: string;
+  mahrec: string;
   kalin_ince: string;
-  grup:       string;
+  grup: string;
 };
 
 export type ElifbaQuizSoru = {
-  quiz_id:     number;
-  lesson_id:   number;
-  soru:        string;
-  secenekler:  string[];
+  quiz_id: number;
+  lesson_id: number;
+  soru: string;
+  secenekler: string[];
   dogru_cevap: string;
-  ipucu:       string | null;
-  zorluk:      number;
+  ipucu: string | null;
+  zorluk: number;
 };
 
 export type TagFilterResult = {
-  verse_key:   string;
-  surah_id:    number;
+  verse_key: string;
+  surah_id: number;
   ayah_number: number;
-  surah_name:  string | null;
-  reading_tr:  string | null;
-  meal:        string | null;
+  surah_name: string | null;
+  reading_tr: string | null;
+  meal: string | null;
 };
 
 export type TagFilterResponse = {
-  type:    "tag_results";
-  tag:     string;
+  type: "tag_results";
+  tag: string;
   tagType: "ana_tema" | "alt_tag";
   results: TagFilterResult[];
-  total:   number;
-  page:    number;
-  pages:   number;
+  total: number;
+  page: number;
+  pages: number;
 };
 
 export type SearchResponse =
   | { type: "none" }
   | { type: "surah"; surahId: number; surahName: string }
-  | { type: "verses"; results: VerseResult[]; total: number; suggestedSurah?: SuggestedSurah }
+  | {
+      type: "verses";
+      results: VerseResult[];
+      total: number;
+      suggestedSurah?: SuggestedSurah;
+    }
   | { type: "tag"; tag: string; count: number };
 
 export type VerseResult = {
@@ -158,9 +224,9 @@ export type VerseResult = {
 
 export type VerseItem = {
   ayahNumber: number;
-  meal:       string | null;
-  reading:    string | null;
-  literal:    string | null;
+  meal: string | null;
+  reading: string | null;
+  literal: string | null;
 };
 
 export type VerseListResponse = {
@@ -175,42 +241,42 @@ export type VerseListResponse = {
 };
 
 export type DailyVerseItem = {
-  verse_key:   string;
-  surah_id:    number;
+  verse_key: string;
+  surah_id: number;
   ayah_number: number;
-  surah_name:  string | null;
+  surah_name: string | null;
   arabic_text: string | null;
-  reading_tr:  string | null;
-  meal:        string | null;
+  reading_tr: string | null;
+  meal: string | null;
 };
 
 export type DailyResponse = {
   verse: DailyVerseItem | null;
-  dua:   DailyVerseItem | null;
+  dua: DailyVerseItem | null;
 };
 
 export type AyahDetailResponse = {
-  verseKey:      string;
-  surahId:       number;
-  ayahNumber:    number;
-  surahName:     string;
-  arabicName:    string;
-  verseCount:    number;
-  arabicText:    string | null;
-  readingTr:     string | null;
-  meal:          string | null;
+  verseKey: string;
+  surahId: number;
+  ayahNumber: number;
+  surahName: string;
+  arabicName: string;
+  verseCount: number;
+  arabicText: string | null;
+  readingTr: string | null;
+  meal: string | null;
   literalCeviri: string | null;
-  farkAnalizi:   string | null;
-  anaTema:       string | null;
-  altTaglar:     string[];
-  translations:  { source: string; text: string | null }[];
-  rootMeanings:  Record<string, string>;
+  farkAnalizi: string | null;
+  anaTema: string | null;
+  altTaglar: string[];
+  translations: { source: string; text: string | null }[];
+  rootMeanings: Record<string, string>;
   words: {
-    wordIndex:  number;
-    arabic:     string | null;
-    meaningTr:  string | null;
-    pos:        string | null;
-    root:       string | null;
+    wordIndex: number;
+    arabic: string | null;
+    meaningTr: string | null;
+    pos: string | null;
+    root: string | null;
   }[];
   prevAyah: { surahId: number; ayahNumber: number } | null;
   nextAyah: { surahId: number; ayahNumber: number } | null;
@@ -221,70 +287,107 @@ export type AyahDetailResponse = {
 export const api = {
   surahs: {
     list: () =>
-      withRetry(() => request<SurahListItem[]>("/surahs")),
+      withRetry((signal) =>
+        request<SurahListItem[]>("/surahs", undefined, signal),
+      ),
   },
 
   search: {
     query: (q: string) =>
-      withRetry(() => request<SearchResponse>(`/search?q=${encodeURIComponent(q)}`)),
+      withRetry((signal) =>
+        request<SearchResponse>(
+          `/search?q=${encodeURIComponent(q)}`,
+          undefined,
+          signal,
+        ),
+      ),
   },
 
   verses: {
     bySurah: (surahId: number) =>
-      withRetry(() => request<VerseListResponse>(`/verses?surah_id=${surahId}`)),
+      withRetry((signal) =>
+        request<VerseListResponse>(
+          `/verses?surah_id=${surahId}`,
+          undefined,
+          signal,
+        ),
+      ),
   },
 
   ayah: {
     get: (surahId: number, ayahNumber: number) =>
-      withRetry(() =>
+      withRetry((signal) =>
         request<AyahDetailResponse>(
           `/ayah?surah_id=${surahId}&ayah_number=${ayahNumber}`,
+          undefined,
+          signal,
         ),
       ),
   },
 
   tags: {
     filter: (tag: string, page = 1) =>
-      withRetry(() =>
+      withRetry((signal) =>
         request<TagFilterResponse>(
           `/tags/filter?tag=${encodeURIComponent(tag)}&page=${page}`,
+          undefined,
+          signal,
         ),
       ),
   },
 
   roots: {
     list: () =>
-      withRetry(() => request<unknown>("/roots").then(r => {
-        if (Array.isArray(r)) return r as RootItem[];
-        if (r && typeof r === "object" && "roots" in r) return (r as { roots: RootItem[] }).roots ?? [];
-        return [];
-      })),
+      withRetry((signal) =>
+        request<unknown>("/roots", undefined, signal).then((r) => {
+          if (Array.isArray(r)) return r as RootItem[];
+          if (r && typeof r === "object" && "roots" in r)
+            return (r as { roots: RootItem[] }).roots ?? [];
+          return [];
+        }),
+      ),
     detail: (root: string) =>
-      withRetry(() => request<RootDetail>(`/root/${encodeURIComponent(root)}`)),
+      withRetry((signal) =>
+        request<RootDetail>(
+          `/root/${encodeURIComponent(root)}`,
+          undefined,
+          signal,
+        ),
+      ),
   },
 
   favorites: {
     fetch: (keys: string[]) =>
-      withRetry(() =>
+      withRetry((signal) =>
         request<FavoriteVerse[]>(
           `/favorites-verses?keys=${keys.map(encodeURIComponent).join(",")}`,
+          undefined,
+          signal,
         ),
       ),
   },
 
   tafsir: {
     get: (surahId: number) =>
-      withRetry(() => request<{ content: string | null }>(`/tafsir/${surahId}`)),
+      withRetry((signal) =>
+        request<{ content: string | null }>(
+          `/tafsir/${surahId}`,
+          undefined,
+          signal,
+        ),
+      ),
   },
 
   daily: {
     get: () =>
-      withRetry(() => request<DailyResponse>("/daily")),
+      withRetry((signal) =>
+        request<DailyResponse>("/daily", undefined, signal),
+      ),
   },
 
   mood: {
     random: (tag: string, exclude?: string) =>
-      withRetry(() =>
+      withRetry((signal) =>
         request<{
           verse_key: string;
           surah_id: number;
@@ -294,16 +397,32 @@ export const api = {
           meal: string | null;
         }>(
           `/mood/random?tag=${encodeURIComponent(tag)}${exclude ? `&exclude=${encodeURIComponent(exclude)}` : ""}`,
+          undefined,
+          signal,
         ),
       ),
   },
 
   elifba: {
     dersler: () =>
-      withRetry(() => request<ElifbaDers[]>("/elifba/dersler")),
+      withRetry((signal) =>
+        request<ElifbaDers[]>("/elifba/dersler", undefined, signal),
+      ),
     harfler: (dersId: number) =>
-      withRetry(() => request<ElifbaHarf[]>(`/elifba/dersler/${dersId}/harfler`)),
+      withRetry((signal) =>
+        request<ElifbaHarf[]>(
+          `/elifba/dersler/${dersId}/harfler`,
+          undefined,
+          signal,
+        ),
+      ),
     quiz: (lessonId: number) =>
-      withRetry(() => request<ElifbaQuizSoru[]>(`/elifba/quiz/${lessonId}`)),
+      withRetry((signal) =>
+        request<ElifbaQuizSoru[]>(
+          `/elifba/quiz/${lessonId}`,
+          undefined,
+          signal,
+        ),
+      ),
   },
 };

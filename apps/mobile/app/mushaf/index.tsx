@@ -6,7 +6,7 @@ export default function MushafScreen() {
   return (
     <View style={{ flex: 1 }}>
       <Stack.Screen options={{ title: "Mushaf" }} />
-      <MushafReader />
+      <MushafReader loadBookmark={true} />
     </View>
   );
 }

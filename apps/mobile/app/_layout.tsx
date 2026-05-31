@@ -2,6 +2,8 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
+import React, { Component, type ErrorInfo, type ReactNode } from "react";
+import ErrorFallback from "../src/components/ErrorFallback";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -11,7 +13,43 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function RootLayout() {
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error(error, errorInfo);
+  }
+
+  handleReset = (): void => {
+    this.setState({ hasError: false, error: null });
+  };
+
+  render(): ReactNode {
+    if (this.state.hasError && this.state.error) {
+      return <ErrorFallback error={this.state.error} resetError={this.handleReset} />;
+    }
+
+    return this.props.children;
+  }
+}
+
+function AppContent() {
   return (
     <SafeAreaProvider>
       <StatusBar style="dark" />
@@ -35,5 +73,13 @@ export default function RootLayout() {
         <Stack.Screen name="kesfet"                               options={{ title: "Keşfet", headerBackTitle: "Geri" }} />
       </Stack>
     </SafeAreaProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ErrorBoundary>
+      <AppContent />
+    </ErrorBoundary>
   );
 }

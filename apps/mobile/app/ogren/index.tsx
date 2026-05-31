@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { router, Stack } from "expo-router";
 import { api, type ElifbaDers } from "../../src/lib/api";
+import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
 const QUIZ_PASS = 3;
@@ -196,6 +197,7 @@ function VLineRow({ side, color }: { side: "left" | "right"; color: string }) {
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function OgrenScreen() {
+  const c = useColors();
   const [dersler, setDersler]       = useState<ElifbaDers[]>([]);
   const [loading, setLoading]       = useState(true);
   const [progress, setProgress]     = useState<Record<string, number[]>>({});
@@ -261,13 +263,13 @@ export default function OgrenScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
-      <ScrollView style={s.scroll} contentContainerStyle={s.content}>
+      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={s.content}>
 
         {/* Genel ilerleme */}
-        <View style={s.overallCard}>
+        <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
-            <Text style={s.overallTitle}>🏆 İlerleme</Text>
-            <Text style={s.overallCount}>{completedCount} / {dersler.length} ders</Text>
+            <Text style={[s.overallTitle, { color: c.text }]}>🏆 İlerleme</Text>
+            <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
           </View>
           <View style={s.overallBar}>
             <View style={[s.overallFill, { width: `${overallPct}%` as any }]} />

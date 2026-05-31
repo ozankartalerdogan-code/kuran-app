@@ -9,6 +9,7 @@ import {
 import { useState, useEffect, useMemo } from "react";
 import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
+import { useColors } from "../../src/hooks/useColors";
 
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
@@ -19,6 +20,7 @@ const SORT_LABELS: Record<SortKey, string> = {
 };
 
 export default function RootListScreen() {
+  const c = useColors();
   const [roots,   setRoots]   = useState<RootItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState<string | null>(null);
@@ -53,8 +55,8 @@ export default function RootListScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Kelime Kökleri" }} />
-        <View style={s.centered}>
-          <ActivityIndicator size="large" color="#059669" />
+        <View style={[s.centered, { backgroundColor: c.bg }]}>
+          <ActivityIndicator size="large" color={c.accent} />
         </View>
       </>
     );
@@ -74,15 +76,15 @@ export default function RootListScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Kelime Kökleri" }} />
-      <View style={s.container}>
+      <View style={[s.container, { backgroundColor: c.bg }]}>
         {/* Arama */}
-        <View style={s.searchBar}>
+        <View style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}>
           <TextInput
-            style={s.searchInput}
+            style={[s.searchInput, { color: c.text }]}
             value={search}
             onChangeText={setSearch}
             placeholder="Kök veya anlam ara…"
-            placeholderTextColor="#a8a29e"
+            placeholderTextColor={c.textMuted}
             autoCorrect={false}
             autoCapitalize="none"
             clearButtonMode="while-editing"
@@ -94,7 +96,7 @@ export default function RootListScreen() {
           {(Object.keys(SORT_LABELS) as SortKey[]).map(k => (
             <TouchableOpacity
               key={k}
-              style={[s.sortBtn, sort === k && s.sortBtnActive]}
+              style={[s.sortBtn, { backgroundColor: c.card, borderColor: c.border }, sort === k && s.sortBtnActive]}
               onPress={() => setSort(k)}
               activeOpacity={0.75}
             >
@@ -120,13 +122,13 @@ export default function RootListScreen() {
           ItemSeparatorComponent={() => <View style={s.sep} />}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={s.card}
+              style={[s.card, { backgroundColor: c.card }]}
               onPress={() => router.push(`/root/${encodeURIComponent(item.root)}`)}
               activeOpacity={0.75}
             >
               <View style={s.cardLeft}>
-                <Text style={s.rootText}>{item.root}</Text>
-                <Text style={s.meaningText} numberOfLines={1}>{item.meaning_tr}</Text>
+                <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
+                <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
               </View>
               <View style={s.freqBadge}>
                 <Text style={s.freqText}>{item.frequency}</Text>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { api } from "../lib/api";
+import { storage, STORAGE_KEYS } from "../lib/storage";
 
 interface DailyVerse {
   verse_key: string;
@@ -17,92 +17,254 @@ interface PrayerTimes {
   Asr: string; Maghrib: string; Isha: string;
 }
 
+export interface UseDailyContentResult {
+  verse: DailyVerse | null;
+  dua: DailyVerse | null;
+  prayers: PrayerTimes | null;
+  prayerCity: string;
+  nextPrayer: { label: string; time: string } | null;
+  PRAYER_LABELS: Record<string, string>;
+  loading: boolean;
+  verseLoading: boolean;
+  duaLoading: boolean;
+  prayerLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
+
 const ISTANBUL = { lat: 41.0082, lon: 28.9784, city: "İstanbul" };
 const PRAYER_LABELS: Record<string, string> = {
   Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle",
   Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı",
 };
-const PRAYER_CACHE_KEY = "prayerTimesCache";
+
+interface PrayerCache {
+  date: string;
+  timings: PrayerTimes;
+}
+
+function isValidPrayerTimes(data: unknown): data is PrayerTimes {
+  if (!data || typeof data !== "object") return false;
+  const d = data as Record<string, unknown>;
+  return ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"].every(
+    (k) => typeof d[k] === "string",
+  );
+}
+
+function isValidDailyVerse(data: unknown): data is DailyVerse {
+  if (!data || typeof data !== "object") return false;
+  const d = data as Record<string, unknown>;
+  return (
+    typeof d.verse_key === "string" &&
+    typeof d.surah_id === "number" &&
+    typeof d.ayah_number === "number"
+  );
+}
 
 function todayKey() {
   const d = new Date();
-  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 }
 
+function buildDateStr(): string {
+  return `${new Date().getDate().toString().padStart(2, "0")}-${(new Date().getMonth() + 1).toString().padStart(2, "0")}-${new Date().getFullYear()}`;
+}
 
-export function useDailyContent() {
-  const [verse, setVerse]     = useState<DailyVerse | null>(null);
-  const [dua, setDua]         = useState<DailyVerse | null>(null);
+export function useDailyContent(): UseDailyContentResult {
+  const [verse, setVerse] = useState<DailyVerse | null>(null);
+  const [dua, setDua] = useState<DailyVerse | null>(null);
   const [prayers, setPrayers] = useState<PrayerTimes | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [verseLoading, setVerseLoading] = useState<boolean>(true);
+  const [duaLoading, setDuaLoading] = useState<boolean>(true);
+  const [prayerLoading, setPrayerLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   const prayerCity = ISTANBUL.city;
 
-  useEffect(() => {
+  const load = async () => {
+    setError(null);
+    setVerseLoading(true);
+    setDuaLoading(true);
+    setPrayerLoading(true);
+    setLoading(true);
+
+    // Track sub-load completions via flags (updated in closures)
+    let verseDone = false;
+    let duaDone = false;
+    let prayerDone = false;
+
+    const tryFinishLoading = () => {
+      if (verseDone && duaDone && prayerDone) {
+        setLoading(false);
+      }
+    };
+
     // 1. Namaz vakitlerini önce cache'den yükle (anında)
-    AsyncStorage.getItem(PRAYER_CACHE_KEY).then(raw => {
-      if (!raw) return;
-      try {
-        const cached = JSON.parse(raw);
-        if (cached.date === todayKey() && cached.timings) {
-          setPrayers(cached.timings);
+    try {
+      const raw = await storage.getString(STORAGE_KEYS.prayerCache);
+      if (raw) {
+        const cached: unknown = JSON.parse(raw);
+        if (
+          cached &&
+          typeof cached === "object" &&
+          (cached as PrayerCache).date === todayKey() &&
+          isValidPrayerTimes((cached as PrayerCache).timings)
+        ) {
+          setPrayers((cached as PrayerCache).timings);
         }
-      } catch (_e) { /* stale cache — ignore */ }
-    });
+      }
+    } catch {
+      // stale cache — ignore
+    }
 
     // 2. Günün Ayeti + Günün Duası — geniş havuzdan tarih bazlı seçim
-    api.daily.get()
+    api.daily
+      .get()
       .then((data) => {
-        if (data.verse) setVerse(data.verse);
-        if (data.dua)   setDua(data.dua);
+        if (data.verse && isValidDailyVerse(data.verse)) {
+          setVerse(data.verse);
+        }
+        if (data.dua && isValidDailyVerse(data.dua)) {
+          setDua(data.dua);
+        }
+        verseDone = true;
+        duaDone = true;
+        setVerseLoading(false);
+        setDuaLoading(false);
+        tryFinishLoading();
       })
       .catch(() => {
         // Fallback: deploy öncesi eski davranış
-        api.verses.bySurah(89).then((res) => {
-          const seed = new Date().getFullYear() * 10000 + (new Date().getMonth() + 1) * 100 + new Date().getDate();
-          const v = res.verses[seed % res.verses.length];
-          if (v) setVerse({
-            verse_key: `89:${v.ayahNumber}`,
-            surah_id: 89, ayah_number: v.ayahNumber,
-            surah_name: res.surah.name,
-            arabic_text: null, reading_tr: v.reading ?? null, meal: v.meal,
+        api.verses
+          .bySurah(89)
+          .then((res) => {
+            const seed =
+              new Date().getFullYear() * 10000 +
+              (new Date().getMonth() + 1) * 100 +
+              new Date().getDate();
+            const v = res.verses[seed % res.verses.length];
+            if (v) {
+              setVerse({
+                verse_key: `89:${v.ayahNumber}`,
+                surah_id: 89,
+                ayah_number: v.ayahNumber,
+                surah_name: res.surah.name,
+                arabic_text: null,
+                reading_tr: v.reading ?? null,
+                meal: v.meal,
+              });
+            }
+            verseDone = true;
+            setVerseLoading(false);
+            tryFinishLoading();
+          })
+          .catch(() => {
+            verseDone = true;
+            setVerseLoading(false);
+            tryFinishLoading();
           });
-        }).catch(() => {});
-        api.mood.random("sabır").then((d) => {
-          if (d?.verse_key) setDua({
-            verse_key: d.verse_key, surah_id: d.surah_id, ayah_number: d.ayah_number,
-            surah_name: d.surah_name, arabic_text: d.arabic_text ?? null,
-            reading_tr: null, meal: d.meal,
+        api.mood
+          .random("sabır")
+          .then((d) => {
+            if (d?.verse_key) {
+              setDua({
+                verse_key: d.verse_key,
+                surah_id: d.surah_id,
+                ayah_number: d.ayah_number,
+                surah_name: d.surah_name,
+                arabic_text: d.arabic_text ?? null,
+                reading_tr: null,
+                meal: d.meal,
+              });
+            }
+            duaDone = true;
+            setDuaLoading(false);
+            tryFinishLoading();
+          })
+          .catch(() => {
+            duaDone = true;
+            setDuaLoading(false);
+            tryFinishLoading();
           });
-        }).catch(() => {});
       });
 
     // 4. Namaz vakitlerini API'den çek ve cache'e yaz
-    const ts = `${new Date().getDate().toString().padStart(2,"0")}-${(new Date().getMonth()+1).toString().padStart(2,"0")}-${new Date().getFullYear()}`;
-    fetch(`https://api.aladhan.com/v1/timings/${ts}?latitude=${ISTANBUL.lat}&longitude=${ISTANBUL.lon}&method=13`, {
-      headers: { "Accept": "application/json" },
-    })
-      .then(r => r.json())
+    const ts = buildDateStr();
+    fetch(
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${ISTANBUL.lat}&longitude=${ISTANBUL.lon}&method=13`,
+      {
+        headers: { "Accept": "application/json" },
+      },
+    )
+      .then((r) => r.json())
       .then((d) => {
-        if (d?.data?.timings) {
+        if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
-          AsyncStorage.setItem(PRAYER_CACHE_KEY, JSON.stringify({
+          storage.setJSON(STORAGE_KEYS.prayerCache, {
             date: todayKey(),
             timings: d.data.timings,
-          })).catch(() => {});
+          }).catch(() => {});
         }
-      }).catch(() => {});
+        prayerDone = true;
+        setPrayerLoading(false);
+        tryFinishLoading();
+      })
+      .catch(() => {
+        prayerDone = true;
+        setPrayerLoading(false);
+        tryFinishLoading();
+      });
+
+    // Safety timeout: en geç 10 saniye sonra loading'i kapat
+    setTimeout(() => {
+      if (!verseDone) setVerseLoading(false);
+      if (!duaDone) setDuaLoading(false);
+      if (!prayerDone) setPrayerLoading(false);
+      setLoading(false);
+    }, 10_000);
+  };
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const nextPrayer = prayers ? (() => {
-    const now = new Date();
-    const nowMin = now.getHours() * 60 + now.getMinutes();
-    for (const key of ["Fajr","Dhuhr","Asr","Maghrib","Isha"]) {
-      const [h, m] = (prayers[key as keyof PrayerTimes] ?? "").split(":").map(Number);
-      if (!isNaN(h) && h * 60 + m > nowMin) {
-        return { label: PRAYER_LABELS[key], time: prayers[key as keyof PrayerTimes] };
-      }
-    }
-    return { label: PRAYER_LABELS["Fajr"], time: prayers.Fajr };
-  })() : null;
+  const nextPrayer = prayers
+    ? (() => {
+        const now = new Date();
+        const nowMin = now.getHours() * 60 + now.getMinutes();
+        for (const key of ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"]) {
+          const [h, m] = (prayers[key as keyof PrayerTimes] ?? "")
+            .split(":")
+            .map(Number);
+          if (!isNaN(h) && h * 60 + m > nowMin) {
+            return {
+              label: PRAYER_LABELS[key],
+              time: prayers[key as keyof PrayerTimes],
+            };
+          }
+        }
+        return { label: PRAYER_LABELS["Fajr"], time: prayers.Fajr };
+      })()
+    : null;
 
-  return { verse, dua, prayers, prayerCity, nextPrayer, PRAYER_LABELS };
+  const refresh = async () => {
+    await load();
+  };
+
+  return {
+    verse,
+    dua,
+    prayers,
+    prayerCity,
+    nextPrayer,
+    PRAYER_LABELS,
+    loading,
+    verseLoading,
+    duaLoading,
+    prayerLoading,
+    error,
+    refresh,
+  };
 }

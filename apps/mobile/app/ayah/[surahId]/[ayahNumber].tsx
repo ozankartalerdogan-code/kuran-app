@@ -10,7 +10,8 @@ import {
   useColorScheme,
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
-import { useState, useEffect, useCallback } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useState, useEffect, useCallback } from "react";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useFavorites } from "../../../src/hooks/useFavorites";
@@ -178,34 +179,60 @@ function UniqueRootList({
 
 // ── Hızlı Ayet Atlama ────────────────────────────────────────────────────────
 
-function AyahJumpBar({ surahId, current, total, colors }: {
+function AyahJumpBar({ surahId, current, total, colors, rightContent }: {
   surahId: number; current: number; total: number; colors: ThemeColors;
+  rightContent?: React.ReactNode;
 }) {
-  const [val, setVal] = useState(String(current));
+  const [surahVal, setSurahVal] = useState(String(surahId));
+  const [ayahVal,  setAyahVal]  = useState(String(current));
 
-  useEffect(() => { setVal(String(current)); }, [current]);
+  useEffect(() => { setSurahVal(String(surahId)); }, [surahId]);
+  useEffect(() => { setAyahVal(String(current)); },  [current]);
 
   function jump() {
-    const n = parseInt(val, 10);
-    if (n >= 1 && n <= total) router.replace(`/ayah/${surahId}/${n}`);
+    const s = parseInt(surahVal, 10);
+    const a = parseInt(ayahVal,  10);
+    const targetSurah = s >= 1 && s <= 114 ? s : surahId;
+    const targetAyah  = a >= 1 ? a : 1;
+    router.replace(`/ayah/${targetSurah}/${targetAyah}`);
   }
 
+  const inputStyle = [styles.jumpInput, {
+    color: colors.textPrimary,
+    borderColor: colors.border,
+    backgroundColor: colors.surfaceAlt,
+  }];
+
   return (
-    <View style={[styles.jumpBar, { borderColor: colors.border }]}>
+    <View style={[styles.jumpBar, { borderColor: colors.border, alignItems: "center" }]}>
+      <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>Sure:</Text>
+      <TextInput
+        style={inputStyle}
+        value={surahVal}
+        onChangeText={setSurahVal}
+        keyboardType="number-pad"
+        onSubmitEditing={jump}
+        returnKeyType="next"
+        selectTextOnFocus
+      />
       <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>Ayet:</Text>
       <TextInput
-        style={[styles.jumpInput, { color: colors.textPrimary, borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}
-        value={val}
-        onChangeText={setVal}
+        style={inputStyle}
+        value={ayahVal}
+        onChangeText={setAyahVal}
         keyboardType="number-pad"
         onSubmitEditing={jump}
         returnKeyType="go"
         selectTextOnFocus
       />
-      <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>/ {total}</Text>
       <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8}>
         <Text style={styles.jumpBtnText}>Git</Text>
       </TouchableOpacity>
+      {rightContent && (
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center", gap: 8 }}>
+          {rightContent}
+        </View>
+      )}
     </View>
   );
 }
@@ -454,31 +481,29 @@ export default function AyahDetailScreen() {
       >
         {/* ═══ Başlık ═══ */}
         <View style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <View style={{ flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.headerTitle, { color: colors.textPrimary }]}>
-                {data.surahName}
-              </Text>
-              <Text style={[styles.headerSubtitle, { color: colors.textMuted }]}>
-                {data.ayahNumber}. Ayet · {data.verseKey}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", gap: 10, paddingLeft: 8, paddingTop: 2 }}>
-              <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
-                <Text style={{ fontSize: 24 }}>↗️</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => toggleFav(verseKey)} hitSlop={8} activeOpacity={0.7}>
-                <Text style={{ fontSize: 24 }}>{isFavorite(verseKey) ? "❤️" : "🤍"}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <Text style={[styles.headerTitle, { color: colors.textPrimary }]} numberOfLines={2}>
+            {data.surahName}
+          </Text>
+          <Text style={[styles.headerSubtitle, { color: colors.textMuted }]} numberOfLines={1}>
+            {data.ayahNumber}. Ayet · {data.verseKey}
+          </Text>
 
-          {/* Hızlı Ayet Atlama */}
+          {/* JumpBar + paylaş + favori aynı satırda */}
           <AyahJumpBar
             surahId={surahId}
             current={ayahNumber}
             total={data.verseCount}
             colors={colors}
+            rightContent={
+              <>
+                <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
+                  <Ionicons name="share-social-outline" size={20} color={colors.textMuted} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => toggleFav(verseKey)} hitSlop={8} activeOpacity={0.7}>
+                  <Text style={{ fontSize: 20 }}>{isFavorite(verseKey) ? "❤️" : "🤍"}</Text>
+                </TouchableOpacity>
+              </>
+            }
           />
         </View>
 
@@ -822,7 +847,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   headerTitle: {
-    fontSize: 22, fontWeight: "700",
+    fontSize: 18, fontWeight: "700",
   },
   headerSubtitle: {
     marginTop: 4, fontSize: 13, fontWeight: "500",
@@ -968,10 +993,10 @@ const styles = StyleSheet.create({
   navCenter: { fontSize: 13 },
 
   // ── Hızlı Ayet Atlama ──
-  jumpBar:    { flexDirection: "row", alignItems: "center", gap: 8, marginTop: 12, paddingTop: 10, borderTopWidth: StyleSheet.hairlineWidth },
-  jumpLabel:  { fontSize: 12, fontWeight: "500" },
-  jumpInput:  { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, width: 56, textAlign: "center" },
-  jumpBtn:    { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 8 },
+  jumpBar:    { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 10, paddingTop: 10, borderTopWidth: StyleSheet.hairlineWidth },
+  jumpLabel:  { fontSize: 12, fontWeight: "500", flexShrink: 0 },
+  jumpInput:  { borderWidth: 1, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 5, fontSize: 14, minWidth: 44, maxWidth: 64, textAlign: "center", flexShrink: 1 },
+  jumpBtn:    { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 8, flexShrink: 0 },
   jumpBtnText:{ color: "#fff", fontSize: 13, fontWeight: "700" },
 
   // ── Sure Accordion ──

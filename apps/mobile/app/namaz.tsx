@@ -1,6 +1,6 @@
 import {
   View, Text, ScrollView, TouchableOpacity,
-  ActivityIndicator, StyleSheet, Switch, Alert,
+  ActivityIndicator, StyleSheet, Switch,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { router, Stack } from "expo-router";
@@ -15,6 +15,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const NOTIF_KEY = "namazNotifEnabled";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
+
+// expo-location yeni APK build gerektirir — şimdilik İstanbul sabit
+async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
+  return { ...ISTANBUL, isFallback: true };
+}
 
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
 
@@ -129,7 +134,7 @@ function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: strin
     if (next && !fetched) {
       setLoading(true);
       try { const r = await api.tags.filter(tag); setVerses(r.results); }
-      catch {}
+      catch (_e) { /* ignore */ }
       setLoading(false);
       setFetched(true);
     }
@@ -170,6 +175,7 @@ export default function NamazScreen() {
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
   const [teheccudVerses, setTeheccudVerses] = useState<{ surahId: number; ayahNumber: number; label: string }[]>([]);
+  const [usingFallback, setUsingFallback] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem(NOTIF_KEY).then((v) => setNotifEnabled(v === "1"));
@@ -193,23 +199,33 @@ export default function NamazScreen() {
           setNotifLoading(false);
           return;
         }
-        const times = await fetchPrayerTimes(ISTANBUL.lat, ISTANBUL.lng);
+
+        const { lat, lng, isFallback } = await getUserLocation();
+        setUsingFallback(isFallback);
+
+        const times = await fetchPrayerTimes(lat, lng);
         if (!times) {
-          Alert.alert("Hata", "Namaz vakitleri alınamadı.");
+          Alert.alert("Hata", "Namaz vakitleri alınamadı. Lütfen internet bağlantınızı kontrol edin.");
           setNotifLoading(false);
           return;
         }
+
         await scheduleNamazNotifications(times);
         await AsyncStorage.setItem(NOTIF_KEY, "1");
         setNotifEnabled(true);
-        Alert.alert("Bildirimler Açık", "Bugünkü namaz vakitleri için bildirim planlandı.");
+
+        const locationMsg = isFallback
+          ? "Konum izni verilmediği için namaz vakitleri İstanbul'a göre hesaplandı."
+          : "Namaz vakitleri bulunduğunuz konuma göre hesaplandı.";
+        Alert.alert("Bildirimler Açık", `Bugünkü namaz vakitleri için bildirim planlandı.\n\n${locationMsg}`);
       } else {
         await cancelNamazNotifications();
         await AsyncStorage.setItem(NOTIF_KEY, "0");
         setNotifEnabled(false);
+        setUsingFallback(false);
       }
     } catch {
-      Alert.alert("Hata", "İşlem başarısız.");
+      Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
     } finally {
       setNotifLoading(false);
     }
@@ -224,7 +240,11 @@ export default function NamazScreen() {
           <View style={{ flex: 1 }}>
             <Text style={styles.notifTitle}>🔔 Namaz Vakti Bildirimleri</Text>
             <Text style={styles.notifSub}>
-              {notifEnabled ? "Bugünkü vakitler için bildirim planlandı (İstanbul)" : "Her namaz vakti için bildirim al"}
+              {notifEnabled
+                ? usingFallback
+                  ? "İstanbul için bildirim planlandı (konum izni verilmedi)"
+                  : "Bulunduğunuz konum için bildirim planlandı"
+                : "Her namaz vakti için bildirim al"}
             </Text>
           </View>
           {notifLoading

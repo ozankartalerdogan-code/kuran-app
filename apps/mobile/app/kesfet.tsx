@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity,
-  ActivityIndicator, StyleSheet,
+  View, Text, FlatList, TouchableOpacity,
+  ActivityIndicator, StyleSheet, Platform,
 } from "react-native";
 import { router, Stack } from "expo-router";
 import { api } from "../src/lib/api";
+import { useColors } from "../src/hooks/useColors";
 
 // ── Sekme tanımları ───────────────────────────────────────────────────────────
 
@@ -110,15 +111,6 @@ const DUA_CATS = [
   { emoji: "📿", id: "zikir",      label: "Zikir ve Tesbih",      tag: "zikir",          renk: "#fef3c7" },
 ];
 
-const RUH_HALI = [
-  { emoji: "😌", label: "Huzur",           tag: "rahmet",  bg: "#d1fae5" },
-  { emoji: "💪", label: "Sabır",           tag: "sabır",   bg: "#fef3c7" },
-  { emoji: "🙏", label: "Tövbe",           tag: "tövbe",   bg: "#ede9fe" },
-  { emoji: "🌟", label: "Şükür",           tag: "şükür",   bg: "#fef9c3" },
-  { emoji: "⚖️", label: "Adalet",          tag: "adalet",  bg: "#e0e7ff" },
-  { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",   bg: "#ffe4e6" },
-];
-
 // ── Namaz verisi ──────────────────────────────────────────────────────────────
 
 const VAKIT_ROWS = [
@@ -144,6 +136,42 @@ function parseKey(key: string) {
   return { surahId: s || 0, ayahNumber: a || 0 };
 }
 
+// ── Liste öğe tipi ────────────────────────────────────────────────────────────
+
+type ListItem =
+  | { kind: "section_title"; key: string; title: string }
+  | { kind: "featured_grid"; key: string }
+  | { kind: "rehber"; key: string; item: typeof REHBERLER[number] }
+  | { kind: "theme_accordion"; key: string; grup: typeof AKORDEON_GRUPLARI[number] }
+  | { kind: "tag_accordion"; key: string; emoji: string; label: string; tag: string; renk: string }
+  | { kind: "vakit_tablosu"; key: string };
+
+// ── Key sabitleri ─────────────────────────────────────────────────────────────
+
+const KEY_MAPPING: Record<Tab, ListItem[]> = (() => {
+  const temalar: ListItem[] = [
+    { kind: "section_title", key: "st_featured", title: "Öne Çıkan Temalar" },
+    { kind: "featured_grid", key: "featured_grid" },
+    { kind: "section_title", key: "st_rehber", title: "Özel Rehberler" },
+    ...REHBERLER.map((r, i): ListItem => ({ kind: "rehber", key: `rehber_${i}`, item: r })),
+    { kind: "section_title", key: "st_all", title: "Tüm Temalar" },
+    ...AKORDEON_GRUPLARI.map((g, i): ListItem => ({ kind: "theme_accordion", key: `theme_${i}`, grup: g })),
+  ];
+
+  const dualar: ListItem[] = [
+    { kind: "section_title", key: "st_dua", title: "Dua Kategorileri" },
+    ...DUA_CATS.map(c => ({ kind: "tag_accordion" as const, key: c.id, emoji: c.emoji, label: c.label, tag: c.tag, renk: c.renk })),
+  ];
+
+  const namaz: ListItem[] = [
+    { kind: "vakit_tablosu", key: "vakit_tablosu" },
+    { kind: "section_title", key: "st_namaz", title: "Namaz Kategorileri" },
+    ...NAMAZ_CATS.map(c => ({ kind: "tag_accordion" as const, key: c.id, emoji: c.emoji, label: c.label, tag: c.tag, renk: c.renk })),
+  ];
+
+  return { temalar, dualar, namaz };
+})();
+
 // ── Bileşenler ────────────────────────────────────────────────────────────────
 
 // Öne çıkan tema kartı
@@ -161,10 +189,18 @@ function FeaturedCard({ item }: { item: typeof FEATURED_THEMES[number] }) {
   );
 }
 
+const FeaturedGrid = React.memo(function FeaturedGrid() {
+  return (
+    <View style={s.featuredGrid}>
+      {FEATURED_THEMES.map(t => <FeaturedCard key={t.kod} item={t} />)}
+    </View>
+  );
+});
+
 // Tüm Temalar accordion grubu
-function ThemeAccordion({ grup }: { grup: typeof AKORDEON_GRUPLARI[number] }) {
+const ThemeAccordion = React.memo(function ThemeAccordion({ grup }: { grup: typeof AKORDEON_GRUPLARI[number] }) {
   const [acik, setAcik] = useState(false);
-  const toplam = grup.temalar.reduce((s, t) => s + t.ayet, 0);
+  const toplam = useMemo(() => grup.temalar.reduce((s, t) => s + t.ayet, 0), [grup]);
 
   return (
     <View style={ta.card}>
@@ -199,18 +235,18 @@ function ThemeAccordion({ grup }: { grup: typeof AKORDEON_GRUPLARI[number] }) {
       )}
     </View>
   );
-}
+});
 
 // Dua / Namaz accordion (lazy fetch)
 interface VerseItem { verse_key: string; surah_id: number; ayah_number: number; surah_name: string | null; reading_tr: string | null; meal: string | null; }
 
-function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: string; tag: string; renk: string }) {
-  const [open, setOpen]       = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const [verses, setVerses]   = React.useState<VerseItem[]>([]);
-  const [fetched, setFetched] = React.useState(false);
+const TagAccordion = React.memo(function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: string; tag: string; renk: string }) {
+  const [open, setOpen]       = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [verses, setVerses]   = useState<VerseItem[]>([]);
+  const [fetched, setFetched] = useState(false);
 
-  const onPress = React.useCallback(async () => {
+  const onPress = useCallback(async () => {
     const next = !open;
     setOpen(next);
     if (next && !fetched) {
@@ -261,10 +297,10 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
       )}
     </View>
   );
-}
+});
 
 // Namaz vakit tablosu
-function VakitTablosu() {
+const VakitTablosu = React.memo(function VakitTablosu() {
   return (
     <View style={vt.card}>
       <View style={vt.headerRow}>
@@ -296,19 +332,63 @@ function VakitTablosu() {
       ))}
     </View>
   );
-}
+});
+
+// Rehber kartı
+const RehberCard = React.memo(function RehberCard({ item }: { item: typeof REHBERLER[number] }) {
+  return (
+    <TouchableOpacity
+      style={[s.rehberCard, { backgroundColor: item.bg, borderColor: item.border }]}
+      onPress={() => router.push(item.route)}
+      activeOpacity={0.75}
+    >
+      <Text style={s.rehberEmoji}>{item.emoji}</Text>
+      <View style={{ flex: 1 }}>
+        <Text style={s.rehberLabel}>{item.label}</Text>
+        <Text style={s.rehberSub}>{item.sub}</Text>
+      </View>
+      <Text style={s.rehberChev}>›</Text>
+    </TouchableOpacity>
+  );
+});
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function KesfetScreen() {
+  const c = useColors();
   const [aktifTab, setAktifTab] = useState<Tab>("temalar");
+
+  const listData = useMemo(() => KEY_MAPPING[aktifTab], [aktifTab]);
+
+  const renderItem = useCallback(({ item }: { item: ListItem }) => {
+    switch (item.kind) {
+      case "section_title":
+        return (
+          <Text style={[s.sectionTitle, { color: c.textMuted }]}>{item.title}</Text>
+        );
+      case "featured_grid":
+        return <FeaturedGrid />;
+      case "rehber":
+        return <RehberCard item={item.item} />;
+      case "theme_accordion":
+        return <ThemeAccordion grup={item.grup} />;
+      case "tag_accordion":
+        return <TagAccordion emoji={item.emoji} label={item.label} tag={item.tag} renk={item.renk} />;
+      case "vakit_tablosu":
+        return <VakitTablosu />;
+      default:
+        return null;
+    }
+  }, [c.textMuted]);
+
+  const keyExtractor = useCallback((item: ListItem) => item.key, []);
 
   return (
     <>
       <Stack.Screen options={{ title: "Keşfet" }} />
 
       {/* Sekme çubuğu */}
-      <View style={s.tabBar}>
+      <View style={[s.tabBar, { backgroundColor: c.card, borderBottomColor: c.border }]}>
         {TABS.map(tab => (
           <TouchableOpacity
             key={tab.id}
@@ -324,94 +404,18 @@ export default function KesfetScreen() {
         ))}
       </View>
 
-      <ScrollView
-        style={s.container}
+      <FlatList
+        data={listData}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        style={[s.container, { backgroundColor: c.bg }]}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
-      >
-
-        {/* ── TEMALAR ── */}
-        {aktifTab === "temalar" && (
-          <>
-            {/* Öne Çıkan Temalar */}
-            <Text style={s.sectionTitle}>Öne Çıkan Temalar</Text>
-            <View style={s.featuredGrid}>
-              {FEATURED_THEMES.map(t => <FeaturedCard key={t.kod} item={t} />)}
-            </View>
-
-            {/* Özel Rehberler */}
-            <Text style={s.sectionTitle}>Özel Rehberler</Text>
-            {REHBERLER.map(r => (
-              <TouchableOpacity
-                key={r.route}
-                style={[s.rehberCard, { backgroundColor: r.bg, borderColor: r.border }]}
-                onPress={() => router.push(r.route)}
-                activeOpacity={0.75}
-              >
-                <Text style={s.rehberEmoji}>{r.emoji}</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={s.rehberLabel}>{r.label}</Text>
-                  <Text style={s.rehberSub}>{r.sub}</Text>
-                </View>
-                <Text style={s.rehberChev}>›</Text>
-              </TouchableOpacity>
-            ))}
-
-            {/* Tüm Temalar */}
-            <Text style={s.sectionTitle}>Tüm Temalar</Text>
-            {AKORDEON_GRUPLARI.map(g => <ThemeAccordion key={g.baslik} grup={g} />)}
-          </>
-        )}
-
-        {/* ── DUALAR ── */}
-        {aktifTab === "dualar" && (
-          <>
-            <Text style={s.sectionTitle}>Dua Kategorileri</Text>
-            {DUA_CATS.map(cat => (
-              <TagAccordion
-                key={cat.id}
-                emoji={cat.emoji}
-                label={cat.label}
-                tag={cat.tag}
-                renk={cat.renk}
-              />
-            ))}
-
-            <Text style={s.sectionTitle}>Ruh Haline Göre</Text>
-            <View style={s.moodGrid}>
-              {RUH_HALI.map(m => (
-                <TouchableOpacity
-                  key={m.tag}
-                  style={[s.moodChip, { backgroundColor: m.bg }]}
-                  onPress={() => router.push(`/search?tag=${encodeURIComponent(m.tag)}` as any)}
-                  activeOpacity={0.7}
-                >
-                  <Text style={{ fontSize: 20 }}>{m.emoji}</Text>
-                  <Text style={s.moodLabel}>{m.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </>
-        )}
-
-        {/* ── NAMAZ ── */}
-        {aktifTab === "namaz" && (
-          <>
-            <VakitTablosu />
-            <Text style={s.sectionTitle}>Namaz Kategorileri</Text>
-            {NAMAZ_CATS.map(cat => (
-              <TagAccordion
-                key={cat.id}
-                emoji={cat.emoji}
-                label={cat.label}
-                tag={cat.tag}
-                renk={cat.renk}
-              />
-            ))}
-          </>
-        )}
-
-      </ScrollView>
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+        removeClippedSubviews={Platform.OS === "android"}
+      />
     </>
   );
 }

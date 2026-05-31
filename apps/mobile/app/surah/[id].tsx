@@ -9,28 +9,29 @@ import {
 import { useLocalSearchParams, router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
+import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
 function TafsirAccordion({ text }: { text: string | null | "loading" }) {
+  const c = useColors();
   const [open, setOpen] = useState(false);
-
   return (
-    <View style={tf.box}>
+    <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={tf.header} onPress={() => setOpen(p => !p)} activeOpacity={0.75}>
         <View>
-          <Text style={tf.title}>📚 Sure Tefsiri</Text>
-          <Text style={tf.sub}>Elmalılı Hamdi Yazır</Text>
+          <Text style={[tf.title, { color: c.text }]}>📚 Sure Tefsiri</Text>
+          <Text style={[tf.sub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
         </View>
-        <Text style={tf.chevron}>{open ? "▲" : "▼"}</Text>
+        <Text style={[tf.chevron, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
       {open && (
         <View style={tf.body}>
           {text === "loading" ? (
-            <ActivityIndicator color="#059669" />
+            <ActivityIndicator color={c.accent} />
           ) : text ? (
-            <Text style={tf.text}>{text}</Text>
+            <Text style={[tf.text, { color: c.textSecondary }]}>{text}</Text>
           ) : (
-            <Text style={tf.empty}>Tefsir verisi bulunamadı.</Text>
+            <Text style={[tf.empty, { color: c.textMuted }]}>Tefsir verisi bulunamadı.</Text>
           )}
         </View>
       )}
@@ -66,12 +67,13 @@ function RevelationBadge({ place }: { place: "Mekke" | "Medine" }) {
 }
 
 function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
+  const c = useColors();
   return (
-    <View style={styles.header}>
-      <Text style={styles.headerArabic} numberOfLines={1}>{data.arabicName}</Text>
-      <Text style={styles.headerName}>{data.name}</Text>
+    <View style={[styles.header, { backgroundColor: c.card, borderBottomColor: c.border }]}>
+      <Text style={[styles.headerArabic, { color: c.text }]} numberOfLines={1}>{data.arabicName}</Text>
+      <Text style={[styles.headerName, { color: c.accent }]}>{data.name}</Text>
       <View style={styles.headerMeta}>
-        <Text style={styles.headerMetaText}>{data.verseCount} ayet</Text>
+        <Text style={[styles.headerMetaText, { color: c.textMuted }]}>{data.verseCount} ayet</Text>
         <RevelationBadge place={data.revelationPlace} />
       </View>
     </View>
@@ -84,29 +86,30 @@ interface VerseRowProps {
 }
 
 function VerseRow({ item, onPress }: VerseRowProps) {
+  const c = useColors();
   const reading = item.reading ? item.reading.slice(0, 110) : null;
   const meal    = item.meal    ? item.meal.slice(0, 80)     : null;
   return (
     <TouchableOpacity
-      style={styles.row}
+      style={[styles.row, { backgroundColor: c.card }]}
       onPress={() => onPress(item.ayahNumber)}
       activeOpacity={0.7}
     >
-      <View style={styles.numberCircle}>
-        <Text style={styles.numberText}>{item.ayahNumber}</Text>
+      <View style={[styles.numberCircle, { backgroundColor: c.cardAlt }]}>
+        <Text style={[styles.numberText, { color: c.textMuted }]}>{item.ayahNumber}</Text>
       </View>
       <View style={styles.rowContent}>
         {reading && (
-          <Text style={styles.readingText} numberOfLines={2}>
+          <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>
             {reading}{(item.reading?.length ?? 0) > 110 ? "…" : ""}
           </Text>
         )}
         {meal && (
-          <Text style={styles.mealText} numberOfLines={1}>
+          <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={1}>
             {meal}{(item.meal?.length ?? 0) > 80 ? "…" : ""}
           </Text>
         )}
-        {!reading && !meal && <Text style={styles.mealText}>—</Text>}
+        {!reading && !meal && <Text style={[styles.mealText, { color: c.textMuted }]}>—</Text>}
       </View>
     </TouchableOpacity>
   );
@@ -115,6 +118,7 @@ function VerseRow({ item, onPress }: VerseRowProps) {
 // ── Ana ekran ─────────────────────────────────────────────────────────────────
 
 export default function SurahDetailScreen() {
+  const c = useColors();
   const { id } = useLocalSearchParams<{ id: string }>();
   const surahId = Number(id);
 
@@ -187,7 +191,7 @@ export default function SurahDetailScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: c.bg }]}>
       <FlatList
         data={data.verses}
         keyExtractor={keyExtractor}
@@ -198,7 +202,7 @@ export default function SurahDetailScreen() {
             <TafsirAccordion text={tafsirText} />
           </>
         }
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
         getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         initialNumToRender={20}
