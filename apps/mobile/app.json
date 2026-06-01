@@ -43,6 +43,8 @@
       "expo-router",
       "expo-av",
       "expo-location",
+      "expo-sensors",
+      "expo-haptics",
       [
         "expo-notifications",
         {

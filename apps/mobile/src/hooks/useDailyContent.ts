@@ -196,8 +196,8 @@ export function useDailyContent(): UseDailyContentResult {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") return ISTANBUL;
         const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>((r) => setTimeout(() => r(null), 5000)),
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest }),
+          new Promise<null>((r) => setTimeout(() => r(null), 15000)),
         ]);
         if (pos && "coords" in pos) return { lat: pos.coords.latitude, lon: pos.coords.longitude };
       } catch { /* ignore */ }

@@ -1,228 +1,310 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
-  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Dimensions, ScrollView,
+  View, Text, TouchableOpacity, StyleSheet,
+  ActivityIndicator, Alert, Dimensions,
 } from "react-native";
 import { Stack } from "expo-router";
 import * as Location from "expo-location";
+import { Magnetometer, type MagnetometerMeasurement } from "expo-sensors";
+
+// ── Sabitler ──────────────────────────────────────────────────────────────────
 
 const MECCA = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
-const COMPASS_SIZE = Math.min(width - 64, 280);
+const SIZE = Math.min(width - 48, 300);
 
 const CITIES = [
-  { name: "İstanbul",  lat: 41.0082, lng: 28.9784 },
-  { name: "Ankara",    lat: 39.9334, lng: 32.8597 },
-  { name: "İzmir",     lat: 38.4189, lng: 27.1287 },
-  { name: "Bursa",     lat: 40.1885, lng: 29.0610 },
-  { name: "Antalya",   lat: 36.8969, lng: 30.7133 },
-  { name: "Konya",     lat: 37.8714, lng: 32.4846 },
-  { name: "Adana",     lat: 37.0000, lng: 35.3213 },
-  { name: "Trabzon",   lat: 41.0015, lng: 39.7178 },
-  { name: "Diyarbakır",lat: 37.9144, lng: 40.2306 },
-  { name: "Erzurum",   lat: 39.9208, lng: 41.2671 },
+  { name: "İstanbul",   lat: 41.0082, lng: 28.9784 },
+  { name: "Ankara",     lat: 39.9334, lng: 32.8597 },
+  { name: "İzmir",      lat: 38.4189, lng: 27.1287 },
+  { name: "Bursa",      lat: 40.1885, lng: 29.0610 },
+  { name: "Antalya",    lat: 36.8969, lng: 30.7133 },
+  { name: "Konya",      lat: 37.8714, lng: 32.4846 },
+  { name: "Adana",      lat: 37.0000, lng: 35.3213 },
+  { name: "Trabzon",    lat: 41.0015, lng: 39.7178 },
+  { name: "Diyarbakır", lat: 37.9144, lng: 40.2306 },
+  { name: "Erzurum",    lat: 39.9208, lng: 41.2671 },
 ];
 
-function toRad(d: number) { return (d * Math.PI) / 180; }
-function toDeg(r: number) { return (r * 180) / Math.PI; }
+// ── Matematik ─────────────────────────────────────────────────────────────────
 
+function toRad(d: number) { return d * Math.PI / 180; }
+function toDeg(r: number) { return r * 180 / Math.PI; }
+
+/** Kullanıcı konumundan Kabe'ye olan kuzeye göreli açı (0–360, saat yönü) */
 function calcQibla(lat: number, lng: number): number {
   const dLng = toRad(MECCA.lng - lng);
-  const lat1 = toRad(lat), lat2 = toRad(MECCA.lat);
-  const x = Math.sin(dLng) * Math.cos(lat2);
-  const y = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  const φ1   = toRad(lat), φ2 = toRad(MECCA.lat);
+  const x    = Math.sin(dLng) * Math.cos(φ2);
+  const y    = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(dLng);
   return (toDeg(Math.atan2(x, y)) + 360) % 360;
 }
 
 function calcDist(lat: number, lng: number): number {
-  const R = 6371;
+  const R    = 6371;
   const dLat = toRad(MECCA.lat - lat);
   const dLng = toRad(MECCA.lng - lng);
-  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat)) * Math.cos(toRad(MECCA.lat)) * Math.sin(dLng/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const a    = Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat)) * Math.cos(toRad(MECCA.lat)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+/**
+ * Magnetometer → cihaz başlığı (derece, 0=Kuzey, saat yönü)
+ * Telefon yatay tutulduğunda: x=Doğu, y=Kuzey → atan2(x, y) = saat yönü pusula açısı
+ */
+function magToHeading(m: MagnetometerMeasurement): number {
+  return (toDeg(Math.atan2(m.x, m.y)) + 360) % 360;
+}
+
+// ── Ana Ekran ─────────────────────────────────────────────────────────────────
+
+type Step = "pick" | "locating" | "compass";
+
 export default function KibleScreen() {
-  const [status, setStatus]       = useState<"idle"|"locating"|"done">("idle");
-  const [qibla, setQibla]         = useState<number | null>(null);
-  const [distance, setDistance]   = useState<number | null>(null);
-  const [city, setCity]           = useState<string | null>(null);
+  const [step, setStep]         = useState<Step>("pick");
+  const [qibla, setQibla]       = useState<number | null>(null);
+  const [distance, setDistance] = useState<number | null>(null);
+  const [cityName, setCityName] = useState("");
+  const [heading, setHeading]   = useState(0);
+  const [magAvail, setMagAvail] = useState<boolean | null>(null); // null = henüz bilinmiyor
+  const subRef = useRef<ReturnType<typeof Magnetometer.addListener> | null>(null);
 
-  const selectCity = useCallback((c: typeof CITIES[0]) => {
-    setQibla(calcQibla(c.lat, c.lng));
-    setDistance(calcDist(c.lat, c.lng));
-    setCity(c.name);
-    setStatus("done");
-  }, []);
+  // Magnetometer başlat (sadece compass adımında)
+  useEffect(() => {
+    if (step !== "compass") return;
 
-  const useGPS = useCallback(async () => {
-    setStatus("locating");
+    let cancelled = false;
+
+    Magnetometer.isAvailableAsync()
+      .then(available => {
+        if (cancelled) return;
+        setMagAvail(available);
+        if (!available) return;
+
+        Magnetometer.setUpdateInterval(80); // ~12 fps
+        subRef.current = Magnetometer.addListener(data => {
+          if (!cancelled) setHeading(magToHeading(data));
+        });
+      })
+      .catch(() => { if (!cancelled) setMagAvail(false); });
+
+    return () => {
+      cancelled = true;
+      subRef.current?.remove();
+      subRef.current = null;
+    };
+  }, [step]);
+
+  // Konum al (GPS → network → son bilinen, sırayla)
+  const getLocation = useCallback(async () => {
+    setStep("locating");
+
     try {
-      const { status: perm } = await Location.requestForegroundPermissionsAsync();
-      if (perm !== "granted") {
-        Alert.alert("Konum İzni", "Konum izni verilmedi. Lütfen şehir seçin.", [{ text: "Tamam" }]);
-        setStatus("idle");
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("İzin Gerekli", "Konum izni verilmedi.\nŞehir listesinden seçim yapabilirsiniz.");
+        setStep("pick");
         return;
       }
-      const pos = await Promise.race([
-        Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-        new Promise<null>((r) => setTimeout(() => r(null), 8000)),
-      ]);
-      if (!pos || !("coords" in pos)) {
-        Alert.alert("Konum Alınamadı", "GPS bağlantısı kurulamadı. Lütfen şehir seçin.", [{ text: "Tamam" }]);
-        setStatus("idle");
+
+      let coords: { latitude: number; longitude: number } | null = null;
+
+      // 1. Son bilinen konum — anlık
+      const last = await Location.getLastKnownPositionAsync({ maxAge: 4 * 3600 * 1000 }).catch(() => null);
+      if (last?.coords) coords = last.coords;
+
+      // 2. Network + WiFi (GPS gerekmez)
+      if (!coords) {
+        const net = await Promise.race([
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest }),
+          new Promise<null>(r => setTimeout(() => r(null), 15000)),
+        ]).catch(() => null);
+        if (net && "coords" in net) coords = net.coords;
+      }
+
+      // 3. GPS (uzun bekleme)
+      if (!coords) {
+        const gps = await Promise.race([
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+          new Promise<null>(r => setTimeout(() => r(null), 20000)),
+        ]).catch(() => null);
+        if (gps && "coords" in gps) coords = gps.coords;
+      }
+
+      if (!coords) {
+        Alert.alert(
+          "Konum Alınamadı",
+          "GPS sinyali bulunamadı.\n\n• Açık havada deneyin\n• WiFi veya mobil veriyi açın\n• Şehir listesinden seçim yapabilirsiniz",
+          [{ text: "Tamam" }],
+        );
+        setStep("pick");
         return;
       }
-      const { latitude: lat, longitude: lng } = pos.coords;
-      setQibla(calcQibla(lat, lng));
-      setDistance(calcDist(lat, lng));
-      setCity("Konumunuz");
-      setStatus("done");
+
+      setQibla(calcQibla(coords.latitude, coords.longitude));
+      setDistance(calcDist(coords.latitude, coords.longitude));
+      setCityName("Konumunuz");
+      setStep("compass");
     } catch {
-      Alert.alert("Hata", "Konum alınırken hata oluştu.", [{ text: "Tamam" }]);
-      setStatus("idle");
+      Alert.alert("Hata", "Beklenmeyen bir hata oluştu.");
+      setStep("pick");
     }
   }, []);
 
+  const pickCity = useCallback((c: typeof CITIES[0]) => {
+    setQibla(calcQibla(c.lat, c.lng));
+    setDistance(calcDist(c.lat, c.lng));
+    setCityName(c.name);
+    setStep("compass");
+  }, []);
+
+  // İbre açısı: (kıble açısı) - (cihazın baktığı yön)
+  const needleAngle = qibla !== null ? (qibla - heading + 360) % 360 : 0;
+
+  // ── KONUM SEÇ ──────────────────────────────────────────────────────────────
+  if (step === "pick") {
+    return (
+      <>
+        <Stack.Screen options={{ title: "Kıble Yönü" }} />
+        <View style={s.container}>
+          <Text style={s.title}>🕋 Kıble Yönü</Text>
+          <Text style={s.sub}>Seccadenizi Kabe'ye döndürün</Text>
+
+          <TouchableOpacity style={s.gpsBtn} onPress={getLocation} activeOpacity={0.85}>
+            <Text style={s.gpsBtnText}>📍 Konumumu Otomatik Al</Text>
+          </TouchableOpacity>
+
+          <Text style={s.orText}>— veya şehir seçin —</Text>
+
+          {CITIES.map(c => (
+            <TouchableOpacity key={c.name} style={s.cityRow} onPress={() => pickCity(c)} activeOpacity={0.7}>
+              <Text style={s.cityName}>{c.name}</Text>
+              <Text style={s.cityDeg}>{Math.round(calcQibla(c.lat, c.lng))}°</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </>
+    );
+  }
+
+  // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
+  if (step === "locating") {
+    return (
+      <>
+        <Stack.Screen options={{ title: "Kıble Yönü" }} />
+        <View style={s.centered}>
+          <ActivityIndicator size="large" color="#059669" />
+          <Text style={s.loadingText}>Konumunuz alınıyor…</Text>
+          <Text style={s.loadingSub}>Bu işlem 10–20 saniye sürebilir</Text>
+        </View>
+      </>
+    );
+  }
+
+  // ── PUSULA ────────────────────────────────────────────────────────────────
   return (
     <>
       <Stack.Screen options={{ title: "Kıble Yönü" }} />
-      <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center", padding: 24, paddingBottom: 40 }}>
+      <View style={s.container}>
+        <Text style={s.cityLabel}>{cityName}</Text>
+        {distance != null && (
+          <Text style={s.distText}>Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km</Text>
+        )}
 
-        <Text style={styles.title}>🕋 Kıble Yönü</Text>
-        <Text style={styles.sub}>Konumunuza göre Kabe'nin yönünü bulun</Text>
+        {/* Pusula dairesi */}
+        <View style={[s.compass, { width: SIZE, height: SIZE, borderRadius: SIZE / 2 }]}>
+          {/* Sabit yön etiketleri */}
+          <Text style={[s.dir, { top: 10 }]}>K</Text>
+          <Text style={[s.dir, { bottom: 10 }]}>G</Text>
+          <Text style={[s.dir, { right: 14 }]}>D</Text>
+          <Text style={[s.dir, { left: 14 }]}>B</Text>
 
-        {status === "locating" && (
-          <View style={{ alignItems: "center", marginVertical: 32, gap: 12 }}>
-            <ActivityIndicator size="large" color="#059669" />
-            <Text style={{ color: "#5eead4", fontSize: 14 }}>Konumunuz alınıyor…</Text>
+          {/* Kabe ibresi — needleAngle kadar döner */}
+          <View style={[s.needle, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
+            <Text style={s.needleEmoji}>🕋</Text>
+            <View style={s.needleUp} />
+            <View style={s.needleDown} />
+          </View>
+        </View>
+
+        {/* Açı bilgisi */}
+        <View style={s.badge}>
+          <Text style={s.badgeNum}>{Math.round(qibla ?? 0)}°</Text>
+          <Text style={s.badgeSub}>Kuzeyden Kabe yönü</Text>
+        </View>
+
+        {/* Magnetometer durumu */}
+        {magAvail === false && (
+          <View style={s.info}>
+            <Text style={s.infoText}>
+              ⚠️ Manyetometre bu cihazda desteklenmiyor.{"\n"}
+              İbre sabit — telefonu K yönüyle hizalayın, 🕋 Kabe'yi gösterir.
+            </Text>
+          </View>
+        )}
+        {magAvail === true && (
+          <View style={s.info}>
+            <Text style={s.infoText}>
+              📱 Telefonu yatay tutun · 🕋 daima Kabe yönünü gösterir
+            </Text>
           </View>
         )}
 
-        {status === "idle" && (
-          <View style={{ width: "100%" }}>
-            {/* GPS Butonu */}
-            <TouchableOpacity style={styles.gpsBtn} onPress={useGPS} activeOpacity={0.8}>
-              <Text style={styles.gpsBtnText}>📍 GPS ile Konum Al</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.cityTitle}>veya şehir seçin</Text>
-            {CITIES.map((c) => (
-              <TouchableOpacity key={c.name} style={styles.cityRow} onPress={() => selectCity(c)} activeOpacity={0.7}>
-                <Text style={styles.cityName}>📍 {c.name}</Text>
-                <Text style={styles.cityDeg}>{Math.round(calcQibla(c.lat, c.lng))}°</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-
-        {status === "done" && qibla !== null && (
-          <View style={styles.result}>
-            {city && <Text style={styles.city}>{city}</Text>}
-            {distance && (
-              <Text style={styles.distText}>
-                Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km
-              </Text>
-            )}
-
-            {/* Pusula */}
-            <View style={[styles.compass, { width: COMPASS_SIZE, height: COMPASS_SIZE, borderRadius: COMPASS_SIZE/2 }]}>
-              <Text style={styles.compassN}>K</Text>
-              <Text style={styles.compassS}>G</Text>
-              <Text style={styles.compassE}>D</Text>
-              <Text style={styles.compassW}>B</Text>
-              {/* Ok */}
-              <View style={[styles.arrowWrap, { transform: [{ rotate: `${qibla}deg` }] }]}>
-                <Text style={styles.arrowTop}>🕋</Text>
-                <View style={styles.arrowLine} />
-                <View style={styles.arrowLineFade} />
-              </View>
-            </View>
-
-            <View style={styles.degreeBadge}>
-              <Text style={styles.degreeNum}>{Math.round(qibla)}°</Text>
-              <Text style={styles.degreeSub}>Kuzeyden saat yönünde</Text>
-            </View>
-
-            {/* Kullanım talimatı */}
-            <View style={styles.instructionCard}>
-              <Text style={styles.instructionTitle}>📱 Nasıl Kullanılır?</Text>
-              <Text style={styles.instructionText}>
-                1. Telefonunuzu yatay tutun{"\n"}
-                2. Pusuladaki <Text style={{fontWeight:"700"}}>K (Kuzey)</Text> yönünü gerçek kuzeyle hizalayın{"\n"}
-                3. 🕋 oku Kabe yönünü gösterir
-              </Text>
-              <Text style={styles.instructionHint}>
-                💡 Canlı pusula yakında eklenecek
-              </Text>
-            </View>
-
-                    <View style={{ flexDirection: "row", gap: 10, marginTop: 12 }}>
-              <TouchableOpacity onPress={useGPS} style={[styles.refreshBtn, { flex: 1 }]}>
-                <Text style={styles.refreshText}>📍 GPS Yenile</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setStatus("idle")} style={[styles.refreshBtn, { flex: 1, backgroundColor: "#f0fdfa", borderWidth: 1, borderColor: "#99f6e4" }]}>
-                <Text style={[styles.refreshText, { color: "#059669" }]}>Şehir Seç</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-      </ScrollView>
+        <TouchableOpacity style={s.backBtn} onPress={() => { setStep("pick"); setMagAvail(null); }} activeOpacity={0.7}>
+          <Text style={s.backBtnText}>← Konumu Değiştir</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f0fdfa" },
-  title:     { fontSize: 26, fontWeight: "700", color: "#134e4a", marginTop: 24 },
-  sub:       { fontSize: 13, color: "#5eead4", marginTop: 6, marginBottom: 32, textAlign: "center" },
+// ── Stiller ───────────────────────────────────────────────────────────────────
 
-  btn:     { backgroundColor: "#059669", borderRadius: 14, paddingHorizontal: 32, paddingVertical: 14 },
-  btnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
-  gpsBtn:  { backgroundColor: "#059669", borderRadius: 14, paddingVertical: 16, alignItems: "center", marginBottom: 20 },
+const s = StyleSheet.create({
+  container:   { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", padding: 20, paddingBottom: 40 },
+  centered:    { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", justifyContent: "center", gap: 12 },
+  loadingText: { fontSize: 16, fontWeight: "600", color: "#134e4a", marginTop: 8 },
+  loadingSub:  { fontSize: 12, color: "#5eead4" },
+
+  title: { fontSize: 24, fontWeight: "700", color: "#134e4a", marginTop: 16, marginBottom: 4 },
+  sub:   { fontSize: 13, color: "#5eead4", marginBottom: 20, textAlign: "center" },
+
+  gpsBtn:     { backgroundColor: "#059669", borderRadius: 14, paddingVertical: 15, width: "100%", alignItems: "center", marginBottom: 16 },
   gpsBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
-  cityTitle: { fontSize: 14, fontWeight: "600", color: "#5eead4", marginBottom: 12, textAlign: "center" },
+  orText:     { fontSize: 13, color: "#a7f3d0", marginBottom: 12 },
+
   cityRow: {
     flexDirection: "row", justifyContent: "space-between", alignItems: "center",
-    backgroundColor: "#fff", borderRadius: 12, paddingHorizontal: 16, paddingVertical: 14,
-    marginBottom: 8, borderWidth: 1, borderColor: "#99f6e4",
+    backgroundColor: "#fff", borderRadius: 12, paddingHorizontal: 16, paddingVertical: 13,
+    marginBottom: 7, borderWidth: 1, borderColor: "#99f6e4", width: "100%",
   },
   cityName: { fontSize: 15, color: "#134e4a", fontWeight: "600" },
-  cityDeg:  { fontSize: 13, color: "#5eead4" },
+  cityDeg:  { fontSize: 13, color: "#5eead4", fontWeight: "600" },
 
-  result:   { alignItems: "center", width: "100%" },
-  city:     { fontSize: 15, color: "#134e4a", fontWeight: "600" },
-  distText: { fontSize: 13, color: "#5eead4", marginBottom: 24 },
+  cityLabel: { fontSize: 16, fontWeight: "700", color: "#134e4a", marginBottom: 2, marginTop: 12 },
+  distText:  { fontSize: 13, color: "#5eead4", marginBottom: 24 },
 
   compass: {
     backgroundColor: "#fff", borderWidth: 4, borderColor: "#99f6e4",
     alignItems: "center", justifyContent: "center", position: "relative",
     shadowColor: "#000", shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1, shadowRadius: 8, elevation: 6,
+    shadowOpacity: 0.12, shadowRadius: 12, elevation: 8,
   },
-  compassN: { position: "absolute", top: 10, fontSize: 12, fontWeight: "700", color: "#6b7280" },
-  compassS: { position: "absolute", bottom: 10, fontSize: 12, fontWeight: "700", color: "#6b7280" },
-  compassE: { position: "absolute", right: 12, fontSize: 12, fontWeight: "700", color: "#6b7280" },
-  compassW: { position: "absolute", left: 12, fontSize: 12, fontWeight: "700", color: "#6b7280" },
+  dir: { position: "absolute", fontSize: 13, fontWeight: "700", color: "#6b7280" },
 
-  arrowWrap:    { alignItems: "center", position: "absolute" },
-  arrowTop:     { fontSize: 28, marginBottom: 2 },
-  arrowLine:    { width: 3, height: 60, backgroundColor: "#059669", borderRadius: 2 },
-  arrowLineFade:{ width: 3, height: 40, backgroundColor: "#d1fae5", borderRadius: 2 },
+  needle:      { alignItems: "center", position: "absolute" },
+  needleEmoji: { fontSize: 32 },
+  needleUp:    { width: 3, height: 70, backgroundColor: "#059669", borderRadius: 2 },
+  needleDown:  { width: 3, height: 40, backgroundColor: "#d1fae5", borderRadius: 2 },
 
-  degreeBadge: {
-    marginTop: 24, backgroundColor: "#d1fae5", borderRadius: 16,
-    paddingHorizontal: 28, paddingVertical: 14, alignItems: "center",
-  },
-  degreeNum:   { fontSize: 36, fontWeight: "700", color: "#065f46" },
-  degreeSub:   { fontSize: 11, color: "#059669", marginTop: 2 },
+  badge:    { marginTop: 24, backgroundColor: "#d1fae5", borderRadius: 16, paddingHorizontal: 32, paddingVertical: 12, alignItems: "center" },
+  badgeNum: { fontSize: 38, fontWeight: "700", color: "#065f46" },
+  badgeSub: { fontSize: 12, color: "#059669", marginTop: 2 },
 
-  instructionCard: {
-    backgroundColor: "#f0fdf4", borderRadius: 14, padding: 16,
-    borderWidth: 1, borderColor: "#bbf7d0", marginTop: 16, width: "100%",
-  },
-  instructionTitle: { fontSize: 14, fontWeight: "700", color: "#14532d", marginBottom: 8 },
-  instructionText:  { fontSize: 13, color: "#166534", lineHeight: 22 },
-  instructionHint:  { fontSize: 12, color: "#86efac", marginTop: 8, fontStyle: "italic" },
-  refreshBtn:  { marginTop: 16 },
-  refreshText: { fontSize: 13, color: "#059669" },
+  info:     { backgroundColor: "#ecfdf5", borderRadius: 10, padding: 12, marginTop: 14, width: "100%", borderWidth: 1, borderColor: "#a7f3d0" },
+  infoText: { fontSize: 13, color: "#065f46", textAlign: "center", lineHeight: 20 },
+
+  backBtn:     { marginTop: 18, paddingVertical: 10, paddingHorizontal: 20 },
+  backBtnText: { fontSize: 14, color: "#059669", fontWeight: "600" },
 });
