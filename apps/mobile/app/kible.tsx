@@ -3,6 +3,7 @@ import {
   View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Dimensions, ScrollView,
 } from "react-native";
 import { Stack } from "expo-router";
+import * as Location from "expo-location";
 
 const MECCA = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
@@ -41,16 +42,45 @@ function calcDist(lat: number, lng: number): number {
 }
 
 export default function KibleScreen() {
-  const [status, setStatus]     = useState<"idle"|"done">("idle");
-  const [qibla, setQibla]       = useState<number | null>(null);
-  const [distance, setDistance] = useState<number | null>(null);
-  const [city, setCity]         = useState<string | null>(null);
+  const [status, setStatus]       = useState<"idle"|"locating"|"done">("idle");
+  const [qibla, setQibla]         = useState<number | null>(null);
+  const [distance, setDistance]   = useState<number | null>(null);
+  const [city, setCity]           = useState<string | null>(null);
 
   const selectCity = useCallback((c: typeof CITIES[0]) => {
     setQibla(calcQibla(c.lat, c.lng));
     setDistance(calcDist(c.lat, c.lng));
     setCity(c.name);
     setStatus("done");
+  }, []);
+
+  const useGPS = useCallback(async () => {
+    setStatus("locating");
+    try {
+      const { status: perm } = await Location.requestForegroundPermissionsAsync();
+      if (perm !== "granted") {
+        Alert.alert("Konum İzni", "Konum izni verilmedi. Lütfen şehir seçin.", [{ text: "Tamam" }]);
+        setStatus("idle");
+        return;
+      }
+      const pos = await Promise.race([
+        Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+        new Promise<null>((r) => setTimeout(() => r(null), 8000)),
+      ]);
+      if (!pos || !("coords" in pos)) {
+        Alert.alert("Konum Alınamadı", "GPS bağlantısı kurulamadı. Lütfen şehir seçin.", [{ text: "Tamam" }]);
+        setStatus("idle");
+        return;
+      }
+      const { latitude: lat, longitude: lng } = pos.coords;
+      setQibla(calcQibla(lat, lng));
+      setDistance(calcDist(lat, lng));
+      setCity("Konumunuz");
+      setStatus("done");
+    } catch {
+      Alert.alert("Hata", "Konum alınırken hata oluştu.", [{ text: "Tamam" }]);
+      setStatus("idle");
+    }
   }, []);
 
   return (
@@ -61,9 +91,21 @@ export default function KibleScreen() {
         <Text style={styles.title}>🕋 Kıble Yönü</Text>
         <Text style={styles.sub}>Konumunuza göre Kabe'nin yönünü bulun</Text>
 
+        {status === "locating" && (
+          <View style={{ alignItems: "center", marginVertical: 32, gap: 12 }}>
+            <ActivityIndicator size="large" color="#059669" />
+            <Text style={{ color: "#5eead4", fontSize: 14 }}>Konumunuz alınıyor…</Text>
+          </View>
+        )}
+
         {status === "idle" && (
           <View style={{ width: "100%" }}>
-            <Text style={styles.cityTitle}>Şehrinizi seçin</Text>
+            {/* GPS Butonu */}
+            <TouchableOpacity style={styles.gpsBtn} onPress={useGPS} activeOpacity={0.8}>
+              <Text style={styles.gpsBtnText}>📍 GPS ile Konum Al</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.cityTitle}>veya şehir seçin</Text>
             {CITIES.map((c) => (
               <TouchableOpacity key={c.name} style={styles.cityRow} onPress={() => selectCity(c)} activeOpacity={0.7}>
                 <Text style={styles.cityName}>📍 {c.name}</Text>
@@ -114,9 +156,14 @@ export default function KibleScreen() {
               </Text>
             </View>
 
-            <TouchableOpacity onPress={() => setStatus("idle")} style={styles.refreshBtn}>
-              <Text style={styles.refreshText}>Şehri Değiştir</Text>
-            </TouchableOpacity>
+                    <View style={{ flexDirection: "row", gap: 10, marginTop: 12 }}>
+              <TouchableOpacity onPress={useGPS} style={[styles.refreshBtn, { flex: 1 }]}>
+                <Text style={styles.refreshText}>📍 GPS Yenile</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setStatus("idle")} style={[styles.refreshBtn, { flex: 1, backgroundColor: "#f0fdfa", borderWidth: 1, borderColor: "#99f6e4" }]}>
+                <Text style={[styles.refreshText, { color: "#059669" }]}>Şehir Seç</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       </ScrollView>
@@ -131,7 +178,9 @@ const styles = StyleSheet.create({
 
   btn:     { backgroundColor: "#059669", borderRadius: 14, paddingHorizontal: 32, paddingVertical: 14 },
   btnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
-  cityTitle: { fontSize: 16, fontWeight: "700", color: "#134e4a", marginBottom: 12, textAlign: "center" },
+  gpsBtn:  { backgroundColor: "#059669", borderRadius: 14, paddingVertical: 16, alignItems: "center", marginBottom: 20 },
+  gpsBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  cityTitle: { fontSize: 14, fontWeight: "600", color: "#5eead4", marginBottom: 12, textAlign: "center" },
   cityRow: {
     flexDirection: "row", justifyContent: "space-between", alignItems: "center",
     backgroundColor: "#fff", borderRadius: 12, paddingHorizontal: 16, paddingVertical: 14,

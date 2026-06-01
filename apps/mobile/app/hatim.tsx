@@ -184,13 +184,6 @@ export default function HatimScreen() {
                     >
                       <Text style={styles.actionText}>Sıfırla</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={startHatim}
-                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-                      style={styles.actionBtn}
-                    >
-                      <Text style={[styles.actionText, { color: "#059669" }]}>+ Yeni Hatim</Text>
-                    </TouchableOpacity>
                   </>
                 ) : (
                   <>
