@@ -13,6 +13,7 @@
  */
 
 import path from "path";
+import fs from "fs";
 import { createClient, type Client, type InArgs } from "@libsql/client";
 import { DatabaseSync as _DatabaseSync } from "node:sqlite";
 
@@ -24,6 +25,7 @@ const USE_TURSO = !!(
 
 // Lazy singleton — sunucu start'ta bir kez oluşturulur
 let _tursoClient: Client | null = null;
+let _tursoInitialized = false;
 
 function getTursoClient(): Client {
   if (!_tursoClient) {
@@ -33,6 +35,49 @@ function getTursoClient(): Client {
     });
   }
   return _tursoClient;
+}
+
+/**
+ * Turso bağlantısı ilk kurulduğunda tüm performans index'lerini
+ * otomatik uygular. CREATE INDEX IF NOT EXISTS kullanıldığı için
+ * tekrar tekrar çağrılsa da sorun çıkarmaz.
+ */
+async function ensureTursoIndexes(): Promise<void> {
+  if (_tursoInitialized) return;
+  _tursoInitialized = true;
+
+  const client = getTursoClient();
+  const sqlPath = path.resolve(process.cwd(), "..", "..", "scripts", "indexes.sql");
+
+  if (!fs.existsSync(sqlPath)) {
+    console.warn("[dbUtils] indexes.sql bulunamadı, index optimizasyonu atlandı.");
+    return;
+  }
+
+  const sql = fs.readFileSync(sqlPath, "utf-8");
+
+  // SQL dosyasındaki comment satırlarını temizle, sadece CREATE INDEX'leri çıkar
+  const cleanSql = sql
+    .split("\n")
+    .filter((line) => !line.trim().startsWith("--"))
+    .join("\n");
+
+  const statements = cleanSql
+    .split(";")
+    .map((s) => s.trim())
+    .filter((s) => s.toUpperCase().includes("CREATE INDEX"))
+    .map((s) => s + ";");
+
+  let applied = 0;
+  for (const stmt of statements) {
+    try {
+      await client.execute(stmt);
+      applied++;
+    } catch {
+      // IF NOT EXISTS olduğu için "already exists" güvenli
+    }
+  }
+  console.log(`[dbUtils] ✅ ${applied} performans index'i Turso'da aktif.`);
 }
 
 // ── Yerel SQLite (dev / fallback) ─────────────────────────────────────────────
@@ -71,6 +116,7 @@ function rowToObj(row: Record<string, unknown>, cols: string[]): Record<string, 
 
 export async function dbAll<T>(sql: string, ...args: unknown[]): Promise<T[]> {
   if (USE_TURSO) {
+    await ensureTursoIndexes();
     const client = getTursoClient();
     const res = await client.execute({
       sql,
@@ -89,6 +135,7 @@ export async function dbAll<T>(sql: string, ...args: unknown[]): Promise<T[]> {
 
 export async function dbGet<T>(sql: string, ...args: unknown[]): Promise<T | undefined> {
   if (USE_TURSO) {
+    await ensureTursoIndexes();
     const client = getTursoClient();
     const res = await client.execute({
       sql,
@@ -105,6 +152,7 @@ export async function dbGet<T>(sql: string, ...args: unknown[]): Promise<T | und
 
 export async function dbRun(sql: string, ...args: unknown[]): Promise<void> {
   if (USE_TURSO) {
+    await ensureTursoIndexes();
     const client = getTursoClient();
     await client.execute({
       sql,

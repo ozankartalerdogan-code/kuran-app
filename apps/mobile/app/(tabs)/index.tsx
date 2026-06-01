@@ -173,7 +173,7 @@ export default function HomeScreen() {
           <TouchableOpacity
             key={card.route}
             style={[styles.card, { backgroundColor: c.isDark ? c.card : card.bg, borderColor: c.isDark ? c.border : card.border }]}
-            onPress={() => router.push(card.route)}
+            onPress={() => router.push(card.route as any)}
             activeOpacity={0.75}
           >
             <MaterialCommunityIcons name={card.icon} size={36} color={c.isDark ? c.accent : card.iconColor} />

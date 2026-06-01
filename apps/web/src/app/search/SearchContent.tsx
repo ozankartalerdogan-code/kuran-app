@@ -12,9 +12,11 @@ import type { SearchResponse } from "../api/search/search-types";
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
 interface SearchVerseResult {
-  verse_key:  string;
-  meal:       string | null;
-  surah_name: string | null;
+  verse_key:   string;
+  meal:        string | null;
+  surah_name:  string | null;
+  arabic_text: string | null;
+  reading_tr:  string | null;
 }
 
 type PageState =

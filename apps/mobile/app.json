@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Kuran Analiz",
-    "slug": "kuran-analiz",
+    "name": "Kuran Yolu",
+    "slug": "kuran-yolu",
     "scheme": "kurananaliz",
     "version": "1.0.0",
     "sdkVersion": "54.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "description": "Kur'an-ı Kerim Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
+    "description": "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

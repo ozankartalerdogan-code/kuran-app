@@ -1032,7 +1032,7 @@ function buildAyahDetailDebugPayload({
   sectionStatuses,
   wordAnalysisSource
 }: {
-  detail: Awaited<ReturnType<typeof getAyahDetail>>;
+  detail: Awaited<ReturnType<typeof getAyahDetailFromDb>>;
   filteredTranslationSources: string[];
   hiddenSourcesToOmit: string[];
   includeCopyForValidator: boolean;
@@ -1073,15 +1073,15 @@ function buildAyahDetailDebugPayload({
   const debugPayload: AyahDetailDebugPayload = {
     id: detail.ayah.id,
     arabicText: detail.ayah.arabicText,
-    arabicTokens: detail.wordAnalyses.map((word) => word.arabic),
-    analysisTokens: detail.wordAnalyses.map((word) => ({
+    arabicTokens: detail.wordAnalyses.map((word: WordAnalysis) => word.arabic),
+    analysisTokens: detail.wordAnalyses.map((word: WordAnalysis) => ({
       index: word.wordIndex,
       arabic: word.arabic,
       morphology: word.morphology,
       transliteration: word.transliteration,
       status: word.status
     })),
-    roots: detail.wordAnalyses.map((word) => ({
+    roots: detail.wordAnalyses.map((word: WordAnalysis) => ({
       index: word.wordIndex,
       root: word.root,
       rootExplanationText: word.rootExplanation?.text ?? null,

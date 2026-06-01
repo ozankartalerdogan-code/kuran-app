@@ -2,6 +2,7 @@ import {
   View, Text, ScrollView, TouchableOpacity,
   ActivityIndicator, StyleSheet, Switch, Alert,
 } from "react-native";
+import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { router, Stack } from "expo-router";
 import { api, type TagFilterResult } from "../src/lib/api";
@@ -16,9 +17,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const NOTIF_KEY = "namazNotifEnabled";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
-// expo-location yeni APK build gerektirir — şimdilik İstanbul sabit
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
-  return { ...ISTANBUL, isFallback: true };
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Konum İzni",
+        "Konum izni verilmedi. Namaz vakitleri İstanbul için gösterilecek.",
+        [{ text: "Tamam" }],
+      );
+      return { ...ISTANBUL, isFallback: true };
+    }
+    const pos = await Promise.race([
+      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
+    ]);
+    if (!pos || !("coords" in pos)) {
+      return { ...ISTANBUL, isFallback: true };
+    }
+    return { lat: pos.coords.latitude, lng: pos.coords.longitude, isFallback: false };
+  } catch {
+    return { ...ISTANBUL, isFallback: true };
+  }
 }
 
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────

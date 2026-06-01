@@ -1,4 +1,5 @@
 // EXPO_PUBLIC_ prefix: Expo build sürecinde bundle'a gömülür
+import { storage } from "./storage";
 
 const API_BASE =
   process.env.EXPO_PUBLIC_API_URL ?? "https://kuranapp.vercel.app/api/v1";
@@ -291,13 +292,54 @@ export type AyahDetailResponse = {
   nextAyah: { surahId: number; ayahNumber: number } | null;
 };
 
+// ── Offline cache yardımcıları ────────────────────────────────────────────────
+
+const CACHE_TTL_STATIC = 7 * 24 * 60 * 60 * 1000;  // 7 gün (statik veri)
+const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
+
+async function withCache<T>(
+  key: string,
+  ttl: number,
+  fetcher: () => Promise<T>,
+): Promise<T> {
+  // Önce cache dene
+  try {
+    const cached = await storage.getJSON<{ ts: number; data: T }>(key);
+    if (cached && Date.now() - cached.ts < ttl) return cached.data;
+  } catch { /* ignore */ }
+
+  // Network'ten al, cache'e yaz
+  const data = await fetcher();
+  storage.setJSON(key, { ts: Date.now(), data }).catch(() => {});
+  return data;
+}
+
+async function withCacheFallback<T>(
+  key: string,
+  ttl: number,
+  fetcher: () => Promise<T>,
+): Promise<T> {
+  try {
+    return await withCache(key, ttl, fetcher);
+  } catch (err) {
+    // Network hata → cache'den sun (eski olsa bile)
+    try {
+      const cached = await storage.getJSON<{ ts: number; data: T }>(key);
+      if (cached) return cached.data;
+    } catch { /* ignore */ }
+    throw err;
+  }
+}
+
 // ── API çağrıları ─────────────────────────────────────────────────────────────
 
 export const api = {
   surahs: {
     list: () =>
-      withRetry((signal) =>
-        request<SurahListItem[]>("/surahs", undefined, signal),
+      withCacheFallback(
+        "cache_surahs",
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) => request<SurahListItem[]>("/surahs", undefined, signal)),
       ),
   },
 
@@ -314,22 +356,26 @@ export const api = {
 
   verses: {
     bySurah: (surahId: number) =>
-      withRetry((signal) =>
-        request<VerseListResponse>(
-          `/verses?surah_id=${surahId}`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_verses_${surahId}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
         ),
       ),
   },
 
   ayah: {
     get: (surahId: number, ayahNumber: number) =>
-      withRetry((signal) =>
-        request<AyahDetailResponse>(
-          `/ayah?surah_id=${surahId}&ayah_number=${ayahNumber}`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_ayah_${surahId}_${ayahNumber}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<AyahDetailResponse>(
+            `/ayah?surah_id=${surahId}&ayah_number=${ayahNumber}`,
+            undefined,
+            signal,
+          ),
         ),
       ),
   },
@@ -388,10 +434,14 @@ export const api = {
   },
 
   daily: {
-    get: () =>
-      withRetry((signal) =>
-        request<DailyResponse>("/daily", undefined, signal),
-      ),
+    get: () => {
+      const today = new Date().toISOString().slice(0, 10);
+      return withCacheFallback(
+        `cache_daily_${today}`,
+        CACHE_TTL_DAILY,
+        () => withRetry((signal) => request<DailyResponse>("/daily", undefined, signal)),
+      );
+    },
   },
 
   notifications: {

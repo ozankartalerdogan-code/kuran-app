@@ -87,8 +87,8 @@ export default async function MushafPage({ params }: PageProps) {
   const prevAyahHref =
     ayahNumber > 1
       ? `/mushaf/${surahId}/${ayahNumber - 1}`
-      : prevSurah?.verseCount
-        ? `/mushaf/${surahId - 1}/${prevSurah.verseCount}`
+      : prevSurah?.ayet_sayisi
+        ? `/mushaf/${surahId - 1}/${prevSurah.ayet_sayisi}`
         : null;
 
   const nextAyahHref =

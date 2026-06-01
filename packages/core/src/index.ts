@@ -66,6 +66,7 @@ export {
 } from "./transliteration/readingTr";
 export type { ReadingTrNormalizationResult } from "./transliteration/readingTr";
 export { getGithubSourceDecisions } from "./adapters/external/githubSourceAdapter";
+export { sanitizeSearchQuery, expandSearchPatterns } from "./search/sanitizeQuery";
 export { buildAllCaches } from "./pipeline/buildAllCaches";
 export { auditNormalizedCaches } from "./pipeline/auditNormalizedCaches";
 export { buildNormalizedCaches } from "./pipeline/buildNormalizedCaches";

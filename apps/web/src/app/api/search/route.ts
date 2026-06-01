@@ -13,6 +13,34 @@ interface CountRow    { total: number }
 interface VerseRow    { verse_key: string; meal: string | null; surah_name: string | null; arabic_text: string | null; reading_tr: string | null }
 interface TagCountRow { total: number }
 
+// ── Arama sorgusu normalizasyonu (Türkçe karakter esnekliği) ─────────────────
+
+/**
+ * Kullanıcının yazdığı arama terimini ASCII‑güvenli ve karşılaştırmaya
+ * uygun hale getirir.  NFD ayrıştırma + combining diacritic temizliği
+ * ile ş→s, ç→c, ğ→g, ü→u, ö→o, î→i, â→a dönüşümü yapar.
+ * Sadece "ı" (dotless i) NFD ile ayrışmadığı için özel olarak ele alınır.
+ */
+function sanitizeSearchQuery(q: string): string {
+  return q
+    .toLocaleLowerCase("tr-TR")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ı/g, "i")
+    .trim();
+}
+
+/**
+ * Aynı sorgunun hem orijinal (Türkçe karakterler korunmuş) hem de
+ * ASCII‑normalleştirilmiş varyantlarını döner.  Tekil kalması için
+ * Set ile birleştirilir.
+ */
+function expandSearchPatterns(q: string): string[] {
+  const original = q.toLocaleLowerCase("tr-TR").trim();
+  const ascii = sanitizeSearchQuery(q);
+  return [...new Set([original, ascii])];
+}
+
 // ── FTS5 sorgu temizleyici ────────────────────────────────────────────────────
 
 function escapeFts(q: string): string {
@@ -26,12 +54,7 @@ function escapeFts(q: string): string {
 // ── Sure eşleştirme ───────────────────────────────────────────────────────────
 
 function normalizeTR(text: string): string {
-  return text
-    .toLocaleLowerCase("tr-TR")
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/gu, "")
-    .replace(/ı/gu, "i")
-    .trim();
+  return sanitizeSearchQuery(text);
 }
 
 function findSurahMatch(q: string, surahs: SurahRow[]): SurahRow | null {
@@ -81,49 +104,95 @@ async function findTagMatch(q: string): Promise<TagMatch | null> {
 // ── FTS5 metin araması ────────────────────────────────────────────────────────
 
 async function searchFts(q: string): Promise<{ results: VerseRow[]; total: number }> {
-  const safe = escapeFts(q);
-  if (!safe) return { results: [], total: 0 };
+  // Orijinal + ASCII‑normalleştirilmiş varyantları dene
+  const patterns = expandSearchPatterns(q);
+  const ftsQueries = patterns
+    .map(p => escapeFts(p))
+    .filter(Boolean)
+    .map(safe => `"${safe}"*`);
 
-  const ftsQuery = `"${safe}"*`;
+  if (ftsQueries.length === 0) return { results: [], total: 0 };
 
-  try {
-    const countRow = await dbGet<CountRow>(
-      "SELECT COUNT(*) AS total FROM ayet_fts WHERE ayet_fts MATCH ?", ftsQuery
-    );
-    const total = countRow?.total ?? 0;
-    if (total === 0) return { results: [], total: 0 };
+  const allResults: VerseRow[] = [];
+  let total = 0;
 
-    const results = await dbAll<VerseRow>(`
-        SELECT f.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
-               v.arabic_text, v.reading_tr
-        FROM   ayet_fts f
-        JOIN   sureler s ON s.id = CAST(substr(f.verse_key, 1, instr(f.verse_key, ':') - 1) AS INTEGER)
-        JOIN   verses v ON v.verse_key = f.verse_key
-        WHERE  ayet_fts MATCH ?
-        ORDER  BY bm25(ayet_fts, 0, 0, 10, 5, 5)
-        LIMIT  ?
-      `, ftsQuery, VERSE_LIMIT);
-    return { results, total };
-  } catch {
-    return searchLikeFallback(q);
+  for (const ftsQuery of ftsQueries) {
+    try {
+      const countRow = await dbGet<CountRow>(
+        "SELECT COUNT(*) AS total FROM ayet_fts WHERE ayet_fts MATCH ?", ftsQuery
+      );
+      const cnt = countRow?.total ?? 0;
+      if (cnt === 0) continue;
+
+      total += cnt;
+
+      const rows = await dbAll<VerseRow>(`
+          SELECT f.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
+                 v.arabic_text, v.reading_tr
+          FROM   ayet_fts f
+          JOIN   sureler s ON s.id = CAST(substr(f.verse_key, 1, instr(f.verse_key, ':') - 1) AS INTEGER)
+          JOIN   verses v ON v.verse_key = f.verse_key
+          WHERE  ayet_fts MATCH ?
+          ORDER  BY bm25(ayet_fts, 0, 0, 10, 5, 5)
+          LIMIT  ?
+        `, ftsQuery, VERSE_LIMIT);
+      allResults.push(...rows);
+    } catch {
+      // FTS hatasında LIKE fallback'e geç
+      return searchLikeFallback(q);
+    }
   }
+
+  // Duplicate verse_key'leri temizle (aynı ayet iki varyantla da eşleşebilir)
+  const seen = new Set<string>();
+  const unique: VerseRow[] = [];
+  for (const r of allResults) {
+    if (!seen.has(r.verse_key)) {
+      seen.add(r.verse_key);
+      unique.push(r);
+    }
+  }
+
+  return { results: unique.slice(0, VERSE_LIMIT), total };
 }
 
 async function searchLikeFallback(q: string): Promise<{ results: VerseRow[]; total: number }> {
-  const pattern = `%${q}%`;
-  const countRow = await dbGet<CountRow>(
-    "SELECT COUNT(*) AS total FROM verses WHERE literal_ceviri LIKE ?", pattern
-  );
-  const results = await dbAll<VerseRow>(`
-      SELECT v.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
-             v.arabic_text, v.reading_tr
-      FROM   verses v
-      JOIN   sureler s ON s.id = v.surah_id
-      WHERE  v.literal_ceviri LIKE ?
-      ORDER  BY v.surah_id, v.ayah_number
-      LIMIT  ?
-    `, pattern, VERSE_LIMIT);
-  return { results, total: countRow?.total ?? 0 };
+  // LIKE ile de hem orijinal hem ASCII varyantları dene
+  const patterns = expandSearchPatterns(q).map(p => `%${p}%`);
+
+  const allResults: VerseRow[] = [];
+  let total = 0;
+
+  for (const pattern of patterns) {
+    const countRow = await dbGet<CountRow>(
+      "SELECT COUNT(*) AS total FROM verses WHERE literal_ceviri LIKE ?", pattern
+    );
+    const cnt = countRow?.total ?? 0;
+    total += cnt;
+
+    const rows = await dbAll<VerseRow>(`
+        SELECT v.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
+               v.arabic_text, v.reading_tr
+        FROM   verses v
+        JOIN   sureler s ON s.id = v.surah_id
+        WHERE  v.literal_ceviri LIKE ?
+        ORDER  BY v.surah_id, v.ayah_number
+        LIMIT  ?
+      `, pattern, VERSE_LIMIT);
+    allResults.push(...rows);
+  }
+
+  // Duplicate temizliği
+  const seen = new Set<string>();
+  const unique: VerseRow[] = [];
+  for (const r of allResults) {
+    if (!seen.has(r.verse_key)) {
+      seen.add(r.verse_key);
+      unique.push(r);
+    }
+  }
+
+  return { results: unique.slice(0, VERSE_LIMIT), total };
 }
 
 // ── Handler ───────────────────────────────────────────────────────────────────

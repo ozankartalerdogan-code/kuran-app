@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
+import * as Location from "expo-location";
 
 interface DailyVerse {
   verse_key: string;
@@ -189,10 +190,23 @@ export function useDailyContent(): UseDailyContentResult {
           });
       });
 
-    // 4. Namaz vakitlerini API'den çek ve cache'e yaz
+    // 4. Namaz vakitlerini gerçek konumla çek (izin yoksa İstanbul)
+    const coords = await (async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") return ISTANBUL;
+        const pos = await Promise.race([
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+          new Promise<null>((r) => setTimeout(() => r(null), 5000)),
+        ]);
+        if (pos && "coords" in pos) return { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      } catch { /* ignore */ }
+      return ISTANBUL;
+    })();
+
     const ts = buildDateStr();
     fetch(
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${ISTANBUL.lat}&longitude=${ISTANBUL.lon}&method=13`,
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13`,
       {
         headers: { "Accept": "application/json" },
       },
