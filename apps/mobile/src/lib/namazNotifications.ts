@@ -1,6 +1,7 @@
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
+import { api } from "./api";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -66,10 +67,19 @@ export async function scheduleNamazNotifications(
     // Vakit geçmişse bugün planlamayı atla
     if (trigger <= now) continue;
 
+    // Vakit-spesifik ayet al (hata olursa varsayılan mesaj kullan)
+    let body = "Namaz vakti girdi.";
+    try {
+      const verse = await api.notifications.namazVerse(key.toLowerCase());
+      if (verse?.translation) {
+        body = verse.translation.slice(0, 120) + (verse.translation.length > 120 ? "…" : "");
+      }
+    } catch { /* ignore */ }
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: `🕌 ${label} Vakti`,
-        body: "Namaz vakti girdi.",
+        body,
         sound: true,
       },
       trigger: {

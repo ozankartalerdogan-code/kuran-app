@@ -192,7 +192,7 @@ function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: numb
 
 export default function SearchScreen() {
   const c = useColors();
-  const params = useLocalSearchParams<{ q?: string; tag?: string; page?: string }>();
+  const params = useLocalSearchParams<{ q?: string; tag?: string; page?: string; type?: string }>();
   const initialQuery = params.q ?? params.tag ?? "";
 
   const [query,        setQuery]   = useState(initialQuery);
@@ -206,18 +206,22 @@ export default function SearchScreen() {
 
   // URL'den tag gelirse direkt tag filter çağır
   useEffect(() => {
-    if (params.tag) {
+    if (params.type === 'tag' && params.q) {
+      const page = parseInt(params.page ?? "1", 10) || 1;
+      fetchTagResults(params.q, page);
+      setQuery(params.q);
+    } else if (params.tag) {
       const page = parseInt(params.page ?? "1", 10) || 1;
       fetchTagResults(params.tag, page);
       setQuery(params.tag);
     } else if (params.q) {
       setQuery(params.q);
     }
-  }, [params.tag, params.q, params.page]);
+  }, [params.type, params.tag, params.q, params.page]);
 
   // Debounce metin araması
   useEffect(() => {
-    if (params.tag) return;
+    if (params.tag || params.type === 'tag') return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = query.trim();
     if (trimmed.length < MIN_LEN) { setState({ status: "idle" }); return; }
@@ -249,7 +253,7 @@ export default function SearchScreen() {
   const handleClear = useCallback(() => {
     setQuery("");
     setState({ status: "idle" });
-    router.setParams({ tag: undefined, q: undefined, page: undefined });
+    router.setParams({ tag: undefined, q: undefined, page: undefined, type: undefined });
     inputRef.current?.focus();
   }, []);
 
@@ -269,10 +273,12 @@ export default function SearchScreen() {
   }, [query]);
 
   const handlePageChange = useCallback((newPage: number) => {
-    if (params.tag) {
+    if (params.type === 'tag' && params.q) {
+      router.push(`/search?q=${encodeURIComponent(params.q)}&type=tag&page=${newPage}` as any);
+    } else if (params.tag) {
       router.push(`/search?tag=${encodeURIComponent(params.tag)}&page=${newPage}` as any);
     }
-  }, [params.tag]);
+  }, [params.type, params.q, params.tag]);
 
   const showIdle = state.status === "idle" && query.trim().length < MIN_LEN;
   const isLoading = state.status === "loading";
@@ -360,7 +366,7 @@ export default function SearchScreen() {
             ref={inputRef}
             style={[styles.input, { color: c.text }]}
             value={query}
-            onChangeText={t => { setQuery(t); router.setParams({ tag: undefined }); }}
+            onChangeText={t => { setQuery(t); router.setParams({ tag: undefined, type: undefined }); }}
             placeholder="Sure, ayet veya kelime ara…"
             placeholderTextColor={c.textMuted}
             returnKeyType="search"

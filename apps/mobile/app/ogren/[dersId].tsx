@@ -127,8 +127,7 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     <View style={qv.container}>
       <Text style={qv.progress}>Soru {idx + 1}/{sorular.length} · {score} doğru</Text>
       <View style={qv.soruBox}>
-        <Text style={[qv.soruText, isArabic(soru.soru) && qv.soruArabic]}
-          dir={isArabic(soru.soru) ? "rtl" : undefined}>
+        <Text style={[qv.soruText, isArabic(soru.soru) && qv.soruArabic, isArabic(soru.soru) && { textAlign: "right", writingDirection: "rtl" as const }]}>
           {soru.soru}
         </Text>
       </View>

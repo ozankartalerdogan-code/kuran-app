@@ -79,30 +79,11 @@ function JuzTracker({ currentJuz, onJuzPress }: { currentJuz: number; onJuzPress
 
 // ── AudioPlayer (simülasyon) ─────────────────────────────────────────────────
 
-function AudioPlayer({ state, progress, onPlayPause }: { state: AudioState; progress: number; onPlayPause: () => void }) {
-  const isPlaying = state === "playing";
-  return (
-    <View style={audioSt.container}>
-      <TouchableOpacity style={audioSt.playBtn} onPress={onPlayPause} activeOpacity={0.7}>
-        <Ionicons name={isPlaying ? "pause" : "play"} size={22} color="#ffffff" />
-      </TouchableOpacity>
-      <View style={audioSt.info}>
-        <Text style={audioSt.title} numberOfLines={1}>
-          {isPlaying ? "Kıraat dinleniyor…" : state === "paused" ? "Duraklatıldı" : "Oynatıcı hazır"}
-        </Text>
-        <View style={audioSt.track}>
-          <View style={[audioSt.fill, { width: `${Math.min(100, Math.max(0, progress))}%` as any }]} />
-        </View>
-      </View>
-      <Text style={audioSt.time}>{formatTime(progress)}</Text>
-    </View>
-  );
+// AudioPlayer: expo-av yeni APK build gerektirir — şimdilik gizli
+function AudioPlayer(_props: { state: AudioState; progress: number; onPlayPause: () => void }) {
+  return null;
 }
 
-function formatTime(p: number): string {
-  const s = Math.floor((p / 100) * 180);
-  return `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
-}
 
 // ── BookmarkBar ──────────────────────────────────────────────────────────────
 

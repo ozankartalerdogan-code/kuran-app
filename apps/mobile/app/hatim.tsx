@@ -89,6 +89,7 @@ export default function HatimScreen() {
   const startHatim = () => {
     const h: Hatim = { id: Date.now().toString(), startDate: new Date().toISOString(), completedDate: null, readJuz: [] };
     persist({ hatims: [h, ...store.hatims], currentId: h.id });
+    setConfirm(false);
   };
 
   const toggleJuz = (n: number) => {

@@ -31,6 +31,41 @@ function sourceName(source: string): string {
   return SOURCE_NAMES[key] ?? key.toUpperCase();
 }
 
+// ── POS (Part of Speech) Türkçe çeviri ───────────────────────────────────────
+
+const POS_TR_MAP: Record<string, string> = {
+  // ── Kısa kodlar (büyük harf) ──
+  p:    "Edat",     n:    "İsim",    v:    "Fiil",   adj:  "Sıfat",
+  m:    "Eril",     f:    "Dişil",   ms:   "Eril Tekil",  fs: "Dişil Tekil",
+  mp:   "Eril Çoğul", fp: "Dişil Çoğul", md: "Eril İkil", fd: "Dişil İkil",
+  gen:  "Tamlayan", acc:  "Belirtme", nom: "Yalın",  pref: "Önek",
+  lem:  "Lemma",    root: "Kök",     det:  "Belirteç", pn: "Özel İsim",
+  neg:  "Olumsuz",  imp:  "Emir",   pass: "Edilgen", act:  "Etken",
+  caus: "Ettirgen", subj: "Dilek",  ind:  "Haber",   ins:  "Vasıta",
+  dual: "İkil",     pl:   "Çoğul",  sg:   "Tekil",   pron: "Zamir",
+  dem:  "İşaret",   rel:  "İlgi",   cond: "Şart",    fut:  "Gelecek",
+  past: "Geçmiş",   pres: "Şimdiki",
+  // ── İngilizce tam adlar ──
+  particle:    "Edat",     noun:        "İsim",     verb:       "Fiil",
+  adjective:   "Sıfat",   pronoun:     "Zamir",    adverb:     "Zarf",
+  article:     "Belirlilik Takısı",    determiner: "Belirteç",
+  preposition: "Edat",    conjunction: "Bağlaç",   other:      "Diğer",
+  unknown:     "Bilinmiyor",
+  // ── Ek kısa formlar ──
+  prpn: "Özel İsim", num: "Sayı", interj: "Ünlem", pax: "Harf / Ek",
+};
+
+function translatePos(raw: string | null): string {
+  if (!raw) return "—";
+  if (!raw.includes("+")) {
+    return POS_TR_MAP[raw.toLowerCase()] ?? raw;
+  }
+  return raw
+    .split("+")
+    .map((part) => POS_TR_MAP[part.trim().toLowerCase()] ?? part.trim())
+    .join(" + ");
+}
+
 // ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
 const naturallyRootlessPosLabels: Record<string, string> = {
@@ -606,9 +641,9 @@ export default function AyahDetailScreen() {
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
                             Tür
                           </Text>
-                          <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
-                            {w.pos}
-                          </Text>
+                      <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
+                        {translatePos(w.pos)}
+                      </Text>
                         </View>
                       ) : null}
 

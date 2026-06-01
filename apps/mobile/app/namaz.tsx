@@ -1,6 +1,6 @@
 import {
   View, Text, ScrollView, TouchableOpacity,
-  ActivityIndicator, StyleSheet, Switch,
+  ActivityIndicator, StyleSheet, Switch, Alert,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { router, Stack } from "expo-router";
@@ -62,7 +62,7 @@ const SURE_ADI: Record<number, string> = {
 };
 
 function VakitTablosu({ teheccudVerses }: { teheccudVerses: { surahId: number; ayahNumber: number; label: string }[] }) {
-  const allVakitVerse = {
+  const allVakitVerse: Record<string, { surahId: number; ayahNumber: number; label: string }[]> = {
     ...VAKIT_KEYS,
     teheccud: teheccudVerses,
   };
@@ -95,7 +95,7 @@ function VakitTablosu({ teheccudVerses }: { teheccudVerses: { surahId: number; a
             </View>
             {/* Sağ — ayetler */}
             <View style={vt.vakitSag}>
-              {verses.map((v) => (
+              {verses.map((v: { surahId: number; ayahNumber: number; label: string }) => (
                 <TouchableOpacity key={v.label} style={vt.ayetRow}
                   onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}` as any)} activeOpacity={0.7}>
                   <View style={vt.keyBadge}><Text style={vt.keyText}>{v.label}</Text></View>

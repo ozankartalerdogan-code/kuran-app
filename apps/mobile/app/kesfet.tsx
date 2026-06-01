@@ -222,7 +222,7 @@ const ThemeAccordion = React.memo(function ThemeAccordion({ grup }: { grup: type
             <TouchableOpacity
               key={t.kod}
               style={ta.temaRow}
-              onPress={() => router.push(`/search?tag=${encodeURIComponent(t.kod)}` as any)}
+              onPress={() => router.push({ pathname: '/search', params: { q: encodeURIComponent(t.kod), type: 'tag' } } as any)}
               activeOpacity={0.7}
             >
               <Text style={ta.temaIsim}>{t.isim}</Text>

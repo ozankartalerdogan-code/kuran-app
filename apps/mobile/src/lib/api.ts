@@ -75,6 +75,15 @@ async function withRetry<T>(
   fn: (signal: AbortSignal) => Promise<T>,
   retries = MAX_RETRIES,
 ): Promise<T> {
+  try {
+    const c = new AbortController();
+    const t = setTimeout(() => c.abort(), 3000);
+    await fetch("https://clients3.google.com/generate_204", { method: "HEAD", signal: c.signal });
+    clearTimeout(t);
+  } catch {
+    throw new ApiError(0, "İnternet bağlantısı yok");
+  }
+
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController();
     // timeout: 10 sn → 15 sn → 22.5 sn
@@ -382,6 +391,24 @@ export const api = {
     get: () =>
       withRetry((signal) =>
         request<DailyResponse>("/daily", undefined, signal),
+      ),
+  },
+
+  notifications: {
+    namazVerse: (vakit?: string) =>
+      withRetry((signal) =>
+        request<{
+          vakit: string | null;
+          verse_key: string;
+          surah_id: number;
+          ayah_number: number;
+          arabic_text: string | null;
+          translation: string | null;
+        }>(
+          `/notifications/namaz-verse${vakit ? `?vakit=${encodeURIComponent(vakit)}` : ""}`,
+          undefined,
+          signal,
+        ),
       ),
   },
 
