@@ -112,10 +112,10 @@ export default function PrivacyPage() {
           <p className="mt-2">
             <strong>E-posta:</strong>{" "}
             <a
-              href="mailto:ozankartalerdogan@gmail.com"
+              href="mailto:kuranyolu.iletisim@gmail.com"
               className="text-emerald-600 hover:underline dark:text-emerald-400"
             >
-              ozankartalerdogan@gmail.com
+              kuranyolu.iletisim@gmail.com
             </a>
           </p>
         </Section>
