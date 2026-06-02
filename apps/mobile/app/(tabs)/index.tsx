@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
@@ -8,6 +8,7 @@ import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
+import { api } from "../../src/lib/api";
 
 const NAV_CARDS: {
   label: string;
@@ -41,6 +42,21 @@ function HomeContent() {
   const c          = useColors();
   const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
+  const [moodLoading, setMoodLoading] = useState<string | null>(null);
+
+  const handleMoodPress = useCallback(async (tag: string) => {
+    if (moodLoading) return;
+    setMoodLoading(tag);
+    try {
+      const result = await api.mood.random(tag);
+      router.push(`/ayah/${result.surah_id}/${result.ayah_number}` as any);
+    } catch {
+      // Fallback: tag aramasına git
+      router.push(`/search?q=${encodeURIComponent(tag)}` as any);
+    } finally {
+      setMoodLoading(null);
+    }
+  }, [moodLoading]);
 
   return (
     <ScrollView
@@ -104,11 +120,15 @@ function HomeContent() {
         {RUH_HALI.map(m => (
           <TouchableOpacity
             key={m.tag}
-            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg }]}
-            onPress={() => router.push(`/search?tag=${encodeURIComponent(m.tag)}` as any)}
+            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg, opacity: moodLoading === m.tag ? 0.6 : 1 }]}
+            onPress={() => handleMoodPress(m.tag)}
             activeOpacity={0.7}
+            disabled={!!moodLoading}
           >
-            <Text style={{ fontSize: 18 }}>{m.emoji}</Text>
+            {moodLoading === m.tag
+              ? <ActivityIndicator size="small" color={c.text} />
+              : <Text style={{ fontSize: 18 }}>{m.emoji}</Text>
+            }
             <Text style={[styles.moodLabel, { color: c.text }]}>{m.label}</Text>
           </TouchableOpacity>
         ))}
