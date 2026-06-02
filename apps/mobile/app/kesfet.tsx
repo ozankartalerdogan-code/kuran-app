@@ -430,7 +430,7 @@ const s = StyleSheet.create({
   tabLabel:  { fontSize: 11, fontWeight: "600", color: "#9ca3af" },
   tabLabelActive: { color: "#059669" },
 
-  container: { flex: 1, backgroundColor: "#f7f1e4" },
+  container: { flex: 1, backgroundColor: "#f5f0e8" },
   content:   { padding: 14, paddingBottom: 48 },
 
   sectionTitle: {

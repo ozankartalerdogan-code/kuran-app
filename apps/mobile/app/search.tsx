@@ -514,7 +514,7 @@ export default function SearchScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  screen:   { flex: 1, backgroundColor: "#f7f1e4" },
+  screen:   { flex: 1, backgroundColor: "#f5f0e8" },
   barWrap:  { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4 },
   bar:      { flexDirection: "row", alignItems: "center", backgroundColor: "#fff", borderRadius: 16, borderWidth: 1, borderColor: "#e7e5e4", paddingHorizontal: 14, paddingVertical: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 2 },
   input:    { flex: 1, fontSize: 16, color: "#1c1917", paddingVertical: 10 },

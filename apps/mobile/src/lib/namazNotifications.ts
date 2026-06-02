@@ -37,7 +37,7 @@ export async function fetchPrayerTimes(
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
     const res = await fetch(
-      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13`,
+      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13&school=1&midnightMode=0`,
       { headers: { "Accept": "application/json" } }
     );
     const data = await res.json();

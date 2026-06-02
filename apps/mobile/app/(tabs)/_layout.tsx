@@ -10,17 +10,18 @@ const TABS: {
   icon: IoniconsName;
   iconActive: IoniconsName;
 }[] = [
-  { name: "index",     title: "Ana Sayfa", icon: "home-outline",     iconActive: "home"           },
-  { name: "surah",     title: "Sureler",   icon: "book-outline",     iconActive: "book"           },
-  { name: "discover",  title: "Arama",     icon: "search-outline",   iconActive: "search"         },
-  { name: "favorites", title: "Favoriler", icon: "heart-outline",    iconActive: "heart"          },
-  { name: "notes",     title: "Notlarım",  icon: "create-outline",   iconActive: "create"         },
+  { name: "index",     title: "Ana Sayfa", icon: "home-outline",   iconActive: "home"   },
+  { name: "surah",     title: "Sureler",   icon: "book-outline",   iconActive: "book"   },
+  { name: "discover",  title: "Arama",     icon: "search-outline", iconActive: "search" },
+  { name: "favorites", title: "Favoriler", icon: "heart-outline",  iconActive: "heart"  },
+  { name: "notes",     title: "Notlarım",  icon: "create-outline", iconActive: "create" },
 ];
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor:   "#059669",
         tabBarInactiveTintColor: "#78716c",
         tabBarStyle: {
@@ -32,14 +33,6 @@ export default function TabsLayout() {
           fontSize:   10,
           fontWeight: "600",
         },
-        headerStyle: {
-          backgroundColor: "#ffffff",
-        },
-        headerTitleStyle: {
-          fontWeight: "700",
-          color:      "#1c1917",
-        },
-        headerShadowVisible: false,
       }}
     >
       {TABS.map((tab) => (

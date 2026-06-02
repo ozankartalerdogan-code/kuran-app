@@ -37,7 +37,7 @@ const RUH_HALI = [
 ];
 
 export default function HomeScreen() {
-  const c      = useColors();
+  const c          = useColors();
   const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, PRAYER_LABELS } = useDailyContent();
 
@@ -46,43 +46,36 @@ export default function HomeScreen() {
       style={[styles.container, { backgroundColor: c.bg }]}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
-    >
-      {/* Hero */}
-      <View style={styles.hero}>
-        <View style={styles.heroTop}>
-          <View style={{ flex: 1 }} />
-          <Text style={styles.heroIcon}>📖</Text>
-          <View style={{ flex: 1, alignItems: "flex-end" }}>
-            <TouchableOpacity
-              onPress={toggleTheme}
-              activeOpacity={0.75}
-              style={[styles.themeBtn, {
-                backgroundColor: c.isDark ? "#292524" : "#e7e5e4",
-                borderColor: c.isDark ? "#44403c" : "#d6d3d1",
-              }]}
-            >
-              <Ionicons
-                name={c.isDark ? "sunny" : "moon"}
-                size={18}
-                color={c.isDark ? "#fbbf24" : "#6366f1"}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text style={[styles.heroTitle, { color: c.text }]}>Kuran Analiz</Text>
-        <Text style={[styles.heroSub, { color: c.textMuted }]}>Türkçe meal · Kelime analizi · Dua kategorileri</Text>
-      </View>
 
-      {/* Streak */}
-      {streak.current > 0 && (
-        <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
-          <Text style={styles.streakEmoji}>🔥</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>{streak.current} günlük seri!</Text>
-            <Text style={[styles.streakSub, { color: c.isDark ? "#f97316" : "#c2410c" }]}>Rekor: {streak.longest} gün</Text>
-          </View>
+    >
+      {/* Streak + Gece modu */}
+      <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
+        <Text style={styles.streakEmoji}>🔥</Text>
+        <View style={{ flex: 1 }}>
+          {streak.current > 0 ? (
+            <>
+              <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>{streak.current} günlük seri!</Text>
+              <Text style={[styles.streakSub, { color: c.isDark ? "#f97316" : "#c2410c" }]}>Rekor: {streak.longest} gün</Text>
+            </>
+          ) : (
+            <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>Kuran Yolu</Text>
+          )}
         </View>
-      )}
+        <TouchableOpacity
+          onPress={toggleTheme}
+          activeOpacity={0.75}
+          style={[styles.themeBtn, {
+            backgroundColor: c.isDark ? "#292524" : "#e7e5e4",
+            borderColor: c.isDark ? "#44403c" : "#d6d3d1",
+          }]}
+        >
+          <Ionicons
+            name={c.isDark ? "sunny" : "moon"}
+            size={18}
+            color={c.isDark ? "#fbbf24" : "#6366f1"}
+          />
+        </TouchableOpacity>
+      </View>
 
       {/* Günün Ayeti */}
       <TouchableOpacity
@@ -187,13 +180,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  content:   { padding: 16, paddingBottom: 32 },
+  content:   { padding: 16, paddingTop: 48, paddingBottom: 32 },
 
-  hero:    { alignItems: "center", paddingVertical: 20 },
-  heroTop: { flexDirection: "row", alignItems: "center", width: "100%", marginBottom: 4 },
-  heroIcon:  { fontSize: 44, marginBottom: 8 },
-  heroTitle: { fontSize: 24, fontWeight: "700", marginBottom: 4 },
-  heroSub:   { fontSize: 12, textAlign: "center" },
 
   streakCard: {
     flexDirection: "row", alignItems: "center", gap: 12,

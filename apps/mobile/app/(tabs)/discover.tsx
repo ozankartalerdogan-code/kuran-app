@@ -365,7 +365,7 @@ export default function SearchScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7f1e4" },
+  container: { flex: 1, backgroundColor: "#f5f0e8" },
 
   bar: {
     flexDirection:     "row",

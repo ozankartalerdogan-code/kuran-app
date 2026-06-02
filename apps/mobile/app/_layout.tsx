@@ -2,8 +2,12 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
-import React, { Component, type ErrorInfo, type ReactNode } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
+import { AppSplash } from "../src/components/AppSplash";
+
+SplashScreen.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -54,7 +58,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 function AppContent() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
       <Stack>
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerShown: false }} />
@@ -79,6 +83,19 @@ function AppContent() {
 }
 
 export default function RootLayout() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    // Native splash gizle, özel splash göster (min 1.5sn)
+    const timer = setTimeout(async () => {
+      await SplashScreen.hideAsync();
+      setReady(true);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!ready) return <AppSplash />;
+
   return (
     <ErrorBoundary>
       <AppContent />

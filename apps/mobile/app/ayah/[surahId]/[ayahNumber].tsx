@@ -338,7 +338,7 @@ interface ThemeColors {
 }
 
 const lightColors: ThemeColors = {
-  bg:           "#f7f1e4",
+  bg:           "#f5f0e8",
   card:         "#ffffff",
   surfaceAlt:   "#f5f0e8",
   border:       "#e7e5e4",

@@ -81,7 +81,8 @@ export function useDailyContent(): UseDailyContentResult {
   const [prayerLoading, setPrayerLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const prayerCity = ISTANBUL.city;
+  const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
+  const prayerCity = prayerCityState;
 
   const load = async () => {
     setError(null);
@@ -196,17 +197,27 @@ export function useDailyContent(): UseDailyContentResult {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") return ISTANBUL;
         const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Lowest }),
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
           new Promise<null>((r) => setTimeout(() => r(null), 15000)),
         ]);
-        if (pos && "coords" in pos) return { lat: pos.coords.latitude, lon: pos.coords.longitude };
+        if (pos && "coords" in pos) {
+          const { latitude, longitude } = pos.coords;
+          // Şehir adını al (reverse geocoding)
+          try {
+            const geo = await Location.reverseGeocodeAsync({ latitude, longitude });
+            const place = geo[0];
+            const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
+            if (cityName) setPrayerCityState(cityName);
+          } catch { /* ignore */ }
+          return { lat: latitude, lon: longitude };
+        }
       } catch { /* ignore */ }
       return ISTANBUL;
     })();
 
     const ts = buildDateStr();
     fetch(
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13`,
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=1&midnightMode=0&timezonestring=Europe%2FIstanbul`,
       {
         headers: { "Accept": "application/json" },
       },

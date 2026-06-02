@@ -9,8 +9,6 @@
     "icon": "./assets/icon.png",
     "description": "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
       "backgroundColor": "#0a1628"
     },
     "assetBundlePatterns": [

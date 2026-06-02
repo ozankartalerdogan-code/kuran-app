@@ -217,8 +217,8 @@ export default function SurahDetailScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container:   { flex: 1, backgroundColor: "#f7f1e4" },
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 20, backgroundColor: "#f7f1e4" },
+  container:   { flex: 1, backgroundColor: "#f5f0e8" },
+  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 20, backgroundColor: "#f5f0e8" },
   loadingText: { marginTop: 12, color: "#78716c", fontSize: 14 },
   errorText:   { color: "#dc2626", fontSize: 14, textAlign: "center" },
 

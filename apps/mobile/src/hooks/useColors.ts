@@ -16,7 +16,7 @@ export type AppColors = {
 };
 
 const light: AppColors = {
-  bg:            "#f7f1e4",
+  bg:            "#f5f0e8",
   card:          "#ffffff",
   cardAlt:       "#f5f0e8",
   border:        "#e7e5e4",

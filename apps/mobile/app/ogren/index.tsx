@@ -322,8 +322,8 @@ export default function OgrenScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#f7f1e4" },
-  scroll:      { flex: 1, backgroundColor: "#f7f1e4" },
+  centered:    { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#f5f0e8" },
+  scroll:      { flex: 1, backgroundColor: "#f5f0e8" },
   content:     { padding: 16, paddingBottom: 48 },
   overallCard: {
     backgroundColor: "#fff", borderRadius: 14, padding: 14,

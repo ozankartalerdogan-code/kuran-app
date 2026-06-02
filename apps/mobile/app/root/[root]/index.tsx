@@ -285,7 +285,7 @@ export default function RootDetailScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  container:  { flex: 1, backgroundColor: "#f7f1e4" },
+  container:  { flex: 1, backgroundColor: "#f5f0e8" },
   content:    { paddingBottom: 40 },
   centered:   { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
   errorText:  { color: "#dc2626", fontSize: 14, textAlign: "center" },

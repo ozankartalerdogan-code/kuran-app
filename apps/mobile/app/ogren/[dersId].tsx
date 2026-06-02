@@ -302,8 +302,8 @@ export default function DersScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container: { flex:1, backgroundColor:"#f7f1e4" },
-  centered:  { flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"#f7f1e4" },
+  container: { flex:1, backgroundColor:"#f5f0e8" },
+  centered:  { flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"#f5f0e8" },
   noData:    { color:"#78716c", fontSize:14 },
   modeBar:   { flexDirection:"row", margin:12, gap:8 },
   modeBtn:   { flex:1, paddingVertical:10, borderRadius:10, backgroundColor:"#fff", borderWidth:1, borderColor:"#e7e5e4", alignItems:"center" },

@@ -560,7 +560,7 @@ export default function IbadetRehberiScreen() {
 // ── STİLLER ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  container: { flex:1, backgroundColor:"#f7f1e4" },
+  container: { flex:1, backgroundColor:"#f5f0e8" },
   tabBar:    { flexDirection:"row", backgroundColor:"#fff", borderBottomWidth:1, borderBottomColor:"#e7e5e4" },
   tab:       { flex:1, alignItems:"center", paddingVertical:10, gap:2 },
   tabActive: { borderBottomWidth:2, borderBottomColor:"#059669" },

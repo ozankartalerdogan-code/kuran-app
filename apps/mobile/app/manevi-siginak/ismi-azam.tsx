@@ -134,7 +134,7 @@ const bakara250: DuaKarti = {
 function useColors() {
   const { isDark: dark } = useGlobalColors();
   return {
-    bg:            dark ? "#1c1917" : "#f7f1e4",
+    bg:            dark ? "#1c1917" : "#f5f0e8",
     cardBg:        dark ? "#292524" : "#ffffff",
     cardBorder:    dark ? "#44403c" : "#e7e5e4",
     text:          dark ? "#f5f5f4" : "#1c1917",

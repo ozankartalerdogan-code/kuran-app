@@ -318,7 +318,7 @@ export default function ManeviSiginakScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f7f1e4" },
+  container: { flex: 1, backgroundColor: "#f5f0e8" },
 
   header:      { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fff", marginBottom: 8 },
   headerTitle: { fontSize: 22, fontWeight: "700", color: "#1c1917" },

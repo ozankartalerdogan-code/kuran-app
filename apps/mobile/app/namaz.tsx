@@ -293,7 +293,7 @@ export default function NamazScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex:1, backgroundColor:"#f7f1e4" },
+  container: { flex:1, backgroundColor:"#f5f0e8" },
   notifCard: {
     flexDirection: "row", alignItems: "center", gap: 12,
     margin: 12, padding: 14,
