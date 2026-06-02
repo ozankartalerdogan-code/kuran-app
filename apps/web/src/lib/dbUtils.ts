@@ -9,7 +9,6 @@
  *
  * API  :  dbAll<T>(sql, ...args)  → Promise<T[]>
  *         dbGet<T>(sql, ...args)  → Promise<T | undefined>
- *         dbRun(sql, ...args)     → Promise<void>
  */
 
 import path from "path";
@@ -106,10 +105,10 @@ function getLocalDb(): _DatabaseSync {
 
 // ── Yardımcı: Turso Row → plain object ───────────────────────────────────────
 
-function rowToObj(row: Record<string, unknown>, cols: string[]): Record<string, unknown> {
+function rowToObj<T>(row: Record<string, unknown>, cols: string[]): T {
   const obj: Record<string, unknown> = {};
   for (const col of cols) obj[col] = row[col] ?? null;
-  return obj;
+  return obj as T;
 }
 
 // ── Genel API ─────────────────────────────────────────────────────────────────
@@ -123,9 +122,7 @@ export async function dbAll<T>(sql: string, ...args: unknown[]): Promise<T[]> {
       // @libsql/client InArgs: (string | number | bigint | null | ArrayBuffer)[]
       args: args as InArgs,
     });
-    return res.rows.map(
-      (row) => rowToObj(row as Record<string, unknown>, res.columns) as unknown as T
-    );
+    return res.rows.map((row) => rowToObj<T>(row as Record<string, unknown>, res.columns));
   }
 
   const db = getLocalDb();
@@ -142,7 +139,7 @@ export async function dbGet<T>(sql: string, ...args: unknown[]): Promise<T | und
       args: args as InArgs,
     });
     if (!res.rows[0]) return undefined;
-    return rowToObj(res.rows[0] as Record<string, unknown>, res.columns) as unknown as T;
+    return rowToObj<T>(res.rows[0] as Record<string, unknown>, res.columns);
   }
 
   const db = getLocalDb();
@@ -150,26 +147,3 @@ export async function dbGet<T>(sql: string, ...args: unknown[]): Promise<T | und
   return db.prepare(sql).get(...(args as any[])) as T | undefined;
 }
 
-export async function dbRun(sql: string, ...args: unknown[]): Promise<void> {
-  if (USE_TURSO) {
-    await ensureTursoIndexes();
-    const client = getTursoClient();
-    await client.execute({
-      sql,
-      args: args as InArgs,
-    });
-    return;
-  }
-
-  const db = getLocalDb();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  db.prepare(sql).run(...(args as any[]));
-}
-
-/**
- * getApiDb() — Geriye dönük uyumluluk için.
- * Yeni kod doğrudan dbAll/dbGet/dbRun kullanmalıdır.
- */
-export function getApiDb(): { dbAll: typeof dbAll; dbGet: typeof dbGet; dbRun: typeof dbRun } {
-  return { dbAll, dbGet, dbRun };
-}

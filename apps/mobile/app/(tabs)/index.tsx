@@ -7,6 +7,7 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
+import { ErrorBoundary } from "../../src/components/ErrorBoundary";
 
 const NAV_CARDS: {
   label: string;
@@ -36,7 +37,7 @@ const RUH_HALI = [
   { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",   bg: "#ffe4e6" },
 ];
 
-export default function HomeScreen() {
+function HomeContent() {
   const c          = useColors();
   const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
@@ -175,6 +176,14 @@ export default function HomeScreen() {
         ))}
       </View>
     </ScrollView>
+  );
+}
+
+export default function HomeScreen() {
+  return (
+    <ErrorBoundary>
+      <HomeContent />
+    </ErrorBoundary>
   );
 }
 

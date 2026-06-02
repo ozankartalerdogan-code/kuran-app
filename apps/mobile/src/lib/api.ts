@@ -78,7 +78,7 @@ async function withRetry<T>(
 ): Promise<T> {
   try {
     const c = new AbortController();
-    const t = setTimeout(() => c.abort(), 3000);
+    const t = setTimeout(() => c.abort(), 1500);
     await fetch("https://clients3.google.com/generate_204", { method: "HEAD", signal: c.signal });
     clearTimeout(t);
   } catch {

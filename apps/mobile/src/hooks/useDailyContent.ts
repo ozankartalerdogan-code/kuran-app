@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { api } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
@@ -84,14 +84,13 @@ export function useDailyContent(): UseDailyContentResult {
   const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
   const prayerCity = prayerCityState;
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setError(null);
     setVerseLoading(true);
     setDuaLoading(true);
     setPrayerLoading(true);
     setLoading(true);
 
-    // Track sub-load completions via flags (updated in closures)
     let verseDone = false;
     let duaDone = false;
     let prayerDone = false;
@@ -101,6 +100,28 @@ export function useDailyContent(): UseDailyContentResult {
         setLoading(false);
       }
     };
+
+    // 0. Günün ayeti + duasını anında göster — bugünün cache'ini doğrudan oku
+    try {
+      const cacheKey = `cache_daily_${new Date().toISOString().slice(0, 10)}`;
+      const snap = await storage.getJSON<{
+        ts: number;
+        data: { verse: DailyVerse | null; dua: DailyVerse | null };
+      }>(cacheKey);
+      if (snap?.data) {
+        if (snap.data.verse && isValidDailyVerse(snap.data.verse)) {
+          setVerse(snap.data.verse);
+          verseDone = true;
+          setVerseLoading(false);
+        }
+        if (snap.data.dua && isValidDailyVerse(snap.data.dua)) {
+          setDua(snap.data.dua);
+          duaDone = true;
+          setDuaLoading(false);
+        }
+        tryFinishLoading();
+      }
+    } catch { /* ignore */ }
 
     // 1. Namaz vakitlerini önce cache'den yükle (anında)
     try {
@@ -216,14 +237,16 @@ export function useDailyContent(): UseDailyContentResult {
     })();
 
     const ts = buildDateStr();
+    const prayerAC = new AbortController();
+    const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
+
     fetch(
       `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=1&midnightMode=0&timezonestring=Europe%2FIstanbul`,
-      {
-        headers: { "Accept": "application/json" },
-      },
+      { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
     )
       .then((r) => r.json())
       .then((d) => {
+        clearTimeout(prayerTimeoutId);
         if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
           storage.setJSON(STORAGE_KEYS.prayerCache, {
@@ -236,6 +259,7 @@ export function useDailyContent(): UseDailyContentResult {
         tryFinishLoading();
       })
       .catch(() => {
+        clearTimeout(prayerTimeoutId);
         prayerDone = true;
         setPrayerLoading(false);
         tryFinishLoading();
@@ -245,15 +269,14 @@ export function useDailyContent(): UseDailyContentResult {
     setTimeout(() => {
       if (!verseDone) setVerseLoading(false);
       if (!duaDone) setDuaLoading(false);
-      if (!prayerDone) setPrayerLoading(false);
+      if (!prayerDone) { prayerAC.abort(); setPrayerLoading(false); }
       setLoading(false);
     }, 10_000);
-  };
+  }, []);
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [load]);
 
   const nextPrayer = prayers
     ? (() => {
@@ -274,9 +297,9 @@ export function useDailyContent(): UseDailyContentResult {
       })()
     : null;
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     await load();
-  };
+  }, [load]);
 
   return {
     verse,

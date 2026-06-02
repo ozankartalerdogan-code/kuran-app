@@ -65,6 +65,15 @@ export async function GET(
       const cmp         = isExact ? "= ?" : "LIKE ?";
       const bindVal     = isExact ? upper : likePattern;
 
+      const countRow = await dbGet<{ total: number }>(
+        `SELECT COUNT(*) AS total FROM verse_tags vt
+         JOIN verses v ON v.verse_key = vt.verse_key
+         WHERE vt.ana_tema ${cmp} ${placeholders}`,
+        bindVal, ...excludeKeys,
+      );
+      const total  = countRow?.total ?? 0;
+      const offset = total > 1 ? Math.floor(Math.random() * total) : 0;
+
       row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
@@ -77,12 +86,20 @@ export async function GET(
                  AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vt.ana_tema ${cmp}
           ${placeholders}
-          ORDER  BY RANDOM()
-          LIMIT  1
-        `, bindVal,
-        ...excludeKeys);
+          ORDER  BY v.verse_key
+          LIMIT  1 OFFSET ?
+        `, bindVal, ...excludeKeys, offset);
     } else {
       const needle = tag.toLocaleLowerCase("tr-TR");
+
+      const countRow = await dbGet<{ total: number }>(
+        `SELECT COUNT(*) AS total FROM verse_tag_items vi
+         JOIN verses v ON v.verse_key = vi.verse_key
+         WHERE vi.tag = ? ${placeholders}`,
+        needle, ...excludeKeys,
+      );
+      const total  = countRow?.total ?? 0;
+      const offset = total > 1 ? Math.floor(Math.random() * total) : 0;
 
       row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
@@ -96,10 +113,9 @@ export async function GET(
                  AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vi.tag = ?
           ${placeholders}
-          ORDER  BY RANDOM()
-          LIMIT  1
-        `, needle,
-        ...excludeKeys);
+          ORDER  BY v.verse_key
+          LIMIT  1 OFFSET ?
+        `, needle, ...excludeKeys, offset);
     }
 
     if (!row) {
@@ -117,7 +133,10 @@ export async function GET(
       arabic_text: row.arabic_text,
       meal:        row.meal,
     }, {
-      headers: { "Content-Type": "application/json; charset=utf-8" },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "no-store",
+      },
     });
   } catch (err) {
     console.error("[mood/random] hata:", err);

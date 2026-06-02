@@ -24,6 +24,7 @@ interface WordRow {
   meaning_tr: string | null;
   pos: string | null;
   root: string | null;
+  root_meaning: string | null;
 }
 
 interface TranslationRow {
@@ -115,27 +116,22 @@ export async function GET(req: NextRequest) {
   }
 
   const words = await dbAll<WordRow>(`
-      SELECT word_index,
-             MIN(arabic)     AS arabic,
-             MIN(meaning_tr) AS meaning_tr,
-             MIN(pos)        AS pos,
-             MIN(root)       AS root
-      FROM words
-      WHERE verse_key = ?
-      GROUP BY word_index
-      ORDER BY word_index
-    `, verseKey,);
+      SELECT w.word_index,
+             MIN(w.arabic)      AS arabic,
+             MIN(w.meaning_tr)  AS meaning_tr,
+             MIN(w.pos)         AS pos,
+             MIN(w.root)        AS root,
+             MIN(rm.meaning_tr) AS root_meaning
+      FROM   words w
+      LEFT JOIN root_meanings rm ON rm.root = w.root
+      WHERE  w.verse_key = ?
+      GROUP  BY w.word_index
+      ORDER  BY w.word_index
+    `, verseKey);
 
-  // Kök anlamları
-  const uniqueRoots = [...new Set(words.map(w => w.root).filter(Boolean))] as string[];
   const rootMeanings: Record<string, string> = {};
-  if (uniqueRoots.length > 0) {
-    const placeholders = uniqueRoots.map(() => "?").join(",");
-    const rmRows = await dbAll<{ root: string; meaning_tr: string }>(
-      `SELECT root, MIN(meaning_tr) AS meaning_tr FROM root_meanings WHERE root IN (${placeholders}) GROUP BY root`,
-      ...uniqueRoots
-    );
-    rmRows.forEach(r => { if (r.root && r.meaning_tr) rootMeanings[r.root] = r.meaning_tr; });
+  for (const w of words) {
+    if (w.root && w.root_meaning) rootMeanings[w.root] = w.root_meaning;
   }
 
   const prevAyah =
@@ -165,17 +161,20 @@ export async function GET(req: NextRequest) {
       .filter(t => t.text !== null),
     rootMeanings,
     words: words.map((w) => ({
-      wordIndex:  w.word_index,
-      arabic:     w.arabic,
-      meaningTr:  w.meaning_tr,
-      pos:        w.pos,
-      root:       w.root,
+      wordIndex: w.word_index,
+      arabic:    w.arabic,
+      meaningTr: w.meaning_tr,
+      pos:       w.pos,
+      root:      w.root,
     })),
     prevAyah,
     nextAyah,
   };
 
   return NextResponse.json(body, {
-    headers: { "Content-Type": "application/json; charset=utf-8" },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
+    },
   });
 }

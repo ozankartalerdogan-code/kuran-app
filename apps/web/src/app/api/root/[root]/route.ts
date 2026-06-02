@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
-import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
+import { dbAll, dbGet } from "../../../../lib/dbUtils";
 import type { RootDetail } from "../../../../types/rootDetail";
 
 export async function GET(

@@ -1,9 +1,10 @@
 export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
-import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
+import { dbAll, dbGet } from "../../../../lib/dbUtils";
 import { cleanMealText } from "../../../../lib/cleanMeal";
 const PAGE_SIZE = 50;
 const MAX_TAG   = 100;
+const MAX_PAGE  = 200;
 
 interface TagFilterRow {
   verse_key:   string;
@@ -58,9 +59,8 @@ export async function GET(
     return NextResponse.json({ type: "error", message: "tag parametresi gerekli" });
   }
 
-  // Bulgu 2: NaN-safe sayfa ayrıştırma
   const rawPage = parseInt(params.get("page") ?? "1", 10);
-  const page    = Number.isFinite(rawPage) && rawPage >= 1 ? rawPage : 1;
+  const page    = Math.min(Number.isFinite(rawPage) && rawPage >= 1 ? rawPage : 1, MAX_PAGE);
   const offset  = (page - 1) * PAGE_SIZE;
 
   try {
@@ -152,6 +152,8 @@ export async function GET(
           catch { return []; }
         })(),
       })),
+    }, {
+      headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400" },
     });
 
   } catch (err) {

@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import { dbAll, dbGet } from "../../../../lib/dbUtils";
+import { dbGet } from "../../../../lib/dbUtils";
 import { cleanMealText } from "../../../../lib/cleanMeal";
 
 interface NamazVerseRow {
@@ -9,11 +9,7 @@ interface NamazVerseRow {
   ayah_number: number;
   arabic_text: string | null;
   primary_translation: string | null;
-}
-
-interface TranslationRow {
-  source: string;
-  text: string | null;
+  yazir_text: string | null;
 }
 
 export type NamazVerseResponse = {
@@ -25,12 +21,13 @@ export type NamazVerseResponse = {
   translation: string | null;
 };
 
+function randomOffset(total: number): number {
+  return total > 1 ? Math.floor(Math.random() * total) : 0;
+}
+
 export async function GET(req: NextRequest) {
   const vakit = req.nextUrl.searchParams.get("vakit")?.toLocaleLowerCase("tr") ?? null;
 
-  const baseWhere = `(t.ana_tema = 'namaz' OR t.alt_taglar LIKE '%namaz%')`;
-
-  // Vakit-specific alt_tag önceliklendirme
   let vakitTags: string[] = [];
   if (vakit === "sabah") {
     vakitTags = ["sabır", "huşu", "fecr", "sabah", "dua"];
@@ -40,29 +37,62 @@ export async function GET(req: NextRequest) {
 
   let verse: NamazVerseRow | undefined;
 
-  // Aşama 1: Vakit-spesifik etiketlerle daraltılmış havuz
+  // Aşama 1: Vakit-spesifik — verse_tag_items üzerinden index lookup (LIKE yerine)
   if (vakitTags.length > 0) {
-    const likeConditions = vakitTags.map(() => `t.alt_taglar LIKE ?`).join(" OR ");
-    verse = await dbGet<NamazVerseRow>(
-      `SELECT v.verse_key, v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation
-       FROM verses v
-       LEFT JOIN verse_tags t ON v.verse_key = t.verse_key
-       WHERE ${baseWhere} AND (${likeConditions})
-       ORDER BY RANDOM()
-       LIMIT 1`,
-      ...vakitTags.map((tag) => `%${tag}%`),
+    const inPlaceholders = vakitTags.map(() => "?").join(",");
+
+    const countRow = await dbGet<{ total: number }>(
+      `SELECT COUNT(*) AS total
+       FROM verse_tag_items ti_namaz
+       WHERE ti_namaz.tag = 'namaz'
+         AND EXISTS (
+           SELECT 1 FROM verse_tag_items ti_vakit
+           WHERE ti_vakit.verse_key = ti_namaz.verse_key
+             AND ti_vakit.tag IN (${inPlaceholders})
+         )`,
+      ...vakitTags,
     );
+    const total = countRow?.total ?? 0;
+
+    if (total > 0) {
+      verse = await dbGet<NamazVerseRow>(
+        `SELECT v.verse_key, v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
+                MAX(CASE WHEN (yt.source = 'yazir' OR yt.source LIKE '%#yazir') THEN yt.text END) AS yazir_text
+         FROM verse_tag_items ti_namaz
+         JOIN verses v ON v.verse_key = ti_namaz.verse_key
+         LEFT JOIN translations yt ON yt.verse_key = v.verse_key
+         WHERE ti_namaz.tag = 'namaz'
+           AND EXISTS (
+             SELECT 1 FROM verse_tag_items ti_vakit
+             WHERE ti_vakit.verse_key = ti_namaz.verse_key
+               AND ti_vakit.tag IN (${inPlaceholders})
+           )
+         GROUP BY v.verse_key
+         ORDER BY ti_namaz.verse_key
+         LIMIT 1 OFFSET ?`,
+        ...vakitTags, randomOffset(total),
+      );
+    }
   }
 
-  // Aşama 2: Fallback — vakit-spesifik eşleşme yoksa veya vakit parametresi gelmediyse temel namaz havuzu
+  // Aşama 2: Fallback — tüm namaz etiketli ayetler
   if (!verse) {
+    const countRow = await dbGet<{ total: number }>(
+      `SELECT COUNT(*) AS total FROM verse_tag_items WHERE tag = 'namaz'`,
+    );
+    const total = countRow?.total ?? 0;
+
     verse = await dbGet<NamazVerseRow>(
-      `SELECT v.verse_key, v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation
-       FROM verses v
-       LEFT JOIN verse_tags t ON v.verse_key = t.verse_key
-       WHERE ${baseWhere}
-       ORDER BY RANDOM()
-       LIMIT 1`,
+      `SELECT v.verse_key, v.surah_id, v.ayah_number, v.arabic_text, v.primary_translation,
+              MAX(CASE WHEN (yt.source = 'yazir' OR yt.source LIKE '%#yazir') THEN yt.text END) AS yazir_text
+       FROM verse_tag_items ti
+       JOIN verses v ON v.verse_key = ti.verse_key
+       LEFT JOIN translations yt ON yt.verse_key = v.verse_key
+       WHERE ti.tag = 'namaz'
+       GROUP BY v.verse_key
+       ORDER BY ti.verse_key
+       LIMIT 1 OFFSET ?`,
+      randomOffset(total),
     );
   }
 
@@ -70,18 +100,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Namaz temalı ayet bulunamadı" }, { status: 404 });
   }
 
-  // Translation: Yazır öncelikli, yoksa primary_translation
-  const translationRows = await dbAll<TranslationRow>(
-    `SELECT source, text FROM translations
-     WHERE verse_key = ?
-     AND (source = 'yazir' OR source LIKE '%#yazir')`,
-    verse.verse_key,
-  );
-
-  const yazirRow = translationRows.find(
-    (t) => (t.source ?? "").split("#").at(-1) === "yazir",
-  );
-  const translationText = cleanMealText(yazirRow?.text ?? verse.primary_translation);
+  const translationText = cleanMealText(verse.yazir_text ?? verse.primary_translation);
 
   const body: NamazVerseResponse = {
     vakit,
@@ -93,6 +112,9 @@ export async function GET(req: NextRequest) {
   };
 
   return NextResponse.json(body, {
-    headers: { "Content-Type": "application/json; charset=utf-8" },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+    },
   });
 }

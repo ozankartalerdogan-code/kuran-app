@@ -1,8 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
-import { dbAll, dbGet, dbRun } from "../../../../lib/dbUtils";
-
-export const revalidate = false; // Diyanet müfredatı statik — sonsuz cache
+import { dbAll } from "../../../../lib/dbUtils";
 
 type DersRow = {
   id: number;
@@ -20,5 +18,7 @@ export async function GET() {
     LEFT JOIN elifba_harf_ders hd ON hd.ders_id = d.id
     GROUP  BY d.id
     ORDER  BY d.konu_sirasi
-  `));
+  `), {
+    headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400" },
+  });
 }

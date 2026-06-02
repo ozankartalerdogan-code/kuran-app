@@ -1,8 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
-import { dbAll, dbGet, dbRun } from "../../../lib/dbUtils";
-
-export const revalidate = false; // 114 sure hiç değişmez — sonsuz cache
+import { dbAll } from "../../../lib/dbUtils";
 
 interface SurahRow {
   id: number;
@@ -36,5 +34,10 @@ export async function GET() {
     revelationPlace: r.tur === "medinan" ? "Medine" : "Mekke",
   }));
 
-  return NextResponse.json(surahs);
+  return NextResponse.json(surahs, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
+    },
+  });
 }

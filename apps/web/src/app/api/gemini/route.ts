@@ -1,38 +1,21 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
 // ---------------------------------------------------------------------------
-// In‑memory rate limiter – 20 requests per minute per IP
+// Global rate limiter — Upstash Redis sliding window (tüm instance'larda ortak)
+// Env: UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN
 // ---------------------------------------------------------------------------
-const rateLimitWindowMs = 60_000;
-const rateLimitMax = 20;
-const ipHitMap = new Map<string, { count: number; resetAt: number }>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = ipHitMap.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    ipHitMap.set(ip, { count: 1, resetAt: now + rateLimitWindowMs });
-    return false;
-  }
-
-  if (entry.count >= rateLimitMax) return true;
-
-  entry.count++;
-  return false;
-}
-
-// Periodic cleanup – prevent memory leak from stale IPs
-if (typeof setInterval !== "undefined") {
-  setInterval(() => {
-    const now = Date.now();
-    for (const [ip, entry] of ipHitMap) {
-      if (now > entry.resetAt) ipHitMap.delete(ip);
-    }
-  }, 120_000);
-}
+const ratelimit =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Ratelimit({
+        redis: Redis.fromEnv(),
+        limiter: Ratelimit.slidingWindow(5, "1 m"),
+        prefix: "kuran:gemini",
+      })
+    : null;
 
 // ---------------------------------------------------------------------------
 // Gemini API base URL
@@ -53,21 +36,25 @@ const ALLOWED_MODELS = new Set([
 // POST /api/gemini
 // ---------------------------------------------------------------------------
 export async function POST(req: NextRequest) {
-  // --- Rate limit check ------------------------------------------------
+  // --- Rate limit check (global, Upstash Redis) ------------------------
   const forwarded = req.headers.get("x-forwarded-for");
   const ip = forwarded?.split(",")[0]?.trim() ?? "anonymous";
 
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Çok fazla istek. Lütfen biraz bekleyin." },
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Retry-After": "60",
+  if (ratelimit) {
+    const { success, reset } = await ratelimit.limit(ip);
+    if (!success) {
+      const retryAfter = Math.max(1, Math.ceil((reset - Date.now()) / 1000));
+      return NextResponse.json(
+        { error: "Çok fazla istek. Lütfen biraz bekleyin." },
+        {
+          status: 429,
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Retry-After": String(retryAfter),
+          },
         },
-      },
-    );
+      );
+    }
   }
 
   // --- API key ---------------------------------------------------------
@@ -172,7 +159,7 @@ export async function POST(req: NextRequest) {
     if (!geminiRes.ok) {
       console.error("[gemini] upstream error:", JSON.stringify(data).slice(0, 500));
       return NextResponse.json(
-        { error: "Gemini API hatası", detail: data },
+        { error: "Gemini API hatası" },
         { status: geminiRes.status, headers: { "Content-Type": "application/json; charset=utf-8" } },
       );
     }

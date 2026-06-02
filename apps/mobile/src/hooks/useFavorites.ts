@@ -46,27 +46,33 @@ export function useFavorites(): UseFavoritesResult {
   /** Favori ekle ya da çıkar — yeni favori durumunu döner */
   const toggle = useCallback(async (verseKey: string): Promise<boolean> => {
     setError(null);
-    const current =
-      (await storage.getJSON<string[]>(STORAGE_KEYS.favorites, [])) ?? [];
-    const safe = isValidStringArray(current) ? current : [];
-    const isFav = safe.includes(verseKey);
-    const next = isFav
-      ? safe.filter((k) => k !== verseKey)
-      : [...safe, verseKey];
+
+    // Functional update: React'in en güncel state'ini kullanır, hızlı çift tıklamada
+    // her çağrı kendi snapshot'ını alır — storage race condition önlenir.
+    let resolvedNext: string[] = [];
+    let resolvedNewIsFav = false;
+
+    setFavorites((prev) => {
+      const isFav = prev.includes(verseKey);
+      resolvedNewIsFav = !isFav;
+      resolvedNext = isFav ? prev.filter((k) => k !== verseKey) : [...prev, verseKey];
+      return resolvedNext;
+    });
+
     try {
-      await storage.setJSON(STORAGE_KEYS.favorites, next);
-      setFavorites(next);
-      return !isFav;
+      await storage.setJSON(STORAGE_KEYS.favorites, resolvedNext);
+      return resolvedNewIsFav;
     } catch (err) {
+      // Storage yazma başarısız → state'i storage'dan geri yükle
+      await load();
       if (err instanceof StorageQuotaError) {
         setError("Depolama alanı dolu, favori güncellenemedi.");
       } else {
-        const msg = err instanceof Error ? err.message : "Favori güncellenemedi";
-        setError(msg);
+        setError(err instanceof Error ? err.message : "Favori güncellenemedi");
       }
-      return isFav; // değişiklik başarısız, eski durum
+      return !resolvedNewIsFav;
     }
-  }, []);
+  }, [load]);
 
   /** Belirli bir ayet favori mi? */
   const isFavorite = useCallback(

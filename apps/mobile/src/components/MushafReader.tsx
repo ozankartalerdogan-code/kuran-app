@@ -18,6 +18,7 @@ type LoadState      =
   | { status: "error"; message: string };
 
 // ── Cüz tablosu ─────────────────────────────────────────────────────────────
+// Kuran'ın 30 cüz bölümü sabittir — asla değişmez, DB'den çekmek gerekmez.
 
 const JUZ_TABLE = [
   { juz:  1, surahId:  1, ayahNumber:   1 }, { juz:  2, surahId:  2, ayahNumber: 142 },
@@ -35,7 +36,10 @@ const JUZ_TABLE = [
   { juz: 25, surahId: 41, ayahNumber:  47 }, { juz: 26, surahId: 46, ayahNumber:   1 },
   { juz: 27, surahId: 51, ayahNumber:  31 }, { juz: 28, surahId: 58, ayahNumber:   1 },
   { juz: 29, surahId: 67, ayahNumber:   1 }, { juz: 30, surahId: 78, ayahNumber:   1 },
-];
+] as const satisfies { juz: number; surahId: number; ayahNumber: number }[];
+
+// Derleme zamanı doğrulama: tam 30 cüz olmalı
+const _juzCount: 30 = JUZ_TABLE.length;
 
 function getJuzForSurah(surahId: number): number {
   for (let i = JUZ_TABLE.length - 1; i >= 0; i--) {

@@ -197,13 +197,17 @@ async function searchLikeFallback(q: string): Promise<{ results: VerseRow[]; tot
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 
+const SEARCH_CACHE = {
+  headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600" },
+} as const;
+
 export async function GET(
   request: NextRequest
 ): Promise<NextResponse<SearchResponse>> {
   const q = (new URL(request.url).searchParams.get("q") ?? "").trim();
 
   if (q.length < 2 || q.length > MAX_Q_LEN) {
-    return NextResponse.json({ type: "none" });
+    return NextResponse.json({ type: "none" }, SEARCH_CACHE);
   }
 
   try {
@@ -227,13 +231,13 @@ export async function GET(
           results:        ftsResults,
           total:          ftsTotal,
           suggestedSurah: { id: surahMatch.id, name: surahMatch.adi_turkce },
-        });
+        }, SEARCH_CACHE);
       }
       return NextResponse.json({
         type:      "surah",
         surahId:   surahMatch.id,
         surahName: surahMatch.adi_turkce,
-      });
+      }, SEARCH_CACHE);
     }
 
     const tagMatch = await findTagMatch(q);
@@ -250,7 +254,7 @@ export async function GET(
             LIMIT  ?
           `, tagMatch.tag, VERSE_LIMIT);
         if (verseRows.length > 0) {
-          return NextResponse.json({ type: "verses", results: verseRows, total: tagMatch.count });
+          return NextResponse.json({ type: "verses", results: verseRows, total: tagMatch.count }, SEARCH_CACHE);
         }
       }
       return NextResponse.json({
@@ -258,7 +262,7 @@ export async function GET(
         tag:     tagMatch.tag,
         tagType: tagMatch.tagType,
         count:   tagMatch.count,
-      });
+      }, SEARCH_CACHE);
     }
 
     if (q.length >= 3) {
@@ -268,7 +272,7 @@ export async function GET(
         const suggestedSurah: SuggestedSurah | undefined = surahMatch
           ? { id: surahMatch.id, name: surahMatch.adi_turkce }
           : undefined;
-        return NextResponse.json({ type: "verses", results, total, suggestedSurah });
+        return NextResponse.json({ type: "verses", results, total, suggestedSurah }, SEARCH_CACHE);
       }
 
       if (surahMatch) {
@@ -276,13 +280,13 @@ export async function GET(
           type:      "surah",
           surahId:   surahMatch.id,
           surahName: surahMatch.adi_turkce,
-        });
+        }, SEARCH_CACHE);
       }
 
-      return NextResponse.json({ type: "none" });
+      return NextResponse.json({ type: "none" }, SEARCH_CACHE);
     }
 
-    return NextResponse.json({ type: "none" });
+    return NextResponse.json({ type: "none" }, SEARCH_CACHE);
 
   } catch (err) {
     console.error("[search] hata:", err);

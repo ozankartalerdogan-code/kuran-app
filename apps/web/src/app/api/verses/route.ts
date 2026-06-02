@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
 
-export const revalidate = false; // Kuran metni değişmez — sonsuz cache
-
 interface SurahRow {
   id: number;
   adi_turkce: string;
@@ -88,6 +86,9 @@ export async function GET(req: NextRequest) {
   };
 
   return NextResponse.json(body, {
-    headers: { "Content-Type": "application/json; charset=utf-8" },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
+    },
   });
 }
