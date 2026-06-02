@@ -39,7 +39,7 @@ const RUH_HALI = [
 export default function HomeScreen() {
   const c          = useColors();
   const { streak } = useStreak();
-  const { verse, dua, prayers, nextPrayer, PRAYER_LABELS } = useDailyContent();
+  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
 
   return (
     <ScrollView
@@ -117,7 +117,7 @@ export default function HomeScreen() {
       <View style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
-          <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>İstanbul{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
+          <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
         </View>
         {!prayers ? (
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
