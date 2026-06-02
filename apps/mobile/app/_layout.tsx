@@ -8,12 +8,14 @@ import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect }
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN ?? "",
-  enabled: !__DEV__,            // dev modda kapalı
-  tracesSampleRate: 0.2,        // %20 performans izleme
-  environment: __DEV__ ? "development" : "production",
-});
+try {
+  Sentry.init({
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN ?? "",
+    enabled: !__DEV__,
+    tracesSampleRate: 0.2,
+    environment: __DEV__ ? "development" : "production",
+  });
+} catch { /* Native modül yoksa sessizce devam et */ }
 
 SplashScreen.preventAutoHideAsync();
 
@@ -48,7 +50,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error(error, errorInfo);
-    Sentry.captureException(error, { extra: { componentStack: errorInfo.componentStack } });
+    try { Sentry.captureException(error, { extra: { componentStack: errorInfo.componentStack } }); } catch { /* ignore */ }
   }
 
   handleReset = (): void => {
