@@ -259,7 +259,7 @@ export function useDailyContent(): UseDailyContentResult {
     ? (() => {
         const now = new Date();
         const nowMin = now.getHours() * 60 + now.getMinutes();
-        for (const key of ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"]) {
+        for (const key of ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"]) {
           const [h, m] = (prayers[key as keyof PrayerTimes] ?? "")
             .split(":")
             .map(Number);

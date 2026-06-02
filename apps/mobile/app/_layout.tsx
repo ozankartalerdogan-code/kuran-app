@@ -92,14 +92,16 @@ export default function RootLayout() {
       setReady(true);
     }, 1500);
 
-    // Bildirime tıklanınca ilgili ekrana git
+    // Bildirime tıklanınca ilgili ekrana git (uygulama hazır olduktan sonra)
     const sub = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data as Record<string, unknown>;
-      if (data?.surahId && data?.ayahNumber) {
-        router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as any);
-      } else if (data?.route) {
-        router.push(data.route as any);
-      }
+      setTimeout(() => {
+        if (data?.surahId && data?.ayahNumber) {
+          router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as any);
+        } else if (data?.route) {
+          router.push(data.route as any);
+        }
+      }, 500); // Stack mount'u için kısa bekleme
     });
 
     return () => {
