@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
-import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect } from "react";
+import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 
@@ -89,12 +89,17 @@ function AppContent() {
 export default function RootLayout() {
   const [ready, setReady] = useState(false);
 
+  const handleSplashFinish = useCallback(async () => {
+    await SplashScreen.hideAsync();
+    setReady(true);
+  }, []);
+
   useEffect(() => {
-    // Native splash gizle
+    // Maksimum 5 saniye bekle (video yüklenemezse)
     const timer = setTimeout(async () => {
       await SplashScreen.hideAsync();
       setReady(true);
-    }, 1500);
+    }, 5000);
 
     // Bildirime tıklanınca ilgili ekrana git (uygulama hazır olduktan sonra)
     const sub = Notifications.addNotificationResponseReceivedListener(response => {
@@ -114,7 +119,7 @@ export default function RootLayout() {
     };
   }, []);
 
-  if (!ready) return <AppSplash />;
+  if (!ready) return <AppSplash onFinish={handleSplashFinish} />;
 
   return (
     <ErrorBoundary>
