@@ -94,7 +94,7 @@ function AudioBar({ surahId }: { surahId: number }) {
   // React Native'de Audio, expo-av ile çalışır.
   // expo-av kurulu değilse bu bölüm render edilmez.
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
     const { Audio } = require("expo-av") as typeof import("expo-av");
     void Audio; // ensure import used
   } catch {
@@ -273,7 +273,7 @@ const s = StyleSheet.create({
     color: "#f9f6ee",
     textAlign: "right",
     writingDirection: "rtl",
-    fontFamily: "serif",
+    fontFamily: "Amiri",
   },
 
   mealBox: {

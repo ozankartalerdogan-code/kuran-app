@@ -899,7 +899,7 @@ const styles = StyleSheet.create({
   },
   arabicText: {
     fontSize: 36, lineHeight: 60,
-    fontFamily: "serif", textAlign: "right",
+    fontFamily: "Amiri", textAlign: "right",
     writingDirection: "rtl", width: "100%",
   },
   readingBox: {
@@ -950,7 +950,7 @@ const styles = StyleSheet.create({
   },
   wordIndex: { fontSize: 11, fontWeight: "700" },
   wordArabicChip: {
-    fontSize: 22, fontFamily: "serif",
+    fontSize: 22, fontFamily: "Amiri",
     textAlign: "right", writingDirection: "rtl",
   },
   wordDetailRow: {
@@ -983,7 +983,7 @@ const styles = StyleSheet.create({
   },
   rootChipArabic: {
     fontSize: 22, fontWeight: "700",
-    fontFamily: "serif",
+    fontFamily: "Amiri", writingDirection: "rtl",
   },
   rootCountBadge: {
     borderRadius: 12, paddingHorizontal: 10, paddingVertical: 4,

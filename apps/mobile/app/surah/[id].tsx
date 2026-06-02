@@ -235,7 +235,9 @@ const styles = StyleSheet.create({
   headerArabic: {
     fontSize:   32,
     color:      "#1c1917",
-    fontFamily: "serif",
+    fontFamily: "Amiri",
+    writingDirection: "rtl",
+    textAlign: "center",
     marginBottom: 6,
   },
   headerName: {

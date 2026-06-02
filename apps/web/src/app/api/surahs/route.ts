@@ -21,23 +21,28 @@ export type SurahListItem = {
 };
 
 export async function GET() {
-  const rows = await dbAll<SurahRow>(
-    "SELECT id, adi_turkce, adi_arapca, translit, tur, ayet_sayisi FROM sureler ORDER BY id",
-  );
+  try {
+    const rows = await dbAll<SurahRow>(
+      "SELECT id, adi_turkce, adi_arapca, translit, tur, ayet_sayisi FROM sureler ORDER BY id",
+    );
 
-  const surahs: SurahListItem[] = rows.map((r) => ({
-    id:             r.id,
-    name:           r.adi_turkce,
-    arabicName:     r.adi_arapca,
-    translit:       r.translit,
-    verseCount:     r.ayet_sayisi,
-    revelationPlace: r.tur === "medinan" ? "Medine" : "Mekke",
-  }));
+    const surahs: SurahListItem[] = rows.map((r) => ({
+      id:             r.id,
+      name:           r.adi_turkce,
+      arabicName:     r.adi_arapca,
+      translit:       r.translit,
+      verseCount:     r.ayet_sayisi,
+      revelationPlace: r.tur === "medinan" ? "Medine" : "Mekke",
+    }));
 
-  return NextResponse.json(surahs, {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
-    },
-  });
+    return NextResponse.json(surahs, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
+      },
+    });
+  } catch (err) {
+    console.error("[surahs] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+  }
 }

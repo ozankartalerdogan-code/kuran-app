@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   prayerTimeActive:    { color: "#fff" },
 
   duaCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 16 },
-  duaArabic: { fontSize: 18, textAlign: "right", lineHeight: 32, marginBottom: 8 },
+  duaArabic: { fontSize: 18, textAlign: "right", writingDirection: "rtl", lineHeight: 36, marginBottom: 8, fontFamily: "Amiri" },
 
   themeBtn:     { width: 36, height: 36, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },

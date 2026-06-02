@@ -45,50 +45,55 @@ export async function GET(req: NextRequest) {
   }
 
 
-  const surah = await dbGet<SurahRow>(
-    "SELECT id, adi_turkce, adi_arapca, ayet_sayisi, tur FROM sureler WHERE id = ?",
-    surahId,
-  );
+  try {
+    const surah = await dbGet<SurahRow>(
+      "SELECT id, adi_turkce, adi_arapca, ayet_sayisi, tur FROM sureler WHERE id = ?",
+      surahId,
+    );
 
-  if (!surah) {
-    return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
+    if (!surah) {
+      return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
+    }
+
+    const [verses, yazirRows] = await Promise.all([
+      dbAll<VerseRow>(
+        "SELECT ayah_number, primary_translation, reading_tr, literal_ceviri FROM verses WHERE surah_id = ? ORDER BY ayah_number",
+        surahId,
+      ),
+      dbAll<{ ayah_number: number; text: string }>(
+        `SELECT CAST(SUBSTR(verse_key, INSTR(verse_key,':')+1) AS INT) AS ayah_number, text
+         FROM translations WHERE CAST(SUBSTR(verse_key,1,INSTR(verse_key,':')-1) AS INT) = ?
+         AND (source = 'yazir' OR source LIKE '%#yazir')`,
+        surahId,
+      ),
+    ]);
+
+    const yazirMap = new Map(yazirRows.map(r => [r.ayah_number, r.text]));
+
+    const body: VerseListResponse = {
+      surah: {
+        id:              surah.id,
+        name:            surah.adi_turkce,
+        arabicName:      surah.adi_arapca,
+        verseCount:      surah.ayet_sayisi,
+        revelationPlace: surah.tur === "medinan" ? "Medine" : "Mekke",
+      },
+      verses: verses.map((v) => ({
+        ayahNumber: v.ayah_number,
+        meal:       cleanMealText(yazirMap.get(v.ayah_number) ?? v.primary_translation),
+        reading:    v.reading_tr,
+        literal:    cleanMealText(v.literal_ceviri),
+      })),
+    };
+
+    return NextResponse.json(body, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
+      },
+    });
+  } catch (err) {
+    console.error("[verses] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
   }
-
-  const [verses, yazirRows] = await Promise.all([
-    dbAll<VerseRow>(
-      "SELECT ayah_number, primary_translation, reading_tr, literal_ceviri FROM verses WHERE surah_id = ? ORDER BY ayah_number",
-      surahId,
-    ),
-    dbAll<{ ayah_number: number; text: string }>(
-      `SELECT CAST(SUBSTR(verse_key, INSTR(verse_key,':')+1) AS INT) AS ayah_number, text
-       FROM translations WHERE CAST(SUBSTR(verse_key,1,INSTR(verse_key,':')-1) AS INT) = ?
-       AND (source = 'yazir' OR source LIKE '%#yazir')`,
-      surahId,
-    ),
-  ]);
-
-  const yazirMap = new Map(yazirRows.map(r => [r.ayah_number, r.text]));
-
-  const body: VerseListResponse = {
-    surah: {
-      id:              surah.id,
-      name:            surah.adi_turkce,
-      arabicName:      surah.adi_arapca,
-      verseCount:      surah.ayet_sayisi,
-      revelationPlace: surah.tur === "medinan" ? "Medine" : "Mekke",
-    },
-    verses: verses.map((v) => ({
-      ayahNumber: v.ayah_number,
-      meal:       cleanMealText(yazirMap.get(v.ayah_number) ?? v.primary_translation),
-      reading:    v.reading_tr,
-      literal:    cleanMealText(v.literal_ceviri),
-    })),
-  };
-
-  return NextResponse.json(body, {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
-    },
-  });
 }

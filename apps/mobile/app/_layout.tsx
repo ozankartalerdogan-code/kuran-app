@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
+import * as Font from "expo-font";
 import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
@@ -87,18 +88,28 @@ function AppContent() {
 }
 
 export default function RootLayout() {
-  const [ready, setReady] = useState(false);
+  const [videoFinished, setVideoFinished] = useState(false);
+  const [fontsLoaded] = Font.useFonts({
+    "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
+    "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
+  });
 
-  const handleSplashFinish = useCallback(async () => {
-    await SplashScreen.hideAsync();
-    setReady(true);
+  const ready = videoFinished && !!fontsLoaded;
+
+  const handleSplashFinish = useCallback(() => {
+    setVideoFinished(true);
   }, []);
 
   useEffect(() => {
+    if (ready) {
+      SplashScreen.hideAsync();
+    }
+  }, [ready]);
+
+  useEffect(() => {
     // Maksimum 5 saniye bekle (video yüklenemezse)
-    const timer = setTimeout(async () => {
-      await SplashScreen.hideAsync();
-      setReady(true);
+    const timer = setTimeout(() => {
+      setVideoFinished(true);
     }, 5000);
 
     // Bildirime tıklanınca ilgili ekrana git (uygulama hazır olduktan sonra)

@@ -743,7 +743,7 @@ const styles = StyleSheet.create({
   arabicText: {
     fontSize: 20, lineHeight: 38,
     textAlign: "right",
-    fontFamily: "serif",
+    fontFamily: "Amiri",
   },
 
   duaBaslik:   { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 1 },

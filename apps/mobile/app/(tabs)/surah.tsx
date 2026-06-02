@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   rowMeta:      { flexDirection: "row", alignItems: "center", gap: 6, flexWrap: "wrap" },
   metaText:     { fontSize: 12 },
   nuzulText:    { fontSize: 11 },
-  arabicName:   { fontSize: 20, fontFamily: "serif", marginLeft: 8 },
+  arabicName:   { fontSize: 20, fontFamily: "Amiri", writingDirection: "rtl", textAlign: "right", marginLeft: 8 },
   badge:        { borderRadius: 10, paddingHorizontal: 7, paddingVertical: 2 },
   badgeText:    { fontSize: 10, fontWeight: "600" },
 });

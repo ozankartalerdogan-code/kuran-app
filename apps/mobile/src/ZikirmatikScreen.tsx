@@ -167,7 +167,7 @@ const EsmaKart = React.memo(
               <Text className="text-xs font-bold text-emerald-300">{item.id}</Text>
             </View>
             <View>
-              <Text className="text-2xl font-arabic text-amber-100 mb-0.5" style={{ fontFamily: "System" }}>
+              <Text className="text-2xl font-arabic text-amber-100 mb-0.5" style={{ fontFamily: "Amiri", writingDirection: "rtl" }}>
                 {item.arapca}
               </Text>
               <Text className="text-sm font-medium text-gray-300">{item.okunus}</Text>
@@ -187,6 +187,7 @@ const EsmaKart = React.memo(
     );
   },
 );
+EsmaKart.displayName = "EsmaKart";
 
 // ═══════════════════════════════════════════════════════════
 // ANA BİLEŞEN – ZikirmatikScreen
