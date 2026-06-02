@@ -8,7 +8,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
+        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1",
+        "EXPO_PUBLIC_SENTRY_DSN": "https://2cedb105a7e5421a11275fd14a97e53a@o4511493221777409.ingest.de.sentry.io/4511493236850768"
       },
       "android": {
         "buildType": "apk"
@@ -16,7 +17,8 @@
     },
     "preview": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
+        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1",
+        "EXPO_PUBLIC_SENTRY_DSN": "https://2cedb105a7e5421a11275fd14a97e53a@o4511493221777409.ingest.de.sentry.io/4511493236850768"
       },
       "android": {
         "buildType": "apk"
@@ -24,7 +26,8 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1"
+        "EXPO_PUBLIC_API_URL": "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1",
+        "EXPO_PUBLIC_SENTRY_DSN": "https://2cedb105a7e5421a11275fd14a97e53a@o4511493221777409.ingest.de.sentry.io/4511493236850768"
       },
       "android": {
         "buildType": "app-bundle"

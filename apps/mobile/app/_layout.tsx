@@ -3,9 +3,17 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
+import * as Sentry from "@sentry/react-native";
 import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
+
+Sentry.init({
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN ?? "",
+  enabled: !__DEV__,            // dev modda kapalı
+  tracesSampleRate: 0.2,        // %20 performans izleme
+  environment: __DEV__ ? "development" : "production",
+});
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,6 +48,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error(error, errorInfo);
+    Sentry.captureException(error, { extra: { componentStack: errorInfo.componentStack } });
   }
 
   handleReset = (): void => {
