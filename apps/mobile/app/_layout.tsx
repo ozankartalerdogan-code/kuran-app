@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
@@ -86,12 +86,26 @@ export default function RootLayout() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Native splash gizle, özel splash göster (min 1.5sn)
+    // Native splash gizle
     const timer = setTimeout(async () => {
       await SplashScreen.hideAsync();
       setReady(true);
     }, 1500);
-    return () => clearTimeout(timer);
+
+    // Bildirime tıklanınca ilgili ekrana git
+    const sub = Notifications.addNotificationResponseReceivedListener(response => {
+      const data = response.notification.request.content.data as Record<string, unknown>;
+      if (data?.surahId && data?.ayahNumber) {
+        router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as any);
+      } else if (data?.route) {
+        router.push(data.route as any);
+      }
+    });
+
+    return () => {
+      clearTimeout(timer);
+      sub.remove();
+    };
   }, []);
 
   if (!ready) return <AppSplash />;

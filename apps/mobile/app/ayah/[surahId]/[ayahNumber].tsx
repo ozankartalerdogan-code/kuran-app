@@ -457,11 +457,15 @@ export default function AyahDetailScreen() {
 
   const handleShare = useCallback(async () => {
     if (!data) return;
-    await Share.share({
-      message: `${data.surahName} · ${data.ayahNumber}. Ayet (${verseKey})\n\n${data.arabicText ?? ""}\n\n${data.meal ?? ""}`.trim(),
-      title: `${data.surahName} ${data.ayahNumber}. Ayet`,
-    });
-  }, [data, verseKey]);
+    const webUrl = `https://kuran-app-web-ozan-s-projects8.vercel.app/surah/${surahId}/ayah/${ayahNumber}`;
+    const text = [
+      `${data.surahName} · ${data.ayahNumber}. Ayet`,
+      data.arabicText ?? "",
+      data.meal ?? "",
+      webUrl,
+    ].filter(Boolean).join("\n\n");
+    await Share.share({ message: text, title: `${data.surahName} ${data.ayahNumber}. Ayet` });
+  }, [data, surahId, ayahNumber]);
 
   const handleSaveNote = useCallback(async () => {
     await saveNote(verseKey, noteDraft);

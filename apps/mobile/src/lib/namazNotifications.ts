@@ -81,6 +81,7 @@ export async function scheduleNamazNotifications(
         title: `🕌 ${label} Vakti`,
         body,
         sound: true,
+        data: { route: "/namaz" },
       },
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.DATE,
