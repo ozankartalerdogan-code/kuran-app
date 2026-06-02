@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions, Animated } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
@@ -15,8 +14,10 @@ const BOOK_SIZE = width * 0.68;
 const SPINE_X   = width / 2;
 const SPINE_Y   = BOOK_TOP + BOOK_SIZE * 0.58;
 
-// Shimmer şeridinin genişliği (görüntünün %45'i)
-const SHIMMER_W = width * 0.45;
+// Shimmer şeridi: 3 katman (kenar / orta / kenar) birlikte hareket eder
+const STRIP_EDGE_W   = 28;
+const STRIP_CENTER_W = 22;
+const SHIMMER_TOTAL  = STRIP_EDGE_W * 2 + STRIP_CENTER_W;
 
 interface AppSplashProps {
   onFinish: () => void;
@@ -29,10 +30,10 @@ export function AppSplash({ onFinish }: AppSplashProps) {
   const bookScale    = useRef(new Animated.Value(0.82)).current;
   const titleOpacity = useRef(new Animated.Value(0)).current;
 
-  // Shimmer: soldan sağa süpürme
-  const shimmerX    = useRef(new Animated.Value(-SHIMMER_W)).current;
-  // Köşe ışık huzmesi: opacity pulse
-  const rayOpacity  = useRef(new Animated.Value(0)).current;
+  // Shimmer şeridinin X pozisyonu
+  const shimmerX   = useRef(new Animated.Value(-SHIMMER_TOTAL)).current;
+  // Köşe ışık huzmesi opacity
+  const rayOpacity = useRef(new Animated.Value(0)).current;
 
   const dots = useRef([
     new Animated.Value(0.3),
@@ -41,12 +42,12 @@ export function AppSplash({ onFinish }: AppSplashProps) {
   ]).current;
 
   useEffect(() => {
-    // ── Kitap giriş ──────────────────────────────────────────
+    // ── Kitap giriş ───────────────────────────────────────────
     Animated.spring(bookScale, {
       toValue: 1, tension: 70, friction: 7, useNativeDriver: true,
     }).start();
 
-    // ── Altın halo pulse ─────────────────────────────────────
+    // ── Altın halo pulse ──────────────────────────────────────
     const glowAnim = Animated.loop(
       Animated.sequence([
         Animated.parallel([
@@ -61,17 +62,17 @@ export function AppSplash({ onFinish }: AppSplashProps) {
     );
     glowAnim.start();
 
-    // ── Shimmer loop (2.5s) ───────────────────────────────────
+    // ── Shimmer soldan sağa, 2.5s loop ───────────────────────
     const shimmerAnim = Animated.loop(
       Animated.sequence([
         Animated.timing(shimmerX, {
-          toValue: width + SHIMMER_W,
+          toValue: width + SHIMMER_TOTAL,
           duration: 1100,
           useNativeDriver: true,
         }),
         Animated.delay(1400),
         Animated.timing(shimmerX, {
-          toValue: -SHIMMER_W,
+          toValue: -SHIMMER_TOTAL,
           duration: 0,
           useNativeDriver: true,
         }),
@@ -82,7 +83,7 @@ export function AppSplash({ onFinish }: AppSplashProps) {
     // ── Köşe ışık huzmesi pulse ───────────────────────────────
     const rayAnim = Animated.loop(
       Animated.sequence([
-        Animated.timing(rayOpacity, { toValue: 0.18, duration: 900, useNativeDriver: true }),
+        Animated.timing(rayOpacity, { toValue: 0.20, duration: 900, useNativeDriver: true }),
         Animated.timing(rayOpacity, { toValue: 0,    duration: 900, useNativeDriver: true }),
         Animated.delay(700),
       ]),
@@ -97,7 +98,7 @@ export function AppSplash({ onFinish }: AppSplashProps) {
       ]),
     );
 
-    // ── Başlık fade-in ────────────────────────────────────────
+    // ── Başlık fade-in ─────────────────────────────────────────
     const titleDelay = NUM_PAGES * FLIP_STAGGER + FLIP_DURATION + 200;
     const titleAnim  = Animated.sequence([
       Animated.delay(titleDelay),
@@ -152,43 +153,24 @@ export function AppSplash({ onFinish }: AppSplashProps) {
         resizeMode="contain"
       />
 
-      {/* ── Shimmer overlay ── */}
+      {/* ── Shimmer: 3 katmanlı şerit ── */}
       <Animated.View
         pointerEvents="none"
-        style={[
-          styles.shimmerContainer,
-          { transform: [{ translateX: shimmerX }] },
-        ]}
+        style={[styles.shimmerWrap, { transform: [{ translateX: shimmerX }] }]}
       >
-        <LinearGradient
-          colors={[
-            "transparent",
-            "rgba(212,168,67,0.08)",
-            "rgba(212,168,67,0.22)",
-            "rgba(255,220,100,0.28)",
-            "rgba(212,168,67,0.22)",
-            "rgba(212,168,67,0.08)",
-            "transparent",
-          ]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.shimmerGradient}
-        />
+        {/* Sol kenar — soluk */}
+        <View style={[styles.shimmerStrip, { width: STRIP_EDGE_W, opacity: 0.10 }]} />
+        {/* Orta — parlak */}
+        <View style={[styles.shimmerStrip, { width: STRIP_CENTER_W, opacity: 0.28 }]} />
+        {/* Sağ kenar — soluk */}
+        <View style={[styles.shimmerStrip, { width: STRIP_EDGE_W, opacity: 0.10 }]} />
       </Animated.View>
 
-      {/* ── Köşe ışık huzmesi ── */}
-      <Animated.View pointerEvents="none" style={[styles.rayContainer, { opacity: rayOpacity }]}>
-        <LinearGradient
-          colors={[
-            "rgba(255,220,100,0.55)",
-            "rgba(212,168,67,0.18)",
-            "transparent",
-          ]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.rayGradient}
-        />
-      </Animated.View>
+      {/* ── Köşe ışık huzmesi (sol üst → sağ alt) ── */}
+      <Animated.View
+        pointerEvents="none"
+        style={[styles.ray, { opacity: rayOpacity }]}
+      />
 
       {/* Uçan sayfalar */}
       {pageAnims.map((anim, i) => {
@@ -269,28 +251,29 @@ const styles = StyleSheet.create({
     left: (width - BOOK_SIZE) / 2,
   },
 
-  // Shimmer: kitap bölgesini kaplayan dar yüksek şerit
-  shimmerContainer: {
+  // Shimmer şeridi
+  shimmerWrap: {
     position: "absolute",
     top:    BOOK_TOP - 10,
     left:   0,
-    width:  SHIMMER_W,
     height: BOOK_SIZE + 20,
+    flexDirection: "row",
   },
-  shimmerGradient: {
-    flex: 1,
+  shimmerStrip: {
+    height: "100%",
+    backgroundColor: "#ffd764",
   },
 
-  // Köşe ışık huzmesi: sol üstten sağ alta doğru üçgen
-  rayContainer: {
+  // Köşe ışık huzmesi: sol üst köşeden çapraz inen ince dikdörtgen
+  ray: {
     position: "absolute",
-    top:  0,
-    left: 0,
+    top:  -20,
+    left: -20,
     width:  width * 0.55,
-    height: height * 0.38,
-  },
-  rayGradient: {
-    flex: 1,
+    height: height * 0.40,
+    backgroundColor: "#ffe066",
+    borderRadius: 4,
+    transform: [{ rotate: "35deg" }, { translateX: -width * 0.18 }],
   },
 
   page: {
