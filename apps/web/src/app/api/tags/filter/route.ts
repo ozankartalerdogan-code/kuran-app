@@ -56,7 +56,7 @@ export async function GET(
 
   // Bulgu 3: uzunluk sınırı
   if (!tag || tag.length > MAX_TAG) {
-    return NextResponse.json({ type: "error", message: "tag parametresi gerekli" });
+    return NextResponse.json({ type: "error", message: "tag parametresi gerekli" }, { status: 400 });
   }
 
   const rawPage = parseInt(params.get("page") ?? "1", 10);
@@ -158,6 +158,6 @@ export async function GET(
 
   } catch (err) {
     console.error("[tags/filter] hata:", err);
-    return NextResponse.json({ type: "error", message: "Sunucu hatası" });
+    return NextResponse.json({ type: "error", message: "Sunucu hatası" }, { status: 500 });
   }
 }
