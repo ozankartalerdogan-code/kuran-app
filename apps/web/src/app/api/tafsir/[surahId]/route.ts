@@ -13,13 +13,18 @@ export async function GET(
     return NextResponse.json({ content: null }, { status: 400 });
   }
 
-  const row = await dbGet<TafsirRow>(
-    "SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1",
-    id
-  );
+  try {
+    const row = await dbGet<TafsirRow>(
+      "SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1",
+      id
+    );
 
-  return NextResponse.json(
-    { content: row?.content ?? null },
-    { headers: { "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800" } }
-  );
+    return NextResponse.json(
+      { content: row?.content ?? null },
+      { headers: { "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800" } }
+    );
+  } catch (err) {
+    console.error("[tafsir] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+  }
 }

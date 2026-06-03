@@ -78,103 +78,108 @@ export async function GET(req: NextRequest) {
   }
 
 
-  const surah = await dbGet<SurahRow>(
-    "SELECT adi_turkce, adi_arapca, ayet_sayisi FROM sureler WHERE id = ?",
-    surahId,
-  );
+  try {
+    const surah = await dbGet<SurahRow>(
+      "SELECT adi_turkce, adi_arapca, ayet_sayisi FROM sureler WHERE id = ?",
+      surahId,
+    );
 
-  if (!surah) {
-    return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
-  }
+    if (!surah) {
+      return NextResponse.json({ error: "Sure bulunamadı" }, { status: 404 });
+    }
 
-  if (ayahNumber > surah.ayet_sayisi) {
-    return NextResponse.json({ error: "Ayet numarası aşıldı" }, { status: 404 });
-  }
+    if (ayahNumber > surah.ayet_sayisi) {
+      return NextResponse.json({ error: "Ayet numarası aşıldı" }, { status: 404 });
+    }
 
-  const verseKey = `${surahId}:${ayahNumber}`;
+    const verseKey = `${surahId}:${ayahNumber}`;
 
-  const [verse, translations, tagRow] = await Promise.all([
-    dbGet<VerseRow>(
-      "SELECT verse_key, arabic_text, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
+    const [verse, translations, tagRow] = await Promise.all([
+      dbGet<VerseRow>(
+        "SELECT verse_key, arabic_text, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
+        verseKey,
+      ),
+      dbAll<TranslationRow>(
+        "SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source",
+        verseKey,
+      ),
+      dbGet<VerseTagRow>(
+        "SELECT ana_tema, alt_taglar FROM verse_tags WHERE verse_key = ?",
+        verseKey,
+      ),
+    ]);
+
+    let altTaglar: string[] = [];
+    try { altTaglar = tagRow?.alt_taglar ? JSON.parse(tagRow.alt_taglar) : []; } catch { altTaglar = []; }
+
+    if (!verse) {
+      return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
+    }
+
+    const words = await dbAll<WordRow>(`
+        SELECT w.word_index,
+               MIN(w.arabic)      AS arabic,
+               MIN(w.meaning_tr)  AS meaning_tr,
+               MIN(w.pos)         AS pos,
+               MIN(w.root)        AS root,
+               MIN(rm.meaning_tr) AS root_meaning
+        FROM   words w
+        LEFT JOIN root_meanings rm ON rm.root = w.root
+        WHERE  w.verse_key = ?
+        GROUP  BY w.word_index
+        ORDER  BY w.word_index
+      `, verseKey);
+
+    const rootMeanings: Record<string, string> = {};
+    for (const w of words) {
+      if (w.root && w.root_meaning) rootMeanings[w.root] = w.root_meaning;
+    }
+
+    const prevAyah =
+      ayahNumber > 1 ? { surahId, ayahNumber: ayahNumber - 1 } : null;
+    const nextAyah =
+      ayahNumber < surah.ayet_sayisi ? { surahId, ayahNumber: ayahNumber + 1 } : null;
+
+    const body: AyahDetailResponse = {
       verseKey,
-    ),
-    dbAll<TranslationRow>(
-      "SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source",
-      verseKey,
-    ),
-    dbGet<VerseTagRow>(
-      "SELECT ana_tema, alt_taglar FROM verse_tags WHERE verse_key = ?",
-      verseKey,
-    ),
-  ]);
+      surahId,
+      ayahNumber,
+      surahName:   surah.adi_turkce,
+      arabicName:  surah.adi_arapca,
+      verseCount:  surah.ayet_sayisi,
+      arabicText:    verse.arabic_text,
+      readingTr:     verse.reading_tr ?? null,
+      meal:          cleanMealText(
+        translations.find(t => (t.source ?? "").split("#").at(-1) === "yazir")?.text
+        ?? verse.primary_translation
+      ),
+      literalCeviri: cleanMealText(verse.literal_ceviri),
+      farkAnalizi:   cleanMealText(verse.fark_analizi),
+      anaTema:       tagRow?.ana_tema ?? null,
+      altTaglar,
+      translations:  translations
+        .map(t => ({ source: t.source, text: cleanMealText(t.text) }))
+        .filter(t => t.text !== null),
+      rootMeanings,
+      words: words.map((w) => ({
+        wordIndex: w.word_index,
+        arabic:    w.arabic,
+        meaningTr: w.meaning_tr,
+        pos:       w.pos,
+        root:      w.root,
+      })),
+      prevAyah,
+      nextAyah,
+    };
 
-  let altTaglar: string[] = [];
-  try { altTaglar = tagRow?.alt_taglar ? JSON.parse(tagRow.alt_taglar) : []; } catch { altTaglar = []; }
-
-  if (!verse) {
-    return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
+    return NextResponse.json(body, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
+      },
+    });
+  } catch (err) {
+    console.error("[ayah] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
   }
-
-  const words = await dbAll<WordRow>(`
-      SELECT w.word_index,
-             MIN(w.arabic)      AS arabic,
-             MIN(w.meaning_tr)  AS meaning_tr,
-             MIN(w.pos)         AS pos,
-             MIN(w.root)        AS root,
-             MIN(rm.meaning_tr) AS root_meaning
-      FROM   words w
-      LEFT JOIN root_meanings rm ON rm.root = w.root
-      WHERE  w.verse_key = ?
-      GROUP  BY w.word_index
-      ORDER  BY w.word_index
-    `, verseKey);
-
-  const rootMeanings: Record<string, string> = {};
-  for (const w of words) {
-    if (w.root && w.root_meaning) rootMeanings[w.root] = w.root_meaning;
-  }
-
-  const prevAyah =
-    ayahNumber > 1 ? { surahId, ayahNumber: ayahNumber - 1 } : null;
-  const nextAyah =
-    ayahNumber < surah.ayet_sayisi ? { surahId, ayahNumber: ayahNumber + 1 } : null;
-
-  const body: AyahDetailResponse = {
-    verseKey,
-    surahId,
-    ayahNumber,
-    surahName:   surah.adi_turkce,
-    arabicName:  surah.adi_arapca,
-    verseCount:  surah.ayet_sayisi,
-    arabicText:    verse.arabic_text,
-    readingTr:     verse.reading_tr ?? null,
-    meal:          cleanMealText(
-      translations.find(t => (t.source ?? "").split("#").at(-1) === "yazir")?.text
-      ?? verse.primary_translation
-    ),
-    literalCeviri: cleanMealText(verse.literal_ceviri),
-    farkAnalizi:   cleanMealText(verse.fark_analizi),
-    anaTema:       tagRow?.ana_tema ?? null,
-    altTaglar,
-    translations:  translations
-      .map(t => ({ source: t.source, text: cleanMealText(t.text) }))
-      .filter(t => t.text !== null),
-    rootMeanings,
-    words: words.map((w) => ({
-      wordIndex: w.word_index,
-      arabic:    w.arabic,
-      meaningTr: w.meaning_tr,
-      pos:       w.pos,
-      root:      w.root,
-    })),
-    prevAyah,
-    nextAyah,
-  };
-
-  return NextResponse.json(body, {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
-    },
-  });
 }

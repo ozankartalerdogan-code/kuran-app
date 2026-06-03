@@ -24,12 +24,17 @@ export async function GET(
     return NextResponse.json({ error: "Geçersiz ders ID" }, { status: 400 });
   }
 
-  return NextResponse.json(await dbAll<Harf>(`
-    SELECT h.harf_id, h.harf_adi, h.harf_sesi, h.tek_basina,
-           h.basta, h.ortada, h.sonda, h.mahrec, h.kalin_ince, h.grup
-    FROM   elifba_harfler h
-    JOIN   elifba_harf_ders hd ON hd.harf_id = h.harf_id
-    WHERE  hd.ders_id = ?
-    ORDER  BY h.harf_id
-  `, dersId));
+  try {
+    return NextResponse.json(await dbAll<Harf>(`
+      SELECT h.harf_id, h.harf_adi, h.harf_sesi, h.tek_basina,
+             h.basta, h.ortada, h.sonda, h.mahrec, h.kalin_ince, h.grup
+      FROM   elifba_harfler h
+      JOIN   elifba_harf_ders hd ON hd.harf_id = h.harf_id
+      WHERE  hd.ders_id = ?
+      ORDER  BY h.harf_id
+    `, dersId));
+  } catch (err) {
+    console.error("[elifba/harfler] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+  }
 }

@@ -11,14 +11,19 @@ type DersRow = {
 };
 
 export async function GET() {
-  return NextResponse.json(await dbAll<DersRow>(`
-    SELECT d.id, d.baslik, d.konu_sirasi, d.seviye,
-           COUNT(hd.harf_id) AS harf_sayisi
-    FROM   elifba_dersler d
-    LEFT JOIN elifba_harf_ders hd ON hd.ders_id = d.id
-    GROUP  BY d.id
-    ORDER  BY d.konu_sirasi
-  `), {
-    headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400" },
-  });
+  try {
+    return NextResponse.json(await dbAll<DersRow>(`
+      SELECT d.id, d.baslik, d.konu_sirasi, d.seviye,
+             COUNT(hd.harf_id) AS harf_sayisi
+      FROM   elifba_dersler d
+      LEFT JOIN elifba_harf_ders hd ON hd.ders_id = d.id
+      GROUP  BY d.id
+      ORDER  BY d.konu_sirasi
+    `), {
+      headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400" },
+    });
+  } catch (err) {
+    console.error("[elifba/dersler] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+  }
 }

@@ -23,17 +23,22 @@ export async function GET(
   if (!Number.isInteger(lessonId) || lessonId < 1)
     return NextResponse.json({ error: "Geçersiz ders ID" }, { status: 400 });
 
-  const rows = await dbAll<QuizRow>(
-    "SELECT quiz_id, lesson_id, soru_tipi, soru, secenekler, dogru_cevap, ipucu, zorluk FROM elifba_quiz WHERE lesson_id = ? ORDER BY quiz_id",
-    lessonId,
-  );
+  try {
+    const rows = await dbAll<QuizRow>(
+      "SELECT quiz_id, lesson_id, soru_tipi, soru, secenekler, dogru_cevap, ipucu, zorluk FROM elifba_quiz WHERE lesson_id = ? ORDER BY quiz_id",
+      lessonId,
+    );
 
-  const parsed: QuizSoru[] = rows.map((r) => {
-    let secenekler: string[] = [];
-    try { secenekler = JSON.parse(r.secenekler) as string[]; }
-    catch { secenekler = []; }
-    return { ...r, secenekler };
-  });
+    const parsed: QuizSoru[] = rows.map((r) => {
+      let secenekler: string[] = [];
+      try { secenekler = JSON.parse(r.secenekler) as string[]; }
+      catch { secenekler = []; }
+      return { ...r, secenekler };
+    });
 
-  return NextResponse.json(parsed);
+    return NextResponse.json(parsed);
+  } catch (err) {
+    console.error("[elifba/quiz] hata:", err);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+  }
 }
