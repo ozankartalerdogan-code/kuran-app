@@ -4,15 +4,10 @@
     "slug": "kuran-analiz",
     "scheme": "kuranyolu",
     "version": "1.1.0",
-    "sdkVersion": "54.0.0",
+    "sdkVersion": "56.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "description": "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0a1628"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -25,7 +20,7 @@
     },
     "android": {
       "package": "com.kuranapp.mobile",
-      "versionCode": 2,
+
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0a1628"
@@ -41,10 +36,16 @@
     },
     "plugins": [
       "expo-router",
-      "expo-av",
       "expo-location",
       "expo-sensors",
-      "expo-splash-screen",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0a1628"
+        }
+      ],
       [
         "expo-notifications",
         {
@@ -53,6 +54,8 @@
           "sounds": []
         }
       ],
+      "expo-status-bar",
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true

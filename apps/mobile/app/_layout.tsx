@@ -8,9 +8,6 @@ import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, 
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 
-// Sentry: yeni APK build'de aktif edilecek (native modül gerektirir)
-// import * as Sentry from "@sentry/react-native";
-
 SplashScreen.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({
@@ -44,7 +41,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error(error, errorInfo);
-    // Sentry.captureException(error); // yeni APK build'de aktif
   }
 
   handleReset = (): void => {

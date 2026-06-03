@@ -1,5 +1,6 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const path = require("path");
+const fs = require("fs");
 
 const projectRoot = __dirname;
 const monorepoRoot = path.resolve(projectRoot, "../..");
@@ -14,13 +15,17 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, "node_modules"),
 ];
 
-// Tüm react importlarını mobile'ın react@19.1.0'ına yönlendir
-// react-native root'ta ama react@18.3.1 ile birlikte gelmesin
+// react / react-dom / react-native tek kopya olarak çözülsün.
+// Hoisting'e göre paket mobile/node_modules'ta da olabilir root'ta da —
+// hangisi varsa onu kullan (npm install sonrası hoisting değişebiliyor).
+function resolveSingleton(name) {
+  const local = path.resolve(projectRoot, "node_modules", name);
+  return fs.existsSync(local) ? local : path.resolve(monorepoRoot, "node_modules", name);
+}
 config.resolver.extraNodeModules = {
-  react: path.resolve(projectRoot, "node_modules/react"),
-  "react-dom": path.resolve(projectRoot, "node_modules/react-dom"),
-  // react-native root'ta — doğru yolu ver
-  "react-native": path.resolve(monorepoRoot, "node_modules/react-native"),
+  react: resolveSingleton("react"),
+  "react-dom": resolveSingleton("react-dom"),
+  "react-native": resolveSingleton("react-native"),
 };
 
 // node: protokolünü boş modülle karşıla

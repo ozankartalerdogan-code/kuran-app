@@ -76,15 +76,6 @@ async function withRetry<T>(
   fn: (signal: AbortSignal) => Promise<T>,
   retries = MAX_RETRIES,
 ): Promise<T> {
-  try {
-    const c = new AbortController();
-    const t = setTimeout(() => c.abort(), 1500);
-    await fetch("https://clients3.google.com/generate_204", { method: "HEAD", signal: c.signal });
-    clearTimeout(t);
-  } catch {
-    throw new ApiError(0, "İnternet bağlantısı yok");
-  }
-
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController();
     // timeout: 10 sn → 15 sn → 22.5 sn

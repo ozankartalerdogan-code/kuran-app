@@ -6,6 +6,7 @@ import {
   View, Text, TouchableOpacity, ActivityIndicator,
   StyleSheet, ScrollView, Pressable, FlatList,
 } from "react-native";
+import { useAudioPlayer } from "expo-audio";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
@@ -83,32 +84,22 @@ function JuzTracker({ currentJuz }: { currentJuz: number }) {
 // ── Ses oynatıcı (CDN veya local) ─────────────────────────────────────────────
 
 function AudioBar({ surahId }: { surahId: number }) {
-  const [playing, setPlaying] = useState(false);
-  const audioUrl =
-    (process.env.EXPO_PUBLIC_AUDIO_BASE_URL
-      ? `${process.env.EXPO_PUBLIC_AUDIO_BASE_URL}/surah/${String(surahId).padStart(3, "0")}.mp3`
-      : null);
+  const audioUrl = process.env.EXPO_PUBLIC_AUDIO_BASE_URL
+    ? `${process.env.EXPO_PUBLIC_AUDIO_BASE_URL}/surah/${String(surahId).padStart(3, "0")}.mp3`
+    : null;
+
+  const player = useAudioPlayer(audioUrl ?? "");
 
   if (!audioUrl) return null;
-
-  // React Native'de Audio, expo-av ile çalışır.
-  // expo-av kurulu değilse bu bölüm render edilmez.
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-    const { Audio } = require("expo-av") as typeof import("expo-av");
-    void Audio; // ensure import used
-  } catch {
-    return null;
-  }
 
   return (
     <TouchableOpacity
       style={ab.btn}
-      onPress={() => setPlaying(p => !p)}
+      onPress={() => player.playing ? player.pause() : player.play()}
       activeOpacity={0.8}
     >
-      <Text style={ab.icon}>{playing ? "⏸" : "▶"}</Text>
-      <Text style={ab.label}>{playing ? "Duraklat" : "Dinle"}</Text>
+      <Text style={ab.icon}>{player.playing ? "⏸" : "▶"}</Text>
+      <Text style={ab.label}>{player.playing ? "Duraklat" : "Dinle"}</Text>
     </TouchableOpacity>
   );
 }

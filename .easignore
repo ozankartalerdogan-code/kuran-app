@@ -11,3 +11,5 @@ apps/web/public/audio/surah
 *.log
 .env.local
 .env*.local
+dist/
+apps/web/.next/

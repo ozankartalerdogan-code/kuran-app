@@ -50,8 +50,6 @@ const tf = StyleSheet.create({
   empty:   { fontSize: 13, color: "#a8a29e", fontStyle: "italic" },
 });
 
-// Okunuş + meal → her satır daha yüksek
-const ITEM_HEIGHT = 88;
 
 // ── Bileşenler ────────────────────────────────────────────────────────────────
 
@@ -164,16 +162,7 @@ export default function SurahDetailScreen() {
     [],
   );
 
-  const getItemLayout = useCallback(
-    (_: unknown, index: number) => ({
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index,
-    }),
-    [],
-  );
-
-  if (loading) {
+if (loading) {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color="#059669" />
@@ -203,7 +192,6 @@ export default function SurahDetailScreen() {
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
-        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         initialNumToRender={20}
         windowSize={5}
@@ -271,7 +259,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection:     "row",
     alignItems:        "center",
-    minHeight:         ITEM_HEIGHT,
+    minHeight:         88,
     paddingHorizontal: 16,
     paddingVertical:   10,
     backgroundColor:   "#ffffff",

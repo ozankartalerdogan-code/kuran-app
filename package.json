@@ -34,8 +34,8 @@
     "@anthropic-ai/sdk": "^0.96.0",
     "ajv": "^8.20.0",
     "dotenv": "^17.4.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -54,6 +54,7 @@
     "groq-sdk": "^1.2.0",
     "lint-staged": "^17.0.5",
     "playwright": "^1.60.0",
-    "simple-git-hooks": "^2.13.1"
+    "simple-git-hooks": "^2.13.1",
+    "main": "apps/mobile/App.tsx"
   }
 }
