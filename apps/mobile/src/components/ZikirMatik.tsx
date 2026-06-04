@@ -12,9 +12,8 @@ try { Haptics = require("expo-haptics"); } catch { Haptics = null; }
 
 const DEFAULT_TARGET = 33;
 
-export function ZikirMatik() {
+export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const c = useColors();
-  const [open, setOpen]               = useState(false);
   const [count, setCount]             = useState(0);
   const [target, setTarget]           = useState(DEFAULT_TARGET);
   const [targetInput, setTargetInput] = useState(String(DEFAULT_TARGET));
@@ -76,31 +75,12 @@ export function ZikirMatik() {
   }, []);
 
   return (
-    <>
-      {/* ── Ana sayfa tetikleyici kart ── */}
-      <TouchableOpacity
-        style={[trig.card, {
-          backgroundColor: c.isDark ? c.cardAlt : "#f0fdf4",
-          borderColor: c.isDark ? "#166534" : "#86efac",
-        }]}
-        onPress={() => setOpen(true)}
-        activeOpacity={0.8}
-      >
-        <Text style={trig.emoji}>📿</Text>
-        <View style={{ flex: 1 }}>
-          <Text style={[trig.label, { color: c.text }]}>Tasbih</Text>
-          <Text style={[trig.sub, { color: c.textMuted }]}>Zikirmatik · dokun ve say</Text>
-        </View>
-        <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
-      </TouchableOpacity>
-
-      {/* ── Tam ekran modal ── */}
-      <Modal visible={open} animationType="slide" onRequestClose={() => setOpen(false)}>
+      <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
         <View style={[m.screen, { backgroundColor: c.bg }]}>
           {/* Üst bar */}
           <View style={m.topBar}>
             <Text style={[m.title, { color: c.text }]}>📿 Tasbih</Text>
-            <TouchableOpacity onPress={() => setOpen(false)} hitSlop={12} style={m.closeBtn} activeOpacity={0.7}>
+            <TouchableOpacity onPress={onClose} hitSlop={12} style={m.closeBtn} activeOpacity={0.7}>
               <Ionicons name="close" size={24} color={c.textMuted} />
             </TouchableOpacity>
           </View>
@@ -156,16 +136,8 @@ export function ZikirMatik() {
           </TouchableOpacity>
         </View>
       </Modal>
-    </>
   );
 }
-
-const trig = StyleSheet.create({
-  card:  { flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 14, borderWidth: 1.5, padding: 14, marginBottom: 12 },
-  emoji: { fontSize: 24 },
-  label: { fontSize: 14, fontWeight: "700" },
-  sub:   { fontSize: 11, marginTop: 1 },
-});
 
 const m = StyleSheet.create({
   screen:   { flex: 1, paddingHorizontal: 20, paddingTop: 16, paddingBottom: 28 },

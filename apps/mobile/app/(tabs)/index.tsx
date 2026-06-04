@@ -8,7 +8,7 @@ import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
-import { ZikirMatik } from "../../src/components/ZikirMatik";
+import { TasbihModal } from "../../src/components/ZikirMatik";
 import { api } from "../../src/lib/api";
 
 const NAV_CARDS: {
@@ -44,6 +44,7 @@ function HomeContent() {
   const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
+  const [tasbihOpen, setTasbihOpen]   = useState(false);
 
   const handleMoodPress = useCallback(async (tag: string) => {
     if (moodLoading) return;
@@ -60,6 +61,7 @@ function HomeContent() {
   }, [moodLoading]);
 
   return (
+    <>
     <ScrollView
       style={[styles.container, { backgroundColor: c.bg }]}
       contentContainerStyle={styles.content}
@@ -135,9 +137,6 @@ function HomeContent() {
         ))}
       </ScrollView>
 
-      {/* Tasbih (zikirmatik) */}
-      <ZikirMatik />
-
       {/* Namaz Vakitleri */}
       <View style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
@@ -198,8 +197,22 @@ function HomeContent() {
             <Text style={[styles.cardLabel, { color: c.text }]}>{card.label}</Text>
           </TouchableOpacity>
         ))}
+
+        {/* Tasbih — route değil, modal açar */}
+        <TouchableOpacity
+          key="tasbih"
+          style={[styles.card, { backgroundColor: c.isDark ? c.card : "#f0fdf4", borderColor: c.isDark ? c.border : "#86efac" }]}
+          onPress={() => setTasbihOpen(true)}
+          activeOpacity={0.75}
+        >
+          <MaterialCommunityIcons name="counter" size={36} color={c.isDark ? c.accent : "#059669"} />
+          <Text style={[styles.cardLabel, { color: c.text }]}>Tasbih</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
+
+      <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
+    </>
   );
 }
 
