@@ -12,45 +12,23 @@ import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
-// Tefsir TEMBEL yüklenir — sadece akordiyon açılınca çekilir (Bakara tefsiri ~1.7MB).
-function TafsirAccordion({ surahId }: { surahId: number }) {
+// Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
+// (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
+function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string }) {
   const c = useColors();
-  const [open, setOpen] = useState(false);
-  const [text, setText] = useState<string | null | "idle" | "loading">("idle");
-
-  const handleToggle = useCallback(() => {
-    setOpen((prev) => {
-      const next = !prev;
-      if (next && text === "idle") {
-        setText("loading");
-        api.tafsir.get(surahId)
-          .then((r) => setText(r?.content ?? null))
-          .catch(() => setText(null));
-      }
-      return next;
-    });
-  }, [text, surahId]);
-
   return (
     <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={tf.header} onPress={handleToggle} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={tf.header}
+        onPress={() => router.push(`/tafsir/${surahId}?name=${encodeURIComponent(surahName)}`)}
+        activeOpacity={0.75}
+      >
         <View>
           <Text style={[tf.title, { color: c.text }]}>📚 Sure Tefsiri</Text>
           <Text style={[tf.sub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
         </View>
-        <Text style={[tf.chevron, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
+        <Text style={[tf.chevron, { color: c.accent }]}>›</Text>
       </TouchableOpacity>
-      {open && (
-        <View style={tf.body}>
-          {text === "loading" ? (
-            <ActivityIndicator color={c.accent} />
-          ) : text && text !== "idle" ? (
-            <Text style={[tf.text, { color: c.textSecondary }]}>{text}</Text>
-          ) : (
-            <Text style={[tf.empty, { color: c.textMuted }]}>Tefsir verisi bulunamadı.</Text>
-          )}
-        </View>
-      )}
     </View>
   );
 }
@@ -199,7 +177,7 @@ if (loading) {
         ListHeaderComponent={
           <>
             <SurahHeader data={data.surah} />
-            <TafsirAccordion surahId={surahId} />
+            <TafsirCard surahId={surahId} surahName={data.surah.name} />
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
