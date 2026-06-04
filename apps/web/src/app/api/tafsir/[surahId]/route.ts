@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
-import { dbGet, dbAll } from "../../../../lib/dbUtils";
+import { dbGet } from "../../../../lib/dbUtils";
 
 interface TafsirRow { content: string | null }
 

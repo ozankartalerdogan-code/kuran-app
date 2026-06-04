@@ -80,10 +80,10 @@ export function KibleClient() {
 
   // DeviceOrientation — iOS 13+ için izin gerekiyor
   const requestOrientation = useCallback(async () => {
-    // @ts-ignore
+    // @ts-expect-error requestPermission iOS-only, standart DOM tipinde yok
     if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
       try {
-        // @ts-ignore
+        // @ts-expect-error requestPermission iOS-only, standart DOM tipinde yok
         const perm = await DeviceOrientationEvent.requestPermission();
         if (perm === "granted") setOrientationGranted(true);
       } catch {
@@ -100,9 +100,9 @@ export function KibleClient() {
     const handler = (e: DeviceOrientationEvent) => {
       // webkitCompassHeading: iOS (gerçek kuzey), alpha: Android (manyetik kuzey)
       const h =
-        // @ts-ignore
+        // @ts-expect-error webkitCompassHeading iOS-only, standart DOM tipinde yok
         e.webkitCompassHeading != null
-          // @ts-ignore
+          // @ts-expect-error webkitCompassHeading iOS-only, standart DOM tipinde yok
           ? e.webkitCompassHeading
           : e.alpha != null
           ? (360 - e.alpha) % 360

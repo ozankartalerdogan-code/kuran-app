@@ -26,7 +26,7 @@ function load(): HatimStore {
 }
 
 function save(data: HatimStore) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* localStorage kullanılamıyor */ }
 }
 
 function newHatim(): Hatim {
