@@ -40,6 +40,8 @@ output_check.txt
 etiketleme_checkpoint.json
 "C\357\200\272Tempayah_page.html"
 
-.vercel
+# Tek kullanımlık script yedekleri / çıktıları (timestamp'li snapshot'lar)
+scripts/_*_backup_*.json
+scripts/_*_results.txt
 
 .vercel
