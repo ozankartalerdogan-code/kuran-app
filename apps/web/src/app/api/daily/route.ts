@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const preferredRegion = "fra1"; // DB (eu-west-1) + TR kullanıcılara yakın → düşük gecikme
 import { NextResponse } from "next/server";
 import { dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
