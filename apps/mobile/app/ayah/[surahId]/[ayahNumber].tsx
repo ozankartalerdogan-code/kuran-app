@@ -445,6 +445,13 @@ export default function AyahDetailScreen() {
     ? `${data.surahName} · ${data.ayahNumber}. Ayet`
     : "Ayet Detayı";
 
+  // Ayet değişince kök anlamı kilidini ve yerel haritayı sıfırla
+  useEffect(() => {
+    rootMeaningsFetched[1](false);
+    setRootMeaningsLocal({});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surahId, ayahNumber]);
+
   // Kökler sekmesi açılınca root anlamlarını fetch et
   useEffect(() => {
     if (activeTab !== "roots" || !data || rootMeaningsFetched[0]) return;
