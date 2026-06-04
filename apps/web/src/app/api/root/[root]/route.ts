@@ -52,6 +52,11 @@ export async function GET(
       meaningTr: rootInfo.meaning_tr,
       distribution,
       derivedWords,
+    }, {
+      headers: {
+        // kök detayı statik — agresif CDN cache, her tıklamada ağır sorgu çalışmasın
+        "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
+      },
     });
   } catch (err) {
     console.error("[root] hata:", err);

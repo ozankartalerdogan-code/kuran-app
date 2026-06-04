@@ -6,7 +6,7 @@ import {
   View, Text, TextInput, FlatList, TouchableOpacity,
   ActivityIndicator, StyleSheet,
 } from "react-native";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
@@ -18,6 +18,28 @@ const SORT_LABELS: Record<SortKey, string> = {
   alphabetical: "Alfabetik",
   meaning:      "Anlam",
 };
+
+const Separator = () => <View style={s.sep} />;
+
+// Memoize: sıralama/arama değişince aynı satırlar yeniden render olmasın
+const RootRow = memo(function RootRow({ item, onPress }: { item: RootItem; onPress: (root: string) => void }) {
+  const c = useColors();
+  return (
+    <TouchableOpacity
+      style={[s.card, { backgroundColor: c.card }]}
+      onPress={() => onPress(item.root)}
+      activeOpacity={0.75}
+    >
+      <View style={s.cardLeft}>
+        <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
+        <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
+      </View>
+      <View style={s.freqBadge}>
+        <Text style={s.freqText}>{item.frequency}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+});
 
 export default function RootListScreen() {
   const c = useColors();
@@ -50,6 +72,14 @@ export default function RootListScreen() {
     }
     return list;
   }, [roots, search, sort]);
+
+  const handlePress = useCallback((root: string) => {
+    router.push(`/root/${encodeURIComponent(root)}`);
+  }, []);
+  const renderItem = useCallback(
+    ({ item }: { item: RootItem }) => <RootRow item={item} onPress={handlePress} />,
+    [handlePress],
+  );
 
   if (loading) {
     return (
@@ -112,29 +142,18 @@ export default function RootListScreen() {
           data={filtered}
           keyExtractor={item => item.root}
           contentContainerStyle={s.list}
-          initialNumToRender={20}
+          initialNumToRender={15}
+          maxToRenderPerBatch={10}
           windowSize={5}
+          removeClippedSubviews
+          keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <View style={s.centered}>
               <Text style={s.emptyText}>Sonuç bulunamadı</Text>
             </View>
           }
-          ItemSeparatorComponent={() => <View style={s.sep} />}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[s.card, { backgroundColor: c.card }]}
-              onPress={() => router.push(`/root/${encodeURIComponent(item.root)}`)}
-              activeOpacity={0.75}
-            >
-              <View style={s.cardLeft}>
-                <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
-                <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
-              </View>
-              <View style={s.freqBadge}>
-                <Text style={s.freqText}>{item.frequency}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          ItemSeparatorComponent={Separator}
+          renderItem={renderItem}
         />
       </View>
     </>
