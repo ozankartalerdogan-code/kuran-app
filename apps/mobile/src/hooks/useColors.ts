@@ -1,5 +1,5 @@
 import { useColorScheme } from "react-native";
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 
 export type AppColors = {
@@ -41,12 +41,33 @@ const dark: AppColors = {
   isDark:        true,
 };
 
-// Modül seviyesinde override — tüm useColors çağrıları bu değeri okur
+// Modül seviyesinde override — tüm useColors çağrıları bu değeri okur.
+// useSyncExternalStore ile paylaşılan store: her bileşen kendi AsyncStorage
+// okumasını/effect'ini kurmaz; tema bir kez yüklenir, değişimler yayınlanır.
 let override: "light" | "dark" | null = null;
+let loaded = false;
 const listeners = new Set<() => void>();
 
 function notify() {
   listeners.forEach(fn => fn());
+}
+
+// AsyncStorage'dan kayıtlı temayı UYGULAMA BAŞINA bir kez yükle (her mount'ta değil)
+function ensureLoaded() {
+  if (loaded) return;
+  loaded = true;
+  storage.getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
+    .then(v => { if (v && v !== override) { override = v; notify(); } })
+    .catch(() => {});
+}
+
+function subscribe(fn: () => void) {
+  listeners.add(fn);
+  return () => { listeners.delete(fn); };
+}
+
+function getSnapshot() {
+  return override;
 }
 
 export function toggleTheme() {
@@ -57,23 +78,9 @@ export function toggleTheme() {
 }
 
 export function useColors(): AppColors {
+  ensureLoaded();
   const system = useColorScheme() ?? "light";
-  const [, tick] = useState(0);
-
-  // Override'ı AsyncStorage'dan yükle (ilk render)
-  useEffect(() => {
-    storage.getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
-      .then(v => { if (v && v !== override) { override = v; tick(n => n + 1); } })
-      .catch(() => {});
-  }, []);
-
-  // Global toggle event'lerini dinle
-  useEffect(() => {
-    const fn = () => tick(n => n + 1);
-    listeners.add(fn);
-    return () => { listeners.delete(fn); };
-  }, []);
-
-  const scheme = override ?? system;
+  const ov = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  const scheme = ov ?? system;
   return scheme === "dark" ? dark : light;
 }

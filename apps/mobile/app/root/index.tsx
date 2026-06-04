@@ -9,7 +9,7 @@ import {
 import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
-import { useColors } from "../../src/hooks/useColors";
+import { useColors, type AppColors } from "../../src/hooks/useColors";
 
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
@@ -21,9 +21,14 @@ const SORT_LABELS: Record<SortKey, string> = {
 
 const Separator = () => <View style={s.sep} />;
 
-// Memoize: sıralama/arama değişince aynı satırlar yeniden render olmasın
-const RootRow = memo(function RootRow({ item, onPress }: { item: RootItem; onPress: (root: string) => void }) {
-  const c = useColors();
+// Collator'ları bir kez oluştur — sort comparator içinde localeCompare(x, locale)
+// her çağrıda yeni collator yaratır (Hermes'te ağır). Tek instance çok daha hızlı.
+const arCollator = new Intl.Collator("ar");
+const trCollator = new Intl.Collator("tr");
+
+// Memoize: sıralama/arama değişince aynı satırlar yeniden render olmasın.
+// Renk parent'tan prop ile gelir — her satırda useColors çağrılmaz.
+const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; onPress: (root: string) => void; c: AppColors }) {
   return (
     <TouchableOpacity
       style={[s.card, { backgroundColor: c.card }]}
@@ -67,8 +72,8 @@ export default function RootListScreen() {
     }
     switch (sort) {
       case "frequency":    list.sort((a, b) => b.frequency - a.frequency); break;
-      case "alphabetical": list.sort((a, b) => a.root.localeCompare(b.root, "ar")); break;
-      case "meaning":      list.sort((a, b) => a.meaning_tr.localeCompare(b.meaning_tr, "tr")); break;
+      case "alphabetical": list.sort((a, b) => arCollator.compare(a.root, b.root)); break;
+      case "meaning":      list.sort((a, b) => trCollator.compare(a.meaning_tr, b.meaning_tr)); break;
     }
     return list;
   }, [roots, search, sort]);
@@ -77,8 +82,8 @@ export default function RootListScreen() {
     router.push(`/root/${encodeURIComponent(root)}`);
   }, []);
   const renderItem = useCallback(
-    ({ item }: { item: RootItem }) => <RootRow item={item} onPress={handlePress} />,
-    [handlePress],
+    ({ item }: { item: RootItem }) => <RootRow item={item} onPress={handlePress} c={c} />,
+    [handlePress, c],
   );
 
   if (loading) {
