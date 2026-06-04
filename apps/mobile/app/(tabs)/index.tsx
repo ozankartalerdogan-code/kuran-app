@@ -8,6 +8,7 @@ import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
+import { ZikirMatik } from "../../src/components/ZikirMatik";
 import { api } from "../../src/lib/api";
 
 const NAV_CARDS: {
@@ -133,6 +134,9 @@ function HomeContent() {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+      {/* Tasbih (zikirmatik) */}
+      <ZikirMatik />
 
       {/* Namaz Vakitleri */}
       <View style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
