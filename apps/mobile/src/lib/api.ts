@@ -2,7 +2,8 @@
 import { storage } from "./storage";
 
 const API_BASE =
-  process.env.EXPO_PUBLIC_API_URL ?? "https://kuranapp.vercel.app/api/v1";
+  process.env.EXPO_PUBLIC_API_URL ??
+  "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1";
 
 const TIMEOUT_MS = 10_000;
 const MAX_RETRIES = 2;

@@ -4,11 +4,38 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
+import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
-// expo-av yeni APK build gerektiriyor — şimdilik placeholder
-async function playHarfSes(_harfId: number) {
-  // Yeni APK build'inde expo-av ile aktif edilecek
+
+// Harf sesleri public klasörden servis edilir (/api/v1 altında değil)
+const AUDIO_BASE = (process.env.EXPO_PUBLIC_API_URL ??
+  "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1")
+  .replace(/\/api\/v1\/?$/, "");
+
+function harfSesUrl(harfId: number): string {
+  return `${AUDIO_BASE}/audio/elifba/harf_${String(harfId).padStart(2, "0")}.mp3`;
+}
+
+// Tek bir paylaşılan oynatıcı — her basışta yenisi kurulur, eskisi serbest bırakılır
+let harfPlayer: AudioPlayer | null = null;
+let audioModeSet = false;
+
+async function playHarfSes(harfId: number) {
+  try {
+    if (!audioModeSet) {
+      // iOS sessiz moddayken de ses çıksın
+      await setAudioModeAsync({ playsInSilentMode: true });
+      audioModeSet = true;
+    }
+    if (harfPlayer) {
+      try { harfPlayer.remove(); } catch { /* yoksay */ }
+    }
+    harfPlayer = createAudioPlayer(harfSesUrl(harfId));
+    harfPlayer.play();
+  } catch {
+    // ses çalınamazsa sessizce geç
+  }
 }
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────

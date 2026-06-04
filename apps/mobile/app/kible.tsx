@@ -3,7 +3,7 @@ import {
   View, Text, TouchableOpacity, StyleSheet,
   ActivityIndicator, Alert, Dimensions, Linking,
 } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import * as Location from "expo-location";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
@@ -12,19 +12,6 @@ const MECCA     = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
 const SIZE      = Math.min(width - 48, 300);
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
-
-const CITIES = [
-  { name: "İstanbul",   lat: 41.0082, lng: 28.9784 },
-  { name: "Ankara",     lat: 39.9334, lng: 32.8597 },
-  { name: "İzmir",      lat: 38.4189, lng: 27.1287 },
-  { name: "Bursa",      lat: 40.1885, lng: 29.0610 },
-  { name: "Antalya",    lat: 36.8969, lng: 30.7133 },
-  { name: "Konya",      lat: 37.8714, lng: 32.4846 },
-  { name: "Adana",      lat: 37.0000, lng: 35.3213 },
-  { name: "Trabzon",    lat: 41.0015, lng: 39.7178 },
-  { name: "Diyarbakır", lat: 37.9144, lng: 40.2306 },
-  { name: "Erzurum",    lat: 39.9208, lng: 41.2671 },
-];
 
 // ── Kıble hesabı (büyük çember yönü) ─────────────────────────────────────────
 
@@ -58,10 +45,11 @@ function avgAngles(angles: number[]): number {
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
-type Step = "pick" | "locating" | "compass";
+type Step = "locating" | "compass";
 
 export default function KibleScreen() {
-  const [step, setStep]           = useState<Step>("pick");
+  // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
+  const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
   const [cityName, setCityName]   = useState("");
@@ -92,6 +80,12 @@ export default function KibleScreen() {
     };
   }, [step]);
 
+  // Pick ekranı yok — hata/iptal durumunda ana sayfaya dön, uyarı orada görünür
+  const goHome = useCallback(() => {
+    if (router.canGoBack()) router.back();
+    else router.replace("/");
+  }, []);
+
   // Konum al — Balanced doğruluk, 3 aşamalı fallback
   const getLocation = useCallback(async () => {
     setStep("locating");
@@ -104,10 +98,10 @@ export default function KibleScreen() {
         "Kıble pusulası için konum iznine ihtiyaç var.\n\nAyarlar → Uygulama → Kuran Yolu → İzinler → Konum → İzin Ver",
         [
           { text: "Ayarlara Git", onPress: () => Linking.openSettings() },
-          { text: "Şehir Seç", onPress: () => setStep("pick") },
+          { text: "Tamam", style: "cancel" },
         ],
       );
-      setStep("pick");
+      goHome();
       return;
     }
 
@@ -147,10 +141,10 @@ export default function KibleScreen() {
         "GPS sinyali bulunamadı.\n\n• Açık alanda deneyin\n• WiFi veya mobil veriyi açın\n• Telefon ayarlarından konum servisini etkinleştirin",
         [
           { text: "Ayarlara Git", onPress: () => Linking.openSettings() },
-          { text: "Şehir Seç",    onPress: () => setStep("pick") },
+          { text: "Tamam", style: "cancel" },
         ],
       );
-      setStep("pick");
+      goHome();
       return;
     }
 
@@ -158,43 +152,18 @@ export default function KibleScreen() {
     setDistance(calcDist(coords.latitude, coords.longitude));
     setCityName("Konumunuz");
     setStep("compass");
-  }, []);
+  }, [goHome]);
 
-  const pickCity = useCallback((c: typeof CITIES[0]) => {
-    setQibla(calcQibla(c.lat, c.lng));
-    setDistance(calcDist(c.lat, c.lng));
-    setCityName(c.name);
-    setStep("compass");
-  }, []);
+  // Ekrana girince doğrudan konumdan pusulaya geç (ana menüden tıklayınca)
+  const autoStarted = useRef(false);
+  useEffect(() => {
+    if (autoStarted.current) return;
+    autoStarted.current = true;
+    getLocation();
+  }, [getLocation]);
 
   // İbre açısı: kıble gerçek yönü - cihazın baktığı gerçek yön
   const needleAngle = qibla !== null ? (qibla - heading + 360) % 360 : 0;
-
-  // ── KONUM SEÇ ─────────────────────────────────────────────────────────────
-  if (step === "pick") {
-    return (
-      <>
-        <Stack.Screen options={{ title: "Kıble Yönü" }} />
-        <View style={s.container}>
-          <Text style={s.title}>🕋 Kıble Yönü</Text>
-          <Text style={s.sub}>Seccadenizi Kabe'ye döndürün</Text>
-
-          <TouchableOpacity style={s.gpsBtn} onPress={getLocation} activeOpacity={0.85}>
-            <Text style={s.gpsBtnText}>📍 Konumumu Otomatik Al</Text>
-          </TouchableOpacity>
-
-          <Text style={s.orText}>— veya şehir seçin —</Text>
-
-          {CITIES.map(c => (
-            <TouchableOpacity key={c.name} style={s.cityRow} onPress={() => pickCity(c)} activeOpacity={0.7}>
-              <Text style={s.cityName}>{c.name}</Text>
-              <Text style={s.cityDeg}>{Math.round(calcQibla(c.lat, c.lng))}°</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </>
-    );
-  }
 
   // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
   if (step === "locating") {
@@ -271,10 +240,10 @@ export default function KibleScreen() {
 
         <TouchableOpacity
           style={s.backBtn}
-          onPress={() => { setStep("pick"); setCompassOk(null); setShowCalib(true); }}
+          onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(); }}
           activeOpacity={0.7}
         >
-          <Text style={s.backBtnText}>← Konumu Değiştir</Text>
+          <Text style={s.backBtnText}>🔄 Konumu Yenile</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -288,21 +257,6 @@ const s = StyleSheet.create({
   centered:  { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", justifyContent: "center", gap: 12 },
   loadingText: { fontSize: 16, fontWeight: "600", color: "#134e4a", marginTop: 8 },
   loadingSub:  { fontSize: 12, color: "#5eead4" },
-
-  title: { fontSize: 24, fontWeight: "700", color: "#134e4a", marginTop: 8, marginBottom: 4 },
-  sub:   { fontSize: 13, color: "#5eead4", marginBottom: 16, textAlign: "center" },
-
-  gpsBtn:     { backgroundColor: "#059669", borderRadius: 14, paddingVertical: 15, width: "100%", alignItems: "center", marginBottom: 14 },
-  gpsBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
-  orText:     { fontSize: 13, color: "#a7f3d0", marginBottom: 10 },
-
-  cityRow: {
-    flexDirection: "row", justifyContent: "space-between", alignItems: "center",
-    backgroundColor: "#fff", borderRadius: 12, paddingHorizontal: 16, paddingVertical: 12,
-    marginBottom: 6, borderWidth: 1, borderColor: "#99f6e4", width: "100%",
-  },
-  cityName: { fontSize: 15, color: "#134e4a", fontWeight: "600" },
-  cityDeg:  { fontSize: 13, color: "#5eead4", fontWeight: "600" },
 
   calibCard: {
     width: "100%", backgroundColor: "#fefce8", borderRadius: 12,
