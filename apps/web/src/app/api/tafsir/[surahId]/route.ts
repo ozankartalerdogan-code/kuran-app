@@ -21,7 +21,12 @@ export async function GET(
 
     return NextResponse.json(
       { content: row?.content ?? null },
-      { headers: { "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800" } }
+      {
+        headers: {
+          // tefsir statik (Elmalılı) — agresif CDN edge cache; max-age değil s-maxage paylaşımlı cache'i tetikler
+          "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
+        },
+      }
     );
   } catch (err) {
     console.error("[tafsir] hata:", err);

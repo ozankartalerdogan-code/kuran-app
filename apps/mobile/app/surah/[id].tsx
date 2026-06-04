@@ -12,12 +12,28 @@ import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
-function TafsirAccordion({ text }: { text: string | null | "loading" }) {
+// Tefsir TEMBEL yüklenir — sadece akordiyon açılınca çekilir (Bakara tefsiri ~1.7MB).
+function TafsirAccordion({ surahId }: { surahId: number }) {
   const c = useColors();
   const [open, setOpen] = useState(false);
+  const [text, setText] = useState<string | null | "idle" | "loading">("idle");
+
+  const handleToggle = useCallback(() => {
+    setOpen((prev) => {
+      const next = !prev;
+      if (next && text === "idle") {
+        setText("loading");
+        api.tafsir.get(surahId)
+          .then((r) => setText(r?.content ?? null))
+          .catch(() => setText(null));
+      }
+      return next;
+    });
+  }, [text, surahId]);
+
   return (
     <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={tf.header} onPress={() => setOpen(p => !p)} activeOpacity={0.75}>
+      <TouchableOpacity style={tf.header} onPress={handleToggle} activeOpacity={0.75}>
         <View>
           <Text style={[tf.title, { color: c.text }]}>📚 Sure Tefsiri</Text>
           <Text style={[tf.sub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
@@ -28,7 +44,7 @@ function TafsirAccordion({ text }: { text: string | null | "loading" }) {
         <View style={tf.body}>
           {text === "loading" ? (
             <ActivityIndicator color={c.accent} />
-          ) : text ? (
+          ) : text && text !== "idle" ? (
             <Text style={[tf.text, { color: c.textSecondary }]}>{text}</Text>
           ) : (
             <Text style={[tf.empty, { color: c.textMuted }]}>Tefsir verisi bulunamadı.</Text>
@@ -121,20 +137,15 @@ export default function SurahDetailScreen() {
   const surahId = Number(id);
 
   const [data, setData]         = useState<VerseListResponse | null>(null);
-  const [tafsirText, setTafsir] = useState<string | null | "loading">("loading");
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
 
   useEffect(() => {
     if (!surahId) return;
-    // Ayetler + tefsir paralel yükle
-    Promise.all([
-      api.verses.bySurah(surahId),
-      api.tafsir.get(surahId).catch(() => ({ content: null })),
-    ])
-      .then(([res, tafsirRes]) => {
+    // Sadece ayetleri bekle — tefsir akordiyon açılınca tembel yüklenir
+    api.verses.bySurah(surahId)
+      .then((res) => {
         setData(res);
-        setTafsir(tafsirRes?.content ?? null);
         storage.setJSON(STORAGE_KEYS.mushafBookmark, `${surahId}:1`).catch(() => {});
       })
       .catch(() => setError("Ayetler yüklenemedi. Bağlantını kontrol et."))
@@ -188,7 +199,7 @@ if (loading) {
         ListHeaderComponent={
           <>
             <SurahHeader data={data.surah} />
-            <TafsirAccordion text={tafsirText} />
+            <TafsirAccordion surahId={surahId} />
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
