@@ -17,6 +17,9 @@ import { useNotes } from "../../../src/hooks/useNotes";
 import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
 
+// Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
+const arCollator = new Intl.Collator("ar");
+
 // Meal kaynak adları
 const SOURCE_NAMES: Record<string, string> = {
   yazir:   "Elmalılı H. Yazır",
@@ -171,7 +174,7 @@ function UniqueRootList({
       rootMap.set(w.root.trim(), (rootMap.get(w.root.trim()) ?? 0) + 1);
     }
   }
-  const roots = Array.from(rootMap.entries()).sort((a, b) => a[0].localeCompare(b[0], "ar"));
+  const roots = Array.from(rootMap.entries()).sort((a, b) => arCollator.compare(a[0], b[0]));
 
   if (roots.length === 0) {
     return (

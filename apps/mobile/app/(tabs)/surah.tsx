@@ -2,7 +2,7 @@ import {
   FlatList, View, Text, TouchableOpacity,
   TextInput, ActivityIndicator, StyleSheet,
 } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { router } from "expo-router";
 import { api, type SurahListItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
@@ -42,7 +42,7 @@ function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
   );
 }
 
-function SurahRow({ item, c, sortMode }: { item: SurahListItem; c: AppColors; sortMode: "mushaf" | "nuzul" }) {
+const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahListItem; c: AppColors; sortMode: "mushaf" | "nuzul" }) {
   const circleNum  = sortMode === "nuzul" ? (NUZUL[item.id] ?? item.id) : item.id;
   const secondaryNum = sortMode === "nuzul" ? item.id : (NUZUL[item.id] ?? null);
 
@@ -70,7 +70,7 @@ function SurahRow({ item, c, sortMode }: { item: SurahListItem; c: AppColors; so
       <Text style={[styles.arabicName, { color: c.textSecondary }]}>{item.arabicName}</Text>
     </TouchableOpacity>
   );
-}
+});
 
 export default function SurahScreen() {
   const c = useColors();
@@ -87,7 +87,7 @@ export default function SurahScreen() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = (() => {
+  const filtered = useMemo(() => {
     const list = filter.trim()
       ? surahs.filter(s =>
           s.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -99,7 +99,7 @@ export default function SurahScreen() {
       list.sort((a, b) => (NUZUL[a.id] ?? 999) - (NUZUL[b.id] ?? 999));
     }
     return list;
-  })();
+  }, [surahs, filter, sortMode]);
 
   const renderItem = useCallback(
     ({ item }: { item: SurahListItem }) => <SurahRow item={item} c={c} sortMode={sortMode} />,
