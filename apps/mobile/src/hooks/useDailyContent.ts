@@ -241,7 +241,8 @@ export function useDailyContent(): UseDailyContentResult {
     const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
 
     fetch(
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=1&midnightMode=0&timezonestring=Europe%2FIstanbul`,
+      // school=0: Diyanet İkindi'yi standart yöntemle hesaplar (school=1/Hanefi İkindi'yi ~1 saat geç verir)
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
       { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
     )
       .then((r) => r.json())
