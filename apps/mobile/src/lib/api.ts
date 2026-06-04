@@ -385,21 +385,33 @@ export const api = {
 
   roots: {
     list: () =>
-      withRetry((signal) =>
-        request<unknown>("/roots", undefined, signal).then((r) => {
-          if (Array.isArray(r)) return r as RootItem[];
-          if (r && typeof r === "object" && "roots" in r)
-            return (r as { roots: RootItem[] }).roots ?? [];
-          return [];
-        }),
+      // statik liste — 7 gün yerel cache, tekrar açılışlar anında
+      withCacheFallback(
+        "cache_roots_list",
+        CACHE_TTL_STATIC,
+        () =>
+          withRetry((signal) =>
+            request<unknown>("/roots", undefined, signal).then((r) => {
+              if (Array.isArray(r)) return r as RootItem[];
+              if (r && typeof r === "object" && "roots" in r)
+                return (r as { roots: RootItem[] }).roots ?? [];
+              return [];
+            }),
+          ),
       ),
     detail: (root: string) =>
-      withRetry((signal) =>
-        request<RootDetail>(
-          `/root/${encodeURIComponent(root)}`,
-          undefined,
-          signal,
-        ),
+      // kök detayı — 7 gün yerel cache (statik)
+      withCacheFallback(
+        `cache_root_${root}`,
+        CACHE_TTL_STATIC,
+        () =>
+          withRetry((signal) =>
+            request<RootDetail>(
+              `/root/${encodeURIComponent(root)}`,
+              undefined,
+              signal,
+            ),
+          ),
       ),
   },
 

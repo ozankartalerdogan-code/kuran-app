@@ -14,7 +14,12 @@ export async function GET(): Promise<NextResponse> {
         LIMIT 200
       `);
 
-    return NextResponse.json({ roots: rows });
+    return NextResponse.json({ roots: rows }, {
+      headers: {
+        // statik liste (en sık 200 kök) — agresif cache, CDN edge'den hızlı servis
+        "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
+      },
+    });
   } catch (err) {
     console.error("[roots] hata:", err);
     return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
