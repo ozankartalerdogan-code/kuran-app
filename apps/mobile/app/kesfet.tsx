@@ -97,6 +97,7 @@ const AKORDEON_GRUPLARI = [
 const REHBERLER = [
   { emoji: "🛡️", label: "Manevi Sığınak",  sub: "Korunma, şifa ve istiaze",    route: "/manevi-siginak"           as const, bg: "#fce7f3", border: "#f9a8d4" },
   { emoji: "✨",  label: "İsmi Azam",        sub: "Sahih dualar ve uygulamalar",  route: "/manevi-siginak/ismi-azam" as const, bg: "#fef3c7", border: "#fcd34d" },
+  { emoji: "🕌", label: "Esmaül Hüsna",     sub: "Allah'ın 99 güzel ismi",       route: "/esma"                     as const, bg: "#ede9fe", border: "#c4b5fd" },
   { emoji: "📿", label: "İbadet Rehberi",   sub: "Namaz, oruç, zekât, abdest",   route: "/ibadet-rehberi"           as const, bg: "#f0fdf4", border: "#86efac" },
 ];
 
