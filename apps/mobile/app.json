@@ -20,14 +20,19 @@
     },
     "android": {
       "package": "com.kuranapp.mobile",
-
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0a1628"
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
       ]
     },
     "web": {
@@ -63,9 +68,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "c5c721bc-c06e-4e31-a486-bcdfd2e19589"
+        "projectId": "27f090a0-e4c3-4c33-a29b-8b49c88f03d4"
       }
     },
-    "owner": "ozankartal"
+    "owner": "ozankartal92"
   }
 }
