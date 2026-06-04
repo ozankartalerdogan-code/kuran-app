@@ -183,6 +183,7 @@ export default function RootDetailScreen() {
   const maxCount = Math.max(...Object.values(data.distribution), 1);
   const totalOcc = Object.values(data.distribution).reduce((a, b) => a + b, 0);
   const surahCount = Object.values(data.distribution).filter(v => v > 0).length;
+  const uniqForms = new Set(data.derivedWords.map(w => w.word)).size; // benzersiz türev kelime biçimi
 
   // meaningTr yoksa türev kelimelerden en sık geçen anlamı bul
   const displayMeaning = data.meaningTr || (() => {
@@ -212,7 +213,7 @@ export default function RootDetailScreen() {
               <Text style={s.statLabel}>sure</Text>
             </View>
             <View style={s.statBadge}>
-              <Text style={s.statNum}>{data.derivedWords.length}</Text>
+              <Text style={s.statNum}>{uniqForms}</Text>
               <Text style={s.statLabel}>türev</Text>
             </View>
           </View>
@@ -229,7 +230,7 @@ export default function RootDetailScreen() {
         {groups.length > 0 && (
           <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.sectionTitle, { color: c.text }]}>
-              Kullanım Bağlamları ({groups.length} anlam, {data.derivedWords.length} geçiş)
+              Kullanım Bağlamları ({groups.length} anlam)
             </Text>
             {groups.map(([meaning, { forms, verses }], idx) => {
               const isOpen = openMeaning === meaning;
@@ -259,7 +260,7 @@ export default function RootDetailScreen() {
                   {/* Ayet chip'leri — sadece açıkken */}
                   {isOpen && (
                     <View style={s.versesWrap}>
-                      {verses.map((v, i) => (
+                      {verses.slice(0, 80).map((v, i) => (
                         <TouchableOpacity
                           key={i}
                           style={s.verseChip}
@@ -269,6 +270,11 @@ export default function RootDetailScreen() {
                           <Text style={s.verseChipText}>{v.surahId}:{v.ayahNumber}</Text>
                         </TouchableOpacity>
                       ))}
+                      {verses.length > 80 && (
+                        <View style={s.verseMore}>
+                          <Text style={s.verseMoreText}>+{verses.length - 80} ayet daha</Text>
+                        </View>
+                      )}
                     </View>
                   )}
                 </View>
@@ -319,6 +325,8 @@ const s = StyleSheet.create({
   versesWrap:    { flexDirection: "row", flexWrap: "wrap", gap: 6, paddingHorizontal: 14, paddingBottom: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#f5f0e8" },
   verseChip:     { backgroundColor: "#f0fdf4", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#86efac" },
   verseChipText: { fontSize: 12, color: "#065f46", fontWeight: "600" },
+  verseMore:     { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, justifyContent: "center" },
+  verseMoreText: { fontSize: 12, color: "#a8a29e", fontStyle: "italic" },
 });
 
 const hg = StyleSheet.create({

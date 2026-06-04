@@ -40,7 +40,7 @@ export async function GET(
       FROM   words
       WHERE  root = ?
       ORDER  BY arabic, verse_key
-      LIMIT  200`, root);
+      LIMIT  2000`, root);  // en yaygın kök (قول) ~1722 → 2000 tümünü kapsar, ısı haritasıyla tutarlı
 
     const derivedWords = derivedRows.map((row) => {
       const [s, a] = (row.verse_key ?? "1:1").split(":").map(Number);
