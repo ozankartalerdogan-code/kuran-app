@@ -20,7 +20,7 @@ function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string
     <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
         style={tf.header}
-        onPress={() => router.push(`/tafsir/${surahId}?name=${encodeURIComponent(surahName)}`)}
+        onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
         activeOpacity={0.75}
       >
         <View>

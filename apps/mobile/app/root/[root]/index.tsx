@@ -3,13 +3,13 @@
  * 114 sure dağılımı (renkli grid) + türev kelimeler listesi.
  */
 import {
-  View, Text, ScrollView, TouchableOpacity, ActivityIndicator,
-  StyleSheet, Modal, FlatList, Alert,
+  View, Text, TouchableOpacity, ActivityIndicator,
+  StyleSheet, Modal, FlatList,
 } from "react-native";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, type RootDetail } from "../../../src/lib/api";
-import { useColors } from "../../../src/hooks/useColors";
+import { useColors, type AppColors } from "../../../src/hooks/useColors";
 
 // ── Isı haritası rengi (0-N → beyaz-koyu yeşil) ───────────────────────────────
 
@@ -42,7 +42,7 @@ const SURAH_SHORT: Record<number, string> = {
 
 // ── Bileşenler ────────────────────────────────────────────────────────────────
 
-function HeatGrid({
+const HeatGrid = memo(function HeatGrid({
   distribution,
   maxCount,
 }: {
@@ -105,7 +105,65 @@ function HeatGrid({
       </Modal>
     </>
   );
-}
+});
+
+// ── Anlam grubu (akordiyon) — memo'lu: sadece açılıp kapanan yeniden render olur ──
+
+type Verse = { surahId: number; ayahNumber: number };
+
+const MeaningGroup = memo(function MeaningGroup({
+  meaning, forms, verses, isOpen, onToggle, c,
+}: {
+  meaning: string;
+  forms: string[];
+  verses: Verse[];
+  isOpen: boolean;
+  onToggle: (meaning: string) => void;
+  c: AppColors;
+}) {
+  return (
+    <View style={[s.accordionCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+      <TouchableOpacity
+        style={s.accordionHeader}
+        onPress={() => onToggle(meaning)}
+        activeOpacity={0.7}
+      >
+        <View style={{ flex: 1 }}>
+          <Text style={s.accordionTitle}>
+            {meaning}
+            <Text style={s.accordionCount}> — {verses.length} ayet</Text>
+          </Text>
+          <Text style={s.accordionForms} numberOfLines={1}>
+            {forms.join(" · ")}
+          </Text>
+        </View>
+        <Text style={[s.accordionChevron, isOpen && { transform: [{ rotate: "180deg" }] }]}>
+          ▼
+        </Text>
+      </TouchableOpacity>
+
+      {isOpen && (
+        <View style={s.versesWrap}>
+          {verses.slice(0, 80).map((v, i) => (
+            <TouchableOpacity
+              key={i}
+              style={s.verseChip}
+              onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}`)}
+              activeOpacity={0.7}
+            >
+              <Text style={s.verseChipText}>{v.surahId}:{v.ayahNumber}</Text>
+            </TouchableOpacity>
+          ))}
+          {verses.length > 80 && (
+            <View style={s.verseMore}>
+              <Text style={s.verseMoreText}>+{verses.length - 80} ayet daha</Text>
+            </View>
+          )}
+        </View>
+      )}
+    </View>
+  );
+});
 
 // ── Ana ekran ─────────────────────────────────────────────────────────────────
 
@@ -155,6 +213,11 @@ export default function RootDetailScreen() {
       .finally(() => setLoading(false));
   }, [root]);
 
+  const handleToggle = useCallback(
+    (meaning: string) => setOpenMeaning(prev => (prev === meaning ? null : meaning)),
+    [],
+  );
+
   if (loading) {
     return (
       <>
@@ -197,93 +260,63 @@ export default function RootDetailScreen() {
   return (
     <>
       <Stack.Screen options={{ title: root }} />
-      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={s.content}>
-
-        {/* Başlık */}
-        <View style={[s.header, { backgroundColor: c.card }]}>
-          <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
-          {displayMeaning ? <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text> : null}
-          <View style={s.statsRow}>
-            <View style={s.statBadge}>
-              <Text style={s.statNum}>{totalOcc}</Text>
-              <Text style={s.statLabel}>geçiş</Text>
-            </View>
-            <View style={s.statBadge}>
-              <Text style={s.statNum}>{surahCount}</Text>
-              <Text style={s.statLabel}>sure</Text>
-            </View>
-            <View style={s.statBadge}>
-              <Text style={s.statNum}>{uniqForms}</Text>
-              <Text style={s.statLabel}>türev</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Isı haritası */}
-        <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
-          <Text style={[s.sectionTitle, { color: c.text }]}>Sure Dağılımı</Text>
-          <Text style={[s.sectionHint, { color: c.textMuted }]}>Renkli hücreye dokun → sure bilgisi</Text>
-          <HeatGrid distribution={data.distribution} maxCount={maxCount} />
-        </View>
-
-        {/* Kullanım Bağlamları — anlam bazlı accordion */}
-        {groups.length > 0 && (
-          <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
-            <Text style={[s.sectionTitle, { color: c.text }]}>
-              Kullanım Bağlamları ({groups.length} anlam)
-            </Text>
-            {groups.map(([meaning, { forms, verses }], idx) => {
-              const isOpen = openMeaning === meaning;
-              return (
-                <View key={meaning} style={[s.accordionCard, { backgroundColor: c.cardAlt, borderColor: c.border }, idx > 0 && { marginTop: 6 }]}>
-                  {/* Başlık — dokunulabilir */}
-                  <TouchableOpacity
-                    style={s.accordionHeader}
-                    onPress={() => setOpenMeaning(isOpen ? null : meaning)}
-                    activeOpacity={0.7}
-                  >
-                    <View style={{ flex: 1 }}>
-                      <Text style={s.accordionTitle}>
-                        {meaning}
-                        <Text style={s.accordionCount}> — {verses.length} ayet</Text>
-                      </Text>
-                      {/* Arapça formlar — her zaman görünür */}
-                      <Text style={s.accordionForms} numberOfLines={1}>
-                        {forms.join(" · ")}
-                      </Text>
-                    </View>
-                    <Text style={[s.accordionChevron, isOpen && { transform: [{ rotate: "180deg" }] }]}>
-                      ▼
-                    </Text>
-                  </TouchableOpacity>
-
-                  {/* Ayet chip'leri — sadece açıkken */}
-                  {isOpen && (
-                    <View style={s.versesWrap}>
-                      {verses.slice(0, 80).map((v, i) => (
-                        <TouchableOpacity
-                          key={i}
-                          style={s.verseChip}
-                          onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}`)}
-                          activeOpacity={0.7}
-                        >
-                          <Text style={s.verseChipText}>{v.surahId}:{v.ayahNumber}</Text>
-                        </TouchableOpacity>
-                      ))}
-                      {verses.length > 80 && (
-                        <View style={s.verseMore}>
-                          <Text style={s.verseMoreText}>+{verses.length - 80} ayet daha</Text>
-                        </View>
-                      )}
-                    </View>
-                  )}
+      <FlatList
+        style={[s.container, { backgroundColor: c.bg }]}
+        contentContainerStyle={s.content}
+        data={groups}
+        keyExtractor={(item) => item[0]}
+        extraData={openMeaning}
+        initialNumToRender={8}
+        maxToRenderPerBatch={8}
+        windowSize={7}
+        removeClippedSubviews
+        ListHeaderComponent={
+          <>
+            {/* Başlık */}
+            <View style={[s.header, { backgroundColor: c.card }]}>
+              <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
+              {displayMeaning ? <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text> : null}
+              <View style={s.statsRow}>
+                <View style={s.statBadge}>
+                  <Text style={s.statNum}>{totalOcc}</Text>
+                  <Text style={s.statLabel}>geçiş</Text>
                 </View>
-              );
-            })}
-          </View>
-        )}
+                <View style={s.statBadge}>
+                  <Text style={s.statNum}>{surahCount}</Text>
+                  <Text style={s.statLabel}>sure</Text>
+                </View>
+                <View style={s.statBadge}>
+                  <Text style={s.statNum}>{uniqForms}</Text>
+                  <Text style={s.statLabel}>türev</Text>
+                </View>
+              </View>
+            </View>
 
-      </ScrollView>
+            {/* Isı haritası */}
+            <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
+              <Text style={[s.sectionTitle, { color: c.text }]}>Sure Dağılımı</Text>
+              <Text style={[s.sectionHint, { color: c.textMuted }]}>Renkli hücreye dokun → sure bilgisi</Text>
+              <HeatGrid distribution={data.distribution} maxCount={maxCount} />
+            </View>
+
+            {groups.length > 0 && (
+              <Text style={[s.groupsTitle, { color: c.text }]}>
+                Kullanım Bağlamları ({groups.length} anlam)
+              </Text>
+            )}
+          </>
+        }
+        renderItem={({ item }) => (
+          <MeaningGroup
+            meaning={item[0]}
+            forms={item[1].forms}
+            verses={item[1].verses}
+            isOpen={openMeaning === item[0]}
+            onToggle={handleToggle}
+            c={c}
+          />
+        )}
+      />
     </>
   );
 }
@@ -309,6 +342,7 @@ const s = StyleSheet.create({
   section:        { marginHorizontal: 12, marginBottom: 16, backgroundColor: "#fff", borderRadius: 14, padding: 16, borderWidth: 1, borderColor: "#e7e5e4" },
   sectionTitle:   { fontSize: 13, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
   sectionHint:    { fontSize: 11, color: "#a8a29e", marginBottom: 12 },
+  groupsTitle:    { fontSize: 13, fontWeight: "700", color: "#1c1917", marginHorizontal: 12, marginTop: 4, marginBottom: 8 },
 
   derivRow:   { flexDirection: "row", alignItems: "center", paddingVertical: 10, borderTopWidth: 1, borderTopColor: "#f5f5f4" },
   derivWord:  { fontSize: 20, color: "#1c1917", width: 100 },
@@ -316,7 +350,7 @@ const s = StyleSheet.create({
   derivMeaning:{ fontSize: 12, color: "#44403c", marginBottom: 2 },
   derivRef:   { fontSize: 11, color: "#059669", fontWeight: "600" },
 
-  accordionCard:    { borderWidth: 1, borderColor: "#e7e5e4", borderRadius: 10, overflow: "hidden", backgroundColor: "#fff" },
+  accordionCard:    { borderWidth: 1, borderColor: "#e7e5e4", borderRadius: 10, overflow: "hidden", backgroundColor: "#fff", marginHorizontal: 12, marginBottom: 6 },
   accordionHeader:  { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12, gap: 8 },
   accordionTitle:   { fontSize: 14, fontWeight: "700", color: "#1c1917" },
   accordionCount:   { fontSize: 13, fontWeight: "400", color: "#059669" },
