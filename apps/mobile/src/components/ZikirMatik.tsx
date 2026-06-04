@@ -4,6 +4,7 @@ import {
   StyleSheet, Animated, Platform, Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
 
 // expo-haptics kuruluysa kullan, değilse/çalışmazsa sessizce geç
@@ -14,6 +15,7 @@ const DEFAULT_TARGET = 33;
 
 export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [count, setCount]             = useState(0);
   const [target, setTarget]           = useState(DEFAULT_TARGET);
   const [targetInput, setTargetInput] = useState(String(DEFAULT_TARGET));
@@ -76,10 +78,10 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
 
   return (
       <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
-        <View style={[m.screen, { backgroundColor: c.bg }]}>
+        <View style={[m.screen, { backgroundColor: c.bg, paddingTop: insets.top + 12, paddingBottom: insets.bottom + 16 }]}>
           {/* Üst bar */}
           <View style={m.topBar}>
-            <Text style={[m.title, { color: c.text }]}>📿 Tasbih</Text>
+            <Text style={[m.title, { color: c.text }]}>📿 Tespih</Text>
             <TouchableOpacity onPress={onClose} hitSlop={12} style={m.closeBtn} activeOpacity={0.7}>
               <Ionicons name="close" size={24} color={c.textMuted} />
             </TouchableOpacity>
@@ -124,7 +126,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 { backgroundColor: reached ? "#047857" : "#059669", transform: [{ scale: pressed ? 0.95 : 1 }] },
               ]}
             >
-              <Ionicons name="add" size={40} color="#fff" />
+              <Ionicons name="add" size={36} color="#fff" />
               <Text style={m.tapBtnText}>Çek</Text>
             </Pressable>
           </View>
@@ -140,8 +142,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
 }
 
 const m = StyleSheet.create({
-  screen:   { flex: 1, paddingHorizontal: 20, paddingTop: 16, paddingBottom: 28 },
-  topBar:   { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
+  screen:   { flex: 1, paddingHorizontal: 20 },
+  topBar:   { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 14 },
   title:    { fontSize: 18, fontWeight: "700" },
   closeBtn: { padding: 4 },
 
@@ -150,26 +152,26 @@ const m = StyleSheet.create({
   targetInput: { minWidth: 56, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 15, fontWeight: "700", textAlign: "center" },
   remaining:   { fontSize: 13, fontWeight: "600" },
 
-  center:      { flex: 1, alignItems: "center", justifyContent: "center" },
+  center:      { flex: 1, alignItems: "center", justifyContent: "center", minHeight: 120 },
   countCircle: {
-    width: 220, height: 220, borderRadius: 110, borderWidth: 5,
+    width: 176, height: 176, borderRadius: 88, borderWidth: 5,
     alignItems: "center", justifyContent: "center",
     shadowColor: "#059669", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12, shadowRadius: 16, elevation: 6,
   },
-  countText:   { fontSize: 76, fontWeight: "800", lineHeight: 84 },
-  countSub:    { fontSize: 16, fontWeight: "600", marginTop: -4 },
-  reachedText: { fontSize: 13, fontWeight: "700", color: "#059669", marginTop: 6 },
+  countText:   { fontSize: 60, fontWeight: "800", lineHeight: 66 },
+  countSub:    { fontSize: 15, fontWeight: "600", marginTop: -2 },
+  reachedText: { fontSize: 12, fontWeight: "700", color: "#059669", marginTop: 4 },
 
-  tapWrap: { alignItems: "center", marginTop: 8 },
+  tapWrap: { alignItems: "center", marginTop: 6 },
   tapBtn: {
-    width: 168, height: 168, borderRadius: 84,
+    width: 150, height: 150, borderRadius: 75,
     alignItems: "center", justifyContent: "center",
     shadowColor: "#059669", shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.4, shadowRadius: 14, elevation: 10,
   },
-  tapBtnText: { color: "#fff", fontSize: 22, fontWeight: "800", letterSpacing: 1, marginTop: 2 },
+  tapBtnText: { color: "#fff", fontSize: 20, fontWeight: "800", letterSpacing: 1, marginTop: 2 },
 
-  resetBtn:  { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, alignSelf: "center", marginTop: 18, paddingVertical: 8, paddingHorizontal: 16 },
-  resetText: { fontSize: 14, fontWeight: "600", color: "#dc2626" },
+  resetBtn:  { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, alignSelf: "center", marginTop: 14, paddingVertical: 10, paddingHorizontal: 24, borderRadius: 12, borderWidth: 1.5, borderColor: "#fca5a5" },
+  resetText: { fontSize: 14, fontWeight: "700", color: "#dc2626" },
 });

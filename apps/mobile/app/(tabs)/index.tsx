@@ -206,7 +206,7 @@ function HomeContent() {
           activeOpacity={0.75}
         >
           <MaterialCommunityIcons name="counter" size={36} color={c.isDark ? c.accent : "#059669"} />
-          <Text style={[styles.cardLabel, { color: c.text }]}>Tasbih</Text>
+          <Text style={[styles.cardLabel, { color: c.text }]}>Tespih</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
