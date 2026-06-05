@@ -32,6 +32,8 @@ export async function GET(
   const params  = new URL(req.url).searchParams;
   const tag     = params.get("tag")?.trim() ?? "";
   const exclude = params.get("exclude") ?? "";
+  // "ana" | "tag" | "" — verilirse DB yoklaması atlanır (web home statik biliyor).
+  const kind    = params.get("kind")?.trim() ?? "";
 
   if (!tag || tag.length > 100) {
     return NextResponse.json({ error: "tag parametresi gerekli" }, {
@@ -48,7 +50,10 @@ export async function GET(
 
 
   try {
+    // kind verildiyse fazladan round-trip yok; verilmediyse (mobil) otomatik tespit.
     const isAnaTema =
+      kind === "ana" ? true :
+      kind === "tag" ? false :
       /^[A-G]\d_/i.test(tag) ||
       (await dbGet("SELECT 1 FROM verse_tags WHERE ana_tema = ? LIMIT 1", tag.toUpperCase())) !== undefined;
 
@@ -65,15 +70,6 @@ export async function GET(
       const cmp         = isExact ? "= ?" : "LIKE ?";
       const bindVal     = isExact ? upper : likePattern;
 
-      const countRow = await dbGet<{ total: number }>(
-        `SELECT COUNT(*) AS total FROM verse_tags vt
-         JOIN verses v ON v.verse_key = vt.verse_key
-         WHERE vt.ana_tema ${cmp} ${placeholders}`,
-        bindVal, ...excludeKeys,
-      );
-      const total  = countRow?.total ?? 0;
-      const offset = total > 1 ? Math.floor(Math.random() * total) : 0;
-
       row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
                  s.adi_turkce AS surah_name,
@@ -86,20 +82,11 @@ export async function GET(
                  AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vt.ana_tema ${cmp}
           ${placeholders}
-          ORDER  BY v.verse_key
-          LIMIT  1 OFFSET ?
-        `, bindVal, ...excludeKeys, offset);
+          ORDER  BY RANDOM()
+          LIMIT  1
+        `, bindVal, ...excludeKeys);
     } else {
       const needle = tag.toLocaleLowerCase("tr-TR");
-
-      const countRow = await dbGet<{ total: number }>(
-        `SELECT COUNT(*) AS total FROM verse_tag_items vi
-         JOIN verses v ON v.verse_key = vi.verse_key
-         WHERE vi.tag = ? ${placeholders}`,
-        needle, ...excludeKeys,
-      );
-      const total  = countRow?.total ?? 0;
-      const offset = total > 1 ? Math.floor(Math.random() * total) : 0;
 
       row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
@@ -113,9 +100,9 @@ export async function GET(
                  AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
           WHERE  vi.tag = ?
           ${placeholders}
-          ORDER  BY v.verse_key
-          LIMIT  1 OFFSET ?
-        `, needle, ...excludeKeys, offset);
+          ORDER  BY RANDOM()
+          LIMIT  1
+        `, needle, ...excludeKeys);
     }
 
     if (!row) {

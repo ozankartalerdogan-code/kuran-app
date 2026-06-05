@@ -59,6 +59,13 @@ CREATE INDEX IF NOT EXISTS idx_words_pos ON words(pos);
 -- verse_key ile doğrudan etiket arama (tag'siz)
 CREATE INDEX IF NOT EXISTS idx_vti_verse_key ON verse_tag_items(verse_key);
 
+-- tag ile filtreleme (ruh hali / mood etiketleri — /api/mood/random)
+-- Bu olmadan her tıklama verse_tag_items'ta tam tablo taraması yapar.
+CREATE INDEX IF NOT EXISTS idx_vti_tag ON verse_tag_items(tag);
+
+-- ana_tema ile filtreleme (verse_tags — mood ana_tema dalı + isAnaTema yoklaması)
+CREATE INDEX IF NOT EXISTS idx_verse_tags_ana_tema ON verse_tags(ana_tema);
+
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 5. FIDELITY_COMPARISONS — Kaynak karşılaştırma
 -- ═══════════════════════════════════════════════════════════════════════════════
@@ -96,7 +103,7 @@ CREATE INDEX IF NOT EXISTS idx_context_notes_verse_key ON context_notes(verse_ke
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- Optimizasyon sonu
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Toplam eklenen index: 16
+-- Toplam eklenen index: 18
 -- Mevcut index'lerle birlikte tüm kritik sorgu yolları kapsanmıştır.
 -- CRUD operasyonlarını minimal etkiler (INSERT/UPDATE/DELETE).
 -- Turso/libsql ile %100 uyumlu, deadlock riski yoktur.

@@ -258,11 +258,11 @@ export default async function HomePage() {
               { etiket: "😔 Üzüntülüyüm",        tag: "tevekkül",       renk: "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:border-blue-800/50 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/50" },
               { etiket: "🤍 Şükretmek",          tag: "şükür",          renk: "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 dark:border-yellow-800/50 dark:bg-yellow-950/40 dark:text-yellow-300 dark:hover:bg-yellow-900/50" },
               { etiket: "⚖️ Haksızlığa uğradım", tag: "adalet",         renk: "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:border-indigo-800/50 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/50" },
-              { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", renk: "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-800/50 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/50" },
+              { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", kind: "ana", renk: "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-800/50 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/50" },
               { etiket: "🌟 İlham almak",         tag: "hidayet",        renk: "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 dark:border-orange-800/50 dark:bg-orange-950/40 dark:text-orange-300 dark:hover:bg-orange-900/50" },
               { etiket: "💀 Ölümü düşünmek",      tag: "ecel",           renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
-            ] as const).map(({ etiket, tag, renk }) => (
-              <MoodTagButton key={tag} etiket={etiket} tag={tag} renk={renk} />
+            ] as const).map((item) => (
+              <MoodTagButton key={item.tag} {...item} />
             ))}
           </div>
         </div>

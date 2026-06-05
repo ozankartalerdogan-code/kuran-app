@@ -8,6 +8,8 @@ interface Props {
   etiket: string;
   tag:    string;
   renk:   string;
+  /** Etiket türü statik biliniyor → API'de DB yoklaması atlanır. Varsayılan "tag". */
+  kind?:  "ana" | "tag";
 }
 
 const HISTORY_MAX = 5;
@@ -30,7 +32,7 @@ function saveHistory(tag: string, keys: string[]) {
   }
 }
 
-export function MoodTagButton({ etiket, tag, renk }: Props) {
+export function MoodTagButton({ etiket, tag, renk, kind = "tag" }: Props) {
   const [verse, setVerse]     = useState<MoodRandomResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
@@ -43,7 +45,7 @@ export function MoodTagButton({ etiket, tag, renk }: Props) {
     setError(null);
     const exclude = historyRef.current.join(",");
     try {
-      const res  = await fetch(`/api/mood/random?tag=${encodeURIComponent(tag)}&exclude=${encodeURIComponent(exclude)}`);
+      const res  = await fetch(`/api/mood/random?tag=${encodeURIComponent(tag)}&kind=${kind}&exclude=${encodeURIComponent(exclude)}`);
       const data = await res.json() as MoodRandomResponse | { error: string };
       if ("error" in data) {
         setError(data.error);
@@ -57,7 +59,7 @@ export function MoodTagButton({ etiket, tag, renk }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [tag]);
+  }, [tag, kind]);
 
   const handleOpen = useCallback(() => {
     historyRef.current = loadHistory(tag);
