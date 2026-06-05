@@ -19,12 +19,12 @@ const NAV_CARDS: {
   bg: string;
   border: string;
 }[] = [
-  { label: "Sureler",        emoji: "📖", route: "/surah",     bg: "#d1fae5", border: "#6ee7b7" },
-  { label: "Keşfet",         emoji: "🧭", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
-  { label: "Elif-Ba",        emoji: "🔤", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Kelime Kökü",    emoji: "🌳", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Hatim & Mushaf", emoji: "📚", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
-  { label: "Kıble",          emoji: "🕋", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
+  { label: "Sureler",        emoji: "📗", route: "/surah",     bg: "#d1fae5", border: "#6ee7b7" },
+  { label: "Keşfet",         emoji: "✨", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
+  { label: "Elif-Ba",        emoji: "✍️", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
+  { label: "Kelime Kökü",    emoji: "🧬", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
+  { label: "Hatim & Mushaf", emoji: "📖", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
+  { label: "Kıble",          emoji: "🧭", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
   { label: "Favorilerim",    emoji: "❤️", route: "/favorites", bg: "#fff1f2", border: "#fca5a5" },
 ];
 
