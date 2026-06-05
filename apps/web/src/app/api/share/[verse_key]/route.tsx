@@ -16,9 +16,12 @@
 
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
-import { dbGet } from "../../../../lib/dbUtils";
+import { createClient } from "@libsql/client/web";
 
-export const runtime = "nodejs";
+// next/og (Satori/resvg) edge runtime gerektirir; nodejs'te FUNCTION_INVOCATION_FAILED
+// (exit 128) veriyordu. dbUtils node:sqlite import ettiğinden edge'de kullanılamaz —
+// bu yüzden Turso'ya edge-uyumlu @libsql/client/web ile DOĞRUDAN bağlanıyoruz.
+export const runtime = "edge";
 export const dynamic  = "force-dynamic";
 
 const W = 1200;
@@ -33,23 +36,34 @@ interface VerseRow {
 }
 
 async function fetchVerse(verseKey: string): Promise<VerseRow | null> {
+  const url = process.env.TURSO_DB_URL;
+  if (!url) { console.error("[share] TURSO_DB_URL yok"); return null; }
   try {
-    // Turso/yerel birleşik async erişim (dbUtils). Eskiden yerel data/app.db'yi
-    // senkron açıyordu → production'da dosya olmadığından 404 veriyordu.
-    const row = await dbGet<VerseRow>(`
-      SELECT v.arabic_text                            AS arabic,
-             COALESCE(t.text, v.primary_translation)  AS meal,
-             s.adi_turkce                             AS surahName,
-             v.ayah_number                            AS verseNum,
-             v.surah_id                               AS surahId
-      FROM   verses v
-      JOIN   sureler s ON s.id = v.surah_id
-      LEFT   JOIN translations t
-             ON t.verse_key = v.verse_key AND t.source = 'diyanet'
-      WHERE  v.verse_key = ?
-      LIMIT  1
-    `, verseKey);
-    return row ?? null;
+    const client = createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN });
+    const res = await client.execute({
+      sql: `
+        SELECT v.arabic_text                            AS arabic,
+               COALESCE(t.text, v.primary_translation)  AS meal,
+               s.adi_turkce                             AS surahName,
+               v.ayah_number                            AS verseNum,
+               v.surah_id                               AS surahId
+        FROM   verses v
+        JOIN   sureler s ON s.id = v.surah_id
+        LEFT   JOIN translations t
+               ON t.verse_key = v.verse_key AND t.source = 'diyanet'
+        WHERE  v.verse_key = ?
+        LIMIT  1`,
+      args: [verseKey],
+    });
+    const row = res.rows[0];
+    if (!row) return null;
+    return {
+      arabic:    (row.arabic    as string | null) ?? null,
+      meal:      (row.meal      as string | null) ?? null,
+      surahName: (row.surahName as string | null) ?? null,
+      verseNum:  Number(row.verseNum),
+      surahId:   Number(row.surahId),
+    };
   } catch (e) {
     console.error("[share] DB:", e);
     return null;
