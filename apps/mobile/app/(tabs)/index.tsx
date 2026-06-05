@@ -31,12 +31,16 @@ const NAV_CARDS: {
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
 const RUH_HALI = [
-  { emoji: "😌", label: "Huzur",           tag: "rahmet",  bg: "#d1fae5" },
-  { emoji: "💪", label: "Sabır",           tag: "sabır",   bg: "#fef3c7" },
-  { emoji: "🙏", label: "Tövbe",           tag: "tövbe",   bg: "#ede9fe" },
-  { emoji: "🌟", label: "Şükür",           tag: "şükür",   bg: "#fef9c3" },
-  { emoji: "⚖️", label: "Adalet",          tag: "adalet",  bg: "#e0e7ff" },
-  { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",   bg: "#ffe4e6" },
+  { emoji: "😌", label: "Huzur",           tag: "rahmet",   bg: "#d1fae5" },
+  { emoji: "💪", label: "Sabır",           tag: "sabır",    bg: "#fef3c7" },
+  { emoji: "🙏", label: "Tövbe",           tag: "tövbe",    bg: "#ede9fe" },
+  { emoji: "🌟", label: "Şükür",           tag: "şükür",    bg: "#fef9c3" },
+  { emoji: "⚖️", label: "Adalet",          tag: "adalet",   bg: "#e0e7ff" },
+  { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",    bg: "#ffe4e6" },
+  { emoji: "🧭", label: "Hidayet",         tag: "hidayet",  bg: "#ffedd5" },
+  { emoji: "🤲", label: "Dua",             tag: "dua",      bg: "#cffafe" },
+  { emoji: "📿", label: "Zikir",           tag: "zikir",    bg: "#fae8ff" },
+  { emoji: "🍃", label: "Tevekkül",        tag: "tevekkül", bg: "#ecfccb" },
 ];
 
 function HomeContent() {
@@ -45,17 +49,24 @@ function HomeContent() {
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [tasbihOpen, setTasbihOpen]   = useState(false);
-  // Son gösterilen ayetler — her dokunuşta exclude olarak gönderilir. Hem tekrarı
-  // önler hem de isteği benzersiz kılarak no-store'a rağmen oluşan kısa-pencere
-  // cache'ini atlar (aksi halde aynı mood arka arkaya aynı ayeti açıyordu).
-  const moodHistory = useRef<string[]>([]);
+  // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
+  // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
+  // sunucu "ayet bulunamadı" döner) ilgili tag sıfırlanıp yeni tur başlar.
+  // Ayrıca her istek benzersiz olduğundan no-store'a rağmen oluşan kısa-pencere cache'i atlanır.
+  const moodSeen = useRef<Record<string, string[]>>({});
 
   const handleMoodPress = useCallback(async (tag: string) => {
     if (moodLoading) return;
     setMoodLoading(tag);
     try {
-      const result = await api.mood.random(tag, moodHistory.current.join(","));
-      moodHistory.current = [...moodHistory.current, result.verse_key].slice(-8);
+      const seen = moodSeen.current[tag] ?? [];
+      const result = await api.mood.random(tag, seen.join(",")).catch((e) => {
+        // Havuz tükendiyse o tag'i sıfırla ve yeni turla bir kez daha dene.
+        if (seen.length === 0) throw e;
+        moodSeen.current[tag] = [];
+        return api.mood.random(tag, "");
+      });
+      moodSeen.current[tag] = [...(moodSeen.current[tag] ?? []), result.verse_key];
       router.push({
         pathname: "/ayah/[surahId]/[ayahNumber]",
         params: { surahId: result.surah_id, ayahNumber: result.ayah_number },

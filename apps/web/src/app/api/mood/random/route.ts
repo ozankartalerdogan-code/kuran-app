@@ -46,7 +46,7 @@ export async function GET(
     .split(",")
     .map((k) => k.trim())
     .filter(Boolean)
-    .slice(0, 20);
+    .slice(0, 200); // mobil "havuz bitene kadar tekrarsız" için tam geçmişi onurlandırır; web ≤5 gönderir
 
 
   try {
