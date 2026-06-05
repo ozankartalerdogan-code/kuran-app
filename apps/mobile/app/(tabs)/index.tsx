@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
@@ -45,16 +45,24 @@ function HomeContent() {
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [tasbihOpen, setTasbihOpen]   = useState(false);
+  // Son gösterilen ayetler — her dokunuşta exclude olarak gönderilir. Hem tekrarı
+  // önler hem de isteği benzersiz kılarak no-store'a rağmen oluşan kısa-pencere
+  // cache'ini atlar (aksi halde aynı mood arka arkaya aynı ayeti açıyordu).
+  const moodHistory = useRef<string[]>([]);
 
   const handleMoodPress = useCallback(async (tag: string) => {
     if (moodLoading) return;
     setMoodLoading(tag);
     try {
-      const result = await api.mood.random(tag);
-      router.push(`/ayah/${result.surah_id}/${result.ayah_number}` as any);
+      const result = await api.mood.random(tag, moodHistory.current.join(","));
+      moodHistory.current = [...moodHistory.current, result.verse_key].slice(-8);
+      router.push({
+        pathname: "/ayah/[surahId]/[ayahNumber]",
+        params: { surahId: result.surah_id, ayahNumber: result.ayah_number },
+      });
     } catch {
       // Fallback: tag aramasına git
-      router.push(`/search?q=${encodeURIComponent(tag)}` as any);
+      router.push({ pathname: "/search", params: { q: tag } });
     } finally {
       setMoodLoading(null);
     }
