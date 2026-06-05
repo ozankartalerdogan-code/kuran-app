@@ -1,8 +1,8 @@
 node_modules
 .next
 .expo
-data/
-data2/
+/data/
+/data2/
 public/audio/surah
 apps/web/public/audio/surah
 *.db
