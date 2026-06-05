@@ -3,7 +3,7 @@ import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert,
 } from "react-native";
 import { router } from "expo-router";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
@@ -14,19 +14,18 @@ import { requestNotificationPermission, sendTestNotification } from "../../src/l
 
 const NAV_CARDS: {
   label: string;
-  icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
-  iconColor: string;
+  emoji: string;
   route: string;
   bg: string;
   border: string;
 }[] = [
-  { label: "Sureler",        icon: "book-open-page-variant", iconColor: "#065f46", route: "/surah",     bg: "#d1fae5", border: "#6ee7b7" },
-  { label: "Keşfet",         icon: "magnify-expand",         iconColor: "#1e40af", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
-  { label: "Elif-Ba",        icon: "abjad-arabic",           iconColor: "#92400e", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Kelime Kökü",    icon: "family-tree",            iconColor: "#78350f", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Hatim & Mushaf", icon: "book-multiple-outline",  iconColor: "#14532d", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
-  { label: "Kıble",          icon: "compass-rose",           iconColor: "#164e63", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
-  { label: "Favorilerim",    icon: "heart-circle-outline",   iconColor: "#9f1239", route: "/favorites", bg: "#fff1f2", border: "#fca5a5" },
+  { label: "Sureler",        emoji: "📖", route: "/surah",     bg: "#d1fae5", border: "#6ee7b7" },
+  { label: "Keşfet",         emoji: "🧭", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
+  { label: "Elif-Ba",        emoji: "🔤", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
+  { label: "Kelime Kökü",    emoji: "🌳", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
+  { label: "Hatim & Mushaf", emoji: "📚", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
+  { label: "Kıble",          emoji: "🕋", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
+  { label: "Favorilerim",    emoji: "❤️", route: "/favorites", bg: "#fff1f2", border: "#fca5a5" },
 ];
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -233,7 +232,7 @@ function HomeContent() {
             onPress={() => router.push(card.route as any)}
             activeOpacity={0.75}
           >
-            <MaterialCommunityIcons name={card.icon} size={36} color={c.isDark ? c.accent : card.iconColor} />
+            <Text style={styles.cardEmoji}>{card.emoji}</Text>
             <Text style={[styles.cardLabel, { color: c.text }]}>{card.label}</Text>
           </TouchableOpacity>
         ))}
@@ -245,7 +244,7 @@ function HomeContent() {
           onPress={() => setTasbihOpen(true)}
           activeOpacity={0.75}
         >
-          <MaterialCommunityIcons name="counter" size={36} color={c.isDark ? c.accent : "#059669"} />
+          <Text style={styles.cardEmoji}>📿</Text>
           <Text style={[styles.cardLabel, { color: c.text }]}>Tespih</Text>
         </TouchableOpacity>
       </View>
@@ -310,5 +309,6 @@ const styles = StyleSheet.create({
 
   grid:      { flexDirection: "row", flexWrap: "wrap", gap: 10 },
   card:      { width: "47%", borderRadius: 14, borderWidth: 1.5, padding: 16, alignItems: "center", gap: 6, elevation: 2 },
+  cardEmoji: { fontSize: 34, lineHeight: 40 },
   cardLabel: { fontSize: 12, fontWeight: "600", textAlign: "center" },
 });
