@@ -11,6 +11,7 @@ import {
   fetchPrayerTimes,
   scheduleNamazNotifications,
   cancelNamazNotifications,
+  sendTestNotification,
 } from "../src/lib/namazNotifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -309,6 +310,17 @@ export default function NamazScreen() {
     }
   }
 
+  // Sadece geliştirme (__DEV__) — 5 sn sonra test bildirimi düşürür.
+  async function handleTestNotif() {
+    const granted = await requestNotificationPermission();
+    if (!granted) {
+      Alert.alert("İzin Gerekli", "Test için bildirim izni gerekli.");
+      return;
+    }
+    await sendTestNotification();
+    Alert.alert("Test Planlandı", "5 saniye içinde bir test bildirimi gelecek. İstersen uygulamayı arka plana al.");
+  }
+
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Hakkında" }} />
@@ -336,6 +348,13 @@ export default function NamazScreen() {
           }
         </View>
 
+        {/* Test butonu — YALNIZCA geliştirme (__DEV__). APK/AAB'de görünmez. */}
+        {__DEV__ && (
+          <TouchableOpacity onPress={handleTestNotif} style={styles.testNotifBtn} activeOpacity={0.7}>
+            <Text style={styles.testNotifText}>🔔 Bildirimi Test Et (5 sn) · DEV</Text>
+          </TouchableOpacity>
+        )}
+
         {/* Namaz Vakitleri Tablosu */}
         <VakitTablosu teheccudVerses={teheccudVerses} />
 
@@ -360,6 +379,8 @@ const styles = StyleSheet.create({
   },
   notifTitle: { fontSize: 14, fontWeight: "600", color: "#1c1917", marginBottom: 2 },
   notifSub:   { fontSize: 12, color: "#78716c" },
+  testNotifBtn:  { marginHorizontal: 12, marginBottom: 12, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: "#fca5a5", backgroundColor: "#fef2f2", alignItems: "center" },
+  testNotifText: { fontSize: 13, fontWeight: "600", color: "#b91c1c" },
   grid:      { flexDirection:"row", flexWrap:"wrap", gap:10, padding:12 },
   catCard:   {
     width:"30.5%", backgroundColor:"#fff", borderRadius:12, padding:12,
