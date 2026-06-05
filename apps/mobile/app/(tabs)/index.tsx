@@ -197,6 +197,11 @@ function HomeContent() {
             })}
           </ScrollView>
         )}
+
+        {/* Bildirim toggle'ı /namaz ekranında — buraya kısayol (eskiden erişilemiyordu) */}
+        <TouchableOpacity onPress={() => router.push("/namaz")} activeOpacity={0.7} style={styles.prayerNotifLink}>
+          <Text style={[styles.prayerNotifLinkText, { color: c.isDark ? "#a5b4fc" : "#4338ca" }]}>🔔 Namaz vakti bildirimleri →</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Günün Duası */}
@@ -281,6 +286,8 @@ const styles = StyleSheet.create({
   verseMeal:    { fontSize: 13, lineHeight: 20 },
 
   prayerCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
+  prayerNotifLink: { marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: "rgba(99,102,241,0.25)", alignItems: "center" },
+  prayerNotifLinkText: { fontSize: 13, fontWeight: "600" },
   prayerItem: {
     alignItems: "center", paddingHorizontal: 12, paddingVertical: 8,
     marginRight: 8, borderRadius: 10, borderWidth: 1, minWidth: 64,
