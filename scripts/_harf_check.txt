@@ -1,4 +1,0 @@
-Toplam harf: 29
-{'harf_id': 1, 'harf_adi': 'Elif', 'harf_sesi': 'E', 'tek_basina': 'ا', 'basta': 'ا', 'ortada': 'ـا', 'sonda': 'ـا', 'mahrec': 'Boğaz sonu', 'unicode_hex': 'U+0627', 'kalin_ince': 'her ikisi', 'grup': 'birlesmeyen'}
-{'harf_id': 2, 'harf_adi': 'Be', 'harf_sesi': 'B', 'tek_basina': 'ب', 'basta': 'بـ', 'ortada': 'ـبـ', 'sonda': 'ـب', 'mahrec': 'Dudaklar', 'unicode_hex': 'U+0628', 'kalin_ince': 'ince', 'grup': 'birlesen'}
-{'harf_id': 3, 'harf_adi': 'Te', 'harf_sesi': 'T', 'tek_basina': 'ت', 'basta': 'تـ', 'ortada': 'ـتـ', 'sonda': 'ـت', 'mahrec': 'Dil ucu-üst dişler', 'unicode_hex': 'U+062A', 'kalin_ince': 'ince', 'grup': 'birlesen'}

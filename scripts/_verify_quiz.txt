@@ -1,6 +1,0 @@
-[Ders 4] Cezm işareti (ْ) harfe ne yapar? => Harfi harekesiz (sessiz) yapar
-[Ders 4] لَمْ kelimesinin doğru okunuşu hangisidir? => Lem
-[Ders 4] قُلْ kelimesinde cezmli harf hangisidir? => لْ (lam)
-[Ders 4] Cezm ile hareke (üstün/esre/ötre) arasındaki temel fark nedi => Hareke ses ekler, cezm sesi kaldırır
-[Ders 4] أَنْزَلَ kelimesinde kaç tane cezm vardır? => 1
-[Ders 9] Zamir nedir ve nerede bulunur? => Kelimelerin sonundaki (ه) harfi; kendinden önceki ve sonraki duruma göre uzatılır
