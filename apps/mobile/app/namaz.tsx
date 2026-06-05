@@ -15,7 +15,29 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const NOTIF_KEY = "namazNotifEnabled";
+// Bildirimlerin en son hangi gün planlandığı (YYYY-MM-DD) — günde bir kez yeniden planlamak için.
+const SCHED_DAY_KEY = "namazNotifSchedDay";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
+
+function localDayStr(d = new Date()): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+// İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
+async function getUserLocationSilent(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
+  try {
+    const { status } = await Location.getForegroundPermissionsAsync();
+    if (status !== "granted") return { ...ISTANBUL, isFallback: true };
+    const pos = await Promise.race([
+      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
+    ]);
+    if (!pos || !("coords" in pos)) return { ...ISTANBUL, isFallback: true };
+    return { lat: pos.coords.latitude, lng: pos.coords.longitude, isFallback: false };
+  } catch {
+    return { ...ISTANBUL, isFallback: true };
+  }
+}
 
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
   try {
@@ -198,15 +220,41 @@ export default function NamazScreen() {
   const [usingFallback, setUsingFallback] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(NOTIF_KEY).then((v) => setNotifEnabled(v === "1"));
+    let cancelled = false;
+
+    AsyncStorage.getItem(NOTIF_KEY).then(async (v) => {
+      const enabled = v === "1";
+      setNotifEnabled(enabled);
+      if (!enabled) return;
+
+      // DAILY tetikleyici saat:dakikayı sabitler; vakitler günden güne kaydığı için
+      // bildirimler açıkken günde bir kez sessizce (izin sormadan) yeniden planla.
+      const today = localDayStr();
+      const lastDay = await AsyncStorage.getItem(SCHED_DAY_KEY);
+      if (lastDay === today) return; // bugün zaten planlandı
+
+      try {
+        const { lat, lng, isFallback } = await getUserLocationSilent();
+        if (cancelled) return;
+        const times = await fetchPrayerTimes(lat, lng);
+        if (cancelled || !times) return;
+        await scheduleNamazNotifications(times);
+        await AsyncStorage.setItem(SCHED_DAY_KEY, today);
+        if (!cancelled) setUsingFallback(isFallback);
+      } catch { /* sessiz — eldeki planlama korunur */ }
+    });
+
     // Teheccüd ayetlerini yükle
     api.tags.filter("namaz-teheccud").then(res => {
+      if (cancelled) return;
       setTeheccudVerses(res.results.map(r => ({
         surahId: r.surah_id,
         ayahNumber: r.ayah_number,
         label: r.verse_key,
       })));
     }).catch(() => {});
+
+    return () => { cancelled = true; };
   }, []);
 
   async function toggleNotif(val: boolean) {
@@ -232,6 +280,7 @@ export default function NamazScreen() {
 
         await scheduleNamazNotifications(times);
         await AsyncStorage.setItem(NOTIF_KEY, "1");
+        await AsyncStorage.setItem(SCHED_DAY_KEY, localDayStr()); // bugün planlandı → mount tekrar çekmesin
         setNotifEnabled(true);
 
         const locationMsg = isFallback
@@ -241,6 +290,7 @@ export default function NamazScreen() {
       } else {
         await cancelNamazNotifications();
         await AsyncStorage.setItem(NOTIF_KEY, "0");
+        await AsyncStorage.removeItem(SCHED_DAY_KEY); // tekrar açılınca yeniden planlansın
         setNotifEnabled(false);
         setUsingFallback(false);
       }
