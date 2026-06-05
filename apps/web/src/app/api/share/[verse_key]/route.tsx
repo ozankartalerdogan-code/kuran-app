@@ -76,7 +76,7 @@ function trunc(text: string | null | undefined, max: number): string {
 }
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: { verse_key: string } }
 ): Promise<ImageResponse | Response> {
   const verseKey = decodeURIComponent(context.params.verse_key ?? "");
@@ -93,21 +93,29 @@ export async function GET(
   const surahLbl = verse.surahName ?? `Sure ${verse.surahId}`;
   const label    = `${surahLbl} · ${verse.verseNum}. Ayet`;
 
-  // Google Fonts — @vercel/og varsayılan font yerine dışarıdan yükle
-  // Bu sayede yerel yol bağımlılığı ortadan kalkar
+  // Font: Satori en az bir font ister. Aynı origin'deki Amiri (Arapça + Latin kapsar)
+  // güvenilir — harici gstatic fetch'i edge'de başarısız oluyordu ("No fonts loaded").
   type FontDef = { name: string; data: ArrayBuffer; style?: "normal" | "italic" };
   let fonts: FontDef[] = [];
   try {
-    const fontRes = await fetch(
-      "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff",
-      { signal: AbortSignal.timeout(3000) }
-    );
+    const fontRes = await fetch(new URL("/fonts/Amiri-Regular.ttf", req.url), {
+      signal: AbortSignal.timeout(8000),
+    });
     if (fontRes.ok) {
-      const data = await fontRes.arrayBuffer();
-      fonts = [{ name: "Inter", data, style: "normal" }];
+      fonts = [{ name: "Amiri", data: await fontRes.arrayBuffer(), style: "normal" }];
     }
   } catch {
-    /* font yüklenemezse sistemin varsayılan fontu kullanılır */
+    /* origin font alınamazsa aşağıdaki son çare denenir */
+  }
+  // Son çare (origin başarısızsa): Google'dan Inter — en azından Latin render olsun.
+  if (fonts.length === 0) {
+    try {
+      const r = await fetch(
+        "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff",
+        { signal: AbortSignal.timeout(5000) },
+      );
+      if (r.ok) fonts = [{ name: "Amiri", data: await r.arrayBuffer(), style: "normal" }];
+    } catch { /* ignore */ }
   }
 
   return new ImageResponse(
@@ -118,7 +126,7 @@ export async function GET(
           display: "flex", flexDirection: "column",
           background: "linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%)",
           padding: "56px 64px",
-          fontFamily: fonts.length ? "Inter" : "sans-serif",
+          fontFamily: "Amiri",
           position: "relative", overflow: "hidden",
         }}
       >
