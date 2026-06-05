@@ -15,11 +15,16 @@ interface NamazCache {
   times:    PrayerTimes;
   city:     string;
   cachedAt: number;
+  day:      string; // YYYY-MM-DD (yerel) — vakitler güne göre değişir
 }
 
 const ISTANBUL    = { lat: 41.0082, lon: 28.9784, city: "İstanbul" };
 const CACHE_KEY   = "namazCache";
-const CACHE_TTL   = 60 * 60 * 1000; // 1 saat
+
+// Yerel takvim günü — cache aynı güne aitse taze sayılır (vakitler günde 1 kez değişir)
+function localDayStr(d = new Date()): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
 
 const VAKITLER: { key: keyof PrayerTimes; label: string }[] = [
   { key: "Fajr",    label: "İmsak"  },
@@ -44,21 +49,25 @@ function findNextPrayer(times: PrayerTimes): string | null {
   return VAKITLER[0].label;
 }
 
+// Yaşına bakmadan ham cache'i döndürür (stale-while-revalidate için).
 function readCache(): NamazCache | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
-    const cache = JSON.parse(raw) as NamazCache;
-    if (Date.now() - cache.cachedAt > CACHE_TTL) return null;
-    return cache;
+    return JSON.parse(raw) as NamazCache;
   } catch {
     return null;
   }
 }
 
+// Cache bugüne aitse taze — ağ isteğine gerek yok.
+function isFresh(cache: NamazCache): boolean {
+  return cache.day === localDayStr();
+}
+
 function writeCache(times: PrayerTimes, city: string): void {
   try {
-    const cache: NamazCache = { times, city, cachedAt: Date.now() };
+    const cache: NamazCache = { times, city, cachedAt: Date.now(), day: localDayStr() };
     localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
   } catch { /* ignore */ }
 }
@@ -70,14 +79,15 @@ export function HomeNamazWidget() {
   const [nextPrayer, setNextPrayer] = useState<string | null>(null);
 
   useEffect(() => {
-    // Cache kontrolü
+    // A) Bayat olsa bile cache varsa ANINDA göster (stale-while-revalidate).
     const cached = readCache();
     if (cached) {
       setTimes(cached.times);
       setCity(cached.city);
       setNextPrayer(findNextPrayer(cached.times));
       setStatus("ok");
-      return;
+      if (isFresh(cached)) return; // bugüne ait → ağ isteği yok
+      // bayat → aşağıda arka planda sessizce yenile (iskelet gösterme)
     }
 
     async function fetchTimes(lat: number, lon: number, cityName: string) {
@@ -96,7 +106,8 @@ export function HomeNamazWidget() {
         setStatus("ok");
         writeCache(t, cityName);
       } catch {
-        setStatus("error");
+        // Cache zaten gösteriliyorsa hatayı yut — sadece hiç veri yoksa hata göster.
+        if (!cached) setStatus("error");
       }
     }
 
@@ -104,7 +115,8 @@ export function HomeNamazWidget() {
       navigator.geolocation.getCurrentPosition(
         (pos) => fetchTimes(pos.coords.latitude, pos.coords.longitude, "Konumunuz"),
         ()    => fetchTimes(ISTANBUL.lat, ISTANBUL.lon, ISTANBUL.city),
-        { timeout: 5000 }
+        // B) Yakın geçmişteki konumu kabul et (≤30 dk) → genelde anında; timeout 5sn→4sn.
+        { timeout: 4000, maximumAge: 30 * 60 * 1000 }
       );
     } else {
       fetchTimes(ISTANBUL.lat, ISTANBUL.lon, ISTANBUL.city);

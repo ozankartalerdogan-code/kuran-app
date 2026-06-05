@@ -31,6 +31,9 @@ export async function fetchPrayerTimes(
   lat: number,
   lng: number
 ): Promise<PrayerTimes | null> {
+  // Kötü ağda donmayı önlemek için 8 sn timeout (AbortController — RN'de geniş uyumlu).
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, "0");
@@ -39,12 +42,14 @@ export async function fetchPrayerTimes(
     const res = await fetch(
       // school=0: Diyanet İkindi standart yöntemle (school=1/Hanefi ~1 saat geç verir)
       `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0`,
-      { headers: { "Accept": "application/json" } }
+      { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
     return data?.data?.timings ?? null;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
