@@ -57,15 +57,31 @@ export async function fetchPrayerTimes(
 const REMIND_BEFORE_MIN = 5; // sade "vakit yaklaşıyor" hatırlatması
 const VERSE_BEFORE_MIN  = 3; // namaz-taglı ayet meali (teşvik)
 
+// Android 8+ bildirim kanalı — yüksek öncelik (heads-up + ses). Olmadan bildirimler
+// varsayılan kanalda sessiz/önemsiz görünebilir.
+const ANDROID_CHANNEL_ID = "namaz-vakitleri";
+
+async function ensureAndroidChannel(): Promise<void> {
+  if (Platform.OS !== "android") return;
+  await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID, {
+    name:             "Namaz Vakitleri",
+    importance:       Notifications.AndroidImportance.HIGH,
+    sound:            "default",
+    vibrationPattern: [0, 250, 250, 250],
+    lightColor:       "#059669",
+  });
+}
+
 // Verilen vakitten offsetMin dakika öncesi için DAILY tetikleyici üretir.
 // Negatif/aşan dakikayı Date normalize eder (ör. 05:03 → 04:58).
 function dailyTriggerBefore(hour: number, minute: number, offsetMin: number) {
   const at = new Date();
   at.setHours(hour, minute - offsetMin, 0, 0);
   return {
-    type:   Notifications.SchedulableTriggerInputTypes.DAILY,
-    hour:   at.getHours(),
-    minute: at.getMinutes(),
+    type:      Notifications.SchedulableTriggerInputTypes.DAILY,
+    hour:      at.getHours(),
+    minute:    at.getMinutes(),
+    channelId: ANDROID_CHANNEL_ID, // iOS'ta yok sayılır
   } as const;
 }
 
@@ -75,8 +91,9 @@ function dailyTriggerBefore(hour: number, minute: number, offsetMin: number) {
 export async function scheduleNamazNotifications(
   times: PrayerTimes
 ): Promise<void> {
-  // Eski bildirimleri iptal et
+  // Eski bildirimleri iptal et + Android kanalını hazırla
   await Notifications.cancelAllScheduledNotificationsAsync();
+  await ensureAndroidChannel();
 
   for (const { key, label } of VAKITLER) {
     const timeStr = times[key];

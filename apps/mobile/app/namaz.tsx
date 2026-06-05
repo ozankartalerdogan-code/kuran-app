@@ -1,6 +1,6 @@
 import {
   View, Text, ScrollView, TouchableOpacity,
-  ActivityIndicator, StyleSheet, Switch, Alert,
+  ActivityIndicator, StyleSheet, Switch, Alert, Linking,
 } from "react-native";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
@@ -263,7 +263,15 @@ export default function NamazScreen() {
       if (val) {
         const granted = await requestNotificationPermission();
         if (!granted) {
-          Alert.alert("İzin Gerekli", "Bildirim izni verilmedi. Ayarlardan açabilirsiniz.");
+          // İzin reddedildi/engellendi → sistem penceresi tekrar çıkmayabilir; ayarlara tek dokunuş.
+          Alert.alert(
+            "Bildirim İzni Gerekli",
+            "Namaz vakti bildirimleri için bildirim iznine ihtiyaç var. Ayarlardan \"Bildirimler\"i açabilirsiniz.",
+            [
+              { text: "Vazgeç", style: "cancel" },
+              { text: "Ayarları Aç", onPress: () => { void Linking.openSettings(); } },
+            ],
+          );
           setNotifLoading(false);
           return;
         }
