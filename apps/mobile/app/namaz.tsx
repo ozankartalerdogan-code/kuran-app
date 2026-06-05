@@ -139,7 +139,7 @@ function VakitTablosu({ teheccudVerses }: { teheccudVerses: { surahId: number; a
             <View style={vt.vakitSag}>
               {verses.map((v: { surahId: number; ayahNumber: number; label: string }) => (
                 <TouchableOpacity key={v.label} style={vt.ayetRow}
-                  onPress={() => router.push(`/ayah/${v.surahId}/${v.ayahNumber}` as any)} activeOpacity={0.7}>
+                  onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: v.surahId, ayahNumber: v.ayahNumber } })} activeOpacity={0.7}>
                   <View style={vt.keyBadge}><Text style={vt.keyText}>{v.label}</Text></View>
                   <Text style={vt.sureName}>{SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}</Text>
                   <Text style={vt.arrow}>›</Text>
