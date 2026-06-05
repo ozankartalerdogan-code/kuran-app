@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert,
 } from "react-native";
 import { router } from "expo-router";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
@@ -10,6 +10,7 @@ import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
 import { TasbihModal } from "../../src/components/ZikirMatik";
 import { api } from "../../src/lib/api";
+import { requestNotificationPermission, sendTestNotification } from "../../src/lib/namazNotifications";
 
 const NAV_CARDS: {
   label: string;
@@ -79,6 +80,14 @@ function HomeContent() {
     }
   }, [moodLoading]);
 
+  // Sadece geliştirme (__DEV__) — 5 sn sonra test bildirimi düşürür.
+  const handleTestNotif = useCallback(async () => {
+    const granted = await requestNotificationPermission();
+    if (!granted) { Alert.alert("İzin Gerekli", "Test için bildirim izni gerekli."); return; }
+    await sendTestNotification();
+    Alert.alert("Test Planlandı", "5 saniye içinde bir test bildirimi gelecek. İstersen uygulamayı arka plana al.");
+  }, []);
+
   return (
     <>
     <ScrollView
@@ -87,6 +96,13 @@ function HomeContent() {
       showsVerticalScrollIndicator={false}
 
     >
+      {/* Test butonu — YALNIZCA geliştirme (__DEV__). APK/AAB'de görünmez. */}
+      {__DEV__ && (
+        <TouchableOpacity onPress={handleTestNotif} style={styles.testNotifBtn} activeOpacity={0.7}>
+          <Text style={styles.testNotifText}>🔔 Bildirimi Test Et (5 sn) · DEV</Text>
+        </TouchableOpacity>
+      )}
+
       {/* Streak + Gece modu */}
       <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
         <Text style={styles.streakEmoji}>🔥</Text>
@@ -282,6 +298,8 @@ const styles = StyleSheet.create({
   sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },
   moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
   moodLabel: { fontSize: 13, fontWeight: "600" },
+  testNotifBtn:  { marginBottom: 12, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: "#fca5a5", backgroundColor: "#fef2f2", alignItems: "center" },
+  testNotifText: { fontSize: 13, fontWeight: "600", color: "#b91c1c" },
 
   grid:      { flexDirection: "row", flexWrap: "wrap", gap: 10 },
   card:      { width: "47%", borderRadius: 14, borderWidth: 1.5, padding: 16, alignItems: "center", gap: 6, elevation: 2 },
