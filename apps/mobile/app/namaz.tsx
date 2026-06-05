@@ -286,7 +286,7 @@ export default function NamazScreen() {
         const locationMsg = isFallback
           ? "Konum izni verilmediği için namaz vakitleri İstanbul'a göre hesaplandı."
           : "Namaz vakitleri bulunduğunuz konuma göre hesaplandı.";
-        Alert.alert("Bildirimler Açık", `Her gün, her namaz vaktinden 5 dakika önce bildirim gönderilecek.\n\n${locationMsg}`);
+        Alert.alert("Bildirimler Açık", `Her gün her namaz vaktinden 5 dakika önce hatırlatma, 3 dakika önce de namaz temalı bir ayet gönderilecek.\n\n${locationMsg}`);
       } else {
         await cancelNamazNotifications();
         await AsyncStorage.setItem(NOTIF_KEY, "0");

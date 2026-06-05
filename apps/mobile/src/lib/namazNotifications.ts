@@ -53,11 +53,25 @@ export async function fetchPrayerTimes(
   }
 }
 
-// Vakitten kaç dakika önce bildirim gönderilsin
-const NOTIFY_BEFORE_MIN = 5;
+// Vakitten kaç dakika önce: ilk hatırlatma ve (ayet içeren) ikinci hatırlatma
+const REMIND_BEFORE_MIN = 5; // sade "vakit yaklaşıyor" hatırlatması
+const VERSE_BEFORE_MIN  = 3; // namaz-taglı ayet meali (teşvik)
 
-// Günlük namaz bildirimlerini planla — her vakitten NOTIFY_BEFORE_MIN dakika önce,
-// DAILY tetikleyici ile her gün tekrarlar (tek seferlik değil).
+// Verilen vakitten offsetMin dakika öncesi için DAILY tetikleyici üretir.
+// Negatif/aşan dakikayı Date normalize eder (ör. 05:03 → 04:58).
+function dailyTriggerBefore(hour: number, minute: number, offsetMin: number) {
+  const at = new Date();
+  at.setHours(hour, minute - offsetMin, 0, 0);
+  return {
+    type:   Notifications.SchedulableTriggerInputTypes.DAILY,
+    hour:   at.getHours(),
+    minute: at.getMinutes(),
+  } as const;
+}
+
+// Günlük namaz bildirimlerini planla. Her vakit için iki DAILY bildirim:
+//   • 5 dk önce: sade hatırlatma
+//   • 3 dk önce: namaz-taglı ayet meali (her yeniden planlamada rastgele → dinamik)
 export async function scheduleNamazNotifications(
   times: PrayerTimes
 ): Promise<void> {
@@ -71,35 +85,39 @@ export async function scheduleNamazNotifications(
     const [hour, minute] = timeStr.split(":").map(Number);
     if (Number.isNaN(hour) || Number.isNaN(minute)) continue;
 
-    // Vakitten NOTIFY_BEFORE_MIN dakika önceye ayarla.
-    // Negatif/aşan dakikayı Date kendisi normalize eder (ör. 05:03 → 04:58).
-    const at = new Date();
-    at.setHours(hour, minute - NOTIFY_BEFORE_MIN, 0, 0);
+    // 1) 5 dk önce — sade vakit hatırlatması
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: `🕌 ${label} Vaktine ${REMIND_BEFORE_MIN} Dakika`,
+        body:  `${label} vakti yaklaşıyor, namaza hazırlanın.`,
+        sound: true,
+        data:  { route: "/namaz" },
+      },
+      trigger: dailyTriggerBefore(hour, minute, REMIND_BEFORE_MIN),
+    });
 
-    // Vakit-spesifik ayet al (hata olursa varsayılan mesaj kullan)
-    let body = `${NOTIFY_BEFORE_MIN} dakika sonra ${label.toLocaleLowerCase("tr-TR")} vakti.`;
+    // 2) 3 dk önce — namaz-taglı ayet meali (teşvik). Ayet planlama anında
+    // rastgele çekilir; açılıştaki günlük yeniden planlama ile her gün değişir.
+    let verseBody: string | null = null;
     try {
       const verse = await api.notifications.namazVerse(key.toLowerCase());
       if (verse?.translation) {
-        body = verse.translation.slice(0, 120) + (verse.translation.length > 120 ? "…" : "");
+        verseBody = verse.translation.slice(0, 160) + (verse.translation.length > 160 ? "…" : "");
       }
     } catch { /* ignore */ }
 
-    // DAILY: her gün at.getHours():at.getMinutes() saatinde tekrarlar.
-    // Bir sonraki uygun günü expo otomatik seçer; "geçmişse atla" gerekmez.
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: `🕌 ${label} Vaktine ${NOTIFY_BEFORE_MIN} Dakika`,
-        body,
-        sound: true,
-        data: { route: "/namaz" },
-      },
-      trigger: {
-        type:   Notifications.SchedulableTriggerInputTypes.DAILY,
-        hour:   at.getHours(),
-        minute: at.getMinutes(),
-      },
-    });
+    // Ayet alınamadıysa ikinci bildirimi atla (boş/anlamsız bildirim gitmesin).
+    if (verseBody) {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: `🕌 ${label} Vakti`,
+          body:  verseBody,
+          sound: true,
+          data:  { route: "/namaz" },
+        },
+        trigger: dailyTriggerBefore(hour, minute, VERSE_BEFORE_MIN),
+      });
+    }
   }
 }
 
