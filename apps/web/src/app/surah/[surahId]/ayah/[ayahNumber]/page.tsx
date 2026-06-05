@@ -4,7 +4,9 @@ import {
 } from "@quran-app/core";
 import type { WordAnalysisSource } from "@quran-app/core";
 import { getAyahDetailFromDb } from "../../../../../lib/getAyahDetailFromDb";
-import { dbAll } from "../../../../../lib/dbUtils";
+import { dbAll, dbGet } from "../../../../../lib/dbUtils";
+import { cleanMealText } from "../../../../../lib/cleanMeal";
+import type { Metadata } from "next";
 import type {
   AvailabilityStatus,
   FidelityAnalysis,
@@ -52,6 +54,49 @@ interface PageProps {
     reading_source?: string | string[];
     wa_source?: string | string[];
   };
+}
+
+// Ayete özel paylaşım/önizleme metadata'sı (WhatsApp/Telegram/sosyal kartı).
+// Olmadan tüm ayet linkleri layout'taki jenerik "Kuran Analiz" kartını gösteriyordu.
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const surahId    = Number(params.surahId);
+  const ayahNumber = Number(params.ayahNumber);
+  if (!Number.isInteger(surahId) || !Number.isInteger(ayahNumber)) return {};
+
+  const verseKey = `${surahId}:${ayahNumber}`;
+  try {
+    const row = await dbGet<{ surahName: string | null; meal: string | null }>(
+      `SELECT s.adi_turkce AS surahName,
+              COALESCE(yt.text, v.primary_translation) AS meal
+       FROM   verses v
+       JOIN   sureler s ON s.id = v.surah_id
+       LEFT   JOIN translations yt ON yt.verse_key = v.verse_key
+              AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
+       WHERE  v.verse_key = ?
+       LIMIT  1`,
+      verseKey,
+    );
+    if (!row) return {};
+
+    const surahName = row.surahName ?? `Sure ${surahId}`;
+    const title     = `${surahName} ${ayahNumber}. Ayet`;
+    const meal      = cleanMealText(row.meal) ?? "";
+    const desc      = (meal.length > 200 ? meal.slice(0, 199) + "…" : meal)
+                      || "Kur'an-ı Kerim meali, kelime analizi ve kök açıklamaları.";
+    const ogImage   = `/api/share/${encodeURIComponent(verseKey)}`;
+
+    return {
+      title,
+      description: desc,
+      openGraph: {
+        title, description: desc, type: "article",
+        images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      },
+      twitter: { card: "summary_large_image", title, description: desc, images: [ogImage] },
+    };
+  } catch {
+    return {};
+  }
 }
 
 interface AyahLink {

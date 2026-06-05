@@ -16,8 +16,7 @@
 
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
-import { DatabaseSync } from "node:sqlite";
-import path from "path";
+import { dbGet } from "../../../../lib/dbUtils";
 
 export const runtime = "nodejs";
 export const dynamic  = "force-dynamic";
@@ -33,12 +32,11 @@ interface VerseRow {
   surahId:   number;
 }
 
-function fetchVerse(verseKey: string): VerseRow | null {
-  const dbPath = path.resolve(process.cwd(), "..", "..", "data", "app.db");
-  let db: DatabaseSync | null = null;
+async function fetchVerse(verseKey: string): Promise<VerseRow | null> {
   try {
-    db = new DatabaseSync(dbPath, { readOnly: true });
-    const row = db.prepare(`
+    // Turso/yerel birleşik async erişim (dbUtils). Eskiden yerel data/app.db'yi
+    // senkron açıyordu → production'da dosya olmadığından 404 veriyordu.
+    const row = await dbGet<VerseRow>(`
       SELECT v.arabic_text                            AS arabic,
              COALESCE(t.text, v.primary_translation)  AS meal,
              s.adi_turkce                             AS surahName,
@@ -50,13 +48,11 @@ function fetchVerse(verseKey: string): VerseRow | null {
              ON t.verse_key = v.verse_key AND t.source = 'diyanet'
       WHERE  v.verse_key = ?
       LIMIT  1
-    `).get(verseKey) as VerseRow | undefined;
+    `, verseKey);
     return row ?? null;
   } catch (e) {
     console.error("[share] DB:", e);
     return null;
-  } finally {
-    db?.close();
   }
 }
 
@@ -75,7 +71,7 @@ export async function GET(
     return new Response("Geçersiz verse_key. Örn: 2:255", { status: 400 });
   }
 
-  const verse = fetchVerse(verseKey);
+  const verse = await fetchVerse(verseKey);
   if (!verse) return new Response(`Ayet bulunamadı: ${verseKey}`, { status: 404 });
 
   const meal     = trunc(verse.meal,   220);
@@ -178,7 +174,7 @@ export async function GET(
           borderTop: "1px solid rgba(255,255,255,0.12)",
         }}>
           <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 15 }}>
-            kuranapp.vercel.app
+            Kuran Yolu
           </span>
           <span style={{
             background: "rgba(255,255,255,0.12)",

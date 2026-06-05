@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   },
   description:
     "Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
-  metadataBase: new URL("https://kuranapp.vercel.app"),
+  // Ölü "kuranapp.vercel.app" yerine canlı domain — OG görsel URL'leri buna göre çözülür.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://kuran-app-web-ozan-s-projects8.vercel.app"),
   openGraph: {
     siteName:    "Kuran Analiz",
     locale:      "tr_TR",
