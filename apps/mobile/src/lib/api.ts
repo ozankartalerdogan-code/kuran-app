@@ -289,11 +289,17 @@ export type AyahDetailResponse = {
 const CACHE_TTL_STATIC = 7 * 24 * 60 * 60 * 1000;  // 7 gün (statik veri)
 const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 
+// Cache sürümü — artırınca tüm eski yerel cache'ler geçersiz olur.
+// (v2: gloss/literal/fark analizi büyük veri güncellemesi)
+const CACHE_VERSION = "v2";
+const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
+
 async function withCache<T>(
-  key: string,
+  rawKey: string,
   ttl: number,
   fetcher: () => Promise<T>,
 ): Promise<T> {
+  const key = vkey(rawKey);
   // Önce cache dene
   try {
     const cached = await storage.getJSON<{ ts: number; data: T }>(key);
@@ -314,9 +320,9 @@ async function withCacheFallback<T>(
   try {
     return await withCache(key, ttl, fetcher);
   } catch (err) {
-    // Network hata → cache'den sun (eski olsa bile)
+    // Network hata → cache'den sun (eski olsa bile) — aynı sürümlü anahtar
     try {
-      const cached = await storage.getJSON<{ ts: number; data: T }>(key);
+      const cached = await storage.getJSON<{ ts: number; data: T }>(vkey(key));
       if (cached) return cached.data;
     } catch { /* ignore */ }
     throw err;

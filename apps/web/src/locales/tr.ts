@@ -1,6 +1,6 @@
 export const tr = {
-  appTitle: "Kuran Analiz",
+  appTitle: "Kuran Yolu",
   appDescription: "Kuran inceleme çalışma alanı",
   notAvailableYet: "Henüz eklenmedi",
-  screenTitle: "Kuran Analiz"
+  screenTitle: "Kuran Yolu"
 } as const;

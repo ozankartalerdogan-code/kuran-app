@@ -54,8 +54,15 @@ const noDiffRe = /anlam farkı yoktur|fark yoktur|sadece üslup|uyumludur, anlam
 function getTargets(db: DatabaseSync): VRow[] {
   const sel = "SELECT verse_key, arabic_text, primary_translation, literal_ceviri, fark_analizi FROM verses";
   if (ALL) {
+    // Zaten v2 ile işlenmiş verse_key'leri hariç tut (resumable; 371'i tekrar etme)
+    const done = new Set<string>();
+    for (const f of fs.readdirSync(dir)) {
+      if (f.startsWith("_fark_v2_backup_") && f.endsWith(".json")) {
+        for (const r of JSON.parse(fs.readFileSync(path.join(dir, f), "utf-8"))) done.add(r.verse_key);
+      }
+    }
     const rows = db.prepare(`${sel} WHERE fark_analizi IS NOT NULL AND trim(fark_analizi)!='' ORDER BY surah_id, ayah_number`).all() as unknown as VRow[];
-    return rows.filter((r) => !noDiffRe.test(r.fark_analizi ?? ""));
+    return rows.filter((r) => !noDiffRe.test(r.fark_analizi ?? "") && !done.has(r.verse_key));
   }
   // literal'i değişen verse_key'ler
   const keys = new Set<string>();
