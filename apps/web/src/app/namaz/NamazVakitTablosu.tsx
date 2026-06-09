@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {dbAll } from "../../lib/dbUtils";
+import { dbAll, dbGet } from "../../lib/dbUtils";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -17,6 +17,12 @@ interface VerseData {
   aciklama: string | null;
 }
 
+interface MottoRow {
+  verse_key:           string;
+  arabic_text:         string | null;
+  primary_translation: string | null;
+}
+
 // ── Statik tablolar ───────────────────────────────────────────────────────────
 
 const SURE_ADI: Record<number, string> = {
@@ -26,14 +32,25 @@ const SURE_ADI: Record<number, string> = {
   52: "Tur",    73: "Müzzemmil", 76: "İnsan",  78: "Nebe",
 };
 
-// namaz-vakit ayetlerini 5 vakite ata (her verse_key tek vakitte)
+// Her vakti Arapça'da adıyla/işaretiyle geçiren ayetler (kürasyon)
 const VAKIT_KEYS: Record<string, string[]> = {
-  sabah:    ["17:78", "20:130", "52:48", "11:114"],
-  ogle:     ["30:17"],
-  ikindi:   ["2:238", "50:39"],
-  aksam:    ["40:55", "76:25"],
-  yatsi:    ["4:103", "24:58", "78:9"],
+  sabah:    ["17:78", "20:130", "50:39"],
+  ogle:     ["30:18", "17:78"],
+  ikindi:   ["2:238", "20:130", "50:39"],
+  aksam:    ["11:114", "30:17"],
+  yatsi:    ["24:58", "17:78", "11:114"],
+  teheccud: ["17:79", "73:2-3", "25:64", "51:17-18"],
 };
+
+// DB'de birebir karşılığı olmayan verse_key'ler için açıklama/isim fallback'i
+const FALLBACK_NOTES: Record<string, { isim: string; aciklama: string }> = {
+  "30:18":    { isim: "Öğle Vakti Tesbihi", aciklama: "Gündüzün sonunda ve öğle vaktine ulaştığınızda (hîne tuzhirûn) da Allah'ı tesbih edin" },
+  "73:2-3":   { isim: "Geceleyin Kalk",     aciklama: "Geceleyin -birazı hariç- kalk; gecenin yarısını yahut ondan biraz eksiğini ibadetle geçir" },
+  "51:17-18": { isim: "Seher Vakti",        aciklama: "Geceleri pek az uyurlar, seher vakitlerinde de bağışlanma dilerlerdi" },
+};
+
+// Üst motto ayeti (tablonun dışında, ayet + meal kartı olarak gösterilir)
+const MOTTO_KEY = "4:103";
 
 interface VakitMeta {
   id:   string;
@@ -161,30 +178,58 @@ export async function NamazVakitTablosu() {
 
   function toVerseData(vk: string): VerseData {
     const row = dbMap.get(vk);
+    const fb  = FALLBACK_NOTES[vk];
     return {
       verseKey: vk,
       sureAdi:  getSureAdi(vk),
-      isim:     row?.isim     ?? null,
-      aciklama: row?.aciklama ?? null,
+      isim:     row?.isim     ?? fb?.isim     ?? null,
+      aciklama: row?.aciklama ?? fb?.aciklama ?? null,
     };
   }
 
-  // Teheccüd: DB'den gelen namaz-teheccud ayetleri (verse_key sırasıyla)
-  const teheccudVerses = rows
-    .filter((r) => r.tag === "namaz-teheccud")
-    .map((r) => toVerseData(r.verse_key));
+  // Her vakitin ayet listesini kürasyonlu VAKIT_KEYS'ten oluştur
+  const vakitVerses: Record<string, VerseData[]> = Object.fromEntries(
+    Object.entries(VAKIT_KEYS).map(([vakit, keys]) => [vakit, keys.map(toVerseData)])
+  );
 
-  // Her vakitin ayet listesini oluştur
-  const vakitVerses: Record<string, VerseData[]> = {
-    sabah:    VAKIT_KEYS.sabah.map(toVerseData),
-    ogle:     VAKIT_KEYS.ogle.map(toVerseData),
-    ikindi:   VAKIT_KEYS.ikindi.map(toVerseData),
-    aksam:    VAKIT_KEYS.aksam.map(toVerseData),
-    yatsi:    VAKIT_KEYS.yatsi.map(toVerseData),
-    teheccud: teheccudVerses,
-  };
+  // Toplam gösterilen ayet sayısı (tekrarlar dahil)
+  const toplamAyet = Object.values(vakitVerses).reduce((acc, v) => acc + v.length, 0);
+
+  // Üst motto ayeti — Arapça + meal
+  const motto = await dbGet<MottoRow>(
+    "SELECT verse_key, arabic_text, primary_translation FROM verses WHERE verse_key = ?",
+    MOTTO_KEY
+  );
 
   return (
+    <>
+    {/* Üst Motto — 4:103 ayet + meal (tablonun dışında) */}
+    {motto && (
+      <Link
+        href={verseHref(motto.verse_key)}
+        className="group mb-5 block overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50/40 px-5 py-4 shadow-sm transition-all hover:border-emerald-300 hover:shadow-md dark:border-emerald-800/50 dark:from-emerald-950/30 dark:to-teal-950/20"
+      >
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+            Namaz Vakitlere Bağlı Bir Farzdır
+          </span>
+          <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
+            Nisâ {motto.verse_key}
+          </span>
+        </div>
+        {motto.arabic_text && (
+          <p dir="rtl" lang="ar" className="mb-2.5 text-right font-arabic text-xl leading-loose text-stone-800 dark:text-stone-100">
+            {motto.arabic_text}
+          </p>
+        )}
+        {motto.primary_translation && (
+          <p className="text-[13px] italic leading-relaxed text-stone-600 dark:text-stone-300">
+            “{motto.primary_translation}”
+          </p>
+        )}
+      </Link>
+    )}
+
     <div className="mb-10 overflow-hidden rounded-2xl border border-stone-200 bg-stone-50/60 shadow-sm dark:border-stone-700/60 dark:bg-stone-900/60">
       {/* Başlık */}
       <div className="border-b border-stone-200 bg-white px-4 py-3 dark:border-stone-700/60 dark:bg-stone-900">
@@ -196,7 +241,7 @@ export async function NamazVakitTablosu() {
             </h2>
           </div>
           <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-[11px] font-medium text-stone-500 dark:bg-stone-800 dark:text-stone-400">
-            {rows.length} ayet
+            {toplamAyet} ayet
           </span>
         </div>
       </div>
@@ -212,5 +257,6 @@ export async function NamazVakitTablosu() {
         ))}
       </div>
     </div>
+    </>
   );
 }

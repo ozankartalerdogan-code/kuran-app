@@ -115,12 +115,22 @@ const DUA_CATS = [
 // ── Namaz verisi ──────────────────────────────────────────────────────────────
 
 const VAKIT_ROWS = [
-  { id: "sabah",    ikon: "🌅", ad: "Sabah",    bg: "#f0f9ff", border: "#7dd3fc", keys: ["17:78","20:130","52:48","11:114"] },
-  { id: "ogle",     ikon: "☀️", ad: "Öğle",     bg: "#fffbeb", border: "#fcd34d", keys: ["30:17"] },
-  { id: "ikindi",   ikon: "🌤️", ad: "İkindi",   bg: "#fff7ed", border: "#fdba74", keys: ["2:238","50:39"] },
-  { id: "aksam",    ikon: "🌆", ad: "Akşam",    bg: "#fff1f2", border: "#fda4af", keys: ["40:55","76:25"] },
-  { id: "yatsi",    ikon: "🌙", ad: "Yatsı",    bg: "#eef2ff", border: "#a5b4fc", keys: ["4:103","24:58","78:9"] },
+  { id: "sabah",    ikon: "🌅", ad: "Sabah",    bg: "#f0f9ff", border: "#7dd3fc", keys: ["17:78","20:130","50:39"] },
+  { id: "ogle",     ikon: "☀️", ad: "Öğle",     bg: "#fffbeb", border: "#fcd34d", keys: ["30:18","17:78"] },
+  { id: "ikindi",   ikon: "🌤️", ad: "İkindi",   bg: "#fff7ed", border: "#fdba74", keys: ["2:238","20:130","50:39"] },
+  { id: "aksam",    ikon: "🌆", ad: "Akşam",    bg: "#fff1f2", border: "#fda4af", keys: ["11:114","30:17"] },
+  { id: "yatsi",    ikon: "🌙", ad: "Yatsı",    bg: "#eef2ff", border: "#a5b4fc", keys: ["24:58","17:78","11:114"] },
+  { id: "teheccud", ikon: "🌌", ad: "Teheccüd", bg: "#f5f3ff", border: "#c4b5fd", keys: ["17:79","73:2-3","25:64","51:17-18"] },
 ];
+
+// Üst motto ayeti — Nisâ 4:103
+const MOTTO = {
+  surahId: 4,
+  ayahNumber: 103,
+  label: "Nisâ 4:103",
+  arabic: "فَإِذَا قَضَيْتُمُ ٱلصَّلَوٰةَ فَٱذْكُرُوا۟ ٱللَّهَ قِيَـٰمًا وَقُعُودًا وَعَلَىٰ جُنُوبِكُمْ ۚ فَإِذَا ٱطْمَأْنَنتُمْ فَأَقِيمُوا۟ ٱلصَّلَوٰةَ ۚ إِنَّ ٱلصَّلَوٰةَ كَانَتْ عَلَى ٱلْمُؤْمِنِينَ كِتَـٰبًا مَّوْقُوتًا",
+  meal: "Namazı kıldıktan sonra; ayakta, otururken ve yan yatarken Allah'ı anın. Güvene kavuştuğunuzda namazı gereğince kılın. Şüphesiz namaz, müminlere belirli vakitlerde farz kılınmıştır.",
+};
 
 const NAMAZ_CATS = [
   { emoji: "🕌", id: "namaz-genel",   label: "Namaz Genel",    tag: "namaz-genel",   renk: "#e0e7ff" },
@@ -133,8 +143,11 @@ const NAMAZ_CATS = [
 // ── Yardımcı: ayet key parse ──────────────────────────────────────────────────
 
 function parseKey(key: string) {
-  const [s, a] = key.split(":").map(Number);
-  return { surahId: s || 0, ayahNumber: a || 0 };
+  const [s, a] = key.split(":");
+  const surahId = Number(s) || 0;
+  // Aralık (örn. "73:2-3") → ilk ayet numarası
+  const ayahNumber = Number(a?.split("-")[0]) || 0;
+  return { surahId, ayahNumber };
 }
 
 // ── Liste öğe tipi ────────────────────────────────────────────────────────────
@@ -303,6 +316,21 @@ const TagAccordion = React.memo(function TagAccordion({ emoji, label, tag, renk 
 // Namaz vakit tablosu
 const VakitTablosu = React.memo(function VakitTablosu() {
   return (
+    <View>
+      {/* Üst Motto — Nisâ 4:103 ayet + meal */}
+      <TouchableOpacity
+        style={vt.motto}
+        activeOpacity={0.8}
+        onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}` as any)}
+      >
+        <View style={vt.mottoHead}>
+          <Text style={vt.mottoEtiket}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
+          <View style={vt.mottoKey}><Text style={vt.mottoKeyText}>{MOTTO.label}</Text></View>
+        </View>
+        <Text style={vt.mottoArabic}>{MOTTO.arabic}</Text>
+        <Text style={vt.mottoMeal}>“{MOTTO.meal}”</Text>
+      </TouchableOpacity>
+
     <View style={vt.card}>
       <View style={vt.headerRow}>
         <Text style={vt.headerTitle}>🕐 Namaz Vakitleri</Text>
@@ -331,6 +359,7 @@ const VakitTablosu = React.memo(function VakitTablosu() {
           </View>
         </View>
       ))}
+    </View>
     </View>
   );
 });
@@ -494,6 +523,14 @@ const acc = StyleSheet.create({
 
 // Vakit tablosu
 const vt = StyleSheet.create({
+  // Üst motto kartı
+  motto:        { borderRadius: 14, borderWidth: 1, borderColor: "#a7f3d0", backgroundColor: "#ecfdf5", padding: 14, marginBottom: 10 },
+  mottoHead:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
+  mottoEtiket:  { flex: 1, fontSize: 10, fontWeight: "700", color: "#059669", textTransform: "uppercase", letterSpacing: 0.5 },
+  mottoKey:     { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 },
+  mottoKeyText: { fontSize: 10, fontWeight: "700", color: "#047857" },
+  mottoArabic:  { fontSize: 20, lineHeight: 36, color: "#1c1917", textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", marginBottom: 8 },
+  mottoMeal:    { fontSize: 13, lineHeight: 20, color: "#57534e", fontStyle: "italic" },
   card:      { borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", backgroundColor: "#fff", overflow: "hidden", marginBottom: 8 },
   headerRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 14, borderBottomWidth: 1, borderBottomColor: "#f5f0e8" },
   headerTitle:{ fontSize: 12, fontWeight: "700", color: "#44403c", textTransform: "uppercase", letterSpacing: 0.5 },

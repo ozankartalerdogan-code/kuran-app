@@ -128,7 +128,8 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   }
 
   function handleNext() {
-    if (idx + 1 >= sorular.length) { setDone(true); onFinish(score + (selected === soru?.dogru_cevap ? 1 : 0), sorular.length); }
+    // Skor handleSelect içinde zaten artırılıyor; burada sadece bitiş ekranını göster
+    if (idx + 1 >= sorular.length) setDone(true);
     else { setIdx((i) => i + 1); setSelected(null); setAnswered(false); }
   }
 
@@ -149,14 +150,32 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   }
 
   const isArabic = (t: string) => /[؀-ۿ]/.test(t);
+  // Satır Latin harf içermiyorsa (sadece Arapça + işaret/boşluk) "tamamen Arapça" sayılır
+  const isPureArabic = (t: string) => isArabic(t) && !/[a-zA-ZçğıöşüÇĞİÖŞÜ]/.test(t);
+
+  // Soru metnini render et: tamamen Arapça satırları büyük RTL blok olarak en üste al,
+  // Türkçe (veya satır-içi karışık) satırları normal LTR olarak altta göster.
+  function renderSoru(text: string) {
+    const lines = text.split("\n").filter((l) => l.trim() !== "");
+    const arabicLines = lines.filter((l) => isPureArabic(l));
+    const otherLines  = lines.filter((l) => !isPureArabic(l));
+    return (
+      <>
+        {arabicLines.map((line, i) => (
+          <Text key={`ar-${i}`} style={qv.soruArabicLine}>{line}</Text>
+        ))}
+        {otherLines.map((line, i) => (
+          <Text key={`tr-${i}`} style={qv.soruText}>{line}</Text>
+        ))}
+      </>
+    );
+  }
 
   return (
     <View style={qv.container}>
       <Text style={qv.progress}>Soru {idx + 1}/{sorular.length} · {score} doğru</Text>
       <View style={qv.soruBox}>
-        <Text style={[qv.soruText, isArabic(soru.soru) && qv.soruArabic, isArabic(soru.soru) && { textAlign: "right", writingDirection: "rtl" as const }]}>
-          {soru.soru}
-        </Text>
+        {renderSoru(soru.soru)}
       </View>
       <View style={qv.options}>
         {soru.secenekler.map((s) => {
@@ -382,9 +401,10 @@ const qv = StyleSheet.create({
   container:   { flex:1, padding:16 },
   noQ:         { textAlign:"center", marginTop:40, color:"#78716c" },
   progress:    { fontSize:12, color:"#a8a29e", textAlign:"center", marginBottom:12 },
-  soruBox:     { backgroundColor:"#fff", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7e5e4" },
-  soruText:    { fontSize:15, lineHeight:24, color:"#1c1917" },
-  soruArabic:  { fontSize:24, textAlign:"right", fontFamily:"Amiri", writingDirection:"rtl" },
+  soruBox:        { backgroundColor:"#fff", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7e5e4", gap:10 },
+  soruText:       { fontSize:15, lineHeight:24, color:"#1c1917" },
+  soruArabic:     { fontSize:24, textAlign:"right", fontFamily:"Amiri", writingDirection:"rtl" },
+  soruArabicLine: { fontSize:36, textAlign:"center", fontFamily:"Amiri", writingDirection:"rtl", color:"#1c1917", marginTop:4 },
   options:     { gap:8, marginBottom:10 },
   option:      { borderRadius:12, padding:14, borderWidth:1, borderColor:"#e7e5e4" },
   optionText:  { fontSize:14, color:"#1c1917" },

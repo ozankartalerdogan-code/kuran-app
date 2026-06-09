@@ -69,23 +69,41 @@ const VAKIT_KEYS: Record<string, { surahId: number; ayahNumber: number; label: s
   sabah:   [
     { surahId: 17, ayahNumber: 78,  label: "17:78"  },
     { surahId: 20, ayahNumber: 130, label: "20:130" },
-    { surahId: 52, ayahNumber: 48,  label: "52:48"  },
-    { surahId: 11, ayahNumber: 114, label: "11:114" },
+    { surahId: 50, ayahNumber: 39,  label: "50:39"  },
   ],
-  ogle:    [{ surahId: 30, ayahNumber: 17, label: "30:17" }],
+  ogle:    [
+    { surahId: 30, ayahNumber: 18,  label: "30:18"  },
+    { surahId: 17, ayahNumber: 78,  label: "17:78"  },
+  ],
   ikindi:  [
     { surahId: 2,  ayahNumber: 238, label: "2:238"  },
+    { surahId: 20, ayahNumber: 130, label: "20:130" },
     { surahId: 50, ayahNumber: 39,  label: "50:39"  },
   ],
   aksam:   [
-    { surahId: 40, ayahNumber: 55,  label: "40:55"  },
-    { surahId: 76, ayahNumber: 25,  label: "76:25"  },
+    { surahId: 11, ayahNumber: 114, label: "11:114" },
+    { surahId: 30, ayahNumber: 17,  label: "30:17"  },
   ],
   yatsi:   [
-    { surahId: 4,  ayahNumber: 103, label: "4:103"  },
     { surahId: 24, ayahNumber: 58,  label: "24:58"  },
-    { surahId: 78, ayahNumber: 9,   label: "78:9"   },
+    { surahId: 17, ayahNumber: 78,  label: "17:78"  },
+    { surahId: 11, ayahNumber: 114, label: "11:114" },
   ],
+  teheccud: [
+    { surahId: 17, ayahNumber: 79,  label: "17:79"    },
+    { surahId: 73, ayahNumber: 2,   label: "73:2-3"   },
+    { surahId: 25, ayahNumber: 64,  label: "25:64"    },
+    { surahId: 51, ayahNumber: 17,  label: "51:17-18" },
+  ],
+};
+
+// Üst motto ayeti — Nisâ 4:103 (Arapça + meal)
+const MOTTO = {
+  surahId: 4,
+  ayahNumber: 103,
+  label: "Nisâ 4:103",
+  arabic: "فَإِذَا قَضَيْتُمُ ٱلصَّلَوٰةَ فَٱذْكُرُوا۟ ٱللَّهَ قِيَـٰمًا وَقُعُودًا وَعَلَىٰ جُنُوبِكُمْ ۚ فَإِذَا ٱطْمَأْنَنتُمْ فَأَقِيمُوا۟ ٱلصَّلَوٰةَ ۚ إِنَّ ٱلصَّلَوٰةَ كَانَتْ عَلَى ٱلْمُؤْمِنِينَ كِتَـٰبًا مَّوْقُوتًا",
+  meal: "Namazı kıldıktan sonra; ayakta, otururken ve yan yatarken Allah'ı anın. Güvene kavuştuğunuzda namazı gereğince kılın. Şüphesiz namaz, müminlere belirli vakitlerde farz kılınmıştır.",
 };
 
 const VAKIT_META = [
@@ -99,17 +117,29 @@ const VAKIT_META = [
 
 const SURE_ADI: Record<number, string> = {
   2:"Bakara", 4:"Nisâ", 11:"Hûd", 17:"İsrâ", 20:"Tâhâ",
-  24:"Nûr", 30:"Rûm", 40:"Mü'min", 50:"Kâf", 52:"Tûr",
-  76:"İnsân", 78:"Nebe",
+  24:"Nûr", 25:"Furkân", 30:"Rûm", 40:"Mü'min", 50:"Kâf",
+  51:"Zâriyât", 52:"Tûr", 73:"Müzzemmil", 76:"İnsân", 78:"Nebe",
 };
 
-function VakitTablosu({ teheccudVerses }: { teheccudVerses: { surahId: number; ayahNumber: number; label: string }[] }) {
-  const allVakitVerse: Record<string, { surahId: number; ayahNumber: number; label: string }[]> = {
-    ...VAKIT_KEYS,
-    teheccud: teheccudVerses,
-  };
+function VakitTablosu() {
+  const allVakitVerse = VAKIT_KEYS;
 
   return (
+    <>
+    {/* Üst Motto — Nisâ 4:103 ayet + meal */}
+    <TouchableOpacity
+      style={vt.motto}
+      activeOpacity={0.8}
+      onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: MOTTO.surahId, ayahNumber: MOTTO.ayahNumber } })}
+    >
+      <View style={vt.mottoHead}>
+        <Text style={vt.mottoEtiket}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
+        <View style={vt.mottoKey}><Text style={vt.mottoKeyText}>{MOTTO.label}</Text></View>
+      </View>
+      <Text style={vt.mottoArabic}>{MOTTO.arabic}</Text>
+      <Text style={vt.mottoMeal}>“{MOTTO.meal}”</Text>
+    </TouchableOpacity>
+
     <View style={vt.kapsam}>
       {/* Başlık */}
       <View style={vt.baslik}>
@@ -150,6 +180,7 @@ function VakitTablosu({ teheccudVerses }: { teheccudVerses: { surahId: number; a
         );
       })}
     </View>
+    </>
   );
 }
 
@@ -216,7 +247,6 @@ function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: strin
 export default function NamazScreen() {
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
-  const [teheccudVerses, setTeheccudVerses] = useState<{ surahId: number; ayahNumber: number; label: string }[]>([]);
   const [usingFallback, setUsingFallback] = useState(false);
 
   useEffect(() => {
@@ -243,16 +273,6 @@ export default function NamazScreen() {
         if (!cancelled) setUsingFallback(isFallback);
       } catch { /* sessiz — eldeki planlama korunur */ }
     });
-
-    // Teheccüd ayetlerini yükle
-    api.tags.filter("namaz-teheccud").then(res => {
-      if (cancelled) return;
-      setTeheccudVerses(res.results.map(r => ({
-        surahId: r.surah_id,
-        ayahNumber: r.ayah_number,
-        label: r.verse_key,
-      })));
-    }).catch(() => {});
 
     return () => { cancelled = true; };
   }, []);
@@ -337,7 +357,7 @@ export default function NamazScreen() {
         </View>
 
         {/* Namaz Vakitleri Tablosu */}
-        <VakitTablosu teheccudVerses={teheccudVerses} />
+        <VakitTablosu />
 
         {/* Accordion kategoriler */}
         <View style={styles.accordionList}>
@@ -394,6 +414,14 @@ const styles = StyleSheet.create({
 
 // ── Vakit Tablosu Stilleri ────────────────────────────────────────────────────
 const vt = StyleSheet.create({
+  // Üst motto kartı
+  motto:         { margin:12, marginBottom:0, borderRadius:16, borderWidth:1, borderColor:"#a7f3d0", backgroundColor:"#ecfdf5", padding:14 },
+  mottoHead:     { flexDirection:"row", alignItems:"center", justifyContent:"space-between", marginBottom:8 },
+  mottoEtiket:   { flex:1, fontSize:10, fontWeight:"700", color:"#059669", textTransform:"uppercase", letterSpacing:0.5 },
+  mottoKey:      { backgroundColor:"#d1fae5", borderRadius:6, paddingHorizontal:6, paddingVertical:2 },
+  mottoKeyText:  { fontSize:10, fontWeight:"700", color:"#047857" },
+  mottoArabic:   { fontSize:20, lineHeight:36, color:"#1c1917", textAlign:"right", writingDirection:"rtl", fontFamily:"Amiri", marginBottom:8 },
+  mottoMeal:     { fontSize:13, lineHeight:20, color:"#57534e", fontStyle:"italic" },
   kapsam:        { margin:12, marginBottom:0, borderRadius:16, borderWidth:1, borderColor:"#e7e5e4", overflow:"hidden", backgroundColor:"#fafaf9" },
   baslik:        { flexDirection:"row", alignItems:"center", gap:8, backgroundColor:"#fff", paddingHorizontal:14, paddingVertical:10, borderBottomWidth:1, borderBottomColor:"#e7e5e4" },
   baslikIkon:    { fontSize:16 },
