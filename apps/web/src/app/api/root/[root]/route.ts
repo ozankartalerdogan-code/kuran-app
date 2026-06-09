@@ -55,7 +55,7 @@ export async function GET(
     }, {
       headers: {
         // kök detayı statik — agresif CDN cache, her tıklamada ağır sorgu çalışmasın
-        "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
       },
     });
   } catch (err) {

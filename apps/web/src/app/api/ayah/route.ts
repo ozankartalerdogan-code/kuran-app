@@ -175,7 +175,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(body, {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400",
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=86400",
       },
     });
   } catch (err) {
