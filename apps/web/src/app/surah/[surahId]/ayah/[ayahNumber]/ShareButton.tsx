@@ -18,7 +18,7 @@ export function ShareButton({ verseKey, meal, surahName, surahId, ayahNumber }: 
   const wrapRef = useRef<HTMLDivElement>(null);
 
   const ref  = `${surahName ?? `Sure ${surahId}`} ${surahId}:${ayahNumber}`;
-  const text = meal ? `${meal} — ${ref} | Kuran App` : `${ref} | Kuran App`;
+  const text = meal ? `${meal} — ${ref} | Kuran Yolu` : `${ref} | Kuran Yolu`;
   const ogUrl = `/api/share/${verseKey}`;
 
   useEffect(() => {

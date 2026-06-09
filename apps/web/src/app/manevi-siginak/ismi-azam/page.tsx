@@ -12,7 +12,7 @@ import {
   type KorunmaDuasi,
 } from "../../../data/ismi-azam-dualari";
 
-export const metadata = { title: "İsmi Azam ve Korunma Duaları — KuranApp" };
+export const metadata = { title: "İsmi Azam ve Korunma Duaları — Kuran Yolu" };
 
 // ── Ortak UI ──────────────────────────────────────────────────────────────────
 

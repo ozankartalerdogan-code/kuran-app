@@ -5,7 +5,7 @@ import { BolumAkordeon } from "./BolumAkordeon";
 import { fetchVerses } from "./fetchVerses";
 import type { VerseCardData } from "../../components/VerseCard";
 
-export const metadata = { title: "Manevi Sığınak — KuranApp" };
+export const metadata = { title: "Manevi Sığınak — Kuran Yolu" };
 
 // ── Ortak bileşenler ──────────────────────────────────────────────────────────
 

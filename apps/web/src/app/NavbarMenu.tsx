@@ -55,7 +55,7 @@ export function NavbarMenu() {
           aria-label="Ana sayfaya git"
           className="shrink-0 text-sm font-semibold text-stone-800 hover:text-emerald-700 dark:text-stone-200 dark:hover:text-emerald-400"
         >
-          📖 Kuran App
+          📖 Kuran Yolu
         </Link>
 
         {/* Masaüstü: ek linkler */}

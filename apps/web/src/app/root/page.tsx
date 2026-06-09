@@ -4,7 +4,7 @@ import type { RootItem } from "../../types/root";
 import RootListClient from "./RootListClient";
 
 export const metadata: Metadata = {
-  title: "Kelime Kökleri — KuranApp",
+  title: "Kelime Kökleri — Kuran Yolu",
   description: "En çok geçen 200 Arapça kök ve anlamları",
 };
 

@@ -157,7 +157,7 @@ export async function GET(
             <span style={{
               color: "rgba(255,255,255,0.9)",
               fontSize: 22, fontWeight: 700, letterSpacing: 1,
-            }}>KuranApp</span>
+            }}>Kuran Yolu</span>
           </div>
           <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 17 }}>
             {label}

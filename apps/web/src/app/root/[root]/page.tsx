@@ -10,7 +10,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const root = decodeURIComponent(params.root);
   return {
-    title: `Kök: ${root} — KuranApp`,
+    title: `Kök: ${root} — Kuran Yolu`,
     description: `${root} kök anlamı ve sure dağılımı`,
   };
 }

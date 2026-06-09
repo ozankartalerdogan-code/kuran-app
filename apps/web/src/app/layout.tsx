@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: {
     default:  "Kuran Analiz — Kur'an'ı Okuyun, Anlayın, Keşfedin",
-    template: "%s — KuranApp",
+    template: "%s — Kuran Yolu",
   },
   description:
     "Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
