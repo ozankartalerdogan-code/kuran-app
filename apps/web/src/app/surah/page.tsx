@@ -4,7 +4,7 @@ import { dbAll } from "../../lib/dbUtils";
 import { SurahListClient, type SurahItem } from "./SurahListClient";
 
 export const metadata: Metadata = {
-  title: "Sureler — Kuran Analiz"
+  title: "Sureler — Kuran Yolu"
 };
 
 interface SurahRow {

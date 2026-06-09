@@ -9,11 +9,11 @@ import { MoodTagButton } from "../components/MoodTagButton";
 
 
 export const metadata: Metadata = {
-  title: "Kuran Analiz — Kur'an'ı Okuyun, Anlayın, Keşfedin",
+  title: "Kuran Yolu — Kur'an'ı Okuyun, Anlayın, Keşfedin",
   description:
     "Günlük ayet, Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve namaz vakitleri.",
   openGraph: {
-    title:       "Kuran Analiz",
+    title:       "Kuran Yolu",
     description: "Günlük ayet, meal, kelime analizi ve dua kategorileri.",
     url:         "/",
   },
@@ -185,11 +185,18 @@ export default async function HomePage() {
           {hijriDate && (
             <p className="mb-3 text-sm font-medium text-emerald-200/80">{hijriDate}</p>
           )}
-          <h1 className="mb-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Kuran Analiz
+          <h1
+            dir="rtl"
+            lang="ar"
+            className="mb-3 font-arabic text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl"
+          >
+            ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ
           </h1>
-          <p className="mb-8 text-lg text-emerald-100/80">
-            Kur&apos;an-ı Kerim&apos;i okuyun, anlayın, keşfedin
+          <p className="mb-1 text-lg font-semibold text-white">
+            “Yaratan Rabbinin adıyla oku!”
+          </p>
+          <p className="mb-8 text-sm text-emerald-200/70">
+            Alak suresi, 1. ayet
           </p>
 
           {/* Search */}

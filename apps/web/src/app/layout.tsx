@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default:  "Kuran Analiz — Kur'an'ı Okuyun, Anlayın, Keşfedin",
+    default:  "Kuran Yolu — Kur'an'ı Okuyun, Anlayın, Keşfedin",
     template: "%s — Kuran Yolu",
   },
   description:
@@ -13,16 +13,16 @@ export const metadata: Metadata = {
   // Ölü "kuranapp.vercel.app" yerine canlı domain — OG görsel URL'leri buna göre çözülür.
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://kuran-app-web-ozan-s-projects8.vercel.app"),
   openGraph: {
-    siteName:    "Kuran Analiz",
+    siteName:    "Kuran Yolu",
     locale:      "tr_TR",
     type:        "website",
-    title:       "Kuran Analiz",
+    title:       "Kuran Yolu",
     description: "Türkçe meal, kelime analizi, kök açıklamaları ve dua kategorileri.",
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card:        "summary_large_image",
-    title:       "Kuran Analiz",
+    title:       "Kuran Yolu",
     description: "Türkçe meal, kelime analizi ve dua kategorileri.",
   },
   manifest: "/manifest.json",

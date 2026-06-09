@@ -57,7 +57,7 @@ interface PageProps {
 }
 
 // Ayete özel paylaşım/önizleme metadata'sı (WhatsApp/Telegram/sosyal kartı).
-// Olmadan tüm ayet linkleri layout'taki jenerik "Kuran Analiz" kartını gösteriyordu.
+// Olmadan tüm ayet linkleri layout'taki jenerik "Kuran Yolu" kartını gösteriyordu.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const surahId    = Number(params.surahId);
   const ayahNumber = Number(params.ayahNumber);
