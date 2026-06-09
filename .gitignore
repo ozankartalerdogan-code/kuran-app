@@ -45,3 +45,7 @@ scripts/_*_backup_*.json
 scripts/_*_results.txt
 
 .vercel
+
+# Gömülü prod verisi (Turso yerine deploy ile gider)
+!apps/web/data/
+!apps/web/data/app_bundle.db

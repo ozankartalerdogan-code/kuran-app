@@ -18,7 +18,24 @@ import { DatabaseSync as _DatabaseSync } from "node:sqlite";
 
 // ── Turso ─────────────────────────────────────────────────────────────────────
 
-const USE_TURSO = !!(
+// ── Gömülü (bundle) SQLite tespiti ────────────────────────────────────────────
+// Repoda apps/web/data/app_bundle.db varsa, Turso'yu tamamen atla ve veriyi
+// kodla birlikte deploy edilen bu dosyadan oku. Böylece "hangi DB" sorunu biter.
+function resolveBundlePath(): string | null {
+  const candidates = [
+    process.env.DATA_PATH ? path.join(process.env.DATA_PATH, "app_bundle.db") : "",
+    path.resolve(process.cwd(), "data", "app_bundle.db"),
+    path.resolve(process.cwd(), "apps", "web", "data", "app_bundle.db"),
+    path.resolve(__dirname, "..", "..", "data", "app_bundle.db"),
+  ].filter(Boolean) as string[];
+  for (const p of candidates) {
+    try { if (fs.existsSync(p)) return p; } catch { /* ignore */ }
+  }
+  return null;
+}
+const BUNDLE_PATH = resolveBundlePath();
+
+const USE_TURSO = !BUNDLE_PATH && !!(
   process.env.TURSO_DB_URL && process.env.TURSO_AUTH_TOKEN
 );
 
@@ -81,7 +98,9 @@ async function ensureTursoIndexes(): Promise<void> {
 
 // ── Yerel SQLite (dev / fallback) ─────────────────────────────────────────────
 
-const DB_PATH = process.env.DATA_PATH
+const DB_PATH = BUNDLE_PATH
+  ? BUNDLE_PATH
+  : process.env.DATA_PATH
   ? path.join(process.env.DATA_PATH, "app.db")
   : path.resolve(process.cwd(), "..", "..", "data", "app.db");
 
@@ -98,7 +117,11 @@ let _localDb: _DatabaseSync | null = null;
 function getLocalDb(): _DatabaseSync {
   if (_localDb === null) {
     _localDb = new _DatabaseSync(DB_PATH, { readOnly: true });
-    _localDb.exec(READ_PRAGMAS);
+    // Salt-okunur bundle'da (Vercel read-only FS) WAL pragma hata verebilir;
+    // her pragma'yı tek tek dene, başarısız olanı yut.
+    for (const stmt of READ_PRAGMAS.split(";").map((s) => s.trim()).filter(Boolean)) {
+      try { _localDb.exec(stmt); } catch { /* read-only ortamda yoksay */ }
+    }
   }
   return _localDb;
 }

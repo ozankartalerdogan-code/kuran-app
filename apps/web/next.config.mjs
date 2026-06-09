@@ -1,3 +1,7 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
@@ -8,6 +12,12 @@ const nextConfig = {
     "@quran-app/ui",
     "@quran-app/storage",
   ],
+  // Monorepo kökü — tracing'in doğru dosyaları toplaması için
+  outputFileTracingRoot: path.join(__dirname, "../../"),
+  // Gömülü SQLite'ı API fonksiyonlarının deploy paketine dahil et
+  outputFileTracingIncludes: {
+    "/api/**": ["./data/app_bundle.db"],
+  },
   experimental: {
     forceSwcTransforms: true,
   },
