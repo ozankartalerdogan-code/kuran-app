@@ -109,7 +109,6 @@ const READ_PRAGMAS = `
   PRAGMA mmap_size     = 268435456;
   PRAGMA temp_store    = MEMORY;
   PRAGMA busy_timeout  = 5000;
-  PRAGMA journal_mode  = WAL;
 `;
 
 let _localDb: _DatabaseSync | null = null;
