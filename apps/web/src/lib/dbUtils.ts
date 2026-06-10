@@ -39,24 +39,29 @@ const USE_TURSO = !BUNDLE_PATH && !!(
   process.env.TURSO_DB_URL && process.env.TURSO_AUTH_TOKEN
 );
 
-// KISA ÖMÜRLÜ client — uzun-ömürlü singleton serverless'te BAYAT okuma yapıyordu
-// (Turso bağlantısı eski bir snapshot'ta kalıp sonradan commit'lenen yazıları
-// görmüyordu: dbGet 138 dönerken taze client 536 okuyordu). Çözüm: client'ı
-// kısa bir TTL ile periyodik yenile. Tek istekteki ardışık sorgular aynı
-// client'ı paylaşır (hızlı), ama birkaç saniyede bir tazelenir (bayatlamaz).
+// Lazy singleton.
+//
+// KÖK SORUN (çözüldü): libsql HTTP transport'u global `fetch` kullanır.
+// Next.js global fetch'i sarıp isteği (URL + SQL gövdesi) anahtarlayarak
+// CACHE'liyordu → aynı SQL metni hep eski sonucu döndürüyordu (force-dynamic
+// bile bu iç fetch'i durdurmuyordu; tek boşluk değişince taze geliyordu).
+// Çözüm: libsql'e cache:'no-store' uygulayan özel bir fetch ver → Next cache'i
+// tamamen baypas, her sorgu taze. (https:// şeması HTTP transport'u seçer ki
+// özel fetch devreye girsin.)
 let _tursoClient: Client | null = null;
-let _tursoClientAt = 0;
 let _tursoInitialized = false;
-const CLIENT_TTL_MS = 2000;
 
 function getTursoClient(): Client {
-  const now = Date.now();
-  if (!_tursoClient || now - _tursoClientAt > CLIENT_TTL_MS) {
+  if (!_tursoClient) {
+    const url = (process.env.TURSO_DB_URL ?? "").replace(/^libsql:\/\//, "https://");
     _tursoClient = createClient({
-      url:       process.env.TURSO_DB_URL!,
+      url,
       authToken: process.env.TURSO_AUTH_TOKEN!,
+      fetch: ((...args: Parameters<typeof fetch>) => {
+        const [input, init] = args;
+        return fetch(input, { ...init, cache: "no-store" });
+      }) as typeof fetch,
     });
-    _tursoClientAt = now;
   }
   return _tursoClient;
 }
