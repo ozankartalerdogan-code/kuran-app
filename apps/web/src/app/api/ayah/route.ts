@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import { dbAll, dbGet } from "../../../lib/dbUtils";
+import { dbAll, dbGet, getDataSource } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
 
 interface SurahRow {
@@ -114,6 +114,16 @@ export async function GET(req: NextRequest) {
 
     if (!verse) {
       return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
+    }
+
+    // GEÇİCİ TEŞHİS: bu fonksiyonun gördüğü kaynak + ham literal uzunluğu
+    if (req.nextUrl.searchParams.get("__debug") === "1") {
+      return NextResponse.json({
+        dataSource: getDataSource(),
+        rawLiteralLen: verse.literal_ceviri?.length ?? null,
+        rawLiteralHead: (verse.literal_ceviri ?? "").slice(0, 40),
+        commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "local",
+      }, { headers: { "Cache-Control": "no-store" } });
     }
 
     const words = await dbAll<WordRow>(`
