@@ -116,12 +116,25 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Ayet bulunamadı" }, { status: 404 });
     }
 
-    // GEÇİCİ TEŞHİS: bu fonksiyonun gördüğü kaynak + ham literal uzunluğu
+    // GEÇİCİ TEŞHİS: dbGet (paylaşılan client) vs bağımsız taze client
     if (req.nextUrl.searchParams.get("__debug") === "1") {
+      const u = process.env.TURSO_DB_URL ?? "";
+      const tk = process.env.TURSO_AUTH_TOKEN ?? "";
+      let freshLen: number | string = "n/a";
+      try {
+        const { createClient } = await import("@libsql/client");
+        const c = createClient({ url: u, authToken: tk });
+        const r = await c.execute({ sql: "SELECT LENGTH(literal_ceviri) AS n FROM verses WHERE verse_key = ?", args: ["2:255"] });
+        freshLen = Number(r.rows[0]?.n ?? -1);
+      } catch (e) {
+        freshLen = "ERR:" + (e instanceof Error ? e.message.split("\n")[0] : String(e));
+      }
       return NextResponse.json({
         dataSource: getDataSource(),
-        rawLiteralLen: verse.literal_ceviri?.length ?? null,
-        rawLiteralHead: (verse.literal_ceviri ?? "").slice(0, 40),
+        dbGet_rawLiteralLen: verse.literal_ceviri?.length ?? null,
+        freshClient_literalLen: freshLen,
+        fullUrl: u,
+        tokenLen: tk.length,
         commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "local",
       }, { headers: { "Cache-Control": "no-store" } });
     }
