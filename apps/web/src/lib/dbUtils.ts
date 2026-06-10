@@ -39,21 +39,24 @@ const USE_TURSO = !BUNDLE_PATH && !!(
   process.env.TURSO_DB_URL && process.env.TURSO_AUTH_TOKEN
 );
 
-// Lazy singleton — sunucu start'ta bir kez oluşturulur
+// KISA ÖMÜRLÜ client — uzun-ömürlü singleton serverless'te BAYAT okuma yapıyordu
+// (Turso bağlantısı eski bir snapshot'ta kalıp sonradan commit'lenen yazıları
+// görmüyordu: dbGet 138 dönerken taze client 536 okuyordu). Çözüm: client'ı
+// kısa bir TTL ile periyodik yenile. Tek istekteki ardışık sorgular aynı
+// client'ı paylaşır (hızlı), ama birkaç saniyede bir tazelenir (bayatlamaz).
 let _tursoClient: Client | null = null;
+let _tursoClientAt = 0;
 let _tursoInitialized = false;
+const CLIENT_TTL_MS = 2000;
 
 function getTursoClient(): Client {
-  if (!_tursoClient) {
-    // ÖNEMLİ: libsql:// şeması websocket (Hrana/WS) kullanır; serverless'te
-    // uzun-ömürlü singleton bu kalıcı stream üzerinden BAYAT okuma yapıyordu
-    // (sunucu tarafı snapshot sonradan commit'lenen yazıları görmüyor).
-    // https:// şemasına geçince transport durumsuz HTTP olur → her sorgu taze.
-    const url = (process.env.TURSO_DB_URL ?? "").replace(/^libsql:\/\//, "https://");
+  const now = Date.now();
+  if (!_tursoClient || now - _tursoClientAt > CLIENT_TTL_MS) {
     _tursoClient = createClient({
-      url,
+      url:       process.env.TURSO_DB_URL!,
       authToken: process.env.TURSO_AUTH_TOKEN!,
     });
+    _tursoClientAt = now;
   }
   return _tursoClient;
 }
