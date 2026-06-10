@@ -120,21 +120,25 @@ export async function GET(req: NextRequest) {
     if (req.nextUrl.searchParams.get("__debug") === "1") {
       const u = process.env.TURSO_DB_URL ?? "";
       const tk = process.env.TURSO_AUTH_TOKEN ?? "";
-      let freshLen: number | string = "n/a";
+      const probe: Record<string, unknown> = {};
       try {
         const { createClient } = await import("@libsql/client");
         const c = createClient({ url: u, authToken: tk });
-        const r = await c.execute({ sql: "SELECT LENGTH(literal_ceviri) AS n FROM verses WHERE verse_key = ?", args: ["2:255"] });
-        freshLen = Number(r.rows[0]?.n ?? -1);
+        // A: LENGTH sorgusu (önceden 536 dönüyordu)
+        const a = await c.execute({ sql: "SELECT LENGTH(literal_ceviri) AS n FROM verses WHERE verse_key = ?", args: ["2:255"] });
+        probe.A_length = Number(a.rows[0]?.n ?? -1);
+        // B: dbGet ile BIREBIR ayni cok-kolonlu sorgu
+        const b = await c.execute({ sql: "SELECT verse_key, arabic_text, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?", args: ["2:255"] });
+        probe.B_multicol_literalLen = (b.rows[0]?.literal_ceviri as string | null)?.length ?? null;
+        // C: ayni sorgu ama fazladan bosluk (SQL-text cache busting)
+        const cc = await c.execute({ sql: "SELECT  verse_key, literal_ceviri  FROM verses WHERE verse_key = ?", args: ["2:255"] });
+        probe.C_spaced_literalLen = (cc.rows[0]?.literal_ceviri as string | null)?.length ?? null;
       } catch (e) {
-        freshLen = "ERR:" + (e instanceof Error ? e.message.split("\n")[0] : String(e));
+        probe.err = e instanceof Error ? e.message.split("\n")[0] : String(e);
       }
       return NextResponse.json({
-        dataSource: getDataSource(),
         dbGet_rawLiteralLen: verse.literal_ceviri?.length ?? null,
-        freshClient_literalLen: freshLen,
-        fullUrl: u,
-        tokenLen: tk.length,
+        freshProbe: probe,
         commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "local",
       }, { headers: { "Cache-Control": "no-store" } });
     }
