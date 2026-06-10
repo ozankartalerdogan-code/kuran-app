@@ -45,8 +45,13 @@ let _tursoInitialized = false;
 
 function getTursoClient(): Client {
   if (!_tursoClient) {
+    // ÖNEMLİ: libsql:// şeması websocket (Hrana/WS) kullanır; serverless'te
+    // uzun-ömürlü singleton bu kalıcı stream üzerinden BAYAT okuma yapıyordu
+    // (sunucu tarafı snapshot sonradan commit'lenen yazıları görmüyor).
+    // https:// şemasına geçince transport durumsuz HTTP olur → her sorgu taze.
+    const url = (process.env.TURSO_DB_URL ?? "").replace(/^libsql:\/\//, "https://");
     _tursoClient = createClient({
-      url:       process.env.TURSO_DB_URL!,
+      url,
       authToken: process.env.TURSO_AUTH_TOKEN!,
     });
   }
