@@ -14,6 +14,8 @@
     "upload:audio:force": "node --input-type=module scripts/upload-audio-to-r2.js --force",
     "build": "npm run build -ws --if-present",
     "typecheck": "npm run typecheck -ws --if-present",
+    "test": "node --test \"apps/web/src/lib/**/*.test.ts\"",
+    "test:data": "node --test \"apps/web/src/__tests__/**/*.test.ts\"",
     "verify:live": "node scripts/verify-live.mjs",
     "sync:diff": "node --env-file=apps/web/.env.local scripts/sync-diff-to-turso.mjs",
     "sync:diff:dry": "node --env-file=apps/web/.env.local scripts/sync-diff-to-turso.mjs --dry",
