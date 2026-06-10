@@ -20,6 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/ibadet-rehberi", "weekly", 0.7],
     ["/manevi-siginak", "weekly", 0.7],
     ["/manevi-siginak/ismi-azam", "weekly", 0.7],
+    ["/esma", "weekly", 0.8],
     ["/root", "weekly", 0.6],
     ["/hatim", "weekly", 0.6],
     ["/mushaf", "weekly", 0.6],

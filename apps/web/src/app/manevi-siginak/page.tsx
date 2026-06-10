@@ -613,6 +613,27 @@ export default async function ManeviSiginakPage() {
         </Link>
       </div>
 
+      {/* Esmaül Hüsna Linki */}
+      <div className="mb-8">
+        <Link
+          href="/esma"
+          className="group block overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 transition-shadow hover:shadow-md dark:border-emerald-800/50 dark:from-emerald-950/40 dark:to-teal-950/20"
+        >
+          <div className="flex items-center gap-4 px-5 py-4">
+            <span className="text-3xl">📿</span>
+            <div className="flex-1">
+              <p className="text-sm font-bold text-emerald-800 dark:text-emerald-300 group-hover:underline">
+                Esmaül Hüsna — 99 İsim
+              </p>
+              <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
+                Allah'ın 99 güzel ismi: Arapça yazılışı, okunuşu ve açıklayıcı anlamlarıyla.
+              </p>
+            </div>
+            <span className="text-emerald-400 dark:text-emerald-500 transition-transform group-hover:translate-x-0.5">→</span>
+          </div>
+        </Link>
+      </div>
+
       <div className="mb-3 mt-8">
         <div className="mb-1 flex items-center gap-2">
           <span className="text-base leading-none">📖</span>
