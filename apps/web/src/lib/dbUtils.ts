@@ -152,6 +152,25 @@ export async function dbAll<T>(sql: string, ...args: unknown[]): Promise<T[]> {
   return db.prepare(sql).all(...(args as any[])) as T[];
 }
 
+/**
+ * Canlının HANGİ veri kaynağını okuduğunu dışa verir.
+ * /api/version bununla "bundle mı Turso mu" sorusunu tek istekte yanıtlar;
+ * "sessiz veri uyuşmazlığı" hatası böylece görünür hale gelir.
+ */
+export function getDataSource(): {
+  source: "bundle" | "turso" | "local-app.db";
+  detail: string;
+} {
+  if (BUNDLE_PATH) return { source: "bundle", detail: path.basename(BUNDLE_PATH) };
+  if (USE_TURSO) {
+    let host = "";
+    const u = process.env.TURSO_DB_URL ?? "";
+    try { host = new URL(u.replace(/^libsql:/, "https:")).host; } catch { /* yoksay */ }
+    return { source: "turso", detail: host };
+  }
+  return { source: "local-app.db", detail: DB_PATH };
+}
+
 export async function dbGet<T>(sql: string, ...args: unknown[]): Promise<T | undefined> {
   if (USE_TURSO) {
     await ensureTursoIndexes();
