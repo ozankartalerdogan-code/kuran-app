@@ -17,6 +17,7 @@
     "verify:live": "node scripts/verify-live.mjs",
     "sync:diff": "node --env-file=apps/web/.env.local scripts/sync-diff-to-turso.mjs",
     "sync:diff:dry": "node --env-file=apps/web/.env.local scripts/sync-diff-to-turso.mjs --dry",
+    "backup": "node --env-file=apps/web/.env.local scripts/backup-db.mjs",
     "smoke:surah-context": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-surah-context.ts",
     "smoke:analysis-engine-v1": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-analysis-engine-v1.ts",
     "smoke:analysis-engine-v1:snapshots": "node --no-warnings --loader ./scripts/ts-extension-loader.mjs scripts/smoke-analysis-engine-v1-snapshots.ts",
