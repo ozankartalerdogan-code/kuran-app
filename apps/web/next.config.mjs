@@ -14,10 +14,6 @@ const nextConfig = {
   ],
   // Monorepo kökü — tracing'in doğru dosyaları toplaması için
   outputFileTracingRoot: path.join(__dirname, "../../"),
-  // Gömülü SQLite'ı API fonksiyonlarının deploy paketine dahil et
-  outputFileTracingIncludes: {
-    "/api/**": ["./data/app_bundle.db"],
-  },
   experimental: {
     forceSwcTransforms: true,
   },
