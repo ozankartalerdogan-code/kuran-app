@@ -287,7 +287,7 @@ export default function OgrenScreen() {
         >
           <Text style={{ fontSize: 26 }}>☀️🌙</Text>
           <View style={{ flex: 1 }}>
-            <Text style={[s.bonusTitle, { color: c.text }]}>Bonus Konu: Harf-i Tarif</Text>
+            <Text style={[s.bonusTitle, { color: c.text }]}>Harf-i Tarif</Text>
             <Text style={[s.bonusSub, { color: c.textMuted }]}>
               Şemsiye / Kameriye harfler — &apos;el-&apos; neden er-, es- olur? 25 soruluk test.
             </Text>

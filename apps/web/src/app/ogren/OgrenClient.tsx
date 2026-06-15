@@ -929,7 +929,7 @@ export function OgrenClient({ dersler }: { dersler: DersWithHarfler[] }) {
           <span className="text-3xl">☀️🌙</span>
           <div className="flex-1">
             <p className="text-sm font-bold text-stone-800 dark:text-stone-100 group-hover:underline">
-              Bonus Konu: Harf-i Tarif (Şemsiye / Kameriye)
+              Harf-i Tarif (Şemsiye / Kameriye)
             </p>
             <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
               &apos;el-&apos; takısı neden er-, es-, en- okunur? 14+14 harf, Esmaül Hüsna örnekleri ve 25 soruluk test.
