@@ -46,14 +46,17 @@ function sample(arr, n, exclude = []) {
   return pool.slice(0, n);
 }
 // benzer harflerden, eksikse rastgele harflerden n çeldirici (id listesi)
-function distractorLetters(id, n) {
-  let ids = shuffle(similarIds(id));
+// pred: opsiyonel filtre (ör. sadece birleşen harfler — başta-şekli soruları için)
+function distractorLetters(id, n, pred = null) {
+  const ok = (x) => x !== id && (!pred || pred(byId.get(x)));
+  let ids = shuffle(similarIds(id).filter(ok));
   if (ids.length < n) {
-    const rest = shuffle(harfler.map((h) => h.harf_id).filter((x) => x !== id && !ids.includes(x)));
+    const rest = shuffle(harfler.map((h) => h.harf_id).filter((x) => ok(x) && !ids.includes(x)));
     ids = [...ids, ...rest];
   }
   return ids.slice(0, n).map((x) => byId.get(x));
 }
+const isConnecting = (h) => h.grup === "birlesen";
 const KI = { ince: "İnce okunur", "kalın": "Kalın okunur", "her ikisi": "Hem kalın hem ince okunabilir" };
 
 // secenekler benzersiz olmalı + correct içinde olmalı; değilse soruyu atla (null)
@@ -74,7 +77,7 @@ const GEN = [
     sample(allSesler, 3, [h.harf_sesi]), `Bu harfin adı "${h.harf_adi}".`, 2),
   (h) => h.grup === "birlesen"
     ? makeQ("basta", h, `'${h.harf_adi}' (${h.tek_basina}) harfinin kelime BAŞINDAKİ şekli hangisidir?`, h.basta,
-        distractorLetters(h.harf_id, 3).map((d) => d.basta), `Başta gelen harfler sonraki harfe bağlanır.`, 2)
+        distractorLetters(h.harf_id, 3, isConnecting).map((d) => d.basta), `Başta gelen harfler sonraki harfe bağlanır.`, 2)
     : null,
   (h) => makeQ("kalin_ince", h, `'${h.harf_adi}' (${h.tek_basina}) harfi nasıl okunur?`, KI[h.kalin_ince],
     Object.values(KI).filter((v) => v !== KI[h.kalin_ince]), `Kalın harfler dolgun, ince harfler yumuşak okunur.`, 2),
