@@ -59,18 +59,22 @@ export default function KibleScreen() {
   const [heading, setHeading]     = useState(0);
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
+  const [src, setSrc]             = useState(""); // teşhis: "mag" | "loc"
 
   const headingBuf = useRef<number[]>([]);
   const headingSub = useRef<{ remove: () => void } | null>(null);
+  const gotData    = useRef(false);
 
   // Heading — Magnetometer (varsa, güvenilir) → yoksa watchHeadingAsync'e düş.
   useEffect(() => {
     if (step !== "compass") return;
 
     let active = true;
+    gotData.current = false;
 
     const onDeg = (deg: number) => {
       if (!active || !(deg >= 0)) return;
+      gotData.current = true;
       headingBuf.current = [...headingBuf.current.slice(-(SMOOTH_N - 1)), deg];
       setHeading(avgAngles(headingBuf.current));
       setCompassOk(true);
@@ -78,15 +82,17 @@ export default function KibleScreen() {
 
     // Bu cihaz/SDK'da watchHeadingAsync bazen hiç event yollamıyor → yedek yol
     const startLocationHeading = () => {
+      setSrc("loc");
       Location.watchHeadingAsync(h => onDeg(h.trueHeading >= 0 ? h.trueHeading : h.magHeading))
         .then(sub => { if (active) headingSub.current = sub; else sub.remove(); })
-        .catch(() => setCompassOk(false));
+        .catch(() => { if (active) setCompassOk(false); });
     };
 
     Magnetometer.isAvailableAsync()
       .then(ok => {
         if (!active) return;
         if (!ok) { startLocationHeading(); return; }
+        setSrc("mag");
         Magnetometer.setUpdateInterval(100);
         const sub = Magnetometer.addListener(({ x, y }) => {
           // Cihaz ekseni: x=sağ, y=üst. Telefon üst kenarının manyetik kuzeyden açısı:
@@ -97,8 +103,14 @@ export default function KibleScreen() {
       })
       .catch(() => { if (active) startLocationHeading(); });
 
+    // 3 sn içinde hiç veri gelmezse net bildir (sessiz "kutu yok" durumunu kaldır)
+    const noDataTimer = setTimeout(() => {
+      if (active && !gotData.current) setCompassOk(false);
+    }, 3000);
+
     return () => {
       active = false;
+      clearTimeout(noDataTimer);
       headingSub.current?.remove();
       headingSub.current = null;
       headingBuf.current = [];
@@ -254,14 +266,14 @@ export default function KibleScreen() {
         {/* Açı */}
         <View style={s.badge}>
           <Text style={s.badgeNum}>{Math.round(qibla ?? 0)}°</Text>
-          <Text style={s.badgeSub}>Kuzeyden Kabe yönü · pusula {Math.round(heading)}°</Text>
+          <Text style={s.badgeSub}>Kuzeyden Kabe yönü · {src || "?"} {Math.round(heading)}°</Text>
         </View>
 
         {/* Durum */}
         {compassOk === false && (
           <View style={[s.infoBox, { borderColor: "#fca5a5", backgroundColor: "#fff1f2" }]}>
             <Text style={[s.infoText, { color: "#991b1b" }]}>
-              ⚠️ Pusula bu cihazda desteklenmiyor. İbre sabit — K yönünü gerçek kuzeyle hizalayın.
+              ⚠️ Pusula verisi alınamıyor ({src || "?"}). Bu cihazda manyetometre yok/kapalı olabilir — başka bir telefonda deneyin. İbre kıble derecesinde sabit kalır.
             </Text>
           </View>
         )}
