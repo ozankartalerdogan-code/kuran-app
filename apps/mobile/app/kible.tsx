@@ -247,26 +247,31 @@ export default function KibleScreen() {
           <Text style={s.distText}>Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km</Text>
         )}
 
-        {/* Dış halka = TELEFON yönü (sabit). Tepedeki ▼ telefonun baktığı yön. */}
-        <View style={[s.outerRing, { width: OUTER, height: OUTER, borderRadius: OUTER / 2 }]}>
-          <Text style={s.phoneTag}>telefon</Text>
-          <Text style={s.phoneMarker}>▼</Text>
+        {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
+        <View style={[s.compassWrap, { width: OUTER, height: OUTER }]}>
 
-          {/* İç daire = PUSULA. Kadran telefon yönüne göre döner (gerçek K/G/D/B). */}
-          <View style={[s.compass, { width: SIZE, height: SIZE, borderRadius: SIZE / 2 }]}>
-            {/* Dönen kadran — K/G/D/B her zaman gerçek coğrafi yönleri gösterir */}
-            <View style={[s.rotLayer, { transform: [{ rotate: `${-heading}deg` }] }]}>
-              <Text style={[s.dir, s.dirN, { top: 8 }]}>K</Text>
-              <Text style={[s.dir, { bottom: 8 }]}>G</Text>
-              <Text style={[s.dir, { right: 12 }]}>D</Text>
-              <Text style={[s.dir, { left: 12 }]}>B</Text>
-            </View>
+          {/* Sabit lubber çizgisi — telefonun baktığı yön (dönmez) */}
+          <Text style={s.lubber}>▼</Text>
 
-            {/* Kabe ibresi — gerçek Kabe yönünü gösterir */}
+          {/* ÜST KADRAN = dönen pusula gülü. K/G/D/B gerçek coğrafi yönleri gösterir. */}
+          <View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: `${-heading}deg` }] }]}>
+            <Text style={[s.dir, s.dirN, { top: 10 }]}>K</Text>
+            <Text style={[s.dir, { bottom: 10 }]}>G</Text>
+            <Text style={[s.dir, { right: 12 }]}>D</Text>
+            <Text style={[s.dir, { left: 12 }]}>B</Text>
+            <View style={[s.tick, s.tickN, { top: 4 }]} />
+            <View style={[s.tick, { bottom: 4 }]} />
+            <View style={[s.tickH, { right: 4 }]} />
+            <View style={[s.tickH, { left: 4 }]} />
+          </View>
+
+          {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
+          <View style={[s.face, { width: SIZE, height: SIZE, borderRadius: SIZE / 2 }]}>
             <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
               <Text style={s.needleEmoji}>🕋</Text>
               <View style={s.needleUp} />
             </View>
+            <View style={s.centerHub} />
           </View>
         </View>
 
@@ -322,24 +327,32 @@ const s = StyleSheet.create({
   cityLabel: { fontSize: 15, fontWeight: "700", color: "#134e4a", marginBottom: 2, marginTop: 4 },
   distText:  { fontSize: 13, color: "#5eead4", marginBottom: 18 },
 
-  // Dış halka — telefon yönü referansı (sabit)
-  outerRing: {
-    backgroundColor: "#ecfeff", borderWidth: 2, borderColor: "#cffafe",
-    alignItems: "center", justifyContent: "center", position: "relative",
-  },
-  phoneTag:    { position: "absolute", top: 4, fontSize: 9, fontWeight: "700", color: "#dc2626", letterSpacing: 1, zIndex: 10 },
-  phoneMarker: { position: "absolute", top: 13, fontSize: 18, color: "#dc2626", zIndex: 10 },
+  // Pusula kapsayıcısı (sabit)
+  compassWrap: { alignItems: "center", justifyContent: "center", position: "relative" },
 
-  compass: {
+  // Sabit lubber çizgisi — telefonun baktığı yön (dönmez)
+  lubber: { position: "absolute", top: -4, fontSize: 22, color: "#dc2626", zIndex: 20 },
+
+  // Üst kadran = dönen pusula gülü (K/G/D/B + tikler)
+  rose: {
+    backgroundColor: "#ecfeff", borderWidth: 2, borderColor: "#a5f3fc",
+    alignItems: "center", justifyContent: "center",
+  },
+  tick:  { position: "absolute", width: 2, height: 9, backgroundColor: "#67e8f9", borderRadius: 1 },
+  tickN: { backgroundColor: "#dc2626", height: 11 },
+  tickH: { position: "absolute", width: 9, height: 2, backgroundColor: "#67e8f9", borderRadius: 1 },
+
+  // İç daire = ibre yüzeyi (gülden bağımsız döner)
+  face: {
     backgroundColor: "#fff", borderWidth: 4, borderColor: "#99f6e4",
-    alignItems: "center", justifyContent: "center", position: "relative",
+    alignItems: "center", justifyContent: "center", position: "absolute",
     shadowColor: "#000", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12, shadowRadius: 12, elevation: 8,
   },
 
-  // Daireyi tam kaplayan dönen katmanlar — merkez etrafında döner
-  rotLayer:    { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center" },
+  // İbreyi tam kaplayan dönen katman — merkez etrafında döner
   needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 8 },
+  centerHub:   { position: "absolute", width: 14, height: 14, borderRadius: 7, backgroundColor: "#059669", borderWidth: 2, borderColor: "#fff" },
 
   dir:  { position: "absolute", fontSize: 13, fontWeight: "700", color: "#6b7280" },
   dirN: { color: "#dc2626" }, // Kuzey kırmızı
