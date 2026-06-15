@@ -18,7 +18,7 @@ export default function EsmaScreen() {
     const q = norm(query);
     if (!q) return ESMA_UL_HUSNA;
     return ESMA_UL_HUSNA.filter(
-      (e) => norm(e.isim).includes(q) || norm(e.anlam).includes(q),
+      (e) => norm(e.isim).includes(q) || norm(e.anlam).includes(q) || norm(e.kokAnlam).includes(q),
     );
   }, [query]);
 
@@ -33,6 +33,11 @@ export default function EsmaScreen() {
           <Text style={[s.arapca, { color: c.text }]}>{item.arapca}</Text>
         </View>
         <Text style={[s.anlam, { color: c.textSecondary ?? c.textMuted }]}>{item.anlam}</Text>
+        <View style={[s.kokRow, { borderTopColor: c.border }]}>
+          <Text style={[s.kokLabel, { color: c.textMuted }]}>KÖK</Text>
+          <Text style={[s.kokArapca, { color: c.accent }]}>{item.kok}</Text>
+          <Text style={[s.kokAnlam, { color: c.textMuted }]}>{item.kokAnlam}</Text>
+        </View>
       </View>
     </View>
   );
@@ -48,7 +53,7 @@ export default function EsmaScreen() {
 
         <TextInput
           style={[s.search, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}
-          placeholder="İsim veya anlam ara…"
+          placeholder="İsim, anlam veya kök ara…"
           placeholderTextColor={c.textMuted}
           value={query}
           onChangeText={setQuery}
@@ -96,5 +101,12 @@ const s = StyleSheet.create({
   isim:   { fontSize: 16, fontWeight: "700", color: "#1c1917", flexShrink: 1 },
   arapca: { fontSize: 22, fontFamily: "Amiri", writingDirection: "rtl", color: "#1c1917" },
   anlam:  { fontSize: 13, color: "#44403c", marginTop: 3, lineHeight: 19 },
+  kokRow: {
+    flexDirection: "row", alignItems: "center", gap: 6,
+    marginTop: 6, paddingTop: 6, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: "#e7e5e4",
+  },
+  kokLabel:  { fontSize: 9, fontWeight: "700", letterSpacing: 0.5 },
+  kokArapca: { fontSize: 15, fontFamily: "Amiri", writingDirection: "rtl" },
+  kokAnlam:  { fontSize: 11.5, flexShrink: 1, lineHeight: 16 },
   empty:  { textAlign: "center", marginTop: 40, fontSize: 14 },
 });

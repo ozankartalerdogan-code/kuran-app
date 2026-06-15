@@ -144,5 +144,13 @@ const ts =
   `export const ESMA_UL_HUSNA: EsmaItem[] = [\n` +
   out.map((e) => `  { sira: ${e.sira}, arapca: ${JSON.stringify(e.arapca)}, isim: ${JSON.stringify(e.isim)}, anlam: ${JSON.stringify(e.anlam)}, kok: ${JSON.stringify(e.kok)}, kokAnlam: ${JSON.stringify(e.kokAnlam)} },`).join("\n") +
   `\n];\n`;
-fs.writeFileSync(path.join(ROOT, "apps", "web", "src", "data", "esmaul-husna.ts"), ts, "utf-8");
-console.log(`\n✅ apps/web/src/data/esmaul-husna.ts yazildi (${out.length} isim, kok+kokAnlam).`);
+
+// Hem web hem MOBİL veri dosyasına yaz (tek kaynaktan, ayrışmasın)
+const targets = [
+  path.join(ROOT, "apps", "web", "src", "data", "esmaul-husna.ts"),
+  path.join(ROOT, "apps", "mobile", "src", "data", "esmaulHusna.ts"),
+];
+for (const t of targets) {
+  fs.writeFileSync(t, ts, "utf-8");
+  console.log(`✅ yazildi: ${path.relative(ROOT, t)} (${out.length} isim, kok+kokAnlam)`);
+}
