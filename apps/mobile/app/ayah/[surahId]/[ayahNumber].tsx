@@ -93,37 +93,20 @@ function isRootClickable(word: AyahDetailResponse["words"][number]): boolean {
 
 // ── Sure Hakkında Accordion ───────────────────────────────────────────────────
 
+// Tefsir ayrı ekranda (/tafsir/[surahId]) gösteriliyor; ayet sayfasında tekrar
+// etmemek için akordiyon yerine o ekrana giden link.
 function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: ThemeColors }) {
-  const [expanded, setExpanded] = useState(false);
-  const [tafsir, setTafsir]     = useState<string | null>(null);
-  const [loading, setLoading]   = useState(false);
-
-  function handleToggle() {
-    if (!expanded && tafsir === null) {
-      setLoading(true);
-      api.tafsir.get(surahId)
-        .then(r => setTafsir(r.content ?? "Bu sure için tefsir özeti bulunamadı."))
-        .catch(() => setTafsir("Tefsir yüklenemedi."))
-        .finally(() => setLoading(false));
-    }
-    setExpanded(e => !e);
-  }
-
   return (
-    <View style={[styles.accordionBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
-      <TouchableOpacity style={styles.accordionHeader} onPress={handleToggle} activeOpacity={0.7}>
-        <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>📖 Sure Hakkında</Text>
-        <Text style={[styles.accordionChevron, { color: colors.textMuted }]}>{expanded ? "▲" : "▼"}</Text>
-      </TouchableOpacity>
-      {expanded && (
-        <View style={styles.accordionBody}>
-          {loading
-            ? <ActivityIndicator size="small" color={colors.accent} />
-            : <Text style={[styles.accordionText, { color: colors.textSecondary }]}>{tafsir}</Text>
-          }
-        </View>
-      )}
-    </View>
+    <TouchableOpacity
+      style={[styles.accordionBox, { backgroundColor: colors.card, borderColor: colors.border }]}
+      onPress={() => router.push(`/tafsir/${surahId}`)}
+      activeOpacity={0.7}
+    >
+      <View style={styles.accordionHeader}>
+        <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>📖 Sure tefsirini oku</Text>
+        <Text style={[styles.accordionChevron, { color: colors.textMuted }]}>→</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
