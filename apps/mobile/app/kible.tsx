@@ -13,7 +13,7 @@ const MECCA     = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
 const SIZE      = Math.min(width - 48, 300);
 const OUTER     = SIZE + 44; // dönen pusula gülü (dış kadran)
-const FACE      = SIZE - 40; // iç ibre dairesi — K/G/D/B bandına yer açacak kadar küçük
+const FACE      = SIZE - 56; // iç ibre dairesi — yön bandına (tik+harf) yer açacak kadar küçük
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
 const MAG_OFFSET = 0; // Magnetometer yön düzeltmesi (gerekirse cihazda ince ayar)
 
@@ -54,6 +54,37 @@ function avgAngles(angles: number[]): number {
   const cosSum = angles.reduce((s, a) => s + Math.cos(toRad(a)), 0);
   return (toDeg(Math.atan2(sinSum / angles.length, cosSum / angles.length)) + 360) % 360;
 }
+
+// 8 yönlü pusula gülü + 30°'lik tik açıları
+const DIRS = [
+  { l: "K",  b: 0,   major: true  },
+  { l: "KD", b: 45,  major: false },
+  { l: "D",  b: 90,  major: true  },
+  { l: "GD", b: 135, major: false },
+  { l: "G",  b: 180, major: true  },
+  { l: "GB", b: 225, major: false },
+  { l: "B",  b: 270, major: true  },
+  { l: "KB", b: 315, major: false },
+];
+const TICKS = Array.from({ length: 12 }, (_, i) => i * 30);
+
+// Yumuşak dikey degrade — expo-linear-gradient yok, katmanlı taklit (build gerektirmez)
+const BgGradient = React.memo(function BgGradient() {
+  const from = [240, 253, 250]; // #f0fdfa
+  const to   = [167, 243, 208]; // #a7f3d0
+  const N = 14;
+  return (
+    <View style={StyleSheet.absoluteFill} pointerEvents="none">
+      {Array.from({ length: N }, (_, i) => {
+        const t = i / (N - 1);
+        const r = Math.round(from[0] + (to[0] - from[0]) * t);
+        const g = Math.round(from[1] + (to[1] - from[1]) * t);
+        const b = Math.round(from[2] + (to[2] - from[2]) * t);
+        return <View key={i} style={{ flex: 1, backgroundColor: `rgb(${r},${g},${b})` }} />;
+      })}
+    </View>
+  );
+});
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
@@ -229,18 +260,14 @@ export default function KibleScreen() {
     <>
       <Stack.Screen options={{ title: "Kıble Yönü" }} />
       <View style={s.container}>
+        <BgGradient />
 
-        {/* Kalibrasyon uyarısı */}
+        {/* Kalibrasyon — sade tek satır */}
         {showCalib && (
-          <View style={s.calibCard}>
-            <Text style={s.calibTitle}>🔄 Kalibrasyon Önerisi</Text>
-            <Text style={s.calibText}>
-              Pusulanın doğruluğunu artırmak için telefonu <Text style={{ fontWeight: "700" }}>8 şeklinde</Text> birkaç kez hareket ettirin.
-            </Text>
-            <TouchableOpacity onPress={() => setShowCalib(false)} style={s.calibClose}>
-              <Text style={s.calibCloseText}>Anladım ✕</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={s.calibSlim} onPress={() => setShowCalib(false)} activeOpacity={0.8}>
+            <Text style={s.calibSlimText}>🔄 Doğruluk için telefonu <Text style={{ fontWeight: "800" }}>8 şeklinde</Text> birkaç kez çevirin</Text>
+            <Text style={s.calibSlimX}>✕</Text>
+          </TouchableOpacity>
         )}
 
         <Text style={s.cityLabel}>{cityName}</Text>
@@ -256,22 +283,39 @@ export default function KibleScreen() {
 
           {/* ÜST KADRAN = dönen pusula gülü. Harfler konumları döner ama dik kalır. */}
           <View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: `${-heading}deg` }] }]}>
-            <Text style={[s.dir, s.dirN, { top: 9,    transform: [{ rotate: `${heading}deg` }] }]}>K</Text>
-            <Text style={[s.dir, { bottom: 9, transform: [{ rotate: `${heading}deg` }] }]}>G</Text>
-            <Text style={[s.dir, { right: 11, transform: [{ rotate: `${heading}deg` }] }]}>D</Text>
-            <Text style={[s.dir, { left: 11,  transform: [{ rotate: `${heading}deg` }] }]}>B</Text>
-            <View style={[s.tick, s.tickN, { top: 3 }]} />
-            <View style={[s.tick, { bottom: 3 }]} />
-            <View style={[s.tickH, { right: 3 }]} />
-            <View style={[s.tickH, { left: 3 }]} />
+            {TICKS.map((a) => (
+              <View key={`t${a}`} style={[s.tickLayer, { transform: [{ rotate: `${a}deg` }] }]}>
+                <View style={[s.tickMark, a % 90 === 0 ? s.tickMajor : null, a === 0 ? s.tickN : null]} />
+              </View>
+            ))}
+            {DIRS.map((d) => (
+              <View key={d.l} style={[s.dirLayer, { transform: [{ rotate: `${d.b}deg` }] }]}>
+                <Text
+                  style={[
+                    s.dir,
+                    d.major ? s.dirMajor : s.dirMinor,
+                    d.b === 0 ? s.dirN : null,
+                    { transform: [{ rotate: `${heading - d.b}deg` }] },
+                  ]}
+                >
+                  {d.l}
+                </Text>
+              </View>
+            ))}
           </View>
 
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
           <View style={[s.face, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
+            {/* Kuyruk (zıt yön) — denge için */}
+            <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle + 180}deg` }] }]}>
+              <View style={[s.needleTail, { height: FACE / 2 - 34 }]} />
+            </View>
+            {/* Kabe oku */}
             <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
-              {/* 🕋 dik kalsın diye ters döndür */}
-              <Text style={[s.needleEmoji, { transform: [{ rotate: `${-needleAngle}deg` }] }]}>🕋</Text>
-              <View style={s.needleUp} />
+              <View style={s.kaabaBadge}>
+                <Text style={[s.needleEmoji, { transform: [{ rotate: `${-needleAngle}deg` }] }]}>🕋</Text>
+              </View>
+              <View style={[s.needleUp, { height: FACE / 2 - 56 }]} />
             </View>
             <View style={s.centerHub} />
           </View>
@@ -317,17 +361,17 @@ const s = StyleSheet.create({
   loadingText: { fontSize: 16, fontWeight: "600", color: "#134e4a", marginTop: 8 },
   loadingSub:  { fontSize: 12, color: "#5eead4" },
 
-  calibCard: {
-    width: "100%", backgroundColor: "#fefce8", borderRadius: 12,
-    borderWidth: 1, borderColor: "#fde047", padding: 12, marginBottom: 10,
+  // Sade kalibrasyon çubuğu
+  calibSlim: {
+    width: "100%", flexDirection: "row", alignItems: "center", gap: 8,
+    backgroundColor: "#fefce8", borderRadius: 10, borderWidth: 1, borderColor: "#fde68a",
+    paddingVertical: 9, paddingHorizontal: 12, marginBottom: 12,
   },
-  calibTitle:     { fontSize: 13, fontWeight: "700", color: "#854d0e", marginBottom: 4 },
-  calibText:      { fontSize: 12, color: "#92400e", lineHeight: 18 },
-  calibClose:     { alignSelf: "flex-end", marginTop: 6 },
-  calibCloseText: { fontSize: 12, color: "#a16207", fontWeight: "600" },
+  calibSlimText: { flex: 1, fontSize: 12, color: "#92400e", lineHeight: 17 },
+  calibSlimX:    { fontSize: 13, color: "#a16207", fontWeight: "700", paddingHorizontal: 2 },
 
-  cityLabel: { fontSize: 15, fontWeight: "700", color: "#134e4a", marginBottom: 2, marginTop: 4 },
-  distText:  { fontSize: 13, color: "#5eead4", marginBottom: 18 },
+  cityLabel: { fontSize: 15, fontWeight: "700", color: "#134e4a", marginBottom: 2, marginTop: 2 },
+  distText:  { fontSize: 13, color: "#0d9488", marginBottom: 18 },
 
   // Pusula kapsayıcısı (sabit)
   compassWrap: { alignItems: "center", justifyContent: "center", position: "relative" },
@@ -335,14 +379,26 @@ const s = StyleSheet.create({
   // Sabit lubber çizgisi — telefonun baktığı yön (dönmez)
   lubber: { position: "absolute", top: -4, fontSize: 22, color: "#dc2626", zIndex: 20 },
 
-  // Üst kadran = dönen pusula gülü (K/G/D/B + tikler)
+  // Üst kadran = dönen pusula gülü
   rose: {
-    backgroundColor: "#ecfeff", borderWidth: 2, borderColor: "#a5f3fc",
+    backgroundColor: "#ecfeff", borderWidth: 2, borderColor: "#5eead4",
     alignItems: "center", justifyContent: "center",
+    shadowColor: "#0f766e", shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.10, shadowRadius: 6, elevation: 3,
   },
-  tick:  { position: "absolute", width: 2, height: 9, backgroundColor: "#67e8f9", borderRadius: 1 },
-  tickN: { backgroundColor: "#dc2626", height: 11 },
-  tickH: { position: "absolute", width: 9, height: 2, backgroundColor: "#67e8f9", borderRadius: 1 },
+
+  // Tikler — her biri tam-boy katmanda, açıya göre döner; üstte ince çizgi
+  tickLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 5 },
+  tickMark:  { width: 2, height: 8, backgroundColor: "#99f6e4", borderRadius: 1 },
+  tickMajor: { width: 3, height: 13, backgroundColor: "#2dd4bf" },
+  tickN:     { backgroundColor: "#dc2626" },
+
+  // Yön harfleri — tam-boy katmanda açıya göre yerleşir; harf dik kalır
+  dirLayer:  { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 21 },
+  dir:       { color: "#475569", textAlign: "center" },
+  dirMajor:  { fontSize: 17, fontWeight: "800" },
+  dirMinor:  { fontSize: 11, fontWeight: "700", color: "#94a3b8" },
+  dirN:      { color: "#dc2626" },
 
   // İç daire = ibre yüzeyi (gülden bağımsız döner)
   face: {
@@ -353,18 +409,26 @@ const s = StyleSheet.create({
   },
 
   // İbreyi tam kaplayan dönen katman — merkez etrafında döner
-  needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 8 },
-  centerHub:   { position: "absolute", width: 14, height: 14, borderRadius: 7, backgroundColor: "#059669", borderWidth: 2, borderColor: "#fff" },
+  needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 6 },
+  kaabaBadge: {
+    width: 46, height: 46, borderRadius: 23, backgroundColor: "#fff",
+    borderWidth: 2, borderColor: "#059669", alignItems: "center", justifyContent: "center",
+    shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.18, shadowRadius: 4, elevation: 4,
+  },
+  needleUp:   { width: 4, backgroundColor: "#059669", borderRadius: 2, marginTop: -1 },
+  needleTail: { width: 4, backgroundColor: "#cbd5e1", borderRadius: 2, marginTop: 6 },
+  centerHub:  { position: "absolute", width: 16, height: 16, borderRadius: 8, backgroundColor: "#059669", borderWidth: 3, borderColor: "#fff" },
 
-  dir:  { position: "absolute", fontSize: 17, fontWeight: "800", color: "#475569" },
-  dirN: { color: "#dc2626", fontSize: 19 }, // Kuzey kırmızı, biraz daha büyük
+  needleEmoji: { fontSize: 26 },
 
-  needleEmoji: { fontSize: 34 },
-  needleUp:    { width: 4, height: 78, backgroundColor: "#059669", borderRadius: 2, marginTop: 1 },
-
-  badge:    { marginTop: 20, backgroundColor: "#d1fae5", borderRadius: 16, paddingHorizontal: 28, paddingVertical: 10, alignItems: "center" },
-  badgeNum: { fontSize: 36, fontWeight: "700", color: "#065f46" },
-  badgeSub: { fontSize: 12, color: "#059669", marginTop: 2 },
+  // Derece kartı — şık beyaz kart
+  badge: {
+    marginTop: 22, backgroundColor: "#fff", borderRadius: 18, paddingHorizontal: 34, paddingVertical: 12,
+    alignItems: "center", borderWidth: 1, borderColor: "#a7f3d0",
+    shadowColor: "#0f766e", shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.12, shadowRadius: 8, elevation: 4,
+  },
+  badgeNum: { fontSize: 38, fontWeight: "800", color: "#065f46", letterSpacing: 0.5 },
+  badgeSub: { fontSize: 11, color: "#0d9488", marginTop: 1, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase" },
 
   infoBox:  { backgroundColor: "#ecfdf5", borderRadius: 10, padding: 12, marginTop: 12, width: "100%", borderWidth: 1, borderColor: "#a7f3d0" },
   infoText: { fontSize: 13, color: "#065f46", textAlign: "center", lineHeight: 20 },
