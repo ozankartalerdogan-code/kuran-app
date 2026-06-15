@@ -392,30 +392,30 @@ const s = StyleSheet.create({
     borderLeftColor: "transparent", borderRightColor: "transparent", borderTopColor: "#dc2626",
   },
 
-  // Üst kadran = dönen pusula gülü
+  // Üst kadran = dönen pusula gülü (gümüş/metalik bezel)
   rose: {
-    backgroundColor: "#ecfeff", borderWidth: 2, borderColor: "#5eead4",
+    backgroundColor: "#e4e7ec", borderWidth: 2, borderColor: "#9aa3b2",
     alignItems: "center", justifyContent: "center",
-    shadowColor: "#0f766e", shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.10, shadowRadius: 6, elevation: 3,
+    shadowColor: "#475569", shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.18, shadowRadius: 6, elevation: 3,
   },
 
-  // Tikler — her biri tam-boy katmanda, açıya göre döner; üstte ince çizgi
+  // Tikler — koyu slate, gümüş bant üzerinde net görünür
   tickLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 5 },
-  tickMark:  { width: 2, height: 8, backgroundColor: "#99f6e4", borderRadius: 1 },
-  tickMajor: { width: 3, height: 13, backgroundColor: "#2dd4bf" },
+  tickMark:  { width: 2, height: 8, backgroundColor: "#8b95a7", borderRadius: 1 },
+  tickMajor: { width: 3, height: 13, backgroundColor: "#3f4a5e" },
   tickN:     { backgroundColor: "#dc2626" },
 
-  // Yön harfleri — tam-boy katmanda açıya göre yerleşir; harf dik kalır
+  // Yön harfleri — koyu, gümüş üzerinde okunur; harf dik kalır
   dirLayer:  { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 21 },
-  dir:       { color: "#475569", textAlign: "center" },
+  dir:       { color: "#1e293b", textAlign: "center" },
   dirMajor:  { fontSize: 17, fontWeight: "800" },
-  dirMinor:  { fontSize: 11, fontWeight: "700", color: "#94a3b8" },
+  dirMinor:  { fontSize: 11, fontWeight: "700", color: "#5b677a" },
   dirN:      { color: "#dc2626" },
 
   // İç daire = ibre yüzeyi (gülden bağımsız döner)
   face: {
-    backgroundColor: "#fff", borderWidth: 4, borderColor: "#99f6e4",
+    backgroundColor: "#fff", borderWidth: 4, borderColor: "#cbd5e1",
     alignItems: "center", justifyContent: "center", position: "absolute",
     shadowColor: "#000", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12, shadowRadius: 12, elevation: 8,
