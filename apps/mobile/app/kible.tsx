@@ -254,22 +254,23 @@ export default function KibleScreen() {
           {/* Sabit lubber çizgisi — telefonun baktığı yön (dönmez) */}
           <Text style={s.lubber}>▼</Text>
 
-          {/* ÜST KADRAN = dönen pusula gülü. K/G/D/B gerçek coğrafi yönleri gösterir. */}
+          {/* ÜST KADRAN = dönen pusula gülü. Harfler konumları döner ama dik kalır. */}
           <View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: `${-heading}deg` }] }]}>
-            <Text style={[s.dir, s.dirN, { top: 10 }]}>K</Text>
-            <Text style={[s.dir, { bottom: 10 }]}>G</Text>
-            <Text style={[s.dir, { right: 12 }]}>D</Text>
-            <Text style={[s.dir, { left: 12 }]}>B</Text>
-            <View style={[s.tick, s.tickN, { top: 4 }]} />
-            <View style={[s.tick, { bottom: 4 }]} />
-            <View style={[s.tickH, { right: 4 }]} />
-            <View style={[s.tickH, { left: 4 }]} />
+            <Text style={[s.dir, s.dirN, { top: 9,    transform: [{ rotate: `${heading}deg` }] }]}>K</Text>
+            <Text style={[s.dir, { bottom: 9, transform: [{ rotate: `${heading}deg` }] }]}>G</Text>
+            <Text style={[s.dir, { right: 11, transform: [{ rotate: `${heading}deg` }] }]}>D</Text>
+            <Text style={[s.dir, { left: 11,  transform: [{ rotate: `${heading}deg` }] }]}>B</Text>
+            <View style={[s.tick, s.tickN, { top: 3 }]} />
+            <View style={[s.tick, { bottom: 3 }]} />
+            <View style={[s.tickH, { right: 3 }]} />
+            <View style={[s.tickH, { left: 3 }]} />
           </View>
 
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
           <View style={[s.face, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
-              <Text style={s.needleEmoji}>🕋</Text>
+              {/* 🕋 dik kalsın diye ters döndür */}
+              <Text style={[s.needleEmoji, { transform: [{ rotate: `${-needleAngle}deg` }] }]}>🕋</Text>
               <View style={s.needleUp} />
             </View>
             <View style={s.centerHub} />
@@ -355,11 +356,11 @@ const s = StyleSheet.create({
   needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 8 },
   centerHub:   { position: "absolute", width: 14, height: 14, borderRadius: 7, backgroundColor: "#059669", borderWidth: 2, borderColor: "#fff" },
 
-  dir:  { position: "absolute", fontSize: 13, fontWeight: "700", color: "#6b7280" },
-  dirN: { color: "#dc2626" }, // Kuzey kırmızı
+  dir:  { position: "absolute", fontSize: 17, fontWeight: "800", color: "#475569" },
+  dirN: { color: "#dc2626", fontSize: 19 }, // Kuzey kırmızı, biraz daha büyük
 
-  needleEmoji: { fontSize: 30 },
-  needleUp:    { width: 3, height: 70, backgroundColor: "#059669", borderRadius: 2 },
+  needleEmoji: { fontSize: 34 },
+  needleUp:    { width: 4, height: 78, backgroundColor: "#059669", borderRadius: 2, marginTop: 1 },
 
   badge:    { marginTop: 20, backgroundColor: "#d1fae5", borderRadius: 16, paddingHorizontal: 28, paddingVertical: 10, alignItems: "center" },
   badgeNum: { fontSize: 36, fontWeight: "700", color: "#065f46" },
