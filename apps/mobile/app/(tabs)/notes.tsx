@@ -10,9 +10,13 @@ import { useColors } from "../../src/hooks/useColors";
 
 export default function NotesScreen() {
   const c = useColors();
-  const { notes, saveNote } = useNotes();
+  const { notes, saveNote, refresh } = useNotes();
   const [surahNames, setSurahNames] = useState<Record<string, string>>({});
   const [loading, setLoading]       = useState(true);
+
+  // Her odaklanmada storage'dan yeniden yükle — başka ekranda (ayet sayfası)
+  // eklenen/silinen notlar burada da görünsün (eskiden yenilenmiyordu → "kaydetmiyor" sanılıyordu).
+  useFocusEffect(useCallback(() => { refresh(); }, [refresh]));
 
   const noteList = Object.entries(notes)
     .filter(([, text]) => text.trim().length > 0)

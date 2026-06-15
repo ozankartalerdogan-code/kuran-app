@@ -8,6 +8,7 @@ import {
   Share,
   StyleSheet,
   useColorScheme,
+  Alert,
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -461,7 +462,8 @@ export default function AyahDetailScreen() {
   }, [data, surahId, ayahNumber]);
 
   const handleSaveNote = useCallback(async () => {
-    await saveNote(verseKey, noteDraft);
+    const ok = await saveNote(verseKey, noteDraft);
+    if (!ok) { Alert.alert("Not kaydedilemedi", "Lütfen tekrar deneyin."); return; }
     setNoteSaved(true);
     setTimeout(() => setNoteSaved(false), 2000);
   }, [verseKey, noteDraft, saveNote]);
