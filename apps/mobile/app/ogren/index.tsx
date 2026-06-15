@@ -279,6 +279,22 @@ export default function OgrenScreen() {
           )}
         </View>
 
+        {/* Bonus konu: Harf-i Tarif (Şemsiye/Kameriye) */}
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => router.push("/ogren/harf-i-tarif")}
+          style={[s.bonusCard, { borderColor: c.border }]}
+        >
+          <Text style={{ fontSize: 26 }}>☀️🌙</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={[s.bonusTitle, { color: c.text }]}>Bonus Konu: Harf-i Tarif</Text>
+            <Text style={[s.bonusSub, { color: c.textMuted }]}>
+              Şemsiye / Kameriye harfler — &apos;el-&apos; neden er-, es- olur? 25 soruluk test.
+            </Text>
+          </View>
+          <Text style={{ color: c.accent, fontSize: 18 }}>→</Text>
+        </TouchableOpacity>
+
         {/* Yol haritası */}
         <View style={s.path}>
           {row1.length > 0 && renderRow(row1)}
@@ -334,6 +350,13 @@ const s = StyleSheet.create({
   overallBar:   { height: 10, backgroundColor: "#f5f0e8", borderRadius: 5, overflow: "hidden" },
   overallFill:  { height: "100%", backgroundColor: "#059669", borderRadius: 5 },
   overallDone:  { textAlign: "center", fontSize: 12, fontWeight: "700", color: "#059669", marginTop: 6 },
+  bonusCard: {
+    flexDirection: "row", alignItems: "center", gap: 12,
+    borderWidth: 1, borderRadius: 16, paddingHorizontal: 16, paddingVertical: 14,
+    marginBottom: 14, backgroundColor: "#eef2ff",
+  },
+  bonusTitle: { fontSize: 14, fontWeight: "700" },
+  bonusSub:   { fontSize: 11.5, marginTop: 2, lineHeight: 16 },
   path:  { paddingVertical: 4 },
   row:   { flexDirection: "row", alignItems: "flex-start" },
   hLine: { flex: 1, height: 3, marginTop: 25, borderRadius: 2 },

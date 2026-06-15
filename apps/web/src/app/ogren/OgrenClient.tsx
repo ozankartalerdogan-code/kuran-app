@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
 import { QuizView } from "./QuizView";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -918,6 +919,25 @@ export function OgrenClient({ dersler }: { dersler: DersWithHarfler[] }) {
           Diyanet 2024 Müfredatı &mdash; {dersler.length} konu
         </p>
       </div>
+
+      {/* Ayrı bölüm: Harf-i Tarif (Şemsiye/Kameriye) */}
+      <Link
+        href="/ogren/harf-i-tarif"
+        className="group mb-6 block overflow-hidden rounded-2xl border border-indigo-200 bg-gradient-to-br from-amber-50 to-indigo-50 transition-shadow hover:shadow-md dark:border-indigo-800/50 dark:from-amber-950/30 dark:to-indigo-950/30"
+      >
+        <div className="flex items-center gap-4 px-5 py-4">
+          <span className="text-3xl">☀️🌙</span>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-stone-800 dark:text-stone-100 group-hover:underline">
+              Bonus Konu: Harf-i Tarif (Şemsiye / Kameriye)
+            </p>
+            <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
+              &apos;el-&apos; takısı neden er-, es-, en- okunur? 14+14 harf, Esmaül Hüsna örnekleri ve 25 soruluk test.
+            </p>
+          </div>
+          <span className="text-indigo-400 dark:text-indigo-500 transition-transform group-hover:translate-x-0.5">→</span>
+        </div>
+      </Link>
 
       {viewMode === "path" && (
         <>
