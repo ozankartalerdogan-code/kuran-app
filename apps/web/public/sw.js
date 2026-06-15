@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const STATIC_CACHE  = `kuranapp-static-${CACHE_VERSION}`;
 const API_CACHE     = `kuranapp-api-${CACHE_VERSION}`;
 const PAGE_CACHE    = `kuranapp-pages-${CACHE_VERSION}`;
@@ -10,6 +10,8 @@ const PRECACHE_URLS = [
   "/surah",
   "/discover",
   "/ogren",
+  "/ogren/harf-i-tarif",
+  "/esma",
   "/namaz",
   "/ibadet-rehberi",
   "/manevi-siginak",
