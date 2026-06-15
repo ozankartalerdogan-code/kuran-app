@@ -76,13 +76,11 @@ const GEN = [
     ? makeQ("basta", h, `'${h.harf_adi}' (${h.tek_basina}) harfinin kelime BAŞINDAKİ şekli hangisidir?`, h.basta,
         distractorLetters(h.harf_id, 3).map((d) => d.basta), `Başta gelen harfler sonraki harfe bağlanır.`, 2)
     : null,
-  (h) => makeQ("mahrec", h, `'${h.harf_adi}' (${h.tek_basina}) harfinin mahreci (çıkış yeri) neresidir?`, h.mahrec,
-    sample(allMahrec, 3, [h.mahrec]), `Mahrec, harfin ağızda çıktığı yerdir.`, 3),
   (h) => makeQ("kalin_ince", h, `'${h.harf_adi}' (${h.tek_basina}) harfi nasıl okunur?`, KI[h.kalin_ince],
     Object.values(KI).filter((v) => v !== KI[h.kalin_ince]), `Kalın harfler dolgun, ince harfler yumuşak okunur.`, 2),
   (h) => makeQ("birlesme", h, `'${h.harf_adi}' (${h.tek_basina}) harfi kendinden SONRAKİ harfle birleşir mi?`,
     h.grup === "birlesen" ? "Evet, birleşir" : "Hayır, birleşmez", [h.grup === "birlesen" ? "Hayır, birleşmez" : "Evet, birleşir"],
-    `Birleşmeyen harfler: ا د ذ ر ز و ve lamelif.`, 2),
+    `Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir.`, 1),
   (h) => makeQ("ayirt", h, `Aşağıdakilerden hangisi '${h.harf_adi}' harfidir?`, h.tek_basina,
     distractorLetters(h.harf_id, 3).map((d) => d.tek_basina), `${h.harf_adi}, "${h.harf_sesi}" sesini verir.`, 2),
 ];
