@@ -108,19 +108,24 @@ function Flashcard({ harf, onNext, onPrev }: { harf: ElifbaHarf; onNext: () => v
 function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
   const [sorular, setSorular] = useState<ElifbaQuizSoru[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState(false);
   const [idx, setIdx]         = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore]     = useState(0);
   const [done, setDone]       = useState(false);
 
-  useEffect(() => {
+  const loadQuiz = useCallback(() => {
+    setLoading(true);
+    setError(false);
     api.elifba.quiz(dersId)
       // 45'lik havuzdan her oturumda rastgele 15 soru
       .then((data) => setSorular([...data].sort(() => Math.random() - 0.5).slice(0, 15)))
-      .catch(() => {})
+      .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, [dersId]);
+
+  useEffect(() => { loadQuiz(); }, [loadQuiz]);
 
   const soru = sorular[idx];
 
@@ -138,6 +143,15 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   }
 
   if (loading) return <ActivityIndicator size="large" color="#059669" style={{ marginTop: 40 }} />;
+  if (error) return (
+    <View style={qv.errBox}>
+      <Text style={qv.errEmoji}>📚</Text>
+      <Text style={qv.noQ}>Sorular yüklenemedi.{"\n"}Bağlantını kontrol et.</Text>
+      <TouchableOpacity style={qv.retryBtn} onPress={loadQuiz}>
+        <Text style={qv.retryText}>Tekrar dene</Text>
+      </TouchableOpacity>
+    </View>
+  );
   if (sorular.length === 0) return <Text style={qv.noQ}>Bu ders için soru bulunamadı.</Text>;
   if (done) {
     const pct = Math.round((score / sorular.length) * 100);
@@ -403,7 +417,11 @@ const fc = StyleSheet.create({
 
 const qv = StyleSheet.create({
   container:   { flex:1, padding:16 },
-  noQ:         { textAlign:"center", marginTop:40, color:"#78716c" },
+  noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
+  errBox:      { flex:1, alignItems:"center", justifyContent:"center", padding:24 },
+  errEmoji:    { fontSize:40, marginBottom:8 },
+  retryBtn:    { backgroundColor:"#059669", paddingHorizontal:24, paddingVertical:11, borderRadius:10, marginTop:20 },
+  retryText:   { color:"#fff", fontSize:14, fontWeight:"700" },
   progress:    { fontSize:12, color:"#a8a29e", textAlign:"center", marginBottom:12 },
   soruBox:        { backgroundColor:"#fff", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7e5e4", gap:10 },
   soruText:       { fontSize:15, lineHeight:24, color:"#1c1917" },

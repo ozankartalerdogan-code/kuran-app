@@ -5,13 +5,16 @@ import {
 } from "react-native";
 import { Stack, router } from "expo-router";
 import * as Location from "expo-location";
+import { Magnetometer } from "expo-sensors";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
 const MECCA     = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
 const SIZE      = Math.min(width - 48, 300);
+const OUTER     = SIZE + 44; // dış halka (telefon yönü referansı)
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
+const MAG_OFFSET = 0; // Magnetometer yön düzeltmesi (gerekirse cihazda ince ayar)
 
 // ── Kıble hesabı (büyük çember yönü) ─────────────────────────────────────────
 
@@ -58,22 +61,44 @@ export default function KibleScreen() {
   const [showCalib, setShowCalib] = useState(true);
 
   const headingBuf = useRef<number[]>([]);
-  const headingSub = useRef<Location.LocationSubscription | null>(null);
+  const headingSub = useRef<{ remove: () => void } | null>(null);
 
-  // Heading aboneliği (watchHeadingAsync — trueHeading manyetik sapmayı içerir)
+  // Heading — Magnetometer (varsa, güvenilir) → yoksa watchHeadingAsync'e düş.
   useEffect(() => {
     if (step !== "compass") return;
 
-    Location.watchHeadingAsync(h => {
-      const deg = h.trueHeading >= 0 ? h.trueHeading : h.magHeading;
+    let active = true;
+
+    const onDeg = (deg: number) => {
+      if (!active || !(deg >= 0)) return;
       headingBuf.current = [...headingBuf.current.slice(-(SMOOTH_N - 1)), deg];
       setHeading(avgAngles(headingBuf.current));
       setCompassOk(true);
-    })
-      .then(sub => { headingSub.current = sub; })
-      .catch(() => setCompassOk(false));
+    };
+
+    // Bu cihaz/SDK'da watchHeadingAsync bazen hiç event yollamıyor → yedek yol
+    const startLocationHeading = () => {
+      Location.watchHeadingAsync(h => onDeg(h.trueHeading >= 0 ? h.trueHeading : h.magHeading))
+        .then(sub => { if (active) headingSub.current = sub; else sub.remove(); })
+        .catch(() => setCompassOk(false));
+    };
+
+    Magnetometer.isAvailableAsync()
+      .then(ok => {
+        if (!active) return;
+        if (!ok) { startLocationHeading(); return; }
+        Magnetometer.setUpdateInterval(100);
+        const sub = Magnetometer.addListener(({ x, y }) => {
+          // Cihaz ekseni: x=sağ, y=üst. Telefon üst kenarının manyetik kuzeyden açısı:
+          const angle = Math.atan2(x, y) * (180 / Math.PI);
+          onDeg((MAG_OFFSET - angle + 360) % 360);
+        });
+        headingSub.current = sub;
+      })
+      .catch(() => { if (active) startLocationHeading(); });
 
     return () => {
+      active = false;
       headingSub.current?.remove();
       headingSub.current = null;
       headingBuf.current = [];
@@ -203,25 +228,33 @@ export default function KibleScreen() {
           <Text style={s.distText}>Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km</Text>
         )}
 
-        {/* Pusula dairesi */}
-        <View style={[s.compass, { width: SIZE, height: SIZE, borderRadius: SIZE / 2 }]}>
-          <Text style={[s.dir, { top: 10 }]}>K</Text>
-          <Text style={[s.dir, { bottom: 10 }]}>G</Text>
-          <Text style={[s.dir, { right: 14 }]}>D</Text>
-          <Text style={[s.dir, { left: 14 }]}>B</Text>
+        {/* Dış halka = TELEFON yönü (sabit). Tepedeki ▼ telefonun baktığı yön. */}
+        <View style={[s.outerRing, { width: OUTER, height: OUTER, borderRadius: OUTER / 2 }]}>
+          <Text style={s.phoneTag}>telefon</Text>
+          <Text style={s.phoneMarker}>▼</Text>
 
-          {/* Kabe ibresi */}
-          <View style={[s.needle, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
-            <Text style={s.needleEmoji}>🕋</Text>
-            <View style={s.needleUp} />
-            <View style={s.needleDown} />
+          {/* İç daire = PUSULA. Kadran telefon yönüne göre döner (gerçek K/G/D/B). */}
+          <View style={[s.compass, { width: SIZE, height: SIZE, borderRadius: SIZE / 2 }]}>
+            {/* Dönen kadran — K/G/D/B her zaman gerçek coğrafi yönleri gösterir */}
+            <View style={[s.rotLayer, { transform: [{ rotate: `${-heading}deg` }] }]}>
+              <Text style={[s.dir, s.dirN, { top: 8 }]}>K</Text>
+              <Text style={[s.dir, { bottom: 8 }]}>G</Text>
+              <Text style={[s.dir, { right: 12 }]}>D</Text>
+              <Text style={[s.dir, { left: 12 }]}>B</Text>
+            </View>
+
+            {/* Kabe ibresi — gerçek Kabe yönünü gösterir */}
+            <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
+              <Text style={s.needleEmoji}>🕋</Text>
+              <View style={s.needleUp} />
+            </View>
           </View>
         </View>
 
         {/* Açı */}
         <View style={s.badge}>
           <Text style={s.badgeNum}>{Math.round(qibla ?? 0)}°</Text>
-          <Text style={s.badgeSub}>Kuzeyden Kabe yönü</Text>
+          <Text style={s.badgeSub}>Kuzeyden Kabe yönü · pusula {Math.round(heading)}°</Text>
         </View>
 
         {/* Durum */}
@@ -234,7 +267,7 @@ export default function KibleScreen() {
         )}
         {compassOk === true && (
           <View style={s.infoBox}>
-            <Text style={s.infoText}>📱 🕋 oku her zaman Kabe yönünü gösterir</Text>
+            <Text style={s.infoText}>📱 Telefonu çevirin; 🕋 oku üstteki kırmızı ▼ ile hizalanınca Kabe'ye dönüksünüz</Text>
           </View>
         )}
 
@@ -270,18 +303,30 @@ const s = StyleSheet.create({
   cityLabel: { fontSize: 15, fontWeight: "700", color: "#134e4a", marginBottom: 2, marginTop: 4 },
   distText:  { fontSize: 13, color: "#5eead4", marginBottom: 18 },
 
+  // Dış halka — telefon yönü referansı (sabit)
+  outerRing: {
+    backgroundColor: "#ecfeff", borderWidth: 2, borderColor: "#cffafe",
+    alignItems: "center", justifyContent: "center", position: "relative",
+  },
+  phoneTag:    { position: "absolute", top: 4, fontSize: 9, fontWeight: "700", color: "#dc2626", letterSpacing: 1, zIndex: 10 },
+  phoneMarker: { position: "absolute", top: 13, fontSize: 18, color: "#dc2626", zIndex: 10 },
+
   compass: {
     backgroundColor: "#fff", borderWidth: 4, borderColor: "#99f6e4",
     alignItems: "center", justifyContent: "center", position: "relative",
     shadowColor: "#000", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12, shadowRadius: 12, elevation: 8,
   },
-  dir: { position: "absolute", fontSize: 13, fontWeight: "700", color: "#6b7280" },
 
-  needle:      { alignItems: "center", position: "absolute" },
+  // Daireyi tam kaplayan dönen katmanlar — merkez etrafında döner
+  rotLayer:    { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center" },
+  needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 8 },
+
+  dir:  { position: "absolute", fontSize: 13, fontWeight: "700", color: "#6b7280" },
+  dirN: { color: "#dc2626" }, // Kuzey kırmızı
+
   needleEmoji: { fontSize: 30 },
-  needleUp:    { width: 3, height: 65, backgroundColor: "#059669", borderRadius: 2 },
-  needleDown:  { width: 3, height: 38, backgroundColor: "#d1fae5", borderRadius: 2 },
+  needleUp:    { width: 3, height: 70, backgroundColor: "#059669", borderRadius: 2 },
 
   badge:    { marginTop: 20, backgroundColor: "#d1fae5", borderRadius: 16, paddingHorizontal: 28, paddingVertical: 10, alignItems: "center" },
   badgeNum: { fontSize: 36, fontWeight: "700", color: "#065f46" },

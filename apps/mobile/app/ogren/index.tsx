@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View, Text, TouchableOpacity, ScrollView, Modal,
   ActivityIndicator, StyleSheet,
@@ -203,21 +203,46 @@ export default function OgrenScreen() {
   const [progress, setProgress]     = useState<Record<string, number[]>>({});
   const [quizScores, setQuizScores] = useState<Record<string, QuizScore>>({});
   const [popupId, setPopupId]       = useState<number | null>(null);
+  const [error, setError]           = useState(false);
+
+  const loadDersler = useCallback(() => {
+    setLoading(true);
+    setError(false);
+    api.elifba.dersler()
+      .then(setDersler)
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
-    api.elifba.dersler()
-      .then(setDersler).catch(() => {}).finally(() => setLoading(false));
+    loadDersler();
     storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
       .then(p => setProgress(p ?? {})).catch(() => {});
     storage.getJSON<Record<string, QuizScore>>(STORAGE_KEYS.quizScores)
       .then(q => setQuizScores(q ?? {})).catch(() => {});
-  }, []);
+  }, [loadDersler]);
 
   if (loading) {
     return (
       <View style={s.centered}>
         <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
         <ActivityIndicator size="large" color="#059669" />
+      </View>
+    );
+  }
+
+  // Dersler yüklenemediyse (bağlantı hatası) — boş ekran yerine açık hata + tekrar dene
+  if (error || dersler.length === 0) {
+    return (
+      <View style={s.centered}>
+        <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
+        <Text style={[s.errEmoji]}>📚</Text>
+        <Text style={[s.errText, { color: c.text }]}>
+          {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
+        </Text>
+        <TouchableOpacity style={[s.retryBtn, { backgroundColor: c.accent }]} onPress={loadDersler}>
+          <Text style={s.retryText}>Tekrar dene</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -338,7 +363,11 @@ export default function OgrenScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#f5f0e8" },
+  centered:    { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#f5f0e8", padding: 24 },
+  errEmoji:    { fontSize: 40, marginBottom: 12 },
+  errText:     { fontSize: 15, lineHeight: 22, color: "#1c1917", textAlign: "center", marginBottom: 20 },
+  retryBtn:    { backgroundColor: "#059669", paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10 },
+  retryText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
   scroll:      { flex: 1, backgroundColor: "#f5f0e8" },
   content:     { padding: 16, paddingBottom: 48 },
   overallCard: {

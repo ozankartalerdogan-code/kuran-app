@@ -44,4 +44,12 @@ etiketleme_checkpoint.json
 scripts/_*_backup_*.json
 scripts/_*_results.txt
 
+# Veri kürasyonu ara çıktıları (DB'ye uygulandı; kaynak değil)
+scripts/_fark_*.json
+scripts/_farkb_*.json
+scripts/_gloss_*.json
+scripts/_literal_*.json
+scripts/_*_watchdog.sh
+scripts/_*.log
+
 .vercel

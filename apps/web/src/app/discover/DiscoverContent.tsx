@@ -350,8 +350,30 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   </svg>
                 </Link>
                 <Link
+                  href="/esma"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-violet-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-violet-700"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-xl leading-none dark:bg-violet-900/30">
+                    🌟
+                  </span>
+                  <div className="min-w-0">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-violet-700 dark:text-stone-100 dark:group-hover:text-violet-400">
+                      Esmaül Hüsna
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                      Allah&apos;ın 99 güzel ismi — anlamları ve kök analizleriyle
+                    </p>
+                  </div>
+                  <svg
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-violet-400 dark:text-stone-600"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
                   href="/ibadet-rehberi"
-                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700 sm:col-span-2"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl leading-none dark:bg-emerald-900/30">
                     📿
