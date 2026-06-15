@@ -116,20 +116,34 @@ export default function MushafAyahScreen() {
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     if (!surahId || !ayahNumber) return;
     setLoading(true);
     setError(null);
     api.ayah.get(surahId, ayahNumber)
-      .then(d => {
-        setData(d);
-        // Yer imini kaydet
-        storage.setJSON(STORAGE_KEYS.mushafBookmark, `${surahId}:${ayahNumber}`).catch(() => {});
-      })
+      .then(d => setData(d))
       .catch(() => setError("Ayet yüklenemedi."))
       .finally(() => setLoading(false));
   }, [surahId, ayahNumber]);
+
+  // Yer imi MANUEL — otomatik takip yok. Bu ayet işaretli mi, oku.
+  useEffect(() => {
+    storage.getJSON<string>(STORAGE_KEYS.mushafBookmark)
+      .then(raw => setIsBookmarked(raw === `${surahId}:${ayahNumber}`))
+      .catch(() => {});
+  }, [surahId, ayahNumber]);
+
+  const toggleBookmark = useCallback(async () => {
+    if (isBookmarked) {
+      await storage.remove(STORAGE_KEYS.mushafBookmark);
+      setIsBookmarked(false);
+    } else {
+      await storage.setJSON(STORAGE_KEYS.mushafBookmark, `${surahId}:${ayahNumber}`);
+      setIsBookmarked(true);
+    }
+  }, [surahId, ayahNumber, isBookmarked]);
 
   const navigate = useCallback((s: number, a: number) => {
     router.replace(`/mushaf/${s}/${a}`);
@@ -182,8 +196,19 @@ export default function MushafAyahScreen() {
           {/* Sure + ayet numarası bilgisi */}
           <View style={s.metaRow}>
             <Text style={s.surahName}>{data.surahName}</Text>
-            <View style={s.ayahBadge}>
-              <Text style={s.ayahBadgeText}>{ayahNumber} / {data.verseCount}</Text>
+            <View style={s.metaRight}>
+              <View style={s.ayahBadge}>
+                <Text style={s.ayahBadgeText}>{ayahNumber} / {data.verseCount}</Text>
+              </View>
+              <TouchableOpacity
+                onPress={toggleBookmark}
+                style={[s.bmBtn, isBookmarked && s.bmBtnActive]}
+                activeOpacity={0.75}
+              >
+                <Text style={[s.bmBtnText, isBookmarked && s.bmBtnTextActive]}>
+                  {isBookmarked ? "✓ Yer imim" : "🔖 Yer imi koy"}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -246,8 +271,13 @@ const s = StyleSheet.create({
   scrollContent: { paddingHorizontal: 20, paddingVertical: 16 },
 
   metaRow:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
+  metaRight:  { flexDirection: "row", alignItems: "center", gap: 8 },
   surahName:  { fontSize: 16, fontWeight: "700", color: "#e5e7eb" },
   ayahBadge:  { backgroundColor: "#059669", borderRadius: 20, paddingHorizontal: 12, paddingVertical: 4 },
+  bmBtn:        { borderWidth: 1, borderColor: "#3f3f5e", borderRadius: 20, paddingHorizontal: 12, paddingVertical: 4 },
+  bmBtnActive:  { backgroundColor: "#059669", borderColor: "#059669" },
+  bmBtnText:      { fontSize: 12, fontWeight: "600", color: "#a5b4fc" },
+  bmBtnTextActive:{ color: "#fff" },
   ayahBadgeText: { color: "#fff", fontSize: 12, fontWeight: "600" },
 
   arabicBox: {

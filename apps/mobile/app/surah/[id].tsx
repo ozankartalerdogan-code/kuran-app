@@ -10,7 +10,6 @@ import { useLocalSearchParams, router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
-import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
@@ -122,18 +121,14 @@ export default function SurahDetailScreen() {
     if (!surahId) return;
     // Sadece ayetleri bekle — tefsir akordiyon açılınca tembel yüklenir
     api.verses.bySurah(surahId)
-      .then((res) => {
-        setData(res);
-        storage.setJSON(STORAGE_KEYS.mushafBookmark, `${surahId}:1`).catch(() => {});
-      })
+      .then((res) => setData(res))
       .catch(() => setError("Ayetler yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
   }, [surahId]);
 
+  // Yer imi MANUEL — sure açmak/ayete tıklamak artık otomatik yer imi koymaz.
   const handleAyahPress = useCallback(
     (ayahNumber: number) => {
-      // Tıklanan ayeti bookmark'la
-      storage.setJSON(STORAGE_KEYS.mushafBookmark, `${surahId}:${ayahNumber}`).catch(() => {});
       router.push(`/ayah/${surahId}/${ayahNumber}`);
     },
     [surahId],
