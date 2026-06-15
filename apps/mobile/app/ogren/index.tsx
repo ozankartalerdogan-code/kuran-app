@@ -8,7 +8,7 @@ import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
-const QUIZ_PASS = 3;
+const QUIZ_PASS = 10; // 15 sorudan
 const NODE_W   = 72;
 
 type LessonStatus = "completed" | "active" | "locked";
@@ -106,7 +106,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
           ) : status !== "locked" ? (
             <View style={[pp.infoBox, { backgroundColor: "#fef9c3", marginTop: 8 }]}>
               <Text style={{ fontSize: 12, color: "#854d0e" }}>
-                💡 Dersi tamamlamak için teste gir ve en az {QUIZ_PASS}/5 al.
+                💡 Dersi tamamlamak için teste gir ve en az {QUIZ_PASS}/15 al.
               </Text>
             </View>
           ) : null}

@@ -35,7 +35,7 @@ type LessonStatus = "completed" | "active" | "locked";
 const PROGRESS_KEY    = "elifbaProgress";
 const QUIZ_SCORES_KEY = "elifbaQuizScores";
 const QUIZ_LESSON_IDS = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-const QUIZ_PASS       = 3;
+const QUIZ_PASS       = 10;  // 15 sorudan
 
 function loadProgress(): Record<string, number[]> {
   try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) ?? "{}"); }
@@ -504,7 +504,7 @@ function LessonPopup({
         )}
         {hasQuiz && !quizScore && status !== "locked" && (
           <div className="mb-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700 dark:bg-amber-900/20 dark:text-amber-300">
-            💡 Bu dersi açmak için teste gir ve en az {QUIZ_PASS}/{5} al.
+            💡 Bu dersi açmak için teste gir ve en az {QUIZ_PASS}/15 al.
           </div>
         )}
 

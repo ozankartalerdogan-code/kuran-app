@@ -115,7 +115,11 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   const [done, setDone]       = useState(false);
 
   useEffect(() => {
-    api.elifba.quiz(dersId).then(setSorular).catch(() => {}).finally(() => setLoading(false));
+    api.elifba.quiz(dersId)
+      // 45'lik havuzdan her oturumda rastgele 15 soru
+      .then((data) => setSorular([...data].sort(() => Math.random() - 0.5).slice(0, 15)))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [dersId]);
 
   const soru = sorular[idx];

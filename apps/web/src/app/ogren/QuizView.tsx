@@ -92,7 +92,9 @@ export function QuizView({
         if (!Array.isArray(data) || data.length === 0) {
           setError("Bu ders için soru bulunamadı.");
         } else {
-          setSorular(data);
+          // 45'lik havuzdan her oturumda rastgele 15 soru
+          const picked = [...data].sort(() => Math.random() - 0.5).slice(0, 15);
+          setSorular(picked);
         }
         setLoading(false);
       })
