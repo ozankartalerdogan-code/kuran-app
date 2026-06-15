@@ -12,7 +12,8 @@ import { Magnetometer } from "expo-sensors";
 const MECCA     = { lat: 21.4225, lng: 39.8262 };
 const { width } = Dimensions.get("window");
 const SIZE      = Math.min(width - 48, 300);
-const OUTER     = SIZE + 44; // dış halka (telefon yönü referansı)
+const OUTER     = SIZE + 44; // dönen pusula gülü (dış kadran)
+const FACE      = SIZE - 40; // iç ibre dairesi — K/G/D/B bandına yer açacak kadar küçük
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
 const MAG_OFFSET = 0; // Magnetometer yön düzeltmesi (gerekirse cihazda ince ayar)
 
@@ -266,7 +267,7 @@ export default function KibleScreen() {
           </View>
 
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
-          <View style={[s.face, { width: SIZE, height: SIZE, borderRadius: SIZE / 2 }]}>
+          <View style={[s.face, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
               <Text style={s.needleEmoji}>🕋</Text>
               <View style={s.needleUp} />
