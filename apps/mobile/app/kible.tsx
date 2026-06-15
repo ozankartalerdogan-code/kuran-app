@@ -29,6 +29,14 @@ function calcQibla(lat: number, lng: number): number {
   return (toDeg(Math.atan2(x, y)) + 360) % 360;
 }
 
+// Manyetik sapma (deklinasyon) — pusula manyetik kuzeyi, kıble gerçek kuzeyi kullanır.
+// Türkiye için kaba yaklaşım (2025): doğuya gidildikçe ~+4.5° → +7°E artar.
+// gerçek_yön = manyetik_yön + sapma. (Türkiye dışında kabaca; uygulama TR odaklı.)
+function calcDeclination(lat: number, lng: number): number {
+  const d = 4.5 + (lng - 27) * 0.15;
+  return Math.max(0, Math.min(8, d)); // makul aralığa sıkıştır
+}
+
 function calcDist(lat: number, lng: number): number {
   const R    = 6371;
   const dLat = toRad(MECCA.lat - lat);
@@ -59,11 +67,11 @@ export default function KibleScreen() {
   const [heading, setHeading]     = useState(0);
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
-  const [src, setSrc]             = useState(""); // teşhis: "mag" | "loc"
 
   const headingBuf = useRef<number[]>([]);
   const headingSub = useRef<{ remove: () => void } | null>(null);
   const gotData    = useRef(false);
+  const declRef    = useRef(0); // konuma göre manyetik sapma (deklinasyon)
 
   // Heading — Magnetometer (varsa, güvenilir) → yoksa watchHeadingAsync'e düş.
   useEffect(() => {
@@ -80,30 +88,28 @@ export default function KibleScreen() {
       setCompassOk(true);
     };
 
-    // Bu cihaz/SDK'da watchHeadingAsync bazen hiç event yollamıyor → yedek yol
+    // watchHeadingAsync yedeği (bu cihaz/SDK'da bazen hiç event yollamıyor)
     const startLocationHeading = () => {
-      setSrc("loc");
       Location.watchHeadingAsync(h => onDeg(h.trueHeading >= 0 ? h.trueHeading : h.magHeading))
         .then(sub => { if (active) headingSub.current = sub; else sub.remove(); })
         .catch(() => { if (active) setCompassOk(false); });
     };
 
-    Magnetometer.isAvailableAsync()
-      .then(ok => {
-        if (!active) return;
-        if (!ok) { startLocationHeading(); return; }
-        setSrc("mag");
-        Magnetometer.setUpdateInterval(100);
-        const sub = Magnetometer.addListener(({ x, y }) => {
-          // Cihaz ekseni: x=sağ, y=üst. Telefon üst kenarının manyetik kuzeyden açısı:
-          const angle = Math.atan2(x, y) * (180 / Math.PI);
-          onDeg((MAG_OFFSET - angle + 360) % 360);
-        });
-        headingSub.current = sub;
-      })
-      .catch(() => { if (active) startLocationHeading(); });
+    // isAvailableAsync Android'de güvenilmez → doğrudan addListener dene.
+    // Exception atarsa modül build'de yok demektir (no-mod), aksi halde dinle (mag).
+    try {
+      Magnetometer.setUpdateInterval(100);
+      const sub = Magnetometer.addListener(({ x, y }) => {
+        // Cihaz ekseni: x=sağ, y=üst. Manyetik kuzeyden açı + deklinasyon = gerçek yön.
+        const angle = Math.atan2(x, y) * (180 / Math.PI);
+        onDeg((MAG_OFFSET + declRef.current - angle + 360) % 360);
+      });
+      headingSub.current = sub;
+    } catch {
+      startLocationHeading(); // expo-sensors yoksa son çare
+    }
 
-    // 3 sn içinde hiç veri gelmezse net bildir (sessiz "kutu yok" durumunu kaldır)
+    // 3 sn içinde veri gelmezse net bildir: mag=donanım yok, no-mod=build sorunu
     const noDataTimer = setTimeout(() => {
       if (active && !gotData.current) setCompassOk(false);
     }, 3000);
@@ -185,6 +191,7 @@ export default function KibleScreen() {
       return;
     }
 
+    declRef.current = calcDeclination(coords.latitude, coords.longitude);
     setQibla(calcQibla(coords.latitude, coords.longitude));
     setDistance(calcDist(coords.latitude, coords.longitude));
     setCityName("Konumunuz");
@@ -266,14 +273,14 @@ export default function KibleScreen() {
         {/* Açı */}
         <View style={s.badge}>
           <Text style={s.badgeNum}>{Math.round(qibla ?? 0)}°</Text>
-          <Text style={s.badgeSub}>Kuzeyden Kabe yönü · {src || "?"} {Math.round(heading)}°</Text>
+          <Text style={s.badgeSub}>Kuzeyden Kabe yönü</Text>
         </View>
 
         {/* Durum */}
         {compassOk === false && (
           <View style={[s.infoBox, { borderColor: "#fca5a5", backgroundColor: "#fff1f2" }]}>
             <Text style={[s.infoText, { color: "#991b1b" }]}>
-              ⚠️ Pusula verisi alınamıyor ({src || "?"}). Bu cihazda manyetometre yok/kapalı olabilir — başka bir telefonda deneyin. İbre kıble derecesinde sabit kalır.
+              ⚠️ Pusula verisi alınamıyor. Bu cihazda manyetometre yok/kapalı olabilir — başka bir telefonda deneyin. İbre kıble derecesinde sabit kalır.
             </Text>
           </View>
         )}
