@@ -1,32 +1,31 @@
 import type { MetadataRoute } from "next";
 import { unstable_cache } from "next/cache";
-import { dbAll } from "../lib/dbUtils";
+import { createClient } from "@libsql/client";
 
 // DB'den üretiliyor (6236 ayet + kökler). Günlük yenilenir.
 export const revalidate = 86400;
 
 const BASE = (process.env.NEXT_PUBLIC_BASE_URL ?? "https://kuran-app-web-ozan-s-projects8.vercel.app").replace(/\/$/, "");
 
-// DB sorgularını günlük cache'le — dbUtils'in no-store fetch'i sitemap'i her
-// istekte yeniden ürettiriyordu (~2sn, cache MISS). unstable_cache sonucu
-// memoize eder (iç fetch'ten bağımsız) → günde bir üretilir, kalan istekler hızlı.
+// DB sorgularını günlük cache'le → sitemap her istekte değil günde bir üretilir.
+// NOT: dbUtils (no-store fetch) unstable_cache İÇİNDE çalışmaz (no-store yasak,
+// hata fırlatır). O yüzden burada doğrudan libsql client (varsayılan fetch) kullanılır;
+// sonuç zaten unstable_cache ile günlük memoize edildiği için bayatlık sorunu olmaz.
 const getSitemapRows = unstable_cache(
   async () => {
     let verses: { verse_key: string }[] = [];
     let roots: { root: string }[] = [];
     try {
-      verses = await dbAll<{ verse_key: string }>(
-        "SELECT verse_key FROM verses ORDER BY surah_id, ayah_number",
-      );
+      const url = (process.env.TURSO_DB_URL ?? "").replace(/^libsql:\/\//, "https://");
+      const c = createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN ?? "" });
+      verses = (await c.execute("SELECT verse_key FROM verses ORDER BY surah_id, ayah_number"))
+        .rows as unknown as { verse_key: string }[];
+      roots = (await c.execute("SELECT DISTINCT root FROM root_meanings WHERE root IS NOT NULL AND TRIM(root) <> ''"))
+        .rows as unknown as { root: string }[];
     } catch { /* DB erişilemezse en azından statik sayfalar döner */ }
-    try {
-      roots = await dbAll<{ root: string }>(
-        "SELECT DISTINCT root FROM root_meanings WHERE root IS NOT NULL AND TRIM(root) <> ''",
-      );
-    } catch { /* kök tablosu yoksa atla */ }
     return { verses, roots };
   },
-  ["sitemap-rows-v1"],
+  ["sitemap-rows-v2"],
   { revalidate: 86400 },
 );
 
