@@ -15,7 +15,11 @@ export function EsmaList() {
     const nq = norm(q.trim());
     if (!nq) return ESMA_UL_HUSNA;
     return ESMA_UL_HUSNA.filter(
-      (e) => norm(e.isim).includes(nq) || norm(e.anlam).includes(nq) || String(e.sira) === nq,
+      (e) =>
+        norm(e.isim).includes(nq) ||
+        norm(e.anlam).includes(nq) ||
+        norm(e.kokAnlam).includes(nq) ||
+        String(e.sira) === nq,
     );
   }, [q]);
 
@@ -26,7 +30,7 @@ export function EsmaList() {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="İsim veya anlam ara… (ör. rahman, koruyan, 18)"
+          placeholder="İsim, anlam veya kök ara… (ör. rahman, merhamet, koruyan)"
           className="w-full rounded-xl border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 dark:placeholder:text-stone-500 dark:focus:ring-amber-900/40"
         />
         {q.trim() !== "" && (
@@ -57,6 +61,15 @@ export function EsmaList() {
               </div>
               <p className="text-sm font-bold text-stone-900 dark:text-stone-50">{e.isim}</p>
               <p className="mt-0.5 text-[13px] leading-relaxed text-stone-600 dark:text-stone-400">{e.anlam}</p>
+
+              {/* Kök */}
+              <div className="mt-2 flex items-center gap-2 border-t border-stone-100 pt-2 dark:border-stone-700/40">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 dark:text-stone-500">Kök</span>
+                <span className="font-scheherazade text-base leading-none text-amber-700 dark:text-amber-500" dir="rtl">
+                  {e.kok}
+                </span>
+                <span className="text-[12px] leading-snug text-stone-500 dark:text-stone-400">{e.kokAnlam}</span>
+              </div>
             </li>
           ))}
         </ul>

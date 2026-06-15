@@ -26,7 +26,7 @@ export default function EsmaPage() {
           </h1>
         </div>
         <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
-          Allah'ın 99 güzel ismi — Arapça yazılışı, okunuşu ve açıklayıcı anlamlarıyla.
+          Allah'ın 99 güzel ismi — Arapça yazılışı, okunuşu, anlamı ve her ismin kök (etimolojik) anlamıyla.
         </p>
       </div>
 
