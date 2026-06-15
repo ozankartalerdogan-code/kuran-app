@@ -458,7 +458,9 @@ export default function AyahDetailScreen() {
       data.meal ?? "",
       webUrl,
     ].filter(Boolean).join("\n\n");
-    await Share.share({ message: text, title: `${data.surahName} ${data.ayahNumber}. Ayet` });
+    try {
+      await Share.share({ message: text, title: `${data.surahName} ${data.ayahNumber}. Ayet` });
+    } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
   }, [data, surahId, ayahNumber]);
 
   const handleSaveNote = useCallback(async () => {

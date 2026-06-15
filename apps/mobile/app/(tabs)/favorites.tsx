@@ -10,9 +10,13 @@ import { api, type FavoriteVerse } from "../../src/lib/api";
 
 export default function FavoritesScreen() {
   const c = useColors();
-  const { favorites, loaded, toggle } = useFavorites();
+  const { favorites, loaded, toggle, refresh } = useFavorites();
   const [verses, setVerses]   = useState<FavoriteVerse[]>([]);
   const [loading, setLoading] = useState(false);
+
+  // Her odaklanmada storage'dan yeniden yükle — başka ekranda (ayet sayfası)
+  // eklenen/silinen favori burada da görünsün (eskiden yenilenmiyordu).
+  useFocusEffect(useCallback(() => { refresh(); }, [refresh]));
 
   const fetchVerses = useCallback(async (keys: string[]) => {
     if (keys.length === 0) { setVerses([]); return; }
