@@ -39,7 +39,7 @@ export const HARF_I_TARIF_DERSI: HarfTarifDers = {
       "id": "giris",
       "tip": "bilgi",
       "baslik": "Harf-i Tarif Nedir?",
-      "icerik": "Arapça'da 'el-' (ال) takısı Türkçe'deki 'the' gibi belirlilik kazandırır. Bunu her gün duyarsın: Er-Rahman, Es-Selam, El-Melik... Ama neden bazen 'el-', bazen 'er-', bazen 'es-' olur? İşte sırrı çok basit.",
+      "icerik": "Arapça'da 'el-' (ال) takısı İngilizcedeki 'the' gibi belirlilik kazandırır. Bunu her gün duyarsın: Er-Rahman, Es-Selam, El-Melik... Ama neden bazen 'el-', bazen 'er-', bazen 'es-' olur? İşte sırrı çok basit.",
       "ornek": {
         "dogru": "Er-Rahman ✓",
         "yanlis": "El-Rahman ✗",
