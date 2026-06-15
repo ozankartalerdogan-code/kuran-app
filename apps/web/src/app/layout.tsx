@@ -55,7 +55,10 @@ export default function RootLayout({
       <body>
         <script
           dangerouslySetInnerHTML={{
-            __html: `if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{})}`,
+            // Yayın öncesi: Service Worker DEVRE DIŞI. Kayıtlı eski SW'leri söker
+            // ve tüm cache'leri siler — böylece bayat önbellek nedeniyle
+            // güncellemelerin "kaybolması" sorunu kalıcı olarak biter.
+            __html: `if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})}).catch(function(){});if(self.caches){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k)})}).catch(function(){})}}`,
           }}
         />
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-2">
