@@ -278,8 +278,11 @@ export default function KibleScreen() {
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
         <View style={[s.compassWrap, { width: OUTER, height: OUTER }]}>
 
-          {/* Sabit lubber çizgisi — telefonun baktığı yön (dönmez) */}
-          <Text style={s.lubber}>▼</Text>
+          {/* Sabit lubber göstergesi — telefonun baktığı yön (dönmez) */}
+          <View style={s.lubber}>
+            <View style={s.lubberHalo} />
+            <View style={s.lubberTri} />
+          </View>
 
           {/* ÜST KADRAN = dönen pusula gülü. Harfler konumları döner ama dik kalır. */}
           <View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: `${-heading}deg` }] }]}>
@@ -376,8 +379,18 @@ const s = StyleSheet.create({
   // Pusula kapsayıcısı (sabit)
   compassWrap: { alignItems: "center", justifyContent: "center", position: "relative" },
 
-  // Sabit lubber çizgisi — telefonun baktığı yön (dönmez)
-  lubber: { position: "absolute", top: -4, fontSize: 22, color: "#dc2626", zIndex: 20 },
+  // Sabit lubber göstergesi — beyaz konturlu üçgen (telefon yönü)
+  lubber:     { position: "absolute", top: -9, zIndex: 20, alignItems: "center" },
+  lubberHalo: {
+    position: "absolute", top: 0,
+    width: 0, height: 0, borderLeftWidth: 13, borderRightWidth: 13, borderTopWidth: 20,
+    borderLeftColor: "transparent", borderRightColor: "transparent", borderTopColor: "#ffffff",
+  },
+  lubberTri: {
+    marginTop: 2.5,
+    width: 0, height: 0, borderLeftWidth: 9.5, borderRightWidth: 9.5, borderTopWidth: 15,
+    borderLeftColor: "transparent", borderRightColor: "transparent", borderTopColor: "#dc2626",
+  },
 
   // Üst kadran = dönen pusula gülü
   rose: {
