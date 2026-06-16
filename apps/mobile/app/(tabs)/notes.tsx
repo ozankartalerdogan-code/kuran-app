@@ -4,13 +4,15 @@ import {
 import { useState, useEffect } from "react";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../../src/hooks/useNotes";
 import { api } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 
 export default function NotesScreen() {
   const c = useColors();
-  const { notes, saveNote, refresh } = useNotes();
+  const insets = useSafeAreaInsets();
+  const { notes, saveNote, clearAll, refresh } = useNotes();
   const [surahNames, setSurahNames] = useState<Record<string, string>>({});
   const [loading, setLoading]       = useState(true);
 
@@ -51,17 +53,21 @@ export default function NotesScreen() {
   function handleClearAll() {
     Alert.alert("Tümünü Sil", "Tüm notları silmek istediğinize emin misiniz?", [
       { text: "Hayır", style: "cancel" },
-      {
-        text: "Evet", style: "destructive",
-        onPress: () => noteList.forEach(n => saveNote(n.verseKey, "")),
-      },
+      { text: "Evet", style: "destructive", onPress: () => clearAll() },
+    ]);
+  }
+
+  function handleDeleteOne(verseKey: string) {
+    Alert.alert("Notu Sil", "Bu notu silmek istediğinize emin misiniz?", [
+      { text: "Hayır", style: "cancel" },
+      { text: "Evet", style: "destructive", onPress: () => saveNote(verseKey, "") },
     ]);
   }
 
   // Yükleniyor
   if (loading) {
     return (
-      <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}>
         {[1, 2, 3].map(i => (
           <View key={i} style={[styles.skeleton, { backgroundColor: c.border }]} />
         ))}
@@ -88,7 +94,7 @@ export default function NotesScreen() {
     <FlatList
       data={noteList}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={[styles.list, { backgroundColor: c.bg }]}
+      contentContainerStyle={[styles.list, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={[styles.noteCount, { color: c.textMuted }]}>{noteList.length} ayet için not kaydedildi</Text>
@@ -112,7 +118,7 @@ export default function NotesScreen() {
               <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
                 {formatLabel(item.verseKey)}
               </Text>
-              <TouchableOpacity onPress={() => saveNote(item.verseKey, "")} hitSlop={8}>
+              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8}>
                 <Text style={styles.deleteBtn}>🗑</Text>
               </TouchableOpacity>
             </View>

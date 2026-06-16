@@ -4,13 +4,15 @@ import {
 } from "react-native";
 import { useState, useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../../src/hooks/useColors";
 import { useFavorites } from "../../src/hooks/useFavorites";
 import { api, type FavoriteVerse } from "../../src/lib/api";
 
 export default function FavoritesScreen() {
   const c = useColors();
-  const { favorites, loaded, toggle, refresh } = useFavorites();
+  const insets = useSafeAreaInsets();
+  const { favorites, loaded, toggle, clearAll, refresh } = useFavorites();
   const [verses, setVerses]   = useState<FavoriteVerse[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -33,16 +35,20 @@ export default function FavoritesScreen() {
   function handleClearAll() {
     Alert.alert("Tümünü Temizle", "Tüm favori ayetleri kaldırmak istediğinize emin misiniz?", [
       { text: "İptal", style: "cancel" },
-      {
-        text: "Temizle", style: "destructive",
-        onPress: () => favorites.forEach(k => toggle(k)),
-      },
+      { text: "Temizle", style: "destructive", onPress: () => clearAll() },
+    ]);
+  }
+
+  function handleRemoveOne(verseKey: string) {
+    Alert.alert("Favoriden Kaldır", "Bu ayeti favorilerden kaldırmak istediğinize emin misiniz?", [
+      { text: "İptal", style: "cancel" },
+      { text: "Kaldır", style: "destructive", onPress: () => toggle(verseKey) },
     ]);
   }
 
   if (!loaded || loading) {
     return (
-      <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}>
         {[1, 2, 3].map(i => (
           <View key={i} style={[styles.skeleton, { backgroundColor: c.border }]} />
         ))}
@@ -69,7 +75,7 @@ export default function FavoritesScreen() {
     <FlatList
       data={verses}
       keyExtractor={(v) => v.verse_key}
-      contentContainerStyle={[styles.list, { backgroundColor: c.bg }]}
+      contentContainerStyle={[styles.list, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={styles.count}>{verses.length} ayet kaydedildi</Text>
@@ -94,7 +100,7 @@ export default function FavoritesScreen() {
                 {item.surah_name} · {item.ayah_number}. ayet
               </Text>
             )}
-            <TouchableOpacity onPress={() => toggle(item.verse_key)} hitSlop={8} style={styles.heartBtn}>
+            <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn}>
               <Text style={{ fontSize: 18 }}>❤️</Text>
             </TouchableOpacity>
           </View>

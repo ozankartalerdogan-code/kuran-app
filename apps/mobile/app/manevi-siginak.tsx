@@ -281,14 +281,14 @@ export default function ManeviSiginakScreen() {
             "Şifayı ve korumayı yalnız Allah'tan iste.",
             "Sabah-akşam: Ayetel Kürsi + 3 İhlas + Felak + Nas.",
             "Nazar için: Kalem 51-52 ve Felak-Nas oku.",
-            "Vesvese gelince: «Eûzü billâh» de ve geç.",
+            "Vesvese gelince Eûzü-Besmele çek: «Eûzü billâhi mineş-şeytânir-racîm. Bismillâhir-rahmânir-rahîm.»",
             "Hastalıkta: doktor + Kur'an ikilisini birlikte kullan.",
           ].map((i, idx) => <Text key={idx} style={s.mitGreen}>✓ {i}</Text>)}
         </View>
         <View style={[s.mitCard, { borderColor: "#fca5a5" }]}>
           <Text style={[s.mitTitle, { color: "#991b1b" }]}>🔴 YAPMA — Yasak Uygulamalar</Text>
           {[
-            { item: "Nazar Boncuğu", aciklama: "Şirk riski — Nesneye koruyan güç atfetmek shirktir. Alternati: Ayetel Kürsi oku." },
+            { item: "Nazar Boncuğu", aciklama: "Şirk riski — Nesneye koruyan güç atfetmek şirktir. Alternatif: Ayetel Kürsi oku." },
             { item: "Kurşun Döktürmek", aciklama: "Batıl — İslam kaynağı yok. Doğrusu: Felak ve Nas oku." },
             { item: "Sirke-Tuz-Su Karışımı", aciklama: "Hurafe — Maddeye metafizik güç atfetmek şirke kapı açar." },
             { item: "Cinci / Medyum / Falcı", aciklama: "Büyük günah — «Falcıya gidip inanan küfre girmiştir» (Hadis)." },

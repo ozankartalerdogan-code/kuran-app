@@ -8,6 +8,7 @@ export interface UseNotesResult {
   getNote: (verseKey: string) => string;
   saveNote: (verseKey: string, text: string) => Promise<boolean>;
   deleteNote: (verseKey: string) => Promise<boolean>;
+  clearAll: () => Promise<boolean>;
   loading: boolean;
   loaded: boolean;
   error: string | null;
@@ -85,9 +86,22 @@ export function useNotes(): UseNotesResult {
     return saveNote(verseKey, "");
   }, [saveNote]);
 
+  /** Tüm notları tek seferde sil (forEach yarış koşulu olmadan) */
+  const clearAll = useCallback(async (): Promise<boolean> => {
+    setError(null);
+    try {
+      await storage.setJSON(STORAGE_KEYS.notes, {});
+      setNotes({});
+      return true;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Notlar silinemedi");
+      return false;
+    }
+  }, []);
+
   const refresh = useCallback(async () => {
     await load();
   }, [load]);
 
-  return { notes, getNote, saveNote, deleteNote, loading, loaded, error, refresh };
+  return { notes, getNote, saveNote, deleteNote, clearAll, loading, loaded, error, refresh };
 }

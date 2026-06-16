@@ -5,6 +5,7 @@ export interface UseFavoritesResult {
   favorites: string[];
   isFavorite: (verseKey: string) => boolean;
   toggle: (verseKey: string) => Promise<boolean>;
+  clearAll: () => Promise<boolean>;
   loaded: boolean;
   loading: boolean;
   error: string | null;
@@ -80,9 +81,22 @@ export function useFavorites(): UseFavoritesResult {
     [favorites],
   );
 
+  /** Tüm favorileri tek seferde sil (forEach yarış koşulu olmadan) */
+  const clearAll = useCallback(async (): Promise<boolean> => {
+    setError(null);
+    try {
+      await storage.setJSON(STORAGE_KEYS.favorites, []);
+      setFavorites([]);
+      return true;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Favoriler silinemedi");
+      return false;
+    }
+  }, []);
+
   const refresh = useCallback(async () => {
     await load();
   }, [load]);
 
-  return { favorites, isFavorite, toggle, loaded, loading, error, refresh };
+  return { favorites, isFavorite, toggle, clearAll, loaded, loading, error, refresh };
 }

@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import {
-  View, Text, FlatList, TouchableOpacity,
-  ActivityIndicator, StyleSheet, Platform,
+  View, Text, FlatList, TouchableOpacity, ScrollView,
+  ActivityIndicator, StyleSheet, Platform, BackHandler,
 } from "react-native";
 import { router, Stack } from "expo-router";
 import { api } from "../src/lib/api";
@@ -11,10 +11,12 @@ import { useColors } from "../src/hooks/useColors";
 // ── Sekme tanımları ───────────────────────────────────────────────────────────
 
 type Tab = "temalar" | "dualar" | "namaz";
-const TABS: { id: Tab; label: string; ikon: string }[] = [
-  { id: "temalar", label: "Temalar",  ikon: "🌟" },
-  { id: "dualar",  label: "Dualar",   ikon: "🤲" },
-  { id: "namaz",   label: "Namaz",    ikon: "🕌" },
+
+// Hub'daki "Konuya Göre Keşfet" kartları (dokununca o bölüm açılır)
+const SECTIONS: { id: Tab; emoji: string; label: string; sub: string; bg: string; border: string }[] = [
+  { id: "temalar", emoji: "🌟", label: "Temalar", sub: "Konuya göre ayetler (A–G)",    bg: "#fef3c7", border: "#fcd34d" },
+  { id: "dualar",  emoji: "🤲", label: "Dualar",  sub: "Rabbena, korunma, şifa, zikir", bg: "#dcfce7", border: "#86efac" },
+  { id: "namaz",   emoji: "🕌", label: "Namaz",   sub: "Vakitler ve namaz ayetleri",    bg: "#e0e7ff", border: "#a5b4fc" },
 ];
 
 // ── Temalar verisi ────────────────────────────────────────────────────────────
@@ -155,7 +157,6 @@ function parseKey(key: string) {
 type ListItem =
   | { kind: "section_title"; key: string; title: string }
   | { kind: "featured_grid"; key: string }
-  | { kind: "rehber"; key: string; item: typeof REHBERLER[number] }
   | { kind: "theme_accordion"; key: string; grup: typeof AKORDEON_GRUPLARI[number] }
   | { kind: "tag_accordion"; key: string; emoji: string; label: string; tag: string; renk: string }
   | { kind: "vakit_tablosu"; key: string };
@@ -166,8 +167,6 @@ const KEY_MAPPING: Record<Tab, ListItem[]> = (() => {
   const temalar: ListItem[] = [
     { kind: "section_title", key: "st_featured", title: "Öne Çıkan Temalar" },
     { kind: "featured_grid", key: "featured_grid" },
-    { kind: "section_title", key: "st_rehber", title: "Özel Rehberler" },
-    ...REHBERLER.map((r, i): ListItem => ({ kind: "rehber", key: `rehber_${i}`, item: r })),
     { kind: "section_title", key: "st_all", title: "Tüm Temalar" },
     ...AKORDEON_GRUPLARI.map((g, i): ListItem => ({ kind: "theme_accordion", key: `theme_${i}`, grup: g })),
   ];
@@ -364,31 +363,38 @@ const VakitTablosu = React.memo(function VakitTablosu() {
   );
 });
 
-// Rehber kartı
-const RehberCard = React.memo(function RehberCard({ item }: { item: typeof REHBERLER[number] }) {
+// Hub kartı — hem araç/rehber hem bölüm kartları için ortak
+function HubCard({ emoji, label, sub, bg, border, onPress }: {
+  emoji: string; label: string; sub: string; bg: string; border: string; onPress: () => void;
+}) {
   return (
     <TouchableOpacity
-      style={[s.rehberCard, { backgroundColor: item.bg, borderColor: item.border }]}
-      onPress={() => router.push(item.route)}
-      activeOpacity={0.75}
+      style={[tools.card, { backgroundColor: bg, borderColor: border }]}
+      onPress={onPress}
+      activeOpacity={0.8}
     >
-      <Text style={s.rehberEmoji}>{item.emoji}</Text>
+      <Text style={tools.emoji}>{emoji}</Text>
       <View style={{ flex: 1 }}>
-        <Text style={s.rehberLabel}>{item.label}</Text>
-        <Text style={s.rehberSub}>{item.sub}</Text>
+        <Text style={tools.cardLabel} numberOfLines={1}>{label}</Text>
+        <Text style={tools.cardSub} numberOfLines={1}>{sub}</Text>
       </View>
-      <Text style={s.rehberChev}>›</Text>
+      <Text style={tools.chev}>›</Text>
     </TouchableOpacity>
   );
-});
+}
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function KesfetScreen() {
   const c = useColors();
-  const [aktifTab, setAktifTab] = useState<Tab>("temalar");
+  const [bolum, setBolum] = useState<Tab | null>(null);
 
-  const listData = useMemo(() => KEY_MAPPING[aktifTab], [aktifTab]);
+  // Bir bölümdeyken Android donanım geri tuşu → hub'a dön (ekrandan çıkma)
+  useEffect(() => {
+    if (bolum === null) return;
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => { setBolum(null); return true; });
+    return () => sub.remove();
+  }, [bolum]);
 
   const renderItem = useCallback(({ item }: { item: ListItem }) => {
     switch (item.kind) {
@@ -398,8 +404,6 @@ export default function KesfetScreen() {
         );
       case "featured_grid":
         return <FeaturedGrid />;
-      case "rehber":
-        return <RehberCard item={item.item} />;
       case "theme_accordion":
         return <ThemeAccordion grup={item.grup} />;
       case "tag_accordion":
@@ -413,29 +417,50 @@ export default function KesfetScreen() {
 
   const keyExtractor = useCallback((item: ListItem) => item.key, []);
 
+  // ── HUB: kart ızgarası ──────────────────────────────────────────────────────
+  if (bolum === null) {
+    return (
+      <>
+        <Stack.Screen options={{ title: "Keşfet" }} />
+        <ScrollView
+          style={[s.container, { backgroundColor: c.bg }]}
+          contentContainerStyle={s.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={[s.groupLabel, { color: c.textMuted }]}>Araçlar & Rehberler</Text>
+          <View style={tools.grid}>
+            {REHBERLER.map(r => (
+              <HubCard key={r.route} emoji={r.emoji} label={r.label} sub={r.sub} bg={r.bg} border={r.border} onPress={() => router.push(r.route)} />
+            ))}
+          </View>
+
+          <Text style={[s.groupLabel, { color: c.textMuted, marginTop: 20 }]}>Konuya Göre Keşfet</Text>
+          <View style={tools.grid}>
+            {SECTIONS.map(sec => (
+              <HubCard key={sec.id} emoji={sec.emoji} label={sec.label} sub={sec.sub} bg={sec.bg} border={sec.border} onPress={() => setBolum(sec.id)} />
+            ))}
+          </View>
+        </ScrollView>
+      </>
+    );
+  }
+
+  // ── BÖLÜM: seçilen kategorinin içeriği ───────────────────────────────────────
+  const meta = SECTIONS.find(x => x.id === bolum)!;
   return (
     <>
-      <Stack.Screen options={{ title: "Keşfet" }} />
-
-      {/* Sekme çubuğu */}
-      <View style={[s.tabBar, { backgroundColor: c.card, borderBottomColor: c.border }]}>
-        {TABS.map(tab => (
-          <TouchableOpacity
-            key={tab.id}
-            style={[s.tabBtn, aktifTab === tab.id && s.tabBtnActive]}
-            onPress={() => setAktifTab(tab.id)}
-            activeOpacity={0.8}
-          >
-            <Text style={s.tabIcon}>{tab.ikon}</Text>
-            <Text style={[s.tabLabel, aktifTab === tab.id && s.tabLabelActive]}>
-              {tab.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <Stack.Screen options={{ title: meta.label }} />
+      <TouchableOpacity
+        style={[s.backRow, { backgroundColor: c.card, borderBottomColor: c.border }]}
+        onPress={() => setBolum(null)}
+        activeOpacity={0.7}
+      >
+        <Text style={[s.backText, { color: c.accent }]}>‹ Keşfet</Text>
+        <Text style={[s.backTitle, { color: c.text }]}>{meta.emoji} {meta.label}</Text>
+      </TouchableOpacity>
 
       <FlatList
-        data={listData}
+        data={KEY_MAPPING[bolum]}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         style={[s.container, { backgroundColor: c.bg }]}
@@ -453,15 +478,16 @@ export default function KesfetScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  tabBar:    { flexDirection: "row", backgroundColor: "#fff", borderBottomWidth: 1, borderBottomColor: "#e7e5e4" },
-  tabBtn:    { flex: 1, alignItems: "center", paddingVertical: 10, gap: 2 },
-  tabBtnActive: { borderBottomWidth: 2, borderBottomColor: "#059669" },
-  tabIcon:   { fontSize: 18 },
-  tabLabel:  { fontSize: 11, fontWeight: "600", color: "#9ca3af" },
-  tabLabelActive: { color: "#059669" },
-
   container: { flex: 1, backgroundColor: "#f5f0e8" },
   content:   { padding: 14, paddingBottom: 48 },
+
+  // Hub grup başlığı
+  groupLabel: { fontSize: 11, fontWeight: "700", color: "#78716c", textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 10 },
+
+  // Bölüm üst geri satırı
+  backRow:   { flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 1 },
+  backText:  { fontSize: 14, fontWeight: "700" },
+  backTitle: { fontSize: 14, fontWeight: "600", flex: 1 },
 
   sectionTitle: {
     fontSize: 11, fontWeight: "700", color: "#78716c",
@@ -471,15 +497,16 @@ const s = StyleSheet.create({
 
   featuredGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 4 },
 
-  rehberCard:  { flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 14, borderWidth: 1.5, padding: 14, marginBottom: 8 },
-  rehberEmoji: { fontSize: 24 },
-  rehberLabel: { fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  rehberSub:   { fontSize: 11, color: "#78716c", marginTop: 1 },
-  rehberChev:  { fontSize: 20, color: "#9ca3af" },
+});
 
-  moodGrid:  { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingBottom: 8 },
-  moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 10 },
-  moodLabel: { fontSize: 13, fontWeight: "600", color: "#1c1917" },
+// Araçlar & Rehberler — üst sabit grid
+const tools = StyleSheet.create({
+  grid:      { gap: 9 },
+  card:      { flexDirection: "row", alignItems: "center", gap: 13, borderRadius: 14, borderWidth: 1.5, paddingVertical: 15, paddingHorizontal: 15 },
+  emoji:     { fontSize: 25 },
+  cardLabel: { fontSize: 15, fontWeight: "700", color: "#1c1917" },
+  cardSub:   { fontSize: 11.5, color: "#78716c", marginTop: 1.5 },
+  chev:      { fontSize: 22, color: "#a8a29e", fontWeight: "600" },
 });
 
 // Öne çıkan kart
