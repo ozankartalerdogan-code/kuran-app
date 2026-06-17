@@ -292,7 +292,7 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 
 // Cache sürümü — artırınca tüm eski yerel cache'ler geçersiz olur.
 // (v2: gloss/literal/fark analizi büyük veri güncellemesi)
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3"; // v3: arabic_tajweed eklendi → eski cache geçersiz
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 
 async function withCache<T>(
