@@ -42,7 +42,11 @@ function DuaCard({ dua }: { dua: Dua }) {
         <Text style={[s.duaBaslik, { color: c.text }]}>{dua.baslik}</Text>
         <DerecBadge derece={dua.derece} />
       </View>
-      {dua.arapca ? <Text style={s.arabic}>{dua.arapca}</Text> : null}
+      {dua.arapca ? (
+        /[؀-ۿ]/.test(dua.arapca)
+          ? <Text style={s.arabic}>{dua.arapca}</Text>
+          : <Text style={[s.refNote, { backgroundColor: c.cardAlt, color: c.textSecondary }]}>📎 {dua.arapca}</Text>
+      ) : null}
       {dua.okunus ? <Text style={[s.okunus, { color: c.text }]}>{dua.okunus}</Text> : null}
       {dua.anlam ? <Text style={[s.anlam, { color: c.textSecondary }]}>{dua.anlam}</Text> : null}
 
@@ -131,6 +135,7 @@ const s = StyleSheet.create({
   derecText: { fontSize: 9.5, fontWeight: "800", letterSpacing: 0.3 },
 
   arabic:  { fontSize: 21, lineHeight: 40, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", color: "#1c1917", marginBottom: 8 },
+  refNote: { fontSize: 13, lineHeight: 20, borderRadius: 8, padding: 10, marginBottom: 8 },
   okunus:  { fontSize: 13, lineHeight: 21, fontStyle: "italic", marginBottom: 6 },
   anlam:   { fontSize: 12.5, lineHeight: 19, marginBottom: 8 },
 
