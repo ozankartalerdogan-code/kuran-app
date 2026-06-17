@@ -1,8 +1,8 @@
 import {
-  View, Text, ScrollView, TouchableOpacity, ActivityIndicator,
+  View, Text, ScrollView, FlatList, TouchableOpacity, ActivityIndicator,
   StyleSheet,
 } from "react-native";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
@@ -22,24 +22,46 @@ const BOOKMARK_KEY = STORAGE_KEYS.mushafBookmark;
 
 // ── AyahSelector — üst ayet seçici (altta sure, üstte ayet) ─────────────────
 
+const AYAH_ITEM = 48; // seg 44 + gap 4
+
 function AyahSelector({ count, current, onSelect }: { count: number; current: number; onSelect: (n: number) => void }) {
-  const scrollRef = useRef<ScrollView>(null);
+  const listRef = useRef<FlatList<number>>(null);
+  const data = useMemo(() => Array.from({ length: count }, (_, i) => i + 1), [count]);
+
   useEffect(() => {
-    scrollRef.current?.scrollTo({ x: Math.max(0, (current - 1) * 46 - 120), animated: true });
+    listRef.current?.scrollToIndex({ index: Math.max(0, current - 1), viewPosition: 0.5, animated: true });
   }, [current]);
+
+  const renderItem = useCallback(({ item: n }: { item: number }) => {
+    const active = n === current;
+    return (
+      <TouchableOpacity style={[juzSt.seg, active && juzSt.segActive]} onPress={() => onSelect(n)} activeOpacity={0.7}>
+        <Text style={[juzSt.label, active && juzSt.labelActive]}>{n}</Text>
+      </TouchableOpacity>
+    );
+  }, [current, onSelect]);
 
   return (
     <View style={juzSt.container}>
-      <ScrollView ref={scrollRef} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={juzSt.list}>
-        {Array.from({ length: count }, (_, i) => i + 1).map(n => {
-          const active = n === current;
-          return (
-            <TouchableOpacity key={n} style={[juzSt.seg, active && juzSt.segActive]} onPress={() => onSelect(n)} activeOpacity={0.7}>
-              <Text style={[juzSt.label, active && juzSt.labelActive]}>{n}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
+      <FlatList
+        ref={listRef}
+        data={data}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={juzSt.list}
+        keyExtractor={(n) => String(n)}
+        renderItem={renderItem}
+        extraData={current}
+        getItemLayout={(_, i) => ({ length: AYAH_ITEM, offset: AYAH_ITEM * i + 8, index: i })}
+        initialScrollIndex={Math.max(0, current - 1)}
+        onScrollToIndexFailed={(info) => {
+          listRef.current?.scrollToOffset({ offset: AYAH_ITEM * info.index, animated: false });
+        }}
+        initialNumToRender={24}
+        maxToRenderPerBatch={24}
+        windowSize={5}
+        removeClippedSubviews
+      />
       <View style={juzSt.indicator}>
         <Text style={juzSt.indicatorText}>{current}/{count}</Text>
       </View>
@@ -289,11 +311,16 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
         )}
       </ScrollView>
 
-      {/* Sure seçici */}
+      {/* Sure seçici — virtualize (114 sure) */}
       <View style={st.surahSelector}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {surahList.map(s => (
-            <TouchableOpacity key={s.id}
+        <FlatList
+          data={surahList}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(s) => String(s.id)}
+          extraData={currentSurahId}
+          renderItem={({ item: s }) => (
+            <TouchableOpacity
               style={[st.surahChip, s.id === currentSurahId && st.surahChipActive]}
               onPress={() => handleSurahSelect(s.id)} activeOpacity={0.7}
             >
@@ -301,8 +328,12 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
                 {s.id}. {s.name}
               </Text>
             </TouchableOpacity>
-          ))}
-        </ScrollView>
+          )}
+          initialNumToRender={12}
+          maxToRenderPerBatch={12}
+          windowSize={5}
+          removeClippedSubviews
+        />
       </View>
 
       {/* Navigasyon */}
