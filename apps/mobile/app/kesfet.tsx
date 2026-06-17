@@ -10,13 +10,13 @@ import { useColors } from "../src/hooks/useColors";
 
 // ── Sekme tanımları ───────────────────────────────────────────────────────────
 
-type Tab = "temalar" | "dualar" | "namaz";
+type Tab = "temalar" | "dualar";
 
 // Hub'daki "Konuya Göre Keşfet" kartları (dokununca o bölüm açılır)
+// NOT: Namaz, kendi sayfasına taşındı (/namaz-rehberi → "Namaz Ayetleri" sekmesi).
 const SECTIONS: { id: Tab; emoji: string; label: string; sub: string; bg: string; border: string }[] = [
   { id: "temalar", emoji: "🌟", label: "Temalar", sub: "Konuya göre ayetler (A–G)",    bg: "#fef3c7", border: "#fcd34d" },
   { id: "dualar",  emoji: "🤲", label: "Dualar",  sub: "Rabbena, korunma, şifa, zikir", bg: "#dcfce7", border: "#86efac" },
-  { id: "namaz",   emoji: "🕌", label: "Namaz",   sub: "Vakitler ve namaz ayetleri",    bg: "#e0e7ff", border: "#a5b4fc" },
 ];
 
 // ── Temalar verisi ────────────────────────────────────────────────────────────
@@ -101,6 +101,7 @@ const REHBERLER = [
   { emoji: "✨",  label: "İsmi Azam",        sub: "Sahih dualar ve uygulamalar",  route: "/manevi-siginak/ismi-azam" as const, bg: "#fef3c7", border: "#fcd34d" },
   { emoji: "🕌", label: "Esmaül Hüsna",     sub: "Allah'ın 99 güzel ismi",       route: "/esma"                     as const, bg: "#ede9fe", border: "#c4b5fd" },
   { emoji: "📿", label: "İbadet Rehberi",   sub: "Namaz, oruç, zekât, abdest",   route: "/ibadet-rehberi"           as const, bg: "#f0fdf4", border: "#86efac" },
+  { emoji: "🧎", label: "Namaz Rehberi",    sub: "Adım adım namaz, dualar, vitir", route: "/namaz-rehberi"          as const, bg: "#e0f2fe", border: "#7dd3fc" },
 ];
 
 // ── Dualar verisi ─────────────────────────────────────────────────────────────
@@ -114,52 +115,13 @@ const DUA_CATS = [
   { emoji: "📿", id: "zikir",      label: "Zikir ve Tesbih",      tag: "zikir",          renk: "#fef3c7" },
 ];
 
-// ── Namaz verisi ──────────────────────────────────────────────────────────────
-
-const VAKIT_ROWS = [
-  { id: "sabah",    ikon: "🌅", ad: "Sabah",    bg: "#f0f9ff", border: "#7dd3fc", keys: ["17:78","20:130","50:39"] },
-  { id: "ogle",     ikon: "☀️", ad: "Öğle",     bg: "#fffbeb", border: "#fcd34d", keys: ["30:18","17:78"] },
-  { id: "ikindi",   ikon: "🌤️", ad: "İkindi",   bg: "#fff7ed", border: "#fdba74", keys: ["2:238","20:130","50:39"] },
-  { id: "aksam",    ikon: "🌆", ad: "Akşam",    bg: "#fff1f2", border: "#fda4af", keys: ["11:114","30:17"] },
-  { id: "yatsi",    ikon: "🌙", ad: "Yatsı",    bg: "#eef2ff", border: "#a5b4fc", keys: ["24:58","17:78","11:114"] },
-  { id: "teheccud", ikon: "🌌", ad: "Teheccüd", bg: "#f5f3ff", border: "#c4b5fd", keys: ["17:79","73:2-3","25:64","51:17-18"] },
-];
-
-// Üst motto ayeti — Nisâ 4:103
-const MOTTO = {
-  surahId: 4,
-  ayahNumber: 103,
-  label: "Nisâ 4:103",
-  arabic: "فَإِذَا قَضَيْتُمُ ٱلصَّلَوٰةَ فَٱذْكُرُوا۟ ٱللَّهَ قِيَـٰمًا وَقُعُودًا وَعَلَىٰ جُنُوبِكُمْ ۚ فَإِذَا ٱطْمَأْنَنتُمْ فَأَقِيمُوا۟ ٱلصَّلَوٰةَ ۚ إِنَّ ٱلصَّلَوٰةَ كَانَتْ عَلَى ٱلْمُؤْمِنِينَ كِتَـٰبًا مَّوْقُوتًا",
-  meal: "Namazı kıldıktan sonra; ayakta, otururken ve yan yatarken Allah'ı anın. Güvene kavuştuğunuzda namazı gereğince kılın. Şüphesiz namaz, müminlere belirli vakitlerde farz kılınmıştır.",
-};
-
-const NAMAZ_CATS = [
-  { emoji: "🕌", id: "namaz-genel",   label: "Namaz Genel",    tag: "namaz-genel",   renk: "#e0e7ff" },
-  { emoji: "⏰", id: "namaz-vakit",   label: "Namaz Vakitleri",tag: "namaz-vakit",   renk: "#fef3c7" },
-  { emoji: "🧘", id: "namaz-husu",    label: "Huşu & Kalp",    tag: "namaz-husu",    renk: "#f0fdf4" },
-  { emoji: "🌌", id: "namaz-teheccud",label: "Teheccüd",       tag: "namaz-teheccud",renk: "#ede9fe" },
-  { emoji: "📅", id: "namaz-cuma",    label: "Cuma Namazı",    tag: "namaz-cuma",    renk: "#dbeafe" },
-];
-
-// ── Yardımcı: ayet key parse ──────────────────────────────────────────────────
-
-function parseKey(key: string) {
-  const [s, a] = key.split(":");
-  const surahId = Number(s) || 0;
-  // Aralık (örn. "73:2-3") → ilk ayet numarası
-  const ayahNumber = Number(a?.split("-")[0]) || 0;
-  return { surahId, ayahNumber };
-}
-
 // ── Liste öğe tipi ────────────────────────────────────────────────────────────
 
 type ListItem =
   | { kind: "section_title"; key: string; title: string }
   | { kind: "featured_grid"; key: string }
   | { kind: "theme_accordion"; key: string; grup: typeof AKORDEON_GRUPLARI[number] }
-  | { kind: "tag_accordion"; key: string; emoji: string; label: string; tag: string; renk: string }
-  | { kind: "vakit_tablosu"; key: string };
+  | { kind: "tag_accordion"; key: string; emoji: string; label: string; tag: string; renk: string };
 
 // ── Key sabitleri ─────────────────────────────────────────────────────────────
 
@@ -176,13 +138,7 @@ const KEY_MAPPING: Record<Tab, ListItem[]> = (() => {
     ...DUA_CATS.map(c => ({ kind: "tag_accordion" as const, key: c.id, emoji: c.emoji, label: c.label, tag: c.tag, renk: c.renk })),
   ];
 
-  const namaz: ListItem[] = [
-    { kind: "vakit_tablosu", key: "vakit_tablosu" },
-    { kind: "section_title", key: "st_namaz", title: "Namaz Kategorileri" },
-    ...NAMAZ_CATS.map(c => ({ kind: "tag_accordion" as const, key: c.id, emoji: c.emoji, label: c.label, tag: c.tag, renk: c.renk })),
-  ];
-
-  return { temalar, dualar, namaz };
+  return { temalar, dualar };
 })();
 
 // ── Bileşenler ────────────────────────────────────────────────────────────────
@@ -312,57 +268,6 @@ const TagAccordion = React.memo(function TagAccordion({ emoji, label, tag, renk 
   );
 });
 
-// Namaz vakit tablosu
-const VakitTablosu = React.memo(function VakitTablosu() {
-  return (
-    <View>
-      {/* Üst Motto — Nisâ 4:103 ayet + meal */}
-      <TouchableOpacity
-        style={vt.motto}
-        activeOpacity={0.8}
-        onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}` as any)}
-      >
-        <View style={vt.mottoHead}>
-          <Text style={vt.mottoEtiket}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
-          <View style={vt.mottoKey}><Text style={vt.mottoKeyText}>{MOTTO.label}</Text></View>
-        </View>
-        <Text style={vt.mottoArabic}>{MOTTO.arabic}</Text>
-        <Text style={vt.mottoMeal}>“{MOTTO.meal}”</Text>
-      </TouchableOpacity>
-
-    <View style={vt.card}>
-      <View style={vt.headerRow}>
-        <Text style={vt.headerTitle}>🕐 Namaz Vakitleri</Text>
-      </View>
-      {VAKIT_ROWS.map(v => (
-        <View key={v.id} style={[vt.row, { backgroundColor: v.bg, borderLeftColor: v.border }]}>
-          <View style={vt.vakit}>
-            <Text style={{ fontSize: 20 }}>{v.ikon}</Text>
-            <Text style={vt.vakitAd}>{v.ad}</Text>
-            <Text style={vt.vakitSayi}>{v.keys.length} ayet</Text>
-          </View>
-          <View style={vt.keys}>
-            {v.keys.map(k => {
-              const { surahId, ayahNumber } = parseKey(k);
-              return (
-                <TouchableOpacity
-                  key={k}
-                  style={vt.keyChip}
-                  onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}` as any)}
-                  activeOpacity={0.7}
-                >
-                  <Text style={vt.keyText}>{k}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-      ))}
-    </View>
-    </View>
-  );
-});
-
 // Hub kartı — hem araç/rehber hem bölüm kartları için ortak
 function HubCard({ emoji, label, sub, bg, border, onPress }: {
   emoji: string; label: string; sub: string; bg: string; border: string; onPress: () => void;
@@ -408,8 +313,6 @@ export default function KesfetScreen() {
         return <ThemeAccordion grup={item.grup} />;
       case "tag_accordion":
         return <TagAccordion emoji={item.emoji} label={item.label} tag={item.tag} renk={item.renk} />;
-      case "vakit_tablosu":
-        return <VakitTablosu />;
       default:
         return null;
     }
@@ -427,15 +330,10 @@ export default function KesfetScreen() {
           contentContainerStyle={s.content}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={[s.groupLabel, { color: c.textMuted }]}>Araçlar & Rehberler</Text>
           <View style={tools.grid}>
             {REHBERLER.map(r => (
               <HubCard key={r.route} emoji={r.emoji} label={r.label} sub={r.sub} bg={r.bg} border={r.border} onPress={() => router.push(r.route)} />
             ))}
-          </View>
-
-          <Text style={[s.groupLabel, { color: c.textMuted, marginTop: 20 }]}>Konuya Göre Keşfet</Text>
-          <View style={tools.grid}>
             {SECTIONS.map(sec => (
               <HubCard key={sec.id} emoji={sec.emoji} label={sec.label} sub={sec.sub} bg={sec.bg} border={sec.border} onPress={() => setBolum(sec.id)} />
             ))}
@@ -482,7 +380,6 @@ const s = StyleSheet.create({
   content:   { padding: 14, paddingBottom: 48 },
 
   // Hub grup başlığı
-  groupLabel: { fontSize: 11, fontWeight: "700", color: "#78716c", textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 10 },
 
   // Bölüm üst geri satırı
   backRow:   { flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 1 },
@@ -546,26 +443,4 @@ const acc = StyleSheet.create({
   surah:    { fontSize: 11, color: "#78716c", marginBottom: 1 },
   reading:  { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20 },
   meal:     { fontSize: 11, color: "#57534e", lineHeight: 17, marginTop: 1 },
-});
-
-// Vakit tablosu
-const vt = StyleSheet.create({
-  // Üst motto kartı
-  motto:        { borderRadius: 14, borderWidth: 1, borderColor: "#a7f3d0", backgroundColor: "#ecfdf5", padding: 14, marginBottom: 10 },
-  mottoHead:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
-  mottoEtiket:  { flex: 1, fontSize: 10, fontWeight: "700", color: "#059669", textTransform: "uppercase", letterSpacing: 0.5 },
-  mottoKey:     { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 },
-  mottoKeyText: { fontSize: 10, fontWeight: "700", color: "#047857" },
-  mottoArabic:  { fontSize: 20, lineHeight: 36, color: "#1c1917", textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", marginBottom: 8 },
-  mottoMeal:    { fontSize: 13, lineHeight: 20, color: "#57534e", fontStyle: "italic" },
-  card:      { borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", backgroundColor: "#fff", overflow: "hidden", marginBottom: 8 },
-  headerRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 14, borderBottomWidth: 1, borderBottomColor: "#f5f0e8" },
-  headerTitle:{ fontSize: 12, fontWeight: "700", color: "#44403c", textTransform: "uppercase", letterSpacing: 0.5 },
-  row:       { flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "#f5f0e8", borderLeftWidth: 4 },
-  vakit:     { width: 80, alignItems: "center", justifyContent: "center", paddingVertical: 12, gap: 3 },
-  vakitAd:   { fontSize: 11, fontWeight: "700", color: "#374151" },
-  vakitSayi: { fontSize: 10, color: "#9ca3af" },
-  keys:      { flex: 1, flexDirection: "row", flexWrap: "wrap", gap: 6, padding: 10, alignContent: "center" },
-  keyChip:   { backgroundColor: "#f0fdf4", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#86efac" },
-  keyText:   { fontSize: 12, color: "#065f46", fontWeight: "600" },
 });
