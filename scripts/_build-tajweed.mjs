@@ -10,6 +10,10 @@ const MODE = process.argv.includes("--write") ? "write"
   : process.argv.includes("--schema") ? "schema"
   : "dry-run";
 
+// --local: Turso yerine yerel SQLite dosyasına (file:data/app.db) yaz.
+const LOCAL = process.argv.includes("--local");
+const LOCAL_URL = "file:data/app.db";
+
 const EDITION_URL = "https://api.alquran.cloud/v1/quran/quran-tajweed";
 
 // AlQuran.cloud tek-harf tecvid kodları → kural adı + renk (standart şema)
@@ -70,6 +74,8 @@ function envGet(k) {
 
 async function turso() {
   const { createClient } = await import("@libsql/client");
+  if (LOCAL) { console.log("HEDEF: yerel", LOCAL_URL); return createClient({ url: LOCAL_URL }); }
+  console.log("HEDEF: Turso (uzak)");
   return createClient({ url: envGet("TURSO_DB_URL").replace(/^libsql:\/\//, "https://"), authToken: envGet("TURSO_AUTH_TOKEN") });
 }
 
