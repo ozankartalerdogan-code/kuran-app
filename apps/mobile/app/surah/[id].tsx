@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 
@@ -110,6 +111,7 @@ function VerseRow({ item, onPress }: VerseRowProps) {
 
 export default function SurahDetailScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
   const surahId = Number(id);
 
@@ -164,7 +166,7 @@ if (loading) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: c.bg }]}>
+    <View style={[styles.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
       <FlatList
         data={data.verses}
         keyExtractor={keyExtractor}
@@ -176,7 +178,7 @@ if (loading) {
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[styles.listContent, { paddingBottom: insets.bottom + 24 }]}
         initialNumToRender={20}
         windowSize={5}
         maxToRenderPerBatch={15}

@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
 
@@ -74,6 +75,7 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
 
 export default function SurahScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [surahs, setSurahs]     = useState<SurahListItem[]>([]);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
@@ -125,7 +127,7 @@ export default function SurahScreen() {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: c.bg }]}>
+    <View style={[styles.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
       <View style={[styles.searchWrapper, { backgroundColor: c.bg }]}>
         <TextInput
           style={[styles.searchInput, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}

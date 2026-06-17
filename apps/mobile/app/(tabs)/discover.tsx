@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SearchResponse, type VerseResult, type TagFilterResult } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
@@ -113,6 +114,7 @@ type State =
   | { status: "done"; data: SearchResponse; tagVerses?: TagFilterResult[]; tagTotal?: number };
 
 export default function SearchScreen() {
+  const insets = useSafeAreaInsets();
   const [query,   setQuery]   = useState("");
   const [state,   setState]   = useState<State>({ status: "idle" });
   const [recent,  setRecent]  = useState<string[]>([]);
@@ -181,7 +183,7 @@ export default function SearchScreen() {
   const d          = isDone ? state.data : null;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
 
       {/* Arama çubuğu */}
       <View style={styles.bar}>

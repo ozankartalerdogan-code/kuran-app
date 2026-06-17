@@ -11,6 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState, useEffect, useCallback } from "react";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
@@ -356,6 +357,7 @@ export default function AyahDetailScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
   const colors = isDark ? darkColors : lightColors;
+  const insets = useSafeAreaInsets();
 
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
@@ -512,7 +514,7 @@ export default function AyahDetailScreen() {
       <Stack.Screen options={{ title: headerTitle }} />
       <ScrollView
         style={[styles.scroll, { backgroundColor: colors.bg }]}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* ═══ Başlık ═══ */}
