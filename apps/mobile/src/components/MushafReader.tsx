@@ -18,65 +18,30 @@ type LoadState      =
   | { status: "ready"; surah: SurahListItem; ayah: AyahDetailResponse }
   | { status: "error"; message: string };
 
-// ── Cüz tablosu ─────────────────────────────────────────────────────────────
-// Kuran'ın 30 cüz bölümü sabittir — asla değişmez, DB'den çekmek gerekmez.
-
-const JUZ_TABLE = [
-  { juz:  1, surahId:  1, ayahNumber:   1 }, { juz:  2, surahId:  2, ayahNumber: 142 },
-  { juz:  3, surahId:  2, ayahNumber: 253 }, { juz:  4, surahId:  3, ayahNumber:  93 },
-  { juz:  5, surahId:  4, ayahNumber:  24 }, { juz:  6, surahId:  4, ayahNumber: 148 },
-  { juz:  7, surahId:  5, ayahNumber:  82 }, { juz:  8, surahId:  6, ayahNumber: 111 },
-  { juz:  9, surahId:  7, ayahNumber:  88 }, { juz: 10, surahId:  8, ayahNumber:  41 },
-  { juz: 11, surahId:  9, ayahNumber:  93 }, { juz: 12, surahId: 11, ayahNumber:   6 },
-  { juz: 13, surahId: 12, ayahNumber:  53 }, { juz: 14, surahId: 15, ayahNumber:   1 },
-  { juz: 15, surahId: 17, ayahNumber:   1 }, { juz: 16, surahId: 18, ayahNumber:  75 },
-  { juz: 17, surahId: 21, ayahNumber:   1 }, { juz: 18, surahId: 23, ayahNumber:   1 },
-  { juz: 19, surahId: 25, ayahNumber:  21 }, { juz: 20, surahId: 27, ayahNumber:  56 },
-  { juz: 21, surahId: 29, ayahNumber:  46 }, { juz: 22, surahId: 33, ayahNumber:  31 },
-  { juz: 23, surahId: 36, ayahNumber:  28 }, { juz: 24, surahId: 39, ayahNumber:  32 },
-  { juz: 25, surahId: 41, ayahNumber:  47 }, { juz: 26, surahId: 46, ayahNumber:   1 },
-  { juz: 27, surahId: 51, ayahNumber:  31 }, { juz: 28, surahId: 58, ayahNumber:   1 },
-  { juz: 29, surahId: 67, ayahNumber:   1 }, { juz: 30, surahId: 78, ayahNumber:   1 },
-] as const satisfies { juz: number; surahId: number; ayahNumber: number }[];
-
-// Derleme zamanı doğrulama: tam 30 cüz olmalı
-const _juzCount: 30 = JUZ_TABLE.length;
-
-function getJuzForSurah(surahId: number): number {
-  for (let i = JUZ_TABLE.length - 1; i >= 0; i--) {
-    if (surahId >= JUZ_TABLE[i].surahId) return JUZ_TABLE[i].juz;
-  }
-  return 1;
-}
-
-function getSurahForJuz(juz: number): number {
-  return JUZ_TABLE.find(e => e.juz === juz)?.surahId ?? 1;
-}
-
 const BOOKMARK_KEY = STORAGE_KEYS.mushafBookmark;
 
-// ── JuzTracker ───────────────────────────────────────────────────────────────
+// ── AyahSelector — üst ayet seçici (altta sure, üstte ayet) ─────────────────
 
-function JuzTracker({ currentJuz, onJuzPress }: { currentJuz: number; onJuzPress: (juz: number) => void }) {
+function AyahSelector({ count, current, onSelect }: { count: number; current: number; onSelect: (n: number) => void }) {
   const scrollRef = useRef<ScrollView>(null);
   useEffect(() => {
-    scrollRef.current?.scrollTo({ x: (currentJuz - 1) * 48, animated: true });
-  }, [currentJuz]);
+    scrollRef.current?.scrollTo({ x: Math.max(0, (current - 1) * 46 - 120), animated: true });
+  }, [current]);
 
   return (
     <View style={juzSt.container}>
       <ScrollView ref={scrollRef} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={juzSt.list}>
-        {JUZ_TABLE.map(e => {
-          const active = e.juz === currentJuz;
+        {Array.from({ length: count }, (_, i) => i + 1).map(n => {
+          const active = n === current;
           return (
-            <TouchableOpacity key={e.juz} style={[juzSt.seg, active && juzSt.segActive]} onPress={() => onJuzPress(e.juz)} activeOpacity={0.7}>
-              <Text style={[juzSt.label, active && juzSt.labelActive]}>{e.juz}</Text>
+            <TouchableOpacity key={n} style={[juzSt.seg, active && juzSt.segActive]} onPress={() => onSelect(n)} activeOpacity={0.7}>
+              <Text style={[juzSt.label, active && juzSt.labelActive]}>{n}</Text>
             </TouchableOpacity>
           );
         })}
       </ScrollView>
       <View style={juzSt.indicator}>
-        <Text style={juzSt.indicatorText}>{currentJuz}. Cüz</Text>
+        <Text style={juzSt.indicatorText}>{current}/{count}</Text>
       </View>
     </View>
   );
@@ -202,7 +167,6 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
     setAudioState("idle"); setAudioProgress(0);
   }, []);
 
-  const handleJuzPress    = useCallback((juz: number) => go(getSurahForJuz(juz), 1), [go]);
   const handlePrevSurah   = useCallback(() => go(currentSurahId <= 1 ? 114 : currentSurahId - 1, 1), [go, currentSurahId]);
   const handleNextSurah   = useCallback(() => go(currentSurahId >= 114 ? 1 : currentSurahId + 1, 1), [go, currentSurahId]);
   const handlePrevAyah    = useCallback(() => {
@@ -227,7 +191,6 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
   }, [currentSurahId, currentAyahNum, go]);
   const handleSurahSelect = useCallback((sId: number) => go(sId, 1), [go]);
 
-  const currentJuz = getJuzForSurah(currentSurahId);
   const surahMeta  = loadState.status === "ready" ? loadState.surah : surahList.find(s => s.id === currentSurahId);
   const canPrev    = currentSurahId > 1 || currentAyahNum > 1;
   const canNext    = loadState.status === "ready"
@@ -236,7 +199,13 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
 
   return (
     <View style={st.screen}>
-      <JuzTracker currentJuz={currentJuz} onJuzPress={handleJuzPress} />
+      {surahMeta && surahMeta.verseCount > 0 && (
+        <AyahSelector
+          count={surahMeta.verseCount}
+          current={currentAyahNum}
+          onSelect={(n) => go(currentSurahId, n)}
+        />
+      )}
       <AudioPlayer state={audioState} progress={audioProgress} onPlayPause={handlePlayPause} />
 
       <ScrollView style={st.scroll} contentContainerStyle={st.scrollInner} showsVerticalScrollIndicator={false}>
