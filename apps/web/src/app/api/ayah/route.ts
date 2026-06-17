@@ -12,6 +12,7 @@ interface SurahRow {
 interface VerseRow {
   verse_key: string;
   arabic_text: string | null;
+  arabic_tajweed: string | null;
   primary_translation: string | null;
   reading_tr: string | null;
   literal_ceviri: string | null;
@@ -45,6 +46,7 @@ export type AyahDetailResponse = {
   arabicName: string;
   verseCount: number;
   arabicText: string | null;
+  arabicTajweed: string | null;
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;
@@ -96,7 +98,7 @@ export async function GET(req: NextRequest) {
 
     const [verse, translations, tagRow] = await Promise.all([
       dbGet<VerseRow>(
-        "SELECT verse_key, arabic_text, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
+        "SELECT verse_key, arabic_text, arabic_tajweed, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
         verseKey,
       ),
       dbAll<TranslationRow>(
@@ -148,6 +150,7 @@ export async function GET(req: NextRequest) {
       arabicName:  surah.adi_arapca,
       verseCount:  surah.ayet_sayisi,
       arabicText:    verse.arabic_text,
+      arabicTajweed: verse.arabic_tajweed ?? null,
       readingTr:     verse.reading_tr ?? null,
       meal:          cleanMealText(
         translations.find(t => (t.source ?? "").split("#").at(-1) === "yazir")?.text

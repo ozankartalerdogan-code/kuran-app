@@ -265,6 +265,7 @@ export type AyahDetailResponse = {
   arabicName: string;
   verseCount: number;
   arabicText: string | null;
+  arabicTajweed: string | null;
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;

@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
+import { TajweedText, TAJWEED_LEGEND } from "./TajweedText";
 
 // ── Tipler ──────────────────────────────────────────────────────────────────
 
@@ -139,6 +140,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
   const [bookmark, setBookmark]         = useState<MushafBookmark>(null);
   const [audioState, setAudioState]     = useState<AudioState>("idle");
   const [audioProgress, setAudioProgress] = useState(0);
+  const [tajweed, setTajweed]           = useState(true); // tecvid renkleri aç/kapa
   const audioTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Sure listesi + bookmark
@@ -260,10 +262,33 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
           </View>
         ) : (
           <View style={st.ayahBox}>
-            <View style={st.ayahBadge}><Text style={st.ayahBadgeText}>{loadState.ayah.ayahNumber}</Text></View>
+            <View style={st.ayahTopRow}>
+              <View style={st.ayahBadge}><Text style={st.ayahBadgeText}>{loadState.ayah.ayahNumber}</Text></View>
+              {loadState.ayah.arabicTajweed && (
+                <TouchableOpacity
+                  style={[st.tajToggle, tajweed && st.tajToggleOn]}
+                  onPress={() => setTajweed(t => !t)}
+                  activeOpacity={0.75}
+                >
+                  <Text style={[st.tajToggleText, tajweed && st.tajToggleTextOn]}>🎨 Tecvid</Text>
+                </TouchableOpacity>
+              )}
+            </View>
             {loadState.ayah.arabicText
-              ? <Text style={st.arabic} selectable>{loadState.ayah.arabicText}</Text>
+              ? (tajweed && loadState.ayah.arabicTajweed
+                  ? <TajweedText markup={loadState.ayah.arabicTajweed} style={st.arabic} />
+                  : <Text style={st.arabic} selectable>{loadState.ayah.arabicText}</Text>)
               : <Text style={st.arabicMissing}>Arapça metin yüklenemedi</Text>}
+            {tajweed && loadState.ayah.arabicTajweed && (
+              <View style={st.legend}>
+                {TAJWEED_LEGEND.map(l => (
+                  <View key={l.ad} style={st.legendItem}>
+                    <View style={[st.legendDot, { backgroundColor: l.renk }]} />
+                    <Text style={st.legendText}>{l.ad}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
             {loadState.ayah.meal && (
               <View style={st.mealBox}>
                 <Text style={st.mealLabel}>Meal</Text>
@@ -383,8 +408,17 @@ const st = StyleSheet.create({
   surahName:    { fontSize: 18, fontWeight: "700", color: "#059669", marginBottom: 4 },
   surahMeta:    { fontSize: 12, color: "#78716c" },
   ayahBox:      { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 10 },
-  ayahBadge:    { alignSelf: "center", width: 40, height: 40, borderRadius: 20, backgroundColor: "#059669", alignItems: "center", justifyContent: "center", marginBottom: 16 },
+  ayahBadge:    { width: 40, height: 40, borderRadius: 20, backgroundColor: "#059669", alignItems: "center", justifyContent: "center", marginBottom: 16 },
   ayahBadgeText:{ fontSize: 16, fontWeight: "700", color: "#fff" },
+  ayahTopRow:   { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" },
+  tajToggle:    { flexDirection: "row", alignItems: "center", borderRadius: 16, borderWidth: 1, borderColor: "#d6d3d1", paddingHorizontal: 12, paddingVertical: 6, marginTop: 6 },
+  tajToggleOn:  { backgroundColor: "#ecfdf5", borderColor: "#6ee7b7" },
+  tajToggleText:  { fontSize: 12, fontWeight: "700", color: "#78716c" },
+  tajToggleTextOn:{ color: "#047857" },
+  legend:       { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 2, marginBottom: 10 },
+  legendItem:   { flexDirection: "row", alignItems: "center", gap: 5 },
+  legendDot:    { width: 11, height: 11, borderRadius: 3 },
+  legendText:   { fontSize: 11, color: "#78716c" },
   arabic:       { fontSize: 32, lineHeight: 52, color: "#1c1917", textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", marginBottom: 20 },
   arabicMissing:{ fontSize: 16, color: "#a8a29e", textAlign: "center", fontStyle: "italic", paddingVertical: 30 },
   mealBox:      { backgroundColor: "#fff", borderRadius: 14, padding: 18, borderWidth: 1, borderColor: "#e8e2d4", marginBottom: 12 },
