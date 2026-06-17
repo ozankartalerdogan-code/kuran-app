@@ -2,21 +2,19 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import {
   View, Text, FlatList, TouchableOpacity, ScrollView,
-  ActivityIndicator, StyleSheet, Platform, BackHandler,
+  StyleSheet, Platform, BackHandler,
 } from "react-native";
 import { router, Stack } from "expo-router";
-import { api } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 
 // ── Sekme tanımları ───────────────────────────────────────────────────────────
 
-type Tab = "temalar" | "dualar";
+type Tab = "temalar";
 
 // Hub'daki "Konuya Göre Keşfet" kartları (dokununca o bölüm açılır)
-// NOT: Namaz, kendi sayfasına taşındı (/namaz-rehberi → "Namaz Ayetleri" sekmesi).
+// NOT: Namaz → /namaz-rehberi'ye taşındı. Dualar → UI'dan kaldırıldı (sıfırdan kurulacak).
 const SECTIONS: { id: Tab; emoji: string; label: string; sub: string; bg: string; border: string }[] = [
-  { id: "temalar", emoji: "🌟", label: "Temalar", sub: "Konuya göre ayetler (A–G)",    bg: "#fef3c7", border: "#fcd34d" },
-  { id: "dualar",  emoji: "🤲", label: "Dualar",  sub: "Rabbena, korunma, şifa, zikir", bg: "#dcfce7", border: "#86efac" },
+  { id: "temalar", emoji: "🌟", label: "Temalar", sub: "Konuya göre ayetler (A–G)", bg: "#fef3c7", border: "#fcd34d" },
 ];
 
 // ── Temalar verisi ────────────────────────────────────────────────────────────
@@ -99,20 +97,10 @@ const AKORDEON_GRUPLARI = [
 const REHBERLER = [
   { emoji: "🛡️", label: "Manevi Sığınak",  sub: "Korunma, şifa ve istiaze",    route: "/manevi-siginak"           as const, bg: "#fce7f3", border: "#f9a8d4" },
   { emoji: "✨",  label: "İsmi Azam",        sub: "Sahih dualar ve uygulamalar",  route: "/manevi-siginak/ismi-azam" as const, bg: "#fef3c7", border: "#fcd34d" },
+  { emoji: "🤲", label: "Dualar ve Zikirler", sub: "Korunma, şifa, sabah-akşam (89 dua)", route: "/dualar"           as const, bg: "#dcfce7", border: "#86efac" },
   { emoji: "🕌", label: "Esmaül Hüsna",     sub: "Allah'ın 99 güzel ismi",       route: "/esma"                     as const, bg: "#ede9fe", border: "#c4b5fd" },
   { emoji: "📿", label: "İbadet Rehberi",   sub: "Namaz, oruç, zekât, abdest",   route: "/ibadet-rehberi"           as const, bg: "#f0fdf4", border: "#86efac" },
   { emoji: "🧎", label: "Namaz Rehberi",    sub: "Adım adım namaz, dualar, vitir", route: "/namaz-rehberi"          as const, bg: "#e0f2fe", border: "#7dd3fc" },
-];
-
-// ── Dualar verisi ─────────────────────────────────────────────────────────────
-
-const DUA_CATS = [
-  { emoji: "🤲", id: "rabbena",    label: "Rabbena Duaları",      tag: "rabbena",        renk: "#f0fdf4" },
-  { emoji: "🛡️", id: "korunma",   label: "Korunma ve Sığınma",   tag: "korunma-genel",  renk: "#dbeafe" },
-  { emoji: "💚", id: "sifa",       label: "Şifa ve Sıkıntı",      tag: "dua-şifa",       renk: "#dcfce7" },
-  { emoji: "🙏", id: "bagislanma", label: "Tövbe ve Bağışlanma",  tag: "dua-bağışlanma", renk: "#fce7f3" },
-  { emoji: "⚓", id: "tevekkul",   label: "Tevekkül ve Sabır",    tag: "tevekkül",       renk: "#ede9fe" },
-  { emoji: "📿", id: "zikir",      label: "Zikir ve Tesbih",      tag: "zikir",          renk: "#fef3c7" },
 ];
 
 // ── Liste öğe tipi ────────────────────────────────────────────────────────────
@@ -120,8 +108,7 @@ const DUA_CATS = [
 type ListItem =
   | { kind: "section_title"; key: string; title: string }
   | { kind: "featured_grid"; key: string }
-  | { kind: "theme_accordion"; key: string; grup: typeof AKORDEON_GRUPLARI[number] }
-  | { kind: "tag_accordion"; key: string; emoji: string; label: string; tag: string; renk: string };
+  | { kind: "theme_accordion"; key: string; grup: typeof AKORDEON_GRUPLARI[number] };
 
 // ── Key sabitleri ─────────────────────────────────────────────────────────────
 
@@ -133,12 +120,7 @@ const KEY_MAPPING: Record<Tab, ListItem[]> = (() => {
     ...AKORDEON_GRUPLARI.map((g, i): ListItem => ({ kind: "theme_accordion", key: `theme_${i}`, grup: g })),
   ];
 
-  const dualar: ListItem[] = [
-    { kind: "section_title", key: "st_dua", title: "Dua Kategorileri" },
-    ...DUA_CATS.map(c => ({ kind: "tag_accordion" as const, key: c.id, emoji: c.emoji, label: c.label, tag: c.tag, renk: c.renk })),
-  ];
-
-  return { temalar, dualar };
+  return { temalar };
 })();
 
 // ── Bileşenler ────────────────────────────────────────────────────────────────
@@ -206,68 +188,6 @@ const ThemeAccordion = React.memo(function ThemeAccordion({ grup }: { grup: type
   );
 });
 
-// Dua / Namaz accordion (lazy fetch)
-interface VerseItem { verse_key: string; surah_id: number; ayah_number: number; surah_name: string | null; reading_tr: string | null; meal: string | null; }
-
-const TagAccordion = React.memo(function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: string; tag: string; renk: string }) {
-  const [open, setOpen]       = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [verses, setVerses]   = useState<VerseItem[]>([]);
-  const [fetched, setFetched] = useState(false);
-
-  const onPress = useCallback(async () => {
-    const next = !open;
-    setOpen(next);
-    if (next && !fetched) {
-      setLoading(true);
-      try {
-        const res = await api.tags.filter(tag);
-        setVerses((res.results ?? []).slice(0, 20).map(r => ({
-          verse_key: r.verse_key, surah_id: r.surah_id, ayah_number: r.ayah_number,
-          surah_name: r.surah_name, reading_tr: r.reading_tr, meal: r.meal,
-        })));
-      } catch { /* ignore */ }
-      setLoading(false);
-      setFetched(true);
-    }
-  }, [open, fetched, tag]);
-
-  return (
-    <View style={[acc.card, { borderLeftColor: renk }]}>
-      <TouchableOpacity style={acc.header} onPress={onPress} activeOpacity={0.75}>
-        <Text style={{ fontSize: 20 }}>{emoji}</Text>
-        <Text style={acc.title}>{label}</Text>
-        <Text style={acc.chev}>{open ? "▲" : "▼"}</Text>
-      </TouchableOpacity>
-      {open && (
-        <View style={acc.body}>
-          {loading && <ActivityIndicator color="#059669" style={{ marginVertical: 10 }} />}
-          {!loading && fetched && verses.length === 0 && (
-            <Text style={acc.empty}>Ayet bulunamadı.</Text>
-          )}
-          {!loading && verses.map(v => (
-            <TouchableOpacity
-              key={v.verse_key}
-              style={acc.verseRow}
-              onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}` as any)}
-              activeOpacity={0.7}
-            >
-              <View style={acc.keyBox}>
-                <Text style={acc.keyText}>{v.verse_key}</Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                {v.surah_name ? <Text style={acc.surah}>{v.surah_name}</Text> : null}
-                {v.reading_tr ? <Text style={acc.reading} numberOfLines={2}>{v.reading_tr}</Text> : null}
-                {v.meal       ? <Text style={acc.meal}    numberOfLines={2}>{v.meal}</Text>       : null}
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
-    </View>
-  );
-});
-
 // Hub kartı — hem araç/rehber hem bölüm kartları için ortak
 function HubCard({ emoji, label, sub, bg, border, onPress }: {
   emoji: string; label: string; sub: string; bg: string; border: string; onPress: () => void;
@@ -311,8 +231,6 @@ export default function KesfetScreen() {
         return <FeaturedGrid />;
       case "theme_accordion":
         return <ThemeAccordion grup={item.grup} />;
-      case "tag_accordion":
-        return <TagAccordion emoji={item.emoji} label={item.label} tag={item.tag} renk={item.renk} />;
       default:
         return null;
     }
@@ -427,20 +345,4 @@ const ta = StyleSheet.create({
   temaIsim:{ fontSize: 13, color: "#374151", flex: 1 },
   temaBadge:   { backgroundColor: "#fff", borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2, borderWidth: 1, borderColor: "#e7e5e4" },
   temaBadgeText:{ fontSize: 10, color: "#78716c" },
-});
-
-// Tag accordion (dualar / namaz)
-const acc = StyleSheet.create({
-  card:     { borderRadius: 12, borderWidth: 1, borderColor: "#e7e5e4", borderLeftWidth: 4, backgroundColor: "#fff", marginBottom: 8, overflow: "hidden" },
-  header:   { flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
-  title:    { flex: 1, fontSize: 14, fontWeight: "600", color: "#1c1917" },
-  chev:     { fontSize: 12, color: "#059669" },
-  body:     { borderTopWidth: 1, borderTopColor: "#f0f0f0", padding: 10 },
-  empty:    { fontSize: 13, color: "#a8a29e", padding: 8 },
-  verseRow: { flexDirection: "row", alignItems: "flex-start", gap: 10, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: "#f5f5f4" },
-  keyBox:   { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, marginTop: 2 },
-  keyText:  { fontSize: 11, fontWeight: "700", color: "#065f46" },
-  surah:    { fontSize: 11, color: "#78716c", marginBottom: 1 },
-  reading:  { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20 },
-  meal:     { fontSize: 11, color: "#57534e", lineHeight: 17, marginTop: 1 },
 });
