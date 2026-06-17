@@ -1,10 +1,11 @@
 import {
   View, Text, ScrollView, FlatList, TouchableOpacity, ActivityIndicator,
-  StyleSheet,
+  StyleSheet, Alert,
 } from "react-native";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { TajweedText, TAJWEED_LEGEND } from "./TajweedText";
@@ -29,7 +30,8 @@ function AyahSelector({ count, current, onSelect }: { count: number; current: nu
   const data = useMemo(() => Array.from({ length: count }, (_, i) => i + 1), [count]);
 
   useEffect(() => {
-    listRef.current?.scrollToIndex({ index: Math.max(0, current - 1), viewPosition: 0.5, animated: true });
+    // scrollToOffset asla throw etmez (scrollToIndex aralık dışında crash edebiliyordu)
+    listRef.current?.scrollToOffset({ offset: Math.max(0, (current - 1) * AYAH_ITEM - 120), animated: true });
   }, [current]);
 
   const renderItem = useCallback(({ item: n }: { item: number }) => {
@@ -53,10 +55,6 @@ function AyahSelector({ count, current, onSelect }: { count: number; current: nu
         renderItem={renderItem}
         extraData={current}
         getItemLayout={(_, i) => ({ length: AYAH_ITEM, offset: AYAH_ITEM * i + 8, index: i })}
-        initialScrollIndex={Math.max(0, current - 1)}
-        onScrollToIndexFailed={(info) => {
-          listRef.current?.scrollToOffset({ offset: AYAH_ITEM * info.index, animated: false });
-        }}
         initialNumToRender={24}
         maxToRenderPerBatch={24}
         windowSize={5}
@@ -83,20 +81,40 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
   currentSurah: number; currentAyah: number;
   bookmark: MushafBookmark; onChange: (bm: MushafBookmark) => void;
 }) {
+  const insets = useSafeAreaInsets();
   const isHere = bookmark?.surahId === currentSurah && bookmark?.ayahNumber === currentAyah;
 
-  const save = useCallback(async () => {
-    await storage.setJSON(BOOKMARK_KEY, `${currentSurah}:${currentAyah}`);
-    onChange({ surahId: currentSurah, ayahNumber: currentAyah });
-  }, [currentSurah, currentAyah, onChange]);
+  // Tek butonla toggle: işaretliyse kaldır, değilse işaretle — her ikisinde de onay.
+  const save = useCallback(() => {
+    if (isHere) {
+      Alert.alert("Yer İmini Kaldır", "Bu ayetteki yer imini kaldırmak istiyor musun?", [
+        { text: "İptal", style: "cancel" },
+        { text: "Kaldır", style: "destructive", onPress: async () => {
+          await storage.remove(BOOKMARK_KEY);
+          onChange(null);
+        } },
+      ]);
+    } else {
+      const mesaj = bookmark
+        ? `Kaldığım yer ${bookmark.surahId}:${bookmark.ayahNumber} idi. Bu ayet (${currentSurah}:${currentAyah}) olarak güncellensin mi?`
+        : `Bu ayeti (${currentSurah}:${currentAyah}) "Kaldığım Yer" olarak işaretle?`;
+      Alert.alert("Yer İmi", mesaj, [
+        { text: "İptal", style: "cancel" },
+        { text: "İşaretle", onPress: async () => {
+          await storage.setJSON(BOOKMARK_KEY, `${currentSurah}:${currentAyah}`);
+          onChange({ surahId: currentSurah, ayahNumber: currentAyah });
+        } },
+      ]);
+    }
+  }, [isHere, bookmark, currentSurah, currentAyah, onChange]);
 
-  const goTo = useCallback(async () => {
+  const goTo = useCallback(() => {
     if (!bookmark) return;
     onChange(bookmark);
   }, [bookmark, onChange]);
 
   return (
-    <View style={bmSt.container}>
+    <View style={[bmSt.container, { paddingBottom: insets.bottom + 8 }]}>
       <TouchableOpacity style={[bmSt.btn, isHere && bmSt.btnActive]} onPress={save} activeOpacity={0.7}>
         <Ionicons name={isHere ? "bookmark" : "bookmark-outline"} size={16} color={isHere ? "#fff" : "#059669"} />
         <Text style={[bmSt.btnText, isHere && bmSt.btnTextActive]}>{isHere ? "İşaretlendi" : "Buraya İşaretle"}</Text>
