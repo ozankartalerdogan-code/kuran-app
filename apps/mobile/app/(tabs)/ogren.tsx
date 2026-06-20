@@ -7,7 +7,7 @@ const SECTIONS = [
   {
     title: "🌱 Başlangıç",
     items: [
-      { emoji: "✍️", label: "Elif-Ba",      sub: "Arapça harfleri öğren",          route: "/ogren"              },
+      { emoji: "✍️", label: "Elif-Ba",      sub: "Arapça harfleri öğren",          route: "/elifba"             },
       { emoji: "☀️", label: "Harf-i Tarif", sub: "Şemsiye ve kameriye harfleri",   route: "/ogren/harf-i-tarif" },
     ],
   },
