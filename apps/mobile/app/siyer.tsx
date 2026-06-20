@@ -33,16 +33,16 @@ for (const e of EVENTS) {
 }
 
 // Ayet linkine tıklayınca ilgili ayete gider
-function QuranRefChip({ ref: key }: { ref: string }) {
-  const [surah, ayah] = key.split(":").map(Number);
-  if (!surah || !ayah) return <Text style={ev.chip}>{key}</Text>;
+function QuranRefChip({ refKey }: { refKey: string }) {
+  const [surah, ayah] = refKey.split(":").map(Number);
+  if (!surah || !ayah) return <Text style={ev.chip}>{refKey}</Text>;
   return (
     <TouchableOpacity
       style={ev.refChip}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as any)}
       activeOpacity={0.75}
     >
-      <Text style={ev.refChipText}>{key}</Text>
+      <Text style={ev.refChipText}>{refKey}</Text>
     </TouchableOpacity>
   );
 }
@@ -73,7 +73,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
             <View style={ev.section}>
               <Text style={[ev.sectionLabel, { color: c.accent }]}>📖 Kur'an Referansları</Text>
               <View style={ev.chipRow}>
-                {event.quran_refs.map(r => <QuranRefChip key={r} ref={r} />)}
+                {event.quran_refs.map(r => <QuranRefChip key={r} refKey={r} />)}
               </View>
             </View>
           )}
