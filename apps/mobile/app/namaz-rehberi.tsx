@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import rehberRaw from "../src/data/namaz_rehberi.json";
+import ozelRaw from "../src/data/ozel_namazlar.json";
 
 // ── Tipler (gevşek — JSON'dan tek cast) ───────────────────────────────────────
 interface Kavram { id: string; isim: string; renk: string; aciklama: string; "örnek"?: string }
@@ -394,26 +395,247 @@ function GuideTab() {
   );
 }
 
-// ── Ana ekran — üst sekmeli (Nasıl Kılınır | Namaz Ayetleri) ──────────────────
+// ── "Özel Namazlar" sekmesi (ozel_namazlar.json) ──────────────────────────────
+const O = (ozelRaw as any).ozel_namazlar;
+
+const OZEL_DURUM: Record<string, { bg: string; border: string; text: string; label: string }> = {
+  farz_i_kifaye:    { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c", label: "FARZ-I KİFAYE" },
+  vacip:            { bg: "#fff7ed", border: "#fdba74", text: "#c2410c", label: "VACİP" },
+  sunnet_i_muekked: { bg: "#eff6ff", border: "#93c5fd", text: "#1d4ed8", label: "MÜEKKED SÜNNET" },
+  sunnet_musteap:   { bg: "#f0fdf4", border: "#86efac", text: "#15803d", label: "MÜSTEHAP" },
+  sunnet:           { bg: "#f0fdf4", border: "#86efac", text: "#15803d", label: "SÜNNET" },
+};
+
+const OZEL_EMOJI: Record<string, string> = {
+  cenaze_namazi: "🕊️", bayram_namazi: "🎉", teheccud_namazi: "🌌", kusluk_namazi: "🌅",
+  istihare_namazi: "🤔", teravih_namazi: "🌙", tahiyyetul_mescid: "🕌", kusuf_husuf: "🌑",
+  istiska_namazi: "🌧️", sukur_secdesi: "🙏", "tövbe_namazi": "💧", hacet_namazi: "🤲",
+};
+
+const NIYET_LABEL: Record<string, string> = {
+  erkek_cenaze: "Erkek cenaze", kadin_cenaze: "Kadın cenaze",
+  ramazan: "Ramazan Bayramı", kurban: "Kurban Bayramı",
+};
+
+function OzelDurumBadge({ durum }: { durum?: string }) {
+  const d = durum ? OZEL_DURUM[durum] : undefined;
+  if (!d) return null;
+  return (
+    <View style={[s.badge, { backgroundColor: d.bg, borderColor: d.border }]}>
+      <Text style={[s.badgeText, { color: d.text }]}>{d.label}</Text>
+    </View>
+  );
+}
+
+function Bullets({ items }: { items: string[] }) {
+  const c = useColors();
+  return <>{items.map((m, i) => <Text key={i} style={[s.madde, { color: c.textSecondary }]}>• {m}</Text>)}</>;
+}
+
+function Niyet({ niyet }: { niyet: any }) {
+  const c = useColors();
+  if (!niyet) return null;
+  if (typeof niyet === "string")
+    return <Text style={[s.niyet, { backgroundColor: c.cardAlt, borderColor: c.border, color: c.text }]}>“{niyet}”</Text>;
+  return (
+    <>
+      {Object.entries(niyet).filter(([k]) => k !== "not").map(([k, v]) => (
+        <View key={k} style={{ marginTop: 6 }}>
+          <Text style={[s.miniLabel, { color: c.accent }]}>{NIYET_LABEL[k] ?? k}</Text>
+          <Text style={[s.niyet, { backgroundColor: c.cardAlt, borderColor: c.border, color: c.text }]}>“{String(v)}”</Text>
+        </View>
+      ))}
+      {niyet.not ? <Text style={s.note}>ℹ️ {niyet.not}</Text> : null}
+    </>
+  );
+}
+
+function StepBlock({ step }: { step: any }) {
+  const c = useColors();
+  return (
+    <View style={s.item}>
+      {step.isim ? <Text style={[s.itemTitle, { color: c.text }]}>{step.isim}</Text> : null}
+      {step.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{step.aciklama}</Text> : null}
+      {step.detay ? <Text style={[s.small, { color: c.textMuted }]}>{step.detay}</Text> : null}
+      <DuaBlock arapca={step.dua_arapca} okunus={typeof step.dua === "string" ? step.dua : undefined} anlam={step.anlam} />
+      {step.dua_1 ? <DuaBlock arapca={step.dua_1_arapca} okunus={step.dua_1} /> : null}
+      {step.dua_2 ? <DuaBlock arapca={step.dua_2_arapca} okunus={step.dua_2} /> : null}
+      {step.tesbih ? <Text style={[s.okunus, { color: c.text }]}>{step.tesbih}</Text> : null}
+      {step.selam ? <Text style={[s.okunus, { color: c.text }]}>{step.selam}</Text> : null}
+      {step.bilmeyenler_icin ? <Text style={s.note}>ℹ️ {step.bilmeyenler_icin}</Text> : null}
+      {step.not ? <Text style={s.note}>ℹ️ {step.not}</Text> : null}
+    </View>
+  );
+}
+
+function KilinicObject({ obj }: { obj: any }) {
+  const c = useColors();
+  return (
+    <>
+      {obj.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{obj.aciklama}</Text> : null}
+      {Array.isArray(obj["1_rekat"]) ? (
+        <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>1. Rekat</Text><Bullets items={obj["1_rekat"]} /></View>
+      ) : null}
+      {Array.isArray(obj["2_rekat"]) ? (
+        <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>2. Rekat</Text><Bullets items={obj["2_rekat"]} /></View>
+      ) : null}
+      {Array.isArray(obj.adimlar) ? <View style={s.item}><Bullets items={obj.adimlar} /></View> : null}
+      {obj.tavsiye_edilen_sureler ? <Text style={s.note}>📖 {obj.tavsiye_edilen_sureler}</Text> : null}
+      {obj.not ? <Text style={s.note}>ℹ️ {obj.not}</Text> : null}
+    </>
+  );
+}
+
+function Kilinic({ data }: { data: any }) {
+  const c = useColors();
+  if (!data) return null;
+  if (typeof data === "string") return <Text style={[s.p, { color: c.textSecondary }]}>{data}</Text>;
+  if (Array.isArray(data)) {
+    if (data.every((x) => typeof x === "string")) return <Bullets items={data} />;
+    return <>{data.map((it, i) => typeof it === "string"
+      ? <Text key={i} style={[s.madde, { color: c.textSecondary }]}>• {it}</Text>
+      : <StepBlock key={i} step={it} />)}</>;
+  }
+  return <KilinicObject obj={data} />;
+}
+
+function DuaObj({ obj, anlamFallback }: { obj: any; anlamFallback?: string }) {
+  const c = useColors();
+  if (!obj) return null;
+  if (typeof obj === "string") return <DuaBlock okunus={obj} anlam={anlamFallback} />;
+  return (
+    <>
+      {obj.baslik ? <Text style={[s.subHead, { color: c.text }]}>{obj.baslik}</Text> : null}
+      <DuaBlock arapca={obj.dua_arapca} okunus={obj.dua} anlam={obj.anlam ?? anlamFallback} kaynak={obj.kaynagi ?? obj.dua_kaynagi ?? obj.kaynak} />
+      {obj.not ? <Text style={s.note}>ℹ️ {obj.not}</Text> : null}
+    </>
+  );
+}
+
+function Fazilet({ data }: { data: any }) {
+  const arr = Array.isArray(data) ? data : [data];
+  return <>{arr.map((f, i) => <Text key={i} style={s.fazilet}>💎 {f}</Text>)}</>;
+}
+
+function OzelNamazCard({ n }: { n: any }) {
+  const c = useColors();
+  const neZaman = n.ne_zaman_kilinir ?? n.ne_zaman_yapilir;
+  return (
+    <Section emoji={OZEL_EMOJI[n.id] ?? "🕌"} title={n.isim}>
+      <View style={[s.itemHead, { marginBottom: 2 }]}>
+        <OzelDurumBadge durum={n.durum} />
+        {n.rekat ? <Text style={[s.rekatBilgi, { color: c.textMuted }]}>{n.rekat}</Text> : null}
+      </View>
+      {n.durum_aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{n.durum_aciklama}</Text> : null}
+
+      {neZaman ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>🕐 Ne Zaman?</Text><Text style={[s.p, { color: c.textSecondary }]}>{neZaman}</Text></>) : null}
+      {n.vakit ? <Text style={[s.small, { color: c.textMuted }]}>Vakit: {n.vakit}</Text> : null}
+      {n.sebep ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>Sebep</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.sebep}</Text></>) : null}
+
+      {n.mezhep_gorusleri ? <Text style={[s.note, s.mezhep]}>⚖️ {n.mezhep_gorusleri}</Text> : null}
+
+      {n.kuran_referansi ? (
+        <View style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+          <Text style={[s.miniLabel, { color: c.accent }]}>{n.kuran_referansi.sure} {n.kuran_referansi.ayet}</Text>
+          <Text style={[s.p, { color: c.textSecondary }]}>{n.kuran_referansi.metin}</Text>
+        </View>
+      ) : null}
+
+      {Array.isArray(n.cesitleri) ? (
+        <View style={{ marginTop: 8 }}>
+          <Text style={[s.subHead, { color: c.text }]}>Çeşitleri</Text>
+          {n.cesitleri.map((ce: any, i: number) => (
+            <View key={i} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.kavramIsim, { color: c.text }]}>{ce.isim}</Text>
+              {ce.hicri_tarih ? <Text style={[s.small, { color: c.textMuted }]}>{ce.hicri_tarih}</Text> : null}
+              {ce.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{ce.aciklama}</Text> : null}
+              {ce.tekbir_notu ? <Text style={s.note}>ℹ️ {ce.tekbir_notu}</Text> : null}
+            </View>
+          ))}
+        </View>
+      ) : null}
+
+      {Array.isArray(n.on_sartlar) ? (<><Text style={[s.subHead, { color: c.text }]}>Ön Şartlar</Text><Bullets items={n.on_sartlar} /></>) : null}
+
+      {n.niyet ? (<><Text style={[s.subHead, { color: c.text }]}>Niyet</Text><Niyet niyet={n.niyet} /></>) : null}
+
+      {(n.kilinic || n.kilinic_hanafi || n.kilinic_safii_hanbeli) ? <Text style={[s.subHead, { color: c.text }]}>Nasıl Kılınır?</Text> : null}
+      {n.kilinic ? <Kilinic data={n.kilinic} /> : null}
+      {n.kilinic_hanafi ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>Hanefî</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_hanafi}</Text></>) : null}
+      {n.kilinic_safii_hanbeli ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>Şâfiî / Hanbelî</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_safii_hanbeli}</Text></>) : null}
+      {n.tavsiye_edilen_sureler ? <Text style={s.note}>📖 {n.tavsiye_edilen_sureler}</Text> : null}
+
+      {n.teheccud_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>Teheccüd Duası</Text><DuaObj obj={n.teheccud_duasi} /></>) : null}
+      {n.istihare_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>İstihare Duası</Text><DuaObj obj={n.istihare_duasi} /></>) : null}
+      {n.hacet_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>Hacet Duası</Text><DuaObj obj={n.hacet_duasi} anlamFallback={n.anlam} /></>) : null}
+      {n.tovbe_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>Tövbe Duası</Text><DuaObj obj={n.tovbe_duasi} /></>) : null}
+      {n.secde_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>Secde Duası</Text><DuaObj obj={n.secde_duasi} /></>) : null}
+      {typeof n.dua === "string" ? (<><Text style={[s.subHead, { color: c.text }]}>Dua</Text><DuaObj obj={n.dua} /></>) : null}
+      {n.teravih_arasi_tesbih ? (<><Text style={[s.subHead, { color: c.text }]}>Teravih Arası Tesbih</Text><DuaObj obj={n.teravih_arasi_tesbih} /></>) : null}
+      {n.cenaze_duasi_kisa ? <DuaObj obj={n.cenaze_duasi_kisa} /> : null}
+
+      {n.istihare_sonucu ? (
+        <View style={{ marginTop: 8 }}>
+          <Text style={[s.subHead, { color: c.text }]}>{n.istihare_sonucu.aciklama}</Text>
+          <Bullets items={n.istihare_sonucu.maddeler} />
+        </View>
+      ) : null}
+
+      {Array.isArray(n.tovbe_sartlari) ? (<><Text style={[s.subHead, { color: c.text }]}>Tövbe Şartları</Text><Bullets items={n.tovbe_sartlari} /></>) : null}
+
+      {n.fazileti ? (<><Text style={[s.subHead, { color: c.text }]}>Fazileti</Text><Fazilet data={n.fazileti} /></>) : null}
+
+      {Array.isArray(n.ozel_notlar) ? (<><Text style={[s.subHead, { color: c.text }]}>Özel Notlar</Text><Bullets items={n.ozel_notlar} /></>) : null}
+
+      {n.hadis_kaynagi ? <Text style={s.kaynakChip}>📚 {n.hadis_kaynagi}</Text> : null}
+    </Section>
+  );
+}
+
+function OzelNamazlarTab() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  return (
+    <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
+      <Text style={[s.intro, { color: c.textSecondary }]}>{O.aciklama}</Text>
+
+      <Section emoji="📊" title="Hızlı Bakış" defaultOpen>
+        {O.hizli_bakis_tablosu.map((row: any, i: number) => (
+          <View key={i} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+            <Text style={[s.kavramIsim, { color: c.text }]}>{row.isim}</Text>
+            <Text style={[s.small, { color: c.textSecondary }]}>{row.durum}</Text>
+            <Text style={[s.small, { color: c.textMuted }]}>{row.rekat} · {row.vakit}</Text>
+          </View>
+        ))}
+      </Section>
+
+      {O.namazlar.map((n: any) => <OzelNamazCard key={n.id} n={n} />)}
+
+      <Text style={[s.kaynakNot, { color: c.textMuted }]}>{O.kaynak_not}</Text>
+    </ScrollView>
+  );
+}
+
+// ── Ana ekran — üst sekmeli (Nasıl Kılınır | Ayetler | Özel Namazlar) ─────────
 export default function NamazRehberiScreen() {
   const c = useColors();
-  const [tab, setTab] = useState<"rehber" | "ayetler">("rehber");
+  const [tab, setTab] = useState<"rehber" | "ayetler" | "ozel">("rehber");
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Rehberi" }} />
       <View style={[s.tabWrap, { backgroundColor: c.bg }]}>
         <View style={[s.segment, { backgroundColor: c.cardAlt }]}>
-          {([["rehber", "Nasıl Kılınır"], ["ayetler", "Namaz Ayetleri"]] as const).map(([id, lbl]) => {
+          {([["rehber", "Nasıl Kılınır"], ["ayetler", "Ayetler"], ["ozel", "Özel Namazlar"]] as const).map(([id, lbl]) => {
             const active = tab === id;
             return (
               <TouchableOpacity key={id} style={[s.segBtn, active && [s.segBtnActive, { backgroundColor: c.card }]]} onPress={() => setTab(id)} activeOpacity={0.85}>
-                <Text style={[s.segLabel, { color: active ? c.accent : c.textMuted }]}>{lbl}</Text>
+                <Text style={[s.segLabel, { color: active ? c.accent : c.textMuted }]} numberOfLines={1}>{lbl}</Text>
               </TouchableOpacity>
             );
           })}
         </View>
       </View>
-      {tab === "rehber" ? <GuideTab /> : <AyetlerTab />}
+      {tab === "rehber" ? <GuideTab /> : tab === "ayetler" ? <AyetlerTab /> : <OzelNamazlarTab />}
     </>
   );
 }
@@ -464,12 +686,18 @@ const s = StyleSheet.create({
   madde: { fontSize: 13, lineHeight: 21, marginTop: 6 },
   kaynakNot: { fontSize: 11, fontStyle: "italic", marginTop: 16, textAlign: "center" },
 
+  // Özel Namazlar sekmesi
+  miniLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4, marginTop: 6, marginBottom: 2 },
+  niyet:     { fontSize: 13, lineHeight: 20, fontStyle: "italic", borderRadius: 10, borderWidth: 1, padding: 11, marginTop: 4 },
+  mezhep:    { color: "#3730a3", backgroundColor: "#eef2ff", borderWidth: 1, borderColor: "#c7d2fe", marginTop: 10 },
+  fazilet:   { fontSize: 12.5, lineHeight: 19, color: "#047857", backgroundColor: "#f0fdf4", borderRadius: 10, padding: 10, marginTop: 6 },
+
   // Üst sekme
   tabWrap:      { paddingHorizontal: 14, paddingTop: 10, paddingBottom: 8 },
   segment:      { flexDirection: "row", borderRadius: 12, padding: 4, gap: 4 },
   segBtn:       { flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: 9, borderRadius: 9 },
   segBtnActive: { shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.12, shadowRadius: 3, elevation: 2 },
-  segLabel:     { fontSize: 13, fontWeight: "700" },
+  segLabel:     { fontSize: 12, fontWeight: "700" },
 });
 
 // "Namaz Ayetleri" sekmesi stilleri
