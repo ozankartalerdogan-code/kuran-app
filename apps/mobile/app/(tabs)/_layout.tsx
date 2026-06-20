@@ -10,11 +10,11 @@ const TABS: {
   icon: IoniconsName;
   iconActive: IoniconsName;
 }[] = [
-  { name: "index",     title: "Ana Sayfa", icon: "home-outline",   iconActive: "home"   },
-  { name: "surah",     title: "Sureler",   icon: "book-outline",   iconActive: "book"   },
-  { name: "discover",  title: "Arama",     icon: "search-outline", iconActive: "search" },
-  { name: "favorites", title: "Favoriler", icon: "heart-outline",  iconActive: "heart"  },
-  { name: "notes",     title: "Notlarım",  icon: "create-outline", iconActive: "create" },
+  { name: "index",      title: "Ana Sayfa",  icon: "home-outline",   iconActive: "home"   },
+  { name: "kuran",      title: "Kuran",      icon: "book-outline",   iconActive: "book"   },
+  { name: "ogren",      title: "Öğren",      icon: "school-outline", iconActive: "school" },
+  { name: "ibadet",     title: "İbadet",     icon: "moon-outline",   iconActive: "moon"   },
+  { name: "daha-fazla", title: "Daha Fazla", icon: "menu-outline",   iconActive: "menu"   },
 ];
 
 export default function TabsLayout() {
@@ -51,6 +51,12 @@ export default function TabsLayout() {
           }}
         />
       ))}
+
+      {/* Tab bar'dan gizli — route olarak çalışmaya devam eder */}
+      <Tabs.Screen name="surah"     options={{ href: null }} />
+      <Tabs.Screen name="discover"  options={{ href: null }} />
+      <Tabs.Screen name="favorites" options={{ href: null }} />
+      <Tabs.Screen name="notes"     options={{ href: null }} />
     </Tabs>
   );
 }

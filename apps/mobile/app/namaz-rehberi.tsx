@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
-import { Stack, router } from "expo-router";
+import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
@@ -619,7 +619,10 @@ function OzelNamazlarTab() {
 // ── Ana ekran — üst sekmeli (Nasıl Kılınır | Ayetler | Özel Namazlar) ─────────
 export default function NamazRehberiScreen() {
   const c = useColors();
-  const [tab, setTab] = useState<"rehber" | "ayetler" | "ozel">("rehber");
+  const { tab: initialTab } = useLocalSearchParams<{ tab?: string }>();
+  const [tab, setTab] = useState<"rehber" | "ayetler" | "ozel">(
+    initialTab === "ozel" ? "ozel" : initialTab === "ayetler" ? "ayetler" : "rehber"
+  );
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Rehberi" }} />

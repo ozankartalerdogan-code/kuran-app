@@ -204,16 +204,16 @@ export default function MubarekGunlerScreen() {
         {META.dayanak_seviyeleri && (
           <View style={[s.dayanakLegend, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.ozetTitle, { color: c.text }]}>Dayanak Seviyeleri</Text>
-            {Object.entries(META.dayanak_seviyeleri).map(([key, val]: [string, any]) => {
-              const d = DAYANAK[key];
+            {(META.dayanak_seviyeleri.seviyeler ?? []).map((sev: any) => {
+              const d = DAYANAK[sev.kod];
               return (
-                <View key={key} style={s.legendRow}>
+                <View key={sev.kod} style={s.legendRow}>
                   {d && (
                     <View style={[s.ozetBadge, { backgroundColor: d.bg, borderColor: d.border }]}>
                       <Text style={[s.ozetBadgeText, { color: d.text }]}>{d.label}</Text>
                     </View>
                   )}
-                  <Text style={[s.legendText, { color: c.textSecondary }]}>{val}</Text>
+                  <Text style={[s.legendText, { color: c.textSecondary }]}>{sev.aciklama}</Text>
                 </View>
               );
             })}

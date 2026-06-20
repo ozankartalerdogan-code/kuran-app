@@ -2,30 +2,21 @@ import React, { useState, useCallback, useRef } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
-import { TasbihModal } from "../../src/components/ZikirMatik";
 import { api } from "../../src/lib/api";
 import { requestNotificationPermission, sendTestNotification } from "../../src/lib/namazNotifications";
 
-const NAV_CARDS: {
-  label: string;
-  emoji: string;
-  route: string;
-  bg: string;
-  border: string;
-}[] = [
-  { label: "Sureler",        emoji: "📗", route: "/surah",     bg: "#d1fae5", border: "#6ee7b7" },
-  { label: "Keşfet",         emoji: "✨", route: "/kesfet",    bg: "#dbeafe", border: "#93c5fd" },
-  { label: "Elif-Ba",        emoji: "✍️", route: "/ogren",     bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Kelime Kökü",    emoji: "🧬", route: "/root",      bg: "#fef3c7", border: "#fcd34d" },
-  { label: "Hatim & Mushaf", emoji: "📖", route: "/hatim",     bg: "#f0fdf4", border: "#86efac" },
-  { label: "Kıble",          emoji: "🧭", route: "/kible",     bg: "#ecfeff", border: "#67e8f9" },
-  { label: "Favorilerim",    emoji: "❤️", route: "/favorites", bg: "#fff1f2", border: "#fca5a5" },
+const QUICK_ACTIONS = [
+  { emoji: "📖", label: "Ayet Oku", route: "/sure-listesi", bg: "#d1fae5" },
+  { emoji: "🎓", label: "Öğren",    route: "/ogren",  bg: "#fef3c7" },
+  { emoji: "🤲", label: "Dua Bul",  route: "/dualar", bg: "#dcfce7" },
+  { emoji: "🔍", label: "Keşfet",   route: "/root",   bg: "#ede9fe" },
 ];
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -48,7 +39,6 @@ function HomeContent() {
   const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
-  const [tasbihOpen, setTasbihOpen]   = useState(false);
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
   // sunucu "ayet bulunamadı" döner) ilgili tag sıfırlanıp yeni tur başlar.
@@ -88,12 +78,11 @@ function HomeContent() {
   }, []);
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
     <ScrollView
-      style={[styles.container, { backgroundColor: c.bg }]}
+      style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
-
     >
       {/* Test butonu — YALNIZCA geliştirme (__DEV__). APK/AAB'de görünmez. */}
       {__DEV__ && (
@@ -223,35 +212,25 @@ function HomeContent() {
         )}
       </TouchableOpacity>
 
-      {/* Navigasyon kartları */}
-      <View style={styles.grid}>
-        {NAV_CARDS.map((card) => (
-          <TouchableOpacity
-            key={card.route}
-            style={[styles.card, { backgroundColor: c.isDark ? c.card : card.bg, borderColor: c.isDark ? c.border : card.border }]}
-            onPress={() => router.push(card.route as any)}
-            activeOpacity={0.75}
-          >
-            <Text style={styles.cardEmoji}>{card.emoji}</Text>
-            <Text style={[styles.cardLabel, { color: c.text }]}>{card.label}</Text>
-          </TouchableOpacity>
-        ))}
-
-        {/* Tasbih — route değil, modal açar */}
-        <TouchableOpacity
-          key="tasbih"
-          style={[styles.card, { backgroundColor: c.isDark ? c.card : "#f0fdf4", borderColor: c.isDark ? c.border : "#86efac" }]}
-          onPress={() => setTasbihOpen(true)}
-          activeOpacity={0.75}
-        >
-          <Text style={styles.cardEmoji}>📿</Text>
-          <Text style={[styles.cardLabel, { color: c.text }]}>Tespih</Text>
-        </TouchableOpacity>
+      {/* Bugün ne yapmak istiyorsun? */}
+      <View style={[styles.quickWidget, { backgroundColor: c.card, borderColor: c.border }]}>
+        <Text style={[styles.quickTitle, { color: c.textMuted }]}>Bugün ne yapmak istiyorsun?</Text>
+        <View style={styles.quickGrid}>
+          {QUICK_ACTIONS.map(a => (
+            <TouchableOpacity
+              key={a.route}
+              style={[styles.quickBtn, { backgroundColor: c.isDark ? c.cardAlt : a.bg }]}
+              onPress={() => router.push(a.route as any)}
+              activeOpacity={0.75}
+            >
+              <Text style={styles.quickEmoji}>{a.emoji}</Text>
+              <Text style={[styles.quickLabel, { color: c.text }]}>{a.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
     </ScrollView>
-
-      <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
-    </>
+    </SafeAreaView>
   );
 }
 
@@ -265,7 +244,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  content:   { padding: 16, paddingTop: 48, paddingBottom: 32 },
+  content:   { padding: 16, paddingBottom: 32 },
 
 
   streakCard: {
@@ -307,8 +286,10 @@ const styles = StyleSheet.create({
   testNotifBtn:  { marginBottom: 12, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: "#fca5a5", backgroundColor: "#fef2f2", alignItems: "center" },
   testNotifText: { fontSize: 13, fontWeight: "600", color: "#b91c1c" },
 
-  grid:      { flexDirection: "row", flexWrap: "wrap", gap: 10 },
-  card:      { width: "47%", borderRadius: 14, borderWidth: 1.5, padding: 16, alignItems: "center", gap: 6, elevation: 2 },
-  cardEmoji: { fontSize: 34, lineHeight: 40 },
-  cardLabel: { fontSize: 12, fontWeight: "600", textAlign: "center" },
+  quickWidget: { borderRadius: 16, borderWidth: 1, padding: 14, marginBottom: 16 },
+  quickTitle:  { fontSize: 13, fontWeight: "600", textAlign: "center", marginBottom: 12 },
+  quickGrid:   { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  quickBtn:    { width: "47%", borderRadius: 14, padding: 14, alignItems: "center", gap: 6 },
+  quickEmoji:  { fontSize: 30, lineHeight: 36 },
+  quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
 });
