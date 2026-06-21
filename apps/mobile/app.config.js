@@ -1,4 +1,4 @@
-const googleServicesFile = process.env.GOOGLE_SERVICES_JSON || './google-services.json';
+const path = require('path');
 
 module.exports = {
   expo: {
@@ -22,6 +22,7 @@ module.exports = {
     },
     android: {
       package: 'com.kuranapp.mobile',
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON || path.resolve(__dirname, 'google-services.json'),
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#0a1628',
@@ -68,11 +69,7 @@ module.exports = {
       ],
       'expo-status-bar',
       'expo-audio',
-      '@sentry/react-native',
-      [
-        '@react-native-firebase/app',
-        { android: { googleServicesFile } },
-      ],
+      '@react-native-firebase/app',
       '@react-native-firebase/analytics',
     ],
     experiments: {

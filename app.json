@@ -3,11 +3,12 @@
     "slug": "kuran-analiz",
     "extra": {
       "eas": {
-        "projectId": "c5c721bc-c06e-4e31-a486-bcdfd2e19589"
+        "projectId": "27f090a0-e4c3-4c33-a29b-8b49c88f03d4"
       }
     },
     "android": {
-      "package": "com.ozankartal.quranapp"
+      "package": "com.kuranapp.mobile",
+      "googleServicesFile": "./google-services.json"
     }
   }
 }
