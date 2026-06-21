@@ -15,8 +15,13 @@ import { requestNotificationPermission, sendTestNotification } from "../../src/l
 import * as Haptics from 'expo-haptics';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-try { LottieView = require('lottie-react-native').default; } catch (_e) { /* noop */ }
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const mod = require('lottie-react-native').default;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { UIManager } = require('react-native');
+  if (UIManager.hasViewManagerConfig?.('LottieAnimationView')) LottieView = mod;
+} catch (_e) { /* noop */ }
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 
 const QUICK_ACTIONS = [

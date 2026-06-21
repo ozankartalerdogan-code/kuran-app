@@ -4,8 +4,13 @@ import {
 } from "react-native";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-try { LottieView = require('lottie-react-native').default; } catch (_e) { /* noop */ }
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const mod = require('lottie-react-native').default;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { UIManager } = require('react-native');
+  if (UIManager.hasViewManagerConfig?.('LottieAnimationView')) LottieView = mod;
+} catch (_e) { /* noop */ }
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
