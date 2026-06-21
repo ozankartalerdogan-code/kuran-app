@@ -98,6 +98,7 @@ function AppContent() {
         <Stack.Screen name="surah-list"                          options={{ headerShown: false }} />
         <Stack.Screen name="favoriler"                           options={{ headerShown: false }} />
         <Stack.Screen name="notlar"                              options={{ headerShown: false }} />
+        <Stack.Screen name="ne-ogreneyim"                        options={{ headerShown: false }} />
         <Stack.Screen name="elifba-dersleri"                     options={{ headerShown: false }} />
         <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
         <Stack.Screen name="dualar"                              options={{ headerShown: false }} />

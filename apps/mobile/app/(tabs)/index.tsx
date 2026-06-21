@@ -14,7 +14,7 @@ import { requestNotificationPermission, sendTestNotification } from "../../src/l
 
 const QUICK_ACTIONS = [
   { emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
-  { emoji: "🎓", label: "Elifba",         route: "/ogren",        bg: "#fef3c7" },
+  { emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
   { emoji: "🤲", label: "Dua Bul",       route: "/dualar",       bg: "#dcfce7" },
   { emoji: "🔍", label: "Keşfet",        route: "/kesfet",       bg: "#ede9fe" },
 ];
