@@ -1,5 +1,9 @@
-import * as StoreReview from 'expo-store-review';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let StoreReview: any = null;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+try { StoreReview = require('expo-store-review'); } catch (_e) { /* noop */ }
 
 const REVIEW_ASKED_KEY = 'store_review_asked';
 const APP_OPEN_COUNT_KEY = 'app_open_count';
@@ -11,7 +15,8 @@ export async function trackAppOpen() {
 }
 
 export async function maybeAskReview() {
-  // Sadece 3. açılışta sor, daha önce sormadıysan
+  if (!StoreReview) return;
+
   const alreadyAsked = await AsyncStorage.getItem(REVIEW_ASKED_KEY);
   if (alreadyAsked) return;
 
