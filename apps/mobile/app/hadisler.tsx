@@ -206,7 +206,7 @@ const s = StyleSheet.create({
 
   stdBox:   { borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 10, gap: 4 },
   stdLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
-  stdText:  { fontSize: 12, lineHeight: 18 },
+  stdText:  { fontSize: 13, lineHeight: 20 },
 
   sectionHead: { fontSize: 11, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 8 },
   kaynak:   { fontSize: 10.5, fontStyle: "italic", textAlign: "center", marginTop: 18, lineHeight: 16 },

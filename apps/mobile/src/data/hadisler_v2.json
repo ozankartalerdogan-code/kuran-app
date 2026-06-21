@@ -3,7 +3,7 @@
     "title": "Sahih Hadisler",
     "subtitle": "Hz. Muhammed'in (s.a.v.) Sözleri",
     "description": "Bu modüldeki tüm hadisler, hem Sahîh-i Buhârî hem de Sahîh-i Müslim'de geçen (müttefekun aleyh) rivayetlerden oluşmaktadır. Müttefekun aleyh, İslâm hadis ilminde 'iki imamın da üzerinde ittifak ettiği' anlamına gelir ve en yüksek güvenilirlik derecesini ifade eder.",
-    "reliability_standard": "müttefekun aleyh",
+    "reliability_standard": "Yalnızca müttefekun aleyh (Buhârî ve Müslim'in her ikisinde yer alan, üzerinde ittifak edilmiş hadisler) ve sahih senetli rivayetler seçilmiştir.",
     "sources": [
       "Sahîh-i Buhârî",
       "Sahîh-i Müslim"
