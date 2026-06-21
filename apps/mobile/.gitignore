@@ -4,3 +4,7 @@
 
 expo-env.d.ts
 # @end expo-cli
+
+# EAS tarafından build sirasinda uretiliyor, local'de tutmaya gerek yok
+android/
+ios/
