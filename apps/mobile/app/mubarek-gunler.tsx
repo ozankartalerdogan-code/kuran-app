@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, Share,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import * as Haptics from 'expo-haptics';
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
@@ -81,10 +83,18 @@ function GunCard({ gun }: { gun: Gun }) {
   const [open, setOpen] = useState(false);
   const d = DAYANAK[gun.dayanak];
 
+  async function handleShare() {
+    Haptics.selectionAsync();
+    const parts = [`🌙 ${gun.isim}`];
+    if (gun.onem) parts.push(gun.onem);
+    parts.push("Kuran Yolu uygulamasından");
+    try { await Share.share({ message: parts.join("\n\n") }); } catch (_e) { /* noop */ }
+  }
+
   return (
     <View style={[st.card, { backgroundColor: c.card, borderColor: c.border, borderLeftColor: d?.border ?? c.border }]}>
-      <TouchableOpacity style={st.cardHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
-        <View style={{ flex: 1, gap: 4 }}>
+      <View style={st.cardHeader}>
+        <TouchableOpacity onPress={() => setOpen(o => !o)} activeOpacity={0.75} style={{ flex: 1, gap: 4 }}>
           <View style={st.row}>
             <Text style={[st.isim, { color: c.text }]}>{gun.isim}</Text>
           </View>
@@ -97,9 +107,16 @@ function GunCard({ gun }: { gun: Gun }) {
               <Text style={[st.hicri, { color: c.textMuted }]}>{gun.hicri_tarih}</Text>
             ) : null}
           </View>
+        </TouchableOpacity>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
+            <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setOpen(o => !o)} hitSlop={8} activeOpacity={0.7}>
+            <Text style={[st.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+          </TouchableOpacity>
         </View>
-        <Text style={[st.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
-      </TouchableOpacity>
+      </View>
 
       {open && (
         <View style={[st.body, { borderTopColor: c.border }]}>

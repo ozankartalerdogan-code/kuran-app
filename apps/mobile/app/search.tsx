@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { api, type SearchResponse, type VerseResult, type SuggestedSurah, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
+import { logFeature, AnalyticsEvents } from "../src/lib/analytics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
@@ -232,6 +233,7 @@ export default function SearchScreen() {
       try {
         const data = await api.search.query(trimmed);
         setState({ status: "done", data });
+        logFeature(AnalyticsEvents.ARAMA, { query: trimmed });
         const next = [trimmed, ...recent.filter(r => r !== trimmed)].slice(0, MAX_RECENT);
         setRecent(next);
         saveRecent(next);

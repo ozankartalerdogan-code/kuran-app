@@ -3,6 +3,8 @@ import {
   StyleSheet, ScrollView,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
+import LottieView from 'lottie-react-native';
+import { logScreen } from '../../src/lib/analytics';
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
@@ -115,6 +117,8 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   const [answered, setAnswered] = useState(false);
   const [score, setScore]     = useState(0);
   const [done, setDone]       = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const confettiTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const loadQuiz = useCallback(() => {
     setLoading(true);
@@ -134,7 +138,11 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     if (answered) return;
     setSelected(s);
     setAnswered(true);
-    if (s === soru?.dogru_cevap) setScore((p) => p + 1);
+    if (s === soru?.dogru_cevap) {
+      setScore((p) => p + 1);
+      setShowConfetti(true);
+      confettiTimer.current = setTimeout(() => setShowConfetti(false), 1500);
+    }
   }
 
   function handleNext() {
@@ -230,6 +238,16 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
           <Text style={qv.nextBtnText}>{idx + 1 >= sorular.length ? "Sonuçları Gör" : "Sonraki →"}</Text>
         </TouchableOpacity>
       )}
+      {showConfetti && (
+        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+          <LottieView
+            source={require('../../assets/Success-celebration.json')}
+            autoPlay
+            loop={false}
+            style={StyleSheet.absoluteFill}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -242,6 +260,7 @@ export default function DersScreen() {
   const { dersId: raw, mode: initialMode } = useLocalSearchParams<{ dersId: string; mode?: string }>();
   const dersId = Number(raw);
   const insets = useSafeAreaInsets();
+  useEffect(() => { logScreen('ElifBaDers'); }, []);
 
   const [harfler, setHarfler]   = useState<ElifbaHarf[]>([]);
   const [loading, setLoading]   = useState(true);

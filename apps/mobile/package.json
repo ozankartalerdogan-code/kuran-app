@@ -12,6 +12,8 @@
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-firebase/analytics": "^24.1.1",
+    "@react-native-firebase/app": "^24.1.1",
     "@sentry/react-native": "~7.11.0",
     "babel-preset-expo": "~56.0.0",
     "expo": "~56.0.12",
@@ -28,6 +30,8 @@
     "expo-sensors": "~56.0.6",
     "expo-splash-screen": "~56.0.10",
     "expo-status-bar": "~56.0.4",
+    "expo-store-review": "~56.0.3",
+    "lottie-react-native": "~7.3.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.85.3",

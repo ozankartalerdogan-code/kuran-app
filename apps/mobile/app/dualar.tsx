@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Share } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import * as Haptics from 'expo-haptics';
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
+import { logScreen } from "../src/lib/analytics";
 import dualarRaw from "../src/data/dualar.json";
 
 interface Dua {
@@ -36,11 +39,24 @@ function DuaCard({ dua }: { dua: Dua }) {
   const c = useColors();
   const [detay, setDetay] = useState(false);
   const hasDetay = !!(dua.aciklama || dua.not || dua.tekrar);
+
+  async function handleShare() {
+    Haptics.selectionAsync();
+    const parts = [`🤲 ${dua.baslik}`];
+    if (dua.arapca && /[؀-ۿ]/.test(dua.arapca)) parts.push(dua.arapca);
+    if (dua.anlam) parts.push(dua.anlam);
+    parts.push("Kuran Yolu uygulamasından");
+    try { await Share.share({ message: parts.join("\n\n") }); } catch (_e) { /* noop */ }
+  }
+
   return (
     <View style={[s.duaCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <View style={s.duaHead}>
         <Text style={[s.duaBaslik, { color: c.text }]}>{dua.baslik}</Text>
         <DerecBadge derece={dua.derece} />
+        <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
+          <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
+        </TouchableOpacity>
       </View>
       {dua.arapca ? (
         /[؀-ۿ]/.test(dua.arapca)
@@ -96,6 +112,7 @@ function KategoriAccordion({ kat, defaultOpen }: { kat: Kategori; defaultOpen?: 
 export default function DualarScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  useEffect(() => { logScreen('Dualar'); }, []);
   return (
     <>
       <Stack.Screen options={{ title: "Dualar ve Zikirler" }} />

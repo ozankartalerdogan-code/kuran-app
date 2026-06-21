@@ -1,5 +1,7 @@
 import * as Sentry from '@sentry/react-native';
 import { Stack, router } from "expo-router";
+import { maybeAskReview } from '../src/hooks/useStoreReview';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
@@ -99,11 +101,13 @@ function AppContent() {
         <Stack.Screen name="favoriler"                           options={{ headerShown: false }} />
         <Stack.Screen name="notlar"                              options={{ headerShown: false }} />
         <Stack.Screen name="ne-ogreneyim"                        options={{ headerShown: false }} />
+        <Stack.Screen name="hakkinda"                            options={{ headerShown: false }} />
         <Stack.Screen name="elifba-dersleri"                     options={{ headerShown: false }} />
         <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
         <Stack.Screen name="dualar"                              options={{ headerShown: false }} />
         <Stack.Screen name="esma"                                options={{ headerShown: false }} />
         <Stack.Screen name="ogren/harf-i-tarif"                  options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding"                          options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );
@@ -127,6 +131,20 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [ready]);
+
+  useEffect(() => {
+    maybeAskReview();
+  }, []);
+
+  useEffect(() => {
+    async function checkOnboarding() {
+      const completed = await AsyncStorage.getItem("onboarding_completed");
+      if (!completed) {
+        router.replace("/onboarding");
+      }
+    }
+    checkOnboarding();
+  }, []);
 
   useEffect(() => {
     // Maksimum 5 saniye bekle (video yüklenemezse)

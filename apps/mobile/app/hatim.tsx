@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
 } from "react-native";
+import LottieView from 'lottie-react-native';
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -62,9 +63,11 @@ function days(a: string, b: string) {
 export default function HatimScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const [store, setStore]     = useState<Store>({ hatims: [], currentId: null });
-  const [mounted, setMounted] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [store, setStore]       = useState<Store>({ hatims: [], currentId: null });
+  const [mounted, setMounted]   = useState(false);
+  const [confirm, setConfirm]   = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const prevProgress = useRef(0);
   const [activeTab, setActiveTab]   = useState<"takip" | "oku">("takip");
   const [readerSurah, setReaderSurah] = useState(1);
   const [readerAyah, setReaderAyah]   = useState(1);
@@ -111,6 +114,13 @@ export default function HatimScreen() {
   const progress  = current?.readJuz.length ?? 0;
   const pct       = Math.round((progress / 30) * 100);
 
+  useEffect(() => {
+    if (mounted && progress === 30 && prevProgress.current < 30) {
+      setShowCelebration(true);
+    }
+    prevProgress.current = progress;
+  }, [progress, mounted]);
+
   if (!mounted) {
     return (
       <View style={[styles.loadingScreen, { backgroundColor: c.bg }]}>
@@ -122,6 +132,29 @@ export default function HatimScreen() {
   return (
     <View style={{ flex: 1 }}>
       <Stack.Screen options={{ title: "Hatim & Mushaf" }} />
+
+      {/* Hatim tamamlama kutlaması */}
+      <Modal visible={showCelebration} transparent animationType="fade" onRequestClose={() => setShowCelebration(false)}>
+        <View style={styles.celebrationOverlay}>
+          <View style={[styles.celebrationCard, { backgroundColor: c.card }]}>
+            <LottieView
+              source={require('../assets/Star-Blast.json')}
+              autoPlay
+              loop={false}
+              style={{ width: 200, height: 200 }}
+            />
+            <Text style={[styles.celebrationTitle, { color: c.text }]}>Tebrikler! 🎉</Text>
+            <Text style={[styles.celebrationSub, { color: c.textMuted }]}>Hatminizi tamamladınız!</Text>
+            <TouchableOpacity
+              style={[styles.celebrationBtn, { backgroundColor: c.accent }]}
+              onPress={() => setShowCelebration(false)}
+              activeOpacity={0.85}
+            >
+              <Text style={styles.celebrationBtnText}>Tamam</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       {/* Sekme çubuğu */}
       <View style={styles.tabBar}>
@@ -324,4 +357,10 @@ const styles = StyleSheet.create({
   historyLabel:   { fontSize: 13, fontWeight: "600", color: "#374151" },
   historyDates:   { fontSize: 11, color: "#9ca3af", marginTop: 1 },
   historyDays:    { fontSize: 13, fontWeight: "600", color: "#059669" },
+  celebrationOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
+  celebrationCard:    { borderRadius: 24, padding: 32, alignItems: "center", width: 300 },
+  celebrationTitle:   { fontSize: 24, fontWeight: "700", marginTop: 8, marginBottom: 6 },
+  celebrationSub:     { fontSize: 15, textAlign: "center", marginBottom: 24 },
+  celebrationBtn:     { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 48 },
+  celebrationBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
 });

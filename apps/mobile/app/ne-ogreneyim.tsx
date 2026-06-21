@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { router, Stack } from "expo-router";
+import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
+import { logScreen } from "../src/lib/analytics";
 
 const { width } = Dimensions.get("window");
 const GAP = 12;
@@ -28,6 +30,7 @@ const ITEMS = [
 export default function NeOgreneyimScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  useEffect(() => { logScreen('NeOgreneyim'); }, []);
 
   return (
     <>
@@ -44,7 +47,7 @@ export default function NeOgreneyimScreen() {
             <TouchableOpacity
               key={item.title}
               style={[s.card, { backgroundColor: c.card, width: CARD_W }]}
-              onPress={() => router.push(item.route as any)}
+              onPress={() => { Haptics.selectionAsync(); router.push(item.route as any); }}
               activeOpacity={0.7}
             >
               <Text style={s.emoji}>{item.emoji}</Text>

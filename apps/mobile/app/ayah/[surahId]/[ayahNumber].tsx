@@ -18,6 +18,8 @@ import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
+import * as Haptics from 'expo-haptics';
+import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -209,6 +211,7 @@ function AyahJumpBar({ surahId, current, total, colors, rightContent }: {
   const [surahVal, setSurahVal] = useState(String(surahId));
   const [ayahVal,  setAyahVal]  = useState(String(current));
 
+  useEffect(() => { logScreen('AyetDetay'); }, []);
   useEffect(() => { setSurahVal(String(surahId)); }, [surahId]);
   useEffect(() => { setAyahVal(String(current)); },  [current]);
 
@@ -462,6 +465,7 @@ export default function AyahDetailScreen() {
 
   const handleShare = useCallback(async () => {
     if (!data) return;
+    logFeature(AnalyticsEvents.PAYLASIM);
     const webUrl = `https://kuran-app-web-ozan-s-projects8.vercel.app/surah/${surahId}/ayah/${ayahNumber}`;
     const text = [
       `${data.surahName} · ${data.ayahNumber}. Ayet`,
@@ -481,6 +485,7 @@ export default function AyahDetailScreen() {
   }, []);
 
   const handleSaveNote = useCallback(async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const ok = await saveNote(verseKey, noteDraft);
     if (!ok) { Alert.alert("Not kaydedilemedi", "Lütfen tekrar deneyin."); return; }
     setNoteSaved(true);
@@ -489,6 +494,8 @@ export default function AyahDetailScreen() {
   }, [verseKey, noteDraft, saveNote]);
 
   const handleToggleFav = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    logFeature(AnalyticsEvents.FAVORI_EKLE);
     toggleFav(verseKey);
   }, [toggleFav, verseKey]);
 

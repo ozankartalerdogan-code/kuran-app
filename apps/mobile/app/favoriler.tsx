@@ -8,6 +8,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { useFavorites } from "../src/hooks/useFavorites";
 import { api, type FavoriteVerse } from "../src/lib/api";
+import { SkeletonListItem } from "../src/components/SkeletonLoader";
+import * as Haptics from 'expo-haptics';
 
 export default function FavorilerScreen() {
   const c = useColors();
@@ -40,6 +42,7 @@ export default function FavorilerScreen() {
   }
 
   const handleRemoveOne = useCallback((verseKey: string) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     Alert.alert("Favoriden Kaldır", "Bu ayeti favorilerden kaldırmak istediğinize emin misiniz?", [
       { text: "İptal", style: "cancel" },
       { text: "Kaldır", style: "destructive", onPress: () => toggle(verseKey) },
@@ -97,9 +100,7 @@ export default function FavorilerScreen() {
   if (!loaded || loading) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}>
-        {[1, 2, 3].map(i => (
-          <View key={i} style={[styles.skeleton, { backgroundColor: c.border }]} />
-        ))}
+        {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
   }

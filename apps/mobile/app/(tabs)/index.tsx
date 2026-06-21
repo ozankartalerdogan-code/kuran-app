@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert,
 } from "react-native";
@@ -9,8 +9,12 @@ import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
+import { SkeletonAyetCard } from "../../src/components/SkeletonLoader";
 import { api } from "../../src/lib/api";
 import { requestNotificationPermission, sendTestNotification } from "../../src/lib/namazNotifications";
+import * as Haptics from 'expo-haptics';
+import LottieView from 'lottie-react-native';
+import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 
 const QUICK_ACTIONS = [
   { emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
@@ -45,8 +49,11 @@ function HomeContent() {
   // Ayrıca her istek benzersiz olduğundan no-store'a rağmen oluşan kısa-pencere cache'i atlanır.
   const moodSeen = useRef<Record<string, string[]>>({});
 
+  useEffect(() => { logScreen('AnaSayfa'); }, []);
+
   const handleMoodPress = useCallback(async (tag: string) => {
     if (moodLoading) return;
+    Haptics.selectionAsync();
     setMoodLoading(tag);
     try {
       const seen = moodSeen.current[tag] ?? [];
@@ -63,6 +70,7 @@ function HomeContent() {
       });
     } catch {
       // Fallback: tag aramasına git
+      logFeature(AnalyticsEvents.ARAMA);
       router.push({ pathname: "/search", params: { q: tag } });
     } finally {
       setMoodLoading(null);
@@ -99,7 +107,16 @@ function HomeContent() {
 
       {/* Streak + Gece modu */}
       <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
-        <Text style={styles.streakEmoji}>🔥</Text>
+        {streak.current > 0 ? (
+          <LottieView
+            source={require('../../assets/flamefire.json')}
+            autoPlay
+            loop
+            style={{ width: 40, height: 40 }}
+          />
+        ) : (
+          <Text style={styles.streakEmoji}>🔥</Text>
+        )}
         <View style={{ flex: 1 }}>
           {streak.current > 0 ? (
             <>
@@ -137,7 +154,7 @@ function HomeContent() {
           {verse && <Text style={[styles.cardRef, { color: c.isDark ? "#d97706" : "#a16207" }]}>{verse.surah_name} · {verse.surah_id}:{verse.ayah_number}</Text>}
         </View>
         {!verse ? (
-          <ActivityIndicator color="#d97706" style={{ marginVertical: 12 }} />
+          <SkeletonAyetCard />
         ) : (
           <>
             {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.arabic_text}</Text>}
@@ -210,7 +227,7 @@ function HomeContent() {
           {dua && <Text style={[styles.cardRef, { color: c.isDark ? "#14b8a6" : "#0d9488" }]}>{dua.surah_name} · {dua.surah_id}:{dua.ayah_number}</Text>}
         </View>
         {!dua ? (
-          <ActivityIndicator color="#0d9488" style={{ marginVertical: 12 }} />
+          <SkeletonAyetCard />
         ) : (
           <>
             {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.arabic_text}</Text>}
@@ -228,7 +245,7 @@ function HomeContent() {
             <TouchableOpacity
               key={a.route}
               style={[styles.quickBtn, { backgroundColor: c.isDark ? c.cardAlt : a.bg }]}
-              onPress={() => router.push(a.route as any)}
+              onPress={() => { Haptics.selectionAsync(); router.push(a.route as any); }}
               activeOpacity={0.75}
             >
               <Text style={styles.quickEmoji}>{a.emoji}</Text>

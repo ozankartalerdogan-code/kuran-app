@@ -11,6 +11,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
+import { SkeletonListItem } from "../../src/components/SkeletonLoader";
+import { logScreen } from "../../src/lib/analytics";
 
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
@@ -119,6 +121,8 @@ export default function SurahDetailScreen() {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
 
+  useEffect(() => { logScreen('SureDetay'); }, []);
+
   useEffect(() => {
     if (!surahId) return;
     let isMounted = true;
@@ -152,9 +156,8 @@ export default function SurahDetailScreen() {
 
 if (loading) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#059669" />
-        <Text style={styles.loadingText}>Ayetler yükleniyor…</Text>
+      <View style={[styles.centered, { alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 60 }]}>
+        {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
   }

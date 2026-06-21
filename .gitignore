@@ -11,9 +11,17 @@ coverage
 *.db-shm
 *.db-wal
 
+# Firebase credentials
+google-services.json
+GoogleService-Info.plist
+
 # Hassas ortam değişkenleri
+.env
 .env.local
 .env*.local
+.env.production
+.env.staging
+.env.development
 
 # Büyük veri dizinleri (sadece root seviyesi)
 /data/

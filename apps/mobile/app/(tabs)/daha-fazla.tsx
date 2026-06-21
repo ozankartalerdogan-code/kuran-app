@@ -19,6 +19,12 @@ const SECTIONS = [
       { emoji: "📝", label: "Notlarım",    sub: "Kendi notların",      route: "/notlar"    },
     ],
   },
+  {
+    title: "⚙️ Uygulama",
+    items: [
+      { emoji: "ℹ️", label: "Hakkında & Kaynaklar", sub: "Referanslar, versiyon bilgisi", route: "/hakkinda" },
+    ],
+  },
 ];
 
 export default function DahaFazlaTab() {

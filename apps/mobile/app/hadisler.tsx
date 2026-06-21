@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, Share,
 } from "react-native";
 import { Stack } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
+import { logScreen } from "../src/lib/analytics";
 import rawData from "../src/data/hadisler_v2.json";
 
 const META    = rawData.meta;
@@ -49,14 +52,29 @@ function HadithCard({ h }: { h: Hadith }) {
   const [open, setOpen] = useState(false);
   const sources = [h.source_bukhari, h.source_muslim].filter(Boolean).join(" · ");
 
+  async function handleShare() {
+    Haptics.selectionAsync();
+    const msg = `"${h.turkish_text}"\n\n— ${h.narrator}\n(Kaynak: ${sources})\n\nKuran Yolu uygulamasından`;
+    try { await Share.share({ message: msg }); } catch (_e) { /* noop */ }
+  }
+
   return (
     <View style={[hd.card, { backgroundColor: c.bg, borderColor: c.border }]}>
-      <TouchableOpacity onPress={() => setOpen(o => !o)} activeOpacity={0.75} style={hd.header}>
-        <Text style={[hd.text, { color: c.text }]} numberOfLines={open ? undefined : 3}>
-          "{h.turkish_text}"
-        </Text>
-        <Text style={[hd.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
-      </TouchableOpacity>
+      <View style={hd.header}>
+        <TouchableOpacity onPress={() => setOpen(o => !o)} activeOpacity={0.75} style={{ flex: 1 }}>
+          <Text style={[hd.text, { color: c.text }]} numberOfLines={open ? undefined : 3}>
+            "{h.turkish_text}"
+          </Text>
+        </TouchableOpacity>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
+            <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setOpen(o => !o)} hitSlop={8} activeOpacity={0.7}>
+            <Text style={[hd.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <View style={hd.foot}>
         <Text style={[hd.narrator, { color: c.accent }]}>{h.narrator}</Text>
@@ -140,6 +158,7 @@ function GroupAccordion({ group }: { group: GroupData }) {
 export default function HadislerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  useEffect(() => { logScreen('Hadisler'); }, []);
 
   return (
     <>

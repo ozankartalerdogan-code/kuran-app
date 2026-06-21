@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../src/hooks/useNotes";
 import { api } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
+import { SkeletonListItem } from "../src/components/SkeletonLoader";
 
 export default function NotesScreen() {
   const c = useColors();
@@ -91,9 +92,7 @@ export default function NotesScreen() {
   if (loading) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
-        {[1, 2, 3].map(i => (
-          <View key={i} style={[styles.skeleton, { backgroundColor: c.border }]} />
-        ))}
+        {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
   }

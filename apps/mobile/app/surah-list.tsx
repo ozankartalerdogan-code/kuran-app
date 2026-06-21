@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem } from "../src/lib/api";
 import { useColors, type AppColors } from "../src/hooks/useColors";
+import { SkeletonListItem } from "../src/components/SkeletonLoader";
 
 // Standart nüzul sırası (Mısır mushafı): surahId → iniş sırası
 const NUZUL: Record<number, number> = {
@@ -111,9 +112,8 @@ export default function SurahListScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <ActivityIndicator size="large" color={c.accent} />
-        <Text style={[styles.loadingText, { color: c.textMuted }]}>Sureler yükleniyor…</Text>
+      <View style={[styles.centered, { backgroundColor: c.bg, alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 60 }]}>
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
   }
