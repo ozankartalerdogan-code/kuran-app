@@ -176,6 +176,17 @@ export default function SearchScreen() {
     setQuery(""); setState({ status: "idle" }); inputRef.current?.focus();
   }, []);
 
+  const renderVerseItem = useCallback(({ item }: { item: VerseResult }) => (
+    <VerseCard item={item} onPress={() => onVersePress(item.verse_key)} />
+  ), [onVersePress]);
+
+  const renderTagVerseItem = useCallback(({ item }: { item: TagFilterResult }) => (
+    <VerseCard
+      item={{ verse_key: item.verse_key, meal: item.meal, surah_name: item.surah_name }}
+      onPress={() => onVersePress(item.verse_key)}
+    />
+  ), [onVersePress]);
+
   // ── Render helpers ─────────────────────────────────────────────────────────
   const showRecent = query.length < MIN_Q && recent.length > 0;
   const isLoading  = state.status === "loading";
@@ -241,9 +252,7 @@ export default function SearchScreen() {
             <FlatList
               data={d.results}
               keyExtractor={(item) => item.verse_key}
-              renderItem={({ item }) => (
-                <VerseCard item={item} onPress={() => onVersePress(item.verse_key)} />
-              )}
+              renderItem={renderVerseItem}
               ListHeaderComponent={
                 <>
                   {d.suggestedSurah && (
@@ -279,12 +288,7 @@ export default function SearchScreen() {
             <FlatList
               data={tv}
               keyExtractor={(item) => item.verse_key}
-              renderItem={({ item }) => (
-                <VerseCard
-                  item={{ verse_key: item.verse_key, meal: item.meal, surah_name: item.surah_name }}
-                  onPress={() => onVersePress(item.verse_key)}
-                />
-              )}
+              renderItem={renderTagVerseItem}
               ListHeaderComponent={
                 <>
                   <TagCard tag={d.tag} count={d.count} />

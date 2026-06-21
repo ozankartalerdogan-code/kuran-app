@@ -9,6 +9,7 @@ import {
 import { Stack, useLocalSearchParams } from "expo-router";
 import { api } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Tefsir metni dev tek bir <Text>'e basılırsa (Bakara ~1.7MB) RN yerleşim motoru
 // kilitlenir (~23 sn). Bunun yerine paragraflara bölüp FlatList ile pencereli
@@ -16,6 +17,7 @@ import { useColors } from "../../src/hooks/useColors";
 
 export default function TafsirScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const { surahId: rawId, name } = useLocalSearchParams<{ surahId: string; name?: string }>();
   const surahId = Number(rawId);
 
@@ -63,7 +65,7 @@ export default function TafsirScreen() {
           ListHeaderComponent={
             <Text style={[styles.source, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
           }
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={[styles.listContent, { paddingBottom: 40 + insets.bottom }]}
           initialNumToRender={8}
           maxToRenderPerBatch={6}
           windowSize={5}

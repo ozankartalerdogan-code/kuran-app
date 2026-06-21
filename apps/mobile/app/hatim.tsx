@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
 import { Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MushafReader } from "../src/components/MushafReader";
 import { useColors } from "../src/hooks/useColors";
@@ -60,6 +61,7 @@ function days(a: string, b: string) {
 
 export default function HatimScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [store, setStore]     = useState<Store>({ hatims: [], currentId: null });
   const [mounted, setMounted] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -76,9 +78,11 @@ export default function HatimScreen() {
   }
 
   useEffect(() => {
+    let isMounted = true;
     AsyncStorage.getItem(STORAGE_KEY)
-      .then(v => { if (v) setStore(JSON.parse(v)); })
+      .then(v => { if (isMounted && v) setStore(JSON.parse(v)); })
       .finally(() => setMounted(true));
+    return () => { isMounted = false; };
   }, []);
 
   const persist = useCallback((next: Store) => {
@@ -107,7 +111,13 @@ export default function HatimScreen() {
   const progress  = current?.readJuz.length ?? 0;
   const pct       = Math.round((progress / 30) * 100);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <View style={[styles.loadingScreen, { backgroundColor: c.bg }]}>
+        <ActivityIndicator size="large" color={c.accent ?? "#059669"} />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -143,7 +153,7 @@ export default function HatimScreen() {
 
       {/* Takip sekmesi */}
       {activeTab === "takip" && (
-      <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={styles.content}>
+      <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={[styles.content, { paddingBottom: 32 + insets.bottom }]}>
 
         <Text style={styles.title}>📖 Hatim Takibi</Text>
         <Text style={styles.sub}>30 cüzlük okumanızı işaretleyin</Text>
@@ -265,6 +275,7 @@ export default function HatimScreen() {
 }
 
 const styles = StyleSheet.create({
+  loadingScreen: { flex: 1, alignItems: "center", justifyContent: "center" },
   tabBar:        { flexDirection: "row", backgroundColor: "#fff", borderBottomWidth: 1, borderBottomColor: "#e7e5e4" },
   tabBtn:        { flex: 1, paddingVertical: 12, alignItems: "center" },
   tabBtnActive:  { borderBottomWidth: 2, borderBottomColor: "#059669" },

@@ -87,6 +87,14 @@ function AppContent() {
         <Stack.Screen name="favorilerim"                           options={{ title: "Favorilerim", headerBackTitle: "Geri" }} />
         <Stack.Screen name="notlarim"                             options={{ title: "Notlarım", headerBackTitle: "Geri" }} />
         <Stack.Screen name="sure-listesi"                         options={{ title: "Sure Listesi", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="surah-list"                          options={{ headerShown: false }} />
+        <Stack.Screen name="favoriler"                           options={{ headerShown: false }} />
+        <Stack.Screen name="notlar"                              options={{ headerShown: false }} />
+        <Stack.Screen name="elifba-dersleri"                     options={{ headerShown: false }} />
+        <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
+        <Stack.Screen name="dualar"                              options={{ headerShown: false }} />
+        <Stack.Screen name="esma"                                options={{ headerShown: false }} />
+        <Stack.Screen name="ogren/harf-i-tarif"                  options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );

@@ -13,7 +13,7 @@ import {
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useFavorites } from "../../../src/hooks/useFavorites";
@@ -377,6 +377,7 @@ export default function AyahDetailScreen() {
   const [activeTab, setActiveTab] = useState<TabId>("meal");
   const [noteDraft, setNoteDraft] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
+  const noteSavedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Mevcut notu yükle
   useEffect(() => {
@@ -385,6 +386,7 @@ export default function AyahDetailScreen() {
 
   useEffect(() => {
     if (!surahId || !ayahNumber) return;
+    let isMounted = true;
     setLoading(true);
     setError(null);
     Promise.all([
@@ -392,6 +394,7 @@ export default function AyahDetailScreen() {
       api.verses.bySurah(surahId),
     ])
       .then(([ayahData, versesData]) => {
+        if (!isMounted) return;
         setData(ayahData);
         if (!ayahData.readingTr) {
           const verse = versesData.verses.find(v => v.ayahNumber === ayahNumber);
@@ -403,23 +406,28 @@ export default function AyahDetailScreen() {
       })
       .catch(() => setError("Ayet yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
+    return () => { isMounted = false; };
   }, [surahId, ayahNumber]);
 
   // Kök anlamları — Kökler sekmesi açılınca fetch et
   const [rootMeaningsLocal, setRootMeaningsLocal] = useState<Record<string, string>>({});
   const rootMeaningsFetched = useState(false);
+  const [rootFetchError, setRootFetchError] = useState(false);
 
   const fetchRootMeanings = useCallback(async (words: AyahDetailResponse["words"]) => {
     if (rootMeaningsFetched[0]) return;
     rootMeaningsFetched[1](true);
+    setRootFetchError(false);
     const existing = data?.rootMeanings ?? {};
     const roots = [...new Set(words.map(w => w.root).filter(Boolean))] as string[];
     const missing = roots.filter(r => !existing[r]);
     if (missing.length === 0) { setRootMeaningsLocal(existing); return; }
     const results: Record<string, string> = { ...existing };
+    let anyFailed = false;
     await Promise.all(missing.map(r =>
-      api.roots.detail(r).then(d => { if (d?.meaningTr) results[r] = d.meaningTr; }).catch(() => {})
+      api.roots.detail(r).then(d => { if (d?.meaningTr) results[r] = d.meaningTr; }).catch((e) => { console.warn("Root detail fetch failed:", r, e); anyFailed = true; })
     ));
+    if (anyFailed) setRootFetchError(true);
     setRootMeaningsLocal(results);
   }, [data, rootMeaningsFetched]);
 
@@ -438,6 +446,7 @@ export default function AyahDetailScreen() {
   useEffect(() => {
     rootMeaningsFetched[1](false);
     setRootMeaningsLocal({});
+    setRootFetchError(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [surahId, ayahNumber]);
 
@@ -465,12 +474,36 @@ export default function AyahDetailScreen() {
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
   }, [data, surahId, ayahNumber]);
 
+  useEffect(() => {
+    return () => {
+      if (noteSavedTimerRef.current) clearTimeout(noteSavedTimerRef.current);
+    };
+  }, []);
+
   const handleSaveNote = useCallback(async () => {
     const ok = await saveNote(verseKey, noteDraft);
     if (!ok) { Alert.alert("Not kaydedilemedi", "Lütfen tekrar deneyin."); return; }
     setNoteSaved(true);
-    setTimeout(() => setNoteSaved(false), 2000);
+    if (noteSavedTimerRef.current) clearTimeout(noteSavedTimerRef.current);
+    noteSavedTimerRef.current = setTimeout(() => setNoteSaved(false), 2000);
   }, [verseKey, noteDraft, saveNote]);
+
+  const handleToggleFav = useCallback(() => {
+    toggleFav(verseKey);
+  }, [toggleFav, verseKey]);
+
+  const handlePrev = useCallback(() => {
+    if (data?.prevAyah) navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber);
+  }, [data, navigate]);
+
+  const handleNext = useCallback(() => {
+    if (data?.nextAyah) navigate(data.nextAyah.surahId, data.nextAyah.ayahNumber);
+  }, [data, navigate]);
+
+  const handleDeleteNote = useCallback(() => {
+    setNoteDraft("");
+    saveNote(verseKey, "");
+  }, [verseKey, saveNote]);
 
   // ── Yükleme ──
   if (loading) {
@@ -537,7 +570,7 @@ export default function AyahDetailScreen() {
                 <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
                   <Ionicons name="share-social-outline" size={20} color={colors.textMuted} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleFav(verseKey)} hitSlop={8} activeOpacity={0.7}>
+                <TouchableOpacity onPress={handleToggleFav} hitSlop={8} activeOpacity={0.7}>
                   <Text style={{ fontSize: 20 }}>{isFavorite(verseKey) ? "❤️" : "🤍"}</Text>
                 </TouchableOpacity>
               </>
@@ -689,6 +722,11 @@ export default function AyahDetailScreen() {
           <View style={styles.tabContent}>
             <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
               <Text style={[styles.sectionTitle, { color: colors.accent }]}>KÖKLER</Text>
+              {rootFetchError && (
+                <Text style={[styles.emptyText, { color: colors.error, marginBottom: 8 }]}>
+                  Kök bilgisi yüklenemedi.
+                </Text>
+              )}
               <UniqueRootList words={data.words} rootMeanings={Object.keys(rootMeaningsLocal).length > 0 ? rootMeaningsLocal : (data.rootMeanings ?? {})} colors={colors} />
             </View>
           </View>
@@ -773,10 +811,7 @@ export default function AyahDetailScreen() {
               styles.navBtn,
               { backgroundColor: data.prevAyah ? colors.accent : colors.border },
             ]}
-            onPress={() =>
-              data.prevAyah &&
-              navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber)
-            }
+            onPress={handlePrev}
             disabled={!data.prevAyah}
             activeOpacity={0.7}
           >
@@ -799,10 +834,7 @@ export default function AyahDetailScreen() {
               styles.navBtn,
               { backgroundColor: data.nextAyah ? colors.accent : colors.border },
             ]}
-            onPress={() =>
-              data.nextAyah &&
-              navigate(data.nextAyah.surahId, data.nextAyah.ayahNumber)
-            }
+            onPress={handleNext}
             disabled={!data.nextAyah}
             activeOpacity={0.7}
           >
@@ -838,7 +870,7 @@ export default function AyahDetailScreen() {
           <View style={styles.noteActions}>
             {noteDraft.trim().length > 0 && (
               <TouchableOpacity
-                onPress={() => { setNoteDraft(""); saveNote(verseKey, ""); }}
+                onPress={handleDeleteNote}
                 activeOpacity={0.7}
               >
                 <Text style={[styles.noteDelete, { color: colors.error }]}>Notu Sil</Text>

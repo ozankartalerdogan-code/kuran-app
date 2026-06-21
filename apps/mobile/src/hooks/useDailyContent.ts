@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { api } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
@@ -83,6 +83,7 @@ export function useDailyContent(): UseDailyContentResult {
 
   const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
   const prayerCity = prayerCityState;
+  const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const load = useCallback(async () => {
     setError(null);
@@ -267,7 +268,7 @@ export function useDailyContent(): UseDailyContentResult {
       });
 
     // Safety timeout: en geç 10 saniye sonra loading'i kapat
-    setTimeout(() => {
+    safetyTimerRef.current = setTimeout(() => {
       if (!verseDone) setVerseLoading(false);
       if (!duaDone) setDuaLoading(false);
       if (!prayerDone) { prayerAC.abort(); setPrayerLoading(false); }
@@ -277,6 +278,9 @@ export function useDailyContent(): UseDailyContentResult {
 
   useEffect(() => {
     load();
+    return () => {
+      if (safetyTimerRef.current) clearTimeout(safetyTimerRef.current);
+    };
   }, [load]);
 
   const nextPrayer = prayers

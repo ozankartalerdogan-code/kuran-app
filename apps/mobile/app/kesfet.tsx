@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { router, Stack } from "expo-router";
 import { useColors } from "../src/hooks/useColors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Sekme tanımları ───────────────────────────────────────────────────────────
 
@@ -216,6 +217,7 @@ function HubCard({ emoji, label, sub, bg, border, onPress }: {
 
 export default function KesfetScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [bolum, setBolum] = useState<Tab | null>(null);
 
   // Bir bölümdeyken Android donanım geri tuşu → hub'a dön (ekrandan çıkma)
@@ -249,7 +251,7 @@ export default function KesfetScreen() {
         <Stack.Screen options={{ title: "Keşfet" }} />
         <ScrollView
           style={[s.container, { backgroundColor: c.bg }]}
-          contentContainerStyle={s.content}
+          contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}
           showsVerticalScrollIndicator={false}
         >
           <View style={tools.grid}>
@@ -284,7 +286,7 @@ export default function KesfetScreen() {
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         style={[s.container, { backgroundColor: c.bg }]}
-        contentContainerStyle={s.content}
+        contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
         initialNumToRender={10}
         maxToRenderPerBatch={10}

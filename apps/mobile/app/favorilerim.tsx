@@ -4,12 +4,14 @@ import {
 } from "react-native";
 import { useState, useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { useFavorites } from "../src/hooks/useFavorites";
 import { api, type FavoriteVerse } from "../src/lib/api";
 
 export default function FavoritesScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const { favorites, loaded, toggle, clearAll, refresh } = useFavorites();
   const [verses, setVerses]   = useState<FavoriteVerse[]>([]);
   const [loading, setLoading] = useState(false);
@@ -35,12 +37,60 @@ export default function FavoritesScreen() {
     ]);
   }
 
-  function handleRemoveOne(verseKey: string) {
+  const handleRemoveOne = useCallback((verseKey: string) => {
     Alert.alert("Favoriden Kaldır", "Bu ayeti favorilerden kaldırmak istediğinize emin misiniz?", [
       { text: "İptal", style: "cancel" },
       { text: "Kaldır", style: "destructive", onPress: () => toggle(verseKey) },
     ]);
-  }
+  }, [toggle]);
+
+  const renderItem = useCallback(({ item }: { item: FavoriteVerse }) => (
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
+      onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
+      activeOpacity={0.75}
+    >
+      <View style={styles.cardHeader}>
+        <View style={styles.keyBadge}>
+          <Text style={styles.keyText}>{item.verse_key}</Text>
+        </View>
+        {item.surah_name && (
+          <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
+            {item.surah_name} · {item.ayah_number}. ayet
+          </Text>
+        )}
+        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn}>
+          <Text style={{ fontSize: 18 }}>❤️</Text>
+        </TouchableOpacity>
+      </View>
+      {item.meal && (
+        <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{item.meal}</Text>
+      )}
+      {(item.ana_tema || item.alt_taglar?.length > 0) && (
+        <View style={styles.tagRow}>
+          {item.ana_tema && (
+            <TouchableOpacity
+              style={[styles.tag, styles.tagPrimary]}
+              onPress={() => router.push(`/search?tag=${encodeURIComponent(item.ana_tema!)}&page=1`)}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.tagTextPrimary}>{item.ana_tema}</Text>
+            </TouchableOpacity>
+          )}
+          {item.alt_taglar?.slice(0, 3).map(tag => (
+            <TouchableOpacity
+              key={tag}
+              style={styles.tag}
+              onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.tagText}>{tag}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    </TouchableOpacity>
+  ), [c, handleRemoveOne]);
 
   if (!loaded || loading) {
     return (
@@ -71,7 +121,7 @@ export default function FavoritesScreen() {
     <FlatList
       data={verses}
       keyExtractor={(v) => v.verse_key}
-      contentContainerStyle={[styles.list, { backgroundColor: c.bg }]}
+      contentContainerStyle={[styles.list, { backgroundColor: c.bg, paddingBottom: 32 + insets.bottom }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={styles.count}>{verses.length} ayet kaydedildi</Text>
@@ -80,55 +130,7 @@ export default function FavoritesScreen() {
           </TouchableOpacity>
         </View>
       }
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
-          onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
-          activeOpacity={0.75}
-        >
-          <View style={styles.cardHeader}>
-            <View style={styles.keyBadge}>
-              <Text style={styles.keyText}>{item.verse_key}</Text>
-            </View>
-            {item.surah_name && (
-              <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
-                {item.surah_name} · {item.ayah_number}. ayet
-              </Text>
-            )}
-            <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn}>
-              <Text style={{ fontSize: 18 }}>❤️</Text>
-            </TouchableOpacity>
-          </View>
-
-          {item.meal && (
-            <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{item.meal}</Text>
-          )}
-
-          {(item.ana_tema || item.alt_taglar?.length > 0) && (
-            <View style={styles.tagRow}>
-              {item.ana_tema && (
-                <TouchableOpacity
-                  style={[styles.tag, styles.tagPrimary]}
-                  onPress={() => router.push(`/search?tag=${encodeURIComponent(item.ana_tema!)}&page=1`)}
-                  activeOpacity={0.7}
-                >
-                  <Text style={styles.tagTextPrimary}>{item.ana_tema}</Text>
-                </TouchableOpacity>
-              )}
-              {item.alt_taglar?.slice(0, 3).map(tag => (
-                <TouchableOpacity
-                  key={tag}
-                  style={styles.tag}
-                  onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                  activeOpacity={0.7}
-                >
-                  <Text style={styles.tagText}>{tag}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-        </TouchableOpacity>
-      )}
+      renderItem={renderItem}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       initialNumToRender={10}
       maxToRenderPerBatch={10}

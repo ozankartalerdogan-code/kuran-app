@@ -13,8 +13,9 @@ export default function NotesScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { notes, saveNote, clearAll, refresh } = useNotes();
-  const [surahNames, setSurahNames] = useState<Record<string, string>>({});
-  const [loading, setLoading]       = useState(true);
+  const [surahNames, setSurahNames]       = useState<Record<string, string>>({});
+  const [loading, setLoading]             = useState(true);
+  const [surahNamesError, setSurahNamesError] = useState(false);
 
   // Her odaklanmada storage'dan yeniden yükle — başka ekranda (ayet sayfası)
   // eklenen/silinen notlar burada da görünsün (eskiden yenilenmiyordu → "kaydetmiyor" sanılıyordu).
@@ -28,13 +29,14 @@ export default function NotesScreen() {
   useFocusEffect(useCallback(() => {
     if (noteList.length === 0) { setLoading(false); return; }
     const keys = noteList.map(n => n.verseKey);
+    setSurahNamesError(false);
     api.favorites.fetch(keys)
       .then(verses => {
         const map: Record<string, string> = {};
         verses.forEach(v => { if (v.surah_name) map[v.verse_key] = v.surah_name; });
         setSurahNames(map);
       })
-      .catch(() => {})
+      .catch(() => setSurahNamesError(true))
       .finally(() => setLoading(false));
   }, [notes]));
 
@@ -46,6 +48,7 @@ export default function NotesScreen() {
   function formatLabel(key: string) {
     const { surahId, ayahNumber } = parseKey(key);
     const surahName = surahNames[key];
+    if (surahNamesError && !surahName) return `Sure adı alınamadı · ${ayahNumber}. Ayet`;
     if (surahName) return `${surahName}, ${ayahNumber}. Ayet`;
     return `${surahId}. Sure · ${ayahNumber}. Ayet`;
   }
@@ -63,6 +66,32 @@ export default function NotesScreen() {
       { text: "Evet", style: "destructive", onPress: () => saveNote(verseKey, "") },
     ]);
   }
+
+  const renderItem = useCallback(({ item }: { item: { verseKey: string; text: string } }) => {
+    const { surahId, ayahNumber } = parseKey(item.verseKey);
+    return (
+      <TouchableOpacity
+        style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
+        onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
+        activeOpacity={0.75}
+      >
+        <View style={styles.cardHeader}>
+          <View style={styles.keyBadge}>
+            <Text style={styles.keyText}>{item.verseKey}</Text>
+          </View>
+          <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
+            {formatLabel(item.verseKey)}
+          </Text>
+          <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8}>
+            <Text style={styles.deleteBtn}>🗑</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
+          {item.text}
+        </Text>
+      </TouchableOpacity>
+    );
+  }, [c, surahNames, surahNamesError]);
 
   // Yükleniyor
   if (loading) {
@@ -103,31 +132,7 @@ export default function NotesScreen() {
           </TouchableOpacity>
         </View>
       }
-      renderItem={({ item }) => {
-        const { surahId, ayahNumber } = parseKey(item.verseKey);
-        return (
-          <TouchableOpacity
-            style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
-            onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
-            activeOpacity={0.75}
-          >
-            <View style={styles.cardHeader}>
-              <View style={styles.keyBadge}>
-                <Text style={styles.keyText}>{item.verseKey}</Text>
-              </View>
-              <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
-                {formatLabel(item.verseKey)}
-              </Text>
-              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8}>
-                <Text style={styles.deleteBtn}>🗑</Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
-              {item.text}
-            </Text>
-          </TouchableOpacity>
-        );
-      }}
+      renderItem={renderItem}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       initialNumToRender={10}
       maxToRenderPerBatch={10}

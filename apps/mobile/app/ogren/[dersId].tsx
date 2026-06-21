@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
@@ -240,6 +241,7 @@ type Mode = "flashcard" | "quiz";
 export default function DersScreen() {
   const { dersId: raw, mode: initialMode } = useLocalSearchParams<{ dersId: string; mode?: string }>();
   const dersId = Number(raw);
+  const insets = useSafeAreaInsets();
 
   const [harfler, setHarfler]   = useState<ElifbaHarf[]>([]);
   const [loading, setLoading]   = useState(true);
@@ -248,14 +250,16 @@ export default function DersScreen() {
   const [seenIds, setSeenIds]   = useState<number[]>([]);
 
   useEffect(() => {
+    let isMounted = true;
     api.elifba.harfler(dersId)
-      .then((h) => { setHarfler(h); })
+      .then((h) => { if (isMounted) setHarfler(h); })
       .catch(() => {})
       .finally(() => setLoading(false));
     // Kaydedilmiş ilerlemeyi yükle
     storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
-      .then((p) => setSeenIds(p?.[String(dersId)] ?? []))
+      .then((p) => { if (isMounted) setSeenIds(p?.[String(dersId)] ?? []); })
       .catch(() => {});
+    return () => { isMounted = false; };
   }, [dersId]);
 
   const markSeen = useCallback(async (harfId: number) => {
@@ -301,7 +305,7 @@ export default function DersScreen() {
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingBottom: insets.bottom }]}>
         {/* Mod seçici */}
         <View style={styles.modeBar}>
           <TouchableOpacity

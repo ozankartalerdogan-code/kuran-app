@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { api, type TagFilterResult } from "../src/lib/api";
 
@@ -55,18 +56,22 @@ function VerseList({ tag }: { tag: string }) {
   const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
   const [open, setOpen]       = useState(false);
+  const [error, setError]     = useState(false);
+
+  const fetchVerses = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    try { const r = await api.tags.filter(tag); setVerses(r.results.slice(0, 15)); }
+    catch { setError(true); }
+    setLoading(false);
+    setFetched(true);
+  }, [tag]);
 
   const toggle = useCallback(async () => {
     const next = !open;
     setOpen(next);
-    if (next && !fetched) {
-      setLoading(true);
-      try { const r = await api.tags.filter(tag); setVerses(r.results.slice(0, 15)); }
-      catch (_e) { /* ignore */ }
-      setLoading(false);
-      setFetched(true);
-    }
-  }, [open, fetched, tag]);
+    if (next && !fetched) await fetchVerses();
+  }, [open, fetched, fetchVerses]);
 
   return (
     <View style={sc.verseSection}>
@@ -77,7 +82,18 @@ function VerseList({ tag }: { tag: string }) {
       {open && (
         <View>
           {loading && <ActivityIndicator color="#059669" style={{ marginVertical: 8 }} />}
-          {!loading && verses.map(v => (
+          {!loading && error && (
+            <View style={sc.verseFeedback}>
+              <Text style={sc.verseErrorText}>Ayetler yüklenemedi.</Text>
+              <TouchableOpacity style={sc.verseRetryBtn} onPress={fetchVerses} activeOpacity={0.75}>
+                <Text style={sc.verseRetryText}>Tekrar Dene</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {!loading && !error && fetched && verses.length === 0 && (
+            <Text style={sc.verseEmptyText}>İçerik bulunamadı.</Text>
+          )}
+          {!loading && !error && verses.map(v => (
             <TouchableOpacity key={v.verse_key} style={sc.verseRow}
               onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}` as any)} activeOpacity={0.7}>
               <View style={sc.verseKey}><Text style={sc.verseKeyText}>{v.verse_key}</Text></View>
@@ -114,10 +130,11 @@ function Bolum({ emoji, baslik, color, children }: { emoji: string; baslik: stri
 
 export default function ManeviSiginakScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   return (
     <>
       <Stack.Screen options={{ title: "Manevi Sığınak" }} />
-      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 + insets.bottom }} showsVerticalScrollIndicator={false}>
 
         {/* Başlık */}
         <View style={s.header}>
@@ -374,6 +391,11 @@ const sc = StyleSheet.create({
   uyari:     { borderRadius: 10, padding: 10 },
   uyariText: { fontSize: 12, lineHeight: 18 },
 
+  verseFeedback:   { alignItems: "center", paddingVertical: 10, gap: 6 },
+  verseErrorText:  { fontSize: 12, color: "#dc2626" },
+  verseRetryBtn:   { backgroundColor: "#059669", borderRadius: 8, paddingHorizontal: 14, paddingVertical: 5 },
+  verseRetryText:  { fontSize: 12, fontWeight: "700", color: "#fff" },
+  verseEmptyText:  { fontSize: 12, color: "#78716c", paddingVertical: 8, textAlign: "center" },
   verseSection:    { borderTopWidth: 1, borderTopColor: "#f0fdf4", marginTop: 4 },
   verseSectionBtn: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10 },
   verseSectionLabel: { fontSize: 12, fontWeight: "700", color: "#059669" },

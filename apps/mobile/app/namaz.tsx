@@ -3,8 +3,9 @@ import {
   ActivityIndicator, StyleSheet, Switch, Alert, Linking,
 } from "react-native";
 import * as Location from "expo-location";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { router, Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type TagFilterResult } from "../src/lib/api";
 import {
   requestNotificationPermission,
@@ -195,22 +196,26 @@ const NAMAZ_TAGS = [
   { tag: "namaz-sefer",    label: "Seferi Namaz",          emoji: "🚶", desc: "1 ayet — yolculukta kısaltma" },
 ] as const;
 
-function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: string; emoji: string; desc: string }) {
+const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: string; emoji: string; desc: string }) {
   const [open, setOpen]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [verses, setVerses]   = useState<TagFilterResult[]>([]);
   const [fetched, setFetched] = useState(false);
+  const [error, setError]     = useState(false);
+
+  const fetchVerses = async () => {
+    setLoading(true);
+    setError(false);
+    try { const r = await api.tags.filter(tag); setVerses(r.results); }
+    catch { setError(true); }
+    setLoading(false);
+    setFetched(true);
+  };
 
   const toggle = async () => {
     const next = !open;
     setOpen(next);
-    if (next && !fetched) {
-      setLoading(true);
-      try { const r = await api.tags.filter(tag); setVerses(r.results); }
-      catch (_e) { /* ignore */ }
-      setLoading(false);
-      setFetched(true);
-    }
+    if (next && !fetched) await fetchVerses();
   };
 
   return (
@@ -227,6 +232,15 @@ function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: strin
         <View style={styles.accordionBody}>
           {loading ? (
             <ActivityIndicator color="#059669" style={{ marginVertical: 10 }} />
+          ) : error ? (
+            <View style={styles.accordionError}>
+              <Text style={styles.accordionErrorText}>İçerik yüklenemedi. Lütfen tekrar deneyin.</Text>
+              <TouchableOpacity style={styles.retryBtn} onPress={fetchVerses} activeOpacity={0.75}>
+                <Text style={styles.retryBtnText}>Tekrar Dene</Text>
+              </TouchableOpacity>
+            </View>
+          ) : fetched && verses.length === 0 ? (
+            <Text style={styles.accordionEmpty}>İçerik bulunamadı.</Text>
           ) : verses.map((item) => (
             <TouchableOpacity key={item.verse_key} style={styles.verseCard}
               onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}>
@@ -242,9 +256,10 @@ function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: strin
       )}
     </View>
   );
-}
+});
 
 export default function NamazScreen() {
+  const insets = useSafeAreaInsets();
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
@@ -332,7 +347,7 @@ export default function NamazScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Hakkında" }} />
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom }}>
         {/* Namaz Vakti Bildirimleri */}
         <View style={styles.notifCard}>
           <View style={{ flex: 1 }}>
@@ -410,6 +425,11 @@ const styles = StyleSheet.create({
   accordionDesc:   { fontSize:11, color:"#78716c", marginTop:1 },
   accordionChev:   { fontSize:14, color:"#059669" },
   accordionBody:   { borderTopWidth:1, borderTopColor:"#f5f5f4", padding:10, gap:6 },
+  accordionError:     { alignItems:"center", paddingVertical:12, gap:8 },
+  accordionErrorText: { fontSize:12, color:"#dc2626", textAlign:"center" },
+  accordionEmpty:     { fontSize:12, color:"#78716c", textAlign:"center", paddingVertical:10 },
+  retryBtn:           { backgroundColor:"#059669", borderRadius:8, paddingHorizontal:16, paddingVertical:7 },
+  retryBtnText:       { fontSize:12, fontWeight:"600", color:"#fff" },
 });
 
 // ── Vakit Tablosu Stilleri ────────────────────────────────────────────────────

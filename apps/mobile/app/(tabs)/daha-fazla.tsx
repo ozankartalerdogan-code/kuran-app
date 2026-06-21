@@ -15,8 +15,8 @@ const SECTIONS = [
   {
     title: "👤 Kişisel",
     items: [
-      { emoji: "❤️", label: "Favorilerim", sub: "Kaydettiğin ayetler", route: "/favorilerim" },
-      { emoji: "📝", label: "Notlarım",    sub: "Kendi notların",      route: "/notlarim"   },
+      { emoji: "❤️", label: "Favorilerim", sub: "Kaydettiğin ayetler", route: "/favoriler" },
+      { emoji: "📝", label: "Notlarım",    sub: "Kendi notların",      route: "/notlar"    },
     ],
   },
 ];

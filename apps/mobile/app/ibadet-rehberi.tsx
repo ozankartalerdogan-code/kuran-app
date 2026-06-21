@@ -4,6 +4,7 @@ import {
   StyleSheet, Pressable,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -374,7 +375,7 @@ function AbdestTablo({ satirlar, baslik }: { satirlar: AbdestSatiri[]; baslik: s
 
 // ── ANA KARTI ─────────────────────────────────────────────────────────────────
 
-function BolumCard({ ikon, baslik, children }: { ikon: string; baslik: string; children: React.ReactNode }) {
+const BolumCard = React.memo(function BolumCard({ ikon, baslik, children }: { ikon: string; baslik: string; children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   return (
     <View style={s.card}>
@@ -386,7 +387,7 @@ function BolumCard({ ikon, baslik, children }: { ikon: string; baslik: string; c
       {open && <View style={s.cardBody}>{children}</View>}
     </View>
   );
-}
+});
 
 // ── SEKME BİLEŞENLERİ ─────────────────────────────────────────────────────────
 
@@ -532,6 +533,7 @@ const TABS: { id: Tab; label: string; ikon: string }[] = [
 ];
 
 export default function IbadetRehberiScreen() {
+  const insets = useSafeAreaInsets();
   const [tab, setTab] = React.useState<Tab>("inanc");
   return (
     <>
@@ -546,7 +548,7 @@ export default function IbadetRehberiScreen() {
             </TouchableOpacity>
           ))}
         </View>
-        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:10, paddingBottom:40, gap:8 }}
+        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:10, paddingBottom: 40 + insets.bottom, gap:8 }}
           showsVerticalScrollIndicator={false}>
           {tab === "inanc"     && <InancSekme />}
           {tab === "ibadetler" && <IbadetlerSekme />}

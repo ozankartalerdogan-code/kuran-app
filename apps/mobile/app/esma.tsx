@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import {
   View, Text, FlatList, TextInput, StyleSheet,
 } from "react-native";
 import { Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { ESMA_UL_HUSNA, type EsmaItem } from "../src/data/esmaulHusna";
 
@@ -12,6 +13,7 @@ function norm(s: string) {
 
 export default function EsmaScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
 
   const data = useMemo(() => {
@@ -22,7 +24,7 @@ export default function EsmaScreen() {
     );
   }, [query]);
 
-  const renderItem = ({ item }: { item: EsmaItem }) => (
+  const renderItem = useCallback(({ item }: { item: EsmaItem }) => (
     <View style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}>
       <View style={[s.numBadge, { backgroundColor: c.accentLight ?? "#d1fae5" }]}>
         <Text style={[s.numText, { color: c.accent }]}>{item.sira}</Text>
@@ -40,12 +42,12 @@ export default function EsmaScreen() {
         </View>
       </View>
     </View>
-  );
+  ), [c]);
 
   return (
     <>
       <Stack.Screen options={{ title: "Esmaül Hüsna" }} />
-      <View style={[s.container, { backgroundColor: c.bg }]}>
+      <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         <View style={s.header}>
           <Text style={[s.title, { color: c.text }]}>🕌 Esmaül Hüsna</Text>
           <Text style={[s.sub, { color: c.textMuted }]}>Allah&apos;ın 99 güzel ismi</Text>

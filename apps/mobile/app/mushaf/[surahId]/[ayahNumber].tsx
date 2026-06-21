@@ -9,6 +9,7 @@ import {
 import { useAudioPlayer } from "expo-audio";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Stack, useLocalSearchParams, router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 
@@ -120,12 +121,14 @@ export default function MushafAyahScreen() {
 
   useEffect(() => {
     if (!surahId || !ayahNumber) return;
+    let isMounted = true;
     setLoading(true);
     setError(null);
     api.ayah.get(surahId, ayahNumber)
-      .then(d => setData(d))
+      .then(d => { if (isMounted) setData(d); })
       .catch(() => setError("Ayet yüklenemedi."))
       .finally(() => setLoading(false));
+    return () => { isMounted = false; };
   }, [surahId, ayahNumber]);
 
   // Yer imi MANUEL — otomatik takip yok. Bu ayet işaretli mi, oku.
@@ -151,12 +154,13 @@ export default function MushafAyahScreen() {
 
   const juzIndex = data ? getJuzIndex(surahId, ayahNumber) : 0;
   const title    = data ? `${data.surahName} · ${ayahNumber}` : "Mushaf";
+  const insets   = useSafeAreaInsets();
 
   if (loading) {
     return (
       <>
         <Stack.Screen options={{ title: "Mushaf", headerBackTitle: "Geri" }} />
-        <View style={s.centered}>
+        <View style={[s.centered, { paddingTop: insets.top }]}>
           <ActivityIndicator size="large" color="#059669" />
         </View>
       </>
@@ -167,7 +171,7 @@ export default function MushafAyahScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Hata" }} />
-        <View style={s.centered}>
+        <View style={[s.centered, { paddingTop: insets.top }]}>
           <Text style={s.errorText}>{error ?? "Veri yüklenemedi."}</Text>
           <TouchableOpacity style={s.backBtn} onPress={() => router.back()}>
             <Text style={s.backBtnText}>← Geri</Text>
@@ -180,7 +184,7 @@ export default function MushafAyahScreen() {
   return (
     <>
       <Stack.Screen options={{ title, headerBackTitle: "Geri" }} />
-      <View style={s.container}>
+      <View style={[s.container, { paddingTop: insets.top }]}>
         {/* Cüz takibi */}
         <JuzTracker currentJuz={juzIndex} />
 

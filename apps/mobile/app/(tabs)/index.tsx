@@ -13,10 +13,10 @@ import { api } from "../../src/lib/api";
 import { requestNotificationPermission, sendTestNotification } from "../../src/lib/namazNotifications";
 
 const QUICK_ACTIONS = [
-  { emoji: "📖", label: "Ayet Oku", route: "/sure-listesi", bg: "#d1fae5" },
-  { emoji: "🎓", label: "Öğren",    route: "/ogren",  bg: "#fef3c7" },
-  { emoji: "🤲", label: "Dua Bul",  route: "/dualar", bg: "#dcfce7" },
-  { emoji: "🔍", label: "Keşfet",   route: "/root",   bg: "#ede9fe" },
+  { emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
+  { emoji: "🎓", label: "Elifba",         route: "/ogren",        bg: "#fef3c7" },
+  { emoji: "🤲", label: "Dua Bul",       route: "/dualar",       bg: "#dcfce7" },
+  { emoji: "🔍", label: "Keşfet",        route: "/kesfet",       bg: "#ede9fe" },
 ];
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -37,7 +37,7 @@ const RUH_HALI = [
 function HomeContent() {
   const c          = useColors();
   const { streak } = useStreak();
-  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS } = useDailyContent();
+  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
@@ -84,6 +84,12 @@ function HomeContent() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      {error && (
+        <View style={styles.errorBanner}>
+          <Text style={styles.errorBannerText}>Günlük içerik yüklenemedi. İnternet bağlantınızı kontrol edin.</Text>
+        </View>
+      )}
+
       {/* Test butonu — YALNIZCA geliştirme (__DEV__). APK/AAB'de görünmez. */}
       {__DEV__ && (
         <TouchableOpacity onPress={handleTestNotif} style={styles.testNotifBtn} activeOpacity={0.7}>
@@ -134,6 +140,7 @@ function HomeContent() {
           <ActivityIndicator color="#d97706" style={{ marginVertical: 12 }} />
         ) : (
           <>
+            {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.arabic_text}</Text>}
             {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.reading_tr}</Text>}
             {verse.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]} numberOfLines={3}>{verse.meal}</Text>}
           </>
@@ -207,6 +214,7 @@ function HomeContent() {
         ) : (
           <>
             {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.arabic_text}</Text>}
+            {dua.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.reading_tr}</Text>}
             {dua.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]} numberOfLines={3}>{dua.meal}</Text>}
           </>
         )}
@@ -292,4 +300,6 @@ const styles = StyleSheet.create({
   quickBtn:    { width: "47%", borderRadius: 14, padding: 14, alignItems: "center", gap: 6 },
   quickEmoji:  { fontSize: 30, lineHeight: 36 },
   quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
+  errorBanner:     { backgroundColor: "#fef2f2", borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: "#fca5a5" },
+  errorBannerText: { fontSize: 13, color: "#b91c1c", textAlign: "center" },
 });

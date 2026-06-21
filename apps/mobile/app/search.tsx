@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { api, type SearchResponse, type VerseResult, type SuggestedSurah, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -192,6 +193,7 @@ function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: numb
 
 export default function SearchScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ q?: string; tag?: string; page?: string; type?: string }>();
   const initialQuery = params.q ?? params.tag ?? "";
 
@@ -357,7 +359,7 @@ export default function SearchScreen() {
   }, [handleTagChip, recent]);
 
   return (
-    <View style={[styles.screen, { backgroundColor: c.bg }]}>
+    <View style={[styles.screen, { backgroundColor: c.bg, paddingBottom: insets.bottom }]}>
       {/* Arama çubuğu */}
       <View style={styles.barWrap}>
         <View style={[styles.bar, { backgroundColor: c.card, borderColor: c.border }]}>

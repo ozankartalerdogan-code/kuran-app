@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
@@ -198,6 +199,7 @@ function VLineRow({ side, color }: { side: "left" | "right"; color: string }) {
 
 export default function OgrenScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [dersler, setDersler]       = useState<ElifbaDers[]>([]);
   const [loading, setLoading]       = useState(true);
   const [progress, setProgress]     = useState<Record<string, number[]>>({});
@@ -288,7 +290,7 @@ export default function OgrenScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
-      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={s.content}>
+      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}>
 
         {/* Genel ilerleme */}
         <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>

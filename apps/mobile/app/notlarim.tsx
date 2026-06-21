@@ -3,15 +3,18 @@ import {
 } from "react-native";
 import { useState, useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../src/hooks/useNotes";
 import { api } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 
 export default function NotesScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const { notes, saveNote, clearAll, refresh } = useNotes();
   const [surahNames, setSurahNames] = useState<Record<string, string>>({});
   const [loading, setLoading]       = useState(true);
+  const [surahNamesError, setSurahNamesError] = useState(false);
 
   useFocusEffect(useCallback(() => { refresh(); }, [refresh]));
 
@@ -28,7 +31,7 @@ export default function NotesScreen() {
         verses.forEach(v => { if (v.surah_name) map[v.verse_key] = v.surah_name; });
         setSurahNames(map);
       })
-      .catch(() => {})
+      .catch(() => { console.warn("notlarim: sure adları yüklenemedi"); setSurahNamesError(true); })
       .finally(() => setLoading(false));
   }, [notes]));
 
@@ -40,6 +43,7 @@ export default function NotesScreen() {
   function formatLabel(key: string) {
     const { surahId, ayahNumber } = parseKey(key);
     const surahName = surahNames[key];
+    if (surahNamesError && !surahName) return `Sure adı alınamadı · ${ayahNumber}. Ayet`;
     if (surahName) return `${surahName}, ${ayahNumber}. Ayet`;
     return `${surahId}. Sure · ${ayahNumber}. Ayet`;
   }
@@ -57,6 +61,32 @@ export default function NotesScreen() {
       { text: "Evet", style: "destructive", onPress: () => saveNote(verseKey, "") },
     ]);
   }
+
+  const renderItem = useCallback(({ item }: { item: { verseKey: string; text: string } }) => {
+    const { surahId, ayahNumber } = parseKey(item.verseKey);
+    return (
+      <TouchableOpacity
+        style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
+        onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
+        activeOpacity={0.75}
+      >
+        <View style={styles.cardHeader}>
+          <View style={styles.keyBadge}>
+            <Text style={styles.keyText}>{item.verseKey}</Text>
+          </View>
+          <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
+            {formatLabel(item.verseKey)}
+          </Text>
+          <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8}>
+            <Text style={styles.deleteBtn}>🗑</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
+          {item.text}
+        </Text>
+      </TouchableOpacity>
+    );
+  }, [c, surahNames, surahNamesError]);
 
   if (loading) {
     return (
@@ -87,7 +117,7 @@ export default function NotesScreen() {
     <FlatList
       data={noteList}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={[styles.list, { backgroundColor: c.bg }]}
+      contentContainerStyle={[styles.list, { backgroundColor: c.bg, paddingBottom: 32 + insets.bottom }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={[styles.noteCount, { color: c.textMuted }]}>{noteList.length} ayet için not kaydedildi</Text>
@@ -96,31 +126,7 @@ export default function NotesScreen() {
           </TouchableOpacity>
         </View>
       }
-      renderItem={({ item }) => {
-        const { surahId, ayahNumber } = parseKey(item.verseKey);
-        return (
-          <TouchableOpacity
-            style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
-            onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
-            activeOpacity={0.75}
-          >
-            <View style={styles.cardHeader}>
-              <View style={styles.keyBadge}>
-                <Text style={styles.keyText}>{item.verseKey}</Text>
-              </View>
-              <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
-                {formatLabel(item.verseKey)}
-              </Text>
-              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8}>
-                <Text style={styles.deleteBtn}>🗑</Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
-              {item.text}
-            </Text>
-          </TouchableOpacity>
-        );
-      }}
+      renderItem={renderItem}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       initialNumToRender={10}
       maxToRenderPerBatch={10}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../../src/hooks/useColors";
 import {
   HARF_I_TARIF_DERSI,
@@ -205,11 +206,12 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
 
 export default function HarfITarifScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const d = HARF_I_TARIF_DERSI;
   return (
     <>
       <Stack.Screen options={{ title: "Harf-i Tarif" }} />
-      <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: c.bg, paddingTop: insets.top }} contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
         <Text style={[s.title, { color: c.text }]}>☀️🌙 {d.baslik}</Text>
         <Text style={[s.sub, { color: c.textMuted }]}>{d.aciklama}</Text>
         <View style={{ flexDirection: "row", gap: 8, marginTop: 8, marginBottom: 14, flexWrap: "wrap" }}>

@@ -121,11 +121,13 @@ export default function SurahDetailScreen() {
 
   useEffect(() => {
     if (!surahId) return;
+    let isMounted = true;
     // Sadece ayetleri bekle — tefsir akordiyon açılınca tembel yüklenir
     api.verses.bySurah(surahId)
-      .then((res) => setData(res))
+      .then((res) => { if (isMounted) setData(res); })
       .catch(() => setError("Ayetler yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
+    return () => { isMounted = false; };
   }, [surahId]);
 
   // Yer imi MANUEL — sure açmak/ayete tıklamak artık otomatik yer imi koymaz.

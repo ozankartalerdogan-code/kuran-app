@@ -6,7 +6,7 @@ import { useColors } from "../../src/hooks/useColors";
 
 const CARDS = [
   { emoji: "📜", label: "Mushaf Modu",  sub: "Sayfa sayfa oku, yer imi bırak",  route: "/mushaf", bg: "#f0fdf4", border: "#86efac" },
-  { emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/sure-listesi", bg: "#eff6ff", border: "#93c5fd" },
+  { emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/surah-list", bg: "#eff6ff", border: "#93c5fd" },
   { emoji: "📑", label: "Hatim Takibi", sub: "30 cüz, kaldığın yerden devam",    route: "/hatim",  bg: "#fef3c7", border: "#fcd34d" },
 ];
 

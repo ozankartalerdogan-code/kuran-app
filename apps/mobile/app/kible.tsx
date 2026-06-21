@@ -4,6 +4,7 @@ import {
   ActivityIndicator, Alert, Dimensions, Linking,
 } from "react-native";
 import { Stack, router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Location from "expo-location";
 import { Magnetometer } from "expo-sensors";
 
@@ -92,6 +93,7 @@ type Step = "locating" | "compass";
 
 export default function KibleScreen() {
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
+  const insets = useSafeAreaInsets();
   const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
@@ -246,7 +248,7 @@ export default function KibleScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Kıble Yönü" }} />
-        <View style={s.centered}>
+        <View style={[s.centered, { paddingBottom: insets.bottom }]}>
           <ActivityIndicator size="large" color="#059669" />
           <Text style={s.loadingText}>Konumunuz alınıyor…</Text>
           <Text style={s.loadingSub}>Bu işlem 10–25 saniye sürebilir</Text>
@@ -259,7 +261,7 @@ export default function KibleScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Kıble Yönü" }} />
-      <View style={s.container}>
+      <View style={[s.container, { paddingBottom: 40 + insets.bottom }]}>
         <BgGradient />
 
         {/* Kalibrasyon — sade tek satır */}

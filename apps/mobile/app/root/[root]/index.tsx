@@ -10,6 +10,7 @@ import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Isı haritası rengi (0-N → beyaz-koyu yeşil) ───────────────────────────────
 
@@ -169,6 +170,7 @@ const MeaningGroup = memo(function MeaningGroup({
 
 export default function RootDetailScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const { root: encodedRoot } = useLocalSearchParams<{ root: string }>();
   const root = decodeURIComponent(encodedRoot ?? "");
 
@@ -207,10 +209,12 @@ export default function RootDetailScreen() {
 
   useEffect(() => {
     if (!root) return;
+    let isMounted = true;
     api.roots.detail(root)
-      .then(setData)
+      .then(d => { if (isMounted) setData(d); })
       .catch(() => setError("Kök detayı yüklenemedi."))
       .finally(() => setLoading(false));
+    return () => { isMounted = false; };
   }, [root]);
 
   const handleToggle = useCallback(
@@ -262,7 +266,7 @@ export default function RootDetailScreen() {
       <Stack.Screen options={{ title: root }} />
       <FlatList
         style={[s.container, { backgroundColor: c.bg }]}
-        contentContainerStyle={s.content}
+        contentContainerStyle={[s.content, { paddingBottom: 40 + insets.bottom }]}
         data={groups}
         keyExtractor={(item) => item[0]}
         extraData={openMeaning}
