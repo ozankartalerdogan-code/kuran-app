@@ -251,7 +251,7 @@ export default function KesfetScreen() {
         <Stack.Screen options={{ title: "Keşfet" }} />
         <ScrollView
           style={[s.container, { backgroundColor: c.bg }]}
-          contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}
+          contentContainerStyle={[s.content, { paddingTop: insets.top, paddingBottom: 48 + insets.bottom }]}
           showsVerticalScrollIndicator={false}
         >
           <View style={tools.grid}>
@@ -286,7 +286,7 @@ export default function KesfetScreen() {
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         style={[s.container, { backgroundColor: c.bg }]}
-        contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}
+        contentContainerStyle={[s.content, { paddingTop: insets.top, paddingBottom: 48 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
         initialNumToRender={10}
         maxToRenderPerBatch={10}

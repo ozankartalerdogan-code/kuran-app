@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
@@ -181,6 +182,7 @@ function VLineRow({ side, color }: { side: "left" | "right"; color: string }) {
 
 export default function ElifbaScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [dersler, setDersler]       = useState<ElifbaDers[]>([]);
   const [loading, setLoading]       = useState(true);
   const [progress, setProgress]     = useState<Record<string, number[]>>({});
@@ -270,7 +272,7 @@ export default function ElifbaScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
-      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={s.content}>
+      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingTop: insets.top, paddingBottom: 48 + insets.bottom }]}>
 
         <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>

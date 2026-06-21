@@ -361,7 +361,7 @@ export default function SearchScreen() {
   }, [handleTagChip, recent]);
 
   return (
-    <View style={[styles.screen, { backgroundColor: c.bg, paddingBottom: insets.bottom }]}>
+    <View style={[styles.screen, { backgroundColor: c.bg, paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       {/* Arama çubuğu */}
       <View style={styles.barWrap}>
         <View style={[styles.bar, { backgroundColor: c.card, borderColor: c.border }]}>

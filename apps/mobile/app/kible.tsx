@@ -248,7 +248,7 @@ export default function KibleScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Kıble Yönü" }} />
-        <View style={[s.centered, { paddingBottom: insets.bottom }]}>
+        <View style={[s.centered, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
           <ActivityIndicator size="large" color="#059669" />
           <Text style={s.loadingText}>Konumunuz alınıyor…</Text>
           <Text style={s.loadingSub}>Bu işlem 10–25 saniye sürebilir</Text>
@@ -261,7 +261,7 @@ export default function KibleScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Kıble Yönü" }} />
-      <View style={[s.container, { paddingBottom: 40 + insets.bottom }]}>
+      <View style={[s.container, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}>
         <BgGradient />
 
         {/* Kalibrasyon — sade tek satır */}
