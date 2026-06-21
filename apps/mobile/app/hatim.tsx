@@ -2,7 +2,10 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
 } from "react-native";
-import LottieView from 'lottie-react-native';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let LottieView: any = null;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+try { LottieView = require('lottie-react-native').default; } catch (_e) { /* noop */ }
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -137,12 +140,14 @@ export default function HatimScreen() {
       <Modal visible={showCelebration} transparent animationType="fade" onRequestClose={() => setShowCelebration(false)}>
         <View style={styles.celebrationOverlay}>
           <View style={[styles.celebrationCard, { backgroundColor: c.card }]}>
-            <LottieView
-              source={require('../assets/Star-Blast.json')}
-              autoPlay
-              loop={false}
-              style={{ width: 200, height: 200 }}
-            />
+            {LottieView && (
+              <LottieView
+                source={require('../assets/Star-Blast.json')}
+                autoPlay
+                loop={false}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
             <Text style={[styles.celebrationTitle, { color: c.text }]}>Tebrikler! 🎉</Text>
             <Text style={[styles.celebrationSub, { color: c.textMuted }]}>Hatminizi tamamladınız!</Text>
             <TouchableOpacity

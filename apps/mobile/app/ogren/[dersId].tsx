@@ -3,7 +3,10 @@ import {
   StyleSheet, ScrollView,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
-import LottieView from 'lottie-react-native';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let LottieView: any = null;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+try { LottieView = require('lottie-react-native').default; } catch (_e) { /* noop */ }
 import { logScreen } from '../../src/lib/analytics';
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -238,7 +241,7 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
           <Text style={qv.nextBtnText}>{idx + 1 >= sorular.length ? "Sonuçları Gör" : "Sonraki →"}</Text>
         </TouchableOpacity>
       )}
-      {showConfetti && (
+      {showConfetti && LottieView && (
         <View style={StyleSheet.absoluteFill} pointerEvents="none">
           <LottieView
             source={require('../../assets/Success-celebration.json')}

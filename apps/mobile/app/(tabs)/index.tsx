@@ -13,7 +13,10 @@ import { SkeletonAyetCard } from "../../src/components/SkeletonLoader";
 import { api } from "../../src/lib/api";
 import { requestNotificationPermission, sendTestNotification } from "../../src/lib/namazNotifications";
 import * as Haptics from 'expo-haptics';
-import LottieView from 'lottie-react-native';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let LottieView: any = null;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+try { LottieView = require('lottie-react-native').default; } catch (_e) { /* noop */ }
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 
 const QUICK_ACTIONS = [
@@ -108,12 +111,16 @@ function HomeContent() {
       {/* Streak + Gece modu */}
       <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
         {streak.current > 0 ? (
-          <LottieView
-            source={require('../../assets/flamefire.json')}
-            autoPlay
-            loop
-            style={{ width: 40, height: 40 }}
-          />
+          LottieView ? (
+            <LottieView
+              source={require('../../assets/flamefire.json')}
+              autoPlay
+              loop
+              style={{ width: 40, height: 40 }}
+            />
+          ) : (
+            <Text style={styles.streakEmoji}>🔥</Text>
+          )
         ) : (
           <Text style={styles.streakEmoji}>🔥</Text>
         )}
