@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react-native';
 import { Stack, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -7,6 +8,13 @@ import * as Font from "expo-font";
 import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
+
+Sentry.init({
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  debug: __DEV__,
+  environment: __DEV__ ? 'development' : 'production',
+  tracesSampleRate: 0.2,
+});
 
 SplashScreen.preventAutoHideAsync();
 

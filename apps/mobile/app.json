@@ -45,6 +45,13 @@
       "expo-location",
       "expo-sensors",
       [
+        "@sentry/react-native/expo",
+        {
+          "organization": "ozan-kartal",
+          "project": "kuran-app"
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "image": "./assets/splash.png",
@@ -61,7 +68,8 @@
         }
       ],
       "expo-status-bar",
-      "expo-audio"
+      "expo-audio",
+      "@sentry/react-native"
     ],
     "experiments": {
       "typedRoutes": true
