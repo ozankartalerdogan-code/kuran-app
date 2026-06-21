@@ -67,6 +67,15 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 }
 
 function AppContent() {
+  // Stack mount'tan SONRA çalışmalı — burada güvenli
+  useEffect(() => {
+    async function checkOnboarding() {
+      const completed = await AsyncStorage.getItem("onboarding_completed");
+      if (!completed) router.replace("/onboarding");
+    }
+    checkOnboarding();
+  }, []);
+
   return (
     <SafeAreaProvider>
       <StatusBar style="auto" />
@@ -134,16 +143,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     maybeAskReview();
-  }, []);
-
-  useEffect(() => {
-    async function checkOnboarding() {
-      const completed = await AsyncStorage.getItem("onboarding_completed");
-      if (!completed) {
-        router.replace("/onboarding");
-      }
-    }
-    checkOnboarding();
   }, []);
 
   useEffect(() => {
