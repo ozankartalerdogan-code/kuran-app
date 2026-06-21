@@ -149,7 +149,7 @@ export default function RootLayout() {
     // Maksimum 5 saniye bekle (video yüklenemezse)
     const timer = setTimeout(() => {
       setVideoFinished(true);
-    }, 5000);
+    }, 3000);
 
     // Bildirime tıklanınca ilgili ekrana git (uygulama hazır olduktan sonra)
     const sub = Notifications.addNotificationResponseReceivedListener(response => {
