@@ -1,25 +1,89 @@
-const appJson = require('./app.json');
+const googleServicesFile = process.env.GOOGLE_SERVICES_JSON || './google-services.json';
 
-module.exports = () => {
-  const googleServicesFile = process.env.GOOGLE_SERVICES_JSON || './google-services.json';
-
-  const plugins = appJson.expo.plugins.map(plugin => {
-    if (plugin === '@react-native-firebase/app') {
-      return [
-        '@react-native-firebase/app',
-        {
-          android: { googleServicesFile },
-        },
-      ];
-    }
-    return plugin;
-  });
-
-  return {
-    ...appJson,
-    expo: {
-      ...appJson.expo,
-      plugins,
+module.exports = {
+  expo: {
+    name: 'Kuran Yolu',
+    slug: 'kuran-analiz',
+    scheme: 'kuranyolu',
+    version: '1.1.0',
+    sdkVersion: '56.0.0',
+    orientation: 'portrait',
+    icon: './assets/icon.png',
+    description:
+      "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
+    assetBundlePatterns: ['**/*'],
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: 'com.kuranapp.mobile',
+      infoPlist: {
+        NSLocationWhenInUseUsageDescription:
+          'Namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Konum veriniz cihazınızdan çıkmaz ve hiçbir sunucuya gönderilmez.',
+      },
     },
-  };
+    android: {
+      package: 'com.kuranapp.mobile',
+      adaptiveIcon: {
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '#0a1628',
+      },
+      permissions: [
+        'ACCESS_FINE_LOCATION',
+        'ACCESS_COARSE_LOCATION',
+        'android.permission.ACCESS_COARSE_LOCATION',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.RECORD_AUDIO',
+        'android.permission.MODIFY_AUDIO_SETTINGS',
+        'android.permission.FOREGROUND_SERVICE',
+        'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK',
+        'android.permission.POST_NOTIFICATIONS',
+      ],
+    },
+    web: {
+      bundler: 'metro',
+      output: 'static',
+    },
+    plugins: [
+      'expo-router',
+      'expo-location',
+      'expo-sensors',
+      [
+        '@sentry/react-native/expo',
+        { organization: 'ozan-kartal', project: 'kuran-app' },
+      ],
+      [
+        'expo-splash-screen',
+        {
+          image: './assets/splash.png',
+          resizeMode: 'contain',
+          backgroundColor: '#0a1628',
+        },
+      ],
+      [
+        'expo-notifications',
+        {
+          icon: './assets/icon.png',
+          color: '#059669',
+          sounds: [],
+        },
+      ],
+      'expo-status-bar',
+      'expo-audio',
+      '@sentry/react-native',
+      [
+        '@react-native-firebase/app',
+        { android: { googleServicesFile } },
+      ],
+      '@react-native-firebase/analytics',
+    ],
+    experiments: {
+      typedRoutes: true,
+    },
+    extra: {
+      router: {},
+      eas: {
+        projectId: '27f090a0-e4c3-4c33-a29b-8b49c88f03d4',
+      },
+    },
+    owner: 'ozankartal92',
+  },
 };
