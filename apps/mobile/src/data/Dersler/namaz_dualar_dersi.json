@@ -1,0 +1,100 @@
+{
+  "ders_id": "namaz-dualar",
+  "baslik": "Namaz Duaları",
+  "aciklama": "Namazda okunan tüm dua ve zikirler — Türkçe okunuş, Arapça ve anlamlarıyla.",
+  "ikon": "📿",
+  "kartlar": [
+    {
+      "id": "namaz_dualar_k01",
+      "tip": "metin",
+      "baslik": "Sübhaneke",
+      "icerik": "Sübhânekellâhümme ve bi hamdike ve tebârekesmüke ve teâlâ ceddüke ve lâ ilâhe ğayrük.\n\nAnlamı: Allah'ım! Seni her türlü noksanlıktan tenzih eder, sana hamdederim. Senin adın mübarektir, şanın yücedir. Senden başka ilah yoktur.\n\nNe zaman: Sadece ilk rekatta, iftitah tekbirinden hemen sonra okunur.\nHükmü: Sünnet — okunmaması namazı bozmaz.",
+      "vurgu": "Sadece ilk rekatta okunur · Sünnet"
+    },
+    {
+      "id": "namaz_dualar_k02",
+      "tip": "metin",
+      "baslik": "Fatiha Suresi",
+      "icerik": "Bismillâhi'r-rahmâni'r-rahîm. Elhamdü lillâhi rabbi'l-âlemîn. Er-rahmâni'r-rahîm. Mâliki yevmi'd-dîn. İyyâke na'budü ve iyyâke neste'în. İhdinâ's-sırâta'l-müstekîm. Sırâta'llezîne en'amte aleyhim ğayri'l-mağdûbi aleyhim ve le'd-dâllîn.\n\nAnlamı: Rahman ve Rahim olan Allah'ın adıyla. Hamd, âlemlerin Rabbi Allah'a mahsustur. O, Rahman'dır, Rahim'dir. Din gününün sahibidir. Yalnız sana ibadet eder, yalnız senden yardım dileriz. Bizi doğru yola ilet. Nimet verdiklerinin yoluna; gazaba uğrayanların ve sapkınların yoluna değil.\n\nNe zaman: Her rekatta okunur. Namazın olmazsa olmazıdır.\nHükmü: Farz — okunmadan namaz geçerli olmaz.\nNot: Fatiha'dan sonra sessizce 'Amin' demek sünnettir.",
+      "vurgu": "Her rekatta farz · Fatihasız namaz olmaz"
+    },
+    {
+      "id": "namaz_dualar_k03",
+      "tip": "metin",
+      "baslik": "Rükû Zikri",
+      "icerik": "Sübhâne Rabbiye'l-azîm.\n\nAnlamı: Yüce Rabbim her türlü noksanlıktan uzaktır.\n\nNe zaman: Rükûda, belden öne eğilip sırt düz tutulurken okunur.\nKaç kez: En az 1 kez okunması yeterlidir; 3 kez okumak sünnettir.\nHükmü: Sünnet",
+      "vurgu": "Rükûda okunur · 3 kez sünnet"
+    },
+    {
+      "id": "namaz_dualar_k04",
+      "tip": "metin",
+      "baslik": "Kavme Zikri",
+      "icerik": "Rükûdan kalkarken:\nSemi'allâhü limen hamideh.\n\nAnlamı: Allah, kendisine hamd edeni işitir.\n\nKavmede tam dik durulunca:\nRabbena ve lekel hamd.\n\nAnlamı: Rabbimiz, hamd sana mahsustur.\n\nNe zaman: Rükûdan doğrulurken 'Semi'allahu' denir, tam dik durulunca 'Rabbena ve lekel hamd' okunur.\nHükmü: Vacip",
+      "vurgu": "Rükûdan kalkarken · Vacip"
+    },
+    {
+      "id": "namaz_dualar_k05",
+      "tip": "metin",
+      "baslik": "Secde Zikri",
+      "icerik": "Sübhâne Rabbiye'l-a'lâ.\n\nAnlamı: En yüce Rabbim her türlü noksanlıktan uzaktır.\n\nNe zaman: Her secdede okunur. Her rekatta 2 secde yapılır.\nKaç kez: En az 1 kez okunması yeterlidir; 3 kez okumak sünnettir.\nHükmü: Sünnet\nNot: Kul, secdede Allah'a en yakın olduğu andadır. (Müslim, Salat 215)",
+      "vurgu": "Her secdede okunur · 3 kez sünnet · Kul Allah'a en yakın secdede"
+    },
+    {
+      "id": "namaz_dualar_k06",
+      "tip": "metin",
+      "baslik": "Celse Zikri",
+      "icerik": "Rabbigfirli.\n\nAnlamı: Rabbim beni bağışla.\n\nNe zaman: İki secde arasındaki kısa oturuşta (celse) okunur.\nHükmü: Sünnet",
+      "vurgu": "İki secde arasında okunur · Sünnet"
+    },
+    {
+      "id": "namaz_dualar_k07",
+      "tip": "metin",
+      "baslik": "Tahiyyat (Ettehiyyatü)",
+      "icerik": "Ettehıyyâtü lillâhi ve's-salavâtü ve't-tayyibât. Es-selâmü aleyke eyyühe'n-nebiyyü ve rahmetullâhi ve berekâtüh. Es-selâmü aleynâ ve alâ ibâdillâhi's-sâlihîn. Eşhedü en lâ ilâhe illallâh ve eşhedü enne Muhammeden abdühû ve rasûlüh.\n\nAnlamı: Dil ile, beden ile ve mal ile yapılan bütün ibadetler Allah'a mahsustur. Ey Peygamber! Allah'ın selamı, rahmeti ve bereketi senin üzerine olsun. Selam bizim üzerimize ve Allah'ın salih kullarının üzerine olsun. Şehadet ederim ki Allah'tan başka ilah yoktur ve şehadet ederim ki Muhammed O'nun kulu ve resulüdür.\n\nNe zaman: Her oturuşta okunur — hem ilk (ka'de-i ula) hem son oturuşta (ka'de-i ahire).\nHükmü: Vacip",
+      "vurgu": "Her oturuşta okunur · Vacip"
+    },
+    {
+      "id": "namaz_dualar_k08",
+      "tip": "metin",
+      "baslik": "Allahümme Salli (Salli)",
+      "icerik": "Allâhümme salli alâ Muhammedin ve alâ âli Muhammed. Kemâ salleyte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.\n\nAnlamı: Allah'ım! İbrahim'e ve İbrahim'in ailesine salat ettiğin gibi, Muhammed'e ve Muhammed'in ailesine de salat et. Şüphesiz sen Hamid'sin, Mecid'sin.\n\nNe zaman: Sadece son oturuşta (ka'de-i ahire), Tahiyyat'tan hemen sonra okunur.\nHükmü: Sünnet",
+      "vurgu": "Sadece son oturuşta · Tahiyyat'tan sonra · Sünnet"
+    },
+    {
+      "id": "namaz_dualar_k09",
+      "tip": "metin",
+      "baslik": "Allahümme Barik (Barik)",
+      "icerik": "Allâhümme bârik alâ Muhammedin ve alâ âli Muhammed. Kemâ bârekte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.\n\nAnlamı: Allah'ım! İbrahim'e ve İbrahim'in ailesine bereket verdiğin gibi, Muhammed'e ve Muhammed'in ailesine de bereket ver. Şüphesiz sen Hamid'sin, Mecid'sin.\n\nNe zaman: Sadece son oturuşta, Salli'den hemen sonra okunur.\nHükmü: Sünnet",
+      "vurgu": "Sadece son oturuşta · Salli'den sonra · Sünnet"
+    },
+    {
+      "id": "namaz_dualar_k10",
+      "tip": "metin",
+      "baslik": "Rabbena Duaları",
+      "icerik": "Rabbena Atina:\nRabbenâ âtinâ fi'd-dünyâ haseneten ve fi'l-âhirati haseneten ve kınâ azâbe'n-nâr.\n\nAnlamı: Rabbimiz! Bize dünyada da güzellik ver, ahirette de güzellik ver ve bizi ateşin azabından koru. (Bakara, 2:201)\n\nRabbena Ğfirli:\nRabbenağfirli ve li vâlideyye ve li'l-mü'minîne yevme yekûmü'l-hisâb.\n\nAnlamı: Rabbimiz! Hesap gününde beni, annemi-babamı ve tüm müminleri bağışla. (İbrahim, 14:41)\n\nNe zaman: Her ikisi de son oturuşta, Salli ve Barik'ten sonra okunur.\nHükmü: Sünnet",
+      "vurgu": "Son oturuşta · Salli ve Barik'ten sonra · Sünnet"
+    },
+    {
+      "id": "namaz_dualar_k11",
+      "tip": "metin",
+      "baslik": "Kunut Duası",
+      "icerik": "Allâhümme innâ neste'înüke ve nestağfirük. Ve nü'minü bike ve netevekkelü aleyke. Ve nüsnî aleyke'l-hayr. Ve neşküruke ve lâ nekfürük. Ve nahleu ve netrükü men yefcürük. Allâhümme iyyâke na'büdü ve leke nüsallî ve nescüdü. Ve ileyke nes'â ve nahfidü. Nercû rahmeteke ve nahşâ azâbek. İnne azâbeke bi'l-küffâri mülhak.\n\nAnlamı: Allah'ım! Senden yardım ister, senden bağışlanma dileriz. Sana iman eder, sana tevekkül ederiz. Seni hayırla överiz. Sana şükreder, nankörlük etmeyiz. Sana karşı geleni terk ederiz. Allah'ım! Yalnız sana ibadet eder, senin için namaz kılar, secde ederiz. Yalnız sana koşar ve hizmet ederiz. Rahmetini umarız, azabından korkarız. Şüphesiz senin azabın kafirlere ulaşır.\n\nNe zaman: Vitir namazının üçüncü (son) rekatında, zamm-ı sureden sonra rükûya gitmeden önce okunur.\nHükmü: Vacip\nNot: Kunutu henüz bilmiyorsan, ezberleyene kadar 3 kez 'Rabbena Atina' okuyabilirsin.",
+      "vurgu": "Vitir namazında 3. rekatta · Rükûdan önce · Vacip"
+    },
+    {
+      "id": "namaz_dualar_k12",
+      "tip": "metin",
+      "baslik": "Namaz Sonrası Zikirler",
+      "icerik": "Selam verildikten sonra:\n\nSübhânallah — Allah'ı tenzih ederim (33 kez)\nElhamdülillah — Hamd Allah'a mahsustur (33 kez)\nAllâhü Ekber — Allah en büyüktür (33 kez)\n\nArdından:\nLâ ilâhe illallâhü vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü ve hüve alâ külli şey'in kadîr.\n\nAnlamı: Allah'tan başka ilah yoktur, O tektir, ortağı yoktur. Mülk O'nundur, hamd O'nadır ve O her şeye kadirdir.\n\nKaynak: Buhari, Ezan 155; Müslim, Mesacid 144",
+      "vurgu": "Sübhanallah 33 · Elhamdülillah 33 · Allahu Ekber 33"
+    },
+    {
+      "id": "namaz_dualar_k13",
+      "tip": "metin",
+      "baslik": "Özet: Namazda Ne Zaman Ne Okunur?",
+      "icerik": "Sadece 1. rekatta:\n• Sübhaneke (sünnet)\n• Euzü-Besmele (sünnet)\n\nHer rekatta:\n• Besmele + Fatiha (farz)\n• İlk 2 rekatta farz namazda: Zamm-ı sure (vacip)\n\nRükûda:\n• Sübhane Rabbiye'l-Azîm — en az 1 kez (sünnet)\n\nRükûdan kalkarken / kavmede:\n• Semi'allahu limen hamideh → Rabbena ve lekel hamd (vacip)\n\nSecdede:\n• Sübhane Rabbiye'l-A'lâ — en az 1 kez (sünnet)\n\nİki secde arasında (celse):\n• Rabbigfirli (sünnet)\n\nHer oturuşta:\n• Tahiyyat (vacip)\n\nSadece son oturuşta:\n• Salli → Barik → Rabbena Atina → Rabbena Ğfirli (sünnet)\n\nVitir 3. rekatında:\n• Kunut duası (vacip)",
+      "vurgu": "Farz: Fatiha · Vacip: Tahiyyat, Kavme, Zamm-ı sure · Geri kalanı sünnet"
+    }
+  ],
+  "quiz_havuzu_id": "namaz-dualar"
+}

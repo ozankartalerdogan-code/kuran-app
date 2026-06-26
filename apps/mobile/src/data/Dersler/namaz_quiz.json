@@ -1,7 +1,7 @@
 {
   "quiz_id": "namaz",
   "baslik": "Namaz",
-  "toplam_soru": 30,
+  "toplam_soru": 50,
   "sorular": [
     {
       "id": "namaz_001",
@@ -302,6 +302,206 @@
       "aciklama": "Abdullah b. Mesud'un sorusuna Hz. Peygamber 'Vaktinde kılınan namaz' buyurmuştur. (Buhari, Edeb 1; Müslim, İman 139)",
       "zorluk": "orta",
       "kaynak": "Buhari, Edeb 1; Müslim, İman 139"
+    },
+    {
+      "id": "namaz_031",
+      "konu": "namaz",
+      "soru": "İkindi namazı toplam kaç rekattır?",
+      "secenekler": ["A) 4 sünnet + 4 farz (8)", "B) 4 sünnet + 4 farz + 2 sünnet (10)", "C) Yalnızca 4 farz (4)", "D) 2 sünnet + 4 farz (6)"],
+      "dogru_cevap": "A",
+      "aciklama": "İkindi namazı 4 rekat sünnet ve 4 rekat farzdan oluşur; toplamda 8 rekattır. İkindinin sonrasında sünnet yoktur.",
+      "zorluk": "kolay",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_032",
+      "konu": "namaz",
+      "soru": "Yatsı namazı vitir dahil toplam kaç rekattır?",
+      "secenekler": ["A) 9", "B) 11", "C) 13", "D) 15"],
+      "dogru_cevap": "C",
+      "aciklama": "Yatsı: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) + 3 vitir = toplam 13 rekattır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_033",
+      "konu": "namaz",
+      "soru": "Cemaatle kılınan namaz, yalnız kılınan namazdan kaç derece daha fazla sevap alır?",
+      "secenekler": ["A) 7", "B) 17", "C) 27", "D) 70"],
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Peygamber 'Cemaatle kılınan namaz, yalnız kılınan namazdan 27 derece üstündür' buyurmuştur.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Ezan 30; Müslim, Mesacid 249"
+    },
+    {
+      "id": "namaz_034",
+      "konu": "namaz",
+      "soru": "Tahiyyat (Ettahiyyatü) namazın hangi oturuşlarında okunur?",
+      "secenekler": ["A) Yalnızca son oturuşta", "B) Her oturuşta", "C) Yalnızca ilk oturuşta", "D) Sadece ikinci rekattan sonra"],
+      "dogru_cevap": "B",
+      "aciklama": "Tahiyyat, namazın her oturuşunda okunur; hem ilk ka'dede (ka'de-i ula) hem de son ka'dede (ka'de-i ahire).",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_035",
+      "konu": "namaz",
+      "soru": "Vitir namazında kunut duası hangi rekatta okunur?",
+      "secenekler": ["A) Birinci rekatta", "B) İkinci rekatta", "C) Üçüncü (son) rekatta", "D) Her rekatta"],
+      "dogru_cevap": "C",
+      "aciklama": "Vitir namazının üçüncü (son) rekatında rükûa gitmeden önce tekbir alınıp kunut duası okunur.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_036",
+      "konu": "namaz",
+      "soru": "Sabah namazı vakti ne zaman başlar?",
+      "secenekler": ["A) Gece yarısı", "B) Fecr-i sadık ile (imsak vakti)", "C) Güneşin doğuşundan 1 saat önce", "D) Fecr-i kâzip ile (yalancı şafak)"],
+      "dogru_cevap": "B",
+      "aciklama": "Sabah namazı vakti fecr-i sadık (gerçek şafak, imsak vakti) ile başlar ve güneşin doğuşuna kadar devam eder.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_037",
+      "konu": "namaz",
+      "soru": "Akşam namazı vakti ne zaman başlar?",
+      "secenekler": ["A) İkindi namazı biter bitmez", "B) Güneşin batmasıyla (gurup)", "C) Hava tamamen kararınca", "D) Yıldızlar görününce"],
+      "dogru_cevap": "B",
+      "aciklama": "Akşam namazı vakti güneşin batmasıyla (gurup) başlar ve şafağın (kızıllığın) kaybolmasına kadar sürer.",
+      "zorluk": "kolay",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_038",
+      "konu": "namaz",
+      "soru": "Namaz sırasında abdest bozulursa ne yapılır?",
+      "secenekler": ["A) Kaldığı yerden devam edilir", "B) Namaz bozulur; yeniden abdest alınıp namaz baştan kılınır", "C) Sehiv secdesiyle tamamlanır", "D) Cemaatle kılınıyorsa imam tamamlar"],
+      "dogru_cevap": "B",
+      "aciklama": "Namaz sırasında abdest bozulursa namaz bozulur. Yeniden abdest alınarak namaz baştan kılınır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_039",
+      "konu": "namaz",
+      "soru": "Namazda kıyamda (ayakta dururken) gözler nereye bakmalıdır?",
+      "secenekler": ["A) Tavana", "B) Secde edilecek yere", "C) Sağa sola", "D) Kıble duvarına"],
+      "dogru_cevap": "B",
+      "aciklama": "Kıyamda gözlerin secde edilecek yere bakması sünnettir. Bu, huşuya (derin bir saygı ve konsantrasyona) yardımcı olur.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_040",
+      "konu": "namaz",
+      "soru": "Sehiv secdesi ne zaman yapılır?",
+      "secenekler": ["A) Namazın farzı terk edilince", "B) Namazın vacibi unutulunca veya geç yapılınca", "C) Namaz sırasında konuşulunca", "D) Yanlış kıbleye dönülünce"],
+      "dogru_cevap": "B",
+      "aciklama": "Sehiv secdesi namazın vaciplerinden biri unutulduğunda ya da geç yapıldığında, namaz sonunda yapılır. Rükün eksikse namaz yeniden kılınır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_041",
+      "konu": "namaz",
+      "soru": "Öğle vakti ne zaman başlar?",
+      "secenekler": ["A) Güneşin doğuşundan 6 saat sonra", "B) Güneşin tam tepeden geçmesiyle (zeval)", "C) Sabah namazından hemen sonra", "D) Öğlen saat 12:00'de"],
+      "dogru_cevap": "B",
+      "aciklama": "Öğle vakti güneşin tam tepeden geçmesiyle (zeval vakti) başlar ve ikindi vaktine kadar devam eder.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_042",
+      "konu": "namaz",
+      "soru": "'Rabbena ve lekel hamd' ne zaman söylenir?",
+      "secenekler": ["A) Rükûa eğilirken", "B) Rükûdan kalkarken (tam doğrulmadan önce)", "C) Kavmede tam dik durulunca", "D) Secdeye giderken"],
+      "dogru_cevap": "C",
+      "aciklama": "Rükûdan kalkarken 'Semi'allahu limen hamideh' denir. Ardından kavmede tam dik durulunca 'Rabbena ve lekel hamd' okunur.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Ezan 122; Müslim, Salat 196"
+    },
+    {
+      "id": "namaz_043",
+      "konu": "namaz",
+      "soru": "Farz namazlarda zamm-ı sure hangi rekatlarda okunur?",
+      "secenekler": ["A) Tüm rekatlarda", "B) Sadece birinci rekatta", "C) İlk iki rekatta", "D) Son iki rekatta"],
+      "dogru_cevap": "C",
+      "aciklama": "Farz namazlarda zamm-ı sure (ek sure ya da ayet) ilk iki rekatta Fatiha'dan sonra okunur. Üçüncü ve dördüncü rekatlarda yalnızca Fatiha okunur.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_044",
+      "konu": "namaz",
+      "soru": "Ka'de-i ula (ilk oturuş) dört rekatlı farz namazda hangi rekattan sonra yapılır?",
+      "secenekler": ["A) Birinci rekattan sonra", "B) İkinci rekattan sonra", "C) Üçüncü rekattan sonra", "D) Her rekattan sonra"],
+      "dogru_cevap": "B",
+      "aciklama": "Ka'de-i ula dört rekatlı farz namazlarda ikinci rekatın sonunda yapılır. Bu oturuşta yalnızca Tahiyyat okunur, ardından kalkılır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_045",
+      "konu": "namaz",
+      "soru": "Secdede alnın yere değmesi hangi hükümdedir?",
+      "secenekler": ["A) Sünnet", "B) Vacip", "C) Farz", "D) Müstehap"],
+      "dogru_cevap": "C",
+      "aciklama": "Secdede alnın yere değmesi farzdır. Hanefi mezhebine göre burunun da yere değmesi vaciptir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_046",
+      "konu": "namaz",
+      "soru": "Erkek için namazda örtülmesi farz olan bölge hangisidir?",
+      "secenekler": ["A) Yalnızca avret yeri", "B) Göbekten diz kapağına kadar", "C) Omuzdan ayağa kadar", "D) Tüm vücut"],
+      "dogru_cevap": "B",
+      "aciklama": "Erkek için setr-i avret namazın sıhhat şartlarındandır. Göbekten diz kapağına kadar olan bölgenin örtülmesi farzdır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_047",
+      "konu": "namaz",
+      "soru": "Rükûda eller nereye konur?",
+      "secenekler": ["A) Yanlara serbest bırakılır", "B) Dizlerin üzerine", "C) Yere", "D) Bele"],
+      "dogru_cevap": "B",
+      "aciklama": "Rükûda eller dizlerin üzerine konur, parmaklar açık tutulur; sırt yere paralel düz bir şekilde tutulur.",
+      "zorluk": "kolay",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_048",
+      "konu": "namaz",
+      "soru": "Eûzü (istiaze) namazın hangi rekatında okunur?",
+      "secenekler": ["A) Her rekatta", "B) Yalnızca birinci rekatta", "C) Yalnızca son rekatta", "D) Hiç okunmaz"],
+      "dogru_cevap": "B",
+      "aciklama": "Eûzübillah yalnızca birinci rekatta, Sübhaneke'den sonra ve Besmele'den önce okunur. Diğer rekatlarda okunmaz.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_049",
+      "konu": "namaz",
+      "soru": "Dört rekatlı farz namazın ilk oturuşunda (ka'de-i ula) ne okunur?",
+      "secenekler": ["A) Tahiyyat + Salli + Barik", "B) Yalnızca Tahiyyat", "C) Tahiyyat + Rabbena", "D) Fatiha + zamm-ı sure"],
+      "dogru_cevap": "B",
+      "aciklama": "Ka'de-i ulada yalnızca Tahiyyat okunur. Salli, Barik ve Rabbena duaları yalnızca son oturuşa (ka'de-i ahire) aittir.",
+      "zorluk": "zor",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "namaz_050",
+      "konu": "namaz",
+      "soru": "Namazı bitirmek için kaç defa selam verilir?",
+      "secenekler": ["A) Bir kez (yalnızca sağa)", "B) İki kez (önce sağ omza, sonra sol omza)", "C) Üç kez", "D) Namazın türüne göre değişir"],
+      "dogru_cevap": "B",
+      "aciklama": "Namazı bitirmek için önce sağ omza, ardından sol omza dönerek 'Esselamu aleyküm ve rahmetullah' denir.",
+      "zorluk": "kolay",
+      "kaynak": "Diyanet İlmihali"
     }
   ]
 }

@@ -211,7 +211,7 @@ export default function HarfITarifScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Harf-i Tarif" }} />
-      <ScrollView style={{ flex: 1, backgroundColor: c.bg, paddingTop: insets.top }} contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={{ padding: 16, paddingTop: insets.top + 16, paddingBottom: insets.bottom + 40 }}>
         <Text style={[s.title, { color: c.text }]}>☀️🌙 {d.baslik}</Text>
         <Text style={[s.sub, { color: c.textMuted }]}>{d.aciklama}</Text>
         <View style={{ flexDirection: "row", gap: 8, marginTop: 8, marginBottom: 14, flexWrap: "wrap" }}>

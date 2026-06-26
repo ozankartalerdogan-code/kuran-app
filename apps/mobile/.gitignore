@@ -8,3 +8,4 @@ expo-env.d.ts
 # EAS tarafından build sirasinda uretiliyor, local'de tutmaya gerek yok
 android/
 ios/
+android/sentry.properties

@@ -11,7 +11,7 @@ const TABS: {
   iconActive: IoniconsName;
 }[] = [
   { name: "index",      title: "Ana Sayfa",  icon: "home-outline",   iconActive: "home"   },
-  { name: "kuran",      title: "Kuran",      icon: "book-outline",   iconActive: "book"   },
+  { name: "kuran",      title: "Kur'an-ı Kerim", icon: "book-outline",   iconActive: "book"   },
   { name: "ogren",      title: "Öğren",      icon: "school-outline", iconActive: "school" },
   { name: "ibadet",     title: "İbadet",     icon: "moon-outline",   iconActive: "moon"   },
   { name: "daha-fazla", title: "Daha Fazla", icon: "menu-outline",   iconActive: "menu"   },

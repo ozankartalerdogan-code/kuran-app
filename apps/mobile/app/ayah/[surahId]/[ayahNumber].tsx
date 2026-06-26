@@ -470,13 +470,14 @@ export default function AyahDetailScreen() {
     const text = [
       `${data.surahName} · ${data.ayahNumber}. Ayet`,
       data.arabicText ?? "",
+      reading ?? "",
       data.meal ?? "",
       webUrl,
     ].filter(Boolean).join("\n\n");
     try {
       await Share.share({ message: text, title: `${data.surahName} ${data.ayahNumber}. Ayet` });
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
-  }, [data, surahId, ayahNumber]);
+  }, [data, surahId, ayahNumber, reading]);
 
   useEffect(() => {
     return () => {

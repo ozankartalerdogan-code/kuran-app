@@ -44,6 +44,7 @@ function DuaCard({ dua }: { dua: Dua }) {
     Haptics.selectionAsync();
     const parts = [`🤲 ${dua.baslik}`];
     if (dua.arapca && /[؀-ۿ]/.test(dua.arapca)) parts.push(dua.arapca);
+    if (dua.okunus) parts.push(dua.okunus);
     if (dua.anlam) parts.push(dua.anlam);
     parts.push("Kuran Yolu uygulamasından");
     try { await Share.share({ message: parts.join("\n\n") }); } catch (_e) { /* noop */ }
@@ -118,7 +119,7 @@ export default function DualarScreen() {
       <Stack.Screen options={{ title: "Dualar ve Zikirler" }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
-        contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
+        contentContainerStyle={[s.content, { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.intro, { color: c.textSecondary }]}>{D.aciklama}</Text>

@@ -35,16 +35,19 @@ const GORSEL_MAP: Record<string, number> = {
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const DERS_DATA: Record<string, any> = {
-  namaz: require("../../src/data/Dersler/namaz_dersi.json"),
+  namaz:        require("../../src/data/Dersler/namaz_dersi.json"),
+  "namaz-dualar": require("../../src/data/Dersler/namaz_dualar_dersi.json"),
 };
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const QUIZ_MAP: Record<string, any> = {
-  namaz: require("../../src/data/Dersler/namaz_quiz.json"),
+  namaz:        require("../../src/data/Dersler/namaz_quiz.json"),
+  "namaz-dualar": require("../../src/data/Dersler/namaz_dualar_quiz.json"),
 };
 
 const BASLIKLAR: Record<string, string> = {
   "namaz":           "Namaz",
+  "namaz-dualar":    "Namaz Duaları",
   "oruc":            "Oruç",
   "hac-umre":        "Hac & Umre",
   "iman-esaslari":   "İman Esasları",
@@ -448,8 +451,8 @@ export default function DersDetayScreen() {
           <Text style={s.accent}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <Text style={[s.headerSide, s.progressLabel, { color: c.textMuted }]}>
-          {dersIndex + 1} / {total}
+        <Text style={[s.progressLabel, { color: "#c9a84c", width: 72, textAlign: "right" }]}>
+          {dersIndex + 1}/{total}
         </Text>
       </View>
 
@@ -465,21 +468,19 @@ export default function DersDetayScreen() {
         contentContainerStyle={s.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {gorselSrc ? (
+        {gorselSrc && (
           <Image source={gorselSrc} style={s.gorselImg} resizeMode="contain" />
-        ) : (
-          <View style={[s.tipBadge, { backgroundColor: c.cardAlt }]}>
-            <Text style={[s.tipBadgeText, { color: c.textMuted }]}>📝 Metin Kartı</Text>
-          </View>
         )}
-
-        <Text style={[s.kartBaslik, { color: c.text }]}>{kart.baslik}</Text>
-        <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{kart.icerik}</Text>
-
-        <View style={[s.vurguBox, { backgroundColor: c.cardAlt, borderLeftColor: "#c9a84c" }]}>
-          <Text style={s.vurguText}>✦  {kart.vurgu}</Text>
+        <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
+          <Text style={[s.kartBaslik, { color: c.text }]}>{kart.baslik}</Text>
+          <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{kart.icerik}</Text>
         </View>
       </ScrollView>
+
+      {/* Vurgu — navRow üstünde her zaman sabit */}
+      <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginHorizontal: 20, marginBottom: 8 }]}>
+        <Text style={s.vurguText}>✦  {kart.vurgu}</Text>
+      </View>
 
       {/* Navigasyon */}
       <View style={[s.navRow, { borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
@@ -526,22 +527,21 @@ const s = StyleSheet.create({
   accent:        { fontSize: 14, color: "#c9a84c", fontWeight: "600" },
   progressLabel: { textAlign: "right", fontSize: 12, fontWeight: "600" },
 
-  progressTrack: { height: 3, marginHorizontal: 16, borderRadius: 2, marginBottom: 4 },
-  progressFill:  { height: 3, backgroundColor: "#c9a84c", borderRadius: 2 },
+  progressTrack: { height: 5, marginHorizontal: 16, borderRadius: 3, marginBottom: 6 },
+  progressFill:  { height: 5, backgroundColor: "#c9a84c", borderRadius: 3 },
 
-  scrollContent: { padding: 20, paddingBottom: 28 },
+  scrollContent: { flexGrow: 1, padding: 20, paddingBottom: 16 },
 
   // Ders
   gorselImg:     {
     width: SCREEN_W - 32, height: (SCREEN_W - 32) * 0.85,
-    borderRadius: 14, marginBottom: 20, alignSelf: "center", backgroundColor: "#ffffff",
+    borderRadius: 14, marginBottom: 16, alignSelf: "center", backgroundColor: "#ffffff",
   },
-  tipBadge:      { alignSelf: "flex-start", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, marginBottom: 16 },
-  tipBadgeText:  { fontSize: 12, fontWeight: "600" },
-  kartBaslik:    { fontSize: 22, fontWeight: "800", marginBottom: 14, lineHeight: 30 },
-  kartIcerik:    { fontSize: 15, lineHeight: 26, marginBottom: 20 },
-  vurguBox:      { borderLeftWidth: 3, borderRadius: 8, padding: 14 },
-  vurguText:     { fontSize: 14, color: "#c9a84c", fontWeight: "600", fontStyle: "italic", lineHeight: 22 },
+  kartCard:      { flex: 1, borderRadius: 14, borderWidth: 1, padding: 20, gap: 10, justifyContent: "center" },
+  kartBaslik:    { fontSize: 22, fontWeight: "800", lineHeight: 30 },
+  kartIcerik:    { fontSize: 15, lineHeight: 26 },
+  vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },
+  vurguText:     { fontSize: 15, color: "#c9a84c", fontWeight: "700", lineHeight: 24 },
 
   // Quiz — soru
   questionCard:  {

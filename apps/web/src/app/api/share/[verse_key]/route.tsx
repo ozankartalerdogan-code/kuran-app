@@ -29,6 +29,7 @@ const H = 630;
 
 interface VerseRow {
   arabic:    string | null;
+  reading:   string | null;
   meal:      string | null;
   surahName: string | null;
   verseNum:  number;
@@ -43,6 +44,7 @@ async function fetchVerse(verseKey: string): Promise<VerseRow | null> {
     const res = await client.execute({
       sql: `
         SELECT v.arabic_text                            AS arabic,
+               v.reading_tr                             AS reading,
                COALESCE(t.text, v.primary_translation)  AS meal,
                s.adi_turkce                             AS surahName,
                v.ayah_number                            AS verseNum,
@@ -59,6 +61,7 @@ async function fetchVerse(verseKey: string): Promise<VerseRow | null> {
     if (!row) return null;
     return {
       arabic:    (row.arabic    as string | null) ?? null,
+      reading:   (row.reading   as string | null) ?? null,
       meal:      (row.meal      as string | null) ?? null,
       surahName: (row.surahName as string | null) ?? null,
       verseNum:  Number(row.verseNum),
@@ -88,8 +91,9 @@ export async function GET(
   const verse = await fetchVerse(verseKey);
   if (!verse) return new Response(`Ayet bulunamadı: ${verseKey}`, { status: 404 });
 
-  const meal     = trunc(verse.meal,   220);
+  const meal     = trunc(verse.meal,   200);
   const arabic   = trunc(verse.arabic, 120);
+  const reading  = trunc(verse.reading, 160);
   const surahLbl = verse.surahName ?? `Sure ${verse.surahId}`;
   const label    = `${surahLbl} · ${verse.verseNum}. Ayet`;
 
@@ -169,16 +173,27 @@ export async function GET(
           <div style={{
             color: "rgba(255,255,255,0.82)", fontSize: 34,
             textAlign: "right", lineHeight: 1.85,
-            marginBottom: 28, direction: "rtl",
+            marginBottom: 16, direction: "rtl",
           }}>
             {arabic}
+          </div>
+        ) : null}
+
+        {/* Okunuş */}
+        {reading ? (
+          <div style={{
+            color: "rgba(255,255,255,0.60)", fontSize: 18,
+            fontStyle: "italic", textAlign: "center",
+            lineHeight: 1.5, marginBottom: 20,
+          }}>
+            {reading}
           </div>
         ) : null}
 
         {/* Ayraç */}
         <div style={{
           width: 64, height: 2, borderRadius: 2,
-          background: "rgba(255,255,255,0.25)", marginBottom: 28,
+          background: "rgba(255,255,255,0.25)", marginBottom: 24,
         }} />
 
         {/* Meal metni */}
