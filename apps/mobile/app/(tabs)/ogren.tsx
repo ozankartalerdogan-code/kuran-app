@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 
 const SECTIONS = [
@@ -38,6 +39,19 @@ export default function OgrenTab() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.heading, { color: c.text }]}>Öğren</Text>
+
+        {/* Dersler — featured kart */}
+        <TouchableOpacity
+          style={[s.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
+          onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
+          activeOpacity={0.8}
+        >
+          <View style={{ flex: 1 }}>
+            <Text style={s.derslerTitle}>📚 Dersler</Text>
+            <Text style={[s.derslerSub, { color: c.textMuted }]}>11 konu · Kartlarla öğren · Kendini test et</Text>
+          </View>
+          <Text style={s.chev}>›</Text>
+        </TouchableOpacity>
 
         {SECTIONS.map((section, si) => (
           <View key={si} style={si > 0 ? s.section : undefined}>
@@ -81,4 +95,8 @@ const s = StyleSheet.create({
   label:         { fontSize: 15, fontWeight: "700" },
   sub:           { fontSize: 12, marginTop: 2 },
   chev:          { fontSize: 24, color: "#a8a29e", fontWeight: "600" },
+  derslerCard:   { flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 12, borderWidth: 1.5,
+                   paddingVertical: 16, paddingHorizontal: 14, marginBottom: 20 },
+  derslerTitle:  { fontSize: 16, fontWeight: "800", color: "#c9a84c", marginBottom: 4 },
+  derslerSub:    { fontSize: 12 },
 });

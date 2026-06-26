@@ -23,13 +23,8 @@ try {
   if (UIManager.hasViewManagerConfig?.('LottieAnimationView')) LottieView = mod;
 } catch (_e) { /* noop */ }
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
+import { TasbihModal } from '../../src/components/ZikirMatik';
 
-const QUICK_ACTIONS = [
-  { emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
-  { emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
-  { emoji: "🤲", label: "Dua Bul",       route: "/dualar",       bg: "#dcfce7" },
-  { emoji: "🔍", label: "Keşfet",        route: "/kesfet",       bg: "#ede9fe" },
-];
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
@@ -51,6 +46,16 @@ function HomeContent() {
   const { streak } = useStreak();
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
+  const [tasbihOpen, setTasbihOpen]   = useState(false);
+
+  const openTasbih = useCallback(() => setTasbihOpen(true), []);
+
+  const QUICK_ACTIONS: { emoji: string; label: string; bg: string; route?: string; onPress?: () => void }[] = [
+    { emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
+    { emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
+    { emoji: "📿", label: "Tespih",         bg: "#dcfce7",          onPress: openTasbih },
+    { emoji: "🧭", label: "Kıble",          route: "/kible",        bg: "#ede9fe" },
+  ];
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
   // sunucu "ayet bulunamadı" döner) ilgili tag sıfırlanıp yeni tur başlar.
@@ -71,6 +76,7 @@ function HomeContent() {
         moodSeen.current[tag] = [];
         return api.mood.random(tag, "");
       });
+      if (!result?.surah_id || !result?.ayah_number) throw new Error("empty result");
       moodSeen.current[tag] = [...(moodSeen.current[tag] ?? []), result.verse_key];
       router.push({
         pathname: "/ayah/[surahId]/[ayahNumber]",
@@ -255,9 +261,13 @@ function HomeContent() {
         <View style={styles.quickGrid}>
           {QUICK_ACTIONS.map(a => (
             <TouchableOpacity
-              key={a.route}
+              key={a.label}
               style={[styles.quickBtn, { backgroundColor: c.isDark ? c.cardAlt : a.bg }]}
-              onPress={() => { Haptics.selectionAsync(); router.push(a.route as any); }}
+              onPress={() => {
+                Haptics.selectionAsync();
+                if (a.onPress) { a.onPress(); return; }
+                if (a.route) router.push(a.route as any);
+              }}
               activeOpacity={0.75}
             >
               <Text style={styles.quickEmoji}>{a.emoji}</Text>
@@ -266,7 +276,21 @@ function HomeContent() {
           ))}
         </View>
       </View>
+
+      {/* Dersler — featured kart */}
+      <TouchableOpacity
+        style={[styles.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
+        onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
+        activeOpacity={0.8}
+      >
+        <View style={{ flex: 1 }}>
+          <Text style={styles.derslerTitle}>📚 Dersler — İslam'ı Öğren</Text>
+          <Text style={[styles.derslerSub, { color: c.textMuted }]}>Kart kart öğren, kendini test et</Text>
+        </View>
+        <Text style={styles.derslerChev}>›</Text>
+      </TouchableOpacity>
     </ScrollView>
+    <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
     </SafeAreaView>
   );
 }
@@ -331,4 +355,9 @@ const styles = StyleSheet.create({
   quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
   errorBanner:     { backgroundColor: "#fef2f2", borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: "#fca5a5" },
   errorBannerText: { fontSize: 13, color: "#b91c1c", textAlign: "center" },
+  derslerCard:   { flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 12, borderWidth: 1.5,
+                   paddingVertical: 16, paddingHorizontal: 14, marginBottom: 16 },
+  derslerTitle:  { fontSize: 15, fontWeight: "800", color: "#c9a84c", marginBottom: 4 },
+  derslerSub:    { fontSize: 12 },
+  derslerChev:   { fontSize: 24, color: "#c9a84c", fontWeight: "600" },
 });
