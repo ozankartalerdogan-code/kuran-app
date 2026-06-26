@@ -37,12 +37,14 @@ const GORSEL_MAP: Record<string, number> = {
 const DERS_DATA: Record<string, any> = {
   namaz:        require("../../src/data/Dersler/namaz_dersi.json"),
   "namaz-dualar": require("../../src/data/Dersler/namaz_dualar_dersi.json"),
+  siyer:        require("../../src/data/Dersler/siyer_dersi.json"),
 };
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const QUIZ_MAP: Record<string, any> = {
   namaz:        require("../../src/data/Dersler/namaz_quiz.json"),
   "namaz-dualar": require("../../src/data/Dersler/namaz_dualar_quiz.json"),
+  siyer:        require("../../src/data/Dersler/siyer_quiz.json"),
 };
 
 const BASLIKLAR: Record<string, string> = {

@@ -1,0 +1,100 @@
+{
+  "ders_id": "oruc",
+  "baslik": "Oruç",
+  "aciklama": "İslam'ın beş şartından biri olan orucu temel düzeyde öğren.",
+  "ikon": "🌙",
+  "kartlar": [
+    {
+      "id": "oruc_k01",
+      "tip": "metin",
+      "baslik": "Oruç Nedir?",
+      "icerik": "Oruç, İslam'ın beş şartından dördüncüsüdür. İmsak vaktinden (fecrin doğuşundan) iftar vaktine (güneşin batışına) kadar yeme, içme ve cinsel ilişkiden uzak durmaktır.\n\nAyet: \"Ey iman edenler! Kötülüklerden sakınmanız için oruç, sizden öncekilere farz kılındığı gibi size de farz kılındı.\" (Bakara, 2/183)",
+      "vurgu": "İslam'ın beş şartından dördüncüsü"
+    },
+    {
+      "id": "oruc_k02",
+      "tip": "metin",
+      "baslik": "Orucun Fazileti",
+      "icerik": "Hadis-i Kudsî: \"Oruçlu kimse benim rızam için yemesini, içmesini ve cinsî arzularını bırakmıştır. Oruç doğrudan doğruya bana edilen bir ibadettir. Onun mükafatını da ben veririm.\" (Buhârî, Savm 2; Müslim, Sıyam 163)\n\nHz. Peygamber: \"Oruç bir kalkandır. Oruçlu kötü söz söylemesin.\" (Buhârî, Savm 2)",
+      "vurgu": "Orucun mükafatını Allah bizzat verir"
+    },
+    {
+      "id": "oruc_k03",
+      "tip": "metin",
+      "baslik": "Orucun Farz Olma Şartları",
+      "icerik": "Bir kişiye orucun farz olması için:\n• Müslüman olmak\n• Akıl sahibi olmak\n• Erginlik çağına ulaşmış olmak (bâliğ)\n\nBu üç şart bulunmayan kişiye oruç farz değildir. Gayrimüslim Müslüman olduğunda geçmiş oruçlarını kaza etmesi gerekmez.",
+      "vurgu": "Müslüman · Akıl sahibi · Ergin"
+    },
+    {
+      "id": "oruc_k04",
+      "tip": "metin",
+      "baslik": "Orucun Sıhhat Şartları",
+      "icerik": "Orucun geçerli sayılması için:\n• Niyet: Oruç tutmaya kalben niyet etmek (en geç imsak vaktine kadar)\n• Kadınlar için hayız ve nifastan temiz olmak\n\nNiyetsiz tutulan oruç geçerli sayılmaz. Bu haldeki kadın oruç tutamaz; sonradan kaza eder.",
+      "vurgu": "Niyet olmadan oruç geçerli değildir"
+    },
+    {
+      "id": "oruc_k05",
+      "tip": "metin",
+      "baslik": "Niyet",
+      "icerik": "Ramazan orucu için en geç imsak vaktine kadar niyet edilmelidir. Sahura kalkmak da niyet sayılır.\n\nNiyet kalben yapılır, dille söylemek sünnet olup zorunlu değildir.\n\nÖrnek niyet: \"Niyet ettim Allah rızası için yarınki Ramazan orucunu tutmaya.\"",
+      "vurgu": "Sahura kalkmak niyet sayılır"
+    },
+    {
+      "id": "oruc_k06",
+      "tip": "metin",
+      "baslik": "Orucu Bozan Şeyler",
+      "icerik": "Kasıtlı yapılırsa oruç bozulur:\n• Yemek veya içmek\n• Cinsel ilişki\n• Sigara içmek\n• Ağız dolusu kusma (kasıtlı)\n• Enjeksiyon yoluyla besin almak\n\nYemek, içmek veya cinsel ilişki durumunda hem kaza hem kefaret gerekir. Sigara, kasıtlı kusma ve besin enjeksiyonunda ise yalnızca kaza yeterlidir.",
+      "vurgu": "Kasıt şarttır — bilerek ve isteyerek yapılmalı"
+    },
+    {
+      "id": "oruc_k07",
+      "tip": "metin",
+      "baslik": "Orucu Bozmayan Şeyler",
+      "icerik": "Şunlar orucu bozmaz:\n• Unutarak yemek veya içmek\n\nHz. Peygamber: \"Kim unutarak yiyip içerse orucunu tamamlasın. Onu Allah yedirip içirmiştir.\" (Buhârî, Savm 26; Müslim, Sıyam 171)\n\n• Kendiliğinden gelen kusma (kasıtsız)\n• Ağza su kaçması (gargara yaparken)\n• Kan aldırmak, enjeksiyon (besin içermeyen)\n• Dişleri fırçalamak\n• Rüya görmek",
+      "vurgu": "Unutarak yemek orucu bozmaz — Buhârî ve Müslim"
+    },
+    {
+      "id": "oruc_k08",
+      "tip": "metin",
+      "baslik": "Hasta ve Yolcunun Durumu",
+      "icerik": "Hasta ve yolcular Ramazan'da oruç tutmayabilir, sonradan kaza ederler.\n\nAyet: \"Kim hasta veya yolcu olursa başka günlerde sayısınca tutar. Allah sizin için kolaylık istiyor, güçlük çekmenizi istemiyor.\" (Bakara, 2/185)\n\n• Hastalık geçince kaza edilir\n• Yolculuktan dönünce kaza edilir\n• Sağlıklıysa tutması daha faziletlidir",
+      "vurgu": "Allah kolaylık ister, güçlük değil — Bakara 185"
+    },
+    {
+      "id": "oruc_k09",
+      "tip": "metin",
+      "baslik": "Kaza ve Kefaret",
+      "icerik": "Kaza: Tutulamayan veya bozulan Ramazan orucunu sonradan gününe gün tutmaktır.\n\nKefaret: Ramazan orucunu kasıtlı olarak (yeme/içme/cinsel ilişkiyle) bozmaktır. Cezası:\n• Arka arkaya 60 gün oruç tutmak\n• Buna gücü yetmeyene 60 fakiri doyurmak\n\nKaza: Her özürlü durumda gerekir.\nKefaret: Yalnızca kasıtlı bozulma durumunda gerekir.",
+      "vurgu": "Kaza her özürde · Kefaret yalnızca kasıtlı bozulma"
+    },
+    {
+      "id": "oruc_k10",
+      "tip": "metin",
+      "baslik": "Fidye",
+      "icerik": "Yaşlılık veya iyileşmesi mümkün olmayan hastalık nedeniyle oruç tutamayanlara fidye gerekir.\n\nFidye: Her gün için bir yoksulu sabah-akşam doyurmak veya bunun maddi karşılığını vermek.\n\nAyet: \"Oruca gücü yetmeyenler fidye olarak bir yoksul doyumu verirler.\" (Bakara, 2/184)\n\nFidye, kaza yapamayacak kadar güçsüz olanlar içindir. Fidye kaza yerine geçer; kaza yapabilenler fidye veremez.",
+      "vurgu": "Fidye kaza yerine geçer, kaza yapabilenler fidye veremez"
+    },
+    {
+      "id": "oruc_k11",
+      "tip": "metin",
+      "baslik": "Sahur ve İftar",
+      "icerik": "Sahur: İmsak vaktinden önce yenen yemektir. Tutmak sünnettir.\nHz. Peygamber: \"Sahur yapın, çünkü sahurda bereket vardır.\" (Buhârî, Savm 20; Müslim, Sıyam 45)\n\nİftar: Güneşin batmasıyla orucu açmaktır. Acele etmek sünnettir.\nHz. Peygamber: \"İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler.\" (Buhârî, Savm 45; Müslim, Sıyam 48)\n\nİftar duası: \"Allahümme leke sumtü ve bike amentü ve aleyke tevekkeltü ve alâ rızkıke eftartü.\"",
+      "vurgu": "Sahurda bereket vardır — Buhârî ve Müslim"
+    },
+    {
+      "id": "oruc_k12",
+      "tip": "metin",
+      "baslik": "Ramazan Ayının Önemi",
+      "icerik": "Ramazan orucu hicretin 2. yılında Şaban ayında farz kılınmıştır.\n\nHz. Peygamber: \"Ramazan ayı girdiğinde cennetin kapıları açılır, cehennemin kapıları kapanır.\" (Buhârî, Savm 5; Müslim, Sıyam 1)\n\nKadir Gecesi: Bin aydan daha hayırlıdır. (Kadr, 97/3)\n\nTeravih namazı: Ramazan'a özgü sünnet namazdır.",
+      "vurgu": "Ramazan'da cennet kapıları açılır — Buhârî ve Müslim"
+    },
+    {
+      "id": "oruc_k13",
+      "tip": "metin",
+      "baslik": "Nafile Oruçlar",
+      "icerik": "Farz olmayan, sevap kazandıran oruçlar:\n• Pazartesi ve Perşembe oruçları — Hz. Peygamber'in devamlı tuttuğu (Müslim, Sıyam 197)\n• Aşure orucu — Muharrem'in 9-10. veya 10-11. günleri (Müslim, Sıyam 127)\n• Arafe orucu — Zilhicce'nin 9. günü, hacda olmayanlar için (Müslim, Sıyam 196)\n• Her ayın 13, 14, 15. günleri (Eyyâm-ı Bîz)\n\nTutulması tavsiye edilir, terk edilmesi günah değildir.",
+      "vurgu": "Pazartesi-Perşembe orucu Hz. Peygamber'in sünnetidir"
+    }
+  ],
+  "quiz_havuzu_id": "oruc"
+}

@@ -9,7 +9,7 @@
       "soru": "Namaz İslam'ın kaçıncı şartıdır?",
       "secenekler": ["A) Birinci", "B) İkinci", "C) Üçüncü", "D) Dördüncü"],
       "dogru_cevap": "B",
-      "aciklama": "Namaz İslam'ın beş şartından ikincisidir. Birincisi kelime-i şehadet, üçüncüsü oruç, dördüncüsü zekat, beşincisi hacdır.",
+      "aciklama": "Namaz İslam'ın beş şartından ikincisidir. Birincisi kelime-i şehadet, üçüncüsü zekat, dördüncüsü oruç, beşincisi hacdır.",
       "zorluk": "kolay",
       "kaynak": "Buhari, İman 1; Müslim, İman 19-22"
     },

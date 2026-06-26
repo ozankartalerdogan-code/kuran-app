@@ -8,7 +8,7 @@
       "id": "namaz_k01",
       "tip": "metin",
       "baslik": "Namaz Nedir?",
-      "icerik": "Namaz, İslam'ın beş şartından ikincisidir. Müslümanların günde beş kez Allah'a yönelerek kıldığı bir ibadettir. Arapçada 'salat' olarak geçer, Türkçeye Farsçadan geçmiştir.\n\nİslam'ın beş şartı sırasıyla:\n1. Kelime-i Şehadet\n2. Namaz\n3. Oruç\n4. Zekat\n5. Hac",
+      "icerik": "Namaz, İslam'ın beş şartından ikincisidir. Müslümanların günde beş kez Allah'a yönelerek kıldığı bir ibadettir. Arapçada 'salat' olarak geçer, Türkçeye Farsçadan geçmiştir.\n\nİslam'ın beş şartı sırasıyla:\n1. Kelime-i Şehadet\n2. Namaz\n3. Zekat\n4. Oruç\n5. Hac",
       "vurgu": "İslam'ın beş şartından ikincisi"
     },
     {
@@ -82,7 +82,7 @@
       "id": "namaz_k11",
       "tip": "gorsel",
       "baslik": "Secde — Yere Kapanış",
-      "icerik": "Alın, burun, iki el, iki diz ve ayak parmakları yere değer. En az 3 kez 'Sübhane Rabbiye'l-A'lâ' okunur. Her rekatta 2 secde yapılır.",
+      "icerik": "Alın, burun, iki el, iki diz ve ayak parmakları yere değer. En az 1 kez 'Sübhane Rabbiye'l-A'lâ' okunur; 3 kez okumak sünnettir. Her rekatta 2 secde yapılır.",
       "gorsel": "namaz_secde",
       "vurgu": "Kul, secdede Allah'a en yakındır — Müslim"
     },
@@ -184,7 +184,7 @@
       "id": "namaz_k25",
       "tip": "metin",
       "baslik": "Namazın Fazileti",
-      "icerik": "Hz. Peygamber şöyle buyurmuştur:\n\n\"Allah katında en güzel amel vaktinde kılınan namazdır.\" (Buhari, Edeb 1; Müslim, İman 139)\n\nNamaz müminin miracıdır. Kul secdede Allah'a en yakın olduğu andadır. (Müslim, Salat 215)\n\nNamez insanı kötülüklerden alıkoyar. (Ankebut, 45)",
+      "icerik": "Hz. Peygamber şöyle buyurmuştur:\n\n\"Allah katında en güzel amel vaktinde kılınan namazdır.\" (Buhari, Edeb 1; Müslim, İman 139)\n\nNamaz müminin miracıdır. Kul secdede Allah'a en yakın olduğu andadır. (Müslim, Salat 215)\n\nNamaz insanı kötülüklerden alıkoyar. (Ankebut, 45)",
       "vurgu": "En güzel amel vaktinde kılınan namazdır"
     },
     {
@@ -206,7 +206,7 @@
       "tip": "metin",
       "baslik": "Zamm-ı Sure Olarak Okunabilecek Sureler",
       "icerik": "Fatiha'dan sonra okunabilecek kısa sureler:\n\n• İhlas Suresi (112. sure)\n• Felak Suresi (113. sure)\n• Nas Suresi (114. sure)\n• Kevser Suresi (108. sure)\n• Asr Suresi (103. sure)\n• Fil Suresi (105. sure)\n• Kureyş Suresi (106. sure)\n• Maun Suresi (107. sure)\n• Kafirun Suresi (109. sure)\n• Nasr Suresi (110. sure)\n\nYeni başlayanlar için en kolay başlangıç: İhlas, Kevser ve Asr sureleridir.",
-      "vurgu": "En kısa sure İhlas — 4 ayet · Her rekatta farklı sure okumak sünnettir"
+      "vurgu": "En kısa sureler Kevser, Asr ve Nasr — 3'er ayet · Her rekatta farklı sure okumak sünnettir"
     },
     {
       "id": "namaz_k29",

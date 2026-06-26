@@ -1,0 +1,135 @@
+{
+  "ders_id": "siyer",
+  "baslik": "Siyer-i Nebi",
+  "aciklama": "Hz. Muhammed'in (s.a.v.) hayatını kronolojik olarak öğren.",
+  "ikon": "🌿",
+  "kartlar": [
+    {
+      "id": "siyer_k01",
+      "tip": "metin",
+      "baslik": "Cahiliye Dönemi ve Kureyş",
+      "icerik": "Hz. Muhammed, 6. yüzyılda Arap yarımadasında, Hicaz bölgesindeki Mekke'de doğdu. Yarımada kabile esasına dayalı, siyasi birlikten yoksun bir yapıya sahipti. Kan davası, köle ticareti ve kız çocuklarını diri diri gömmek yaygındı.\n\nDinî açıdan putperestlik hâkimdi. Kâbe'de sayıları 360'a ulaşan put bulunuyor; başlıcaları Hubel, Lât, Menât ve Uzzâ idi. Az sayıda tek tanrı inancındaki Hanîf de mevcuttu.\n\nMekke'yi yöneten Kureyş kabilesi, Kâbe'nin idaresi sayesinde büyük itibar görürdü. Hz. Muhammed'in mensup olduğu Hâşimoğulları kolu, hacılara su ve yiyecek ikramı görevini yürütürdü. Babası Abdullah ve annesi Âmine bu köklü ailededendi.",
+      "vurgu": "Kâbe'de 360 put vardı · Hz. Muhammed Kureyş'in Hâşimoğulları kolundandır"
+    },
+    {
+      "id": "siyer_k02",
+      "tip": "metin",
+      "baslik": "Fil Olayı (yaklaşık 570 M)",
+      "icerik": "Hz. Muhammed'in doğumundan kısa süre önce, Yemen valisi Ebrehe fillerle donanmış büyük bir orduyla Kâbe'yi yıkmak için yola çıktı. Ordu Mekke yakınlarına geldiğinde öndeki fil ilerlemeyi reddetti.\n\nKur'an'ın Fîl Sûresi'nde (105) anlatıldığı üzere, Allah ebâbîl adlı kuşları gönderdi ve bu kuşlar taşlar atarak orduyu helak etti.\n\nMekke'nin saygın şahsiyeti Abdülmuttalib, Ebrehe'nin tekliflerine karşı meşhur cevabını verdi: 'Ben develerin sahibiyim; Kâbe'nin sahibi onu korur.'",
+      "vurgu": "Fil Olayı, Kur'an'ın Fîl Sûresi'nde (105) anlatılmıştır"
+    },
+    {
+      "id": "siyer_k03",
+      "tip": "metin",
+      "baslik": "Doğum ve Sütannenin Yanındaki Yıllar (yaklaşık 571 M)",
+      "icerik": "Hz. Muhammed, Fil Olayı'ndan yaklaşık 50-55 gün sonra, Pazartesi sabahı Mekke'de Hâşimoğulları Mahallesi'nde dünyaya geldi. Babası Abdullah, daha doğmadan Medine'de vefat etmişti. Dedesi Abdülmuttalib ona 'Muhammed' adını verdi.\n\nDönemin geleneğine göre çocuklar fasih Arapça öğrenmeleri için sütannelere verilirdi. Sa'd b. Bekr kabilesinden Halîme bint Ebî Züeyb onu yanına aldı. Yaklaşık dört yıl Halîme'nin yanında kalan Hz. Muhammed, fasih Hevâzin Arapçasını bu dönemde öğrendi.\n\nSüt kardeşleri: Abdullah, Üneyse ve Şeymâ.",
+      "vurgu": "Babası doğmadan önce vefat etti · Sütannesi Halîme'nin yanında fasih Arapça öğrendi"
+    },
+    {
+      "id": "siyer_k04",
+      "tip": "metin",
+      "baslik": "Yetimlik: Anne ve Dedenin Vefatı",
+      "icerik": "Hz. Muhammed 6 yaşındayken annesi Âmine, onu Medine'deki akrabalarına götürdükten sonra, dönüş yolunda Mekke ile Medine arasındaki Ebvâ köyünde vefat etti.\n\nAbdülmuttalib'in özel sevgisiyle iki yıl geçirdi; ancak 8 yaşındayken dedesi de vefat etti. Ölüm döşeğinde Abdülmuttalib, oğlu Ebû Tâlib'i çocuğun vasîsi olarak belirledi.\n\nEbû Tâlib ve yengesi Fâtıma bint Esed ona ikinci anne-baba gibi baktı. Kur'an bu yetimliği Allah'ın korumasıyla ele alır: 'O seni yetim bulup barındırmadı mı?' (Duhâ 93:6)",
+      "vurgu": "Annesi 6 yaşında, dedesi 8 yaşında vefat etti · Vasisi amcası Ebû Tâlib oldu"
+    },
+    {
+      "id": "siyer_k05",
+      "tip": "metin",
+      "baslik": "El-Emîn ve Hilfü'l-Fudûl",
+      "icerik": "9-12 yaşlarında amcası Ebû Tâlib ile ticaret kervanına katılarak Şam'a gitti. Farklı kültürleri tanıma fırsatı buldu.\n\nZamanla Hz. Muhammed'in dürüstlüğü ve güvenilirliği öyle bir şöhret kazandı ki toplum kendisine 'el-Emîn' (güvenilir) lakabını verdi.\n\nYaklaşık 590 M'de bir Yemenlinin haksızlığa uğraması üzerine Abdullah b. Cüd'ân'ın evinde bir araya gelen kabile temsilcileri, haksızlığa uğrayanları koruyacaklarına yemin ettiler. Bu anlaşmaya 'Hilfü'l-Fudûl' (Erdemliler İttifakı) adı verildi. Gençlik çağındaki Hz. Muhammed de katıldı. Yıllar sonra şöyle dedi: 'Bu ittifakı kırmızı develer karşılığında bile bozmak istemezdim; İslâm'da da böyle bir davete çağrılsam yine katılırım.'",
+      "vurgu": "'el-Emîn': Mekke toplumunun kendiliğinden verdiği 'güvenilir' lakabı"
+    },
+    {
+      "id": "siyer_k06",
+      "tip": "metin",
+      "baslik": "Hz. Hatice ile Evlilik ve Kâbe'nin İnşası",
+      "icerik": "25 yaşındaki Hz. Muhammed, dürüstlüğü sayesinde dul iş kadını Hz. Hatice bint Huveylid'in ticaret kervanını Şam'a götürdü (yaklaşık 595 M). Hz. Hatice evlilik teklif etti ve Hz. Muhammed kabul etti. Bu evlilikten altı çocuk dünyaya geldi.\n\nHz. Hatice, ilk vahyi aldığında onu teskin eden ve en büyük destekçisi olan kişiydi. Kadınlardan ilk Müslüman olma şerefini taşır.\n\n35 yaşında Kâbe yeniden inşa edildi (605 M). Hacerü'l-Esved'in yerine konulmasında kabileler arasında anlaşmazlık çıktı. Hz. Muhammed büyük bir örtü getirerek taşı ortasına koydu; kabile temsilcilerinin örtünün köşelerinden tutmasını sağladı ve taşı bizzat yerine yerleştirdi. Büyük bir çatışmayı böylece önledi.",
+      "vurgu": "Hz. Hatice: ilk iman eden kadın · Hacerü'l-Esved'i Hz. Muhammed yerleştirdi"
+    },
+    {
+      "id": "siyer_k07",
+      "tip": "metin",
+      "baslik": "İlk Vahiy ve İlk Müslümanlar (610 M)",
+      "icerik": "Hz. Muhammed 40 yaşındayken, sıkça inzivaya çekildiği Hira Mağarası'nda (Nur Dağı) Ramazan ayında Cebrâil ile karşılaştı. Melek onu sıkıştırarak 'Oku!' dedi. Ardından Alak Sûresi'nin ilk beş ayeti nazil oldu: 'Yaratan Rabbinin adıyla oku!'\n\nCorku ve titreyen elleriyle eve dönen Hz. Muhammed'i Hz. Hatice sardı ve teskin etti. Amcaoğlu Varaka b. Nevfel 'Bu Cebrâil'dir' dedi.\n\nİlk Müslümanlar:\n• Hz. Hatice — kadınlardan ilk\n• Hz. Ali — çocuklardan ilk (yaklaşık 10 yaşında)\n• Hz. Ebû Bekir — hür erkeklerden ilk\n• Zeyd b. Hârise — azatlılardan ilk\n\nİlk üç yıl davet gizli yürütüldü. Erkam b. Ebü'l-Erkam'ın evi (Dârülerkam) buluşma merkeziydi.",
+      "vurgu": "'Yaratan Rabbinin adıyla oku!' (Alak 96:1) — İslâm'ın ilk emri"
+    },
+    {
+      "id": "siyer_k08",
+      "tip": "metin",
+      "baslik": "Açık Davet, Baskılar ve Habeşistan Hicreti (613–616 M)",
+      "icerik": "613 M'de Safâ tepesine çıkan Hz. Peygamber, 'Bu dağın arkasında düşman ordusu var desem inanır mıydınız?' diye sordu. Kureyşliler 'Evet' deyince Allah'ın azabını duyurdu. Ebû Leheb öfkeyle ayrıldı; Leheb Sûresi buna karşılık indi.\n\nKureyş'in baskısı özellikle güçsüz ve köle Müslümanlara yönelikti:\n• Bilâl-i Habeşî: göğsüne büyük taş konularak işkenceye uğratıldı; Hz. Ebû Bekir satın alarak azat etti\n• Sümeyye: Ebû Cehil tarafından şehit edildi — İslâm'ın ilk şehididir\n\n615-616 M'de baskılar dayanılmaz hâle gelince Müslümanlar Habeşistan'a göç etti. Birinci grupta yaklaşık 15 kişi, ikinci grupta yaklaşık 100 kişi yola çıktı. Câfer b. Ebû Tâlib, Necâşî'nin huzurunda Meryem Sûresi'nden ayetler okudu. Necâşî Müslümanları iade etmedi.",
+      "vurgu": "Sümeyye, İslâm'ın ilk şehididir · Bilâl'i azat eden Hz. Ebû Bekir'dir"
+    },
+    {
+      "id": "siyer_k09",
+      "tip": "metin",
+      "baslik": "Boykot, Hüzün Yılı ve İsrâ-Mi'rac (616–622 M)",
+      "icerik": "616-619 M arası Kureyş, Hâşimoğulları'na kapsamlı boykot uyguladı. Müslümanlar yaklaşık üç yıl Şi'b-i Ebî Tâlib vadisinde ağır açlık ve yokluk içinde mahsur kaldı.\n\n619 M, Hüzün Yılı: Amcası ve koruyucusu Ebû Tâlib ardından eşi Hz. Hatice vefat etti. Mekke'deki sosyal koruma büyük ölçüde zayıfladı.\n\nTâif yolculuğu (619 M): Zeyd b. Hârise ile gittikleri Sakîf kabilesi onları taşlattı. Hz. Peygamber beddua etmedi.\n\nİsrâ ve Mi'rac (620/621 M): Mescid-i Harâm'dan Mescid-i Aksâ'ya bir gece yolculuğu, ardından yedinci semâya yükseliş. En önemli sonuç: beş vakit namaz farz kılındı. Başlangıçta 50 vakit olarak belirlenen namaz, Hz. Mûsâ'nın tavsiyesiyle indirimler sonucu beşe indi.\n\nAkabe Biatları: 621'de 12 kişiyle birinci biat, 622'de 75 kişiyle ikinci biat — hicretin zeminini hazırladı.",
+      "vurgu": "İsrâ-Mi'rac'ta 5 vakit namaz farz kılındı · Hüzün Yılı'nda iki büyük destek kaybedildi"
+    },
+    {
+      "id": "siyer_k10",
+      "tip": "metin",
+      "baslik": "Suikast Girişimi ve Sevr Mağarası (622 M)",
+      "icerik": "Kureyş'in ileri gelenleri Dârünnedve'de toplandı ve Hz. Muhammed'i öldürme kararı aldı. Her kabileden bir gencin birlikte saldırması planlandı; böylece kan davası tek kabilenin üzerine yıkılamayacaktı.\n\nAllah bu planı Cebrâil aracılığıyla bildirdi. Hz. Peygamber, Hz. Ali'yi kendi yatağına yatırıp yeşil hırkasını örttü; kapıdaki nöbetçiler onu göremedi. Hz. Ebû Bekir ile Mekke'nin güneyindeki Sevr Mağarası'na sığındılar.\n\nTakipçiler mağaranın girişine kadar geldi. Hz. Ebû Bekir endişelenince Hz. Peygamber şöyle dedi: 'Üzülme, Allah bizimle beraberdir.' (Tevbe 9:40)\n\nÜç gece mağarada beklediler. Güvenilir kılavuz Abdullah b. Uraykıt yol göstermek üzere tutuldu.",
+      "vurgu": "'Üzülme, Allah bizimle beraberdir.' (Tevbe 9:40)"
+    },
+    {
+      "id": "siyer_k11",
+      "tip": "metin",
+      "baslik": "Kubâ ve Medine'ye Varış (622 M)",
+      "icerik": "Yaklaşık 8-9 günlük yolculuğun ardından Hz. Peygamber Kubâ'ya ulaştı. Burada İslâm'ın ilk mescidi olan Kubâ Mescidi inşa edildi. Rânûnâ vadisinde ilk Cuma namazı kılındı.\n\nMedine'ye girildiğinde her kabile onu misafir almak için yarışıyordu. Hz. Peygamber devesini serbest bıraktı: 'Nereye çökerse oraya ineceğim.' Deve bugünkü Mescid-i Nebevî'nin bulunduğu yere çöktü. Ebû Eyyûb el-Ensârî ev sahibi oldu.\n\nYesrib şehri artık 'Medine' olarak anılmaya başlandı. Hicretin birinci yılı Hicrî takvimin başlangıcı kabul edilmiştir.",
+      "vurgu": "Kubâ Mescidi, İslâm tarihinde inşa edilen ilk mescittir"
+    },
+    {
+      "id": "siyer_k12",
+      "tip": "metin",
+      "baslik": "Medine'yi İnşa Etmek: Mescid, Kardeşlik, Sözleşme",
+      "icerik": "Medine'ye varışın hemen ardından üç temel adım atıldı:\n\n1. Mescid-i Nebevî: Arazi satın alınarak mescit inşa edildi. Hz. Peygamber bizzat taş taşıdı. Yanına 'Suffe' adlı eğitim platformu kuruldu; burada kalan sahabiler ilim öğrendi.\n\n2. Muhacir-Ensar Kardeşliği: Mekke'den gelen Muhacirler, Medineli Ensar'dan biriyle kardeş ilan edildi. Kur'an Ensar'ın özverisini (îsâr) över: 'Kendileri ihtiyaç içinde olsalar bile kardeşlerini kendilerine tercih ederler.' (Haşr 59:9)\n\n3. Medine Sözleşmesi: Müslümanlar ve Yahudi kabilelerini kapsayan anlaşma; din özgürlüğü, ortak savunma ve anlaşmazlıkların Hz. Peygamber'e götürülmesini içeriyordu.\n\nAyrıca: Abdullah b. Zeyd'in rüyasından ilham alınarak Bilâl-i Habeşî ilk müezzin oldu. Kıble yaklaşık 16-17 ay Kudüs'e yönelikti; Hicrî 2. yılda Kâbe'ye çevrildi (Bakara 2:144).",
+      "vurgu": "Medine Sözleşmesi, çoğulcu yönetimin tarihteki en erken yazılı örneklerinden biridir"
+    },
+    {
+      "id": "siyer_k13",
+      "tip": "metin",
+      "baslik": "Bedir Savaşı (624 M)",
+      "icerik": "17 Ramazan Hicrî 2 / 13 Mart 624 M'de İslâm tarihinin ilk büyük savaşı yaşandı.\n\nMüslümanlar: yaklaşık 313 kişi.\nKureyş: yaklaşık 1000 kişi.\n\nHz. Peygamber o gece gönülden dua etti: 'Ya Rabbi! Bu topluluğu helak etmezsen yeryüzünde sana ibadet eden kalmaz.' Savaşta Müslümanlar üstünlük kurdu. Kureyş'in 70 önde geleni öldürüldü (Ebû Cehil dahil), 70 kişi esir alındı. Müslümanlardan 14 kişi şehit düştü.\n\nEsirler için iki seçenek sunuldu: fidye ödemek ya da 10 Müslümana okuma-yazma öğretmek. Bu karar, ilmin özgürlük karşılığı kabul edilmesinin tarihî bir örneğidir.\n\nKur'an bu savaşta meleklerin yardım ettiğini bildirir (Enfâl 8:9).",
+      "vurgu": "Bedir: 313 kişi ile 1000 kişilik Kureyş ordusunu yendi — İslâm'ın ilk zaferi"
+    },
+    {
+      "id": "siyer_k14",
+      "tip": "metin",
+      "baslik": "Uhud ve Hendek Savaşları (625–627 M)",
+      "icerik": "Uhud Savaşı (Hicrî 3 / 625 M):\nKureyş ~3000 kişiyle geldi; Müslümanlar ~700 kişiydi. Başlangıçta üstünlük Müslümanlardaydı. Ancak Hz. Peygamber'in emrine rağmen okçuların büyük kısmı ganimet için yerlerini bıraktı. Hâlid b. Velîd bu açığı değerlendirerek arkadan vurdu. Hz. Hamza şehit oldu, Hz. Peygamber yaralandı. Yaklaşık 70 sahabi şehit düştü. Kur'an bu savaşı iman imtihanı olarak değerlendirir.\n\nHendek Savaşı (Hicrî 5 / 627 M):\nBüyük bir koalisyon Medine'yi kuşattı. İranlı sahabi Selmân-ı Fârisî'nin önerisiyle şehrin kuzeyine hendek kazıldı. Bu Arapların bilmediği bir savunma stratejisiydi. Yaklaşık 20-27 gün süren kuşatmada düşman geçemedi; Allah rüzgârla düşman ordularını dağıttı.",
+      "vurgu": "Uhud dersi: Emre itaatsizlik yenilgiyi getirdi · Hendek: Selmân'ın fikri Medine'yi kurtardı"
+    },
+    {
+      "id": "siyer_k15",
+      "tip": "metin",
+      "baslik": "Hudeybiye Antlaşması (628 M)",
+      "icerik": "Hz. Peygamber ~1400-1500 sahabi ile umre için yola çıktı. Kureyş Mekke'ye girişi engelledi. Uzun müzakereler sonunda Süheyl b. Amr ile Hudeybiye Antlaşması imzalandı.\n\nAntlaşmanın şartları:\n• O yıl umre yapılmayıp dönülecek\n• Gelecek yıl 3 günlük umre yapılacak\n• 10 yıl savaşmama\n• Mekke'den kaçıp gelen iade edilecek; Medine'den kaçan iade edilmeyecek\n\nBazı sahabiler bu şartları aleyhlerine buldu. Ancak Kur'an bu antlaşmayı 'apaçık bir fetih' olarak nitelendirdi (Fetih 48:1). Sonraki iki yılda İslâm'a giren insan sayısı önceki 18 yılın toplamını geçti.",
+      "vurgu": "Kur'an Hudeybiye'yi 'apaçık bir fetih' olarak nitelendirdi (Fetih 48:1)"
+    },
+    {
+      "id": "siyer_k16",
+      "tip": "metin",
+      "baslik": "Hayber, Mektuplar, Mûte ve Mekke'nin Fethi (628–630 M)",
+      "icerik": "Hayber (Hicrî 7 / 628 M): Müslümanlara karşı kışkırtma merkezi olan Hayber kaleleri fethedildi.\n\nHükümdarlara Mektuplar (Hicrî 7): 'Muhammed Resûlullah' mühürlü davet mektupları gönderildi. Bizans İmparatoru Herakleios saygı gösterdi fakat iman etmedi. Sasani Kisrâsı mektubu yırttı. Habeşistan Necâşîsi Müslüman oldu.\n\nMûte Savaşı (629 M): Elçiyi öldüren Gassânîlere karşı sefer. Sırayla üç komutan şehit düştükten sonra Hâlid b. Velîd komutayı devraldı; orduyu başarıyla geri çekti. Hz. Peygamber ona 'Seyfullah' (Allah'ın kılıcı) unvanını verdi.\n\nMekke'nin Fethi (20 Ramazan Hicrî 8 / 11 Ocak 630 M): Kureyş'in antlaşmayı bozması üzerine 10.000 kişilik orduyla Mekke'ye girildi. Şehir neredeyse kansız fethedildi. Hz. Peygamber genel af ilan etti: 'Gidin, hepiniz serbestsiniz.' Kâbe'deki 360 put kırıldı.",
+      "vurgu": "Mekke'nin fethinde genel af: 'Gidin, hepiniz serbestsiniz.'"
+    },
+    {
+      "id": "siyer_k17",
+      "tip": "metin",
+      "baslik": "Huneyn, Tebük ve Heyetler Yılı (630 M)",
+      "icerik": "Huneyn (630 M): Mekke'nin fethinden 17 gün sonra Hevâzin ve Sakîf kabileleri 12.000 kişilik İslâm ordusuna pusu kurdu. Sayıca üstünlüğüne güvenen ordu başta paniğe kapıldı (Tevbe 9:25). Hz. Peygamber geri çekilmedi; Hz. Abbas'ın 'Ey Akabe ehli!' çağrısıyla sahabiler toplandı ve zafer kazanıldı.\n\nTebük Seferi (630 M): Hz. Peygamber'in katıldığı son büyük sefer. Yaklaşık 30.000 kişilik 'Zorluk Ordusu.' Fedakârlık: Hz. Ebû Bekir tüm malını, Hz. Ömer yarısını, Hz. Osman ordunun üçte birini bağışladı. Savaş olmadı; münafıklar açığa çıktı.\n\nHeyetler Yılı (630-632 M): Arap kabileleri art arda Müslüman oldu. Nasr Sûresi bu toplu girişleri müjdelemişti: 'İnsanların bölük bölük Allah'ın dinine girdiğini görürsün.' (Nasr 110:2)",
+      "vurgu": "'İnsanların bölük bölük Allah'ın dinine girdiğini görürsün.' (Nasr 110:2)"
+    },
+    {
+      "id": "siyer_k18",
+      "tip": "metin",
+      "baslik": "Veda Haccı, Hutbe ve Vefat (632 M)",
+      "icerik": "Veda Haccı (Zilhicce Hicrî 10 / Mart 632 M): Hz. Peygamber'in ilk ve son haccı. Yaklaşık 100.000 ile 124.000 arasında Müslüman katıldı. Arafat'ta Cebel-i Rahme'de Veda Hutbesi okundu:\n• Can, mal ve namus dokunulmazlığı\n• Câhiliye faizinin kaldırılması\n• Irksal üstünlüğün reddi: 'Üstünlük yalnız takvadadır'\n• Kadınlara iyi muamele\n\nHutbeden sonra Mâide 3 nazil oldu: 'Bugün dininizi kemâle erdirdim, üzerinizdeki nimetimi tamamladım.'\n\nVefat (12 Rebîülevvel Hicrî 11 / 8 Haziran 632 M): Hz. Peygamber yaklaşık 63 yaşında, Hz. Âişe'nin yanında vefat etti. Son günlerde namazları Hz. Ebû Bekir kıldırdı.\n\nHz. Ebû Bekir minbere çıkıp tarihi sözleri söyledi: 'Kim Muhammed'e tapıyorsa bilsin ki Muhammed ölmüştür. Kim Allah'a tapıyorsa bilsin ki Allah diridir, ölmez.' (Âl-i İmrân 3:144)",
+      "vurgu": "'Bugün dininizi kemâle erdirdim.' (Mâide 5:3) — Veda Haccı'nda inen son büyük ayet"
+    }
+  ],
+  "quiz_havuzu_id": "siyer"
+}

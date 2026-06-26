@@ -11,7 +11,7 @@ const DERSLER = [
   { id: "hac-umre",       baslik: "Hac & Umre",        ikon: "🕋", kartSayisi: 10 },
   { id: "iman-esaslari",  baslik: "İman Esasları",     ikon: "📖", kartSayisi: 8  },
   { id: "peygamberler",   baslik: "Peygamberler",      ikon: "⭐", kartSayisi: 10 },
-  { id: "siyer",          baslik: "Siyer-i Nebi",      ikon: "🌿", kartSayisi: 12 },
+  { id: "siyer",          baslik: "Siyer-i Nebi",      ikon: "🌿", kartSayisi: 18 },
   { id: "tecvid",         baslik: "Tecvid",            ikon: "📜", kartSayisi: 10 },
   { id: "abdest-gusul",   baslik: "Abdest & Gusül",    ikon: "💧", kartSayisi: 8  },
   { id: "ezan-kamet",     baslik: "Ezan & Kamet",      ikon: "🔊", kartSayisi: 6  },
