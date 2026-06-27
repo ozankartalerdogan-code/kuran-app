@@ -1,0 +1,114 @@
+{
+  "ders_id": "hac-umre",
+  "baslik": "Hac & Umre",
+  "aciklama": "İslam'ın beş şartından biri olan hac ve umreyi temel düzeyde öğren.",
+  "ikon": "🕋",
+  "kartlar": [
+    {
+      "id": "hac_k01",
+      "tip": "metin",
+      "baslik": "Hac Nedir?",
+      "icerik": "Hac, İslam'ın beş şartından beşincisidir. Gücü yeten her Müslümanın ömründe bir kez Mekke'ye giderek belirli ibadetleri yerine getirmesidir. Hicretin 9. yılında farz kılınmıştır.\n\nAyet: \"Yoluna gücü yetenlerin Beytullah'ı hac etmesi Allah'ın insanlar üzerindeki hakkıdır.\" (Al-i İmran, 3/97)",
+      "vurgu": "İslam'ın beş şartından beşincisi · Ömürde bir kez farz"
+    },
+    {
+      "id": "hac_k02",
+      "tip": "metin",
+      "baslik": "Haccın Fazileti",
+      "icerik": "Hz. Peygamber: \"Kabul edilmiş haccın karşılığı ancak cennettir.\" (Buhari, Umre 1; Müslim, Hac 437)\n\nHz. Peygamber: \"Ey insanlar! Hac size farz kılındı, haccedin!\" (Müslim, Hac 412)\n\nHz. Peygamber: \"Haccetmek isteyen acele etsin! Olur ki hastalanır ya da hacca gitmesini engelleyen bir ihtiyaç ortaya çıkar.\" (Ebu Davud, Menasik 1)",
+      "vurgu": "Kabul edilmiş haccın karşılığı cennettir — Buhari"
+    },
+    {
+      "id": "hac_k03",
+      "tip": "metin",
+      "baslik": "Haccın Farz Olma Şartları",
+      "icerik": "Bir kişiye haccın farz olması için:\n• Müslüman olmak\n• Akıl sahibi olmak\n• Erginlik çağına ulaşmak\n• Maddi imkâna sahip olmak (yol ve geçim masrafları)\n• Sağlıklı olmak\n• Yol güvenliğinin bulunması\n\nBu şartları taşıyan kişiye ömründe bir kez hac farzdır.",
+      "vurgu": "Gücü yeten — maddi ve bedeni imkân şarttır"
+    },
+    {
+      "id": "hac_k04",
+      "tip": "metin",
+      "baslik": "Haccın Farzları",
+      "icerik": "Haccın üç farzı vardır. Bunlardan biri eksik olursa hac geçersiz sayılır:\n• İhram — hac veya umreye niyet ederek belirli yasakları üstlenmek\n• Arafat vakfesi — Zilhicce'nin 9. günü Arafat'ta bulunmak\n• Ziyaret tavafı — Kabe'yi 7 kez tavaf etmek",
+      "vurgu": "Bu üç farzdan biri eksik olursa hac batıl olur"
+    },
+    {
+      "id": "hac_k05",
+      "tip": "metin",
+      "baslik": "İhram",
+      "icerik": "İhram; hac veya umreye niyet ederek belirli yasakları üstlenmektir.\n• Erkekler: dikişsiz iki beyaz örtüye bürünür\n• Kadınlar: yüz ve eller açık, normal tesettür giysisi\n• Mikat sınırından geçmeden ihrama girilir\n• Telbiye okunur: \"Lebbeyk Allahümme lebbeyk...\"\n\nİhramlıya yasak olanlar: saç/tırnak kesmek, koku sürmek, avlanmak, cinsel ilişki.",
+      "vurgu": "Lebbeyk Allahümme lebbeyk — Buyur Allah'ım, buyur!"
+    },
+    {
+      "id": "hac_k06",
+      "tip": "metin",
+      "baslik": "Arafat Vakfesi",
+      "icerik": "Zilhicce'nin 9. günü (Arefe günü) Arafat ovasında bulunmak haccın en temel rüknüdür.\n\nHz. Peygamber: \"Hac Arafat'tır.\" (Ebu Davud, Menasik 69; Tirmizi, Hac 57)\n\nÖğleden akşama kadar Arafat'ta duran hacı vakfesini tamamlamış olur. Akşam ezanından sonra Müzdelife'ye hareket edilir.",
+      "vurgu": "Hac Arafat'tır — kim Arafat'ı kaçırırsa haccı kaçırmıştır"
+    },
+    {
+      "id": "hac_k07",
+      "tip": "metin",
+      "baslik": "Tavaf",
+      "icerik": "Tavaf, Kabe'yi solda bırakarak saat yönünün tersine 7 kez dönmektir.\n• Hacerü'l-Esved'den başlanır\n• Her şavt Hacerü'l-Esved'de tamamlanır\n• Ziyaret tavafı: Kurban bayramının 1-3. günlerinde yapılır, haccın farzıdır\n• Veda tavafı: Mekke'den ayrılmadan önce yapılır, vaciptir",
+      "vurgu": "Ziyaret tavafı farz · Veda tavafı vacip"
+    },
+    {
+      "id": "hac_k08",
+      "tip": "metin",
+      "baslik": "Sa'y",
+      "icerik": "Sa'y, Safa ile Merve tepeleri arasında 7 kez gidip gelmektir. Hz. Hacer'in su arayışını anmak için yapılır.\n• Safa'dan başlanır, Merve'de biter\n• Yeşil ışıklar arasında erkekler koşar, kadınlar normal yürür\n\nAyet: \"Safa ile Merve Allah'ın şeairlerindendir.\" (Bakara, 2/158)",
+      "vurgu": "Safa'dan başlanır, Merve'de biter — 7 tur"
+    },
+    {
+      "id": "hac_k09",
+      "tip": "metin",
+      "baslik": "Şeytan Taşlama",
+      "icerik": "Mina'da üç cemre taşlanır. Hz. İbrahim'in şeytanı taşlamasını simgeler.\n• Kurban bayramının 1. günü: Yalnızca Akabe cemresi (7 taş)\n• 2. ve 3. günler: Üç cemreye de taşlanır (her birine 7 taş)\n• Her taş atışında \"Bismillah Allahu Ekber\" denir",
+      "vurgu": "Her taşta Bismillah Allahu Ekber"
+    },
+    {
+      "id": "hac_k10",
+      "tip": "metin",
+      "baslik": "Kurban ve Tıraş",
+      "icerik": "Kurban bayramının 1. günü sırası:\n1. Akabe cemresi taşlanır\n2. Hedy (hac kurbanı) kesilir\n3. Saçlar tıraş edilir veya kısaltılır → ihramdan çıkılır\n4. Ziyaret tavafı yapılır → tamamen ihramdan çıkılır",
+      "vurgu": "Tıraş ile ihramdan çıkılır"
+    },
+    {
+      "id": "hac_k11",
+      "tip": "metin",
+      "baslik": "Umre Nedir?",
+      "icerik": "Umre, belirli bir mevsimle sınırlı olmaksızın her zaman yapılabilen Kabe ziyaretidir.\n\nHz. Peygamber: \"İki umre, aralarındaki günahlara kefarettir.\" (Buhari, Umre 1; Müslim, Hac 437)\n\nHz. Peygamber: \"Peş peşe hac ve umre yapın, çünkü bunlar fakirliği ve günahları giderir.\" (Tirmizi, Hac 2)",
+      "vurgu": "İki umre aralarındaki günahlara kefarettir — Buhari"
+    },
+    {
+      "id": "hac_k12",
+      "tip": "metin",
+      "baslik": "Umrenin Adımları",
+      "icerik": "Umre dört adımdan oluşur:\n1. İhrama girmek — mikat sınırında niyet + telbiye\n2. Tavaf — Kabe'yi 7 kez dönmek\n3. Sa'y — Safa ile Merve arasında 7 tur\n4. Tıraş veya saç kısaltmak — ihramdan çıkış\n\nUmre yılın her zamanı yapılabilir.",
+      "vurgu": "İhram → Tavaf → Sa'y → Tıraş"
+    },
+    {
+      "id": "hac_k13",
+      "tip": "metin",
+      "baslik": "Hac ile Umre Farkı",
+      "icerik": "• Zaman: Hac yalnızca Zilhicce 8-13 arası · Umre her zaman\n• Hüküm: Hac farz · Umre kuvvetle tavsiye edilir\n• Arafat vakfesi: Yalnızca hacda var\n• Şeytan taşlama ve kurban: Yalnızca hacda var\n• Süre: Hac 5-6 gün · Umre birkaç saat",
+      "vurgu": "Hac farz · Umre kuvvetle tavsiye · Arafat yalnızca hacda"
+    },
+    {
+      "id": "hac_k14",
+      "tip": "metin",
+      "baslik": "Hac ve Umrenin Önemi",
+      "icerik": "Hz. Peygamber: \"Hacılar ve umreciler Allah'a gelen elçilerdir. Dua ederlerse icabet eder, bağışlanma dilerlerse bağışlar.\" (İbn Mace, Menasik 5)\n\nHac, Hz. İbrahim döneminden bu yana süregelen kadim bir ibadettir.",
+      "vurgu": "Hacılar ve umreciler Allah'ın misafirleridir"
+    },
+    {
+      "id": "hac_k15",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "Hac ve umreyle ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Umrenin hükmü: Hanefi ve Maliki'de sünnet; Şafii ve Hanbeli'de farz.\n\n• Sa'yın hükmü: Hanefi'de vacip; Şafii, Maliki ve Hanbeli'de rükün (farz).\n\n• Telbiyenin ihramdaki yeri: Hanefi'de ihramın şartı; Şafii ve Maliki'de sünnet.\n\n• Veda tavafının hükmü: Hanefi, Şafii ve Hanbeli'de vacip; Maliki'de sünnet.\n\n• Müzdelife'de gecelemenin hükmü: Hanefi, Maliki ve Hanbeli'de vacip; Şafii'de sünnet.",
+      "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
+    }
+  ],
+  "quiz_havuzu_id": "hac-umre"
+}

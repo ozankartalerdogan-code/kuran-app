@@ -8,7 +8,7 @@ const DERSLER = [
   { id: "namaz",          baslik: "Namaz",             ikon: "🕌", kartSayisi: 30 },
   { id: "namaz-dualar",  baslik: "Namaz Duaları",     ikon: "📿", kartSayisi: 14 },
   { id: "oruc",           baslik: "Oruç",              ikon: "🌙", kartSayisi: 14 },
-  { id: "hac-umre",       baslik: "Hac & Umre",        ikon: "🕋", kartSayisi: 10 },
+  { id: "hac-umre",       baslik: "Hac & Umre",        ikon: "🕋", kartSayisi: 15 },
   { id: "iman-esaslari",  baslik: "İman Esasları",     ikon: "📖", kartSayisi: 8  },
   { id: "peygamberler",   baslik: "Peygamberler",      ikon: "⭐", kartSayisi: 10 },
   { id: "siyer",          baslik: "Siyer-i Nebi",      ikon: "🌿", kartSayisi: 18 },
