@@ -51,6 +51,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error(error, errorInfo);
+    Sentry.captureException(error, { extra: { componentStack: errorInfo.componentStack } });
   }
 
   handleReset = (): void => {
@@ -122,7 +123,7 @@ function AppContent() {
   );
 }
 
-export default function RootLayout() {
+function RootLayout() {
   const [videoFinished, setVideoFinished] = useState(false);
   const [fontsLoaded] = Font.useFonts({
     "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
@@ -177,3 +178,5 @@ export default function RootLayout() {
     </ErrorBoundary>
   );
 }
+
+export default Sentry.wrap(RootLayout);

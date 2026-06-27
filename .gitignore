@@ -61,3 +61,6 @@ scripts/_*_watchdog.sh
 scripts/_*.log
 
 .vercel
+.mcp.json
+
+.env.local

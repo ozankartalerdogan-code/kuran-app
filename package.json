@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
+    "@sentry/react-native": "^8.16.0",
     "ajv": "^8.20.0",
     "dotenv": "^17.4.2",
     "expo": "~56.0.12",
@@ -61,8 +62,8 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "groq-sdk": "^1.2.0",
     "lint-staged": "^17.0.5",
+    "main": "apps/mobile/App.tsx",
     "playwright": "^1.60.0",
-    "simple-git-hooks": "^2.13.1",
-    "main": "apps/mobile/App.tsx"
+    "simple-git-hooks": "^2.13.1"
   }
 }
