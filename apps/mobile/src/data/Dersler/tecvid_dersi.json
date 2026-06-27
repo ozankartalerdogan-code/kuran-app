@@ -1,0 +1,149 @@
+{
+  "ders_id": "tecvid",
+  "baslik": "Tecvid",
+  "aciklama": "Kur'an harflerini doğru mahreç ve kurallara göre okumayı öğreten ilim.",
+  "ikon": "📖",
+  "kartlar": [
+    {
+      "id": "tecvid_k01",
+      "tip": "metin",
+      "baslik": "Tecvid Nedir?",
+      "icerik": "Tecvid (güzelleştirmek) kelimesi, Kur'an harflerini çıkış yerinden ve hakkını vererek okumayı öğreten ilimdir. Kur'an'ı tecvidli okuyan kişiye mücevvid (Kur'an'ı tecvidli okuyan kişi) denir.\n\nTecvid ilmi, Kur'an'ın lafzını koruma altına alır; yanlış telaffuzun manayı bozmasını önler. Hz. Peygamber Kur'an'ı Cebrail'den öğrendiği şekliyle, yani tecvidli okumuş ve bu geleneği sahabelerine aktarmıştır.",
+      "vurgu": "\"Kur'an'ı tertil (tane tane, düşünerek) ile oku.\" (Müzzemmil 73/4)"
+    },
+    {
+      "id": "tecvid_k02",
+      "tip": "metin",
+      "baslik": "Tecvidin Hükmü",
+      "icerik": "Namazda okunacak kadar Kur'an'ı tecvidli okumak farz-ı ayndır (her Müslümana ayrı ayrı farzdır). Kur'an'ın tamamını tecvidli okumak ise farz-ı kifayedir (toplumda yeterince bilen varsa diğerlerinden düşer).\n\nYanlış okumak manayı bozduğu için sorumluluk doğurur. Harf yanlış okunduğunda kasıt olmasa bile namaz sakatlanabilir.",
+      "vurgu": "\"Biz onu tertil üzere indirdik.\" (Furkan 25/32)"
+    },
+    {
+      "id": "tecvid_k03",
+      "tip": "metin",
+      "baslik": "Mahreçler — Harflerin Çıkış Yerleri",
+      "icerik": "Mahreç (harfin ağızdan çıktığı nokta), her harfin kendine ait bir çıkış noktasıdır. Toplamda 17 mahreç bölgesi vardır.\n\nBaşlıca bölgeler:\n• Boğaz (halq): Hemze, He, Ayn, Ha, Ğayın, Hı\n• Dil (lisan): birçok harf bu bölgeden çıkar\n• Dil ucu: Nun, Ra, Lam, Dal, Ta, Sad ve benzerleri\n• Dudaklar (şefeteyn): Ba, Mim, Fa ve Vav\n• Geniz (heyşum): Günne sesi\n\nHarf yanlış mahreçten çıkarsa farklı bir harf okunmuş olur; bu da manayı bozabilir.",
+      "vurgu": "Her harf doğru yerden çıkarılmazsa farklı bir harf okunmuş olur."
+    },
+    {
+      "id": "tecvid_k04",
+      "tip": "metin",
+      "baslik": "Kalın ve İnce Harfler",
+      "icerik": "Tefhim (kalın okuma) ve terkik (ince okuma) olmak üzere iki okuyuş tarzı vardır.\n\nDaima kalın okunan 7 harf: خ ص ض ط ظ غ ق\n\nBu 7 harf dışındaki tüm harfler ince okunur.\n\nRa (ر) harfi özeldir:\n• Üstün veya ötre aldığında → kalın okunur\n• Esre aldığında → ince okunur\n• Cezimli geldiğinde önceki harekesine bakılır",
+      "vurgu": "\"خ ص ض ط ظ غ ق\" — bu 7 harf daima kalın okunur."
+    },
+    {
+      "id": "tecvid_k05",
+      "tip": "metin",
+      "baslik": "Kalkale — Yansıma Sesi",
+      "icerik": "Kalkale (vurgulu, yansımalı ses çıkarma) harfleri 5 tanedir: ق ط ب ج د — \"Kutbe Cd\" diye ezberlenebilir.\n\nBu harfler kelimenin ortasında veya sonunda cezimli (harekesiz) geldiğinde içe doğru çekilerek vurgulu okunur.\n\nÖnemli kural: Şeddeli (çift) geldiğinde kalkale yapılmaz. Ancak okuyuş durulursa (vakıfta) kalkale uygulanır.",
+      "vurgu": "ق ط ب ج د — 5 kalkale harfi"
+    },
+    {
+      "id": "tecvid_k06",
+      "tip": "metin",
+      "baslik": "Günne — Geniz Sesi",
+      "icerik": "Günne (genizden gelen tınlama sesi), yalnızca Mim (م) ve Nun (ن) harflerinde bulunur.\n\nGünne süresi: iki hareke okuyacak kadar bir zamandır.\n\nKontrol yöntemi: Günne okurken burnu sıkınca ses değişiyorsa günne doğru yapılıyor demektir.\n\nGünne; şeddeli Nun veya Mim'de zorunludur. İdgam, ihfa ve iklab kurallarında da günne oluşur.",
+      "vurgu": "Günne — Mim ve Nun'un genizden gelen sesidir."
+    },
+    {
+      "id": "tecvid_k07",
+      "tip": "metin",
+      "baslik": "Tenvin ve Nun-u Sakin",
+      "icerik": "Tenvin (kelimenin sonundaki çift hareke: ً ٍ ٌ), kelime sonlarında \"n\" sesi oluşturur.\n\nNun-u sakin (cezimli, harekesiz Nun harfi) ise kelime içinde veya sonunda gelir.\n\nBu ikisinin ardından gelen harfe göre 4 farklı kural uygulanır:\n1. İzhar — açık okuma\n2. İdgam — harfe katma\n3. İklab — dönüştürme\n4. İhfa — gizli okuma",
+      "vurgu": "Tenvin ve nun-u sakinden sonra ne geldiğine dikkat et — 4 farklı kural var."
+    },
+    {
+      "id": "tecvid_k08",
+      "tip": "metin",
+      "baslik": "İzhar — Açık Okuma",
+      "icerik": "İzhar (açıkça, net okuma) — Tenvin veya nun-u sakinden sonra 6 boğaz harfinden biri gelirse nun sesi açıkça okunur, hiçbir değişiklik olmaz.\n\nİzhar harfleri: ء ه ع ح غ خ (hemze, he, ayın, ha, ğayın, hı)\n\nBu harfler boğazdan çıktığı için nun sesine karışmaz, ikisi ayrı ayrı duyulur.\n\nÖrnek: \"مَنْ آمَنَ\" — nun açıkça okunur, ardından hemze gelir.",
+      "vurgu": "ء ه ع ح غ خ — 6 boğaz harfi → İzhar"
+    },
+    {
+      "id": "tecvid_k09",
+      "tip": "metin",
+      "baslik": "İdgam — Harfi Harfe Katma",
+      "icerik": "İdgam (iki harfi birbirine katarak okuma) — Tenvin veya nun-u sakinden sonra belirli harfler gelince nun sesi o harfe kaynar.\n\nİki çeşidi vardır:\n• Günne ile idgam: ي م ن و harfleri (ye, mim, nun, vav — \"Yemenu\" olarak ezberle). Nun, bu harflere günne ile katılır.\n• Günnesiz idgam: Lam (ل) ve Ra (ر) harfleri. Nun sessizce bu harflere katılır.\n\nÖnemli kural: Aynı kelime içinde tenvin veya nun-u sakin + idgam harfi bir arada olursa idgam yapılmaz, izhar okunur.",
+      "vurgu": "\"Yemenu\" (ي م ن و) → Günne ile idgam | Lam-Ra → Günnesiz idgam"
+    },
+    {
+      "id": "tecvid_k10",
+      "tip": "metin",
+      "baslik": "İklab — Dönüşüm",
+      "icerik": "İklab (dönüştürmek) — Tenvin veya nun-u sakinden sonra yalnızca Be (ب) harfi gelirse nun sesi tamamen Mim sesine dönüşür ve günne ile okunur.\n\nTürkçe benzetme: \"on beş\" derken \"omm beş\" gibi okunması buna örnektir.\n\nMushaf'ta iklab olan yerlerde küçük bir م harfi işareti bulunur — bu işaret, nun sesinin mim'e döndüğünü gösterir.",
+      "vurgu": "Nun-u sakin + Be (ب) → Mim sesine dönüşür → İklab"
+    },
+    {
+      "id": "tecvid_k11",
+      "tip": "metin",
+      "baslik": "İhfa — Gizli Okuma",
+      "icerik": "İhfa (gizlemek, örtmek) — Tenvin veya nun-u sakinden sonra ne izhar, ne idgam, ne iklab harfi gelirse ihfa yapılır.\n\nNun sesi tam okunmaz; genizden hafif tınlama (günne) ile gizlenerek okunur. İzhar kadar açık, idgam kadar tam katılmış değildir — ikisi arasında bir sestir.\n\nİhfa harfleri 15 tanedir: ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك",
+      "vurgu": "15 ihfa harfi → Nun gizlenir, genizden hafif tınlar."
+    },
+    {
+      "id": "tecvid_k12",
+      "tip": "metin",
+      "baslik": "Mim-i Sakin'in Hükümleri",
+      "icerik": "Cezimli Mim (مْ) harfinden sonra ne geldiğine göre 3 kural uygulanır:\n\n1. İdgam-ı Misleyn (günne ile birleşir): Sonra harekeli Mim (م) gelirse iki Mim birleşir ve günne ile okunur.\n\n2. İhfa-i Şefevi — Dudak İhfası: Sonra Be (ب) gelirse dudaklar kapanmadan günne ile gizlice okunur.\n\n3. İzhar-ı Şefevi — Dudak İzharı: Başka herhangi bir harf gelirse Mim açıkça okunur.",
+      "vurgu": "Mim + Mim → İdgam | Mim + Be → Dudak İhfası | Mim + Diğer → İzhar"
+    },
+    {
+      "id": "tecvid_k13",
+      "tip": "metin",
+      "baslik": "Med-i Tabii — Temel Uzatma",
+      "icerik": "Med (uzatma), harflerin belirli durumlarda en az 1 elif miktarı uzatılmasıdır. Uzatmanın ölçüsü \"elif miktarı\" denen zaman birimidir.\n\nMed-i Tabii (doğal, temel uzatma): En basit uzatma türüdür. Elif (ا), Vav (و), Ye (ي) harflerinden sonra hemze (ء) veya sükun gelmezse 1 elif miktarı uzatılır.\n\nBu uzatma, dilin tabii akışından gelir; zorlamadan gerçekleşir.",
+      "vurgu": "Med-i Tabii → 1 elif miktarı uzatma, en temel kuraldır."
+    },
+    {
+      "id": "tecvid_k14",
+      "tip": "metin",
+      "baslik": "Muttasıl ve Munfasıl Med",
+      "icerik": "Med-i Muttasıl (bitişik med) — med harfinden sonra hemze (ء) aynı kelimede gelirse zorunlu olarak 4 elif uzatılır.\n\nMed-i Munfasıl (ayrı med) — med harfi bir kelimede, hemze ayrı kelimede gelirse 4-5 elif uzatılır.\n\nMunfasıl medde kıraat imamlarına göre uzatma miktarı farklılık gösterebilir.",
+      "vurgu": "Muttasıl → aynı kelimede hemze, 4 elif | Munfasıl → ayrı kelimede hemze, 4-5 elif"
+    },
+    {
+      "id": "tecvid_k15",
+      "tip": "metin",
+      "baslik": "Lazım, Arız ve Lin Medi",
+      "icerik": "Med-i Lazım (zorunlu med) — med harfinden sonra şeddeli veya cezimli harf gelirse 4 elif uzatılır; bu zorunludur.\n\nMed-i Arız (geçici med) — vakıf (okurken nefes almak için durma) halinde oluşur. Normalde kısa okunan hece, durulunca 2-4 elif uzatılır.\n\nMed-i Lin — Vav veya Ye harfi cezimli, önceki harf üstünlü olduğunda; durulursa 2-4 elif uzatılır. Örnek: خَوْف (havf) kelimesinde vakıf yapılınca.",
+      "vurgu": "Lazım → 4 elif zorunlu | Arız → vakıfta 2-4 elif | Lin → özel durumda 2-4 elif"
+    },
+    {
+      "id": "tecvid_k16",
+      "tip": "metin",
+      "baslik": "Elif-Lam: Kameriyye ve Şemsiyye",
+      "icerik": "Arapçada \"el\" (ال) takısından sonra gelen harfe göre iki kural uygulanır.\n\nKameriyye (ay harfleri — 14 harf): Lam sesi açıkça okunur.\nHarfler: ا ب ج ح خ ع غ ف ق ك م و ه ي\n\nŞemsiyye (güneş harfleri — 14 harf): Lam okunmaz, sonraki harf şeddeli okunur.\nHarfler: ت ث د ذ ر ز س ش ص ض ط ظ ل ن\n\nÖrnek: \"eş-şems\" (güneş) → lam yutulur; \"el-kamer\" (ay) → lam okunur.",
+      "vurgu": "Kameriyye → lam okunur | Şemsiyye → lam yutulur"
+    },
+    {
+      "id": "tecvid_k17",
+      "tip": "metin",
+      "baslik": "Vakıf — Durak İşaretleri",
+      "icerik": "Vakıf ve ibtida (durulduktan sonra yeniden başlama), Kur'an okuyuşunun önemli kurallarındandır.\n\nMushaf'taki vakıf işaretleri:\n• م (mim) — Vakf-ı Lazım: burada durmak zorunlu, geçilirse mana bozulur.\n• ط (tı) — Vakf-ı Mutlak: durmak evladır.\n• ج (cim) — Vakf-ı Caiz: durmak da geçmek de serbest.\n• ص (sad) — Vakf-ı Murakhhas: geçmek evladır, durulabilir.\n• لا (la) — Vakf-ı Memnû: durulmamalı, geçilmeli.",
+      "vurgu": "م işaretinde durmak zorunludur — mana bozulmasın diye."
+    },
+    {
+      "id": "tecvid_k18",
+      "tip": "metin",
+      "baslik": "Lahn — Okuyuş Hatası",
+      "icerik": "Lahn (okuyuş hatası) iki çeşittir:\n\nLahn-ı Celi (büyük hata) — Harfi veya kelimeyi yanlış okumak; manayı değiştirir ve namazı bozar. Örnek: \"el-Ğaybi\" kelimesini \"el-Kalbi\" şeklinde okumak.\n\nLahn-ı Hafi (küçük hata) — İhfayı, idgamı, günneyi eksik yapmak gibi tecvid kurallarını atlamak; yalnızca uzmanların fark edeceği hatalardır. Namazı bozmaz, ancak sevabı azaltır.",
+      "vurgu": "Lahn-ı Celi → namazı bozar | Lahn-ı Hafi → sevabı azaltır"
+    },
+    {
+      "id": "tecvid_k19",
+      "tip": "metin",
+      "baslik": "Okuyuş Mertebeleri",
+      "icerik": "Kur'an 3 farklı hızda okunabilir:\n\n• Tahkik (en yavaş) — Her harfi en dikkatli şekilde, hakkını vererek okuma. Öğrenme aşamasına uygundur.\n\n• Tedvir (orta hız) — Tahkik ile hadr arasında yaygın kullanılan okuyuş. Namaz için en uygun hızdır.\n\n• Hadr (hızlı okuyuş) — Tecvid kuralları yine de gözetilir; yalnızca hız artar.\n\nÜçü de caizdir. Tilavet (Kur'an okuma) hangi hızda yapılırsa yapılsın kurallar korunmalıdır.",
+      "vurgu": "Tahkik (yavaş) → Tedvir (orta) → Hadr (hızlı) — üçü de caizdir."
+    },
+    {
+      "id": "tecvid_k20",
+      "tip": "mezhep",
+      "baslik": "Mezhep ve Kıraat Farklılıkları",
+      "icerik": "Tecvid ilminde mezhepler ve kıraat imamları arasında bazı görüş farklılıkları mevcuttur:\n\n• Tecvidin hükmü: Çoğunluğa göre vacip veya farz-ı ayn; bazı alimlere göre farz-ı kifaye. Namazı bozmayacak kadar doğru okumak konusunda ittifak vardır.\n\n• Kıraat farkları: Türkiye'de Âsım kıraatinin Hafs rivayeti kullanılır. Kıraat-i Seb'a (7 kıraat) ve Kıraat-i Aşere (10 kıraat) vardır; hepsi sahihtir ve Hz. Peygamber'e dayanır. Arabistan'da Verş rivayeti yaygındır.\n\n• Med miktarları: Kıraat imamlarına göre med-i munfasılın uzatma süresi 2-5 elif arasında değişebilir; bu bir hata değil, sahih bir farklılıktır.\n\n• Vakıf işaretleri: Secavend işaretlerine uymanın zorunluluğu konusunda alimler arasında görüş farkı vardır.",
+      "vurgu": "Hangi kıraatle okunursa okunsun, tüm kıraatler sahihtir ve Kur'an birdir."
+    }
+  ],
+  "quiz_havuzu_id": "tecvid"
+}
