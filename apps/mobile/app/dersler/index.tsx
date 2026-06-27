@@ -9,14 +9,14 @@ const DERSLER = [
   { id: "namaz-dualar",  baslik: "Namaz Duaları",     ikon: "📿", kartSayisi: 14 },
   { id: "oruc",           baslik: "Oruç",              ikon: "🌙", kartSayisi: 14 },
   { id: "hac-umre",       baslik: "Hac & Umre",        ikon: "🕋", kartSayisi: 15 },
-  { id: "iman-esaslari",  baslik: "İman Esasları",     ikon: "📖", kartSayisi: 8  },
-  { id: "peygamberler",   baslik: "Peygamberler",      ikon: "⭐", kartSayisi: 10 },
+  { id: "iman-esaslari",  baslik: "İman Esasları",     ikon: "📖", kartSayisi: 15 },
+  { id: "peygamberler",   baslik: "Peygamberler",      ikon: "⭐", kartSayisi: 27 },
   { id: "siyer",          baslik: "Siyer-i Nebi",      ikon: "🌿", kartSayisi: 18 },
-  { id: "tecvid",         baslik: "Tecvid",            ikon: "📜", kartSayisi: 10 },
+  { id: "tecvid",         baslik: "Tecvid",            ikon: "📜", kartSayisi: 20 },
   { id: "abdest-gusul",   baslik: "Abdest & Gusül",    ikon: "💧", kartSayisi: 8  },
-  { id: "ezan-kamet",     baslik: "Ezan & Kamet",      ikon: "🔊", kartSayisi: 6  },
+  { id: "ezan-kamet",     baslik: "Ezan & Kamet",      ikon: "🔊", kartSayisi: 12 },
   { id: "allah-sifatlari",baslik: "Allah'ın Sıfatları",ikon: "✨", kartSayisi: 8  },
-  { id: "zekat",          baslik: "Zekat",             ikon: "🤲", kartSayisi: 6  },
+  { id: "zekat",          baslik: "Zekat",             ikon: "🤲", kartSayisi: 13 },
 ];
 
 type Ders = (typeof DERSLER)[number];

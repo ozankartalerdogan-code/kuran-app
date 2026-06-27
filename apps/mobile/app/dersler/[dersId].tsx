@@ -35,20 +35,30 @@ const GORSEL_MAP: Record<string, number> = {
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const DERS_DATA: Record<string, any> = {
-  namaz:        require("../../src/data/Dersler/namaz_dersi.json"),
-  "namaz-dualar": require("../../src/data/Dersler/namaz_dualar_dersi.json"),
-  siyer:        require("../../src/data/Dersler/siyer_dersi.json"),
-  oruc:         require("../../src/data/Dersler/oruc_dersi.json"),
-  "hac-umre":   require("../../src/data/Dersler/hac_umre_dersi.json"),
+  namaz:            require("../../src/data/Dersler/namaz_dersi.json"),
+  "namaz-dualar":   require("../../src/data/Dersler/namaz_dualar_dersi.json"),
+  siyer:            require("../../src/data/Dersler/siyer_dersi.json"),
+  oruc:             require("../../src/data/Dersler/oruc_dersi.json"),
+  "hac-umre":       require("../../src/data/Dersler/hac_umre_dersi.json"),
+  "ezan-kamet":     require("../../src/data/Dersler/ezan_kamet_dersi.json"),
+  "iman-esaslari":  require("../../src/data/Dersler/iman_esaslari_dersi.json"),
+  peygamberler:     require("../../src/data/Dersler/peygamber_kissalari_dersi.json"),
+  tecvid:           require("../../src/data/Dersler/tecvid_dersi.json"),
+  zekat:            require("../../src/data/Dersler/zekat_dersi.json"),
 };
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const QUIZ_MAP: Record<string, any> = {
-  namaz:        require("../../src/data/Dersler/namaz_quiz.json"),
-  "namaz-dualar": require("../../src/data/Dersler/namaz_dualar_quiz.json"),
-  siyer:        require("../../src/data/Dersler/siyer_quiz.json"),
-  oruc:         require("../../src/data/Dersler/oruc_quiz.json"),
-  "hac-umre":   require("../../src/data/Dersler/hac_umre_quiz.json"),
+  namaz:            require("../../src/data/Dersler/namaz_quiz.json"),
+  "namaz-dualar":   require("../../src/data/Dersler/namaz_dualar_quiz.json"),
+  siyer:            require("../../src/data/Dersler/siyer_quiz.json"),
+  oruc:             require("../../src/data/Dersler/oruc_quiz.json"),
+  "hac-umre":       require("../../src/data/Dersler/hac_umre_quiz.json"),
+  "ezan-kamet":     require("../../src/data/Dersler/ezan_kamet_quiz.json"),
+  "iman-esaslari":  require("../../src/data/Dersler/iman_esaslari_quiz.json"),
+  peygamberler:     require("../../src/data/Dersler/peygamber_kissalari_quiz.json"),
+  tecvid:           require("../../src/data/Dersler/tecvid_quiz.json"),
+  zekat:            require("../../src/data/Dersler/zekat_quiz.json"),
 };
 
 const BASLIKLAR: Record<string, string> = {

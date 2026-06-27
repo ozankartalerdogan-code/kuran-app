@@ -1,0 +1,100 @@
+{
+  "ders_id": "zekat",
+  "baslik": "Zekat",
+  "aciklama": "İslam'ın beş şartından biri; nisap miktarı mala sahip Müslümanların mallarının belirli bir kısmını hak sahiplerine vermesidir.",
+  "ikon": "🤲",
+  "kartlar": [
+    {
+      "id": "zekat_k01",
+      "tip": "metin",
+      "baslik": "Zekat Nedir?",
+      "icerik": "Zekat kelimesi Arapçada \"artma, arıtma ve bereket\" anlamına gelir. Dinen, nisap miktarı mala sahip olan Müslümanların mallarının belirli bir kısmını Allah rızası için hak sahiplerine vermesidir.\n\nZekat İslam'ın beş şartından biridir. Hicretin ikinci yılında Medine'de farz kılınmıştır. Kur'an'da 30 ayette geçer, 27'sinde namazla birlikte zikredilir.",
+      "vurgu": "\"Namazı dosdoğru kılın, zekâtı verin.\" (Bakara 2/43)"
+    },
+    {
+      "id": "zekat_k02",
+      "tip": "metin",
+      "baslik": "Zekatın Farz Olmasının Şartları",
+      "icerik": "Zekatın bir kişiye farz olabilmesi için şu yedi şart gerekir:\n\n1. Müslüman olmak\n2. Akıl sağlığı yerinde olmak\n3. Ergenlik çağına gelmiş olmak\n4. Nisap miktarı mala sahip olmak\n5. Malın nâmî (artıcı, büyüyen mal) özellikte olması\n6. Borç ve temel ihtiyaçlardan fazla olması\n7. Havelânü'l-havl (malın üzerinden bir kamerî yılın geçmesi şartı)",
+      "vurgu": "Bu 7 şart bir arada bulunmadıkça zekat farz olmaz."
+    },
+    {
+      "id": "zekat_k03",
+      "tip": "metin",
+      "baslik": "Nisap Miktarı",
+      "icerik": "Nisap (zekâtla yükümlü olmak için gereken asgari servet miktarı) Hz. Peygamber tarafından belirlenmiştir:\n\n• Altın için: 80,18 gram\n• Para ve ticaret malları: 80,18 gram altının değeri kadar\n• Koyun/Keçi: 40 baş\n• Sığır: 30 baş\n• Deve: 5 baş\n\nBu miktara ulaşan ve üzerinden bir yıl geçen mal için zekat farz olur.",
+      "vurgu": "80,18 gram altın veya değeri → Zekat nisabı (Buhari, Zekat 32)"
+    },
+    {
+      "id": "zekat_k04",
+      "tip": "metin",
+      "baslik": "Zekat Oranı — %2,5",
+      "icerik": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta birdir (%2,5). Yani 100.000 liranın zekatı 2.500 liradır.\n\nBorçlar düşüldükten, temel ihtiyaçlar çıkarıldıktan sonra kalan miktarın %2,5'i verilir.\n\nZekat vermenin belli bir zamanı yoktur; nisap ve havelânü'l-havl şartı dolduğu andan itibaren verilmesi gerekir.",
+      "vurgu": "Kırkta bir (%2,5) — Altın, gümüş, para, ticaret malları"
+    },
+    {
+      "id": "zekat_k05",
+      "tip": "metin",
+      "baslik": "Zekata Tabi Mallar",
+      "icerik": "Zekat verilmesi gereken mal türleri:\n• Altın ve gümüş\n• Nakit para ve mevduat\n• Ticaret malları\n• Sâime hayvanlar (otlakta/merada serbest beslenen)\n• Tarım ürünleri\n• Günümüzde hisse senetleri ve döviz de bu kapsama girer.\n\nKişinin oturduğu ev, kullandığı araç, iş aletleri ve giysileri zekata tabi değildir; bunlar temel ihtiyaç sayılır.",
+      "vurgu": "Ev, araç, iş aleti → Zekat yok | Para, altın, ticaret malı → Zekat var"
+    },
+    {
+      "id": "zekat_k06",
+      "tip": "metin",
+      "baslik": "Öşür — Tarım Ürünleri Zekatı",
+      "icerik": "Öşür (tarım ürünlerinden verilen zekât), tarla ve bahçe ürünlerinden verilir. Yılın geçmesi (havelânü'l-havl) şartı aranmaz; hasat günü verilir.\n\nOran, toprağın sulama şekline göre değişir:\n• Yağmur veya nehirle sulanan: 1/10 (onda bir)\n• Motorla veya masrafla sulanan: 1/20 (yirmide bir)",
+      "vurgu": "\"Devşirilip toplandığı gün hakkını verin.\" (En'am 6/141) | Yağmurla → 1/10, Motorla → 1/20"
+    },
+    {
+      "id": "zekat_k07",
+      "tip": "metin",
+      "baslik": "Zekat Kimlere Verilir? (8 Sınıf)",
+      "icerik": "Kur'an'da zekatın verileceği 8 sınıf açıkça belirtilmiştir (Tevbe 9/60):\n\n1. Fakirler — temel ihtiyaçlarını karşılayamayanlar\n2. Miskinler — daha yoksul olanlar\n3. Zekat memurları — zekat toplayıp dağıtanlar\n4. Müellefe-i kulûb (kalpleri İslam'a ısındırılmak istenen kişiler)\n5. Köleler — hürriyetlerini satın almak isteyenler\n6. Borçlular\n7. Allah yolunda olanlar\n8. Yolda kalmışlar — parasız kalan yolcular",
+      "vurgu": "\"Sadakalar Allah'tan bir farz olarak bu sekiz sınıfa aittir.\" (Tevbe 9/60)"
+    },
+    {
+      "id": "zekat_k08",
+      "tip": "metin",
+      "baslik": "Zekat Kimlere Verilmez?",
+      "icerik": "Şu kişilere zekat verilemez:\n• Anne, baba, büyük ebeveynler\n• Oğul, kız ve torunlar\n• Eş\n• Müslüman olmayanlar\n• Nisap miktarı mala sahip olan zenginler\n\nZekat, verilmesi gereken kişiye bizzat teslim edilmeli — temlik (malın mülkiyetini karşı tarafa devretmek) — ve niyet edilmelidir. Yemek hazırlayıp yedirmek temlik şartını karşılamadığı için zekat sayılmaz.",
+      "vurgu": "Zekat, aile bireylerine ve zengine verilemez."
+    },
+    {
+      "id": "zekat_k09",
+      "tip": "metin",
+      "baslik": "Zekat, Fitre ve Sadaka Farkı",
+      "icerik": "Zekat — İslam'ın şartı, farzdır; nisap miktarına ulaşınca zorunludur; oranı %2,5; belirli 8 sınıfa verilir.\n\nFitre (Sadaka-i Fıtır — Ramazan sonunda verilen sadaka) — Vaciptir; miktarı gıda üzerinden hesaplanır; zekata tabi olmayanlar da verir; bayram namazından önce ödenir.\n\nSadaka — Farz değil, gönüllüdür; miktarı ve zamanı serbesttir; herkese verilebilir.",
+      "vurgu": "Zekat farz | Fitre vacip | Sadaka gönüllü"
+    },
+    {
+      "id": "zekat_k10",
+      "tip": "metin",
+      "baslik": "Zekatın Hikmeti — Bireysel",
+      "icerik": "Zekat, malı \"arındırır\" — nitekim Arapçada zekat kelimesi hem \"artmak\" hem \"temizlemek\" anlamına gelir.\n\n\"Onların mallarından, kendilerini temizleyeceğin bir sadaka al.\" (Tevbe 9/103)\n\nZekat veren kişi cimrilikten ve mala aşırı bağlılıktan kurtulur, şükretmiş olur ve malına bereket gelir.",
+      "vurgu": "\"Mallarınızı zekatla koruyun.\" (Ebu Davud, Zekat 1)"
+    },
+    {
+      "id": "zekat_k11",
+      "tip": "metin",
+      "baslik": "Zekatın Hikmeti — Toplumsal",
+      "icerik": "Zekat, İslam'ın kurduğu sosyal dayanışma sistemidir. Serveti toplumda dolaşımda tutar; servetin sadece zenginlerde birikmesini önler.\n\nHz. Ebubekir zekat vermeyenlerle savaşmış; zekat İslam'ın temel sosyal kurumu olarak korunmuştur.\n\nZekat, fakirliği ve sınıf çatışmasını azaltır.",
+      "vurgu": "\"Servet yalnızca zenginler arasında dolaşan bir şey olmasın.\" (Haşr 59/7)"
+    },
+    {
+      "id": "zekat_k12",
+      "tip": "metin",
+      "baslik": "Zekatı İnkar Etmenin Hükmü",
+      "icerik": "Zekatın farz olduğunu inkâr etmek dinden çıkmaya (irtidad) sebep olur; çünkü Kur'an'la sabittir.\n\nZekatın farz olduğunu kabul edip vermemek ise büyük günahtır; zekat borcu düşmez, sonradan ödenmesi gerekir.\n\nHz. Peygamber zekat vermeyenler için ahirette ağır bir azap olduğunu bildirmiştir. (Buhari, Zekat 3)",
+      "vurgu": "İnkar → Küfür | Vermemek → Büyük günah, borç düşmez"
+    },
+    {
+      "id": "zekat_k13",
+      "tip": "mezhep",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "Zekatın farziyeti konusunda tüm mezhepler ittifak halindedir. Bazı ayrıntılarda görüş farkları mevcuttur:\n\n• Çocuk ve delinin malı: Hanefilere göre zekat farz değildir. Şafii, Maliki ve Hanbeli'ye göre velisi zekat ödemekle yükümlüdür.\n\n• Borç düşülmesi: Hanefilere göre borçlar zekat nisabından düşülür. Şafiilere göre borç zekat vermeye engel değildir.\n\n• Nisap hesabı: Altın nisabı mı (80,18 gr) gümüş nisabı mı (595 gr) esas alınacağı konusunda görüş farkları vardır. Türkiye Diyanet İşleri altın nisabını esas almaktadır.\n\n• Öşür oranı: Hanefilerde masraf hesabı yapılmadan oranlar uygulanır; bazı alimlere göre günümüzde masraflar düşülerek hesaplanmalıdır.",
+      "vurgu": "Zekatın farziyeti konusunda tüm mezhepler ittifak halindedir."
+    }
+  ],
+  "quiz_havuzu_id": "zekat"
+}
