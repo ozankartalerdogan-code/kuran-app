@@ -94,6 +94,13 @@
       "baslik": "Nafile Oruçlar",
       "icerik": "Farz olmayan, sevap kazandıran oruçlar:\n• Pazartesi ve Perşembe oruçları — Hz. Peygamber'in devamlı tuttuğu (Müslim, Sıyam 197)\n• Aşure orucu — Muharrem'in 9-10. veya 10-11. günleri (Müslim, Sıyam 127)\n• Arafe orucu — Zilhicce'nin 9. günü, hacda olmayanlar için (Müslim, Sıyam 196)\n• Her ayın 13, 14, 15. günleri (Eyyâm-ı Bîz)\n\nTutulması tavsiye edilir, terk edilmesi günah değildir.",
       "vurgu": "Pazartesi-Perşembe orucu Hz. Peygamber'in sünnetidir"
+    },
+    {
+      "id": "oruc_k14",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "Oruçla ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Kefareti gerektiren durumlar: Hanefi ve Maliki'de bilerek yemek, içmek ve cinsel ilişki kefareti gerektirir. Şafii ve Hanbeli'de yalnızca cinsel ilişki kefareti gerektirir; bilerek yemek ve içmek bu iki mezhepte yalnızca kazayı gerektirir.",
+      "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
     }
   ],
   "quiz_havuzu_id": "oruc"

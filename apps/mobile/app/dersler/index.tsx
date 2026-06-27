@@ -5,9 +5,9 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 
 const DERSLER = [
-  { id: "namaz",          baslik: "Namaz",             ikon: "🕌", kartSayisi: 29 },
-  { id: "namaz-dualar",  baslik: "Namaz Duaları",     ikon: "📿", kartSayisi: 13 },
-  { id: "oruc",           baslik: "Oruç",              ikon: "🌙", kartSayisi: 10 },
+  { id: "namaz",          baslik: "Namaz",             ikon: "🕌", kartSayisi: 30 },
+  { id: "namaz-dualar",  baslik: "Namaz Duaları",     ikon: "📿", kartSayisi: 14 },
+  { id: "oruc",           baslik: "Oruç",              ikon: "🌙", kartSayisi: 14 },
   { id: "hac-umre",       baslik: "Hac & Umre",        ikon: "🕋", kartSayisi: 10 },
   { id: "iman-esaslari",  baslik: "İman Esasları",     ikon: "📖", kartSayisi: 8  },
   { id: "peygamberler",   baslik: "Peygamberler",      ikon: "⭐", kartSayisi: 10 },

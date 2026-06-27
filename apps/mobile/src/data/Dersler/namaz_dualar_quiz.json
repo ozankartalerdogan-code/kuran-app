@@ -176,10 +176,10 @@
     {
       "id": "namaz_dualar_018",
       "konu": "namaz-dualar",
-      "soru": "Kavme zikrinin hükmü nedir?",
-      "secenekler": ["A) Farz", "B) Vacip", "C) Sünnet", "D) Müstehap"],
+      "soru": "'Rabbena ve lekel hamd' ne anlama gelir?",
+      "secenekler": ["A) Allah en büyüktür", "B) Rabbimiz, hamd sana mahsustur", "C) Seni tenzih ederim", "D) Rabbim beni bağışla"],
       "dogru_cevap": "B",
-      "aciklama": "Kavme zikri (Semi'allahu limen hamideh ve Rabbena ve lekel hamd) vaciptir.",
+      "aciklama": "'Rabbena ve lekel hamd' — 'Rabbimiz, hamd sana mahsustur.' Kavmede, rükûdan tam dik durulunca söylenir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -206,10 +206,10 @@
     {
       "id": "namaz_dualar_021",
       "konu": "namaz-dualar",
-      "soru": "Kunut duasının hükmü nedir?",
-      "secenekler": ["A) Farz", "B) Vacip", "C) Sünnet", "D) Müstehap"],
+      "soru": "Sübhaneke'deki 'Sübhânekellâhümme' ifadesi ne anlama gelir?",
+      "secenekler": ["A) Allah'ım sana şükrederim", "B) Allah'ım seni tenzih ederim", "C) Allah'ım senden yardım dilerim", "D) Allah'ım beni bağışla"],
       "dogru_cevap": "B",
-      "aciklama": "Kunut duası vaciptir. Unutulursa namazın sonunda sehiv secdesi yapılır.",
+      "aciklama": "'Sübhânekellâhümme' — 'Allah'ım, seni her türlü noksanlıktan tenzih ederim.' Sübhaneke bu ifadeyle başlar.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },

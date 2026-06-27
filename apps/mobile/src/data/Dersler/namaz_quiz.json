@@ -136,10 +136,10 @@
     {
       "id": "namaz_014",
       "konu": "namaz",
-      "soru": "Vitir namazı hangi hükümdedir?",
-      "secenekler": ["A) Farz", "B) Sünnet", "C) Vacip", "D) Müstehap"],
-      "dogru_cevap": "C",
-      "aciklama": "Vitir namazı Hanefi mezhebine göre vaciptir. Yatsı namazından sonra kılınır, 3 rekattır.",
+      "soru": "Beş vakit namazın toplam farz rekat sayısı kaçtır?",
+      "secenekler": ["A) 15", "B) 17", "C) 19", "D) 21"],
+      "dogru_cevap": "B",
+      "aciklama": "Sabah 2 + Öğle 4 + İkindi 4 + Akşam 3 + Yatsı 4 = 17 rekat farz. Sünnet ve vitir bu sayıya dahil değildir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -206,10 +206,10 @@
     {
       "id": "namaz_021",
       "konu": "namaz",
-      "soru": "Selam hangi hükümdedir?",
-      "secenekler": ["A) Farz", "B) Vacip", "C) Sünnet", "D) Müstehap"],
-      "dogru_cevap": "B",
-      "aciklama": "Selam vacip hükmündedir. Namazı bitirmek için gereklidir ancak farz derecesinde değildir.",
+      "soru": "İftitah tekbirinin (namaza başlangıç tekbirinin) hükmü nedir?",
+      "secenekler": ["A) Sünnet", "B) Vacip", "C) Farz", "D) Müstehap"],
+      "dogru_cevap": "C",
+      "aciklama": "İftitah tekbiri (Allahu Ekber diyerek namaza başlamak) namazın farzlarından biridir. Terk edilirse namaz geçersiz sayılır.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
@@ -449,7 +449,7 @@
       "soru": "Secdede alnın yere değmesi hangi hükümdedir?",
       "secenekler": ["A) Sünnet", "B) Vacip", "C) Farz", "D) Müstehap"],
       "dogru_cevap": "C",
-      "aciklama": "Secdede alnın yere değmesi farzdır. Hanefi mezhebine göre burunun da yere değmesi vaciptir.",
+      "aciklama": "Secdede alnın yere değmesi farzdır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },

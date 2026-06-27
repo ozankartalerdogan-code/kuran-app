@@ -94,6 +94,13 @@
       "baslik": "Özet: Namazda Ne Zaman Ne Okunur?",
       "icerik": "Sadece 1. rekatta:\n• Sübhaneke (sünnet)\n• Euzü-Besmele (sünnet)\n\nHer rekatta:\n• Besmele + Fatiha (farz)\n• İlk 2 rekatta farz namazda: Zamm-ı sure (vacip)\n\nRükûda:\n• Sübhane Rabbiye'l-Azîm — en az 1 kez (sünnet)\n\nRükûdan kalkarken / kavmede:\n• Semi'allahu limen hamideh → Rabbena ve lekel hamd (vacip)\n\nSecdede:\n• Sübhane Rabbiye'l-A'lâ — en az 1 kez (sünnet)\n\nİki secde arasında (celse):\n• Rabbigfirli (sünnet)\n\nHer oturuşta:\n• Tahiyyat (vacip)\n\nSadece son oturuşta:\n• Salli → Barik → Rabbena Atina → Rabbena Ğfirli (sünnet)\n\nVitir 3. rekatında:\n• Kunut duası (vacip)",
       "vurgu": "Farz: Fatiha · Vacip: Tahiyyat, Kavme, Zamm-ı sure · Geri kalanı sünnet"
+    },
+    {
+      "id": "namaz_dualar_k14",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "Namaz dualarıyla ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Kavme zikrinin hükmü: Hanefi'de vacip; diğer üç mezhepte sünnet.\n\n• Kunut duasının yeri: Hanefi'de yalnızca vitir namazının 3. rekatında; Şafii'de sabah namazının son rekatında rükudan sonra; Maliki ve Hanbeli'de vitirde okunur ancak uygulaması farklıdır.",
+      "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
     }
   ],
   "quiz_havuzu_id": "namaz-dualar"
