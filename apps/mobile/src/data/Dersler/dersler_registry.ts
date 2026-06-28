@@ -4,6 +4,9 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Kayit = { id: string; ikon: string; sure: number; kategori: string; ders: any; quiz: any };
 
+// JSON dosyası olmayan, dışarıdan bağlanan kartlar için
+type EkstraKart = { id: string; baslik: string; ikon: string; kartSayisi: number; birim: string; sure: number; route: string };
+
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const KAYITLAR: Kayit[] = [
   { id: "namaz",         ikon: "🕌", sure: 15, kategori: "ibadet",  ders: require("./namaz_dersi.json"),              quiz: require("./namaz_quiz.json") },
@@ -19,24 +22,31 @@ const KAYITLAR: Kayit[] = [
   { id: "zekat",         ikon: "🤲", sure:  7, kategori: "ibadet",  ders: require("./zekat_dersi.json"),               quiz: require("./zekat_quiz.json") },
 ];
 
+const EKSTRA_KARTLAR: EkstraKart[] = [
+  { id: "elifba", baslik: "Elif-Ba", ikon: "🔤", kartSayisi: 9, birim: "ders", sure: 20, route: "/ogren" },
+];
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const DERS_DATA: Record<string, any>    = Object.fromEntries(KAYITLAR.map(k => [k.id, k.ders]));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const QUIZ_MAP: Record<string, any>     = Object.fromEntries(KAYITLAR.map(k => [k.id, k.quiz]));
 export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map(k => [k.id, (k.ders.baslik as string) ?? k.id]));
 
-export const DERSLER_META = KAYITLAR.map(k => ({
-  id:         k.id,
-  baslik:     (k.ders.baslik as string) ?? k.id,
-  ikon:       k.ikon,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  kartSayisi: ((k.ders.kartlar as any[]) ?? []).length,
-  sure:       k.sure,
-}));
+export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayisi: number; birim?: string; sure: number; route?: string }[] = [
+  ...KAYITLAR.map(k => ({
+    id:         k.id,
+    baslik:     (k.ders.baslik as string) ?? k.id,
+    ikon:       k.ikon,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    kartSayisi: ((k.ders.kartlar as any[]) ?? []).length,
+    sure:       k.sure,
+  })),
+  ...EKSTRA_KARTLAR.map(e => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, route: e.route })),
+];
 
 export const KATEGORILER: { label: string; ids: string[] }[] = [
   { label: "Temel İbadetler", ids: ["abdest-gusul", "namaz", "namaz-dualar", "ezan-kamet", "oruc", "zekat", "hac-umre"] },
   { label: "İman & Akaid",    ids: ["iman-esaslari"] },
   { label: "Tarih & Siyer",   ids: ["peygamberler", "siyer"] },
-  { label: "Kur'an & Tecvid", ids: ["tecvid"] },
+  { label: "Kur'an & Elifba", ids: ["tecvid", "elifba"] },
 ];
