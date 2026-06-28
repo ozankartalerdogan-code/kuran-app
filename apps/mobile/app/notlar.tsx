@@ -1,9 +1,9 @@
 import {
-  View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert,
+  View, Text, TouchableOpacity, StyleSheet, Alert,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { FlashList } from "@shopify/flash-list";
+import { useState, useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
-import { useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../src/hooks/useNotes";
 import { api } from "../src/lib/api";
@@ -85,7 +85,7 @@ export default function NotlarScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet detay sayfasının altındaki not alanından not ekleyebilirsiniz.
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/surah")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8}>
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>
@@ -93,10 +93,11 @@ export default function NotlarScreen() {
   }
 
   return (
-    <FlatList
+    <FlashList
       data={noteList}
+      estimatedItemSize={120}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={[styles.list, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}
+      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={[styles.noteCount, { color: c.textMuted }]}>{noteList.length} ayet için not kaydedildi</Text>
@@ -131,10 +132,6 @@ export default function NotlarScreen() {
         );
       }}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      windowSize={5}
-      removeClippedSubviews={true}
     />
   );
 }

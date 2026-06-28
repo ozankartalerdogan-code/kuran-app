@@ -106,7 +106,7 @@
       "id": "tecvid_k15",
       "tip": "metin",
       "baslik": "Lazım, Arız ve Lin Medi",
-      "icerik": "Med-i Lazım (zorunlu med) — med harfinden sonra şeddeli veya cezimli harf gelirse 4 elif uzatılır; bu zorunludur.\n\nMed-i Arız (geçici med) — vakıf (okurken nefes almak için durma) halinde oluşur. Normalde kısa okunan hece, durulunca 2-4 elif uzatılır.\n\nMed-i Lin — Vav veya Ye harfi cezimli, önceki harf üstünlü olduğunda; durulursa 2-4 elif uzatılır. Örnek: خَوْف (havf) kelimesinde vakıf yapılınca.",
+      "icerik": "Med-i Lazım (zorunlu med) — med harfinden sonra şeddeli veya cezimli harf gelirse 6 hareke (3 elif miktarı) uzatılır; bu zorunludur ve tüm med türleri içinde en uzun olanıdır.\n\nMed-i Arız (geçici med) — vakıf (okurken nefes almak için durma) halinde oluşur. Normalde kısa okunan hece, durulunca 2-4 elif uzatılır.\n\nMed-i Lin — Vav veya Ye harfi cezimli, önceki harf üstünlü olduğunda; durulursa 2-4 elif uzatılır. Örnek: خَوْف (havf) kelimesinde vakıf yapılınca.",
       "vurgu": "Lazım → 4 elif zorunlu | Arız → vakıfta 2-4 elif | Lin → özel durumda 2-4 elif"
     },
     {
@@ -141,7 +141,7 @@
       "id": "tecvid_k20",
       "tip": "mezhep",
       "baslik": "Mezhep ve Kıraat Farklılıkları",
-      "icerik": "Tecvid ilminde mezhepler ve kıraat imamları arasında bazı görüş farklılıkları mevcuttur:\n\n• Tecvidin hükmü: Çoğunluğa göre vacip veya farz-ı ayn; bazı alimlere göre farz-ı kifaye. Namazı bozmayacak kadar doğru okumak konusunda ittifak vardır.\n\n• Kıraat farkları: Türkiye'de Âsım kıraatinin Hafs rivayeti kullanılır. Kıraat-i Seb'a (7 kıraat) ve Kıraat-i Aşere (10 kıraat) vardır; hepsi sahihtir ve Hz. Peygamber'e dayanır. Arabistan'da Verş rivayeti yaygındır.\n\n• Med miktarları: Kıraat imamlarına göre med-i munfasılın uzatma süresi 2-5 elif arasında değişebilir; bu bir hata değil, sahih bir farklılıktır.\n\n• Vakıf işaretleri: Secavend işaretlerine uymanın zorunluluğu konusunda alimler arasında görüş farkı vardır.",
+      "icerik": "Tecvid ilminde mezhepler ve kıraat imamları arasında bazı görüş farklılıkları mevcuttur:\n\n• Tecvidin hükmü: Çoğunluğa göre vacip veya farz-ı ayn; bazı alimlere göre farz-ı kifaye. Namazı bozmayacak kadar doğru okumak konusunda ittifak vardır.\n\n• Kıraat farkları: Türkiye'de Âsım kıraatinin Hafs rivayeti kullanılır. Kıraat-i Seb'a (7 kıraat) ve Kıraat-i Aşere (10 kıraat) vardır; hepsi sahihtir ve Hz. Peygamber'e dayanır. Kuzey Afrika'da (Fas, Cezayir, Tunus, Libya) Verş rivayeti yaygındır.\n\n• Med miktarları: Kıraat imamlarına göre med-i munfasılın uzatma süresi 2-5 elif arasında değişebilir; bu bir hata değil, sahih bir farklılıktır.\n\n• Vakıf işaretleri: Secavend işaretlerine uymanın zorunluluğu konusunda alimler arasında görüş farkı vardır.",
       "vurgu": "Hangi kıraatle okunursa okunsun, tüm kıraatler sahihtir ve Kur'an birdir."
     }
   ],

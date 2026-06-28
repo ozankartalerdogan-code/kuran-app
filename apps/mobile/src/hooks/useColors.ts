@@ -52,13 +52,12 @@ function notify() {
   listeners.forEach(fn => fn());
 }
 
-// AsyncStorage'dan kayıtlı temayı UYGULAMA BAŞINA bir kez yükle (her mount'ta değil)
+// MMKV senkron: ilk render'da tema anında okunur, karanlık mod flaşı olmaz
 function ensureLoaded() {
   if (loaded) return;
   loaded = true;
-  storage.getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
-    .then(v => { if (v && v !== override) { override = v; notify(); } })
-    .catch(() => {});
+  const v = storage.getJSONSync<"light" | "dark">(STORAGE_KEYS.nightMode);
+  if (v && v !== override) { override = v; notify(); }
 }
 
 function subscribe(fn: () => void) {

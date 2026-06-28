@@ -1,6 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MMKV } from "react-native-mmkv";
 
-// AsyncStorage tabanlı basit typed storage — @quran-app/storage bağımlılığı olmadan
+const mmkv = new MMKV();
 
 export const STORAGE_KEYS = {
   favorites:       "favoriteVerses",
@@ -15,7 +15,6 @@ export const STORAGE_KEYS = {
   derslerProgress: "derslerProgress",
 } as const;
 
-/** Kota aşımı durumunda fırlatılan özel hata */
 export class StorageQuotaError extends Error {
   constructor(
     message = "Storage quota exceeded",
@@ -24,20 +23,6 @@ export class StorageQuotaError extends Error {
     super(message);
     this.name = "StorageQuotaError";
   }
-}
-
-/** QuotaExceededError benzeri kalıpları yakala */
-function isQuotaError(err: unknown): boolean {
-  if (!(err instanceof Error)) return false;
-  const msg = err.message.toLowerCase();
-  return (
-    msg.includes("quota") ||
-    msg.includes("storage full") ||
-    msg.includes("disk full") ||
-    msg.includes("exceeded") ||
-    msg.includes("no space") ||
-    msg.includes("space left")
-  );
 }
 
 function logStorageWarning(op: string, key: string, err: unknown): void {
@@ -68,42 +53,41 @@ function safeParse<T>(raw: string): T | null {
 }
 
 export const storage = {
-  /** Ham string oku — null döner, hata fırlatmaz */
-  async getString(key: string): Promise<string | null> {
+  // ── Senkron okuma (tema gibi ilk render'da anında çalışır) ──────────────────
+
+  getStringSync(key: string): string | null {
     try {
-      return await AsyncStorage.getItem(key);
+      return mmkv.getString(key) ?? null;
     } catch (err) {
-      logStorageWarning("getItem", key, err);
+      logStorageWarning("getString", key, err);
       return null;
     }
   },
 
-  /** Ham string yaz — QuotaExceeded durumunda StorageQuotaError fırlatır */
+  getJSONSync<T>(key: string, defaultValue: T | null = null): T | null {
+    const raw = this.getStringSync(key);
+    if (!raw) return defaultValue;
+    return safeParse<T>(raw) ?? defaultValue;
+  },
+
+  // ── Async wrapper'lar (mevcut hook'larla geriye dönük uyumlu) ───────────────
+
+  async getString(key: string): Promise<string | null> {
+    return this.getStringSync(key);
+  },
+
   async setString(key: string, value: string): Promise<void> {
     try {
-      await AsyncStorage.setItem(key, value);
+      mmkv.set(key, value);
     } catch (err) {
-      if (isQuotaError(err)) {
-        throw new StorageQuotaError(undefined, key);
-      }
-      logStorageWarning("setItem", key, err);
+      logStorageWarning("setString", key, err);
     }
   },
 
-  /** JSON olarak oku — parse hatasında defaultValue, null hiç yoksa defaultValue döner */
   async getJSON<T>(key: string, defaultValue: T | null = null): Promise<T | null> {
-    try {
-      const val = await AsyncStorage.getItem(key);
-      if (val === null || val === undefined) return defaultValue;
-      const parsed = safeParse<T>(val);
-      return parsed !== null ? parsed : defaultValue;
-    } catch (err) {
-      logStorageWarning("getJSON", key, err);
-      return defaultValue;
-    }
+    return this.getJSONSync(key, defaultValue);
   },
 
-  /** JSON olarak yaz — QuotaExceeded durumunda StorageQuotaError fırlatır, stringify hatasını yutar */
   async setJSON<T>(key: string, value: T): Promise<void> {
     const serialized = safeStringify(value);
     if (serialized === null) {
@@ -111,28 +95,23 @@ export const storage = {
       return;
     }
     try {
-      await AsyncStorage.setItem(key, serialized);
+      mmkv.set(key, serialized);
     } catch (err) {
-      if (isQuotaError(err)) {
-        throw new StorageQuotaError(undefined, key);
-      }
       logStorageWarning("setJSON", key, err);
     }
   },
 
-  /** Anahtar sil */
   async remove(key: string): Promise<void> {
     try {
-      await AsyncStorage.removeItem(key);
+      mmkv.delete(key);
     } catch (err) {
       logStorageWarning("removeItem", key, err);
     }
   },
 
-  /** Birden fazla anahtarı aynı anda sil */
   async removeMany(keys: string[]): Promise<void> {
     try {
-      await AsyncStorage.multiRemove(keys);
+      keys.forEach(k => mmkv.delete(k));
     } catch (err) {
       logStorageWarning("multiRemove", keys.join(","), err);
     }

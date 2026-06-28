@@ -1,7 +1,7 @@
 {
   "ders_id": "namaz-dualar",
   "baslik": "Namaz Duaları",
-  "aciklama": "Namazda okunan tüm dua ve zikirler — Türkçe okunuş, Arapça ve anlamlarıyla.",
+  "aciklama": "Namazda okunan tüm dua ve zikirler — Türkçe okunuş ve anlamlarıyla.",
   "ikon": "📿",
   "kartlar": [
     {
@@ -29,7 +29,7 @@
       "id": "namaz_dualar_k04",
       "tip": "metin",
       "baslik": "Kavme Zikri",
-      "icerik": "Rükûdan kalkarken:\nSemi'allâhü limen hamideh.\n\nAnlamı: Allah, kendisine hamd edeni işitir.\n\nKavmede tam dik durulunca:\nRabbena ve lekel hamd.\n\nAnlamı: Rabbimiz, hamd sana mahsustur.\n\nNe zaman: Rükûdan doğrulurken 'Semi'allahu' denir, tam dik durulunca 'Rabbena ve lekel hamd' okunur.\nHükmü: Vacip",
+      "icerik": "Rükûdan kalkarken:\nSemi'allâhü limen hamideh.\n\nAnlamı: Allah, kendisine hamd edeni işitir.\n\nKavmede tam dik durulunca:\nRabbena ve lekel hamd.\n\nAnlamı: Rabbimiz, hamd sana mahsustur.\n\nNe zaman: Rükûdan doğrulurken 'Semi'allâhü limen hamideh' denir, tam dik durulunca 'Rabbena ve lekel hamd' okunur.\nHükmü: Vacip (Hanefi mezhebine göredir)",
       "vurgu": "Rükûdan kalkarken · Vacip"
     },
     {
@@ -43,7 +43,7 @@
       "id": "namaz_dualar_k06",
       "tip": "metin",
       "baslik": "Celse Zikri",
-      "icerik": "Rabbigfirli.\n\nAnlamı: Rabbim beni bağışla.\n\nNe zaman: İki secde arasındaki kısa oturuşta (celse) okunur.\nHükmü: Sünnet",
+      "icerik": "Rabbigfirli.\n\nAnlamı: Rabbim beni bağışla.\n\nNe zaman: Her rekatta 1. secdeyi yapıp doğrulduktan sonra, 2. secdeye gitmeden önce kısa bir an oturulur — işte bu anda okunur.\nHükmü: Sünnet",
       "vurgu": "İki secde arasında okunur · Sünnet"
     },
     {
@@ -78,14 +78,14 @@
       "id": "namaz_dualar_k11",
       "tip": "metin",
       "baslik": "Kunut Duası",
-      "icerik": "Allâhümme innâ neste'înüke ve nestağfirük. Ve nü'minü bike ve netevekkelü aleyke. Ve nüsnî aleyke'l-hayr. Ve neşküruke ve lâ nekfürük. Ve nahleu ve netrükü men yefcürük. Allâhümme iyyâke na'büdü ve leke nüsallî ve nescüdü. Ve ileyke nes'â ve nahfidü. Nercû rahmeteke ve nahşâ azâbek. İnne azâbeke bi'l-küffâri mülhak.\n\nAnlamı: Allah'ım! Senden yardım ister, senden bağışlanma dileriz. Sana iman eder, sana tevekkül ederiz. Seni hayırla överiz. Sana şükreder, nankörlük etmeyiz. Sana karşı geleni terk ederiz. Allah'ım! Yalnız sana ibadet eder, senin için namaz kılar, secde ederiz. Yalnız sana koşar ve hizmet ederiz. Rahmetini umarız, azabından korkarız. Şüphesiz senin azabın kafirlere ulaşır.\n\nNe zaman: Vitir namazının üçüncü (son) rekatında, zamm-ı sureden sonra rükûya gitmeden önce okunur.\nHükmü: Vacip\nNot: Kunutu henüz bilmiyorsan, ezberleyene kadar 3 kez 'Rabbena Atina' okuyabilirsin.",
+      "icerik": "Allâhümme innâ neste'înüke ve nestağfirük. Ve nü'minü bike ve netevekkelü aleyke. Ve nüsnî aleyke'l-hayr. Ve neşküruke ve lâ nekfürük. Ve nahleu ve netrükü men yefcürük. Allâhümme iyyâke na'büdü ve leke nüsallî ve nescüdü. Ve ileyke nes'â ve nahfidü. Nercû rahmeteke ve nahşâ azâbek. İnne azâbeke bi'l-küffâri mülhak.\n\nAnlamı: Allah'ım! Senden yardım ister, senden bağışlanma dileriz. Sana iman eder, sana tevekkül ederiz. Seni hayırla överiz. Sana şükreder, nankörlük etmeyiz. Sana karşı geleni terk ederiz. Allah'ım! Yalnız sana ibadet eder, senin için namaz kılar, secde ederiz. Yalnız sana koşar ve hizmet ederiz. Rahmetini umarız, azabından korkarız. Şüphesiz senin azabın kafirlere ulaşır.\n\nNe zaman: Vitir namazının üçüncü (son) rekatında, zamm-ı sureden sonra rükûya gitmeden önce okunur.\nHükmü: Vacip (Hanefi mezhebine göredir)\nNot: Kunutu henüz bilmiyorsan, ezberleyene kadar 3 kez 'Rabbena Atina' okuyabilirsin.",
       "vurgu": "Vitir namazında 3. rekatta · Rükûdan önce · Vacip"
     },
     {
       "id": "namaz_dualar_k12",
       "tip": "metin",
       "baslik": "Namaz Sonrası Zikirler",
-      "icerik": "Selam verildikten sonra:\n\nSübhânallah — Allah'ı tenzih ederim (33 kez)\nElhamdülillah — Hamd Allah'a mahsustur (33 kez)\nAllâhü Ekber — Allah en büyüktür (33 kez)\n\nArdından:\nLâ ilâhe illallâhü vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü ve hüve alâ külli şey'in kadîr.\n\nAnlamı: Allah'tan başka ilah yoktur, O tektir, ortağı yoktur. Mülk O'nundur, hamd O'nadır ve O her şeye kadirdir.\n\nKaynak: Buhari, Ezan 155; Müslim, Mesacid 144",
+      "icerik": "Selam verildikten sonra:\n\nSübhânallah — Allah'ı tenzih ederim (33 kez)\nElhamdülillah — Hamd Allah'a mahsustur (33 kez)\nAllâhü Ekber — Allah en büyüktür (33 kez)\n\nArdından (1 kez):\nLâ ilâhe illallâhü vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü ve hüve alâ külli şey'in kadîr.\n\nAnlamı: Allah'tan başka ilah yoktur, O tektir, ortağı yoktur. Mülk O'nundur, hamd O'nadır ve O her şeye kadirdir.\n\nKaynak: Buhari, Ezan 155; Müslim, Mesacid 144",
       "vurgu": "Sübhanallah 33 · Elhamdülillah 33 · Allahu Ekber 33"
     },
     {

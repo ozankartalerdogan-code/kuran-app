@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View, Text, TouchableOpacity, ScrollView, Modal,
   ActivityIndicator, StyleSheet,
 } from "react-native";
+import { useQuery } from "@tanstack/react-query";
 import { router, Stack, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
@@ -201,21 +202,15 @@ export default function OgrenScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const [tab, setTab]               = useState<TabKey>("elifba");
-  const [dersler, setDersler]       = useState<ElifbaDers[]>([]);
-  const [loading, setLoading]       = useState(true);
+  const { data: dersler = [], isLoading: loading, isError: error, refetch: loadDersler } = useQuery({
+    queryKey: ["elifba-dersler"],
+    queryFn: () => api.elifba.dersler(),
+    staleTime: 60 * 60 * 1000,
+  });
+
   const [progress, setProgress]     = useState<Record<string, number[]>>({});
   const [quizScores, setQuizScores] = useState<Record<string, QuizScore>>({});
   const [popupId, setPopupId]       = useState<number | null>(null);
-  const [error, setError]           = useState(false);
-
-  const loadDersler = useCallback(() => {
-    setLoading(true);
-    setError(false);
-    api.elifba.dersler()
-      .then(setDersler)
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, []);
 
   const loadProgress = useCallback(() => {
     storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
@@ -224,7 +219,6 @@ export default function OgrenScreen() {
       .then(q => setQuizScores(q ?? {})).catch(() => {});
   }, []);
 
-  useEffect(() => { loadDersler(); }, [loadDersler]);
   useFocusEffect(loadProgress);
 
   const statuses = dersler.map((d, i) => getStatus(d, i, dersler, progress, quizScores));

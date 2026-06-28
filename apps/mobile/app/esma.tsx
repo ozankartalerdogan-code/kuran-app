@@ -1,7 +1,8 @@
 import { useMemo, useState, useCallback } from "react";
 import {
-  View, Text, FlatList, TextInput, StyleSheet,
+  View, Text, TextInput, StyleSheet,
 } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
@@ -62,8 +63,9 @@ export default function EsmaScreen() {
           autoCorrect={false}
         />
 
-        <FlatList
+        <FlashList
           data={data}
+          estimatedItemSize={80}
           keyExtractor={(e) => String(e.sira)}
           renderItem={renderItem}
           contentContainerStyle={s.listContent}

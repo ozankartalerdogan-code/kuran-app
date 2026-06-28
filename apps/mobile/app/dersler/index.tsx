@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 import { Stack, router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
@@ -132,12 +133,13 @@ export default function DerslerScreen() {
           {footer}
         </ScrollView>
       ) : (
-        <FlatList
+        <FlashList
           data={sortedData}
           numColumns={2}
+          estimatedItemSize={130}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
+          contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={footer}
         />

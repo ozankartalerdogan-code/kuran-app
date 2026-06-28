@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ScrollView, Image, Dimensions, PanResponder, Animated,
+  ScrollView, Image, Dimensions, PanResponder,
 } from "react-native";
+import Animated, {
+  useSharedValue, withTiming, useAnimatedStyle, runOnJS,
+} from "react-native-reanimated";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
@@ -66,10 +69,12 @@ function normalizeQuizSorular(raw: any[]): QuizSoru[] {
     soru:     r.soru,
     dogru:    r.dogru_cevap,
     aciklama: r.aciklama ?? "",
-    cevaplar: ((r.secenekler ?? []) as string[]).map(s => {
-      const sep = s.indexOf(") ");
-      return { harf: s.charAt(0), metin: sep >= 0 ? s.slice(sep + 2) : s };
-    }),
+    cevaplar: Array.isArray(r.secenekler)
+      ? (r.secenekler as string[]).map(s => {
+          const sep = s.indexOf(") ");
+          return { harf: s.charAt(0), metin: sep >= 0 ? s.slice(sep + 2) : s };
+        })
+      : Object.entries(r.secenekler ?? {}).map(([harf, metin]) => ({ harf, metin: metin as string })),
   }));
 }
 
@@ -137,7 +142,8 @@ export default function DersDetayScreen() {
   const [quizFinished, setQuizFinished]             = useState(false);
   const [wrongAnswers, setWrongAnswers]             = useState<QuizSoru[]>([]);
   const [showCelebration, setShowCelebration]       = useState(false);
-  const quizOpacity = useRef(new Animated.Value(1)).current;
+  const quizOpacity  = useSharedValue(1);
+  const quizAnimStyle = useAnimatedStyle(() => ({ opacity: quizOpacity.value }));
 
   const dersKey  = dersId ?? "";
   const dersData = DERS_DATA[dersKey];
@@ -200,6 +206,7 @@ export default function DersDetayScreen() {
     setScore(0);
     setQuizFinished(false);
     setWrongAnswers([]);
+    setReadMode(false);
     setQuizMode(true);
   };
 
@@ -219,16 +226,18 @@ export default function DersDetayScreen() {
   const nextQuestion = () => {
     Haptics.selectionAsync();
     if (qIndex + 1 >= quizQuestions.length) {
-      const finalScore = score + (selectedAnswer === quizQuestions[qIndex].dogru ? 1 : 0);
-      if (finalScore >= 7) setShowCelebration(true);
+      if (score >= 7) setShowCelebration(true);
       setQuizBitti(dersKey);
       setQuizFinished(true);
     } else {
-      Animated.timing(quizOpacity, { toValue: 0, duration: 150, useNativeDriver: true }).start(() => {
-        setQIndex(prev => prev + 1);
-        setSelectedAnswer(null);
-        setShowResult(false);
-        Animated.timing(quizOpacity, { toValue: 1, duration: 180, useNativeDriver: true }).start();
+      quizOpacity.value = withTiming(0, { duration: 150 }, (finished) => {
+        'worklet';
+        if (finished) {
+          runOnJS(setQIndex)((prev: number) => prev + 1);
+          runOnJS(setSelectedAnswer)(null);
+          runOnJS(setShowResult)(false);
+          quizOpacity.value = withTiming(1, { duration: 180 });
+        }
       });
     }
   };
@@ -433,7 +442,7 @@ export default function DersDetayScreen() {
         </View>
 
         {/* Soru kartı + şıklar — fade animasyonlu */}
-        <Animated.View style={{ flex: 1, opacity: quizOpacity }}>
+        <Animated.View style={[{ flex: 1 }, quizAnimStyle]}>
         <View style={s.scrollContent}>
           <View style={s.questionCard}>
             <Text style={s.questionText}>{question.soru}</Text>

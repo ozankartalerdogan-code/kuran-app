@@ -15,7 +15,7 @@
       "id": "zekat_k02",
       "tip": "metin",
       "baslik": "Zekatın Farz Olmasının Şartları",
-      "icerik": "Zekatın bir kişiye farz olabilmesi için şu yedi şart gerekir:\n\n1. Müslüman olmak\n2. Akıl sağlığı yerinde olmak\n3. Ergenlik çağına gelmiş olmak\n4. Nisap miktarı mala sahip olmak\n5. Malın nâmî (artıcı, büyüyen mal) özellikte olması\n6. Borç ve temel ihtiyaçlardan fazla olması\n7. Havelânü'l-havl (malın üzerinden bir kamerî yılın geçmesi şartı)",
+      "icerik": "Zekatın bir kişiye farz olabilmesi için şu yedi şart gerekir:\n\n1. Müslüman olmak\n2. Akıl sağlığı yerinde olmak\n3. Ergenlik çağına gelmiş olmak\n4. Nisap miktarı mala sahip olmak\n5. Malın nâmî (artıcı, büyüyen mal) özellikte olması\n6. Borçlardan fazla olması — Hanefi'ye göre borçlar nisap hesabından düşülür\n7. Havelânü'l-havl (malın üzerinden bir kamerî yılın geçmesi şartı)",
       "vurgu": "Bu 7 şart bir arada bulunmadıkça zekat farz olmaz."
     },
     {
@@ -29,7 +29,7 @@
       "id": "zekat_k04",
       "tip": "metin",
       "baslik": "Zekat Oranı — %2,5",
-      "icerik": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta birdir (%2,5). Yani 100.000 liranın zekatı 2.500 liradır.\n\nBorçlar düşüldükten, temel ihtiyaçlar çıkarıldıktan sonra kalan miktarın %2,5'i verilir.\n\nZekat vermenin belli bir zamanı yoktur; nisap ve havelânü'l-havl şartı dolduğu andan itibaren verilmesi gerekir.",
+      "icerik": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta birdir (%2,5). Yani 100.000 liranın zekatı 2.500 liradır.\n\nNisap miktarı ve üzerinde mala sahip olan kişi bu malın %2,5'ini zekat olarak verir. Ev, araç, iş aleti gibi muaf varlıklar nisap hesabına dahil edilmez (bkz. Zekata Tabi Mallar kartı).\n\nZekat vermenin belli bir zamanı yoktur; nisap ve havelânü'l-havl şartı dolduğu andan itibaren verilmesi gerekir.",
       "vurgu": "Kırkta bir (%2,5) — Altın, gümüş, para, ticaret malları"
     },
     {

@@ -21,6 +21,11 @@
           "aciklama": "Olayın kendisi gerçek ama tarihi veya o geceye özel ibadetler konusunda alimler arasında ihtilaf var, bazı hadisler zayıf."
         },
         {
+          "kod": "zayif",
+          "etiket": "🔶 Zayıf Rivayet",
+          "aciklama": "Hadis var ancak zayıf; amel etmek caizdir, inanç meselesi yapılmamalı."
+        },
+        {
           "kod": "kulturel",
           "etiket": "ℹ️ Kültürel Gelenek",
           "aciklama": "Dini bir emir veya sahih hadis dayanağı yok, zamanla oluşmuş kültürel bir gelenek."
@@ -372,7 +377,7 @@
         "dayanak_aciklama": "Bayram gecelerini ihya etmeye dair İbn Mace'deki rivayet zayıf, bazı alimlere göre mevzudur (Elbani: mevzu). Bayram namazı ve tekbirler sahih hadislerle sabittir; gecenin ihyasına dair özel rivayet ise zayıftır.",
         "kuran_referansi": null,
         "hicri_tarih": "Ramazan Bayramı: Şevval'in 1. gecesi — Kurban Bayramı: Zilhicce'nin 10. gecesi",
-        "onem": "Hz. Peygamber 'Beş gece vardır ki dualar reddedilmez: Recep'in ilk Cuma gecesi, Şaban'ın ortası, Cuma gecesi, Ramazan Bayramı gecesi ve Kurban Bayramı gecesi' buyurmuştur.",
+        "onem": "Zayıf bir rivayette beş gecede duaların reddedilmeyeceği bildirilmiştir; bu geceler arasında Ramazan ve Kurban Bayramı geceleri de sayılmaktadır. Bayram geceleri, bir aylık orucun ve hac mevsiminin tamamlanmasının şükür ve sevincini taşır.",
         "tarihsel_bilgi": "Bayram geceleri ibadetle ihya edilmesi tavsiye edilen gecelerdir. Ramazan Bayramı bir aylık orucun, Kurban Bayramı ise hac mevsiminin tamamlanmasının şükür ve sevincini taşır.",
         "ibadetler": [
           {
@@ -384,7 +389,7 @@
           {
             "isim": "Bayram Namazı",
             "durum": "vacip",
-            "aciklama": "Bayramın sabahında kılınan bayram namazı vaciptir. Tekbirlerle kılınır, ardından imam hutbe okur.",
+            "aciklama": "Bayramın sabahında kılınan bayram namazı Hanefi'ye göre vacip, diğer mezheplere göre sünnet-i müekkede. Tekbirlerle kılınır, ardından imam hutbe okur.",
             "hadis_kaynagi": "Buhari, Müslim (sahih)"
           },
           {

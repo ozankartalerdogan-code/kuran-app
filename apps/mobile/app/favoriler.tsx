@@ -1,8 +1,10 @@
 import {
-  View, Text, FlatList, TouchableOpacity,
-  ActivityIndicator, StyleSheet, Alert,
+  View, Text, TouchableOpacity,
+  StyleSheet, Alert,
 } from "react-native";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { FlashList } from "@shopify/flash-list";
 import { router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
@@ -15,24 +17,15 @@ export default function FavorilerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { favorites, loaded, toggle, clearAll, refresh } = useFavorites();
-  const [verses, setVerses]   = useState<FavoriteVerse[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  // Her odaklanmada storage'dan yeniden yükle — başka ekranda (ayet sayfası)
-  // eklenen/silinen favori burada da görünsün (eskiden yenilenmiyordu).
   useFocusEffect(useCallback(() => { refresh(); }, [refresh]));
 
-  const fetchVerses = useCallback(async (keys: string[]) => {
-    if (keys.length === 0) { setVerses([]); return; }
-    setLoading(true);
-    try   { setVerses(await api.favorites.fetch(keys)); }
-    catch { setVerses([]); }
-    finally { setLoading(false); }
-  }, []);
-
-  useFocusEffect(useCallback(() => {
-    if (loaded) fetchVerses(favorites);
-  }, [loaded, favorites, fetchVerses]));
+  const { data: verses = [], isLoading: loading } = useQuery({
+    queryKey: ["favorite-verses", favorites],
+    queryFn: () => api.favorites.fetch(favorites),
+    enabled: loaded && favorites.length > 0,
+    staleTime: 2 * 60 * 1000,
+  });
 
   function handleClearAll() {
     Alert.alert("Tümünü Temizle", "Tüm favori ayetleri kaldırmak istediğinize emin misiniz?", [
@@ -113,7 +106,7 @@ export default function FavorilerScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet sayfasındaki 🤍 butonuna dokunarak favori ekleyebilirsin.
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/surah")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8}>
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>
@@ -121,10 +114,11 @@ export default function FavorilerScreen() {
   }
 
   return (
-    <FlatList
+    <FlashList
       data={verses}
+      estimatedItemSize={140}
       keyExtractor={(v) => v.verse_key}
-      contentContainerStyle={[styles.list, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}
+      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={styles.count}>{verses.length} ayet kaydedildi</Text>
@@ -135,10 +129,6 @@ export default function FavorilerScreen() {
       }
       renderItem={renderItem}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      windowSize={5}
-      removeClippedSubviews={true}
     />
   );
 }

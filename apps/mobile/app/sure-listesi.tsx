@@ -1,7 +1,8 @@
 import {
-  FlatList, View, Text, TouchableOpacity,
+  View, Text, TouchableOpacity,
   TextInput, ActivityIndicator, StyleSheet,
 } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -152,15 +153,13 @@ export default function SureListesiScreen() {
           ))}
         </View>
       </View>
-      <FlatList
+      <FlashList
         data={filtered}
+        estimatedItemSize={60}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
         contentContainerStyle={[styles.listContent, { paddingBottom: 20 + insets.bottom }]}
-        initialNumToRender={20}
-        maxToRenderPerBatch={20}
-        windowSize={10}
         ListEmptyComponent={
           <View style={styles.emptyState}>
             <Text style={[styles.emptyText, { color: c.textSecondary }]}>Sonuç bulunamadı</Text>

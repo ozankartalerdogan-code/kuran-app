@@ -22,7 +22,7 @@
       "id": "namaz_k03",
       "tip": "metin",
       "baslik": "Beş Vakit Namaz",
-      "icerik": "Günde beş vakit namaz kılmak farzdır:\n\n• Sabah (Fecir) — şafaktan güneş doğuşuna kadar\n• Öğle (Zuhr) — güneşin tepeden geçmesinden sonra\n• İkindi (Asr) — öğleden akşama kadar\n• Akşam (Mağrib) — güneş batışından sonra\n• Yatsı (İşa) — akşamdan gece ortasına kadar",
+      "icerik": "Günde beş vakit namaz kılmak farzdır:\n\n• Sabah (Fecir) — şafaktan güneş doğuşuna kadar\n• Öğle (Zuhr) — güneşin tepeden geçmesinden sonra\n• İkindi (Asr) — öğleden akşama kadar\n• Akşam (Mağrib) — güneş batışından sonra\n• Yatsı (İşa) — akşamdan fecre kadar (gece ortasından sonra kılmak mekruhtur)",
       "vurgu": "Sabah · Öğle · İkindi · Akşam · Yatsı"
     },
     {
@@ -114,7 +114,7 @@
       "id": "namaz_k15",
       "tip": "metin",
       "baslik": "Namazı Bozan Şeyler",
-      "icerik": "Şu durumlar namazı bozar:\n\n• Konuşmak veya ses çıkarmak\n• Abdestin bozulması\n• Kıbleden dönmek\n• Yemek veya içmek\n• Sesli gülmek/ağlamak — başkasının duyabileceği kadar (tebessüm bozmaz)\n• Namazla ilgisiz çok hareket etmek\n• Niyeti bozmak\n\nBu durumlardan biri olursa namaz yeniden kılınır.",
+      "icerik": "Şu durumlar namazı bozar:\n\n• Konuşmak veya ses çıkarmak\n• Abdestin bozulması\n• Kıbleden dönmek\n• Yemek veya içmek\n• Sesli gülmek — başkasının duyabileceği kadar (tebessüm bozmaz)\n• Dünyevi bir sebepten sesli ağlamak (ahiret/Allah korkusundan ağlamak namazı bozmaz)\n• Namazla ilgisiz çok hareket etmek\n• Niyeti bozmak\n\nBu durumlardan biri olursa namaz yeniden kılınır.",
       "vurgu": "Namaz bozulursa baştan kılınır"
     },
     {
@@ -170,7 +170,7 @@
       "id": "namaz_k23",
       "tip": "metin",
       "baslik": "Cemaatle Namaz",
-      "icerik": "Hz. Peygamber: \"Cemaatle kılınan namaz, yalnız kılınan namazdan 27 derece üstündür.\" (Buhari, Ezan 30; Müslim, Mesacid 249)\n\n• Cemaatle namaz kılmak erkekler için kuvvetli sünnettir.\n• İmama uymak: imam rükûya gitmeden önce yetişilirse o rekata yetişilmiş sayılır.\n• Cemaat namazda zamm-ı sure sessiz okunur, imam sesli okur.",
+      "icerik": "Hz. Peygamber: \"Cemaatle kılınan namaz, yalnız kılınan namazdan 27 derece üstündür.\" (Buhari, Ezan 30; Müslim, Mesacid 249)\n\n• Cemaatle namaz kılmak erkekler için kuvvetli sünnettir.\n• İmama uymak: imam rükûdan kalkmadan önce rükûya yetişilirse o rekâta yetişilmiş sayılır.\n• Cemaat namazda zamm-ı sure sessiz okunur, imam sesli okur.",
       "vurgu": "Cemaat 27 derece — Buhari ve Müslim"
     },
     {

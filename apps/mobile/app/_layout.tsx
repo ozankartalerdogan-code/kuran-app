@@ -1,7 +1,8 @@
 import * as Sentry from '@sentry/react-native';
 import { Stack, router } from "expo-router";
 import { maybeAskReview } from '../src/hooks/useStoreReview';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage, STORAGE_KEYS } from '../src/lib/storage';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
@@ -71,7 +72,7 @@ function AppContent() {
   // Stack mount'tan SONRA çalışmalı — burada güvenli
   useEffect(() => {
     async function checkOnboarding() {
-      const completed = await AsyncStorage.getItem("onboarding_completed");
+      const completed = await storage.getString("onboarding_completed");
       if (!completed) router.replace("/onboarding");
     }
     checkOnboarding();
@@ -104,8 +105,7 @@ function AppContent() {
         <Stack.Screen name="peygamber-kissalari"                  options={{ title: "Peygamber Kıssaları", headerBackTitle: "Geri" }} />
         <Stack.Screen name="mubarek-gunler"                       options={{ title: "Mübarek Gün ve Geceler", headerBackTitle: "Geri" }} />
         <Stack.Screen name="hadisler"                             options={{ title: "Hadisler", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="favorilerim"                           options={{ title: "Favorilerim", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="notlarim"                             options={{ title: "Notlarım", headerBackTitle: "Geri" }} />
+
         <Stack.Screen name="sure-listesi"                         options={{ title: "Sure Listesi", headerBackTitle: "Geri" }} />
         <Stack.Screen name="surah-list"                          options={{ headerShown: false }} />
         <Stack.Screen name="favoriler"                           options={{ headerShown: false }} />
@@ -173,10 +173,22 @@ function RootLayout() {
   if (!ready) return <AppSplash onFinish={handleSplashFinish} />;
 
   return (
-    <ErrorBoundary>
-      <AppContent />
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <AppContent />
+      </ErrorBoundary>
+    </QueryClientProvider>
   );
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      retry: 2,
+      gcTime: 30 * 60 * 1000,
+    },
+  },
+});
 
 export default Sentry.wrap(RootLayout);

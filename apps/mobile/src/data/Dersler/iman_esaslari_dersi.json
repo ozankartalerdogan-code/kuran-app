@@ -57,8 +57,8 @@
       "id": "iman_k08",
       "tip": "metin",
       "baslik": "Suhuf (Sahifeler)",
-      "icerik": "Büyük kitaplar dışında bazı peygamberlere daha küçük sayfalar/kitapçıklar verilmiştir. Bu sayfalara suhuf (çoğulu sahifeler) denir.\n\nSuhuf alan peygamberler:\n• Hz. Adem'e 10 sahife\n• Hz. Şit'e 50 sahife\n• Hz. İdris'e 30 sahife\n• Hz. İbrahim'e 10 sahife\n\nBu sahifeler büyük kitapların öncülü niteliğindedir. Günümüze özgün haliyle ulaşmamıştır.",
-      "vurgu": "Suhuf: Adem 10 · Şit 50 · İdris 30 · İbrahim 10 sayfa"
+      "icerik": "Büyük kitaplar dışında bazı peygamberlere daha küçük sayfalar/kitapçıklar verilmiştir. Bu sayfalara suhuf (çoğulu sahifeler) denir.\n\nSuhuf alan peygamberler:\n• Hz. Şit'e 50 sahife\n• Hz. İdris'e 30 sahife\n• Hz. İbrahim'e 10 sahife\n• Hz. Musa'ya 10 sahife (Tevrat'tan önce)\n\nBu sahifeler büyük kitapların öncülü niteliğindedir. Günümüze özgün haliyle ulaşmamıştır.",
+      "vurgu": "Suhuf: Şit 50 · İdris 30 · İbrahim 10 · Musa 10 sayfa"
     },
     {
       "id": "iman_k09",
@@ -71,7 +71,7 @@
       "id": "iman_k10",
       "tip": "metin",
       "baslik": "Nebi ve Resul Farkı",
-      "icerik": "Peygamberler iki grupta incelenir:\n\nNebi: Kendisine vahiy gelen, ancak yeni bir şeriat getirmeyen peygamber. Önceki şeriata uyarak tebliğ görevini sürdürür.\n\nResul: Kendisine yeni bir şeriat ve kitap verilen peygamber. Tebliğ görevini yeni kurallarla yürütür.\n\nTemel kural:\n• Her resul aynı zamanda nebidir\n• Ancak her nebi resul değildir\n• Resul sayısı daha az, nebi sayısı daha fazladır",
+      "icerik": "Peygamberler iki grupta incelenir:\n\nNebi: Kendisine vahiy gelen, ancak yeni bir şeriat getirmeyen peygamber. Önceki şeriata uyarak tebliğ görevini sürdürür.\n\nResul: Kendisine yeni bir şeriat getirilen peygamber. Tebliğ görevini yeni kurallarla yürütür.\n\nTemel kural:\n• Her resul aynı zamanda nebidir\n• Ancak her nebi resul değildir\n• Resul sayısı daha az, nebi sayısı daha fazladır",
       "vurgu": "Her resul nebidir · Ama her nebi resul değildir"
     },
     {

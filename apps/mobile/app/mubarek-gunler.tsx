@@ -37,10 +37,11 @@ const DAYANAK: Record<string, { label: string; bg: string; border: string; text:
 };
 
 const IBADET_DURUM: Record<string, { bg: string; text: string; label: string }> = {
-  farz:   { bg: "#fef2f2", text: "#b91c1c", label: "FARZ"   },
-  vacip:  { bg: "#fff7ed", text: "#c2410c", label: "VACİP"  },
-  sunnet: { bg: "#f0fdf4", text: "#15803d", label: "SÜNNET" },
+  farz:     { bg: "#fef2f2", text: "#b91c1c", label: "FARZ"     },
+  vacip:    { bg: "#fff7ed", text: "#c2410c", label: "VACİP"    },
+  sunnet:   { bg: "#f0fdf4", text: "#15803d", label: "SÜNNET"   },
   mustehap: { bg: "#eff6ff", text: "#1d4ed8", label: "MÜSTEHAP" },
+  tavsiye:  { bg: "#f5f3ff", text: "#6d28d9", label: "TAVSİYE"  },
 };
 
 const TIP_EMOJI: Record<string, string> = {

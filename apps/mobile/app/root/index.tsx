@@ -3,9 +3,10 @@
  * 200 en çok geçen Arapça kök, arama + sıralama.
  */
 import {
-  View, Text, TextInput, FlatList, TouchableOpacity,
+  View, Text, TextInput, TouchableOpacity,
   ActivityIndicator, StyleSheet,
 } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
@@ -143,14 +144,11 @@ export default function RootListScreen() {
         </View>
 
         {/* Liste */}
-        <FlatList
+        <FlashList
           data={filtered}
+          estimatedItemSize={56}
           keyExtractor={item => item.root}
           contentContainerStyle={s.list}
-          initialNumToRender={15}
-          maxToRenderPerBatch={10}
-          windowSize={5}
-          removeClippedSubviews
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <View style={s.centered}>
