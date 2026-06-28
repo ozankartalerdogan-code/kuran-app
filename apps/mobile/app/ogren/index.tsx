@@ -8,6 +8,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { HarfITarifContent } from "../../src/components/HarfITarifContent";
+
+type TabKey = "elifba" | "harfi-tarif";
+const TABS: { key: TabKey; label: string }[] = [
+  { key: "elifba",      label: "Elif-Ba" },
+  { key: "harfi-tarif", label: "Harf-i Tarif" },
+];
 
 const QUIZ_PASS = 10; // 15 sorudan
 const NODE_W   = 72;
@@ -200,6 +207,7 @@ function VLineRow({ side, color }: { side: "left" | "right"; color: string }) {
 export default function OgrenScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const [tab, setTab]               = useState<TabKey>("elifba");
   const [dersler, setDersler]       = useState<ElifbaDers[]>([]);
   const [loading, setLoading]       = useState(true);
   const [progress, setProgress]     = useState<Record<string, number[]>>({});
@@ -227,7 +235,7 @@ export default function OgrenScreen() {
   if (loading) {
     return (
       <View style={s.centered}>
-        <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
+        <Stack.Screen options={{ title: "Elifba" }} />
         <ActivityIndicator size="large" color="#059669" />
       </View>
     );
@@ -237,7 +245,7 @@ export default function OgrenScreen() {
   if (error || dersler.length === 0) {
     return (
       <View style={s.centered}>
-        <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
+        <Stack.Screen options={{ title: "Elifba" }} />
         <Text style={[s.errEmoji]}>📚</Text>
         <Text style={[s.errText, { color: c.text }]}>
           {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
@@ -289,75 +297,89 @@ export default function OgrenScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
-      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}>
+      <Stack.Screen options={{ title: "Elifba" }} />
+      <View style={{ flex: 1, backgroundColor: c.bg }}>
 
-        {/* Genel ilerleme */}
-        <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
-            <Text style={[s.overallTitle, { color: c.text }]}>🏆 İlerleme</Text>
-            <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
-          </View>
-          <View style={s.overallBar}>
-            <View style={[s.overallFill, { width: `${overallPct}%` as any }]} />
-          </View>
-          {overallPct === 100 && (
-            <Text style={s.overallDone}>🎉 Tüm dersler tamamlandı!</Text>
-          )}
+        {/* Üst sekme bar */}
+        <View style={[s.tabRow, { paddingTop: insets.top, borderBottomColor: c.border }]}>
+          {TABS.map(t => {
+            const active = tab === t.key;
+            return (
+              <TouchableOpacity
+                key={t.key}
+                style={[s.tabBtn, active && s.tabBtnActive]}
+                onPress={() => setTab(t.key)}
+                activeOpacity={0.7}
+              >
+                <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>{t.label}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
-        {/* Bonus konu: Harf-i Tarif (Şemsiye/Kameriye) */}
-        <TouchableOpacity
-          activeOpacity={0.85}
-          onPress={() => router.push("/ogren/harf-i-tarif")}
-          style={[s.bonusCard, { borderColor: c.border }]}
-        >
-          <Text style={{ fontSize: 26 }}>☀️🌙</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={[s.bonusTitle, { color: c.text }]}>Harf-i Tarif</Text>
-            <Text style={[s.bonusSub, { color: c.textMuted }]}>
-              Şemsiye / Kameriye harfler — &apos;el-&apos; neden er-, es- olur? 25 soruluk test.
-            </Text>
-          </View>
-          <Text style={{ color: c.accent, fontSize: 18 }}>→</Text>
-        </TouchableOpacity>
+        {/* Elif-Ba içeriği */}
+        {tab === "elifba" && (
+          <>
+            <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}>
 
-        {/* Yol haritası */}
-        <View style={s.path}>
-          {row1.length > 0 && renderRow(row1)}
-          {row2.length > 0 && (
-            <VLineRow side="right" color={statuses[2] === "completed" ? "#059669" : "#e5e7eb"} />
-          )}
-          {row2.length > 0 && renderRow(row2)}
-          {row3.length > 0 && (
-            <VLineRow side="left" color={statuses[5] === "completed" ? "#059669" : "#e5e7eb"} />
-          )}
-          {row3.length > 0 && renderRow(row3)}
-        </View>
+              {/* Genel ilerleme */}
+              <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
+                  <Text style={[s.overallTitle, { color: c.text }]}>🏆 İlerleme</Text>
+                  <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
+                </View>
+                <View style={s.overallBar}>
+                  <View style={[s.overallFill, { width: `${overallPct}%` as any }]} />
+                </View>
+                {overallPct === 100 && (
+                  <Text style={s.overallDone}>🎉 Tüm dersler tamamlandı!</Text>
+                )}
+              </View>
 
-      </ScrollView>
+              {/* Yol haritası */}
+              <View style={s.path}>
+                {row1.length > 0 && renderRow(row1)}
+                {row2.length > 0 && (
+                  <VLineRow side="right" color={statuses[2] === "completed" ? "#059669" : "#e5e7eb"} />
+                )}
+                {row2.length > 0 && renderRow(row2)}
+                {row3.length > 0 && (
+                  <VLineRow side="left" color={statuses[5] === "completed" ? "#059669" : "#e5e7eb"} />
+                )}
+                {row3.length > 0 && renderRow(row3)}
+              </View>
 
-      {/* Ders popup */}
-      {popupDers && (
-        <LessonPopup
-          ders={popupDers}
-          status={statuses[dersler.indexOf(popupDers)]}
-          seenCount={progress[String(popupDers.id)]?.length ?? 0}
-          quizScore={quizScores[String(popupDers.id)] ?? null}
-          onClose={() => setPopupId(null)}
-          onFlashcard={() => {
-            setPopupId(null);
-            router.push(`/ogren/${popupDers.id}`);
-          }}
-          onQuiz={() => {
-            setPopupId(null);
-            router.push({
-              pathname: "/ogren/[dersId]",
-              params: { dersId: String(popupDers.id), mode: "quiz" },
-            });
-          }}
-        />
-      )}
+            </ScrollView>
+
+            {/* Ders popup */}
+            {popupDers && (
+              <LessonPopup
+                ders={popupDers}
+                status={statuses[dersler.indexOf(popupDers)]}
+                seenCount={progress[String(popupDers.id)]?.length ?? 0}
+                quizScore={quizScores[String(popupDers.id)] ?? null}
+                onClose={() => setPopupId(null)}
+                onFlashcard={() => {
+                  setPopupId(null);
+                  router.push(`/ogren/${popupDers.id}`);
+                }}
+                onQuiz={() => {
+                  setPopupId(null);
+                  router.push({
+                    pathname: "/ogren/[dersId]",
+                    params: { dersId: String(popupDers.id), mode: "quiz" },
+                  });
+                }}
+              />
+            )}
+          </>
+        )}
+
+        {/* Harf-i Tarif içeriği */}
+        {tab === "harfi-tarif" && (
+          <HarfITarifContent paddingTop={16} paddingBottom={insets.bottom + 40} />
+        )}
+      </View>
     </>
   );
 }
@@ -365,6 +387,10 @@ export default function OgrenScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
+  tabRow:      { flexDirection: "row", borderBottomWidth: 1 },
+  tabBtn:      { flex: 1, paddingVertical: 12, alignItems: "center" },
+  tabBtnActive:{ borderBottomWidth: 2, borderBottomColor: "#c9a84c" },
+  tabText:     { fontSize: 14, fontWeight: "700" },
   centered:    { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#f5f0e8", padding: 24 },
   errEmoji:    { fontSize: 40, marginBottom: 12 },
   errText:     { fontSize: 15, lineHeight: 22, color: "#1c1917", textAlign: "center", marginBottom: 20 },
@@ -381,13 +407,6 @@ const s = StyleSheet.create({
   overallBar:   { height: 10, backgroundColor: "#f5f0e8", borderRadius: 5, overflow: "hidden" },
   overallFill:  { height: "100%", backgroundColor: "#059669", borderRadius: 5 },
   overallDone:  { textAlign: "center", fontSize: 12, fontWeight: "700", color: "#059669", marginTop: 6 },
-  bonusCard: {
-    flexDirection: "row", alignItems: "center", gap: 12,
-    borderWidth: 1, borderRadius: 16, paddingHorizontal: 16, paddingVertical: 14,
-    marginBottom: 14, backgroundColor: "#eef2ff",
-  },
-  bonusTitle: { fontSize: 14, fontWeight: "700" },
-  bonusSub:   { fontSize: 11.5, marginTop: 2, lineHeight: 16 },
   path:  { paddingVertical: 4 },
   row:   { flexDirection: "row", alignItems: "flex-start" },
   hLine: { flex: 1, height: 3, marginTop: 25, borderRadius: 2 },
