@@ -19,7 +19,6 @@ import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-aud
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 
-// Harf sesleri public klasörden servis edilir (/api/v1 altında değil)
 const AUDIO_BASE = (process.env.EXPO_PUBLIC_API_URL ??
   "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1")
   .replace(/\/api\/v1\/?$/, "");
@@ -28,14 +27,12 @@ function harfSesUrl(harfId: number): string {
   return `${AUDIO_BASE}/audio/elifba/harf_${String(harfId).padStart(2, "0")}.mp3`;
 }
 
-// Tek bir paylaşılan oynatıcı — her basışta yenisi kurulur, eskisi serbest bırakılır
 let harfPlayer: AudioPlayer | null = null;
 let audioModeSet = false;
 
 async function playHarfSes(harfId: number) {
   try {
     if (!audioModeSet) {
-      // iOS sessiz moddayken de ses çıksın
       await setAudioModeAsync({ playsInSilentMode: true });
       audioModeSet = true;
     }
@@ -51,14 +48,15 @@ async function playHarfSes(harfId: number) {
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
-function Flashcard({ harf, onNext, onPrev }: { harf: ElifbaHarf; onNext: () => void; onPrev: () => void }) {
+function Flashcard({ harf, onNext, onPrev, isLast }: {
+  harf: ElifbaHarf; onNext: () => void; onPrev: () => void; isLast: boolean;
+}) {
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => setFlipped(false), [harf.harf_id]);
 
   return (
     <View style={fc.container}>
-      {/* Ses butonu */}
       <TouchableOpacity
         style={fc.playBtn}
         onPress={() => playHarfSes(harf.harf_id)}
@@ -107,7 +105,9 @@ function Flashcard({ harf, onNext, onPrev }: { harf: ElifbaHarf; onNext: () => v
           <Text style={fc.navBtnText}>← Önceki</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[fc.navBtn, fc.navBtnActive]} onPress={onNext}>
-          <Text style={[fc.navBtnText, { color: "#fff" }]}>Sonraki →</Text>
+          <Text style={[fc.navBtnText, { color: "#fff" }]}>
+            {isLast ? "✓ Teste Geç" : "Sonraki →"}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -132,8 +132,14 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     setLoading(true);
     setError(false);
     api.elifba.quiz(dersId)
-      // 45'lik havuzdan her oturumda rastgele 15 soru
-      .then((data) => setSorular([...data].sort(() => Math.random() - 0.5).slice(0, 15)))
+      .then((data) => {
+        const arr = [...data];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        setSorular(arr.slice(0, 15));
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, [dersId]);
@@ -154,7 +160,6 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   }
 
   function handleNext() {
-    // Skor handleSelect içinde zaten artırılıyor; burada sadece bitiş ekranını göster
     if (idx + 1 >= sorular.length) setDone(true);
     else { setIdx((i) => i + 1); setSelected(null); setAnswered(false); }
   }
@@ -185,11 +190,8 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   }
 
   const isArabic = (t: string) => /[؀-ۿ]/.test(t);
-  // Satır Latin harf içermiyorsa (sadece Arapça + işaret/boşluk) "tamamen Arapça" sayılır
   const isPureArabic = (t: string) => isArabic(t) && !/[a-zA-ZçğıöşüÇĞİÖŞÜ]/.test(t);
 
-  // Soru metnini render et: tamamen Arapça satırları büyük RTL blok olarak en üste al,
-  // Türkçe (veya satır-içi karışık) satırları normal LTR olarak altta göster.
   function renderSoru(text: string) {
     const lines = text.split("\n").filter((l) => l.trim() !== "");
     const arabicLines = lines.filter((l) => isPureArabic(l));
@@ -265,7 +267,9 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
 type Mode = "flashcard" | "quiz";
 
 export default function DersScreen() {
-  const { dersId: raw, mode: initialMode } = useLocalSearchParams<{ dersId: string; mode?: string }>();
+  const { dersId: raw, mode: initialMode, baslik: rawBaslik } = useLocalSearchParams<{
+    dersId: string; mode?: string; baslik?: string;
+  }>();
   const dersId = Number(raw);
   const insets = useSafeAreaInsets();
   useEffect(() => { logScreen('ElifBaDers'); }, []);
@@ -275,6 +279,7 @@ export default function DersScreen() {
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
+  const progressRef             = useRef<Record<string, number[]>>({});
 
   useEffect(() => {
     let isMounted = true;
@@ -282,33 +287,38 @@ export default function DersScreen() {
       .then((h) => { if (isMounted) setHarfler(h); })
       .catch(() => {})
       .finally(() => setLoading(false));
-    // Kaydedilmiş ilerlemeyi yükle
     storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
-      .then((p) => { if (isMounted) setSeenIds(p?.[String(dersId)] ?? []); })
+      .then((p) => {
+        if (isMounted) {
+          progressRef.current = p ?? {};
+          setSeenIds(p?.[String(dersId)] ?? []);
+        }
+      })
       .catch(() => {});
     return () => { isMounted = false; };
   }, [dersId]);
 
-  const markSeen = useCallback(async (harfId: number) => {
+  const markSeen = useCallback((harfId: number) => {
     setSeenIds((prev) => {
       if (prev.includes(harfId)) return prev;
       const next = [...prev, harfId];
-      storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress).then((p) => {
-        const updated = { ...(p ?? {}), [String(dersId)]: next };
-        storage.setJSON(STORAGE_KEYS.elifbaProgress, updated).catch(() => {});
-      });
+      const updated = { ...progressRef.current, [String(dersId)]: next };
+      progressRef.current = updated;
+      storage.setJSON(STORAGE_KEYS.elifbaProgress, updated).catch(() => {});
       return next;
     });
   }, [dersId]);
 
   const handleNext = useCallback(() => {
     if (harfler[idx]) markSeen(harfler[idx].harf_id);
-    setIdx((i) => (i + 1) % harfler.length);
+    if (idx + 1 < harfler.length) setIdx((i) => i + 1);
+    else setMode("quiz");
   }, [harfler, idx, markSeen]);
 
   const handlePrev = useCallback(() => {
+    if (idx === 0) return;
     if (harfler[idx]) markSeen(harfler[idx].harf_id);
-    setIdx((i) => (i - 1 + harfler.length) % harfler.length);
+    setIdx((i) => i - 1);
   }, [harfler, idx, markSeen]);
 
   const handleQuizFinish = useCallback(async (s: number, t: number) => {
@@ -320,13 +330,13 @@ export default function DersScreen() {
   if (loading) {
     return (
       <View style={styles.centered}>
-        <Stack.Screen options={{ title: "Ders" }} />
+        <Stack.Screen options={{ title: rawBaslik ?? "Ders" }} />
         <ActivityIndicator size="large" color="#059669" />
       </View>
     );
   }
 
-  const title = `Ders ${dersId}`;
+  const title = rawBaslik ?? `Ders ${dersId}`;
   const pct   = harfler.length > 0 ? Math.round((seenIds.length / harfler.length) * 100) : 0;
 
   return (
@@ -357,8 +367,12 @@ export default function DersScreen() {
           harfler.length > 0 ? (
             <>
               <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
-              <Flashcard harf={harfler[idx]} onNext={handleNext} onPrev={handlePrev} />
-              {/* Nokta navigasyonu */}
+              <Flashcard
+                harf={harfler[idx]}
+                onNext={handleNext}
+                onPrev={handlePrev}
+                isLast={idx === harfler.length - 1}
+              />
               {harfler.length <= 30 && (
                 <View style={styles.dots}>
                   {harfler.map((h, i) => (

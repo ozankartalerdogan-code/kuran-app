@@ -6,13 +6,6 @@ import { useColors } from "../../src/hooks/useColors";
 
 const SECTIONS = [
   {
-    title: "🌱 Başlangıç",
-    items: [
-      { emoji: "✍️", label: "Elif-Ba",      sub: "Arapça harfleri öğren",          route: "/elifba-dersleri"    },
-      { emoji: "☀️", label: "Harf-i Tarif", sub: "Şemsiye ve kameriye harfleri",   route: "/ogren/harf-i-tarif" },
-    ],
-  },
-  {
     title: "📗 Orta",
     items: [
       { emoji: "📜", label: "Peygamber Kıssaları", sub: "25 peygamberin kıssası",      route: "/peygamber-kissalari" },
@@ -54,7 +47,7 @@ export default function OgrenTab() {
         </TouchableOpacity>
 
         {SECTIONS.map((section, si) => (
-          <View key={si} style={si > 0 ? s.section : undefined}>
+          <View key={si} style={si > 0 ? s.section : s.firstSection}>
             <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
               <Text style={[s.sectionTitle, { color: c.textMuted }]}>{section.title}</Text>
             </View>
@@ -85,6 +78,7 @@ export default function OgrenTab() {
 const s = StyleSheet.create({
   content:       { padding: 16, paddingBottom: 32 },
   heading:       { fontSize: 28, fontWeight: "800", marginBottom: 20 },
+  firstSection:  { marginTop: 0 },
   section:       { marginTop: 24 },
   sectionHeader: { borderBottomWidth: 1, paddingBottom: 8, marginBottom: 10 },
   sectionTitle:  { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.6 },

@@ -80,9 +80,28 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
 
 function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
   const sorular = b.sorular ?? [];
-  const [ans, setAns] = useState<Record<string, boolean>>({});
+  const [started, setStarted] = useState(false);
+  const [ans, setAns]         = useState<Record<string, boolean>>({});
   const done    = Object.keys(ans).length;
   const correct = Object.values(ans).filter(Boolean).length;
+
+  if (!started) {
+    return (
+      <View style={[s.quizStart, { backgroundColor: c.bg }]}>
+        <Text style={[s.quizStartInfo, { color: c.textMuted }]}>
+          {sorular.length} soru · Şemsiye / Kameriye
+        </Text>
+        <TouchableOpacity
+          style={s.quizStartBtn}
+          onPress={() => setStarted(true)}
+          activeOpacity={0.8}
+        >
+          <Text style={s.quizStartBtnText}>🧠 Teste Başla</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <>
       <View style={[s.quizBar, { backgroundColor: c.bg }]}>
@@ -99,6 +118,13 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
           <Text style={s.quizDoneText}>
             Bitti! {correct}/{sorular.length} doğru {correct === sorular.length ? "🎉 Tam puan!" : "— tekrar edebilirsin"}
           </Text>
+          <TouchableOpacity
+            style={[s.quizStartBtn, { marginTop: 10 }]}
+            onPress={() => { setStarted(false); setAns({}); }}
+            activeOpacity={0.8}
+          >
+            <Text style={s.quizStartBtnText}>↺ Tekrar</Text>
+          </TouchableOpacity>
         </View>
       ) : null}
     </>
@@ -251,6 +277,10 @@ const s = StyleSheet.create({
   notBox:      { marginTop: 10, borderRadius: 10, backgroundColor: "#e0e7ff", paddingHorizontal: 12, paddingVertical: 8 },
   tag:         { borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
   tagText:     { fontSize: 10, fontWeight: "700" },
+  quizStart:       { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 4, alignItems: "center", gap: 12 },
+  quizStartInfo:   { fontSize: 13 },
+  quizStartBtn:    { backgroundColor: "#4f46e5", borderRadius: 12, paddingVertical: 12, paddingHorizontal: 32 },
+  quizStartBtnText:{ color: "#fff", fontSize: 14, fontWeight: "700" },
   quizBar:     { flexDirection: "row", justifyContent: "space-between", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10 },
   quizBarText: { fontSize: 13, fontWeight: "600" },
   qBox:        { borderWidth: 1, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12 },

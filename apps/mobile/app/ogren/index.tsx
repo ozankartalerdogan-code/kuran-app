@@ -3,7 +3,7 @@ import {
   View, Text, TouchableOpacity, ScrollView, Modal,
   ActivityIndicator, StyleSheet,
 } from "react-native";
-import { router, Stack } from "expo-router";
+import { router, Stack, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
@@ -16,8 +16,9 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: "harfi-tarif", label: "Harf-i Tarif" },
 ];
 
-const QUIZ_PASS = 10; // 15 sorudan
+const QUIZ_PASS = 10;
 const NODE_W   = 72;
+const COLS     = 3;
 
 type LessonStatus = "completed" | "active" | "locked";
 type QuizScore    = { score: number; total: number };
@@ -71,7 +72,6 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
       <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1}>
         <TouchableOpacity style={pp.card} activeOpacity={1}>
 
-          {/* Başlık */}
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 12 }}>
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 }}>
@@ -94,14 +94,12 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
             </TouchableOpacity>
           </View>
 
-          {/* Kart ilerlemesi */}
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
             <Text style={pp.label}>Kartlar: {seenCount} / {ders.harf_sayisi}</Text>
             {pct === 100 && <Text style={[pp.label, { color: "#059669", fontWeight: "700" }]}>✓</Text>}
           </View>
           <View style={pp.bar}><View style={[pp.fill, { width: `${pct}%` as any }]} /></View>
 
-          {/* Test skoru */}
           {quizScore ? (
             <View style={[pp.infoBox, { backgroundColor: "#eff6ff", marginTop: 8 }]}>
               <Text style={{ fontSize: 13, color: "#1d4ed8" }}>
@@ -119,14 +117,12 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
             </View>
           ) : null}
 
-          {/* Kilitli uyarısı */}
           {status === "locked" && (
             <View style={[pp.infoBox, { backgroundColor: "#f5f5f4", marginTop: 8 }]}>
               <Text style={{ fontSize: 12, color: "#78716c" }}>🔒 Önceki dersi tamamla</Text>
             </View>
           )}
 
-          {/* Butonlar */}
           {status !== "locked" && (
             <View style={{ flexDirection: "row", gap: 8, marginTop: 14 }}>
               <TouchableOpacity style={pp.btnGreen} onPress={onFlashcard}>
@@ -164,7 +160,6 @@ function PathNode({ ders, status, pct, onPress }: {
       <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
         <Text style={nd.icon}>{isComp ? "⭐" : isActive ? "▶" : "🔒"}</Text>
       </View>
-      {/* İlerleme çubuğu */}
       {!isLocked && (
         <View style={nd.barBg}>
           <View style={[nd.barFill, {
@@ -173,7 +168,6 @@ function PathNode({ ders, status, pct, onPress }: {
           }]} />
         </View>
       )}
-      {/* Etiket */}
       <Text style={[nd.label, { color: isLocked ? "#9ca3af" : "#44403c" }]} numberOfLines={2}>
         {shortBaslik(ders.baslik).split(" ").slice(0, 3).join(" ")}
       </Text>
@@ -181,8 +175,7 @@ function PathNode({ ders, status, pct, onPress }: {
   );
 }
 
-// ── VLine (dikey bağlantı) ────────────────────────────────────────────────────
-// Satır yapısını aynalamak için: [NODE_W][flex][NODE_W][flex][NODE_W]
+// ── VLine ─────────────────────────────────────────────────────────────────────
 
 function VLineRow({ side, color }: { side: "left" | "right"; color: string }) {
   const line = (
@@ -224,67 +217,46 @@ export default function OgrenScreen() {
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    loadDersler();
+  const loadProgress = useCallback(() => {
     storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
       .then(p => setProgress(p ?? {})).catch(() => {});
     storage.getJSON<Record<string, QuizScore>>(STORAGE_KEYS.quizScores)
       .then(q => setQuizScores(q ?? {})).catch(() => {});
-  }, [loadDersler]);
+  }, []);
 
-  if (loading) {
-    return (
-      <View style={s.centered}>
-        <Stack.Screen options={{ title: "Elifba" }} />
-        <ActivityIndicator size="large" color="#059669" />
-      </View>
-    );
-  }
-
-  // Dersler yüklenemediyse (bağlantı hatası) — boş ekran yerine açık hata + tekrar dene
-  if (error || dersler.length === 0) {
-    return (
-      <View style={s.centered}>
-        <Stack.Screen options={{ title: "Elifba" }} />
-        <Text style={[s.errEmoji]}>📚</Text>
-        <Text style={[s.errText, { color: c.text }]}>
-          {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
-        </Text>
-        <TouchableOpacity style={[s.retryBtn, { backgroundColor: c.accent }]} onPress={loadDersler}>
-          <Text style={s.retryText}>Tekrar dene</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+  useEffect(() => { loadDersler(); }, [loadDersler]);
+  useFocusEffect(loadProgress);
 
   const statuses = dersler.map((d, i) => getStatus(d, i, dersler, progress, quizScores));
   const completedCount = statuses.filter(st => st === "completed").length;
   const overallPct = dersler.length > 0 ? Math.round((completedCount / dersler.length) * 100) : 0;
+
+  type RowNode = { ders: ElifbaDers; origIdx: number };
+  const rows: RowNode[][] = [];
+  for (let i = 0; i < dersler.length; i += COLS) {
+    const chunk: RowNode[] = dersler.slice(i, i + COLS).map((d, j) => ({ ders: d, origIdx: i + j }));
+    rows.push(rows.length % 2 === 1 ? [...chunk].reverse() : chunk);
+  }
 
   function getPct(ders: ElifbaDers) {
     const seen = progress[String(ders.id)]?.length ?? 0;
     return ders.harf_sayisi > 0 ? Math.round((seen / ders.harf_sayisi) * 100) : 0;
   }
 
-  const row1 = [dersler[0], dersler[1], dersler[2]].filter(Boolean);
-  const row2 = [dersler[5], dersler[4], dersler[3]].filter(Boolean);
-  const row3 = [dersler[6], dersler[7], dersler[8]].filter(Boolean);
-
-  function renderRow(nodes: ElifbaDers[]) {
+  function renderRow(nodes: RowNode[]) {
     return (
       <View style={s.row}>
-        {nodes.map((ders, i) => (
+        {nodes.map(({ ders, origIdx }, i) => (
           <React.Fragment key={ders.id}>
             <PathNode
               ders={ders}
-              status={statuses[dersler.indexOf(ders)]}
+              status={statuses[origIdx]}
               pct={getPct(ders)}
               onPress={() => setPopupId(ders.id)}
             />
             {i < nodes.length - 1 && (
               <View style={[s.hLine, {
-                backgroundColor: statuses[dersler.indexOf(nodes[i])] === "completed"
-                  ? "#059669" : "#e5e7eb",
+                backgroundColor: statuses[origIdx] === "completed" ? "#059669" : "#e5e7eb",
               }]} />
             )}
           </React.Fragment>
@@ -300,7 +272,7 @@ export default function OgrenScreen() {
       <Stack.Screen options={{ title: "Elifba" }} />
       <View style={{ flex: 1, backgroundColor: c.bg }}>
 
-        {/* Üst sekme bar */}
+        {/* Üst sekme bar — her zaman görünür */}
         <View style={[s.tabRow, { paddingTop: insets.top, borderBottomColor: c.border }]}>
           {TABS.map(t => {
             const active = tab === t.key;
@@ -319,60 +291,81 @@ export default function OgrenScreen() {
 
         {/* Elif-Ba içeriği */}
         {tab === "elifba" && (
-          <>
-            <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}>
+          loading ? (
+            <View style={s.centered}>
+              <ActivityIndicator size="large" color="#059669" />
+            </View>
+          ) : (error || dersler.length === 0) ? (
+            <View style={s.centered}>
+              <Text style={s.errEmoji}>📚</Text>
+              <Text style={[s.errText, { color: c.text }]}>
+                {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
+              </Text>
+              <TouchableOpacity style={[s.retryBtn, { backgroundColor: c.accent }]} onPress={loadDersler}>
+                <Text style={s.retryText}>Tekrar dene</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <>
+              <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingBottom: 48 + insets.bottom }]}>
 
-              {/* Genel ilerleme */}
-              <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
-                  <Text style={[s.overallTitle, { color: c.text }]}>🏆 İlerleme</Text>
-                  <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
+                {/* Genel ilerleme */}
+                <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
+                    <Text style={[s.overallTitle, { color: c.text }]}>🏆 İlerleme</Text>
+                    <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
+                  </View>
+                  <View style={s.overallBar}>
+                    <View style={[s.overallFill, { width: `${overallPct}%` as any }]} />
+                  </View>
+                  {overallPct === 100 && (
+                    <Text style={s.overallDone}>🎉 Tüm dersler tamamlandı!</Text>
+                  )}
                 </View>
-                <View style={s.overallBar}>
-                  <View style={[s.overallFill, { width: `${overallPct}%` as any }]} />
+
+                {/* Yol haritası — dinamik, yılan şeklinde */}
+                <View style={s.path}>
+                  {rows.map((row, rowIdx) => (
+                    <React.Fragment key={rowIdx}>
+                      {renderRow(row)}
+                      {rowIdx < rows.length - 1 && (
+                        <VLineRow
+                          side={rowIdx % 2 === 0 ? "right" : "left"}
+                          color={statuses[Math.min((rowIdx + 1) * COLS - 1, dersler.length - 1)] === "completed" ? "#059669" : "#e5e7eb"}
+                        />
+                      )}
+                    </React.Fragment>
+                  ))}
                 </View>
-                {overallPct === 100 && (
-                  <Text style={s.overallDone}>🎉 Tüm dersler tamamlandı!</Text>
-                )}
-              </View>
 
-              {/* Yol haritası */}
-              <View style={s.path}>
-                {row1.length > 0 && renderRow(row1)}
-                {row2.length > 0 && (
-                  <VLineRow side="right" color={statuses[2] === "completed" ? "#059669" : "#e5e7eb"} />
-                )}
-                {row2.length > 0 && renderRow(row2)}
-                {row3.length > 0 && (
-                  <VLineRow side="left" color={statuses[5] === "completed" ? "#059669" : "#e5e7eb"} />
-                )}
-                {row3.length > 0 && renderRow(row3)}
-              </View>
+              </ScrollView>
 
-            </ScrollView>
-
-            {/* Ders popup */}
-            {popupDers && (
-              <LessonPopup
-                ders={popupDers}
-                status={statuses[dersler.indexOf(popupDers)]}
-                seenCount={progress[String(popupDers.id)]?.length ?? 0}
-                quizScore={quizScores[String(popupDers.id)] ?? null}
-                onClose={() => setPopupId(null)}
-                onFlashcard={() => {
-                  setPopupId(null);
-                  router.push(`/ogren/${popupDers.id}`);
-                }}
-                onQuiz={() => {
-                  setPopupId(null);
-                  router.push({
-                    pathname: "/ogren/[dersId]",
-                    params: { dersId: String(popupDers.id), mode: "quiz" },
-                  });
-                }}
-              />
-            )}
-          </>
+              {/* Ders popup */}
+              {popupDers && (
+                <LessonPopup
+                  ders={popupDers}
+                  status={statuses[dersler.indexOf(popupDers)]}
+                  seenCount={progress[String(popupDers.id)]?.length ?? 0}
+                  quizScore={quizScores[String(popupDers.id)] ?? null}
+                  onClose={() => setPopupId(null)}
+                  onFlashcard={() => {
+                    setPopupId(null);
+                    router.push({
+                      pathname: "/ogren/[dersId]",
+                      params: { dersId: String(popupDers.id), baslik: shortBaslik(popupDers.baslik) },
+                    });
+                  }}
+                  onQuiz={() => {
+                    setPopupId(null);
+                    router.push({
+                      pathname: "/ogren/[dersId]",
+                      params: { dersId: String(popupDers.id), mode: "quiz", baslik: shortBaslik(popupDers.baslik) },
+                    });
+                  }}
+                />
+              )}
+            </>
+          )
         )}
 
         {/* Harf-i Tarif içeriği */}
@@ -391,19 +384,16 @@ const s = StyleSheet.create({
   tabBtn:      { flex: 1, paddingVertical: 12, alignItems: "center" },
   tabBtnActive:{ borderBottomWidth: 2, borderBottomColor: "#c9a84c" },
   tabText:     { fontSize: 14, fontWeight: "700" },
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#f5f0e8", padding: 24 },
+  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   errEmoji:    { fontSize: 40, marginBottom: 12 },
-  errText:     { fontSize: 15, lineHeight: 22, color: "#1c1917", textAlign: "center", marginBottom: 20 },
-  retryBtn:    { backgroundColor: "#059669", paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10 },
+  errText:     { fontSize: 15, lineHeight: 22, textAlign: "center", marginBottom: 20 },
+  retryBtn:    { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10 },
   retryText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
-  scroll:      { flex: 1, backgroundColor: "#f5f0e8" },
+  scroll:      { flex: 1 },
   content:     { padding: 16, paddingBottom: 48 },
-  overallCard: {
-    backgroundColor: "#fff", borderRadius: 14, padding: 14,
-    marginBottom: 24, borderWidth: 1, borderColor: "#e7e5e4",
-  },
-  overallTitle: { fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  overallCount: { fontSize: 13, fontWeight: "600", color: "#059669" },
+  overallCard: { borderRadius: 14, padding: 14, marginBottom: 24, borderWidth: 1 },
+  overallTitle: { fontSize: 14, fontWeight: "700" },
+  overallCount: { fontSize: 13, fontWeight: "600" },
   overallBar:   { height: 10, backgroundColor: "#f5f0e8", borderRadius: 5, overflow: "hidden" },
   overallFill:  { height: "100%", backgroundColor: "#059669", borderRadius: 5 },
   overallDone:  { textAlign: "center", fontSize: 12, fontWeight: "700", color: "#059669", marginTop: 6 },
