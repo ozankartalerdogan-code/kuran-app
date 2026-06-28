@@ -1,5 +1,5 @@
 {
-  "ders_id": "ezan_kamet",
+  "ders_id": "ezan-kamet",
   "baslik": "Ezan ve Kamet",
   "aciklama": "Farz namazların vaktini ve başlangıcını bildiren İslam'ın şiarı; ezanın sözleri, hükümleri ve kamet.",
   "ikon": "🕌",
@@ -89,5 +89,5 @@
       "vurgu": "Ezan kıraatinin özü tüm mezheplerde aynıdır; teknik detaylarda farklılıklar vardır."
     }
   ],
-  "quiz_havuzu_id": "ezan_kamet"
+  "quiz_havuzu_id": "ezan-kamet"
 }

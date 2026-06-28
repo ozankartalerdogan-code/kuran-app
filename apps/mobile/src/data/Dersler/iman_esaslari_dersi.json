@@ -1,5 +1,5 @@
 {
-  "ders_id": "iman_esaslari",
+  "ders_id": "iman-esaslari",
   "baslik": "İman Esasları",
   "aciklama": "İslam'ın temel inanç ilkeleri olan imanın altı şartını öğren.",
   "ikon": "🌟",
@@ -110,5 +110,5 @@
       "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
     }
   ],
-  "quiz_havuzu_id": "iman_esaslari"
+  "quiz_havuzu_id": "iman-esaslari"
 }

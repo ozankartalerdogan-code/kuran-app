@@ -1,5 +1,5 @@
 {
-  "ders_id": "peygamber_kissalari",
+  "ders_id": "peygamberler",
   "baslik": "Peygamber Kıssaları",
   "aciklama": "Kuran-ı Kerim'de adı geçen 25 peygamberin kıssaları, mucizeleri ve hayattan dersler.",
   "ikon": "📖",
@@ -194,5 +194,5 @@
       "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
     }
   ],
-  "quiz_havuzu_id": "peygamber_kissalari"
+  "quiz_havuzu_id": "peygamberler"
 }

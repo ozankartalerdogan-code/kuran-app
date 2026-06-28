@@ -12,6 +12,7 @@ export const STORAGE_KEYS = {
   quizScores:      "elifbaQuizScores",
   recentSearches:  "recentSearches",
   prayerCache:     "prayerTimesCache",
+  derslerProgress: "derslerProgress",
 } as const;
 
 /** Kota aşımı durumunda fırlatılan özel hata */

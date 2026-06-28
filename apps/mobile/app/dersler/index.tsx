@@ -1,43 +1,79 @@
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
-import { Stack, router } from "expo-router";
+import { useCallback, useMemo, useState } from "react";
+import { View, Text, TouchableOpacity, FlatList, ScrollView, StyleSheet } from "react-native";
+import { Stack, router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
+import { useDersProgress } from "../../src/hooks/useDersProgress";
+import { DERSLER_META as DERSLER, KATEGORILER } from "../../src/data/Dersler/dersler_registry";
 
-const DERSLER = [
-  { id: "namaz",          baslik: "Namaz",             ikon: "🕌", kartSayisi: 30 },
-  { id: "namaz-dualar",  baslik: "Namaz Duaları",     ikon: "📿", kartSayisi: 14 },
-  { id: "oruc",           baslik: "Oruç",              ikon: "🌙", kartSayisi: 14 },
-  { id: "hac-umre",       baslik: "Hac & Umre",        ikon: "🕋", kartSayisi: 15 },
-  { id: "iman-esaslari",  baslik: "İman Esasları",     ikon: "📖", kartSayisi: 15 },
-  { id: "peygamberler",   baslik: "Peygamberler",      ikon: "⭐", kartSayisi: 27 },
-  { id: "siyer",          baslik: "Siyer-i Nebi",      ikon: "🌿", kartSayisi: 18 },
-  { id: "tecvid",         baslik: "Tecvid",            ikon: "📜", kartSayisi: 20 },
-  { id: "abdest-gusul",   baslik: "Abdest & Gusül",    ikon: "💧", kartSayisi: 8  },
-  { id: "ezan-kamet",     baslik: "Ezan & Kamet",      ikon: "🔊", kartSayisi: 12 },
-  { id: "allah-sifatlari",baslik: "Allah'ın Sıfatları",ikon: "✨", kartSayisi: 8  },
-  { id: "zekat",          baslik: "Zekat",             ikon: "🤲", kartSayisi: 13 },
+type SortMode = "tumu" | "sure" | "konu";
+
+const TABS: { key: SortMode; label: string }[] = [
+  { key: "tumu",  label: "Tümü" },
+  { key: "sure",  label: "Kolaydan Zora" },
+  { key: "konu",  label: "Konuya Göre" },
 ];
 
-type Ders = (typeof DERSLER)[number];
+type Ders = typeof DERSLER[number];
+
+function chunk<T>(arr: T[], n: number): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
+  return out;
+}
 
 export default function DerslerScreen() {
   const insets = useSafeAreaInsets();
   const c = useColors();
+  const { progress, load } = useDersProgress();
+  const [sortMode, setSortMode] = useState<SortMode>("tumu");
 
-  const renderItem = ({ item }: { item: Ders }) => (
-    <TouchableOpacity
-      style={[s.card, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
-      onPress={() => {
-        Haptics.selectionAsync();
-        router.push(("/dersler/" + item.id) as any);
-      }}
-      activeOpacity={0.8}
-    >
-      <Text style={s.ikon}>{item.ikon}</Text>
-      <Text style={[s.baslik, { color: c.text }]}>{item.baslik}</Text>
-      <Text style={s.kartBilgi}>{item.kartSayisi} kart</Text>
-    </TouchableOpacity>
+  useFocusEffect(useCallback(() => { load(); }, [load]));
+
+  const sortedData = useMemo(
+    () => sortMode === "sure" ? [...DERSLER].sort((a, b) => a.sure - b.sure) : DERSLER,
+    [sortMode],
+  );
+
+  const renderCard = useCallback((item: Ders) => {
+    const p = progress[item.id];
+    const pct = p ? Math.min(1, (p.gorülen + 1) / item.kartSayisi) : 0;
+    const done = p?.quizBitti ?? false;
+
+    return (
+      <TouchableOpacity
+        key={item.id}
+        style={[s.card, { backgroundColor: c.card, borderColor: done ? "#4ade80" : "#c9a84c" }]}
+        onPress={() => { Haptics.selectionAsync(); router.push(("/dersler/" + item.id) as any); }}
+        activeOpacity={0.8}
+      >
+        {done && (
+          <View style={s.badge}><Text style={s.badgeText}>✓</Text></View>
+        )}
+        <Text style={s.ikon}>{item.ikon}</Text>
+        <Text style={[s.baslik, { color: c.text }]}>{item.baslik}</Text>
+        <Text style={s.kartBilgi}>{item.kartSayisi} kart · ~{item.sure} dk</Text>
+        {pct > 0 && (
+          <View style={[s.progTrack, { backgroundColor: c.border }]}>
+            <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as any, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
+          </View>
+        )}
+      </TouchableOpacity>
+    );
+  }, [progress, c]);
+
+  const renderItem = useCallback(
+    ({ item }: { item: Ders }) => renderCard(item),
+    [renderCard],
+  );
+
+  const footer = (
+    <View style={s.kaynak}>
+      <Text style={s.kaynakMetin}>
+        Dersler Kur'an-ı Kerim, sahih hadis kaynakları (Buhari, Müslim, Tirmizi) ve Diyanet İlmihali esas alınarak hazırlanmıştır.
+      </Text>
+    </View>
   );
 
   return (
@@ -52,34 +88,103 @@ export default function DerslerScreen() {
         <View style={s.headerSide} />
       </View>
 
-      <FlatList
-        data={DERSLER}
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
-        showsVerticalScrollIndicator={false}
-      />
+      {/* Sıralama sekmeleri */}
+      <View style={[s.tabRow, { borderBottomColor: c.border }]}>
+        {TABS.map(tab => {
+          const active = sortMode === tab.key;
+          return (
+            <TouchableOpacity
+              key={tab.key}
+              style={[s.tab, active && s.tabActive]}
+              onPress={() => { Haptics.selectionAsync(); setSortMode(tab.key); }}
+              activeOpacity={0.7}
+            >
+              <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>
+                {tab.label}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      {sortMode === "konu" ? (
+        <ScrollView
+          contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
+          showsVerticalScrollIndicator={false}
+        >
+          {KATEGORILER.map(kat => {
+            const katDersler = kat.ids
+              .map(id => DERSLER.find(d => d.id === id))
+              .filter(Boolean) as Ders[];
+            const pairs = chunk(katDersler, 2);
+            return (
+              <View key={kat.label}>
+                <Text style={[s.sectionHeader, { color: c.textMuted }]}>{kat.label}</Text>
+                {pairs.map((pair, i) => (
+                  <View key={i} style={s.row}>
+                    {pair.map(item => renderCard(item))}
+                    {pair.length === 1 && <View style={s.cardSpacer} />}
+                  </View>
+                ))}
+              </View>
+            );
+          })}
+          {footer}
+        </ScrollView>
+      ) : (
+        <FlatList
+          data={sortedData}
+          numColumns={2}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={footer}
+        />
+      )}
     </View>
   );
 }
 
 const s = StyleSheet.create({
-  container:   { flex: 1 },
-  header:      {
-    flexDirection: "row", alignItems: "center", justifyContent: "space-between",
-    paddingHorizontal: 16, paddingVertical: 14,
-    borderBottomWidth: 1,
+  container:     { flex: 1 },
+  header:        {
+    flexDirection: "row", alignItems: "center",
+    paddingHorizontal: 16, paddingVertical: 14, borderBottomWidth: 1,
   },
-  headerTitle: { flex: 1, fontSize: 20, fontWeight: "800", textAlign: "center" },
-  headerSide:  { width: 60 },
-  backText:    { fontSize: 16, color: "#c9a84c", fontWeight: "600" },
-  listContent: { paddingHorizontal: 12, paddingTop: 12 },
-  card:        {
+  headerTitle:   { flex: 1, fontSize: 20, fontWeight: "800", textAlign: "center" },
+  headerSide:    { width: 60 },
+  backText:      { fontSize: 16, color: "#c9a84c", fontWeight: "600" },
+
+  tabRow:        {
+    flexDirection: "row", gap: 8,
+    paddingHorizontal: 14, paddingVertical: 10, borderBottomWidth: 1,
+  },
+  tab:           {
+    flex: 1, paddingVertical: 7, borderRadius: 20,
+    alignItems: "center", backgroundColor: "transparent",
+  },
+  tabActive:     { backgroundColor: "#c9a84c" },
+  tabText:       { fontSize: 12, fontWeight: "700" },
+
+  listContent:   { paddingHorizontal: 12, paddingTop: 12 },
+  row:           { flexDirection: "row" },
+  card:          {
     flex: 1, margin: 6, borderRadius: 14, borderWidth: 1.5,
     alignItems: "center", paddingVertical: 22, paddingHorizontal: 10, gap: 8,
   },
-  ikon:        { fontSize: 36 },
-  baslik:      { fontSize: 14, fontWeight: "700", textAlign: "center" },
-  kartBilgi:   { fontSize: 11, color: "#c9a84c", fontWeight: "600" },
+  cardSpacer:    { flex: 1, margin: 6 },
+
+  badge:         { position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: 10, backgroundColor: "#4ade80", alignItems: "center", justifyContent: "center" },
+  badgeText:     { fontSize: 11, color: "#fff", fontWeight: "800" },
+  ikon:          { fontSize: 36 },
+  baslik:        { fontSize: 14, fontWeight: "700", textAlign: "center" },
+  kartBilgi:     { fontSize: 11, color: "#c9a84c", fontWeight: "600" },
+  progTrack:     { alignSelf: "stretch", height: 3, borderRadius: 2 },
+  progFill:      { height: 3, borderRadius: 2 },
+
+  sectionHeader: { fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.8, marginTop: 16, marginBottom: 4, marginHorizontal: 6 },
+
+  kaynak:        { marginTop: 16, marginHorizontal: 6, paddingVertical: 14, paddingHorizontal: 16, borderRadius: 10, borderWidth: 1, borderColor: "#c9a84c22", backgroundColor: "#c9a84c0a" },
+  kaynakMetin:   { fontSize: 11, color: "#888", textAlign: "center", lineHeight: 17 },
 });

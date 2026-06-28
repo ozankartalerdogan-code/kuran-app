@@ -1,7 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ScrollView, Image, Dimensions,
+  ScrollView, Image, Dimensions, PanResponder, Animated,
 } from "react-native";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,10 +17,12 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
+import { useDersProgress } from "../../src/hooks/useDersProgress";
+import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
 
 const { width: SCREEN_W } = Dimensions.get("window");
 
-// ─── Statik veri haritaları ────────────────────────────────────────────────
+// ─── Görsel haritası ──────────────────────────────────────────────────────
 
 const GORSEL_MAP: Record<string, number> = {
   namaz_tekbir:   require("../../assets/images/namaz/tekbir.jpg"),
@@ -33,48 +35,7 @@ const GORSEL_MAP: Record<string, number> = {
   namaz_selam:    require("../../assets/images/namaz/selam.jpg"),
 };
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const DERS_DATA: Record<string, any> = {
-  namaz:            require("../../src/data/Dersler/namaz_dersi.json"),
-  "namaz-dualar":   require("../../src/data/Dersler/namaz_dualar_dersi.json"),
-  siyer:            require("../../src/data/Dersler/siyer_dersi.json"),
-  oruc:             require("../../src/data/Dersler/oruc_dersi.json"),
-  "hac-umre":       require("../../src/data/Dersler/hac_umre_dersi.json"),
-  "ezan-kamet":     require("../../src/data/Dersler/ezan_kamet_dersi.json"),
-  "iman-esaslari":  require("../../src/data/Dersler/iman_esaslari_dersi.json"),
-  peygamberler:     require("../../src/data/Dersler/peygamber_kissalari_dersi.json"),
-  tecvid:           require("../../src/data/Dersler/tecvid_dersi.json"),
-  zekat:            require("../../src/data/Dersler/zekat_dersi.json"),
-};
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const QUIZ_MAP: Record<string, any> = {
-  namaz:            require("../../src/data/Dersler/namaz_quiz.json"),
-  "namaz-dualar":   require("../../src/data/Dersler/namaz_dualar_quiz.json"),
-  siyer:            require("../../src/data/Dersler/siyer_quiz.json"),
-  oruc:             require("../../src/data/Dersler/oruc_quiz.json"),
-  "hac-umre":       require("../../src/data/Dersler/hac_umre_quiz.json"),
-  "ezan-kamet":     require("../../src/data/Dersler/ezan_kamet_quiz.json"),
-  "iman-esaslari":  require("../../src/data/Dersler/iman_esaslari_quiz.json"),
-  peygamberler:     require("../../src/data/Dersler/peygamber_kissalari_quiz.json"),
-  tecvid:           require("../../src/data/Dersler/tecvid_quiz.json"),
-  zekat:            require("../../src/data/Dersler/zekat_quiz.json"),
-};
-
-const BASLIKLAR: Record<string, string> = {
-  "namaz":           "Namaz",
-  "namaz-dualar":    "Namaz Duaları",
-  "oruc":            "Oruç",
-  "hac-umre":        "Hac & Umre",
-  "iman-esaslari":   "İman Esasları",
-  "peygamberler":    "Peygamberler",
-  "siyer":           "Siyer-i Nebi",
-  "tecvid":          "Tecvid",
-  "abdest-gusul":    "Abdest & Gusül",
-  "ezan-kamet":      "Ezan & Kamet",
-  "allah-sifatlari": "Allah'ın Sıfatları",
-  "zekat":           "Zekat",
-};
+// DERS_DATA, QUIZ_MAP, BASLIKLAR → dersler_registry.ts'ten import edildi
 
 // ─── Tipler ───────────────────────────────────────────────────────────────
 
@@ -105,7 +66,7 @@ function normalizeQuizSorular(raw: any[]): QuizSoru[] {
     soru:     r.soru,
     dogru:    r.dogru_cevap,
     aciklama: r.aciklama ?? "",
-    cevaplar: (r.secenekler as string[]).map(s => {
+    cevaplar: ((r.secenekler ?? []) as string[]).map(s => {
       const sep = s.indexOf(") ");
       return { harf: s.charAt(0), metin: sep >= 0 ? s.slice(sep + 2) : s };
     }),
@@ -163,6 +124,9 @@ export default function DersDetayScreen() {
   const [dersIndex, setDersIndex] = useState(0);
   const dersScrollRef = useRef<ScrollView>(null);
 
+  // Okuma modu
+  const [readMode, setReadMode] = useState(false);
+
   // Quiz state
   const [quizMode, setQuizMode]                     = useState(false);
   const [quizQuestions, setQuizQuestions]           = useState<QuizSoru[]>([]);
@@ -173,6 +137,7 @@ export default function DersDetayScreen() {
   const [quizFinished, setQuizFinished]             = useState(false);
   const [wrongAnswers, setWrongAnswers]             = useState<QuizSoru[]>([]);
   const [showCelebration, setShowCelebration]       = useState(false);
+  const quizOpacity = useRef(new Animated.Value(1)).current;
 
   const dersKey  = dersId ?? "";
   const dersData = DERS_DATA[dersKey];
@@ -180,25 +145,49 @@ export default function DersDetayScreen() {
   const hasQuiz  = !!(quizData?.sorular?.length);
   const baslik   = BASLIKLAR[dersKey] ?? dersKey;
 
+  const { updateProgress, setQuizBitti } = useDersProgress();
+
+  const navigateRef = useRef<(dir: 1 | -1) => void>(() => {});
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, g) =>
+        Math.abs(g.dx) > Math.abs(g.dy) && Math.abs(g.dx) > 12,
+      onPanResponderRelease: (_, g) => {
+        if (g.dx < -50) navigateRef.current(1);
+        else if (g.dx > 50) navigateRef.current(-1);
+      },
+    })
+  ).current;
+
+  useEffect(() => {
+    if (dersKey && dersData) {
+      const count = dersData.kartlar?.length ?? 0;
+      if (count > 0) updateProgress(dersKey, 0, count);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dersKey]);
+
   if (!dersData) return <YakindaEkran baslik={baslik} />;
 
   // ── Ders verileri ──
-  const kartlar: Kart[] = dersData.kartlar;
+  const kartlar: Kart[] = dersData.kartlar ?? [];
   const total    = kartlar.length;
-  const kart     = kartlar[dersIndex];
+  const kart     = kartlar[dersIndex] ?? kartlar[0];
   const isFirst  = dersIndex === 0;
   const isLast   = dersIndex === total - 1;
   const dersProgressW = (SCREEN_W - 32) * ((dersIndex + 1) / total);
-  const gorselSrc = kart.tip === "gorsel" && kart.gorsel ? GORSEL_MAP[kart.gorsel] : null;
+  const gorselSrc = kart?.tip === "gorsel" && kart.gorsel ? (GORSEL_MAP[kart.gorsel] ?? null) : null;
 
   // ── Ders handlers ──
   const navigateDers = (dir: 1 | -1) => {
     const next = dersIndex + dir;
     if (next < 0 || next >= total) return;
     Haptics.selectionAsync();
+    updateProgress(dersKey, next, total);
     setDersIndex(next);
     dersScrollRef.current?.scrollTo({ y: 0, animated: false });
   };
+  navigateRef.current = navigateDers;
 
   // ── Quiz handlers ──
   const startQuiz = () => {
@@ -232,11 +221,15 @@ export default function DersDetayScreen() {
     if (qIndex + 1 >= quizQuestions.length) {
       const finalScore = score + (selectedAnswer === quizQuestions[qIndex].dogru ? 1 : 0);
       if (finalScore >= 7) setShowCelebration(true);
+      setQuizBitti(dersKey);
       setQuizFinished(true);
     } else {
-      setQIndex(prev => prev + 1);
-      setSelectedAnswer(null);
-      setShowResult(false);
+      Animated.timing(quizOpacity, { toValue: 0, duration: 150, useNativeDriver: true }).start(() => {
+        setQIndex(prev => prev + 1);
+        setSelectedAnswer(null);
+        setShowResult(false);
+        Animated.timing(quizOpacity, { toValue: 1, duration: 180, useNativeDriver: true }).start();
+      });
     }
   };
 
@@ -256,6 +249,49 @@ export default function DersDetayScreen() {
     setQuizMode(false);
     setQuizFinished(false);
   };
+
+  // ═══════════════════════════════════════════════════════
+  // OKUMA MODU
+  // ═══════════════════════════════════════════════════════
+  if (readMode) {
+    return (
+      <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <View style={[s.header, { borderBottomColor: c.border }]}>
+          <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7}>
+            <Text style={s.accent}>‹ Geri</Text>
+          </TouchableOpacity>
+          <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
+          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7}>
+            <Text style={[s.accent, { fontSize: 12 }]}>Kart Modu</Text>
+          </TouchableOpacity>
+        </View>
+
+        <ScrollView
+          contentContainerStyle={[s.readContent, { paddingBottom: insets.bottom + 32 }]}
+          showsVerticalScrollIndicator={false}
+        >
+          {kartlar.map((k, i) => (
+            <View key={k.id}>
+              <Text style={[s.readBaslik, { color: c.text }]}>{k.baslik ?? ""}</Text>
+              <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{k.icerik ?? ""}</Text>
+              <View style={[s.vurguBox, { backgroundColor: "rgba(201,168,76,0.10)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
+                <Text style={s.vurguText}>✦  {k.vurgu ?? ""}</Text>
+              </View>
+              {i < kartlar.length - 1 && <View style={[s.readDivider, { backgroundColor: c.border }]} />}
+            </View>
+          ))}
+
+          {hasQuiz && (
+            <TouchableOpacity style={[s.nextBtn, { marginTop: 28 }]} onPress={startQuiz} activeOpacity={0.8}>
+              <Text style={s.nextBtnText}>Teste Başla</Text>
+            </TouchableOpacity>
+          )}
+        </ScrollView>
+      </View>
+    );
+  }
 
   // ═══════════════════════════════════════════════════════
   // SONUÇ EKRANI
@@ -396,7 +432,8 @@ export default function DersDetayScreen() {
           <View style={[s.progressFill, { width: qProgressW }]} />
         </View>
 
-        {/* Soru kartı */}
+        {/* Soru kartı + şıklar — fade animasyonlu */}
+        <Animated.View style={{ flex: 1, opacity: quizOpacity }}>
         <View style={s.scrollContent}>
           <View style={s.questionCard}>
             <Text style={s.questionText}>{question.soru}</Text>
@@ -436,6 +473,7 @@ export default function DersDetayScreen() {
             </TouchableOpacity>
           ))}
         </View>
+        </Animated.View>
 
         {/* Sonraki — her zaman altta sabit, cevap seçilince aktifleşir */}
         <View style={[s.navRow, { borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
@@ -458,7 +496,7 @@ export default function DersDetayScreen() {
   // DERS EKRANI
   // ═══════════════════════════════════════════════════════
   return (
-    <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+    <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]} {...panResponder.panHandlers}>
       <Stack.Screen options={{ headerShown: false }} />
 
       {/* Header */}
@@ -467,14 +505,21 @@ export default function DersDetayScreen() {
           <Text style={s.accent}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <Text style={[s.progressLabel, { color: "#c9a84c", width: 72, textAlign: "right" }]}>
-          {dersIndex + 1}/{total}
-        </Text>
+        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7}>
+          <Text style={[s.accent, { fontSize: 12 }]}>
+            {readMode ? "Kart Modu" : "Tümünü Oku"}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {/* Progress */}
       <View style={[s.progressTrack, { backgroundColor: c.border }]}>
         <View style={[s.progressFill, { width: dersProgressW }]} />
+      </View>
+
+      {/* Kart başlığı — her zaman görünür */}
+      <View style={s.kartBaslikBox}>
+        <Text style={[s.kartBaslikBig, { color: c.text }]}>{kart?.baslik ?? ""}</Text>
       </View>
 
       {/* Kart içeriği */}
@@ -488,14 +533,13 @@ export default function DersDetayScreen() {
           <Image source={gorselSrc} style={s.gorselImg} resizeMode="contain" />
         )}
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
-          <Text style={[s.kartBaslik, { color: c.text }]}>{kart.baslik}</Text>
-          <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{kart.icerik}</Text>
+          <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</Text>
         </View>
       </ScrollView>
 
       {/* Vurgu — navRow üstünde her zaman sabit */}
       <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginHorizontal: 20, marginBottom: 8 }]}>
-        <Text style={s.vurguText}>✦  {kart.vurgu}</Text>
+        <Text style={s.vurguText}>✦  {kart?.vurgu ?? ""}</Text>
       </View>
 
       {/* Navigasyon */}
@@ -541,20 +585,20 @@ const s = StyleSheet.create({
   headerSide:    { width: 72 },
   headerTitle:   { flex: 1, fontSize: 17, fontWeight: "800", textAlign: "center" },
   accent:        { fontSize: 14, color: "#c9a84c", fontWeight: "600" },
-  progressLabel: { textAlign: "right", fontSize: 12, fontWeight: "600" },
 
   progressTrack: { height: 5, marginHorizontal: 16, borderRadius: 3, marginBottom: 6 },
   progressFill:  { height: 5, backgroundColor: "#c9a84c", borderRadius: 3 },
 
-  scrollContent: { flexGrow: 1, padding: 20, paddingBottom: 16 },
+  scrollContent: { flexGrow: 1, padding: 16, paddingBottom: 16 },
 
   // Ders
+  kartBaslikBox: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 10 },
+  kartBaslikBig: { fontSize: 24, fontWeight: "800", lineHeight: 32 },
   gorselImg:     {
     width: SCREEN_W - 32, height: (SCREEN_W - 32) * 0.85,
     borderRadius: 14, marginBottom: 16, alignSelf: "center", backgroundColor: "#ffffff",
   },
-  kartCard:      { flex: 1, borderRadius: 14, borderWidth: 1, padding: 20, gap: 10, justifyContent: "center" },
-  kartBaslik:    { fontSize: 22, fontWeight: "800", lineHeight: 30 },
+  kartCard:      { flex: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
   kartIcerik:    { fontSize: 15, lineHeight: 26 },
   vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },
   vurguText:     { fontSize: 15, color: "#c9a84c", fontWeight: "700", lineHeight: 24 },
@@ -579,6 +623,11 @@ const s = StyleSheet.create({
 
   aciklamaBox:   { borderWidth: 1.5, borderRadius: 12, padding: 14, marginTop: 12 },
   aciklamaText:  { fontSize: 14, lineHeight: 22, marginBottom: 4 },
+
+  // Okuma modu
+  readContent:   { padding: 20 },
+  readBaslik:    { fontSize: 20, fontWeight: "800", lineHeight: 28, marginBottom: 12 },
+  readDivider:   { height: 1, marginVertical: 28, opacity: 0.4 },
 
   // Sonuç
   scoreCard:     { borderRadius: 16, padding: 24, alignItems: "center", gap: 8 },
