@@ -18,10 +18,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { AUDIO_BASE_URL } from "../../src/lib/runtimeConfig";
 
-const AUDIO_BASE = (process.env.EXPO_PUBLIC_API_URL ??
-  "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1")
-  .replace(/\/api\/v1\/?$/, "");
+const AUDIO_BASE = AUDIO_BASE_URL;
 
 function harfSesUrl(harfId: number): string {
   return `${AUDIO_BASE}/audio/elifba/harf_${String(harfId).padStart(2, "0")}.mp3`;

@@ -4,7 +4,19 @@
       "Bash(npm run *)",
       "Bash(python -c ' *)",
       "Bash(python *)",
-      "Bash(npm test *)"
+      "Bash(npm test *)",
+      "Bash(npx expo *)",
+      "Bash(sqlite3 \"apps/web/kuran.db\" \"SELECT * FROM quiz_sorular LIMIT 30;\")",
+      "Read(//mnt/c/Users/jalek/OneDrive/Masa/**)",
+      "Bash(sqlite3 apps/web/kuran.db \"SELECT * FROM quiz_sorular LIMIT 30;\")",
+      "Bash(where sqlite3 *)",
+      "Bash(sqlite3 --version)",
+      "Bash(npm list *)",
+      "Read(//c/Users/jalek/AppData/Roaming/npm/**)"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "sentry"
+  ]
 }

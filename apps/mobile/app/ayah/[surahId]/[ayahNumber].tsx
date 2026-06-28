@@ -20,6 +20,7 @@ import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
 import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
+import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -466,7 +467,7 @@ export default function AyahDetailScreen() {
   const handleShare = useCallback(async () => {
     if (!data) return;
     logFeature(AnalyticsEvents.PAYLASIM);
-    const webUrl = `https://kuran-app-web-ozan-s-projects8.vercel.app/surah/${surahId}/ayah/${ayahNumber}`;
+    const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
     const text = [
       `${data.surahName} · ${data.ayahNumber}. Ayet`,
       data.arabicText ?? "",

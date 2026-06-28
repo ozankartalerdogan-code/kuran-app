@@ -1,9 +1,7 @@
-// EXPO_PUBLIC_ prefix: Expo build sürecinde bundle'a gömülür
 import { storage } from "./storage";
+import { API_BASE_URL } from "./runtimeConfig";
 
-const API_BASE =
-  process.env.EXPO_PUBLIC_API_URL ??
-  "https://kuran-app-web-ozan-s-projects8.vercel.app/api/v1";
+const API_BASE = API_BASE_URL;
 
 const TIMEOUT_MS = 10_000;
 const MAX_RETRIES = 2;
