@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Modal,
 } from "react-native";
@@ -65,12 +65,12 @@ function HomeContent() {
 
   const openTasbih = useCallback(() => setTasbihOpen(true), []);
 
-  const QUICK_ACTIONS: QuickAction[] = [
+  const QUICK_ACTIONS: QuickAction[] = useMemo(() => [
     { id: "quran", emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
     { id: "learn", emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
     { id: "tasbih", emoji: "📿", label: "Tespih",         bg: "#dcfce7",          onPress: openTasbih },
     { id: "qibla", emoji: "🧭", label: "Kıble",          route: "/kible",        bg: "#ede9fe" },
-  ];
+  ], [openTasbih]);
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
   // sunucu "ayet bulunamadı" döner) ilgili tag sıfırlanıp yeni tur başlar.
