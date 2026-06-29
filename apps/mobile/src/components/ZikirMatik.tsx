@@ -12,7 +12,8 @@ let Haptics: typeof import("expo-haptics") | null = null;
 try { Haptics = require("expo-haptics"); } catch { Haptics = null; }
 
 const STORAGE_KEY = "tespih_custom_zikirler";
-const STATE_KEY   = "tespih_state"; // aktif sayım (count/tur/seçili zikir) — uygulama kapansa da korunur
+const STATE_KEY   = "tespih_state";   // aktif sayım (count/tur/seçili zikir) — uygulama kapansa da korunur
+const PRESET_KEY  = "tespih_preset_hedefler"; // hazır zikirlerin kullanıcı tarafından değiştirilmiş hedefleri
 interface SavedZikir { isim: string; hedef: number }
 
 interface Zikir {
@@ -91,10 +92,13 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const [savedList,         setSavedList]          = useState<SavedZikir[]>([]);
   const [editTargetIdx,     setEditTargetIdx]      = useState<number | null>(null);
   const [editTargetVal,     setEditTargetVal]      = useState("");
+  const [targetOverrides,   setTargetOverrides]    = useState<Record<string, number>>({}); // hazır zikir → özel hedef
+  const [editingPreset,     setEditingPreset]      = useState(false);
+  const [presetTargetInput, setPresetTargetInput]  = useState("");
 
   const zikir  = ZİKİRLER[zikirIdx];
   const isOzel = zikir.ozel === true;
-  const target = isOzel ? customTarget : zikir.hedef;
+  const target = isOzel ? customTarget : (targetOverrides[zikir.isim] ?? zikir.hedef);
   const pct    = target > 0 ? Math.min(count / target, 1) : 0;
 
   const scaleAnim     = useRef(new Animated.Value(1)).current;
@@ -114,12 +118,14 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
       .catch(() => {});
   }, []);
 
-  // Aktif sayımı yükle (uygulama yeniden açılınca kaldığın yerden devam)
+  // Aktif sayımı + hazır zikir hedef override'larını yükle
   useEffect(() => {
-    AsyncStorage.getItem(STATE_KEY)
-      .then(raw => {
-        if (!raw) return;
-        const st = JSON.parse(raw) as Partial<{ zikirIdx: number; count: number; tur: number; customName: string; customTarget: number }>;
+    Promise.all([AsyncStorage.getItem(STATE_KEY), AsyncStorage.getItem(PRESET_KEY)])
+      .then(([rawState, rawPreset]) => {
+        let overrides: Record<string, number> = {};
+        if (rawPreset) { try { overrides = JSON.parse(rawPreset); setTargetOverrides(overrides); } catch { /* yoksay */ } }
+        if (!rawState) return;
+        const st = JSON.parse(rawState) as Partial<{ zikirIdx: number; count: number; tur: number; customName: string; customTarget: number }>;
         const idx = typeof st.zikirIdx === "number" && st.zikirIdx >= 0 && st.zikirIdx < ZİKİRLER.length ? st.zikirIdx : 0;
         const ct  = typeof st.customTarget === "number" && st.customTarget > 0 ? st.customTarget : 33;
         if (typeof st.customName === "string") setCustomName(st.customName);
@@ -128,7 +134,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         setZikirIdx(idx);
         if (typeof st.tur === "number" && st.tur >= 0) setTur(st.tur);
         // Tamamlanma anında kapanmışsa (count == hedef) yeniden tetiklenmesin → 0'dan başlat.
-        const loadedTarget = ZİKİRLER[idx].ozel ? ct : ZİKİRLER[idx].hedef;
+        const z = ZİKİRLER[idx];
+        const loadedTarget = z.ozel ? ct : (overrides[z.isim] ?? z.hedef);
         const cnt = typeof st.count === "number" && st.count > 0 ? st.count : 0;
         setCount(cnt >= loadedTarget ? 0 : cnt);
       })
@@ -219,7 +226,21 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
 
   const selectZikir = useCallback((idx: number) => {
     clearTimer(); setZikirIdx(idx); setCount(0); setTur(0); setCompleting(false); completingRef.current = false;
+    setEditingPreset(false);
   }, [clearTimer]);
+
+  // Hazır zikrin hedefini kullanıcı değerine ayarla (override) ve kalıcı kaydet.
+  const commitPresetTarget = useCallback(() => {
+    setEditingPreset(false);
+    const n = parseInt(presetTargetInput, 10);
+    if (isNaN(n) || n <= 0) return;
+    setTargetOverrides(prev => {
+      const next = { ...prev, [zikir.isim]: n };
+      AsyncStorage.setItem(PRESET_KEY, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+    if (count >= n && count > 0) triggerComplete(); // yeni hedefi zaten geçmişse tamamla
+  }, [presetTargetInput, zikir.isim, count, triggerComplete]);
 
   const applyCustomTarget = useCallback((val: string) => {
     const digits = val.replace(/[^0-9]/g, "");
@@ -338,7 +359,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
               >
                 <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]}>{z.isim}</Text>
                 <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]}>
-                  ×{z.ozel ? customTarget : z.hedef}
+                  ×{z.ozel ? customTarget : (targetOverrides[z.isim] ?? z.hedef)}
                 </Text>
               </TouchableOpacity>
             );
@@ -411,9 +432,29 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         ) : (
           <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.isDark ? "#252f45" : "#cbd5e1" }]}>
             <Text style={[m.arabicText, { color: c.text }]}>{zikir.arapca}</Text>
-            <Text style={[m.arabicSub, { color: c.textMuted }]}>
-              {zikir.isim} · {zikir.hedef} kez · {zikir.kaynak}
-            </Text>
+            <View style={m.presetSubRow}>
+              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zikir.isim} · {zikir.kaynak} · </Text>
+              {editingPreset ? (
+                <TextInput
+                  style={[m.savedHedefInput, { color: c.text, borderColor: c.border }]}
+                  value={presetTargetInput}
+                  onChangeText={v => setPresetTargetInput(v.replace(/[^0-9]/g, ""))}
+                  onBlur={commitPresetTarget}
+                  onSubmitEditing={commitPresetTarget}
+                  keyboardType="number-pad"
+                  maxLength={4}
+                  autoFocus
+                  selectTextOnFocus
+                />
+              ) : (
+                <TouchableOpacity
+                  onPress={() => { setEditingPreset(true); setPresetTargetInput(String(target)); }}
+                  hitSlop={6} activeOpacity={0.7}
+                >
+                  <Text style={[m.arabicSub, { color: ACCENT, fontWeight: "700" }]}>{target} kez ✎</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
         )}
 
@@ -494,6 +535,7 @@ const m = StyleSheet.create({
   arabicCard:  { borderRadius: 12, borderWidth: 1.5, paddingVertical: 10, paddingHorizontal: 16, alignItems: "center", marginBottom: 18 },
   arabicText:  { fontSize: 28, fontFamily: "Amiri", writingDirection: "rtl", textAlign: "center", lineHeight: 46 },
   arabicSub:   { fontSize: 11, marginTop: 2, textAlign: "center" },
+  presetSubRow:{ flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "wrap", marginTop: 2 },
 
   customNameInput:   { width: "100%", borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, marginBottom: 8 },
   customTargetRow:   { flexDirection: "row", alignItems: "center", gap: 8 },
