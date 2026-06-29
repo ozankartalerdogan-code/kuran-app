@@ -5,7 +5,7 @@ import {
 } from "react-native";
 import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 
 const { width } = Dimensions.get("window");
@@ -34,7 +34,7 @@ const SLIDES = [
 ] as const;
 
 async function completeOnboarding() {
-  await AsyncStorage.setItem("onboarding_completed", "true");
+  await storage.setString(STORAGE_KEYS.onboarding, "true");
   router.replace("/(tabs)");
 }
 

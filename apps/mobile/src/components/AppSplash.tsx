@@ -30,7 +30,7 @@ export function AppSplash({ onFinish }: AppSplashProps) {
     const timer = setTimeout(() => {
       dotAnims.forEach(a => a.stop());
       onFinish();
-    }, 1500);
+    }, 1000);
 
     return () => {
       clearTimeout(timer);

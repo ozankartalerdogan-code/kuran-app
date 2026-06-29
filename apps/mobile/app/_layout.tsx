@@ -79,20 +79,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-function AppContent() {
-  // Stack mount'tan SONRA çalışmalı — burada güvenli
-  useEffect(() => {
-    async function checkOnboarding() {
-      const completed = await storage.getString("onboarding_completed");
-      if (!completed) router.replace("/onboarding");
-    }
-    checkOnboarding();
-  }, []);
-
+function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
+  // Onboarding kararı splash aşamasında verildi; ilk ekran doğrudan
+  // initialRouteName ile mount edilir, böylece ana ekran "flash"ı olmaz.
   return (
     <SafeAreaProvider>
       <StatusBar style="auto" />
-      <Stack>
+      <Stack initialRouteName={needsOnboarding ? "onboarding" : "(tabs)"}>
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerShown: false }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
@@ -118,7 +111,6 @@ function AppContent() {
         <Stack.Screen name="hadisler"                             options={{ title: "Hadisler", headerBackTitle: "Geri" }} />
 
         <Stack.Screen name="sure-listesi"                         options={{ title: "Sure Listesi", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="surah-list"                          options={{ headerShown: false }} />
         <Stack.Screen name="favoriler"                           options={{ headerShown: false }} />
         <Stack.Screen name="notlar"                              options={{ headerShown: false }} />
         <Stack.Screen name="ne-ogreneyim"                        options={{ headerShown: false }} />
@@ -136,33 +128,36 @@ function AppContent() {
 
 function RootLayout() {
   const [videoFinished, setVideoFinished] = useState(false);
+  // null = henüz okunmadı, true = onboarding gerekli, false = gerekmez
+  const [needsOnboarding, setNeedsOnboarding] = useState<boolean | null>(null);
   const [fontsLoaded] = Font.useFonts({
     "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
     "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
   });
 
-  const ready = videoFinished && !!fontsLoaded;
+  const ready = videoFinished && !!fontsLoaded && needsOnboarding !== null;
 
   const handleSplashFinish = useCallback(() => {
     setVideoFinished(true);
   }, []);
 
+  // Native splash'i mount'ta hemen kaldır — altındaki animasyonlu AppSplash görünsün.
   useEffect(() => {
-    if (ready) {
-      SplashScreen.hideAsync();
-    }
-  }, [ready]);
+    SplashScreen.hideAsync().catch(() => {});
+  }, []);
+
+  // Onboarding durumunu splash aşamasında oku (AppContent render edilmeden önce).
+  useEffect(() => {
+    storage.getString(STORAGE_KEYS.onboarding)
+      .then((completed) => setNeedsOnboarding(!completed))
+      .catch(() => setNeedsOnboarding(false));
+  }, []);
 
   useEffect(() => {
     maybeAskReview();
   }, []);
 
   useEffect(() => {
-    // Maksimum 5 saniye bekle (video yüklenemezse)
-    const timer = setTimeout(() => {
-      setVideoFinished(true);
-    }, 3000);
-
     // Bildirime tıklanınca ilgili ekrana git (uygulama hazır olduktan sonra)
     const sub = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data as Record<string, unknown>;
@@ -176,7 +171,6 @@ function RootLayout() {
     });
 
     return () => {
-      clearTimeout(timer);
       sub.remove();
     };
   }, []);
@@ -186,7 +180,7 @@ function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <AppContent />
+        <AppContent needsOnboarding={needsOnboarding ?? false} />
       </ErrorBoundary>
     </QueryClientProvider>
   );

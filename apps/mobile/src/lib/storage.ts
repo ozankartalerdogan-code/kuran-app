@@ -11,6 +11,7 @@ export const STORAGE_KEYS = {
   recentSearches:  "recentSearches",
   prayerCache:     "prayerTimesCache",
   derslerProgress: "derslerProgress",
+  onboarding:      "onboarding_completed",
 } as const;
 
 export class StorageQuotaError extends Error {
