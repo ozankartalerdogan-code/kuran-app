@@ -12,6 +12,7 @@ let Haptics: typeof import("expo-haptics") | null = null;
 try { Haptics = require("expo-haptics"); } catch { Haptics = null; }
 
 const STORAGE_KEY = "tespih_custom_zikirler";
+const STATE_KEY   = "tespih_state"; // aktif sayım (count/tur/seçili zikir) — uygulama kapansa da korunur
 interface SavedZikir { isim: string; hedef: number }
 
 interface Zikir {
@@ -47,7 +48,7 @@ function interpColor(t: number): string {
   return `rgb(${r},${g},${b})`;
 }
 
-function BeadRing({ pct, ringSize, trackColor }: { pct: number; ringSize: number; trackColor: string }) {
+const BeadRing = React.memo(function BeadRing({ pct, ringSize, trackColor }: { pct: number; ringSize: number; trackColor: string }) {
   const center    = ringSize / 2;
   const radius    = ringSize / 2 - 10;
   const beadSize  = 8;
@@ -74,7 +75,7 @@ function BeadRing({ pct, ringSize, trackColor }: { pct: number; ringSize: number
       })}
     </View>
   );
-}
+});
 
 export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const c      = useColors();
@@ -88,6 +89,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const [customTarget,      setCustomTarget]       = useState(33);
   const [customTargetInput, setCustomTargetInput]  = useState("33");
   const [savedList,         setSavedList]          = useState<SavedZikir[]>([]);
+  const [editTargetIdx,     setEditTargetIdx]      = useState<number | null>(null);
+  const [editTargetVal,     setEditTargetVal]      = useState("");
 
   const zikir  = ZİKİRLER[zikirIdx];
   const isOzel = zikir.ozel === true;
@@ -99,6 +102,9 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const completingRef = useRef(false);
   const autoResetRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioCtxRef   = useRef<any>(null);
+  // Hedefi ref'te tut: tamamlanma yalnız sayım ARTINCA tetiklensin, hedef değişince değil.
+  const targetRef     = useRef(target);
+  targetRef.current   = target;
 
   useEffect(() => () => { if (autoResetRef.current) clearTimeout(autoResetRef.current); }, []);
 
@@ -107,6 +113,35 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
       .then(raw => { if (raw) setSavedList(JSON.parse(raw)); })
       .catch(() => {});
   }, []);
+
+  // Aktif sayımı yükle (uygulama yeniden açılınca kaldığın yerden devam)
+  useEffect(() => {
+    AsyncStorage.getItem(STATE_KEY)
+      .then(raw => {
+        if (!raw) return;
+        const st = JSON.parse(raw) as Partial<{ zikirIdx: number; count: number; tur: number; customName: string; customTarget: number }>;
+        const idx = typeof st.zikirIdx === "number" && st.zikirIdx >= 0 && st.zikirIdx < ZİKİRLER.length ? st.zikirIdx : 0;
+        const ct  = typeof st.customTarget === "number" && st.customTarget > 0 ? st.customTarget : 33;
+        if (typeof st.customName === "string") setCustomName(st.customName);
+        setCustomTarget(ct);
+        setCustomTargetInput(String(ct));
+        setZikirIdx(idx);
+        if (typeof st.tur === "number" && st.tur >= 0) setTur(st.tur);
+        // Tamamlanma anında kapanmışsa (count == hedef) yeniden tetiklenmesin → 0'dan başlat.
+        const loadedTarget = ZİKİRLER[idx].ozel ? ct : ZİKİRLER[idx].hedef;
+        const cnt = typeof st.count === "number" && st.count > 0 ? st.count : 0;
+        setCount(cnt >= loadedTarget ? 0 : cnt);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Aktif sayımı kaydet (debounce — her çekişte disk yazımını önler)
+  useEffect(() => {
+    const t = setTimeout(() => {
+      AsyncStorage.setItem(STATE_KEY, JSON.stringify({ zikirIdx, count, tur, customName, customTarget })).catch(() => {});
+    }, 400);
+    return () => clearTimeout(t);
+  }, [zikirIdx, count, tur, customName, customTarget]);
 
   const playFeedback = useCallback((success: boolean) => {
     if (Platform.OS === "web") {
@@ -132,23 +167,33 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
     }
   }, []);
 
+  const triggerComplete = useCallback(() => {
+    if (completingRef.current) return;
+    completingRef.current = true;
+    setCompleting(true);
+    setTur(t => t + 1);
+    playFeedback(true);
+    Animated.sequence([
+      Animated.timing(scaleAnim, { toValue: 1.18, duration: 140, useNativeDriver: true }),
+      Animated.spring(scaleAnim, { toValue: 1, friction: 4, useNativeDriver: true }),
+    ]).start();
+    autoResetRef.current = setTimeout(() => {
+      setCount(0);
+      setCompleting(false);
+      completingRef.current = false;
+    }, 1600);
+  }, [playFeedback, scaleAnim]);
+
+  // Sayım artışında tamamlanmayı kontrol et. target deps'te DEĞİL → hedef
+  // yazılırken (ör. "10" için önce "1") erken tetiklenmez.
   useEffect(() => {
-    if (count >= target && count > 0 && !completingRef.current) {
-      completingRef.current = true;
-      setCompleting(true);
-      setTur(t => t + 1);
-      playFeedback(true);
-      Animated.sequence([
-        Animated.timing(scaleAnim, { toValue: 1.18, duration: 140, useNativeDriver: true }),
-        Animated.spring(scaleAnim, { toValue: 1, friction: 4, useNativeDriver: true }),
-      ]).start();
-      autoResetRef.current = setTimeout(() => {
-        setCount(0);
-        setCompleting(false);
-        completingRef.current = false;
-      }, 1600);
-    }
-  }, [count, target, playFeedback, scaleAnim]);
+    if (count >= targetRef.current && count > 0) triggerComplete();
+  }, [count, triggerComplete]);
+
+  // Hedef alanı düzenlenip bitince: sayımı zaten geçmişsen tamamla.
+  const checkTargetReached = useCallback(() => {
+    if (count >= targetRef.current && count > 0) triggerComplete();
+  }, [count, triggerComplete]);
 
   const tap = useCallback(() => {
     if (completingRef.current) return;
@@ -228,10 +273,24 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   }, []);
 
   const selectSaved = useCallback((z: SavedZikir) => {
+    clearTimer();
     setCustomName(z.isim);
     setCustomTarget(z.hedef);
     setCustomTargetInput(String(z.hedef));
-  }, []);
+    // Taze sayıma hazır — hedef sayı yüklenir, kullanıcı isterse input'tan değiştirebilir.
+    setCount(0); setTur(0); setCompleting(false); completingRef.current = false;
+  }, [clearTimer]);
+
+  // Kayıtlı zikrin hedef sayısını satır içinde düzenle ve kalıcı kaydet.
+  const commitSavedTarget = useCallback((idx: number) => {
+    setSavedList(prev => {
+      const n = parseInt(editTargetVal, 10);
+      const next = (!isNaN(n) && n > 0) ? prev.map((z, i) => (i === idx ? { ...z, hedef: n } : z)) : prev;
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+    setEditTargetIdx(null);
+  }, [editTargetVal]);
 
   const bgColor    = c.isDark ? "#0a0f1a" : "#f8f9fc";
   const trackColor = c.isDark ? "#1e2535" : "#e2e8f0";
@@ -303,6 +362,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 style={[m.customTargetInput, { color: c.text, borderColor: c.border }]}
                 value={customTargetInput}
                 onChangeText={applyCustomTarget}
+                onBlur={checkTargetReached}
+                onSubmitEditing={checkTargetReached}
                 keyboardType="number-pad"
                 maxLength={4}
                 selectTextOnFocus
@@ -314,14 +375,35 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
             {savedList.length > 0 && (
               <View style={[m.savedSep, { borderTopColor: c.border }]}>
                 {savedList.map((z, i) => (
-                  <TouchableOpacity key={i} onPress={() => selectSaved(z)} activeOpacity={0.7}
+                  <View key={i}
                     style={[m.savedRow, { backgroundColor: c.isDark ? "#151c2e" : "#f1f5f9" }]}>
-                    <Text style={[m.savedIsim, { color: c.text }]} numberOfLines={1}>{z.isim}</Text>
-                    <Text style={[m.savedHedef, { color: c.textMuted }]}>×{z.hedef}</Text>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => selectSaved(z)} activeOpacity={0.7}>
+                      <Text style={[m.savedIsim, { color: c.text }]} numberOfLines={1}>{z.isim}</Text>
+                    </TouchableOpacity>
+                    {editTargetIdx === i ? (
+                      <TextInput
+                        style={[m.savedHedefInput, { color: c.text, borderColor: c.border }]}
+                        value={editTargetVal}
+                        onChangeText={v => setEditTargetVal(v.replace(/[^0-9]/g, ""))}
+                        onBlur={() => commitSavedTarget(i)}
+                        onSubmitEditing={() => commitSavedTarget(i)}
+                        keyboardType="number-pad"
+                        maxLength={4}
+                        autoFocus
+                        selectTextOnFocus
+                      />
+                    ) : (
+                      <TouchableOpacity
+                        onPress={() => { setEditTargetIdx(i); setEditTargetVal(String(z.hedef)); }}
+                        hitSlop={6} activeOpacity={0.7}
+                      >
+                        <Text style={[m.savedHedef, { color: c.textMuted }]}>×{z.hedef} ✎</Text>
+                      </TouchableOpacity>
+                    )}
                     <TouchableOpacity onPress={() => deleteCustom(i, z.isim)} hitSlop={8} activeOpacity={0.7}>
                       <Ionicons name="close-circle" size={18} color={c.textMuted} />
                     </TouchableOpacity>
-                  </TouchableOpacity>
+                  </View>
                 ))}
               </View>
             )}
@@ -362,6 +444,9 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
           <Animated.View style={{ transform: [{ scale: tapAnim }] }}>
             <Pressable
               onPress={tap}
+              accessibilityRole="button"
+              accessibilityLabel={`${isOzel ? (customName || "Özel zikir") : zikir.isim} çek`}
+              accessibilityHint={`${count} / ${target}`}
               style={({ pressed }) => [m.tapBtn, { opacity: pressed ? 0.85 : 1 }]}
             >
               {isOzel && customName
@@ -419,6 +504,7 @@ const m = StyleSheet.create({
   savedRow:          { flexDirection: "row", alignItems: "center", gap: 8, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 7 },
   savedIsim:         { flex: 1, fontSize: 13, fontWeight: "600" },
   savedHedef:        { fontSize: 12, fontWeight: "500" },
+  savedHedefInput:   { borderWidth: 1, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, fontSize: 12, width: 54, textAlign: "center" },
 
   circleArea:  { flex: 1, alignItems: "center", justifyContent: "center" },
   circle:      {
