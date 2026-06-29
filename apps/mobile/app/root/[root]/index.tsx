@@ -12,8 +12,8 @@ import { api, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-function heatColor(count: number, max: number): string {
-  if (count === 0) return "#f5f5f4";
+function heatColor(count: number, max: number, isDark: boolean): string {
+  if (count === 0) return isDark ? "#292524" : "#f5f5f4";
   const ratio = Math.min(count / Math.max(max, 1), 1);
   const intensity = Math.round(ratio * 255);
   const r = Math.round(255 - intensity * 0.8);
@@ -26,7 +26,7 @@ const SURAH_SHORT: Record<number, string> = {
   1: "Fât", 2: "Bak", 3: "Âl", 4: "Nis", 5: "Mâi", 6: "En'", 7: "A'r", 8: "Enf", 9: "Tev", 10: "Yun",
   11: "Hûd", 12: "Yus", 13: "Ra'd", 14: "İbr", 15: "Hicr", 16: "Nah", 17: "İsr", 18: "Keh", 19: "Mer", 20: "Tâh",
   21: "Enb", 22: "Hac", 23: "Mü'", 24: "Nur", 25: "Fur", 26: "Şua", 27: "Nem", 28: "Kas", 29: "Ank", 30: "Rum",
-  31: "Luk", 32: "Sec", 33: "Ahz", 34: "Seb", 35: "Fât", 36: "Yas", 37: "Saf", 38: "Sâd", 39: "Zum", 40: "Mü'",
+  31: "Luk", 32: "Sec", 33: "Ahz", 34: "Seb", 35: "Fâtr", 36: "Yas", 37: "Saf", 38: "Sâd", 39: "Zum", 40: "Mü'",
   41: "Fus", 42: "Şur", 43: "Zuh", 44: "Duh", 45: "Câs", 46: "Ahk", 47: "Muh", 48: "Fet", 49: "Huc", 50: "Kâf",
   51: "Zâr", 52: "Tûr", 53: "Nec", 54: "Kam", 55: "Rah", 56: "Vâk", 57: "Had", 58: "Muc", 59: "Haş", 60: "Mum",
   61: "Saf", 62: "Cum", 63: "Mun", 64: "Teğ", 65: "Tal", 66: "Tah", 67: "Mül", 68: "Kal", 69: "Hak", 70: "Mea",
@@ -40,9 +40,11 @@ const SURAH_SHORT: Record<number, string> = {
 const HeatGrid = memo(function HeatGrid({
   distribution,
   maxCount,
+  c,
 }: {
   distribution: Record<number, number>;
   maxCount: number;
+  c: AppColors;
 }) {
   const [modalInfo, setModalInfo] = useState<{ surahId: number; count: number } | null>(null);
 
@@ -51,7 +53,7 @@ const HeatGrid = memo(function HeatGrid({
       <View style={hg.grid}>
         {Array.from({ length: 114 }, (_, i) => i + 1).map((id) => {
           const count = distribution[id] ?? 0;
-          const backgroundColor = heatColor(count, maxCount);
+          const backgroundColor = heatColor(count, maxCount, c.isDark);
           const isDisabled = count === 0;
 
           return (
@@ -140,11 +142,11 @@ const MeaningGroup = memo(function MeaningGroup({
         accessibilityState={{ expanded: isOpen }}
       >
         <View style={{ flex: 1 }}>
-          <Text style={s.accordionTitle}>
+          <Text style={[s.accordionTitle, { color: c.text }]}>
             {meaning}
-            <Text style={s.accordionCount}> — {verses.length} ayet</Text>
+            <Text style={[s.accordionCount, { color: c.accent }]}> — {verses.length} ayet</Text>
           </Text>
-          <Text style={s.accordionForms} numberOfLines={1}>
+          <Text style={[s.accordionForms, { color: c.textMuted }]} numberOfLines={1}>
             {forms.join(" · ")}
           </Text>
         </View>
@@ -158,14 +160,14 @@ const MeaningGroup = memo(function MeaningGroup({
           {verses.slice(0, 80).map((verse, index) => (
             <TouchableOpacity
               key={index}
-              style={s.verseChip}
+              style={[s.verseChip, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}
               onPress={() => router.push(`/ayah/${verse.surahId}/${verse.ayahNumber}`)}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={`${verse.surahId} sure ${verse.ayahNumber}. ayet`}
               accessibilityHint="Ayet detayını açar"
             >
-              <Text style={s.verseChipText}>{verse.surahId}:{verse.ayahNumber}</Text>
+              <Text style={[s.verseChipText, c.isDark && { color: "#6ee7b7" }]}>{verse.surahId}:{verse.ayahNumber}</Text>
             </TouchableOpacity>
           ))}
           {verses.length > 80 && (
@@ -348,25 +350,19 @@ export default function RootDetailScreen() {
               <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
               {displayMeaning ? <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text> : null}
               <View style={s.statsRow}>
-                <View style={s.statBadge}>
-                  <Text style={s.statNum}>{totalOccurrences}</Text>
-                  <Text style={s.statLabel}>geçiş</Text>
-                </View>
-                <View style={s.statBadge}>
-                  <Text style={s.statNum}>{surahCount}</Text>
-                  <Text style={s.statLabel}>sure</Text>
-                </View>
-                <View style={s.statBadge}>
-                  <Text style={s.statNum}>{uniqueForms}</Text>
-                  <Text style={s.statLabel}>türev</Text>
-                </View>
+                {([[totalOccurrences, "geçiş"], [surahCount, "sure"], [uniqueForms, "türev"]] as const).map(([num, label]) => (
+                  <View key={label} style={[s.statBadge, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}>
+                    <Text style={[s.statNum, c.isDark && { color: "#6ee7b7" }]}>{num}</Text>
+                    <Text style={[s.statLabel, c.isDark && { color: "#34d399" }]}>{label}</Text>
+                  </View>
+                ))}
               </View>
             </View>
 
             <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
               <Text style={[s.sectionTitle, { color: c.text }]}>Sure Dağılımı</Text>
               <Text style={[s.sectionHint, { color: c.textMuted }]}>Renkli hücreye dokun → sure bilgisi</Text>
-              <HeatGrid distribution={data.distribution} maxCount={maxCount} />
+              <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} />
             </View>
 
             {groups.length > 0 && (

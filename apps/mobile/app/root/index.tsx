@@ -25,6 +25,17 @@ const Separator = () => <View style={s.sep} />;
 const arCollator = new Intl.Collator("ar");
 const trCollator = new Intl.Collator("tr");
 
+// Arapça arama normalizasyonu: hemze/elif varyantları, elif maksura, te marbuta
+// ve harekeleri sadeleştir → kullanıcı "اله" yazınca "أله" kökünü de bulur.
+function normalizeArabic(value: string): string {
+  return value
+    .replace(/[أإآٱ]/g, "ا") // أ إ آ ٱ → ا
+    .replace(/ى/g, "ي")                       // ى → ي
+    .replace(/ة/g, "ه")                       // ة → ه
+    .replace(/[ً-ٰٟ]/g, "")              // harekeler
+    .trim();
+}
+
 const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; onPress: (root: string) => void; c: AppColors }) {
   return (
     <TouchableOpacity
@@ -39,8 +50,8 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
         <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
       </View>
-      <View style={s.freqBadge}>
-        <Text style={s.freqText}>{item.frequency}</Text>
+      <View style={[s.freqBadge, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}>
+        <Text style={[s.freqText, c.isDark && { color: "#6ee7b7" }]}>{item.frequency}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -82,8 +93,10 @@ export default function RootListScreen() {
     if (search.trim()) {
       const rawQuery = search.trim();
       const query = rawQuery.toLowerCase();
+      const arQuery = normalizeArabic(rawQuery);
       list = list.filter((item) =>
-        item.root.includes(rawQuery) || item.meaning_tr.toLowerCase().includes(query),
+        normalizeArabic(item.root).includes(arQuery) ||
+        item.meaning_tr.toLowerCase().includes(query),
       );
     }
     switch (sort) {
@@ -169,7 +182,7 @@ export default function RootListScreen() {
               accessibilityLabel={`${SORT_LABELS[key]} sıralaması`}
               accessibilityState={{ selected: sort === key }}
             >
-              <Text style={[s.sortBtnText, sort === key && s.sortBtnTextActive]}>
+              <Text style={[s.sortBtnText, { color: c.text }, sort === key && s.sortBtnTextActive]}>
                 {SORT_LABELS[key]}
               </Text>
             </TouchableOpacity>
