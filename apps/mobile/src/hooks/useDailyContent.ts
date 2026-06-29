@@ -250,10 +250,12 @@ export function useDailyContent(): UseDailyContentResult {
           });
       });
 
-    // 4. Namaz vakitlerini gerçek konumla çek (izin yoksa İstanbul)
+    // 4. Namaz vakitlerini gerçek konumla çek. Ana sayfada izin İSTEMEYİZ; yalnız
+    //    önceden verilmişse kullanırız (izin asıl context'inde — kıble / namaz
+    //    bildirimi açılırken — istenir). Yoksa sessizce İstanbul'a düşeriz.
     const coords = await (async () => {
       try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
+        const { status } = await Location.getForegroundPermissionsAsync();
         if (status !== "granted") return ISTANBUL;
         const pos = await Promise.race([
           Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
