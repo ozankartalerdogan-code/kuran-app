@@ -11,8 +11,16 @@ export async function GET(
   const root = decodeURIComponent(encodedRoot);
 
   try {
+    // Kök birden çok kaynaktan gelebilir (tekrarlı satır); anlamı öncelikli
+    // kaynaktan (zengin seed) seç ve tek satıra indir — liste ile tutarlı olsun.
     const rootInfo = await dbGet<{ root: string; meaning_tr: string }>(
-      "SELECT root, meaning_tr FROM root_meanings WHERE root = ?",
+      `SELECT root,
+              COALESCE(
+                MAX(CASE WHEN source = 'root_explanations_seed' THEN meaning_tr END),
+                MAX(meaning_tr)
+              ) AS meaning_tr
+       FROM root_meanings WHERE root = ?
+       GROUP BY root`,
       root
     );
 
