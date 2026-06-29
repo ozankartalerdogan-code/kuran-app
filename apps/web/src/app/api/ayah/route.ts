@@ -124,7 +124,12 @@ export async function GET(req: NextRequest) {
                MIN(w.meaning_tr)  AS meaning_tr,
                MIN(w.pos)         AS pos,
                MIN(w.root)        AS root,
-               MIN(rm.meaning_tr) AS root_meaning
+               -- kök anlamı liste/detay ile aynı önceliği kullansın (zengin seed),
+               -- aksi halde tekrarlı root_meanings'te MIN farklı anlam getirebilir
+               COALESCE(
+                 MAX(CASE WHEN rm.source = 'root_explanations_seed' THEN rm.meaning_tr END),
+                 MIN(rm.meaning_tr)
+               ) AS root_meaning
         FROM   words w
         LEFT JOIN root_meanings rm ON rm.root = w.root
         WHERE  w.verse_key = ?
