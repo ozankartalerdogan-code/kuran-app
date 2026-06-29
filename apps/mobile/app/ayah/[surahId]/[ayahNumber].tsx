@@ -39,6 +39,10 @@ function sourceName(source: string): string {
   return SOURCE_NAMES[key] ?? key.toUpperCase();
 }
 
+function isYazirSource(source: string): boolean {
+  return (source.split("#").at(-1) ?? "") === "yazir";
+}
+
 // ── POS (Part of Speech) Türkçe çeviri ───────────────────────────────────────
 
 const POS_TR_MAP: Record<string, string> = {
@@ -446,6 +450,8 @@ export default function AyahDetailScreen() {
     ? `${data.surahName} · ${data.ayahNumber}. Ayet`
     : "Ayet Detayı";
 
+  const comparisonTranslations = translations.filter((t) => !isYazirSource(t.source ?? ""));
+
   // Ayet değişince kök anlamı kilidini ve yerel haritayı sıfırla
   useEffect(() => {
     rootMeaningsFetched[1](false);
@@ -611,9 +617,19 @@ export default function AyahDetailScreen() {
         {activeTab === "meal" && (
           <View style={styles.tabContent}>
 
-            {/* Çeviriler — API güncellenince çoğalır, şimdilik primary + literal */}
-            {translations.length > 0 ? (
-              translations.map((t) => (
+            {data.meal ? (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>Elmalılı H. Yazır</Text>
+                <Text style={[styles.mealText, { color: colors.textSecondary }]}>{data.meal}</Text>
+              </View>
+            ) : (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.mealText, { color: colors.textMuted }]}>Meal verisi yok.</Text>
+              </View>
+            )}
+
+            {comparisonTranslations.length > 0 ? (
+              comparisonTranslations.map((t) => (
                 <View key={t.source} style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                   <Text style={[styles.sectionTitle, { color: colors.accent }]}>
                     {sourceName(t.source ?? "")}
@@ -621,27 +637,7 @@ export default function AyahDetailScreen() {
                   <Text style={[styles.mealText, { color: colors.textSecondary }]}>{t.text ?? "—"}</Text>
                 </View>
               ))
-            ) : (
-              <>
-                {data.meal ? (
-                  <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                    <Text style={[styles.sectionTitle, { color: colors.accent }]}>MEAL</Text>
-                    <Text style={[styles.mealText, { color: colors.textSecondary }]}>{data.meal}</Text>
-                  </View>
-                ) : null}
-                {data.literalCeviri ? (
-                  <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                    <Text style={[styles.sectionTitle, { color: colors.accent }]}>LİTERAL ÇEVİRİ</Text>
-                    <Text style={[styles.mealText, { color: colors.textSecondary }]}>{data.literalCeviri}</Text>
-                  </View>
-                ) : null}
-                {!data.meal && !data.literalCeviri && (
-                  <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                    <Text style={[styles.mealText, { color: colors.textMuted }]}>Meal verisi yok.</Text>
-                  </View>
-                )}
-              </>
-            )}
+            ) : null}
 
           </View>
         )}

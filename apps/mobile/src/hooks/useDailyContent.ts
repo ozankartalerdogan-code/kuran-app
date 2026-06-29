@@ -86,6 +86,10 @@ export function useDailyContent(): UseDailyContentResult {
   const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const load = useCallback(async () => {
+    if (safetyTimerRef.current) {
+      clearTimeout(safetyTimerRef.current);
+      safetyTimerRef.current = null;
+    }
     setError(null);
     setVerseLoading(true);
     setDuaLoading(true);
@@ -95,9 +99,20 @@ export function useDailyContent(): UseDailyContentResult {
     let verseDone = false;
     let duaDone = false;
     let prayerDone = false;
+    let anyContentLoaded = false;
+    let loadFailed = false;
+
+    const markSuccess = () => {
+      anyContentLoaded = true;
+    };
+
+    const markFailure = () => {
+      loadFailed = true;
+    };
 
     const tryFinishLoading = () => {
       if (verseDone && duaDone && prayerDone) {
+        setError(loadFailed && !anyContentLoaded ? "Gunluk icerik yuklenemedi." : null);
         setLoading(false);
       }
     };
@@ -105,18 +120,25 @@ export function useDailyContent(): UseDailyContentResult {
     // 0. Günün ayeti + duasını anında göster — bugünün cache'ini doğrudan oku
     try {
       const cacheKey = `cache_daily_${new Date().toISOString().slice(0, 10)}`;
-      const snap = await storage.getJSON<{
-        ts: number;
-        data: { verse: DailyVerse | null; dua: DailyVerse | null };
-      }>(cacheKey);
+      const snap =
+        (await storage.getJSON<{
+          ts: number;
+          data: { verse: DailyVerse | null; dua: DailyVerse | null };
+        }>(`v3_${cacheKey}`)) ??
+        (await storage.getJSON<{
+          ts: number;
+          data: { verse: DailyVerse | null; dua: DailyVerse | null };
+        }>(cacheKey));
       if (snap?.data) {
         if (snap.data.verse && isValidDailyVerse(snap.data.verse)) {
           setVerse(snap.data.verse);
+          markSuccess();
           verseDone = true;
           setVerseLoading(false);
         }
         if (snap.data.dua && isValidDailyVerse(snap.data.dua)) {
           setDua(snap.data.dua);
+          markSuccess();
           duaDone = true;
           setDuaLoading(false);
         }
@@ -136,6 +158,7 @@ export function useDailyContent(): UseDailyContentResult {
           isValidPrayerTimes((cached as PrayerCache).timings)
         ) {
           setPrayers((cached as PrayerCache).timings);
+          markSuccess();
         }
       }
     } catch {
@@ -146,12 +169,17 @@ export function useDailyContent(): UseDailyContentResult {
     api.daily
       .get()
       .then((data) => {
+        let hasDailyContent = false;
         if (data.verse && isValidDailyVerse(data.verse)) {
           setVerse(data.verse);
+          hasDailyContent = true;
         }
         if (data.dua && isValidDailyVerse(data.dua)) {
           setDua(data.dua);
+          hasDailyContent = true;
         }
+        if (hasDailyContent) markSuccess();
+        else markFailure();
         verseDone = true;
         duaDone = true;
         setVerseLoading(false);
@@ -159,6 +187,7 @@ export function useDailyContent(): UseDailyContentResult {
         tryFinishLoading();
       })
       .catch(() => {
+        markFailure();
         // Fallback: deploy öncesi eski davranış
         api.verses
           .bySurah(89)
@@ -178,12 +207,16 @@ export function useDailyContent(): UseDailyContentResult {
                 reading_tr: v.reading ?? null,
                 meal: v.meal,
               });
+              markSuccess();
+            } else {
+              markFailure();
             }
             verseDone = true;
             setVerseLoading(false);
             tryFinishLoading();
           })
           .catch(() => {
+            markFailure();
             verseDone = true;
             setVerseLoading(false);
             tryFinishLoading();
@@ -201,12 +234,16 @@ export function useDailyContent(): UseDailyContentResult {
                 reading_tr: null,
                 meal: d.meal,
               });
+              markSuccess();
+            } else {
+              markFailure();
             }
             duaDone = true;
             setDuaLoading(false);
             tryFinishLoading();
           })
           .catch(() => {
+            markFailure();
             duaDone = true;
             setDuaLoading(false);
             tryFinishLoading();
@@ -251,10 +288,13 @@ export function useDailyContent(): UseDailyContentResult {
         clearTimeout(prayerTimeoutId);
         if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
+          markSuccess();
           storage.setJSON(STORAGE_KEYS.prayerCache, {
             date: todayKey(),
             timings: d.data.timings,
           }).catch(() => {});
+        } else {
+          markFailure();
         }
         prayerDone = true;
         setPrayerLoading(false);
@@ -262,6 +302,7 @@ export function useDailyContent(): UseDailyContentResult {
       })
       .catch(() => {
         clearTimeout(prayerTimeoutId);
+        markFailure();
         prayerDone = true;
         setPrayerLoading(false);
         tryFinishLoading();
@@ -272,6 +313,7 @@ export function useDailyContent(): UseDailyContentResult {
       if (!verseDone) setVerseLoading(false);
       if (!duaDone) setDuaLoading(false);
       if (!prayerDone) { prayerAC.abort(); setPrayerLoading(false); }
+      if (loadFailed && !anyContentLoaded) setError("Gunluk icerik yuklenemedi.");
       setLoading(false);
     }, 10_000);
   }, []);

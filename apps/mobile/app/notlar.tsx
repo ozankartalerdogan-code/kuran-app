@@ -95,7 +95,6 @@ export default function NotlarScreen() {
   return (
     <FlashList
       data={noteList}
-      estimatedItemSize={120}
       keyExtractor={(item) => item.verseKey}
       contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
       ListHeaderComponent={

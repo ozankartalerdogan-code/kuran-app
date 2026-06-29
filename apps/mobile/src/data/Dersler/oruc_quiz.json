@@ -5,9 +5,14 @@
   "sorular": [
     {
       "id": "oruc_001",
-      "konu": "oruc",
+      "konu": "temel",
       "soru": "Oruç İslam'ın kaçıncı şartıdır?",
-      "secenekler": ["A) İkincisi", "B) Üçüncüsü", "C) Dördüncüsü", "D) Beşincisi"],
+      "secenekler": [
+        "A) İkincisi",
+        "B) Üçüncüsü",
+        "C) Dördüncüsü",
+        "D) Beşincisi"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Oruç, İslam'ın beş şartından üçüncüsüdür. Şehadet ve namazdan sonra gelir.",
       "zorluk": "kolay",
@@ -15,9 +20,14 @@
     },
     {
       "id": "oruc_002",
-      "konu": "oruc",
+      "konu": "temel",
       "soru": "Oruçta tutulma vakitleri nelerdir?",
-      "secenekler": ["A) Güneş doğuşundan batışına kadar", "B) İmsak'tan iftar vaktine kadar", "C) Öğleden akşama kadar", "D) Sabah namazından yatsıya kadar"],
+      "secenekler": [
+        "A) Güneş doğuşundan batışına kadar",
+        "B) İmsak'tan iftar vaktine kadar",
+        "C) Öğleden akşama kadar",
+        "D) Sabah namazından yatsıya kadar"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Oruç, fecrin doğuşu olan imsak vaktinden güneşin batışı olan iftar vaktine kadar tutulur.",
       "zorluk": "kolay",
@@ -25,9 +35,14 @@
     },
     {
       "id": "oruc_003",
-      "konu": "oruc",
+      "konu": "fazilet",
       "soru": "Bakara 2/183 ayetine göre orucun farz kılınma amacı nedir?",
-      "secenekler": ["A) Toplumu birleştirmek", "B) Sağlıklı kalmak", "C) Kötülüklerden sakınmak", "D) Şükranı ifade etmek"],
+      "secenekler": [
+        "A) Toplumu birleştirmek",
+        "B) Sağlıklı kalmak",
+        "C) Kötülüklerden sakınmak",
+        "D) Şükranı ifade etmek"
+      ],
       "dogru_cevap": "C",
       "aciklama": "'Ey iman edenler! Kötülüklerden sakınmanız için oruç... size de farz kılındı.' (Bakara 2/183)",
       "zorluk": "kolay",
@@ -35,9 +50,14 @@
     },
     {
       "id": "oruc_004",
-      "konu": "oruc",
+      "konu": "fazilet",
       "soru": "Hz. Peygamber 'Oruç bir ___dır' hadisinde ne buyurmuştur?",
-      "secenekler": ["A) Kalkan", "B) Kılıç", "C) Zırh", "D) Sığınak"],
+      "secenekler": [
+        "A) Kalkan",
+        "B) Kılıç",
+        "C) Zırh",
+        "D) Sığınak"
+      ],
       "dogru_cevap": "A",
       "aciklama": "'Oruç bir kalkandır. Oruçlu kötü söz söylemesin.' (Buhârî, Savm 2)",
       "zorluk": "kolay",
@@ -45,9 +65,14 @@
     },
     {
       "id": "oruc_005",
-      "konu": "oruc",
+      "konu": "sartlar",
       "soru": "Hangisi orucun farz olma şartları arasında yer almaz?",
-      "secenekler": ["A) Müslüman olmak", "B) Akıl sahibi olmak", "C) Erginlik çağına ulaşmak", "D) Zengin olmak"],
+      "secenekler": [
+        "A) Müslüman olmak",
+        "B) Akıl sahibi olmak",
+        "C) Erginlik çağına ulaşmak",
+        "D) Zengin olmak"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Orucun farz olma şartları: Müslüman olmak, akıl sahibi olmak ve erginlik çağına ulaşmaktır. Zenginlik şart değildir.",
       "zorluk": "kolay",
@@ -55,29 +80,44 @@
     },
     {
       "id": "oruc_006",
-      "konu": "oruc",
+      "konu": "niyet",
       "soru": "Niyetsiz tutulan oruç nasıldır?",
-      "secenekler": ["A) Kabul edilir", "B) Geçerli sayılmaz", "C) Sünnet yerine geçer", "D) Yarım sayılır"],
+      "secenekler": [
+        "A) Kabul edilir",
+        "B) Geçerli sayılmaz",
+        "C) Sünnet yerine geçer",
+        "D) Yarım sayılır"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Niyet, orucun sıhhat şartıdır. Niyetsiz tutulan oruç geçerli sayılmaz.",
+      "aciklama": "Niyet, orucun sıhhat (geçerlilik) şartıdır. Niyetsiz oruç geçerli sayılmaz; niyetin vakti orucun türüne ve mezhebe göre değişebilir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_007",
-      "konu": "oruc",
-      "soru": "Ramazan orucu için niyet en geç ne zamana kadar yapılmalıdır?",
-      "secenekler": ["A) Güneş doğmadan", "B) Öğle namazından önce", "C) İmsak vaktine kadar", "D) İftar vaktine kadar"],
-      "dogru_cevap": "C",
-      "aciklama": "Ramazan orucu için niyet en geç imsak vaktine kadar yapılmalıdır. Sahura kalkmak da niyet sayılır.",
+      "konu": "niyet",
+      "soru": "Ramazan orucu için niyet konusunda en güvenli uygulama hangisidir?",
+      "secenekler": [
+        "A) Geceden veya sahurda niyet etmek",
+        "B) İftardan hemen önce niyet etmek",
+        "C) Dille uzun bir metin okumak",
+        "D) Hiç niyet etmemek"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "En güvenli uygulama Ramazan orucuna geceden veya sahurda niyet etmektir. Hanefi mezhebinde bazı durumlarda imsak sonrası niyet geçerli sayılabilir; diğer mezheplerde farz oruç için geceden niyet şartı vurgulanır.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_008",
-      "konu": "oruc",
+      "konu": "niyet",
       "soru": "Sahura kalkmak ne anlama gelir?",
-      "secenekler": ["A) Oruç bozulur", "B) Niyet sayılır", "C) Kaza gerekir", "D) Sünnet sayılmaz"],
+      "secenekler": [
+        "A) Oruç bozulur",
+        "B) Niyet sayılır",
+        "C) Kaza gerekir",
+        "D) Sünnet sayılmaz"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Sahura kalkmak, Ramazan orucu için niyet sayılır.",
       "zorluk": "kolay",
@@ -85,9 +125,14 @@
     },
     {
       "id": "oruc_009",
-      "konu": "oruc",
+      "konu": "bozanlar",
       "soru": "Hangisi orucu bozmaz?",
-      "secenekler": ["A) Kasıtlı yemek", "B) Sigara içmek", "C) Unutarak yemek", "D) Ağız dolusu kasıtlı kusmak"],
+      "secenekler": [
+        "A) Kasıtlı yemek",
+        "B) Sigara içmek",
+        "C) Unutarak yemek",
+        "D) Ağız dolusu kasıtlı kusmak"
+      ],
       "dogru_cevap": "C",
       "aciklama": "'Kim unutarak yiyip içerse orucunu tamamlasın. Onu Allah yedirip içirmiştir.' (Buhârî, Savm 26; Müslim, Sıyam 171)",
       "zorluk": "kolay",
@@ -95,9 +140,14 @@
     },
     {
       "id": "oruc_010",
-      "konu": "oruc",
+      "konu": "bozanlar",
       "soru": "'Kim unutarak yiyip içerse orucunu tamamlasın' hadisi hangi kaynaklarda geçer?",
-      "secenekler": ["A) Sadece Buhârî", "B) Buhârî ve Müslim", "C) Sadece Müslim", "D) Tirmizî"],
+      "secenekler": [
+        "A) Sadece Buhârî",
+        "B) Buhârî ve Müslim",
+        "C) Sadece Müslim",
+        "D) Tirmizî"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Bu hadis hem Buhârî (Savm 26) hem de Müslim'de (Sıyam 171) yer almaktadır.",
       "zorluk": "kolay",
@@ -105,19 +155,29 @@
     },
     {
       "id": "oruc_011",
-      "konu": "oruc",
+      "konu": "ruhsat",
       "soru": "Hasta ve yolcular tutamadıkları Ramazan orucunu ne yapmalıdır?",
-      "secenekler": ["A) Fidye vermeleri gerekir", "B) Başka günlerde kaza etmeleri gerekir", "C) Hiçbir şey yapmaları gerekmez", "D) Kefaret ödemeleri gerekir"],
+      "secenekler": [
+        "A) Fidye vermeleri gerekir",
+        "B) Başka günlerde kaza etmeleri gerekir",
+        "C) Hiçbir şey yapmaları gerekmez",
+        "D) Kefaret ödemeleri gerekir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "'Kim hasta veya yolcu olursa başka günlerde sayısınca tutar.' (Bakara 2/185)",
+      "aciklama": "'Kim hasta veya yolcu olursa başka günlerde sayısınca tutar.' (Bakara 2/185). Geçici hastalık ve yolculukta tutulamayan oruçlar sonradan kaza edilir (sonradan gününe gün tutulur).",
       "zorluk": "kolay",
       "kaynak": "Kur'an, Bakara 2/185"
     },
     {
       "id": "oruc_012",
-      "konu": "oruc",
+      "konu": "ruhsat",
       "soru": "'Allah sizin için kolaylık ister, güçlük çekmenizi istemiyor' ayeti hangi sureden?",
-      "secenekler": ["A) Bakara 2/185", "B) Âl-i İmrân 3/185", "C) Nisâ 4/28", "D) Mâide 5/6"],
+      "secenekler": [
+        "A) Bakara 2/185",
+        "B) Âl-i İmrân 3/185",
+        "C) Nisâ 4/28",
+        "D) Mâide 5/6"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Bu ayet Bakara Sûresi 185. ayettir. Hasta ve yolcuların orucunu erteleyebileceğini bildiren ayetin devamında yer alır.",
       "zorluk": "kolay",
@@ -125,9 +185,14 @@
     },
     {
       "id": "oruc_013",
-      "konu": "oruc",
+      "konu": "sahur-iftar",
       "soru": "'Sahurda bereket vardır' hadisi hangi kaynaklarda geçer?",
-      "secenekler": ["A) Sadece Buhârî", "B) Buhârî ve Müslim", "C) Sadece Müslim", "D) Sadece Ebû Dâvûd"],
+      "secenekler": [
+        "A) Sadece Buhârî",
+        "B) Buhârî ve Müslim",
+        "C) Sadece Müslim",
+        "D) Sadece Ebû Dâvûd"
+      ],
       "dogru_cevap": "B",
       "aciklama": "'Sahur yapın, çünkü sahurda bereket vardır.' (Buhârî, Savm 20; Müslim, Sıyam 45)",
       "zorluk": "kolay",
@@ -135,9 +200,14 @@
     },
     {
       "id": "oruc_014",
-      "konu": "oruc",
+      "konu": "sahur-iftar",
       "soru": "İftarı acele etmek hakkında Hz. Peygamber ne buyurmuştur?",
-      "secenekler": ["A) Ertelemek daha faziletlidir", "B) İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler", "C) İftar namazdan sonra yapılmalıdır", "D) İftarda sessiz dua edilmelidir"],
+      "secenekler": [
+        "A) Ertelemek daha faziletlidir",
+        "B) İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler",
+        "C) İftar namazdan sonra yapılmalıdır",
+        "D) İftarda sessiz dua edilmelidir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "'İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler.' (Buhârî, Savm 45; Müslim, Sıyam 48)",
       "zorluk": "kolay",
@@ -145,9 +215,14 @@
     },
     {
       "id": "oruc_015",
-      "konu": "oruc",
+      "konu": "ramazan",
       "soru": "Ramazan orucu hicretin kaçıncı yılında farz kılınmıştır?",
-      "secenekler": ["A) Birinci yıl", "B) İkinci yıl (Şaban ayında)", "C) Üçüncü yıl", "D) Beşinci yıl"],
+      "secenekler": [
+        "A) Birinci yıl",
+        "B) İkinci yıl (Şaban ayında)",
+        "C) Üçüncü yıl",
+        "D) Beşinci yıl"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Ramazan orucu hicretin 2. yılında Şaban ayında farz kılınmıştır.",
       "zorluk": "kolay",
@@ -155,9 +230,14 @@
     },
     {
       "id": "oruc_016",
-      "konu": "oruc",
+      "konu": "ramazan",
       "soru": "Kadir Gecesi Kur'an'a göre ne kadardır?",
-      "secenekler": ["A) Yüz aydan hayırlı", "B) Beş yüz aydan hayırlı", "C) Bin aydan hayırlı", "D) Bin günden hayırlı"],
+      "secenekler": [
+        "A) Yüz aydan hayırlı",
+        "B) Beş yüz aydan hayırlı",
+        "C) Bin aydan hayırlı",
+        "D) Bin günden hayırlı"
+      ],
       "dogru_cevap": "C",
       "aciklama": "'Kadir gecesi bin aydan daha hayırlıdır.' (Kadr, 97/3)",
       "zorluk": "kolay",
@@ -165,9 +245,14 @@
     },
     {
       "id": "oruc_017",
-      "konu": "oruc",
+      "konu": "ramazan",
       "soru": "Teravih namazı nasıl bir namazdır?",
-      "secenekler": ["A) Farz", "B) Vacip", "C) Sünnet", "D) Mekruh"],
+      "secenekler": [
+        "A) Farz",
+        "B) Vacip",
+        "C) Sünnet",
+        "D) Mekruh"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Teravih namazı, Ramazan'a özgü sünnet namazdır.",
       "zorluk": "kolay",
@@ -175,9 +260,14 @@
     },
     {
       "id": "oruc_018",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Hz. Peygamber'in devamlı tuttuğu nafile oruç hangi günlerdir?",
-      "secenekler": ["A) Salı ve Çarşamba", "B) Cuma ve Cumartesi", "C) Pazartesi ve Perşembe", "D) Her ayın ilk günü"],
+      "secenekler": [
+        "A) Salı ve Çarşamba",
+        "B) Cuma ve Cumartesi",
+        "C) Pazartesi ve Perşembe",
+        "D) Her ayın ilk günü"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Pazartesi ve Perşembe oruçları Hz. Peygamber'in devamlı tuttuğu nafile oruçlardır. (Müslim, Sıyam 197)",
       "zorluk": "kolay",
@@ -185,9 +275,14 @@
     },
     {
       "id": "oruc_019",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Aşure orucu hangi ayda tutulur?",
-      "secenekler": ["A) Zilhicce", "B) Şaban", "C) Muharrem", "D) Receb"],
+      "secenekler": [
+        "A) Zilhicce",
+        "B) Şaban",
+        "C) Muharrem",
+        "D) Receb"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Aşure orucu, Muharrem ayının 9-10. veya 10-11. günlerinde tutulur. (Müslim, Sıyam 127)",
       "zorluk": "kolay",
@@ -195,9 +290,14 @@
     },
     {
       "id": "oruc_020",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Arafe orucu Zilhicce'nin kaçıncı günü tutulur?",
-      "secenekler": ["A) 8. gün", "B) 9. gün", "C) 10. gün", "D) 11. gün"],
+      "secenekler": [
+        "A) 8. gün",
+        "B) 9. gün",
+        "C) 10. gün",
+        "D) 11. gün"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Arafe orucu Zilhicce'nin 9. günü tutulur. Hacda olmayanlar için tavsiye edilir. (Müslim, Sıyam 196)",
       "zorluk": "kolay",
@@ -205,9 +305,14 @@
     },
     {
       "id": "oruc_021",
-      "konu": "oruc",
+      "konu": "sartlar",
       "soru": "Orucun farz olma şartı olan 'akıl sahibi olma' kimler için orucu farz kılmaz?",
-      "secenekler": ["A) Deliye oruç farz değildir", "B) Akıl sahibi herkes için farz", "C) Yaşlılara farz değildir", "D) Gençlere farz değildir"],
+      "secenekler": [
+        "A) Deliye oruç farz değildir",
+        "B) Akıl sahibi herkes için farz",
+        "C) Yaşlılara farz değildir",
+        "D) Gençlere farz değildir"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Akıl şartı bulunmayan, yani aklî dengesi yerinde olmayan kişiye oruç farz değildir.",
       "zorluk": "orta",
@@ -215,9 +320,14 @@
     },
     {
       "id": "oruc_022",
-      "konu": "oruc",
+      "konu": "sartlar",
       "soru": "Gayrimüslim Müslüman olduğunda geçmiş Ramazan oruçlarını kaza etmeli midir?",
-      "secenekler": ["A) Evet, hepsini kaza etmeli", "B) Hayır, gerekmez", "C) En az 3 yıllık kaza etmeli", "D) İmamına danışmalı"],
+      "secenekler": [
+        "A) Evet, hepsini kaza etmeli",
+        "B) Hayır, gerekmez",
+        "C) En az 3 yıllık kaza etmeli",
+        "D) İmamına danışmalı"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Gayrimüslim Müslüman olduğunda geçmiş oruçlarını kaza etmesi gerekmez.",
       "zorluk": "orta",
@@ -225,9 +335,14 @@
     },
     {
       "id": "oruc_023",
-      "konu": "oruc",
+      "konu": "niyet",
       "soru": "Ramazan orucu için niyet hakkında hangisi doğrudur?",
-      "secenekler": ["A) Dille söylenmesi zorunludur", "B) Kalben yapılır, dille söylemek sünnet ve zorunlu değildir", "C) Her namazda yenilenmelidir", "D) İftardan önce yapılmalıdır"],
+      "secenekler": [
+        "A) Dille söylenmesi zorunludur",
+        "B) Kalben yapılır, dille söylemek sünnet ve zorunlu değildir",
+        "C) Her namazda yenilenmelidir",
+        "D) İftardan önce yapılmalıdır"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Niyet kalben yapılır. Dille söylemek sünnet olup zorunlu değildir.",
       "zorluk": "orta",
@@ -235,29 +350,44 @@
     },
     {
       "id": "oruc_024",
-      "konu": "oruc",
-      "soru": "Kasıtlı sigara içmek orucu ne yapar?",
-      "secenekler": ["A) Hiçbir etkisi yoktur", "B) Bozar ve kaza gerektirir", "C) Yalnızca sevabı azaltır", "D) Kefaret gerektirir"],
-      "dogru_cevap": "B",
-      "aciklama": "Sigara içmek orucu bozar ve kaza gerektirir. Yeme ve içmekten farklı olarak sigara için kefaret gerekmez.",
+      "konu": "kaza-kefaret",
+      "soru": "Hanefi ve Maliki mezheplerine göre Ramazan'da kasıtlı sigara içmek orucu nasıl etkiler?",
+      "secenekler": [
+        "A) Hiçbir etkisi yoktur",
+        "B) Bozar; yalnızca sevabı azaltır",
+        "C) Bozar; kaza gerekir (sonradan gününe gün tutulur), kefaret gerekmez",
+        "D) Bozar; kaza ve kefaret gerekir (ağır telafi sorumluluğu doğar)"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hanefi ve Maliki mezheplerinde Ramazan orucunu kasıtlı sigara içerek bozmak kaza ve kefaret gerektirir. Şafii ve Hanbeli mezheplerinde kefaret özellikle cinsel ilişki için vurgulanır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_025",
-      "konu": "oruc",
-      "soru": "Enjeksiyon yoluyla besin almak orucu bozar mı?",
-      "secenekler": ["A) Hayır, hiç bozmaz", "B) Evet, bozar", "C) Yalnızca şeker içerenlerde bozar", "D) Yalnızca damar yolunda bozar"],
+      "konu": "bozanlar",
+      "soru": "Besleyici serum veya besin değerindeki enjeksiyon orucu bozar mı?",
+      "secenekler": [
+        "A) Hayır, hiç bozmaz",
+        "B) Evet, bozar",
+        "C) Yalnızca şeker içerenlerde bozar",
+        "D) Yalnızca gece yapılırsa bozar"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Enjeksiyon yoluyla besin almak orucu bozar. Besin içermeyen ilaç enjeksiyonu ise bozmaz.",
+      "aciklama": "Besleyici serum veya besin değerindeki enjeksiyon orucu bozar. Besin içermeyen tedavi amaçlı enjeksiyonlarda çağdaş fetvalarda ayrıntılı değerlendirmeler vardır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_026",
-      "konu": "oruc",
+      "konu": "bozanlar",
       "soru": "Kendiliğinden (kasıtsız) gelen kusma orucu nasıl etkiler?",
-      "secenekler": ["A) Bozar ve kaza gerektirir", "B) Bozmaz", "C) Yalnızca nafile orucu bozar", "D) Kefaret gerektirir"],
+      "secenekler": [
+        "A) Bozar ve kaza gerektirir",
+        "B) Bozmaz",
+        "C) Yalnızca nafile orucu bozar",
+        "D) Kefaret gerektirir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Kendiliğinden gelen kusma (kasıtsız) orucu bozmaz. Kasıtlı olan ağız dolusu kusma ise bozar.",
       "zorluk": "orta",
@@ -265,39 +395,59 @@
     },
     {
       "id": "oruc_027",
-      "konu": "oruc",
-      "soru": "Gargara yaparken ağza su kaçması orucu bozar mı?",
-      "secenekler": ["A) Evet, her zaman bozar", "B) Hayır, bozmaz", "C) Yalnızca büyük miktarda bozar", "D) Ağzı çalkalamak yasaktır"],
-      "dogru_cevap": "B",
-      "aciklama": "Gargara sırasında ağza su kaçması orucu bozmaz.",
+      "konu": "bozanlar",
+      "soru": "Ağız çalkalarken su boğaza kaçarsa oruç nasıl etkilenir?",
+      "secenekler": [
+        "A) Bozulur ve kaza gerekir (sonradan gününe gün tutulur)",
+        "B) Hiçbir şekilde bozulmaz",
+        "C) Sadece nafile oruç bozulur",
+        "D) Kefaret gerekir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ağza su alıp geri çıkarmak orucu bozmaz; fakat su boğaza kaçarsa oruç bozulur ve kaza gerekir (sonradan gününe gün tutulur).",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_028",
-      "konu": "oruc",
-      "soru": "Kaza ne zaman gerekir?",
-      "secenekler": ["A) Yalnızca kasıtlı bozulma durumunda", "B) Her türlü özürlü durumda", "C) Yalnızca hastalık durumunda", "D) Yalnızca yolculukta"],
+      "konu": "kaza-kefaret",
+      "soru": "Geçici mazeretle tutulamayan Ramazan orucu için genellikle ne gerekir?",
+      "secenekler": [
+        "A) Yalnızca dua etmek",
+        "B) Gününe gün kaza etmek",
+        "C) Her durumda kefaret",
+        "D) Hiçbir sorumluluk yoktur"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Kaza, tutulamayan veya bozulan orucu sonradan gününe gün tutmaktır. Her özürlü durumda gerekir.",
+      "aciklama": "Geçici hastalık, yolculuk veya hayız (adet dönemi)/nifas (doğum sonrası kanama) gibi mazeretlerle tutulamayan Ramazan oruçları sonradan gününe gün kaza edilir (sonradan gününe gün tutulur). Kalıcı güçsüzlükte fidye (oruç tutamayanın bir yoksulu doyurması veya karşılığını vermesi) hükmü gündeme gelir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_029",
-      "konu": "oruc",
-      "soru": "Kefaret ne zaman gerekir?",
-      "secenekler": ["A) Her oruç bozulmasında", "B) Yalnızca Ramazan orucunun kasıtlı bozulmasında", "C) Nafile orucun bozulmasında da", "D) Sadece yolculukta"],
+      "konu": "kaza-kefaret",
+      "soru": "Hanefi ve Maliki mezheplerinde Ramazan orucunu bilerek yemek, içmek veya cinsel ilişkiyle bozmak ne gerektirir?",
+      "secenekler": [
+        "A) Sadece fidye (oruç tutamayanın bir yoksulu doyurması veya karşılığını vermesi)",
+        "B) Kaza ve kefaret",
+        "C) Hiçbir şey gerekmez",
+        "D) Sadece sadaka"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Kefaret, yalnızca Ramazan orucunun kasıtlı (yeme/içme/cinsel ilişki) bozulmasında gerekir.",
+      "aciklama": "Hanefi ve Maliki mezheplerinde Ramazan orucunu bilerek yemek, içmek veya cinsel ilişkiyle bozmak kaza ve kefaret gerektirir. Şafii ve Hanbeli mezheplerinde kefaret özellikle cinsel ilişki için vurgulanır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_030",
-      "konu": "oruc",
+      "konu": "kaza-kefaret",
       "soru": "Kefaret olarak oruç tutulacaksa kaç gün ve nasıl tutulmalıdır?",
-      "secenekler": ["A) 30 gün, aralıklı olabilir", "B) 60 gün, arka arkaya", "C) 40 gün, arka arkaya", "D) 30 gün, arka arkaya"],
+      "secenekler": [
+        "A) 30 gün, aralıklı olabilir",
+        "B) 60 gün, arka arkaya",
+        "C) 40 gün, arka arkaya",
+        "D) 30 gün, arka arkaya"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Kefaret olarak arka arkaya 60 gün oruç tutulması gerekir.",
       "zorluk": "orta",
@@ -305,9 +455,14 @@
     },
     {
       "id": "oruc_031",
-      "konu": "oruc",
+      "konu": "fidye",
       "soru": "Fidye neyi gerektirir?",
-      "secenekler": ["A) Her gün için bir yoksulu sabah-akşam doyurmak", "B) Her gün için on dirhem para vermek", "C) Her gün için genel sadaka", "D) Her ay için 30 yoksul doyurmak"],
+      "secenekler": [
+        "A) Her gün için bir yoksulu sabah-akşam doyurmak",
+        "B) Her gün için on dirhem para vermek",
+        "C) Her gün için genel sadaka",
+        "D) Her ay için 30 yoksul doyurmak"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Fidye: Her gün için bir yoksulu sabah-akşam doyurmak veya bunun maddi karşılığını vermektir.",
       "zorluk": "orta",
@@ -315,29 +470,44 @@
     },
     {
       "id": "oruc_032",
-      "konu": "oruc",
+      "konu": "fidye",
       "soru": "'Oruca gücü yetmeyenler fidye verir' ayeti hangi sure ve kaçıncı ayet?",
-      "secenekler": ["A) Bakara 2/183", "B) Bakara 2/184", "C) Bakara 2/185", "D) Bakara 2/186"],
+      "secenekler": [
+        "A) Bakara 2/183",
+        "B) Bakara 2/184",
+        "C) Bakara 2/185",
+        "D) Bakara 2/186"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "'Oruca gücü yetmeyenler fidye olarak bir yoksul doyumu verirler.' (Bakara 2/184)",
+      "aciklama": "'Oruca gücü yetmeyenler fidye olarak bir yoksul doyumu verirler.' (Bakara 2/184). Fidye, sürekli oruç tutamayacak durumda olan kişinin bir yoksulu doyurması veya karşılığını vermesidir.",
       "zorluk": "orta",
       "kaynak": "Kur'an, Bakara 2/184"
     },
     {
       "id": "oruc_033",
-      "konu": "oruc",
+      "konu": "fidye",
       "soru": "Fidye ile kaza arasındaki temel fark nedir?",
-      "secenekler": ["A) Fidye herkes için geçerlidir", "B) Fidye kaza yerine geçer; kaza yapabilenler fidye veremez", "C) İkisi de aynı şeydir", "D) Fidye ve kaza birlikte yapılabilir"],
+      "secenekler": [
+        "A) Fidye herkes için geçerlidir",
+        "B) Fidye kaza yerine geçer; kaza yapabilenler fidye ile yetinemez",
+        "C) İkisi de aynı şeydir",
+        "D) Fidye ve kaza birlikte yapılabilir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Fidye, kaza yapamayacak kadar güçsüz olanlar içindir ve kaza yerine geçer. Kaza yapabilenler fidye veremez.",
+      "aciklama": "Fidye, kalıcı biçimde kaza yapamayacak kadar güçsüz olanlar içindir ve kaza yerine geçer. Kaza yapabilecek durumda olanlar fidye ile yetinemez.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_034",
-      "konu": "oruc",
+      "konu": "ramazan",
       "soru": "Ramazan ayında cennet kapıları hakkında Hz. Peygamber ne buyurmuştur?",
-      "secenekler": ["A) Kapılar sıkı sıkıya kapanır", "B) Kapılar açılır", "C) Yalnızca bir kapı açılır", "D) Herhangi bir değişiklik olmaz"],
+      "secenekler": [
+        "A) Kapılar sıkı sıkıya kapanır",
+        "B) Kapılar açılır",
+        "C) Yalnızca bir kapı açılır",
+        "D) Herhangi bir değişiklik olmaz"
+      ],
       "dogru_cevap": "B",
       "aciklama": "'Ramazan ayı girdiğinde cennetin kapıları açılır, cehennemin kapıları kapanır.' (Buhârî, Savm 5; Müslim, Sıyam 1)",
       "zorluk": "orta",
@@ -345,9 +515,14 @@
     },
     {
       "id": "oruc_035",
-      "konu": "oruc",
+      "konu": "ramazan",
       "soru": "Ramazan ayında cehennem kapıları hakkında Hz. Peygamber ne buyurmuştur?",
-      "secenekler": ["A) Kapılar açılır", "B) Kapılar kapanır", "C) Yalnızca bir kapı kapanır", "D) Herhangi bir değişiklik olmaz"],
+      "secenekler": [
+        "A) Kapılar açılır",
+        "B) Kapılar kapanır",
+        "C) Yalnızca bir kapı kapanır",
+        "D) Herhangi bir değişiklik olmaz"
+      ],
       "dogru_cevap": "B",
       "aciklama": "'Ramazan ayı girdiğinde cennetin kapıları açılır, cehennemin kapıları kapanır.' (Buhârî, Savm 5; Müslim, Sıyam 1)",
       "zorluk": "orta",
@@ -355,9 +530,14 @@
     },
     {
       "id": "oruc_036",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Arafe orucu kime tavsiye edilir?",
-      "secenekler": ["A) Tüm Müslümanlara eşit biçimde", "B) Hacda olmayanlara", "C) Yalnızca erkeklere", "D) Yalnızca gençlere"],
+      "secenekler": [
+        "A) Tüm Müslümanlara eşit biçimde",
+        "B) Hacda olmayanlara",
+        "C) Yalnızca erkeklere",
+        "D) Yalnızca gençlere"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Arafe orucu (Zilhicce'nin 9. günü) hacda olmayanlara tavsiye edilir. (Müslim, Sıyam 196)",
       "zorluk": "orta",
@@ -365,9 +545,14 @@
     },
     {
       "id": "oruc_037",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Eyyâm-ı Bîz oruçları her ayın hangi günleri tutulur?",
-      "secenekler": ["A) 1, 2, 3. günleri", "B) 7, 14, 21. günleri", "C) 13, 14, 15. günleri", "D) 10, 20, 30. günleri"],
+      "secenekler": [
+        "A) 1, 2, 3. günleri",
+        "B) 7, 14, 21. günleri",
+        "C) 13, 14, 15. günleri",
+        "D) 10, 20, 30. günleri"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Eyyâm-ı Bîz oruçları her ayın 13, 14 ve 15. günlerinde tutulur.",
       "zorluk": "orta",
@@ -375,9 +560,14 @@
     },
     {
       "id": "oruc_038",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Nafile oruç terk edilirse ne olur?",
-      "secenekler": ["A) Günah işlenmiş olur", "B) Günah sayılmaz", "C) Kaza edilmesi gerekir", "D) Fidye ödenmesi gerekir"],
+      "secenekler": [
+        "A) Günah işlenmiş olur",
+        "B) Günah sayılmaz",
+        "C) Kaza edilmesi gerekir",
+        "D) Fidye ödenmesi gerekir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Nafile oruçlar tutulması tavsiye edilen, ancak terk edilmesi günah olmayan oruçlardır.",
       "zorluk": "orta",
@@ -385,9 +575,14 @@
     },
     {
       "id": "oruc_039",
-      "konu": "oruc",
+      "konu": "bozanlar",
       "soru": "Kan aldırmak orucu bozar mı?",
-      "secenekler": ["A) Evet, her zaman bozar", "B) Hayır, bozmaz", "C) Çok kan alınırsa bozar", "D) Sadece Ramazan'da bozar"],
+      "secenekler": [
+        "A) Evet, her zaman bozar",
+        "B) Hayır, bozmaz",
+        "C) Çok kan alınırsa bozar",
+        "D) Sadece Ramazan'da bozar"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Kan aldırmak orucu bozmayan şeyler arasında sayılmıştır.",
       "zorluk": "orta",
@@ -395,9 +590,14 @@
     },
     {
       "id": "oruc_040",
-      "konu": "oruc",
+      "konu": "nafile",
       "soru": "Aşure orucu hangi günlerde tutulur?",
-      "secenekler": ["A) Muharrem'in 1-2. günleri", "B) Muharrem'in 9-10. veya 10-11. günleri", "C) Muharrem'in 14-15. günleri", "D) Muharrem'in son iki günü"],
+      "secenekler": [
+        "A) Muharrem'in 1-2. günleri",
+        "B) Muharrem'in 9-10. veya 10-11. günleri",
+        "C) Muharrem'in 14-15. günleri",
+        "D) Muharrem'in son iki günü"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Aşure orucu, Muharrem'in 9-10. veya 10-11. günlerinde tutulur. (Müslim, Sıyam 127)",
       "zorluk": "orta",
@@ -405,9 +605,14 @@
     },
     {
       "id": "oruc_041",
-      "konu": "oruc",
+      "konu": "fazilet",
       "soru": "Hadis-i Kudsî'de Allah, oruçlu kişi hakkında ne buyurmuştur?",
-      "secenekler": ["A) 'Onun sevabını iki katına çıkarırım'", "B) 'Oruç doğrudan doğruya bana edilen bir ibadettir, mükafatını ben veririm'", "C) 'Oruçlunun her duasını kabul ederim'", "D) 'Oruç tutanı cennete koyarım'"],
+      "secenekler": [
+        "A) 'Onun sevabını iki katına çıkarırım'",
+        "B) 'Oruç doğrudan doğruya bana edilen bir ibadettir, mükafatını ben veririm'",
+        "C) 'Oruçlunun her duasını kabul ederim'",
+        "D) 'Oruç tutanı cennete koyarım'"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hadis-i Kudsî: 'Oruç doğrudan doğruya bana edilen bir ibadettir. Onun mükafatını da ben veririm.' (Buhârî, Savm 2; Müslim, Sıyam 163)",
       "zorluk": "zor",
@@ -415,9 +620,14 @@
     },
     {
       "id": "oruc_042",
-      "konu": "oruc",
+      "konu": "kaza-kefaret",
       "soru": "Kefaret olarak 60 gün oruç tutmaya gücü yetmeyene ne gerekir?",
-      "secenekler": ["A) 30 fakiri doyurması", "B) Para fidyesi ödemesi", "C) 60 fakiri doyurması", "D) Kefaret düşer"],
+      "secenekler": [
+        "A) 30 fakiri doyurması",
+        "B) Para fidyesi ödemesi",
+        "C) 60 fakiri doyurması",
+        "D) Kefaret düşer"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Kefaret olarak arka arkaya 60 gün oruç tutmaya gücü yetmeyene 60 fakiri doyurması gerekir.",
       "zorluk": "zor",
@@ -425,19 +635,29 @@
     },
     {
       "id": "oruc_043",
-      "konu": "oruc",
-      "soru": "İftar duasının içeriği hakkında doğru olan ifade hangisidir?",
-      "secenekler": ["A) Yarınki oruca niyet içerir", "B) Allah'a oruç tutulduğu ve iftarın O'nun rızkıyla açıldığı belirtilir", "C) Yalnızca hamd içerir", "D) Peygambere salavat içerir"],
-      "dogru_cevap": "B",
-      "aciklama": "İftar duası: 'Allahümme leke sumtü (Allah'ım, senin için oruç tuttum)... ve alâ rızkıke eftartü (Senin rızkınla orucumu açtım).'",
+      "konu": "sahur-iftar",
+      "soru": "Derslerde verilen \"Zehebe'z-zamaü...\" iftar duasının anlamı hangisidir?",
+      "secenekler": [
+        "A) Susuzluk gitti, damarlar ıslandı ve inşallah sevap sabit oldu",
+        "B) Yarınki oruca niyet ettim",
+        "C) Allah'ım bana ilim ver",
+        "D) Rabbim beni ve anne babamı bağışla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Zehebe'z-zamaü ve'btelletil-urûku ve sebete'l-ecru inşallah\" duasının anlamı: \"Susuzluk gitti, damarlar ıslandı ve inşallah sevap sabit oldu.\"",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_044",
-      "konu": "oruc",
+      "konu": "sahur-iftar",
       "soru": "'İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler' hadisi hangi kaynaklarda geçer?",
-      "secenekler": ["A) Sadece Buhârî", "B) Buhârî ve Müslim", "C) Sadece Tirmizî", "D) Sadece İbn Mâce"],
+      "secenekler": [
+        "A) Sadece Buhârî",
+        "B) Buhârî ve Müslim",
+        "C) Sadece Tirmizî",
+        "D) Sadece İbn Mâce"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Bu hadis hem Buhârî (Savm 45) hem de Müslim'de (Sıyam 48) yer almaktadır.",
       "zorluk": "zor",
@@ -445,9 +665,14 @@
     },
     {
       "id": "oruc_045",
-      "konu": "oruc",
+      "konu": "sartlar",
       "soru": "Kadınların hayız ve nifas hali için oruca ilişkin doğru ifade hangisidir?",
-      "secenekler": ["A) Bu dönemlerde de oruç tutabilirler", "B) Bu haldeyken oruç tutamazlar, sonradan kaza ederler", "C) Bu dönemler için fidye yeterlidir", "D) Bu dönemler için kefaret gerekir"],
+      "secenekler": [
+        "A) Bu dönemlerde de oruç tutabilirler",
+        "B) Bu haldeyken oruç tutamazlar, sonradan kaza ederler",
+        "C) Bu dönemler için fidye yeterlidir",
+        "D) Bu dönemler için kefaret gerekir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hayız ve nifas halindeki kadın oruç tutamaz; bu haller geçince tutamadıklarını kaza eder.",
       "zorluk": "zor",
@@ -455,19 +680,29 @@
     },
     {
       "id": "oruc_046",
-      "konu": "oruc",
+      "konu": "kaza-kefaret",
       "soru": "Ramazan orucunun cinsel ilişkiyle kasıtlı bozulması durumunda ne gerekir?",
-      "secenekler": ["A) Yalnızca kaza gerekir", "B) Yalnızca kefaret gerekir", "C) Hem kaza hem kefaret gerekir", "D) Fidye yeterlidir"],
+      "secenekler": [
+        "A) Yalnızca kaza gerekir (sonradan gününe gün tutulur)",
+        "B) Yalnızca kefaret gerekir (ağır telafi sorumluluğu doğar)",
+        "C) Hem kaza hem kefaret gerekir (ağır telafi sorumluluğu doğar)",
+        "D) Fidye yeterlidir"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Yeme, içme veya cinsel ilişkiyle kasıtlı bozulma durumunda hem kaza hem kefaret gerekir. Sigara, kasıtlı kusma ve besin enjeksiyonunda ise yalnızca kaza yeterlidir.",
+      "aciklama": "Ramazan orucunun cinsel ilişkiyle kasıtlı bozulması durumunda kaza ve kefaret gerekir (ağır telafi sorumluluğu doğar). Yemek, içmek ve sigara gibi durumlarda kefaret hükmü mezheplere göre farklı değerlendirilir.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "oruc_047",
-      "konu": "oruc",
+      "konu": "ramazan",
       "soru": "'Ramazan girdiğinde cennetin kapıları açılır, cehennemin kapıları kapanır' hadisi hangi kaynaklarda geçer?",
-      "secenekler": ["A) Sadece Buhârî", "B) Buhârî ve Müslim", "C) Sadece Müslim", "D) Sadece Tirmizî"],
+      "secenekler": [
+        "A) Sadece Buhârî",
+        "B) Buhârî ve Müslim",
+        "C) Sadece Müslim",
+        "D) Sadece Tirmizî"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Bu hadis hem Buhârî (Savm 5) hem de Müslim'de (Sıyam 1) yer almaktadır.",
       "zorluk": "zor",
@@ -475,9 +710,14 @@
     },
     {
       "id": "oruc_048",
-      "konu": "oruc",
+      "konu": "bozanlar",
       "soru": "Ağız dolusu kasıtlı kusma ile kendiliğinden gelen kusma arasındaki fark nedir?",
-      "secenekler": ["A) İkisi de orucu bozar", "B) İkisi de bozmaz", "C) Kasıtlı olanı bozar, kendiliğinden olan bozmaz", "D) Kasıtlı olan bozmaz, kendiliğinden olan bozar"],
+      "secenekler": [
+        "A) İkisi de orucu bozar",
+        "B) İkisi de bozmaz",
+        "C) Kasıtlı olanı bozar, kendiliğinden olan bozmaz",
+        "D) Kasıtlı olan bozmaz, kendiliğinden olan bozar"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Ağız dolusu kasıtlı kusma orucu bozar. Kendiliğinden (kasıtsız) gelen kusma ise orucu bozmaz.",
       "zorluk": "zor",
@@ -485,9 +725,14 @@
     },
     {
       "id": "oruc_049",
-      "konu": "oruc",
+      "konu": "fazilet",
       "soru": "'Oruç bir kalkandır' hadisinin devamında Hz. Peygamber ne buyurmuştur?",
-      "secenekler": ["A) 'Oruçlu kimse çok zikretsin'", "B) 'Oruçlu kimse sadaka versin'", "C) 'Oruçlu kötü söz söylemesin'", "D) 'Oruçlu kimse namaz kılsın'"],
+      "secenekler": [
+        "A) 'Oruçlu kimse çok zikretsin'",
+        "B) 'Oruçlu kimse sadaka versin'",
+        "C) 'Oruçlu kötü söz söylemesin'",
+        "D) 'Oruçlu kimse namaz kılsın'"
+      ],
       "dogru_cevap": "C",
       "aciklama": "'Oruç bir kalkandır. Oruçlu kötü söz söylemesin.' (Buhârî, Savm 2) — Oruç yalnızca fiziksel değil, ahlaki bir perhizdir.",
       "zorluk": "zor",
@@ -495,11 +740,16 @@
     },
     {
       "id": "oruc_050",
-      "konu": "oruc",
-      "soru": "Dişleri fırçalamak orucu bozar mı?",
-      "secenekler": ["A) Evet, her zaman bozar", "B) Hayır, bozmaz", "C) Sadece öğleden sonra bozar", "D) Florürlü macun kullanılırsa bozar"],
-      "dogru_cevap": "B",
-      "aciklama": "Dişleri fırçalamak orucu bozmayan şeyler arasında sayılmıştır.",
+      "konu": "bozanlar",
+      "soru": "Oruçluyken diş fırçalamak için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Macun veya su boğaza kaçmazsa bozmaz",
+        "B) Her zaman bozar",
+        "C) Sadece öğleden sonra bozar",
+        "D) Florürlü macun kullanılırsa mutlaka bozmaz"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Macunsuz veya dikkatli şekilde diş fırçalamak orucu bozmaz; macun, su ya da başka bir madde boğaza kaçarsa oruç bozulabilir.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     }

@@ -18,6 +18,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import {
+  parseElifbaProgress,
+  parseElifbaQuizScores,
+  type ElifbaProgress,
+} from "../../src/lib/elifbaProgress";
 import { AUDIO_BASE_URL } from "../../src/lib/runtimeConfig";
 
 const AUDIO_BASE = AUDIO_BASE_URL;
@@ -51,6 +56,9 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
   harf: ElifbaHarf; onNext: () => void; onPrev: () => void; isLast: boolean;
 }) {
   const [flipped, setFlipped] = useState(false);
+  const cardLabel = flipped
+    ? `${harf.harf_adi} harfi. Ses: ${harf.harf_sesi}. Mahreç: ${harf.mahrec}`
+    : `${harf.harf_adi} harf kartı`; 
 
   useEffect(() => setFlipped(false), [harf.harf_id]);
 
@@ -60,6 +68,8 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
         style={fc.playBtn}
         onPress={() => playHarfSes(harf.harf_id)}
         activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={`${harf.harf_adi} harfinin sesini dinle`}
       >
         <Text style={fc.playIcon}>🔊</Text>
       </TouchableOpacity>
@@ -68,6 +78,10 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
         style={flipped ? fc.cardBack : fc.cardFront}
         onPress={() => setFlipped((f) => !f)}
         activeOpacity={0.85}
+        accessibilityRole="button"
+        accessibilityLabel={cardLabel}
+        accessibilityHint="Kartı çevirmek için dokun"
+        accessibilityState={{ expanded: flipped }}
       >
         {!flipped ? (
           <>
@@ -100,10 +114,20 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
         )}
       </TouchableOpacity>
       <View style={fc.navRow}>
-        <TouchableOpacity style={fc.navBtn} onPress={onPrev}>
+        <TouchableOpacity
+          style={fc.navBtn}
+          onPress={onPrev}
+          accessibilityRole="button"
+          accessibilityLabel="Önceki harfe geç"
+        >
           <Text style={fc.navBtnText}>← Önceki</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[fc.navBtn, fc.navBtnActive]} onPress={onNext}>
+        <TouchableOpacity
+          style={[fc.navBtn, fc.navBtnActive]}
+          onPress={onNext}
+          accessibilityRole="button"
+          accessibilityLabel={isLast ? "Teste geç" : "Sonraki harfe geç"}
+        >
           <Text style={[fc.navBtnText, { color: "#fff" }]}>
             {isLast ? "✓ Teste Geç" : "Sonraki →"}
           </Text>
@@ -114,6 +138,19 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
 }
 
 // ── Quiz ──────────────────────────────────────────────────────────────────────
+
+function normalizeQuizSorular(data: ElifbaQuizSoru[]): ElifbaQuizSoru[] {
+  return data
+    .map((soru) => {
+      const secenekler = Array.isArray(soru.secenekler)
+        ? soru.secenekler.filter((secenek): secenek is string => typeof secenek === "string" && secenek.trim().length > 0)
+        : [];
+      const uniqueSecenekler = Array.from(new Set(secenekler));
+      if (!soru.soru || !soru.dogru_cevap || !uniqueSecenekler.includes(soru.dogru_cevap)) return null;
+      return { ...soru, secenekler: uniqueSecenekler };
+    })
+    .filter((soru): soru is ElifbaQuizSoru => soru !== null);
+}
 
 function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
   const [sorular, setSorular] = useState<ElifbaQuizSoru[]>([]);
@@ -126,24 +163,43 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   const [done, setDone]       = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const confettiTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const requestIdRef = useRef(0);
 
   const loadQuiz = useCallback(() => {
+    const requestId = requestIdRef.current + 1;
+    requestIdRef.current = requestId;
     setLoading(true);
     setError(false);
+    setIdx(0);
+    setSelected(null);
+    setAnswered(false);
+    setScore(0);
+    setDone(false);
+    setShowConfetti(false);
     api.elifba.quiz(dersId)
       .then((data) => {
-        const arr = [...data];
+        if (requestIdRef.current !== requestId) return;
+        const arr = normalizeQuizSorular(data);
         for (let i = arr.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         setSorular(arr.slice(0, 15));
       })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
+      .catch(() => {
+        if (requestIdRef.current === requestId) setError(true);
+      })
+      .finally(() => {
+        if (requestIdRef.current === requestId) setLoading(false);
+      });
   }, [dersId]);
 
   useEffect(() => { loadQuiz(); }, [loadQuiz]);
+
+  useEffect(() => () => {
+    requestIdRef.current += 1;
+    if (confettiTimer.current) clearTimeout(confettiTimer.current);
+  }, []);
 
   const soru = sorular[idx];
 
@@ -168,7 +224,12 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     <View style={qv.errBox}>
       <Text style={qv.errEmoji}>📚</Text>
       <Text style={qv.noQ}>Sorular yüklenemedi.{"\n"}Bağlantını kontrol et.</Text>
-      <TouchableOpacity style={qv.retryBtn} onPress={loadQuiz}>
+      <TouchableOpacity
+        style={qv.retryBtn}
+        onPress={loadQuiz}
+        accessibilityRole="button"
+        accessibilityLabel="Elifba sorularını tekrar yükle"
+      >
         <Text style={qv.retryText}>Tekrar dene</Text>
       </TouchableOpacity>
     </View>
@@ -181,7 +242,12 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
         <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>
         <Text style={qv.doneTitle}>{pct >= 80 ? "Harika!" : pct >= 60 ? "İyi!" : "Tekrar dene!"}</Text>
         <Text style={qv.doneSub}>{score}/{sorular.length} doğru · %{pct}</Text>
-        <TouchableOpacity style={qv.doneBtn} onPress={() => onFinish(score, sorular.length)}>
+        <TouchableOpacity
+          style={qv.doneBtn}
+          onPress={() => onFinish(score, sorular.length)}
+          accessibilityRole="button"
+          accessibilityLabel="Derslere dön"
+        >
           <Text style={qv.doneBtnText}>Derslere dön</Text>
         </TouchableOpacity>
       </View>
@@ -229,6 +295,9 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
               onPress={() => handleSelect(s)}
               disabled={answered}
               activeOpacity={0.75}
+              accessibilityRole="button"
+              accessibilityLabel={`Cevap seçeneği: ${s}`}
+              accessibilityState={{ disabled: answered, selected: isSelected }}
             >
               <Text style={[qv.optionText, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
                 {answered && isRight ? "✓ " : ""}{s}
@@ -243,17 +312,22 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
         </View>
       )}
       {answered && (
-        <TouchableOpacity style={qv.nextBtn} onPress={handleNext}>
+        <TouchableOpacity
+          style={qv.nextBtn}
+          onPress={handleNext}
+          accessibilityRole="button"
+          accessibilityLabel={idx + 1 >= sorular.length ? "Sonuçları gör" : "Sonraki soruya geç"}
+        >
           <Text style={qv.nextBtnText}>{idx + 1 >= sorular.length ? "Sonuçları Gör" : "Sonraki →"}</Text>
         </TouchableOpacity>
       )}
       {showConfetti && LottieView && (
-        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <View style={qv.confettiWrap} pointerEvents="none">
           <LottieView
             source={require('../../assets/Success-celebration.json')}
             autoPlay
             loop={false}
-            style={StyleSheet.absoluteFill}
+            style={qv.confetti}
           />
         </View>
       )}
@@ -278,7 +352,7 @@ export default function DersScreen() {
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
-  const progressRef             = useRef<Record<string, number[]>>({});
+  const progressRef             = useRef<ElifbaProgress>({});
 
   useEffect(() => {
     let isMounted = true;
@@ -286,11 +360,12 @@ export default function DersScreen() {
       .then((h) => { if (isMounted) setHarfler(h); })
       .catch(() => {})
       .finally(() => setLoading(false));
-    storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
-      .then((p) => {
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
+      .then((rawProgress) => {
         if (isMounted) {
-          progressRef.current = p ?? {};
-          setSeenIds(p?.[String(dersId)] ?? []);
+          const parsedProgress = parseElifbaProgress(rawProgress);
+          progressRef.current = parsedProgress;
+          setSeenIds(parsedProgress[String(dersId)] ?? []);
         }
       })
       .catch(() => {});
@@ -321,8 +396,8 @@ export default function DersScreen() {
   }, [harfler, idx, markSeen]);
 
   const handleQuizFinish = useCallback(async (s: number, t: number) => {
-    const prev = await storage.getJSON<Record<string, { score: number; total: number }>>(STORAGE_KEYS.quizScores) ?? {};
-    await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: { score: s, total: t } });
+    const prev = parseElifbaQuizScores(await storage.getJSON<unknown>(STORAGE_KEYS.quizScores));
+    await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: { score: s, total: t } }).catch(() => {});
     router.back();
   }, [dersId]);
 
@@ -347,6 +422,9 @@ export default function DersScreen() {
           <TouchableOpacity
             style={[styles.modeBtn, mode === "flashcard" && styles.modeBtnActive]}
             onPress={() => setMode("flashcard")}
+            accessibilityRole="tab"
+            accessibilityLabel={`Kartlar modu, ilerleme yüzde ${pct}`}
+            accessibilityState={{ selected: mode === "flashcard" }}
           >
             <Text style={[styles.modeBtnText, mode === "flashcard" && styles.modeBtnTextActive]}>
               📇 Kartlar ({pct}%)
@@ -355,6 +433,9 @@ export default function DersScreen() {
           <TouchableOpacity
             style={[styles.modeBtn, mode === "quiz" && styles.modeBtnActive]}
             onPress={() => setMode("quiz")}
+            accessibilityRole="tab"
+            accessibilityLabel="Test modu"
+            accessibilityState={{ selected: mode === "quiz" }}
           >
             <Text style={[styles.modeBtnText, mode === "quiz" && styles.modeBtnTextActive]}>
               🧠 Test
@@ -381,6 +462,9 @@ export default function DersScreen() {
                         if (harfler[idx]) markSeen(harfler[idx].harf_id);
                         setIdx(i);
                       }}
+                      accessibilityRole="button"
+                      accessibilityLabel={`${h.harf_adi} harfine git`}
+                      accessibilityState={{ selected: i === idx }}
                       style={[
                         styles.dot,
                         i === idx
@@ -478,6 +562,8 @@ const qv = StyleSheet.create({
   ipucuText:   { fontSize:13, color:"#854d0e", lineHeight:20 },
   nextBtn:     { backgroundColor:"#059669", borderRadius:12, padding:14, alignItems:"center", marginTop:4 },
   nextBtnText: { color:"#fff", fontSize:14, fontWeight:"700" },
+  confettiWrap:{ position:"absolute", top:120, left:16, right:16, height:220, alignItems:"center", justifyContent:"center" },
+  confetti:    { width:220, height:220 },
   done:        { flex:1, alignItems:"center", justifyContent:"center", gap:12, padding:32 },
   doneEmoji:   { fontSize:56 },
   doneTitle:   { fontSize:22, fontWeight:"700", color:"#1c1917" },

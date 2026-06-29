@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import { dbGet } from "../../../../lib/dbUtils";
+import { cleanMealText } from "../../../../lib/cleanMeal";
 
 interface RandomVerseRow {
   verse_key:   string;
@@ -118,7 +119,7 @@ export async function GET(
       ayah_number: row.ayah_number,
       surah_name:  row.surah_name,
       arabic_text: row.arabic_text,
-      meal:        row.meal,
+      meal:        cleanMealText(row.meal),
     }, {
       headers: {
         "Content-Type": "application/json; charset=utf-8",

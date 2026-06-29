@@ -1,11 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ScrollView, Image, Dimensions, PanResponder,
+  ScrollView, Image, Dimensions, PanResponder, Animated,
 } from "react-native";
-import Animated, {
-  useSharedValue, withTiming, useAnimatedStyle, runOnJS,
-} from "react-native-reanimated";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
@@ -16,6 +13,7 @@ try {
   const { UIManager } = require("react-native");
   if (UIManager.hasViewManagerConfig?.("LottieAnimationView")) LottieView = mod;
 } catch (_e) { /* noop */ }
+
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
@@ -141,9 +139,8 @@ export default function DersDetayScreen() {
   const [score, setScore]                           = useState(0);
   const [quizFinished, setQuizFinished]             = useState(false);
   const [wrongAnswers, setWrongAnswers]             = useState<QuizSoru[]>([]);
-  const [showCelebration, setShowCelebration]       = useState(false);
-  const quizOpacity  = useSharedValue(1);
-  const quizAnimStyle = useAnimatedStyle(() => ({ opacity: quizOpacity.value }));
+  const quizOpacity = useRef(new Animated.Value(1)).current;
+  const quizAnimStyle = { opacity: quizOpacity };
 
   const dersKey  = dersId ?? "";
   const dersData = DERS_DATA[dersKey];
@@ -207,6 +204,7 @@ export default function DersDetayScreen() {
     setQuizFinished(false);
     setWrongAnswers([]);
     setReadMode(false);
+    quizOpacity.setValue(1);
     setQuizMode(true);
   };
 
@@ -226,18 +224,23 @@ export default function DersDetayScreen() {
   const nextQuestion = () => {
     Haptics.selectionAsync();
     if (qIndex + 1 >= quizQuestions.length) {
-      if (score >= 7) setShowCelebration(true);
       setQuizBitti(dersKey);
       setQuizFinished(true);
     } else {
-      quizOpacity.value = withTiming(0, { duration: 150 }, (finished) => {
-        'worklet';
-        if (finished) {
-          runOnJS(setQIndex)((prev: number) => prev + 1);
-          runOnJS(setSelectedAnswer)(null);
-          runOnJS(setShowResult)(false);
-          quizOpacity.value = withTiming(1, { duration: 180 });
-        }
+      Animated.timing(quizOpacity, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: true,
+      }).start(({ finished }) => {
+        if (!finished) return;
+        setQIndex((prev) => prev + 1);
+        setSelectedAnswer(null);
+        setShowResult(false);
+        Animated.timing(quizOpacity, {
+          toValue: 1,
+          duration: 180,
+          useNativeDriver: true,
+        }).start();
       });
     }
   };
@@ -251,7 +254,7 @@ export default function DersDetayScreen() {
     setScore(0);
     setQuizFinished(false);
     setWrongAnswers([]);
-    setShowCelebration(false);
+    quizOpacity.setValue(1);
   };
 
   const returnToLesson = () => {
@@ -328,7 +331,16 @@ export default function DersDetayScreen() {
         >
           {/* Skor */}
           <View style={[s.scoreCard, { backgroundColor: c.card }]}>
-            <Text style={s.scoreEmoji}>{emoji}</Text>
+            {LottieView && score >= 7 ? (
+              <LottieView
+                source={require("../../assets/Success-celebration.json")}
+                autoPlay
+                loop={false}
+                style={s.resultLottie}
+              />
+            ) : (
+              <Text style={s.scoreEmoji}>{emoji}</Text>
+            )}
             <Text style={[s.scoreText, { color: c.text }]}>
               {score} / {qTotal} doğru
             </Text>
@@ -373,18 +385,6 @@ export default function DersDetayScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Kutlama animasyonu — absoluteFill overlay, dokunuşları geçirir */}
-        {LottieView && showCelebration && (
-          <View style={[StyleSheet.absoluteFill, { zIndex: 99, elevation: 99 }]} pointerEvents="none">
-            <LottieView
-              source={require("../../assets/Success-celebration.json")}
-              autoPlay
-              loop={false}
-              style={{ flex: 1 }}
-              onAnimationFinish={() => setShowCelebration(false)}
-            />
-          </View>
-        )}
       </View>
     );
   }
@@ -442,8 +442,8 @@ export default function DersDetayScreen() {
         </View>
 
         {/* Soru kartı + şıklar — fade animasyonlu */}
-        <Animated.View style={[{ flex: 1 }, quizAnimStyle]}>
-        <View style={s.scrollContent}>
+        <Animated.View style={[s.quizBody, quizAnimStyle]}>
+        <View style={s.quizQuestionContent}>
           <View style={s.questionCard}>
             <Text style={s.questionText}>{question.soru}</Text>
           </View>
@@ -618,7 +618,9 @@ const s = StyleSheet.create({
   },
   questionText:  { fontSize: 18, fontWeight: "700", color: "#ffffff", lineHeight: 28 },
 
-  answersContainer: { gap: 10, marginBottom: 8 },
+  quizBody:       { flex: 1, justifyContent: "flex-start" },
+  quizQuestionContent: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
+  answersContainer: { gap: 10, marginBottom: 8, paddingTop: 4 },
   answerBtn:     {
     flexDirection: "row", alignItems: "center", gap: 12,
     borderRadius: 12, borderWidth: 1.5, paddingVertical: 14, paddingHorizontal: 14,
@@ -640,6 +642,7 @@ const s = StyleSheet.create({
 
   // Sonuç
   scoreCard:     { borderRadius: 16, padding: 24, alignItems: "center", gap: 8 },
+  resultLottie:  { width: 96, height: 96, alignSelf: "center" },
   scoreEmoji:    { fontSize: 52 },
   scoreText:     { fontSize: 28, fontWeight: "800" },
   scorePct:      { fontSize: 15, fontWeight: "600" },

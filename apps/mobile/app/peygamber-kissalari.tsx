@@ -46,6 +46,9 @@ function RefChip({ refKey }: { refKey: string }) {
       style={st.refChip}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as any)}
       activeOpacity={0.75}
+      accessibilityRole="button"
+      accessibilityLabel={`${refKey} ayet referansı`}
+      accessibilityHint="Ayet detayını açar"
     >
       <Text style={st.refChipText}>{refKey}</Text>
     </TouchableOpacity>
@@ -57,7 +60,15 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
   const [open, setOpen] = useState(false);
   return (
     <View style={[st.kissaCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
-      <TouchableOpacity style={st.kissaHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={st.kissaHeader}
+        onPress={() => setOpen(o => !o)}
+        activeOpacity={0.75}
+        accessibilityRole="button"
+        accessibilityLabel={kissa.baslik}
+        accessibilityHint={`Kıssa detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityState={{ expanded: open }}
+      >
         <Text style={[st.kissaBaslik, { color: c.text }]}>{kissa.baslik}</Text>
         <Text style={[st.chev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
@@ -83,11 +94,20 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
 function PeygamberCard({ p }: { p: Peygamber }) {
   const c = useColors();
   const [open, setOpen] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
 
   return (
     <View style={[st.card, { backgroundColor: c.card, borderColor: c.border }]}>
       {/* Başlık satırı */}
-      <TouchableOpacity style={st.cardHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={st.cardHeader}
+        onPress={() => setOpen(o => !o)}
+        activeOpacity={0.75}
+        accessibilityRole="button"
+        accessibilityLabel={p.isim}
+        accessibilityHint={`Peygamber detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityState={{ expanded: open }}
+      >
         <View style={{ flex: 1, gap: 3 }}>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <Text style={[st.isim, { color: c.text }]}>{p.isim}</Text>
@@ -156,7 +176,19 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Özel notlar */}
           {p.ozel_notlar && p.ozel_notlar.length > 0 && (
             <View style={st.section}>
-              {p.ozel_notlar.map((n, i) => (
+              <TouchableOpacity
+                style={[st.notesHeader, { backgroundColor: c.cardAlt, borderColor: c.border }]}
+                onPress={() => setNotesOpen(prev => !prev)}
+                activeOpacity={0.75}
+                accessibilityRole="button"
+                accessibilityLabel={`${p.isim} özel notları`}
+                accessibilityHint={`Özel notları ${notesOpen ? "kapatır" : "açar"}`}
+                accessibilityState={{ expanded: notesOpen }}
+              >
+                <Text style={[st.sectionLabel, { color: c.accent }]}>ℹ️ Özel Notlar</Text>
+                <Text style={[st.chev, { color: c.textMuted }]}>{notesOpen ? "▲" : "▼"}</Text>
+              </TouchableOpacity>
+              {notesOpen && p.ozel_notlar.map((n, i) => (
                 <View key={i} style={st.notBox}>
                   <Text style={st.notText}>ℹ️ {n}</Text>
                 </View>
@@ -259,6 +291,7 @@ const st = StyleSheet.create({
 
   section:      { gap: 6 },
   sectionLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
+  notesHeader:  { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 10, borderWidth: 1, paddingHorizontal: 11, paddingVertical: 10 },
 
   refRow:   { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 2 },
   chip:     { fontSize: 11, color: "#64748b" },
@@ -276,3 +309,4 @@ const st = StyleSheet.create({
   notBox:  { backgroundColor: "#fff7ed", borderRadius: 8, padding: 9, borderWidth: 1, borderColor: "#fdba74" },
   notText: { fontSize: 11.5, color: "#9a3412", lineHeight: 17 },
 });
+

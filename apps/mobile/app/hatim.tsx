@@ -16,6 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MushafReader } from "../src/components/MushafReader";
 import { useColors } from "../src/hooks/useColors";
+import { logFeature } from "../src/lib/analytics";
 
 const STORAGE_KEY = "hatimTakibi";
 
@@ -61,6 +62,27 @@ const JUZ_DATA: JuzInfo[] = [
 interface Hatim { id: string; startDate: string; completedDate: string | null; readJuz: number[] }
 interface Store  { hatims: Hatim[]; currentId: string | null }
 
+const EMPTY_STORE: Store = { hatims: [], currentId: null };
+
+function parseStoredStore(raw: string | null): Store {
+  if (!raw) return EMPTY_STORE;
+  try {
+    const parsed = JSON.parse(raw) as Partial<Store>;
+    if (!Array.isArray(parsed.hatims)) return EMPTY_STORE;
+
+    const hatims = parsed.hatims.filter((h): h is Hatim =>
+      typeof h?.id === "string" &&
+      typeof h.startDate === "string" &&
+      (h.completedDate === null || typeof h.completedDate === "string") &&
+      Array.isArray(h.readJuz)
+    );
+    const currentId = typeof parsed.currentId === "string" ? parsed.currentId : null;
+    return { hatims, currentId };
+  } catch {
+    return EMPTY_STORE;
+  }
+}
+
 function fmt(iso: string) {
   return new Date(iso).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
 }
@@ -82,6 +104,7 @@ export default function HatimScreen() {
   const [readerKey, setReaderKey]     = useState(0);
 
   function openMushaf(surahId: number, ayahNumber: number) {
+    logFeature("hatim_read", { surahId: String(surahId), ayahNumber: String(ayahNumber) });
     setReaderSurah(surahId);
     setReaderAyah(ayahNumber);
     setReaderKey(k => k + 1);
@@ -91,31 +114,50 @@ export default function HatimScreen() {
   useEffect(() => {
     let isMounted = true;
     AsyncStorage.getItem(STORAGE_KEY)
-      .then(v => { if (isMounted && v) setStore(JSON.parse(v)); })
-      .finally(() => setMounted(true));
+      .then(v => { if (isMounted) setStore(parseStoredStore(v)); })
+      .catch(() => { if (isMounted) setStore(EMPTY_STORE); })
+      .finally(() => { if (isMounted) setMounted(true); });
     return () => { isMounted = false; };
   }, []);
 
   const persist = useCallback((next: Store) => {
     setStore(next);
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => undefined);
   }, []);
 
   const startHatim = () => {
+    logFeature("hatim_start");
     const h: Hatim = { id: Date.now().toString(), startDate: new Date().toISOString(), completedDate: null, readJuz: [] };
     persist({ hatims: [h, ...store.hatims], currentId: h.id });
     setConfirm(false);
   };
 
+  const handleTabPress = useCallback((tab: "takip" | "oku") => {
+    logFeature("hatim_tab", { tab });
+    setActiveTab(tab);
+  }, []);
+
   const toggleJuz = (n: number) => {
+    let status: "read" | "unread" = "read";
+    let completedNow = false;
     const next = store.hatims.map(h => {
       if (h.id !== store.currentId) return h;
-      const readJuz = h.readJuz.includes(n) ? h.readJuz.filter(j => j !== n) : [...h.readJuz, n];
+      status = h.readJuz.includes(n) ? "unread" : "read";
+      const readJuz = status === "unread" ? h.readJuz.filter(j => j !== n) : [...h.readJuz, n];
+      completedNow = readJuz.length === 30 && h.completedDate === null;
       const completedDate = readJuz.length === 30 ? (h.completedDate ?? new Date().toISOString()) : null;
       return { ...h, readJuz, completedDate };
     });
+    logFeature("hatim_toggle_juz", { juz: String(n), status });
+    if (completedNow) logFeature("hatim_complete");
     persist({ ...store, hatims: next });
   };
+
+  const resetCurrentHatim = useCallback(() => {
+    logFeature("hatim_reset");
+    persist({ ...store, hatims: store.hatims.map(h => h.id === store.currentId ? { ...h, readJuz: [], completedDate: null } : h) });
+    setConfirm(false);
+  }, [persist, store]);
 
   const current   = store.hatims.find(h => h.id === store.currentId) ?? null;
   const completed = store.hatims.filter(h => h.completedDate !== null);
@@ -159,6 +201,8 @@ export default function HatimScreen() {
               style={[styles.celebrationBtn, { backgroundColor: c.accent }]}
               onPress={() => setShowCelebration(false)}
               activeOpacity={0.85}
+              accessibilityRole="button"
+              accessibilityLabel="Kutlamayı kapat"
             >
               <Text style={styles.celebrationBtnText}>Tamam</Text>
             </TouchableOpacity>
@@ -170,15 +214,19 @@ export default function HatimScreen() {
       <View style={styles.tabBar}>
         <TouchableOpacity
           style={[styles.tabBtn, activeTab === "takip" && styles.tabBtnActive]}
-          onPress={() => setActiveTab("takip")}
+          onPress={() => handleTabPress("takip")}
           activeOpacity={0.8}
+          accessibilityRole="tab"
+          accessibilityLabel="Hatim takip sekmesi"
         >
           <Text style={[styles.tabBtnText, activeTab === "takip" && styles.tabBtnTextActive]}>📋 Takip</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tabBtn, activeTab === "oku" && styles.tabBtnActive]}
-          onPress={() => setActiveTab("oku")}
+          onPress={() => handleTabPress("oku")}
           activeOpacity={0.8}
+          accessibilityRole="tab"
+          accessibilityLabel="Mushaf oku sekmesi"
         >
           <Text style={[styles.tabBtnText, activeTab === "oku" && styles.tabBtnTextActive]}>📖 Oku</Text>
         </TouchableOpacity>
@@ -204,7 +252,7 @@ export default function HatimScreen() {
         {!current ? (
           <View style={styles.emptyCard}>
             <Text style={styles.emptyText}>Aktif hatim yok</Text>
-            <TouchableOpacity style={styles.startBtn} onPress={startHatim}>
+            <TouchableOpacity style={styles.startBtn} onPress={startHatim} accessibilityRole="button" accessibilityLabel="Yeni hatim başlat">
               <Text style={styles.startBtnText}>+ Yeni Hatim Başlat</Text>
             </TouchableOpacity>
           </View>
@@ -232,6 +280,8 @@ export default function HatimScreen() {
                   <>
                     <TouchableOpacity
                       onPress={() => setConfirm(true)}
+                      accessibilityRole="button"
+                      accessibilityLabel="Hatmi sıfırlama onayını aç"
                       hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                       style={styles.actionBtn}
                     >
@@ -242,10 +292,9 @@ export default function HatimScreen() {
                   <>
                     <Text style={styles.confirmText}>Emin misiniz?</Text>
                     <TouchableOpacity
-                      onPress={() => {
-                        persist({ ...store, hatims: store.hatims.map(h => h.id === store.currentId ? { ...h, readJuz: [], completedDate: null } : h) });
-                        setConfirm(false);
-                      }}
+                      onPress={resetCurrentHatim}
+                      accessibilityRole="button"
+                      accessibilityLabel="Hatmi sıfırla"
                       hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                       style={styles.actionBtn}
                     >
@@ -253,6 +302,8 @@ export default function HatimScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => setConfirm(false)}
+                      accessibilityRole="button"
+                      accessibilityLabel="Sıfırlama işlemini iptal et"
                       hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                       style={styles.actionBtn}
                     >
@@ -272,6 +323,9 @@ export default function HatimScreen() {
                     style={styles.juzMain}
                     onPress={() => toggleJuz(juz.juz)}
                     activeOpacity={0.7}
+                    accessibilityRole="checkbox"
+                    accessibilityState={{ checked: done }}
+                    accessibilityLabel={`${juz.juz}. cüz okundu olarak işaretle`}
                   >
                     <View style={[styles.juzCheck, done && styles.juzCheckDone]}>
                       <Text style={[styles.juzNum, done && styles.juzNumDone]}>
@@ -287,6 +341,8 @@ export default function HatimScreen() {
                     style={styles.juzReadBtn}
                     onPress={() => openMushaf(juz.startSurah, juz.startAyah)}
                     activeOpacity={0.7}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${juz.juz}. cüzü oku`}
                   >
                     <Text style={styles.juzReadBtnText}>Oku →</Text>
                   </TouchableOpacity>

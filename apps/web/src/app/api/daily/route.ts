@@ -5,6 +5,7 @@ import { dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
 
 function getDailyOffset(total: number): number {
+  if (!Number.isFinite(total) || total <= 0) return 0;
   const now  = new Date();
   const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
   return seed % total;
@@ -32,7 +33,13 @@ export async function GET() {
        WHERE arabic_text IS NOT NULL AND reading_tr IS NOT NULL AND literal_ceviri IS NOT NULL`
     ).catch(() => undefined),
     dbGet<{ cnt: number }>(
-      "SELECT COUNT(DISTINCT verse_key) AS cnt FROM verse_tag_items WHERE tag LIKE 'dua-%'"
+      `SELECT COUNT(DISTINCT vti.verse_key) AS cnt
+       FROM   verse_tag_items vti
+       JOIN   verses v ON v.verse_key = vti.verse_key
+       WHERE  vti.tag LIKE 'dua-%'
+         AND  v.arabic_text IS NOT NULL
+         AND  v.reading_tr  IS NOT NULL
+         AND  v.literal_ceviri IS NOT NULL`
     ).catch(() => undefined),
   ]);
 
@@ -52,6 +59,7 @@ export async function GET() {
        LEFT JOIN translations yt ON yt.verse_key = v.verse_key
               AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
        WHERE  v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL AND v.literal_ceviri IS NOT NULL
+       ORDER  BY v.verse_key
        LIMIT 1 OFFSET ?`,
       offset
     ).catch(() => undefined),

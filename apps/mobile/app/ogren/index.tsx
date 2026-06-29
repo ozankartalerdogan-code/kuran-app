@@ -9,6 +9,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import {
+  parseElifbaProgress,
+  parseElifbaQuizScores,
+  type ElifbaProgress,
+  type ElifbaQuizScore,
+} from "../../src/lib/elifbaProgress";
 import { HarfITarifContent } from "../../src/components/HarfITarifContent";
 
 type TabKey = "elifba" | "harfi-tarif";
@@ -22,7 +28,7 @@ const NODE_W   = 72;
 const COLS     = 3;
 
 type LessonStatus = "completed" | "active" | "locked";
-type QuizScore    = { score: number; total: number };
+type QuizScore    = ElifbaQuizScore;
 
 const SEVIYE_COLOR: Record<string, { bg: string; text: string }> = {
   "başlangıç": { bg: "#dbeafe", text: "#1d4ed8" },
@@ -67,6 +73,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
 }) {
   const pct = ders.harf_sayisi > 0 ? Math.round((seenCount / ders.harf_sayisi) * 100) : 0;
   const sev = SEVIYE_COLOR[ders.seviye] ?? SEVIYE_COLOR.temel;
+  const dersAdi = shortBaslik(ders.baslik);
 
   return (
     <Modal transparent animationType="fade" onRequestClose={onClose}>
@@ -90,7 +97,12 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
               </View>
               <Text style={pp.title}>{shortBaslik(ders.baslik)}</Text>
             </View>
-            <TouchableOpacity onPress={onClose} style={{ padding: 4 }}>
+            <TouchableOpacity
+              onPress={onClose}
+              style={{ padding: 4 }}
+              accessibilityRole="button"
+              accessibilityLabel={`${dersAdi} penceresini kapat`}
+            >
               <Text style={{ fontSize: 16, color: "#9ca3af" }}>✕</Text>
             </TouchableOpacity>
           </View>
@@ -126,10 +138,20 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
 
           {status !== "locked" && (
             <View style={{ flexDirection: "row", gap: 8, marginTop: 14 }}>
-              <TouchableOpacity style={pp.btnGreen} onPress={onFlashcard}>
+              <TouchableOpacity
+                style={pp.btnGreen}
+                onPress={onFlashcard}
+                accessibilityRole="button"
+                accessibilityLabel={`${dersAdi} kartlarını aç`}
+              >
                 <Text style={pp.btnText}>📇 Kartlar</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={pp.btnIndigo} onPress={onQuiz}>
+              <TouchableOpacity
+                style={pp.btnIndigo}
+                onPress={onQuiz}
+                accessibilityRole="button"
+                accessibilityLabel={`${dersAdi} testini aç`}
+              >
                 <Text style={pp.btnText}>🧠 Test</Text>
               </TouchableOpacity>
             </View>
@@ -150,6 +172,8 @@ function PathNode({ ders, status, pct, onPress }: {
   const isLocked = status === "locked";
   const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : "#d1d5db";
   const border   = isComp ? "#047857" : isActive ? "#d97706" : "#9ca3af";
+  const statusLabel = isComp ? "tamamlandı" : isActive ? "aktif" : "kilitli";
+  const dersAdi = shortBaslik(ders.baslik);
 
   return (
     <TouchableOpacity
@@ -157,6 +181,10 @@ function PathNode({ ders, status, pct, onPress }: {
       onPress={onPress}
       disabled={isLocked}
       activeOpacity={isLocked ? 1 : 0.75}
+      accessibilityRole="button"
+      accessibilityLabel={`${dersAdi} dersi, ${statusLabel}, ilerleme yüzde ${pct}`}
+      accessibilityHint={isLocked ? "Önceki dersi tamamladıktan sonra açılır" : "Ders seçeneklerini açar"}
+      accessibilityState={{ disabled: isLocked }}
     >
       <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
         <Text style={nd.icon}>{isComp ? "⭐" : isActive ? "▶" : "🔒"}</Text>
@@ -208,15 +236,15 @@ export default function OgrenScreen() {
     staleTime: 60 * 60 * 1000,
   });
 
-  const [progress, setProgress]     = useState<Record<string, number[]>>({});
+  const [progress, setProgress]     = useState<ElifbaProgress>({});
   const [quizScores, setQuizScores] = useState<Record<string, QuizScore>>({});
   const [popupId, setPopupId]       = useState<number | null>(null);
 
   const loadProgress = useCallback(() => {
-    storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
-      .then(p => setProgress(p ?? {})).catch(() => {});
-    storage.getJSON<Record<string, QuizScore>>(STORAGE_KEYS.quizScores)
-      .then(q => setQuizScores(q ?? {})).catch(() => {});
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
+      .then(p => setProgress(parseElifbaProgress(p))).catch(() => {});
+    storage.getJSON<unknown>(STORAGE_KEYS.quizScores)
+      .then(q => setQuizScores(parseElifbaQuizScores(q))).catch(() => {});
   }, []);
 
   useFocusEffect(loadProgress);
@@ -276,6 +304,9 @@ export default function OgrenScreen() {
                 style={[s.tabBtn, active && s.tabBtnActive]}
                 onPress={() => setTab(t.key)}
                 activeOpacity={0.7}
+                accessibilityRole="tab"
+                accessibilityLabel={`${t.label} sekmesi`}
+                accessibilityState={{ selected: active }}
               >
                 <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>{t.label}</Text>
               </TouchableOpacity>
@@ -295,7 +326,12 @@ export default function OgrenScreen() {
               <Text style={[s.errText, { color: c.text }]}>
                 {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
               </Text>
-              <TouchableOpacity style={[s.retryBtn, { backgroundColor: c.accent }]} onPress={loadDersler}>
+              <TouchableOpacity
+                style={[s.retryBtn, { backgroundColor: c.accent }]}
+                onPress={() => { void loadDersler(); }}
+                accessibilityRole="button"
+                accessibilityLabel="Elifba derslerini tekrar yükle"
+              >
                 <Text style={s.retryText}>Tekrar dene</Text>
               </TouchableOpacity>
             </View>

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -41,20 +41,35 @@ const RUH_HALI = [
   { emoji: "🍃", label: "Tevekkül",        tag: "tevekkül", bg: "#ecfccb" },
 ];
 
+type MoodItem = typeof RUH_HALI[number];
+type MoodResult = MoodItem & {
+  verse_key: string;
+  surah_id: number;
+  ayah_number: number;
+  surah_name: string | null;
+  arabic_text: string | null;
+  meal: string | null;
+};
+
+type QuickAction =
+  | { id: string; emoji: string; label: string; bg: string; route: "/sure-listesi" | "/ne-ogreneyim" | "/kible"; onPress?: never }
+  | { id: string; emoji: string; label: string; bg: string; route?: never; onPress: () => void };
+
 function HomeContent() {
   const c          = useColors();
   const { streak } = useStreak();
-  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error } = useDailyContent();
+  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
+  const [selectedMood, setSelectedMood] = useState<MoodResult | null>(null);
   const [tasbihOpen, setTasbihOpen]   = useState(false);
 
   const openTasbih = useCallback(() => setTasbihOpen(true), []);
 
-  const QUICK_ACTIONS: { emoji: string; label: string; bg: string; route?: string; onPress?: () => void }[] = [
-    { emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
-    { emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
-    { emoji: "📿", label: "Tespih",         bg: "#dcfce7",          onPress: openTasbih },
-    { emoji: "🧭", label: "Kıble",          route: "/kible",        bg: "#ede9fe" },
+  const QUICK_ACTIONS: QuickAction[] = [
+    { id: "quran", emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
+    { id: "learn", emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
+    { id: "tasbih", emoji: "📿", label: "Tespih",         bg: "#dcfce7",          onPress: openTasbih },
+    { id: "qibla", emoji: "🧭", label: "Kıble",          route: "/kible",        bg: "#ede9fe" },
   ];
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
@@ -64,8 +79,9 @@ function HomeContent() {
 
   useEffect(() => { logScreen('AnaSayfa'); }, []);
 
-  const handleMoodPress = useCallback(async (tag: string) => {
+  const handleMoodPress = useCallback(async (mood: MoodItem) => {
     if (moodLoading) return;
+    const { tag } = mood;
     Haptics.selectionAsync();
     setMoodLoading(tag);
     try {
@@ -78,10 +94,7 @@ function HomeContent() {
       });
       if (!result?.surah_id || !result?.ayah_number) throw new Error("empty result");
       moodSeen.current[tag] = [...(moodSeen.current[tag] ?? []), result.verse_key];
-      router.push({
-        pathname: "/ayah/[surahId]/[ayahNumber]",
-        params: { surahId: result.surah_id, ayahNumber: result.ayah_number },
-      });
+      setSelectedMood({ ...mood, ...result });
     } catch {
       // Fallback: tag aramasına git
       logFeature(AnalyticsEvents.ARAMA);
@@ -90,6 +103,22 @@ function HomeContent() {
       setMoodLoading(null);
     }
   }, [moodLoading]);
+
+  const closeMoodCard = useCallback(() => setSelectedMood(null), []);
+
+  const openMoodAyah = useCallback(() => {
+    if (!selectedMood) return;
+    const { surah_id, ayah_number } = selectedMood;
+    setSelectedMood(null);
+    router.push(`/ayah/${surah_id}/${ayah_number}`);
+  }, [selectedMood]);
+
+  const handleQuickActionPress = useCallback((action: QuickAction) => {
+    Haptics.selectionAsync();
+    logFeature('quick_action', { action: action.id });
+    if (action.onPress) { action.onPress(); return; }
+    router.push(action.route);
+  }, []);
 
   // Sadece geliştirme (__DEV__) — 5 sn sonra test bildirimi düşürür.
   const handleTestNotif = useCallback(async () => {
@@ -172,7 +201,7 @@ function HomeContent() {
           {verse && <Text style={[styles.cardRef, { color: c.isDark ? "#d97706" : "#a16207" }]}>{verse.surah_name} · {verse.surah_id}:{verse.ayah_number}</Text>}
         </View>
         {!verse ? (
-          <SkeletonAyetCard />
+          verseLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]}>Günün ayeti şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.</Text>
         ) : (
           <>
             {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.arabic_text}</Text>}
@@ -189,7 +218,7 @@ function HomeContent() {
           <TouchableOpacity
             key={m.tag}
             style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg, opacity: moodLoading === m.tag ? 0.6 : 1 }]}
-            onPress={() => handleMoodPress(m.tag)}
+            onPress={() => handleMoodPress(m)}
             activeOpacity={0.7}
             disabled={!!moodLoading}
           >
@@ -245,7 +274,7 @@ function HomeContent() {
           {dua && <Text style={[styles.cardRef, { color: c.isDark ? "#14b8a6" : "#0d9488" }]}>{dua.surah_name} · {dua.surah_id}:{dua.ayah_number}</Text>}
         </View>
         {!dua ? (
-          <SkeletonAyetCard />
+          duaLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]}>Günün duası şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.</Text>
         ) : (
           <>
             {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.arabic_text}</Text>}
@@ -261,14 +290,12 @@ function HomeContent() {
         <View style={styles.quickGrid}>
           {QUICK_ACTIONS.map(a => (
             <TouchableOpacity
-              key={a.label}
+              key={a.id}
               style={[styles.quickBtn, { backgroundColor: c.isDark ? c.cardAlt : a.bg }]}
-              onPress={() => {
-                Haptics.selectionAsync();
-                if (a.onPress) { a.onPress(); return; }
-                if (a.route) router.push(a.route as any);
-              }}
+              onPress={() => handleQuickActionPress(a)}
               activeOpacity={0.75}
+              accessibilityRole="button"
+              accessibilityLabel={a.label}
             >
               <Text style={styles.quickEmoji}>{a.emoji}</Text>
               <Text style={[styles.quickLabel, { color: c.text }]}>{a.label}</Text>
@@ -291,6 +318,47 @@ function HomeContent() {
       </TouchableOpacity>
     </ScrollView>
     <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
+    <Modal
+      visible={!!selectedMood}
+      transparent
+      animationType="fade"
+      onRequestClose={closeMoodCard}
+    >
+      <View style={styles.moodModalBackdrop}>
+        <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={closeMoodCard} />
+        {selectedMood && (
+          <View style={[styles.moodModalCard, { backgroundColor: c.card, borderColor: c.border }]}>
+            <View style={styles.moodModalHeader}>
+              <View style={[styles.moodModalIcon, { backgroundColor: c.isDark ? c.cardAlt : selectedMood.bg }]}>
+                <Text style={styles.moodModalEmoji}>{selectedMood.emoji}</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.moodModalTitle, { color: c.text }]}>{selectedMood.label}</Text>
+                <Text style={[styles.moodModalSub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır meali</Text>
+              </View>
+              <TouchableOpacity onPress={closeMoodCard} hitSlop={10} activeOpacity={0.7}>
+                <Ionicons name="close" size={22} color={c.textMuted} />
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              onPress={openMoodAyah}
+              activeOpacity={0.75}
+              style={[styles.moodAyahLink, { backgroundColor: c.isDark ? c.cardAlt : "#f8fafc", borderColor: c.border }]}
+            >
+              <Text style={[styles.moodAyahLinkText, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>
+                {selectedMood.surah_name ?? "Ayet"} · {selectedMood.surah_id}:{selectedMood.ayah_number}
+              </Text>
+              <Ionicons name="open-outline" size={16} color={c.isDark ? "#fbbf24" : "#92400e"} />
+            </TouchableOpacity>
+
+            <Text style={[styles.moodMeal, { color: c.text }]}>
+              {selectedMood.meal || "Bu ayetin meali şu an yüklenemedi. Ayet sayfasından tekrar kontrol edebilirsiniz."}
+            </Text>
+          </View>
+        )}
+      </View>
+    </Modal>
     </SafeAreaView>
   );
 }
@@ -344,13 +412,23 @@ const styles = StyleSheet.create({
   sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },
   moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
   moodLabel: { fontSize: 13, fontWeight: "600" },
+  moodModalBackdrop: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "rgba(0,0,0,0.45)" },
+  moodModalCard: { borderRadius: 20, borderWidth: 1, padding: 18, shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
+  moodModalHeader: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 14 },
+  moodModalIcon: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
+  moodModalEmoji: { fontSize: 24 },
+  moodModalTitle: { fontSize: 17, fontWeight: "800" },
+  moodModalSub: { fontSize: 12, marginTop: 2 },
+  moodAyahLink: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 12, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 12 },
+  moodAyahLinkText: { fontSize: 13, fontWeight: "800" },
+  moodMeal: { fontSize: 15, lineHeight: 24 },
   testNotifBtn:  { marginBottom: 12, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: "#fca5a5", backgroundColor: "#fef2f2", alignItems: "center" },
   testNotifText: { fontSize: 13, fontWeight: "600", color: "#b91c1c" },
 
   quickWidget: { borderRadius: 16, borderWidth: 1, padding: 14, marginBottom: 16 },
   quickTitle:  { fontSize: 13, fontWeight: "600", textAlign: "center", marginBottom: 12 },
   quickGrid:   { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  quickBtn:    { width: "47%", borderRadius: 14, padding: 14, alignItems: "center", gap: 6 },
+  quickBtn:    { flexBasis: "48%", flexGrow: 1, borderRadius: 14, padding: 14, alignItems: "center", gap: 6 },
   quickEmoji:  { fontSize: 30, lineHeight: 36 },
   quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
   errorBanner:     { backgroundColor: "#fef2f2", borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: "#fca5a5" },

@@ -52,12 +52,19 @@ function notify() {
   listeners.forEach(fn => fn());
 }
 
-// MMKV senkron: ilk render'da tema anında okunur, karanlık mod flaşı olmaz
+// Persisted theme is loaded once through the shared storage adapter.
 function ensureLoaded() {
   if (loaded) return;
   loaded = true;
-  const v = storage.getJSONSync<"light" | "dark">(STORAGE_KEYS.nightMode);
-  if (v && v !== override) { override = v; notify(); }
+  storage
+    .getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
+    .then((value) => {
+      if (value && value !== override) {
+        override = value;
+        notify();
+      }
+    })
+    .catch(() => {});
 }
 
 function subscribe(fn: () => void) {

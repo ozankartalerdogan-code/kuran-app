@@ -28,58 +28,58 @@
     {
       "id": "oruc_k04",
       "tip": "metin",
-      "baslik": "Orucun Sıhhat Şartları",
-      "icerik": "Orucun geçerli sayılması için:\n• Niyet: Oruç tutmaya kalben niyet etmek (en geç imsak vaktine kadar)\n• Kadınlar için hayız ve nifastan temiz olmak\n\nNiyetsiz tutulan oruç geçerli sayılmaz. Bu haldeki kadın oruç tutamaz; sonradan kaza eder.",
-      "vurgu": "Niyet olmadan oruç geçerli değildir"
+      "baslik": "Orucun Sıhhat (Geçerlilik) Şartları",
+      "icerik": "Orucun geçerli sayılması için:\n• Niyet: Oruç tutmaya kalben niyet etmek\n• Kadınlar için hayız (adet dönemi) ve nifastan (doğum sonrası kanama) temiz olmak\n\nNiyetin vakti orucun türüne ve mezhebe göre değişebilir. Pratik ve güvenli öğretim olarak Ramazan orucuna geceden veya sahurda niyet edilir. Hanefi mezhebinde Ramazan orucu için, imsak sonrası orucu bozan bir şey yapılmamışsa gündüzün büyük kısmından önce niyet geçerli sayılabilir; Şafii, Maliki ve Hanbeli mezheplerinde farz oruç için geceden niyet şarttır.\n\nHayız (adet dönemi) ve nifas (doğum sonrası kanama) halindeki kadın oruç tutmaz; bu günleri sonradan kaza eder.",
+      "vurgu": "Niyet şarttır · En güvenli uygulama geceden veya sahurda niyettir"
     },
     {
       "id": "oruc_k05",
       "tip": "metin",
       "baslik": "Niyet",
-      "icerik": "Ramazan orucu için en geç imsak vaktine kadar niyet edilmelidir. Sahura kalkmak da niyet sayılır.\n\nNiyet kalben yapılır, dille söylemek sünnet olup zorunlu değildir.\n\nÖrnek niyet: \"Niyet ettim Allah rızası için yarınki Ramazan orucunu tutmaya.\"",
-      "vurgu": "Sahura kalkmak niyet sayılır"
+      "icerik": "Ramazan orucu için niyet kalben yapılır. Dille söylemek yardımcı olabilir; zorunlu olan kalpte oruç tutma iradesidir.\n\nEn güvenli uygulama, niyeti geceden veya sahurda yapmaktır. Sahura kalkmak da niyet yerine geçer. Hanefi mezhebinde Ramazan orucunda, imsak sonrasında orucu bozacak bir şey yapılmamışsa gündüzün büyük kısmından önce niyet geçerli sayılabilir. Diğer mezheplerde farz oruç için geceden niyet şartı daha güçlü vurgulanır.\n\nÖrnek niyet: \"Niyet ettim Allah rızası için yarınki Ramazan orucunu tutmaya.\"",
+      "vurgu": "Niyet kalptedir · Sahura kalkmak niyet sayılır"
     },
     {
       "id": "oruc_k06",
       "tip": "metin",
       "baslik": "Orucu Bozan Şeyler",
-      "icerik": "Kasıtlı yapılırsa oruç bozulur:\n• Yemek veya içmek\n• Cinsel ilişki\n• Sigara içmek\n• Ağız dolusu kusma (kasıtlı)\n• Enjeksiyon yoluyla besin almak\n\nYemek, içmek veya cinsel ilişki durumunda hem kaza hem kefaret gerekir. Sigara, kasıtlı kusma ve besin enjeksiyonunda ise yalnızca kaza yeterlidir.",
-      "vurgu": "Kasıt şarttır — bilerek ve isteyerek yapılmalı"
+      "icerik": "Kasıtlı yapılırsa oruç bozulur:\n• Yemek veya içmek\n• Cinsel ilişki\n• Sigara içmek\n• Ağız dolusu kusmak (kasıtlı)\n• Besleyici serum veya besin değerindeki enjeksiyon almak\n\nKaza (tutulamayan orucu sonradan gününe gün tutmak): Bozulan orucun sonradan gününe gün tutulmasıdır.\nKefaret (bilerek bozulan Ramazan orucu için ağır telafi sorumluluğu): Ramazan orucunu bazı ağır ihlallerle bilerek bozmanın ayrıca gerektirdiği sorumluluktur.\n\nHanefi ve Maliki mezheplerinde Ramazan orucunu bilerek yemek, içmek, sigara içmek veya cinsel ilişkiyle bozmak kaza ve kefaret gerektirir. Şafii ve Hanbeli mezheplerinde kefaret özellikle cinsel ilişki için gerekir; bilerek yemek ve içmekte kaza gerekir. Kasıtlı kusma ve besleyici enjeksiyon gibi durumlarda genellikle kaza gerekir, kefaret gerekmez.",
+      "vurgu": "Kasıt şarttır · Kefaret hükümlerinde mezhep farkı vardır"
     },
     {
       "id": "oruc_k07",
       "tip": "metin",
       "baslik": "Orucu Bozmayan Şeyler",
-      "icerik": "Şunlar orucu bozmaz:\n• Unutarak yemek veya içmek\n\nHz. Peygamber: \"Kim unutarak yiyip içerse orucunu tamamlasın. Onu Allah yedirip içirmiştir.\" (Buhârî, Savm 26; Müslim, Sıyam 171)\n\n• Kendiliğinden gelen kusma (kasıtsız)\n• Ağza su kaçması (gargara yaparken)\n• Kan aldırmak, enjeksiyon (besin içermeyen)\n• Misvak veya macunsuz fırçayla dişleri fırçalamak (diş macunu boğaza kaçarsa orucu bozabilir)\n• Rüya görmek",
-      "vurgu": "Unutarak yemek orucu bozmaz — Buhârî ve Müslim"
+      "icerik": "Şunlar orucu bozmaz:\n• Unutarak yemek veya içmek\n\nHz. Peygamber: \"Kim unutarak yiyip içerse orucunu tamamlasın. Onu Allah yedirip içirmiştir.\" (Buhârî, Savm 26; Müslim, Sıyam 171)\n\n• Kendiliğinden gelen kusma (kasıtsız)\n• Ağza su alıp geri çıkarmak; fakat su boğaza kaçarsa oruç bozulur ve kaza gerekir\n• Kan aldırmak\n• Besin içermeyen ilaç enjeksiyonu\n• Misvak veya macunsuz fırçayla dişleri fırçalamak; macun ya da su boğaza kaçarsa oruç bozulabilir\n• Rüya görmek",
+      "vurgu": "Unutarak yemek orucu bozmaz · Boğaza kaçan şeylerde dikkat gerekir"
     },
     {
       "id": "oruc_k08",
       "tip": "metin",
       "baslik": "Hasta ve Yolcunun Durumu",
-      "icerik": "Hasta ve yolcular Ramazan'da oruç tutmayabilir, sonradan kaza ederler.\n\nAyet: \"Kim hasta veya yolcu olursa başka günlerde sayısınca tutar. Allah sizin için kolaylık istiyor, güçlük çekmenizi istemiyor.\" (Bakara, 2/185)\n\n• Hastalık geçince kaza edilir\n• Yolculuktan dönünce kaza edilir\n• Sağlıklıysa tutması daha faziletlidir",
-      "vurgu": "Allah kolaylık ister, güçlük değil — Bakara 185"
+      "icerik": "Hasta ve yolcular Ramazan'da oruç tutmayabilir; tutamadıkları günleri sonradan kaza ederler.\n\nAyet: \"Kim hasta veya yolcu olursa başka günlerde sayısınca tutar. Allah sizin için kolaylık istiyor, güçlük çekmenizi istemiyor.\" (Bakara, 2/185)\n\n• Geçici hastalık geçince kaza edilir\n• Yolculuktan dönünce kaza edilir\n• Oruç hastalığı artıracaksa veya ciddi zorluk doğuracaksa ertelemek ruhsattır\n• Zarar ve aşırı güçlük yoksa oruç tutmak faziletli olabilir\n• Kalıcı biçimde oruç tutamayacak durumda olanlar için fidye (oruç tutamayanın bir yoksulu doyurması veya karşılığını vermesi) hükmü uygulanır",
+      "vurgu": "Allah kolaylık ister · Geçici mazerette kaza, kalıcı güçsüzlükte fidye vardır"
     },
     {
       "id": "oruc_k09",
       "tip": "metin",
       "baslik": "Kaza ve Kefaret",
-      "icerik": "Kaza: Tutulamayan veya bozulan Ramazan orucunu sonradan gününe gün tutmaktır.\n\nKefaret: Ramazan orucunu kasıtlı olarak (yeme/içme/cinsel ilişkiyle) bozmaktır. Cezası:\n• Arka arkaya 60 gün oruç tutmak\n• Buna gücü yetmeyene 60 fakiri doyurmak\n\nKaza: Her özürlü durumda gerekir.\nKefaret: Yalnızca kasıtlı bozulma durumunda gerekir.",
-      "vurgu": "Kaza her özürde · Kefaret yalnızca kasıtlı bozulma"
+      "icerik": "Kaza (tutulamayan orucu sonradan gününe gün tutmak): Tutulamayan veya bozulan Ramazan orucunu sonradan gününe gün tutmaktır. Geçici hastalık, yolculuk, hayız/nifas ve orucu bozan bazı durumlarda kaza gerekir.\n\nKefaret (bilerek bozulan Ramazan orucu için ağır telafi sorumluluğu): Ramazan orucunu bilerek ve ağır bir ihlalle bozmanın ayrıca gerektirdiği sorumluluktur. Hanefi ve Maliki mezheplerinde bilerek yemek, içmek veya cinsel ilişki kefaret gerektirir; Şafii ve Hanbeli mezheplerinde kefaret özellikle cinsel ilişkiyle ilişkilendirilir.\n\nKefaretin uygulanışı:\n• Arka arkaya 60 gün oruç tutmak\n• Buna gücü yetmeyene 60 fakiri doyurmak\n\nKalıcı yaşlılık veya iyileşmesi beklenmeyen hastalıkta ise kaza değil fidye (oruç tutamayanın bir yoksulu doyurması veya karşılığını vermesi) gündeme gelir.",
+      "vurgu": "Geçici mazerette kaza · Kalıcı güçsüzlükte fidye (oruç tutamayanın bir yoksulu doyurması veya karşılığını vermesi) · Kefarette mezhep farkı vardır"
     },
     {
       "id": "oruc_k10",
       "tip": "metin",
       "baslik": "Fidye",
-      "icerik": "Yaşlılık veya iyileşmesi mümkün olmayan hastalık nedeniyle oruç tutamayanlara fidye gerekir.\n\nFidye: Her gün için bir yoksulu sabah-akşam doyurmak veya bunun maddi karşılığını vermek.\n\nAyet: \"Oruca gücü yetmeyenler fidye olarak bir yoksul doyumu verirler.\" (Bakara, 2/184)\n\nFidye, kaza yapamayacak kadar güçsüz olanlar içindir. Fidye kaza yerine geçer; kaza yapabilenler fidye veremez.",
-      "vurgu": "Fidye kaza yerine geçer, kaza yapabilenler fidye veremez"
+      "icerik": "Yaşlılık veya iyileşmesi mümkün olmayan hastalık nedeniyle oruç tutamayanlara fidye gerekir.\n\nFidye (oruç tutamayan kişinin bir yoksulu doyurması veya bunun karşılığını vermesi): Her gün için bir yoksulu sabah-akşam doyurmak veya bunun maddi karşılığını vermektir.\n\nAyet: \"Oruca gücü yetmeyenler fidye olarak bir yoksul doyumu verirler.\" (Bakara, 2/184)\n\nFidye, kaza yapamayacak kadar güçsüz olanlar içindir. Fidye kaza yerine geçer; kaza yapabilenler fidye ile yetinemez.",
+      "vurgu": "Fidye kaza yerine geçer, kaza yapabilenler fidye ile yetinemez"
     },
     {
       "id": "oruc_k11",
       "tip": "metin",
       "baslik": "Sahur ve İftar",
-      "icerik": "Sahur: İmsak vaktinden önce yenen yemektir. Tutmak sünnettir.\nHz. Peygamber: \"Sahur yapın, çünkü sahurda bereket vardır.\" (Buhârî, Savm 20; Müslim, Sıyam 45)\n\nİftar: Güneşin batmasıyla orucu açmaktır. Acele etmek sünnettir.\nHz. Peygamber: \"İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler.\" (Buhârî, Savm 45; Müslim, Sıyam 48)\n\nİftar duası: \"Zehebe'z-zamaü ve'btelletil-urûku ve sebete'l-ecru inşaallah.\"\nAnlamı: \"Susuzluk gitti, damarlar ıslandı ve inşaallah sevap sabit oldu.\" (Ebu Davud, Savm 22; İbn Ömer'den merfû rivayet)",
-      "vurgu": "Sahurda bereket vardır — Buhârî ve Müslim"
+      "icerik": "Sahur: İmsak vaktinden önce yenen yemektir. Sahur yapmak sünnettir.\nHz. Peygamber: \"Sahur yapın, çünkü sahurda bereket vardır.\" (Buhârî, Savm 20; Müslim, Sıyam 45)\n\nİftar: Güneşin batmasıyla orucu açmaktır. İftarı geciktirmemek sünnettir.\nHz. Peygamber: \"İnsanlar iftarı acele ettirdikçe hayır üzere olmaya devam ederler.\" (Buhârî, Savm 45; Müslim, Sıyam 48)\n\nİftar duası olarak şu dua okunabilir:\n\"Zehebe'z-zamaü ve'btelletil-urûku ve sebete'l-ecru inşallah.\"\nAnlamı: \"Susuzluk gitti, damarlar ıslandı ve inşallah sevap sabit oldu.\" (Ebu Davud, Savm 22)\n\nHalk arasında okunan \"Allahümme leke sumtü ve bike âmentü ve alâ rızkıke eftartü\" duası da yaygındır.",
+      "vurgu": "Sahurda bereket vardır · İftarı geciktirmemek sünnettir"
     },
     {
       "id": "oruc_k12",
@@ -99,8 +99,8 @@
       "id": "oruc_k14",
       "tip": "metin",
       "baslik": "Mezhep Farklılıkları",
-      "icerik": "Oruçla ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Kefareti gerektiren durumlar: Hanefi ve Maliki'de bilerek yemek, içmek ve cinsel ilişki kefareti gerektirir. Şafii ve Hanbeli'de yalnızca cinsel ilişki kefareti gerektirir; bilerek yemek ve içmek bu iki mezhepte yalnızca kazayı gerektirir.\n\n• Niyet vakti: Hanefi'de Ramazan orucu için imsak vaktine kadar niyet edilebilir; Şafii, Maliki ve Hanbeli'de her gün için bir önceki gece niyet edilmesi şarttır.",
-      "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
+      "icerik": "Oruçla ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Kefareti gerektiren durumlar: Hanefi ve Maliki'de Ramazan orucunu bilerek yemek, içmek, sigara içmek veya cinsel ilişkiyle bozmak kefaret gerektirir. Şafii ve Hanbeli'de kefaret özellikle cinsel ilişkiyle ilişkilendirilir; bilerek yemek ve içmek bu iki mezhepte kaza gerektirir.\n\n• Niyet vakti: Hanefi'de Ramazan orucu için, imsak sonrası orucu bozan bir şey yapılmamışsa gündüzün büyük kısmından önce niyet geçerli sayılabilir. Şafii, Maliki ve Hanbeli'de farz oruç için her gün geceden niyet edilmesi şarttır.\n\n• Enjeksiyon ve tıbbi uygulamalar: Besleyici serum/gıda değerindeki uygulamalar orucu bozar. Besin içermeyen tedavi amaçlı enjeksiyonların hükmünde çağdaş fetvalarda ayrıntılı değerlendirmeler bulunur.\n\n• Diş fırçalamak: Ağza alınan su, macun veya ilaç boğaza kaçarsa oruç bozulabilir. Bu yüzden oruçluyken ağız temizliğinde dikkatli olmak gerekir.",
+      "vurgu": "Mezhep farklılıkları uygulama ayrıntılarını açıklar · Kendi mezhebine göre amel etmek yeterlidir"
     }
   ],
   "quiz_havuzu_id": "oruc"

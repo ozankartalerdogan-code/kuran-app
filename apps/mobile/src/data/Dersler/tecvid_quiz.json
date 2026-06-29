@@ -36,10 +36,10 @@
     {
       "id": "tecvid_004",
       "konu": "tecvid",
-      "soru": "Namazda okunacak kadar Kur'an'ı tecvidli okumanın hükmü nedir?",
-      "secenekler": ["A) Farz-ı ayn", "B) Farz-ı kifaye", "C) Sünnet", "D) Müstehap"],
+      "soru": "Namazda okunacak kadar Kur'an'ı doğru okumakla ilgili temel sorumluluk nedir?",
+      "secenekler": ["A) Harfleri anlamı bozmayacak şekilde doğru okumak bireysel sorumluluktur", "B) Tecvid tamamen gereksizdir", "C) Sadece hafızlara farzdır", "D) Yalnızca güzel sesle okumak yeterlidir"],
       "dogru_cevap": "A",
-      "aciklama": "Namazda okunacak kadar Kur'an'ı tecvidli okumak farz-ı ayndır; yani her Müslümana ayrı ayrı farzdır.",
+      "aciklama": "Namazda özellikle Fâtiha ve sureleri harfleri değiştirmeden, anlamı bozacak açık hatalardan kaçınarak okumak gerekir. Tecvidin ayrıntılarını öğrenmek ise adım adım gelişen bir süreçtir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -49,7 +49,7 @@
       "soru": "Kur'an tecvidinde toplam kaç mahreç bölgesi vardır?",
       "secenekler": ["A) 10", "B) 17", "C) 21", "D) 29"],
       "dogru_cevap": "B",
-      "aciklama": "Harflerin çıktığı bölgeler toplamda 17 mahreçtir. Bu bölgeler; boğaz, dil, dudak ve genizden oluşur.",
+      "aciklama": "Harflerin çıktığı bölgelere mahreç denir. Klasik anlatımda 17 mahreç bölgesi vardır; bunlar boğaz, dil, dudak ve geniz bölgelerinde toplanır.",
       "zorluk": "orta",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -79,7 +79,7 @@
       "soru": "\"Tefhim\" ne anlama gelir?",
       "secenekler": ["A) İnce okuma", "B) Uzatma", "C) Kalın okuma", "D) Durma"],
       "dogru_cevap": "C",
-      "aciklama": "Tefhim, harflerin kalın ve dolgun sesle okunmasıdır. Karşıtı terkik (ince okuma)'tir.",
+      "aciklama": "Tefhim, harflerin kalın ve dolgun sesle okunmasıdır. Karşıtı terkik, yani ince okumadır.",
       "zorluk": "kolay",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -89,7 +89,7 @@
       "soru": "\"Terkik\" ne anlama gelir?",
       "secenekler": ["A) Kalın okuma", "B) İnce okuma", "C) Gizli okuma", "D) Hızlı okuma"],
       "dogru_cevap": "B",
-      "aciklama": "Terkik, harflerin ince ve hafif sesle okunmasıdır. خ ص ض ط ظ غ ق dışındaki harfler ince okunur.",
+      "aciklama": "Terkik, harflerin ince ve hafif sesle okunmasıdır. خ ص ض ط ظ غ ق harfleri daima kalın kabul edilir; bazı harflerde ise özel durumlar vardır.",
       "zorluk": "kolay",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -119,7 +119,7 @@
       "soru": "Kalkale yapılabilmesi için harfin nasıl gelmesi gerekir?",
       "secenekler": ["A) Şeddeli", "B) Harekeli", "C) Cezimli (harekesiz)", "D) Üstünlü"],
       "dogru_cevap": "C",
-      "aciklama": "Kalkale harfleri, cezimli (harekesiz) ya da durulduğunda uygulanır. Şeddeli halde okurken kalkale yapılmaz.",
+      "aciklama": "Kalkale harfleri cezimli/sakin geldiğinde veya kelime sonunda durulduğunda hafif yansımalı okunur. Şeddeli kalkale harfinde vakıf yapılırsa kalkale daha belirgin duyulur.",
       "zorluk": "kolay",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -159,7 +159,7 @@
       "soru": "Tenvin nedir?",
       "secenekler": ["A) Harekesiz Nun harfi", "B) Şeddeli Mim harfi", "C) Kelimenin sonundaki çift hareke", "D) Uzatma sesi"],
       "dogru_cevap": "C",
-      "aciklama": "Tenvin, kelime sonlarında \"n\" sesi oluşturan çift harekelerdir: ً ٍ ٌ",
+      "aciklama": "Tenvin, kelime sonunda n sesi oluşturan çift harekelerdir: ً ٍ ٌ. Nun-u sakin ise harekesiz/cezimli Nun harfidir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -349,7 +349,7 @@
       "soru": "Med harfleri hangileridir?",
       "secenekler": ["A) Elif, Vav, Ye", "B) Mim, Nun, Lam", "C) Kaf, Ayn, He", "D) Be, Te, Se"],
       "dogru_cevap": "A",
-      "aciklama": "Med harfleri üç tanedir: Elif (ا), Vav (و), Ye (ي). Bu harflerden sonra hemze veya sükun gelmezse Med-i Tabii (1 elif) uygulanır; gelirse muttasıl, lazım gibi özel med kuralları devreye girer.",
+      "aciklama": "Med harfleri üç tanedir: Elif (ا), Vav (و), Ye (ي). Elif önceki harf üstünlü, Vav önceki harf ötreli, Ye önceki harf esreli olduğunda temel uzatma harfi olur.",
       "zorluk": "kolay",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -359,7 +359,7 @@
       "soru": "Med-i Tabii'de uzatma miktarı ne kadardır?",
       "secenekler": ["A) 2 elif", "B) 4 elif", "C) 1 elif", "D) 3 elif"],
       "dogru_cevap": "C",
-      "aciklama": "Med-i Tabii (doğal, temel uzatma) 1 elif miktarı uzatılır. Ardından hemze veya sükun gelmediği sürece bu uzatma uygulanır.",
+      "aciklama": "Med-i Tabii (doğal, temel uzatma) 1 elif miktarı uzatılır. Bu kuralda med harfinden sonra hemze veya sükun/cezim gelmez.",
       "zorluk": "kolay",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -369,7 +369,7 @@
       "soru": "Med-i Muttasıl ne zaman oluşur?",
       "secenekler": ["A) Med harfinden sonra farklı kelimede hemze gelince", "B) Med harfinden sonra aynı kelimede hemze gelince", "C) Med harfinden sonra sükun gelince", "D) Med harfinden sonra şeddeli harf gelince"],
       "dogru_cevap": "B",
-      "aciklama": "Med-i Muttasıl (bitişik med), med harfinden sonra hemze aynı kelimede gelince oluşur ve 4 elif uzatılır.",
+      "aciklama": "Med-i Muttasıl (bitişik med), med harfinden sonra hemze aynı kelimede gelince oluşur. Hemzenin aynı kelimede olması bu kuralın ayırıcı özelliğidir.",
       "zorluk": "orta",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -379,7 +379,7 @@
       "soru": "Med-i Muttasıl kaç elif uzatılır?",
       "secenekler": ["A) 1 elif", "B) 2 elif", "C) 3 elif", "D) 4 elif"],
       "dogru_cevap": "D",
-      "aciklama": "Med-i Muttasıl zorunlu olarak 4 elif uzatılır.",
+      "aciklama": "Med-i Muttasıl yaygın Hafs okuyuş eğitiminde genellikle 4 elif uzatılır.",
       "zorluk": "orta",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -389,7 +389,7 @@
       "soru": "Med-i Munfasıl ve Med-i Muttasıl arasındaki temel fark nedir?",
       "secenekler": ["A) Muttasıl'da hemze aynı kelimede, Munfasıl'da ayrı kelimede gelir", "B) Muttasıl daha kısa uzatılır", "C) Munfasıl'da hemze aynı kelimede gelir", "D) İkisi aynı kuraldır, farklı isimleri vardır"],
       "dogru_cevap": "A",
-      "aciklama": "Muttasıl'da med harfi ve hemze aynı kelime içindedir (4 elif zorunlu). Munfasıl'da med harfi bir kelimede, hemze ayrı kelimede gelir (4-5 elif).",
+      "aciklama": "Muttasıl'da med harfi ve hemze aynı kelime içindedir. Munfasıl'da med harfi bir kelimede, hemze ayrı kelimede gelir; uzatma miktarı kıraat geleneğine göre değişebilir.",
       "zorluk": "orta",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -399,7 +399,7 @@
       "soru": "Med-i Lazım ne zaman oluşur?",
       "secenekler": ["A) Durulduğunda (vakıfta)", "B) Hemze aynı kelimede gelince", "C) Med harfinden sonra şeddeli veya cezimli harf gelince", "D) Vav veya Ye öncesi üstünlü harf gelince"],
       "dogru_cevap": "C",
-      "aciklama": "Med-i Lazım (zorunlu med), med harfinden sonra şeddeli veya cezimli harf geldiğinde oluşur ve 4 elif uzatılması zorunludur.",
+      "aciklama": "Med-i Lazım (zorunlu med), med harfinden sonra aynı kelimede asıl sükun/cezim veya şedde geldiğinde oluşur. Yaygın öğretimde 4 elif uzatılır.",
       "zorluk": "zor",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -409,7 +409,7 @@
       "soru": "Med-i Arız ne zaman oluşur?",
       "secenekler": ["A) Med harfinden sonra hemze gelince", "B) Normalde kısa okunan hece, vakıfta (duruşta) uzatıldığında", "C) Med harfinden sonra şeddeli harf gelince", "D) Med harfinden sonra be harfi gelince"],
       "dogru_cevap": "B",
-      "aciklama": "Med-i Arız (geçici med), okuyuş sırasında durulan yerde oluşur; normalde kısa okunan hece, durulunca 2-4 elif uzatılır.",
+      "aciklama": "Med-i Arız (geçici med), okuyuş sırasında durulan yerde oluşur. Vakıf, okurken anlamı koruyacak şekilde durmak demektir.",
       "zorluk": "orta",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -419,7 +419,7 @@
       "soru": "Med-i Lin için hangi iki temel şart gereklidir?",
       "secenekler": ["A) Med harfinden sonra hemze ve sükun gelmesi", "B) Şeddeli harften önce uzatma harfi bulunması", "C) Hemzeli kelimede durulması", "D) Vav veya Ye'nin cezimli olması ve önceki harfin üstünlü olması"],
       "dogru_cevap": "D",
-      "aciklama": "Med-i Lin için: Vav (و) veya Ye (ي) cezimli olmalı ve önceki harf üstünlü (fetha) olmalı. Bu durumda vakıfta 2-4 elif uzatılır. Örnek: خَوْف (havf).",
+      "aciklama": "Med-i Lin için Vav (و) veya Ye (ي) cezimli/sakin olmalı ve önceki harf üstünlü olmalıdır. Bu med özellikle vakıfta belirginleşir. Örnek: خَوْف (havf).",
       "zorluk": "zor",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -447,9 +447,9 @@
       "id": "tecvid_045",
       "konu": "tecvid",
       "soru": "Mushaf'taki م (mim) vakıf işareti ne anlama gelir?",
-      "secenekler": ["A) Durulabilir, geçilebilir", "B) Burada durmak zorunludur, geçilirse mana bozulur", "C) Geçmek evladır", "D) Durulmamalıdır"],
+      "secenekler": ["A) Durulabilir, geçilebilir", "B) Burada durmak gerekir; geçmek mana karışıklığına yol açabilir", "C) Geçmek evladır", "D) Durulmamalıdır"],
       "dogru_cevap": "B",
-      "aciklama": "م (Vakf-ı Lazım) işaretinde durmak zorunludur; geçilirse mana bozulur. Mushaf vakıf işaretleri içindeki en önemlisidir.",
+      "aciklama": "م (Vakf-ı Lazım) işaretinde durmak gerekir; geçmek anlamı bozabilir veya karıştırabilir. Bu işaret okuyucuya anlamı korumak için rehberlik eder.",
       "zorluk": "zor",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -459,7 +459,7 @@
       "soru": "Mushaf'taki لا (la) vakıf işareti ne anlama gelir?",
       "secenekler": ["A) Durmak zorunludur", "B) Durmak evladır", "C) Durmak da geçmek de serbesttir", "D) Durulmamalı, geçilmelidir"],
       "dogru_cevap": "D",
-      "aciklama": "لا (Vakf-ı Memnû) işareti \"durulmamalı, geçilmeli\" demektir. Bu işarette durulursa mana bozulabilir.",
+      "aciklama": "لا (Vakf-ı Memnû) işareti genellikle durulmamalı, geçilmeli anlamına gelir. Zorunlu durulursa anlamı tamamlayacak uygun yerden tekrar başlanır.",
       "zorluk": "zor",
       "kaynak": "Diyanet Tecvid Rehberi"
     },
@@ -467,9 +467,9 @@
       "id": "tecvid_047",
       "konu": "tecvid",
       "soru": "Lahn-ı Celi nedir?",
-      "secenekler": ["A) Harfi veya kelimeyi yanlış okumak; manayı değiştirip namazı bozan büyük hata", "B) İhfa veya günneyi eksik yapmak gibi küçük hata", "C) Okuyuşu çok hızlandırmak", "D) Vakıf işaretlerine uymamak"],
+      "secenekler": ["A) Harfi veya kelimeyi yanlış okuyup manayı etkileyebilen büyük hata", "B) İhfa veya günneyi eksik yapmak gibi küçük hata", "C) Okuyuşu çok hızlandırmak", "D) Vakıf işaretlerine uymamak"],
       "dogru_cevap": "A",
-      "aciklama": "Lahn-ı Celi (büyük hata), harfi veya kelimeyi yanlış okumaktır; manayı değiştirir ve namazı bozar.",
+      "aciklama": "Lahn-ı Celi (açık/büyük hata), harfi veya kelimeyi açıkça yanlış okumaktır. Anlamı değiştiren büyük hatalar namazın sıhhatini etkileyebilir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -477,9 +477,9 @@
       "id": "tecvid_048",
       "konu": "tecvid",
       "soru": "Lahn-ı Hafi'nin namaza etkisi nedir?",
-      "secenekler": ["A) Namazı bozar", "B) Namazı bozar, kaza gerekir", "C) Namazı bozmaz ama sevabı azaltır", "D) Namaza hiçbir etkisi yoktur"],
+      "secenekler": ["A) Namazı her durumda bozar", "B) Namazı bozar, kaza gerekir", "C) Genellikle namazı bozmaz; okuyuşun kemalini azaltır", "D) Tecvid açısından hiçbir önemi yoktur"],
       "dogru_cevap": "C",
-      "aciklama": "Lahn-ı Hafi (küçük hata), ihfa, idgam, günne gibi tecvid kurallarını eksik yapmaktır. Namazı bozmaz, ancak sevabı azaltır.",
+      "aciklama": "Lahn-ı Hafi (gizli/küçük hata), ihfa, idgam, günne gibi tecvid inceliklerini eksik yapmaktır. Genellikle namazı bozmaz; fakat okuyuşun güzelliğini ve kemalini azaltır.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },

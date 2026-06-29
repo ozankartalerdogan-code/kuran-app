@@ -48,10 +48,6 @@ module.exports = {
       'expo-location',
       'expo-sensors',
       [
-        '@sentry/react-native/expo',
-        { organization: 'ozan-kartal', project: 'kuran-app' },
-      ],
-      [
         'expo-splash-screen',
         {
           image: './assets/splash.png',

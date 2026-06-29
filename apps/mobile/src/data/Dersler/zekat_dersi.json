@@ -15,36 +15,36 @@
       "id": "zekat_k02",
       "tip": "metin",
       "baslik": "Zekatın Farz Olmasının Şartları",
-      "icerik": "Zekatın bir kişiye farz olabilmesi için şu yedi şart gerekir:\n\n1. Müslüman olmak\n2. Akıl sağlığı yerinde olmak\n3. Ergenlik çağına gelmiş olmak\n4. Nisap miktarı mala sahip olmak\n5. Malın nâmî (artıcı, büyüyen mal) özellikte olması\n6. Borçlardan fazla olması — Hanefi'ye göre borçlar nisap hesabından düşülür\n7. Havelânü'l-havl (malın üzerinden bir kamerî yılın geçmesi şartı)",
-      "vurgu": "Bu 7 şart bir arada bulunmadıkça zekat farz olmaz."
+      "icerik": "Zekatın farz olabilmesi için temel şartlar şunlardır:\n\n1. Müslüman olmak\n2. Nisap (zekat yükümlülüğü için gereken asgari servet) miktarı mala sahip olmak\n3. Malın tam mülkiyet altında bulunması\n4. Malın temel ihtiyaçlardan ve ödenmesi gereken borçlardan fazla olması\n5. Malın nâmî (artıcı, gelir getirici veya değer taşıyan) özellikte olması\n6. Havelânü'l-havl (malın üzerinden bir kamerî yıl geçmesi) şartının oluşması\n\nHanefi mezhebinde akıl ve ergenlik, kişinin kendisine zekatın farz olması için şart kabul edilir. Şafii, Maliki ve Hanbeli mezheplerinde ise çocuk veya akıl hastasının zekata tabi malı varsa velisi onun adına zekat verir.\n\nTarım ürünleri gibi bazı mallarda bir yıl geçmesi şartı aranmaz; hasat zamanı zekat/öşür gündeme gelir.",
+      "vurgu": "Nisap · Tam mülkiyet · Temel ihtiyaçtan fazla mal · Mezhep ayrıntıları"
     },
     {
       "id": "zekat_k03",
       "tip": "metin",
       "baslik": "Nisap Miktarı",
-      "icerik": "Nisap (zekâtla yükümlü olmak için gereken asgari servet miktarı) Hz. Peygamber tarafından belirlenmiştir:\n\n• Altın için: 80,18 gram\n• Para ve ticaret malları: 80,18 gram altının değeri kadar\n• Koyun/Keçi: 40 baş\n• Sığır: 30 baş\n• Deve: 5 baş\n\nBu miktara ulaşan ve üzerinden bir yıl geçen mal için zekat farz olur.",
-      "vurgu": "80,18 gram altın veya değeri → Zekat nisabı (Buhari, Zekat 32)"
+      "icerik": "Nisap, zekatla yükümlü olmak için gereken asgari servet miktarıdır. Klasik kaynaklarda farklı mallar için ayrı nisaplar belirlenmiştir:\n\n• Altın için: 80,18 gram\n• Gümüş için: 595 gram\n• Para ve ticaret malları: Altın veya gümüş nisabının değeri üzerinden hesaplanır; güncel uygulamada çoğunlukla altın nisabı esas alınır\n• Koyun/Keçi: 40 baş\n• Sığır: 30 baş\n• Deve: 5 baş\n\nBu miktara ulaşan ve üzerinden bir kamerî yıl geçen zekata tabi mallar için zekat farz olur. Tarım ürünlerinde ise yıl geçmesi değil hasat zamanı dikkate alınır.",
+      "vurgu": "Altın nisabı 80,18 gr · Gümüş nisabı 595 gr · Uygulamada hesap yöntemi değişebilir"
     },
     {
       "id": "zekat_k04",
       "tip": "metin",
       "baslik": "Zekat Oranı — %2,5",
-      "icerik": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta birdir (%2,5). Yani 100.000 liranın zekatı 2.500 liradır.\n\nNisap miktarı ve üzerinde mala sahip olan kişi bu malın %2,5'ini zekat olarak verir. Ev, araç, iş aleti gibi muaf varlıklar nisap hesabına dahil edilmez (bkz. Zekata Tabi Mallar kartı).\n\nZekat vermenin belli bir zamanı yoktur; nisap ve havelânü'l-havl şartı dolduğu andan itibaren verilmesi gerekir.",
-      "vurgu": "Kırkta bir (%2,5) — Altın, gümüş, para, ticaret malları"
+      "icerik": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta birdir (%2,5). Yani zekata tabi 100.000 liranın zekatı 2.500 liradır.\n\nBu oran; temel ihtiyaçlar, kısa vadeli ödenmesi gereken borçlar ve zekata dahil edilmeyen varlıklar ayrıldıktan sonra kalan zekata tabi mal için uygulanır. Ev, kişisel araç, iş aleti ve günlük kullanım eşyaları nisap hesabına dahil edilmez.\n\nZekat vermenin tek bir takvim zamanı yoktur; nisap ve havelânü'l-havl şartı dolduğunda verilmesi gerekir. Ramazan'da vermek yaygın bir uygulamadır ama zorunlu zaman sadece Ramazan değildir.",
+      "vurgu": "Kırkta bir (%2,5) · Zekata tabi net mal üzerinden hesaplanır"
     },
     {
       "id": "zekat_k05",
       "tip": "metin",
       "baslik": "Zekata Tabi Mallar",
-      "icerik": "Zekat verilmesi gereken mal türleri:\n• Altın ve gümüş\n• Nakit para ve mevduat\n• Ticaret malları\n• Sâime hayvanlar (otlakta/merada serbest beslenen)\n• Tarım ürünleri\n• Günümüzde hisse senetleri ve döviz de bu kapsama girer.\n\nKişinin oturduğu ev, kullandığı araç, iş aletleri ve giysileri zekata tabi değildir; bunlar temel ihtiyaç sayılır.",
-      "vurgu": "Ev, araç, iş aleti → Zekat yok | Para, altın, ticaret malı → Zekat var"
+      "icerik": "Zekat verilmesi gereken mal türleri:\n• Altın ve gümüş\n• Nakit para ve mevduat\n• Ticaret malları\n• Sâime hayvanlar (yılın çoğunu merada otlayarak beslenen hayvanlar)\n• Tarım ürünleri\n• Döviz ve benzeri para hükmündeki varlıklar\n\nHisse senetleri ve yatırım araçlarında hesaplama niyete ve uygulamaya göre değişebilir. Al-sat amacıyla tutulan hisse senetleri genellikle ticaret malı gibi değerlendirilir. Uzun vadeli ortaklık/yatırım amacıyla tutulan hisselerde şirketin zekata tabi varlıkları, piyasa değeri veya elde edilen gelir üzerinden hesaplama konusunda çağdaş fetvalarda farklı yöntemler vardır.\n\nKişinin oturduğu ev, kullandığı araç, iş aletleri ve giysileri zekata tabi değildir; bunlar temel ihtiyaç sayılır.",
+      "vurgu": "Para, altın ve ticaret malı zekata tabidir · Hisse senetlerinde hesap yöntemi niyete göre değişebilir"
     },
     {
       "id": "zekat_k06",
       "tip": "metin",
       "baslik": "Öşür — Tarım Ürünleri Zekatı",
-      "icerik": "Öşür (tarım ürünlerinden verilen zekât), tarla ve bahçe ürünlerinden verilir. Yılın geçmesi (havelânü'l-havl) şartı aranmaz; hasat günü verilir.\n\nOran, toprağın sulama şekline göre değişir:\n• Yağmur veya nehirle sulanan: 1/10 (onda bir)\n• Motorla veya masrafla sulanan: 1/20 (yirmide bir)",
-      "vurgu": "\"Devşirilip toplandığı gün hakkını verin.\" (En'am 6/141) | Yağmurla → 1/10, Motorla → 1/20"
+      "icerik": "Öşür (tarım ürünleri zekatı), tarla ve bahçe ürünlerinden verilen tarım zekatıdır. Tarım ürünlerinde havelânü'l-havl yani bir yıl geçmesi şartı aranmaz; ürün hasat edildiğinde gündeme gelir.\n\nOran, toprağın sulama şekline göre değişir:\n• Yağmur, nehir veya doğal suyla sulanan: 1/10 (onda bir)\n• Motor, kuyu, sulama sistemi gibi masraflı yöntemlerle sulanan: 1/20 (yirmide bir)\n\nTarım ürünlerinde nisap ve masraf düşme ayrıntıları mezheplere ve çağdaş fetvalara göre farklı değerlendirilebilir. Hanefi mezhebinde öşür daha geniş uygulanırken, diğer mezheplerde belirli miktar/nisap şartı daha belirgin vurgulanır.",
+      "vurgu": "Hasat zamanı verilir · Doğal sulama 1/10 · Masraflı sulama 1/20"
     },
     {
       "id": "zekat_k07",
@@ -57,15 +57,15 @@
       "id": "zekat_k08",
       "tip": "metin",
       "baslik": "Zekat Kimlere Verilmez?",
-      "icerik": "Şu kişilere zekat verilemez:\n• Anne, baba, büyük ebeveynler\n• Oğul, kız ve torunlar\n• Eş\n• Müslüman olmayanlar\n• Nisap miktarı mala sahip olan zenginler\n\nZekat, verilmesi gereken kişiye bizzat teslim edilmeli — temlik (malın mülkiyetini karşı tarafa devretmek) — ve niyet edilmelidir. Yemek hazırlayıp yedirmek temlik şartını karşılamadığı için zekat sayılmaz.",
-      "vurgu": "Zekat, aile bireylerine ve zengine verilemez."
+      "icerik": "Şu kişilere zekat verilemez:\n• Anne, baba, büyük ebeveynler\n• Oğul, kız ve torunlar\n• Eş\n• Nisap (zekat yükümlülüğü için gereken asgari servet) miktarı mala sahip olan zenginler\n\nZekatın asıl muhatabı Tevbe 9/60'ta belirtilen hak sahipleridir. Çoğunluk görüşüne göre farz zekat Müslüman hak sahiplerine verilir; Müslüman olmayanlara ise zekat dışında sadaka ve yardım yapılabilir. Müellefe-i kulûb başlığı ve güncel uygulaması mezheplerce farklı değerlendirilmiştir.\n\nZekatta temlik (mülkiyet devri) esastır: Malın mülkiyeti hak sahibine veya onun adına teslim alan güvenilir vekile geçmelidir. Cami binası, inşaat veya genel kurum giderlerine doğrudan zekat verilmez; ancak kurum hak sahiplerine ulaştırmak üzere vekil olursa zekat verilebilir. Yemek hazırlayıp yedirmek, hak sahibine mülkiyet devri yapılmadıkça zekat sayılmaz.",
+      "vurgu": "Temlik şarttır · Kurum vekil olabilir, hak sahibi yerine yapı/gider zekat alıcısı olmaz"
     },
     {
       "id": "zekat_k09",
       "tip": "metin",
       "baslik": "Zekat, Fitre ve Sadaka Farkı",
-      "icerik": "Zekat — İslam'ın şartı, farzdır; nisap miktarına ulaşınca zorunludur; oranı %2,5; belirli 8 sınıfa verilir.\n\nFitre (Sadaka-i Fıtır — Ramazan sonunda verilen sadaka) — Vaciptir; miktarı gıda üzerinden hesaplanır; zekata tabi olmayanlar da verir; bayram namazından önce ödenir.\n\nSadaka — Farz değil, gönüllüdür; miktarı ve zamanı serbesttir; herkese verilebilir.",
-      "vurgu": "Zekat farz | Fitre vacip | Sadaka gönüllü"
+      "icerik": "Zekat — İslam'ın şartıdır, farzdır; nisap miktarına ulaşan zekata tabi mal için verilir. Para, altın ve ticaret mallarında oran genellikle %2,5'tir ve Tevbe 9/60'ta belirtilen hak sahiplerine verilir.\n\nFitre (Sadaka-i Fıtır — Ramazan sonunda verilen mali ibadet) — Ramazan sonunda verilen mali ibadettir. Hanefi mezhebinde vacip, diğer mezheplerde farz olarak ifade edilir. Zekatla aynı şartlara bağlı değildir; temel ihtiyaçlarından fazla imkana sahip olan Müslümanlar için gündeme gelir. Bayram namazından önce verilmesi daha faziletlidir; geciktirilirse yine ödenmelidir.\n\nSadaka — Gönüllüdür; miktarı ve zamanı serbesttir. Zekat ve fitre dışındaki yardım türüdür.",
+      "vurgu": "Zekat farz · Fitre ayrı bir mali ibadettir · Sadaka gönüllüdür"
     },
     {
       "id": "zekat_k10",
@@ -85,15 +85,15 @@
       "id": "zekat_k12",
       "tip": "metin",
       "baslik": "Zekatı İnkar Etmenin Hükmü",
-      "icerik": "Zekatın farz olduğunu inkâr etmek dinden çıkmaya (irtidad) sebep olur; çünkü Kur'an'la sabittir.\n\nZekatın farz olduğunu kabul edip vermemek ise büyük günahtır; zekat borcu düşmez, sonradan ödenmesi gerekir.\n\nHz. Peygamber zekat vermeyenler için ahirette ağır bir azap olduğunu bildirmiştir. (Buhari, Zekat 3)",
-      "vurgu": "İnkar → Küfür | Vermemek → Büyük günah, borç düşmez"
+      "icerik": "Zekatın farz oluşu Kur'an ve sünnetle sabittir. Bu yüzden zekatın farz olduğunu bilerek ve inatla inkâr etmek çok ağır bir itikadî problemdir.\n\nZekatın farz olduğunu kabul edip vermemek ise büyük günahtır; zekat borcu düşmez, sonradan ödenmesi gerekir.\n\nHz. Peygamber zekat vermeyenler için ahirette ağır bir azap olduğunu bildirmiştir. (Buhari, Zekat 3)\n\nBu konu kişiler hakkında hüküm vermek için değil, zekat ibadetinin ciddiyetini anlamak için öğrenilmelidir.",
+      "vurgu": "Farz oluşunu inkâr çok ağırdır · Vermemek büyük günahtır, borç düşmez"
     },
     {
       "id": "zekat_k13",
       "tip": "mezhep",
       "baslik": "Mezhep Farklılıkları",
-      "icerik": "Zekatın farziyeti konusunda tüm mezhepler ittifak halindedir. Bazı ayrıntılarda görüş farkları mevcuttur:\n\n• Çocuk ve delinin malı: Hanefilere göre zekat farz değildir. Şafii, Maliki ve Hanbeli'ye göre velisi zekat ödemekle yükümlüdür.\n\n• Borç düşülmesi: Hanefilere göre borçlar zekat nisabından düşülür. Şafiilere göre borç zekat vermeye engel değildir.\n\n• Nisap hesabı: Altın nisabı mı (80,18 gr) gümüş nisabı mı (595 gr) esas alınacağı konusunda görüş farkları vardır. Türkiye Diyanet İşleri altın nisabını esas almaktadır.\n\n• Öşür oranı: Hanefilerde masraf hesabı yapılmadan oranlar uygulanır; bazı alimlere göre günümüzde masraflar düşülerek hesaplanmalıdır.",
-      "vurgu": "Zekatın farziyeti konusunda tüm mezhepler ittifak halindedir."
+      "icerik": "Zekatın farziyeti konusunda tüm mezhepler ittifak halindedir. Bazı ayrıntılarda görüş farkları vardır:\n\n• Çocuk ve akıl hastasının malı: Hanefilere göre zekat farz değildir. Şafii, Maliki ve Hanbeli'ye göre velisi zekat ödemekle yükümlüdür.\n\n• Borç düşülmesi: Hanefilere göre kısa vadeli/ödenmesi gereken borçlar zekat hesabında dikkate alınır. Şafii mezhebinde borcun zekata etkisi daha dar değerlendirilir.\n\n• Nisap hesabı: Altın nisabı (80,18 gr) ve gümüş nisabı (595 gr) üzerinden hesaplama konusunda farklı uygulamalar vardır. Türkiye'de güncel uygulamada çoğunlukla altın nisabı esas alınır.\n\n• Öşür oranı ve masraflar: Sulama şekline göre 1/10 veya 1/20 oranı uygulanır; modern tarım masraflarının hesaba katılması konusunda çağdaş alimler arasında farklı yaklaşımlar vardır.\n\n• Hisse senetleri: Ticaret amacı, uzun vadeli yatırım amacı ve şirket varlık yapısına göre zekat hesabında farklı yöntemler kullanılabilir.",
+      "vurgu": "Zekatın farziyeti ittifak konusudur · Hesap ayrıntılarında mezhep ve fetva farkı olabilir"
     }
   ],
   "quiz_havuzu_id": "zekat"

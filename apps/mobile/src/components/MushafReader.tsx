@@ -9,17 +9,29 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { TajweedText, TAJWEED_LEGEND } from "./TajweedText";
+import { logFeature } from "../lib/analytics";
 
 // ── Tipler ──────────────────────────────────────────────────────────────────
 
 type MushafBookmark = { surahId: number; ayahNumber: number } | null;
-type AudioState     = "idle" | "playing" | "paused";
 type LoadState      =
   | { status: "loading" }
   | { status: "ready"; surah: SurahListItem; ayah: AyahDetailResponse }
   | { status: "error"; message: string };
 
 const BOOKMARK_KEY = STORAGE_KEYS.mushafBookmark;
+
+function parseBookmark(raw: string | null): MushafBookmark {
+  if (!raw) return null;
+  const [surahId, ayahNumber] = raw.split(":").map(Number);
+  if (
+    Number.isInteger(surahId) && surahId >= 1 && surahId <= 114 &&
+    Number.isInteger(ayahNumber) && ayahNumber >= 1
+  ) {
+    return { surahId, ayahNumber };
+  }
+  return null;
+}
 
 // ── AyahSelector — üst ayet seçici (altta sure, üstte ayet) ─────────────────
 
@@ -67,15 +79,6 @@ function AyahSelector({ count, current, onSelect }: { count: number; current: nu
   );
 }
 
-// ── AudioPlayer (simülasyon) ─────────────────────────────────────────────────
-
-// AudioPlayer: expo-av yeni APK build gerektirir — şimdilik gizli
-function AudioPlayer(_props: { state: AudioState; progress: number; onPlayPause: () => void }) {
-  return null;
-}
-
-
-// ── BookmarkBar ──────────────────────────────────────────────────────────────
 
 function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
   currentSurah: number; currentAyah: number;
@@ -90,7 +93,8 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
       Alert.alert("Yer İmini Kaldır", "Bu ayetteki yer imini kaldırmak istiyor musun?", [
         { text: "İptal", style: "cancel" },
         { text: "Kaldır", style: "destructive", onPress: async () => {
-          await storage.remove(BOOKMARK_KEY);
+          logFeature("mushaf_bookmark_remove", { verse: `${currentSurah}:${currentAyah}` });
+          await storage.remove(BOOKMARK_KEY).catch(() => undefined);
           onChange(null);
         } },
       ]);
@@ -101,7 +105,8 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
       Alert.alert("Yer İmi", mesaj, [
         { text: "İptal", style: "cancel" },
         { text: "İşaretle", onPress: async () => {
-          await storage.setJSON(BOOKMARK_KEY, `${currentSurah}:${currentAyah}`);
+          logFeature("mushaf_bookmark_set", { verse: `${currentSurah}:${currentAyah}` });
+          await storage.setJSON(BOOKMARK_KEY, `${currentSurah}:${currentAyah}`).catch(() => undefined);
           onChange({ surahId: currentSurah, ayahNumber: currentAyah });
         } },
       ]);
@@ -110,16 +115,31 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
 
   const goTo = useCallback(() => {
     if (!bookmark) return;
+    logFeature("mushaf_bookmark_go", { verse: `${bookmark.surahId}:${bookmark.ayahNumber}` });
     onChange(bookmark);
   }, [bookmark, onChange]);
 
   return (
     <View style={[bmSt.container, { paddingBottom: insets.bottom + 8 }]}>
-      <TouchableOpacity style={[bmSt.btn, isHere && bmSt.btnActive]} onPress={save} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={[bmSt.btn, isHere && bmSt.btnActive]}
+        onPress={save}
+        activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={isHere ? "Bu ayetteki yer imini kaldır" : "Bu ayeti kaldığım yer olarak işaretle"}
+      >
         <Ionicons name={isHere ? "bookmark" : "bookmark-outline"} size={16} color={isHere ? "#fff" : "#059669"} />
         <Text style={[bmSt.btnText, isHere && bmSt.btnTextActive]}>{isHere ? "İşaretlendi" : "Buraya İşaretle"}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[bmSt.btn, bmSt.btnOutline]} onPress={goTo} activeOpacity={0.7} disabled={!bookmark}>
+      <TouchableOpacity
+        style={[bmSt.btn, bmSt.btnOutline]}
+        onPress={goTo}
+        activeOpacity={0.7}
+        disabled={!bookmark}
+        accessibilityRole="button"
+        accessibilityState={{ disabled: !bookmark }}
+        accessibilityLabel={bookmark ? `Kaldığım yere git ${bookmark.surahId}:${bookmark.ayahNumber}` : "Kaldığım yer yok"}
+      >
         <Ionicons name="location-outline" size={16} color={bookmark ? "#059669" : "#d6d3d1"} />
         <Text style={[bmSt.btnText, bmSt.btnTextOutline, !bookmark && { color: "#d6d3d1" }]}>
           {bookmark ? `Kaldığım Yer (${bookmark.surahId}:${bookmark.ayahNumber})` : "Kaldığım Yer"}
@@ -142,24 +162,20 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
   const [currentSurahId, setCurrentSurahId] = useState(initialSurahId);
   const [currentAyahNum, setCurrentAyahNum] = useState(initialAyahNum);
   const [loadState, setLoadState]       = useState<LoadState>({ status: "loading" });
+  const [reloadKey, setReloadKey]         = useState(0);
   const [bookmark, setBookmark]         = useState<MushafBookmark>(null);
-  const [audioState, setAudioState]     = useState<AudioState>("idle");
-  const [audioProgress, setAudioProgress] = useState(0);
   const [tajweed, setTajweed]           = useState(true); // tecvid renkleri aç/kapa
-  const audioTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Sure listesi + bookmark
   useEffect(() => {
     api.surahs.list().then(setSurahList).catch(() => {});
     storage.getJSON<string>(BOOKMARK_KEY).then(raw => {
-      if (!raw) return;
-      const [sId, aNum] = raw.split(":").map(Number);
-      if (sId && aNum && Number.isFinite(sId) && Number.isFinite(aNum)) {
-        setBookmark({ surahId: sId, ayahNumber: aNum });
-        if (loadBookmark) {
-          setCurrentSurahId(sId);
-          setCurrentAyahNum(aNum);
-        }
+      const parsed = parseBookmark(raw);
+      if (!parsed) return;
+      setBookmark(parsed);
+      if (loadBookmark) {
+        setCurrentSurahId(parsed.surahId);
+        setCurrentAyahNum(parsed.ayahNumber);
       }
     }).catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -185,26 +201,33 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
       })
       .catch(() => { if (!cancelled) setLoadState({ status: "error", message: "Ayet yüklenemedi." }); });
     return () => { cancelled = true; };
-  }, [currentSurahId, currentAyahNum, surahList]);
-
-  // Ses simülasyonu
-  useEffect(() => {
-    if (audioState === "playing") {
-      audioTimerRef.current = setInterval(() => {
-        setAudioProgress(p => {
-          if (p + 0.56 >= 100) { setAudioState("idle"); return 0; }
-          return p + 0.56;
-        });
-      }, 1000);
-    } else {
-      if (audioTimerRef.current) { clearInterval(audioTimerRef.current); audioTimerRef.current = null; }
-    }
-    return () => { if (audioTimerRef.current) clearInterval(audioTimerRef.current); };
-  }, [audioState]);
+  }, [currentSurahId, currentAyahNum, surahList, reloadKey]);
 
   const go = useCallback((sId: number, aNum: number) => {
-    setCurrentSurahId(sId); setCurrentAyahNum(aNum);
-    setAudioState("idle"); setAudioProgress(0);
+    if (!Number.isFinite(sId) || !Number.isFinite(aNum)) return;
+    const nextSurahId = Math.min(114, Math.max(1, Math.trunc(sId)));
+    const surahMetaForTarget = surahList.find(s => s.id === nextSurahId);
+    const maxAyah = surahMetaForTarget?.verseCount;
+    const nextAyahNum = maxAyah
+      ? Math.min(maxAyah, Math.max(1, Math.trunc(aNum)))
+      : Math.max(1, Math.trunc(aNum));
+    setCurrentSurahId(nextSurahId);
+    setCurrentAyahNum(nextAyahNum);
+  }, [surahList]);
+
+  const handleRetry = useCallback(() => setReloadKey(k => k + 1), []);
+
+  const handleAyahSelect = useCallback((n: number) => {
+    logFeature("mushaf_ayah_select", { verse: `${currentSurahId}:${n}` });
+    go(currentSurahId, n);
+  }, [currentSurahId, go]);
+
+  const handleTajweedToggle = useCallback(() => {
+    setTajweed(t => {
+      const next = !t;
+      logFeature("mushaf_tajweed_toggle", { enabled: String(next) });
+      return next;
+    });
   }, []);
 
   const handlePrevSurah   = useCallback(() => go(currentSurahId <= 1 ? 114 : currentSurahId - 1, 1), [go, currentSurahId]);
@@ -224,12 +247,14 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
     if (ayah.nextAyah) go(ayah.nextAyah.surahId, ayah.nextAyah.ayahNumber);
     else if (currentSurahId < 114) go(currentSurahId + 1, 1);
   }, [loadState, currentSurahId, go]);
-  const handlePlayPause   = useCallback(() => setAudioState(p => p === "playing" ? "paused" : "playing"), []);
   const handleBookmark    = useCallback((bm: MushafBookmark) => {
     setBookmark(bm);
     if (bm && (bm.surahId !== currentSurahId || bm.ayahNumber !== currentAyahNum)) go(bm.surahId, bm.ayahNumber);
   }, [currentSurahId, currentAyahNum, go]);
-  const handleSurahSelect = useCallback((sId: number) => go(sId, 1), [go]);
+  const handleSurahSelect = useCallback((sId: number) => {
+    logFeature("mushaf_surah_select", { surahId: String(sId) });
+    go(sId, 1);
+  }, [go]);
 
   const surahMeta  = loadState.status === "ready" ? loadState.surah : surahList.find(s => s.id === currentSurahId);
   const canPrev    = currentSurahId > 1 || currentAyahNum > 1;
@@ -243,10 +268,9 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
         <AyahSelector
           count={surahMeta.verseCount}
           current={currentAyahNum}
-          onSelect={(n) => go(currentSurahId, n)}
+          onSelect={handleAyahSelect}
         />
       )}
-      <AudioPlayer state={audioState} progress={audioProgress} onPlayPause={handlePlayPause} />
 
       <ScrollView style={st.scroll} contentContainerStyle={st.scrollInner} showsVerticalScrollIndicator={false}>
         {/* Sure başlığı */}
@@ -265,7 +289,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
           <View style={st.center}>
             <Ionicons name="cloud-offline-outline" size={48} color="#d6d3d1" />
             <Text style={st.errorText}>{loadState.message}</Text>
-            <TouchableOpacity style={st.retryBtn} onPress={() => setCurrentAyahNum(n => n)} activeOpacity={0.7}>
+            <TouchableOpacity style={st.retryBtn} onPress={handleRetry} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Ayeti tekrar yükle">
               <Text style={st.retryText}>Tekrar Dene</Text>
             </TouchableOpacity>
           </View>
@@ -276,8 +300,11 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
               {loadState.ayah.arabicTajweed && (
                 <TouchableOpacity
                   style={[st.tajToggle, tajweed && st.tajToggleOn]}
-                  onPress={() => setTajweed(t => !t)}
+                  onPress={handleTajweedToggle}
                   activeOpacity={0.75}
+                  accessibilityRole="switch"
+                  accessibilityState={{ checked: tajweed }}
+                  accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
                 >
                   <Text style={[st.tajToggleText, tajweed && st.tajToggleTextOn]}>🎨 Tecvid</Text>
                 </TouchableOpacity>
@@ -307,8 +334,13 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
             {/* Ayet detay linki */}
             <TouchableOpacity
               style={st.detailBtn}
-              onPress={() => router.push(`/ayah/${currentSurahId}/${currentAyahNum}`)}
+              onPress={() => {
+                logFeature("mushaf_detail_open", { verse: `${currentSurahId}:${currentAyahNum}` });
+                router.push(`/ayah/${currentSurahId}/${currentAyahNum}`);
+              }}
               activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Ayet detayını aç"
             >
               <Text style={st.detailBtnText}>Kelime & Analiz →</Text>
             </TouchableOpacity>
@@ -340,7 +372,10 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
           renderItem={({ item: s }) => (
             <TouchableOpacity
               style={[st.surahChip, s.id === currentSurahId && st.surahChipActive]}
-              onPress={() => handleSurahSelect(s.id)} activeOpacity={0.7}
+              onPress={() => handleSurahSelect(s.id)}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel={`${s.name} suresine git`}
             >
               <Text style={[st.surahChipText, s.id === currentSurahId && st.surahChipTextActive]} numberOfLines={1}>
                 {s.id}. {s.name}
@@ -356,19 +391,19 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
 
       {/* Navigasyon */}
       <View style={st.navBar}>
-        <TouchableOpacity style={[st.navBtn, st.navBtnSurah]} onPress={handlePrevSurah} activeOpacity={0.7}>
+        <TouchableOpacity style={[st.navBtn, st.navBtnSurah]} onPress={handlePrevSurah} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Önceki sureye git">
           <Ionicons name="play-skip-back" size={18} color="#fff" />
           <Text style={st.navBtnText}>Önceki Sure</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, !canPrev && st.navBtnDisabled]} onPress={handlePrevAyah} disabled={!canPrev} activeOpacity={0.7}>
+        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, !canPrev && st.navBtnDisabled]} onPress={handlePrevAyah} disabled={!canPrev} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ disabled: !canPrev }} accessibilityLabel="Önceki ayete git">
           <Ionicons name="chevron-back" size={20} color={canPrev ? "#059669" : "#d6d3d1"} />
           <Text style={[st.navBtnText, st.navBtnTextAyah]}>Önceki Ayet</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, !canNext && st.navBtnDisabled]} onPress={handleNextAyah} disabled={!canNext} activeOpacity={0.7}>
+        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, !canNext && st.navBtnDisabled]} onPress={handleNextAyah} disabled={!canNext} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ disabled: !canNext }} accessibilityLabel="Sonraki ayete git">
           <Text style={[st.navBtnText, st.navBtnTextAyah]}>Sonraki Ayet</Text>
           <Ionicons name="chevron-forward" size={20} color={canNext ? "#059669" : "#d6d3d1"} />
         </TouchableOpacity>
-        <TouchableOpacity style={[st.navBtn, st.navBtnSurah]} onPress={handleNextSurah} activeOpacity={0.7}>
+        <TouchableOpacity style={[st.navBtn, st.navBtnSurah]} onPress={handleNextSurah} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sonraki sureye git">
           <Text style={st.navBtnText}>Sonraki Sure</Text>
           <Ionicons name="play-skip-forward" size={18} color="#fff" />
         </TouchableOpacity>
@@ -392,15 +427,6 @@ const juzSt = StyleSheet.create({
   indicatorText: { fontSize: 10, fontWeight: "600", color: "#059669" },
 });
 
-const audioSt = StyleSheet.create({
-  container: { flexDirection: "row", alignItems: "center", backgroundColor: "#1c1917", paddingHorizontal: 14, paddingVertical: 10, gap: 12 },
-  playBtn:   { width: 40, height: 40, borderRadius: 20, backgroundColor: "#059669", alignItems: "center", justifyContent: "center" },
-  info:      { flex: 1, gap: 5 },
-  title:     { fontSize: 12, fontWeight: "600", color: "#e7e5e4" },
-  track:     { height: 3, borderRadius: 2, backgroundColor: "#44403c", overflow: "hidden" },
-  fill:      { height: 3, borderRadius: 2, backgroundColor: "#059669" },
-  time:      { fontSize: 11, color: "#a8a29e", width: 32, textAlign: "right" },
-});
 
 const bmSt = StyleSheet.create({
   container:    { flexDirection: "row", gap: 8, paddingHorizontal: 14, paddingVertical: 8, backgroundColor: "#fefcf8", borderTopWidth: 1, borderTopColor: "#e8e2d4" },

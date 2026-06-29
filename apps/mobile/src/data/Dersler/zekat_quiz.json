@@ -5,9 +5,14 @@
   "sorular": [
     {
       "id": "zekat_001",
-      "konu": "zekat",
+      "konu": "temel",
       "soru": "Zekat kelimesinin Arapçadaki anlamları nelerdir?",
-      "secenekler": ["A) Yardım, destek ve bereket", "B) İbadet, dua ve şükür", "C) Artma, arıtma ve bereket", "D) Sabır, şükür ve tevekkül"],
+      "secenekler": [
+        "A) Yardım, destek ve bereket",
+        "B) İbadet, dua ve şükür",
+        "C) Artma, arıtma ve bereket",
+        "D) Sabır, şükür ve tevekkül"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Zekat kelimesi Arapçada \"artma, arıtma ve bereket\" anlamına gelir. Bu anlam zekatın hem malı hem ruhu temizlediğine işaret eder.",
       "zorluk": "kolay",
@@ -15,9 +20,14 @@
     },
     {
       "id": "zekat_002",
-      "konu": "zekat",
+      "konu": "temel",
       "soru": "Zekat İslam'ın kaçıncı şartıdır?",
-      "secenekler": ["A) Dördüncüsü", "B) İkincisi", "C) Üçüncüsü", "D) Beşincisi"],
+      "secenekler": [
+        "A) Dördüncüsü",
+        "B) İkincisi",
+        "C) Üçüncüsü",
+        "D) Beşincisi"
+      ],
       "dogru_cevap": "A",
       "aciklama": "İslam'ın beş şartı sırasıyla: Kelime-i Şehadet, Namaz, Oruç, Zekat ve Hac'tır. Zekat dördüncü şarttır.",
       "zorluk": "kolay",
@@ -25,9 +35,14 @@
     },
     {
       "id": "zekat_003",
-      "konu": "zekat",
+      "konu": "temel",
       "soru": "Zekat hangi yılda ve nerede farz kılınmıştır?",
-      "secenekler": ["A) Hicretin 1. yılında Mekke'de", "B) Hicretin 5. yılında Medine'de", "C) Nübüvvetin 3. yılında Mekke'de", "D) Hicretin 2. yılında Medine'de"],
+      "secenekler": [
+        "A) Hicretin 1. yılında Mekke'de",
+        "B) Hicretin 5. yılında Medine'de",
+        "C) Nübüvvetin 3. yılında Mekke'de",
+        "D) Hicretin 2. yılında Medine'de"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Zekat hicretin 2. yılında Medine'de farz kılınmıştır. Daha önce Mekke döneminde de teşvik edilmişti ancak şekil ve miktarı Medine'de belirlendi.",
       "zorluk": "orta",
@@ -35,9 +50,14 @@
     },
     {
       "id": "zekat_004",
-      "konu": "zekat",
+      "konu": "temel",
       "soru": "Kur'an'da zekat kaç ayette geçer ve kaçında namazla birlikte zikredilir?",
-      "secenekler": ["A) 20 ayette geçer, 15'inde namazla", "B) 30 ayette geçer, 27'sinde namazla", "C) 40 ayette geçer, 30'unda namazla", "D) 10 ayette geçer, 8'inde namazla"],
+      "secenekler": [
+        "A) 20 ayette geçer, 15'inde namazla",
+        "B) 30 ayette geçer, 27'sinde namazla",
+        "C) 40 ayette geçer, 30'unda namazla",
+        "D) 10 ayette geçer, 8'inde namazla"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Zekat Kur'an'da 30 ayette geçmekte olup bunların 27'sinde namazla birlikte zikredilir. Bu birliktelik namaz ve zekatın imanın ayrılmaz iki parçası olduğunu gösterir.",
       "zorluk": "kolay",
@@ -45,39 +65,59 @@
     },
     {
       "id": "zekat_005",
-      "konu": "zekat",
+      "konu": "sartlar",
       "soru": "\"Havelânü'l-havl\" şartı ne anlama gelir?",
-      "secenekler": ["A) Malın üzerinden bir kamerî yılın geçmesi", "B) Malın nisap miktarına ulaşması", "C) Malın artıcı özellikte olması", "D) Malın borçtan fazla olması"],
+      "secenekler": [
+        "A) Malın üzerinden bir kamerî yılın geçmesi",
+        "B) Malın nisap (zekat yükümlülüğü için gereken asgari servet) miktarına ulaşması",
+        "C) Malın artıcı özellikte olması",
+        "D) Malın borçtan fazla olması"
+      ],
       "dogru_cevap": "A",
-      "aciklama": "Havelânü'l-havl, malın üzerinden bir kamerî yılın (yaklaşık 354 gün) geçmesi şartıdır. Bu süre dolmadan zekat farz olmaz.",
+      "aciklama": "Havelânü'l-havl (malın üzerinden bir kamerî yıl geçmesi), malın üzerinden bir kamerî yılın (yaklaşık 354 gün) geçmesi şartıdır. Bu süre dolmadan zekat farz olmaz.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_006",
-      "konu": "zekat",
+      "konu": "sartlar",
       "soru": "Zekatın farz olması için malın hangi özelliği taşıması gerekir?",
-      "secenekler": ["A) Miras yoluyla elde edilmiş olması", "B) Gayrimenkul (taşınmaz) olması", "C) Nâmî (artıcı, büyüyen) özellikte olması", "D) En az beş yıldır elde tutulması"],
+      "secenekler": [
+        "A) Miras yoluyla elde edilmiş olması",
+        "B) Gayrimenkul (taşınmaz) olması",
+        "C) Nâmî (artıcı, büyüyen) özellikte olması",
+        "D) En az beş yıldır elde tutulması"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Zekata tabi olacak malın nâmî (artıcı, büyüyen) özellikte olması gerekir. Bu yüzden kullanılan ev ve araç zekata tabi değilken para, ticaret malı ve hayvanlar nâmî sayılır.",
+      "aciklama": "Zekata tabi olacak malın nâmî (artıcı, gelir getirici/büyüyen) özellikte olması gerekir. Bu yüzden kullanılan ev ve araç zekata tabi değilken para, ticaret malı ve hayvanlar nâmî sayılır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_007",
-      "konu": "zekat",
+      "konu": "nisap",
       "soru": "Altın için zekat nisabı kaç gramdır?",
-      "secenekler": ["A) 96,2 gram", "B) 80,18 gram", "C) 70 gram", "D) 100 gram"],
+      "secenekler": [
+        "A) 96,2 gram",
+        "B) 80,18 gram",
+        "C) 70 gram",
+        "D) 100 gram"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Altın için zekat nisabı 80,18 gramdır. Para ve ticaret mallarında da bu miktardaki altının değeri esas alınır.",
+      "aciklama": "Altın için zekat nisabı 80,18 gramdır. Para ve ticaret mallarında güncel uygulamada çoğunlukla bu miktardaki altının değeri esas alınır; gümüş nisabı üzerinden hesaplama görüşü de vardır.",
       "zorluk": "kolay",
       "kaynak": "Buhari, Zekat 32"
     },
     {
       "id": "zekat_008",
-      "konu": "zekat",
+      "konu": "nisap",
       "soru": "Sığır için zekat nisabı kaç baştır?",
-      "secenekler": ["A) 5 baş", "B) 40 baş", "C) 20 baş", "D) 30 baş"],
+      "secenekler": [
+        "A) 5 baş",
+        "B) 40 baş",
+        "C) 20 baş",
+        "D) 30 baş"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Sığır için zekat nisabı 30 baştır. Koyun/keçi 40, deve ise 5 baştan itibaren zekata tabidir.",
       "zorluk": "orta",
@@ -85,9 +125,14 @@
     },
     {
       "id": "zekat_009",
-      "konu": "zekat",
+      "konu": "nisap",
       "soru": "Koyun ve keçi için zekat nisabı kaç baştır?",
-      "secenekler": ["A) 40", "B) 30", "C) 5", "D) 20"],
+      "secenekler": [
+        "A) 40",
+        "B) 30",
+        "C) 5",
+        "D) 20"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Koyun ve keçi için zekat nisabı 40 baştır. Bu sayıdan az olursa zekat farz olmaz.",
       "zorluk": "orta",
@@ -95,9 +140,14 @@
     },
     {
       "id": "zekat_010",
-      "konu": "zekat",
+      "konu": "nisap",
       "soru": "Deve için zekat nisabı kaç baştır?",
-      "secenekler": ["A) 10", "B) 3", "C) 5", "D) 15"],
+      "secenekler": [
+        "A) 10",
+        "B) 3",
+        "C) 5",
+        "D) 15"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Deve için zekat nisabı 5 baştır. Hayvanlar arasında en düşük nisap devede olup bu sayıdan itibaren zekat başlar.",
       "zorluk": "orta",
@@ -105,9 +155,14 @@
     },
     {
       "id": "zekat_011",
-      "konu": "zekat",
+      "konu": "oran",
       "soru": "Altın, gümüş ve ticaret mallarının zekat oranı nedir?",
-      "secenekler": ["A) %5", "B) %2,5 (kırkta bir)", "C) %10", "D) %1"],
+      "secenekler": [
+        "A) %5",
+        "B) %2,5 (kırkta bir)",
+        "C) %10",
+        "D) %1"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta bir yani %2,5'tir.",
       "zorluk": "kolay",
@@ -115,39 +170,59 @@
     },
     {
       "id": "zekat_012",
-      "konu": "zekat",
+      "konu": "osur",
       "soru": "Yağmur veya nehirle sulanan tarla ürünlerinde öşür oranı nedir?",
-      "secenekler": ["A) 1/20 (yirmide bir)", "B) 1/40 (kırkta bir)", "C) 1/5 (beşte bir)", "D) 1/10 (onda bir)"],
+      "secenekler": [
+        "A) 1/20 (yirmide bir)",
+        "B) 1/40 (kırkta bir)",
+        "C) 1/5 (beşte bir)",
+        "D) 1/10 (onda bir)"
+      ],
       "dogru_cevap": "D",
-      "aciklama": "Yağmur veya akar suyla (nehir, dere) sulanan arazinin ürünlerinden 1/10 (onda bir) öşür verilir. Masrafa gerek olmadığı için oran yüksektir.",
+      "aciklama": "Yağmur veya akar suyla (nehir, dere) sulanan arazinin ürünlerinden 1/10 (onda bir) öşür (tarım ürünleri zekatı) verilir. Masrafa gerek olmadığı için oran yüksektir.",
       "zorluk": "orta",
       "kaynak": "Buhari, Zekat 55"
     },
     {
       "id": "zekat_013",
-      "konu": "zekat",
+      "konu": "osur",
       "soru": "Motorla veya masraflı sulama ile yetiştirilen ürünlerde öşür oranı nedir?",
-      "secenekler": ["A) 1/20 (yirmide bir)", "B) 1/10 (onda bir)", "C) 1/40 (kırkta bir)", "D) 1/5 (beşte bir)"],
+      "secenekler": [
+        "A) 1/20 (yirmide bir)",
+        "B) 1/10 (onda bir)",
+        "C) 1/40 (kırkta bir)",
+        "D) 1/5 (beşte bir)"
+      ],
       "dogru_cevap": "A",
-      "aciklama": "Motorla veya masrafla sulanan arazinin ürünlerinden 1/20 (yirmide bir) öşür verilir. Sulama masrafı olduğu için oran yarıya indirilmiştir.",
+      "aciklama": "Motorla veya masrafla sulanan arazinin ürünlerinden 1/20 (yirmide bir) öşür (tarım ürünleri zekatı) verilir. Sulama masrafı olduğu için oran yarıya indirilmiştir.",
       "zorluk": "kolay",
       "kaynak": "Buhari, Zekat 55"
     },
     {
       "id": "zekat_014",
-      "konu": "zekat",
+      "konu": "osur",
       "soru": "Öşür (tarım ürünleri zekatı) ne zaman verilir?",
-      "secenekler": ["A) Sonbaharın ilk gününde", "B) Malın üzerinden bir yıl geçince", "C) Hasat günü", "D) Ramazan başında"],
+      "secenekler": [
+        "A) Sonbaharın ilk gününde",
+        "B) Malın üzerinden bir yıl geçince",
+        "C) Hasat günü",
+        "D) Ramazan başında"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Öşür hasat günü verilir. Tarım ürünlerinde havelânü'l-havl (yıl geçmesi) şartı aranmaz; ürün toplandığı gün zekat farz olur.",
+      "aciklama": "Öşür (tarım ürünleri zekatı) hasat günü verilir. Tarım ürünlerinde havelânü'l-havl yani yıl geçmesi şartı aranmaz; nisap ve masraf ayrıntıları mezheplere göre farklı değerlendirilebilir.",
       "zorluk": "orta",
       "kaynak": "Kur'an, En'am 6/141"
     },
     {
       "id": "zekat_015",
-      "konu": "zekat",
+      "konu": "oran",
       "soru": "100.000 TL'nin zekatı ne kadardır?",
-      "secenekler": ["A) 5.000 TL", "B) 2.500 TL", "C) 1.000 TL", "D) 10.000 TL"],
+      "secenekler": [
+        "A) 5.000 TL",
+        "B) 2.500 TL",
+        "C) 1.000 TL",
+        "D) 10.000 TL"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Zekat oranı %2,5 (kırkta bir) olduğundan: 100.000 × 0,025 = 2.500 TL zekat verilmesi gerekir.",
       "zorluk": "zor",
@@ -155,39 +230,59 @@
     },
     {
       "id": "zekat_016",
-      "konu": "zekat",
+      "konu": "hak-sahipleri",
       "soru": "Tevbe 9/60'a göre zekat kaç sınıfa verilir?",
-      "secenekler": ["A) 4", "B) 6", "C) 10", "D) 8"],
+      "secenekler": [
+        "A) 4",
+        "B) 6",
+        "C) 10",
+        "D) 8"
+      ],
       "dogru_cevap": "D",
-      "aciklama": "Tevbe 9/60'ta zekatın verileceği 8 sınıf açıkça belirtilmiştir: fakirler, miskinler, zekat memurları, müellefe-i kulûb, köleler, borçlular, Allah yolunda olanlar ve yolda kalmışlar.",
+      "aciklama": "Tevbe 9/60'ta zekatın verileceği 8 sınıf açıkça belirtilmiştir: fakirler, miskinler (çok yoksullar), zekat memurları, müellefe-i kulûb, köleler, borçlular, Allah yolunda olanlar ve yolda kalmışlar.",
       "zorluk": "kolay",
       "kaynak": "Kur'an, Tevbe 9/60"
     },
     {
       "id": "zekat_017",
-      "konu": "zekat",
+      "konu": "hak-sahipleri",
       "soru": "\"Müellefe-i kulûb\" kimlerdir?",
-      "secenekler": ["A) Kalpleri İslam'a ısındırılmak istenen kişiler", "B) Köleler", "C) Yolda kalmış yolcular", "D) Zekat memurları"],
+      "secenekler": [
+        "A) Kalpleri İslam'a ısındırılmak istenen kişiler",
+        "B) Köleler",
+        "C) Yolda kalmış yolcular",
+        "D) Zekat memurları"
+      ],
       "dogru_cevap": "A",
-      "aciklama": "Müellefe-i kulûb, kalpleri İslam'a ısındırılmak istenen kişilerdir. Hz. Peygamber bu gruba zekat vermiş; bazı alimler bu hükmün devam ettiğini savunmuştur.",
+      "aciklama": "Müellefe-i kulûb (kalpleri İslam'a ısındırılmak istenen kişiler), kalpleri İslam'a ısındırılmak istenen kişilerdir. Hz. Peygamber bu gruba zekat vermiş; bazı alimler bu hükmün devam ettiğini savunmuştur.",
       "zorluk": "kolay",
       "kaynak": "Kur'an, Tevbe 9/60"
     },
     {
       "id": "zekat_018",
-      "konu": "zekat",
+      "konu": "hak-sahipleri",
       "soru": "Tevbe 9/60'da belirtilen zekat alan sınıflar arasında hangisi yer almaz?",
-      "secenekler": ["A) Borçlular", "B) Yolda kalmışlar", "C) Camiler", "D) Zekat memurları"],
+      "secenekler": [
+        "A) Borçlular",
+        "B) Yolda kalmışlar",
+        "C) Camiler",
+        "D) Zekat memurları"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Kur'an'da belirlenen 8 sınıf arasında camiler yer almaz. Zekat, bir kuruma veya yapıya değil bizzat kişilere (temlik ile) verilmelidir.",
+      "aciklama": "Kur'an'da belirlenen 8 sınıf arasında cami binası yer almaz. Zekat doğrudan yapıya değil hak sahibine temlik edilir (mülkiyeti hak sahibine geçirilir); kurumlar hak sahiplerine ulaştırmak üzere vekil olabilir.",
       "zorluk": "orta",
       "kaynak": "Kur'an, Tevbe 9/60"
     },
     {
       "id": "zekat_019",
-      "konu": "zekat",
+      "konu": "hak-sahipleri",
       "soru": "Zekat alan 8 sınıf arasındaki \"köleler\" ile ilgili doğru ifade hangisidir?",
-      "secenekler": ["A) Kaçmak isteyen kölelere zekat verilir", "B) Hürriyetlerini satın almak isteyen kölelere zekat verilir", "C) Sadece Müslüman kölelere zekat verilir", "D) Kölelerin zekat alması yasaktır"],
+      "secenekler": [
+        "A) Kaçmak isteyen kölelere zekat verilir",
+        "B) Hürriyetlerini satın almak isteyen kölelere zekat verilir",
+        "C) Sadece Müslüman kölelere zekat verilir",
+        "D) Kölelerin zekat alması yasaktır"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hürriyetlerini satın almak isteyen (mükâteb) köleler zekat alabilir. Zekat onların özgürlüklerini elde etmelerine destek amacıyla verilir.",
       "zorluk": "orta",
@@ -195,9 +290,14 @@
     },
     {
       "id": "zekat_020",
-      "konu": "zekat",
+      "konu": "hak-sahipleri",
       "soru": "\"İbni's-sebil\" (yolda kalmış) kimdir?",
-      "secenekler": ["A) Hacdan dönen yorgun yolcular", "B) Şehirde işsiz kalan herkes", "C) Zengin olup seyahate çıkanlar", "D) Parasız kalmış ve memleketine dönemeyen yolcular"],
+      "secenekler": [
+        "A) Hacdan dönen yorgun yolcular",
+        "B) Şehirde işsiz kalan herkes",
+        "C) Zengin olup seyahate çıkanlar",
+        "D) Parasız kalmış ve memleketine dönemeyen yolcular"
+      ],
       "dogru_cevap": "D",
       "aciklama": "İbni's-sebil, seyahatte parasız kalmış ve memleketine dönemez hale gelmiş yolculardır. Memleketinde malı olsa bile o an muhtaç durumda olduğundan zekat alabilir.",
       "zorluk": "zor",
@@ -205,9 +305,14 @@
     },
     {
       "id": "zekat_021",
-      "konu": "zekat",
+      "konu": "hak-sahipleri",
       "soru": "Aşağıdaki hangi kişilere zekat verilemez?",
-      "secenekler": ["A) Anne, baba ve çocuklara", "B) Amca ve halalara", "C) Kardeşlere", "D) Komşulara"],
+      "secenekler": [
+        "A) Anne, baba ve çocuklara",
+        "B) Amca ve halalara",
+        "C) Kardeşlere",
+        "D) Komşulara"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Anne, baba, büyük ebeveynler ile oğul, kız ve torunlara zekat verilemez. Bu kişileri geçindirmek zaten zekat verenin üstüne farzdır.",
       "zorluk": "kolay",
@@ -215,29 +320,44 @@
     },
     {
       "id": "zekat_022",
-      "konu": "zekat",
+      "konu": "temlik",
       "soru": "Zekat verilmesini geçerli kılan \"temlik şartı\" ne anlama gelir?",
-      "secenekler": ["A) Zekatın Ramazan'da verilmesi zorunluluğu", "B) Zekatın kuruma değil bireye verilmesi", "C) Malın mülkiyetinin karşı tarafa devredilmesi", "D) Zekat verenin niyetini açıkça belirtmesi"],
+      "secenekler": [
+        "A) Zekatın Ramazan'da verilmesi zorunluluğu",
+        "B) Zekatın kuruma değil bireye verilmesi",
+        "C) Malın mülkiyetinin karşı tarafa devredilmesi",
+        "D) Zekat verenin niyetini açıkça belirtmesi"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Temlik, malın mülkiyetini karşı tarafa devretmek demektir. Zekat, alıcıya malın tam tasarrufunu bırakacak şekilde verilmelidir; bu nedenle yemek yedirmek zekat sayılmaz.",
+      "aciklama": "Temlik (mülkiyet devri), malın mülkiyetini karşı tarafa devretmek demektir. Zekat, alıcıya malın tam tasarrufunu bırakacak şekilde verilmelidir; bu nedenle yemek yedirmek zekat sayılmaz.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_023",
-      "konu": "zekat",
+      "konu": "temlik",
       "soru": "Fakire yemek hazırlayıp yedirmek neden zekat sayılmaz?",
-      "secenekler": ["A) Çünkü zekat yiyecek olmaz, sadece para olur", "B) Çünkü yemek yedirmek temlik şartını karşılamaz", "C) Çünkü zekat yalnızca nisap sahiplerine verilebilir", "D) Çünkü yiyecek zekata tabi mal değildir"],
+      "secenekler": [
+        "A) Çünkü zekat yiyecek olmaz, sadece para olur",
+        "B) Çünkü yemek yedirmek temlik şartını karşılamaz",
+        "C) Çünkü zekat yalnızca nisap sahiplerine verilebilir",
+        "D) Çünkü yiyecek zekata tabi mal değildir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Zekatın geçerli olması için temlik (mülkiyet devri) şarttır. Yemek hazırlayıp yedirmek, malın mülkiyetini fakire devretmediği için zekat yerine geçmez.",
+      "aciklama": "Zekatın geçerli olması için temlik yani mülkiyet devri gerekir. Yemek hazırlayıp yedirmek, hak sahibine malın mülkiyeti devredilmediği sürece zekat yerine geçmez.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_024",
-      "konu": "zekat",
+      "konu": "mallar",
       "soru": "Aşağıdakilerden hangisi zekata tabi mallar arasında yer almaz?",
-      "secenekler": ["A) Nakit para", "B) Ticaret malları", "C) Altın", "D) Kişinin kullandığı ev (temel ihtiyaç)"],
+      "secenekler": [
+        "A) Nakit para",
+        "B) Ticaret malları",
+        "C) Altın",
+        "D) Kişinin kullandığı ev (temel ihtiyaç)"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Kişinin oturduğu ev, temel ihtiyaç sayıldığından zekata tabi değildir. Nakit para, ticaret malları ve altın ise nisap şartlarını sağladığında zekata tabidir.",
       "zorluk": "kolay",
@@ -245,29 +365,44 @@
     },
     {
       "id": "zekat_025",
-      "konu": "zekat",
-      "soru": "Hisse senetleri zekata tabi midir?",
-      "secenekler": ["A) Evet, ticaret malı kapsamında değerlendirilir", "B) Hayır, hisse senedi zekata tabi değildir", "C) Sadece kâr payı zekata tabidir", "D) Yalnızca devlet tahvilleri zekata tabidir"],
+      "konu": "mallar",
+      "soru": "Hisse senetlerinin zekatı için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Niyet ve hesap yöntemine göre zekata tabi olabilir",
+        "B) Hiçbir şekilde zekata tabi değildir",
+        "C) Sadece kâr payı zekata tabidir, ana değer hiç dikkate alınmaz",
+        "D) Yalnızca devlet tahvilleri zekata tabidir"
+      ],
       "dogru_cevap": "A",
-      "aciklama": "Hisse senetleri, günümüzde ticaret malı kapsamında değerlendirilir ve nisap miktarına ulaştığında zekata tabidir.",
+      "aciklama": "Hisse senetlerinde zekat hesabı niyete ve uygulamaya göre değişebilir. Al-sat amacıyla tutulan hisseler genellikle ticaret malı gibi değerlendirilir; uzun vadeli yatırımda farklı çağdaş hesap yöntemleri vardır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_026",
-      "konu": "zekat",
+      "konu": "mallar",
       "soru": "Zekata tabi olan hayvanlar hangi özelliğe sahip olmalıdır?",
-      "secenekler": ["A) Şehirde evcil olarak beslenen hayvanlar", "B) Çalıştırılan iş hayvanları", "C) Otlakta (merada) serbest beslenen sâime hayvanlar", "D) Kafeste beslenen kanatlı hayvanlar"],
+      "secenekler": [
+        "A) Şehirde evcil olarak beslenen hayvanlar",
+        "B) Çalıştırılan iş hayvanları",
+        "C) Otlakta serbest beslenen sâime hayvanlar",
+        "D) Kafeste beslenen kanatlı hayvanlar"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Zekata tabi hayvanlar, otlakta (merada) serbest beslenen sâime hayvanlardır. Çalıştırılan iş hayvanları zekata tabi değildir.",
+      "aciklama": "Zekata tabi hayvanlar sâime hayvanlardır; yani yılın çoğunu merada otlayarak beslenen hayvanlardır. Çalıştırılan iş hayvanları zekata tabi değildir.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_027",
-      "konu": "zekat",
+      "konu": "mallar",
       "soru": "Kişinin iş aletleri ve kullandığı araç zekata tabi değildir. Bunun gerekçesi nedir?",
-      "secenekler": ["A) Bunların satılması zordur", "B) Temel ihtiyaç sayıldığı için zekat kapsamı dışındadır", "C) Bunlar nâmî (artıcı) mal değildir ve değerleri sabittir", "D) Yalnızca gayrimüslim ülkelerde bu kural geçerlidir"],
+      "secenekler": [
+        "A) Bunların satılması zordur",
+        "B) Temel ihtiyaç sayıldığı için zekat kapsamı dışındadır",
+        "C) Bunlar nâmî (artıcı) mal değildir ve değerleri sabittir",
+        "D) Yalnızca gayrimüslim ülkelerde bu kural geçerlidir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Kişinin kullandığı araç ve iş aletleri temel ihtiyaç sayıldığından zekat kapsamı dışındadır. Zekat, temel ihtiyaçlardan fazla olan mala uygulanır.",
       "zorluk": "zor",
@@ -275,19 +410,29 @@
     },
     {
       "id": "zekat_028",
-      "konu": "zekat",
+      "konu": "fitre",
       "soru": "Fitre (Sadaka-i Fıtır) ne zaman verilir?",
-      "secenekler": ["A) Zekat nisabına ulaşınca", "B) Kurban Bayramı'ndan önce", "C) Hicri yıl dolunca", "D) Ramazan sonunda, bayram namazından önce"],
+      "secenekler": [
+        "A) Zekat nisabına ulaşınca",
+        "B) Kurban Bayramı'ndan önce",
+        "C) Hicri yıl dolunca",
+        "D) Ramazan sonunda, bayram namazından önce"
+      ],
       "dogru_cevap": "D",
-      "aciklama": "Fitre, Ramazan ayının son günü farz olur ve bayram namazından önce ödenmesi gerekir. Bayram namazından sonra verilirse sadaka yerine geçer, fitre olmaz.",
+      "aciklama": "Fitrenin bayram namazından önce verilmesi daha faziletlidir. Geciktirilirse sorumluluk düşmez; yine ödenmesi gerekir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "zekat_029",
-      "konu": "zekat",
+      "konu": "fitre",
       "soru": "Zekat ve sadaka arasındaki temel fark nedir?",
-      "secenekler": ["A) Zekat farzdır ve belirli 8 sınıfa verilir; sadaka gönüllüdür ve herkese verilebilir", "B) Zekat sadece Ramazan'da verilir; sadaka her zaman verilebilir", "C) Zekat miktarı belirsizken sadaka miktarı belirlidir", "D) Zekat yalnızca para olarak verilir; sadaka her şekilde verilebilir"],
+      "secenekler": [
+        "A) Zekat farzdır ve belirli 8 sınıfa verilir; sadaka gönüllüdür ve herkese verilebilir",
+        "B) Zekat sadece Ramazan'da verilir; sadaka her zaman verilebilir",
+        "C) Zekat miktarı belirsizken sadaka miktarı belirlidir",
+        "D) Zekat yalnızca para olarak verilir; sadaka her şekilde verilebilir"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Zekat farz bir ibadettir, nisap şartına bağlıdır ve Tevbe 9/60'ta belirlenen 8 sınıfa verilir. Sadaka ise gönüllüdür, miktarı ve zamanı serbesttir, herkese verilebilir.",
       "zorluk": "orta",
@@ -295,11 +440,16 @@
     },
     {
       "id": "zekat_030",
-      "konu": "zekat",
-      "soru": "Zekata tabi olmayan (nisap miktarı malı bulunmayan) bir kişi fitre vermek zorunda mıdır?",
-      "secenekler": ["A) Hayır, fitre zekatla aynı şartlara tabidir", "B) Hayır, ikisi de ancak nisaba ulaşınca gerekir", "C) Evet, fitre zekata tabi olmayanlar için de vaciptir", "D) Sadece erkekler nisap şartı olmadan fitre vermekle yükümlüdür"],
+      "konu": "fitre",
+      "soru": "Fitre yükümlülüğü için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Zekatla tamamen aynı şartlara bağlıdır",
+        "B) Hiçbir maddi yeterlilik şartı yoktur",
+        "C) Temel ihtiyaçlarından fazla imkana sahip Müslümanlar için gündeme gelir",
+        "D) Sadece erkekler fitre vermekle yükümlüdür"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Fitre, zekata tabi olmayan kişiler için de vaciptir. Bayram günü ve gecesinde temel ihtiyaçlarından fazla malı olan herkes fitre vermekle yükümlüdür.",
+      "aciklama": "Fitre zekatla aynı şartlara bağlı değildir; ancak herkes için de sınırsız bir yükümlülük değildir. Temel ihtiyaçlarından fazla imkana sahip Müslümanlar için gündeme gelir.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     }

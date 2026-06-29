@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
 } from "react-native";
@@ -7,13 +7,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/siyer_i_nebi.json";
 
-const META    = rawData.meta;
-const PERIODS = rawData.periods as Period[];
-const EVENTS  = rawData.events  as SiyerEvent[];
-
 interface Period {
   id: string; order: number; name: string;
   date_range: string; summary: string; icon: string;
+}
+interface Meta {
+  title: string; subtitle: string; description: string;
+  sources: string[];
 }
 interface SiyerEvent {
   id: string; period_id: string; title: string;
@@ -26,13 +26,39 @@ interface SiyerEvent {
   tags: string[];
 }
 
+function ensureStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
+}
+
+const META: Meta = {
+  title: rawData.meta?.title ?? "Siyer-i Nebi",
+  subtitle: rawData.meta?.subtitle ?? "",
+  description: rawData.meta?.description ?? "",
+  sources: ensureStringArray(rawData.meta?.sources),
+};
+
+const PERIODS = [...((rawData.periods ?? []) as Period[])].sort((a, b) => a.order - b.order);
+
+const EVENTS = ((rawData.events ?? []) as SiyerEvent[]).map(event => ({
+  ...event,
+  title: event.title ?? "",
+  description: event.description ?? "",
+  date_miladi: event.date_miladi ?? null,
+  date_hijri: event.date_hijri ?? null,
+  quran_refs: ensureStringArray(event.quran_refs),
+  hadith_sources: ensureStringArray(event.hadith_sources),
+  key_lessons: ensureStringArray(event.key_lessons),
+  tags: ensureStringArray(event.tags),
+  reliability_note: event.reliability_note ?? null,
+}));
+
 const eventsByPeriod: Record<string, SiyerEvent[]> = {};
 for (const e of EVENTS) {
   if (!eventsByPeriod[e.period_id]) eventsByPeriod[e.period_id] = [];
   eventsByPeriod[e.period_id].push(e);
 }
 
-// Ayet linkine tıklayınca ilgili ayete gider
 function QuranRefChip({ refKey }: { refKey: string }) {
   const [surah, ayah] = refKey.split(":").map(Number);
   if (!surah || !ayah) return <Text style={ev.chip}>{refKey}</Text>;
@@ -41,6 +67,9 @@ function QuranRefChip({ refKey }: { refKey: string }) {
       style={ev.refChip}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as any)}
       activeOpacity={0.75}
+      accessibilityRole="button"
+      accessibilityLabel={`${refKey} ayet referansı`}
+      accessibilityHint="Ayet detayını açar"
     >
       <Text style={ev.refChipText}>{refKey}</Text>
     </TouchableOpacity>
@@ -50,12 +79,22 @@ function QuranRefChip({ refKey }: { refKey: string }) {
 function EventCard({ event }: { event: SiyerEvent }) {
   const c = useColors();
   const [open, setOpen] = useState(false);
+  const eventTitle = event.title || "Başlıksız olay";
+  const eventDescription = event.description || "Açıklama eklenmedi.";
 
   return (
     <View style={[ev.card, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={ev.header} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={ev.header}
+        onPress={() => setOpen(o => !o)}
+        activeOpacity={0.75}
+        accessibilityRole="button"
+        accessibilityLabel={eventTitle}
+        accessibilityHint={`Olay detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityState={{ expanded: open }}
+      >
         <View style={{ flex: 1, gap: 3 }}>
-          <Text style={[ev.title, { color: c.text }]}>{event.title}</Text>
+          <Text style={[ev.title, { color: c.text }]}>{eventTitle}</Text>
           {(event.date_miladi || event.date_hijri) ? (
             <Text style={[ev.date, { color: c.textMuted }]}>
               {[event.date_miladi, event.date_hijri].filter(Boolean).join(" · ")}
@@ -67,7 +106,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
 
       {open && (
         <View style={[ev.body, { borderTopColor: c.border }]}>
-          <Text style={[ev.desc, { color: c.textSecondary }]}>{event.description}</Text>
+          <Text style={[ev.desc, { color: c.textSecondary }]}>{eventDescription}</Text>
 
           {event.quran_refs.length > 0 && (
             <View style={ev.section}>
@@ -81,16 +120,14 @@ function EventCard({ event }: { event: SiyerEvent }) {
           {event.key_lessons.length > 0 && (
             <View style={ev.section}>
               <Text style={[ev.sectionLabel, { color: c.accent }]}>💎 Öğretiler</Text>
-              {event.key_lessons.map((l, i) => (
-                <Text key={i} style={[ev.lesson, { color: c.textSecondary }]}>• {l}</Text>
+              {event.key_lessons.map((lesson, index) => (
+                <Text key={index} style={[ev.lesson, { color: c.textSecondary }]}>• {lesson}</Text>
               ))}
             </View>
           )}
 
           {event.hadith_sources.length > 0 && (
-            <Text style={[ev.sources, { color: c.textMuted }]}>
-              📚 {event.hadith_sources.join(", ")}
-            </Text>
+            <Text style={[ev.sources, { color: c.textMuted }]}>📚 {event.hadith_sources.join(", ")}</Text>
           )}
 
           {event.reliability_note ? (
@@ -111,7 +148,15 @@ function PeriodAccordion({ period }: { period: Period }) {
 
   return (
     <View style={[pd.card, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={pd.header} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={pd.header}
+        onPress={() => setOpen(o => !o)}
+        activeOpacity={0.75}
+        accessibilityRole="button"
+        accessibilityLabel={period.name}
+        accessibilityHint={`Dönem detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityState={{ expanded: open }}
+      >
         <Text style={{ fontSize: 22 }}>{period.icon}</Text>
         <View style={{ flex: 1, gap: 2 }}>
           <Text style={[pd.name, { color: c.text }]}>{period.name}</Text>
@@ -126,7 +171,11 @@ function PeriodAccordion({ period }: { period: Period }) {
       {open && (
         <View style={[pd.body, { borderTopColor: c.border }]}>
           <Text style={[pd.summary, { color: c.textSecondary }]}>{period.summary}</Text>
-          {events.map(e => <EventCard key={e.id} event={e} />)}
+          {events.length > 0 ? (
+            events.map(e => <EventCard key={e.id} event={e} />)
+          ) : (
+            <Text style={[pd.empty, { color: c.textMuted }]}>Bu döneme ait kayıt bulunamadı.</Text>
+          )}
         </View>
       )}
     </View>
@@ -145,7 +194,6 @@ export default function SiyerScreen() {
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* Başlık kartı */}
         <View style={[s.heroCard, { backgroundColor: "#0f172a" }]}>
           <Text style={s.heroIcon}>☪️</Text>
           <Text style={s.heroTitle}>{META.title}</Text>
@@ -165,11 +213,11 @@ export default function SiyerScreen() {
 
         <Text style={[s.sectionHead, { color: c.textMuted }]}>Dönemler</Text>
 
-        {PERIODS.map(p => <PeriodAccordion key={p.id} period={p} />)}
+        {PERIODS.map(period => <PeriodAccordion key={period.id} period={period} />)}
 
-        <Text style={[s.sources, { color: c.textMuted }]}>
-          Kaynaklar: {META.sources.join(" · ")}
-        </Text>
+        {META.sources.length > 0 ? (
+          <Text style={[s.sources, { color: c.textMuted }]}>Kaynaklar: {META.sources.join(" · ")}</Text>
+        ) : null}
       </ScrollView>
     </>
   );
@@ -199,6 +247,7 @@ const pd = StyleSheet.create({
   badgeText: { fontSize: 10, fontWeight: "700", color: "#475569" },
   chev:    { fontSize: 11 },
   body:    { borderTopWidth: 1, padding: 12, gap: 8 },
+  empty:   { fontSize: 12, fontStyle: "italic" },
   summary: { fontSize: 12.5, lineHeight: 19, marginBottom: 4, fontStyle: "italic" },
 });
 

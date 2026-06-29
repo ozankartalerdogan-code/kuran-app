@@ -3,15 +3,38 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../../src/hooks/useColors";
+import { logFeature } from "../../src/lib/analytics";
 
-const CARDS = [
-  { emoji: "📜", label: "Mushaf Modu",  sub: "Sayfa sayfa oku, yer imi bırak",  route: "/mushaf", bg: "#f0fdf4", border: "#86efac" },
-  { emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/surah-list", bg: "#eff6ff", border: "#93c5fd" },
-  { emoji: "📑", label: "Hatim Takibi", sub: "30 cüz, kaldığın yerden devam",    route: "/hatim",  bg: "#fef3c7", border: "#fcd34d" },
+type KuranCardRoute = "/mushaf" | "/surah-list" | "/hatim";
+type KuranCard = {
+  id: "mushaf" | "surah_list" | "hatim";
+  emoji: string;
+  label: string;
+  sub: string;
+  route: KuranCardRoute;
+  bg: string;
+  border: string;
+};
+
+const CARDS: KuranCard[] = [
+  { id: "mushaf", emoji: "📜", label: "Mushaf Modu",  sub: "Sayfa sayfa oku, yer imi bırak",  route: "/mushaf", bg: "#f0fdf4", border: "#86efac" },
+  { id: "surah_list", emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/surah-list", bg: "#eff6ff", border: "#93c5fd" },
+  { id: "hatim", emoji: "📑", label: "Hatim Takibi", sub: "30 cüz, kaldığın yerden devam",    route: "/hatim",  bg: "#fef3c7", border: "#fcd34d" },
 ];
 
 export default function KuranTab() {
   const c = useColors();
+
+  const handleSearchPress = () => {
+    logFeature("kuran_tab_search");
+    router.push("/search" as any);
+  };
+
+  const handleCardPress = (card: KuranCard) => {
+    logFeature("kuran_tab_card", { card: card.id });
+    router.push(card.route as any);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
@@ -23,8 +46,10 @@ export default function KuranTab() {
 
         <TouchableOpacity
           style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}
-          onPress={() => router.push("/search" as any)}
+          onPress={handleSearchPress}
           activeOpacity={0.8}
+          accessibilityRole="button"
+          accessibilityLabel="Ayet veya sure ara"
         >
           <Ionicons name="search-outline" size={18} color={c.textMuted} />
           <Text style={[s.searchText, { color: c.textMuted }]}>Ayet veya sure ara...</Text>
@@ -33,10 +58,13 @@ export default function KuranTab() {
         <View style={s.cards}>
           {CARDS.map(card => (
             <TouchableOpacity
-              key={card.route}
+              key={card.id}
               style={[s.card, { backgroundColor: card.bg, borderColor: card.border }]}
-              onPress={() => router.push(card.route as any)}
+              onPress={() => handleCardPress(card)}
               activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel={card.label}
+              accessibilityHint={card.sub}
             >
               <Text style={s.emoji}>{card.emoji}</Text>
               <View style={{ flex: 1 }}>

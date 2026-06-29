@@ -116,7 +116,6 @@ export default function FavorilerScreen() {
   return (
     <FlashList
       data={verses}
-      estimatedItemSize={140}
       keyExtractor={(v) => v.verse_key}
       contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
       ListHeaderComponent={

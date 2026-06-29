@@ -179,7 +179,7 @@
       "soru": "Hz. Muhammed 35 yaşında yaşanan Kâbe yeniden inşası sırasında ne yaptı?",
       "secenekler": ["A) Kâbe'nin inşaatına öncülük etti", "B) Hacerü'l-Esved anlaşmazlığını çözdü", "C) Kâbe'yi düşmandan korudu", "D) Kâbe'ye ilk kapıyı taktı"],
       "dogru_cevap": "B",
-      "aciklama": "35 yaşında, Hacerü'l-Esved'in yerine konulması meselesinde kabileler arasında çıkan anlaşmazlığı büyük bir örtü kullanarak çözdü ve büyük bir çatışmayı önledi.",
+      "aciklama": "35 yaşında, Hacerü'l-Esved'in (Kâbe'nin köşesindeki siyah taş) yerine konulması meselesinde kabileler arasında çıkan anlaşmazlığı büyük bir örtü kullanarak çözdü ve büyük bir çatışmayı önledi.",
       "zorluk": "kolay",
       "kaynak": "İbn Hişâm, es-Sîre"
     },
@@ -189,7 +189,7 @@
       "soru": "Hilfü'l-Fudûl ne amaçla kurulmuştu?",
       "secenekler": ["A) Kureyş kabilelerini birleştirmek", "B) Haksızlığa uğrayanları korumak", "C) Kâbe'nin idaresini düzenlemek", "D) Panayırlarda ticaret kuralları koymak"],
       "dogru_cevap": "B",
-      "aciklama": "Hilfü'l-Fudûl (Erdemliler İttifakı), bir Yemenlinin haksızlığa uğraması üzerine haksızlığa uğrayanları her koşulda korumak amacıyla kuruldu.",
+      "aciklama": "Hilfü'l-Fudûl (Erdemliler İttifakı), bir Yemenlinin haksızlığa uğraması üzerine haksızlığa uğrayanları korumak amacıyla kuruldu. Hz. Peygamber bu tür adalet çağrılarını değerli görmüştür.",
       "zorluk": "kolay",
       "kaynak": "Ahmed b. Hanbel, Müsned"
     },
@@ -209,14 +209,14 @@
       "soru": "Fil Olayı Kur'an'ın hangi suresinde anlatılmaktadır?",
       "secenekler": ["A) Kevser", "B) Fîl", "C) Felak", "D) Nas"],
       "dogru_cevap": "B",
-      "aciklama": "Fîl Sûresi (105), Ebrehe'nin ordusunun ebâbîl kuşları tarafından helak edilmesini anlatır.",
+      "aciklama": "Fîl Sûresi (105), Ebrehe'nin ordusunun ebâbîl kuşları tarafından helak edilmesini anlatır. Bu olay Hz. Peygamber'in doğumuna yakın dönemde yaşanmıştır.",
       "zorluk": "orta",
       "kaynak": "Kur'an, Fîl 105"
     },
     {
       "id": "siyer_022",
       "konu": "siyer",
-      "soru": "Cahiliye döneminde Kâbe'de kaç put bulunuyordu?",
+      "soru": "Cahiliye döneminde (vahiy rehberliğinden uzak yaşama döneminde) Kâbe'de kaç put bulunuyordu?",
       "secenekler": ["A) 100", "B) 200", "C) 360", "D) 500"],
       "dogru_cevap": "C",
       "aciklama": "Cahiliye döneminde Kâbe'de sayıları 360'a ulaşan put bulunuyordu. Bunların başlıcaları Hubel, Lât, Menât ve Uzzâ idi. Mekke'nin fethinde hepsi kırıldı.",
@@ -236,10 +236,10 @@
     {
       "id": "siyer_024",
       "konu": "siyer",
-      "soru": "Gizli davet döneminde Müslümanların buluşma merkezi nereydi?",
+      "soru": "Gizli davet döneminde Müslümanların buluşma merkezi neresiydi?",
       "secenekler": ["A) Hz. Hatice'nin evi", "B) Dârülerkam (Erkam'ın evi)", "C) Hira Mağarası", "D) Mescid-i Harâm"],
       "dogru_cevap": "B",
-      "aciklama": "İlk üç yıl süren gizli davet döneminde Erkam b. Ebü'l-Erkam'ın evi (Dârülerkam) Müslümanların buluşma ve öğrenme merkeziydi.",
+      "aciklama": "İlk üç yıl süren gizli davet döneminde Erkam b. Ebü'l-Erkam'ın evi, Dârülerkam (Erkam'ın evi; ilk eğitim ve buluşma merkezi) olarak tanındı.",
       "zorluk": "orta",
       "kaynak": "İbn Hişâm, es-Sîre"
     },
@@ -249,7 +249,7 @@
       "soru": "Habeşistan'a hicret eden Müslümanları Necâşî'nin huzurunda kim temsil etti?",
       "secenekler": ["A) Hz. Ebû Bekir", "B) Hz. Ömer", "C) Câfer b. Ebû Tâlib", "D) Mus'ab b. Umeyr"],
       "dogru_cevap": "C",
-      "aciklama": "Câfer b. Ebû Tâlib, Necâşî'nin huzurunda Meryem Sûresi'nden ayetler okudu. Necâşî'nin gözleri yaşardı ve Müslümanları iade etmeyi reddetti.",
+      "aciklama": "Câfer b. Ebû Tâlib, Necâşî'nin huzurunda Meryem Sûresi'nden ayetler okudu. Necâşî Müslümanları iade etmeyi reddetti ve onlara güvenli bir ortam sağladı.",
       "zorluk": "orta",
       "kaynak": "İbn Hişâm, es-Sîre"
     },
@@ -279,17 +279,17 @@
       "soru": "İsrâ-Mi'rac'ta başlangıçta kaç vakit namaz farz kılındı?",
       "secenekler": ["A) 5", "B) 10", "C) 40", "D) 50"],
       "dogru_cevap": "D",
-      "aciklama": "Başlangıçta 50 vakit olarak belirlenen namaz, Hz. Mûsâ'nın tavsiyesiyle yapılan indirimler sonucunda beş vakite indi.",
+      "aciklama": "İsrâ gece yolculuğu, Mi'rac ise semalara/yüce makamlara yükseliş olarak anlatılır. Başlangıçta 50 vakit olarak belirlenen namaz, Hz. Mûsâ'nın tavsiyesiyle yapılan indirimler sonucunda beş vakite indi.",
       "zorluk": "orta",
       "kaynak": "Buhârî, Salât"
     },
     {
       "id": "siyer_029",
       "konu": "siyer",
-      "soru": "Sevr Mağarası'nda Hz. Ebû Bekir endişelenince Hz. Peygamber ona hangi ayetle teselli etti?",
+      "soru": "Sevr Mağarası'nda Hz. Ebû Bekir endişelenince Kur'an'da geçen hangi ifade onu teselli etti?",
       "secenekler": ["A) Bakara 2:286", "B) Tevbe 9:40", "C) Zümer 39:10", "D) İnşirah 94:5"],
       "dogru_cevap": "B",
-      "aciklama": "Hz. Peygamber, Tevbe 9:40'ı okudu: 'Üzülme, Allah bizimle beraberdir.' Bu ayet o anın en veciz ifadesi olarak tarihe geçti.",
+      "aciklama": "Tevbe 9:40'ta bu an 'Üzülme, Allah bizimle beraberdir' ifadesiyle anlatılır. Bu ayet, hicret yolculuğundaki teslimiyetin en güçlü örneklerindendir.",
       "zorluk": "orta",
       "kaynak": "Buhârî, Menâkıbü'l-ensâr"
     },
@@ -309,7 +309,7 @@
       "soru": "Medine Sözleşmesi'nde yer almayan ilke hangisidir?",
       "secenekler": ["A) Din özgürlüğünün tanınması", "B) Ortak savunma yükümlülüğü", "C) Putperestlerin şehirden sürgün edilmesi", "D) Anlaşmazlıkların Hz. Peygamber'e götürülmesi"],
       "dogru_cevap": "C",
-      "aciklama": "Medine Sözleşmesi din özgürlüğü, ortak savunma ve hukuki düzeni kapsıyordu; putperestlerin sürgünü bu belgenin içinde yer almıyordu.",
+      "aciklama": "Medine Sözleşmesi din özgürlüğü, ortak savunma ve hukuki düzeni kapsıyordu. Putperestlerin şehirden sürgün edilmesi bu belgenin ilkeleri arasında yer almıyordu.",
       "zorluk": "orta",
       "kaynak": "İbn Hişâm, es-Sîre"
     },
@@ -319,7 +319,7 @@
       "soru": "Bedir Savaşı'nda esirler için talep edilen seçeneklerden biri neydi?",
       "secenekler": ["A) Müslüman olmak", "B) Köle yapılmak", "C) 10 Müslümana okuma-yazma öğretmek", "D) Mekke'ye dönmemek üzere yemin etmek"],
       "dogru_cevap": "C",
-      "aciklama": "Hz. Peygamber esirler için fidye ya da 10 Müslümana okuma-yazma öğretme seçeneği sundu. Bu karar, ilmin özgürlük karşılığı kabul edilmesinin tarihî bir örneğidir.",
+      "aciklama": "Hz. Peygamber esirler için fidye (serbest kalmak için ödenen bedel) ya da rivayetlere göre 10 Müslümana okuma-yazma öğretme seçeneği sundu. Bu karar, ilme verilen değerin örneği olarak anlatılır.",
       "zorluk": "orta",
       "kaynak": "Buhârî, Megâzî"
     },
@@ -329,7 +329,7 @@
       "soru": "Uhud Savaşı'nda durumun tersine dönmesine yol açan hata neydi?",
       "secenekler": ["A) Müslümanların erken teslim olması", "B) Okçuların ganimet için mevzilerini bırakması", "C) Komutan değişikliği", "D) Düşmana sığınılması"],
       "dogru_cevap": "B",
-      "aciklama": "Hz. Peygamber okçulara kesin emir vermişti: 'Ne olursa olsun yerlerinizi terk etmeyin.' Üstünlük kurulduğunu gören okçuların çoğu ganimet için mevzilerini bırakınca Hâlid b. Velîd bu açığı değerlendirdi.",
+      "aciklama": "Hz. Peygamber okçulara yerlerini terk etmemelerini emretmişti. Üstünlük kurulduğunu gören okçuların çoğu ganimet (savaş sonrası elde edilen mal) için mevzilerini bırakınca Hâlid b. Velîd bu açığı değerlendirdi.",
       "zorluk": "orta",
       "kaynak": "Buhârî, Megâzî"
     },
@@ -359,7 +359,7 @@
       "soru": "Kur'an Hudeybiye Antlaşması'nı hangi sûreyle 'apaçık bir fetih' olarak nitelendirdi?",
       "secenekler": ["A) Bakara", "B) Fetih", "C) Tevbe", "D) Nisa"],
       "dogru_cevap": "B",
-      "aciklama": "Fetih Sûresi'nin ilk ayeti 'İnnâ fetehnâ leke fethan mübînâ' (Biz sana apaçık bir fetih verdik) bu antlaşmaya işaret eder.",
+      "aciklama": "Fetih Sûresi'nin ilk ayeti 'Biz sana apaçık bir fetih verdik' anlamına gelir. Bu ayet Hudeybiye Antlaşması'nın görünürde zor, sonuçta büyük bir açılım olduğunu gösterir.",
       "zorluk": "orta",
       "kaynak": "Kur'an, Fetih 48:1"
     },
@@ -369,7 +369,7 @@
       "soru": "Hz. Peygamber'in davet mektubunu yırtan hükümdar kimdir?",
       "secenekler": ["A) Herakleios (Bizans)", "B) Necâşî (Habeşistan)", "C) Kisrâ (Sasani)", "D) Mukavkıs (Mısır)"],
       "dogru_cevap": "C",
-      "aciklama": "Sasani İmparatoru Kisrâ Hüsrev Perviz mektubu yırttı. Rivayete göre Hz. Peygamber 'Mülkü de parçalansın' dedi ve bu gerçekleşti.",
+      "aciklama": "Sasani İmparatoru Kisrâ Hüsrev Perviz, Hz. Peygamber'in davet mektubunu yırttı. Bu olay, hükümdarlara gönderilen İslam'a davet mektupları arasında meşhur rivayetlerdendir.",
       "zorluk": "orta",
       "kaynak": "Buhârî, Bed'ü'l-vahy"
     },
@@ -389,7 +389,7 @@
       "soru": "Veda Hutbesi'nden sonra inen Mâide 3. ayet neyi bildirmektedir?",
       "secenekler": ["A) Haccın farz kılındığını", "B) Dinin kemâle erdiğini", "C) Zekâtın farz kılındığını", "D) Cihadın hükmünü"],
       "dogru_cevap": "B",
-      "aciklama": "Mâide 3: 'Bugün dininizi kemâle erdirdim, üzerinizdeki nimetimi tamamladım ve size din olarak İslâm'ı seçtim.' Bu, Veda Haccı'nda inen son büyük ayettir.",
+      "aciklama": "Mâide 3: 'Bugün dininizi kemâle erdirdim, üzerinizdeki nimetimi tamamladım ve size din olarak İslâm'ı seçtim.' Bu ayet dinin tamamlandığını bildiren en önemli ayetlerden biridir.",
       "zorluk": "orta",
       "kaynak": "Kur'an, Mâide 5:3"
     },
@@ -409,7 +409,7 @@
       "soru": "İkinci Akabe Biatı'na kaç kişi katıldı?",
       "secenekler": ["A) 12", "B) 40", "C) 75", "D) 100"],
       "dogru_cevap": "C",
-      "aciklama": "622 M'deki İkinci Akabe Biatı'na 73 erkek ve 2 kadın olmak üzere toplam 75 kişi katıldı. Bu biat savaş yükümlülüğünü de içerdiğinden 'Bey'atü'l-harb' olarak anılır ve hicretin fiilî başlangıcı sayılır.",
+      "aciklama": "622 M'deki İkinci Akabe Biatı'na 73 erkek ve 2 kadın olmak üzere toplam 75 kişi katıldı. Biat, bağlılık ve destek sözü demektir; bu biat hicretin zeminini hazırladı.",
       "zorluk": "zor",
       "kaynak": "İbn Hişâm, es-Sîre"
     },
@@ -439,7 +439,7 @@
       "soru": "Mescid-i Nebevî'nin yanına kurulan eğitim platformunun adı nedir?",
       "secenekler": ["A) Dârülerkam", "B) Suffe", "C) Dârülhikme", "D) Şi'b-i Ebî Tâlib"],
       "dogru_cevap": "B",
-      "aciklama": "Suffe, Mescid-i Nebevî'nin yanında kurulan ve 'Ehlü's-Suffe' denilen sahabîlerin ilim öğrendiği eğitim platformudur. Mescid ibadet, eğitim ve yönetim merkezi işlevi gördü.",
+      "aciklama": "Suffe, Mescid-i Nebevî'nin yanında kurulan ve Ehlü's-Suffe denilen sahabîlerin ilim öğrendiği eğitim alanıdır. Mescid ibadet, eğitim ve yönetim merkezi işlevi gördü.",
       "zorluk": "zor",
       "kaynak": "İbn Sa'd, Tabakât"
     },
@@ -489,7 +489,7 @@
       "soru": "Tebük Seferi'nde ordunun üçte birini bağışlayan sahabi kimdir?",
       "secenekler": ["A) Hz. Ebû Bekir", "B) Hz. Ömer", "C) Hz. Osman", "D) Hz. Ali"],
       "dogru_cevap": "C",
-      "aciklama": "Tebük'te Hz. Ebû Bekir tüm malını, Hz. Ömer yarısını, Hz. Osman ise ordunun üçte birini bağışladı. Bu sefer fedakârlığın en büyük gösterisine sahne oldu.",
+      "aciklama": "Tebük'te Hz. Ebû Bekir tüm malını, Hz. Ömer yarısını, Hz. Osman ise ordunun üçte birini bağışladı. Bu sefer fedakârlığın büyük örneklerinden biri olarak anlatılır.",
       "zorluk": "zor",
       "kaynak": "TDV İslâm Ansiklopedisi"
     },
@@ -499,7 +499,7 @@
       "soru": "Veda Hutbesi'nde vurgulanan temel ilkelerden hangisi doğrudur?",
       "secenekler": ["A) Tüm Müslümanlara hac farz kılındı", "B) Irksal üstünlüğün reddedildiği", "C) Cizye vergisinin kaldırıldığı", "D) Tüm borçların silindiği"],
       "dogru_cevap": "B",
-      "aciklama": "Veda Hutbesi'nde 'Arap'ın Arap olmayana, Arap olmayanın Arap'a, beyazın siyaha, siyahın beyaza karşı üstünlüğü yoktur; üstünlük yalnız takvadadır' buyruldu.",
+      "aciklama": "Veda Hutbesi'nde insanların ırk, renk ve soyla birbirine üstün olmadığı; üstünlüğün takvada, yani Allah'a karşı sorumluluk bilincinde olduğu vurgulandı.",
       "zorluk": "zor",
       "kaynak": "Müslim, Hac (Câbir rivayeti)"
     }

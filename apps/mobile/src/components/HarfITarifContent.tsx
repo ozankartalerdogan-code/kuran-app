@@ -61,6 +61,9 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
               disabled={picked !== null}
               activeOpacity={0.8}
               onPress={() => { setPicked(opt); onAnswer(isCorrect); }}
+              accessibilityRole="button"
+              accessibilityLabel={`Harf-i Tarif cevap seçeneği: ${opt}`}
+              accessibilityState={{ disabled: picked !== null, selected: isPicked }}
               style={[s.opt, { backgroundColor: bg, borderColor: brd }]}
             >
               <Text style={[s.optText, { color: col }]}>{opt}</Text>
@@ -95,6 +98,8 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
           style={s.quizStartBtn}
           onPress={() => setStarted(true)}
           activeOpacity={0.8}
+          accessibilityRole="button"
+          accessibilityLabel="Harf-i Tarif testine başla"
         >
           <Text style={s.quizStartBtnText}>🧠 Teste Başla</Text>
         </TouchableOpacity>
@@ -122,6 +127,8 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
             style={[s.quizStartBtn, { marginTop: 10 }]}
             onPress={() => { setStarted(false); setAns({}); }}
             activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel="Harf-i Tarif testini tekrar başlat"
           >
             <Text style={s.quizStartBtnText}>↺ Tekrar</Text>
           </TouchableOpacity>

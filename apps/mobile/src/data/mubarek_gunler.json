@@ -378,13 +378,13 @@
         "kuran_referansi": null,
         "hicri_tarih": "Ramazan Bayramı: Şevval'in 1. gecesi — Kurban Bayramı: Zilhicce'nin 10. gecesi",
         "onem": "Zayıf bir rivayette beş gecede duaların reddedilmeyeceği bildirilmiştir; bu geceler arasında Ramazan ve Kurban Bayramı geceleri de sayılmaktadır. Bayram geceleri, bir aylık orucun ve hac mevsiminin tamamlanmasının şükür ve sevincini taşır.",
-        "tarihsel_bilgi": "Bayram geceleri ibadetle ihya edilmesi tavsiye edilen gecelerdir. Ramazan Bayramı bir aylık orucun, Kurban Bayramı ise hac mevsiminin tamamlanmasının şükür ve sevincini taşır.",
+        "tarihsel_bilgi": "Bayram geceleri, bir aylık orucun ve hac mevsiminin tamamlanmasının şükür ve sevincini taşır. Bu geceleri nafile ibadetle değerlendirmek güzel görülmüşse de, gecenin ihyasına dair özel rivayet zayıf kabul edilmiştir.",
         "ibadetler": [
           {
-            "isim": "Geceyi İbadetle Geçirmek",
-            "durum": "sunnet",
-            "aciklama": "Bayram gecelerini nafile namaz, dua ve zikir ile geçirmek Hz. Peygamber tarafından tavsiye edilmiştir.",
-            "hadis_kaynagi": "İbn Mace (hasen)"
+            "isim": "Geceyi Nafile İbadetle Değerlendirmek",
+            "durum": "tavsiye",
+            "aciklama": "Bu geceleri nafile namaz, dua ve zikirle değerlendirmek güzel görülmüştür. Ancak bunun bayram gecesine özel, sahih bir sünnet olarak sabit olduğu söylenemez.",
+            "hadis_kaynagi": "Gecenin ihyasına dair özel rivayet zayıf kabul edilmiştir; genel nafile ibadet fazileti sabittir"
           },
           {
             "isim": "Bayram Namazı",

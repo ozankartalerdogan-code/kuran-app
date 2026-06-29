@@ -7,7 +7,12 @@
       "id": "iman_001",
       "konu": "allah_tevhid",
       "soru": "İmanın kaç şartı vardır?",
-      "secenekler": ["A) 4", "B) 5", "C) 6", "D) 7"],
+      "secenekler": [
+        "A) 4",
+        "B) 5",
+        "C) 6",
+        "D) 7"
+      ],
       "dogru_cevap": "C",
       "aciklama": "İmanın altı şartı vardır: Allah'a, meleklerine, kitaplarına, peygamberlerine, ahiret gününe ve hayır-şerriyle kadere iman.",
       "zorluk": "kolay",
@@ -17,19 +22,29 @@
       "id": "iman_002",
       "konu": "allah_tevhid",
       "soru": "Cibril hadisine göre imanın şartları arasında hangisi YER ALMAZ?",
-      "secenekler": ["A) Allah'a iman", "B) Kitaplara iman", "C) Oruç tutmak", "D) Kadere iman"],
+      "secenekler": [
+        "A) Allah'a iman",
+        "B) Kitaplara iman",
+        "C) Oruç tutmak",
+        "D) Kadere iman"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Oruç, İslam'ın beş şartından biridir; imanın şartlarından değildir. İmanın şartları: Allah, melekler, kitaplar, peygamberler, ahiret ve kaderdir.",
+      "aciklama": "Cibril hadisi, Hz. Cebrail’in insan suretinde gelip İslam, iman ve ihsanı sorduğu hadistir. Oruç, İslam’ın beş şartındandır; imanın altı şartından biri değildir.",
       "zorluk": "kolay",
       "kaynak": "Buhârî, İman 37; Müslim, İman 1"
     },
     {
       "id": "iman_003",
       "konu": "allah_tevhid",
-      "soru": "Tevhid inancı neyi ifade eder?",
-      "secenekler": ["A) Allah'ın iki olduğunu", "B) Allah'ın bir ve tek olduğunu", "C) Allah'ın yaratılmış olduğunu", "D) Birden fazla ilah olduğunu"],
+      "soru": "Tevhid (Allah’ın birliği) inancı neyi ifade eder?",
+      "secenekler": [
+        "A) Allah'ın iki olduğunu",
+        "B) Allah'ın bir ve tek olduğunu",
+        "C) Allah'ın yaratılmış olduğunu",
+        "D) Birden fazla ilah olduğunu"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Tevhid, Allah'ın bir ve tek olduğuna, ortağı ve benzeri bulunmadığına inanmaktır. İmanın temel ilkesidir.",
+      "aciklama": "Tevhid, Allah’ın bir ve tek olduğuna, ortağı ve benzeri bulunmadığına inanmaktır. İmanın temel ilkesidir.",
       "zorluk": "kolay",
       "kaynak": "Kur'an, İhlas 112/1-4"
     },
@@ -37,7 +52,12 @@
       "id": "iman_004",
       "konu": "allah_tevhid",
       "soru": "İhlas Suresi'nin ilk ayeti nasıldır?",
-      "secenekler": ["A) \"Allah Rahman ve Rahimdir\"", "B) \"De ki: O Allah'tır, bir tektir\"", "C) \"Allah'tan başka ilah yoktur\"", "D) \"Allah her şeye kadirdir\""],
+      "secenekler": [
+        "A) \"Allah Rahman ve Rahimdir\"",
+        "B) \"De ki: O Allah'tır, bir tektir\"",
+        "C) \"Allah'tan başka ilah yoktur\"",
+        "D) \"Allah her şeye kadirdir\""
+      ],
       "dogru_cevap": "B",
       "aciklama": "İhlas Suresi'nin ilk ayeti: \"De ki: O Allah'tır, bir tektir.\" (İhlas 112/1) Tevhid inancının özlü ifadesidir.",
       "zorluk": "orta",
@@ -47,7 +67,12 @@
       "id": "iman_005",
       "konu": "allah_tevhid",
       "soru": "İhlas Suresi'nde geçen \"Samed\" kelimesi ne anlama gelir?",
-      "secenekler": ["A) Yaratıcı", "B) Bağışlayan", "C) Her şeyin kendisine muhtaç olduğu, kendisi hiçbir şeye muhtaç olmayan", "D) Sonsuz güç sahibi"],
+      "secenekler": [
+        "A) Yaratıcı",
+        "B) Bağışlayan",
+        "C) Her şeyin kendisine muhtaç olduğu, kendisi hiçbir şeye muhtaç olmayan",
+        "D) Sonsuz güç sahibi"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Samed; her varlığın ihtiyaç duyduğu, kendisi ise hiçbir şeye muhtaç olmayan demektir. (İhlas 112/2)",
       "zorluk": "orta",
@@ -57,7 +82,12 @@
       "id": "iman_006",
       "konu": "allah_tevhid",
       "soru": "\"O doğurmamış ve doğurulmamıştır. Hiçbir şey O'na denk değildir\" hangi surede yer alır?",
-      "secenekler": ["A) Fatiha Suresi", "B) Bakara Suresi", "C) İhlas Suresi", "D) Felak Suresi"],
+      "secenekler": [
+        "A) Fatiha Suresi",
+        "B) Bakara Suresi",
+        "C) İhlas Suresi",
+        "D) Felak Suresi"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Bu ifadeler İhlas Suresi'nin 3. ve 4. ayetleridir. Allah'ın benzersizliğini ve doğum-doğurma gibi eksikliklerden münezzeh olduğunu bildirir.",
       "zorluk": "orta",
@@ -67,7 +97,12 @@
       "id": "iman_007",
       "konu": "allah_tevhid",
       "soru": "Cibril hadisi hangi kaynaklarda rivayet edilmektedir?",
-      "secenekler": ["A) Sadece Buhârî", "B) Sadece Müslim", "C) Buhârî ve Müslim", "D) Tirmizî ve Ebû Dâvûd"],
+      "secenekler": [
+        "A) Sadece Buhârî",
+        "B) Sadece Müslim",
+        "C) Buhârî ve Müslim",
+        "D) Tirmizî ve Ebû Dâvûd"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Cibril hadisi hem Buhârî (İman 37) hem de Müslim'de (İman 1) rivayet edilmektedir. İslam, iman ve ihsanı tanımlayan bu hadis temel kaynaklardandır.",
       "zorluk": "zor",
@@ -77,7 +112,12 @@
       "id": "iman_008",
       "konu": "allah_tevhid",
       "soru": "Allah'ın ezeli ve ebedi olması ne anlama gelir?",
-      "secenekler": ["A) Başlangıcı var, sonu yok", "B) Başlangıcı yok, sonu var", "C) Hem başlangıcı hem sonu yoktur", "D) Zamanla sınırlıdır"],
+      "secenekler": [
+        "A) Başlangıcı var, sonu yok",
+        "B) Başlangıcı yok, sonu var",
+        "C) Hem başlangıcı hem sonu yoktur",
+        "D) Zamanla sınırlıdır"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Allah ezeli (başlangıcı olmayan) ve ebedidir (sonu olmayan). Zaman ve mekânla sınırlı değildir; her şey O'na muhtaçken O hiçbir şeye muhtaç değildir.",
       "zorluk": "zor",
@@ -87,7 +127,12 @@
       "id": "iman_009",
       "konu": "melekler",
       "soru": "Melekler hangi maddeden yaratılmıştır?",
-      "secenekler": ["A) Ateşten", "B) Topraktan", "C) Nurdan", "D) Havadan"],
+      "secenekler": [
+        "A) Ateşten",
+        "B) Topraktan",
+        "C) Nurdan",
+        "D) Havadan"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Melekler nurdan yaratılmıştır. Günah işlemezler ve Allah'ın emirlerine kesinlikle uyarlar.",
       "zorluk": "kolay",
@@ -97,9 +142,14 @@
       "id": "iman_010",
       "konu": "melekler",
       "soru": "Hangi melek peygamberlere vahiy getirmekle görevlidir?",
-      "secenekler": ["A) Mikail", "B) Cebrail", "C) İsrafil", "D) Azrail"],
+      "secenekler": [
+        "A) Mikail",
+        "B) Cebrail",
+        "C) İsrafil",
+        "D) Azrail"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Cebrail (a.s.) peygamberlere Allah'ın vahyini iletmekle görevli büyük melektir. \"Ruh-ul Kudüs\" (Nahl 16/102) ve \"Ruh-ul Emin\" (Şuara 26/193) olarak da anılır.",
+      "aciklama": "Cebrail (a.s.) peygamberlere Allah’ın vahyini (Allah’tan gelen ilahi bilgiyi) iletmekle görevli büyük melektir. Kur’an’da \"Ruh-ul Kudüs\" (mukaddes/temiz ruh) ve \"Ruh-ul Emin\" (güvenilir ruh) olarak da anılır.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
@@ -107,7 +157,12 @@
       "id": "iman_011",
       "konu": "melekler",
       "soru": "Can almakla görevli melek kimdir?",
-      "secenekler": ["A) Cebrail", "B) Mikail", "C) İsrafil", "D) Azrail"],
+      "secenekler": [
+        "A) Cebrail",
+        "B) Mikail",
+        "C) İsrafil",
+        "D) Azrail"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Azrail (a.s.) can almakla görevlidir; melek-ül mevt (ölüm meleği) olarak da bilinir.",
       "zorluk": "kolay",
@@ -117,7 +172,12 @@
       "id": "iman_012",
       "konu": "melekler",
       "soru": "Mikail'in görevi nedir?",
-      "secenekler": ["A) Vahiy getirmek", "B) Can almak", "C) Sur üflemek", "D) Yağmur ve tabiat olaylarını yönetmek"],
+      "secenekler": [
+        "A) Vahiy getirmek",
+        "B) Can almak",
+        "C) Sur üflemek",
+        "D) Yağmur ve tabiat olaylarını yönetmek"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Mikail (a.s.) yağmur, rüzgar ve tabiat olaylarını yönetmekle görevli büyük melektir.",
       "zorluk": "orta",
@@ -127,7 +187,12 @@
       "id": "iman_013",
       "konu": "melekler",
       "soru": "İsrafil ne zaman sur üfler?",
-      "secenekler": ["A) Her sabah", "B) Kıyamette ve yeniden diriltişte", "C) Her gece", "D) Ramazan'da"],
+      "secenekler": [
+        "A) Her sabah",
+        "B) Kıyamette ve yeniden diriltişte",
+        "C) Her gece",
+        "D) Ramazan'da"
+      ],
       "dogru_cevap": "B",
       "aciklama": "İsrafil (a.s.) kıyametin kopması için birinci, insanların yeniden dirilişi için ikinci kez sur üfleyecektir.",
       "zorluk": "orta",
@@ -136,20 +201,30 @@
     {
       "id": "iman_014",
       "konu": "melekler",
-      "soru": "Kiramen Katibin melekleri ne yapar?",
-      "secenekler": ["A) Sur üfler", "B) Can alır", "C) İnsanların amellerini yazar", "D) Kabir sorgusunu yapar"],
+      "soru": "Kiramen Katibin (değerli yazıcılar) melekleri ne yapar?",
+      "secenekler": [
+        "A) Sur üfler",
+        "B) Can alır",
+        "C) İnsanların amellerini yazar",
+        "D) Kabir sorgusunu yapar"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Kiramen Katibin (değerli yazıcılar) her insanın sağında ve solunda bulunarak iyilik ve kötülüklerini kaydeden meleklerdir.",
+      "aciklama": "Kiramen Katibin (değerli yazıcılar), her insanın sağında ve solunda bulunarak amellerini (iyi ve kötü davranışlarını) kaydeden meleklerdir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "iman_015",
       "konu": "melekler",
-      "soru": "Münker ve Nekir'in görevi nedir?",
-      "secenekler": ["A) Amelleri kaydetmek", "B) Sur üflemek", "C) Kabir sorgusunu yapmak", "D) Tabiat olaylarını yönetmek"],
+      "soru": "Münker ve Nekir’in görevi nedir?",
+      "secenekler": [
+        "A) Amelleri kaydetmek",
+        "B) Sur üflemek",
+        "C) Kabir sorgusunu yapmak",
+        "D) Tabiat olaylarını yönetmek"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Münker ve Nekir, kişi öldükten sonra kabire gelerek \"Rabbin kim? Dinin ne? Peygamberin kim?\" diye sorgu yapan meleklerdir.",
+      "aciklama": "Münker ve Nekir, kabir sorgusunda görevli meleklerdir. Bu sorgu, ölümden sonraki berzah hayatı içinde anlatılır.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
@@ -157,7 +232,12 @@
       "id": "iman_016",
       "konu": "melekler",
       "soru": "Melekler hakkında hangisi YANLIŞTIR?",
-      "secenekler": ["A) Nurdan yaratılmıştır", "B) Günah işleyebilirler", "C) Her şekle girebilirler", "D) Allah'ın emirlerine kesinlikle uyarlar"],
+      "secenekler": [
+        "A) Nurdan yaratılmıştır",
+        "B) Günah işleyebilirler",
+        "C) Her şekle girebilirler",
+        "D) Allah'ın emirlerine kesinlikle uyarlar"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Melekler günah işlemezler; bu onların en temel özelliğidir. Geri kalan seçenekler meleklerin doğru özellikleridir.",
       "zorluk": "zor",
@@ -167,7 +247,12 @@
       "id": "iman_017",
       "konu": "kitaplar_suhuf",
       "soru": "Tevrat hangi peygambere indirilmiştir?",
-      "secenekler": ["A) Hz. Davud", "B) Hz. İsa", "C) Hz. Musa", "D) Hz. İbrahim"],
+      "secenekler": [
+        "A) Hz. Davud",
+        "B) Hz. İsa",
+        "C) Hz. Musa",
+        "D) Hz. İbrahim"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Tevrat, Hz. Musa'ya indirilmiş büyük ilahi kitaptır.",
       "zorluk": "kolay",
@@ -177,7 +262,12 @@
       "id": "iman_018",
       "konu": "kitaplar_suhuf",
       "soru": "Zebur hangi peygambere indirilmiştir?",
-      "secenekler": ["A) Hz. Musa", "B) Hz. Davud", "C) Hz. İsa", "D) Hz. Süleyman"],
+      "secenekler": [
+        "A) Hz. Musa",
+        "B) Hz. Davud",
+        "C) Hz. İsa",
+        "D) Hz. Süleyman"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Zebur, Hz. Davud'a indirilmiş büyük ilahi kitaptır.",
       "zorluk": "kolay",
@@ -187,7 +277,12 @@
       "id": "iman_019",
       "konu": "kitaplar_suhuf",
       "soru": "İncil hangi peygambere indirilmiştir?",
-      "secenekler": ["A) Hz. Musa", "B) Hz. Yahya", "C) Hz. İsa", "D) Hz. Davud"],
+      "secenekler": [
+        "A) Hz. Musa",
+        "B) Hz. Yahya",
+        "C) Hz. İsa",
+        "D) Hz. Davud"
+      ],
       "dogru_cevap": "C",
       "aciklama": "İncil, Hz. İsa'ya indirilmiş büyük ilahi kitaptır.",
       "zorluk": "kolay",
@@ -197,7 +292,12 @@
       "id": "iman_020",
       "konu": "kitaplar_suhuf",
       "soru": "Dört büyük ilahi kitap hangileridir?",
-      "secenekler": ["A) Tevrat, Zebur, İncil, Kur'an", "B) Tevrat, İncil, Kur'an, Suhuf", "C) Zebur, İncil, Kur'an, Sahifeler", "D) Tevrat, Zebur, İncil, Hadis"],
+      "secenekler": [
+        "A) Tevrat, Zebur, İncil, Kur'an",
+        "B) Tevrat, İncil, Kur'an, Suhuf",
+        "C) Zebur, İncil, Kur'an, Sahifeler",
+        "D) Tevrat, Zebur, İncil, Hadis"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Dört büyük ilahi kitap: Tevrat (Hz. Musa), Zebur (Hz. Davud), İncil (Hz. İsa) ve Kur'an-ı Kerim (Hz. Muhammed).",
       "zorluk": "orta",
@@ -206,10 +306,15 @@
     {
       "id": "iman_021",
       "konu": "kitaplar_suhuf",
-      "soru": "Suhuf (sahifeler) nedir?",
-      "secenekler": ["A) Büyük ilahi kitaplar", "B) Bazı peygamberlere verilen küçük kitap/sayfalar", "C) Hadis kitapları", "D) Sonradan yazılan tefsir kitapları"],
+      "soru": "Suhuf (ilahi sahifeler) nedir?",
+      "secenekler": [
+        "A) Büyük ilahi kitaplar",
+        "B) Bazı peygamberlere verilen kısa vahiy sayfaları",
+        "C) Hadis kitapları",
+        "D) Sonradan yazılan tefsir kitapları"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Suhuf, büyük kitap almayan bazı peygamberlere Allah tarafından verilen sayfalar/küçük kitapçıklardır.",
+      "aciklama": "Suhuf, bazı peygamberlere verilen kısa vahiy sayfalarıdır. Kelime olarak sahifeler, yani ilahi sayfalar anlamına gelir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -217,7 +322,12 @@
       "id": "iman_022",
       "konu": "kitaplar_suhuf",
       "soru": "Hz. İbrahim'e kaç sahife indirilmiştir?",
-      "secenekler": ["A) 5", "B) 10", "C) 30", "D) 50"],
+      "secenekler": [
+        "A) 5",
+        "B) 10",
+        "C) 30",
+        "D) 50"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. İbrahim'e 10 sahife indirilmiştir.",
       "zorluk": "orta",
@@ -227,7 +337,12 @@
       "id": "iman_023",
       "konu": "kitaplar_suhuf",
       "soru": "Hz. Şit'e kaç sahife indirilmiştir?",
-      "secenekler": ["A) 10", "B) 30", "C) 50", "D) 100"],
+      "secenekler": [
+        "A) 10",
+        "B) 30",
+        "C) 50",
+        "D) 100"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Şit'e 50 sahife indirilmiştir.",
       "zorluk": "orta",
@@ -237,9 +352,14 @@
       "id": "iman_024",
       "konu": "kitaplar_suhuf",
       "soru": "Sahife (suhuf) alan peygamberler arasında hangisi YER ALMAZ?",
-      "secenekler": ["A) Hz. Adem", "B) Hz. İdris", "C) Hz. İbrahim", "D) Hz. Davud"],
+      "secenekler": [
+        "A) Hz. Adem",
+        "B) Hz. İdris",
+        "C) Hz. İbrahim",
+        "D) Hz. Davud"
+      ],
       "dogru_cevap": "D",
-      "aciklama": "Hz. Davud'a Zebur adıyla büyük kitap indirilmiştir; suhuf almamıştır. Suhuf alanlar: Hz. Adem, Hz. Şit, Hz. İdris ve Hz. İbrahim'dir.",
+      "aciklama": "Hz. Davud’a Zebur adıyla büyük kitap indirilmiştir. Yaygın ilmihal bilgisinde suhuf alanlar Hz. Adem, Hz. Şit, Hz. İdris ve Hz. İbrahim olarak öğretilir.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
@@ -247,7 +367,12 @@
       "id": "iman_025",
       "konu": "peygamberler",
       "soru": "Peygamberlerin ilki kimdir?",
-      "secenekler": ["A) Hz. Nuh", "B) Hz. İbrahim", "C) Hz. Adem", "D) Hz. Musa"],
+      "secenekler": [
+        "A) Hz. Nuh",
+        "B) Hz. İbrahim",
+        "C) Hz. Adem",
+        "D) Hz. Musa"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Peygamberlerin ilki Hz. Adem (a.s.)'dir. Hem insanlığın hem de peygamberler silsilesinin başıdır.",
       "zorluk": "kolay",
@@ -257,9 +382,14 @@
       "id": "iman_026",
       "konu": "peygamberler",
       "soru": "Peygamberlerin sonuncusu kimdir?",
-      "secenekler": ["A) Hz. İsa", "B) Hz. Yahya", "C) Hz. Musa", "D) Hz. Muhammed"],
+      "secenekler": [
+        "A) Hz. İsa",
+        "B) Hz. Yahya",
+        "C) Hz. Musa",
+        "D) Hz. Muhammed"
+      ],
       "dogru_cevap": "D",
-      "aciklama": "Hz. Muhammed (s.a.v.) peygamberlerin sonuncusudur. \"Hatemü'n-Nebiyyîn\" (Peygamberlerin Mührü) olarak anılır. (Ahzab 33/40)",
+      "aciklama": "Hz. Muhammed (s.a.s.) peygamberlerin sonuncusudur. \"Hatemü’n-Nebiyyîn\" peygamberlerin mührü, yani son peygamber anlamında kullanılır. (Ahzab 33/40)",
       "zorluk": "kolay",
       "kaynak": "Kur'an, Ahzab 33/40"
     },
@@ -267,9 +397,14 @@
       "id": "iman_027",
       "konu": "peygamberler",
       "soru": "Peygamberlere imanda temel kural nedir?",
-      "secenekler": ["A) Yalnızca Hz. Muhammed'e iman yeterlidir", "B) Aralarında fark gözetilmez, hepsine iman etmek gerekir", "C) Sadece Kur'an'da adı geçenlere inanılır", "D) Kendi dönemimizin peygamberine iman yeterlidir"],
+      "secenekler": [
+        "A) Yalnızca Hz. Muhammed'e iman yeterlidir",
+        "B) Aralarında fark gözetilmez, hepsine iman etmek gerekir",
+        "C) Sadece Kur'an'da adı geçenlere inanılır",
+        "D) Kendi dönemimizin peygamberine iman yeterlidir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Tüm peygamberlere aralarında fark gözetmeksizin iman etmek gerekir. Herhangi birini inkâr etmek imanı bozar.",
+      "aciklama": "Müslüman, Allah’ın gönderdiği bütün peygamberlere iman eder. Peygamberlerden birini bilerek reddetmek iman açısından ciddi bir problemdir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
@@ -277,9 +412,14 @@
       "id": "iman_028",
       "konu": "peygamberler",
       "soru": "Resul ne demektir?",
-      "secenekler": ["A) Kendisine yalnızca ilham gelen kişi", "B) Kendisine yeni bir şeriat ve kitap verilen peygamber", "C) Allah'ın velisi olan alim", "D) Sahabenin önde geleni"],
+      "secenekler": [
+        "A) Kendisine yalnızca ilham gelen kişi",
+        "B) Yeni bir şeriat veya özel tebliğ görevi verilen peygamber",
+        "C) Allah’ın velisi olan âlim",
+        "D) Sahabenin önde geleni"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Resul, Allah tarafından yeni bir şeriat ve kitap verilen peygamberdir. Her resul aynı zamanda nebidir.",
+      "aciklama": "Resul, kendisine yeni bir şeriat veya önceki hükümleri yenileyen özel bir tebliğ görevi verilen peygamberdir. Her resul aynı zamanda nebidir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -287,9 +427,14 @@
       "id": "iman_029",
       "konu": "peygamberler",
       "soru": "Nebi ile resul arasındaki temel fark nedir?",
-      "secenekler": ["A) Nebi daha üstündür, resul daha aşağıdadır", "B) Aralarında hiçbir fark yoktur", "C) Nebi yeni şeriat getirmez; resul yeni şeriat ve kitap getirir", "D) Nebi yalnızca Müslümanlara gönderilir"],
+      "secenekler": [
+        "A) Nebi daha üstündür, resul daha aşağıdadır",
+        "B) Aralarında hiçbir fark yoktur",
+        "C) Nebi yeni şeriat getirmez; resul yeni şeriat veya özel tebliğ göreviyle gönderilir",
+        "D) Nebi yalnızca Müslümanlara gönderilir"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Nebi, önceki şeriata uyarak tebliğ görevi yapar; yeni şeriat getirmez. Resul ise yeni bir şeriat ve kitap getirir.",
+      "aciklama": "Nebi, vahiy alan fakat yeni şeriat getirmeyen peygamberdir. Resul ise yeni bir şeriat veya özel tebliğ göreviyle gönderilen peygamber olarak açıklanır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -297,7 +442,12 @@
       "id": "iman_030",
       "konu": "peygamberler",
       "soru": "Kur'an'da kaç peygamberin adı geçer?",
-      "secenekler": ["A) 10", "B) 15", "C) 25", "D) 40"],
+      "secenekler": [
+        "A) 10",
+        "B) 15",
+        "C) 25",
+        "D) 40"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Kur'an'da 25 peygamberin adı zikredilmektedir.",
       "zorluk": "orta",
@@ -307,9 +457,14 @@
       "id": "iman_031",
       "konu": "peygamberler",
       "soru": "\"Her resul aynı zamanda nebidir, ama her nebi resul değildir\" ifadesinden ne anlaşılır?",
-      "secenekler": ["A) Resul sayısı nebi sayısından fazladır", "B) Nebi sayısı resul sayısından fazladır", "C) Her ikisi de eşit sayıdadır", "D) Resul daha alt bir derecedir"],
+      "secenekler": [
+        "A) Resul sayısı nebi sayısından fazladır",
+        "B) Nebi sayısı resul sayısından fazladır",
+        "C) Her ikisi de eşit sayıdadır",
+        "D) Resul daha alt bir derecedir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Tüm resuller aynı zamanda nebidir; ancak bazı nebiler resul derecesine ulaşmamıştır. Bu nedenle nebi sayısı, resul sayısından fazladır.",
+      "aciklama": "Bu ifade, her resulün peygamber olduğunu; fakat her peygamberin resul olarak adlandırılmadığını anlatır. Bu nedenle nebi sayısı, resul sayısından fazladır.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
@@ -317,9 +472,14 @@
       "id": "iman_032",
       "konu": "peygamberler",
       "soru": "Hz. Muhammed'den sonra yeni bir peygamber gelecek midir?",
-      "secenekler": ["A) Evet, kıyamete yakın yeni bir peygamber gelecektir", "B) Hayır, Hz. Muhammed son peygamberdir", "C) Hz. İsa yeni peygamber sıfatıyla gelecektir", "D) Bu konuda kesin bilgi yoktur"],
+      "secenekler": [
+        "A) Evet, kıyamete yakın yeni bir peygamber gelecektir",
+        "B) Hayır, Hz. Muhammed son peygamberdir",
+        "C) Hz. İsa yeni peygamber sıfatıyla gelecektir",
+        "D) Bu konuda kesin bilgi yoktur"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Hz. Muhammed (s.a.v.) son peygamberdir; O'ndan sonra yeni bir peygamber gelmeyecektir. Hz. İsa'nın inişi ise yeni bir peygamberlik değil, önceki risaletin devamıdır. (Ahzab 33/40)",
+      "aciklama": "Hz. Muhammed (s.a.s.) son peygamberdir; O’ndan sonra yeni bir peygamber gelmeyecektir. Hz. İsa’nın inişi yeni peygamberlik anlamına gelmez. (Ahzab 33/40)",
       "zorluk": "zor",
       "kaynak": "Kur'an, Ahzab 33/40; Diyanet İlmihali"
     },
@@ -327,7 +487,12 @@
       "id": "iman_033",
       "konu": "ahiret",
       "soru": "Kabir hayatı ne zaman başlar?",
-      "secenekler": ["A) Kıyametten sonra", "B) Ölümden hemen sonra", "C) Mahşer yerinde", "D) Dünyadan önce"],
+      "secenekler": [
+        "A) Kıyametten sonra",
+        "B) Ölümden hemen sonra",
+        "C) Mahşer yerinde",
+        "D) Dünyadan önce"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Kabir hayatı, kişi öldükten hemen sonra başlayan ve kıyamete kadar süren berzah (geçiş) dönemidir.",
       "zorluk": "kolay",
@@ -336,30 +501,45 @@
     {
       "id": "iman_034",
       "konu": "ahiret",
-      "soru": "Mahşer ne demektir?",
-      "secenekler": ["A) Kabrin içi", "B) Tüm insanların kıyametten sonra hesap için bir araya getirileceği yer", "C) Cennetin kapısı", "D) Cehennem ateşi"],
+      "soru": "Mahşer (toplanma yeri) ne demektir?",
+      "secenekler": [
+        "A) Kabrin içi",
+        "B) Tüm insanların kıyametten sonra hesap için bir araya getirileceği yer",
+        "C) Cennetin kapısı",
+        "D) Cehennem ateşi"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Mahşer, kıyametten sonra tüm insanların hesap vermek için bir araya getirileceği büyük toplantı yeridir.",
+      "aciklama": "Mahşer, kıyametten sonra tüm insanların hesap vermek için bir araya getirileceği büyük toplanma yeridir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "iman_035",
       "konu": "ahiret",
-      "soru": "Mizan ne demektir?",
-      "secenekler": ["A) Sırat köprüsü", "B) Kabir azabı", "C) Amellerin tartılacağı ilahi ölçü/terazi", "D) Cennet nehirleri"],
+      "soru": "Mizan (ilahi ölçü/terazi) ne demektir?",
+      "secenekler": [
+        "A) Sırat köprüsü",
+        "B) Kabir azabı",
+        "C) Amellerin tartılacağı ilahi ölçü/terazi",
+        "D) Cennet nehirleri"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Mizan, ahirette iyiliklerin ve kötülüklerin tartılacağı ilahi ölçüdür.",
+      "aciklama": "Mizan, ahirette iyiliklerin ve kötülüklerin tartılacağı ilahi ölçü/terazi anlamında kullanılır.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
     {
       "id": "iman_036",
       "konu": "ahiret",
-      "soru": "Sırat ne demektir?",
-      "secenekler": ["A) Cennetin kapısı", "B) Cehennem üzerindeki köprü", "C) Kabir sorgusu", "D) Ahiretteki terazi"],
+      "soru": "Sırat (ahiret köprüsü) ne demektir?",
+      "secenekler": [
+        "A) Cennetin kapısı",
+        "B) Cehennem üzerindeki köprü",
+        "C) Kabir sorgusu",
+        "D) Ahiretteki terazi"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Sırat, cehennem üzerinde kurulan ve herkesin geçmesi gereken köprüdür. İman edenler geçerken geçemeyenler cehenneme düşer.",
+      "aciklama": "Sırat, cehennem üzerinde kurulu olduğu bildirilen ahiret köprüsüdür. Bu konu gaybîdir; ayrıntısı Allah’ın bildirdiği kadarıyla bilinir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
@@ -367,7 +547,12 @@
       "id": "iman_037",
       "konu": "ahiret",
       "soru": "Kabir sorgusunda sorulan sorular hangileridir?",
-      "secenekler": ["A) \"Kaç yıl yaşadın? Ne işle uğraştın?\"", "B) \"Rabbin kim? Dinin ne? Peygamberin kim?\"", "C) \"Kaç namaz kıldın? Kaç oruç tuttun?\"", "D) \"Zengin mi yoksa fakir miydin?\""],
+      "secenekler": [
+        "A) \"Kaç yıl yaşadın? Ne işle uğraştın?\"",
+        "B) \"Rabbin kim? Dinin ne? Peygamberin kim?\"",
+        "C) \"Kaç namaz kıldın? Kaç oruç tuttun?\"",
+        "D) \"Zengin mi yoksa fakir miydin?\""
+      ],
       "dogru_cevap": "B",
       "aciklama": "Kabir sorgusunda Münker ve Nekir melekleri üç soru sorar: \"Rabbin kim? Dinin ne? Peygamberin kim?\"",
       "zorluk": "orta",
@@ -377,9 +562,14 @@
       "id": "iman_038",
       "konu": "ahiret",
       "soru": "Kabir nimeti ve kabir azabı kime verilir?",
-      "secenekler": ["A) İkisi de herkese eşit verilir", "B) Nimet müminlere, azap inkârcılara verilir", "C) Yalnızca azap vardır, nimet yoktur", "D) Yalnızca nimet vardır, azap yoktur"],
+      "secenekler": [
+        "A) İkisi de herkese eşit verilir",
+        "B) Nimet imanla yaşayanlara, azap inkâr ve nifak üzere ölenlere verilir",
+        "C) Yalnızca azap vardır, nimet yoktur",
+        "D) Yalnızca nimet vardır, azap yoktur"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Kabir nimeti iman edenlere, kabir azabı ise inkârcılara ve büyük günah işleyenlere verilir.",
+      "aciklama": "Kabir nimeti imanla yaşayan kimseler için; kabir azabı ise inkâr ve nifak üzere ölen kimseler için anlatılır. Günahkâr müminlerle ilgili nihai hüküm Allah’ın rahmetine ve adaletine bağlıdır.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -387,9 +577,14 @@
       "id": "iman_039",
       "konu": "ahiret",
       "soru": "Deccal kıyametin nasıl bir alametidir?",
-      "secenekler": ["A) Küçük alamet", "B) Büyük alamet", "C) Alamet değildir", "D) Yalnızca semboliktir"],
+      "secenekler": [
+        "A) Küçük alamet",
+        "B) Büyük alamet",
+        "C) Alamet değildir",
+        "D) Yalnızca semboliktir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Deccal'in çıkması kıyametin büyük alametlerinden biridir.",
+      "aciklama": "Deccal, kıyamete yakın dönemde büyük fitne sebebi olacağı bildirilen yalancı/aldatıcı kişi olarak anlatılır. Çıkışı büyük alametlerden biridir.",
       "zorluk": "orta",
       "kaynak": "Buhârî, Fiten 26; Diyanet İlmihali"
     },
@@ -397,7 +592,12 @@
       "id": "iman_040",
       "konu": "ahiret",
       "soru": "Kıyamete yakın Hz. İsa (a.s.) için ne rivayet edilmektedir?",
-      "secenekler": ["A) Yeniden peygamber olarak gönderilecektir", "B) Yeryüzüne inecek ve İslam'ın hükümlerine göre hareket edecektir", "C) Ahirette yargılanacaktır", "D) İkinci bir İncil getireceği rivayet edilir"],
+      "secenekler": [
+        "A) Yeniden peygamber olarak gönderilecektir",
+        "B) Yeryüzüne inecek ve İslam'ın hükümlerine göre hareket edecektir",
+        "C) Ahirette yargılanacaktır",
+        "D) İkinci bir İncil getireceği rivayet edilir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. İsa'nın kıyamete yakın yeryüzüne ineceği ve İslam'ın hükümlerine göre hareket edeceği rivayet edilmektedir. Bu, yeni bir peygamberlik değildir.",
       "zorluk": "orta",
@@ -406,8 +606,13 @@
     {
       "id": "iman_041",
       "konu": "ahiret",
-      "soru": "Berzah ne demektir?",
-      "secenekler": ["A) Cennet ile cehennem arasındaki bölge", "B) Ölüm ile kıyamet arasındaki geçiş dönemi (kabir hayatı)", "C) Mahşer yerinin adı", "D) Sırat köprüsünün kenarı"],
+      "soru": "Berzah (geçiş dönemi) ne demektir?",
+      "secenekler": [
+        "A) Cennet ile cehennem arasındaki bölge",
+        "B) Ölüm ile kıyamet arasındaki geçiş dönemi (kabir hayatı)",
+        "C) Mahşer yerinin adı",
+        "D) Sırat köprüsünün kenarı"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Berzah, ölümden kıyamete kadar geçen geçiş dönemine verilen addır. Kabir hayatı da bu nedenle berzah hayatı olarak bilinir.",
       "zorluk": "zor",
@@ -416,10 +621,15 @@
     {
       "id": "iman_042",
       "konu": "ahiret",
-      "soru": "Ye'cüc ve Me'cüc kıyametin nasıl bir alametidir?",
-      "secenekler": ["A) Küçük alamet", "B) Büyük alamet", "C) Alamet değildir", "D) Kadir gecesiyle ilgilidir"],
+      "soru": "Ye’cüc ve Me’cüc kıyametin nasıl bir alametidir?",
+      "secenekler": [
+        "A) Küçük alamet",
+        "B) Büyük alamet",
+        "C) Alamet değildir",
+        "D) Kadir gecesiyle ilgilidir"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Ye'cüc ve Me'cüc'ün çıkması kıyametin büyük alametlerinden biridir. (Enbiya 21/96; Diyanet İlmihali)",
+      "aciklama": "Ye’cüc ve Me’cüc, kıyamete yakın dönemde ortaya çıkacağı bildirilen büyük bozguncu topluluklar olarak anlatılır. Çıkışları büyük alametlerden biridir. (Enbiya 21/96; Diyanet İlmihali)",
       "zorluk": "zor",
       "kaynak": "Kur'an, Enbiya 21/96; Diyanet İlmihali"
     },
@@ -427,9 +637,14 @@
       "id": "iman_043",
       "konu": "kader_kaza",
       "soru": "Kader ne demektir?",
-      "secenekler": ["A) Allah'ın yaratmasından önce yaşanan dönem", "B) Allah'ın her şeyi ezelde bilmesi ve takdir etmesi", "C) İnsanın kendi iradesiyle yaptığı seçimler", "D) Tesadüfen gerçekleşen olaylar"],
+      "secenekler": [
+        "A) Allah'ın yaratmasından önce yaşanan dönem",
+        "B) Allah'ın her şeyi ezelde bilmesi ve takdir etmesi",
+        "C) İnsanın kendi iradesiyle yaptığı seçimler",
+        "D) Tesadüfen gerçekleşen olaylar"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Kader, Allah'ın her şeyi başlangıç öncesi (ezel) ilmiyle bilmesi, belirlemesi ve yazmasıdır.",
+      "aciklama": "Kader, Allah’ın her şeyi ezelde (başlangıcı olmayan ilmiyle) bilmesi, belirlemesi ve yazmasıdır.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
@@ -437,9 +652,14 @@
       "id": "iman_044",
       "konu": "kader_kaza",
       "soru": "Kaza ne demektir?",
-      "secenekler": ["A) Bir günahın cezası", "B) Allah'ın takdir ettiği şeylerin zamanı gelince gerçekleşmesi", "C) Geçmişteki olaylar", "D) İnsanın kaderini değiştirme gücü"],
+      "secenekler": [
+        "A) Bir günahın cezası",
+        "B) Allah'ın takdir ettiği şeylerin zamanı gelince gerçekleşmesi",
+        "C) Geçmişteki olaylar",
+        "D) İnsanın kaderini değiştirme gücü"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Kaza, Allah'ın ezelde takdir ettiği şeylerin zamanı gelince yaratılması ve gerçekleşmesidir.",
+      "aciklama": "Kaza, Allah’ın ezelde takdir ettiği şeylerin zamanı gelince yaratılması ve gerçekleşmesidir.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },
@@ -447,9 +667,14 @@
       "id": "iman_045",
       "konu": "kader_kaza",
       "soru": "Cibril hadisine göre kadere iman nasıl tanımlanır?",
-      "secenekler": ["A) \"Yalnızca hayırlı şeylerin Allah'tan geldiğine inanmak\"", "B) \"Hayır ve şerriyle kadere inanmak\"", "C) \"Sadece ölümün Allah'ın elinde olduğuna inanmak\"", "D) \"Kaderin değiştirilebileceğine inanmak\""],
+      "secenekler": [
+        "A) \"Yalnızca hayırlı şeylerin Allah'tan geldiğine inanmak\"",
+        "B) \"Hayır ve şerriyle kadere inanmak\"",
+        "C) \"Sadece ölümün Allah'ın elinde olduğuna inanmak\"",
+        "D) \"Kaderin değiştirilebileceğine inanmak\""
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Cibril hadisinde kadere iman \"hayır ve şerriyle kadere inanmak\" şeklinde tanımlanmaktadır. (Buhârî, İman 37; Müslim, İman 1)",
+      "aciklama": "Cibril hadisinde kadere iman \"hayır ve şerriyle kadere inanmak\" şeklinde tanımlanır. Bu, hem güzel hem zor görünen olayların Allah’ın ilmi ve takdiri dışında olmadığını ifade eder.",
       "zorluk": "orta",
       "kaynak": "Buhârî, İman 37; Müslim, İman 1"
     },
@@ -457,9 +682,14 @@
       "id": "iman_046",
       "konu": "kader_kaza",
       "soru": "Kadere imanla ilgili hangisi doğrudur?",
-      "secenekler": ["A) Kader, insanı her türlü sorumluluktan kurtarır", "B) Kader inancı insanın iradesini ve sorumluluğunu ortadan kaldırmaz", "C) Kader inanan kişi ibadet etmek zorunda değildir", "D) Kötü olaylar kaderin dışındadır"],
+      "secenekler": [
+        "A) Kader, insanı her türlü sorumluluktan kurtarır",
+        "B) Kader inancı insanın iradesini ve sorumluluğunu ortadan kaldırmaz",
+        "C) Kader inanan kişi ibadet etmek zorunda değildir",
+        "D) Kötü olaylar kaderin dışındadır"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Kadere iman, insanın iradesini ve sorumluluğunu ortadan kaldırmaz. Her şey Allah'ın ezeli ilmi dahilindedir; ancak insan irade sahibidir ve seçimlerinden sorumludur.",
+      "aciklama": "Kadere iman, insanın iradesini ve sorumluluğunu ortadan kaldırmaz. İnsan seçimlerinden sorumludur; her şey Allah’ın ezeli ilmi ve takdiri içindedir.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     },
@@ -467,9 +697,14 @@
       "id": "iman_047",
       "konu": "kader_kaza",
       "soru": "Kader inancına göre \"hayır ve şer\" hakkında doğru ifade hangisidir?",
-      "secenekler": ["A) Hayır Allah'tan, şer insandan gelir", "B) Hayır ve şerrin ikisi de Allah'ın yaratmasıyla gerçekleşir", "C) Şer Allah'tan gelmez, şeytan yaratır", "D) İnsan şerri tamamen kendisi yaratır"],
+      "secenekler": [
+        "A) Hayır Allah'tan, şer insandan gelir",
+        "B) Hayır ve şerrin ikisi de Allah'ın yaratmasıyla gerçekleşir",
+        "C) Şer Allah'tan gelmez, şeytan yaratır",
+        "D) İnsan şerri tamamen kendisi yaratır"
+      ],
       "dogru_cevap": "B",
-      "aciklama": "Ehl-i Sünnet inancına göre hayır da şer de Allah'ın yaratmasıyla gerçekleşir; ancak şer, kulluk açısından insana nispet edilir ve insan tercihiyle ilişkilidir.",
+      "aciklama": "Ehl-i Sünnet inancına göre hayır da şer de Allah’ın yaratmasıyla gerçekleşir; insan ise kendi tercihlerinden ve davranışlarından sorumludur.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     },
@@ -477,7 +712,12 @@
       "id": "iman_048",
       "konu": "genel",
       "soru": "İslam'ın 5 şartı ile imanın 6 şartı arasındaki temel fark nedir?",
-      "secenekler": ["A) Hiçbir fark yoktur", "B) İmanın şartları eyleme dönük, İslam'ın şartları kalbe dönüktür", "C) İmanın şartları kalbe dönük inançlar, İslam'ın şartları eyleme dönük ibadetlerdir", "D) İkisi de yalnızca dışa görünen ibadetlerdir"],
+      "secenekler": [
+        "A) Hiçbir fark yoktur",
+        "B) İmanın şartları eyleme dönük, İslam'ın şartları kalbe dönüktür",
+        "C) İmanın şartları kalbe dönük inançlar, İslam'ın şartları eyleme dönük ibadetlerdir",
+        "D) İkisi de yalnızca dışa görünen ibadetlerdir"
+      ],
       "dogru_cevap": "C",
       "aciklama": "İmanın 6 şartı (Allah, melekler, kitaplar, peygamberler, ahiret, kader) kalbe dönük inançları; İslam'ın 5 şartı (şehadet, namaz, oruç, zekat, hac) eyleme dönük ibadetleri içerir.",
       "zorluk": "kolay",
@@ -487,9 +727,14 @@
       "id": "iman_049",
       "konu": "genel",
       "soru": "İmanın 6 şartından hangisi kıyamet ve ölüm sonrası hayatla ilgilidir?",
-      "secenekler": ["A) Allah'a iman", "B) Meleklere iman", "C) Ahiret gününe iman", "D) Kitaplara iman"],
+      "secenekler": [
+        "A) Allah'a iman",
+        "B) Meleklere iman",
+        "C) Ahiret gününe iman",
+        "D) Kitaplara iman"
+      ],
       "dogru_cevap": "C",
-      "aciklama": "Ahiret gününe iman; ölümden sonraki hayatı, kıyameti, mahşeri, mizanı, sıratı ve cennet-cehennemi kapsar.",
+      "aciklama": "Ahiret gününe iman; ölümden sonraki hayatı, kıyameti, mahşeri (toplanma yeri), mizanı (ilahi ölçü/terazi), sıratı (ahiret köprüsü) ve cennet-cehennemi kapsar.",
       "zorluk": "kolay",
       "kaynak": "Buhârî, İman 37; Müslim, İman 1"
     },
@@ -497,7 +742,12 @@
       "id": "iman_050",
       "konu": "genel",
       "soru": "Dört büyük kitap içinden Allah'ın koruma altına aldığını bildirdiği tek kitap hangisidir?",
-      "secenekler": ["A) Tevrat", "B) Zebur", "C) İncil", "D) Kur'an"],
+      "secenekler": [
+        "A) Tevrat",
+        "B) Zebur",
+        "C) İncil",
+        "D) Kur'an"
+      ],
       "dogru_cevap": "D",
       "aciklama": "\"Şüphesiz Zikr'i (Kur'an'ı) biz indirdik; onu koruyacak olan da biziz.\" (Hicr 15/9) Kur'an Allah'ın bizzat koruma altına aldığı tek kitaptır.",
       "zorluk": "orta",

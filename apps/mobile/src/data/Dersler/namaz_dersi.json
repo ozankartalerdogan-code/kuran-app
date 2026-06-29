@@ -15,14 +15,14 @@
       "id": "namaz_k02",
       "tip": "metin",
       "baslik": "Namaz Neden Kılınır?",
-      "icerik": "Namaz; Allah'ı anmak, şükretmek ve O'na yakınlaşmak için kılınır. Kuran'da 'Namazı dosdoğru kılın' emri pek çok ayette tekrarlanır. Aynı zamanda kişiyi kötülüklerden alıkoyar.",
+      "icerik": "Namaz; Allah'ı anmak, şükretmek ve O'na yakınlaşmak için kılınır. Kur'an'da 'Namazı dosdoğru kılın' emri pek çok ayette tekrarlanır. Aynı zamanda kişiyi kötülüklerden alıkoyar.",
       "vurgu": "Allah'ı anmak ve O'na yakınlaşmak"
     },
     {
       "id": "namaz_k03",
       "tip": "metin",
       "baslik": "Beş Vakit Namaz",
-      "icerik": "Günde beş vakit namaz kılmak farzdır:\n\n• Sabah (Fecir) — şafaktan güneş doğuşuna kadar\n• Öğle (Zuhr) — güneşin tepeden geçmesinden sonra\n• İkindi (Asr) — öğleden akşama kadar\n• Akşam (Mağrib) — güneş batışından sonra\n• Yatsı (İşa) — akşamdan fecre kadar (gece ortasından sonra kılmak mekruhtur)",
+      "icerik": "Günde beş vakit namaz kılmak farzdır:\n\n• Sabah (Fecir) — şafaktan güneş doğuşuna kadar\n• Öğle (Zuhr) — güneşin tepeden geçmesinden sonra\n• İkindi (Asr) — öğleden akşama kadar\n• Akşam (Mağrib) — güneş batışından sonra\n• Yatsı (İşa) — akşamdan fecre kadar\n\nYatsı namazını özürsüz olarak çok geciktirmemek daha uygundur. Vakit fecre kadar devam eder; fazilet ve mekruh vakit ayrıntıları mezheplere göre farklı değerlendirilir.",
       "vurgu": "Sabah · Öğle · İkindi · Akşam · Yatsı"
     },
     {
@@ -35,32 +35,32 @@
     {
       "id": "namaz_k05",
       "tip": "metin",
-      "baslik": "Namazın Sıhhat Şartları",
-      "icerik": "Namazın geçerli sayılabilmesi için altı şart gerekir:\n\n• Hadesten taharet — abdestli olmak\n• Necasetten taharet — beden, elbise ve yerin temiz olması\n• Setr-i avret — avret yerlerinin örtülü olması\n• İstikbal-i kıble — Kâbe'ye yönelmek\n• Vakit — namaz vaktinin girmiş olması\n• Niyet — kılınacak namaza niyet etmek",
+      "baslik": "Namazın Sıhhat (Geçerlilik) Şartları",
+      "icerik": "Namazın geçerli sayılabilmesi için altı şart gerekir:\n\n• Hadesten taharet (hükmi/manevi kirlilikten temizlenme) — abdestli olmak\n• Necasetten taharet (maddi pislikten temizlenme) — beden, elbise ve yerin temiz olması\n• Setr-i avret (örtülmesi gereken yerleri kapatma) — avret yerlerinin örtülü olması\n• İstikbal-i kıble — Kâbe'ye yönelmek\n• Vakit — namaz vaktinin girmiş olması\n• Niyet — kılınacak namaza niyet etmek",
       "vurgu": "Bu şartlardan biri eksikse namaz geçersiz sayılır"
     },
     {
       "id": "namaz_k06",
       "tip": "metin",
       "baslik": "Namazın Rükünleri (Farzları)",
-      "icerik": "Namazın içinde yerine getirilmesi zorunlu olan farzlara rükün denir:\n\n• İftitah tekbiri — 'Allahu Ekber' diyerek başlamak\n• Kıyam — ayakta durmak\n• Kıraat — Kuran'dan en az bir ayet okumak (Fatiha farz, zamm-ı sure vacip)\n• Rükû — eğilmek\n• Secde — alnı yere koymak (her rekatta 2 kez)\n• Ka'de-i ahire — son oturuş\n\nBu farzlardan biri terk edilirse namaz bozulur.",
-      "vurgu": "Rükün eksikse namaz bozulur, sehiv secdesiyle düzeltilemez"
+      "icerik": "Namazın içinde yerine getirilmesi zorunlu olan farzlara rükün (ibadetin ana unsuru) denir:\n\n• İftitah tekbiri — 'Allahu Ekber' diyerek başlamak\n• Kıyam — ayakta durmak\n• Kıraat (namazda Kur'an okuma) — Kur'an'dan namaz geçerli olacak kadar okumak. Fatiha ve zamm-ı surenin hükmü mezheplere göre farklı değerlendirilir; zamm-ı sure, Fatiha'dan sonra okunan ek sure veya ayettir\n• Rükû — eğilmek\n• Secde — alnı yere koymak (her rekatta 2 kez)\n• Ka'de-i ahire — son oturuş\n\nBu farzlardan biri terk edilirse namaz bozulur.",
+      "vurgu": "Rükün eksikse namaz bozulur, sehiv secdesi (yanılma/telafi secdesi)yle düzeltilemez"
     },
     {
       "id": "namaz_k07",
       "tip": "gorsel",
       "baslik": "İftitah Tekbiri",
-      "icerik": "Namaza başlarken eller kulak hizasına kaldırılır ve 'Allahu Ekber' denilirken baş parmaklar kulak memesine hafifçe değer. Ardından kılınacak namaza niyet edilir; niyetin özü kalptedir, dil ile söylemek sünnettir. Sonrasında eller göbek altında bağlanır.\n\nNiyet: Hangi namazı kılacağını kalbinden geçirmek farzdır. Dil ile söylemek sünnettir.\n\nNiyet örnekleri:\n• Sabah farzı: \"Niyet ettim Allah rızası için bugünkü sabah namazının farzını kılmaya.\"\n• Öğle farzı: \"Niyet ettim Allah rızası için bugünkü öğle namazının farzını kılmaya.\"\n• İkindi farzı: \"Niyet ettim Allah rızası için bugünkü ikindi namazının farzını kılmaya.\"\n• Akşam farzı: \"Niyet ettim Allah rızası için bugünkü akşam namazının farzını kılmaya.\"\n• Yatsı farzı: \"Niyet ettim Allah rızası için bugünkü yatsı namazının farzını kılmaya.\"\n• Vitir: \"Niyet ettim Allah rızası için bugünkü vitir namazını kılmaya.\"",
+      "icerik": "Namaza başlarken önce kılınacak namaza kalben niyet edilir, ardından iftitah tekbiri alınır. Erkekler Hanefi uygulamasında ellerini kulak hizasına, kadınlar omuz hizasına kadar kaldırır; sonra 'Allahu Ekber' denir.\n\nNiyetin özü kalptedir. Dil ile söylemek yardımcı olabilir; asıl olan hangi namazı kıldığını bilerek Allah'a yönelmektir. Tekbirden sonra eller bağlanır; el bağlama yeri mezheplere göre değişebilir.\n\nNiyet örnekleri:\n• Sabah farzı: \"Niyet ettim Allah rızası için bugünkü sabah namazının farzını kılmaya.\"\n• Öğle farzı: \"Niyet ettim Allah rızası için bugünkü öğle namazının farzını kılmaya.\"\n• İkindi farzı: \"Niyet ettim Allah rızası için bugünkü ikindi namazının farzını kılmaya.\"\n• Akşam farzı: \"Niyet ettim Allah rızası için bugünkü akşam namazının farzını kılmaya.\"\n• Yatsı farzı: \"Niyet ettim Allah rızası için bugünkü yatsı namazının farzını kılmaya.\"\n• Vitir: \"Niyet ettim Allah rızası için bugünkü vitir namazını kılmaya.\"",
       "gorsel": "namaz_tekbir",
-      "vurgu": "Allahu Ekber — Allah en büyüktür"
+      "vurgu": "Niyet kalpte yapılır · İftitah tekbiriyle namaza başlanır"
     },
     {
       "id": "namaz_k08",
       "tip": "gorsel",
       "baslik": "Kıyam — Ayakta Duruş",
-      "icerik": "Kıyamda eller göbek altında bağlıdır, sağ el sol elin üzerinde. Sadece ilk rekatta Sübhaneke, Euzü-Besmele okunur. Sonraki rekatlarda yalnızca Besmele. Her rekatta Fatiha okunur.",
+      "icerik": "Kıyam, namazda ayakta durma bölümüdür. Hanefi uygulamasında eller göbek altında, sağ el sol elin üzerinde bağlanır; diğer mezheplerde el bağlama yeri veya şekli farklı olabilir.\n\nİlk rekatta Sübhaneke, Eûzü-Besmele ve Fatiha okunur. Sonraki rekatlarda genellikle Besmele ile Fatiha okunur. Fatiha'nın hükmü mezheplere göre farklı değerlendirilir; uygulamada her rekatta Fatiha okumak öğretilir.",
       "gorsel": "namaz_kiyam",
-      "vurgu": "Kıyamda huşu ile durmak sünnettir"
+      "vurgu": "Kıyamda huşu ile durmak sünnettir · El bağlama yeri mezhebe göre değişebilir"
     },
     {
       "id": "namaz_k09",
@@ -97,7 +97,7 @@
     {
       "id": "namaz_k13",
       "tip": "gorsel",
-      "baslik": "Teşehhüd — Oturuş",
+      "baslik": "Teşehhüd (Tahiyyat okunan oturuş) — Oturuş",
       "icerik": "Son rekatta oturulur, Tahiyyat, Salli-Barik ve Rabbena duaları okunur. İki el dizlerin üzerinde düz durur, parmaklar kıbleye doğru uzanır.",
       "gorsel": "namaz_tesehhud",
       "vurgu": "Tahiyyat — Allah'a selam, rahmet ve bereket"
@@ -120,8 +120,8 @@
     {
       "id": "namaz_k16",
       "tip": "metin",
-      "baslik": "Rekat Sayıları",
-      "icerik": "Her vakit namazının rekat sayısı:\n\n• Sabah: 2 sünnet + 2 farz (toplam 4)\n• Öğle: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) (toplam 10)\n• İkindi: 4 sünnet + 4 farz (toplam 8)\n• Akşam: 3 farz + 2 sünnet (sonra) (toplam 5)\n• Yatsı: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) + 3 vitir (toplam 13)\n\nVitir namazı vacip hükmündedir — farz değil ama yatsıdan sonra kılınması kuvvetle tavsiye edilir.",
+      "baslik": "Rekât Sayıları",
+      "icerik": "Her vakit namazının rekât sayısı:\n\n• Sabah: 2 sünnet + 2 farz (toplam 4)\n• Öğle: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) (toplam 10)\n• İkindi: 4 sünnet + 4 farz (toplam 8)\n• Akşam: 3 farz + 2 sünnet (sonra) (toplam 5)\n• Yatsı: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) + 3 vitir (toplam 13)\n\nVitir namazı (yatsıdan sonra kılınan tek rekâtlı düzenle biten namaz) vacip hükmündedir — farz değil ama yatsıdan sonra kılınması kuvvetle tavsiye edilir.",
       "vurgu": "Farz rekatlar kesinlikle kılınmalı · Vitir vacip · Sünnetler sevap kazandırır"
     },
     {
@@ -135,29 +135,29 @@
       "id": "namaz_k18",
       "tip": "metin",
       "baslik": "Farz, Vacip, Sünnet Nedir?",
-      "icerik": "Namazda üç önemli hüküm seviyesi vardır:\n\n• Farz: Kesinlikle yapılması gereken. Terk edilirse namaz bozulur, günah olur.\n• Vacip: Yapılması gerekli ama farz derecesinde değil. Unutulursa sehiv secdesiyle telafi edilir.\n• Sünnet: Hz. Peygamber'in devamlı yaptığı. Terk edilirse günah olmaz ama sevaptan mahrum kalınır.\n\nFarz-Sünnet farkı: Farz namaz kaçırılırsa kaza edilmesi (sonradan kılınması) gerekir. Sünnet namaz kaçırılırsa kaza edilmez, o vakit geçer.",
-      "vurgu": "Farz eksikse namaz bozulur · Vacip eksikse sehiv secdesi · Sünnet eksikse sevap azalır"
+      "icerik": "Namazda üç önemli hüküm seviyesi vardır:\n\n• Farz: Kesinlikle yapılması gereken. Terk edilirse namaz bozulur, günah olur.\n• Vacip: Yapılması gerekli ama farz derecesinde değil. Hanefi uygulamasında unutulursa sehiv secdesi (yanılma/telafi secdesi)yle telafi edilir.\n• Sünnet: Hz. Peygamber'in devamlı yaptığı. Terk edilirse sevaptan mahrum kalınır.\n\nFarz namaz kaçırılırsa kaza edilmesi gerekir. Sünnet namazların kazası konusunda ise mezhep ve vakit ayrıntıları vardır; genel öğretimde kaza sorumluluğu farz ve Hanefi'de vitir namazı için vurgulanır.",
+      "vurgu": "Farz eksikse namaz bozulur · Vacip eksikse sehiv secdesi (yanılma/telafi secdesi) gerekebilir · Sünnet sevabı artırır"
     },
     {
       "id": "namaz_k19",
       "tip": "metin",
       "baslik": "Namazda Ne Zaman Ne Okunur?",
-      "icerik": "Her rekatta Fatiha farzdır. Bunun dışında:\n\n• Sadece 1. rekatta: Sübhaneke, Euzü-Besmele\n• Her rekatta (Fatiha'dan önce): Besmele\n• İlk 2 rekatta (farzlarda): Zamm-ı sure (vacip)\n• Rükûda: Sübhane Rabbiye'l-Azîm (en az 1 kez)\n• Secdede: Sübhane Rabbiye'l-A'lâ (en az 1 kez) — \"Yüce Rabbimi tenzih ederim\"\n• Kavmede: Rabbena ve lekel hamd\n• Celsede: Rabbigfirli",
-      "vurgu": "Her rekatta Fatiha farz · İlk rekatta Sübhaneke · İlk 2 rekatta zamm-ı sure vacip"
+      "icerik": "Namazda okunanlar özetle şöyledir:\n\n• İlk rekatta: Sübhaneke, Eûzü-Besmele\n• Her rekatta: Fatiha okunur; hükmü mezheplere göre farklı değerlendirilir\n• Farzların ilk 2 rekâtında: Fatiha'dan sonra zamm-ı sure (Fatiha'dan sonra okunan ek sure veya ayet) okunur; Hanefi'de vacip, diğer mezheplerde sünnet kabul edilir\n• Rükûda: Sübhane Rabbiye'l-Azîm (en az 1 kez)\n• Secdede: Sübhane Rabbiye'l-A'lâ (en az 1 kez)\n• Kavmede: Rabbena ve lekel hamd\n• Celsede: Rabbigfirli",
+      "vurgu": "Fatiha her rekatta öğretilir · Zamm-ı sure hükmünde mezhep farkı vardır"
     },
     {
       "id": "namaz_k20",
       "tip": "metin",
       "baslik": "Ka'de-i Ula ve Ka'de-i Ahire",
-      "icerik": "Namazda iki tür oturuş vardır:\n\n• Ka'de-i ula (ilk oturuş): 4 rekatlı namazlarda 2. rekattan sonra yapılır. Sadece Tahiyyat okunur, kalkmak vaciptir.\n• Ka'de-i ahire (son oturuş): Namazın son rekatında yapılır. Tahiyyat + Salli + Barik + Rabbena duaları okunur. Selam bu oturuştan sonra verilir.",
+      "icerik": "Namazda iki tür oturuş vardır:\n\n• Ka'de-i ula (ilk oturuş): 4 rekatlı namazlarda 2. rekattan sonra yapılır. Sadece Tahiyyat okunur, kalkmak vaciptir.\n• Ka'de-i ahire (son oturuş): Namazın son rekâtında yapılır. Tahiyyat + Salli + Barik + Rabbena duaları okunur. Selam bu oturuştan sonra verilir.",
       "vurgu": "Ka'de-i ula'da sadece Tahiyyat · Ka'de-i ahire'de tüm dualar"
     },
     {
       "id": "namaz_k21",
       "tip": "metin",
       "baslik": "Sehiv Secdesi",
-      "icerik": "Namazda bir vacibi unutulursa sehiv secdesi yapılır:\n\n• Ne zaman: Namaz içinde vacip unutulduğunda\n• Nasıl: Son oturuşta selam vermeden önce sağa selam verilir, 2 secde yapılır, tekrar oturulur, dualar okunur, her iki yana selam verilir\n• Neyi telafi eder: Unutulan vacip (zamm-ı sure, ka'de-i ula gibi)\n• Neyi telafi etmez: Unutulan farz — farz eksikse namaz bozulur, yeniden kılınır",
-      "vurgu": "Vacip unutuldu → sehiv secdesi · Farz unutuldu → namaz yeniden kılınır"
+      "icerik": "Namazda bir vacip unutulursa Hanefi uygulamasında sehiv secdesi (yanılma/telafi secdesi) yapılır:\n\n• Ne zaman: Namaz içinde vacip unutulduğunda veya geciktirildiğinde\n• Nasıl: Son oturuşta Tahiyyat okunduktan sonra sağa selam verilir, 2 secde yapılır, tekrar oturulur, dualar okunur ve her iki yana selam verilir\n• Neyi telafi eder: Unutulan vacipler (zamm-ı sure (Fatiha'dan sonra okunan ek sure veya ayet), ka'de-i ula gibi)\n• Neyi telafi etmez: Unutulan farz — farz eksikse namaz bozulur, yeniden kılınır\n\nSehiv secdesinin uygulama ayrıntıları mezheplere göre değişebilir.",
+      "vurgu": "Vacip unutuldu → sehiv secdesi (yanılma/telafi secdesi) gerekebilir · Farz unutuldu → namaz yeniden kılınır"
     },
     {
       "id": "namaz_k22",
@@ -170,15 +170,15 @@
       "id": "namaz_k23",
       "tip": "metin",
       "baslik": "Cemaatle Namaz",
-      "icerik": "Hz. Peygamber: \"Cemaatle kılınan namaz, yalnız kılınan namazdan 27 derece üstündür.\" (Buhari, Ezan 30; Müslim, Mesacid 249)\n\n• Cemaatle namaz kılmak erkekler için kuvvetli sünnettir.\n• İmama uymak: imam rükûdan kalkmadan önce rükûya yetişilirse o rekâta yetişilmiş sayılır.\n• Cemaat namazda zamm-ı sure sessiz okunur, imam sesli okur.",
-      "vurgu": "Cemaat 27 derece — Buhari ve Müslim"
+      "icerik": "Hz. Peygamber: \"Cemaatle kılınan namaz, yalnız kılınan namazdan 27 derece üstündür.\" (Buhari, Ezan 30; Müslim, Mesacid 249)\n\n• Cemaatle namaz kılmak erkekler için kuvvetli sünnettir.\n• İmama uymak: imam rükûdan kalkmadan önce rükûya yetişilirse o rekâta yetişilmiş sayılır.\n• Cemaat, imamın hareketlerini takip eder; imamdan önce rükûya veya secdeye gitmez.\n• İmam sesli namazlarda kıraati sesli, sessiz namazlarda sessiz okur. Cemaatin Fatiha okuması konusunda mezhepler arasında farklı görüşler vardır.",
+      "vurgu": "Cemaat 27 derece · İmam takip edilir, önüne geçilmez"
     },
     {
       "id": "namaz_k24",
       "tip": "metin",
       "baslik": "Vitir Namazı",
-      "icerik": "Vitir namazı yatsıdan sonra kılınan 3 rekatlık vacip bir namazdır.\n\n• 2. rekattan sonra oturulur, Tahiyyat okunur, kalkılır\n• 3. rekatta Fatiha + sure okunduktan sonra eller kaldırılarak tekbir alınır (kunut tekbiri)\n• Kunut duası okunur\n• Rükû ve secde yapılarak namaz tamamlanır\n\nVitir kılınmadan uyunacaksa yatmadan önce kılınır.",
-      "vurgu": "Vitir vacip · 3 rekat · Kunut duası 3. rekatta"
+      "icerik": "Vitir namazı, yatsıdan sonra kılınan 3 rekatlık vacip bir namazdır.\n\n• 2. rekattan sonra oturulur, Tahiyyat okunur, kalkılır\n• 3. rekatta Fatiha + sure okunduktan sonra eller kaldırılarak tekbir alınır (kunut tekbiri — Kunut duasından önce alınan tekbir)\n• Kunut duası (vitirde okunan özel dua) okunur\n• Rükû ve secde yapılarak namaz tamamlanır\n\nVitir kılınmadan uyunacaksa yatmadan önce kılınır.",
+      "vurgu": "Vitir vacip · 3 rekât · Kunut duası 3. rekatta"
     },
     {
       "id": "namaz_k25",
@@ -191,8 +191,8 @@
       "id": "namaz_k26",
       "tip": "metin",
       "baslik": "Avret Örtme (Setr-i Avret)",
-      "icerik": "Namazda avret bölgelerinin örtülmesi farzdır:\n• Erkek: Göbek ile diz kapağı arası\n• Kadın: El ve yüz hariç tüm vücut\n\nÖrtülmesi gereken alan açılırsa namaz bozulur.",
-      "vurgu": "Avret açılırsa namaz bozulur"
+      "icerik": "Namazda avret bölgelerinin örtülmesi farzdır:\n• Erkek: Göbek ile diz kapağı arası\n• Kadın: Genel öğretimde el ve yüz hariç bedenin örtülmesi gerekir; ayakların hükmü mezheplere göre farklı değerlendirilir\n\nÖrtülmesi gereken bir yer belirgin şekilde ve namazı etkileyecek kadar açık kalırsa namazın sıhhati zarar görür. Küçük, istem dışı ve hemen düzeltilen açılmalarda ayrıntılı hükümler vardır.",
+      "vurgu": "Setr-i avret (örtülmesi gereken yerleri kapatma) namazın sıhhat şartıdır · Ayrıntılarda mezhep farkı bulunur"
     },
     {
       "id": "namaz_k27",
@@ -206,21 +206,21 @@
       "tip": "metin",
       "baslik": "Zamm-ı Sure Olarak Okunabilecek Sureler",
       "icerik": "Fatiha'dan sonra okunabilecek kısa sureler:\n\n• İhlas Suresi (112. sure)\n• Felak Suresi (113. sure)\n• Nas Suresi (114. sure)\n• Kevser Suresi (108. sure)\n• Asr Suresi (103. sure)\n• Fil Suresi (105. sure)\n• Kureyş Suresi (106. sure)\n• Maun Suresi (107. sure)\n• Kafirun Suresi (109. sure)\n• Nasr Suresi (110. sure)\n\nYeni başlayanlar için en kolay başlangıç: İhlas, Kevser ve Asr sureleridir.",
-      "vurgu": "En kısa sureler Kevser, Asr ve Nasr — 3'er ayet · Her rekatta farklı sure okumak sünnettir"
+      "vurgu": "En kısa sureler Kevser, Asr ve Nasr — 3'er ayet · Yeni başlayan aynı kısa surelerle de başlayabilir"
     },
     {
       "id": "namaz_k29",
       "tip": "metin",
       "baslik": "Yeni Başlayanlar İçin: İlk Namazın",
-      "icerik": "Sadece farzlarla başlayarak namaz kılabilirsin:\n\n1. Abdest al\n2. Kıbleye dön, niyet et\n3. 'Allahu Ekber' de, elleri bağla\n4. Fatiha oku\n5. Rükûya eğil: 'Sübhane Rabbiye'l-Azîm'\n6. Doğrul\n7. Secdeye git: 'Sübhane Rabbiye'l-A'lâ'\n8. Otur, tekrar secde\n9. Rekatleri tamamla\n10. Son oturuşta Tahiyyat oku, selam ver\n\nHepsi bu kadar.",
-      "vurgu": "Not: Bu namazın en yalın halidir. Sünnetler, dualar ve zikirler öğrendikçe eklenir — ama bu haliyle namazın farzlarını yerine getirmiş olursun."
+      "icerik": "Yeni başlayan biri, namazı öğrenirken önce ana iskeleti kavrayabilir:\n\n1. Abdest al\n2. Kıbleye dön, kalben niyet et\n3. 'Allahu Ekber' de, elleri bağla\n4. Fatiha oku; biliyorsan kısa bir sure ekle\n5. Rükûya eğil: 'Sübhane Rabbiye'l-Azîm'\n6. Doğrul\n7. Secdeye git: 'Sübhane Rabbiye'l-A'lâ'\n8. Otur, tekrar secde\n9. Rekatleri tamamla\n10. Son oturuşta Tahiyyat oku, selam ver\n\nBu özet, öğrenmeye başlamak içindir. Sünnetler, vacipler, dualar ve mezhep uygulamaları öğrenildikçe namaz daha doğru ve güzel şekilde tamamlanır.",
+      "vurgu": "Bu bir başlangıç rehberidir · Öğrendikçe dualar, sünnetler ve ayrıntılar eklenir"
     },
     {
       "id": "namaz_k30",
       "tip": "metin",
       "baslik": "Mezhep Farklılıkları",
-      "icerik": "Namazla ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Vitir namazının hükmü: Hanefi'de vacip ve 3 rekat; Maliki ve Hanbeli'de sünnet-i müekkede ve 1 rekat; Şafii'de sünnet-i müekkede ve 1-11 rekat.\n\n• Selamın hükmü: Hanefi'de vacip; Maliki, Şafii ve Hanbeli'de birinci selam farz; Şafii'de ikinci selam sünnet.\n\n• Kıyamda ellerin yeri: Hanefi'de göbek altı; Şafii ve Hanbeli'de göğüs üzeri; Maliki'de eller serbest.\n\n• Kadının namazda ayaklarının durumu: Hanefi'de avret değildir; Şafii ve Hanbeli'de avrettir; Maliki'de el de dahil avrettir.\n\n• Secdede burunun yere değmesi: Hanefi ve Hanbeli'de vaciptir; Maliki ve Şafii'de sünnettir.\n\n• Cemaatte Fatiha okuma: Hanefi ve Maliki'de imam okurken cemaat okumaz; Şafii ve Hanbeli'de her rekatta cemaat da okur.\n\n• Zamm-ı surenin hükmü: Hanefi'de ilk iki rekatta vacip; Maliki, Şafii ve Hanbeli'de sünnet.\n\n• Tahiyyatta işaret parmağı: Hanefi'de 'eşhedü' derken kaldırılır, hemen indirilir; Maliki'de tüm tahiyyat boyunca hafifçe sağa sola sallanır; Şafii'de 'eşhedü en lâ ilâhe' derken kaldırılır, 'illallah'ta indirilir; Hanbeli'de 'eşhedü' derken kaldırılır ve namaz sonuna kadar kaldırılı kalır.",
-      "vurgu": "Mezhep farklılıkları İslam'ın zengin yorumculuk geleneğini yansıtır · Kendi mezhebine göre amel etmek yeterlidir"
+      "icerik": "Namazla ilgili bazı konularda dört mezhep farklı görüştedir:\n\n• Vitir namazının hükmü: Hanefi'de vacip ve 3 rekât; diğer mezheplerde sünnet-i müekkede olarak değerlendirilir ve rekât uygulamaları değişebilir.\n\n• Selamın hükmü: Hanefi'de namazdan çıkış için vacip; Maliki, Şafii ve Hanbeli'de en az bir selam farz/rükün kabul edilir.\n\n• Kıyamda ellerin yeri: Hanefi'de göbek altı; Şafii ve Hanbeli'de göğüs civarı; Maliki'de bazı uygulamalarda eller serbest bırakılabilir.\n\n• Kadının namazda ayakları: Hanefi'de ayakların hükmü daha geniş değerlendirilir; Şafii ve Hanbeli'de örtülmesi gereken yerlerden kabul edilir.\n\n• Secdede burnun yere değmesi: Hanefi ve Hanbeli'de daha kuvvetli vurgulanır; Maliki ve Şafii'de alnın yere değmesi asıldır, burun sünnet olarak değerlendirilir.\n\n• Cemaatte Fatiha okuma: Hanefi ve Maliki'de imam okurken cemaat okumaz; Şafii'de cemaat de okur; Hanbeli'de ayrıntılı uygulamalar vardır.\n\n• Zamm-ı surenin hükmü: Hanefi'de farzların ilk iki rekâtında vacip; Maliki, Şafii ve Hanbeli'de sünnet kabul edilir.\n\n• Tahiyyatta işaret parmağı: Kaldırma zamanı ve hareketi mezheplere göre farklılık gösterir.",
+      "vurgu": "Mezhep farklılıkları öğrenmeyi zorlaştırmak için değil, doğru uygulama yolunu göstermek içindir · Kendi mezhebine göre amel etmek yeterlidir"
     }
   ],
   "quiz_havuzu_id": "namaz"

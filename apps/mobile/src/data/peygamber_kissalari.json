@@ -6,9 +6,9 @@
     "olusturulma": "2026-06-19",
     "dil": "tr",
     "aciklama": "Kuran-ı Kerim'de ismi geçen 25 peygamberin kıssaları, Kuran referansları ve öğrenilen derslerle birlikte.",
-    "kaynak_not": "Tüm kıssalar yalnızca Kuran-ı Kerim ayetlerine ve sahih hadis kaynaklarına dayanmaktadır. Her bilginin yanında kaynak belirtilmiştir.",
+    "kaynak_not": "Kıssalar öncelikle Kuran-ı Kerim ayetlerine dayanır. Gerekli görülen bazı tarih, coğrafya ve isim detaylarında sahih hadis, tefsir ve tarih rivayetlerinden yararlanılmış; Kuran'da açıkça geçmeyen bilgiler notlarla belirtilmiştir.",
     "toplam_peygamber": 25,
-    "not": "Hz. Muhammed (s.a.v.) ayrı bir Siyer bölümünde ele alınmaktadır.",
+    "not": "Hz. Muhammed (s.a.v.) bu listede kısa bir özetle yer alır; detaylı hayatı ayrı Siyer bölümünde ele alınmaktadır.",
     "peygamberler": [
       {
         "id": "hz_adem",
@@ -31,7 +31,7 @@
           },
           {
             "baslik": "Cennette Yasak Meyve",
-            "metin": "Allah Hz. Adem ve eşi Hz. Havva'yı cennete yerleştirdi, istedikleri her şeyi yemelerini, yalnızca bir ağaca yaklaşmamalarını emretti. Şeytan her ikisini de kandırdı ve o ağacın meyvesini yedirdip mahluklarını ayıplarını göstererek utandırdı. Bunun üzerine Allah onları yeryüzüne indirdi.",
+            "metin": "Allah Hz. Adem ve eşi Hz. Havva'yı cennete yerleştirdi, istedikleri her şeyi yemelerini, yalnızca bir ağaca yaklaşmamalarını emretti. Şeytan her ikisini de kandırdı ve o ağacın meyvesini yedirdi; ayıplarını kendilerine göstererek utandırdı. Bunun üzerine Allah onları yeryüzüne indirdi.",
             "kuran_referanslari": [
               "2:35-36",
               "7:19-25",
@@ -90,7 +90,7 @@
         "kissa": [
           {
             "baslik": "Kuran'daki Anlatım",
-            "metin": "Kuran Hz. İdris hakkında çok az bilgi verir. İki ayette geçer: Meryem Suresi'nde 'O doğru sözlü bir peygamberdi, biz onu yüksek bir makama yükseltik' buyurulur. Enbiya Suresi'nde ise sabredenler arasında zikredilir ve Allah'ın rahmetine kavuşturulduğu bildirilir. Bunun ötesinde Kuran'da detaylı bir kıssası yoktur.",
+            "metin": "Kuran Hz. İdris hakkında çok az bilgi verir. İki ayette geçer: Meryem Suresi'nde 'O doğru sözlü bir peygamberdi, biz onu yüksek bir makama yükselttik' buyurulur. Enbiya Suresi'nde ise sabredenler arasında zikredilir ve Allah'ın rahmetine kavuşturulduğu bildirilir. Bunun ötesinde Kuran'da detaylı bir kıssası yoktur.",
             "kuran_referanslari": [
               "19:56-57",
               "21:85-86"
@@ -556,8 +556,8 @@
             ]
           },
           {
-            "baslik": "Firavunun Rüyası ve Kurtuluş",
-            "metin": "Firavun bir rüya gördü: 7 semiz inek, 7 zayıf inek tarafından yenildi; 7 yeşil başak, 7 kuru başak. Saray yorumlayamadı. Mahkum Hz. Yusuf'u hatırladı. Hz. Yusuf yorumladı: 7 yıl bolluk, 7 yıl kıtlık gelecek. Firavun onu zindandan çıkardı ve Mısır'ın hazinelerinin başına getirdi.",
+            "baslik": "Melikin Rüyası ve Kurtuluş",
+            "metin": "Mısır'ın meliki bir rüya gördü: 7 semiz inek, 7 zayıf inek tarafından yenildi; 7 yeşil başak, 7 kuru başak. Saray bu rüyayı yorumlayamadı. Zindandan kurtulan mahkum Hz. Yusuf'u hatırladı. Hz. Yusuf rüyayı 7 yıl bolluk ve ardından 7 yıl kıtlık olarak yorumladı. Melik onu zindandan çıkardı ve Mısır'ın hazinelerinin başına getirdi.",
             "kuran_referanslari": [
               "12:43-57"
             ]
@@ -600,7 +600,7 @@
         "unvan": "Medyen halkına gönderilen peygamber",
         "kuranda_gecme_sayisi": 11,
         "gondirildigi_yer": "Medyen (Akabe Körfezi çevresi)",
-        "donem": "Hz. Musa ile çağdaş (Hz. Musa kayınpederi)",
+        "donem": "Hz. Musa dönemine yakın; onun kayınpederi olduğu rivayet edilir",
         "kisa_ozet": "Ticaret ahlakını öğreten peygamber. Kavmi alışverişte hile yapıyor, ölçü ve tartıyı eksik tutuyordu. Uyarılarını reddettiler, şiddetli bir ses ve deprem kavmi yok etti.",
         "kissa": [
           {
@@ -635,6 +635,9 @@
           "11:84-95",
           "26:176-191",
           "29:36-37"
+        ],
+        "ozel_notlar": [
+          "Kasas 28:23-28'de Hz. Musa'nın yardım ettiği iki kadının babasının Hz. Şuayb olduğu görüşü yaygındır; ancak bunun kesin olduğu söylenemez. Bazı müfessirler bu kişinin Medyenli salih bir ihtiyar olduğunu belirtir."
         ]
       },
       {
@@ -698,7 +701,7 @@
           },
           {
             "baslik": "Mısır'dan Kaçış ve Medyen",
-            "metin": "Hz. Musa yanlışlıkla bir Mısırlıyı öldürdü ve Mısır'dan kaçtı. Medyen'e gitti, Hz. Şuayb'ın kızıyla evlendi ve yıllarca çobanlık yaptı.",
+            "metin": "Hz. Musa yanlışlıkla bir Mısırlıyı öldürdü ve Mısır'dan kaçtı. Medyen'e gitti, salih bir ihtiyarın ailesiyle karşılaştı ve onun kızlarından biriyle evlendi. Bu kişinin Hz. Şuayb olduğu görüşü yaygınsa da kesin değildir.",
             "kuran_referanslari": [
               "28:14-29"
             ]

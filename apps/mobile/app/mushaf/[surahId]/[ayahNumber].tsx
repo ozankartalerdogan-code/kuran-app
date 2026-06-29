@@ -6,7 +6,6 @@ import {
   View, Text, TouchableOpacity, ActivityIndicator,
   StyleSheet, ScrollView, Pressable, FlatList,
 } from "react-native";
-import { useAudioPlayer } from "expo-audio";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -82,30 +81,6 @@ function JuzTracker({ currentJuz }: { currentJuz: number }) {
   );
 }
 
-// ── Ses oynatıcı (CDN veya local) ─────────────────────────────────────────────
-
-function AudioBar({ surahId }: { surahId: number }) {
-  const audioUrl = process.env.EXPO_PUBLIC_AUDIO_BASE_URL
-    ? `${process.env.EXPO_PUBLIC_AUDIO_BASE_URL}/surah/${String(surahId).padStart(3, "0")}.mp3`
-    : null;
-
-  const player = useAudioPlayer(audioUrl ?? "");
-
-  if (!audioUrl) return null;
-
-  return (
-    <TouchableOpacity
-      style={ab.btn}
-      onPress={() => player.playing ? player.pause() : player.play()}
-      activeOpacity={0.8}
-    >
-      <Text style={ab.icon}>{player.playing ? "⏸" : "▶"}</Text>
-      <Text style={ab.label}>{player.playing ? "Duraklat" : "Dinle"}</Text>
-    </TouchableOpacity>
-  );
-}
-
-// ── Ana ekran ──────────────────────────────────────────────────────────────────
 
 export default function MushafAyahScreen() {
   const { surahId: rawS, ayahNumber: rawA } =
@@ -188,8 +163,6 @@ export default function MushafAyahScreen() {
         {/* Cüz takibi */}
         <JuzTracker currentJuz={juzIndex} />
 
-        {/* Ses oynatıcı */}
-        <AudioBar surahId={surahId} />
 
         {/* Arapça metin */}
         <ScrollView
@@ -338,8 +311,3 @@ const jt = StyleSheet.create({
   cellTextActive: { color: "#fff", fontWeight: "700" },
 });
 
-const ab = StyleSheet.create({
-  btn:   { flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: "#16213e", paddingHorizontal: 16, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: "#2d3561" },
-  icon:  { fontSize: 16 },
-  label: { fontSize: 13, color: "#9ca3af", fontWeight: "500" },
-});

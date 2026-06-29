@@ -1,13 +1,4 @@
-import { createMMKV, type MMKV } from "react-native-mmkv";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// Eski build'lerde MMKV native modülü olmayabilir — güvenli init
-let mmkv: MMKV | null = null;
-try {
-  mmkv = createMMKV();
-} catch {
-  // Native modül yok, async metodlar AsyncStorage'a düşer
-}
 
 export const STORAGE_KEYS = {
   favorites:       "favoriteVerses",
@@ -60,16 +51,9 @@ function safeParse<T>(raw: string): T | null {
 }
 
 export const storage = {
-  // ── Senkron okuma (MMKV varsa; yoksa null döner) ────────────────────────────
-
   getStringSync(key: string): string | null {
-    if (!mmkv) return null;
-    try {
-      return mmkv.getString(key) ?? null;
-    } catch (err) {
-      logStorageWarning("getString", key, err);
-      return null;
-    }
+    void key;
+    return null;
   },
 
   getJSONSync<T>(key: string, defaultValue: T | null = null): T | null {
@@ -78,27 +62,15 @@ export const storage = {
     return safeParse<T>(raw) ?? defaultValue;
   },
 
-  // ── Async metodlar (MMKV varsa MMKV, yoksa AsyncStorage) ────────────────────
-
   async getString(key: string): Promise<string | null> {
-    if (mmkv) return this.getStringSync(key);
     return AsyncStorage.getItem(key);
   },
 
   async setString(key: string, value: string): Promise<void> {
-    if (mmkv) {
-      try {
-        mmkv.set(key, value);
-        return;
-      } catch (err) {
-        logStorageWarning("setString", key, err);
-      }
-    }
     await AsyncStorage.setItem(key, value);
   },
 
   async getJSON<T>(key: string, defaultValue: T | null = null): Promise<T | null> {
-    if (mmkv) return this.getJSONSync(key, defaultValue);
     const raw = await AsyncStorage.getItem(key);
     if (!raw) return defaultValue;
     return safeParse<T>(raw) ?? defaultValue;
@@ -110,38 +82,14 @@ export const storage = {
       logStorageWarning("stringify", key, new Error("JSON.stringify returned null"));
       return;
     }
-    if (mmkv) {
-      try {
-        mmkv.set(key, serialized);
-        return;
-      } catch (err) {
-        logStorageWarning("setJSON", key, err);
-      }
-    }
     await AsyncStorage.setItem(key, serialized);
   },
 
   async remove(key: string): Promise<void> {
-    if (mmkv) {
-      try {
-        mmkv.remove(key);
-        return;
-      } catch (err) {
-        logStorageWarning("removeItem", key, err);
-      }
-    }
     await AsyncStorage.removeItem(key);
   },
 
   async removeMany(keys: string[]): Promise<void> {
-    if (mmkv) {
-      try {
-        keys.forEach((key) => mmkv.remove(key));
-        return;
-      } catch (err) {
-        logStorageWarning("multiRemove", keys.join(","), err);
-      }
-    }
     await AsyncStorage.multiRemove(keys);
   },
 };

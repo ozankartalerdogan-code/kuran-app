@@ -10,15 +10,6 @@
       "package": "com.kuranapp.mobile",
       "googleServicesFile": "./google-services.json"
     },
-    "plugins": [
-      [
-        "@sentry/react-native/expo",
-        {
-          "url": "https://sentry.io/",
-          "project": "react-native",
-          "organization": "ozan-kartal"
-        }
-      ]
-    ]
+    "plugins": []
   }
 }

@@ -65,7 +65,6 @@ export default function EsmaScreen() {
 
         <FlashList
           data={data}
-          estimatedItemSize={80}
           keyExtractor={(e) => String(e.sira)}
           renderItem={renderItem}
           contentContainerStyle={s.listContent}

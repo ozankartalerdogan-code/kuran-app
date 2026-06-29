@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react-native';
 import { Stack, router } from "expo-router";
 import { maybeAskReview } from '../src/hooks/useStoreReview';
 import { storage, STORAGE_KEYS } from '../src/lib/storage';
@@ -11,6 +10,18 @@ import * as Font from "expo-font";
 import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
+
+type SentryLike = {
+  init: (options: Record<string, unknown>) => void;
+  captureException: (error: unknown, context?: Record<string, unknown>) => void;
+  wrap: <T>(component: T) => T;
+};
+
+const Sentry: SentryLike = {
+  init: () => {},
+  captureException: () => {},
+  wrap: (component) => component,
+};
 
 Sentry.init({
   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,

@@ -38,6 +38,9 @@ export default function OgrenTab() {
           style={[s.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
           onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
           activeOpacity={0.8}
+          accessibilityRole="button"
+          accessibilityLabel="Dersler"
+          accessibilityHint="Dersler ekranını açar"
         >
           <View style={{ flex: 1 }}>
             <Text style={s.derslerTitle}>📚 Dersler</Text>
@@ -58,6 +61,9 @@ export default function OgrenTab() {
                   style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}
                   onPress={() => router.push(item.route as any)}
                   activeOpacity={0.8}
+                  accessibilityRole="button"
+                  accessibilityLabel={item.label}
+                  accessibilityHint={item.sub}
                 >
                   <Text style={s.emoji}>{item.emoji}</Text>
                   <View style={{ flex: 1 }}>

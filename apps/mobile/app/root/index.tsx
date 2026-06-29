@@ -7,7 +7,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { useState, useEffect, useMemo, useCallback, memo } from "react";
+import { useState, useEffect, useMemo, useCallback, memo, useRef } from "react";
 import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
@@ -15,26 +15,25 @@ import { useColors, type AppColors } from "../../src/hooks/useColors";
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
 const SORT_LABELS: Record<SortKey, string> = {
-  frequency:    "Frekans",
+  frequency: "Frekans",
   alphabetical: "Alfabetik",
-  meaning:      "Anlam",
+  meaning: "Anlam",
 };
 
 const Separator = () => <View style={s.sep} />;
 
-// Collator'ları bir kez oluştur — sort comparator içinde localeCompare(x, locale)
-// her çağrıda yeni collator yaratır (Hermes'te ağır). Tek instance çok daha hızlı.
 const arCollator = new Intl.Collator("ar");
 const trCollator = new Intl.Collator("tr");
 
-// Memoize: sıralama/arama değişince aynı satırlar yeniden render olmasın.
-// Renk parent'tan prop ile gelir — her satırda useColors çağrılmaz.
 const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; onPress: (root: string) => void; c: AppColors }) {
   return (
     <TouchableOpacity
       style={[s.card, { backgroundColor: c.card }]}
       onPress={() => onPress(item.root)}
       activeOpacity={0.75}
+      accessibilityRole="button"
+      accessibilityLabel={`${item.root} kökü`}
+      accessibilityHint={`${item.meaning_tr} anlamı ve ${item.frequency} geçiş detayını açar`}
     >
       <View style={s.cardLeft}>
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
@@ -49,32 +48,54 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
 
 export default function RootListScreen() {
   const c = useColors();
-  const [roots,   setRoots]   = useState<RootItem[]>([]);
+  const [roots, setRoots] = useState<RootItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState<string | null>(null);
-  const [search,  setSearch]  = useState("");
-  const [sort,    setSort]    = useState<SortKey>("frequency");
+  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState<SortKey>("frequency");
+  const isMountedRef = useRef(true);
+
+  const fetchRoots = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const nextRoots = await api.roots.list();
+      if (!isMountedRef.current) return;
+      setRoots(nextRoots);
+    } catch {
+      if (!isMountedRef.current) return;
+      setError("Kökler yüklenemedi.");
+    } finally {
+      if (isMountedRef.current) setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    api.roots.list()
-      .then(setRoots)
-      .catch(() => setError("Kökler yüklenemedi."))
-      .finally(() => setLoading(false));
-  }, []);
+    void fetchRoots();
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [fetchRoots]);
 
   const filtered = useMemo(() => {
     let list = [...roots];
     if (search.trim()) {
-      const q = search.trim().toLowerCase();
-      list = list.filter(r =>
-        r.root.includes(search.trim()) ||
-        r.meaning_tr.toLowerCase().includes(q)
+      const rawQuery = search.trim();
+      const query = rawQuery.toLowerCase();
+      list = list.filter((item) =>
+        item.root.includes(rawQuery) || item.meaning_tr.toLowerCase().includes(query),
       );
     }
     switch (sort) {
-      case "frequency":    list.sort((a, b) => b.frequency - a.frequency); break;
-      case "alphabetical": list.sort((a, b) => arCollator.compare(a.root, b.root)); break;
-      case "meaning":      list.sort((a, b) => trCollator.compare(a.meaning_tr, b.meaning_tr)); break;
+      case "frequency":
+        list.sort((a, b) => b.frequency - a.frequency);
+        break;
+      case "alphabetical":
+        list.sort((a, b) => arCollator.compare(a.root, b.root));
+        break;
+      case "meaning":
+        list.sort((a, b) => trCollator.compare(a.meaning_tr, b.meaning_tr));
+        break;
     }
     return list;
   }, [roots, search, sort]);
@@ -82,9 +103,10 @@ export default function RootListScreen() {
   const handlePress = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
   }, []);
+
   const renderItem = useCallback(
     ({ item }: { item: RootItem }) => <RootRow item={item} onPress={handlePress} c={c} />,
-    [handlePress, c],
+    [c, handlePress],
   );
 
   if (loading) {
@@ -101,9 +123,19 @@ export default function RootListScreen() {
   if (error) {
     return (
       <>
-        <Stack.Screen options={{ title: "Hata" }} />
-        <View style={s.centered}>
+        <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+        <View style={[s.centered, { backgroundColor: c.bg }]}>
           <Text style={s.errorText}>{error}</Text>
+          <TouchableOpacity
+            style={s.retryBtn}
+            onPress={() => { void fetchRoots(); }}
+            activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel="Kök listesini yeniden dene"
+            accessibilityHint="Liste yükleme işlemini tekrar başlatır"
+          >
+            <Text style={s.retryBtnText}>Tekrar Dene</Text>
+          </TouchableOpacity>
         </View>
       </>
     );
@@ -113,7 +145,6 @@ export default function RootListScreen() {
     <>
       <Stack.Screen options={{ title: "Kelime Kökleri" }} />
       <View style={[s.container, { backgroundColor: c.bg }]}>
-        {/* Arama */}
         <View style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}>
           <TextInput
             style={[s.searchInput, { color: c.text }]}
@@ -127,27 +158,27 @@ export default function RootListScreen() {
           />
         </View>
 
-        {/* Sıralama */}
         <View style={s.sortRow}>
-          {(Object.keys(SORT_LABELS) as SortKey[]).map(k => (
+          {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
             <TouchableOpacity
-              key={k}
-              style={[s.sortBtn, { backgroundColor: c.card, borderColor: c.border }, sort === k && s.sortBtnActive]}
-              onPress={() => setSort(k)}
+              key={key}
+              style={[s.sortBtn, { backgroundColor: c.card, borderColor: c.border }, sort === key && s.sortBtnActive]}
+              onPress={() => setSort(key)}
               activeOpacity={0.75}
+              accessibilityRole="button"
+              accessibilityLabel={`${SORT_LABELS[key]} sıralaması`}
+              accessibilityState={{ selected: sort === key }}
             >
-              <Text style={[s.sortBtnText, sort === k && s.sortBtnTextActive]}>
-                {SORT_LABELS[k]}
+              <Text style={[s.sortBtnText, sort === key && s.sortBtnTextActive]}>
+                {SORT_LABELS[key]}
               </Text>
             </TouchableOpacity>
           ))}
         </View>
 
-        {/* Liste */}
         <FlashList
           data={filtered}
-          estimatedItemSize={56}
-          keyExtractor={item => item.root}
+          keyExtractor={(item) => item.root}
           contentContainerStyle={s.list}
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
@@ -164,31 +195,36 @@ export default function RootListScreen() {
 }
 
 const s = StyleSheet.create({
-  container:  { flex: 1, backgroundColor: "#f5f0e8" },
-  centered:   { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
-  errorText:  { color: "#dc2626", fontSize: 14, textAlign: "center" },
-  emptyText:  { color: "#78716c", fontSize: 14 },
+  container: { flex: 1, backgroundColor: "#f5f0e8" },
+  centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
+  errorText: { color: "#dc2626", fontSize: 14, textAlign: "center" },
+  emptyText: { color: "#78716c", fontSize: 14 },
+  retryBtn: { marginTop: 16, backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 20, paddingVertical: 10 },
+  retryBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
   searchBar: { margin: 12, backgroundColor: "#fff", borderRadius: 12, borderWidth: 1, borderColor: "#e7e5e4", paddingHorizontal: 14, paddingVertical: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1 },
-  searchInput:{ fontSize: 14, color: "#1c1917", padding: 0 },
+  searchInput: { fontSize: 14, color: "#1c1917", padding: 0 },
 
-  sortRow:  { flexDirection: "row", gap: 8, paddingHorizontal: 12, marginBottom: 4 },
-  sortBtn:  { flex: 1, paddingVertical: 7, borderRadius: 8, backgroundColor: "#fff", borderWidth: 1, borderColor: "#e7e5e4", alignItems: "center" },
+  sortRow: { flexDirection: "row", gap: 8, paddingHorizontal: 12, marginBottom: 4 },
+  sortBtn: { flex: 1, paddingVertical: 7, borderRadius: 8, backgroundColor: "#fff", borderWidth: 1, borderColor: "#e7e5e4", alignItems: "center" },
   sortBtnActive: { backgroundColor: "#059669", borderColor: "#059669" },
-  sortBtnText:   { fontSize: 12, fontWeight: "600", color: "#44403c" },
+  sortBtnText: { fontSize: 12, fontWeight: "600", color: "#44403c" },
   sortBtnTextActive: { color: "#fff" },
 
   list: { paddingHorizontal: 12, paddingBottom: 32 },
-  sep:  { height: 1, backgroundColor: "#f5f5f4", marginLeft: 72 },
+  sep: { height: 1, backgroundColor: "#f5f5f4", marginLeft: 72 },
 
   card: {
-    flexDirection: "row", alignItems: "center",
-    backgroundColor: "#fff", paddingHorizontal: 16, paddingVertical: 13,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 16,
+    paddingVertical: 13,
     borderRadius: 12,
   },
-  cardLeft:   { flex: 1 },
-  rootText:   { fontSize: 22, color: "#1c1917", marginBottom: 3 },
-  meaningText:{ fontSize: 12, color: "#78716c" },
-  freqBadge:  { backgroundColor: "#f0fdf4", borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: "#86efac" },
-  freqText:   { fontSize: 12, fontWeight: "700", color: "#065f46" },
+  cardLeft: { flex: 1 },
+  rootText: { fontSize: 22, color: "#1c1917", marginBottom: 3 },
+  meaningText: { fontSize: 12, color: "#78716c" },
+  freqBadge: { backgroundColor: "#f0fdf4", borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: "#86efac" },
+  freqText: { fontSize: 12, fontWeight: "700", color: "#065f46" },
 });

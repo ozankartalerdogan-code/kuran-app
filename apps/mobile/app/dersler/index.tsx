@@ -136,7 +136,6 @@ export default function DerslerScreen() {
         <FlashList
           data={sortedData}
           numColumns={2}
-          estimatedItemSize={130}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}

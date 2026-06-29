@@ -155,7 +155,6 @@ export default function SureListesiScreen() {
       </View>
       <FlashList
         data={filtered}
-        estimatedItemSize={60}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
