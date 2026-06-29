@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ActivityIndicator, Alert, Dimensions, Linking,
+  ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing,
 } from "react-native";
 import { Stack, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Location from "expo-location";
-import { Magnetometer } from "expo-sensors";
+import { Magnetometer, Accelerometer } from "expo-sensors";
+import * as Haptics from "expo-haptics";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -56,6 +57,17 @@ function avgAngles(angles: number[]): number {
   return (toDeg(Math.atan2(sinSum / angles.length, cosSum / angles.length)) + 360) % 360;
 }
 
+// 0–360 hedefi, sürekli (unwrapped) bir açıya en kısa yoldan taşır.
+// Animated dönüşün 359°→0° geçişinde tam tur atmasını engeller.
+function unwrap(prev: number, next0to360: number): number {
+  const cur = ((prev % 360) + 360) % 360;
+  const delta = ((next0to360 - cur + 540) % 360) - 180; // -180..180
+  return prev + delta;
+}
+
+// Hizalama eşiği — Kabe oku bu kadar derece içindeyse "hizalı" sayılır.
+const ALIGN_DEG = 5;
+
 // 8 yönlü pusula gülü + 30°'lik tik açıları
 const DIRS = [
   { l: "K",  b: 0,   major: true  },
@@ -98,14 +110,24 @@ export default function KibleScreen() {
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
   const [cityName, setCityName]   = useState("");
-  const [heading, setHeading]     = useState(0);
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
+  const [isAligned, setIsAligned] = useState(false);
 
   const headingBuf = useRef<number[]>([]);
-  const headingSub = useRef<{ remove: () => void } | null>(null);
   const gotData    = useRef(false);
   const declRef    = useRef(0); // konuma göre manyetik sapma (deklinasyon)
+  const qiblaRef   = useRef<number | null>(null);
+  const accRef     = useRef({ x: 0, y: 0, z: 1 }); // ivmeölçer; acc gelene dek düz tutuş varsayımı
+  const headingRef = useRef(0); // unwrapped heading (JS — hizalama hesabı için)
+  const needleRef  = useRef(0); // unwrapped Kabe ibresi açısı
+  const alignedRef = useRef(false);
+  const subsRef    = useRef<{ remove: () => void }[]>([]); // mag + acc + (location) abonelikleri
+
+  // Akıcı dönüş — RN Animated (Reanimated yerine: babel/worklets gerektirmez,
+  // useNativeDriver ile dönüş native thread'de, JS re-render olmadan).
+  const headingAnim = useRef(new Animated.Value(0)).current; // unwrapped heading
+  const needleAnim  = useRef(new Animated.Value(0)).current; // unwrapped ibre açısı
 
   // Heading — Magnetometer (varsa, güvenilir) → yoksa watchHeadingAsync'e düş.
   useEffect(() => {
@@ -114,31 +136,66 @@ export default function KibleScreen() {
     let active = true;
     gotData.current = false;
 
+    // Nihai yön (0–360) → yumuşatma + akıcı animasyon + hizalama kontrolü
     const onDeg = (deg: number) => {
       if (!active || !(deg >= 0)) return;
       gotData.current = true;
       headingBuf.current = [...headingBuf.current.slice(-(SMOOTH_N - 1)), deg];
-      setHeading(avgAngles(headingBuf.current));
+      const avg = avgAngles(headingBuf.current); // 0–360
+
+      const nextH = unwrap(headingRef.current, avg);
+      headingRef.current = nextH;
+      Animated.timing(headingAnim, { toValue: nextH, duration: 120, easing: Easing.linear, useNativeDriver: true }).start();
+
+      const q = qiblaRef.current;
+      if (q !== null) {
+        const needle0 = (q - avg + 360) % 360; // 0–360
+        const nextN = unwrap(needleRef.current, needle0);
+        needleRef.current = nextN;
+        Animated.timing(needleAnim, { toValue: nextN, duration: 120, easing: Easing.linear, useNativeDriver: true }).start();
+
+        // Hizalama: ibre ±ALIGN_DEG içindeyse → haptic (yalnız ilk girişte) + görsel vurgu
+        const aligned = needle0 <= ALIGN_DEG || needle0 >= 360 - ALIGN_DEG;
+        if (aligned !== alignedRef.current) {
+          alignedRef.current = aligned;
+          setIsAligned(aligned);
+          if (aligned) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+        }
+      }
       setCompassOk(true);
     };
 
-    // watchHeadingAsync yedeği (bu cihaz/SDK'da bazen hiç event yollamıyor)
+    // Tilt telafili manyetik yön: ivmeölçer ile eğim düzeltmesi.
+    // Telefon düz tutulurken sonuç eskisiyle birebir (pitch=roll=0 → atan2(mx,my));
+    // telefon eğikken yön hatası belirgin biçimde azalır.
+    const onMag = (mx: number, my: number, mz: number) => {
+      const { x: ax, y: ay, z: az } = accRef.current;
+      const norm = Math.hypot(ax, ay, az) || 1;
+      const axn = ax / norm, ayn = ay / norm;
+      const pitch = Math.asin(Math.max(-1, Math.min(1, -axn)));
+      const cp = Math.cos(pitch) || 1e-6;
+      const roll = Math.asin(Math.max(-1, Math.min(1, ayn / cp)));
+      const sr = Math.sin(roll), cr = Math.cos(roll), sp = Math.sin(pitch);
+      const Xh = mx * cp + mz * sp;
+      const Yh = mx * sr * sp + my * cr - mz * sr * cp;
+      const angle = Math.atan2(Xh, Yh) * (180 / Math.PI);
+      onDeg((MAG_OFFSET + declRef.current - angle + 360) % 360);
+    };
+
+    // watchHeadingAsync yedeği (bazı cihaz/SDK'larda hiç event yollamıyor; OS heading zaten tilt-telafili)
     const startLocationHeading = () => {
       Location.watchHeadingAsync(h => onDeg(h.trueHeading >= 0 ? h.trueHeading : h.magHeading))
-        .then(sub => { if (active) headingSub.current = sub; else sub.remove(); })
+        .then(sub => { if (active) subsRef.current.push(sub); else sub.remove(); })
         .catch(() => { if (active) setCompassOk(false); });
     };
 
     // isAvailableAsync Android'de güvenilmez → doğrudan addListener dene.
-    // Exception atarsa modül build'de yok demektir (no-mod), aksi halde dinle (mag).
+    // Exception atarsa modül build'de yok demektir (no-mod), aksi halde dinle (mag + acc).
     try {
+      Accelerometer.setUpdateInterval(100);
       Magnetometer.setUpdateInterval(100);
-      const sub = Magnetometer.addListener(({ x, y }) => {
-        // Cihaz ekseni: x=sağ, y=üst. Manyetik kuzeyden açı + deklinasyon = gerçek yön.
-        const angle = Math.atan2(x, y) * (180 / Math.PI);
-        onDeg((MAG_OFFSET + declRef.current - angle + 360) % 360);
-      });
-      headingSub.current = sub;
+      subsRef.current.push(Accelerometer.addListener(d => { accRef.current = d; }));
+      subsRef.current.push(Magnetometer.addListener(({ x, y, z }) => onMag(x, y, z)));
     } catch {
       startLocationHeading(); // expo-sensors yoksa son çare
     }
@@ -151,11 +208,11 @@ export default function KibleScreen() {
     return () => {
       active = false;
       clearTimeout(noDataTimer);
-      headingSub.current?.remove();
-      headingSub.current = null;
+      subsRef.current.forEach(sub => sub.remove());
+      subsRef.current = [];
       headingBuf.current = [];
     };
-  }, [step]);
+  }, [step, headingAnim, needleAnim]);
 
   // Pick ekranı yok — hata/iptal durumunda ana sayfaya dön, uyarı orada görünür
   const goHome = useCallback(() => {
@@ -166,6 +223,8 @@ export default function KibleScreen() {
   // Konum al — Balanced doğruluk, 3 aşamalı fallback
   const getLocation = useCallback(async () => {
     setStep("locating");
+    alignedRef.current = false;
+    setIsAligned(false);
 
     const { status } = await Location.requestForegroundPermissionsAsync();
 
@@ -226,7 +285,9 @@ export default function KibleScreen() {
     }
 
     declRef.current = calcDeclination(coords.latitude, coords.longitude);
-    setQibla(calcQibla(coords.latitude, coords.longitude));
+    const q = calcQibla(coords.latitude, coords.longitude);
+    qiblaRef.current = q;
+    setQibla(q);
     setDistance(calcDist(coords.latitude, coords.longitude));
     setCityName("Konumunuz");
     setStep("compass");
@@ -240,8 +301,11 @@ export default function KibleScreen() {
     getLocation();
   }, [getLocation]);
 
-  // İbre açısı: kıble gerçek yönü - cihazın baktığı gerçek yön
-  const needleAngle = qibla !== null ? (qibla - heading + 360) % 360 : 0;
+  // Animated dönüş köprüleri: unwrapped değer (derece) → sınırsız rotate stringi
+  const roseRotate    = headingAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "-1deg"], extrapolate: "extend" }); // -heading
+  const needleRotate  = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "1deg"], extrapolate: "extend" });   // needle
+  const needleCounter = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "-1deg"], extrapolate: "extend" });  // -needle (emoji dik kalır)
+  const tailRotate    = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["180deg", "181deg"], extrapolate: "extend" }); // needle+180
 
   // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
   if (step === "locating") {
@@ -287,7 +351,7 @@ export default function KibleScreen() {
           </View>
 
           {/* ÜST KADRAN = dönen pusula gülü. Harfler konumları döner ama dik kalır. */}
-          <View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: `${-heading}deg` }] }]}>
+          <Animated.View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: roseRotate }] }]}>
             {TICKS.map((a) => (
               <View key={`t${a}`} style={[s.tickLayer, { transform: [{ rotate: `${a}deg` }] }]}>
                 <View style={[s.tickMark, a % 90 === 0 ? s.tickMajor : null, a === 0 ? s.tickN : null]} />
@@ -295,41 +359,43 @@ export default function KibleScreen() {
             ))}
             {DIRS.map((d) => (
               <View key={d.l} style={[s.dirLayer, { transform: [{ rotate: `${d.b}deg` }] }]}>
-                <Text
+                <Animated.Text
                   style={[
                     s.dir,
                     d.major ? s.dirMajor : s.dirMinor,
                     d.b === 0 ? s.dirN : null,
-                    { transform: [{ rotate: `${heading - d.b}deg` }] },
+                    { transform: [{ rotate: headingAnim.interpolate({ inputRange: [0, 1], outputRange: [`${-d.b}deg`, `${1 - d.b}deg`], extrapolate: "extend" }) }] },
                   ]}
                 >
                   {d.l}
-                </Text>
+                </Animated.Text>
               </View>
             ))}
-          </View>
+          </Animated.View>
 
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
-          <View style={[s.face, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
+          <View style={[s.face, isAligned && s.faceOk, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             {/* Kuyruk (zıt yön) — denge için */}
-            <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle + 180}deg` }] }]}>
+            <Animated.View style={[s.needleLayer, { transform: [{ rotate: tailRotate }] }]}>
               <View style={[s.needleTail, { height: FACE / 2 - 34 }]} />
-            </View>
+            </Animated.View>
             {/* Kabe oku */}
-            <View style={[s.needleLayer, { transform: [{ rotate: `${needleAngle}deg` }] }]}>
-              <View style={s.kaabaBadge}>
-                <Text style={[s.needleEmoji, { transform: [{ rotate: `${-needleAngle}deg` }] }]}>🕋</Text>
+            <Animated.View style={[s.needleLayer, { transform: [{ rotate: needleRotate }] }]}>
+              <View style={[s.kaabaBadge, isAligned && s.kaabaBadgeOk]}>
+                <Animated.Text style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
-              <View style={[s.needleUp, { height: FACE / 2 - 56 }]} />
-            </View>
+              <View style={[s.needleUp, isAligned && s.needleUpOk, { height: FACE / 2 - 56 }]} />
+            </Animated.View>
             <View style={s.centerHub} />
           </View>
         </View>
 
         {/* Açı */}
-        <View style={s.badge}>
-          <Text style={s.badgeNum}>{Math.round(qibla ?? 0)}°</Text>
-          <Text style={s.badgeSub}>Kuzeyden Kabe yönü</Text>
+        <View style={[s.badge, isAligned && s.badgeOk]}>
+          <Text style={[s.badgeNum, isAligned && s.badgeNumOk]}>{Math.round(qibla ?? 0)}°</Text>
+          <Text style={[s.badgeSub, isAligned && s.badgeSubOk]}>
+            {isAligned ? "✓ Kabe'ye dönüksünüz" : "Kuzeyden Kabe yönü"}
+          </Text>
         </View>
 
         {/* Durum */}
@@ -422,6 +488,7 @@ const s = StyleSheet.create({
     shadowColor: "#000", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12, shadowRadius: 12, elevation: 8,
   },
+  faceOk: { borderColor: "#34d399" }, // hizalı: yeşil çerçeve
 
   // İbreyi tam kaplayan dönen katman — merkez etrafında döner
   needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 6 },
@@ -430,7 +497,9 @@ const s = StyleSheet.create({
     borderWidth: 2, borderColor: "#059669", alignItems: "center", justifyContent: "center",
     shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.18, shadowRadius: 4, elevation: 4,
   },
+  kaabaBadgeOk: { borderColor: "#34d399", backgroundColor: "#ecfdf5" },
   needleUp:   { width: 4, backgroundColor: "#059669", borderRadius: 2, marginTop: -1 },
+  needleUpOk: { backgroundColor: "#34d399" },
   needleTail: { width: 4, backgroundColor: "#cbd5e1", borderRadius: 2, marginTop: 6 },
   centerHub:  { position: "absolute", width: 16, height: 16, borderRadius: 8, backgroundColor: "#059669", borderWidth: 3, borderColor: "#fff" },
 
@@ -444,6 +513,9 @@ const s = StyleSheet.create({
   },
   badgeNum: { fontSize: 38, fontWeight: "800", color: "#065f46", letterSpacing: 0.5 },
   badgeSub: { fontSize: 11, color: "#0d9488", marginTop: 1, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase" },
+  badgeOk:    { borderColor: "#34d399", backgroundColor: "#ecfdf5" }, // hizalı: yeşil kart
+  badgeNumOk: { color: "#047857" },
+  badgeSubOk: { color: "#059669" },
 
   infoBox:  { backgroundColor: "#ecfdf5", borderRadius: 10, padding: 12, marginTop: 12, width: "100%", borderWidth: 1, borderColor: "#a7f3d0" },
   infoText: { fontSize: 13, color: "#065f46", textAlign: "center", lineHeight: 20 },
