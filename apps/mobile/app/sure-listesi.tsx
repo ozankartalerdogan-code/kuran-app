@@ -1,6 +1,6 @@
 import {
   View, Text, TouchableOpacity,
-  TextInput, ActivityIndicator, StyleSheet,
+  TextInput, StyleSheet,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { useState, useEffect, useCallback, useMemo, memo } from "react";
@@ -8,21 +8,8 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem } from "../src/lib/api";
 import { useColors, type AppColors } from "../src/hooks/useColors";
-
-const NUZUL: Record<number, number> = {
-  96:1, 68:2, 73:3, 74:4, 1:5, 111:6, 81:7, 87:8, 92:9, 89:10,
-  93:11, 94:12, 103:13, 100:14, 108:15, 102:16, 107:17, 109:18, 105:19, 113:20,
-  114:21, 112:22, 53:23, 80:24, 97:25, 91:26, 85:27, 95:28, 106:29, 101:30,
-  75:31, 104:32, 77:33, 50:34, 90:35, 86:36, 54:37, 38:38, 7:39, 72:40,
-  36:41, 25:42, 35:43, 19:44, 20:45, 56:46, 26:47, 27:48, 28:49, 17:50,
-  10:51, 11:52, 12:53, 15:54, 6:55, 37:56, 31:57, 34:58, 39:59, 40:60,
-  41:61, 42:62, 43:63, 44:64, 45:65, 46:66, 51:67, 88:68, 18:69, 16:70,
-  71:71, 14:72, 21:73, 23:74, 32:75, 52:76, 67:77, 69:78, 70:79, 78:80,
-  79:81, 82:82, 84:83, 30:84, 29:85, 83:86,
-  2:87, 8:88, 3:89, 33:90, 60:91, 4:92, 99:93, 57:94, 47:95, 13:96,
-  55:97, 76:98, 65:99, 98:100, 59:101, 24:102, 22:103, 63:104, 58:105,
-  49:106, 66:107, 64:108, 61:109, 62:110, 48:111, 5:112, 9:113, 110:114,
-};
+import { SkeletonListItem } from "../src/components/SkeletonLoader";
+import { NUZUL } from "../src/constants/nuzul";
 
 function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
   const isMekki = place === "Mekke";
@@ -111,9 +98,8 @@ export default function SureListesiScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <ActivityIndicator size="large" color={c.accent} />
-        <Text style={[styles.loadingText, { color: c.textMuted }]}>Sureler yükleniyor…</Text>
+      <View style={[styles.centered, { backgroundColor: c.bg, alignItems: "stretch", justifyContent: "flex-start", padding: 12 }]}>
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
   }
@@ -173,7 +159,6 @@ export default function SureListesiScreen() {
 const styles = StyleSheet.create({
   container:    { flex: 1 },
   centered:     { flex: 1, alignItems: "center", justifyContent: "center", padding: 20 },
-  loadingText:  { marginTop: 12, fontSize: 14 },
   errorText:    { color: "#dc2626", fontSize: 14, textAlign: "center" },
   searchWrapper:{ paddingHorizontal: 16, paddingVertical: 10 },
   searchInput:  { borderRadius: 10, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 9, fontSize: 14, marginBottom: 8 },

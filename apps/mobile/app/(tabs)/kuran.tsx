@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../../src/hooks/useColors";
 import { logFeature } from "../../src/lib/analytics";
 
-type KuranCardRoute = "/mushaf" | "/surah-list" | "/hatim";
+type KuranCardRoute = "/mushaf" | "/sure-listesi" | "/hatim";
 type KuranCard = {
   id: "mushaf" | "surah_list" | "hatim";
   emoji: string;
@@ -18,7 +18,7 @@ type KuranCard = {
 
 const CARDS: KuranCard[] = [
   { id: "mushaf", emoji: "📜", label: "Mushaf Modu",  sub: "Sayfa sayfa oku, yer imi bırak",  route: "/mushaf", bg: "#f0fdf4", border: "#86efac" },
-  { id: "surah_list", emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/surah-list", bg: "#eff6ff", border: "#93c5fd" },
+  { id: "surah_list", emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/sure-listesi", bg: "#eff6ff", border: "#93c5fd" },
   { id: "hatim", emoji: "📑", label: "Hatim Takibi", sub: "30 cüz, kaldığın yerden devam",    route: "/hatim",  bg: "#fef3c7", border: "#fcd34d" },
 ];
 

@@ -76,7 +76,7 @@ export default function NotesScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet detay sayfasının altındaki not alanından not ekleyebilirsiniz.
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/surah")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8}>
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>

@@ -53,7 +53,6 @@ export default function TabsLayout() {
       ))}
 
       {/* Tab bar'dan gizli — route olarak çalışmaya devam eder */}
-      <Tabs.Screen name="surah"     options={{ href: null }} />
       <Tabs.Screen name="discover"  options={{ href: null }} />
     </Tabs>
   );
