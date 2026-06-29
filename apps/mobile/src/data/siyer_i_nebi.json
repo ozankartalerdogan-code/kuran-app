@@ -2,7 +2,7 @@
   "meta": {
     "title": "Siyer-i Nebî",
     "subtitle": "Hz. Muhammed (s.a.v.)'in Hayatı",
-    "description": "Hz. Muhammed'in (s.a.v.) doğum öncesi dönemden vefatına kadar kronolojik hayatı. Yalnızca sahih kaynaklara (Buhârî, Müslim, Kütüb-i Sitte) ve klasik siyer eserlerine (İbn Hişâm, Taberî, İbn Sa'd) dayanan ilmî bir çalışmadır.",
+    "description": "Hz. Muhammed'in (s.a.v.) doğum öncesi dönemden vefatına kadar kronolojik hayatı. İçerik, öncelikle sahih hadis kaynakları ve klasik siyer eserleri esas alınarak hazırlanmış; tartışmalı veya farklı rivayetlere açık konularda gerekli notlar eklenmiştir.",
     "version": "1.0.0",
     "sources": [
       "Buhârî, Sahîh",
@@ -153,7 +153,7 @@
       "date_miladi": "571 M (tartışmalı)",
       "date_hijri": "Fil Yılı, Rebîülevvel",
       "description": "Hz. Muhammed, yaygın kabule göre Fil Vak'ası'ndan yaklaşık 50-55 gün sonra Rebîülevvel ayının 12'sinde, Pazartesi sabahı Mekke'de Hâşimoğulları Mahallesi'nde dünyaya geldi. Babası Abdullah, henüz doğmadan yaklaşık iki ay önce Medine'de (Yesrib) vefat etmişti; mirası beş deve, bir koyun sürüsü ve cariye Ümmü Eymen'den (Bereke) ibaretti.\n\nDedesi Abdülmuttalib ona 'Muhammed' adını verdi. Bu isim, o dönem Arapları arasında yaygın değildi. Annesi Âmine ise 'Ahmed' adını verdiğini rivayet eder. Doğum esnasında bazı şeyler rivayet edilse de bunların büyük çoğunluğu güvenilir isnada sahip değildir.",
-      "quran_refs": ["3:81"],
+      "quran_refs": [],
       "hadith_sources": ["İbn Sa'd, Tabakât, I, 100-101"],
       "key_lessons": [
         "Yetimliğin peygamberlik karakterini şekillendirmedeki rolü",
@@ -369,7 +369,7 @@
       "date_miladi": "615 – 616 M",
       "date_hijri": "Nübüvvetin 5-6. yılları",
       "description": "Mekke'deki baskıların dayanılmaz hâle gelmesi üzerine Hz. Peygamber bir kısım Müslümanın Habeşistan'a göç etmesine izin verdi. Birinci grupta 15 kişi (11 erkek + 4 kadın), ikinci grupta ise yaklaşık 100 kişi (82 erkek + 18 kadın) yola çıktı. Câfer b. Ebû Tâlib ikinci gruba liderlik etti.\n\nKureyş'in elçileri Amr b. Âs ve Abdullah b. Ebî Rabîa, Necâşî'yi Müslümanları geri vermeye ikna etmeye çalıştı. Necâşî soruşturma açınca Câfer, Meryem Sûresi'nden Hz. İsa ve annesiyle ilgili ayetleri okudu; Necâşî'nin gözlerinin yaşardığı rivayet edilir. Necâşî iadeyi reddetti ve Müslümanlar güvende kaldı.",
-      "quran_refs": ["19:1"],
+      "quran_refs": [],
       "hadith_sources": [],
       "key_lessons": [
         "Adil yönetici arayışı",
@@ -454,7 +454,7 @@
       "date_miladi": "621 – 622 M",
       "date_hijri": "Nübüvvetin 11-12. yılları",
       "description": "Birinci Akabe Biatı (621, 12 kişi): Şirk koşmama, hırsızlık ve zina yapmama, çocukları öldürmeme, iftira atmama, iyiliğe karşı gelmeme üzerine yemin edildi. Bu biate 'Bey'atü'n-nisâ' (kadın biatı) da denir çünkü savaş şartı içermiyordu. Mus'ab b. Umeyr, Medine'ye İslâm'ı öğretmek üzere ilk 'mürebbî' olarak gönderildi.\n\nİkinci Akabe Biatı (622, 75 kişi: 73 erkek + 2 kadın): Bu kez savaş yükümlülüğü de eklendi; 'Bey'atü'l-harb' olarak anılır. 12 nakib (temsilci) seçildi; Es'ad b. Zürâre nakîbü'n-nükabâ oldu. Bu biat, hicretin fiilî başlangıcı sayılır.",
-      "quran_refs": ["60:12"],
+      "quran_refs": [],
       "hadith_sources": [],
       "key_lessons": [
         "Teşkilatlanma ve sorumluluk paylaşımı",
@@ -708,7 +708,7 @@
       "title": "Hayber'in Fethi",
       "date_miladi": "628 M",
       "date_hijri": "Muharrem 7",
-      "description": "Medine'den 150 km uzaklıktaki Hayber, Medine Vesikası'na ihanet eden Benî Nadîr'in yerleştiği yerdi ve Müslümanlara karşı kışkırtma merkezi hâline gelmişti. Hz. Peygamber ~1600 kişilik kuvvetle sefere çıktı; kaleler teker teker fethedildi.\n\nHz. Ali'nin Kamûs kalesini fethetmesi meşhurdur; rivayete göre kapıyı söküp kalkan gibi kullandı. Topraklar ürünün yarısı karşılığı Yahudilere bırakıldı; Hz. Peygamber bu uygulamayı daha sonra değiştirdi. Habeşistan'dan dönen Câfer b. Ebû Tâlib ve Müslümanlar da bu fethin sevincine ortak oldu.",
+      "description": "Medine'den 150 km uzaklıktaki Hayber, Medine Vesikası'na ihanet eden Benî Nadîr'in yerleştiği yerdi ve Müslümanlara karşı kışkırtma merkezi hâline gelmişti. Hz. Peygamber yaklaşık 1600 kişilik kuvvetle sefere çıktı; kaleler teker teker fethedildi.\n\nHz. Ali'nin Kamûs kalesini fethetmesi meşhurdur; rivayete göre kapıyı söküp kalkan gibi kullandı. Topraklar ürünün yarısı karşılığı bir süre daha Yahudilerin işletmesine bırakıldı. Bu uygulama Hz. Peygamber'in vefatından sonra Hz. Ömer dönemine kadar sürdü. Habeşistan'dan dönen Câfer b. Ebû Tâlib ve Müslümanlar da bu fethin sevincine ortak oldu.",
       "quran_refs": ["48:18", "48:19"],
       "hadith_sources": ["Buhârî, Megâzî"],
       "key_lessons": [
@@ -724,7 +724,7 @@
       "title": "Hükümdarlara Davet Mektupları",
       "date_miladi": "628 M",
       "date_hijri": "Hicrî 7. yıl",
-      "description": "Hudeybiye'nin ardından 'Muhammed Resûlullah' mühürlü davet mektupları komşu hükümdarlara gönderildi. Bizans İmparatoru Herakleios: Elçi Dihye el-Kelbî mektubu götürdü; Herakleios saygı gösterdi ancak tahtını kaybetme kaygısıyla iman etmedi. Sasani Kisrası Hüsrev Perviz: Mektubu yırttı; Hz. Peygamber 'mülkü de parçalansın' dedi, öngörü çıktı. Mısır Mukavkıs: İman etmedi, ancak hediyeler gönderdi; Mâriye el-Kıbtiyye bu hediyeler arasındaydı. Habeşistan Necâşî Ashame: Müslüman oldu.\n\nBu mektuplar İslâm'ın evrensel bir davet olduğunu, kabile sınırlarını aştığını gösteren en somut adımdır.",
+      "description": "Hudeybiye'nin ardından 'Muhammed Resûlullah' mühürlü davet mektupları komşu hükümdarlara gönderildi. Bizans İmparatoru Herakleios'a elçi olarak Dihye el-Kelbî gönderildi; Herakleios mektuba saygı gösterdi ancak iman ettiğine dair kesin bir bilgi yoktur. Sasani Kisrası Hüsrev Perviz mektubu yırttı; Mısır Mukavkısı iman etmedi, ancak hediyeler gönderdi ve Mâriye el-Kıbtiyye bu hediyeler arasındaydı. Habeşistan Necâşî Ashame'nin ise İslâm'ı kabul ettiğine dair güçlü rivayetler bulunmaktadır.\n\nBu mektuplar İslâm'ın evrensel bir davet olduğunu, kabile sınırlarını aştığını gösteren en somut adımlardandır.",
       "quran_refs": [],
       "hadith_sources": ["Buhârî, Bed'ü'l-vahy, 6"],
       "key_lessons": [
@@ -732,7 +732,7 @@
         "Diplomatik tebliğin meşruiyeti",
         "Farklı yanıtların peygamber mektubunu anlamsız kılmadığı"
       ],
-      "reliability_note": "Herakleios-Ebû Süfyân görüşmesi rivayeti tartışmalıdır; bazı detaylar abartılı olabilir.",
+      "reliability_note": "Herakleios'a mektup gönderildiği ve Ebû Süfyân'la görüştüğü haberi sahih kaynaklarda yer alır. Ancak mektupların bütün nüshaları ve bazı tarihî ayrıntılar rivayetler arasında farklılık gösterebilir.",
       "tags": ["mektuplar", "Herakleios", "Kisra", "Mukavkıs", "Necaşi", "diplomasi"]
     },
     {
