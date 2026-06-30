@@ -1,5 +1,8 @@
 // Update this registry to add lesson cards.
 // DERS_DATA, QUIZ_MAP, BASLIKLAR, DERSLER_META and KATEGORILER are derived here.
+//
+// Bu dosya doğası gereği yerel JSON dersleri require ile yükler (Metro bundle).
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Kayit = { id: string; ikon: string; sure: number; kategori: string; ders: any; quiz: any };
@@ -145,33 +148,58 @@ function sumLessonMinutes(raw: any): number {
   }, 0);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-const nefsiniTaniDersModule = require("./nefsini_tani_ders_modulu.json");
-// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-const nefsiniTaniQuizModule = require("./nefsini_tani_50_soruluk_quiz.json");
+// JSON g\u00FCvenli y\u00FCkleyici \u2014 bozuk/eksik bir dosya t\u00FCm dersler b\u00F6l\u00FCm\u00FCn\u00FC
+// d\u00FC\u015F\u00FCrmesin. Thunk literal require yolunu korur (Metro statik bundle eder);
+// hata olursa o ders atlan\u0131r, b\u00F6l\u00FCm ayakta kal\u0131r.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function safeRequire<T = any>(loader: () => T, label: string): T | null {
+  try {
+    const mod = loader();
+    return (mod ?? null) as T | null;
+  } catch (err) {
+    console.warn(`[dersler] y\u00FCklenemedi, atland\u0131: ${label} \u2014`, err instanceof Error ? err.message : err);
+    return null;
+  }
+}
+
+// Bir dersin kullan\u0131labilir say\u0131lmas\u0131: obje + string ba\u015Fl\u0131k + en az 1 kart.
+function isValidDers(ders: unknown): boolean {
+  const r = toRecord(ders);
+  return !!r && typeof r.baslik === "string" && Array.isArray(r.kartlar) && r.kartlar.length > 0;
+}
+
+const nefsiniTaniDersModule = safeRequire(() => require("./nefsini_tani_ders_modulu.json"), "nefsini_tani_ders_modulu");
+const nefsiniTaniQuizModule = safeRequire(() => require("./nefsini_tani_50_soruluk_quiz.json"), "nefsini_tani_50_soruluk_quiz");
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const KAYITLAR: Kayit[] = [
-  { id: "namaz",         ikon: "\uD83D\uDD4C", sure: 15, kategori: "ibadet", ders: require("./namaz_dersi.json"),              quiz: require("./namaz_quiz.json") },
-  { id: "namaz-dualar",  ikon: "\uD83D\uDCFF", sure: 10, kategori: "ibadet", ders: require("./namaz_dualar_dersi.json"),        quiz: require("./namaz_dualar_quiz.json") },
-  { id: "oruc",          ikon: "\uD83C\uDF19", sure:  8, kategori: "ibadet", ders: require("./oruc_dersi.json"),                quiz: require("./oruc_quiz.json") },
-  { id: "hac-umre",      ikon: "\uD83D\uDD4B", sure:  9, kategori: "ibadet", ders: require("./hac_umre_dersi.json"),            quiz: require("./hac_umre_quiz.json") },
-  { id: "iman-esaslari", ikon: "\uD83D\uDCD6", sure: 10, kategori: "akaid",  ders: require("./iman_esaslari_dersi.json"),       quiz: require("./iman_esaslari_quiz.json") },
+const RAW_KAYITLAR: Kayit[] = [
+  { id: "namaz",         ikon: "\uD83D\uDD4C", sure: 15, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dersi.json"), "namaz_dersi"),                quiz: safeRequire(() => require("./namaz_quiz.json"), "namaz_quiz") },
+  { id: "namaz-dualar",  ikon: "\uD83D\uDCFF", sure: 10, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dualar_dersi.json"), "namaz_dualar_dersi"),  quiz: safeRequire(() => require("./namaz_dualar_quiz.json"), "namaz_dualar_quiz") },
+  { id: "oruc",          ikon: "\uD83C\uDF19", sure:  8, kategori: "ibadet", ders: safeRequire(() => require("./oruc_dersi.json"), "oruc_dersi"),                  quiz: safeRequire(() => require("./oruc_quiz.json"), "oruc_quiz") },
+  { id: "hac-umre",      ikon: "\uD83D\uDD4B", sure:  9, kategori: "ibadet", ders: safeRequire(() => require("./hac_umre_dersi.json"), "hac_umre_dersi"),          quiz: safeRequire(() => require("./hac_umre_quiz.json"), "hac_umre_quiz") },
+  { id: "iman-esaslari", ikon: "\uD83D\uDCD6", sure: 10, kategori: "akaid",  ders: safeRequire(() => require("./iman_esaslari_dersi.json"), "iman_esaslari_dersi"), quiz: safeRequire(() => require("./iman_esaslari_quiz.json"), "iman_esaslari_quiz") },
   {
     id: "nefsini-tani",
     ikon: "\uD83E\uDE9E",
     sure: sumLessonMinutes(nefsiniTaniDersModule),
     kategori: "ahlak",
-    ders: normalizeLessonModule(nefsiniTaniDersModule, "\uD83E\uDE9E"),
-    quiz: normalizeQuizModule(nefsiniTaniQuizModule, "nefsini-tani", "Nefsini Tan\u0131"),
+    ders: nefsiniTaniDersModule ? normalizeLessonModule(nefsiniTaniDersModule, "\uD83E\uDE9E") : null,
+    quiz: nefsiniTaniQuizModule ? normalizeQuizModule(nefsiniTaniQuizModule, "nefsini-tani", "Nefsini Tan\u0131") : null,
   },
-  { id: "peygamberler",  ikon: "\u2B50",         sure: 14, kategori: "siyer",  ders: require("./peygamber_kissalari_dersi.json"), quiz: require("./peygamber_kissalari_quiz.json") },
-  { id: "siyer",         ikon: "\uD83C\uDF3F", sure: 10, kategori: "siyer",  ders: require("./siyer_dersi.json"),               quiz: require("./siyer_quiz.json") },
-  { id: "tecvid",        ikon: "\uD83D\uDCDC", sure: 12, kategori: "kuran",  ders: require("./tecvid_dersi.json"),              quiz: require("./tecvid_quiz.json") },
-  { id: "abdest-gusul",  ikon: "\uD83D\uDCA7", sure: 10, kategori: "ibadet", ders: require("./abdest_dersi.json"),              quiz: require("./abdest_quiz.json") },
-  { id: "ezan-kamet",    ikon: "\uD83D\uDD0A", sure:  7, kategori: "ibadet", ders: require("./ezan_kamet_dersi.json"),          quiz: require("./ezan_kamet_quiz.json") },
-  { id: "zekat",         ikon: "\uD83E\uDD32", sure:  7, kategori: "ibadet", ders: require("./zekat_dersi.json"),               quiz: require("./zekat_quiz.json") },
+  { id: "peygamberler",  ikon: "\u2B50",       sure: 14, kategori: "siyer",  ders: safeRequire(() => require("./peygamber_kissalari_dersi.json"), "peygamber_kissalari_dersi"), quiz: safeRequire(() => require("./peygamber_kissalari_quiz.json"), "peygamber_kissalari_quiz") },
+  { id: "siyer",         ikon: "\uD83C\uDF3F", sure: 10, kategori: "siyer",  ders: safeRequire(() => require("./siyer_dersi.json"), "siyer_dersi"),                quiz: safeRequire(() => require("./siyer_quiz.json"), "siyer_quiz") },
+  { id: "tecvid",        ikon: "\uD83D\uDCDC", sure: 12, kategori: "kuran",  ders: safeRequire(() => require("./tecvid_dersi.json"), "tecvid_dersi"),              quiz: safeRequire(() => require("./tecvid_quiz.json"), "tecvid_quiz") },
+  { id: "abdest-gusul",  ikon: "\uD83D\uDCA7", sure: 10, kategori: "ibadet", ders: safeRequire(() => require("./abdest_dersi.json"), "abdest_dersi"),              quiz: safeRequire(() => require("./abdest_quiz.json"), "abdest_quiz") },
+  { id: "ezan-kamet",    ikon: "\uD83D\uDD0A", sure:  7, kategori: "ibadet", ders: safeRequire(() => require("./ezan_kamet_dersi.json"), "ezan_kamet_dersi"),      quiz: safeRequire(() => require("./ezan_kamet_quiz.json"), "ezan_kamet_quiz") },
+  { id: "zekat",         ikon: "\uD83E\uDD32", sure:  7, kategori: "ibadet", ders: safeRequire(() => require("./zekat_dersi.json"), "zekat_dersi"),                quiz: safeRequire(() => require("./zekat_quiz.json"), "zekat_quiz") },
 ];
+
+// Yaln\u0131zca ge\u00E7erli dersleri tut \u2192 bozuk/eksik ders t\u00FCm b\u00F6l\u00FCm\u00FC d\u00FC\u015F\u00FCrmez, sadece gizlenir.
+const KAYITLAR: Kayit[] = RAW_KAYITLAR.filter((k) => {
+  if (isValidDers(k.ders)) return true;
+  console.warn(`[dersler] ge\u00E7ersiz/eksik ders atland\u0131: ${k.id}`);
+  return false;
+});
 
 const EKSTRA_KARTLAR: EkstraKart[] = [
   { id: "elifba", baslik: "Elif-Ba", ikon: "\uD83D\uDD24", kartSayisi: 9, birim: "ders", sure: 20, route: "/ogren" },
@@ -181,15 +209,15 @@ const EKSTRA_KARTLAR: EkstraKart[] = [
 export const DERS_DATA: Record<string, any> = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.ders]));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const QUIZ_MAP: Record<string, any> = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.quiz]));
-export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map((k) => [k.id, (k.ders.baslik as string) ?? k.id]));
+export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map((k) => [k.id, (k.ders?.baslik as string) ?? k.id]));
 
 export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayisi: number; birim?: string; sure: number; route?: string }[] = [
   ...KAYITLAR.map((k) => ({
     id: k.id,
-    baslik: (k.ders.baslik as string) ?? k.id,
+    baslik: (k.ders?.baslik as string) ?? k.id,
     ikon: k.ikon,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    kartSayisi: ((k.ders.kartlar as any[]) ?? []).length,
+    kartSayisi: ((k.ders?.kartlar as any[]) ?? []).length,
     sure: k.sure,
   })),
   ...EKSTRA_KARTLAR.map((e) => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, route: e.route })),
