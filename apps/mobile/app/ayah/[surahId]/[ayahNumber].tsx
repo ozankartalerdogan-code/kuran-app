@@ -78,6 +78,43 @@ function translatePos(raw: string | null): string {
     .join(" + ");
 }
 
+// ── Detaylı morfoloji (QAC kodları → Türkçe) ──────────────────────────────────
+// SADECE emin olunan standart kodlar çevrilir; tanınmayan/teknik kodlar (REM, ATT,
+// SUP, PRO vb.) listede YOK → atlanır, böylece kullanıcıya ham İngilizce sızmaz.
+const MORPH_TR: Record<string, string> = {
+  // alt-tür
+  PN: "özel isim", PRON: "zamir", ADJ: "sıfat", DEM: "işaret", REL: "ilgi zamiri",
+  CONJ: "bağlaç", NEG: "olumsuzluk", DET: "belirli (ال)", INDEF: "belirsiz",
+  VOC: "nida", INTG: "soru", COND: "şart", EMPH: "tekid",
+  // hâl (irab)
+  NOM: "yalın hâl", ACC: "belirtme hâli", GEN: "tamlayan hâli",
+  // cinsiyet / sayı
+  M: "eril", F: "dişil", MS: "eril tekil", FS: "dişil tekil",
+  MP: "eril çoğul", FP: "dişil çoğul", MD: "eril ikil", FD: "dişil ikil", D: "ikil",
+  // şahıs
+  "1S": "1. tekil", "1P": "1. çoğul",
+  "2MS": "2. tekil eril", "2FS": "2. tekil dişil", "2MP": "2. çoğul eril",
+  "2FP": "2. çoğul dişil", "2MD": "2. ikil eril", "2FD": "2. ikil dişil", "2D": "2. ikil",
+  "3MS": "3. tekil eril", "3FS": "3. tekil dişil", "3MP": "3. çoğul eril",
+  "3FP": "3. çoğul dişil", "3MD": "3. ikil eril", "3FD": "3. ikil dişil", "3D": "3. ikil",
+  // fiil zaman / kip / çatı
+  PERF: "geçmiş zaman", IMPF: "geniş zaman", IMPV: "emir", FUT: "gelecek zaman",
+  IND: "haber kipi", SUBJ: "istek kipi", JUS: "cezm",
+  PASS: "edilgen", CAUS: "ettirgen",
+  ACT_PCPL: "etken ortaç", PASS_PCPL: "edilgen ortaç", VN: "mastar",
+};
+
+function parseMorphology(m: string | null): string {
+  if (!m) return "";
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const tok of m.split(/[|:\s]+/)) {
+    const tr = MORPH_TR[tok.trim()];
+    if (tr && !seen.has(tr)) { seen.add(tr); out.push(tr); }
+  }
+  return out.join(" · ");
+}
+
 // ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
 const naturallyRootlessPosLabels: Record<string, string> = {
@@ -653,6 +690,18 @@ export default function AyahDetailScreen() {
                       <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
                         {translatePos(w.pos)}
                       </Text>
+                        </View>
+                      ) : null}
+
+                      {/* Detaylı morfoloji (varsa) */}
+                      {parseMorphology(w.morphology) ? (
+                        <View style={styles.wordDetailRow}>
+                          <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
+                            Morfoloji
+                          </Text>
+                          <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
+                            {parseMorphology(w.morphology)}
+                          </Text>
                         </View>
                       ) : null}
 

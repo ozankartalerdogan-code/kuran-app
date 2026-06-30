@@ -278,6 +278,7 @@ export type AyahDetailResponse = {
     meaningTr: string | null;
     pos: string | null;
     root: string | null;
+    morphology: string | null;
   }[];
   prevAyah: { surahId: number; ayahNumber: number } | null;
   nextAyah: { surahId: number; ayahNumber: number } | null;
