@@ -12,6 +12,7 @@ export const STORAGE_KEYS = {
   prayerCache:     "prayerTimesCache",
   derslerProgress: "derslerProgress",
   onboarding:      "onboarding_completed",
+  appTour:         "app_tour_completed",
 } as const;
 
 export class StorageQuotaError extends Error {

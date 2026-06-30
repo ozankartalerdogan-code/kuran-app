@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type Item = {
   emoji: string; label: string; sub: string;
@@ -13,6 +14,7 @@ type Item = {
 export default function IbadetTab() {
   const c = useColors();
   const [tasbihOpen, setTasbihOpen] = useState(false);
+  const ibadetTarget = useTourTarget("ibadet.main");
 
   const SECTIONS: { title: string; items: Item[] }[] = [
     {
@@ -54,7 +56,7 @@ export default function IbadetTab() {
         <Text style={[s.heading, { color: c.text }]}>İbadet</Text>
 
         {SECTIONS.map((section, si) => (
-          <View key={si} style={si > 0 ? s.section : undefined}>
+          <View key={si} {...(si === 0 ? ibadetTarget : {})} style={si > 0 ? s.section : undefined}>
             <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
               <Text style={[s.sectionTitle, { color: c.textMuted }]}>{section.title}</Text>
             </View>

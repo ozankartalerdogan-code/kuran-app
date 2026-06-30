@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem } from "../src/lib/api";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
+import { useTourTarget } from "../src/tour/AppTourProvider";
 import { NUZUL } from "../src/constants/nuzul";
 
 function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
@@ -64,6 +65,7 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
 
 export default function SureListesiScreen() {
   const c = useColors();
+  const searchTarget = useTourTarget("surahList.search");
   const insets = useSafeAreaInsets();
   const [surahs, setSurahs]     = useState<SurahListItem[]>([]);
   const [loading, setLoading]   = useState(true);
@@ -118,7 +120,7 @@ export default function SureListesiScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}>
-      <View style={[styles.searchWrapper, { backgroundColor: c.bg }]}>
+      <View {...searchTarget} style={[styles.searchWrapper, { backgroundColor: c.bg }]}>
         <TextInput
           style={[styles.searchInput, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}
           placeholder="Sure ara (ad veya numara)"

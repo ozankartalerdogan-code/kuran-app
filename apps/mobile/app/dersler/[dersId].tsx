@@ -21,6 +21,7 @@ import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
 import { normalizeQuizSorular, type QuizSoru } from "../../src/lib/quizUtils";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 const { width: SCREEN_W } = Dimensions.get("window");
 
@@ -101,6 +102,7 @@ export default function DersDetayScreen() {
   const { dersId } = useLocalSearchParams<{ dersId: string }>();
   const insets = useSafeAreaInsets();
   const c = useColors();
+  const lessonNextTarget = useTourTarget("lesson.next");
 
   // Ders state
   const [dersIndex, setDersIndex] = useState(0);
@@ -574,7 +576,7 @@ export default function DersDetayScreen() {
             <Text style={s.nextBtnText}>Teste Başla</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sonraki kart">
+          <TouchableOpacity {...lessonNextTarget} style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sonraki kart">
             <Text style={s.nextBtnText}>Sonraki →</Text>
           </TouchableOpacity>
         )}

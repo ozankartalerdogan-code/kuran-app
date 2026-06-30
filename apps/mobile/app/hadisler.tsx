@@ -8,6 +8,7 @@ import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
+import { useTourTarget } from "../src/tour/AppTourProvider";
 import rawData from "../src/data/hadisler_v2.json";
 
 interface Meta {
@@ -300,6 +301,7 @@ function GroupAccordion({ group }: { group: GroupData }) {
 export default function HadislerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const topicsTarget = useTourTarget("hadith.topics");
   const sources = ensureStringArray(META.sources);
 
   useEffect(() => {
@@ -345,7 +347,11 @@ export default function HadislerScreen() {
         <Text style={[s.sectionHead, { color: c.textMuted }]}>Konular</Text>
 
         {GROUPED.length > 0 ? (
-          GROUPED.map(group => <GroupAccordion key={group.name} group={group} />)
+          GROUPED.map((group, index) => (
+            <View key={group.name} {...(index === 0 ? topicsTarget : {})}>
+              <GroupAccordion group={group} />
+            </View>
+          ))
         ) : (
           <Text style={[s.empty, { color: c.textMuted }]}>Bu bölüm için gösterilecek hadis kaydı bulunamadı.</Text>
         )}

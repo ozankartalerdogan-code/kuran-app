@@ -15,6 +15,7 @@ import {
 } from "../src/lib/namazNotifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useTourTarget } from "../src/tour/AppTourProvider";
 const NOTIF_KEY = "namazNotifEnabled";
 // Bildirimlerin en son hangi gün planlandığı (YYYY-MM-DD) — günde bir kez yeniden planlamak için.
 const SCHED_DAY_KEY = "namazNotifSchedDay";
@@ -264,6 +265,7 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
 
 export default function NamazScreen() {
   const insets = useSafeAreaInsets();
+  const namazTarget = useTourTarget("namaz.main");
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
@@ -353,7 +355,7 @@ export default function NamazScreen() {
       <Stack.Screen options={{ title: "Namaz Hakkında" }} />
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom }}>
         {/* Namaz Vakti Bildirimleri */}
-        <View style={styles.notifCard}>
+        <View {...namazTarget} style={styles.notifCard}>
           <View style={{ flex: 1 }}>
             <Text style={styles.notifTitle}>🔔 Namaz Vakti Bildirimleri</Text>
             <Text style={styles.notifSub}>

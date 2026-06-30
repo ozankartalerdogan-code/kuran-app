@@ -24,6 +24,7 @@ try {
 } catch (_e) { /* noop */ }
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { TasbihModal } from '../../src/components/ZikirMatik';
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -62,6 +63,9 @@ function HomeContent() {
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [selectedMood, setSelectedMood] = useState<MoodResult | null>(null);
   const [tasbihOpen, setTasbihOpen]   = useState(false);
+  const prayerTarget = useTourTarget("home.prayerTimes");
+  const qiblaTarget = useTourTarget("home.quick.qibla");
+  const homeDerslerTarget = useTourTarget("home.dersler");
 
   const openTasbih = useCallback(() => setTasbihOpen(true), []);
 
@@ -239,7 +243,7 @@ function HomeContent() {
       </ScrollView>
 
       {/* Namaz Vakitleri */}
-      <View style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
+      <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
           <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
@@ -300,6 +304,7 @@ function HomeContent() {
           {QUICK_ACTIONS.map(a => (
             <TouchableOpacity
               key={a.id}
+              {...(a.id === "qibla" ? qiblaTarget : {})}
               style={[styles.quickBtn, { backgroundColor: c.isDark ? c.cardAlt : a.bg }]}
               onPress={() => handleQuickActionPress(a)}
               activeOpacity={0.75}
@@ -315,6 +320,7 @@ function HomeContent() {
 
       {/* Dersler — featured kart */}
       <TouchableOpacity
+        {...homeDerslerTarget}
         style={[styles.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
         onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
         activeOpacity={0.8}

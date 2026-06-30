@@ -1,6 +1,5 @@
 import { Stack, router } from "expo-router";
 import { maybeAskReview } from '../src/hooks/useStoreReview';
-import { storage, STORAGE_KEYS } from '../src/lib/storage';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -10,6 +9,7 @@ import * as Font from "expo-font";
 import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
+import { AppTourProvider } from "../src/tour/AppTourProvider";
 
 type SentryLike = {
   init: (options: Record<string, unknown>) => void;
@@ -79,13 +79,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
-  // Onboarding kararı splash aşamasında verildi; ilk ekran doğrudan
-  // initialRouteName ile mount edilir, böylece ana ekran "flash"ı olmaz.
+function AppContent() {
   return (
     <SafeAreaProvider>
       <StatusBar style="auto" />
-      <Stack initialRouteName={needsOnboarding ? "onboarding" : "(tabs)"}>
+      <AppTourProvider>
+      <Stack initialRouteName="(tabs)">
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerShown: false }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
@@ -120,22 +119,20 @@ function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
         <Stack.Screen name="dualar"                              options={{ headerShown: false }} />
         <Stack.Screen name="esma"                                options={{ headerShown: false }} />
         <Stack.Screen name="ogren/harf-i-tarif"                  options={{ headerShown: false }} />
-        <Stack.Screen name="onboarding"                          options={{ headerShown: false }} />
       </Stack>
+      </AppTourProvider>
     </SafeAreaProvider>
   );
 }
 
 function RootLayout() {
   const [videoFinished, setVideoFinished] = useState(false);
-  // null = henüz okunmadı, true = onboarding gerekli, false = gerekmez
-  const [needsOnboarding, setNeedsOnboarding] = useState<boolean | null>(null);
   const [fontsLoaded] = Font.useFonts({
     "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
     "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
   });
 
-  const ready = videoFinished && !!fontsLoaded && needsOnboarding !== null;
+  const ready = videoFinished && !!fontsLoaded;
 
   const handleSplashFinish = useCallback(() => {
     setVideoFinished(true);
@@ -144,13 +141,6 @@ function RootLayout() {
   // Native splash'i mount'ta hemen kaldır — altındaki animasyonlu AppSplash görünsün.
   useEffect(() => {
     SplashScreen.hideAsync().catch(() => {});
-  }, []);
-
-  // Onboarding durumunu splash aşamasında oku (AppContent render edilmeden önce).
-  useEffect(() => {
-    storage.getString(STORAGE_KEYS.onboarding)
-      .then((completed) => setNeedsOnboarding(!completed))
-      .catch(() => setNeedsOnboarding(false));
   }, []);
 
   useEffect(() => {
@@ -180,7 +170,7 @@ function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <AppContent needsOnboarding={needsOnboarding ?? false} />
+        <AppContent />
       </ErrorBoundary>
     </QueryClientProvider>
   );

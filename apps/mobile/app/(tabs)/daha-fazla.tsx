@@ -2,8 +2,18 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
+import { useAppTour, useTourTarget } from "../../src/tour/AppTourProvider";
 
-const SECTIONS = [
+type Item = {
+  emoji: string;
+  label: string;
+  sub: string;
+  route?: string;
+  action?: "restartTour";
+};
+
+
+const SECTIONS: { title: string; items: Item[] }[] = [
   {
     title: "🔍 Keşfet",
     items: [
@@ -23,12 +33,22 @@ const SECTIONS = [
     title: "⚙️ Uygulama",
     items: [
       { emoji: "ℹ️", label: "Hakkında & Kaynaklar", sub: "Referanslar, versiyon bilgisi", route: "/hakkinda" },
+      { emoji: "🧭", label: "Tanıtımı Tekrar Göster", sub: "Uygulama rehberini baştan başlat", action: "restartTour" },
     ],
   },
 ];
 
 export default function DahaFazlaTab() {
   const c = useColors();
+  const { restartTour } = useAppTour();
+  const appSectionTarget = useTourTarget("more.appSection");
+  const restartTourTarget = useTourTarget("more.restartTour");
+
+  function handlePress(item: Item) {
+    if (item.action === "restartTour") { void restartTour(); return; }
+    if (item.route) router.push(item.route as any);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
@@ -39,7 +59,7 @@ export default function DahaFazlaTab() {
         <Text style={[s.heading, { color: c.text }]}>Daha Fazla</Text>
 
         {SECTIONS.map((section, si) => (
-          <View key={si} style={si > 0 ? s.section : undefined}>
+          <View key={si} {...(section.title.includes("Uygulama") ? appSectionTarget : {})} style={si > 0 ? s.section : undefined}>
             <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
               <Text style={[s.sectionTitle, { color: c.textMuted }]}>{section.title}</Text>
             </View>
@@ -47,8 +67,9 @@ export default function DahaFazlaTab() {
               {section.items.map((item, ii) => (
                 <TouchableOpacity
                   key={ii}
+                  {...(item.action === "restartTour" ? restartTourTarget : {})}
                   style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}
-                  onPress={() => router.push(item.route as any)}
+                  onPress={() => handlePress(item)}
                   activeOpacity={0.8}
                   accessibilityRole="button"
                   accessibilityLabel={`${item.label}: ${item.sub}`}

@@ -7,6 +7,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERSLER_META as DERSLER, KATEGORILER } from "../../src/data/Dersler/dersler_registry";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type SortMode = "tumu" | "sure" | "konu";
 
@@ -29,6 +30,7 @@ export default function DerslerScreen() {
   const c = useColors();
   const { progress, load } = useDersProgress();
   const [sortMode, setSortMode] = useState<SortMode>("tumu");
+  const firstCardTarget = useTourTarget("dersler.firstCard");
 
   useFocusEffect(useCallback(() => { load(); }, [load]));
 
@@ -45,6 +47,7 @@ export default function DerslerScreen() {
     return (
       <TouchableOpacity
         key={item.id}
+        {...(item.id === "namaz" ? firstCardTarget : {})}
         style={[s.card, { backgroundColor: c.card, borderColor: done ? "#4ade80" : "#c9a84c" }]}
         onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as any); }}
         activeOpacity={0.8}
@@ -64,7 +67,7 @@ export default function DerslerScreen() {
         )}
       </TouchableOpacity>
     );
-  }, [progress, c]);
+  }, [progress, c, firstCardTarget]);
 
   const renderItem = useCallback(
     ({ item }: { item: Ders }) => renderCard(item),

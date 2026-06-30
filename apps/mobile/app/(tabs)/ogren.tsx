@@ -3,6 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 const SECTIONS = [
   {
@@ -24,6 +25,8 @@ const SECTIONS = [
 
 export default function OgrenTab() {
   const c = useColors();
+  const derslerTarget = useTourTarget("learn.dersler");
+  const hadithTarget = useTourTarget("learn.hadith");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
@@ -35,6 +38,7 @@ export default function OgrenTab() {
 
         {/* Dersler — featured kart */}
         <TouchableOpacity
+          {...derslerTarget}
           style={[s.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
           onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
           activeOpacity={0.8}
@@ -58,6 +62,7 @@ export default function OgrenTab() {
               {section.items.map(item => (
                 <TouchableOpacity
                   key={item.route}
+                  {...(item.route === "/hadisler" ? hadithTarget : {})}
                   style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}
                   onPress={() => router.push(item.route as any)}
                   activeOpacity={0.8}

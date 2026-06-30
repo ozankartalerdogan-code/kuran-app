@@ -21,6 +21,7 @@ import { useStreak } from "../../../src/hooks/useStreak";
 import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
 import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
+import { useTourTarget } from "../../../src/tour/AppTourProvider";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -410,6 +411,7 @@ export default function AyahDetailScreen() {
   const isDark = colorScheme === "dark";
   const colors = isDark ? darkColors : lightColors;
   const insets = useSafeAreaInsets();
+  const ayahTarget = useTourTarget("ayah.main");
 
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
@@ -601,7 +603,7 @@ export default function AyahDetailScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* ═══ Başlık ═══ */}
-        <View style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+        <View {...ayahTarget} style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
           <Text style={[styles.headerTitle, { color: colors.textPrimary }]} numberOfLines={2}>
             {data.surahName}
           </Text>

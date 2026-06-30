@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../../src/hooks/useColors";
 import { logFeature } from "../../src/lib/analytics";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type KuranCardRoute = "/mushaf" | "/sure-listesi" | "/hatim";
 type KuranCard = {
@@ -24,6 +25,7 @@ const CARDS: KuranCard[] = [
 
 export default function KuranTab() {
   const c = useColors();
+  const surahListTarget = useTourTarget("kuran.surahList");
 
   const handleSearchPress = () => {
     logFeature("kuran_tab_search");
@@ -59,6 +61,7 @@ export default function KuranTab() {
           {CARDS.map(card => (
             <TouchableOpacity
               key={card.id}
+              {...(card.id === "surah_list" ? surahListTarget : {})}
               style={[s.card, { backgroundColor: card.bg, borderColor: card.border }]}
               onPress={() => handleCardPress(card)}
               activeOpacity={0.8}

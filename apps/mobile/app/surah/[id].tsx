@@ -13,13 +13,15 @@ import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { SkeletonListItem } from "../../src/components/SkeletonLoader";
 import { logScreen } from "../../src/lib/analytics";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
 function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string }) {
   const c = useColors();
+  const readerTarget = useTourTarget("surah.reader");
   return (
-    <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
+    <View {...readerTarget} style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
         style={tf.header}
         onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
