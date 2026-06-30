@@ -143,7 +143,7 @@ function HomeContent() {
 
       {/* Test butonu — YALNIZCA geliştirme (__DEV__). APK/AAB'de görünmez. */}
       {__DEV__ && (
-        <TouchableOpacity onPress={handleTestNotif} style={styles.testNotifBtn} activeOpacity={0.7}>
+        <TouchableOpacity onPress={handleTestNotif} style={styles.testNotifBtn} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Bildirimi test et">
           <Text style={styles.testNotifText}>🔔 Bildirimi Test Et (5 sn) · DEV</Text>
         </TouchableOpacity>
       )}
@@ -177,6 +177,8 @@ function HomeContent() {
         <TouchableOpacity
           onPress={toggleTheme}
           activeOpacity={0.75}
+          accessibilityRole="button"
+          accessibilityLabel={c.isDark ? "Aydınlık moda geç" : "Gece moduna geç"}
           style={[styles.themeBtn, {
             backgroundColor: c.isDark ? "#292524" : "#e7e5e4",
             borderColor: c.isDark ? "#44403c" : "#d6d3d1",
@@ -195,6 +197,8 @@ function HomeContent() {
         style={[styles.verseCard, { backgroundColor: c.isDark ? "#1c1405" : "#fffbeb", borderColor: c.isDark ? "#78350f" : "#fcd34d" }]}
         onPress={() => verse && router.push(`/ayah/${verse.surah_id}/${verse.ayah_number}`)}
         activeOpacity={0.85}
+        accessibilityRole="button"
+        accessibilityLabel="Günün ayetini aç"
       >
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>✨ Günün Ayeti</Text>
@@ -221,6 +225,9 @@ function HomeContent() {
             onPress={() => handleMoodPress(m)}
             activeOpacity={0.7}
             disabled={!!moodLoading}
+            accessibilityRole="button"
+            accessibilityLabel={m.label}
+            accessibilityState={{ disabled: !!moodLoading, busy: moodLoading === m.tag }}
           >
             {moodLoading === m.tag
               ? <ActivityIndicator size="small" color={c.text} />
@@ -258,7 +265,7 @@ function HomeContent() {
         )}
 
         {/* Bildirim toggle'ı /namaz ekranında — buraya kısayol (eskiden erişilemiyordu) */}
-        <TouchableOpacity onPress={() => router.push("/namaz")} activeOpacity={0.7} style={styles.prayerNotifLink}>
+        <TouchableOpacity onPress={() => router.push("/namaz")} activeOpacity={0.7} style={styles.prayerNotifLink} accessibilityRole="button" accessibilityLabel="Namaz vakti bildirimleri">
           <Text style={[styles.prayerNotifLinkText, { color: c.isDark ? "#a5b4fc" : "#4338ca" }]}>🔔 Namaz vakti bildirimleri →</Text>
         </TouchableOpacity>
       </View>
@@ -268,6 +275,8 @@ function HomeContent() {
         style={[styles.duaCard, { backgroundColor: c.isDark ? "#042f2e" : "#f0fdfa", borderColor: c.isDark ? "#0f766e" : "#5eead4" }]}
         onPress={() => dua && router.push(`/ayah/${dua.surah_id}/${dua.ayah_number}`)}
         activeOpacity={0.85}
+        accessibilityRole="button"
+        accessibilityLabel="Günün duasını aç"
       >
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>🤲 Günün Duası</Text>
@@ -309,6 +318,8 @@ function HomeContent() {
         style={[styles.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
         onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
         activeOpacity={0.8}
+        accessibilityRole="button"
+        accessibilityLabel="Dersler — İslam'ı öğren"
       >
         <View style={{ flex: 1 }}>
           <Text style={styles.derslerTitle}>📚 Dersler — İslam'ı Öğren</Text>
@@ -325,7 +336,7 @@ function HomeContent() {
       onRequestClose={closeMoodCard}
     >
       <View style={styles.moodModalBackdrop}>
-        <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={closeMoodCard} />
+        <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={closeMoodCard} accessibilityRole="button" accessibilityLabel="Kapat" />
         {selectedMood && (
           <View style={[styles.moodModalCard, { backgroundColor: c.card, borderColor: c.border }]}>
             <View style={styles.moodModalHeader}>
@@ -336,7 +347,7 @@ function HomeContent() {
                 <Text style={[styles.moodModalTitle, { color: c.text }]}>{selectedMood.label}</Text>
                 <Text style={[styles.moodModalSub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır meali</Text>
               </View>
-              <TouchableOpacity onPress={closeMoodCard} hitSlop={10} activeOpacity={0.7}>
+              <TouchableOpacity onPress={closeMoodCard} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Kapat">
                 <Ionicons name="close" size={22} color={c.textMuted} />
               </TouchableOpacity>
             </View>
@@ -345,6 +356,8 @@ function HomeContent() {
               onPress={openMoodAyah}
               activeOpacity={0.75}
               style={[styles.moodAyahLink, { backgroundColor: c.isDark ? c.cardAlt : "#f8fafc", borderColor: c.border }]}
+              accessibilityRole="button"
+              accessibilityLabel="Ayeti aç"
             >
               <Text style={[styles.moodAyahLinkText, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>
                 {selectedMood.surah_name ?? "Ayet"} · {selectedMood.surah_id}:{selectedMood.ayah_number}
