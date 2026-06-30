@@ -30,16 +30,16 @@ import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
 const RUH_HALI = [
-  { emoji: "😌", label: "Huzur",           tag: "rahmet",   bg: "#d1fae5" },
-  { emoji: "💪", label: "Sabır",           tag: "sabır",    bg: "#fef3c7" },
-  { emoji: "🙏", label: "Tövbe",           tag: "tövbe",    bg: "#ede9fe" },
-  { emoji: "🌟", label: "Şükür",           tag: "şükür",    bg: "#fef9c3" },
-  { emoji: "⚖️", label: "Adalet",          tag: "adalet",   bg: "#e0e7ff" },
-  { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",    bg: "#ffe4e6" },
-  { emoji: "🧭", label: "Hidayet",         tag: "hidayet",  bg: "#ffedd5" },
-  { emoji: "🤲", label: "Dua",             tag: "dua",      bg: "#cffafe" },
-  { emoji: "📿", label: "Zikir",           tag: "zikir",    bg: "#fae8ff" },
-  { emoji: "🍃", label: "Tevekkül",        tag: "tevekkül", bg: "#ecfccb" },
+  { emoji: "😌", label: "Huzur",           tag: "rahmet",   bg: "#d1fae5", border: "#6ee7b7" },
+  { emoji: "💪", label: "Sabır",           tag: "sabır",    bg: "#fef3c7", border: "#fcd34d" },
+  { emoji: "🙏", label: "Tövbe",           tag: "tövbe",    bg: "#ede9fe", border: "#c4b5fd" },
+  { emoji: "🌟", label: "Şükür",           tag: "şükür",    bg: "#fef9c3", border: "#fde047" },
+  { emoji: "⚖️", label: "Adalet",          tag: "adalet",   bg: "#e0e7ff", border: "#a5b4fc" },
+  { emoji: "💔", label: "Geçim Sıkıntısı", tag: "rızık",    bg: "#ffe4e6", border: "#fda4af" },
+  { emoji: "🧭", label: "Hidayet",         tag: "hidayet",  bg: "#ffedd5", border: "#fdba74" },
+  { emoji: "🤲", label: "Dua",             tag: "dua",      bg: "#cffafe", border: "#67e8f9" },
+  { emoji: "📿", label: "Zikir",           tag: "zikir",    bg: "#fae8ff", border: "#f0abfc" },
+  { emoji: "🍃", label: "Tevekkül",        tag: "tevekkül", bg: "#ecfccb", border: "#bef264" },
 ];
 
 type MoodItem = typeof RUH_HALI[number];
@@ -227,7 +227,7 @@ function HomeContent() {
         {RUH_HALI.map(m => (
           <TouchableOpacity
             key={m.tag}
-            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg, opacity: moodLoading === m.tag ? 0.6 : 1 }]}
+            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderColor: c.isDark ? c.border : m.border, opacity: moodLoading === m.tag ? 0.6 : 1 }]}
             onPress={() => handleMoodPress(m)}
             activeOpacity={0.7}
             disabled={!!moodLoading}
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
 
   themeBtn:     { width: 36, height: 36, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },
-  moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
+  moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, borderWidth: 1.5, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
   moodLabel: { fontSize: 13, fontWeight: "600" },
   moodModalBackdrop: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "rgba(0,0,0,0.45)" },
   moodModalCard: { borderRadius: 20, borderWidth: 1, padding: 18, shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
