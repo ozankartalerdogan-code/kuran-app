@@ -147,6 +147,8 @@ function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: The
       style={[styles.accordionBox, { backgroundColor: colors.card, borderColor: colors.border }]}
       onPress={() => router.push(`/tafsir/${surahId}`)}
       activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityLabel="Sure hakkında tefsiri aç"
     >
       <View style={styles.accordionHeader}>
         <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>📖 Sure tefsirini oku</Text>
@@ -225,6 +227,8 @@ function UniqueRootList({
             style={[styles.rootChip, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
             onPress={() => router.push(`/root/${encodeURIComponent(root)}`)}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel={`${root} kökünü incele`}
           >
             <View style={styles.rootChipRow}>
               <Text style={[styles.rootChipArabic, { color: colors.accent }]}>{root}</Text>
@@ -293,7 +297,7 @@ function AyahJumpBar({ surahId, current, total, colors, rightContent }: {
         returnKeyType="go"
         selectTextOnFocus
       />
-      <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8}>
+      <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Ayete git">
         <Text style={styles.jumpBtnText}>Git</Text>
       </TouchableOpacity>
       {rightContent && (
@@ -339,6 +343,9 @@ function SegmentedTabs({
             ]}
             onPress={() => onChange(t.id)}
             activeOpacity={0.7}
+            accessibilityRole="tab"
+            accessibilityState={{ selected: isActive }}
+            accessibilityLabel={t.label}
           >
             <Text
               style={[
@@ -574,6 +581,8 @@ export default function AyahDetailScreen() {
             onPress={() => router.back()}
             style={[styles.backBtn, { backgroundColor: colors.accent }]}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Geri dön"
           >
             <Text style={styles.backBtnText}>← Geri Dön</Text>
           </TouchableOpacity>
@@ -608,10 +617,10 @@ export default function AyahDetailScreen() {
             colors={colors}
             rightContent={
               <>
-                <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
+                <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Ayeti paylaş">
                   <Ionicons name="share-social-outline" size={20} color={colors.textMuted} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleToggleFav} hitSlop={8} activeOpacity={0.7}>
+                <TouchableOpacity onPress={handleToggleFav} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ selected: isFavorite(verseKey) }} accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}>
                   <Text style={{ fontSize: 20 }}>{isFavorite(verseKey) ? "❤️" : "🤍"}</Text>
                 </TouchableOpacity>
               </>
@@ -736,6 +745,8 @@ export default function AyahDetailScreen() {
                             onPress={() => navToRoot(w.root!)}
                             activeOpacity={0.6}
                             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                            accessibilityRole="button"
+                            accessibilityLabel={`${w.root} kökünü incele`}
                           >
                             <Text style={[styles.rootLink, { color: colors.accent }]}>
                               {w.root}
@@ -813,6 +824,8 @@ export default function AyahDetailScreen() {
                       style={[styles.tag, styles.tagPrimary]}
                       onPress={() => router.push(`/search?tag=${encodeURIComponent(data.anaTema!)}&page=1`)}
                       activeOpacity={0.7}
+                      accessibilityRole="button"
+                      accessibilityLabel={`${data.anaTema} etiketine göre ara`}
                     >
                       <Text style={styles.tagTextPrimary}>{data.anaTema}</Text>
                     </TouchableOpacity>
@@ -823,6 +836,8 @@ export default function AyahDetailScreen() {
                       style={styles.tag}
                       onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
                       activeOpacity={0.7}
+                      accessibilityRole="button"
+                      accessibilityLabel={`${tag} etiketine göre ara`}
                     >
                       <Text style={styles.tagText}>{tag}</Text>
                     </TouchableOpacity>
@@ -852,6 +867,9 @@ export default function AyahDetailScreen() {
             onPress={handlePrev}
             disabled={!data.prevAyah}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Önceki ayet"
+            accessibilityState={{ disabled: !data.prevAyah }}
           >
             <Text
               style={[
@@ -875,6 +893,9 @@ export default function AyahDetailScreen() {
             onPress={handleNext}
             disabled={!data.nextAyah}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Sonraki ayet"
+            accessibilityState={{ disabled: !data.nextAyah }}
           >
             <Text
               style={[
@@ -910,6 +931,8 @@ export default function AyahDetailScreen() {
               <TouchableOpacity
                 onPress={handleDeleteNote}
                 activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityLabel="Notu sil"
               >
                 <Text style={[styles.noteDelete, { color: colors.error }]}>Notu Sil</Text>
               </TouchableOpacity>
@@ -918,6 +941,8 @@ export default function AyahDetailScreen() {
               style={[styles.noteSaveBtn, { backgroundColor: colors.accent }]}
               onPress={handleSaveNote}
               activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel="Notu kaydet"
             >
               <Text style={styles.noteSaveBtnText}>Kaydet</Text>
             </TouchableOpacity>

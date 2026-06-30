@@ -123,7 +123,7 @@ function YakindaEkran({ baslik }: { baslik: string }) {
     <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
           <Text style={s.accent}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
@@ -292,11 +292,11 @@ export default function DersDetayScreen() {
         <Stack.Screen options={{ headerShown: false }} />
 
         <View style={[s.header, { borderBottomColor: c.border }]}>
-          <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7}>
+          <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
             <Text style={s.accent}>‹ Geri</Text>
           </TouchableOpacity>
           <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7}>
+          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Kart moduna geç">
             <Text style={[s.accent, { fontSize: 12 }]}>Kart Modu</Text>
           </TouchableOpacity>
         </View>
@@ -317,7 +317,7 @@ export default function DersDetayScreen() {
           ))}
 
           {hasQuiz && (
-            <TouchableOpacity style={[s.nextBtn, { marginTop: 28 }]} onPress={startQuiz} activeOpacity={0.8}>
+            <TouchableOpacity style={[s.nextBtn, { marginTop: 28 }]} onPress={startQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Teste başla">
               <Text style={s.nextBtnText}>Teste Başla</Text>
             </TouchableOpacity>
           )}
@@ -398,10 +398,12 @@ export default function DersDetayScreen() {
             style={[s.prevBtn, { borderColor: c.border, flex: 1 }]}
             onPress={returnToLesson}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Derse dön"
           >
             <Text style={[s.prevBtnText, { color: c.text }]}>Derse Dön</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[s.nextBtn, { flex: 1 }]} onPress={retryQuiz} activeOpacity={0.8}>
+          <TouchableOpacity style={[s.nextBtn, { flex: 1 }]} onPress={retryQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Testi tekrar çöz">
             <Text style={s.nextBtnText}>Tekrar Çöz</Text>
           </TouchableOpacity>
         </View>
@@ -448,6 +450,8 @@ export default function DersDetayScreen() {
             style={[s.headerSide, { width: 96 }]}
             onPress={returnToLesson}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Derse dön"
           >
             <Text style={s.accent} numberOfLines={1}>← Derse Dön</Text>
           </TouchableOpacity>
@@ -491,6 +495,9 @@ export default function DersDetayScreen() {
               onPress={() => handleAnswerSelect(cevap.harf)}
               disabled={!!selectedAnswer}
               activeOpacity={0.75}
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !!selectedAnswer, selected: selectedAnswer === cevap.harf }}
+              accessibilityLabel={`${cevap.harf}: ${cevap.metin}`}
             >
               <View style={[s.answerHarf, { borderColor: answerBorderColor(cevap.harf) }]}>
                 <Text style={[s.answerHarfText, { color: answerTextColor(cevap.harf) }]}>
@@ -512,6 +519,9 @@ export default function DersDetayScreen() {
             onPress={showResult ? nextQuestion : undefined}
             disabled={!showResult}
             activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityState={{ disabled: !showResult }}
+            accessibilityLabel={qIndex + 1 >= qTotal ? "Sonuçları gör" : "Sonraki soru"}
           >
             <Text style={s.nextBtnText}>
               {qIndex + 1 >= qTotal ? "Sonuçları Gör" : "Sonraki Soru →"}
@@ -531,11 +541,11 @@ export default function DersDetayScreen() {
 
       {/* Header */}
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
           <Text style={s.accent}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? "Kart moduna geç" : "Tümünü oku"}>
           <Text style={[s.accent, { fontSize: 12 }]}>
             {readMode ? "Kart Modu" : "Tümünü Oku"}
           </Text>
@@ -579,6 +589,9 @@ export default function DersDetayScreen() {
           onPress={() => navigateDers(-1)}
           disabled={isFirst}
           activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel="Önceki kart"
+          accessibilityState={{ disabled: isFirst }}
         >
           <Text style={[s.prevBtnText, { color: isFirst ? c.textMuted : "#c9a84c" }]}>← Önceki</Text>
         </TouchableOpacity>
@@ -589,11 +602,14 @@ export default function DersDetayScreen() {
             onPress={hasQuiz ? startQuiz : undefined}
             disabled={!hasQuiz}
             activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel="Teste başla"
+            accessibilityState={{ disabled: !hasQuiz }}
           >
             <Text style={s.nextBtnText}>Teste Başla</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8}>
+          <TouchableOpacity style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sonraki kart">
             <Text style={s.nextBtnText}>Sonraki →</Text>
           </TouchableOpacity>
         )}
