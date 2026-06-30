@@ -38,7 +38,7 @@ Durum işaretleri: ⬜ açık · 🔧 üzerinde çalışılıyor · ✅ çözül
 
 ## 🟡 Orta öncelik
 
-### 5. Accessibility eksik ⬜
+### 5. Accessibility eksik ✅ (~30 ekran; accessibilityRole/Label/State eklendi)
 - **Kural:** 14
 - **Dosya:** 42 dosyada dokunulabilir öğe, yalnız 15'inde `accessibilityRole/Label` → ~27 ekran a11y'siz
 - **Çözüm:** Buton/kart/favori/quiz öğelerine `accessibilityRole` + `accessibilityLabel`.
