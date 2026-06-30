@@ -43,10 +43,14 @@ Durum işaretleri: ⬜ açık · 🔧 üzerinde çalışılıyor · ✅ çözül
 - **Dosya:** 42 dosyada dokunulabilir öğe, yalnız 15'inde `accessibilityRole/Label` → ~27 ekran a11y'siz
 - **Çözüm:** Buton/kart/favori/quiz öğelerine `accessibilityRole` + `accessibilityLabel`.
 
-### 6. Test kapsamı çok düşük ⬜
+### 6. Test kapsamı çok düşük ✅ (FTS + quiz saf mantığı çıkarıldı ve test edildi)
 - **Kural:** 18, 31
-- **Durum:** Sadece 3 test dosyası. Favori/not/arama testsiz; quiz bütünlüğü kapsanmıyor.
-- **Çözüm:** Kritik akışlar için smoke test; quiz veri bütünlüğü testi.
+- **Yapıldı:**
+  - `apps/web/src/lib/ftsQuery.ts` — arama normalizasyonu/escapeFts route'tan çıkarıldı + 7 test
+  - `apps/mobile/src/lib/quizUtils.ts` — `normalizeQuizSorular` ekrandan çıkarıldı + 7 test (madde 18: bozuk/boş seçenekli soru elenir)
+  - `test:mobile` script'i eklendi; mobil tsconfig test dosyalarını hariç tutar
+- **Not:** Favori/not hook'ları RN test altyapısı gerektirdiği (jest/RTL yok) için
+  şimdilik kapsam dışı; saf yardımcılar test edildi.
 
 ### 7. `ensureTursoIndexes` yol kırılganlığı ✅ (çoklu aday yol + görünür uyarı)
 - **Kural:** 29
@@ -54,15 +58,16 @@ Durum işaretleri: ⬜ açık · 🔧 üzerinde çalışılıyor · ✅ çözül
 - **Sorun:** `process.cwd()` bağımlı göreli yolla `indexes.sql` okuyor; bulamazsa sadece `warn` → sessiz yavaşlama.
 - **Çözüm:** Canlı logda index'lerin uygulandığını doğrula.
 
-### 8. Büyük dosyalar (bakım/regresyon riski) ⬜
+### 8. Büyük dosyalar (bakım/regresyon riski) ⏸️ ERTELENDİ (sonra denenebilir)
 - **Kural:** 8, 21
 - **Dosya:** `surah/.../ayah/[ayahNumber]/page.tsx` (1568), `app/ayah/.../[ayahNumber].tsx` (1147), `ogren/OgrenClient.tsx` (1028)
 - **Çözüm:** Yalnızca okunabilirliği artırıyorsa küçük parçalara ayır (madde 2/8 — zorlama yok).
 
-### 9. Favori/Not senkron modeli net değil ⬜
+### 9. Favori/Not senkron modeli net değil ✅ KARAR: yerel-only (şimdilik)
 - **Kural:** mimari/UX
-- **Sorun:** Auth yok; favori/not cihaz-yerel (mobil AsyncStorage, web localStorage). Web↔mobil senkron YOK.
-- **Çözüm:** "Her yerde aynı" bekleniyorsa eksik; yerel-only ise bilinçli karar olarak not düş.
+- **Karar (2026-06-30):** Favori/not **bilinçli olarak cihaz-yerel** kalıyor
+  (mobil AsyncStorage, web localStorage). Web↔mobil senkron **şimdilik yok**.
+  Sonra denenebilir → auth + backend storage gerektirir (ayrı özellik).
 
 ---
 

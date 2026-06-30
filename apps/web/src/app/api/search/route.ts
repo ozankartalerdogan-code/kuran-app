@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import type { SearchResponse, SuggestedSurah } from "./search-types";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
+import { sanitizeSearchQuery, expandSearchPatterns, escapeFts } from "../../../lib/ftsQuery";
 
 export type { SearchResponse };
 
@@ -13,43 +14,7 @@ interface CountRow    { total: number }
 interface VerseRow    { verse_key: string; meal: string | null; surah_name: string | null; arabic_text: string | null; reading_tr: string | null }
 interface TagCountRow { total: number }
 
-// ── Arama sorgusu normalizasyonu (Türkçe karakter esnekliği) ─────────────────
-
-/**
- * Kullanıcının yazdığı arama terimini ASCII‑güvenli ve karşılaştırmaya
- * uygun hale getirir.  NFD ayrıştırma + combining diacritic temizliği
- * ile ş→s, ç→c, ğ→g, ü→u, ö→o, î→i, â→a dönüşümü yapar.
- * Sadece "ı" (dotless i) NFD ile ayrışmadığı için özel olarak ele alınır.
- */
-function sanitizeSearchQuery(q: string): string {
-  return q
-    .toLocaleLowerCase("tr-TR")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ı/g, "i")
-    .trim();
-}
-
-/**
- * Aynı sorgunun hem orijinal (Türkçe karakterler korunmuş) hem de
- * ASCII‑normalleştirilmiş varyantlarını döner.  Tekil kalması için
- * Set ile birleştirilir.
- */
-function expandSearchPatterns(q: string): string[] {
-  const original = q.toLocaleLowerCase("tr-TR").trim();
-  const ascii = sanitizeSearchQuery(q);
-  return [...new Set([original, ascii])];
-}
-
-// ── FTS5 sorgu temizleyici ────────────────────────────────────────────────────
-
-function escapeFts(q: string): string {
-  return q
-    .replace(/["*^()-]/g, " ")
-    .replace(/\b(AND|OR|NOT)\b/gi, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+// Arama sorgusu normalizasyonu + FTS5 temizleyici: ../../../lib/ftsQuery
 
 // ── Sure eşleştirme ───────────────────────────────────────────────────────────
 

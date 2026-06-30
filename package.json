@@ -15,6 +15,7 @@
     "build": "npm run build -ws --if-present",
     "typecheck": "npm run typecheck -ws --if-present",
     "test": "node --test \"apps/web/src/lib/**/*.test.ts\"",
+    "test:mobile": "node --test \"apps/mobile/src/**/*.test.ts\"",
     "test:data": "node --test \"apps/web/src/__tests__/**/*.test.ts\"",
     "verify:live": "node scripts/verify-live.mjs",
     "sync:diff": "node --env-file=apps/web/.env.local scripts/sync-diff-to-turso.mjs",
