@@ -69,6 +69,9 @@ function JuzTracker({ currentJuz }: { currentJuz: number }) {
               style={[jt.cell, active && jt.cellActive]}
               onPress={() => router.push(`/mushaf/${item.surahId}/${item.ayahNumber}`)}
               activeOpacity={0.75}
+              accessibilityRole="button"
+              accessibilityState={{ selected: active }}
+              accessibilityLabel={`${index + 1}. cüz`}
             >
               <Text style={[jt.cellText, active && jt.cellTextActive]}>
                 {index + 1}
@@ -148,7 +151,7 @@ export default function MushafAyahScreen() {
         <Stack.Screen options={{ title: "Hata" }} />
         <View style={[s.centered, { paddingTop: insets.top }]}>
           <Text style={s.errorText}>{error ?? "Veri yüklenemedi."}</Text>
-          <TouchableOpacity style={s.backBtn} onPress={() => router.back()}>
+          <TouchableOpacity style={s.backBtn} onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="Geri">
             <Text style={s.backBtnText}>← Geri</Text>
           </TouchableOpacity>
         </View>
@@ -181,6 +184,9 @@ export default function MushafAyahScreen() {
                 onPress={toggleBookmark}
                 style={[s.bmBtn, isBookmarked && s.bmBtnActive]}
                 activeOpacity={0.75}
+                accessibilityRole="button"
+                accessibilityState={{ selected: isBookmarked }}
+                accessibilityLabel={isBookmarked ? "Yer imini kaldır" : "Yer imi koy"}
               >
                 <Text style={[s.bmBtnText, isBookmarked && s.bmBtnTextActive]}>
                   {isBookmarked ? "✓ Yer imim" : "🔖 Yer imi koy"}
@@ -209,6 +215,9 @@ export default function MushafAyahScreen() {
             onPress={() => data.prevAyah && navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber)}
             disabled={!data.prevAyah}
             activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel="Önceki ayet"
+            accessibilityState={{ disabled: !data.prevAyah }}
           >
             <Text style={[s.navBtnText, !data.prevAyah && s.navBtnTextOff]}>← Önceki</Text>
           </TouchableOpacity>
@@ -216,6 +225,9 @@ export default function MushafAyahScreen() {
           <Pressable
             style={s.navCenter}
             onLongPress={() => router.push(`/surah/${surahId}`)}
+            accessibilityRole="button"
+            accessibilityLabel={`${surahId}:${ayahNumber}`}
+            accessibilityHint="Basılı tutarak sureyi aç"
           >
             <Text style={s.navCenterText}>{surahId}:{ayahNumber}</Text>
             <Text style={s.navCenterHint}>basılı tut → sure</Text>
@@ -226,6 +238,9 @@ export default function MushafAyahScreen() {
             onPress={() => data.nextAyah && navigate(data.nextAyah.surahId, data.nextAyah.ayahNumber)}
             disabled={!data.nextAyah}
             activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel="Sonraki ayet"
+            accessibilityState={{ disabled: !data.nextAyah }}
           >
             <Text style={[s.navBtnText, !data.nextAyah && s.navBtnTextOff]}>Sonraki →</Text>
           </TouchableOpacity>

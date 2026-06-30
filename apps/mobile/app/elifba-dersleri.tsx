@@ -61,8 +61,8 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
 
   return (
     <Modal transparent animationType="fade" onRequestClose={onClose}>
-      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1}>
-        <TouchableOpacity style={pp.card} activeOpacity={1}>
+      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel="Kapat">
+        <TouchableOpacity style={pp.card} activeOpacity={1} accessible={false}>
 
           {/* Başlık */}
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 12 }}>
@@ -82,7 +82,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
               </View>
               <Text style={pp.title}>{shortBaslik(ders.baslik)}</Text>
             </View>
-            <TouchableOpacity onPress={onClose} style={{ padding: 4 }}>
+            <TouchableOpacity onPress={onClose} style={{ padding: 4 }} accessibilityRole="button" accessibilityLabel="Kapat">
               <Text style={{ fontSize: 16, color: "#9ca3af" }}>✕</Text>
             </TouchableOpacity>
           </View>
@@ -122,10 +122,10 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
           {/* Butonlar */}
           {status !== "locked" && (
             <View style={{ flexDirection: "row", gap: 8, marginTop: 14 }}>
-              <TouchableOpacity style={pp.btnGreen} onPress={onFlashcard}>
+              <TouchableOpacity style={pp.btnGreen} onPress={onFlashcard} accessibilityRole="button" accessibilityLabel="Kartlar">
                 <Text style={pp.btnText}>📇 Kartlar</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={pp.btnIndigo} onPress={onQuiz}>
+              <TouchableOpacity style={pp.btnIndigo} onPress={onQuiz} accessibilityRole="button" accessibilityLabel="Test">
                 <Text style={pp.btnText}>🧠 Test</Text>
               </TouchableOpacity>
             </View>
@@ -153,6 +153,9 @@ function PathNode({ ders, status, pct, onPress }: {
       onPress={onPress}
       disabled={isLocked}
       activeOpacity={isLocked ? 1 : 0.75}
+      accessibilityRole="button"
+      accessibilityLabel={ders.baslik}
+      accessibilityState={{ disabled: isLocked }}
     >
       <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
         <Text style={nd.icon}>{isComp ? "⭐" : isActive ? "▶" : "🔒"}</Text>
@@ -245,7 +248,7 @@ export default function ElifbaDersleriScreen() {
         <Text style={[s.errText, { color: c.text }]}>
           {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
         </Text>
-        <TouchableOpacity style={[s.retryBtn, { backgroundColor: c.accent }]} onPress={loadDersler}>
+        <TouchableOpacity style={[s.retryBtn, { backgroundColor: c.accent }]} onPress={loadDersler} accessibilityRole="button" accessibilityLabel="Tekrar dene">
           <Text style={s.retryText}>Tekrar dene</Text>
         </TouchableOpacity>
       </View>
@@ -314,6 +317,8 @@ export default function ElifbaDersleriScreen() {
           activeOpacity={0.85}
           onPress={() => router.push("/ogren/harf-i-tarif")}
           style={[s.bonusCard, { borderColor: c.border }]}
+          accessibilityRole="button"
+          accessibilityLabel="Harf-i Tarif dersini aç"
         >
           <Text style={{ fontSize: 26 }}>☀️🌙</Text>
           <View style={{ flex: 1 }}>

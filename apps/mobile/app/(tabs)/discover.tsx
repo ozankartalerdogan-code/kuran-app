@@ -49,7 +49,7 @@ function VerseCard({ item, onPress }: { item: VerseResult; onPress: () => void }
   const truncated   = (item.meal?.length ?? 0) > 130;
 
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.72}>
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.72} accessibilityRole="button" accessibilityLabel={`${item.surah_name ?? item.verse_key}, ayeti aç`}>
       <View style={styles.cardHeader}>
         <View style={styles.keyBadge}>
           <Text style={styles.keyText}>{item.verse_key}</Text>
@@ -77,6 +77,8 @@ function SurahCard({ surahId, surahName }: { surahId: number; surahName: string 
       style={[styles.card, styles.surahCard]}
       onPress={() => router.push(`/surah/${surahId}`)}
       activeOpacity={0.72}
+      accessibilityRole="button"
+      accessibilityLabel={`${surahName} suresini aç`}
     >
       <View style={styles.rowCenter}>
         <Text style={styles.bigIcon}>📖</Text>
@@ -216,7 +218,7 @@ export default function SearchScreen() {
           clearButtonMode="while-editing"
         />
         {query.length > 0 && (
-          <TouchableOpacity onPress={onClear} hitSlop={8}>
+          <TouchableOpacity onPress={onClear} hitSlop={8} accessibilityRole="button" accessibilityLabel="Aramayı temizle">
             <Text style={styles.clearBtn}>✕</Text>
           </TouchableOpacity>
         )}
@@ -339,12 +341,12 @@ export default function SearchScreen() {
             <View style={styles.recentWrap}>
               <View style={{ flexDirection:"row", justifyContent:"space-between", alignItems:"center" }}>
                 <Text style={styles.recentHeading}>Son aramalar</Text>
-                <TouchableOpacity onPress={() => { setRecent([]); storage.setJSON(STORAGE_KEYS.recentSearches, []).catch(()=>{}); }}>
+                <TouchableOpacity onPress={() => { setRecent([]); storage.setJSON(STORAGE_KEYS.recentSearches, []).catch(()=>{}); }} accessibilityRole="button" accessibilityLabel="Son aramaları temizle">
                   <Text style={{ fontSize:12, color:"#ef4444" }}>Temizle</Text>
                 </TouchableOpacity>
               </View>
               {recent.map((r) => (
-                <Pressable key={r} style={styles.recentRow} onPress={() => onRecentPress(r)}>
+                <Pressable key={r} style={styles.recentRow} onPress={() => onRecentPress(r)} accessibilityRole="button" accessibilityLabel={`${r} aramasını tekrarla`}>
                   <Text style={styles.recentIcon}>🕐</Text>
                   <Text style={styles.recentText} numberOfLines={1}>{r}</Text>
                 </Pressable>
@@ -357,6 +359,8 @@ export default function SearchScreen() {
             style={styles.kesfetLink}
             onPress={() => router.push("/kesfet" as any)}
             activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel="Keşfet: dua kategorileri ve temalar"
           >
             <Text style={styles.kesfetLinkText}>🔍 Keşfet — Dua kategorileri ve temalar</Text>
             <Text style={{ color: "#059669" }}>›</Text>
