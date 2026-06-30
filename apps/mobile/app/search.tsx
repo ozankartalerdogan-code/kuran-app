@@ -110,6 +110,8 @@ function ChipRow({ chips, color, onPress }: {
           style={[styles.chip, { backgroundColor: color.bg, borderColor: color.border }]}
           onPress={() => onPress(c.tag)}
           activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel={c.label}
         >
           <Text style={[styles.chipText, { color: color.text }]}>{c.label}</Text>
         </TouchableOpacity>
@@ -121,7 +123,8 @@ function ChipRow({ chips, color, onPress }: {
 function SurahCard({ surahId, surahName }: { surahId: number; surahName: string }) {
   return (
     <TouchableOpacity style={[styles.resultCard, styles.surahCard]}
-      onPress={() => { Keyboard.dismiss(); router.push(`/surah/${surahId}`); }} activeOpacity={0.72}>
+      onPress={() => { Keyboard.dismiss(); router.push(`/surah/${surahId}`); }} activeOpacity={0.72}
+      accessibilityRole="button" accessibilityLabel={`${surahName} suresini aç`}>
       <View style={styles.cardInner}>
         <View style={styles.iconCircle}>
           <Ionicons name="book" size={22} color="#059669" />
@@ -162,6 +165,8 @@ function VerseCard({ verseKey, meal, surahName, readingTr }: {
       style={[styles.resultCard, styles.verseCard]}
       onPress={() => { if (!parsed) return; Keyboard.dismiss(); router.push(`/ayah/${parsed.surahId}/${parsed.ayahNumber}`); }}
       activeOpacity={0.72}
+      accessibilityRole="button"
+      accessibilityLabel={`${surahName ?? verseKey}, ayeti aç`}
     >
       <View style={styles.verseHeader}>
         <View style={styles.keyBadge}><Text style={styles.keyText}>{verseKey}</Text></View>
@@ -179,11 +184,11 @@ function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: numb
   if (pages <= 1) return null;
   return (
     <View style={styles.pagination}>
-      <TouchableOpacity style={[styles.pageBtn, page <= 1 && styles.pageBtnOff]} onPress={onPrev} disabled={page <= 1} activeOpacity={0.7}>
+      <TouchableOpacity style={[styles.pageBtn, page <= 1 && styles.pageBtnOff]} onPress={onPrev} disabled={page <= 1} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Önceki sayfa" accessibilityState={{ disabled: page <= 1 }}>
         <Text style={[styles.pageBtnText, page <= 1 && { color: "#d6d3d1" }]}>← Önceki</Text>
       </TouchableOpacity>
       <Text style={styles.pageInfo}>{page} / {pages}</Text>
-      <TouchableOpacity style={[styles.pageBtn, page >= pages && styles.pageBtnOff]} onPress={onNext} disabled={page >= pages} activeOpacity={0.7}>
+      <TouchableOpacity style={[styles.pageBtn, page >= pages && styles.pageBtnOff]} onPress={onNext} disabled={page >= pages} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sonraki sayfa" accessibilityState={{ disabled: page >= pages }}>
         <Text style={[styles.pageBtnText, page >= pages && { color: "#d6d3d1" }]}>Sonraki →</Text>
       </TouchableOpacity>
     </View>
@@ -315,6 +320,8 @@ export default function SearchScreen() {
             style={styles.kollCard}
             onPress={() => router.push(item.item.route as any)}
             activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel={`${item.item.baslik}: ${item.item.aciklama}`}
           >
             <Text style={styles.kollEmoji}>{item.item.emoji}</Text>
             <View style={{ flex: 1 }}>
@@ -330,7 +337,7 @@ export default function SearchScreen() {
         return (
           <View style={styles.recentHeader}>
             <Text style={styles.idleSection}>Son Aramalar</Text>
-            <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8}>
+            <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8} accessibilityRole="button" accessibilityLabel="Son aramaları temizle">
               <Text style={styles.recentClear}>Temizle</Text>
             </TouchableOpacity>
           </View>
@@ -341,6 +348,8 @@ export default function SearchScreen() {
             style={styles.recentRow}
             onPress={() => setQuery(item.item)}
             activeOpacity={0.65}
+            accessibilityRole="button"
+            accessibilityLabel={`${item.item} aramasını tekrarla`}
           >
             <Ionicons name="time-outline" size={16} color="#a8a29e" />
             <Text style={styles.recentText} numberOfLines={1}>{item.item}</Text>
@@ -350,6 +359,8 @@ export default function SearchScreen() {
                 setRecent(next); saveRecent(next);
               }}
               hitSlop={8}
+              accessibilityRole="button"
+              accessibilityLabel={`${item.item} aramasını sil`}
             >
               <Ionicons name="close" size={16} color="#a8a29e" />
             </TouchableOpacity>
@@ -380,7 +391,7 @@ export default function SearchScreen() {
             selectionColor="#059669"
           />
           {query.length > 0 && (
-            <TouchableOpacity onPress={handleClear} hitSlop={8}>
+            <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel="Aramayı temizle">
               <Ionicons name="close-circle" size={18} color="#78716c" />
             </TouchableOpacity>
           )}
@@ -393,7 +404,7 @@ export default function SearchScreen() {
           <View style={styles.filterBadge}>
             <Text style={styles.filterText}>{tagLabel(state.tag)} — {state.total} ayet</Text>
           </View>
-          <TouchableOpacity onPress={handleClear} hitSlop={8}>
+          <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel="Filtreyi kaldır">
             <Text style={styles.filterClear}>Filtreyi Kaldır</Text>
           </TouchableOpacity>
         </View>
@@ -477,6 +488,8 @@ export default function SearchScreen() {
                     style={styles.suggestionBox}
                     onPress={() => router.push(`/surah/${d.suggestedSurah!.id}`)}
                     activeOpacity={0.8}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${d.suggestedSurah.name} suresini aç`}
                   >
                     <Text style={styles.suggestionText}>Bunu mu demek istediniz? </Text>
                     <Text style={styles.suggestionLink}>{d.suggestedSurah.name} Suresi →</Text>

@@ -104,7 +104,7 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
 
   return (
     <View style={[na.accCard, { backgroundColor: c.card, borderColor: c.border, borderLeftColor: renk }]}>
-      <TouchableOpacity style={na.accHeader} onPress={onPress} activeOpacity={0.75}>
+      <TouchableOpacity style={na.accHeader} onPress={onPress} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={label}>
         <Text style={{ fontSize: 20 }}>{emoji}</Text>
         <Text style={[na.accTitle, { color: c.text }]}>{label}</Text>
         <Text style={[na.accChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
@@ -114,7 +114,7 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
           {loading && <ActivityIndicator color="#059669" style={{ marginVertical: 10 }} />}
           {!loading && fetched && verses.length === 0 && <Text style={[na.empty, { color: c.textMuted }]}>Ayet bulunamadı.</Text>}
           {!loading && verses.map(v => (
-            <TouchableOpacity key={v.verse_key} style={[na.verseRow, { borderBottomColor: c.border }]} onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}`)} activeOpacity={0.7}>
+            <TouchableOpacity key={v.verse_key} style={[na.verseRow, { borderBottomColor: c.border }]} onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
               <View style={na.keyBox}><Text style={na.keyText}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
                 {v.surah_name ? <Text style={[na.vSurah, { color: c.textMuted }]}>{v.surah_name}</Text> : null}
@@ -133,7 +133,7 @@ function VakitTablosu() {
   const c = useColors();
   return (
     <View>
-      <TouchableOpacity style={na.motto} activeOpacity={0.8} onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}`)}>
+      <TouchableOpacity style={na.motto} activeOpacity={0.8} onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}`)} accessibilityRole="button" accessibilityLabel={`${MOTTO.label} ayetini aç`}>
         <View style={na.mottoHead}>
           <Text style={na.mottoEtiket}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
           <View style={na.mottoKey}><Text style={na.mottoKeyText}>{MOTTO.label}</Text></View>
@@ -157,7 +157,7 @@ function VakitTablosu() {
               {v.keys.map(k => {
                 const { surahId, ayahNumber } = parseKey(k);
                 return (
-                  <TouchableOpacity key={k} style={na.vtChip} onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)} activeOpacity={0.7}>
+                  <TouchableOpacity key={k} style={na.vtChip} onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${k} ayetini aç`}>
                     <Text style={na.vtChipText}>{k}</Text>
                   </TouchableOpacity>
                 );
@@ -211,7 +211,7 @@ function Section({ emoji, title, defaultOpen, children }: { emoji: string; title
   const [open, setOpen] = useState(!!defaultOpen);
   return (
     <View style={[s.sec, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={s.secHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
+      <TouchableOpacity style={s.secHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={title}>
         <Text style={s.secEmoji}>{emoji}</Text>
         <Text style={[s.secTitle, { color: c.text }]}>{title}</Text>
         <Text style={[s.secChev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
@@ -667,7 +667,7 @@ export default function NamazRehberiScreen() {
           {([["rehber", "Nasıl Kılınır"], ["ayetler", "Ayetler"], ["ozel", "Özel Namazlar"]] as const).map(([id, lbl]) => {
             const active = tab === id;
             return (
-              <TouchableOpacity key={id} style={[s.segBtn, active && [s.segBtnActive, { backgroundColor: c.card }]]} onPress={() => setTab(id)} activeOpacity={0.85}>
+              <TouchableOpacity key={id} style={[s.segBtn, active && [s.segBtnActive, { backgroundColor: c.card }]]} onPress={() => setTab(id)} activeOpacity={0.85} accessibilityRole="tab" accessibilityState={{ selected: active }} accessibilityLabel={lbl}>
                 <Text style={[s.segLabel, { color: active ? c.accent : c.textMuted }]} numberOfLines={1}>{lbl}</Text>
               </TouchableOpacity>
             );
