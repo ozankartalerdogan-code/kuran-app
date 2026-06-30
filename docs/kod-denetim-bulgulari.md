@@ -48,7 +48,7 @@ Durum işaretleri: ⬜ açık · 🔧 üzerinde çalışılıyor · ✅ çözül
 - **Durum:** Sadece 3 test dosyası. Favori/not/arama testsiz; quiz bütünlüğü kapsanmıyor.
 - **Çözüm:** Kritik akışlar için smoke test; quiz veri bütünlüğü testi.
 
-### 7. `ensureTursoIndexes` yol kırılganlığı ⬜
+### 7. `ensureTursoIndexes` yol kırılganlığı ✅ (çoklu aday yol + görünür uyarı)
 - **Kural:** 29
 - **Dosya:** `apps/web/src/lib/dbUtils.ts`
 - **Sorun:** `process.cwd()` bağımlı göreli yolla `indexes.sql` okuyor; bulamazsa sadece `warn` → sessiz yavaşlama.
@@ -68,12 +68,12 @@ Durum işaretleri: ⬜ açık · 🔧 üzerinde çalışılıyor · ✅ çözül
 
 ## 🟢 Düşük / kozmetik
 
-### 10. BOM'lu dosyalar ⬜
+### 10. BOM'lu dosyalar ✅
 - **Kural:** 27
 - **Dosya:** `apps/mobile/src/hooks/useFavorites.ts`, `apps/web/src/app/api/favorites-verses/route.ts`
 - **Çözüm:** BOM'suz UTF-8 kaydet.
 
-### 11. Çalışma dizini kirli ⬜
+### 11. Çalışma dizini kirli ✅ (9 geçici dosya silindi)
 - **Kural:** 30
 - **Dosya:** `._ob.db-shm`, `test_gtts.mp3`, `api_test.py`, `.tmp-*.log` kökte (gitignore'da, commit'li değil)
 - **Çözüm:** Geçici dosyaları temizle.
