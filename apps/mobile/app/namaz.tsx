@@ -132,6 +132,8 @@ function VakitTablosu() {
       style={vt.motto}
       activeOpacity={0.8}
       onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: MOTTO.surahId, ayahNumber: MOTTO.ayahNumber } })}
+      accessibilityRole="button"
+      accessibilityLabel={`${MOTTO.label} ayetini aç`}
     >
       <View style={vt.mottoHead}>
         <Text style={vt.mottoEtiket}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
@@ -170,7 +172,8 @@ function VakitTablosu() {
             <View style={vt.vakitSag}>
               {verses.map((v: { surahId: number; ayahNumber: number; label: string }) => (
                 <TouchableOpacity key={v.label} style={vt.ayetRow}
-                  onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: v.surahId, ayahNumber: v.ayahNumber } })} activeOpacity={0.7}>
+                  onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: v.surahId, ayahNumber: v.ayahNumber } })} activeOpacity={0.7}
+                  accessibilityRole="button" accessibilityLabel={`${SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}, ${v.label} ayetini aç`}>
                   <View style={vt.keyBadge}><Text style={vt.keyText}>{v.label}</Text></View>
                   <Text style={vt.sureName}>{SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}</Text>
                   <Text style={vt.arrow}>›</Text>
@@ -220,7 +223,7 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
 
   return (
     <View style={styles.accordion}>
-      <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.75}>
+      <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={label}>
         <Text style={{ fontSize: 20 }}>{emoji}</Text>
         <View style={{ flex: 1 }}>
           <Text style={styles.accordionTitle}>{label}</Text>
@@ -235,7 +238,7 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
           ) : error ? (
             <View style={styles.accordionError}>
               <Text style={styles.accordionErrorText}>İçerik yüklenemedi. Lütfen tekrar deneyin.</Text>
-              <TouchableOpacity style={styles.retryBtn} onPress={fetchVerses} activeOpacity={0.75}>
+              <TouchableOpacity style={styles.retryBtn} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
                 <Text style={styles.retryBtnText}>Tekrar Dene</Text>
               </TouchableOpacity>
             </View>
@@ -243,7 +246,8 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
             <Text style={styles.accordionEmpty}>İçerik bulunamadı.</Text>
           ) : verses.map((item) => (
             <TouchableOpacity key={item.verse_key} style={styles.verseCard}
-              onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}>
+              onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}
+              accessibilityRole="button" accessibilityLabel={`${item.surah_name ?? item.verse_key}, ayeti aç`}>
               <View style={styles.verseHeader}>
                 <View style={styles.keyBadge}><Text style={styles.keyText}>{item.verse_key}</Text></View>
                 {item.surah_name && <Text style={styles.surahLabel}>{item.surah_name}</Text>}

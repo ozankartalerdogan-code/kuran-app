@@ -325,7 +325,8 @@ function AyetListesi({ ayetler }: { ayetler: AyetRef[] }) {
       <Text style={s.ayetBoxTitle}>📖 İlgili Ayetler</Text>
       {ayetler.map((a, i) => (
         <TouchableOpacity key={i} style={s.ayetRow}
-          onPress={() => router.push(`/ayah/${a.sureId}/${a.ayetNo}` as any)} activeOpacity={0.75}>
+          onPress={() => router.push(`/ayah/${a.sureId}/${a.ayetNo}` as any)} activeOpacity={0.75}
+          accessibilityRole="button" accessibilityLabel={`${a.sureAdi}, ${a.ayetNo}. ayeti aç`}>
           <View style={s.keyBadge}><Text style={s.keyText}>{a.sureId}:{a.ayetNo}</Text></View>
           <View style={{ flex:1 }}>
             <Text style={s.ayetSure}>{a.sureAdi} · {a.ayetNo}. ayet</Text>
@@ -545,7 +546,8 @@ export default function IbadetRehberiScreen() {
         <View style={s.tabBar}>
           {TABS.map(t => (
             <TouchableOpacity key={t.id} style={[s.tab, tab === t.id && s.tabActive]}
-              onPress={() => setTab(t.id)} activeOpacity={0.75}>
+              onPress={() => setTab(t.id)} activeOpacity={0.75}
+              accessibilityRole="tab" accessibilityState={{ selected: tab === t.id }} accessibilityLabel={t.label}>
               <Text style={s.tabIkon}>{t.ikon}</Text>
               <Text style={[s.tabLabel, tab === t.id && s.tabLabelActive]}>{t.label}</Text>
             </TouchableOpacity>

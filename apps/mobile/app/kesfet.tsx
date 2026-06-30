@@ -137,6 +137,8 @@ function FeaturedCard({ item }: { item: typeof FEATURED_THEMES[number] }) {
       style={[ft.card, { backgroundColor: item.bg }]}
       onPress={() => router.push(`/search?tag=${encodeURIComponent(item.kod)}` as any)}
       activeOpacity={0.8}
+      accessibilityRole="button"
+      accessibilityLabel={`${item.baslik}: ${item.aciklama}`}
     >
       <Text style={ft.ikon}>{item.ikon}</Text>
       <Text style={ft.baslik}>{item.baslik}</Text>
@@ -160,7 +162,7 @@ const ThemeAccordion = React.memo(function ThemeAccordion({ grup }: { grup: type
 
   return (
     <View style={ta.card}>
-      <TouchableOpacity style={ta.header} onPress={() => setAcik(p => !p)} activeOpacity={0.75}>
+      <TouchableOpacity style={ta.header} onPress={() => setAcik(p => !p)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: acik }} accessibilityLabel={grup.baslik}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flex: 1 }}>
           <Text style={{ fontSize: 16 }}>{grup.ikon}</Text>
           <Text style={ta.baslik}>{grup.baslik}</Text>
@@ -180,6 +182,8 @@ const ThemeAccordion = React.memo(function ThemeAccordion({ grup }: { grup: type
               style={ta.temaRow}
               onPress={() => router.push({ pathname: '/search', params: { q: encodeURIComponent(t.kod), type: 'tag' } } as any)}
               activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel={`${t.isim}, ${t.ayet} ayet`}
             >
               <Text style={ta.temaIsim}>{t.isim}</Text>
               <View style={ta.temaBadge}>
@@ -202,6 +206,8 @@ function HubCard({ emoji, label, sub, bg, border, onPress }: {
       style={[tools.card, { backgroundColor: bg, borderColor: border }]}
       onPress={onPress}
       activeOpacity={0.8}
+      accessibilityRole="button"
+      accessibilityLabel={`${label}: ${sub}`}
     >
       <Text style={tools.emoji}>{emoji}</Text>
       <View style={{ flex: 1 }}>
@@ -276,6 +282,8 @@ export default function KesfetScreen() {
         style={[s.backRow, { backgroundColor: c.card, borderBottomColor: c.border }]}
         onPress={() => setBolum(null)}
         activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel="Keşfet'e geri dön"
       >
         <Text style={[s.backText, { color: c.accent }]}>‹ Keşfet</Text>
         <Text style={[s.backTitle, { color: c.text }]}>{meta.emoji} {meta.label}</Text>

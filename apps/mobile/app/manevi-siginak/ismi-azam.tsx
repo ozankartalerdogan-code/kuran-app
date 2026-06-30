@@ -233,6 +233,9 @@ function MetotKutusu({
           onPress={() => setExpanded(v => !v)}
           style={[styles.badge, { borderColor: border, alignSelf: "flex-start", paddingVertical: 6, paddingHorizontal: 12, marginBottom: 10 }]}
           activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityState={{ expanded }}
+          accessibilityLabel="Ayetleri göster"
         >
           <Text style={[styles.badgeText, { color: labelColor }]}>
             {expanded ? "▲ Ayetleri Gizle" : `▼ Ayetleri Göster (${ayetler.length} ayet)`}
@@ -316,7 +319,7 @@ function TagVerseAccordion({
 
   return (
     <View style={[styles.kutu, { backgroundColor: boxBg, borderColor: boxBorder }]}> 
-      <TouchableOpacity style={styles.verseAccHeader} onPress={toggle} activeOpacity={0.75}>
+      <TouchableOpacity style={styles.verseAccHeader} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded }} accessibilityLabel={label}>
         <View style={styles.verseAccTitleWrap}>
           <Text style={[styles.verseAccTitle, { color: labelColor }]}>{label}</Text>
           <Text style={[styles.verseAccMeta, { color: colors.textMuted }]}>{countLabel}</Text>
@@ -339,6 +342,8 @@ function TagVerseAccordion({
               style={[styles.verseRow, { backgroundColor: colors.cardBg, borderColor: boxBorder }]}
               onPress={() => router.push(`/ayah/${verse.surah_id}/${verse.ayah_number}`)}
               activeOpacity={0.78}
+              accessibilityRole="button"
+              accessibilityLabel={`${verse.surah_name ?? verse.verse_key}, ayeti aç`}
             >
               <View style={styles.verseRowTop}>
                 <View style={[styles.verseKeyBadge, { backgroundColor: boxBg, borderColor: boxBorder }]}> 
