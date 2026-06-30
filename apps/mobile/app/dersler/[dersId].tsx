@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
   ScrollView, Image, Dimensions, PanResponder, Animated,
@@ -23,6 +23,9 @@ import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_r
 import { normalizeQuizSorular, type QuizSoru } from "../../src/lib/quizUtils";
 
 const { width: SCREEN_W } = Dimensions.get("window");
+
+// Quiz geçme eşiği: bu kadar doğru → ders "tamamlandı" sayılır + kutlama.
+const QUIZ_PASS = 7;
 
 // ─── Görsel haritası ──────────────────────────────────────────────────────
 
@@ -121,7 +124,13 @@ export default function DersDetayScreen() {
   const dersKey  = dersId ?? "";
   const dersData = DERS_DATA[dersKey];
   const quizData = QUIZ_MAP[dersKey];
-  const hasQuiz  = !!(quizData?.sorular?.length);
+  // Normalize bozuk soruları eler; hasQuiz gerçek kullanılabilir soru sayısına
+  // bakar — aksi halde tümü bozuksa "Teste Başla" sessizce çalışmaz.
+  const validQuiz = useMemo(
+    () => (Array.isArray(quizData?.sorular) ? normalizeQuizSorular(quizData.sorular) : []),
+    [quizData],
+  );
+  const hasQuiz  = validQuiz.length > 0;
   const baslik   = BASLIKLAR[dersKey] ?? dersKey;
 
   const { updateProgress, setQuizBitti } = useDersProgress();
@@ -171,7 +180,7 @@ export default function DersDetayScreen() {
   // ── Quiz handlers ──
   const startQuiz = () => {
     Haptics.selectionAsync();
-    const shuffled = shuffle<QuizSoru>(normalizeQuizSorular(quizData.sorular));
+    const shuffled = shuffle<QuizSoru>(validQuiz);
     setQuizQuestions(shuffled.slice(0, Math.min(10, shuffled.length)));
     setQIndex(0);
     setSelectedAnswer(null);
@@ -200,7 +209,8 @@ export default function DersDetayScreen() {
   const nextQuestion = () => {
     Haptics.selectionAsync();
     if (qIndex + 1 >= quizQuestions.length) {
-      setQuizBitti(dersKey);
+      // Sadece geçme eşiğini tutturan (QUIZ_PASS+) ders "tamamlandı" sayılır.
+      if (score >= QUIZ_PASS) setQuizBitti(dersKey);
       setQuizFinished(true);
     } else {
       Animated.timing(quizOpacity, {
@@ -222,7 +232,7 @@ export default function DersDetayScreen() {
   };
 
   const retryQuiz = () => {
-    const shuffled = shuffle<QuizSoru>(normalizeQuizSorular(quizData.sorular));
+    const shuffled = shuffle<QuizSoru>(validQuiz);
     setQuizQuestions(shuffled.slice(0, Math.min(10, shuffled.length)));
     setQIndex(0);
     setSelectedAnswer(null);
@@ -307,7 +317,7 @@ export default function DersDetayScreen() {
         >
           {/* Skor */}
           <View style={[s.scoreCard, { backgroundColor: c.card }]}>
-            {LottieView && score >= 7 ? (
+            {LottieView && score >= QUIZ_PASS ? (
               <LottieView
                 source={require("../../assets/Success-celebration.json")}
                 autoPlay
