@@ -417,27 +417,9 @@ export default function AyahDetailScreen() {
     return () => { isMounted = false; };
   }, [surahId, ayahNumber]);
 
-  // Kök anlamları — Kökler sekmesi açılınca fetch et
-  const [rootMeaningsLocal, setRootMeaningsLocal] = useState<Record<string, string>>({});
-  const rootMeaningsFetched = useState(false);
-  const [rootFetchError, setRootFetchError] = useState(false);
-
-  const fetchRootMeanings = useCallback(async (words: AyahDetailResponse["words"]) => {
-    if (rootMeaningsFetched[0]) return;
-    rootMeaningsFetched[1](true);
-    setRootFetchError(false);
-    const existing = data?.rootMeanings ?? {};
-    const roots = [...new Set(words.map(w => w.root).filter(Boolean))] as string[];
-    const missing = roots.filter(r => !existing[r]);
-    if (missing.length === 0) { setRootMeaningsLocal(existing); return; }
-    const results: Record<string, string> = { ...existing };
-    let anyFailed = false;
-    await Promise.all(missing.map(r =>
-      api.roots.detail(r).then(d => { if (d?.meaningTr) results[r] = d.meaningTr; }).catch((e) => { console.warn("Root detail fetch failed:", r, e); anyFailed = true; })
-    ));
-    if (anyFailed) setRootFetchError(true);
-    setRootMeaningsLocal(results);
-  }, [data, rootMeaningsFetched]);
+  // Kök anlamları doğrudan /api/ayah yanıtından (data.rootMeanings) gelir.
+  // Backend root_meanings JOIN ile veriyor; eski fallback /root/[root] fetch'i
+  // AYNI tablodan okuduğu için ek anlam getiremiyordu (ölü + ağır) → kaldırıldı.
 
   const navigate = useCallback(
     (s: number, a: number) => {
@@ -451,20 +433,6 @@ export default function AyahDetailScreen() {
     : "Ayet Detayı";
 
   const comparisonTranslations = translations.filter((t) => !isYazirSource(t.source ?? ""));
-
-  // Ayet değişince kök anlamı kilidini ve yerel haritayı sıfırla
-  useEffect(() => {
-    rootMeaningsFetched[1](false);
-    setRootMeaningsLocal({});
-    setRootFetchError(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surahId, ayahNumber]);
-
-  // Kökler sekmesi açılınca root anlamlarını fetch et
-  useEffect(() => {
-    if (activeTab !== "roots" || !data || rootMeaningsFetched[0]) return;
-    fetchRootMeanings(data.words);
-  }, [activeTab, data]);
 
   const navToRoot = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
@@ -727,12 +695,7 @@ export default function AyahDetailScreen() {
           <View style={styles.tabContent}>
             <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
               <Text style={[styles.sectionTitle, { color: colors.accent }]}>KÖKLER</Text>
-              {rootFetchError && (
-                <Text style={[styles.emptyText, { color: colors.error, marginBottom: 8 }]}>
-                  Kök bilgisi yüklenemedi.
-                </Text>
-              )}
-              <UniqueRootList words={data.words} rootMeanings={Object.keys(rootMeaningsLocal).length > 0 ? rootMeaningsLocal : (data.rootMeanings ?? {})} colors={colors} />
+              <UniqueRootList words={data.words} rootMeanings={data.rootMeanings ?? {}} colors={colors} />
             </View>
           </View>
         )}
