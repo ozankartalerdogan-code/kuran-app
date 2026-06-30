@@ -255,6 +255,12 @@ export type DailyResponse = {
   dua: DailyVerseItem | null;
 };
 
+export type TafsirResponse = {
+  content: string | null;
+  simplifiedContent?: string | null;
+  availableModes?: Array<"original" | "simplified">;
+};
+
 export type AyahDetailResponse = {
   verseKey: string;
   surahId: number;
@@ -435,7 +441,7 @@ export const api = {
   tafsir: {
     get: (surahId: number) =>
       withRetry((signal) =>
-        request<{ content: string | null }>(
+        request<TafsirResponse>(
           `/tafsir/${surahId}`,
           undefined,
           signal,

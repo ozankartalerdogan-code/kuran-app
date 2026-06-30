@@ -1,8 +1,10 @@
 export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import { dbGet } from "../../../../lib/dbUtils";
+import { SIMPLIFIED_TAFSIR } from "../simplifiedContent";
 
 interface TafsirRow { content: string | null }
+type TafsirMode = "original" | "simplified";
 
 export async function GET(
   _req: NextRequest,
@@ -10,7 +12,7 @@ export async function GET(
 ): Promise<NextResponse> {
   const id = parseInt(params.surahId, 10);
   if (!Number.isFinite(id) || id < 1 || id > 114) {
-    return NextResponse.json({ content: null }, { status: 400 });
+    return NextResponse.json({ content: null, simplifiedContent: null, availableModes: ["original"] }, { status: 400 });
   }
 
   try {
@@ -18,18 +20,26 @@ export async function GET(
       "SELECT content FROM surah_tafsir WHERE surah_id = ? AND source = 'elmalili' LIMIT 1",
       id
     );
+    const simplifiedContent = SIMPLIFIED_TAFSIR[id] ?? null;
+    const availableModes: TafsirMode[] = simplifiedContent
+      ? ["original", "simplified"]
+      : ["original"];
 
     return NextResponse.json(
-      { content: row?.content ?? null },
+      {
+        content: row?.content ?? null,
+        simplifiedContent,
+        availableModes,
+      },
       {
         headers: {
-          // tefsir statik (Elmalılı) — agresif CDN edge cache; max-age değil s-maxage paylaşımlı cache'i tetikler
+          // tefsir statik (Elmalili) - agresif CDN edge cache
           "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400",
         },
       }
     );
   } catch (err) {
     console.error("[tafsir] hata:", err);
-    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+    return NextResponse.json({ error: "Sunucu hatasi" }, { status: 500 });
   }
 }

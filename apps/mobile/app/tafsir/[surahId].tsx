@@ -1,55 +1,100 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  FlatList,
-  View,
-  Text,
   ActivityIndicator,
+  FlatList,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { api } from "../../src/lib/api";
-import { useColors } from "../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { api, type TafsirResponse } from "../../src/lib/api";
+import { useColors } from "../../src/hooks/useColors";
+import { SIMPLIFIED_TAFSIR } from "../../src/data/tafsirSimplified";
 
-// Tefsir metni dev tek bir <Text>'e basılırsa (Bakara ~1.7MB) RN yerleşim motoru
-// kilitlenir (~23 sn). Bunun yerine paragraflara bölüp FlatList ile pencereli
-// (windowed) render ediyoruz — sadece görünen paragraflar yerleştirilir.
+type TafsirMode = "original" | "simplified";
 
 export default function TafsirScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { surahId: rawId, name } = useLocalSearchParams<{ surahId: string; name?: string }>();
   const surahId = Number(rawId);
+  const localSimplifiedContent = surahId ? (SIMPLIFIED_TAFSIR[surahId] ?? null) : null;
 
-  const [content, setContent] = useState<string | null | "loading">("loading");
+  const [tafsir, setTafsir] = useState<TafsirResponse | null | "loading">("loading");
+  const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");
 
   useEffect(() => {
     if (!surahId) return;
     let alive = true;
-    api.tafsir.get(surahId)
-      .then((r) => { if (alive) setContent(r?.content ?? null); })
-      .catch(() => { if (alive) setContent(null); });
-    return () => { alive = false; };
-  }, [surahId]);
+    setTafsir("loading");
+    setSelectedMode("original");
 
-  // Paragraflara böl — boş satırlarda ayır, baştaki "2-BAKARA:" başlığını ve
-  // ayraç çizgilerini temizle.
+    api.tafsir.get(surahId)
+      .then((response) => {
+        if (!alive) return;
+        setTafsir(response);
+        if (response?.simplifiedContent || localSimplifiedContent) {
+          setSelectedMode("simplified");
+        }
+      })
+      .catch(() => {
+        if (!alive) return;
+        setTafsir(
+          localSimplifiedContent
+            ? { content: null, simplifiedContent: localSimplifiedContent, availableModes: ["original", "simplified"] }
+            : null
+        );
+      });
+
+    return () => {
+      alive = false;
+    };
+  }, [localSimplifiedContent, surahId]);
+
+  const availableModes = useMemo<TafsirMode[]>(() => {
+    if (!tafsir || tafsir === "loading") return ["original"];
+
+    const modes: TafsirMode[] = tafsir.availableModes?.length
+      ? [...tafsir.availableModes]
+      : ["original"];
+
+    if (localSimplifiedContent && !modes.includes("simplified")) {
+      modes.push("simplified");
+    }
+
+    return modes;
+  }, [localSimplifiedContent, tafsir]);
+
+  const activeContent = useMemo(() => {
+    if (!tafsir || tafsir === "loading") return null;
+    if (selectedMode === "simplified") {
+      return tafsir.simplifiedContent ?? localSimplifiedContent;
+    }
+    return tafsir.content ?? null;
+  }, [localSimplifiedContent, selectedMode, tafsir]);
+
   const paragraphs = useMemo(() => {
-    if (!content || content === "loading") return [];
-    return content
+    if (!activeContent) return [];
+    return activeContent
       .split(/\n{2,}/)
       .map((p) => p.trim())
       .filter((p) => p.length > 0 && !/^[-_=*\s]+$/.test(p));
-  }, [content]);
+  }, [activeContent]);
+
+  const sourceLabel = selectedMode === "simplified"
+    ? "Elmalılı'dan sadeleştirilmiş anlatım"
+    : "Elmalılı Hamdi Yazır";
 
   return (
-    <View style={[styles.container, { backgroundColor: c.bg }]}>
+    <View style={[styles.container, { backgroundColor: c.bg }]}> 
       <Stack.Screen options={{ title: name ? `${name} Tefsiri` : "Sure Tefsiri" }} />
 
-      {content === "loading" ? (
+      {tafsir === "loading" ? (
         <View style={styles.centered}>
           <ActivityIndicator size="large" color={c.accent} />
-          <Text style={[styles.muted, { color: c.textMuted }]}>Tefsir yükleniyor…</Text>
+          <Text style={[styles.muted, { color: c.textMuted }]}>Tefsir yükleniyor...</Text>
         </View>
       ) : paragraphs.length === 0 ? (
         <View style={styles.centered}>
@@ -58,12 +103,32 @@ export default function TafsirScreen() {
       ) : (
         <FlatList
           data={paragraphs}
-          keyExtractor={(_, i) => String(i)}
+          keyExtractor={(_, i) => `${selectedMode}-${i}`}
           renderItem={({ item }) => (
             <Text style={[styles.para, { color: c.textSecondary }]}>{item}</Text>
           )}
           ListHeaderComponent={
-            <Text style={[styles.source, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
+            <View>
+              {availableModes.length > 1 && (
+                <View style={[styles.tabRow, { borderColor: c.border, backgroundColor: c.card }]}> 
+                  <TouchableOpacity
+                    style={[styles.tab, selectedMode === "original" && styles.tabActive]}
+                    onPress={() => setSelectedMode("original")}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>Orijinal</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
+                    onPress={() => setSelectedMode("simplified")}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>Sadeleştirilmiş</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              <Text style={[styles.source, { color: c.textMuted }]}>{sourceLabel}</Text>
+            </View>
           }
           contentContainerStyle={[styles.listContent, { paddingBottom: 40 + insets.bottom }]}
           initialNumToRender={8}
@@ -77,10 +142,31 @@ export default function TafsirScreen() {
 }
 
 const styles = StyleSheet.create({
-  container:   { flex: 1 },
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 24, gap: 12 },
-  muted:       { fontSize: 14, fontStyle: "italic" },
+  container: { flex: 1 },
+  centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24, gap: 12 },
+  muted: { fontSize: 14, fontStyle: "italic" },
   listContent: { padding: 16, paddingBottom: 40 },
-  source:      { fontSize: 12, fontStyle: "italic", marginBottom: 14 },
-  para:        { fontSize: 15, lineHeight: 26, marginBottom: 14 },
+  source: { fontSize: 12, fontStyle: "italic", marginBottom: 14 },
+  para: { fontSize: 15, lineHeight: 26, marginBottom: 14 },
+  tabRow: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderRadius: 14,
+    padding: 4,
+    gap: 6,
+    marginBottom: 12,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  tabActive: {
+    backgroundColor: "#c9a84c",
+  },
+  tabText: {
+    fontSize: 13,
+    fontWeight: "700",
+  },
 });
