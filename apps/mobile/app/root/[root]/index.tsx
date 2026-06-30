@@ -131,7 +131,7 @@ const MeaningGroup = memo(function MeaningGroup({
   c: AppColors;
 }) {
   return (
-    <View style={[s.accordionCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+    <View style={[s.accordionCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
         style={s.accordionHeader}
         onPress={() => onToggle(meaning)}
@@ -256,11 +256,7 @@ export default function RootDetailScreen() {
     return Array.from(meaningMap.entries());
   }, [data?.derivedWords]);
 
-  useEffect(() => {
-    if (groups.length > 0 && openMeaning === null) {
-      setOpenMeaning(groups[0][0]);
-    }
-  }, [groups, openMeaning]);
+  // Akordiyonlar varsayılan kapalı — kullanıcı dokununca açılır/kapanır.
 
   useEffect(() => {
     void fetchDetail(root);
