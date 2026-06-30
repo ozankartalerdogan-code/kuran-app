@@ -61,10 +61,22 @@ async function ensureTursoIndexes(): Promise<void> {
   _tursoInitialized = true;
 
   const client = getTursoClient();
-  const sqlPath = path.resolve(process.cwd(), "..", "..", "scripts", "indexes.sql");
 
-  if (!fs.existsSync(sqlPath)) {
-    console.warn("[dbUtils] indexes.sql bulunamadı, index optimizasyonu atlandı.");
+  // indexes.sql konumu ortama göre değişir (monorepo cwd vs. derlenmiş dosya
+  // konumu). Birkaç aday yol dene; ilk bulunanı kullan.
+  const sqlCandidates = [
+    path.resolve(process.cwd(), "..", "..", "scripts", "indexes.sql"),
+    path.resolve(process.cwd(), "scripts", "indexes.sql"),
+    path.resolve(__dirname, "..", "..", "..", "..", "scripts", "indexes.sql"),
+  ];
+  const sqlPath = sqlCandidates.find((p) => {
+    try { return fs.existsSync(p); } catch { return false; }
+  });
+
+  if (!sqlPath) {
+    console.warn(
+      `[dbUtils] indexes.sql hiçbir aday yolda bulunamadı, index optimizasyonu atlandı. Denenen: ${sqlCandidates.join(", ")}`,
+    );
     return;
   }
 

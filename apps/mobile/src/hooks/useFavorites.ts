@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { storage, STORAGE_KEYS, StorageQuotaError } from "../lib/storage";
 
 export interface UseFavoritesResult {
