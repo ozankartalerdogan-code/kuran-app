@@ -1,0 +1,872 @@
+{
+  "schemaVersion": "1.0.0",
+  "moduleId": "nefsini-tani",
+  "title": "Nefsini Tanı",
+  "subtitle": "Kur’an ve sahih rivayetler ışığında nefis terbiyesi",
+  "language": "tr",
+  "status": "draft_ready_for_review",
+  "audience": {
+    "level": "beginner_to_intermediate",
+    "description": "Nefs kavramını ve nefs mertebelerini sıralı, güvenilir ve sade biçimde öğrenmek isteyen kullanıcılar."
+  },
+  "methodology": {
+    "principle": "Kur’an’da açıkça geçen nefs ifadeleri ile tasavvufî/ahlakî mertebe tasnifi birbirinden ayırt edilerek anlatılır.",
+    "sourcePriority": [
+      "Kur’an ayetleri",
+      "Sahih veya güvenilir hadisler",
+      "TDV İslâm Ansiklopedisi ve Diyanet tefsiri",
+      "Tasavvufî/ahlakî eğitim tasnifleri"
+    ],
+    "importantNotice": "Bu derslerde geçen 8’li sıralama, Kur’an’da birebir 'sekiz katman' olarak verilen zorunlu bir liste değildir. Klasik tasavvufî literatürde yaygın tasnif 7 mertebedir. Uygulamada ilk basamak olarak 'Ham Nefs' başlığı, konuyu hiç bilmeyen kullanıcıya giriş sağlamak için pedagojik bir ders olarak eklenmiştir.",
+    "classificationNote": "TDV İslâm Ansiklopedisi’ne göre mutasavvıfların çoğuna göre bir bedende tek nefis bulunur; emmâre, levvâme, mutmainne, râzıye, marzıyye gibi ifadeler bu tek nefsin farklı sıfatları/hâlleri olarak değerlendirilir."
+  },
+  "classicSevenStages": [
+    {
+      "order": 1,
+      "name": "Nefs-i Emmâre",
+      "meaning": "Kötülüğü emreden nefis",
+      "quranicBasis": [
+        "Yusuf 12:53"
+      ]
+    },
+    {
+      "order": 2,
+      "name": "Nefs-i Levvâme",
+      "meaning": "Kendini kınayan nefis",
+      "quranicBasis": [
+        "Kıyâme 75:2"
+      ]
+    },
+    {
+      "order": 3,
+      "name": "Nefs-i Mülhime",
+      "meaning": "İyilik ve kötülük farkındalığına açılan nefis",
+      "quranicBasis": [
+        "Şems 91:7-10"
+      ],
+      "note": "Bu isim Kur’an’da birebir geçmez; Şems 91:8’deki ilham ifadesinden hareketle ahlakî/tasavvufî gelenekte kullanılır."
+    },
+    {
+      "order": 4,
+      "name": "Nefs-i Mutmainne",
+      "meaning": "Huzura ermiş nefis",
+      "quranicBasis": [
+        "Fecr 89:27"
+      ]
+    },
+    {
+      "order": 5,
+      "name": "Nefs-i Râzıye",
+      "meaning": "Allah’tan razı olan nefis",
+      "quranicBasis": [
+        "Fecr 89:28"
+      ]
+    },
+    {
+      "order": 6,
+      "name": "Nefs-i Marzıyye",
+      "meaning": "Allah’ın razı olduğu nefis",
+      "quranicBasis": [
+        "Fecr 89:28"
+      ]
+    },
+    {
+      "order": 7,
+      "name": "Nefs-i Kâmile / Zekiyye",
+      "meaning": "Arınmış ve olgunlaşmış nefis",
+      "quranicBasis": [
+        "Şems 91:9"
+      ],
+      "note": "TDV’de yedili tasnifin son mertebesi zekiyye/kâmile olarak zikredilir."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson-01-nefs-nedir",
+      "order": 1,
+      "title": "Nefs Nedir?",
+      "estimatedMinutes": 5,
+      "classification": "quranic_foundation",
+      "summary": "Nefs, insanın iç benliği, arzuları, yönelişleri ve sorumluluk alanıyla ilgili geniş bir kavramdır. Kur’an’da nefis bazen insanın kendisini, bazen iç eğilimlerini, bazen de kötülüğe yönelten tarafını ifade eder.",
+      "learningObjectives": [
+        "Nefsin yalnızca 'kötü taraf' anlamına gelmediğini öğrenmek.",
+        "Nefsin arındırılabilir ve terbiye edilebilir bir alan olduğunu kavramak.",
+        "Kur’an’da nefsin iyilik ve kötülük eğilimleriyle birlikte ele alındığını görmek."
+      ],
+      "mainMessage": "Nefs, yok edilmesi gereken bir varlık değil; arındırılması, eğitilmesi ve Allah’ın rızasına yönlendirilmesi gereken iç benliğimizdir.",
+      "quranReferences": [
+        {
+          "surah": "Şems",
+          "surahNumber": 91,
+          "ayahRange": "7-10",
+          "topic": "Nefsin şekillendirilmesi, kötülük/takva kabiliyeti, arınma ve kirlenme",
+          "mealSummary": "Allah nefsi şekillendirmiş, ona kötülük ve takva yönünü ilham etmiş; nefsini arındıranın kurtulacağını, onu kirletenin ziyana uğrayacağını bildirmiştir.",
+          "sourceId": "diyanet-sems-91-7-10"
+        },
+        {
+          "surah": "Haşr",
+          "surahNumber": 59,
+          "ayahRange": "18",
+          "topic": "Nefis muhasebesi",
+          "mealSummary": "Müminlere Allah’tan sakınmaları ve herkesin yarın için ne hazırladığına bakması emredilir.",
+          "sourceId": "quran-hashr-59-18"
+        }
+      ],
+      "hadithReferences": [],
+      "appContent": {
+        "intro": "İnsanın içinde hem iyiliğe hem kötülüğe yönelebilen bir alan vardır. Kur’an bu alanı nefs kavramı üzerinden anlatır.",
+        "body": [
+          "Nefs bazen insanın kendisini, bazen arzularını, bazen de içindeki mücadele alanını ifade eder.",
+          "Bu yüzden nefs sadece 'kötü bir düşman' gibi anlatılmamalıdır.",
+          "Asıl hedef nefsi yok etmek değil; onu arındırmak, terbiye etmek ve Allah’ın razı olacağı yöne çevirmektir."
+        ],
+        "reflectionQuestion": "Bugün içimde beni iyiye çağıran ve kötüye çağıran hangi sesleri fark ettim?",
+        "practice": "Günün sonunda 2 dakika durup şu soruyu sor: 'Bugün nefsimi arındıran bir davranış yaptım mı?'",
+        "shortDua": "Allah’ım, nefsimi arındırmayı ve onu rızana yönlendirmeyi bana kolaylaştır."
+      },
+      "safetyNotes": [
+        "Nefs kavramı sadece psikolojik bir terim gibi daraltılmamalı; Kur’anî ve ahlakî bağlamıyla anlatılmalıdır.",
+        "Nefs, bağımsız kötü bir varlık gibi değil, insanın iç yönelişleri ve hâlleri olarak açıklanmalıdır."
+      ]
+    },
+    {
+      "id": "lesson-02-ham-nefs",
+      "order": 2,
+      "title": "Ham Nefs: Terbiye Edilmemiş Benlik",
+      "estimatedMinutes": 5,
+      "classification": "pedagogical_intro",
+      "summary": "Ham nefis, insanın henüz iç disiplin, muhasebe ve takva bilinciyle eğitilmemiş hâlini anlatmak için kullanılan öğretici bir giriş başlığıdır.",
+      "learningObjectives": [
+        "8 derslik yapının ilk basamağının Kur’an’daki zorunlu bir mertebe değil, öğretici giriş olduğunu bilmek.",
+        "Nefsin başıboş bırakıldığında arzuların etkisine girebileceğini anlamak.",
+        "Nefis terbiyesinin arınma ve korunma çabası olduğunu kavramak."
+      ],
+      "mainMessage": "Ham nefis, insanın arzularla baş başa kaldığı ilk hâli anlatır; eğitim başlamadan önce iç dünyada yön tayini zayıftır.",
+      "quranReferences": [
+        {
+          "surah": "Şems",
+          "surahNumber": 91,
+          "ayahRange": "7-10",
+          "topic": "Nefsin arındırılması veya kirletilmesi",
+          "mealSummary": "Nefsini arındıran kurtuluşa erer, onu kötülüklere gömen ziyana uğrar.",
+          "sourceId": "diyanet-sems-91-7-10"
+        },
+        {
+          "surah": "Nâziât",
+          "surahNumber": 79,
+          "ayahRange": "40-41",
+          "topic": "Nefsi hevadan alıkoymak",
+          "mealSummary": "Rabbinin huzurunda durmaktan korkan ve nefsini kötü arzulardan alıkoyan kimsenin varacağı yer cennettir.",
+          "sourceId": "quran-naziat-79-40-41"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6487",
+          "topic": "Arzular ve zorluklar",
+          "meaningSummary": "Cehennem arzularla, cennet ise nefse zor gelen şeylerle kuşatılmıştır.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6487"
+        }
+      ],
+      "appContent": {
+        "intro": "Nefis terbiyesi, insanın kendi içinde başlayan bir yolculuktur. İlk adım, içimizdeki yönelişleri fark etmektir.",
+        "body": [
+          "İnsan arzularıyla yaratılmıştır; bu arzular tamamen yok edilmek için değil, helal ve doğru sınırlarda tutulmak için vardır.",
+          "Ham nefis, arzularını sorgulamadan takip eden iç hâli temsil eder.",
+          "Bu aşamada insan çoğu zaman nefsinin yönlendirmesini 'benim isteğim' sanır."
+        ],
+        "reflectionQuestion": "Bugün hangi isteğimi sorgulamadan takip ettim?",
+        "practice": "Bir istek geldiğinde hemen hareket etmeden önce 10 saniye dur ve 'Bu istek beni Allah’a yaklaştırıyor mu, uzaklaştırıyor mu?' diye sor.",
+        "shortDua": "Allah’ım, beni nefsimin başıboş isteklerine teslim etme."
+      },
+      "safetyNotes": [
+        "Ham nefis başlığı klasik yedili mertebenin parçası gibi sunulmamalıdır.",
+        "Bu başlık 'öğretici giriş' olarak etiketlenmelidir."
+      ]
+    },
+    {
+      "id": "lesson-03-nefs-i-emmare",
+      "order": 3,
+      "title": "Nefs-i Emmâre: Kötülüğü Emreden Nefis",
+      "estimatedMinutes": 6,
+      "classification": "quranic_term",
+      "summary": "Nefs-i emmâre, insanı kötülüğe, günaha, bahane üretmeye ve arzuların peşinden gitmeye çağıran nefis hâlidir.",
+      "learningObjectives": [
+        "Nefs-i emmârenin Kur’an’daki dayanağını öğrenmek.",
+        "Günahı savunmanın ve bahane üretmenin bu hâlin belirtisi olduğunu fark etmek.",
+        "Nefsin kötülüğü emreden yönüne karşı tevbe ve bilinçli direnç geliştirmek."
+      ],
+      "mainMessage": "Nefs-i emmâre, insanın içindeki 'boş ver, yap gitsin' sesidir.",
+      "quranReferences": [
+        {
+          "surah": "Yusuf",
+          "surahNumber": 12,
+          "ayahRange": "53",
+          "topic": "Nefsin kötülüğü emretmesi",
+          "mealSummary": "Nefsin, Rabbin merhamet edip koruması dışında, kötülüğü emretmeye yatkın olduğu bildirilir.",
+          "sourceId": "diyanet-yusuf-12-53"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6487",
+          "topic": "Arzuların tehlikesi",
+          "meaningSummary": "Cehennem arzularla, cennet ise nefse zor gelen şeylerle kuşatılmıştır.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6487"
+        }
+      ],
+      "appContent": {
+        "intro": "Nefs-i emmâre, insanın günaha meylini ve bu meyli savunma eğilimini anlatır.",
+        "body": [
+          "Bu hâlde insan sadece hata yapmakla kalmaz; hatasına mazeret de üretir.",
+          "Kibir, hırs, haset, şehvet, öfke ve bencillik bu hâlin belirgin belirtilerindendir.",
+          "Nefs-i emmâreyi tanımak, insanın kendini temize çıkarmak yerine Allah’ın merhametine sığınmasını öğretir."
+        ],
+        "symptoms": [
+          "Günahı küçümsemek",
+          "Bahane üretmek",
+          "Kibirlenmek",
+          "Hırs ve hasedi normal görmek",
+          "Arzuyu hakikatin önüne koymak"
+        ],
+        "treatment": [
+          "Tevbe",
+          "Farzlara sarılmak",
+          "Haramlardan uzak durmak",
+          "Nefis muhasebesi",
+          "Salih çevre"
+        ],
+        "reflectionQuestion": "Bugün nefsim bana hangi bahaneyi sundu?",
+        "practice": "Gün içinde yaptığın bir hatayı savunmak yerine, onu dürüstçe isimlendir.",
+        "shortDua": "Allah’ım, beni nefsimin kötülüğü emreden yönünden koru."
+      },
+      "safetyNotes": [
+        "Yusuf 12:53’teki sözün kime ait olduğu konusunda tefsirlerde görüş farkı bulunduğu not olarak verilebilir.",
+        "Ders, kişiyi umutsuzluğa değil tevbe ve Allah’ın rahmetine yönlendirmelidir."
+      ]
+    },
+    {
+      "id": "lesson-04-nefs-i-levvame",
+      "order": 4,
+      "title": "Nefs-i Levvâme: Kendini Kınayan Nefis",
+      "estimatedMinutes": 6,
+      "classification": "quranic_term",
+      "summary": "Nefs-i levvâme, yanlışı fark eden, kendini hesaba çeken, pişmanlık ve tevbe ihtiyacı duyan nefis hâlidir.",
+      "learningObjectives": [
+        "Levvâme kavramının Kur’an’daki dayanağını öğrenmek.",
+        "Pişmanlığın ümitsizlik değil, uyanış işareti olduğunu anlamak.",
+        "İç muhasebenin nefis terbiyesindeki önemini kavramak."
+      ],
+      "mainMessage": "Nefs-i levvâme, düşüşün değil uyanışın işaretidir.",
+      "quranReferences": [
+        {
+          "surah": "Kıyâme",
+          "surahNumber": 75,
+          "ayahRange": "2",
+          "topic": "Kendini kınayan nefis",
+          "mealSummary": "Kur’an’da kendini kınayan nefis üzerine yemin edilir.",
+          "sourceId": "quran-qiyamah-75-2"
+        },
+        {
+          "surah": "Haşr",
+          "surahNumber": 59,
+          "ayahRange": "18",
+          "topic": "Nefis muhasebesi",
+          "mealSummary": "Herkesin yarın için ne hazırladığına bakması emredilir.",
+          "sourceId": "quran-hashr-59-18"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6114",
+          "topic": "Öfke anında nefse hâkim olmak",
+          "meaningSummary": "Asıl güçlü kişinin, öfke anında kendine hâkim olan kişi olduğu bildirilir.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6114"
+        }
+      ],
+      "appContent": {
+        "intro": "İnsan hata yaptıktan sonra içten içe rahatsızlık duyuyorsa, bu rahatsızlık dönüşün başlangıcı olabilir.",
+        "body": [
+          "Nefs-i levvâme, günahı fark eden ve kendini hesaba çeken nefis hâlidir.",
+          "Bu mertebede insan hatasını normalleştirmek yerine sorgulamaya başlar.",
+          "Pişmanlık doğru yönlendirilirse tevbe, ıslah ve istikamete dönüşebilir."
+        ],
+        "symptoms": [
+          "Pişmanlık",
+          "Vicdan uyanışı",
+          "Tevbe isteği",
+          "Hataları savunmayı bırakmak",
+          "Kendi iç dünyasını sorgulamak"
+        ],
+        "treatment": [
+          "İstiğfar",
+          "Günlük muhasebe",
+          "Öfke ve arzulara karşı sabır",
+          "Hatanın telafisi",
+          "Duanın artırılması"
+        ],
+        "reflectionQuestion": "Bugün hangi davranışım için kendimi hesaba çekmeliyim?",
+        "practice": "Gece uyumadan önce üç soru sor: Bugün neyi iyi yaptım? Neyi yanlış yaptım? Yarın neyi düzelteceğim?",
+        "shortDua": "Allah’ım, hatamı fark etmeyi, tevbe etmeyi ve tekrar düşmemek için güç kazanmayı nasip et."
+      },
+      "safetyNotes": [
+        "Levvâme hali kullanıcının kendini değersiz görmesine değil, sorumluluk ve tevbe bilincine yönlendirilmelidir.",
+        "Aşırı suçluluk psikolojisi teşvik edilmemelidir."
+      ]
+    },
+    {
+      "id": "lesson-05-nefs-i-mulhime",
+      "order": 5,
+      "title": "Nefs-i Mülhime: İyilik ve Kötülük Farkındalığı",
+      "estimatedMinutes": 6,
+      "classification": "tasawwuf_classification_with_quranic_basis",
+      "summary": "Nefs-i mülhime, Kur’an’da isim olarak geçmeyen; fakat Şems 91:8’de nefse kötülük ve takva yönünün ilham edilmesiyle ilişkilendirilen ahlakî/tasavvufî bir açıklama başlığıdır.",
+      "learningObjectives": [
+        "Mülhime adının Kur’an’da birebir geçmediğini doğru şekilde öğrenmek.",
+        "Şems 91:8’in nefsin iç farkındalığına nasıl temel oluşturduğunu anlamak.",
+        "İlham, vesvese ve arzu ayrımında dikkatli olmayı öğrenmek."
+      ],
+      "mainMessage": "Bu aşamada insanın içinde sadece arzu değil, uyarı da konuşur; mesele hangi sese kulak verileceğidir.",
+      "quranReferences": [
+        {
+          "surah": "Şems",
+          "surahNumber": 91,
+          "ayahRange": "8",
+          "topic": "Nefse kötülük ve takvanın ilham edilmesi",
+          "mealSummary": "Allah nefse kötülük yönünü ve takva kabiliyetini ilham etmiştir.",
+          "sourceId": "diyanet-sems-91-7-10"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Jami` at-Tirmidhi",
+          "reference": "1621",
+          "topic": "Nefisle mücadele",
+          "meaningSummary": "Mücahidin, kendi nefsiyle mücadele eden kişi olduğu bildirilir.",
+          "grade": "Hasan-sahih ifadesi Tirmizî rivayet değerlendirmesinde geçer; Darussalam değerlendirmesinde Hasan bilgisi de bulunur.",
+          "sourceId": "tirmidhi-1621"
+        }
+      ],
+      "appContent": {
+        "intro": "İnsan bazen içinden gelen bir isteğin doğru olmadığını hisseder. Bu farkındalık, nefis terbiyesinde önemli bir adımdır.",
+        "body": [
+          "Mülhime başlığı, nefsin iyilik ve kötülük yönelişlerini fark etme hâlini anlatmak için kullanılır.",
+          "Ancak her iç ses doğru kabul edilmez. Mümin, içinden gelen düşünceyi Kur’an, sünnet ve ahlak ölçüsüyle tartar.",
+          "Bu mertebede dikkat, iç sese körü körüne uymak değil; takvaya çağıran yönelişi güçlendirmektir."
+        ],
+        "symptoms": [
+          "Günaha karşı iç uyarı",
+          "İyiliğe yönelme isteği",
+          "Takva hassasiyetinin artması",
+          "Davranışları Allah rızası açısından tartmak"
+        ],
+        "treatment": [
+          "Kur’an ve sünnet ölçüsüne başvurmak",
+          "Vesvese ile sahih uyarıyı ayırmaya çalışmak",
+          "İlim öğrenmek",
+          "Dua ve istiğfar",
+          "Güvenilir alimlerin açıklamalarından faydalanmak"
+        ],
+        "reflectionQuestion": "Bugün içimdeki hangi uyarıyı ciddiye almam gerekiyordu?",
+        "practice": "Bir karar verirken şu üç ölçüyü kullan: Allah razı olur mu? Kul hakkı var mı? Beni daha iyi bir kul yapar mı?",
+        "shortDua": "Allah’ım, bana hakkı hak olarak gösterip ona uymayı, batılı batıl olarak gösterip ondan sakınmayı nasip et."
+      },
+      "safetyNotes": [
+        "Nefs-i mülhime adı Kur’an’da birebir geçen bir ifade gibi sunulmamalıdır.",
+        "Kullanıcıya 'içinden gelen her şey ilhamdır' mesajı verilmemelidir.",
+        "Vesvese, heva ve sahih yöneliş ayrımı vurgulanmalıdır."
+      ]
+    },
+    {
+      "id": "lesson-06-nefs-i-mutmainne",
+      "order": 6,
+      "title": "Nefs-i Mutmainne: Huzura Eren Nefis",
+      "estimatedMinutes": 6,
+      "classification": "quranic_term",
+      "summary": "Nefs-i mutmainne, imanla huzur bulan, Allah’a güvenen ve kullukta istikrara yönelen nefis hâlidir.",
+      "learningObjectives": [
+        "Mutmainne kavramının Fecr 89:27’de geçtiğini öğrenmek.",
+        "Huzurun arzuların yok olması değil, kalbin Allah’a güvenmeyi öğrenmesi olduğunu kavramak.",
+        "İbadet, sabır ve teslimiyetin kalp huzuruyla ilişkisini anlamak."
+      ],
+      "mainMessage": "Nefs-i mutmainne, arzuların tamamen yok olduğu değil; kalbin Allah’a güvenmeyi öğrendiği mertebedir.",
+      "quranReferences": [
+        {
+          "surah": "Fecr",
+          "surahNumber": 89,
+          "ayahRange": "27-30",
+          "topic": "Huzura ermiş nefis",
+          "mealSummary": "İmanın huzuruna kavuşmuş insana Rabbine hoşnut ve hoşnut olunmuş olarak dönmesi, kulların arasına katılması ve cennete girmesi hitap edilir.",
+          "sourceId": "diyanet-fecr-89-27-30"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sunan an-Nasa'i",
+          "reference": "5524",
+          "topic": "Yapılan ve yapılmayan şeylerin şerrinden Allah’a sığınmak",
+          "meaningSummary": "Resûlullah’ın çokça yaptığı dualardan birinin, yapılan ve henüz yapılmayan şeylerin şerrinden Allah’a sığınmak olduğu aktarılır.",
+          "grade": "Sahih kaynaklarda rivayet edilmiştir; Sunnah.com kaydında Nasa'i 5524 olarak yer alır.",
+          "sourceId": "nasai-5524"
+        }
+      ],
+      "appContent": {
+        "intro": "Kalbin huzuru, dış şartların tamamen düzelmesiyle değil, Allah’a güvenin güçlenmesiyle oluşur.",
+        "body": [
+          "Nefs-i mutmainne, imanla sükûna yaklaşmış nefis hâlidir.",
+          "Bu hâlde insan zorlukları inkâr etmez; fakat Rabbini unutarak savrulmaz.",
+          "Diyanet tefsirinde bu hitabın, dünya hayatını iman, Allah’ın emrine saygı ve Allah’ın yarattıklarına şefkat çizgisinde tamamlayan müminle ilişkili olduğu belirtilir."
+        ],
+        "symptoms": [
+          "Allah’a güven",
+          "İbadette sebat",
+          "Günaha karşı daha güçlü direnç",
+          "Kalpte sükûnet",
+          "Dünya hayatını mutlak amaç görmemek"
+        ],
+        "treatment": [
+          "Namazda istikrar",
+          "Zikir ve dua",
+          "Kur’an okumak",
+          "Sabır",
+          "Şükür"
+        ],
+        "reflectionQuestion": "Bugün hangi konuda Allah’a güvenmekte zorlandım?",
+        "practice": "Seni kaygılandıran bir meseleyi yaz ve yanına şu cümleyi ekle: 'Ben tedbirimi alırım, sonucu Rabbime bırakırım.'",
+        "shortDua": "Allah’ım, kalbime iman huzuru ve sana güven nasip et."
+      },
+      "safetyNotes": [
+        "Mutmainne hâli, kişinin hiç üzülmediği veya hiç zorlanmadığı anlamında anlatılmamalıdır.",
+        "Bu başlık psikolojik sorunların yerine geçecek tedavi gibi sunulmamalıdır."
+      ]
+    },
+    {
+      "id": "lesson-07-nefs-i-raziye",
+      "order": 7,
+      "title": "Nefs-i Râzıye: Allah’tan Razı Olan Nefis",
+      "estimatedMinutes": 5,
+      "classification": "quranic_expression_interpreted_as_stage",
+      "summary": "Nefs-i râzıye, kulun Allah’ın hükmüne, emrine ve takdirine razı olmayı öğrenmesiyle ilişkilendirilen nefis hâlidir.",
+      "learningObjectives": [
+        "Râzıye ifadesinin Fecr 89:28’deki 'hoşnut olarak' hitabıyla ilişkilendirildiğini öğrenmek.",
+        "Rızanın acıyı hissetmemek değil, Allah’a güveni kaybetmemek olduğunu kavramak.",
+        "Sabır ve şükür dengesini anlamak."
+      ],
+      "mainMessage": "Rıza, acı hissetmemek değildir; acının içinde bile Allah’a güveni kaybetmemektir.",
+      "quranReferences": [
+        {
+          "surah": "Fecr",
+          "surahNumber": 89,
+          "ayahRange": "28",
+          "topic": "Kulun Rabbinden hoşnut olarak dönmesi",
+          "mealSummary": "Huzura ermiş nefse Rabbine hoşnut olarak dönmesi hitap edilir.",
+          "sourceId": "diyanet-fecr-89-27-30"
+        }
+      ],
+      "hadithReferences": [],
+      "appContent": {
+        "intro": "Rıza, kulun Allah’ın bilgisine ve hikmetine güvenmeyi öğrenmesidir.",
+        "body": [
+          "Nefs-i râzıye, Allah’ın emrine ve takdirine karşı isyan dilinden uzaklaşan nefis hâli olarak açıklanır.",
+          "Bu hâl, insanın imtihanları hiç hissetmemesi değil; imtihan içinde Rabbine güvenmeyi sürdürmesidir.",
+          "Rızanın içinde sabır, şükür ve teslimiyet vardır."
+        ],
+        "symptoms": [
+          "Musibette sabır",
+          "Nimette şükür",
+          "İsyan dilinden uzaklaşmak",
+          "Allah’ın hükmüne güvenmek",
+          "Kullukta teslimiyet"
+        ],
+        "treatment": [
+          "Sabır ayetlerini tefekkür etmek",
+          "Şükür günlüğü tutmak",
+          "Kaza ve kader konusunda sahih bilgi edinmek",
+          "Dua",
+          "Musibet anında dili korumak"
+        ],
+        "reflectionQuestion": "Bugün hangi konuda Allah’ın takdirine razı olmakta zorlandım?",
+        "practice": "Bugün zorlandığın bir olay için 'Bu olay bana hangi kulluk dersini öğretiyor olabilir?' diye düşün.",
+        "shortDua": "Allah’ım, hükmüne razı olan, sabreden ve şükreden kullarından eyle."
+      },
+      "safetyNotes": [
+        "Rıza, zulme razı olmak veya haksızlığa sessiz kalmak şeklinde anlatılmamalıdır.",
+        "Kul hakkı ve adalet sorumluluğu korunmalıdır."
+      ]
+    },
+    {
+      "id": "lesson-08-nefs-i-marziyye",
+      "order": 8,
+      "title": "Nefs-i Marzıyye: Allah’ın Razı Olduğu Nefis",
+      "estimatedMinutes": 5,
+      "classification": "quranic_expression_interpreted_as_stage",
+      "summary": "Nefs-i marzıyye, Allah’ın razı olduğu kulluk hâline ulaşmayı hedefleyen nefis olarak açıklanır.",
+      "learningObjectives": [
+        "Marzıyye ifadesinin Fecr 89:28’deki 'hoşnut olunmuş olarak' ifadesiyle ilişkilendirildiğini öğrenmek.",
+        "Allah rızasını merkeze almanın nefs terbiyesindeki yerini kavramak.",
+        "Bu hâlin kendini beğenme değil, tevazu ve ihlas gerektirdiğini anlamak."
+      ],
+      "mainMessage": "Marzıyye makamı, insanın kendini beğenmesi değil; Allah’ın razı olacağı bir kul olmayı hayatının merkezine almasıdır.",
+      "quranReferences": [
+        {
+          "surah": "Fecr",
+          "surahNumber": 89,
+          "ayahRange": "28",
+          "topic": "Allah’ın kuldan hoşnut olması",
+          "mealSummary": "Huzura ermiş nefse, Rabbine hoşnut ve hoşnut olunmuş olarak dönmesi hitap edilir.",
+          "sourceId": "diyanet-fecr-89-27-30"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6114",
+          "topic": "Nefse hâkimiyet ve ahlak",
+          "meaningSummary": "Asıl güçlü kişinin öfke anında kendine hâkim olan kişi olduğu bildirilir.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6114"
+        }
+      ],
+      "appContent": {
+        "intro": "Müminin hedefi insanların beğenisi değil, Allah’ın rızasıdır.",
+        "body": [
+          "Nefs-i marzıyye, Allah’ın razı olacağı kulluk hâline yönelmiş nefsi ifade eder.",
+          "Bu hâl, insanın kendini üstün görmesi değil; ihlas, tevazu ve güzel ahlakla yaşamasıdır.",
+          "Kul, ameline güvenerek değil, Allah’ın rahmetini umarak yürür."
+        ],
+        "symptoms": [
+          "İhlas",
+          "Tevazu",
+          "Güzel ahlak",
+          "Merhamet",
+          "Allah rızasını öncelemek"
+        ],
+        "treatment": [
+          "Niyeti kontrol etmek",
+          "Gösterişten sakınmak",
+          "Kul hakkından kaçınmak",
+          "Gizli iyilik yapmak",
+          "Öfke ve kibirle mücadele etmek"
+        ],
+        "reflectionQuestion": "Bugün yaptığım hangi amelde insanların beğenisini Allah’ın rızasının önüne koymuş olabilirim?",
+        "practice": "Bugün kimsenin bilmediği küçük bir iyilik yap.",
+        "shortDua": "Allah’ım, beni razı olduğun kullarından eyle."
+      },
+      "safetyNotes": [
+        "Marzıyye hâli, kişinin kendisini kesin olarak Allah’ın razı olduğu kul ilan etmesi şeklinde anlatılmamalıdır.",
+        "Ümit ve tevazu dengesi korunmalıdır."
+      ]
+    },
+    {
+      "id": "lesson-09-nefs-i-kamile-zekiyye",
+      "order": 9,
+      "title": "Nefs-i Kâmile/Zekiyye: Arınmış ve Olgunlaşmış Nefis",
+      "estimatedMinutes": 6,
+      "classification": "tasawwuf_classification_with_quranic_basis",
+      "summary": "Nefs-i kâmile veya zekiyye, arınmış, güzel ahlakta istikrar kazanmış ve Allah’a muhtaçlığını unutmayan nefis hâli olarak açıklanır.",
+      "learningObjectives": [
+        "Kâmile/zekiyye başlığının klasik yedili tasnifin son mertebesi olarak geçtiğini öğrenmek.",
+        "Arınmanın kendini kusursuz görmek olmadığını kavramak.",
+        "Güzel ahlak, tevazu ve sürekli tevbenin önemini anlamak."
+      ],
+      "mainMessage": "Kâmil nefis, kendini kusursuz gören değil; Allah’a muhtaçlığını hiç unutmayan nefistir.",
+      "quranReferences": [
+        {
+          "surah": "Şems",
+          "surahNumber": 91,
+          "ayahRange": "9",
+          "topic": "Nefsin arındırılması",
+          "mealSummary": "Nefsini arındıranın kurtuluşa ereceği bildirilir.",
+          "sourceId": "diyanet-sems-91-7-10"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sunan an-Nasa'i",
+          "reference": "5524",
+          "topic": "Amellerin şerrinden Allah’a sığınmak",
+          "meaningSummary": "Resûlullah’ın, yaptığı ve henüz yapmadığı şeylerin şerrinden Allah’a sığındığı aktarılır.",
+          "grade": "Sahih kaynaklarda rivayet edilmiştir; Sunnah.com kaydında Nasa'i 5524 olarak yer alır.",
+          "sourceId": "nasai-5524"
+        }
+      ],
+      "appContent": {
+        "intro": "Nefsin arınması, insanın kendini kusursuz görmesiyle değil; Rabbine daha derin bir muhtaçlık bilinciyle olur.",
+        "body": [
+          "Kâmile/zekiyye başlığı, nefis terbiyesinde olgunlaşma ve arınma hedefini anlatır.",
+          "Bu hâlde insan günahı küçümsemez, ameline güvenmez ve Allah’ın rahmetine sığınır.",
+          "Güzel ahlak, ihlas, sabır, tevazu ve merhamet bu hedefin temel işaretleridir."
+        ],
+        "symptoms": [
+          "Sürekli tevbe",
+          "Tevazu",
+          "İhlas",
+          "Merhamet",
+          "Sabır",
+          "Günahı küçümsememek"
+        ],
+        "treatment": [
+          "Niyeti düzenli kontrol etmek",
+          "Gizli günahlardan sakınmak",
+          "Kul hakkını gözetmek",
+          "Ahlakı güzelleştirmek",
+          "Allah’a muhtaçlık bilincini korumak"
+        ],
+        "reflectionQuestion": "Bugün hangi davranışımda nefsimi temize çıkarma eğilimi gösterdim?",
+        "practice": "Bugün bir hatanı savunmadan kabul et ve Allah’tan samimiyetle bağışlanma dile.",
+        "shortDua": "Allah’ım, nefsimi arındır; onu arındıracak olanların en hayırlısı sensin."
+      },
+      "safetyNotes": [
+        "Kâmil nefis başlığı kişide manevi üstünlük iddiası doğuracak şekilde anlatılmamalıdır.",
+        "Her mertebe Allah’ın lütfu ve kulun gayreti bağlamında dengeli sunulmalıdır."
+      ]
+    },
+    {
+      "id": "lesson-10-nefis-terbiyesinin-yollari",
+      "order": 10,
+      "title": "Nefis Terbiyesinin Yolları",
+      "estimatedMinutes": 7,
+      "classification": "practical_ethics",
+      "summary": "Nefis terbiyesi; tevbe, muhasebe, farzlara sarılmak, haramlardan kaçınmak, dua, zikir, sabır, şükür ve salih çevreyle desteklenen sürekli bir kulluk çabasıdır.",
+      "learningObjectives": [
+        "Nefis terbiyesinin pratik yollarını öğrenmek.",
+        "Günlük muhasebe alışkanlığı kazanmak.",
+        "Nefisle mücadelenin hayat boyu devam eden bir süreç olduğunu kavramak."
+      ],
+      "mainMessage": "Nefis terbiyesi bir anda tamamlanan bir iş değil; her gün yenilenen bir kulluk disiplinidir.",
+      "quranReferences": [
+        {
+          "surah": "Haşr",
+          "surahNumber": 59,
+          "ayahRange": "18",
+          "topic": "Gelecek için hazırlık ve muhasebe",
+          "mealSummary": "Herkesin yarın için ne hazırladığına bakması emredilir.",
+          "sourceId": "quran-hashr-59-18"
+        },
+        {
+          "surah": "Nâziât",
+          "surahNumber": 79,
+          "ayahRange": "40-41",
+          "topic": "Nefsi hevadan alıkoymak",
+          "mealSummary": "Rabbinin huzurunda durmaktan korkan ve nefsini kötü arzulardan alıkoyan kimsenin varacağı yerin cennet olduğu bildirilir.",
+          "sourceId": "quran-naziat-79-40-41"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Jami` at-Tirmidhi",
+          "reference": "1621",
+          "topic": "Nefisle mücadele",
+          "meaningSummary": "Mücahidin, kendi nefsiyle mücadele eden kişi olduğu bildirilir.",
+          "grade": "Hasan-sahih ifadesi Tirmizî rivayet değerlendirmesinde geçer; Darussalam değerlendirmesinde Hasan bilgisi de bulunur.",
+          "sourceId": "tirmidhi-1621"
+        },
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6114",
+          "topic": "Öfkeye hâkimiyet",
+          "meaningSummary": "Asıl güçlü kişinin öfke anında kendine hâkim olan kişi olduğu bildirilir.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6114"
+        },
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6487",
+          "topic": "Arzular ve zorluklar",
+          "meaningSummary": "Cehennem arzularla, cennet ise nefse zor gelen şeylerle kuşatılmıştır.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6487"
+        }
+      ],
+      "appContent": {
+        "intro": "Nefsini tanıyan insan, onunla savaşmayı değil; onu Allah’ın razı olacağı bir istikamete yönlendirmeyi öğrenir.",
+        "body": [
+          "Nefis terbiyesi tevbe ile başlar, muhasebe ile devam eder, ibadet ve güzel ahlakla güçlenir.",
+          "Farzlara sarılmak ve haramlardan uzak durmak bu yolun temelidir.",
+          "Dua, zikir, Kur’an, sabır, şükür ve salih çevre nefsi güçlendiren desteklerdir."
+        ],
+        "practicalSteps": [
+          "Her gün kısa nefis muhasebesi yap.",
+          "Farz ibadetlerde istikrarı öncele.",
+          "Haram ve şüpheli alanlarda sınır koy.",
+          "Öfke, kibir, haset ve hırs gibi iç hastalıkları isimlendir.",
+          "Dua ve istiğfarı günlük hale getir.",
+          "Seni Allah’a yaklaştıran insanlarla beraber olmaya çalış."
+        ],
+        "dailyMuhasabahQuestions": [
+          "Bugün Allah rızası için ne yaptım?",
+          "Bugün nefsim beni hangi bahaneyle kandırmaya çalıştı?",
+          "Bugün bir kul hakkına girdim mi?",
+          "Bugün öfkemi, dilimi veya bakışımı kontrol edebildim mi?",
+          "Bugün hangi konuda tevbe etmeliyim?",
+          "Yarın hangi bir davranışımı düzeltmeye niyet ediyorum?"
+        ],
+        "reflectionQuestion": "Nefsimle mücadelede en çok zorlandığım alan hangisi?",
+        "practice": "Yedi gün boyunca her gece günlük muhasebe sorularından en az üçüne cevap ver.",
+        "shortDua": "Allah’ım, beni nefsimin şerrinden koru; kalbimi, dilimi ve amellerimi rızana uygun hale getir."
+      },
+      "safetyNotes": [
+        "Nefis terbiyesi, kişiye ümitsizlik verecek bir kusur arama pratiğine dönüştürülmemelidir.",
+        "Dersler rahmet, tevbe, ümit ve sorumluluk dengesiyle sunulmalıdır."
+      ]
+    }
+  ],
+  "referenceLibrary": {
+    "quran": [
+      {
+        "id": "diyanet-sems-91-7-10",
+        "type": "quran",
+        "surah": "Şems",
+        "surahNumber": 91,
+        "ayahRange": "7-10",
+        "sourceName": "Diyanet Kur’an Yolu / Diyanet Meali",
+        "url": "https://kuran.diyanet.gov.tr/mushaf/kuran-tefsir-1/sems-suresi-91/ayet-1/diyanet-isleri-baskanligi-meali-1",
+        "usage": "Nefsin yaratılışı, kötülük/takva kabiliyeti, arınma ve kirlenme."
+      },
+      {
+        "id": "diyanet-yusuf-12-53",
+        "type": "quran",
+        "surah": "Yusuf",
+        "surahNumber": 12,
+        "ayahRange": "53",
+        "sourceName": "Diyanet Kur’an Yolu Tefsiri",
+        "url": "https://kuran.diyanet.gov.tr/tefsir/Y%C3%83%C2%BBsuf-suresi/1648/52-53-ayet-tefsiri",
+        "usage": "Nefs-i emmâre başlığının ana Kur’an dayanağı."
+      },
+      {
+        "id": "diyanet-fecr-89-27-30",
+        "type": "quran",
+        "surah": "Fecr",
+        "surahNumber": 89,
+        "ayahRange": "27-30",
+        "sourceName": "Diyanet Kur’an Yolu Tefsiri",
+        "url": "https://kuran.diyanet.gov.tr/tefsir/Fecr-suresi/6020/27-30-ayet-tefsiri",
+        "usage": "Mutmainne, râzıye ve marzıyye başlıklarının ana Kur’an dayanağı."
+      },
+      {
+        "id": "quran-qiyamah-75-2",
+        "type": "quran",
+        "surah": "Kıyâme",
+        "surahNumber": 75,
+        "ayahRange": "2",
+        "sourceName": "Kur’an",
+        "url": "https://kuran.diyanet.gov.tr/tefsir/sure/75-kiyamet-suresi",
+        "usage": "Nefs-i levvâme başlığının ana Kur’an dayanağı."
+      },
+      {
+        "id": "quran-naziat-79-40-41",
+        "type": "quran",
+        "surah": "Nâziât",
+        "surahNumber": 79,
+        "ayahRange": "40-41",
+        "sourceName": "Kur’an",
+        "url": "https://kuran.diyanet.gov.tr/tefsir/sure/79-naziat-suresi",
+        "usage": "Nefsi hevadan alıkoyma ve cennet hedefi."
+      },
+      {
+        "id": "quran-hashr-59-18",
+        "type": "quran",
+        "surah": "Haşr",
+        "surahNumber": 59,
+        "ayahRange": "18",
+        "sourceName": "Kur’an",
+        "url": "https://kuran.diyanet.gov.tr/tefsir/sure/59-hasr-suresi",
+        "usage": "Günlük muhasebe ve ahiret hazırlığı."
+      }
+    ],
+    "hadith": [
+      {
+        "id": "bukhari-6487",
+        "type": "hadith",
+        "collection": "Sahih al-Bukhari",
+        "reference": "6487",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/bukhari:6487",
+        "grade": "Sahih",
+        "usage": "Arzular ve nefse zor gelen şeyler bağlamında nefis terbiyesi."
+      },
+      {
+        "id": "bukhari-6114",
+        "type": "hadith",
+        "collection": "Sahih al-Bukhari",
+        "reference": "6114",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/bukhari:6114",
+        "grade": "Sahih",
+        "usage": "Öfke kontrolü ve nefse hâkimiyet."
+      },
+      {
+        "id": "tirmidhi-1621",
+        "type": "hadith",
+        "collection": "Jami` at-Tirmidhi",
+        "reference": "1621",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/tirmidhi:1621",
+        "grade": "Tirmizî rivayet değerlendirmesinde hasen-sahih ifadesi; Darussalam değerlendirmesinde Hasan bilgisi görülür.",
+        "usage": "Mücahid, kendi nefsiyle mücadele eden kişidir."
+      },
+      {
+        "id": "nasai-5524",
+        "type": "hadith",
+        "collection": "Sunan an-Nasa'i",
+        "reference": "5524",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/nasai:5524",
+        "grade": "Sahih kaynaklarda rivayet edilmiş dua; kaynak kaydında Nasa'i 5524 olarak yer alır.",
+        "usage": "Yapılan ve yapılmayan işlerin şerrinden Allah’a sığınma duası."
+      }
+    ],
+    "encyclopedia": [
+      {
+        "id": "tdv-nefis",
+        "type": "encyclopedia",
+        "title": "Nefis",
+        "sourceName": "TDV İslâm Ansiklopedisi",
+        "url": "https://islamansiklopedisi.org.tr/nefis",
+        "usage": "Nefsin tek oluşu, farklı hâl/sıfatları ve yedili tasnif hakkında temel açıklama."
+      },
+      {
+        "id": "tdv-atvar-i-seba",
+        "type": "encyclopedia",
+        "title": "Atvâr-ı Seb‘a",
+        "sourceName": "TDV İslâm Ansiklopedisi",
+        "url": "https://islamansiklopedisi.org.tr/atvar-i-seba",
+        "usage": "Nefsin yedi tavrı: emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye, kâmile."
+      }
+    ],
+    "avoidAsHadith": [
+      {
+        "phrase": "Nefsini bilen Rabbini bilir.",
+        "reason": "Tasavvufî literatürde yaygın bir söz olmakla birlikte uygulamada hadis diye verilmemelidir; hikmetli söz olarak ayrıca işlenebilir."
+      },
+      {
+        "phrase": "Küçük cihaddan büyük cihada döndük.",
+        "reason": "Nefisle mücadele bağlamında meşhur olsa da sahih hadis havuzuna almak yerine Tirmizî 1621 gibi daha güvenli rivayet kullanılmalıdır."
+      }
+    ]
+  },
+  "importHints": {
+    "recommendedDisplayOrder": "lessons[].order",
+    "slugField": "id",
+    "sourceJoinKey": "sourceId",
+    "safeDefaultLessonCount": 10,
+    "canSplitIntoCards": true,
+    "suggestedCardFields": [
+      "title",
+      "summary",
+      "mainMessage",
+      "quranReferences",
+      "hadithReferences",
+      "appContent.body",
+      "appContent.reflectionQuestion",
+      "appContent.practice",
+      "appContent.shortDua"
+    ]
+  }
+}
