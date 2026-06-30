@@ -69,6 +69,8 @@ export default function FavorilerScreen() {
       style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
       onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
       activeOpacity={0.75}
+      accessibilityRole="button"
+      accessibilityLabel={`${item.surah_name ?? item.verse_key}, ${item.ayah_number}. ayeti aç`}
     >
       <View style={styles.cardHeader}>
         <View style={styles.keyBadge}>
@@ -79,7 +81,7 @@ export default function FavorilerScreen() {
             {item.surah_name} · {item.ayah_number}. ayet
           </Text>
         )}
-        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn}>
+        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn} accessibilityRole="button" accessibilityLabel="Favoriden kaldır">
           <Text style={{ fontSize: 18 }}>❤️</Text>
         </TouchableOpacity>
       </View>
@@ -93,6 +95,8 @@ export default function FavorilerScreen() {
               style={[styles.tag, styles.tagPrimary]}
               onPress={() => router.push(`/search?tag=${encodeURIComponent(item.ana_tema!)}&page=1`)}
               activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel={`${item.ana_tema} etiketine göre ara`}
             >
               <Text style={styles.tagTextPrimary}>{item.ana_tema}</Text>
             </TouchableOpacity>
@@ -103,6 +107,8 @@ export default function FavorilerScreen() {
               style={styles.tag}
               onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
               activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel={`${tag} etiketine göre ara`}
             >
               <Text style={styles.tagText}>{tag}</Text>
             </TouchableOpacity>
@@ -130,6 +136,8 @@ export default function FavorilerScreen() {
           style={[styles.goBtn, { backgroundColor: c.accent }]}
           onPress={handleRetry}
           activeOpacity={0.8}
+          accessibilityRole="button"
+          accessibilityLabel="Tekrar dene"
         >
           <Text style={styles.goBtnText}>Tekrar Dene</Text>
         </TouchableOpacity>
@@ -145,7 +153,7 @@ export default function FavorilerScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet sayfasındaki 🤍 butonuna dokunarak favori ekleyebilirsin.
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Surelere göz at">
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>
@@ -160,7 +168,7 @@ export default function FavorilerScreen() {
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={styles.count}>{favorites.length} ayet kaydedildi</Text>
-          <TouchableOpacity onPress={handleClearAll} hitSlop={8}>
+          <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel="Tüm favorileri temizle">
             <Text style={styles.clearAll}>Tümünü Temizle</Text>
           </TouchableOpacity>
         </View>

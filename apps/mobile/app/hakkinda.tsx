@@ -34,6 +34,9 @@ export default function HakkindaScreen() {
             style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
             onPress={() => { Haptics.selectionAsync(); Linking.openURL(src.url); }}
             activeOpacity={0.7}
+            accessibilityRole="link"
+            accessibilityLabel={`${src.name}: ${src.desc}`}
+            accessibilityHint="Web sitesini açar"
           >
             <Text style={s.sourceIcon}>{src.icon}</Text>
             <View style={{ flex: 1 }}>
@@ -67,6 +70,8 @@ export default function HakkindaScreen() {
             style={[s.mailBtn, { backgroundColor: c.accent + "20" }]}
             onPress={() => Linking.openURL("mailto:kuranyolu.iletisim@gmail.com")}
             activeOpacity={0.7}
+            accessibilityRole="link"
+            accessibilityLabel="E-posta gönder"
           >
             <Text style={[s.mailBtnText, { color: c.accent }]}>kuranyolu.iletisim@gmail.com</Text>
           </TouchableOpacity>

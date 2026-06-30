@@ -48,6 +48,8 @@ export default function DerslerScreen() {
         style={[s.card, { backgroundColor: c.card, borderColor: done ? "#4ade80" : "#c9a84c" }]}
         onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as any); }}
         activeOpacity={0.8}
+        accessibilityRole="button"
+        accessibilityLabel={`${item.baslik}, ${item.kartSayisi} ${item.birim ?? "kart"}${done ? ", tamamlandı" : ""}`}
       >
         {done && !item.route && (
           <View style={s.badge}><Text style={s.badgeText}>✓</Text></View>
@@ -82,7 +84,7 @@ export default function DerslerScreen() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
           <Text style={s.backText}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>Dersler</Text>
@@ -99,6 +101,9 @@ export default function DerslerScreen() {
               style={[s.tab, active && s.tabActive]}
               onPress={() => { Haptics.selectionAsync(); setSortMode(tab.key); }}
               activeOpacity={0.7}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: active }}
+              accessibilityLabel={tab.label}
             >
               <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>
                 {tab.label}

@@ -49,6 +49,8 @@ export default function NeOgreneyimScreen() {
               style={[s.card, { backgroundColor: c.card, width: CARD_W }]}
               onPress={() => { Haptics.selectionAsync(); router.push(item.route as any); }}
               activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel={`${item.title}: ${item.desc}`}
             >
               <Text style={s.emoji}>{item.emoji}</Text>
               <Text style={[s.cardTitle, { color: c.text }]}>{item.title}</Text>

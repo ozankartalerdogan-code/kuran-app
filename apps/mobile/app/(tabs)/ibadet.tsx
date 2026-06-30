@@ -65,6 +65,8 @@ export default function IbadetTab() {
                   style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}
                   onPress={() => handlePress(item)}
                   activeOpacity={0.8}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${item.label}: ${item.sub}`}
                 >
                   <Text style={s.emoji}>{item.emoji}</Text>
                   <View style={{ flex: 1 }}>

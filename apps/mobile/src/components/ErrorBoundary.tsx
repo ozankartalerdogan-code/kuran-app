@@ -31,7 +31,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
           <Text style={styles.emoji}>⚠️</Text>
           <Text style={styles.title}>Bir şeyler ters gitti</Text>
           <Text style={styles.sub}>Uygulama beklenmedik bir hatayla karşılaştı.</Text>
-          <TouchableOpacity style={styles.btn} onPress={this.reset}>
+          <TouchableOpacity style={styles.btn} onPress={this.reset} accessibilityRole="button" accessibilityLabel="Yeniden dene">
             <Text style={styles.btnText}>Yeniden Dene</Text>
           </TouchableOpacity>
         </View>

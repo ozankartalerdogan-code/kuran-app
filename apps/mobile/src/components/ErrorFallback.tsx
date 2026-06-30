@@ -19,20 +19,27 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
         Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.
       </Text>
 
-      <TouchableOpacity style={styles.button} onPress={resetError}>
+      <TouchableOpacity style={styles.button} onPress={resetError} accessibilityRole="button" accessibilityLabel="Yeniden dene">
         <Text style={styles.buttonText}>Yeniden Dene</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.button, styles.homeButton]}
         onPress={() => router.replace("/")}
+        accessibilityRole="button"
+        accessibilityLabel="Ana sayfaya dön"
       >
         <Text style={styles.buttonText}>Ana Sayfaya Dön</Text>
       </TouchableOpacity>
 
       {__DEV__ && (
         <>
-          <TouchableOpacity style={styles.detailToggle} onPress={() => setShowDetails(!showDetails)}>
+          <TouchableOpacity
+            style={styles.detailToggle}
+            onPress={() => setShowDetails(!showDetails)}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: showDetails }}
+          >
             <Text style={[styles.detailToggleText, isDark && styles.textDark]}>
               {showDetails ? "Hata Detayını Gizle" : "Hata Detayını Göster"}
             </Text>

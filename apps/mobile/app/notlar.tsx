@@ -131,7 +131,7 @@ export default function NotlarScreen() {
         <Text style={styles.emptyIcon}>⚠️</Text>
         <Text style={[styles.emptyTitle, { color: c.text }]}>Notlar yüklenemedi</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{notesError}</Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={handleRetry} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={handleRetry} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Tekrar dene">
           <Text style={styles.goBtnText}>Tekrar Dene</Text>
         </TouchableOpacity>
       </View>
@@ -146,7 +146,7 @@ export default function NotlarScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           Ayet detay sayfasının altındaki not alanından not ekleyebilirsiniz.
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Surelere göz at">
           <Text style={styles.goBtnText}>Surelere Göz At</Text>
         </TouchableOpacity>
       </View>
@@ -162,7 +162,7 @@ export default function NotlarScreen() {
         <View style={styles.headerWrap}>
           <View style={styles.listHeader}>
             <Text style={[styles.noteCount, { color: c.textMuted }]}>{noteList.length} ayet için not kaydedildi</Text>
-            <TouchableOpacity onPress={handleClearAll} hitSlop={8}>
+            <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel="Tüm notları sil">
               <Text style={styles.clearAll}>Tümünü Sil</Text>
             </TouchableOpacity>
           </View>
@@ -178,6 +178,8 @@ export default function NotlarScreen() {
             style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
             onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
             activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel={`${formatLabel(item.verseKey)} — notu aç`}
           >
             <View style={styles.cardHeader}>
               <View style={styles.keyBadge}>
@@ -186,7 +188,7 @@ export default function NotlarScreen() {
               <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
                 {formatLabel(item.verseKey)}
               </Text>
-              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8}>
+              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8} accessibilityRole="button" accessibilityLabel="Notu sil">
                 <Text style={styles.deleteBtn}>🗑</Text>
               </TouchableOpacity>
             </View>
