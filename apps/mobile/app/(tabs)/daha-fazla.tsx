@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
-import { useAppTour, useTourTarget } from "../../src/tour/AppTourProvider";
+import { useAppTour, useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
 type Item = {
   emoji: string;
@@ -43,6 +43,7 @@ export default function DahaFazlaTab() {
   const { restartTour } = useAppTour();
   const appSectionTarget = useTourTarget("more.appSection");
   const restartTourTarget = useTourTarget("more.restartTour");
+  const tourScroll = useTourScroller();
 
   function handlePress(item: Item) {
     if (item.action === "restartTour") { void restartTour(); return; }
@@ -52,6 +53,7 @@ export default function DahaFazlaTab() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
+        {...tourScroll}
         style={{ flex: 1 }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}

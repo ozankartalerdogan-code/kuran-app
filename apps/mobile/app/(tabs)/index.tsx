@@ -24,7 +24,7 @@ try {
 } catch (_e) { /* noop */ }
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { TasbihModal } from '../../src/components/ZikirMatik';
-import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -66,6 +66,7 @@ function HomeContent() {
   const prayerTarget = useTourTarget("home.prayerTimes");
   const qiblaTarget = useTourTarget("home.quick.qibla");
   const homeDerslerTarget = useTourTarget("home.dersler");
+  const tourScroll = useTourScroller();
 
   const openTasbih = useCallback(() => setTasbihOpen(true), []);
 
@@ -135,6 +136,7 @@ function HomeContent() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
     <ScrollView
+      {...tourScroll}
       style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
