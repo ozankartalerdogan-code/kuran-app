@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { VerseCard, type VerseCardData } from "../../components/VerseCard";
@@ -8,27 +8,39 @@ import { getFavorites, setFavorites } from "../../lib/storageUtils";
 
 export function FavorilerClient() {
   const router = useRouter();
-  const [verses, setVerses]   = useState<VerseCardData[]>([]);
+  const [verses, setVerses] = useState<VerseCardData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [keys, setKeys]       = useState<string[]>([]);
+  const [keys, setKeys] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const loadFavorites = useCallback(async () => {
     const stored = getFavorites();
     setKeys(stored);
+    setError(null);
 
     if (stored.length === 0) {
+      setVerses([]);
       setLoading(false);
       return;
     }
 
-    fetch(`/api/favorites-verses?keys=${stored.join(",")}`)
-      .then((r) => r.json())
-      .then((data: VerseCardData[]) => {
-        setVerses(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/favorites-verses?keys=${stored.join(",")}`);
+      if (!response.ok) throw new Error("Favoriler yüklenemedi.");
+      const data = (await response.json()) as VerseCardData[];
+      setVerses(data);
+    } catch {
+      setError("Favori ayetler şu anda yüklenemiyor. Lütfen tekrar deneyin.");
+      setVerses([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadFavorites();
+  }, [loadFavorites]);
 
   function handleTagClick(tag: string) {
     router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`);
@@ -38,6 +50,7 @@ export function FavorilerClient() {
     setFavorites([]);
     setVerses([]);
     setKeys([]);
+    setError(null);
   }
 
   return (
@@ -76,7 +89,26 @@ export function FavorilerClient() {
           </div>
         )}
 
-        {!loading && keys.length === 0 && (
+        {!loading && error && keys.length > 0 && (
+          <div className="rounded-2xl border border-amber-200 bg-white px-8 py-12 text-center shadow-md dark:border-amber-800 dark:bg-stone-800">
+            <div className="mb-3 text-4xl">⚠️</div>
+            <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
+              Favoriler yüklenemedi
+            </p>
+            <p className="mt-1 text-sm text-stone-400 dark:text-stone-500">
+              {error}
+            </p>
+            <button
+              onClick={() => loadFavorites()}
+              type="button"
+              className="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-emerald-700 active:scale-95"
+            >
+              Tekrar Dene
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && keys.length === 0 && (
           <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
             <div className="mb-3 text-4xl">🤍</div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
@@ -94,7 +126,26 @@ export function FavorilerClient() {
           </div>
         )}
 
-        {!loading && verses.length > 0 && (
+        {!loading && !error && keys.length > 0 && verses.length === 0 && (
+          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-12 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
+            <div className="mb-3 text-4xl">📭</div>
+            <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
+              Favoriler bulundu ama içerik listesi oluşturulamadı
+            </p>
+            <p className="mt-1 text-sm text-stone-400 dark:text-stone-500">
+              Kayıtlı ayet anahtarları duruyor, ancak ilgili ayet verileri şu anda getirilemedi.
+            </p>
+            <button
+              onClick={() => loadFavorites()}
+              type="button"
+              className="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-emerald-700 active:scale-95"
+            >
+              Tekrar Dene
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && verses.length > 0 && (
           <div className="space-y-4">
             {verses.map((verse) => (
               <VerseCard

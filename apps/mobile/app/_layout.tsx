@@ -96,7 +96,7 @@ function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
         <Stack.Screen name="ibadet-rehberi"                  options={{ title: "İbadet Rehberi", headerBackTitle: "Geri" }} />
         <Stack.Screen name="namaz"                          options={{ title: "Namaz & İbadet", headerBackTitle: "Geri" }} />
         <Stack.Screen name="manevi-siginak"                 options={{ title: "Manevi Sığınak", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: "İsmi Azam & Sekine", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: "İsmi Azam ve Sekine", headerBackTitle: "Geri" }} />
         <Stack.Screen name="search"                         options={{ title: "Arama", headerBackTitle: "Geri" }} />
         <Stack.Screen name="mushaf/index"                         options={{ title: "Mushaf", headerBackTitle: "Geri", headerShown: false }} />
         <Stack.Screen name="mushaf/[surahId]/[ayahNumber]"        options={{ headerBackTitle: "Mushaf", headerShown: false }} />

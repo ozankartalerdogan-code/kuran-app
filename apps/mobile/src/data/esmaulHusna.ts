@@ -1,5 +1,5 @@
-// Esmaul Husna — Allah'in 99 ismi (kok + kok anlami ile)
-// Kokler standart Arapca sozlukten; root_meanings ile capraz dogrulanmistir.
+// Esmaül Hüsna — uygulamada kullanılan yaygın 99 isim tertibi
+// Not: Bazı kaynaklarda sıralama ve bazı isimlerin yazımında küçük farklılıklar görülebilir.
 export interface EsmaItem {
   sira: number;
   arapca: string;
@@ -15,13 +15,13 @@ export const ESMA_UL_HUSNA: EsmaItem[] = [
   { sira: 3, arapca: "الملك", isim: "El-Melik", anlam: "Tüm kainatın gerçek hükümdarı ve mutlak sahibi", kok: "م ل ك", kokAnlam: "sahip olmak, hükmetmek" },
   { sira: 4, arapca: "القدوس", isim: "El-Kuddûs", anlam: "Her türlü eksiklik ve kusurdan tamamen münezzeh olan", kok: "ق د س", kokAnlam: "temizlemek, kutsamak, arınmak" },
   { sira: 5, arapca: "السلام", isim: "Es-Selâm", anlam: "Kullarına esenlik ve güvenlik bahşeden, her türlü tehlikeden koruyan", kok: "س ل م", kokAnlam: "esenlik, kusursuzluk, teslimiyet" },
-  { sira: 6, arapca: "المؤمن", isim: "El-Mü'min", anlam: "Güven ve emniyet veren, inananlarını korkulardan koruyan", kok: "ا م ن", kokAnlam: "güven vermek, emin kılmak" },
+  { sira: 6, arapca: "المؤمن", isim: "El-Mü'min", anlam: "Güven ve emniyet veren, inananlarını korkulardan koruyan", kok: "أ م ن", kokAnlam: "güven vermek, emin kılmak" },
   { sira: 7, arapca: "المهيمن", isim: "El-Müheymin", anlam: "Her şeyi yakından gözeten ve denetim altında tutan", kok: "ه ي م ن", kokAnlam: "gözetmek, koruyup denetlemek" },
   { sira: 8, arapca: "العزيز", isim: "El-Azîz", anlam: "Gücü her şeye yeten, hiçbir şeyin yenemeyeceği üstün olan", kok: "ع ز ز", kokAnlam: "üstün ve yenilmez olmak" },
   { sira: 9, arapca: "الجبار", isim: "El-Cebbâr", anlam: "Kırılanları onaran, dilediğini yaptırmaya gücü yeten", kok: "ج ب ر", kokAnlam: "onarmak, eksiği tamamlamak, zorla düzeltmek" },
   { sira: 10, arapca: "المتكبر", isim: "El-Mütekebbir", anlam: "Büyüklük ve azamet yalnızca kendine yakışan, eşsiz", kok: "ك ب ر", kokAnlam: "büyük ve ulu olmak" },
   { sira: 11, arapca: "الخالق", isim: "El-Hâlik", anlam: "Her şeyi yoktan var eden, yaratmanın tek sahibi", kok: "خ ل ق", kokAnlam: "yoktan yaratmak, takdir etmek" },
-  { sira: 12, arapca: "البارئ", isim: "El-Bâri'", anlam: "Her şeyi birbiriyle uyumlu ve kusursuz biçimde yaratan", kok: "ب ر ا", kokAnlam: "kusursuz ve uyumlu yaratmak" },
+  { sira: 12, arapca: "البارئ", isim: "El-Bâri'", anlam: "Her şeyi birbiriyle uyumlu ve kusursuz biçimde yaratan", kok: "ب ر أ", kokAnlam: "kusursuz ve uyumlu yaratmak" },
   { sira: 13, arapca: "المصور", isim: "El-Musavvir", anlam: "Her varlığa kendine özgü biçim ve suret veren", kok: "ص و ر", kokAnlam: "biçim ve suret vermek" },
   { sira: 14, arapca: "الغفار", isim: "El-Gaffâr", anlam: "Günahları defalarca örten ve bağışlayan", kok: "غ ف ر", kokAnlam: "örtmek, bağışlamak" },
   { sira: 15, arapca: "القهار", isim: "El-Kahhâr", anlam: "Her şeyi boyunduruk altına alan, hiçbir gücün karşı koyamadığı", kok: "ق ه ر", kokAnlam: "boyun eğdirmek, üstün gelmek" },
@@ -67,7 +67,7 @@ export const ESMA_UL_HUSNA: EsmaItem[] = [
   { sira: 55, arapca: "الولي", isim: "El-Veliyy", anlam: "İnanan kullarının dostu ve koruyucusu", kok: "و ل ي", kokAnlam: "dost olmak, yardım edip sahip çıkmak" },
   { sira: 56, arapca: "الحميد", isim: "El-Hamîd", anlam: "Her türlü hamd ve övgüyü hak eden", kok: "ح م د", kokAnlam: "övgü, hamde layık olmak" },
   { sira: 57, arapca: "المحصي", isim: "El-Muhsî", anlam: "Kainattaki her şeyin sayısını ve miktarını bilen", kok: "ح ص ي", kokAnlam: "saymak, eksiksiz kuşatmak" },
-  { sira: 58, arapca: "المبدئ", isim: "El-Mubdi'", anlam: "Her şeyi ilk defa yoktan var eden", kok: "ب د ا", kokAnlam: "başlatmak, ilk kez ortaya koymak" },
+  { sira: 58, arapca: "المبدئ", isim: "El-Mubdi'", anlam: "Her şeyi ilk defa yoktan var eden", kok: "ب د أ", kokAnlam: "başlatmak, ilk kez ortaya koymak" },
   { sira: 59, arapca: "المعيد", isim: "El-Muîd", anlam: "Yok olan her şeyi tekrar var eden, ölüleri dirilten", kok: "ع و د", kokAnlam: "geri döndürmek, yeniden yapmak" },
   { sira: 60, arapca: "المحيي", isim: "El-Muhyî", anlam: "Cansız varlıklara hayat veren, ölüleri dirilten", kok: "ح ي ي", kokAnlam: "hayat vermek, diriltmek" },
   { sira: 61, arapca: "المميت", isim: "El-Mumît", anlam: "Her canlıya ölümü takdir eden, hayatı ve ölümü elinde tutan", kok: "م و ت", kokAnlam: "ölüm vermek, canı almak" },
@@ -76,14 +76,14 @@ export const ESMA_UL_HUSNA: EsmaItem[] = [
   { sira: 64, arapca: "الواجد", isim: "El-Vâcid", anlam: "Her istediğine sahip olan, hiçbir eksikliği bulunmayan", kok: "و ج د", kokAnlam: "bulmak, dilediğini elde etmek" },
   { sira: 65, arapca: "الماجد", isim: "El-Mâcid", anlam: "Sonsuz şeref ve cömertlik sahibi, yüce olan", kok: "م ج د", kokAnlam: "şan ve şeref sahibi olmak" },
   { sira: 66, arapca: "الواحد", isim: "El-Vâhid", anlam: "Zatında, sıfatlarında ve işlerinde tek ve biricik olan", kok: "و ح د", kokAnlam: "tek ve eşsiz olmak" },
-  { sira: 67, arapca: "الأحد", isim: "El-Ehad", anlam: "Hiçbir ortağı ve benzeri bulunmayan mutlak tek", kok: "ا ح د", kokAnlam: "bölünmez biriciklik, mutlak teklik" },
+  { sira: 67, arapca: "الأحد", isim: "El-Ehad", anlam: "Hiçbir ortağı ve benzeri bulunmayan mutlak tek", kok: "أ ح د", kokAnlam: "bölünmez biriciklik, mutlak teklik" },
   { sira: 68, arapca: "الصمد", isim: "Es-Samed", anlam: "Her şeyin muhtaç olduğu, kendisi hiçbir şeye muhtaç olmayan", kok: "ص م د", kokAnlam: "hiçbir şeye muhtaç olmayan, başvurulan" },
   { sira: 69, arapca: "القادر", isim: "El-Kâdir", anlam: "İstediğini istediği zaman yapabilecek güce sahip olan", kok: "ق د ر", kokAnlam: "güç yetirmek, ölçü ve takdir" },
   { sira: 70, arapca: "المقتدر", isim: "El-Muktedir", anlam: "Kudret ve gücü her şeyi tam anlamıyla kuşatan", kok: "ق د ر", kokAnlam: "her şeye gücü yeten, muktedir" },
   { sira: 71, arapca: "المقدم", isim: "El-Mukaddim", anlam: "Dilediği şeyi ve kişiyi öne alan", kok: "ق د م", kokAnlam: "öne almak, ileri geçirmek" },
-  { sira: 72, arapca: "المؤخر", isim: "El-Muahhır", anlam: "Dilediği şeyi ve kişiyi geri bırakan", kok: "ا خ ر", kokAnlam: "geri bırakmak, sona almak" },
-  { sira: 73, arapca: "الأول", isim: "El-Evvel", anlam: "Her şeyden önce var olan, başlangıcı bulunmayan", kok: "ا و ل", kokAnlam: "ilk, başlangıcı olmayan" },
-  { sira: 74, arapca: "الآخر", isim: "El-Âhir", anlam: "Her şey yok olsa da var olmaya devam eden, sonu olmayan", kok: "ا خ ر", kokAnlam: "son, sonu olmayan" },
+  { sira: 72, arapca: "المؤخر", isim: "El-Muahhir", anlam: "Dilediği şeyi ve kişiyi geri bırakan", kok: "أ خ ر", kokAnlam: "geri bırakmak, sona almak" },
+  { sira: 73, arapca: "الأول", isim: "El-Evvel", anlam: "Her şeyden önce var olan, başlangıcı bulunmayan", kok: "أ و ل", kokAnlam: "ilk, başlangıcı olmayan" },
+  { sira: 74, arapca: "الآخر", isim: "El-Âhir", anlam: "Her şey yok olsa da var olmaya devam eden, sonu olmayan", kok: "أ خ ر", kokAnlam: "son, sonu olmayan" },
   { sira: 75, arapca: "الظاهر", isim: "Ez-Zâhir", anlam: "Yarattığı her şeyde varlığının delilleri apaçık görünen", kok: "ظ ه ر", kokAnlam: "açık, üstün ve apaçık olmak" },
   { sira: 76, arapca: "الباطن", isim: "El-Bâtın", anlam: "Zatının hakikati hiçbir akıl tarafından tam olarak kavranamayan", kok: "ب ط ن", kokAnlam: "gizli, içte ve örtülü olmak" },
   { sira: 77, arapca: "الوالي", isim: "El-Vâlî", anlam: "Tüm evreni yöneten ve idare eden tek otorite", kok: "و ل ي", kokAnlam: "yönetmek, idare edip sahip çıkmak" },
@@ -92,7 +92,7 @@ export const ESMA_UL_HUSNA: EsmaItem[] = [
   { sira: 80, arapca: "التواب", isim: "Et-Tevvâb", anlam: "Tövbeye yönelen kullarını tekrar tekrar affeden", kok: "ت و ب", kokAnlam: "tövbeyi kabul etmek, dönüşe karşılık vermek" },
   { sira: 81, arapca: "المنتقم", isim: "El-Müntakim", anlam: "Zulmedenlerin cezasını veren, hakkı yerine getiren", kok: "ن ق م", kokAnlam: "suçluyu cezalandırmak, hakkı almak" },
   { sira: 82, arapca: "العفو", isim: "El-Afüvv", anlam: "Günahları izini bırakmadan tamamen silen, affı geniş", kok: "ع ف و", kokAnlam: "affetmek, günahı tamamen silmek" },
-  { sira: 83, arapca: "الرؤوف", isim: "Er-Raûf", anlam: "Kullarına karşı son derece şefkatli ve merhametli", kok: "ر ا ف", kokAnlam: "çok şefkatli ve merhametli olmak" },
+  { sira: 83, arapca: "الرؤوف", isim: "Er-Raûf", anlam: "Kullarına karşı son derece şefkatli ve merhametli", kok: "ر أ ف", kokAnlam: "çok şefkatli ve merhametli olmak" },
   { sira: 84, arapca: "مالك الملك", isim: "Mâlikü'l-Mülk", anlam: "Tüm mülkün gerçek sahibi, dilediğine verir dilediğinden alır", kok: "م ل ك", kokAnlam: "mülkün gerçek sahibi olmak" },
   { sira: 85, arapca: "ذو الجلال والإكرام", isim: "Zü'l-Celâli ve'l-İkrâm", anlam: "Hem haşmet hem de cömertlik sıfatlarını en üst düzeyde taşıyan", kok: "ج ل ل / ك ر م", kokAnlam: "ululuk ve cömertlik sahibi olmak" },
   { sira: 86, arapca: "المقسط", isim: "El-Muksit", anlam: "Her konuda tam ve eksiksiz adalet uygulayan", kok: "ق س ط", kokAnlam: "adaletle hükmetmek, denge kurmak" },

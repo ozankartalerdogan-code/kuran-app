@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { dbAll } from "../../../lib/dbUtils";
 
 export const dynamic = "force-dynamic";
@@ -15,30 +15,35 @@ interface VerseRow {
 }
 
 const VERSE_KEY_RE = /^\d{1,3}:\d{1,3}$/;
+const BATCH_SIZE = 200;
 
 export async function GET(req: NextRequest) {
   const keysParam = req.nextUrl.searchParams.get("keys") ?? "";
   const keys = keysParam
     .split(",")
     .map((k) => k.trim())
-    .filter((k) => VERSE_KEY_RE.test(k))
-    .slice(0, 100);
+    .filter((k) => VERSE_KEY_RE.test(k));
 
   if (keys.length === 0) {
     return NextResponse.json([]);
   }
 
-  const placeholders = keys.map(() => "?").join(",");
-
   try {
-    const rows = await dbAll<VerseRow>(
-      `SELECT v.verse_key, v.surah_id, v.ayah_number, v.primary_translation,
-              v.arabic_text, v.reading_tr, v.temalar, s.adi_turkce
-       FROM verses v
-       LEFT JOIN sureler s ON s.id = v.surah_id
-       WHERE v.verse_key IN (${placeholders})`,
-      ...keys
-    );
+    const rows: VerseRow[] = [];
+
+    for (let i = 0; i < keys.length; i += BATCH_SIZE) {
+      const batch = keys.slice(i, i + BATCH_SIZE);
+      const placeholders = batch.map(() => "?").join(",");
+      const batchRows = await dbAll<VerseRow>(
+        `SELECT v.verse_key, v.surah_id, v.ayah_number, v.primary_translation,
+                v.arabic_text, v.reading_tr, v.temalar, s.adi_turkce
+         FROM verses v
+         LEFT JOIN sureler s ON s.id = v.surah_id
+         WHERE v.verse_key IN (${placeholders})`,
+        ...batch
+      );
+      rows.push(...batchRows);
+    }
 
     const resultMap = new Map(
       rows.map((row) => {

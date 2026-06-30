@@ -436,7 +436,7 @@ const OZEL_DURUM: Record<string, { bg: string; border: string; text: string; lab
 const OZEL_EMOJI: Record<string, string> = {
   cenaze_namazi: "🕊️", bayram_namazi: "🎉", teheccud_namazi: "🌌", kusluk_namazi: "🌅",
   istihare_namazi: "🤔", teravih_namazi: "🌙", tahiyyetul_mescid: "🕌", kusuf_husuf: "🌑",
-  istiska_namazi: "🌧️", sukur_secdesi: "🙏", "tövbe_namazi": "💧", hacet_namazi: "🤲",
+  istiska_namazi: "🌧️", sukur_secdesi: "🙏", tovbe_namazi: "💧", hacet_namazi: "🤲",
 };
 
 const NIYET_LABEL: Record<string, string> = {

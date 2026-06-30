@@ -521,9 +521,30 @@ export default function AyahDetailScreen() {
   }, [data, navigate]);
 
   const handleDeleteNote = useCallback(() => {
-    setNoteDraft("");
-    saveNote(verseKey, "");
-  }, [verseKey, saveNote]);
+    Alert.alert(
+      "Not silinsin mi?",
+      "Bu ayete ekledi\u011finiz ki\u015fisel not kald\u0131r\u0131lacak.",
+      [
+        { text: "Vazge\u00e7", style: "cancel" },
+        {
+          text: "Sil",
+          style: "destructive",
+          onPress: async () => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            const previousDraft = noteDraft;
+            const ok = await saveNote(verseKey, "");
+            if (!ok) {
+              setNoteDraft(previousDraft);
+              Alert.alert("Not silinemedi", "L\u00fctfen tekrar deneyin.");
+              return;
+            }
+            setNoteDraft("");
+            setNoteSaved(false);
+          },
+        },
+      ],
+    );
+  }, [noteDraft, saveNote, verseKey]);
 
   // ── Yükleme ──
   if (loading) {

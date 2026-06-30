@@ -9,7 +9,7 @@ const SECTIONS = [
     items: [
       { emoji: "✨", label: "Esmaül Hüsna",   sub: "Allah'ın 99 ismi",            route: "/esma"                     },
       { emoji: "🛡️", label: "Manevi Sığınak", sub: "Korunma ve şifa duaları",     route: "/manevi-siginak"           },
-      { emoji: "🌟", label: "İsmi Azam",      sub: "Sekine ve İsmi Azam duaları", route: "/manevi-siginak/ismi-azam" },
+      { emoji: "🌟", label: "İsmi Azam",      sub: "Sekine ve korunma duaları", route: "/manevi-siginak/ismi-azam" },
     ],
   },
   {

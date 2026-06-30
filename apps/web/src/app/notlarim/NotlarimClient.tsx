@@ -1,64 +1,73 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { getNotes, setNotes } from "../../lib/storageUtils";
 
 interface NoteEntry {
-  verseKey:   string;
-  surahId:    number;
+  verseKey: string;
+  surahId: number;
   ayahNumber: number;
-  surahName:  string | null;
-  text:       string;
+  surahName: string | null;
+  text: string;
 }
 
 interface VerseInfo {
-  verse_key:   string;
-  surah_id:    number;
+  verse_key: string;
+  surah_id: number;
   ayah_number: number;
-  surah_name:  string | null;
+  surah_name: string | null;
 }
 
 export function NotlarimClient() {
   const [notes, setNotesState] = useState<NoteEntry[]>([]);
-  const [loading, setLoading]  = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const raw  = getNotes();
+  const loadNotes = useCallback(async () => {
+    const raw = getNotes();
     const keys = Object.keys(raw);
+    setError(null);
 
     if (keys.length === 0) {
+      setNotesState([]);
       setLoading(false);
       return;
     }
 
-    fetch(`/api/favorites-verses?keys=${keys.join(",")}`)
-      .then((r) => r.json())
-      .then((data: VerseInfo[]) => {
-        const infoMap = new Map(data.map((v) => [v.verse_key, v]));
-        const entries: NoteEntry[] = keys.map((k) => {
-          const info = infoMap.get(k);
-          const [sid, anum] = k.split(":").map(Number);
-          return {
-            verseKey:   k,
-            surahId:    info?.surah_id    ?? sid,
-            ayahNumber: info?.ayah_number ?? anum,
-            surahName:  info?.surah_name  ?? null,
-            text:       raw[k],
-          };
-        });
-        setNotesState(entries);
-        setLoading(false);
-      })
-      .catch(() => {
-        const entries: NoteEntry[] = Object.keys(getNotes()).map((k) => {
-          const [sid, anum] = k.split(":").map(Number);
-          return { verseKey: k, surahId: sid, ayahNumber: anum, surahName: null, text: getNotes()[k] };
-        });
-        setNotesState(entries);
-        setLoading(false);
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/favorites-verses?keys=${keys.join(",")}`);
+      if (!response.ok) throw new Error("Notlar yüklenemedi.");
+      const data = (await response.json()) as VerseInfo[];
+      const infoMap = new Map(data.map((v) => [v.verse_key, v]));
+      const entries: NoteEntry[] = keys.map((k) => {
+        const info = infoMap.get(k);
+        const [sid, anum] = k.split(":").map(Number);
+        return {
+          verseKey: k,
+          surahId: info?.surah_id ?? sid,
+          ayahNumber: info?.ayah_number ?? anum,
+          surahName: info?.surah_name ?? null,
+          text: raw[k],
+        };
       });
+      setNotesState(entries);
+    } catch {
+      const fallbackEntries: NoteEntry[] = Object.keys(getNotes()).map((k) => {
+        const [sid, anum] = k.split(":").map(Number);
+        return { verseKey: k, surahId: sid, ayahNumber: anum, surahName: null, text: getNotes()[k] };
+      });
+      setNotesState(fallbackEntries);
+      setError("Sure adları şu anda yüklenemedi; notlar ayet anahtarlarıyla gösteriliyor.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadNotes();
+  }, [loadNotes]);
 
   function deleteNote(verseKey: string) {
     const raw = getNotes();
@@ -70,6 +79,7 @@ export function NotlarimClient() {
   function clearAll() {
     setNotes({});
     setNotesState([]);
+    setError(null);
   }
 
   return (
@@ -97,6 +107,12 @@ export function NotlarimClient() {
           )}
         </div>
 
+        {error && !loading && (
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-300">
+            {error}
+          </div>
+        )}
+
         {loading && (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
@@ -110,7 +126,7 @@ export function NotlarimClient() {
 
         {!loading && notes.length === 0 && (
           <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
-            <div className="mb-3 text-4xl">📭</div>
+            <div className="mb-3 text-4xl">📝</div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Henüz not eklemediniz
             </p>
@@ -141,9 +157,13 @@ export function NotlarimClient() {
                     <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
                       {note.verseKey}
                     </span>
-                    {note.surahName && (
+                    {note.surahName ? (
                       <span className="text-sm font-medium text-stone-700 group-hover:text-stone-900 dark:text-stone-300 dark:group-hover:text-stone-100">
                         {note.surahName}, {note.ayahNumber}. Ayet
+                      </span>
+                    ) : (
+                      <span className="text-sm font-medium text-stone-700 group-hover:text-stone-900 dark:text-stone-300 dark:group-hover:text-stone-100">
+                        {note.surahId}. Sure · {note.ayahNumber}. Ayet
                       </span>
                     )}
                     <svg className="h-3.5 w-3.5 text-stone-400 group-hover:text-stone-600 dark:text-stone-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">

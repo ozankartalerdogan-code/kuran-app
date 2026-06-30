@@ -53,6 +53,7 @@ function UyariBox({ mesaj, renk = "amber" }: { mesaj: string; renk?: "red" | "am
 
 function VerseList({ tag }: { tag: string }) {
   const [verses,  setVerses]  = useState<TagFilterResult[]>([]);
+  const [total, setTotal]     = useState(0);
   const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
   const [open, setOpen]       = useState(false);
@@ -61,7 +62,11 @@ function VerseList({ tag }: { tag: string }) {
   const fetchVerses = useCallback(async () => {
     setLoading(true);
     setError(false);
-    try { const r = await api.tags.filter(tag); setVerses(r.results.slice(0, 15)); }
+    try {
+      const r = await api.tags.filter(tag);
+      setVerses(r.results.slice(0, 15));
+      setTotal(r.total);
+    }
     catch { setError(true); }
     setLoading(false);
     setFetched(true);
@@ -104,6 +109,9 @@ function VerseList({ tag }: { tag: string }) {
               </View>
             </TouchableOpacity>
           ))}
+          {!loading && !error && total > verses.length && (
+            <Text style={sc.verseHintText}>İlk {verses.length} ayet gösteriliyor. Daha fazlası arama ekranındaki ilgili etikette görülebilir.</Text>
+          )}
         </View>
       )}
     </View>
@@ -168,7 +176,7 @@ export default function ManeviSiginakScreen() {
             "Sabah namazından sonra: 1 Fatiha + Ayetel Kürsi + 3 İhlas + 1 Felak + 1 Nas oku.",
             "Akşam namazından sonra: Aynı seti tekrarla. Avuçlarına okuyup tüm vücuduna sür.",
             "Yatmadan önce: Ayetel Kürsi + Amenerresulü (Bakara 285-286) oku.",
-            "Evden çıkarken: Ayetel Kürsi oku, koruma kalkanı niyetiyle.",
+            "Evden çıkarken: «Bismillâhi tevekkeltü alallâh, lâ havle ve lâ kuvvete illâ billâh» duasını oku.",
           ]} />
           <HadisBox
             baslik="Sahih Hadis Duası — Sabah-Akşam Kalkanı (İbn Mâce)"
@@ -181,6 +189,7 @@ export default function ManeviSiginakScreen() {
 
         {/* Bolum 2: Büyü ve Sihir */}
         <Bolum emoji="🔱" baslik="Büyü ve Sihir — Sihrin Bozulması" color="#93c5fd">
+          <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={s.scoreInlineText}>Bu bölümdeki suya okuma ve program önerileri meşru rukye kapsamındadır; doğrudan sahih hadis metni değildir.</Text></View>
           <Text style={s.boxTitle}>Hazırlık</Text>
           <StepList steps={[
             "Abdest al, 2 rekat tövbe namazı kıl.",
@@ -192,6 +201,12 @@ export default function ManeviSiginakScreen() {
             "Her ayeti 3 veya 7 defa okuyup suya üfle.",
             "Bu sudan sabah aç karnına, öğle arası ve yatmadan önce birer bardak iç. 7 gün devam et.",
             "Kalan suyla banyo yap.",
+          ]} />
+          <Text style={s.boxTitle}>Ek Uygulama</Text>
+          <StepList steps={[
+            "Bakara Suresi'ni evde dinlet veya oku. Hadiste, Bakara okunan eve şeytanın girmediği bildirilir.",
+            "Her namaz sonrası Ayetel Kürsi'yi 1 defa oku.",
+            "Yatmadan önce 3 İhlas + 1 Felak + 1 Nas okuyup avuçlarına üfle, tüm vücuduna sür.",
           ]} />
           <UyariBox renk="red" mesaj="🔴 Uyarı: Cinci, medyum ve şarlatan kişilere gitmek şirke götürebilir. Şifayı yalnız Allah'tan iste!" />
           <VerseList tag="korunma-sihir" />
@@ -205,18 +220,20 @@ export default function ManeviSiginakScreen() {
             "Sağ elini nazar değdiğini düşündüğün bölgeye koy.",
             "3 defa «Bismillah» de.",
             "7 defa Fatiha + 7 defa Felak + 7 defa Nas + 3 defa Kalem 51-52 oku.",
+            "Her okuyuşta bölgeye üfle veya hafifçe tükürük sür (sünnet).",
             "«Allah'ım, şifa ver, şifa veren Sensin» de.",
           ]} />
           <HadisBox
             baslik="Cebrail'in (a.s.) Nazar Rukyesi — Müslim, İbn Mâce (Sahih)"
-            arapca="Bismillâhi erkîke, min kulli şey'in yu'zîke, min şerri kulli nefsin ev ayni hâsidin, Allâhu yeşfîke."
-            anlam="Allah'ın adıyla seni rahatsız eden her şeyden ve hasetçi gözün şerrinden sana rukye ederim."
+            arapca="Bismillâhi erkîke, min kulli şey'in yu'zîke, min şerri kulli nefsin ev ayni hâsidin, Allâhu yeşfîke, bismillâhi erkîke."
+            anlam="Allah'ın adıyla seni rahatsız eden her şeyden; her canlının ve hasetçi gözün şerrinden sana rukye ederim. Allah şifa versin."
             uygulama="Nazar değdiğini düşündüğün kişiye 7 defa oku."
           />
           <Text style={s.boxTitle}>Korunma İçin Günlük</Text>
           <StepList steps={[
             "Beğendiğin her şey için «Maşallah, Allah nazardan korusun» de.",
             "Çocuklara her gün 3 İhlas + 1 Felak + 1 Nas okuyup üfle.",
+            "Sabah akşam «Bismillâhillezî lâ yedurru...» duasını 3'er defa oku.",
           ]} />
           <UyariBox renk="red" mesaj="🔴 Not: Nazar boncuğu takmak, kurşun döktürmek yasak. Koruma yalnız Allah'tandır." />
           <VerseList tag="korunma-nazar" />
@@ -237,8 +254,9 @@ export default function ManeviSiginakScreen() {
             "Başkasının nimetini görünce «Maşallah, Allah onu hayırlı etsin» de.",
             "Haset hissi gelince hemen istiğfar et.",
             "Haset ettiğin kişi için dua et — bu duyguyu söndürür.",
+            "Sabah akşam Felak ve Nas surelerini oku.",
           ]} />
-          <UyariBox renk="amber" mesaj="🟢 Not (Müslim, İbn Mâce): Cebrail'in Nazar Rukyesi duası hasede karşı da okunur." />
+          <UyariBox renk="amber" mesaj="🟢 Not (Müslim, İbn Mâce): Cebrail'in Nazar Rukyesi duası hasede karşı da okunur; aynı dua 7 defa tekrar edilebilir." />
           <VerseList tag="korunma-hased" />
         </Bolum>
 
@@ -256,6 +274,7 @@ export default function ManeviSiginakScreen() {
             "Yatmadan önce Ayetel Kürsi oku.",
             "Sağ tarafına yat, sağ elini yanağının altına koy.",
             "3 İhlas + 1 Felak + 1 Nas oku, avuçlarına üfle, vücuduna sür.",
+            "«Allah'ım, nefsimin şerrinden ve şeytanın şerrinden sana sığınıyorum» diye dua et.",
           ]} />
           <UyariBox renk="amber" mesaj="⚠️ Not: Vesvese, imanın varlığına işarettir. Büyütme, Allah'a sığınıp geç." />
           <VerseList tag="korunma-siginma" />
@@ -273,12 +292,13 @@ export default function ManeviSiginakScreen() {
             "Günde 3 defa tekrarla (sabah, öğle, akşam).",
           ]} />
           <HadisBox
-            baslik="Bölgesel Ağrı Duası — Müslim, Ebû Dâvûd (Sahih)"
+            baslik="Bölgesel Ağrı Duası — Müslim, Ebû Dâvûd, İbn Mâce (Sahih)"
             arapca="Eûzu billâhi ve kudretihî min şerri mâ ecidu ve uhâziru."
             anlam="Hissedip çekindiğim ağrının şerrinden Allah'a ve O'nun kudretine sığınırım."
             uygulama="Sağ el ağrıyan yere konur, 3 Bismillah'tan sonra 7 defa okunur."
           />
           <UyariBox renk="amber" mesaj="⚠️ Uyarı: Doktora gitmeyi ihmal etme. Tıbbi tedavi ile Kur'an birbirini dışlamaz." />
+          <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={s.scoreInlineText}>Aşağıdaki manevi sıkıntı önerileri destekleyici mahiyettedir; tıbbi ve psikolojik desteğin yerine geçmez.</Text></View>
           <Text style={[s.boxTitle, { marginTop: 8 }]}>Manevi Sıkıntı ve Depresyon İçin (🟡 8/10)</Text>
           <StepList steps={[
             "Her gün Fatiha'yı anlamını düşünerek oku.",
@@ -310,7 +330,7 @@ export default function ManeviSiginakScreen() {
             { item: "Sirke-Tuz-Su Karışımı", aciklama: "Hurafe — Maddeye metafizik güç atfetmek şirke kapı açar." },
             { item: "Cinci / Medyum / Falcı", aciklama: "Büyük günah — «Falcıya gidip inanan küfre girmiştir» (Hadis)." },
             { item: "Yıldızname / Astroloji", aciklama: "Küfür riski — Gaybı yalnız Allah bilir." },
-            { item: "Muska / Temîme", aciklama: "Şirk — Hz. Peygamber yasaklamıştır; Kur'an bizzat okunmalıdır." },
+            { item: "Muska / Temîme", aciklama: "Şirk riski / sakıncalı alan — anlaşılmaz sembollü muskalar reddedilir. En güvenlisi, ayetleri bizzat okuyarak Allah'a sığınmaktır." },
             { item: "«Büyülü» Su Satanlar", aciklama: "Sahtekârlık + haram — Suyu bizzat kendin oku; başkasından alma." },
             { item: "Defne Yaprağı / Tütsü", aciklama: "Hurafe — Dumanın cin kovan gücü yoktur. Kur'an oku." },
           ].map((m, idx) => (
@@ -360,6 +380,8 @@ const s = StyleSheet.create({
   bolumBody:   { borderTopWidth: 1, borderTopColor: "#f5f5f4", padding: 12, gap: 10 },
 
   boxTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginTop: 4, marginBottom: 2 },
+  scoreInline: { flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 10 },
+  scoreInlineText: { flex: 1, fontSize: 12, color: "#57534e", lineHeight: 18 },
 
   mitCard:  { margin: 12, marginBottom: 6, borderRadius: 14, padding: 14, backgroundColor: "#fff", borderWidth: 1, borderColor: "#86efac", gap: 4 },
   mitTitle: { fontSize: 13, fontWeight: "700", color: "#065f46", marginBottom: 6 },
@@ -384,7 +406,7 @@ const sc = StyleSheet.create({
 
   hadisBox:    { backgroundColor: "#f0fdf4", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#86efac", gap: 4 },
   hadisBaslik: { fontSize: 12, fontWeight: "700", color: "#065f46" },
-  hadisArapca: { fontSize: 14, color: "#1c1917", textAlign: "right", lineHeight: 24 },
+  hadisArapca: { fontSize: 16, color: "#1c1917", textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", lineHeight: 28 },
   hadisAnlam:  { fontSize: 12, color: "#166534", fontStyle: "italic" },
   hadisUyg:    { fontSize: 11, color: "#059669" },
 
@@ -396,6 +418,7 @@ const sc = StyleSheet.create({
   verseRetryBtn:   { backgroundColor: "#059669", borderRadius: 8, paddingHorizontal: 14, paddingVertical: 5 },
   verseRetryText:  { fontSize: 12, fontWeight: "700", color: "#fff" },
   verseEmptyText:  { fontSize: 12, color: "#78716c", paddingVertical: 8, textAlign: "center" },
+  verseHintText:   { fontSize: 11, color: "#78716c", paddingTop: 8, textAlign: "center", lineHeight: 16 },
   verseSection:    { borderTopWidth: 1, borderTopColor: "#f0fdf4", marginTop: 4 },
   verseSectionBtn: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10 },
   verseSectionLabel: { fontSize: 12, fontWeight: "700", color: "#059669" },

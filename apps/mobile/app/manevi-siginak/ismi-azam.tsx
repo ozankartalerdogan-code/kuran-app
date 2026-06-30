@@ -1,136 +1,21 @@
 import React from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
 import { useColors as useGlobalColors } from "../../src/hooks/useColors";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { api, type TagFilterResult } from "../../src/lib/api";
+import {
+  bakara250,
+  ismiAzamDualari,
+  korunmaDualari,
+  sekineDuasi,
+  type DuaKarti,
+  type KorunmaDuasi,
+} from "../../src/data/ismi_azam_dualari";
 
-// ── Statik veri (aynı içerik, mobile için kopya) ─────────────────────────────
-
-interface DuaKarti {
-  id: string;
-  baslik: string;
-  kaynak: string;
-  guvenilirlik: "10/10" | "8/10";
-  arapca: string;
-  meal: string;
-  transkripsiyon: string;
-  uygulama: string;
-}
-
-interface KorunmaDuasi extends DuaKarti {
-  kategori: "sabah-aksam" | "evden-cikarken" | "yatarken" | "genel-korunma";
-}
-
-const ismiAzamDualari: DuaKarti[] = [
-  {
-    id: "ismi-azam-1",
-    baslik: "Büreyde b. Husayb (r.a.) Rivayeti",
-    kaynak: "Tirmizî, Ebû Dâvûd · Sahih",
-    guvenilirlik: "10/10",
-    arapca:
-      "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي أَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ الْأَحَدُ الصَّمَدُ الَّذِي لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
-    meal: "Allah'ım! Senin tek (Ahad) ve hiçbir şeye muhtaç olmayan (Samed), doğurmamış, doğmamış ve hiçbir dengi bulunmayan mutlak Allah olduğuna şehadet ederek senden istiyorum.",
-    transkripsiyon:
-      "Allahümme innî es'elüke bi-ennî eşhedü enneke ente'llāhü lâ ilâhe illâ ente'l-ehadü's-samedü'l-lezî lem yelid ve lem yûled ve lem yekün lehû küfüven ehad",
-    uygulama: "Bu duayı 3 defa oku, ardından isteklerini dile getir.",
-  },
-  {
-    id: "ismi-azam-2",
-    baslik: "Enes b. Malik (r.a.) Rivayeti",
-    kaynak: "Nesâî, İbn Mâce · Sahih",
-    guvenilirlik: "10/10",
-    arapca:
-      "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنَّ لَكَ الْحَمْدَ لَا إِلَهَ إِلَّا أَنْتَ الْمَنَّانُ بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",
-    meal: "Allah'ım! Hamd sanadır, senden başka ilah yoktur. Sen bol nimet veren (Mennân), gökleri ve yeri yoktan var eden (Bedî'), celal ve ikram sahibisin.",
-    transkripsiyon:
-      "Allahümme innî es'elüke bi-enne leke'l-hamdü lâ ilâhe illâ ente'l-mennânü bedîu's-semâvâti ve'l-ardı yâ ze'l-celâli ve'l-ikrâm",
-    uygulama: "Bu duayı 3 defa oku, ardından isteklerini sırala.",
-  },
-];
-
-const korunmaDualari: KorunmaDuasi[] = [
-  {
-    id: "korunma-sabah-aksam",
-    baslik: "Sabah-Akşam Korunma Duası",
-    kaynak: "Ebû Dâvûd, Tirmizî, İbn Mâce · Sahih",
-    guvenilirlik: "10/10",
-    kategori: "sabah-aksam",
-    arapca:
-      "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
-    meal: "Yerde ve gökte hiçbir şeyin O'nun adıyla zarar veremeyeceği Allah'ın adıyla. O her şeyi işiten ve bilendir.",
-    transkripsiyon:
-      "Bismillâhillezî lâ yedurru me'asmihi şey'ün fil erdı ve lâ fissemâi ve hüves-semî'ul alîm",
-    uygulama: "Sabah ve akşam 3'er defa oku. Hiçbir şey sana zarar veremez.",
-  },
-  {
-    id: "korunma-evden-cikarken",
-    baslik: "Evden Çıkarken Okunacak Dua",
-    kaynak: "Ebû Dâvûd, Tirmizî · Sahih",
-    guvenilirlik: "10/10",
-    kategori: "evden-cikarken",
-    arapca:
-      "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
-    meal: "Allah'ın adıyla. Allah'a tevekkül ettim. Günahlardan kaçacak ve ibadet edecek güç, ancak Allah'ın yardımıyladır.",
-    transkripsiyon:
-      "Bismillâhi tevekkeltü alallâh, lâ havle ve lâ kuvvete illâ billâh",
-    uygulama: "Evden çıkarken oku. Şeytandan, kötülüklerden korunur ve doğru yola iletilirsin.",
-  },
-  {
-    id: "korunma-yatarken",
-    baslik: "Yatarken Okunacak Dua",
-    kaynak: "Buhârî, Müslim · Sahih",
-    guvenilirlik: "10/10",
-    kategori: "yatarken",
-    arapca:
-      "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
-    meal: "Rabbim! Senin adınla yanımı yatağa koydum ve yine senin adınla kaldırırım. Eğer nefsimi tutarsan ona merhamet et; şayet salıverirsen salih kullarını koruduğun şeyle onu koru.",
-    transkripsiyon:
-      "Bismike Rabbî vada'tü cenbî ve bike erfe'uhû, in emsekte nefsî ferhamhâ ve in erseltehâ fahfazhâ bimâ tahfazu bihî ibâdekessâlihîn",
-    uygulama: "Yatmadan önce oku. Sağ tarafına yatarak, sağ elini yanağının altına koy.",
-  },
-  {
-    id: "korunma-genel-siginma",
-    baslik: "Genel Sığınma Duası (Seyyidü'l-İstiğfar)",
-    kaynak: "Buhârî · Sahih",
-    guvenilirlik: "10/10",
-    kategori: "genel-korunma",
-    arapca:
-      "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
-    meal: "Allah'ım! Sen benim Rabbimsin. Senden başka ilah yoktur. Beni sen yarattın. Ben senin kulunum. Gücüm yettiğince sana verdiğim söz ve ahid üzereyim. Yaptıklarımın şerrinden sana sığınırım. Bana verdiğin nimetleri itiraf ederim, günahımı da itiraf ederim. Beni bağışla, çünkü günahları ancak sen bağışlarsın.",
-    transkripsiyon:
-      "Allahümme ente Rabbî lâ ilâhe illâ ente halaktenî ve ene abdüke ve ene alâ ahdike ve va'dike m'steta'tü, eûzü bike min şerri mâ sana'tü, ebûü leke bi ni'metike aleyye ve ebûü bi zenbî fağfirlî feinnehû lâ yağfiruz-zünûbe illâ ente",
-    uygulama: "Sabah ve akşam oku. Fazileti: Kim bu duayı gündüz inanarak okur da akşam olmadan ölürse cennetlik; gece inanarak okur da sabah olmadan ölürse cennetlik olur (Buhârî).",
-  },
-];
-
-const sekineDuasi = {
-  id: "sekine",
-  baslik: "Tabut-u Sekine ve Huzur Duası",
-  arapca:
-    "إِنَّ آيَةَ مُلْكِهِ أَنْ يَأْتِيَكُمُ التَّابُوتُ فِيهِ سَكِينَةٌ مِنْ رَبِّكُمْ وَبَقِيَّةٌ مِمَّا تَرَكَ آلُ مُوسَى وَآلُ هَارُونَ تَحْمِلُهُ الْمَلَائِكَةُ ۚ إِنَّ فِي ذَٰلِكَ لَآيَةً لَكُمْ إِنْ كُنْتُمْ مُؤْمِنِينَ",
-  meal: "Onun hükümdarlığının alameti, size o sandığın (Tabut) gelmesidir. Onda Rabbinizden bir sekinet (huzur ve güven), Musa ve Harun ailelerinin bıraktıklarından bir kalıntı vardır. Onu melekler taşımaktadır. Eğer inananlardan iseniz, bunda sizin için kesin bir alamet vardır.",
-  aciklama:
-    "Sekine, Allah'ın mümin kullarının kalbine indirdiği huzur, sükunet ve manevi güçtür. Tabut-u Sekine, bu ilahi huzurun sembolüdür.",
-};
-
-const bakara250: DuaKarti = {
-  id: "bakara-250",
-  baslik: "Talut ve Askerlerinin Duası (Bakara 250)",
-  kaynak: "Kur'ân-ı Kerîm · Bakara 250",
-  guvenilirlik: "10/10",
-  arapca:
-    "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
-  meal: "Rabbimiz! Üzerimize sabır yağdır, ayaklarımızı sabit kıl ve kâfirler topluluğuna karşı bize yardım et.",
-  transkripsiyon:
-    "Rabbenâ efrîğ aleynâ sabran ve sebbit akdâmenâ vensurnâ alel-kavmil-kâfirîn",
-  uygulama:
-    "Zorluk ve sıkıntı anlarında, düşman ve zalim karşısında metanet için 3 defa oku.",
-};
-
-// ── Renk paleti (dark mode uyumlu) ──────────────────────────────────────────
-
+// ── Renk paleti (dark mode uyumlu) ───────────────────────────────────────────────
 function useColors() {
   const { isDark: dark } = useGlobalColors();
   return {
@@ -386,6 +271,98 @@ function VerseSubHeader({ label, colors }: { label: string; colors: ReturnType<t
   );
 }
 
+function TagVerseAccordion({
+  tag,
+  label,
+  colors,
+  renk,
+}: {
+  tag: string;
+  label: string;
+  colors: ReturnType<typeof useColors>;
+  renk: "amber" | "violet";
+}) {
+  const [expanded, setExpanded] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [loaded, setLoaded] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [verses, setVerses] = React.useState<TagFilterResult[]>([]);
+
+  const isViolet = renk === "violet";
+  const boxBg = isViolet ? colors.violetBg : colors.amberBg;
+  const boxBorder = isViolet ? colors.violetBorder : colors.amberBorder;
+  const labelColor = isViolet ? colors.violetText : colors.amberText;
+  const badgeBg = isViolet ? colors.cardBg : colors.amberBg;
+
+  const toggle = async () => {
+    const next = !expanded;
+    setExpanded(next);
+    if (!next || loaded) return;
+
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.tags.filter(tag);
+      setVerses(res.results ?? []);
+    } catch {
+      setError("Ayetler yüklenemedi.");
+    } finally {
+      setLoading(false);
+      setLoaded(true);
+    }
+  };
+
+  const countLabel = loaded && verses.length > 0 ? `${verses.length} ayet` : "Ayetleri Aç";
+
+  return (
+    <View style={[styles.kutu, { backgroundColor: boxBg, borderColor: boxBorder }]}> 
+      <TouchableOpacity style={styles.verseAccHeader} onPress={toggle} activeOpacity={0.75}>
+        <View style={styles.verseAccTitleWrap}>
+          <Text style={[styles.verseAccTitle, { color: labelColor }]}>{label}</Text>
+          <Text style={[styles.verseAccMeta, { color: colors.textMuted }]}>{countLabel}</Text>
+        </View>
+        <View style={[styles.badge, { backgroundColor: badgeBg, borderColor: boxBorder }]}> 
+          <Text style={[styles.badgeText, { color: labelColor }]}>{expanded ? "▲ Gizle" : "▼ Göster"}</Text>
+        </View>
+      </TouchableOpacity>
+
+      {expanded ? (
+        <View style={styles.verseAccBody}>
+          {loading ? <ActivityIndicator color={labelColor} style={{ marginVertical: 8 }} /> : null}
+          {!loading && error ? <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>{error}</Text> : null}
+          {!loading && !error && loaded && verses.length === 0 ? (
+            <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>Bu etiket için ayet bulunamadı.</Text>
+          ) : null}
+          {!loading && verses.map((verse) => (
+            <TouchableOpacity
+              key={verse.verse_key}
+              style={[styles.verseRow, { backgroundColor: colors.cardBg, borderColor: boxBorder }]}
+              onPress={() => router.push(`/ayah/${verse.surah_id}/${verse.ayah_number}`)}
+              activeOpacity={0.78}
+            >
+              <View style={styles.verseRowTop}>
+                <View style={[styles.verseKeyBadge, { backgroundColor: boxBg, borderColor: boxBorder }]}> 
+                  <Text style={[styles.verseKeyText, { color: labelColor }]}>{verse.verse_key}</Text>
+                </View>
+                <Text style={[styles.verseSurah, { color: colors.textMuted }]} numberOfLines={1}>
+                  {verse.surah_name ?? "Ayet"}
+                </Text>
+              </View>
+              {verse.reading_tr ? (
+                <Text style={[styles.verseReading, { color: colors.text }]} numberOfLines={3}>{verse.reading_tr}</Text>
+              ) : null}
+              {verse.meal ? (
+                <Text style={[styles.verseMeal, { color: colors.textSecondary }]} numberOfLines={4}>{verse.meal}</Text>
+              ) : null}
+            </TouchableOpacity>
+          ))}
+          <Text style={[styles.verseHint, { color: colors.textMuted }]}>Bir ayete dokunarak tam görünüme geçebilirsin.</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
 // ── Ana sayfa ───────────────────────────────────────────────────────────────
 
 export default function IsmiAzamScreen() {
@@ -393,7 +370,7 @@ export default function IsmiAzamScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["bottom"]}>
-      <Stack.Screen options={{ title: "İsmi Azam & Korunma" }} />
+      <Stack.Screen options={{ title: "İsmi Azam ve Sekine" }} />
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={styles.scrollContent}
@@ -404,32 +381,30 @@ export default function IsmiAzamScreen() {
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <Text style={{ fontSize: 28 }}>✨</Text>
             <Text style={[styles.heroTitle, { color: colors.text }]}>
-              İsmi Azam ve Korunma Duaları
+              İsmi Azam ve Sekine
             </Text>
           </View>
           <Text style={[styles.heroSub, { color: colors.textSecondary }]}>
-            Allah'ın en büyük ismi, Sekine (huzur) duası ve sahih hadislerle sabit günlük korunma duaları.
+            Sahih rivayetli İsmi Azam duaları, Sekine bölümü ve günlük korunma duaları.
           </Text>
         </View>
 
-        {/* Kişisel not */}
-        <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
-          <Text style={[styles.bodyText, { color: colors.amberText }]}>
+                {/* Kişisel not */}
+        <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}> 
+          <Text style={[styles.bodyText, { color: colors.amberText }]}> 
             <Text style={{ fontWeight: "700" }}>Not: </Text>
-            İsmi Azam, harflerin sihirli kombinasyonu değil; kulun tam teslimiyetle Rabbine yöneldiği an'ın adıdır.
-            Kelimeler değil, o kelimeleri taşıyan kalp hal'i konuşur.
+            İsmi Azam, sadece harflerin dizilişine indirgenmez; kulun ihlas, teslimiyet ve dua haliyle Rabbine yönelişini de hatırlatır.
+            Kelimeler kadar, o kelimeleri taşıyan kalbin duruşu da önemlidir.
           </Text>
         </View>
 
-        {/* Ulema açıklaması */}
-        <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
+                {/* Ulema açıklaması */}
+        <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}> 
           <Text style={[styles.kutuBaslik, { color: colors.amberText }]}>Alimlerin Ortak Kanaati</Text>
-          <Text style={[styles.bodyText, { color: colors.textSecondary }]}>
-            İslam alimlerinin ortak kanaatine göre İsmi Azam, belirli bir dua metni değil; kulun kalbini tamamen
-            Allah'a teslim ettiği, O'ndan başka her şeyi zihninden sildiği bir teslimiyet ve odaklanma halidir.
-            İbn Arabi, İmam Gazali ve Diyanet İşleri Başkanlığı dahil pek çok otorite, asıl olanın dudaktan dökülen
-            kelimeler değil, kalbin ulaştığı o derin "an" olduğunu vurgular. Mesele, hangi ismi söylediğin
-            değil; o ismi <Text style={{ fontWeight: "700" }}>hangi kalple söylediğin</Text>dir.
+          <Text style={[styles.bodyText, { color: colors.textSecondary }]}> 
+            Birçok alim, İsmi Azam bahsinde rivayetle gelen lafızları muhafaza ederken bu konuyu sadece bir harf formülüne indirgememenin daha isabetli olduğunu söyler.
+            Bu yüzden burada sahih rivayetle gelen duaları aynen koruyor; irfani açıklamaları ise kalbi hazırlayan bir çerçeve olarak sunuyoruz.
+            Mesele yalnızca hangi ismi söylediğin değil; o ismi <Text style={{ fontWeight: "700" }}>hangi kalple söylediğin</Text>dir.
           </Text>
         </View>
 
@@ -478,6 +453,7 @@ export default function IsmiAzamScreen() {
           kaynak="Tirmizî · Sahih"
           aciklama="Hz. Peygamber, İsmi Azam'ın Bakara, Âl-i İmrân ve Tâhâ surelerinde olduğunu bildirmiştir. Bu üç surede ortak olan vasıf: «el-Hayyü'l-Kayyûm» — Ebedî diri, her şeyi ayakta tutan."
           uygulama="«Yâ Hayyü, Yâ Kayyûm» diyerek Allah'a yönel; aşağıdaki üç ayeti sırasıyla oku."
+          accordion
           colors={colors}
           ayetler={[
             {
@@ -506,6 +482,7 @@ export default function IsmiAzamScreen() {
           kaynak="İbn Mâce · Sahih"
           aciklama="Hz. Peygamber şöyle buyurdu: «Allah'ın İsmi Azam'ı şu iki ayettedir: Bakara 163 ve Âl-i İmrân 2.»"
           uygulama="Bu iki ayeti 3'er defa oku; ardından «Yâ Rahmân, Yâ Rahîm, Yâ Hayy, Yâ Kayyûm» diyerek dua et."
+          accordion
           colors={colors}
           ayetler={[
             {
@@ -614,14 +591,10 @@ export default function IsmiAzamScreen() {
         />
 
         <VerseSubHeader label="İsmi Azam Ayetleri" colors={colors} />
-        <View style={[styles.kutu, { backgroundColor: colors.cardBg, borderColor: colors.cardBorder }]}>
-          <Text style={[styles.bodyText, { color: colors.textSecondary, textAlign: "center" }]}>
-            İsmi Azam ile ilişkili ayetleri görmek için web uygulamasını ziyaret edin.
-          </Text>
-        </View>
+        <TagVerseAccordion tag="ismiazam-ayet" label="İsmi Azam Ayetlerini Aç" colors={colors} renk="amber" />
 
         {/* ── Bölüm 2: Sekine Duası ─────────────────────────────────── */}
-        <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>🌀 Sekine Duası — 19 Ayet Protokolü</Text>
+        <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>🌀 Sekine Bölümü — 19 Ayet Tertibi</Text>
 
         {/* Tabut-u Sekine */}
         <View style={[styles.kutu, { backgroundColor: colors.violetBg, borderColor: colors.violetBorder }]}>
@@ -649,6 +622,12 @@ export default function IsmiAzamScreen() {
         {/* Bakara 250 */}
         <DuaKartiFull dua={bakara250} colors={colors} />
 
+        <Kutu baslik="Çerçeve Notu" colors={colors} renk="violet">
+          <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>
+            Bu bölümdeki 19'lu tertip, sahih hadisle sabit tek zorunlu biçim olarak değil; sahih ayetler ve esmâlarla kurulmuş yaygın bir manevi okuma düzeni olarak sunulmaktadır.
+          </Text>
+        </Kutu>
+
         <Kutu baslik="Hazırlık" colors={colors} renk="violet">
           <StepList steps={[
             "Zihnini dünya gailelerinden arındır, kalbini Allah'ın rızasına odakla.",
@@ -658,14 +637,14 @@ export default function IsmiAzamScreen() {
           ]} colors={colors} />
         </Kutu>
 
-        <Kutu baslik="Dairesel Zikir Protokolü" colors={colors} renk="violet">
+        <Kutu baslik="Dairesel Zikir Tertibi" colors={colors} renk="violet">
           <StepList steps={[
             "Besmele çek.",
             "Şu 6 esmayı oku: «Ferdün, Hayyün, Kayyûmün, Hakemün, Adlün, Kuddûsün».",
             "Hemen ardından listedeki ilk Sekine ayetini oku.",
-            "Bu üçlüyü (Besmele + 6 Esma + Ayet) 19 defa tekrarla.",
-            "Her ayet için aynı döngüyü uygula — toplam 19 ayet.",
-            "İster 19 güne böl, ister tek oturuşta tamamla.",
+            "Bu üçlüyü (Besmele + 6 Esma + Ayet) 19 kez tekrar ederek bir okuma halkası oluştur.",
+            "Aynı döngüyü listedeki diğer ayetler için de sürdür.",
+            "Uygulamada kimi kişiler bunu günlere bölerek, kimileri tek oturuşta okuyarak tamamlar.",
           ]} colors={colors} />
         </Kutu>
 
@@ -675,16 +654,12 @@ export default function IsmiAzamScreen() {
             "Besmele 19 harftir.",
             "6 esma (Ferdün, Hayyün, Kayyûmün, Hakemün, Adlün, Kuddûsün) toplam 19 harftir.",
             "Sekine listesindeki ayet sayısı 19'dur.",
-            "Bu tevafuk, manevi bir tamamlanmayı ve koruma halkasını simgeler.",
+            "Bazı uygulamalarda bu tevafuk, manevi tamamlanmayı hatırlatan bir işaret olarak yorumlanır.",
           ]} colors={colors} />
         </View>
 
         <VerseSubHeader label="Sekine Duası Ayetleri (Sırasıyla)" colors={colors} />
-        <View style={[styles.kutu, { backgroundColor: colors.cardBg, borderColor: colors.cardBorder }]}>
-          <Text style={[styles.bodyText, { color: colors.textSecondary, textAlign: "center" }]}>
-            Sekine ayetlerini görmek için web uygulamasını ziyaret edin.
-          </Text>
-        </View>
+        <TagVerseAccordion tag="ismiazam-sekine" label="Sekine Ayetlerini Aç" colors={colors} renk="violet" />
 
         {/* ── Bölüm 3: Günlük Korunma Duaları ────────────────────────── */}
         <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>🛡️ Günlük Korunma Duaları</Text>
@@ -767,4 +742,18 @@ const styles = StyleSheet.create({
   badgeScore:   { fontSize: 12, fontWeight: "800" },
   guvenTitle:   { fontSize: 11, fontWeight: "700", marginBottom: 2 },
   guvenDesc:    { fontSize: 10, lineHeight: 15 },
+  verseAccHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
+  verseAccTitleWrap: { flex: 1, gap: 4 },
+  verseAccTitle: { fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.8 },
+  verseAccMeta: { fontSize: 11, fontWeight: "600" },
+  verseAccBody: { marginTop: 12, gap: 10 },
+  verseRow: { borderRadius: 12, borderWidth: 1, padding: 12 },
+  verseRowTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 },
+  verseKeyBadge: { borderRadius: 999, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 3 },
+  verseKeyText: { fontSize: 10, fontWeight: "800" },
+  verseSurah: { fontSize: 11, fontWeight: "600", flex: 1, textAlign: "right" },
+  verseReading: { fontSize: 13, lineHeight: 20, fontWeight: "600", marginBottom: 4 },
+  verseMeal: { fontSize: 11, lineHeight: 18 },
+  verseHint: { fontSize: 11, lineHeight: 16, marginTop: 2 },
+  inlineNote: { fontSize: 12, lineHeight: 18 },
 });

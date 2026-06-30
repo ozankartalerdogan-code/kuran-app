@@ -39,7 +39,7 @@ const MAX_RECENT    = 5;
 const KOLEKSIYONLAR = [
   { emoji: "🕌", baslik: "Namaz Ayetleri",      aciklama: "Vakit, huşu, teheccüd",      route: "/namaz" },
   { emoji: "🛡️", baslik: "Manevi Sığınak",      aciklama: "Büyü, nazar, hased, şifa",   route: "/manevi-siginak" },
-  { emoji: "✨",  baslik: "İsmi Azam ve Sekine", aciklama: "Sahih dualar ve protokol",    route: "/manevi-siginak/ismi-azam" },
+  { emoji: "✨",  baslik: "İsmi Azam ve Sekine", aciklama: "Sahih dualar ve korunma",    route: "/manevi-siginak/ismi-azam" },
 ];
 
 const NAMAZ_CHIPS = [

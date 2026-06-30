@@ -93,7 +93,7 @@
           {
             "isim": "Kurban Bayramı Namazı",
             "hicri_tarih": "Zilhicce ayının 10. günü sabahı",
-            "tekbir_notu": "Bayrama giderken tekbirler açıktan getirilir. Arefe sabahından son teşrik gününe (Zilhicce 13) öğleye kadar her farz namazın ardından teşrik tekbirleri getirilir."
+            "tekbir_notu": "Bayrama giderken tekbirler açıktan getirilir. Hanefî uygulamada teşrik tekbirleri arefe günü sabah namazından başlayıp bayramın 4. günü ikindi namazına kadar farzların ardından getirilir."
           }
         ],
         "ne_zaman_kilinir": "Bayram sabahı, güneş doğup bir mızrak boyu yükseldikten sonra (yaklaşık 45 dakika) öğle namazı vaktine kadar kılınır.",
@@ -146,8 +146,8 @@
           },
           {
             "adim": 8,
-            "isim": "Teşrik Tekbirleri",
-            "aciklama": "Namazdan sonra 3 kez tekbir getirilir, ardından imam hutbeye çıkar.",
+            "isim": "Hutbe ve Teşrik Tekbirleri",
+            "aciklama": "Bayram namazından sonra imam hutbeye çıkar. Kurban Bayramı günlerinde ayrıca farz namazların ardından teşrik tekbirleri getirilir.",
             "tesbih": "Allahu Ekber, Allahu Ekber, La ilahe illallah. Allahu Ekber, Allahu Ekber ve lillahil hamd.",
             "not": "Hutbe bayram namazında namazdan SONRA okunur. Cumada ise namazdan önce."
           }
@@ -156,8 +156,8 @@
           "Bayram namazının cemaatle kılınması esastır. Hanefîye göre cemaat bulamayanın tek başına kılması gerekmez.",
           "Bayram günleri oruç tutmak haramdır.",
           "Ramazan Bayramı'nda tekbirler sessiz, Kurban Bayramı'nda tekbirler açıktan getirilir.",
-          "Bayram namazı kaçırılırsa kaza edilmez.",
-          "Kurban Bayramı'nda arefe akşamından son teşrik günü (Zilhicce 13) öğlesine kadar farz namazların ardından teşrik tekbiri getirilir."
+          "Hanefî uygulamada fert olarak klasik kaza anlayışı yoktur; ancak mazeretle cemaat kaçırılırsa aynı gün veya uygun sonraki günlerde yeniden cemaat kurulmasına dair fıkhî ayrıntılar vardır.",
+          "Kurban Bayramı'nda Hanefî uygulamada teşrik tekbirleri arefe günü sabah namazından başlayıp bayramın 4. günü ikindi namazına kadar farzların ardından getirilir."
         ],
         "hadis_kaynagi": "Buhari, Müslim (sahih)"
       },
@@ -168,7 +168,7 @@
         "durum_aciklama": "Hz. Peygamber'e farz olduğu bildirilmiş, ümmetine ise müstehap (nafile) olarak tavsiye edilmiştir. Devamlı kılmak çok faziletlidir.",
         "mezhep_gorusleri": "Dört mezhepte de ümmet için müekked sünnet ya da müstehap (nafile) hükmündedir; farz değildir. Hz. Peygamber'e farz olup olmadığı da âlimler arasında ihtilaflıdır; bir kısım âlim farz, bir kısmı ise sonradan nâfileye dönüştürüldüğü görüşündedir (TDV İA 'Teheccüd').",
         "ne_zaman_kilinir": "Yatsı namazından sonra, bir miktar uyuyup uyandıktan sonra sabah namazına kadar kılınır. Gecenin son üçte birinde kılmak en faziletlisidir.",
-        "rekat": "En az 2, en fazla 12 rekat. 2'şer rekat halinde kılmak daha faziletlidir. 8 rekat olarak kılmak tavsiye edilir.",
+        "rekat": "En az 2 rekattır. 2'şer rekat halinde kılmak daha faziletlidir. 8 rekat yaygın bir uygulamadır; üst sınır konusunda mezhepler arasında farklı değerlendirmeler vardır.",
         "kuran_referansi": {
           "sure": "İsra",
           "ayet": 79,
@@ -206,7 +206,7 @@
         ],
         "ozel_notlar": [
           "Teheccüde kalkmayı planlıyorsan vitir namazını teheccüdden sonraya bırakabilirsin — vitir gecenin son namazı olsun.",
-          "Kalkamazsan yatsıdan önce vitiri kılmış olman yeterlidir.",
+          "Kalkamazsan yatsıdan sonra vitri kılmış olman yeterlidir.",
           "Hz. Peygamber hastalık veya seyahat nedeniyle gece namazını kılamazsa gündüz 12 rekat kılarak telafi ederdi (Müslim).",
           "Gece namazı sessiz okunur, başkalarını rahatsız etmemek sünnettir."
         ],
@@ -216,8 +216,8 @@
         "id": "kusluk_namazi",
         "isim": "Kuşluk Namazı (Duha / İşrak)",
         "durum": "sunnet",
-        "durum_aciklama": "Hz. Peygamber'in tavsiye ettiği ve zaman zaman kıldığı nafile bir namazdır. Dört mezhepte de müstehap ya da sünnet hükmündedir.",
-        "mezhep_gorusleri": "Dört mezhepte de nafile/müstehap hükmündedir; mezhep farkı yoktur.",
+        "durum_aciklama": "Hz. Peygamber'in tavsiye ettiği ve zaman zaman kıldığı nafile bir namazdır. Dört mezhepte de meşrudur; hükmün derecesinde mezhep farklılıkları vardır.",
+        "mezhep_gorusleri": "Mâlikî ve Şâfiî mezheplerinde müekked sünnet, Hanefî ve Hanbelî çizgide ise çoğunlukla müstehap/mandup olarak anlatılır. Namazın meşruiyetinde ihtilaf yoktur; vurgu derecesi değişir.",
         "ne_zaman_kilinir": "Güneş doğduktan yaklaşık 45 dakika sonra başlar, öğlenden 45 dakika önceye kadar kılınabilir. En faziletli vakti güneşin iyice yükselip ısısının hissedildiği zamandır.",
         "rekat": "En az 2, en fazla 12 rekat. 4 veya 8 rekat olarak kılmak tavsiye edilir. 2'şer rekat halinde kılınır.",
         "niyet": "Niyet ettim Allah rızası için kuşluk namazı kılmaya.",
@@ -246,8 +246,8 @@
           "Hz. Peygamber: 'Kim sabah namazını cemaatle kılar, sonra güneş doğana kadar oturur zikrederse, ardından iki rekat namaz kılarsa tam bir hac ve umre sevabı alır.' (Tirmizi)"
         ],
         "ozel_notlar": [
-          "Kuşluk namazı işrak namazı olarak da bilinir.",
-          "Sabah namazından sonra zikirle meşgul olup güneş doğunca kılınan 2 rekate 'işrak namazı' da denir.",
+          "İşrak namazı, kuşluk namazının erken vaktinde kılınan ilk kısmı gibi anlatılır; her kuşluk namazı işrak değildir.",
+          "Sabah namazından sonra zikirle meşgul olup güneş doğduktan sonra kılınan ilk 2 rekata özel olarak 'işrak namazı' denir.",
           "Kerahet vakti (güneş doğarken, zirveye çıkarken ve batarken) namaz kılınmaz."
         ],
         "hadis_kaynagi": "Müslim, Buhari (sahih)"
@@ -284,8 +284,8 @@
           "aciklama": "İstihare sonucu nasıl anlaşılır?",
           "maddeler": [
             "Rüya görmek şart değildir — halk arasında 'istihareye yatmak ve rüya görmek' şeklinde yanlış bilinmektedir.",
-            "Kalbe doğan bir huzur ve rahatlık o işin hayırlı olduğuna işaret edebilir.",
-            "Kalbe gelen sıkıntı ve darlık olumsuz bir işarettir.",
+            "Kalbe doğan huzur ve kolaylık hissi, kişi için bir yönlendirme olarak değerlendirilebilir.",
+            "Kalpte süren sıkıntı veya isteksizlik de temkin işareti sayılabilir; ancak tek başına kesin hüküm yerine geçmez.",
             "Sonuç açık gelmezse 7'ye kadar tekrar edilebilir.",
             "İstihare, iradeyi ortadan kaldırmaz — sen kararı verirsin, Allah hayırlısını nasip eder."
           ]
@@ -430,7 +430,7 @@
         "hadis_kaynagi": "Ebu Davud, Tirmizi (sahih)"
       },
       {
-        "id": "tövbe_namazi",
+        "id": "tovbe_namazi",
         "isim": "Tövbe Namazı",
         "durum": "sunnet",
         "durum_aciklama": "Günah işlendikten sonra Allah'a tövbe etmek ve bağışlanma dilemek için kılınan nafile namazdır. Dört mezhepte de müstehap ya da sünnet hükmündedir.",

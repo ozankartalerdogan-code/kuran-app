@@ -11,21 +11,43 @@ import { useColors } from "../src/hooks/useColors";
 import { useFavorites } from "../src/hooks/useFavorites";
 import { api, type FavoriteVerse } from "../src/lib/api";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
 
 export default function FavorilerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const { favorites, loaded, toggle, clearAll, refresh } = useFavorites();
+  const {
+    favorites,
+    loaded,
+    toggle,
+    clearAll,
+    refresh,
+    error: storageError,
+  } = useFavorites();
 
   useFocusEffect(useCallback(() => { refresh(); }, [refresh]));
 
-  const { data: verses = [], isLoading: loading } = useQuery({
+  const {
+    data: verses = [],
+    isLoading: loading,
+    isError,
+    error: queryError,
+    refetch,
+  } = useQuery({
     queryKey: ["favorite-verses", favorites],
     queryFn: () => api.favorites.fetch(favorites),
     enabled: loaded && favorites.length > 0,
     staleTime: 2 * 60 * 1000,
+    retry: 1,
   });
+
+  const requestError = storageError
+    ?? (isError ? (queryError instanceof Error ? queryError.message : "Favoriler yüklenemedi.") : null);
+
+  const handleRetry = useCallback(async () => {
+    await refresh();
+    if (favorites.length > 0) await refetch();
+  }, [favorites.length, refetch, refresh]);
 
   function handleClearAll() {
     Alert.alert("Tümünü Temizle", "Tüm favori ayetleri kaldırmak istediğinize emin misiniz?", [
@@ -98,7 +120,24 @@ export default function FavorilerScreen() {
     );
   }
 
-  if (verses.length === 0) {
+  if (requestError && favorites.length > 0) {
+    return (
+      <View style={[styles.centered, { backgroundColor: c.bg }]}>
+        <Text style={styles.emptyIcon}>⚠️</Text>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>Favoriler yüklenemedi</Text>
+        <Text style={[styles.emptySub, { color: c.textMuted }]}>{requestError}</Text>
+        <TouchableOpacity
+          style={[styles.goBtn, { backgroundColor: c.accent }]}
+          onPress={handleRetry}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.goBtnText}>Tekrar Dene</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (favorites.length === 0) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>🤍</Text>
@@ -120,7 +159,7 @@ export default function FavorilerScreen() {
       contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
-          <Text style={styles.count}>{verses.length} ayet kaydedildi</Text>
+          <Text style={styles.count}>{favorites.length} ayet kaydedildi</Text>
           <TouchableOpacity onPress={handleClearAll} hitSlop={8}>
             <Text style={styles.clearAll}>Tümünü Temizle</Text>
           </TouchableOpacity>
@@ -135,7 +174,6 @@ export default function FavorilerScreen() {
 const styles = StyleSheet.create({
   centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, backgroundColor: "#f5f0e8", gap: 10 },
   loadingContainer:{ flex: 1, padding: 12, gap: 10, backgroundColor: "#f5f0e8" },
-  skeleton:        { height: 110, borderRadius: 14, backgroundColor: "#e7e5e4" },
   emptyIcon:       { fontSize: 48 },
   emptyTitle:      { fontSize: 18, fontWeight: "700", color: "#1c1917" },
   emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },

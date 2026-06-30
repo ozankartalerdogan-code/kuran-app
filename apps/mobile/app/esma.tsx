@@ -21,7 +21,11 @@ export default function EsmaScreen() {
     const q = norm(query);
     if (!q) return ESMA_UL_HUSNA;
     return ESMA_UL_HUSNA.filter(
-      (e) => norm(e.isim).includes(q) || norm(e.anlam).includes(q) || norm(e.kokAnlam).includes(q),
+      (e) => norm(e.isim).includes(q)
+        || norm(e.arapca).includes(q)
+        || norm(e.anlam).includes(q)
+        || norm(e.kok).includes(q)
+        || norm(e.kokAnlam).includes(q),
     );
   }, [query]);
 
@@ -52,11 +56,12 @@ export default function EsmaScreen() {
         <View style={s.header}>
           <Text style={[s.title, { color: c.text }]}>🕌 Esmaül Hüsna</Text>
           <Text style={[s.sub, { color: c.textMuted }]}>Allah&apos;ın 99 güzel ismi</Text>
+          <Text style={[s.note, { color: c.textMuted }]}>Bu ekranda yaygın 99 isim tertibi esas alınmıştır; bazı kaynaklarda sıralama ve yazımda küçük farklar görülebilir.</Text>
         </View>
 
         <TextInput
           style={[s.search, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}
-          placeholder="İsim, anlam veya kök ara…"
+          placeholder="İsim, Arapça, anlam veya kök ara…"
           placeholderTextColor={c.textMuted}
           value={query}
           onChangeText={setQuery}
@@ -83,6 +88,7 @@ const s = StyleSheet.create({
   header:    { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 6 },
   title:     { fontSize: 22, fontWeight: "700", color: "#1c1917" },
   sub:       { fontSize: 13, color: "#78716c", marginTop: 2 },
+  note:      { fontSize: 12, color: "#78716c", marginTop: 6, lineHeight: 18 },
   search: {
     marginHorizontal: 16, marginVertical: 8, borderRadius: 12, borderWidth: 1,
     paddingHorizontal: 14, paddingVertical: 10, fontSize: 14,
