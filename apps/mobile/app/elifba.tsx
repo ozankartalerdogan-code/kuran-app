@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View, Text, TouchableOpacity, ScrollView, Modal,
   ActivityIndicator, StyleSheet,
@@ -190,21 +190,24 @@ export default function ElifbaScreen() {
   const [popupId, setPopupId]       = useState<number | null>(null);
   const [error, setError]           = useState(false);
 
+  const mountedRef = useRef(true);
+  useEffect(() => () => { mountedRef.current = false; }, []);
+
   const loadDersler = useCallback(() => {
     setLoading(true);
     setError(false);
     api.elifba.dersler()
-      .then(setDersler)
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
+      .then((d) => { if (mountedRef.current) setDersler(d); })
+      .catch(() => { if (mountedRef.current) setError(true); })
+      .finally(() => { if (mountedRef.current) setLoading(false); });
   }, []);
 
   useEffect(() => {
     loadDersler();
     storage.getJSON<Record<string, number[]>>(STORAGE_KEYS.elifbaProgress)
-      .then(p => setProgress(p ?? {})).catch(() => {});
+      .then(p => { if (mountedRef.current) setProgress(p ?? {}); }).catch(() => {});
     storage.getJSON<Record<string, QuizScore>>(STORAGE_KEYS.quizScores)
-      .then(q => setQuizScores(q ?? {})).catch(() => {});
+      .then(q => { if (mountedRef.current) setQuizScores(q ?? {}); }).catch(() => {});
   }, [loadDersler]);
 
   if (loading) {

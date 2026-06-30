@@ -74,7 +74,7 @@ function tagLabel(tag: string, tagType: "ana_tema" | "alt_tag"): string {
   const parts = tag.replace(/_%$/, "").split("_");
   if (parts.length >= 1) {
     const prefix = parts[0];
-    const rest   = parts.slice(1).join(" ").toLowerCase();
+    const rest   = parts.slice(1).join(" ").toLocaleLowerCase("tr-TR");
     return rest ? `${prefix} · ${rest}` : prefix;
   }
   return tag;

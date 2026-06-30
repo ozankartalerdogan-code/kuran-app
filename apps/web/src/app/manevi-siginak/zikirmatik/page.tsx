@@ -600,11 +600,11 @@ function FilterBar({
       setShowResults(false);
       return;
     }
-    const q = query.toLowerCase().trim();
+    const q = query.toLocaleLowerCase("tr-TR").trim();
     const filtered = esmalar.filter(
       (e) =>
-        e.okunus.toLowerCase().includes(q) ||
-        e.meal.toLowerCase().includes(q) ||
+        e.okunus.toLocaleLowerCase("tr-TR").includes(q) ||
+        e.meal.toLocaleLowerCase("tr-TR").includes(q) ||
         e.arapca.includes(q) ||
         String(e.zikirAdedi).includes(q),
     );

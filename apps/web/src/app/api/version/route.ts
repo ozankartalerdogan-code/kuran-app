@@ -9,9 +9,8 @@ interface LitRow { len: number | null }
 
 /**
  * Aktif veri kaynağından BAĞIMSIZ olarak Turso env'ine bağlanmayı dener.
- * Amaç: bundle hâlâ trafiği servis ederken, Vercel'in TURSO_DB_URL/TOKEN'ı
- * doğru DB'ye bağlanıyor mu güvenle doğrulamak. Bundle'ı kaldırmadan önce
- * bu probe "ok:true + doğru sayılar" derse switch güvenlidir.
+ * Amaç: Vercel'in TURSO_DB_URL/TOKEN'ı doğru DB'ye bağlanıyor mu güvenle
+ * doğrulamak. "ok:true + doğru sayılar" derse bağlantı sağlıklıdır.
  */
 async function probeTurso() {
   const url = process.env.TURSO_DB_URL;
@@ -38,7 +37,7 @@ async function probeTurso() {
 /**
  * Canlının hangi veriyi sunduğunu tek bakışta gösterir.
  * Sessiz veri uyuşmazlığını görünür kılar:
- *   - source : bundle | turso | local-app.db  → "hangi DB" sorusunu bitirir
+ *   - source : turso | local-app.db            → "hangi DB" sorusunu bitirir
  *   - commit : deploy'un git SHA'sı            → "kod güncel mi"
  *   - counts : satır sayıları                  → "veri dolu mu"
  *   - sample : 2:255 literal uzunluğu          → "düzeltmeler yansıdı mı" (canlı tazelik sinyali)

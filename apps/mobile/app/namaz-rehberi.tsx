@@ -423,7 +423,16 @@ function GuideTab() {
 }
 
 // ── "Özel Namazlar" sekmesi (ozel_namazlar.json) ──────────────────────────────
-const O = (ozelRaw as any).ozel_namazlar;
+// İçerik (namazlar/hızlı bakış) bilinçli olarak polimorfik; üst seviye container
+// tiplenir, tek tek namaz kayıtları ilgili kartta yorumlanır.
+const O = (ozelRaw as {
+  ozel_namazlar: {
+    aciklama: string;
+    hizli_bakis_tablosu: Record<string, string>[];
+    namazlar: unknown[];
+    kaynak_not: string;
+  };
+}).ozel_namazlar;
 
 const OZEL_DURUM: Record<string, { bg: string; border: string; text: string; label: string }> = {
   farz_i_kifaye:    { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c", label: "FARZ-I KİFAYE" },

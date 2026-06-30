@@ -70,17 +70,19 @@ export default function SureListesiScreen() {
   const [sortMode, setSortMode] = useState<"mushaf" | "nuzul">("mushaf");
 
   useEffect(() => {
+    let isMounted = true;
     api.surahs.list()
-      .then(setSurahs)
-      .catch(() => setError("Sureler yüklenemedi. İnternet bağlantısını kontrol edin."))
-      .finally(() => setLoading(false));
+      .then((list) => { if (isMounted) setSurahs(list); })
+      .catch(() => { if (isMounted) setError("Sureler yüklenemedi. İnternet bağlantısını kontrol edin."); })
+      .finally(() => { if (isMounted) setLoading(false); });
+    return () => { isMounted = false; };
   }, []);
 
   const filtered = useMemo(() => {
     const list = filter.trim()
       ? surahs.filter(s =>
-          s.name.toLowerCase().includes(filter.toLowerCase()) ||
-          s.translit.toLowerCase().includes(filter.toLowerCase()) ||
+          s.name.toLocaleLowerCase("tr-TR").includes(filter.toLocaleLowerCase("tr-TR")) ||
+          s.translit.toLocaleLowerCase("tr-TR").includes(filter.toLocaleLowerCase("tr-TR")) ||
           String(s.id).startsWith(filter.trim()),
         )
       : [...surahs];

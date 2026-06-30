@@ -24,7 +24,7 @@ export function NotlarimClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadNotes = useCallback(async () => {
+  const loadNotes = useCallback(async (signal?: AbortSignal) => {
     const raw = getNotes();
     const keys = Object.keys(raw);
     setError(null);
@@ -37,9 +37,10 @@ export function NotlarimClient() {
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/favorites-verses?keys=${keys.join(",")}`);
+      const response = await fetch(`/api/favorites-verses?keys=${keys.join(",")}`, { signal });
       if (!response.ok) throw new Error("Notlar yüklenemedi.");
       const data = (await response.json()) as VerseInfo[];
+      if (signal?.aborted) return;
       const infoMap = new Map(data.map((v) => [v.verse_key, v]));
       const entries: NoteEntry[] = keys.map((k) => {
         const info = infoMap.get(k);
@@ -53,7 +54,8 @@ export function NotlarimClient() {
         };
       });
       setNotesState(entries);
-    } catch {
+    } catch (err) {
+      if (signal?.aborted || (err instanceof DOMException && err.name === "AbortError")) return;
       const fallbackEntries: NoteEntry[] = Object.keys(getNotes()).map((k) => {
         const [sid, anum] = k.split(":").map(Number);
         return { verseKey: k, surahId: sid, ayahNumber: anum, surahName: null, text: getNotes()[k] };
@@ -61,12 +63,14 @@ export function NotlarimClient() {
       setNotesState(fallbackEntries);
       setError("Sure adları şu anda yüklenemedi; notlar ayet anahtarlarıyla gösteriliyor.");
     } finally {
-      setLoading(false);
+      if (!signal?.aborted) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    loadNotes();
+    const controller = new AbortController();
+    loadNotes(controller.signal);
+    return () => controller.abort();
   }, [loadNotes]);
 
   function deleteNote(verseKey: string) {

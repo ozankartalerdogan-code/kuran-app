@@ -92,11 +92,11 @@ export default function RootListScreen() {
     let list = [...roots];
     if (search.trim()) {
       const rawQuery = search.trim();
-      const query = rawQuery.toLowerCase();
+      const query = rawQuery.toLocaleLowerCase("tr-TR");
       const arQuery = normalizeArabic(rawQuery);
       list = list.filter((item) =>
         normalizeArabic(item.root).includes(arQuery) ||
-        item.meaning_tr.toLowerCase().includes(query),
+        item.meaning_tr.toLocaleLowerCase("tr-TR").includes(query),
       );
     }
     switch (sort) {

@@ -13,7 +13,7 @@ export function FavorilerClient() {
   const [keys, setKeys] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const loadFavorites = useCallback(async () => {
+  const loadFavorites = useCallback(async (signal?: AbortSignal) => {
     const stored = getFavorites();
     setKeys(stored);
     setError(null);
@@ -26,20 +26,24 @@ export function FavorilerClient() {
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/favorites-verses?keys=${stored.join(",")}`);
+      const response = await fetch(`/api/favorites-verses?keys=${stored.join(",")}`, { signal });
       if (!response.ok) throw new Error("Favoriler yüklenemedi.");
       const data = (await response.json()) as VerseCardData[];
+      if (signal?.aborted) return;
       setVerses(data);
-    } catch {
+    } catch (err) {
+      if (signal?.aborted || (err instanceof DOMException && err.name === "AbortError")) return;
       setError("Favori ayetler şu anda yüklenemiyor. Lütfen tekrar deneyin.");
       setVerses([]);
     } finally {
-      setLoading(false);
+      if (!signal?.aborted) setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    loadFavorites();
+    const controller = new AbortController();
+    loadFavorites(controller.signal);
+    return () => controller.abort();
   }, [loadFavorites]);
 
   function handleTagClick(tag: string) {

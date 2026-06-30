@@ -63,7 +63,7 @@ function formatDuaTag(tag: string): string {
   return tag
     .replace(/^dua-/, "")
     .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .map((w) => w.charAt(0).toLocaleUpperCase("tr-TR") + w.slice(1))
     .join(" ");
 }
 

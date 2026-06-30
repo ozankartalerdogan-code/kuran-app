@@ -80,7 +80,7 @@ function tagLabel(tag: string): string {
   if (tag.startsWith("ismiazam-")) return `İsmi Azam · ${ISMIAZAM_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(9)}`;
   if (tag.startsWith("dua-"))      return `Dua · ${tag.slice(4)}`;
   const parts = tag.replace(/_%$/, "").split("_");
-  return parts.length >= 2 ? `${parts[0]} · ${parts.slice(1).join(" ").toLowerCase()}` : tag;
+  return parts.length >= 2 ? `${parts[0]} · ${parts.slice(1).join(" ").toLocaleLowerCase("tr-TR")}` : tag;
 }
 
 async function loadRecent(): Promise<string[]> {

@@ -18,24 +18,9 @@ import { DatabaseSync as _DatabaseSync } from "node:sqlite";
 
 // ── Turso ─────────────────────────────────────────────────────────────────────
 
-// ── Gömülü (bundle) SQLite tespiti ────────────────────────────────────────────
-// Repoda apps/web/data/app_bundle.db varsa, Turso'yu tamamen atla ve veriyi
-// kodla birlikte deploy edilen bu dosyadan oku. Böylece "hangi DB" sorunu biter.
-function resolveBundlePath(): string | null {
-  const candidates = [
-    process.env.DATA_PATH ? path.join(process.env.DATA_PATH, "app_bundle.db") : "",
-    path.resolve(process.cwd(), "data", "app_bundle.db"),
-    path.resolve(process.cwd(), "apps", "web", "data", "app_bundle.db"),
-    path.resolve(__dirname, "..", "..", "data", "app_bundle.db"),
-  ].filter(Boolean) as string[];
-  for (const p of candidates) {
-    try { if (fs.existsSync(p)) return p; } catch { /* ignore */ }
-  }
-  return null;
-}
-const BUNDLE_PATH = resolveBundlePath();
-
-const USE_TURSO = !BUNDLE_PATH && !!(
+// Veri kaynağı tek ve net: TURSO_DB_URL + TURSO_AUTH_TOKEN set ise Turso,
+// aksi halde yerel data/app.db (dev). Sessiz fallback yok.
+const USE_TURSO = !!(
   process.env.TURSO_DB_URL && process.env.TURSO_AUTH_TOKEN
 );
 
@@ -111,9 +96,7 @@ async function ensureTursoIndexes(): Promise<void> {
 
 // ── Yerel SQLite (dev / fallback) ─────────────────────────────────────────────
 
-const DB_PATH = BUNDLE_PATH
-  ? BUNDLE_PATH
-  : process.env.DATA_PATH
+const DB_PATH = process.env.DATA_PATH
   ? path.join(process.env.DATA_PATH, "app.db")
   : path.resolve(process.cwd(), "..", "..", "data", "app.db");
 
@@ -129,7 +112,7 @@ let _localDb: _DatabaseSync | null = null;
 function getLocalDb(): _DatabaseSync {
   if (_localDb === null) {
     _localDb = new _DatabaseSync(DB_PATH, { readOnly: true });
-    // Salt-okunur bundle'da (Vercel read-only FS) WAL pragma hata verebilir;
+    // Salt-okunur ortamda bazı PRAGMA'lar hata verebilir;
     // her pragma'yı tek tek dene, başarısız olanı yut.
     for (const stmt of READ_PRAGMAS.split(";").map((s) => s.trim()).filter(Boolean)) {
       try { _localDb.exec(stmt); } catch { /* read-only ortamda yoksay */ }
@@ -171,10 +154,9 @@ export async function dbAll<T>(sql: string, ...args: unknown[]): Promise<T[]> {
  * "sessiz veri uyuşmazlığı" hatası böylece görünür hale gelir.
  */
 export function getDataSource(): {
-  source: "bundle" | "turso" | "local-app.db";
+  source: "turso" | "local-app.db";
   detail: string;
 } {
-  if (BUNDLE_PATH) return { source: "bundle", detail: path.basename(BUNDLE_PATH) };
   if (USE_TURSO) {
     let host = "";
     const u = process.env.TURSO_DB_URL ?? "";

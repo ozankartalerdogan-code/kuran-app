@@ -24,7 +24,7 @@ function formatAnaTemaBadge(code: string): string {
   // "F1_PEYGAMBER_KISSALARI" → "F1 · Peygamber Kıssaları"
   const parts  = code.split("_");
   const prefix = parts[0];
-  const label  = parts.slice(1).join(" ").toLowerCase();
+  const label  = parts.slice(1).join(" ").toLocaleLowerCase("tr-TR");
   return label ? `${prefix} · ${label}` : prefix;
 }
 

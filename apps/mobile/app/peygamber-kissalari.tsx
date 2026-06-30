@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/peygamber_kissalari.json";
 
-const META        = (rawData as any).peygamber_kissalari;
+const META        = (rawData as { peygamber_kissalari: PeygamberKissalariMeta }).peygamber_kissalari;
 const PEYGAMBERLER: Peygamber[] = META.peygamberler;
 
 interface Kissa {
@@ -31,6 +31,15 @@ interface Peygamber {
   ana_sure?: string;
   kuran_referanslari_ozet?: string[];
   ozel_notlar?: string[];
+}
+
+interface PeygamberKissalariMeta {
+  baslik: string;
+  aciklama: string;
+  toplam_peygamber: number;
+  genel_dersler?: string[];
+  kaynak_not: string;
+  peygamberler: Peygamber[];
 }
 
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
