@@ -274,7 +274,7 @@
         "kuranda_gecme_sayisi": 69,
         "gondirildigi_yer": "Ur (Irak), Kenan, Mekke",
         "donem": "Yaklaşık M.Ö. 2000",
-        "kisa_ozet": "Tevhidin öncüsü. Putları kırdı, ateşe atıldı ama yanmadı, oğlunu kurban etmeye hazırlandı. İsmail ile Kabe'yi inşa etti. 'Hanif' dinin kurucusu.",
+        "kisa_ozet": "Tevhidin öncüsü. Putları kırdı, ateşe atıldı ama yanmadı, oğlunu kurban etmeye hazırlandı. İsmail ile Kabe'yi inşa etti. Hanif tevhid çizgisinin önderlerinden biri olarak anıldı.",
         "kissa": [
           {
             "baslik": "Putları Kırması",
@@ -406,10 +406,11 @@
         "kissa": [
           {
             "baslik": "Mekke'ye Bırakılış",
-            "metin": "Hz. İbrahim, Allah'ın emriyle eşi Hacer ve bebek İsmail'i susuz çölde (Mekke'de) bıraktı. Hacer 'Bizi neden bırakıyorsun?' diye sormadı, yalnızca 'Allah mı emretti?' dedi. 'Evet' cevabı üzerine 'O bizi kaybetmez' dedi. Zemzem suyu o sıkıntıda fışkırdı.",
+            "metin": "Hz. İbrahim'in, Allah'ın emriyle ailesinden bir kısmını ekinsiz vadiye bıraktığı Kur'an'da bildirilir. Siyer ve hadis rivayetlerinde bu kişilerin Hacer ile bebek İsmail olduğu, Zemzem suyunun da bu sıkıntı sırasında ortaya çıktığı anlatılır.",
             "kuran_referanslari": [
               "14:37-38"
-            ]
+            ],
+            "not": "Hacer'in ismi, konuşmanın ayrıntıları ve Zemzem'in çıkış şekli Kur'an'da açıkça yer almaz; bu bilgiler hadis ve siyer rivayetleriyle aktarılır."
           },
           {
             "baslik": "Kurban İmtihanı",
@@ -427,7 +428,7 @@
           }
         ],
         "mucizeler": [
-          "Zemzem suyunun fışkırması (annesi vesilesiyle)"
+          "Zemzem suyunun ortaya çıkması (Hacer ve İsmail kıssasında)"
         ],
         "dersler": [
           "Tam teslimiyet — 'Emredileni yap, sabredeceğim'",
@@ -441,6 +442,9 @@
           "21:85",
           "37:102-111",
           "38:48"
+        ],
+        "ozel_notlar": [
+          "Kur'an, Hz. İbrahim'in ailesinden bir kısmını ekinsiz vadiye yerleştirdiğini bildirir (İbrahim 14:37); Hacer'in adı ve Zemzem'in ayrıntılı kıssası ise hadis ve siyer kaynaklarıyla bilinir."
         ]
       },
       {
@@ -542,8 +546,8 @@
             ]
           },
           {
-            "baslik": "Züleyha'nın Tuzağı",
-            "metin": "Mısır'da kendisini satın alan devlet adamının (Aziz) evinde büyüyen Hz. Yusuf yakışıklı ve güvenilir biriydi. Hanımı Züleyha ona yaklaşmak istedi. Hz. Yusuf kaçtı ve 'Allah'a sığınırım' dedi. Züleyha iftira attı, Hz. Yusuf zindana atıldı.",
+            "baslik": "Aziz'in Eşinin Tuzağı",
+            "metin": "Mısır'da kendisini satın alan devlet adamının (Aziz) evinde büyüyen Hz. Yusuf yakışıklı ve güvenilir biriydi. Aziz'in eşi ona yaklaşmak istedi. Hz. Yusuf kaçtı ve 'Allah'a sığınırım' dedi. Ardından ona iftira atıldı ve Hz. Yusuf zindana gönderildi.",
             "kuran_referanslari": [
               "12:23-35"
             ]
@@ -580,7 +584,7 @@
         "mucizeler": [
           "Rüya yorumu",
           "Zindan yıllarında sabrı",
-          "Züleyha'nın itirafı — Allah'ın onu temize çıkarması"
+          "Aziz'in eşinin itirafı — Allah'ın onu temize çıkarması"
         ],
         "dersler": [
           "Sabır ve iffet en büyük erdemlerdir",
@@ -592,6 +596,9 @@
         "ana_sure": "Yusuf (12) — tamamı",
         "kuran_referanslari_ozet": [
           "12:1-111"
+        ],
+        "ozel_notlar": [
+          "Hz. Yusuf kıssasında kadının ismi Kur'an'da verilmez; halk arasında yaygın olan 'Züleyha' adı tefsir ve edebiyat geleneğinden gelmektedir. Kur'an'da genellikle 'Aziz'in karısı/eşi' olarak anılır."
         ]
       },
       {
@@ -894,7 +901,7 @@
         "kuranda_gecme_sayisi": 17,
         "gondirildigi_yer": "Kudüs",
         "donem": "Yaklaşık M.Ö. 970-930",
-        "kisa_ozet": "Babası Hz. Davud'dan sonra peygamber ve kral oldu. Cinlere, rüzgara ve kuşlara hükmetti. Hüdhüd kuşundan Seba melikesi Belkıs'ı öğrendi ve onu İslam'a davet etti.",
+        "kisa_ozet": "Babası Hz. Davud'dan sonra peygamber ve kral oldu. Cinlere, rüzgara ve kuşlara hükmetti. Hüdhüd kuşundan Sebe melikesini öğrendi ve onu tevhide davet etti.",
         "kissa": [
           {
             "baslik": "Rüzgar ve Cinlere Hükmetmek",
@@ -926,7 +933,7 @@
           "Rüzgara hükmetmek",
           "Cinleri emrinde çalıştırmak",
           "Kuş dilini bilmek",
-          "Belkıs'ın tahtını anında getirtmek"
+          "Sebe melikesinin tahtını anında getirtmek"
         ],
         "dersler": [
           "Büyük nimet büyük şükür gerektirir",
@@ -942,6 +949,9 @@
           "27:15-44",
           "34:12-14",
           "38:30-40"
+        ],
+        "ozel_notlar": [
+          "Kur'an'da Sebe melikesinin ismi verilmez; yaygın kullanılan 'Belkıs' adı tefsir ve rivayet geleneğinden gelir. Bu nedenle daha doğrudan ifade 'Sebe melikesi'dir."
         ]
       },
       {

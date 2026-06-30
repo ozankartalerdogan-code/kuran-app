@@ -1,12 +1,16 @@
 {
   "meta": {
-    "title": "Sahih Hadisler",
-    "subtitle": "Hz. Muhammed'in (s.a.v.) Sözleri",
-    "description": "Bu modüldeki tüm hadisler, hem Sahîh-i Buhârî hem de Sahîh-i Müslim'de geçen (müttefekun aleyh) rivayetlerden oluşmaktadır. Müttefekun aleyh, İslâm hadis ilminde 'iki imamın da üzerinde ittifak ettiği' anlamına gelir ve en yüksek güvenilirlik derecesini ifade eder.",
-    "reliability_standard": "Yalnızca müttefekun aleyh (Buhârî ve Müslim'in her ikisinde yer alan, üzerinde ittifak edilmiş hadisler) ve sahih senetli rivayetler seçilmiştir.",
+    "title": "Seçme Hadisler",
+    "subtitle": "Hz. Muhammed'in (s.a.v.) sözlerinden konu bazlı derleme",
+    "description": "Bu modüldeki hadisler ağırlıklı olarak Buhârî ve Müslimden, bir kısmı ise Tirmizî, Ebû Dâvûd, İbn Mâce ve Ahmed b. Hanbel gibi temel hadis kaynaklarındaki yaygın rivayetlerden derlenmiştir. Amaç, konu bazlı güvenilir ve öğretici bir seçki sunmaktır.",
+    "reliability_standard": "Hadisler mümkün olduğunca temel hadis kaynaklarından seçildi; ekranda doğrudan numaralı atıf bulunan rivayetler sunnah_url üzerinden gösterilir, bazı kayıtlarda ise tema düzeyinde açıklayıcı kaynak notu korunur.",
     "sources": [
       "Sahîh-i Buhârî",
-      "Sahîh-i Müslim"
+      "Sahîh-i Müslim",
+      "Câmiu't-Tirmizî",
+      "Sünen-i Ebû Dâvûd",
+      "Sünen-i İbn Mâce",
+      "Müsned-i Ahmed"
     ],
     "version": "2.0.0"
   },
@@ -17,7 +21,7 @@
       "group": "İbadet",
       "group_order": 1,
       "order": 1,
-      "intro": "Namaz, İslâm'ın beş temel şartından biridir ve günde beş vakit kılınır. Hz. Peygamber namazı 'dinin direği' olarak tanımlamış; onu terk edenin dinden çıktığını belirtmiştir. Namaz, kulun Allah ile kurduğu en doğrudan bağdır."
+      "intro": "Namaz, İslâm'ın beş temel şartından biridir ve günde beş vakit kılınır. Hadislerde namazın mümin hayatındaki merkezi yeri, günahları arındırıcı yönü ve ahiretteki hesabı sıkça vurgulanır. Namaz, kulun Allah ile kurduğu en doğrudan bağlardan biridir."
     },
     {
       "id": "oruc",
@@ -33,7 +37,7 @@
       "group": "İbadet",
       "group_order": 1,
       "order": 3,
-      "intro": "Dua, kulun Allah'a yönelerek istekte bulunmasıdır; zikir ise Allah'ı her an hatırda tutmak ve anmaktır. Hz. Peygamber duayı 'ibadetin özü' olarak nitelendirmiş ve her işe Allah'ı anarak başlamayı öğütlemiştir."
+      "intro": "Dua, kulun Allah'a yönelerek istekte bulunmasıdır; zikir ise Allah'ı anmak ve O'nu sürekli hatırda tutmaktır. Hadislerde dua ve zikrin, kulluğun kalbini diri tutan en temel ameller arasında olduğu vurgulanır."
     },
     {
       "id": "niyet-ihlas",
@@ -65,7 +69,7 @@
       "group": "Ahlak & Karakter",
       "group_order": 2,
       "order": 7,
-      "intro": "Öfke, kontrolsüz bırakıldığında insanı ve çevresini tahrip eden güçlü bir duygudur. Hz. Peygamber öfkeli anın en tehlikeli an olduğunu vurgulayarak öfkeyi yutmayı, oturmayı, abdest almayı ve susup beklemeyi tavsiye etmiştir."
+      "intro": "Öfke, kontrolsüz bırakıldığında insanı ve çevresini tahrip eden güçlü bir duygudur. Hz. Peygamber öfke anında susmayı, güç gösterisi yerine kendini tutmayı ve bedensel olarak sakinleşmeyi öğütlemiştir. Oturmak ve yer değiştirmek gibi pratik tavsiyeler sahih rivayetlerde, abdest tavsiyesi ise daha zayıf rivayetlerde geçer."
     },
     {
       "id": "kibir-tevazu",
@@ -81,7 +85,7 @@
       "group": "Ahlak & Karakter",
       "group_order": 2,
       "order": 9,
-      "intro": "Gıybet, bir kişinin yokluğunda onu hoşlanmayacağı şekilde anmaktır. İftira ise o kişide olmayan bir şeyi ona yakıştırmaktır. Her ikisi de İslâm'da büyük günahlar arasında sayılır. Hz. Peygamber gıybeti 'ölü kardeşin etini yemek' olarak tanımlamıştır."
+      "intro": "Gıybet, bir kişinin yokluğunda onu hoşlanmayacağı şekilde anmaktır. İftira ise o kişide olmayan bir şeyi ona yakıştırmaktır. Her ikisi de İslâm'da büyük günahlar arasında sayılır. Kur'an, gıybeti çok çarpıcı bir dille 'ölü kardeşinin etini yemek' benzetmesiyle kınar; hadislerde ise gıybet ile iftiranın farkı açıklanır."
     },
     {
       "id": "anne-baba-hakki",
@@ -121,7 +125,7 @@
       "group": "Toplum & Muamelat",
       "group_order": 4,
       "order": 14,
-      "intro": "Hz. Peygamber ticareti meşru bir geçim kaynağı olarak tanımlamış; ancak dürüstlüğü bunun olmazsa olmaz şartı saymıştır. Doğru ve dürüst tacir, ahirette peygamberler ve şehitlerle birlikte olacaktır. Hile ve aldatma ise bereketi yok eder."
+      "intro": "Hz. Peygamber ticareti meşru bir geçim yolu olarak görmüş; dürüstlüğü, açıklığı ve güvenilirliği bunun ayrılmaz şartı saymıştır. Ticarette doğruluk bereket vesilesi, hile ve aldatma ise manevî yıkım sebebi olarak sunulur."
     },
     {
       "id": "emanet-vefa",
@@ -177,7 +181,7 @@
       "group": "Bilgi",
       "group_order": 6,
       "order": 21,
-      "intro": "İslâm'ın ilk emri 'Oku!' dur. İlim öğrenmek her Müslümana farzdır. Hz. Peygamber ilim öğrenmek için yola çıkanın cennete giden yolda olduğunu bildirmiş; bilgin ile çok ibadet eden ama ilim öğrenmeyen kişi arasındaki farkı göğün yıldızlarına benzetmiştir."
+      "intro": "İslâm'ın ilk emri 'Oku!'dur. Hadislerde ilim öğrenmek güçlü biçimde teşvik edilmiş, ilim yoluna girmenin kişiyi Allah'a yakınlaştıran bir çaba olduğu bildirilmiştir. Faydalı bilgiyi öğrenmek ve paylaşmak Müslüman için sürekli bir sorumluluktur."
     },
     {
       "id": "kader",
@@ -225,7 +229,7 @@
       "group": "Merak Edilen",
       "group_order": 7,
       "order": 27,
-      "intro": "Ölüm, ruhun bedenden ayrılmasıyla başlayan yeni bir hayatın kapısıdır. Kabir hayatı, bu dünya ile ahiret arasındaki bir geçiş evidir. Hz. Peygamber kabrin ya cennet bahçelerinden bir bahçe ya da cehennem çukurlarından bir çukur olduğunu belirtmiştir."
+      "intro": "Ölüm, ruhun bedenden ayrılmasıyla başlayan yeni bir hayatın kapısıdır. Hadislerde kabir hayatı, dünya ile ahiret arasındaki geçiş safhası olarak anlatılır; kişinin orada nimet veya sıkıntıyla karşılaşabileceği bildirilir."
     }
   ],
   "hadiths": [
@@ -738,23 +742,6 @@
       ]
     },
     {
-      "id": "anne-riza-cennet",
-      "topic_id": "anne-baba-hakki",
-      "turkish_text": "Cennet, annelerin ayakları altındadır.",
-      "narrator": "Muâviye b. Câhime (r.a.)",
-      "source_bukhari": "Buhârî, Edeb (bağlamsal)",
-      "source_muslim": "Müslim, Birr (bağlamsal)",
-      "sunnah_url": "https://sunnah.com/muslim:2548",
-      "key_lesson": "Anneye hizmet ve rızasını kazanmak, cennete açılan en emin yollardan biridir.",
-      "info_note": "Bu ifade, anneye hizmetin ve ona iyi davranmanın insanı cennete götüren en doğrudan yollardan biri olduğunu anlatan mecazî (sembolik) bir sözdür. Annenin rızasını kazanmak, cennete giriş için büyük bir vesiledir.",
-      "tags": [
-        "anne-baba",
-        "anne-hakki",
-        "cennet",
-        "hizmet"
-      ]
-    },
-    {
       "id": "kadinlara-iyilik",
       "topic_id": "eslere-davranis",
       "turkish_text": "Kadınlara iyi davranın. Kadın, kaburga kemiğinden yaratılmıştır. Kaburganın en eğri yeri üst kısmıdır. Zorla doğrultmaya kalkarsan kırarsın; kendi hâline bırakırsan eğri kalır. Öyleyse kadınlara iyi davranın.",
@@ -1220,19 +1207,19 @@
     {
       "id": "ilim-kalkmasi",
       "topic_id": "kiyamet-alametleri",
-      "turkish_text": "Kıyamet kopmadan önce: Zaman kısalır, ilim ortadan kalkar, kargaşalar baş gösterir, cimrilik yayılır ve öldürmeler çoğalır.",
-      "narrator": "Ebû Hüreyre (r.a.)",
+      "turkish_text": "Zaman daralacak, salih amel azalacak, cimrilik kalplere atılacak, fitneler ortaya çıkacak ve öldürmeler çoğalacaktır.",
+      "narrator": "Ebû Hureyre (r.a.)",
       "source_bukhari": "Buhârî, Fiten, 7061",
-      "source_muslim": "Müslim, İlim, 2672",
+      "source_muslim": "",
       "sunnah_url": "https://sunnah.com/bukhari:7061",
-      "key_lesson": "İlmin azalması ve toplumsal şiddetin artması kıyamet öncesi dönemin belirgin alametlerindendir.",
-      "info_note": "İlmin ortadan kalkması: Din bilginlerinin birer birer vefat etmesiyle geriye cahillerin kalması. Zaman kısalması: Bereketlerin azalması ve zamanın çok hızlı geçer hissini vermesi şeklinde yorumlanmıştır.",
+      "key_lesson": "Kıyamete yaklaşırken toplumsal karışıklıkların ve anlamsız şiddetin artması önemli uyarı işaretlerindendir.",
+      "info_note": "Önceki sürümde bu kayıt, kaynağında geçmeyen 'ilmin kaldırılması' ve 'depremlerin çoğalması' ifadeleriyle birleştirilmişti. Buhârî 7061'deki asıl metne göre düzeltildi.",
       "tags": [
         "kiyamet",
-        "alametler",
-        "ilim",
         "fitne",
-        "siddet"
+        "oldurme",
+        "cimrilik",
+        "zaman"
       ]
     },
     {
@@ -1374,17 +1361,20 @@
     {
       "id": "dua-ibadet-ozu",
       "topic_id": "dua-zikir",
-      "turkish_text": "Dua, ibadetin özüdür (ta kendisidir).",
-      "narrator": "Nu'man b. Beşîr (r.a.)",
-      "source_bukhari": "Buhârî, Daavât (bağlamsal)",
+      "turkish_text": "Hz. Peygamber şöyle dua ederdi: 'Allah'ım! Acizlikten, tembellikten, korkaklıktan, cimrilikten, bunamaktan ve kabir azabından sana sığınırım. Allah'ım! Nefsime takvasını ver ve onu arındır; onu arındıranların en hayırlısı sensin. Sen onun dostu ve mevlâsısın.'",
+      "narrator": "Zeyd b. Erkam (r.a.)",
+      "source_bukhari": "",
       "source_muslim": "Müslim, Zikir, 2722",
       "sunnah_url": "https://sunnah.com/muslim:2722",
-      "key_lesson": "Dua yalnızca bir istek değil; kulun Allah'a yönelişinin en saf ifadesidir.",
+      "key_lesson": "Peygamberin öğrettiği dualar, sadece istemeyi değil; nefsin arınmasını ve kötü huylarla mücadeleyi de kapsar.",
       "tags": [
         "dua",
-        "ibadet",
-        "ozu"
-      ]
+        "zikir",
+        "siginma",
+        "nefis",
+        "kabir"
+      ],
+      "info_note": "Önceki kayıtta yer alan 'Dua ibadetin özüdür' lafzı bu numaralı Müslim rivayetiyle uyuşmuyordu. Bu yüzden kayıt, doğrudan Müslim 2722'de geçen sahih dua metniyle düzeltildi."
     },
     {
       "id": "dua-kul-yakin",
@@ -1418,22 +1408,6 @@
         "tesbih",
         "hamd",
         "tekbir"
-      ]
-    },
-    {
-      "id": "niyet-hicret-dunyalik",
-      "topic_id": "niyet-ihlas",
-      "turkish_text": "Dünya işlerinden herhangi birini yaparken Allah'ı hatırlayan ve O'nun rızasını gözeten kimsenin bu ameli ibadete dönüşür.",
-      "narrator": "Ebû Hüreyre (r.a.)",
-      "source_bukhari": "Buhârî, Rikâk (bağlamsal)",
-      "source_muslim": "Müslim, İmân (bağlamsal)",
-      "sunnah_url": "https://sunnah.com/bukhari:1",
-      "key_lesson": "Doğru niyetle yapılan her dünyevî iş ibadete dönüşebilir; niyet her şeyi değiştirir.",
-      "tags": [
-        "niyet",
-        "ihlas",
-        "amel",
-        "gunluk-hayat"
       ]
     },
     {
@@ -1585,22 +1559,6 @@
       ]
     },
     {
-      "id": "es-ogut-ver",
-      "topic_id": "eslere-davranis",
-      "turkish_text": "Kadınlara karşı iyi davranma konusunda birbirinize öğüt verin.",
-      "narrator": "Ebû Hüreyre (r.a.)",
-      "source_bukhari": "Buhârî, Enbiyâ, 3331",
-      "source_muslim": "Müslim, Radâ', 1468",
-      "sunnah_url": "https://sunnah.com/bukhari:3331",
-      "key_lesson": "Eşlere iyi davranmak yalnızca bireysel bir sorumluluk değil; toplumun birbirine aktarması gereken ortak bir değerdir.",
-      "tags": [
-        "kadin-hakki",
-        "evlilik",
-        "toplum",
-        "ogut"
-      ]
-    },
-    {
       "id": "hile-helal-degil",
       "topic_id": "ticaret-ahlaki",
       "turkish_text": "Bizi aldatan (yanıltan) bizden değildir.",
@@ -1635,19 +1593,20 @@
     },
     {
       "id": "helal-kazanc-farz",
-      "topic_id": "ticaret-ahlaki",
-      "turkish_text": "Helal (dinen serbest) kazanç aramak her Müslümana farzdur (zorunludur).",
-      "narrator": "Enes b. Mâlik (r.a.)",
-      "source_bukhari": "Buhârî, Büyû' (bağlamsal)",
-      "source_muslim": "Müslim (bağlamsal)",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Hz. Peygamber, takva sahibi bir kimse için zenginlikte sakınca olmadığını; ancak sağlık nimetinin zenginlikten daha hayırlı olduğunu ve gönül hoşluğunun da bir nimet sayıldığını bildirmiştir.",
+      "narrator": "Muâz b. Abdullah b. Hubeyb'in amcası (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "",
       "sunnah_url": "https://sunnah.com/ibnmajah:2141",
-      "key_lesson": "Helal yoldan geçimini sağlamak bir erdem değil; her Müslümanın yerine getirmesi gereken bir yükümlülüktür.",
-      "info_note": "Helal: İslâm'ın izin verdiği, dinen serbest olan şey. Farz: Yerine getirilmesi zorunlu olan dinî yükümlülük. Bu hadis, çalışmanın ve helal kazancın ibadetten ayrı olmadığını gösterir.",
+      "key_lesson": "İslâm, malı tek başına kötü görmez; asıl ölçü takva, sağlık ve nimetin şükrünü bilmektir.",
+      "info_note": "İbn Mâce 2141'deki rivayet, 'helal kazanç aramak farzdır' lafzını değil; takva ile birlikte zenginliğin sakıncalı olmadığını ve sağlığın daha büyük nimet olduğunu anlatır. Kayıt bu asıl metne göre düzeltildi.",
       "tags": [
-        "ticaret",
-        "helal",
-        "kazanc",
-        "farz"
+        "rizik",
+        "tevekkul",
+        "zenginlik",
+        "takva",
+        "saglik"
       ]
     },
     {
@@ -1676,7 +1635,7 @@
       "source_muslim": "Müslim, Tevbe (bağlamsal)",
       "sunnah_url": "https://sunnah.com/tirmidhi:2499",
       "key_lesson": "Hiç hata yapmamak değil; hata yaptıktan sonra hemen tövbeye dönmek asıldır.",
-      "info_note": "Âdemoğlu: İnsanoğlu, Hz. Âdem'in neslinden gelen her insan. Bu hadis, günahı normalleştirmez; ama insanın doğasında hata yapmanın olduğunu ve önemli olanın tövbeye koşmak olduğunu anlatır.",
+      "info_note": "Âdemoğlu: İnsanoğlu, Hz. Âdem'in neslinden gelen her insan. Bu rivayet Tirmizî'de yer alır; ancak aynı sayfada modern tahkikte zayıf (daif) olarak da değerlendirilmiştir. Buna rağmen tövbeye yönelmenin önemi İslâm'ın genel öğretisiyle sabittir.",
       "tags": [
         "tovbe",
         "hata",
@@ -1820,22 +1779,6 @@
       ]
     },
     {
-      "id": "kiyamet-deprem-yanardaglar",
-      "topic_id": "kiyamet-alametleri",
-      "turkish_text": "Kıyamet kopmadan önce ilim ortadan kalkar, depremler çoğalır, zaman kısalır, kargaşalar baş gösterir ve öldürmeler artar.",
-      "narrator": "Ebû Hüreyre (r.a.)",
-      "source_bukhari": "Buhârî, Fiten, 7061",
-      "source_muslim": "Müslim, Fiten, 157",
-      "sunnah_url": "https://sunnah.com/bukhari:7061",
-      "key_lesson": "Doğal afetlerin artması ve toplumsal düzenin bozulması kıyamete yaklaşmanın alametleri arasındadır.",
-      "tags": [
-        "kiyamet",
-        "alametler",
-        "deprem",
-        "fitne"
-      ]
-    },
-    {
       "id": "cennet-cehennem-arzular",
       "topic_id": "cennet-cehennem",
       "turkish_text": "Cehennem nefsin hoşuna giden şeylerle (arzularla), cennet ise nefsin hoşuna gitmeyen şeylerle (zorluklarla) çevrilmiştir.",
@@ -1948,7 +1891,7 @@
       "source_muslim": "Müslim, Birr (bağlamsal)",
       "sunnah_url": "https://sunnah.com/abudawud:4784",
       "key_lesson": "Abdest almak, öfke anında hem fiziksel hem manevî olarak sakinleşmeye yardımcı olan pratik bir sünnettir.",
-      "info_note": "Öfkenin ateşe benzetilmesi, onun yıkıcı etkisini vurgular. Su ise hem fiziksel hem sembolik olarak sakinleştiricidir. Abdest alırken soğuk suyla temas, sinir sistemini yatıştırır; aynı zamanda Allah'a yönelme niyeti zihni sakinleştirir.",
+      "info_note": "Öfkenin ateşe benzetilmesi, onun yıkıcı etkisini vurgular. Ancak bu Ebû Dâvûd rivayeti aynı sayfada Albânî tarafından zayıf (daif) değerlendirilmiştir. Bu yüzden abdest tavsiyesi faydalı bir uygulama olarak görülebilir; fakat sahihliği daha güçlü diğer öfke tavsiyeleriyle aynı düzeyde sunulmamalıdır.",
       "tags": [
         "ofke",
         "abdest",
@@ -1990,23 +1933,6 @@
       ]
     },
     {
-      "id": "sozunde-dur-kiyamet",
-      "topic_id": "emanet-vefa",
-      "turkish_text": "Kıyamet günü her sözünden dönen için bir bayrak dikilir ve 'Bu, filan oğlu filanın ihaneti!' diye ilan edilir.",
-      "narrator": "İbn Ömer (r.a.)",
-      "source_bukhari": "Buhârî, Cihâd, 3188",
-      "source_muslim": "Müslim, Cihâd, 1736",
-      "sunnah_url": "https://sunnah.com/bukhari:3188",
-      "key_lesson": "Sözünden dönmek, mahşerde herkesin önünde ismiyle ilan edilen bir utanç olacaktır.",
-      "tags": [
-        "emanet",
-        "vefa",
-        "kiyamet",
-        "ihanet",
-        "utanc"
-      ]
-    },
-    {
       "id": "haksizlik-hemen-gider",
       "topic_id": "adalet-zulum",
       "turkish_text": "Allah haksızlığı uzun süre erteler; ama yakaladığında bırakmaz.",
@@ -2043,18 +1969,19 @@
     {
       "id": "kabre-yat-duşun",
       "topic_id": "olumu-hatirlamak",
-      "turkish_text": "Zevkleri sona erdireni (ölümü) çokça hatırlayın; çünkü o, darda olanı rahatlatır, genişlikte olanın ise (dünyaya olan bağlılığını) daraltır.",
-      "narrator": "İbn Ömer (r.a.)",
-      "source_bukhari": "Buhârî, Rikâk (bağlamsal)",
-      "source_muslim": "Müslim, Cenâiz (bağlamsal)",
+      "turkish_text": "Lezzetleri kesip sona erdiren şeyi, yani ölümü çokça hatırlayın.",
+      "narrator": "Ebû Hureyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "",
       "sunnah_url": "https://sunnah.com/tirmidhi:2307",
-      "key_lesson": "Ölümü hatırlamak hem sıkıntı içindekine teselli, hem de bolluk içindekine frenleme görevi görür.",
+      "key_lesson": "Ölümü hatırlamak, insanı dünya sarhoşluğundan uyandıran güçlü bir muhasebe vesilesidir.",
       "tags": [
         "olum",
         "hatirlamak",
-        "teselli",
-        "fren"
-      ]
+        "zuhd",
+        "muhasebe"
+      ],
+      "info_note": "Bu kayıt önceki sürümde kaynağında bulunmayan ek açıklamalı bir cümleyle aktarılmıştı. Tirmizî 2307'de geçen kısa ve doğrudan lafza göre düzeltildi."
     },
     {
       "id": "kader-yaz-kalem",
@@ -2105,23 +2032,6 @@
         "ev",
         "yemek",
         "koruma"
-      ]
-    },
-    {
-      "id": "kabir-bahce-ya-cukkur",
-      "topic_id": "olum-kabir",
-      "turkish_text": "Kabir ya cennet bahçelerinden bir bahçedir ya da cehennem çukurlarından bir çukur.",
-      "narrator": "Ebû Saîd el-Hudrî (r.a.)",
-      "source_bukhari": "Buhârî, Cenâiz (bağlamsal)",
-      "source_muslim": "Müslim, Cennet (bağlamsal)",
-      "sunnah_url": "https://sunnah.com/tirmidhi:2460",
-      "key_lesson": "Kabir, ahiretin başlangıcıdır; orada yaşanacak deneyim, dünyadaki amellere göre şekillenir.",
-      "tags": [
-        "kabir",
-        "cennet",
-        "cehennem",
-        "olum",
-        "ahiret"
       ]
     }
   ]

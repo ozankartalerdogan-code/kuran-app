@@ -123,7 +123,7 @@ export default function DualarScreen() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.intro, { color: c.textSecondary }]}>{D.aciklama}</Text>
-        {D.kategoriler.map((k, i) => <KategoriAccordion key={k.kod} kat={k} defaultOpen={i === 0} />)}
+        {D.kategoriler.map((k) => <KategoriAccordion key={k.kod} kat={k} />)}
       </ScrollView>
     </>
   );

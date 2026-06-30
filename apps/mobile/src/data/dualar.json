@@ -1,6 +1,6 @@
 {
   "baslik": "Dualar ve Zikirler",
-  "aciklama": "Aşağıdaki çalışma, Kur'an-ı Kerim ve sahih hadis kaynaklarına (Buhârî, Müslim, Ebû Dâvûd, Tirmizî, Nesâî, İbn Mâce, Hisnü'l-Müslim, Diyanet yayınları) dayanarak hazırlanmıştır. Zayıf, münker veya mevzu rivayetlere yer verilmemiştir.",
+  "aciklama": "Aşağıdaki çalışma, Kur'an-ı Kerim ve temel hadis kaynaklarına dayanarak hazırlanmıştır. Rivayet dereceleri ilgili kayıtlarda belirtilmiş; açıkça zayıf veya uydurma olduğu bilinen rivayetlere yer verilmemeye çalışılmıştır.",
   "kategoriler": [
     {
       "kod": "A",
@@ -84,11 +84,11 @@
           "okunus": "Lâ ilâhe illâ ente sübhâneke innî küntü mine'z-zâlimîn.",
           "anlam": "Senden başka hiçbir ilâh yoktur. Seni tenzih ederim. Gerçekten ben, (nefsine) zulmedenlerden oldum.",
           "kaynak": "Kur'an-ı Kerim, Enbiyâ Suresi 87; Tirmizî, Tefsîru'l-Kur'ân, 21/3244 (hasen-sahih)",
-          "derece": "Kur'an (Hadis olarak derecesi: Sahih)",
+          "derece": "Kur'an (hadis rivayeti: hasen-sahih olarak değerlendirilmiştir)",
           "tekrar": "Herhangi bir sayı sınırlaması yok, ihtiyaç halinde tekrarlanabilir",
           "neZaman": "Keder, sıkıntı, zorluk anlarında",
-          "aciklama": "Hz. Yunus (a.s.) balığın karnında kaldığında bu dua ile Allah'a yalvarmış, duası kabul edilmiştir. Tirmizî'ye göre hangi Müslüman sıkıntı anında bu duayı okursa Allah duasını kabul eder.",
-          "not": "Keder ve sıkıntı halinde bolca tekrarlanması tavsiye edilir."
+          "aciklama": "Hz. Yunus (a.s.) balığın karnında kaldığında bu dua ile Allah'a yalvarmış, duası kabul edilmiştir. Tirmizî rivayetinde bu duanın sıkıntı anında okunan büyük dualardan olduğu belirtilir.",
+          "not": "Keder ve sıkıntı halinde bolca tekrarlanabilir; icabet Allah'tandır."
         },
         {
           "baslik": "Vesvese ve Şeytandan Korunma Duası",
@@ -100,7 +100,7 @@
           "tekrar": "Herhangi bir sayı sınırlaması yok, ihtiyaç halinde",
           "neZaman": "Vesveseye maruz kalındığında, şeytanın tahriklerinden korunmak için",
           "aciklama": "Bu ayetler, şeytanların gizli kışkırtma ve tahriklerinden Allah'a sığınmayı öğretir.",
-          "not": "Vesveseye karşı en etkili ayetlerdendir."
+          "not": "Vesvese ve şeytanın tahriklerinden Allah'a sığınmayı öğreten güçlü Kur'an ayetlerindendir."
         }
       ]
     },
@@ -185,23 +185,23 @@
           "arapca": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ",
           "okunus": "Allâhümme innî es'elüke'l-afve ve'l-âfiyete fi'd-dünyâ ve'l-âhire.",
           "anlam": "Allah'ım! Senden dünya ve ahirette af ve afiyet dilerim.",
-          "kaynak": "İbn Mâce, Dua, 19/3870; Ebû Dâvûd, Edeb, 110/5074; Hisnü'l-Müslim",
-          "derece": "Sahih",
-          "tekrar": "Sabah ve akşam 3 defa",
+          "kaynak": "Ebû Dâvûd, Edeb, 110/5074; Hisnü'l-Müslim",
+          "derece": "Sahih (Ebû Dâvûd)",
+          "tekrar": "Sabah ve akşam 1 defa",
           "neZaman": "Sabah ve akşam vakitlerinde",
-          "aciklama": "\"Bir kimse sabah-akşam bu duayı okursa, Allah ona dünya ve ahirette afiyet verir\" buyurulmuştur.",
-          "not": "Sağlık, huzur ve manevi korunma için okunur."
+          "aciklama": "Bu ifade, sabah-akşam okunan daha kapsamlı afiyet duasının özlü başlangıç cümlesidir. Ebû Dâvûd rivayetinde Resûlullah'ın sabah ve akşam afiyet istemeyi ihmal etmediği bildirilir.",
+          "not": "Daha uzun lafızda din, dünya, aile ve mal için de afiyet istenir. Kısa formu da dua niyetiyle okunabilir."
         },
         {
           "baslik": "Günün Nimetleri İçin Dua",
           "arapca": "اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ",
           "okunus": "Allâhümme mâ asbeha bî min ni'metin fe-minke vahdeke lâ şerîke lek, fe-leke'l-hamdü ve leke'ş-şükr.",
           "anlam": "Allah'ım! Bu sabah bende bulunan her nimet yalnız senin katındandır. Senin ortağın yoktur. Hamd de şükür de sanadır.",
-          "kaynak": "Nesâî, Amelü'l-yevm ve'l-leyle, 30; İbn Mâce, Dua, 15/3847; Hisnü'l-Müslim",
-          "derece": "Sahih",
+          "kaynak": "Nesâî, Amelü'l-yevm ve'l-leyle, 30; Hisnü'l-Müslim",
+          "derece": "Meşhur sabah-akşam şükür duası",
           "tekrar": "Sabah ve akşam 1 defa",
           "neZaman": "Sabah ve akşam vakitlerinde",
-          "aciklama": "Bu dua ile Allah'ın verdiği nimetlerin şükrü yerine getirilir.",
+          "aciklama": "Bu dua ile kişi, sahip olduğu nimetlerin Allah'tan olduğunu ikrar eder ve O'na hamd ile şükre yönelir.",
           "not": "Şükür bilincini tazeleyen bir duadır."
         }
       ]
@@ -252,11 +252,11 @@
           "okunus": "Allâhümme fâtıra's-semâvâti ve'l-ard, âlime'l-ğaybi ve'ş-şehâdeti rabbe külli şey'in ve melîkeh, eşhedü en lâ ilâhe illâ ente fe-ehırnî mine'n-nâr.",
           "anlam": "Gökleri ve yeri yaratan, gizliyi ve âşikârı bilen, her şeyin Rabbi ve sahibi olan Allah'ım! Senden başka hiçbir ilâh olmadığına şehadet ederim. Beni cehennem ateşinden koru.",
           "kaynak": "Tirmizî, Daavât, 9/3392; Hisnü'l-Müslim",
-          "derece": "Sahih (Tirmizî)",
+          "derece": "Hasen-sahih olarak değerlendirilen rivayet",
           "tekrar": "Her gece yatmadan önce 1 defa",
           "neZaman": "Uyumadan hemen önce",
-          "aciklama": "Resûlullah (s.a.s.), \"Kim bu duayı söylerse, kıyamet günü ona şefaat edilir\" buyurmuştur.",
-          "not": "Ahiret azabından korunma niyetiyle okunur."
+          "aciklama": "Bu dua, uyumadan önce Allah'a sığınma ve ahiret azabından korunma niyetiyle okunan kapsamlı dualardandır.",
+          "not": "Ahiret azabından ve nefsin şerrinden Allah'a sığınma niyetiyle okunur."
         },
         {
           "baslik": "Muâvvizeteyn (Koruyucu Sureler)",
@@ -268,7 +268,7 @@
           "tekrar": "Yatmadan önce 3'er defa",
           "neZaman": "Uyumadan hemen önce",
           "aciklama": "Hz. Âişe (r.anha)'nin rivayetine göre, Resûlullah (s.a.s.) her gece yattığında ellerini birleştirir, avuçlarına İhlas, Felak ve Nas surelerini okuyup üfler, sonra ellerini başından başlayarak vücuduna sürerdi.",
-          "not": "Gece boyunca şeytan, nazar ve büyü gibi her türlü şerden korunmak için yapılan sünnettir."
+          "not": "Gece yatarken okunması sünnettir; Allah'ın izniyle korunma ve huzura vesile olur."
         }
       ]
     },
@@ -313,16 +313,16 @@
           "not": "Özellikle haset eden kişinin şerrinden korunmak için okunur."
         },
         {
-          "baslik": "Fatiha ve Ayetü'l-Kürsi ile Nazardan Korunma",
+          "baslik": "Fatiha ile Şifa, Ayetü'l-Kürsi ile Korunma",
           "arapca": "Fatiha suresi ve Ayetü'l-Kürsi",
           "okunus": "(Yukarıda verilmiştir)",
           "anlam": "(Yukarıda verilmiştir)",
-          "kaynak": "Ebû Dâvûd, Tıb, 19/3900 (Fatiha'nın şifa için okunması)",
-          "derece": "Sahih",
+          "kaynak": "Ebû Dâvûd, Tıb, 19/3900 (Fâtiha'nın rukyede okunması); Buhârî, Vekâle, 10 (Âyetü'l-Kürsî'nin gece korunmasına dair)",
+          "derece": "Sahih (genel şifa ve korunma rivayetleri)",
           "tekrar": "İhtiyaç halinde",
-          "neZaman": "Nazardan şüphelenildiğinde",
-          "aciklama": "Fatiha suresi \"şifâ\" olarak nitelendirilmiş, Ayetü'l-Kürsi ise nazar ve büyüye karşı en güçlü ayetlerdendir.",
-          "not": "Bazı âlimler, nazar değen kimse için bu sure ve ayetlerin okunup üflenmesini tavsiye etmiştir."
+          "neZaman": "Şifa ve korunma niyetiyle okunmak istendiğinde",
+          "aciklama": "Fâtiha, sahih hadiste rukye ve şifa vesilesi olarak okunmuştur. Âyetü'l-Kürsî de korunma faziletiyle meşhurdur. Bu iki metni nazar şüphesi dahil genel korunma ve şifa niyetiyle okumak yaygın bir uygulamadır.",
+          "not": "Doğrudan 'nazara karşı bu ikisini birlikte okuyun' lafzıyla sahih bir hadis zikredilmez; burada sahih rivayetlerle sabit genel şifa ve korunma fazileti esas alınmıştır."
         },
         {
           "baslik": "Hasede Karşı Okunacak Ayetler",
@@ -367,16 +367,16 @@
           "not": "Vesvese geldiğinde \"Eûzü\" çekmek, şeytanın etkisini kırmak için yapılan en temel sünnettir."
         },
         {
-          "baslik": "Şeytandan Korunmada En Etkili Ayetler ve Sureler",
+          "baslik": "Şeytandan Korunmada Okunan Ayetler ve Sureler",
           "arapca": "Ayetü'l-Kürsi, İhlas, Felak, Nas sureleri",
           "okunus": "(İlgili ayet ve surelerin okunuşu)",
           "anlam": "(Yukarıda verilmiştir)",
           "kaynak": "Buhârî, Vekâle, 10; Müslim, Salât, 222/813",
-          "derece": "Sahih",
+          "derece": "Sahih (ilgili ayet ve surelerin fazileti sabittir)",
           "tekrar": "Her namazın ardından, sabah-akşam, yatmadan önce",
           "neZaman": "Düzenli olarak; şeytanın vesvesesinden korunmak için",
-          "aciklama": "Ayetü'l-Kürsi'nin şeytandan korunma amacıyla okunması hadisle sabittir.",
-          "not": "Felak ve Nas sureleri, özellikle vesvese veren \"sinsi fısıldayıcının\" şerrinden korunmak için nazil olmuştur."
+          "aciklama": "Âyetü'l-Kürsî'nin gece okunmasının şeytandan korunmaya vesile olduğu hadisle sabittir.",
+          "not": "Felak ve Nas sureleri de vesvese ve görünür-görünmez şerlerden Allah'a sığınmayı öğretir."
         },
         {
           "baslik": "Vesvese Anında Yapılacak Uygulama",
@@ -396,11 +396,11 @@
           "okunus": "Hasbünallahü ve ni'me'l-vekîl.",
           "anlam": "Allah bize yeter. O, ne güzel vekildir.",
           "kaynak": "Kur'an-ı Kerim, Âl-i İmrân 173; Buhârî, Tefsîr, 3",
-          "derece": "Sahih",
+          "derece": "Kur'an ve sahih rivayet",
           "tekrar": "Herhangi bir sayı sınırlaması yok",
           "neZaman": "Her türlü vesvese, korku ve şüphe anında",
-          "aciklama": "\"Hasbünallahü ve ni'me'l-vekîl\" demek, her türlü şeytanî vesveseyi kovan, kalbe huzur ve güven veren bir zikirdir.",
-          "not": "Özellikle \"Allah'ın rahmetinden ümit kesme\" vesvesesine karşı en etkili zikirdir."
+          "aciklama": "'Hasbünallahü ve ni'me'l-vekîl' sözü, zorluk ve korku anlarında Allah'a dayanmayı ifade eden büyük bir zikirdir.",
+          "not": "Vesvese, korku ve endişe anlarında kalbe güven veren bir teslimiyet sözüdür."
         },
         {
           "baslik": "Hz. Musa'nın (a.s.) Duası",
@@ -462,11 +462,11 @@
           "okunus": "Lâ ilâhe illâ ente sübhâneke innî küntü mine'z-zâlimîn.",
           "anlam": "Senden başka hiçbir ilâh yoktur. Seni tenzih ederim. Gerçekten ben, nefsime zulmedenlerden oldum.",
           "kaynak": "Kur'an-ı Kerim, Enbiyâ 87; Tirmizî, Tefsîru'l-Kur'ân, 21/3244 (hasen-sahih)",
-          "derece": "Kur'an (Hadis olarak derecesi: Sahih)",
+          "derece": "Kur'an (hadis rivayeti: hasen-sahih olarak değerlendirilmiştir)",
           "tekrar": "Herhangi bir sayı sınırlaması yok",
           "neZaman": "Her türlü sıkıntı, darlık, keder, borç, hapis, hastalık anında",
-          "aciklama": "\"Hiçbir Müslüman yoktur ki bir sıkıntı anında bu duayı etsin de Allah onun duasını kabul etmesin.\" (Tirmizî, 21/3244).",
-          "not": "Zor anlarda bolca tekrarlanması tavsiye edilmiştir."
+          "aciklama": "Bu ayet, Hz. Yunus'un duasıdır. Tirmizî rivayetinde sıkıntı anında okunan büyük dualardan olduğu belirtilir.",
+          "not": "Zor anlarda bolca tekrarlanabilir; icabet Allah'tandır."
         },
         {
           "baslik": "Dünya ve Ahiret Saadeti İçin Dua",
@@ -498,11 +498,11 @@
           "okunus": "Hasbünallahü ve ni'me'l-vekîl.",
           "anlam": "Allah bize yeter. O ne güzel vekildir.",
           "kaynak": "Kur'an-ı Kerim, Âl-i İmrân 173; Buhârî, Tefsîr, 3",
-          "derece": "Sahih",
+          "derece": "Kur'an ve sahih rivayet",
           "tekrar": "İhtiyaç halinde",
           "neZaman": "Korku, endişe, keder, sıkıntı ve zorluk anlarında",
-          "aciklama": "Bu zikir, her türlü korku, endişe ve sıkıntıya karşı en etkili sözlerdendir.",
-          "not": "Korku anında bu zikri tekrarlamak, kalbe huzur ve güven verir."
+          "aciklama": "Bu zikir, korku, endişe ve sıkıntı anlarında Allah'a dayanmayı ifade eden kuvvetli bir tevekkül sözüdür.",
+          "not": "Korku anında bu zikri tekrarlamak kalbe huzur ve güven verebilir."
         }
       ]
     },
@@ -540,23 +540,23 @@
           "okunus": "Es-selâmü aleyküm ve rahmetullâhi ve berakâtüh.",
           "anlam": "Selam, rahmet ve bereket sizin üzerinize olsun.",
           "kaynak": "En'âm Suresi 54; Nûr Suresi 61; Tirmizî, İsti'zân, 10/2699 (hasen)",
-          "derece": "Sahih",
+          "derece": "Kur'an ve hasen hadis",
           "tekrar": "Eve her girişte",
           "neZaman": "Eve girerken ev halkına selam vermek",
           "aciklama": "\"Evladım, ailenin yanına girdiğinde selam ver. Bu, sana ve ev halkına bereket olur.\" (Tirmizî, İsti'zân, 10).",
           "not": "İçeride kimse olmasa dahi, eve girerken selam vermek menduptur."
         },
         {
-          "baslik": "Evin Korunması İçin Okunan Ayetler",
-          "arapca": "Ayetü'l-Kürsi ve İhlas suresi",
+          "baslik": "Evde Kur'an ve Zikir ile Korunma",
+          "arapca": "Bakara suresi ve Ayetü'l-Kürsi",
           "okunus": "(Yukarıda verilmiştir)",
           "anlam": "(Yukarıda verilmiştir)",
-          "kaynak": "Ebû Dâvûd, Edeb, 101/5088; Tirmizî, Daavât, 20/3388",
-          "derece": "Sahih",
-          "tekrar": "Eve her girişte 1'er defa",
-          "neZaman": "Eve girerken",
-          "aciklama": "Bazı âlimler, eve girerken Ayetü'l-Kürsi ve İhlas suresini okumanın, evi şeytan ve diğer kötülüklerden koruduğunu belirtmiştir.",
-          "not": "Eve girerken okunacak dualar içinde en faziletlilerindendir."
+          "kaynak": "Müslim, Müsâfirîn, 212/780 (Bakara suresi okunan eve şeytanın girmemesi); Buhârî, Vekâle, 10 (Âyetü'l-Kürsî'nin gece korunmasına dair)",
+          "derece": "Sahih (genel korunma rivayetleri)",
+          "tekrar": "Düzenli olarak",
+          "neZaman": "Evde korunma ve bereket niyetiyle; özellikle gece ve evde Kur'an okunurken",
+          "aciklama": "Sahih hadiste Bakara suresi okunan evden şeytanın uzaklaşacağı bildirilir. Âyetü'l-Kürsî de korunma ayeti olarak meşhurdur. Bu sebeple evde Kur'an ve zikirle manevi canlılığı sürdürmek tavsiye edilmiştir.",
+          "not": "Eve girerken mutlaka bu ayetleri okuyun diye sabit tek bir sahih lafız yoktur; burada eve Kur'an ve zikirle bereket kazandırma anlayışı özetlenmektedir."
         },
         {
           "baslik": "Tuvalet Adabı ve Duaları",
@@ -582,7 +582,7 @@
           "okunus": "Sübhânellezî sehhara lenâ hâzâ ve mâ künnâ lehû mukrinîn. Ve innâ ilâ rabbinâ le-münkalibûn.",
           "anlam": "Bunu bizim hizmetimize vereni tenzih ederim; yoksa biz buna güç yetiremezdik. Şüphesiz biz Rabbimize döneceğiz.",
           "kaynak": "Kur'an-ı Kerim, Zuhruf Suresi 13-14; Ebû Dâvûd, Cihâd, 81/2602; Tirmizî, Tefsîr, 43/3246 (hasen-sahih); Hisnü'l-Müslim",
-          "derece": "Sahih",
+          "derece": "Kur'an ve hasen-sahih rivayet",
           "tekrar": "Yolculuğa her çıkışta 1 defa",
           "neZaman": "Yolculuğa çıkarken, binek aracına binerken",
           "aciklama": "Resûlullah (s.a.s.) bir yolculuğa çıktığında bineğine bindiğinde bu ayetleri okur, ardından \"Elhamdülillâh\" derdi.",
@@ -640,7 +640,7 @@
           "tekrar": "Her gün düzenli olarak (özellikle sabah-akşam)",
           "neZaman": "Çocukların korunması için; onlar uyurken veya uyanıkken",
           "aciklama": "Resûlullah (s.a.s.), torunları Hasan ve Hüseyin'i bu dua ile nazardan korurdu.",
-          "not": "Çocuklar, nazara en açık varlıklardır."
+          "not": "Çocuklar için korunma duası okumak, sahih rukye uygulamaları arasında yer alır."
         },
         {
           "baslik": "Felak ve Nas Sureleri ile Çocukları Koruma",
@@ -648,23 +648,23 @@
           "okunus": "(Yukarıda verilmiştir)",
           "anlam": "(Yukarıda verilmiştir)",
           "kaynak": "Müslim, Selâm, 38/2188; Tirmizî, Daavât, 22/3402",
-          "derece": "Sahih",
+          "derece": "Sahih (surelerin korunma fazileti)",
           "tekrar": "Günde 3 defa (sabah, akşam, yatmadan önce)",
           "neZaman": "Çocukların korunması için",
-          "aciklama": "Felak ve Nas sureleri, her türlü şerden korunmak için indirilmiştir.",
-          "not": "Doğrudan okumak esastır."
+          "aciklama": "Felak ve Nas sureleri, Allah'a sığınma sureleridir. Çocukların üzerine okunması da sahih rukye uygulamalarının genel çerçevesi içinde değerlendirilir.",
+          "not": "Asıl olan bu sureleri okuyarak Allah'a sığınmaktır; sayı ve uygulama ayrıntıları zorunlu kalıp gibi görülmemelidir."
         },
         {
-          "baslik": "Ayetü'l-Kürsi ile Gece Koruması",
+          "baslik": "Gece Ayetü'l-Kürsi Okumak",
           "arapca": "Ayetü'l-Kürsi (Bakara 255)",
           "okunus": "(Yukarıda verilmiştir)",
           "anlam": "(Yukarıda verilmiştir)",
           "kaynak": "Buhârî, Vekâle, 10; Nesâî, Amelü'l-yevm, 100",
-          "derece": "Sahih",
+          "derece": "Sahih (gece okunmasının fazileti)",
           "tekrar": "Her gece yatmadan önce 1 defa",
-          "neZaman": "Çocuk uyumadan önce",
-          "aciklama": "Ayetü'l-Kürsi'yi okuyup çocuğa üflemek veya çocuğun başucunda okumak, onu gece boyunca her türlü kaza, bela, cin ve şeytandan korur.",
-          "not": "Asıl sünnet, okumak ve üflemektir."
+          "neZaman": "Gece yatmadan önce; kişinin kendisi veya çocuğu uyurken",
+          "aciklama": "Sahih hadiste, gece Âyetü'l-Kürsî okuyan kimse için sabaha kadar bir koruyucu görevlendirileceği ve şeytanın yaklaşamayacağı bildirilir. Çocukların yanında da bu ayetin okunması yaygın bir korunma uygulamasıdır.",
+          "not": "Doğrudan çocuk için özel lafızla gelmiş ayrı bir rivayet zikredilmez; burada ayetin sabit gece fazileti esas alınmaktadır."
         }
       ]
     },
@@ -812,14 +812,14 @@
         },
         {
           "baslik": "Hastalıkta Okunacak Ayet ve Sureler",
-          "arapca": "İhlas, Felak, Nas sureleri; Fatiha suresi; Ayetü'l-Kürsi",
+          "arapca": "İhlas, Felak, Nas sureleri; Fatiha suresi",
           "okunus": "(İlgili sure ve ayetlerin okunuşu)",
           "anlam": "(Sure ve ayetlerin anlamı)",
           "kaynak": "Müslim, Selâm 50/2192 (İhlas-Felak-Nas); Ebû Dâvûd, Tıb 19/3900 (Fatiha); Hisnü'l-Müslim",
-          "derece": "Sahih",
+          "derece": "Sahih (rukye ve şifa rivayetleri)",
           "tekrar": "Her gün sabah-akşam 3'er defa; rahatsızlık halinde ek olarak",
           "neZaman": "Hasta olduğunda veya ağrı hissedildiğinde",
-          "aciklama": "Hz. Âişe (r.anha) validemizin rivayetine göre Resûlullah (s.a.s.), hastalandığında İhlas, Felak ve Nas surelerini ellerine okuyup üfler, ellerini vücuduna mesh ederdi; hastalık ağırlaştığında Hz. Âişe (r.anha) onun kendi mübarek eliyle aynı işlemi yapardı. (Müslim, Selâm 50/2192). Ayrıca Fatiha suresinin her derde şifa olduğu hadisle sabittir. (Ebû Dâvûd, Tıb 19/3900).",
+          "aciklama": "Hz. Âişe (r.anha) validemizin rivayetine göre Resûlullah (s.a.s.), hastalandığında İhlas, Felak ve Nas surelerini ellerine okuyup üfler, ellerini vücuduna mesh ederdi; hastalık ağırlaştığında Hz. Âişe (r.anha) onun eliyle aynı işlemi yapardı. Fâtiha da sahih rivayette rukye ve şifa vesilesi olarak okunmuştur.",
           "not": "Rukyenin esası Kur'an ayetleri ve sahih dualardır; bunların dışına çıkılmaması gerekir."
         }
       ]
@@ -1066,7 +1066,7 @@
           "tekrar": "Kötü rüya veya kâbus görüldüğünde",
           "neZaman": "Kötü ya da ürkütücü bir rüyadan uyanıldığında hemen",
           "aciklama": "Ebû Katâde (r.a.)'dan rivayetle, Resûlullah (s.a.s.) şöyle buyurmuştur: \"Güzel rüya Allah'tandır, kötü rüya ise şeytandır. Sizden biriniz hoşlanmadığı bir rüya görürse, soluna doğru üç defa tükürsün, şeytandan Allah'a sığınsın ve uyuduğu tarafı değiştirsin. Bu rüya ona zarar vermez ve kimseye de anlatmasın.\" (Müslim, Rü'yâ 3/2261; Buhârî, Ta'bîr 3/6985).",
-          "not": "Kötü rüya görüldüğünde: (1) Sola üç defa tükürülür, (2) Eûzü okunur, (3) Uyku pozisyonu değiştirilir, (4) Namaz kılınır. Bu dört uygulama hadisle sabittir."
+          "not": "Kötü rüya görüldüğünde sola hafifçe tükürmek, Allah'a sığınmak ve uyku pozisyonunu değiştirmek hadisle sabittir. Namaz kılmak ise bazı rivayetlerde veya alimlerin tavsiyelerinde ayrıca anılır."
         }
       ]
     },
@@ -1113,7 +1113,7 @@
           "derece": "Sahih (Buhârî, Müslim)",
           "tekrar": "Aksıranın \"Elhamdülillâh\" demesinin ardından 1 defa",
           "neZaman": "Yanınızdaki biri aksırıp hamd edince",
-          "aciklama": "Bu karşılığa \"teşmit\" denir. Aksıran kişinin hamd etmesi halinde, bunu işiten müslümanın \"Yerhamükellâh\" demesi sünnettir; bazı âlimlere göre vaciptir.",
+          "aciklama": "Bu karşılığa 'teşmit' denir. Aksıran kişinin hamd etmesi halinde, bunu işiten müslümanın 'Yerhamükellâh' demesi sünnettir; bazı âlimler bunu kuvvetle gerekli görmüştür.",
           "not": "Aksıran \"Elhamdülillâh\" demezse teşmit gerekmez; ancak hatırlatmak için \"Elhamdülillâh\" denilebilir."
         },
         {
@@ -1140,11 +1140,11 @@
           "okunus": "Lâ ilâhe illallâhü vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü yuhyî ve yümît, ve hüve hayyün lâ yemûtü bi-yedihi'l-hayr, ve hüve alâ külli şey'in kadîr.",
           "anlam": "Allah'tan başka hiçbir ilah yoktur. O tektir, ortağı yoktur. Mülk O'nundur, hamd O'nadır. Diriltir ve öldürür. O, ölmeyen diridir. Hayır O'nun elindedir. O, her şeye kadirdir.",
           "kaynak": "Tirmizî, Daavât 79/3428 (hasen-garip); İbn Mâce, Ticârât 1/2235; Hisnü'l-Müslim",
-          "derece": "Hasen (Tirmizî)",
+          "derece": "Hasen-garip (Tirmizî; senedi hakkında farklı değerlendirmeler vardır)",
           "tekrar": "Çarşı veya pazara her girişte 1 defa",
           "neZaman": "Çarşı, pazar, alışveriş merkezi gibi yerlere girerken",
-          "aciklama": "Resûlullah (s.a.s.) şöyle buyurmuştur: \"Kim çarşıya girdiğinde bu duayı okursa, Allah ona bir milyon sevap yazar, bir milyon günahını siler ve derecesini yükseltir.\" (Tirmizî, Daavât 79/3428). Çarşı ve pazar, Allah'ın anılmadığı ve gafletin yoğun olduğu yerler olduğundan bu zikrin orada okunması özellikle tavsiye edilmiştir.",
-          "not": "Bu hadisin senedinde tartışma olsa da Tirmizî \"hasen\" demiş ve İbn Mâce de rivayet etmiştir; Hisnü'l-Müslim'e alınmıştır."
+          "aciklama": "Bu zikrin çarşı ve pazar gibi gafletin yoğun olduğu yerlerde okunmasına dair rivayet Tirmizî ve İbn Mâce'de geçer. Hadisin senedi hakkında farklı değerlendirmeler bulunmakla birlikte, fazilet umarak okunması yaygın görülmüştür.",
+          "not": "Bu rivayet hadis âlimlerince farklı değerlendirilmiştir. Bu sebeple kesin vaat diliyle değil, fazilet umarak ve ihtiyatla okunması daha uygundur."
         }
       ]
     },

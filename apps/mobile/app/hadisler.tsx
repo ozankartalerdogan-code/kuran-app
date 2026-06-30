@@ -61,6 +61,42 @@ function ensureStringArray(value: unknown): string[] {
   return value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
 }
 
+function hasContextualSource(value: string): boolean {
+  return /bağlamsal/i.test(value);
+}
+
+function parseSunnahSource(url?: string): string {
+  if (!url) return "";
+
+  const match = url.match(/sunnah\.com\/([^:]+):(\d+)/i);
+  if (!match) return "";
+
+  const [, rawCollection, rawNumber] = match;
+  const collectionNames: Record<string, string> = {
+    bukhari: "Buhârî",
+    muslim: "Müslim",
+    tirmidhi: "Tirmizî",
+    ibnmajah: "İbn Mâce",
+    abudawud: "Ebû Dâvûd",
+    ahmad: "Ahmed b. Hanbel",
+  };
+
+  const collection = collectionNames[rawCollection.toLowerCase()] ?? rawCollection;
+  return `${collection}, ${rawNumber}`;
+}
+
+function buildSourceText(hadith: Hadith): string {
+  const exactSources = ensureStringArray([hadith.source_bukhari, hadith.source_muslim])
+    .filter(source => !hasContextualSource(source));
+
+  if (exactSources.length > 0) return exactSources.join(" · ");
+
+  const parsedSource = parseSunnahSource(hadith.sunnah_url);
+  if (parsedSource) return parsedSource;
+
+  return ensureStringArray([hadith.source_bukhari, hadith.source_muslim]).join(" · ");
+}
+
 const ROOT = rawData as HadithData;
 const META: Meta = ROOT.meta ?? {};
 const TOPICS: Topic[] = Array.isArray(ROOT.topics)
@@ -111,7 +147,7 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
   const [open, setOpen] = useState(false);
   const narrator = hadith.narrator || "Rivayet";
   const hadithText = hadith.turkish_text || "Hadis metni eklenmedi.";
-  const sources = ensureStringArray([hadith.source_bukhari, hadith.source_muslim]).join(" · ");
+  const sources = buildSourceText(hadith);
 
   async function handleShare() {
     void Haptics.selectionAsync();

@@ -121,7 +121,7 @@
       "id": "namaz_k16",
       "tip": "metin",
       "baslik": "Rekât Sayıları",
-      "icerik": "Her vakit namazının rekât sayısı:\n\n• Sabah: 2 sünnet + 2 farz (toplam 4)\n• Öğle: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) (toplam 10)\n• İkindi: 4 sünnet + 4 farz (toplam 8)\n• Akşam: 3 farz + 2 sünnet (sonra) (toplam 5)\n• Yatsı: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) + 3 vitir (toplam 13)\n\nVitir namazı (yatsıdan sonra kılınan tek rekâtlı düzenle biten namaz) vacip hükmündedir — farz değil ama yatsıdan sonra kılınması kuvvetle tavsiye edilir.",
+      "icerik": "Her vakit namazının rekât sayısı:\n\n• Sabah: 2 sünnet + 2 farz (toplam 4)\n• Öğle: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) (toplam 10)\n• İkindi: 4 sünnet + 4 farz (toplam 8)\n• Akşam: 3 farz + 2 sünnet (sonra) (toplam 5)\n• Yatsı: 4 sünnet (önce) + 4 farz + 2 sünnet (sonra) + 3 vitir (toplam 13)\n\nVitir namazı Türkiye’de yaygın Hanefi uygulamasında vacip kabul edilir. Diğer sünni mezheplerde kuvvetli sünnet olarak anlatılabilir. Bu kartta vakit namazlarının Türkiye’de yaygın kılınışı esas alınmıştır.",
       "vurgu": "Farz rekatlar kesinlikle kılınmalı · Vitir vacip · Sünnetler sevap kazandırır"
     },
     {
@@ -149,7 +149,7 @@
       "id": "namaz_k20",
       "tip": "metin",
       "baslik": "Ka'de-i Ula ve Ka'de-i Ahire",
-      "icerik": "Namazda iki tür oturuş vardır:\n\n• Ka'de-i ula (ilk oturuş): 4 rekatlı namazlarda 2. rekattan sonra yapılır. Sadece Tahiyyat okunur, kalkmak vaciptir.\n• Ka'de-i ahire (son oturuş): Namazın son rekâtında yapılır. Tahiyyat + Salli + Barik + Rabbena duaları okunur. Selam bu oturuştan sonra verilir.",
+      "icerik": "Namazda iki tür oturuş vardır:\n\n• Ka'de-i ula (ilk oturuş): 3 ve 4 rekatlı namazlarda 2. rekattan sonra yapılır. Sadece Tahiyyat okunur, kalkmak Hanefi öğretiminde vacip olarak anlatılır.\n• Ka'de-i ahire (son oturuş): Namazın son rekâtında yapılır. Tahiyyat + Salli + Barik + Rabbena duaları okunur. Selam bu oturuştan sonra verilir.",
       "vurgu": "Ka'de-i ula'da sadece Tahiyyat · Ka'de-i ahire'de tüm dualar"
     },
     {
@@ -177,8 +177,8 @@
       "id": "namaz_k24",
       "tip": "metin",
       "baslik": "Vitir Namazı",
-      "icerik": "Vitir namazı, yatsıdan sonra kılınan 3 rekatlık vacip bir namazdır.\n\n• 2. rekattan sonra oturulur, Tahiyyat okunur, kalkılır\n• 3. rekatta Fatiha + sure okunduktan sonra eller kaldırılarak tekbir alınır (kunut tekbiri — Kunut duasından önce alınan tekbir)\n• Kunut duası (vitirde okunan özel dua) okunur\n• Rükû ve secde yapılarak namaz tamamlanır\n\nVitir kılınmadan uyunacaksa yatmadan önce kılınır.",
-      "vurgu": "Vitir vacip · 3 rekât · Kunut duası 3. rekatta"
+      "icerik": "Bu kartta Türkiye’de yaygın Hanefi uygulamadaki vitir anlatılır.\n\nVitir namazı yatsıdan sonra kılınır ve Hanefi mezhebinde 3 rekat vacip olarak öğretilir. Diğer sünni mezheplerde vitir kuvvetli sünnet kabul edilebilir ve rekât tertibi farklı olabilir.\n\n• 2. rekattan sonra oturulur, Tahiyyat okunur, kalkılır\n• 3. rekatta Fatiha + sure okunduktan sonra eller kaldırılarak tekbir alınır (kunut tekbiri - Kunut duasından önce alınan tekbir)\n• Hanefi uygulamasında kunut duası rükûdan önce okunur\n• Rükû ve secde yapılarak namaz tamamlanır\n\nVitir kılınmadan uyunacaksa yatmadan önce kılınır.",
+      "vurgu": "Türkiye’de yaygın Hanefi vitir · 3 rekât · Kunut duası 3. rekatta"
     },
     {
       "id": "namaz_k25",

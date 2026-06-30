@@ -74,7 +74,7 @@
           {
             "isim": "Dua Vakitlerini Kollamak",
             "durum": "sunnet",
-            "aciklama": "Cuma günü duaların kabul edildiği özel bir vakit vardır. Hz. Peygamber bu vaktin ikindi ile akşam arasında olduğunu bildirmiştir.",
+            "aciklama": "Cuma gününde duaların kabul edildiği özel bir vakit bulunduğu sahih hadislerle bildirilmiştir. Bu vaktin tam zamanı konusunda farklı görüşler vardır; alimler arasında ikindi sonrası görüşü öne çıkan yorumlardan biridir.",
             "hadis_kaynagi": "Buhari, Müslim"
           },
           {
@@ -123,6 +123,42 @@
         "ozel_not": "Hac yapanlar için Arefe günü oruç tutmak mekruhtur — onların Arafat'ta kuvvetli olmaları önceliklidir."
       },
       {
+        "id": "kurban_bayrami",
+        "isim": "Kurban Bayramı",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "Bayram namazı, kurban ibadeti ve teşrik tekbirleri sahih hadisler ve güçlü fıkıh geleneğiyle sabittir. Kurban ibadetinin aslı Kur'an'da da açıkça yer alır.",
+        "kuran_referansi": {
+          "sure": "Hac",
+          "ayet": 34,
+          "metin": "Her ümmet için, Allah'ın kendilerine rızık olarak verdiği kurbanlık hayvanlar üzerine O'nun adını ansınlar diye kurban ibadeti koyduk."
+        },
+        "hicri_tarih": "Zilhicce ayının 10. günü (11-13. günler teşrik günleridir)",
+        "onem": "Hz. İbrahim ve Hz. İsmail'in teslimiyetini hatırlatan, hac ibadetinin ana günleriyle birleşen büyük bayramdır.",
+        "tarihsel_bilgi": "Kurban kesimi bayram namazından sonra başlar. Teşrik günleri yeme, içme ve Allah'ı anma günleri olarak anılmıştır.",
+        "ibadetler": [
+          {
+            "isim": "Bayram Namazı",
+            "durum": "vacip",
+            "aciklama": "Bayram sabahında kılınan namaz Hanefi mezhebinde vacip, diğer mezheplerde sünnet-i müekkede kabul edilmiştir.",
+            "hadis_kaynagi": "Buhari, Müslim (sahih)"
+          },
+          {
+            "isim": "Kurban Kesmek",
+            "durum": "vacip",
+            "aciklama": "Kurban kesmek Hanefi mezhebinde vacip, diğer mezheplerde müekked sünnet kabul edilir. Kesim vakti bayram namazından sonra başlar.",
+            "hadis_kaynagi": "Buhari, Müslim (sahih)"
+          },
+          {
+            "isim": "Teşrik Tekbirleri",
+            "durum": "sunnet",
+            "aciklama": "Arefe sabah namazından başlayıp bayramın dördüncü günü ikindiye kadar tekbir getirilir. Hanefi mezhebinde vacip, diğer mezheplerde kuvvetli sünnet kabul edilmiştir.",
+            "hadis_kaynagi": "Sahabe uygulaması ve fıkıh geleneği"
+          }
+        ],
+        "ozel_not": "Kurban Bayramı'nın ilk günü ile teşrik günlerinde oruç tutulmaz. Bu günler Allah'ın nimetini anma, yedirme ve paylaşma günleridir."
+      },
+      {
         "id": "asure",
         "isim": "Aşure Günü",
         "tip": "yillik",
@@ -130,7 +166,7 @@
         "dayanak_aciklama": "Buhari ve Müslim'de sahih hadislerle sabittir. Hz. Peygamber Medine'ye hicret ettiğinde Yahudilerin bu günü oruçlu geçirdiğini görmüş, sebebini sormuş ve Hz. Musa'nın Firavun'dan kurtuluşu olduğunu öğrenince oruç tutmayı emretmiştir.",
         "kuran_referansi": null,
         "hicri_tarih": "Muharrem ayının 10. günü",
-        "onem": "Hz. Musa ve İsrailoğullarının Firavun'dan kurtuluşunun yıl dönümüdür. Hz. Nuh'un gemisinin karaya oturduğu gün olarak da rivayet edilmektedir.",
+        "onem": "Hz. Musa ve İsrailoğullarının Firavun'dan kurtuluşunun hatırasıyla ilişkilendirilen mübarek bir gündür. Hz. Nuh'un gemisinin karaya oturduğu gün olduğuna dair rivayetler de nakledilmiştir; ancak bunlar Aşure orucunun asıl dayanağı değildir.",
         "tarihsel_bilgi": "Hz. Peygamber bu günü oruçlu geçirir ve 'Ben Hz. Musa'ya sizden daha yakınım' buyururdu. Vefatından önce bir sonraki yıl 9. günü de ekleyeceğini söylemiştir — bu nedenle 9-10 veya 10-11 Muharrem orucu tutmak sünnettir.",
         "ibadetler": [
           {
@@ -245,6 +281,42 @@
         "ozel_not": null
       },
       {
+        "id": "ramazan_bayrami",
+        "isim": "Ramazan Bayramı",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "Ramazan orucunun tamamlanması, bayram namazı ve fitre sadakası sahih hadislerle sabittir. Bakara 185'te orucun tamamlanması ve tekbirle Allah'ı anma vurgusu da bu sevince işaret eder.",
+        "kuran_referansi": {
+          "sure": "Bakara",
+          "ayet": 185,
+          "metin": "Oruç günlerini tamamlamanızı ve size hidayet vermesine karşılık Allah'ı tekbir etmenizi ister."
+        },
+        "hicri_tarih": "Şevval ayının 1. günü",
+        "onem": "Bir aylık Ramazan orucunun tamamlanmasının sevinç günüdür. Müminler için şükür, sevinç, paylaşma ve bayramlaşma vaktidir.",
+        "tarihsel_bilgi": "Hz. Peygamber bayram namazına çıkar, farklı gidiş-dönüş yolları kullanır ve bu günü ümmet için sevinç günü olarak yaşatırdı.",
+        "ibadetler": [
+          {
+            "isim": "Bayram Namazı",
+            "durum": "vacip",
+            "aciklama": "Bayram sabahında kılınan namaz Hanefi mezhebinde vacip, diğer mezheplerde sünnet-i müekkede kabul edilmiştir.",
+            "hadis_kaynagi": "Buhari, Müslim (sahih)"
+          },
+          {
+            "isim": "Fitre Sadakası",
+            "durum": "vacip",
+            "aciklama": "Fitre sadakasının bayram namazından önce verilmesi gerekir. Böylece ihtiyaç sahipleri de bayram sevincine katılır.",
+            "hadis_kaynagi": "Buhari, Müslim (sahih)"
+          },
+          {
+            "isim": "Tekbir ve Bayramlaşma",
+            "durum": "sunnet",
+            "aciklama": "Bayram sabahında tekbir getirmek, akrabaları ziyaret etmek ve sevinci paylaşmak güzel bir sünnet ve İslam adabıdır.",
+            "hadis_kaynagi": "Genel sünnet ve sahabe uygulaması"
+          }
+        ],
+        "ozel_not": "Ramazan Bayramı'nın birinci gününde oruç tutulmaz. Bayram günü sevinç ve ikram günüdür."
+      },
+      {
         "id": "mirac_kandili",
         "isim": "Miraç Kandili",
         "tip": "yillik",
@@ -293,8 +365,8 @@
           "not": "Alimlerin büyük çoğunluğu (İbn Abbas, Katade, cumhur) buradaki 'mübarek gece'nin Kadir Gecesi olduğu görüşündedir; zira Kuran Bakara 185'te ramazanda, Kadir 1'de Kadir gecesinde indirildiği açıkça belirtilir. Berat Gecesi olduğunu söyleyen azınlık görüş ise İkrime ve bir kısım alimlere aittir."
         },
         "hicri_tarih": "Şaban ayının 15. gecesi",
-        "onem": "Şaban ayının ortasındaki bu gece, bir sonraki yıla ait hayat, ölüm ve rızık takdirlerinin belirlendiği gece olarak rivayet edilmektedir. Ramazan'ın habercisi niteliğindedir.",
-        "tarihsel_bilgi": "Bu geceyle ilgili rivayetler var olmakla birlikte hadis alimleri bu rivayetlerin büyük çoğunluğunu zayıf olarak değerlendirmiştir. Hz. Peygamber Şaban ayına ayrı bir önem verirdi — bu ayda oruç tutardı. Ancak Şaban'ın 15. gecesine özel bir ibadet belirlediğine dair sahih hadis yoktur.",
+        "onem": "Şaban ayının ortasındaki bu geceye tarih boyunca önem verilmiştir. Bu geceyle ilgili bazı rivayetlerde ilahi rahmet ve mağfiretin genişliği vurgulanır; ancak geceye dair bütün ayrıntılar sahih hadislerle kesinleşmiş değildir.",
+        "tarihsel_bilgi": "Bu geceyle ilgili rivayetler var olmakla birlikte hadis alimleri bunların önemli bir kısmını zayıf kabul etmiştir. Hz. Peygamber'in Şaban ayında daha çok oruç tuttuğu sahih rivayetlerle sabittir; ancak Şaban'ın 15. gecesine özel belirlenmiş bir namaz veya kesinleşmiş özel ibadet şekli sahih hadislerle sabit değildir.",
         "ibadetler": [
           {
             "isim": "Şaban Ayında Oruç Tutmak",
@@ -303,9 +375,9 @@
             "hadis_kaynagi": "Buhari, Müslim (sahih)"
           },
           {
-            "isim": "Geceyi İbadetla Geçirmek",
+            "isim": "Geceyi İbadetle Geçirmek",
             "durum": "tavsiye",
-            "aciklama": "Müslümanlar asırlardır bu geceyi dua, istiğfar ve nafile namazla ihya etmiştir. Dayanağı zayıf olmakla birlikte bu niyetle ibadet etmek güzeldir.",
+            "aciklama": "Müslümanlar asırlardır bu geceyi dua, istiğfar ve nafile ibadetle değerlendirmiştir. Bunu dinî zorunluluk gibi görmeden, genel nafile ibadet niyetiyle yapmak daha ihtiyatlı bir yaklaşımdır.",
             "hadis_kaynagi": "Zayıf rivayetler; genel nafile namaz fazileti için Müslim"
           },
           {
@@ -347,7 +419,7 @@
             "hadis_kaynagi": "Genel sünnet"
           }
         ],
-        "ozel_not": "Bu geceyi kutlamak dinen yasak değildir — Hz. Peygamber'e duyulan sevgiyle yapılan her güzel şey makbuldür. Ancak bunu dini bir zorunlulukmuş gibi görmek, ibadet etmeyeni kınamak veya bu geceye özel ibadetler icat etmek doğru değildir. En güzel mevlid; onun sünnetini yaşatmaktır."
+        "ozel_not": "Bu geceyi anmak konusunda Müslümanlar arasında farklı yaklaşımlar vardır. Hz. Peygamber'e duyulan sevgiyle yapılan meşru anmalar ayrı değerlendirilebilir; ancak bunu dinî zorunluluk gibi görmek, ibadet etmeyeni kınamak veya geceye özel sabit ibadetler varmış gibi sunmak doğru değildir. En güzel mevlid, onun sünnetini yaşamaktır."
       },
       {
         "id": "regaib_kandili",
@@ -367,10 +439,10 @@
             "hadis_kaynagi": "Genel nafile ibadete dair sahih hadisler — bu geceye özgü değil"
           }
         ],
-        "ozel_not": "Bu geceye özel 12 rekatlık namaz kılmak, o namaza özel zikirler okumak sahih değildir. Bu uygulamayı yapmak ibadette bid'at sayılır. Recep ayı Allah'ın hürmetli aylarından biri olduğu için genel olarak ibadet etmek güzeldir — ama bunu belirli bir geceye ve belirli ritüellere bağlamak doğru değildir."
+        "ozel_not": "Bu geceye özel 12 rekâtlık namaz ve belirli zikir uygulamalarının sahih dayanağı yoktur. Recep ayı hürmetli aylardan biri olduğu için genel olarak ibadet etmek güzeldir; ancak bunu belirli bir geceye ve sabit özel ritüellere bağlamak doğru görülmemiştir."
       },
       {
-        "id": "bayram_tekvir",
+        "id": "bayram_tekbir",
         "isim": "Bayram Geceleri (Ramazan ve Kurban)",
         "tip": "yillik",
         "dayanak": "zayif",
@@ -456,6 +528,11 @@
         "hicri": "Zilhicce 9"
       },
       {
+        "isim": "Kurban Bayramı",
+        "dayanak": "sahih",
+        "hicri": "Zilhicce 10"
+      },
+      {
         "isim": "Aşure Günü",
         "dayanak": "sahih",
         "hicri": "Muharrem 10"
@@ -471,9 +548,14 @@
         "hicri": "Hicri 9. ay"
       },
       {
+        "isim": "Ramazan Bayramı",
+        "dayanak": "sahih",
+        "hicri": "Şevval 1"
+      },
+      {
         "isim": "Bayram Geceleri",
         "dayanak": "zayif",
-        "hicri": "Şevval 1 / Zilhicce 10"
+        "hicri": "Ramazan ve Kurban bayramı geceleri"
       },
       {
         "isim": "Miraç Kandili",

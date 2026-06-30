@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View, Text, ScrollView, TouchableOpacity,
   StyleSheet, Pressable,
@@ -46,7 +46,7 @@ const ISLAM_SARTLARI = [
   },
   {
     id: "zekat-inanc", ikon: "💛", baslik: "Zekât",
-    aciklama: "Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte 28 yerde zikredilir; servetin arınması ve paylaşılmasıdır.",
+    aciklama: "Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte defalarca zikredilir; servetin arınması ve paylaşılmasıdır.",
     ayetler: [
       { sureId: 2, sureAdi: "Bakara", ayetNo: 43,  kisaMetin: "Namazı kılın ve zekâtı verin." },
       { sureId: 9, sureAdi: "Tevbe",  ayetNo: 60,  kisaMetin: "Sadakalar (zekât) sekiz sınıf için — Allah'tan bir farz." },
@@ -123,21 +123,21 @@ const IMAN_SARTLARI = [
 
 const NAMAZ_VAKİTLERİ = [
   { vakit:"Sabah",  ikon:"🌅", ilkSunnet:2, farz:2, sonSunnet:0, vitir:0, toplam:4  },
-  { vakit:"Öğle",   ikon:"☀️", ilkSunnet:4, farz:4, sonSunnet:2, vitir:0, toplam:12, not:"+2 nafile" },
+  { vakit:"Öğle",   ikon:"☀️", ilkSunnet:4, farz:4, sonSunnet:2, vitir:0, toplam:10, not:"+2 nafile" },
   { vakit:"İkindi", ikon:"🌤️", ilkSunnet:4, farz:4, sonSunnet:0, vitir:0, toplam:8  },
-  { vakit:"Akşam",  ikon:"🌇", ilkSunnet:0, farz:3, sonSunnet:2, vitir:0, toplam:7,  not:"+2 nafile" },
+  { vakit:"Akşam",  ikon:"🌇", ilkSunnet:0, farz:3, sonSunnet:2, vitir:0, toplam:5,  not:"+2 nafile" },
   { vakit:"Yatsı",  ikon:"🌙", ilkSunnet:4, farz:4, sonSunnet:2, vitir:3, toplam:13 },
 ];
 
 const NAMAZ_MADDELER: Madde[] = [
-  { tip:"farz",   metin:"Niyet",           detay:"Hangi namazı kıldığını kalp ile kastetmek." },
+  { tip:"info",   metin:"Niyet",           detay:"Hangi namazı kıldığını kalben belirlemek; hükmün ayrıntısı mezheplere göre farklı anlatılır." },
   { tip:"farz",   metin:"İftitah tekbiri", detay:"\"Allahu Ekber\" diyerek namaza başlamak." },
   { tip:"farz",   metin:"Kıyam",           detay:"Gücü yetene ayakta durmak." },
-  { tip:"farz",   metin:"Kıraat",          detay:"Her rekatta en az 3 ayet veya bir uzun ayet okumak." },
+  { tip:"farz",   metin:"Kıraat",          detay:"Fâtiha ve Kur'an'dan okuma ile namazı eda etmek; rek'at ve asgari miktar ayrıntıları mezheplere göre değişir." },
   { tip:"farz",   metin:"Rükû",            detay:"Eller dizlere gelecek şekilde öne eğilmek." },
   { tip:"farz",   metin:"Secdeler",        detay:"Her rekatta iki secde; yedi uzvun yere değmesi." },
   { tip:"farz",   metin:"Ka'de-i Ahire",   detay:"Son rekatta teşehhüt miktarı oturmak." },
-  { tip:"farz",   metin:"Selam",           detay:"\"Es-selamü aleyküm ve rahmetullah\" diyerek bitirmek." },
+  { tip:"info",   metin:"Selam",           detay:"Namazdan selamla çıkılır; bunun hükmünün ayrıntısı mezheplerde farklı açıklanır." },
   { tip:"sunnet", metin:"Sübhaneke",       detay:"İlk rekatta kıraattan önce okunur." },
   { tip:"sunnet", metin:"Eûzü-Besmele",   detay:"Her rekatta kıraattan önce okunur." },
   { tip:"sunnet", metin:"Rükû tesbihleri", detay:"\"Sübhâne Rabbiye'l-azîm\" en az 3 kez." },
@@ -153,16 +153,17 @@ const NAMAZ_AYETLERİ: AyetRef[] = [
 ];
 
 const ORUC_MADDELER: Madde[] = [
-  { tip:"farz",   metin:"Niyet",              detay:"Her gün için ayrı niyet; en geç sabah namazının farzından önce." },
-  { tip:"farz",   metin:"İmsak",              detay:"Sabah namazının ilk vaktinden itibaren yemek-içmek ve cinsî ilişkiden kaçınmak." },
+  { tip:"farz",   metin:"Niyet",              detay:"Ramazan'ın her günü için niyet edilir; gece niyeti en ihtiyatlı yoldur, ayrıntılar mezheplere göre değişir." },
+  { tip:"farz",   metin:"İmsak",              detay:"Fecr-i sadıktan güneş batımına kadar yemek, içmek ve cinsî ilişkiden kaçınmak." },
   { tip:"sunnet", metin:"Sahur",              detay:"Tan yeri ağarmadan az önce yemek; bereketi büyüktür." },
-  { tip:"sunnet", metin:"İftar Duası",        detay:"\"Allahümme leke sumtü\" ile başlamak ve tatlı bir şeyle açmak." },
+  { tip:"sunnet", metin:"İftar ve Dua",       detay:"İftarı vakit girer girmez açmak, hurma veya su ile başlamak ve Allah'a dua etmek sünnettir." },
   { tip:"sunnet", metin:"İftarda Acele",      detay:"Güneş batınca iftar ertelemeden açılır." },
   { tip:"sunnet", metin:"Kur'an Hatmi",       detay:"Ramazan'da Kur'an okunması ve hatim yapılması büyük sevaptır." },
-  { tip:"sunnet", metin:"Teravih Namazı",     detay:"Yatsıdan sonra cemaatle 20 rekat kılınır." },
+  { tip:"sunnet", metin:"Teravih Namazı",     detay:"Yatsıdan sonra kılınır; Türkiye'de yaygın uygulama cemaatle 20 rek'attır, farklı uygulamalar da vardır." },
   { tip:"info",   metin:"Orucu Bozan",        detay:"Bilerek yemek-içmek; cinsel ilişki; kasıtlı kusma (dolup taşarsa)." },
-  { tip:"info",   metin:"Kaza Gerektiren",    detay:"Unutarak yiyen kaza gerektirir; bilerek yiyen kaza + kefaret." },
-  { tip:"info",   metin:"Kefaret",            detay:"Kasıtlı cinsel birleşmede: 60 gün peşpeşe oruç VEYA 60 fakiri doyurma." },
+  { tip:"info",   metin:"Unutarak Yeme-İçme", detay:"Unutarak yiyip içmek orucu bozmaz; kişi hatırlayınca hemen bırakır ve oruca devam eder." },
+  { tip:"info",   metin:"Kaza ve Kefaret",    detay:"Kasten bozulan Ramazan orucunda kaza gerekir. Türkiye'de yaygın Hanefî anlatımda bilerek yeme-içme ve cinsel ilişkide kefaret de gündeme gelir; bazı mezheplerde kefaret cinsel ilişkiyle sınırlı anlatılır." },
+  { tip:"info",   metin:"Kefaretin Şekli",    detay:"Klasik sıraya göre önce köle azadı; bu mümkün değilse peş peşe 60 gün oruç, buna da güç yetmezse 60 yoksulu doyurma." },
 ];
 
 const ORUC_AYETLERİ: AyetRef[] = [
@@ -175,10 +176,10 @@ const ZEKAT_SINIFLAR = [
   { no:1, sinif:"Fakirler (Fukarâ)",         aciklama:"Nisabın altında mala sahip olan yoksullar." },
   { no:2, sinif:"Yoksullar (Mesâkîn)",        aciklama:"Hiç malı olmayan veya günlük geçimini zor sağlayanlar." },
   { no:3, sinif:"Zekât Görevlileri (Âmilîn)",aciklama:"Devlet adına zekât toplayan ve dağıtan kişiler." },
-  { no:4, sinif:"Kalpleri Isındırılanlar",    aciklama:"İslam'a yeni girenler veya düşman saldırısından korunmak için." },
-  { no:5, sinif:"Köleler (Rikâb)",            aciklama:"Kölelikten kurtulmak için para toplayan kişiler." },
+  { no:4, sinif:"Kalpleri Isındırılanlar",    aciklama:"İslam'a ısındırılması veya toplumla barışının güçlendirilmesi amaçlanan kimseler; uygulaması dönem ve mezhebe göre farklı yorumlanır." },
+  { no:5, sinif:"Köleler (Rikâb)",            aciklama:"Tarihsel olarak hürriyetine kavuşmak isteyen köleler; modern dönemde daha çok klasik sınıflandırma olarak anılır." },
   { no:6, sinif:"Borçlular (Gârimûn)",        aciklama:"Kendi ihtiyacı için borçlananlar, malları borcunu karşılamıyor." },
-  { no:7, sinif:"Allah Yolunda (Fî Sebîlillah)",aciklama:"Din için çalışanlar, savaşanlar." },
+  { no:7, sinif:"Allah Yolunda (Fî Sebîlillah)",aciklama:"Allah yolunda meşru hizmet ve gayret içinde olanlar; kapsamı mezhep ve çağdaş fetvalara göre genişleyebilir." },
   { no:8, sinif:"Yolda Kalanlar (İbnus-Sebîl)",aciklama:"Yolculuk sırasında harçlığı biten kişiler." },
 ];
 
@@ -189,15 +190,15 @@ const ZEKAT_AYETLERİ: AyetRef[] = [
 ];
 
 const HAC_ADIMLARI = [
-  { no:1,  tip:"farz",   baslik:"İhrama Girmek",         aciklama:"Mikat sınırlarından ihrama girilir; özel elbise giyilir, niyet edilir ve Lebbeyk söylenir." },
-  { no:2,  tip:"farz",   baslik:"Arafat Vakfesi",         aciklama:"Zilhicce'nin 9. günü öğleden gün batımına kadar Arafat'ta beklemek. Haccın farzının farzıdır." },
+  { no:1,  tip:"farz",   baslik:"İhrama Girmek",         aciklama:"Mikat sınırından önce niyet ve telbiye ile ihrama girilir; erkekler için özel ihram kıyafeti vardır." },
+  { no:2,  tip:"farz",   baslik:"Arafat Vakfesi",         aciklama:"Zilhicce'nin 9. günü Arafat'ta bulunmak haccın temel rüknüdür; vakfe vakti öğleden bayram gecesi fecrine kadar sürer." },
   { no:3,  tip:"farz",   baslik:"Ziyaret Tavafı (İfâda)", aciklama:"10-12 Zilhicce içinde Kâbe'yi 7 kez tavaf etmek." },
-  { no:4,  tip:"vacip",  baslik:"Müzdelife'de Geceleme",  aciklama:"9. günü gün batımından sabaha kadar Müzdelife'de kalmak." },
-  { no:5,  tip:"vacip",  baslik:"Sa'y",                   aciklama:"Safa ile Merve arasında 7 kez yürümek (gidip gelmek)." },
+  { no:4,  tip:"vacip",  baslik:"Müzdelife'de Geceleme",  aciklama:"Arafat'tan sonra Müzdelife'de vakfe yapmak ve geceyi orada geçirmek Türkiye'de yaygın Hanefî öğretimde vacip anlatılır." },
+  { no:5,  tip:"vacip",  baslik:"Sa'y",                   aciklama:"Safa ile Merve arasında 7 şavt yürünür; Hanefî öğretimde vacip, diğer bazı mezheplerde rükün/farz kabul edilir." },
   { no:6,  tip:"vacip",  baslik:"Şeytan Taşlamak",        aciklama:"Mina'da cemrelere taş atmak: 10. gün Akabe cemresine 7 taş, sonraki günlerde 3 cemreye 21'er taş." },
   { no:7,  tip:"vacip",  baslik:"Tıraş / Saçı Kısaltmak", aciklama:"Erkekler başını tamamen tıraş eder; kadınlar parmak boğumu kadar keser." },
   { no:8,  tip:"vacip",  baslik:"Kurban Kesmek",          aciklama:"Temettü ve kıran haccında kurban kesmek vaciptir." },
-  { no:9,  tip:"vacip",  baslik:"Veda Tavafı",             aciklama:"Mekke'den ayrılmadan önce Kâbe'yi 7 kez tavaf etmek." },
+  { no:9,  tip:"vacip",  baslik:"Veda Tavafı",             aciklama:"Mekke'den ayrılmadan önce yapılan son tavaftır; Hanefî, Şâfiî ve Hanbelî'de vacip, Mâlikî'de sünnet anlatılır." },
   { no:10, tip:"sunnet", baslik:"Kudüm Tavafı",            aciklama:"Mekke'ye ilk varışta yapılan karşılama tavafı." },
 ];
 
@@ -210,11 +211,11 @@ const HAC_AYETLERİ: AyetRef[] = [
 
 const KURBAN_MADDELER: Madde[] = [
   { tip:"vacip", metin:"Hükmü",            detay:"Hanefi'de vacip; diğer mezheplerde sünnet-i müekkede." },
-  { tip:"info",  metin:"Kimlere Vacip?",   detay:"Mukim, akıllı, baliğ, nisap miktarı mala sahip Müslümanlara." },
+  { tip:"info",  metin:"Kimlere Vacip?",   detay:"Türkiye'de yaygın Hanefî anlatımda; mukim, akıl-bâliğ ve temel ihtiyaçları dışında nisap miktarı mala sahip Müslümanlara." },
   { tip:"info",  metin:"Koyun / Keçi",    detay:"En az 1 yaşında; 1 kişi adına kesilir." },
   { tip:"info",  metin:"Sığır / Manda",   detay:"En az 2 yaşında; en fazla 7 kişi ortaklığıyla kesilir." },
   { tip:"info",  metin:"Deve",             detay:"En az 5 yaşında; en fazla 7 kişi ortaklığıyla kesilir." },
-  { tip:"farz",  metin:"Kesim Vakti",      detay:"Kurban Bayramı 1. günü sabah namazından 3. gün güneş batımına kadar." },
+  { tip:"info",  metin:"Kesim Vakti",      detay:"Bayram namazı kılınan yerlerde namazdan sonra başlar; genel Hanefî anlatımda 3. gün güneş batımına kadar sürer. Şâfiî mezhebinde 4. güne uzatan görüş de vardır." },
   { tip:"sunnet",metin:"Niyet ve Besmele", detay:"\"Bismillah, Allahu Ekber\" denerek kesilir; niyet edilir." },
   { tip:"sunnet",metin:"Et Taksimi",       detay:"1/3 aile, 1/3 komşu/arkadaş, 1/3 fakirler (tavsiye edilen)." },
 ];
@@ -229,10 +230,9 @@ const KURBAN_AYETLERİ: AyetRef[] = [
 
 const ABDEST_BOLUMLER = [
   {
-    id:"abdest", ikon:"💧", baslik:"Namaz Abdesti (Vudu)", altBaslik:"5 farz · 13 sünnet",
+    id:"abdest", ikon:"💧", baslik:"Namaz Abdesti (Vudu)", altBaslik:"Kur'an'a göre 4 farz · sünnetler",
     aciklama:"Namaz kılmak, Kur'an'a el sürmek ve Kâbe'yi tavaf etmek için gerekli olan temizliktir.",
     farzlar: [
-      { organ:"Niyet",   miktar:"—" as const, aciklama:"Abdest almaya niyet etmek." },
       { organ:"Yüz",     miktar:1,            aciklama:"Alın saç diplerinden çene altına, kulak memelerinden tüm yüzü yıkamak." },
       { organ:"Kollar",  miktar:1,            aciklama:"Sağdan başlayarak her iki kolu dirsekler dahil yıkamak." },
       { organ:"Baş",     miktar:1,            aciklama:"Başın en az dörtte birini ıslak elle meshetmek (Hanefi)." },
@@ -240,6 +240,7 @@ const ABDEST_BOLUMLER = [
     ] as AbdestSatiri[],
     sunnetler: [
       { organ:"Besmele",          miktar:"—" as const, aciklama:"Bismillah demek." },
+      { organ:"Niyet",            miktar:"—" as const, aciklama:"Abdeste bilinçli şekilde başlamak; Hanefî'de sünnet, bazı mezheplerde farz kabul edilir." },
       { organ:"Eller",            miktar:3,            aciklama:"Abdeste başlarken her iki eli bilekle yıkamak." },
       { organ:"Ağız (Mazmaza)",   miktar:3,            aciklama:"Ağzı su alıp çalkalamak." },
       { organ:"Burun (İstinşak)", miktar:3,            aciklama:"Buruna su çekip temizlemek." },
@@ -260,16 +261,16 @@ const ABDEST_BOLUMLER = [
     bozanlar: ["Küçük/büyük abdest · Yel çıkması", "Derin uyku · Bayılma", "Kan veya irin akması (Hanefi)"],
   },
   {
-    id:"gusul", ikon:"🚿", baslik:"Gusül (Boy Abdesti)", altBaslik:"4 farz · 7 sünnet",
+    id:"gusul", ikon:"🚿", baslik:"Gusül (Boy Abdesti)", altBaslik:"Hanefî'de 3 farz · sünnetler",
     aciklama:"Cünüplük, hayız ve nifas gibi haller sonrasında tüm vücudun yıkanmasını gerektiren tam temizliktir.",
     farzlar: [
-      { organ:"Niyet",     miktar:"—" as const, aciklama:"Boy abdesti almaya niyet etmek." },
       { organ:"Ağız",      miktar:1,            aciklama:"Mazmaza: ağzın içini iyice çalkalamak." },
       { organ:"Burun",     miktar:1,            aciklama:"İstinşak: buruna su çekip temizlemek." },
       { organ:"Tüm Vücut", miktar:1,            aciklama:"Saç dibi dahil tüm vücudu, tek bir kılı bile kuru bırakmamak üzere yıkamak." },
     ] as AbdestSatiri[],
     sunnetler: [
       { organ:"Eller",             miktar:3,            aciklama:"Gusle başlarken elleri 3 kez yıkamak." },
+      { organ:"Niyet",             miktar:"—" as const, aciklama:"Hanefî'de sünnet, diğer birçok mezhepte farz kabul edilir." },
       { organ:"Necaset Temizliği", miktar:"—" as const, aciklama:"Varsa bedendeki necaseti önce gidermek." },
       { organ:"Namaz Abdesti",     miktar:1,            aciklama:"Gusle başlamadan önce tam namaz abdesti almak." },
       { organ:"Baş",               miktar:3,            aciklama:"Başı 3 kez su dökerek yıkamak." },
@@ -282,19 +283,19 @@ const ABDEST_BOLUMLER = [
       { sureId:4, sureAdi:"Nisâ",   ayetNo:43,  kisaMetin:"Cünüp iken yıkanmadan namaz kılmayın." },
       { sureId:2, sureAdi:"Bakara", ayetNo:222, kisaMetin:"Hayız bitince temizlendiklerinde onlara yaklaşın." },
     ] as AyetRef[],
-    bozanlar: ["Cünüplük · Hayız · Nifas", "İslam'a giriş (mühtedi için)"],
+    bozanlar: ["Cünüplük", "Hayız ve nifasın sona ermesi"],
   },
   {
-    id:"teyemmum", ikon:"🌿", baslik:"Teyemmüm (Toprak Abdesti)", altBaslik:"4 farz · 5 sünnet",
+    id:"teyemmum", ikon:"🌿", baslik:"Teyemmüm (Toprak Abdesti)", altBaslik:"Temel farzlar · sünnetler",
     aciklama:"Su bulunamaması veya kullanılamaması durumunda abdest ve guslün yerine geçen temizlik yöntemidir. Temiz toprak, kum veya taşla yapılır.",
     farzlar: [
       { organ:"Niyet",   miktar:"—" as const, aciklama:"Teyemmüm almaya niyet etmek." },
-      { organ:"Besmele", miktar:"—" as const, aciklama:"Bismillah demek (Hanbelilerde farz)." },
       { organ:"Yüz",     miktar:1,            aciklama:"Temiz yere iki eli vurup silkelendirdikten sonra tüm yüzü meshetmek." },
       { organ:"Kollar",  miktar:1,            aciklama:"İkinci kez toprağa vurup her iki kolu dirsekler dahil meshetmek (Hanefi)." },
     ] as AbdestSatiri[],
     sunnetler: [
       { organ:"Tertip",           miktar:"—" as const, aciklama:"Önce yüz, sonra kollar sırasına uymak." },
+      { organ:"Besmele",         miktar:"—" as const, aciklama:"Bismillah demek; Hanefî ve Şâfiî'de sünnettir." },
       { organ:"Parmakları Açmak", miktar:"—" as const, aciklama:"Toprağa vurmadan önce parmakları açık tutmak." },
       { organ:"Silkeleme",        miktar:"—" as const, aciklama:"Toprağa vurulan elleri hafifçe silkelemek." },
       { organ:"Parmak Araları",   miktar:1,            aciklama:"El parmaklarını hilallemek." },
@@ -304,7 +305,7 @@ const ABDEST_BOLUMLER = [
       { sureId:5, sureAdi:"Mâide", ayetNo:6,  kisaMetin:"Su bulamazsanız temiz bir toprağa yönelin; yüzlerinizi ve ellerinizi onunla meshedin." },
       { sureId:4, sureAdi:"Nisâ",  ayetNo:43, kisaMetin:"Hasta olur veya yolculukta su bulamazsanız temiz bir toprağa vurup yüzünüzü ve ellerinizi meshedin." },
     ] as AyetRef[],
-    bozanlar: ["Su bulunması", "Abdesti bozan tüm haller"],
+    bozanlar: ["Abdesti veya guslü bozan tüm haller", "Suya ulaşma veya suyu kullanabilme imkânının doğması"],
   },
 ];
 
@@ -418,6 +419,7 @@ function IbadetlerSekme() {
       {/* NAMAZ */}
       <BolumCard ikon="🕌" baslik="Namaz (Salât)">
         <Text style={s.aciklama}>Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an'da en çok emredilen ibadettir.</Text>
+        <Text style={s.aciklama}>Rek'at ve bazı ayrıntılar bu ekranda Türkiye'de yaygın Hanefî öğretim diliyle özetlenmiştir; diğer mezheplerde bazı hüküm ve uygulama farkları bulunabilir.</Text>
         <Text style={s.altBaslik}>Rekat Sayıları</Text>
         <View style={s.rekatTablo}>
           <View style={s.rekatHeader}>
@@ -435,9 +437,9 @@ function IbadetlerSekme() {
               <Text style={[s.rekatCell, s.rekatToplam]}>{v.toplam}{v.not ? `*` : ""}</Text>
             </View>
           ))}
-          <Text style={s.rekatNot}>* Öğle ve Akşam'da 2'şer rekat nafile eklenebilir</Text>
+          <Text style={s.rekatNot}>* Türkiye'de yaygın uygulamada öğle ve akşamdan sonra ayrıca 2'şer rek'at nafile kılınabilir.</Text>
         </View>
-        <Text style={s.altBaslik}>Farz ve Sünnetler</Text>
+        <Text style={s.altBaslik}>Temel Unsurlar ve Sünnetler</Text>
         <MaddeListe maddeler={NAMAZ_MADDELER} />
         <AyetListesi ayetler={NAMAZ_AYETLERİ} />
       </BolumCard>
@@ -454,8 +456,8 @@ function IbadetlerSekme() {
         <Text style={s.aciklama}>Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte defalarca zikredilir.</Text>
         <View style={s.nisapBox}>
           <Text style={s.nisapTitle}>Nisap Miktarı</Text>
-          <Text style={s.nisapRow}>🥇 Altın: <Text style={s.nisapDeger}>85 gram</Text> veya değeri kadar para/mal</Text>
-          <Text style={s.nisapRow}>🥈 Gümüş: <Text style={s.nisapDeger}>595 gram</Text> (daha ihtiyatlı ölçü)</Text>
+          <Text style={s.nisapRow}>🥇 Altın: <Text style={s.nisapDeger}>80,18 gram</Text> veya değeri kadar para/mal</Text>
+          <Text style={s.nisapRow}>🥈 Gümüş: <Text style={s.nisapDeger}>595 gram</Text> (bazı hesaplarda daha ihtiyatlı sonuç verebilir)</Text>
           <Text style={s.nisapRow}>📊 Oran: <Text style={s.nisapDeger}>%2,5</Text> (yılda bir kez, kırkta bir)</Text>
         </View>
         <Text style={s.altBaslik}>Zekâtın Verileceği 8 Sınıf</Text>
@@ -474,6 +476,7 @@ function IbadetlerSekme() {
       {/* HAC */}
       <BolumCard ikon="🕋" baslik="Hac">
         <Text style={s.aciklama}>Gücü yeten her Müslümanın ömründe en az bir kez Mekke'ye gidip belirli ibadetleri yerine getirmesidir.</Text>
+        <Text style={s.aciklama}>Aşağıdaki tasnif Türkiye'de yaygın Hanefî anlatımı esas alır; sa'y ve bazı başlıklarda diğer mezheplerde rükün/farz anlatımı bulunabilir.</Text>
         <Text style={s.altBaslik}>Hac'ın Adımları (Farz · Vacip · Sünnet)</Text>
         {HAC_ADIMLARI.map(h => {
           const r = h.tip === "farz" ? TIP_RENK.farz : h.tip === "vacip" ? TIP_RENK.vacip : TIP_RENK.sunnet;
@@ -634,3 +637,4 @@ const s = StyleSheet.create({
   bozanTitle: { fontSize:12, fontWeight:"700", color:"#991b1b", marginBottom:2 },
   bozanText:  { fontSize:12, color:"#7f1d1d", lineHeight:18 },
 });
+

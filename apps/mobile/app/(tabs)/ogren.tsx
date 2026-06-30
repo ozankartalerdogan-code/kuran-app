@@ -10,8 +10,8 @@ const SECTIONS = [
     items: [
       { emoji: "📜", label: "Peygamber Kıssaları", sub: "25 peygamberin kıssası",      route: "/peygamber-kissalari" },
       { emoji: "☪️", label: "Siyer-i Nebî",         sub: "Hz. Peygamber'in hayatı",     route: "/siyer"               },
-      { emoji: "🌙", label: "Mübarek Günler",       sub: "11 gün ve gecenin fazileti",  route: "/mubarek-gunler"      },
-      { emoji: "📖", label: "Hadisler",             sub: "112 seçme hadis, 27 konu",    route: "/hadisler"            },
+      { emoji: "🌙", label: "Mübarek Günler",       sub: "13 gün ve gecenin fazileti",  route: "/mubarek-gunler"      },
+      { emoji: "📖", label: "Hadisler",             sub: "106 seçme hadis, 27 konu",    route: "/hadisler"            },
     ],
   },
   {

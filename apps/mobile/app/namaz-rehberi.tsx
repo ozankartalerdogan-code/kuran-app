@@ -15,16 +15,19 @@ interface Adim {
   aciklama?: string; dua?: string | null; dua_arapca?: string | null; anlam?: string; not?: string;
   tekrar?: string; farz_notu?: string; anlam_notu?: string; el_pozisyonu_notu?: string;
   durum_detay?: string; parmak_notu?: string; kuran_kaynagi?: string; sureler?: Sure[];
+  niyet_ornekleri?: NiyetOrnegi[];
 }
 interface VakitRow { vakit: string; sunnet: string; farz: string; toplam: string }
+interface ComparisonRow { ozellik: string; farz_namaz: string; sunnet_namaz: string }
+interface NiyetOrnegi { namaz: string; niyet: string }
 interface SelamRow { sira: number; aciklama: string; dua: string; dua_arapca: string; anlam: string }
 interface Ozellik { baslik: string; durum: string; aciklama: string }
 interface VitirAdim { rekat: string; durum: string; aciklama: string }
 interface RekatRow { rekat: string; subhaneke: string; euzu_besmele: string; fatiha: string; zamm_i_sure: string; "oturuş": string }
 interface NamazRehberi {
-  baslik: string; aciklama: string; kaynak_not: string;
+  baslik: string; aciklama: string; kaynak_not: string; kapsam_notu?: string;
   temel_kavramlar: { baslik: string; aciklama: string; kavramlar: Kavram[]; teselli_notu: string };
-  farz_sunnet_namaz_farki: { vakit_rekat_tablosu: VakitRow[]; not: string };
+  farz_sunnet_namaz_farki: { karsilastirma?: ComparisonRow[]; vakit_rekat_tablosu: VakitRow[]; not: string };
   namaz_oncesi: { baslik: string; adimlar: Adim[] };
   namaz_adimlari: Adim[];
   dualar: Adim[];
@@ -226,16 +229,22 @@ function GuideTab() {
   return (
       <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
         <Text style={[s.intro, { color: c.textSecondary }]}>{R.aciklama}</Text>
+        {R.kapsam_notu ? (
+          <View style={s.scopeBox}>
+            <Text style={s.scopeTitle}>Kapsam Notu</Text>
+            <Text style={[s.scopeText, { color: c.textSecondary }]}>{R.kapsam_notu}</Text>
+          </View>
+        ) : null}
 
         {/* Yeni başlayan — en üstte, ilk gördükleri yer (varsayılan açık) */}
-        <Section emoji="🌱" title={R.yeni_baslayan_notu.baslik} defaultOpen>
+        <Section emoji="🌱" title={R.yeni_baslayan_notu.baslik}>
           {R.yeni_baslayan_notu.maddeler.map((m, i) => (
             <Text key={i} style={[s.madde, { color: c.textSecondary }]}>✓ {m}</Text>
           ))}
         </Section>
 
         {/* Kavramlar */}
-        <Section emoji="📘" title={R.temel_kavramlar.baslik} defaultOpen>
+        <Section emoji="📘" title={R.temel_kavramlar.baslik}>
           <Text style={[s.p, { color: c.textSecondary }]}>{R.temel_kavramlar.aciklama}</Text>
           {R.temel_kavramlar.kavramlar.map(k => {
             const d = DURUM[k.id];
@@ -252,6 +261,13 @@ function GuideTab() {
 
         {/* Vakit & rekat */}
         <Section emoji="🕐" title="Vakit ve Rekat Sayıları">
+          {R.farz_sunnet_namaz_farki.karsilastirma?.map(row => (
+            <View key={row.ozellik} style={[s.compareCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.compareTitle, { color: c.text }]}>{row.ozellik}</Text>
+              <Text style={[s.small, { color: c.textSecondary }]}>Farz: {row.farz_namaz}</Text>
+              <Text style={[s.small, { color: c.textSecondary }]}>Sünnet: {row.sunnet_namaz}</Text>
+            </View>
+          ))}
           {R.farz_sunnet_namaz_farki.vakit_rekat_tablosu.map(v => (
             <View key={v.vakit} style={[s.vakitRow, { borderColor: c.border }]}>
               <Text style={[s.vakitAd, { color: c.text }]}>{v.vakit}</Text>
@@ -274,6 +290,17 @@ function GuideTab() {
                 <DurumBadge durum={a.durum} />
               </View>
               {a.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{a.aciklama}</Text> : null}
+              {a.niyet_ornekleri?.length ? (
+                <View style={s.exampleWrap}>
+                  <Text style={[s.miniLabel, { color: c.accent }]}>Örnek Niyetler</Text>
+                  {a.niyet_ornekleri.map((ornek, idx) => (
+                    <View key={idx} style={[s.exampleCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+                      <Text style={[s.exampleTitle, { color: c.text }]}>{ornek.namaz}</Text>
+                      <Text style={[s.exampleText, { color: c.textSecondary }]}>{ornek.niyet}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : null}
             </View>
           ))}
         </Section>
@@ -340,7 +367,7 @@ function GuideTab() {
         </Section>
 
         {/* VİTİR NAMAZI */}
-        <Section emoji="🌙" title={R.vitir_namazi.baslik} defaultOpen>
+        <Section emoji="🌙" title={R.vitir_namazi.baslik}>
           <View style={s.itemHead}>
             <DurumBadge durum={R.vitir_namazi.durum} />
             <Text style={[s.rekatBilgi, { color: c.textMuted }]}>{R.vitir_namazi.rekat}</Text>
@@ -599,7 +626,7 @@ function OzelNamazlarTab() {
     <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
       <Text style={[s.intro, { color: c.textSecondary }]}>{O.aciklama}</Text>
 
-      <Section emoji="📊" title="Hızlı Bakış" defaultOpen>
+      <Section emoji="📊" title="Hızlı Bakış">
         {O.hizli_bakis_tablosu.map((row: any, i: number) => (
           <View key={i} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
             <Text style={[s.kavramIsim, { color: c.text }]}>{row.isim}</Text>
@@ -646,6 +673,9 @@ export default function NamazRehberiScreen() {
 const s = StyleSheet.create({
   content: { padding: 14, paddingBottom: 40 },
   intro:   { fontSize: 13, lineHeight: 20, marginBottom: 14 },
+  scopeBox: { backgroundColor: "#eff6ff", borderRadius: 12, borderWidth: 1, borderColor: "#bfdbfe", padding: 12, marginBottom: 14 },
+  scopeTitle: { fontSize: 11, fontWeight: "800", color: "#1d4ed8", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 4 },
+  scopeText: { fontSize: 12.5, lineHeight: 19 },
 
   sec:      { borderRadius: 14, borderWidth: 1, marginBottom: 10, overflow: "hidden" },
   secHeader:{ flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
@@ -688,6 +718,12 @@ const s = StyleSheet.create({
 
   madde: { fontSize: 13, lineHeight: 21, marginTop: 6 },
   kaynakNot: { fontSize: 11, fontStyle: "italic", marginTop: 16, textAlign: "center" },
+  compareCard: { borderRadius: 10, borderWidth: 1, padding: 10, marginTop: 8 },
+  compareTitle: { fontSize: 12.5, fontWeight: "700", marginBottom: 2 },
+  exampleWrap: { marginTop: 8, gap: 6 },
+  exampleCard: { borderRadius: 10, borderWidth: 1, padding: 10 },
+  exampleTitle: { fontSize: 12, fontWeight: "700", marginBottom: 3 },
+  exampleText: { fontSize: 12, lineHeight: 18, fontStyle: "italic" },
 
   // Özel Namazlar sekmesi
   miniLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4, marginTop: 6, marginBottom: 2 },
