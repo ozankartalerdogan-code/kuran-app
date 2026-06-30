@@ -24,6 +24,8 @@ function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string
         style={tf.header}
         onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
         activeOpacity={0.75}
+        accessibilityRole="button"
+        accessibilityLabel="Tefsir: Elmalılı Hamdi Yazır"
       >
         <View>
           <Text style={[tf.title, { color: c.text }]}>📚 Sure Tefsiri</Text>
@@ -88,6 +90,8 @@ function VerseRow({ item, onPress }: VerseRowProps) {
       style={[styles.row, { backgroundColor: c.card }]}
       onPress={() => onPress(item.ayahNumber)}
       activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityLabel={`${item.ayahNumber}. ayeti aç`}
     >
       <View style={[styles.numberCircle, { backgroundColor: c.cardAlt }]}>
         <Text style={[styles.numberText, { color: c.textMuted }]}>{item.ayahNumber}</Text>

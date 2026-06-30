@@ -55,7 +55,7 @@ function DuaCard({ dua }: { dua: Dua }) {
       <View style={s.duaHead}>
         <Text style={[s.duaBaslik, { color: c.text }]}>{dua.baslik}</Text>
         <DerecBadge derece={dua.derece} />
-        <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7}>
+        <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Duayı paylaş">
           <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
         </TouchableOpacity>
       </View>
@@ -74,7 +74,7 @@ function DuaCard({ dua }: { dua: Dua }) {
 
       {hasDetay && (
         <>
-          <TouchableOpacity onPress={() => setDetay(d => !d)} activeOpacity={0.7}>
+          <TouchableOpacity onPress={() => setDetay(d => !d)} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ expanded: detay }} accessibilityLabel="Açıklama ve fazileti">
             <Text style={[s.detayToggle, { color: c.accent }]}>{detay ? "▲ Daha az" : "▼ Açıklama ve fazileti"}</Text>
           </TouchableOpacity>
           {detay && (
@@ -95,7 +95,7 @@ function KategoriAccordion({ kat, defaultOpen }: { kat: Kategori; defaultOpen?: 
   const [open, setOpen] = useState(!!defaultOpen);
   return (
     <View style={[s.katCard, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={s.katHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75}>
+      <TouchableOpacity style={s.katHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={`${kat.isim}, ${kat.dualar.length} dua`}>
         <View style={s.katKod}><Text style={s.katKodText}>{kat.kod}</Text></View>
         <Text style={[s.katTitle, { color: c.text }]}>{kat.isim}</Text>
         <View style={[s.katCount, { backgroundColor: c.cardAlt }]}><Text style={[s.katCountText, { color: c.textMuted }]}>{kat.dualar.length}</Text></View>

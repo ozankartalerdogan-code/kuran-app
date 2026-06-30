@@ -330,7 +330,7 @@ export default function KibleScreen() {
 
         {/* Kalibrasyon — sade tek satır */}
         {showCalib && (
-          <TouchableOpacity style={s.calibSlim} onPress={() => setShowCalib(false)} activeOpacity={0.8}>
+          <TouchableOpacity style={s.calibSlim} onPress={() => setShowCalib(false)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Kalibrasyon uyarısını kapat">
             <Text style={s.calibSlimText}>🔄 Doğruluk için telefonu <Text style={{ fontWeight: "800" }}>8 şeklinde</Text> birkaç kez çevirin</Text>
             <Text style={s.calibSlimX}>✕</Text>
           </TouchableOpacity>
@@ -416,6 +416,8 @@ export default function KibleScreen() {
           style={s.backBtn}
           onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(); }}
           activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel="Konumu yenile"
         >
           <Text style={s.backBtnText}>🔄 Konumu Yenile</Text>
         </TouchableOpacity>

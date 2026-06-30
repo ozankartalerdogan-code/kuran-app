@@ -94,12 +94,14 @@ export default function OnboardingScreen() {
           style={[s.btn, { backgroundColor: c.accent }]}
           onPress={isLast ? completeOnboarding : goNext}
           activeOpacity={0.85}
+          accessibilityRole="button"
+          accessibilityLabel={isLast ? "Başla" : "İleri"}
         >
           <Text style={s.btnText}>{isLast ? "Başla" : "İleri"}</Text>
         </TouchableOpacity>
 
         {!isLast && (
-          <TouchableOpacity onPress={completeOnboarding} activeOpacity={0.6} style={s.skipBtn}>
+          <TouchableOpacity onPress={completeOnboarding} activeOpacity={0.6} style={s.skipBtn} accessibilityRole="button" accessibilityLabel="Tanıtımı atla">
             <Text style={[s.skipText, { color: c.textMuted }]}>Atla</Text>
           </TouchableOpacity>
         )}

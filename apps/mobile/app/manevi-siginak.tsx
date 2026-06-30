@@ -80,7 +80,7 @@ function VerseList({ tag }: { tag: string }) {
 
   return (
     <View style={sc.verseSection}>
-      <TouchableOpacity style={sc.verseSectionBtn} onPress={toggle} activeOpacity={0.75}>
+      <TouchableOpacity style={sc.verseSectionBtn} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel="İlgili ayetler">
         <Text style={sc.verseSectionLabel}>📖 İlgili Ayetler</Text>
         <Text style={sc.verseSectionChev}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
@@ -90,7 +90,7 @@ function VerseList({ tag }: { tag: string }) {
           {!loading && error && (
             <View style={sc.verseFeedback}>
               <Text style={sc.verseErrorText}>Ayetler yüklenemedi.</Text>
-              <TouchableOpacity style={sc.verseRetryBtn} onPress={fetchVerses} activeOpacity={0.75}>
+              <TouchableOpacity style={sc.verseRetryBtn} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
                 <Text style={sc.verseRetryText}>Tekrar Dene</Text>
               </TouchableOpacity>
             </View>
@@ -100,7 +100,8 @@ function VerseList({ tag }: { tag: string }) {
           )}
           {!loading && !error && verses.map(v => (
             <TouchableOpacity key={v.verse_key} style={sc.verseRow}
-              onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}` as any)} activeOpacity={0.7}>
+              onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}` as any)} activeOpacity={0.7}
+              accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
               <View style={sc.verseKey}><Text style={sc.verseKeyText}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
                 {v.surah_name && <Text style={sc.verseSurah}>{v.surah_name}</Text>}
@@ -124,7 +125,7 @@ function Bolum({ emoji, baslik, color, children }: { emoji: string; baslik: stri
   const [open, setOpen] = useState(false);
   return (
     <View style={[s.bolum, { borderLeftColor: color }]}>
-      <TouchableOpacity style={s.bolumHeader} onPress={() => setOpen(p => !p)} activeOpacity={0.75}>
+      <TouchableOpacity style={s.bolumHeader} onPress={() => setOpen(p => !p)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={baslik}>
         <Text style={{ fontSize: 22 }}>{emoji}</Text>
         <Text style={s.bolumTitle}>{baslik}</Text>
         <Text style={s.bolumChev}>{open ? "▲" : "▼"}</Text>
@@ -159,7 +160,8 @@ export default function ManeviSiginakScreen() {
         </View>
 
         {/* İsmi Azam linki */}
-        <TouchableOpacity style={s.featuredCard} onPress={() => router.push("/manevi-siginak/ismi-azam")} activeOpacity={0.85}>
+        <TouchableOpacity style={s.featuredCard} onPress={() => router.push("/manevi-siginak/ismi-azam")} activeOpacity={0.85} accessibilityRole="button" accessibilityLabel="İsmi Azam ve korunma duaları">
+
           <Text style={{ fontSize: 32 }}>✨</Text>
           <View style={{ flex: 1 }}>
             <Text style={s.featuredTitle}>İsmi Azam & Korunma Duaları</Text>

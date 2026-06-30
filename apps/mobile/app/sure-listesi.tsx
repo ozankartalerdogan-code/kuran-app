@@ -39,6 +39,8 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
       style={[styles.row, { backgroundColor: c.card }]}
       onPress={() => router.push(`/surah/${item.id}`)}
       activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityLabel={`${item.id}. sure: ${item.name}`}
     >
       <View style={[styles.rowNumber, { backgroundColor: c.isDark ? c.cardAlt : sortMode === "nuzul" ? "#ede9fe" : "#f5f0e8" }]}>
         <Text style={[styles.numberText, { color: sortMode === "nuzul" ? "#7c3aed" : c.textMuted }]}>{circleNum}</Text>
@@ -133,6 +135,9 @@ export default function SureListesiScreen() {
               style={[styles.toggleBtn, sortMode === mode && { backgroundColor: c.accent }]}
               onPress={() => setSortMode(mode)}
               activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityState={{ selected: sortMode === mode }}
+              accessibilityLabel={mode === "mushaf" ? "Mushaf sırası" : "Nüzul sırası"}
             >
               <Text style={[styles.toggleText, { color: sortMode === mode ? "#fff" : c.textMuted }]}>
                 {mode === "mushaf" ? "📖 Mushaf Sırası" : "✨ Nüzul Sırası"}
