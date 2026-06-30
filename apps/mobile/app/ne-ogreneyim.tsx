@@ -12,7 +12,7 @@ const PAD = 16;
 const CARD_W = (width - PAD * 2 - GAP) / 2;
 
 const ITEMS = [
-  { emoji: "✍️",  title: "Elif-Ba",             route: "/ogren",               desc: "Arapça okumayı öğren" },
+  { emoji: "🎓",  title: "Dersler",             route: "/dersler",             desc: "Kart kart öğren, kendini test et" },
   { emoji: "📖",  title: "Kuran",               route: "/sure-listesi",        desc: "Ayet oku, meal incele" },
   { emoji: "📜",  title: "Mushaf",              route: "/mushaf",              desc: "Mushaf formatında oku" },
   { emoji: "🌳",  title: "Kelime Kökü",         route: "/root",                desc: "Kelimelerin anlamını keşfet" },
