@@ -14,7 +14,7 @@
     "production": {
       "autoIncrement": true,
       "android": {
-        "buildType": "apk"
+        "buildType": "app-bundle"
       },
       "env": {
         "SENTRY_DISABLE_AUTO_UPLOAD": "false"
