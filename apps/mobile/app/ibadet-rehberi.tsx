@@ -3,7 +3,7 @@ import {
   View, Text, ScrollView, TouchableOpacity,
   StyleSheet, Pressable,
 } from "react-native";
-import { router, Stack } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
@@ -538,7 +538,10 @@ const TABS: { id: Tab; label: string; ikon: string }[] = [
 
 export default function IbadetRehberiScreen() {
   const insets = useSafeAreaInsets();
-  const [tab, setTab] = React.useState<Tab>("inanc");
+  const { tab: tabParam } = useLocalSearchParams<{ tab?: string }>();
+  const [tab, setTab] = React.useState<Tab>(
+    tabParam === "ibadetler" || tabParam === "abdest" ? tabParam : "inanc"
+  );
   return (
     <>
       <Stack.Screen options={{ title:"İbadet Rehberi" }} />

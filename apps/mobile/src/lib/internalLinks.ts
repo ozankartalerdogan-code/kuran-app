@@ -9,8 +9,14 @@
  * ?bolum=zamm → ilgili akordiyonu açıp oraya kaydırır).
  */
 export const INTERNAL_LINKS: Record<string, string> = {
-  "zamm-sureler": "/namaz-rehberi?bolum=zamm",
-  "namaz-rehberi": "/namaz-rehberi", // param yok → akordiyonlar kapalı açılır
+  "zamm-sureler":        "/namaz-rehberi?bolum=zamm",
+  "namaz-rehberi":       "/namaz-rehberi", // param yok → akordiyonlar kapalı açılır
+  "namaz-dualari":       "/namaz-rehberi", // Namaz Duaları bölümü rehber sekmesinde
+  "ibadet-inanc":        "/ibadet-rehberi?tab=inanc",
+  "ibadet-ibadetler":    "/ibadet-rehberi?tab=ibadetler",
+  "ibadet-abdest":       "/ibadet-rehberi?tab=abdest",
+  "peygamber-kissalari": "/peygamber-kissalari",
+  "siyer":               "/siyer",
 };
 
 export function resolveInternalLink(key: string): string | null {
