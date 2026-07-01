@@ -53,9 +53,8 @@ export async function fetchPrayerTimes(
   }
 }
 
-// Vakitten kaç dakika önce: ilk hatırlatma ve (ayet içeren) ikinci hatırlatma
-const REMIND_BEFORE_MIN = 5; // sade "vakit yaklaşıyor" hatırlatması
-const VERSE_BEFORE_MIN  = 3; // namaz-taglı ayet meali (teşvik)
+// Vakitten kaç dakika önce tek bildirim (hatırlatma + namaz-taglı ayet birlikte)
+const REMIND_BEFORE_MIN = 5;
 
 // Android 8+ bildirim kanalı — yüksek öncelik (heads-up + ses). Olmadan bildirimler
 // varsayılan kanalda sessiz/önemsiz görünebilir.
@@ -85,9 +84,9 @@ function dailyTriggerBefore(hour: number, minute: number, offsetMin: number) {
   } as const;
 }
 
-// Günlük namaz bildirimlerini planla. Her vakit için iki DAILY bildirim:
-//   • 5 dk önce: sade hatırlatma
-//   • 3 dk önce: namaz-taglı ayet meali (her yeniden planlamada rastgele → dinamik)
+// Günlük namaz bildirimlerini planla. Her vakit için TEK bildirim (5 dk önce):
+// hatırlatma + namaz-taglı ayet meali birlikte (her yeniden planlamada rastgele →
+// dinamik). Ayrı ayet bildirimi kaldırıldı → günde 5 bildirim (10 değil), fatigue azalır.
 type ValidVakit = { key: string; label: string; hour: number; minute: number };
 
 export async function scheduleNamazNotifications(
@@ -107,50 +106,31 @@ export async function scheduleNamazNotifications(
     valid.push({ key, label, hour, minute });
   }
 
-  // 1) 5 dk önce — sade hatırlatmalar (ağ yok). Hepsini paralel planla.
-  const reminderJobs = valid.map(({ label, hour, minute }) =>
-    Notifications.scheduleNotificationAsync({
+  // Namaz-taglı ayet mealleri — PARALEL çek (seri await toggle'ı yavaşlatıyordu).
+  // Başarısız/boş olan vakit reminder-only kalır.
+  const verses = await Promise.all(
+    valid.map(({ key }) =>
+      api.notifications.namazVerse(key.toLowerCase()).catch(() => null)
+    )
+  );
+
+  // Her vakit için TEK bildirim: hatırlatma + (varsa) namaz-taglı ayet aynı gövdede.
+  const jobs = valid.map(({ label, hour, minute }, i) => {
+    const translation = verses[i]?.translation;
+    const verseLine = translation
+      ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
+      : "";
+    return Notifications.scheduleNotificationAsync({
       content: {
         title: `🕌 ${label} Vaktine ${REMIND_BEFORE_MIN} Dakika`,
-        body:  `${label} vakti yaklaşıyor, namaza hazırlanın.`,
+        body:  `${label} vakti yaklaşıyor, namaza hazırlanın.${verseLine}`,
         sound: true,
         data:  { route: "/namaz" },
       },
       trigger: dailyTriggerBefore(hour, minute, REMIND_BEFORE_MIN),
-    })
-  );
-
-  // 2) 3 dk önce — namaz-taglı ayet mealleri. 6 ayet isteğini ARDIŞIK değil
-  // PARALEL çek; eskiden seri await idi ve toggle'ı 5-6 sn yavaşlatan asıl yer burasıydı.
-  const verseFetches = valid.map(({ key }) =>
-    api.notifications.namazVerse(key.toLowerCase()).catch(() => null)
-  );
-
-  // Hatırlatmaların planlanması ile ayet çekimleri eşzamanlı ilerlesin.
-  const [, verses] = await Promise.all([
-    Promise.all(reminderJobs),
-    Promise.all(verseFetches),
-  ]);
-
-  // Ayet alınabilen vakitler için ikinci bildirimi planla (boş bildirim gitmesin).
-  const verseJobs: Promise<string>[] = [];
-  valid.forEach(({ label, hour, minute }, i) => {
-    const translation = verses[i]?.translation;
-    if (!translation) return;
-    const verseBody = translation.slice(0, 160) + (translation.length > 160 ? "…" : "");
-    verseJobs.push(
-      Notifications.scheduleNotificationAsync({
-        content: {
-          title: `🕌 ${label} Vakti`,
-          body:  verseBody,
-          sound: true,
-          data:  { route: "/namaz" },
-        },
-        trigger: dailyTriggerBefore(hour, minute, VERSE_BEFORE_MIN),
-      })
-    );
+    });
   });
-  await Promise.all(verseJobs);
+  await Promise.all(jobs);
 }
 
 // Bildirimleri kapat
