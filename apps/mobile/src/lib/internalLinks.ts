@@ -10,6 +10,7 @@
  */
 export const INTERNAL_LINKS: Record<string, string> = {
   "zamm-sureler": "/namaz-rehberi?bolum=zamm",
+  "namaz-rehberi": "/namaz-rehberi", // param yok → akordiyonlar kapalı açılır
 };
 
 export function resolveInternalLink(key: string): string | null {
