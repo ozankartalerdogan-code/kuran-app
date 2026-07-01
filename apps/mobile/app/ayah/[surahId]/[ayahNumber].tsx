@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,
   Share,
   StyleSheet,
   useColorScheme,
@@ -14,6 +13,7 @@ import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonLoader";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useFavorites } from "../../../src/hooks/useFavorites";
@@ -566,11 +566,13 @@ export default function AyahDetailScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Ayet Detayı" }} />
-        <View style={[styles.centered, { backgroundColor: colors.bg }]}>
-          <ActivityIndicator size="large" color={colors.accent} />
-          <Text style={[styles.loadingText, { color: colors.textMuted }]}>
-            Ayet yükleniyor…
-          </Text>
+        <View style={{ flex: 1, backgroundColor: colors.bg, padding: 16, gap: 14 }}>
+          {/* Arapça metin — sağa dayalı */}
+          <SkeletonBox width="88%" height={38} borderRadius={8} style={{ alignSelf: "flex-end" }} />
+          <SkeletonBox width="66%" height={26} borderRadius={8} style={{ alignSelf: "flex-end", marginBottom: 4 }} />
+          {/* okunuş + meal kartları */}
+          <SkeletonAyetCard />
+          <SkeletonAyetCard />
         </View>
       </>
     );
