@@ -1,12 +1,15 @@
 /**
- * AyahLinkedText — içindeki Kur'an ayet referanslarını ("5/6", "33:21")
- * tıklanabilir linke çevirir; dokununca ilgili ayet detayına gider.
- * Referans yoksa düz <Text> gibi davranır (ekstra maliyet yok).
+ * AyahLinkedText — ders metnindeki iki tür bağlantıyı tıklanabilir yapar:
+ *  1) Kur'an ayet referansları ("5/6", "33:21")  → /ayah/{sure}/{ayet}
+ *  2) Uygulama-içi token'lar {{link:KEY|metin}}   → INTERNAL_LINKS[KEY] route'u
+ * Bağlantı yoksa düz <Text> gibi davranır (ekstra maliyet yok). Bilinmeyen
+ * token KEY'i → düz metin (bozuk link sızmaz).
  */
 import React from "react";
 import { Text, type StyleProp, type TextStyle } from "react-native";
 import { router } from "expo-router";
 import { parseAyahRefs } from "../lib/ayahRefs";
+import { splitInternalTokens, resolveInternalLink } from "../lib/internalLinks";
 import { api } from "../lib/api";
 
 type Props = {
@@ -15,33 +18,60 @@ type Props = {
   linkColor?: string;
 };
 
+const linkTextStyle = (color: string): TextStyle => ({
+  color,
+  fontWeight: "700",
+  textDecorationLine: "underline",
+});
+
 export function AyahLinkedText({ children, style, linkColor = "#c9a84c" }: Props) {
-  const segments = parseAyahRefs(children ?? "");
+  const text = children ?? "";
+  const parts = splitInternalTokens(text);
 
-  // Hızlı yol: hiç referans yoksa tek Text.
-  if (!segments.some((s) => s.type === "ayah")) {
-    return <Text style={style}>{children}</Text>;
-  }
+  // Hiç bağlantı yoksa (token de ayet ref de) → tek Text.
+  const hasLink =
+    parts.some((p) => p.type === "link" && resolveInternalLink(p.key)) ||
+    parts.some((p) => p.type === "text" && parseAyahRefs(p.value).some((s) => s.type === "ayah"));
+  if (!hasLink) return <Text style={style}>{text}</Text>;
 
-  return (
-    <Text style={style}>
-      {segments.map((seg, i) =>
-        seg.type === "ayah" ? (
+  const nodes: React.ReactNode[] = [];
+  parts.forEach((part, pi) => {
+    if (part.type === "link") {
+      const href = resolveInternalLink(part.key);
+      if (!href) { nodes.push(part.label); return; } // bilinmeyen key → düz metin
+      nodes.push(
+        <Text
+          key={`l${pi}`}
+          style={linkTextStyle(linkColor)}
+          onPress={() => router.push(href as never)}
+          accessibilityRole="link"
+          accessibilityLabel={`${part.label} — aç`}
+        >
+          {part.label}
+        </Text>,
+      );
+      return;
+    }
+    // Düz metin parçası → içindeki ayet ref'lerini linkle.
+    parseAyahRefs(part.value).forEach((seg, si) => {
+      if (seg.type === "ayah") {
+        nodes.push(
           <Text
-            key={i}
-            style={{ color: linkColor, fontWeight: "700", textDecorationLine: "underline" }}
-            // Parmak değince veriyi ısıt → bırakınca sayfa çoğu zaman hazır.
+            key={`a${pi}-${si}`}
+            style={linkTextStyle(linkColor)}
             onPressIn={() => { api.ayah.get(seg.surahId, seg.ayahNumber).catch(() => {}); }}
             onPress={() => router.push(`/ayah/${seg.surahId}/${seg.ayahNumber}`)}
             accessibilityRole="link"
             accessibilityLabel={`${seg.surahId}. sure ${seg.ayahNumber}. ayete git`}
           >
             {seg.value}
-          </Text>
-        ) : (
-          <Text key={i}>{seg.value}</Text>
-        ),
-      )}
-    </Text>
-  );
+          </Text>,
+        );
+      } else {
+        nodes.push(<Text key={`t${pi}-${si}`}>{seg.value}</Text>);
+      }
+    });
+  });
+
+  return <Text style={style}>{nodes}</Text>;
 }

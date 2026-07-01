@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -222,12 +222,22 @@ function Section({ emoji, title, defaultOpen, children }: { emoji: string; title
 }
 
 // ── "Nasıl Kılınır" sekmesi (adım adım rehber) ────────────────────────────────
-function GuideTab() {
+function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const zammSureler = R.namaz_adimlari.find(a => a.id === "zamm_i_sure")?.sureler ?? [];
+  // Derin link (?bolum=zamm): Zamm-ı Sureler bölümüne otomatik kaydır.
+  const scrollRef = useRef<ScrollView>(null);
+  const zammY = useRef(0);
+  useEffect(() => {
+    if (!focusZamm) return;
+    const t = setTimeout(() => {
+      scrollRef.current?.scrollTo({ y: Math.max(0, zammY.current - 12), animated: true });
+    }, 450);
+    return () => clearTimeout(t);
+  }, [focusZamm]);
   return (
-      <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
+      <ScrollView ref={scrollRef} style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
         <Text style={[s.intro, { color: c.textSecondary }]}>{R.aciklama}</Text>
         {R.kapsam_notu ? (
           <View style={s.scopeBox}>
@@ -327,8 +337,9 @@ function GuideTab() {
           ))}
         </Section>
 
-        {/* Zamm-ı Sureler — ayrı bölüm */}
-        <Section emoji="📖" title={`Zamm-ı Sureler (${zammSureler.length} Kısa Sure)`}>
+        {/* Zamm-ı Sureler — ayrı bölüm (derin link hedefi) */}
+        <View onLayout={(e) => { zammY.current = e.nativeEvent.layout.y; }}>
+        <Section emoji="📖" title={`Zamm-ı Sureler (${zammSureler.length} Kısa Sure)`} defaultOpen={focusZamm}>
           <Text style={[s.p, { color: c.textSecondary }]}>Fatiha'dan sonra okunabilecek, en çok tercih edilen kısa sureler:</Text>
           {zammSureler.map(su => (
             <View key={su.id} style={s.item}>
@@ -337,6 +348,7 @@ function GuideTab() {
             </View>
           ))}
         </Section>
+        </View>
 
         {/* Dualar */}
         <Section emoji="📿" title="Namaz Duaları">
@@ -656,9 +668,10 @@ function OzelNamazlarTab() {
 export default function NamazRehberiScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const { tab: initialTab } = useLocalSearchParams<{ tab?: string }>();
+  const { tab: initialTab, bolum } = useLocalSearchParams<{ tab?: string; bolum?: string }>();
+  const focusZamm = bolum === "zamm";
   const [tab, setTab] = useState<"rehber" | "ayetler" | "ozel">(
-    initialTab === "ozel" ? "ozel" : initialTab === "ayetler" ? "ayetler" : "rehber"
+    focusZamm ? "rehber" : initialTab === "ozel" ? "ozel" : initialTab === "ayetler" ? "ayetler" : "rehber"
   );
   return (
     <>
@@ -675,7 +688,7 @@ export default function NamazRehberiScreen() {
           })}
         </View>
       </View>
-      {tab === "rehber" ? <GuideTab /> : tab === "ayetler" ? <AyetlerTab /> : <OzelNamazlarTab />}
+      {tab === "rehber" ? <GuideTab focusZamm={focusZamm} /> : tab === "ayetler" ? <AyetlerTab /> : <OzelNamazlarTab />}
     </>
   );
 }
