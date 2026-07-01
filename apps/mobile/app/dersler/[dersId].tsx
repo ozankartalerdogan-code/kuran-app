@@ -22,6 +22,7 @@ import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
 import { normalizeQuizSorular, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { AyahLinkedText } from "../../src/components/AyahLinkedText";
 
 const { width: SCREEN_W } = Dimensions.get("window");
 
@@ -275,7 +276,7 @@ export default function DersDetayScreen() {
           {kartlar.map((k, i) => (
             <View key={k.id}>
               <Text style={[s.readBaslik, { color: c.text }]}>{k.baslik ?? ""}</Text>
-              <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{k.icerik ?? ""}</Text>
+              <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{k.icerik ?? ""}</AyahLinkedText>
               <View style={[s.vurguBox, { backgroundColor: "rgba(201,168,76,0.10)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
                 <Text style={s.vurguText}>✦  {k.vurgu ?? ""}</Text>
               </View>
@@ -540,7 +541,7 @@ export default function DersDetayScreen() {
           <Image source={gorselSrc} style={s.gorselImg} resizeMode="contain" />
         )}
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
-          <Text style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</Text>
+          <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>
         </View>
       </ScrollView>
 
