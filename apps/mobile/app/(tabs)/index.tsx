@@ -331,7 +331,7 @@ function HomeContent() {
       >
         <View style={{ flex: 1 }}>
           <Text style={styles.derslerTitle}>📚 Dersler — İslam'ı Öğren</Text>
-          <Text style={[styles.derslerSub, { color: c.textMuted }]}>Kart kart öğren, kendini test et</Text>
+          <Text style={[styles.derslerSub, { color: c.textMuted }]}>Sıfırdan, adım adım öğren</Text>
         </View>
         <Text style={styles.derslerChev}>›</Text>
       </TouchableOpacity>
