@@ -169,7 +169,7 @@ export default function SurahDetailScreen() {
 
 if (loading) {
     return (
-      <View style={[styles.centered, { alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 60 }]}>
+      <View style={[styles.centered, { alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: insets.top + 12 }]}>
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
