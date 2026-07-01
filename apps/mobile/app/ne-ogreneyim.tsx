@@ -32,12 +32,23 @@ export default function NeOgreneyimScreen() {
   const insets = useSafeAreaInsets();
   useEffect(() => { logScreen('NeOgreneyim'); }, []);
 
+  const goBack = () => {
+    Haptics.selectionAsync();
+    if (router.canGoBack()) router.back();
+    else router.replace("/");
+  };
+
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: c.bg }}>
       <Stack.Screen options={{ headerShown: false }} />
+      <View style={[s.header, { paddingTop: insets.top + 6 }]}>
+        <TouchableOpacity onPress={goBack} hitSlop={10} style={s.backBtn} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
+          <Text style={[s.backText, { color: c.accent }]}>‹ Geri</Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
-        contentContainerStyle={{ padding: PAD, paddingTop: insets.top + 20, paddingBottom: 32 + insets.bottom }}
+        contentContainerStyle={{ padding: PAD, paddingTop: 8, paddingBottom: 32 + insets.bottom }}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.title, { color: c.text }]}>Ne öğrenmek istiyorsunuz?</Text>
@@ -59,11 +70,14 @@ export default function NeOgreneyimScreen() {
           ))}
         </View>
       </ScrollView>
-    </>
+    </View>
   );
 }
 
 const s = StyleSheet.create({
+  header:    { flexDirection: "row", alignItems: "center", paddingHorizontal: 8, paddingBottom: 4 },
+  backBtn:   { padding: 8 },
+  backText:  { fontSize: 16, fontWeight: "600" },
   title:     { fontSize: 22, fontWeight: "700", marginBottom: 4 },
   subtitle:  { fontSize: 14, marginBottom: 20 },
   grid:      { flexDirection: "row", flexWrap: "wrap", gap: GAP },
