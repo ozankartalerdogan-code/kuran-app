@@ -439,12 +439,18 @@ export const api = {
   },
 
   tafsir: {
+    // Tefsir statiktir → 7 gün yerel cache + ağ hatasında eski cache'ten sun.
+    // (Sadeleştirilmiş metin ayrıca gömülü fallback'e sahip; bu, orijinali de offline tutar.)
     get: (surahId: number) =>
-      withRetry((signal) =>
-        request<TafsirResponse>(
-          `/tafsir/${surahId}`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_tafsir_${surahId}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<TafsirResponse>(
+            `/tafsir/${surahId}`,
+            undefined,
+            signal,
+          ),
         ),
       ),
   },
@@ -497,24 +503,38 @@ export const api = {
   },
 
   elifba: {
+    // Elif-Ba içeriği statiktir → 7 gün yerel cache + ağ hatasında eski cache'ten sun.
+    // (Ses dosyaları CDN'den ayrı gelir; bu yalnız metin/harf/quiz verisini offline tutar.)
     dersler: () =>
-      withRetry((signal) =>
-        request<ElifbaDers[]>("/elifba/dersler", undefined, signal),
+      withCacheFallback(
+        "cache_elifba_dersler",
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<ElifbaDers[]>("/elifba/dersler", undefined, signal),
+        ),
       ),
     harfler: (dersId: number) =>
-      withRetry((signal) =>
-        request<ElifbaHarf[]>(
-          `/elifba/dersler/${dersId}/harfler`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_elifba_harfler_${dersId}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<ElifbaHarf[]>(
+            `/elifba/dersler/${dersId}/harfler`,
+            undefined,
+            signal,
+          ),
         ),
       ),
     quiz: (lessonId: number) =>
-      withRetry((signal) =>
-        request<ElifbaQuizSoru[]>(
-          `/elifba/quiz/${lessonId}`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_elifba_quiz_${lessonId}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<ElifbaQuizSoru[]>(
+            `/elifba/quiz/${lessonId}`,
+            undefined,
+            signal,
+          ),
         ),
       ),
   },

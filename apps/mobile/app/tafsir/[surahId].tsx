@@ -83,9 +83,7 @@ export default function TafsirScreen() {
       .filter((p) => p.length > 0 && !/^[-_=*\s]+$/.test(p));
   }, [activeContent]);
 
-  const sourceLabel = selectedMode === "simplified"
-    ? "Elmalılı'dan sadeleştirilmiş anlatım"
-    : "Elmalılı Hamdi Yazır";
+  const isSimplified = selectedMode === "simplified";
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}> 
@@ -127,7 +125,13 @@ export default function TafsirScreen() {
                   </TouchableOpacity>
                 </View>
               )}
-              <Text style={[styles.source, { color: c.textMuted }]}>{sourceLabel}</Text>
+              {isSimplified ? (
+                <Text style={[styles.source, { color: c.textMuted }]}>
+                  Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir.
+                </Text>
+              ) : (
+                <Text style={[styles.source, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
+              )}
             </View>
           }
           contentContainerStyle={[styles.listContent, { paddingBottom: 40 + insets.bottom }]}
@@ -146,7 +150,7 @@ const styles = StyleSheet.create({
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24, gap: 12 },
   muted: { fontSize: 14, fontStyle: "italic" },
   listContent: { padding: 16, paddingBottom: 40 },
-  source: { fontSize: 12, fontStyle: "italic", marginBottom: 14 },
+  source: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginBottom: 14 },
   para: { fontSize: 15, lineHeight: 26, marginBottom: 14 },
   tabRow: {
     flexDirection: "row",
