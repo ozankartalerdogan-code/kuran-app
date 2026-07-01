@@ -97,7 +97,7 @@ function AppContent() {
       <AppTourProvider>
       <Stack initialRouteName="(tabs)">
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
-        <Stack.Screen name="surah/[id]"                     options={{ headerShown: false }} />
+        <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: "Geri" }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
         <Stack.Screen name="tafsir/[surahId]"               options={{ headerBackTitle: "Geri" }} />
         <Stack.Screen name="ogren/index"                           options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
@@ -130,7 +130,7 @@ function AppContent() {
         <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
         <Stack.Screen name="dualar"                              options={{ title: "Dualar ve Zikirler", headerBackTitle: "Geri" }} />
         <Stack.Screen name="esma"                                options={{ title: "Esmaül Hüsna", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="ogren/harf-i-tarif"                  options={{ headerShown: false }} />
+        <Stack.Screen name="ogren/harf-i-tarif"                  options={{ title: "Harf-i Tarif", headerBackTitle: "Geri" }} />
       </Stack>
       </AppTourProvider>
     </SafeAreaProvider>

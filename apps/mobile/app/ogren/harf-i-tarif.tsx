@@ -7,7 +7,7 @@ export default function HarfITarifScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Harf-i Tarif" }} />
-      <HarfITarifContent paddingTop={insets.top + 16} paddingBottom={insets.bottom + 40} />
+      <HarfITarifContent paddingTop={16} paddingBottom={insets.bottom + 40} />
     </>
   );
 }

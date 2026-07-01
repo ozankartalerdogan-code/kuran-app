@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from "react-native";
-import { useLocalSearchParams, router } from "expo-router";
+import { useLocalSearchParams, router, Stack } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type VerseItem, type VerseListResponse } from "../../src/lib/api";
@@ -169,7 +169,8 @@ export default function SurahDetailScreen() {
 
 if (loading) {
     return (
-      <View style={[styles.centered, { alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: insets.top + 12 }]}>
+      <View style={[styles.centered, { alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 12 }]}>
+        <Stack.Screen options={{ title: "Sure" }} />
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
@@ -178,13 +179,15 @@ if (loading) {
   if (error || !data) {
     return (
       <View style={styles.centered}>
+        <Stack.Screen options={{ title: "Sure" }} />
         <Text style={styles.errorText}>{error ?? "Veri yüklenemedi."}</Text>
       </View>
     );
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+    <View style={[styles.container, { backgroundColor: c.bg }]}>
+      <Stack.Screen options={{ title: data.surah.name }} />
       <FlatList
         data={data.verses}
         keyExtractor={keyExtractor}
