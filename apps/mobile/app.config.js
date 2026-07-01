@@ -33,11 +33,14 @@ module.exports = {
       },
       permissions: [
         'android.permission.ACCESS_COARSE_LOCATION',
-        'android.permission.ACCESS_FINE_LOCATION',
         'android.permission.FOREGROUND_SERVICE',
         'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK',
         'android.permission.POST_NOTIFICATIONS',
       ],
+      // expo-location plugin ACCESS_FINE_LOCATION'ı otomatik ekler; Play'in
+      // hassas-konum beyanı/incelemesi gerekmesin diye açıkça engelliyoruz.
+      // Kıble ve namaz vakti için yaklaşık (COARSE) konum yeterlidir.
+      blockedPermissions: ['android.permission.ACCESS_FINE_LOCATION'],
     },
     web: {
       bundler: 'metro',

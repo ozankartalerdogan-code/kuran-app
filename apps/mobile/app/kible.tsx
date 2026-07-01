@@ -307,7 +307,7 @@ export default function KibleScreen() {
     if (!coords) {
       try {
         const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High }),
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
           new Promise<null>(r => setTimeout(() => r(null), 25000)),
         ]);
         if (pos && "coords" in pos) coords = pos.coords;
