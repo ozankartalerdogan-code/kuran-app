@@ -1,12 +1,12 @@
 {
   "quiz_id": "kurban",
   "baslik": "Kurban",
-  "toplam_soru": 40,
+  "toplam_soru": 80,
   "sorular": [
     {
       "id": "kurban_001",
       "konu": "temel",
-      "soru": "Derse göre kurbanın en doğru tanımı hangisidir?",
+      "soru": "Kurbanın en doğru tanımı hangisidir?",
       "secenekler": [
         "A) Sadece et elde etmek için hayvan kesmektir",
         "B) Belirli günlerde Allah rızası için usulüne uygun yapılan bir ibadettir",
@@ -14,9 +14,9 @@
         "D) Sadece fakirlere yardım ulaştırma yöntemidir"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Kurban, belirli günlerde Allah rızası için usulüne uygun biçimde yerine getirilen bir ibadettir; sadece et temini değildir. Dayanak: Ders özeti.",
+      "aciklama": "Kurban, belirli günlerde Allah rızası için usulüne uygun biçimde yerine getirilen bir ibadettir; sadece et temini değildir.",
       "zorluk": "kolay",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_002",
@@ -29,9 +29,9 @@
         "D) Esası kalabalıkta görünmektir"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Ders içeriğinde kurbanın kulluğu, teslimiyeti, şükrü ve paylaşmayı diri tuttuğu vurgulanır. Dayanak: Ders özeti.",
+      "aciklama": "Kurbanın kulluğu, teslimiyeti, şükrü ve paylaşmayı diri tuttuğu vurgulanır.",
       "zorluk": "kolay",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_003",
@@ -74,7 +74,7 @@
         "D) Hz. Yunus"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ders içeriğinde kurbanın Hz. İbrahim'in teslimiyet kıssasını hatırlattığı anlatılır. Dayanak: Saffat 37:102-107.",
+      "aciklama": "Kurban, Hz. İbrahim'in teslimiyet kıssasını hatırlatır. Dayanak: Saffat 37:102-107.",
       "zorluk": "kolay",
       "kaynak": "Saffat 37:102-107"
     },
@@ -96,7 +96,7 @@
     {
       "id": "kurban_007",
       "konu": "hukum",
-      "soru": "Derse göre kurbanın hükmü hakkında en dengeli ifade hangisidir?",
+      "soru": "Kurbanın hükmü hakkında en dengeli ifade hangisidir?",
       "secenekler": [
         "A) Bütün mezheplerde aynı şekilde değerlendirilir",
         "B) Mezhepler arasında değerlendirme farkı vardır",
@@ -104,9 +104,9 @@
         "D) Sadece tarihsel bir uygulamadır"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, mezhepler arasında hüküm değerlendirmesinde fark bulunduğunu; Hanefi çizgide vacip, bazı mezheplerde kuvvetli sünnet denildiğini belirtir. Dayanak: Ders özeti.",
+      "aciklama": "Mezhepler arasında hüküm değerlendirmesinde fark bulunur; Hanefi çizgide vacip, bazı mezheplerde kuvvetli sünnet denir.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_008",
@@ -119,9 +119,9 @@
         "D) Yasak"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ders içeriğinde Türkiye'de yaygın Hanefi ilmihal çizgisinde kurbanın vacip kabul edildiği belirtilir. Dayanak: Ders özeti.",
+      "aciklama": "Türkiye'de yaygın Hanefi ilmihal çizgisinde kurbanın vacip kabul edildiği belirtilir.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_009",
@@ -134,14 +134,14 @@
         "D) Sadece kalabalık ailede yaşamak"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, ölçünün zengin görünmek değil; temel ihtiyaç ve borçlar dışında mali yeterliliğe sahip olmak olduğunu vurgular. Dayanak: Ders özeti.",
+      "aciklama": "Ölçü, zengin görünmek değil; temel ihtiyaç ve borçlar dışında mali yeterliliğe sahip olmaktır.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_010",
       "konu": "mukellefiyet",
-      "soru": "Derse göre maddi gücü olmayan kişi kurban konusunda nasıl davranmalıdır?",
+      "soru": "Maddi gücü olmayan kişi kurban konusunda nasıl davranmalıdır?",
       "secenekler": [
         "A) Mutlaka ağır borca girmelidir",
         "B) Kendini zorlamadan durumunu dikkate almalıdır",
@@ -149,9 +149,9 @@
         "D) Bayramı ertelemelidir"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, mali gücü olmayan kimsenin kendini zorlayıp borç yükü altına girmemesi gerektiğini söyler. Dayanak: Ders özeti.",
+      "aciklama": "Mali gücü olmayan kimse kendini zorlayıp borç yükü altına girmemelidir.",
       "zorluk": "kolay",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_011",
@@ -186,7 +186,7 @@
     {
       "id": "kurban_013",
       "konu": "vakit",
-      "soru": "Derse göre Türkiye'de yaygın Hanefi uygulamasında kesim süresi için verilen bilgi hangisidir?",
+      "soru": "Türkiye'de yaygın Hanefi uygulamasında kesim süresi için verilen bilgi hangisidir?",
       "secenekler": [
         "A) Sadece ilk gün sabahı",
         "B) Yalnızca arefe günü",
@@ -194,14 +194,14 @@
         "D) Muharrem ayına kadar"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ders, bitiş vakti mezheplere göre değişmekle birlikte yaygın Hanefi uygulamasında üçüncü gün güneş batımına kadar devam ettiğini aktarır. Dayanak: Ders özeti.",
+      "aciklama": "Bitiş vakti mezheplere göre değişmekle birlikte yaygın Hanefi uygulamasında üçüncü gün güneş batımına kadar devam eder.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_014",
       "konu": "hayvan",
-      "soru": "Aşağıdakilerden hangisi ders içeriğine göre kurbanlık hayvan türlerinden biridir?",
+      "soru": "Aşağıdakilerden hangisi kurbanlık hayvan türlerinden biridir?",
       "secenekler": [
         "A) Tavuk",
         "B) Ceylan",
@@ -209,14 +209,14 @@
         "D) At"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ders, koyun, keçi, sığır, manda ve devenin kurbanlık olarak değerlendirildiğini belirtir. Dayanak: Hac 22:34; Hac 22:36.",
+      "aciklama": "Koyun, keçi, sığır, manda ve devenin kurbanlık olarak değerlendirildiğini belirtir. Dayanak: Hac 22:34; Hac 22:36.",
       "zorluk": "kolay",
       "kaynak": "Hac 22:34; Hac 22:36"
     },
     {
       "id": "kurban_015",
       "konu": "hayvan",
-      "soru": "Derse göre kurban ibadetinde yalnızca hayvanın cinsi yeterli midir?",
+      "soru": "Kurban ibadetinde yalnızca hayvanın cinsi yeterli midir?",
       "secenekler": [
         "A) Evet, sağlık hiç önemli değildir",
         "B) Hayır, sağlıklı ve uygun olması da gerekir",
@@ -224,9 +224,9 @@
         "D) Sadece rengi önemlidir"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, cins kadar hayvanın sağlıklı ve kurbana uygun olmasının da önemli olduğunu vurgular. Dayanak: Ders özeti.",
+      "aciklama": "Cins kadar hayvanın sağlıklı ve kurbana uygun olmasının da önemli olduğunu vurgular.",
       "zorluk": "kolay",
-      "kaynak": "Ders özeti"
+      "kaynak": "Kurban"
     },
     {
       "id": "kurban_016",
@@ -246,7 +246,7 @@
     {
       "id": "kurban_017",
       "konu": "ortaklik",
-      "soru": "Koyun ve keçi için ders içeriğinde hangi bilgi verilir?",
+      "soru": "Koyun ve keçi için içerikte hangi bilgi verilir?",
       "secenekler": [
         "A) Yedi kişi ortak olabilir",
         "B) On kişi ortak olabilir",
@@ -254,7 +254,7 @@
         "D) Kurban olarak kullanılamaz"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ders, koyun ve keçinin bir kişi adına kurban edildiğini belirtir. Dayanak: Müslim 1318a; Ders özeti.",
+      "aciklama": "Koyun ve keçi bir kişi adına kurban edilir.",
       "zorluk": "kolay",
       "kaynak": "Müslim 1318a"
     },
@@ -299,9 +299,9 @@
         "D) Beş yaş"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, yaygın ilmihal uygulamasında keçi için bir yaşını doldurmuş olma ölçüsünü aktarır. Dayanak: Ders özeti; Müslim 1963.",
+      "aciklama": "Yaygın ilmihal uygulamasında keçi için bir yaşını doldurmuş olma ölçüsünü aktarır.; Müslim 1963.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti; Müslim 1963"
+      "kaynak": "Kurban; Müslim 1963"
     },
     {
       "id": "kurban_021",
@@ -314,9 +314,9 @@
         "D) Beş yaş"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders içeriğinde sığır için iki yaşını doldurmuş olma ölçüsü verilir. Dayanak: Ders özeti; Müslim 1963.",
+      "aciklama": "Sığır için iki yaşını doldurmuş olma ölçüsü verilir.; Müslim 1963.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti; Müslim 1963"
+      "kaynak": "Kurban; Müslim 1963"
     },
     {
       "id": "kurban_022",
@@ -329,9 +329,9 @@
         "D) Beş yaş"
       ],
       "dogru_cevap": "D",
-      "aciklama": "Ders, deve için beş yaşını doldurmuş olma ölçüsünü aktarır. Dayanak: Ders özeti; Müslim 1963.",
+      "aciklama": "Deve için beş yaşını doldurmuş olma ölçüsünü aktarır.; Müslim 1963.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti; Müslim 1963"
+      "kaynak": "Kurban; Müslim 1963"
     },
     {
       "id": "kurban_023",
@@ -366,7 +366,7 @@
     {
       "id": "kurban_025",
       "konu": "kusur",
-      "soru": "Belirgin aksaklık taşıyan hayvanla ilgili dersin verdiği hüküm nedir?",
+      "soru": "Belirgin aksaklık taşıyan hayvanla ilgili verilen hüküm nedir?",
       "secenekler": [
         "A) Öncelikle o seçilmelidir",
         "B) Uygun kurbanlık sayılmaz",
@@ -411,7 +411,7 @@
     {
       "id": "kurban_028",
       "konu": "adab",
-      "soru": "Derse göre hayvanı gereksiz yere korkutmak veya acısını artırmak neden yanlıştır?",
+      "soru": "Hayvanı gereksiz yere korkutmak veya acısını artırmak neden yanlıştır?",
       "secenekler": [
         "A) Çünkü kurban ibadeti merhamet ve ihsan çerçevesindedir",
         "B) Sadece zamanı uzattığı için",
@@ -419,7 +419,7 @@
         "D) Yalnızca görüntüyü bozduğu için"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Ders, kesim adabının merhamet ve ihsan ilkesiyle korunması gerektiğini vurgular. Dayanak: Müslim 1967.",
+      "aciklama": "Kesim adabının merhamet ve ihsan ilkesiyle korunması gerektiğini vurgular. Dayanak: Müslim 1967.",
       "zorluk": "kolay",
       "kaynak": "Müslim 1967"
     },
@@ -456,7 +456,7 @@
     {
       "id": "kurban_031",
       "konu": "et",
-      "soru": "Kurban etiyle ilgili dersin öğrettiği doğru yaklaşım hangisidir?",
+      "soru": "Kurban etiyle ilgili doğru yaklaşım hangisidir?",
       "secenekler": [
         "A) Kurban sahibi asla yiyemez",
         "B) Sadece satılmalıdır",
@@ -494,7 +494,7 @@
         "D) Paylaşım yönü tamamen önemsizdir"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, kurbanın muhtaçların sofrasına et ulaşmasına ve toplumsal dayanışmaya katkı verdiğini açıklar. Dayanak: Hac 22:36; Buhari 5569.",
+      "aciklama": "Kurban, muhtaçların sofrasına et ulaşmasına ve toplumsal dayanışmaya katkı verir. Dayanak: Hac 22:36; Buhari 5569.",
       "zorluk": "kolay",
       "kaynak": "Hac 22:36; Buhari 5569"
     },
@@ -509,7 +509,7 @@
         "D) İhtiyaç sahiplerini gözetmek"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ders, gösteriş, yarış ve et hesabının ibadetin ruhunu zedelediğini vurgular. Dayanak: Hac 22:37.",
+      "aciklama": "Gösteriş, yarış ve et hesabının ibadetin ruhunu zedelediğini vurgular. Dayanak: Hac 22:37.",
       "zorluk": "kolay",
       "kaynak": "Hac 22:37"
     },
@@ -524,14 +524,14 @@
         "D) Çünkü kurbanın toplumla ilgisi yoktur"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, sosyal faydanın kıymetli olduğunu ama ibadetin merkezinde Allah'a yakınlaşma niyetinin bulunduğunu açıklar. Dayanak: Hac 22:36; Hac 22:37.",
+      "aciklama": "Sosyal fayda kıymetlidir; ancak ibadetin merkezinde Allah'a yakınlaşma niyeti bulunur. Dayanak: Hac 22:36; Hac 22:37.",
       "zorluk": "orta",
       "kaynak": "Hac 22:36; Hac 22:37"
     },
     {
       "id": "kurban_036",
       "konu": "ortaklik",
-      "soru": "Derse göre büyükbaş kurbanda ortaklıkta esas hassasiyet nedir?",
+      "soru": "Büyükbaş kurbanda ortaklıkta esas hassasiyet nedir?",
       "secenekler": [
         "A) Yalnızca ortakların mesleği",
         "B) Bütün ortakların niyetinin sahih olması",
@@ -539,14 +539,14 @@
         "D) Ortakların aynı şehirde doğmuş olması"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, ortaklıkta bütün ortakların ibadet niyetinin sahih olmasının esas olduğunu belirtir. Dayanak: Ders özeti; Müslim 1318a.",
+      "aciklama": "Ortaklıkta bütün ortakların ibadet niyetinin sahih olmasının esas olduğunu belirtir.; Müslim 1318a.",
       "zorluk": "orta",
-      "kaynak": "Ders özeti; Müslim 1318a"
+      "kaynak": "Kurban; Müslim 1318a"
     },
     {
       "id": "kurban_037",
       "konu": "hata",
-      "soru": "Aşağıdakilerden hangisi dersin saydığı sık hatalardan biridir?",
+      "soru": "Aşağıdakilerden hangisi saydığı sık hatalardan biridir?",
       "secenekler": [
         "A) Uygun vakti beklemek",
         "B) Açık kusurlu hayvan seçmek",
@@ -554,7 +554,7 @@
         "D) Allah'ın adını anmak"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders, açık kusurlu hayvan seçmenin kurban konusunda sık yapılan hatalardan biri olduğunu söyler. Dayanak: Ebu Davud 2802.",
+      "aciklama": "Açık kusurlu hayvan seçmenin kurban konusunda sık yapılan hatalardan biri olduğunu söyler. Dayanak: Ebu Davud 2802.",
       "zorluk": "kolay",
       "kaynak": "Ebu Davud 2802"
     },
@@ -569,14 +569,14 @@
         "D) Merhametli kesim yapmak"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Ders, kurbanı yalnızca et hesabına indirgemenin ibadetin ruhunu zedelediğini açıkça ifade eder. Dayanak: Hac 22:37.",
+      "aciklama": "Kurbanı yalnızca et hesabına indirgemenin ibadetin ruhunu zedelediğini açıkça ifade eder. Dayanak: Hac 22:37.",
       "zorluk": "kolay",
       "kaynak": "Hac 22:37"
     },
     {
       "id": "kurban_039",
       "konu": "siralama",
-      "soru": "Derse göre sağlıklı kurban anlayışında doğru sıra hangisidir?",
+      "soru": "Sağlıklı kurban anlayışında doğru sıra hangisidir?",
       "secenekler": [
         "A) Önce gösteriş, sonra kesim, sonra niyet",
         "B) Önce doğru niyet, sonra sahih vakit ve uygun hayvan, ardından paylaşım",
@@ -584,14 +584,14 @@
         "D) Önce ortak sayısı, sonra renk seçimi, sonra niyet"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Dersin son kartında doğru kurban için niyet, vakit, uygun hayvan, merhametli kesim ve paylaşım sırası korunur. Dayanak: Buhari 5545; Ebu Davud 2802; Hac 22:37; Buhari 5569.",
+      "aciklama": "Doğru kurban anlayışında niyet, vakit, uygun hayvan, merhametli kesim ve paylaşım sırası korunur. Dayanak: Buhari 5545; Ebu Davud 2802; Hac 22:37; Buhari 5569.",
       "zorluk": "orta",
       "kaynak": "Buhari 5545; Ebu Davud 2802; Hac 22:37; Buhari 5569"
     },
     {
       "id": "kurban_040",
       "konu": "ozet",
-      "soru": "Bu dersin genel mesajını en iyi özetleyen ifade hangisidir?",
+      "soru": "Kurban konusunda genel mesajını en iyi özetleyen ifade hangisidir?",
       "secenekler": [
         "A) Kurban sadece teknik bir kesim işlemidir",
         "B) Kurban, takva, teslimiyet, merhamet ve paylaşma eğitimidir",
@@ -599,9 +599,609 @@
         "D) Kurbanın niyetle ilgisi yoktur"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ders boyunca kurbanın teknik bir kesimden ibaret olmadığı; takva, teslimiyet, merhamet ve paylaşma boyutlarıyla öğretildiği vurgulanır. Dayanak: Hac 22:36; Hac 22:37; Saffat 37:102-107.",
+      "aciklama": "Kurban, teknik bir kesimden ibaret değildir; takva, teslimiyet, merhamet ve paylaşma boyutlarıyla anlaşılmalıdır. Dayanak: Hac 22:36; Hac 22:37; Saffat 37:102-107.",
       "zorluk": "kolay",
       "kaynak": "Hac 22:36; Hac 22:37; Saffat 37:102-107"
+    },
+    {
+      "id": "kurban_041",
+      "konu": "temel",
+      "soru": "Kurbanın belirli günlere bağlanmış olması bize neyi gösterir?",
+      "secenekler": [
+        "A) İbadetin vakitle kayıtlı olduğunu",
+        "B) Her gün aynı şekilde yapılması gerektiğini",
+        "C) Sadece ticari bir gelenek olduğunu",
+        "D) Yalnız hacda geçerli olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban, belli vakitte yerine getirilen bir ibadettir; zaman şartı onun yapısının parçasıdır.",
+      "zorluk": "orta",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_042",
+      "konu": "temel",
+      "soru": "Kurban kesilirken yönelişin asıl sahibi kim olmalıdır?",
+      "secenekler": [
+        "A) Toplumun takdiri",
+        "B) Aile büyüğü",
+        "C) Allah rızası",
+        "D) Hayvan pazarı"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kurbanın özü Allah rızası için kesmektir; başka amaçlar ibadetin ruhunu zedeler.",
+      "zorluk": "kolay",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_043",
+      "konu": "kuran",
+      "soru": "Hac 22:36 ayetinde kurbanlık hayvanlar hangi çerçevede anılır?",
+      "secenekler": [
+        "A) Yalnız ekonomik mal olarak",
+        "B) Allah’ın şeairinden olarak",
+        "C) Sadece çöl hayatının geleneği olarak",
+        "D) Yalnız hacı olmayanlara yasak olarak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ayet, kurbanlık hayvanları Allah’ın şeairinden sayarak ibadetin manevi değerini vurgular.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:36"
+    },
+    {
+      "id": "kurban_044",
+      "konu": "kissa",
+      "soru": "Hz. İbrahim kıssasında öne çıkan ana erdem hangisidir?",
+      "secenekler": [
+        "A) Servet biriktirmek",
+        "B) Teslimiyet göstermek",
+        "C) Yolculuk yapmak",
+        "D) Sessiz kalmak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Bu kıssa, kulun Allah’ın emrine güvenle teslim olmasını kurban ibadetinin merkezine yerleştirir.",
+      "zorluk": "kolay",
+      "kaynak": "Saffat 37:102-107"
+    },
+    {
+      "id": "kurban_045",
+      "konu": "kissa",
+      "soru": "Hz. ?smail?in k?ssadaki tavr? kurban?n anlam?n? nas?l derinle?tirir?",
+      "secenekler": [
+        "A) İtaatsizliği",
+        "B) Korkudan kaçmayı",
+        "C) Baba-oğul birlikte teslimiyeti",
+        "D) Malla övünmeyi"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kıssada yalnız Hz. İbrahim değil, Hz. İsmail de teslimiyet ve sabır örneği sergiler.",
+      "zorluk": "orta",
+      "kaynak": "Saffat 37:102"
+    },
+    {
+      "id": "kurban_046",
+      "konu": "niyet",
+      "soru": "Hac 22:37 ayeti kurbanda hangi iç boyutu öne çıkarır?",
+      "secenekler": [
+        "A) Hayvanın kilosunu",
+        "B) Kan miktarını",
+        "C) Takva ve niyeti",
+        "D) Kesim yerinin uzaklığını"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ayet açıkça Allah’a ulaşanın et ve kan değil, kulların takvası olduğunu bildirir.",
+      "zorluk": "kolay",
+      "kaynak": "Hac 22:37"
+    },
+    {
+      "id": "kurban_047",
+      "konu": "niyet",
+      "soru": "Gösterişin kurban ibadetine en büyük zararı nedir?",
+      "secenekler": [
+        "A) Hayvanı pahalılaştırması",
+        "B) İbadetin ihlasını zayıflatması",
+        "C) Bayramı uzatması",
+        "D) Kesim vaktini değiştirmesi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Gösteriş, kurbanın Allah için yapılması gereken ibadet yönünü zedeler.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:37"
+    },
+    {
+      "id": "kurban_048",
+      "konu": "hukum",
+      "soru": "Yaygın Hanefi yaklaşımında kurban yükümlülüğünde “mukimlik” neden önemlidir?",
+      "secenekler": [
+        "A) Yolcu olmayana yükümlülük vurgulandığı için",
+        "B) Sadece köyde yaşayanlara farz olduğu için",
+        "C) Şehir dışına çıkmak kurbanı haram kıldığı için",
+        "D) Kurban yalnız hacılara ait olduğu için"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hanefi ilmihal çizgisinde kurbanla yükümlülük anlatılırken mukim olmak yani seferi olmamak şartı da anılır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "kurban_049",
+      "konu": "hukum",
+      "soru": "Kurban yükümlülüğü hesaplanırken aşağıdakilerden hangisi dikkate alınır?",
+      "secenekler": [
+        "A) Temel ihtiyaçlar ve borçlar çıktıktan sonraki mal varlığı",
+        "B) Sadece hayvan sayısı",
+        "C) Sadece evin büyüklüğü",
+        "D) Yalnız maaş günü"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Yaygın ilmihal bilgisinde nisap hesabında temel ihtiyaçlar ve borçlar dışındaki varlık esas alınır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "kurban_050",
+      "konu": "hukum",
+      "soru": "Maddi gücü bulunmayan kişinin kurbanla ilgili en doğru tavrı hangisidir?",
+      "secenekler": [
+        "A) Yine de borçlanıp göstermek zorundadır",
+        "B) Yükümlü olmadığı halde isterse nafile niyetle kesebilir",
+        "C) Bayram namazı kılamaz",
+        "D) Kurban yerine başka ibadet yapamaz"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Mali imkanı olmayan kişi kurbanla yükümlü sayılmaz; ancak isterse nafile olarak kurban kesebilir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "kurban_051",
+      "konu": "vakit",
+      "soru": "Kurban kesim vaktinin bayram namazından sonraya bırakılması neyi korur?",
+      "secenekler": [
+        "A) İbadetin vakit şartını",
+        "B) Hayvanın daha pahalı olmasını",
+        "C) Yalnız komşu hakkını",
+        "D) Kesimin gizli yapılmasını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurbanın sahih olması için kesim vaktinin başlamış olması gerekir; bu da bayram namazından sonradır.",
+      "zorluk": "orta",
+      "kaynak": "Buhari 5545"
+    },
+    {
+      "id": "kurban_052",
+      "konu": "vakit",
+      "soru": "Bayram namazından önce kesilen bir hayvan neden kurban yerine geçmez?",
+      "secenekler": [
+        "A) Eti yenmeyeceği için",
+        "B) Vakit şartı oluşmadan kesildiği için",
+        "C) Ortak sayısı az olduğu için",
+        "D) Sahibi niyet etmediği için"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Peygamberimiz, bayram namazından önce yapılan kesimin kurban değil normal et kesimi sayılacağını bildirmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari 5545"
+    },
+    {
+      "id": "kurban_053",
+      "konu": "vakit",
+      "soru": "Türkiye’de yaygın Hanefi uygulamasına göre kesim için son sınır nasıl ifade edilir?",
+      "secenekler": [
+        "A) Bayramın ilk günü öğlene kadar",
+        "B) İkinci gün ikindiye kadar",
+        "C) Üçüncü gün güneş batıncaya kadar",
+        "D) Dördüncü gün sabaha kadar"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Yaygın Hanefi uygulamasında kurban kesimi bayramın üçüncü günü güneş batıncaya kadar sürer.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "kurban_054",
+      "konu": "hayvan",
+      "soru": "“Behimetü’l-en‘âm” ifadesi kurbanlıkta hangi çerçeveyi gösterir?",
+      "secenekler": [
+        "A) Ehil büyükbaş ve küçükbaş hayvanlar çerçevesini",
+        "B) Deniz hayvanlarını",
+        "C) Av hayvanlarını",
+        "D) Kanatsız bütün canlıları"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "kurbanlıkların ehil en‘âm cinsinden hayvanlar olduğunu açıklar.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:34; Kurban"
+    },
+    {
+      "id": "kurban_055",
+      "konu": "hayvan",
+      "soru": "Aşağıdakilerden hangisi kurbanlık kapsamına girmez?",
+      "secenekler": [
+        "A) Koyun",
+        "B) Keçi",
+        "C) Tavuk",
+        "D) Deve"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Uygulamada koyun, keçi, sığır, manda ve deve kurban olur; tavuk kurbanlık kapsamına girmez.",
+      "zorluk": "kolay",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_056",
+      "konu": "ortaklik",
+      "soru": "Büyükbaş kurbanda ortak sayısı en fazla kaç olabilir?",
+      "secenekler": [
+        "A) 3",
+        "B) 5",
+        "C) 7",
+        "D) 10"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sahih hadiste deve ve sığırın yedi kişi adına yeterli olduğu bildirilir.",
+      "zorluk": "kolay",
+      "kaynak": "Müslim 1318a"
+    },
+    {
+      "id": "kurban_057",
+      "konu": "ortaklik",
+      "soru": "Koyun veya keçiyle ilgili ortaklık kuralı için hangisi doğrudur?",
+      "secenekler": [
+        "A) Yedi kişi ortak olabilir",
+        "B) En fazla üç kişi ortak olabilir",
+        "C) Bir kişi adına kesilir",
+        "D) Ortaklık yalnız kadınlara mahsustur"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Koyun ve keçi bir kişi adına kesilir; büyükbaşta ise ortaklık mümkündür.",
+      "zorluk": "kolay",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_058",
+      "konu": "yas",
+      "soru": "Musinne ifadesi kurbanlıkta neyi anlatır?",
+      "secenekler": [
+        "A) Çok kilolu hayvanı",
+        "B) Yetişkin yaşa ulaşmış hayvanı",
+        "C) Yalnız erkek hayvanı",
+        "D) Boynuzsuz hayvanı"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hadiste geçen musinne, kurbanlık için aranan yetişkinlik ölçüsünü anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Müslim 1963"
+    },
+    {
+      "id": "kurban_059",
+      "konu": "yas",
+      "soru": "Zorlanma halinde istisna olarak izin verilen hayvan hangisidir?",
+      "secenekler": [
+        "A) Altı ayı geçmiş uygun bir koç",
+        "B) Bir aylık kuzu",
+        "C) Yaşı bilinmeyen keçi",
+        "D) Herhangi bir tavuk"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hadiste, zorlanıldığında altı ayı geçmiş uygun bir koç için istisna zikredilmiştir.",
+      "zorluk": "orta",
+      "kaynak": "Müslim 1963"
+    },
+    {
+      "id": "kurban_060",
+      "konu": "yas",
+      "soru": "Yaş şartı bize öncelikle hangi hassasiyeti öğretir?",
+      "secenekler": [
+        "A) Kurbanlık seçiminin gelişigüzel olmadığını",
+        "B) Sadece fiyatın önemli olduğunu",
+        "C) Rengin belirleyici olduğunu",
+        "D) Boynuzun farz olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Yaş şartı, kurbanlık seçiminin gelişigüzel değil, belirli ölçülerle yapılacağını gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_061",
+      "konu": "kusur",
+      "soru": "Kurbanlıkta açık kusurdan kaçınmak hangi anlayışın sonucudur?",
+      "secenekler": [
+        "A) Sadece ekonomik hesap yapmanın",
+        "B) İbadeti ciddiyet ve saygıyla yerine getirmenin",
+        "C) Yalnız veteriner tavsiyesinin",
+        "D) Yalnız görsel tercihin"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kurbanlık seçimi ibadetin saygınlığıyla ilgilidir; açık kusurlu hayvan seçilmez.",
+      "zorluk": "orta",
+      "kaynak": "Ebu Davud 2802"
+    },
+    {
+      "id": "kurban_062",
+      "konu": "kusur",
+      "soru": "Tek gözü kör ya da kusuru açık olan hayvan için doğru hüküm hangisidir?",
+      "secenekler": [
+        "A) Öncelikli olarak seçilir",
+        "B) Kurbana uygun görülmez",
+        "C) Yalnız ortaklığa uygundur",
+        "D) Sadece kışın kesilebilir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Peygamberimiz açık kusurlu hayvanların kurban edilmemesini öğretmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Ebu Davud 2802"
+    },
+    {
+      "id": "kurban_063",
+      "konu": "kusur",
+      "soru": "Hastalığı belirgin olan bir hayvanla ilgili en doğru yaklaşım hangisidir?",
+      "secenekler": [
+        "A) Kurbana uygun sayılır",
+        "B) Kurbana uygun sayılmaz",
+        "C) Yalnız nafile olur",
+        "D) Yaşı büyükse kabul edilir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Belirgin hastalığı olan hayvan kurbanlık için uygun kabul edilmez.",
+      "zorluk": "kolay",
+      "kaynak": "Ebu Davud 2802"
+    },
+    {
+      "id": "kurban_064",
+      "konu": "kusur",
+      "soru": "Belirgin aksaklık taşıyan hayvan konusunda ne yapılmalıdır?",
+      "secenekler": [
+        "A) Kurbana ayrılır",
+        "B) Kusuru önemsenmez",
+        "C) Kurban edilmez",
+        "D) Sadece ortaklığa alınır"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Açık aksaklığı bulunan hayvanın kurban edilmemesi öğretilmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Ebu Davud 2802"
+    },
+    {
+      "id": "kurban_065",
+      "konu": "kusur",
+      "soru": "Aşırı zayıf düşmüş hayvanın kurban edilmemesi hangi ilkeyle uyumludur?",
+      "secenekler": [
+        "A) İbadette özensizlikten kaçınma",
+        "B) Eti tamamen yasaklama",
+        "C) Sadece pahalı hayvan arama",
+        "D) Rengi önemseme"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Aşırı zayıf hayvan seçmemek, ibadeti özensizliğe düşürmeme ilkesine uygundur.",
+      "zorluk": "orta",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_066",
+      "konu": "adab",
+      "soru": "Kesim adabında bıçağın iyi bilenmesi neden önemlidir?",
+      "secenekler": [
+        "A) Hayvanın acısını artırmak için",
+        "B) Kesimi merhametli yapmak için",
+        "C) Eti daha pahalı satmak için",
+        "D) Yalnız gelenek olduğu için"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Resulullah, bıçağın iyi bilenmesini ve kesimde hayvana eziyet edilmemesini öğütlemiştir.",
+      "zorluk": "orta",
+      "kaynak": "Müslim 1967"
+    },
+    {
+      "id": "kurban_067",
+      "konu": "adab",
+      "soru": "Kurban kesiminde merhametin vurgulanması neyi gösterir?",
+      "secenekler": [
+        "A) İslam’ın ibadeti bile ihsan çerçevesine yerleştirdiğini",
+        "B) Kesimin keyfi bir iş olduğunu",
+        "C) Hayvana sert davranmanın sevap olduğunu",
+        "D) Niyetin önemsiz olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban kesimi bile merhamet ve ihsan ilkeleriyle yapılmalıdır.",
+      "zorluk": "orta",
+      "kaynak": "Müslim 1967"
+    },
+    {
+      "id": "kurban_068",
+      "konu": "zikir",
+      "soru": "Kurban keserken Allah’ın adını anmak en çok neyi gösterir?",
+      "secenekler": [
+        "A) Kesimin bir ibadet olduğunu",
+        "B) Sadece sesli okumayı",
+        "C) Hayvanın sahibini tanıtmayı",
+        "D) Pazarı duyurmayı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Besmele ve tekbir, kesimin Allah adına ve ibadet niyetiyle yapıldığını gösterir.",
+      "zorluk": "kolay",
+      "kaynak": "Hac 22:34; Hac 22:36"
+    },
+    {
+      "id": "kurban_069",
+      "konu": "zikir",
+      "soru": "Sahih rivayetlerde Peygamberimizin kurban keserken söylediği zikir hangisidir?",
+      "secenekler": [
+        "A) Sadece Fatiha",
+        "B) Bismillahi Allahu Ekber",
+        "C) Estağfirullah el-azim",
+        "D) Subhanallahi ve bihamdih"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sahih rivayetlerde Resulullah’ın kurban keserken Allah’ın adını andığı ve tekbir getirdiği bildirilir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari 5558"
+    },
+    {
+      "id": "kurban_070",
+      "konu": "et",
+      "soru": "Kurban etinden kişinin kendisinin yemesi hakkında hangisi doğrudur?",
+      "secenekler": [
+        "A) Asla yiyemez",
+        "B) Yiyebilir; bu meşru bir uygulamadır",
+        "C) Yalnız tamamını dağıtmalıdır",
+        "D) Sadece zenginler yiyebilir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kur’an ve hadislerde kurban etinden yemeye ve başkalarına ikram etmeye izin verilir.",
+      "zorluk": "kolay",
+      "kaynak": "Hac 22:36; Buhari 5569"
+    },
+    {
+      "id": "kurban_071",
+      "konu": "et",
+      "soru": "Kurban eti paylaşımında hangi denge öne çıkar?",
+      "secenekler": [
+        "A) Hepsini satmak",
+        "B) Hem yemek hem de ihtiyaç sahiplerine ikram etmek",
+        "C) Sadece dondurucuda saklamak",
+        "D) Yalnız tanıdıklara vermek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "kurban etinden yemeyi ve ihtiyaç sahiplerine ikram etmeyi birlikte vurgular.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:36; Buhari 5569"
+    },
+    {
+      "id": "kurban_072",
+      "konu": "toplum",
+      "soru": "Kurbanın toplumsal boyutu en çok hangi sonucu doğurur?",
+      "secenekler": [
+        "A) Dayanışma ve paylaşmayı güçlendirir",
+        "B) Sadece fiyatları artırır",
+        "C) Namazı kaldırır",
+        "D) Yalnız köy hayatında etkili olur"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban, özellikle bayram günlerinde akraba, komşu ve muhtaçlarla paylaşımı güçlendirir.",
+      "zorluk": "kolay",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_073",
+      "konu": "toplum",
+      "soru": "Kurbanı yalnız yardım kampanyasına indirgememek neden önemlidir?",
+      "secenekler": [
+        "A) Çünkü kurbanın ibadet niyeti ve takva boyutu da vardır",
+        "B) Çünkü yardım yapmak yasaktır",
+        "C) Çünkü et dağıtmak mekruhtur",
+        "D) Çünkü sadece kasap ilgilenir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban sosyal fayda doğursa da özünde Allah rızası için yapılan bir ibadettir.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:37"
+    },
+    {
+      "id": "kurban_074",
+      "konu": "ortaklik",
+      "soru": "Büyükbaş ortaklıkta esas hassasiyetlerden biri hangisidir?",
+      "secenekler": [
+        "A) Ortakların sayıyı ve ibadet ciddiyetini koruması",
+        "B) Her ortağın farklı şehirde olması",
+        "C) Ortakların aynı soyadını taşıması",
+        "D) Yalnız akraba olmaları"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Büyükbaş ortaklıkta sınır, sayı ve ibadet ciddiyeti korunmalıdır.",
+      "zorluk": "orta",
+      "kaynak": "Müslim 1318a; Kurban"
+    },
+    {
+      "id": "kurban_075",
+      "konu": "hata",
+      "soru": "Aşağıdakilerden hangisi sık yapılan hatalardan biridir?",
+      "secenekler": [
+        "A) Bayram namazından önce kesmek",
+        "B) Besmele çekmek",
+        "C) Muhtaca et vermek",
+        "D) Kesimde merhametli olmak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "bayram namazından önce kesmenin yaygın bir hata olduğunu açıkça sayar.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari 5545"
+    },
+    {
+      "id": "kurban_076",
+      "konu": "hata",
+      "soru": "Kurbanı sadece et hesabına çevirmek neden yanlış bir yaklaşımdır?",
+      "secenekler": [
+        "A) Çünkü ibadetin ruhunu daraltır",
+        "B) Çünkü et yemek yasaktır",
+        "C) Çünkü sadece çocuklar yer",
+        "D) Çünkü vekalet geçersiz olur"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurbanı yalnız ete indirgemek, takva ve teslimiyet boyutunu gölgede bırakır.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:37"
+    },
+    {
+      "id": "kurban_077",
+      "konu": "hata",
+      "soru": "Kurban seçiminde gösterişe yönelmek hangi boyuta zarar verir?",
+      "secenekler": [
+        "A) İhlas boyutuna",
+        "B) Kesim vaktine",
+        "C) Hayvanın cinsine",
+        "D) Ortak sayısına"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Gösteriş, ibadetin Allah için yapılma yönünü zedeler.",
+      "zorluk": "kolay",
+      "kaynak": "Kurban"
+    },
+    {
+      "id": "kurban_078",
+      "konu": "adab",
+      "soru": "Kesimde hem ibadet hem merhamet nasıl birlikte korunur?",
+      "secenekler": [
+        "A) Hızlı davranıp niyeti unutmakla",
+        "B) Allah’ın adını anıp hayvana eziyet etmemekle",
+        "C) Sadece kalabalık toplamakla",
+        "D) Eti hemen satmakla"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Doğru kesim, besmele ve tekbirle yapılır; aynı zamanda hayvana eziyet edilmez.",
+      "zorluk": "orta",
+      "kaynak": "Müslim 1967; Hac 22:34"
+    },
+    {
+      "id": "kurban_079",
+      "konu": "niyet",
+      "soru": "Hac 22:37 ayeti niyet konusunda hangi dengeyi öğretir?",
+      "secenekler": [
+        "A) Dış görünüşten çok kalp yönelişinin önemli olduğunu",
+        "B) Yalnız hayvan sayısının belirleyici olduğunu",
+        "C) Sadece kesim yerinin önemli olduğunu",
+        "D) Yalnız ortak bulmanın yeterli olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ayet, kurbanda dış unsurdan çok takva ve niyetin belirleyici olduğunu öğretir.",
+      "zorluk": "orta",
+      "kaynak": "Hac 22:37"
+    },
+    {
+      "id": "kurban_080",
+      "konu": "ozet",
+      "soru": "Kurban konusunda genel sonucunu en iyi hangi ifade özetler?",
+      "secenekler": [
+        "A) Kurban yalnız teknik bir kesim işlemidir",
+        "B) Kurban, niyet, teslimiyet, merhamet ve paylaşma ibadetidir",
+        "C) Kurban sadece ekonomik bir çözümdür",
+        "D) Kurbanın vakti ve ölçüsü önemli değildir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "kurbanı hem kalbi hem fıkhi hem de toplumsal boyutlarıyla bir ibadet olarak öğretir.",
+      "zorluk": "kolay",
+      "kaynak": "Kurban"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "quiz_id": "iman-esaslari",
   "baslik": "İman Esasları",
-  "toplam_soru": 50,
+  "toplam_soru": 100,
   "sorular": [
     {
       "id": "iman_001",
@@ -752,6 +752,756 @@
       "aciklama": "\"Şüphesiz Zikr'i (Kur'an'ı) biz indirdik; onu koruyacak olan da biziz.\" (Hicr 15/9) Kur'an Allah'ın bizzat koruma altına aldığı tek kitaptır.",
       "zorluk": "orta",
       "kaynak": "Kur'an, Hicr 15/9"
+    },
+    {
+      "id": "iman_051",
+      "konu": "iman",
+      "soru": "İman esaslarının “kalbe dönük” diye anlatılması neyi gösterir?",
+      "secenekler": [
+        "A) Sadece dilde kaldığını",
+        "B) İnancın iç kabul ve tasdik boyutu olduğunu",
+        "C) Amelin gereksiz olduğunu",
+        "D) Sadece çocuklara hitap ettiğini"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "imanı kalpte yer eden kabul ve tasdik boyutuyla açıklar.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_052",
+      "konu": "iman",
+      "soru": "İslam’ın 5 şartı ile imanın 6 şartı arasındaki temel fark nasıl özetlenir?",
+      "secenekler": [
+        "A) Biri dış amelleri, diğeri temel inançları öne çıkarır",
+        "B) İkisi tamamen aynıdır",
+        "C) Biri sadece geçmiş ümmetlere aittir",
+        "D) Biri sadece alimler içindir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İslam’ın şartlarını ibadet eksenli; imanın şartlarını ise inanç eksenli anlatır.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_053",
+      "konu": "allah_tevhid",
+      "soru": "Tevhid inancının ibadete yansıyan sonucu nedir?",
+      "secenekler": [
+        "A) İbadetin yalnız Allah’a yönelmesi",
+        "B) Her varlığa eşit ibadet edilmesi",
+        "C) Yalnız meleklerden yardım istenmesi",
+        "D) Sadece peygamberlere dua edilmesi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Tevhid, Allah’ın birliğine inanmanın yanında kulluğun da yalnız O’na yönelmesini gerektirir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_054",
+      "konu": "allah_tevhid",
+      "soru": "Allah’ın ezeli ve ebedi oluşu neyi ifade eder?",
+      "secenekler": [
+        "A) Başlangıcı ve sonu olmadığını",
+        "B) Sadece geçmişi bildiğini",
+        "C) Yalnız gökte bulunduğunu",
+        "D) Zamanla değiştiğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Allah’ın ezeli ve ebedi olduğunu yani başlangıcı ve sonu bulunmadığını öğretir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_055",
+      "konu": "allah_tevhid",
+      "soru": "Tevhid inancı aşağıdakilerden hangisini reddeder?",
+      "secenekler": [
+        "A) Allah’a ortak ve benzer nispet etmeyi",
+        "B) Dua etmeyi",
+        "C) Şükretmeyi",
+        "D) Peygamber sevgisini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Allah’a iman, O’nun ortağı ve benzeri bulunmadığını kabul etmeyi içerir.",
+      "zorluk": "kolay",
+      "kaynak": "İhlas Suresi"
+    },
+    {
+      "id": "iman_056",
+      "konu": "melek",
+      "soru": "Meleklerin nurdan yaratılmış olması hangi bilgi içinde öğretilir?",
+      "secenekler": [
+        "A) Meleklerin temel özellikleri",
+        "B) Kıyamet alametleri",
+        "C) Kabir hayatı",
+        "D) Kader bahsi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "meleklerin nurdan yaratıldığını onların temel özellikleri arasında sayar.",
+      "zorluk": "kolay",
+      "kaynak": "Müslim, Zühd 60"
+    },
+    {
+      "id": "iman_057",
+      "konu": "melek",
+      "soru": "Melekler hakkında hangi ifade doğrudur?",
+      "secenekler": [
+        "A) Günah işlemez ve Allah’a isyan etmezler",
+        "B) İnsanlar gibi hata işlemeleri normaldir",
+        "C) Yalnız geceleri görev yaparlar",
+        "D) Sadece vahiy melekleri vardır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Melekler Allah’a itaat eden, günah işlemeyen varlıklardır.",
+      "zorluk": "kolay",
+      "kaynak": "Tahrim 66:6; İman Esasları"
+    },
+    {
+      "id": "iman_058",
+      "konu": "buyuk_melekler",
+      "soru": "Cebrail’in görevi en doğru hangi ifadeyle özetlenir?",
+      "secenekler": [
+        "A) Rızıkları dağıtmak",
+        "B) Vahyi peygamberlere ulaştırmak",
+        "C) Sura üflemek",
+        "D) Can almak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Cebrail, Allah’ın vahyini peygamberlere ulaştırmakla görevlidir.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:97"
+    },
+    {
+      "id": "iman_059",
+      "konu": "buyuk_melekler",
+      "soru": "Mikail için en doğru görev ifadesi hangisidir?",
+      "secenekler": [
+        "A) Tabiat olayları ve rızıkla ilgili görevlere bakması",
+        "B) Kabir sorgusu yapması",
+        "C) Amelleri yazması",
+        "D) Vahiy getirmesi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Mikail’i rızık ve tabiatla ilgili görevlerle anmaktadır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_060",
+      "konu": "buyuk_melekler",
+      "soru": "İsrafil’in görevi neyle ilişkilendirilir?",
+      "secenekler": [
+        "A) Sura üflemekle",
+        "B) Kitapları yazmakla",
+        "C) Kurban kesmekle",
+        "D) Yağmur dağıtmakla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İsrafil, kıyametle bağlantılı olarak sura üflemekle görevli melek olarak anlatılır.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_061",
+      "konu": "buyuk_melekler",
+      "soru": "Azrail hangi görevle anılır?",
+      "secenekler": [
+        "A) Vahiy taşımakla",
+        "B) Canları almakla",
+        "C) Sura üflemekle",
+        "D) Amel yazmakla"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Azrail, ölüm vakti geldiğinde can almakla görevli melek olarak öğretilir.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_062",
+      "konu": "diger_melekler",
+      "soru": "Kiramen Katibin melekleri hangi görevi yapar?",
+      "secenekler": [
+        "A) İnsanların amellerini yazar",
+        "B) Yağmuru indirir",
+        "C) Kurban keser",
+        "D) Peygamber seçer"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kiramen Katibin, insanların amellerini kaydeden meleklerdir.",
+      "zorluk": "kolay",
+      "kaynak": "İnfitar 82:10-12"
+    },
+    {
+      "id": "iman_063",
+      "konu": "diger_melekler",
+      "soru": "Münker ve Nekir melekleri hangi aşamayla ilişkilidir?",
+      "secenekler": [
+        "A) Dünya ticaretiyle",
+        "B) Kabir sorgusuyla",
+        "C) Hac ibadetiyle",
+        "D) Vahyin gelişiyle"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Münker ve Nekir, kabir sorgusuyla anılan meleklerdir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_064",
+      "konu": "diger_melekler",
+      "soru": "Hafaza melekleri için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) İnsanı Allah’ın izniyle koruyan görevli meleklerdir",
+        "B) Yalnız kıyamette ortaya çıkarlar",
+        "C) Sadece çocukların yanındadırlar",
+        "D) Amelleri silerler"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "insanı Allah’ın izniyle koruyan meleklerden de söz eder.",
+      "zorluk": "orta",
+      "kaynak": "Ra’d 13:11; İman Esasları"
+    },
+    {
+      "id": "iman_065",
+      "konu": "kitaplar",
+      "soru": "Tevrat’ın Hz. Musa’ya indirilmiş olması bize neyi gösterir?",
+      "secenekler": [
+        "A) Kitaplara imanın peygamberlerle bağlantılı olduğunu",
+        "B) Sadece bir kavme ait olduğunu",
+        "C) Kur’an’dan sonra indiğini",
+        "D) Vahyin sona ermediğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İlahi kitaplar, onları tebliğ eden peygamberlerle birlikte düşünülür.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_066",
+      "konu": "kitaplar",
+      "soru": "Zebur hangi peygamberle birlikte anılır?",
+      "secenekler": [
+        "A) Hz. Davud ile",
+        "B) Hz. İsa ile",
+        "C) Hz. Musa ile",
+        "D) Hz. İbrahim ile"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Zebur’un Hz. Davud’a verildiğini bildirir.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_067",
+      "konu": "kitaplar",
+      "soru": "İncil’e iman etmek neyi içerir?",
+      "secenekler": [
+        "A) Hz. İsa’ya kitap verildiğini kabul etmeyi",
+        "B) Kur’an’ı bırakmayı",
+        "C) Sadece tarih okumayı",
+        "D) Tüm vahyi reddetmeyi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kitaplara iman, Hz. İsa’ya da ilahi kitap verildiğini kabul etmeyi içerir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_068",
+      "konu": "kitaplar",
+      "soru": "Kur’an’ın son ilahi kitap oluşu hangi sonuçla ilişkilidir?",
+      "secenekler": [
+        "A) Vahiy zincirinin onunla tamamlandığıyla",
+        "B) Önceki peygamberlerin geçersiz sayılmasıyla",
+        "C) Sadece Araplara ait olmasıyla",
+        "D) Yalnız gece okunmasıyla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kur’an’ı son ilahi kitap olarak tanıtır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_069",
+      "konu": "suhuf",
+      "soru": "Suhuf neyi ifade eder?",
+      "secenekler": [
+        "A) Bazı peygamberlere verilen kısa vahiy sayfalarını",
+        "B) Yalnız hadis kitaplarını",
+        "C) Büyük melekleri",
+        "D) Kıyamet alametlerini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Suhuf, büyük kitaplar dışında bazı peygamberlere verilen kısa ilahi sayfalardır.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_070",
+      "konu": "suhuf",
+      "soru": "Suhufla ilgili hangi tutum daha güvenlidir?",
+      "secenekler": [
+        "A) Kesin olmayan ayrıntıları ihtiyatla ele almak",
+        "B) Her rivayeti zorunlu iman konusu yapmak",
+        "C) Onları tamamen inkâr etmek",
+        "D) Dört büyük kitaptan üstün görmek"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "suhufla ilgili ayrıntılarda ihtiyatlı dil kullanmayı öğretir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_071",
+      "konu": "peygamber",
+      "soru": "Peygamberler hakkında hangi ifade doğrudur?",
+      "secenekler": [
+        "A) Allah’ın seçtiği insan elçilerdir",
+        "B) Melek türüdürler",
+        "C) Yalnız savaş komutanlarıdır",
+        "D) Hata yapmayan bağımsız ilahlardır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Peygamberler, Allah’ın doğru yolu göstermek için seçtiği insan elçilerdir.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_072",
+      "konu": "peygamber",
+      "soru": "ilk peygamber ve son peygamber kimlerdir?",
+      "secenekler": [
+        "A) Hz. Nuh ve Hz. İsa",
+        "B) Hz. Adem ve Hz. Muhammed",
+        "C) Hz. İbrahim ve Hz. Musa",
+        "D) Hz. Musa ve Hz. Muhammed"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Peygamberlerin ilki Hz. Adem, sonuncusu Hz. Muhammed olarak öğretilir.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_073",
+      "konu": "peygamber",
+      "soru": "Bütün peygamberlerin ortak daveti en çok hangi çağrıda toplanır?",
+      "secenekler": [
+        "A) Tevhid çağrısında",
+        "B) Sadece ticaret hükümlerinde",
+        "C) Aynı kavme gönderilmelerinde",
+        "D) Aynı dili konuşmalarında"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Peygamberlerin ortak çağrısı Allah’ın birliğine iman ve O’na kulluktur.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_074",
+      "konu": "nebi_resul",
+      "soru": "Nebi kavramı en doğru nasıl açıklanır?",
+      "secenekler": [
+        "A) Kendisine vahiy gelen peygamber olarak",
+        "B) Hiç vahiy almayan bilge olarak",
+        "C) Sadece kitap yazarı olarak",
+        "D) Yalnız savaşta görevli olarak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "nebi kavramını kendisine vahiy gelen peygamber başlığıyla açıklar.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_075",
+      "konu": "nebi_resul",
+      "soru": "Resul kavramı için hangi ifade uygundur?",
+      "secenekler": [
+        "A) Tebliğ görevi ve yeni şeriat/kitap boyutuyla anılan peygamberdir",
+        "B) Hiç vahiy almayan kişi demektir",
+        "C) Sadece meleklere verilen isimdir",
+        "D) Kabir sorgusu yapan melek demektir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "resulü tebliğ görevi ve yeni şeriat/kitap boyutuyla anlatır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_076",
+      "konu": "peygamber",
+      "soru": "Peygamberlere iman eden Müslüman hangi tavrı alır?",
+      "secenekler": [
+        "A) Bazılarını kabul edip bazılarını küçümser",
+        "B) Hepsine iman eder, ayrım yapmaz",
+        "C) Yalnız kendi kavmine geleni kabul eder",
+        "D) Son peygamberi inkâr eder"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Müslüman, Allah’ın gönderdiği bütün peygamberlere iman eder.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:136"
+    },
+    {
+      "id": "iman_077",
+      "konu": "ahiret",
+      "soru": "Ahiret gününe iman hangi alanı kapsar?",
+      "secenekler": [
+        "A) Ölümden sonraki hayatın bütün aşamalarını",
+        "B) Sadece kabir hayatını",
+        "C) Yalnız kıyamet anını",
+        "D) Sadece cenneti"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "ahireti kabir, diriliş, hesap, mizan, cennet ve cehennem aşamalarıyla birlikte öğretir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_078",
+      "konu": "kabir",
+      "soru": "Berzah hayatı neyi ifade eder?",
+      "secenekler": [
+        "A) Ölümle kıyamet arasındaki kabir hayatını",
+        "B) Yalnız dünya hayatını",
+        "C) Sadece rüya âlemini",
+        "D) Cennetteki ilk günü"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kabir hayatı, ölümden kıyamete kadar süren berzah hayatı olarak anlatılır.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_079",
+      "konu": "kabir",
+      "soru": "Kabir sorgusunda temelde hangi sorular sorulur?",
+      "secenekler": [
+        "A) Rab, din ve peygamber bilgisi",
+        "B) Ticaret ve miras bilgisi",
+        "C) Sadece soy bilgisi",
+        "D) Yolculuk ve meslek bilgisi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "kabir sorgusunu kişinin Rabbi, dini ve peygamberi etrafında özetler.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_080",
+      "konu": "kiyamet",
+      "soru": "Kıyamet alametlerini küçük ve büyük diye ayırmak neyi gösterir?",
+      "secenekler": [
+        "A) Bazılarının hazırlayıcı, bazılarının ise son döneme işaret eden nitelikte olduğunu",
+        "B) Bir kısmının önemsiz olduğunu",
+        "C) Yalnız alimlerin bileceğini",
+        "D) Hepsinin aynı anda gerçekleşeceğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "alametleri küçük ve büyük başlıklarında iki kademeli biçimde anlatır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_081",
+      "konu": "kiyamet",
+      "soru": "Büyük kıyamet alametleri için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Kıyametin çok yaklaştığı dönemde görülecek büyük işaretlerdir",
+        "B) Her çağda sıradan biçimde yaşanır",
+        "C) Sadece tarih kitaplarında kalmıştır",
+        "D) Yalnız rüyada görülür"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Büyük alametler, kıyametin yaklaşmasıyla ilişkilendirilen sıra dışı işaretlerdir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_082",
+      "konu": "kiyamet",
+      "soru": "Kıyametin vaktinin bilinmemesi hangi ahlakî sonucu destekler?",
+      "secenekler": [
+        "A) Daima hazırlıklı yaşamayı",
+        "B) İbadeti ertelemeyi",
+        "C) Yalnız korkuya kapılmayı",
+        "D) Alametleri inkâr etmeyi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kıyametin vaktinin gizli olması, insanı her an hazırlıklı ve bilinçli yaşamaya yöneltir.",
+      "zorluk": "orta",
+      "kaynak": "Lokman 31:34; İman Esasları"
+    },
+    {
+      "id": "iman_083",
+      "konu": "kader",
+      "soru": "Kader en doğru nasıl tanımlanır?",
+      "secenekler": [
+        "A) Allah’ın her şeyi ezelde bilip takdir etmesi olarak",
+        "B) İnsanın hiçbir tercihinin olmaması olarak",
+        "C) Yalnız geleceği tahmin etmek olarak",
+        "D) Sadece yazgıya isyan etmek olarak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "kaderi Allah’ın ezeli ilmiyle her şeyi bilmesi ve takdir etmesi şeklinde açıklar.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_084",
+      "konu": "kader",
+      "soru": "Kaza kavramı hangi noktada kaderden ayrılır?",
+      "secenekler": [
+        "A) Takdir edilen şeyin zamanı gelince gerçekleşmesinde",
+        "B) Allah’ın bilmesinde",
+        "C) Dua edilmesinde",
+        "D) Yalnız ölümde kullanılmasında"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kader takdir, kaza ise takdir edilenin zamanı gelince gerçekleşmesi olarak öğretilir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_085",
+      "konu": "kader",
+      "soru": "Kadere iman etmek insan sorumluluğunu nasıl etkiler?",
+      "secenekler": [
+        "A) Sorumluluğu kaldırmaz",
+        "B) Bütün amelleri anlamsız kılar",
+        "C) Duayı gereksizleştirir",
+        "D) Günahı mazur gösterir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "kadere imanın insanı sorumsuzluğa değil, bilinçli kulluğa çağırdığını anlatır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_086",
+      "konu": "kader",
+      "soru": "Çalışmak ve dua etmek kader inancıyla nasıl ilişkilidir?",
+      "secenekler": [
+        "A) Birbirine zıt değil, kulluğun parçasıdır",
+        "B) Tamamen gereksizdir",
+        "C) Kadere aykırıdır",
+        "D) Sadece alimlere mahsustur"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kadere iman etmek, sebeplere sarılmayı ve Allah’a dua etmeyi terk etmek anlamına gelmez.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_087",
+      "konu": "mezhep",
+      "soru": "Mezhep farkları bölümünde vurgulanan ortak zemin nedir?",
+      "secenekler": [
+        "A) İman esaslarının ana çerçevesinin ortak oluşu",
+        "B) Her mezhebin farklı iman şartı belirlemesi",
+        "C) Sadece ibadetlerin önemli olması",
+        "D) Melek inancının opsiyonel olması"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Detaylarda farklı anlatımlar bulunsa da iman esaslarının ana çerçevesi ortaktır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_088",
+      "konu": "iman",
+      "soru": "İman ile İslam’ın birlikte öğretilmesi neyi sağlar?",
+      "secenekler": [
+        "A) İnanç ile amelin bağını kurmayı",
+        "B) Yalnız teoride kalmayı",
+        "C) Sadece tarih öğrenmeyi",
+        "D) Mezhepleri kaldırmayı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "kalpteki iman ile dışa yansıyan İslamî kulluk arasında bağ kurar.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_089",
+      "konu": "kitaplar",
+      "soru": "Kitaplara iman ile peygamberlere iman niçin birlikte düşünülür?",
+      "secenekler": [
+        "A) Çünkü kitaplar peygamberler aracılığıyla bildirilmiştir",
+        "B) Çünkü her peygamber melek olmuştur",
+        "C) Çünkü kitaplar insan sözüdür",
+        "D) Çünkü ahiret inancını kaldırır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İlahi kitaplar, peygamberler aracılığıyla insanlara tebliğ edilmiştir.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_090",
+      "konu": "melek",
+      "soru": "Meleklerin Allah’a sürekli itaat hâlinde oluşu hangi inanç sonucunu doğurur?",
+      "secenekler": [
+        "A) Onların emre bağlı ve günahsız varlıklar olduğunu",
+        "B) İnsanlardan üstün ilahlar olduklarını",
+        "C) Yalnız cezalandırma için yaratıldıklarını",
+        "D) Hata yapıp tövbe ettiklerini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "melekleri Allah’a itaat eden ve günah işlemeyen varlıklar olarak tanımlar.",
+      "zorluk": "orta",
+      "kaynak": "Tahrim 66:6"
+    },
+    {
+      "id": "iman_091",
+      "konu": "ahiret",
+      "soru": "Ahirete iman dünya hayatını nasıl etkiler?",
+      "secenekler": [
+        "A) Hesap bilinciyle yaşamayı güçlendirir",
+        "B) Sorumluluğu azaltır",
+        "C) Yalnız kabir korkusu üretir",
+        "D) Ameli gereksizleştirir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ahirete iman, insanın davranışlarını hesap bilinciyle düzenlemesine yardımcı olur.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_092",
+      "konu": "kiyamet",
+      "soru": "Kıyametin ne zaman kopacağını kesin olarak kim bilir?",
+      "secenekler": [
+        "A) Hiç kimse bilmez",
+        "B) Yalnız Allah bilir",
+        "C) Bütün melekler bilir",
+        "D) Sadece peygamberler bilir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kıyametin vakti gayb bilgisindendir ve kesin olarak yalnız Allah tarafından bilinir.",
+      "zorluk": "kolay",
+      "kaynak": "Lokman 31:34"
+    },
+    {
+      "id": "iman_093",
+      "konu": "kabir",
+      "soru": "Kabir sorgusunun hatırlatılması hangi bilinci güçlendirir?",
+      "secenekler": [
+        "A) İmanın hayata hazırlanarak yaşanması gerektiğini",
+        "B) Dünya işlerini terk etmeyi",
+        "C) Sadece ölümü konuşmayı",
+        "D) Namazı bırakmayı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kabir sorgusu, inancı hayata taşıma ve bilinçli yaşama çağrısıdır.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_094",
+      "konu": "peygamber",
+      "soru": "Peygamber kıssaları ve hayatları neden önemlidir?",
+      "secenekler": [
+        "A) İnsana örneklik ve hidayet sunmaları nedeniyle",
+        "B) Sadece tarih merakı için",
+        "C) Hukukla ilgisiz oldukları için",
+        "D) Yalnız çocuk masalı oldukları için"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Peygamberler, sözleri ve hayatlarıyla insanlara örnek olmak üzere gönderilmiştir.",
+      "zorluk": "orta",
+      "kaynak": "Ahzab 33:21; İman Esasları"
+    },
+    {
+      "id": "iman_095",
+      "konu": "kitaplar",
+      "soru": "Kur’an’ın korunmuş son kitap oluşu hangi güveni verir?",
+      "secenekler": [
+        "A) İnançta son ölçünün elde bulunduğu güvenini",
+        "B) Önceki peygamberlerin unutulacağını",
+        "C) Hadislere gerek kalmadığını",
+        "D) İbadetin sona erdiğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kur’an’ı korunmuş son ilahi kitap olarak güvenli ölçü şeklinde tanıtır.",
+      "zorluk": "orta",
+      "kaynak": "Hicr 15:9"
+    },
+    {
+      "id": "iman_096",
+      "konu": "peygamber",
+      "soru": "Bütün peygamberlerin ortak mesajını en iyi hangi cümle özetler?",
+      "secenekler": [
+        "A) Allah’a kulluk edin ve O’na ortak koşmayın",
+        "B) Her kavim kendi ilahını seçsin",
+        "C) İbadet yalnız dünyalıktır",
+        "D) Vahiy sadece geçmişte kalmıştır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Peygamberlerin ortak çağrısı tevhid ve kulluktur.",
+      "zorluk": "orta",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_097",
+      "konu": "buyuk_melekler",
+      "soru": "özel görevleriyle öne çıkarılan büyük melek sayısı kaçtır?",
+      "secenekler": [
+        "A) 2",
+        "B) 3",
+        "C) 4",
+        "D) 7"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Cebrail, Mikail, İsrafil ve Azrail dört büyük melek başlığında anlatılır.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_098",
+      "konu": "suhuf",
+      "soru": "Aşağıdakilerden hangisi dört büyük kitap arasında değildir?",
+      "secenekler": [
+        "A) Zebur",
+        "B) Suhuf",
+        "C) İncil",
+        "D) Tevrat"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Suhuf, büyük kitaplardan ayrı olarak kısa vahiy sayfalarını ifade eder.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_099",
+      "konu": "ozet",
+      "soru": "İman Esasları için ana çizgisine göre iman esasları nasıl anlaşılmalıdır?",
+      "secenekler": [
+        "A) Birbirinden kopuk bilgiler olarak",
+        "B) Birbirini tamamlayan temel inanç esasları olarak",
+        "C) Sadece sınav ezberi olarak",
+        "D) Yalnız tarih bilgisi olarak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "İman esasları, Müslümanın inanç dünyasını kuran birbirine bağlı temel esaslardır.",
+      "zorluk": "kolay",
+      "kaynak": "İman Esasları"
+    },
+    {
+      "id": "iman_100",
+      "konu": "ozet",
+      "soru": "İman esaslarının tamamını birlikte kavrayan en doğru sonuç hangisidir?",
+      "secenekler": [
+        "A) İman sadece teorik bilgidir",
+        "B) İman; Allah, melekler, kitaplar, peygamberler, ahiret ve kadere topluca inanmayı gerektirir",
+        "C) İman esasları seçilerek kabul edilir",
+        "D) Sadece ahiret inancı yeterlidir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "imanın bütün esaslarının birlikte kabul edilmesi gerektiğini öğretir.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari, İman 37; Müslim, İman 1"
     }
   ]
 }

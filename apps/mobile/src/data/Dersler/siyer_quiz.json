@@ -1,13 +1,18 @@
 {
   "quiz_id": "siyer",
   "baslik": "Siyer-i Nebi",
-  "toplam_soru": 50,
+  "toplam_soru": 100,
   "sorular": [
     {
       "id": "siyer_001",
       "konu": "siyer",
       "soru": "Hz. Muhammed hangi kabilenin hangi koluna mensuptur?",
-      "secenekler": ["A) Kureyş - Ümeyye oğulları", "B) Kureyş - Hâşimoğulları", "C) Hevâzin - Sa'd b. Bekr", "D) Sakîf - Benî Ukayl"],
+      "secenekler": [
+        "A) Kureyş - Ümeyye oğulları",
+        "B) Kureyş - Hâşimoğulları",
+        "C) Hevâzin - Sa'd b. Bekr",
+        "D) Sakîf - Benî Ukayl"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Muhammed, Kureyş kabilesinin Hâşimoğulları koluna mensuptur. Bu kol, hacılara su ve yiyecek ikramı görevini yürütürdü.",
       "zorluk": "kolay",
@@ -17,7 +22,12 @@
       "id": "siyer_002",
       "konu": "siyer",
       "soru": "İlk vahiy nerede nazil oldu?",
-      "secenekler": ["A) Kâbe'nin içinde", "B) Mescid-i Aksâ'da", "C) Hira Mağarası'nda", "D) Sevr Mağarası'nda"],
+      "secenekler": [
+        "A) Kâbe'nin içinde",
+        "B) Mescid-i Aksâ'da",
+        "C) Hira Mağarası'nda",
+        "D) Sevr Mağarası'nda"
+      ],
       "dogru_cevap": "C",
       "aciklama": "İlk vahiy, 610 M'de Hz. Muhammed'in inzivaya çekildiği Hira Mağarası'nda (Nur Dağı) Ramazan ayında Cebrâil aracılığıyla nazil oldu.",
       "zorluk": "kolay",
@@ -27,7 +37,12 @@
       "id": "siyer_003",
       "konu": "siyer",
       "soru": "İlk inen Kur'an suresi hangisidir?",
-      "secenekler": ["A) Fatiha", "B) Bakara", "C) Alak", "D) İhlâs"],
+      "secenekler": [
+        "A) Fatiha",
+        "B) Bakara",
+        "C) Alak",
+        "D) İhlâs"
+      ],
       "dogru_cevap": "C",
       "aciklama": "İlk inen ayet Alak Sûresi'nin başı: 'Yaratan Rabbinin adıyla oku!' İlk emrin ilim ve okumaya dair olması tesadüf değildir.",
       "zorluk": "kolay",
@@ -37,7 +52,12 @@
       "id": "siyer_004",
       "konu": "siyer",
       "soru": "Hz. Muhammed'in sütannesi kimdir?",
-      "secenekler": ["A) Ümmü Eymen", "B) Halîme bint Ebî Züeyb", "C) Fâtıma bint Esed", "D) Esmâ bint Ebî Bekir"],
+      "secenekler": [
+        "A) Ümmü Eymen",
+        "B) Halîme bint Ebî Züeyb",
+        "C) Fâtıma bint Esed",
+        "D) Esmâ bint Ebî Bekir"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Muhammed'in sütannesi, Sa'd b. Bekr kabilesinden Halîme bint Ebî Züeyb'dir. Yaklaşık dört yıl onun yanında kaldı ve fasih Arapçayı bu dönemde öğrendi.",
       "zorluk": "kolay",
@@ -47,7 +67,12 @@
       "id": "siyer_005",
       "konu": "siyer",
       "soru": "Hz. Muhammed'in annesi Âmine nerede vefat etti?",
-      "secenekler": ["A) Mekke'de", "B) Medine'de", "C) Ebvâ köyünde", "D) Tâif'te"],
+      "secenekler": [
+        "A) Mekke'de",
+        "B) Medine'de",
+        "C) Ebvâ köyünde",
+        "D) Tâif'te"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Âmine, Hz. Muhammed 6 yaşındayken onu Medine'deki akrabalarına götürdükten sonra dönüş yolunda Ebvâ köyünde vefat etti.",
       "zorluk": "kolay",
@@ -57,7 +82,12 @@
       "id": "siyer_006",
       "konu": "siyer",
       "soru": "Hz. Muhammed'in vasîliğini kim üstlendi?",
-      "secenekler": ["A) Ebû Cehil", "B) Ebû Süfyân", "C) Ebû Tâlib", "D) Abdurrahman b. Avf"],
+      "secenekler": [
+        "A) Ebû Cehil",
+        "B) Ebû Süfyân",
+        "C) Ebû Tâlib",
+        "D) Abdurrahman b. Avf"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Dedesi Abdülmuttalib ölüm döşeğinde oğlu Ebû Tâlib'i Hz. Muhammed'in vasîsi olarak belirledi. Ebû Tâlib onu kendi çocukları gibi sevip korudu.",
       "zorluk": "kolay",
@@ -67,7 +97,12 @@
       "id": "siyer_007",
       "konu": "siyer",
       "soru": "Hz. Muhammed'e Mekke toplumu tarafından verilen 'el-Emîn' lakabı ne anlama gelir?",
-      "secenekler": ["A) Cesur", "B) Güvenilir", "C) Alçakgönüllü", "D) Cömert"],
+      "secenekler": [
+        "A) Cesur",
+        "B) Güvenilir",
+        "C) Alçakgönüllü",
+        "D) Cömert"
+      ],
       "dogru_cevap": "B",
       "aciklama": "'el-Emîn' güvenilir demektir. Bu lakap, Hz. Muhammed'in dürüstlüğü ve güvenilirliği sayesinde peygamberlikten önce Mekke toplumu tarafından kendiliğinden verildi.",
       "zorluk": "kolay",
@@ -77,7 +112,12 @@
       "id": "siyer_008",
       "konu": "siyer",
       "soru": "İslâm'ın ilk şehidi kimdir?",
-      "secenekler": ["A) Bilâl-i Habeşî", "B) Ammâr b. Yâsir", "C) Sümeyye", "D) Yâsir b. Amir"],
+      "secenekler": [
+        "A) Bilâl-i Habeşî",
+        "B) Ammâr b. Yâsir",
+        "C) Sümeyye",
+        "D) Yâsir b. Amir"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Sümeyye, Ebû Cehil tarafından şehit edilerek İslâm'ın ilk şehidi unvanını aldı. Kocası Yâsir ve oğlu Ammâr da ağır işkenceye maruz kaldı.",
       "zorluk": "kolay",
@@ -87,7 +127,12 @@
       "id": "siyer_009",
       "konu": "siyer",
       "soru": "Kadınlardan ilk Müslüman olan kimdir?",
-      "secenekler": ["A) Hz. Fâtıma", "B) Hz. Âişe", "C) Hz. Hatice", "D) Esmâ bint Ebî Bekir"],
+      "secenekler": [
+        "A) Hz. Fâtıma",
+        "B) Hz. Âişe",
+        "C) Hz. Hatice",
+        "D) Esmâ bint Ebî Bekir"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Hatice, ilk vahyin ardından Hz. Muhammed'i teskin eden ve ona inanan ilk kişidir. Kadınlardan ilk Müslüman olma şerefini taşır.",
       "zorluk": "kolay",
@@ -97,7 +142,12 @@
       "id": "siyer_010",
       "konu": "siyer",
       "soru": "Hicret sırasında Hz. Peygamber ile Sevr Mağarası'nda üç gece kalan sahabi kimdir?",
-      "secenekler": ["A) Hz. Ömer", "B) Hz. Ali", "C) Hz. Ebû Bekir", "D) Hz. Osman"],
+      "secenekler": [
+        "A) Hz. Ömer",
+        "B) Hz. Ali",
+        "C) Hz. Ebû Bekir",
+        "D) Hz. Osman"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Ebû Bekir, Hz. Peygamber ile birlikte Sevr Mağarası'nda üç gece geçirdi. Kureyş arayıcıları mağaranın girişine kadar geldiğinde Hz. Peygamber onu Tevbe 9:40 ile teselli etti.",
       "zorluk": "kolay",
@@ -107,7 +157,12 @@
       "id": "siyer_011",
       "konu": "siyer",
       "soru": "Hz. Peygamber Medine'ye vardığında hangi sahabinin evine misafir oldu?",
-      "secenekler": ["A) Sa'd b. Ubâde", "B) Ebû Eyyûb el-Ensârî", "C) Es'ad b. Zürâre", "D) Abdurrahman b. Avf"],
+      "secenekler": [
+        "A) Sa'd b. Ubâde",
+        "B) Ebû Eyyûb el-Ensârî",
+        "C) Es'ad b. Zürâre",
+        "D) Abdurrahman b. Avf"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Peygamber devesini serbest bıraktı; 'Nereye çökerse oraya ineceğim' dedi. Deve Ebû Eyyûb el-Ensârî'nin yakınına çöktü ve o ev sahibi oldu.",
       "zorluk": "kolay",
@@ -117,7 +172,12 @@
       "id": "siyer_012",
       "konu": "siyer",
       "soru": "İlk ezan okuyan sahabi kimdir?",
-      "secenekler": ["A) Abdullah b. Zeyd", "B) Bilâl-i Habeşî", "C) Selmân-ı Fârisî", "D) Hz. Ömer"],
+      "secenekler": [
+        "A) Abdullah b. Zeyd",
+        "B) Bilâl-i Habeşî",
+        "C) Selmân-ı Fârisî",
+        "D) Hz. Ömer"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Abdullah b. Zeyd'in rüyasında öğrendiği ezan sözleri Hz. Peygamber'e aktarıldı. Bilâl-i Habeşî güçlü sesiyle ilk müezzin oldu.",
       "zorluk": "kolay",
@@ -127,7 +187,12 @@
       "id": "siyer_013",
       "konu": "siyer",
       "soru": "Bedir Savaşı hangi yılda gerçekleşti?",
-      "secenekler": ["A) Hicrî 1 / M. 622", "B) Hicrî 2 / M. 624", "C) Hicrî 3 / M. 625", "D) Hicrî 5 / M. 627"],
+      "secenekler": [
+        "A) Hicrî 1 / M. 622",
+        "B) Hicrî 2 / M. 624",
+        "C) Hicrî 3 / M. 625",
+        "D) Hicrî 5 / M. 627"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Bedir Savaşı, 17 Ramazan Hicrî 2 yılında (13 Mart 624 M) gerçekleşti. İslâm tarihinin ilk büyük savaşıdır.",
       "zorluk": "kolay",
@@ -137,7 +202,12 @@
       "id": "siyer_014",
       "konu": "siyer",
       "soru": "Mekke'nin Fethi kaç kişilik bir orduyla gerçekleşti?",
-      "secenekler": ["A) 3.000", "B) 5.000", "C) 10.000", "D) 30.000"],
+      "secenekler": [
+        "A) 3.000",
+        "B) 5.000",
+        "C) 10.000",
+        "D) 30.000"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Peygamber 10.000 kişilik bir orduyla Mekke'ye girdi. Şehir neredeyse kansız fethedildi ve genel af ilan edildi.",
       "zorluk": "kolay",
@@ -147,7 +217,12 @@
       "id": "siyer_015",
       "konu": "siyer",
       "soru": "Veda Haccı'na yaklaşık kaç Müslüman katıldı?",
-      "secenekler": ["A) 10.000", "B) 50.000", "C) 100.000", "D) 500.000"],
+      "secenekler": [
+        "A) 10.000",
+        "B) 50.000",
+        "C) 100.000",
+        "D) 500.000"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Veda Haccı'na yaklaşık 100.000 ile 124.000 arasında Müslüman katıldı. Bu, Hz. Peygamber'in ilk ve son haccıydı.",
       "zorluk": "kolay",
@@ -157,7 +232,12 @@
       "id": "siyer_016",
       "konu": "siyer",
       "soru": "Hz. Peygamber kaç yaşında vefat etti?",
-      "secenekler": ["A) 40", "B) 50", "C) 63", "D) 70"],
+      "secenekler": [
+        "A) 40",
+        "B) 50",
+        "C) 63",
+        "D) 70"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Peygamber, 12 Rebîülevvel Hicrî 11 / 8 Haziran 632 M tarihinde yaklaşık 63 yaşında vefat etti.",
       "zorluk": "kolay",
@@ -167,7 +247,12 @@
       "id": "siyer_017",
       "konu": "siyer",
       "soru": "Hz. Peygamber hangi eşinin yanında vefat etti?",
-      "secenekler": ["A) Hz. Hatice", "B) Hz. Âişe", "C) Hz. Hafsa", "D) Hz. Zeynep"],
+      "secenekler": [
+        "A) Hz. Hatice",
+        "B) Hz. Âişe",
+        "C) Hz. Hafsa",
+        "D) Hz. Zeynep"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Peygamber, son günlerini Hz. Âişe'nin odasında geçirdi ve onun kucağında son nefesini verdi.",
       "zorluk": "kolay",
@@ -177,7 +262,12 @@
       "id": "siyer_018",
       "konu": "siyer",
       "soru": "Hz. Muhammed 35 yaşında yaşanan Kâbe yeniden inşası sırasında ne yaptı?",
-      "secenekler": ["A) Kâbe'nin inşaatına öncülük etti", "B) Hacerü'l-Esved anlaşmazlığını çözdü", "C) Kâbe'yi düşmandan korudu", "D) Kâbe'ye ilk kapıyı taktı"],
+      "secenekler": [
+        "A) Kâbe'nin inşaatına öncülük etti",
+        "B) Hacerü'l-Esved anlaşmazlığını çözdü",
+        "C) Kâbe'yi düşmandan korudu",
+        "D) Kâbe'ye ilk kapıyı taktı"
+      ],
       "dogru_cevap": "B",
       "aciklama": "35 yaşında, Hacerü'l-Esved'in (Kâbe'nin köşesindeki siyah taş) yerine konulması meselesinde kabileler arasında çıkan anlaşmazlığı büyük bir örtü kullanarak çözdü ve büyük bir çatışmayı önledi.",
       "zorluk": "kolay",
@@ -187,7 +277,12 @@
       "id": "siyer_019",
       "konu": "siyer",
       "soru": "Hilfü'l-Fudûl ne amaçla kurulmuştu?",
-      "secenekler": ["A) Kureyş kabilelerini birleştirmek", "B) Haksızlığa uğrayanları korumak", "C) Kâbe'nin idaresini düzenlemek", "D) Panayırlarda ticaret kuralları koymak"],
+      "secenekler": [
+        "A) Kureyş kabilelerini birleştirmek",
+        "B) Haksızlığa uğrayanları korumak",
+        "C) Kâbe'nin idaresini düzenlemek",
+        "D) Panayırlarda ticaret kuralları koymak"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hilfü'l-Fudûl (Erdemliler İttifakı), bir Yemenlinin haksızlığa uğraması üzerine haksızlığa uğrayanları korumak amacıyla kuruldu. Hz. Peygamber bu tür adalet çağrılarını değerli görmüştür.",
       "zorluk": "kolay",
@@ -197,7 +292,12 @@
       "id": "siyer_020",
       "konu": "siyer",
       "soru": "Hz. Peygamber hicret ederken Hz. Ali'yi neden kendi yatağına yatırdı?",
-      "secenekler": ["A) Hz. Ali hastaydı ve onu korumak istedi", "B) Suikastçıların dikkatini dağıtmak için", "C) Emanetleri teslim etmesi için", "D) Namazları kıldırması için"],
+      "secenekler": [
+        "A) Hz. Ali hastaydı ve onu korumak istedi",
+        "B) Suikastçıların dikkatini dağıtmak için",
+        "C) Emanetleri teslim etmesi için",
+        "D) Namazları kıldırması için"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Peygamber, kapıda nöbet tutan suikastçıların dikkatini dağıtmak için Hz. Ali'yi kendi yatağına yatırıp yeşil hırkasını örttü.",
       "zorluk": "kolay",
@@ -207,7 +307,12 @@
       "id": "siyer_021",
       "konu": "siyer",
       "soru": "Fil Olayı Kur'an'ın hangi suresinde anlatılmaktadır?",
-      "secenekler": ["A) Kevser", "B) Fîl", "C) Felak", "D) Nas"],
+      "secenekler": [
+        "A) Kevser",
+        "B) Fîl",
+        "C) Felak",
+        "D) Nas"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Fîl Sûresi (105), Ebrehe'nin ordusunun ebâbîl kuşları tarafından helak edilmesini anlatır. Bu olay Hz. Peygamber'in doğumuna yakın dönemde yaşanmıştır.",
       "zorluk": "orta",
@@ -217,7 +322,12 @@
       "id": "siyer_022",
       "konu": "siyer",
       "soru": "Cahiliye döneminde (vahiy rehberliğinden uzak yaşama döneminde) Kâbe'de kaç put bulunuyordu?",
-      "secenekler": ["A) 100", "B) 200", "C) 360", "D) 500"],
+      "secenekler": [
+        "A) 100",
+        "B) 200",
+        "C) 360",
+        "D) 500"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Cahiliye döneminde Kâbe'de sayıları 360'a ulaşan put bulunuyordu. Bunların başlıcaları Hubel, Lât, Menât ve Uzzâ idi. Mekke'nin fethinde hepsi kırıldı.",
       "zorluk": "orta",
@@ -227,7 +337,12 @@
       "id": "siyer_023",
       "konu": "siyer",
       "soru": "Hz. Muhammed'e 'Muhammed' adını kim verdi?",
-      "secenekler": ["A) Annesi Âmine", "B) Amcası Ebû Tâlib", "C) Dedesi Abdülmuttalib", "D) Sütannesi Halîme"],
+      "secenekler": [
+        "A) Annesi Âmine",
+        "B) Amcası Ebû Tâlib",
+        "C) Dedesi Abdülmuttalib",
+        "D) Sütannesi Halîme"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Muhammed'e 'Muhammed' adını dedesi Abdülmuttalib verdi. Bu isim o dönem Arapları arasında yaygın değildi.",
       "zorluk": "orta",
@@ -237,7 +352,12 @@
       "id": "siyer_024",
       "konu": "siyer",
       "soru": "Gizli davet döneminde Müslümanların buluşma merkezi neresiydi?",
-      "secenekler": ["A) Hz. Hatice'nin evi", "B) Dârülerkam (Erkam'ın evi)", "C) Hira Mağarası", "D) Mescid-i Harâm"],
+      "secenekler": [
+        "A) Hz. Hatice'nin evi",
+        "B) Dârülerkam (Erkam'ın evi)",
+        "C) Hira Mağarası",
+        "D) Mescid-i Harâm"
+      ],
       "dogru_cevap": "B",
       "aciklama": "İlk üç yıl süren gizli davet döneminde Erkam b. Ebü'l-Erkam'ın evi, Dârülerkam (Erkam'ın evi; ilk eğitim ve buluşma merkezi) olarak tanındı.",
       "zorluk": "orta",
@@ -247,7 +367,12 @@
       "id": "siyer_025",
       "konu": "siyer",
       "soru": "Habeşistan'a hicret eden Müslümanları Necâşî'nin huzurunda kim temsil etti?",
-      "secenekler": ["A) Hz. Ebû Bekir", "B) Hz. Ömer", "C) Câfer b. Ebû Tâlib", "D) Mus'ab b. Umeyr"],
+      "secenekler": [
+        "A) Hz. Ebû Bekir",
+        "B) Hz. Ömer",
+        "C) Câfer b. Ebû Tâlib",
+        "D) Mus'ab b. Umeyr"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Câfer b. Ebû Tâlib, Necâşî'nin huzurunda Meryem Sûresi'nden ayetler okudu. Necâşî Müslümanları iade etmeyi reddetti ve onlara güvenli bir ortam sağladı.",
       "zorluk": "orta",
@@ -257,7 +382,12 @@
       "id": "siyer_026",
       "konu": "siyer",
       "soru": "Bilâl-i Habeşî'yi satın alarak azat eden sahabi kimdir?",
-      "secenekler": ["A) Hz. Ömer", "B) Hz. Osman", "C) Hz. Ebû Bekir", "D) Hz. Ali"],
+      "secenekler": [
+        "A) Hz. Ömer",
+        "B) Hz. Osman",
+        "C) Hz. Ebû Bekir",
+        "D) Hz. Ali"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Bilâl, kızgın Mekke güneşinde göğsüne büyük taş konularak işkenceye uğratıldı. Hz. Ebû Bekir onu satın alarak azat etti.",
       "zorluk": "orta",
@@ -267,7 +397,12 @@
       "id": "siyer_027",
       "konu": "siyer",
       "soru": "Hüzün Yılı'nda Hz. Peygamber kimlerini kaybetti?",
-      "secenekler": ["A) Hz. Hamza ve Hz. Hatice", "B) Ebû Tâlib ve Hz. Hatice", "C) Hz. Zeyd ve Ebû Tâlib", "D) Babası Abdullah ve annesi Âmine"],
+      "secenekler": [
+        "A) Hz. Hamza ve Hz. Hatice",
+        "B) Ebû Tâlib ve Hz. Hatice",
+        "C) Hz. Zeyd ve Ebû Tâlib",
+        "D) Babası Abdullah ve annesi Âmine"
+      ],
       "dogru_cevap": "B",
       "aciklama": "619 M'deki Hüzün Yılı'nda Hz. Peygamber, amcası ve koruyucusu Ebû Tâlib'i ve ardından eşi Hz. Hatice'yi kaybetti. Bu iki büyük kaybın ardından Mekke'deki sosyal koruma büyük ölçüde zayıfladı.",
       "zorluk": "orta",
@@ -277,7 +412,12 @@
       "id": "siyer_028",
       "konu": "siyer",
       "soru": "İsrâ-Mi'rac'ta başlangıçta kaç vakit namaz farz kılındı?",
-      "secenekler": ["A) 5", "B) 10", "C) 40", "D) 50"],
+      "secenekler": [
+        "A) 5",
+        "B) 10",
+        "C) 40",
+        "D) 50"
+      ],
       "dogru_cevap": "D",
       "aciklama": "İsrâ gece yolculuğu, Mi'rac ise semalara/yüce makamlara yükseliş olarak anlatılır. Başlangıçta 50 vakit olarak belirlenen namaz, Hz. Mûsâ'nın tavsiyesiyle yapılan indirimler sonucunda beş vakite indi.",
       "zorluk": "orta",
@@ -287,7 +427,12 @@
       "id": "siyer_029",
       "konu": "siyer",
       "soru": "Sevr Mağarası'nda Hz. Ebû Bekir endişelenince Kur'an'da geçen hangi ifade onu teselli etti?",
-      "secenekler": ["A) Bakara 2:286", "B) Tevbe 9:40", "C) Zümer 39:10", "D) İnşirah 94:5"],
+      "secenekler": [
+        "A) Bakara 2:286",
+        "B) Tevbe 9:40",
+        "C) Zümer 39:10",
+        "D) İnşirah 94:5"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Tevbe 9:40'ta bu an 'Üzülme, Allah bizimle beraberdir' ifadesiyle anlatılır. Bu ayet, hicret yolculuğundaki teslimiyetin en güçlü örneklerindendir.",
       "zorluk": "orta",
@@ -297,7 +442,12 @@
       "id": "siyer_030",
       "konu": "siyer",
       "soru": "Hz. Peygamber'in hicret yolculuğunda inşa ettirdiği ilk mescid hangisidir?",
-      "secenekler": ["A) Mescid-i Nebevî", "B) Mescid-i Aksâ", "C) Kubâ Mescidi", "D) Mescid-i Harâm"],
+      "secenekler": [
+        "A) Mescid-i Nebevî",
+        "B) Mescid-i Aksâ",
+        "C) Kubâ Mescidi",
+        "D) Mescid-i Harâm"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Medine'ye varmadan önce uğranan Kubâ'da inşa edilen Kubâ Mescidi, İslâm tarihinde inşa edilen ilk mescittir.",
       "zorluk": "orta",
@@ -307,7 +457,12 @@
       "id": "siyer_031",
       "konu": "siyer",
       "soru": "Medine Sözleşmesi'nde yer almayan ilke hangisidir?",
-      "secenekler": ["A) Din özgürlüğünün tanınması", "B) Ortak savunma yükümlülüğü", "C) Putperestlerin şehirden sürgün edilmesi", "D) Anlaşmazlıkların Hz. Peygamber'e götürülmesi"],
+      "secenekler": [
+        "A) Din özgürlüğünün tanınması",
+        "B) Ortak savunma yükümlülüğü",
+        "C) Putperestlerin şehirden sürgün edilmesi",
+        "D) Anlaşmazlıkların Hz. Peygamber'e götürülmesi"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Medine Sözleşmesi din özgürlüğü, ortak savunma ve hukuki düzeni kapsıyordu. Putperestlerin şehirden sürgün edilmesi bu belgenin ilkeleri arasında yer almıyordu.",
       "zorluk": "orta",
@@ -317,7 +472,12 @@
       "id": "siyer_032",
       "konu": "siyer",
       "soru": "Bedir Savaşı'nda esirler için talep edilen seçeneklerden biri neydi?",
-      "secenekler": ["A) Müslüman olmak", "B) Köle yapılmak", "C) 10 Müslümana okuma-yazma öğretmek", "D) Mekke'ye dönmemek üzere yemin etmek"],
+      "secenekler": [
+        "A) Müslüman olmak",
+        "B) Köle yapılmak",
+        "C) 10 Müslümana okuma-yazma öğretmek",
+        "D) Mekke'ye dönmemek üzere yemin etmek"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Hz. Peygamber esirler için fidye (serbest kalmak için ödenen bedel) ya da rivayetlere göre 10 Müslümana okuma-yazma öğretme seçeneği sundu. Bu karar, ilme verilen değerin örneği olarak anlatılır.",
       "zorluk": "orta",
@@ -327,7 +487,12 @@
       "id": "siyer_033",
       "konu": "siyer",
       "soru": "Uhud Savaşı'nda durumun tersine dönmesine yol açan hata neydi?",
-      "secenekler": ["A) Müslümanların erken teslim olması", "B) Okçuların ganimet için mevzilerini bırakması", "C) Komutan değişikliği", "D) Düşmana sığınılması"],
+      "secenekler": [
+        "A) Müslümanların erken teslim olması",
+        "B) Okçuların ganimet için mevzilerini bırakması",
+        "C) Komutan değişikliği",
+        "D) Düşmana sığınılması"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Peygamber okçulara yerlerini terk etmemelerini emretmişti. Üstünlük kurulduğunu gören okçuların çoğu ganimet (savaş sonrası elde edilen mal) için mevzilerini bırakınca Hâlid b. Velîd bu açığı değerlendirdi.",
       "zorluk": "orta",
@@ -337,7 +502,12 @@
       "id": "siyer_034",
       "konu": "siyer",
       "soru": "Hendek Savaşı'nda hendek kazılması fikri kime aittir?",
-      "secenekler": ["A) Hz. Ömer", "B) Hz. Ali", "C) Selmân-ı Fârisî", "D) Hz. Ebû Bekir"],
+      "secenekler": [
+        "A) Hz. Ömer",
+        "B) Hz. Ali",
+        "C) Selmân-ı Fârisî",
+        "D) Hz. Ebû Bekir"
+      ],
       "dogru_cevap": "C",
       "aciklama": "İranlı sahabi Selmân-ı Fârisî, Arapların bilmediği hendek savunma stratejisini önerdi. Bu strateji sayesinde büyük koalisyon ordusu Medine'ye giremedi.",
       "zorluk": "orta",
@@ -347,7 +517,12 @@
       "id": "siyer_035",
       "konu": "siyer",
       "soru": "Hudeybiye Antlaşması'nı Kureyş adına kim imzaladı?",
-      "secenekler": ["A) Ebû Cehil", "B) Ebû Süfyân", "C) Süheyl b. Amr", "D) Amr b. Âs"],
+      "secenekler": [
+        "A) Ebû Cehil",
+        "B) Ebû Süfyân",
+        "C) Süheyl b. Amr",
+        "D) Amr b. Âs"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Kureyş'in temsilcisi Süheyl b. Amr, Hz. Peygamber ile Hudeybiye Antlaşması'nı müzakere edip imzaladı.",
       "zorluk": "orta",
@@ -357,7 +532,12 @@
       "id": "siyer_036",
       "konu": "siyer",
       "soru": "Kur'an Hudeybiye Antlaşması'nı hangi sûreyle 'apaçık bir fetih' olarak nitelendirdi?",
-      "secenekler": ["A) Bakara", "B) Fetih", "C) Tevbe", "D) Nisa"],
+      "secenekler": [
+        "A) Bakara",
+        "B) Fetih",
+        "C) Tevbe",
+        "D) Nisa"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Fetih Sûresi'nin ilk ayeti 'Biz sana apaçık bir fetih verdik' anlamına gelir. Bu ayet Hudeybiye Antlaşması'nın görünürde zor, sonuçta büyük bir açılım olduğunu gösterir.",
       "zorluk": "orta",
@@ -367,7 +547,12 @@
       "id": "siyer_037",
       "konu": "siyer",
       "soru": "Hz. Peygamber'in davet mektubunu yırtan hükümdar kimdir?",
-      "secenekler": ["A) Herakleios (Bizans)", "B) Necâşî (Habeşistan)", "C) Kisrâ (Sasani)", "D) Mukavkıs (Mısır)"],
+      "secenekler": [
+        "A) Herakleios (Bizans)",
+        "B) Necâşî (Habeşistan)",
+        "C) Kisrâ (Sasani)",
+        "D) Mukavkıs (Mısır)"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Sasani İmparatoru Kisrâ Hüsrev Perviz, Hz. Peygamber'in davet mektubunu yırttı. Bu olay, hükümdarlara gönderilen İslam'a davet mektupları arasında meşhur rivayetlerdendir.",
       "zorluk": "orta",
@@ -377,7 +562,12 @@
       "id": "siyer_038",
       "konu": "siyer",
       "soru": "Mekke'nin fethinde Kâbe'deki kaç put kırıldı?",
-      "secenekler": ["A) 100", "B) 200", "C) 300", "D) 360"],
+      "secenekler": [
+        "A) 100",
+        "B) 200",
+        "C) 300",
+        "D) 360"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Mekke'nin fethinde Kâbe'deki 360 put kırıldı. Hz. Peygamber her birine dokunurken 'Hak geldi, bâtıl yok oldu' (İsrâ 17:81) dedi.",
       "zorluk": "orta",
@@ -387,7 +577,12 @@
       "id": "siyer_039",
       "konu": "siyer",
       "soru": "Veda Hutbesi'nden sonra inen Mâide 3. ayet neyi bildirmektedir?",
-      "secenekler": ["A) Haccın farz kılındığını", "B) Dinin kemâle erdiğini", "C) Zekâtın farz kılındığını", "D) Cihadın hükmünü"],
+      "secenekler": [
+        "A) Haccın farz kılındığını",
+        "B) Dinin kemâle erdiğini",
+        "C) Zekâtın farz kılındığını",
+        "D) Cihadın hükmünü"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Mâide 3: 'Bugün dininizi kemâle erdirdim, üzerinizdeki nimetimi tamamladım ve size din olarak İslâm'ı seçtim.' Bu ayet dinin tamamlandığını bildiren en önemli ayetlerden biridir.",
       "zorluk": "orta",
@@ -397,7 +592,12 @@
       "id": "siyer_040",
       "konu": "siyer",
       "soru": "Hz. Peygamber'in son hastalığında namazları kim kıldırdı?",
-      "secenekler": ["A) Hz. Ömer", "B) Hz. Osman", "C) Hz. Ali", "D) Hz. Ebû Bekir"],
+      "secenekler": [
+        "A) Hz. Ömer",
+        "B) Hz. Osman",
+        "C) Hz. Ali",
+        "D) Hz. Ebû Bekir"
+      ],
       "dogru_cevap": "D",
       "aciklama": "Hz. Peygamber son hastalığında namaz kıldıramayacak duruma gelince cemaate Hz. Ebû Bekir'i imam olarak atadı.",
       "zorluk": "orta",
@@ -407,7 +607,12 @@
       "id": "siyer_041",
       "konu": "siyer",
       "soru": "İkinci Akabe Biatı'na kaç kişi katıldı?",
-      "secenekler": ["A) 12", "B) 40", "C) 75", "D) 100"],
+      "secenekler": [
+        "A) 12",
+        "B) 40",
+        "C) 75",
+        "D) 100"
+      ],
       "dogru_cevap": "C",
       "aciklama": "622 M'deki İkinci Akabe Biatı'na 73 erkek ve 2 kadın olmak üzere toplam 75 kişi katıldı. Biat, bağlılık ve destek sözü demektir; bu biat hicretin zeminini hazırladı.",
       "zorluk": "zor",
@@ -417,7 +622,12 @@
       "id": "siyer_042",
       "konu": "siyer",
       "soru": "Habeşistan'a yapılan birinci hicrette yaklaşık kaç kişi yer aldı?",
-      "secenekler": ["A) 15", "B) 40", "C) 75", "D) 100"],
+      "secenekler": [
+        "A) 15",
+        "B) 40",
+        "C) 75",
+        "D) 100"
+      ],
       "dogru_cevap": "A",
       "aciklama": "Birinci grupta yaklaşık 15 kişi (11 erkek, 4 kadın) Habeşistan'a hicret etti. İkinci grupta ise yaklaşık 100 kişi yola çıktı.",
       "zorluk": "zor",
@@ -427,7 +637,12 @@
       "id": "siyer_043",
       "konu": "siyer",
       "soru": "Bedir Savaşı'nda Müslümanların sayısı yaklaşık kaçtı?",
-      "secenekler": ["A) 100", "B) 313", "C) 500", "D) 700"],
+      "secenekler": [
+        "A) 100",
+        "B) 313",
+        "C) 500",
+        "D) 700"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Bedir'de yaklaşık 313 Müslüman, 1000 kişilik Kureyş ordusuna karşı zafer kazandı. Kur'an bu savaşta meleklerin yardım ettiğini bildirir.",
       "zorluk": "zor",
@@ -437,7 +652,12 @@
       "id": "siyer_044",
       "konu": "siyer",
       "soru": "Mescid-i Nebevî'nin yanına kurulan eğitim platformunun adı nedir?",
-      "secenekler": ["A) Dârülerkam", "B) Suffe", "C) Dârülhikme", "D) Şi'b-i Ebî Tâlib"],
+      "secenekler": [
+        "A) Dârülerkam",
+        "B) Suffe",
+        "C) Dârülhikme",
+        "D) Şi'b-i Ebî Tâlib"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Suffe, Mescid-i Nebevî'nin yanında kurulan ve Ehlü's-Suffe denilen sahabîlerin ilim öğrendiği eğitim alanıdır. Mescid ibadet, eğitim ve yönetim merkezi işlevi gördü.",
       "zorluk": "zor",
@@ -447,7 +667,12 @@
       "id": "siyer_045",
       "konu": "siyer",
       "soru": "Kıble, Medine'ye hicretin ardından yaklaşık kaç ay Kudüs'e yönelikti?",
-      "secenekler": ["A) 6 ay", "B) 12 ay", "C) 16-17 ay", "D) 24 ay"],
+      "secenekler": [
+        "A) 6 ay",
+        "B) 12 ay",
+        "C) 16-17 ay",
+        "D) 24 ay"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Medine'ye gelişin ardından yaklaşık 16-17 ay boyunca namaz Kudüs'e (Mescid-i Aksâ) yönelinerek kılındı. Ardından Bakara 2:144 ile kıble Kâbe'ye döndürüldü.",
       "zorluk": "zor",
@@ -457,7 +682,12 @@
       "id": "siyer_046",
       "konu": "siyer",
       "soru": "Uhud Savaşı'nda Hz. Peygamber'in hangi yakını şehit düştü?",
-      "secenekler": ["A) Hz. Zeyd b. Hârise", "B) Hz. Hamza", "C) Hz. Câfer b. Ebû Tâlib", "D) Hz. Ali"],
+      "secenekler": [
+        "A) Hz. Zeyd b. Hârise",
+        "B) Hz. Hamza",
+        "C) Hz. Câfer b. Ebû Tâlib",
+        "D) Hz. Ali"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Hz. Peygamber'in amcası Hz. Hamza, Uhud Savaşı'nda şehit oldu. 'Seyyidü'ş-şühedâ' (şehitlerin efendisi) unvanıyla anılır.",
       "zorluk": "zor",
@@ -467,7 +697,12 @@
       "id": "siyer_047",
       "konu": "siyer",
       "soru": "Mûte Savaşı'nda sırayla üç komutan şehit düştükten sonra komutayı kim devraldı?",
-      "secenekler": ["A) Hz. Ömer", "B) Hz. Ali", "C) Hâlid b. Velîd", "D) Amr b. Âs"],
+      "secenekler": [
+        "A) Hz. Ömer",
+        "B) Hz. Ali",
+        "C) Hâlid b. Velîd",
+        "D) Amr b. Âs"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Zeyd b. Hârise, Câfer b. Ebû Tâlib ve Abdullah b. Revâha'dan sonra komutayı Hâlid b. Velîd devraldı ve orduyu başarıyla geri çekti.",
       "zorluk": "zor",
@@ -477,7 +712,12 @@
       "id": "siyer_048",
       "konu": "siyer",
       "soru": "'Seyfullah' (Allah'ın kılıcı) lakabını alan sahabi kimdir?",
-      "secenekler": ["A) Hz. Ali", "B) Hz. Ömer", "C) Hâlid b. Velîd", "D) Hz. Hamza"],
+      "secenekler": [
+        "A) Hz. Ali",
+        "B) Hz. Ömer",
+        "C) Hâlid b. Velîd",
+        "D) Hz. Hamza"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Mûte Savaşı'ndaki başarısından sonra Hz. Peygamber, Hâlid b. Velîd'e 'Seyfullah' (Allah'ın kılıcı) unvanını verdi.",
       "zorluk": "zor",
@@ -487,7 +727,12 @@
       "id": "siyer_049",
       "konu": "siyer",
       "soru": "Tebük Seferi'nde ordunun üçte birini bağışlayan sahabi kimdir?",
-      "secenekler": ["A) Hz. Ebû Bekir", "B) Hz. Ömer", "C) Hz. Osman", "D) Hz. Ali"],
+      "secenekler": [
+        "A) Hz. Ebû Bekir",
+        "B) Hz. Ömer",
+        "C) Hz. Osman",
+        "D) Hz. Ali"
+      ],
       "dogru_cevap": "C",
       "aciklama": "Tebük'te Hz. Ebû Bekir tüm malını, Hz. Ömer yarısını, Hz. Osman ise ordunun üçte birini bağışladı. Bu sefer fedakârlığın büyük örneklerinden biri olarak anlatılır.",
       "zorluk": "zor",
@@ -497,11 +742,766 @@
       "id": "siyer_050",
       "konu": "siyer",
       "soru": "Veda Hutbesi'nde vurgulanan temel ilkelerden hangisi doğrudur?",
-      "secenekler": ["A) Tüm Müslümanlara hac farz kılındı", "B) Irksal üstünlüğün reddedildiği", "C) Cizye vergisinin kaldırıldığı", "D) Tüm borçların silindiği"],
+      "secenekler": [
+        "A) Tüm Müslümanlara hac farz kılındı",
+        "B) Irksal üstünlüğün reddedildiği",
+        "C) Cizye vergisinin kaldırıldığı",
+        "D) Tüm borçların silindiği"
+      ],
       "dogru_cevap": "B",
       "aciklama": "Veda Hutbesi'nde insanların ırk, renk ve soyla birbirine üstün olmadığı; üstünlüğün takvada, yani Allah'a karşı sorumluluk bilincinde olduğu vurgulandı.",
       "zorluk": "zor",
       "kaynak": "Müslim, Hac (Câbir rivayeti)"
+    },
+    {
+      "id": "siyer_051",
+      "konu": "siyer",
+      "soru": "Cahiliye dönemi anlatılırken hangi yapı özellikle öne çıkar?",
+      "secenekler": [
+        "A) Kabile esaslı dağınık toplumsal yapı",
+        "B) Güçlü merkezi devlet düzeni",
+        "C) Tam hukuk eşitliği",
+        "D) Vahiy eksenli toplum"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "cahiliye dönemini kabile esaslı ve siyasi birlikten yoksun bir yapı içinde anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_052",
+      "konu": "siyer",
+      "soru": "Kureyş’in Mekke’deki konumu en çok hangi iki unsurla ilişkilendirilir?",
+      "secenekler": [
+        "A) Kâbe ve ticaretle",
+        "B) Yalnız savaşla",
+        "C) Sadece tarımla",
+        "D) Denizcilikle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kureyş, Kâbe hizmeti ve ticari hareketlilik sebebiyle bölgede güçlü bir etkiye sahipti.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_053",
+      "konu": "siyer",
+      "soru": "Fil olayında Ebrehe’nin temel hedefi neydi?",
+      "secenekler": [
+        "A) Medine’yi almak",
+        "B) Kâbe’yi yıkmak",
+        "C) Hicaz’dan göç etmek",
+        "D) Ticaret anlaşması yapmak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ebrehe’nin fillerle donanmış ordusuyla Kâbe’yi yıkmak üzere yürüdüğünü anlatır.",
+      "zorluk": "kolay",
+      "kaynak": "Fil Suresi; Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_054",
+      "konu": "siyer",
+      "soru": "Fil olayının sonucu en çok hangi gerçeği gösterir?",
+      "secenekler": [
+        "A) Allah’ın Beytullah’ı koruduğunu",
+        "B) Yalnız askeri gücün belirleyici olduğunu",
+        "C) Kureyş’in her savaşı kazandığını",
+        "D) Mekke’nin boşaldığını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Fil olayı, Kâbe’nin Allah tarafından korunmuş olduğuna işaret eden önemli bir hadisedir.",
+      "zorluk": "orta",
+      "kaynak": "Fil Suresi"
+    },
+    {
+      "id": "siyer_055",
+      "konu": "dogum",
+      "soru": "Hz. Muhammed’in doğumu Fil olayından yaklaşık ne kadar sonra gerçekleşmiştir?",
+      "secenekler": [
+        "A) Aynı gün",
+        "B) Yaklaşık 50-55 gün sonra",
+        "C) 5 yıl sonra",
+        "D) 10 yıl sonra"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "doğumu Fil olayından yaklaşık 50-55 gün sonra şeklinde anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_056",
+      "konu": "dogum",
+      "soru": "Hz. Muhammed’in babasının vefatı hangi döneme rastlar?",
+      "secenekler": [
+        "A) Doğumundan önceye",
+        "B) İlk vahiyden sonraya",
+        "C) Hicret yılına",
+        "D) Veda haccına"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Babası Abdullah, Hz. Muhammed doğmadan önce vefat etmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_057",
+      "konu": "dogum",
+      "soru": "Sütanne yanında geçen yıllar hangi faydayla da ilişkilendirilir?",
+      "secenekler": [
+        "A) Çöl ortamında dil ve beden gelişimiyle",
+        "B) Sadece ticaret eğitimiyle",
+        "C) Yalnız savaş eğitimiyle",
+        "D) Saray terbiyesiyle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "sütanne yanında geçen dönemi dilin ve tabii gelişimin güçlenmesiyle ilişkilendirir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_058",
+      "konu": "yetimlik",
+      "soru": "Hz. Âmine’nin vefat ettiği yer neresidir?",
+      "secenekler": [
+        "A) Kuba",
+        "B) Ebvâ",
+        "C) Sevr",
+        "D) Mina"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hz. Âmine, Medine dönüşünde Ebvâ’da vefat etmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_059",
+      "konu": "yetimlik",
+      "soru": "Annesinin vefatından sonra Hz. Muhammed’e önce kim, sonra kim himaye olmuştur?",
+      "secenekler": [
+        "A) Ebû Bekir, sonra Ömer",
+        "B) Dedesi Abdülmuttalib, sonra amcası Ebû Tâlib",
+        "C) Hz. Hatice, sonra Hz. Ali",
+        "D) Halime, sonra Selman"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "annesinin vefatından sonra önce dedesinin, ardından amcasının himayesini anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_060",
+      "konu": "el-emin",
+      "soru": "El-Emîn unvanı Hz. Muhammed’in hangi yönünü yansıtır?",
+      "secenekler": [
+        "A) Güvenilirliğini ve dürüstlüğünü",
+        "B) Yalnız savaş gücünü",
+        "C) Sadece şiir kabiliyetini",
+        "D) Zenginliğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "El-Emîn unvanı, onun toplum içindeki güvenilirlik ve doğruluk şöhretini yansıtır.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_061",
+      "konu": "el-emin",
+      "soru": "Hilfü’l-Fudûl tecrübesi hangi ahlakî duyarlılıkla ilgilidir?",
+      "secenekler": [
+        "A) Mazlumu koruma duyarlılığıyla",
+        "B) Sadece kabile üstünlüğüyle",
+        "C) Ticaret tekelini savunmakla",
+        "D) Yalnız şiir meclisleriyle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hilfü’l-Fudûl, zulme uğrayanı korumayı amaçlayan bir adalet girişimiydi.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_062",
+      "konu": "hatice",
+      "soru": "Hz. Hatice ile evlilik öncesi ticaret görevinin önemini en iyi hangi unsur açıklar?",
+      "secenekler": [
+        "A) Dürüstlüğünün fark edilmesi",
+        "B) Yalnız yol bilmesi",
+        "C) Sadece pazarlık gücü",
+        "D) Kabile baskısı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Muhammed’in ticaret yolculuğundaki dürüstlüğü, Hz. Hatice’nin güvenini artırmıştır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_063",
+      "konu": "hatice",
+      "soru": "Kâbe’nin inşasında Hacerülesved meselesini çözme biçimi hangi özelliği gösterir?",
+      "secenekler": [
+        "A) Hikmetli ve birleştirici davranışını",
+        "B) Sert yönetimini",
+        "C) Yalnız kabilecilik yaptığını",
+        "D) Savaş taraftarlığını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hacerülesved konusunda geliştirdiği çözüm, onun hikmetli ve uzlaştırıcı kişiliğini gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_064",
+      "konu": "vahiy",
+      "soru": "Hira’da inzivaya çekilmesi en çok hangi arayışı yansıtır?",
+      "secenekler": [
+        "A) Tefekkür ve hakikati düşünme arayışını",
+        "B) Sadece dinlenme isteğini",
+        "C) Ticari plan yapmayı",
+        "D) Yalnız kabilesinden kaçmayı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hira’daki inziva, yoğun tefekkür ve hakikati arayışın bir göstergesidir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_065",
+      "konu": "vahiy",
+      "soru": "İlk vahyin gelişi hangi hakikati kesinleştirir?",
+      "secenekler": [
+        "A) Hz. Muhammed’in peygamberlikle görevlendirildiğini",
+        "B) Sadece bir rüya gördüğünü",
+        "C) Yolculuğa çıkacağını",
+        "D) Savaş başlayacağını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İlk vahiy, Hz. Muhammed’in peygamberlik görevinin başlangıcıdır.",
+      "zorluk": "kolay",
+      "kaynak": "Alak 96:1-5; Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_066",
+      "konu": "vahiy",
+      "soru": "İlk Müslümanlar döneminin sessiz ve dikkatli geçmesi neyi gösterir?",
+      "secenekler": [
+        "A) Tebliğin aşama aşama yürütüldüğünü",
+        "B) Dinin gizli kalması gerektiğini",
+        "C) Sadece aile içinde kaldığını",
+        "D) Korkunun imandan üstün olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İlk dönem, tebliğin hikmetle ve aşama aşama ilerlediğini gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_067",
+      "konu": "davet",
+      "soru": "Safâ tepesindeki açık davet hangi dönüm noktasını temsil eder?",
+      "secenekler": [
+        "A) Tebliğin alenileşmesini",
+        "B) Hicretin başlangıcını",
+        "C) Veda haccını",
+        "D) Medine sözleşmesini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Safâ daveti, İslam mesajının açıkça ilan edildiği yeni safhayı temsil eder.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_068",
+      "konu": "davet",
+      "soru": "Habeşistan hicretinin temel sebebi neydi?",
+      "secenekler": [
+        "A) Güvenli bir sığınak arayışı",
+        "B) Ticaret pazarını büyütmek",
+        "C) Kâbe’yi ziyaret etmek",
+        "D) Bedir’e hazırlanmak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ağır baskılar sebebiyle Müslümanlar Habeşistan’a güvenli bir sığınak için hicret etmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_069",
+      "konu": "boykot",
+      "soru": "Şi‘b-i Ebî Tâlib boykotu Müslümanlara neyi öğretmiştir?",
+      "secenekler": [
+        "A) Sabır ve dayanışmayı",
+        "B) Ticari rahatlığı",
+        "C) Savaş üstünlüğünü",
+        "D) Siyasi iktidarı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Uzun boykot yılları, büyük sabır ve iç dayanışma gerektiren bir dönem olmuştur.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_070",
+      "konu": "boykot",
+      "soru": "Hüzün Yılı ismi hangi iki büyük kayıpla ilişkilidir?",
+      "secenekler": [
+        "A) Hz. Hatice ve Ebû Tâlib’in vefatıyla",
+        "B) Bedir ve Uhud’la",
+        "C) Medine ve Kuba ile",
+        "D) Fil olayı ve hicretle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hüzün Yılı, Hz. Hatice ile Ebû Tâlib’in peş peşe vefatları sebebiyle bu isimle anılır.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_071",
+      "konu": "isra-mirac",
+      "soru": "İsrâ-Mi’rac hadisesi bu zorlu dönemde hangi yönüyle önemlidir?",
+      "secenekler": [
+        "A) Teselli ve ilahi ikram yönüyle",
+        "B) Yalnız coğrafi bilgi vermesiyle",
+        "C) Ticari fırsat sağlamasıyla",
+        "D) Savaş hazırlığı olmasıyla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu hadise, baskı ve hüzün döneminde Resulullah için büyük teselli ve ilahi ikram olmuştur.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_072",
+      "konu": "hicret",
+      "soru": "Dârünnedve’deki planın amacı neydi?",
+      "secenekler": [
+        "A) Hz. Muhammed’i öldürmek",
+        "B) Onu Medine’ye davet etmek",
+        "C) Ticaret anlaşması yapmak",
+        "D) Boykotu kaldırmak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kureyş’in ileri gelenleri Dârünnedve’de toplanarak Resulullah’ı öldürme planı yapmıştır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_073",
+      "konu": "hicret",
+      "soru": "Sevr Mağarası olayı hangi erdemi özellikle öğretir?",
+      "secenekler": [
+        "A) Tedbirle birlikte tevekkülü",
+        "B) Yalnız cesareti",
+        "C) Sadece saklanmayı",
+        "D) Sessiz kalmayı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hicrette hem tedbir alınmış hem de Allah’a güven korunmuştur; Sevr bunun sembolüdür.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_074",
+      "konu": "medine",
+      "soru": "Kubâ Mescidi’nin önemi nedir?",
+      "secenekler": [
+        "A) İslam’ın ilk mescidi olarak anılması",
+        "B) İlk savaş alanı olması",
+        "C) İlk pazar yeri olması",
+        "D) İlk saray olması"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kubâ, hicret sonrası inşa edilen ilk mescit olarak öne çıkar.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_075",
+      "konu": "medine",
+      "soru": "Medine’ye varıştan sonra atılan ilk büyük adımlardan biri hangisidir?",
+      "secenekler": [
+        "A) Mescid-i Nebevî’nin inşası",
+        "B) Mekke’ye geri dönmek",
+        "C) Deniz ticaretini başlatmak",
+        "D) Yalnız kaleye çekilmek"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Medine’de ilk büyük adımlardan biri Mescid-i Nebevî’nin inşasıdır.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_076",
+      "konu": "medine",
+      "soru": "Muhacir ile ensar arasında kardeşlik kurulmasının amacı neydi?",
+      "secenekler": [
+        "A) Yeni toplumu dayanışma üzerine inşa etmek",
+        "B) Sadece mal paylaşımını zorlamak",
+        "C) Kabileciliği artırmak",
+        "D) Ticaret yasağı getirmek"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kardeşlik uygulaması, Medine toplumunu iman ve dayanışma temeli üzerinde kurmayı hedeflemiştir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_077",
+      "konu": "medine",
+      "soru": "Medine Sözleşmesi en çok hangi ihtiyaca cevap veriyordu?",
+      "secenekler": [
+        "A) Farklı grupların birlikte yaşama düzenine",
+        "B) Sadece savaş ilanına",
+        "C) Yalnız vergi toplamaya",
+        "D) Mekke’ye hicret etmeye"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Sözleşme, Medine’deki farklı unsurlar arasında hukuk ve birlikte yaşama düzeni kurmayı amaçlıyordu.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_078",
+      "konu": "bedir",
+      "soru": "Bedir Savaşı’ndaki sayısal fark hangi dersi öne çıkarır?",
+      "secenekler": [
+        "A) Maddi azlığın Allah’ın yardımıyla aşılabileceğini",
+        "B) Sayının daima gereksiz olduğunu",
+        "C) Hazırlığın önemsiz olduğunu",
+        "D) Savaşın kolay olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bedir, azlığın her zaman yenilgi demek olmadığını; iman, tedbir ve ilahi yardımın önemini gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_079",
+      "konu": "uhud-hendek",
+      "soru": "Uhud Savaşı’ndan çıkarılan en temel derslerden biri hangisidir?",
+      "secenekler": [
+        "A) Peygamber emrine itaatin hayati olduğu",
+        "B) Sayıca çok olmanın yettiği",
+        "C) Sadece silah üstünlüğünün önemli olduğu",
+        "D) Savaşta sabrın gereksiz olduğu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Uhud, emre itaatsizliğin sonuçlarını gösteren çarpıcı bir ders olarak anlatılır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_080",
+      "konu": "uhud-hendek",
+      "soru": "Hendek Savaşı savunmasında hangi yöntem dikkat çeker?",
+      "secenekler": [
+        "A) İstişare ile yeni bir savunma usulü geliştirilmesi",
+        "B) Sadece meydan savaşı yapılması",
+        "C) Mekke’ye gizlice girilmesi",
+        "D) Boykot uygulanması"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hendek, istişare ve tedbirle geliştirilen savunma stratejisinin önemli örneğidir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_081",
+      "konu": "hudeybiye",
+      "soru": "Hudeybiye Antlaşması ilk bakışta ağır görünse de neden önemliydi?",
+      "secenekler": [
+        "A) Barış ortamı sayesinde tebliğ imkanlarını genişlettiği için",
+        "B) Savaşı tamamen yasakladığı için",
+        "C) Haccı kaldırdığı için",
+        "D) Mekke’yi boşalttığı için"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hudeybiye, kısa vadede ağır görünse de uzun vadede büyük açılımlar sağlamıştır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_082",
+      "konu": "hayber",
+      "soru": "Hayber’in fethi hangi yönüyle anlatılır?",
+      "secenekler": [
+        "A) Tehdit oluşturan merkezin etkisiz hale gelmesiyle",
+        "B) Yalnız ganimet elde edilmesiyle",
+        "C) Sadece ticaret genişlemesiyle",
+        "D) Haccın başlamasıyla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hayber’i Müslümanlara karşı kışkırtma merkezi olan kalelerin fethi bağlamında sunar.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_083",
+      "konu": "mektuplar",
+      "soru": "Hükümdarlara gönderilen mektuplar hangi gerçeği gösterir?",
+      "secenekler": [
+        "A) İslam davetinin evrensel ufkunu",
+        "B) Yalnız Araplara yönelik olduğunu",
+        "C) Sadece ticari ilişki kurulduğunu",
+        "D) Hicretin bittiğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu mektuplar, tebliğin yalnız Mekke ve Medine ile sınırlı olmadığını gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_084",
+      "konu": "muta",
+      "soru": "Mûte olayı hangi alanla ilişkilendirilir?",
+      "secenekler": [
+        "A) Bizans çevresiyle ilk büyük temaslardan biri olarak",
+        "B) Yalnız iç ticaretle",
+        "C) Hac ibadetiyle",
+        "D) Bedir’in tekrarıyla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Mûte’yi Bizans etkisindeki bölgeyle önemli bir karşılaşma olarak anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_085",
+      "konu": "fetih",
+      "soru": "Mekke’nin fethinde öne çıkan ahlakî çizgi hangisidir?",
+      "secenekler": [
+        "A) Güç anında merhamet ve bağışlayıcılık",
+        "B) İntikamı sınırsızlaştırmak",
+        "C) Yalnız ganimeti toplamak",
+        "D) Kabile üstünlüğü kurmak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Mekke’nin fethi, güç elde edildiğinde bile merhametli davranmanın örneklerinden biri olarak sunulur.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_086",
+      "konu": "huneyn-tebuk",
+      "soru": "Huneyn olayı hangi uyarıyı taşır?",
+      "secenekler": [
+        "A) Sayıca çokluğa güvenmenin yeterli olmadığını",
+        "B) Yalnız azlığın değerli olduğunu",
+        "C) Savaşın gereksiz olduğunu",
+        "D) İstişarenin zararlı olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Huneyn, sayısal üstünlüğe güvenmenin tek başına yeterli olmadığını gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Tevbe 9:25; Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_087",
+      "konu": "huneyn-tebuk",
+      "soru": "Tebük Seferi en çok hangi yönüyle dikkat çeker?",
+      "secenekler": [
+        "A) Zor şartlarda sadakat ve fedakârlık sınavı oluşuyla",
+        "B) En kolay sefer olmasıyla",
+        "C) Yalnız ticaret fırsatıyla",
+        "D) Haccın yerine geçmesiyle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Tebük, sıcaklık, uzaklık ve kıtlık gibi zorluklar içinde sadakatin sınandığı bir seferdir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_088",
+      "konu": "huneyn-tebuk",
+      "soru": "“Heyetler Yılı” ifadesi neyi anlatır?",
+      "secenekler": [
+        "A) Kabile ve toplulukların gelip İslam’ı tanıma sürecini",
+        "B) Yalnız savaş meclislerini",
+        "C) Sadece hac kafilelerini",
+        "D) Ticaret konvoylarını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu dönem, farklı heyetlerin Medine’ye gelerek İslam’ı öğrenip bağ kurduğu süreci ifade eder.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_089",
+      "konu": "veda",
+      "soru": "Veda Haccı’nın özel yönü hangisidir?",
+      "secenekler": [
+        "A) Resulullah’ın ilk ve son haccı olması",
+        "B) Yalnız gizli yapılması",
+        "C) Savaş hazırlığı olması",
+        "D) Mekke dışına taşınması"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Veda Haccı’nı Hz. Peygamber’in ilk ve son haccı olarak anlatır.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_090",
+      "konu": "veda",
+      "soru": "Veda Hutbesi’nde hangi temel ilke özellikle öne çıkar?",
+      "secenekler": [
+        "A) Can, mal ve namus dokunulmazlığı",
+        "B) Kabile üstünlüğü",
+        "C) Yalnız ticaret serbestliği",
+        "D) Sessizlik yemini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Veda Hutbesi, insanın canı, malı ve onurunun korunmasını güçlü biçimde vurgular.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_091",
+      "konu": "veda",
+      "soru": "Veda Hutbesi’nin aile hayatına dair önemli başlıklarından biri nedir?",
+      "secenekler": [
+        "A) Eşler arası sorumluluk bilinci",
+        "B) Aileyi önemsiz görmek",
+        "C) Sadece erkek haklarını konuşmak",
+        "D) Çocuk eğitimini yasaklamak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Veda Hutbesi’nde aile ve kadın haklarıyla ilgili sorumluluk bilincine de yer verir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_092",
+      "konu": "veda",
+      "soru": "Hz. Peygamber’in vefatı hangi yılda gerçekleşmiştir?",
+      "secenekler": [
+        "A) 610",
+        "B) 622",
+        "C) 630",
+        "D) 632"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hz. Peygamber, Veda Haccı’ndan kısa süre sonra 632 yılında vefat etmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_093",
+      "konu": "yetimlik",
+      "soru": "Erken yetimlik tecrübesi Hz. Muhammed’in hangi yönünü anlamayı kolaylaştırır?",
+      "secenekler": [
+        "A) Merhamet ve empati derinliğini",
+        "B) Yalnız savaş gücünü",
+        "C) Ticari zekâsını",
+        "D) Sadece hitabetini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "erken kayıpların onun merhamet ve insanı anlama yönüyle ilişkili olduğunu hissettirir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_094",
+      "konu": "hicret",
+      "soru": "Mekke’den Medine’ye hicret sadece yer değiştirme değildir; en doğru anlamı nedir?",
+      "secenekler": [
+        "A) İnancı koruma ve yeni bir toplum inşa etme adımıdır",
+        "B) Yalnız ticaret rotası değişikliğidir",
+        "C) Sadece geçici saklanmadır",
+        "D) Savaş kaçışıdır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hicret, inancı koruma ile yeni bir İslam toplumu kurma hamlesidir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_095",
+      "konu": "davet",
+      "soru": "Gizli davetten açık davete geçiş neyi gösterir?",
+      "secenekler": [
+        "A) Tebliğin şartlara göre hikmetle yürütüldüğünü",
+        "B) İlk dönemin gereksiz olduğunu",
+        "C) Korkunun tamamen bittiğini",
+        "D) Sadece aile bağlarını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Siyer akışı, davetin şartlara göre tedrici ve hikmetli biçimde ilerlediğini gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_096",
+      "konu": "medine",
+      "soru": "Medine döneminde mescid, kardeşlik ve sözleşmenin birlikte ele alınması neyi öğretir?",
+      "secenekler": [
+        "A) İslam’ın hem ibadet hem toplum düzeni kurduğunu",
+        "B) Sadece siyasetle ilgilendiğini",
+        "C) Yalnız bireysel dindarlığı",
+        "D) Aileyi dışladığını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu üç adım, inanç, toplum ve hukuk boyutlarının birlikte inşa edildiğini gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_097",
+      "konu": "siyer",
+      "soru": "Siyer okumada yaklaşık tarihler kullanmak neden faydalıdır?",
+      "secenekler": [
+        "A) Olayların sırasını ve gelişimini daha net görmeyi sağlar",
+        "B) Kesin vahiy metni yerine geçer",
+        "C) Yalnız ezberi artırır",
+        "D) Ahlak dersini azaltır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Yaklaşık tarihler, olayların akışını anlamayı kolaylaştırır; dersin merkezini ise yine anlam ve örneklik oluşturur.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_098",
+      "konu": "siyer",
+      "soru": "Fil olayı ile doğum anlatısının peş peşe verilmesi hangi duyguyu güçlendirir?",
+      "secenekler": [
+        "A) İlahi koruma ve hazırlık hissini",
+        "B) Yalnız tarih merakını",
+        "C) Savaş sevgisini",
+        "D) Kabile rekabetini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu sıralama, Allah’ın koruması altında başlayan bir peygamberlik sürecine dikkat çeker.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_099",
+      "konu": "ozet",
+      "soru": "Siyer-i Nebi konusunda bütün akışından çıkan ana çizgi hangisidir?",
+      "secenekler": [
+        "A) Tevhid, sabır, hikmet ve toplum inşası çizgisi",
+        "B) Sadece savaş tarihi çizgisi",
+        "C) Yalnız ekonomik başarı çizgisi",
+        "D) Kabile üstünlüğü çizgisi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Siyer, yalnız olay sıralaması değil; tevhid, sabır, hikmet ve adım adım inşa edilen kulluk çizgisidir.",
+      "zorluk": "orta",
+      "kaynak": "Siyer-i Nebi"
+    },
+    {
+      "id": "siyer_100",
+      "konu": "ozet",
+      "soru": "Siyer akışının bugüne taşıdığı ana ders hangisidir?",
+      "secenekler": [
+        "A) Siyer yalnız geçmişte kalmış tarih bilgisidir",
+        "B) Siyer, Resulullah’ın hayatı üzerinden iman, ahlak ve toplum dersleri sunar",
+        "C) Siyer sadece savaşlardan ibarettir",
+        "D) Siyer günlük hayata temas etmez"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "siyer bilgisini bugün için yön verici bir örneklik alanı olarak sunar.",
+      "zorluk": "kolay",
+      "kaynak": "Siyer-i Nebi"
     }
   ]
 }

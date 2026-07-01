@@ -179,6 +179,7 @@ const RAW_KAYITLAR: Kayit[] = [
   { id: "kurban",        ikon: "\uD83D\uDC11", sure: 12, kategori: "ibadet", ders: safeRequire(() => require("./kurban_dersi.json"), "kurban_dersi"),              quiz: safeRequire(() => require("./kurban_quiz.json"), "kurban_quiz") },
   { id: "hac-umre",      ikon: "\uD83D\uDD4B", sure:  9, kategori: "ibadet", ders: safeRequire(() => require("./hac_umre_dersi.json"), "hac_umre_dersi"),          quiz: safeRequire(() => require("./hac_umre_quiz.json"), "hac_umre_quiz") },
   { id: "iman-esaslari", ikon: "\uD83D\uDCD6", sure: 10, kategori: "akaid",  ders: safeRequire(() => require("./iman_esaslari_dersi.json"), "iman_esaslari_dersi"), quiz: safeRequire(() => require("./iman_esaslari_quiz.json"), "iman_esaslari_quiz") },
+  { id: "kitaplara-iman", ikon: "\uD83D\uDCDA", sure: 8, kategori: "akaid",  ders: safeRequire(() => require("./kitaplara_iman_dersi.json"), "kitaplara_iman_dersi"), quiz: safeRequire(() => require("./kitaplara_iman_quiz.json"), "kitaplara_iman_quiz") },
   {
     id: "nefsini-tani",
     ikon: "\uD83E\uDE9E",
@@ -228,9 +229,8 @@ export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayis
 
 export const KATEGORILER: { label: string; ids: string[] }[] = [
   { label: "Temel \u0130badetler", ids: ["abdest-gusul", "namaz", "namaz-dualar", "ezan-kamet", "oruc", "zekat", "kurban", "hac-umre"] },
-  { label: "\u0130man & Akaid",    ids: ["iman-esaslari"] },
+  { label: "\u0130man & Akaid",    ids: ["iman-esaslari", "kitaplara-iman"] },
   { label: "Ahlak & Terbiye",       ids: ["nefsini-tani", "guzel-ahlak"] },
   { label: "Tarih & Siyer",         ids: ["peygamberler", "sahabe-hayatlari", "siyer"] },
   { label: "Kur'an & Elifba",       ids: ["tecvid", "elifba"] },
 ];
-

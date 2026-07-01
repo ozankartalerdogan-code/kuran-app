@@ -1,7 +1,7 @@
 {
   "quiz_id": "oruc",
   "baslik": "Oruç",
-  "toplam_soru": 50,
+  "toplam_soru": 100,
   "sorular": [
     {
       "id": "oruc_001",
@@ -636,7 +636,7 @@
     {
       "id": "oruc_043",
       "konu": "sahur-iftar",
-      "soru": "Derslerde verilen \"Zehebe'z-zamaü...\" iftar duasının anlamı hangisidir?",
+      "soru": "\"Zehebe'z-zamaü...\" iftar duasının anlamı hangisidir?",
       "secenekler": [
         "A) Susuzluk gitti, damarlar ıslandı ve inşallah sevap sabit oldu",
         "B) Yarınki oruca niyet ettim",
@@ -752,6 +752,756 @@
       "aciklama": "Macunsuz veya dikkatli şekilde diş fırçalamak orucu bozmaz; macun, su ya da başka bir madde boğaza kaçarsa oruç bozulabilir.",
       "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_051",
+      "konu": "temel",
+      "soru": "oruç sadece neden ibaret değildir?",
+      "secenekler": [
+        "A) Açlık ve susuzluktan",
+        "B) Sadece gece ibadetinden",
+        "C) Yalnız sağlık tavsiyesinden",
+        "D) Sadece toplumsal gelenekten"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "orucun yalnız aç kalmak değil; bilinçli kulluk ve nefis terbiyesi olduğunu vurgular.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_052",
+      "konu": "temel",
+      "soru": "Oruç süresince yalnız yeme ve içmeden değil, aşağıdakilerden hangisinden de uzak durulur?",
+      "secenekler": [
+        "A) Gereksiz yürümekten",
+        "B) Cinsel ilişkiden",
+        "C) İş yapmaktan",
+        "D) Misafir ağırlamaktan"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Oruç, imsaktan iftara kadar yeme, içme ve cinsel ilişkiden uzak durmayı içerir.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:187"
+    },
+    {
+      "id": "oruc_053",
+      "konu": "fazilet",
+      "soru": "Orucun takvayla ilişkilendirilmesi neyi gösterir?",
+      "secenekler": [
+        "A) Sadece bedeni disiplin değil, kalbi eğitim de olduğunu",
+        "B) Yalnız zayıflama yöntemi olduğunu",
+        "C) Yalnız geceye ait ibadet olduğunu",
+        "D) Sadece yaşlılara farz olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bakara 2:183, orucun takvaya ulaştırma amacı taşıdığını bildirir.",
+      "zorluk": "orta",
+      "kaynak": "Bakara 2:183"
+    },
+    {
+      "id": "oruc_054",
+      "konu": "fazilet",
+      "soru": "“Oruç bir kalkandır” hadisinin ana sonucu nedir?",
+      "secenekler": [
+        "A) Oruçlunun yalnız az konuşması gerektiği",
+        "B) Oruğun insanı günaha karşı koruyan yönü olduğu",
+        "C) Oruğun sadece savaşta tutulduğu",
+        "D) Oruğun beden gücünü artırdığı"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hadis, orucun günaha ve taşkınlığa karşı koruyucu yönünü öne çıkarır.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 2"
+    },
+    {
+      "id": "oruc_055",
+      "konu": "sartlar",
+      "soru": "Farz olma şartlarından “bâliğ olmak” neyi ifade eder?",
+      "secenekler": [
+        "A) Yolcu olmak",
+        "B) Erginlik çağına ulaşmak",
+        "C) Maddi olarak zengin olmak",
+        "D) Her gün sahura kalkmak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Orucun farz olması için kişide Müslümanlık, akıl ve buluğ şartları aranır.",
+      "zorluk": "kolay",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_056",
+      "konu": "sihhat",
+      "soru": "Orucun sıhhat şartları anlatılırken kadınlarla ilgili hangi durum özellikle belirtilir?",
+      "secenekler": [
+        "A) Yolculuk şartı",
+        "B) Hayız ve nifas hâlinde orucun geçerli olmayacağı",
+        "C) Sahurun farz olduğu",
+        "D) Yalnız gece niyeti gerektiği"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hayız ve nifas döneminde oruç tutulmaz; sonradan kaza edilir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_057",
+      "konu": "niyet",
+      "soru": "Ramazan orucunda niyetin özü hangi noktada toplanır?",
+      "secenekler": [
+        "A) Yalnız yüksek sesle söylemekte",
+        "B) Kalpte oruç tutma iradesinde",
+        "C) Sadece sahura kalkmakta",
+        "D) Gün sonunda dua etmekte"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Dille söylemek yardımcı olabilir; asıl olan kalpte oruç tutma niyetinin bulunmasıdır.",
+      "zorluk": "kolay",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_058",
+      "konu": "niyet",
+      "soru": "Ramazan orucu için geceden niyet etmeyi en güvenli uygulama yapan şey nedir?",
+      "secenekler": [
+        "A) Gündüz unutma riskini azaltması",
+        "B) Oruç süresini uzatması",
+        "C) İftarı erken yaptırması",
+        "D) Kefareti kaldırması"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "geceden niyeti en güvenli uygulama olarak sunar çünkü oruca bilinçli başlangıç sağlar.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_059",
+      "konu": "bozmayanlar",
+      "soru": "Unutarak yiyip içen kişi için en doğru hüküm hangisidir?",
+      "secenekler": [
+        "A) Orucu bozulur ve kefaret gerekir",
+        "B) Orucu bozulmaz; devam eder",
+        "C) Oruç hemen bırakılır",
+        "D) Sadece fidye gerekir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hz. Peygamber, unutarak yiyip içenin orucuna devam etmesini emretmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari, Savm 26; Müslim, Sıyam 171"
+    },
+    {
+      "id": "oruc_060",
+      "konu": "bozmayanlar",
+      "soru": "Oruçluyken diş fırçalarken asıl dikkat edilmesi gereken husus nedir?",
+      "secenekler": [
+        "A) Fırçanın rengi",
+        "B) Macun veya suyun boğaza kaçmaması",
+        "C) Sabah yerine akşam fırçalamak",
+        "D) Yalnız misvak kullanmak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "diş fırçalamada boğaza bir şey kaçmamasını temel hassasiyet olarak anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_061",
+      "konu": "bozanlar",
+      "soru": "Besleyici serumun orucu bozmasının temel sebebi nedir?",
+      "secenekler": [
+        "A) İğne şeklinde verilmesi",
+        "B) Besleme işlevi görmesi",
+        "C) Hastanede uygulanması",
+        "D) Doktor tavsiyesiyle yapılması"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Besleyici serum, yeme içme yerine geçen besleyici bir işlem sayıldığı için orucu bozar.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_062",
+      "konu": "bozmayanlar",
+      "soru": "Kendiliğinden gelen kusma için doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Oruç bozulur",
+        "B) Oruç bozulmaz",
+        "C) Sadece kefaret gerekir",
+        "D) Hem kaza hem fidye gerekir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kasıtsız gelen kusma orucu bozmaz.",
+      "zorluk": "kolay",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_063",
+      "konu": "bozanlar",
+      "soru": "Kasıtlı olarak ağız dolusu kusmak konusunda hangi hüküm öne çıkar?",
+      "secenekler": [
+        "A) Oruca etkisi olmaz",
+        "B) Orucu bozar",
+        "C) Yalnız nafileyi bozar",
+        "D) Sadece akşam bozar"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "kasıtlı ağız dolusu kusmayı orucu bozan durumlar arasında sayar.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_064",
+      "konu": "ruhsat",
+      "soru": "Hasta ve yolcuya verilen oruç ruhsatı en çok hangi ilkeyi gösterir?",
+      "secenekler": [
+        "A) Dinî kolaylık ve rahmet ilkesini",
+        "B) Oruğun önemsiz olduğunu",
+        "C) Sadece zenginlerin oruç tuttuğunu",
+        "D) Ramazan’ın ertelendiğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hasta ve yolcu için tanınan ruhsat, Allah’ın kulları için kolaylık istediğini gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Bakara 2:185"
+    },
+    {
+      "id": "oruc_065",
+      "konu": "kaza",
+      "soru": "Kaza orucu ne demektir?",
+      "secenekler": [
+        "A) Nafile oruç tutmak",
+        "B) Tutulamayan orucu sonradan gününe gün tutmak",
+        "C) Fidye vermek",
+        "D) Sadece dua etmek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kaza, tutulamayan veya bozulan orucu sonradan gününe gün tutmaktır.",
+      "zorluk": "kolay",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_066",
+      "konu": "kefaret",
+      "soru": "Kefaret hangi durumda gündeme gelir?",
+      "secenekler": [
+        "A) Her unutkanlıkta",
+        "B) Ramazan orucunu bilerek bozmanın bazı durumlarında",
+        "C) Sadece yolculukta",
+        "D) Her nafile oruçta"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kefaret, özellikle Ramazan orucunu bilerek bozmanın bazı durumlarında söz konusu olur.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_067",
+      "konu": "kefaret",
+      "soru": "Kefaret orucu tutulacaksa nasıl tutulur?",
+      "secenekler": [
+        "A) Aralıklı 30 gün",
+        "B) Art arda 60 gün",
+        "C) Sadece hafta sonları",
+        "D) Bir yılda tamamlanır"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kefaret orucu, güç yetiren için art arda 60 gün olarak anlatılır.",
+      "zorluk": "kolay",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_068",
+      "konu": "kefaret",
+      "soru": "Kefaret orucuna güç yetiremeyen kişi için hangi yol zikredilir?",
+      "secenekler": [
+        "A) Hiçbir şey gerekmez",
+        "B) Fakirleri doyurmak",
+        "C) Sadece tövbe yeterlidir",
+        "D) Yalnız su dağıtmak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Gücü yetmeyen için fakirleri doyurma seçeneği zikredilir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_069",
+      "konu": "fidye",
+      "soru": "Fidye en çok kimler için gündeme gelir?",
+      "secenekler": [
+        "A) Her yolcu için",
+        "B) Yaşlı veya iyileşmesi umulmayan hastalar için",
+        "C) Her genç için",
+        "D) Sadece çocuklar için"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Fidye, kalıcı mazereti sebebiyle oruç tutamayanlar için öngörülür.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:184; Oruç"
+    },
+    {
+      "id": "oruc_070",
+      "konu": "fidye",
+      "soru": "Fidye ile kazanın farkı en doğru nasıl özetlenir?",
+      "secenekler": [
+        "A) Biri geçici, diğeri kalıcı mazeretle ilgilidir",
+        "B) İkisi tamamen aynıdır",
+        "C) Fidye sadece Ramazan dışı için verilir",
+        "D) Kaza sadece nafile oruçtadır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Geçici mazerette kaza, kalıcı mazerette ise fidye gündeme gelir.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_071",
+      "konu": "sahur-iftar",
+      "soru": "Sahurun sünnet oluşu hangi yönüyle önemlidir?",
+      "secenekler": [
+        "A) Oruca bereket katmasıyla",
+        "B) Orucu kısaltmasıyla",
+        "C) İftarı geciktirmesiyle",
+        "D) Yalnız çocuklara ait olmasıyla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Peygamber, sahurda bereket bulunduğunu bildirerek bu öğünü teşvik etmiştir.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari, Savm 20; Müslim, Sıyam 45"
+    },
+    {
+      "id": "oruc_072",
+      "konu": "sahur-iftar",
+      "soru": "İftarı acele etmekle ilgili sünnet neyi teşvik eder?",
+      "secenekler": [
+        "A) Güneş batınca gecikmeden orucu açmayı",
+        "B) Yıldızlar çıkana kadar beklemeyi",
+        "C) Yalnız su ile açmayı",
+        "D) Her gün aynı sofrayı kurmayı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hadiste, insanlar iftarı geciktirmedikçe hayır üzere kalacakları bildirilir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 45; Müslim, Sıyam 48"
+    },
+    {
+      "id": "oruc_073",
+      "konu": "sahur-iftar",
+      "soru": "“Zehebe’z-zamaü...” duasının ana mesajı hangisidir?",
+      "secenekler": [
+        "A) Yolculuk izni istemek",
+        "B) Açlığın ve susuzluğun sona erdiğini, sevabın umulduğunu ifade etmek",
+        "C) Yalnız sahuru hatırlamak",
+        "D) Ramazanı bitirmek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Bu dua, iftarda zorluğun geçtiğini ve sevabın Allah katında umulduğunu dile getirir.",
+      "zorluk": "orta",
+      "kaynak": "Ebu Davud, Savm 22"
+    },
+    {
+      "id": "oruc_074",
+      "konu": "ramazan",
+      "soru": "Ramazan ayında cennet kapılarının açılması hangi anlamı güçlendirir?",
+      "secenekler": [
+        "A) Bu ayın rahmet ve fırsat ayı olduğunu",
+        "B) Oruç tutulmasa da yeterli olduğunu",
+        "C) Yalnız gece ibadetinin değerli olduğunu",
+        "D) Sadece çocuklar için özel olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hadis, Ramazan’ın rahmet ve kulluk fırsatı oluşunu güçlü bir dille anlatır.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 5; Müslim, Sıyam 1"
+    },
+    {
+      "id": "oruc_075",
+      "konu": "ramazan",
+      "soru": "Kadir Gecesi’nin “bin aydan hayırlı” oluşu neyi gösterir?",
+      "secenekler": [
+        "A) Bazı zamanların ibadet değeri bakımından özel kılındığını",
+        "B) Yalnız hacıların onu değerlendireceğini",
+        "C) Oruçtan daha önemsiz olduğunu",
+        "D) Sadece geçmiş ümmetlere ait olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kadir Gecesi, Kur’an’ın da işaret ettiği şekilde çok büyük bir ibadet fırsatıdır.",
+      "zorluk": "orta",
+      "kaynak": "Kadr 97:3"
+    },
+    {
+      "id": "oruc_076",
+      "konu": "ramazan",
+      "soru": "Teravih namazı Ramazan gecelerinde hangi işlevi görür?",
+      "secenekler": [
+        "A) Oruçla birlikte gece kulluğunu canlandırır",
+        "B) Oruç yerine geçer",
+        "C) Sadece vitrin yerine kılınır",
+        "D) İftarı erteler"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Teravih, Ramazan gecelerinde ibadet iklimini güçlendiren bir sünnettir.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_077",
+      "konu": "nafile",
+      "soru": "Pazartesi ve Perşembe oruçlarının öne çıkarılması neyi gösterir?",
+      "secenekler": [
+        "A) Nafile oruçta sürekliliğin değerini",
+        "B) Sadece Ramazan’ın önemli olduğunu",
+        "C) Yalnız bayram günlerinin kutsal olduğunu",
+        "D) Oruçta niyet gerekmediğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "pazartesi-perşembe oruçlarını devamlı tutulan nafile örnekleri arasında sayar.",
+      "zorluk": "orta",
+      "kaynak": "Müslim, Sıyam 197"
+    },
+    {
+      "id": "oruc_078",
+      "konu": "nafile",
+      "soru": "Aşure orucu hangi ayla ilişkilidir?",
+      "secenekler": [
+        "A) Recep",
+        "B) Muharrem",
+        "C) Şaban",
+        "D) Zilkade"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Aşure orucu Muharrem ayında tutulan nafile oruçlar arasındadır.",
+      "zorluk": "kolay",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_079",
+      "konu": "nafile",
+      "soru": "Arafe orucu özellikle kimler için tavsiye edilir?",
+      "secenekler": [
+        "A) Hacı olmayanlar için",
+        "B) Sadece çocuklar için",
+        "C) Yalnız yolcular için",
+        "D) Sadece imamlar için"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Arafe orucunu özellikle hacda bulunmayanlar için tavsiye edilen nafileler arasında sunar.",
+      "zorluk": "orta",
+      "kaynak": "Müslim, Sıyam 196"
+    },
+    {
+      "id": "oruc_080",
+      "konu": "nafile",
+      "soru": "Eyyâm-ı Bîz oruçları her ayın hangi günlerine denk gelir?",
+      "secenekler": [
+        "A) 1, 2, 3",
+        "B) 10, 11, 12",
+        "C) 13, 14, 15",
+        "D) 20, 21, 22"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Eyyâm-ı Bîz, kamerî ayın 13, 14 ve 15. günlerinde tutulan nafile oruçlardır.",
+      "zorluk": "orta",
+      "kaynak": "Tirmizi, Savm 54"
+    },
+    {
+      "id": "oruc_081",
+      "konu": "nafile",
+      "soru": "Nafile oruç terk edilirse en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Büyük kefaret gerekir",
+        "B) Sevap kaçmış olur ama Ramazan farzı gibi bir sorumluluk doğmaz",
+        "C) İman gider",
+        "D) Fidye vermek zorunlu olur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Nafile oruç farz değildir; terk edilmesi farz oruç gibi değerlendirilmez.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_082",
+      "konu": "bozmayanlar",
+      "soru": "Kan aldırmak konusunda hangi sonuç öne çıkar?",
+      "secenekler": [
+        "A) Mutlaka bozar",
+        "B) Genel olarak bozmaz",
+        "C) Yalnız gece bozmaz",
+        "D) Sadece kaza gerektirir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kan aldırmak genel olarak orucu bozmaz; fakat kişiyi aşırı düşürmemesi de önemlidir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_083",
+      "konu": "bozanlar",
+      "soru": "Hanefi ve Maliki yaklaşımında Ramazan’da bilerek sigara içmek hangi sonuçla ilişkilendirilir?",
+      "secenekler": [
+        "A) Oruca zarar vermez",
+        "B) Oruğu bozar",
+        "C) Sadece nafileyi bozar",
+        "D) Sadece mekruh olur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "kasıtlı sigara içmeyi orucu bozan durumlar arasında anar.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_084",
+      "konu": "bozanlar",
+      "soru": "Ağız çalkalarken suyun boğaza kaçması durumunda temel risk nedir?",
+      "secenekler": [
+        "A) Abdestin bozulması",
+        "B) Orucun bozulması",
+        "C) Teravihin düşmesi",
+        "D) Fidyenin gerekmesi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Su boğaza kaçarsa orucun bozulması söz konusu olabilir; bu yüzden dikkat gerekir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_085",
+      "konu": "kaza",
+      "soru": "Geçici hastalık veya yolculuk sebebiyle tutulamayan Ramazan orucu için asıl çözüm nedir?",
+      "secenekler": [
+        "A) Yalnız sadaka vermek",
+        "B) Sonradan kaza etmek",
+        "C) Hiçbir şey yapmamak",
+        "D) Yalnız tövbe etmek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Geçici mazeretlerde tutulamayan oruçlar sonradan kaza edilir.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:185"
+    },
+    {
+      "id": "oruc_086",
+      "konu": "sihhat",
+      "soru": "Hayız ve nifas hâlindeki kadınlar için doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Oruç tutmaları gerekir",
+        "B) Oruç tutmazlar, sonra kaza ederler",
+        "C) Fidye verirler ve bir daha tutmazlar",
+        "D) Sadece nafile tutarlar"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Bu dönemlerde oruç tutulmaz; sonrasında kaza edilir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_087",
+      "konu": "sartlar",
+      "soru": "Gayrimüslim biri sonradan Müslüman olduğunda geçmiş dönem oruçları hakkında hangisi doğrudur?",
+      "secenekler": [
+        "A) Hepsini kaza etmek zorundadır",
+        "B) Geçmiş dönemin oruçlarıyla yükümlü tutulmaz",
+        "C) Sadece son Ramazanı kaza eder",
+        "D) Fidye vermesi yeterlidir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "sonradan Müslüman olan kişinin önceki döneme ait Ramazan oruçlarını kaza etmeyeceğini belirtir.",
+      "zorluk": "orta",
+      "kaynak": "Diyanet İlmihali"
+    },
+    {
+      "id": "oruc_088",
+      "konu": "fazilet",
+      "soru": "Orucun “kalkan” oluşunu günlük hayata taşımak en çok hangi davranışla mümkündür?",
+      "secenekler": [
+        "A) Öfke ve kötü sözü dizginlemekle",
+        "B) Daha çok uyumakla",
+        "C) Sadece sahur yapmakla",
+        "D) İftarı geciktirmekle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hadis, orucun ahlaki koruyuculuğunu özellikle dil ve öfke kontrolüyle ilişkilendirir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 2"
+    },
+    {
+      "id": "oruc_089",
+      "konu": "fazilet",
+      "soru": "Hadis-i kudsîde “Oruç benim içindir” buyurulması neyi vurgular?",
+      "secenekler": [
+        "A) Orucun Allah katındaki özel değerini",
+        "B) Sadece Ramazan gecelerini",
+        "C) Oruçta niyet gerekmediğini",
+        "D) Yalnız yoksulların oruç tutacağını"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu hadis, orucun Allah katındaki özel ve ihlas merkezli değerini vurgular.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 9; Müslim, Sıyam 163"
+    },
+    {
+      "id": "oruc_090",
+      "konu": "sahur-iftar",
+      "soru": "Sahur hangi vakitten önce yapılır?",
+      "secenekler": [
+        "A) Güneş doğduktan sonra",
+        "B) İmsak girmeden önce",
+        "C) Öğle vaktinden önce",
+        "D) İkindi sonrasında"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sahur, imsak vaktinden önce yapılan bereketli öğündür.",
+      "zorluk": "kolay",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_091",
+      "konu": "sahur-iftar",
+      "soru": "İftar vaktini belirleyen ana işaret nedir?",
+      "secenekler": [
+        "A) Yıldızların çıkması",
+        "B) Güneşin batması",
+        "C) Yatsı ezanı",
+        "D) Ayın görünmesi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "İftar vakti güneşin batmasıyla girer; sünnet de gecikmeden iftar etmektir.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:187"
+    },
+    {
+      "id": "oruc_092",
+      "konu": "fazilet",
+      "soru": "oruç, sabır eğitimini en çok hangi yönüyle destekler?",
+      "secenekler": [
+        "A) Helal şeyleri bile vakitli olarak terk ettirmesiyle",
+        "B) Yalnız gece uykusunu azaltmasıyla",
+        "C) Sadece kilo verdirmesiyle",
+        "D) Herkesi aynı sofraya oturtmasıyla"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Oruç, helal olanı bile belirli süre terk ettirerek nefis disiplinini ve sabrı güçlendirir.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_093",
+      "konu": "ramazan",
+      "soru": "Ramazan orucunun hicretin ikinci yılında farz kılınması bize neyi gösterir?",
+      "secenekler": [
+        "A) İbadetin Medine döneminde kurumsallaştığını",
+        "B) Oruğun Mekke’de yasaklandığını",
+        "C) Sadece hicret edenlere farz olduğunu",
+        "D) Hacdan sonra geldiğini"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ramazan orucunun hicretin 2. yılında farz kılındığını belirtir.",
+      "zorluk": "orta",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_094",
+      "konu": "ramazan",
+      "soru": "Kadir Gecesi’nin Kur’an’la ilişkisi en doğru nasıl ifade edilir?",
+      "secenekler": [
+        "A) İlk sahurun yapıldığı gecedir",
+        "B) Kur’an’ın indirilmeye başlandığı gecedir",
+        "C) Yalnız hacıların değerlendirdiği gecedir",
+        "D) Bayramın ilk gecesidir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kadir Gecesi, Kur’an’ın indirilmeye başlandığı mübarek gece olarak anılır.",
+      "zorluk": "orta",
+      "kaynak": "Kadr Suresi"
+    },
+    {
+      "id": "oruc_095",
+      "konu": "fidye",
+      "soru": "Kalıcı hastalık sebebiyle fidye veren kişi için temel ölçü hangisidir?",
+      "secenekler": [
+        "A) Her gün için bir yoksulu doyuracak kadar vermesi",
+        "B) Sadece yılda bir kez vermesi",
+        "C) Yalnız akrabasına vermesi",
+        "D) Namaz yerine geçmesi"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Fidye, tutulamayan her oruç günü için bir yoksulu doyuracak ölçüde verilir.",
+      "zorluk": "orta",
+      "kaynak": "Bakara 2:184; Oruç"
+    },
+    {
+      "id": "oruc_096",
+      "konu": "fazilet",
+      "soru": "Oruçluya kötü sözden kaçınma tavsiyesi orucun hangi yönünü gösterir?",
+      "secenekler": [
+        "A) Ahlak terbiyesi olduğunu",
+        "B) Yalnız sağlık rejimi olduğunu",
+        "C) Yalnız susma ibadeti olduğunu",
+        "D) Sadece Ramazan eğlencesi olduğunu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Oruç, dili ve davranışı da terbiye eden bir ibadettir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 2"
+    },
+    {
+      "id": "oruc_097",
+      "konu": "temel",
+      "soru": "İmsaktan iftara kadar süren perhiz hangi üç ana alanda toplanır?",
+      "secenekler": [
+        "A) Yeme, içme ve cinsel ilişki",
+        "B) Konuşma, yürüme ve çalışma",
+        "C) Ticaret, yolculuk ve uyku",
+        "D) Sadece gülme ve eğlenme"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Oruç süresince yeme, içme ve cinsel ilişkiden uzak durulur.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:187"
+    },
+    {
+      "id": "oruc_098",
+      "konu": "kaza",
+      "soru": "Geçici hasta iyileştiğinde hangi yol izlenir?",
+      "secenekler": [
+        "A) Fidye verir ve biter",
+        "B) Tutamadığı günleri kaza eder",
+        "C) Bir daha oruç tutamaz",
+        "D) Yalnız nafile tutar"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Geçici hastalıkta kişi iyileşince tutamadığı oruçları kaza eder.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2:185"
+    },
+    {
+      "id": "oruc_099",
+      "konu": "ozet",
+      "soru": "Oruç konusunda genel çizgisine göre orucu en iyi hangi cümle anlatır?",
+      "secenekler": [
+        "A) Oruç yalnız bedeni aç bırakmaktır",
+        "B) Oruç; niyet, takva, sabır ve ahlak eğitimi taşıyan bir ibadettir",
+        "C) Oruç sadece Ramazan geceleriyle ilgilidir",
+        "D) Oruçta mazeret diye bir şey yoktur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "orucu hem fıkhi hem ahlaki boyutlarıyla öğretir.",
+      "zorluk": "kolay",
+      "kaynak": "Oruç"
+    },
+    {
+      "id": "oruc_100",
+      "konu": "fazilet",
+      "soru": "Oruçlu kişinin kavga ve taşkınlıktan uzak durması neden özellikle önemlidir?",
+      "secenekler": [
+        "A) Çünkü oruç, nefsi ve dili birlikte terbiye eder",
+        "B) Çünkü yalnız aç kalmak yeterlidir",
+        "C) Çünkü iftarı geciktirir",
+        "D) Çünkü teravih yerine geçer"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Oruç, sadece mideyi değil, dili ve öfkeyi de disipline eden bir kulluk eğitimidir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Savm 2"
     }
   ]
 }
