@@ -119,7 +119,7 @@ export default function NotlarScreen() {
 
   if (!loaded || notesLoading || metaLoading) {
     return (
-      <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: insets.top + 14 }]}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: 14 }]}>
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
@@ -157,7 +157,7 @@ export default function NotlarScreen() {
     <FlashList
       data={noteList}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14, paddingBottom: insets.bottom + 32 }]}
+      contentContainerStyle={[styles.list, { paddingTop: 14, paddingBottom: insets.bottom + 32 }]}
       ListHeaderComponent={
         <View style={styles.headerWrap}>
           <View style={styles.listHeader}>

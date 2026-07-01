@@ -122,14 +122,14 @@ function AppContent() {
         <Stack.Screen name="hadisler"                             options={{ title: "Hadisler", headerBackTitle: "Geri" }} />
 
         <Stack.Screen name="sure-listesi"                         options={{ title: "Sure Listesi", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="favoriler"                           options={{ headerShown: false }} />
-        <Stack.Screen name="notlar"                              options={{ headerShown: false }} />
+        <Stack.Screen name="favoriler"                           options={{ title: "Favorilerim", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="notlar"                              options={{ title: "Notlarım", headerBackTitle: "Geri" }} />
         <Stack.Screen name="ne-ogreneyim"                        options={{ headerShown: false }} />
         <Stack.Screen name="hakkinda"                            options={{ headerShown: false }} />
-        <Stack.Screen name="elifba-dersleri"                     options={{ headerShown: false }} />
+        <Stack.Screen name="elifba-dersleri"                     options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
         <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
-        <Stack.Screen name="dualar"                              options={{ headerShown: false }} />
-        <Stack.Screen name="esma"                                options={{ headerShown: false }} />
+        <Stack.Screen name="dualar"                              options={{ title: "Dualar ve Zikirler", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="esma"                                options={{ title: "Esmaül Hüsna", headerBackTitle: "Geri" }} />
         <Stack.Screen name="ogren/harf-i-tarif"                  options={{ headerShown: false }} />
       </Stack>
       </AppTourProvider>

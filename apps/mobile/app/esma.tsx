@@ -52,9 +52,8 @@ export default function EsmaScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Esmaül Hüsna" }} />
-      <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+      <View style={[s.container, { backgroundColor: c.bg }]}>
         <View style={s.header}>
-          <Text style={[s.title, { color: c.text }]}>🕌 Esmaül Hüsna</Text>
           <Text style={[s.sub, { color: c.textMuted }]}>Allah&apos;ın 99 güzel ismi</Text>
           <Text style={[s.note, { color: c.textMuted }]}>Bu ekranda yaygın 99 isim tertibi esas alınmıştır; bazı kaynaklarda sıralama ve yazımda küçük farklar görülebilir.</Text>
         </View>
