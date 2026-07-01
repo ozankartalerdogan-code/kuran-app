@@ -655,6 +655,7 @@ function OzelNamazlarTab() {
 // ── Ana ekran — üst sekmeli (Nasıl Kılınır | Ayetler | Özel Namazlar) ─────────
 export default function NamazRehberiScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const { tab: initialTab } = useLocalSearchParams<{ tab?: string }>();
   const [tab, setTab] = useState<"rehber" | "ayetler" | "ozel">(
     initialTab === "ozel" ? "ozel" : initialTab === "ayetler" ? "ayetler" : "rehber"
@@ -662,7 +663,7 @@ export default function NamazRehberiScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Rehberi" }} />
-      <View style={[s.tabWrap, { backgroundColor: c.bg }]}>
+      <View style={[s.tabWrap, { backgroundColor: c.bg, paddingTop: insets.top + 10 }]}>
         <View style={[s.segment, { backgroundColor: c.cardAlt }]}>
           {([["rehber", "Nasıl Kılınır"], ["ayetler", "Ayetler"], ["ozel", "Özel Namazlar"]] as const).map(([id, lbl]) => {
             const active = tab === id;
