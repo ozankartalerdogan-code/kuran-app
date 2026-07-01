@@ -22,6 +22,10 @@ module.exports = {
     },
     android: {
       package: 'com.kuranapp.mobile',
+      // Android Auto Backup (bedava): favori/not/ilerleme (MMKV) kullanıcının
+      // Google Drive'ına yedeklenir → kaldır-kur / yeni telefonda kısmi kurtarma.
+      // Bizim sunucumuz yok; yedek Google tarafından yönetilir.
+      allowBackup: true,
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON || path.resolve(__dirname, 'google-services.json'),
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',

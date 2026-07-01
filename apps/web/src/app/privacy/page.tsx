@@ -2,7 +2,7 @@ export default function PrivacyPage() {
   return (
     <main style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1a1a1a' }}>
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Gizlilik Politikası</h1>
-      <p style={{ color: '#666', marginBottom: 40 }}>Son Güncelleme: 22 Haziran 2026</p>
+      <p style={{ color: '#666', marginBottom: 40 }}>Son Güncelleme: 2 Temmuz 2026</p>
 
       <p><strong>Geliştirici:</strong> Kartal Studio<br/>
       <strong>İletişim:</strong> kuranyolu.iletisim@gmail.com<br/>
@@ -24,6 +24,7 @@ export default function PrivacyPage() {
         <li>Namaz vakti bildirimleri tercihi</li>
         <li>Günlük seri (streak) bilgisi</li>
       </ul>
+      <p><strong>Yedekleme:</strong> Bu cihaz-içi veriler (favori, not, ilerleme), Android'in sistem yedekleme özelliği açıksa cihazınızın bağlı olduğu Google Drive hesabınıza otomatik yedeklenebilir; böylece uygulamayı yeniden kurduğunuzda veya yeni cihaza geçtiğinizde geri gelebilir. Bu yedek Google tarafından yönetilir, bizim sunucularımıza gönderilmez ve cihaz ayarlarınızdan kapatılabilir.</p>
       <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık konum kullanılır. Konum sunucularımıza gönderilmez, yalnızca cihazda işlenir.</p>
 
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>2. Verilerin Kullanımı</h2>
