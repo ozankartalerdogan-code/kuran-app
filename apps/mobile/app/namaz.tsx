@@ -13,7 +13,7 @@ import {
   scheduleNamazNotifications,
   cancelNamazNotifications,
 } from "../src/lib/namazNotifications";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "../src/lib/storage";
 
 import { useTourTarget } from "../src/tour/AppTourProvider";
 const NOTIF_KEY = "namazNotifEnabled";
@@ -274,7 +274,7 @@ export default function NamazScreen() {
   useEffect(() => {
     let cancelled = false;
 
-    AsyncStorage.getItem(NOTIF_KEY).then(async (v) => {
+    storage.getString(NOTIF_KEY).then(async (v) => {
       const enabled = v === "1";
       setNotifEnabled(enabled);
       if (!enabled) return;
@@ -282,7 +282,7 @@ export default function NamazScreen() {
       // DAILY tetikleyici saat:dakikayı sabitler; vakitler günden güne kaydığı için
       // bildirimler açıkken günde bir kez sessizce (izin sormadan) yeniden planla.
       const today = localDayStr();
-      const lastDay = await AsyncStorage.getItem(SCHED_DAY_KEY);
+      const lastDay = await storage.getString(SCHED_DAY_KEY);
       if (lastDay === today) return; // bugün zaten planlandı
 
       try {
@@ -291,7 +291,7 @@ export default function NamazScreen() {
         const times = await fetchPrayerTimes(lat, lng);
         if (cancelled || !times) return;
         await scheduleNamazNotifications(times);
-        await AsyncStorage.setItem(SCHED_DAY_KEY, today);
+        await storage.setString(SCHED_DAY_KEY, today);
         if (!cancelled) setUsingFallback(isFallback);
       } catch { /* sessiz — eldeki planlama korunur */ }
     });
@@ -329,8 +329,8 @@ export default function NamazScreen() {
         }
 
         await scheduleNamazNotifications(times);
-        await AsyncStorage.setItem(NOTIF_KEY, "1");
-        await AsyncStorage.setItem(SCHED_DAY_KEY, localDayStr()); // bugün planlandı → mount tekrar çekmesin
+        await storage.setString(NOTIF_KEY, "1");
+        await storage.setString(SCHED_DAY_KEY, localDayStr()); // bugün planlandı → mount tekrar çekmesin
         setNotifEnabled(true);
 
         const locationMsg = isFallback
@@ -339,8 +339,8 @@ export default function NamazScreen() {
         Alert.alert("Bildirimler Açık", `Her gün her namaz vaktinden 5 dakika önce hatırlatma, 3 dakika önce de namaz temalı bir ayet gönderilecek.\n\n${locationMsg}`);
       } else {
         await cancelNamazNotifications();
-        await AsyncStorage.setItem(NOTIF_KEY, "0");
-        await AsyncStorage.removeItem(SCHED_DAY_KEY); // tekrar açılınca yeniden planlansın
+        await storage.setString(NOTIF_KEY, "0");
+        await storage.remove(SCHED_DAY_KEY); // tekrar açılınca yeniden planlansın
         setNotifEnabled(false);
         setUsingFallback(false);
       }

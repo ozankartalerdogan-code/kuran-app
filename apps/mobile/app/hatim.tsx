@@ -13,7 +13,7 @@ try {
 } catch (_e) { /* noop */ }
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "../src/lib/storage";
 import { MushafReader } from "../src/components/MushafReader";
 import { useColors } from "../src/hooks/useColors";
 import { logFeature } from "../src/lib/analytics";
@@ -113,7 +113,7 @@ export default function HatimScreen() {
 
   useEffect(() => {
     let isMounted = true;
-    AsyncStorage.getItem(STORAGE_KEY)
+    storage.getString(STORAGE_KEY)
       .then(v => { if (isMounted) setStore(parseStoredStore(v)); })
       .catch(() => { if (isMounted) setStore(EMPTY_STORE); })
       .finally(() => { if (isMounted) setMounted(true); });
@@ -122,7 +122,7 @@ export default function HatimScreen() {
 
   const persist = useCallback((next: Store) => {
     setStore(next);
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => undefined);
+    storage.setString(STORAGE_KEY, JSON.stringify(next)).catch(() => undefined);
   }, []);
 
   const startHatim = () => {

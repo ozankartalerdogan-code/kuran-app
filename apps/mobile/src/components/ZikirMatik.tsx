@@ -3,7 +3,7 @@ import {
   View, Text, Modal, TouchableOpacity, StyleSheet,
   Animated, Platform, Pressable, ScrollView, TextInput, Alert,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "../lib/storage";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
@@ -113,14 +113,14 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   useEffect(() => () => { if (autoResetRef.current) clearTimeout(autoResetRef.current); }, []);
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY)
+    storage.getString(STORAGE_KEY)
       .then(raw => { if (raw) setSavedList(JSON.parse(raw)); })
       .catch(() => {});
   }, []);
 
   // Aktif sayımı + hazır zikir hedef override'larını yükle
   useEffect(() => {
-    Promise.all([AsyncStorage.getItem(STATE_KEY), AsyncStorage.getItem(PRESET_KEY)])
+    Promise.all([storage.getString(STATE_KEY), storage.getString(PRESET_KEY)])
       .then(([rawState, rawPreset]) => {
         let overrides: Record<string, number> = {};
         if (rawPreset) { try { overrides = JSON.parse(rawPreset); setTargetOverrides(overrides); } catch { /* yoksay */ } }
@@ -145,7 +145,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   // Aktif sayımı kaydet (debounce — her çekişte disk yazımını önler)
   useEffect(() => {
     const t = setTimeout(() => {
-      AsyncStorage.setItem(STATE_KEY, JSON.stringify({ zikirIdx, count, tur, customName, customTarget })).catch(() => {});
+      storage.setString(STATE_KEY, JSON.stringify({ zikirIdx, count, tur, customName, customTarget })).catch(() => {});
     }, 400);
     return () => clearTimeout(t);
   }, [zikirIdx, count, tur, customName, customTarget]);
@@ -236,7 +236,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
     if (isNaN(n) || n <= 0) return;
     setTargetOverrides(prev => {
       const next = { ...prev, [zikir.isim]: n };
-      AsyncStorage.setItem(PRESET_KEY, JSON.stringify(next)).catch(() => {});
+      storage.setString(PRESET_KEY, JSON.stringify(next)).catch(() => {});
       return next;
     });
     if (count >= n && count > 0) triggerComplete(); // yeni hedefi zaten geçmişse tamamla
@@ -263,7 +263,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
             setSavedList(prev => {
               const filtered = prev.filter(z => z.isim !== isim);
               const next = [...filtered, { isim, hedef }];
-              AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
+              storage.setString(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
               return next;
             });
           },
@@ -284,7 +284,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
           onPress: () => {
             setSavedList(prev => {
               const next = prev.filter((_, i) => i !== idx);
-              AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
+              storage.setString(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
               return next;
             });
           },
@@ -307,7 +307,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
     setSavedList(prev => {
       const n = parseInt(editTargetVal, 10);
       const next = (!isNaN(n) && n > 0) ? prev.map((z, i) => (i === idx ? { ...z, hedef: n } : z)) : prev;
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
+      storage.setString(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
       return next;
     });
     setEditTargetIdx(null);
