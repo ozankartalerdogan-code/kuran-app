@@ -25,7 +25,8 @@ export default function PrivacyPage() {
         <li>Günlük seri (streak) bilgisi</li>
       </ul>
       <p><strong>Yedekleme:</strong> Bu cihaz-içi veriler (favori, not, ilerleme), Android'in sistem yedekleme özelliği açıksa cihazınızın bağlı olduğu Google Drive hesabınıza otomatik yedeklenebilir; böylece uygulamayı yeniden kurduğunuzda veya yeni cihaza geçtiğinizde geri gelebilir. Bu yedek Google tarafından yönetilir, bizim sunucularımıza gönderilmez ve cihaz ayarlarınızdan kapatılabilir.</p>
-      <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık konum kullanılır. Konum sunucularımıza gönderilmez, yalnızca cihazda işlenir.</p>
+      <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitlerini hesaplamak için yaklaşık konumunuz, üçüncü taraf <strong>Aladhan.com</strong> servisine gönderilir (aşağıdaki &quot;Üçüncü Taraf Hizmetler&quot; bölümüne bakınız). Konum verisi bizim sunucularımızda saklanmaz.</p>
+      <p><strong>Reklam kimliği:</strong> Uygulama reklam içermez ve reklam kimliğinizi (Advertising ID) toplamaz.</p>
 
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>2. Verilerin Kullanımı</h2>
       <p>Toplanan veriler yalnızca şu amaçlarla kullanılır:</p>
