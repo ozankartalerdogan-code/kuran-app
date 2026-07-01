@@ -209,7 +209,7 @@ export default function MushafAyahScreen() {
         </ScrollView>
 
         {/* Navigasyon */}
-        <View style={s.navBar}>
+        <View style={[s.navBar, { paddingBottom: insets.bottom + 12 }]}>
           <TouchableOpacity
             style={[s.navBtn, !data.prevAyah && s.navBtnDisabled]}
             onPress={() => data.prevAyah && navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber)}

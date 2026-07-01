@@ -296,7 +296,7 @@ export default function ElifbaDersleriScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Elif-Ba Öğren" }} />
-      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingTop: insets.top + 16 }]}>
+      <ScrollView style={[s.scroll, { backgroundColor: c.bg }]} contentContainerStyle={[s.content, { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 48 }]}>
 
         {/* Genel ilerleme */}
         <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>

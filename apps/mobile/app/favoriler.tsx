@@ -164,7 +164,7 @@ export default function FavorilerScreen() {
     <FlashList
       data={verses}
       keyExtractor={(v) => v.verse_key}
-      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
+      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14, paddingBottom: insets.bottom + 32 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={styles.count}>{favorites.length} ayet kaydedildi</Text>

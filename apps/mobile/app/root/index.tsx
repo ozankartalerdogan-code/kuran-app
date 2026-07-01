@@ -7,6 +7,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useEffect, useMemo, useCallback, memo, useRef } from "react";
 import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
@@ -59,6 +60,7 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
 
 export default function RootListScreen() {
   const c = useColors();
+  const insets = useSafeAreaInsets();
   const [roots, setRoots] = useState<RootItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -192,7 +194,7 @@ export default function RootListScreen() {
         <FlashList
           data={filtered}
           keyExtractor={(item) => item.root}
-          contentContainerStyle={s.list}
+          contentContainerStyle={[s.list, { paddingBottom: insets.bottom + 32 }]}
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <View style={s.centered}>

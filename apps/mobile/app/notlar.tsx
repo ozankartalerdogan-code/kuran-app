@@ -157,7 +157,7 @@ export default function NotlarScreen() {
     <FlashList
       data={noteList}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14 }]}
+      contentContainerStyle={[styles.list, { paddingTop: insets.top + 14, paddingBottom: insets.bottom + 32 }]}
       ListHeaderComponent={
         <View style={styles.headerWrap}>
           <View style={styles.listHeader}>

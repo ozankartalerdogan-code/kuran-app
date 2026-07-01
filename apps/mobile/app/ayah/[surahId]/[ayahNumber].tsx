@@ -599,7 +599,7 @@ export default function AyahDetailScreen() {
       <Stack.Screen options={{ title: headerTitle }} />
       <ScrollView
         style={[styles.scroll, { backgroundColor: colors.bg }]}
-        contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* ═══ Başlık ═══ */}

@@ -72,7 +72,7 @@ export default function EsmaScreen() {
           data={data}
           keyExtractor={(e) => String(e.sira)}
           renderItem={renderItem}
-          contentContainerStyle={s.listContent}
+          contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 40 }]}
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <Text style={[s.empty, { color: c.textMuted }]}>Sonuç bulunamadı.</Text>
