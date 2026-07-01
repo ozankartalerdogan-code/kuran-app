@@ -102,7 +102,10 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
   const restartTour = useCallback(async () => {
     await resetAppTour();
     navigateTo(APP_TOUR_STEPS[0].route);
-    startTour();
+    // Farklı bir sekmeden (Daha Fazla) başlatıldığında home tab'a geçiş + mount +
+    // anchor kaydı zaman alır. İlk-run'daki 650ms gecikmeyi burada da uygula ki
+    // ilk hedefler ölçülebilsin (aksi halde oklar yanlış/boşa konumlanıyordu).
+    setTimeout(() => startTour(), 650);
   }, [startTour]);
 
   const finishTour = useCallback(async () => {
