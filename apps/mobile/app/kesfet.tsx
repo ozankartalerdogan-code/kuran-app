@@ -105,7 +105,7 @@ const REHBERLER = [
   { emoji: "☪️", label: "Siyer-i Nebî",       sub: "Hz. Muhammed'in hayatı, 8 dönem · 49 olay", route: "/siyer"                as const, bg: "#f0f4ff", border: "#a5b4fc" },
   { emoji: "📜", label: "Peygamber Kıssaları", sub: "Kuran'da 25 peygamberin kıssası ve dersleri",  route: "/peygamber-kissalari" as const, bg: "#fdf4ff", border: "#d8b4fe" },
   { emoji: "🌙", label: "Mübarek Günler",      sub: "13 gün ve gece — dayanak seviyeleriyle",         route: "/mubarek-gunler"     as const, bg: "#f0fdf4", border: "#86efac" },
-  { emoji: "📖", label: "Hadisler",            sub: "112 sahih hadis · 27 konu · 7 grup",           route: "/hadisler"           as const, bg: "#fef9f0", border: "#fcd34d" },
+  { emoji: "📖", label: "Hadisler",            sub: "114 sahih hadis · 27 konu · 7 grup",           route: "/hadisler"           as const, bg: "#fef9f0", border: "#fcd34d" },
 ];
 
 // ── Liste öğe tipi ────────────────────────────────────────────────────────────

@@ -23,7 +23,7 @@ const ITEMS = [
   { emoji: "✨",  title: "Esmaül Hüsna",        route: "/esma",                desc: "Allah'ın 99 ismi" },
   { emoji: "👳",  title: "Peygamber Kıssaları", route: "/peygamber-kissalari", desc: "25 peygamberin kıssası" },
   { emoji: "⭐",  title: "Siyer-i Nebî",        route: "/siyer",               desc: "Hz. Muhammed'in hayatı" },
-  { emoji: "📚",  title: "Hadisler",            route: "/hadisler",            desc: "112 seçme sahih hadis" },
+  { emoji: "📚",  title: "Hadisler",            route: "/hadisler",            desc: "114 seçme sahih hadis" },
   { emoji: "🌙",  title: "Mübarek Günler",      route: "/mubarek-gunler",      desc: "Kandiller ve fazileti" },
 ] as const;
 
