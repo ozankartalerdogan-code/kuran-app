@@ -443,23 +443,29 @@ export default function AyahDetailScreen() {
     let isMounted = true;
     setLoading(true);
     setError(null);
-    Promise.all([
-      api.ayah.get(surahId, ayahNumber),
-      api.verses.bySurah(surahId),
-    ])
-      .then(([ayahData, versesData]) => {
+    // Sadece ayeti bekle → sayfa hemen açılsın. Surenin tüm ayetleri (Bakara'da
+    // 286!) yalnız okunuş yedeği içindi; artık kritik yolu bloklamaz, gerekirse
+    // arka planda çekilir.
+    api.ayah.get(surahId, ayahNumber)
+      .then((ayahData) => {
         if (!isMounted) return;
         setData(ayahData);
-        if (!ayahData.readingTr) {
-          const verse = versesData.verses.find(v => v.ayahNumber === ayahNumber);
-          if (verse?.reading) setReading(verse.reading);
-        } else {
-          setReading(ayahData.readingTr);
-        }
         if (ayahData.translations?.length) setTranslations(ayahData.translations);
+        if (ayahData.readingTr) {
+          setReading(ayahData.readingTr);
+        } else {
+          // Okunuş yanıtta yoksa: sureyi ayrıca çek (sayfayı bloklamadan).
+          api.verses.bySurah(surahId)
+            .then((versesData) => {
+              if (!isMounted) return;
+              const verse = versesData.verses.find(v => v.ayahNumber === ayahNumber);
+              if (verse?.reading) setReading(verse.reading);
+            })
+            .catch(() => { /* okunuş yedeği başarısız — sessiz geç */ });
+        }
       })
-      .catch(() => setError("Ayet yüklenemedi. Bağlantını kontrol et."))
-      .finally(() => setLoading(false));
+      .catch(() => { if (isMounted) setError("Ayet yüklenemedi. Bağlantını kontrol et."); })
+      .finally(() => { if (isMounted) setLoading(false); });
     return () => { isMounted = false; };
   }, [surahId, ayahNumber]);
 

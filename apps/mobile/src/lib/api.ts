@@ -300,6 +300,11 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 const CACHE_VERSION = "v3"; // v3: arabic_tajweed eklendi → eski cache geçersiz
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 
+// Uçuştaki (in-flight) istekler — aynı anahtar için eşzamanlı iki çağrı tek ağ
+// isteğini paylaşır. Örn. link pressIn prefetch'i + ekran mount'u aynı ayeti
+// isterse yalnız 1 fetch olur (çift indirmeyi ve boşa API maliyetini önler).
+const inflight = new Map<string, Promise<unknown>>();
+
 async function withCache<T>(
   rawKey: string,
   ttl: number,
@@ -312,10 +317,22 @@ async function withCache<T>(
     if (cached && Date.now() - cached.ts < ttl) return cached.data;
   } catch { /* ignore */ }
 
-  // Network'ten al, cache'e yaz
-  const data = await fetcher();
-  storage.setJSON(key, { ts: Date.now(), data }).catch(() => {});
-  return data;
+  // Uçuşta aynı istek varsa onu paylaş
+  const existing = inflight.get(key);
+  if (existing) return existing as Promise<T>;
+
+  const promise = (async () => {
+    // Network'ten al, cache'e yaz
+    const data = await fetcher();
+    storage.setJSON(key, { ts: Date.now(), data }).catch(() => {});
+    return data;
+  })();
+  inflight.set(key, promise);
+  try {
+    return await promise;
+  } finally {
+    inflight.delete(key);
+  }
 }
 
 async function withCacheFallback<T>(

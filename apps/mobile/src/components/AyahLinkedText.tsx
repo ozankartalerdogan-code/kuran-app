@@ -7,6 +7,7 @@ import React from "react";
 import { Text, type StyleProp, type TextStyle } from "react-native";
 import { router } from "expo-router";
 import { parseAyahRefs } from "../lib/ayahRefs";
+import { api } from "../lib/api";
 
 type Props = {
   children: string;
@@ -29,6 +30,8 @@ export function AyahLinkedText({ children, style, linkColor = "#c9a84c" }: Props
           <Text
             key={i}
             style={{ color: linkColor, fontWeight: "700", textDecorationLine: "underline" }}
+            // Parmak değince veriyi ısıt → bırakınca sayfa çoğu zaman hazır.
+            onPressIn={() => { api.ayah.get(seg.surahId, seg.ayahNumber).catch(() => {}); }}
             onPress={() => router.push(`/ayah/${seg.surahId}/${seg.ayahNumber}`)}
             accessibilityRole="link"
             accessibilityLabel={`${seg.surahId}. sure ${seg.ayahNumber}. ayete git`}
