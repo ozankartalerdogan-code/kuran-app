@@ -37,10 +37,15 @@ module.exports = {
         'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK',
         'android.permission.POST_NOTIFICATIONS',
       ],
-      // expo-location plugin ACCESS_FINE_LOCATION'ı otomatik ekler; Play'in
-      // hassas-konum beyanı/incelemesi gerekmesin diye açıkça engelliyoruz.
-      // Kıble ve namaz vakti için yaklaşık (COARSE) konum yeterlidir.
-      blockedPermissions: ['android.permission.ACCESS_FINE_LOCATION'],
+      // Otomatik eklenen ama İSTEMEDİĞİMİZ izinleri engelle:
+      //  • ACCESS_FINE_LOCATION (expo-location ekler) → kıble/namaz için COARSE yeter,
+      //    Play hassas-konum beyanı/incelemesi gerekmez.
+      //  • AD_ID (Firebase Analytics ekler) → reklamsız app; reklam kimliği toplamayı
+      //    kapatır, Play Veri Güvenliği'nde "reklam kimliği" beyanı gerekmez.
+      blockedPermissions: [
+        'android.permission.ACCESS_FINE_LOCATION',
+        'com.google.android.gms.permission.AD_ID',
+      ],
     },
     web: {
       bundler: 'metro',
