@@ -116,7 +116,7 @@ export const APP_TOUR_STEPS: AppTourStep[] = [
     screen: "namaz",
     route: "/namaz",
     title: "Namaz bildirimleri",
-    description: "Vakit bildirimleri ve ilgili izinleri buradan y\u00f6netebilirsin.",
+    description: "Namaz vakti ve g\u00fcnl\u00fck ayet bildirimlerine buradan ula\u015fabilirsin.",
     targetId: "namaz.main",
     action: "navigate",
     navigateTo: "/dersler",

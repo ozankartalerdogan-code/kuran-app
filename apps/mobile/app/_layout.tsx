@@ -105,6 +105,7 @@ function AppContent() {
         <Stack.Screen name="ogren/[dersId]"                       options={{ headerBackTitle: "Dersler" }} />
         <Stack.Screen name="ibadet-rehberi"                  options={{ title: "İbadet Rehberi", headerBackTitle: "Geri" }} />
         <Stack.Screen name="namaz"                          options={{ title: "Namaz & İbadet", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="bildirimler"                    options={{ title: "Bildirimler", headerBackTitle: "Geri" }} />
         <Stack.Screen name="manevi-siginak"                 options={{ title: "Manevi Sığınak", headerBackTitle: "Geri" }} />
         <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: "İsmi Azam ve Sekine", headerBackTitle: "Geri" }} />
         <Stack.Screen name="search"                         options={{ title: "Arama", headerBackTitle: "Geri" }} />
