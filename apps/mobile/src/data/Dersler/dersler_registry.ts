@@ -176,6 +176,7 @@ const RAW_KAYITLAR: Kayit[] = [
   { id: "namaz",         ikon: "\uD83D\uDD4C", sure: 15, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dersi.json"), "namaz_dersi"),                quiz: safeRequire(() => require("./namaz_quiz.json"), "namaz_quiz") },
   { id: "namaz-dualar",  ikon: "\uD83D\uDCFF", sure: 10, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dualar_dersi.json"), "namaz_dualar_dersi"),  quiz: safeRequire(() => require("./namaz_dualar_quiz.json"), "namaz_dualar_quiz") },
   { id: "oruc",          ikon: "\uD83C\uDF19", sure:  8, kategori: "ibadet", ders: safeRequire(() => require("./oruc_dersi.json"), "oruc_dersi"),                  quiz: safeRequire(() => require("./oruc_quiz.json"), "oruc_quiz") },
+  { id: "kurban",        ikon: "\uD83D\uDC11", sure: 12, kategori: "ibadet", ders: safeRequire(() => require("./kurban_dersi.json"), "kurban_dersi"),              quiz: safeRequire(() => require("./kurban_quiz.json"), "kurban_quiz") },
   { id: "hac-umre",      ikon: "\uD83D\uDD4B", sure:  9, kategori: "ibadet", ders: safeRequire(() => require("./hac_umre_dersi.json"), "hac_umre_dersi"),          quiz: safeRequire(() => require("./hac_umre_quiz.json"), "hac_umre_quiz") },
   { id: "iman-esaslari", ikon: "\uD83D\uDCD6", sure: 10, kategori: "akaid",  ders: safeRequire(() => require("./iman_esaslari_dersi.json"), "iman_esaslari_dersi"), quiz: safeRequire(() => require("./iman_esaslari_quiz.json"), "iman_esaslari_quiz") },
   {
@@ -186,7 +187,9 @@ const RAW_KAYITLAR: Kayit[] = [
     ders: nefsiniTaniDersModule ? normalizeLessonModule(nefsiniTaniDersModule, "\uD83E\uDE9E") : null,
     quiz: nefsiniTaniQuizModule ? normalizeQuizModule(nefsiniTaniQuizModule, "nefsini-tani", "Nefsini Tan\u0131") : null,
   },
+  { id: "guzel-ahlak", ikon: "\uD83E\uDD1D", sure: 12, kategori: "ahlak", ders: safeRequire(() => require("./guzel_ahlak_dersi.json"), "guzel_ahlak_dersi"), quiz: safeRequire(() => require("./guzel_ahlak_quiz.json"), "guzel_ahlak_quiz") },
   { id: "peygamberler",  ikon: "\u2B50",       sure: 14, kategori: "siyer",  ders: safeRequire(() => require("./peygamber_kissalari_dersi.json"), "peygamber_kissalari_dersi"), quiz: safeRequire(() => require("./peygamber_kissalari_quiz.json"), "peygamber_kissalari_quiz") },
+  { id: "sahabe-hayatlari", ikon: "\uD83D\uDD4A", sure: 16, kategori: "siyer", ders: safeRequire(() => require("./sahabe_hayatlari_dersi.json"), "sahabe_hayatlari_dersi"), quiz: safeRequire(() => require("./sahabe_hayatlari_quiz.json"), "sahabe_hayatlari_quiz") },
   { id: "siyer",         ikon: "\uD83C\uDF3F", sure: 10, kategori: "siyer",  ders: safeRequire(() => require("./siyer_dersi.json"), "siyer_dersi"),                quiz: safeRequire(() => require("./siyer_quiz.json"), "siyer_quiz") },
   { id: "tecvid",        ikon: "\uD83D\uDCDC", sure: 12, kategori: "kuran",  ders: safeRequire(() => require("./tecvid_dersi.json"), "tecvid_dersi"),              quiz: safeRequire(() => require("./tecvid_quiz.json"), "tecvid_quiz") },
   { id: "abdest-gusul",  ikon: "\uD83D\uDCA7", sure: 10, kategori: "ibadet", ders: safeRequire(() => require("./abdest_dersi.json"), "abdest_dersi"),              quiz: safeRequire(() => require("./abdest_quiz.json"), "abdest_quiz") },
@@ -224,9 +227,10 @@ export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayis
 ];
 
 export const KATEGORILER: { label: string; ids: string[] }[] = [
-  { label: "Temel \u0130badetler", ids: ["abdest-gusul", "namaz", "namaz-dualar", "ezan-kamet", "oruc", "zekat", "hac-umre"] },
+  { label: "Temel \u0130badetler", ids: ["abdest-gusul", "namaz", "namaz-dualar", "ezan-kamet", "oruc", "zekat", "kurban", "hac-umre"] },
   { label: "\u0130man & Akaid",    ids: ["iman-esaslari"] },
-  { label: "Ahlak & Terbiye",       ids: ["nefsini-tani"] },
-  { label: "Tarih & Siyer",         ids: ["peygamberler", "siyer"] },
+  { label: "Ahlak & Terbiye",       ids: ["nefsini-tani", "guzel-ahlak"] },
+  { label: "Tarih & Siyer",         ids: ["peygamberler", "sahabe-hayatlari", "siyer"] },
   { label: "Kur'an & Elifba",       ids: ["tecvid", "elifba"] },
 ];
+

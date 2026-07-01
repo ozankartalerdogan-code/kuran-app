@@ -2033,6 +2033,142 @@
         "yemek",
         "koruma"
       ]
+    },
+    {
+      "id": "zikir-iki-kelime",
+      "topic_id": "dua-zikir",
+      "turkish_text": "Dile hafif gelen, mizanda ağır basan ve Rahman'a sevgili olan iki söz vardır: 'Sübhânallahi ve bihamdihî' ve 'Sübhânallâhi'l-azîm'.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, Daavât, 6406",
+      "source_muslim": "Müslim, Zikir, 2694",
+      "sunnah_url": "https://sunnah.com/bukhari:6406",
+      "key_lesson": "Kısa ama sürekli yapılan zikirler, Allah katında çok değerli amellere dönüşür; dilin Allah'ı anmaya alışması kalbi de diri tutar.",
+      "tags": [
+        "dua",
+        "zikir",
+        "tesbih",
+        "mizan",
+        "kolay-amel"
+      ]
+    },
+    {
+      "id": "oruc-yalani-birakmak",
+      "topic_id": "oruc",
+      "turkish_text": "Kim yalan sözü, onunla amel etmeyi ve kaba davranışı bırakmazsa, Allah'ın onun yemesini içmesini bırakmasına ihtiyacı yoktur.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, Edeb, 6057",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6057",
+      "key_lesson": "Oruç sadece aç kalmak değildir; dili, davranışı ve ahlakı da arındırmayan oruç, maksadına tam ulaşmaz.",
+      "tags": [
+        "oruc",
+        "yalan",
+        "dil",
+        "ahlak",
+        "nefis-terbiyesi"
+      ]
+    },
+    {
+      "id": "musluman-dil-ve-el",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "Müslüman, diğer Müslümanların dilinden ve elinden emin olduğu kimsedir. Muhacir de Allah'ın yasakladığını terk eden kişidir.",
+      "narrator": "Abdullah b. Amr (r.a.)",
+      "source_bukhari": "Buhârî, İmân, 10",
+      "source_muslim": "Müslim, İmân, 40",
+      "sunnah_url": "https://sunnah.com/bukhari:10",
+      "key_lesson": "Dil ve el ile zarar vermemek, Müslümanlığın temel göstergelerindendir; gıybet ve iftira da bu güveni yıkan ağır dillerdendir.",
+      "tags": [
+        "giybet",
+        "iftira",
+        "dil",
+        "zarar",
+        "muslumanlik"
+      ]
+    },
+    {
+      "id": "anne-baba-hizmeti-cihad",
+      "topic_id": "anne-baba-hakki",
+      "turkish_text": "Bir adam cihada katılmak için izin istedi. Resûlullah ona, 'Anne baban hayatta mı?' diye sordu. Adam 'Evet' deyince, 'Öyleyse gayretini onlara hizmette göster' buyurdu.",
+      "narrator": "Abdullah b. Amr (r.a.)",
+      "source_bukhari": "Buhârî, Cihâd, 3004",
+      "source_muslim": "Müslim, Birr, 2549a",
+      "sunnah_url": "https://sunnah.com/bukhari:3004",
+      "key_lesson": "Anne-babaya hizmet, bazı durumlarda en büyük nafile fedakarlıklardan bile öne geçecek kadar değerli bir kulluktur.",
+      "tags": [
+        "anne-baba",
+        "hizmet",
+        "birr",
+        "cihad",
+        "fedakarlik"
+      ]
+    },
+    {
+      "id": "akrabalik-bagini-gozetmek-iman",
+      "topic_id": "akraba-ziyareti",
+      "turkish_text": "Kim Allah'a ve ahiret gününe iman ediyorsa misafirine ikram etsin, akrabalık bağını gözetsin ve ya hayır söylesin ya da sussun.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, Edeb, 6138",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6138",
+      "key_lesson": "Akrabalık bağını korumak, imanın günlük hayattaki açık yansımalarındandır; iyi söz ve ikramla birlikte yürür.",
+      "tags": [
+        "akraba",
+        "sila-i-rahim",
+        "iman",
+        "hayirli-soz",
+        "ikram"
+      ]
+    },
+    {
+      "id": "ticarette-yumusaklik",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "Allah, alırken, satarken ve hakkını isterken yumuşak davranan kimseye rahmet etsin.",
+      "narrator": "Câbir b. Abdullah (r.a.)",
+      "source_bukhari": "Buhârî, Büyû', 2076",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2076",
+      "key_lesson": "Ticarette sadece doğruluk değil, nezaket ve kolaylaştırıcılık da bereketin önemli bir parçasıdır.",
+      "tags": [
+        "ticaret",
+        "alisveris",
+        "nezaket",
+        "bereket",
+        "hak-talebi"
+      ]
+    },
+    {
+      "id": "ilmi-teblig-etmek",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "Benden bir ayet bile olsa insanlara ulaştırın. Kim bile bile bana yalan isnat ederse cehennemdeki yerine hazırlansın.",
+      "narrator": "Abdullah b. Amr (r.a.)",
+      "source_bukhari": "Buhârî, Enbiyâ, 3461",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:3461",
+      "key_lesson": "Faydalı bilgiyi doğru biçimde aktarmak bir sorumluluktur; ancak Peygamber adına doğrulanmamış söz aktarmak ağır bir vebaldir.",
+      "tags": [
+        "ilim",
+        "teblig",
+        "hadis",
+        "dogruluk",
+        "sorumluluk"
+      ]
+    },
+    {
+      "id": "emanet-zayi-kiyamet",
+      "topic_id": "kiyamet-alametleri",
+      "turkish_text": "Emanet zayi edildiğinde kıyameti bekle. Bu nasıl zayi olur? diye sorulunca, 'İş ehil olmayan kimselere verildiğinde' buyurdu.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, İlim, 59",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:59",
+      "key_lesson": "Emanetin ehil olmayana verilmesi sadece yönetim zafiyeti değil, toplumun bozulduğunu gösteren ciddi bir kıyamet alametidir.",
+      "tags": [
+        "kiyamet",
+        "alametler",
+        "emanet",
+        "ehliyet",
+        "toplum"
+      ]
     }
   ]
 }
