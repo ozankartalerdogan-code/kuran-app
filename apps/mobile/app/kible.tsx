@@ -6,7 +6,7 @@ import {
 import { Stack, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Location from "expo-location";
-import { Magnetometer, Accelerometer } from "expo-sensors";
+import { Magnetometer, Accelerometer, DeviceMotion } from "expo-sensors";
 import * as Haptics from "expo-haptics";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
@@ -18,6 +18,16 @@ const OUTER     = SIZE + 44; // dönen pusula gülü (dış kadran)
 const FACE      = SIZE - 56; // iç ibre dairesi — yön bandına (tik+harf) yer açacak kadar küçük
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
 const MAG_OFFSET = 0; // Magnetometer yön düzeltmesi (gerekirse cihazda ince ayar)
+
+// Heading kaynağı — DeviceMotion (OS füzyonu: ROTATION_VECTOR/CMDeviceMotion)
+// birincil; ham manyetometreye göre çok daha kararlı, hard-iron kaymasına
+// dayanıklı. Sorun olursa false yap → kanıtlanmış manyetometre yoluna anında
+// döner (rebuild gerekmez; DeviceMotion zaten expo-sensors'ta, JS reload yeter).
+const USE_DEVICE_MOTION = true;
+// DeviceMotion.rotation.alpha (radyan) → pusula yönü dönüşümü. Cihazda ibre
+// ters/kaymışsa bu iki sabiti ayarla (yalnız JS reload): heading = SIGN*alpha + OFFSET
+const DM_SIGN   = -1; // W3C alpha (saat yönü tersi) → pusula (saat yönü)
+const DM_OFFSET = 0;
 
 // ── Kıble hesabı (büyük çember yönü) ─────────────────────────────────────────
 
@@ -182,6 +192,16 @@ export default function KibleScreen() {
       onDeg((MAG_OFFSET + declRef.current - angle + 360) % 360);
     };
 
+    // DeviceMotion yönü: rotation.alpha (radyan) → pusula derecesi. Değer manyetik
+    // kuzeye görelidir; deklinasyonu ekleyip gerçek kuzeye çeviririz (onMag ile
+    // aynı yumuşatma/animasyon boru hattını kullanır).
+    const onDeviceMotion = (alpha: number | null | undefined) => {
+      if (alpha == null) return;
+      const alphaDeg = alpha * (180 / Math.PI);
+      const magHeading = (DM_SIGN * alphaDeg + DM_OFFSET + 360) % 360;
+      onDeg((declRef.current + magHeading + 360) % 360);
+    };
+
     // watchHeadingAsync yedeği (bazı cihaz/SDK'larda hiç event yollamıyor; OS heading zaten tilt-telafili)
     const startLocationHeading = () => {
       Location.watchHeadingAsync(h => onDeg(h.trueHeading >= 0 ? h.trueHeading : h.magHeading))
@@ -189,18 +209,40 @@ export default function KibleScreen() {
         .catch(() => { if (active) setCompassOk(false); });
     };
 
-    // isAvailableAsync Android'de güvenilmez → doğrudan addListener dene.
-    // Exception atarsa modül build'de yok demektir (no-mod), aksi halde dinle (mag + acc).
-    try {
-      Accelerometer.setUpdateInterval(100);
-      Magnetometer.setUpdateInterval(100);
-      subsRef.current.push(Accelerometer.addListener(d => { accRef.current = d; }));
-      subsRef.current.push(Magnetometer.addListener(({ x, y, z }) => onMag(x, y, z)));
-    } catch {
-      startLocationHeading(); // expo-sensors yoksa son çare
+    // Manyetometre + ivmeölçer (tilt-telafili) — kanıtlanmış yol; DeviceMotion
+    // yoksa/veri vermezse buna düşülür. isAvailableAsync Android'de güvenilmez →
+    // doğrudan addListener dene; exception = modül build'de yok (no-mod).
+    const startMagnetometer = () => {
+      try {
+        Accelerometer.setUpdateInterval(100);
+        Magnetometer.setUpdateInterval(100);
+        subsRef.current.push(Accelerometer.addListener(d => { accRef.current = d; }));
+        subsRef.current.push(Magnetometer.addListener(({ x, y, z }) => onMag(x, y, z)));
+      } catch {
+        startLocationHeading(); // expo-sensors yoksa son çare
+      }
+    };
+
+    // Birincil: DeviceMotion (OS füzyonu). 1.5 sn içinde veri gelmezse (rotation
+    // yok / eski cihaz) manyetometreye düşer.
+    let dmFallbackTimer: ReturnType<typeof setTimeout> | null = null;
+    if (USE_DEVICE_MOTION) {
+      try {
+        DeviceMotion.setUpdateInterval(100);
+        subsRef.current.push(
+          DeviceMotion.addListener((d) => { if (d?.rotation) onDeviceMotion(d.rotation.alpha); }),
+        );
+        dmFallbackTimer = setTimeout(() => {
+          if (active && !gotData.current) startMagnetometer();
+        }, 1500);
+      } catch {
+        startMagnetometer();
+      }
+    } else {
+      startMagnetometer();
     }
 
-    // 3 sn içinde veri gelmezse net bildir: mag=donanım yok, no-mod=build sorunu
+    // 3 sn içinde veri gelmezse net bildir: donanım yok / no-mod=build sorunu
     const noDataTimer = setTimeout(() => {
       if (active && !gotData.current) setCompassOk(false);
     }, 3000);
@@ -208,6 +250,7 @@ export default function KibleScreen() {
     return () => {
       active = false;
       clearTimeout(noDataTimer);
+      if (dmFallbackTimer) clearTimeout(dmFallbackTimer);
       subsRef.current.forEach(sub => sub.remove());
       subsRef.current = [];
       headingBuf.current = [];

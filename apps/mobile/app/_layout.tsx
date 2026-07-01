@@ -17,17 +17,28 @@ type SentryLike = {
   wrap: <T>(component: T) => T;
 };
 
-const Sentry: SentryLike = {
-  init: () => {},
-  captureException: () => {},
-  wrap: (component) => component,
-};
+// Gerçek @sentry/react-native native modüldür; yeni build gelene kadar (Expo Go
+// veya Sentry'siz build) require başarısız olabilir → no-op stub'a düşer,
+// uygulama çökmez (geri dönüşlü / build-gated).
+let Sentry: SentryLike;
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  Sentry = require("@sentry/react-native");
+} catch {
+  Sentry = {
+    init: () => {},
+    captureException: () => {},
+    wrap: (component) => component,
+  };
+}
 
 Sentry.init({
   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
   debug: __DEV__,
   environment: __DEV__ ? 'development' : 'production',
   tracesSampleRate: 0.2,
+  // DSN yoksa (env eksik) tamamen kapalı kalsın — boşa init olmasın.
+  enabled: !!process.env.EXPO_PUBLIC_SENTRY_DSN,
 });
 
 SplashScreen.preventAutoHideAsync();

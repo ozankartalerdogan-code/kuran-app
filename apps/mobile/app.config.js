@@ -63,6 +63,7 @@ module.exports = {
       'expo-audio',
       '@react-native-firebase/app',
       '@react-native-firebase/analytics',
+      '@sentry/react-native',
     ],
     experiments: {
       typedRoutes: true,
