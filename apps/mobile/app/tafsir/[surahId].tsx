@@ -106,33 +106,31 @@ export default function TafsirScreen() {
             <Text style={[styles.para, { color: c.textSecondary }]}>{item}</Text>
           )}
           ListHeaderComponent={
-            <View>
-              {availableModes.length > 1 && (
-                <View style={[styles.tabRow, { borderColor: c.border, backgroundColor: c.card }]}> 
-                  <TouchableOpacity
-                    style={[styles.tab, selectedMode === "original" && styles.tabActive]}
-                    onPress={() => setSelectedMode("original")}
-                    activeOpacity={0.8}
-                  >
-                    <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>Orijinal</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
-                    onPress={() => setSelectedMode("simplified")}
-                    activeOpacity={0.8}
-                  >
-                    <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>Sadeleştirilmiş</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-              {isSimplified ? (
-                <Text style={[styles.source, { color: c.textMuted }]}>
-                  Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir.
-                </Text>
-              ) : (
-                <Text style={[styles.source, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
-              )}
-            </View>
+            availableModes.length > 1 ? (
+              <View style={[styles.tabRow, { borderColor: c.border, backgroundColor: c.card }]}>
+                <TouchableOpacity
+                  style={[styles.tab, selectedMode === "original" && styles.tabActive]}
+                  onPress={() => setSelectedMode("original")}
+                  activeOpacity={0.8}
+                >
+                  <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>Orijinal</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
+                  onPress={() => setSelectedMode("simplified")}
+                  activeOpacity={0.8}
+                >
+                  <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>Sadeleştirilmiş</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null
+          }
+          ListFooterComponent={
+            <Text style={[styles.sourceFooter, { color: c.textMuted, borderTopColor: c.border }]}>
+              {isSimplified
+                ? "Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir."
+                : "Kaynak: Elmalılı Hamdi Yazır"}
+            </Text>
           }
           contentContainerStyle={[styles.listContent, { paddingBottom: 40 + insets.bottom }]}
           initialNumToRender={8}
@@ -151,6 +149,7 @@ const styles = StyleSheet.create({
   muted: { fontSize: 14, fontStyle: "italic" },
   listContent: { padding: 16, paddingBottom: 40 },
   source: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginBottom: 14 },
+  sourceFooter: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginTop: 20, paddingTop: 12, borderTopWidth: StyleSheet.hairlineWidth },
   para: { fontSize: 15, lineHeight: 26, marginBottom: 14 },
   tabRow: {
     flexDirection: "row",
