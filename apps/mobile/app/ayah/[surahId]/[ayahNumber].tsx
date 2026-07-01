@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonLoader";
+import { TajweedText } from "../../../src/components/TajweedText";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useFavorites } from "../../../src/hooks/useFavorites";
@@ -640,9 +641,13 @@ export default function AyahDetailScreen() {
 
         {/* ═══ Arapça Metin ═══ */}
         <View style={[styles.arabicBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
-            {data.arabicText ?? "—"}
-          </Text>
+          {data.arabicTajweed ? (
+            <TajweedText markup={data.arabicTajweed} style={[styles.arabicText, { color: colors.textPrimary }]} />
+          ) : (
+            <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
+              {data.arabicText ?? "—"}
+            </Text>
+          )}
         </View>
 
         {/* ═══ Okunuş — Arapça metnin hemen altında ═══ */}
