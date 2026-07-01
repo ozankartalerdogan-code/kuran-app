@@ -402,12 +402,19 @@ export const api = {
   },
 
   tags: {
+    // Tag içeriği statiktir (bir temaya bağlı ayetler değişmez) → 7 gün cache +
+    // ağ hatasında eski cache'ten sun. Manevi Sığınak, İsm-i Azam, Namaz Rehberi,
+    // Namaz ekranları bunu kullanır; her kategoride ağ beklemesi biter.
     filter: (tag: string, page = 1) =>
-      withRetry((signal) =>
-        request<TagFilterResponse>(
-          `/tags/filter?tag=${encodeURIComponent(tag)}&page=${page}`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_tags_${tag}_p${page}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<TagFilterResponse>(
+            `/tags/filter?tag=${encodeURIComponent(tag)}&page=${page}`,
+            undefined,
+            signal,
+          ),
         ),
       ),
   },
@@ -445,12 +452,19 @@ export const api = {
   },
 
   favorites: {
+    // Ayet meta verisi (meal/sure adı/tema) statiktir → aynı favori/not seti
+    // için 7 gün cache. Favoriler ve Notlar ekranlarını hızlandırır; set
+    // değişince (favori ekle/çıkar) anahtar değişir, doğal olarak yenilenir.
     fetch: (keys: string[]) =>
-      withRetry((signal) =>
-        request<FavoriteVerse[]>(
-          `/favorites-verses?keys=${keys.map(encodeURIComponent).join(",")}`,
-          undefined,
-          signal,
+      withCacheFallback(
+        `cache_fav_${[...keys].sort().join("_")}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<FavoriteVerse[]>(
+            `/favorites-verses?keys=${keys.map(encodeURIComponent).join(",")}`,
+            undefined,
+            signal,
+          ),
         ),
       ),
   },
