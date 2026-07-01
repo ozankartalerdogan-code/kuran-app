@@ -203,6 +203,7 @@ export default function BildirimlerScreen() {
             : <Switch
                 value={notifEnabled}
                 onValueChange={toggleNotif}
+                disabled={dailyVerseLoading}
                 trackColor={{ false: "#d4d4d4", true: "#6ee7b7" }}
                 thumbColor={notifEnabled ? "#059669" : "#f5f5f5"}
               />
@@ -224,6 +225,7 @@ export default function BildirimlerScreen() {
             : <Switch
                 value={dailyVerseEnabled}
                 onValueChange={toggleDailyVerse}
+                disabled={notifLoading}
                 trackColor={{ false: "#d4d4d4", true: "#6ee7b7" }}
                 thumbColor={dailyVerseEnabled ? "#059669" : "#f5f5f5"}
               />
