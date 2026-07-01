@@ -70,7 +70,10 @@ module.exports = {
       'expo-audio',
       '@react-native-firebase/app',
       '@react-native-firebase/analytics',
-      '@sentry/react-native',
+      // Sentry: org/project burada (commit'li, EAS'e gider); AUTH TOKEN ise EAS
+      // secret'ı (SENTRY_AUTH_TOKEN) — source map upload için. Olaylar 'react-native'
+      // projesine gidiyor (DSN), source map de oraya yüklenmeli.
+      ['@sentry/react-native', { organization: 'ozan-kartal', project: 'react-native', url: 'https://sentry.io/' }],
     ],
     experiments: {
       typedRoutes: true,
