@@ -570,3 +570,13 @@ export const api = {
       ),
   },
 };
+
+/**
+ * Ayet verisini önden ısıtır (cache'e yazar) — liste/link satırlarının
+ * onPressIn'inde çağrılır; parmak değince fetch başlar, bırakınca ayet
+ * sayfası çoğu zaman hazır olur. Hata yutulur (sadece ısıtma).
+ */
+export function prefetchAyah(surahId: number, ayahNumber: number): void {
+  if (!surahId || !ayahNumber) return;
+  void api.ayah.get(surahId, ayahNumber).catch(() => {});
+}

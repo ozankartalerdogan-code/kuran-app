@@ -6,7 +6,7 @@ import { useState, useCallback, useMemo, useEffect } from "react";
 import { router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../src/hooks/useNotes";
-import { api } from "../src/lib/api";
+import { api, prefetchAyah } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
 
@@ -176,6 +176,7 @@ export default function NotlarScreen() {
         return (
           <TouchableOpacity
             style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
+            onPressIn={() => prefetchAyah(surahId, ayahNumber)}
             onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
             activeOpacity={0.75}
             accessibilityRole="button"

@@ -9,7 +9,7 @@ import {
 import { useLocalSearchParams, router } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { api, type VerseItem, type VerseListResponse } from "../../src/lib/api";
+import { api, prefetchAyah, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { SkeletonListItem } from "../../src/components/SkeletonLoader";
 import { logScreen } from "../../src/lib/analytics";
@@ -81,15 +81,17 @@ function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
 interface VerseRowProps {
   item: VerseItem;
   onPress: (ayahNumber: number) => void;
+  onPressIn?: (ayahNumber: number) => void;
 }
 
-function VerseRow({ item, onPress }: VerseRowProps) {
+function VerseRow({ item, onPress, onPressIn }: VerseRowProps) {
   const c = useColors();
   const reading = item.reading ? item.reading.slice(0, 110) : null;
   const meal    = item.meal    ? item.meal.slice(0, 80)     : null;
   return (
     <TouchableOpacity
       style={[styles.row, { backgroundColor: c.card }]}
+      onPressIn={() => onPressIn?.(item.ayahNumber)}
       onPress={() => onPress(item.ayahNumber)}
       activeOpacity={0.7}
       accessibilityRole="button"
@@ -148,11 +150,16 @@ export default function SurahDetailScreen() {
     [surahId],
   );
 
+  const handleAyahPrefetch = useCallback(
+    (ayahNumber: number) => prefetchAyah(surahId, ayahNumber),
+    [surahId],
+  );
+
   const renderItem = useCallback(
     ({ item }: { item: VerseItem }) => (
-      <VerseRow item={item} onPress={handleAyahPress} />
+      <VerseRow item={item} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
     ),
-    [surahId, handleAyahPress],
+    [handleAyahPress, handleAyahPrefetch],
   );
 
   const keyExtractor = useCallback(

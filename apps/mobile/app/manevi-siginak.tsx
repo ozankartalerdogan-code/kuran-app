@@ -6,7 +6,7 @@ import {
 import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
-import { api, type TagFilterResult } from "../src/lib/api";
+import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
@@ -100,6 +100,7 @@ function VerseList({ tag }: { tag: string }) {
           )}
           {!loading && !error && verses.map(v => (
             <TouchableOpacity key={v.verse_key} style={sc.verseRow}
+              onPressIn={() => prefetchAyah(v.surah_id, v.ayah_number)}
               onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}` as any)} activeOpacity={0.7}
               accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
               <View style={sc.verseKey}><Text style={sc.verseKeyText}>{v.verse_key}</Text></View>

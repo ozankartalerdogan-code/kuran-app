@@ -5,7 +5,7 @@ import {
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { api, type SearchResponse, type VerseResult, type SuggestedSurah, type TagFilterResult } from "../src/lib/api";
+import { api, prefetchAyah, type SearchResponse, type VerseResult, type SuggestedSurah, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 import { logFeature, AnalyticsEvents } from "../src/lib/analytics";
@@ -163,6 +163,7 @@ function VerseCard({ verseKey, meal, surahName, readingTr }: {
   return (
     <TouchableOpacity
       style={[styles.resultCard, styles.verseCard]}
+      onPressIn={() => { if (parsed) prefetchAyah(parsed.surahId, parsed.ayahNumber); }}
       onPress={() => { if (!parsed) return; Keyboard.dismiss(); router.push(`/ayah/${parsed.surahId}/${parsed.ayahNumber}`); }}
       activeOpacity={0.72}
       accessibilityRole="button"

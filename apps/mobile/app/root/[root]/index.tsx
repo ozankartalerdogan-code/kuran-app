@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useState, useEffect, useMemo, useCallback, memo, useRef } from "react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
-import { api, type RootDetail } from "../../../src/lib/api";
+import { api, prefetchAyah, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -161,6 +161,7 @@ const MeaningGroup = memo(function MeaningGroup({
             <TouchableOpacity
               key={index}
               style={[s.verseChip, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}
+              onPressIn={() => prefetchAyah(verse.surahId, verse.ayahNumber)}
               onPress={() => router.push(`/ayah/${verse.surahId}/${verse.ayahNumber}`)}
               activeOpacity={0.7}
               accessibilityRole="button"

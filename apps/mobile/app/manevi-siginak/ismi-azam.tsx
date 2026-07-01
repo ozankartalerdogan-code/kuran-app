@@ -5,7 +5,7 @@ import {
 import { useColors as useGlobalColors } from "../../src/hooks/useColors";
 import { Stack, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { api, type TagFilterResult } from "../../src/lib/api";
+import { api, prefetchAyah, type TagFilterResult } from "../../src/lib/api";
 import {
   bakara250,
   ismiAzamDualari,
@@ -340,6 +340,7 @@ function TagVerseAccordion({
             <TouchableOpacity
               key={verse.verse_key}
               style={[styles.verseRow, { backgroundColor: colors.cardBg, borderColor: boxBorder }]}
+              onPressIn={() => prefetchAyah(verse.surah_id, verse.ayah_number)}
               onPress={() => router.push(`/ayah/${verse.surah_id}/${verse.ayah_number}`)}
               activeOpacity={0.78}
               accessibilityRole="button"

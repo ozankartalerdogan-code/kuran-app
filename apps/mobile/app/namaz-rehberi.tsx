@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { api } from "../src/lib/api";
+import { api, prefetchAyah } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import rehberRaw from "../src/data/namaz_rehberi.json";
 import ozelRaw from "../src/data/ozel_namazlar.json";
@@ -114,7 +114,7 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
           {loading && <ActivityIndicator color="#059669" style={{ marginVertical: 10 }} />}
           {!loading && fetched && verses.length === 0 && <Text style={[na.empty, { color: c.textMuted }]}>Ayet bulunamadı.</Text>}
           {!loading && verses.map(v => (
-            <TouchableOpacity key={v.verse_key} style={[na.verseRow, { borderBottomColor: c.border }]} onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
+            <TouchableOpacity key={v.verse_key} style={[na.verseRow, { borderBottomColor: c.border }]} onPressIn={() => prefetchAyah(v.surah_id, v.ayah_number)} onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
               <View style={na.keyBox}><Text style={na.keyText}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
                 {v.surah_name ? <Text style={[na.vSurah, { color: c.textMuted }]}>{v.surah_name}</Text> : null}

@@ -9,7 +9,7 @@ import { router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { useFavorites } from "../src/hooks/useFavorites";
-import { api, type FavoriteVerse } from "../src/lib/api";
+import { api, prefetchAyah, type FavoriteVerse } from "../src/lib/api";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
 import * as Haptics from "expo-haptics";
 
@@ -67,6 +67,7 @@ export default function FavorilerScreen() {
   const renderItem = useCallback(({ item }: { item: FavoriteVerse }) => (
     <TouchableOpacity
       style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
+      onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
       onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
       activeOpacity={0.75}
       accessibilityRole="button"

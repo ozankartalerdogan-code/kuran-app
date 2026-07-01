@@ -6,7 +6,7 @@ import * as Location from "expo-location";
 import { useState, useEffect, memo } from "react";
 import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { api, type TagFilterResult } from "../src/lib/api";
+import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 import {
   requestNotificationPermission,
   fetchPrayerTimes,
@@ -247,6 +247,7 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
             <Text style={styles.accordionEmpty}>İçerik bulunamadı.</Text>
           ) : verses.map((item) => (
             <TouchableOpacity key={item.verse_key} style={styles.verseCard}
+              onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
               onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}
               accessibilityRole="button" accessibilityLabel={`${item.surah_name ?? item.verse_key}, ayeti aç`}>
               <View style={styles.verseHeader}>
