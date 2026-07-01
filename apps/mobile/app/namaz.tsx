@@ -10,7 +10,7 @@ import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 import {
   requestNotificationPermission,
   fetchPrayerTimes,
-  scheduleNamazNotifications,
+  applyNotifications,
   cancelNamazNotifications,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
@@ -19,6 +19,7 @@ import { useTourTarget } from "../src/tour/AppTourProvider";
 const NOTIF_KEY = "namazNotifEnabled";
 // Bildirimlerin en son hangi gün planlandığı (YYYY-MM-DD) — günde bir kez yeniden planlamak için.
 const SCHED_DAY_KEY = "namazNotifSchedDay";
+const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
 function localDayStr(d = new Date()): string {
@@ -269,85 +270,116 @@ export default function NamazScreen() {
   const namazTarget = useTourTarget("namaz.main");
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
+  const [dailyVerseEnabled, setDailyVerseEnabled] = useState(false);
+  const [dailyVerseLoading, setDailyVerseLoading] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
 
-    storage.getString(NOTIF_KEY).then(async (v) => {
-      const enabled = v === "1";
-      setNotifEnabled(enabled);
-      if (!enabled) return;
+    (async () => {
+      const [pv, dv] = await Promise.all([
+        storage.getString(NOTIF_KEY),
+        storage.getString(DAILY_VERSE_KEY),
+      ]);
+      const prayerOn = pv === "1";
+      const dailyOn  = dv === "1";
+      if (cancelled) return;
+      setNotifEnabled(prayerOn);
+      setDailyVerseEnabled(dailyOn);
+      if (!prayerOn && !dailyOn) return;
 
-      // DAILY tetikleyici saat:dakikayı sabitler; vakitler günden güne kaydığı için
-      // bildirimler açıkken günde bir kez sessizce (izin sormadan) yeniden planla.
+      // Vakitler günden güne kaydığı için, açıkken günde bir kez sessizce yeniden planla.
       const today = localDayStr();
       const lastDay = await storage.getString(SCHED_DAY_KEY);
-      if (lastDay === today) return; // bugün zaten planlandı
+      if (lastDay === today) return;
 
       try {
         const { lat, lng, isFallback } = await getUserLocationSilent();
         if (cancelled) return;
         const times = await fetchPrayerTimes(lat, lng);
         if (cancelled || !times) return;
-        await scheduleNamazNotifications(times);
+        await applyNotifications({ times, prayer: prayerOn, dailyVerse: dailyOn });
         await storage.setString(SCHED_DAY_KEY, today);
         if (!cancelled) setUsingFallback(isFallback);
       } catch { /* sessiz — eldeki planlama korunur */ }
-    });
+    })();
 
     return () => { cancelled = true; };
   }, []);
 
+  // Bildirim izni iste; reddedilirse ayarlara yönlendiren uyarı göster.
+  async function ensurePermission(): Promise<boolean> {
+    const granted = await requestNotificationPermission();
+    if (!granted) {
+      Alert.alert(
+        "Bildirim İzni Gerekli",
+        "Bildirimler için izne ihtiyaç var. Ayarlardan \"Bildirimler\"i açabilirsiniz.",
+        [
+          { text: "Vazgeç", style: "cancel" },
+          { text: "Ayarları Aç", onPress: () => { void Linking.openSettings(); } },
+        ],
+      );
+    }
+    return granted;
+  }
+
+  // Ortak: iki toggle durumuna göre bildirimleri yeniden kur (cancelAll orkestratörde).
+  // İkisi de kapalıysa hepsini iptal eder. isFallback döner.
+  async function rescheduleNotifs(prayerOn: boolean, dailyOn: boolean): Promise<boolean> {
+    if (!prayerOn && !dailyOn) {
+      await cancelNamazNotifications();
+      await storage.remove(SCHED_DAY_KEY);
+      return false;
+    }
+    const { lat, lng, isFallback } = await getUserLocation();
+    const times = await fetchPrayerTimes(lat, lng);
+    if (!times) throw new Error("no-times");
+    await applyNotifications({ times, prayer: prayerOn, dailyVerse: dailyOn });
+    await storage.setString(SCHED_DAY_KEY, localDayStr());
+    return isFallback;
+  }
+
   async function toggleNotif(val: boolean) {
     setNotifLoading(true);
     try {
+      if (val && !(await ensurePermission())) { setNotifLoading(false); return; }
+      const isFallback = await rescheduleNotifs(val, dailyVerseEnabled);
+      await storage.setString(NOTIF_KEY, val ? "1" : "0");
+      setNotifEnabled(val);
       if (val) {
-        const granted = await requestNotificationPermission();
-        if (!granted) {
-          // İzin reddedildi/engellendi → sistem penceresi tekrar çıkmayabilir; ayarlara tek dokunuş.
-          Alert.alert(
-            "Bildirim İzni Gerekli",
-            "Namaz vakti bildirimleri için bildirim iznine ihtiyaç var. Ayarlardan \"Bildirimler\"i açabilirsiniz.",
-            [
-              { text: "Vazgeç", style: "cancel" },
-              { text: "Ayarları Aç", onPress: () => { void Linking.openSettings(); } },
-            ],
-          );
-          setNotifLoading(false);
-          return;
-        }
-
-        const { lat, lng, isFallback } = await getUserLocation();
         setUsingFallback(isFallback);
-
-        const times = await fetchPrayerTimes(lat, lng);
-        if (!times) {
-          Alert.alert("Hata", "Namaz vakitleri alınamadı. Lütfen internet bağlantınızı kontrol edin.");
-          setNotifLoading(false);
-          return;
-        }
-
-        await scheduleNamazNotifications(times);
-        await storage.setString(NOTIF_KEY, "1");
-        await storage.setString(SCHED_DAY_KEY, localDayStr()); // bugün planlandı → mount tekrar çekmesin
-        setNotifEnabled(true);
-
         const locationMsg = isFallback
           ? "Konum izni verilmediği için namaz vakitleri İstanbul'a göre hesaplandı."
           : "Namaz vakitleri bulunduğunuz konuma göre hesaplandı.";
-        Alert.alert("Bildirimler Açık", `Her gün her namaz vaktinden 5 dakika önce, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\n${locationMsg}`);
-      } else {
-        await cancelNamazNotifications();
-        await storage.setString(NOTIF_KEY, "0");
-        await storage.remove(SCHED_DAY_KEY); // tekrar açılınca yeniden planlansın
-        setNotifEnabled(false);
+        Alert.alert("Bildirimler Açık", `Her namaz vaktinden 5 dakika önce, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\n${locationMsg}`);
+      } else if (!dailyVerseEnabled) {
         setUsingFallback(false);
       }
     } catch {
       Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
     } finally {
       setNotifLoading(false);
+    }
+  }
+
+  async function toggleDailyVerse(val: boolean) {
+    setDailyVerseLoading(true);
+    try {
+      if (val && !(await ensurePermission())) { setDailyVerseLoading(false); return; }
+      const isFallback = await rescheduleNotifs(notifEnabled, val);
+      await storage.setString(DAILY_VERSE_KEY, val ? "1" : "0");
+      setDailyVerseEnabled(val);
+      if (val) {
+        setUsingFallback(isFallback);
+        Alert.alert("Günlük Ayet Açık", "Her gün, namaz vakitleriyle çakışmayan iki farklı saatte Günün Ayeti ve Günün Duası gönderilecek.");
+      } else if (!notifEnabled) {
+        setUsingFallback(false);
+      }
+    } catch {
+      Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
+    } finally {
+      setDailyVerseLoading(false);
     }
   }
 
@@ -374,6 +406,27 @@ export default function NamazScreen() {
                 onValueChange={toggleNotif}
                 trackColor={{ false: "#d4d4d4", true: "#6ee7b7" }}
                 thumbColor={notifEnabled ? "#059669" : "#f5f5f5"}
+              />
+          }
+        </View>
+
+        {/* Günlük Ayet & Dua Bildirimi (bağımsız toggle) */}
+        <View style={styles.notifCard}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.notifTitle}>📖 Günlük Ayet & Dua</Text>
+            <Text style={styles.notifSub}>
+              {dailyVerseEnabled
+                ? "Her gün 2 kez — namaz vakitleriyle çakışmayan saatlerde"
+                : "Günün Ayeti ve Günün Duası'nı bildirimle al"}
+            </Text>
+          </View>
+          {dailyVerseLoading
+            ? <ActivityIndicator color="#059669" />
+            : <Switch
+                value={dailyVerseEnabled}
+                onValueChange={toggleDailyVerse}
+                trackColor={{ false: "#d4d4d4", true: "#6ee7b7" }}
+                thumbColor={dailyVerseEnabled ? "#059669" : "#f5f5f5"}
               />
           }
         </View>

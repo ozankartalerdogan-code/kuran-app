@@ -89,14 +89,7 @@ function dailyTriggerBefore(hour: number, minute: number, offsetMin: number) {
 // dinamik). Ayrı ayet bildirimi kaldırıldı → günde 5 bildirim (10 değil), fatigue azalır.
 type ValidVakit = { key: string; label: string; hour: number; minute: number };
 
-export async function scheduleNamazNotifications(
-  times: PrayerTimes
-): Promise<void> {
-  // Eski bildirimleri iptal et + Android kanalını hazırla
-  await Notifications.cancelAllScheduledNotificationsAsync();
-  await ensureAndroidChannel();
-
-  // Geçerli vakitleri bir kez ayrıştır
+function parseValid(times: PrayerTimes): ValidVakit[] {
   const valid: ValidVakit[] = [];
   for (const { key, label } of VAKITLER) {
     const timeStr = times[key];
@@ -105,16 +98,18 @@ export async function scheduleNamazNotifications(
     if (Number.isNaN(hour) || Number.isNaN(minute)) continue;
     valid.push({ key, label, hour, minute });
   }
+  return valid;
+}
 
+// Namaz vakti bildirimleri: her vakit için TEK bildirim (hatırlatma + namaz-taglı ayet).
+async function schedulePrayerNotifications(times: PrayerTimes): Promise<void> {
+  const valid = parseValid(times);
   // Namaz-taglı ayet mealleri — PARALEL çek (seri await toggle'ı yavaşlatıyordu).
-  // Başarısız/boş olan vakit reminder-only kalır.
   const verses = await Promise.all(
     valid.map(({ key }) =>
       api.notifications.namazVerse(key.toLowerCase()).catch(() => null)
     )
   );
-
-  // Her vakit için TEK bildirim: hatırlatma + (varsa) namaz-taglı ayet aynı gövdede.
   const jobs = valid.map(({ label, hour, minute }, i) => {
     const translation = verses[i]?.translation;
     const verseLine = translation
@@ -131,6 +126,67 @@ export async function scheduleNamazNotifications(
     });
   });
   await Promise.all(jobs);
+}
+
+// Günlük ayet bildirimlerini, namaz vakitleri arasındaki en büyük 2 boşluğun ortasına
+// yerleştir → namaz bildirimleriyle çakışmaz. (En az 2 vakit yoksa makul sabit saatler.)
+function computeGapSlots(times: PrayerTimes): { hour: number; minute: number }[] {
+  const mins: number[] = [];
+  for (const { key } of VAKITLER) {
+    const t = times[key];
+    if (!t) continue;
+    const [h, m] = t.split(":").map(Number);
+    if (!Number.isNaN(h) && !Number.isNaN(m)) mins.push(h * 60 + m);
+  }
+  mins.sort((a, b) => a - b);
+  if (mins.length < 2) return [{ hour: 10, minute: 30 }, { hour: 20, minute: 0 }];
+  const gaps: { size: number; mid: number }[] = [];
+  for (let i = 0; i < mins.length - 1; i++) {
+    gaps.push({ size: mins[i + 1] - mins[i], mid: Math.round((mins[i] + mins[i + 1]) / 2) });
+  }
+  gaps.sort((a, b) => b.size - a.size);
+  const picks = gaps.slice(0, 2).map((g) => g.mid).sort((a, b) => a - b);
+  return picks.map((mid) => ({ hour: Math.floor(mid / 60), minute: mid % 60 }));
+}
+
+// Günde 2 bağımsız bildirim: Günün Ayeti + Günün Duası (/api/daily), boşluk saatlerine.
+async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void> {
+  const daily = await api.daily.get().catch(() => null);
+  if (!daily) return;
+  const slots = computeGapSlots(times);
+  const items = [
+    daily.verse?.meal
+      ? { title: "📖 Günün Ayeti", body: daily.verse.meal, sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
+      : null,
+    daily.dua?.meal
+      ? { title: "🤲 Günün Duası", body: daily.dua.meal, sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
+      : null,
+  ].filter((x): x is NonNullable<typeof x> => !!x && !!x.slot);
+
+  const jobs = items.map((x) =>
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: x.title,
+        body:  `${x.body.slice(0, 150)}${x.body.length > 150 ? "…" : ""}`,
+        sound: true,
+        data:  { route: `/ayah/${x.sid}/${x.an}` },
+      },
+      trigger: dailyTriggerBefore(x.slot.hour, x.slot.minute, 0),
+    })
+  );
+  await Promise.all(jobs);
+}
+
+// Orkestratör: cancelAll bir kez → iki bildirim türünü bağımsız toggle'lara göre planlar.
+export async function applyNotifications(opts: {
+  times: PrayerTimes;
+  prayer: boolean;
+  dailyVerse: boolean;
+}): Promise<void> {
+  await Notifications.cancelAllScheduledNotificationsAsync();
+  await ensureAndroidChannel();
+  if (opts.prayer) await schedulePrayerNotifications(opts.times);
+  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.times);
 }
 
 // Bildirimleri kapat
