@@ -50,11 +50,12 @@ export function runMigration(): Promise<void> {
       for (const [k, v] of pairs) {
         if (v != null && !m.contains(k)) m.set(k, v);
       }
-    } catch (err) {
-      logStorageWarning("migrate", "(all)", err);
-    } finally {
+      // Bayrağı YALNIZ başarılı kopyalamadan sonra koy — hata olursa tekrar
+      // denensin (aksi halde eksik migrasyon kalıcı hale gelirdi).
       m.set(MIGRATION_FLAG, true);
       migrated = true;
+    } catch (err) {
+      logStorageWarning("migrate", "(all)", err);
     }
   })();
   return migrationPromise;
@@ -119,11 +120,12 @@ export const storage = {
     if (mmkv) {
       const v = mmkv.getString(key);
       if (v != null) return v;
-      // Migrasyon henüz bitmediyse eski veriyi AsyncStorage'dan getir.
-      if (!migrated) {
-        await runMigration();
-        return mmkv.getString(key) ?? null;
-      }
+      // MMKV'de yoksa eski depoya (AsyncStorage) düş — KALICI emniyet ağı.
+      // Bulursa MMKV'ye taşı (tembel migrasyon). Böylece hiçbir anahtar,
+      // toplu migrasyonun yarışı/hatası yüzünden kaybolmaz; veri AsyncStorage'da
+      // durduğu sürece bir sonraki okumada kendiliğinden geri gelir.
+      const legacy = await AsyncStorage.getItem(key);
+      if (legacy != null) { mmkv.set(key, legacy); return legacy; }
       return null;
     }
     return AsyncStorage.getItem(key);
