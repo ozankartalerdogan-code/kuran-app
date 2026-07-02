@@ -20,7 +20,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
-import { normalizeQuizSorular, type QuizSoru } from "../../src/lib/quizUtils";
+import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
 
@@ -184,7 +184,7 @@ export default function DersDetayScreen() {
   const startQuiz = () => {
     Haptics.selectionAsync();
     const shuffled = shuffle<QuizSoru>(validQuiz);
-    setQuizQuestions(shuffled.slice(0, Math.min(10, shuffled.length)));
+    setQuizQuestions(shuffled.slice(0, Math.min(10, shuffled.length)).map(shuffleQuizOptions));
     setQIndex(0);
     setSelectedAnswer(null);
     setShowResult(false);
@@ -236,7 +236,7 @@ export default function DersDetayScreen() {
 
   const retryQuiz = () => {
     const shuffled = shuffle<QuizSoru>(validQuiz);
-    setQuizQuestions(shuffled.slice(0, Math.min(10, shuffled.length)));
+    setQuizQuestions(shuffled.slice(0, Math.min(10, shuffled.length)).map(shuffleQuizOptions));
     setQIndex(0);
     setSelectedAnswer(null);
     setShowResult(false);

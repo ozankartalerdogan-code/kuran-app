@@ -8,7 +8,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { normalizeQuizSorular } from "./quizUtils.ts";
+import { normalizeQuizSorular, shuffleQuizOptions } from "./quizUtils.ts";
 
 test("dizi formatı: 'A) metin' şıkları harf + metne ayrılır", () => {
   const out = normalizeQuizSorular([
@@ -77,4 +77,20 @@ test("sayısal id/soru güvenli string'e çevrilir (dış veri güveni)", () => 
   ]);
   assert.equal(out[0].id, "7");
   assert.equal(out[0].soru, "123");
+});
+
+test("shuffleQuizOptions: doğru cevap korunur + harfler A/B/C/D sıralı", () => {
+  const soru = normalizeQuizSorular([
+    { id: "1", soru: "S?", dogru_cevap: "C", secenekler: ["A) yanlış1", "B) yanlış2", "C) DOĞRU", "D) yanlış3"] },
+  ])[0];
+  for (let i = 0; i < 25; i++) {
+    const s = shuffleQuizOptions(soru);
+    assert.deepEqual(s.cevaplar.map((c) => c.harf), ["A", "B", "C", "D"]); // yeniden harfli, sıralı
+    const dogruMetin = s.cevaplar.find((c) => c.harf === s.dogru)?.metin;
+    assert.equal(dogruMetin, "DOĞRU"); // doğru cevabın METNİ korunur (harf değişse de)
+    assert.deepEqual(
+      s.cevaplar.map((c) => c.metin).slice().sort(),
+      ["DOĞRU", "yanlış1", "yanlış2", "yanlış3"].slice().sort(),
+    ); // aynı şık kümesi, kayıp yok
+  }
 });
