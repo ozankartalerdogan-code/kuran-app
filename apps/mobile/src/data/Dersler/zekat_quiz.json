@@ -1,7 +1,7 @@
 {
   "quiz_id": "zekat",
   "baslik": "Zekat",
-  "toplam_soru": 60,
+  "toplam_soru": 30,
   "sorular": [
     {
       "id": "zekat_001",
@@ -451,21 +451,6 @@
       "dogru_cevap": "C",
       "aciklama": "Fitre zekatla aynı şartlara bağlı değildir; ancak herkes için de sınırsız bir yükümlülük değildir. Temel ihtiyaçlarından fazla imkana sahip Müslümanlar için gündeme gelir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "zekat_054",
-      "konu": "mallar",
-      "soru": "Hangisi zekata tabi mallar arasında yer almaz?",
-      "secenekler": [
-        "A) Kişinin kullandığı ev (temel ihtiyaç)",
-        "B) Nakit para",
-        "C) Ticaret malları",
-        "D) Altın"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kişinin oturduğu ev, temel ihtiyaç sayıldığından zekata tabi değildir. Nakit para, ticaret malları ve altın ise nisap şartlarını sağladığında zekata tabidir.",
-      "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     }
   ]

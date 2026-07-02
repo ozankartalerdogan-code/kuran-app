@@ -1,7 +1,7 @@
 {
   "quiz_id": "hac-umre",
   "baslik": "Hac & Umre",
-  "toplam_soru": 100,
+  "toplam_soru": 50,
   "sorular": [
     {
       "id": "hac_001",
@@ -752,51 +752,6 @@
       "aciklama": "Hadiste geçen \"el-hacc el-mebrur\" (hacc-ı mebrur) ifadesi, kabul edilmiş, makbul hac anlamına gelir.",
       "zorluk": "zor",
       "kaynak": "Buhari, Umre 1; Müslim, Hac 437"
-    },
-    {
-      "id": "hac_070",
-      "konu": "ihram",
-      "soru": "Hangisi ihramlıya yasaktır?",
-      "secenekler": [
-        "A) Dua etmek",
-        "B) Namaz kılmak",
-        "C) Saç ve tırnak kesmek",
-        "D) Su içmek"
-      ],
-      "dogru_cevap": "C",
-      "aciklama": "İhramlıya saç/tırnak kesmek, koku sürmek, avlanmak ve cinsel ilişki yasaktır.",
-      "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "hac_073",
-      "konu": "farzlar",
-      "soru": "Hangisi haccın farzlarından biridir?",
-      "secenekler": [
-        "A) Arafat vakfesi",
-        "B) Kurban kesmek",
-        "C) Sa'y",
-        "D) Şeytan taşlama"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hanefi mezhebine göre haccın farzları ihram, Arafat vakfesi ve ziyaret tavafıdır. Sa'y diğer mezheplerde rükün kabul edilebilir.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "hac_085",
-      "konu": "ihram",
-      "soru": "Hangisi ihramlıya yasak DEĞİLDİR?",
-      "secenekler": [
-        "A) Avlanmak",
-        "B) Dua etmek",
-        "C) Saç kesmek",
-        "D) Koku sürmek"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Dua etmek ihramlıya yasak değildir. Yasaklar: saç/tırnak kesmek, koku sürmek, avlanmak ve cinsel ilişki.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
     }
   ]
 }

@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "quizId": "nefsini-tani-quiz-50",
+  "quizId": "nefsini-tani-quiz",
   "moduleId": "nefsini-tani",
-  "title": "Nefsini Tanı - 50 Soruluk Quiz",
+  "title": "Nefsini Tanı Quizi",
   "language": "tr",
-  "questionCount": 100,
+  "questionCount": 35,
   "questionType": "multiple_choice",
   "optionsPerQuestion": 4,
   "passingScorePercent": 70,
-  "description": "Nefs kavramı, nefs mertebeleri, ayet dayanakları, sahih hadisler ve uygulama notları üzerine 50 soruluk test.",
+  "description": "Nefs kavramı, nefs mertebeleri ve nefis terbiyesinin yolları üzerine sorular.",
   "scoring": {
     "correctAnswerPoint": 1,
     "wrongAnswerPoint": 0,
@@ -20,43 +20,43 @@
       "id": "q001",
       "lessonId": "lesson-01-nefs-nedir",
       "difficulty": "easy",
-      "question": "Nefs için en doğru genel açıklama hangisidir?",
+      "question": "Nefs kavramının en doğru tanımı hangisidir?",
       "options": [
         "Yok edilmesi gereken bağımsız kötü bir varlıktır.",
+        "Yalnızca kötüye yönelten bir dürtüdür.",
         "İnsanın iç benliği, arzuları, yönelişleri ve sorumluluk alanıyla ilgili geniş bir kavramdır.",
-        "Sadece şeytanın insana dışarıdan verdiği vesvesedir.",
-        "Sadece bedensel açlık ve susuzluk anlamına gelir."
+        "Sadece bedensel ihtiyaçları ifade eder."
       ],
-      "correctOptionIndex": 1,
-      "explanation": "Nefs, insanın iç benliği, arzuları, yönelişleri ve sorumluluk alanıyla ilgili geniş bir kavramdır."
+      "correctOptionIndex": 2,
+      "explanation": "Nefs, yok edilmesi değil; arındırılması, eğitilmesi ve Allah'ın rızasına yönlendirilmesi gereken iç benliğimizdir."
     },
     {
       "id": "q002",
       "lessonId": "lesson-01-nefs-nedir",
       "difficulty": "easy",
-      "question": "Şems 91/7-10 ayetleri hangi ana konuyla ilişkilendirilmiştir?",
+      "question": "Nefsin asıl hedefi nedir?",
       "options": [
-        "Nefsin arındırılması, kötülük ve takva kabiliyeti",
-        "Miras hükümleri",
-        "Savaş ahlakı",
-        "Ticaret ölçüleri"
+        "Nefsi arındırmak, terbiye etmek ve Allah'ın rızasına yönlendirmek",
+        "Nefsi tamamen bastırmak",
+        "Nefsin varlığını inkâr etmek",
+        "Nefsin her isteğini yerine getirmek"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Şems 91/7-10, nefse kötülük ve takva yönünün ilham edilmesi, arınma ve kirlenme konusuyla ilişkilendirilmiştir."
+      "explanation": "Nefs yok edilmek için değil; arındırılıp Allah'a doğru yönlendirmek için vardır."
     },
     {
       "id": "q003",
       "lessonId": "lesson-01-nefs-nedir",
       "difficulty": "medium",
-      "question": "Nefs hakkında verilen temel mesaj hangisidir?",
+      "question": "Kur'an'da nefsin hem iyiliğe hem kötülüğe yönelebilen bir alan olduğuna dair temel ilke nedir?",
       "options": [
-        "Nefs tamamen yok edilmelidir.",
-        "Nefs sadece kötü insanların problemidir.",
-        "Nefs arındırılması ve Allah’ın rızasına yönlendirilmesi gereken iç benliğimizdir.",
-        "Nefs yalnızca dünya işleriyle ilgilidir."
+        "İnsan, nefsiyle mücadele etmeden kurtulamaz.",
+        "Nefis yalnızca güçlü insanlarda kontrol altına alınabilir.",
+        "Nefsin kötü tarafı tamamen bastırılmalıdır.",
+        "Nefsin arındırılması kurtuluşu, kirletilmesi ziyanı getirir."
       ],
-      "correctOptionIndex": 2,
-      "explanation": "Nefsin yok edilmesi değil; arındırılması, eğitilmesi ve Allah’ın rızasına yönlendirilmesi gerektiği vurgulanır."
+      "correctOptionIndex": 3,
+      "explanation": "Nefsin arındırılması kurtuluşu, kirletilmesi ziyanı getirir. İnsan bu iki yönelişle yaratılmıştır."
     },
     {
       "id": "q004",
@@ -64,1468 +64,488 @@
       "difficulty": "easy",
       "question": "'Ham Nefs' başlığı nasıl konumlandırılmıştır?",
       "options": [
-        "Kur’an’da birebir geçen zorunlu bir nefs mertebesi olarak",
-        "Pedagojik/öğretici bir giriş başlığı olarak",
-        "Sadece hadislerde geçen teknik bir terim olarak",
-        "Klasik yedili tasnifin son mertebesi olarak"
+        "Kur'an'da birebir geçen zorunlu bir mertebe olarak",
+        "Yeni başlayan kullanıcıya giriş sağlamak için pedagojik bir başlık olarak",
+        "Klasik yedili tasnifin ilk basamağı olarak",
+        "Tasavvuf edebiyatında kullanılan teknik bir terim olarak"
       ],
       "correctOptionIndex": 1,
-      "explanation": "Ham Nefs, klasik yedili tasnifin parçası gibi değil; konuyu bilmeyen kullanıcıya giriş sağlamak için pedagojik bir kavram olarak eklenmiştir."
+      "explanation": "Ham Nefs, klasik tasnifin parçası değildir; konuyu bilmeyen kullanıcıya anlaşılır bir giriş sağlamak amacıyla eklenmiş öğretici bir başlıktır."
     },
     {
       "id": "q005",
       "lessonId": "lesson-02-ham-nefs",
       "difficulty": "medium",
-      "question": "Nâziât 79/40-41 hangi konuyla ilişkilendirilmiştir?",
+      "question": "Ham nefsin temel özelliği nedir?",
       "options": [
-        "Nefsi kötü arzulardan alıkoymak",
-        "Borç yazımı",
-        "Meleklerin yaratılışı",
-        "Zekât oranları"
+        "Arzularını sürekli sorgulayan bir iç hâl",
+        "Her eylemi Allah'ın rızası için yapan bilinç",
+        "Arzularını sorgulamadan takip eden, iç yön tayini zayıf hâl",
+        "Günahın farkında olan ama durduramayan hâl"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Nâziât 79/40-41, Rabbinin huzurundan korkan ve nefsini hevadan alıkoyan kimsenin cennetle ilişkilendirilmesi bağlamında kullanılmıştır."
+      "correctOptionIndex": 2,
+      "explanation": "Ham nefis, arzuları sorgulamadan takip eden, 'bu istek beni Allah'a yaklaştırıyor mu?' sorusunu sormayan iç hâli temsil eder."
     },
     {
       "id": "q006",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "easy",
-      "question": "Nefs-i emmâre hangi anlama gelir?",
+      "question": "Emmâre hâlindeki kişi bir hata yaptığında tipik olarak ne yapar?",
       "options": [
-        "Huzura ermiş nefis",
-        "Kendini kınayan nefis",
-        "Kötülüğü emreden nefis",
-        "Allah’tan razı olan nefis"
+        "Günahı işler ve ardından bahane üretip savunur",
+        "Hatasını kabul edip özür diler",
+        "Pişman olup tevbeye yönelir",
+        "Günahın farkına varıp ağlar"
       ],
-      "correctOptionIndex": 2,
-      "explanation": "Nefs-i emmâre, insanı kötülüğe ve günaha çağıran nefis hâli olarak açıklanır."
+      "correctOptionIndex": 0,
+      "explanation": "Emmâre hâlinde insan sadece günah işlemekle kalmaz; onu savunur, küçümser ve bahane üretir."
     },
     {
       "id": "q007",
       "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "easy",
-      "question": "Nefs-i emmâre başlığının ana Kur’an dayanağı hangi ayettir?",
+      "difficulty": "medium",
+      "question": "Nefs-i Emmâre hâlinin en belirgin belirtisi nedir?",
       "options": [
-        "Yusuf 12/53",
-        "Fecr 89/27",
-        "Kıyâme 75/2",
-        "Bakara 2/255"
+        "Günahlardan pişman olup tevbe etmek",
+        "Sadece dışarıdan gelen baskılara boyun eğmek",
+        "Yalnızca küçük hatalar yapmak",
+        "Günahı işlemekle kalmayıp ona bahane ve mazeret üretmek"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Yusuf 12/53, nefsin Rabbimizin merhamet edip koruması dışında kötülüğü emretmeye yatkın olduğunu bildirir."
+      "correctOptionIndex": 3,
+      "explanation": "Emmâre hâlinde insan sadece hata yapmakla kalmaz; hatasını savunur, küçümser ve bahane üretir."
     },
     {
       "id": "q008",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "medium",
-      "question": "Aşağıdakilerden hangisi nefs-i emmârenin belirtileri arasında verilmiştir?",
+      "question": "Emmâre hâlinin başlıca belirtileri arasında hangisi yoktur?",
       "options": [
-        "Günahı savunmak ve bahane üretmek",
-        "Daima hatasını fark edip tevbe etmek",
-        "Tam bir kalp huzuruna erişmek",
-        "Allah’ın takdirine rıza göstermek"
+        "Kibir",
+        "Günahtan pişmanlık duymak",
+        "Hırs ve haset",
+        "Arzuyu hakikatin önüne koymak"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Günahı savunmak, bahane üretmek, kibirlenmek ve arzuyu hakikatin önüne koymak nefs-i emmârenin belirtileri arasında sayılır."
+      "correctOptionIndex": 1,
+      "explanation": "Pişmanlık emmârenin değil, levvâmenin belirtisidir. Emmâre hâlinde insan günahı savunur ve bahane üretir."
     },
     {
       "id": "q009",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "medium",
-      "question": "'Cehennem arzularla, cennet ise nefse zor gelen şeylerle kuşatılmıştır' anlamındaki hadis hangi konuda kullanılmıştır?",
+      "question": "Emmâre hâliyle başa çıkmada ilk adım olarak ne önerilir?",
       "options": [
-        "Arzuların tehlikesi ve nefis terbiyesi",
-        "Miras paylaşımı",
-        "Yolculuk adabı",
-        "Kurban ibadeti"
+        "Günahı olduğundan büyük görmek",
+        "Tüm isteklerden vazgeçmek",
+        "Nefsin kötülük emreden yönünü tanıyıp tevbeye yönelmek",
+        "Yalnız kalmak"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Bu sahih hadis, arzuların insanı sürükleyebileceğini ve cennet yolunun nefse zor gelen disiplinler içerebileceğini göstermek için kullanılmıştır."
+      "correctOptionIndex": 2,
+      "explanation": "Emmâreyi tanımak insanın kendini temize çıkarmak yerine Allah'ın merhametine sığınmasını öğretir."
     },
     {
       "id": "q010",
       "lessonId": "lesson-04-nefs-i-levvame",
       "difficulty": "easy",
-      "question": "Nefs-i levvâme hangi anlama gelir?",
+      "question": "Levvâme hâlini en iyi anlatan davranış hangisidir?",
       "options": [
-        "Kendini kınayan ve hesaba çeken nefis",
-        "Kötülüğü emreden nefis",
-        "Tamamen arınmış nefis",
-        "Sadece bedensel isteklerden oluşan nefis"
+        "Hatanın ardından içten pişmanlık duyup kendini hesaba çekmek",
+        "Hataları fark etmeden sürdürmek",
+        "Günah işledikçe daha da derinleşmek",
+        "Her şeye kayıtsız kalmak"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Nefs-i levvâme, yanlışı fark eden, kendini hesaba çeken ve pişmanlık duyan nefis hâlidir."
+      "explanation": "Levvâme; hatanın ardından içten gelen bir hesap sorma, pişmanlık ve kendini kınama hâlidir."
     },
     {
       "id": "q011",
       "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "easy",
-      "question": "Nefs-i levvâme için ana Kur’an dayanağı hangisidir?",
+      "difficulty": "medium",
+      "question": "Levvâme hâlindeki pişmanlık nasıl değerlendirilmelidir?",
       "options": [
-        "Kıyâme 75/2",
-        "Yusuf 12/53",
-        "Fecr 89/28",
-        "Nâs 114/1"
+        "Umutsuzluğun başlangıcı olarak",
+        "Bir kusur ve zayıflık göstergesi olarak",
+        "Kişinin artık kurtulamayacağının kanıtı olarak",
+        "Düşüşün değil, uyanışın işareti olarak"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Kıyâme 75/2’de kendini kınayan nefis üzerine yemin edilir."
+      "correctOptionIndex": 3,
+      "explanation": "Levvâme, düşüşün değil uyanışın işaretidir. Pişmanlık doğru yönlendirilirse tevbe ve ıslaha dönüşebilir."
     },
     {
       "id": "q012",
       "lessonId": "lesson-04-nefs-i-levvame",
       "difficulty": "medium",
-      "question": "Pişmanlık nasıl değerlendirilmelidir?",
+      "question": "Pişmanlık hissi doğru yönlendirildiğinde ne olur?",
       "options": [
-        "Mutlaka ümitsizlik sebebi olarak",
-        "Düşüşün ve uyanışın mümkün olduğuna işaret eden bir başlangıç olarak",
-        "Hiç önemsenmemesi gereken bir duygu olarak",
-        "Sadece geçmiş ümmetlerle ilgili bir kavram olarak"
+        "Kişi kendini değersiz hisseder ve ibadeti bırakır",
+        "Tevbe, ıslah ve istikamete dönüşür",
+        "Otomatik olarak günahlar tekrarlanmaz",
+        "Kişi başkalarını da mahkûm etmeye başlar"
       ],
       "correctOptionIndex": 1,
-      "explanation": "Levvâme aşamasında pişmanlık, doğru yönlendirilirse tevbe ve ıslahın başlangıcı olabilecek bir uyanış işareti olarak anlatılır."
+      "explanation": "Pişmanlık doğru yönlendirilirse tevbe, ıslah ve istikamete dönüşür; aşırı suçluluk psikolojisine dönüşmemelidir."
     },
     {
       "id": "q013",
-      "lessonId": "lesson-04-nefs-i-levvame",
+      "lessonId": "lesson-05-nefs-i-mulhime",
       "difficulty": "medium",
-      "question": "Öfke anında kendine hâkim olmayı gerçek güç olarak anlatan hadis nefse hâkimiyet için hangi başlıklarda kullanılmıştır?",
+      "question": "Nefs-i Mülhime adı hakkında hangisi doğrudur?",
       "options": [
-        "Nefs-i Levvâme ve Nefs-i Marzıyye",
-        "Sadece Ham Nefs",
-        "Sadece Nefs-i Mutmainne",
-        "Sadece Nefs-i Kâmile"
+        "Kur'an'da birebir 'nefs-i mülhime' olarak geçer",
+        "Yalnızca hadislerde geçen bir terimdir",
+        "Kur'an'da isim olarak geçmez; ilham ifadesinden hareketle ahlakî/tasavvufî gelenekte kullanılır",
+        "Dört büyük nefs mertebesinden biridir"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Buhârî 6114 rivayeti, öfke kontrolü ve nefse hâkimiyet bağlamında Nefs-i Levvâme, Nefs-i Marzıyye ve pratik nefis terbiyesi bölümlerinde kullanılmıştır."
+      "correctOptionIndex": 2,
+      "explanation": "Mülhime adı Kur'an'da birebir geçmez; nefse iyilik ve kötülük yönünün ilham edilmesinden hareketle tasavvufî/ahlakî gelenekte kullanılan bir isimdir."
     },
     {
       "id": "q014",
       "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "easy",
-      "question": "Nefs-i mülhime başlığı için en doğru açıklama hangisidir?",
+      "difficulty": "medium",
+      "question": "Mülhime hâlinde asıl dikkat edilmesi gereken husus nedir?",
       "options": [
-        "Kur’an’da birebir bu isimle geçen bir kavramdır.",
-        "Şems 91/8’deki ilham ifadesiyle ilişkilendirilen ahlakî/tasavvufî açıklama başlığıdır.",
-        "Sadece cehennem azabını anlatan bir ifadedir.",
-        "Nefsin tamamen yok olması demektir."
+        "İçten gelen sesleri Kur'an ve sünnet ölçüsüyle değerlendirmek",
+        "İçten gelen her düşüncenin ilham sayıldığını kabul etmek",
+        "İç sese körü körüne uymak",
+        "Vesvese ile ilhamı ayırt etmemek"
       ],
-      "correctOptionIndex": 1,
-      "explanation": "Nefs-i mülhime ifadesinin Kur’an’da birebir geçmediği, Şems 91/8’deki ilham ifadesiyle ilişkilendirildiği özellikle belirtilir."
+      "correctOptionIndex": 0,
+      "explanation": "Her iç ses doğru kabul edilmez. Mümin içinden gelen düşünceyi Kur'an, sünnet ve ahlak ölçüsüyle tartar; takvaya çağıran yönelişi güçlendirir."
     },
     {
       "id": "q015",
       "lessonId": "lesson-05-nefs-i-mulhime",
       "difficulty": "medium",
-      "question": "Nefs-i mülhime aşamasında hangi güvenlik notu vurgulanmıştır?",
+      "question": "Mülhime hâlinde vesvese, heva ve sahih yöneliş arasındaki ayrım neden önemlidir?",
       "options": [
-        "İçinden gelen her düşünce kesin ilhamdır.",
-        "İç sesler Kur’an, sünnet ve ahlak ölçüsüyle tartılmalıdır.",
-        "Vesvese ile ilham arasında hiçbir fark yoktur.",
-        "Kişi bu aşamada artık hata yapmaz."
+        "İnsanın kendi nefsine hiç güvenmemesi gerektiğinden",
+        "Nefs bu hâlde tamamen arınmış sayıldığından",
+        "Dua bu hâlde anlamsız olduğundan",
+        "İçten gelen her şeyi körü körüne uygulamak tehlikeli olduğundan"
       ],
-      "correctOptionIndex": 1,
-      "explanation": "'İçinden gelen her şey ilhamdır' anlayışından kaçınılmalı; iç sesler Kur’an, sünnet ve ahlak ölçüsüyle değerlendirilmelidir."
+      "correctOptionIndex": 3,
+      "explanation": "İçten gelen her ses ilham değildir; vesvese veya heva da olabilir. Bu yüzden içten gelen düşünceyi Kur'an ve sünnet ölçüsüne vurmak şarttır."
     },
     {
       "id": "q016",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "medium",
-      "question": "'Mücahid, kendi nefsiyle mücadele eden kimsedir' anlamındaki rivayet hangi kaynakla verilmiştir?",
+      "lessonId": "lesson-06-nefs-i-mutmainne",
+      "difficulty": "easy",
+      "question": "Mutmainne hâlindeki kişinin zorlu günlerdeki tutumu hangisidir?",
       "options": [
-        "Jami` at-Tirmidhi 1621",
-        "Sahih al-Bukhari 1",
-        "Sunan Abu Dawud 40",
-        "Muwatta Malik 5"
+        "Zorluğu görmezden gelmek",
+        "Sarsılsa da Allah'a güvenini kaybetmemek",
+        "Zorluk geçince imanını yenilemek",
+        "Her zorlukta şikâyet edip sorgulamak"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Bu rivayet Tirmizî 1621 olarak verilmiştir."
+      "correctOptionIndex": 1,
+      "explanation": "Mutmainne hâli zorlukları inkâr etmez; Allah'a güveni koruyarak zorlukla baş başa durabilir."
     },
     {
       "id": "q017",
       "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "easy",
-      "question": "Nefs-i mutmainne hangi anlama gelir?",
+      "difficulty": "medium",
+      "question": "Mutmainne hâlindeki huzur nasıl tarif edilir?",
       "options": [
-        "Kötülüğü emreden nefis",
-        "Huzura ermiş nefis",
-        "Sadece pişmanlık yaşayan nefis",
-        "Dünya malını çoğaltan nefis"
+        "Tüm arzuların tamamen yok olması",
+        "Dış şartların eksiksiz düzelmesi",
+        "Kalbin Allah'a güvenmeyi öğrenmesi",
+        "Hiç hata yapmamak"
       ],
-      "correctOptionIndex": 1,
-      "explanation": "Nefs-i mutmainne, imanla huzur bulan ve Allah’a güvenen nefis hâli olarak açıklanır."
+      "correctOptionIndex": 2,
+      "explanation": "Mutmainne huzuru arzuların yok olması değil; kalbin Allah'a güvenmeyi öğrenmesidir. İnsan zorlukları inkâr etmez ama Rabbini unutarak savrulmaz."
     },
     {
       "id": "q018",
       "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "easy",
-      "question": "Nefs-i mutmainne başlığının ana ayetleri hangileridir?",
+      "difficulty": "medium",
+      "question": "Mutmainne hâli hakkında yanlış olan ifade hangisidir?",
       "options": [
-        "Fecr 89/27-30",
-        "Yusuf 12/53",
-        "Kıyâme 75/2",
-        "Fil 105/1-5"
+        "Bu hâlde insan hiç zorlanmaz ve üzülmez",
+        "Kalp Allah'a güvenmeyi öğrenmiştir",
+        "İbadette sebat vardır",
+        "Günaha karşı direnç güçlenmiştir"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Fecr 89/27-30, huzura ermiş nefis, râzıye ve marzıyye başlıklarının ana dayanağıdır."
+      "explanation": "Mutmainne hâli kişinin hiç üzülmediği veya zorlanmadığı anlamına gelmez; zorluklar içinde Allah'a güveni koruyabilen hâli ifade eder."
     },
     {
       "id": "q019",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "medium",
-      "question": "Nefs-i mutmainne nasıl anlaşılmalıdır?",
+      "lessonId": "lesson-07-nefs-i-raziye",
+      "difficulty": "easy",
+      "question": "Râzıye hâlindeki kişi ağır bir imtihanla karşılaştığında nasıl bir tutum sergiler?",
       "options": [
-        "Arzuların tamamen yok olduğu ve insanın hiç zorlanmadığı hâl olarak",
-        "Kalbin Allah’a güvenmeyi öğrendiği huzur hâli olarak",
-        "Günahı savunmanın en yoğun olduğu hâl olarak",
-        "Sadece maddî zenginlik elde etmek olarak"
+        "Durumunu inkâr ederek devam eder",
+        "Zulme boyun eğip sustukça rahatlar",
+        "Acıyı hissetmez, her şeye kayıtsız kalır",
+        "Acının içinde bile Allah'a güveni korur, isyan etmez"
       ],
-      "correctOptionIndex": 1,
-      "explanation": "Mutmainne, arzuların tamamen yok olması değil; kalbin Allah’a güvenmeyi öğrenmesidir."
+      "correctOptionIndex": 3,
+      "explanation": "Rıza, acı hissetmemek değil; acının içinde Allah'a güveni kaybetmemektir."
     },
     {
       "id": "q020",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
+      "lessonId": "lesson-07-nefs-i-raziye",
       "difficulty": "medium",
-      "question": "Nesâî 5524 hangi dua bağlamında kullanılmıştır?",
+      "question": "Rıza ne demektir?",
       "options": [
-        "Yapılan ve henüz yapılmayan işlerin şerrinden Allah’a sığınma",
-        "Yemekten önce okunacak dua",
-        "Yolculuğa çıkarken binek duası",
-        "Yağmur duası"
+        "Acıyı hiç hissetmemek",
+        "Acının içinde bile Allah'a güveni kaybetmemek",
+        "Her şeye sessiz kalmak",
+        "Zorlukları görmezden gelmek"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Nesâî 5524, Resûlullah’ın yapılan ve yapılmayan şeylerin şerrinden Allah’a sığınma duası bağlamında kullanılmıştır."
+      "correctOptionIndex": 1,
+      "explanation": "Rıza, acı hissetmemek değildir; acının içinde bile Allah'a güveni kaybetmemektir. Rızanın içinde sabır, şükür ve teslimiyet vardır."
     },
     {
       "id": "q021",
       "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "easy",
-      "question": "Nefs-i râzıye neyi ifade eder?",
+      "difficulty": "medium",
+      "question": "Rıza hâli zulme boyun eğmek veya haksızlığa sessiz kalmak olarak yorumlanabilir mi?",
       "options": [
-        "Allah’tan razı olmayı öğrenen nefis hâlini",
-        "Kötülüğü emreden nefis hâlini",
-        "Sadece günah sonrası pişmanlığı",
-        "Nefsin Kur’an dışı tamamen reddedilen bir türünü"
+        "Evet, rıza her şeyi kabullenmek demektir",
+        "Evet, zulüm de Allah'ın takdiridir",
+        "Hayır; rıza Allah'ın takdirine teslimiyettir, kul hakkı ve adalet sorumluluğu korunur",
+        "Hayır, ama bu konuda hiçbir şey söylenemez"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefs-i râzıye, kulun Allah’ın hükmüne, emrine ve takdirine razı olmayı öğrenmesiyle ilişkilendirilir."
+      "correctOptionIndex": 2,
+      "explanation": "Rıza Allah'ın takdirine teslimiyettir; zulüme boyun eğmek değildir. Kul hakkı ve adalet sorumluluğu korunmaya devam eder."
     },
     {
       "id": "q022",
-      "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "medium",
-      "question": "Rıza kavramı nasıl açıklanmıştır?",
+      "lessonId": "lesson-08-nefs-i-marziyye",
+      "difficulty": "easy",
+      "question": "Marzıyye hâlini en iyi ifade eden cümle hangisidir?",
       "options": [
-        "Acıyı hiç hissetmemek",
-        "Haksızlığa ve zulme sessiz kalmak",
-        "Acının içinde bile Allah’a güveni kaybetmemek",
-        "Kişinin kendini tamamen kusursuz görmesi"
+        "Kul, ihlas ve tevazuyla Allah'ın rızasını kazanmayı hedefler",
+        "Kul, ibadetini yaptığı için kurtuluşuna kesin gözüyle bakar",
+        "Kul, manevi üstünlüğünü başkalarıyla paylaşır",
+        "Kul, artık günah işlemez hâle gelmiştir"
       ],
-      "correctOptionIndex": 2,
-      "explanation": "Rıza, acı hissetmemek değil; acının içinde bile Allah’a güveni kaybetmemektir."
+      "correctOptionIndex": 0,
+      "explanation": "Marzıyye; ihlas, tevazu ve Allah rızasını merkeze alma çabasıdır; kendini beğenmek değildir."
     },
     {
       "id": "q023",
-      "lessonId": "lesson-07-nefs-i-raziye",
+      "lessonId": "lesson-08-nefs-i-marziyye",
       "difficulty": "medium",
-      "question": "Râzıye ve marzıyye başlıkları hangi ayetle ilişkilendirilmiştir?",
+      "question": "Marzıyye hâli hangi tutumla bağdaşmaz?",
       "options": [
-        "Fecr 89/28",
-        "Bakara 2/183",
-        "Yasin 36/58",
-        "Maide 5/3"
+        "İhlas ve tevazu",
+        "Güzel ahlak ve merhamet",
+        "Allah rızasını merkeze almak",
+        "Kendini Allah'ın kesinlikle razı olduğu kul ilan etmek"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Fecr 89/28’de 'Sen O’ndan hoşnut, O da senden hoşnut olarak Rabbine dön' anlamındaki hitap, râzıye ve marzıyye başlıklarıyla ilişkilendirilir."
+      "correctOptionIndex": 3,
+      "explanation": "Marzıyye makamı kendini beğenmek veya 'Allah kesinlikle benden razıdır' demek değildir; ihlas, tevazu ve Allah rızasını merkeze alma çabasıdır."
     },
     {
       "id": "q024",
       "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "easy",
-      "question": "Nefs-i marzıyye neyi ifade eder?",
+      "difficulty": "medium",
+      "question": "Marzıyye hâlinde müminin ameline güvenmek yerine ne tercih etmesi beklenir?",
       "options": [
-        "Allah’ın razı olduğu kulluk hâline yönelen nefsi",
-        "Kötülüğü normalleştiren nefsi",
-        "Sadece bedensel arzularla yaşayan nefsi",
-        "İç muhasebeden tamamen uzak nefsi"
+        "İbadeti bırakmak",
+        "Allah'ın rahmetini umarak ve tevazuyla yürümek",
+        "Ameline güvenerek yürümek",
+        "Başkalarının ibadetini değerlendirmek"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefs-i marzıyye, Allah’ın razı olacağı kulluk hâline yönelmiş nefis olarak açıklanır."
+      "correctOptionIndex": 1,
+      "explanation": "Kul ameline güvenerek değil, Allah'ın rahmetini umarak ve tevazuyla yürür; bu marzıyye hâlinin özüdür."
     },
     {
       "id": "q025",
-      "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "medium",
-      "question": "Marzıyye başlığı hangi tehlikeli yanlış anlamaya karşı uyarır?",
+      "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
+      "difficulty": "easy",
+      "question": "Nefs-i Kâmile hakkında doğru olan ifade hangisidir?",
       "options": [
-        "Kişinin kendisini kesin olarak Allah’ın razı olduğu kul ilan etmesine",
-        "Gizli iyilik yapmaya",
-        "Kul hakkından sakınmaya",
-        "Niyetini kontrol etmesine"
+        "Kişi bu hâlde artık hiç hata yapmaz",
+        "Kişi kendini diğerlerinden üstün görmeye başlar",
+        "Kişi arındıkça Allah'a muhtaçlığını daha derinden hisseder",
+        "Kişi bu hâle ulaşınca nefis terbiyesine gerek kalmaz"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Marzıyye hâli, kişinin kendisini kesin olarak Allah’ın razı olduğu kul ilan etmesi şeklinde anlaşılmamalıdır."
+      "correctOptionIndex": 2,
+      "explanation": "Kâmil nefis kendini kusursuz gören değil; arındıkça Allah'a muhtaçlığını daha derinden hisseden nefistir."
     },
     {
       "id": "q026",
       "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
-      "difficulty": "easy",
-      "question": "Nefs-i kâmile/zekiyye için en doğru açıklama hangisidir?",
+      "difficulty": "medium",
+      "question": "Kâmil nefis nasıl tanımlanır?",
       "options": [
-        "Arınmış ve olgunlaşmış nefis hâli",
-        "Kötülüğü emreden ilk hâl",
-        "Hiçbir sorumluluğu olmayan nefis",
-        "Sadece maddî başarıya ulaşmış nefis"
+        "Allah'a muhtaçlığını hiç unutmayan nefis",
+        "Hiç hata yapmayan nefis",
+        "Tüm arzularından tamamen kurtulmuş nefis",
+        "Kendini kusursuz gören nefis"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Kâmile/zekiyye, arınmış, olgunlaşmış ve güzel ahlakta istikrar kazanmış nefis hâli olarak açıklanır."
+      "explanation": "Kâmil nefis, kendini kusursuz gören değil; Allah'a muhtaçlığını hiç unutmayan nefistir."
     },
     {
       "id": "q027",
       "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
       "difficulty": "medium",
-      "question": "Nefs-i kâmile/zekiyye başlığının ana Kur’an dayanağı olarak hangi ayet kullanılmıştır?",
+      "question": "Kâmile/Zekiyye hâlinde tehlike oluşturabilecek tutum nedir?",
       "options": [
-        "Şems 91/9",
-        "Yusuf 12/53",
-        "Kıyâme 75/2",
-        "Tekâsür 102/1"
+        "Sürekli tevbe etmek",
+        "Tevazu ile yürümek",
+        "Gizli günahlardan sakınmak",
+        "Manevi üstünlük iddiası taşımak"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Şems 91/9, nefsini arındıranın kurtuluşa ereceğini bildirir ve bu başlığın ana dayanağı olarak kullanılır."
+      "correctOptionIndex": 3,
+      "explanation": "Kâmile/Zekiyye başlığı kişide manevi üstünlük iddiası doğuracak şekilde yorumlanmamalıdır; her mertebe Allah'ın lütfu ve kulun gayreti bağlamındadır."
     },
     {
       "id": "q028",
-      "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
-      "difficulty": "medium",
-      "question": "Kâmil nefis nasıl tanımlanır?",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "easy",
+      "question": "Nefis terbiyesi hangi adımla başlar?",
       "options": [
-        "Kendini kusursuz gören nefis",
-        "Allah’a muhtaçlığını hiç unutmayan nefis",
-        "Artık ibadete ihtiyaç duymayan nefis",
-        "Başkalarını küçümseyen nefis"
+        "Çok fazla nâfile ibadet etmekle",
+        "Tevbe ile",
+        "Yalnız kalmakla",
+        "Başkalarını eleştirmekle"
       ],
       "correctOptionIndex": 1,
-      "explanation": "Kâmil nefis, kendini kusursuz gören değil; Allah’a muhtaçlığını hiç unutmayan nefistir."
+      "explanation": "Nefis terbiyesi tevbe ile başlar, muhasebe ile devam eder, ibadet ve güzel ahlakla güçlenir."
     },
     {
       "id": "q029",
       "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
       "difficulty": "easy",
-      "question": "Nefis terbiyesinde aşağıdakilerden hangisi temel pratiklerden biridir?",
+      "question": "Nefis terbiyesinin temel direği nedir?",
       "options": [
-        "Günlük muhasebe yapmak",
-        "Hataları sürekli savunmak",
-        "Kibirli davranmayı normal görmek",
-        "İbadetleri tamamen terk etmek"
+        "Yalnızca nâfile ibadetleri çoğaltmak",
+        "Yalnızca sosyal ilişkileri kesmek",
+        "Farzlara sarılmak ve haramlardan uzak durmak",
+        "Yalnızca kitap okumak"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Günlük muhasebe, farzlara sarılmak, haramlardan uzak durmak, dua ve istiğfar temel pratikler arasında sayılır."
+      "correctOptionIndex": 2,
+      "explanation": "Farzlara sarılmak ve haramlardan uzak durmak nefis terbiyesinin temelidir; dua, zikir, sabır, şükür ve salih çevre ise desteklerdir."
     },
     {
       "id": "q030",
       "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
       "difficulty": "medium",
-      "question": "Haşr 59/18 nefis terbiyesinde hangi davranışla ilişkilendirilmiştir?",
+      "question": "Nefis terbiyesini güçlendiren destekler arasında hangisi yer almaz?",
       "options": [
-        "Gelecek/ahiret için ne hazırladığını sorgulamak",
-        "Sadece dünya malı biriktirmek",
-        "Yolculukta namazı terk etmek",
-        "Günahı başkalarına anlatmak"
+        "Başkalarının hatalarına odaklanmak",
+        "Dua ve zikir",
+        "Sabır ve şükür",
+        "Salih çevre"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Haşr 59/18, kişinin yarın için ne hazırladığına bakması bağlamında nefis muhasebesiyle ilişkilendirilmiştir."
+      "explanation": "Başkalarının hatalarına odaklanmak nefis terbiyesini güçlendirmez; kişinin kendi kusuruyla yüzleşmesini engeller."
     },
     {
       "id": "q031",
       "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
-      "difficulty": "easy",
+      "difficulty": "medium",
       "question": "Nefis terbiyesi nasıl bir süreçtir?",
       "options": [
-        "Bir anda tamamlanan kısa bir işlem",
-        "Her gün yenilenen bir kulluk disiplini",
-        "Sadece geçmişteki peygamberlere ait bir konu",
-        "Sadece teorik bilgi ezberlemek"
+        "Bir kere yapılıp tamamlanan bir iştir",
+        "Yalnızca büyük ibadetlerde gerçekleşir",
+        "Yalnızca yaşlılıkta başlanabilecek bir çabadır",
+        "Her gün yenilenen hayat boyu bir kulluk disiplinidir"
       ],
-      "correctOptionIndex": 1,
-      "explanation": "Nefis terbiyesi, bir anda tamamlanan bir iş değil; her gün yenilenen bir kulluk disiplinidir."
+      "correctOptionIndex": 3,
+      "explanation": "Nefis terbiyesi bir anda tamamlanan değil; her gün yenilenen, hayat boyu devam eden bir kulluk disiplinidir."
     },
     {
       "id": "q032",
-      "lessonId": "module-methodology",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
       "difficulty": "medium",
-      "question": "Klasik tasavvufî literatürde yaygın nefs mertebesi tasnifi kaç mertebedir?",
+      "question": "Günlük nefis muhasebesinde kullanılabilecek pratik sorular arasında hangisi yoktur?",
       "options": [
-        "3",
-        "5",
-        "7",
-        "12"
+        "Bugün Allah rızası için ne yaptım?",
+        "Bugün başkalarından ne kazandım?",
+        "Bugün bir kul hakkına girdim mi?",
+        "Bugün hangi konuda tevbe etmeliyim?"
       ],
-      "correctOptionIndex": 2,
-      "explanation": "Yaygın klasik tasnifin 7 mertebe olduğu belirtilir."
+      "correctOptionIndex": 1,
+      "explanation": "Nefis muhasebesi kendi iç dünyamıza ve Allah'a karşı sorumluluğumuza odaklanır; başkalarından ne kazanıldığı muhasebe sorusu değildir."
     },
     {
       "id": "q033",
-      "lessonId": "module-methodology",
-      "difficulty": "medium",
-      "question": "Sekizli yapıda neden 'Ham Nefs' başlığı eklenmiştir?",
+      "lessonId": "lesson-04-nefs-i-levvame",
+      "difficulty": "hard",
+      "question": "Levvâme hâlinde pişmanlık yanlış yönlendirilirse ne olur?",
       "options": [
-        "Klasik yedili tasnifin son basamağı olduğu için",
-        "Konuyu bilmeyen kullanıcıya giriş sağlamak için",
-        "Kur’an’da sekizinci mertebe olarak açıkça geçtiği için",
-        "Sadece hadislerde geçip Kur’an’da hiç dayanağı olmadığı için"
+        "Mutmainneye dönüşür",
+        "Tevbe ve ıslaha dönüşür",
+        "Ümitsizliğe ve kendini değersiz görmeye dönüşebilir",
+        "Emmâreye gerilemeye neden olmaz"
       ],
-      "correctOptionIndex": 1,
-      "explanation": "Ham Nefs, klasik yedili tasnife eklenen pedagojik giriş başlığıdır."
+      "correctOptionIndex": 2,
+      "explanation": "Pişmanlık doğru yönlendirilince tevbe ve ıslaha dönüşür; yanlış yönlendirilince aşırı suçluluk psikolojisine ve ümitsizliğe yol açabilir."
     },
     {
       "id": "q034",
-      "lessonId": "module-methodology",
-      "difficulty": "hard",
-      "question": "Nefs mertebeleri anlatılırken en güvenli ifade hangisidir?",
+      "lessonId": "lesson-01-nefs-nedir",
+      "difficulty": "easy",
+      "question": "Klasik tasavvuf geleneğinde nefs mertebeleri kaç aşamada tasnif edilir?",
       "options": [
-        "Kur’an’da birebir 8 katmanlı bir liste verilmiştir.",
-        "Her insan aynı tarihte aynı mertebeye geçer.",
-        "Kur’an’da nefsin hâl ve sıfatları vardır; tasavvufî gelenekte bunlar öğretici mertebeler halinde açıklanmıştır.",
-        "Nefs mertebeleri sadece modern psikolojiye ait terimlerdir."
+        "7",
+        "5",
+        "6",
+        "8"
       ],
-      "correctOptionIndex": 2,
-      "explanation": "Kur’an’da açıkça geçen hâller ile tasavvufî/ahlakî mertebe tasnifi birbirinden ayırt edilmelidir."
+      "correctOptionIndex": 0,
+      "explanation": "Mutasavvıfların çoğunluğuna göre klasik yedili tasnif kabul görmüştür: emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye, kâmile/zekiyye."
     },
     {
       "id": "q035",
-      "lessonId": "module-methodology",
-      "difficulty": "hard",
-      "question": "TDV’ye dayalı notta nefsin mertebeleriyle ilgili hangi açıklama vurgulanmıştır?",
-      "options": [
-        "Her mertebe ayrı bir ruh veya ayrı bir varlıktır.",
-        "Bir bedende tek nefis bulunur; farklı isimler bu tek nefsin hâl/sıfatlarıdır.",
-        "Nefs sadece hayvanlarda bulunur.",
-        "Nefs kavramı İslamî kaynaklarda hiç geçmez."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Mutasavvıfların çoğuna göre tek nefis vardır; mertebe adları bu tek nefsin farklı hâl ve sıfatlarını anlatır."
-    },
-    {
-      "id": "q036",
-      "lessonId": "module-methodology",
-      "difficulty": "medium",
-      "question": "Aşağıdakilerden hangisi klasik yedili tasnifte yer alır?",
-      "options": [
-        "Nefs-i emmâre",
-        "Nefs-i ticâriyye",
-        "Nefs-i mirâsiyye",
-        "Nefs-i seyahiyye"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefs-i emmâre klasik yedili tasnifin ilk mertebesidir."
-    },
-    {
-      "id": "q037",
-      "lessonId": "module-methodology",
-      "difficulty": "medium",
-      "question": "Klasik yedili tasnifteki doğru sıralama hangisidir?",
-      "options": [
-        "Emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye, kâmile/zekiyye",
-        "Mutmainne, emmâre, kâmile, levvâme, râzıye, mülhime, marzıyye",
-        "Levvâme, marzıyye, emmâre, mutmainne, kâmile, râzıye, mülhime",
-        "Kâmile, marzıyye, râzıye, mutmainne, mülhime, levvâme, emmâre"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Klasik yedili tasnif bu sırayla verilir."
-    },
-    {
-      "id": "q038",
-      "lessonId": "reference-library",
-      "difficulty": "medium",
-      "question": "Hadis olarak kullanılmaması önerilen meşhur söz hangisidir?",
-      "options": [
-        "Nefsini bilen Rabbini bilir.",
-        "Asıl güçlü kişi öfke anında kendine hâkim olandır.",
-        "Cehennem arzularla kuşatılmıştır.",
-        "Mücahid kendi nefsiyle mücadele edendir."
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "'Nefsini bilen Rabbini bilir' sözü uygulamada hadis diye verilmemeli; en fazla hikmetli söz olarak ayrıca işlenmelidir."
-    },
-    {
-      "id": "q039",
-      "lessonId": "reference-library",
-      "difficulty": "medium",
-      "question": "'Küçük cihaddan büyük cihada döndük' rivayeti için hangi yaklaşım önerilmiştir?",
-      "options": [
-        "Ana sahih hadis olarak mutlaka kullanılmalı",
-        "Sahih hadis havuzuna alınmamalı; yerine daha güvenli rivayetler kullanılmalı",
-        "Ayet olarak verilmelidir",
-        "Nefs-i mutmainne için tek kaynak yapılmalıdır"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Bu meşhur rivayet sahih hadis havuzuna alınmamalı; yerine Tirmizî 1621 gibi daha güvenli bir rivayet kullanılmalıdır."
-    },
-    {
-      "id": "q040",
-      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
-      "difficulty": "easy",
-      "question": "Aşağıdakilerden hangisi günlük muhasebe sorularından biridir?",
-      "options": [
-        "Bugün Allah rızası için ne yaptım?",
-        "Bugün kaç kişiden üstün olduğumu kanıtladım?",
-        "Bugün nefsimin istediği her şeyi yaptım mı?",
-        "Bugün hatalarımı nasıl gizledim?"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Günlük muhasebe sorularından biri 'Bugün Allah rızası için ne yaptım?' sorusudur."
-    },
-    {
-      "id": "q041",
-      "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "hard",
-      "question": "Bir kişi hatasını açıkça savunuyor, günahı küçümsüyor ve 'Ben böyleyim' diyerek değişimi reddediyorsa bu en çok hangi hâlle ilişkilendirilebilir?",
-      "options": [
-        "Nefs-i emmâre",
-        "Nefs-i mutmainne",
-        "Nefs-i râzıye",
-        "Nefs-i kâmile"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Günahı savunmak, bahane üretmek ve değişimi reddetmek nefs-i emmârenin belirtileri arasında verilmiştir."
-    },
-    {
-      "id": "q042",
-      "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "hard",
-      "question": "Bir kişi hatasından sonra 'Ben ne yaptım?' diyerek iç muhasebeye yöneliyorsa bu daha çok hangi nefis hâline örnektir?",
-      "options": [
-        "Nefs-i levvâme",
-        "Nefs-i emmâre",
-        "Ham nefis",
-        "Nefs-i marzıyye"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Yanlışı fark etmek, pişmanlık ve iç muhasebe nefs-i levvâme ile ilişkilidir."
-    },
-    {
-      "id": "q043",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "hard",
-      "question": "Bir kullanıcı 'İçimden gelen her duygu kesin ilahî ilhamdır' diyorsa hangi düzeltme yapılmalıdır?",
-      "options": [
-        "Evet, her iç ses kesin doğrudur.",
-        "Hayır, iç sesler Kur’an, sünnet ve ahlak ölçüsüyle tartılmalıdır.",
-        "İç seslerin hiçbiri dikkate alınmamalıdır.",
-        "Bu konuda hiçbir kaynak yoktur."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Mülhime aşamasında vesvese, heva ve sahih yöneliş ayrımı vurgulanır; her iç ses ilham kabul edilmez."
-    },
-    {
-      "id": "q044",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "hard",
-      "question": "Nefs-i mutmainne için hangisi daha doğru bir örnektir?",
-      "options": [
-        "Hiçbir imtihan yaşamayan ve hiç üzülmeyen kişi",
-        "Zorluk yaşasa da Allah’a güveni güçlenen ve kullukta sebat eden kişi",
-        "Günahını savunup değişimi reddeden kişi",
-        "Her iç sesini sorgulamadan doğru kabul eden kişi"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Mutmainne, imtihanların yokluğu değil; zorluk içinde Allah’a güven ve kullukta istikrar hâlidir."
-    },
-    {
-      "id": "q045",
-      "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "hard",
-      "question": "Rıza başlığında özellikle hangi yanlış anlamadan kaçınılmalıdır?",
-      "options": [
-        "Rıza, zulme razı olmak veya haksızlığa sessiz kalmaktır.",
-        "Rıza, Allah’a güveni korumaktır.",
-        "Rıza, sabır ve şükürle ilişkilidir.",
-        "Rıza, isyan dilinden uzak durmayı gerektirir."
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Rıza, zulme razı olmak veya haksızlığa sessiz kalmak şeklinde anlaşılmamalıdır."
-    },
-    {
-      "id": "q046",
-      "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "medium",
-      "question": "Nefs-i marzıyye aşamasında önerilen pratiklerden biri hangisidir?",
-      "options": [
-        "Kimsenin bilmediği küçük bir iyilik yapmak",
-        "Hataları başkalarına yüklemek",
-        "Gösterişi artırmak",
-        "Öfkeyi haklı görüp beslemek"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Marzıyye başlığında Allah rızasını merkeze almak için kimsenin bilmediği küçük bir iyilik yapmak pratik olarak önerilmiştir."
-    },
-    {
-      "id": "q047",
-      "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
-      "difficulty": "medium",
-      "question": "Kâmile/zekiyye başlığında hangi tutum özellikle vurgulanır?",
-      "options": [
-        "Kendini kusursuz görmek",
-        "Allah’a muhtaçlık bilincini korumak",
-        "Günahı küçümsemek",
-        "Başkalarını manevi olarak küçümsemek"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Kâmil nefis, Allah’a muhtaçlığını unutmayan, tevazu ve ihlasla yürüyen nefis olarak açıklanır."
-    },
-    {
-      "id": "q048",
       "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
       "difficulty": "medium",
-      "question": "Nefis terbiyesinde aşağıdakilerden hangisi 'practicalSteps' içinde yer alır?",
+      "question": "Nefsiyle mücadele eden kişi hakkında rivayet ne der?",
       "options": [
-        "Öfke, kibir, haset ve hırs gibi iç hastalıkları isimlendirmek",
-        "Kendini kesin olarak üstün görmek",
-        "Günahları önemsiz kabul etmek",
-        "Salih çevreden uzaklaşmak"
+        "Bu kişi her günahtan korunmuştur",
+        "Bu kişi zaten kurtulmuştur",
+        "Bu kişi artık nefis terbiyesine ihtiyaç duymaz",
+        "Bu kişi gerçek anlamda mücahiddir"
       ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefis terbiyesinin pratik adımları arasında öfke, kibir, haset ve hırs gibi iç hastalıkları isimlendirmek vardır."
-    },
-    {
-      "id": "q049",
-      "lessonId": "reference-library",
-      "difficulty": "medium",
-      "question": "Kullanılan kaynak önceliğinde ilk sırada ne vardır?",
-      "options": [
-        "Kur’an ayetleri",
-        "Sosyal medya paylaşımları",
-        "Modern kişisel gelişim kitapları",
-        "Anonim menkıbeler"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Kaynak önceliği Kur’an ayetleri, sahih/güvenilir hadisler, TDV/Diyanet ve tasavvufî-ahlakî açıklamalar şeklinde verilmiştir."
-    },
-    {
-      "id": "q050",
-      "lessonId": "module-methodology",
-      "difficulty": "hard",
-      "question": "Nefs mertebelerini anlamada en doğru genel yaklaşım hangisidir?",
-      "options": [
-        "Nefs mertebeleri kesinlikle Kur’an’da birebir 8 madde halinde listelenmiştir.",
-        "Nefs konusu sadece zayıf rivayetlerle anlatılmalıdır.",
-        "Kur’an’daki açık nefs ifadeleri temel alınmalı, tasavvufî mertebeler ise açıklayıcı tasnif olarak sunulmalıdır.",
-        "Ayet ve hadis kaynaklarına yer vermeden sadece kişisel yorum yapılmalıdır."
-      ],
-      "correctOptionIndex": 2,
-      "explanation": "Kur’an’daki açık ifadeler temel alınmalı; tasavvufî mertebe sistemi ise öğretici ve açıklayıcı bir tasnif olarak görülmelidir."
-    },
-    {
-      "id": "q051",
-      "lessonId": "lesson-01-nefs-nedir",
-      "difficulty": "easy",
-      "question": "Nefs kavramını sadece şeytanla eşitlemek neden eksik olur?",
-      "options": [
-        "Çünkü nefs, insanın iç benliği ve yönelişleriyle ilgili daha geniş bir kavramdır.",
-        "Çünkü nefs sadece melekler için kullanılır.",
-        "Çünkü nefs yalnız bedensel açlık demektir.",
-        "Çünkü nefs sadece tarihsel bir terimdir."
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "nefsi yalnız şeytanla özdeşleştirmez; insanın iç benliği, arzuları ve sorumluluk alanıyla ilişkili geniş bir kavram olarak açıklar."
-    },
-    {
-      "id": "q052",
-      "lessonId": "lesson-01-nefs-nedir",
-      "difficulty": "medium",
-      "question": "Nefis terbiyesi fikri, nefs hakkında hangi temel sonuca dayanır?",
-      "options": [
-        "Nefis tamamen yok edilmelidir.",
-        "Nefis yönlendirilebilir ve arındırılabilir.",
-        "Nefis değişmez bir yazgıdır.",
-        "Nefis yalnız alimlere ait bir konudur."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "nefis yok edilmesi gereken değil, eğitilip arındırılması gereken iç benliktir."
-    },
-    {
-      "id": "q053",
-      "lessonId": "lesson-01-nefs-nedir",
-      "difficulty": "medium",
-      "question": "?ems 91:7-10 ayetleri nefis hakk?nda hangi ger?e?i vurgular?",
-      "options": [
-        "Nefsin yalnız kötülükten oluştuğunu göstermek",
-        "Nefse kötülük ve takva yönünün ilham edildiğini hatırlatmak",
-        "Nefsin sorumsuz olduğunu söylemek",
-        "Nefis terbiyesini reddetmek"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Bu ayetler, nefse fücur ve takva yönünün ilham edildiğini, arınmanın da kirlenmenin de mümkün olduğunu gösterir."
-    },
-    {
-      "id": "q054",
-      "lessonId": "lesson-01-nefs-nedir",
-      "difficulty": "easy",
-      "question": "nefs hakkında en güvenli yaklaşım hangisidir?",
-      "options": [
-        "Onu küçümsemek",
-        "Onu tanıyıp Allah’ın rızasına yöneltmeye çalışmak",
-        "Onu hiç konuşmamak",
-        "Onu tamamen dış etkilere bağlamak"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Nefs tanınır, gözlenir ve Allah’ın rızasına yönelecek şekilde terbiye edilmeye çalışılır."
-    },
-    {
-      "id": "q055",
-      "lessonId": "lesson-01-nefs-nedir",
-      "difficulty": "medium",
-      "question": "Nefs konusunun “sorumluluk alanı” ile ilişkilendirilmesi neyi gösterir?",
-      "options": [
-        "İnsan iç dünyasından da hesaba çekilecektir.",
-        "Yalnız dış davranış önemlidir.",
-        "Niyetin değeri yoktur.",
-        "İnsan iradesizdir."
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefs konusu, insanın iç yönelişleri ve niyetleriyle de sorumluluk taşıdığını gösterir."
-    },
-    {
-      "id": "q056",
-      "lessonId": "lesson-02-ham-nefs",
-      "difficulty": "easy",
-      "question": "Ham nefs başlığının pedagojik oluşu ne demektir?",
-      "options": [
-        "Yeni başlayanlara giriş kolaylığı sağlayan bir anlatım olması",
-        "Kur’an’da aynen geçen farz bir terim olması",
-        "Sadece hadislerde zorunlu kavram olması",
-        "Nefis mertebelerinin sonuncusu olması"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "ham nefsi klasik tasnifin değişmez terimi gibi değil, öğretici bir giriş başlığı olarak kullanır."
-    },
-    {
-      "id": "q057",
-      "lessonId": "lesson-02-ham-nefs",
-      "difficulty": "medium",
-      "question": "Ham nefs en çok hangi durumla ilişkilendirilir?",
-      "options": [
-        "İç disiplinin henüz zayıf olmasıyla",
-        "Tam huzura ermekle",
-        "Allah’tan razı olmakla",
-        "Olgun velilikle"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Ham nefs, arzularla baş başa kalan ve iç disiplini henüz yerleşmemiş benlik hâlidir."
-    },
-    {
-      "id": "q058",
-      "lessonId": "lesson-02-ham-nefs",
-      "difficulty": "medium",
-      "question": "Nâziât 79:40-41 ayetleri ham nefs başlığında hangi eğitimi destekler?",
-      "options": [
-        "Nefsi hevadan alıkoyma eğitimini",
-        "Yalnız zühdü",
-        "Sadece toplumsal liderliği",
-        "Yalnız ticaret disiplinini"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Ayet, nefsini hevadan alıkoyan kimsenin kurtuluşa ereceğini bildirerek ham nefse karşı mücadeleyi destekler."
-    },
-    {
-      "id": "q059",
-      "lessonId": "lesson-02-ham-nefs",
-      "difficulty": "easy",
-      "question": "Ham nefis için en doğru uyarı hangisidir?",
-      "options": [
-        "Arzular kendiliğinden daima hayra götürür.",
-        "Terbiye edilmezse insanı kolayca sürükleyebilir.",
-        "Artık değişmesi mümkün değildir.",
-        "Sadece gençlerde bulunur."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Ham nefis, terbiye edilmezse kişiyi arzuların peşinden sürükleyebilir."
-    },
-    {
-      "id": "q060",
-      "lessonId": "lesson-02-ham-nefs",
-      "difficulty": "medium",
-      "question": "Ham nefs başlığının varlığı kullanıcıya hangi faydayı sağlar?",
-      "options": [
-        "Nefis eğitimine sıfırdan giriş imkanı sağlar.",
-        "Klasik tasnifi ortadan kaldırır.",
-        "Ayetleri gereksiz kılar.",
-        "Sadece tasavvufi terimleri artırır."
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Bu anlatım, konuya yeni başlayan kişinin nefs terbiyesine hazırlık yapmasını kolaylaştırır."
-    },
-    {
-      "id": "q061",
-      "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "easy",
-      "question": "Nefs-i emmârenin en belirgin iç sesi hangisidir?",
-      "options": [
-        "Bir daha dikkat etmeliyim.",
-        "Boş ver, yap gitsin.",
-        "Sabret ve sus.",
-        "Şükret ve razı ol."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "nefs-i emmâreyi insanı günaha çağıran “boş ver, yap gitsin” sesine benzetir."
-    },
-    {
-      "id": "q062",
-      "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "medium",
-      "question": "Yusuf 12:53 ayetindeki istisna neyi gösterir?",
-      "options": [
-        "Nefsin daima masum olduğunu",
-        "Allah’ın merhameti olmadan insanın kayabileceğini",
-        "Kötülüğün sadece dışarıdan geldiğini",
-        "Nefsin eğitilemeyeceğini"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Ayet, Rabbin merhameti olmazsa nefsin kötülüğe meyledebileceğini bildirir."
-    },
-    {
-      "id": "q063",
-      "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "medium",
-      "question": "Bahane üretmek ve günahı savunmak hangi nefis hâlinin belirtisidir?",
-      "options": [
-        "Nefs-i mutmainne",
-        "Nefs-i emmâre",
-        "Nefs-i râzıye",
-        "Nefs-i marzıyye"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "bahane üretmeyi ve günahı savunmayı nefs-i emmârenin alametleri arasında sayar."
-    },
-    {
-      "id": "q064",
-      "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "easy",
-      "question": "“Cennet nefse zor gelen şeylerle kuşatılmıştır” hadisi hangi uyarıyı destekler?",
-      "options": [
-        "Her arzunun güvenilir olmadığını",
-        "Nefsin daima doğruyu istediğini",
-        "Zorluğun gereksiz olduğunu",
-        "Sadece dünya işlerini bırakmayı"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Hadis, arzuların her zaman güvenilir olmadığını ve nefis terbiyesinin emek istediğini öğretir."
-    },
-    {
-      "id": "q065",
-      "lessonId": "lesson-03-nefs-i-emmare",
-      "difficulty": "medium",
-      "question": "Nefs-i emmâre ile mücadelede ilk adım nedir?",
-      "options": [
-        "Kişinin bu çağrıyı tanıması",
-        "Onu hiç fark etmemesi",
-        "Hatasını savunması",
-        "Kendini kusursuz görmesi"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefis terbiyesi, insanın kendi iç çağrılarını dürüstçe tanımasıyla başlar."
-    },
-    {
-      "id": "q066",
-      "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "easy",
-      "question": "Nefs-i levvâme için pişmanlığın olumlu yönü nedir?",
-      "options": [
-        "İnsanı tamamen umutsuzlaştırması",
-        "Uyanış ve dönüş kapısı açması",
-        "Hataları önemsizleştirmesi",
-        "Sorumluluğu kaldırması"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "levvâme hâlindeki pişmanlığı düşüş değil, uyanışın başlangıcı olarak değerlendirir."
-    },
-    {
-      "id": "q067",
-      "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "medium",
-      "question": "Kıyâme 75:2’de kendini kınayan nefs üzerine yemin edilmesi neyi gösterir?",
-      "options": [
-        "Bu hâlin dikkate değer bir iç muhasebe alanı olduğunu",
-        "Nefsin gereksiz olduğunu",
-        "Pişmanlığın kötü bir şey olduğunu",
-        "Sadece peygamberlere ait bir makam olduğunu"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Ayet, kendini kınayan nefsi ciddiye alınması gereken bir iç muhasebe alanı olarak öne çıkarır."
-    },
-    {
-      "id": "q068",
-      "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "medium",
-      "question": "Levvâme hâli hangi soruyu daha çok sordurur?",
-      "options": [
-        "Niye ben?",
-        "Nerede hata yaptım ve nasıl düzeltebilirim?",
-        "Nasıl daha çok övülürüm?",
-        "Kimse beni anlamıyor mu?"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Levvâme, insanı kendini hesaba çekmeye ve ıslaha yönelten iç sestir."
-    },
-    {
-      "id": "q069",
-      "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "easy",
-      "question": "Öfke anında kendine hâkim olmayı gerçek güç sayan hadis levvâme için neyi destekler?",
-      "options": [
-        "İç denetimin değerini",
-        "Öfkenin tamamen gerekli olduğunu",
-        "Pişmanlığın anlamsızlığını",
-        "Sessizce kabullenmeyi"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Hadis, levvâme aşamasındaki kişinin nefsine karşı iç denetim geliştirmesini destekler."
-    },
-    {
-      "id": "q070",
-      "lessonId": "lesson-04-nefs-i-levvame",
-      "difficulty": "medium",
-      "question": "Levvâme hâlinde tevbeye yönelmek neden önemlidir?",
-      "options": [
-        "Pişmanlığı ıslaha dönüştürdüğü için",
-        "Hataları unutturduğu için",
-        "Sadece duygusal rahatlık verdiği için",
-        "Sorumluluğu bitirdiği için"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Pişmanlık tek başına bırakılmaz; tevbe ve düzeltme adımıyla tamamlanır."
-    },
-    {
-      "id": "q071",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "easy",
-      "question": "Nefs-i mülhime ifadesi için en güvenli cümle hangisidir?",
-      "options": [
-        "Kur’an’da aynen bu adla geçer.",
-        "Kur’an’daki ilham ifadesiyle ilişkilendirilen öğretici bir başlıktır.",
-        "Tamamen reddedilmelidir.",
-        "Sadece tarihte kalmıştır."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "nefs-i mülhimeyi Kur’an’da isim olarak geçen bir tabir değil; Şems 91:8 ile ilişkilendirilen açıklama başlığı olarak sunar."
-    },
-    {
-      "id": "q072",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "medium",
-      "question": "Mülhime aşamasında hangi farkındalık belirginleşir?",
-      "options": [
-        "İyilik ve kötülüğü ayırt etme bilinci",
-        "Artık hiç hata yapmama hâli",
-        "Tam umutsuzluk",
-        "Kendini beğenme"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Bu aşama, insanın iyilik ve kötülük yönlerini daha bilinçli fark etmeye başlamasıyla ilişkilendirilir."
-    },
-    {
-      "id": "q073",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "medium",
-      "question": "Nefs-i mülhime için hangi uyarı yapılır?",
-      "options": [
-        "Bu farkındalık kesin velilik demektir.",
-        "Farkındalık artışı kişiyi yine de ölçüye muhtaç bırakır.",
-        "Artık tevbe gereksizdir.",
-        "Ayet ve sünnete ihtiyaç kalmaz."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "mülhime farkındalığının kişiyi ölçüden bağımsız kılmadığını özellikle vurgular."
-    },
-    {
-      "id": "q074",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "easy",
-      "question": "Mülhime başlığında “ilham” neyi gerektirmez?",
-      "options": [
-        "Hemen kesin hüküm vermeyi",
-        "Daha dikkatli farkındalık geliştirmeyi",
-        "İç yönelişleri izlemeyi",
-        "Takvaya yönelmeyi"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "İlham kavramı, her iç duyguya kesin hüküm verme değil; farkındalık ve ölçüyle yürüme ihtiyacı doğurur."
-    },
-    {
-      "id": "q075",
-      "lessonId": "lesson-05-nefs-i-mulhime",
-      "difficulty": "medium",
-      "question": "Nefs-i mülhime neden tek başına yeterli bir durak değildir?",
-      "options": [
-        "Çünkü farkındalık, istikrar ve teslimiyetle tamamlanmalıdır",
-        "Çünkü her zaman yanlış yoldur",
-        "Çünkü sadece alimler içindir",
-        "Çünkü tevazuya aykırıdır"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "mülhime aşamasını farkındalık basamağı olarak görür; kalıcı huzur ve istikrar için daha ileri terbiye gerekir."
-    },
-    {
-      "id": "q076",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "easy",
-      "question": "Nefs-i mutmainne için en doğru tanım hangisidir?",
-      "options": [
-        "İmanla huzur bulan nefis hâli",
-        "Kötülüğü emreden nefis",
-        "Sadece pişmanlık yaşayan nefis",
-        "Yalnız dışarıdan sakin görünen nefis"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Mutmainne, imanla sükûn bulan ve Allah’a güvenen nefis hâlidir."
-    },
-    {
-      "id": "q077",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "medium",
-      "question": "Mutmainne hâli hangi yanlış anlamayı dışlar?",
-      "options": [
-        "Sınavların tamamen bitmiş olması",
-        "Allah’a güvenin güçlenmesi",
-        "Kullukta istikrar arayışı",
-        "İç huzurun artması"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "mutmainnenin sınavsızlık değil; sınav içinde Allah’a güvenmeyi öğrenmek olduğunu belirtir."
-    },
-    {
-      "id": "q078",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "easy",
-      "question": "Fecr 89:27’deki hitap hangi nefis hâline yöneliktir?",
-      "options": [
-        "Nefs-i emmâreye",
-        "Nefs-i mutmainneye",
-        "Ham nefse",
-        "Nefs-i mülhimeye"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "“Ey itminana ermiş nefis” hitabı mutmainne başlığının ana dayanaklarından biridir."
-    },
-    {
-      "id": "q079",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "medium",
-      "question": "Mutmainne hâlinin davranışa yansıması en çok nasıl görülür?",
-      "options": [
-        "Telaş ve savrulmanın azalmasıyla",
-        "Kendini herkesten üstün görmekle",
-        "İbadeti terk etmekle",
-        "Yalnızlığa kaçmakla"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Huzura eren nefis, daha dengeli, güvenli ve istikrarlı bir kulluk dili üretir."
-    },
-    {
-      "id": "q080",
-      "lessonId": "lesson-06-nefs-i-mutmainne",
-      "difficulty": "medium",
-      "question": "Mutmainne ile levvâme arasındaki fark en doğru nasıl kurulur?",
-      "options": [
-        "Biri pişmanlık başlangıcı, diğeri güvenle yerleşen huzur hâlidir",
-        "İkisi tamamen aynıdır",
-        "Biri kötülüğü emreder, diğeri yoktur",
-        "İkisi de yalnız teorik terimdir"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Levvâme daha çok uyanış ve pişmanlık alanını, mutmainne ise huzur ve güvenle istikrarı anlatır."
-    },
-    {
-      "id": "q081",
-      "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "easy",
-      "question": "Nefs-i râzıye hangi ana erdemle ilişkilidir?",
-      "options": [
-        "Rıza ile",
-        "Gösteriş ile",
-        "Öfke ile",
-        "Hırs ile"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Râzıye, kulun Allah’ın hükmüne ve takdirine razı olmayı öğrenmesiyle ilişkilendirilir."
-    },
-    {
-      "id": "q082",
-      "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "medium",
-      "question": "Rıza hâli aşağıdakilerden hangisi demek değildir?",
-      "options": [
-        "Acıyı hiç hissetmemek",
-        "Acı içinde de Allah’a güvenmeyi sürdürmek",
-        "Takdire isyan etmemek",
-        "Kulluğu korumak"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "rızanın duygusuzluk değil; acı içinde de güven ve teslimiyet çizgisini korumak olduğunu vurgular."
-    },
-    {
-      "id": "q083",
-      "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "medium",
-      "question": "Râzıye aşamasında kul hangi tavrı öğrenir?",
-      "options": [
-        "Her şeyi kendine mal etmeyi",
-        "Allah’ın takdirine güvenle yaklaşmayı",
-        "Nefsini kusursuz görmeyi",
-        "İnsanlardan tamamen kopmayı"
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Râzıye, kulun Allah’ın takdirine güven ve teslimiyetle yaklaşmasını anlatır."
-    },
-    {
-      "id": "q084",
-      "lessonId": "lesson-07-nefs-i-raziye",
-      "difficulty": "easy",
-      "question": "Rıza, nefs terbiyesinde hangi yönü güçlendirir?",
-      "options": [
-        "Şikayet yerine teslimiyeti",
-        "Tembelliği",
-        "Umursamazlığı",
-        "Sertliği"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Rıza eğitimi, insanı isyana değil teslimiyete yaklaştırır."
-    },
-    {
-      "id": "q085",
-      "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "easy",
-      "question": "Nefs-i marziyye en çok hangi hedefi anlatır?",
-      "options": [
-        "Allah’ın razı olduğu kul olmayı",
-        "İnsanların alkışını kazanmayı",
-        "Tam yalnızlığı",
-        "Sadece bilgi toplamayı"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Marziyye, Allah’ın razı olduğu kulluk çizgisine yönelmeyi ifade eder."
-    },
-    {
-      "id": "q086",
-      "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "medium",
-      "question": "Marziyye makamı neden kendini beğenme sebebi yapılamaz?",
-      "options": [
-        "Çünkü mesele Allah’ın rızasıdır, kişinin kendini övmesi değil",
-        "Çünkü bu makam yoktur",
-        "Çünkü sadece melekler içindir",
-        "Çünkü hatayı artırır"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "marziyye hedefinin benlik şişirmesi değil, Allah’ın razı olacağı bir kulluk olduğunu açıkça belirtir."
-    },
-    {
-      "id": "q087",
-      "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "medium",
-      "question": "Marziyye ile râzıye arasındaki bağ en doğru nasıl anlatılır?",
-      "options": [
-        "Kul Allah’tan razı olur; Allah da kuldan razı olma hedefine yönelir",
-        "İkisi tamamen ilgisizdir",
-        "Biri yalnız dünyaya, diğeri ahirete aittir",
-        "Sadece teorik ayrımdır"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Râzıye kulun rızasını, marziyye ise Allah’ın razı olduğu kulluk hedefini öne çıkarır."
-    },
-    {
-      "id": "q088",
-      "lessonId": "lesson-08-nefs-i-marziyye",
-      "difficulty": "easy",
-      "question": "Marziyye başlığı hangi tehlikeyi özellikle dışlar?",
-      "options": [
-        "Kulluğu beğeni yarışına çevirmeyi",
-        "İhlası korumayı",
-        "Sabrı güçlendirmeyi",
-        "Tevbeyi sürdürmeyi"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Bu anlatım, kulluğu insanların takdirini toplama aracına dönüştürmeme uyarısı taşır."
-    },
-    {
-      "id": "q089",
-      "lessonId": "lesson-09-nefs-i-kamile",
-      "difficulty": "easy",
-      "question": "Nefs-i kâmile/zekiyye için en doğru ifade hangisidir?",
-      "options": [
-        "Arınmış ve olgunlaşma yolunda istikrar kazanmış nefis hâlidir",
-        "Hiç hata işlemeyen insan demektir",
-        "Sadece şeyhler için kullanılır",
-        "Dünya ile ilgiyi kesmektir"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "kâmile/zekiyyeyi arınmış, olgunlaşmış ama yine de Allah’a muhtaçlığını bilen nefis hâli olarak açıklar."
-    },
-    {
-      "id": "q090",
-      "lessonId": "lesson-09-nefs-i-kamile",
-      "difficulty": "medium",
-      "question": "Kâmil nefis için hangi uyarı yapılır?",
-      "options": [
-        "Kendini kusursuz görmek bu hâle aykırıdır",
-        "Artık muhasebe gerekmez",
-        "Tevbe kapanır",
-        "İnsanlardan tamamen uzaklaşmak gerekir"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Kâmillik, kişinin kendini kusursuz sayması değil; daima Allah’a muhtaçlığını bilmesidir."
-    },
-    {
-      "id": "q091",
-      "lessonId": "lesson-09-nefs-i-kamile",
-      "difficulty": "medium",
-      "question": "“Zekiyye” vurgusu neyi öne çıkarır?",
-      "options": [
-        "Arınma ve temizlenmeyi",
-        "Dış görünüş güzelliğini",
-        "Sadece ilmî birikimi",
-        "Maddi zenginliği"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Zekiyye ifadesi, nefsin arınma ve temizlenme yönünü vurgular."
-    },
-    {
-      "id": "q092",
-      "lessonId": "lesson-09-nefs-i-kamile",
-      "difficulty": "easy",
-      "question": "Olgunlaşmış nefis en çok hangi tavırla tanınır?",
-      "options": [
-        "Tevazu ve istikrarla",
-        "Kibir ve sertlikle",
-        "Umursamazlıkla",
-        "Sürekli başkalarını suçlamakla"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Olgun nefis, kendini öne çıkaran değil; tevazu ve istikrarı koruyan nefistir."
-    },
-    {
-      "id": "q093",
-      "lessonId": "lesson-09-nefs-i-kamile",
-      "difficulty": "medium",
-      "question": "Kâmile aşamasında bile neden muhasabe gerekir?",
-      "options": [
-        "Çünkü insan her zaman Allah’a muhtaç ve imtihan içindedir",
-        "Çünkü bütün makamlar anlamsızdır",
-        "Çünkü nefis hiç değişmez",
-        "Çünkü sadece başkaları hata yapar"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "hiçbir aşamada kişinin kendini güvende saymamasını; muhasebeyi sürdürmesini öğütler."
-    },
-    {
-      "id": "q094",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "easy",
-      "question": "Nefis terbiyesinin ilk yollarından biri hangisidir?",
-      "options": [
-        "Tevbe",
-        "Gösteriş",
-        "Tembellik",
-        "Erteleme"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "nefis terbiyesinin temel adımlarından biri olarak tevbeyi sayar."
-    },
-    {
-      "id": "q095",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "easy",
-      "question": "Muhasebe nefs terbiyesinde ne işe yarar?",
-      "options": [
-        "Kişinin kendi hâlini dürüstçe görmesine",
-        "Yalnız başkalarını yargılamasına",
-        "Sadece geçmişi unutmasına",
-        "Hatasını savunmasına"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Muhasebe, insanın kendi niyetini ve davranışlarını gözden geçirmesini sağlar."
-    },
-    {
-      "id": "q096",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "medium",
-      "question": "Farzlara sarılmak ve haramlardan kaçınmak neden nefis terbiyesinin merkezindedir?",
-      "options": [
-        "Çünkü terbiye sadece duygu değil, kulluk düzeni ister",
-        "Çünkü nefis sadece zikirle düzelir",
-        "Çünkü amel önemli değildir",
-        "Çünkü sadece bilgi yeterlidir"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "nefis terbiyesini farzlara bağlı ve haramlardan sakınan sürekli kulluk çabası olarak tanımlar."
-    },
-    {
-      "id": "q097",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "medium",
-      "question": "Dua ve zikir nefis terbiyesinde hangi işlevi görür?",
-      "options": [
-        "Kalbi Allah’a bağlar ve iç dengeyi güçlendirir",
-        "Yalnız dış görünüşü değiştirir",
-        "Çalışmayı gereksiz kılar",
-        "Sorumluluğu kaldırır"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Dua ve zikir, kalbi Allah’a bağlayarak nefis terbiyesini destekler."
-    },
-    {
-      "id": "q098",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "medium",
-      "question": "Salih çevre neden nefis terbiyesinde önemlidir?",
-      "options": [
-        "İnsanın yönünü destekleyen bir iklim oluşturduğu için",
-        "Çünkü yalnız başına ibadet haramdır",
-        "Çünkü çevre sorumluluğu yok eder",
-        "Çünkü sadece alimlerle konuşmak gerekir"
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "salih çevrenin kişiyi iyiliğe teşvik eden destekleyici bir iklim sunduğunu vurgular."
-    },
-    {
-      "id": "q099",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "easy",
-      "question": "Nefis terbiyesi için hangi ifade daha doğrudur?",
-      "options": [
-        "Bir ömür süren kulluk çabasıdır.",
-        "Bir kez karar verince biter.",
-        "Sadece gençlikte gerekir.",
-        "Sadece inzivada mümkündür."
-      ],
-      "correctOptionIndex": 0,
-      "explanation": "Nefis terbiyesi anlık değil, hayat boyu süren bir kulluk ve dikkat eğitimidir."
-    },
-    {
-      "id": "q100",
-      "lessonId": "lesson-10-nefis-terbiyesi",
-      "difficulty": "medium",
-      "question": "Bu yolculu?un genel sonucu en iyi hangi c?mleyle ?zetlenir?",
-      "options": [
-        "Nefis ya tamamen yok edilir ya da serbest bırakılır.",
-        "Nefis tanınır, terbiye edilir ve Allah’ın rızasına yöneltilir.",
-        "Nefis terbiyesi yalnız seçkinlere mahsustur.",
-        "İç dünya ile iman arasında ilişki yoktur."
-      ],
-      "correctOptionIndex": 1,
-      "explanation": "Ana ?izgi, nefsi tan?ma, ar?nd?rma ve Allah??n r?zas?na y?neltme dengesidir."
+      "correctOptionIndex": 3,
+      "explanation": "Kendi nefsiyle mücadele eden kişinin gerçek anlamda mücahid olduğu bildirilmiştir. Nefisle mücadele büyük bir kulluk gayreti olarak değerlendirilir."
     }
   ],
   "answerKey": {
-    "q001": 1,
+    "q001": 2,
     "q002": 0,
-    "q003": 2,
+    "q003": 3,
     "q004": 1,
-    "q005": 0,
-    "q006": 2,
-    "q007": 0,
-    "q008": 0,
-    "q009": 0,
+    "q005": 2,
+    "q006": 0,
+    "q007": 3,
+    "q008": 1,
+    "q009": 2,
     "q010": 0,
-    "q011": 0,
+    "q011": 3,
     "q012": 1,
-    "q013": 0,
-    "q014": 1,
-    "q015": 1,
-    "q016": 0,
-    "q017": 1,
+    "q013": 2,
+    "q014": 0,
+    "q015": 3,
+    "q016": 1,
+    "q017": 2,
     "q018": 0,
-    "q019": 1,
-    "q020": 0,
-    "q021": 0,
-    "q022": 2,
-    "q023": 0,
-    "q024": 0,
-    "q025": 0,
+    "q019": 3,
+    "q020": 1,
+    "q021": 2,
+    "q022": 0,
+    "q023": 3,
+    "q024": 1,
+    "q025": 2,
     "q026": 0,
-    "q027": 0,
+    "q027": 3,
     "q028": 1,
-    "q029": 0,
+    "q029": 2,
     "q030": 0,
-    "q031": 1,
-    "q032": 2,
-    "q033": 1,
-    "q034": 2,
-    "q035": 1,
-    "q036": 0,
-    "q037": 0,
-    "q038": 0,
-    "q039": 1,
-    "q040": 0,
-    "q041": 0,
-    "q042": 0,
-    "q043": 1,
-    "q044": 1,
-    "q045": 0,
-    "q046": 0,
-    "q047": 1,
-    "q048": 0,
-    "q049": 0,
-    "q050": 2,
-    "q051": 0,
-    "q052": 2,
-    "q053": 3,
-    "q054": 0,
-    "q055": 2,
-    "q056": 3,
-    "q057": 3,
-    "q058": 2,
-    "q059": 1,
-    "q060": 3,
-    "q061": 2,
-    "q062": 2,
-    "q063": 3,
-    "q064": 3,
-    "q065": 2,
-    "q066": 3,
-    "q067": 3,
-    "q068": 1,
-    "q069": 0,
-    "q070": 2,
-    "q071": 1,
-    "q072": 1,
-    "q073": 2,
-    "q074": 1,
-    "q075": 3,
-    "q076": 2,
-    "q077": 1,
-    "q078": 0,
-    "q079": 2,
-    "q080": 1,
-    "q081": 0,
-    "q082": 0,
-    "q083": 2,
-    "q084": 1,
-    "q085": 3,
-    "q086": 1,
-    "q087": 3,
-    "q088": 2,
-    "q089": 2,
-    "q090": 3,
-    "q091": 2,
-    "q092": 1,
-    "q093": 0,
-    "q094": 3,
-    "q095": 1,
-    "q096": 3,
-    "q097": 3,
-    "q098": 1,
-    "q099": 3,
-    "q100": 0
+    "q031": 3,
+    "q032": 1,
+    "q033": 2,
+    "q034": 0,
+    "q035": 3
   },
   "importHints": {
-    "recommendedDisplayOrder": "questions[].id",
-    "correctAnswerField": "correctOptionIndex",
-    "zeroBasedOptionIndex": true,
-    "lessonJoinKey": "lessonId",
-    "canShuffleQuestions": true,
-    "canShuffleOptions": true,
-    "showExplanation": true
+    "slugField": "quizId",
+    "canShuffle": true
   }
 }

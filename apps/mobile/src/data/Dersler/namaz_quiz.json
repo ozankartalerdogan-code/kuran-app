@@ -1,7 +1,7 @@
 {
   "quiz_id": "namaz",
   "baslik": "Namaz",
-  "toplam_soru": 100,
+  "toplam_soru": 50,
   "sorular": [
     {
       "id": "namaz_001",
@@ -751,66 +751,6 @@
       "dogru_cevap": "B",
       "aciklama": "Namazı bitirmek için önce sağ omza, ardından sol omza dönerek 'Esselamu aleyküm ve rahmetullah' denir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "namaz_054",
-      "konu": "sartlar",
-      "soru": "Hangisi namazın sıhhat (geçerlilik) şartlarından biri değildir?",
-      "secenekler": [
-        "A) Vakit girmesi",
-        "B) Abdestli olmak",
-        "C) Kıbleye yönelmek",
-        "D) Cemaatle kılmak"
-      ],
-      "dogru_cevap": "D",
-      "aciklama": "Cemaatle kılmak namazın sıhhat (geçerlilik) şartı değil, sünnetidir. Namazın sıhhat (geçerlilik) şartları: abdest, necasetten temizlik (maddi pislikten temizlenme), avret örtme, kıble, vakit ve niyettir.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "namaz_066",
-      "konu": "bozanlar",
-      "soru": "Hangisi namazı bozmaz?",
-      "secenekler": [
-        "A) Kıbleden dönmek",
-        "B) Sesli konuşmak",
-        "C) Tebessüm etmek",
-        "D) Abdestin bozulması"
-      ],
-      "dogru_cevap": "C",
-      "aciklama": "Tebessüm namazı bozmaz. Ancak başkasının duyabileceği kadar sesli gülmek namazı bozar.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "namaz_075",
-      "konu": "kaza",
-      "soru": "Hangisi kaza edilemez?",
-      "secenekler": [
-        "A) Vitir namazı (yatsıdan sonra kılınan özel namaz)",
-        "B) Cuma namazı",
-        "C) Yatsı farzı",
-        "D) Sabah farzı"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Cuma ve bayram namazları kendi vakitleri dışında aynı şekilde kaza edilmez. Genel öğretimde kaza sorumluluğu farz namazlar ve Hanefi'de vitir namazı için vurgulanır.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "namaz_079",
-      "konu": "bozanlar",
-      "soru": "Hangisi namazı bozan durumlardan biridir?",
-      "secenekler": [
-        "A) Öksürmek",
-        "B) Dünyevi sebeple sesli ağlamak",
-        "C) İçinden geçirmek",
-        "D) Tebessüm etmek"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Dünyevi bir sebeple başkasının duyabileceği şekilde sesli ağlamak namazı bozar. Allah korkusu veya ahiret düşüncesiyle ağlamak aynı şekilde değerlendirilmez. Tebessüm namazı bozmaz.",
-      "zorluk": "zor",
       "kaynak": "Diyanet İlmihali"
     }
   ]

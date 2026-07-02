@@ -1,1207 +1,462 @@
 {
   "quiz_id": "guzel-ahlak",
   "baslik": "Güzel Ahlak",
-  "toplam_soru": 80,
+  "toplam_soru": 35,
   "sorular": [
     {
       "id": "guzel_ahlak_001",
-      "konu": "temel",
-      "soru": "Güzel ahlak için en doğru tanım hangisidir?",
+      "konu": "tanim",
+      "soru": "Güzel ahlak sadece iyi görünmekten ibaret değildir. Aşağıdakilerden hangisi güzel ahlakın gerçek kapsamına girer?",
       "secenekler": [
-        "A) Sadece nazik görünmektir",
-        "B) Sadece çok konuşup insanları etkilemektir",
-        "C) İmanın doğruluk, merhamet, adalet ve nezaket olarak davranışlara yansımasıdır",
-        "D) Sadece ibadetleri gizli yapmaktır"
+        "A) Dışarıda nazik, evde kırıcı olmak",
+        "B) Sadece ibadetleri eksiksiz yapmak",
+        "C) İnsanlar arasında popüler olmak",
+        "D) Doğru konuşmak, öfkeyi yönetmek ve emanete riayet etmek"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Güzel ahlak, Allah'a kulluğun doğruluk, merhamet, adalet ve nezaket olarak hayata yansımasıdır.",
-      "zorluk": "kolay",
-      "kaynak": "Güzel Ahlak"
+      "dogru_cevap": "D",
+      "aciklama": "Güzel ahlak; doğru konuşmak, kimseyi küçümsememek, öfkeyi yönetmek, emanete riayet etmek, affedici olmak ve insanlara zarar vermemekle ortaya çıkar."
     },
     {
       "id": "guzel_ahlak_002",
-      "konu": "temel",
-      "soru": "Güzel ahlakın ahiretteki değerini vurgulayan hadis hangi mesajı verir?",
+      "konu": "onemi",
+      "soru": "Peygamber Efendimiz, kıyamet gününde mizanda en ağır gelecek şeylerden birinin ne olduğunu bildirmiştir?",
       "secenekler": [
-        "A) Güzel ahlak sadece dünyalık saygı kazandırır",
-        "B) Güzel ahlak mizanda ağır gelir",
-        "C) Güzel ahlak sadece alimler içindir",
-        "D) Güzel ahlak ibadetlerden bağımsızdır"
+        "A) Çok namaz kılmak",
+        "B) Güzel ahlak",
+        "C) Uzun ömür",
+        "D) Çok mal sahibi olmak"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Tirmizi 2003 ve Ebu Davud 4799'da güzel ahlakın mizanda ağır geleceği bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 2003; Ebu Davud 4799"
+      "aciklama": "Güzel ahlakın sadece sosyal bir nezaket değil, büyük bir ahiret sermayesi olduğu bildirilmiştir."
     },
     {
       "id": "guzel_ahlak_003",
-      "konu": "sunne",
-      "soru": "Ahzab 33:21 ayetine göre müminler için güzel örnek kimdir?",
+      "konu": "olcek",
+      "soru": "Güzel ahlakta ölçünün ne olması gerektiği özellikle vurgulanmaktadır?",
       "secenekler": [
-        "A) Kavmin çoğunluğu",
-        "B) Zengin kimseler",
-        "C) Allah'ın Resulü",
-        "D) Sadece aile büyükleri"
+        "A) Resulullah'ın örnekliği",
+        "B) Toplumun genel kabulü",
+        "C) Çevrenin beklentileri",
+        "D) Dönemin modası"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Ayette, Allah Resulü'nün müminler için güzel örnek olduğu bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Ahzab 33:21"
+      "dogru_cevap": "A",
+      "aciklama": "Güzel ahlak öğrenilirken ölçü, insanların modası değil Resulullah'ın örnekliğidir."
     },
     {
       "id": "guzel_ahlak_004",
-      "konu": "sunne",
-      "soru": "Buhari 3559 hadisine göre insanların en hayırlıları kimlerdir?",
+      "konu": "adalet_ihsan",
+      "soru": "Adalet ile ihsan arasındaki temel fark nedir?",
       "secenekler": [
-        "A) En çok mal biriktirenler",
-        "B) Ahlakı en güzel olanlar",
-        "C) En çok yolculuk yapanlar",
-        "D) En uzun yaşayanlar"
+        "A) İkisi tamamen aynı anlama gelir",
+        "B) Adalet imanla, ihsan ibadetle ilgilidir",
+        "C) Adalet hakkı vermek, ihsan ise hakkı verip iyiliği güzellikle tamamlamaktır",
+        "D) İhsan adaletten daha alt bir derecedir"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste, insanların en hayırlılarının ahlakı en güzel olanlar olduğu bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 3559"
+      "dogru_cevap": "C",
+      "aciklama": "Adalet herkese hakkını vermektir; ihsan ise sadece hakkı vermekle kalmayıp iyiliği güzellikle tamamlamaktır."
     },
     {
       "id": "guzel_ahlak_005",
-      "konu": "adalet",
-      "soru": "Nahl 16:90'da aşağıdakilerden hangisi emredilir?",
+      "konu": "dogruluk",
+      "soru": "Doğruluk sadece yalan söylememek değildir. Aşağıdakilerden hangisi de doğruluğun kapsamına girer?",
       "secenekler": [
-        "A) Adalet ve ihsan",
-        "B) Kibir ve üstünlük taslama",
-        "C) Dedikodu ve zan",
-        "D) Aşırı sertlik"
+        "A) Menfaat sağlarsa doğruyu söylemek",
+        "B) Güçlülere karşı dürüst olmak",
+        "C) Yalnızca resmî işlerde dürüst olmak",
+        "D) Verdiği sözde durmak ve emanete riayet etmek"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Ayette Allah'ın adaleti, ihsanı ve yakınlara yardım etmeyi emrettiği bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Nahl 16:90"
+      "dogru_cevap": "D",
+      "aciklama": "Doğruluk; sözünde durmak, emanete ihanet etmemek ve eksik ya da çarpıtılmış bilgi vermemekle birlikte anlam kazanır."
     },
     {
       "id": "guzel_ahlak_006",
-      "konu": "adalet",
-      "soru": "İhsan neyi ifade eder?",
+      "konu": "dogruluk",
+      "soru": "Yalanın büyük bir tehlike olarak görülmesinin nedeni nedir?",
       "secenekler": [
-        "A) Hakkı tamamen terk etmeyi",
-        "B) Sadece sert davranarak düzen sağlamayı",
-        "C) Hakkı vermekle birlikte iyiliği güzellikle tamamlamayı",
-        "D) İnsanlardan uzak durmayı"
+        "A) Dildeki küçük bozulmanın zamanla karakteri de bozması",
+        "B) Sadece hukuki sonuçları olduğu için",
+        "C) İnsanların bunu hemen fark etmesi",
+        "D) Yalnızca ticarette geçerli olması"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "İhsan, adaletin ötesinde iyiliği güzellikle tamamlamak olarak açıklanır.",
-      "zorluk": "orta",
-      "kaynak": "Nahl 16:90; Güzel Ahlak"
+      "dogru_cevap": "A",
+      "aciklama": "Müslüman kısa vadeli çıkar için yalanı araç edinmez; çünkü dildeki küçük bir bozulma zamanla karakteri de bozar."
     },
     {
       "id": "guzel_ahlak_007",
-      "konu": "dogruluk",
-      "soru": "Buhari 6094 hadisine göre doğruluk insanı nereye götürür?",
+      "konu": "dil_ahlaki",
+      "soru": "\"Ya hayır söyle ya sus\" ilkesi dil ahlakının hangi boyutunu öğretir?",
       "secenekler": [
-        "A) Şöhrete",
-        "B) Yorgunluğa",
-        "C) İyiliğe ve cennete",
-        "D) İnsanlardan uzaklaşmaya"
+        "A) Çok konuşanlar daha saygın görülür",
+        "B) Her düşünce açıkça paylaşılmalıdır",
+        "C) Boş, kırıcı ve fitne çıkaran sözlerden uzak durulmalıdır",
+        "D) Susmak her zaman en iyi çözümdür"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Hadiste doğruluğun iyiliğe, iyiliğin de cennete götürdüğü bildirilmiştir.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 6094"
+      "aciklama": "Dil; kalpteki imanın, öfkenin, kibrin veya merhametin dışarı açılan kapısıdır. Güzel ahlak bu kapıyı kontrol etmeyi gerektirir."
     },
     {
       "id": "guzel_ahlak_008",
-      "konu": "dogruluk",
-      "soru": "Aşağıdakilerden hangisi doğruluk kapsamına girer?",
+      "konu": "dil_ahlaki",
+      "soru": "Konuşmadan önce sorulması önerilen üç soru hangisidir?",
       "secenekler": [
-        "A) Verilen sözü çiğnemek",
-        "B) Bilgiyi çarpıtmak",
-        "C) Emanete sadık kalmak",
-        "D) Küçük menfaat için yalan söylemek"
+        "A) Güzel mi, ilgi çekici mi, yeni mi?",
+        "B) Doğru mu, gerekli mi, nezaketli mi?",
+        "C) Kısa mı, hızlı mı, etkili mi?",
+        "D) Herkese yararlı mı, eğlenceli mi, akılda kalıcı mı?"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Doğruluk, sadece yalan söylememek değil; sözünde durmak ve emanete riayet etmektir.",
-      "zorluk": "orta",
-      "kaynak": "Buhari 6094; Güzel Ahlak"
+      "dogru_cevap": "B",
+      "aciklama": "Dil ahlakı için bu üçlü muhasebe önerilir: söylenecek söz doğru mu, gerekli mi, nezaketli mi?"
     },
     {
       "id": "guzel_ahlak_009",
-      "konu": "dil",
-      "soru": "Buhari 6475 hadisine göre mümin nasıl konuşmalıdır?",
+      "konu": "alay_hakaret",
+      "soru": "Kur'an bir topluluğun başka bir topluluğu alaya almasını, insanları ayıplamasını ve kötü lakaplar takmasını nasıl değerlendirir?",
       "secenekler": [
-        "A) Her durumda son sözü söylemelidir",
-        "B) Ya hayır söylemeli ya susmalıdır",
-        "C) Sert konuşursa daha etkili olur",
-        "D) Kalabalıkta daha fazla konuşmalıdır"
+        "A) Şaka kapsamında değerlendirilir",
+        "B) Hafif bir kusur sayılır",
+        "C) Yalnızca yabancılara karşı yasaktır",
+        "D) Açıkça yasaklanmıştır"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste Allah'a ve ahiret gününe iman edenin hayır söylemesi veya susması öğütlenir.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 6475"
+      "dogru_cevap": "D",
+      "aciklama": "Bir kişiyi küçük görmek bazen şaka kisvesiyle yapılır; fakat kalp kıran şaka güzel ahlak değildir."
     },
     {
       "id": "guzel_ahlak_010",
-      "konu": "dil",
-      "soru": "Konuşmadan önce sorulması tavsiye edilen sorulardan biri hangisidir?",
+      "konu": "alay_hakaret",
+      "soru": "Kalp kıran bir şaka hakkında hangisi doğrudur?",
       "secenekler": [
-        "A) Daha sert söylenebilir mi?",
-        "B) İnsanlar beni alkışlar mı?",
-        "C) Bu söz doğru mu, gerekli mi, nezaketli mi?",
-        "D) Daha uzun konuşabilir miyim?"
+        "A) Şaka olduğu için sorumluluk yoktur",
+        "B) Yakın arkadaşlar arasında her zaman serbesttir",
+        "C) Küçümseme içeriyorsa güzel ahlak sayılmaz",
+        "D) Zamanla kalp kırıklığı kendiliğinden geçer"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Dil ahlakı için bu üçlü muhasebe önerilir: doğru mu, gerekli mi, nezaketli mi.",
-      "zorluk": "orta",
-      "kaynak": "Buhari 6475; Güzel Ahlak"
+      "aciklama": "İnsanı küçülten veya kalp kıran şaka güzel ahlak sayılmaz. Mümin, başkasına değer vererek yükselir."
     },
     {
       "id": "guzel_ahlak_011",
-      "konu": "alay",
-      "soru": "Hucurat 49:11'de aşağıdakilerden hangisi yasaklanır?",
+      "konu": "giybet_zan",
+      "soru": "Gıybet ne demektir?",
       "secenekler": [
-        "A) Fakire yardım etmek",
-        "B) İnsanlarla alay etmek ve kötü lakap takmak",
-        "C) Selam vermek",
-        "D) Misafire ikram etmek"
+        "A) Bir kimsenin hoşlanmayacağı şeyi arkasından söylemek",
+        "B) Birinin yüzüne kötü söz söylemek",
+        "C) Birini kamuoyu önünde eleştirmek",
+        "D) Haksız yere yargılamak"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette alay etmek, ayıplamak ve kötü lakaplarla çağırmak yasaklanır.",
-      "zorluk": "kolay",
-      "kaynak": "Hucurat 49:11"
+      "dogru_cevap": "A",
+      "aciklama": "Gıybet, bir kimsenin hoşlanmayacağı şeyi arkasından söylemektir. Kur'an bunu ölü kardeşinin etini yemek gibi güçlü bir benzetmeyle anlatır."
     },
     {
       "id": "guzel_ahlak_012",
-      "konu": "alay",
-      "soru": "Kalp kıran şaka için en doğru ifade hangisidir?",
+      "konu": "giybet_zan",
+      "soru": "Kötü zan, gizli kusur araştırmak ve gıybet Kur'an'da birlikte yasaklanmıştır. Bu üçünün ortak tehlikesi nedir?",
       "secenekler": [
-        "A) Şaka olduğu için zarar vermez",
-        "B) Güzel ahlakın bir parçasıdır",
-        "C) Küçümseme içeriyorsa güzel ahlak değildir",
-        "D) Sadece yakın arkadaşlar arasında caizdir"
+        "A) Hukuki suç oluşturmaları",
+        "B) Kalbi kirletmeleri ve güveni bozmaları",
+        "C) Yalnızca yakın çevreye zarar vermeleri",
+        "D) Toplumsal huzursuzluk yaratmaları"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "İnsanı küçülten veya kalp kıran şaka güzel ahlak sayılmaz.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:11; Güzel Ahlak"
+      "dogru_cevap": "B",
+      "aciklama": "Delilsiz kötü zan kalpte güvensizlik üretir; başkalarının gizli kusurlarını araştırmak kardeşlik ortamını bozar; gıybet de kalbi kirletir."
     },
     {
       "id": "guzel_ahlak_013",
-      "konu": "giybet",
-      "soru": "Hucurat 49:12'de gıybet hangi çarpıcı benzetmeyle anlatılır?",
+      "konu": "ofke",
+      "soru": "Kur'an takva sahiplerini öfkeleriyle ilgili nasıl tanımlar?",
       "secenekler": [
-        "A) Suyu israf etmek",
-        "B) Kör bir kuyuda yürümek",
-        "C) Ölü kardeşinin etini yemek",
-        "D) Yolunu kaybetmek"
+        "A) Hiç öfkelenmeyen kimseler olarak",
+        "B) Öfkelerini sürekli dışa vuranlar olarak",
+        "C) Öfkelerini yutan ve insanları affeden kimseler olarak",
+        "D) Öfkelerini başkalarına yönelten kimseler olarak"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ayette gıybet çok çarpıcı bir benzetmeyle anlatılır: ölü kardeşinin etini yemek gibi.",
-      "zorluk": "kolay",
-      "kaynak": "Hucurat 49:12"
+      "aciklama": "Kur'an, takva sahiplerini öfkelerini yutan ve insanları affeden kimseler olarak over."
     },
     {
       "id": "guzel_ahlak_014",
-      "konu": "giybet",
-      "soru": "Aşağıdakilerden hangisi Hucurat 49:12'de birlikte yasaklanan davranışlardan biridir?",
+      "konu": "ofke",
+      "soru": "Peygamber Efendimiz nasihat isteyen bir sahabiye tekrar tekrar hangi öğüdü vermiştir?",
       "secenekler": [
-        "A) Zan, tecessüs ve gıybet",
-        "B) Sadaka, selam ve ziyaret",
-        "C) Oruç, namaz ve zekat",
-        "D) Çalışmak, dinlenmek ve uyumak"
+        "A) Çok dua et",
+        "B) İnsanlara bağır",
+        "C) Aceleyle karar al",
+        "D) Öfkelenme"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Ayette kötü zan, tecessüs ve gıybet birlikte yasaklanır.",
-      "zorluk": "kolay",
-      "kaynak": "Hucurat 49:12"
+      "dogru_cevap": "D",
+      "aciklama": "Resulullah 'Öfkelenme' nasihatiyle, öfkeyi yönetmenin güçlü bir kulluk adımı olduğunu vurgulamıştır."
     },
     {
       "id": "guzel_ahlak_015",
       "konu": "ofke",
-      "soru": "Ali İmran 3:134'te takva sahipleri hangi davranışla övülür?",
+      "soru": "Öfke anında hangisi faydalı bir tutum olarak önerilmektedir?",
       "secenekler": [
-        "A) Öfkelerini sürekli dışa vurmalarıyla",
-        "B) Öfkelerini yutmaları ve insanları affetmeleriyle",
-        "C) Herkese sert çıkmalarıyla",
-        "D) İnsanlardan tamamen uzaklaşmalarıyla"
+        "A) Susmak ve acele hüküm vermemek",
+        "B) Hemen kesin bir karar vermek",
+        "C) Sesini yükselterek üstün gelmek",
+        "D) Karşıdakinin her sözüne anında cevap vermek"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette takva sahiplerinin öfkelerini kontrol ettikleri ve insanları affettikleri bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Ali İmran 3:134"
+      "dogru_cevap": "A",
+      "aciklama": "Öfke anında susmak, acele karar vermemek ve kırıcı cevabı ertelemek önerilir."
     },
     {
       "id": "guzel_ahlak_016",
-      "konu": "ofke",
-      "soru": "Buhari 6116 hadisinin temel nasihati nedir?",
+      "konu": "affetmek",
+      "soru": "Affetmek ne anlama gelmez?",
       "secenekler": [
-        "A) Çok konuş",
-        "B) Çok eleştir",
-        "C) Öfkelenme",
-        "D) Kimseyi dinleme"
+        "A) İntikamı büyütmemek",
+        "B) Her durumda haksızlığı güzel görmek zorunda olmak",
+        "C) Kişisel hırsla sertleşmemek",
+        "D) Islahı ve yumuşatmayı hedeflemek"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Bir sahabi nasihat istediğinde Peygamberimiz tekrar tekrar 'Öfkelenme' buyurmuştur.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 6116"
+      "dogru_cevap": "B",
+      "aciklama": "Affetmek, kötülüğü meşrulaştırmak değil; nefsi intikamdan geri çekebilmektir."
     },
     {
       "id": "guzel_ahlak_017",
-      "konu": "ofke",
-      "soru": "Öfke yönetiminde aşağıdakilerden hangisi faydalı bir adımdır?",
+      "konu": "affetmek",
+      "soru": "Kötülüğe en güzel tavırla karşılık verildiğinde Kur'an'ın bildirdiği olası sonuç nedir?",
       "secenekler": [
-        "A) Hemen kırıcı cevap vermek",
-        "B) Anında kesin karar almak",
-        "C) Susup acele hüküm vermemek",
-        "D) Sesi yükselterek üstün gelmek"
+        "A) Karşıdakinin hemen değişeceği",
+        "B) Bu tavrın her zaman işe yaradığı",
+        "C) Düşmanlığın zamanla dostluğa dönüşebileceği",
+        "D) Hakkın kaybedileceği"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Öfke anında susmak, acele karar vermemek ve kırıcı cevabı ertelemek tavsiye edilir.",
-      "zorluk": "orta",
-      "kaynak": "Ali İmran 3:134; Buhari 6116; Güzel Ahlak"
+      "aciklama": "Kur'an, kötülüğü en güzel tavırla savmanın, düşmanlık taşıyan birini bile sıcak bir dosta dönüştürebileceğini bildirir."
     },
     {
       "id": "guzel_ahlak_018",
-      "konu": "affetmek",
-      "soru": "Fussilet 41:34'ün temel ahlak ilkesi nedir?",
+      "konu": "tevazu",
+      "soru": "Tevazu nedir?",
       "secenekler": [
-        "A) Kötülüğe aynı sertlikle cevap vermek",
-        "B) Kötülüğü en güzel tavırla savmak",
-        "C) Her tartışmadan kaçmak",
-        "D) Sadece sessiz kalmak"
+        "A) Kendini değersiz görmek",
+        "B) Her durumda geri çekilmek",
+        "C) Kendi fikirlerini hiç söylememek",
+        "D) Allah'ın verdiği nimeti bilmek ama bununla insanlara tepeden bakmamak"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette kötülüğe en güzel tavırla karşılık verilmesi öğütlenir.",
-      "zorluk": "kolay",
-      "kaynak": "Fussilet 41:34"
+      "dogru_cevap": "D",
+      "aciklama": "Tevazu; Allah'ın verdiği nimeti bilmek ama o nimetle insanlara tepeden bakmamaktır. Kibir ise tam tersidir."
     },
     {
       "id": "guzel_ahlak_019",
-      "konu": "affetmek",
-      "soru": "Affetmek ne demek değildir?",
+      "konu": "tevazu",
+      "soru": "Kur'an'ın Lokman suresinde hangi davranış açıkça kınanmaktadır?",
       "secenekler": [
-        "A) İntikamı büyütmemek",
-        "B) Islahı ve onarmayı hedeflemek",
-        "C) Her durumda haksızlığı güzel görmek zorunda olmak",
-        "D) Kişisel hırsla sertleşmemek"
+        "A) İnsanlara böbürlenerek ve yüz çevirerek davranmak",
+        "B) Çok çalışmak",
+        "C) Sessiz kalmak",
+        "D) Komşulara yardım etmek"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Affetmek, her durumda haksızlığı güzel görmek anlamına gelmez; fakat intikamı büyütmemeyi öğretir.",
-      "zorluk": "orta",
-      "kaynak": "Fussilet 41:34; Güzel Ahlak"
+      "dogru_cevap": "A",
+      "aciklama": "Lokman suresinde insanlara karşı yüz çevirmemek ve yeryüzünde böbürlenerek yürümemek emredilir."
     },
     {
       "id": "guzel_ahlak_020",
-      "konu": "tevazu",
-      "soru": "Lokman 31:18'e göre aşağıdakilerden hangisi kınanır?",
+      "konu": "vakar",
+      "soru": "Kur'an yürüyüş ve ses konusunda ne öğütler?",
       "secenekler": [
-        "A) Tevazu",
-        "B) Böbürlenerek yürümek",
-        "C) Yakınlara iyilik etmek",
-        "D) Affetmek"
+        "A) Hızlı yürü ve yüksek sesle konuş",
+        "B) Dikkat çekmek için farklı yürü",
+        "C) Yürüyüşte ölçülü ol, sesi gereksizce yükseltme",
+        "D) Bağırarak konuşmak etkilidir"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette insanlara karşı kibirlenmek ve yeryüzünde böbürlenerek yürümek kınanır.",
-      "zorluk": "kolay",
-      "kaynak": "Lokman 31:18"
+      "dogru_cevap": "C",
+      "aciklama": "Sakinlik, denge ve ölçü ahlakın dışa yansıyan güzelliklerindendir. Sertlik ve bağırma sözü güçlendirmez, aksine çirkinleştirir."
     },
     {
       "id": "guzel_ahlak_021",
-      "konu": "tevazu",
-      "soru": "Tevazu için en doğru açıklama hangisidir?",
+      "konu": "merhamet",
+      "soru": "\"Yeryüzündekilere merhamet edin ki gökteki size merhamet etsin\" hadisi ne öğretir?",
       "secenekler": [
-        "A) Kendini değersiz görmek",
-        "B) Nimetle şımarmayıp insanlara tepeden bakmamak",
-        "C) Hiç konuşmamak",
-        "D) Her konuda geri çekilmek"
+        "A) Yalnızca akrabaya merhamet edilmesi gerektiğini",
+        "B) Kulun merhameti ile ilahi rahmet arasındaki bağı",
+        "C) Merhametin zekat ibadetiyle aynı olduğunu",
+        "D) Merhametin yalnızca zayıflara yönelik olduğunu"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Tevazu, Allah'ın verdiği nimeti bilmek ama o nimetle insanlara tepeden bakmamaktır.",
-      "zorluk": "orta",
-      "kaynak": "Lokman 31:18; Güzel Ahlak"
+      "aciklama": "Merhamet edenlere Rahman'ın merhamet edeceği bildirilmiştir. Merhamet hem Rabbine hem kullara yaklaştırır."
     },
     {
       "id": "guzel_ahlak_022",
-      "konu": "vakar",
-      "soru": "Lokman 31:19'da hangi davranış öğretilir?",
+      "konu": "merhamet",
+      "soru": "Merhamet ne demektir?",
       "secenekler": [
-        "A) Sesi gereksizce yükseltmek",
-        "B) Yürüyüşte ve seste ölçülü olmak",
-        "C) İnsanlara bağırarak konuşmak",
-        "D) Kalabalıkta dikkat çekmeye çalışmak"
+        "A) Yalnızca acımak",
+        "B) Her isteği sorgusuz kabul etmek",
+        "C) Yalnızca maddi yardım yapmak",
+        "D) Başkasının ihtiyacını fark edip ona iyi davranmak"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette yürüyüşte ölçülü olmak ve sesi kısmak öğretilir.",
-      "zorluk": "kolay",
-      "kaynak": "Lokman 31:19"
+      "dogru_cevap": "D",
+      "aciklama": "Merhamet, sadece acımak değil; başkasının ihtiyacını fark edip ona iyi davranmaktır."
     },
     {
       "id": "guzel_ahlak_023",
-      "konu": "vakar",
-      "soru": "Ebu Davud 4776 hadisine göre salih yol, vakarlı tavır ve ölçülülük neyle ilişkilendirilir?",
+      "konu": "aile",
+      "soru": "Peygamber Efendimiz insanların en hayırlısını nasıl tanımlamıştır?",
       "secenekler": [
-        "A) Ticaretin parçası olmakla",
-        "B) Siyasetin gereği olmakla",
-        "C) Nübüvvetten bir pay taşımakla",
-        "D) Sadece yaşlılara uygun olmakla"
+        "A) Ailesine karşı en iyi davrananlar",
+        "B) En çok ibadet edenler",
+        "C) En yüksek mevkide olanlar",
+        "D) En uzun yaşayanlar"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Hadiste salih yol, vakarlı tavır ve ölçülülüğün nübüvvetten bir pay taşıdığı bildirilir.",
-      "zorluk": "orta",
-      "kaynak": "Ebu Davud 4776"
+      "dogru_cevap": "A",
+      "aciklama": "İnsanların en hayırlılarının ailesine karşı en iyi davrananlar olduğu bildirilmiştir. Aile hayatı ahlakın samimiyet testidir."
     },
     {
       "id": "guzel_ahlak_024",
-      "konu": "merhamet",
-      "soru": "Tirmizi 1924 hadisinin ana mesajı nedir?",
+      "konu": "aile",
+      "soru": "Aile hayatının ahlakın \"samimiyet testi\" sayılmasının sebebi nedir?",
       "secenekler": [
-        "A) Sert olan daha güçlüdür",
-        "B) Merhamet edenlere Rahman merhamet eder",
-        "C) Akrabalarla ilgilenmek gerekli değildir",
-        "D) İyilik sadece mala bağlıdır"
+        "A) Evde kurallar daha katıdır",
+        "B) Ailedekiler daha kolay aldatılabilir",
+        "C) Gerçek ahlak, dışarıda değil evde de güzel kalabilmekle sınanır",
+        "D) Ev dışındaki ilişkiler önemli değildir"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste merhametlilere Rahman'ın merhamet edeceği bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 1924"
+      "dogru_cevap": "C",
+      "aciklama": "İnsan bazen en çok sevdiğine karşı en kontrolsüz davranır. Bu yüzden dışarıda nazik ama evde kırıcı olmak gerçek ahlak değildir."
     },
     {
       "id": "guzel_ahlak_025",
-      "konu": "merhamet",
-      "soru": "Merhamet sadece acımak değil, aynı zamanda nedir?",
+      "konu": "komsuluk",
+      "soru": "Peygamber Efendimiz komşusu kötülüğünden emin olamayan kişi hakkında ne bildirmiştir?",
       "secenekler": [
-        "A) Başkasının ihtiyacını fark edip iyi davranmaktır",
-        "B) Her isteği sorgusuz kabul etmektir",
-        "C) Sadece akrabalara yönelmektir",
-        "D) Duygusallık göstermekten ibarettir"
+        "A) Komşusu değişene kadar sabretmesi gerektiğini",
+        "B) İmanında ciddi eksiklik bulunduğunu",
+        "C) Komşusuna karşı özür dilemesinin yeterli olduğunu",
+        "D) Taşınmasının daha iyi olduğunu"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Merhamet, başkasının ihtiyacını fark edip ona iyi davranmaktır.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi 1924; Güzel Ahlak"
+      "dogru_cevap": "B",
+      "aciklama": "Mümin, komşusuna ve çevresine güven veren kişidir. Komşusunu rahatsız edenin imanında ciddi eksiklik bulunduğu çarpıcı biçimde bildirilmiştir."
     },
     {
       "id": "guzel_ahlak_026",
-      "konu": "aile",
-      "soru": "Tirmizi 3895 hadisine göre en hayırlı kimse kimdir?",
+      "konu": "haya",
+      "soru": "Peygamber Efendimiz hayayı nasıl tanımlamıştır?",
       "secenekler": [
-        "A) Ailesine karşı en iyi davranan kimse",
-        "B) En uzak yerde yaşayan kimse",
-        "C) En az konuşan kimse",
-        "D) En çok mal biriktiren kimse"
+        "A) Sosyal çekingenlik olarak",
+        "B) Yalnızca kadınlara has bir özellik olarak",
+        "C) Güçsüzlük işareti olarak",
+        "D) İmandan bir parça olarak"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadiste insanların en hayırlısının ailesine karşı en iyi davranan kimse olduğu bildirilir.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3895"
+      "dogru_cevap": "D",
+      "aciklama": "Haya imandandır. Haya; insanın Allah'tan utanmasını, kendine yakışmayanı terk etmesini ve sınırları korumasını sağlar."
     },
     {
       "id": "guzel_ahlak_027",
-      "konu": "aile",
-      "soru": "Aile hayatı neden ahlakın samimiyet testi sayılır?",
+      "konu": "haya",
+      "soru": "Kur'an başkasının evine girilirken hangi adabı öğretir?",
       "secenekler": [
-        "A) Çünkü evde kimse bizi görmez",
-        "B) Çünkü gerçek ahlak dışarıda değil, evde de güzel kalabilmektir",
-        "C) Çünkü ailede kurallar geçersizdir",
-        "D) Çünkü sadece ev işleri önemlidir"
+        "A) Önce izin istemek ve selam vermek",
+        "B) Sessizce girmek",
+        "C) Kapıyı çalmadan girmek",
+        "D) Yalnızca gündüzleri girilmesini"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Dışarıda nazik görünüp evde kırıcı olmanın gerçek güzel ahlak olmadığını vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi 3895; Güzel Ahlak"
+      "dogru_cevap": "A",
+      "aciklama": "Bu sadece kapı adabı değil; özel alana saygı, mahremiyet ve incelik eğitimidir."
     },
     {
       "id": "guzel_ahlak_028",
-      "konu": "komsu",
-      "soru": "Buhari 6016'da imanla ilgili ağır uyarı kimin hakkında yapılır?",
+      "konu": "kucuk_iyilikler",
+      "soru": "Peygamber Efendimiz kardeşinin yüzüne tebessüm etmeyi ne olarak nitelendirmiştir?",
       "secenekler": [
-        "A) Komşusu kötülüğünden emin olmayan kişi hakkında",
-        "B) Çok seyahat eden kişi hakkında",
-        "C) Az konuşan kişi hakkında",
-        "D) Sadece kendini düşünen zengin hakkında"
+        "A) Boş bir nezaket",
+        "B) Yalnızca sünnet",
+        "C) Sadaka",
+        "D) Vakit kaybı"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadiste komşusu kötülüğünden emin olmayan kimse hakkında çok ağır bir uyarı vardır.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 6016"
+      "dogru_cevap": "C",
+      "aciklama": "Güzel ahlak sadece büyük fedakarlıklardan ibaret değildir; küçük görülen iyilikler bile büyük gönüller kazanabilir."
     },
     {
       "id": "guzel_ahlak_029",
-      "konu": "komsu",
-      "soru": "Buhari 6475 hadisine göre aşağıdakilerden hangisi imanın gereği olarak sayılır?",
+      "konu": "kucuk_iyilikler",
+      "soru": "Küçük iyilikler konusunda hangisi doğrudur?",
       "secenekler": [
-        "A) Komşuya eziyet etmek",
-        "B) Misafire ikram etmek",
-        "C) Boş sözleri çoğaltmak",
-        "D) İnsanları küçümsemek"
+        "A) Küçük olduğu için etkisi yoktur",
+        "B) Küçük görülen iyilikler bile büyük gönüller kazanabilir",
+        "C) Sadece maddi yardım değerlidir",
+        "D) Yalnızca büyük fedakarlıklar anlamlıdır"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Hadiste hayır söylemek, komşuya eziyet etmemek ve misafire ikram etmek imanın gereği olarak zikredilir.",
-      "zorluk": "orta",
-      "kaynak": "Buhari 6475"
+      "aciklama": "Yol üzerindeki eziyeti kaldırmak, yol göstermek ve güler yüzle karşılamak güzel ahlakın günlük fırsatlarıdır."
     },
     {
       "id": "guzel_ahlak_030",
-      "konu": "haya",
-      "soru": "Buhari 24 hadisine göre haya nedir?",
+      "konu": "gelisim",
+      "soru": "Güzel ahlak nasıl gelişir?",
       "secenekler": [
-        "A) Sadece çekingenliktir",
-        "B) İmandan bir parçadır",
-        "C) Sadece çocuklara özgüdür",
-        "D) Sosyal zayıflıktır"
+        "A) Tek bir nasihat dinleyerek anında oluşur",
+        "B) Yalnızca kalabalık içinde dikkat ederek",
+        "C) Büyük fedakarlıklara hazırlanarak",
+        "D) Tekrar edilen küçük ve bilinçli tercihlerle yerleşir"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Peygamberimiz 'Haya imandandır' buyurmuştur.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 24"
+      "dogru_cevap": "D",
+      "aciklama": "Güzel ahlak bir günde oluşmaz; her gün bir alana dikkat edip muhasebe yaparak güçlenir."
     },
     {
       "id": "guzel_ahlak_031",
-      "konu": "haya",
-      "soru": "Nur 24:27'de hangi adab öğretilir?",
+      "konu": "gelisim",
+      "soru": "Ahlak gelişimi için önerilen günlük üç adım nedir?",
       "secenekler": [
-        "A) Eve sessizce habersiz girmek",
-        "B) Önce izin istemek ve selam vermek",
-        "C) Kapıyı zorlamak",
-        "D) Sadece akrabaya selam vermek"
+        "A) Muhasebe etmek, tevbe edip telafi etmek, Resulullah'ın örnekliğini hatırlamak",
+        "B) Çok konuşmak, çok dinlemek, çok yazmak",
+        "C) Yalnızca kitap okumak",
+        "D) Büyük ibadetlere odaklanmak"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette başkasının evine izin istemeden girilmemesi ve selam verilmesi öğretilir.",
-      "zorluk": "kolay",
-      "kaynak": "Nur 24:27"
+      "dogru_cevap": "A",
+      "aciklama": "Gün sonunda muhasebe, hata olunca tevbe ve telafi, Resulullah'ın örnekliğini sık hatırlamak güzel ahlakı güçlendirir."
     },
     {
       "id": "guzel_ahlak_032",
-      "konu": "iyilik",
-      "soru": "Tirmizi 1956 hadisine göre aşağıdakilerden hangisi sadakadır?",
+      "konu": "ibadet_iliski",
+      "soru": "Güzel ahlak ile ibadetler arasındaki ilişki nasıl tanımlanmıştır?",
       "secenekler": [
-        "A) Kardeşinin yüzüne tebessüm etmek",
-        "B) İnsanları kırmak",
-        "C) Yolu kirletmek",
-        "D) İhtiyacı görmezden gelmek"
+        "A) Birbirinden tamamen bağımsız iki alandır",
+        "B) İbadetler güzel ahlaklı olmayı gerektirmez",
+        "C) Güzel ahlak, ibadetlerin hayata yansıyan meyvesidir",
+        "D) Güzel ahlak ibadetin yerini tutar"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadiste tebessüm etmek, iyiliği emretmek ve yoldan eziyet vereni kaldırmak gibi davranışlar sadaka sayılır.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 1956"
+      "dogru_cevap": "C",
+      "aciklama": "Müslümanın ahlakı, ibadetlerinden ayrı bir alan değil; ibadetlerin hayata yansıyan meyvesidir."
     },
     {
       "id": "guzel_ahlak_033",
-      "konu": "iyilik",
-      "soru": "Küçük iyilikler için en doğru yaklaşım hangisidir?",
+      "konu": "sinav",
+      "soru": "Güzel ahlak en çok ne zaman sınanır?",
       "secenekler": [
-        "A) Küçük olduğu için önemsizdir",
-        "B) Sadece maddi yardım önemlidir",
-        "C) Küçük iyilikleri küçümsememek gerekir",
-        "D) Sadece yakınlara yapılmalıdır"
+        "A) İnsanlar sizi izlerken",
+        "B) Öfkeli ya da zor anlarda",
+        "C) Kazandığınızda ve gücünüzün zirvesindeyken",
+        "D) Dini toplantılarda"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Küçük görülen iyiliklerin bile büyük gönül kazanabileceğini vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi 1956; Güzel Ahlak"
+      "dogru_cevap": "B",
+      "aciklama": "Öfke anında susmak, affetmek ve kötülüğe güzellikle karşılık vermek güzel ahlakın en zor ve en kıymetli sınavlarıdır."
     },
     {
       "id": "guzel_ahlak_034",
-      "konu": "genel",
-      "soru": "Aşağıdakilerden hangisi güzel ahlakın temel alanlarından biri değildir?",
+      "konu": "kibir",
+      "soru": "Aşağıdakilerden hangisi güzel ahlakı bozan başlıca davranışlardan biridir?",
       "secenekler": [
-        "A) Doğruluk",
-        "B) Merhamet",
-        "C) Kibir",
-        "D) Dil nezaketi"
+        "A) Özeleştiri yapmak",
+        "B) Sessiz iyilikler yapmak",
+        "C) Hataları kabul etmek",
+        "D) Başkasının kusuruna odaklanıp kendini düzeltmemek"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Kibir güzel ahlakın değil, ahlakı bozan hastalıkların başındadır.",
-      "zorluk": "kolay",
-      "kaynak": "Lokman 31:18; Güzel Ahlak"
+      "dogru_cevap": "D",
+      "aciklama": "Başkalarının kusuruna odaklanmak yerine kendi kusurunu düzeltmeye yönelen kimse, ahlak yolunda daha hızlı ilerler."
     },
     {
       "id": "guzel_ahlak_035",
-      "konu": "genel",
-      "soru": "Güzel ahlak ile ibadet ilişkisi nasıl kurulmuştur?",
+      "konu": "tanim",
+      "soru": "Aşağıdakilerden hangisi güzel ahlakın temel alanlarından biri değildir?",
       "secenekler": [
-        "A) İbadetle ilgisi yoktur",
-        "B) Sadece Ramazan'da önemlidir",
-        "C) İbadetlerin hayata yansıyan meyvesidir",
-        "D) Sadece topluluk içinde geçerlidir"
-      ],
-      "dogru_cevap": "C",
-      "aciklama": "Güzel ahlak, ibadetlerden bağımsız değil; onların hayata yansıyan meyvesidir.",
-      "zorluk": "orta",
-      "kaynak": "G?zel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_036",
-      "konu": "genel",
-      "soru": "Bir mümin güzel ahlakı geliştirmek için günlük olarak ne yapabilir?",
-      "secenekler": [
-        "A) Kendini hiç sorgulamamak",
-        "B) Hataları savunmak",
-        "C) Gün sonunda muhasebe yapmak",
-        "D) Sadece başkalarının kusurunu izlemek"
-      ],
-      "dogru_cevap": "C",
-      "aciklama": "Günlük muhasebe, tevbe ve telafi güzel ahlakın gelişim yolları arasında sayılır.",
-      "zorluk": "orta",
-      "kaynak": "Yol haritası"
-    },
-    {
-      "id": "guzel_ahlak_037",
-      "konu": "genel",
-      "soru": "Güzel ahlak bir günde nasıl oluşur?",
-      "secenekler": [
-        "A) Bir anda kusursuz hale gelerek",
-        "B) Tek bir nasihat dinleyerek",
-        "C) Tekrar edilen küçük doğru tercihlerle",
-        "D) Sadece kalabalık içinde dikkat ederek"
-      ],
-      "dogru_cevap": "C",
-      "aciklama": "Güzel ahlak, bir günde değil; tekrar edilen küçük doğru tercihlerle yerleşir.",
-      "zorluk": "orta",
-      "kaynak": "Yol haritası"
-    },
-    {
-      "id": "guzel_ahlak_038",
-      "konu": "uygulama",
-      "soru": "Bir arkadaşının hatasını herkesin içinde alaya almak hangi iki ahlak ilkesine açıkça aykırıdır?",
-      "secenekler": [
-        "A) Sadaka ve oruç",
-        "B) Alay etmeme ve insanı ayıplamama",
-        "C) Misafir ikramı ve yol temizliği",
-        "D) Yürüyüşte ölçü ve ses tonu"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Hucurat 49:11, alay etmeyi ve insanları ayıplamayı açıkça yasaklar.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:11"
-    },
-    {
-      "id": "guzel_ahlak_039",
-      "konu": "uygulama",
-      "soru": "Bir kişi öfkeliyken hemen mesaj atıp kırıcı sözler yazarsa hangi ilkeye ters düşer?",
-      "secenekler": [
-        "A) Öfkeyi yönetme ve dil ahlakı",
-        "B) Misafire ikram",
-        "C) Tebessüm",
-        "D) Sadaka verme"
+        "A) Kibir ve başkalarına tepeden bakmak",
+        "B) Doğruluk ve güvenilirlik",
+        "C) Merhamet ve affetmek",
+        "D) Dil nezaketi ve haya"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Öfke anında susmak ve dili kontrol etmek özellikle önemlidir.",
-      "zorluk": "orta",
-      "kaynak": "Ali İmran 3:134; Buhari 6116; Buhari 6475"
-    },
-    {
-      "id": "guzel_ahlak_040",
-      "konu": "uygulama",
-      "soru": "Bir müminin dijital ortamda başkasının özelini araştırması en çok hangi ayete aykırıdır?",
-      "secenekler": [
-        "A) Hucurat 49:12",
-        "B) Ahzab 33:21",
-        "C) Lokman 31:19",
-        "D) Ali İmran 3:134"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hucurat 49:12 kötü zanla birlikte tecessüsü de yasaklar. Bu ilke dijital mahremiyet için de geçerlidir.",
-      "zorluk": "zor",
-      "kaynak": "Hucurat 49:12; Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_041",
-      "konu": "temel",
-      "soru": "güzel ahlak en çok hangi alanları birlikte düzenler?",
-      "secenekler": [
-        "A) Yalnız dış görünüşü",
-        "B) Allah’a saygı, insanlara adalet ve davranış nezaketini",
-        "C) Sadece ticareti",
-        "D) Yalnız konuşma hızını"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Güzel ahlak; Allah’a karşı saygı, insanlara karşı adalet, dilde nezaket ve davranışta dürüstlükle birlikte anlatılır.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_042",
-      "konu": "temel",
-      "soru": "Güzel ahlakın mizanda ağır gelmesi neyi gösterir?",
-      "secenekler": [
-        "A) Küçük bir ayrıntı olduğunu",
-        "B) Ahirette değeri yüksek bir amel olduğunu",
-        "C) Sadece yaşlılara ait olduğunu",
-        "D) Yalnız nafile bir tercih olduğunu"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadis, güzel ahlakın ahirette çok değerli bir amel olduğunu gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi, Birr 62"
-    },
-    {
-      "id": "guzel_ahlak_043",
-      "konu": "sunne",
-      "soru": "Güzel ahlakta ölçünün Resulullah olması neyi engeller?",
-      "secenekler": [
-        "A) Sünnetten bağımsız moda ahlak anlayışını",
-        "B) Merhameti",
-        "C) Aile sevgisini",
-        "D) Doğruluğu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "ahlak ölçüsünün insanların geçici modaları değil, Resulullah’ın örnekliği olduğunu vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Ahzab 33:21"
-    },
-    {
-      "id": "guzel_ahlak_044",
-      "konu": "adalet",
-      "soru": "Nahl 16:90 ayetinde adaletle birlikte hangi erdem de özellikle emredilir?",
-      "secenekler": [
-        "A) İhsan",
-        "B) Sessizlik",
-        "C) Yolculuk",
-        "D) Sadece bireysellik"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Ayet, adaletle birlikte ihsanı ve yakınlara yardımı emreder.",
-      "zorluk": "kolay",
-      "kaynak": "Nahl 16:90"
-    },
-    {
-      "id": "guzel_ahlak_045",
-      "konu": "adalet",
-      "soru": "Yakınlara yardımın adalet ve ihsanla birlikte anılması neyi öğretir?",
-      "secenekler": [
-        "A) Ahlakın sadece duygudan ibaret olmadığını",
-        "B) Ahlakın aileyi dışladığını",
-        "C) Sadece mahkemelerde uygulandığını",
-        "D) Yalnız zenginlerin sorumlu olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Ayet, ahlakın hem ilke hem de yakın çevrede sorumluluk taşıyan bir hayat düzeni olduğunu gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Nahl 16:90"
-    },
-    {
-      "id": "guzel_ahlak_046",
-      "konu": "dogruluk",
-      "soru": "Doğruluğun iyiliğe, iyiliğin de cennete götürmesi hangi zinciri anlatır?",
-      "secenekler": [
-        "A) Sözün karaktere, karakterin sonuca dönüşmesini",
-        "B) Yalnız ticari başarıyı",
-        "C) Sadece mahkeme şahitliğini",
-        "D) Dünya malını artırmayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadis, dürüstlüğün insanın bütün yönünü şekillendiren bir ahlak zinciri kurduğunu öğretir.",
-      "zorluk": "orta",
-      "kaynak": "Buhari, Edeb 69; Müslim, Birr 103"
-    },
-    {
-      "id": "guzel_ahlak_047",
-      "konu": "dogruluk",
-      "soru": "Yalanın kötülüğe sürüklemesi en çok hangi tehlikeyi gösterir?",
-      "secenekler": [
-        "A) Dilin kalbi de bozabileceğini",
-        "B) Yalnız hafızayı zayıflattığını",
-        "C) Sadece çocuklar için sakıncalı olduğunu",
-        "D) Yalnız ticarette günah olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "yalanın yalnız söz değil, kişiliği de bozan bir yol olduğunu vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Buhari, Edeb 69; Müslim, Birr 103"
-    },
-    {
-      "id": "guzel_ahlak_048",
-      "konu": "dogruluk",
-      "soru": "Güvenilirlik neden güzel ahlakın merkezindedir?",
-      "secenekler": [
-        "A) Çünkü insanın içiyle dışının uyumunu gösterir",
-        "B) Çünkü sadece resmi işlerde gerekir",
-        "C) Çünkü sadece komşulukta önemlidir",
-        "D) Çünkü korkudan doğar"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Doğruluk ve güvenilirlik, ahlakın görünür hale gelmiş biçimidir.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_049",
-      "konu": "dil",
-      "soru": "“Ya hayır söyle ya sus” ilkesi bize neyi öğretir?",
-      "secenekler": [
-        "A) Konuşmanın da ahlaki sorumluluk taşıdığını",
-        "B) Hiç konuşmamayı",
-        "C) Yalnız yaşlıların susmasını",
-        "D) Sadece hutbede konuşmayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadis, dilin gelişigüzel değil sorumlulukla kullanılması gerektiğini öğretir.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari, Edeb 31; Müslim, İman 74"
-    },
-    {
-      "id": "guzel_ahlak_050",
-      "konu": "dil",
-      "soru": "Dil ahlakının kalple ilişkilendirilmesi neyi gösterir?",
-      "secenekler": [
-        "A) Sözlerin iç dünyadan beslendiğini",
-        "B) Dilin bağımsız bir organ olduğunu",
-        "C) Yalnız ezberin önemli olduğunu",
-        "D) Kalbin sözden etkilenmediğini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "dilin kalpteki imanın, öfkenin ve niyetin dışa vurumu olduğunu anlatır.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_051",
-      "konu": "dil",
-      "soru": "Kötü lakap takmak neden ahlaka aykırıdır?",
-      "secenekler": [
-        "A) İnsanın onurunu zedelediği için",
-        "B) Sadece yaşlıları üzdüğü için",
-        "C) Yalnız çocuklarda günah olduğu için",
-        "D) Şakayı tamamen kaldırdığı için"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kötü lakap, kişinin haysiyetini kırar ve kardeşlik hukukunu yaralar.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:11"
-    },
-    {
-      "id": "guzel_ahlak_052",
-      "konu": "dil",
-      "soru": "Bir toplulukla alay etmenin yasaklanması hangi erdemi korur?",
-      "secenekler": [
-        "A) İnsan onurunu ve tevazuyu",
-        "B) Sadece sessizliği",
-        "C) Yalnız kuru bilgi toplamayı",
-        "D) Ticaret güvenliğini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Alay yasağı, insan onurunu korur ve kibirli tavrı kırar.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:11"
-    },
-    {
-      "id": "guzel_ahlak_053",
-      "konu": "zan",
-      "soru": "Tecessüsün sakıncalı görülmesinin sebebi nedir?",
-      "secenekler": [
-        "A) Başkalarının gizli kusurlarını araştırması",
-        "B) Yalnız hukukta geçmesi",
-        "C) Sadece akrabaya yapılması",
-        "D) Yalnız gece yapılması"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Tecessüs, insanların gizli kusurlarını araştırarak güven ve kardeşlik ortamını bozar.",
-      "zorluk": "kolay",
-      "kaynak": "Hucurat 49:12"
-    },
-    {
-      "id": "guzel_ahlak_054",
-      "konu": "zan",
-      "soru": "Gıybetin çirkinliği Kur’an’da niçin güçlü bir benzetmeyle anlatılır?",
-      "secenekler": [
-        "A) Kalbi sarsıp insanı bu günahtan uzaklaştırmak için",
-        "B) Sadece edebi güzellik kurmak için",
-        "C) Yalnız Araplara hitap etmek için",
-        "D) Gıybeti hafif göstermek için"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kur’an, gıybetin kötülüğünü insanı sarsacak güçlü bir benzetmeyle anlatır.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:12"
-    },
-    {
-      "id": "guzel_ahlak_055",
-      "konu": "ofke",
-      "soru": "Kur’an’da öfkesini yutan kişi hangi sınıfta övülür?",
-      "secenekler": [
-        "A) Takva sahipleri arasında",
-        "B) Sadece savaşçılar arasında",
-        "C) Yalnız alimler arasında",
-        "D) Sadece zenginler arasında"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Âl-i İmran 3:134, öfkesini yutan ve affedenleri takva sahipleri arasında över.",
-      "zorluk": "kolay",
-      "kaynak": "Al-i İmran 3:134"
-    },
-    {
-      "id": "guzel_ahlak_056",
-      "konu": "ofke",
-      "soru": "Resulullah’ın “Öfkelenme” tavsiyesini tekrar etmesi neyi gösterir?",
-      "secenekler": [
-        "A) Öfke kontrolünün temel bir ahlak başlığı olduğunu",
-        "B) Öfkenin her zaman faydalı olduğunu",
-        "C) Yalnız çocuklara söylendiğini",
-        "D) Sadece savaşta geçerli olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Tekrar edilen nasihat, öfke kontrolünün ne kadar merkezi bir ahlak eğitimi olduğunu gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Buhari, Edeb 76"
-    },
-    {
-      "id": "guzel_ahlak_057",
-      "konu": "affetmek",
-      "soru": "Affetmek güzel ahlakta ne anlama gelmez?",
-      "secenekler": [
-        "A) Haksızlığı sevap diye övmek",
-        "B) İntikamı zorunlu görmemek",
-        "C) Nefsi dizginlemek",
-        "D) Daha yüksek bir tavır göstermek"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Affetmek, kötülüğü meşrulaştırmak değil; nefsi intikamdan geri çekebilmektir.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_058",
-      "konu": "affetmek",
-      "soru": "Kötülüğe güzellikle karşılık vermenin doğurabileceği sonuç hangisidir?",
-      "secenekler": [
-        "A) Düşmanlığın yumuşaması",
-        "B) Hatanın farz olması",
-        "C) Doğruluğun anlamsızlaşması",
-        "D) Ahlakın gereksizleşmesi"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kur’an, güzel tavrın düşmanlığı dostluğa yaklaştırabilecek bir etkisi olduğunu bildirir.",
-      "zorluk": "orta",
-      "kaynak": "Fussilet 41:34"
-    },
-    {
-      "id": "guzel_ahlak_059",
-      "konu": "tevazu",
-      "soru": "İnsanlara karşı yüz çevirmemek ve böbürlenerek yürümemek hangi ahlak başlığıyla ilgilidir?",
-      "secenekler": [
-        "A) Tevazu",
-        "B) Sadece vakar",
-        "C) Yalnız suskunluk",
-        "D) Ticaret ahlakı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Lokman suresindeki bu ölçüler tevazu ve kibirden uzak durma ahlakını öğretir.",
-      "zorluk": "kolay",
-      "kaynak": "Lokman 31:18"
-    },
-    {
-      "id": "guzel_ahlak_060",
-      "konu": "vakar",
-      "soru": "Yürüyüşte ölçü ve ses tonunda denge istemek bize neyi gösterir?",
-      "secenekler": [
-        "A) Güzel ahlakın küçük davranışlarda da göründüğünü",
-        "B) Ahlakın sadece büyük krizlerde gerektiğini",
-        "C) Yalnız konuşmanın önemli olduğunu",
-        "D) Sessizliğin farz olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "güzel ahlakın yürüyüşten ses tonuna kadar günlük ayrıntılarda yaşandığını anlatır.",
-      "zorluk": "orta",
-      "kaynak": "Lokman 31:19"
-    },
-    {
-      "id": "guzel_ahlak_061",
-      "konu": "vakar",
-      "soru": "Sesin gereksizce yükseltilmemesi hangi erdemi korur?",
-      "secenekler": [
-        "A) Ölçü ve nezaketi",
-        "B) Yalnız otoriteyi",
-        "C) Sadece korkuyu",
-        "D) Tartışmayı büyütmeyi"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Ses tonu da ahlakın parçasıdır; ölçü ve nezaket burada da korunur.",
-      "zorluk": "orta",
-      "kaynak": "Lokman 31:19"
-    },
-    {
-      "id": "guzel_ahlak_062",
-      "konu": "merhamet",
-      "soru": "“Yeryüzündekilere merhamet edin ki gökteki size merhamet etsin” hadisi neyi bağlar?",
-      "secenekler": [
-        "A) Kulun merhameti ile ilahi rahmeti",
-        "B) Yalnız akraba ilişkisini",
-        "C) Sadece zekat ibadetini",
-        "D) Ticari bereketi"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadis, insanlara merhamet ile Allah’ın merhameti arasında güçlü bir bağ kurar.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi, Birr 16"
-    },
-    {
-      "id": "guzel_ahlak_063",
-      "konu": "aile",
-      "soru": "Aile içinde güzel ahlakın özellikle vurgulanması neyi gösterir?",
-      "secenekler": [
-        "A) Gerçek karakterin ev hayatında daha net ortaya çıktığını",
-        "B) Dışarıdaki davranışların önemsiz olduğunu",
-        "C) Yalnız erkeklerin sorumlu olduğunu",
-        "D) Ailenin ahlakla ilgisi olmadığını"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "kişinin dışarıda kibar olup evde kırıcı olmasının güzel ahlak sayılmayacağını vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_064",
-      "konu": "aile",
-      "soru": "“Sizin en hayırlınız ailesine karşı en iyi davrananınızdır” hadisi hangi ölçüyü güçlendirir?",
-      "secenekler": [
-        "A) Ahlakın yakın çevrede sınandığını",
-        "B) Yalnız misafire iyi davranmanın yeterli olduğunu",
-        "C) Ailenin ikinci planda olduğunu",
-        "D) Sadece çocuk terbiyesini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadis, ahlakın önce en yakın ilişkilerde görünmesi gerektiğini öğretir.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi, Menakıb 63"
-    },
-    {
-      "id": "guzel_ahlak_065",
-      "konu": "komsu",
-      "soru": "Komşunun kötülüğünden emin olmaması hangi sorunu işaret eder?",
-      "secenekler": [
-        "A) İmanla ilgili ciddi bir eksikliği",
-        "B) Sadece görgü kusurunu",
-        "C) Yalnız ticaret hatasını",
-        "D) Sadece hukuk meselesini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Resulullah, komşusunu rahatsız eden kişinin imanında ciddi eksiklik bulunduğunu çok çarpıcı biçimde haber vermiştir.",
-      "zorluk": "orta",
-      "kaynak": "Buhari, Edeb 29; Müslim, İman 73"
-    },
-    {
-      "id": "guzel_ahlak_066",
-      "konu": "komsu",
-      "soru": "İnsanlara eziyet vermemek neden güzel ahlakın temel şartlarındandır?",
-      "secenekler": [
-        "A) Çünkü iyilik yalnız sözle değil, zarar vermemekle de başlar",
-        "B) Çünkü sadece komşular bunu ister",
-        "C) Çünkü zarar vermek küçük günahtır",
-        "D) Çünkü yalnız şehir hayatında gerekir"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Güzel ahlak, faydalı olmak kadar zarar vermemeyi de kapsar.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_067",
-      "konu": "haya",
-      "soru": "Hayanın imandan bir parça sayılması neyi gösterir?",
-      "secenekler": [
-        "A) Edebin inançla bağlantılı olduğunu",
-        "B) Hayanın sadece kültürel bir alışkanlık olduğunu",
-        "C) Yalnız kadınlara ait olduğunu",
-        "D) Sadece yaşlılarda gerektiğini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Haya, insanın Allah’tan utanmasını ve kendine yakışmayanı terk etmesini sağlayan imanla bağlantılı bir duygudur.",
-      "zorluk": "orta",
-      "kaynak": "Buhari, İman 16; Müslim, İman 57"
-    },
-    {
-      "id": "guzel_ahlak_068",
-      "konu": "haya",
-      "soru": "Mahremiyetin korunması hangi ahlaki çizgiyi besler?",
-      "secenekler": [
-        "A) Edep ve sınır bilincini",
-        "B) Yalnız sessizliği",
-        "C) Sadece toplumsal saygınlığı",
-        "D) Sadece hukuki cezayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Mahremiyet, insanın sınırlarını ve edebini koruyan önemli bir ahlak alanıdır.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_069",
-      "konu": "iyilik",
-      "soru": "Tebessümün sadaka sayılması hangi gerçeği öğretir?",
-      "secenekler": [
-        "A) Küçük görülen iyiliklerin de değerli olduğunu",
-        "B) Yalnız zenginlerin sadaka vereceğini",
-        "C) Güler yüzün ibadeti düşürdüğünü",
-        "D) Sadece yakınlara tebessüm edileceğini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hadis, güzel ahlakın küçük ama sürekli iyiliklerle de yaşandığını öğretir.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi, Birr 36"
-    },
-    {
-      "id": "guzel_ahlak_070",
-      "konu": "iyilik",
-      "soru": "Güler yüzün ahlakla ilişkilendirilmesi neyi gösterir?",
-      "secenekler": [
-        "A) İyiliğin sadece büyük fedakarlıklardan ibaret olmadığını",
-        "B) Yalnız resmi ortamlarda gerekli olduğunu",
-        "C) Ciddiyetin yasak olduğunu",
-        "D) Yalnız çocuklara mahsus olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "güler yüz ve küçük iyiliklerin de ahlakın görünür parçaları olduğunu anlatır.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_071",
-      "konu": "gelisim",
-      "soru": "Güzel ahlakı geliştirmek için günlük yol haritası niçin önerilir?",
-      "secenekler": [
-        "A) Çünkü ahlak tekrar edilen tercihlerle yerleşir",
-        "B) Çünkü ahlak bir gecede tamamlanır",
-        "C) Çünkü sadece teori yeterlidir",
-        "D) Çünkü insan alışkanlık kazanamaz"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "güzel ahlakın küçük ama düzenli tercihlerle kalıcı hale geldiğini vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_072",
-      "konu": "gelisim",
-      "soru": "Her gün bir ahlak alanına dikkat etmeyi seçmek hangi yönteme örnektir?",
-      "secenekler": [
-        "A) Bilinçli ahlak eğitimi",
-        "B) Rastgele davranma",
-        "C) Sadece cezalandırma",
-        "D) Yalnız teorik okumaya"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Günlük yol haritası, ahlakı parça parça ama bilinçli biçimde geliştirmeyi hedefler.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_073",
-      "konu": "zan",
-      "soru": "Delilsiz kötü zan neden tehlikelidir?",
-      "secenekler": [
-        "A) Kalpte kardeşlik yerine güvensizlik üretir",
-        "B) Sadece hukukta sorun olur",
-        "C) Yalnız yabancılara zarar verir",
-        "D) İyiliği artırır"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kötü zan, kalbi bozar ve insanlar arasındaki güveni zedeler.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:12"
-    },
-    {
-      "id": "guzel_ahlak_074",
-      "konu": "ofke",
-      "soru": "Öfkeyi yutmak ile affetmek arasındaki ilişki en doğru nasıl kurulur?",
-      "secenekler": [
-        "A) Biri iç denetim, diğeri bunun dışa yansıyan meyvesidir",
-        "B) Birbirine tamamen zıttır",
-        "C) Yalnız mahkemelerde geçerlidir",
-        "D) Sadece akrabalar için geçerlidir"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kur’an’da öfkeyi yutmak ve affetmek aynı ahlak çizgisinin iç ve dış boyutları olarak anılır.",
-      "zorluk": "orta",
-      "kaynak": "Al-i İmran 3:134"
-    },
-    {
-      "id": "guzel_ahlak_075",
-      "konu": "adalet",
-      "soru": "Adalet, ihsan ve yakınlara yardımın birlikte anılması neyi gösterir?",
-      "secenekler": [
-        "A) Güzel ahlakın hem ilke hem ilişki boyutu olduğunu",
-        "B) Sadece mahkeme ahlakı olduğunu",
-        "C) Yalnız zekatla ilgili olduğunu",
-        "D) Aileyi dışladığını"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Bu üçlü, güzel ahlakın hem adil ilke hem de somut ilişki sorumluluğu taşıdığını gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Nahl 16:90"
-    },
-    {
-      "id": "guzel_ahlak_076",
-      "konu": "tevazu",
-      "soru": "Böbürlenerek yürümek neden güzel ahlaka aykırıdır?",
-      "secenekler": [
-        "A) Kibri beslediği için",
-        "B) Hızı azalttığı için",
-        "C) Yalnız yaşlılara yakışmadığı için",
-        "D) Sadece şehirde yasak olduğu için"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kibirli yürüyüş, insanın kendini büyük görmesinin dışa vurumudur.",
-      "zorluk": "kolay",
-      "kaynak": "Lokman 31:18"
-    },
-    {
-      "id": "guzel_ahlak_077",
-      "konu": "zan",
-      "soru": "Zan, tecessüs ve gıybet neden birlikte öğretilir?",
-      "secenekler": [
-        "A) Çünkü biri kalpte başlar, diğeri davranışa ve söze dönüşür",
-        "B) Çünkü üçü de aynı ibadettir",
-        "C) Sadece mahkemeyle ilgilidir",
-        "D) Yalnız dostlara yapılır"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "kötü zannın kalpte başlayıp kusur araştırmaya ve ardından gıybete dönüşebileceğini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Hucurat 49:12"
-    },
-    {
-      "id": "guzel_ahlak_078",
-      "konu": "gelisim",
-      "soru": "Günün sonunda ahlak muhasebesi yapmak hangi faydayı sağlar?",
-      "secenekler": [
-        "A) Hataları fark edip yarın için bilinç geliştirmeyi",
-        "B) Yalnız uyku süresini kısaltmayı",
-        "C) Başkalarını eleştirmeyi",
-        "D) Sadece ezber artırmayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Günlük muhasebe, ahlak eğitimini somutlaştırır ve kişiyi daha dikkatli hale getirir.",
-      "zorluk": "orta",
-      "kaynak": "Güzel Ahlak"
-    },
-    {
-      "id": "guzel_ahlak_079",
-      "konu": "iyilik",
-      "soru": "Tebessüm ile alay arasındaki fark en doğru nasıl açıklanır?",
-      "secenekler": [
-        "A) Biri gönül alır, diğeri gönül kırar",
-        "B) İkisi de aynıdır",
-        "C) İkisi de yasaktır",
-        "D) Biri sadece çocuklar içindir"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Güler yüz merhamet ve yakınlık taşır; alay ise insanın onurunu zedeler.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi, Birr 36; Hucurat 49:11"
-    },
-    {
-      "id": "guzel_ahlak_080",
-      "konu": "ozet",
-      "soru": "Güzel Ahlak için ana sonucunu en iyi hangi ifade özetler?",
-      "secenekler": [
-        "A) Güzel ahlak sadece birkaç büyük olayda gerekir",
-        "B) Güzel ahlak; dilde, kalpte, ailede ve toplumda sürekli yaşanan kulluk biçimidir",
-        "C) Güzel ahlak yalnız âlimlerin konusudur",
-        "D) Güzel ahlak ibadetlerden bağımsızdır"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "güzel ahlakı hayatın bütün ilişkilerine yayılan sürekli bir kulluk biçimi olarak öğretir.",
-      "zorluk": "kolay",
-      "kaynak": "Güzel Ahlak"
+      "aciklama": "Kibir güzel ahlakın değil, ahlakı bozan hastalıkların başındadır."
     }
   ]
 }

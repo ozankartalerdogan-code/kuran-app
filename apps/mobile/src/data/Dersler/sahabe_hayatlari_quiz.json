@@ -1,1207 +1,501 @@
 {
   "quiz_id": "sahabe-hayatlari",
   "baslik": "Sahabe Hayatları",
-  "toplam_soru": 80,
+  "toplam_soru": 38,
   "sorular": [
     {
       "id": "sahabe_001",
-      "konu": "genel",
-      "soru": "Sahabe için en doğru tanım hangisidir?",
+      "konu": "tanim",
+      "soru": "Sahabe kimdir?",
       "secenekler": [
-        "A) Hz. Peygamber döneminde yaşayan herkes",
-        "B) Hz. Peygamber'i görüp ona iman eden ve Müslüman olarak vefat eden kimse",
-        "C) Sadece savaşlara katılan Müslümanlar",
-        "D) Sadece Medine'de yaşayan müminler"
+        "A) Hz. Peygamber'in yakın akrabaları",
+        "B) Kur'an'ı ezberleyen herkes",
+        "C) Hz. Peygamber'i görüp iman eden ve Müslüman olarak vefat eden kimseler",
+        "D) İlk dört halife"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Sahabe; Resulullah'ı görüp ona iman eden ve Müslüman olarak vefat eden kimse olarak tanımlanır.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
+      "dogru_cevap": "C",
+      "aciklama": "Sahabe, Hz. Peygamber'i (sav) görüp iman etmiş ve bu iman üzere vefat etmiş kişilerdir."
     },
     {
       "id": "sahabe_002",
-      "konu": "genel",
-      "soru": "Tevbe 9:100 ayeti sahabe nesli hakkında hangi ana mesajı verir?",
+      "konu": "tanim",
+      "soru": "Sahabe hayatlarını okurken hangi yaklaşım önerilmez?",
       "secenekler": [
-        "A) Onları tamamen unutmayı",
-        "B) İlk muhacir ve ensarın övüldüğünü",
-        "C) Sadece yöneticilerin değerli olduğunu",
-        "D) Sadece alimlerin öne çıktığını"
+        "A) Onların tercihlerini kendi bağlamında anlamak",
+        "B) Hayatlarından ilham almak",
+        "C) Farklı karakterlerin farklı erdemleri temsil ettiğini görmek",
+        "D) İnsan üstü varlıklar olarak görmek"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Ayette muhacir ve ensarın öncüleri ile onları güzellikle izleyenlerin övüldüğü bildirilir. Dayanak: Tevbe 9:100.",
-      "zorluk": "kolay",
-      "kaynak": "Tevbe 9:100"
+      "dogru_cevap": "D",
+      "aciklama": "Sahabeler insan üstü değil; sıradan insanlar gibi yanılan, büyüyen ve seçen bireylerdir. Onları efsaneleştirmek değil, örnek almak asıldır."
     },
     {
       "id": "sahabe_003",
-      "konu": "ebubekir",
-      "soru": "Hz. Ebû Bekir'in hayatında en çok vurgulanan çizgi hangisidir?",
+      "konu": "ebu_bekir",
+      "soru": "Hz. Ebu Bekir'in en belirgin özelliği nedir?",
       "secenekler": [
-        "A) Sessiz kalmak",
-        "B) Sadakat ve yük paylaşımı",
-        "C) Sadece ticaretle uğraşmak",
-        "D) Yalnızlık sevgisi"
+        "A) Sadakati ve hiç tereddüt etmeden Resulullah'ı tasdik etmesi",
+        "B) Fiziksel gücü",
+        "C) Askeri zaferleri",
+        "D) Uzun ömrü"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hz. Ebû Bekir, sevdiği davanın yükünü taşıyan sadık arkadaş örneğidir. Dayanak: Buhari 3656; Tirmizi 3790.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 3656; Tirmizi 3790"
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Ebu Bekir'in 'es-Sıddık' (çok doğrulayan) lakabı, Resulullah'ı hiç tereddüt etmeden tasdik eden sadakatinden gelir."
     },
     {
       "id": "sahabe_004",
-      "konu": "ebubekir",
-      "soru": "Buhari 3656 hadisine göre Peygamberimizin Hz. Ebû Bekir için kullandığı ifade hangi anlamı destekler?",
+      "konu": "ebu_bekir",
+      "soru": "Hz. Ebu Bekir, inancı uğruna işkenceye uğrayan Müslümanlara nasıl destek oldu?",
       "secenekler": [
-        "A) Uzak tanışıklık",
-        "B) Kardeşlik ve yakın arkadaşlık",
-        "C) Sadece ticari ilişki",
-        "D) Siyasi rekabet"
+        "A) Askeri liderlik üstlenmek",
+        "B) Büyük bir ordu kurmak",
+        "C) İşkenceye uğrayan köleleri satın alıp azat etmek",
+        "D) Kitap yazmak"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste Hz. Ebû Bekir için kardeşim ve arkadaşım anlamı vurgulanır. Dayanak: Buhari 3656.",
-      "zorluk": "orta",
-      "kaynak": "Buhari 3656"
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Ebu Bekir, inandığı için işkenceye uğrayan Bilal gibi köleleri satın alıp azat ederek imanını malıyla destekledi."
     },
     {
       "id": "sahabe_005",
       "konu": "omer",
-      "soru": "Hz. Ömer'in hayatından çıkarılan temel ders hangisidir?",
+      "soru": "Hz. Ömer'in karakterinin iki zıt kutbunu en iyi özetleyen ifade hangisidir?",
       "secenekler": [
-        "A) Gücün keyfe göre kullanılması",
-        "B) Gücün hakka teslim olup adalete dönüşmesi",
-        "C) Her tartışmadan kaçmak",
-        "D) Yalnız yaşamayı tercih etmek"
+        "A) Cömertlik ve tutumluluk",
+        "B) Sessizlik ve konuşkanlık",
+        "C) Cesaret ve korkaklık",
+        "D) Sert mizaç ve hakka teslimiyet"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hz. Ömer'in güçlü mizacı hakka bağlanınca adalet üreten bir örneğe dönüşür. Dayanak: Buhari 3671; Tirmizi 3790.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 3671; Tirmizi 3790"
+      "dogru_cevap": "D",
+      "aciklama": "Hz. Ömer dışarıdan sert ve güçlü görünürdü; ama hakka karşı son derece teslim ve alçak gönüllüydü."
     },
     {
       "id": "sahabe_006",
       "konu": "omer",
-      "soru": "Tirmizi 3790'da Hz. Ömer hangi özelliğiyle öne çıkarılır?",
+      "soru": "Hz. Ömer'in İslam tarihi açısından en önemli özelliği nedir?",
       "secenekler": [
-        "A) En çok şiir söyleyen",
-        "B) Allah'ın emri konusunda en tavizsiz duran",
-        "C) En zengin olan",
-        "D) En genç sahabi olan"
+        "A) Adaleti ve devlet yönetimindeki kararlılığı",
+        "B) En uzun süre halife olması",
+        "C) En çok ayet ezberlemesi",
+        "D) İlk Müslüman olması"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Tirmizi 3790'da Hz. Ömer'in Allah'ın emri konusunda en güçlü ve tavizsiz duranlardan olduğu ifade edilir. Dayanak: Tirmizi 3790.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi 3790"
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Ömer; adaleti, güçlü idareyi ve hakka teslimiyeti bir arada taşıyan örnek bir lider olarak tarihe geçmiştir."
     },
     {
       "id": "sahabe_007",
       "konu": "osman",
-      "soru": "Hz. Osman için öne çıkan iki ana vasıf hangisidir?",
+      "soru": "Hz. Osman'ın İslam'a en büyük katkılarından biri nedir?",
       "secenekler": [
-        "A) Haya ve cömertlik",
-        "B) Sertlik ve münazara",
-        "C) Seyahat ve şiir",
-        "D) Ticaret ve yalnızlık"
+        "A) İlk cihadı başlatmak",
+        "B) İlk camiyi inşa etmek",
+        "C) Kur'an'ın çoğaltılmasını sağlamak ve kopyaları çeşitli şehirlere göndermek",
+        "D) Sahabe arasındaki anlaşmazlıkları çözmek"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Osman, haya sahibi ve cömert bir sahabidir. Dayanak: Tirmizi 3747; Tirmizi 3790.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3747; Tirmizi 3790"
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Osman, Kur'an nüshalarını çoğaltarak İslam dünyasının dört bir yanına göndermiş; bu hizmetiyle Kur'an'ın korunmasına büyük katkı sağlamıştır."
     },
     {
       "id": "sahabe_008",
       "konu": "osman",
-      "soru": "Hz. Osman'ın hayatından çıkarılan ders aşağıdakilerden hangisidir?",
+      "soru": "Hz. Osman'ın kişilik özellikleri arasında öne çıkan iki erdem nedir?",
       "secenekler": [
-        "A) Her iyilik görünür olmak zorundadır",
-        "B) Sessiz ama derin hayır da çok değerlidir",
-        "C) Hizmet için sadece savaş gerekir",
-        "D) Haya insanı pasifleştirir"
+        "A) Cesaret ve güç",
+        "B) Haya ve cömertlik",
+        "C) Zeka ve stratejik düşünce",
+        "D) Sabır ve sessizlik"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Hz. Osman'ın sessiz, derin ve istikrarlı hizmet çizgisi öne çıkar.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
+      "aciklama": "Hz. Osman hayadar ve son derece cömertti; malını İslam davası için hiç çekinmeden harcadı."
     },
     {
       "id": "sahabe_009",
       "konu": "ali",
-      "soru": "Hz. Ali'nin hayat?nda ?ne ??kan iki unsur hangi se?enekte birlikte verilmi?tir?",
+      "soru": "Hz. Ali'nin en belirgin iki özelliği nedir?",
       "secenekler": [
-        "A) İlim ve cesaret",
-        "B) Zenginlik ve ticaret",
-        "C) Şiir ve seyahat",
-        "D) Sessizlik ve geri durma"
+        "A) Sabır ve alçakgönüllülük",
+        "B) Cömertlik ve haya",
+        "C) Doğruluk ve sadakat",
+        "D) İlim ve cesaret"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Ali, ilimle cesareti birlikte taşıyan sahabi örneğidir. Dayanak: Tirmizi 3712.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3712"
+      "dogru_cevap": "D",
+      "aciklama": "Hz. Ali; küçük yaşta imana koşan cesaretiyle ve derin ilmiyle tanınır."
     },
     {
       "id": "sahabe_010",
-      "konu": "ali",
-      "soru": "Tirmizi 3712 rivayeti Hz. Ali hakkında hangi bağı vurgular?",
+      "konu": "hatice",
+      "soru": "Hz. Hatice'nin İslam tarihindeki ayrıcalıklı yeri nedir?",
       "secenekler": [
-        "A) Uzaktan akrabalık",
-        "B) Resulullah ile güçlü yakınlık ve velayet bağı",
-        "C) Sadece ticari ilişki",
-        "D) Yalnız savaş bağı"
+        "A) İlk iman eden kişi olması ve Resulullah'ı en zor günde teskin etmesi",
+        "B) Kur'an'ı ilk yazan kadın olması",
+        "C) İlk hicret eden kadın olması",
+        "D) En çok hadis rivayet eden kadın olması"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Rivayette Hz. Ali için Ali bendendir, ben de ondanım anlamı vurgulanır. Dayanak: Tirmizi 3712.",
-      "zorluk": "orta",
-      "kaynak": "Tirmizi 3712"
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Hatice, vahyin ilk indiği o sarsıcı anda Resulullah'ı teskin eden ve ilk iman eden kişidir."
     },
     {
       "id": "sahabe_011",
-      "konu": "hatice",
-      "soru": "Hz. Hatice'nin hayatında öne çıkan ana ders hangisidir?",
+      "konu": "aise",
+      "soru": "Hz. Aişe'nin İslam ilmine katkısı ne açıdan en dikkat çekicidir?",
       "secenekler": [
-        "A) Destek olmayı ertelemek",
-        "B) Sevginin güven ve yük paylaşımı olması",
-        "C) Sadece maddi başarıya odaklanmak",
-        "D) Toplumdan tamamen kopmak"
+        "A) İlk Kur'an mushafını yazdırması",
+        "B) Büyük savaşlara komutanlık etmesi",
+        "C) Çok sayıda hadis rivayet ederek sahabe ve tabiine ilim öğretmesi",
+        "D) İlk medreseyi kurması"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hz. Hatice, davanın ilk ağır yükünü omuzlayan destekçi eştir. Dayanak: Müslim 2432; Buhari 3815.",
-      "zorluk": "kolay",
-      "kaynak": "Müslim 2432; Buhari 3815"
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Aişe, en çok hadis rivayet eden sahabeler arasında yer alır ve kendisinden hem sahabe hem de tabiun ilim öğrenmiştir."
     },
     {
       "id": "sahabe_012",
-      "konu": "hatice",
-      "soru": "Müslim 2432 hadisine göre Hz. Hatice için verilen müjde aşağıdakilerden hangisidir?",
+      "konu": "bilal",
+      "soru": "Bilal-i Habeşi'nin İslam tarihindeki sembolik önemi nedir?",
       "secenekler": [
-        "A) Dünyada hükümdarlık",
-        "B) Cennette özel bir köşk müjdesi",
-        "C) Her savaşa katılma emri",
-        "D) Uzun ömür garantisi"
+        "A) İlk şehit olan sahabe",
+        "B) İlk hicret eden sahabe",
+        "C) En çok hadis rivayet eden sahabe",
+        "D) Ağır işkenceye rağmen imanını koruması ve ilk müezzin olması"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste Cebrâil, Hz. Hatice'ye Rabbi tarafından selam ve cennette köşk müjdesi getirir. Dayanak: Müslim 2432.",
-      "zorluk": "orta",
-      "kaynak": "Müslim 2432"
+      "dogru_cevap": "D",
+      "aciklama": "Bilal, kızgın kumda 'Ehad! Ehad!' diyerek tevhide sarıldı ve ileride Mescid-i Nebevi'nin ilk müezzini oldu."
     },
     {
       "id": "sahabe_013",
-      "konu": "aise",
-      "soru": "Hz. Âişe'nin sahabe nesli içindeki en belirgin yönü nasıl öne çıktı?",
+      "konu": "bilal",
+      "soru": "Bilal'in işkence altında söylediği söz ne anlama gelir?",
       "secenekler": [
-        "A) Yalnız savaşçı kimliğiyle",
-        "B) İlim ve öğreticilik yönüyle",
-        "C) Sadece akrabalık bağıyla",
-        "D) Sadece zenginliğiyle"
+        "A) \"Allah bizi kurtarsın\"",
+        "B) \"Allah birdir\" — tevhid inancının özü",
+        "C) \"Sabır güzeldir\"",
+        "D) \"Sizden korkmuyorum\""
       ],
       "dogru_cevap": "B",
-      "aciklama": "Hz. Âişe, hadis ve fıkıh rivayetleriyle ümmete ilim taşıyan bir öğretmendir.",
-      "zorluk": "kolay",
-      "kaynak": "Buhari 3769; Sahabe Hayatları"
+      "aciklama": "'Ehad! Ehad!' — Allah'ın bir olduğunun ilanıdır; imanın en saf haliyle dışa vurumudur."
     },
     {
       "id": "sahabe_014",
-      "konu": "aise",
-      "soru": "Buhari 3769 hadisi Hz. Âişe'nin faziletini hangi benzetmeyle anlatır?",
+      "konu": "musab",
+      "soru": "Mus'ab bin Umeyr'in İslam tarihindeki rolü nedir?",
       "secenekler": [
-        "A) İnci gibi",
-        "B) Yağmur gibi",
-        "C) Tharid'in diğer yemeklere üstünlüğü gibi",
-        "D) Güneşin yıldızlara üstünlüğü gibi"
+        "A) Medine'ye İslam'ı götürmek ve ilk elçi olmak",
+        "B) İlk halife seçilmek",
+        "C) Kur'an'ı ilk çoğaltmak",
+        "D) Büyük bir ordu kurmak"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "Hadiste Hz. Âişe'nin diğer kadınlara üstünlüğü, tharid yemeğinin diğer yemeklere üstünlüğüne benzetilir. Dayanak: Buhari 3769.",
-      "zorluk": "orta",
-      "kaynak": "Buhari 3769"
+      "dogru_cevap": "A",
+      "aciklama": "Mus'ab, varlıklı bir aileden yetişmiş genç bir sahabedir; ailesini geride bırakarak Medine'ye İslam'ı taşıdı ve Uhud'da şehit oldu."
     },
     {
       "id": "sahabe_015",
-      "konu": "bilal",
-      "soru": "Bilâl-i Habeşî'nin hayatından çıkarılan temel ders hangisidir?",
+      "konu": "musab",
+      "soru": "Mus'ab bin Umeyr'in şehit olduğu savaş hangisidir?",
       "secenekler": [
-        "A) Rahat zamanda görünmek",
-        "B) Baskı altında da tevhidden vazgeçmemek",
-        "C) Sadece sessiz kalmak",
-        "D) Ticarette ilerlemek"
+        "A) Bedir Savaşı",
+        "B) Hendek Savaşı",
+        "C) Uhud Savaşı",
+        "D) Mute Savaşı"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Bilâl'in hayatı, ağır baskı altında bile tevhidden vazgeçmeyen sabit iman çizgisini gösterir.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
+      "dogru_cevap": "C",
+      "aciklama": "Mus'ab bin Umeyr, Uhud Savaşı'nda sancağı elinden düşürmeden şehit oldu."
     },
     {
       "id": "sahabe_016",
-      "konu": "bilal",
-      "soru": "Buhari 1149 hadisine göre Bilâl'in öne çıkan ameli neydi?",
+      "konu": "selman",
+      "soru": "Selman-ı Farisi'nin İslam'a gelmeden önceki en belirgin özelliği nedir?",
       "secenekler": [
-        "A) Her gün uzun yolculuk yapmak",
-        "B) Abdestten sonra namaz kılmaya özen göstermek",
-        "C) Her zaman oruç tutmak",
-        "D) Sadece sadaka vermek"
+        "A) Zengin bir tüccar olması",
+        "B) Büyük bir orduya sahip olması",
+        "C) İyi bir çiftçi olması",
+        "D) Yıllarca hakikati araması ve farklı dinleri tanıması"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Bilâl, gün veya gece aldığı abdestin ardından namaz kıldığını söyler; Peygamberimiz de onun cennette ayak seslerini duyduğunu bildirir. Dayanak: Buhari 1149.",
-      "zorluk": "orta",
-      "kaynak": "Buhari 1149"
+      "dogru_cevap": "D",
+      "aciklama": "Selman, hakikat arayışıyla İran'dan yola çıkmış; çeşitli din ve toplulukları tanıyarak sonunda Resulullah'a ulaşmıştır."
     },
     {
       "id": "sahabe_017",
-      "konu": "musab",
-      "soru": "Mus'ab bin Umeyr'in hayatında öne çıkan dönüşüm nedir?",
+      "konu": "selman",
+      "soru": "Selman-ı Farisi'nin Hendek Savaşı'na katkısı nedir?",
       "secenekler": [
-        "A) Fakirlikten zenginliğe çıkması",
-        "B) Rahat ve varlıklı hayattan hizmet ve fedakarlığa yönelmesi",
-        "C) Savaşlardan tamamen uzak durması",
-        "D) Sadece yazıyla meşgul olması"
+        "A) Orduya kumandanlık etmek",
+        "B) Hendek kazılması fikrini teklif etmek",
+        "C) Müzakereyi yönetmek",
+        "D) Düşman casuslarını yakalamak"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Mus'ab, Mekke'nin rahat hayatını bırakıp İslam'ın öğretimi için adanmış bir gençtir. Dayanak: TDV İslam Ansiklopedisi, Mus'ab b. Umeyr.",
-      "zorluk": "kolay",
-      "kaynak": "TDV İslam Ansiklopedisi, Mus'ab b. Umeyr"
+      "aciklama": "Hendek Savaşı'nda Selman'ın önerdiği hendek stratejisi, Müslümanların çok sayıca üstün düşmana karşı savunmasını güçlendirdi."
     },
     {
       "id": "sahabe_018",
-      "konu": "musab",
-      "soru": "TDV İslam Ansiklopedisi'ne göre Mus'ab bin Umeyr Medine'ye hangi görev için gönderilmiştir?",
+      "konu": "abdurrahman_avf",
+      "soru": "Abdurrahman bin Avf'ın öne çıkan özelliği nedir?",
       "secenekler": [
-        "A) Ticaret yapmak için",
-        "B) İslam'ı tebliğ ve öğretmek için",
-        "C) Vergi toplamak için",
-        "D) Yalnızca akrabalarını ziyaret için"
+        "A) Helal yoldan kazandığı serveti Allah yolunda harcaması",
+        "B) Askeri dehası",
+        "C) Uzun ömrü",
+        "D) Çok sayıda öğrenci yetiştirmesi"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Mus'ab, Birinci Akabe'den sonra Medine'ye İslam'ı öğretmek ve tebliğ etmek için gönderilmiştir. Dayanak: TDV İslam Ansiklopedisi, Mus'ab b. Umeyr.",
-      "zorluk": "kolay",
-      "kaynak": "TDV İslam Ansiklopedisi, Mus'ab b. Umeyr"
+      "dogru_cevap": "A",
+      "aciklama": "Abdurrahman bin Avf, ticaretteki başarısını helal yoldan kazanmış ve Allah yolunda cömertçe harcamıştır."
     },
     {
       "id": "sahabe_019",
-      "konu": "selman",
-      "soru": "Selmân-ı Fârisî'nin hayatında en belirgin çizgi hangisidir?",
+      "konu": "sad_vakkas",
+      "soru": "Sa'd bin Ebu Vakkas'ın imanındaki en zorlu sınav nedir?",
       "secenekler": [
-        "A) Hakikati arayan bir yolculuk",
-        "B) Sadece kabile üstünlüğü",
-        "C) Yalnızca mal biriktirme",
-        "D) Hiç yer değiştirmeme"
+        "A) İşkenceye dayanmak",
+        "B) Büyük bir savaşta komuta almak",
+        "C) Annesinin onu dinden döndürmek için yemek yemeyi bırakması",
+        "D) Uzun yıllar hapsedilmek"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Selman, uzun bir arayışın ardından İslam'a kavuşan bir hakikat yolcusudur. Dayanak: TDV İslam Ansiklopedisi, Selmân-ı Fârisî.",
-      "zorluk": "kolay",
-      "kaynak": "TDV İslam Ansiklopedisi, Selmân-ı Fârisî"
+      "dogru_cevap": "C",
+      "aciklama": "Sa'd'ın annesi oğlunu İslam'dan döndürmek için açlık grevi yaptı; Sa'd ise annesini sevmesine rağmen imanından taviz vermedi."
     },
     {
       "id": "sahabe_020",
-      "konu": "selman",
-      "soru": "Selmân-ı Fârisî'nin hayatı aşağıdaki hangi gerçeği en güçlü şekilde hatırlatır?",
+      "konu": "talha",
+      "soru": "Talha bin Ubeydullah'ın Uhud Savaşı'ndaki bilinç dışı öne çıkan eylemi nedir?",
       "secenekler": [
-        "A) Doğru her zaman doğulan yerde bulunur",
-        "B) Hakikati arayan insan köken engelini aşabilir",
-        "C) Sadece Araplar örnek olabilir",
-        "D) Arayış gereksizdir"
+        "A) Sancağı taşımak",
+        "B) Düşman komutanını öldürmek",
+        "C) Geri çekilen askerleri toplamak",
+        "D) Resulullah'ı canıyla korumak ve vücudunu kalkan gibi kullanmak"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Selman'ın hayatı, hakikatin köken ve alışkanlık duvarlarını aşanlara açıldığını gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
+      "dogru_cevap": "D",
+      "aciklama": "Uhud'da dağılma anında Talha, Resulullah'a kalkan oldu ve vücudunda çok sayıda yara aldı."
     },
     {
       "id": "sahabe_021",
-      "konu": "abdurrahman",
-      "soru": "Abdurrahman bin Avf'ın hayatından çıkarılan ana ders nedir?",
+      "konu": "zubeyr",
+      "soru": "Zübeyr bin Avvam'ın İslam'a katılışındaki dikkat çekici özellik nedir?",
       "secenekler": [
-        "A) Malın tek başına değersiz olduğu",
-        "B) Helal kazancın infakla ibadete dönüşebileceği",
-        "C) Zenginliğin mutlaka kötü olduğu",
-        "D) Ticaretin dinden ayrı olduğu"
+        "A) Yetişkin bir insan olarak gelmesi",
+        "B) Çok genç yaşta iman etmesi ve cesareti",
+        "C) Medine'de ilk Müslüman olması",
+        "D) Çok sayıda savaşa katılması"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Abdurrahman bin Avf, helal kazanç ile cömertliği birleştiren bir sahabidir. Dayanak: Tirmizi 3747; TDV İslam Ansiklopedisi, Abdurrahman b. Avf.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3747; TDV İslam Ansiklopedisi, Abdurrahman b. Avf"
+      "aciklama": "Zübeyr, küçük yaşta iman etmiş ve cesareti ile öne çıkmıştır."
     },
     {
       "id": "sahabe_022",
-      "konu": "abdurrahman",
-      "soru": "Tirmizi 3747 hadisine göre Abdurrahman bin Avf için hangi müjde vardır?",
+      "konu": "muaz_cebel",
+      "soru": "Muaz bin Cebel'in sahabeler arasındaki yeri nedir?",
       "secenekler": [
-        "A) Hükümdarlık müjdesi",
-        "B) Cennette olma müjdesi",
-        "C) Sadece uzun ömür müjdesi",
-        "D) Her savaşta zafer müjdesi"
+        "A) İlim bilmenin sorumluluk getirdiğini bilen büyük bir alim",
+        "B) En güçlü savaşçı",
+        "C) En çok mal bağışlayan sahabi",
+        "D) İlk müezzin"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste cennetle müjdelenen on sahabi arasında Abdurrahman bin Avf da zikredilir. Dayanak: Tirmizi 3747.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3747"
+      "dogru_cevap": "A",
+      "aciklama": "Muaz bin Cebel, ilmini sorumluluk bilinciyle taşıyan; ilim bilmenin ne anlama geldiğini yaşayarak gösteren bir sahabedir."
     },
     {
       "id": "sahabe_023",
-      "konu": "sad",
-      "soru": "Sa'd bin Ebû Vakkas'ın hayatında öne çıkan denge hangisidir?",
+      "konu": "ubey_kab",
+      "soru": "Übey bin Ka'b'ın İslam kültürüne önemli katkısı nedir?",
       "secenekler": [
-        "A) Saygıyı bırakıp sertleşmek",
-        "B) Anne-babaya saygıyı koruyup imandan taviz vermemek",
-        "C) Her baskıya boyun eğmek",
-        "D) Aileyi tamamen terk etmek"
+        "A) Büyük bir ordu kurması",
+        "B) İlk cami yapımını finanse etmesi",
+        "C) Kur'an'ı en iyi bilenlerden biri olması ve öğretmesi",
+        "D) Tüccar olarak İslam'ı yaygınlaştırması"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Sa'd üzerinden saygı ile iman sebatı arasındaki doğru dengeyi vurgular. Dayanak: TDV İslam Ansiklopedisi, Sa'd b. Ebû Vakkās; Ankebut 29:8 bağlamı.",
-      "zorluk": "orta",
-      "kaynak": "TDV İslam Ansiklopedisi, Sa'd b. Ebû Vakkās"
+      "dogru_cevap": "C",
+      "aciklama": "Übey bin Ka'b, Kur'an'ı en iyi bilen sahabelerden olup Resulullah'ın ona Kur'an okumasını önerdiği bilinir."
     },
     {
       "id": "sahabe_024",
-      "konu": "sad",
-      "soru": "Tirmizi 3747 hadisine göre Sa'd bin Ebû Vakkas hangi grupta yer alır?",
+      "konu": "esma",
+      "soru": "Hz. Esma bint Ebu Bekir'in 'Zatü'n-nitakayn' (iki kuşak sahibesi) lakabını almasının sebebi nedir?",
       "secenekler": [
-        "A) İlk vahiy katipleri",
-        "B) Cennetle müjdelenen on sahabi",
-        "C) Ensarın gençleri",
-        "D) Sadece Medineli sahabiler"
+        "A) İki farklı kuşağa uzun yaşaması",
+        "B) İki oğlu olması",
+        "C) İki kez hicret etmesi",
+        "D) Hicret sırasında Resulullah ve babasına yiyecek taşırken kuşağını ikiye bölmesi"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Hadiste Sa'd bin Ebû Vakkas, cennetle müjdelenen on sahabi arasında sayılır. Dayanak: Tirmizi 3747.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3747"
+      "dogru_cevap": "D",
+      "aciklama": "Esma, hicret hazırlığında yiyecekleri bağlamak için kuşağını ikiye böldü; bu yüzden 'iki kuşak sahibesi' lakabını aldı."
     },
     {
       "id": "sahabe_025",
-      "konu": "talha",
-      "soru": "Talha bin Ubeydullah'ın adı özellikle hangi tutumla öne çıkar?",
+      "konu": "esma",
+      "soru": "Esma bint Ebu Bekir'in hicret sürecindeki rolü neydi?",
       "secenekler": [
-        "A) Sessizce geri çekilmek",
-        "B) Tehlike anında Resulullah'ı korumak",
-        "C) Sadece ticaret yapmak",
-        "D) İlimden uzak durmak"
+        "A) Resulullah'ı kovuşturanları yanıltmak için plan yapmak",
+        "B) Yiyecek taşımak ve sır saklamak",
+        "C) Medine'dekilere haber iletmek",
+        "D) Hicret kervanına rehberlik etmek"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Talha, özellikle Uhud'da Resulullah'ı koruyan fedakarlığıyla anılır. Dayanak: TDV İslam Ansiklopedisi, Talha b. Ubeydullah.",
-      "zorluk": "kolay",
-      "kaynak": "TDV İslam Ansiklopedisi, Talha b. Ubeydullah"
+      "aciklama": "Esma, hicret sürecinde Resulullah ve babasına yiyecek götürürken baskı altında sır sakladı ve cesaret gösterdi."
     },
     {
       "id": "sahabe_026",
-      "konu": "talha",
-      "soru": "Talha'nın hayatından çıkarılan ana ders aşağıdakilerden hangisidir?",
+      "konu": "ummu_umare",
+      "soru": "Ümmü Umare'nin Uhud Savaşı'ndaki öne çıkan eylemi nedir?",
       "secenekler": [
-        "A) Sevginin bedel ödemeye hazır olması",
-        "B) Sadece görünür başarı peşinde koşmak",
-        "C) Riskten her zaman kaçmak",
-        "D) İmanı yalnız kalpte tutmak"
+        "A) Saflarda dağılma yaşanırken Resulullah'ı korumak",
+        "B) Yaralılara su taşımak",
+        "C) Düşman saflarına saldırmak",
+        "D) Savaş sonrası şehitleri defnetmek"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Talha'nın sadakati, bedel ödeyen sevginin güçlü bir örneğidir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
+      "aciklama": "Ümmü Umare, Uhud'da büyük dağılma yaşandığı anlarda Resulullah'ın yanında kalan ve onu koruyan birkaç kişiden biriydi."
     },
     {
       "id": "sahabe_027",
-      "konu": "zubeyr",
-      "soru": "Zübeyr bin Avvam için aşağıdakilerden hangisi doğrudur?",
+      "konu": "ummu_umare",
+      "soru": "Ümmü Umare örneği İslam anlayışında ne açıdan önemlidir?",
       "secenekler": [
-        "A) İlk iman edenlerden biridir",
-        "B) İslam'a çok geç girmiştir",
-        "C) Hiç baskı görmemiştir",
-        "D) Sadece Medine'de tanınmıştır"
+        "A) Kadınların savaşa katılmasının farz olduğunu gösterir",
+        "B) Kadınların erkeklerden üstün olduğunu kanıtlar",
+        "C) Sorumluluğun cinsiyete değil imana ve cesarete bağlı olduğunu gösterir",
+        "D) Savaşın yalnızca savunma amaçlı olduğunu gösterir"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Zübeyr, ilk iman edenlerden ve cennetle müjdelenen sahabilerden biri olarak anılır. Dayanak: Tirmizi 3747; TDV İslam Ansiklopedisi, Zübeyr b. Avvâm.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3747; TDV İslam Ansiklopedisi, Zübeyr b. Avvâm"
+      "dogru_cevap": "C",
+      "aciklama": "Ümmü Umare örneği, sorumluluk ve cesaretin cinsiyet meselesi değil, iman meselesi olduğunu gösterir."
     },
     {
       "id": "sahabe_028",
-      "konu": "zubeyr",
-      "soru": "Z?beyr bin Avvam'?n hayat?nda ?zellikle hangi fikir vurgulan?r?",
+      "konu": "genel",
+      "soru": "Sahabenin farklı karakterleri bir arada ele alınmasının amacı nedir?",
       "secenekler": [
-        "A) Genç yaşta doğru istikametin ömür boyu sadakate dönüşebileceği",
-        "B) Sadece yaşlıların örnek olabileceği",
-        "C) Cesaretin öfke demek olduğu",
-        "D) Hizmet için ilmin gereksiz olduğu"
+        "A) Aralarındaki rekabeti göstermek",
+        "B) Her birinin farklı bir erdemi temsil ettiğini ve herkesin kendine uygun bir model bulabileceğini ortaya koymak",
+        "C) En iyisini seçmek",
+        "D) Tarihsel sıralamaları vermek"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Zübeyr'in hayatı, genç yaşta bulunan istikametin ömürlük sadakate dönüşebileceğini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
+      "dogru_cevap": "B",
+      "aciklama": "Sahabeler farklı kişilikleriyle birbirini tamamlayan örnekler sunar; cesur, alim, cömert, sadık, sabırlı... Her biri farklı bir ışığı temsil eder."
     },
     {
       "id": "sahabe_029",
-      "konu": "muaz",
-      "soru": "Muâz bin Cebel hangi yönüyle öne çıkar?",
+      "konu": "ebu_bekir",
+      "soru": "Hz. Ebu Bekir hangi sıfatla ilk halife olmuştur?",
       "secenekler": [
-        "A) Helal-haram bilgisi ve öğreticiliği",
-        "B) Sadece şiir yazması",
-        "C) Sadece ticareti",
-        "D) Uzun yolculukları"
+        "A) Askeri gücü sayesinde",
+        "B) Resulullah'ın yazılı vasiyetiyle",
+        "C) En yaşlı sahabi olduğu için",
+        "D) Sahabenin seçimiyle ve sadakatiyle"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Muâz bin Cebel, ilmi ve özellikle helal-haram bilgisindeki yetkinliğiyle öne çıkar. Dayanak: Tirmizi 3790.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3790"
+      "dogru_cevap": "D",
+      "aciklama": "Hz. Ebu Bekir, Resulullah'ın vefatından sonra sahabenin üzerinde birleştiği ilk halife oldu; sadakati ve güven veren karakteri bu seçimde belirleyiciydi."
     },
     {
       "id": "sahabe_030",
-      "konu": "muaz",
-      "soru": "Muâz bin Cebel'in hayatı bize bilginin hangi yönünü hatırlatır?",
+      "konu": "bilal",
+      "soru": "Bilal-i Habeşi'nin sahabelik hikayesi hangi açıdan özellikle anlamlıdır?",
       "secenekler": [
-        "A) Süs olduğunu",
-        "B) Tartışma aracı olduğunu",
-        "C) Emanet ve sorumluluk olduğunu",
-        "D) Gereksiz olduğunu"
+        "A) Toplumsal statüsü en altta olan birinin imanla en yüce makama çıkabilmesi",
+        "B) Soylu bir aileden gelmesi",
+        "C) Çok erken yaşta şehit olması",
+        "D) En fazla savaşa katılan sahabi olması"
       ],
-      "dogru_cevap": "C",
-      "aciklama": "İlim, sadece bilgi birikimi değil; omuza yüklenen bir sorumluluktur.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
+      "dogru_cevap": "A",
+      "aciklama": "Bilal köle olarak başlamış; imanı, sabrı ve sesi sayesinde İslam tarihinin ilk müezzini olmuştur. İman, sosyal statünün önündedir."
     },
     {
       "id": "sahabe_031",
-      "konu": "ubey",
-      "soru": "Übey bin Ka'b'ın sahabe içindeki belirgin konumu nedir?",
+      "konu": "genel",
+      "soru": "Sahabe hayatlarını okurken yapılmaması gereken yanlış yaklaşım hangisidir?",
       "secenekler": [
-        "A) Ticaret reisi olması",
-        "B) Kur'an bilgisi ve kıraatiyle öne çıkması",
-        "C) Sadece savaşlarda bulunması",
-        "D) Sadece idareci olması"
+        "A) Hatalarını da insani bir gerçek olarak görmek",
+        "B) Kendi hayatımıza uyarlanacak dersler çıkarmak",
+        "C) Onları mükemmel, hiç yanılmaz varlıklar olarak görmek",
+        "D) Farklı kişiliklerin farklı erdemleri temsil ettiğini fark etmek"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Übey bin Ka'b, Kur'an'ı öğrenme ve öğretme yönüyle öne çıkan bir sahabidir. Dayanak: Tirmizi 3790.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3790"
+      "dogru_cevap": "C",
+      "aciklama": "Sahabeyi efsaneleştirmek değil, gerçek insanlar olarak görüp hayatlarından ilham almak esas yaklaşımdır."
     },
     {
       "id": "sahabe_032",
-      "konu": "ubey",
-      "soru": "?bey bin Ka'b i?in a?a??daki hangi mesaj ?ne ??kar?",
+      "konu": "musab",
+      "soru": "Mus'ab bin Umeyr Medine'ye gitmeden önce nasıl bir hayat yaşıyordu?",
       "secenekler": [
-        "A) Kur'an'ı sadece dinlemek yeterlidir",
-        "B) Kur'an'la ilişki yüzeyde kalmamalıdır",
-        "C) Kur'an sadece alimlere özeldir",
-        "D) Güzel okuma önemsizdir"
+        "A) Fakir bir çoban",
+        "B) Varlıklı ve şımarık bir genç",
+        "C) Bir köle",
+        "D) Bir çiftçi"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Kur'an'ı duymanın ötesine geçip öğrenmek, anlamak ve onunla şekillenmek gerektiğini vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
+      "aciklama": "Mus'ab, Mekke'nin en varlıklı ailelerinden birinde yetişmiş; kıyafetleri ve yaşam tarzıyla tanınan bir gençti. İmanı her şeyini göze aldırdı."
     },
     {
       "id": "sahabe_033",
-      "konu": "esma",
-      "soru": "Esmâ bint Ebû Bekir neden Zâtü'n-nitâkayn lakabıyla anılmıştır?",
+      "konu": "sad_vakkas",
+      "soru": "Sa'd bin Ebu Vakkas annesinin baskısına karşı nasıl bir tutum sergiledi?",
       "secenekler": [
-        "A) İki şehirde yaşadığı için",
-        "B) Hicret hazırlığında kuşağını ikiye böldüğü için",
-        "C) İki kez evlendiği için",
-        "D) İki ayrı dil bildiği için"
+        "A) Annesinin isteğine uyarak dinden döndü",
+        "B) Annesini terk etti ve bir daha görmedi",
+        "C) Annesini İslam'a davet etti ve ikna etti",
+        "D) Annesini sevmesine rağmen imanını korudu ve annesine iyi davranmaya devam etti"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Esmâ, hicret hazırlığında kuşağını ikiye bölerek azık torbası ve su kabını bağladığı için bu lakapla anılmıştır. Dayanak: TDV İslam Ansiklopedisi, Esmâ bint Ebû Bekir.",
-      "zorluk": "kolay",
-      "kaynak": "TDV İslam Ansiklopedisi, Esmâ bint Ebû Bekir"
+      "dogru_cevap": "D",
+      "aciklama": "Sa'd, annesine olan sevgisini asla inkâr etmedi; ama Allah'a olan bağlılığından da taviz vermedi. İkisi arasındaki denge onun karakterini yansıtır."
     },
     {
       "id": "sahabe_034",
-      "konu": "esma",
-      "soru": "Esmâ bint Ebû Bekir'in hayatından çıkarılan ana ders hangisidir?",
+      "konu": "hatice",
+      "soru": "Hz. Hatice'nin Resulullah'a vahyin ilk indiği anda söylediği sözlerin özü neydi?",
       "secenekler": [
-        "A) Görünmeyen desteğin de çok büyük hizmet olabileceği",
-        "B) Sadece açık savaşın kıymetli olduğu",
-        "C) Kadınların sorumluluk taşımadığı",
-        "D) Hicretin yalnız erkeklere ait olduğu"
+        "A) Sen doğru bir insansın, Allah seni mahcup etmez",
+        "B) Seni desteklemiyorum, düşünceli ol",
+        "C) Bu bir şeytanın işidir",
+        "D) Hemen Mekke'yi terk edelim"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Esmâ'nın hayatı, sır saklama, emanet taşıma ve görünmeyen desteğin önemini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
+      "aciklama": "Hz. Hatice, ilk vahyin şokunu yaşayan Resulullah'a 'Sen emanete riayet eder, doğru konuşursun; Allah seni asla mahcup etmez' diyerek güven aşıladı."
     },
     {
       "id": "sahabe_035",
-      "konu": "ummuumare",
-      "soru": "Ümmü Umâre özellikle hangi yönüyle tanınır?",
+      "konu": "selman",
+      "soru": "Selman-ı Farisi'nin İslam tarihindeki yeri hangi açıdan özellikle dikkat çekicidir?",
       "secenekler": [
-        "A) Savaşlarda gösterdiği cesaretle",
-        "B) Sadece şiirle uğraşmasıyla",
-        "C) Ticaret kervanlarıyla",
-        "D) Yalnız ev içi hayatıyla"
+        "A) En uzun yaşayan sahabi olması",
+        "B) En çok hadis rivayet etmesi",
+        "C) Arap olmayan ilk sahabenin İslam'a önemli katkı yapması",
+        "D) En büyük araziye sahip olması"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Ümmü Umâre, savaşlardaki cesareti ve özellikle Uhud'da Resulullah'ı korumasıyla tanınır. Dayanak: TDV İslam Ansiklopedisi, Ümmü Umâre.",
-      "zorluk": "kolay",
-      "kaynak": "TDV İslam Ansiklopedisi, Ümmü Umâre"
+      "dogru_cevap": "C",
+      "aciklama": "Selman İranlıdır ve İslam'ın etnik sınır tanımadığını; hakikati arayanı kabul ettiğini temsil eder."
     },
     {
       "id": "sahabe_036",
-      "konu": "ummuumare",
-      "soru": "?mm? Um?re hangi ?nemli bak?? a??s?n? ?zellikle d?zeltir?",
+      "konu": "aise",
+      "soru": "Hz. Aişe'nin ilim öğretimi açısından önemi nedir?",
       "secenekler": [
-        "A) Kadınların İslam tarihinde pasif olduğu düşüncesini",
-        "B) Sadece erkeklerin ilim öğrenebileceği düşüncesini",
-        "C) Hicretin gereksiz olduğu düşüncesini",
-        "D) Ticaretin haram olduğu düşüncesini"
+        "A) Yalnızca kadınlara ders vermiştir",
+        "B) Hem sahabeden hem tabiinden pek çok kişi kendisinden ilim almıştır",
+        "C) Yalnızca tefsir alanında öne çıkmıştır",
+        "D) İlk medreseyi kurmuştur"
       ],
-      "dogru_cevap": "A",
-      "aciklama": "Ümmü Umâre'nin hayatı, kadın sahabilerin aktif fedakarlık ve sorumluluk taşıdığını gösterir. Dayanak: TDV İslam Ansiklopedisi, Ümmü Umâre.",
-      "zorluk": "orta",
-      "kaynak": "TDV İslam Ansiklopedisi, Ümmü Umâre"
+      "dogru_cevap": "B",
+      "aciklama": "Hz. Aişe, döneminin en büyük ilim otoritelerinden biriydi; hem sahabe hem de tabiinden pek çok insan ona ilim öğrenmek için geldi."
     },
     {
       "id": "sahabe_037",
-      "konu": "genel-ders",
-      "soru": "Sahabe Hayatları konusunda genel yaklaşımına göre sahabe hayatları neden öğrenilir?",
+      "konu": "talha",
+      "soru": "Talha bin Ubeydullah ile Zübeyr bin Avvam'ın ortak özelliği nedir?",
       "secenekler": [
-        "A) Sadece tarih bilgisi için",
-        "B) Dinin ilk canlı örneklerini tanımak için",
-        "C) Yalnız isim ezberlemek için",
-        "D) Sadece savaş sıralaması öğrenmek için"
+        "A) İkisi de ilk halife adayı olmuştur",
+        "B) İkisi de Kur'an'ı ilk ezberleyenler arasındadır",
+        "C) İkisi de Medine'de İslam'ı tebliğ etmiştir",
+        "D) İkisi de Uhud'da öne çıkan cesaret göstermişlerdir"
       ],
-      "dogru_cevap": "B",
-      "aciklama": "Sahabe, dinin ete kemiğe bürünmüş ilk örnekleridir.",
-      "zorluk": "kolay",
-      "kaynak": "Tevbe 9:100; Haşr 59:8-9"
+      "dogru_cevap": "D",
+      "aciklama": "Her ikisi de Uhud Savaşı'nda büyük cesaret göstermiş, Resulullah'ı canlarıyla korumaya çalışmıştır."
     },
     {
       "id": "sahabe_038",
-      "konu": "genel-ders",
-      "soru": "Sahabe hayatlarını okurken en sağlıklı yöntem hangisidir?",
-      "secenekler": [
-        "A) Onları sadece ulaşılmaz kahramanlar gibi görmek",
-        "B) Sadece savaş ayrıntılarına takılmak",
-        "C) Hayat çizgileriyle bugüne bakan örnekliklerini görmek",
-        "D) Sadece kabile bilgilerini ezberlemek"
-      ],
-      "dogru_cevap": "C",
-      "aciklama": "Sahabe hayatlarını sloganlaştırmadan, kısa hayat çizgileri ve bugüne bakan dersleriyle okumak en sağlıklı yaklaşımdır.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_039",
-      "konu": "ten-promised",
-      "soru": "Aşağıdakilerden hangisi Tirmizi 3747'de cennetle müjdelenenler arasında yer alır?",
-      "secenekler": [
-        "A) Talha bin Ubeydullah",
-        "B) Ebu Leheb",
-        "C) Abdullah bin Übey",
-        "D) Velid bin Mugire"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Tirmizi 3747'de Talha, Zübeyr, Abdurrahman bin Avf, Sa'd, Ebu Ubeyde ve diğerleri cennetle müjdelenenler arasında sayılır. Dayanak: Tirmizi 3747.",
-      "zorluk": "kolay",
-      "kaynak": "Tirmizi 3747"
-    },
-    {
-      "id": "sahabe_040",
-      "konu": "ozet",
-      "soru": "İçeriğin tamamı düşünüldüğünde en doğru genel sonuç hangisidir?",
-      "secenekler": [
-        "A) İman insanın hayat düzenini gerçekten değiştirebilir",
-        "B) Sahabiler sadece savaşta örnek olmuştur",
-        "C) Dini yaşamak sadece alimlere mahsustur",
-        "D) Hizmetin tek biçimi yöneticilik yapmaktır"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Sahabe hayatlarının ortak çizgisi, imanın hayat düzenini gerçekten dönüştürmesidir.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_041",
       "konu": "genel",
-      "soru": "Sahabe tanımında “Müslüman olarak vefat etmek” neden önemlidir?",
+      "soru": "Sahabeden ilham almanın doğru yolu hangisidir?",
       "secenekler": [
-        "A) Sahabe olmanın imanla tamamlanan bir vasıf olduğunu gösterdiği için",
-        "B) Sadece tarih sıralaması için",
-        "C) Yalnız soy bağı kurmak için",
-        "D) Yaş ölçüsü koymak için"
+        "A) Kendi bağlamımızda hangi erdemi ne şekilde uygulayabileceğimizi düşünmek",
+        "B) Onların her sözünü ve eylemini olduğu gibi taklit etmek",
+        "C) Yalnızca ilk dört halifeyi örnek almak",
+        "D) Onlar hakkında çok kitap okumak"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Sahabe tanımı, Hz. Peygamber’i görüp iman eden ve bu iman üzere vefat eden kimseleri kapsar.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_042",
-      "konu": "genel",
-      "soru": "Sahabe hayatlarını yalnız kahramanlık hikâyesi gibi okumak neden eksik olur?",
-      "secenekler": [
-        "A) Çünkü asıl amaç onların hangi dersi yaşadığını görmek olmalıdır",
-        "B) Çünkü tarih önemsizdir",
-        "C) Çünkü sadece savaşları konuşmak gerekir",
-        "D) Çünkü sahabe hakkında konuşmak doğru değildir"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "sahabe hayatlarının sadece olay değil, ahlak ve kulluk dersi olarak okunmasını ister.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_043",
-      "konu": "ebubekir",
-      "soru": "Hz. Ebû Bekir’in malını ve güvenliğini İslam uğruna kullanması hangi özelliğini gösterir?",
-      "secenekler": [
-        "A) Sadakat ve fedakârlığını",
-        "B) Sadece ticari zekâsını",
-        "C) Yalnız siyasi gücünü",
-        "D) Sessizliğini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Ebû Bekir’in hayatında sadakat, fedakârlık ve güven öne çıkan çizgilerdendir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_044",
-      "konu": "ebubekir",
-      "soru": "Hz. Ebû Bekir’in hicret yol arkadaşı olması hangi dersi güçlendirir?",
-      "secenekler": [
-        "A) En zor anda bile dostluğa ve sadakate sahip çıkmayı",
-        "B) Yalnız yolculuk bilgisini",
-        "C) Sadece ticaret kabiliyetini",
-        "D) Yalnız savaş becerisini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hicret arkadaşlığı, Hz. Ebû Bekir’in Resulullah’a olan derin sadakatini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_045",
-      "konu": "omer",
-      "soru": "Hz. Ömer’in hayatından çıkan temel derslerden biri hangisidir?",
-      "secenekler": [
-        "A) Adaleti tavizsiz korumak",
-        "B) Sessiz kalmak",
-        "C) Yalnız inzivaya çekilmek",
-        "D) Ticaretle öne çıkmak"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Ömer, adalet hassasiyeti ve açık sözlülüğü ile dersin merkezinde yer alır.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_046",
-      "konu": "omer",
-      "soru": "Hz. Ömer’in Müslüman oluşundan sonra İslam’ın görünürlüğünün artması neyi gösterir?",
-      "secenekler": [
-        "A) Cesaretin bazen toplumsal etkisi de olduğunu",
-        "B) Sadece nüfus artışını",
-        "C) Yalnız aile desteğini",
-        "D) Ticaret kolaylığını"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Ömer’in cesareti, İslam’ın görünürlük kazanmasında etkili olmuştur.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_047",
-      "konu": "osman",
-      "soru": "Hz. Osman’ın ümmete en büyük hizmetlerinden biri hangi başlıkla öne çıkar?",
-      "secenekler": [
-        "A) Mushaf hizmetiyle",
-        "B) Sadece savaşçılığıyla",
-        "C) Yalnız şiirleriyle",
-        "D) Ticaret yasağıyla"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Osman’ı özellikle mushaf hizmeti ve ümmet için yaptığı düzenleyici katkıyla anmaktadır.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_048",
-      "konu": "osman",
-      "soru": "Hz. Osman’ın iki hicret yaşamış olması bize neyi öğretir?",
-      "secenekler": [
-        "A) Rahatını bırakıp iman için bedel ödemeyi",
-        "B) Sadece seyahati sevmeyi",
-        "C) Yalnız siyaset yapmayı",
-        "D) Ev hayatından kaçmayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "İki hicret, Hz. Osman’ın iman uğruna konforunu terk eden yönünü gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_049",
-      "konu": "ali",
-      "soru": "Hz. Ali’nin hayatında hangi iki özellik birlikte öne çıkar?",
-      "secenekler": [
-        "A) İlim ve cesaret",
-        "B) Servet ve siyaset",
-        "C) Şiir ve ticaret",
-        "D) Sessizlik ve geri çekilme"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Ali’yi ilimle cesareti birlikte taşıyan seçkin sahabilerden olarak tanıtır.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_050",
-      "konu": "ali",
-      "soru": "Hz. Ali’nin çocuk yaşta iman edenlerden olması hangi mesajı verir?",
-      "secenekler": [
-        "A) Hakikate yaş beklemeden yönelinebileceğini",
-        "B) Yalnız büyüklerin imanının geçerli olduğunu",
-        "C) Çocukların sorumsuz olduğunu",
-        "D) İmanın sadece aile mirası olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Ali’nin erken yaştaki imanı, samimi yönelişin yaşa indirgenemeyeceğini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_051",
-      "konu": "hatice",
-      "soru": "Hz. Hatice’nin ilk iman eden kişi olması hangi yönünü öne çıkarır?",
-      "secenekler": [
-        "A) İlk andan itibaren destekleyici güvenini",
-        "B) Yalnız zenginliğini",
-        "C) Sadece akrabalığını",
-        "D) Sessiz kalışını"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Hatice, ilk vahiy anından itibaren Resulullah’a güven ve destek veren ilk mümindir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_052",
-      "konu": "hatice",
-      "soru": "İlk vahiy sonrasında Hz. Hatice’nin tavrı bize hangi dersi verir?",
-      "secenekler": [
-        "A) Korku anında destek ve teselli olmayı",
-        "B) Sorunları küçümsemeyi",
-        "C) Yalnız nasihat etmeyi",
-        "D) Uzaklaşmayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Hatice, zor anda sakinleştiren, güven veren ve destek olan tavrıyla öne çıkar.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_053",
-      "konu": "aise",
-      "soru": "Hz. Âişe’nin güçlü hafızası ve kavrayışı onu hangi alanda öne çıkarmıştır?",
-      "secenekler": [
-        "A) İlmi ümmete taşımada",
-        "B) Ticaret yönetiminde",
-        "C) Sadece savaşta",
-        "D) Mimarlıkta"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Âişe’yi ümmete ilim taşıyan önemli bir öğretmen olarak anlatır.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_054",
-      "konu": "aise",
-      "soru": "Hz. Âişe örneği hangi gerçeği destekler?",
-      "secenekler": [
-        "A) Kadın sahabilerin ilim taşıyıcı rolünü",
-        "B) İlmin sadece erkeklere ait olduğunu",
-        "C) Hafızanın önemsizliğini",
-        "D) Yalnız aile bağının değerini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Hz. Âişe, kadın sahabilerin de ümmete ilim ve anlayış taşıdığını güçlü biçimde gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_055",
-      "konu": "bilal",
-      "soru": "Bilâl-i Habeşî’nin işkencelere rağmen tevhidden vazgeçmemesi hangi erdemi öğretir?",
-      "secenekler": [
-        "A) Sebat ve tevhid sadakatini",
-        "B) Sadece güzel sesi",
-        "C) Yalnız cesur konuşmayı",
-        "D) Ticari başarıyı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Bilâl’in hayatı, ağır baskı altında bile tevhid sadakatini korumanın örneğidir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_056",
-      "konu": "bilal",
-      "soru": "Bilâl’in daha sonra ezanla özdeşleşmesi hangi manayı güçlendirir?",
-      "secenekler": [
-        "A) Çilenin ardından hizmette sebat etmeyi",
-        "B) Sadece müzik yeteneğini",
-        "C) Yalnız tarih bilgisini",
-        "D) Yolculuğu sevmeyi"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Bilâl’in hayatında sabırla başlayan çizgi, şeair hizmetiyle devam eden bir sadakat örneğine dönüşür.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_057",
-      "konu": "musab",
-      "soru": "Mus’ab bin Umeyr’in konforunu terk etmesi hangi dersi öne çıkarır?",
-      "secenekler": [
-        "A) Hakikat uğruna rahatını feda edebilmeyi",
-        "B) Yalnız fakirliğin üstünlüğünü",
-        "C) Şöhret arayışını",
-        "D) Sadece gençliğin coşkusunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Mus’ab, varlıklı hayatını bırakıp İslam hizmetini seçmesiyle öne çıkar.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_058",
-      "konu": "musab",
-      "soru": "Mus’ab’ın Medine’deki hizmeti hangi yönüyle önemlidir?",
-      "secenekler": [
-        "A) Tebliğ ve temsil görevini taşımasıyla",
-        "B) Sadece savaş planlamasıyla",
-        "C) Yalnız ticaret açmasıyla",
-        "D) Siyasi tartışmalarla"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Mus’ab’ı İslam’ı öğretme ve temsil etme görevinde örnek bir genç sahabi olarak sunar.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_059",
-      "konu": "selman",
-      "soru": "Selmân-ı Fârisî’nin uzun arayış yolculuğu hangi hakikati gösterir?",
-      "secenekler": [
-        "A) Doğruyu arayanın bedel ödeyebileceğini",
-        "B) Sadece memleket değiştirmenin yeterli olduğunu",
-        "C) Yalnız doğu kültürünü",
-        "D) İlmin gereksizliğini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Selman’ın hayatı, hakikat arayışının sabır ve bedel gerektirebildiğini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_060",
-      "konu": "selman",
-      "soru": "Selmân-ı Fârisî’nin farklı çevrelerden geçip İslam’da karar kılması neyi öğretir?",
-      "secenekler": [
-        "A) Gerçeği bulunca ona teslim olmayı",
-        "B) Sürekli kararsız kalmayı",
-        "C) Gelenek neyse onu sürdürmeyi",
-        "D) Yalnız yalnızlığı sevmeyi"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Selman, uzun arayışın sonunda hakikati tanıyıp teslim olmanın örneğidir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_061",
-      "konu": "abdurrahman",
-      "soru": "Abdurrahman bin Avf’ın ticaret hayatından çıkan en temel ders hangisidir?",
-      "secenekler": [
-        "A) Helal kazancı infakla birleştirmek",
-        "B) Zenginliği tek hedef yapmak",
-        "C) Sadece biriktirmek",
-        "D) Ticareti terk etmek"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "onun helal kazancı büyütürken infakı da ihmal etmediğini vurgular.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_062",
-      "konu": "abdurrahman",
-      "soru": "Abdurrahman bin Avf örneği servete hangi gözle bakmayı öğretir?",
-      "secenekler": [
-        "A) Amaç değil emanet ve hizmet aracı olarak",
-        "B) Tek değer ölçüsü olarak",
-        "C) Sadece dünyalık başarı olarak",
-        "D) Daima kötü bir şey olarak"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Onun hayatı, malı kalbe değil hizmete bağlamayı öğretir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_063",
-      "konu": "sad",
-      "soru": "Sa’d bin Ebû Vakkas’ın aile baskısına rağmen geri adım atmaması hangi dersi verir?",
-      "secenekler": [
-        "A) İmanda sebatı",
-        "B) Aileyi terk etmeyi",
-        "C) Sertliği",
-        "D) Yalnız savaşçılığı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Sa’d, yakın çevre baskısına rağmen imanında sebat eden sahabilerdendir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_064",
-      "konu": "sad",
-      "soru": "Sa’d bin Ebû Vakkas’ın önemli kumandanlardan sayılması hangi mesajı dengeler?",
-      "secenekler": [
-        "A) İman sebatı ile sorumluluk üstlenmenin birlikte olabileceğini",
-        "B) Sadece askeri gücün yeterli olduğunu",
-        "C) Yalnız aile bağının önemli olduğunu",
-        "D) İlmin gereksiz olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Sa’d’ın hayatı hem şahsi sebatı hem de ümmet sorumluluğunu birlikte taşır.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_065",
-      "konu": "talha",
-      "soru": "Talha bin Ubeydullah’ın Uhud’daki tavrı hangi erdemle özetlenir?",
-      "secenekler": [
-        "A) Kendini siper edecek kadar fedakârlık",
-        "B) Geri çekilme",
-        "C) Yalnız sessizlik",
-        "D) Ticari zeka"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Talha, Uhud’da Resulullah’ı korumak için ağır yara alacak kadar fedakârca davranmıştır.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_066",
-      "konu": "talha",
-      "soru": "Talha’nın yaralanmayı göze alması sahabe hayatlarının hangi yönünü açar?",
-      "secenekler": [
-        "A) Sevginin bedel ödemeye dönüştüğünü",
-        "B) Sadece cesaret gösterisi olduğunu",
-        "C) Savaşın tek hedef olduğunu",
-        "D) İtaatin gereksiz olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Talha’nın tavrı, sevginin fedakârlıkla doğrulanabileceğini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_067",
-      "konu": "zubeyr",
-      "soru": "Zübeyr bin Avvam’ın genç yaşta işkence görmesi ama vazgeçmemesi hangi dersi öğretir?",
-      "secenekler": [
-        "A) Erken yaşta da sağlam sebat mümkün olduğunu",
-        "B) Gençliğin sorumsuzluk dönemi olduğunu",
-        "C) Acının imanı bitirdiğini",
-        "D) Sadece büyüklerin dayanıklı olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Zübeyr’in hayatı, genç yaşta da ciddi iman sebatı sergilenebileceğini gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_068",
-      "konu": "zubeyr",
-      "soru": "Zübeyr bin Avvam’ın hayatı en çok hangi iki özelliği birleştirir?",
-      "secenekler": [
-        "A) Cesaret ve sadakati",
-        "B) Sessizlik ve zenginliği",
-        "C) Yalnız bilgeliği",
-        "D) Sadece yöneticiliği"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Zübeyr’i cesaretli ve sadık bir sahabi olarak öne çıkarır.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_069",
-      "konu": "muaz",
-      "soru": "Muâz bin Cebel hangi yönüyle tanınır?",
-      "secenekler": [
-        "A) İlmi ve öğreticiliğiyle",
-        "B) Sadece savaşçılığıyla",
-        "C) Ticari servetiyle",
-        "D) Yalnız şiiriyle"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Muâz, helal-haram bilgisi ve öğreticilik yönüyle öne çıkar.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_070",
-      "konu": "muaz",
-      "soru": "Muâz bin Cebel örneği hangi hizmet alanını temsil eder?",
-      "secenekler": [
-        "A) Dini bilginin öğretilmesini",
-        "B) Yalnız askeri savunmayı",
-        "C) Sadece aile içi desteği",
-        "D) Ticaretin terkini"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Onun hayatı, ilmi öğrenip öğretmenin de büyük bir sahabe hizmeti olduğunu gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_071",
-      "konu": "ubey",
-      "soru": "Übey bin Ka‘b’ın öne çıktığı hizmet alanı hangisidir?",
-      "secenekler": [
-        "A) Kur’an’ı öğrenme ve öğretme",
-        "B) Deniz ticareti",
-        "C) Yalnız askeri strateji",
-        "D) Şiir yarışmaları"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Übey bin Ka‘b, Kur’an bilgisi ve öğreticiliğiyle tanınır.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_072",
-      "konu": "ubey",
-      "soru": "Übey bin Ka‘b örneği Kur’an hizmeti hakkında neyi öğretir?",
-      "secenekler": [
-        "A) Doğru öğrenme ve doğru aktarmanın büyük bir emanet olduğunu",
-        "B) Yalnız ezberin yeterli olduğunu",
-        "C) Anlamın önemsiz olduğunu",
-        "D) Kur’an öğretiminin ikincil kaldığını"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Übey bin Ka‘b’ın hayatından Kur’an’ı doğru öğrenme ve öğretme emanetini çıkarır.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_073",
-      "konu": "esma",
-      "soru": "Esmâ bint Ebû Bekir’in hicrette azık taşıması hangi dersi verir?",
-      "secenekler": [
-        "A) Zor zamanda hizmete omuz vermeyi",
-        "B) Yalnız aile bağını korumayı",
-        "C) Sadece yiyecek hazırlamayı",
-        "D) Evden hiç çıkmamayı"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Esmâ’nın hicretteki rolü, zor zamanda cesur ve pratik destek vermenin örneğidir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_074",
-      "konu": "esma",
-      "soru": "Esmâ bint Ebû Bekir örneği hangi gerçeği destekler?",
-      "secenekler": [
-        "A) Kadın sahabilerin de dava yükü taşıdığını",
-        "B) Hicret hizmetinin sadece erkeklere ait olduğunu",
-        "C) Ailenin rolünün olmadığını",
-        "D) Cesaretin sadece savaşta göründüğünü"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Esmâ, kadın sahabilerin de aktif hizmet ve fedakârlık taşıdığını gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_075",
-      "konu": "ummu_umare",
-      "soru": "Ümmü Umâre’nin Uhud’daki tavrı hangi erdemle öne çıkar?",
-      "secenekler": [
-        "A) Cesaretle",
-        "B) Sessizlikle",
-        "C) Yalnız sabırla",
-        "D) Ticaretle"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Ümmü Umâre, Uhud’da dağılım anında Resulullah’ı korumaya koşan cesur sahabilerdendir.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_076",
-      "konu": "ummu_umare",
-      "soru": "Ümmü Umâre’nin hayatı hangi yanlış algıyı düzeltir?",
-      "secenekler": [
-        "A) Hizmet ve fedakârlığın sadece erkeklere ait olduğu algısını",
-        "B) Cesaretin kötü bir şey olduğunu",
-        "C) Kadınların ilim öğrenemeyeceğini",
-        "D) Ailenin önemsiz olduğunu"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Onun hayatı, kadın sahabilerin de büyük cesaret ve sorumluluk taşıdığını açıkça gösterir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_077",
-      "konu": "genel",
-      "soru": "Bu sahabi hayatlarının çeşitliliği bize neyi öğretir?",
-      "secenekler": [
-        "A) Hizmet yollarının tek tipe indirgenemeyeceğini",
-        "B) Sadece savaşın değerli olduğunu",
-        "C) Yalnız ilmin yeterli olduğunu",
-        "D) Ailenin önemsiz kaldığını"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Kimi ilimde, kimi ticarette, kimi hicrette, kimi savunmada öne çıkmıştır; hizmet yolu tek değildir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_078",
-      "konu": "genel",
-      "soru": "Sahabe hayatlarını doğru okumak için hangi soru daha faydalıdır?",
-      "secenekler": [
-        "A) Bu hayattan bana hangi kulluk dersi çıkıyor?",
-        "B) Hangi sahabi daha meşhurdu?",
-        "C) Kim daha zengindi?",
-        "D) Kim daha uzun yaşadı?"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "sahabe kıssalarını rekabet listesi gibi değil, kulluk dersi olarak okumayı önerir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_079",
-      "konu": "genel",
-      "soru": "Sahabeye saygılı bakmak ne anlama gelmez?",
-      "secenekler": [
-        "A) Onları hatadan tamamen bağımsız ilahî varlıklar saymak",
-        "B) Fedakârlıklarını takdir etmek",
-        "C) Onlardan ders çıkarmak",
-        "D) İman hizmetlerini anmak"
-      ],
-      "dogru_cevap": "A",
-      "aciklama": "Sahabeye saygı, onları insanüstü görmek değil; iman ve fedakârlıklarını hakkıyla takdir etmektir.",
-      "zorluk": "orta",
-      "kaynak": "Sahabe Hayatları"
-    },
-    {
-      "id": "sahabe_080",
-      "konu": "ozet",
-      "soru": "Sahabe Hayatları için ana mesajını en iyi hangi ifade özetler?",
-      "secenekler": [
-        "A) Sahabe hayatları sadece tarihî olaylardan ibarettir",
-        "B) Sahabe hayatları, farklı şartlarda yaşanmış canlı kulluk ve ahlak dersleridir",
-        "C) Sadece savaş örnekleri önemlidir",
-        "D) Günümüze söyleyecek sözü yoktur"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "sahabe hayatlarını çeşit çeşit ama ortak bir iman ve kulluk çizgisinin örnekleri olarak sunar.",
-      "zorluk": "kolay",
-      "kaynak": "Sahabe Hayatları"
+      "aciklama": "Sahabeden ilham almak, onların erdemlerini bugünün şartlarında nasıl yaşatabileceğimizi sormaktan geçer."
     }
   ]
 }

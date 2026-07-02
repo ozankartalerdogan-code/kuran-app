@@ -1,7 +1,7 @@
 {
   "quiz_id": "abdest-gusul",
   "baslik": "Abdest, Gusül ve Teyemmüm",
-  "toplam_soru": 66,
+  "toplam_soru": 33,
   "sorular": [
     {
       "id": "abdest_001",
@@ -495,66 +495,6 @@
       ],
       "dogru_cevap": "C",
       "aciklama": "Yıkamak zarar veriyorsa sağlam yerler normal şekilde yıkanır, sargılı veya yaralı yerin üstü ıslak elle meshedilir (ıslak elle silinir). Mesh de zarar verirse o bölge terk edilir.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "abdest_041",
-      "konu": "abdest_sunneti",
-      "soru": "Hangisi abdestin farzı değil sünnetidir?",
-      "secenekler": [
-        "A) Ayakları topuklarla yıkamak",
-        "B) Yüzü yıkamak",
-        "C) Kolları dirseklerle yıkamak",
-        "D) Besmele ile başlamak"
-      ],
-      "dogru_cevap": "D",
-      "aciklama": "Besmele ile başlamak abdestin sünnetidir; yüz, kollar ve ayakları yıkamak ise farzdır.",
-      "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "abdest_044",
-      "konu": "abdest_bozma",
-      "soru": "Hangisi abdesti bozar?",
-      "secenekler": [
-        "A) Dua okumak",
-        "B) Yüksek sesle konuşmak",
-        "C) Ağlamak",
-        "D) Uzanarak uyumak"
-      ],
-      "dogru_cevap": "D",
-      "aciklama": "Uzanarak, yan yatarak veya yaslanarak uyumak abdesti bozar; yalnızca ka'de pozisyonunda (namaz kılar gibi oturarak) uyuklayan kişinin abdesti bozulmaz (Hanefi).",
-      "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "abdest_059",
-      "konu": "teyemmum",
-      "soru": "Hangisi teyemmümü caiz kılan durumlardan biri değildir?",
-      "secenekler": [
-        "A) Suyu kullanırsa hasta olma tehlikesi",
-        "B) Namaz vaktinin kısa olması",
-        "C) Aşırı soğuk nedeniyle su kullanılamaması",
-        "D) Su bulunamaması"
-      ],
-      "dogru_cevap": "B",
-      "aciklama": "Namaz vaktinin kısa olması teyemmümü caiz kılmaz. Teyemmümü caiz kılan durumlar: su yokluğu, kullanırsa hastalık tehlikesi ve aşırı soğuktur.",
-      "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
-    },
-    {
-      "id": "abdest_061",
-      "konu": "teyemmum",
-      "soru": "Hangisiyle teyemmüm yapılamaz?",
-      "secenekler": [
-        "A) Kiremit",
-        "B) Taş",
-        "C) Kum",
-        "D) Demir"
-      ],
-      "dogru_cevap": "D",
-      "aciklama": "Teyemmüm yalnızca yeryüzü cinsinden temiz şeylerle yapılır: toprak, taş, kum, tuğla, kiremit. Odun, demir, bakır gibi maddelerle yapılamaz.",
       "zorluk": "orta",
       "kaynak": "Diyanet İlmihali"
     }
