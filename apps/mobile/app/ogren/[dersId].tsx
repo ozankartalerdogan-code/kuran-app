@@ -17,6 +17,7 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import {
   parseElifbaProgress,
@@ -522,7 +523,7 @@ const styles = StyleSheet.create({
 });
 
 const fc = StyleSheet.create({
-  container:   { flex:1, padding:16, alignItems:"center" },
+  container:   { flex:1, padding:16, alignItems:"center", width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
   playBtn:     { alignSelf:"flex-end", padding:10, marginBottom:4 },
   playIcon:    { fontSize:28 },
   cardFront: {
@@ -555,7 +556,7 @@ const fc = StyleSheet.create({
 });
 
 const qv = StyleSheet.create({
-  container:   { flex:1, padding:16 },
+  container:   { flex:1, padding:16, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
   noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
   errBox:      { flex:1, alignItems:"center", justifyContent:"center", padding:24 },
   errEmoji:    { fontSize:40, marginBottom:8 },

@@ -5,6 +5,7 @@ import {
 import { useColors as useGlobalColors } from "../../src/hooks/useColors";
 import { Stack, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { api, prefetchAyah, type TagFilterResult } from "../../src/lib/api";
 import {
   bakara250,
@@ -703,7 +704,7 @@ export default function IsmiAzamScreen() {
 // ── Stiller ─────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  scrollContent: { padding: 16, paddingBottom: 40 },
+  scrollContent: { padding: 16, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   hero:          { marginBottom: 20 },
   heroTitle:     { fontSize: 22, fontWeight: "800", letterSpacing: -0.3, flex: 1 },
   heroSub:       { fontSize: 13, lineHeight: 20, marginTop: 6 },

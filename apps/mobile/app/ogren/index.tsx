@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import {
   parseElifbaProgress,
   parseElifbaQuizScores,
@@ -420,7 +421,7 @@ const s = StyleSheet.create({
   retryBtn:    { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10 },
   retryText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
   scroll:      { flex: 1 },
-  content:     { padding: 16, paddingBottom: 48 },
+  content:     { padding: 16, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   overallCard: { borderRadius: 14, padding: 14, marginBottom: 24, borderWidth: 1 },
   overallTitle: { fontSize: 14, fontWeight: "700" },
   overallCount: { fontSize: 13, fontWeight: "600" },

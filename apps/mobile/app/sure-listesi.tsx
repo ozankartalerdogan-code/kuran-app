@@ -11,6 +11,7 @@ import { useColors, type AppColors } from "../src/hooks/useColors";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
 import { useTourTarget } from "../src/tour/AppTourProvider";
 import { NUZUL } from "../src/constants/nuzul";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
   const isMekki = place === "Mekke";
@@ -120,6 +121,7 @@ export default function SureListesiScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}>
+      <View style={styles.centerWrap}>
       <View {...searchTarget} style={[styles.searchWrapper, { backgroundColor: c.bg }]}>
         <TextInput
           style={[styles.searchInput, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}
@@ -161,12 +163,14 @@ export default function SureListesiScreen() {
           </View>
         }
       />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container:    { flex: 1 },
+  centerWrap:   { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   centered:     { flex: 1, alignItems: "center", justifyContent: "center", padding: 20 },
   errorText:    { color: "#dc2626", fontSize: 14, textAlign: "center" },
   searchWrapper:{ paddingHorizontal: 16, paddingVertical: 10 },

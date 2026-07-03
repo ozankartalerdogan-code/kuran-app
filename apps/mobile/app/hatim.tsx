@@ -16,6 +16,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { storage } from "../src/lib/storage";
 import { MushafReader } from "../src/components/MushafReader";
 import { useColors } from "../src/hooks/useColors";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { logFeature } from "../src/lib/analytics";
 
 const STORAGE_KEY = "hatimTakibi";
@@ -382,7 +383,7 @@ const styles = StyleSheet.create({
   tabBtnTextActive: { color: "#059669" },
 
   container: { flex: 1, backgroundColor: "#f0fdf4" },
-  content:   { padding: 16, paddingBottom: 32 },
+  content:   { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   title:     { fontSize: 22, fontWeight: "700", color: "#14532d", textAlign: "center", marginBottom: 4 },
   sub:       { fontSize: 13, color: "#86efac", textAlign: "center", marginBottom: 20 },
 

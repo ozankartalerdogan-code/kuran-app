@@ -24,6 +24,7 @@ try {
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { TasbihModal } from '../../src/components/ZikirMatik';
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -399,7 +400,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  content:   { padding: 16, paddingBottom: 32 },
+  content:   { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
   searchBar:  { flexDirection: "row", alignItems: "center", gap: 10, borderRadius: 14,
                 borderWidth: 1.5, paddingVertical: 13, paddingHorizontal: 14, marginBottom: 12 },

@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -557,7 +558,7 @@ export default function IbadetRehberiScreen() {
             </TouchableOpacity>
           ))}
         </View>
-        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:10, paddingBottom: 40 + insets.bottom, gap:8 }}
+        <ScrollView style={{ flex:1 }} contentContainerStyle={{ padding:10, paddingBottom: 40 + insets.bottom, gap:8, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}
           showsVerticalScrollIndicator={false}>
           {tab === "inanc"     && <InancSekme />}
           {tab === "ibadetler" && <IbadetlerSekme />}

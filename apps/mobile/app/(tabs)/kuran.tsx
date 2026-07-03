@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { logFeature } from "../../src/lib/analytics";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type KuranCardRoute = "/mushaf" | "/sure-listesi" | "/hatim";
 type KuranCard = {
@@ -67,7 +68,7 @@ export default function KuranTab() {
 }
 
 const s = StyleSheet.create({
-  content:    { padding: 16, paddingBottom: 32 },
+  content:    { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   heading:    { fontSize: 28, fontWeight: "800", marginBottom: 16 },
   cards:      { gap: 10 },
   card:       { flexDirection: "row", alignItems: "center", gap: 14, borderRadius: 16,

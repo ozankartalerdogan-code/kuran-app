@@ -11,6 +11,7 @@ import { useColors } from "../src/hooks/useColors";
 import { logFeature, AnalyticsEvents } from "../src/lib/analytics";
 import { parseDirectAyahQuery } from "../src/lib/ayahRefs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -394,6 +395,7 @@ export default function SearchScreen() {
 
   return (
     <View style={[styles.screen, { backgroundColor: c.bg, paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+      <View style={styles.centerWrap}>
       {/* Arama çubuğu */}
       <View style={styles.barWrap}>
         <View style={[styles.bar, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -545,6 +547,7 @@ export default function SearchScreen() {
           removeClippedSubviews={Platform.OS === "android"}
         />
       )}
+      </View>
     </View>
   );
 }
@@ -553,6 +556,7 @@ export default function SearchScreen() {
 
 const styles = StyleSheet.create({
   screen:   { flex: 1, backgroundColor: "#f5f0e8" },
+  centerWrap: { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   barWrap:  { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4 },
   bar:      { flexDirection: "row", alignItems: "center", backgroundColor: "#fff", borderRadius: 16, borderWidth: 1, borderColor: "#e7e5e4", paddingHorizontal: 14, paddingVertical: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 2 },
   input:    { flex: 1, fontSize: 16, color: "#1c1917", paddingVertical: 10 },

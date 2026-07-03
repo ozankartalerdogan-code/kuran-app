@@ -5,6 +5,7 @@ import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 import {
   requestNotificationPermission,
   fetchPrayerTimes,
@@ -149,7 +150,7 @@ export default function BildirimlerScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Bildirimler" }} />
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom }}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
         <Text style={styles.intro}>
           İkisi de varsayılan olarak açıktır. İstediğin zaman buradan kapatabilirsin, birbirlerinden bağımsızdır.
         </Text>

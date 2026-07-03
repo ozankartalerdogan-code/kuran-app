@@ -7,6 +7,7 @@ import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { ESMA_UL_HUSNA, type EsmaItem } from "../src/data/esmaulHusna";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 function norm(s: string) {
   return s.toLocaleLowerCase("tr-TR").trim();
@@ -53,6 +54,7 @@ export default function EsmaScreen() {
     <>
       <Stack.Screen options={{ title: "Esmaül Hüsna" }} />
       <View style={[s.container, { backgroundColor: c.bg }]}>
+        <View style={s.centerWrap}>
         <View style={s.header}>
           <Text style={[s.sub, { color: c.textMuted }]}>Allah&apos;ın 99 güzel ismi</Text>
           <Text style={[s.note, { color: c.textMuted }]}>Bu ekranda yaygın 99 isim tertibi esas alınmıştır; bazı kaynaklarda sıralama ve yazımda küçük farklar görülebilir.</Text>
@@ -77,6 +79,7 @@ export default function EsmaScreen() {
             <Text style={[s.empty, { color: c.textMuted }]}>Sonuç bulunamadı.</Text>
           }
         />
+        </View>
       </View>
     </>
   );
@@ -84,6 +87,7 @@ export default function EsmaScreen() {
 
 const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f0e8" },
+  centerWrap:{ flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   header:    { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 6 },
   title:     { fontSize: 22, fontWeight: "700", color: "#1c1917" },
   sub:       { fontSize: 13, color: "#78716c", marginTop: 2 },

@@ -11,6 +11,7 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, prefetchAyah, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 
 function heatColor(count: number, max: number, isDark: boolean): string {
   if (count === 0) return isDark ? "#292524" : "#f5f5f4";
@@ -384,7 +385,7 @@ export default function RootDetailScreen() {
 
 const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f0e8" },
-  content: { paddingBottom: 40 },
+  content: { paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
   errorText: { color: "#dc2626", fontSize: 14, textAlign: "center" },
   errorActions: { flexDirection: "row", gap: 12, marginTop: 16 },

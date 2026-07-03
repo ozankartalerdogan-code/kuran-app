@@ -7,6 +7,7 @@ import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 import { useTourTarget } from "../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
 
@@ -214,7 +215,7 @@ export default function NamazScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Hakkında" }} />
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom }}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
         {/* Bildirim ayarlarına kısayol (bildirimler ayrı ekranda yönetilir) */}
         <TouchableOpacity {...namazTarget} style={styles.notifCard} onPress={() => router.push("/bildirimler")} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Bildirim ayarlarını aç">
           <View style={{ flex: 1 }}>

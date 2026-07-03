@@ -5,6 +5,7 @@ import Constants from "expo-constants";
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 const APP_VERSION = Constants.expoConfig?.version ?? "—";
 
@@ -85,7 +86,7 @@ export default function HakkindaScreen() {
 }
 
 const s = StyleSheet.create({
-  content:       { padding: 16 },
+  content:       { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   sectionTitle:  { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   sourceCard:    { flexDirection: "row", alignItems: "center", borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 8, gap: 10 },
   sourceIcon:    { fontSize: 22 },

@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { SkeletonListItem } from "../../src/components/SkeletonLoader";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { logScreen } from "../../src/lib/analytics";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 
@@ -264,7 +265,7 @@ const styles = StyleSheet.create({
   badgeMedineText: { color: "#9a3412" },
 
   // ── Liste ──
-  listContent: { paddingBottom: 24 },
+  listContent: { paddingBottom: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   separator:   { height: 1, backgroundColor: "#e7e5e4", marginLeft: 68 },
 
   row: {

@@ -7,6 +7,7 @@ import {
 import { router, Stack } from "expo-router";
 import { useColors } from "../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Sekme tanımları ───────────────────────────────────────────────────────────
 
@@ -309,7 +310,7 @@ export default function KesfetScreen() {
 
 const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f0e8" },
-  content:   { padding: 14, paddingBottom: 48 },
+  content:   { padding: 14, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
   // Hub grup başlığı
 

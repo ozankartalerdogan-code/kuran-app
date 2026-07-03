@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type Item = {
   emoji: string; label: string; sub: string;
@@ -89,7 +90,7 @@ export default function IbadetTab() {
 }
 
 const s = StyleSheet.create({
-  content:       { padding: 16, paddingBottom: 32 },
+  content:       { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   heading:       { fontSize: 28, fontWeight: "800", marginBottom: 20 },
   section:       { marginTop: 24 },
   sectionHeader: { borderBottomWidth: 1, paddingBottom: 8, marginBottom: 10 },

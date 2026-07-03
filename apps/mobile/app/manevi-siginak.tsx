@@ -7,6 +7,7 @@ import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
@@ -144,7 +145,7 @@ export default function ManeviSiginakScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Manevi Sığınak" }} />
-      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 + insets.bottom }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }} showsVerticalScrollIndicator={false}>
 
         {/* Başlık */}
         <View style={s.header}>

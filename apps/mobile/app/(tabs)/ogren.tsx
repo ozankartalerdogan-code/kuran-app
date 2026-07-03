@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 const SECTIONS = [
   {
@@ -87,7 +88,7 @@ export default function OgrenTab() {
 }
 
 const s = StyleSheet.create({
-  content:       { padding: 16, paddingBottom: 32 },
+  content:       { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   heading:       { fontSize: 28, fontWeight: "800", marginBottom: 20 },
   firstSection:  { marginTop: 0 },
   section:       { marginTop: 24 },
