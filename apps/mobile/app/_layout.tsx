@@ -206,9 +206,13 @@ function RootLayout() {
   // kalsaydı (eskisi gibi) günlerce arka planda tutulan bir oturumda bildirimler
   // donuk kalırdı.
   useEffect(() => {
-    ensureNotificationsFresh().catch(() => {});
+    // namazNotifications.ts kendi beklenen hata yollarını (ağ, izin reddi) zaten
+    // sessizce yönetir — buraya bir hata sızarsa BEKLENMEDİK'tir, Sentry'ye bildir
+    // (aksi halde bir kullanıcıda bildirimler hiç planlanmasa bile fark edilmez).
+    const reportUnexpected = (err: unknown) => { Sentry.captureException(err); };
+    ensureNotificationsFresh().catch(reportUnexpected);
     const sub = AppState.addEventListener("change", (state) => {
-      if (state === "active") ensureNotificationsFresh().catch(() => {});
+      if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
     });
     return () => sub.remove();
   }, []);
