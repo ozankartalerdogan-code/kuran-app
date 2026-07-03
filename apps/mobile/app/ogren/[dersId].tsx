@@ -347,6 +347,17 @@ export default function DersScreen() {
   const insets = useSafeAreaInsets();
   useEffect(() => { logScreen('ElifBaDers'); }, []);
 
+  // Harf sesi modül seviyesinde tutuluyor (playHarfSes); ekrandan çıkarken
+  // hâlâ çalıyorsa durdur — aksi halde başka bir ekrana geçince de öter.
+  useEffect(() => {
+    return () => {
+      if (harfPlayer) {
+        try { harfPlayer.remove(); } catch { /* yoksay */ }
+        harfPlayer = null;
+      }
+    };
+  }, []);
+
   const [harfler, setHarfler]   = useState<ElifbaHarf[]>([]);
   const [loading, setLoading]   = useState(true);
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");

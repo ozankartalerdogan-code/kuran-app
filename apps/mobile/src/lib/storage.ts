@@ -15,6 +15,7 @@ export const STORAGE_KEYS = {
   derslerProgress: "derslerProgress",
   onboarding:      "onboarding_completed",
   appTour:         "app_tour_completed",
+  hatimTracking:   "hatimTakibi",
 } as const;
 
 // ── MMKV — güvenli (build-gated) yükleme ───────────────────────────────────────

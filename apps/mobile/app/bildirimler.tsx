@@ -233,7 +233,7 @@ export default function BildirimlerScreen() {
         </View>
 
         <Text style={styles.note}>
-          Bildirimler için konum (yaklaşık) ve bildirim izni gerekir. Konum verisi cihazınızda işlenir, sunucuya gönderilmez.
+          Bildirimler için konum (yaklaşık) ve bildirim izni gerekir. Namaz vakitlerini hesaplamak için konumunuz Aladhan.com servisine gönderilir; bizim sunucularımızda saklanmaz.
         </Text>
       </ScrollView>
     </>

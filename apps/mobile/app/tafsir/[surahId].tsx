@@ -26,7 +26,7 @@ export default function TafsirScreen() {
   const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");
 
   useEffect(() => {
-    if (!surahId) return;
+    if (!surahId) { setTafsir(null); return; }
     let alive = true;
     setTafsir("loading");
     setSelectedMode("original");

@@ -51,7 +51,7 @@
     {
       "id": "abdest_004",
       "konu": "abdest_farzlari",
-      "soru": "Maide 5/6 ayetine göre abdestin kaç farzı vardır?",
+      "soru": "Hanefi mezhebine göre Maide 5/6 ayetinden çıkarılan abdestin farzı kaç tanedir?",
       "secenekler": [
         "A) 3",
         "B) 4",
@@ -59,7 +59,7 @@
         "D) 6"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Maide 5/6'ya göre abdestin 4 farzı vardır: yüzü, kolları yıkamak; başı meshetmek; ayakları yıkamak.",
+      "aciklama": "Hanefi mezhebine göre Maide 5/6 ayetinden çıkarılan abdestin 4 farzı vardır: yüzü, kolları yıkamak; başı meshetmek; ayakları yıkamak. Diğer mezheplerde niyet ve tertip gibi ek unsurların dahil edilmesiyle farz sayısı farklı değerlendirilir.",
       "zorluk": "kolay",
       "kaynak": "Kur'an, Maide 5/6"
     },
@@ -471,7 +471,7 @@
     {
       "id": "abdest_032",
       "konu": "mest_mesh",
-      "soru": "Mukim (yolcu olmayan) kişi için mest üzerine mesh süresi ne kadardır?",
+      "soru": "Hanefi, Şafi ve Hanbeli mezheplerine göre mukim (yolcu olmayan) kişi için mest üzerine mesh süresi ne kadardır?",
       "secenekler": [
         "A) 1 gün 1 gece",
         "B) 2 gün 2 gece",
@@ -479,7 +479,7 @@
         "D) Sınırsızdır"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Mest üzerine mesh (ıslak elle sürme) süresi mukim (yolcu olmayan kişi) için 1 gün 1 gece, yolcu için 3 gün 3 gecedir.",
+      "aciklama": "Hanefi, Şafi ve Hanbeli mezheplerine göre mest üzerine mesh (ıslak elle sürme) süresi mukim (yolcu olmayan kişi) için 1 gün 1 gece, yolcu için 3 gün 3 gecedir. Maliki mezhebinde süre sınırı öngörülmez.",
       "zorluk": "kolay",
       "kaynak": "Diyanet İlmihali"
     },

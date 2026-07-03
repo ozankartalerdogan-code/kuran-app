@@ -239,7 +239,9 @@ export default function SearchScreen() {
       try {
         const data = await api.search.query(trimmed);
         setState({ status: "done", data });
-        logFeature(AnalyticsEvents.ARAMA, { query: trimmed });
+        // Kullanıcının yazdığı arama metni analytics'e gönderilmez — yalnızca
+        // özelliğin kullanıldığı işaretlenir (privacy sayfasıyla uyumlu).
+        logFeature(AnalyticsEvents.ARAMA);
         const next = [trimmed, ...recent.filter(r => r !== trimmed)].slice(0, MAX_RECENT);
         setRecent(next);
         saveRecent(next);

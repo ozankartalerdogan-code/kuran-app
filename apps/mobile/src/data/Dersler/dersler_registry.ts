@@ -71,6 +71,26 @@ function buildModuleLessonBody(lesson: Record<string, unknown>): string {
   return sections.join("\n\n");
 }
 
+// methodology.importantNotice/classificationNote varsa (ör. nefsini-tani), bu bir
+// dizi tasavvufi tasnifin Kur'an'da zorunlu tek şema gibi görünmesini önlemek için
+// dersin İLK kartı olarak gösterilir — aksi halde bu not yalnız JSON'da kalır,
+// kullanıcı hiç görmez.
+function buildMethodologyIntroCard(raw: any, moduleId: string) {
+  const methodology = toRecord(raw?.methodology);
+  if (!methodology) return null;
+  const notice = typeof methodology.importantNotice === "string" ? methodology.importantNotice : "";
+  const classification = typeof methodology.classificationNote === "string" ? methodology.classificationNote : "";
+  const parts = [notice, classification].filter(Boolean);
+  if (parts.length === 0) return null;
+  return {
+    id: `${moduleId}_metodoloji`,
+    tip: "metin",
+    baslik: "Bu Ders Nasıl Okunmalı?",
+    icerik: parts.join("\n\n"),
+    vurgu: notice || classification,
+  };
+}
+
 function normalizeLessonModule(raw: any, fallbackIcon: string) {
   if (raw?.kartlar) return raw;
 
@@ -78,29 +98,32 @@ function normalizeLessonModule(raw: any, fallbackIcon: string) {
   const baslik = typeof raw?.title === "string" ? raw.title : moduleId;
   const aciklama = typeof raw?.subtitle === "string" ? raw.subtitle : "";
   const lessons = Array.isArray(raw?.lessons) ? raw.lessons : [];
+  const methodologyCard = buildMethodologyIntroCard(raw, moduleId);
+
+  const lessonCards = lessons
+    .map((item: unknown, index: number) => {
+      const lesson = toRecord(item);
+      if (!lesson) return null;
+      const lessonId = typeof lesson.id === "string" ? lesson.id : `${moduleId}_k${String(index + 1).padStart(2, "0")}`;
+      const lessonTitle = typeof lesson.title === "string" ? lesson.title : `Ders ${index + 1}`;
+      const summary = typeof lesson.summary === "string" ? lesson.summary : "";
+      const mainMessage = typeof lesson.mainMessage === "string" ? lesson.mainMessage : "";
+      return {
+        id: lessonId,
+        tip: "metin",
+        baslik: lessonTitle,
+        icerik: buildModuleLessonBody(lesson),
+        vurgu: mainMessage || summary || lessonTitle,
+      };
+    })
+    .filter(Boolean);
 
   return {
     ders_id: moduleId,
     baslik,
     aciklama,
     ikon: fallbackIcon,
-    kartlar: lessons
-      .map((item: unknown, index: number) => {
-        const lesson = toRecord(item);
-        if (!lesson) return null;
-        const lessonId = typeof lesson.id === "string" ? lesson.id : `${moduleId}_k${String(index + 1).padStart(2, "0")}`;
-        const lessonTitle = typeof lesson.title === "string" ? lesson.title : `Ders ${index + 1}`;
-        const summary = typeof lesson.summary === "string" ? lesson.summary : "";
-        const mainMessage = typeof lesson.mainMessage === "string" ? lesson.mainMessage : "";
-        return {
-          id: lessonId,
-          tip: "metin",
-          baslik: lessonTitle,
-          icerik: buildModuleLessonBody(lesson),
-          vurgu: mainMessage || summary || lessonTitle,
-        };
-      })
-      .filter(Boolean),
+    kartlar: methodologyCard ? [methodologyCard, ...lessonCards] : lessonCards,
     quiz_havuzu_id: moduleId,
   };
 }

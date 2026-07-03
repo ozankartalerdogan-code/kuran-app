@@ -17,7 +17,7 @@ module.exports = {
       bundleIdentifier: 'com.kuranapp.mobile',
       infoPlist: {
         NSLocationWhenInUseUsageDescription:
-          'Namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Konum veriniz cihazınızdan çıkmaz ve hiçbir sunucuya gönderilmez.',
+          'Kıble yönü ve namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Kıble yönü cihazda hesaplanır; namaz vakitleri için yaklaşık konumunuz Aladhan.com servisine gönderilir, sunucularımızda saklanmaz.',
       },
     },
     android: {
@@ -33,8 +33,6 @@ module.exports = {
       },
       permissions: [
         'android.permission.ACCESS_COARSE_LOCATION',
-        'android.permission.FOREGROUND_SERVICE',
-        'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK',
         'android.permission.POST_NOTIFICATIONS',
       ],
       // Otomatik eklenen ama İSTEMEDİĞİMİZ izinleri engelle:

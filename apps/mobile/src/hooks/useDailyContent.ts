@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { api } from "../lib/api";
+import { api, dailyCacheVkey } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
 
@@ -124,7 +124,7 @@ export function useDailyContent(): UseDailyContentResult {
         (await storage.getJSON<{
           ts: number;
           data: { verse: DailyVerse | null; dua: DailyVerse | null };
-        }>(`v3_${cacheKey}`)) ??
+        }>(dailyCacheVkey(cacheKey))) ??
         (await storage.getJSON<{
           ts: number;
           data: { verse: DailyVerse | null; dua: DailyVerse | null };

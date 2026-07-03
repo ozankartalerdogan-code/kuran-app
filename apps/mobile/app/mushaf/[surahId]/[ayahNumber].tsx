@@ -98,7 +98,11 @@ export default function MushafAyahScreen() {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
-    if (!surahId || !ayahNumber) return;
+    if (!surahId || !ayahNumber) {
+      setError("Geçersiz ayet bağlantısı.");
+      setLoading(false);
+      return;
+    }
     let isMounted = true;
     setLoading(true);
     setError(null);

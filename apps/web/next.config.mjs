@@ -4,8 +4,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
   transpilePackages: [
     "@quran-app/core",
     "@quran-app/types",
@@ -26,7 +24,7 @@ const nextConfig = {
             key: "Access-Control-Allow-Origin",
             value: process.env.NODE_ENV === "development"
               ? "*"
-              : process.env.ALLOWED_ORIGINS || "https://kuranapp.vercel.app",
+              : process.env.ALLOWED_ORIGINS || "https://kuran-app-web-ozan-s-projects8.vercel.app",
           },
           { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
           { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },

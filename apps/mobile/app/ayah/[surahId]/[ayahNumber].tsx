@@ -441,7 +441,13 @@ export default function AyahDetailScreen() {
   }, [verseKey, getNote]);
 
   useEffect(() => {
-    if (!surahId || !ayahNumber) return;
+    // Bozuk/eksik deep link parametresi (örn. dış link, App Links) → sonsuz
+    // yükleniyor ekranında kalmasın, mevcut hata ekranına düşsün.
+    if (!surahId || !ayahNumber) {
+      setError("Geçersiz ayet bağlantısı.");
+      setLoading(false);
+      return;
+    }
     let isMounted = true;
     setLoading(true);
     setError(null);

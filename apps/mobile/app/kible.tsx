@@ -132,6 +132,14 @@ export default function KibleScreen() {
   const headingRef = useRef(0); // unwrapped heading (JS — hizalama hesabı için)
   const needleRef  = useRef(0); // unwrapped Kabe ibresi açısı
   const alignedRef = useRef(false);
+  // getLocation() çok adımlı async (izin + 3 aşamalı konum denemesi, ~25 sn'e kadar
+  // sürebilir); kullanıcı bu sırada ekrandan çıkarsa Alert/navigation/setState'in
+  // artık ilgisiz bir ekranda tetiklenmesini önler.
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => { isMountedRef.current = false; };
+  }, []);
   const subsRef    = useRef<{ remove: () => void }[]>([]); // mag + acc + (location) abonelikleri
 
   // Akıcı dönüş — RN Animated (Reanimated yerine: babel/worklets gerektirmez,
@@ -270,6 +278,7 @@ export default function KibleScreen() {
     setIsAligned(false);
 
     const { status } = await Location.requestForegroundPermissionsAsync();
+    if (!isMountedRef.current) return;
 
     if (status !== "granted") {
       Alert.alert(
@@ -313,6 +322,8 @@ export default function KibleScreen() {
         if (pos && "coords" in pos) coords = pos.coords;
       } catch { /* ignore */ }
     }
+
+    if (!isMountedRef.current) return;
 
     if (!coords) {
       Alert.alert(

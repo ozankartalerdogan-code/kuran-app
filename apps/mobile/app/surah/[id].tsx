@@ -132,7 +132,11 @@ export default function SurahDetailScreen() {
   useEffect(() => { logScreen('SureDetay'); }, []);
 
   useEffect(() => {
-    if (!surahId) return;
+    if (!surahId) {
+      setError("Geçersiz sure bağlantısı.");
+      setLoading(false);
+      return;
+    }
     let isMounted = true;
     // Sadece ayetleri bekle — tefsir akordiyon açılınca tembel yüklenir
     api.verses.bySurah(surahId)

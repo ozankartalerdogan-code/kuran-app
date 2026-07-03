@@ -1,9 +1,12 @@
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking } from "react-native";
 import { Stack } from "expo-router";
+import Constants from "expo-constants";
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
+
+const APP_VERSION = Constants.expoConfig?.version ?? "—";
 
 const SOURCES = [
   { icon: "🕌", name: "Tanzil.net",                desc: "Kuran metni (Uthmani yazım)",                url: "https://tanzil.net" },
@@ -51,7 +54,7 @@ export default function HakkindaScreen() {
         <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}>
           <View style={s.infoRow}>
             <Text style={[s.infoLabel, { color: c.textMuted }]}>Versiyon</Text>
-            <Text style={[s.infoValue, { color: c.text }]}>1.0.0</Text>
+            <Text style={[s.infoValue, { color: c.text }]}>{APP_VERSION}</Text>
           </View>
           <View style={[s.infoRow, s.infoRowBorder, { borderColor: c.border }]}>
             <Text style={[s.infoLabel, { color: c.textMuted }]}>Geliştirici</Text>

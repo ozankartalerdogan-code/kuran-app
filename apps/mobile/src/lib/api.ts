@@ -299,6 +299,9 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 // (v2: gloss/literal/fark analizi büyük veri güncellemesi)
 const CACHE_VERSION = "v4"; // v4: AsyncStorage → MMKV geçişi, eski cache biçimi geçersiz
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
+// Diğer modüllerin (örn. useDailyContent) aynı sürümlü anahtarı hardcode etmeden
+// okuyabilmesi için dışa açılır — sürüm ileride tekrar artınca burada da otomatik değişir.
+export const dailyCacheVkey = vkey;
 
 // Uçuştaki (in-flight) istekler — aynı anahtar için eşzamanlı iki çağrı tek ağ
 // isteğini paylaşır. Örn. link pressIn prefetch'i + ekran mount'u aynı ayeti
