@@ -9,7 +9,9 @@ const WEB_TARGET = path.join(ROOT, "apps", "web", "src", "app", "api", "tafsir",
 // hepsi belleğe yükleniyordu, kullanıcı tek sure okusa bile). Sure başına ayrı
 // JSON + tembel require lookup'a bölündü — dersler_registry.ts'teki safeRequire
 // deseniyle aynı mantık.
-const MOBILE_DATA_DIR   = path.join(ROOT, "apps", "mobile", "src", "data", "tafsirSimplified");
+// Klasör adı loader dosyasıyla (tafsirSimplified.ts) AYNI OLMAMALI — Metro'nun
+// resolver'ı dosya mı klasör mü belirsiz kalıp "Unable to resolve" hatası veriyor.
+const MOBILE_DATA_DIR   = path.join(ROOT, "apps", "mobile", "src", "data", "tafsirSimplifiedData");
 const MOBILE_LOADER_PATH = path.join(ROOT, "apps", "mobile", "src", "data", "tafsirSimplified.ts");
 
 function readEntries() {
@@ -73,7 +75,7 @@ function buildMobileLoader(entries) {
   ];
 
   for (const entry of entries) {
-    lines.push(`  ${entry.surahId}: () => require("./tafsirSimplified/${fileName(entry.surahId)}"),`);
+    lines.push(`  ${entry.surahId}: () => require("./tafsirSimplifiedData/${fileName(entry.surahId)}"),`);
   }
 
   lines.push(
