@@ -44,6 +44,24 @@ async function getLocationSilent(): Promise<{ lat: number; lng: number }> {
   }
 }
 
+// İzin İSTEYEREK konum getirir — yalnız ilk-hiç-açılış otomatik-etkinleştirmesinde
+// kullanılır (kullanıcı henüz hiçbir yerde karar vermemişse gerçek OS izin
+// penceresini açar). Reddedilirse/hata olursa sessizce İstanbul'a düşer.
+async function getLocationRequesting(): Promise<{ lat: number; lng: number }> {
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") return ISTANBUL_FALLBACK;
+    const pos = await Promise.race([
+      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+      new Promise<null>((r) => setTimeout(() => r(null), 8000)),
+    ]);
+    if (!pos || !("coords" in pos)) return ISTANBUL_FALLBACK;
+    return { lat: pos.coords.latitude, lng: pos.coords.longitude };
+  } catch {
+    return ISTANBUL_FALLBACK;
+  }
+}
+
 // İzin iste
 export async function requestNotificationPermission(): Promise<boolean> {
   if (!Device.isDevice) return false;
@@ -264,7 +282,9 @@ export async function ensureNotificationsFresh(): Promise<void> {
       return;
     }
     try {
-      const { lat, lng } = await getLocationSilent();
+      // İlk açılışta konum izni de İSTENİR (bildirim izninden hemen sonra, üst
+      // üste iki OS penceresi) — gerçek konum baştan doğru olsun diye.
+      const { lat, lng } = await getLocationRequesting();
       const times = await fetchPrayerTimes(lat, lng);
       if (!times) return; // ağ hatası — anahtar yazılmadı, bir sonraki açılışta tekrar denenir
       await applyNotifications({ times, prayer: true, dailyVerse: true });
