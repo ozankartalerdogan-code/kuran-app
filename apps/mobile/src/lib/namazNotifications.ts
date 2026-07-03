@@ -193,22 +193,3 @@ export async function applyNotifications(opts: {
 export async function cancelNamazNotifications(): Promise<void> {
   await Notifications.cancelAllScheduledNotificationsAsync();
 }
-
-// Geliştirme amaçlı: ~5 sn sonra örnek bildirim düşürür (izin + kanal doğrulaması).
-// Yalnızca __DEV__ ekranından çağrılır; dağıtılan APK/AAB'de buton görünmez.
-export async function sendTestNotification(): Promise<void> {
-  await ensureAndroidChannel();
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "🔔 Test Bildirimi",
-      body:  "Bildirimler çalışıyor! (Geliştirme test bildirimi)",
-      sound: true,
-      data:  { route: "/namaz" },
-    },
-    trigger: {
-      type:      Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-      seconds:   5,
-      channelId: ANDROID_CHANNEL_ID,
-    },
-  });
-}

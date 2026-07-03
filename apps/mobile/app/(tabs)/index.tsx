@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Modal,
+  View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -11,7 +11,6 @@ import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
 import { SkeletonAyetCard } from "../../src/components/SkeletonLoader";
 import { api } from "../../src/lib/api";
-import { requestNotificationPermission, sendTestNotification } from "../../src/lib/namazNotifications";
 import * as Haptics from 'expo-haptics';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
@@ -70,6 +69,11 @@ function HomeContent() {
 
   const openTasbih = useCallback(() => setTasbihOpen(true), []);
 
+  const handleSearchPress = useCallback(() => {
+    logFeature("home_search");
+    router.push("/search" as any);
+  }, []);
+
   const QUICK_ACTIONS: QuickAction[] = useMemo(() => [
     { id: "quran", emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
     { id: "learn", emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
@@ -125,14 +129,6 @@ function HomeContent() {
     router.push(action.route);
   }, []);
 
-  // Sadece geliştirme (__DEV__) — 5 sn sonra test bildirimi düşürür.
-  const handleTestNotif = useCallback(async () => {
-    const granted = await requestNotificationPermission();
-    if (!granted) { Alert.alert("İzin Gerekli", "Test için bildirim izni gerekli."); return; }
-    await sendTestNotification();
-    Alert.alert("Test Planlandı", "5 saniye içinde bir test bildirimi gelecek. İstersen uygulamayı arka plana al.");
-  }, []);
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
     <ScrollView
@@ -141,17 +137,21 @@ function HomeContent() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      <TouchableOpacity
+        style={[styles.searchBar, { backgroundColor: c.card, borderColor: c.border }]}
+        onPress={handleSearchPress}
+        activeOpacity={0.8}
+        accessibilityRole="button"
+        accessibilityLabel="Ayet veya sure ara"
+      >
+        <Ionicons name="search-outline" size={18} color={c.textMuted} />
+        <Text style={[styles.searchText, { color: c.textMuted }]}>Sure, ayet veya kelime ara…</Text>
+      </TouchableOpacity>
+
       {error && (
         <View style={styles.errorBanner}>
           <Text style={styles.errorBannerText}>Günlük içerik yüklenemedi. İnternet bağlantınızı kontrol edin.</Text>
         </View>
-      )}
-
-      {/* Test butonu — YALNIZCA geliştirme (__DEV__). APK/AAB'de görünmez. */}
-      {__DEV__ && (
-        <TouchableOpacity onPress={handleTestNotif} style={styles.testNotifBtn} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Bildirimi test et">
-          <Text style={styles.testNotifText}>🔔 Bildirimi Test Et (5 sn) · DEV</Text>
-        </TouchableOpacity>
       )}
 
       {/* Streak + Gece modu */}
@@ -396,6 +396,9 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   content:   { padding: 16, paddingBottom: 32 },
 
+  searchBar:  { flexDirection: "row", alignItems: "center", gap: 10, borderRadius: 14,
+                borderWidth: 1.5, paddingVertical: 13, paddingHorizontal: 14, marginBottom: 12 },
+  searchText: { fontSize: 14, flex: 1 },
 
   streakCard: {
     flexDirection: "row", alignItems: "center", gap: 12,
@@ -443,8 +446,6 @@ const styles = StyleSheet.create({
   moodAyahLink: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 12, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 12 },
   moodAyahLinkText: { fontSize: 13, fontWeight: "800" },
   moodMeal: { fontSize: 15, lineHeight: 24 },
-  testNotifBtn:  { marginBottom: 12, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: "#fca5a5", backgroundColor: "#fef2f2", alignItems: "center" },
-  testNotifText: { fontSize: 13, fontWeight: "600", color: "#b91c1c" },
 
   quickWidget: { borderRadius: 16, borderWidth: 1, padding: 14, marginBottom: 16 },
   quickTitle:  { fontSize: 13, fontWeight: "600", textAlign: "center", marginBottom: 12 },

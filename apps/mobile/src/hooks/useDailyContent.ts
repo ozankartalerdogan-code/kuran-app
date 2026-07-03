@@ -253,23 +253,31 @@ export function useDailyContent(): UseDailyContentResult {
     // 4. Namaz vakitlerini gerçek konumla çek. Ana sayfada izin İSTEMEYİZ; yalnız
     //    önceden verilmişse kullanırız (izin asıl context'inde — kıble / namaz
     //    bildirimi açılırken — istenir). Yoksa sessizce İstanbul'a düşeriz.
+    // Şehir adı (reverse geocode) namaz vakti isteğini BLOKE ETMEZ — arka planda
+    // ayrı çözülür, gelince yalnız görünen etiketi günceller. Konum de önce OS'un
+    // önbelleklediği "son bilinen konum"u dener (anında); yoksa canlı GPS fix ister.
     const coords = await (async () => {
       try {
         const { status } = await Location.getForegroundPermissionsAsync();
         if (status !== "granted") return ISTANBUL;
-        const pos = await Promise.race([
+
+        const lastKnown = await Location.getLastKnownPositionAsync({
+          maxAge: 10 * 60 * 1000, // 10 dk içindeyse taze say
+        }).catch(() => null);
+
+        const pos = lastKnown ?? await Promise.race([
           Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
           new Promise<null>((r) => setTimeout(() => r(null), 15000)),
         ]);
         if (pos && "coords" in pos) {
           const { latitude, longitude } = pos.coords;
-          // Şehir adını al (reverse geocoding)
-          try {
-            const geo = await Location.reverseGeocodeAsync({ latitude, longitude });
-            const place = geo[0];
-            const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
-            if (cityName) setPrayerCityState(cityName);
-          } catch { /* ignore */ }
+          Location.reverseGeocodeAsync({ latitude, longitude })
+            .then((geo) => {
+              const place = geo[0];
+              const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
+              if (cityName) setPrayerCityState(cityName);
+            })
+            .catch(() => { /* ignore — İstanbul etiketiyle kalır */ });
           return { lat: latitude, lon: longitude };
         }
       } catch { /* ignore */ }
