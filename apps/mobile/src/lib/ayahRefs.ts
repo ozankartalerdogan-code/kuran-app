@@ -82,3 +82,17 @@ export function parseAyahRefs(text: string): TextSegment[] {
 export function hasAyahRef(text: string): boolean {
   return parseAyahRefs(text).some((s) => s.type === "ayah");
 }
+
+// Arama kutusu için: TÜM sorgu tek başına "sure:ayet"/"sure/ayet" mi? (aralık
+// desteklenmez — arama tek ayete gitmek içindir). Eşleşirse API'ye hiç gitmeden
+// doğrudan /ayah/{sure}/{ayet}'e yönlendirilebilir — "2:255" yazan kullanıcı
+// önceden "sonuç bulunamadı" görüyordu, arama API'si bu notasyonu anlamıyordu.
+const DIRECT_REF_RE = /^([1-9]\d{0,2})[:/]([1-9]\d{0,2})$/;
+
+export function parseDirectAyahQuery(query: string): { surahId: number; ayahNumber: number } | null {
+  const m = DIRECT_REF_RE.exec(query.trim());
+  if (!m) return null;
+  const surahId = parseInt(m[1], 10);
+  const ayahNumber = parseInt(m[2], 10);
+  return isValidAyahRef(surahId, ayahNumber) ? { surahId, ayahNumber } : null;
+}

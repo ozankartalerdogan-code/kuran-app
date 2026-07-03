@@ -9,6 +9,7 @@ import { api, prefetchAyah, type SearchResponse, type VerseResult, type Suggeste
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 import { logFeature, AnalyticsEvents } from "../src/lib/analytics";
+import { parseDirectAyahQuery } from "../src/lib/ayahRefs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
@@ -234,6 +235,15 @@ export default function SearchScreen() {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = query.trim();
     if (trimmed.length < MIN_LEN) { setState({ status: "idle" }); return; }
+
+    // "2:255" / "2/255" gibi doğrudan ayet referansı → API'ye hiç gitmeden ayete git.
+    const directRef = parseDirectAyahQuery(trimmed);
+    if (directRef) {
+      Keyboard.dismiss();
+      router.push(`/ayah/${directRef.surahId}/${directRef.ayahNumber}`);
+      return;
+    }
+
     setState({ status: "loading" });
     debounceRef.current = setTimeout(async () => {
       try {
@@ -278,6 +288,14 @@ export default function SearchScreen() {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = query.trim();
     if (trimmed.length < MIN_LEN) return;
+
+    const directRef = parseDirectAyahQuery(trimmed);
+    if (directRef) {
+      Keyboard.dismiss();
+      router.push(`/ayah/${directRef.surahId}/${directRef.ayahNumber}`);
+      return;
+    }
+
     setState({ status: "loading" });
     api.search.query(trimmed)
       .then(data => { setState({ status: "done", data }); })

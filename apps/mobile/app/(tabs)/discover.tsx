@@ -15,6 +15,7 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SearchResponse, type VerseResult, type TagFilterResult } from "../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { parseDirectAyahQuery } from "../../src/lib/ayahRefs";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -137,6 +138,14 @@ export default function SearchScreen() {
   }, [query]);
 
   async function runSearch(q: string) {
+    // "2:255" / "2/255" gibi doğrudan ayet referansı → API'ye hiç gitmeden ayete git.
+    const directRef = parseDirectAyahQuery(q);
+    if (directRef) {
+      Keyboard.dismiss();
+      router.push(`/ayah/${directRef.surahId}/${directRef.ayahNumber}`);
+      return;
+    }
+
     setState({ status: "loading" });
     try {
       const data = await api.search.query(q);

@@ -7,7 +7,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseAyahRefs, isValidAyahRef, hasAyahRef } from "./ayahRefs.ts";
+import { parseAyahRefs, isValidAyahRef, hasAyahRef, parseDirectAyahQuery } from "./ayahRefs.ts";
 
 function ayahs(text: string) {
   return parseAyahRefs(text).filter((s) => s.type === "ayah");
@@ -78,4 +78,18 @@ test("isValidAyahRef sınırları", () => {
 test("hasAyahRef doğru/yanlış", () => {
   assert.equal(hasAyahRef("bkz 33:21"), true);
   assert.equal(hasAyahRef("sadece düz metin"), false);
+});
+
+test("parseDirectAyahQuery: arama kutusunda tam ayet referansı", () => {
+  assert.deepEqual(parseDirectAyahQuery("2:255"), { surahId: 2, ayahNumber: 255 });
+  assert.deepEqual(parseDirectAyahQuery("2/255"), { surahId: 2, ayahNumber: 255 });
+  assert.deepEqual(parseDirectAyahQuery("  1:1  "), { surahId: 1, ayahNumber: 1 });
+});
+
+test("parseDirectAyahQuery: geçersiz/parçalı sorgular eşleşmez", () => {
+  assert.equal(parseDirectAyahQuery("1/10"), null);       // Fatiha'da 10 yok
+  assert.equal(parseDirectAyahQuery("620/621"), null);    // sure yok
+  assert.equal(parseDirectAyahQuery("sabır"), null);      // düz metin
+  assert.equal(parseDirectAyahQuery("bkz 2:255"), null);  // tüm sorgu değil, içinde geçiyor
+  assert.equal(parseDirectAyahQuery("112/1-4"), null);    // aralık desteklenmez (arama tek ayete gider)
 });
