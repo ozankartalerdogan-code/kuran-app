@@ -290,6 +290,7 @@ function TagVerseAccordion({
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [verses, setVerses] = React.useState<TagFilterResult[]>([]);
+  const [total, setTotal] = React.useState(0);
 
   const isViolet = renk === "violet";
   const boxBg = isViolet ? colors.violetBg : colors.amberBg;
@@ -306,7 +307,8 @@ function TagVerseAccordion({
     setError(null);
     try {
       const res = await api.tags.filter(tag);
-      setVerses(res.results ?? []);
+      setVerses((res.results ?? []).slice(0, 15));
+      setTotal(res.total ?? 0);
     } catch {
       setError("Ayetler yüklenemedi.");
     } finally {
@@ -315,7 +317,7 @@ function TagVerseAccordion({
     }
   };
 
-  const countLabel = loaded && verses.length > 0 ? `${verses.length} ayet` : "Ayetleri Aç";
+  const countLabel = loaded && total > 0 ? `${total} ayet` : "Ayetleri Aç";
 
   return (
     <View style={[styles.kutu, { backgroundColor: boxBg, borderColor: boxBorder }]}> 
@@ -362,7 +364,11 @@ function TagVerseAccordion({
               ) : null}
             </TouchableOpacity>
           ))}
-          <Text style={[styles.verseHint, { color: colors.textMuted }]}>Bir ayete dokunarak tam görünüme geçebilirsin.</Text>
+          {total > verses.length ? (
+            <Text style={[styles.verseHint, { color: colors.textMuted }]}>İlk {verses.length} ayet gösteriliyor. Daha fazlası arama ekranındaki ilgili etikette görülebilir.</Text>
+          ) : (
+            <Text style={[styles.verseHint, { color: colors.textMuted }]}>Bir ayete dokunarak tam görünüme geçebilirsin.</Text>
+          )}
         </View>
       ) : null}
     </View>

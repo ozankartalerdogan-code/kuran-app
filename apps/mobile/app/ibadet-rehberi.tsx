@@ -381,7 +381,8 @@ const BolumCard = React.memo(function BolumCard({ ikon, baslik, children }: { ik
   const [open, setOpen] = React.useState(false);
   return (
     <View style={s.card}>
-      <Pressable style={s.cardHeader} onPress={() => setOpen(p => !p)}>
+      <Pressable style={s.cardHeader} onPress={() => setOpen(p => !p)}
+        accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={baslik}>
         <Text style={s.cardIkon}>{ikon}</Text>
         <Text style={s.cardBaslik}>{baslik}</Text>
         <Text style={s.chevron}>{open ? "▲" : "▼"}</Text>
