@@ -1,4 +1,4 @@
-import { Stack, router } from "expo-router";
+import { Stack, router, useNavigationContainerRef } from "expo-router";
 import { maybeAskReview } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
@@ -11,10 +11,12 @@ import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
 
+type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
 type SentryLike = {
   init: (options: Record<string, unknown>) => void;
   captureException: (error: unknown, context?: Record<string, unknown>) => void;
   wrap: <T>(component: T) => T;
+  reactNavigationIntegration: (options?: Record<string, unknown>) => NavigationIntegration;
 };
 
 // Gerçek @sentry/react-native native modüldür; yeni build gelene kadar (Expo Go
@@ -29,14 +31,24 @@ try {
     init: () => {},
     captureException: () => {},
     wrap: (component) => component,
+    reactNavigationIntegration: () => ({ registerNavigationContainer: () => {} }),
   };
 }
+
+// Sentry'nin otomatik expo-router algılaması (expoRouterIntegration), bu expo-router
+// sürümünün store'unu Sentry.init() anında (React ağacı kurulmadan önce) senkron
+// okuyor → navigationRef henüz boş, "incompatible" uyarısı verip pes ediyor (bilinen
+// üçüncü parti zamanlama sorunu). Bunun yerine navigasyon entegrasyonunu kendimiz
+// oluşturup, RootLayout mount olduktan SONRA (navigationRef gerçekten dolmuşken)
+// elle kaydediyoruz — aynı navigasyon breadcrumb/performans takibini sağlar.
+const navigationIntegration = Sentry.reactNavigationIntegration();
 
 Sentry.init({
   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
   debug: __DEV__,
   environment: __DEV__ ? 'development' : 'production',
   tracesSampleRate: 0.2,
+  integrations: [navigationIntegration],
   // DSN yoksa (env eksik) tamamen kapalı kalsın — boşa init olmasın.
   enabled: !!process.env.EXPO_PUBLIC_SENTRY_DSN,
 });
@@ -144,12 +156,20 @@ function RootLayout() {
     "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
     "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
   });
+  const navigationRef = useNavigationContainerRef();
 
   const ready = videoFinished && !!fontsLoaded;
 
   const handleSplashFinish = useCallback(() => {
     setVideoFinished(true);
   }, []);
+
+  // Sentry'nin otomatik expo-router algılaması bu sürümde çalışmıyor (yukarıdaki
+  // yorum) — navigationRef burada, ağaç kurulduktan sonra, dolu haliyle elle
+  // kaydediliyor.
+  useEffect(() => {
+    navigationIntegration.registerNavigationContainer(navigationRef);
+  }, [navigationRef]);
 
   // Native splash'i mount'ta hemen kaldır — altındaki animasyonlu AppSplash görünsün.
   useEffect(() => {
