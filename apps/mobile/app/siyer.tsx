@@ -6,6 +6,7 @@ import { Stack, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/siyer_i_nebi.json";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 interface Period {
   id: string; order: number; name: string;
@@ -224,7 +225,7 @@ export default function SiyerScreen() {
 }
 
 const s = StyleSheet.create({
-  content:     { padding: 14 },
+  content:     { padding: 14, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   heroCard:    { borderRadius: 16, padding: 18, marginBottom: 14, gap: 6, alignItems: "center" },
   heroIcon:    { fontSize: 36, marginBottom: 4 },
   heroTitle:   { fontSize: 22, fontWeight: "800", color: "#f8fafc", textAlign: "center" },

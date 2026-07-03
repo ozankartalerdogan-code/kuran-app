@@ -424,7 +424,7 @@ const styles = StyleSheet.create({
   historyDates:   { fontSize: 11, color: "#9ca3af", marginTop: 1 },
   historyDays:    { fontSize: 13, fontWeight: "600", color: "#059669" },
   celebrationOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
-  celebrationCard:    { borderRadius: 24, padding: 32, alignItems: "center", width: 300 },
+  celebrationCard:    { borderRadius: 24, padding: 32, alignItems: "center", width: "82%", maxWidth: 340 },
   celebrationTitle:   { fontSize: 24, fontWeight: "700", marginTop: 8, marginBottom: 6 },
   celebrationSub:     { fontSize: 15, textAlign: "center", marginBottom: 24 },
   celebrationBtn:     { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 48 },

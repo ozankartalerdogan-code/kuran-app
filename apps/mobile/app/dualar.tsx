@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import dualarRaw from "../src/data/dualar.json";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 interface Dua {
   baslik: string; arapca: string; okunus: string; anlam: string; kaynak: string;
@@ -130,7 +131,7 @@ export default function DualarScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14, paddingBottom: 40 },
+  content: { padding: 14, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   intro:   { fontSize: 12.5, lineHeight: 19, marginBottom: 14 },
 
   // Kategori akordiyon

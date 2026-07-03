@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Stack, router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,6 +19,10 @@ const TABS: { key: SortMode; label: string }[] = [
 
 type Ders = typeof DERSLER[number];
 
+// Kart min. genişliği ~170dp — geniş (tablet) ekranda 2 yerine daha fazla
+// sütun kullanılır, dar telefonda 2'de kalır.
+const CARD_MIN_WIDTH = 170;
+
 function chunk<T>(arr: T[], n: number): T[][] {
   const out: T[][] = [];
   for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
@@ -28,6 +32,8 @@ function chunk<T>(arr: T[], n: number): T[][] {
 export default function DerslerScreen() {
   const insets = useSafeAreaInsets();
   const c = useColors();
+  const { width } = useWindowDimensions();
+  const numColumns = Math.max(2, Math.floor(width / CARD_MIN_WIDTH));
   const { progress, load } = useDersProgress();
   const [sortMode, setSortMode] = useState<SortMode>("tumu");
   const firstCardTarget = useTourTarget("dersler.firstCard");
@@ -125,14 +131,16 @@ export default function DerslerScreen() {
             const katDersler = kat.ids
               .map(id => DERSLER.find(d => d.id === id))
               .filter(Boolean) as Ders[];
-            const pairs = chunk(katDersler, 2);
+            const pairs = chunk(katDersler, numColumns);
             return (
               <View key={kat.label}>
                 <Text style={[s.sectionHeader, { color: c.textMuted }]}>{kat.label}</Text>
                 {pairs.map((pair, i) => (
                   <View key={i} style={s.row}>
                     {pair.map(item => renderCard(item))}
-                    {pair.length === 1 && <View style={s.cardSpacer} />}
+                    {Array.from({ length: numColumns - pair.length }).map((_, j) => (
+                      <View key={`spacer-${j}`} style={s.cardSpacer} />
+                    ))}
                   </View>
                 ))}
               </View>
@@ -143,7 +151,7 @@ export default function DerslerScreen() {
       ) : (
         <FlashList
           data={sortedData}
-          numColumns={2}
+          numColumns={numColumns}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}

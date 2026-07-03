@@ -8,6 +8,7 @@ import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useTourTarget } from "../src/tour/AppTourProvider";
 import rawData from "../src/data/hadisler_v2.json";
 
@@ -365,7 +366,7 @@ export default function HadislerScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14 },
+  content: { padding: 14, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
   hero: { borderRadius: 16, padding: 18, marginBottom: 12, alignItems: "center", backgroundColor: "#1a1a2e", gap: 5 },
   heroIcon: { fontSize: 34, marginBottom: 2 },

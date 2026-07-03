@@ -11,6 +11,7 @@ import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
+import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 
 // ── Cüz sınır tablosu (yaklaşık başlangıç noktaları) ──────────────────────────
 
@@ -265,7 +266,7 @@ const s = StyleSheet.create({
   backBtnText:{ color: "#fff", fontSize: 14, fontWeight: "600" },
 
   scroll:        { flex: 1 },
-  scrollContent: { paddingHorizontal: 20, paddingVertical: 16 },
+  scrollContent: { paddingHorizontal: 20, paddingVertical: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
   metaRow:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
   metaRight:  { flexDirection: "row", alignItems: "center", gap: 8 },

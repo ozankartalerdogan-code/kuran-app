@@ -6,6 +6,7 @@ import { api, prefetchAyah } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import rehberRaw from "../src/data/namaz_rehberi.json";
 import ozelRaw from "../src/data/ozel_namazlar.json";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Tipler (gevşek — JSON'dan tek cast) ───────────────────────────────────────
 interface Kavram { id: string; isim: string; renk: string; aciklama: string; "örnek"?: string }
@@ -694,7 +695,7 @@ export default function NamazRehberiScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14, paddingBottom: 40 },
+  content: { padding: 14, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   intro:   { fontSize: 13, lineHeight: 20, marginBottom: 14 },
   scopeBox: { backgroundColor: "#eff6ff", borderRadius: 12, borderWidth: 1, borderColor: "#bfdbfe", padding: 12, marginBottom: 14 },
   scopeTitle: { fontSize: 11, fontWeight: "800", color: "#1d4ed8", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 4 },

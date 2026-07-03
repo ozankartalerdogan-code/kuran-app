@@ -10,6 +10,7 @@ import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { TajweedText, TAJWEED_LEGEND } from "./TajweedText";
 import { logFeature } from "../lib/analytics";
+import { READING_MAX_WIDTH } from "../lib/layout";
 
 // ── Tipler ──────────────────────────────────────────────────────────────────
 
@@ -451,7 +452,7 @@ const st = StyleSheet.create({
   surahArabic:  { fontSize: 30, color: "#1c1917", fontFamily: "Amiri", marginBottom: 8, textAlign: "center" },
   surahName:    { fontSize: 18, fontWeight: "700", color: "#059669", marginBottom: 4 },
   surahMeta:    { fontSize: 12, color: "#78716c" },
-  ayahBox:      { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 10 },
+  ayahBox:      { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 10, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   ayahBadge:    { width: 40, height: 40, borderRadius: 20, backgroundColor: "#059669", alignItems: "center", justifyContent: "center", marginBottom: 16 },
   ayahBadgeText:{ fontSize: 16, fontWeight: "700", color: "#fff" },
   ayahTopRow:   { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" },

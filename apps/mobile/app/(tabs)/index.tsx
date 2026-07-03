@@ -442,7 +442,7 @@ const styles = StyleSheet.create({
   moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, borderWidth: 1.5, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
   moodLabel: { fontSize: 13, fontWeight: "600" },
   moodModalBackdrop: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "rgba(0,0,0,0.45)" },
-  moodModalCard: { borderRadius: 20, borderWidth: 1, padding: 18, shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
+  moodModalCard: { width: "100%", maxWidth: 420, alignSelf: "center", borderRadius: 20, borderWidth: 1, padding: 18, shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
   moodModalHeader: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 14 },
   moodModalIcon: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
   moodModalEmoji: { fontSize: 24 },

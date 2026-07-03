@@ -24,6 +24,7 @@ import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
 import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
 import { useTourTarget } from "../../../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -1000,7 +1001,7 @@ const styles = StyleSheet.create({
 
   // ── Scroll ──
   scroll:        { flex: 1 },
-  scrollContent: { padding: 12, paddingBottom: 48 },
+  scrollContent: { padding: 12, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
   // ── Başlık kartı ──
   headerCard: {

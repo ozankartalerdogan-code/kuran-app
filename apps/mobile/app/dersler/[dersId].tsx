@@ -22,6 +22,7 @@ import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
 import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
 
 const { width: SCREEN_W } = Dimensions.get("window");
@@ -641,7 +642,7 @@ const s = StyleSheet.create({
   aciklamaText:  { fontSize: 14, lineHeight: 22, marginBottom: 4 },
 
   // Okuma modu
-  readContent:   { padding: 20 },
+  readContent:   { padding: 20, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   readBaslik:    { fontSize: 20, fontWeight: "800", lineHeight: 28, marginBottom: 12 },
   readDivider:   { height: 1, marginVertical: 28, opacity: 0.4 },
 

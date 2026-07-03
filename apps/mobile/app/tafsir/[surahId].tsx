@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type TafsirResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { getSimplifiedTafsir } from "../../src/data/tafsirSimplified";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type TafsirMode = "original" | "simplified";
 
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24, gap: 12 },
   muted: { fontSize: 14, fontStyle: "italic" },
-  listContent: { padding: 16, paddingBottom: 40 },
+  listContent: { padding: 16, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   source: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginBottom: 14 },
   sourceFooter: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginTop: 20, paddingTop: 12, borderTopWidth: StyleSheet.hairlineWidth },
   para: { fontSize: 15, lineHeight: 26, marginBottom: 14 },

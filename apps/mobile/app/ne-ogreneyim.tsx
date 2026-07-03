@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
 import { router, Stack } from "expo-router";
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 
-const { width } = Dimensions.get("window");
 const GAP = 12;
 const PAD = 16;
-const CARD_W = (width - PAD * 2 - GAP) / 2;
+// Kart min. genişliği ~150dp — geniş (tablet) ekranda sabit 2 sütun yerine
+// daha fazla sütun kullanılır, dar telefonda 2'de kalır.
+const CARD_MIN_WIDTH = 150;
 
 const ITEMS = [
   { emoji: "🎓",  title: "Dersler",             route: "/dersler",             desc: "Kart kart öğren, kendini test et" },
@@ -30,6 +31,9 @@ const ITEMS = [
 export default function NeOgreneyimScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+  const columns = Math.max(2, Math.floor((width - PAD * 2) / CARD_MIN_WIDTH));
+  const cardW = (width - PAD * 2 - GAP * (columns - 1)) / columns;
   useEffect(() => { logScreen('NeOgreneyim'); }, []);
 
   const goBack = () => {
@@ -57,7 +61,7 @@ export default function NeOgreneyimScreen() {
           {ITEMS.map((item) => (
             <TouchableOpacity
               key={item.title}
-              style={[s.card, { backgroundColor: c.card, width: CARD_W }]}
+              style={[s.card, { backgroundColor: c.card, width: cardW }]}
               onPress={() => { Haptics.selectionAsync(); router.push(item.route as any); }}
               activeOpacity={0.7}
               accessibilityRole="button"

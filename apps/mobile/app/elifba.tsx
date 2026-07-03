@@ -372,7 +372,9 @@ const s = StyleSheet.create({
   },
   bonusTitle: { fontSize: 14, fontWeight: "700" },
   bonusSub:   { fontSize: 11.5, marginTop: 2, lineHeight: 16 },
-  path:  { paddingVertical: 4 },
+  // maxWidth: sabit 3 düğümlü yol görseli geniş (tablet) ekranda aşırı
+  // uzayan bağlantı çizgileriyle kopuk görünmesin diye sınırlı tutulur.
+  path:  { paddingVertical: 4, maxWidth: 480, width: "100%", alignSelf: "center" },
   row:   { flexDirection: "row", alignItems: "flex-start" },
   hLine: { flex: 1, height: 3, marginTop: 25, borderRadius: 2 },
 });
