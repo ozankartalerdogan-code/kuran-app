@@ -163,29 +163,3 @@ export const storage = {
   },
 };
 
-export async function getFavorites(): Promise<string[]> {
-  return (await storage.getJSON<string[]>(STORAGE_KEYS.favorites, [])) ?? [];
-}
-
-export async function toggleFavorite(verseKey: string): Promise<boolean> {
-  const favs = await getFavorites();
-  const next = favs.includes(verseKey)
-    ? favs.filter((k) => k !== verseKey)
-    : [...favs, verseKey];
-  await storage.setJSON(STORAGE_KEYS.favorites, next);
-  return next.includes(verseKey);
-}
-
-export async function getNotes(): Promise<Record<string, string>> {
-  return (await storage.getJSON<Record<string, string>>(STORAGE_KEYS.notes, {})) ?? {};
-}
-
-export async function setNote(verseKey: string, text: string): Promise<void> {
-  const notes = await getNotes();
-  if (text.trim()) {
-    notes[verseKey] = text.trim();
-  } else {
-    delete notes[verseKey];
-  }
-  await storage.setJSON(STORAGE_KEYS.notes, notes);
-}

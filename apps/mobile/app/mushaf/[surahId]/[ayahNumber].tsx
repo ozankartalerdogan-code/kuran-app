@@ -69,6 +69,7 @@ function JuzTracker({ currentJuz }: { currentJuz: number }) {
               style={[jt.cell, active && jt.cellActive]}
               onPress={() => router.push(`/mushaf/${item.surahId}/${item.ayahNumber}`)}
               activeOpacity={0.75}
+              hitSlop={4}
               accessibilityRole="button"
               accessibilityState={{ selected: active }}
               accessibilityLabel={`${index + 1}. cüz`}

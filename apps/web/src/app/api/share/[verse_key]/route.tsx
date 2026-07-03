@@ -82,7 +82,12 @@ export async function GET(
   req: NextRequest,
   context: { params: { verse_key: string } }
 ): Promise<ImageResponse | Response> {
-  const verseKey = decodeURIComponent(context.params.verse_key ?? "");
+  let verseKey: string;
+  try {
+    verseKey = decodeURIComponent(context.params.verse_key ?? "");
+  } catch {
+    return new Response("Geçersiz verse_key. Örn: 2:255", { status: 400 });
+  }
 
   if (!/^\d{1,3}:\d{1,3}$/.test(verseKey)) {
     return new Response("Geçersiz verse_key. Örn: 2:255", { status: 400 });

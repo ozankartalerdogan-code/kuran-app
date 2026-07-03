@@ -1,6 +1,18 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+// _layout.tsx'teki Sentry.init() zaten çalıştı (singleton) — burada yalnız
+// captureException'a erişmek için aynı build-gated require deseni tekrarlanır.
+// Bu olmadan bu boundary'nin yakaladığı hatalar Sentry'ye hiç gitmiyordu.
+type SentryLike = { captureException: (error: unknown, context?: Record<string, unknown>) => void };
+let Sentry: SentryLike;
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  Sentry = require("@sentry/react-native");
+} catch {
+  Sentry = { captureException: () => {} };
+}
+
 interface Props {
   children: React.ReactNode;
   fallback?: React.ReactNode;
@@ -19,6 +31,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error("[ErrorBoundary]", error, info.componentStack);
+    Sentry.captureException(error, { extra: { componentStack: info.componentStack } });
   }
 
   reset = () => this.setState({ hasError: false });

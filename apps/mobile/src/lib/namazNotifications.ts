@@ -56,14 +56,24 @@ export async function fetchPrayerTimes(
 // Vakitten kaç dakika önce tek bildirim (hatırlatma + namaz-taglı ayet birlikte)
 const REMIND_BEFORE_MIN = 5;
 
-// Android 8+ bildirim kanalı — yüksek öncelik (heads-up + ses). Olmadan bildirimler
-// varsayılan kanalda sessiz/önemsiz görünebilir.
-const ANDROID_CHANNEL_ID = "namaz-vakitleri";
+// Android 8+ bildirim kanalları — yüksek öncelik (heads-up + ses). Olmadan bildirimler
+// varsayılan kanalda sessiz/önemsiz görünebilir. İKİ AYRI kanal: kullanıcı Android
+// sistem ayarlarından (bildirime uzun bas → kanal ayarları) namaz ve günlük ayet
+// bildirimlerini birbirinden bağımsız susturabilsin — tek kanalda bu mümkün değildi.
+const ANDROID_CHANNEL_ID_PRAYER = "namaz-vakitleri";
+const ANDROID_CHANNEL_ID_DAILY  = "gunun-ayeti";
 
 async function ensureAndroidChannel(): Promise<void> {
   if (Platform.OS !== "android") return;
-  await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID, {
+  await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_PRAYER, {
     name:             "Namaz Vakitleri",
+    importance:       Notifications.AndroidImportance.HIGH,
+    sound:            "default",
+    vibrationPattern: [0, 250, 250, 250],
+    lightColor:       "#059669",
+  });
+  await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
+    name:             "Günün Ayeti ve Duası",
     importance:       Notifications.AndroidImportance.HIGH,
     sound:            "default",
     vibrationPattern: [0, 250, 250, 250],
@@ -73,14 +83,14 @@ async function ensureAndroidChannel(): Promise<void> {
 
 // Verilen vakitten offsetMin dakika öncesi için DAILY tetikleyici üretir.
 // Negatif/aşan dakikayı Date normalize eder (ör. 05:03 → 04:58).
-function dailyTriggerBefore(hour: number, minute: number, offsetMin: number) {
+function dailyTriggerBefore(hour: number, minute: number, offsetMin: number, channelId: string) {
   const at = new Date();
   at.setHours(hour, minute - offsetMin, 0, 0);
   return {
     type:      Notifications.SchedulableTriggerInputTypes.DAILY,
     hour:      at.getHours(),
     minute:    at.getMinutes(),
-    channelId: ANDROID_CHANNEL_ID, // iOS'ta yok sayılır
+    channelId, // iOS'ta yok sayılır
   } as const;
 }
 
@@ -122,7 +132,7 @@ async function schedulePrayerNotifications(times: PrayerTimes): Promise<void> {
         sound: true,
         data:  { route: "/namaz" },
       },
-      trigger: dailyTriggerBefore(hour, minute, REMIND_BEFORE_MIN),
+      trigger: dailyTriggerBefore(hour, minute, REMIND_BEFORE_MIN, ANDROID_CHANNEL_ID_PRAYER),
     });
   });
   await Promise.all(jobs);
@@ -171,7 +181,7 @@ async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void
         sound: true,
         data:  { route: `/ayah/${x.sid}/${x.an}` },
       },
-      trigger: dailyTriggerBefore(x.slot.hour, x.slot.minute, 0),
+      trigger: dailyTriggerBefore(x.slot.hour, x.slot.minute, 0, ANDROID_CHANNEL_ID_DAILY),
     })
   );
   await Promise.all(jobs);

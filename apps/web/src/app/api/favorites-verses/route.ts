@@ -16,13 +16,17 @@ interface VerseRow {
 
 const VERSE_KEY_RE = /^\d{1,3}:\d{1,3}$/;
 const BATCH_SIZE = 200;
+// Gerçek kullanımda (favoriler/notlar) birkaç yüzü geçmez; sınırsız `keys` ile
+// çok sayıda sıralı Turso round-trip'i tetiklenmesin diye üst sınır.
+const MAX_KEYS = 500;
 
 export async function GET(req: NextRequest) {
   const keysParam = req.nextUrl.searchParams.get("keys") ?? "";
   const keys = keysParam
     .split(",")
     .map((k) => k.trim())
-    .filter((k) => VERSE_KEY_RE.test(k));
+    .filter((k) => VERSE_KEY_RE.test(k))
+    .slice(0, MAX_KEYS);
 
   if (keys.length === 0) {
     return NextResponse.json([]);
@@ -68,7 +72,13 @@ export async function GET(req: NextRequest) {
     );
 
     const ordered = keys.map((k) => resultMap.get(k)).filter(Boolean);
-    return NextResponse.json(ordered);
+    return NextResponse.json(ordered, {
+      headers: {
+        // Aynı key seti → aynı sonuç (statik ayet verisi); tekrar isteklerde
+        // Turso'ya gitmesin.
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600",
+      },
+    });
   } catch (err) {
     console.error("[favorites-verses] hata:", err);
     return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });

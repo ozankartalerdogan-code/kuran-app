@@ -8,9 +8,9 @@ export async function GET(
   { params }: { params: Promise<{ root: string }> }
 ): Promise<NextResponse<RootDetail | { error: string }>> {
   const { root: encodedRoot } = await params;
-  const root = decodeURIComponent(encodedRoot);
 
   try {
+    const root = decodeURIComponent(encodedRoot);
     // Kök birden çok kaynaktan gelebilir (tekrarlı satır); anlamı öncelikli
     // kaynaktan (zengin seed) seç ve tek satıra indir — liste ile tutarlı olsun.
     const rootInfo = await dbGet<{ root: string; meaning_tr: string }>(

@@ -77,8 +77,8 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
 
   return (
     <Modal transparent animationType="fade" onRequestClose={onClose}>
-      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1}>
-        <TouchableOpacity style={pp.card} activeOpacity={1}>
+      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel="Kapat">
+        <TouchableOpacity style={pp.card} activeOpacity={1} accessible={false}>
 
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 12 }}>
             <View style={{ flex: 1 }}>

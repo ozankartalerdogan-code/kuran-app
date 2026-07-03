@@ -58,7 +58,7 @@ type QuickAction =
 function HomeContent() {
   const c          = useColors();
   const { streak } = useStreak();
-  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading } = useDailyContent();
+  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [selectedMood, setSelectedMood] = useState<MoodResult | null>(null);
   const [tasbihOpen, setTasbihOpen]   = useState(false);
@@ -183,6 +183,7 @@ function HomeContent() {
         <TouchableOpacity
           onPress={toggleTheme}
           activeOpacity={0.75}
+          hitSlop={6}
           accessibilityRole="button"
           accessibilityLabel={c.isDark ? "Aydınlık moda geç" : "Gece moduna geç"}
           style={[styles.themeBtn, {
@@ -250,8 +251,12 @@ function HomeContent() {
           <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
           <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
         </View>
-        {!prayers ? (
+        {!prayers && prayerLoading ? (
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
+        ) : !prayers ? (
+          <Text style={[styles.verseMeal, { color: c.isDark ? "#c7d2fe" : "#4338ca", marginVertical: 8 }]}>
+            Namaz vakitleri şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.
+          </Text>
         ) : (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
             {PRAYER_ORDER.map((key) => {

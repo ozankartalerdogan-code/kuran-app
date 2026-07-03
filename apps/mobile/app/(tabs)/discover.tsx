@@ -113,6 +113,7 @@ function TagCard({ tag, count }: { tag: string; count: number }) {
 type State =
   | { status: "idle" }
   | { status: "loading" }
+  | { status: "error"; query: string }
   | { status: "done"; data: SearchResponse; tagVerses?: TagFilterResult[]; tagTotal?: number };
 
 export default function SearchScreen() {
@@ -152,7 +153,7 @@ export default function SearchScreen() {
             tagTotal:  filterRes.total,
           });
         } catch {
-          setState({ status: "done", data });
+          setState({ status: "done", data, tagVerses: [], tagTotal: -1 });
         }
       } else {
         setState({ status: "done", data });
@@ -160,7 +161,7 @@ export default function SearchScreen() {
 
       addRecent(q, recent).then(setRecent).catch(() => {});
     } catch {
-      setState({ status: "done", data: { type: "none" } });
+      setState({ status: "error", query: q });
     }
   }
 
@@ -239,6 +240,24 @@ export default function SearchScreen() {
         </View>
       )}
 
+      {/* Hata — ağ/bağlantı sorunu, "sonuç yok" ile karıştırılmasın */}
+      {state.status === "error" && (
+        <View style={styles.centered}>
+          <Text style={styles.emptyIcon}>⚠️</Text>
+          <Text style={styles.emptyTitle}>Arama başarısız oldu</Text>
+          <Text style={styles.emptySub}>Bağlantını kontrol edip tekrar dene.</Text>
+          <TouchableOpacity
+            onPress={() => runSearch(state.query)}
+            style={styles.retryBtn}
+            activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel="Tekrar dene"
+          >
+            <Text style={styles.retryBtnText}>Tekrar Dene</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
       {/* Sonuçlar */}
       {isDone && d && !isLoading && (() => {
         if (d.type === "surah") {
@@ -309,9 +328,15 @@ export default function SearchScreen() {
                 ) : null
               }
               ListEmptyComponent={
-                <View style={styles.centered}>
-                  <ActivityIndicator size="small" color="#059669" />
-                </View>
+                tt === -1 ? (
+                  <View style={styles.centered}>
+                    <Text style={styles.emptySub}>Ayetler yüklenemedi. Bağlantını kontrol et.</Text>
+                  </View>
+                ) : (
+                  <View style={styles.centered}>
+                    <ActivityIndicator size="small" color="#059669" />
+                  </View>
+                )
               }
               contentContainerStyle={styles.list}
               keyboardShouldPersistTaps="handled"
@@ -453,6 +478,8 @@ const styles = StyleSheet.create({
   emptyIcon:  { fontSize: 40 },
   emptyTitle: { fontSize: 16, fontWeight: "700", color: "#44403c" },
   emptySub:   { fontSize: 13, color: "#a8a29e", textAlign: "center", lineHeight: 20 },
+  retryBtn:     { marginTop: 14, backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 20, paddingVertical: 10 },
+  retryBtnText: { color: "#fff", fontWeight: "700", fontSize: 13 },
 
   kesfetLink: {
     flexDirection: "row", alignItems: "center", justifyContent: "space-between",
