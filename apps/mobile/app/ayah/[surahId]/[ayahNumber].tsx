@@ -8,6 +8,7 @@ import {
   StyleSheet,
   useColorScheme,
   Alert,
+  Platform,
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -495,15 +496,21 @@ export default function AyahDetailScreen() {
     if (!data) return;
     logFeature(AnalyticsEvents.PAYLASIM);
     const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
-    const text = [
+    const title = `${data.surahName} ${data.ayahNumber}. Ayet`;
+    const bodyParts = [
       `${data.surahName} · ${data.ayahNumber}. Ayet`,
       data.arabicText ?? "",
       reading ?? "",
       data.meal ?? "",
-      webUrl,
-    ].filter(Boolean).join("\n\n");
+    ].filter(Boolean);
+    // Android'in paylaşım intent'i yalnızca `message` alanını okur, `url`'i yok sayar
+    // → link mesaja gömülmeli. iOS ise `url`'i ayrı bir bağlantı önizlemesi olarak
+    // gösterir; mesaja da gömülürse link iki kez görünür.
+    const shareOptions = Platform.OS === "ios"
+      ? { title, message: bodyParts.join("\n\n"), url: webUrl }
+      : { title, message: [...bodyParts, webUrl].join("\n\n") };
     try {
-      await Share.share({ message: text, title: `${data.surahName} ${data.ayahNumber}. Ayet` });
+      await Share.share(shareOptions);
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
   }, [data, surahId, ayahNumber, reading]);
 

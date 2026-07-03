@@ -46,6 +46,24 @@ module.exports = {
         'android.permission.ACCESS_FINE_LOCATION',
         'com.google.android.gms.permission.AD_ID',
       ],
+      // App Links: paylaşılan ayet URL'i (https://.../surah/x/ayah/y) uygulama
+      // kuruluysa doğrudan içinde açılsın, tarayıcıya düşmesin. autoVerify için
+      // web tarafında /.well-known/assetlinks.json'daki SHA256 imza parmak izinin
+      // gerçek imzalama sertifikasıyla doldurulması ve yeni bir build gerekir.
+      intentFilters: [
+        {
+          action: 'VIEW',
+          autoVerify: true,
+          data: [
+            {
+              scheme: 'https',
+              host: 'kuran-app-web-ozan-s-projects8.vercel.app',
+              pathPrefix: '/surah',
+            },
+          ],
+          category: ['BROWSABLE', 'DEFAULT'],
+        },
+      ],
     },
     web: {
       bundler: 'metro',

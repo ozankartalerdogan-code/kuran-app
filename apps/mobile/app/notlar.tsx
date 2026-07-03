@@ -2,7 +2,8 @@ import {
   View, Text, TouchableOpacity, StyleSheet, Alert,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useCallback, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../src/hooks/useNotes";
@@ -22,9 +23,6 @@ export default function NotlarScreen() {
     loading: notesLoading,
     error: notesError,
   } = useNotes();
-  const [surahNames, setSurahNames] = useState<Record<string, string>>({});
-  const [metaLoading, setMetaLoading] = useState(false);
-  const [surahNamesError, setSurahNamesError] = useState<string | null>(null);
 
   useFocusEffect(useCallback(() => { refresh(); }, [refresh]));
 
@@ -36,38 +34,27 @@ export default function NotlarScreen() {
 
   const noteKeys = useMemo(() => noteList.map((n) => n.verseKey), [noteList]);
 
-  useEffect(() => {
-    let isMounted = true;
+  const {
+    data: noteVerses,
+    isLoading: metaLoading,
+    isError: isSurahNamesError,
+  } = useQuery({
+    queryKey: ["note-verses", noteKeys],
+    queryFn: () => api.favorites.fetch(noteKeys),
+    enabled: loaded && !notesLoading && noteKeys.length > 0,
+    staleTime: 2 * 60 * 1000,
+    retry: 1,
+  });
 
-    if (!loaded || notesLoading) return () => { isMounted = false; };
+  const surahNames = useMemo(() => {
+    const map: Record<string, string> = {};
+    noteVerses?.forEach((v) => { if (v.surah_name) map[v.verse_key] = v.surah_name; });
+    return map;
+  }, [noteVerses]);
 
-    if (noteKeys.length === 0) {
-      setSurahNames({});
-      setSurahNamesError(null);
-      setMetaLoading(false);
-      return () => { isMounted = false; };
-    }
-
-    setMetaLoading(true);
-    setSurahNamesError(null);
-
-    api.favorites.fetch(noteKeys)
-      .then((verses) => {
-        if (!isMounted) return;
-        const map: Record<string, string> = {};
-        verses.forEach((v) => { if (v.surah_name) map[v.verse_key] = v.surah_name; });
-        setSurahNames(map);
-      })
-      .catch(() => {
-        if (!isMounted) return;
-        setSurahNamesError("Bazı sure adları şu anda alınamadı; notlar ayet anahtarlarıyla gösteriliyor.");
-      })
-      .finally(() => {
-        if (isMounted) setMetaLoading(false);
-      });
-
-    return () => { isMounted = false; };
-  }, [loaded, notesLoading, noteKeys]);
+  const surahNamesError = isSurahNamesError
+    ? "Bazı sure adları şu anda alınamadı; notlar ayet anahtarlarıyla gösteriliyor."
+    : null;
 
   function parseKey(key: string) {
     const [s, a] = key.split(":").map(Number);

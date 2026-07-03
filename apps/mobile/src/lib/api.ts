@@ -297,7 +297,7 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 
 // Cache sürümü — artırınca tüm eski yerel cache'ler geçersiz olur.
 // (v2: gloss/literal/fark analizi büyük veri güncellemesi)
-const CACHE_VERSION = "v3"; // v3: arabic_tajweed eklendi → eski cache geçersiz
+const CACHE_VERSION = "v4"; // v4: AsyncStorage → MMKV geçişi, eski cache biçimi geçersiz
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 
 // Uçuştaki (in-flight) istekler — aynı anahtar için eşzamanlı iki çağrı tek ağ

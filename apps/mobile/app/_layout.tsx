@@ -99,6 +99,7 @@ function AppContent() {
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: "Geri" }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
+        <Stack.Screen name="surah/[surahId]/ayah/[ayahNumber]" options={{ headerShown: false }} />
         <Stack.Screen name="tafsir/[surahId]"               options={{ headerBackTitle: "Geri" }} />
         <Stack.Screen name="ogren/index"                           options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
         <Stack.Screen name="elifba"                                options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
