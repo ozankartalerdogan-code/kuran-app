@@ -12,6 +12,7 @@ import { useFavorites } from "../src/hooks/useFavorites";
 import { api, prefetchAyah, type FavoriteVerse } from "../src/lib/api";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
 import * as Haptics from "expo-haptics";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 export default function FavorilerScreen() {
   const c = useColors();
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
   emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },
   goBtn:           { backgroundColor: "#059669", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10, marginTop: 6 },
   goBtnText:       { color: "#fff", fontWeight: "700", fontSize: 14 },
-  list:            { padding: 12, paddingBottom: 32, backgroundColor: "#f5f0e8" },
+  list:            { padding: 12, paddingBottom: 32, backgroundColor: "#f5f0e8", maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   listHeader:      { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
   count:           { fontSize: 13, color: "#78716c", fontWeight: "500" },
   clearAll:        { fontSize: 13, color: "#ef4444", fontWeight: "600" },
