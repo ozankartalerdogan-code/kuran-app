@@ -3,10 +3,14 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const SOURCE_PATH = path.join(ROOT, "content", "tafsir", "simplified-surah.json");
-const TARGETS = [
-  path.join(ROOT, "apps", "mobile", "src", "data", "tafsirSimplified.ts"),
-  path.join(ROOT, "apps", "web", "src", "app", "api", "tafsir", "simplifiedContent.ts"),
-];
+// Web: tek sunucu-taraflı dosya (bundle'a gitmiyor, boyut sorun değil).
+const WEB_TARGET = path.join(ROOT, "apps", "web", "src", "app", "api", "tafsir", "simplifiedContent.ts");
+// Mobil: 114 sure ~1.3MB tek objede eagerly bundle'a giriyordu (her açılışta
+// hepsi belleğe yükleniyordu, kullanıcı tek sure okusa bile). Sure başına ayrı
+// JSON + tembel require lookup'a bölündü — dersler_registry.ts'teki safeRequire
+// deseniyle aynı mantık.
+const MOBILE_DATA_DIR   = path.join(ROOT, "apps", "mobile", "src", "data", "tafsirSimplified");
+const MOBILE_LOADER_PATH = path.join(ROOT, "apps", "mobile", "src", "data", "tafsirSimplified.ts");
 
 function readEntries() {
   const raw = fs.readFileSync(SOURCE_PATH, "utf8");
@@ -36,7 +40,7 @@ function readEntries() {
     .sort((a, b) => a.surahId - b.surahId);
 }
 
-function buildTypeScript(entries) {
+function buildWebTypeScript(entries) {
   const lines = [
     "// Generated from content/tafsir/simplified-surah.json.",
     "// Run: node scripts/build-simplified-tafsir-assets.mjs",
@@ -52,10 +56,52 @@ function buildTypeScript(entries) {
   return lines.join("\n");
 }
 
-const entries = readEntries();
-const output = buildTypeScript(entries);
-for (const target of TARGETS) {
-  fs.mkdirSync(path.dirname(target), { recursive: true });
-  fs.writeFileSync(target, output, "utf8");
+function fileName(surahId) {
+  return `${String(surahId).padStart(3, "0")}.json`;
 }
+
+function buildMobileLoader(entries) {
+  const lines = [
+    "// Generated from content/tafsir/simplified-surah.json.",
+    "// Run: node scripts/build-simplified-tafsir-assets.mjs",
+    "//",
+    "// Sure başına ayrı JSON + tembel require — 114 sure tek objede (~1.3MB)",
+    "// eagerly bundle'a girip her açılışta belleğe yüklenmesin diye.",
+    "/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */",
+    "",
+    "const LOADERS: Record<number, () => string> = {",
+  ];
+
+  for (const entry of entries) {
+    lines.push(`  ${entry.surahId}: () => require("./tafsirSimplified/${fileName(entry.surahId)}"),`);
+  }
+
+  lines.push(
+    "};",
+    "",
+    "export function getSimplifiedTafsir(surahId: number): string | null {",
+    "  const loader = LOADERS[surahId];",
+    "  if (!loader) return null;",
+    "  try {",
+    "    return loader();",
+    "  } catch {",
+    "    return null;",
+    "  }",
+    "}",
+    "",
+  );
+  return lines.join("\n");
+}
+
+const entries = readEntries();
+
+fs.mkdirSync(path.dirname(WEB_TARGET), { recursive: true });
+fs.writeFileSync(WEB_TARGET, buildWebTypeScript(entries), "utf8");
+
+fs.mkdirSync(MOBILE_DATA_DIR, { recursive: true });
+for (const entry of entries) {
+  fs.writeFileSync(path.join(MOBILE_DATA_DIR, fileName(entry.surahId)), JSON.stringify(entry.text), "utf8");
+}
+fs.writeFileSync(MOBILE_LOADER_PATH, buildMobileLoader(entries), "utf8");
+
 console.log(`Generated simplified tafsir assets for ${entries.length} surah(s).`);

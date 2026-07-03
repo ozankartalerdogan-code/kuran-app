@@ -11,7 +11,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type TafsirResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
-import { SIMPLIFIED_TAFSIR } from "../../src/data/tafsirSimplified";
+import { getSimplifiedTafsir } from "../../src/data/tafsirSimplified";
 
 type TafsirMode = "original" | "simplified";
 
@@ -20,7 +20,7 @@ export default function TafsirScreen() {
   const insets = useSafeAreaInsets();
   const { surahId: rawId, name } = useLocalSearchParams<{ surahId: string; name?: string }>();
   const surahId = Number(rawId);
-  const localSimplifiedContent = surahId ? (SIMPLIFIED_TAFSIR[surahId] ?? null) : null;
+  const localSimplifiedContent = surahId ? getSimplifiedTafsir(surahId) : null;
 
   const [tafsir, setTafsir] = useState<TafsirResponse | null | "loading">("loading");
   const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");

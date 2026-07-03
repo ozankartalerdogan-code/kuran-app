@@ -40,7 +40,7 @@ export function AppSplash({ onFinish }: AppSplashProps) {
 
   return (
     <ImageBackground
-      source={require("../../assets/splash_logo.png")}
+      source={require("../../assets/splash_logo.jpg")}
       style={styles.container}
       resizeMode="contain"
     >
