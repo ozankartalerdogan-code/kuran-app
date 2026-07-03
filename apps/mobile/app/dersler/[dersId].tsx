@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ScrollView, Image, Dimensions, PanResponder, Animated,
+  ScrollView, Image, PanResponder, Animated,
 } from "react-native";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,8 +24,6 @@ import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../s
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
-
-const { width: SCREEN_W } = Dimensions.get("window");
 
 // Quiz geçme eşiği: bu kadar doğru → ders "tamamlandı" sayılır + kutlama.
 const QUIZ_PASS = 7;
@@ -167,7 +165,7 @@ export default function DersDetayScreen() {
   const kart     = kartlar[dersIndex] ?? kartlar[0];
   const isFirst  = dersIndex === 0;
   const isLast   = dersIndex === total - 1;
-  const dersProgressW = (SCREEN_W - 32) * ((dersIndex + 1) / total);
+  const dersProgressW = `${Math.round(((dersIndex + 1) / total) * 100)}%` as const;
   const gorselSrc = kart?.tip === "gorsel" && kart.gorsel ? (GORSEL_MAP[kart.gorsel] ?? null) : null;
 
   // ── Ders handlers ──
@@ -259,7 +257,7 @@ export default function DersDetayScreen() {
     return (
       <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         <Stack.Screen options={{ headerShown: false }} />
-
+        <View style={s.contentColumn}>
         <View style={[s.header, { borderBottomColor: c.border }]}>
           <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
             <Text style={s.accent}>‹ Geri</Text>
@@ -291,6 +289,7 @@ export default function DersDetayScreen() {
             </TouchableOpacity>
           )}
         </ScrollView>
+        </View>
       </View>
     );
   }
@@ -302,12 +301,12 @@ export default function DersDetayScreen() {
     const qTotal    = quizQuestions.length;
     const pct       = Math.round((score / qTotal) * 100);
     const emoji     = scoreEmoji(score, qTotal);
-    const barW      = (SCREEN_W - 64) * (score / qTotal);
+    const barW      = `${pct}%` as const;
 
     return (
       <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         <Stack.Screen options={{ headerShown: false }} />
-
+        <View style={s.contentColumn}>
         <View style={[s.header, { borderBottomColor: c.border }]}>
           <View style={s.headerSide} />
           <Text style={[s.headerTitle, { color: c.text }]}>Sonuç</Text>
@@ -376,7 +375,7 @@ export default function DersDetayScreen() {
             <Text style={s.nextBtnText}>Tekrar Çöz</Text>
           </TouchableOpacity>
         </View>
-
+        </View>
       </View>
     );
   }
@@ -387,7 +386,7 @@ export default function DersDetayScreen() {
   if (quizMode && quizQuestions.length > 0) {
     const question  = quizQuestions[qIndex];
     const qTotal    = quizQuestions.length;
-    const qProgressW = (SCREEN_W - 32) * ((qIndex + 1) / qTotal);
+    const qProgressW = `${Math.round(((qIndex + 1) / qTotal) * 100)}%` as const;
 
     const answerBg = (harf: string) => {
       if (!showResult) return c.card;
@@ -412,7 +411,7 @@ export default function DersDetayScreen() {
     return (
       <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         <Stack.Screen options={{ headerShown: false }} />
-
+        <View style={s.contentColumn}>
         {/* Header */}
         <View style={[s.header, { borderBottomColor: c.border }]}>
           <TouchableOpacity
@@ -497,6 +496,7 @@ export default function DersDetayScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+        </View>
       </View>
     );
   }
@@ -507,7 +507,7 @@ export default function DersDetayScreen() {
   return (
     <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]} {...panResponder.panHandlers}>
       <Stack.Screen options={{ headerShown: false }} />
-
+      <View style={s.contentColumn}>
       {/* Header */}
       <View style={[s.header, { borderBottomColor: c.border }]}>
         <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
@@ -583,6 +583,7 @@ export default function DersDetayScreen() {
           </TouchableOpacity>
         )}
       </View>
+      </View>
     </View>
   );
 }
@@ -592,6 +593,9 @@ export default function DersDetayScreen() {
 const s = StyleSheet.create({
   container:     { flex: 1 },
   center:        { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
+  // Geniş (tablet) ekranda içerik sütununu ortalar + sınırlar; arka plan
+  // (s.container) yine tam ekran kalır, sadece içerik daralır.
+  contentColumn: { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
 
   header:        {
     flexDirection: "row", alignItems: "center",
@@ -610,7 +614,7 @@ const s = StyleSheet.create({
   kartBaslikBox: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 10 },
   kartBaslikBig: { fontSize: 24, fontWeight: "800", lineHeight: 32 },
   gorselImg:     {
-    width: SCREEN_W - 32, height: (SCREEN_W - 32) * 0.85,
+    width: "100%", aspectRatio: 1 / 0.85,
     borderRadius: 14, marginBottom: 16, alignSelf: "center", backgroundColor: "#ffffff",
   },
   kartCard:      { flex: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
@@ -652,7 +656,7 @@ const s = StyleSheet.create({
   scoreEmoji:    { fontSize: 52 },
   scoreText:     { fontSize: 28, fontWeight: "800" },
   scorePct:      { fontSize: 15, fontWeight: "600" },
-  scoreBarTrack: { width: SCREEN_W - 96, height: 8, borderRadius: 4, marginTop: 8 },
+  scoreBarTrack: { alignSelf: "stretch", height: 8, borderRadius: 4, marginTop: 8, overflow: "hidden" },
   scoreBarFill:  { height: 8, backgroundColor: "#c9a84c", borderRadius: 4 },
 
   wrongTitle:    { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
