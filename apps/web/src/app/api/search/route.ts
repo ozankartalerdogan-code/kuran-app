@@ -182,22 +182,13 @@ export async function GET(
     const surahMatch = findSurahMatch(q, surahs);
 
     if (surahMatch && normalizeTR(surahMatch.adi_turkce) === normalizeTR(q)) {
-      let ftsResults: VerseRow[] = [];
-      let ftsTotal = 0;
-      if (q.length >= 3) {
-        const fts = await searchFts(q);
-        ftsResults = fts.results;
-        ftsTotal   = fts.total;
-      }
-
-      if (ftsResults.length > 0) {
-        return NextResponse.json({
-          type:           "verses",
-          results:        ftsResults,
-          total:          ftsTotal,
-          suggestedSurah: { id: surahMatch.id, name: surahMatch.adi_turkce },
-        }, SEARCH_CACHE);
-      }
+      // Sure adı TAM eşleşti → doğrudan sureye git. Burada KASITLI olarak FTS
+      // metin araması yapılmıyor: sure adları (nur, fetih, yusuf, ihlas, kevser…)
+      // çoğunlukla ayet çevirilerinde de geçen sıradan kelimeler — önceki
+      // davranış "herhangi bir tesadüfi metin eşleşmesi varsa onu göster"
+      // diyordu ve kullanıcıyı sureye götürmek yerine alakasız ayetlere
+      // düşürüyordu (canlıda doğrulandı: "nur"→39, "ihlas"→6, "yusuf"→72
+      // alakasız/kısmen alakasız sonuç, sureye hiç gidilemiyordu).
       return NextResponse.json({
         type:      "surah",
         surahId:   surahMatch.id,
