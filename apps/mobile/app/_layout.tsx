@@ -2,6 +2,7 @@ import { Stack, router, useNavigationContainerRef } from "expo-router";
 import { maybeAskReview } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
+import { AppState } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
@@ -10,6 +11,7 @@ import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, 
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
+import { ensureNotificationsFresh } from "../src/lib/namazNotifications";
 
 type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
 type SentryLike = {
@@ -196,6 +198,19 @@ function RootLayout() {
     return () => {
       sub.remove();
     };
+  }, []);
+
+  // Bildirimleri (namaz vakti + günlük ayet/dua) her açılışta VE her arka plandan
+  // öne gelişte taze tut — ilk hiç açılışta varsayılan AÇIK dener, sonrasında
+  // günde en az bir kez saat/içerik yeniler. Yalnız uygulama açılışına bağlı
+  // kalsaydı (eskisi gibi) günlerce arka planda tutulan bir oturumda bildirimler
+  // donuk kalırdı.
+  useEffect(() => {
+    ensureNotificationsFresh().catch(() => {});
+    const sub = AppState.addEventListener("change", (state) => {
+      if (state === "active") ensureNotificationsFresh().catch(() => {});
+    });
+    return () => sub.remove();
   }, []);
 
   if (!ready) return <AppSplash onFinish={handleSplashFinish} />;

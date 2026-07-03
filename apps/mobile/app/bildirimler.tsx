@@ -10,33 +10,16 @@ import {
   fetchPrayerTimes,
   applyNotifications,
   cancelNamazNotifications,
+  NOTIF_KEY,
+  DAILY_VERSE_KEY,
+  SCHED_DAY_KEY,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
 
-const NOTIF_KEY = "namazNotifEnabled";
-// Bildirimlerin en son hangi gün planlandığı (YYYY-MM-DD) — günde bir kez yeniden planlamak için.
-const SCHED_DAY_KEY = "namazNotifSchedDay";
-const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
 function localDayStr(d = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
-// İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
-async function getUserLocationSilent(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
-  try {
-    const { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== "granted") return { ...ISTANBUL, isFallback: true };
-    const pos = await Promise.race([
-      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-      new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
-    ]);
-    if (!pos || !("coords" in pos)) return { ...ISTANBUL, isFallback: true };
-    return { lat: pos.coords.latitude, lng: pos.coords.longitude, isFallback: false };
-  } catch {
-    return { ...ISTANBUL, isFallback: true };
-  }
 }
 
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
@@ -72,6 +55,9 @@ export default function BildirimlerScreen() {
   const [dailyVerseLoading, setDailyVerseLoading] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
 
+  // Güncel tercih durumunu oku ve göster. Otomatik-planla/tazele artık burada DEĞİL —
+  // _layout.tsx her açılışta/ön plana gelişte ensureNotificationsFresh() ile app-wide
+  // hallediyor (bu ekran hiç açılmasa bile çalışır). Burası yalnız o sonucu yansıtır.
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -79,27 +65,9 @@ export default function BildirimlerScreen() {
         storage.getString(NOTIF_KEY),
         storage.getString(DAILY_VERSE_KEY),
       ]);
-      const prayerOn = pv === "1";
-      const dailyOn  = dv === "1";
       if (cancelled) return;
-      setNotifEnabled(prayerOn);
-      setDailyVerseEnabled(dailyOn);
-      if (!prayerOn && !dailyOn) return;
-
-      // Vakitler günden güne kaydığı için, açıkken günde bir kez sessizce yeniden planla.
-      const today = localDayStr();
-      const lastDay = await storage.getString(SCHED_DAY_KEY);
-      if (lastDay === today) return;
-
-      try {
-        const { lat, lng, isFallback } = await getUserLocationSilent();
-        if (cancelled) return;
-        const times = await fetchPrayerTimes(lat, lng);
-        if (cancelled || !times) return;
-        await applyNotifications({ times, prayer: prayerOn, dailyVerse: dailyOn });
-        await storage.setString(SCHED_DAY_KEY, today);
-        if (!cancelled) setUsingFallback(isFallback);
-      } catch { /* sessiz — eldeki planlama korunur */ }
+      setNotifEnabled(pv === "1");
+      setDailyVerseEnabled(dv === "1");
     })();
     return () => { cancelled = true; };
   }, []);
@@ -183,7 +151,7 @@ export default function BildirimlerScreen() {
       <Stack.Screen options={{ title: "Bildirimler" }} />
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom }}>
         <Text style={styles.intro}>
-          Bildirimleri istediğin zaman buradan açıp kapatabilirsin. İkisi bağımsızdır.
+          İkisi de varsayılan olarak açıktır. İstediğin zaman buradan kapatabilirsin, birbirlerinden bağımsızdır.
         </Text>
 
         {/* Namaz Vakti Bildirimleri */}

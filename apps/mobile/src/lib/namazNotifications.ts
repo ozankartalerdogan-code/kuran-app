@@ -1,7 +1,9 @@
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import * as Location from "expo-location";
 import { Platform } from "react-native";
 import { api } from "./api";
+import { storage } from "./storage";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -13,6 +15,34 @@ const VAKITLER = [
 ];
 
 export type PrayerTimes = Record<string, string>;
+
+// Bildirim tercihi anahtarları — bildirimler.tsx ve buradaki app-wide "her zaman
+// taze tut" mantığı AYNI anahtarları paylaşır (tek kaynak, ikisi ayrışmasın).
+export const NOTIF_KEY = "namazNotifEnabled";
+export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
+export const SCHED_DAY_KEY = "namazNotifSchedDay";
+
+const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
+
+function localDayStr(d = new Date()): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+// İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
+async function getLocationSilent(): Promise<{ lat: number; lng: number }> {
+  try {
+    const { status } = await Location.getForegroundPermissionsAsync();
+    if (status !== "granted") return ISTANBUL_FALLBACK;
+    const pos = await Promise.race([
+      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+      new Promise<null>((r) => setTimeout(() => r(null), 8000)),
+    ]);
+    if (!pos || !("coords" in pos)) return ISTANBUL_FALLBACK;
+    return { lat: pos.coords.latitude, lng: pos.coords.longitude };
+  } catch {
+    return ISTANBUL_FALLBACK;
+  }
+}
 
 // İzin iste
 export async function requestNotificationPermission(): Promise<boolean> {
@@ -202,4 +232,64 @@ export async function applyNotifications(opts: {
 // Bildirimleri kapat
 export async function cancelNamazNotifications(): Promise<void> {
   await Notifications.cancelAllScheduledNotificationsAsync();
+}
+
+// App-wide "her zaman taze tut" — _layout.tsx her açılışta (+ arka plandan öne
+// gelince) çağırır. İKİ İŞİ VAR:
+//  1) İLK HİÇ AÇILIŞ (iki tercih anahtarı da hiç yazılmamış): bildirimler
+//     VARSAYILAN AÇIK denenir (izin verilirse); kullanıcı sonra Bildirimler
+//     ekranından kapatabilir.
+//  2) Zaten yapılandırılmışsa: içerik/saatler GÜNDE EN AZ BİR KEZ tazelenir.
+//     Eskiden bu kontrol yalnız Bildirimler ekranı açılınca çalışıyordu — kullanıcı
+//     o ekranı bir daha hiç açmazsa namaz vakti bildirim SAATLERİ (gün be gün kayar)
+//     ve günlük ayet/dua İÇERİĞİ (DAILY tetikleyici ilk planlanan içeriği sonsuza
+//     dek tekrarlar) donuk kalıyordu. Artık uygulama her ön plana geçtiğinde kontrol
+//     edilir → gerçekten "günlük" ve doğru saatli kalır.
+export async function ensureNotificationsFresh(): Promise<void> {
+  const [pvRaw, dvRaw] = await Promise.all([
+    storage.getString(NOTIF_KEY),
+    storage.getString(DAILY_VERSE_KEY),
+  ]);
+
+  if (pvRaw === null && dvRaw === null) {
+    const granted = await requestNotificationPermission();
+    if (!granted) {
+      // Tekrar tekrar izin isteyip kullanıcıyı rahatsız etme — kapalı olarak
+      // işaretle. Bildirimler ekranından elle açarsa oradaki akış tekrar dener
+      // (ve gerekirse "Ayarları Aç" yönlendirmesi gösterir).
+      await Promise.all([
+        storage.setString(NOTIF_KEY, "0"),
+        storage.setString(DAILY_VERSE_KEY, "0"),
+      ]);
+      return;
+    }
+    try {
+      const { lat, lng } = await getLocationSilent();
+      const times = await fetchPrayerTimes(lat, lng);
+      if (!times) return; // ağ hatası — anahtar yazılmadı, bir sonraki açılışta tekrar denenir
+      await applyNotifications({ times, prayer: true, dailyVerse: true });
+      await Promise.all([
+        storage.setString(NOTIF_KEY, "1"),
+        storage.setString(DAILY_VERSE_KEY, "1"),
+        storage.setString(SCHED_DAY_KEY, localDayStr()),
+      ]);
+    } catch { /* sessiz — bir sonraki açılışta tekrar denenir */ }
+    return;
+  }
+
+  const prayerOn = pvRaw === "1";
+  const dailyOn  = dvRaw === "1";
+  if (!prayerOn && !dailyOn) return;
+
+  const today = localDayStr();
+  const lastDay = await storage.getString(SCHED_DAY_KEY);
+  if (lastDay === today) return;
+
+  try {
+    const { lat, lng } = await getLocationSilent();
+    const times = await fetchPrayerTimes(lat, lng);
+    if (!times) return;
+    await applyNotifications({ times, prayer: prayerOn, dailyVerse: dailyOn });
+    await storage.setString(SCHED_DAY_KEY, today);
+  } catch { /* sessiz — eldeki planlama korunur, bir sonraki açılışta tekrar denenir */ }
 }
