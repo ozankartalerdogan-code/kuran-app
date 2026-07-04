@@ -116,14 +116,18 @@ async function ensureAndroidChannel(): Promise<void> {
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_PRAYER, {
     name:             "Namaz Vakitleri",
     importance:       Notifications.AndroidImportance.HIGH,
-    sound:            "default",
+    // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
+    // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
+    // adı sanıp ("Custom sound 'default' not found") hata basıyordu.
     vibrationPattern: [0, 250, 250, 250],
     lightColor:       "#059669",
   });
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
     name:             "Günün Ayeti ve Duası",
     importance:       Notifications.AndroidImportance.HIGH,
-    sound:            "default",
+    // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
+    // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
+    // adı sanıp ("Custom sound 'default' not found") hata basıyordu.
     vibrationPattern: [0, 250, 250, 250],
     lightColor:       "#059669",
   });
