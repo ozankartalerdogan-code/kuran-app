@@ -1,0 +1,25 @@
+name: Typecheck
+
+# `next build` içinde typescript.ignoreBuildErrors: true açık (Vercel ortamına
+# özgü, yerelde tekrarlanamayan async Server Component tip false-positive'i için).
+# Bu CI, gerçek tip denetimini (tsc --noEmit) web + mobil workspace'lerinde ayrıca
+# çalıştırarak o güvenlik ağını geri getirir. Bkz apps/web/next.config.mjs.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck (web + mobile)
+        run: npm run typecheck
