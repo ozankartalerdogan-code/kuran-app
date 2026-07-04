@@ -88,7 +88,11 @@ module.exports = {
         },
       ],
       'expo-status-bar',
-      'expo-audio',
+      // App yalnızca ses ÇALAR (Kur'an tilaveti), kayıt YAPMAZ → RECORD_AUDIO
+      // (mikrofon) iznini ekleme. Aksi halde expo-audio varsayılan olarak ekliyor;
+      // reklamsız/minimal-izin app için gereksiz + Play Veri Güvenliği'nde mikrofon
+      // beyanı gerektirirdi. MODIFY_AUDIO_SETTINGS (normal izin) korunur.
+      ['expo-audio', { recordAudioAndroid: false }],
       '@react-native-firebase/app',
       '@react-native-firebase/analytics',
       // Sentry: org/project burada (commit'li, EAS'e gider); AUTH TOKEN ise EAS
