@@ -159,6 +159,9 @@ function RootLayout() {
     "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
   });
   const navigationRef = useNavigationContainerRef();
+  // Uygulamayı açan/öne getiren bildirim yanıtı — cold start (uygulama tamamen
+  // kapalıyken bildirimle açılma) DAHİL. Manuel listener cold start'ı kaçırıyordu.
+  const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
   const ready = videoFinished && !!fontsLoaded;
 
@@ -183,22 +186,21 @@ function RootLayout() {
   }, []);
 
   useEffect(() => {
-    // Bildirime tıklanınca ilgili ekrana git (uygulama hazır olduktan sonra)
-    const sub = Notifications.addNotificationResponseReceivedListener(response => {
-      const data = response.notification.request.content.data as Record<string, unknown>;
-      setTimeout(() => {
-        if (data?.surahId && data?.ayahNumber) {
-          router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as any);
-        } else if (data?.route) {
-          router.push(data.route as any);
-        }
-      }, 500); // Stack mount'u için kısa bekleme
-    });
-
-    return () => {
-      sub.remove();
-    };
-  }, []);
+    // Bildirime tıklanınca ilgili ekrana git. useLastNotificationResponse hem
+    // uygulama açıkken/arka plandayken tıklamayı HEM DE uygulama tamamen
+    // kapalıyken bildirimle açılmayı (cold start) yakalar — eski manuel
+    // addNotificationResponseReceivedListener cold start'ı kaçırıyordu.
+    if (!lastNotificationResponse) return;
+    const data = lastNotificationResponse.notification.request.content.data as Record<string, unknown>;
+    const t = setTimeout(() => {
+      if (data?.surahId && data?.ayahNumber) {
+        router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as any);
+      } else if (data?.route) {
+        router.push(data.route as any);
+      }
+    }, 500); // Stack mount'u için kısa bekleme
+    return () => clearTimeout(t);
+  }, [lastNotificationResponse]);
 
   // Bildirimleri (namaz vakti + günlük ayet/dua) her açılışta VE her arka plandan
   // öne gelişte taze tut — ilk hiç açılışta varsayılan AÇIK dener, sonrasında
