@@ -65,7 +65,6 @@ function HomeContent() {
   const [tasbihOpen, setTasbihOpen]   = useState(false);
   const prayerTarget = useTourTarget("home.prayerTimes");
   const qiblaTarget = useTourTarget("home.quick.qibla");
-  const homeDerslerTarget = useTourTarget("home.dersler");
   const tourScroll = useTourScroller();
 
   const openTasbih = useCallback(() => setTasbihOpen(true), []);
@@ -325,22 +324,6 @@ function HomeContent() {
           ))}
         </View>
       </View>
-
-      {/* Dersler — featured kart */}
-      <TouchableOpacity
-        {...homeDerslerTarget}
-        style={[styles.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
-        onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
-        activeOpacity={0.8}
-        accessibilityRole="button"
-        accessibilityLabel="Dersler — İslam'ı öğren"
-      >
-        <View style={{ flex: 1 }}>
-          <Text style={styles.derslerTitle}>📚 Dersler — İslam'ı Öğren</Text>
-          <Text style={[styles.derslerSub, { color: c.textMuted }]}>Sıfırdan, adım adım öğren</Text>
-        </View>
-        <Text style={styles.derslerChev}>›</Text>
-      </TouchableOpacity>
     </ScrollView>
     <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
     <Modal
@@ -461,9 +444,4 @@ const styles = StyleSheet.create({
   quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
   errorBanner:     { backgroundColor: "#fef2f2", borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: "#fca5a5" },
   errorBannerText: { fontSize: 13, color: "#b91c1c", textAlign: "center" },
-  derslerCard:   { flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 12, borderWidth: 1.5,
-                   paddingVertical: 16, paddingHorizontal: 14, marginBottom: 16 },
-  derslerTitle:  { fontSize: 15, fontWeight: "800", color: "#c9a84c", marginBottom: 4 },
-  derslerSub:    { fontSize: 12 },
-  derslerChev:   { fontSize: 24, color: "#c9a84c", fontWeight: "600" },
 });
