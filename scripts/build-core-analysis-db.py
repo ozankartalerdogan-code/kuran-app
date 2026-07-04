@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 DATA2_DIR = ROOT / "data2"
 DB_PATH = DATA_DIR / "kuran_core.db"
-SUPPRESSED_VISIBLE_ROOTS = {"Any", "أني", "فأي", "ياس"}
+SUPPRESSED_VISIBLE_ROOTS = {"Any", "أني", "فأي", "ياس", "كيف"}
 
 
 def normalize_text(value: str | None) -> str:

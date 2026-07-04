@@ -1,4 +1,4 @@
-const suppressedVisibleRoots = new Set(["Any", "أني", "فأي", "ياس"]);
+const suppressedVisibleRoots = new Set(["Any", "أني", "فأي", "ياس", "كيف"]);
 
 export function isSuppressedVisibleRoot(root: string | null | undefined): boolean {
   const normalized = root?.trim() ?? "";
