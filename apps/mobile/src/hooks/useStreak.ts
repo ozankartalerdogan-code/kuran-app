@@ -17,7 +17,12 @@ export interface UseStreakResult {
 const DEFAULT: StreakData = { lastDate: null, current: 0, longest: 0 };
 
 function todayStr(): string {
-  return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+  // YEREL tarih (UTC değil) — namazNotifications.localDayStr ile tutarlı.
+  // toISOString() UTC gününü verir; Türkiye'de (UTC+3) seri "günü" saat 03:00'te
+  // dönerdi ve gece 00:00–03:00 arası okuyan kullanıcı bunu bir önceki güne
+  // sayardı → hak edilmiş seri gece yarısı civarı kırılabilirdi.
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 function diffDays(a: string, b: string): number {
