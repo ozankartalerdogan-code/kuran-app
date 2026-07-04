@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { MissingReason, Translation, WordAnalysis, WordRole } from "@quran-app/types";
 import { dbAll } from "./shared";
+import { normalizeVisibleRoot } from "../utils/rootVisibility";
 
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -38,11 +39,12 @@ const rootExplanationsV2Promise: Promise<Map<string, string>> = readFile(
   const map = new Map<string, string>();
 
   for (const entry of entries) {
-    if (entry.root) {
+    const root = normalizeVisibleRoot(entry.root);
+    if (root) {
       const text = entry.short_tr?.trim() || entry.summary_tr?.trim() || "";
 
       if (text) {
-        map.set(entry.root, text);
+        map.set(root, text);
       }
     }
   }
@@ -118,6 +120,7 @@ function asWordRole(value: string | null | undefined): WordRole | null {
 
 function posToRole(pos: string | null, morphology: string | null): WordRole | null {
   if (!pos) return null;
+  if (morphology?.includes("INTG")) return "adverb";
 
   // V anywhere → verb (V+N verb+pronoun suffix stays verb)
   if (pos.includes("V")) return "verb";
@@ -182,7 +185,7 @@ function getRootExplanationMissingReason(root: string | null): MissingReason {
 
 function mapDbWordToLegacy(row: WordRow, rootExplanationsV2: Map<string, string>): WordAnalysis {
   const arabic = asNullableText(row.arabic);
-  const root = asNullableText(row.root);
+  const root = normalizeVisibleRoot(asNullableText(row.root));
   const meaningText = asNullableText(row.meaning_tr);
   const v2Text = root ? (rootExplanationsV2.get(root) ?? null) : null;
   const rootExplanation = toTranslation(v2Text, rootExplanationsV2Source);
@@ -256,7 +259,7 @@ export function mapCanonicalWordAnalysisToLegacy(
   rootExplanationsV2?: Map<string, string>
 ): WordAnalysis {
   const arabic = asNullableText(word.arabic);
-  const root = asNullableText(word.root);
+  const root = normalizeVisibleRoot(asNullableText(word.root));
   const meaningText = asNullableText(word.meaning_tr);
   const canonicalRootExplanationText = asNullableText(word.root_explanation_tr);
   const v2Text =

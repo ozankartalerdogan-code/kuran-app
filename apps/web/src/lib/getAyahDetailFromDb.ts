@@ -7,6 +7,7 @@ import type {
   TafsirSummary,
 } from "@quran-app/types";
 import { dbAll, dbGet } from "./dbUtils";
+import { normalizeVisibleRoot } from "./rootVisibility";
 
 interface SurahRow {
   id: number;
@@ -119,7 +120,7 @@ export async function getAyahDetailFromDb(
     ]);
 
   // Kök anlamları
-  const roots = [...new Set(wordRows.map((w) => w.root).filter(Boolean))] as string[];
+  const roots = [...new Set(wordRows.map((w) => normalizeVisibleRoot(w.root)).filter(Boolean))] as string[];
   const rootMeanings = new Map<string, string>();
   if (roots.length > 0) {
     const placeholders = roots.map(() => "?").join(", ");
@@ -193,12 +194,13 @@ export async function getAyahDetailFromDb(
 
   // Kelime analizleri
   const wordAnalyses: WordAnalysis[] = wordRows.map((row) => {
-    const rootMeaning = row.root ? (rootMeanings.get(row.root) ?? null) : null;
+    const visibleRoot = normalizeVisibleRoot(row.root);
+    const rootMeaning = visibleRoot ? (rootMeanings.get(visibleRoot) ?? null) : null;
     return {
       wordIndex: row.word_index,
       arabic: row.arabic,
       transliteration: null,
-      root: row.root,
+      root: visibleRoot,
       rootExplanation: rootMeaning
         ? { language: "tr", source: null, text: rootMeaning, status: "available" }
         : null,

@@ -26,6 +26,7 @@ import {
 } from "./coreDbVerseSource";
 import { buildVerseAnalysisSignals } from "./verseAnalysisSignals";
 import { getAppDb } from "../adapters/appDb";
+import { normalizeVisibleRoot } from "../utils/rootVisibility";
 
 interface CanonicalWordAnalysisEntry {
   position: number;
@@ -267,7 +268,7 @@ function loadCanonicalWordAnalysisFromDb(surahId: number, ayahNumber: number): C
     position: row.word_index,
     arabic: row.arabic ?? "",
     lemma: row.lemma ?? "",
-    root: row.root ?? "",
+    root: normalizeVisibleRoot(row.root) ?? "",
     pos: row.pos ?? "",
     role: row.role ?? "",
     morphology: row.morphology ?? "",
@@ -539,7 +540,7 @@ function mapCanonicalWordToContextEntry(
     wordIndex: word.position,
     arabic: word.arabic || null,
     meaning: word.meaning_tr || null,
-    root: word.root || null,
+    root: normalizeVisibleRoot(word.root),
     lemma: word.lemma || null,
     pos: word.pos || null,
     role: word.role || null,
@@ -558,7 +559,7 @@ function mapCoreDbWordToContextEntry(word: CoreDbVerseWord, rootMeaning: string 
     wordIndex: word.wordIndex,
     arabic: word.arabic,
     meaning: word.meaningTr,
-    root: word.root,
+    root: normalizeVisibleRoot(word.root),
     lemma: word.lemma,
     pos: word.pos,
     role: null,

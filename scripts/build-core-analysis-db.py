@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 DATA2_DIR = ROOT / "data2"
 DB_PATH = DATA_DIR / "kuran_core.db"
+SUPPRESSED_VISIBLE_ROOTS = {"Any", "أني"}
 
 
 def normalize_text(value: str | None) -> str:
@@ -25,6 +26,16 @@ def normalize_arabic_key(value: str | None) -> str:
     if not value:
         return ""
     return "".join(ch for ch in value if ("\u0600" <= ch <= "\u06ff"))
+
+
+def normalize_visible_root(value: str | None, morphology: str | None = None) -> str:
+    normalized = normalize_text(value)
+    if not normalized or normalized in SUPPRESSED_VISIBLE_ROOTS:
+        return ""
+    parts = set(normalize_text(morphology).split("|")) if morphology else set()
+    if "INTG" in parts or "POS:INTG" in parts:
+        return ""
+    return normalized
 
 
 def safe_json_load(path: Path) -> tuple[Any | None, str]:
@@ -331,7 +342,7 @@ def main() -> None:
                         int(entry.get("position") or 0),
                         0,
                         normalize_text(entry.get("arabic")) or None,
-                        normalize_text(entry.get("root")) or None,
+                        normalize_visible_root(entry.get("root"), entry.get("morphology")) or None,
                         normalize_text(entry.get("lemma")) or None,
                         normalize_text(entry.get("pos")) or None,
                         normalize_text(entry.get("morphology")) or None,
@@ -342,7 +353,7 @@ def main() -> None:
                     )
                 )
 
-                root = normalize_text(entry.get("root"))
+                root = normalize_visible_root(entry.get("root"), entry.get("morphology"))
                 canonical_root_meaning = normalize_text(entry.get("root_explanation_tr"))
                 if root:
                     for meaning, row_source in [

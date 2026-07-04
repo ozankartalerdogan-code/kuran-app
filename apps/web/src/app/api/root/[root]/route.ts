@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { dbAll, dbGet } from "../../../../lib/dbUtils";
+import { isSuppressedVisibleRoot, suppressedVisibleRootsSql } from "../../../../lib/rootVisibility";
 import type { RootDetail } from "../../../../types/rootDetail";
 
 export async function GET(
@@ -11,6 +12,9 @@ export async function GET(
 
   try {
     const root = decodeURIComponent(encodedRoot);
+    if (isSuppressedVisibleRoot(root)) {
+      return NextResponse.json({ error: "Root not found" }, { status: 404 });
+    }
     // Kök birden çok kaynaktan gelebilir (tekrarlı satır); anlamı öncelikli
     // kaynaktan (zengin seed) seç ve tek satıra indir — liste ile tutarlı olsun.
     const rootInfo = await dbGet<{ root: string; meaning_tr: string }>(
@@ -19,7 +23,9 @@ export async function GET(
                 MAX(CASE WHEN source = 'root_explanations_seed' THEN meaning_tr END),
                 MAX(meaning_tr)
               ) AS meaning_tr
-       FROM root_meanings WHERE root = ?
+       FROM root_meanings
+       WHERE root = ?
+         AND root NOT IN (${suppressedVisibleRootsSql})
        GROUP BY root`,
       root
     );

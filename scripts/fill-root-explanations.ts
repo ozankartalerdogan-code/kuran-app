@@ -51,7 +51,7 @@ function loadCanonicalRoots(): Map<string, number> {
   const db = new DatabaseSync(DB_PATH, { readOnly: true });
   try {
     const rows = db
-      .prepare("SELECT root, COUNT(*) AS freq FROM words WHERE root IS NOT NULL AND trim(root) != '' GROUP BY root")
+      .prepare("SELECT root, COUNT(*) AS freq FROM words WHERE root IS NOT NULL AND trim(root) != '' AND root NOT IN ('Any', 'أني') AND (morphology IS NULL OR morphology NOT LIKE '%INTG%') GROUP BY root")
       .all() as unknown as Array<{ root: string; freq: number }>;
     const rootFreq = new Map<string, number>();
     for (const row of rows) {

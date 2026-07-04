@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
+import { suppressedVisibleRootsSql } from "../../lib/rootVisibility";
 import type { RootItem } from "../../types/root";
 import RootListClient from "./RootListClient";
 
@@ -17,10 +18,16 @@ export default async function RootIndexPage() {
     interface DbRoot { root: string; meaning_tr: string; frequency: number }
     const rows = await dbAll<DbRoot>(`
       SELECT r.root,
-             COALESCE(r.meaning_tr, '') AS meaning_tr,
-             COUNT(w.id)               AS frequency
+             COALESCE(
+               MAX(CASE WHEN r.source = 'root_explanations_seed' THEN r.meaning_tr END),
+               MAX(r.meaning_tr),
+               ''
+             ) AS meaning_tr,
+             (SELECT COUNT(*) FROM words w WHERE w.root = r.root) AS frequency
       FROM   root_meanings r
-      LEFT JOIN words w ON w.root = r.root
+      WHERE  r.root IS NOT NULL
+        AND  TRIM(r.root) <> ''
+        AND  r.root NOT IN (${suppressedVisibleRootsSql})
       GROUP BY r.root
       ORDER BY frequency DESC
       LIMIT  200

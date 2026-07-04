@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { unstable_cache } from "next/cache";
 import { createClient } from "@libsql/client";
+import { suppressedVisibleRootsSql } from "../lib/rootVisibility";
 
 // DB'den üretiliyor (6236 ayet + kökler). Günlük yenilenir.
 export const revalidate = 86400;
@@ -20,7 +21,11 @@ const getSitemapRows = unstable_cache(
       const c = createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN ?? "" });
       verses = (await c.execute("SELECT verse_key FROM verses ORDER BY surah_id, ayah_number"))
         .rows as unknown as { verse_key: string }[];
-      roots = (await c.execute("SELECT DISTINCT root FROM root_meanings WHERE root IS NOT NULL AND TRIM(root) <> ''"))
+      roots = (await c.execute(`SELECT DISTINCT root
+                                FROM root_meanings
+                                WHERE root IS NOT NULL
+                                  AND TRIM(root) <> ''
+                                  AND root NOT IN (${suppressedVisibleRootsSql})`))
         .rows as unknown as { root: string }[];
     } catch { /* DB erişilemezse en azından statik sayfalar döner */ }
     return { verses, roots };

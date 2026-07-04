@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { dbAll } from "../../../lib/dbUtils";
+import { suppressedVisibleRootsSql } from "../../../lib/rootVisibility";
 import type { RootItem } from "../../../types/root";
 
 export async function GET(): Promise<NextResponse> {
@@ -17,6 +18,9 @@ export async function GET(): Promise<NextResponse> {
                ) AS meaning_tr,
                (SELECT COUNT(*) FROM words w WHERE w.root = r.root) AS frequency
         FROM root_meanings r
+        WHERE r.root IS NOT NULL
+          AND TRIM(r.root) <> ''
+          AND r.root NOT IN (${suppressedVisibleRootsSql})
         GROUP BY r.root
         ORDER BY frequency DESC
         LIMIT 200

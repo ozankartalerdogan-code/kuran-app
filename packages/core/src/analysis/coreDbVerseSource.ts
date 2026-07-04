@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { dbAll, dbGet } from "../adapters/shared";
+import { normalizeVisibleRoot } from "../utils/rootVisibility";
 
 export interface CoreDbVerseTranslation {
   source: string;
@@ -115,7 +116,7 @@ export function readVerseAnalysisContextFromCoreDb(
       verseKey
     );
 
-    const words = dbAll<CoreDbVerseWord>(
+    const rawWords = dbAll<CoreDbVerseWord>(
       database.prepare(`
         SELECT word_index AS wordIndex, segment_index AS segmentIndex, arabic, root, lemma,
                pos, morphology, meaning_tr AS meaningTr, gloss_en AS glossEn, confidence, source
@@ -124,6 +125,10 @@ export function readVerseAnalysisContextFromCoreDb(
       verseKey
     );
 
+    const words = rawWords.map((word) => ({
+      ...word,
+      root: normalizeVisibleRoot(word.root)
+    }));
     const roots = uniqueNonEmpty(words.map((word) => word.root));
     const lemmas = uniqueNonEmpty(words.map((word) => word.lemma));
     const morphology = uniqueNonEmpty(words.map((word) => word.morphology));

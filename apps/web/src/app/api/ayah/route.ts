@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
+import { normalizeVisibleRoot, suppressedVisibleRootsSql } from "../../../lib/rootVisibility";
 
 interface SurahRow {
   adi_turkce: string;
@@ -134,7 +135,9 @@ export async function GET(req: NextRequest) {
                  MIN(rm.meaning_tr)
                ) AS root_meaning
         FROM   words w
-        LEFT JOIN root_meanings rm ON rm.root = w.root
+        LEFT JOIN root_meanings rm
+               ON rm.root = w.root
+              AND rm.root NOT IN (${suppressedVisibleRootsSql})
         WHERE  w.verse_key = ?
         GROUP  BY w.word_index
         ORDER  BY w.word_index
@@ -142,7 +145,8 @@ export async function GET(req: NextRequest) {
 
     const rootMeanings: Record<string, string> = {};
     for (const w of words) {
-      if (w.root && w.root_meaning) rootMeanings[w.root] = w.root_meaning;
+      const visibleRoot = normalizeVisibleRoot(w.root);
+      if (visibleRoot && w.root_meaning) rootMeanings[visibleRoot] = w.root_meaning;
     }
 
     const prevAyah =
@@ -177,7 +181,7 @@ export async function GET(req: NextRequest) {
         arabic:    w.arabic,
         meaningTr: w.meaning_tr,
         pos:       w.pos,
-        root:      w.root,
+        root:      normalizeVisibleRoot(w.root),
         morphology: w.morphology,
       })),
       prevAyah,
