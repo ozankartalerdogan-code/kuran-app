@@ -4,8 +4,7 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "dist",
-    "declaration": true,
-    "ignoreDeprecations": "6.0"
+    "declaration": true
   },
   "include": [
     "src"
