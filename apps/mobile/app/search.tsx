@@ -1,11 +1,11 @@
 import {
   View, Text, TextInput, FlatList, TouchableOpacity,
-  ActivityIndicator, StyleSheet, Keyboard, Platform,
+  StyleSheet, Keyboard, Platform,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { api, prefetchAyah, type SearchResponse, type VerseResult, type SuggestedSurah, type TagFilterResult } from "../src/lib/api";
+import { api, prefetchAyah, type SearchResponse, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 import { logFeature, AnalyticsEvents } from "../src/lib/analytics";
@@ -253,9 +253,13 @@ export default function SearchScreen() {
         // Kullanıcının yazdığı arama metni analytics'e gönderilmez — yalnızca
         // özelliğin kullanıldığı işaretlenir (privacy sayfasıyla uyumlu).
         logFeature(AnalyticsEvents.ARAMA);
-        const next = [trimmed, ...recent.filter(r => r !== trimmed)].slice(0, MAX_RECENT);
-        setRecent(next);
-        saveRecent(next);
+        // Fonksiyonel güncelleme: setTimeout içinde bayat `recent` closure'ı
+        // yerine güncel listeyi kullan (hızlı arka arkaya aramalarda kayıp olmaz).
+        setRecent(prev => {
+          const next = [trimmed, ...prev.filter(r => r !== trimmed)].slice(0, MAX_RECENT);
+          saveRecent(next);
+          return next;
+        });
       } catch {
         setState({ status: "error", message: "Arama sırasında hata oluştu." });
       }
