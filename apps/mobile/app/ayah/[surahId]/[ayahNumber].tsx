@@ -29,24 +29,6 @@ import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
 
-// Meal kaynak adları
-const SOURCE_NAMES: Record<string, string> = {
-  yazir:   "Elmalılı H. Yazır",
-  diyanet: "Diyanet İşleri",
-  bulac:   "Ali Bulaç",
-  vakfi:   "Diyanet Vakfı",
-  ozturk:  "Yaşar Nuri Öztürk",
-};
-
-function sourceName(source: string): string {
-  const key = source.split("#").at(-1) ?? "";
-  return SOURCE_NAMES[key] ?? key.toUpperCase();
-}
-
-function isYazirSource(source: string): boolean {
-  return (source.split("#").at(-1) ?? "") === "yazir";
-}
-
 // ── POS (Part of Speech) Türkçe çeviri ───────────────────────────────────────
 
 const POS_TR_MAP: Record<string, string> = {
@@ -428,7 +410,6 @@ export default function AyahDetailScreen() {
 
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [reading, setReading] = useState<string | null>(null);
-  const [translations, setTranslations] = useState<{ source: string; text: string | null }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
@@ -459,7 +440,6 @@ export default function AyahDetailScreen() {
       .then((ayahData) => {
         if (!isMounted) return;
         setData(ayahData);
-        if (ayahData.translations?.length) setTranslations(ayahData.translations);
         if (ayahData.readingTr) {
           setReading(ayahData.readingTr);
         } else {
@@ -492,8 +472,6 @@ export default function AyahDetailScreen() {
   const headerTitle = data
     ? `${data.surahName} · ${data.ayahNumber}. Ayet`
     : "Ayet Detayı";
-
-  const comparisonTranslations = translations.filter((t) => !isYazirSource(t.source ?? ""));
 
   const navToRoot = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
@@ -691,17 +669,6 @@ export default function AyahDetailScreen() {
                 <Text style={[styles.mealText, { color: colors.textMuted }]}>Meal verisi yok.</Text>
               </View>
             )}
-
-            {comparisonTranslations.length > 0 ? (
-              comparisonTranslations.map((t) => (
-                <View key={t.source} style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                  <Text style={[styles.sectionTitle, { color: colors.accent }]}>
-                    {sourceName(t.source ?? "")}
-                  </Text>
-                  <Text style={[styles.mealText, { color: colors.textSecondary }]}>{t.text ?? "—"}</Text>
-                </View>
-              ))
-            ) : null}
 
           </View>
         )}
