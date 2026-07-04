@@ -267,7 +267,20 @@ export async function cancelNamazNotifications(): Promise<void> {
 //     ve günlük ayet/dua İÇERİĞİ (DAILY tetikleyici ilk planlanan içeriği sonsuza
 //     dek tekrarlar) donuk kalıyordu. Artık uygulama her ön plana geçtiğinde kontrol
 //     edilir → gerçekten "günlük" ve doğru saatli kalır.
-export async function ensureNotificationsFresh(): Promise<void> {
+// Eşzamanlı çağrıları SERİLEŞTİR: _layout mount + AppState "active" neredeyse
+// aynı anda tetikliyor → iki applyNotifications yarışıp (biri cancelAll yaparken
+// diğeri henüz schedule etmemişse) ÇİFT bildirim planlanıyordu. In-flight promise
+// paylaşımıyla ikinci çağrı birincinin sonucunu bekler (ikinci applyNotifications
+// çalışmaz); birinci SCHED_DAY_KEY'i yazınca sonraki açılışlar zaten erken döner.
+let freshInFlight: Promise<void> | null = null;
+
+export function ensureNotificationsFresh(): Promise<void> {
+  if (freshInFlight) return freshInFlight;
+  freshInFlight = ensureNotificationsFreshInner().finally(() => { freshInFlight = null; });
+  return freshInFlight;
+}
+
+async function ensureNotificationsFreshInner(): Promise<void> {
   const [pvRaw, dvRaw] = await Promise.all([
     storage.getString(NOTIF_KEY),
     storage.getString(DAILY_VERSE_KEY),
