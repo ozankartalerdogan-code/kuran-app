@@ -30,6 +30,10 @@ import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
 
+// Analiz sekmesindeki "TEMA ETİKETLERİ" kartını göster/gizle. Etiket atamalarının
+// doğruluğu teyit edilene kadar kullanıcıya kapalı. Doğrulanınca true yapılabilir.
+const SHOW_THEME_TAGS = false;
+
 // ── POS (Part of Speech) Türkçe çeviri ───────────────────────────────────────
 
 const POS_TR_MAP: Record<string, string> = {
@@ -852,8 +856,9 @@ export default function AyahDetailScreen() {
             {/* Ham Anlam Özeti */}
             <RawMeaningSummary words={data.words} colors={colors} />
 
-            {/* Tema Etiketleri */}
-            {(data.anaTema || data.altTaglar?.length > 0) && (
+            {/* Tema Etiketleri — atama doğruluğu teyit edilene kadar kullanıcıya gizli.
+                Etiket verisi ve tag'e göre arama DB'de duruyor; yalnızca bu kart gizlendi. */}
+            {SHOW_THEME_TAGS && (data.anaTema || data.altTaglar?.length > 0) && (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>TEMA ETİKETLERİ</Text>
                 <View style={styles.tagRow}>
