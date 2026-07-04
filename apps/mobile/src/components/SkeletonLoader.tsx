@@ -20,7 +20,7 @@ export function SkeletonBox({ width = '100%', height = 20, borderRadius = 8, sty
         Animated.timing(opacity, { toValue: 0.3, duration: 800, useNativeDriver: true }),
       ])
     ).start();
-  }, []);
+  }, [opacity]);
 
   return (
     <Animated.View

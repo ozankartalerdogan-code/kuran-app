@@ -539,7 +539,7 @@ export default function DersDetayScreen() {
         showsVerticalScrollIndicator={false}
       >
         {gorselSrc && (
-          <Image source={gorselSrc} style={s.gorselImg} resizeMode="contain" />
+          <Image source={gorselSrc} style={s.gorselImg} resizeMode="contain" alt="Ders görseli" />
         )}
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
           <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>

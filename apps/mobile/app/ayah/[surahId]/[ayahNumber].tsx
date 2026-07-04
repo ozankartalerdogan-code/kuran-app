@@ -254,7 +254,7 @@ function UniqueRootList({
 
 // ── Hızlı Ayet Atlama ────────────────────────────────────────────────────────
 
-function AyahJumpBar({ surahId, current, total, colors, rightContent }: {
+function AyahJumpBar({ surahId, current, colors, rightContent }: {
   surahId: number; current: number; total: number; colors: ThemeColors;
   rightContent?: React.ReactNode;
 }) {

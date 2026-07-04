@@ -215,6 +215,16 @@ export default function SearchScreen() {
   // Son aramaları yükle
   useEffect(() => { loadRecent().then(setRecent); }, []);
 
+  const fetchTagResults = useCallback(async (tag: string, page: number) => {
+    setState({ status: "loading" });
+    try {
+      const res = await api.tags.filter(tag, page);
+      setState({ status: "tag_results", tag, results: res.results, total: res.total, page: res.page, pages: res.pages });
+    } catch {
+      setState({ status: "error", message: "Etiket sonuçları yüklenemedi." });
+    }
+  }, []);
+
   // URL'den tag gelirse direkt tag filter çağır
   useEffect(() => {
     if (params.type === 'tag' && params.q) {
@@ -228,7 +238,7 @@ export default function SearchScreen() {
     } else if (params.q) {
       setQuery(params.q);
     }
-  }, [params.type, params.tag, params.q, params.page]);
+  }, [params.type, params.tag, params.q, params.page, fetchTagResults]);
 
   // Debounce metin araması
   useEffect(() => {
@@ -265,17 +275,7 @@ export default function SearchScreen() {
       }
     }, DEBOUNCE_MS);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [query, params.tag]);
-
-  const fetchTagResults = useCallback(async (tag: string, page: number) => {
-    setState({ status: "loading" });
-    try {
-      const res = await api.tags.filter(tag, page);
-      setState({ status: "tag_results", tag, results: res.results, total: res.total, page: res.page, pages: res.pages });
-    } catch {
-      setState({ status: "error", message: "Etiket sonuçları yüklenemedi." });
-    }
-  }, []);
+  }, [query, params.tag, params.type]);
 
   const handleClear = useCallback(() => {
     setQuery("");
