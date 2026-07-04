@@ -35,7 +35,7 @@ function harfSesUrl(harfId: number): string {
 let harfPlayer: AudioPlayer | null = null;
 let audioModeSet = false;
 
-async function playHarfSes(harfId: number) {
+async function playHarfSes(harfId: number, onError?: () => void) {
   try {
     if (!audioModeSet) {
       await setAudioModeAsync({ playsInSilentMode: true });
@@ -44,10 +44,23 @@ async function playHarfSes(harfId: number) {
     if (harfPlayer) {
       try { harfPlayer.remove(); } catch { /* yoksay */ }
     }
-    harfPlayer = createAudioPlayer(harfSesUrl(harfId));
-    harfPlayer.play();
+    const player = createAudioPlayer(harfSesUrl(harfId));
+    harfPlayer = player;
+
+    // .play() ağ hatasında THROW ETMEZ; başarısızlık ya status.error ile gelir
+    // ya da ses hiç yüklenmez (internet yok). İkisini de yakalayıp geri bildir.
+    let done = false, ok = false;
+    const fail = () => { if (!done) { done = true; onError?.(); } };
+    const sub = player.addListener("playbackStatusUpdate", (status) => {
+      if (status.isLoaded && status.playing) ok = true;
+      if (status.error) fail();
+    });
+    // 3 sn içinde yüklenip çalmadıysa (offline/askıda) başarısız say + listener temizle.
+    setTimeout(() => { if (!ok) fail(); try { sub.remove(); } catch { /* yoksay */ } }, 3000);
+
+    player.play();
   } catch {
-    // ses çalınamazsa sessizce geç
+    onError?.();
   }
 }
 
@@ -57,23 +70,41 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
   harf: ElifbaHarf; onNext: () => void; onPrev: () => void; isLast: boolean;
 }) {
   const [flipped, setFlipped] = useState(false);
+  const [sesHata, setSesHata] = useState(false);
+  const sesHataTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cardLabel = flipped
     ? `${harf.harf_adi} harfi. Ses: ${harf.harf_sesi}. Mahreç: ${harf.mahrec}`
-    : `${harf.harf_adi} harf kartı`; 
+    : `${harf.harf_adi} harf kartı`;
 
-  useEffect(() => setFlipped(false), [harf.harf_id]);
+  useEffect(() => { setFlipped(false); setSesHata(false); }, [harf.harf_id]);
+  useEffect(() => () => { if (sesHataTimer.current) clearTimeout(sesHataTimer.current); }, []);
+
+  const handlePlay = useCallback(() => {
+    setSesHata(false);
+    void playHarfSes(harf.harf_id, () => {
+      setSesHata(true);
+      if (sesHataTimer.current) clearTimeout(sesHataTimer.current);
+      sesHataTimer.current = setTimeout(() => setSesHata(false), 3000);
+    });
+  }, [harf.harf_id]);
 
   return (
     <View style={fc.container}>
       <TouchableOpacity
         style={fc.playBtn}
-        onPress={() => playHarfSes(harf.harf_id)}
+        onPress={handlePlay}
         activeOpacity={0.7}
         accessibilityRole="button"
         accessibilityLabel={`${harf.harf_adi} harfinin sesini dinle`}
       >
         <Text style={fc.playIcon}>🔊</Text>
       </TouchableOpacity>
+
+      {sesHata && (
+        <Text style={fc.sesHata} accessibilityLiveRegion="polite">
+          🔇 Ses yüklenemedi — internet bağlantını kontrol et
+        </Text>
+      )}
 
       <TouchableOpacity
         style={flipped ? fc.cardBack : fc.cardFront}
@@ -526,6 +557,7 @@ const fc = StyleSheet.create({
   container:   { flex:1, padding:16, alignItems:"center", width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
   playBtn:     { alignSelf:"flex-end", padding:10, marginBottom:4 },
   playIcon:    { fontSize:28 },
+  sesHata:     { fontSize:12, color:"#dc2626", textAlign:"center", marginBottom:8, paddingHorizontal:8 },
   cardFront: {
     width:"100%", minHeight:220, backgroundColor:"#fff", borderRadius:20, borderWidth:1, borderColor:"#e7e5e4",
     alignItems:"center", justifyContent:"center", padding:24,
