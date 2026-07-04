@@ -274,10 +274,18 @@ export async function ensureNotificationsFresh(): Promise<void> {
   ]);
 
   if (pvRaw === null && dvRaw === null) {
-    const granted = await requestNotificationPermission();
-    if (!granted) {
-      // Tekrar tekrar izin isteyip kullanıcıyı rahatsız etme — kapalı olarak
-      // işaretle. Bildirimler ekranından elle açarsa oradaki akış tekrar dener
+    // İlk açılış: bildirim VE konum izinleri istenir. Konum bildirimden
+    // BAĞIMSIZDIR — bildirim reddedilse bile konum sorulur, çünkü konum yalnız
+    // bildirim için değil, namaz vakitleri ve kıble için de gereklidir.
+    const notifGranted = await requestNotificationPermission();
+    // Konumu HER DURUMDA iste (OS penceresi bildirim sonucundan bağımsız açılır);
+    // reddedilirse getLocationRequesting sessizce İstanbul'a düşer.
+    const { lat, lng } = await getLocationRequesting();
+
+    if (!notifGranted) {
+      // Bildirim reddedildi → planlama yapılmaz, kapalı işaretlenir (tekrar tekrar
+      // sormayı önler). Konum izni yine de istendi; kıble/vakitler kullanabilir.
+      // Kullanıcı Bildirimler ekranından elle açarsa oradaki akış tekrar dener
       // (ve gerekirse "Ayarları Aç" yönlendirmesi gösterir).
       await Promise.all([
         storage.setString(NOTIF_KEY, "0"),
@@ -286,9 +294,6 @@ export async function ensureNotificationsFresh(): Promise<void> {
       return;
     }
     try {
-      // İlk açılışta konum izni de İSTENİR (bildirim izninden hemen sonra, üst
-      // üste iki OS penceresi) — gerçek konum baştan doğru olsun diye.
-      const { lat, lng } = await getLocationRequesting();
       const times = await fetchPrayerTimes(lat, lng);
       if (!times) return; // ağ hatası — anahtar yazılmadı, bir sonraki açılışta tekrar denenir
       await applyNotifications({ times, prayer: true, dailyVerse: true });
