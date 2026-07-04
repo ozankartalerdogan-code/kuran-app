@@ -7,7 +7,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { sanitizeSearchQuery, expandSearchPatterns, escapeFts } from "./ftsQuery.ts";
+import { sanitizeSearchQuery, expandSearchPatterns, escapeFts, stripSurahSuffix } from "./ftsQuery.ts";
 
 test("sanitizeSearchQuery: Türkçe karakterleri ASCII'ye indirger", () => {
   assert.equal(sanitizeSearchQuery("Güneş"), "gunes");
@@ -43,4 +43,23 @@ test("escapeFts: fazla boşlukları daraltır ve kırpar", () => {
 test("escapeFts: 'AND' alt-dizgesi olan kelimeyi bozmaz (kelime sınırı)", () => {
   // "anda" içinde AND var ama \b sınırı yüzünden silinmez
   assert.equal(escapeFts("anda"), "anda");
+});
+
+test("stripSurahSuffix: sondaki 'suresi/sûresi/sure' ekini soyar", () => {
+  assert.equal(stripSurahSuffix("Bakara Suresi"), "Bakara");
+  assert.equal(stripSurahSuffix("Bakara suresi"), "Bakara");
+  assert.equal(stripSurahSuffix("Nas Sûresi"), "Nas");
+  assert.equal(stripSurahSuffix("İhlas Sure"), "İhlas");
+  assert.equal(stripSurahSuffix("Al-i İmran Suresi"), "Al-i İmran");
+});
+
+test("stripSurahSuffix: ek yoksa sorguyu değiştirmez", () => {
+  assert.equal(stripSurahSuffix("Bakara"), "Bakara");
+  assert.equal(stripSurahSuffix("sabır"), "sabır");
+});
+
+test("stripSurahSuffix: tek kelimelik 'sure/suresi' sorgusunu boşa çıkarmaz", () => {
+  // Önünde boşluk yok → soyulmaz, boş sorgu üretilmez
+  assert.equal(stripSurahSuffix("Suresi"), "Suresi");
+  assert.equal(stripSurahSuffix("sure"), "sure");
 });

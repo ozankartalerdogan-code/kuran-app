@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import type { SearchResponse, SuggestedSurah } from "./search-types";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
-import { sanitizeSearchQuery, expandSearchPatterns, escapeFts } from "../../../lib/ftsQuery";
+import { sanitizeSearchQuery, expandSearchPatterns, escapeFts, stripSurahSuffix } from "../../../lib/ftsQuery";
 
 export type { SearchResponse };
 
@@ -23,11 +23,17 @@ function normalizeTR(text: string): string {
 }
 
 function findSurahMatch(q: string, surahs: SurahRow[]): SurahRow | null {
-  const norm = normalizeTR(q);
-  for (const s of surahs) if (normalizeTR(s.adi_turkce) === norm) return s;
-  if (q.length >= 3) {
-    for (const s of surahs) if (normalizeTR(s.adi_turkce).startsWith(norm)) return s;
-    for (const s of surahs) if (s.adi_arapca.includes(q)) return s;
+  // "Bakara" ve "Bakara Suresi" iki türlü de eşleşsin: sondaki "suresi/sure"
+  // ekini soyulmuş varyantı da dene. Önce ham sorgu, sonra soyulmuş.
+  const stripped = stripSurahSuffix(q);
+  const candidates = stripped && stripped !== q ? [q, stripped] : [q];
+  for (const cand of candidates) {
+    const norm = normalizeTR(cand);
+    for (const s of surahs) if (normalizeTR(s.adi_turkce) === norm) return s;
+    if (cand.length >= 3) {
+      for (const s of surahs) if (normalizeTR(s.adi_turkce).startsWith(norm)) return s;
+      for (const s of surahs) if (s.adi_arapca.includes(cand)) return s;
+    }
   }
   return null;
 }
@@ -181,7 +187,10 @@ export async function GET(
     );
     const surahMatch = findSurahMatch(q, surahs);
 
-    if (surahMatch && normalizeTR(surahMatch.adi_turkce) === normalizeTR(q)) {
+    if (surahMatch && (
+      normalizeTR(surahMatch.adi_turkce) === normalizeTR(q) ||
+      normalizeTR(surahMatch.adi_turkce) === normalizeTR(stripSurahSuffix(q))
+    )) {
       // Sure adı TAM eşleşti → doğrudan sureye git. Burada KASITLI olarak FTS
       // metin araması yapılmıyor: sure adları (nur, fetih, yusuf, ihlas, kevser…)
       // çoğunlukla ayet çevirilerinde de geçen sıradan kelimeler — önceki

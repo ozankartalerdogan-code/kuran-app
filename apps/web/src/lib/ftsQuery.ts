@@ -32,6 +32,19 @@ export function expandSearchPatterns(q: string): string[] {
 }
 
 /**
+ * Sondaki "suresi" / "sûresi" / "sure" / "sûre" kelimesini ayıklar; böylece
+ * "Bakara Suresi" araması da "Bakara" gibi sureye eşleşir. Yalnızca önünde
+ * boşluk olan son kelimeyi soyar — tek kelimelik sorguları (ör. sadece "sure")
+ * olduğu gibi bırakır, boş sorgu üretmez.
+ */
+export function stripSurahSuffix(q: string): string {
+  return q
+    .replace(/\s+s[uû]res[iı]$/i, "")
+    .replace(/\s+s[uû]re$/i, "")
+    .trim();
+}
+
+/**
  * FTS5 sorgusunda anlam taşıyan özel karakterleri (tırnak, *, ^, parantez,
  * tire) ve AND/OR/NOT operatörlerini boşlukla değiştirir; böylece kullanıcı
  * girdisi ham FTS sözdizimi olarak yorumlanmaz.
