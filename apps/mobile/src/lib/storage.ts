@@ -16,6 +16,7 @@ export const STORAGE_KEYS = {
   onboarding:      "onboarding_completed",
   appTour:         "app_tour_completed",
   hatimTracking:   "hatimTakibi",
+  tajweed:         "tajweedEnabled",
 } as const;
 
 // ── MMKV — güvenli (build-gated) yükleme ───────────────────────────────────────

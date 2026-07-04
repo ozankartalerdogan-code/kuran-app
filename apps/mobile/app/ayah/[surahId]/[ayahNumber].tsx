@@ -25,6 +25,7 @@ import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analyti
 import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
 import { useTourTarget } from "../../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
+import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -415,6 +416,24 @@ export default function AyahDetailScreen() {
   const [activeTab, setActiveTab] = useState<TabId>("meal");
   const [noteDraft, setNoteDraft] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
+  // Tecvid renklendirmesi aç/kapa — kalıcı tercih ("0" = kapalı, varsayılan açık).
+  const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
+
+  useEffect(() => {
+    let alive = true;
+    storage.getString(STORAGE_KEYS.tajweed).then((v) => {
+      if (alive && v != null) setTajweed(v !== "0");
+    });
+    return () => { alive = false; };
+  }, []);
+
+  const handleTajweedToggle = useCallback(() => {
+    setTajweed((prev) => {
+      const next = !prev;
+      storage.setString(STORAGE_KEYS.tajweed, next ? "1" : "0");
+      return next;
+    });
+  }, []);
   const noteSavedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Mevcut notu yükle
@@ -634,7 +653,30 @@ export default function AyahDetailScreen() {
         {/* ═══ Arapça Metin ═══ */}
         <View style={[styles.arabicBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
           {data.arabicTajweed ? (
-            <TajweedText markup={data.arabicTajweed} style={[styles.arabicText, { color: colors.textPrimary }]} />
+            <>
+              <View style={styles.tajRow}>
+                <TouchableOpacity
+                  style={[styles.tajToggle, { borderColor: colors.border }, tajweed && styles.tajToggleOn]}
+                  onPress={handleTajweedToggle}
+                  activeOpacity={0.75}
+                  hitSlop={6}
+                  accessibilityRole="switch"
+                  accessibilityState={{ checked: tajweed }}
+                  accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+                >
+                  <Text style={[styles.tajToggleText, { color: colors.textMuted }, tajweed && styles.tajToggleTextOn]}>
+                    🎨 Tecvid {tajweed ? "açık" : "kapalı"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              {tajweed ? (
+                <TajweedText markup={data.arabicTajweed} style={[styles.arabicText, { color: colors.textPrimary }]} />
+              ) : (
+                <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
+                  {data.arabicText ?? "—"}
+                </Text>
+              )}
+            </>
           ) : (
             <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
               {data.arabicText ?? "—"}
@@ -992,6 +1034,15 @@ const styles = StyleSheet.create({
     fontFamily: "Amiri", textAlign: "right",
     writingDirection: "rtl", width: "100%",
   },
+  tajRow: { width: "100%", flexDirection: "row", justifyContent: "flex-end", marginBottom: 8 },
+  tajToggle: {
+    flexDirection: "row", alignItems: "center",
+    borderRadius: 16, borderWidth: 1,
+    paddingHorizontal: 12, paddingVertical: 6,
+  },
+  tajToggleOn:  { backgroundColor: "#ecfdf5", borderColor: "#6ee7b7" },
+  tajToggleText:  { fontSize: 12, fontWeight: "700" },
+  tajToggleTextOn:{ color: "#047857" },
   readingBox: {
     borderRadius: 10, paddingHorizontal: 16, paddingVertical: 10,
     marginBottom: 10, borderWidth: 1,

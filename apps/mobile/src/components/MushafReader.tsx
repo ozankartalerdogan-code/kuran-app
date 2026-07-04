@@ -165,7 +165,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
   const [loadState, setLoadState]       = useState<LoadState>({ status: "loading" });
   const [reloadKey, setReloadKey]         = useState(0);
   const [bookmark, setBookmark]         = useState<MushafBookmark>(null);
-  const [tajweed, setTajweed]           = useState(true); // tecvid renkleri aç/kapa
+  const [tajweed, setTajweed]           = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0"); // tecvid renkleri aç/kapa (kalıcı)
 
   // Sure listesi + bookmark
   useEffect(() => {
@@ -226,6 +226,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
   const handleTajweedToggle = useCallback(() => {
     setTajweed(t => {
       const next = !t;
+      storage.setString(STORAGE_KEYS.tajweed, next ? "1" : "0");
       logFeature("mushaf_tajweed_toggle", { enabled: String(next) });
       return next;
     });
