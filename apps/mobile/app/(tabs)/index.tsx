@@ -276,8 +276,8 @@ function HomeContent() {
           </ScrollView>
         )}
 
-        {/* Bildirim toggle'ı /namaz ekranında — buraya kısayol (eskiden erişilemiyordu) */}
-        <TouchableOpacity onPress={() => router.push("/namaz")} activeOpacity={0.7} style={styles.prayerNotifLink} accessibilityRole="button" accessibilityLabel="Namaz vakti bildirimleri">
+        {/* Bildirim ayarları /bildirimler ekranında yönetilir — buraya kısayol. */}
+        <TouchableOpacity onPress={() => router.push("/bildirimler")} activeOpacity={0.7} style={styles.prayerNotifLink} accessibilityRole="button" accessibilityLabel="Namaz vakti bildirimleri">
           <Text style={[styles.prayerNotifLinkText, { color: c.isDark ? "#a5b4fc" : "#4338ca" }]}>🔔 Namaz vakti bildirimleri →</Text>
         </TouchableOpacity>
       </View>

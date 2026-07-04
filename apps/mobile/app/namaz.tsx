@@ -6,7 +6,6 @@ import { useState, memo } from "react";
 import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
-import { useTourTarget } from "../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
@@ -210,21 +209,11 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
 
 export default function NamazScreen() {
   const insets = useSafeAreaInsets();
-  const namazTarget = useTourTarget("namaz.main");
 
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Hakkında" }} />
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
-        {/* Bildirim ayarlarına kısayol (bildirimler ayrı ekranda yönetilir) */}
-        <TouchableOpacity {...namazTarget} style={styles.notifCard} onPress={() => router.push("/bildirimler")} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Bildirim ayarlarını aç">
-          <View style={{ flex: 1 }}>
-            <Text style={styles.notifTitle}>🔔 Bildirim Ayarları</Text>
-            <Text style={styles.notifSub}>Namaz vakti ve günlük ayet bildirimlerini yönet</Text>
-          </View>
-          <Text style={{ fontSize: 22, color: "#059669" }}>›</Text>
-        </TouchableOpacity>
-
         {/* Namaz Vakitleri Tablosu */}
         <VakitTablosu />
 
@@ -241,14 +230,6 @@ export default function NamazScreen() {
 
 const styles = StyleSheet.create({
   container: { flex:1, backgroundColor:"#f5f0e8" },
-  notifCard: {
-    flexDirection: "row", alignItems: "center", gap: 12,
-    margin: 12, padding: 14,
-    backgroundColor: "#fff", borderRadius: 12,
-    borderWidth: 1, borderColor: "#d1fae5",
-  },
-  notifTitle: { fontSize: 14, fontWeight: "600", color: "#1c1917", marginBottom: 2 },
-  notifSub:   { fontSize: 12, color: "#78716c" },
   grid:      { flexDirection:"row", flexWrap:"wrap", gap:10, padding:12 },
   catCard:   {
     width:"30.5%", backgroundColor:"#fff", borderRadius:12, padding:12,
