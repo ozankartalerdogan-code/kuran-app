@@ -1,4 +1,7 @@
-const suppressedVisibleRoots = new Set(["Any", "أني"]);
+// "Any"/"أني": morfolojik analize sızmış sahte kök.
+// "فأي": فَ (edat) + أَيّ (zamir) yanlış-segmenti; gerçek kök أيّ.
+// "ياس": يأس (ümitsizlik) kökünün frekans-0 yazım varyantı → mükerrer, gizlenir.
+const suppressedVisibleRoots = new Set(["Any", "أني", "فأي", "ياس"]);
 
 export function isSuppressedVisibleRoot(root: string | null | undefined): boolean {
   const normalized = root?.trim() ?? "";
@@ -13,4 +16,4 @@ export function normalizeVisibleRoot(root: string | null | undefined): string | 
   return normalized;
 }
 
-export const suppressedVisibleRootsSql = "'Any', 'أني'";
+export const suppressedVisibleRootsSql = "'Any', 'أني', 'فأي', 'ياس'";
