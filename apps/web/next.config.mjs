@@ -10,18 +10,9 @@ const nextConfig = {
     "@quran-app/ui",
     "@quran-app/storage",
   ],
-  typescript: {
-    // Monorepo'da mobil (React 19) ↔ web (React 18) @types/react çakışması,
-    // Vercel build ortamında async Server Component'leri (discover/namaz Keşfet
-    // panelleri) yanlış React tipiyle çözüp reddediyordu ve son ~7 production
-    // deploy'u bloke etmişti. Yerel `next build` ve `npm run typecheck` GEÇİYOR
-    // (kod doğru). Gerçek tip denetimi ayrı typecheck adımında yapılır; build'in
-    // ortam-kaynaklı false-positive tip hatasıyla bloke olmasını engelle.
-    ignoreBuildErrors: true,
-  },
   eslint: {
-    // ESLint, build ortamında '@typescript-eslint' pluginini yükleyemiyor
-    // ("Cannot find module 'typescript'"); lint ayrı adımda çalışır.
+    // Lint ayrı adımda (pre-commit + `npm run lint`) çalışır; `next build`
+    // sırasında tekrar çalıştırmaya gerek yok (monorepo'da standart).
     ignoreDuringBuilds: true,
   },
   // Monorepo kökü — tracing'in doğru dosyaları toplaması için
