@@ -88,7 +88,7 @@ export async function fetchPrayerTimes(
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
     const res = await fetch(
-      // school=0: Diyanet İkindi standart yöntemle (school=1/Hanefi ~1 saat geç verir)
+      // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
       `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );

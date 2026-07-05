@@ -101,7 +101,7 @@
           "ayahRange": "7-10",
           "topic": "Nefsin şekillendirilmesi, kötülük/takva kabiliyeti, arınma ve kirlenme",
           "mealSummary": "Allah nefsi şekillendirmiş, ona kötülük ve takva yönünü ilham etmiş; nefsini arındıranın kurtulacağını, onu kirletenin ziyana uğrayacağını bildirmiştir.",
-          "sourceId": "diyanet-sems-91-7-10"
+          "sourceId": "quran-sems-91-7-10"
         },
         {
           "surah": "Haşr",
@@ -149,7 +149,7 @@
           "ayahRange": "7-10",
           "topic": "Nefsin arındırılması veya kirletilmesi",
           "mealSummary": "Nefsini arındıran kurtuluşa erer, onu kötülüklere gömen ziyana uğrar.",
-          "sourceId": "diyanet-sems-91-7-10"
+          "sourceId": "quran-sems-91-7-10"
         },
         {
           "surah": "Nâziât",
@@ -206,7 +206,7 @@
           "ayahRange": "53",
           "topic": "Nefsin kötülüğü emretmesi",
           "mealSummary": "Nefsin, Rabbin merhamet edip koruması dışında, kötülüğü emretmeye yatkın olduğu bildirilir.",
-          "sourceId": "diyanet-yusuf-12-53"
+          "sourceId": "quran-yusuf-12-53"
         }
       ],
       "hadithReferences": [
@@ -340,7 +340,7 @@
           "ayahRange": "8",
           "topic": "Nefse kötülük ve takvanın ilham edilmesi",
           "mealSummary": "Allah nefse kötülük yönünü ve takva kabiliyetini ilham etmiştir.",
-          "sourceId": "diyanet-sems-91-7-10"
+          "sourceId": "quran-sems-91-7-10"
         }
       ],
       "hadithReferences": [
@@ -403,7 +403,7 @@
           "ayahRange": "27-30",
           "topic": "Huzura ermiş nefis",
           "mealSummary": "İmanın huzuruna kavuşmuş insana Rabbine hoşnut ve hoşnut olunmuş olarak dönmesi, kulların arasına katılması ve cennete girmesi hitap edilir.",
-          "sourceId": "diyanet-fecr-89-27-30"
+          "sourceId": "quran-fecr-89-27-30"
         }
       ],
       "hadithReferences": [
@@ -421,7 +421,7 @@
         "body": [
           "Nefs-i mutmainne, imanla sükûna yaklaşmış nefis hâlidir.",
           "Bu hâlde insan zorlukları inkâr etmez; fakat Rabbini unutarak savrulmaz.",
-          "Diyanet tefsirinde bu hitabın, dünya hayatını iman, Allah’ın emrine saygı ve Allah’ın yarattıklarına şefkat çizgisinde tamamlayan müminle ilişkili olduğu belirtilir."
+          "Bu hitabın, dünya hayatını iman, Allah’ın emrine saygı ve yaratılanlara şefkat çizgisinde tamamlayan müminle ilişkili olduğu açıklanır."
         ],
         "symptoms": [
           "Allah’a güven",
@@ -466,7 +466,7 @@
           "ayahRange": "28",
           "topic": "Kulun Rabbinden hoşnut olarak dönmesi",
           "mealSummary": "Huzura ermiş nefse Rabbine hoşnut olarak dönmesi hitap edilir.",
-          "sourceId": "diyanet-fecr-89-27-30"
+          "sourceId": "quran-fecr-89-27-30"
         }
       ],
       "hadithReferences": [],
@@ -520,7 +520,7 @@
           "ayahRange": "28",
           "topic": "Allah’ın kuldan hoşnut olması",
           "mealSummary": "Huzura ermiş nefse, Rabbine hoşnut ve hoşnut olunmuş olarak dönmesi hitap edilir.",
-          "sourceId": "diyanet-fecr-89-27-30"
+          "sourceId": "quran-fecr-89-27-30"
         }
       ],
       "hadithReferences": [
@@ -583,7 +583,7 @@
           "ayahRange": "9",
           "topic": "Nefsin arındırılması",
           "mealSummary": "Nefsini arındıranın kurtuluşa ereceği bildirilir.",
-          "sourceId": "diyanet-sems-91-7-10"
+          "sourceId": "quran-sems-91-7-10"
         }
       ],
       "hadithReferences": [
@@ -720,33 +720,33 @@
   "referenceLibrary": {
     "quran": [
       {
-        "id": "diyanet-sems-91-7-10",
+        "id": "quran-sems-91-7-10",
         "type": "quran",
         "surah": "Şems",
         "surahNumber": 91,
         "ayahRange": "7-10",
-        "sourceName": "Diyanet Kur’an Yolu / Diyanet Meali",
-        "url": "https://kuran.diyanet.gov.tr/mushaf/kuran-tefsir-1/sems-suresi-91/ayet-1/diyanet-isleri-baskanligi-meali-1",
+        "sourceName": "Kur’an meali ve açıklama",
+        "url": "",
         "usage": "Nefsin yaratılışı, kötülük/takva kabiliyeti, arınma ve kirlenme."
       },
       {
-        "id": "diyanet-yusuf-12-53",
+        "id": "quran-yusuf-12-53",
         "type": "quran",
         "surah": "Yusuf",
         "surahNumber": 12,
         "ayahRange": "53",
-        "sourceName": "Diyanet Kur’an Yolu Tefsiri",
-        "url": "https://kuran.diyanet.gov.tr/tefsir/Y%C3%83%C2%BBsuf-suresi/1648/52-53-ayet-tefsiri",
+        "sourceName": "Kuran Yolu açıklaması",
+        "url": "",
         "usage": "Nefs-i emmâre başlığının ana Kur’an dayanağı."
       },
       {
-        "id": "diyanet-fecr-89-27-30",
+        "id": "quran-fecr-89-27-30",
         "type": "quran",
         "surah": "Fecr",
         "surahNumber": 89,
         "ayahRange": "27-30",
-        "sourceName": "Diyanet Kur’an Yolu Tefsiri",
-        "url": "https://kuran.diyanet.gov.tr/tefsir/Fecr-suresi/6020/27-30-ayet-tefsiri",
+        "sourceName": "Kuran Yolu açıklaması",
+        "url": "",
         "usage": "Mutmainne, râzıye ve marzıyye başlıklarının ana Kur’an dayanağı."
       },
       {
@@ -756,7 +756,7 @@
         "surahNumber": 75,
         "ayahRange": "2",
         "sourceName": "Kur’an",
-        "url": "https://kuran.diyanet.gov.tr/tefsir/sure/75-kiyamet-suresi",
+        "url": "",
         "usage": "Nefs-i levvâme başlığının ana Kur’an dayanağı."
       },
       {
@@ -766,7 +766,7 @@
         "surahNumber": 79,
         "ayahRange": "40-41",
         "sourceName": "Kur’an",
-        "url": "https://kuran.diyanet.gov.tr/tefsir/sure/79-naziat-suresi",
+        "url": "",
         "usage": "Nefsi hevadan alıkoyma ve cennet hedefi."
       },
       {
@@ -776,7 +776,7 @@
         "surahNumber": 59,
         "ayahRange": "18",
         "sourceName": "Kur’an",
-        "url": "https://kuran.diyanet.gov.tr/tefsir/sure/59-hasr-suresi",
+        "url": "",
         "usage": "Günlük muhasebe ve ahiret hazırlığı."
       }
     ],

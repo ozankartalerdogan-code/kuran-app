@@ -61,7 +61,7 @@
       "dogru_cevap": "C",
       "aciklama": "Tavafta Kâbe 7 kez dolaşılır. Her bir dönüşe şavt denir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_005",
@@ -76,7 +76,7 @@
       "dogru_cevap": "B",
       "aciklama": "Tavaf, Kâbe solda bırakılarak saat yönünün tersine yapılır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_006",
@@ -106,7 +106,7 @@
       "dogru_cevap": "C",
       "aciklama": "Sa'y 7 şavttan oluşur. Safa'dan Merve'ye gidiş 1, Merve'den Safa'ya dönüş 2. şavt sayılır ve 7. şavt Merve'de biter.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_008",
@@ -121,7 +121,7 @@
       "dogru_cevap": "A",
       "aciklama": "Sa'y Safa'dan başlanır ve 7. şavt Merve'de tamamlanır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_009",
@@ -136,7 +136,7 @@
       "dogru_cevap": "C",
       "aciklama": "Umre, belirli bir mevsimle sınırlı olmaksızın yılın her zamanında yapılabilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_010",
@@ -151,7 +151,7 @@
       "dogru_cevap": "B",
       "aciklama": "Telbiye \"Lebbeyk Allahümme lebbeyk...\" ifadesiyle başlar. Anlamı: \"Buyur Allah'ım, buyur!\"",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_011",
@@ -166,7 +166,7 @@
       "dogru_cevap": "C",
       "aciklama": "Ziyaret tavafı haccın farzlarından biridir. Bayram günlerinden itibaren yapılır; ilk günlerde yapılması esastır, geciktirme hükümleri mezheplere göre değişebilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_012",
@@ -181,7 +181,7 @@
       "dogru_cevap": "A",
       "aciklama": "Şeytan taşlama, Mina'daki cemrelere gerçekleştirilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_013",
@@ -196,7 +196,7 @@
       "dogru_cevap": "C",
       "aciklama": "Mina'da küçük, orta ve büyük (Akabe) olmak üzere üç cemre taşlanır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_014",
@@ -211,7 +211,7 @@
       "dogru_cevap": "C",
       "aciklama": "Her cemreye 7 taş atılır ve her taş atışında \"Bismillah Allahu Ekber\" denir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_015",
@@ -226,7 +226,7 @@
       "dogru_cevap": "B",
       "aciklama": "Her taş atışında \"Bismillah Allahu Ekber\" denir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_016",
@@ -241,7 +241,7 @@
       "dogru_cevap": "B",
       "aciklama": "Erkekler ihramda dikişsiz iki örtüye bürünür. Beyaz renk tercih edilir ama ihramın şartı değildir. Kadınlar normal tesettür kıyafeti giyer.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_017",
@@ -256,7 +256,7 @@
       "dogru_cevap": "B",
       "aciklama": "Umre; ihram, tavaf, sa'y ve tıraş/saç kısaltmak olmak üzere 4 ana adımdan oluşur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_018",
@@ -271,7 +271,7 @@
       "dogru_cevap": "C",
       "aciklama": "Sa'y, Hz. Hacer'in çocuğu İsmail için su arayışını simgeler.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_019",
@@ -286,7 +286,7 @@
       "dogru_cevap": "C",
       "aciklama": "Akşam ezanından sonra Müzdelife'ye hareket edilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_020",
@@ -301,7 +301,7 @@
       "dogru_cevap": "B",
       "aciklama": "İhramlıya saç/tırnak kesmek, koku sürmek, avlanmak ve cinsel ilişki yasaktır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_021",
@@ -316,7 +316,7 @@
       "dogru_cevap": "B",
       "aciklama": "Arafat vakfesinin zamanı Arefe günü öğle vaktinden bayram gecesi fecrine kadar devam eder. Gündüz Arafat'a gelen hacının güneş batımına kadar kalması Hanefi uygulamasında vacip olarak öğretilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_022",
@@ -331,7 +331,7 @@
       "dogru_cevap": "A",
       "aciklama": "Tavaf Hacerü'l-Esved'den başlanır ve her şavt Hacerü'l-Esved'de tamamlanır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_023",
@@ -346,7 +346,7 @@
       "dogru_cevap": "C",
       "aciklama": "Hanefi mezhebine göre haccın farzları ihram, Arafat vakfesi ve ziyaret tavafıdır. Sa'y diğer mezheplerde rükün kabul edilebilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_024",
@@ -361,7 +361,7 @@
       "dogru_cevap": "D",
       "aciklama": "Umrenin dördüncü ve son adımı tıraş olmak veya saç kısaltmaktır. Bu adımla ihramdan çıkılır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_025",
@@ -376,7 +376,7 @@
       "dogru_cevap": "B",
       "aciklama": "Temettu veya kıran haccında genel sıra: Akabe cemresi → Hedy (hac kurbanı) → Tıraş → Ziyaret tavafı şeklindedir. İfrad haccında hedy kurbanı vacip değildir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_026",
@@ -391,7 +391,7 @@
       "dogru_cevap": "B",
       "aciklama": "Saçların tıraş edilmesi veya kısaltılmasıyla ihramdan çıkılır. Ziyaret tavafından sonra tamamen ihramdan çıkılmış olur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_027",
@@ -406,7 +406,7 @@
       "dogru_cevap": "C",
       "aciklama": "Haccın farz olma şartları: Müslüman olmak, akıl sahibi olmak, erginlik, maddi imkân, sağlık ve yol güvenliği.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_028",
@@ -436,7 +436,7 @@
       "dogru_cevap": "C",
       "aciklama": "Hac ve umrenin ortak adımları ihram, tavaf, sa'y ve tıraştır. Arafat vakfesi, Müzdelife, Mina ve şeytan taşlama yalnızca hacda bulunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_030",
@@ -451,7 +451,7 @@
       "dogru_cevap": "B",
       "aciklama": "Ziyaret tavafı haccın farz tavafıdır. Bayram günlerinden itibaren yapılır; ilk günlerde yapılması esastır, geciktirme hükümleri mezheplere göre değişebilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_031",
@@ -466,7 +466,7 @@
       "dogru_cevap": "C",
       "aciklama": "Veda tavafı Mekke'den ayrılmadan önce yapılır. Hükmü mezheplere göre vacip veya sünnet olarak değerlendirilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_032",
@@ -481,7 +481,7 @@
       "dogru_cevap": "B",
       "aciklama": "Mikat, hac veya umre için ihrama girilmesi gereken sınırdır. Mikat geçilmeden ihrama girilmelidir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_033",
@@ -496,7 +496,7 @@
       "dogru_cevap": "A",
       "aciklama": "Maddi imkân şartı; gidip dönüş yol masraflarını ve Mekke'deki geçim masraflarını karşılayabilmeyi kapsar.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_034",
@@ -511,7 +511,7 @@
       "dogru_cevap": "B",
       "aciklama": "Sa'yde yeşil ışıklar arasındaki bölümde erkekler hızlı yürür veya hafif koşar; kadınlar normal yürür.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_035",
@@ -526,7 +526,7 @@
       "dogru_cevap": "D",
       "aciklama": "Dua etmek ihramlıya yasak değildir. Yasaklar: saç/tırnak kesmek, koku sürmek, avlanmak ve cinsel ilişki.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_036",
@@ -541,7 +541,7 @@
       "dogru_cevap": "C",
       "aciklama": "Hedy, hac kurbanıdır. Temettu ve kıran haccında vacip kabul edilir; ifrad haccında ayrıca hedy kurbanı vacip değildir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_037",
@@ -571,7 +571,7 @@
       "dogru_cevap": "C",
       "aciklama": "2. ve 3. günlerde küçük, orta ve büyük (Akabe) olmak üzere üç cemreye de 7'şer taş atılır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_039",
@@ -586,7 +586,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hac belirli hac günlerinde yapılır; umre ise yılın her zamanında yapılabilir. Hacda Arafat, Müzdelife, Mina ve şeytan taşlama vardır; umrede yoktur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_040",
@@ -601,7 +601,7 @@
       "dogru_cevap": "C",
       "aciklama": "Şeytan taşlama, Hz. İbrahim'in şeytanı taşlamasını simgeler.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_041",
@@ -706,7 +706,7 @@
       "dogru_cevap": "C",
       "aciklama": "Hac, Hz. İbrahim döneminden bu yana süregelen kadim bir ibadettir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "hac_048",

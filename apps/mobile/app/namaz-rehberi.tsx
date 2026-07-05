@@ -7,6 +7,7 @@ import { useColors } from "../src/hooks/useColors";
 import rehberRaw from "../src/data/namaz_rehberi.json";
 import ozelRaw from "../src/data/ozel_namazlar.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { getDevotionalSourceLabel, getEvidenceLabel } from "../src/lib/sourceLabels";
 
 // ── Tipler (gevşek — JSON'dan tek cast) ───────────────────────────────────────
 interface Kavram { id: string; isim: string; renk: string; aciklama: string; "örnek"?: string }
@@ -196,13 +197,14 @@ function DurumBadge({ durum }: { durum?: string }) {
 
 function DuaBlock({ arapca, okunus, anlam, kaynak }: { arapca?: string | null; okunus?: string | null; anlam?: string; kaynak?: string }) {
   const c = useColors();
+  const sourceLabel = getDevotionalSourceLabel({ source: kaynak });
   if (!arapca && !okunus && !anlam) return null;
   return (
     <View style={[s.duaBox, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
       {arapca ? <Text style={s.arabic}>{arapca}</Text> : null}
       {okunus ? <Text style={[s.okunus, { color: c.text }]}>{okunus}</Text> : null}
       {anlam ? <Text style={[s.anlam, { color: c.textSecondary }]}>{anlam}</Text> : null}
-      {kaynak ? <Text style={s.kaynakChip}>{kaynak}</Text> : null}
+      {kaynak ? <Text style={s.kaynakChip}>{sourceLabel}</Text> : null}
     </View>
   );
 }
@@ -672,7 +674,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
 
       {Array.isArray(n.ozel_notlar) ? (<><Text style={[s.subHead, { color: c.text }]}>Özel Notlar</Text><Bullets items={n.ozel_notlar} /></>) : null}
 
-      {n.hadis_kaynagi ? <Text style={s.kaynakChip}>📚 {n.hadis_kaynagi}</Text> : null}
+      {n.hadis_kaynagi ? <Text style={s.kaynakChip}>📚 {getEvidenceLabel(n.hadis_kaynagi)}</Text> : null}
     </Section>
   );
 }

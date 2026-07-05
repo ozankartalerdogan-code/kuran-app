@@ -438,7 +438,7 @@ export default async function IsmiAzamPage() {
         <p className="text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">
           İslam alimlerinin ortak kanaatine göre İsmi Azam, belirli bir dua metni değil; kulun kalbini tamamen
           Allah'a teslim ettiği, O'ndan başka her şeyi zihninden sildiği bir teslimiyet ve odaklanma halidir.
-          İbn Arabi, İmam Gazali ve Diyanet İşleri Başkanlığı dahil pek çok otorite, asıl olanın dudaktan dökülen
+          İbn Arabi, İmam Gazali ve pek çok alim, asıl olanın dudaktan dökülen
           kelimeler değil, kalbin ulaştığı o derin &ldquo;an&rdquo; olduğunu vurgular. Mesele, hangi ismi söylediğin
           değil; o ismi <span className="font-semibold">hangi kalple söylediğin</span>dir.
         </p>

@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/mubarek_gunler.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { getEvidenceLabel } from "../src/lib/sourceLabels";
 
 type DayanakKey = "sahih" | "tartismali" | "zayif" | "kulturel" | "uydurma";
 type IbadetDurumKey = "farz" | "vacip" | "sunnet" | "mustehap" | "tavsiye";
@@ -115,6 +116,7 @@ function DayanakBadge({ dayanak }: { dayanak: DayanakKey }) {
 function IbadetCard({ ib }: { ib: Ibadet }) {
   const c = useColors();
   const badge = ib.durum ? IBADET_DURUM[ib.durum] : undefined;
+  const evidenceLabel = getEvidenceLabel(ib.hadis_kaynagi);
 
   return (
     <View style={[st.ibadetCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
@@ -127,7 +129,7 @@ function IbadetCard({ ib }: { ib: Ibadet }) {
         ) : null}
       </View>
       {ib.aciklama ? <Text style={[st.p, { color: c.textSecondary }]}>{ib.aciklama}</Text> : null}
-      {ib.hadis_kaynagi ? <Text style={[st.kaynak, { color: c.textMuted }]}>📚 {ib.hadis_kaynagi}</Text> : null}
+      {ib.hadis_kaynagi ? <Text style={[st.kaynak, { color: c.textMuted }]}>📚 {evidenceLabel}</Text> : null}
     </View>
   );
 }

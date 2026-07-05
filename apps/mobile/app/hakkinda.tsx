@@ -1,27 +1,51 @@
-import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking } from "react-native";
+﻿import React from "react";
+import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
 import Constants from "expo-constants";
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useColors } from "../src/hooks/useColors";
+import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
-const APP_VERSION = Constants.expoConfig?.version ?? "—";
+const APP_VERSION = Constants.expoConfig?.version ?? "-";
+const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
+const TANZIL_URL = "https://tanzil.net/";
+const QAC_URL = "https://corpus.quran.com/";
 
-const SOURCES = [
-  { icon: "🕌", name: "Tanzil.net",                desc: "Kuran metni (Uthmani yazım)",                url: "https://tanzil.net" },
-  { icon: "🔬", name: "Quranic Corpus",             desc: "Kelime kökü ve morfoloji analizi",           url: "https://corpus.quran.com" },
-  { icon: "✨", name: "AlQuran.cloud",              desc: "Tecvid renklendirme verileri",               url: "https://alquran.cloud" },
-  { icon: "📚", name: "Sunnah.com",                desc: "Hadis kaynakları (Buhari, Müslim)",          url: "https://sunnah.com" },
-  { icon: "🏛️", name: "Diyanet İşleri Başkanlığı", desc: "Türkçe meal ve namaz bilgileri",            url: "https://diyanet.gov.tr" },
-  { icon: "📖", name: "TDV İslam Ansiklopedisi",    desc: "Peygamber kıssaları ve fıkhi bilgiler",     url: "https://islamansiklopedisi.org.tr" },
-  { icon: "🕐", name: "Aladhan.com",                desc: "Namaz vakitleri API",                        url: "https://aladhan.com" },
-];
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  const c = useColors();
+
+  return (
+    <View style={s.section}>
+      <Text style={[s.sectionTitle, { color: c.accent }]}>{title}</Text>
+      {children}
+    </View>
+  );
+}
+
+function Paragraph({ children, c }: { children: React.ReactNode; c: AppColors }) {
+  return <Text style={[s.paragraph, { color: c.textSecondary }]}>{children}</Text>;
+}
 
 export default function HakkindaScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+
+  async function openExternalUrl(url: string) {
+    try {
+      void Haptics.selectionAsync();
+      const supported = await Linking.canOpenURL(url);
+      if (!supported) {
+        Alert.alert("Bağlantı açılamadı", "Bu bağlantı şu anda cihazınızda açılamıyor.");
+        return;
+      }
+
+      await Linking.openURL(url);
+    } catch (error) {
+      console.warn("Failed to open external URL", error);
+      Alert.alert("Bağlantı açılamadı", "Lütfen daha sonra tekrar deneyin.");
+    }
+  }
 
   return (
     <>
@@ -31,75 +55,126 @@ export default function HakkindaScreen() {
         contentContainerStyle={[s.content, { paddingTop: insets.top + 20, paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.sectionTitle, { color: c.accent }]}>📖 Kaynaklar & Referanslar</Text>
-        {SOURCES.map((src) => (
+        <Text style={[s.pageTitle, { color: c.text }]}>Kaynaklar ve Açıklamalar</Text>
+
+        <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}> 
+          <Paragraph c={c}>
+            <Text style={s.bold}>Kur'an-ı Kerim Arapça metni:</Text>
+          </Paragraph>
+          <Paragraph c={c}>
+            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an metni kaynaklarından biridir ve
+            uygulamada değiştirilmeden kullanılmalıdır.
+          </Paragraph>
+          <Paragraph c={c}>
+            <Text style={s.bold}>Meal ve orijinal tefsir kaynağı:</Text> Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili.
+          </Paragraph>
+          <Paragraph c={c}>
+            Sade tefsir açıklamaları, Elmalılı Hamdi Yazır'ın orijinal tefsir metni esas alınarak Kuran Yolu için daha anlaşılır
+            bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
+          </Paragraph>
+          <Paragraph c={c}>
+            Kelime kökleri ve morfolojik çözümlemelerde Quranic Arabic Corpus verilerinden yararlanılmıştır. Türkçe
+            anlamlandırma, kök düzeltmeleri, veri temizliği ve kullanıcı dostu morfoloji gösterimi Kuran Yolu analiz altyapısı ile
+            ayrıca hazırlanmıştır.
+          </Paragraph>
+          <Paragraph c={c}>
+            Hadis içeriklerinde klasik hadis kaynaklarından yararlanılmıştır. Açıklama ve sunum metinleri Kuran Yolu için
+            sadeleştirilmiş bilgilendirme diliyle hazırlanmıştır.
+          </Paragraph>
+        </View>
+
+        <Section title="Tanzil Quran Text">
           <TouchableOpacity
-            key={src.name}
             style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
-            onPress={() => { Haptics.selectionAsync(); Linking.openURL(src.url); }}
+            onPress={() => void openExternalUrl(TANZIL_URL)}
             activeOpacity={0.7}
             accessibilityRole="link"
-            accessibilityLabel={`${src.name}: ${src.desc}`}
+            accessibilityLabel="Tanzil Quran Text bağlantısı"
             accessibilityHint="Web sitesini açar"
           >
-            <Text style={s.sourceIcon}>{src.icon}</Text>
+            <Text style={s.sourceIcon}>🕌</Text>
             <View style={{ flex: 1 }}>
-              <Text style={[s.sourceName, { color: c.text }]}>{src.name}</Text>
-              <Text style={[s.sourceDesc, { color: c.textMuted }]}>{src.desc}</Text>
+              <Text style={[s.sourceName, { color: c.text }]}>Tanzil Quran Text</Text>
+              <Text style={[s.sourceDesc, { color: c.textMuted }]}>{TANZIL_URL}</Text>
             </View>
             <Text style={[s.arrow, { color: c.textMuted }]}>›</Text>
           </TouchableOpacity>
-        ))}
+        </Section>
 
-        <Text style={[s.sectionTitle, { color: c.accent, marginTop: 24 }]}>ℹ️ Uygulama Hakkında</Text>
-        <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}>
-          <View style={s.infoRow}>
-            <Text style={[s.infoLabel, { color: c.textMuted }]}>Versiyon</Text>
-            <Text style={[s.infoValue, { color: c.text }]}>{APP_VERSION}</Text>
-          </View>
-          <View style={[s.infoRow, s.infoRowBorder, { borderColor: c.border }]}>
-            <Text style={[s.infoLabel, { color: c.textMuted }]}>Geliştirici</Text>
-            <Text style={[s.infoValue, { color: c.text }]}>Bağımsız geliştirici</Text>
-          </View>
-          <Text style={[s.infoNote, { color: c.textMuted, borderTopColor: c.border }]}>
-            Bu uygulama reklamsız ve ücretsizdir.{"\n\n"}
-            İçerikler güvenilir İslami kaynaklardan derlenerek mezhep görüşleri ve hadis sıhhat notlarıyla zenginleştirilmiştir.
-          </Text>
-        </View>
-
-        <Text style={[s.sectionTitle, { color: c.accent, marginTop: 24 }]}>📬 İletişim & Geri Bildirim</Text>
-        <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}>
-          <Text style={[s.contactNote, { color: c.textMuted }]}>Öneri ve geri bildirimleriniz için:</Text>
+        <Section title="Quranic Arabic Corpus">
           <TouchableOpacity
-            style={[s.mailBtn, { backgroundColor: c.accent + "20" }]}
-            onPress={() => Linking.openURL("mailto:kuranyolu.iletisim@gmail.com")}
+            style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
+            onPress={() => void openExternalUrl(QAC_URL)}
             activeOpacity={0.7}
             accessibilityRole="link"
-            accessibilityLabel="E-posta gönder"
+            accessibilityLabel="Quranic Arabic Corpus bağlantısı"
+            accessibilityHint="Web sitesini açar"
           >
-            <Text style={[s.mailBtnText, { color: c.accent }]}>kuranyolu.iletisim@gmail.com</Text>
+            <Text style={s.sourceIcon}>🔬</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={[s.sourceName, { color: c.text }]}>Quranic Arabic Corpus</Text>
+              <Text style={[s.sourceDesc, { color: c.textMuted }]}>{QAC_URL}</Text>
+            </View>
+            <Text style={[s.arrow, { color: c.textMuted }]}>›</Text>
           </TouchableOpacity>
-        </View>
+        </Section>
+
+        <Section title="Uygulama Hakkında">
+          <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
+            <View style={s.infoRow}>
+              <Text style={[s.infoLabel, { color: c.textMuted }]}>Versiyon</Text>
+              <Text style={[s.infoValue, { color: c.text }]}>{APP_VERSION}</Text>
+            </View>
+            <View style={[s.infoRow, s.infoRowBorder, { borderColor: c.border }]}> 
+              <Text style={[s.infoLabel, { color: c.textMuted }]}>Geliştirici</Text>
+              <Text style={[s.infoValue, { color: c.text }]}>Bağımsız geliştirici</Text>
+            </View>
+            <Text style={[s.infoNote, { color: c.textMuted, borderTopColor: c.border }]}> 
+              Bu bölümde yer alan kaynak ve açıklamalar kullanıcıya şeffaf referans sunmak için hazırlanmıştır. Metinler
+              bilgilendirme amaçlıdır.
+            </Text>
+          </View>
+        </Section>
+
+        <Section title="İletişim & Geri Bildirim">
+          <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
+            <Text style={[s.contactNote, { color: c.textMuted }]}>Öneri ve geri bildirimleriniz için:</Text>
+            <TouchableOpacity
+              style={[s.mailBtn, { backgroundColor: c.accent + "20" }]}
+              onPress={() => void openExternalUrl(`mailto:${CONTACT_MAIL}`)}
+              activeOpacity={0.7}
+              accessibilityRole="link"
+              accessibilityLabel="E-posta gönder"
+            >
+              <Text style={[s.mailBtnText, { color: c.accent }]}>{CONTACT_MAIL}</Text>
+            </TouchableOpacity>
+          </View>
+        </Section>
       </ScrollView>
     </>
   );
 }
 
 const s = StyleSheet.create({
-  content:       { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  sectionTitle:  { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
-  sourceCard:    { flexDirection: "row", alignItems: "center", borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 8, gap: 10 },
-  sourceIcon:    { fontSize: 22 },
-  sourceName:    { fontSize: 14, fontWeight: "600", marginBottom: 2 },
-  sourceDesc:    { fontSize: 12, lineHeight: 17 },
-  arrow:         { fontSize: 20 },
-  infoBox:       { borderRadius: 12, borderWidth: 1, overflow: "hidden" },
-  infoRow:       { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12 },
+  content: { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  pageTitle: { fontSize: 28, fontWeight: "800", marginBottom: 20 },
+  section: { marginTop: 24 },
+  sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
+  infoBox: { borderRadius: 12, borderWidth: 1, overflow: "hidden", paddingTop: 14, paddingBottom: 2 },
+  paragraph: { fontSize: 14, lineHeight: 22, paddingHorizontal: 14, marginBottom: 12 },
+  bold: { fontWeight: "700" },
+  sourceCard: { flexDirection: "row", alignItems: "center", borderRadius: 12, borderWidth: 1, padding: 12, gap: 10 },
+  sourceIcon: { fontSize: 22 },
+  sourceName: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
+  sourceDesc: { fontSize: 12, lineHeight: 17 },
+  arrow: { fontSize: 20 },
+  metaBox: { borderRadius: 12, borderWidth: 1, overflow: "hidden", paddingVertical: 14 },
+  infoRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12 },
   infoRowBorder: { borderTopWidth: 1 },
-  infoLabel:     { fontSize: 13 },
-  infoValue:     { fontSize: 13, fontWeight: "600" },
-  infoNote:      { fontSize: 13, lineHeight: 20, paddingHorizontal: 14, paddingVertical: 12, borderTopWidth: 1 },
-  contactNote:   { fontSize: 13, lineHeight: 20, paddingHorizontal: 14, paddingTop: 14, paddingBottom: 8 },
-  mailBtn:       { marginHorizontal: 14, marginBottom: 14, borderRadius: 8, paddingVertical: 10, alignItems: "center" },
-  mailBtnText:   { fontSize: 13, fontWeight: "600" },
+  infoLabel: { fontSize: 13 },
+  infoValue: { fontSize: 13, fontWeight: "600" },
+  infoNote: { fontSize: 13, lineHeight: 20, paddingHorizontal: 14, paddingVertical: 12, borderTopWidth: 1 },
+  contactNote: { fontSize: 13, lineHeight: 20, paddingHorizontal: 14, paddingTop: 0, paddingBottom: 8 },
+  mailBtn: { marginHorizontal: 14, marginBottom: 0, borderRadius: 8, paddingVertical: 10, alignItems: "center" },
+  mailBtnText: { fontSize: 13, fontWeight: "600" },
 });

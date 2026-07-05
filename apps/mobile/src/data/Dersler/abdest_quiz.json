@@ -31,7 +31,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hükmi kirlilik (ibadete engel manevi temizlik hali) iki türdür: abdesti bozan küçük kirlilik ve gusül gerektiren büyük kirlilik.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_003",
@@ -46,7 +46,7 @@
       "dogru_cevap": "B",
       "aciklama": "Abdesti bozan küçük hükmi kirlilik (abdest gerektiren manevi kirlilik hali) abdest alınarak giderilir; büyük kirlilik ise gusül (boy abdesti) gerektirir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_004",
@@ -76,7 +76,7 @@
       "dogru_cevap": "B",
       "aciklama": "Yüzün yıkanma sınırı: alnın saç bitiminden çene altına kadar uzunluk, iki kulak yumuşağı arasında genişlik.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali; Maide 5/6"
+      "kaynak": "Temel ilmihal bilgisi; Maide 5/6"
     },
     {
       "id": "abdest_006",
@@ -106,7 +106,7 @@
       "dogru_cevap": "B",
       "aciklama": "Mesh, organı ıslatmak için su akıtmadan ıslak elle sürme işlemidir; yıkama gibi su akıtma gerektirmez.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_008",
@@ -121,7 +121,7 @@
       "dogru_cevap": "C",
       "aciklama": "Besmele ile başlamak abdestin sünnetidir; yüz, kollar ve ayakları yıkamak ise farzdır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_009",
@@ -136,7 +136,7 @@
       "dogru_cevap": "C",
       "aciklama": "Her uzvu 3 kez yıkamak sünnettir. Farz olan en az 1 kez yıkamaktır; 3 kez en faziletli olandır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali; Buhari, Vüdu 45"
+      "kaynak": "Temel ilmihal bilgisi; Buhari, Vüdu 45"
     },
     {
       "id": "abdest_010",
@@ -151,7 +151,7 @@
       "dogru_cevap": "C",
       "aciklama": "Parmak aralarını hilallemek abdestin sünnetlerinden biridir; farz değildir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_011",
@@ -166,7 +166,7 @@
       "dogru_cevap": "B",
       "aciklama": "Uzanarak, yan yatarak veya yaslanarak uyumak abdesti bozar; yalnızca ka'de pozisyonunda (namaz kılar gibi oturarak) uyuklayan kişinin abdesti bozulmaz (Hanefi).",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_012",
@@ -181,7 +181,7 @@
       "dogru_cevap": "B",
       "aciklama": "Bayılmak ve sarhoş olmak her ikisi de abdesti bozar; akıl ve idrakin yitirilmesi abdesti bozan sebeplerdendir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_013",
@@ -196,7 +196,7 @@
       "dogru_cevap": "B",
       "aciklama": "Mushaf'a fiziksel olarak dokunmak için abdest gerekir; ancak Kur'an'ı ezbere okumak için abdest şart değildir. Abdestli okumak ise daha faziletlidir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_014",
@@ -211,7 +211,7 @@
       "dogru_cevap": "B",
       "aciklama": "Tilavet secdesi için abdest gereklidir; abdest olmadan tilavet secdesi yapılamaz.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_015",
@@ -226,7 +226,7 @@
       "dogru_cevap": "D",
       "aciklama": "Yellenmek yalnızca abdesti bozar, gusül gerektirmez. Gusülü gerektiren durumlar: cünüplük, hayız bitimi ve nifas bitimidir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali; Maide 5/6"
+      "kaynak": "Temel ilmihal bilgisi; Maide 5/6"
     },
     {
       "id": "abdest_016",
@@ -256,7 +256,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hanefi mezhebine göre gusülün 3 farzı vardır: mazmaza (ağzı çalkalamak), istinşak (burna su çekmek) ve tüm bedeni yıkamak.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_018",
@@ -271,7 +271,7 @@
       "dogru_cevap": "C",
       "aciklama": "Tüm bedenin yıkanması gusülün farzlarındandır. İğne ucu kadar bile kuru yer kalırsa gusül geçersiz olur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_019",
@@ -316,7 +316,7 @@
       "dogru_cevap": "C",
       "aciklama": "Oje, boya, yapıştırıcı gibi suya engel maddeler gusül öncesinde temizlenmeli; aksi halde su deriye ulaşamaz ve gusül geçersiz olur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_022",
@@ -331,7 +331,7 @@
       "dogru_cevap": "C",
       "aciklama": "Cünüp iken camiye girmek yasaktır; namaz kılmak, Kur'an'ı tilavet niyetiyle (ibadet amacıyla okuyuş olarak) okumak ve tavaf etmek de yasak kapsamındadır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_023",
@@ -346,7 +346,7 @@
       "dogru_cevap": "C",
       "aciklama": "Cünüp iken yemek-içmek caizdir. Namaz, Mushaf'a dokunma ve tavaf ise cünüpken yasak olan ibadetlerdir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_024",
@@ -361,7 +361,7 @@
       "dogru_cevap": "C",
       "aciklama": "Cünüp olan kişinin bir namaz vaktini kaçırmadan önce gusletmesi gerekir; guslü namazı kaçıracak kadar geciktirmek haramdır.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_025",
@@ -391,7 +391,7 @@
       "dogru_cevap": "C",
       "aciklama": "Namaz vaktinin kısa olması teyemmümü caiz kılmaz. Teyemmümü caiz kılan durumlar: su yokluğu, kullanırsa hastalık tehlikesi ve aşırı soğuktur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_027",
@@ -406,7 +406,7 @@
       "dogru_cevap": "B",
       "aciklama": "Teyemmümün 3 farzı vardır: niyet etmek, yüzü meshetmek ve kolları dirseklerle birlikte meshetmek.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_028",
@@ -421,7 +421,7 @@
       "dogru_cevap": "C",
       "aciklama": "Teyemmüm yalnızca yeryüzü cinsinden temiz şeylerle yapılır: toprak, taş, kum, tuğla, kiremit. Odun, demir, bakır gibi maddelerle yapılamaz.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_029",
@@ -436,7 +436,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hanefi, Şafi ve Hanbeli görüşüne göre namaz sırasında su bulunursa namaz bozulur; abdest alınıp yeniden kılınır. Maliki'ye göre namaz geçerli sayılır. Teyemmüm, su bulununca geçersiz olur.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_030",
@@ -451,7 +451,7 @@
       "dogru_cevap": "B",
       "aciklama": "Özür sahibi her vakit için abdest alır. Bu abdest vakit boyunca geçerlidir; vakit çıkınca yenilenmesi gerekir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_031",
@@ -466,7 +466,7 @@
       "dogru_cevap": "B",
       "aciklama": "Mest (ayağı topuklarla örten özel ayakkabı/çorap) üzerine mesh (ıslak elle sürme) yapılabilmesi için mestin abdestli iken giyilmiş olması gerekir. Süre, abdestin ilk bozulduğu andan itibaren başlar.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_032",
@@ -481,7 +481,7 @@
       "dogru_cevap": "A",
       "aciklama": "Hanefi, Şafi ve Hanbeli mezheplerine göre mest üzerine mesh (ıslak elle sürme) süresi mukim (yolcu olmayan kişi) için 1 gün 1 gece, yolcu için 3 gün 3 gecedir. Maliki mezhebinde süre sınırı öngörülmez.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "abdest_033",
@@ -496,7 +496,7 @@
       "dogru_cevap": "C",
       "aciklama": "Yıkamak zarar veriyorsa sağlam yerler normal şekilde yıkanır, sargılı veya yaralı yerin üstü ıslak elle meshedilir (ıslak elle silinir). Mesh de zarar verirse o bölge terk edilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     }
   ]
 }

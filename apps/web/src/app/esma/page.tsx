@@ -5,7 +5,7 @@ import { EsmaList } from "./EsmaList";
 export const metadata: Metadata = {
   title: "Esmaül Hüsna — Allah'ın 99 Güzel İsmi",
   description:
-    "Allah'ın 99 güzel ismi (Esmaül Hüsna): Arapça yazılışı, okunuşu ve açıklayıcı Türkçe anlamlarıyla. Diyanet/Tirmizî listesine göre doğrulanmış.",
+    "Allah'ın 99 güzel ismi (Esmaül Hüsna): Arapça yazılışı, okunuşu ve açıklayıcı Türkçe anlamlarıyla. Klasik rivayet listeleri esas alınarak derlenmiştir.",
   openGraph: {
     title: "Esmaül Hüsna — Allah'ın 99 Güzel İsmi",
     description: "Allah'ın 99 ismi: Arapça, okunuş ve açıklayıcı anlamlar.",
@@ -35,7 +35,7 @@ export default function EsmaPage() {
         <p className="text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">
           <span className="font-bold">Esmaül Hüsna</span>, &ldquo;en güzel isimler&rdquo; demektir.
           Kur'an'da &ldquo;En güzel isimler Allah'ındır; O'na onlarla dua edin&rdquo; (A'râf 7:180) buyrulur.
-          Aşağıdaki 99 isim ve anlamları, Diyanet ve Tirmizî listesine göre doğrulanmıştır.
+          Aşağıdaki 99 isim ve anlamları, klasik rivayet listeleri esas alınarak derlenmiştir.
         </p>
       </div>
 

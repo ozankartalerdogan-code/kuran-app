@@ -76,7 +76,7 @@
       "dogru_cevap": "D",
       "aciklama": "Orucun farz olma şartları: Müslüman olmak, akıl sahibi olmak ve erginlik çağına ulaşmaktır. Zenginlik şart değildir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_006",
@@ -91,7 +91,7 @@
       "dogru_cevap": "B",
       "aciklama": "Niyet, orucun sıhhat (geçerlilik) şartıdır. Niyetsiz oruç geçerli sayılmaz; niyetin vakti orucun türüne ve mezhebe göre değişebilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_007",
@@ -106,7 +106,7 @@
       "dogru_cevap": "A",
       "aciklama": "En güvenli uygulama Ramazan orucuna geceden veya sahurda niyet etmektir. Hanefi mezhebinde bazı durumlarda imsak sonrası niyet geçerli sayılabilir; diğer mezheplerde farz oruç için geceden niyet şartı vurgulanır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_008",
@@ -121,7 +121,7 @@
       "dogru_cevap": "B",
       "aciklama": "Sahura kalkmak, Ramazan orucu için niyet sayılır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_009",
@@ -226,7 +226,7 @@
       "dogru_cevap": "B",
       "aciklama": "Ramazan orucu hicretin 2. yılında Şaban ayında farz kılınmıştır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_016",
@@ -256,7 +256,7 @@
       "dogru_cevap": "C",
       "aciklama": "Teravih namazı, Ramazan'a özgü sünnet namazdır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_018",
@@ -316,7 +316,7 @@
       "dogru_cevap": "A",
       "aciklama": "Akıl şartı bulunmayan, yani aklî dengesi yerinde olmayan kişiye oruç farz değildir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_022",
@@ -331,7 +331,7 @@
       "dogru_cevap": "B",
       "aciklama": "Gayrimüslim Müslüman olduğunda geçmiş oruçlarını kaza etmesi gerekmez.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_023",
@@ -346,7 +346,7 @@
       "dogru_cevap": "B",
       "aciklama": "Niyet kalben yapılır. Dille söylemek sünnet olup zorunlu değildir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_024",
@@ -361,7 +361,7 @@
       "dogru_cevap": "D",
       "aciklama": "Hanefi ve Maliki mezheplerinde Ramazan orucunu kasıtlı sigara içerek bozmak kaza ve kefaret gerektirir. Şafii ve Hanbeli mezheplerinde kefaret özellikle cinsel ilişki için vurgulanır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_025",
@@ -376,7 +376,7 @@
       "dogru_cevap": "B",
       "aciklama": "Besleyici serum veya besin değerindeki enjeksiyon orucu bozar. Besin içermeyen tedavi amaçlı enjeksiyonlarda çağdaş fetvalarda ayrıntılı değerlendirmeler vardır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_026",
@@ -391,7 +391,7 @@
       "dogru_cevap": "B",
       "aciklama": "Kendiliğinden gelen kusma (kasıtsız) orucu bozmaz. Kasıtlı olan ağız dolusu kusma ise bozar.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_027",
@@ -406,7 +406,7 @@
       "dogru_cevap": "A",
       "aciklama": "Ağza su alıp geri çıkarmak orucu bozmaz; fakat su boğaza kaçarsa oruç bozulur ve kaza gerekir (sonradan gününe gün tutulur).",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_028",
@@ -421,7 +421,7 @@
       "dogru_cevap": "B",
       "aciklama": "Geçici hastalık, yolculuk veya hayız (adet dönemi)/nifas (doğum sonrası kanama) gibi mazeretlerle tutulamayan Ramazan oruçları sonradan gününe gün kaza edilir (sonradan gününe gün tutulur). Kalıcı güçsüzlükte fidye (oruç tutamayanın bir yoksulu doyurması veya karşılığını vermesi) hükmü gündeme gelir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_029",
@@ -436,7 +436,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hanefi ve Maliki mezheplerinde Ramazan orucunu bilerek yemek, içmek veya cinsel ilişkiyle bozmak kaza ve kefaret gerektirir. Şafii ve Hanbeli mezheplerinde kefaret özellikle cinsel ilişki için vurgulanır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_030",
@@ -451,7 +451,7 @@
       "dogru_cevap": "B",
       "aciklama": "Kefaret olarak arka arkaya 60 gün oruç tutulması gerekir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_031",
@@ -496,7 +496,7 @@
       "dogru_cevap": "B",
       "aciklama": "Fidye, kalıcı biçimde kaza yapamayacak kadar güçsüz olanlar içindir ve kaza yerine geçer. Kaza yapabilecek durumda olanlar fidye ile yetinemez.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_034",
@@ -556,7 +556,7 @@
       "dogru_cevap": "C",
       "aciklama": "Eyyâm-ı Bîz oruçları her ayın 13, 14 ve 15. günlerinde tutulur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_038",
@@ -571,7 +571,7 @@
       "dogru_cevap": "B",
       "aciklama": "Nafile oruçlar tutulması tavsiye edilen, ancak terk edilmesi günah olmayan oruçlardır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_039",
@@ -586,7 +586,7 @@
       "dogru_cevap": "B",
       "aciklama": "Kan aldırmak orucu bozmayan şeyler arasında sayılmıştır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_040",
@@ -631,7 +631,7 @@
       "dogru_cevap": "C",
       "aciklama": "Kefaret olarak arka arkaya 60 gün oruç tutmaya gücü yetmeyene 60 fakiri doyurması gerekir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_043",
@@ -646,7 +646,7 @@
       "dogru_cevap": "A",
       "aciklama": "\"Zehebe'z-zamaü ve'btelletil-urûku ve sebete'l-ecru inşallah\" duasının anlamı: \"Susuzluk gitti, damarlar ıslandı ve inşallah sevap sabit oldu.\"",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_044",
@@ -676,7 +676,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hayız ve nifas halindeki kadın oruç tutamaz; bu haller geçince tutamadıklarını kaza eder.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_046",
@@ -691,7 +691,7 @@
       "dogru_cevap": "C",
       "aciklama": "Ramazan orucunun cinsel ilişkiyle kasıtlı bozulması durumunda kaza ve kefaret gerekir (ağır telafi sorumluluğu doğar). Yemek, içmek ve sigara gibi durumlarda kefaret hükmü mezheplere göre farklı değerlendirilir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_047",
@@ -721,7 +721,7 @@
       "dogru_cevap": "C",
       "aciklama": "Ağız dolusu kasıtlı kusma orucu bozar. Kendiliğinden (kasıtsız) gelen kusma ise orucu bozmaz.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "oruc_049",
@@ -751,7 +751,7 @@
       "dogru_cevap": "A",
       "aciklama": "Macunsuz veya dikkatli şekilde diş fırçalamak orucu bozmaz; macun, su ya da başka bir madde boğaza kaçarsa oruç bozulabilir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     }
   ]
 }

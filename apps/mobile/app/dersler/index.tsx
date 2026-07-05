@@ -85,7 +85,7 @@ export default function DerslerScreen() {
   const footer = (
     <View style={s.kaynak}>
       <Text style={s.kaynakMetin}>
-        Dersler Kur'an-ı Kerim, sahih hadis kaynakları (Buhari, Müslim, Tirmizi) ve Diyanet İlmihali esas alınarak hazırlanmıştır.
+        Dersler Kur'an-ı Kerim, sahih hadis kaynakları ve klasik ilmihal birikimi esas alınarak hazırlanmıştır.
       </Text>
     </View>
   );

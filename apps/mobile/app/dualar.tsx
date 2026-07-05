@@ -8,6 +8,7 @@ import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import dualarRaw from "../src/data/dualar.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { getDevotionalSourceLabel, getNarrationBadgeLabel } from "../src/lib/sourceLabels";
 
 interface Dua {
   baslik: string; arapca: string; okunus: string; anlam: string; kaynak: string;
@@ -29,9 +30,11 @@ function derecRenk(derece: string) {
 function DerecBadge({ derece }: { derece: string }) {
   if (!derece) return null;
   const col = derecRenk(derece);
+  const label = getNarrationBadgeLabel(derece);
+  if (!label) return null;
   return (
     <View style={[s.derec, { backgroundColor: col.bg, borderColor: col.border }]}>
-      <Text style={[s.derecText, { color: col.text }]}>{derece}</Text>
+      <Text style={[s.derecText, { color: col.text }]}>{label}</Text>
     </View>
   );
 }
@@ -40,6 +43,11 @@ function DuaCard({ dua }: { dua: Dua }) {
   const c = useColors();
   const [detay, setDetay] = useState(false);
   const hasDetay = !!(dua.aciklama || dua.not || dua.tekrar);
+  const sourceLabel = getDevotionalSourceLabel({
+    title: dua.baslik,
+    source: dua.kaynak,
+    degree: dua.derece,
+  });
 
   async function handleShare() {
     Haptics.selectionAsync();
@@ -69,7 +77,7 @@ function DuaCard({ dua }: { dua: Dua }) {
       {dua.anlam ? <Text style={[s.anlam, { color: c.textSecondary }]}>{dua.anlam}</Text> : null}
 
       <View style={[s.metaBox, { backgroundColor: c.cardAlt }]}>
-        {dua.kaynak ? <Text style={[s.meta, { color: c.textMuted }]}>📖 {dua.kaynak}</Text> : null}
+        {dua.kaynak ? <Text style={[s.meta, { color: c.textMuted }]}>📖 {sourceLabel}</Text> : null}
         {dua.neZaman ? <Text style={[s.meta, { color: c.textMuted }]}>🕐 {dua.neZaman}</Text> : null}
       </View>
 

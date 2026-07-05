@@ -194,11 +194,11 @@ const primaryReferenceSource = "yazir";
 const preferredPrimarySources = ["yazir", "diyanet", "bulac", "vakfi", "ozturk"];
 
 const SOURCE_DISPLAY_NAMES: Record<string, string> = {
-  diyanet: "Diyanet İşleri",
+  diyanet: "Karşılaştırma meali 1",
   yazir:   "Elmalılı H. Yazır",
-  bulac:   "Ali Bulaç",
-  vakfi:   "Diyanet Vakfı",
-  ozturk:  "Yaşar Nuri Öztürk",
+  bulac:   "Karşılaştırma meali 2",
+  vakfi:   "Karşılaştırma meali 3",
+  ozturk:  "Karşılaştırma meali 4",
 };
 const statusClasses: Record<SectionStatus, string> = {
   ready: "border-emerald-200 bg-emerald-50 text-emerald-800",

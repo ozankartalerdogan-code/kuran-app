@@ -14,28 +14,27 @@ type Item = {
   action?: "restartTour";
 };
 
-
 const SECTIONS: { title: string; items: Item[] }[] = [
   {
     title: "🔍 Keşfet",
     items: [
-      { emoji: "✨", label: "Esmaül Hüsna",   sub: "Allah'ın 99 ismi",            route: "/esma"                     },
-      { emoji: "🛡️", label: "Manevi Sığınak", sub: "Korunma ve şifa duaları",     route: "/manevi-siginak"           },
-      { emoji: "🌟", label: "İsmi Azam",      sub: "Sekine ve korunma duaları", route: "/manevi-siginak/ismi-azam" },
+      { emoji: "✨", label: "Esmaül Hüsna", sub: "Allah'ın 99 ismi", route: "/esma" },
+      { emoji: "🛡️", label: "Manevi Sığınak", sub: "Korunma ve şifa duaları", route: "/manevi-siginak" },
+      { emoji: "🌟", label: "İsmi Azam", sub: "Sekine ve korunma duaları", route: "/manevi-siginak/ismi-azam" },
     ],
   },
   {
     title: "👤 Kişisel",
     items: [
       { emoji: "❤️", label: "Favorilerim", sub: "Kaydettiğin ayetler", route: "/favoriler" },
-      { emoji: "📝", label: "Notlarım",    sub: "Kendi notların",      route: "/notlar"    },
+      { emoji: "📝", label: "Notlarım", sub: "Kendi notların", route: "/notlar" },
     ],
   },
   {
     title: "⚙️ Uygulama",
     items: [
       { emoji: "🔔", label: "Bildirimler", sub: "Namaz vakti ve günlük ayet bildirimleri", route: "/bildirimler" },
-      { emoji: "ℹ️", label: "Hakkında & Kaynaklar", sub: "Referanslar, versiyon bilgisi", route: "/hakkinda" },
+      { emoji: "ℹ️", label: "Kaynaklar ve Açıklamalar", sub: "Kaynaklar, açıklamalar, versiyon bilgisi", route: "/hakkinda" },
       { emoji: "🔒", label: "Gizlilik Politikası", sub: "Verileriniz nasıl korunuyor", route: "/gizlilik" },
       { emoji: "🧭", label: "Tanıtımı Tekrar Göster", sub: "Uygulama rehberini baştan başlat", action: "restartTour" },
     ],
@@ -50,7 +49,11 @@ export default function DahaFazlaTab() {
   const tourScroll = useTourScroller();
 
   function handlePress(item: Item) {
-    if (item.action === "restartTour") { void restartTour(); return; }
+    if (item.action === "restartTour") {
+      void restartTour();
+      return;
+    }
+
     if (item.route) router.push(item.route as Href);
   }
 
@@ -97,16 +100,23 @@ export default function DahaFazlaTab() {
 }
 
 const s = StyleSheet.create({
-  content:       { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  heading:       { fontSize: 28, fontWeight: "800", marginBottom: 20 },
-  section:       { marginTop: 24 },
+  content: { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  heading: { fontSize: 28, fontWeight: "800", marginBottom: 20 },
+  section: { marginTop: 24 },
   sectionHeader: { borderBottomWidth: 1, paddingBottom: 8, marginBottom: 10 },
-  sectionTitle:  { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.6 },
-  cards:         { gap: 8 },
-  card:          { flexDirection: "row", alignItems: "center", gap: 14, borderRadius: 14,
-                   borderWidth: 1, paddingVertical: 16, paddingHorizontal: 14 },
-  emoji:         { fontSize: 26 },
-  label:         { fontSize: 15, fontWeight: "700" },
-  sub:           { fontSize: 12, marginTop: 2 },
-  chev:          { fontSize: 24, color: "#a8a29e", fontWeight: "600" },
+  sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.6 },
+  cards: { gap: 8 },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    borderRadius: 14,
+    borderWidth: 1,
+    paddingVertical: 16,
+    paddingHorizontal: 14,
+  },
+  emoji: { fontSize: 26 },
+  label: { fontSize: 15, fontWeight: "700" },
+  sub: { fontSize: 12, marginTop: 2 },
+  chev: { fontSize: 24, color: "#a8a29e", fontWeight: "600" },
 });

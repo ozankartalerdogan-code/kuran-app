@@ -6,6 +6,7 @@ import { useColors as useGlobalColors } from "../../src/hooks/useColors";
 import { Stack, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { getDevotionalSourceLabel } from "../../src/lib/sourceLabels";
 import { api, prefetchAyah, type TagFilterResult } from "../../src/lib/api";
 import {
   bakara250,
@@ -102,6 +103,7 @@ function DuaKartiFull({ dua, colors }: { dua: DuaKarti; colors: ReturnType<typeo
   const emoji = is10 ? "🟢" : "🟡";
   const scoreColor = is10 ? "#065f46" : "#92400e";
   const scoreBg    = is10 ? "#d1fae5" : "#fef3c7";
+  const sourceLabel = getDevotionalSourceLabel({ title: dua.baslik, source: dua.kaynak });
 
   return (
     <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
@@ -113,7 +115,7 @@ function DuaKartiFull({ dua, colors }: { dua: DuaKarti; colors: ReturnType<typeo
           <Text style={[styles.badgeText, { color: scoreColor }]}>{dua.guvenilirlik}</Text>
         </View>
         <View style={[styles.badge, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
-          <Text style={[styles.badgeText, { color: colors.amberText }]}>{dua.kaynak}</Text>
+          <Text style={[styles.badgeText, { color: colors.amberText }]}>{sourceLabel}</Text>
         </View>
       </View>
 
@@ -215,6 +217,7 @@ function MetotKutusu({
   const labelColor = isSekiz ? colors.violetText    : colors.amberText;
   const emoji      = isSekiz ? "🟡" : "🟢";
   const showAyetler = !accordion || expanded;
+  const sourceLabel = getDevotionalSourceLabel({ title: baslik, source: kaynak });
 
   return (
     <View style={[styles.kutu, { backgroundColor: bg, borderColor: border }]}>
@@ -223,7 +226,7 @@ function MetotKutusu({
         <Text>{emoji}</Text>
         <Text style={[styles.duaBaslik, { color: labelColor, flex: 1 }]}>{baslik}</Text>
         <View style={[styles.badge, { backgroundColor: bg, borderColor: border }]}>
-          <Text style={[styles.badgeText, { color: labelColor }]}>{kaynak}</Text>
+          <Text style={[styles.badgeText, { color: labelColor }]}>{sourceLabel}</Text>
         </View>
       </View>
       <Text style={[styles.bodyText, { color: colors.textSecondary, marginBottom: 10 }]}>{aciklama}</Text>

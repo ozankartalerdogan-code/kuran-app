@@ -16,7 +16,7 @@
       "dogru_cevap": "B",
       "aciklama": "Sübhaneke sadece ilk rekatta, iftitah tekbirinden hemen sonra okunur. Diğer rekatlarda okunmaz.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_002",
@@ -31,7 +31,7 @@
       "dogru_cevap": "C",
       "aciklama": "Sübhaneke sünnettir. Okunmaması namazı bozmaz ancak okumak büyük sevap kazandırır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_003",
@@ -61,7 +61,7 @@
       "dogru_cevap": "B",
       "aciklama": "Fatiha'dan sonra 'Amin' demek sünnettir. Hanefi uygulamasında genellikle sessiz söylenir; bazı mezheplerde sesli namazlarda sesli söylenebilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_005",
@@ -76,7 +76,7 @@
       "dogru_cevap": "B",
       "aciklama": "'Sübhâne Rabbiye'l-Azîm' — Yüce Rabbim her türlü noksanlıktan uzaktır. Rükûda okunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_006",
@@ -91,7 +91,7 @@
       "dogru_cevap": "B",
       "aciklama": "'Sübhâne Rabbiye'l-A'lâ' — En yüce Rabbim her türlü noksanlıktan uzaktır. Secdede okunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_007",
@@ -106,7 +106,7 @@
       "dogru_cevap": "A",
       "aciklama": "Rükûda 'Sübhâne Rabbiye'l-Azîm' en az 1 kez okunması yeterlidir. 3 kez okumak sünnettir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_008",
@@ -121,7 +121,7 @@
       "dogru_cevap": "B",
       "aciklama": "Secdede 'Sübhâne Rabbiye'l-A'lâ' 3 kez okumak sünnettir. En az 1 kez okunması yeterlidir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_009",
@@ -136,7 +136,7 @@
       "dogru_cevap": "C",
       "aciklama": "'Rabbigfirli' (Rabbim beni bağışla), iki secde arasındaki kısa oturuşta (celse — iki secde arasındaki kısa oturuş) okunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_010",
@@ -151,7 +151,7 @@
       "dogru_cevap": "C",
       "aciklama": "'Rabbigfirli' — Rabbim beni bağışla. İki secde arasındaki oturuşta okunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_011",
@@ -166,7 +166,7 @@
       "dogru_cevap": "B",
       "aciklama": "Tahiyyat (oturuş duası), namazın her oturuşunda okunur; hem ilk ka'dede (oturuşta) hem son ka'dede (oturuşta).",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_012",
@@ -181,7 +181,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hanefi öğretiminde Tahiyyat okumak vacip olarak öğretilir. Son oturuşun kendisi ise namazın rükünlerindendir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_013",
@@ -196,7 +196,7 @@
       "dogru_cevap": "B",
       "aciklama": "Tahiyyat 'Ettehıyyatü lillahi...' diye başlar. Namazın her oturuşunda okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_014",
@@ -211,7 +211,7 @@
       "dogru_cevap": "C",
       "aciklama": "Salli ve Barik duaları sadece son oturuşta (ka'de-i ahire) Tahiyyat'tan sonra okunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_015",
@@ -226,7 +226,7 @@
       "dogru_cevap": "C",
       "aciklama": "Salli ve Barik sünnettir. Son oturuşta Tahiyyat'tan sonra sırasıyla okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_016",
@@ -271,7 +271,7 @@
       "dogru_cevap": "B",
       "aciklama": "'Rabbena ve lekel hamd' — 'Rabbimiz, hamd sana mahsustur.' Kavmede (rükûdan sonra dik duruşta), rükûdan tam dik durulunca söylenir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_019",
@@ -286,7 +286,7 @@
       "dogru_cevap": "C",
       "aciklama": "Hanefi uygulamasında Kunut duası (vitirde okunan özel dua) vitir namazının üçüncü rekâtında, rükûya gitmeden önce okunur. Şafii mezhebinde sabah namazında kunut uygulaması da vardır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_020",
@@ -301,7 +301,7 @@
       "dogru_cevap": "C",
       "aciklama": "Hanefi uygulamasında Kunut duası (vitirde okunan özel dua) vitir namazının üçüncü rekâtında zamm-ı sureden (Fatiha'dan sonra okunan ek sureden) sonra, rükûya gitmeden önce okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_021",
@@ -316,7 +316,7 @@
       "dogru_cevap": "B",
       "aciklama": "'Sübhânekellâhümme' — 'Allah'ım, seni her türlü noksanlıktan tenzih ederim.' Sübhaneke bu ifadeyle başlar.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_022",
@@ -331,7 +331,7 @@
       "dogru_cevap": "A",
       "aciklama": "Kunut dualarını henüz bilmeyen kişi öğrenene kadar kısa bir dua okuyabilir; amaç Kunut dualarını ezberlemeye devam etmektir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_023",
@@ -391,7 +391,7 @@
       "dogru_cevap": "B",
       "aciklama": "Son oturuşta Tahiyyat'tan sonra Salli, ardından Barik, sonra Rabbena duaları sırasıyla okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_027",
@@ -406,7 +406,7 @@
       "dogru_cevap": "C",
       "aciklama": "Sübhaneke'de Allah'ı tenzih, hamd ve başka ilah olmadığı geçer. Bağışlanma dilemek 'Rabbigfirli'ye aittir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_028",
@@ -436,7 +436,7 @@
       "dogru_cevap": "C",
       "aciklama": "Elhamdülillah 33 kez namaz sonrasında okunur. Diğerleri namazın içindeki zikirlerdir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "namaz_dualar_030",
@@ -451,7 +451,7 @@
       "dogru_cevap": "B",
       "aciklama": "Hanefi öğretiminde Tahiyyat okumak vacip olarak öğretilir. Sübhaneke, Salli ve Barik ise sünnettir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     }
   ]
 }

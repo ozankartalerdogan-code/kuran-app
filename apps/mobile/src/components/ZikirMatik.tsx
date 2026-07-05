@@ -7,6 +7,7 @@ import { storage } from "../lib/storage";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
+import { getDevotionalSourceLabel } from "../lib/sourceLabels";
 
 let Haptics: typeof import("expo-haptics") | null = null;
 try { Haptics = require("expo-haptics"); } catch { Haptics = null; }
@@ -100,6 +101,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const isOzel = zikir.ozel === true;
   const target = isOzel ? customTarget : (targetOverrides[zikir.isim] ?? zikir.hedef);
   const pct    = target > 0 ? Math.min(count / target, 1) : 0;
+  const sourceLabel = getDevotionalSourceLabel({ title: zikir.isim, source: zikir.kaynak });
 
   const scaleAnim     = useRef(new Animated.Value(1)).current;
   const tapAnim       = useRef(new Animated.Value(1)).current;
@@ -437,7 +439,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
           <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.isDark ? "#252f45" : "#cbd5e1" }]}>
             <Text style={[m.arabicText, { color: c.text }]}>{zikir.arapca}</Text>
             <View style={m.presetSubRow}>
-              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zikir.isim} · {zikir.kaynak} · </Text>
+              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zikir.isim} · {sourceLabel} · </Text>
               {editingPreset ? (
                 <TextInput
                   style={[m.savedHedefInput, { color: c.text, borderColor: c.border }]}

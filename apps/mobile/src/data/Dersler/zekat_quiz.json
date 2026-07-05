@@ -16,7 +16,7 @@
       "dogru_cevap": "C",
       "aciklama": "Zekat kelimesi Arapçada \"artma, arıtma ve bereket\" anlamına gelir. Bu anlam zekatın hem malı hem ruhu temizlediğine işaret eder.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_002",
@@ -31,7 +31,7 @@
       "dogru_cevap": "A",
       "aciklama": "İslam'ın beş şartı sırasıyla: Kelime-i Şehadet, Namaz, Oruç, Zekat ve Hac'tır. Zekat dördüncü şarttır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_003",
@@ -46,7 +46,7 @@
       "dogru_cevap": "D",
       "aciklama": "Zekat hicretin 2. yılında Medine'de farz kılınmıştır. Daha önce Mekke döneminde de teşvik edilmişti ancak şekil ve miktarı Medine'de belirlendi.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_004",
@@ -61,7 +61,7 @@
       "dogru_cevap": "B",
       "aciklama": "Zekat Kur'an'da 30 ayette geçmekte olup bunların 27'sinde namazla birlikte zikredilir. Bu birliktelik namaz ve zekatın imanın ayrılmaz iki parçası olduğunu gösterir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_005",
@@ -76,7 +76,7 @@
       "dogru_cevap": "A",
       "aciklama": "Havelânü'l-havl (malın üzerinden bir kamerî yıl geçmesi), malın üzerinden bir kamerî yılın (yaklaşık 354 gün) geçmesi şartıdır. Bu süre dolmadan zekat farz olmaz.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_006",
@@ -91,7 +91,7 @@
       "dogru_cevap": "C",
       "aciklama": "Zekata tabi olacak malın nâmî (artıcı, gelir getirici/büyüyen) özellikte olması gerekir. Bu yüzden kullanılan ev ve araç zekata tabi değilken para, ticaret malı ve hayvanlar nâmî sayılır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_007",
@@ -166,7 +166,7 @@
       "dogru_cevap": "B",
       "aciklama": "Altın, gümüş, para ve ticaret mallarının zekatı kırkta bir yani %2,5'tir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_012",
@@ -226,7 +226,7 @@
       "dogru_cevap": "B",
       "aciklama": "Zekat oranı %2,5 (kırkta bir) olduğundan: 100.000 × 0,025 = 2.500 TL zekat verilmesi gerekir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_016",
@@ -316,7 +316,7 @@
       "dogru_cevap": "A",
       "aciklama": "Anne, baba, büyük ebeveynler ile oğul, kız ve torunlara zekat verilemez. Bu kişileri geçindirmek zaten zekat verenin üstüne farzdır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_022",
@@ -331,7 +331,7 @@
       "dogru_cevap": "C",
       "aciklama": "Temlik (mülkiyet devri), malın mülkiyetini karşı tarafa devretmek demektir. Zekat, alıcıya malın tam tasarrufunu bırakacak şekilde verilmelidir; bu nedenle yemek yedirmek zekat sayılmaz.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_023",
@@ -346,7 +346,7 @@
       "dogru_cevap": "B",
       "aciklama": "Zekatın geçerli olması için temlik yani mülkiyet devri gerekir. Yemek hazırlayıp yedirmek, hak sahibine malın mülkiyeti devredilmediği sürece zekat yerine geçmez.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_024",
@@ -361,7 +361,7 @@
       "dogru_cevap": "D",
       "aciklama": "Kişinin oturduğu ev, temel ihtiyaç sayıldığından zekata tabi değildir. Nakit para, ticaret malları ve altın ise nisap şartlarını sağladığında zekata tabidir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_025",
@@ -376,7 +376,7 @@
       "dogru_cevap": "A",
       "aciklama": "Hisse senetlerinde zekat hesabı niyete ve uygulamaya göre değişebilir. Al-sat amacıyla tutulan hisseler genellikle ticaret malı gibi değerlendirilir; uzun vadeli yatırımda farklı çağdaş hesap yöntemleri vardır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_026",
@@ -391,7 +391,7 @@
       "dogru_cevap": "C",
       "aciklama": "Zekata tabi hayvanlar sâime hayvanlardır; yani yılın çoğunu merada otlayarak beslenen hayvanlardır. Çalıştırılan iş hayvanları zekata tabi değildir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_027",
@@ -406,7 +406,7 @@
       "dogru_cevap": "B",
       "aciklama": "Kişinin kullandığı araç ve iş aletleri temel ihtiyaç sayıldığından zekat kapsamı dışındadır. Zekat, temel ihtiyaçlardan fazla olan mala uygulanır.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_028",
@@ -421,7 +421,7 @@
       "dogru_cevap": "D",
       "aciklama": "Fitrenin bayram namazından önce verilmesi daha faziletlidir. Geciktirilirse sorumluluk düşmez; yine ödenmesi gerekir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_029",
@@ -436,7 +436,7 @@
       "dogru_cevap": "A",
       "aciklama": "Zekat farz bir ibadettir, nisap şartına bağlıdır ve Tevbe 9/60'ta belirlenen 8 sınıfa verilir. Sadaka ise gönüllüdür, miktarı ve zamanı serbesttir, herkese verilebilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "zekat_030",
@@ -451,7 +451,7 @@
       "dogru_cevap": "C",
       "aciklama": "Fitre zekatla aynı şartlara bağlı değildir; ancak herkes için de sınırsız bir yükümlülük değildir. Temel ihtiyaçlarından fazla imkana sahip Müslümanlar için gündeme gelir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     }
   ]
 }

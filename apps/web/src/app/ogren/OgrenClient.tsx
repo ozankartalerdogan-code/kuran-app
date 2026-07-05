@@ -916,7 +916,7 @@ export function OgrenClient({ dersler }: { dersler: DersWithHarfler[] }) {
           </h1>
         </div>
         <p className="text-sm text-stone-500 dark:text-stone-400">
-          Diyanet 2024 Müfredatı &mdash; {dersler.length} konu
+          Adım adım elif-ba içeriği &mdash; {dersler.length} konu
         </p>
       </div>
 

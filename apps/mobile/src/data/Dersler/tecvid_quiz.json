@@ -11,7 +11,7 @@
       "dogru_cevap": "A",
       "aciklama": "Tecvid, Arapçada \"güzelleştirmek, güzel yapmak\" anlamına gelir. Bu ilim Kur'an harflerini doğru ve güzel okumayı öğretir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_002",
@@ -41,7 +41,7 @@
       "dogru_cevap": "A",
       "aciklama": "Namazda özellikle Fâtiha ve sureleri harfleri değiştirmeden, anlamı bozacak açık hatalardan kaçınarak okumak gerekir. Tecvidin ayrıntılarını öğrenmek ise adım adım gelişen bir süreçtir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "tecvid_005",
@@ -51,7 +51,7 @@
       "dogru_cevap": "B",
       "aciklama": "Harflerin çıktığı bölgelere mahreç denir. Klasik anlatımda 17 mahreç bölgesi vardır; bunlar boğaz, dil, dudak ve geniz bölgelerinde toplanır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_006",
@@ -61,7 +61,7 @@
       "dogru_cevap": "D",
       "aciklama": "Daima kalın okunan harfler 7 tanedir: خ ص ض ط ظ غ ق",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_007",
@@ -71,7 +71,7 @@
       "dogru_cevap": "A",
       "aciklama": "Ra harfi üstün veya ötre aldığında kalın, esre aldığında ince okunur. Cezimli geldiğinde ise önceki harekesine bakılır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_008",
@@ -81,7 +81,7 @@
       "dogru_cevap": "C",
       "aciklama": "Tefhim, harflerin kalın ve dolgun sesle okunmasıdır. Karşıtı terkik, yani ince okumadır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_009",
@@ -91,7 +91,7 @@
       "dogru_cevap": "B",
       "aciklama": "Terkik, harflerin ince ve hafif sesle okunmasıdır. خ ص ض ط ظ غ ق harfleri daima kalın kabul edilir; bazı harflerde ise özel durumlar vardır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_010",
@@ -101,7 +101,7 @@
       "dogru_cevap": "D",
       "aciklama": "Ba (ب) ve Mim (م) iki dudağın tam kapanmasıyla çıkar. Bu nedenle mim-i sakinden sonra Ba gelince dudak ihfası yapılır; aynı mahreçten çıktıkları için birbirlerine yakındırlar.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_011",
@@ -111,7 +111,7 @@
       "dogru_cevap": "A",
       "aciklama": "Kalkale harfleri 5 tanedir: ق ط ب ج د — \"Kutbe Cd\" diye ezberlenebilir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_012",
@@ -121,7 +121,7 @@
       "dogru_cevap": "C",
       "aciklama": "Kalkale harfleri cezimli/sakin geldiğinde veya kelime sonunda durulduğunda hafif yansımalı okunur. Şeddeli kalkale harfinde vakıf yapılırsa kalkale daha belirgin duyulur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_013",
@@ -131,7 +131,7 @@
       "dogru_cevap": "B",
       "aciklama": "Günne (genizden gelen tınlama sesi) yalnızca Mim (م) ve Nun (ن) harflerinde bulunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_014",
@@ -141,7 +141,7 @@
       "dogru_cevap": "D",
       "aciklama": "Günne süresi iki hareke okuyacak kadar bir zamandır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_015",
@@ -151,7 +151,7 @@
       "dogru_cevap": "A",
       "aciklama": "Günne okurken burnu sıkınca ses değişiyorsa günne doğru yapılıyor demektir; ses aynı kalıyorsa geniz kullanılmıyordur.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_016",
@@ -161,7 +161,7 @@
       "dogru_cevap": "C",
       "aciklama": "Tenvin, kelime sonunda n sesi oluşturan çift harekelerdir: ً ٍ ٌ. Nun-u sakin ise harekesiz/cezimli Nun harfidir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_017",
@@ -171,7 +171,7 @@
       "dogru_cevap": "B",
       "aciklama": "Tenvin ve nun-u sakinden sonra gelen harfe göre 4 farklı kural uygulanır: İzhar, İdgam, İklab, İhfa.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_018",
@@ -181,7 +181,7 @@
       "dogru_cevap": "D",
       "aciklama": "İzhar \"açıkça, net okuma\" demektir. Tenvin veya nun-u sakinden sonra boğaz harfi gelince nun sesi açıkça okunur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_019",
@@ -191,7 +191,7 @@
       "dogru_cevap": "A",
       "aciklama": "İzhar harfleri 6 tanedir: ء ه ع ح غ خ — tamamı boğaz harfleridir.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_020",
@@ -201,7 +201,7 @@
       "dogru_cevap": "C",
       "aciklama": "\"غ\" (ğayın) bir izhar harfidir (boğaz harfleri: ء ه ع ح غ خ). Bu nedenle nun-u sakin açıkça okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_021",
@@ -211,7 +211,7 @@
       "dogru_cevap": "B",
       "aciklama": "İdgam, tenvin veya nun-u sakinden sonra belirli harfler gelince nun sesinin o harfe kaymasıdır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_022",
@@ -221,7 +221,7 @@
       "dogru_cevap": "D",
       "aciklama": "\"Yemenu\" (ي م ن و) günne ile idgam yapılan 4 harfi hatırlatır: Ye, Mim, Nun, Vav.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_023",
@@ -231,7 +231,7 @@
       "dogru_cevap": "A",
       "aciklama": "Lam (ل) ve Ra (ر) harfleri günnesiz idgam harfleridir. Nun sesi bu harflere sessizce katılır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_024",
@@ -241,7 +241,7 @@
       "dogru_cevap": "C",
       "aciklama": "Aynı kelime içinde nun-u sakin + idgam harfi bir arada olursa idgam yapılmaz, izhar okunur. İdgam ancak iki ayrı kelime arasında uygulanır.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_025",
@@ -251,7 +251,7 @@
       "dogru_cevap": "B",
       "aciklama": "İklab \"dönüştürmek\" demektir. Tenvin veya nun-u sakinden sonra Be harfi gelince nun sesi mim sesine dönüşür.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_026",
@@ -261,7 +261,7 @@
       "dogru_cevap": "D",
       "aciklama": "İklabta nun-u sakin veya tenvin, mim sesine dönüşür ve günne ile okunur. Mushaf'ta bu noktada küçük م harfi görülür.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_027",
@@ -271,7 +271,7 @@
       "dogru_cevap": "A",
       "aciklama": "İhfa harfleri 15 tanedir: ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_028",
@@ -281,7 +281,7 @@
       "dogru_cevap": "C",
       "aciklama": "İhfada nun sesi tam okunmaz; genizden hafif tınlama (günne) ile gizlenerek okunur. İzhar kadar açık değil, idgam kadar da tam değildir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_029",
@@ -291,7 +291,7 @@
       "dogru_cevap": "B",
       "aciklama": "Mushaf'ta iklab olan yerlerde küçük bir م (mim) harfi yazılır; bu, nun sesinin mim sesine dönüştüğünü gösterir.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_030",
@@ -301,7 +301,7 @@
       "dogru_cevap": "D",
       "aciklama": "Mim-i sakinin 3 hükmü vardır: İdgam-ı Misleyn, İhfa-i Şefevi ve İzhar-ı Şefevi.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_031",
@@ -311,7 +311,7 @@
       "dogru_cevap": "A",
       "aciklama": "Mim-i sakinden sonra harekeli Mim gelirse iki Mim birleşir (İdgam-ı Misleyn) ve günne ile okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_032",
@@ -321,7 +321,7 @@
       "dogru_cevap": "C",
       "aciklama": "Mim-i sakinden sonra Be (ب) gelirse İhfa-i Şefevi (Dudak İhfası) yapılır: dudaklar kapanmadan günne ile gizlice okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_033",
@@ -331,7 +331,7 @@
       "dogru_cevap": "B",
       "aciklama": "Mim-i sakinden sonra Mim ve Be dışındaki herhangi bir harf gelince İzhar-ı Şefevi (Dudak İzharı) yapılır; Mim açıkça okunur.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_034",
@@ -341,7 +341,7 @@
       "dogru_cevap": "D",
       "aciklama": "Ba ve Mim aynı mahreçten (dudaklar) çıkar. Mim-i sakin + Be gelince dudaklar kapanmadan günne ile geçiş yapılır — bu hem Mim'in gizlenmesini hem de Be'ye doğal geçişi sağlar.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_035",
@@ -351,7 +351,7 @@
       "dogru_cevap": "A",
       "aciklama": "Med harfleri üç tanedir: Elif (ا), Vav (و), Ye (ي). Elif önceki harf üstünlü, Vav önceki harf ötreli, Ye önceki harf esreli olduğunda temel uzatma harfi olur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_036",
@@ -361,7 +361,7 @@
       "dogru_cevap": "C",
       "aciklama": "Med-i Tabii (doğal, temel uzatma) 1 elif miktarı uzatılır. Bu kuralda med harfinden sonra hemze veya sükun/cezim gelmez.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_037",
@@ -371,7 +371,7 @@
       "dogru_cevap": "B",
       "aciklama": "Med-i Muttasıl (bitişik med), med harfinden sonra hemze aynı kelimede gelince oluşur. Hemzenin aynı kelimede olması bu kuralın ayırıcı özelliğidir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_038",
@@ -381,7 +381,7 @@
       "dogru_cevap": "D",
       "aciklama": "Med-i Muttasıl yaygın Hafs okuyuş eğitiminde genellikle 4 elif uzatılır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_039",
@@ -391,7 +391,7 @@
       "dogru_cevap": "A",
       "aciklama": "Muttasıl'da med harfi ve hemze aynı kelime içindedir. Munfasıl'da med harfi bir kelimede, hemze ayrı kelimede gelir; uzatma miktarı kıraat geleneğine göre değişebilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_040",
@@ -401,7 +401,7 @@
       "dogru_cevap": "C",
       "aciklama": "Med-i Lazım (zorunlu med), med harfinden sonra aynı kelimede asıl sükun/cezim veya şedde geldiğinde oluşur. Yaygın öğretimde 4 elif uzatılır.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_041",
@@ -411,7 +411,7 @@
       "dogru_cevap": "B",
       "aciklama": "Med-i Arız (geçici med), okuyuş sırasında durulan yerde oluşur. Vakıf, okurken anlamı koruyacak şekilde durmak demektir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_042",
@@ -421,7 +421,7 @@
       "dogru_cevap": "D",
       "aciklama": "Med-i Lin için Vav (و) veya Ye (ي) cezimli/sakin olmalı ve önceki harf üstünlü olmalıdır. Bu med özellikle vakıfta belirginleşir. Örnek: خَوْف (havf).",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_043",
@@ -431,7 +431,7 @@
       "dogru_cevap": "A",
       "aciklama": "Şemsiyye'de lam yutulur ve sonraki harf şeddeli okunur. Örnek: \"eş-şems\" — lam yoktur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_044",
@@ -441,7 +441,7 @@
       "dogru_cevap": "C",
       "aciklama": "\"El-kamer\" kelimesinde lam açıkça okunur; Kaf kameriyye harfidir. Kameriyye'de lam sesin duyulduğu ay harflerini hatırlatır.",
       "zorluk": "orta",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_045",
@@ -451,7 +451,7 @@
       "dogru_cevap": "B",
       "aciklama": "م (Vakf-ı Lazım) işaretinde durmak gerekir; geçmek anlamı bozabilir veya karıştırabilir. Bu işaret okuyucuya anlamı korumak için rehberlik eder.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_046",
@@ -461,7 +461,7 @@
       "dogru_cevap": "D",
       "aciklama": "لا (Vakf-ı Memnû) işareti genellikle durulmamalı, geçilmeli anlamına gelir. Zorunlu durulursa anlamı tamamlayacak uygun yerden tekrar başlanır.",
       "zorluk": "zor",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_047",
@@ -471,7 +471,7 @@
       "dogru_cevap": "A",
       "aciklama": "Lahn-ı Celi (açık/büyük hata), harfi veya kelimeyi açıkça yanlış okumaktır. Anlamı değiştiren büyük hatalar namazın sıhhatini etkileyebilir.",
       "zorluk": "orta",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "tecvid_048",
@@ -481,7 +481,7 @@
       "dogru_cevap": "C",
       "aciklama": "Lahn-ı Hafi (gizli/küçük hata), ihfa, idgam, günne gibi tecvid inceliklerini eksik yapmaktır. Genellikle namazı bozmaz; fakat okuyuşun güzelliğini ve kemalini azaltır.",
       "zorluk": "zor",
-      "kaynak": "Diyanet İlmihali"
+      "kaynak": "Temel ilmihal bilgisi"
     },
     {
       "id": "tecvid_049",
@@ -491,7 +491,7 @@
       "dogru_cevap": "B",
       "aciklama": "Tahkik, her harfin hakkını vererek yapılan en yavaş okuyuştur; öğrenme aşamasına uygundur.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     },
     {
       "id": "tecvid_050",
@@ -501,7 +501,7 @@
       "dogru_cevap": "D",
       "aciklama": "Hadr, tecvid kuralları gözetilerek yapılan en hızlı okuyuş mertebesidir. Üç mertebeden (tahkik, tedvir, hadr) en hızlısıdır.",
       "zorluk": "kolay",
-      "kaynak": "Diyanet Tecvid Rehberi"
+      "kaynak": "Temel tecvid bilgisi"
     }
   ]
 }

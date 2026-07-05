@@ -5,7 +5,7 @@ import { OgrenContent } from "./OgrenContent";
 export const metadata: Metadata = {
   title: "Elif-Ba Öğren",
   description:
-    "Diyanet 2024 müfredatıyla Arap harflerini adım adım öğren — 9 konu, flashcard çalışma modu.",
+    "Arap harflerini adım adım öğren — 9 konu, flashcard çalışma modu.",
 };
 
 export default function OgrenPage() {

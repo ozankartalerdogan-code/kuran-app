@@ -6,7 +6,7 @@
     "olusturulma": "2026-06-20",
     "dil": "tr",
     "aciklama": "Günlük beş vakit dışında kılınan özel namazlar; kılınış sebebi, vakti, rekat sayısı, mezhep görüşleri ve dualarıyla birlikte detaylı rehber.",
-    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları (Buhari, Müslim, Tirmizi, Ebu Davud) ve güvenilir klasik ile çağdaş İslami kaynaklar esas alınarak derlenmiştir.",
+    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları ve klasik fıkıh birikimi esas alınarak derlenmiştir.",
     "namazlar": [
       {
         "id": "cenaze_namazi",
