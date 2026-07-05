@@ -84,8 +84,14 @@ export function useDailyContent(): UseDailyContentResult {
   const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
   const prayerCity = prayerCityState;
   const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMountedRef = useRef(true);
+  const loadIdRef = useRef(0);
 
   const load = useCallback(async () => {
+    // Her load'a kimlik ver: unmount olduysa ya da daha yeni bir load (ör.
+    // pull-to-refresh) başladıysa, bu çağrının geç gelen yanıtları state'i EZMESİN.
+    const myLoadId = ++loadIdRef.current;
+    const isCurrent = () => isMountedRef.current && loadIdRef.current === myLoadId;
     if (safetyTimerRef.current) {
       clearTimeout(safetyTimerRef.current);
       safetyTimerRef.current = null;
@@ -129,7 +135,7 @@ export function useDailyContent(): UseDailyContentResult {
           ts: number;
           data: { verse: DailyVerse | null; dua: DailyVerse | null };
         }>(cacheKey));
-      if (snap?.data) {
+      if (snap?.data && isCurrent()) {
         if (snap.data.verse && isValidDailyVerse(snap.data.verse)) {
           setVerse(snap.data.verse);
           markSuccess();
@@ -152,6 +158,7 @@ export function useDailyContent(): UseDailyContentResult {
       if (raw) {
         const cached: unknown = JSON.parse(raw);
         if (
+          isCurrent() &&
           cached &&
           typeof cached === "object" &&
           (cached as PrayerCache).date === todayKey() &&
@@ -169,6 +176,7 @@ export function useDailyContent(): UseDailyContentResult {
     api.daily
       .get()
       .then((data) => {
+        if (!isCurrent()) return;
         let hasDailyContent = false;
         if (data.verse && isValidDailyVerse(data.verse)) {
           setVerse(data.verse);
@@ -187,11 +195,13 @@ export function useDailyContent(): UseDailyContentResult {
         tryFinishLoading();
       })
       .catch(() => {
+        if (!isCurrent()) return;
         markFailure();
         // Fallback: deploy öncesi eski davranış
         api.verses
           .bySurah(89)
           .then((res) => {
+            if (!isCurrent()) return;
             const seed =
               new Date().getFullYear() * 10000 +
               (new Date().getMonth() + 1) * 100 +
@@ -216,6 +226,7 @@ export function useDailyContent(): UseDailyContentResult {
             tryFinishLoading();
           })
           .catch(() => {
+            if (!isCurrent()) return;
             markFailure();
             verseDone = true;
             setVerseLoading(false);
@@ -224,6 +235,7 @@ export function useDailyContent(): UseDailyContentResult {
         api.mood
           .random("sabır")
           .then((d) => {
+            if (!isCurrent()) return;
             if (d?.verse_key) {
               setDua({
                 verse_key: d.verse_key,
@@ -243,6 +255,7 @@ export function useDailyContent(): UseDailyContentResult {
             tryFinishLoading();
           })
           .catch(() => {
+            if (!isCurrent()) return;
             markFailure();
             duaDone = true;
             setDuaLoading(false);
@@ -273,6 +286,7 @@ export function useDailyContent(): UseDailyContentResult {
           const { latitude, longitude } = pos.coords;
           Location.reverseGeocodeAsync({ latitude, longitude })
             .then((geo) => {
+              if (!isCurrent()) return;
               const place = geo[0];
               const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
               if (cityName) setPrayerCityState(cityName);
@@ -283,6 +297,10 @@ export function useDailyContent(): UseDailyContentResult {
       } catch { /* ignore */ }
       return ISTANBUL;
     })();
+
+    // Konum çözümü 15 sn'e kadar sürebilir; bu sırada unmount/yeni-load olduysa
+    // artık namaz fetch'ini başlatma ve state'e dokunma.
+    if (!isCurrent()) return;
 
     const ts = buildDateStr();
     const prayerAC = new AbortController();
@@ -296,6 +314,7 @@ export function useDailyContent(): UseDailyContentResult {
       .then((r) => r.json())
       .then((d) => {
         clearTimeout(prayerTimeoutId);
+        if (!isCurrent()) return;
         if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
           markSuccess();
@@ -312,6 +331,7 @@ export function useDailyContent(): UseDailyContentResult {
       })
       .catch(() => {
         clearTimeout(prayerTimeoutId);
+        if (!isCurrent()) return;
         markFailure();
         prayerDone = true;
         setPrayerLoading(false);
@@ -320,6 +340,7 @@ export function useDailyContent(): UseDailyContentResult {
 
     // Safety timeout: en geç 10 saniye sonra loading'i kapat
     safetyTimerRef.current = setTimeout(() => {
+      if (!isCurrent()) return;
       if (!verseDone) setVerseLoading(false);
       if (!duaDone) setDuaLoading(false);
       if (!prayerDone) { prayerAC.abort(); setPrayerLoading(false); }
@@ -329,8 +350,10 @@ export function useDailyContent(): UseDailyContentResult {
   }, []);
 
   useEffect(() => {
+    isMountedRef.current = true;
     load();
     return () => {
+      isMountedRef.current = false;
       if (safetyTimerRef.current) clearTimeout(safetyTimerRef.current);
     };
   }, [load]);
