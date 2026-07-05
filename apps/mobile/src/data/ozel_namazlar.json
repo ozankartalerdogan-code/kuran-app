@@ -6,7 +6,7 @@
     "olusturulma": "2026-06-20",
     "dil": "tr",
     "aciklama": "Günlük beş vakit dışında kılınan özel namazlar; kılınış sebebi, vakti, rekat sayısı, mezhep görüşleri ve dualarıyla birlikte detaylı rehber.",
-    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları (Buhari, Müslim, Tirmizi, Ebu Davud) ve TDV İslam Ansiklopedisi / Diyanet İşleri Başkanlığı yayınlarına dayanmaktadır. Mezhep görüşleri TDV İA maddelerinden alınmıştır.",
+    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları (Buhari, Müslim, Tirmizi, Ebu Davud) ve güvenilir klasik ile çağdaş İslami kaynaklar esas alınarak derlenmiştir.",
     "namazlar": [
       {
         "id": "cenaze_namazi",
@@ -166,7 +166,7 @@
         "isim": "Teheccüd Namazı (Gece Namazı)",
         "durum": "sunnet_musteap",
         "durum_aciklama": "Hz. Peygamber'e farz olduğu bildirilmiş, ümmetine ise müstehap (nafile) olarak tavsiye edilmiştir. Devamlı kılmak çok faziletlidir.",
-        "mezhep_gorusleri": "Dört mezhepte de ümmet için müekked sünnet ya da müstehap (nafile) hükmündedir; farz değildir. Hz. Peygamber'e farz olup olmadığı da âlimler arasında ihtilaflıdır; bir kısım âlim farz, bir kısmı ise sonradan nâfileye dönüştürüldüğü görüşündedir (TDV İA 'Teheccüd').",
+        "mezhep_gorusleri": "Dört mezhepte de ümmet için müekked sünnet ya da müstehap (nafile) hükmündedir; farz değildir. Hz. Peygamber'e farz olup olmadığı da âlimler arasında ihtilaflıdır; bir kısım âlim farz, bir kısmı ise sonradan nâfileye dönüştürüldüğü görüşündedir.",
         "ne_zaman_kilinir": "Yatsı namazından sonra, bir miktar uyuyup uyandıktan sonra sabah namazına kadar kılınır. Gecenin son üçte birinde kılmak en faziletlisidir.",
         "rekat": "En az 2 rekattır. 2'şer rekat halinde kılmak daha faziletlidir. 8 rekat yaygın bir uygulamadır; üst sınır konusunda mezhepler arasında farklı değerlendirmeler vardır.",
         "kuran_referansi": {
@@ -302,7 +302,7 @@
         "isim": "Teravih Namazı",
         "durum": "sunnet_i_muekked",
         "durum_aciklama": "Sadece Ramazan ayında kılınan müekked bir sünnettir. Dört mezhepte de bu hüküm geçerlidir.",
-        "mezhep_gorusleri": "Dört mezhepte de sünnet-i müekkeddir. Rekat sayısı: Hanefî, Şâfiî ve Hanbelî'de 20 rekat (Hz. Ömer döneminden bu yana icmâ ile); Mâlikî'de 36 rekat görüşü de mevcuttur. Hz. Âişe'nin rivayetindeki 8-11 rekat ise Hz. Peygamber'in genel gece namazına aittir, teravihe özgü değildir (TDV İA 'Teravih').",
+        "mezhep_gorusleri": "Dört mezhepte de sünnet-i müekkeddir. Rekat sayısı: Hanefî, Şâfiî ve Hanbelî'de 20 rekat (Hz. Ömer döneminden bu yana icmâ ile); Mâlikî'de 36 rekat görüşü de mevcuttur. Hz. Âişe'nin rivayetindeki 8-11 rekat ise Hz. Peygamber'in genel gece namazına aittir, teravihe özgü değildir.",
         "ne_zaman_kilinir": "Sadece Ramazan ayında, yatsı namazından sonra vitir namazından önce kılınır.",
         "rekat": "20 rekat — 2'şer rekat halinde 10 grupta kılınır. Her 4 rekatte bir kısa istirahat yapılır.",
         "niyet": "Niyet ettim Allah rızası için teravih namazı kılmaya, uydum hazır olan imama.",

@@ -14,11 +14,11 @@
     "sourcePriority": [
       "Kur’an ayetleri",
       "Sahih veya güvenilir hadisler",
-      "TDV İslâm Ansiklopedisi ve Diyanet tefsiri",
+      "çağdaş İslami kaynaklar",
       "Tasavvufî/ahlakî eğitim tasnifleri"
     ],
     "importantNotice": "Bu derslerde geçen 8’li sıralama, Kur’an’da birebir 'sekiz katman' olarak verilen zorunlu bir liste değildir. Klasik tasavvufî literatürde yaygın tasnif 7 mertebedir. Uygulamada ilk basamak olarak 'Ham Nefs' başlığı, konuyu hiç bilmeyen kullanıcıya giriş sağlamak için pedagojik bir ders olarak eklenmiştir.",
-    "classificationNote": "TDV İslâm Ansiklopedisi’ne göre mutasavvıfların çoğuna göre bir bedende tek nefis bulunur; emmâre, levvâme, mutmainne, râzıye, marzıyye gibi ifadeler bu tek nefsin farklı sıfatları/hâlleri olarak değerlendirilir."
+    "classificationNote": "Mutasavvıfların çoğuna göre bir bedende tek nefis bulunur; emmâre, levvâme, mutmainne, râzıye, marzıyye gibi ifadeler bu tek nefsin farklı sıfatları/hâlleri olarak değerlendirilir."
   },
   "classicSevenStages": [
     {
@@ -77,7 +77,7 @@
       "quranicBasis": [
         "Şems 91:9"
       ],
-      "note": "TDV’de yedili tasnifin son mertebesi zekiyye/kâmile olarak zikredilir."
+      "note": "Kimi kaynaklarda yedili tasnifin son mertebesi zekiyye/kâmile olarak zikredilir."
     }
   ],
   "lessons": [
@@ -824,19 +824,19 @@
     ],
     "encyclopedia": [
       {
-        "id": "tdv-nefis",
+        "id": "kaynak-nefis",
         "type": "encyclopedia",
         "title": "Nefis",
-        "sourceName": "TDV İslâm Ansiklopedisi",
-        "url": "https://islamansiklopedisi.org.tr/nefis",
+        "sourceName": "çağdaş İslami kaynaklar",
+        "url": "",
         "usage": "Nefsin tek oluşu, farklı hâl/sıfatları ve yedili tasnif hakkında temel açıklama."
       },
       {
-        "id": "tdv-atvar-i-seba",
+        "id": "kaynak-atvar-i-seba",
         "type": "encyclopedia",
         "title": "Atvâr-ı Seb‘a",
-        "sourceName": "TDV İslâm Ansiklopedisi",
-        "url": "https://islamansiklopedisi.org.tr/atvar-i-seba",
+        "sourceName": "çağdaş İslami kaynaklar",
+        "url": "",
         "usage": "Nefsin yedi tavrı: emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye, kâmile."
       }
     ],
