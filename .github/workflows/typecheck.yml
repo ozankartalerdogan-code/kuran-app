@@ -23,3 +23,20 @@ jobs:
         run: npm ci
       - name: Typecheck (web + mobile)
         run: npm run typecheck
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # node --test .ts dosyalarını native tip-strip ile koşar (Node 23.6+ varsayılan).
+          # Yerel geliştirme Node 24; CI de 24 kullansın ki testler flag'siz çalışsın.
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Unit tests (web + mobile)
+        run: |
+          npm run test
+          npm run test:mobile
