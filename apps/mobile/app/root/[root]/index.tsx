@@ -115,6 +115,10 @@ const HeatGrid = memo(function HeatGrid({
 });
 
 type Verse = { surahId: number; ayahNumber: number };
+type MeaningEntry = [string, { forms: string[]; verses: Verse[] }];
+
+// Bu sayının altında ayette geçen anlamlar "Diğer anlamlar" altına katlanır.
+const PRIMARY_MIN_VERSES = 3;
 
 const MeaningGroup = memo(function MeaningGroup({
   meaning,
@@ -194,6 +198,7 @@ export default function RootDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [openMeaning, setOpenMeaning] = useState<string | null>(null);
+  const [othersOpen, setOthersOpen] = useState(false);
   const isMountedRef = useRef(true);
   const requestIdRef = useRef(0);
 
@@ -201,6 +206,7 @@ export default function RootDetailScreen() {
     if (!nextRoot) {
       setData(null);
       setOpenMeaning(null);
+      setOthersOpen(false);
       setError("Geçersiz kök bağlantısı.");
       setLoading(false);
       return;
@@ -211,6 +217,7 @@ export default function RootDetailScreen() {
     setError(null);
     setData(null);
     setOpenMeaning(null);
+    setOthersOpen(false);
 
     try {
       const detail = await api.roots.detail(nextRoot);
@@ -227,35 +234,47 @@ export default function RootDetailScreen() {
   }, []);
 
   const groups = useMemo(() => {
-    if (!data?.derivedWords) {
-      return [] as [string, { forms: string[]; verses: Verse[] }][];
-    }
+    const empty = { primary: [] as MeaningEntry[], others: [] as MeaningEntry[] };
+    if (!data?.derivedWords) return empty;
 
     const normalize = (value: string) => value.normalize("NFC").trim();
-    const wordMap = new Map<string, { display: string; meaning: string; verses: Verse[] }>();
 
-    for (const derivedWord of data.derivedWords) {
-      const key = normalize(derivedWord.word);
-      if (!wordMap.has(key)) {
-        wordMap.set(key, { display: derivedWord.word, meaning: derivedWord.meaning, verses: [] });
-      }
-      wordMap.get(key)!.verses.push({ surahId: derivedWord.surahId, ayahNumber: derivedWord.ayahNumber });
-    }
-
+    // Anlamları DOĞRUDAN say. (Eski "her formun ilk anlamını al" yaklaşımı,
+    // çok-anlamlı formlarda gerçek frekansı bozuyordu: ör. قول'de "denir" 17
+    // ayette geçtiği halde 0'a düşüp kayboluyordu. Bir form birden çok anlama
+    // girebilir; her anlam kendi ayet sayısıyla temsil edilsin.)
     const meaningMap = new Map<string, { forms: string[]; verses: Verse[] }>();
-    for (const [, { display, meaning, verses }] of wordMap.entries()) {
-      const key = normalize(meaning) || "—";
+    for (const derivedWord of data.derivedWords) {
+      const key = normalize(derivedWord.meaning) || "—";
       if (!meaningMap.has(key)) {
         meaningMap.set(key, { forms: [], verses: [] });
       }
       const group = meaningMap.get(key)!;
-      if (!group.forms.some((form) => normalize(form) === normalize(display))) {
-        group.forms.push(display);
+      if (!group.forms.some((form) => normalize(form) === normalize(derivedWord.word))) {
+        group.forms.push(derivedWord.word);
       }
-      group.verses.push(...verses);
+      group.verses.push({ surahId: derivedWord.surahId, ayahNumber: derivedWord.ayahNumber });
     }
 
-    return Array.from(meaningMap.entries());
+    // Baskın anlamlar önde; nadir (az ayetli) anlamlar "Diğer anlamlar" altında
+    // katlanır. Kök çok-anlamlı olduğunda (ör. عود → dönmek + bayram) tek-tük uç
+    // anlamlar ana listeyi kirletip "hata" gibi görünmesin.
+    const sorted = Array.from(meaningMap.entries()).sort(
+      (a, b) => b[1].verses.length - a[1].verses.length,
+    );
+    let primary = sorted.filter(([, g]) => g.verses.length >= PRIMARY_MIN_VERSES);
+    let others = sorted.filter(([, g]) => g.verses.length < PRIMARY_MIN_VERSES);
+    // Hiç baskın anlam yoksa en sık geçeni yine de ana listede göster.
+    if (primary.length === 0 && sorted.length > 0) {
+      primary = sorted.slice(0, 1);
+      others = sorted.slice(1);
+    }
+    // Tek bir "diğer" anlamı katlamak yerine ana listede bırak (katlamanın anlamı yok).
+    if (others.length === 1) {
+      primary = [...primary, ...others];
+      others = [];
+    }
+    return { primary, others };
   }, [data?.derivedWords]);
 
   // Akordiyonlar varsayılan kapalı — kullanıcı dokununca açılır/kapanır.
@@ -319,15 +338,9 @@ export default function RootDetailScreen() {
   const surahCount = Object.values(data.distribution).filter((count) => count > 0).length;
   const uniqueForms = new Set(data.derivedWords.map((item) => item.word)).size;
 
-  const displayMeaning = data.meaningTr || (() => {
-    const frequencyMap = new Map<string, number>();
-    for (const derivedWord of data.derivedWords) {
-      if (derivedWord.meaning) {
-        frequencyMap.set(derivedWord.meaning, (frequencyMap.get(derivedWord.meaning) ?? 0) + 1);
-      }
-    }
-    return [...frequencyMap.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
-  })();
+  // Başlık daima kökün sözlük anlamı (liste kartıyla aynı kaynak). Boşsa,
+  // kelime düzeyi anlamına DÜŞMÜYORUZ — aksi halde başlık listeyle çelişir.
+  const displayMeaning = data.meaningTr;
 
   return (
     <>
@@ -335,9 +348,9 @@ export default function RootDetailScreen() {
       <FlatList
         style={[s.container, { backgroundColor: c.bg }]}
         contentContainerStyle={[s.content, { paddingBottom: 40 + insets.bottom }]}
-        data={groups}
+        data={groups.primary}
         keyExtractor={(item) => item[0]}
-        extraData={openMeaning}
+        extraData={`${openMeaning ?? ""}|${othersOpen}`}
         initialNumToRender={8}
         maxToRenderPerBatch={8}
         windowSize={7}
@@ -346,7 +359,12 @@ export default function RootDetailScreen() {
           <>
             <View style={[s.header, { backgroundColor: c.card }]}>
               <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
-              {displayMeaning ? <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text> : null}
+              {displayMeaning ? (
+                <>
+                  <Text style={[s.meaningLabel, { color: c.textMuted }]}>Kök anlamı</Text>
+                  <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text>
+                </>
+              ) : null}
               <View style={s.statsRow}>
                 {([[totalOccurrences, "geçiş"], [surahCount, "sure"], [uniqueForms, "türev"]] as const).map(([num, label]) => (
                   <View key={label} style={[s.statBadge, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}>
@@ -363,8 +381,13 @@ export default function RootDetailScreen() {
               <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} />
             </View>
 
-            {groups.length > 0 && (
-              <Text style={[s.groupsTitle, { color: c.text }]}>Kullanım Bağlamları ({groups.length} anlam)</Text>
+            {groups.primary.length > 0 && (
+              <>
+                <Text style={[s.groupsTitle, { color: c.text }]}>Kullanım Bağlamları ({groups.primary.length})</Text>
+                <Text style={[s.groupsHint, { color: c.textMuted }]}>
+                  Bu kökten türeyen kelimelerin ayet içindeki anlamları — kökün genel anlamından farklılaşabilir.
+                </Text>
+              </>
             )}
           </>
         }
@@ -378,6 +401,39 @@ export default function RootDetailScreen() {
             c={c}
           />
         )}
+        ListFooterComponent={
+          groups.others.length > 0 ? (
+            <View style={[s.otherWrap, { borderTopColor: c.border }]}>
+              <TouchableOpacity
+                style={s.otherToggle}
+                onPress={() => setOthersOpen((o) => !o)}
+                activeOpacity={0.6}
+                accessibilityRole="button"
+                accessibilityLabel={`Diğer anlamlar, ${groups.others.length} anlam`}
+                accessibilityHint="Nadir kullanılan anlamları açar veya kapatır"
+                accessibilityState={{ expanded: othersOpen }}
+              >
+                <Text style={[s.otherToggleText, { color: c.textMuted }]}>
+                  Diğer anlamlar ({groups.others.length})
+                </Text>
+                <Text style={[s.otherToggleChevron, { color: c.textMuted }, othersOpen && { transform: [{ rotate: "180deg" }] }]}>▾</Text>
+              </TouchableOpacity>
+
+              {othersOpen &&
+                groups.others.map(([meaning, group]) => (
+                  <MeaningGroup
+                    key={meaning}
+                    meaning={meaning}
+                    forms={group.forms}
+                    verses={group.verses}
+                    isOpen={openMeaning === meaning}
+                    onToggle={handleToggle}
+                    c={c}
+                  />
+                ))}
+            </View>
+          ) : null
+        }
       />
     </>
   );
@@ -396,6 +452,7 @@ const s = StyleSheet.create({
 
   header: { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fff", marginBottom: 8 },
   rootTitle: { fontSize: 40, color: "#1c1917", marginBottom: 8 },
+  meaningLabel: { fontSize: 10, fontWeight: "700", letterSpacing: 0.5, textTransform: "uppercase", color: "#a8a29e", marginBottom: 2 },
   meaning: { fontSize: 16, color: "#44403c", marginBottom: 12 },
   statsRow: { flexDirection: "row", gap: 16 },
   statBadge: { alignItems: "center", backgroundColor: "#f0fdf4", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8, borderWidth: 1, borderColor: "#86efac" },
@@ -405,7 +462,13 @@ const s = StyleSheet.create({
   section: { marginHorizontal: 12, marginBottom: 16, backgroundColor: "#fff", borderRadius: 14, padding: 16, borderWidth: 1, borderColor: "#e7e5e4" },
   sectionTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
   sectionHint: { fontSize: 11, color: "#a8a29e", marginBottom: 12 },
-  groupsTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginHorizontal: 12, marginTop: 4, marginBottom: 8 },
+  groupsTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginHorizontal: 12, marginTop: 4, marginBottom: 2 },
+  groupsHint: { fontSize: 11, color: "#a8a29e", marginHorizontal: 12, marginBottom: 8, lineHeight: 15 },
+
+  otherWrap: { marginTop: 10, marginHorizontal: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#e7e5e4" },
+  otherToggle: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 5, paddingVertical: 10 },
+  otherToggleText: { fontSize: 12.5, fontWeight: "600", color: "#a8a29e", letterSpacing: 0.2 },
+  otherToggleChevron: { fontSize: 9, color: "#a8a29e" },
 
   accordionCard: { borderWidth: 1, borderColor: "#e7e5e4", borderRadius: 10, overflow: "hidden", backgroundColor: "#fff", marginHorizontal: 12, marginBottom: 6 },
   accordionHeader: { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12, gap: 8 },
