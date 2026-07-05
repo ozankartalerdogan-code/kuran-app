@@ -438,11 +438,47 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
 // ── "Özel Namazlar" sekmesi (ozel_namazlar.json) ──────────────────────────────
 // İçerik (namazlar/hızlı bakış) bilinçli olarak polimorfik; üst seviye container
 // tiplenir, tek tek namaz kayıtları ilgili kartta yorumlanır.
+// ── ozel_namazlar.json tipleri (heterojen içerik; alanların çoğu opsiyonel) ────
+interface KuranRef { sure?: string; ayet?: string; metin?: string }
+interface Cesit { isim?: string; hicri_tarih?: string; aciklama?: string; tekbir_notu?: string }
+interface IstihareSonucu { aciklama?: string; maddeler?: string[] }
+interface DuaObject {
+  baslik?: string; dua_arapca?: string; dua?: string; anlam?: string;
+  kaynagi?: string; dua_kaynagi?: string; kaynak?: string; not?: string;
+}
+type DuaLike = string | DuaObject;
+interface Step {
+  isim?: string; aciklama?: string; detay?: string;
+  dua?: string; dua_arapca?: string; anlam?: string;
+  dua_1?: string; dua_1_arapca?: string; dua_2?: string; dua_2_arapca?: string;
+  tesbih?: string; selam?: string; bilmeyenler_icin?: string; not?: string;
+}
+interface KilinicObj {
+  aciklama?: string; "1_rekat"?: string[]; "2_rekat"?: string[];
+  adimlar?: string[]; tavsiye_edilen_sureler?: string; not?: string;
+}
+type KilinicData = string | Array<string | Step> | KilinicObj;
+type NiyetData = string | { [k: string]: string | undefined };
+interface OzelNamaz {
+  id: string; isim: string;
+  durum?: string; rekat?: string; durum_aciklama?: string;
+  ne_zaman_kilinir?: string; ne_zaman_yapilir?: string; vakit?: string; sebep?: string;
+  mezhep_gorusleri?: string; kuran_referansi?: KuranRef;
+  cesitleri?: Cesit[]; on_sartlar?: string[];
+  niyet?: NiyetData; kilinic?: KilinicData;
+  kilinic_hanafi?: string; kilinic_safii_hanbeli?: string; tavsiye_edilen_sureler?: string;
+  teheccud_duasi?: DuaLike; istihare_duasi?: DuaLike; hacet_duasi?: DuaLike; anlam?: string;
+  tovbe_duasi?: DuaLike; secde_duasi?: DuaLike; dua?: DuaLike;
+  teravih_arasi_tesbih?: DuaLike; cenaze_duasi_kisa?: DuaLike;
+  istihare_sonucu?: IstihareSonucu; tovbe_sartlari?: string[];
+  fazileti?: string | string[]; ozel_notlar?: string[]; hadis_kaynagi?: string;
+}
+
 const O = (ozelRaw as {
   ozel_namazlar: {
     aciklama: string;
     hizli_bakis_tablosu: Record<string, string>[];
-    namazlar: unknown[];
+    namazlar: OzelNamaz[];
     kaynak_not: string;
   };
 }).ozel_namazlar;
@@ -481,7 +517,7 @@ function Bullets({ items }: { items: string[] }) {
   return <>{items.map((m, i) => <Text key={i} style={[s.madde, { color: c.textSecondary }]}>• {m}</Text>)}</>;
 }
 
-function Niyet({ niyet }: { niyet: any }) {
+function Niyet({ niyet }: { niyet?: NiyetData }) {
   const c = useColors();
   if (!niyet) return null;
   if (typeof niyet === "string")
@@ -499,7 +535,7 @@ function Niyet({ niyet }: { niyet: any }) {
   );
 }
 
-function StepBlock({ step }: { step: any }) {
+function StepBlock({ step }: { step: Step }) {
   const c = useColors();
   return (
     <View style={s.item}>
@@ -517,7 +553,7 @@ function StepBlock({ step }: { step: any }) {
   );
 }
 
-function KilinicObject({ obj }: { obj: any }) {
+function KilinicObject({ obj }: { obj: KilinicObj }) {
   const c = useColors();
   return (
     <>
@@ -535,12 +571,12 @@ function KilinicObject({ obj }: { obj: any }) {
   );
 }
 
-function Kilinic({ data }: { data: any }) {
+function Kilinic({ data }: { data?: KilinicData }) {
   const c = useColors();
   if (!data) return null;
   if (typeof data === "string") return <Text style={[s.p, { color: c.textSecondary }]}>{data}</Text>;
   if (Array.isArray(data)) {
-    if (data.every((x) => typeof x === "string")) return <Bullets items={data} />;
+    if (data.every((x): x is string => typeof x === "string")) return <Bullets items={data} />;
     return <>{data.map((it, i) => typeof it === "string"
       ? <Text key={i} style={[s.madde, { color: c.textSecondary }]}>• {it}</Text>
       : <StepBlock key={i} step={it} />)}</>;
@@ -548,7 +584,7 @@ function Kilinic({ data }: { data: any }) {
   return <KilinicObject obj={data} />;
 }
 
-function DuaObj({ obj, anlamFallback }: { obj: any; anlamFallback?: string }) {
+function DuaObj({ obj, anlamFallback }: { obj?: DuaLike; anlamFallback?: string }) {
   const c = useColors();
   if (!obj) return null;
   if (typeof obj === "string") return <DuaBlock okunus={obj} anlam={anlamFallback} />;
@@ -561,12 +597,12 @@ function DuaObj({ obj, anlamFallback }: { obj: any; anlamFallback?: string }) {
   );
 }
 
-function Fazilet({ data }: { data: any }) {
+function Fazilet({ data }: { data: string | string[] }) {
   const arr = Array.isArray(data) ? data : [data];
   return <>{arr.map((f, i) => <Text key={i} style={s.fazilet}>💎 {f}</Text>)}</>;
 }
 
-function OzelNamazCard({ n }: { n: any }) {
+function OzelNamazCard({ n }: { n: OzelNamaz }) {
   const c = useColors();
   const neZaman = n.ne_zaman_kilinir ?? n.ne_zaman_yapilir;
   return (
@@ -593,7 +629,7 @@ function OzelNamazCard({ n }: { n: any }) {
       {Array.isArray(n.cesitleri) ? (
         <View style={{ marginTop: 8 }}>
           <Text style={[s.subHead, { color: c.text }]}>Çeşitleri</Text>
-          {n.cesitleri.map((ce: any, i: number) => (
+          {n.cesitleri.map((ce, i) => (
             <View key={i} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
               <Text style={[s.kavramIsim, { color: c.text }]}>{ce.isim}</Text>
               {ce.hicri_tarih ? <Text style={[s.small, { color: c.textMuted }]}>{ce.hicri_tarih}</Text> : null}
@@ -626,7 +662,7 @@ function OzelNamazCard({ n }: { n: any }) {
       {n.istihare_sonucu ? (
         <View style={{ marginTop: 8 }}>
           <Text style={[s.subHead, { color: c.text }]}>{n.istihare_sonucu.aciklama}</Text>
-          <Bullets items={n.istihare_sonucu.maddeler} />
+          <Bullets items={n.istihare_sonucu.maddeler ?? []} />
         </View>
       ) : null}
 
@@ -649,7 +685,7 @@ function OzelNamazlarTab() {
       <Text style={[s.intro, { color: c.textSecondary }]}>{O.aciklama}</Text>
 
       <Section emoji="📊" title="Hızlı Bakış">
-        {O.hizli_bakis_tablosu.map((row: any, i: number) => (
+        {O.hizli_bakis_tablosu.map((row, i) => (
           <View key={i} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
             <Text style={[s.kavramIsim, { color: c.text }]}>{row.isim}</Text>
             <Text style={[s.small, { color: c.textSecondary }]}>{row.durum}</Text>
@@ -658,7 +694,7 @@ function OzelNamazlarTab() {
         ))}
       </Section>
 
-      {O.namazlar.map((n: any) => <OzelNamazCard key={n.id} n={n} />)}
+      {O.namazlar.map((n) => <OzelNamazCard key={n.id} n={n} />)}
 
       <Text style={[s.kaynakNot, { color: c.textMuted }]}>{O.kaynak_not}</Text>
     </ScrollView>
