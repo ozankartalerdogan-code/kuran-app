@@ -19,7 +19,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
-import { DERS_DATA, QUIZ_MAP, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
+import { DERS_DATA, getQuiz, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
 import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
@@ -41,7 +41,7 @@ const GORSEL_MAP: Record<string, number> = {
   namaz_selam:    require("../../assets/images/namaz/selam.jpg"),
 };
 
-// DERS_DATA, QUIZ_MAP, BASLIKLAR → dersler_registry.ts'ten import edildi
+// DERS_DATA, getQuiz, BASLIKLAR → dersler_registry.ts'ten import edildi
 
 // ─── Tipler ───────────────────────────────────────────────────────────────
 
@@ -125,7 +125,7 @@ export default function DersDetayScreen() {
 
   const dersKey  = dersId ?? "";
   const dersData = DERS_DATA[dersKey];
-  const quizData = QUIZ_MAP[dersKey];
+  const quizData = getQuiz(dersKey);
   // Normalize bozuk soruları eler; hasQuiz gerçek kullanılabilir soru sayısına
   // bakar — aksi halde tümü bozuksa "Teste Başla" sessizce çalışmaz.
   const validQuiz = useMemo(
