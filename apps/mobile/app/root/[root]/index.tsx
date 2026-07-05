@@ -12,6 +12,7 @@ import { api, prefetchAyah, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
+import { useTourTarget } from "../../../src/tour/AppTourProvider";
 
 function heatColor(count: number, max: number, isDark: boolean): string {
   if (count === 0) return isDark ? "#292524" : "#f5f5f4";
@@ -190,6 +191,7 @@ const MeaningGroup = memo(function MeaningGroup({
 export default function RootDetailScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const heatmapTarget = useTourTarget("root.heatmap");
   const { root: encodedRoot } = useLocalSearchParams<{ root: string | string[] }>();
   const rawRoot = Array.isArray(encodedRoot) ? encodedRoot[0] : encodedRoot;
   const root = rawRoot ? decodeURIComponent(rawRoot) : "";
@@ -375,7 +377,7 @@ export default function RootDetailScreen() {
               </View>
             </View>
 
-            <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
+            <View {...heatmapTarget} style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
               <Text style={[s.sectionTitle, { color: c.text }]}>Sure Dağılımı</Text>
               <Text style={[s.sectionHint, { color: c.textMuted }]}>Renkli hücreye dokun → sure bilgisi</Text>
               <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} />

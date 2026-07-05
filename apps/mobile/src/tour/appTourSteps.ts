@@ -1,4 +1,4 @@
-export const APP_TOUR_VERSION = 4;
+export const APP_TOUR_VERSION = 5;
 
 export type TourPlacement = "top" | "bottom" | "center";
 export type TourAction = "next" | "navigate" | "finish";
@@ -130,6 +130,28 @@ export const APP_TOUR_STEPS: AppTourStep[] = [
     title: "Hadisler",
     description: "Hadisleri konu gruplar\u0131 halinde a\u00e7abilir, kaynak ve ders notlar\u0131n\u0131 okuyabilirsin.",
     targetId: "hadith.topics",
+    action: "navigate",
+    navigateTo: "/root",
+    placement: "bottom",
+  },
+  {
+    id: "root-list",
+    screen: "root",
+    route: "/root",
+    title: "Kelime K\u00f6k\u00fc Analizi",
+    description: "Kur'an'da en s\u0131k ge\u00e7en 200 Arap\u00e7a k\u00f6k\u00fc buradan arayabilir; frekans, alfabe veya anlama g\u00f6re s\u0131ralayabilirsin.",
+    targetId: "root.list",
+    action: "navigate",
+    navigateTo: "/root/\u062e\u0644\u0642",
+    placement: "bottom",
+  },
+  {
+    id: "root-detail",
+    screen: "root-detail",
+    route: "/root/\u062e\u0644\u0642",
+    title: "K\u00f6k \u0131s\u0131 haritas\u0131",
+    description: "Bir k\u00f6ke girince 114 surelik \u0131s\u0131 haritas\u0131nda nerede yo\u011funla\u015ft\u0131\u011f\u0131n\u0131 g\u00f6r\u00fcr; alt\u0131ndaki anlam gruplar\u0131ndan t\u00fcrev kelimelere ve ayetlere ula\u015f\u0131rs\u0131n.",
+    targetId: "root.heatmap",
     action: "navigate",
     navigateTo: "/ibadet",
     placement: "bottom",

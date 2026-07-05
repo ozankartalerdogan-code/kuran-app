@@ -51,7 +51,12 @@ const AppTourContext = createContext<AppTourContextValue>({
 
 function normalizePath(path: string): string {
   if (!path || path === "/(tabs)") return "/";
-  return path.endsWith("/") && path.length > 1 ? path.slice(0, -1) : path;
+  // Arapça kök rotaları (/root/خلق) yüzde-kodlanmış gelebilir; iki tarafı da
+  // aynı biçime indirmek için çöz. Aksi halde encoded pathname ile ham route
+  // asla eşleşmez ve düzeltici yönlendirme sonsuz döngüye girer.
+  let p = path;
+  try { p = decodeURIComponent(path); } catch { /* bozuk kodlama → olduğu gibi */ }
+  return p.endsWith("/") && p.length > 1 ? p.slice(0, -1) : p;
 }
 
 function navigateTo(path: string): void {

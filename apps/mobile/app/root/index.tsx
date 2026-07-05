@@ -13,6 +13,7 @@ import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
@@ -62,6 +63,7 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
 export default function RootListScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const listTarget = useTourTarget("root.list");
   const [roots, setRoots] = useState<RootItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -162,7 +164,7 @@ export default function RootListScreen() {
       <Stack.Screen options={{ title: "Kelime Kökleri" }} />
       <View style={[s.container, { backgroundColor: c.bg }]}>
         <View style={s.centerWrap}>
-        <View style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}>
+        <View {...listTarget} style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}>
           <TextInput
             style={[s.searchInput, { color: c.text }]}
             value={search}
