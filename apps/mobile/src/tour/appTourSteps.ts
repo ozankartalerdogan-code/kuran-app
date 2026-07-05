@@ -1,4 +1,4 @@
-export const APP_TOUR_VERSION = 3;
+export const APP_TOUR_VERSION = 4;
 
 export type TourPlacement = "top" | "bottom" | "center";
 export type TourAction = "next" | "navigate" | "finish";
@@ -87,16 +87,16 @@ export const APP_TOUR_STEPS: AppTourStep[] = [
     description: "Meal, kelime analizi, k\u00f6kler, favori ve not alma i\u015flemleri bu detay ekran\u0131nda.",
     targetId: "ayah.main",
     action: "navigate",
-    navigateTo: "/ibadet",
+    navigateTo: "/ogren",
     placement: "bottom",
   },
   {
-    id: "ibadet-tab",
-    screen: "ibadet",
-    route: "/ibadet",
-    title: "\u0130badet b\u00f6l\u00fcm\u00fc",
-    description: "Namaz rehberi, dualar, ibadet rehberi, k\u0131ble ve tespih ara\u00e7lar\u0131 burada toplan\u0131r.",
-    targetId: "ibadet.main",
+    id: "ogren-tab",
+    screen: "ogren",
+    route: "/ogren",
+    title: "\u00d6\u011fren b\u00f6l\u00fcm\u00fc",
+    description: "Dersler, peygamber k\u0131ssalar\u0131, siyer, hadisler ve kelime k\u00f6k\u00fc analizi bu b\u00f6l\u00fcmde. \u00d6\u011frenmeye buradan ba\u015flayabilirsin.",
+    targetId: "learn.dersler",
     action: "navigate",
     navigateTo: "/dersler",
     placement: "bottom",
@@ -130,6 +130,17 @@ export const APP_TOUR_STEPS: AppTourStep[] = [
     title: "Hadisler",
     description: "Hadisleri konu gruplar\u0131 halinde a\u00e7abilir, kaynak ve ders notlar\u0131n\u0131 okuyabilirsin.",
     targetId: "hadith.topics",
+    action: "navigate",
+    navigateTo: "/ibadet",
+    placement: "bottom",
+  },
+  {
+    id: "ibadet-tab",
+    screen: "ibadet",
+    route: "/ibadet",
+    title: "\u0130badet b\u00f6l\u00fcm\u00fc",
+    description: "Namaz rehberi, dualar, ibadet rehberi, k\u0131ble ve tespih ara\u00e7lar\u0131 burada toplan\u0131r.",
+    targetId: "ibadet.main",
     action: "navigate",
     navigateTo: "/daha-fazla",
     placement: "bottom",
