@@ -13,6 +13,7 @@ import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useTourTarget } from "../../../src/tour/AppTourProvider";
+import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
 
 function heatColor(count: number, max: number, isDark: boolean): string {
   if (count === 0) return isDark ? "#292524" : "#f5f5f4";
@@ -114,12 +115,6 @@ const HeatGrid = memo(function HeatGrid({
     </>
   );
 });
-
-type Verse = { surahId: number; ayahNumber: number };
-type MeaningEntry = [string, { forms: string[]; verses: Verse[] }];
-
-// Bu sayının altında ayette geçen anlamlar "Diğer anlamlar" altına katlanır.
-const PRIMARY_MIN_VERSES = 3;
 
 const MeaningGroup = memo(function MeaningGroup({
   meaning,
@@ -235,49 +230,11 @@ export default function RootDetailScreen() {
     }
   }, []);
 
-  const groups = useMemo(() => {
-    const empty = { primary: [] as MeaningEntry[], others: [] as MeaningEntry[] };
-    if (!data?.derivedWords) return empty;
-
-    const normalize = (value: string) => value.normalize("NFC").trim();
-
-    // Anlamları DOĞRUDAN say. (Eski "her formun ilk anlamını al" yaklaşımı,
-    // çok-anlamlı formlarda gerçek frekansı bozuyordu: ör. قول'de "denir" 17
-    // ayette geçtiği halde 0'a düşüp kayboluyordu. Bir form birden çok anlama
-    // girebilir; her anlam kendi ayet sayısıyla temsil edilsin.)
-    const meaningMap = new Map<string, { forms: string[]; verses: Verse[] }>();
-    for (const derivedWord of data.derivedWords) {
-      const key = normalize(derivedWord.meaning) || "—";
-      if (!meaningMap.has(key)) {
-        meaningMap.set(key, { forms: [], verses: [] });
-      }
-      const group = meaningMap.get(key)!;
-      if (!group.forms.some((form) => normalize(form) === normalize(derivedWord.word))) {
-        group.forms.push(derivedWord.word);
-      }
-      group.verses.push({ surahId: derivedWord.surahId, ayahNumber: derivedWord.ayahNumber });
-    }
-
-    // Baskın anlamlar önde; nadir (az ayetli) anlamlar "Diğer anlamlar" altında
-    // katlanır. Kök çok-anlamlı olduğunda (ör. عود → dönmek + bayram) tek-tük uç
-    // anlamlar ana listeyi kirletip "hata" gibi görünmesin.
-    const sorted = Array.from(meaningMap.entries()).sort(
-      (a, b) => b[1].verses.length - a[1].verses.length,
-    );
-    let primary = sorted.filter(([, g]) => g.verses.length >= PRIMARY_MIN_VERSES);
-    let others = sorted.filter(([, g]) => g.verses.length < PRIMARY_MIN_VERSES);
-    // Hiç baskın anlam yoksa en sık geçeni yine de ana listede göster.
-    if (primary.length === 0 && sorted.length > 0) {
-      primary = sorted.slice(0, 1);
-      others = sorted.slice(1);
-    }
-    // Tek bir "diğer" anlamı katlamak yerine ana listede bırak (katlamanın anlamı yok).
-    if (others.length === 1) {
-      primary = [...primary, ...others];
-      others = [];
-    }
-    return { primary, others };
-  }, [data?.derivedWords]);
+  // Gruplama + baskın/nadir ayrımı saf modülde (rootMeaningGroups.ts) — test edilir.
+  const groups = useMemo(
+    () => groupRootMeanings(data?.derivedWords),
+    [data?.derivedWords],
+  );
 
   // Akordiyonlar varsayılan kapalı — kullanıcı dokununca açılır/kapanır.
 
