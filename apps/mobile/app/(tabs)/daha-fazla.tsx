@@ -35,6 +35,7 @@ const SECTIONS: { title: string; items: Item[] }[] = [
     items: [
       { emoji: "🔔", label: "Bildirimler", sub: "Namaz vakti ve günlük ayet bildirimleri", route: "/bildirimler" },
       { emoji: "ℹ️", label: "Hakkında & Kaynaklar", sub: "Referanslar, versiyon bilgisi", route: "/hakkinda" },
+      { emoji: "🔒", label: "Gizlilik Politikası", sub: "Verileriniz nasıl korunuyor", route: "/gizlilik" },
       { emoji: "🧭", label: "Tanıtımı Tekrar Göster", sub: "Uygulama rehberini baştan başlat", action: "restartTour" },
     ],
   },
