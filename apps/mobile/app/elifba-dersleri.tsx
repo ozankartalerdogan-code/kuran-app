@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import type { DimensionValue } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
@@ -92,7 +93,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
             <Text style={pp.label}>Kartlar: {seenCount} / {ders.harf_sayisi}</Text>
             {pct === 100 && <Text style={[pp.label, { color: "#059669", fontWeight: "700" }]}>✓</Text>}
           </View>
-          <View style={pp.bar}><View style={[pp.fill, { width: `${pct}%` as any }]} /></View>
+          <View style={pp.bar}><View style={[pp.fill, { width: `${pct}%` as DimensionValue }]} /></View>
 
           {/* Test skoru */}
           {quizScore ? (
@@ -164,7 +165,7 @@ function PathNode({ ders, status, pct, onPress }: {
       {!isLocked && (
         <View style={nd.barBg}>
           <View style={[nd.barFill, {
-            width: `${pct}%` as any,
+            width: `${pct}%` as DimensionValue,
             backgroundColor: isComp ? "#059669" : "#f59e0b",
           }]} />
         </View>
@@ -305,7 +306,7 @@ export default function ElifbaDersleriScreen() {
             <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
           </View>
           <View style={s.overallBar}>
-            <View style={[s.overallFill, { width: `${overallPct}%` as any }]} />
+            <View style={[s.overallFill, { width: `${overallPct}%` as DimensionValue }]} />
           </View>
           {overallPct === 100 && (
             <Text style={s.overallDone}>🎉 Tüm dersler tamamlandı!</Text>
@@ -418,7 +419,7 @@ const nd = StyleSheet.create({
 const pp = StyleSheet.create({
   overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)", alignItems: "center", justifyContent: "center", padding: 16 },
   card:    {
-    width: "100%", maxWidth: 360 as any, backgroundColor: "#fff",
+    width: "100%", maxWidth: 360, backgroundColor: "#fff",
     borderRadius: 20, padding: 18, borderWidth: 1, borderColor: "#e7e5e4",
   },
   title:     { fontSize: 15, fontWeight: "700", color: "#1c1917" },

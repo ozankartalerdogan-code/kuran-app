@@ -3,6 +3,7 @@ import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
 } from "react-native";
 import { Stack, router } from "expo-router";
+import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/siyer_i_nebi.json";
@@ -66,7 +67,7 @@ function QuranRefChip({ refKey }: { refKey: string }) {
   return (
     <TouchableOpacity
       style={ev.refChip}
-      onPress={() => router.push(`/ayah/${surah}/${ayah}` as any)}
+      onPress={() => router.push(`/ayah/${surah}/${ayah}` as Href)}
       activeOpacity={0.75}
       accessibilityRole="button"
       accessibilityLabel={`${refKey} ayet referansı`}

@@ -12,6 +12,7 @@ try {
   if (UIManager.hasViewManagerConfig?.('LottieAnimationView')) LottieView = mod;
 } catch (_e) { /* noop */ }
 import { Stack } from "expo-router";
+import type { DimensionValue } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { storage } from "../src/lib/storage";
 import { MushafReader } from "../src/components/MushafReader";
@@ -271,7 +272,7 @@ export default function HatimScreen() {
                 <Text style={styles.progressCount}>{progress}/30</Text>
               </View>
               <View style={styles.progressBg}>
-                <View style={[styles.progressFill, { width: `${pct}%` as any }]} />
+                <View style={[styles.progressFill, { width: `${pct}%` as DimensionValue }]} />
               </View>
               <Text style={styles.progressPct}>%{pct}</Text>
 

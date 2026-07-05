@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
 import { router, Stack } from "expo-router";
+import type { Href } from "expo-router";
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
@@ -62,7 +63,7 @@ export default function NeOgreneyimScreen() {
             <TouchableOpacity
               key={item.title}
               style={[s.card, { backgroundColor: c.card, width: cardW }]}
-              onPress={() => { Haptics.selectionAsync(); router.push(item.route as any); }}
+              onPress={() => { Haptics.selectionAsync(); router.push(item.route as Href); }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={`${item.title}: ${item.desc}`}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import type { Href } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
@@ -43,8 +44,8 @@ export default function IbadetTab() {
 
   function handlePress(item: Item) {
     if (item.onPress) { item.onPress(); return; }
-    if (item.params) { router.push({ pathname: item.route as any, params: item.params }); return; }
-    if (item.route)  { router.push(item.route as any); }
+    if (item.params) { router.push({ pathname: item.route, params: item.params } as Href); return; }
+    if (item.route)  { router.push(item.route as Href); }
   }
 
   return (

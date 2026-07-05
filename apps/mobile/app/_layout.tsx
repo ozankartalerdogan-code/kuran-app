@@ -1,4 +1,5 @@
 import { Stack, router, useNavigationContainerRef } from "expo-router";
+import type { Href } from "expo-router";
 import { maybeAskReview } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
@@ -194,9 +195,9 @@ function RootLayout() {
     const data = lastNotificationResponse.notification.request.content.data as Record<string, unknown>;
     const t = setTimeout(() => {
       if (data?.surahId && data?.ayahNumber) {
-        router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as any);
+        router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as Href);
       } else if (data?.route) {
-        router.push(data.route as any);
+        router.push(data.route as Href);
       }
     }, 500); // Stack mount'u için kısa bekleme
     return () => clearTimeout(t);

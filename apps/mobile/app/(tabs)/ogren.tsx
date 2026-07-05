@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import type { Href } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
@@ -41,7 +42,7 @@ export default function OgrenTab() {
         <TouchableOpacity
           {...derslerTarget}
           style={[s.derslerCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}
-          onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as any); }}
+          onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as Href); }}
           activeOpacity={0.8}
           accessibilityRole="button"
           accessibilityLabel="Dersler"
@@ -65,7 +66,7 @@ export default function OgrenTab() {
                   key={item.route}
                   {...(item.route === "/hadisler" ? hadithTarget : {})}
                   style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}
-                  onPress={() => router.push(item.route as any)}
+                  onPress={() => router.push(item.route as Href)}
                   activeOpacity={0.8}
                   accessibilityRole="button"
                   accessibilityLabel={item.label}

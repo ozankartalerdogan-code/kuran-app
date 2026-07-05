@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
 import { useDailyContent } from "../../src/hooks/useDailyContent";
@@ -71,7 +72,7 @@ function HomeContent() {
 
   const handleSearchPress = useCallback(() => {
     logFeature("home_search");
-    router.push("/search" as any);
+    router.push("/search" as Href);
   }, []);
 
   const QUICK_ACTIONS: QuickAction[] = useMemo(() => [

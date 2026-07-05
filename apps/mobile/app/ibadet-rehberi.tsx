@@ -4,6 +4,7 @@ import {
   StyleSheet, Pressable,
 } from "react-native";
 import { router, Stack, useLocalSearchParams } from "expo-router";
+import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
@@ -326,7 +327,7 @@ function AyetListesi({ ayetler }: { ayetler: AyetRef[] }) {
       <Text style={s.ayetBoxTitle}>📖 İlgili Ayetler</Text>
       {ayetler.map((a, i) => (
         <TouchableOpacity key={i} style={s.ayetRow}
-          onPress={() => router.push(`/ayah/${a.sureId}/${a.ayetNo}` as any)} activeOpacity={0.75}
+          onPress={() => router.push(`/ayah/${a.sureId}/${a.ayetNo}` as Href)} activeOpacity={0.75}
           accessibilityRole="button" accessibilityLabel={`${a.sureAdi}, ${a.ayetNo}. ayeti aç`}>
           <View style={s.keyBadge}><Text style={s.keyText}>{a.sureId}:{a.ayetNo}</Text></View>
           <View style={{ flex:1 }}>

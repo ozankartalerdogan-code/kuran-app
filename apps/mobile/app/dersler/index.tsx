@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
+import type { DimensionValue } from "react-native";
+import type { Href } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import { Stack, router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -55,7 +57,7 @@ export default function DerslerScreen() {
         key={item.id}
         {...(item.id === "namaz" ? firstCardTarget : {})}
         style={[s.card, { backgroundColor: c.card, borderColor: done ? "#4ade80" : "#c9a84c" }]}
-        onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as any); }}
+        onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as Href); }}
         activeOpacity={0.8}
         accessibilityRole="button"
         accessibilityLabel={`${item.baslik}, ${item.kartSayisi} ${item.birim ?? "kart"}${done ? ", tamamlandı" : ""}`}
@@ -68,7 +70,7 @@ export default function DerslerScreen() {
         <Text style={s.kartBilgi}>{item.kartSayisi} {item.birim ?? "kart"} · ~{item.sure} dk</Text>
         {pct > 0 && !item.route && (
           <View style={[s.progTrack, { backgroundColor: c.border }]}>
-            <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as any, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
+            <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
           </View>
         )}
       </TouchableOpacity>

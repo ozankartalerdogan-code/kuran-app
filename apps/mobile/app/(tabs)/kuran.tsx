@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import type { Href } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { logFeature } from "../../src/lib/analytics";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
@@ -29,7 +30,7 @@ export default function KuranTab() {
 
   const handleCardPress = (card: KuranCard) => {
     logFeature("kuran_tab_card", { card: card.id });
-    router.push(card.route as any);
+    router.push(card.route as Href);
   };
 
   return (

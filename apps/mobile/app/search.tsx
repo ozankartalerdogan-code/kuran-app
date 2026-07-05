@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { router, useLocalSearchParams } from "expo-router";
+import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { api, prefetchAyah, type SearchResponse, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
@@ -286,7 +287,7 @@ export default function SearchScreen() {
 
   const handleTagChip = useCallback((tag: string) => {
     Keyboard.dismiss();
-    router.push(`/search?tag=${encodeURIComponent(tag)}` as any);
+    router.push(`/search?tag=${encodeURIComponent(tag)}` as Href);
   }, []);
 
   const handleSubmit = useCallback(() => {
@@ -309,9 +310,9 @@ export default function SearchScreen() {
 
   const handlePageChange = useCallback((newPage: number) => {
     if (params.type === 'tag' && params.q) {
-      router.push(`/search?q=${encodeURIComponent(params.q)}&type=tag&page=${newPage}` as any);
+      router.push(`/search?q=${encodeURIComponent(params.q)}&type=tag&page=${newPage}` as Href);
     } else if (params.tag) {
-      router.push(`/search?tag=${encodeURIComponent(params.tag)}&page=${newPage}` as any);
+      router.push(`/search?tag=${encodeURIComponent(params.tag)}&page=${newPage}` as Href);
     }
   }, [params.type, params.q, params.tag]);
 
@@ -344,7 +345,7 @@ export default function SearchScreen() {
         return (
           <TouchableOpacity
             style={styles.kollCard}
-            onPress={() => router.push(item.item.route as any)}
+            onPress={() => router.push(item.item.route as Href)}
             activeOpacity={0.75}
             accessibilityRole="button"
             accessibilityLabel={`${item.item.baslik}: ${item.item.aciklama}`}

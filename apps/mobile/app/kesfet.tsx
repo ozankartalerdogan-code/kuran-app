@@ -5,6 +5,7 @@ import {
   StyleSheet, Platform, BackHandler,
 } from "react-native";
 import { router, Stack } from "expo-router";
+import type { Href } from "expo-router";
 import { useColors } from "../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -136,7 +137,7 @@ function FeaturedCard({ item }: { item: typeof FEATURED_THEMES[number] }) {
   return (
     <TouchableOpacity
       style={[ft.card, { backgroundColor: item.bg }]}
-      onPress={() => router.push(`/search?tag=${encodeURIComponent(item.kod)}` as any)}
+      onPress={() => router.push(`/search?tag=${encodeURIComponent(item.kod)}` as Href)}
       activeOpacity={0.8}
       accessibilityRole="button"
       accessibilityLabel={`${item.baslik}: ${item.aciklama}`}
@@ -181,7 +182,7 @@ const ThemeAccordion = React.memo(function ThemeAccordion({ grup }: { grup: type
             <TouchableOpacity
               key={t.kod}
               style={ta.temaRow}
-              onPress={() => router.push({ pathname: '/search', params: { q: encodeURIComponent(t.kod), type: 'tag' } } as any)}
+              onPress={() => router.push({ pathname: '/search', params: { q: encodeURIComponent(t.kod), type: 'tag' } } as Href)}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={`${t.isim}, ${t.ayet} ayet`}
@@ -263,7 +264,7 @@ export default function KesfetScreen() {
         >
           <View style={tools.grid}>
             {REHBERLER.map(r => (
-              <HubCard key={r.route} emoji={r.emoji} label={r.label} sub={r.sub} bg={r.bg} border={r.border} onPress={() => router.push(r.route as any)} />
+              <HubCard key={r.route} emoji={r.emoji} label={r.label} sub={r.sub} bg={r.bg} border={r.border} onPress={() => router.push(r.route as Href)} />
             ))}
             {SECTIONS.map(sec => (
               <HubCard key={sec.id} emoji={sec.emoji} label={sec.label} sub={sec.sub} bg={sec.bg} border={sec.border} onPress={() => setBolum(sec.id)} />

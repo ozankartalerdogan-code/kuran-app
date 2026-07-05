@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import type { Href } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { useAppTour, useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
@@ -50,7 +51,7 @@ export default function DahaFazlaTab() {
 
   function handlePress(item: Item) {
     if (item.action === "restartTour") { void restartTour(); return; }
-    if (item.route) router.push(item.route as any);
+    if (item.route) router.push(item.route as Href);
   }
 
   return (
