@@ -383,14 +383,14 @@ export default function OgrenScreen() {
                   onFlashcard={() => {
                     setPopupId(null);
                     router.push({
-                      pathname: "/ogren/[dersId]",
+                      pathname: "/elifba/[dersId]",
                       params: { dersId: String(popupDers.id), baslik: shortBaslik(popupDers.baslik) },
                     });
                   }}
                   onQuiz={() => {
                     setPopupId(null);
                     router.push({
-                      pathname: "/ogren/[dersId]",
+                      pathname: "/elifba/[dersId]",
                       params: { dersId: String(popupDers.id), mode: "quiz", baslik: shortBaslik(popupDers.baslik) },
                     });
                   }}

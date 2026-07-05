@@ -229,7 +229,7 @@ const KAYITLAR: Kayit[] = RAW_KAYITLAR.filter((k) => {
 });
 
 const EKSTRA_KARTLAR: EkstraKart[] = [
-  { id: "elifba", baslik: "Elif-Ba", ikon: "\uD83D\uDD24", kartSayisi: 9, birim: "ders", sure: 20, route: "/ogren" },
+  { id: "elifba", baslik: "Elif-Ba", ikon: "\uD83D\uDD24", kartSayisi: 9, birim: "ders", sure: 20, route: "/elifba" },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

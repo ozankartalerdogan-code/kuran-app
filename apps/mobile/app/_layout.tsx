@@ -116,8 +116,8 @@ function AppContent() {
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
         <Stack.Screen name="surah/[surahId]/ayah/[ayahNumber]" options={{ headerShown: false }} />
         <Stack.Screen name="tafsir/[surahId]"               options={{ headerBackTitle: "Geri" }} />
-        <Stack.Screen name="ogren/index"                           options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="ogren/[dersId]"                       options={{ headerBackTitle: "Dersler" }} />
+        <Stack.Screen name="elifba/index"                          options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="elifba/[dersId]"                      options={{ headerBackTitle: "Dersler" }} />
         <Stack.Screen name="ibadet-rehberi"                  options={{ title: "İbadet Rehberi", headerBackTitle: "Geri" }} />
         <Stack.Screen name="namaz"                          options={{ title: "Namaz & İbadet", headerBackTitle: "Geri" }} />
         <Stack.Screen name="bildirimler"                    options={{ title: "Bildirimler", headerBackTitle: "Geri" }} />
@@ -144,7 +144,7 @@ function AppContent() {
         <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
         <Stack.Screen name="dualar"                              options={{ title: "Dualar ve Zikirler", headerBackTitle: "Geri" }} />
         <Stack.Screen name="esma"                                options={{ title: "Esmaül Hüsna", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="ogren/harf-i-tarif"                  options={{ title: "Harf-i Tarif", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="elifba/harf-i-tarif"                 options={{ title: "Harf-i Tarif", headerBackTitle: "Geri" }} />
       </Stack>
       </AppTourProvider>
     </SafeAreaProvider>
