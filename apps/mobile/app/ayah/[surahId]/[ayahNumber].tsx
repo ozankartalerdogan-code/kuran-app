@@ -308,10 +308,12 @@ function SegmentedTabs({
   active,
   onChange,
   colors,
+  analysisTarget,
 }: {
   active: TabId;
   onChange: (id: TabId) => void;
   colors: ThemeColors;
+  analysisTarget?: ReturnType<typeof useTourTarget>;
 }) {
   const tabs: { id: TabId; label: string }[] = [
     { id: "meal", label: "Meal" },
@@ -327,6 +329,7 @@ function SegmentedTabs({
         return (
           <TouchableOpacity
             key={t.id}
+            {...(t.id === "analysis" && analysisTarget ? analysisTarget : {})}
             style={[
               styles.tabItem,
               isActive && { backgroundColor: colors.accent },
@@ -402,6 +405,7 @@ export default function AyahDetailScreen() {
   const colors = isDark ? darkColors : lightColors;
   const insets = useSafeAreaInsets();
   const ayahTarget = useTourTarget("ayah.main");
+  const analysisTabTarget = useTourTarget("ayah.analysis");
 
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
@@ -699,7 +703,7 @@ export default function AyahDetailScreen() {
         <SurahAboutAccordion surahId={surahId} colors={colors} />
 
         {/* ═══ Sekmeler ═══ */}
-        <SegmentedTabs active={activeTab} onChange={setActiveTab} colors={colors} />
+        <SegmentedTabs active={activeTab} onChange={setActiveTab} colors={colors} analysisTarget={analysisTabTarget} />
 
         {/* ═══ Sekme İçerikleri ═══ */}
         {activeTab === "meal" && (

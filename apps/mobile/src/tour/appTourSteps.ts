@@ -1,4 +1,4 @@
-export const APP_TOUR_VERSION = 5;
+export const APP_TOUR_VERSION = 6;
 
 export type TourPlacement = "top" | "bottom" | "center";
 export type TourAction = "next" | "navigate" | "finish";
@@ -86,6 +86,17 @@ export const APP_TOUR_STEPS: AppTourStep[] = [
     title: "Ayet detay\u0131",
     description: "Meal, kelime analizi, k\u00f6kler, favori ve not alma i\u015flemleri bu detay ekran\u0131nda.",
     targetId: "ayah.main",
+    action: "navigate",
+    navigateTo: "/ayah/1/1",
+    placement: "bottom",
+  },
+  {
+    id: "ayah-analysis",
+    screen: "ayah",
+    route: "/ayah/1/1",
+    title: "Analiz sekmesi",
+    description: "Ayetin kelime kelime kar\u015f\u0131l\u0131\u011f\u0131n\u0131 ve meal ile literal \u00e7eviri aras\u0131ndaki anlam farklar\u0131n\u0131 bu sekmeden inceleyebilirsin.",
+    targetId: "ayah.analysis",
     action: "navigate",
     navigateTo: "/ogren",
     placement: "bottom",
