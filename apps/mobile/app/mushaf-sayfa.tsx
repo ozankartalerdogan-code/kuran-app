@@ -14,6 +14,7 @@ import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam } from "../src/lib/mushafSayfa";
+import { RENK, parseTajweed, TAJWEED_LEGEND } from "../src/lib/tajweed";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
@@ -62,7 +63,23 @@ type YuklemeDurumu =
   | { status: "error" }
   | { status: "ready"; bloklar: Blok[] };
 
-const MushafSayfasi = React.memo(function MushafSayfasi({ page, width }: { page: number; width: number }) {
+// Tecvid açıkken ayet metni renkli segmentlerle dizilir (markup yoksa düz metin).
+function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
+  if (tajweed && ayet.tajweed) {
+    return (
+      <>
+        {parseTajweed(ayet.tajweed).map((s, i) =>
+          s.code && RENK[s.code]
+            ? <Text key={i} style={{ color: RENK[s.code] }}>{s.t}</Text>
+            : <Text key={i}>{s.t}</Text>,
+        )}
+      </>
+    );
+  }
+  return <>{ayet.arabic ?? ""}</>;
+}
+
+const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed }: { page: number; width: number; tajweed: boolean }) {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { fontScale } = useFontScale();
@@ -139,12 +156,22 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width }: { page:
                         router.push(`/ayah/${a.surahId}/${a.ayahNumber}`);
                       }}
                     >
-                      {a.arabic ?? ""}
+                      <AyetMetni ayet={a} tajweed={tajweed} />
                       <Text style={{ color: c.accent }}>{` ﴿${arapRakam(a.ayahNumber)}﴾ `}</Text>
                     </Text>
                   ))}
                 </Text>
               ),
+            )}
+            {tajweed && (
+              <View style={st.legend}>
+                {TAJWEED_LEGEND.map((l) => (
+                  <View key={l.ad} style={st.legendItem}>
+                    <View style={[st.legendDot, { backgroundColor: l.renk }]} />
+                    <Text style={[st.legendText, { color: c.textMuted }]}>{l.ad}</Text>
+                  </View>
+                ))}
+              </View>
             )}
             <Text style={[st.sayfaNo, { color: c.textMuted }]}>— {arapRakam(page)} · {page} —</Text>
           </View>
@@ -172,6 +199,8 @@ export default function MushafSayfaEkrani() {
   const [page, setPage] = useState(1);
   const [jumpOpen, setJumpOpen] = useState(false);
   const [jumpVal, setJumpVal] = useState("");
+  // Tecvid renklendirmesi — ayet ekranı ve mushaf moduyla ORTAK kalıcı tercih.
+  const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
   const [initialPage, setInitialPage] = useState<number | null>(null);
 
@@ -224,9 +253,18 @@ export default function MushafSayfaEkrani() {
     setJumpVal("");
   }, [jumpVal, sayfayaGit]);
 
+  const handleTajweedToggle = useCallback(() => {
+    setTajweed((prev) => {
+      const next = !prev;
+      storage.setString(STORAGE_KEYS.tajweed, next ? "1" : "0").catch(() => {});
+      logFeature("mushaf_sayfa_tajweed_toggle", { enabled: String(next) });
+      return next;
+    });
+  }, []);
+
   const renderItem = useCallback(
-    ({ item }: { item: number }) => <MushafSayfasi page={item} width={width} />,
-    [width],
+    ({ item }: { item: number }) => <MushafSayfasi page={item} width={width} tajweed={tajweed} />,
+    [width, tajweed],
   );
   const getItemLayout = useCallback(
     (_: unknown, index: number) => ({ length: width, offset: width * index, index }),
@@ -254,6 +292,16 @@ export default function MushafSayfaEkrani() {
             <Text style={[st.headerSub, { color: c.textMuted }]}>Cüz {cuz} · Sayfa {page}/{SAYFA_SAYISI} ▾</Text>
           </TouchableOpacity>
           <View style={st.headerBtns}>
+            <TouchableOpacity
+              style={[st.fontBtn, { borderColor: tajweed ? c.accent : c.border }]}
+              onPress={handleTajweedToggle}
+              hitSlop={6} activeOpacity={0.7}
+              accessibilityRole="switch"
+              accessibilityState={{ checked: tajweed }}
+              accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+            >
+              <Ionicons name="color-palette-outline" size={16} color={tajweed ? c.accent : c.textSecondary} />
+            </TouchableOpacity>
             <TouchableOpacity
               style={[st.fontBtn, { borderColor: c.border }, fontScale <= FONT_SCALE_MIN && st.fontBtnOff]}
               onPress={() => changeFontScale(-FONT_SCALE_STEP)}
@@ -370,6 +418,11 @@ const st = StyleSheet.create({
     writingDirection: "rtl",
     width: "100%",
   },
+
+  legend:     { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 12 },
+  legendItem: { flexDirection: "row", alignItems: "center", gap: 5 },
+  legendDot:  { width: 10, height: 10, borderRadius: 3 },
+  legendText: { fontSize: 10 },
 
   sayfaNo: { textAlign: "center", fontSize: 12, marginTop: 12 },
 });

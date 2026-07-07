@@ -245,7 +245,7 @@ export type VerseListResponse = {
 export type MushafPageResponse = {
   page: number;
   juz: number;
-  verses: { surahId: number; ayahNumber: number; arabic: string | null }[];
+  verses: { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
 
@@ -407,12 +407,14 @@ export const api = {
   },
 
   mushaf: {
+    // v=2: tecvid alanı eklendi — parametre CDN'deki eski (tecvidsiz) yanıtları,
+    // anahtar da yerel cache'teki eskileri atlatır.
     page: (page: number) =>
       withCacheFallback(
-        `cache_mushaf_p${page}`,
+        `cache_mushaf_v2_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}`, undefined, signal),
+          request<MushafPageResponse>(`/mushaf?page=${page}&v=2`, undefined, signal),
         ),
       ),
   },

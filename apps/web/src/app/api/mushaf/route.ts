@@ -42,13 +42,13 @@ function sayfaAraligi(page: number) {
   return { bas: { surahId: s1, ayahNumber: a1 }, son };
 }
 
-interface VerseRow { surah_id: number; ayah_number: number; arabic_text: string | null }
+interface VerseRow { surah_id: number; ayah_number: number; arabic_text: string | null; arabic_tajweed: string | null }
 interface SurahRow { id: number; adi_turkce: string; adi_arapca: string }
 
 export type MushafPageResponse = {
   page: number;
   juz: number;
-  verses: { surahId: number; ayahNumber: number; arabic: string | null }[];
+  verses: { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
 
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
   try {
     const [verses, surahs] = await Promise.all([
       dbAll<VerseRow>(
-        `SELECT surah_id, ayah_number, arabic_text FROM verses
+        `SELECT surah_id, ayah_number, arabic_text, arabic_tajweed FROM verses
          WHERE (surah_id > ? OR (surah_id = ? AND ayah_number >= ?))
            AND (surah_id < ? OR (surah_id = ? AND ayah_number <= ?))
          ORDER BY surah_id, ayah_number`,
@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
     const body: MushafPageResponse = {
       page,
       juz,
-      verses: verses.map((v) => ({ surahId: v.surah_id, ayahNumber: v.ayah_number, arabic: v.arabic_text })),
+      verses: verses.map((v) => ({ surahId: v.surah_id, ayahNumber: v.ayah_number, arabic: v.arabic_text, tajweed: v.arabic_tajweed })),
       surahs: surahs.map((s) => ({ id: s.id, name: s.adi_turkce, arabicName: s.adi_arapca })),
     };
 
