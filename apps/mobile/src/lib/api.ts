@@ -97,7 +97,8 @@ async function withRetry<T>(
         err.retryAfter !== undefined &&
         !isLast
       ) {
-        await new Promise((r) => setTimeout(r, err.retryAfter! * 1000));
+        const waitMs = err.retryAfter * 1000;
+        await new Promise((r) => setTimeout(r, waitMs));
         continue;
       }
 
@@ -303,6 +304,14 @@ const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 // okuyabilmesi için dışa açılır — sürüm ileride tekrar artınca burada da otomatik değişir.
 export const dailyCacheVkey = vkey;
 
+// Günün ayeti/duası cache anahtarı — YEREL gün (UTC değil). toISOString() UTC
+// gününü verir; Türkiye'de (UTC+3) gece 00:00–03:00 arası hâlâ dünkü içerik
+// gösterilir/yenilenmezdi. useStreak ve namazNotifications da yerel gün kullanır.
+export function dailyCacheKey(d = new Date()): string {
+  const day = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  return `cache_daily_${day}`;
+}
+
 // Uçuştaki (in-flight) istekler — aynı anahtar için eşzamanlı iki çağrı tek ağ
 // isteğini paylaşır. Örn. link pressIn prefetch'i + ekran mount'u aynı ayeti
 // isterse yalnız 1 fetch olur (çift indirmeyi ve boşa API maliyetini önler).
@@ -490,14 +499,12 @@ export const api = {
   },
 
   daily: {
-    get: () => {
-      const today = new Date().toISOString().slice(0, 10);
-      return withCacheFallback(
-        `cache_daily_${today}`,
+    get: () =>
+      withCacheFallback(
+        dailyCacheKey(),
         CACHE_TTL_DAILY,
         () => withRetry((signal) => request<DailyResponse>("/daily", undefined, signal)),
-      );
-    },
+      ),
   },
 
   notifications: {

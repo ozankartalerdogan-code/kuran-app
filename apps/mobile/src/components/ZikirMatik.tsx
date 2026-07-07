@@ -107,7 +107,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const tapAnim       = useRef(new Animated.Value(1)).current;
   const completingRef = useRef(false);
   const autoResetRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const audioCtxRef   = useRef<any>(null);
+  const audioCtxRef   = useRef<AudioContext | null>(null);
   // Hedefi ref'te tut: tamamlanma yalnız sayım ARTINCA tetiklensin, hedef değişince değil.
   const targetRef     = useRef(target);
   targetRef.current   = target;
@@ -155,7 +155,9 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const playFeedback = useCallback((success: boolean) => {
     if (Platform.OS === "web") {
       try {
-        const AC = (globalThis as any).AudioContext ?? (globalThis as any).webkitAudioContext;
+        // Eski Safari webkitAudioContext'i DOM tiplerinde yok — yalnız o alan için ek tip.
+        const g = globalThis as typeof globalThis & { webkitAudioContext?: typeof AudioContext };
+        const AC = g.AudioContext ?? g.webkitAudioContext;
         if (!AC) return;
         let ctx = audioCtxRef.current;
         if (!ctx) { ctx = new AC(); audioCtxRef.current = ctx; }

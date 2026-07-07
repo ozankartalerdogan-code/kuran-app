@@ -1,5 +1,8 @@
 import { Animated, Easing as NativeEasing } from 'react-native';
 
+// Shim: gerçek kütüphanenin serbest fonksiyon imzalarını taklit eder — any bilinçli
+// (unknown, tipli handler'ların atanmasını contravariance yüzünden reddeder).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyFunction = (...args: any[]) => any;
 type SharedValue<T> = { value: T };
 

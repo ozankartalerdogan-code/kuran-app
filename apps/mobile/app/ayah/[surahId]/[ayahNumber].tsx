@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Share,
   StyleSheet,
-  useColorScheme,
   Alert,
   Platform,
 } from "react-native";
@@ -18,6 +17,7 @@ import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonL
 import { TajweedText } from "../../../src/components/TajweedText";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
+import { useColors } from "../../../src/hooks/useColors";
 import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
 import * as Haptics from 'expo-haptics';
@@ -124,7 +124,9 @@ function getRootDisplayText(word: AyahDetailResponse["words"][number]): string {
   return "Kök bilgisi yok";
 }
 
-function isRootClickable(word: AyahDetailResponse["words"][number]): boolean {
+function isRootClickable(
+  word: AyahDetailResponse["words"][number],
+): word is AyahDetailResponse["words"][number] & { root: string } {
   return Boolean(word.root && word.root.trim().length > 0);
 }
 
@@ -400,8 +402,9 @@ const darkColors: ThemeColors = {
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function AyahDetailScreen() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
+  // Uygulama temasını izle (useColors) — doğrudan useColorScheme kullanılsaydı
+  // ana sayfadaki tema düğmesi bu ekranı etkilemezdi (yalnız sistem temasını izlerdi).
+  const { isDark } = useColors();
   const colors = isDark ? darkColors : lightColors;
   const insets = useSafeAreaInsets();
   const ayahTarget = useTourTarget("ayah.main");
@@ -788,7 +791,7 @@ export default function AyahDetailScreen() {
                         </Text>
                         {isRootClickable(w) ? (
                           <TouchableOpacity
-                            onPress={() => navToRoot(w.root!)}
+                            onPress={() => navToRoot(w.root)}
                             activeOpacity={0.6}
                             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                             accessibilityRole="button"
@@ -869,7 +872,7 @@ export default function AyahDetailScreen() {
                   {data.anaTema && (
                     <TouchableOpacity
                       style={[styles.tag, styles.tagPrimary]}
-                      onPress={() => router.push(`/search?tag=${encodeURIComponent(data.anaTema!)}&page=1`)}
+                      onPress={() => { if (data.anaTema) router.push(`/search?tag=${encodeURIComponent(data.anaTema)}&page=1`); }}
                       activeOpacity={0.7}
                       accessibilityRole="button"
                       accessibilityLabel={`${data.anaTema} etiketine göre ara`}

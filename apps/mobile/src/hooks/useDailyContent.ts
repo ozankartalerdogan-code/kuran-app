@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { api, dailyCacheVkey } from "../lib/api";
+import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
 
@@ -125,7 +125,7 @@ export function useDailyContent(): UseDailyContentResult {
 
     // 0. Günün ayeti + duasını anında göster — bugünün cache'ini doğrudan oku
     try {
-      const cacheKey = `cache_daily_${new Date().toISOString().slice(0, 10)}`;
+      const cacheKey = dailyCacheKey();
       const snap =
         (await storage.getJSON<{
           ts: number;

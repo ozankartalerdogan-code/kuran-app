@@ -75,8 +75,8 @@ function buildModuleLessonBody(lesson: Record<string, unknown>): string {
 // dizi tasavvufi tasnifin Kur'an'da zorunlu tek şema gibi görünmesini önlemek için
 // dersin İLK kartı olarak gösterilir — aksi halde bu not yalnız JSON'da kalır,
 // kullanıcı hiç görmez.
-function buildMethodologyIntroCard(raw: any, moduleId: string) {
-  const methodology = toRecord(raw?.methodology);
+function buildMethodologyIntroCard(raw: unknown, moduleId: string) {
+  const methodology = toRecord(toRecord(raw)?.methodology);
   if (!methodology) return null;
   const notice = typeof methodology.importantNotice === "string" ? methodology.importantNotice : "";
   const classification = typeof methodology.classificationNote === "string" ? methodology.classificationNote : "";
@@ -91,13 +91,14 @@ function buildMethodologyIntroCard(raw: any, moduleId: string) {
   };
 }
 
-function normalizeLessonModule(raw: any, fallbackIcon: string) {
-  if (raw?.kartlar) return raw;
+function normalizeLessonModule(raw: unknown, fallbackIcon: string) {
+  const r = toRecord(raw);
+  if (r?.kartlar) return raw;
 
-  const moduleId = typeof raw?.moduleId === "string" ? raw.moduleId : "module";
-  const baslik = typeof raw?.title === "string" ? raw.title : moduleId;
-  const aciklama = typeof raw?.subtitle === "string" ? raw.subtitle : "";
-  const lessons = Array.isArray(raw?.lessons) ? raw.lessons : [];
+  const moduleId = typeof r?.moduleId === "string" ? r.moduleId : "module";
+  const baslik = typeof r?.title === "string" ? r.title : moduleId;
+  const aciklama = typeof r?.subtitle === "string" ? r.subtitle : "";
+  const lessons = Array.isArray(r?.lessons) ? r.lessons : [];
   const methodologyCard = buildMethodologyIntroCard(raw, moduleId);
 
   const lessonCards = lessons
@@ -128,12 +129,14 @@ function normalizeLessonModule(raw: any, fallbackIcon: string) {
   };
 }
 
-function normalizeQuizModule(raw: any, fallbackId: string, fallbackTitle: string) {
-  if (raw?.sorular) return raw;
+function normalizeQuizModule(raw: unknown, fallbackId: string, fallbackTitle: string) {
+  const r = toRecord(raw);
+  if (r?.sorular) return raw;
 
   const harfler = ["A", "B", "C", "D", "E", "F"];
-  const sorular = Array.isArray(raw?.questions)
-    ? raw.questions
+  const questions = r?.questions;
+  const sorular = Array.isArray(questions)
+    ? questions
         .map((item: unknown) => {
           const question = toRecord(item);
           if (!question) return null;
@@ -156,15 +159,16 @@ function normalizeQuizModule(raw: any, fallbackId: string, fallbackTitle: string
 
   return {
     quiz_id: fallbackId,
-    baslik: typeof raw?.title === "string" ? raw.title : fallbackTitle,
+    baslik: typeof r?.title === "string" ? r.title : fallbackTitle,
     toplam_soru: sorular.length,
     sorular,
   };
 }
 
-function sumLessonMinutes(raw: any): number {
-  if (!Array.isArray(raw?.lessons)) return 10;
-  return raw.lessons.reduce((total: number, item: unknown) => {
+function sumLessonMinutes(raw: unknown): number {
+  const lessons = toRecord(raw)?.lessons;
+  if (!Array.isArray(lessons)) return 10;
+  return lessons.reduce((total: number, item: unknown) => {
     const lesson = toRecord(item);
     const minutes = typeof lesson?.estimatedMinutes === "number" ? lesson.estimatedMinutes : 0;
     return total + minutes;

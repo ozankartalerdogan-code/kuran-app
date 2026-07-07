@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import {
   requestNotificationPermission,
-  fetchPrayerTimes,
+  fetchPrayerDays,
   applyNotifications,
   cancelNamazNotifications,
   NOTIF_KEY,
@@ -16,6 +16,7 @@ import {
   SCHED_DAY_KEY,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
+import { useColors } from "../src/hooks/useColors";
 
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
@@ -49,6 +50,7 @@ async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback
 
 export default function BildirimlerScreen() {
   const insets = useSafeAreaInsets();
+  const c = useColors();
 
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
@@ -97,9 +99,9 @@ export default function BildirimlerScreen() {
       return false;
     }
     const { lat, lng, isFallback } = await getUserLocation();
-    const times = await fetchPrayerTimes(lat, lng);
-    if (!times) throw new Error("no-times");
-    await applyNotifications({ times, prayer: prayerOn, dailyVerse: dailyOn });
+    const days = await fetchPrayerDays(lat, lng);
+    if (!days) throw new Error("no-times");
+    await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
     await storage.setString(SCHED_DAY_KEY, localDayStr());
     return isFallback;
   }
@@ -150,16 +152,16 @@ export default function BildirimlerScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Bildirimler" }} />
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
-        <Text style={styles.intro}>
+      <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
+        <Text style={[styles.intro, { color: c.textMuted }]}>
           İkisi de varsayılan olarak açıktır. İstediğin zaman buradan kapatabilirsin, birbirlerinden bağımsızdır.
         </Text>
 
         {/* Namaz Vakti Bildirimleri */}
-        <View style={styles.notifCard}>
+        <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.notifTitle}>🔔 Namaz Vakti Bildirimleri</Text>
-            <Text style={styles.notifSub}>
+            <Text style={[styles.notifTitle, { color: c.text }]}>🔔 Namaz Vakti Bildirimleri</Text>
+            <Text style={[styles.notifSub, { color: c.textMuted }]}>
               {notifEnabled
                 ? usingFallback
                   ? "İstanbul için bildirim planlandı (konum izni verilmedi)"
@@ -180,10 +182,10 @@ export default function BildirimlerScreen() {
         </View>
 
         {/* Günlük Ayet & Dua Bildirimi (bağımsız toggle) */}
-        <View style={styles.notifCard}>
+        <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.notifTitle}>📖 Günlük Ayet & Dua</Text>
-            <Text style={styles.notifSub}>
+            <Text style={[styles.notifTitle, { color: c.text }]}>📖 Günlük Ayet & Dua</Text>
+            <Text style={[styles.notifSub, { color: c.textMuted }]}>
               {dailyVerseEnabled
                 ? "Her gün 2 kez — namaz vakitleriyle çakışmayan saatlerde"
                 : "Günün Ayeti ve Günün Duası'nı bildirimle al"}
@@ -201,7 +203,7 @@ export default function BildirimlerScreen() {
           }
         </View>
 
-        <Text style={styles.note}>
+        <Text style={[styles.note, { color: c.textMuted }]}>
           Bildirimler için konum (yaklaşık) ve bildirim izni gerekir. Namaz vakitlerini hesaplamak için konumunuz Aladhan.com servisine gönderilir; bizim sunucularımızda saklanmaz.
         </Text>
       </ScrollView>

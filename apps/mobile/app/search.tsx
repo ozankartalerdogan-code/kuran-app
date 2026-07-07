@@ -514,7 +514,7 @@ export default function SearchScreen() {
                 {d.suggestedSurah && (
                   <TouchableOpacity
                     style={styles.suggestionBox}
-                    onPress={() => router.push(`/surah/${d.suggestedSurah!.id}`)}
+                    onPress={() => { const s = d.suggestedSurah; if (s) router.push(`/surah/${s.id}`); }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
                     accessibilityLabel={`${d.suggestedSurah.name} suresini aç`}

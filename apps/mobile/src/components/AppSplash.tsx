@@ -27,10 +27,12 @@ export function AppSplash({ onFinish }: AppSplashProps) {
     );
     dotAnims.forEach(a => a.start());
 
+    // Marka görünürlüğü için kısa sabit bekleme — 1000 ms açılışı gereksiz
+    // uzatıyordu; 600 ms yeterli (fontlar çoğu cihazda bundan önce hazır).
     const timer = setTimeout(() => {
       dotAnims.forEach(a => a.stop());
       onFinish();
-    }, 1000);
+    }, 600);
 
     return () => {
       clearTimeout(timer);

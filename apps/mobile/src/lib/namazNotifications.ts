@@ -74,7 +74,100 @@ export async function requestNotificationPermission(): Promise<boolean> {
   return status === "granted";
 }
 
-// Aladhan API'den namaz vakitlerini al
+// Bir güne ait vakitler + o günün takvim tarihi (çok-günlü planlama için).
+export type DayTimes = { date: Date; times: PrayerTimes };
+
+// Kaç gün ileriye planlanır. 6 vakit × 7 gün + 2 günlük ayet/dua = 44 bildirim —
+// iOS'un 64 planlı bildirim limitinin altında. Eskiden DAILY tetikleyici tek
+// güne kuruluyordu; uygulama günlerce açılmazsa vakitler (gün be gün kayar)
+// 10+ dk şaşabiliyordu. Şimdi 7 günün GERÇEK vakitleri ayrı ayrı planlanır.
+const SCHEDULE_DAYS = 7;
+
+// Aladhan takvim yanıtındaki saatler "05:03 (+03)" biçiminde gelebilir → "05:03"e indir.
+function sanitizeTimes(raw: Record<string, string>): PrayerTimes {
+  const out: PrayerTimes = {};
+  for (const [k, v] of Object.entries(raw)) {
+    const m = typeof v === "string" ? v.match(/^(\d{1,2}:\d{2})/) : null;
+    if (m) out[k] = m[1];
+  }
+  return out;
+}
+
+// Aladhan takvim ucundan bir ayın tüm günlerini çek (tek istek/ay).
+async function fetchMonthCalendar(
+  lat: number,
+  lng: number,
+  year: number,
+  month: number, // 1-12
+): Promise<Map<string, PrayerTimes> | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(
+      // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
+      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
+      { headers: { "Accept": "application/json" }, signal: controller.signal }
+    );
+    const data = await res.json();
+    if (!Array.isArray(data?.data)) return null;
+    const map = new Map<string, PrayerTimes>();
+    for (const day of data.data) {
+      const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
+      if (typeof gDate === "string" && day?.timings) {
+        map.set(gDate, sanitizeTimes(day.timings));
+      }
+    }
+    return map;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function ddmmyyyy(d: Date): string {
+  return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
+}
+
+// Bugünden itibaren SCHEDULE_DAYS günün vakitlerini getirir. Takvim ucu
+// başarısız olursa tek günlük uca düşer (eski davranış, en azından bugün doğru).
+export async function fetchPrayerDays(
+  lat: number,
+  lng: number,
+): Promise<DayTimes[] | null> {
+  const today = new Date();
+  const wanted: Date[] = Array.from({ length: SCHEDULE_DAYS }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    return d;
+  });
+
+  // Pencere ay sınırını aşabilir → gereken her ay için tek takvim isteği.
+  const months = new Map<string, { year: number; month: number }>();
+  for (const d of wanted) {
+    months.set(`${d.getFullYear()}-${d.getMonth() + 1}`, { year: d.getFullYear(), month: d.getMonth() + 1 });
+  }
+  const calendars = await Promise.all(
+    [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month))
+  );
+  const byDate = new Map<string, PrayerTimes>();
+  for (const cal of calendars) {
+    if (cal) for (const [k, v] of cal) byDate.set(k, v);
+  }
+
+  const days: DayTimes[] = [];
+  for (const d of wanted) {
+    const times = byDate.get(ddmmyyyy(d));
+    if (times) days.push({ date: d, times });
+  }
+  if (days.length > 0) return days;
+
+  // Takvim alınamadı → tek günlük yedek.
+  const single = await fetchPrayerTimes(lat, lng);
+  return single ? [{ date: today, times: single }] : null;
+}
+
+// Aladhan API'den namaz vakitlerini al (tek gün — yedek yol ve ana sayfa kullanımı)
 export async function fetchPrayerTimes(
   lat: number,
   lng: number
@@ -146,6 +239,19 @@ function dailyTriggerBefore(hour: number, minute: number, offsetMin: number, cha
   } as const;
 }
 
+// Belirli bir takvim günü + saat için, offsetMin dakika öncesine tek seferlik
+// DATE tetikleyicisi. Geçmişte kalmışsa null (planlanmaz).
+function dateTriggerBefore(day: Date, hour: number, minute: number, offsetMin: number, channelId: string) {
+  const at = new Date(day);
+  at.setHours(hour, minute - offsetMin, 0, 0);
+  if (at.getTime() <= Date.now()) return null;
+  return {
+    type: Notifications.SchedulableTriggerInputTypes.DATE,
+    date: at,
+    channelId, // iOS'ta yok sayılır
+  } as const;
+}
+
 // Günlük namaz bildirimlerini planla. Her vakit için TEK bildirim (5 dk önce):
 // hatırlatma + namaz-taglı ayet meali birlikte (her yeniden planlamada rastgele →
 // dinamik). Ayrı ayet bildirimi kaldırıldı → günde 5 bildirim (10 değil), fatigue azalır.
@@ -163,30 +269,41 @@ function parseValid(times: PrayerTimes): ValidVakit[] {
   return valid;
 }
 
-// Namaz vakti bildirimleri: her vakit için TEK bildirim (hatırlatma + namaz-taglı ayet).
-async function schedulePrayerNotifications(times: PrayerTimes): Promise<void> {
-  const valid = parseValid(times);
-  // Namaz-taglı ayet mealleri — PARALEL çek (seri await toggle'ı yavaşlatıyordu).
+// Namaz vakti bildirimleri: her gün × her vakit için TEK bildirim (hatırlatma +
+// namaz-taglı ayet), o günün GERÇEK vaktine göre DATE tetikleyicisiyle.
+async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
+  // Namaz-taglı ayet mealleri — vakit başına bir kez, PARALEL çek (7 gün aynı
+  // ayeti paylaşır; günlük tazelemede zaten yenilenir, 42 ayrı istek gerekmez).
+  const vakitKeys = VAKITLER.map(({ key }) => key);
   const verses = await Promise.all(
-    valid.map(({ key }) =>
+    vakitKeys.map((key) =>
       api.notifications.namazVerse(key.toLowerCase()).catch(() => null)
     )
   );
-  const jobs = valid.map(({ label, hour, minute }, i) => {
-    const translation = verses[i]?.translation;
-    const verseLine = translation
-      ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
-      : "";
-    return Notifications.scheduleNotificationAsync({
-      content: {
-        title: `🕌 ${label} Vaktine ${REMIND_BEFORE_MIN} Dakika`,
-        body:  `${label} vakti yaklaşıyor, namaza hazırlanın.${verseLine}`,
-        sound: true,
-        data:  { route: "/namaz" },
-      },
-      trigger: dailyTriggerBefore(hour, minute, REMIND_BEFORE_MIN, ANDROID_CHANNEL_ID_PRAYER),
-    });
-  });
+  const verseByKey = new Map(vakitKeys.map((key, i) => [key, verses[i]]));
+
+  const jobs: Promise<string>[] = [];
+  for (const { date, times } of days) {
+    for (const { key, label, hour, minute } of parseValid(times)) {
+      const trigger = dateTriggerBefore(date, hour, minute, REMIND_BEFORE_MIN, ANDROID_CHANNEL_ID_PRAYER);
+      if (!trigger) continue; // bugünün geçmiş vakitleri
+      const translation = verseByKey.get(key)?.translation;
+      const verseLine = translation
+        ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
+        : "";
+      jobs.push(
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: `🕌 ${label} Vaktine ${REMIND_BEFORE_MIN} Dakika`,
+            body:  `${label} vakti yaklaşıyor, namaza hazırlanın.${verseLine}`,
+            sound: true,
+            data:  { route: "/namaz" },
+          },
+          trigger,
+        })
+      );
+    }
+  }
   await Promise.all(jobs);
 }
 
@@ -240,15 +357,18 @@ async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void
 }
 
 // Orkestratör: cancelAll bir kez → iki bildirim türünü bağımsız toggle'lara göre planlar.
+// Namaz bildirimleri 7 günün gerçek vakitlerine (DATE), günlük ayet/dua bugünün
+// boşluk saatlerine (DAILY) kurulur.
 export async function applyNotifications(opts: {
-  times: PrayerTimes;
+  days: DayTimes[];
   prayer: boolean;
   dailyVerse: boolean;
 }): Promise<void> {
+  if (opts.days.length === 0) return;
   await Notifications.cancelAllScheduledNotificationsAsync();
   await ensureAndroidChannel();
-  if (opts.prayer) await schedulePrayerNotifications(opts.times);
-  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.times);
+  if (opts.prayer) await schedulePrayerNotifications(opts.days);
+  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days[0].times);
 }
 
 // Bildirimleri kapat
@@ -307,9 +427,9 @@ async function ensureNotificationsFreshInner(): Promise<void> {
       return;
     }
     try {
-      const times = await fetchPrayerTimes(lat, lng);
-      if (!times) return; // ağ hatası — anahtar yazılmadı, bir sonraki açılışta tekrar denenir
-      await applyNotifications({ times, prayer: true, dailyVerse: true });
+      const days = await fetchPrayerDays(lat, lng);
+      if (!days) return; // ağ hatası — anahtar yazılmadı, bir sonraki açılışta tekrar denenir
+      await applyNotifications({ days, prayer: true, dailyVerse: true });
       await Promise.all([
         storage.setString(NOTIF_KEY, "1"),
         storage.setString(DAILY_VERSE_KEY, "1"),
@@ -329,9 +449,9 @@ async function ensureNotificationsFreshInner(): Promise<void> {
 
   try {
     const { lat, lng } = await getLocationSilent();
-    const times = await fetchPrayerTimes(lat, lng);
-    if (!times) return;
-    await applyNotifications({ times, prayer: prayerOn, dailyVerse: dailyOn });
+    const days = await fetchPrayerDays(lat, lng);
+    if (!days) return;
+    await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
     await storage.setString(SCHED_DAY_KEY, today);
   } catch { /* sessiz — eldeki planlama korunur, bir sonraki açılışta tekrar denenir */ }
 }

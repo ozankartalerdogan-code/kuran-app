@@ -276,7 +276,8 @@ export default function KesfetScreen() {
   }
 
   // ── BÖLÜM: seçilen kategorinin içeriği ───────────────────────────────────────
-  const meta = SECTIONS.find(x => x.id === bolum)!;
+  // bolum her zaman geçerli bir SECTIONS id'sidir; yine de bulunamazsa ilk bölüme düş.
+  const meta = SECTIONS.find(x => x.id === bolum) ?? SECTIONS[0];
   return (
     <>
       <Stack.Screen options={{ title: meta.label }} />

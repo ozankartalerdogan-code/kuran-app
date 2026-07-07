@@ -3,7 +3,7 @@ import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
@@ -59,7 +59,11 @@ type QuickAction =
 
 function HomeContent() {
   const c          = useColors();
-  const { streak } = useStreak();
+  // Salt gösterim — seriyi yalnız gerçek okuma (ayet ekranı) ilerletir;
+  // uygulamayı açmak "okuma" sayılmaz.
+  const { streak, refresh: refreshStreak } = useStreak({ record: false });
+  // Ana sayfa tab olarak takılı kalır; ayet okuyup dönünce seri kartı güncellensin.
+  useFocusEffect(useCallback(() => { refreshStreak(); }, [refreshStreak]));
   const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading } = useDailyContent();
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [selectedMood, setSelectedMood] = useState<MoodResult | null>(null);

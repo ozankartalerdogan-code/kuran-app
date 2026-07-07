@@ -13,6 +13,7 @@ import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh } from "../src/lib/namazNotifications";
+import { useColors } from "../src/hooks/useColors";
 
 type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
 type SentryLike = {
@@ -106,11 +107,22 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 }
 
 function AppContent() {
+  // Header/StatusBar uygulama temasını izler — "auto" yalnız sistem temasını
+  // izlerdi, ana sayfadaki manuel tema düğmesi header'ları etkilemezdi.
+  const c = useColors();
   return (
     <SafeAreaProvider>
-      <StatusBar style="auto" />
+      <StatusBar style={c.isDark ? "light" : "dark"} />
       <AppTourProvider>
-      <Stack initialRouteName="(tabs)">
+      <Stack
+        initialRouteName="(tabs)"
+        screenOptions={{
+          headerStyle: { backgroundColor: c.card },
+          headerTintColor: c.text,
+          headerTitleStyle: { color: c.text },
+          contentStyle: { backgroundColor: c.bg },
+        }}
+      >
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: "Geri" }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />

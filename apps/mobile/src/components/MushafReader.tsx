@@ -8,6 +8,7 @@ import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
+import { useStreak } from "../hooks/useStreak";
 import { TajweedText, TAJWEED_LEGEND } from "./TajweedText";
 import { logFeature } from "../lib/analytics";
 import { READING_MAX_WIDTH } from "../lib/layout";
@@ -159,6 +160,7 @@ interface MushafReaderProps {
 }
 
 export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookmark = false }: MushafReaderProps) {
+  useStreak(); // Mushaf'tan okumak da okuma serisini ilerletir (ayet ekranıyla aynı)
   const [surahList, setSurahList]       = useState<SurahListItem[]>([]);
   const [currentSurahId, setCurrentSurahId] = useState(initialSurahId);
   const [currentAyahNum, setCurrentAyahNum] = useState(initialAyahNum);

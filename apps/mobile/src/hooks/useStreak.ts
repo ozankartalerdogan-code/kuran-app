@@ -42,7 +42,12 @@ function isValidStreakData(data: unknown): data is StreakData {
   );
 }
 
-export function useStreak(): UseStreakResult {
+// record=true (varsayılan): bugünü "okundu" sayar ve seriyi ilerletip KAYDEDER —
+// yalnız gerçek okuma ekranları (ayet detayı) kullanmalı.
+// record=false: salt gösterim — hiçbir şey yazmaz. Ana sayfa bunu kullanır;
+// eskiden ana sayfa da kaydettiği için uygulamayı açmak "okuma" sayılıyordu.
+export function useStreak(options?: { record?: boolean }): UseStreakResult {
+  const record = options?.record ?? true;
   const [streak, setStreak] = useState<StreakData>(DEFAULT);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,6 +62,16 @@ export function useStreak(): UseStreakResult {
         ? saved
         : DEFAULT;
       const today = todayStr();
+
+      if (!record) {
+        // Salt gösterim: seri hâlâ "canlı" mı? Dün veya bugün okunduysa mevcut
+        // değer geçerli; daha eskiyse kopmuştur → 0 göster (ama kaydı bozma,
+        // rekor korunur; yazma yalnız gerçek okumada olur).
+        const alive =
+          !!safe.lastDate && diffDays(safe.lastDate, today) <= 1;
+        setStreak(alive ? safe : { ...safe, current: 0 });
+        return;
+      }
 
       let next: StreakData;
 
@@ -90,7 +105,7 @@ export function useStreak(): UseStreakResult {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [record]);
 
   useEffect(() => {
     compute();

@@ -1,4 +1,4 @@
-import { useColorScheme } from "react-native";
+import { Appearance, useColorScheme } from "react-native";
 import { useSyncExternalStore } from "react";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 
@@ -77,7 +77,11 @@ function getSnapshot() {
 }
 
 export function toggleTheme() {
-  const next = override === "dark" ? "light" : "dark";
+  // Görünen (efektif) temayı çevir — yalnız override'a bakılsaydı, sistem teması
+  // karanlık + override yokken ilk basış override="dark" yapar ve hiçbir şey
+  // değişmezdi (düğme "bozuk" hissederdi).
+  const effective = override ?? (Appearance.getColorScheme() ?? "light");
+  const next = effective === "dark" ? "light" : "dark";
   override = next;
   storage.setJSON(STORAGE_KEYS.nightMode, next).catch(() => {});
   notify();

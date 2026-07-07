@@ -319,15 +319,16 @@ function AppTourOverlay({
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { width, height } = Dimensions.get("window");
-  const hasTarget = isUsableRect(targetRect ?? null);
+  const maybeRect = targetRect ?? null;
+  const rect = isUsableRect(maybeRect) ? maybeRect : null;
 
   // Hedef dikdörtgeni (pad'li, ekran içine sıkıştırılmış).
-  const spot = hasTarget
+  const spot = rect
     ? {
-        x: clamp(targetRect!.x - SPOT_PAD, 6, width - 40),
-        y: clamp(targetRect!.y - SPOT_PAD, insets.top + 2, height - 40),
-        w: clamp(targetRect!.width + SPOT_PAD * 2, 36, width - 12),
-        h: clamp(targetRect!.height + SPOT_PAD * 2, 36, height - insets.top - insets.bottom),
+        x: clamp(rect.x - SPOT_PAD, 6, width - 40),
+        y: clamp(rect.y - SPOT_PAD, insets.top + 2, height - 40),
+        w: clamp(rect.width + SPOT_PAD * 2, 36, width - 12),
+        h: clamp(rect.height + SPOT_PAD * 2, 36, height - insets.top - insets.bottom),
       }
     : null;
 

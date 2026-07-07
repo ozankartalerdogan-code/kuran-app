@@ -162,7 +162,9 @@ export default function HatimScreen() {
   }, [persist, store]);
 
   const current   = store.hatims.find(h => h.id === store.currentId) ?? null;
-  const completed = store.hatims.filter(h => h.completedDate !== null);
+  const completed = store.hatims.filter(
+    (h): h is Hatim & { completedDate: string } => h.completedDate !== null,
+  );
   const progress  = current?.readJuz.length ?? 0;
   const pct       = Math.round((progress / 30) * 100);
 
@@ -362,9 +364,9 @@ export default function HatimScreen() {
               <View key={h.id} style={styles.historyRow}>
                 <View>
                   <Text style={styles.historyLabel}>{completed.length - i}. Hatim</Text>
-                  <Text style={styles.historyDates}>{fmt(h.startDate)} → {fmt(h.completedDate!)}</Text>
+                  <Text style={styles.historyDates}>{fmt(h.startDate)} → {fmt(h.completedDate)}</Text>
                 </View>
-                <Text style={styles.historyDays}>{days(h.startDate, h.completedDate!)} gün</Text>
+                <Text style={styles.historyDays}>{days(h.startDate, h.completedDate)} gün</Text>
               </View>
             ))}
           </View>

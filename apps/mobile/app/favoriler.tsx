@@ -95,7 +95,7 @@ export default function FavorilerScreen() {
           {item.ana_tema && (
             <TouchableOpacity
               style={[styles.tag, styles.tagPrimary]}
-              onPress={() => router.push(`/search?tag=${encodeURIComponent(item.ana_tema!)}&page=1`)}
+              onPress={() => { if (item.ana_tema) router.push(`/search?tag=${encodeURIComponent(item.ana_tema)}&page=1`); }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={`${item.ana_tema} etiketine göre ara`}

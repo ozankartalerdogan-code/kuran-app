@@ -159,7 +159,8 @@ export const storage = {
   },
 
   async removeMany(keys: string[]): Promise<void> {
-    if (mmkv) { keys.forEach((k) => mmkv!.remove(k)); return; }
+    const m = mmkv;
+    if (m) { keys.forEach((k) => m.remove(k)); return; }
     await AsyncStorage.multiRemove(keys);
   },
 };
