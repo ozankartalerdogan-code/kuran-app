@@ -7,6 +7,7 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { useColors, type AppColors } from "../src/hooks/useColors";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -320,21 +321,36 @@ const TIP_RENK: Record<MaddeTip, { bg: string; text: string; label: string }> = 
   info:   { bg:"#dbeafe", text:"#1e40af", label:"Bilgi"  },
 };
 
+const TIP_RENK_DARK: Record<MaddeTip, { bg: string; text: string }> = {
+  farz:   { bg:"#450a0a", text:"#fca5a5" },
+  sunnet: { bg:"#064e3b", text:"#6ee7b7" },
+  vacip:  { bg:"#451a03", text:"#fcd34d" },
+  info:   { bg:"#1e3a8a", text:"#bfdbfe" },
+};
+
+function tipRenk(tip: MaddeTip, isDark: boolean) {
+  return isDark ? { ...TIP_RENK[tip], ...TIP_RENK_DARK[tip] } : TIP_RENK[tip];
+}
+
+// Sabit pastel kutuların (ayet/nisap/bozan) karanlık karşılıkları
+const ayetBoxBg   = (c: AppColors) => (c.isDark ? "#052e16" : "#f0fdf4");
+
 function AyetListesi({ ayetler }: { ayetler: AyetRef[] }) {
+  const c = useColors();
   if (!ayetler.length) return null;
   return (
-    <View style={s.ayetBox}>
-      <Text style={s.ayetBoxTitle}>📖 İlgili Ayetler</Text>
+    <View style={[s.ayetBox, { backgroundColor: ayetBoxBg(c) }]}>
+      <Text style={[s.ayetBoxTitle, { color: c.accent }]}>📖 İlgili Ayetler</Text>
       {ayetler.map((a, i) => (
         <TouchableOpacity key={i} style={s.ayetRow}
           onPress={() => router.push(`/ayah/${a.sureId}/${a.ayetNo}` as Href)} activeOpacity={0.75}
           accessibilityRole="button" accessibilityLabel={`${a.sureAdi}, ${a.ayetNo}. ayeti aç`}>
-          <View style={s.keyBadge}><Text style={s.keyText}>{a.sureId}:{a.ayetNo}</Text></View>
+          <View style={[s.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[s.keyText, { color: c.accent }]}>{a.sureId}:{a.ayetNo}</Text></View>
           <View style={{ flex:1 }}>
-            <Text style={s.ayetSure}>{a.sureAdi} · {a.ayetNo}. ayet</Text>
-            <Text style={s.ayetMetin} numberOfLines={2}>{a.kisaMetin}</Text>
+            <Text style={[s.ayetSure, { color: c.textMuted }]}>{a.sureAdi} · {a.ayetNo}. ayet</Text>
+            <Text style={[s.ayetMetin, { color: c.text }]} numberOfLines={2}>{a.kisaMetin}</Text>
           </View>
-          <Text style={s.chevronSm}>›</Text>
+          <Text style={[s.chevronSm, { color: c.textMuted }]}>›</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -342,18 +358,19 @@ function AyetListesi({ ayetler }: { ayetler: AyetRef[] }) {
 }
 
 function MaddeListe({ maddeler }: { maddeler: Madde[] }) {
+  const c = useColors();
   return (
     <View style={s.maddeBox}>
       {maddeler.map((m, i) => {
-        const r = TIP_RENK[m.tip];
+        const r = tipRenk(m.tip, c.isDark);
         return (
-          <View key={i} style={s.maddeRow}>
+          <View key={i} style={[s.maddeRow, { borderBottomColor: c.border }]}>
             <View style={[s.maddeBadge, { backgroundColor: r.bg }]}>
               <Text style={[s.maddeBadgeText, { color: r.text }]}>{r.label}</Text>
             </View>
             <View style={{ flex:1 }}>
-              <Text style={s.maddeBaslik}>{m.metin}</Text>
-              {m.detay ? <Text style={s.maddeDetay}>{m.detay}</Text> : null}
+              <Text style={[s.maddeBaslik, { color: c.text }]}>{m.metin}</Text>
+              {m.detay ? <Text style={[s.maddeDetay, { color: c.textMuted }]}>{m.detay}</Text> : null}
             </View>
           </View>
         );
@@ -363,14 +380,15 @@ function MaddeListe({ maddeler }: { maddeler: Madde[] }) {
 }
 
 function AbdestTablo({ satirlar, baslik }: { satirlar: AbdestSatiri[]; baslik: string }) {
+  const c = useColors();
   return (
-    <View style={s.tablo}>
-      <Text style={s.tabloBaslik}>{baslik}</Text>
+    <View style={[s.tablo, { borderColor: c.border }]}>
+      <Text style={[s.tabloBaslik, { color: c.text, backgroundColor: ayetBoxBg(c) }]}>{baslik}</Text>
       {satirlar.map((r, i) => (
-        <View key={i} style={[s.tabloRow, i % 2 === 0 && s.tabloRowAlt]}>
-          <Text style={s.tabloOrgan}>{r.organ}</Text>
-          <Text style={s.tabloMiktar}>{r.miktar === "—" ? "—" : `${r.miktar}×`}</Text>
-          <Text style={s.tabloAciklama} numberOfLines={2}>{r.aciklama}</Text>
+        <View key={i} style={[s.tabloRow, i % 2 === 0 && { backgroundColor: c.isDark ? c.cardAlt : "#f9fafb" }]}>
+          <Text style={[s.tabloOrgan, { color: c.text }]}>{r.organ}</Text>
+          <Text style={[s.tabloMiktar, { color: c.accent }]}>{r.miktar === "—" ? "—" : `${r.miktar}×`}</Text>
+          <Text style={[s.tabloAciklama, { color: c.textSecondary }]} numberOfLines={2}>{r.aciklama}</Text>
         </View>
       ))}
     </View>
@@ -380,16 +398,17 @@ function AbdestTablo({ satirlar, baslik }: { satirlar: AbdestSatiri[]; baslik: s
 // ── ANA KARTI ─────────────────────────────────────────────────────────────────
 
 const BolumCard = React.memo(function BolumCard({ ikon, baslik, children }: { ikon: string; baslik: string; children: React.ReactNode }) {
+  const c = useColors();
   const [open, setOpen] = React.useState(false);
   return (
-    <View style={s.card}>
+    <View style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}>
       <Pressable style={s.cardHeader} onPress={() => setOpen(p => !p)}
         accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={baslik}>
         <Text style={s.cardIkon}>{ikon}</Text>
-        <Text style={s.cardBaslik}>{baslik}</Text>
-        <Text style={s.chevron}>{open ? "▲" : "▼"}</Text>
+        <Text style={[s.cardBaslik, { color: c.text }]}>{baslik}</Text>
+        <Text style={[s.chevron, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </Pressable>
-      {open && <View style={s.cardBody}>{children}</View>}
+      {open && <View style={[s.cardBody, { borderTopColor: c.border }]}>{children}</View>}
     </View>
   );
 });
@@ -397,19 +416,20 @@ const BolumCard = React.memo(function BolumCard({ ikon, baslik, children }: { ik
 // ── SEKME BİLEŞENLERİ ─────────────────────────────────────────────────────────
 
 function InancSekme() {
+  const c = useColors();
   return (
     <>
-      <View style={s.dividerLabel}><Text style={s.dividerText}>İSLAM'IN 5 ŞARTI</Text></View>
+      <View style={s.dividerLabel}><Text style={[s.dividerText, { color: c.textMuted }]}>İSLAM'IN 5 ŞARTI</Text></View>
       {ISLAM_SARTLARI.map(b => (
         <BolumCard key={b.id} ikon={b.ikon} baslik={b.baslik}>
-          <Text style={s.aciklama}>{b.aciklama}</Text>
+          <Text style={[s.aciklama, { color: c.textSecondary }]}>{b.aciklama}</Text>
           <AyetListesi ayetler={b.ayetler} />
         </BolumCard>
       ))}
-      <View style={s.dividerLabel}><Text style={s.dividerText}>İMAN'IN 6 ŞARTI</Text></View>
+      <View style={s.dividerLabel}><Text style={[s.dividerText, { color: c.textMuted }]}>İMAN'IN 6 ŞARTI</Text></View>
       {IMAN_SARTLARI.map(b => (
         <BolumCard key={b.id} ikon={b.ikon} baslik={b.baslik}>
-          <Text style={s.aciklama}>{b.aciklama}</Text>
+          <Text style={[s.aciklama, { color: c.textSecondary }]}>{b.aciklama}</Text>
           <AyetListesi ayetler={b.ayetler} />
         </BolumCard>
       ))}
@@ -418,59 +438,61 @@ function InancSekme() {
 }
 
 function IbadetlerSekme() {
+  const c = useColors();
+  const nisapVurgu = c.isDark ? "#fbbf24" : "#92400e";
   return (
     <>
       {/* NAMAZ */}
       <BolumCard ikon="🕌" baslik="Namaz (Salât)">
-        <Text style={s.aciklama}>Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an'da en çok emredilen ibadettir.</Text>
-        <Text style={s.aciklama}>Rek'at ve bazı ayrıntılar bu ekranda Türkiye'de yaygın Hanefî öğretim diliyle özetlenmiştir; diğer mezheplerde bazı hüküm ve uygulama farkları bulunabilir.</Text>
-        <Text style={s.altBaslik}>Rekat Sayıları</Text>
-        <View style={s.rekatTablo}>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an'da en çok emredilen ibadettir.</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Rek'at ve bazı ayrıntılar bu ekranda Türkiye'de yaygın Hanefî öğretim diliyle özetlenmiştir; diğer mezheplerde bazı hüküm ve uygulama farkları bulunabilir.</Text>
+        <Text style={[s.altBaslik, { color: c.text }]}>Rekat Sayıları</Text>
+        <View style={[s.rekatTablo, { borderColor: c.border }]}>
           <View style={s.rekatHeader}>
             {["Vakit","İlk S.","Farz","Son S.","Vitir","Toplam"].map(h => (
               <Text key={h} style={s.rekatHeaderCell}>{h}</Text>
             ))}
           </View>
           {NAMAZ_VAKİTLERİ.map((v, i) => (
-            <View key={i} style={[s.rekatRow, i % 2 === 0 && s.rekatRowAlt]}>
-              <Text style={s.rekatCell}>{v.ikon}{v.vakit}</Text>
-              <Text style={s.rekatCell}>{v.ilkSunnet || "—"}</Text>
-              <Text style={[s.rekatCell, s.rekatFarz]}>{v.farz}</Text>
-              <Text style={s.rekatCell}>{v.sonSunnet || "—"}</Text>
-              <Text style={s.rekatCell}>{v.vitir || "—"}</Text>
-              <Text style={[s.rekatCell, s.rekatToplam]}>{v.toplam}{v.not ? `*` : ""}</Text>
+            <View key={i} style={[s.rekatRow, i % 2 === 0 && { backgroundColor: c.isDark ? c.cardAlt : "#f9fafb" }]}>
+              <Text style={[s.rekatCell, { color: c.text }]}>{v.ikon}{v.vakit}</Text>
+              <Text style={[s.rekatCell, { color: c.text }]}>{v.ilkSunnet || "—"}</Text>
+              <Text style={[s.rekatCell, s.rekatFarz, { color: c.accent }]}>{v.farz}</Text>
+              <Text style={[s.rekatCell, { color: c.text }]}>{v.sonSunnet || "—"}</Text>
+              <Text style={[s.rekatCell, { color: c.text }]}>{v.vitir || "—"}</Text>
+              <Text style={[s.rekatCell, s.rekatToplam, { color: c.text }]}>{v.toplam}{v.not ? `*` : ""}</Text>
             </View>
           ))}
-          <Text style={s.rekatNot}>* Türkiye'de yaygın uygulamada öğle ve akşamdan sonra ayrıca 2'şer rek'at nafile kılınabilir.</Text>
+          <Text style={[s.rekatNot, { color: c.textMuted }]}>* Türkiye'de yaygın uygulamada öğle ve akşamdan sonra ayrıca 2'şer rek'at nafile kılınabilir.</Text>
         </View>
-        <Text style={s.altBaslik}>Temel Unsurlar ve Sünnetler</Text>
+        <Text style={[s.altBaslik, { color: c.text }]}>Temel Unsurlar ve Sünnetler</Text>
         <MaddeListe maddeler={NAMAZ_MADDELER} />
         <AyetListesi ayetler={NAMAZ_AYETLERİ} />
       </BolumCard>
 
       {/* ORUÇ */}
       <BolumCard ikon="🌙" baslik="Oruç (Savm)">
-        <Text style={s.aciklama}>Ramazan ayında şafaktan güneş batımına kadar yiyecek, içecek ve kötü davranışlardan kaçınmaktır. Takvayı pekiştiren bir ibadettir.</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Ramazan ayında şafaktan güneş batımına kadar yiyecek, içecek ve kötü davranışlardan kaçınmaktır. Takvayı pekiştiren bir ibadettir.</Text>
         <MaddeListe maddeler={ORUC_MADDELER} />
         <AyetListesi ayetler={ORUC_AYETLERİ} />
       </BolumCard>
 
       {/* ZEKÂT */}
       <BolumCard ikon="💛" baslik="Zekât">
-        <Text style={s.aciklama}>Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte defalarca zikredilir.</Text>
-        <View style={s.nisapBox}>
-          <Text style={s.nisapTitle}>Nisap Miktarı</Text>
-          <Text style={s.nisapRow}>🥇 Altın: <Text style={s.nisapDeger}>80,18 gram</Text> veya değeri kadar para/mal</Text>
-          <Text style={s.nisapRow}>🥈 Gümüş: <Text style={s.nisapDeger}>595 gram</Text> (bazı hesaplarda daha ihtiyatlı sonuç verebilir)</Text>
-          <Text style={s.nisapRow}>📊 Oran: <Text style={s.nisapDeger}>%2,5</Text> (yılda bir kez, kırkta bir)</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte defalarca zikredilir.</Text>
+        <View style={[s.nisapBox, { backgroundColor: c.isDark ? "#422006" : "#fef9c3" }]}>
+          <Text style={[s.nisapTitle, { color: nisapVurgu }]}>Nisap Miktarı</Text>
+          <Text style={[s.nisapRow, { color: c.textSecondary }]}>🥇 Altın: <Text style={[s.nisapDeger, { color: nisapVurgu }]}>80,18 gram</Text> veya değeri kadar para/mal</Text>
+          <Text style={[s.nisapRow, { color: c.textSecondary }]}>🥈 Gümüş: <Text style={[s.nisapDeger, { color: nisapVurgu }]}>595 gram</Text> (bazı hesaplarda daha ihtiyatlı sonuç verebilir)</Text>
+          <Text style={[s.nisapRow, { color: c.textSecondary }]}>📊 Oran: <Text style={[s.nisapDeger, { color: nisapVurgu }]}>%2,5</Text> (yılda bir kez, kırkta bir)</Text>
         </View>
-        <Text style={s.altBaslik}>Zekâtın Verileceği 8 Sınıf</Text>
+        <Text style={[s.altBaslik, { color: c.text }]}>Zekâtın Verileceği 8 Sınıf</Text>
         {ZEKAT_SINIFLAR.map(z => (
-          <View key={z.no} style={s.zekatRow}>
-            <View style={s.zekatNo}><Text style={s.zekatNoText}>{z.no}</Text></View>
+          <View key={z.no} style={[s.zekatRow, { borderBottomColor: c.border }]}>
+            <View style={[s.zekatNo, { backgroundColor: c.accent }]}><Text style={s.zekatNoText}>{z.no}</Text></View>
             <View style={{ flex:1 }}>
-              <Text style={s.zekatSinif}>{z.sinif}</Text>
-              <Text style={s.zekatAciklama}>{z.aciklama}</Text>
+              <Text style={[s.zekatSinif, { color: c.text }]}>{z.sinif}</Text>
+              <Text style={[s.zekatAciklama, { color: c.textMuted }]}>{z.aciklama}</Text>
             </View>
           </View>
         ))}
@@ -479,19 +501,19 @@ function IbadetlerSekme() {
 
       {/* HAC */}
       <BolumCard ikon="🕋" baslik="Hac">
-        <Text style={s.aciklama}>Gücü yeten her Müslümanın ömründe en az bir kez Mekke'ye gidip belirli ibadetleri yerine getirmesidir.</Text>
-        <Text style={s.aciklama}>Aşağıdaki tasnif Türkiye'de yaygın Hanefî anlatımı esas alır; sa'y ve bazı başlıklarda diğer mezheplerde rükün/farz anlatımı bulunabilir.</Text>
-        <Text style={s.altBaslik}>Hac'ın Adımları (Farz · Vacip · Sünnet)</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Gücü yeten her Müslümanın ömründe en az bir kez Mekke'ye gidip belirli ibadetleri yerine getirmesidir.</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Aşağıdaki tasnif Türkiye'de yaygın Hanefî anlatımı esas alır; sa'y ve bazı başlıklarda diğer mezheplerde rükün/farz anlatımı bulunabilir.</Text>
+        <Text style={[s.altBaslik, { color: c.text }]}>Hac'ın Adımları (Farz · Vacip · Sünnet)</Text>
         {HAC_ADIMLARI.map(h => {
-          const r = h.tip === "farz" ? TIP_RENK.farz : h.tip === "vacip" ? TIP_RENK.vacip : TIP_RENK.sunnet;
+          const r = tipRenk(h.tip === "farz" ? "farz" : h.tip === "vacip" ? "vacip" : "sunnet", c.isDark);
           return (
-            <View key={h.no} style={s.hacRow}>
+            <View key={h.no} style={[s.hacRow, { borderBottomColor: c.border }]}>
               <View style={[s.maddeBadge, { backgroundColor: r.bg, minWidth: 50 }]}>
                 <Text style={[s.maddeBadgeText, { color: r.text }]}>{h.no}. {r.label}</Text>
               </View>
               <View style={{ flex:1 }}>
-                <Text style={s.maddeBaslik}>{h.baslik}</Text>
-                <Text style={s.maddeDetay}>{h.aciklama}</Text>
+                <Text style={[s.maddeBaslik, { color: c.text }]}>{h.baslik}</Text>
+                <Text style={[s.maddeDetay, { color: c.textMuted }]}>{h.aciklama}</Text>
               </View>
             </View>
           );
@@ -501,7 +523,7 @@ function IbadetlerSekme() {
 
       {/* KURBAN */}
       <BolumCard ikon="🐑" baslik="Kurban">
-        <Text style={s.aciklama}>Hanefi mezhebinde vacip; diğer mezheplerde sünnet-i müekkede. Kurban Bayramı'nda Allah rızası için hayvan kesmektir.</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Hanefi mezhebinde vacip; diğer mezheplerde sünnet-i müekkede. Kurban Bayramı'nda Allah rızası için hayvan kesmektir.</Text>
         <MaddeListe maddeler={KURBAN_MADDELER} />
         <AyetListesi ayetler={KURBAN_AYETLERİ} />
       </BolumCard>
@@ -510,17 +532,18 @@ function IbadetlerSekme() {
 }
 
 function AbdestSekme() {
+  const c = useColors();
   return (
     <>
       {ABDEST_BOLUMLER.map(b => (
         <BolumCard key={b.id} ikon={b.ikon} baslik={`${b.baslik} (${b.altBaslik})`}>
-          <Text style={s.aciklama}>{b.aciklama}</Text>
+          <Text style={[s.aciklama, { color: c.textSecondary }]}>{b.aciklama}</Text>
           <AbdestTablo satirlar={b.farzlar} baslik="Farzlar" />
           <AbdestTablo satirlar={b.sunnetler} baslik="Sünnetler" />
           {b.bozanlar && b.bozanlar.length > 0 && (
-            <View style={s.bozanBox}>
-              <Text style={s.bozanTitle}>⚡ {b.id === "abdest" ? "Abdesti Bozan" : b.id === "gusul" ? "Guslü Gerektiren" : "Teyemmümü Bozan"}</Text>
-              {b.bozanlar.map((bz, i) => <Text key={i} style={s.bozanText}>• {bz}</Text>)}
+            <View style={[s.bozanBox, { backgroundColor: c.isDark ? "#450a0a" : "#fee2e2" }]}>
+              <Text style={[s.bozanTitle, { color: c.isDark ? "#fca5a5" : "#991b1b" }]}>⚡ {b.id === "abdest" ? "Abdesti Bozan" : b.id === "gusul" ? "Guslü Gerektiren" : "Teyemmümü Bozan"}</Text>
+              {b.bozanlar.map((bz, i) => <Text key={i} style={[s.bozanText, { color: c.isDark ? "#fecaca" : "#7f1d1d" }]}>• {bz}</Text>)}
             </View>
           )}
           <AyetListesi ayetler={b.ayetler} />
@@ -541,6 +564,7 @@ const TABS: { id: Tab; label: string; ikon: string }[] = [
 
 export default function IbadetRehberiScreen() {
   const insets = useSafeAreaInsets();
+  const c = useColors();
   const { tab: tabParam } = useLocalSearchParams<{ tab?: string }>();
   const [tab, setTab] = React.useState<Tab>(
     tabParam === "ibadetler" || tabParam === "abdest" ? tabParam : "inanc"
@@ -548,14 +572,14 @@ export default function IbadetRehberiScreen() {
   return (
     <>
       <Stack.Screen options={{ title:"İbadet Rehberi" }} />
-      <View style={s.container}>
-        <View style={s.tabBar}>
+      <View style={[s.container, { backgroundColor: c.bg }]}>
+        <View style={[s.tabBar, { backgroundColor: c.card, borderBottomColor: c.border }]}>
           {TABS.map(t => (
-            <TouchableOpacity key={t.id} style={[s.tab, tab === t.id && s.tabActive]}
+            <TouchableOpacity key={t.id} style={[s.tab, tab === t.id && [s.tabActive, { borderBottomColor: c.accent }]]}
               onPress={() => setTab(t.id)} activeOpacity={0.75}
               accessibilityRole="tab" accessibilityState={{ selected: tab === t.id }} accessibilityLabel={t.label}>
               <Text style={s.tabIkon}>{t.ikon}</Text>
-              <Text style={[s.tabLabel, tab === t.id && s.tabLabelActive]}>{t.label}</Text>
+              <Text style={[s.tabLabel, { color: tab === t.id ? c.accent : c.textMuted }]}>{t.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -579,7 +603,6 @@ const s = StyleSheet.create({
   tabActive: { borderBottomWidth:2, borderBottomColor:"#059669" },
   tabIkon:   { fontSize:18 },
   tabLabel:  { fontSize:11, color:"#78716c", fontWeight:"600" },
-  tabLabelActive: { color:"#059669" },
 
   dividerLabel: { alignItems:"center", marginVertical:8 },
   dividerText:  { fontSize:11, fontWeight:"700", color:"#78716c", letterSpacing:1 },
@@ -614,7 +637,6 @@ const s = StyleSheet.create({
   rekatHeader:   { flexDirection:"row", backgroundColor:"#059669", padding:6 },
   rekatHeaderCell:{ flex:1, fontSize:9, fontWeight:"700", color:"#fff", textAlign:"center" },
   rekatRow:      { flexDirection:"row", padding:6 },
-  rekatRowAlt:   { backgroundColor:"#f9fafb" },
   rekatCell:     { flex:1, fontSize:11, color:"#1c1917", textAlign:"center" },
   rekatFarz:     { fontWeight:"700", color:"#059669" },
   rekatToplam:   { fontWeight:"700", color:"#1c1917" },
@@ -636,7 +658,6 @@ const s = StyleSheet.create({
   tablo:        { borderRadius:8, overflow:"hidden", borderWidth:1, borderColor:"#e7e5e4", marginVertical:4 },
   tabloBaslik:  { fontSize:12, fontWeight:"700", color:"#1c1917", backgroundColor:"#f0fdf4", padding:8 },
   tabloRow:     { flexDirection:"row", paddingHorizontal:8, paddingVertical:5 },
-  tabloRowAlt:  { backgroundColor:"#f9fafb" },
   tabloOrgan:   { width:110, fontSize:11, fontWeight:"600", color:"#1c1917" },
   tabloMiktar:  { width:28, fontSize:11, color:"#059669", fontWeight:"700", textAlign:"center" },
   tabloAciklama:{ flex:1, fontSize:11, color:"#44403c", lineHeight:16 },

@@ -9,6 +9,7 @@ import * as Location from "expo-location";
 import { Magnetometer, Accelerometer, DeviceMotion } from "expo-sensors";
 import * as Haptics from "expo-haptics";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
+import { useColors } from "../src/hooks/useColors";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -93,9 +94,10 @@ const DIRS = [
 const TICKS = Array.from({ length: 12 }, (_, i) => i * 30);
 
 // Yumuşak dikey degrade — expo-linear-gradient yok, katmanlı taklit (build gerektirmez)
-const BgGradient = React.memo(function BgGradient() {
-  const from = [240, 253, 250]; // #f0fdfa
-  const to   = [167, 243, 208]; // #a7f3d0
+// Karanlık modda aynı yeşil kimlik koyu teal tonlarına iner (tasarım bozulmaz).
+const BgGradient = React.memo(function BgGradient({ isDark }: { isDark: boolean }) {
+  const from = isDark ? [4, 47, 46]   : [240, 253, 250]; // #042f2e / #f0fdfa
+  const to   = isDark ? [19, 78, 74]  : [167, 243, 208]; // #134e4a / #a7f3d0
   const N = 14;
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="none">
@@ -118,6 +120,8 @@ export default function KibleScreen() {
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
   useKeepAwakeSafe(); // Pusulaya bakarken ekran kararmasın
   const insets = useSafeAreaInsets();
+  const c = useColors();
+  const dark = c.isDark;
   const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
@@ -368,10 +372,10 @@ export default function KibleScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Kıble Yönü" }} />
-        <View style={[s.centered, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
-          <ActivityIndicator size="large" color="#059669" />
-          <Text style={s.loadingText}>Konumunuz alınıyor…</Text>
-          <Text style={s.loadingSub}>Bu işlem 10–25 saniye sürebilir</Text>
+        <View style={[s.centered, dark && { backgroundColor: "#042f2e" }, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+          <ActivityIndicator size="large" color={c.accent} />
+          <Text style={[s.loadingText, dark && { color: "#ccfbf1" }]}>Konumunuz alınıyor…</Text>
+          <Text style={[s.loadingSub, dark && { color: "#2dd4bf" }]}>Bu işlem 10–25 saniye sürebilir</Text>
         </View>
       </>
     );
@@ -381,20 +385,20 @@ export default function KibleScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Kıble Yönü" }} />
-      <View style={[s.container, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}>
-        <BgGradient />
+      <View style={[s.container, dark && { backgroundColor: "#042f2e" }, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}>
+        <BgGradient isDark={dark} />
 
         {/* Kalibrasyon — sade tek satır */}
         {showCalib && (
-          <TouchableOpacity style={s.calibSlim} onPress={() => setShowCalib(false)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Kalibrasyon uyarısını kapat">
-            <Text style={s.calibSlimText}>🔄 Doğruluk için telefonu <Text style={{ fontWeight: "800" }}>8 şeklinde</Text> birkaç kez çevirin</Text>
-            <Text style={s.calibSlimX}>✕</Text>
+          <TouchableOpacity style={[s.calibSlim, dark && { backgroundColor: "#422006", borderColor: "#713f12" }]} onPress={() => setShowCalib(false)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Kalibrasyon uyarısını kapat">
+            <Text style={[s.calibSlimText, dark && { color: "#fde68a" }]}>🔄 Doğruluk için telefonu <Text style={{ fontWeight: "800" }}>8 şeklinde</Text> birkaç kez çevirin</Text>
+            <Text style={[s.calibSlimX, dark && { color: "#fbbf24" }]}>✕</Text>
           </TouchableOpacity>
         )}
 
-        <Text style={s.cityLabel}>{cityName}</Text>
+        <Text style={[s.cityLabel, dark && { color: "#ccfbf1" }]}>{cityName}</Text>
         {distance != null && (
-          <Text style={s.distText}>Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km</Text>
+          <Text style={[s.distText, dark && { color: "#5eead4" }]}>Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km</Text>
         )}
 
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
@@ -407,10 +411,10 @@ export default function KibleScreen() {
           </View>
 
           {/* ÜST KADRAN = dönen pusula gülü. Harfler konumları döner ama dik kalır. */}
-          <Animated.View style={[s.rose, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: roseRotate }] }]}>
+          <Animated.View style={[s.rose, dark && { backgroundColor: "#1e293b", borderColor: "#475569" }, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: roseRotate }] }]}>
             {TICKS.map((a) => (
               <View key={`t${a}`} style={[s.tickLayer, { transform: [{ rotate: `${a}deg` }] }]}>
-                <View style={[s.tickMark, a % 90 === 0 ? s.tickMajor : null, a === 0 ? s.tickN : null]} />
+                <View style={[s.tickMark, a % 90 === 0 ? s.tickMajor : null, dark && a !== 0 ? { backgroundColor: a % 90 === 0 ? "#cbd5e1" : "#64748b" } : null, a === 0 ? s.tickN : null]} />
               </View>
             ))}
             {DIRS.map((d) => (
@@ -420,6 +424,7 @@ export default function KibleScreen() {
                     s.dir,
                     d.major ? s.dirMajor : s.dirMinor,
                     d.b === 0 ? s.dirN : null,
+                    dark ? { color: d.b === 0 ? "#f87171" : d.major ? "#e2e8f0" : "#94a3b8" } : null,
                     { transform: [{ rotate: headingAnim.interpolate({ inputRange: [0, 1], outputRange: [`${-d.b}deg`, `${1 - d.b}deg`], extrapolate: "extend" }) }] },
                   ]}
                 >
@@ -430,41 +435,41 @@ export default function KibleScreen() {
           </Animated.View>
 
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
-          <View style={[s.face, isAligned && s.faceOk, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
+          <View style={[s.face, dark && { backgroundColor: "#0f172a", borderColor: "#334155" }, isAligned && s.faceOk, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             {/* Kuyruk (zıt yön) — denge için */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: tailRotate }] }]}>
-              <View style={[s.needleTail, { height: FACE / 2 - 34 }]} />
+              <View style={[s.needleTail, dark && { backgroundColor: "#475569" }, { height: FACE / 2 - 34 }]} />
             </Animated.View>
             {/* Kabe oku */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: needleRotate }] }]}>
-              <View style={[s.kaabaBadge, isAligned && s.kaabaBadgeOk]}>
+              <View style={[s.kaabaBadge, dark && { backgroundColor: "#0f172a", borderColor: "#10b981" }, isAligned && [s.kaabaBadgeOk, dark && { backgroundColor: "#064e3b" }]]}>
                 <Animated.Text style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
-              <View style={[s.needleUp, isAligned && s.needleUpOk, { height: FACE / 2 - 56 }]} />
+              <View style={[s.needleUp, dark && { backgroundColor: "#10b981" }, isAligned && s.needleUpOk, { height: FACE / 2 - 56 }]} />
             </Animated.View>
-            <View style={s.centerHub} />
+            <View style={[s.centerHub, dark && { borderColor: "#0f172a", backgroundColor: "#10b981" }]} />
           </View>
         </View>
 
         {/* Açı */}
-        <View style={[s.badge, isAligned && s.badgeOk]}>
-          <Text style={[s.badgeNum, isAligned && s.badgeNumOk]}>{Math.round(qibla ?? 0)}°</Text>
-          <Text style={[s.badgeSub, isAligned && s.badgeSubOk]}>
+        <View style={[s.badge, dark && { backgroundColor: "#134e4a", borderColor: "#0f766e" }, isAligned && [s.badgeOk, dark && { backgroundColor: "#064e3b", borderColor: "#34d399" }]]}>
+          <Text style={[s.badgeNum, dark && { color: "#a7f3d0" }, isAligned && [s.badgeNumOk, dark && { color: "#6ee7b7" }]]}>{Math.round(qibla ?? 0)}°</Text>
+          <Text style={[s.badgeSub, dark && { color: "#5eead4" }, isAligned && [s.badgeSubOk, dark && { color: "#34d399" }]]}>
             {isAligned ? "✓ Kabe'ye dönüksünüz" : "Kuzeyden Kabe yönü"}
           </Text>
         </View>
 
         {/* Durum */}
         {compassOk === false && (
-          <View style={[s.infoBox, { borderColor: "#fca5a5", backgroundColor: "#fff1f2" }]}>
-            <Text style={[s.infoText, { color: "#991b1b" }]}>
+          <View style={[s.infoBox, dark ? { borderColor: "#7f1d1d", backgroundColor: "#450a0a" } : { borderColor: "#fca5a5", backgroundColor: "#fff1f2" }]}>
+            <Text style={[s.infoText, { color: dark ? "#fca5a5" : "#991b1b" }]}>
               ⚠️ Pusula verisi alınamıyor. Bu cihazda manyetometre yok/kapalı olabilir — başka bir telefonda deneyin. İbre kıble derecesinde sabit kalır.
             </Text>
           </View>
         )}
         {compassOk === true && (
-          <View style={s.infoBox}>
-            <Text style={s.infoText}>📱 Telefonu çevirin; 🕋 oku üstteki kırmızı ▼ ile hizalanınca Kabe'ye dönüksünüz</Text>
+          <View style={[s.infoBox, dark && { backgroundColor: "#042f2e", borderColor: "#0f766e" }]}>
+            <Text style={[s.infoText, dark && { color: "#99f6e4" }]}>📱 Telefonu çevirin; 🕋 oku üstteki kırmızı ▼ ile hizalanınca Kabe'ye dönüksünüz</Text>
           </View>
         )}
 
@@ -475,7 +480,7 @@ export default function KibleScreen() {
           accessibilityRole="button"
           accessibilityLabel="Konumu yenile"
         >
-          <Text style={s.backBtnText}>🔄 Konumu Yenile</Text>
+          <Text style={[s.backBtnText, { color: c.accent }]}>🔄 Konumu Yenile</Text>
         </TouchableOpacity>
       </View>
     </>
