@@ -1,13 +1,20 @@
+import { Ionicons } from "@expo/vector-icons";
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
+import type { ComponentProps } from "react";
 import { useColors } from "../../src/hooks/useColors";
 import { useAppTour, useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
+type IoniconName = ComponentProps<typeof Ionicons>["name"];
 type Item = {
-  emoji: string;
+  icon: IoniconName;
+  iconBg: string;
+  iconColor: string;
+  darkIconBg: string;
+  darkIconColor: string;
   label: string;
   sub: string;
   route?: string;
@@ -18,25 +25,25 @@ const SECTIONS: { title: string; items: Item[] }[] = [
   {
     title: "🔍 Keşfet",
     items: [
-      { emoji: "✨", label: "Esmaül Hüsna", sub: "Allah'ın 99 ismi", route: "/esma" },
-      { emoji: "🛡️", label: "Manevi Sığınak", sub: "Korunma ve şifa duaları", route: "/manevi-siginak" },
-      { emoji: "🌟", label: "İsmi Azam", sub: "Sekine ve korunma duaları", route: "/manevi-siginak/ismi-azam" },
+      { icon: "sparkles-outline", iconBg: "#fef3c7", iconColor: "#ca8a04", darkIconBg: "#713f12", darkIconColor: "#fde68a", label: "Esmaül Hüsna", sub: "Allah'ın 99 ismi", route: "/esma" },
+      { icon: "shield-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: "Manevi Sığınak", sub: "Korunma ve şifa duaları", route: "/manevi-siginak" },
+      { icon: "star-outline", iconBg: "#ffedd5", iconColor: "#c2410c", darkIconBg: "#7c2d12", darkIconColor: "#fdba74", label: "İsmi Azam", sub: "Sekine ve korunma duaları", route: "/manevi-siginak/ismi-azam" },
     ],
   },
   {
     title: "👤 Kişisel",
     items: [
-      { emoji: "❤️", label: "Favorilerim", sub: "Kaydettiğin ayetler", route: "/favoriler" },
-      { emoji: "📝", label: "Notlarım", sub: "Kendi notların", route: "/notlar" },
+      { icon: "heart-outline", iconBg: "#ffe4e6", iconColor: "#e11d48", darkIconBg: "#881337", darkIconColor: "#fda4af", label: "Favorilerim", sub: "Kaydettiğin ayetler", route: "/favoriler" },
+      { icon: "create-outline", iconBg: "#e0f2fe", iconColor: "#0369a1", darkIconBg: "#0c4a6e", darkIconColor: "#7dd3fc", label: "Notlarım", sub: "Kendi notların", route: "/notlar" },
     ],
   },
   {
     title: "⚙️ Uygulama",
     items: [
-      { emoji: "🔔", label: "Bildirimler", sub: "Namaz vakti ve günlük ayet bildirimleri", route: "/bildirimler" },
-      { emoji: "ℹ️", label: "Kaynaklar ve Açıklamalar", sub: "Kaynaklar, açıklamalar, versiyon bilgisi", route: "/hakkinda" },
-      { emoji: "🔒", label: "Gizlilik Politikası", sub: "Verileriniz nasıl korunuyor", route: "/gizlilik" },
-      { emoji: "🧭", label: "Tanıtımı Tekrar Göster", sub: "Uygulama rehberini baştan başlat", action: "restartTour" },
+      { icon: "notifications-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: "Bildirimler", sub: "Namaz vakti ve günlük ayet bildirimleri", route: "/bildirimler" },
+      { icon: "information-circle-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: "Kaynaklar ve Açıklamalar", sub: "Kaynaklar, açıklamalar, versiyon bilgisi", route: "/hakkinda" },
+      { icon: "lock-closed-outline", iconBg: "#e5e7eb", iconColor: "#4b5563", darkIconBg: "#292524", darkIconColor: "#d6d3d1", label: "Gizlilik Politikası", sub: "Verileriniz nasıl korunuyor", route: "/gizlilik" },
+      { icon: "refresh-circle-outline", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4", label: "Tanıtımı Tekrar Göster", sub: "Uygulama rehberini baştan başlat", action: "restartTour" },
     ],
   },
 ];
@@ -83,7 +90,9 @@ export default function DahaFazlaTab() {
                   accessibilityRole="button"
                   accessibilityLabel={`${item.label}: ${item.sub}`}
                 >
-                  <Text style={s.emoji}>{item.emoji}</Text>
+                  <View style={[s.iconWrap, { backgroundColor: c.isDark ? item.darkIconBg : item.iconBg }]}>
+                    <Ionicons name={item.icon} size={20} color={c.isDark ? item.darkIconColor : item.iconColor} />
+                  </View>
                   <View style={{ flex: 1 }}>
                     <Text style={[s.label, { color: c.text }]}>{item.label}</Text>
                     <Text style={[s.sub, { color: c.textMuted }]}>{item.sub}</Text>
@@ -115,7 +124,7 @@ const s = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 14,
   },
-  emoji: { fontSize: 26 },
+  iconWrap: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
   label: { fontSize: 15, fontWeight: "700" },
   sub: { fontSize: 12, marginTop: 2 },
   chev: { fontSize: 24, color: "#a8a29e", fontWeight: "600" },

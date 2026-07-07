@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect, useMemo } from "react";
+import React, { useState, useCallback, useRef, useEffect, useMemo, type ComponentProps } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
 } from "react-native";
@@ -67,9 +67,19 @@ type MoodResult = MoodItem & {
   meal: string | null;
 };
 
-type QuickAction =
-  | { id: string; emoji: string; label: string; bg: string; route: "/sure-listesi" | "/ne-ogreneyim" | "/kible"; onPress?: never }
-  | { id: string; emoji: string; label: string; bg: string; route?: never; onPress: () => void };
+type IoniconName = ComponentProps<typeof Ionicons>["name"];
+type QuickAction = {
+  id: string;
+  icon: IoniconName;
+  label: string;
+  bg: string;
+  iconBg: string;
+  iconColor: string;
+  darkIconBg: string;
+  darkIconColor: string;
+  route?: "/sure-listesi" | "/ne-ogreneyim" | "/kible";
+  onPress?: () => void;
+};
 
 function HomeContent() {
   const c          = useColors();
@@ -94,10 +104,50 @@ function HomeContent() {
   }, []);
 
   const QUICK_ACTIONS: QuickAction[] = useMemo(() => [
-    { id: "quran", emoji: "📖", label: "Kur'an-ı Kerim", route: "/sure-listesi", bg: "#d1fae5" },
-    { id: "learn", emoji: "🎓", label: "Öğren",          route: "/ne-ogreneyim", bg: "#fef3c7" },
-    { id: "tasbih", emoji: "📿", label: "Tespih",         bg: "#dcfce7",          onPress: openTasbih },
-    { id: "qibla", emoji: "🧭", label: "Kıble",          route: "/kible",        bg: "#ede9fe" },
+    {
+      id: "quran",
+      icon: "book-outline",
+      label: "Kur'an-ı Kerim",
+      route: "/sure-listesi",
+      bg: "#d1fae5",
+      iconBg: "#ecfdf5",
+      iconColor: "#15803d",
+      darkIconBg: "#14532d",
+      darkIconColor: "#86efac",
+    },
+    {
+      id: "learn",
+      icon: "school-outline",
+      label: "Öğren",
+      route: "/ne-ogreneyim",
+      bg: "#fef3c7",
+      iconBg: "#fffbeb",
+      iconColor: "#b45309",
+      darkIconBg: "#92400e",
+      darkIconColor: "#fde68a",
+    },
+    {
+      id: "tasbih",
+      icon: "radio-button-on-outline",
+      label: "Tespih",
+      bg: "#dcfce7",
+      iconBg: "#f0fdf4",
+      iconColor: "#15803d",
+      darkIconBg: "#14532d",
+      darkIconColor: "#86efac",
+      onPress: openTasbih,
+    },
+    {
+      id: "qibla",
+      icon: "compass-outline",
+      label: "Kıble",
+      route: "/kible",
+      bg: "#ede9fe",
+      iconBg: "#f5f3ff",
+      iconColor: "#7c3aed",
+      darkIconBg: "#4c1d95",
+      darkIconColor: "#c4b5fd",
+    },
   ], [openTasbih]);
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
@@ -144,8 +194,13 @@ function HomeContent() {
   const handleQuickActionPress = useCallback((action: QuickAction) => {
     Haptics.selectionAsync();
     logFeature('quick_action', { action: action.id });
-    if (action.onPress) { action.onPress(); return; }
-    router.push(action.route);
+    if (action.onPress) {
+      action.onPress();
+      return;
+    }
+    if (action.route) {
+      router.push(action.route);
+    }
   }, []);
 
   return (
@@ -342,7 +397,9 @@ function HomeContent() {
               accessibilityRole="button"
               accessibilityLabel={a.label}
             >
-              <Text style={styles.quickEmoji}>{a.emoji}</Text>
+              <View style={[styles.quickIconWrap, { backgroundColor: c.isDark ? a.darkIconBg : a.iconBg }]}>
+                <Ionicons name={a.icon} size={22} color={c.isDark ? a.darkIconColor : a.iconColor} />
+              </View>
               <Text style={[styles.quickLabel, { color: c.text }]}>{a.label}</Text>
             </TouchableOpacity>
           ))}
@@ -465,9 +522,10 @@ const styles = StyleSheet.create({
   quickWidget: { borderRadius: 16, borderWidth: 1, padding: 14, marginBottom: 16 },
   quickTitle:  { fontSize: 13, fontWeight: "600", textAlign: "center", marginBottom: 12 },
   quickGrid:   { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  quickBtn:    { flexBasis: "48%", flexGrow: 1, borderRadius: 14, padding: 14, alignItems: "center", gap: 6 },
-  quickEmoji:  { fontSize: 30, lineHeight: 36 },
+  quickBtn:    { flexBasis: "48%", flexGrow: 1, borderRadius: 14, padding: 14, alignItems: "center", gap: 8 },
+  quickIconWrap: { width: 42, height: 42, borderRadius: 21, alignItems: "center", justifyContent: "center" },
   quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
   errorBanner:     { backgroundColor: "#fef2f2", borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: "#fca5a5" },
   errorBannerText: { fontSize: 13, color: "#b91c1c", textAlign: "center" },
 });
+
