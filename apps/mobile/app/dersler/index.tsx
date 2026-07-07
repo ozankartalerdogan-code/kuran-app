@@ -61,14 +61,14 @@ export default function DerslerScreen() {
         onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as Href); }}
         activeOpacity={0.8}
         accessibilityRole="button"
-        accessibilityLabel={`${item.baslik}, ${item.kartSayisi} ${item.birim ?? "kart"}${done ? ", tamamlandı" : ""}`}
+        accessibilityLabel={`${item.baslik}, yaklaşık ${item.sure} dakika${done ? ", tamamlandı" : ""}`}
       >
         {done && !item.route && (
           <View style={s.badge}><Text style={s.badgeText}>✓</Text></View>
         )}
         <Text style={s.ikon}>{item.ikon}</Text>
         <Text style={[s.baslik, { color: c.text }]}>{item.baslik}</Text>
-        <Text style={s.kartBilgi}>{item.kartSayisi} {item.birim ?? "kart"} · ~{item.sure} dk</Text>
+        <Text style={s.kartBilgi}>~{item.sure} dk</Text>
         {pct > 0 && !item.route && (
           <View style={[s.progTrack, { backgroundColor: c.border }]}>
             <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />

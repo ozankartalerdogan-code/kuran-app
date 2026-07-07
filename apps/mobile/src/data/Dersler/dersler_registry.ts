@@ -209,7 +209,7 @@ const RAW_KAYITLAR: Kayit[] = [
   {
     id: "nefsini-tani",
     ikon: "\uD83E\uDE9E",
-    sure: sumLessonMinutes(nefsiniTaniDersModule),
+    sure: 12,
     kategori: "ahlak",
     ders: nefsiniTaniDersModule ? normalizeLessonModule(nefsiniTaniDersModule, "\uD83E\uDE9E") : null,
     quiz: () => {
