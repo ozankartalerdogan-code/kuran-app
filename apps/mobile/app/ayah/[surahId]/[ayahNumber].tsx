@@ -26,6 +26,8 @@ import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
 import { useTourTarget } from "../../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
+import { AyahShareModal } from "../../../src/components/AyahShareModal";
+import { isImageShareAvailable } from "../../../src/lib/shareImage";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -540,9 +542,8 @@ export default function AyahDetailScreen() {
     router.push(`/root/${encodeURIComponent(root)}`);
   }, []);
 
-  const handleShare = useCallback(async () => {
+  const handleShareText = useCallback(async () => {
     if (!data) return;
-    logFeature(AnalyticsEvents.PAYLASIM);
     const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
     const title = `${data.surahName} ${data.ayahNumber}. Ayet`;
     const bodyParts = [
@@ -561,6 +562,16 @@ export default function AyahDetailScreen() {
       await Share.share(shareOptions);
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
   }, [data, surahId, ayahNumber, reading]);
+
+  // Paylaş düğmesi: görsel paylaşım modülleri build'de varsa kart önizlemesi açılır
+  // (görsel/metin seçimi orada); yoksa doğrudan mevcut metin paylaşımı.
+  const [shareOpen, setShareOpen] = useState(false);
+  const handleShare = useCallback(() => {
+    if (!data) return;
+    logFeature(AnalyticsEvents.PAYLASIM);
+    if (isImageShareAvailable) setShareOpen(true);
+    else handleShareText();
+  }, [data, handleShareText]);
 
   useEffect(() => {
     return () => {
@@ -1055,6 +1066,17 @@ export default function AyahDetailScreen() {
         </View>
 
       </ScrollView>
+
+      {/* ═══ Görsel Paylaşım Modalı (view-shot build'de varsa) ═══ */}
+      <AyahShareModal
+        visible={shareOpen}
+        onClose={() => setShareOpen(false)}
+        surahName={data.surahName}
+        ayahNumber={data.ayahNumber}
+        arabic={data.arabicText}
+        meal={data.meal}
+        onShareText={handleShareText}
+      />
     </>
   );
 }

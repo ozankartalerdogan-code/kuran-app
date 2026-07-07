@@ -88,6 +88,9 @@ module.exports = {
         },
       ],
       'expo-status-bar',
+      // Görsel ayet paylaşımı — kart görselini paylaşım sayfasına verir (native;
+      // yeni EAS build gerektirir, JS tarafı guard'lı: modül yoksa metin paylaşımı)
+      'expo-sharing',
       // Uygulama kapalıyken namaz vakti bildirimlerini tazeleyen arka plan görevi
       // (Android WorkManager / iOS BGTaskScheduler). iOS tarafına UIBackgroundModes
       // "processing" + BGTaskSchedulerPermittedIdentifiers ekler.
