@@ -17,6 +17,7 @@ export const STORAGE_KEYS = {
   appTour:         "app_tour_completed",
   hatimTracking:   "hatimTakibi",
   tajweed:         "tajweedEnabled",
+  ayahFontScale:   "ayahFontScale",
 } as const;
 
 // ── MMKV — güvenli (build-gated) yükleme ───────────────────────────────────────

@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
+import { useKeepAwakeSafe } from "../../../src/hooks/useKeepAwakeSafe";
 
 // ── Cüz sınır tablosu (yaklaşık başlangıç noktaları) ──────────────────────────
 
@@ -88,6 +89,7 @@ function JuzTracker({ currentJuz }: { currentJuz: number }) {
 
 
 export default function MushafAyahScreen() {
+  useKeepAwakeSafe(); // Okuma sırasında ekran kararmasın
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
 

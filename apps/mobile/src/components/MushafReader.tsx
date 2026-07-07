@@ -9,6 +9,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { useStreak } from "../hooks/useStreak";
+import { useColors, type AppColors } from "../hooks/useColors";
+import { useKeepAwakeSafe } from "../hooks/useKeepAwakeSafe";
+
+// Karanlıkta yeşil vurgulu yüzeyler için ortak ton (motto/işaret kutuları).
+const darkGreenBg = (c: AppColors) => (c.isDark ? "#022c22" : "#ecfdf5");
+const darkGreenBorder = (c: AppColors) => (c.isDark ? "#065f46" : "#a7f3d0");
 import { TajweedText, TAJWEED_LEGEND } from "./TajweedText";
 import { logFeature } from "../lib/analytics";
 import { READING_MAX_WIDTH } from "../lib/layout";
@@ -40,6 +46,7 @@ function parseBookmark(raw: string | null): MushafBookmark {
 const AYAH_ITEM = 48; // seg 44 + gap 4
 
 function AyahSelector({ count, current, onSelect }: { count: number; current: number; onSelect: (n: number) => void }) {
+  const c = useColors();
   const listRef = useRef<FlatList<number>>(null);
   const data = useMemo(() => Array.from({ length: count }, (_, i) => i + 1), [count]);
 
@@ -51,14 +58,18 @@ function AyahSelector({ count, current, onSelect }: { count: number; current: nu
   const renderItem = useCallback(({ item: n }: { item: number }) => {
     const active = n === current;
     return (
-      <TouchableOpacity style={[juzSt.seg, active && juzSt.segActive]} onPress={() => onSelect(n)} activeOpacity={0.7}>
-        <Text style={[juzSt.label, active && juzSt.labelActive]}>{n}</Text>
+      <TouchableOpacity
+        style={[juzSt.seg, { backgroundColor: c.cardAlt, borderColor: c.border }, active && juzSt.segActive]}
+        onPress={() => onSelect(n)}
+        activeOpacity={0.7}
+      >
+        <Text style={[juzSt.label, { color: c.textMuted }, active && juzSt.labelActive]}>{n}</Text>
       </TouchableOpacity>
     );
-  }, [current, onSelect]);
+  }, [current, onSelect, c]);
 
   return (
-    <View style={juzSt.container}>
+    <View style={[juzSt.container, { backgroundColor: c.card, borderBottomColor: c.border }]}>
       <FlatList
         ref={listRef}
         data={data}
@@ -121,20 +132,22 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
     onChange(bookmark);
   }, [bookmark, onChange]);
 
+  const c = useColors();
+
   return (
-    <View style={[bmSt.container, { paddingBottom: insets.bottom + 8 }]}>
+    <View style={[bmSt.container, { backgroundColor: c.card, borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
       <TouchableOpacity
-        style={[bmSt.btn, isHere && bmSt.btnActive]}
+        style={[bmSt.btn, { backgroundColor: darkGreenBg(c), borderColor: darkGreenBorder(c) }, isHere && bmSt.btnActive]}
         onPress={save}
         activeOpacity={0.7}
         accessibilityRole="button"
         accessibilityLabel={isHere ? "Bu ayetteki yer imini kaldır" : "Bu ayeti kaldığım yer olarak işaretle"}
       >
-        <Ionicons name={isHere ? "bookmark" : "bookmark-outline"} size={16} color={isHere ? "#fff" : "#059669"} />
-        <Text style={[bmSt.btnText, isHere && bmSt.btnTextActive]}>{isHere ? "İşaretlendi" : "Buraya İşaretle"}</Text>
+        <Ionicons name={isHere ? "bookmark" : "bookmark-outline"} size={16} color={isHere ? "#fff" : c.accent} />
+        <Text style={[bmSt.btnText, { color: c.accent }, isHere && bmSt.btnTextActive]}>{isHere ? "İşaretlendi" : "Buraya İşaretle"}</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[bmSt.btn, bmSt.btnOutline]}
+        style={[bmSt.btn, bmSt.btnOutline, { backgroundColor: c.card, borderColor: c.border }]}
         onPress={goTo}
         activeOpacity={0.7}
         disabled={!bookmark}
@@ -142,8 +155,8 @@ function BookmarkBar({ currentSurah, currentAyah, bookmark, onChange }: {
         accessibilityState={{ disabled: !bookmark }}
         accessibilityLabel={bookmark ? `Kaldığım yere git ${bookmark.surahId}:${bookmark.ayahNumber}` : "Kaldığım yer yok"}
       >
-        <Ionicons name="location-outline" size={16} color={bookmark ? "#059669" : "#d6d3d1"} />
-        <Text style={[bmSt.btnText, bmSt.btnTextOutline, !bookmark && { color: "#d6d3d1" }]}>
+        <Ionicons name="location-outline" size={16} color={bookmark ? c.accent : c.textMuted} />
+        <Text style={[bmSt.btnText, { color: c.textSecondary }, !bookmark && { color: c.textMuted }]}>
           {bookmark ? `Kaldığım Yer (${bookmark.surahId}:${bookmark.ayahNumber})` : "Kaldığım Yer"}
         </Text>
       </TouchableOpacity>
@@ -161,6 +174,8 @@ interface MushafReaderProps {
 
 export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookmark = false }: MushafReaderProps) {
   useStreak(); // Mushaf'tan okumak da okuma serisini ilerletir (ayet ekranıyla aynı)
+  useKeepAwakeSafe(); // Okuma sırasında ekran kararmasın
+  const c = useColors();
   const [surahList, setSurahList]       = useState<SurahListItem[]>([]);
   const [currentSurahId, setCurrentSurahId] = useState(initialSurahId);
   const [currentAyahNum, setCurrentAyahNum] = useState(initialAyahNum);
@@ -267,7 +282,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
     : currentSurahId < 114;
 
   return (
-    <View style={st.screen}>
+    <View style={[st.screen, { backgroundColor: c.bg }]}>
       {surahMeta && surahMeta.verseCount > 0 && (
         <AyahSelector
           count={surahMeta.verseCount}
@@ -279,22 +294,22 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
       <ScrollView style={st.scroll} contentContainerStyle={st.scrollInner} showsVerticalScrollIndicator={false}>
         {/* Sure başlığı */}
         {surahMeta && (
-          <View style={st.surahHeader}>
-            <Text style={st.surahArabic}>{surahMeta.arabicName}</Text>
-            <Text style={st.surahName}>{surahMeta.id}. {surahMeta.name}</Text>
-            <Text style={st.surahMeta}>{surahMeta.verseCount} ayet · {surahMeta.revelationPlace}</Text>
+          <View style={[st.surahHeader, { backgroundColor: c.card, borderBottomColor: c.border }]}>
+            <Text style={[st.surahArabic, { color: c.text }]}>{surahMeta.arabicName}</Text>
+            <Text style={[st.surahName, { color: c.accent }]}>{surahMeta.id}. {surahMeta.name}</Text>
+            <Text style={[st.surahMeta, { color: c.textMuted }]}>{surahMeta.verseCount} ayet · {surahMeta.revelationPlace}</Text>
           </View>
         )}
 
         {/* Ayet içeriği */}
         {loadState.status === "loading" ? (
-          <View style={st.center}><ActivityIndicator size="large" color="#059669" /><Text style={st.loadingText}>Yükleniyor…</Text></View>
+          <View style={st.center}><ActivityIndicator size="large" color={c.accent} /><Text style={[st.loadingText, { color: c.textMuted }]}>Yükleniyor…</Text></View>
         ) : loadState.status === "error" ? (
           <View style={st.center}>
-            <Ionicons name="cloud-offline-outline" size={48} color="#d6d3d1" />
+            <Ionicons name="cloud-offline-outline" size={48} color={c.textMuted} />
             <Text style={st.errorText}>{loadState.message}</Text>
-            <TouchableOpacity style={st.retryBtn} onPress={handleRetry} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Ayeti tekrar yükle">
-              <Text style={st.retryText}>Tekrar Dene</Text>
+            <TouchableOpacity style={[st.retryBtn, { backgroundColor: darkGreenBg(c), borderColor: darkGreenBorder(c) }]} onPress={handleRetry} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Ayeti tekrar yükle">
+              <Text style={[st.retryText, { color: c.accent }]}>Tekrar Dene</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -303,36 +318,36 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
               <View style={st.ayahBadge}><Text style={st.ayahBadgeText}>{loadState.ayah.ayahNumber}</Text></View>
               {loadState.ayah.arabicTajweed && (
                 <TouchableOpacity
-                  style={[st.tajToggle, tajweed && st.tajToggleOn]}
+                  style={[st.tajToggle, { borderColor: c.border }, tajweed && st.tajToggleOn]}
                   onPress={handleTajweedToggle}
                   activeOpacity={0.75}
                   accessibilityRole="switch"
                   accessibilityState={{ checked: tajweed }}
                   accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
                 >
-                  <Text style={[st.tajToggleText, tajweed && st.tajToggleTextOn]}>🎨 Tecvid</Text>
+                  <Text style={[st.tajToggleText, { color: c.textMuted }, tajweed && st.tajToggleTextOn]}>🎨 Tecvid</Text>
                 </TouchableOpacity>
               )}
             </View>
             {loadState.ayah.arabicText
               ? (tajweed && loadState.ayah.arabicTajweed
-                  ? <TajweedText markup={loadState.ayah.arabicTajweed} style={st.arabic} />
-                  : <Text style={st.arabic} selectable>{loadState.ayah.arabicText}</Text>)
-              : <Text style={st.arabicMissing}>Arapça metin yüklenemedi</Text>}
+                  ? <TajweedText markup={loadState.ayah.arabicTajweed} style={[st.arabic, { color: c.text }]} />
+                  : <Text style={[st.arabic, { color: c.text }]} selectable>{loadState.ayah.arabicText}</Text>)
+              : <Text style={[st.arabicMissing, { color: c.textMuted }]}>Arapça metin yüklenemedi</Text>}
             {tajweed && loadState.ayah.arabicTajweed && (
               <View style={st.legend}>
                 {TAJWEED_LEGEND.map(l => (
                   <View key={l.ad} style={st.legendItem}>
                     <View style={[st.legendDot, { backgroundColor: l.renk }]} />
-                    <Text style={st.legendText}>{l.ad}</Text>
+                    <Text style={[st.legendText, { color: c.textMuted }]}>{l.ad}</Text>
                   </View>
                 ))}
               </View>
             )}
             {loadState.ayah.meal && (
-              <View style={st.mealBox}>
-                <Text style={st.mealLabel}>Meal</Text>
-                <Text style={st.mealText} selectable>{loadState.ayah.meal}</Text>
+              <View style={[st.mealBox, { backgroundColor: c.card, borderColor: c.border }]}>
+                <Text style={[st.mealLabel, { color: c.accent }]}>Meal</Text>
+                <Text style={[st.mealText, { color: c.textSecondary }]} selectable>{loadState.ayah.meal}</Text>
               </View>
             )}
             {/* Ayet detay linki */}
@@ -346,16 +361,16 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
               accessibilityRole="button"
               accessibilityLabel="Ayet detayını aç"
             >
-              <Text style={st.detailBtnText}>Kelime & Analiz →</Text>
+              <Text style={[st.detailBtnText, { color: c.accent }]}>Kelime & Analiz →</Text>
             </TouchableOpacity>
             {loadState.ayah.words && loadState.ayah.words.length > 0 && (
               <View style={st.wordsBox}>
-                <Text style={st.wordsLabel}>Kelime Kelime</Text>
+                <Text style={[st.wordsLabel, { color: c.textMuted }]}>Kelime Kelime</Text>
                 <View style={st.wordsGrid}>
                   {loadState.ayah.words.map(w => (
-                    <View key={w.wordIndex} style={st.wordChip}>
-                      <Text style={st.wordArabic}>{w.arabic}</Text>
-                      <Text style={st.wordMeaning}>{w.meaningTr}</Text>
+                    <View key={w.wordIndex} style={[st.wordChip, { backgroundColor: c.card, borderColor: c.border }]}>
+                      <Text style={[st.wordArabic, { color: c.text }]}>{w.arabic}</Text>
+                      <Text style={[st.wordMeaning, { color: c.textMuted }]}>{w.meaningTr}</Text>
                     </View>
                   ))}
                 </View>
@@ -366,22 +381,22 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
       </ScrollView>
 
       {/* Sure seçici — virtualize (114 sure) */}
-      <View style={st.surahSelector}>
+      <View style={[st.surahSelector, { backgroundColor: c.card, borderTopColor: c.border }]}>
         <FlatList
           data={surahList}
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(s) => String(s.id)}
-          extraData={currentSurahId}
+          extraData={`${currentSurahId}_${c.isDark}`}
           renderItem={({ item: s }) => (
             <TouchableOpacity
-              style={[st.surahChip, s.id === currentSurahId && st.surahChipActive]}
+              style={[st.surahChip, { backgroundColor: c.cardAlt, borderColor: c.border }, s.id === currentSurahId && { backgroundColor: darkGreenBg(c), borderColor: c.accent }]}
               onPress={() => handleSurahSelect(s.id)}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={`${s.name} suresine git`}
             >
-              <Text style={[st.surahChipText, s.id === currentSurahId && st.surahChipTextActive]} numberOfLines={1}>
+              <Text style={[st.surahChipText, { color: c.textMuted }, s.id === currentSurahId && { color: c.accent }]} numberOfLines={1}>
                 {s.id}. {s.name}
               </Text>
             </TouchableOpacity>
@@ -394,20 +409,20 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
       </View>
 
       {/* Navigasyon */}
-      <View style={st.navBar}>
-        <TouchableOpacity style={[st.navBtn, st.navBtnSurah]} onPress={handlePrevSurah} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Önceki sureye git">
+      <View style={[st.navBar, { backgroundColor: c.card, borderTopColor: c.border }]}>
+        <TouchableOpacity style={[st.navBtn, st.navBtnSurah, c.isDark && { backgroundColor: "#3f3f46" }]} onPress={handlePrevSurah} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Önceki sureye git">
           <Ionicons name="play-skip-back" size={18} color="#fff" />
           <Text style={st.navBtnText}>Önceki Sure</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, !canPrev && st.navBtnDisabled]} onPress={handlePrevAyah} disabled={!canPrev} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ disabled: !canPrev }} accessibilityLabel="Önceki ayete git">
-          <Ionicons name="chevron-back" size={20} color={canPrev ? "#059669" : "#d6d3d1"} />
-          <Text style={[st.navBtnText, st.navBtnTextAyah]}>Önceki Ayet</Text>
+        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, { backgroundColor: c.cardAlt, borderColor: c.border }, !canPrev && st.navBtnDisabled]} onPress={handlePrevAyah} disabled={!canPrev} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ disabled: !canPrev }} accessibilityLabel="Önceki ayete git">
+          <Ionicons name="chevron-back" size={20} color={canPrev ? c.accent : c.textMuted} />
+          <Text style={[st.navBtnText, st.navBtnTextAyah, { color: c.text }]}>Önceki Ayet</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, !canNext && st.navBtnDisabled]} onPress={handleNextAyah} disabled={!canNext} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ disabled: !canNext }} accessibilityLabel="Sonraki ayete git">
-          <Text style={[st.navBtnText, st.navBtnTextAyah]}>Sonraki Ayet</Text>
-          <Ionicons name="chevron-forward" size={20} color={canNext ? "#059669" : "#d6d3d1"} />
+        <TouchableOpacity style={[st.navBtn, st.navBtnAyah, { backgroundColor: c.cardAlt, borderColor: c.border }, !canNext && st.navBtnDisabled]} onPress={handleNextAyah} disabled={!canNext} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ disabled: !canNext }} accessibilityLabel="Sonraki ayete git">
+          <Text style={[st.navBtnText, st.navBtnTextAyah, { color: c.text }]}>Sonraki Ayet</Text>
+          <Ionicons name="chevron-forward" size={20} color={canNext ? c.accent : c.textMuted} />
         </TouchableOpacity>
-        <TouchableOpacity style={[st.navBtn, st.navBtnSurah]} onPress={handleNextSurah} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sonraki sureye git">
+        <TouchableOpacity style={[st.navBtn, st.navBtnSurah, c.isDark && { backgroundColor: "#3f3f46" }]} onPress={handleNextSurah} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sonraki sureye git">
           <Text style={st.navBtnText}>Sonraki Sure</Text>
           <Ionicons name="play-skip-forward" size={18} color="#fff" />
         </TouchableOpacity>

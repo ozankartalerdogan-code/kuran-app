@@ -7,6 +7,7 @@ import { router, Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { useColors } from "../src/hooks/useColors";
 
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
 
@@ -67,33 +68,34 @@ const SURE_ADI: Record<number, string> = {
 };
 
 function VakitTablosu() {
+  const c = useColors();
   const allVakitVerse = VAKIT_KEYS;
 
   return (
     <>
     {/* Üst Motto — Nisâ 4:103 ayet + meal */}
     <TouchableOpacity
-      style={vt.motto}
+      style={[vt.motto, { backgroundColor: c.isDark ? "#022c22" : "#ecfdf5", borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}
       activeOpacity={0.8}
       onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: MOTTO.surahId, ayahNumber: MOTTO.ayahNumber } })}
       accessibilityRole="button"
       accessibilityLabel={`${MOTTO.label} ayetini aç`}
     >
       <View style={vt.mottoHead}>
-        <Text style={vt.mottoEtiket}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
-        <View style={vt.mottoKey}><Text style={vt.mottoKeyText}>{MOTTO.label}</Text></View>
+        <Text style={[vt.mottoEtiket, { color: c.accent }]}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
+        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{MOTTO.label}</Text></View>
       </View>
-      <Text style={vt.mottoArabic}>{MOTTO.arabic}</Text>
-      <Text style={vt.mottoMeal}>“{MOTTO.meal}”</Text>
+      <Text style={[vt.mottoArabic, { color: c.text }]}>{MOTTO.arabic}</Text>
+      <Text style={[vt.mottoMeal, { color: c.textSecondary }]}>“{MOTTO.meal}”</Text>
     </TouchableOpacity>
 
-    <View style={vt.kapsam}>
+    <View style={[vt.kapsam, { backgroundColor: c.card, borderColor: c.border }]}>
       {/* Başlık */}
-      <View style={vt.baslik}>
+      <View style={[vt.baslik, { backgroundColor: c.cardAlt, borderBottomColor: c.border }]}>
         <Text style={vt.baslikIkon}>🕐</Text>
-        <Text style={vt.baslikMetin}>Namaz Vakitleri & Teheccüd</Text>
-        <View style={vt.adetBadge}>
-          <Text style={vt.adetText}>
+        <Text style={[vt.baslikMetin, { color: c.textMuted }]}>Namaz Vakitleri & Teheccüd</Text>
+        <View style={[vt.adetBadge, { backgroundColor: c.accentLight }]}>
+          <Text style={[vt.adetText, { color: c.accent }]}>
             {Object.values(allVakitVerse).reduce((s, a) => s + a.length, 0)} ayet
           </Text>
         </View>
@@ -103,14 +105,14 @@ function VakitTablosu() {
         const verses = allVakitVerse[m.id] ?? [];
         if (verses.length === 0) return null;
         return (
-          <View key={m.id} style={[vt.vakitSatir, i > 0 && vt.vakitSatirBorder]}>
+          <View key={m.id} style={[vt.vakitSatir, i > 0 && [vt.vakitSatirBorder, { borderTopColor: c.border }]]}>
             {/* Sol — vakit adı */}
-            <View style={[vt.vakitSol, { backgroundColor: m.bg, borderLeftColor: m.border }]}>
+            <View style={[vt.vakitSol, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderLeftColor: m.border }]}>
               <Text style={{ fontSize: 22 }}>{m.ikon}</Text>
               <View style={[vt.vakitBadge, { backgroundColor: m.badge }]}>
                 <Text style={[vt.vakitBadgeText, { color: m.badgeText }]}>{m.ad}</Text>
               </View>
-              <Text style={vt.vakitAdet}>{verses.length} ayet</Text>
+              <Text style={[vt.vakitAdet, { color: c.textMuted }]}>{verses.length} ayet</Text>
             </View>
             {/* Sağ — ayetler */}
             <View style={vt.vakitSag}>
@@ -118,9 +120,9 @@ function VakitTablosu() {
                 <TouchableOpacity key={v.label} style={vt.ayetRow}
                   onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: v.surahId, ayahNumber: v.ayahNumber } })} activeOpacity={0.7}
                   accessibilityRole="button" accessibilityLabel={`${SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}, ${v.label} ayetini aç`}>
-                  <View style={vt.keyBadge}><Text style={vt.keyText}>{v.label}</Text></View>
-                  <Text style={vt.sureName}>{SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}</Text>
-                  <Text style={vt.arrow}>›</Text>
+                  <View style={[vt.keyBadge, { backgroundColor: c.cardAlt }]}><Text style={[vt.keyText, { color: c.textMuted }]}>{v.label}</Text></View>
+                  <Text style={[vt.sureName, { color: c.text }]}>{SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}</Text>
+                  <Text style={[vt.arrow, { color: c.textMuted }]}>›</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -144,6 +146,7 @@ const NAMAZ_TAGS = [
 ] as const;
 
 const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: string; emoji: string; desc: string }) {
+  const c = useColors();
   const [open, setOpen]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [verses, setVerses]   = useState<TagFilterResult[]>([]);
@@ -166,39 +169,39 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
   };
 
   return (
-    <View style={styles.accordion}>
+    <View style={[styles.accordion, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={label}>
         <Text style={{ fontSize: 20 }}>{emoji}</Text>
         <View style={{ flex: 1 }}>
-          <Text style={styles.accordionTitle}>{label}</Text>
-          <Text style={styles.accordionDesc}>{desc}</Text>
+          <Text style={[styles.accordionTitle, { color: c.text }]}>{label}</Text>
+          <Text style={[styles.accordionDesc, { color: c.textMuted }]}>{desc}</Text>
         </View>
-        <Text style={styles.accordionChev}>{open ? "▲" : "▼"}</Text>
+        <Text style={[styles.accordionChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
       {open && (
-        <View style={styles.accordionBody}>
+        <View style={[styles.accordionBody, { borderTopColor: c.border }]}>
           {loading ? (
-            <ActivityIndicator color="#059669" style={{ marginVertical: 10 }} />
+            <ActivityIndicator color={c.accent} style={{ marginVertical: 10 }} />
           ) : error ? (
             <View style={styles.accordionError}>
               <Text style={styles.accordionErrorText}>İçerik yüklenemedi. Lütfen tekrar deneyin.</Text>
-              <TouchableOpacity style={styles.retryBtn} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
+              <TouchableOpacity style={[styles.retryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
                 <Text style={styles.retryBtnText}>Tekrar Dene</Text>
               </TouchableOpacity>
             </View>
           ) : fetched && verses.length === 0 ? (
-            <Text style={styles.accordionEmpty}>İçerik bulunamadı.</Text>
+            <Text style={[styles.accordionEmpty, { color: c.textMuted }]}>İçerik bulunamadı.</Text>
           ) : verses.map((item) => (
-            <TouchableOpacity key={item.verse_key} style={styles.verseCard}
+            <TouchableOpacity key={item.verse_key} style={[styles.verseCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}
               onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
               onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}
               accessibilityRole="button" accessibilityLabel={`${item.surah_name ?? item.verse_key}, ayeti aç`}>
               <View style={styles.verseHeader}>
-                <View style={styles.keyBadge}><Text style={styles.keyText}>{item.verse_key}</Text></View>
-                {item.surah_name && <Text style={styles.surahLabel}>{item.surah_name}</Text>}
+                <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{item.verse_key}</Text></View>
+                {item.surah_name && <Text style={[styles.surahLabel, { color: c.textMuted }]}>{item.surah_name}</Text>}
               </View>
-              {item.reading_tr && <Text style={styles.readingText} numberOfLines={2}>{item.reading_tr}</Text>}
-              {item.meal && <Text style={styles.mealText} numberOfLines={2}>{item.meal}</Text>}
+              {item.reading_tr && <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>{item.reading_tr}</Text>}
+              {item.meal && <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={2}>{item.meal}</Text>}
             </TouchableOpacity>
           ))}
         </View>
@@ -209,11 +212,12 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
 
 export default function NamazScreen() {
   const insets = useSafeAreaInsets();
+  const c = useColors();
 
   return (
     <>
       <Stack.Screen options={{ title: "Namaz Hakkında" }} />
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
+      <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
         {/* Namaz Vakitleri Tablosu */}
         <VakitTablosu />
 

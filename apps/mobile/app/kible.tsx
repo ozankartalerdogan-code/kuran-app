@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Location from "expo-location";
 import { Magnetometer, Accelerometer, DeviceMotion } from "expo-sensors";
 import * as Haptics from "expo-haptics";
+import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -115,6 +116,7 @@ type Step = "locating" | "compass";
 
 export default function KibleScreen() {
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
+  useKeepAwakeSafe(); // Pusulaya bakarken ekran kararmasın
   const insets = useSafeAreaInsets();
   const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);

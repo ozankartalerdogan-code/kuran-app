@@ -23,7 +23,7 @@ export interface UseDailyContentResult {
   dua: DailyVerse | null;
   prayers: PrayerTimes | null;
   prayerCity: string;
-  nextPrayer: { label: string; time: string } | null;
+  nextPrayer: { key: string; label: string; time: string; remainingMin: number } | null;
   PRAYER_LABELS: Record<string, string>;
   loading: boolean;
   verseLoading: boolean;
@@ -83,6 +83,15 @@ export function useDailyContent(): UseDailyContentResult {
 
   const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
   const prayerCity = prayerCityState;
+
+  // Canlı geri sayım için tik — 30 sn'de bir yeniden render tetikler, nextPrayer
+  // aşağıda her render'da yeniden hesaplandığı için kalan süre kendiliğinden
+  // güncellenir. Ağ isteği/başka yan etki YOKTUR, yalnız render.
+  const [nowTick, setNowTick] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNowTick(Date.now()), 30_000);
+    return () => clearInterval(id);
+  }, []);
   const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMountedRef = useRef(true);
   const loadIdRef = useRef(0);
@@ -360,7 +369,7 @@ export function useDailyContent(): UseDailyContentResult {
 
   const nextPrayer = prayers
     ? (() => {
-        const now = new Date();
+        const now = new Date(nowTick);
         const nowMin = now.getHours() * 60 + now.getMinutes();
         for (const key of ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"]) {
           const [h, m] = (prayers[key as keyof PrayerTimes] ?? "")
@@ -368,12 +377,17 @@ export function useDailyContent(): UseDailyContentResult {
             .map(Number);
           if (!isNaN(h) && h * 60 + m > nowMin) {
             return {
+              key,
               label: PRAYER_LABELS[key],
               time: prayers[key as keyof PrayerTimes],
+              remainingMin: h * 60 + m - nowMin,
             };
           }
         }
-        return { label: PRAYER_LABELS["Fajr"], time: prayers.Fajr };
+        // Bugünün tüm vakitleri geçti → yarınki İmsak'a kalan süre.
+        const [fh, fm] = (prayers.Fajr ?? "").split(":").map(Number);
+        const toFajr = isNaN(fh) ? 0 : 24 * 60 - nowMin + fh * 60 + fm;
+        return { key: "Fajr", label: PRAYER_LABELS["Fajr"], time: prayers.Fajr, remainingMin: toFajr };
       })()
     : null;
 

@@ -12,7 +12,7 @@ import {
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonLoader";
 import { TajweedText } from "../../../src/components/TajweedText";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
@@ -33,6 +33,11 @@ const arCollator = new Intl.Collator("ar");
 // Analiz sekmesindeki "TEMA ETİKETLERİ" kartını göster/gizle. Etiket atamalarının
 // doğruluğu teyit edilene kadar kullanıcıya kapalı. Doğrulanınca true yapılabilir.
 const SHOW_THEME_TAGS = false;
+
+// Yazı boyutu ölçeği sınırları (A− / A+); 1 = varsayılan tasarım boyutu.
+const FONT_SCALE_MIN = 0.85;
+const FONT_SCALE_MAX = 1.6;
+const FONT_SCALE_STEP = 0.15;
 
 // ── POS (Part of Speech) Türkçe çeviri ───────────────────────────────────────
 
@@ -445,6 +450,34 @@ export default function AyahDetailScreen() {
       return next;
     });
   }, []);
+
+  // Yazı boyutu (A− / A+) — Arapça metin, okunuş ve meale uygulanır; kalıcı tercih.
+  const [fontScale, setFontScale] = useState(() => {
+    const v = Number(storage.getStringSync(STORAGE_KEYS.ayahFontScale));
+    return v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX ? v : 1;
+  });
+  useEffect(() => {
+    let alive = true;
+    storage.getString(STORAGE_KEYS.ayahFontScale).then((raw) => {
+      const v = Number(raw);
+      if (alive && v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX) setFontScale(v);
+    });
+    return () => { alive = false; };
+  }, []);
+  const changeFontScale = useCallback((delta: number) => {
+    setFontScale((prev) => {
+      const next = Math.round(
+        Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, prev + delta)) * 100,
+      ) / 100;
+      storage.setString(STORAGE_KEYS.ayahFontScale, String(next));
+      return next;
+    });
+  }, []);
+  const scaledText = useMemo(() => ({
+    arabic:  { fontSize: 36 * fontScale, lineHeight: 60 * fontScale },
+    reading: { fontSize: 15 * fontScale, lineHeight: 24 * fontScale },
+    meal:    { fontSize: 15 * fontScale, lineHeight: 26 * fontScale },
+  }), [fontScale]);
   const noteSavedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Mevcut notu yükle
@@ -663,33 +696,55 @@ export default function AyahDetailScreen() {
 
         {/* ═══ Arapça Metin ═══ */}
         <View style={[styles.arabicBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          {data.arabicTajweed ? (
-            <>
-              <View style={styles.tajRow}>
-                <TouchableOpacity
-                  style={[styles.tajToggle, { borderColor: colors.border }, tajweed && styles.tajToggleOn]}
-                  onPress={handleTajweedToggle}
-                  activeOpacity={0.75}
-                  hitSlop={6}
-                  accessibilityRole="switch"
-                  accessibilityState={{ checked: tajweed }}
-                  accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
-                >
-                  <Text style={[styles.tajToggleText, { color: colors.textMuted }, tajweed && styles.tajToggleTextOn]}>
-                    🎨 Tecvid {tajweed ? "açık" : "kapalı"}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              {tajweed ? (
-                <TajweedText markup={data.arabicTajweed} style={[styles.arabicText, { color: colors.textPrimary }]} />
-              ) : (
-                <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
-                  {data.arabicText ?? "—"}
+          <View style={styles.tajRow}>
+            {data.arabicTajweed ? (
+              <TouchableOpacity
+                style={[styles.tajToggle, { borderColor: colors.border }, tajweed && styles.tajToggleOn]}
+                onPress={handleTajweedToggle}
+                activeOpacity={0.75}
+                hitSlop={6}
+                accessibilityRole="switch"
+                accessibilityState={{ checked: tajweed }}
+                accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+              >
+                <Text style={[styles.tajToggleText, { color: colors.textMuted }, tajweed && styles.tajToggleTextOn]}>
+                  🎨 Tecvid {tajweed ? "açık" : "kapalı"}
                 </Text>
-              )}
-            </>
+              </TouchableOpacity>
+            ) : (
+              <View />
+            )}
+            <View style={styles.fontBtns}>
+              <TouchableOpacity
+                style={[styles.fontBtn, { borderColor: colors.border }, fontScale <= FONT_SCALE_MIN && styles.fontBtnDisabled]}
+                onPress={() => changeFontScale(-FONT_SCALE_STEP)}
+                disabled={fontScale <= FONT_SCALE_MIN}
+                activeOpacity={0.7}
+                hitSlop={6}
+                accessibilityRole="button"
+                accessibilityLabel="Yazıyı küçült"
+                accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
+              >
+                <Text style={[styles.fontBtnText, { color: colors.textSecondary }]}>A−</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.fontBtn, { borderColor: colors.border }, fontScale >= FONT_SCALE_MAX && styles.fontBtnDisabled]}
+                onPress={() => changeFontScale(FONT_SCALE_STEP)}
+                disabled={fontScale >= FONT_SCALE_MAX}
+                activeOpacity={0.7}
+                hitSlop={6}
+                accessibilityRole="button"
+                accessibilityLabel="Yazıyı büyüt"
+                accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
+              >
+                <Text style={[styles.fontBtnText, { color: colors.textSecondary }]}>A+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {data.arabicTajweed && tajweed ? (
+            <TajweedText markup={data.arabicTajweed} style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]} />
           ) : (
-            <Text style={[styles.arabicText, { color: colors.textPrimary }]}>
+            <Text style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
               {data.arabicText ?? "—"}
             </Text>
           )}
@@ -698,7 +753,7 @@ export default function AyahDetailScreen() {
         {/* ═══ Okunuş — Arapça metnin hemen altında ═══ */}
         {reading ? (
           <View style={[styles.readingBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
-            <Text style={[styles.readingText, { color: colors.textSecondary }]}>{reading}</Text>
+            <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{reading}</Text>
           </View>
         ) : null}
 
@@ -715,7 +770,7 @@ export default function AyahDetailScreen() {
             {data.meal ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>Elmalılı H. Yazır</Text>
-                <Text style={[styles.mealText, { color: colors.textSecondary }]}>{data.meal}</Text>
+                <Text style={[styles.mealText, scaledText.meal, { color: colors.textSecondary }]}>{data.meal}</Text>
               </View>
             ) : (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
@@ -1046,7 +1101,15 @@ const styles = StyleSheet.create({
     fontFamily: "Amiri", textAlign: "right",
     writingDirection: "rtl", width: "100%",
   },
-  tajRow: { width: "100%", flexDirection: "row", justifyContent: "flex-end", marginBottom: 8 },
+  tajRow: { width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
+  fontBtns: { flexDirection: "row", gap: 6 },
+  fontBtn: {
+    borderRadius: 16, borderWidth: 1,
+    paddingHorizontal: 10, paddingVertical: 6,
+    minWidth: 40, alignItems: "center",
+  },
+  fontBtnDisabled: { opacity: 0.35 },
+  fontBtnText: { fontSize: 12, fontWeight: "800" },
   tajToggle: {
     flexDirection: "row", alignItems: "center",
     borderRadius: 16, borderWidth: 1,

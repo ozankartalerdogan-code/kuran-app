@@ -30,6 +30,20 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
+// Geri sayım cümlesi için -e hali (ünlü uyumu elle; etiketler sabit).
+const PRAYER_DATIVE: Record<string, string> = {
+  Fajr: "İmsak'a", Sunrise: "Güneş'e", Dhuhr: "Öğle'ye",
+  Asr: "İkindi'ye", Maghrib: "Akşam'a", Isha: "Yatsı'ya",
+};
+
+function formatRemaining(min: number): string {
+  if (min < 1) return "1 dk'dan az";
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  if (h > 0) return m > 0 ? `${h} sa ${m} dk` : `${h} sa`;
+  return `${m} dk`;
+}
+
 const RUH_HALI = [
   { emoji: "😌", label: "Huzur",           tag: "rahmet",   bg: "#d1fae5", border: "#6ee7b7" },
   { emoji: "💪", label: "Sabır",           tag: "sabır",    bg: "#fef3c7", border: "#fcd34d" },
@@ -254,8 +268,13 @@ function HomeContent() {
       <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
-          <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}{nextPrayer ? ` · Sonraki: ${nextPrayer.label} ${nextPrayer.time}` : ""}</Text>
+          <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}</Text>
         </View>
+        {nextPrayer && (
+          <Text style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
+            {PRAYER_DATIVE[nextPrayer.key] ?? nextPrayer.label} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin)}</Text> kaldı
+          </Text>
+        )}
         {!prayers && prayerLoading ? (
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
         ) : !prayers ? (
@@ -411,6 +430,8 @@ const styles = StyleSheet.create({
   verseMeal:    { fontSize: 13, lineHeight: 20 },
 
   prayerCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
+  countdown: { fontSize: 14, marginTop: 2 },
+  countdownStrong: { fontWeight: "800" },
   prayerNotifLink: { marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: "rgba(99,102,241,0.25)", alignItems: "center" },
   prayerNotifLinkText: { fontSize: 13, fontWeight: "600" },
   prayerItem: {

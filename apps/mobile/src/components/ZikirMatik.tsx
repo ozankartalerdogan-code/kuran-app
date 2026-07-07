@@ -7,7 +7,16 @@ import { storage } from "../lib/storage";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
+import { useKeepAwakeSafe } from "../hooks/useKeepAwakeSafe";
 import { getDevotionalSourceLabel } from "../lib/sourceLabels";
+
+// Modal içeriği yalnız görünürken mount olur → zikir çekilirken ekran uyanık
+// kalır, modal kapanınca serbest bırakılır. (Hook doğrudan TasbihModal gövdesine
+// konsaydı bileşen hep mount olduğu için ekran sürekli uyanık kalırdı.)
+function KeepAwakeWhileOpen() {
+  useKeepAwakeSafe();
+  return null;
+}
 
 let Haptics: typeof import("expo-haptics") | null = null;
 try { Haptics = require("expo-haptics"); } catch { Haptics = null; }
@@ -324,6 +333,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
 
   return (
     <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
+      <KeepAwakeWhileOpen />
       <View style={[m.screen, {
         backgroundColor: bgColor,
         paddingTop: insets.top + 8,
