@@ -12,10 +12,11 @@ import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, 
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
-import { ensureNotificationsFresh } from "../src/lib/namazNotifications";
+import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotifications";
 // Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
 import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
 import { useColors } from "../src/hooks/useColors";
+import { storage, STORAGE_KEYS } from "../src/lib/storage";
 
 type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
 type SentryLike = {
@@ -108,10 +109,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-function AppContent() {
+function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
   // Header/StatusBar uygulama temasını izler — "auto" yalnız sistem temasını
   // izlerdi, ana sayfadaki manuel tema düğmesi header'ları etkilemezdi.
   const c = useColors();
+
+  // İlk kurulum: Stack mount olduktan sonra onboarding'e geç (izinler orada,
+  // bağlam içinde istenir). replace → geri tuşu onboarding'e dönemez.
+  useEffect(() => {
+    if (needsOnboarding) router.replace("/onboarding");
+  }, [needsOnboarding]);
+
   return (
     <SafeAreaProvider>
       <StatusBar style={c.isDark ? "light" : "dark"} />
@@ -126,6 +134,7 @@ function AppContent() {
         }}
       >
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding"                     options={{ headerShown: false, gestureEnabled: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: "Geri" }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
         <Stack.Screen name="surah/[surahId]/ayah/[ayahNumber]" options={{ headerShown: false }} />
@@ -176,7 +185,30 @@ function RootLayout() {
   // kapalıyken bildirimle açılma) DAHİL. Manuel listener cold start'ı kaçırıyordu.
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
-  const ready = videoFinished && !!fontsLoaded;
+  // İlk kurulum kontrolü — splash sürerken okunur, karar gelmeden Stack açılmaz
+  // (aksi halde ana sayfa bir an görünüp onboarding'e atlardı).
+  const [needsOnboarding, setNeedsOnboarding] = useState<boolean | null>(null);
+  useEffect(() => {
+    (async () => {
+      try {
+        const done = await storage.getString(STORAGE_KEYS.onboarding);
+        if (done === "1") { setNeedsOnboarding(false); return; }
+        // Güncelleme yapan MEVCUT kullanıcı: bildirim tercihi zaten yazılmış —
+        // onboarding'i sessizce tamamlanmış say, karşılama ekranıyla rahatsız etme.
+        const notifPref = await storage.getString(NOTIF_KEY);
+        if (notifPref !== null) {
+          storage.setString(STORAGE_KEYS.onboarding, "1").catch(() => {});
+          setNeedsOnboarding(false);
+          return;
+        }
+        setNeedsOnboarding(true);
+      } catch {
+        setNeedsOnboarding(false); // okunamadı — kullanıcıyı bloklamak yerine normal aç
+      }
+    })();
+  }, []);
+
+  const ready = videoFinished && !!fontsLoaded && needsOnboarding !== null;
 
   const handleSplashFinish = useCallback(() => {
     setVideoFinished(true);
@@ -240,7 +272,7 @@ function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <AppContent />
+        <AppContent needsOnboarding={needsOnboarding === true} />
       </ErrorBoundary>
     </QueryClientProvider>
   );

@@ -3,7 +3,7 @@ import * as Device from "expo-device";
 import * as Location from "expo-location";
 import { Platform } from "react-native";
 import { api } from "./api";
-import { storage } from "./storage";
+import { storage, STORAGE_KEYS } from "./storage";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -399,6 +399,49 @@ export async function cancelNamazNotifications(): Promise<void> {
   await Notifications.cancelAllScheduledNotificationsAsync();
 }
 
+// ── Onboarding ilk-kurulum akışı ─────────────────────────────────────────────
+// "Namaz vakitlerini hatırlatalım mı?" sorusuna EVET: izinleri bağlam içinde
+// ister, 7 günü planlar. Dönüş:
+//  - "enabled": bildirimler kuruldu (tercihler açık yazıldı)
+//  - "denied":  bildirim izni reddedildi (tercihler kapalı yazıldı — tekrar sorulmaz;
+//               Bildirimler ekranından elle açılabilir)
+//  - "error":   ağ vb. hata — tercih YAZILMAZ, sonraki açılışta otomatik tekrar denenir
+export async function enablePrayerNotificationsFirstRun(): Promise<"enabled" | "denied" | "error"> {
+  const notifGranted = await requestNotificationPermission();
+  // Konum bildirimden BAĞIMSIZ istenir — namaz vakitleri ve kıble için de gerekli;
+  // reddedilirse İstanbul'a düşülür.
+  const { lat, lng } = await getLocationRequesting();
+  if (!notifGranted) {
+    await Promise.all([
+      storage.setString(NOTIF_KEY, "0"),
+      storage.setString(DAILY_VERSE_KEY, "0"),
+    ]);
+    return "denied";
+  }
+  try {
+    const days = await fetchPrayerDays(lat, lng);
+    if (!days) return "error";
+    await applyNotifications({ days, prayer: true, dailyVerse: true });
+    await Promise.all([
+      storage.setString(NOTIF_KEY, "1"),
+      storage.setString(DAILY_VERSE_KEY, "1"),
+      storage.setString(SCHED_DAY_KEY, localDayStr()),
+    ]);
+    return "enabled";
+  } catch {
+    return "error";
+  }
+}
+
+// Onboarding "Şimdi değil": tercihleri kapalı yaz — ilk-kurulum dalı bir daha
+// otomatik istemez; kullanıcı Bildirimler ekranından her zaman açabilir.
+export async function declinePrayerNotifications(): Promise<void> {
+  await Promise.all([
+    storage.setString(NOTIF_KEY, "0"),
+    storage.setString(DAILY_VERSE_KEY, "0"),
+  ]);
+}
+
 // App-wide "her zaman taze tut" — _layout.tsx her açılışta (+ arka plandan öne
 // gelince) çağırır. İKİ İŞİ VAR:
 //  1) İLK HİÇ AÇILIŞ (iki tercih anahtarı da hiç yazılmamış): bildirimler
@@ -436,35 +479,13 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
     // İlk kurulum izin pencereleri gerektirir — arka planda yapılamaz, gerçek
     // bir uygulama açılışını bekle.
     if (!interactive) return;
-    // İlk açılış: bildirim VE konum izinleri istenir. Konum bildirimden
-    // BAĞIMSIZDIR — bildirim reddedilse bile konum sorulur, çünkü konum yalnız
-    // bildirim için değil, namaz vakitleri ve kıble için de gereklidir.
-    const notifGranted = await requestNotificationPermission();
-    // Konumu HER DURUMDA iste (OS penceresi bildirim sonucundan bağımsız açılır);
-    // reddedilirse getLocationRequesting sessizce İstanbul'a düşer.
-    const { lat, lng } = await getLocationRequesting();
-
-    if (!notifGranted) {
-      // Bildirim reddedildi → planlama yapılmaz, kapalı işaretlenir (tekrar tekrar
-      // sormayı önler). Konum izni yine de istendi; kıble/vakitler kullanabilir.
-      // Kullanıcı Bildirimler ekranından elle açarsa oradaki akış tekrar dener
-      // (ve gerekirse "Ayarları Aç" yönlendirmesi gösterir).
-      await Promise.all([
-        storage.setString(NOTIF_KEY, "0"),
-        storage.setString(DAILY_VERSE_KEY, "0"),
-      ]);
-      return;
-    }
-    try {
-      const days = await fetchPrayerDays(lat, lng);
-      if (!days) return; // ağ hatası — anahtar yazılmadı, bir sonraki açılışta tekrar denenir
-      await applyNotifications({ days, prayer: true, dailyVerse: true });
-      await Promise.all([
-        storage.setString(NOTIF_KEY, "1"),
-        storage.setString(DAILY_VERSE_KEY, "1"),
-        storage.setString(SCHED_DAY_KEY, localDayStr()),
-      ]);
-    } catch { /* sessiz — bir sonraki açılışta tekrar denenir */ }
+    // Onboarding tamamlanmadıysa izinleri BURADA isteme — soru onboarding'de
+    // bağlam içinde soruluyor ("Namaz vakitlerini hatırlatalım mı?") ve tercihi
+    // o akış yazıyor. Bu dal yalnız onboarding bitmiş ama tercih yazılamamışsa
+    // (ör. o sırada ağ hatası) devreye giren tekrar-deneme yoludur.
+    const onboarded = await storage.getString(STORAGE_KEYS.onboarding);
+    if (onboarded !== "1") return;
+    await enablePrayerNotificationsFirstRun();
     return;
   }
 
