@@ -13,9 +13,14 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
 function ScoreBadge({ score }: { score: "10/10" | "8/10" | "0/10" }) {
-  const cfg = { "10/10": { emoji: "🟢", bg: "#d1fae5", color: "#065f46" },
-                "8/10":  { emoji: "🟡", bg: "#fef3c7", color: "#92400e" },
-                "0/10":  { emoji: "🔴", bg: "#fee2e2", color: "#991b1b" } }[score];
+  const c = useColors();
+  const cfg = c.isDark
+    ? { "10/10": { emoji: "🟢", bg: "#064e3b", color: "#6ee7b7" },
+        "8/10":  { emoji: "🟡", bg: "#451a03", color: "#fcd34d" },
+        "0/10":  { emoji: "🔴", bg: "#450a0a", color: "#fca5a5" } }[score]
+    : { "10/10": { emoji: "🟢", bg: "#d1fae5", color: "#065f46" },
+        "8/10":  { emoji: "🟡", bg: "#fef3c7", color: "#92400e" },
+        "0/10":  { emoji: "🔴", bg: "#fee2e2", color: "#991b1b" } }[score];
   return (
     <View style={[sc.badge, { backgroundColor: cfg.bg }]}>
       <Text style={[sc.badgeText, { color: cfg.color }]}>{cfg.emoji} {score}</Text>
@@ -24,12 +29,13 @@ function ScoreBadge({ score }: { score: "10/10" | "8/10" | "0/10" }) {
 }
 
 function StepList({ steps }: { steps: string[] }) {
+  const c = useColors();
   return (
     <View style={sc.stepList}>
       {steps.map((s, i) => (
         <View key={i} style={sc.stepRow}>
-          <View style={sc.stepNum}><Text style={sc.stepNumText}>{i + 1}</Text></View>
-          <Text style={sc.stepText}>{s}</Text>
+          <View style={[sc.stepNum, { backgroundColor: c.accent }]}><Text style={sc.stepNumText}>{i + 1}</Text></View>
+          <Text style={[sc.stepText, { color: c.text }]}>{s}</Text>
         </View>
       ))}
     </View>
@@ -37,23 +43,30 @@ function StepList({ steps }: { steps: string[] }) {
 }
 
 function HadisBox({ baslik, arapca, anlam, uygulama }: { baslik: string; arapca: string; anlam: string; uygulama?: string }) {
+  const c = useColors();
   return (
-    <View style={sc.hadisBox}>
-      <Text style={sc.hadisBaslik}>📖 {baslik}</Text>
-      <Text style={sc.hadisArapca}>{arapca}</Text>
-      <Text style={sc.hadisAnlam}>"{anlam}"</Text>
-      {uygulama && <Text style={sc.hadisUyg}>{uygulama}</Text>}
+    <View style={[sc.hadisBox, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}>
+      <Text style={[sc.hadisBaslik, c.isDark && { color: "#6ee7b7" }]}>📖 {baslik}</Text>
+      <Text style={[sc.hadisArapca, { color: c.text }]}>{arapca}</Text>
+      <Text style={[sc.hadisAnlam, c.isDark && { color: "#86efac" }]}>"{anlam}"</Text>
+      {uygulama && <Text style={[sc.hadisUyg, { color: c.accent }]}>{uygulama}</Text>}
     </View>
   );
 }
 
 function UyariBox({ mesaj, renk = "amber" }: { mesaj: string; renk?: "red" | "amber" }) {
-  const bg    = renk === "red" ? "#fee2e2" : "#fef3c7";
-  const color = renk === "red" ? "#991b1b" : "#92400e";
+  const c = useColors();
+  const bg    = renk === "red"
+    ? (c.isDark ? "#450a0a" : "#fee2e2")
+    : (c.isDark ? "#451a03" : "#fef3c7");
+  const color = renk === "red"
+    ? (c.isDark ? "#fca5a5" : "#991b1b")
+    : (c.isDark ? "#fcd34d" : "#92400e");
   return <View style={[sc.uyari, { backgroundColor: bg }]}><Text style={[sc.uyariText, { color }]}>{mesaj}</Text></View>;
 }
 
 function VerseList({ tag }: { tag: string }) {
+  const c = useColors();
   const [verses,  setVerses]  = useState<TagFilterResult[]>([]);
   const [total, setTotal]     = useState(0);
   const [loading, setLoading] = useState(false);
@@ -81,40 +94,40 @@ function VerseList({ tag }: { tag: string }) {
   }, [open, fetched, fetchVerses]);
 
   return (
-    <View style={sc.verseSection}>
+    <View style={[sc.verseSection, { borderTopColor: c.isDark ? c.border : "#f0fdf4" }]}>
       <TouchableOpacity style={sc.verseSectionBtn} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel="İlgili ayetler">
-        <Text style={sc.verseSectionLabel}>📖 İlgili Ayetler</Text>
-        <Text style={sc.verseSectionChev}>{open ? "▲" : "▼"}</Text>
+        <Text style={[sc.verseSectionLabel, { color: c.accent }]}>📖 İlgili Ayetler</Text>
+        <Text style={[sc.verseSectionChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
       {open && (
         <View>
-          {loading && <ActivityIndicator color="#059669" style={{ marginVertical: 8 }} />}
+          {loading && <ActivityIndicator color={c.accent} style={{ marginVertical: 8 }} />}
           {!loading && error && (
             <View style={sc.verseFeedback}>
               <Text style={sc.verseErrorText}>Ayetler yüklenemedi.</Text>
-              <TouchableOpacity style={sc.verseRetryBtn} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
+              <TouchableOpacity style={[sc.verseRetryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
                 <Text style={sc.verseRetryText}>Tekrar Dene</Text>
               </TouchableOpacity>
             </View>
           )}
           {!loading && !error && fetched && verses.length === 0 && (
-            <Text style={sc.verseEmptyText}>İçerik bulunamadı.</Text>
+            <Text style={[sc.verseEmptyText, { color: c.textMuted }]}>İçerik bulunamadı.</Text>
           )}
           {!loading && !error && verses.map(v => (
-            <TouchableOpacity key={v.verse_key} style={sc.verseRow}
+            <TouchableOpacity key={v.verse_key} style={[sc.verseRow, { borderBottomColor: c.border }]}
               onPressIn={() => prefetchAyah(v.surah_id, v.ayah_number)}
               onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}` as Href)} activeOpacity={0.7}
               accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
-              <View style={sc.verseKey}><Text style={sc.verseKeyText}>{v.verse_key}</Text></View>
+              <View style={[sc.verseKey, { backgroundColor: c.accentLight }]}><Text style={[sc.verseKeyText, { color: c.accent }]}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
-                {v.surah_name && <Text style={sc.verseSurah}>{v.surah_name}</Text>}
-                {v.reading_tr && <Text style={sc.verseReading} numberOfLines={2}>{v.reading_tr}</Text>}
-                {v.meal && <Text style={sc.verseMeal} numberOfLines={2}>{v.meal}</Text>}
+                {v.surah_name && <Text style={[sc.verseSurah, { color: c.textMuted }]}>{v.surah_name}</Text>}
+                {v.reading_tr && <Text style={[sc.verseReading, { color: c.text }]} numberOfLines={2}>{v.reading_tr}</Text>}
+                {v.meal && <Text style={[sc.verseMeal, { color: c.textSecondary }]} numberOfLines={2}>{v.meal}</Text>}
               </View>
             </TouchableOpacity>
           ))}
           {!loading && !error && total > verses.length && (
-            <Text style={sc.verseHintText}>İlk {verses.length} ayet gösteriliyor. Daha fazlası arama ekranındaki ilgili etikette görülebilir.</Text>
+            <Text style={[sc.verseHintText, { color: c.textMuted }]}>İlk {verses.length} ayet gösteriliyor. Daha fazlası arama ekranındaki ilgili etikette görülebilir.</Text>
           )}
         </View>
       )}
@@ -125,15 +138,16 @@ function VerseList({ tag }: { tag: string }) {
 // ── Bolum Accordion ───────────────────────────────────────────────────────────
 
 function Bolum({ emoji, baslik, color, children }: { emoji: string; baslik: string; color: string; children: React.ReactNode }) {
+  const c = useColors();
   const [open, setOpen] = useState(false);
   return (
-    <View style={[s.bolum, { borderLeftColor: color }]}>
+    <View style={[s.bolum, { backgroundColor: c.card, borderColor: c.border, borderLeftColor: color }]}>
       <TouchableOpacity style={s.bolumHeader} onPress={() => setOpen(p => !p)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={baslik}>
         <Text style={{ fontSize: 22 }}>{emoji}</Text>
-        <Text style={s.bolumTitle}>{baslik}</Text>
-        <Text style={s.bolumChev}>{open ? "▲" : "▼"}</Text>
+        <Text style={[s.bolumTitle, { color: c.text }]}>{baslik}</Text>
+        <Text style={[s.bolumChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
-      {open && <View style={s.bolumBody}>{children}</View>}
+      {open && <View style={[s.bolumBody, { borderTopColor: c.border }]}>{children}</View>}
     </View>
   );
 }
@@ -149,31 +163,31 @@ export default function ManeviSiginakScreen() {
       <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }} showsVerticalScrollIndicator={false}>
 
         {/* Başlık */}
-        <View style={s.header}>
-          <Text style={s.headerTitle}>🛡️ Manevi Sığınak</Text>
-          <Text style={s.headerSub}>Korunma, şifa ve istiaze — Kur'an ve sahih hadislerle</Text>
+        <View style={[s.header, { backgroundColor: c.card }]}>
+          <Text style={[s.headerTitle, { color: c.text }]}>🛡️ Manevi Sığınak</Text>
+          <Text style={[s.headerSub, { color: c.textMuted }]}>Korunma, şifa ve istiaze — Kur'an ve sahih hadislerle</Text>
         </View>
 
         {/* Güvenilirlik Sistemi */}
-        <View style={s.scoreCard}>
-          <Text style={s.scoreTitle}>Güvenilirlik Puanı Sistemi</Text>
-          <View style={s.scoreRow}><ScoreBadge score="10/10" /><Text style={s.scoreDesc}>Kesin Sünnet / Kur'an</Text></View>
-          <View style={s.scoreRow}><ScoreBadge score="8/10"  /><Text style={s.scoreDesc}>Ulema İctihadı / Meşru Rukye</Text></View>
-          <View style={s.scoreRow}><ScoreBadge score="0/10"  /><Text style={s.scoreDesc}>Hurafe ve Şirk Riski</Text></View>
+        <View style={[s.scoreCard, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[s.scoreTitle, { color: c.text }]}>Güvenilirlik Puanı Sistemi</Text>
+          <View style={s.scoreRow}><ScoreBadge score="10/10" /><Text style={[s.scoreDesc, { color: c.textSecondary }]}>Kesin Sünnet / Kur'an</Text></View>
+          <View style={s.scoreRow}><ScoreBadge score="8/10"  /><Text style={[s.scoreDesc, { color: c.textSecondary }]}>Ulema İctihadı / Meşru Rukye</Text></View>
+          <View style={s.scoreRow}><ScoreBadge score="0/10"  /><Text style={[s.scoreDesc, { color: c.textSecondary }]}>Hurafe ve Şirk Riski</Text></View>
         </View>
 
         {/* İsmi Azam linki */}
-        <TouchableOpacity style={s.featuredCard} onPress={() => router.push("/manevi-siginak/ismi-azam")} activeOpacity={0.85} accessibilityRole="button" accessibilityLabel="İsmi Azam ve korunma duaları">
+        <TouchableOpacity style={[s.featuredCard, c.isDark && { backgroundColor: "#422006", borderColor: "#78350f" }]} onPress={() => router.push("/manevi-siginak/ismi-azam")} activeOpacity={0.85} accessibilityRole="button" accessibilityLabel="İsmi Azam ve korunma duaları">
 
           <Text style={{ fontSize: 32 }}>✨</Text>
           <View style={{ flex: 1 }}>
-            <Text style={s.featuredTitle}>İsmi Azam & Korunma Duaları</Text>
-            <Text style={s.featuredSub}>Allah'ın en büyük ismi, Sekine ve sahih korunma duaları</Text>
+            <Text style={[s.featuredTitle, { color: c.text }]}>İsmi Azam & Korunma Duaları</Text>
+            <Text style={[s.featuredSub, { color: c.textMuted }]}>Allah'ın en büyük ismi, Sekine ve sahih korunma duaları</Text>
           </View>
-          <Text style={s.featuredArrow}>→</Text>
+          <Text style={[s.featuredArrow, c.isDark && { color: "#fbbf24" }]}>→</Text>
         </TouchableOpacity>
 
-        <Text style={s.sectionLabel}>UYGULAMA REHBERLERİ</Text>
+        <Text style={[s.sectionLabel, { color: c.textMuted }]}>UYGULAMA REHBERLERİ</Text>
 
         {/* Bolum 1: Genel Korunma */}
         <Bolum emoji="⚔️" baslik="Genel Korunma Kalkanı — Günlük Rutin" color="#6ee7b7">
@@ -194,20 +208,20 @@ export default function ManeviSiginakScreen() {
 
         {/* Bolum 2: Büyü ve Sihir */}
         <Bolum emoji="🔱" baslik="Büyü ve Sihir — Sihrin Bozulması" color="#93c5fd">
-          <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={s.scoreInlineText}>Bu bölümdeki suya okuma ve program önerileri meşru rukye kapsamındadır; doğrudan sahih hadis metni değildir.</Text></View>
-          <Text style={s.boxTitle}>Hazırlık</Text>
+          <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={[s.scoreInlineText, { color: c.textSecondary }]}>Bu bölümdeki suya okuma ve program önerileri meşru rukye kapsamındadır; doğrudan sahih hadis metni değildir.</Text></View>
+          <Text style={[s.boxTitle, { color: c.text }]}>Hazırlık</Text>
           <StepList steps={[
             "Abdest al, 2 rekat tövbe namazı kıl.",
             "Kalpten tövbe et. «Allah'ım, sana yöneldim, senden başka sığınacak yok» de.",
           ]} />
-          <Text style={s.boxTitle}>7 Günlük Program (Suya Okuyarak)</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>7 Günlük Program (Suya Okuyarak)</Text>
           <StepList steps={[
             "Bir şişe temiz su al. Fatiha + Ayetel Kürsi + Bakara 102 + A'raf 117-119 + Yunus 81-82 + Taha 69 + 3 İhlas + 1 Felak + 1 Nas oku.",
             "Her ayeti 3 veya 7 defa okuyup suya üfle.",
             "Bu sudan sabah aç karnına, öğle arası ve yatmadan önce birer bardak iç. 7 gün devam et.",
             "Kalan suyla banyo yap.",
           ]} />
-          <Text style={s.boxTitle}>Ek Uygulama</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Ek Uygulama</Text>
           <StepList steps={[
             "Bakara Suresi'ni evde dinlet veya oku. Hadiste, Bakara okunan eve şeytanın girmediği bildirilir.",
             "Her namaz sonrası Ayetel Kürsi'yi 1 defa oku.",
@@ -219,7 +233,7 @@ export default function ManeviSiginakScreen() {
 
         {/* Bolum 3: Nazar */}
         <Bolum emoji="👁️" baslik="Nazar — Göz Değmesi" color="#fcd34d">
-          <Text style={s.boxTitle}>Nazar Değen Kişi İçin</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Nazar Değen Kişi İçin</Text>
           <StepList steps={[
             "Abdest al.",
             "Sağ elini nazar değdiğini düşündüğün bölgeye koy.",
@@ -234,7 +248,7 @@ export default function ManeviSiginakScreen() {
             anlam="Allah'ın adıyla seni rahatsız eden her şeyden; her canlının ve hasetçi gözün şerrinden sana rukye ederim. Allah şifa versin."
             uygulama="Nazar değdiğini düşündüğün kişiye 7 defa oku."
           />
-          <Text style={s.boxTitle}>Korunma İçin Günlük</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Korunma İçin Günlük</Text>
           <StepList steps={[
             "Beğendiğin her şey için «Maşallah, Allah nazardan korusun» de.",
             "Çocuklara her gün 3 İhlas + 1 Felak + 1 Nas okuyup üfle.",
@@ -246,7 +260,7 @@ export default function ManeviSiginakScreen() {
 
         {/* Bolum 4: Hased */}
         <Bolum emoji="💚" baslik="Hased — Kıskançlık Şerrinden Korunma" color="#86efac">
-          <Text style={s.boxTitle}>Hasede Uğradığını Düşünen Kişi</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Hasede Uğradığını Düşünen Kişi</Text>
           <StepList steps={[
             "Abdest al, 2 rekat namaz kıl.",
             "7 defa Fatiha + 7 defa Felak + 7 defa Nas oku.",
@@ -254,7 +268,7 @@ export default function ManeviSiginakScreen() {
             "«Allah'ım, haset edenlerin şerrinden sana sığınıyorum» diye dua et.",
             "7 gün boyunca sabah akşam tekrarla.",
           ]} />
-          <Text style={s.boxTitle}>Kendini Hasetten Korumak İçin</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Kendini Hasetten Korumak İçin</Text>
           <StepList steps={[
             "Başkasının nimetini görünce «Maşallah, Allah onu hayırlı etsin» de.",
             "Haset hissi gelince hemen istiğfar et.",
@@ -267,14 +281,14 @@ export default function ManeviSiginakScreen() {
 
         {/* Bolum 5: Vesvese */}
         <Bolum emoji="🌪️" baslik="Şeytan Vesvesesi — Sığınma" color="#c4b5fd">
-          <Text style={s.boxTitle}>Vesvese Geldiğinde</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Vesvese Geldiğinde</Text>
           <StepList steps={[
             "Hemen «Eûzü billâhi mineş-şeytânir-racîm» de.",
             "Sol tarafına 3 defa hafifçe tükür (sünnet).",
             "Mü'minun 97-98 ayetlerini 3 defa oku.",
             "«La ilahe illallah» zikrine sarıl.",
           ]} />
-          <Text style={s.boxTitle}>Gece Korkusu ve Karabasan İçin</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Gece Korkusu ve Karabasan İçin</Text>
           <StepList steps={[
             "Yatmadan önce Ayetel Kürsi oku.",
             "Sağ tarafına yat, sağ elini yanağının altına koy.",
@@ -287,7 +301,7 @@ export default function ManeviSiginakScreen() {
 
         {/* Bolum 6: Şifa */}
         <Bolum emoji="💊" baslik="Şifa — Kur'an ile İyileşme" color="#fca5a5">
-          <Text style={s.boxTitle}>Hastalıkta Şifa İçin</Text>
+          <Text style={[s.boxTitle, { color: c.text }]}>Hastalıkta Şifa İçin</Text>
           <StepList steps={[
             "Abdest al, 2 rekat namaz kıl.",
             "Sağ elini ağrıyan bölgeye koy, 3 defa «Bismillah» de.",
@@ -303,8 +317,8 @@ export default function ManeviSiginakScreen() {
             uygulama="Sağ el ağrıyan yere konur, 3 Bismillah'tan sonra 7 defa okunur."
           />
           <UyariBox renk="amber" mesaj="⚠️ Uyarı: Doktora gitmeyi ihmal etme. Tıbbi tedavi ile Kur'an birbirini dışlamaz." />
-          <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={s.scoreInlineText}>Aşağıdaki manevi sıkıntı önerileri destekleyici mahiyettedir; tıbbi ve psikolojik desteğin yerine geçmez.</Text></View>
-          <Text style={[s.boxTitle, { marginTop: 8 }]}>Manevi Sıkıntı ve Depresyon İçin (🟡 8/10)</Text>
+          <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={[s.scoreInlineText, { color: c.textSecondary }]}>Aşağıdaki manevi sıkıntı önerileri destekleyici mahiyettedir; tıbbi ve psikolojik desteğin yerine geçmez.</Text></View>
+          <Text style={[s.boxTitle, { color: c.text, marginTop: 8 }]}>Manevi Sıkıntı ve Depresyon İçin (🟡 8/10)</Text>
           <StepList steps={[
             "Her gün Fatiha'yı anlamını düşünerek oku.",
             "Günde 100 kez: «Lâ ilâhe illâ ente sübhâneke innî küntü minez-zâlimîn» (Yunus'un duası) oku.",
@@ -315,9 +329,9 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* YAP / YAPMA */}
-        <Text style={s.sectionLabel}>MİT AVCISI — YAP / YAPMA</Text>
-        <View style={s.mitCard}>
-          <Text style={s.mitTitle}>🟢 YAP — Meşru Yöntemler</Text>
+        <Text style={[s.sectionLabel, { color: c.textMuted }]}>MİT AVCISI — YAP / YAPMA</Text>
+        <View style={[s.mitCard, { backgroundColor: c.card }, c.isDark && { borderColor: "#166534" }]}>
+          <Text style={[s.mitTitle, c.isDark && { color: "#6ee7b7" }]}>🟢 YAP — Meşru Yöntemler</Text>
           {[
             "Kur'an'dan duaları bizzat oku — en güvenilir kaynak.",
             "Şifayı ve korumayı yalnız Allah'tan iste.",
@@ -325,10 +339,10 @@ export default function ManeviSiginakScreen() {
             "Nazar için: Kalem 51-52 ve Felak-Nas oku.",
             "Vesvese gelince Eûzü-Besmele çek: «Eûzü billâhi mineş-şeytânir-racîm. Bismillâhir-rahmânir-rahîm.»",
             "Hastalıkta: doktor + Kur'an ikilisini birlikte kullan.",
-          ].map((i, idx) => <Text key={idx} style={s.mitGreen}>✓ {i}</Text>)}
+          ].map((i, idx) => <Text key={idx} style={[s.mitGreen, c.isDark && { color: "#86efac" }]}>✓ {i}</Text>)}
         </View>
-        <View style={[s.mitCard, { borderColor: "#fca5a5" }]}>
-          <Text style={[s.mitTitle, { color: "#991b1b" }]}>🔴 YAPMA — Yasak Uygulamalar</Text>
+        <View style={[s.mitCard, { backgroundColor: c.card, borderColor: c.isDark ? "#7f1d1d" : "#fca5a5" }]}>
+          <Text style={[s.mitTitle, { color: c.isDark ? "#fca5a5" : "#991b1b" }]}>🔴 YAPMA — Yasak Uygulamalar</Text>
           {[
             { item: "Nazar Boncuğu", aciklama: "Şirk riski — Nesneye koruyan güç atfetmek şirktir. Alternatif: Ayetel Kürsi oku." },
             { item: "Kurşun Döktürmek", aciklama: "Batıl — İslam kaynağı yok. Doğrusu: Felak ve Nas oku." },
@@ -339,15 +353,15 @@ export default function ManeviSiginakScreen() {
             { item: "«Büyülü» Su Satanlar", aciklama: "Sahtekârlık + haram — Suyu bizzat kendin oku; başkasından alma." },
             { item: "Defne Yaprağı / Tütsü", aciklama: "Hurafe — Dumanın cin kovan gücü yoktur. Kur'an oku." },
           ].map((m, idx) => (
-            <View key={idx} style={s.mitDetailRow}>
-              <Text style={s.mitRed}>✗ {m.item}</Text>
-              <Text style={s.mitDetailAciklama}>{m.aciklama}</Text>
+            <View key={idx} style={[s.mitDetailRow, c.isDark && { borderTopColor: "#450a0a" }]}>
+              <Text style={[s.mitRed, c.isDark && { color: "#fca5a5" }]}>✗ {m.item}</Text>
+              <Text style={[s.mitDetailAciklama, { color: c.textMuted }]}>{m.aciklama}</Text>
             </View>
           ))}
         </View>
 
-        <View style={s.footer}>
-          <Text style={s.footerText}>
+        <View style={[s.footer, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}>
+          <Text style={[s.footerText, c.isDark && { color: "#86efac" }]}>
             "Tevhit bilinci: Şifayı ve korumayı yalnız Allah'tan iste. Vesilelere değil, Vesileler Sahibi'ne güven."
           </Text>
         </View>

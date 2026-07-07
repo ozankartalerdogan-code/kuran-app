@@ -42,6 +42,10 @@ function useColors() {
     stepBg:        dark ? "#44403c" : "#e7e5e4",
     stepText:      dark ? "#d6d3d1" : "#57534e",
     bulletDot:     dark ? "#78716c" : "#a8a29e",
+    scoreGreenBg:   dark ? "#064e3b" : "#d1fae5",
+    scoreGreenText: dark ? "#6ee7b7" : "#065f46",
+    scoreYellowBg:  dark ? "#451a03" : "#fef3c7",
+    scoreYellowText:dark ? "#fcd34d" : "#92400e",
   };
 }
 
@@ -101,8 +105,8 @@ function Kutu({
 function DuaKartiFull({ dua, colors }: { dua: DuaKarti; colors: ReturnType<typeof useColors> }) {
   const is10 = dua.guvenilirlik === "10/10";
   const emoji = is10 ? "🟢" : "🟡";
-  const scoreColor = is10 ? "#065f46" : "#92400e";
-  const scoreBg    = is10 ? "#d1fae5" : "#fef3c7";
+  const scoreColor = is10 ? colors.scoreGreenText : colors.scoreYellowText;
+  const scoreBg    = is10 ? colors.scoreGreenBg   : colors.scoreYellowBg;
   const sourceLabel = getDevotionalSourceLabel({ title: dua.baslik, source: dua.kaynak });
 
   return (
@@ -162,8 +166,8 @@ function KorunmaKarti({ dua, colors }: { dua: KorunmaDuasi; colors: ReturnType<t
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
         <Text>🟢</Text>
         <Text style={[styles.duaBaslik, { color: colors.emeraldText, flex: 1 }]}>{dua.baslik}</Text>
-        <View style={[styles.badge, { backgroundColor: "#d1fae5" }]}>
-          <Text style={[styles.badgeText, { color: "#065f46" }]}>10/10</Text>
+        <View style={[styles.badge, { backgroundColor: colors.scoreGreenBg, borderColor: colors.emeraldBorder }]}>
+          <Text style={[styles.badgeText, { color: colors.scoreGreenText }]}>10/10</Text>
         </View>
         <View style={[styles.badge, { backgroundColor: colors.blueBg, borderColor: colors.blueBorder }]}>
           <Text style={[styles.badgeText, { color: colors.blueText }]}>
@@ -426,20 +430,20 @@ export default function IsmiAzamScreen() {
 
         {/* Güvenilirlik Badgeleri */}
         <View style={styles.badgeGrid}>
-          <View style={[styles.guvenCard, { backgroundColor: "#ecfdf5", borderColor: "#a7f3d0" }]}>
+          <View style={[styles.guvenCard, { backgroundColor: colors.emeraldBg, borderColor: colors.emeraldBorder }]}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
               <Text>🟢</Text>
-              <Text style={[styles.badgeScore, { color: "#065f46" }]}>10/10</Text>
+              <Text style={[styles.badgeScore, { color: colors.emeraldText }]}>10/10</Text>
             </View>
             <Text style={[styles.guvenTitle, { color: colors.text }]}>Kesin Sünnet / Kur'an</Text>
             <Text style={[styles.guvenDesc, { color: colors.textMuted }]}>
               Hz. Peygamber'in bizzat "İsmi Azam" dediği, sahih hadislerle sabit ayet ve dualar.
             </Text>
           </View>
-          <View style={[styles.guvenCard, { backgroundColor: "#fffbeb", borderColor: "#fde68a" }]}>
+          <View style={[styles.guvenCard, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
               <Text>🟡</Text>
-              <Text style={[styles.badgeScore, { color: "#92400e" }]}>8/10</Text>
+              <Text style={[styles.badgeScore, { color: colors.amberText }]}>8/10</Text>
             </View>
             <Text style={[styles.guvenTitle, { color: colors.text }]}>Meşru ve Makbul</Text>
             <Text style={[styles.guvenDesc, { color: colors.textMuted }]}>

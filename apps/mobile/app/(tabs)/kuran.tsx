@@ -16,12 +16,14 @@ type KuranCard = {
   route: KuranCardRoute;
   bg: string;
   border: string;
+  darkBg: string;
+  darkBorder: string;
 };
 
 const CARDS: KuranCard[] = [
-  { id: "mushaf", emoji: "📜", label: "Mushaf Modu",  sub: "Sayfa sayfa oku, yer imi bırak",  route: "/mushaf", bg: "#f0fdf4", border: "#86efac" },
-  { id: "surah_list", emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/sure-listesi", bg: "#eff6ff", border: "#93c5fd" },
-  { id: "hatim", emoji: "📑", label: "Hatim Takibi", sub: "30 cüz, kaldığın yerden devam",    route: "/hatim",  bg: "#fef3c7", border: "#fcd34d" },
+  { id: "mushaf", emoji: "📜", label: "Mushaf Modu",  sub: "Sayfa sayfa oku, yer imi bırak",  route: "/mushaf", bg: "#f0fdf4", border: "#86efac", darkBg: "#052e16", darkBorder: "#166534" },
+  { id: "surah_list", emoji: "📋", label: "Sure Listesi", sub: "114 sure, ayet ayet incele",        route: "/sure-listesi", bg: "#eff6ff", border: "#93c5fd", darkBg: "#172554", darkBorder: "#1e40af" },
+  { id: "hatim", emoji: "📑", label: "Hatim Takibi", sub: "30 cüz, kaldığın yerden devam",    route: "/hatim",  bg: "#fef3c7", border: "#fcd34d", darkBg: "#422006", darkBorder: "#78350f" },
 ];
 
 export default function KuranTab() {
@@ -47,7 +49,7 @@ export default function KuranTab() {
             <TouchableOpacity
               key={card.id}
               {...(card.id === "surah_list" ? surahListTarget : {})}
-              style={[s.card, { backgroundColor: card.bg, borderColor: card.border }]}
+              style={[s.card, { backgroundColor: c.isDark ? card.darkBg : card.bg, borderColor: c.isDark ? card.darkBorder : card.border }]}
               onPress={() => handleCardPress(card)}
               activeOpacity={0.8}
               accessibilityRole="button"
@@ -59,7 +61,7 @@ export default function KuranTab() {
                 <Text style={[s.label, { color: c.text }]}>{card.label}</Text>
                 <Text style={[s.sub, { color: c.textMuted }]}>{card.sub}</Text>
               </View>
-              <Text style={s.chev}>›</Text>
+              <Text style={[s.chev, { color: c.textMuted }]}>›</Text>
             </TouchableOpacity>
           ))}
         </View>
