@@ -24,30 +24,51 @@ export const SCHED_DAY_KEY = "namazNotifSchedDay";
 
 const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
 
+// Başarılı her konum çözümü buraya yazılır. Canlı konum alınamadığında (özellikle
+// ARKA PLAN görevi: yalnız-ön-plan izinle GPS çağrısı başarısız olur) İstanbul'a
+// düşmeden önce kullanıcının son bilinen konumu kullanılır.
+const LAST_COORDS_KEY = "lastKnownCoords";
+
+type Coords = { lat: number; lng: number };
+
+function rememberCoords(c: Coords): void {
+  storage.setJSON(LAST_COORDS_KEY, c).catch(() => {});
+}
+
+async function savedCoordsOrIstanbul(): Promise<Coords> {
+  try {
+    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
+    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
+  } catch { /* okunamadı — İstanbul'a düş */ }
+  return ISTANBUL_FALLBACK;
+}
+
 function localDayStr(d = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 // İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
-async function getLocationSilent(): Promise<{ lat: number; lng: number }> {
+async function getLocationSilent(): Promise<Coords> {
   try {
     const { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== "granted") return ISTANBUL_FALLBACK;
+    if (status !== "granted") return savedCoordsOrIstanbul();
     const pos = await Promise.race([
       Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
       new Promise<null>((r) => setTimeout(() => r(null), 8000)),
     ]);
-    if (!pos || !("coords" in pos)) return ISTANBUL_FALLBACK;
-    return { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    if (!pos || !("coords" in pos)) return savedCoordsOrIstanbul();
+    const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    rememberCoords(c);
+    return c;
   } catch {
-    return ISTANBUL_FALLBACK;
+    return savedCoordsOrIstanbul();
   }
 }
 
 // İzin İSTEYEREK konum getirir — yalnız ilk-hiç-açılış otomatik-etkinleştirmesinde
 // kullanılır (kullanıcı henüz hiçbir yerde karar vermemişse gerçek OS izin
 // penceresini açar). Reddedilirse/hata olursa sessizce İstanbul'a düşer.
-async function getLocationRequesting(): Promise<{ lat: number; lng: number }> {
+async function getLocationRequesting(): Promise<Coords> {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") return ISTANBUL_FALLBACK;
@@ -56,7 +77,9 @@ async function getLocationRequesting(): Promise<{ lat: number; lng: number }> {
       new Promise<null>((r) => setTimeout(() => r(null), 8000)),
     ]);
     if (!pos || !("coords" in pos)) return ISTANBUL_FALLBACK;
-    return { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    rememberCoords(c);
+    return c;
   } catch {
     return ISTANBUL_FALLBACK;
   }
@@ -394,19 +417,25 @@ export async function cancelNamazNotifications(): Promise<void> {
 // çalışmaz); birinci SCHED_DAY_KEY'i yazınca sonraki açılışlar zaten erken döner.
 let freshInFlight: Promise<void> | null = null;
 
-export function ensureNotificationsFresh(): Promise<void> {
+// interactive:false → arka plan görevinden çağrı; OS izin pencereleri AÇILAMAZ,
+// bu yüzden ilk-kurulum (izin isteyen) dal atlanır, yalnız mevcut planlama tazelenir.
+export function ensureNotificationsFresh(opts?: { interactive?: boolean }): Promise<void> {
   if (freshInFlight) return freshInFlight;
-  freshInFlight = ensureNotificationsFreshInner().finally(() => { freshInFlight = null; });
+  freshInFlight = ensureNotificationsFreshInner(opts?.interactive ?? true)
+    .finally(() => { freshInFlight = null; });
   return freshInFlight;
 }
 
-async function ensureNotificationsFreshInner(): Promise<void> {
+async function ensureNotificationsFreshInner(interactive: boolean): Promise<void> {
   const [pvRaw, dvRaw] = await Promise.all([
     storage.getString(NOTIF_KEY),
     storage.getString(DAILY_VERSE_KEY),
   ]);
 
   if (pvRaw === null && dvRaw === null) {
+    // İlk kurulum izin pencereleri gerektirir — arka planda yapılamaz, gerçek
+    // bir uygulama açılışını bekle.
+    if (!interactive) return;
     // İlk açılış: bildirim VE konum izinleri istenir. Konum bildirimden
     // BAĞIMSIZDIR — bildirim reddedilse bile konum sorulur, çünkü konum yalnız
     // bildirim için değil, namaz vakitleri ve kıble için de gereklidir.

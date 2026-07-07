@@ -13,6 +13,8 @@ import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh } from "../src/lib/namazNotifications";
+// Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
+import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
 import { useColors } from "../src/hooks/useColors";
 
 type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
@@ -224,6 +226,9 @@ function RootLayout() {
     // (aksi halde bir kullanıcıda bildirimler hiç planlanmasa bile fark edilmez).
     const reportUnexpected = (err: unknown) => { Sentry.captureException(err); };
     ensureNotificationsFresh().catch(reportUnexpected);
+    // Uygulama kapalıyken de tazeleme: OS'e periyodik arka plan görevi kaydet
+    // (yeni build gerektirir; eski build'de sessiz no-op).
+    registerBackgroundRefresh().catch(reportUnexpected);
     const sub = AppState.addEventListener("change", (state) => {
       if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
     });

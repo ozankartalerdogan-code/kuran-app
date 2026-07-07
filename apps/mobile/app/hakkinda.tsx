@@ -1,4 +1,4 @@
-﻿import React from "react";
+﻿import React, { useState } from "react";
 import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
 import Constants from "expo-constants";
@@ -25,6 +25,61 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function Paragraph({ children, c }: { children: React.ReactNode; c: AppColors }) {
   return <Text style={[s.paragraph, { color: c.textSecondary }]}>{children}</Text>;
+}
+
+// İnce, kartsız akordiyon — yalnız üst/alt ince çizgi, arka plan/kenarlık yok.
+function SourcesAccordion({ c }: { c: AppColors }) {
+  const [open, setOpen] = useState(false);
+
+  const toggle = () => {
+    void Haptics.selectionAsync();
+    setOpen((o) => !o);
+  };
+
+  return (
+    <View style={[s.accordion, { borderTopColor: c.border, borderBottomColor: c.border }]}>
+      <TouchableOpacity
+        style={s.accordionHeader}
+        onPress={toggle}
+        activeOpacity={0.6}
+        accessibilityRole="button"
+        accessibilityLabel="Kaynaklar ve kullanım açıklamaları"
+        accessibilityHint={open ? "Açıklamaları gizler" : "Açıklamaları gösterir"}
+        accessibilityState={{ expanded: open }}
+      >
+        <Text style={[s.accordionTitle, { color: c.textSecondary }]}>Kaynaklar ve kullanım açıklamaları</Text>
+        <Text style={[s.accordionChevron, { color: c.textMuted }]}>{open ? "▴" : "▾"}</Text>
+      </TouchableOpacity>
+
+      {open && (
+        <View style={s.accordionBody}>
+          <Paragraph c={c}>
+            <Text style={s.bold}>Kur'an-ı Kerim Arapça metni:</Text>
+          </Paragraph>
+          <Paragraph c={c}>
+            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an metni kaynaklarından biridir ve
+            uygulamada değiştirilmeden kullanılmalıdır.
+          </Paragraph>
+          <Paragraph c={c}>
+            <Text style={s.bold}>Meal ve orijinal tefsir kaynağı:</Text> Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili.
+          </Paragraph>
+          <Paragraph c={c}>
+            Sade tefsir açıklamaları, Elmalılı Hamdi Yazır'ın orijinal tefsir metni esas alınarak Kuran Yolu için daha anlaşılır
+            bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
+          </Paragraph>
+          <Paragraph c={c}>
+            Kelime kökleri ve morfolojik çözümlemelerde Quranic Arabic Corpus verilerinden yararlanılmıştır. Türkçe
+            anlamlandırma, kök düzeltmeleri, veri temizliği ve kullanıcı dostu morfoloji gösterimi Kuran Yolu analiz altyapısı ile
+            ayrıca hazırlanmıştır.
+          </Paragraph>
+          <Paragraph c={c}>
+            Hadis içeriklerinde klasik hadis kaynaklarından yararlanılmıştır. Açıklama ve sunum metinleri Kuran Yolu için
+            sadeleştirilmiş bilgilendirme diliyle hazırlanmıştır.
+          </Paragraph>
+        </View>
+      )}
+    </View>
+  );
 }
 
 export default function HakkindaScreen() {
@@ -56,32 +111,6 @@ export default function HakkindaScreen() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.pageTitle, { color: c.text }]}>Kaynaklar ve Açıklamalar</Text>
-
-        <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}> 
-          <Paragraph c={c}>
-            <Text style={s.bold}>Kur'an-ı Kerim Arapça metni:</Text>
-          </Paragraph>
-          <Paragraph c={c}>
-            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an metni kaynaklarından biridir ve
-            uygulamada değiştirilmeden kullanılmalıdır.
-          </Paragraph>
-          <Paragraph c={c}>
-            <Text style={s.bold}>Meal ve orijinal tefsir kaynağı:</Text> Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili.
-          </Paragraph>
-          <Paragraph c={c}>
-            Sade tefsir açıklamaları, Elmalılı Hamdi Yazır'ın orijinal tefsir metni esas alınarak Kuran Yolu için daha anlaşılır
-            bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
-          </Paragraph>
-          <Paragraph c={c}>
-            Kelime kökleri ve morfolojik çözümlemelerde Quranic Arabic Corpus verilerinden yararlanılmıştır. Türkçe
-            anlamlandırma, kök düzeltmeleri, veri temizliği ve kullanıcı dostu morfoloji gösterimi Kuran Yolu analiz altyapısı ile
-            ayrıca hazırlanmıştır.
-          </Paragraph>
-          <Paragraph c={c}>
-            Hadis içeriklerinde klasik hadis kaynaklarından yararlanılmıştır. Açıklama ve sunum metinleri Kuran Yolu için
-            sadeleştirilmiş bilgilendirme diliyle hazırlanmıştır.
-          </Paragraph>
-        </View>
 
         <Section title="Tanzil Quran Text">
           <TouchableOpacity
@@ -118,6 +147,8 @@ export default function HakkindaScreen() {
             <Text style={[s.arrow, { color: c.textMuted }]}>›</Text>
           </TouchableOpacity>
         </Section>
+
+        <SourcesAccordion c={c} />
 
         <Section title="Uygulama Hakkında">
           <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
@@ -160,8 +191,23 @@ const s = StyleSheet.create({
   pageTitle: { fontSize: 28, fontWeight: "800", marginBottom: 20 },
   section: { marginTop: 24 },
   sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
-  infoBox: { borderRadius: 12, borderWidth: 1, overflow: "hidden", paddingTop: 14, paddingBottom: 2 },
-  paragraph: { fontSize: 14, lineHeight: 22, paddingHorizontal: 14, marginBottom: 12 },
+  paragraph: { fontSize: 14, lineHeight: 22, paddingHorizontal: 2, marginBottom: 12 },
+  // Kartsız ince akordiyon: yalnız üst/alt kıl çizgi, dolgu/kenarlık/radius yok.
+  accordion: {
+    marginTop: 24,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  accordionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 13,
+    paddingHorizontal: 2,
+  },
+  accordionTitle: { fontSize: 13, fontWeight: "600", letterSpacing: 0.3 },
+  accordionChevron: { fontSize: 12, marginLeft: 8 },
+  accordionBody: { paddingTop: 2, paddingBottom: 4 },
   bold: { fontWeight: "700" },
   sourceCard: { flexDirection: "row", alignItems: "center", borderRadius: 12, borderWidth: 1, padding: 12, gap: 10 },
   sourceIcon: { fontSize: 22 },

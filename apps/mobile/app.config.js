@@ -88,6 +88,10 @@ module.exports = {
         },
       ],
       'expo-status-bar',
+      // Uygulama kapalıyken namaz vakti bildirimlerini tazeleyen arka plan görevi
+      // (Android WorkManager / iOS BGTaskScheduler). iOS tarafına UIBackgroundModes
+      // "processing" + BGTaskSchedulerPermittedIdentifiers ekler.
+      'expo-background-task',
       // App yalnızca ses ÇALAR (Kur'an tilaveti), kayıt YAPMAZ → RECORD_AUDIO
       // (mikrofon) iznini ekleme. Aksi halde expo-audio varsayılan olarak ekliyor;
       // reklamsız/minimal-izin app için gereksiz + Play Veri Güvenliği'nde mikrofon
