@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonLoader";
 import { TajweedText } from "../../../src/components/TajweedText";
@@ -28,6 +28,7 @@ import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
 import { isImageShareAvailable } from "../../../src/lib/shareImage";
+import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../../../src/hooks/useFontScale";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -35,11 +36,6 @@ const arCollator = new Intl.Collator("ar");
 // Analiz sekmesindeki "TEMA ETİKETLERİ" kartını göster/gizle. Etiket atamalarının
 // doğruluğu teyit edilene kadar kullanıcıya kapalı. Doğrulanınca true yapılabilir.
 const SHOW_THEME_TAGS = false;
-
-// Yazı boyutu ölçeği sınırları (A− / A+); 1 = varsayılan tasarım boyutu.
-const FONT_SCALE_MIN = 0.85;
-const FONT_SCALE_MAX = 1.6;
-const FONT_SCALE_STEP = 0.15;
 
 // ── POS (Part of Speech) Türkçe çeviri ───────────────────────────────────────
 
@@ -453,28 +449,9 @@ export default function AyahDetailScreen() {
     });
   }, []);
 
-  // Yazı boyutu (A− / A+) — Arapça metin, okunuş ve meale uygulanır; kalıcı tercih.
-  const [fontScale, setFontScale] = useState(() => {
-    const v = Number(storage.getStringSync(STORAGE_KEYS.ayahFontScale));
-    return v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX ? v : 1;
-  });
-  useEffect(() => {
-    let alive = true;
-    storage.getString(STORAGE_KEYS.ayahFontScale).then((raw) => {
-      const v = Number(raw);
-      if (alive && v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX) setFontScale(v);
-    });
-    return () => { alive = false; };
-  }, []);
-  const changeFontScale = useCallback((delta: number) => {
-    setFontScale((prev) => {
-      const next = Math.round(
-        Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, prev + delta)) * 100,
-      ) / 100;
-      storage.setString(STORAGE_KEYS.ayahFontScale, String(next));
-      return next;
-    });
-  }, []);
+  // Yazı boyutu (A− / A+) — Arapça metin, okunuş ve meale uygulanır; mushaf ile
+  // ortak kalıcı tercih (useFontScale).
+  const { fontScale, changeFontScale } = useFontScale();
   const scaledText = useMemo(() => ({
     arabic:  { fontSize: 36 * fontScale, lineHeight: 60 * fontScale },
     reading: { fontSize: 15 * fontScale, lineHeight: 24 * fontScale },
@@ -736,7 +713,7 @@ export default function AyahDetailScreen() {
                 accessibilityLabel="Yazıyı küçült"
                 accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
               >
-                <Text style={[styles.fontBtnText, { color: colors.textSecondary }]}>A−</Text>
+                <MaterialCommunityIcons name="magnify-minus-outline" size={17} color={colors.textSecondary} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.fontBtn, { borderColor: colors.border }, fontScale >= FONT_SCALE_MAX && styles.fontBtnDisabled]}
@@ -748,7 +725,7 @@ export default function AyahDetailScreen() {
                 accessibilityLabel="Yazıyı büyüt"
                 accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
               >
-                <Text style={[styles.fontBtnText, { color: colors.textSecondary }]}>A+</Text>
+                <MaterialCommunityIcons name="magnify-plus-outline" size={17} color={colors.textSecondary} />
               </TouchableOpacity>
             </View>
           </View>
@@ -1131,7 +1108,6 @@ const styles = StyleSheet.create({
     minWidth: 40, alignItems: "center",
   },
   fontBtnDisabled: { opacity: 0.35 },
-  fontBtnText: { fontSize: 12, fontWeight: "800" },
   tajToggle: {
     flexDirection: "row", alignItems: "center",
     borderRadius: 16, borderWidth: 1,

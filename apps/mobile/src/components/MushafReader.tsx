@@ -3,7 +3,7 @@ import {
   StyleSheet, Alert,
 } from "react-native";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type SurahListItem, type AyahDetailResponse } from "../lib/api";
@@ -11,6 +11,7 @@ import { storage, STORAGE_KEYS } from "../lib/storage";
 import { useStreak } from "../hooks/useStreak";
 import { useColors, type AppColors } from "../hooks/useColors";
 import { useKeepAwakeSafe } from "../hooks/useKeepAwakeSafe";
+import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../hooks/useFontScale";
 
 // Karanlıkta yeşil vurgulu yüzeyler için ortak ton (motto/işaret kutuları).
 const darkGreenBg = (c: AppColors) => (c.isDark ? "#022c22" : "#ecfdf5");
@@ -183,6 +184,12 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
   const [reloadKey, setReloadKey]         = useState(0);
   const [bookmark, setBookmark]         = useState<MushafBookmark>(null);
   const [tajweed, setTajweed]           = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0"); // tecvid renkleri aç/kapa (kalıcı)
+  // Yazı boyutu (A− / A+) — ayet detayı ekranıyla ORTAK tercih (useFontScale).
+  const { fontScale, changeFontScale } = useFontScale();
+  const scaledText = useMemo(() => ({
+    arabic: { fontSize: 32 * fontScale, lineHeight: 52 * fontScale },
+    meal:   { fontSize: 16 * fontScale, lineHeight: 26 * fontScale },
+  }), [fontScale]);
 
   // Sure listesi + bookmark
   useEffect(() => {
@@ -316,23 +323,49 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
           <View style={st.ayahBox}>
             <View style={st.ayahTopRow}>
               <View style={st.ayahBadge}><Text style={st.ayahBadgeText}>{loadState.ayah.ayahNumber}</Text></View>
-              {loadState.ayah.arabicTajweed && (
+              <View style={st.topControls}>
+                {loadState.ayah.arabicTajweed && (
+                  <TouchableOpacity
+                    style={[st.tajToggle, { borderColor: c.border }, tajweed && st.tajToggleOn]}
+                    onPress={handleTajweedToggle}
+                    activeOpacity={0.75}
+                    accessibilityRole="switch"
+                    accessibilityState={{ checked: tajweed }}
+                    accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+                  >
+                    <Text style={[st.tajToggleText, { color: c.textMuted }, tajweed && st.tajToggleTextOn]}>🎨 Tecvid</Text>
+                  </TouchableOpacity>
+                )}
                 <TouchableOpacity
-                  style={[st.tajToggle, { borderColor: c.border }, tajweed && st.tajToggleOn]}
-                  onPress={handleTajweedToggle}
-                  activeOpacity={0.75}
-                  accessibilityRole="switch"
-                  accessibilityState={{ checked: tajweed }}
-                  accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+                  style={[st.fontBtn, { borderColor: c.border }, fontScale <= FONT_SCALE_MIN && st.fontBtnDisabled]}
+                  onPress={() => changeFontScale(-FONT_SCALE_STEP)}
+                  disabled={fontScale <= FONT_SCALE_MIN}
+                  activeOpacity={0.7}
+                  hitSlop={6}
+                  accessibilityRole="button"
+                  accessibilityLabel="Yazıyı küçült"
+                  accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
                 >
-                  <Text style={[st.tajToggleText, { color: c.textMuted }, tajweed && st.tajToggleTextOn]}>🎨 Tecvid</Text>
+                  <MaterialCommunityIcons name="magnify-minus-outline" size={17} color={c.textSecondary} />
                 </TouchableOpacity>
-              )}
+                <TouchableOpacity
+                  style={[st.fontBtn, { borderColor: c.border }, fontScale >= FONT_SCALE_MAX && st.fontBtnDisabled]}
+                  onPress={() => changeFontScale(FONT_SCALE_STEP)}
+                  disabled={fontScale >= FONT_SCALE_MAX}
+                  activeOpacity={0.7}
+                  hitSlop={6}
+                  accessibilityRole="button"
+                  accessibilityLabel="Yazıyı büyüt"
+                  accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
+                >
+                  <MaterialCommunityIcons name="magnify-plus-outline" size={17} color={c.textSecondary} />
+                </TouchableOpacity>
+              </View>
             </View>
             {loadState.ayah.arabicText
               ? (tajweed && loadState.ayah.arabicTajweed
-                  ? <TajweedText markup={loadState.ayah.arabicTajweed} style={[st.arabic, { color: c.text }]} />
-                  : <Text style={[st.arabic, { color: c.text }]} selectable>{loadState.ayah.arabicText}</Text>)
+                  ? <TajweedText markup={loadState.ayah.arabicTajweed} style={[st.arabic, scaledText.arabic, { color: c.text }]} />
+                  : <Text style={[st.arabic, scaledText.arabic, { color: c.text }]} selectable>{loadState.ayah.arabicText}</Text>)
               : <Text style={[st.arabicMissing, { color: c.textMuted }]}>Arapça metin yüklenemedi</Text>}
             {tajweed && loadState.ayah.arabicTajweed && (
               <View style={st.legend}>
@@ -347,7 +380,7 @@ export function MushafReader({ initialSurahId = 1, initialAyahNum = 1, loadBookm
             {loadState.ayah.meal && (
               <View style={[st.mealBox, { backgroundColor: c.card, borderColor: c.border }]}>
                 <Text style={[st.mealLabel, { color: c.accent }]}>Meal</Text>
-                <Text style={[st.mealText, { color: c.textSecondary }]} selectable>{loadState.ayah.meal}</Text>
+                <Text style={[st.mealText, scaledText.meal, { color: c.textSecondary }]} selectable>{loadState.ayah.meal}</Text>
               </View>
             )}
             {/* Ayet detay linki */}
@@ -474,7 +507,10 @@ const st = StyleSheet.create({
   ayahBadge:    { width: 40, height: 40, borderRadius: 20, backgroundColor: "#059669", alignItems: "center", justifyContent: "center", marginBottom: 16 },
   ayahBadgeText:{ fontSize: 16, fontWeight: "700", color: "#fff" },
   ayahTopRow:   { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" },
-  tajToggle:    { flexDirection: "row", alignItems: "center", borderRadius: 16, borderWidth: 1, borderColor: "#d6d3d1", paddingHorizontal: 12, paddingVertical: 6, marginTop: 6 },
+  topControls:  { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 6 },
+  fontBtn:      { borderRadius: 16, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 6, minWidth: 40, alignItems: "center" },
+  fontBtnDisabled: { opacity: 0.35 },
+  tajToggle:    { flexDirection: "row", alignItems: "center", borderRadius: 16, borderWidth: 1, borderColor: "#d6d3d1", paddingHorizontal: 12, paddingVertical: 6 },
   tajToggleOn:  { backgroundColor: "#ecfdf5", borderColor: "#6ee7b7" },
   tajToggleText:  { fontSize: 12, fontWeight: "700", color: "#78716c" },
   tajToggleTextOn:{ color: "#047857" },
