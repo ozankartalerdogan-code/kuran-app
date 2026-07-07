@@ -10,9 +10,9 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
-type KuranCardRoute = "/mushaf" | "/sure-listesi" | "/hatim";
+type KuranCardRoute = "/mushaf" | "/mushaf-sayfa" | "/sure-listesi" | "/hatim";
 type KuranCard = {
-  id: "mushaf" | "surah_list" | "hatim";
+  id: "mushaf" | "mushaf_page" | "surah_list" | "hatim";
   icon: IoniconName;
   label: string;
   sub: string;
@@ -42,6 +42,21 @@ const CARDS: KuranCard[] = [
     iconColor: "#15803d",
     darkIconBg: "#14532d",
     darkIconColor: "#86efac",
+  },
+  {
+    id: "mushaf_page",
+    icon: "albums-outline",
+    label: "Sayfa Görünümü",
+    sub: "604 sayfalık mushaf düzeninde oku",
+    route: "/mushaf-sayfa",
+    bg: "#f0fdfa",
+    border: "#5eead4",
+    darkBg: "#042f2e",
+    darkBorder: "#115e59",
+    iconBg: "#ccfbf1",
+    iconColor: "#0f766e",
+    darkIconBg: "#134e4a",
+    darkIconColor: "#5eead4",
   },
   {
     id: "surah_list",

@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
   notes:           "verseNotes",
   streak:          "readingStreak",
   mushafBookmark:  "mushaf_bookmark",
+  mushafPage:      "mushaf_son_sayfa",
   nightMode:       "nightMode",
   elifbaProgress:  "elifbaProgress",
   quizScores:      "elifbaQuizScores",

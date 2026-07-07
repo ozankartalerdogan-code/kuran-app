@@ -241,6 +241,14 @@ export type VerseListResponse = {
   verses: VerseItem[];
 };
 
+// Mushaf sayfa görünümü — /api/mushaf?page=N (604 sayfalık Medine düzeni)
+export type MushafPageResponse = {
+  page: number;
+  juz: number;
+  verses: { surahId: number; ayahNumber: number; arabic: string | null }[];
+  surahs: { id: number; name: string; arabicName: string }[];
+};
+
 export type DailyVerseItem = {
   verse_key: string;
   surah_id: number;
@@ -394,6 +402,17 @@ export const api = {
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
           request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
+        ),
+      ),
+  },
+
+  mushaf: {
+    page: (page: number) =>
+      withCacheFallback(
+        `cache_mushaf_p${page}`,
+        CACHE_TTL_STATIC,
+        () => withRetry((signal) =>
+          request<MushafPageResponse>(`/mushaf?page=${page}`, undefined, signal),
         ),
       ),
   },

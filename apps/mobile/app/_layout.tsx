@@ -148,6 +148,7 @@ function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
         <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: "İsmi Azam ve Sekine", headerBackTitle: "Geri" }} />
         <Stack.Screen name="search"                         options={{ title: "Arama", headerBackTitle: "Geri" }} />
         <Stack.Screen name="mushaf/index"                         options={{ title: "Mushaf", headerBackTitle: "Geri", headerShown: false }} />
+        <Stack.Screen name="mushaf-sayfa"                         options={{ headerShown: false }} />
         <Stack.Screen name="mushaf/[surahId]/[ayahNumber]"        options={{ headerBackTitle: "Mushaf", headerShown: false }} />
         <Stack.Screen name="root/index"                           options={{ title: "Kelime Kökleri", headerBackTitle: "Geri" }} />
         <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: "Kökler" }} />
@@ -179,6 +180,9 @@ function RootLayout() {
   const [fontsLoaded] = Font.useFonts({
     "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
     "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
+    // KFGQPC Uthmanic HAFS (242KB) — mushaf sayfa görünümünün hattı; basılı
+    // Medine mushafı hattına en yakın görünüm, Osmani imlâ ile tam uyumlu.
+    "UthmanicHafs": require("../assets/fonts/UthmanicHafs.ttf"),
   });
   const navigationRef = useNavigationContainerRef();
   // Uygulamayı açan/öne getiren bildirim yanıtı — cold start (uygulama tamamen
