@@ -407,14 +407,14 @@ export const api = {
   },
 
   mushaf: {
-    // v=2: tecvid alanı eklendi — parametre CDN'deki eski (tecvidsiz) yanıtları,
-    // anahtar da yerel cache'teki eskileri atlatır.
+    // v=3: bozuk v2 döneminde cihazda cache'lenen tecvidsiz sayfaları atlatır.
+    // Parametre CDN cache'ini, anahtar da yerel MMKV cache'ini yeniler.
     page: (page: number) =>
       withCacheFallback(
-        `cache_mushaf_v2_p${page}`,
+        `cache_mushaf_v3_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=2`, undefined, signal),
+          request<MushafPageResponse>(`/mushaf?page=${page}&v=3`, undefined, signal),
         ),
       ),
   },
