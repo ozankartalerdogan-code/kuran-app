@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import type { Href } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
-import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 const SECTIONS = [
@@ -29,9 +29,11 @@ export default function OgrenTab() {
   const c = useColors();
   const derslerTarget = useTourTarget("learn.dersler");
   const hadithTarget = useTourTarget("learn.hadith");
+  const tourScroll = useTourScroller();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
+        {...tourScroll}
         style={{ flex: 1 }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}

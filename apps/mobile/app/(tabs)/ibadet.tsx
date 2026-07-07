@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import type { Href } from "expo-router";
 import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
-import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type Item = {
@@ -17,6 +17,7 @@ export default function IbadetTab() {
   const c = useColors();
   const [tasbihOpen, setTasbihOpen] = useState(false);
   const ibadetTarget = useTourTarget("ibadet.main");
+  const tourScroll = useTourScroller();
 
   const SECTIONS: { title: string; items: Item[] }[] = [
     {
@@ -51,6 +52,7 @@ export default function IbadetTab() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
+        {...tourScroll}
         style={{ flex: 1 }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}

@@ -12,7 +12,7 @@ import { api, prefetchAyah, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
-import { useTourTarget } from "../../../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
 
 function heatColor(count: number, max: number, isDark: boolean): string {
@@ -187,6 +187,7 @@ export default function RootDetailScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const heatmapTarget = useTourTarget("root.heatmap");
+  const tourScroll = useTourScroller<FlatList>();
   const { root: encodedRoot } = useLocalSearchParams<{ root: string | string[] }>();
   const rawRoot = Array.isArray(encodedRoot) ? encodedRoot[0] : encodedRoot;
   const root = rawRoot ? decodeURIComponent(rawRoot) : "";
@@ -305,6 +306,7 @@ export default function RootDetailScreen() {
     <>
       <Stack.Screen options={{ title: root }} />
       <FlatList
+        {...tourScroll}
         style={[s.container, { backgroundColor: c.bg }]}
         contentContainerStyle={[s.content, { paddingBottom: 40 + insets.bottom }]}
         data={groups.primary}

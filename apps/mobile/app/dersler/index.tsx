@@ -9,7 +9,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERSLER_META as DERSLER, KATEGORILER } from "../../src/data/Dersler/dersler_registry";
-import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
 type SortMode = "tumu" | "sure" | "konu";
 
@@ -39,6 +39,7 @@ export default function DerslerScreen() {
   const { progress, load } = useDersProgress();
   const [sortMode, setSortMode] = useState<SortMode>("tumu");
   const firstCardTarget = useTourTarget("dersler.firstCard");
+  const tourScroll = useTourScroller();
 
   useFocusEffect(useCallback(() => { load(); }, [load]));
 
@@ -126,6 +127,7 @@ export default function DerslerScreen() {
 
       {sortMode === "konu" ? (
         <ScrollView
+          {...tourScroll}
           contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
           showsVerticalScrollIndicator={false}
         >

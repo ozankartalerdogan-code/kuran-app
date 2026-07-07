@@ -266,12 +266,18 @@ export function useTourTarget(id: string) {
   return { ref, collapsable: false as const };
 }
 
-// Ekranın ana ScrollView'ına spread edilir; fold dışı hedefleri tur otomatik
-// görünür hale getirebilsin diye scroll yeteneğini kaydeder.
-export function useTourScroller() {
+// Ekranın ana ScrollView/FlatList'ine spread edilir; fold dışı hedefleri tur
+// otomatik görünür hale getirebilsin diye scroll yeteneğini kaydeder.
+// ScrollView (scrollTo) ve FlatList (scrollToOffset) ikisiyle de çalışır.
+type ScrollableNode = {
+  scrollTo?: (opts: { y: number; animated?: boolean }) => void;
+  scrollToOffset?: (opts: { offset: number; animated?: boolean }) => void;
+};
+
+export function useTourScroller<T = ScrollView>() {
   const { registerScroller, unregisterScroller } = useAppTour();
   const pathname = normalizePath(usePathname());
-  const ref = useRef<ScrollView>(null);
+  const ref = useRef<T>(null);
   const offset = useRef(0);
 
   const onScroll = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -279,7 +285,10 @@ export function useTourScroller() {
   }, []);
 
   const scrollBy = useCallback((delta: number) => {
-    ref.current?.scrollTo({ y: Math.max(0, offset.current + delta), animated: true });
+    const node = ref.current as ScrollableNode | null;
+    const y = Math.max(0, offset.current + delta);
+    if (node?.scrollTo) node.scrollTo({ y, animated: true });
+    else node?.scrollToOffset?.({ offset: y, animated: true });
   }, []);
 
   useEffect(() => {

@@ -23,7 +23,7 @@ import { useStreak } from "../../../src/hooks/useStreak";
 import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
 import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
-import { useTourTarget } from "../../../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
@@ -412,6 +412,7 @@ export default function AyahDetailScreen() {
   const insets = useSafeAreaInsets();
   const ayahTarget = useTourTarget("ayah.main");
   const analysisTabTarget = useTourTarget("ayah.analysis");
+  const tourScroll = useTourScroller();
 
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
@@ -650,6 +651,7 @@ export default function AyahDetailScreen() {
     <>
       <Stack.Screen options={{ title: headerTitle }} />
       <ScrollView
+        {...tourScroll}
         style={[styles.scroll, { backgroundColor: colors.bg }]}
         contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}

@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
-import { useTourTarget } from "../src/tour/AppTourProvider";
+import { useTourTarget, useTourScroller } from "../src/tour/AppTourProvider";
 import rawData from "../src/data/hadisler_v2.json";
 
 interface Meta {
@@ -303,6 +303,7 @@ export default function HadislerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const topicsTarget = useTourTarget("hadith.topics");
+  const tourScroll = useTourScroller();
   const sources = ensureStringArray(META.sources);
 
   useEffect(() => {
@@ -313,6 +314,7 @@ export default function HadislerScreen() {
     <>
       <Stack.Screen options={{ title: "Hadisler" }} />
       <ScrollView
+        {...tourScroll}
         style={{ flex: 1, backgroundColor: c.bg }}
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
