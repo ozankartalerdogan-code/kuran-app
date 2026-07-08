@@ -12,7 +12,10 @@
       "Bash(where sqlite3 *)",
       "Bash(sqlite3 --version)",
       "Bash(npm list *)",
-      "Read(//c/Users/jalek/AppData/Roaming/npm/**)"
+      "Read(//c/Users/jalek/AppData/Roaming/npm/**)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "mcp__sentry__find_organizations"
     ]
   },
   "enableAllProjectMcpServers": true,

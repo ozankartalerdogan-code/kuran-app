@@ -64,3 +64,7 @@ scripts/_*.log
 .mcp.json
 
 .env.local
+
+# Yerel veri yedekleri ve kök tarama raporları (166MB+ DB dump içerir)
+backups/
+kok_final_*.txt

@@ -69,7 +69,7 @@ export default function OgrenTab() {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={s.derslerTitle}>Dersler</Text>
-            <Text style={[s.derslerSub, { color: c.textMuted }]}>12 konu · Kartlarla öğren · Kendini test et</Text>
+            <Text style={[s.derslerSub, { color: c.textMuted }]}>Kartlarla öğren · Kendini test et</Text>
           </View>
           <Text style={s.chev}>›</Text>
         </TouchableOpacity>
