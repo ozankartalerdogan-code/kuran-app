@@ -8,6 +8,8 @@ import {
   StyleSheet,
   Alert,
   Platform,
+  Keyboard,
+  Dimensions,
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -262,6 +264,7 @@ function AyahJumpBar({ surahId, current, total, colors }: {
   useEffect(() => { setAyahVal(String(current)); },  [current]);
 
   function jump() {
+    Keyboard.dismiss();
     const s = parseInt(surahVal, 10);
     const a = parseInt(ayahVal,  10);
     const targetSurah = s >= 1 && s <= 114 ? s : surahId;
@@ -444,6 +447,21 @@ export default function AyahDetailScreen() {
   const [activeTab, setActiveTab] = useState<TabId>("meal");
   // Sure/ayet atlama çubuğu — yapışkan alt bardaki "x / y" sayacına dokununca açılır.
   const [jumpOpen, setJumpOpen] = useState(false);
+  // Edge-to-edge Android'de klavye pencereyi daraltmaz, alttaki barın üzerine
+  // biner → yazılan rakamlar klavyenin arkasında kalır. Örtüşme kadar alt boşluk
+  // verip barı klavyenin üstüne kaldırıyoruz. screenY tabanlı hesap: pencere
+  // kendini yeniden boyutlandırırsa örtüşme 0 çıkar, çifte kaldırma olmaz.
+  const [kbOverlap, setKbOverlap] = useState(0);
+  useEffect(() => {
+    const showEvt = Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvt = Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+    const show = Keyboard.addListener(showEvt, (e) => {
+      const winH = Dimensions.get("window").height;
+      setKbOverlap(Math.max(0, winH - e.endCoordinates.screenY));
+    });
+    const hide = Keyboard.addListener(hideEvt, () => setKbOverlap(0));
+    return () => { show.remove(); hide.remove(); };
+  }, []);
   const [noteDraft, setNoteDraft] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
   // Tecvid renklendirmesi aç/kapa — kalıcı tercih ("0" = kapalı, varsayılan açık).
@@ -1092,7 +1110,13 @@ export default function AyahDetailScreen() {
       <View
         style={[
           styles.stickyBar,
-          { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 8 },
+          {
+            backgroundColor: colors.card,
+            borderTopColor: colors.border,
+            // Klavye açıkken bar klavyenin üstüne kalkar (kbOverlap); kapalıyken
+            // sistem çubuğu güvenli alanı geçerli.
+            paddingBottom: (kbOverlap > 0 ? kbOverlap : insets.bottom) + 8,
+          },
         ]}
       >
         <View style={styles.stickyBarInner}>
