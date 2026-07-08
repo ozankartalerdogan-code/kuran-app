@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions, Animated, ImageBackground } from "react-native";
+import { View, StyleSheet, Dimensions, Animated, ImageBackground } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -44,10 +44,9 @@ export function AppSplash({ onFinish }: AppSplashProps) {
     <ImageBackground
       source={require("../../assets/splash_logo.jpg")}
       style={styles.container}
-      resizeMode="contain"
+      resizeMode="cover"
     >
       <View style={styles.footer}>
-        <Text style={styles.title}>Kuran Yolu</Text>
         <View style={styles.dotsRow}>
           {dots.map((op, i) => (
             <Animated.View key={i} style={[styles.dot, { opacity: op }]} />
@@ -63,24 +62,16 @@ const styles = StyleSheet.create({
     flex: 1,
     width,
     height,
-    backgroundColor: "#060e1e",
+    backgroundColor: "#000517",
   },
+  // "Kuran Yolu" yazısı artık görselin içinde gömülü — footer'da yalnız
+  // yükleme noktaları kalır (görselin alt karanlık bölgesine denk gelir).
   footer: {
     position: "absolute",
-    bottom: 72,
+    bottom: 40,
     left: 0,
     right: 0,
     alignItems: "center",
-    gap: 12,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "700",
-    letterSpacing: 3,
-    color: "#d4a843",
-    textShadowColor: "#000",
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 6,
   },
   dotsRow: {
     flexDirection: "row",

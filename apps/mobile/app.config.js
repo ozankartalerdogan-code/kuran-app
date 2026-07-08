@@ -29,7 +29,7 @@ module.exports = {
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON || path.resolve(__dirname, 'google-services.json'),
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#0a1628',
+        backgroundColor: '#00030e',
       },
       permissions: [
         'android.permission.ACCESS_COARSE_LOCATION',
@@ -76,7 +76,7 @@ module.exports = {
         {
           image: './assets/splash.png',
           resizeMode: 'contain',
-          backgroundColor: '#060e1e',
+          backgroundColor: '#000517',
         },
       ],
       [
