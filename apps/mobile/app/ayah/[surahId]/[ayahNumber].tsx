@@ -147,8 +147,11 @@ function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: The
       accessibilityLabel="Sure hakkında tefsiri aç"
     >
       <View style={styles.accordionHeader}>
-        <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>📖 Sure tefsirini oku</Text>
-        <Text style={[styles.accordionChevron, { color: colors.textMuted }]}>→</Text>
+        <View style={styles.accordionTitleRow}>
+          <Ionicons name="book-outline" size={17} color={colors.accent} />
+          <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>Sure tefsirini oku</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
       </View>
     </TouchableOpacity>
   );
@@ -246,14 +249,12 @@ function UniqueRootList({
 
 // ── Hızlı Ayet Atlama ────────────────────────────────────────────────────────
 
-function AyahJumpBar({ surahId, current, colors, rightContent }: {
+function AyahJumpBar({ surahId, current, colors }: {
   surahId: number; current: number; total: number; colors: ThemeColors;
-  rightContent?: React.ReactNode;
 }) {
   const [surahVal, setSurahVal] = useState(String(surahId));
   const [ayahVal,  setAyahVal]  = useState(String(current));
 
-  useEffect(() => { logScreen('AyetDetay'); }, []);
   useEffect(() => { setSurahVal(String(surahId)); }, [surahId]);
   useEffect(() => { setAyahVal(String(current)); },  [current]);
 
@@ -296,11 +297,6 @@ function AyahJumpBar({ surahId, current, colors, rightContent }: {
       <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Ayete git">
         <Text style={styles.jumpBtnText}>Git</Text>
       </TouchableOpacity>
-      {rightContent && (
-        <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "center", gap: 8 }}>
-          {rightContent}
-        </View>
-      )}
     </View>
   );
 }
@@ -376,6 +372,8 @@ interface ThemeColors {
   error: string;
 }
 
+// Ortak useColors paletiyle hizalı (bkz. src/hooks/useColors.ts) + ekrana özgü
+// `error`. Ayrı tutulmasının tek sebebi alan adları (textPrimary vb.).
 const lightColors: ThemeColors = {
   bg:           "#f5f0e8",
   card:         "#ffffff",
@@ -383,20 +381,20 @@ const lightColors: ThemeColors = {
   border:       "#e7e5e4",
   textPrimary:  "#1c1917",
   textSecondary:"#44403c",
-  textMuted:    "#57534e",
+  textMuted:    "#78716c",
   accent:       "#059669",
   accentLight:  "#d1fae5",
   error:        "#dc2626",
 };
 
 const darkColors: ThemeColors = {
-  bg:           "#171717",
-  card:         "#262626",
-  surfaceAlt:   "#1f1f1f",
-  border:       "#404040",
+  bg:           "#0f0f0f",
+  card:         "#1c1917",
+  surfaceAlt:   "#292524",
+  border:       "#44403c",
   textPrimary:  "#fafaf9",
   textSecondary:"#d6d3d1",
-  textMuted:    "#78716c",
+  textMuted:    "#a8a29e",
   accent:       "#10b981",
   accentLight:  "#064e3b",
   error:        "#f87171",
@@ -433,6 +431,8 @@ export default function AyahDetailScreen() {
   const [noteSaved, setNoteSaved] = useState(false);
   // Tecvid renklendirmesi aç/kapa — kalıcı tercih ("0" = kapalı, varsayılan açık).
   const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
+
+  useEffect(() => { logScreen("AyetDetay"); }, []);
 
   useEffect(() => {
     let alive = true;
@@ -611,7 +611,7 @@ export default function AyahDetailScreen() {
     return (
       <>
         <Stack.Screen options={{ title: "Ayet Detayı" }} />
-        <View style={{ flex: 1, backgroundColor: colors.bg, padding: 16, gap: 14 }}>
+        <View style={{ flex: 1, backgroundColor: colors.bg, padding: 16, paddingTop: insets.top + 16, gap: 14 }}>
           {/* Arapça metin — sağa dayalı */}
           <SkeletonBox width="88%" height={38} borderRadius={8} style={{ alignSelf: "flex-end" }} />
           <SkeletonBox width="66%" height={26} borderRadius={8} style={{ alignSelf: "flex-end", marginBottom: 4 }} />
@@ -629,6 +629,7 @@ export default function AyahDetailScreen() {
       <>
         <Stack.Screen options={{ title: "Hata" }} />
         <View style={[styles.centered, { backgroundColor: colors.bg }]}>
+          <Ionicons name="cloud-offline-outline" size={44} color={colors.textMuted} />
           <Text style={[styles.errorText, { color: colors.error }]}>
             {error ?? "Veri yüklenemedi."}
           </Text>
@@ -639,7 +640,8 @@ export default function AyahDetailScreen() {
             accessibilityRole="button"
             accessibilityLabel="Geri dön"
           >
-            <Text style={styles.backBtnText}>← Geri Dön</Text>
+            <Ionicons name="chevron-back" size={16} color="#fff" />
+            <Text style={styles.backBtnText}>Geri Dön</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -658,29 +660,54 @@ export default function AyahDetailScreen() {
       >
         {/* ═══ Başlık ═══ */}
         <View {...ayahTarget} style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <Text style={[styles.headerTitle, { color: colors.textPrimary }]} numberOfLines={2}>
-            {data.surahName}
-          </Text>
-          <Text style={[styles.headerSubtitle, { color: colors.textMuted }]} numberOfLines={1}>
-            {data.ayahNumber}. Ayet · {data.verseKey}
-          </Text>
+          <View style={styles.headerTopRow}>
+            <View style={styles.headerTitleCol}>
+              <Text style={[styles.headerTitle, { color: colors.textPrimary }]} numberOfLines={2}>
+                {data.surahName}
+              </Text>
+              <Text style={[styles.headerSubtitle, { color: colors.textMuted }]} numberOfLines={1}>
+                {data.ayahNumber}. Ayet · {data.verseKey}
+              </Text>
+            </View>
+            <View style={styles.headerActions}>
+              <TouchableOpacity
+                style={[styles.iconBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
+                onPress={handleShare}
+                hitSlop={6}
+                activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityLabel="Ayeti paylaş"
+              >
+                <Ionicons name="share-social-outline" size={18} color={colors.textSecondary} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.iconBtn,
+                  isFavorite(verseKey)
+                    ? { backgroundColor: colors.error + "18", borderColor: colors.error + "55" }
+                    : { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+                ]}
+                onPress={handleToggleFav}
+                hitSlop={6}
+                activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityState={{ selected: isFavorite(verseKey) }}
+                accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}
+              >
+                <Ionicons
+                  name={isFavorite(verseKey) ? "heart" : "heart-outline"}
+                  size={18}
+                  color={isFavorite(verseKey) ? colors.error : colors.textSecondary}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
 
-          {/* JumpBar + paylaş + favori aynı satırda */}
           <AyahJumpBar
             surahId={surahId}
             current={ayahNumber}
             total={data.verseCount}
             colors={colors}
-            rightContent={
-              <>
-                <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Ayeti paylaş">
-                  <Ionicons name="share-social-outline" size={20} color={colors.textMuted} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleToggleFav} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ selected: isFavorite(verseKey) }} accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}>
-                  <Text style={{ fontSize: 20 }}>{isFavorite(verseKey) ? "❤️" : "🤍"}</Text>
-                </TouchableOpacity>
-              </>
-            }
           />
         </View>
 
@@ -689,7 +716,12 @@ export default function AyahDetailScreen() {
           <View style={styles.tajRow}>
             {data.arabicTajweed ? (
               <TouchableOpacity
-                style={[styles.tajToggle, { borderColor: colors.border }, tajweed && styles.tajToggleOn]}
+                style={[
+                  styles.tajToggle,
+                  tajweed
+                    ? { backgroundColor: colors.accentLight, borderColor: colors.accent + "66" }
+                    : { borderColor: colors.border },
+                ]}
                 onPress={handleTajweedToggle}
                 activeOpacity={0.75}
                 hitSlop={6}
@@ -697,8 +729,9 @@ export default function AyahDetailScreen() {
                 accessibilityState={{ checked: tajweed }}
                 accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
               >
-                <Text style={[styles.tajToggleText, { color: colors.textMuted }, tajweed && styles.tajToggleTextOn]}>
-                  🎨 Tecvid {tajweed ? "açık" : "kapalı"}
+                <Ionicons name="color-palette-outline" size={14} color={tajweed ? colors.accent : colors.textMuted} />
+                <Text style={[styles.tajToggleText, { color: tajweed ? colors.accent : colors.textMuted }]}>
+                  Tecvid {tajweed ? "açık" : "kapalı"}
                 </Text>
               </TouchableOpacity>
             ) : (
@@ -738,14 +771,15 @@ export default function AyahDetailScreen() {
               {data.arabicText ?? "—"}
             </Text>
           )}
-        </View>
 
-        {/* ═══ Okunuş — Arapça metnin hemen altında ═══ */}
-        {reading ? (
-          <View style={[styles.readingBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
-            <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{reading}</Text>
-          </View>
-        ) : null}
+          {/* Okunuş — Arapça metinle aynı kartta, ince ayraçla */}
+          {reading ? (
+            <>
+              <View style={[styles.arabicDivider, { backgroundColor: colors.border }]} />
+              <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{reading}</Text>
+            </>
+          ) : null}
+        </View>
 
         {/* ═══ Sure Hakkında ═══ */}
         <SurahAboutAccordion surahId={surahId} colors={colors} />
@@ -775,7 +809,9 @@ export default function AyahDetailScreen() {
           <View style={styles.tabContent}>
             {data.words.length > 0 ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.sectionTitle, { color: colors.accent }]}>KELİME ANALİZİ</Text>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>
+                  KELİME ANALİZİ · {data.words.length} KELİME
+                </Text>
                 <View style={styles.wordsList}>
                   {data.words.map((w) => (
                     <View
@@ -796,7 +832,7 @@ export default function AyahDetailScreen() {
                       </View>
 
                       {/* Anlam */}
-                      <View style={styles.wordDetailRow}>
+                      <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                         <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
                           Anlam
                         </Text>
@@ -807,7 +843,7 @@ export default function AyahDetailScreen() {
 
                       {/* Tür */}
                       {w.pos ? (
-                        <View style={styles.wordDetailRow}>
+                        <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
                             Tür
                           </Text>
@@ -819,7 +855,7 @@ export default function AyahDetailScreen() {
 
                       {/* Detaylı morfoloji (varsa) */}
                       {parseMorphology(w.morphology) ? (
-                        <View style={styles.wordDetailRow}>
+                        <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
                             Morfoloji
                           </Text>
@@ -830,7 +866,7 @@ export default function AyahDetailScreen() {
                       ) : null}
 
                       {/* Kök */}
-                      <View style={styles.wordDetailRow}>
+                      <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                         <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
                           Kök
                         </Text>
@@ -966,19 +1002,33 @@ export default function AyahDetailScreen() {
             accessibilityLabel="Önceki ayet"
             accessibilityState={{ disabled: !data.prevAyah }}
           >
+            <Ionicons name="chevron-back" size={16} color={data.prevAyah ? "#fff" : colors.textMuted} />
             <Text
               style={[
                 styles.navBtnText,
                 !data.prevAyah && { color: colors.textMuted },
               ]}
             >
-              ← Önceki
+              Önceki
             </Text>
           </TouchableOpacity>
 
-          <Text style={[styles.navCenter, { color: colors.textMuted }]}>
-            {data.ayahNumber} / {data.verseCount}
-          </Text>
+          <View style={styles.navCenterWrap}>
+            <Text style={[styles.navCenter, { color: colors.textMuted }]}>
+              {data.ayahNumber} / {data.verseCount}
+            </Text>
+            <View style={[styles.progressTrack, { backgroundColor: colors.border }]}>
+              <View
+                style={[
+                  styles.progressFill,
+                  {
+                    backgroundColor: colors.accent,
+                    width: `${Math.min(100, Math.max(2, (data.ayahNumber / Math.max(1, data.verseCount)) * 100))}%`,
+                  },
+                ]}
+              />
+            </View>
+          </View>
 
           <TouchableOpacity
             style={[
@@ -998,17 +1048,24 @@ export default function AyahDetailScreen() {
                 !data.nextAyah && { color: colors.textMuted },
               ]}
             >
-              Sonraki →
+              Sonraki
             </Text>
+            <Ionicons name="chevron-forward" size={16} color={data.nextAyah ? "#fff" : colors.textMuted} />
           </TouchableOpacity>
         </View>
 
         {/* ═══ Kişisel Not ═══ */}
         <View style={[styles.noteBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
           <View style={styles.noteHeader}>
-            <Text style={[styles.noteTitle, { color: colors.textPrimary }]}>📝 Kişisel Not</Text>
+            <View style={styles.noteTitleRow}>
+              <Ionicons name="create-outline" size={16} color={colors.accent} />
+              <Text style={[styles.noteTitle, { color: colors.textPrimary }]}>Kişisel Not</Text>
+            </View>
             {noteSaved && (
-              <Text style={[styles.noteSavedBadge, { color: colors.accent }]}>✓ Kaydedildi</Text>
+              <View style={styles.noteSavedRow}>
+                <Ionicons name="checkmark-circle" size={14} color={colors.accent} />
+                <Text style={[styles.noteSavedBadge, { color: colors.accent }]}>Kaydedildi</Text>
+              </View>
             )}
           </View>
           <TextInput
@@ -1066,13 +1123,14 @@ const styles = StyleSheet.create({
   // ── Merkez / Durum ──
   centered: {
     flex: 1, alignItems: "center", justifyContent: "center",
-    padding: 20,
+    padding: 20, gap: 12,
   },
   loadingText: { marginTop: 12, fontSize: 14 },
   errorText:   { fontSize: 14, textAlign: "center" },
   backBtn: {
-    marginTop: 16, paddingHorizontal: 20, paddingVertical: 10,
-    minHeight: 44, justifyContent: "center", borderRadius: 8,
+    marginTop: 4, paddingHorizontal: 20, paddingVertical: 10,
+    minHeight: 44, borderRadius: 8,
+    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 4,
   },
   backBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
@@ -1084,6 +1142,16 @@ const styles = StyleSheet.create({
   headerCard: {
     borderRadius: 12, padding: 16, marginBottom: 8,
     borderWidth: 1,
+  },
+  headerTopRow: {
+    flexDirection: "row", alignItems: "flex-start",
+    justifyContent: "space-between", gap: 12,
+  },
+  headerTitleCol: { flex: 1 },
+  headerActions:  { flexDirection: "row", gap: 8 },
+  iconBtn: {
+    width: 38, height: 38, borderRadius: 19, borderWidth: 1,
+    alignItems: "center", justifyContent: "center",
   },
   headerTitle: {
     fontSize: 18, fontWeight: "700",
@@ -1111,16 +1179,14 @@ const styles = StyleSheet.create({
   },
   fontBtnDisabled: { opacity: 0.35 },
   tajToggle: {
-    flexDirection: "row", alignItems: "center",
+    flexDirection: "row", alignItems: "center", gap: 5,
     borderRadius: 16, borderWidth: 1,
     paddingHorizontal: 12, paddingVertical: 6,
   },
-  tajToggleOn:  { backgroundColor: "#ecfdf5", borderColor: "#6ee7b7" },
-  tajToggleText:  { fontSize: 12, fontWeight: "700" },
-  tajToggleTextOn:{ color: "#047857" },
-  readingBox: {
-    borderRadius: 10, paddingHorizontal: 16, paddingVertical: 10,
-    marginBottom: 10, borderWidth: 1,
+  tajToggleText: { fontSize: 12, fontWeight: "700" },
+  arabicDivider: {
+    width: "100%", height: StyleSheet.hairlineWidth,
+    marginTop: 14, marginBottom: 12,
   },
   readingText: {
     fontSize: 15, lineHeight: 24, textAlign: "center", fontStyle: "italic",
@@ -1169,11 +1235,11 @@ const styles = StyleSheet.create({
     fontSize: 22, fontFamily: "Amiri",
     textAlign: "right", writingDirection: "rtl",
   },
+  // borderTopColor tema renginden inline verilir (karanlık modda görünür kalsın)
   wordDetailRow: {
     flexDirection: "row", alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 4, borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "rgba(0,0,0,0.06)",
   },
   wordDetailLabel: {
     fontSize: 11, fontWeight: "600",
@@ -1238,14 +1304,21 @@ const styles = StyleSheet.create({
   // ── Navigasyon ──
   navRow: {
     flexDirection: "row", alignItems: "center",
-    justifyContent: "space-between", marginTop: 14,
+    justifyContent: "space-between", marginTop: 14, gap: 12,
   },
   navBtn: {
-    paddingHorizontal: 20, paddingVertical: 12,
-    minHeight: 44, justifyContent: "center", borderRadius: 8,
+    paddingHorizontal: 16, paddingVertical: 12,
+    minHeight: 44, borderRadius: 8,
+    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 2,
   },
   navBtnText: { fontSize: 14, fontWeight: "600", color: "#fff" },
-  navCenter: { fontSize: 13 },
+  navCenterWrap: { flex: 1, alignItems: "center", gap: 6 },
+  navCenter: { fontSize: 13, fontWeight: "500" },
+  progressTrack: {
+    width: "100%", maxWidth: 120, height: 4,
+    borderRadius: 2, overflow: "hidden",
+  },
+  progressFill: { height: "100%", borderRadius: 2 },
 
   // ── Hızlı Ayet Atlama ──
   jumpBar:    { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 10, paddingTop: 10, borderTopWidth: StyleSheet.hairlineWidth },
@@ -1255,10 +1328,10 @@ const styles = StyleSheet.create({
   jumpBtnText:{ color: "#fff", fontSize: 13, fontWeight: "700" },
 
   // ── Sure Accordion ──
-  accordionBox:    { borderRadius: 12, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
-  accordionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
-  accordionTitle:  { fontSize: 14, fontWeight: "700" },
-  accordionChevron:{ fontSize: 12 },
+  accordionBox:     { borderRadius: 12, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
+  accordionHeader:  { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
+  accordionTitleRow:{ flexDirection: "row", alignItems: "center", gap: 8 },
+  accordionTitle:   { fontSize: 14, fontWeight: "700" },
   accordionBody:   { paddingHorizontal: 14, paddingBottom: 14 },
   accordionText:   { fontSize: 13, lineHeight: 22 },
 
@@ -1274,7 +1347,9 @@ const styles = StyleSheet.create({
     borderRadius: 12, padding: 16, marginTop: 14, borderWidth: 1,
   },
   noteHeader:      { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
+  noteTitleRow:    { flexDirection: "row", alignItems: "center", gap: 6 },
   noteTitle:       { fontSize: 14, fontWeight: "700" },
+  noteSavedRow:    { flexDirection: "row", alignItems: "center", gap: 4 },
   noteSavedBadge:  { fontSize: 12, fontWeight: "600" },
   noteInput: {
     borderRadius: 10, borderWidth: 1, padding: 12,

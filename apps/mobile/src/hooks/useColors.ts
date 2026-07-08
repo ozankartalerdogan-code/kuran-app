@@ -56,6 +56,15 @@ function notify() {
 function ensureLoaded() {
   if (loaded) return;
   loaded = true;
+  // Önce senkron dene (MMKV) — tema İLK boyamadan önce hazır olsun. Async'e
+  // kalırsa ilk kareler açık temayla çizilir: karanlık modda skeleton/yükleme
+  // ekranı beyaz yanıp söner.
+  const sync = storage.getJSONSync<"light" | "dark">(STORAGE_KEYS.nightMode);
+  if (sync) {
+    override = sync;
+    return;
+  }
+  // MMKV yoksa (Expo Go / eski build) AsyncStorage'dan asenkron yükle.
   storage
     .getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
     .then((value) => {

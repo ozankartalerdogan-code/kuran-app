@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   View, Text, FlatList, ScrollView, TouchableOpacity, TextInput,
-  ActivityIndicator, StyleSheet, useWindowDimensions,
+  ActivityIndicator, StyleSheet, useWindowDimensions, Modal,
   type NativeScrollEvent, type NativeSyntheticEvent,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
@@ -203,6 +203,9 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
 
 const TUM_SAYFALAR = Array.from({ length: SAYFA_SAYISI }, (_, i) => i + 1);
 
+// Sure listesi satır yüksekliği sabit — getItemLayout/initialScrollIndex için şart.
+const SURE_ROW_H = 58;
+
 export default function MushafSayfaEkrani() {
   useStreak();        // Sayfa görünümünden okumak da okuma serisini ilerletir
   useKeepAwakeSafe(); // Okuma sırasında ekran kararmasın
@@ -310,6 +313,41 @@ export default function MushafSayfaEkrani() {
     setJumpVal("");
   }, [jumpVal, sayfayaGit]);
 
+  const sureyeGit = useCallback((surahId: number) => {
+    logFeature("mushaf_sayfa_sure_sec", { surah: String(surahId) });
+    sayfayaGit(ayetinSayfasi(surahId, 1));
+    setJumpOpen(false);
+    setJumpVal("");
+  }, [sayfayaGit]);
+
+  // Panel açılınca liste, o an okunan sayfanın suresinden başlasın.
+  const aktifSure = sayfaBasSuresi(page);
+  const renderSureRow = useCallback(({ item: s }: { item: SurahListItem }) => {
+    const aktif = s.id === aktifSure;
+    return (
+      <TouchableOpacity
+        style={[st.sureRow, { borderBottomColor: c.border }, aktif && { backgroundColor: c.accentLight }]}
+        onPress={() => sureyeGit(s.id)}
+        activeOpacity={0.65}
+        accessibilityRole="button"
+        accessibilityLabel={`${s.name} suresine git`}
+      >
+        <View style={[st.sureNoBadge, { backgroundColor: aktif ? c.accent : c.cardAlt, borderColor: aktif ? c.accent : c.border }]}>
+          <Text style={[st.sureNo, { color: aktif ? "#fff" : c.textMuted }]}>{s.id}</Text>
+        </View>
+        <View style={st.sureOrta}>
+          <Text style={[st.sureName, { color: c.text }]} numberOfLines={1}>{s.name}</Text>
+          <Text style={[st.sureMeta, { color: c.textMuted }]} numberOfLines={1}>
+            {s.verseCount} ayet · Sayfa {ayetinSayfasi(s.id, 1)}
+          </Text>
+        </View>
+        <Text style={[st.sureArap, { color: aktif ? c.accent : c.textSecondary }]} numberOfLines={1}>
+          {s.arabicName}
+        </Text>
+      </TouchableOpacity>
+    );
+  }, [aktifSure, c, sureyeGit]);
+
   const handleTajweedToggle = useCallback(() => {
     setTajweed((prev) => {
       const next = !prev;
@@ -346,7 +384,7 @@ export default function MushafSayfaEkrani() {
           <TouchableOpacity onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
             <Ionicons name="chevron-back" size={24} color={c.accent} />
           </TouchableOpacity>
-          <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sayfaya git" accessibilityHint="Sayfa numarası girerek istediğin sayfaya atla">
+          <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sayfaya veya sureye git" accessibilityHint="Sayfa numarası girerek ya da sure seçerek atla">
             <Text style={[st.headerTitle, { color: c.text }]} numberOfLines={1}>{surahName}</Text>
             {/* Hap görünümü + büyüteç: buranın dokunulur bir "sayfaya git" olduğunu belli eder */}
             <View style={[st.headerPill, { borderColor: c.border, backgroundColor: c.cardAlt }]}>
@@ -397,25 +435,58 @@ export default function MushafSayfaEkrani() {
           </View>
         </View>
 
-        {/* Sayfaya atlama */}
-        {jumpOpen && (
-          <View style={[st.jumpRow, { backgroundColor: c.card, borderBottomColor: c.border }]}>
-            <Text style={[st.jumpLabel, { color: c.textMuted }]}>Sayfa (1-{SAYFA_SAYISI}):</Text>
-            <TextInput
-              style={[st.jumpInput, { color: c.text, borderColor: c.border, backgroundColor: c.cardAlt }]}
-              value={jumpVal}
-              onChangeText={setJumpVal}
-              keyboardType="number-pad"
-              autoFocus
-              onSubmitEditing={handleJump}
-              returnKeyType="go"
-              accessibilityLabel="Sayfa numarası"
-            />
-            <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.accent }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sayfaya git">
-              <Text style={st.jumpBtnText}>Git</Text>
-            </TouchableOpacity>
+        {/* Sayfaya / sureye atlama — alttan panel */}
+        <Modal visible={jumpOpen} transparent animationType="slide" onRequestClose={() => setJumpOpen(false)}>
+          <View style={st.overlay}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => setJumpOpen(false)} accessibilityRole="button" accessibilityLabel="Paneli kapat" />
+            <View style={[st.sheet, { backgroundColor: c.bg }]}>
+              <View style={[st.sheetHeader, { borderBottomColor: c.border }]}>
+                <Text style={[st.sheetTitle, { color: c.text }]}>Sayfaya veya Sureye Git</Text>
+                <TouchableOpacity onPress={() => setJumpOpen(false)} hitSlop={10} accessibilityRole="button" accessibilityLabel="Kapat">
+                  <Ionicons name="close" size={22} color={c.textMuted} />
+                </TouchableOpacity>
+              </View>
+
+              {/* Sayfa numarası */}
+              <View style={[st.jumpRow, { borderBottomColor: c.border }]}>
+                <Text style={[st.jumpLabel, { color: c.textMuted }]}>Sayfa (1-{SAYFA_SAYISI}):</Text>
+                <TextInput
+                  style={[st.jumpInput, { color: c.text, borderColor: c.border, backgroundColor: c.cardAlt }]}
+                  value={jumpVal}
+                  onChangeText={setJumpVal}
+                  keyboardType="number-pad"
+                  onSubmitEditing={handleJump}
+                  returnKeyType="go"
+                  accessibilityLabel="Sayfa numarası"
+                />
+                <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.accent }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sayfaya git">
+                  <Text style={st.jumpBtnText}>Git</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Sure listesi */}
+              {surahList.length === 0 ? (
+                <View style={st.sureBos}>
+                  <ActivityIndicator size="small" color={c.accent} />
+                  <Text style={[st.centerText, { color: c.textMuted }]}>Sure listesi yükleniyor…</Text>
+                </View>
+              ) : (
+                <FlatList
+                  style={{ flex: 1 }}
+                  data={surahList}
+                  keyExtractor={(s) => String(s.id)}
+                  renderItem={renderSureRow}
+                  getItemLayout={(_, index) => ({ length: SURE_ROW_H, offset: SURE_ROW_H * index, index })}
+                  initialScrollIndex={Math.max(0, aktifSure - 1)}
+                  initialNumToRender={12}
+                  windowSize={7}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{ paddingBottom: insets.bottom + 8 }}
+                />
+              )}
+            </View>
           </View>
-        )}
+        </Modal>
 
         {/* Sayfalar — inverted: sağa kaydır → sonraki sayfa (Arapça kitap yönü) */}
         {initialPage === null ? (
@@ -487,11 +558,35 @@ const st = StyleSheet.create({
   fontBtn:     { borderRadius: 14, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 5, minWidth: 34, alignItems: "center" },
   fontBtnOff:  { opacity: 0.35 },
 
-  jumpRow:   { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14, paddingVertical: 8, borderBottomWidth: 1 },
+  jumpRow:   { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14, paddingVertical: 10, borderBottomWidth: 1 },
   jumpLabel: { fontSize: 12, fontWeight: "500" },
   jumpInput: { flex: 1, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, textAlign: "center" },
   jumpBtn:   { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 8 },
   jumpBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+
+  // ── Sayfa/Sure paneli ──
+  overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)" },
+  sheet:   { height: "78%", borderTopLeftRadius: 20, borderTopRightRadius: 20, overflow: "hidden" },
+  sheetHeader: {
+    flexDirection: "row", alignItems: "center", justifyContent: "space-between",
+    paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
+  },
+  sheetTitle: { fontSize: 16, fontWeight: "700" },
+  sureBos:    { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, padding: 24 },
+  sureRow: {
+    height: SURE_ROW_H,
+    flexDirection: "row", alignItems: "center", gap: 12,
+    paddingHorizontal: 16, borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  sureNoBadge: {
+    width: 32, height: 32, borderRadius: 16, borderWidth: 1,
+    alignItems: "center", justifyContent: "center",
+  },
+  sureNo:   { fontSize: 12, fontWeight: "700" },
+  sureOrta: { flex: 1 },
+  sureName: { fontSize: 14, fontWeight: "600" },
+  sureMeta: { fontSize: 11, marginTop: 1 },
+  sureArap: { fontFamily: "Amiri-Bold", fontSize: 18, lineHeight: 30 },
 
   center:     { flex: 1, alignItems: "center", justifyContent: "center", gap: 10, padding: 24 },
   centerText: { fontSize: 13 },
