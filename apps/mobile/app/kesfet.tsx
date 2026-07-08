@@ -351,7 +351,7 @@ const ft = StyleSheet.create({
 
 // Tema accordion
 const ta = StyleSheet.create({
-  card:    { borderRadius: 12, borderWidth: 1, borderColor: "#e7e5e4", backgroundColor: "#fff", marginBottom: 6, overflow: "hidden" },
+  card:    { borderRadius: 12, borderWidth: 1, borderColor: "#e7dfcc", backgroundColor: "#fffdf6", marginBottom: 6, overflow: "hidden" },
   header:  { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12 },
   baslik:  { fontSize: 13, fontWeight: "600", color: "#1c1917", flex: 1 },
   badge:   { backgroundColor: "#f5f0e8", borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2 },
@@ -360,6 +360,6 @@ const ta = StyleSheet.create({
   body:    { borderTopWidth: 1, borderTopColor: "#f5f0e8", paddingHorizontal: 10, paddingVertical: 6 },
   temaRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 8, paddingHorizontal: 4, borderBottomWidth: 1, borderBottomColor: "#f5f0e8" },
   temaIsim:{ fontSize: 13, color: "#374151", flex: 1 },
-  temaBadge:   { backgroundColor: "#fff", borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2, borderWidth: 1, borderColor: "#e7e5e4" },
+  temaBadge:   { backgroundColor: "#fffdf6", borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2, borderWidth: 1, borderColor: "#e7dfcc" },
   temaBadgeText:{ fontSize: 10, color: "#78716c" },
 });

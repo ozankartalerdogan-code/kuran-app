@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
   clearAll:        { fontSize: 13, color: "#ef4444", fontWeight: "600" },
   infoText:        { fontSize: 12, lineHeight: 18, marginTop: 8 },
   card: {
-    backgroundColor: "#fff", borderRadius: 14, padding: 14,
-    borderWidth: 1, borderColor: "#e7e5e4",
+    backgroundColor: "#fffdf6", borderRadius: 14, padding: 14,
+    borderWidth: 1, borderColor: "#e7dfcc",
     shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1,
   },
   cardHeader:  { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },

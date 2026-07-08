@@ -223,11 +223,11 @@ const s = StyleSheet.create({
   retryBtn: { marginTop: 16, backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 20, paddingVertical: 10 },
   retryBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
-  searchBar: { margin: 12, backgroundColor: "#fff", borderRadius: 12, borderWidth: 1, borderColor: "#e7e5e4", paddingHorizontal: 14, paddingVertical: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1 },
+  searchBar: { margin: 12, backgroundColor: "#fffdf6", borderRadius: 12, borderWidth: 1, borderColor: "#e7dfcc", paddingHorizontal: 14, paddingVertical: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1 },
   searchInput: { fontSize: 14, color: "#1c1917", padding: 0 },
 
   sortRow: { flexDirection: "row", gap: 8, paddingHorizontal: 12, marginBottom: 4 },
-  sortBtn: { flex: 1, paddingVertical: 7, borderRadius: 8, backgroundColor: "#fff", borderWidth: 1, borderColor: "#e7e5e4", alignItems: "center" },
+  sortBtn: { flex: 1, paddingVertical: 7, borderRadius: 8, backgroundColor: "#fffdf6", borderWidth: 1, borderColor: "#e7dfcc", alignItems: "center" },
   sortBtnActive: { backgroundColor: "#059669", borderColor: "#059669" },
   sortBtnText: { fontSize: 12, fontWeight: "600", color: "#44403c" },
   sortBtnTextActive: { color: "#fff" },
@@ -238,7 +238,7 @@ const s = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#fffdf6",
     paddingHorizontal: 16,
     paddingVertical: 13,
     borderRadius: 12,

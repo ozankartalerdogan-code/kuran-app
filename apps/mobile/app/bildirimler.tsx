@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   notifCard: {
     flexDirection: "row", alignItems: "center", gap: 12,
     margin: 12, padding: 14,
-    backgroundColor: "#fff", borderRadius: 12,
+    backgroundColor: "#fffdf6", borderRadius: 12,
     borderWidth: 1, borderColor: "#d1fae5",
   },
   notifTitle: { fontSize: 14, fontWeight: "600", color: "#1c1917", marginBottom: 2 },

@@ -15,11 +15,13 @@ export type AppColors = {
   isDark: boolean;
 };
 
+// Kart/kenarlık mushafın "kâğıt" tonlarıyla aynı (bkz. mushaf-sayfa kagit):
+// beyaz yerine krem kâğıt — tüm ekranlar aynı sıcak dokuyu paylaşır.
 const light: AppColors = {
   bg:            "#f5f0e8",
-  card:          "#ffffff",
+  card:          "#fffdf6",
   cardAlt:       "#f5f0e8",
-  border:        "#e7e5e4",
+  border:        "#e7dfcc",
   text:          "#1c1917",
   textSecondary: "#44403c",
   textMuted:     "#78716c",

@@ -29,6 +29,8 @@ import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
 import { isImageShareAvailable } from "../../../src/lib/shareImage";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../../../src/hooks/useFontScale";
+import { arapRakam, ayetinSayfasi } from "../../../src/lib/mushafSayfa";
+import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -376,9 +378,9 @@ interface ThemeColors {
 // `error`. Ayrı tutulmasının tek sebebi alan adları (textPrimary vb.).
 const lightColors: ThemeColors = {
   bg:           "#f5f0e8",
-  card:         "#ffffff",
+  card:         "#fffdf6",
   surfaceAlt:   "#f5f0e8",
-  border:       "#e7e5e4",
+  border:       "#e7dfcc",
   textPrimary:  "#1c1917",
   textSecondary:"#44403c",
   textMuted:    "#78716c",
@@ -407,6 +409,12 @@ export default function AyahDetailScreen() {
   // ana sayfadaki tema düğmesi bu ekranı etkilemezdi (yalnız sistem temasını izlerdi).
   const { isDark } = useColors();
   const colors = isDark ? darkColors : lightColors;
+  // Mushaf sayfa görünümüyle aynı "kâğıt" estetiği (bkz. mushaf-sayfa.tsx kagit/sureBasligi)
+  const paper = isDark
+    ? { backgroundColor: "#1c1917", borderColor: "#44403c" }
+    : { backgroundColor: "#fffdf6", borderColor: "#e7dfcc" };
+  const gold = isDark ? "#c9a84c" : "#a16207";
+  const goldBorder = isDark ? "#78716c" : "#c9a84c";
   const insets = useSafeAreaInsets();
   const ayahTarget = useTourTarget("ayah.main");
   const analysisTabTarget = useTourTarget("ayah.analysis");
@@ -454,7 +462,8 @@ export default function AyahDetailScreen() {
   // ortak kalıcı tercih (useFontScale).
   const { fontScale, changeFontScale } = useFontScale();
   const scaledText = useMemo(() => ({
-    arabic:  { fontSize: 36 * fontScale, lineHeight: 60 * fontScale },
+    // UthmanicHafs harekeler için geniş satır aralığı ister (mushafla aynı ~1.9 oran)
+    arabic:  { fontSize: 30 * fontScale, lineHeight: 58 * fontScale },
     reading: { fontSize: 15 * fontScale, lineHeight: 24 * fontScale },
     meal:    { fontSize: 15 * fontScale, lineHeight: 26 * fontScale },
   }), [fontScale]);
@@ -572,6 +581,11 @@ export default function AyahDetailScreen() {
     toggleFav(verseKey);
   }, [toggleFav, verseKey]);
 
+  const handleMushaftaAc = useCallback(() => {
+    logFeature("ayah_mushafta_ac", { verse: verseKey });
+    router.push(`/mushaf-sayfa?sayfa=${ayetinSayfasi(surahId, ayahNumber)}`);
+  }, [surahId, ayahNumber, verseKey]);
+
   const handlePrev = useCallback(() => {
     if (data?.prevAyah) navigate(data.prevAyah.surahId, data.prevAyah.ayahNumber);
   }, [data, navigate]);
@@ -658,61 +672,18 @@ export default function AyahDetailScreen() {
         contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* ═══ Başlık ═══ */}
-        <View {...ayahTarget} style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <View style={styles.headerTopRow}>
-            <View style={styles.headerTitleCol}>
-              <Text style={[styles.headerTitle, { color: colors.textPrimary }]} numberOfLines={2}>
-                {data.surahName}
-              </Text>
-              <Text style={[styles.headerSubtitle, { color: colors.textMuted }]} numberOfLines={1}>
-                {data.ayahNumber}. Ayet · {data.verseKey}
-              </Text>
-            </View>
-            <View style={styles.headerActions}>
-              <TouchableOpacity
-                style={[styles.iconBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
-                onPress={handleShare}
-                hitSlop={6}
-                activeOpacity={0.7}
-                accessibilityRole="button"
-                accessibilityLabel="Ayeti paylaş"
-              >
-                <Ionicons name="share-social-outline" size={18} color={colors.textSecondary} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.iconBtn,
-                  isFavorite(verseKey)
-                    ? { backgroundColor: colors.error + "18", borderColor: colors.error + "55" }
-                    : { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
-                ]}
-                onPress={handleToggleFav}
-                hitSlop={6}
-                activeOpacity={0.7}
-                accessibilityRole="button"
-                accessibilityState={{ selected: isFavorite(verseKey) }}
-                accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}
-              >
-                <Ionicons
-                  name={isFavorite(verseKey) ? "heart" : "heart-outline"}
-                  size={18}
-                  color={isFavorite(verseKey) ? colors.error : colors.textSecondary}
-                />
-              </TouchableOpacity>
-            </View>
+        {/* ═══ Mushaf Kartı — sayfa görünümüyle aynı kâğıt estetiği ═══ */}
+        <View {...ayahTarget} style={[styles.paperCard, paper]}>
+          {/* Sure başlığı süslemesi (mushaftaki sureBasligi ile aynı) */}
+          <View style={[styles.sureBasligi, { borderColor: goldBorder }]}>
+            <Text style={[styles.sureArapca, { color: colors.textPrimary }]} numberOfLines={1}>
+              {data.arabicName}
+            </Text>
+            <Text style={[styles.sureAdi, { color: gold }]} numberOfLines={1}>
+              {data.surahId}. {data.surahName} Suresi · {data.ayahNumber}. Ayet
+            </Text>
           </View>
 
-          <AyahJumpBar
-            surahId={surahId}
-            current={ayahNumber}
-            total={data.verseCount}
-            colors={colors}
-          />
-        </View>
-
-        {/* ═══ Arapça Metin ═══ */}
-        <View style={[styles.arabicBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
           <View style={styles.tajRow}>
             {data.arabicTajweed ? (
               <TouchableOpacity
@@ -764,21 +735,89 @@ export default function AyahDetailScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          {data.arabicTajweed && tajweed ? (
-            <TajweedText markup={data.arabicTajweed} style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]} />
-          ) : (
-            <Text style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
-              {data.arabicText ?? "—"}
-            </Text>
-          )}
+          {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾ */}
+          <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
+            {data.arabicTajweed && tajweed ? (
+              <TajweedText markup={data.arabicTajweed} />
+            ) : (
+              data.arabicText ?? "—"
+            )}
+            <Text style={{ color: gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
+          </Text>
 
-          {/* Okunuş — Arapça metinle aynı kartta, ince ayraçla */}
+          {/* Okunuş — aynı kâğıtta, ince ayraçla */}
           {reading ? (
             <>
-              <View style={[styles.arabicDivider, { backgroundColor: colors.border }]} />
+              <View style={[styles.arabicDivider, { backgroundColor: paper.borderColor }]} />
               <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{reading}</Text>
             </>
           ) : null}
+
+          {/* Tecvid lejantı — mushaftaki gibi, renklendirme açıkken */}
+          {tajweed && data.arabicTajweed ? (
+            <View style={styles.legend}>
+              {TAJWEED_LEGEND.map((l) => (
+                <View key={l.ad} style={styles.legendItem}>
+                  <View style={[styles.legendDot, { backgroundColor: l.renk }]} />
+                  <Text style={[styles.legendText, { color: colors.textMuted }]}>{l.ad}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
+        </View>
+
+        {/* ═══ Eylemler ═══ */}
+        <View style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <View style={styles.actionsRow}>
+            <TouchableOpacity
+              style={[styles.mushafBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
+              onPress={handleMushaftaAc}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Bu ayeti mushaf sayfasında aç"
+            >
+              <Ionicons name="albums-outline" size={16} color={colors.accent} />
+              <Text style={[styles.mushafBtnText, { color: colors.textSecondary }]}>Mushafta Aç</Text>
+            </TouchableOpacity>
+            <View style={{ flex: 1 }} />
+            <TouchableOpacity
+              style={[styles.iconBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
+              onPress={handleShare}
+              hitSlop={6}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Ayeti paylaş"
+            >
+              <Ionicons name="share-social-outline" size={18} color={colors.textSecondary} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.iconBtn,
+                isFavorite(verseKey)
+                  ? { backgroundColor: colors.error + "18", borderColor: colors.error + "55" }
+                  : { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+              ]}
+              onPress={handleToggleFav}
+              hitSlop={6}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityState={{ selected: isFavorite(verseKey) }}
+              accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}
+            >
+              <Ionicons
+                name={isFavorite(verseKey) ? "heart" : "heart-outline"}
+                size={18}
+                color={isFavorite(verseKey) ? colors.error : colors.textSecondary}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <AyahJumpBar
+            surahId={surahId}
+            current={ayahNumber}
+            total={data.verseCount}
+            colors={colors}
+          />
         </View>
 
         {/* ═══ Sure Hakkında ═══ */}
@@ -1138,38 +1177,45 @@ const styles = StyleSheet.create({
   scroll:        { flex: 1 },
   scrollContent: { padding: 12, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  // ── Başlık kartı ──
+  // ── Eylem kartı ──
   headerCard: {
     borderRadius: 12, padding: 16, marginBottom: 8,
     borderWidth: 1,
   },
-  headerTopRow: {
-    flexDirection: "row", alignItems: "flex-start",
-    justifyContent: "space-between", gap: 12,
+  actionsRow: {
+    flexDirection: "row", alignItems: "center", gap: 8,
   },
-  headerTitleCol: { flex: 1 },
-  headerActions:  { flexDirection: "row", gap: 8 },
+  mushafBtn: {
+    flexDirection: "row", alignItems: "center", gap: 6,
+    borderRadius: 19, borderWidth: 1,
+    paddingHorizontal: 14, minHeight: 38,
+  },
+  mushafBtnText: { fontSize: 13, fontWeight: "600" },
   iconBtn: {
     width: 38, height: 38, borderRadius: 19, borderWidth: 1,
     alignItems: "center", justifyContent: "center",
   },
-  headerTitle: {
-    fontSize: 18, fontWeight: "700",
-  },
-  headerSubtitle: {
-    marginTop: 4, fontSize: 13, fontWeight: "500",
-  },
 
-  // ── Arapça metin ──
-  arabicBox: {
-    borderRadius: 12, padding: 20, marginBottom: 6,
+  // ── Mushaf kartı (kâğıt) ──
+  paperCard: {
+    borderRadius: 14, padding: 16, marginBottom: 8,
     alignItems: "center", borderWidth: 1,
   },
+  sureBasligi: {
+    width: "100%", borderWidth: 1.5, borderRadius: 12, alignItems: "center",
+    paddingVertical: 8, paddingHorizontal: 12, marginBottom: 10,
+  },
+  sureArapca: { fontFamily: "Amiri-Bold", fontSize: 22, lineHeight: 38 },
+  sureAdi:    { fontSize: 11, fontWeight: "700", letterSpacing: 0.4, marginTop: 1 },
   arabicText: {
-    fontSize: 36, lineHeight: 60,
-    fontFamily: "Amiri", textAlign: "right",
+    fontSize: 30, lineHeight: 58,
+    fontFamily: "UthmanicHafs", textAlign: "right",
     writingDirection: "rtl", width: "100%",
   },
+  legend:     { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 12 },
+  legendItem: { flexDirection: "row", alignItems: "center", gap: 5 },
+  legendDot:  { width: 10, height: 10, borderRadius: 3 },
+  legendText: { fontSize: 10 },
   tajRow: { width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
   fontBtns: { flexDirection: "row", gap: 6 },
   fontBtn: {

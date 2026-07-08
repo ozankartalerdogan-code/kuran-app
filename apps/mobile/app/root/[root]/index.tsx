@@ -411,7 +411,7 @@ const s = StyleSheet.create({
   backBtn: { backgroundColor: "#0f766e", borderRadius: 8, paddingHorizontal: 20, paddingVertical: 10 },
   backBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
-  header: { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fff", marginBottom: 8 },
+  header: { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fffdf6", marginBottom: 8 },
   rootTitle: { fontSize: 40, color: "#1c1917", marginBottom: 8 },
   meaningLabel: { fontSize: 10, fontWeight: "700", letterSpacing: 0.5, textTransform: "uppercase", color: "#a8a29e", marginBottom: 2 },
   meaning: { fontSize: 16, color: "#44403c", marginBottom: 12 },
@@ -420,18 +420,18 @@ const s = StyleSheet.create({
   statNum: { fontSize: 18, fontWeight: "700", color: "#065f46" },
   statLabel: { fontSize: 10, color: "#059669", marginTop: 1 },
 
-  section: { marginHorizontal: 12, marginBottom: 16, backgroundColor: "#fff", borderRadius: 14, padding: 16, borderWidth: 1, borderColor: "#e7e5e4" },
+  section: { marginHorizontal: 12, marginBottom: 16, backgroundColor: "#fffdf6", borderRadius: 14, padding: 16, borderWidth: 1, borderColor: "#e7dfcc" },
   sectionTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
   sectionHint: { fontSize: 11, color: "#a8a29e", marginBottom: 12 },
   groupsTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginHorizontal: 12, marginTop: 4, marginBottom: 2 },
   groupsHint: { fontSize: 11, color: "#a8a29e", marginHorizontal: 12, marginBottom: 8, lineHeight: 15 },
 
-  otherWrap: { marginTop: 10, marginHorizontal: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#e7e5e4" },
+  otherWrap: { marginTop: 10, marginHorizontal: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#e7dfcc" },
   otherToggle: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 5, paddingVertical: 10 },
   otherToggleText: { fontSize: 12.5, fontWeight: "600", color: "#a8a29e", letterSpacing: 0.2 },
   otherToggleChevron: { fontSize: 9, color: "#a8a29e" },
 
-  accordionCard: { borderWidth: 1, borderColor: "#e7e5e4", borderRadius: 10, overflow: "hidden", backgroundColor: "#fff", marginHorizontal: 12, marginBottom: 6 },
+  accordionCard: { borderWidth: 1, borderColor: "#e7dfcc", borderRadius: 10, overflow: "hidden", backgroundColor: "#fffdf6", marginHorizontal: 12, marginBottom: 6 },
   accordionHeader: { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12, gap: 8 },
   accordionTitle: { fontSize: 14, fontWeight: "700", color: "#1c1917" },
   accordionCount: { fontSize: 13, fontWeight: "400", color: "#059669" },
@@ -450,7 +450,7 @@ const hg = StyleSheet.create({
   cellText: { fontSize: 7, color: "#a8a29e", fontWeight: "500" },
 
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
-  modalCard: { backgroundColor: "#fff", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200 },
+  modalCard: { backgroundColor: "#fffdf6", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200 },
   modalSurah: { fontSize: 18, fontWeight: "700", color: "#1c1917", marginBottom: 6 },
   modalCount: { fontSize: 14, color: "#78716c", marginBottom: 16 },
   modalBtn: { backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 24, paddingVertical: 10 },

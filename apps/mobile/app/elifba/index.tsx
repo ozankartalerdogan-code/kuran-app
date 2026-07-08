@@ -449,8 +449,8 @@ const nd = StyleSheet.create({
 const pp = StyleSheet.create({
   overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)", alignItems: "center", justifyContent: "center", padding: 16 },
   card:    {
-    width: "100%", maxWidth: 360, backgroundColor: "#fff",
-    borderRadius: 20, padding: 18, borderWidth: 1, borderColor: "#e7e5e4",
+    width: "100%", maxWidth: 360, backgroundColor: "#fffdf6",
+    borderRadius: 20, padding: 18, borderWidth: 1, borderColor: "#e7dfcc",
   },
   title:     { fontSize: 15, fontWeight: "700", color: "#1c1917" },
   badge:     { borderRadius: 20, paddingHorizontal: 8, paddingVertical: 2 },

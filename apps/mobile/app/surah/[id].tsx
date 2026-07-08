@@ -40,7 +40,7 @@ function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string
 }
 
 const tf = StyleSheet.create({
-  box:     { margin: 12, borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", backgroundColor: "#fff", overflow: "hidden" },
+  box:     { margin: 12, borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", backgroundColor: "#fffdf6", overflow: "hidden" },
   header:  { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
   title:   { fontSize: 14, fontWeight: "700", color: "#1c1917" },
   sub:     { fontSize: 11, color: "#a8a29e", marginTop: 1 },
@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
   // ── Header ──
   header: {
     alignItems:       "center",
-    backgroundColor:  "#ffffff",
+    backgroundColor:  "#fffdf6",
     paddingVertical:  24,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#e7e5e4",
+    borderBottomColor: "#e7dfcc",
     marginBottom:      8,
   },
   headerArabic: {
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
 
   // ── Liste ──
   listContent: { paddingBottom: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  separator:   { height: 1, backgroundColor: "#e7e5e4", marginLeft: 68 },
+  separator:   { height: 1, backgroundColor: "#e7dfcc", marginLeft: 68 },
 
   row: {
     flexDirection:     "row",
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     minHeight:         88,
     paddingHorizontal: 16,
     paddingVertical:   10,
-    backgroundColor:   "#ffffff",
+    backgroundColor:   "#fffdf6",
   },
 
   rowContent: {

@@ -90,7 +90,7 @@ async function saveRecent(list: string[]) {
 
 function SkeletonCard() {
   const c = useColors();
-  return <View style={[sk.card, { backgroundColor: c.isDark ? c.cardAlt : "#e7e5e4" }]} />;
+  return <View style={[sk.card, { backgroundColor: c.isDark ? c.cardAlt : "#e7dfcc" }]} />;
 }
 
 function ChipRow({ chips, color, onPress }: {
@@ -549,7 +549,7 @@ const styles = StyleSheet.create({
   screen:   { flex: 1, backgroundColor: "#f5f0e8" },
   centerWrap: { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   barWrap:  { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4 },
-  bar:      { flexDirection: "row", alignItems: "center", backgroundColor: "#fff", borderRadius: 16, borderWidth: 1, borderColor: "#e7e5e4", paddingHorizontal: 14, paddingVertical: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 2 },
+  bar:      { flexDirection: "row", alignItems: "center", backgroundColor: "#fffdf6", borderRadius: 16, borderWidth: 1, borderColor: "#e7dfcc", paddingHorizontal: 14, paddingVertical: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 2 },
   input:    { flex: 1, fontSize: 16, color: "#1c1917", paddingVertical: 10 },
 
   filterBar:   { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingBottom: 8, gap: 10 },
@@ -564,7 +564,7 @@ const styles = StyleSheet.create({
   singleWrap:  { padding: 14 },
   queryLabel:  { fontSize: 12, color: "#a8a29e", marginBottom: 6, paddingLeft: 2 },
 
-  resultCard: { backgroundColor: "#fff", borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", padding: 14, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.03, shadowRadius: 4, elevation: 1 },
+  resultCard: { backgroundColor: "#fffdf6", borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", padding: 14, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.03, shadowRadius: 4, elevation: 1 },
   surahCard:  { backgroundColor: "#f0fdf4", borderColor: "#bbf7d0" },
   tagCard:    { backgroundColor: "#fefce8", borderColor: "#fef08a" },
   cardInner:  { flexDirection: "row", alignItems: "center", gap: 12 },
@@ -587,7 +587,7 @@ const styles = StyleSheet.create({
   suggestionLink: { fontSize: 13, fontWeight: "700", color: "#b45309" },
 
   pagination:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 16 },
-  pageBtn:       { backgroundColor: "#fff", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 9, borderWidth: 1, borderColor: "#e7e5e4" },
+  pageBtn:       { backgroundColor: "#fffdf6", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 9, borderWidth: 1, borderColor: "#e7dfcc" },
   pageBtnOff:    { opacity: 0.4 },
   pageBtnText:   { fontSize: 13, fontWeight: "600", color: "#059669" },
   pageInfo:      { fontSize: 13, color: "#78716c" },
@@ -611,5 +611,5 @@ const styles = StyleSheet.create({
 });
 
 const sk = StyleSheet.create({
-  card: { height: 90, backgroundColor: "#e7e5e4", borderRadius: 14, opacity: 0.5 },
+  card: { height: 90, backgroundColor: "#e7dfcc", borderRadius: 14, opacity: 0.5 },
 });

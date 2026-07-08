@@ -598,7 +598,7 @@ export default function IbadetRehberiScreen() {
 
 const s = StyleSheet.create({
   container: { flex:1, backgroundColor:"#f5f0e8" },
-  tabBar:    { flexDirection:"row", backgroundColor:"#fff", borderBottomWidth:1, borderBottomColor:"#e7e5e4" },
+  tabBar:    { flexDirection:"row", backgroundColor:"#fffdf6", borderBottomWidth:1, borderBottomColor:"#e7dfcc" },
   tab:       { flex:1, alignItems:"center", paddingVertical:10, gap:2 },
   tabActive: { borderBottomWidth:2, borderBottomColor:"#059669" },
   tabIkon:   { fontSize:18 },
@@ -607,7 +607,7 @@ const s = StyleSheet.create({
   dividerLabel: { alignItems:"center", marginVertical:8 },
   dividerText:  { fontSize:11, fontWeight:"700", color:"#78716c", letterSpacing:1 },
 
-  card:       { backgroundColor:"#fff", borderRadius:14, borderWidth:1, borderColor:"#e7e5e4", overflow:"hidden" },
+  card:       { backgroundColor:"#fffdf6", borderRadius:14, borderWidth:1, borderColor:"#e7dfcc", overflow:"hidden" },
   cardHeader: { flexDirection:"row", alignItems:"center", padding:14, gap:10 },
   cardIkon:   { fontSize:22 },
   cardBaslik: { flex:1, fontSize:14, fontWeight:"700", color:"#1c1917" },
@@ -633,7 +633,7 @@ const s = StyleSheet.create({
   maddeBaslik:    { fontSize:12, fontWeight:"600", color:"#1c1917" },
   maddeDetay:     { fontSize:11, color:"#78716c", lineHeight:16, marginTop:1 },
 
-  rekatTablo:    { borderRadius:8, overflow:"hidden", borderWidth:1, borderColor:"#e7e5e4" },
+  rekatTablo:    { borderRadius:8, overflow:"hidden", borderWidth:1, borderColor:"#e7dfcc" },
   rekatHeader:   { flexDirection:"row", backgroundColor:"#059669", padding:6 },
   rekatHeaderCell:{ flex:1, fontSize:9, fontWeight:"700", color:"#fff", textAlign:"center" },
   rekatRow:      { flexDirection:"row", padding:6 },
@@ -655,7 +655,7 @@ const s = StyleSheet.create({
 
   hacRow: { flexDirection:"row", alignItems:"flex-start", gap:8, paddingVertical:5, borderBottomWidth:1, borderBottomColor:"#f5f5f4" },
 
-  tablo:        { borderRadius:8, overflow:"hidden", borderWidth:1, borderColor:"#e7e5e4", marginVertical:4 },
+  tablo:        { borderRadius:8, overflow:"hidden", borderWidth:1, borderColor:"#e7dfcc", marginVertical:4 },
   tabloBaslik:  { fontSize:12, fontWeight:"700", color:"#1c1917", backgroundColor:"#f0fdf4", padding:8 },
   tabloRow:     { flexDirection:"row", paddingHorizontal:8, paddingVertical:5 },
   tabloOrgan:   { width:110, fontSize:11, fontWeight:"600", color:"#1c1917" },

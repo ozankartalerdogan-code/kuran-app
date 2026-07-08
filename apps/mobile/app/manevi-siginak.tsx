@@ -376,11 +376,11 @@ export default function ManeviSiginakScreen() {
 const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f0e8" },
 
-  header:      { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fff", marginBottom: 8 },
+  header:      { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fffdf6", marginBottom: 8 },
   headerTitle: { fontSize: 22, fontWeight: "700", color: "#1c1917" },
   headerSub:   { fontSize: 12, color: "#78716c", marginTop: 4, textAlign: "center" },
 
-  scoreCard:  { backgroundColor: "#fff", margin: 12, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: "#e7e5e4", gap: 8 },
+  scoreCard:  { backgroundColor: "#fffdf6", margin: 12, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: "#e7dfcc", gap: 8 },
   scoreTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
   scoreRow:   { flexDirection: "row", alignItems: "center", gap: 8 },
   scoreDesc:  { fontSize: 13, color: "#44403c" },
@@ -392,7 +392,7 @@ const s = StyleSheet.create({
 
   sectionLabel: { fontSize: 11, fontWeight: "700", color: "#78716c", letterSpacing: 1, textTransform: "uppercase", marginHorizontal: 12, marginTop: 16, marginBottom: 8 },
 
-  bolum:       { margin: 12, marginBottom: 6, borderRadius: 14, borderWidth: 1, borderColor: "#e7e5e4", borderLeftWidth: 4, backgroundColor: "#fff", overflow: "hidden" },
+  bolum:       { margin: 12, marginBottom: 6, borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", borderLeftWidth: 4, backgroundColor: "#fffdf6", overflow: "hidden" },
   bolumHeader: { flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
   bolumTitle:  { flex: 1, fontSize: 14, fontWeight: "700", color: "#1c1917" },
   bolumChev:   { fontSize: 14, color: "#059669" },
@@ -402,7 +402,7 @@ const s = StyleSheet.create({
   scoreInline: { flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 10 },
   scoreInlineText: { flex: 1, fontSize: 12, color: "#57534e", lineHeight: 18 },
 
-  mitCard:  { margin: 12, marginBottom: 6, borderRadius: 14, padding: 14, backgroundColor: "#fff", borderWidth: 1, borderColor: "#86efac", gap: 4 },
+  mitCard:  { margin: 12, marginBottom: 6, borderRadius: 14, padding: 14, backgroundColor: "#fffdf6", borderWidth: 1, borderColor: "#86efac", gap: 4 },
   mitTitle: { fontSize: 13, fontWeight: "700", color: "#065f46", marginBottom: 6 },
   mitGreen: { fontSize: 13, color: "#166534", lineHeight: 20 },
   mitRed:   { fontSize: 13, color: "#991b1b", lineHeight: 20, fontWeight: "600" },
