@@ -153,7 +153,7 @@ function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
         <Stack.Screen name="root/index"                           options={{ title: "Kelime Kökleri", headerBackTitle: "Geri" }} />
         <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: "Kökler" }} />
         <Stack.Screen name="kible"                                options={{ title: "Kıble Yönü", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="hatim"                                options={{ title: "Hatim & Mushaf", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="hatim"                                options={{ headerShown: false }} />
         <Stack.Screen name="kesfet"                               options={{ title: "Keşfet", headerBackTitle: "Geri" }} />
         <Stack.Screen name="siyer"                                options={{ title: "Siyer-i Nebî", headerBackTitle: "Geri" }} />
         <Stack.Screen name="peygamber-kissalari"                  options={{ title: "Peygamber Kıssaları", headerBackTitle: "Geri" }} />

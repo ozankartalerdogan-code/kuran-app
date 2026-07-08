@@ -51,7 +51,7 @@ export const APP_TOUR_STEPS: AppTourStep[] = [
     screen: "kuran",
     route: "/kuran",
     title: "Kur'an b\u00f6l\u00fcm\u00fc",
-    description: "Sure listesi, Mushaf modu ve Hatim takibi burada. Okuma i\u00e7in genelde bu ekrandan ba\u015flars\u0131n.",
+    description: "Mushaf okuma (hatim takibiyle birlikte) ve sure listesi burada. Okuma i\u00e7in genelde bu ekrandan ba\u015flars\u0131n.",
     targetId: "kuran.surahList",
     action: "navigate",
     navigateTo: "/sure-listesi",

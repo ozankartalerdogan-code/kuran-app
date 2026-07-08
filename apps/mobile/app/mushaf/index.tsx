@@ -1,14 +1,8 @@
-import { Stack } from "expo-router";
-import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { MushafReader } from "../../src/components/MushafReader";
+import { Redirect } from "expo-router";
 
+// Mushaf Modu, 604 sayfalık sayfa görünümüyle birleştirildi. Eski yer imi
+// (surah:ayah) mushaf-sayfa açılışında sayfaya çevrilerek devam ettirilir.
+// Rota, eski derin linkler ve alışkanlıklar kırılmasın diye yönlendirme olarak yaşıyor.
 export default function MushafScreen() {
-  const insets = useSafeAreaInsets();
-  return (
-    <View style={{ flex: 1, paddingTop: insets.top }}>
-      <Stack.Screen options={{ title: "Mushaf" }} />
-      <MushafReader loadBookmark={true} />
-    </View>
-  );
+  return <Redirect href="/mushaf-sayfa" />;
 }

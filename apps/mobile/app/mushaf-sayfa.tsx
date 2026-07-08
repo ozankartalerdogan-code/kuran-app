@@ -13,8 +13,9 @@ import { useColors } from "../src/hooks/useColors";
 import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
-import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam } from "../src/lib/mushafSayfa";
+import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi } from "../src/lib/mushafSayfa";
 import { RENK, parseTajweed, TAJWEED_LEGEND } from "../src/lib/tajweed";
+import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
@@ -63,6 +64,12 @@ type YuklemeDurumu =
   | { status: "error" }
   | { status: "ready"; bloklar: Blok[] };
 
+type SeciliAyet = { surahId: number; ayahNumber: number } | null;
+
+function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
+  return a !== null && a.surahId === s && a.ayahNumber === n;
+}
+
 // Tecvid açıkken ayet metni renkli segmentlerle dizilir (markup yoksa düz metin).
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
   if (tajweed && ayet.tajweed) {
@@ -79,7 +86,13 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][numbe
   return <>{ayet.arabic ?? ""}</>;
 }
 
-const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed }: { page: number; width: number; tajweed: boolean }) {
+const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, secili, onAyetSec }: {
+  page: number;
+  width: number;
+  tajweed: boolean;
+  secili: SeciliAyet;
+  onAyetSec: (surahId: number, ayahNumber: number) => void;
+}) {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { fontScale } = useFontScale();
@@ -147,19 +160,24 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed }
                 </View>
               ) : (
                 <Text key={`m${i}`} style={[st.arabic, arabicStyle, { color: c.text }]}>
-                  {blok.ayetler.map((a) => (
-                    <Text
-                      key={`${a.surahId}:${a.ayahNumber}`}
-                      suppressHighlighting
-                      onPress={() => {
-                        logFeature("mushaf_sayfa_ayet_ac", { verse: `${a.surahId}:${a.ayahNumber}` });
-                        router.push(`/ayah/${a.surahId}/${a.ayahNumber}`);
-                      }}
-                    >
-                      <AyetMetni ayet={a} tajweed={tajweed} />
-                      <Text style={{ color: c.accent }}>{` ﴿${arapRakam(a.ayahNumber)}﴾ `}</Text>
-                    </Text>
-                  ))}
+                  {blok.ayetler.map((a) => {
+                    const isSecili = ayniAyet(secili, a.surahId, a.ayahNumber);
+                    return (
+                      <Text
+                        key={`${a.surahId}:${a.ayahNumber}`}
+                        suppressHighlighting
+                        // Yanlış dokunma emniyeti: tek dokunuş yalnız SEÇER (vurgular);
+                        // detaya gitme alttaki eylem çubuğundan ikinci bir adımla olur.
+                        onPress={() => onAyetSec(a.surahId, a.ayahNumber)}
+                        style={isSecili && {
+                          backgroundColor: c.isDark ? "rgba(202,138,4,0.35)" : "rgba(253,224,71,0.55)",
+                        }}
+                      >
+                        <AyetMetni ayet={a} tajweed={tajweed} />
+                        <Text style={{ color: c.accent }}>{` ﴿${arapRakam(a.ayahNumber)}﴾ `}</Text>
+                      </Text>
+                    );
+                  })}
                 </Text>
               ),
             )}
@@ -192,13 +210,16 @@ export default function MushafSayfaEkrani() {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const { fontScale, changeFontScale } = useFontScale();
-  const { sayfa: sayfaParam } = useLocalSearchParams<{ sayfa?: string }>();
+  const { sayfa: sayfaParam, hatim: hatimParam } = useLocalSearchParams<{ sayfa?: string; hatim?: string }>();
 
   const listRef = useRef<FlatList<number>>(null);
   const [surahList, setSurahList] = useState<SurahListItem[]>([]);
   const [page, setPage] = useState(1);
   const [jumpOpen, setJumpOpen] = useState(false);
   const [jumpVal, setJumpVal] = useState("");
+  const [secili, setSecili] = useState<SeciliAyet>(null);
+  // ?hatim=1 ile açılırsa (eski /hatim rotasından yönlendirme) panel direkt açılır.
+  const [hatimOpen, setHatimOpen] = useState(() => hatimParam === "1");
   // Tecvid renklendirmesi — ayet ekranı ve mushaf moduyla ORTAK kalıcı tercih.
   const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
@@ -213,20 +234,34 @@ export default function MushafSayfaEkrani() {
       logFeature("mushaf_sayfa_ac", { sayfa: String(paramPage) });
       return;
     }
-    // Param yoksa kaldığı sayfadan devam
-    storage.getString(STORAGE_KEYS.mushafPage).then((raw) => {
-      const saved = Number(raw);
-      const start = Number.isInteger(saved) && saved >= 1 && saved <= SAYFA_SAYISI ? saved : 1;
-      setPage(start);
-      setInitialPage(start);
-      logFeature("mushaf_sayfa_ac", { sayfa: String(start) });
-    }).catch(() => { setPage(1); setInitialPage(1); });
+    // Param yoksa kaldığı sayfadan devam; o da yoksa eski Mushaf Modu'nun
+    // yer imini (surah:ayah) sayfaya çevirip oradan başlat (birleştirme göçü).
+    (async () => {
+      try {
+        const raw = await storage.getString(STORAGE_KEYS.mushafPage);
+        const saved = Number(raw);
+        let start = Number.isInteger(saved) && saved >= 1 && saved <= SAYFA_SAYISI ? saved : 0;
+        if (!start) {
+          const bookmark = await storage.getJSON<string>(STORAGE_KEYS.mushafBookmark);
+          const [bs, ba] = (bookmark ?? "").split(":").map(Number);
+          if (Number.isInteger(bs) && bs >= 1 && bs <= 114 && Number.isInteger(ba) && ba >= 1) {
+            start = ayetinSayfasi(bs, ba);
+          }
+        }
+        setPage(start || 1);
+        setInitialPage(start || 1);
+        logFeature("mushaf_sayfa_ac", { sayfa: String(start || 1) });
+      } catch {
+        setPage(1); setInitialPage(1);
+      }
+    })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sayfayaGit = useCallback((hedef: number, animated = false) => {
     const p = Math.min(SAYFA_SAYISI, Math.max(1, Math.trunc(hedef)));
     setPage(p);
+    setSecili(null);
     storage.setString(STORAGE_KEYS.mushafPage, String(p)).catch(() => {});
     listRef.current?.scrollToIndex({ index: p - 1, animated });
   }, []);
@@ -235,8 +270,30 @@ export default function MushafSayfaEkrani() {
     const index = Math.round(e.nativeEvent.contentOffset.x / width);
     const p = Math.min(SAYFA_SAYISI, Math.max(1, index + 1));
     setPage(p);
+    setSecili(null); // sayfa değişince seçim ve eylem çubuğu kapanır
     storage.setString(STORAGE_KEYS.mushafPage, String(p)).catch(() => {});
   }, [width]);
+
+  // Dokun = seç/vurgula; aynı ayete tekrar dokunmak seçimi kaldırır.
+  const onAyetSec = useCallback((surahId: number, ayahNumber: number) => {
+    setSecili((prev) =>
+      prev && prev.surahId === surahId && prev.ayahNumber === ayahNumber
+        ? null
+        : { surahId, ayahNumber },
+    );
+  }, []);
+
+  const seciliDetayaGit = useCallback(() => {
+    if (!secili) return;
+    logFeature("mushaf_sayfa_ayet_ac", { verse: `${secili.surahId}:${secili.ayahNumber}` });
+    router.push(`/ayah/${secili.surahId}/${secili.ayahNumber}`);
+    setSecili(null);
+  }, [secili]);
+
+  const hatimdenSayfayaGit = useCallback((p: number) => {
+    setHatimOpen(false);
+    sayfayaGit(p);
+  }, [sayfayaGit]);
 
   // Ekran dönmesi: genişlik değişince mevcut sayfaya yeniden hizala.
   useEffect(() => {
@@ -263,8 +320,10 @@ export default function MushafSayfaEkrani() {
   }, []);
 
   const renderItem = useCallback(
-    ({ item }: { item: number }) => <MushafSayfasi page={item} width={width} tajweed={tajweed} />,
-    [width, tajweed],
+    ({ item }: { item: number }) => (
+      <MushafSayfasi page={item} width={width} tajweed={tajweed} secili={secili} onAyetSec={onAyetSec} />
+    ),
+    [width, tajweed, secili, onAyetSec],
   );
   const getItemLayout = useCallback(
     (_: unknown, index: number) => ({ length: width, offset: width * index, index }),
@@ -287,11 +346,24 @@ export default function MushafSayfaEkrani() {
           <TouchableOpacity onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
             <Ionicons name="chevron-back" size={24} color={c.accent} />
           </TouchableOpacity>
-          <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sayfaya git">
+          <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sayfaya git" accessibilityHint="Sayfa numarası girerek istediğin sayfaya atla">
             <Text style={[st.headerTitle, { color: c.text }]} numberOfLines={1}>{surahName}</Text>
-            <Text style={[st.headerSub, { color: c.textMuted }]}>Cüz {cuz} · Sayfa {page}/{SAYFA_SAYISI} ▾</Text>
+            {/* Hap görünümü + büyüteç: buranın dokunulur bir "sayfaya git" olduğunu belli eder */}
+            <View style={[st.headerPill, { borderColor: c.border, backgroundColor: c.cardAlt }]}>
+              <Ionicons name="search" size={11} color={c.textMuted} />
+              <Text style={[st.headerSub, { color: c.textMuted }]}>Cüz {cuz} · Sayfa {page}/{SAYFA_SAYISI} ▾</Text>
+            </View>
           </TouchableOpacity>
           <View style={st.headerBtns}>
+            <TouchableOpacity
+              style={[st.fontBtn, { borderColor: hatimOpen ? c.accent : c.border }]}
+              onPress={() => { logFeature("mushaf_sayfa_hatim_ac"); setHatimOpen(true); }}
+              hitSlop={6} activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Hatim takibini aç"
+            >
+              <Ionicons name="bookmarks-outline" size={16} color={c.textSecondary} />
+            </TouchableOpacity>
             <TouchableOpacity
               style={[st.fontBtn, { borderColor: tajweed ? c.accent : c.border }]}
               onPress={handleTajweedToggle}
@@ -367,6 +439,29 @@ export default function MushafSayfaEkrani() {
             removeClippedSubviews
           />
         )}
+
+        {/* Seçili ayet eylem çubuğu — dokun=seç, detaya gitme ikinci adım */}
+        {secili && (
+          <View style={[st.seciliBar, { backgroundColor: c.card, borderColor: c.border, paddingBottom: Math.max(insets.bottom, 10) }]}>
+            <Text style={[st.seciliText, { color: c.text }]} numberOfLines={1}>
+              {surahList.find((s) => s.id === secili.surahId)?.name ?? `Sure ${secili.surahId}`} · {secili.surahId}:{secili.ayahNumber}
+            </Text>
+            <TouchableOpacity
+              style={[st.seciliBtn, { backgroundColor: c.accent }]}
+              onPress={seciliDetayaGit}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel="Ayet detayına git"
+            >
+              <Text style={st.seciliBtnText}>Detaya Git ›</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSecili(null)} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Seçimi kaldır">
+              <Ionicons name="close" size={20} color={c.textMuted} />
+            </TouchableOpacity>
+          </View>
+        )}
+
+        <HatimPanel visible={hatimOpen} onClose={() => setHatimOpen(false)} onOkuPage={hatimdenSayfayaGit} />
       </View>
     </>
   );
@@ -383,7 +478,11 @@ const st = StyleSheet.create({
   },
   headerMid:   { flex: 1, alignItems: "center" },
   headerTitle: { fontSize: 15, fontWeight: "700" },
-  headerSub:   { fontSize: 11, marginTop: 1 },
+  headerPill:  {
+    flexDirection: "row", alignItems: "center", gap: 4,
+    borderWidth: 1, borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2, marginTop: 2,
+  },
+  headerSub:   { fontSize: 11 },
   headerBtns:  { flexDirection: "row", gap: 6 },
   fontBtn:     { borderRadius: 14, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 5, minWidth: 34, alignItems: "center" },
   fontBtnOff:  { opacity: 0.35 },
@@ -425,4 +524,13 @@ const st = StyleSheet.create({
   legendText: { fontSize: 10 },
 
   sayfaNo: { textAlign: "center", fontSize: 12, marginTop: 12 },
+
+  seciliBar: {
+    position: "absolute", left: 0, right: 0, bottom: 0,
+    flexDirection: "row", alignItems: "center", gap: 10,
+    paddingHorizontal: 14, paddingTop: 10, borderTopWidth: 1,
+  },
+  seciliText:    { flex: 1, fontSize: 13, fontWeight: "600" },
+  seciliBtn:     { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10 },
+  seciliBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
 });

@@ -10,9 +10,9 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
-type KuranCardRoute = "/mushaf" | "/mushaf-sayfa" | "/sure-listesi" | "/hatim";
+type KuranCardRoute = "/mushaf-sayfa" | "/sure-listesi";
 type KuranCard = {
-  id: "mushaf" | "mushaf_page" | "surah_list" | "hatim";
+  id: "mushaf_page" | "surah_list";
   icon: IoniconName;
   label: string;
   sub: string;
@@ -27,13 +27,15 @@ type KuranCard = {
   darkIconColor: string;
 };
 
+// Mushaf Modu ve Hatim Takibi ayrı kart olmaktan çıktı: ikisi de sayfa
+// görünümünün içinde (yer imi sayfaya çevrilir, hatim paneli başlıktan açılır).
 const CARDS: KuranCard[] = [
   {
-    id: "mushaf",
+    id: "mushaf_page",
     icon: "book-outline",
-    label: "Mushaf Modu",
-    sub: "Sayfa sayfa oku, yer imi bırak",
-    route: "/mushaf",
+    label: "Kur'an Oku",
+    sub: "604 sayfalık mushaf · kaldığın yerden devam · hatim takibi",
+    route: "/mushaf-sayfa",
     bg: "#f0fdf4",
     border: "#86efac",
     darkBg: "#052e16",
@@ -42,21 +44,6 @@ const CARDS: KuranCard[] = [
     iconColor: "#15803d",
     darkIconBg: "#14532d",
     darkIconColor: "#86efac",
-  },
-  {
-    id: "mushaf_page",
-    icon: "albums-outline",
-    label: "Sayfa Görünümü",
-    sub: "604 sayfalık mushaf düzeninde oku",
-    route: "/mushaf-sayfa",
-    bg: "#f0fdfa",
-    border: "#5eead4",
-    darkBg: "#042f2e",
-    darkBorder: "#115e59",
-    iconBg: "#ccfbf1",
-    iconColor: "#0f766e",
-    darkIconBg: "#134e4a",
-    darkIconColor: "#5eead4",
   },
   {
     id: "surah_list",
@@ -72,21 +59,6 @@ const CARDS: KuranCard[] = [
     iconColor: "#1d4ed8",
     darkIconBg: "#1e3a8a",
     darkIconColor: "#93c5fd",
-  },
-  {
-    id: "hatim",
-    icon: "bookmarks-outline",
-    label: "Hatim Takibi",
-    sub: "30 cüz, kaldığın yerden devam",
-    route: "/hatim",
-    bg: "#fef3c7",
-    border: "#fcd34d",
-    darkBg: "#422006",
-    darkBorder: "#78350f",
-    iconBg: "#fde68a",
-    iconColor: "#b45309",
-    darkIconBg: "#92400e",
-    darkIconColor: "#fde68a",
   },
 ];
 
