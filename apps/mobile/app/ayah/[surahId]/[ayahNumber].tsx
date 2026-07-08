@@ -256,6 +256,7 @@ function AyahJumpBar({ surahId, current, total, colors }: {
 }) {
   const [surahVal, setSurahVal] = useState(String(surahId));
   const [ayahVal,  setAyahVal]  = useState(String(current));
+  const ayahInputRef = useRef<TextInput>(null);
 
   useEffect(() => { setSurahVal(String(surahId)); }, [surahId]);
   useEffect(() => { setAyahVal(String(current)); },  [current]);
@@ -285,12 +286,15 @@ function AyahJumpBar({ surahId, current, total, colors }: {
         value={surahVal}
         onChangeText={setSurahVal}
         keyboardType="number-pad"
-        onSubmitEditing={jump}
+        // "İleri" ayet kutusuna geçer; gitme yalnız ayet onayında / Git düğmesinde.
+        onSubmitEditing={() => ayahInputRef.current?.focus()}
+        submitBehavior="submit"
         returnKeyType="next"
         selectTextOnFocus
       />
       <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>Ayet:</Text>
       <TextInput
+        ref={ayahInputRef}
         style={inputStyle}
         value={ayahVal}
         onChangeText={setAyahVal}
