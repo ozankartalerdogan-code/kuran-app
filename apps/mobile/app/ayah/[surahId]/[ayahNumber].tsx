@@ -251,7 +251,7 @@ function UniqueRootList({
 
 // ── Hızlı Ayet Atlama ────────────────────────────────────────────────────────
 
-function AyahJumpBar({ surahId, current, colors }: {
+function AyahJumpBar({ surahId, current, total, colors }: {
   surahId: number; current: number; total: number; colors: ThemeColors;
 }) {
   const [surahVal, setSurahVal] = useState(String(surahId));
@@ -264,7 +264,10 @@ function AyahJumpBar({ surahId, current, colors }: {
     const s = parseInt(surahVal, 10);
     const a = parseInt(ayahVal,  10);
     const targetSurah = s >= 1 && s <= 114 ? s : surahId;
-    const targetAyah  = a >= 1 ? a : 1;
+    let targetAyah    = a >= 1 ? a : 1;
+    // Aynı surede kalınıyorsa üst sınır belli → kırp. Farklı surenin ayet
+    // sayısı burada bilinmiyor; aşarsa mevcut hata ekranı devreye girer.
+    if (targetSurah === surahId) targetAyah = Math.min(targetAyah, total);
     router.replace(`/ayah/${targetSurah}/${targetAyah}`);
   }
 
@@ -435,6 +438,8 @@ export default function AyahDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
+  // Sure/ayet atlama çubuğu — yapışkan alt bardaki "x / y" sayacına dokununca açılır.
+  const [jumpOpen, setJumpOpen] = useState(false);
   const [noteDraft, setNoteDraft] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
   // Tecvid renklendirmesi aç/kapa — kalıcı tercih ("0" = kapalı, varsayılan açık).
@@ -474,6 +479,12 @@ export default function AyahDetailScreen() {
     setNoteDraft(getNote(verseKey));
   }, [verseKey, getNote]);
 
+  // "Kaydedildi" rozeti ayete özgü — ayet değişince taşınmasın. (getNote'a
+  // bağlı üstteki effect'e konulamaz: kaydetme sonrası rozeti anında söndürürdü.)
+  useEffect(() => {
+    setNoteSaved(false);
+  }, [verseKey]);
+
   useEffect(() => {
     // Bozuk/eksik deep link parametresi (örn. dış link, App Links) → sonsuz
     // yükleniyor ekranında kalmasın, mevcut hata ekranına düşsün.
@@ -485,6 +496,9 @@ export default function AyahDetailScreen() {
     let isMounted = true;
     setLoading(true);
     setError(null);
+    // router.replace ile ayet değişince component remount olmaz; okunuş
+    // sıfırlanmazsa yeni ayette önceki ayetin okunuşu görünebilir.
+    setReading(null);
     // Sadece ayeti bekle → sayfa hemen açılsın. Surenin tüm ayetleri (Bakara'da
     // 286!) yalnız okunuş yedeği içindi; artık kritik yolu bloklamaz, gerekirse
     // arka planda çekilir.
@@ -669,7 +683,7 @@ export default function AyahDetailScreen() {
       <ScrollView
         {...tourScroll}
         style={[styles.scroll, { backgroundColor: colors.bg }]}
-        contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 48 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: 24 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* ═══ Mushaf Kartı — sayfa görünümüyle aynı kâğıt estetiği ═══ */}
@@ -764,11 +778,10 @@ export default function AyahDetailScreen() {
               ))}
             </View>
           ) : null}
-        </View>
 
-        {/* ═══ Eylemler ═══ */}
-        <View style={[styles.headerCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <View style={styles.actionsRow}>
+          {/* Eylemler — ayrı kart yerine kâğıdın alt kenarında ince satır */}
+          <View style={[styles.arabicDivider, { backgroundColor: paper.borderColor }]} />
+          <View style={styles.paperActions}>
             <TouchableOpacity
               style={[styles.mushafBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
               onPress={handleMushaftaAc}
@@ -811,17 +824,7 @@ export default function AyahDetailScreen() {
               />
             </TouchableOpacity>
           </View>
-
-          <AyahJumpBar
-            surahId={surahId}
-            current={ayahNumber}
-            total={data.verseCount}
-            colors={colors}
-          />
         </View>
-
-        {/* ═══ Sure Hakkında ═══ */}
-        <SurahAboutAccordion surahId={surahId} colors={colors} />
 
         {/* ═══ Sekmeler ═══ */}
         <SegmentedTabs active={activeTab} onChange={setActiveTab} colors={colors} analysisTarget={analysisTabTarget} />
@@ -1017,7 +1020,7 @@ export default function AyahDetailScreen() {
             )}
 
             {/* Hiç veri yoksa */}
-            {!data.farkAnalizi && data.words.filter((w) => w.meaningTr?.trim()).length === 0 && (
+            {!data.literalCeviri && !data.farkAnalizi && data.words.filter((w) => w.meaningTr?.trim()).length === 0 && (
               <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
                 <Text style={[styles.emptyText, { color: colors.textMuted }]}>
                   Bu ayet için analiz verisi bulunamadı.
@@ -1027,71 +1030,8 @@ export default function AyahDetailScreen() {
           </View>
         )}
 
-        {/* ═══ Navigasyon ═══ */}
-        <View style={styles.navRow}>
-          <TouchableOpacity
-            style={[
-              styles.navBtn,
-              { backgroundColor: data.prevAyah ? colors.accent : colors.border },
-            ]}
-            onPress={handlePrev}
-            disabled={!data.prevAyah}
-            activeOpacity={0.7}
-            accessibilityRole="button"
-            accessibilityLabel="Önceki ayet"
-            accessibilityState={{ disabled: !data.prevAyah }}
-          >
-            <Ionicons name="chevron-back" size={16} color={data.prevAyah ? "#fff" : colors.textMuted} />
-            <Text
-              style={[
-                styles.navBtnText,
-                !data.prevAyah && { color: colors.textMuted },
-              ]}
-            >
-              Önceki
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.navCenterWrap}>
-            <Text style={[styles.navCenter, { color: colors.textMuted }]}>
-              {data.ayahNumber} / {data.verseCount}
-            </Text>
-            <View style={[styles.progressTrack, { backgroundColor: colors.border }]}>
-              <View
-                style={[
-                  styles.progressFill,
-                  {
-                    backgroundColor: colors.accent,
-                    width: `${Math.min(100, Math.max(2, (data.ayahNumber / Math.max(1, data.verseCount)) * 100))}%`,
-                  },
-                ]}
-              />
-            </View>
-          </View>
-
-          <TouchableOpacity
-            style={[
-              styles.navBtn,
-              { backgroundColor: data.nextAyah ? colors.accent : colors.border },
-            ]}
-            onPress={handleNext}
-            disabled={!data.nextAyah}
-            activeOpacity={0.7}
-            accessibilityRole="button"
-            accessibilityLabel="Sonraki ayet"
-            accessibilityState={{ disabled: !data.nextAyah }}
-          >
-            <Text
-              style={[
-                styles.navBtnText,
-                !data.nextAyah && { color: colors.textMuted },
-              ]}
-            >
-              Sonraki
-            </Text>
-            <Ionicons name="chevron-forward" size={16} color={data.nextAyah ? "#fff" : colors.textMuted} />
-          </TouchableOpacity>
-        </View>
+        {/* ═══ Sure Tefsiri — derin okuma bağlantısı, içerikten sonra ═══ */}
+        <SurahAboutAccordion surahId={surahId} colors={colors} />
 
         {/* ═══ Kişisel Not ═══ */}
         <View style={[styles.noteBox, { backgroundColor: colors.card, borderColor: colors.border }]}>
@@ -1142,6 +1082,101 @@ export default function AyahDetailScreen() {
 
       </ScrollView>
 
+      {/* ═══ Yapışkan Alt Gezinme — kaydırmadan Önceki/Sonraki; sayaca dokununca
+          sure/ayet atlama çubuğu açılır. ScrollView'un kardeşi olduğu için
+          içerikle çakışmaz (ekran kabı column + ScrollView flex:1). ═══ */}
+      <View
+        style={[
+          styles.stickyBar,
+          { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: insets.bottom + 8 },
+        ]}
+      >
+        <View style={styles.stickyBarInner}>
+          {jumpOpen ? (
+            <AyahJumpBar
+              surahId={surahId}
+              current={ayahNumber}
+              total={data.verseCount}
+              colors={colors}
+            />
+          ) : null}
+          <View style={styles.navRow}>
+            <TouchableOpacity
+              style={[
+                styles.navBtn,
+                { backgroundColor: data.prevAyah ? colors.accent : colors.border },
+              ]}
+              onPress={handlePrev}
+              disabled={!data.prevAyah}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Önceki ayet"
+              accessibilityState={{ disabled: !data.prevAyah }}
+            >
+              <Ionicons name="chevron-back" size={16} color={data.prevAyah ? "#fff" : colors.textMuted} />
+              <Text
+                style={[
+                  styles.navBtnText,
+                  !data.prevAyah && { color: colors.textMuted },
+                ]}
+              >
+                Önceki
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.navCenterWrap}
+              onPress={() => setJumpOpen((v) => !v)}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityState={{ expanded: jumpOpen }}
+              accessibilityLabel="Sure ve ayet atlama çubuğunu aç veya kapat"
+            >
+              <View style={styles.navCenterRow}>
+                <Text style={[styles.navCenter, { color: colors.textMuted }]}>
+                  {data.ayahNumber} / {data.verseCount}
+                </Text>
+                <Ionicons name={jumpOpen ? "chevron-down" : "chevron-up"} size={12} color={colors.textMuted} />
+              </View>
+              <View style={[styles.progressTrack, { backgroundColor: colors.border }]}>
+                <View
+                  style={[
+                    styles.progressFill,
+                    {
+                      backgroundColor: colors.accent,
+                      width: `${Math.min(100, Math.max(2, (data.ayahNumber / Math.max(1, data.verseCount)) * 100))}%`,
+                    },
+                  ]}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.navBtn,
+                { backgroundColor: data.nextAyah ? colors.accent : colors.border },
+              ]}
+              onPress={handleNext}
+              disabled={!data.nextAyah}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Sonraki ayet"
+              accessibilityState={{ disabled: !data.nextAyah }}
+            >
+              <Text
+                style={[
+                  styles.navBtnText,
+                  !data.nextAyah && { color: colors.textMuted },
+                ]}
+              >
+                Sonraki
+              </Text>
+              <Ionicons name="chevron-forward" size={16} color={data.nextAyah ? "#fff" : colors.textMuted} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
       {/* ═══ Görsel Paylaşım Modalı (view-shot build'de varsa) ═══ */}
       <AyahShareModal
         visible={shareOpen}
@@ -1177,13 +1212,9 @@ const styles = StyleSheet.create({
   scroll:        { flex: 1 },
   scrollContent: { padding: 12, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  // ── Eylem kartı ──
-  headerCard: {
-    borderRadius: 12, padding: 16, marginBottom: 8,
-    borderWidth: 1,
-  },
-  actionsRow: {
-    flexDirection: "row", alignItems: "center", gap: 8,
+  // ── Eylem satırı (kâğıt kartının alt kenarında) ──
+  paperActions: {
+    width: "100%", flexDirection: "row", alignItems: "center", gap: 8,
   },
   mushafBtn: {
     flexDirection: "row", alignItems: "center", gap: 6,
@@ -1347,10 +1378,17 @@ const styles = StyleSheet.create({
   },
   emptyText: { fontSize: 13 },
 
-  // ── Navigasyon ──
+  // ── Yapışkan alt gezinme ──
+  stickyBar: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: 12, paddingTop: 10,
+  },
+  stickyBarInner: {
+    maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center",
+  },
   navRow: {
     flexDirection: "row", alignItems: "center",
-    justifyContent: "space-between", marginTop: 14, gap: 12,
+    justifyContent: "space-between", gap: 12,
   },
   navBtn: {
     paddingHorizontal: 16, paddingVertical: 12,
@@ -1359,6 +1397,7 @@ const styles = StyleSheet.create({
   },
   navBtnText: { fontSize: 14, fontWeight: "600", color: "#fff" },
   navCenterWrap: { flex: 1, alignItems: "center", gap: 6 },
+  navCenterRow: { flexDirection: "row", alignItems: "center", gap: 4 },
   navCenter: { fontSize: 13, fontWeight: "500" },
   progressTrack: {
     width: "100%", maxWidth: 120, height: 4,
@@ -1366,8 +1405,8 @@ const styles = StyleSheet.create({
   },
   progressFill: { height: "100%", borderRadius: 2 },
 
-  // ── Hızlı Ayet Atlama ──
-  jumpBar:    { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 10, paddingTop: 10, borderTopWidth: StyleSheet.hairlineWidth },
+  // ── Hızlı Ayet Atlama (yapışkan barda, gezinme satırının üstünde) ──
+  jumpBar:    { flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, paddingBottom: 10, borderBottomWidth: StyleSheet.hairlineWidth },
   jumpLabel:  { fontSize: 12, fontWeight: "500", flexShrink: 0 },
   jumpInput:  { borderWidth: 1, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 5, fontSize: 14, minWidth: 44, maxWidth: 64, textAlign: "center", flexShrink: 1 },
   jumpBtn:    { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 8, flexShrink: 0 },
