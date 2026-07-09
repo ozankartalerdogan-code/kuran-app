@@ -171,14 +171,13 @@ function normalizeQuizModule(raw: unknown, fallbackId: string, fallbackTitle: st
   };
 }
 
-function sumLessonMinutes(raw: unknown): number {
-  const lessons = toRecord(raw)?.lessons;
-  if (!Array.isArray(lessons)) return 10;
-  return lessons.reduce((total: number, item: unknown) => {
-    const lesson = toRecord(item);
-    const minutes = typeof lesson?.estimatedMinutes === "number" ? lesson.estimatedMinutes : 0;
-    return total + minutes;
-  }, 0);
+// Diger 15 elle-yazilmis dersin kart-basi sure oranlari 0.50-0.80 dk/kart
+// araliginda, ortalamasi ~0.61 dk/kart. Modul formatindaki derslerde
+// (nefsini-tani gibi) elle sure yazmak yerine bu oran kullanilir, boylece
+// "Kolaydan Zora" siralamasinda diger derslerle tutarli bir yerde durur.
+const DAKIKA_PER_KART = 0.61;
+function estimateSure(kartSayisi: number): number {
+  return Math.max(1, Math.round(kartSayisi * DAKIKA_PER_KART));
 }
 
 // JSON g\u00FCvenli y\u00FCkleyici \u2014 bozuk/eksik bir dosya t\u00FCm dersler b\u00F6l\u00FCm\u00FCn\u00FC
@@ -202,6 +201,7 @@ function isValidDers(ders: unknown): boolean {
 }
 
 const nefsiniTaniDersModule = safeRequire(() => require("./nefsini_tani_ders_modulu.json"), "nefsini_tani_ders_modulu");
+const nefsiniTaniDers = nefsiniTaniDersModule ? normalizeLessonModule(nefsiniTaniDersModule, "🪞") : null;
 
 const RAW_KAYITLAR: Kayit[] = [
   { id: "namaz",         ikon: "\uD83D\uDD4C", sure: 15, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dersi.json"), "namaz_dersi"),                quiz: () => require("./namaz_quiz.json") },
@@ -214,11 +214,14 @@ const RAW_KAYITLAR: Kayit[] = [
   {
     id: "nefsini-tani",
     ikon: "\uD83E\uDE9E",
-    // Sure moduldeki estimatedMinutes toplamindan turetilir -- elle sabitlenmis 12 dk
-    // gercek sureyi (~57 dk) cok dusuk gosteriyor ve "Kolaydan Zora" siralamasini bozuyordu.
-    sure: sumLessonMinutes(nefsiniTaniDersModule),
+    // estimateSure: diger derslerle ayni kart-basi sure oranini kullanir (bkz.
+    // yukarida DAKIKA_PER_KART). Modulun kendi estimatedMinutes toplami (~57 dk)
+    // diger derslerin 7-16 dk araligina gore asiri sapiyordu.
+    sure: estimateSure(
+      Array.isArray(toRecord(nefsiniTaniDers)?.kartlar) ? (toRecord(nefsiniTaniDers)!.kartlar as unknown[]).length : 11,
+    ),
     kategori: "ahlak",
-    ders: nefsiniTaniDersModule ? normalizeLessonModule(nefsiniTaniDersModule, "\uD83E\uDE9E") : null,
+    ders: nefsiniTaniDers,
     quiz: () => {
       const m = safeRequire(() => require("./nefsini_tani_quiz.json"), "nefsini_tani_quiz");
       return m ? normalizeQuizModule(m, "nefsini-tani", "Nefsini Tan\u0131") : null;
