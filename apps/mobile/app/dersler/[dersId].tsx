@@ -91,7 +91,7 @@ function YakindaEkran({ baslik }: { baslik: string }) {
       </View>
       <View style={s.center}>
         <Text style={{ fontSize: 56 }}>📚</Text>
-        <Text style={[s.placeholderText, { color: c.textMuted }]}>Kartlar yakında...</Text>
+        <Text style={[s.placeholderText, { color: c.textMuted }]}>Bu ders içeriği şu anda görüntülenemiyor.</Text>
       </View>
     </View>
   );

@@ -1206,7 +1206,11 @@ export default async function Page({ params, searchParams }: PageProps) {
     return <ErrorState message="Bu sûre/ayet adresi için veri yok." />;
   }
 
-  const debugQueryEnabled = getSingleQueryValue(searchParams?.debug) === "1";
+  const isDevelopment = process.env.NODE_ENV === "development";
+  // ?debug=1 yalnızca development'ta etkili — production'da deneysel/teknik
+  // paneller görünmesin. QURAN_APP_ENABLE_EXPERIMENTAL_QUERY env değişkeni
+  // bilinçli bir deploy-zamanı anahtarı olduğu için ortamdan bağımsız kalır.
+  const debugQueryEnabled = isDevelopment && getSingleQueryValue(searchParams?.debug) === "1";
   const experimentalUiEnabled =
     process.env.QURAN_APP_ENABLE_EXPERIMENTAL_QUERY === "1" ||
     process.env.QURAN_APP_ENABLE_EXPERIMENTAL_QUERY === "true";
@@ -1233,7 +1237,6 @@ export default async function Page({ params, searchParams }: PageProps) {
   const displayableTranslations = getDisplayableTranslations(translationSourceQualities);
   const primarySelection = getPrimaryTranslationSelection(translationSourceQualities);
   const primaryTranslation = primarySelection.translation;
-  const isDevelopment = process.env.NODE_ENV === "development";
   const showDeveloperDebug = isDevelopment && showExperimentalControls;
   const primarySourceName = primaryTranslation ? getTranslationSourceName(primaryTranslation) : null;
   // semanticSummary ve provenAnalysisPreview kaldırıldı —
