@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
-const LAST_UPDATED = "2 Temmuz 2026";
+const LAST_UPDATED = "9 Temmuz 2026";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -66,12 +66,18 @@ export default function GizlilikScreen() {
           <Bullet c={c}>Uygulama versiyonu</Bullet>
           <Bullet c={c}>Anonim kullanıcı kimliği</Bullet>
 
-          <Text style={[s.p, s.subhead, { color: c.text }]}>Yalnızca cihazınızda saklanan (sunucuya gönderilmez):</Text>
+          <Text style={[s.p, s.subhead, { color: c.text }]}>Yalnızca cihazınızda yerel olarak saklanan:</Text>
           <Bullet c={c}>Favori ayetler</Bullet>
           <Bullet c={c}>Kişisel notlar</Bullet>
           <Bullet c={c}>Hatim takibi</Bullet>
           <Bullet c={c}>Namaz vakti bildirimleri tercihi</Bullet>
           <Bullet c={c}>Günlük seri (streak) bilgisi</Bullet>
+
+          <P c={c}>
+            Favoriler, not metinleri, hatim ve ders ilerlemesi gibi veriler cihazda yerel olarak saklanır.
+            Not metinleri sunucuya gönderilmez. Ancak favori veya not eklenmiş ayetlerin meal ve ayet
+            bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API'sine iletilebilir.
+          </P>
 
           <P c={c}>
             <Text style={s.bold}>Yedekleme:</Text> Bu cihaz-içi veriler (favori, not, ilerleme), Android'in sistem
@@ -86,8 +92,17 @@ export default function GizlilikScreen() {
             verisi bizim sunucularımızda saklanmaz.
           </P>
           <P c={c}>
+            <Text style={s.bold}>Arama verisi:</Text> Uygulama içindeki arama özelliği kullanıldığında, arama
+            sorgusu yalnızca arama sonuçlarını getirmek amacıyla uygulama sunucusuna iletilebilir. Arama sorguları
+            reklam hedefleme veya kullanıcı profili oluşturma amacıyla kullanılmaz; Firebase Analytics'e arama
+            metni gönderilmez.
+          </P>
+          <P c={c}>
             <Text style={s.bold}>Reklam kimliği:</Text> Uygulama reklam içermez ve reklam kimliğinizi (Advertising ID)
             toplamaz.
+          </P>
+          <P c={c}>
+            <Text style={s.bold}>Mikrofon:</Text> Uygulama mikrofon erişimi istemez ve ses kaydı yapmaz.
           </P>
         </Section>
 
@@ -109,8 +124,8 @@ export default function GizlilikScreen() {
 
         <Section title="4. Veri Güvenliği">
           <Bullet c={c}>Tüm API iletişimleri HTTPS üzerinden şifrelenir</Bullet>
-          <Bullet c={c}>Kişisel veriler sunucularımızda saklanmaz</Bullet>
-          <Bullet c={c}>Favoriler ve notlar yalnızca cihazınızda tutulur</Bullet>
+          <Bullet c={c}>Kullanıcı hesabı, ad-soyad, e-posta, telefon numarası veya not metni gibi kişisel içerikler uygulama sunucularında saklanmaz</Bullet>
+          <Bullet c={c}>Not metinleri cihazınızda tutulur; favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API'ye iletilebilir</Bullet>
         </Section>
 
         <Section title="5. Çocukların Gizliliği">

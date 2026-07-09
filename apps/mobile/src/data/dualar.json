@@ -315,7 +315,7 @@
         {
           "baslik": "Fatiha ile Şifa, Ayetü'l-Kürsi ile Korunma",
           "arapca": "Fatiha suresi ve Ayetü'l-Kürsi",
-          "okunus": "(Yukarıda verilmiştir)",
+          "okunus": "Bu bölümde Fâtiha sûresi ve Âyetü'l-Kürsî okunur.",
           "anlam": "Bu kayıt, Fâtiha sûresinin şifa niyetiyle, Âyetü’l-Kürsînin ise korunma niyetiyle okunmasını hatırlatır. İlgili metinlerin mealleri uygulamadaki sûre ve ayet ekranlarında görülebilir.",
           "kaynak": "Ebû Dâvûd, Tıb, 19/3900 (Fâtiha'nın rukyede okunması); Buhârî, Vekâle, 10 (Âyetü'l-Kürsî'nin gece korunmasına dair)",
           "derece": "Sahih (genel şifa ve korunma rivayetleri)",
@@ -327,8 +327,8 @@
         {
           "baslik": "Hasede Karşı Okunacak Ayetler",
           "arapca": "Bakara Suresi 102. ayet, Felak suresi 5. ayet, Kalem Suresi 51-52. ayetler",
-          "okunus": "(İlgili ayetlerin okunuşu)",
-          "anlam": "(İlgili ayetlerin anlamı)",
+          "okunus": "Bu bölümde adı geçen ayetler okunur.",
+          "anlam": "Bu ayetlerin anlamı için Kur'an mealinden yararlanılmalıdır.",
           "kaynak": "Kur'an-ı Kerim; Tirmizî, Tefsîr, 68/3310 (hasen-sahih)",
           "derece": "Kur'an",
           "tekrar": "İhtiyaç halinde",
@@ -549,7 +549,7 @@
         {
           "baslik": "Evde Kur'an ve Zikir ile Korunma",
           "arapca": "Bakara suresi ve Ayetü'l-Kürsi",
-          "okunus": "(Yukarıda verilmiştir)",
+          "okunus": "Bu bölümde Bakara sûresi ve Âyetü'l-Kürsî gibi ilgili metinler okunur.",
           "anlam": "Bu kayıt, evde Kur’an tilaveti ve zikirle korunma niyetini hatırlatır. İlgili ayet ve sûrelerin mealleri uygulamadaki kendi bölümlerinde görülebilir.",
           "kaynak": "Müslim, Müsâfirîn, 212/780 (Bakara suresi okunan eve şeytanın girmemesi); Buhârî, Vekâle, 10 (Âyetü'l-Kürsî'nin gece korunmasına dair)",
           "derece": "Sahih (genel korunma rivayetleri)",
@@ -645,7 +645,7 @@
         {
           "baslik": "Felak ve Nas Sureleri ile Çocukları Koruma",
           "arapca": "Felak ve Nas sureleri",
-          "okunus": "(Yukarıda verilmiştir)",
+          "okunus": "Bu bölümde Felak ve Nâs sûreleri okunur.",
           "anlam": "Bu kayıt, çocuklar için Felak ve Nâs sûrelerinin okunmasını hatırlatır. Sûrelerin mealleri uygulamadaki ilgili sûre ekranlarında yer alır.",
           "kaynak": "Müslim, Selâm, 38/2188; Tirmizî, Daavât, 22/3402",
           "derece": "Sahih (surelerin korunma fazileti)",
@@ -657,7 +657,7 @@
         {
           "baslik": "Gece Ayetü'l-Kürsi Okumak",
           "arapca": "Ayetü'l-Kürsi (Bakara 255)",
-          "okunus": "(Yukarıda verilmiştir)",
+          "okunus": "Bu bölümde gece Âyetü'l-Kürsî okunur.",
           "anlam": "Bu kayıt, gece Âyetü’l-Kürsî okunmasını hatırlatır. Ayetin meali uygulamadaki ilgili ayet ekranında görüntülenebilir.",
           "kaynak": "Buhârî, Vekâle, 10; Nesâî, Amelü'l-yevm, 100",
           "derece": "Sahih (gece okunmasının fazileti)",

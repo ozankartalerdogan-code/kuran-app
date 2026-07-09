@@ -554,7 +554,7 @@ function ErrorState({ message }: { message: string }) {
 
 function getTranslationSourceName(translation: Pick<Translation, "source">): string {
   const key = translation.source?.split("#").at(-1) ?? "";
-  return SOURCE_DISPLAY_NAMES[key] ?? (key || "bilinmeyen kaynak");
+  return SOURCE_DISPLAY_NAMES[key] ?? (key || "Kaynak bilgisi mevcut değil");
 }
 
 function getTranslationSourceKey(translation: Pick<Translation, "source">): string {
@@ -749,10 +749,9 @@ function HiddenSourcesSummary({ sources }: { sources: string[] }) {
 
   return (
     <div className="space-y-2 text-sm text-stone-600">
-      <p>{sources.length} kaynak kalite filtresi nedeniyle gizlendi.</p>
       <details className="rounded-md border border-stone-200 bg-stone-50 px-3 py-2">
         <summary className="cursor-pointer font-medium text-stone-700">
-          Kaynak listesini göster
+          Diğer kaynak adlarını göster
         </summary>
         <p className="mt-2 leading-6">{sources.join(", ")}</p>
       </details>
@@ -1534,7 +1533,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                   </summary>
                   {detail.ayah.readingTr ? (
                     <p className="mt-2 text-xs text-stone-500">
-                      Kaynak: AI (Gemini) — Ham transliteration aşağıda
+                      Kaynak: Kuran Yolu sade açıklama
                     </p>
                   ) : null}
                   <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-stone-500">

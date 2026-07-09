@@ -557,7 +557,14 @@ export default function DersDetayScreen() {
         showsVerticalScrollIndicator={false}
       >
         {gorselSrc && (
-          <Image source={gorselSrc} style={s.gorselImg} resizeMode="contain" alt="Ders görseli" />
+          <View style={s.gorselFrame}>
+            <Image
+              source={gorselSrc}
+              style={s.gorselImg}
+              resizeMode="cover"
+              alt="Ders görseli"
+            />
+          </View>
         )}
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
           <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>
@@ -631,10 +638,11 @@ const s = StyleSheet.create({
   // Ders
   kartBaslikBox: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 10 },
   kartBaslikBig: { fontSize: 24, fontWeight: "800", lineHeight: 32 },
-  gorselImg:     {
-    width: "100%", aspectRatio: 1 / 0.85,
-    borderRadius: 14, marginBottom: 16, alignSelf: "center", backgroundColor: "#ffffff",
+  gorselFrame:   {
+    width: "100%", maxWidth: "100%", aspectRatio: 1.83, borderRadius: 14,
+    marginBottom: 16, alignSelf: "stretch", overflow: "hidden", backgroundColor: "#ffffff",
   },
+  gorselImg:     { width: "100%", height: "100%" },
   kartCard:      { flex: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
   kartIcerik:    { fontSize: 15, lineHeight: 26 },
   vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },

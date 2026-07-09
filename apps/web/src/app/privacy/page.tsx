@@ -2,7 +2,7 @@ export default function PrivacyPage() {
   return (
     <main style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1a1a1a' }}>
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Gizlilik Politikası</h1>
-      <p style={{ color: '#666', marginBottom: 40 }}>Son Güncelleme: 2 Temmuz 2026</p>
+      <p style={{ color: '#666', marginBottom: 40 }}>Son Güncelleme: 9 Temmuz 2026</p>
 
       <p><strong>Geliştirici:</strong> Kartal Studio<br/>
       <strong>İletişim:</strong> kuranyolu.iletisim@gmail.com<br/>
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
         <li>Uygulama versiyonu</li>
         <li>Anonim kullanıcı kimliği</li>
       </ul>
-      <p><strong>Yalnızca cihazınızda saklanan (sunucuya gönderilmez):</strong></p>
+      <p><strong>Yalnızca cihazınızda yerel olarak saklanan:</strong></p>
       <ul>
         <li>Favori ayetler</li>
         <li>Kişisel notlar</li>
@@ -24,9 +24,12 @@ export default function PrivacyPage() {
         <li>Namaz vakti bildirimleri tercihi</li>
         <li>Günlük seri (streak) bilgisi</li>
       </ul>
+      <p>Favoriler, not metinleri, hatim ve ders ilerlemesi gibi veriler cihazda yerel olarak saklanır. Not metinleri sunucuya gönderilmez. Ancak favori veya not eklenmiş ayetlerin meal ve ayet bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API&apos;sine iletilebilir.</p>
       <p><strong>Yedekleme:</strong> Bu cihaz-içi veriler (favori, not, ilerleme), Android'in sistem yedekleme özelliği açıksa cihazınızın bağlı olduğu Google Drive hesabınıza otomatik yedeklenebilir; böylece uygulamayı yeniden kurduğunuzda veya yeni cihaza geçtiğinizde geri gelebilir. Bu yedek Google tarafından yönetilir, bizim sunucularımıza gönderilmez ve cihaz ayarlarınızdan kapatılabilir.</p>
       <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitlerini hesaplamak için yaklaşık konumunuz, üçüncü taraf <strong>Aladhan.com</strong> servisine gönderilir (aşağıdaki &quot;Üçüncü Taraf Hizmetler&quot; bölümüne bakınız). Konum verisi bizim sunucularımızda saklanmaz.</p>
+      <p><strong>Arama verisi:</strong> Uygulama içindeki arama özelliği kullanıldığında, arama sorgusu yalnızca arama sonuçlarını getirmek amacıyla uygulama sunucusuna iletilebilir. Arama sorguları reklam hedefleme veya kullanıcı profili oluşturma amacıyla kullanılmaz; Firebase Analytics&apos;e arama metni gönderilmez.</p>
       <p><strong>Reklam kimliği:</strong> Uygulama reklam içermez ve reklam kimliğinizi (Advertising ID) toplamaz.</p>
+      <p><strong>Mikrofon:</strong> Uygulama mikrofon erişimi istemez ve ses kaydı yapmaz.</p>
 
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>2. Verilerin Kullanımı</h2>
       <p>Toplanan veriler yalnızca şu amaçlarla kullanılır:</p>
@@ -49,8 +52,8 @@ export default function PrivacyPage() {
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>4. Veri Güvenliği</h2>
       <ul>
         <li>Tüm API iletişimleri HTTPS üzerinden şifrelenir</li>
-        <li>Kişisel veriler sunucularımızda saklanmaz</li>
-        <li>Favoriler ve notlar yalnızca cihazınızda tutulur</li>
+        <li>Kullanıcı hesabı, ad-soyad, e-posta, telefon numarası veya not metni gibi kişisel içerikler uygulama sunucularında saklanmaz</li>
+        <li>Not metinleri cihazınızda tutulur; favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API&apos;ye iletilebilir</li>
       </ul>
 
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>5. Çocukların Gizliliği</h2>
