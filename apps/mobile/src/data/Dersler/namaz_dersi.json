@@ -2,7 +2,6 @@
   "ders_id": "namaz",
   "baslik": "Namaz",
   "aciklama": "İslam'ın beş şartından biri olan namazı temel düzeyde öğren.",
-  "ikon": "🕌",
   "kartlar": [
     {
       "id": "namaz_k01",
@@ -44,7 +43,7 @@
       "tip": "metin",
       "baslik": "Namazın Rükünleri (Farzları)",
       "icerik": "Namazın içinde yerine getirilmesi zorunlu olan farzlara rükün (ibadetin ana unsuru) denir:\n\n• İftitah tekbiri — 'Allahu Ekber' diyerek başlamak\n• Kıyam — ayakta durmak\n• Kıraat (namazda Kur'an okuma) — Kur'an'dan namaz geçerli olacak kadar okumak. Fatiha ve zamm-ı surenin hükmü mezheplere göre farklı değerlendirilir; zamm-ı sure, Fatiha'dan sonra okunan ek sure veya ayettir\n• Rükû — eğilmek\n• Secde — alnı yere koymak (her rekatta 2 kez)\n• Ka'de-i ahire — son oturuş\n\nBu farzlardan biri terk edilirse namaz bozulur.",
-      "vurgu": "Rükün eksikse namaz bozulur, sehiv secdesi (yanılma/telafi secdesi)yle düzeltilemez"
+      "vurgu": "Rükün eksikse namaz bozulur, sehiv secdesiyle (yanılma/telafi secdesi) düzeltilemez"
     },
     {
       "id": "namaz_k07",
@@ -135,14 +134,14 @@
       "id": "namaz_k18",
       "tip": "metin",
       "baslik": "Farz, Vacip, Sünnet Nedir?",
-      "icerik": "Namazda üç önemli hüküm seviyesi vardır:\n\n• Farz: Kesinlikle yapılması gereken. Terk edilirse namaz bozulur, günah olur.\n• Vacip: Yapılması gerekli ama farz derecesinde değil. Hanefi uygulamasında unutulursa sehiv secdesi (yanılma/telafi secdesi)yle telafi edilir.\n• Sünnet: Hz. Peygamber'in devamlı yaptığı. Terk edilirse sevaptan mahrum kalınır.\n\nFarz namaz kaçırılırsa kaza edilmesi gerekir. Sünnet namazların kazası konusunda ise mezhep ve vakit ayrıntıları vardır; genel öğretimde kaza sorumluluğu farz ve Hanefi'de vitir namazı için vurgulanır.",
-      "vurgu": "Farz eksikse namaz bozulur · Vacip eksikse sehiv secdesi (yanılma/telafi secdesi) gerekebilir · Sünnet sevabı artırır"
+      "icerik": "Namazda üç önemli hüküm seviyesi vardır:\n\n• Farz: Kesinlikle yapılması gereken. Terk edilirse namaz bozulur, günah olur.\n• Vacip: Yapılması gerekli ama farz derecesinde değil. Hanefi uygulamasında unutulursa sehiv secdesiyle telafi edilir.\n• Sünnet: Hz. Peygamber'in devamlı yaptığı. Terk edilirse sevaptan mahrum kalınır.\n\nFarz namaz kaçırılırsa kaza edilmesi gerekir. Sünnet namazların kazası konusunda ise mezhep ve vakit ayrıntıları vardır; genel öğretimde kaza sorumluluğu farz ve Hanefi'de vitir namazı için vurgulanır.",
+      "vurgu": "Farz eksikse namaz bozulur · Vacip eksikse sehiv secdesi gerekebilir · Sünnet sevabı artırır"
     },
     {
       "id": "namaz_k19",
       "tip": "metin",
       "baslik": "Namazda Ne Zaman Ne Okunur?",
-      "icerik": "Namazda okunanlar özetle şöyledir:\n\n• İlk rekatta: Sübhaneke, Eûzü-Besmele\n• Her rekatta: Fatiha okunur; hükmü mezheplere göre farklı değerlendirilir\n• Farzların ilk 2 rekâtında: Fatiha'dan sonra zamm-ı sure (Fatiha'dan sonra okunan ek sure veya ayet) okunur; Hanefi'de vacip, diğer mezheplerde sünnet kabul edilir\n• Rükûda: Sübhane Rabbiye'l-Azîm (en az 1 kez)\n• Secdede: Sübhane Rabbiye'l-A'lâ (en az 1 kez)\n• Kavmede: Rabbena ve lekel hamd\n• Celsede: Rabbigfirli",
+      "icerik": "Namazda okunanlar özetle şöyledir:\n\n• İlk rekatta: Sübhaneke, Eûzü-Besmele\n• Her rekatta: Fatiha okunur; hükmü mezheplere göre farklı değerlendirilir\n• Farzların ilk 2 rekâtında: Fatiha'dan sonra zamm-ı sure okunur; Hanefi'de vacip, diğer mezheplerde sünnet kabul edilir\n• Rükûda: Sübhane Rabbiye'l-Azîm (en az 1 kez)\n• Secdede: Sübhane Rabbiye'l-A'lâ (en az 1 kez)\n• Kavmede: Rabbena ve lekel hamd\n• Celsede: Rabbigfirli",
       "vurgu": "Fatiha her rekatta öğretilir · Zamm-ı sure hükmünde mezhep farkı vardır"
     },
     {
@@ -156,8 +155,8 @@
       "id": "namaz_k21",
       "tip": "metin",
       "baslik": "Sehiv Secdesi",
-      "icerik": "Namazda bir vacip unutulursa Hanefi uygulamasında sehiv secdesi (yanılma/telafi secdesi) yapılır:\n\n• Ne zaman: Namaz içinde vacip unutulduğunda veya geciktirildiğinde\n• Nasıl: Son oturuşta Tahiyyat okunduktan sonra sağa selam verilir, 2 secde yapılır, tekrar oturulur, dualar okunur ve her iki yana selam verilir\n• Neyi telafi eder: Unutulan vacipler (zamm-ı sure (Fatiha'dan sonra okunan ek sure veya ayet), ka'de-i ula gibi)\n• Neyi telafi etmez: Unutulan farz — farz eksikse namaz bozulur, yeniden kılınır\n\nSehiv secdesinin uygulama ayrıntıları mezheplere göre değişebilir.",
-      "vurgu": "Vacip unutuldu → sehiv secdesi (yanılma/telafi secdesi) gerekebilir · Farz unutuldu → namaz yeniden kılınır"
+      "icerik": "Namazda bir vacip unutulursa Hanefi uygulamasında sehiv secdesi yapılır:\n\n• Ne zaman: Namaz içinde vacip unutulduğunda veya geciktirildiğinde\n• Nasıl: Son oturuşta Tahiyyat okunduktan sonra sağa selam verilir, 2 secde yapılır, tekrar oturulur, dualar okunur ve her iki yana selam verilir\n• Neyi telafi eder: Unutulan vacipler (zamm-ı sure, ka'de-i ula gibi)\n• Neyi telafi etmez: Unutulan farz — farz eksikse namaz bozulur, yeniden kılınır\n\nSehiv secdesinin uygulama ayrıntıları mezheplere göre değişebilir.",
+      "vurgu": "Vacip unutuldu → sehiv secdesi gerekebilir · Farz unutuldu → namaz yeniden kılınır"
     },
     {
       "id": "namaz_k22",
@@ -192,7 +191,7 @@
       "tip": "metin",
       "baslik": "Avret Örtme (Setr-i Avret)",
       "icerik": "Namazda avret bölgelerinin örtülmesi farzdır:\n• Erkek: Göbek ile diz kapağı arası\n• Kadın: Genel öğretimde el ve yüz hariç bedenin örtülmesi gerekir; ayakların hükmü mezheplere göre farklı değerlendirilir\n\nÖrtülmesi gereken bir yer belirgin şekilde ve namazı etkileyecek kadar açık kalırsa namazın sıhhati zarar görür. Küçük, istem dışı ve hemen düzeltilen açılmalarda ayrıntılı hükümler vardır.",
-      "vurgu": "Setr-i avret (örtülmesi gereken yerleri kapatma) namazın sıhhat şartıdır · Ayrıntılarda mezhep farkı bulunur"
+      "vurgu": "Setr-i avret namazın sıhhat şartıdır · Ayrıntılarda mezhep farkı bulunur"
     },
     {
       "id": "namaz_k27",

@@ -2,7 +2,6 @@
   "ders_id": "zekat",
   "baslik": "Zekat",
   "aciklama": "İslam'ın beş şartından biri; nisap miktarı mala sahip Müslümanların mallarının belirli bir kısmını hak sahiplerine vermesidir.",
-  "ikon": "🤲",
   "kartlar": [
     {
       "id": "zekat_k01",
@@ -90,7 +89,7 @@
     },
     {
       "id": "zekat_k13",
-      "tip": "mezhep",
+      "tip": "metin",
       "baslik": "Mezhep Farklılıkları",
       "icerik": "Zekatın farziyeti konusunda tüm mezhepler ittifak halindedir. Bazı ayrıntılarda görüş farkları vardır:\n\n• Çocuk ve akıl hastasının malı: Hanefilere göre zekat farz değildir. Şafii, Maliki ve Hanbeli'ye göre velisi zekat ödemekle yükümlüdür.\n\n• Borç düşülmesi: Hanefilere göre kısa vadeli/ödenmesi gereken borçlar zekat hesabında dikkate alınır. Şafii mezhebinde borcun zekata etkisi daha dar değerlendirilir.\n\n• Nisap hesabı: Altın nisabı (80,18 gr) ve gümüş nisabı (595 gr) üzerinden hesaplama konusunda farklı uygulamalar vardır. Türkiye'de güncel uygulamada çoğunlukla altın nisabı esas alınır.\n\n• Öşür oranı ve masraflar: Sulama şekline göre 1/10 veya 1/20 oranı uygulanır; modern tarım masraflarının hesaba katılması konusunda çağdaş alimler arasında farklı yaklaşımlar vardır.\n\n• Hisse senetleri: Ticaret amacı, uzun vadeli yatırım amacı ve şirket varlık yapısına göre zekat hesabında farklı yöntemler kullanılabilir.\n\n🎉 Zekât dersini tamamladın! Daha fazla ayet ve detay için {{link:ibadet-ibadetler|İbadet Rehberi}}'ne göz atabilir; hazır hissediyorsan aşağıdaki 'Teste Başla' butonuyla kendini sınayabilirsin.",
       "vurgu": "Zekatın farziyeti ittifak konusudur · Hesap ayrıntılarında mezhep ve fetva farkı olabilir"

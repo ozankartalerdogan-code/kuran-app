@@ -2,7 +2,6 @@
   "ders_id": "ezan-kamet",
   "baslik": "Ezan ve Kamet (namaza başlama çağrısı)",
   "aciklama": "Farz namazların vaktini ve başlangıcını bildiren İslam'ın şiarı; ezanın sözleri, hükümleri ve kamet (namaza başlama çağrısı).",
-  "ikon": "🕌",
   "kartlar": [
     {
       "id": "ezan_kamet_k01",
@@ -83,7 +82,7 @@
     },
     {
       "id": "ezan_kamet_k12",
-      "tip": "mezhep",
+      "tip": "metin",
       "baslik": "Mezhep Farklılıkları",
       "icerik": "Ezan kıraatinin özü tüm mezheplerde aynıdır; teknik detaylarda farklılıklar vardır:\n\n• Ezanın hükmü: Hanefilere göre müekked sünnet; bazı alimlere göre farz-ı kifaye (toplumda bir kişi okursa yeterli olan sorumluluk).\n\n• Tekbir sayısı: Dört mezhep de ezana 4 tekbirle başlar. Maliki kameti daha kısadır; ezandaki cümleler kamette tekrarlanmaz, çoğu cümle bir kez söylenir. Kamet, namaza başlama çağrısıdır.\n\n• Tercî (şehadet cümlelerini önce alçak, sonra yüksek sesle tekrarlama): Şafiilerde şehadet cümlelerine tercî yapılır. Hanefiler ve Malikiler tercî yapmaz.\n\n• Sabah ezanı vakti: Hanefilere göre fecr-i sadık (gerçek şafak/imsak vakti) girmeden okunan ezan yeniden okunmalıdır. Diğer bazı mezheplerde sabah için vakte yakın erken ezan uygulamasına ruhsat verilmiştir.\n\n• Kadının ezan okuması: Kadının erkek cemaate ezan okuması genel olarak uygun görülmemiştir; kadınların kendi aralarında ezan/kamet okuyup okuyamayacağı konusunda mezhepler arasında görüş ayrılığı vardır.",
       "vurgu": "Ezanın özü aynıdır; farklılıklar daha çok uygulama ve teknik ayrıntılardadır."

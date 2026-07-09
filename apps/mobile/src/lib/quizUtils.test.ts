@@ -79,6 +79,23 @@ test("sayısal id/soru güvenli string'e çevrilir (dış veri güveni)", () => 
   assert.equal(out[0].soru, "123");
 });
 
+test("doğru cevap harfi şıklarda yoksa soru elenir", () => {
+  const out = normalizeQuizSorular([
+    { id: "8", soru: "s", dogru_cevap: "E", secenekler: ["A) a", "B) b"] },
+    { id: "9", soru: "s", dogru_cevap: "", secenekler: ["A) a", "B) b"] },
+  ]);
+  assert.deepEqual(out, []);
+});
+
+test("tekrarlanan şık metni olan soru elenir (shuffle metin eşleşmesine dayanır)", () => {
+  const out = normalizeQuizSorular([
+    { id: "10", soru: "s", dogru_cevap: "A", secenekler: ["A) aynı", "B) aynı", "C) farklı"] },
+    { id: "11", soru: "s", dogru_cevap: "A", secenekler: ["A) bir", "B) iki"] }, // sağlam — kalmalı
+  ]);
+  assert.equal(out.length, 1);
+  assert.equal(out[0].id, "11");
+});
+
 test("shuffleQuizOptions: doğru cevap korunur + harfler A/B/C/D sıralı", () => {
   const soru = normalizeQuizSorular([
     { id: "1", soru: "S?", dogru_cevap: "C", secenekler: ["A) yanlış1", "B) yanlış2", "C) DOĞRU", "D) yanlış3"] },

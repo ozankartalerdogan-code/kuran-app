@@ -49,7 +49,18 @@ export function normalizeQuizSorular(raw: unknown[]): QuizSoru[] {
         cevaplar,
       };
     })
-    .filter((q) => q.id !== "" && q.soru !== "" && q.cevaplar.length > 0);
+    .filter(
+      (q) =>
+        q.id !== "" &&
+        q.soru !== "" &&
+        q.cevaplar.length > 0 &&
+        // Doğru cevap harfi şıklarda bulunmalı — yoksa soru hiç "doğru"
+        // gösteremez, elenir.
+        q.cevaplar.some((c) => c.harf === q.dogru) &&
+        // Şık metinleri benzersiz olmalı — shuffleQuizOptions doğru cevabı
+        // metin eşleşmesiyle taşır; tekrarlı metin yanlış şıkkı doğru yapabilir.
+        new Set(q.cevaplar.map((c) => c.metin)).size === q.cevaplar.length,
+    );
 }
 
 const OPT_HARFLER = ["A", "B", "C", "D", "E", "F"];
@@ -67,7 +78,8 @@ function shuffleArr<T>(arr: T[]): T[] {
  * Şıkları karıştırır ve A/B/C/D olarak yeniden harfler; doğru cevabı yeni harfe
  * taşır. Böylece doğru cevabın konumu HER seferinde rastgele olur — quiz verisi
  * doğru cevabı hep A/B'ye yığmış olsa bile quiz tahmin edilebilir/gameable olmaz.
- * (Şık metinleri benzersiz kabul edilir; normalizeQuizSorular öncesinde denetlendi.)
+ * (Şık metni benzersizliği normalizeQuizSorular'da filtreyle garanti edilir;
+ * tekrarlı metinli sorular oraya gelmeden elenir.)
  */
 export function shuffleQuizOptions(soru: QuizSoru): QuizSoru {
   const correctText = soru.cevaplar.find((c) => c.harf === soru.dogru)?.metin;

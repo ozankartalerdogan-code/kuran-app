@@ -2,7 +2,6 @@
   "ders_id": "tecvid",
   "baslik": "Tecvid",
   "aciklama": "Kur'an harflerini doğru mahreç ve kurallara göre okumayı öğreten ilim.",
-  "ikon": "📖",
   "kartlar": [
     {
       "id": "tecvid_k01",
@@ -139,7 +138,7 @@
     },
     {
       "id": "tecvid_k20",
-      "tip": "mezhep",
+      "tip": "metin",
       "baslik": "Mezhep ve Kıraat Farklılıkları",
       "icerik": "Tecvid ilminde mezhepler ve kıraat imamları arasında bazı görüş ve uygulama farklılıkları mevcuttur:\n\n• Tecvidin hükmü: Harfleri doğru okuyacak ve anlamı bozacak hatalardan kaçınacak kadar öğrenmek bireysel sorumluluktur. Tecvid ilmini ayrıntılı öğretmek ise toplumda yeterli ehil kişilerin bulunmasıyla yerine gelen bir sorumluluktur.\n\n• Kıraat farkları: Türkiye'de Âsım kıraatinin Hafs rivayeti yaygındır. Kıraat, Kur'an'ın sahih okuyuş yolları; rivayet ise bu okuyuş yolunun aktarım koludur. Kıraat-i Seb'a (7 kıraat) ve Kıraat-i Aşere (10 kıraat) olarak bilinen sahih kıraatler vardır. Kuzey Afrika'da Verş rivayeti yaygındır.\n\n• Med miktarları: Kıraat imamlarına ve eğitim geleneğine göre özellikle med-i munfasıl gibi bazı medlerde uzatma miktarı değişebilir; bu sahih bir farklılıktır.\n\n• Vakıf işaretleri: Secavend işaretleri mushaflarda okuyucuya durma-geçme konusunda rehberlik eder. İşaretlerin ayrıntılı değerlendirilmesinde alimler arasında farklı açıklamalar bulunabilir.",
       "vurgu": "Sahih kıraatler farklı okuyuş yollarıdır; Kur’an’ın metni birdir"

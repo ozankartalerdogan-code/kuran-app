@@ -14,11 +14,15 @@ export function useDersProgress() {
   // İlk load bitmeden storage'a yazma → mount anındaki kısmi güncellemenin
   // (örn. updateProgress(…,0,…)) depolanmış veriyi ezme yarışını önler.
   const hydratedRef = useRef(false);
+  // Reaktif hidrasyon sinyali: ekranlar depodan gelen gerçek ilerlemeye
+  // (örn. kaldığı karttan devam) ancak bundan sonra güvenle bakabilir.
+  const [hydrated, setHydrated] = useState(false);
 
   const load = useCallback(async () => {
     const data = await storage.getJSON<AllProgress>(STORAGE_KEYS.derslerProgress, {});
     setProgress(data ?? {});
     hydratedRef.current = true;
+    setHydrated(true);
   }, []);
 
   useEffect(() => { load(); }, [load]);
@@ -53,5 +57,5 @@ export function useDersProgress() {
     });
   }, []);
 
-  return { progress, load, updateProgress, setQuizBitti };
+  return { progress, hydrated, load, updateProgress, setQuizBitti };
 }

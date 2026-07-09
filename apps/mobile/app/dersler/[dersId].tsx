@@ -25,8 +25,9 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
 
-// Quiz geçme eşiği: bu kadar doğru → ders "tamamlandı" sayılır + kutlama.
-const QUIZ_PASS = 7;
+// Quiz geçme oranı: bu orandaki doğru → ders "tamamlandı" sayılır + kutlama.
+// Mutlak sayı değil oran — soru havuzu 10'un altına düşerse eşik ulaşılamaz olmasın.
+const QUIZ_PASS_RATIO = 0.7;
 
 // ─── Görsel haritası ──────────────────────────────────────────────────────
 
@@ -134,8 +135,9 @@ export default function DersDetayScreen() {
   );
   const hasQuiz  = validQuiz.length > 0;
   const baslik   = BASLIKLAR[dersKey] ?? dersKey;
+  const quizPass = Math.max(1, Math.ceil(quizQuestions.length * QUIZ_PASS_RATIO));
 
-  const { updateProgress, setQuizBitti } = useDersProgress();
+  const { progress, hydrated, updateProgress, setQuizBitti } = useDersProgress();
 
   const navigateRef = useRef<(dir: 1 | -1) => void>(() => {});
   const panResponder = useRef(
@@ -156,6 +158,22 @@ export default function DersDetayScreen() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dersKey]);
+
+  // Kaldığı karttan devam: depodaki ilerleme hidrasyondan sonra bir kez uygulanır.
+  // Kullanıcı bu arada gezinmişse (dersIndex ≠ 0) dokunulmaz; kart sayısı
+  // değişmiş olabilir diye üst sınır kırpılır.
+  const resumedRef = useRef(false);
+  useEffect(() => {
+    if (!hydrated || resumedRef.current) return;
+    resumedRef.current = true;
+    const count = dersData?.kartlar?.length ?? 0;
+    const seen = progress[dersKey]?.gorülen ?? 0;
+    if (count > 0 && seen > 0) {
+      const target = Math.min(seen, count - 1);
+      setDersIndex((cur) => (cur === 0 ? target : cur));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
   if (!dersData) return <YakindaEkran baslik={baslik} />;
 
@@ -211,8 +229,8 @@ export default function DersDetayScreen() {
   const nextQuestion = () => {
     Haptics.selectionAsync();
     if (qIndex + 1 >= quizQuestions.length) {
-      // Sadece geçme eşiğini tutturan (QUIZ_PASS+) ders "tamamlandı" sayılır.
-      if (score >= QUIZ_PASS) setQuizBitti(dersKey);
+      // Sadece geçme eşiğini tutturan (%70+) ders "tamamlandı" sayılır.
+      if (score >= quizPass) setQuizBitti(dersKey);
       setQuizFinished(true);
     } else {
       Animated.timing(quizOpacity, {
@@ -320,7 +338,7 @@ export default function DersDetayScreen() {
         >
           {/* Skor */}
           <View style={[s.scoreCard, { backgroundColor: c.card }]}>
-            {LottieView && score >= QUIZ_PASS ? (
+            {LottieView && score >= quizPass ? (
               <LottieView
                 source={require("../../assets/Success-celebration.json")}
                 autoPlay
