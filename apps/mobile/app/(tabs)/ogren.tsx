@@ -28,7 +28,7 @@ const SECTIONS = [
       { icon: "people-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: "Peygamber Kıssaları", sub: "25 peygamberin kıssası", route: "/peygamber-kissalari" },
       { icon: "moon-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: "Siyer-i Nebî", sub: "Hz. Peygamber'in hayatı", route: "/siyer" },
       { icon: "calendar-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: "Mübarek Günler", sub: "13 gün ve gecenin fazileti", route: "/mubarek-gunler" },
-      { icon: "chatbubble-ellipses-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: "Hadisler", sub: "106 seçme hadis, 27 konu", route: "/hadisler" },
+      { icon: "chatbubble-ellipses-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: "Hadisler", sub: "219 seçme hadis, 27 konu", route: "/hadisler" },
     ],
   },
   {

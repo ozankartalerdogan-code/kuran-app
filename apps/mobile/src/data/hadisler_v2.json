@@ -2169,6 +2169,1700 @@
         "ehliyet",
         "toplum"
       ]
+    },
+    {
+      "id": "cibril-ihsan",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "İhsan, Allah'a O'nu görüyormuş gibi kulluk etmendir. Sen O'nu görmesen de O seni görmektedir.",
+      "narrator": "Hz. Ömer (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, Îmân, 8a",
+      "sunnah_url": "https://sunnah.com/muslim:8a",
+      "key_lesson": "İbadetin özü, Allah'ın her an seni gördüğünü bilerek bilinçli ve samimi kulluk yaşamaktır.",
+      "info_note": "Derece: Sahih. Bu rivayet, Cibrîl hadisinin ihsan bölümünü öne çıkarır ve kulluğun kalp boyutunu öğretir.",
+      "tags": [
+        "ihsan",
+        "murakabe",
+        "ihlas",
+        "kulluk"
+      ]
+    },
+    {
+      "id": "tevhid-allahin-hakki",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "Allah'ın kulları üzerindeki hakkı, yalnız O'na kulluk etmeleri ve O'na hiçbir şeyi ortak koşmamalarıdır.",
+      "narrator": "Muâz b. Cebel (r.a.)",
+      "source_bukhari": "Buhârî, Cihâd, 2856",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2856",
+      "key_lesson": "Tevhid, sadece bir inanç cümlesi değil; bütün ibadet ve yönelişleri yalnız Allah'a bağlayan temel ilkedir.",
+      "info_note": "Derece: Müttefekun aleyh. Araştırma metninde Müslim'de de geçtiği belirtilir; burada yalnızca açık numarası verilen Buhârî kaydı işlendi.",
+      "tags": [
+        "tevhid",
+        "sirkten-sakinma",
+        "kulluk",
+        "iman"
+      ]
+    },
+    {
+      "id": "din-nasihattir",
+      "topic_id": "dogruluk-durustluk",
+      "turkish_text": "Din nasihattir; samimiyettir.",
+      "narrator": "Temîm ed-Dârî (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, Îmân, 55a",
+      "sunnah_url": "https://sunnah.com/muslim:55a",
+      "key_lesson": "Dindarlık, gösterişten çok samimiyet, sadakat ve güven üreten dürüst bir duruşla yaşanır.",
+      "info_note": "Derece: Sahih. Hadisin devamında bu samimiyetin Allah'a, kitabına, resulüne ve müminlere karşı olduğu açıklanır.",
+      "tags": [
+        "samimiyet",
+        "nasihat",
+        "durustluk",
+        "din"
+      ]
+    },
+    {
+      "id": "namaz-vaktinde",
+      "topic_id": "namaz",
+      "turkish_text": "Allah'a en sevimli amel, namazı vaktinde kılmaktır.",
+      "narrator": "Abdullah b. Mes'ûd (r.a.)",
+      "source_bukhari": "Buhârî, Mevâkîtü's-salât, 527",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:527",
+      "key_lesson": "Namazın değeri sadece kılınmasında değil, vakti gözetilerek özenle yerine getirilmesinde de ortaya çıkar.",
+      "info_note": "Derece: Müttefekun aleyh. Araştırma metninde Müslim'de de geçtiği belirtilir; burada açık numarası verilen Buhârî kaydı işlendi.",
+      "tags": [
+        "namaz",
+        "vakit",
+        "amel",
+        "ibadet"
+      ]
+    },
+    {
+      "id": "kuran-ogren-ogret",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "Sizin en hayırlınız, Kur'an'ı öğrenen ve öğreteninizdir.",
+      "narrator": "Osman b. Affân (r.a.)",
+      "source_bukhari": "Buhârî, Fedâilü'l-Kur'ân, 5027",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:5027",
+      "key_lesson": "Kur'an'la bağ, sadece okumakla değil; öğrenmek ve başkasına aktarmakla derinleşir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "kuran",
+        "ilim",
+        "ogretmek",
+        "hayirlilik"
+      ]
+    },
+    {
+      "id": "kardesi-icin-sevmek",
+      "topic_id": "adalet-zulum",
+      "turkish_text": "Sizden biri, kendisi için sevdiğini kardeşi için de sevmedikçe tam iman etmiş olmaz.",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "Buhârî, Îmân, 13",
+      "source_muslim": "Müslim, Îmân, 45b",
+      "sunnah_url": "https://sunnah.com/bukhari:13",
+      "key_lesson": "Gerçek iman, başkası için de iyilik istemeyi, hasedi bırakmayı ve kardeşlikte adil olmayı gerektirir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "kardeslik",
+        "iman",
+        "adalet",
+        "hased"
+      ]
+    },
+    {
+      "id": "esler-merhamet-olcusu",
+      "topic_id": "eslere-davranis",
+      "turkish_text": "Mümin bir erkek, mümin bir kadına bütünüyle kin tutmasın; bir huyunu hoş görmezse başka bir huyundan razı olur.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, Radâ', 1468b",
+      "sunnah_url": "https://sunnah.com/muslim:1468b",
+      "key_lesson": "Evlilikte kusur avcılığı yerine, eşin iyi yönlerini görebilmek merhameti ve huzuru korur.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "evlilik",
+        "esler",
+        "merhamet",
+        "aile"
+      ]
+    },
+    {
+      "id": "helal-haram-supheli",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Helal açıktır, haram da açıktır. İkisi arasında, çoğu insanın hükmünü bilmediği şüpheli şeyler vardır.",
+      "narrator": "Nu'mân b. Beşîr (r.a.)",
+      "source_bukhari": "Buhârî, Îmân, 52",
+      "source_muslim": "Müslim, Müsâkât, 1599a",
+      "sunnah_url": "https://sunnah.com/bukhari:52",
+      "key_lesson": "Mümin, sadece açık haramdan değil; kalbini yıpratacak şüpheli alanlardan da sakınmaya çalışır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "helal",
+        "haram",
+        "supheli",
+        "takva"
+      ]
+    },
+    {
+      "id": "allah-temizdir",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Allah temizdir; ancak temiz olanı kabul eder.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, Zekât, 1015",
+      "sunnah_url": "https://sunnah.com/muslim:1015",
+      "key_lesson": "İbadetin bereketi, kazancın ve lokmanın helal olmasına sıkı sıkıya bağlıdır.",
+      "info_note": "Derece: Sahih. Hadisin devamında haramla beslenmenin duanın kabulüne engel olabileceği anlatılır.",
+      "tags": [
+        "helal-kazanc",
+        "dua",
+        "temizlik",
+        "rızık"
+      ]
+    },
+    {
+      "id": "faiz-laneti",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "Rasûlullah faiz yiyene, yedirene, yazana ve şahitlik edene lanet etti.",
+      "narrator": "Câbir b. Abdullah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, Müsâkât, 1598",
+      "sunnah_url": "https://sunnah.com/muslim:1598",
+      "key_lesson": "Faiz, sadece alan ve verenle sınırlı olmayan; etrafındaki destekleyici halkaları da kuşatan ağır bir haramdır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "faiz",
+        "haram",
+        "muamelat",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "sadaka-mali-eksiltmez",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Sadaka malı eksiltmez. Bir kul affettikçe Allah onun izzetini artırır.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, Birr, 2588",
+      "sunnah_url": "https://sunnah.com/muslim:2588",
+      "key_lesson": "Allah için vermek ve affetmek, görünürde eksiltse de hakikatte bereket ve onur kazandırır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "sadaka",
+        "affetmek",
+        "bereket",
+        "rızık"
+      ]
+    },
+    {
+      "id": "seyyidul-istigfar",
+      "topic_id": "dua-zikir",
+      "turkish_text": "Allah'ım! Sen benim Rabbimsin. Senden başka ilah yoktur. Beni Sen yarattın, ben Senin kulunum. Gücüm yettiğince Sana verdiğim söz ve ahit üzereyim. Yaptıklarımın şerrinden Sana sığınırım. Üzerimdeki nimetini itiraf ediyor, günahımı da kabul ediyorum. Beni bağışla; çünkü günahları Senden başka bağışlayacak yoktur.",
+      "narrator": "Şeddâd b. Evs (r.a.)",
+      "source_bukhari": "Buhârî, Daavât, 6306",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6306",
+      "key_lesson": "İstiğfarın en güçlü formlarından biri; tevhidi, nimeti ve kusuru birlikte itiraf ederek Allah'tan bağışlanma dilemektir.",
+      "info_note": "Derece: Sahih. Araştırma metninde bu duanın sabah-akşam okunmasının özellikle vurgulandığı belirtilir.",
+      "tags": [
+        "istigfar",
+        "dua",
+        "tevbe",
+        "zikir"
+      ]
+    },
+    {
+      "id": "zikir-subhanallah-bihamdihi-yuz",
+      "topic_id": "dua-zikir",
+      "turkish_text": "Kim bir günde yüz defa 'Sübhânallahi ve bihamdihî' derse, günahları denizin köpüğü kadar da olsa bağışlanır.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, Daavât, 6405",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6405",
+      "key_lesson": "Kısa ama sürekli yapılan sahih zikirler, kalbi diri tutar ve bağışlanma umudunu besler.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "zikir",
+        "tesbih",
+        "bagislanma",
+        "gunluk-amel"
+      ]
+    },
+    {
+      "id": "zikir-la-ilahe-illallah-yuz",
+      "topic_id": "dua-zikir",
+      "turkish_text": "Kim bir günde yüz defa 'Lâ ilâhe illallahu vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü ve hüve alâ kulli şey'in kadîr' derse, büyük sevap kazanır ve o gün şeytana karşı korunur.",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, Daavât, 6403",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6403",
+      "key_lesson": "Tevhid zikrini düzenli tekrar etmek, sevap, koruma ve kalp diriliği sağlayan güçlü günlük amellerdendir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "zikir",
+        "tevhid",
+        "korunma",
+        "gunluk-amel"
+      ]
+    },
+    {
+      "id": "iman-tadi-uc-sey",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "Buhârî, 16",
+      "source_muslim": "Müslim, 43",
+      "sunnah_url": "https://sunnah.com/bukhari:16",
+      "turkish_text": "Şu üç özellik kimde bulunursa, imanın tadını alır: Allah ve Resulünü her şeyden daha çok sevmek, sevdiğini yalnız Allah için sevmek ve küfre dönmeyi ateşe atılmak kadar çirkin görmek.",
+      "key_lesson": "İmanın tadı, Allah'ı ve Resulünü her şeyden üstün tutmak, sevgi ve nefreti Allah için yönlendirmekle hissedilir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "iman",
+        "sevgi",
+        "sadakat"
+      ]
+    },
+    {
+      "id": "resul-sevgisi-iman",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "Buhârî, 15",
+      "source_muslim": "Müslim, 44",
+      "sunnah_url": "https://sunnah.com/bukhari:15",
+      "turkish_text": "Hiçbiriniz, ben ona babasından, evladından ve bütün insanlardan daha sevgili olmadıkça tam iman etmiş olmaz.",
+      "key_lesson": "Hz. Peygamber'i herkesten fazla sevmek, imanın olgunluğunu gösteren temel ölçülerden biridir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "iman",
+        "peygamber",
+        "sevgi"
+      ]
+    },
+    {
+      "id": "haya-imandandir",
+      "topic_id": "niyet-ihlas",
+      "narrator": "İbn Ömer (r.a.)",
+      "source_bukhari": "Buhârî, 24",
+      "source_muslim": "Müslim, 36",
+      "sunnah_url": "https://sunnah.com/bukhari:24",
+      "turkish_text": "Hayâ imandandır.",
+      "key_lesson": "Hayâ, insanı günahtan alıkoyan ve kalbi koruyan imanın bir parçasıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "haya",
+        "iman",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "iman-subeleri",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 9",
+      "source_muslim": "Müslim, 35",
+      "sunnah_url": "https://sunnah.com/bukhari:9",
+      "turkish_text": "İman yetmiş küsur şubedir. En üstünü Lâ ilâhe illallah, en altı ise yoldan eziyeti kaldırmaktır.",
+      "key_lesson": "İman sadece kalpte kalan bir inanç değil; söz, davranış ve güzel ahlakla ortaya çıkan bütünlüklü bir hayattır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "iman",
+        "tevhid",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "din-kolayliktir",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 39",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:39",
+      "turkish_text": "Bu din kolaylıktır. Kim dini kendine ağırlaştırırsa din ona galip gelir.",
+      "key_lesson": "Din, insanı yıpratacak aşırılığı değil; sürdürülebilir, dengeli ve samimi kulluğu öğretir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "din",
+        "denge",
+        "istikamet"
+      ]
+    },
+    {
+      "id": "amantu-billah-istikamet",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Süfyân b. Abdullah es-Sekafî (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 38",
+      "sunnah_url": "https://sunnah.com/muslim:38",
+      "turkish_text": "Allah'a iman ettim de, sonra dosdoğru ol.",
+      "key_lesson": "İman, sadece sözle değil; doğruluk ve istikamet üzere yaşandığında korunur.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "iman",
+        "istikamet",
+        "amel"
+      ]
+    },
+    {
+      "id": "raditu-billah",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Abbâs b. Abdülmuttalib (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 34",
+      "sunnah_url": "https://sunnah.com/muslim:34",
+      "turkish_text": "Allah'ı Rab, İslâm'ı din ve Muhammed'i resul olarak kabul edip razı olan kimse imanın tadını alır.",
+      "key_lesson": "Allah'tan, İslam'dan ve Resulullah'tan razı olmak, imanı kalpte huzura dönüştürür.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "iman",
+        "riza",
+        "teslimiyet"
+      ]
+    },
+    {
+      "id": "riya-ilk-hukum",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1905",
+      "sunnah_url": "https://sunnah.com/muslim:1905",
+      "turkish_text": "Kıyamet günü aleyhine ilk hüküm verileceklerden biri, gösteriş için amel eden kimsedir.",
+      "key_lesson": "İnsanların görmesi için yapılan amel, dışarıdan büyük görünse de Allah katında değerini kaybedebilir.",
+      "info_note": "Derece: Sahih. Bu rivayet, amelin dış görünüşünden önce niyetinin sorgulanacağını hatırlatır.",
+      "tags": [
+        "riya",
+        "niyet",
+        "ihlas"
+      ]
+    },
+    {
+      "id": "rabbine-gore-zan",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 7405",
+      "source_muslim": "Müslim, 2675",
+      "sunnah_url": "https://sunnah.com/bukhari:7405",
+      "turkish_text": "Allah buyurdu: Ben kulumun Benim hakkımdaki zannı üzereyim.",
+      "key_lesson": "Kul, dua ve tövbe kapısını açık tutmak için Rabbi hakkında umutlu ve güzel bir zan beslemelidir.",
+      "info_note": "Derece: Müttefekun aleyh. Hüsnüzan, günaha güvenmek değil; tövbe edip rahmeti ummaktır.",
+      "tags": [
+        "husnuzan",
+        "dua",
+        "iman"
+      ]
+    },
+    {
+      "id": "namazi-terk-kufre-yakin",
+      "topic_id": "namaz",
+      "narrator": "Câbir b. Abdullah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 82",
+      "sunnah_url": "https://sunnah.com/muslim:82",
+      "turkish_text": "Kişi ile şirk ve küfür arasında namazı terk etmek vardır.",
+      "key_lesson": "Namaz, mümin kimliğinin en açık alametlerinden biridir; onu terk etmek kişiyi çok tehlikeli bir çizgiye sürükler.",
+      "info_note": "Derece: Sahih. Alimler hadisi farklı açıklasa da hepsi namazı terk etmenin son derece ağır bir tehlike olduğu konusunda birleşir.",
+      "tags": [
+        "namaz",
+        "iman",
+        "sorumluluk"
+      ]
+    },
+    {
+      "id": "beni-gordugunuz-gibi-namaz-kilin",
+      "topic_id": "namaz",
+      "narrator": "Mâlik b. Huveyris (r.a.)",
+      "source_bukhari": "Buhârî, 631",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:631",
+      "turkish_text": "Beni namaz kılarken gördüğünüz gibi namaz kılın.",
+      "key_lesson": "Namaz ibadeti, keyfe göre değil; Hz. Peygamber'in öğrettiği şekilde öğrenilip uygulanmalıdır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "namaz",
+        "sunnet",
+        "ibadet"
+      ]
+    },
+    {
+      "id": "cemaat-namazi-yirmiyedi-kat",
+      "topic_id": "namaz",
+      "narrator": "İbn Ömer (r.a.)",
+      "source_bukhari": "Buhârî, 645",
+      "source_muslim": "Müslim, 650",
+      "sunnah_url": "https://sunnah.com/bukhari:645",
+      "turkish_text": "Cemaatle kılınan namaz, tek başına kılınan namazdan yirmi yedi derece daha faziletlidir.",
+      "key_lesson": "Cemaatle kılınan namaz, müminlere hem daha büyük sevap hem de birlik ruhu kazandırır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "namaz",
+        "cemaat",
+        "fazilet"
+      ]
+    },
+    {
+      "id": "sabah-sunneti-dunyadan-hayirli",
+      "topic_id": "namaz",
+      "narrator": "Âişe (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 725",
+      "sunnah_url": "https://sunnah.com/muslim:725",
+      "turkish_text": "Sabah namazının iki rekât sünneti, dünya ve içindekilerden daha hayırlıdır.",
+      "key_lesson": "Küçük görülen sünnet namazlar bile dünya nimetlerinden daha değerli olabilir; bu yüzden ihmal edilmemelidir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "namaz",
+        "sunnet",
+        "sabah"
+      ]
+    },
+    {
+      "id": "mescid-yapan-cennet-evi",
+      "topic_id": "namaz",
+      "narrator": "Osman b. Affân (r.a.)",
+      "source_bukhari": "Buhârî, 450",
+      "source_muslim": "Müslim, 533",
+      "sunnah_url": "https://sunnah.com/bukhari:450",
+      "turkish_text": "Kim Allah için bir mescid yaparsa, Allah da ona cennette benzerini yapar.",
+      "key_lesson": "Allah için mescid yapmaya katkı sunmak, etkisi ölümden sonra da süren kalıcı bir hayırdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "mescid",
+        "namaz",
+        "sadaka"
+      ]
+    },
+    {
+      "id": "ikamet-sonrasi-farz",
+      "topic_id": "namaz",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 710",
+      "sunnah_url": "https://sunnah.com/muslim:710",
+      "turkish_text": "Farz namaz için ikamet getirildiğinde, artık farzdan başka namaz yoktur.",
+      "key_lesson": "Farz namaz için ikamet başladıktan sonra öncelik farza verilir; başka nafileyle meşgul olunmaz.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "namaz",
+        "farz",
+        "vakit"
+      ]
+    },
+    {
+      "id": "iki-serinlik-namazi-cennet",
+      "topic_id": "namaz",
+      "narrator": "Ebû Mûsâ el-Eş'arî (r.a.)",
+      "source_bukhari": "Buhârî, 574",
+      "source_muslim": "Müslim, 635",
+      "sunnah_url": "https://sunnah.com/bukhari:574",
+      "turkish_text": "Kim sabah ve ikindi namazını kılarsa cennete girer.",
+      "key_lesson": "Sabah ve ikindi namazını korumak, kulun cennete götüren büyük amellerinden biridir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "namaz",
+        "sabah",
+        "ikindi"
+      ]
+    },
+    {
+      "id": "saflari-duzeltin",
+      "topic_id": "namaz",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "Buhârî, 723",
+      "source_muslim": "Müslim, 433",
+      "sunnah_url": "https://sunnah.com/bukhari:723",
+      "turkish_text": "Saflarınızı düzeltin. Çünkü safları düzgün tutmak namazın tamamlanmasındandır.",
+      "key_lesson": "Namaz saflarını düzgün tutmak, sadece düzen değil; ibadette birlik ve ciddiyetin de göstergesidir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "namaz",
+        "saf",
+        "cemaat"
+      ]
+    },
+    {
+      "id": "ramazanda-cennet-kapilari",
+      "topic_id": "oruc",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1899",
+      "source_muslim": "Müslim, 1079",
+      "sunnah_url": "https://sunnah.com/bukhari:1899",
+      "turkish_text": "Ramazan geldiğinde cennet kapıları açılır, cehennem kapıları kapanır ve şeytanlar bağlanır.",
+      "key_lesson": "Ramazan, rahmetin genişlediği ve kulluğun kolaylaştığı özel bir ibadet mevsimidir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "ramazan",
+        "rahmet"
+      ]
+    },
+    {
+      "id": "sahurda-bereket",
+      "topic_id": "oruc",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "Buhârî, 1923",
+      "source_muslim": "Müslim, 1095",
+      "sunnah_url": "https://sunnah.com/bukhari:1923",
+      "turkish_text": "Sahur yapın. Çünkü sahurda bereket vardır.",
+      "key_lesson": "Sahur, yalnızca yemekten ibaret değil; orucu bereketlendiren ve sünneti yaşatan önemli bir hazırlıktır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "sahur",
+        "sunnet"
+      ]
+    },
+    {
+      "id": "iftari-geciktirmeyin",
+      "topic_id": "oruc",
+      "narrator": "Sehl b. Sa'd (r.a.)",
+      "source_bukhari": "Buhârî, 1957",
+      "source_muslim": "Müslim, 1098",
+      "sunnah_url": "https://sunnah.com/bukhari:1957",
+      "turkish_text": "İnsanlar iftarı acele ettirdikleri sürece hayır üzeredir.",
+      "key_lesson": "İftarı vaktinde açmak, oruç ibadetini sünnete uygun ve dengeli şekilde tamamlamanın bir parçasıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "iftar",
+        "sunnet"
+      ]
+    },
+    {
+      "id": "ramazani-onceden-karsilama-orucu",
+      "topic_id": "oruc",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1914",
+      "source_muslim": "Müslim, 1082",
+      "sunnah_url": "https://sunnah.com/bukhari:1914",
+      "turkish_text": "Sizden biri Ramazan'ı bir veya iki gün önceden oruçla karşılamasın.",
+      "key_lesson": "Ramazan'ın başlangıç ve bitişi kişisel tahminle değil, sahih ölçü ve sünnetle belirlenir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "ramazan",
+        "vakit"
+      ]
+    },
+    {
+      "id": "oructa-unutarak-yemek",
+      "topic_id": "oruc",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1933",
+      "source_muslim": "Müslim, 1155",
+      "sunnah_url": "https://sunnah.com/bukhari:1933",
+      "turkish_text": "Kim oruçlu olduğunu unutarak yer veya içerse orucunu tamamlasın. Çünkü onu Allah yedirmiş ve içirmiştir.",
+      "key_lesson": "Unutarak yiyip içen kimse günahkar olmaz; Allah bu yanlışı affedip orucunu geçerli saymıştır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "rahmet",
+        "kolaylik"
+      ]
+    },
+    {
+      "id": "hilali-gorunce-oruc",
+      "topic_id": "oruc",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1909",
+      "source_muslim": "Müslim, 1080",
+      "sunnah_url": "https://sunnah.com/bukhari:1909",
+      "turkish_text": "Hilâli görünce oruç tutun, tekrar görünce bayram edin.",
+      "key_lesson": "Ramazan ve bayram gibi vakitli ibadetler, sağlam dini ölçüye dayanarak başlatılır ve tamamlanır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "hilal",
+        "ramazan"
+      ]
+    },
+    {
+      "id": "davud-orucu-en-faziletli",
+      "topic_id": "oruc",
+      "narrator": "Abdullah b. Amr (r.a.)",
+      "source_bukhari": "Buhârî, 1976",
+      "source_muslim": "Müslim, 1159",
+      "sunnah_url": "https://sunnah.com/bukhari:1976",
+      "turkish_text": "Allah katında en sevimli oruç, Dâvûd'un orucudur: Bir gün tutar, bir gün tutmazdı.",
+      "key_lesson": "Nafile ibadette en faziletli yol, kişiyi yormayan ve sürekliliği koruyan dengeli kulluktur.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "oruc",
+        "nafile",
+        "denge"
+      ]
+    },
+    {
+      "id": "shawwal-alti-gun",
+      "topic_id": "oruc",
+      "narrator": "Ebû Eyyûb el-Ensârî (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1164",
+      "sunnah_url": "https://sunnah.com/muslim:1164",
+      "turkish_text": "Kim Ramazan'ı tutar, sonra Şevval'den altı gün eklerse bütün yılı oruç tutmuş gibi olur.",
+      "key_lesson": "Ramazan'dan sonra Şevval'de tutulan altı gün oruç, ibadetin devamlılığını güçlendirir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "oruc",
+        "sevval",
+        "nafile"
+      ]
+    },
+    {
+      "id": "bakara-son-iki-ayet",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Mes'ûd el-Bedrî (r.a.)",
+      "source_bukhari": "Buhârî, 5009",
+      "source_muslim": "Müslim, 808",
+      "sunnah_url": "https://sunnah.com/bukhari:5009",
+      "turkish_text": "Bakara sûresinin son iki ayetini gece okuyan kimseye onlar yeter.",
+      "key_lesson": "Bakara suresinin son iki ayeti, geceyi Kur'an'la kapatıp kulu manevi olarak koruyan büyük bir nimettir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "dua",
+        "zikir",
+        "kuran"
+      ]
+    },
+    {
+      "id": "la-havle-hazine",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Mûsâ el-Eş'arî (r.a.)",
+      "source_bukhari": "Buhârî, 6409",
+      "source_muslim": "Müslim, 2704",
+      "sunnah_url": "https://sunnah.com/bukhari:6409",
+      "turkish_text": "Lâ havle ve lâ kuvvete illâ billâh cennet hazinelerinden bir hazinedir.",
+      "key_lesson": "Bu kısa zikir, gerçek gücün ve yardımın yalnızca Allah'tan geldiğini kalbe yerleştirir.",
+      "info_note": "Derece: Müttefekun aleyh. Bu zikir, gücün ve başarının yalnızca Allah'ın yardımıyla mümkün olduğunu öğretir.",
+      "tags": [
+        "zikir",
+        "teslimiyet",
+        "dua"
+      ]
+    },
+    {
+      "id": "taharet-yari-iman",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Mâlik el-Eş'arî (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 223",
+      "sunnah_url": "https://sunnah.com/muslim:223",
+      "turkish_text": "Temizlik imanın yarısıdır. Elhamdülillah mizânı doldurur.",
+      "key_lesson": "Temizlik, zikir ve sabır bir araya geldiğinde müminin hem bedenini hem iç dünyasını arındırır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "zikir",
+        "temizlik",
+        "iman"
+      ]
+    },
+    {
+      "id": "zikir-meclisine-sekine",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2700",
+      "sunnah_url": "https://sunnah.com/muslim:2700",
+      "turkish_text": "Allah'ı zikretmek için bir araya gelen topluluğu melekler kuşatır, rahmet kaplar ve üzerlerine sekînet iner.",
+      "key_lesson": "Allah'ın anıldığı meclisler, kalplere huzur iner ve ilahi rahmetin kuşattığı bereketli ortamlardır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "zikir",
+        "sekine",
+        "meclis"
+      ]
+    },
+    {
+      "id": "rabbin-gece-inisi",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1145",
+      "source_muslim": "Müslim, 758",
+      "sunnah_url": "https://sunnah.com/bukhari:1145",
+      "turkish_text": "Rabbimiz gecenin son üçte biri kaldığında dünya semasına iner ve dua edenleri çağırır.",
+      "key_lesson": "Seher vakti, dua, istiğfar ve samimi yakarış için en kıymetli zaman dilimlerinden biridir.",
+      "info_note": "Derece: Müttefekun aleyh. Hadiste geçen ifade, seher vaktinin değerini vurgular; mümin bu vakti dua ve istiğfarla değerlendirir.",
+      "tags": [
+        "dua",
+        "gece",
+        "istigfar"
+      ]
+    },
+    {
+      "id": "doksandokuz-isim",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2677",
+      "sunnah_url": "https://sunnah.com/muslim:2677",
+      "turkish_text": "Allah'ın doksan dokuz ismi vardır. Kim onları korur ve yaşarsa cennete girer.",
+      "key_lesson": "Allah'ın isimlerini öğrenip anlamak, kulun Rabbini tanımasını ve O'na daha bilinçli yönelmesini sağlar.",
+      "info_note": "Derece: Sahih. Buradaki maksat isimleri sadece saymak değil, onları anlayıp hayatına yansıtmaktır.",
+      "tags": [
+        "esma",
+        "zikir",
+        "dua"
+      ]
+    },
+    {
+      "id": "allaha-en-sevimli-dort-soz",
+      "topic_id": "dua-zikir",
+      "narrator": "Semure b. Cündeb (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2137",
+      "sunnah_url": "https://sunnah.com/muslim:2137",
+      "turkish_text": "Allah'a en sevimli sözler şunlardır: Sübhânallah, elhamdülillah, lâ ilâhe illallah ve Allahu ekber.",
+      "key_lesson": "Dil, Allah'ın sevdiği zikirlerle meşgul oldukça kalp de arınır ve canlı kalır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "zikir",
+        "tesbih",
+        "tevhid"
+      ]
+    },
+    {
+      "id": "bakara-okunan-evde-seytan-durmaz",
+      "topic_id": "dua-zikir",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 780",
+      "sunnah_url": "https://sunnah.com/muslim:780",
+      "turkish_text": "İçinde Bakara sûresi okunan evden şeytan kaçar.",
+      "key_lesson": "Kur'an okunan ev manevi olarak güçlenir; özellikle Bakara suresi bu konuda özel bir koruyuculuk taşır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "kuran",
+        "zikir",
+        "korunma"
+      ]
+    },
+    {
+      "id": "rifk-guzellestirir",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Âişe (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2594",
+      "sunnah_url": "https://sunnah.com/muslim:2594",
+      "turkish_text": "Yumuşaklık hangi şeyde bulunursa onu güzelleştirir; çekilip alınırsa onu çirkinleştirir.",
+      "key_lesson": "Yumuşak ve incelikli davranış, en zor işlerde bile sonucu güzelleştiren büyük bir ahlak ilkesidir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "yumusaklik",
+        "ahlak",
+        "uslup"
+      ]
+    },
+    {
+      "id": "allah-rifki-sever",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Âişe (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2165",
+      "sunnah_url": "https://sunnah.com/muslim:2165",
+      "turkish_text": "Allah yumuşaktır, yumuşaklığı sever ve yumuşak davranışa verdiğini sertliğe vermez.",
+      "key_lesson": "Allah yumuşaklığı sever; sertliğin bozduğu birçok şeyi nezaket ve rifk düzeltebilir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "rifk",
+        "merhamet",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "suizan-sakinin",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 6064",
+      "source_muslim": "Müslim, 2563",
+      "sunnah_url": "https://sunnah.com/bukhari:6064",
+      "turkish_text": "Zandan sakının. Çünkü zan sözün en yalan olanıdır.",
+      "key_lesson": "Kötü zan, insanların arasına soğukluk sokar; mümin başkaları hakkında acele hüküm vermekten kaçınmalıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "zan",
+        "dogruluk",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "her-iyilik-sadakadir",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Câbir b. Abdullah (r.a.)",
+      "source_bukhari": "Buhârî, 6021",
+      "source_muslim": "Müslim, 1005",
+      "sunnah_url": "https://sunnah.com/bukhari:6021",
+      "turkish_text": "Her iyilik bir sadakadır.",
+      "key_lesson": "Maddi yardım dışında yapılan her gerçek iyilik de sadaka değerindedir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "iyilik",
+        "sadaka",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "ihsan-her-seyde-yazildi",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Şeddâd b. Evs (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1955",
+      "sunnah_url": "https://sunnah.com/muslim:1955",
+      "turkish_text": "Allah her şeyde ihsanı yazmıştır.",
+      "key_lesson": "İhsan bilinci, ibadetten günlük ilişkilere kadar her işi güzel, dikkatli ve merhametli yapmayı gerektirir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "ihsan",
+        "guzellik",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "kolaylastirin-zorlastirmayin",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "Buhârî, 69",
+      "source_muslim": "Müslim, 1734",
+      "sunnah_url": "https://sunnah.com/bukhari:69",
+      "turkish_text": "Kolaylaştırın, zorlaştırmayın; müjdeleyin, nefret ettirmeyin.",
+      "key_lesson": "Dini anlatırken ve yaşatırken insanları uzaklaştıran sertlik değil, kolaylaştıran bir üslup benimsenmelidir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "kolaylik",
+        "teblig",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "haya-hayirdir",
+      "topic_id": "kibir-tevazu",
+      "narrator": "İmrân b. Husayn (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 37",
+      "sunnah_url": "https://sunnah.com/muslim:37",
+      "turkish_text": "Hayâ bütünüyle hayırdır.",
+      "key_lesson": "Hayâ, insanı küçülten değil; kötülükten koruyup hayra yönelten güzel bir ahlaktır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "haya",
+        "tevazu",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "nemmama-cennet-yok",
+      "topic_id": "giybet-iftira",
+      "narrator": "Huzeyfe (r.a.)",
+      "source_bukhari": "Buhârî, 6056",
+      "source_muslim": "Müslim, 105",
+      "sunnah_url": "https://sunnah.com/bukhari:6056",
+      "turkish_text": "Söz taşıyan kimse cennete giremez.",
+      "key_lesson": "Söz taşıyıp insanların arasını bozan kimse, toplumun güvenini yıkan ağır bir günah işlemiş olur.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "nemime",
+        "giybet",
+        "dil"
+      ]
+    },
+    {
+      "id": "muslumana-sovmek-fisku",
+      "topic_id": "giybet-iftira",
+      "narrator": "Abdullah b. Mes'ûd (r.a.)",
+      "source_bukhari": "Buhârî, 48",
+      "source_muslim": "Müslim, 64",
+      "sunnah_url": "https://sunnah.com/bukhari:48",
+      "turkish_text": "Müslümana sövmek fısktır, onunla savaşmak ise küfürdür.",
+      "key_lesson": "Bir Müslümana sövmek ve onunla savaşmak, kardeşlik hukukunu zedeleyen çok ağır davranışlardandır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "dil",
+        "iftira",
+        "kardeslik"
+      ]
+    },
+    {
+      "id": "kardesine-kafir-derse",
+      "topic_id": "giybet-iftira",
+      "narrator": "İbn Ömer (r.a.)",
+      "source_bukhari": "Buhârî, 6045",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6045",
+      "turkish_text": "Bir kimse kardeşine Ey kâfir derse, bu söz ikisinden birine döner.",
+      "key_lesson": "Bir Müslümana kolayca kafir demek, sözü söyleyen kişiyi de tehlikeli bir veballe karşı karşıya bırakır.",
+      "info_note": "Derece: Sahih. Tekfir çok ağır bir hükümdür; bilgiye dayanmayan ve öfkeyle söylenen sözler büyük vebal getirir.",
+      "tags": [
+        "tekfir",
+        "iftira",
+        "dil"
+      ]
+    },
+    {
+      "id": "allah-hayir-dilerse-musibet-verir",
+      "topic_id": "sabir-sukur",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 5645",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:5645",
+      "turkish_text": "Allah bir kul hakkında hayır dilerse onu musibete uğratır.",
+      "key_lesson": "Bazen kulun başına gelen sıkıntı, onu arındıran ve Allah'a yaklaştıran bir hayra dönüşebilir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "sabir",
+        "musibet",
+        "imtihan"
+      ]
+    },
+    {
+      "id": "dunya-muminin-zindani",
+      "topic_id": "sabir-sukur",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2956",
+      "sunnah_url": "https://sunnah.com/muslim:2956",
+      "turkish_text": "Dünya müminin zindanı, kâfirin cennetidir.",
+      "key_lesson": "Mümin, dünya hayatını sınırsız bir rahatlık alanı değil; ahirete hazırlık yeri olarak görür.",
+      "info_note": "Derece: Sahih. Hadis, müminin hiç sevinmeyeceğini değil; dünya nimetlerini ahiretle kıyaslayarak yaşaması gerektiğini anlatır.",
+      "tags": [
+        "dunya",
+        "sabir",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "rahmet-gazabi-gecti",
+      "topic_id": "tovbe-af",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 7404",
+      "source_muslim": "Müslim, 2751",
+      "sunnah_url": "https://sunnah.com/bukhari:7404",
+      "turkish_text": "Allah buyurdu: Rahmetim gazabımı geçmiştir.",
+      "key_lesson": "Allah'ın rahmeti çok geniştir; kul ne kadar kusurlu olsa da tövbe kapısını kapatmamalıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "rahmet",
+        "tevbe",
+        "umit"
+      ]
+    },
+    {
+      "id": "rahmet-yuz-parca",
+      "topic_id": "tovbe-af",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 6000",
+      "source_muslim": "Müslim, 2752",
+      "sunnah_url": "https://sunnah.com/bukhari:6000",
+      "turkish_text": "Allah rahmeti yüz parçaya ayırdı. Birini dünyaya indirdi, doksan dokuzunu ahiret için sakladı.",
+      "key_lesson": "Dünyadaki bütün merhamet, Allah'ın sonsuz rahmetinin çok küçük bir yansımasıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "rahmet",
+        "merhamet",
+        "tevbe"
+      ]
+    },
+    {
+      "id": "olurken-husnuzan",
+      "topic_id": "tovbe-af",
+      "narrator": "Câbir b. Abdullah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2877",
+      "sunnah_url": "https://sunnah.com/muslim:2877",
+      "turkish_text": "Sizden hiç kimse, Allah hakkında güzel zan beslemeden ölmesin.",
+      "key_lesson": "Ölüm yaklaşırken bile kul, Rabbi hakkında umutlu olmalı ve rahmetinden ümidini kesmemelidir.",
+      "info_note": "Derece: Sahih. Bu umut, amelsiz bir rahatlama değil; tövbe ile birlikte rahmete yönelmektir.",
+      "tags": [
+        "husnuzan",
+        "olum",
+        "tevbe"
+      ]
+    },
+    {
+      "id": "kul-gunah-eder-affedilir",
+      "topic_id": "tovbe-af",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 7507",
+      "source_muslim": "Müslim, 2758",
+      "sunnah_url": "https://sunnah.com/muslim:2758",
+      "turkish_text": "Kul günah işler, sonra Rabbim günahımı bağışla der. Allah da kulum affeden bir Rabbi olduğunu bildi buyurur.",
+      "key_lesson": "Kul her düştüğünde samimiyetle Allah'a dönerse, tövbe kapısı yeniden açılır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "tevbe",
+        "af",
+        "gunah"
+      ]
+    },
+    {
+      "id": "mumin-azap-ve-rahmet-bilse",
+      "topic_id": "tovbe-af",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2755",
+      "sunnah_url": "https://sunnah.com/muslim:2755",
+      "turkish_text": "Mümin Allah katındaki azabı bilse cenneti uman kalmaz; kâfir de rahmeti bilse ümidini kesmez.",
+      "key_lesson": "Kulluk, Allah'ın azabını ciddiye alırken rahmetinden de ümit kesmemeyi gerektiren bir denge ister.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "korku",
+        "umit",
+        "tevbe"
+      ]
+    },
+    {
+      "id": "anne-baba-yaslaninca-rusva",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2551",
+      "sunnah_url": "https://sunnah.com/muslim:2551",
+      "turkish_text": "Annesine babasına veya onlardan birine yaşlılıkta yetişip de cenneti kazanamayan kimse perişan olsun.",
+      "key_lesson": "Yaşlanan anne babaya hizmet etmek ağır bir yük değil, cennete açılan büyük bir fırsattır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "anne-baba",
+        "cennet",
+        "hizmet"
+      ]
+    },
+    {
+      "id": "evlat-borcunu-odeyemez",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1510",
+      "sunnah_url": "https://sunnah.com/muslim:1510",
+      "turkish_text": "Hiçbir evlat babasının hakkını tam ödeyemez; ancak onu köle bulup özgürlüğüne kavuşturursa başka.",
+      "key_lesson": "Evlat ne yaparsa yapsın, anne babanın emek ve fedakarlığının hakkını tam olarak ödeyemez.",
+      "info_note": "Derece: Sahih. Özellikle doğum ve yetiştirme sürecindeki emek, anne baba hakkının neden bu kadar büyük görüldüğünü açıklar.",
+      "tags": [
+        "anne-baba",
+        "hak",
+        "vefa"
+      ]
+    },
+    {
+      "id": "babanin-dostlarina-iyilik",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "İbn Ömer (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2552",
+      "sunnah_url": "https://sunnah.com/muslim:2552",
+      "turkish_text": "İyiliğin en üst derecelerinden biri, kişinin babasının dostlarını gözetmesidir.",
+      "key_lesson": "Anne babaya vefa, onların vefatından sonra dostlarını gözetmeye kadar uzanan geniş bir ahlaktır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "vefa",
+        "anne-baba",
+        "akraba"
+      ]
+    },
+    {
+      "id": "kiz-cocuklarina-iyilik",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Âişe (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2629",
+      "sunnah_url": "https://sunnah.com/muslim:2629",
+      "turkish_text": "Kim kız çocuklarını güzelce yetiştirir ve onlara iyilikte bulunursa onlar onun için ateşe karşı perde olur.",
+      "key_lesson": "Kız çocuklarına merhamet, güzel eğitim ve adaletle davranmak büyük bir kurtuluş vesilesidir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "aile",
+        "cocuk",
+        "merhamet"
+      ]
+    },
+    {
+      "id": "dunya-metai-saliha-es",
+      "topic_id": "eslere-davranis",
+      "narrator": "Abdullah b. Amr (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1467",
+      "sunnah_url": "https://sunnah.com/muslim:1467",
+      "turkish_text": "Dünya bir geçimliktir. Dünya nimetlerinin en hayırlısı ise saliha eştir.",
+      "key_lesson": "Dünyadaki en büyük nimetlerden biri, insanı dininde ve hayatında destekleyen saliha eştir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "es",
+        "aile",
+        "nimet"
+      ]
+    },
+    {
+      "id": "kadin-dort-sey-icin-nikah",
+      "topic_id": "eslere-davranis",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 5090",
+      "source_muslim": "Müslim, 1466",
+      "sunnah_url": "https://sunnah.com/bukhari:5090",
+      "turkish_text": "Kadın dört özelliği için nikâhlanır: malı, soyu, güzelliği ve dini. Sen dindar olanı seç.",
+      "key_lesson": "Evlilikte kalıcı huzuru getiren asıl ölçü, mal ve soy değil; din ve güzel ahlaktır.",
+      "info_note": "Derece: Müttefekun aleyh. Hadis, diğer unsurları yok saymaz; fakat kalıcı huzur için asıl tercihin dindarlık olması gerektiğini vurgular.",
+      "tags": [
+        "nikah",
+        "es",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "esini-yataga-cagirinca",
+      "topic_id": "eslere-davranis",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1436",
+      "sunnah_url": "https://sunnah.com/muslim:1436",
+      "turkish_text": "Bir adam eşini yatağına çağırır da eşi gelmezse ve adam öfkeli geceyi geçirirse melekler sabaha kadar ona lanet eder.",
+      "key_lesson": "Evlilikte eşlerin birbirine karşı haklarını hafife almaması, aile huzurunu koruyan ciddi bir sorumluluktur.",
+      "info_note": "Derece: Sahih. Bu uyarı, evliliğin duygusal ve bedensel haklarını küçümsememeyi öğretir; ilişkiyi zulme dönüştürmek için değil, hakkı korumak içindir.",
+      "tags": [
+        "esler",
+        "hak",
+        "evlilik"
+      ]
+    },
+    {
+      "id": "gencler-evlensin",
+      "topic_id": "eslere-davranis",
+      "narrator": "İbn Mes'ûd (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1400",
+      "sunnah_url": "https://sunnah.com/muslim:1400",
+      "turkish_text": "Ey gençler topluluğu, sizden evlenmeye gücü yeten evlensin. Çünkü bu, gözü daha çok korur ve iffeti daha iyi muhafaza eder.",
+      "key_lesson": "Evlilik imkanı bulan genç için nikah, iffeti ve bakışı koruyan en güvenli yoldur.",
+      "info_note": "Derece: Sahih. Evliliğe gücü yetmeyen için oruç, arzuyu terbiye eden geçici bir korunma yolu olarak tavsiye edilmiştir.",
+      "tags": [
+        "evlilik",
+        "iffet",
+        "genclik"
+      ]
+    },
+    {
+      "id": "komsusu-zararindan-emin-olmayan",
+      "topic_id": "komsu-hakki",
+      "narrator": "Ebû Şureyh el-Ka'bî (r.a.)",
+      "source_bukhari": "Buhârî, 6016",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6016",
+      "turkish_text": "Komşusu zararından emin olmayan kimse cennete giremez.",
+      "key_lesson": "Komşusuna zarar veren kişi, imanın gerektirdiği güven ve merhameti zedelemiş olur.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "komsu",
+        "hak",
+        "iman"
+      ]
+    },
+    {
+      "id": "corbayi-artir-komsuya-ver",
+      "topic_id": "komsu-hakki",
+      "narrator": "Ebû Zer (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2625",
+      "sunnah_url": "https://sunnah.com/muslim:2625",
+      "turkish_text": "Çorba pişirdiğinde suyunu artır, sonra komşularını da gözet.",
+      "key_lesson": "Komşuluk çoğu zaman büyük imkanlarla değil, küçük paylaşımlar ve ince düşünceyle yaşatılır.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "komsu",
+        "ikram",
+        "paylasim"
+      ]
+    },
+    {
+      "id": "komsunun-duvarina-engel-olma",
+      "topic_id": "komsu-hakki",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 2463",
+      "source_muslim": "Müslim, 1609",
+      "sunnah_url": "https://sunnah.com/bukhari:2463",
+      "turkish_text": "Hiçbir komşu, komşusunun duvarına bir ağaç veya kiriş dayamasına engel olmasın.",
+      "key_lesson": "Komşuluk hukuku, zarar vermemeyi olduğu kadar makul işlerde kolaylık göstermeyi de kapsar.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "komsu",
+        "hak",
+        "adalet"
+      ]
+    },
+    {
+      "id": "zengin-borcunu-geciktirmek-zulum",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 2400",
+      "source_muslim": "Müslim, 1564",
+      "sunnah_url": "https://sunnah.com/bukhari:2400",
+      "turkish_text": "Varlıklı kimsenin borcunu geciktirmesi zulümdür.",
+      "key_lesson": "Borcu ödeyebildiği halde geciktiren kimse, sadece kusur işlemez; kul hakkına giren bir zulüm yapmış olur.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "borc",
+        "ticaret",
+        "zulum"
+      ]
+    },
+    {
+      "id": "borcu-odeme-niyeti",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 2387",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2387",
+      "turkish_text": "Kim insanların malını ödeme niyetiyle alırsa Allah onun ödemesine yardım eder; yok etme niyetiyle alırsa Allah onu helak eder.",
+      "key_lesson": "Borcu ödemeyi gerçekten isteyen kimseye Allah yardım eder; aldatma niyeti ise bereketi yok eder.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "borc",
+        "niyet",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "borcluya-muhlet-golge",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ebû'l-Yüsr (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 3006",
+      "sunnah_url": "https://sunnah.com/muslim:3006",
+      "turkish_text": "Kim borçluya mühlet verir veya borcun bir kısmını düşerse Allah onu kendi gölgesinde gölgelendirir.",
+      "key_lesson": "Borçluya kolaylık göstermek, Allah'ın kuluna kıyamet gününde kolaylık göstermesine vesile olabilir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "borc",
+        "kolaylik",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "ihtikar-gunah",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ma'mer b. Abdullah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1605",
+      "sunnah_url": "https://sunnah.com/muslim:1605",
+      "turkish_text": "Stokçuluk yapan günah işlemiştir.",
+      "key_lesson": "Toplumun ihtiyacını stoklayıp pahalanınca satmak, kazanç değil topluma zarar veren bir günah olur.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "ihtikar",
+        "ticaret",
+        "gunah"
+      ]
+    },
+    {
+      "id": "altin-altina-esit",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ubâde b. Sâmit (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1587",
+      "sunnah_url": "https://sunnah.com/muslim:1587",
+      "turkish_text": "Altın altınla, gümüş gümüşle misli misline ve peşin olmalıdır; kim artırırsa faiz işlemiş olur.",
+      "key_lesson": "Faizden korunmak için benzer malların değişiminde adalet, eşitlik ve peşinlik şartlarına dikkat edilmelidir.",
+      "info_note": "Derece: Sahih. Hadis, riba yollarını kapatmak için aynı cins mallarda ölçü ve vade oyunlarına izin vermez.",
+      "tags": [
+        "faiz",
+        "ticaret",
+        "muamelat"
+      ]
+    },
+    {
+      "id": "ust-el-hayirlidir",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "İbn Ömer (r.a.)",
+      "source_bukhari": "Buhârî, 1429",
+      "source_muslim": "Müslim, 1033",
+      "sunnah_url": "https://sunnah.com/bukhari:1429",
+      "turkish_text": "Üstteki el alttaki elden hayırlıdır. Üstteki el veren, alttaki el isteyendir.",
+      "key_lesson": "Mümin, sürekli isteyen değil; imkanı oldukça veren ve başkasına yük olmayan el olmaya çalışır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "sadaka",
+        "rizik",
+        "infak"
+      ]
+    },
+    {
+      "id": "iki-melek-infak-dua",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1442",
+      "source_muslim": "Müslim, 1010",
+      "sunnah_url": "https://sunnah.com/bukhari:1442",
+      "turkish_text": "Her sabah iki melek iner. Biri infak edene karşılık ister, diğeri cimriye helâk ister.",
+      "key_lesson": "Allah yolunda harcanan mal eksilmez; cimrilik ise bereketin çekilmesine sebep olur.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "infak",
+        "sadaka",
+        "bereket"
+      ]
+    },
+    {
+      "id": "yarim-hurmayla-korun",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Adiyy b. Hâtim (r.a.)",
+      "source_bukhari": "Buhârî, 1417",
+      "source_muslim": "Müslim, 1016",
+      "sunnah_url": "https://sunnah.com/bukhari:1417",
+      "turkish_text": "Yarım hurma ile de olsa kendinizi ateşten koruyun.",
+      "key_lesson": "Küçük görülen bir sadaka bile samimiyetle verildiğinde kişiyi ateşten koruyan büyük bir hayra dönüşebilir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "sadaka",
+        "cehennem",
+        "infak"
+      ]
+    },
+    {
+      "id": "en-hayirli-sadaka-ihtiyac-fazlasi",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 1426",
+      "source_muslim": "Müslim, 1034",
+      "sunnah_url": "https://sunnah.com/bukhari:1426",
+      "turkish_text": "Sadakanın en hayırlısı, kişinin ihtiyaç fazlasından verdiğidir.",
+      "key_lesson": "Sadaka verirken kişi hem cömert davranmalı hem de bakmakla yükümlü olduğu kimseleri ihmal etmemelidir.",
+      "info_note": "Derece: Müttefekun aleyh. Bu denge, kişinin sadaka verirken ailesini muhtaç bırakmamasını da öğretir.",
+      "tags": [
+        "sadaka",
+        "denge",
+        "rizik"
+      ]
+    },
+    {
+      "id": "dilenerek-cogaltmak-ates",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1041",
+      "sunnah_url": "https://sunnah.com/muslim:1041",
+      "turkish_text": "Kim malını çoğaltmak için insanlardan isterse, aslında kor ateş parçası istemiş olur.",
+      "key_lesson": "Gerçek ihtiyaç yokken istemeyi alışkanlık haline getirmek, kişinin onurunu ve ahiretini zedeler.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "rizik",
+        "dilenme",
+        "iffet"
+      ]
+    },
+    {
+      "id": "eklemler-icin-sadaka",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 2989",
+      "source_muslim": "Müslim, 1009",
+      "sunnah_url": "https://sunnah.com/bukhari:2989",
+      "turkish_text": "İnsanın her eklemi için her gün bir sadaka gerekir.",
+      "key_lesson": "Sadaka sadece parayla verilmez; her gün yapılan güzel söz ve faydalı davranış da sadaka sayılır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "sadaka",
+        "iyilik",
+        "sukur"
+      ]
+    },
+    {
+      "id": "hepiniz-cobansiniz",
+      "topic_id": "emanet-vefa",
+      "narrator": "İbn Ömer (r.a.)",
+      "source_bukhari": "Buhârî, 7138",
+      "source_muslim": "Müslim, 1829",
+      "sunnah_url": "https://sunnah.com/bukhari:7138",
+      "turkish_text": "Hepiniz çobansınız ve hepiniz güttüğünüzden sorumlusunuz.",
+      "key_lesson": "Her insan bulunduğu konumda başkasından sorumludur; yetki ve emanet birlikte gelir.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "emanet",
+        "sorumluluk",
+        "vefa"
+      ]
+    },
+    {
+      "id": "mumin-binaya-benzer",
+      "topic_id": "emanet-vefa",
+      "narrator": "Ebû Mûsâ el-Eş'arî (r.a.)",
+      "source_bukhari": "Buhârî, 481",
+      "source_muslim": "Müslim, 2585",
+      "sunnah_url": "https://sunnah.com/bukhari:481",
+      "turkish_text": "Mümin mümine karşı bina gibidir; birbirini destekler.",
+      "key_lesson": "Müminler, birbirini ayakta tutan bir bina gibi dayanışma içinde olmalıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "kardeslik",
+        "emanet",
+        "dayanisma"
+      ]
+    },
+    {
+      "id": "muflis-hadisi",
+      "topic_id": "adalet-zulum",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2581",
+      "sunnah_url": "https://sunnah.com/muslim:2581",
+      "turkish_text": "Ümmetimin müflisi; namaz, oruç ve zekâtla gelip buna sövmüş, buna iftira atmış, bunun malını yemiş, bunun kanını dökmüş, buna vurmuş kimsedir.",
+      "key_lesson": "Kul hakkı, çok ibadet etmiş olsan bile ahirette sevaplarını tüketebilecek kadar ağır bir meseledir.",
+      "info_note": "Derece: Sahih. Namaz, oruç ve sadaka sevabı bile hak sahiplerine aktarılabilir; bu yüzden kul hakkı tövbeyle birlikte telafi de ister.",
+      "tags": [
+        "kul-hakki",
+        "adalet",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "haklar-koyuna-kadar-odenir",
+      "topic_id": "adalet-zulum",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2582",
+      "sunnah_url": "https://sunnah.com/muslim:2582",
+      "turkish_text": "Kıyamet günü haklar sahiplerine mutlaka verilecektir; hatta boynuzsuz koyun için boynuzlu koyundan bile hak alınacaktır.",
+      "key_lesson": "Allah katında hiçbir haksızlık kaybolmaz; en küçük zulüm bile mutlaka karşılığını bulur.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "adalet",
+        "zulum",
+        "hak"
+      ]
+    },
+    {
+      "id": "karis-toprak-zulmu",
+      "topic_id": "adalet-zulum",
+      "narrator": "Saîd b. Zeyd (r.a.)",
+      "source_bukhari": "Buhârî, 2452",
+      "source_muslim": "Müslim, 1610",
+      "sunnah_url": "https://sunnah.com/bukhari:2452",
+      "turkish_text": "Kim haksız yere bir karış toprak alırsa kıyamet günü yedi kat yer boynuna dolanır.",
+      "key_lesson": "Başkasının malına ve toprağına haksız yere el uzatmak, sonucu ağır olan büyük bir zulümdür.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "zulum",
+        "mulkiyet",
+        "kul-hakki"
+      ]
+    },
+    {
+      "id": "kanlarda-ilk-hukum",
+      "topic_id": "adalet-zulum",
+      "narrator": "Abdullah b. Mes'ûd (r.a.)",
+      "source_bukhari": "Buhârî, 6864",
+      "source_muslim": "Müslim, 1678",
+      "sunnah_url": "https://sunnah.com/bukhari:6864",
+      "turkish_text": "Kıyamet günü insanlar arasında ilk hüküm verilecek konu kanlardır.",
+      "key_lesson": "Kıyamet günü ilk hesaplardan biri, haksız yere dökülen canların hesabı olacaktır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "adalet",
+        "kan-hakki",
+        "zulum"
+      ]
+    },
+    {
+      "id": "bugun-helallesin",
+      "topic_id": "adalet-zulum",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 2449",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2449",
+      "turkish_text": "Kimin kardeşine karşı malı veya onuru konusunda bir haksızlığı varsa, altın ve gümüşün bulunmayacağı gün gelmeden önce bugün onunla helalleşsin.",
+      "key_lesson": "Kul hakkı varken işi ahirete bırakmamak, bugün helalleşip hatayı telafi etmek gerekir.",
+      "info_note": "Derece: Sahih. Dünyada para ve imkan varken helalleşmek kolaydır; ahirette ise sevaptan ödeme söz konusudur.",
+      "tags": [
+        "helallik",
+        "kul-hakki",
+        "adalet"
+      ]
+    },
+    {
+      "id": "cennet-daha-yakin",
+      "topic_id": "cennet-cehennem",
+      "narrator": "İbn Mes'ûd (r.a.)",
+      "source_bukhari": "Buhârî, 6488",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6488",
+      "turkish_text": "Cennet, sizden birinize ayakkabısının bağı kadar yakındır; cehennem de öyledir.",
+      "key_lesson": "İnsanı cennete ya da cehenneme yaklaştıran şey, bazen küçümsenen küçük bir davranış olabilir.",
+      "info_note": "Derece: Sahih. Hadis, büyük küçük demeden her iyilik ve kötülüğün bir sonucu olduğunu hatırlatır.",
+      "tags": [
+        "cennet",
+        "cehennem",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "dunyanin-en-nimetlisi-cehenneme",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Enes b. Mâlik (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2807",
+      "sunnah_url": "https://sunnah.com/muslim:2807",
+      "turkish_text": "Dünyada en rahat yaşayan cehennemlik cehenneme bir kez daldırılır ve hiç rahat görmediğini söyler.",
+      "key_lesson": "Dünya rahatlığı geçicidir; asıl ölçü, insanın ahirette karşılaşacağı sondur.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "cehennem",
+        "dunya",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "dunya-atesi-yetmiste-bir",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 3265",
+      "source_muslim": "Müslim, 2843",
+      "sunnah_url": "https://sunnah.com/bukhari:3265",
+      "turkish_text": "Sizin dünya ateşiniz, cehennem ateşinin yetmiş parçasından yalnızca biridir.",
+      "key_lesson": "Cehennem azabının büyüklüğünü düşünmek, günaha karşı kalbi diri ve dikkatli tutar.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "cehennem",
+        "uyari",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "ilk-cennet-zumresi",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 3245",
+      "source_muslim": "Müslim, 2834",
+      "sunnah_url": "https://sunnah.com/bukhari:3245",
+      "turkish_text": "Cennete ilk girecek topluluk dolunay gecesindeki ay gibi parlaktır.",
+      "key_lesson": "Cennet tasvirleri, müminin kalbinde ahirete özlem ve salih amele iştiyak uyandırır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "cennet",
+        "mujde",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "mahserde-ciplak-dirilis",
+      "topic_id": "olumu-hatirlamak",
+      "narrator": "Âişe (r.a.)",
+      "source_bukhari": "Buhârî, 3349",
+      "source_muslim": "Müslim, 2859",
+      "sunnah_url": "https://sunnah.com/bukhari:3349",
+      "turkish_text": "İnsanlar kıyamet günü yalınayak, çıplak ve sünnetsiz olarak haşredileceklerdir.",
+      "key_lesson": "Mahşer gerçeğini düşünmek, dünyadaki gururu kırar ve insanı hesabına hazırlanmaya çağırır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "olum",
+        "mahser",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "allaha-kavusmayi-sevme",
+      "topic_id": "olumu-hatirlamak",
+      "narrator": "Ubâde b. Sâmit (r.a.)",
+      "source_bukhari": "Buhârî, 6507",
+      "source_muslim": "Müslim, 2683",
+      "sunnah_url": "https://sunnah.com/bukhari:6507",
+      "turkish_text": "Kim Allah'a kavuşmayı severse Allah da ona kavuşmayı sever.",
+      "key_lesson": "Salih bir hazırlık içindeki mümin için ölüm, yok oluş değil Rabbine kavuşma anıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "olum",
+        "ahiret",
+        "umit"
+      ]
+    },
+    {
+      "id": "rabbi-gormek-aya-bakis-gibi",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Cerîr b. Abdullah (r.a.)",
+      "source_bukhari": "Buhârî, 7434",
+      "source_muslim": "Müslim, 633",
+      "sunnah_url": "https://sunnah.com/bukhari:7434",
+      "turkish_text": "Siz Rabbinizi, şu ayı gördüğünüz gibi açıkça göreceksiniz; O'nu görmekte sıkışmayacaksınız.",
+      "key_lesson": "Cennette Allah'ı görmek, mümin için nimetlerin en büyüğü ve en yücesidir.",
+      "info_note": "Derece: Müttefekun aleyh. Benzetme, görmenin açıklığını anlatır; Allah'ın yaratılmışlara benzetildiği anlamına gelmez.",
+      "tags": [
+        "cennet",
+        "ruyetullah",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "gipta-iki-kiside",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "İbn Mes'ûd (r.a.)",
+      "source_bukhari": "Buhârî, 73",
+      "source_muslim": "Müslim, 816",
+      "sunnah_url": "https://sunnah.com/bukhari:73",
+      "turkish_text": "Gıpta ancak iki kişiye edilir: malını hak yolunda harcayana ve hikmetiyle hükmedip öğretene.",
+      "key_lesson": "İmrenmeye değer hayatlar, ilmiyle fayda veren ve malını hak yolunda harcayan kimselerin hayatıdır.",
+      "info_note": "Derece: Müttefekun aleyh.",
+      "tags": [
+        "ilim",
+        "hikmet",
+        "infak"
+      ]
+    },
+    {
+      "id": "sahit-olani-ulastirsin",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Ebû Bekre (r.a.)",
+      "source_bukhari": "Buhârî, 67",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:67",
+      "turkish_text": "Burada bulunan, bulunmayana ulaştırsın. Nice kendisine haber ulaştırılan kimse, onu işitenden daha iyi kavrar.",
+      "key_lesson": "Duyduğu doğru bilgiyi emanet bilip başkasına ulaştırmak, ilmin yayılmasının temel yollarındandır.",
+      "info_note": "Derece: Sahih. Bu yüzden güvenilir bilgi, doğru şekilde korunup aktarılmalıdır.",
+      "tags": [
+        "ilim",
+        "teblig",
+        "emanet"
+      ]
+    },
+    {
+      "id": "hidayete-cagiranin-ecri",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 2674",
+      "sunnah_url": "https://sunnah.com/muslim:2674",
+      "turkish_text": "Kim bir hidayete çağırırsa, ona uyanların sevabı kadar sevap alır.",
+      "key_lesson": "İnsanları doğruya çağırmak, o hayrı yapanların sevabı kadar devam eden bir kazanç sağlar.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "ilim",
+        "teblig",
+        "hidayet"
+      ]
+    },
+    {
+      "id": "hayra-delalet-sevabi",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Ebû Mes'ûd el-Ensârî (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Müslim, 1893",
+      "sunnah_url": "https://sunnah.com/muslim:1893",
+      "turkish_text": "Kim bir hayra delalet ederse, onu yapan kimsenin sevabı kadar sevap alır.",
+      "key_lesson": "Bir iyiliğe vesile olmak, onu bizzat yapmak kadar değerli ve sevaplı bir iştir.",
+      "info_note": "Derece: Sahih.",
+      "tags": [
+        "ilim",
+        "iyilik",
+        "teblig"
+      ]
+    },
+    {
+      "id": "vesvese-gelirse-dursun",
+      "topic_id": "seytan-vesvese",
+      "narrator": "Ebû Hüreyre (r.a.)",
+      "source_bukhari": "Buhârî, 3276",
+      "source_muslim": "Müslim, 134",
+      "sunnah_url": "https://sunnah.com/muslim:134",
+      "turkish_text": "Şeytan size gelir de sonunda Rabbini kim yarattı derse, Allah'a sığınsın ve bu düşünceyi kessin.",
+      "key_lesson": "Şeytani vesvese, peşine düşülerek değil; konuşmayı kesip Allah'a sığınılarak söndürülür.",
+      "info_note": "Derece: Müttefekun aleyh. Vesveseyle tartışmayı sürdürmek onu büyütür; en doğru yol Allah'a sığınıp zihni başka yöne çevirmektir.",
+      "tags": [
+        "vesvese",
+        "seytan",
+        "iman"
+      ]
     }
   ]
 }
