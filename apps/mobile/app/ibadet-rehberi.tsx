@@ -30,7 +30,7 @@ const ISLAM_SARTLARI = [
   },
   {
     id: "namaz-inanc", ikon: "🕌", baslik: "Namaz (Salât)",
-    aciklama: "Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an'da en çok emredilen ibadettir; imanın bedene yansımasıdır.",
+    aciklama: "Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an-ı Kerim'de en çok emredilen ibadettir; imanın bedene yansımasıdır.",
     ayetler: [
       { sureId: 2,  sureAdi: "Bakara",  ayetNo: 43,  kisaMetin: "Namazı kılın, zekâtı verin, rükû edenlerle birlikte rükû edin." },
       { sureId: 4,  sureAdi: "Nisâ",    ayetNo: 103, kisaMetin: "Namaz, müminlere belirlenmiş vakitlerde farz kılınmıştır." },
@@ -49,7 +49,7 @@ const ISLAM_SARTLARI = [
   },
   {
     id: "zekat-inanc", ikon: "💛", baslik: "Zekât",
-    aciklama: "Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte defalarca zikredilir; servetin arınması ve paylaşılmasıdır.",
+    aciklama: "Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an-ı Kerim'de namazla birlikte defalarca zikredilir; servetin arınması ve paylaşılmasıdır.",
     ayetler: [
       { sureId: 2, sureAdi: "Bakara", ayetNo: 43,  kisaMetin: "Namazı kılın ve zekâtı verin." },
       { sureId: 9, sureAdi: "Tevbe",  ayetNo: 60,  kisaMetin: "Sadakalar (zekât) sekiz sınıf için — Allah'tan bir farz." },
@@ -71,7 +71,7 @@ const ISLAM_SARTLARI = [
 const IMAN_SARTLARI = [
   {
     id: "allah", ikon: "✨", baslik: "Allah'a İman",
-    aciklama: "Allah'ın varlığına, birliğine (tevhid) ve Kur'an'da bildirilen isim ve sıfatlarına kalp ile inanmaktır. Tüm imanın temelidir.",
+    aciklama: "Allah'ın varlığına, birliğine (tevhid) ve Kur'an-ı Kerim'de bildirilen isim ve sıfatlarına kalp ile inanmaktır. Tüm imanın temelidir.",
     ayetler: [
       { sureId: 112, sureAdi: "İhlâs",  ayetNo: 1,   kisaMetin: "De ki: O Allah birdir." },
       { sureId: 112, sureAdi: "İhlâs",  ayetNo: 2,   kisaMetin: "Allah Samed'dir; her şey O'na muhtaç, O hiçbir şeye muhtaç değil." },
@@ -88,7 +88,7 @@ const IMAN_SARTLARI = [
   },
   {
     id: "kitap", ikon: "📖", baslik: "Kitaplara İman",
-    aciklama: "Allah'ın peygamberlere gönderdiği ilahi kitaplara — Tevrat, Zebur, İncil ve Kur'an başta olmak üzere — inanmaktır.",
+    aciklama: "Allah'ın peygamberlere gönderdiği ilahi kitaplara — Tevrat, Zebur, İncil ve Kur'an-ı Kerim başta olmak üzere — inanmaktır.",
     ayetler: [
       { sureId: 2, sureAdi: "Bakara",      ayetNo: 285, kisaMetin: "Müminler Allah'ın kitaplarına iman etti." },
       { sureId: 3, sureAdi: "Âl-i İmrân", ayetNo: 3,   kisaMetin: "Allah sana Kitabı hak ile, öncekini doğrulayıcı olarak indirdi." },
@@ -96,7 +96,7 @@ const IMAN_SARTLARI = [
   },
   {
     id: "peygamber", ikon: "🌿", baslik: "Peygamberlere İman",
-    aciklama: "Âdem'den Hz. Muhammed'e kadar gönderilmiş tüm peygamberlere inanmaktır. Kur'an'da 25 peygamberin ismi geçmektedir.",
+    aciklama: "Âdem'den Hz. Muhammed'e kadar gönderilmiş tüm peygamberlere inanmaktır. Kur'an-ı Kerim'de 25 peygamberin ismi geçmektedir.",
     ayetler: [
       { sureId: 2, sureAdi: "Bakara", ayetNo: 285, kisaMetin: "Müminler Allah'ın elçilerine iman etti; hiçbirini diğerinden ayırmayız." },
       { sureId: 6, sureAdi: "En'âm", ayetNo: 84,  kisaMetin: "İbrahim'e İshak ve Yakup'u verdik; hepsini doğruya ilettik." },
@@ -234,7 +234,7 @@ const KURBAN_AYETLERİ: AyetRef[] = [
 const ABDEST_BOLUMLER = [
   {
     id:"abdest", ikon:"💧", baslik:"Namaz Abdesti (Vudu)", altBaslik:"Kur'an'a göre 4 farz · sünnetler",
-    aciklama:"Namaz kılmak, Kur'an'a el sürmek ve Kâbe'yi tavaf etmek için gerekli olan temizliktir.",
+    aciklama:"Namaz kılmak, Kur'an-ı Kerim'e el sürmek ve Kâbe'yi tavaf etmek için gerekli olan temizliktir.",
     farzlar: [
       { organ:"Yüz",     miktar:1,            aciklama:"Alın saç diplerinden çene altına, kulak memelerinden tüm yüzü yıkamak." },
       { organ:"Kollar",  miktar:1,            aciklama:"Sağdan başlayarak her iki kolu dirsekler dahil yıkamak." },
@@ -444,7 +444,7 @@ function IbadetlerSekme() {
     <>
       {/* NAMAZ */}
       <BolumCard ikon="🕌" baslik="Namaz (Salât)">
-        <Text style={[s.aciklama, { color: c.textSecondary }]}>Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an'da en çok emredilen ibadettir.</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Günde beş vakit kılınan namaz, Müslümanın Allah ile doğrudan bağını simgeler. Kur'an-ı Kerim'de en çok emredilen ibadettir.</Text>
         <Text style={[s.aciklama, { color: c.textSecondary }]}>Rek'at ve bazı ayrıntılar bu ekranda Türkiye'de yaygın Hanefî öğretim diliyle özetlenmiştir; diğer mezheplerde bazı hüküm ve uygulama farkları bulunabilir.</Text>
         <Text style={[s.altBaslik, { color: c.text }]}>Rekat Sayıları</Text>
         <View style={[s.rekatTablo, { borderColor: c.border }]}>
@@ -479,7 +479,7 @@ function IbadetlerSekme() {
 
       {/* ZEKÂT */}
       <BolumCard ikon="💛" baslik="Zekât">
-        <Text style={[s.aciklama, { color: c.textSecondary }]}>Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an'da namazla birlikte defalarca zikredilir.</Text>
+        <Text style={[s.aciklama, { color: c.textSecondary }]}>Nisap miktarına ulaşan malın belli oranını muhtaçlara vermektir. Kur'an-ı Kerim'de namazla birlikte defalarca zikredilir.</Text>
         <View style={[s.nisapBox, { backgroundColor: c.isDark ? "#422006" : "#fef9c3" }]}>
           <Text style={[s.nisapTitle, { color: nisapVurgu }]}>Nisap Miktarı</Text>
           <Text style={[s.nisapRow, { color: c.textSecondary }]}>🥇 Altın: <Text style={[s.nisapDeger, { color: nisapVurgu }]}>80,18 gram</Text> veya değeri kadar para/mal</Text>

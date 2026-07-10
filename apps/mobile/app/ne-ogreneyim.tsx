@@ -30,7 +30,7 @@ type LearnItem = {
 
 const ITEMS: LearnItem[] = [
   { icon: "library-outline", title: "Dersler", route: "/dersler", desc: "Kart kart öğren, kendini test et", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
-  { icon: "list-outline", title: "Kuran", route: "/sure-listesi", desc: "Ayet oku, meal incele", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd" },
+  { icon: "list-outline", title: "Kur'an", route: "/sure-listesi", desc: "Ayet oku, meal incele", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd" },
   { icon: "book-outline", title: "Mushaf", route: "/mushaf-sayfa", desc: "604 sayfalık mushaf düzeninde oku", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a" },
   { icon: "git-network-outline", title: "Kelime Kökü", route: "/root", desc: "Kelimelerin anlamını keşfet", iconBg: "#ffe4e6", iconColor: "#e11d48", darkIconBg: "#881337", darkIconColor: "#fda4af" },
   { icon: "accessibility-outline", title: "Namaz", route: "/namaz-rehberi", desc: "Nasıl kılınır, özel namazlar", iconBg: "#e0f2fe", iconColor: "#0369a1", darkIconBg: "#0c4a6e", darkIconColor: "#7dd3fc" },

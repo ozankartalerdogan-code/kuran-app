@@ -57,7 +57,7 @@ function SourcesAccordion({ c }: { c: AppColors }) {
             <Text style={s.bold}>Kur'an-ı Kerim Arapça metni:</Text>
           </Paragraph>
           <Paragraph c={c}>
-            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an metni kaynaklarından biridir ve
+            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an-ı Kerim metni kaynaklarından biridir ve
             uygulamada değiştirilmeden kullanılmalıdır.
           </Paragraph>
           <Paragraph c={c}>

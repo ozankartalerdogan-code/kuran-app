@@ -149,7 +149,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Kuran referansları */}
           {p.kuran_referanslari_ozet && p.kuran_referanslari_ozet.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>📖 Kuran Referansları</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>📖 Kur'an Referansları</Text>
               <View style={st.refRow}>
                 {p.kuran_referanslari_ozet.map(r => <RefChip key={r} refKey={r} />)}
               </View>

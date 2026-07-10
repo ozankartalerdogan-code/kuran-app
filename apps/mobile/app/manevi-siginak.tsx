@@ -165,7 +165,7 @@ export default function ManeviSiginakScreen() {
         {/* Başlık */}
         <View style={[s.header, { backgroundColor: c.card }]}>
           <Text style={[s.headerTitle, { color: c.text }]}>🛡️ Manevi Sığınak</Text>
-          <Text style={[s.headerSub, { color: c.textMuted }]}>Korunma, şifa ve istiaze — Kur'an ve sahih hadislerle</Text>
+          <Text style={[s.headerSub, { color: c.textMuted }]}>Korunma, şifa ve istiaze — Kur'an-ı Kerim ve sahih hadislerle</Text>
         </View>
 
         {/* Güvenilirlik Sistemi */}
@@ -300,7 +300,7 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* Bolum 6: Şifa */}
-        <Bolum emoji="💊" baslik="Şifa — Kur'an ile İyileşme" color="#fca5a5">
+        <Bolum emoji="💊" baslik="Şifa — Kur'an-ı Kerim ile İyileşme" color="#fca5a5">
           <Text style={[s.boxTitle, { color: c.text }]}>Hastalıkta Şifa İçin</Text>
           <StepList steps={[
             "Abdest al, 2 rekat namaz kıl.",
@@ -316,7 +316,7 @@ export default function ManeviSiginakScreen() {
             anlam="Hissedip çekindiğim ağrının şerrinden Allah'a ve O'nun kudretine sığınırım."
             uygulama="Sağ el ağrıyan yere konur, 3 Bismillah'tan sonra 7 defa okunur."
           />
-          <UyariBox renk="amber" mesaj="⚠️ Uyarı: Doktora gitmeyi ihmal etme. Tıbbi tedavi ile Kur'an birbirini dışlamaz." />
+          <UyariBox renk="amber" mesaj="⚠️ Uyarı: Doktora gitmeyi ihmal etme. Tıbbi tedavi ile Kur'an-ı Kerim birbirini dışlamaz." />
           <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={[s.scoreInlineText, { color: c.textSecondary }]}>Aşağıdaki manevi sıkıntı önerileri destekleyici mahiyettedir; tıbbi ve psikolojik desteğin yerine geçmez.</Text></View>
           <Text style={[s.boxTitle, { color: c.text, marginTop: 8 }]}>Manevi Sıkıntı ve Depresyon İçin (🟡 8/10)</Text>
           <StepList steps={[

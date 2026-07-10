@@ -105,7 +105,7 @@ const REHBERLER = [
   { emoji: "📿", label: "İbadet Rehberi",   sub: "Namaz, oruç, zekât, abdest",   route: "/ibadet-rehberi"           as const, bg: "#f0fdf4", border: "#86efac" },
   { emoji: "🧎", label: "Namaz Rehberi",    sub: "Adım adım namaz, dualar, vitir", route: "/namaz-rehberi"          as const, bg: "#e0f2fe", border: "#7dd3fc" },
   { emoji: "☪️", label: "Siyer-i Nebî",       sub: "Hz. Muhammed'in hayatı, 8 dönem · 49 olay", route: "/siyer"                as const, bg: "#f0f4ff", border: "#a5b4fc" },
-  { emoji: "📜", label: "Peygamber Kıssaları", sub: "Kuran'da 25 peygamberin kıssası ve dersleri",  route: "/peygamber-kissalari" as const, bg: "#fdf4ff", border: "#d8b4fe" },
+  { emoji: "📜", label: "Peygamber Kıssaları", sub: "Kur'an'da 25 peygamberin kıssası ve dersleri",  route: "/peygamber-kissalari" as const, bg: "#fdf4ff", border: "#d8b4fe" },
   { emoji: "🌙", label: "Mübarek Günler",      sub: "13 gün ve gece — dayanak seviyeleriyle",         route: "/mubarek-gunler"     as const, bg: "#f0fdf4", border: "#86efac" },
   { emoji: "📖", label: "Hadisler",            sub: "114 sahih hadis · 27 konu · 7 grup",           route: "/hadisler"           as const, bg: "#fef9f0", border: "#fcd34d" },
 ];

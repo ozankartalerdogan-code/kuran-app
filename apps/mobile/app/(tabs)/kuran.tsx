@@ -78,7 +78,7 @@ export default function KuranTab() {
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.heading, { color: c.text }]}>Kur'an</Text>
+        <Text style={[s.heading, { color: c.text }]}>Kur'an-ı Kerim</Text>
 
         <View style={s.cards}>
           {CARDS.map(card => (
