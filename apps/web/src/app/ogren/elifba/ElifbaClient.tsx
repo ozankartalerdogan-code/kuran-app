@@ -767,7 +767,7 @@ function OverallProgress({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export function OgrenClient({ dersler }: { dersler: DersWithHarfler[] }) {
+export function ElifbaClient({ dersler }: { dersler: DersWithHarfler[] }) {
   const [viewMode, setViewMode]     = useState<"path" | "flashcard" | "quiz">("path");
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [popupId, setPopupId]       = useState<number | null>(null);
@@ -907,6 +907,10 @@ export function OgrenClient({ dersler }: { dersler: DersWithHarfler[] }) {
         .star-pop { animation: starPop 0.55s cubic-bezier(.36,.07,.19,.97) both; }
       `}</style>
 
+      <Link href="/ogren" className="mb-5 inline-flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">
+        ← Konular
+      </Link>
+
       {/* Hero */}
       <div className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
         <div className="mb-1 flex items-center gap-2.5">
@@ -919,25 +923,6 @@ export function OgrenClient({ dersler }: { dersler: DersWithHarfler[] }) {
           Adım adım elif-ba içeriği &mdash; {dersler.length} konu
         </p>
       </div>
-
-      {/* Ayrı bölüm: Harf-i Tarif (Şemsiye/Kameriye) */}
-      <Link
-        href="/ogren/harf-i-tarif"
-        className="group mb-6 block overflow-hidden rounded-2xl border border-indigo-200 bg-gradient-to-br from-amber-50 to-indigo-50 transition-shadow hover:shadow-md dark:border-indigo-800/50 dark:from-amber-950/30 dark:to-indigo-950/30"
-      >
-        <div className="flex items-center gap-4 px-5 py-4">
-          <span className="text-3xl">☀️🌙</span>
-          <div className="flex-1">
-            <p className="text-sm font-bold text-stone-800 dark:text-stone-100 group-hover:underline">
-              Harf-i Tarif (Şemsiye / Kameriye)
-            </p>
-            <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
-              &apos;el-&apos; takısı neden er-, es-, en- okunur? 14+14 harf, Esmaül Hüsna örnekleri ve 25 soruluk test.
-            </p>
-          </div>
-          <span className="text-indigo-400 dark:text-indigo-500 transition-transform group-hover:translate-x-0.5">→</span>
-        </div>
-      </Link>
 
       {viewMode === "path" && (
         <>

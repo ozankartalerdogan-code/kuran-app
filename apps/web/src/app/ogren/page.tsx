@@ -1,11 +1,10 @@
-export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { OgrenContent } from "./OgrenContent";
 
 export const metadata: Metadata = {
-  title: "Elif-Ba Öğren",
-  description:
-    "Arap harflerini adım adım öğren — 9 konu, flashcard çalışma modu.",
+  title: "Konular — Kuran Yolu",
+  description: "Elif-Ba, Harf-i Tarif, dersler, peygamber kıssaları ve daha fazlası — Kuran Yolu öğrenme içerikleri.",
+  alternates: { canonical: "/ogren" },
 };
 
 export default function OgrenPage() {
