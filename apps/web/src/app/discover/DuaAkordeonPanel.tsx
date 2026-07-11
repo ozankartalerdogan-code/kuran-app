@@ -2,11 +2,26 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {
+  Shield, User, HandHeart, HeartPulse, Anchor, Repeat,
+  type LucideIcon,
+} from "lucide-react";
 import type { DuaKategoriData, DuaVerse } from "./DuaKategorileri";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
 const INITIAL_VISIBLE = 12;
+
+// Kategori ikonları — emoji yerine marka diline uygun çizgi ikonlar.
+// (İkon bileşeni server→client sınırından geçemediği için eşleme burada, id üzerinden.)
+const KATEGORI_IKON: Record<string, LucideIcon> = {
+  korunma:   Shield,
+  peygamber: User,
+  rabbena:   HandHeart,
+  sifa:      HeartPulse,
+  tevekkul:  Anchor,
+  zikir:     Repeat,
+};
 
 // ── Kategori renk haritası ────────────────────────────────────────────────────
 
@@ -101,9 +116,14 @@ function KategoriItem({ kategori }: { kategori: DuaKategoriData }) {
       >
         {/* İkon */}
         <span
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg} text-lg leading-none`}
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg}`}
         >
-          {kategori.ikon}
+          {(() => {
+            const Ikon = KATEGORI_IKON[kategori.id];
+            return Ikon
+              ? <Ikon aria-hidden="true" className="h-5 w-5 text-stone-700" strokeWidth={1.75} />
+              : <span className="text-lg leading-none">{kategori.ikon}</span>;
+          })()}
         </span>
 
         {/* Başlık */}

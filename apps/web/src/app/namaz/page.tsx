@@ -5,7 +5,12 @@ import { NamazKategorileri } from "./NamazKategorileri";
 import { NamazVakitTablosu } from "./NamazVakitTablosu";
 import { PageHeader } from "../../components/PageHeader";
 
-export const metadata = { title: "Namaz" };
+export const metadata = {
+  title: "Namaz — Vakitler ve Namaz Ayetleri",
+  description:
+    "Bugünün namaz vakitleri ve Kur'an'da namaza dair ayetler: vakitler, huşu, teheccüd, cuma ve daha fazlası.",
+  alternates: { canonical: "/namaz" },
+};
 
 function VakitSkeleton() {
   return (
@@ -35,8 +40,8 @@ export default function NamazPage() {
     <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
       <PageHeader
         icon="🕌"
-        title="Namaz"
-        description="Kur'an'da namaza dair ayetler; vakitler, huşu, teheccüd ve daha fazlası."
+        title="Namaz — Vakitler ve Ayetler"
+        description="Bugünün namaz vakitleri ve Kur'an'da namaza dair ayetler; huşu, teheccüd ve daha fazlası."
       >
         <Link
           href="/namaz-rehberi"

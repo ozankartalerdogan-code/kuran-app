@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Clock } from "lucide-react";
 
 export interface PrayerTimes {
   Fajr: string;
@@ -137,8 +138,9 @@ export function HomeNamazWidget({
   return (
     <section className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-700 dark:bg-stone-900">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-stone-700 dark:text-stone-200">
-          🕌 Namaz Vakitleri
+        <h2 className="flex items-center gap-1.5 text-sm font-semibold text-stone-700 dark:text-stone-200">
+          <Clock aria-hidden="true" className="h-4 w-4 text-navy-600 dark:text-navy-400" strokeWidth={2} />
+          Namaz Vakitleri
         </h2>
         <span className="text-xs text-stone-400">{city}</span>
       </div>

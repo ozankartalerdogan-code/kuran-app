@@ -6,18 +6,51 @@ import { HomeNamazWidget, type PrayerTimes } from "./HomeNamazWidget";
 import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
 import { MoodTagButton } from "../components/MoodTagButton";
+import {
+  Compass, BookOpen, MoonStar, Shield, Sprout, Navigation,
+  BookMarked, GraduationCap, Sparkles, HandHeart, Zap,
+  type LucideIcon,
+} from "lucide-react";
 
 
 export const metadata: Metadata = {
   title: "Kuran Yolu — Kur'an'ı Okuyun, Anlayın, Keşfedin",
   description:
     "Günlük ayet, Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve namaz vakitleri.",
+  alternates: { canonical: "/" },
   openGraph: {
     title:       "Kuran Yolu",
     description: "Günlük ayet, meal, kelime analizi ve dua kategorileri.",
     url:         "/",
+    // Sayfa düzeyi openGraph layout'takini tamamen ezer — görseli burada da belirt
+    images:      [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
 };
+
+// Arama motorlarına site kimliği + site içi arama eylemi (Google sitelinks searchbox)
+function WebsiteJsonLd() {
+  const base = process.env.NEXT_PUBLIC_BASE_URL ?? "https://kuran-app-web-ozan-s-projects8.vercel.app";
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Kuran Yolu",
+    url: base,
+    inLanguage: "tr",
+    description:
+      "Kur'an-ı Kerim: Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve namaz vakitleri.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: `${base}/search?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
 
 interface DailyVerse {
   surah_id: number;
@@ -109,60 +142,62 @@ function formatDuaTag(tag: string): string {
 
 
 // Profesyonel kart dili: beyaz kart + renkli ikon rozeti (tint).
-// Önceki 8 farklı gradyan "gökkuşağı" etkisi yaratıyordu.
-const NAV_CARDS = [
+// Emoji yerine tutarlı çizgi ikonlar (lucide) — premium lacivert-altın kimlik.
+const NAV_CARDS: {
+  href: string; icon: LucideIcon; title: string; desc: string; tint: string;
+}[] = [
   {
     href: "/discover",
-    icon: "🔍",
+    icon: Compass,
     title: "Keşfet",
     desc: "Dua kategorileri, temalar ve etiketler",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/ibadet-rehberi",
-    icon: "📿",
+    icon: BookOpen,
     title: "İbadet Rehberi",
     desc: "İnanç, namaz, oruç, zekât, abdest",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/namaz",
-    icon: "🕌",
+    icon: MoonStar,
     title: "Namaz",
     desc: "Namaz sureleri ve duaları",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/manevi-siginak",
-    icon: "🤲",
+    icon: Shield,
     title: "Manevi Sığınak",
     desc: "Zor anlarda dua ve ayetler",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/root",
-    icon: "🌿",
+    icon: Sprout,
     title: "Kelime Kökü",
     desc: "Arapça kökleri keşfet",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/kible",
-    icon: "🧭",
+    icon: Navigation,
     title: "Kıble",
     desc: "Kabe'nin yönünü bul",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/hatim",
-    icon: "📖",
+    icon: BookMarked,
     title: "Hatim",
     desc: "30 cüz okuma takibi",
     tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/ogren",
-    icon: "📚",
+    icon: GraduationCap,
     title: "Konular",
     desc: "Elifba, dersler, Esmaül Hüsna, dualar",
     tint: "bg-navy-50 dark:bg-navy-900/40",
@@ -194,9 +229,29 @@ export default async function HomePage() {
 
   // ── Günün Duası ──────────────────────────────────────────────────────
   // verse_tag_items'daki dua-* etiketli ayetlerden tarih-bazlı seed ile seç.
-  // Herkes aynı gün aynı duayı görsün; çeviri olarak yazir kaynağı kullanılır.
-  const duaTotalRow = await dbGet<{ cnt: number }>("SELECT COUNT(DISTINCT verse_key) AS cnt FROM verse_tag_items WHERE tag LIKE 'dua-%'");
-  const duaTotal  = duaTotalRow?.cnt ?? 255;
+  // Herkes aynı gün aynı duayı görsün.
+  // İçerik güvencesi: dua-tesbih/dua-zikir etiketleri zikir HAKKINDAKİ ayetleri de
+  // içeriyordu (örn. 62:9 cuma emri) — bunlar dışlanır ve ayetin gerçekten bir
+  // yakarış içermesi istenir (Rabbenâ / vokatif Rabbi / Allahumme / eûzü / hasbünâ).
+  const DUA_VOCATIVE_COND = `(
+       v.arabic_text LIKE '%رَبَّن%'    OR v.arabic_text LIKE '%رَّبَّن%'
+    OR v.arabic_text LIKE '%اللَّهُمَّ%' OR v.arabic_text LIKE '%أَعُوذُ%'
+    OR v.arabic_text LIKE '%رَبِّ %'    OR v.arabic_text LIKE '%رَّبِّ %'
+    OR v.arabic_text LIKE '%حَسْبُنَا%'  OR v.arabic_text LIKE '%حَسْبِيَ%'
+    OR v.arabic_text LIKE '%غُفْرَانَكَ%'
+  )`;
+  const duaTotalRow = await dbGet<{ cnt: number }>(`
+      SELECT COUNT(DISTINCT vti.verse_key) AS cnt
+      FROM verse_tag_items vti
+      JOIN verses v ON v.verse_key = vti.verse_key
+      WHERE vti.tag LIKE 'dua-%'
+        AND vti.tag NOT IN ('dua-tesbih','dua-zikir')
+        AND v.arabic_text IS NOT NULL
+        AND v.reading_tr IS NOT NULL
+        AND v.literal_ceviri IS NOT NULL
+        AND ${DUA_VOCATIVE_COND}
+    `);
+  const duaTotal  = duaTotalRow?.cnt ?? 81;
   const duaOffset = getDailyOffset(duaTotal);
 
   const dailyDua = await dbGet<DailyDua>(`
@@ -213,9 +268,11 @@ export default async function HomePage() {
       JOIN   verses       v ON v.verse_key  = vti.verse_key
       LEFT JOIN sureler   s ON s.id         = v.surah_id
       WHERE vti.tag LIKE 'dua-%'
+        AND vti.tag NOT IN ('dua-tesbih','dua-zikir')
         AND v.arabic_text IS NOT NULL
         AND v.reading_tr IS NOT NULL
         AND v.literal_ceviri IS NOT NULL
+        AND ${DUA_VOCATIVE_COND}
       GROUP BY vti.verse_key
       ORDER BY vti.verse_key
       LIMIT 1 OFFSET ?
@@ -227,6 +284,7 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen">
+      <WebsiteJsonLd />
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-navy-900 via-navy-950 to-navy-950 px-4 py-16 sm:py-24">
         <div className="absolute inset-0 opacity-[0.06]"
@@ -284,8 +342,9 @@ export default async function HomePage() {
         {dailyVerse && (
           <section className="rounded-2xl border border-gold-200 bg-gold-50 p-6 shadow-card dark:border-gold-800/40 dark:bg-gold-950/30">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-gold-800 dark:text-gold-300">
-                ✨ Günün Ayeti
+              <h2 className="flex items-center gap-1.5 text-sm font-semibold text-gold-800 dark:text-gold-300">
+                <Sparkles aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+                Günün Ayeti
               </h2>
               <span className="text-xs text-gold-600/70 dark:text-gold-400/60">
                 {dailyVerse.surah_name} · {dailyVerse.surah_id}:{dailyVerse.ayah_number}
@@ -353,9 +412,9 @@ export default async function HomePage() {
               >
                 <div
                   aria-hidden="true"
-                  className={`mb-2.5 flex h-10 w-10 items-center justify-center rounded-xl text-xl ${card.tint}`}
+                  className={`mb-2.5 flex h-10 w-10 items-center justify-center rounded-xl ${card.tint}`}
                 >
-                  {card.icon}
+                  <card.icon className="h-5 w-5 text-navy-700 dark:text-navy-300" strokeWidth={1.75} />
                 </div>
                 <div className="text-sm font-semibold leading-tight text-stone-900 group-hover:text-navy-800 dark:text-stone-100 dark:group-hover:text-navy-300 sm:text-base">
                   {card.title}
@@ -374,8 +433,9 @@ export default async function HomePage() {
             {/* Başlık */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <h2 className="text-sm font-semibold text-navy-800 dark:text-navy-300">
-                  🤲 Günün Duası
+                <h2 className="flex items-center gap-1.5 text-sm font-semibold text-navy-800 dark:text-navy-300">
+                  <HandHeart aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+                  Günün Duası
                 </h2>
                 <span className="rounded-full bg-navy-100 px-2 py-0.5 text-xs font-medium text-navy-700 dark:bg-navy-900/60 dark:text-navy-400">
                   {formatDuaTag(dailyDua.tag)}
@@ -429,8 +489,9 @@ export default async function HomePage() {
 
         {/* ── HIZLI ERİŞİM ── */}
         <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-card dark:border-stone-700 dark:bg-stone-900">
-          <h2 className="mb-4 text-sm font-semibold text-stone-700 dark:text-stone-200">
-            📚 Hızlı Erişim
+          <h2 className="mb-4 flex items-center gap-1.5 text-sm font-semibold text-stone-700 dark:text-stone-200">
+            <Zap aria-hidden="true" className="h-4 w-4 text-gold-600 dark:text-gold-400" strokeWidth={2} />
+            Hızlı Erişim
           </h2>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             {[

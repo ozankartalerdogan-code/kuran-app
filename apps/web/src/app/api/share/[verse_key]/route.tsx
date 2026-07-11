@@ -229,6 +229,11 @@ export async function GET(
         </div>
       </div>
     ),
-    { width: W, height: H, fonts }
+    {
+      width: W, height: H, fonts,
+      // Ayet görseli pratikte değişmez — CDN 1 gün taze tutsun, 1 hafta bayat servis edebilsin.
+      // (force-dynamic yalnızca render'ı dinamik yapar; yanıt header'ı CDN cache'ine izin verir.)
+      headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" },
+    }
   );
 }

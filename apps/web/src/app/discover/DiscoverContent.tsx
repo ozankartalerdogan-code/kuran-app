@@ -4,6 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
+import {
+  Sparkles, Orbit, Moon, HandHeart, Brain, Scale,
+  Star, Gem, Globe, BookOpen, Scroll, Shield, MoonStar, LayoutGrid,
+  type LucideIcon,
+} from "lucide-react";
 
 // ── Tip tanımları ─────────────────────────────────────────────────────────────
 
@@ -12,7 +17,8 @@ interface ThemeCard {
   baslik:   string;
   aciklama: string;
   gradient: string;
-  ikon:     string;
+  ikon:     LucideIcon;
+  ayet:     number;
 }
 
 interface AkordeonTema {
@@ -23,55 +29,62 @@ interface AkordeonTema {
 
 interface AkordeonGrup {
   baslik:  string;
-  ikon:    string;
+  ikon:    LucideIcon;
   temalar: AkordeonTema[];
 }
 
 // ── Öne çıkan 6 tema kartı ────────────────────────────────────────────────────
 
+// Marka kimliği: gökkuşağı gradyanlar yerine lacivert-altın ailesi (premium dil)
 const FEATURED_THEMES: ThemeCard[] = [
-  {
-    kod:      "E1_KEVNI_AYETLER",
-    baslik:   "Evren ve Yaratılış",
-    aciklama: "Göklerin, yerin ve tabiatın varoluşundaki ilahi deliller",
-    gradient: "from-gold-400 to-orange-500",
-    ikon:     "🌌",
-  },
   {
     kod:      "A1_ALLAH_ULUHIYET",
     baslik:   "Allah & Uluhiyet",
     aciklama: "Allah'ın isim, sıfat ve birliği",
-    gradient: "from-navy-500 to-purple-600",
-    ikon:     "✨",
+    gradient: "from-navy-950 to-navy-700",
+    ikon:     Sparkles,
+    ayet:     619,
+  },
+  {
+    kod:      "E1_KEVNI_AYETLER",
+    baslik:   "Evren ve Yaratılış",
+    aciklama: "Göklerin, yerin ve tabiatın varoluşundaki ilahi deliller",
+    gradient: "from-navy-800 to-navy-500",
+    ikon:     Orbit,
+    ayet:     320,
   },
   {
     kod:      "A6_AHIRET_MEAD",
     baslik:   "Ahiret & Ötesi",
     aciklama: "Ölüm, kıyamet, cennet ve cehennem",
-    gradient: "from-slate-500 to-blue-700",
-    ikon:     "🌙",
+    gradient: "from-navy-900 to-navy-600",
+    ikon:     Moon,
+    ayet:     1393,
   },
   {
     kod:      "B2_SERI_IBADETLER",
     baslik:   "İbadetler",
     aciklama: "Namaz, oruç, zekât, hac",
-    gradient: "from-navy-400 to-navy-600",
-    ikon:     "🤲",
+    gradient: "from-gold-800 to-gold-600",
+    ikon:     HandHeart,
+    ayet:     123,
   },
   // Kural 1: E1 mükerreri → E2_INSANIN_MAHIYETI
   {
     kod:      "E2_INSANIN_MAHIYETI",
     baslik:   "İnsan ve Mahiyeti",
     aciklama: "İnsanın yaratılış aşamaları, nefis, ruh ve fıtrat analizleri",
-    gradient: "from-sky-400 to-cyan-600",
-    ikon:     "🧠",
+    gradient: "from-navy-700 to-navy-400",
+    ikon:     Brain,
+    ayet:     103,
   },
   {
     kod:      "D5_TOPLUMSAL_DUZEN",
     baslik:   "Toplum & Adalet",
     aciklama: "Adalet, şura, emanet, fitne",
-    gradient: "from-rose-400 to-pink-600",
-    ikon:     "⚖️",
+    gradient: "from-gold-950 to-gold-700",
+    ikon:     Scale,
+    ayet:     182,
   },
 ];
 
@@ -81,7 +94,7 @@ const FEATURED_THEMES: ThemeCard[] = [
 const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   {
     baslik: "A — İnanç Esasları",
-    ikon:   "🌟",
+    ikon:   Star,
     temalar: [
       { kod: "A1_ALLAH_ULUHIYET",        isim: "Allah & Uluhiyet",                    ayet: 619  },
       { kod: "A2_VAHIY_KITAPLAR",        isim: "Vahiy & Kitaplar",                    ayet: 332  },
@@ -93,7 +106,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   },
   {
     baslik: "B — İbadet",
-    ikon:   "🤲",
+    ikon:   HandHeart,
     temalar: [
       { kod: "B1_TAHARET_TEMIZLIK", isim: "Taharet & Temizlik",                       ayet: 7   },
       { kod: "B2_SERI_IBADETLER",   isim: "Şer'i İbadetler (Namaz, Oruç...)",         ayet: 123 },
@@ -102,7 +115,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   },
   {
     baslik: "C — Ahlak & Değerler",
-    ikon:   "💎",
+    ikon:   Gem,
     temalar: [
       { kod: "C1_BIREYSEL_ERDEMLER",   isim: "Bireysel Erdemler",                     ayet: 204 },
       { kod: "C2_BIREYSEL_REZILETLER", isim: "Bireysel Reziletler",                   ayet: 398 },
@@ -112,7 +125,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   },
   {
     baslik: "D — Hukuk & Toplum",
-    ikon:   "⚖️",
+    ikon:   Scale,
     temalar: [
       { kod: "D1_AILE_HUKUKU",       isim: "Aile Hukuku",                             ayet: 98  },
       { kod: "D2_CINSEL_AHLAK",      isim: "Cinsel Ahlak",                            ayet: 29  },
@@ -124,7 +137,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   },
   {
     baslik: "E — Kâinat & İnsan",
-    ikon:   "🌍",
+    ikon:   Globe,
     temalar: [
       { kod: "E1_KEVNI_AYETLER",     isim: "Evren ve Kevni Ayetler",                  ayet: 320 },
       { kod: "E2_INSANIN_MAHIYETI",  isim: "İnsanın Mahiyeti",                        ayet: 103 },
@@ -133,7 +146,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   },
   {
     baslik: "F — Kıssalar & Tarih",
-    ikon:   "📖",
+    ikon:   BookOpen,
     temalar: [
       { kod: "F1_PEYGAMBER_KISSALARI", isim: "Peygamber Kıssaları",                   ayet: 802 },
       { kod: "F2_HELAK_KAVIMLER",      isim: "Helak Kavimler",                        ayet: 151 },
@@ -142,7 +155,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
   },
   {
     baslik: "G — Kur'an & Dinlerarası",
-    ikon:   "📜",
+    ikon:   Scroll,
     temalar: [
       { kod: "G1_KURAN_HAKKINDA",     isim: "Kur'an Hakkında",                        ayet: 39  },
       { kod: "G2_DINLER_MENSUPLARI",  isim: "Dinlerin Mensupları",                    ayet: 140 },
@@ -164,11 +177,16 @@ function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
           <button
             key={t.kod}
             onClick={() => onTagClick(t.kod)}
-            className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${t.gradient} p-4 text-left shadow-md transition-transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0`}
+            className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${t.gradient} p-4 text-left shadow-md ring-1 ring-white/10 transition-transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0`}
           >
-            <span className="text-2xl">{t.ikon}</span>
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
+              <t.ikon aria-hidden="true" className="h-5 w-5 text-gold-200" strokeWidth={1.75} />
+            </span>
             <p className="mt-2 text-sm font-bold leading-tight text-white">{t.baslik}</p>
             <p className="mt-1 text-xs leading-snug text-white/75 line-clamp-2">{t.aciklama}</p>
+            <span className="mt-2.5 inline-block rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-gold-200">
+              {t.ayet.toLocaleString("tr-TR")} ayet
+            </span>
             <span className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/10" />
           </button>
         ))}
@@ -194,7 +212,7 @@ function AkordeonItem({
         className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
       >
         <div className="flex items-center gap-2 min-w-0">
-          <span className="shrink-0 text-base">{grup.ikon}</span>
+          <grup.ikon aria-hidden="true" className="h-4 w-4 shrink-0 text-navy-600" strokeWidth={1.75} />
           <span className="text-sm font-semibold text-stone-800 truncate">{grup.baslik}</span>
         </div>
         <div className="flex shrink-0 items-center gap-2">
@@ -238,10 +256,10 @@ function AkordeonItem({
 
 type Tab = "temalar" | "dualar" | "namaz";
 
-const TABS: { id: Tab; label: string; ikon: string }[] = [
-  { id: "temalar", label: "Temalar",        ikon: "🌟" },
-  { id: "dualar",  label: "Dualar & Tesbih",ikon: "🤲" },
-  { id: "namaz",   label: "Namaz",          ikon: "🕌" },
+const TABS: { id: Tab; label: string; ikon: LucideIcon }[] = [
+  { id: "temalar", label: "Temalar",        ikon: LayoutGrid },
+  { id: "dualar",  label: "Dualar & Tesbih",ikon: HandHeart },
+  { id: "namaz",   label: "Namaz",          ikon: MoonStar },
 ];
 
 // ── Ana bileşen ───────────────────────────────────────────────────────────────
@@ -286,7 +304,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   : "text-stone-500 hover:text-stone-700"
               }`}
             >
-              <span>{tab.ikon}</span>
+              <tab.ikon aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
               <span className="hidden sm:inline">{tab.label}</span>
               <span className="sm:hidden">{tab.label.split(" ")[0]}</span>
             </button>
@@ -309,8 +327,8 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   href="/manevi-siginak"
                   className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-navy-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-navy-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-xl leading-none dark:bg-navy-900/30">
-                    🛡️
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 dark:bg-navy-900/30">
+                    <Shield aria-hidden="true" className="h-5 w-5 text-navy-700 dark:text-navy-300" strokeWidth={1.75} />
                   </span>
                   <div className="min-w-0">
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-navy-700 dark:text-stone-100 dark:group-hover:text-navy-400">
@@ -331,8 +349,8 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   href="/manevi-siginak/ismi-azam"
                   className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-gold-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-gold-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-50 text-xl leading-none dark:bg-gold-900/30">
-                    ✨
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-50 dark:bg-gold-900/30">
+                    <Sparkles aria-hidden="true" className="h-5 w-5 text-gold-700 dark:text-gold-300" strokeWidth={1.75} />
                   </span>
                   <div className="min-w-0">
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-gold-700 dark:text-stone-100 dark:group-hover:text-gold-400">
@@ -353,8 +371,8 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   href="/esma"
                   className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-violet-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-violet-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-xl leading-none dark:bg-violet-900/30">
-                    🌟
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 dark:bg-violet-900/30">
+                    <Star aria-hidden="true" className="h-5 w-5 text-violet-600 dark:text-violet-300" strokeWidth={1.75} />
                   </span>
                   <div className="min-w-0">
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-violet-700 dark:text-stone-100 dark:group-hover:text-violet-400">
@@ -375,8 +393,8 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   href="/ibadet-rehberi"
                   className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-navy-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-navy-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-xl leading-none dark:bg-navy-900/30">
-                    📿
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 dark:bg-navy-900/30">
+                    <BookOpen aria-hidden="true" className="h-5 w-5 text-navy-700 dark:text-navy-300" strokeWidth={1.75} />
                   </span>
                   <div className="min-w-0">
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-navy-700 dark:text-stone-100 dark:group-hover:text-navy-400">

@@ -32,7 +32,9 @@ export async function GET(
       JOIN   elifba_harf_ders hd ON hd.harf_id = h.harf_id
       WHERE  hd.ders_id = ?
       ORDER  BY h.harf_id
-    `, dersId));
+    `, dersId), {
+      headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400" },
+    });
   } catch (err) {
     console.error("[elifba/harfler] hata:", err);
     return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });

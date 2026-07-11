@@ -5,7 +5,12 @@ import { DuaKategorileri } from "./DuaKategorileri";
 import { NamazKategorileri } from "../namaz/NamazKategorileri";
 import { NamazVakitTablosu } from "../namaz/NamazVakitTablosu";
 
-export const metadata = { title: "Keşfet" };
+export const metadata = {
+  title: "Keşfet",
+  description:
+    "Kur'an'ı tema ve kavramlara göre keşfedin — dua kategorileri, konu başlıkları ve özel rehberler.",
+  alternates: { canonical: "/discover" },
+};
 
 function CardGridSkeleton({ count = 4 }: { count?: number }) {
   return (

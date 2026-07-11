@@ -6,7 +6,10 @@ import { SurahListClient, type SurahItem } from "./SurahListClient";
 import { PageHeader } from "../../components/PageHeader";
 
 export const metadata: Metadata = {
-  title: "Sureler — Kuran Yolu"
+  title: "Sureler — Kuran Yolu",
+  description:
+    "Kur'an-ı Kerim'in 114 suresi — mushaf ve nüzul sırasıyla, ayet sayıları ve Mekki/Medeni bilgisiyle.",
+  alternates: { canonical: "/surah" },
 };
 
 interface SurahRow {

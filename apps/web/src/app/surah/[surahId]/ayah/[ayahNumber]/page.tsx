@@ -32,13 +32,13 @@ import {
   type ValidatorCopyPayload
 } from "./validatorDebug";
 import { AyahDetailTabs, type AyahDetailTabItem } from "./AyahDetailTabs";
+import { CollapsibleArea } from "../../../../../components/CollapsibleArea";
 import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
 import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
 import { arapRakam, ayetinSayfasi } from "../../../../../lib/mushafSayfaUtils";
 import dynamicImport from "next/dynamic";
 import { FavoriteButton } from "../../../../../components/FavoriteButton";
-import { AudioPlayer } from "../../../../../components/AudioPlayer";
 import { ShareButton } from "./ShareButton";
 
 const NoteEditor    = dynamicImport(() => import("./NoteEditor").then((m) => m.NoteEditor),    { ssr: false });
@@ -90,6 +90,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title,
       description: desc,
+      alternates: { canonical: `/surah/${surahId}/ayah/${ayahNumber}` },
       openGraph: {
         title, description: desc, type: "article",
         images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
@@ -1275,7 +1276,14 @@ export default async function Page({ params, searchParams }: PageProps) {
             </div>
             <p className="text-sm text-stone-600">{wordAnalysisNote}</p>
           </div>
-          <WordAnalysisTable words={detail.wordAnalyses} />
+          <CollapsibleArea
+            itemCount={detail.wordAnalyses.length}
+            minItems={10}
+            collapsedHeight={520}
+            showLabel="Tüm kelimeleri göster"
+          >
+            <WordAnalysisTable words={detail.wordAnalyses} />
+          </CollapsibleArea>
           <div className="border-t border-stone-200 pt-4">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <h3 className="font-display text-base font-semibold text-navy-900">Kelime Anlamları</h3>
@@ -1522,7 +1530,6 @@ export default async function Page({ params, searchParams }: PageProps) {
 
           {/* Eylemler — kâğıdın üzerinde */}
           <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-gold-200/60 pt-3 dark:border-gold-800/30">
-            <AudioPlayer surahId={surahId} variant="detail" />
             <div className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 shadow-sm dark:border-stone-700 dark:bg-stone-800">
               <FavoriteButton verseKey={`${surahId}:${ayahNumber}`} size="lg" />
               <span className="text-sm text-stone-500 dark:text-stone-400">Favori</span>

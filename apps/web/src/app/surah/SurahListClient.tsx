@@ -32,16 +32,26 @@ function RevelationBadge({ place }: { place: string }) {
 
 export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
   const [order, setOrder] = useState<"mushaf" | "nuzul">("mushaf");
+  const [place, setPlace] = useState<"all" | "Mekke" | "Medine">("all");
+
+  const filtered =
+    place === "all" ? surahs : surahs.filter((s) => s.revelationPlace === place);
 
   const sorted =
     order === "mushaf"
-      ? [...surahs].sort((a, b) => a.id - b.id)
-      : [...surahs].sort((a, b) => {
+      ? [...filtered].sort((a, b) => a.id - b.id)
+      : [...filtered].sort((a, b) => {
           if (a.revelationOrder == null && b.revelationOrder == null) return a.id - b.id;
           if (a.revelationOrder == null) return 1;
           if (b.revelationOrder == null) return -1;
           return a.revelationOrder - b.revelationOrder;
         });
+
+  const PLACE_CHIPS: { value: typeof place; label: string; active: string }[] = [
+    { value: "all",    label: "Tümü",   active: "border-stone-400 bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900" },
+    { value: "Mekke",  label: "Mekki",  active: "border-navy-300 bg-navy-800 text-white dark:bg-navy-700" },
+    { value: "Medine", label: "Medeni", active: "border-gold-300 bg-gold-600 text-white dark:bg-gold-700" },
+  ];
 
   return (
     <>
@@ -75,6 +85,28 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
           {order === "mushaf"
             ? "Kur'an'daki sıra (1–114)"
             : "Vahiy geliş sırası"}
+        </span>
+      </div>
+
+      {/* Mekki / Medeni filtresi */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        {PLACE_CHIPS.map((chip) => (
+          <button
+            key={chip.value}
+            type="button"
+            aria-pressed={place === chip.value}
+            onClick={() => setPlace(chip.value)}
+            className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all active:scale-95 ${
+              place === chip.value
+                ? chip.active + " shadow-sm"
+                : "border-stone-200 bg-white text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800"
+            }`}
+          >
+            {chip.label}
+          </button>
+        ))}
+        <span className="text-xs text-stone-400" aria-live="polite">
+          {sorted.length} sure
         </span>
       </div>
 

@@ -36,7 +36,9 @@ export async function GET(
       return { ...r, secenekler };
     });
 
-    return NextResponse.json(parsed);
+    return NextResponse.json(parsed, {
+      headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=86400" },
+    });
   } catch (err) {
     console.error("[elifba/quiz] hata:", err);
     return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
