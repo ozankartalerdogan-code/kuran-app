@@ -9,6 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        // UI tipografisi: sistem sans yığını (indirme yok, her platformda
+        // yerli his). Georgia gövde fontu UI elemanlarını amatör gösteriyordu.
+        sans: [
+          "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI",
+          "Roboto", "Helvetica Neue", "Arial", "sans-serif"
+        ],
         // Arapça metinler: yerel Amiri + yaygın sistem Arapça fontları.
         // Her iki utility de aynı yığına bağlanır; ileride mushafa özel
         // Scheherazade New eklenirse "scheherazade" ayrışır.

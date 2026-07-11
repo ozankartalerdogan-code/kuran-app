@@ -55,7 +55,22 @@ body {
   min-height: 100vh;
   background: #f7f1e4;
   color: #1f1a17;
-  font-family: Georgia, serif;
+  /* UI = sans (tailwind theme.sans); Arapça = Amiri ([lang="ar"] kuralı) */
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Marka dokunuşu: metin seçimi ve klavye odağı tutarlı zümrüt tonu */
+::selection {
+  background: #a7f3d0;
+  color: #064e3b;
+}
+
+:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════

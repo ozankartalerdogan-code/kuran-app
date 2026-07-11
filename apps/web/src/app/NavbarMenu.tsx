@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { NightModeToggle } from "./NightModeToggle";
 
@@ -43,8 +44,37 @@ const NAV_LINKS = [
   { href: "/discover",   label: "Keşfet",     accent: true },
 ];
 
+// Masaüstünde markanın yanında görünen ana bölümler
+const DESKTOP_LEFT_LINKS = [
+  { href: "/surah",        label: "Sureler" },
+  { href: "/mushaf-sayfa", label: "Mushaf" },
+  { href: "/ogren",        label: "Konular" },
+];
+
+/** Marka işareti: emoji yerine tutarlı render edilen SVG kitap ikonu */
+function BrandMark() {
+  return (
+    <span
+      aria-hidden="true"
+      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-white"
+    >
+      <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+        />
+      </svg>
+    </span>
+  );
+}
+
 export function NavbarMenu() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname() ?? "";
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <>
@@ -54,44 +84,44 @@ export function NavbarMenu() {
         <Link
           href="/"
           aria-label="Ana sayfaya git"
-          className="shrink-0 text-sm font-semibold text-stone-800 hover:text-emerald-700 dark:text-stone-200 dark:hover:text-emerald-400"
+          className="flex shrink-0 items-center gap-2 text-sm font-bold tracking-tight text-stone-800 hover:text-emerald-700 dark:text-stone-200 dark:hover:text-emerald-400"
         >
-          <span aria-hidden="true">📖</span> Kuran Yolu
+          <BrandMark />
+          <span>Kuran Yolu</span>
         </Link>
 
         {/* Masaüstü: ek linkler */}
-        <Link
-          href="/surah"
-          aria-label="Sureler sayfasına git"
-          className="hidden shrink-0 text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 sm:block"
-        >
-          Sureler
-        </Link>
-        <Link
-          href="/mushaf-sayfa"
-          aria-label="Mushaf sayfasına git"
-          className="hidden shrink-0 text-sm font-medium text-stone-600 hover:text-amber-700 dark:text-stone-400 dark:hover:text-amber-400 sm:block"
-        >
-          Mushaf
-        </Link>
-        <Link
-          href="/ogren"
-          aria-label="Konular sayfasına git"
-          className="hidden shrink-0 text-sm font-medium text-stone-600 hover:text-emerald-600 dark:text-stone-400 dark:hover:text-emerald-400 sm:block"
-        >
-          Konular
-        </Link>
+        {DESKTOP_LEFT_LINKS.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            aria-label={`${label} sayfasına git`}
+            aria-current={isActive(href) ? "page" : undefined}
+            className={`hidden shrink-0 border-b-2 pb-0.5 text-sm font-medium transition-colors sm:block ${
+              isActive(href)
+                ? "border-emerald-600 text-emerald-700 dark:border-emerald-500 dark:text-emerald-400"
+                : "border-transparent text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+            }`}
+          >
+            {label}
+          </Link>
+        ))}
 
-        {/* Arama barı */}
+        {/* Arama barı — ana sayfada hero'da büyük arama olduğu için gizlenir */}
         <div className="flex-1">
-          <SearchBar />
+          {pathname === "/" ? null : <SearchBar />}
         </div>
 
         {/* Masaüstü: sağ linkler */}
         <Link
           href="/favoriler"
           aria-label="Favoriler sayfasına git"
-          className="hidden shrink-0 items-center gap-1 text-sm font-medium text-stone-600 hover:text-rose-500 dark:text-stone-400 dark:hover:text-rose-400 sm:flex"
+          aria-current={isActive("/favoriler") ? "page" : undefined}
+          className={`hidden shrink-0 items-center gap-1 text-sm font-medium transition-colors sm:flex ${
+            isActive("/favoriler")
+              ? "text-rose-600 dark:text-rose-400"
+              : "text-stone-600 hover:text-rose-500 dark:text-stone-400 dark:hover:text-rose-400"
+          }`}
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -101,7 +131,12 @@ export function NavbarMenu() {
         <Link
           href="/notlarim"
           aria-label="Notlarım sayfasına git"
-          className="hidden shrink-0 items-center gap-1 text-sm font-medium text-stone-600 hover:text-amber-600 dark:text-stone-400 dark:hover:text-amber-400 sm:flex"
+          aria-current={isActive("/notlarim") ? "page" : undefined}
+          className={`hidden shrink-0 items-center gap-1 text-sm font-medium transition-colors sm:flex ${
+            isActive("/notlarim")
+              ? "text-amber-600 dark:text-amber-400"
+              : "text-stone-600 hover:text-amber-600 dark:text-stone-400 dark:hover:text-amber-400"
+          }`}
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -111,7 +146,7 @@ export function NavbarMenu() {
         <Link
           href="/discover"
           aria-label="Keşfet sayfasına git"
-          className="hidden shrink-0 items-center gap-1.5 rounded-lg border border-indigo-300 bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700 sm:flex"
+          className="hidden shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 sm:flex"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <circle cx="12" cy="12" r="3" />
@@ -151,11 +186,14 @@ export function NavbarMenu() {
               key={href}
               href={href}
               aria-label={`${label} sayfasına git`}
+              aria-current={isActive(href) ? "page" : undefined}
               onClick={() => setOpen(false)}
               className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                 accent
-                  ? "mt-1 bg-indigo-600 text-white hover:bg-indigo-700"
-                  : "text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800"
+                  ? "mt-1 bg-emerald-600 text-white hover:bg-emerald-700"
+                  : isActive(href)
+                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+                    : "text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800"
               }`}
             >
               {icon ?? null}

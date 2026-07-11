@@ -65,24 +65,64 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-2">
           İçeriğe geç
         </a>
-        <nav aria-label="Ana navigasyon" className="border-b border-stone-200 bg-white px-4 py-3 dark:border-stone-700 dark:bg-stone-900 sm:px-6">
+        <nav
+          aria-label="Ana navigasyon"
+          className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 px-4 py-3 backdrop-blur-md dark:border-stone-700 dark:bg-stone-900/90 sm:px-6"
+        >
           <NavbarMenu />
         </nav>
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>
-        {/* Yetim /hakkinda ve /privacy sayfalarına tek erişim noktası */}
-        <footer className="border-t border-stone-200 px-4 py-6 dark:border-stone-700 sm:px-6">
-          <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 text-xs text-stone-500 dark:text-stone-400">
-            <span>© {new Date().getFullYear()} Kuran Yolu</span>
-            <span className="flex items-center gap-4">
-              <Link href="/hakkinda" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">
-                Hakkında
-              </Link>
-              <Link href="/privacy" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">
-                Gizlilik
-              </Link>
-            </span>
+        <footer className="mt-12 border-t border-stone-200 bg-white/60 px-4 py-10 dark:border-stone-700 dark:bg-stone-900/60 sm:px-6">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid gap-8 sm:grid-cols-3">
+              {/* Marka */}
+              <div>
+                <p className="text-sm font-bold tracking-tight text-stone-800 dark:text-stone-200">
+                  Kuran Yolu
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+                  Kur&apos;an&apos;ı okuyun, anlayın, keşfedin — Türkçe meal,
+                  kelime analizi, kök açıklamaları ve günlük okuma takibi.
+                </p>
+              </div>
+              {/* Keşfet */}
+              <nav aria-label="Alt gezinme — içerik" className="text-xs">
+                <p className="mb-2.5 font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
+                  İçerik
+                </p>
+                <ul className="space-y-2 text-stone-600 dark:text-stone-400">
+                  <li><Link href="/surah" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Tüm Sureler</Link></li>
+                  <li><Link href="/mushaf-sayfa" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Mushaf</Link></li>
+                  <li><Link href="/ogren" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Konular</Link></li>
+                  <li><Link href="/discover" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Keşfet</Link></li>
+                </ul>
+              </nav>
+              {/* Araçlar + kurumsal */}
+              <nav aria-label="Alt gezinme — araçlar" className="text-xs">
+                <p className="mb-2.5 font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
+                  Araçlar
+                </p>
+                <ul className="space-y-2 text-stone-600 dark:text-stone-400">
+                  <li><Link href="/hatim" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Hatim Takibi</Link></li>
+                  <li><Link href="/kible" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Kıble Pusulası</Link></li>
+                  <li><Link href="/namaz" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Namaz Vakitleri</Link></li>
+                  <li><Link href="/manevi-siginak/zikirmatik" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">Zikirmatik</Link></li>
+                </ul>
+              </nav>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-stone-200 pt-5 text-xs text-stone-500 dark:border-stone-700 dark:text-stone-400">
+              <span>© {new Date().getFullYear()} Kuran Yolu</span>
+              <span className="flex items-center gap-4">
+                <Link href="/hakkinda" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">
+                  Hakkında
+                </Link>
+                <Link href="/privacy" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">
+                  Gizlilik
+                </Link>
+              </span>
+            </div>
           </div>
         </footer>
       </body>

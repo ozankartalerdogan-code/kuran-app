@@ -68,62 +68,64 @@ function formatDuaTag(tag: string): string {
 }
 
 
+// Profesyonel kart dili: beyaz kart + renkli ikon rozeti (tint).
+// Önceki 8 farklı gradyan "gökkuşağı" etkisi yaratıyordu.
 const NAV_CARDS = [
   {
     href: "/discover",
     icon: "🔍",
     title: "Keşfet",
     desc: "Dua kategorileri, temalar ve etiketler",
-    gradient: "from-emerald-500 to-teal-600",
+    tint: "bg-emerald-100 dark:bg-emerald-950/50",
   },
   {
     href: "/ibadet-rehberi",
     icon: "📿",
     title: "İbadet Rehberi",
     desc: "İnanç, namaz, oruç, zekât, abdest",
-    gradient: "from-sky-500 to-blue-600",
+    tint: "bg-sky-100 dark:bg-sky-950/50",
   },
   {
     href: "/namaz",
     icon: "🕌",
     title: "Namaz",
     desc: "Namaz sureleri ve duaları",
-    gradient: "from-indigo-500 to-violet-600",
+    tint: "bg-indigo-100 dark:bg-indigo-950/50",
   },
   {
     href: "/manevi-siginak",
     icon: "🤲",
     title: "Manevi Sığınak",
     desc: "Zor anlarda dua ve ayetler",
-    gradient: "from-violet-500 to-purple-600",
+    tint: "bg-violet-100 dark:bg-violet-950/50",
   },
   {
     href: "/root",
     icon: "🌿",
     title: "Kelime Kökü",
     desc: "Arapça kökleri keşfet",
-    gradient: "from-amber-500 to-orange-600",
+    tint: "bg-amber-100 dark:bg-amber-950/50",
   },
   {
     href: "/kible",
     icon: "🧭",
     title: "Kıble",
     desc: "Kabe'nin yönünü bul",
-    gradient: "from-teal-500 to-emerald-600",
+    tint: "bg-teal-100 dark:bg-teal-950/50",
   },
   {
     href: "/hatim",
     icon: "📖",
     title: "Hatim",
     desc: "30 cüz okuma takibi",
-    gradient: "from-rose-500 to-pink-600",
+    tint: "bg-rose-100 dark:bg-rose-950/50",
   },
   {
     href: "/ogren",
     icon: "📚",
     title: "Konular",
     desc: "Elifba, dersler, Esmaül Hüsna, dualar",
-    gradient: "from-cyan-500 to-sky-600",
+    tint: "bg-cyan-100 dark:bg-cyan-950/50",
   },
 ];
 
@@ -208,12 +210,10 @@ export default async function HomePage() {
 
           {/* Search */}
           <div className="mx-auto max-w-lg">
-            <div className="flex items-center overflow-hidden rounded-xl bg-white/10 p-1 backdrop-blur-sm ring-1 ring-white/20 focus-within:ring-white/40">
-              <div className="flex-1 px-2">
-                <SearchBar />
-              </div>
+            <div className="rounded-2xl bg-white/10 p-1.5 shadow-lg backdrop-blur-sm ring-1 ring-white/25 transition focus-within:bg-white/15 focus-within:ring-white/50">
+              <SearchBar />
             </div>
-            <p className="mt-2 text-xs text-emerald-200/60">
+            <p className="mt-2.5 text-xs text-emerald-200/60">
               Sure adı, ayet numarası veya Türkçe kelime arayın
             </p>
           </div>
@@ -291,11 +291,20 @@ export default async function HomePage() {
               <Link
                 key={card.href}
                 href={card.href}
-                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.gradient} p-4 text-white shadow-md transition-all duration-150 hover:scale-105 hover:shadow-lg active:scale-95`}
+                className="group rounded-2xl border border-stone-200 bg-white p-4 shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md active:translate-y-0 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700"
               >
-                <div aria-hidden="true" className="mb-1.5 text-2xl">{card.icon}</div>
-                <div className="text-sm font-semibold leading-tight sm:text-base">{card.title}</div>
-                <div className="mt-1 text-[11px] leading-snug text-white/75 sm:text-xs">{card.desc}</div>
+                <div
+                  aria-hidden="true"
+                  className={`mb-2.5 flex h-10 w-10 items-center justify-center rounded-xl text-xl ${card.tint}`}
+                >
+                  {card.icon}
+                </div>
+                <div className="text-sm font-semibold leading-tight text-stone-900 group-hover:text-emerald-800 dark:text-stone-100 dark:group-hover:text-emerald-300 sm:text-base">
+                  {card.title}
+                </div>
+                <div className="mt-1 text-[11px] leading-snug text-stone-500 dark:text-stone-400 sm:text-xs">
+                  {card.desc}
+                </div>
               </Link>
             ))}
           </div>
