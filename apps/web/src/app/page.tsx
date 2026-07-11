@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {dbGet } from "../lib/dbUtils";
-import { HomeNamazWidget } from "./HomeNamazWidget";
+import { HomeNamazWidget, type PrayerTimes } from "./HomeNamazWidget";
 import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
 import { MoodTagButton } from "../components/MoodTagButton";
@@ -51,10 +51,50 @@ function getHijriDate(): string {
       day: "numeric",
       month: "long",
       year: "numeric",
+      timeZone: "Europe/Istanbul",
     });
     return fmt.format(new Date());
   } catch {
     return "";
+  }
+}
+
+function getGregorianDate(): string {
+  try {
+    return new Intl.DateTimeFormat("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Europe/Istanbul",
+    }).format(new Date());
+  } catch {
+    return "";
+  }
+}
+
+// İstanbul vakitleri sunucuda — ilk boyama iskeletsiz gelsin. Vakitler günde bir
+// değişir; fetch 1 saat cache'lenir (force-dynamic sayfada da açık revalidate geçerli).
+async function getIstanbulPrayerTimes(): Promise<PrayerTimes | null> {
+  try {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Istanbul",
+      day: "2-digit", month: "2-digit", year: "numeric",
+    }).format(new Date()).split("/"); // GG/AA/YYYY
+    const dateStr = `${parts[0]}-${parts[1]}-${parts[2]}`;
+    const res = await fetch(
+      `https://api.aladhan.com/v1/timings/${dateStr}?latitude=41.0082&longitude=28.9784&method=13`,
+      { next: { revalidate: 3600 }, signal: AbortSignal.timeout(5000) }
+    );
+    if (!res.ok) return null;
+    const t = (await res.json())?.data?.timings;
+    if (!t?.Fajr) return null;
+    const clean = (s: string) => String(s ?? "").slice(0, 5); // "05:32 (+03)" → "05:32"
+    return {
+      Fajr: clean(t.Fajr), Sunrise: clean(t.Sunrise), Dhuhr: clean(t.Dhuhr),
+      Asr: clean(t.Asr), Maghrib: clean(t.Maghrib), Isha: clean(t.Isha),
+    };
+  } catch {
+    return null; // widget istemcide kendisi çeker
   }
 }
 
@@ -181,7 +221,9 @@ export default async function HomePage() {
       LIMIT 1 OFFSET ?
     `, duaOffset);
 
-  const hijriDate = getHijriDate();
+  const hijriDate     = getHijriDate();
+  const gregorianDate = getGregorianDate();
+  const istanbulTimes = await getIstanbulPrayerTimes();
 
   return (
     <main className="min-h-screen">
@@ -194,7 +236,15 @@ export default async function HomePage() {
         <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-gold-400/10 blur-3xl" />
         <div className="relative mx-auto max-w-2xl text-center">
           {hijriDate && (
-            <p className="mb-4 text-sm font-medium tracking-wide text-gold-300/90">{hijriDate}</p>
+            <p className="mb-4 text-sm font-medium tracking-wide text-gold-300/90">
+              {gregorianDate && (
+                <>
+                  <span className="text-navy-200/90">{gregorianDate}</span>
+                  <span aria-hidden="true" className="mx-2 text-gold-500/60">·</span>
+                </>
+              )}
+              {hijriDate}
+            </p>
           )}
           <h1
             dir="rtl"
@@ -374,7 +424,7 @@ export default async function HomePage() {
         )}
 
         {/* ── NAMAZ VAKİTLERİ ── */}
-        <HomeNamazWidget />
+        <HomeNamazWidget initialTimes={istanbulTimes} />
 
 
         {/* ── HIZLI ERİŞİM ── */}

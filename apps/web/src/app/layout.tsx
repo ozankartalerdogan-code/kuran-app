@@ -47,6 +47,14 @@ export default function RootLayout({
     <html lang="tr" className="scroll-smooth">
       {/* Anti-flicker: React hydrate'dan önce gece modunu uygula */}
       <head>
+        {/* Arapça font erken yüklensin — ayet metinleri fontla boyansın (FOUT engeli) */}
+        <link
+          rel="preload"
+          href="/fonts/Amiri-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `try{if(localStorage.getItem('nightMode')==='1')document.documentElement.classList.add('night-mode')}catch(e){}`,

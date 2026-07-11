@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-interface PrayerTimes {
+export interface PrayerTimes {
   Fajr: string;
   Sunrise: string;
   Dhuhr: string;
@@ -72,10 +72,17 @@ function writeCache(times: PrayerTimes, city: string): void {
   } catch { /* ignore */ }
 }
 
-export function HomeNamazWidget() {
-  const [times, setTimes]       = useState<PrayerTimes | null>(null);
+export function HomeNamazWidget({
+  initialTimes = null,
+}: {
+  /** Sunucuda çekilen İstanbul vakitleri — ilk boyama iskeletsiz, dolu gelsin */
+  initialTimes?: PrayerTimes | null;
+}) {
+  const [times, setTimes]       = useState<PrayerTimes | null>(initialTimes);
   const [city, setCity]         = useState(ISTANBUL.city);
-  const [status, setStatus]     = useState<"loading" | "ok" | "error">("loading");
+  const [status, setStatus]     = useState<"loading" | "ok" | "error">(
+    initialTimes ? "ok" : "loading"
+  );
   const [nextPrayer, setNextPrayer] = useState<string | null>(null);
 
   useEffect(() => {
@@ -88,6 +95,9 @@ export function HomeNamazWidget() {
       setStatus("ok");
       if (isFresh(cached)) return; // bugüne ait → ağ isteği yok
       // bayat → aşağıda arka planda sessizce yenile (iskelet gösterme)
+    } else if (initialTimes) {
+      // SSR vakitleri gösterimde — sıradaki vakti işaretle, konum güncellemesi arkada
+      setNextPrayer(findNextPrayer(initialTimes));
     }
 
     async function fetchTimes(lat: number, lon: number, cityName: string) {
@@ -106,8 +116,8 @@ export function HomeNamazWidget() {
         setStatus("ok");
         writeCache(t, cityName);
       } catch {
-        // Cache zaten gösteriliyorsa hatayı yut — sadece hiç veri yoksa hata göster.
-        if (!cached) setStatus("error");
+        // Cache veya SSR verisi gösteriliyorsa hatayı yut — sadece hiç veri yoksa hata göster.
+        if (!cached && !initialTimes) setStatus("error");
       }
     }
 
@@ -121,6 +131,7 @@ export function HomeNamazWidget() {
     } else {
       fetchTimes(ISTANBUL.lat, ISTANBUL.lon, ISTANBUL.city);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- yalnızca ilk mount'ta çalışsın
   }, []);
 
   return (
