@@ -217,7 +217,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
   const besmeleStyle = { fontSize: `${1.15 * fontScale}rem`, lineHeight: 2 * fontScale };
 
   return (
-    <div className="min-h-screen bg-stone-100 pb-24 dark:bg-stone-950">
+    <div className="min-h-screen pb-24">
       {/* Üst bar */}
       <div className="sticky top-0 z-20 border-b border-stone-200 bg-white/95 backdrop-blur dark:border-stone-800 dark:bg-stone-900/95">
         <div className="mx-auto flex max-w-3xl items-center gap-2 px-3 py-2">
@@ -425,11 +425,13 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
 
       {/* Sayfa içeriği */}
       <main className="mx-auto max-w-3xl px-3 py-4">
-        <div className="rounded-2xl border border-stone-200 bg-white px-4 py-6 dark:border-stone-700 dark:bg-stone-900 sm:px-8 sm:py-8">
+        {/* Mushaf sayfası: parşömen zemin + klasik çift altın çerçeve */}
+        <div className="rounded-2xl border border-gold-300/60 bg-[#fdfbf4] px-3 py-4 shadow-card dark:border-gold-800/40 dark:bg-stone-900 sm:px-5 sm:py-5">
+          <div className="rounded-xl border border-gold-300/40 px-3 py-4 dark:border-gold-800/30 sm:px-5 sm:py-5">
           {bloklar.map((blok, i) =>
             blok.tip === "sure" ? (
-              <div key={`s${blok.surahId}`} className="mb-4 rounded-xl border-2 border-gold-300/70 py-3 text-center dark:border-gold-700/50">
-                <p dir="rtl" lang="ar" className="font-scheherazade text-2xl leading-relaxed text-stone-900 dark:text-stone-50">{blok.arabicName}</p>
+              <div key={`s${blok.surahId}`} className="mb-4 rounded-lg border border-gold-300/70 bg-gradient-to-b from-gold-100/70 to-gold-50/20 py-3 text-center dark:border-gold-700/50 dark:from-gold-950/30 dark:to-transparent">
+                <p dir="rtl" lang="ar" className="font-scheherazade text-2xl leading-relaxed text-navy-950 dark:text-stone-50">{blok.arabicName}</p>
                 <p className="mt-0.5 text-xs font-bold tracking-wide text-gold-700 dark:text-gold-400">{blok.surahId}. {blok.name} Suresi</p>
                 {blok.besmele && (
                   <p dir="rtl" lang="ar" className="font-scheherazade mt-2 text-stone-900 dark:text-stone-50" style={besmeleStyle}>
@@ -442,7 +444,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                 key={`m${i}`}
                 dir="rtl"
                 lang="ar"
-                className="font-scheherazade mb-2 text-justify text-stone-900 dark:text-stone-50"
+                className="font-scheherazade mb-2 text-justify text-navy-950 dark:text-stone-50"
                 style={arabicStyle}
               >
                 {blok.ayetler.map((a) => {
@@ -463,7 +465,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                       className={`cursor-pointer rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy-500 ${isSecili ? "bg-gold-200/70 dark:bg-gold-500/30" : ""}`}
                     >
                       <AyetMetni ayet={a} tajweed={tajweed} />
-                      <span className="text-navy-700 dark:text-navy-400"> ﴿{arapRakam(a.ayahNumber)}﴾ </span>
+                      <span className="text-gold-600 dark:text-gold-500"> ﴿{arapRakam(a.ayahNumber)}﴾ </span>
                     </span>
                   );
                 })}
@@ -482,7 +484,8 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
             </div>
           )}
 
-          <p className="mt-4 text-center text-xs text-stone-400 dark:text-stone-500">— {arapRakam(page)} · {page} —</p>
+          <p className="mt-4 text-center text-xs font-medium text-gold-700/80 dark:text-gold-500/70">— {arapRakam(page)} · {page} —</p>
+          </div>
         </div>
 
         {/* Sayfa navigasyonu */}
@@ -491,7 +494,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
             type="button"
             onClick={() => goToPage(page - 1)}
             disabled={page <= 1}
-            className="flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-stone-700 shadow-sm transition-colors hover:bg-stone-50 disabled:opacity-40 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-200"
+            className="flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy-800 shadow-sm transition-colors hover:border-navy-300 hover:bg-navy-50 disabled:opacity-40 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-200"
           >
             ← Önceki Sayfa
           </button>
@@ -499,7 +502,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
             type="button"
             onClick={() => goToPage(page + 1)}
             disabled={page >= SAYFA_SAYISI}
-            className="flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-stone-700 shadow-sm transition-colors hover:bg-stone-50 disabled:opacity-40 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-200"
+            className="flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy-800 shadow-sm transition-colors hover:border-navy-300 hover:bg-navy-50 disabled:opacity-40 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-200"
           >
             Sonraki Sayfa →
           </button>
