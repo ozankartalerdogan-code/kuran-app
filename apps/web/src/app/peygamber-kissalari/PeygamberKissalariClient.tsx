@@ -59,7 +59,7 @@ function RefChip({ refKey }: { refKey: string }) {
   return (
     <Link
       href={`/surah/${surah}/ayah/${ayah}`}
-      className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 hover:border-emerald-300 dark:border-emerald-800/50 dark:bg-emerald-950/20 dark:text-emerald-300"
+      className="rounded-full border border-navy-200 bg-navy-50 px-2.5 py-1 text-xs font-bold text-navy-700 hover:border-navy-300 dark:border-navy-800/50 dark:bg-navy-950/20 dark:text-navy-300"
     >
       {refKey}
     </Link>
@@ -90,7 +90,7 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
             </div>
           ) : null}
           {kissa.not ? (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300">
+            <div className="rounded-lg border border-gold-200 bg-gold-50 px-3 py-2 text-xs leading-relaxed text-gold-800 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300">
               {kissa.not}
             </div>
           ) : null}
@@ -105,7 +105,7 @@ function TextList({ title, items }: { title: string; items?: string[] }) {
 
   return (
     <div>
-      <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">{title}</p>
+      <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">{title}</p>
       <ul className="space-y-1.5">
         {items.map((item, index) => (
           <li key={index} className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">• {item}</li>
@@ -136,7 +136,7 @@ function PeygamberCard({ peygamber }: { peygamber: Peygamber }) {
               </span>
             ) : null}
           </span>
-          {peygamber.unvan ? <span className="mt-1 block text-xs font-semibold text-emerald-700 dark:text-emerald-400">{peygamber.unvan}</span> : null}
+          {peygamber.unvan ? <span className="mt-1 block text-xs font-semibold text-navy-700 dark:text-navy-400">{peygamber.unvan}</span> : null}
           {peygamber.kisa_ozet ? <span className={`mt-2 block text-sm leading-relaxed text-stone-500 dark:text-stone-400 ${open ? "" : "line-clamp-2"}`}>{peygamber.kisa_ozet}</span> : null}
         </span>
         <Chevron open={open} />
@@ -154,7 +154,7 @@ function PeygamberCard({ peygamber }: { peygamber: Peygamber }) {
 
           {peygamber.kuran_referanslari_ozet && peygamber.kuran_referanslari_ozet.length > 0 ? (
             <div>
-              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Kur'an Referansları</p>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">Kur'an Referansları</p>
               <div className="flex flex-wrap gap-2">
                 {peygamber.kuran_referanslari_ozet.map((ref) => <RefChip key={ref} refKey={ref} />)}
               </div>
@@ -163,7 +163,7 @@ function PeygamberCard({ peygamber }: { peygamber: Peygamber }) {
 
           {peygamber.kissa.length > 0 ? (
             <div>
-              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Kıssalar</p>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">Kıssalar</p>
               <div className="space-y-2">
                 {peygamber.kissa.map((kissa, index) => <KissaCard key={index} kissa={kissa} />)}
               </div>
@@ -181,13 +181,13 @@ function PeygamberCard({ peygamber }: { peygamber: Peygamber }) {
                 type="button"
                 aria-expanded={notesOpen}
               >
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Özel Notlar</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">Özel Notlar</span>
                 <Chevron open={notesOpen} />
               </button>
               {notesOpen ? (
                 <div className="mt-2 space-y-2">
                   {peygamber.ozel_notlar.map((note, index) => (
-                    <div key={index} className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300">
+                    <div key={index} className="rounded-lg border border-gold-200 bg-gold-50 px-3 py-2 text-xs leading-relaxed text-gold-800 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300">
                       {note}
                     </div>
                   ))}
@@ -206,7 +206,7 @@ export function PeygamberKissalariClient() {
     <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700">
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">
             {META.toplam_peygamber} peygamber
           </p>
           <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-50">{META.baslik}</h1>

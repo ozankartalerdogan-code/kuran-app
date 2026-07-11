@@ -15,10 +15,10 @@ const KATEGORI_RENK: Record<
   { border: string; badge: string; iconBg: string; header: string; dot: string }
 > = {
   korunma:   { border: "border-l-sky-400",     badge: "bg-sky-50 text-sky-700 ring-sky-200",        iconBg: "bg-sky-100",     header: "from-sky-50/70",     dot: "bg-sky-400"     },
-  peygamber: { border: "border-l-amber-400",   badge: "bg-amber-50 text-amber-700 ring-amber-200",  iconBg: "bg-amber-100",   header: "from-amber-50/70",   dot: "bg-amber-400"   },
-  rabbena:   { border: "border-l-emerald-400", badge: "bg-emerald-50 text-emerald-700 ring-emerald-200", iconBg: "bg-emerald-100", header: "from-emerald-50/70", dot: "bg-emerald-400" },
+  peygamber: { border: "border-l-gold-400",   badge: "bg-gold-50 text-gold-700 ring-gold-200",  iconBg: "bg-gold-100",   header: "from-gold-50/70",   dot: "bg-gold-400"   },
+  rabbena:   { border: "border-l-navy-400", badge: "bg-navy-50 text-navy-700 ring-navy-200", iconBg: "bg-navy-100", header: "from-navy-50/70", dot: "bg-navy-400" },
   sifa:      { border: "border-l-rose-400",    badge: "bg-rose-50 text-rose-700 ring-rose-200",     iconBg: "bg-rose-100",    header: "from-rose-50/70",    dot: "bg-rose-400"    },
-  tevekkul:  { border: "border-l-indigo-400",  badge: "bg-indigo-50 text-indigo-700 ring-indigo-200",iconBg: "bg-indigo-100",  header: "from-indigo-50/70",  dot: "bg-indigo-400"  },
+  tevekkul:  { border: "border-l-navy-400",  badge: "bg-navy-50 text-navy-700 ring-navy-200",iconBg: "bg-navy-100",  header: "from-navy-50/70",  dot: "bg-navy-400"  },
   zikir:     { border: "border-l-violet-400",  badge: "bg-violet-50 text-violet-700 ring-violet-200",iconBg: "bg-violet-100",  header: "from-violet-50/70",  dot: "bg-violet-400"  },
 };
 const DEFAULT_RENK = KATEGORI_RENK.rabbena;

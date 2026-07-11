@@ -65,7 +65,7 @@ const SEVIYE_CFG = {
   },
   temel: {
     label: "Temel",
-    cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
+    cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300",
   },
   orta: {
     label: "Orta",
@@ -161,8 +161,8 @@ function SpeakerButton({
       aria-label={playing ? "Durdur" : "Sesi çal"}
       className={`flex shrink-0 items-center justify-center rounded-full border transition-colors ${dim} ${
         playing
-          ? "border-emerald-400 bg-emerald-500 text-white"
-          : "border-stone-200 bg-white text-stone-500 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-600 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:hover:border-emerald-700 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400"
+          ? "border-navy-400 bg-navy-500 text-white"
+          : "border-stone-200 bg-white text-stone-500 hover:border-navy-300 hover:bg-navy-50 hover:text-navy-600 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:hover:border-navy-700 dark:hover:bg-navy-900/30 dark:hover:text-navy-400"
       }`}
     >
       {playing ? (
@@ -240,7 +240,7 @@ function Flashcard({
 
         {/* ── Arka yüz ── */}
         <div
-          className="absolute inset-0 flex flex-col rounded-2xl border border-emerald-200 bg-emerald-50/80 px-5 py-4 shadow-md dark:border-emerald-800/50 dark:bg-stone-900"
+          className="absolute inset-0 flex flex-col rounded-2xl border border-navy-200 bg-navy-50/80 px-5 py-4 shadow-md dark:border-navy-800/50 dark:bg-stone-900"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <div className="mb-3 flex items-start justify-between gap-3">
@@ -252,7 +252,7 @@ function Flashcard({
               >
                 {harf.tek_basina}
               </p>
-              <p className="mt-1 text-lg font-bold text-emerald-700 dark:text-emerald-400">
+              <p className="mt-1 text-lg font-bold text-navy-700 dark:text-navy-400">
                 {harf.harf_adi}
               </p>
               <p className="text-sm text-stone-500 dark:text-stone-400">
@@ -360,12 +360,12 @@ function FlashcardView({
           <span>
             {seen} görüldü
             {pct === 100 && (
-              <span className="ml-1.5 font-semibold text-emerald-600 dark:text-emerald-400">✓</span>
+              <span className="ml-1.5 font-semibold text-navy-600 dark:text-navy-400">✓</span>
             )}
           </span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
-          <div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${pct}%` }} />
+          <div className="h-full rounded-full bg-navy-500 transition-all" style={{ width: `${pct}%` }} />
         </div>
       </div>
 
@@ -397,9 +397,9 @@ function FlashcardView({
               aria-label={h.harf_adi}
               className={`h-2.5 w-2.5 rounded-full transition-all ${
                 i === currentIdx
-                  ? "scale-125 bg-emerald-500"
+                  ? "scale-125 bg-navy-500"
                   : seenIds.includes(h.harf_id)
-                    ? "bg-emerald-200 dark:bg-emerald-800"
+                    ? "bg-navy-200 dark:bg-navy-800"
                     : "bg-stone-200 dark:bg-stone-700"
               }`}
             />
@@ -455,7 +455,7 @@ function LessonPopup({
                 {cfg.label}
               </span>
               {status === "completed" && (
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+                <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[10px] font-bold text-navy-700 dark:bg-navy-900/40 dark:text-navy-400">
                   ✓ Tamamlandı
                 </span>
               )}
@@ -479,12 +479,12 @@ function LessonPopup({
           <div className="mb-1 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
             <span>Kartlar: {seenCount} / {total}</span>
             {pct === 100 && (
-              <span className="font-semibold text-emerald-600 dark:text-emerald-400">✓ Tamamlandı</span>
+              <span className="font-semibold text-navy-600 dark:text-navy-400">✓ Tamamlandı</span>
             )}
           </div>
           <div className="h-1.5 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
             <div
-              className="h-full rounded-full bg-emerald-500 transition-all"
+              className="h-full rounded-full bg-navy-500 transition-all"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -492,18 +492,18 @@ function LessonPopup({
 
         {/* Quiz score */}
         {hasQuiz && quizScore && (
-          <div className="mb-3 flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-sm dark:bg-indigo-900/20">
+          <div className="mb-3 flex items-center gap-2 rounded-lg bg-navy-50 px-3 py-2 text-sm dark:bg-navy-900/20">
             <span>🧠</span>
-            <span className="text-indigo-700 dark:text-indigo-300">
+            <span className="text-navy-700 dark:text-navy-300">
               Test: {quizScore.score}/{quizScore.total}
               {quizScore.score >= QUIZ_PASS
-                ? <span className="ml-1 font-semibold text-emerald-600 dark:text-emerald-400">✓ Geçti</span>
+                ? <span className="ml-1 font-semibold text-navy-600 dark:text-navy-400">✓ Geçti</span>
                 : <span className="ml-1 text-stone-500 dark:text-stone-400"> — tekrar dene</span>}
             </span>
           </div>
         )}
         {hasQuiz && !quizScore && status !== "locked" && (
-          <div className="mb-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700 dark:bg-amber-900/20 dark:text-amber-300">
+          <div className="mb-3 rounded-lg bg-gold-50 px-3 py-2 text-xs text-gold-700 dark:bg-gold-900/20 dark:text-gold-300">
             💡 Bu dersi açmak için teste gir ve en az {QUIZ_PASS}/15 al.
           </div>
         )}
@@ -520,14 +520,14 @@ function LessonPopup({
           <div className={`grid gap-2 ${hasQuiz ? "grid-cols-2" : "grid-cols-1"}`}>
             <button
               onClick={onFlashcard}
-              className="rounded-xl bg-emerald-500 py-2.5 text-sm font-semibold text-white transition-all hover:bg-emerald-600"
+              className="rounded-xl bg-navy-500 py-2.5 text-sm font-semibold text-white transition-all hover:bg-navy-600"
             >
               📇 Kartlar
             </button>
             {hasQuiz && (
               <button
                 onClick={onQuiz}
-                className="rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white transition-all hover:bg-indigo-700"
+                className="rounded-xl bg-navy-600 py-2.5 text-sm font-semibold text-white transition-all hover:bg-navy-700"
               >
                 🧠 Test
               </button>
@@ -562,9 +562,9 @@ function PathNode({
 
   const circleCls =
     status === "completed"
-      ? "border-emerald-500 bg-emerald-500 text-white shadow-md shadow-emerald-200/80 dark:shadow-emerald-900/50"
+      ? "border-navy-500 bg-navy-500 text-white shadow-md shadow-navy-200/80 dark:shadow-navy-900/50"
       : status === "active"
-        ? "border-amber-400 bg-amber-400 text-white shadow-md shadow-amber-200/80 dark:shadow-amber-900/50"
+        ? "border-gold-400 bg-gold-400 text-white shadow-md shadow-gold-200/80 dark:shadow-gold-900/50"
         : "border-stone-300 bg-stone-100 text-stone-400 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-500 opacity-50 cursor-not-allowed";
 
   return (
@@ -614,7 +614,7 @@ function PathNode({
 
         {/* Ping ring for active */}
         {status === "active" && (
-          <span className="absolute inset-0 animate-ping rounded-full bg-amber-400 opacity-25" />
+          <span className="absolute inset-0 animate-ping rounded-full bg-gold-400 opacity-25" />
         )}
       </div>
 
@@ -627,7 +627,7 @@ function PathNode({
           {shortBaslik(ders.baslik).split(" ").slice(0, 2).join(" ")}
         </p>
         {status === "active" && (
-          <p className="mt-0.5 text-[9px] font-bold text-amber-500 dark:text-amber-400">Devam</p>
+          <p className="mt-0.5 text-[9px] font-bold text-gold-500 dark:text-gold-400">Devam</p>
         )}
       </div>
     </button>
@@ -653,7 +653,7 @@ function PathRow({
 }) {
   function lineColor(nodeIdx: number) {
     return statuses[nodeIdx] === "completed"
-      ? "bg-emerald-400"
+      ? "bg-navy-400"
       : "bg-stone-200 dark:bg-stone-700";
   }
 
@@ -698,7 +698,7 @@ function PathRow({
 // ─── Vertical Turn Connector ──────────────────────────────────────────────────
 
 function PathVLine({ side, completed }: { side: "left" | "right"; completed: boolean }) {
-  const color = completed ? "bg-emerald-400" : "bg-stone-200 dark:bg-stone-700";
+  const color = completed ? "bg-navy-400" : "bg-stone-200 dark:bg-stone-700";
   // Mirror the row's node-column widths with invisible spacers so the line aligns
   const line = (
     <div className="w-14 shrink-0 sm:w-16 flex justify-center">
@@ -746,18 +746,18 @@ function OverallProgress({
             İlerleme
           </span>
         </div>
-        <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+        <span className="text-sm font-semibold text-navy-600 dark:text-navy-400">
           {completed} / {dersler.length} ders
         </span>
       </div>
       <div className="h-3 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700"
+          className="h-full rounded-full bg-gradient-to-r from-navy-400 to-navy-500 transition-all duration-700"
           style={{ width: `${pct}%` }}
         />
       </div>
       {pct === 100 && (
-        <p className="mt-2 text-center text-xs font-bold text-emerald-600 dark:text-emerald-400">
+        <p className="mt-2 text-center text-xs font-bold text-navy-600 dark:text-navy-400">
           🎉 Tüm dersler tamamlandı!
         </p>
       )}

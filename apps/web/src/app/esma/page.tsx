@@ -25,7 +25,7 @@ export default function EsmaPage() {
       />
 
       {/* Bilgi notu */}
-      <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-3.5 dark:border-amber-700/50 dark:bg-amber-900/15">
+      <div className="mb-6 rounded-xl border border-gold-200 bg-gold-50/70 px-4 py-3.5 dark:border-gold-700/50 dark:bg-gold-900/15">
         <p className="text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">
           <span className="font-bold">Esmaül Hüsna</span>, &ldquo;en güzel isimler&rdquo; demektir.
           Kur'an'da &ldquo;En güzel isimler Allah'ındır; O'na onlarla dua edin&rdquo; (A'râf 7:180) buyrulur.

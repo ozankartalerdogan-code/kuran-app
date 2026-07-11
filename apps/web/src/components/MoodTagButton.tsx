@@ -168,7 +168,7 @@ export function MoodTagButton({ etiket, tag, renk, kind = "tag" }: Props) {
                     <Link
                       href={`/surah/${verse.surah_id}/ayah/${verse.ayah_number}`}
                       onClick={handleClose}
-                      className="text-xs font-medium text-emerald-600 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-200"
+                      className="text-xs font-medium text-navy-600 hover:text-navy-800 dark:text-navy-400 dark:hover:text-navy-200"
                     >
                       Ayete git →
                     </Link>
@@ -182,7 +182,7 @@ export function MoodTagButton({ etiket, tag, renk, kind = "tag" }: Props) {
               <button
                 onClick={() => void fetchVerse()}
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 active:scale-95 disabled:opacity-50"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-700 active:scale-95 disabled:opacity-50"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582M20 20v-5h-.581M5.635 15A9 9 0 1018.364 9" />

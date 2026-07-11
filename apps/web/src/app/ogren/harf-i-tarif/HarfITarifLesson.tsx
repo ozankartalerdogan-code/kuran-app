@@ -10,8 +10,8 @@ import {
 
 // şemsiye = güneş (amber), kameriye = ay (indigo)
 const TIP_CLS = {
-  semsiye: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  kameriye: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
+  semsiye: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300",
+  kameriye: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300",
 } as const;
 const TIP_LABEL = { semsiye: "☀️ Şemsiye", kameriye: "🌙 Kameriye" } as const;
 
@@ -30,13 +30,13 @@ function HarfGrid({ b }: { b: HarfTarifBolum }) {
   return (
     <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {(b.harfler ?? []).map((h, i) => (
-        <li key={i} className={`rounded-xl border px-3 py-2.5 ${isS ? "border-amber-200 bg-amber-50/50 dark:border-amber-800/40 dark:bg-amber-900/10" : "border-indigo-200 bg-indigo-50/50 dark:border-indigo-800/40 dark:bg-indigo-900/10"}`}>
+        <li key={i} className={`rounded-xl border px-3 py-2.5 ${isS ? "border-gold-200 bg-gold-50/50 dark:border-gold-800/40 dark:bg-gold-900/10" : "border-navy-200 bg-navy-50/50 dark:border-navy-800/40 dark:bg-navy-900/10"}`}>
           <div className="flex items-center justify-between">
             <span className="text-sm font-bold text-stone-800 dark:text-stone-100">{h.ad}</span>
             <span className="font-scheherazade text-xl leading-none text-stone-800 dark:text-stone-100" dir="rtl">{h.arapca}</span>
           </div>
           <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">{h.okunusu}</p>
-          {h.ornek_esma && <p className="mt-1 text-[11px] leading-snug text-emerald-700 dark:text-emerald-400">{h.ornek_esma}</p>}
+          {h.ornek_esma && <p className="mt-1 text-[11px] leading-snug text-navy-700 dark:text-navy-400">{h.ornek_esma}</p>}
         </li>
       ))}
     </ul>
@@ -89,7 +89,7 @@ function QuizQuestion({ q, idx, onAnswer }: { q: HarfTarifSoru; idx: number; onA
           const isPicked = picked === opt;
           let cls = "border-stone-200 bg-white text-stone-700 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300";
           if (picked) {
-            if (isCorrect) cls = "border-emerald-400 bg-emerald-50 text-emerald-800 dark:border-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300";
+            if (isCorrect) cls = "border-navy-400 bg-navy-50 text-navy-800 dark:border-navy-600 dark:bg-navy-900/30 dark:text-navy-300";
             else if (isPicked) cls = "border-rose-400 bg-rose-50 text-rose-700 dark:border-rose-600 dark:bg-rose-900/30 dark:text-rose-300";
             else cls = "border-stone-200 bg-white text-stone-400 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-600";
           }
@@ -125,7 +125,7 @@ function Quiz({ b }: { b: HarfTarifBolum }) {
     <>
       <div className="mb-3 flex items-center justify-between rounded-xl bg-stone-100 px-4 py-2.5 text-sm dark:bg-stone-800/60">
         <span className="font-semibold text-stone-700 dark:text-stone-200">🧠 {done} / {sorular.length} yanıtlandı</span>
-        <span className="font-bold text-emerald-600 dark:text-emerald-400">{correct} doğru</span>
+        <span className="font-bold text-navy-600 dark:text-navy-400">{correct} doğru</span>
       </div>
       <div className="space-y-2.5">
         {sorular.map((q, i) => (
@@ -133,8 +133,8 @@ function Quiz({ b }: { b: HarfTarifBolum }) {
         ))}
       </div>
       {done === sorular.length && (
-        <div className="mt-4 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center dark:border-emerald-700/60 dark:bg-emerald-900/20">
-          <p className="text-sm font-bold text-emerald-800 dark:text-emerald-300">
+        <div className="mt-4 rounded-xl border border-navy-300 bg-navy-50 px-4 py-3 text-center dark:border-navy-700/60 dark:bg-navy-900/20">
+          <p className="text-sm font-bold text-navy-800 dark:text-navy-300">
             Bitti! {correct}/{sorular.length} doğru {correct === sorular.length ? "🎉 Tam puan!" : "— tekrar edebilirsin"}
           </p>
         </div>
@@ -151,8 +151,8 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
           {b.icerik && <p className="text-[13.5px] leading-relaxed text-stone-700 dark:text-stone-300">{b.icerik}</p>}
           {b.ornek && (
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 px-3 py-2 dark:border-emerald-800/50 dark:bg-emerald-900/15">
-                <p className="text-sm font-bold text-emerald-700 dark:text-emerald-300">{b.ornek.dogru}</p>
+              <div className="rounded-xl border border-navy-200 bg-navy-50/60 px-3 py-2 dark:border-navy-800/50 dark:bg-navy-900/15">
+                <p className="text-sm font-bold text-navy-700 dark:text-navy-300">{b.ornek.dogru}</p>
               </div>
               <div className="rounded-xl border border-rose-200 bg-rose-50/60 px-3 py-2 dark:border-rose-800/50 dark:bg-rose-900/15">
                 <p className="text-sm font-bold text-rose-600 dark:text-rose-300">{b.ornek.yanlis}</p>
@@ -167,8 +167,8 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
         <SectionShell baslik={b.baslik}>
           {b.icerik && <p className="text-[13.5px] leading-relaxed text-stone-700 dark:text-stone-300">{b.icerik}</p>}
           {b.hafiza_ipucu && (
-            <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-3 dark:border-amber-700/50 dark:bg-amber-900/15">
-              <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400">💡 Hafıza İpucu</p>
+            <div className="mt-3 rounded-xl border border-gold-200 bg-gold-50/70 px-4 py-3 dark:border-gold-700/50 dark:bg-gold-900/15">
+              <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-gold-700 dark:text-gold-400">💡 Hafıza İpucu</p>
               <p className="text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">{b.hafiza_ipucu}</p>
             </div>
           )}
@@ -184,7 +184,7 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
         <SectionShell baslik={b.baslik}>
           {b.icerik && <p className="text-[13.5px] leading-relaxed text-stone-700 dark:text-stone-300">{b.icerik}</p>}
           {(b.not || b.gorsel_ipucu) && (
-            <p className="mt-2.5 rounded-lg bg-indigo-50 px-3 py-2 text-[12px] leading-relaxed text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-300">
+            <p className="mt-2.5 rounded-lg bg-navy-50 px-3 py-2 text-[12px] leading-relaxed text-navy-700 dark:bg-navy-900/20 dark:text-navy-300">
               {b.not || b.gorsel_ipucu}
             </p>
           )}
@@ -198,7 +198,7 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
           <ul className="space-y-1.5">
             {(b.maddeler ?? []).map((m, i) => (
               <li key={i} className="flex items-start gap-2 text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />{m}
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-navy-500" />{m}
               </li>
             ))}
           </ul>
@@ -229,7 +229,7 @@ export function HarfITarifLesson() {
           <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400">📋 Ön koşul: {d.on_kosul}</span>
           <a
             href="#quiz"
-            className="ml-auto rounded-full bg-emerald-600 px-4 py-1.5 text-[12px] font-bold text-white transition-colors hover:bg-emerald-700"
+            className="ml-auto rounded-full bg-navy-600 px-4 py-1.5 text-[12px] font-bold text-white transition-colors hover:bg-navy-700"
           >
             🧠 Teste Başla
           </a>

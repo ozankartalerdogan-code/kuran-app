@@ -11,8 +11,8 @@ export const metadata = { title: "Manevi Sığınak — Kuran Yolu" };
 
 function ScoreBadge({ score, label }: { score: "10/10" | "8/10" | "0/10"; label?: string }) {
   const cfg = {
-    "10/10": { emoji: "🟢", cls: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300" },
-    "8/10":  { emoji: "🟡", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
+    "10/10": { emoji: "🟢", cls: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300" },
+    "8/10":  { emoji: "🟡", cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300" },
     "0/10":  { emoji: "🔴", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
   }[score];
   return (
@@ -62,16 +62,16 @@ function UygulamaKutusu({ baslik, children }: { baslik: string; children: React.
 
 function HadisKutusu({ baslik, arapca, anlam, uygulama }: { baslik: string; arapca: string; anlam: string; uygulama: string }) {
   return (
-    <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/60 px-4 py-3.5 dark:border-amber-800/50 dark:bg-amber-900/15">
+    <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3.5 dark:border-gold-800/50 dark:bg-gold-900/15">
       <div className="mb-2 flex items-center gap-2">
         <span className="text-sm leading-none">🟢</span>
-        <p className="text-[11px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400">{baslik}</p>
+        <p className="text-[11px] font-bold uppercase tracking-widest text-gold-700 dark:text-gold-400">{baslik}</p>
       </div>
       <p className="mb-1.5 font-mono text-[13px] leading-relaxed text-stone-700 dark:text-stone-300 italic">{arapca}</p>
       <p className="mb-2 text-[12px] leading-relaxed text-stone-600 dark:text-stone-400">
         <span className="font-semibold">Anlamı:</span> {anlam}
       </p>
-      <p className="text-[12px] leading-relaxed text-amber-800 dark:text-amber-300">
+      <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
         <span className="font-semibold">Uygulama:</span> {uygulama}
       </p>
     </div>
@@ -81,7 +81,7 @@ function HadisKutusu({ baslik, arapca, anlam, uygulama }: { baslik: string; arap
 function UyariKutusu({ mesaj, renk = "red" }: { mesaj: string; renk?: "red" | "amber" }) {
   const cls = renk === "red"
     ? "border-red-200 bg-red-50/60 text-red-800 dark:border-red-800/50 dark:bg-red-900/15 dark:text-red-300"
-    : "border-amber-200 bg-amber-50/60 text-amber-800 dark:border-amber-800/50 dark:bg-amber-900/15 dark:text-amber-300";
+    : "border-gold-200 bg-gold-50/60 text-gold-800 dark:border-gold-800/50 dark:bg-gold-900/15 dark:text-gold-300";
   return (
     <div className={`mb-4 rounded-xl border px-4 py-3 ${cls}`}>
       <p className="text-[12px] leading-relaxed">{mesaj}</p>
@@ -118,18 +118,18 @@ function GuvenilirlikPuani() {
         </h2>
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 dark:border-emerald-800/60 dark:bg-emerald-900/20">
+        <div className="rounded-xl border border-navy-200 bg-navy-50 px-4 py-3 dark:border-navy-800/60 dark:bg-navy-900/20">
           <div className="mb-1.5 flex items-center gap-2">
             <span className="text-lg">🟢</span>
-            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">10/10</span>
+            <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[11px] font-bold text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">10/10</span>
           </div>
           <p className="mb-1 text-xs font-semibold text-stone-700 dark:text-stone-200">Kesin Sünnet / Kur&apos;an</p>
           <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">Peygamberimizin bizzat yaptığı, sahih hadislerle sabit uygulamalar. Mutlak korunma.</p>
         </div>
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/60 dark:bg-amber-900/20">
+        <div className="rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 dark:border-gold-800/60 dark:bg-gold-900/20">
           <div className="mb-1.5 flex items-center gap-2">
             <span className="text-lg">🟡</span>
-            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">8/10</span>
+            <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[11px] font-bold text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">8/10</span>
           </div>
           <p className="mb-1 text-xs font-semibold text-stone-700 dark:text-stone-200">Ulema İctihadı / Meşru Rukye</p>
           <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">Alimlerin Kur&apos;an&apos;ın şifa özelliğine dayanarak caiz gördüğü yöntemler. Şirk unsuru yoktur.</p>
@@ -281,8 +281,8 @@ function Bolum4({ verses }: { verses: VerseCardData[] }) {
         ]} />
       </UygulamaKutusu>
 
-      <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/60 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/15">
-        <p className="text-[12px] leading-relaxed text-amber-800 dark:text-amber-300">
+      <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3 dark:border-gold-800/50 dark:bg-gold-900/15">
+        <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
           <span className="font-semibold">🟢 Sahih Hadis Notu (Müslim, İbn Mâce):</span> Cebrail&apos;in (a.s.) Nazar Rukyesi duası hasede karşı da okunur.
           Bölüm 3&apos;teki aynı duayı 7 defa oku.
         </p>
@@ -406,12 +406,12 @@ function MitAvcisi() {
         <h2 className="text-base font-bold text-stone-800 dark:text-stone-100">Mit Avcısı — Yap / Yapma</h2>
       </div>
 
-      <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50/70 px-4 py-3.5 dark:border-emerald-800/50 dark:bg-emerald-900/15">
-        <p className="mb-2.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">🟢 YAP</p>
+      <div className="mb-6 rounded-xl border border-navy-200 bg-navy-50/70 px-4 py-3.5 dark:border-navy-800/50 dark:bg-navy-900/15">
+        <p className="mb-2.5 text-xs font-bold text-navy-700 dark:text-navy-400">🟢 YAP</p>
         <ul className="space-y-1.5">
           {yapilacaklar.map((m) => (
             <li key={m} className="flex items-start gap-2 text-[12px] leading-relaxed text-stone-600 dark:text-stone-300">
-              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />{m}
+              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-navy-400" />{m}
             </li>
           ))}
         </ul>
@@ -582,8 +582,8 @@ export default async function ManeviSiginakPage() {
         <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
           Kur&apos;an ve sahih sünnetle korunma rehberi — büyü, nazar, hased ve vesveseden Allah&apos;a sığınma.
         </p>
-        <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
-          <p className="text-[12px] leading-relaxed text-amber-800 dark:text-amber-300">
+        <div className="mt-3 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 dark:border-gold-800/50 dark:bg-gold-900/20">
+          <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
             <span className="font-bold">Tevhit Bilinci:</span> Şifayı ve korumayı yalnız Allah&apos;tan iste.
             Vesilelere değil, Vesileler Sahibi&apos;ne güven. Hiçbir nesne, kişi veya ritüel kendi başına koruma sağlayamaz.
           </p>
@@ -596,19 +596,19 @@ export default async function ManeviSiginakPage() {
       <div className="mb-8">
         <Link
           href="/manevi-siginak/ismi-azam"
-          className="group block overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 transition-shadow hover:shadow-md dark:border-amber-800/50 dark:from-amber-950/40 dark:to-yellow-950/20"
+          className="group block overflow-hidden rounded-2xl border border-gold-200 bg-gradient-to-br from-gold-50 to-yellow-50 transition-shadow hover:shadow-md dark:border-gold-800/50 dark:from-gold-950/40 dark:to-yellow-950/20"
         >
           <div className="flex items-center gap-4 px-5 py-4">
             <span className="text-3xl">✨</span>
             <div className="flex-1">
-              <p className="text-sm font-bold text-amber-800 dark:text-amber-300 group-hover:underline">
+              <p className="text-sm font-bold text-gold-800 dark:text-gold-300 group-hover:underline">
                 İsmi Azam & Korunma Duaları
               </p>
               <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
                 Allah'ın en büyük ismi, Sekine duası ve sahih korunma duaları — Arapça metinleriyle.
               </p>
             </div>
-            <span className="text-amber-400 dark:text-amber-500 transition-transform group-hover:translate-x-0.5">→</span>
+            <span className="text-gold-400 dark:text-gold-500 transition-transform group-hover:translate-x-0.5">→</span>
           </div>
         </Link>
       </div>
@@ -617,19 +617,19 @@ export default async function ManeviSiginakPage() {
       <div className="mb-8">
         <Link
           href="/esma"
-          className="group block overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 transition-shadow hover:shadow-md dark:border-emerald-800/50 dark:from-emerald-950/40 dark:to-teal-950/20"
+          className="group block overflow-hidden rounded-2xl border border-navy-200 bg-gradient-to-br from-navy-50 to-navy-50 transition-shadow hover:shadow-md dark:border-navy-800/50 dark:from-navy-950/40 dark:to-navy-950/20"
         >
           <div className="flex items-center gap-4 px-5 py-4">
             <span className="text-3xl">📿</span>
             <div className="flex-1">
-              <p className="text-sm font-bold text-emerald-800 dark:text-emerald-300 group-hover:underline">
+              <p className="text-sm font-bold text-navy-800 dark:text-navy-300 group-hover:underline">
                 Esmaül Hüsna — 99 İsim
               </p>
               <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">
                 Allah'ın 99 güzel ismi: Arapça yazılışı, okunuşu ve açıklayıcı anlamlarıyla.
               </p>
             </div>
-            <span className="text-emerald-400 dark:text-emerald-500 transition-transform group-hover:translate-x-0.5">→</span>
+            <span className="text-navy-400 dark:text-navy-500 transition-transform group-hover:translate-x-0.5">→</span>
           </div>
         </Link>
       </div>
@@ -650,9 +650,9 @@ export default async function ManeviSiginakPage() {
         <BolumAkordeon
           ikon="🛡️" baslik="Genel Korunma Kalkanı — Günlük Rutin"
           score="10/10" scoreLabel="Kesin Sünnet"
-          borderCls="border-l-emerald-400"
-          headerCls="from-emerald-50/70 dark:from-emerald-900/20"
-          iconBgCls="bg-emerald-100 dark:bg-emerald-900/40"
+          borderCls="border-l-navy-400"
+          headerCls="from-navy-50/70 dark:from-navy-900/20"
+          iconBgCls="bg-navy-100 dark:bg-navy-900/40"
         >
           <Bolum1 verses={genel} />
         </BolumAkordeon>
@@ -680,9 +680,9 @@ export default async function ManeviSiginakPage() {
         <BolumAkordeon
           ikon="💚" baslik="Hased — Kıskançlık Şerrinden Korunma"
           score="10/10" scoreLabel="Kesin Sünnet"
-          borderCls="border-l-teal-400"
-          headerCls="from-teal-50/70 dark:from-teal-900/20"
-          iconBgCls="bg-teal-100 dark:bg-teal-900/40"
+          borderCls="border-l-navy-400"
+          headerCls="from-navy-50/70 dark:from-navy-900/20"
+          iconBgCls="bg-navy-100 dark:bg-navy-900/40"
         >
           <Bolum4 verses={hased} />
         </BolumAkordeon>
@@ -690,9 +690,9 @@ export default async function ManeviSiginakPage() {
         <BolumAkordeon
           ikon="🤲" baslik="Şeytan Vesvesesi — Sığınma"
           score="10/10" scoreLabel="Kesin Sünnet"
-          borderCls="border-l-indigo-400"
-          headerCls="from-indigo-50/70 dark:from-indigo-900/20"
-          iconBgCls="bg-indigo-100 dark:bg-indigo-900/40"
+          borderCls="border-l-navy-400"
+          headerCls="from-navy-50/70 dark:from-navy-900/20"
+          iconBgCls="bg-navy-100 dark:bg-navy-900/40"
         >
           <Bolum5 verses={siginma} />
         </BolumAkordeon>

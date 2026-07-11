@@ -157,7 +157,7 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
             &quot;{hadithText}&quot;
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-semibold text-emerald-700 dark:text-emerald-400">{narrator}</span>
+            <span className="font-semibold text-navy-700 dark:text-navy-400">{narrator}</span>
             {sources ? <span className="text-stone-400">{sources}</span> : null}
           </div>
         </div>
@@ -167,12 +167,12 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
       {open && (
         <div className="space-y-3 border-t border-stone-100 px-4 py-3 dark:border-stone-800">
           {hadith.key_lesson ? (
-            <div className="rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs leading-relaxed text-emerald-800 dark:border-emerald-800/50 dark:bg-emerald-950/20 dark:text-emerald-300">
+            <div className="rounded-lg border border-navy-100 bg-navy-50 px-3 py-2 text-xs leading-relaxed text-navy-800 dark:border-navy-800/50 dark:bg-navy-950/20 dark:text-navy-300">
               {hadith.key_lesson}
             </div>
           ) : null}
           {hadith.info_note ? (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300">
+            <div className="rounded-lg border border-gold-200 bg-gold-50 px-3 py-2 text-xs leading-relaxed text-gold-800 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300">
               {hadith.info_note}
             </div>
           ) : null}
@@ -247,7 +247,7 @@ export function HadislerClient() {
     <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700">
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">
             {HADITHS.length} hadis · {TOPICS.length} konu
           </p>
           <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-50">{META.title ?? "Sahih Hadisler"}</h1>
@@ -257,7 +257,7 @@ export function HadislerClient() {
 
         {META.reliability_standard ? (
           <section className="mb-5 rounded-2xl border border-stone-200 bg-white px-4 py-3 dark:border-stone-700 dark:bg-stone-900">
-            <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Güvenilirlik Standardı</p>
+            <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">Güvenilirlik Standardı</p>
             <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{META.reliability_standard}</p>
           </section>
         ) : null}

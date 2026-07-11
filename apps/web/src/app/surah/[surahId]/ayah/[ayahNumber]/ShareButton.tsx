@@ -98,7 +98,7 @@ export function ShareButton({ verseKey, meal, surahName, surahId, ayahNumber }: 
                 type="button"
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-stone-700 transition-colors hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-800"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy-100 text-navy-600 dark:bg-navy-900/40 dark:text-navy-400">
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
                   </svg>
@@ -177,7 +177,7 @@ export function ShareButton({ verseKey, meal, surahName, surahId, ayahNumber }: 
             >
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
                 {copied === "text" ? (
-                  <svg className="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="h-4 w-4 text-navy-500" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
@@ -186,7 +186,7 @@ export function ShareButton({ verseKey, meal, surahName, surahId, ayahNumber }: 
                   </svg>
                 )}
               </span>
-              <span className={copied === "text" ? "font-medium text-emerald-600 dark:text-emerald-400" : ""}>
+              <span className={copied === "text" ? "font-medium text-navy-600 dark:text-navy-400" : ""}>
                 {copied === "text" ? "Kopyalandı!" : "Ayet metnini kopyala"}
               </span>
             </button>
@@ -199,7 +199,7 @@ export function ShareButton({ verseKey, meal, surahName, surahId, ayahNumber }: 
             >
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
                 {copied === "link" ? (
-                  <svg className="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="h-4 w-4 text-navy-500" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
@@ -208,7 +208,7 @@ export function ShareButton({ verseKey, meal, surahName, surahId, ayahNumber }: 
                   </svg>
                 )}
               </span>
-              <span className={copied === "link" ? "font-medium text-emerald-600 dark:text-emerald-400" : ""}>
+              <span className={copied === "link" ? "font-medium text-navy-600 dark:text-navy-400" : ""}>
                 {copied === "link" ? "Kopyalandı!" : "Sayfanın linkini kopyala"}
               </span>
             </button>

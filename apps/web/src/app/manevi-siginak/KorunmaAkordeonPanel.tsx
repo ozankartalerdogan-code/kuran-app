@@ -8,11 +8,11 @@ const KATEGORI_RENK: Record<
   string,
   { border: string; badge: string; iconBg: string; header: string }
 > = {
-  "korunma-genel":   { border: "border-l-emerald-400", badge: "bg-emerald-50 text-emerald-700 ring-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:ring-emerald-700",  iconBg: "bg-emerald-100 dark:bg-emerald-900/40",  header: "from-emerald-50/70 dark:from-emerald-900/20"  },
+  "korunma-genel":   { border: "border-l-navy-400", badge: "bg-navy-50 text-navy-700 ring-navy-200 dark:bg-navy-900/30 dark:text-navy-300 dark:ring-navy-700",  iconBg: "bg-navy-100 dark:bg-navy-900/40",  header: "from-navy-50/70 dark:from-navy-900/20"  },
   "korunma-sihir":   { border: "border-l-violet-400",  badge: "bg-violet-50 text-violet-700 ring-violet-200 dark:bg-violet-900/30 dark:text-violet-300 dark:ring-violet-700",       iconBg: "bg-violet-100 dark:bg-violet-900/40",    header: "from-violet-50/70 dark:from-violet-900/20"    },
   "korunma-nazar":   { border: "border-l-sky-400",     badge: "bg-sky-50 text-sky-700 ring-sky-200 dark:bg-sky-900/30 dark:text-sky-300 dark:ring-sky-700",                         iconBg: "bg-sky-100 dark:bg-sky-900/40",           header: "from-sky-50/70 dark:from-sky-900/20"          },
-  "korunma-hased":   { border: "border-l-teal-400",    badge: "bg-teal-50 text-teal-700 ring-teal-200 dark:bg-teal-900/30 dark:text-teal-300 dark:ring-teal-700",                   iconBg: "bg-teal-100 dark:bg-teal-900/40",         header: "from-teal-50/70 dark:from-teal-900/20"        },
-  "korunma-siginma": { border: "border-l-indigo-400",  badge: "bg-indigo-50 text-indigo-700 ring-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:ring-indigo-700",       iconBg: "bg-indigo-100 dark:bg-indigo-900/40",    header: "from-indigo-50/70 dark:from-indigo-900/20"    },
+  "korunma-hased":   { border: "border-l-navy-400",    badge: "bg-navy-50 text-navy-700 ring-navy-200 dark:bg-navy-900/30 dark:text-navy-300 dark:ring-navy-700",                   iconBg: "bg-navy-100 dark:bg-navy-900/40",         header: "from-navy-50/70 dark:from-navy-900/20"        },
+  "korunma-siginma": { border: "border-l-navy-400",  badge: "bg-navy-50 text-navy-700 ring-navy-200 dark:bg-navy-900/30 dark:text-navy-300 dark:ring-navy-700",       iconBg: "bg-navy-100 dark:bg-navy-900/40",    header: "from-navy-50/70 dark:from-navy-900/20"    },
   "korunma-sifa":    { border: "border-l-rose-400",    badge: "bg-rose-50 text-rose-700 ring-rose-200 dark:bg-rose-900/30 dark:text-rose-300 dark:ring-rose-700",                   iconBg: "bg-rose-100 dark:bg-rose-900/40",         header: "from-rose-50/70 dark:from-rose-900/20"        },
 };
 

@@ -61,7 +61,7 @@ export function GuideTab() {
             {k["örnek"] && <p className="mt-1 text-[11px] text-stone-400 dark:text-stone-500">Örnek: {k["örnek"]}</p>}
           </div>
         ))}
-        <p className="mt-3 rounded-lg bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400">
+        <p className="mt-3 rounded-lg bg-navy-50 p-3 text-xs leading-relaxed text-navy-700 dark:bg-navy-950/30 dark:text-navy-400">
           💚 {R.temel_kavramlar.teselli_notu}
         </p>
       </Section>
@@ -82,7 +82,7 @@ export function GuideTab() {
                 <p className="text-xs text-stone-600 dark:text-stone-300">{v.farz}</p>
                 <p className="text-[11px] text-stone-400 dark:text-stone-500">{v.sunnet}</p>
               </div>
-              <span className="shrink-0 text-xs font-bold text-emerald-600 dark:text-emerald-400">{v.toplam}</span>
+              <span className="shrink-0 text-xs font-bold text-navy-600 dark:text-navy-400">{v.toplam}</span>
             </div>
           ))}
         </div>
@@ -99,7 +99,7 @@ export function GuideTab() {
             {a.aciklama && <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{a.aciklama}</p>}
             {a.niyet_ornekleri && a.niyet_ornekleri.length > 0 && (
               <div className="mt-2 space-y-1.5">
-                <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Örnek Niyetler</p>
+                <p className="text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">Örnek Niyetler</p>
                 {a.niyet_ornekleri.map((ornek, idx) => (
                   <div key={idx} className="rounded-lg border border-stone-200 bg-stone-50 p-2.5 dark:border-stone-700 dark:bg-stone-900/60">
                     <p className="text-xs font-semibold text-stone-800 dark:text-stone-100">{ornek.namaz}</p>
@@ -122,7 +122,7 @@ export function GuideTab() {
               </span>
               <DurumBadge durum={a.durum} />
             </div>
-            {a.konum && <p className="mt-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">{a.konum}</p>}
+            {a.konum && <p className="mt-0.5 text-xs font-semibold text-navy-700 dark:text-navy-400">{a.konum}</p>}
             {a.ne_zaman && <p className="text-[11px] text-stone-400 dark:text-stone-500">{a.ne_zaman}</p>}
             {a.aciklama && <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{a.aciklama}</p>}
             <DuaBlock arapca={a.dua_arapca} okunus={a.dua} anlam={a.anlam} />
@@ -131,7 +131,7 @@ export function GuideTab() {
             {a.durum_detay && <Note>ℹ️ {a.durum_detay}</Note>}
             {a.not && <Note>ℹ️ {a.not}</Note>}
             {a.anlam_notu && <Note>💡 {a.anlam_notu}</Note>}
-            {a.sureler && <p className="mt-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">↓ Sureler aşağıdaki &quot;Zamm-ı Sureler&quot; bölümünde</p>}
+            {a.sureler && <p className="mt-1 text-xs font-semibold text-navy-700 dark:text-navy-400">↓ Sureler aşağıdaki &quot;Zamm-ı Sureler&quot; bölümünde</p>}
           </div>
         ))}
       </Section>

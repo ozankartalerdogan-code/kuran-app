@@ -69,11 +69,11 @@ export function HatimClient() {
 
         {/* Hatim yok */}
         {!current && (
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center dark:border-emerald-800/50 dark:bg-emerald-950/20">
+          <div className="rounded-2xl border border-navy-200 bg-navy-50 p-8 text-center dark:border-navy-800/50 dark:bg-navy-950/20">
             <p className="mb-4 text-stone-600 dark:text-stone-400">Aktif hatim yok.</p>
             <button
               onClick={startHatim}
-              className="rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700 active:scale-95"
+              className="rounded-xl bg-navy-600 px-6 py-3 font-semibold text-white hover:bg-navy-700 active:scale-95"
             >
               Yeni Hatim Başlat
             </button>
@@ -89,18 +89,18 @@ export function HatimClient() {
                 <div>
                   <p className="text-xs text-stone-400 dark:text-stone-500">Başlangıç: {formatDate(current.startDate)}</p>
                   {current.completedDate && (
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400">
+                    <p className="text-xs text-navy-600 dark:text-navy-400">
                       ✅ Tamamlandı: {formatDate(current.completedDate)} ({daysBetween(current.startDate, current.completedDate)} günde)
                     </p>
                   )}
                 </div>
-                <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{progress}/30</span>
+                <span className="text-2xl font-bold text-navy-600 dark:text-navy-400">{progress}/30</span>
               </div>
 
               {/* Progress bar */}
               <div className="h-3 w-full overflow-hidden rounded-full bg-stone-100 dark:bg-stone-700">
                 <div
-                  className="h-3 rounded-full bg-emerald-500 transition-all duration-300"
+                  className="h-3 rounded-full bg-navy-500 transition-all duration-300"
                   style={{ width: `${pct}%` }}
                 />
               </div>
@@ -118,7 +118,7 @@ export function HatimClient() {
                     </button>
                     <button
                       onClick={startHatim}
-                      className="rounded-lg border border-emerald-300 px-3 py-1.5 text-xs text-emerald-600 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-400"
+                      className="rounded-lg border border-navy-300 px-3 py-1.5 text-xs text-navy-600 hover:bg-navy-50 dark:border-navy-700 dark:text-navy-400"
                     >
                       + Yeni Hatim
                     </button>
@@ -143,14 +143,14 @@ export function HatimClient() {
                     onClick={() => toggleJuz(juz.juz)}
                     className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all active:scale-[0.98] ${
                       done
-                        ? "border-emerald-300 bg-emerald-50 dark:border-emerald-700 dark:bg-emerald-950/30"
+                        ? "border-navy-300 bg-navy-50 dark:border-navy-700 dark:bg-navy-950/30"
                         : "border-stone-200 bg-white hover:border-stone-300 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900"
                     }`}
                   >
                     {/* Checkbox */}
                     <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold transition-colors ${
                       done
-                        ? "border-emerald-500 bg-emerald-500 text-white"
+                        ? "border-navy-500 bg-navy-500 text-white"
                         : "border-stone-300 text-stone-400 dark:border-stone-600"
                     }`}>
                       {done ? "✓" : juz.juz}
@@ -158,7 +158,7 @@ export function HatimClient() {
 
                     {/* Cüz bilgisi */}
                     <div className="flex-1 min-w-0">
-                      <span className={`font-semibold ${done ? "text-emerald-700 dark:text-emerald-400" : "text-stone-800 dark:text-stone-200"}`}>
+                      <span className={`font-semibold ${done ? "text-navy-700 dark:text-navy-400" : "text-stone-800 dark:text-stone-200"}`}>
                         {juz.juz}. Cüz
                       </span>
                       <span className="ml-2 text-xs text-stone-400 dark:text-stone-500">
@@ -170,7 +170,7 @@ export function HatimClient() {
                     <Link
                       href={`/surah/${juz.startSurah}/ayah/${juz.startAyah}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="shrink-0 rounded-lg border border-stone-200 px-2 py-1 text-[10px] text-stone-400 hover:border-emerald-300 hover:text-emerald-600 dark:border-stone-600 dark:text-stone-500"
+                      className="shrink-0 rounded-lg border border-stone-200 px-2 py-1 text-[10px] text-stone-400 hover:border-navy-300 hover:text-navy-600 dark:border-stone-600 dark:text-stone-500"
                     >
                       Git →
                     </Link>
@@ -196,7 +196,7 @@ export function HatimClient() {
                       {formatDate(h.startDate)} → {formatDate(h.completedDate!)}
                     </p>
                   </div>
-                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-xs font-semibold text-navy-600 dark:text-navy-400">
                     {daysBetween(h.startDate, h.completedDate!)} gün
                   </span>
                 </div>

@@ -26,7 +26,7 @@ export function NamazRehberiClient() {
           <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
             Yeni başlayanlar için adım adım namaz rehberi ve özel namazlar (cenaze, teheccüd, teravih ve daha fazlası).
             Namaza dair ayetleri incelemek için{" "}
-            <Link href="/namaz" className="font-semibold text-emerald-700 hover:underline dark:text-emerald-400">
+            <Link href="/namaz" className="font-semibold text-navy-700 hover:underline dark:text-navy-400">
               Namaz Ayetleri
             </Link>{" "}
             sayfasına bakabilirsiniz.
@@ -45,7 +45,7 @@ export function NamazRehberiClient() {
                 role="tab"
                 className={`flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                   active
-                    ? "bg-white text-emerald-700 shadow-sm dark:bg-stone-800 dark:text-emerald-400"
+                    ? "bg-white text-navy-700 shadow-sm dark:bg-stone-800 dark:text-navy-400"
                     : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
                 }`}
               >

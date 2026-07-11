@@ -153,7 +153,7 @@ export function HomeNamazWidget() {
                 key={key}
                 className={`flex flex-col items-center rounded-lg px-2 py-2.5 text-center transition-colors ${
                   isNext
-                    ? "bg-emerald-500 text-white shadow-sm"
+                    ? "bg-navy-500 text-white shadow-sm"
                     : "bg-stone-50 text-stone-700 dark:bg-stone-800 dark:text-stone-300"
                 }`}
               >

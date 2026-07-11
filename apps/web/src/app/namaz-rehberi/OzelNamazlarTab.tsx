@@ -73,7 +73,7 @@ function Niyet({ niyet }: { niyet?: NiyetData }) {
     <>
       {Object.entries(niyet).filter(([k]) => k !== "not").map(([k, v]) => (
         <div key={k} className="mt-2">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">{NIYET_LABEL[k] ?? k}</p>
+          <p className="text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">{NIYET_LABEL[k] ?? k}</p>
           <p className="mt-0.5 rounded-lg border border-stone-200 bg-stone-50 p-2.5 text-sm italic text-stone-700 dark:border-stone-700 dark:bg-stone-900/60 dark:text-stone-300">
             &ldquo;{String(v)}&rdquo;
           </p>
@@ -107,13 +107,13 @@ function KilinicObjectView({ obj }: { obj: KilinicObj }) {
       {obj.aciklama && <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{obj.aciklama}</p>}
       {Array.isArray(obj["1_rekat"]) && (
         <div className="mt-2">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">1. Rekat</p>
+          <p className="text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">1. Rekat</p>
           <Bullets items={obj["1_rekat"]} />
         </div>
       )}
       {Array.isArray(obj["2_rekat"]) && (
         <div className="mt-2">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">2. Rekat</p>
+          <p className="text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">2. Rekat</p>
           <Bullets items={obj["2_rekat"]} />
         </div>
       )}
@@ -159,7 +159,7 @@ function Fazilet({ data }: { data: string | string[] }) {
   return (
     <>
       {arr.map((f, i) => (
-        <p key={i} className="mt-2 rounded-lg bg-emerald-50 p-2.5 text-xs leading-relaxed text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400">
+        <p key={i} className="mt-2 rounded-lg bg-navy-50 p-2.5 text-xs leading-relaxed text-navy-700 dark:bg-navy-950/30 dark:text-navy-400">
           💎 {f}
         </p>
       ))}
@@ -179,27 +179,27 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
 
       {neZaman && (
         <>
-          <p className="mb-0.5 mt-2.5 text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">🕐 Ne Zaman?</p>
+          <p className="mb-0.5 mt-2.5 text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">🕐 Ne Zaman?</p>
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{neZaman}</p>
         </>
       )}
       {n.vakit && <p className="mt-1 text-xs text-stone-400 dark:text-stone-500">Vakit: {n.vakit}</p>}
       {n.sebep && (
         <>
-          <p className="mb-0.5 mt-2.5 text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Sebep</p>
+          <p className="mb-0.5 mt-2.5 text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">Sebep</p>
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{n.sebep}</p>
         </>
       )}
 
       {n.mezhep_gorusleri && (
-        <p className="mt-2 rounded-md border border-indigo-200 bg-indigo-50 p-2.5 text-xs leading-relaxed text-indigo-800 dark:border-indigo-800/40 dark:bg-indigo-950/30 dark:text-indigo-300">
+        <p className="mt-2 rounded-md border border-navy-200 bg-navy-50 p-2.5 text-xs leading-relaxed text-navy-800 dark:border-navy-800/40 dark:bg-navy-950/30 dark:text-navy-300">
           ⚖️ {n.mezhep_gorusleri}
         </p>
       )}
 
       {n.kuran_referansi && (
         <div className="mt-2.5 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-900/60">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">{n.kuran_referansi.sure} {n.kuran_referansi.ayet}</p>
+          <p className="text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">{n.kuran_referansi.sure} {n.kuran_referansi.ayet}</p>
           <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{n.kuran_referansi.metin}</p>
         </div>
       )}
@@ -238,13 +238,13 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
       {n.kilinic && <Kilinic data={n.kilinic} />}
       {n.kilinic_hanafi && (
         <>
-          <p className="mt-1.5 text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Hanefî</p>
+          <p className="mt-1.5 text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">Hanefî</p>
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{n.kilinic_hanafi}</p>
         </>
       )}
       {n.kilinic_safii_hanbeli && (
         <>
-          <p className="mt-1.5 text-[11px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">Şâfiî / Hanbelî</p>
+          <p className="mt-1.5 text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">Şâfiî / Hanbelî</p>
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{n.kilinic_safii_hanbeli}</p>
         </>
       )}
@@ -283,7 +283,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
       )}
 
       {n.hadis_kaynagi && (
-        <p className="mt-3 text-[11px] font-bold text-emerald-700 dark:text-emerald-400">📚 {getEvidenceLabel(n.hadis_kaynagi)}</p>
+        <p className="mt-3 text-[11px] font-bold text-navy-700 dark:text-navy-400">📚 {getEvidenceLabel(n.hadis_kaynagi)}</p>
       )}
     </Section>
   );

@@ -9,8 +9,8 @@ const DURUM_CLS: Record<string, string> = {
   farz:             "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
   farz_i_kifaye:    "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
   vacip:            "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
-  sunnet:           "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  sunnet_musteap:   "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+  sunnet:           "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300",
+  sunnet_musteap:   "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300",
   sunnet_i_muekked: "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300",
 };
 
@@ -50,7 +50,7 @@ export function DuaBlock({
       )}
       {okunus && <p className="mb-1 text-sm italic leading-relaxed text-stone-700 dark:text-stone-300">{okunus}</p>}
       {anlam && <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">{anlam}</p>}
-      {sourceLabel && <p className="mt-1.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400">{sourceLabel}</p>}
+      {sourceLabel && <p className="mt-1.5 text-[11px] font-bold text-navy-700 dark:text-navy-400">{sourceLabel}</p>}
     </div>
   );
 }

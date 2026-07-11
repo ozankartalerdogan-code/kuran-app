@@ -40,7 +40,7 @@ export default function NamazPage() {
       >
         <Link
           href="/namaz-rehberi"
-          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-navy-700 hover:underline dark:text-navy-400"
         >
           Namazın adım adım nasıl kılındığını öğrenmek için Namaz Rehberi&apos;ne bakın →
         </Link>

@@ -105,7 +105,7 @@ export default async function MushafPage({ params }: PageProps) {
   }));
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-amber-50 px-4 py-6 dark:bg-stone-900 sm:px-6 lg:px-8">
+    <main className="flex min-h-screen flex-col items-center bg-gold-50 px-4 py-6 dark:bg-stone-900 sm:px-6 lg:px-8">
       <div className="w-full max-w-2xl">
 
         {/* ── Üst navigasyon ── */}

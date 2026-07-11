@@ -224,18 +224,18 @@ function EsmaKart({
       className={`group w-full text-left rounded-2xl border p-4 transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] cursor-pointer
         ${
           isActive
-            ? "border-emerald-500/60 bg-emerald-50/80 dark:bg-emerald-900/20 shadow-md shadow-emerald-500/10"
-            : "border-amber-500/15 bg-white dark:bg-stone-900/70 hover:border-amber-400/30 hover:bg-amber-50/30 dark:hover:bg-amber-900/10"
+            ? "border-navy-500/60 bg-navy-50/80 dark:bg-navy-900/20 shadow-md shadow-navy-500/10"
+            : "border-gold-500/15 bg-white dark:bg-stone-900/70 hover:border-gold-400/30 hover:bg-gold-50/30 dark:hover:bg-gold-900/10"
         }`}
     >
       <div className="flex items-center justify-between gap-3">
         {/* Sol: ID & Arapça */}
         <div className="flex items-center gap-3 min-w-0">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600/10 border border-emerald-500/20 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy-600/10 border border-navy-500/20 text-xs font-bold text-navy-600 dark:text-navy-400">
             {item.id}
           </span>
           <div className="min-w-0">
-            <p lang="ar" className="text-xl leading-tight text-amber-700 dark:text-amber-200 font-arabic truncate">
+            <p lang="ar" className="text-xl leading-tight text-gold-700 dark:text-gold-200 font-arabic truncate">
               {item.arapca}
             </p>
             <p className="text-sm font-medium text-stone-500 dark:text-stone-400 truncate">
@@ -244,9 +244,9 @@ function EsmaKart({
           </div>
         </div>
         {/* Sağ: Zikir Adedi */}
-        <div className="flex shrink-0 items-center gap-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/40 px-3 py-1">
-          <LoopIcon className="h-3 w-3 text-emerald-500 dark:text-emerald-400" />
-          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-300">
+        <div className="flex shrink-0 items-center gap-1 rounded-full bg-navy-50 dark:bg-navy-900/30 border border-navy-200 dark:border-navy-800/40 px-3 py-1">
+          <LoopIcon className="h-3 w-3 text-navy-500 dark:text-navy-400" />
+          <span className="text-xs font-bold text-navy-600 dark:text-navy-300">
             {item.zikirAdedi}
           </span>
         </div>
@@ -361,9 +361,9 @@ export default function ZikirmatikPage() {
       if (e.code === "Space" || e.key === " ") {
         e.preventDefault();
         zikirCek();
-        zikirBtnRef.current?.classList.add("ring-4", "ring-emerald-300/50");
+        zikirBtnRef.current?.classList.add("ring-4", "ring-navy-300/50");
         setTimeout(() => {
-          zikirBtnRef.current?.classList.remove("ring-4", "ring-emerald-300/50");
+          zikirBtnRef.current?.classList.remove("ring-4", "ring-navy-300/50");
         }, 200);
       }
     }
@@ -384,11 +384,11 @@ export default function ZikirmatikPage() {
       {/* ═══ Hero Başlık ═══ */}
       <div className="mb-8 text-center">
         <div className="mb-3 flex items-center justify-center gap-3">
-          <SparklesIcon className="h-7 w-7 text-amber-400" />
-          <h1 className="text-2xl font-bold tracking-wider text-amber-600 dark:text-amber-300">
+          <SparklesIcon className="h-7 w-7 text-gold-400" />
+          <h1 className="text-2xl font-bold tracking-wider text-gold-600 dark:text-gold-300">
             ZİKİRMATİK
           </h1>
-          <SparklesIcon className="h-7 w-7 text-amber-400" />
+          <SparklesIcon className="h-7 w-7 text-gold-400" />
         </div>
         <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400 max-w-md mx-auto">
           Zikir sayacı ile hedef belirleyin, Esmaül Hüsna'daki isimlerin zikir adetlerini keşfedin.
@@ -402,13 +402,13 @@ export default function ZikirmatikPage() {
           <div
             className={`relative w-48 h-48 sm:w-56 sm:h-56 rounded-full flex flex-col items-center justify-center border-4 transition-all duration-500
               ${hedefeUlasildi
-                ? "border-emerald-400 bg-emerald-900/20 shadow-[0_0_40px_rgba(52,211,153,0.3)]"
-                : "border-amber-500/40 bg-stone-100 dark:bg-stone-800/60 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
+                ? "border-navy-400 bg-navy-900/20 shadow-[0_0_40px_rgba(52,211,153,0.3)]"
+                : "border-gold-500/40 bg-stone-100 dark:bg-stone-800/60 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
               }`}
           >
             <span
               className={`text-6xl sm:text-7xl font-black tracking-wider tabular-nums transition-all duration-300 ${animClass}
-                ${hedefeUlasildi ? "text-emerald-400 dark:text-emerald-300" : "text-amber-600 dark:text-amber-200"}`}
+                ${hedefeUlasildi ? "text-navy-400 dark:text-navy-300" : "text-gold-600 dark:text-gold-200"}`}
             >
               {sayac}
             </span>
@@ -417,7 +417,7 @@ export default function ZikirmatikPage() {
               <div className="mt-3 flex items-center gap-2">
                 <div className="h-2 w-28 rounded-full bg-stone-300 dark:bg-stone-700 overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${hedefeUlasildi ? "bg-emerald-400" : "bg-amber-400"}`}
+                    className={`h-full rounded-full transition-all duration-500 ${hedefeUlasildi ? "bg-navy-400" : "bg-gold-400"}`}
                     style={{ width: `${ilerlemeYuzdesi}%` }}
                   />
                 </div>
@@ -429,7 +429,7 @@ export default function ZikirmatikPage() {
             {/* Hedefe ulaşma rozeti */}
             {hedefeUlasildi && (
               <div className={`absolute -top-4 -right-4 transition-all duration-500 ${targetReachedAnim ? "scale-110" : "scale-100"}`}>
-                <div className="bg-emerald-500 rounded-full p-2 shadow-lg shadow-emerald-500/40">
+                <div className="bg-navy-500 rounded-full p-2 shadow-lg shadow-navy-500/40">
                   <CheckIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -440,11 +440,11 @@ export default function ZikirmatikPage() {
         {/* Hedef Bilgisi */}
         {secilenHedefLabel && (
           <div className="flex items-center justify-center gap-2 mb-5">
-            <TargetIcon className="h-4 w-4 text-amber-500 dark:text-amber-400" />
-            <span className="text-sm text-amber-600 dark:text-amber-400/90 font-medium">
+            <TargetIcon className="h-4 w-4 text-gold-500 dark:text-gold-400" />
+            <span className="text-sm text-gold-600 dark:text-gold-400/90 font-medium">
               Hedef: {secilenHedefLabel}
               {hedefeUlasildi && (
-                <span className="ml-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
+                <span className="ml-1.5 text-navy-600 dark:text-navy-400 font-semibold">
                   — Elhamdülillah, hedefe ulaşıldı!
                 </span>
               )}
@@ -457,7 +457,7 @@ export default function ZikirmatikPage() {
           <button
             ref={zikirBtnRef}
             onClick={zikirCek}
-            className="group relative flex items-center gap-4 rounded-3xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 px-10 py-5 text-white shadow-xl shadow-emerald-600/25 transition-all duration-200 hover:shadow-2xl hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-emerald-300/50"
+            className="group relative flex items-center gap-4 rounded-3xl bg-navy-600 hover:bg-navy-500 active:bg-navy-700 px-10 py-5 text-white shadow-xl shadow-navy-600/25 transition-all duration-200 hover:shadow-2xl hover:shadow-navy-500/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-navy-300/50"
           >
             {/* Sol el ikon */}
             <svg className="h-6 w-6 opacity-80 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -506,7 +506,7 @@ export default function ZikirmatikPage() {
               className={`inline-flex items-center gap-1 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all active:scale-95
                 ${
                   secilenHedefLabel === opt.label
-                    ? "bg-amber-100 border-amber-400 text-amber-700 dark:bg-amber-900/30 dark:border-amber-500/50 dark:text-amber-300"
+                    ? "bg-gold-100 border-gold-400 text-gold-700 dark:bg-gold-900/30 dark:border-gold-500/50 dark:text-gold-300"
                     : "border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700"
                 }`}
             >
@@ -523,7 +523,7 @@ export default function ZikirmatikPage() {
               ref={ozelInputRef}
               type="number"
               min="1"
-              className="flex-1 rounded-xl border border-amber-400/40 bg-stone-50 dark:bg-stone-800 px-4 py-3 text-base text-stone-800 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+              className="flex-1 rounded-xl border border-gold-400/40 bg-stone-50 dark:bg-stone-800 px-4 py-3 text-base text-stone-800 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-gold-400/50 focus:border-gold-400 transition-all"
               placeholder="Özel hedef sayısı girin (örn: 313)"
               value={ozelHedefInput}
               onChange={(e) => setOzelHedefInput(e.target.value)}
@@ -531,7 +531,7 @@ export default function ZikirmatikPage() {
             />
             <button
               onClick={ozelHedefOnayla}
-              className="rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-md shadow-amber-500/20 transition-all"
+              className="rounded-xl bg-gold-500 hover:bg-gold-400 active:bg-gold-600 px-5 py-3 text-sm font-bold text-white shadow-md shadow-gold-500/20 transition-all"
             >
               Ayarla
             </button>
@@ -544,8 +544,8 @@ export default function ZikirmatikPage() {
         {/* Liste Başlığı */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="h-1 w-6 rounded-full bg-amber-400" />
-            <h2 className="text-lg font-bold text-amber-700 dark:text-amber-200">
+            <div className="h-1 w-6 rounded-full bg-gold-400" />
+            <h2 className="text-lg font-bold text-gold-700 dark:text-gold-200">
               Esmaül Hüsna
             </h2>
           </div>
@@ -624,7 +624,7 @@ function FilterBar({
         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400 dark:text-stone-500" />
         <input
           type="text"
-          className="w-full rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 pl-10 pr-4 py-2.5 text-sm text-stone-700 dark:text-stone-200 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400 transition-all"
+          className="w-full rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 pl-10 pr-4 py-2.5 text-sm text-stone-700 dark:text-stone-200 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-gold-400/50 focus:border-gold-400 transition-all"
           placeholder="Esma ara (okunuş, meal, zikir adedi)..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -638,18 +638,18 @@ function FilterBar({
             <button
               key={item.id}
               onClick={() => handleSelect(item)}
-              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors border-b border-stone-100 dark:border-stone-700/50 last:border-0"
+              className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-gold-50 dark:hover:bg-gold-900/20 transition-colors border-b border-stone-100 dark:border-stone-700/50 last:border-0"
             >
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600/10 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy-600/10 text-[10px] font-bold text-navy-600 dark:text-navy-400">
                 {item.id}
               </span>
-              <span lang="ar" className="text-base text-amber-700 dark:text-amber-200 font-arabic">
+              <span lang="ar" className="text-base text-gold-700 dark:text-gold-200 font-arabic">
                 {item.arapca}
               </span>
               <span className="text-xs text-stone-500 dark:text-stone-400 truncate">
                 {item.okunus}
               </span>
-              <span className="ml-auto text-[10px] font-bold text-emerald-500 dark:text-emerald-400">
+              <span className="ml-auto text-[10px] font-bold text-navy-500 dark:text-navy-400">
                 {item.zikirAdedi}
               </span>
             </button>

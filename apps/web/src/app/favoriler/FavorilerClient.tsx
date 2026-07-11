@@ -105,7 +105,7 @@ export function FavorilerClient() {
         )}
 
         {!loading && error && keys.length > 0 && (
-          <div className="rounded-2xl border border-amber-200 bg-white px-8 py-12 text-center shadow-md dark:border-amber-800 dark:bg-stone-800">
+          <div className="rounded-2xl border border-gold-200 bg-white px-8 py-12 text-center shadow-md dark:border-gold-800 dark:bg-stone-800">
             <div className="mb-3 text-4xl">⚠️</div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Favoriler yüklenemedi
@@ -116,7 +116,7 @@ export function FavorilerClient() {
             <button
               onClick={() => loadFavorites()}
               type="button"
-              className="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-emerald-700 active:scale-95"
+              className="mt-5 inline-block rounded-xl bg-navy-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-navy-700 active:scale-95"
             >
               Tekrar Dene
             </button>
@@ -134,7 +134,7 @@ export function FavorilerClient() {
             </p>
             <Link
               href="/surah"
-              className="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-emerald-700 active:scale-95"
+              className="mt-5 inline-block rounded-xl bg-navy-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-navy-700 active:scale-95"
             >
               Surelere Göz At
             </Link>
@@ -153,7 +153,7 @@ export function FavorilerClient() {
             <button
               onClick={() => loadFavorites()}
               type="button"
-              className="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-emerald-700 active:scale-95"
+              className="mt-5 inline-block rounded-xl bg-navy-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-navy-700 active:scale-95"
             >
               Tekrar Dene
             </button>

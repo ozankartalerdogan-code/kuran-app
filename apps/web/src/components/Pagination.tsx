@@ -34,7 +34,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
   }
 
   const btnBase  = "flex h-9 min-w-[2.25rem] items-center justify-center rounded-md border px-2.5 text-sm font-medium transition-colors";
-  const btnActive = `${btnBase} border-indigo-500 bg-indigo-600 text-white`;
+  const btnActive = `${btnBase} border-navy-500 bg-navy-600 text-white`;
   const btnNormal = `${btnBase} border-stone-300 bg-white text-stone-700 hover:bg-stone-50`;
   const btnDisabled = `${btnBase} border-stone-200 bg-stone-100 text-stone-400 cursor-not-allowed`;
 

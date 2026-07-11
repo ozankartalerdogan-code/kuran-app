@@ -104,7 +104,7 @@ export function AudioPlayer({ surahId, variant = "compact" }: AudioPlayerProps) 
           title={loadError ? "Ses yüklenemedi" : playing ? "Duraklat" : "Dinle"}
           className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
             playing
-              ? "border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50"
+              ? "border-navy-300 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-700 dark:bg-navy-900/30 dark:text-navy-400 dark:hover:bg-navy-900/50"
               : "border-stone-200 bg-white text-stone-700 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
           }`}
         >
@@ -113,7 +113,7 @@ export function AudioPlayer({ surahId, variant = "compact" }: AudioPlayerProps) 
         </button>
         <div className="h-1 w-full overflow-hidden rounded-full bg-stone-200 dark:bg-stone-700">
           <div
-            className="h-full rounded-full bg-emerald-500 transition-[width] duration-300"
+            className="h-full rounded-full bg-navy-500 transition-[width] duration-300"
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>
@@ -131,7 +131,7 @@ export function AudioPlayer({ surahId, variant = "compact" }: AudioPlayerProps) 
         title={loadError ? "Ses yüklenemedi" : playing ? "Duraklat" : "Oku"}
         className={`flex h-7 w-7 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
           playing
-            ? "border-emerald-300 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+            ? "border-navy-300 bg-navy-50 text-navy-600 hover:bg-navy-100 dark:border-navy-700 dark:bg-navy-900/30 dark:text-navy-400"
             : "border-stone-200 bg-stone-50 text-stone-500 hover:bg-white hover:text-stone-700 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"
         }`}
       >
@@ -139,7 +139,7 @@ export function AudioPlayer({ surahId, variant = "compact" }: AudioPlayerProps) 
       </button>
       <div className="h-0.5 w-7 overflow-hidden rounded-full bg-stone-200 dark:bg-stone-700">
         <div
-          className="h-full rounded-full bg-emerald-500 transition-[width] duration-300"
+          className="h-full rounded-full bg-navy-500 transition-[width] duration-300"
           style={{ width: `${Math.round(progress * 100)}%` }}
         />
       </div>

@@ -22,7 +22,7 @@ const OGREN_LINKS = [
   {
     title: "Peygamber Kıssaları",
     subtitle: "25 peygamberin kıssası",
-    href: "/peygamber-kissalari",
+    href: "/peyggold-kissalari",
   },
   {
     title: "Siyer-i Nebî",
@@ -93,17 +93,17 @@ function LinkGrid({ items }: { items: typeof OGREN_LINKS }) {
         <Link
           key={item.href}
           href={item.href}
-          className="group rounded-xl border border-stone-200 bg-white px-4 py-3 transition-colors hover:border-emerald-200 hover:bg-emerald-50/40 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-800/60 dark:hover:bg-emerald-950/20"
+          className="group rounded-xl border border-stone-200 bg-white px-4 py-3 transition-colors hover:border-navy-200 hover:bg-navy-50/40 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-navy-800/60 dark:hover:bg-navy-950/20"
         >
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <p className="flex items-center gap-1.5 text-sm font-bold text-stone-800 group-hover:text-emerald-800 dark:text-stone-100 dark:group-hover:text-emerald-300">
+              <p className="flex items-center gap-1.5 text-sm font-bold text-stone-800 group-hover:text-navy-800 dark:text-stone-100 dark:group-hover:text-navy-300">
                 {item.icon && <span className="text-base leading-none">{item.icon}</span>}
                 {item.title}
               </p>
               <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">{item.subtitle}</p>
             </div>
-            <span className="text-stone-300 transition-transform group-hover:translate-x-0.5 group-hover:text-emerald-500">→</span>
+            <span className="text-stone-300 transition-transform group-hover:translate-x-0.5 group-hover:text-navy-500">→</span>
           </div>
         </Link>
       ))}

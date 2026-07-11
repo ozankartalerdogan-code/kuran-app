@@ -51,12 +51,12 @@ function Kutu({ baslik, children, renk = "stone" }: {
 }) {
   const cls = {
     stone:  "border-stone-200 bg-stone-50/60 dark:border-stone-700/60 dark:bg-stone-800/40",
-    amber:  "border-amber-200 bg-amber-50/60 dark:border-amber-800/50 dark:bg-amber-900/15",
+    amber:  "border-gold-200 bg-gold-50/60 dark:border-gold-800/50 dark:bg-gold-900/15",
     violet: "border-violet-200 bg-violet-50/60 dark:border-violet-800/50 dark:bg-violet-900/15",
   }[renk];
   const labelCls = {
     stone:  "text-stone-400 dark:text-stone-500",
-    amber:  "text-amber-700 dark:text-amber-400",
+    amber:  "text-gold-700 dark:text-gold-400",
     violet: "text-violet-700 dark:text-violet-400",
   }[renk];
   return (
@@ -74,20 +74,20 @@ function Kutu({ baslik, children, renk = "stone" }: {
 function DuaKartiFull({ dua }: { dua: DuaKarti }) {
   const scoreColor =
     dua.guvenilirlik === "10/10"
-      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
-      : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400";
+      ? "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300"
+      : "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-400";
   const scoreEmoji = dua.guvenilirlik === "10/10" ? "🟢" : "🟡";
 
   return (
-    <div className="mb-4 overflow-hidden rounded-xl border border-amber-200 bg-amber-50/60 dark:border-amber-800/50 dark:bg-amber-900/15">
+    <div className="mb-4 overflow-hidden rounded-xl border border-gold-200 bg-gold-50/60 dark:border-gold-800/50 dark:bg-gold-900/15">
       {/* Başlık */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-amber-200/60 px-4 py-3 dark:border-amber-800/40">
+      <div className="flex flex-wrap items-center gap-2 border-b border-gold-200/60 px-4 py-3 dark:border-gold-800/40">
         <span className="text-sm">{scoreEmoji}</span>
-        <p className="text-xs font-bold text-amber-800 dark:text-amber-300">{dua.baslik}</p>
+        <p className="text-xs font-bold text-gold-800 dark:text-gold-300">{dua.baslik}</p>
         <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${scoreColor}`}>
           {dua.guvenilirlik}
         </span>
-        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
+        <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-700 dark:bg-gold-900/40 dark:text-gold-400">
           {dua.kaynak}
         </span>
       </div>
@@ -100,22 +100,22 @@ function DuaKartiFull({ dua }: { dua: DuaKarti }) {
       </div>
 
       {/* Okunuş — meal'den büyük */}
-      <div className="border-t border-amber-200/60 px-4 py-2.5 dark:border-amber-800/40">
+      <div className="border-t border-gold-200/60 px-4 py-2.5 dark:border-gold-800/40">
         <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
           <span className="font-semibold">Okunuşu:</span> {dua.transkripsiyon}
         </p>
       </div>
 
       {/* Meal — en küçük */}
-      <div className="border-t border-amber-200/60 px-4 py-2.5 dark:border-amber-800/40">
+      <div className="border-t border-gold-200/60 px-4 py-2.5 dark:border-gold-800/40">
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
           <span className="font-semibold">Anlamı:</span> {dua.meal}
         </p>
       </div>
 
       {/* Uygulama */}
-      <div className="border-t border-amber-200/60 px-4 py-2.5 dark:border-amber-800/40">
-        <p className="text-[12px] leading-relaxed text-amber-800 dark:text-amber-300">
+      <div className="border-t border-gold-200/60 px-4 py-2.5 dark:border-gold-800/40">
+        <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
           <span className="font-semibold">Uygulama:</span> {dua.uygulama}
         </p>
       </div>
@@ -134,12 +134,12 @@ const korunmaKategoriLabel: Record<KorunmaDuasi["kategori"], string> = {
 
 function KorunmaKarti({ dua }: { dua: KorunmaDuasi }) {
   return (
-    <div className="mb-4 overflow-hidden rounded-xl border border-emerald-200 bg-emerald-50/60 dark:border-emerald-800/50 dark:bg-emerald-900/15">
+    <div className="mb-4 overflow-hidden rounded-xl border border-navy-200 bg-navy-50/60 dark:border-navy-800/50 dark:bg-navy-900/15">
       {/* Başlık */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-emerald-200/60 px-4 py-3 dark:border-emerald-800/40">
+      <div className="flex flex-wrap items-center gap-2 border-b border-navy-200/60 px-4 py-3 dark:border-navy-800/40">
         <span className="text-sm">🟢</span>
-        <p className="text-xs font-bold text-emerald-800 dark:text-emerald-300">{dua.baslik}</p>
-        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+        <p className="text-xs font-bold text-navy-800 dark:text-navy-300">{dua.baslik}</p>
+        <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[10px] font-semibold text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
           {dua.guvenilirlik}
         </span>
         <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
@@ -155,22 +155,22 @@ function KorunmaKarti({ dua }: { dua: KorunmaDuasi }) {
       </div>
 
       {/* Okunuş — meal'den büyük */}
-      <div className="border-t border-emerald-200/60 px-4 py-2.5 dark:border-emerald-800/40">
+      <div className="border-t border-navy-200/60 px-4 py-2.5 dark:border-navy-800/40">
         <p className="text-sm leading-relaxed text-stone-700 dark:text-stone-300">
           <span className="font-semibold">Okunuşu:</span> {dua.transkripsiyon}
         </p>
       </div>
 
       {/* Meal — en küçük */}
-      <div className="border-t border-emerald-200/60 px-4 py-2.5 dark:border-emerald-800/40">
+      <div className="border-t border-navy-200/60 px-4 py-2.5 dark:border-navy-800/40">
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
           <span className="font-semibold">Anlamı:</span> {dua.meal}
         </p>
       </div>
 
       {/* Uygulama */}
-      <div className="border-t border-emerald-200/60 px-4 py-2.5 dark:border-emerald-800/40">
-        <p className="text-[12px] leading-relaxed text-emerald-800 dark:text-emerald-300">
+      <div className="border-t border-navy-200/60 px-4 py-2.5 dark:border-navy-800/40">
+        <p className="text-[12px] leading-relaxed text-navy-800 dark:text-navy-300">
           <span className="font-semibold">Uygulama:</span> {dua.uygulama}
         </p>
       </div>
@@ -190,13 +190,13 @@ function MetotKutusu({
   const isSekiz = puan === "8/10";
   const border = isSekiz
     ? "border-violet-200 bg-violet-50/60 dark:border-violet-800/50 dark:bg-violet-900/15"
-    : "border-amber-200 bg-amber-50/60 dark:border-amber-800/50 dark:bg-amber-900/15";
+    : "border-gold-200 bg-gold-50/60 dark:border-gold-800/50 dark:bg-gold-900/15";
   const labelColor = isSekiz
     ? "text-violet-800 dark:text-violet-300"
-    : "text-amber-800 dark:text-amber-300";
+    : "text-gold-800 dark:text-gold-300";
   const badgeColor = isSekiz
     ? "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-400"
-    : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400";
+    : "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-400";
 
   return (
     <div className={`mb-4 rounded-xl border px-4 py-4 ${border}`}>
@@ -226,10 +226,10 @@ function VerseSubHeader({ label }: { label: string }) {
 function GuvenilirlikBadgeleri() {
   return (
     <div className="mb-6 grid gap-3 sm:grid-cols-2">
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 dark:border-emerald-800/60 dark:bg-emerald-900/20">
+      <div className="rounded-xl border border-navy-200 bg-navy-50 px-4 py-3 dark:border-navy-800/60 dark:bg-navy-900/20">
         <div className="mb-1 flex items-center gap-2">
           <span>🟢</span>
-          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+          <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[11px] font-bold text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
             10/10
           </span>
         </div>
@@ -238,10 +238,10 @@ function GuvenilirlikBadgeleri() {
           Hz. Peygamber'in bizzat "İsmi Azam" dediği, sahih hadislerle sabit ayet ve dualar.
         </p>
       </div>
-      <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/60 dark:bg-amber-900/20">
+      <div className="rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 dark:border-gold-800/60 dark:bg-gold-900/20">
         <div className="mb-1 flex items-center gap-2">
           <span>🟡</span>
-          <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
+          <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[11px] font-bold text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">
             8/10
           </span>
         </div>
@@ -389,8 +389,8 @@ function Bolum3Icerik() {
         <KorunmaKarti key={dua.id} dua={dua} />
       ))}
 
-      <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/60 px-4 py-3.5 dark:border-amber-800/50 dark:bg-amber-900/15">
-        <p className="text-[12px] leading-relaxed text-amber-800 dark:text-amber-300">
+      <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3.5 dark:border-gold-800/50 dark:bg-gold-900/15">
+        <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
           <span className="font-bold">📿 Tavsiye:</span> Bu duaları günlük rutininize ekleyin.
           Sabah-akşam korunma duası, evden çıkarken ve yatarken okunan dualar, sizi Allah'ın
           izniyle görünmez kazalardan ve şerlerden muhafaza eder.
@@ -422,8 +422,8 @@ export default async function IsmiAzamPage() {
       </div>
 
       {/* Kişisel not */}
-      <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3.5 dark:border-amber-700/60 dark:bg-amber-900/20">
-        <p className="text-sm leading-relaxed text-amber-900 dark:text-amber-200">
+      <div className="mb-6 rounded-xl border border-gold-300 bg-gold-50 px-4 py-3.5 dark:border-gold-700/60 dark:bg-gold-900/20">
+        <p className="text-sm leading-relaxed text-gold-900 dark:text-gold-200">
           <span className="font-bold">Not:</span>{" "}
           İsmi Azam, harflerin sihirli kombinasyonu değil; kulun tam teslimiyetle Rabbine yöneldiği an'ın adıdır.
           Kelimeler değil, o kelimeleri taşıyan kalp hal'i konuşur.
@@ -431,8 +431,8 @@ export default async function IsmiAzamPage() {
       </div>
 
       {/* Ulema açıklaması */}
-      <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-4 dark:border-amber-700/50 dark:bg-amber-900/15">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400">
+      <div className="mb-6 rounded-xl border border-gold-200 bg-gold-50/70 px-4 py-4 dark:border-gold-700/50 dark:bg-gold-900/15">
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-widest text-gold-700 dark:text-gold-400">
           Alimlerin Ortak Kanaati
         </p>
         <p className="text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">
@@ -452,9 +452,9 @@ export default async function IsmiAzamPage() {
           baslik="Sahih İsmi Azam — Rivayetler ve Metodlar"
           score="10/10"
           scoreLabel="Kesin Sünnet"
-          borderCls="border-l-amber-400"
-          headerCls="from-amber-50/70 dark:from-amber-900/20"
-          iconBgCls="bg-amber-100 dark:bg-amber-900/40"
+          borderCls="border-l-gold-400"
+          headerCls="from-gold-50/70 dark:from-gold-900/20"
+          iconBgCls="bg-gold-100 dark:bg-gold-900/40"
         >
           <Bolum1Icerik verses={ayetVerses} />
         </BolumAkordeon>
@@ -476,9 +476,9 @@ export default async function IsmiAzamPage() {
           baslik="Günlük Korunma Duaları"
           score="10/10"
           scoreLabel="Kesin Sünnet"
-          borderCls="border-l-emerald-400"
-          headerCls="from-emerald-50/70 dark:from-emerald-900/20"
-          iconBgCls="bg-emerald-100 dark:bg-emerald-900/40"
+          borderCls="border-l-navy-400"
+          headerCls="from-navy-50/70 dark:from-navy-900/20"
+          iconBgCls="bg-navy-100 dark:bg-navy-900/40"
         >
           <Bolum3Icerik />
         </BolumAkordeon>

@@ -202,8 +202,8 @@ const SOURCE_DISPLAY_NAMES: Record<string, string> = {
   ozturk:  "Karşılaştırma meali 4",
 };
 const statusClasses: Record<SectionStatus, string> = {
-  ready: "border-emerald-200 bg-emerald-50 text-emerald-800",
-  partially_ready: "border-amber-200 bg-amber-50 text-amber-800",
+  ready: "border-navy-200 bg-navy-50 text-navy-800",
+  partially_ready: "border-gold-200 bg-gold-50 text-gold-800",
   missing: "border-stone-200 bg-stone-100 text-stone-700"
 };
 
@@ -1025,7 +1025,7 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
         >
           <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
             <Link
-              className="text-2xl leading-8 text-stone-950 hover:text-emerald-700"
+              className="text-2xl leading-8 text-stone-950 hover:text-navy-700"
               dir="rtl"
               href={`/root/${encodeURIComponent(rootSummary.root)}`}
               lang="ar"
@@ -1177,7 +1177,7 @@ function buildAyahDetailDebugPayload({
 
 function AyahDetailDebugPanel({ payload }: { payload: AyahDetailDebugPayload }) {
   return (
-    <section className="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 shadow-sm">
+    <section className="rounded-xl border border-dashed border-gold-300 bg-gold-50 p-5 shadow-sm">
       <h2 className="mb-3 text-lg font-semibold text-stone-950">Dev Debug: Render Data</h2>
       <pre className="max-h-[520px] overflow-auto rounded-xl bg-stone-950 p-4 text-xs leading-5 text-stone-50">
         {JSON.stringify(payload, null, 2)}
@@ -1431,7 +1431,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 <div className="mt-3">
                   <Link
                     href={`/search?tag=${encodeURIComponent(detail.ayah.anaTema)}`}
-                    className="inline-flex items-center rounded-xl border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
+                    className="inline-flex items-center rounded-xl border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-700 transition-colors hover:bg-navy-100"
                   >
                     {detail.ayah.anaTema.replace(/_/g, " ")}
                   </Link>
@@ -1462,7 +1462,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       <div className="mx-auto max-w-4xl space-y-6">
         <header className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
           <nav aria-label="İçerik yolu" className="mb-3 flex items-center gap-1.5 text-xs text-stone-500">
-            <Link href="/surah" className="hover:text-emerald-700 hover:underline">
+            <Link href="/surah" className="hover:text-navy-700 hover:underline">
               Sureler
             </Link>
             <span aria-hidden="true">›</span>

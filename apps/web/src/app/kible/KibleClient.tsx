@@ -136,7 +136,7 @@ export function KibleClient() {
         {status === "idle" && (
           <button
             onClick={getLocation}
-            className="mx-auto flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white shadow-md hover:bg-emerald-700 active:scale-95"
+            className="mx-auto flex items-center gap-2 rounded-xl bg-navy-600 px-6 py-3 font-semibold text-white shadow-md hover:bg-navy-700 active:scale-95"
           >
             📍 Konumumu Bul
           </button>
@@ -144,7 +144,7 @@ export function KibleClient() {
 
         {status === "loading" && (
           <div className="text-center text-stone-500 dark:text-stone-400">
-            <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
+            <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-navy-500 border-t-transparent" />
             Konum alınıyor…
           </div>
         )}
@@ -201,7 +201,7 @@ export function KibleClient() {
                 style={{ transform: `rotate(${arrowAngle ?? qibla}deg)` }}
               >
                 <div className="flex h-full flex-col items-center justify-center">
-                  <div className="h-28 w-1 rounded-full bg-gradient-to-b from-emerald-500 to-transparent" />
+                  <div className="h-28 w-1 rounded-full bg-gradient-to-b from-navy-500 to-transparent" />
                   {/* Ok ucu — Kabe ikonu */}
                   <div className="-mt-2 text-2xl">🕋</div>
                   <div className="h-20 w-1 rounded-full bg-gradient-to-t from-stone-300 to-transparent opacity-40" />
@@ -210,11 +210,11 @@ export function KibleClient() {
             </div>
 
             {/* Derece bilgisi */}
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center dark:border-emerald-800/50 dark:bg-emerald-950/20">
-              <p className="text-3xl font-bold text-emerald-700 dark:text-emerald-400">
+            <div className="rounded-xl border border-navy-200 bg-navy-50 p-4 text-center dark:border-navy-800/50 dark:bg-navy-950/20">
+              <p className="text-3xl font-bold text-navy-700 dark:text-navy-400">
                 {Math.round(qibla)}°
               </p>
-              <p className="mt-1 text-xs text-emerald-600/70 dark:text-emerald-500">
+              <p className="mt-1 text-xs text-navy-600/70 dark:text-navy-500">
                 Kuzeyden saat yönünde
               </p>
             </div>

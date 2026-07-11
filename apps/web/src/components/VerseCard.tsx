@@ -43,20 +43,20 @@ export function VerseCard({ verse, onTagClick, onBeforeUnfavorite, onFavoriteTog
         >
           {surah_name ? (
             <>
-              <span className="text-sm font-semibold text-indigo-600 group-hover:text-indigo-700 dark:text-indigo-400 dark:group-hover:text-indigo-300">
+              <span className="text-sm font-semibold text-navy-600 group-hover:text-navy-700 dark:text-navy-400 dark:group-hover:text-navy-300">
                 {surah_name}, {ayah_number}. Ayet
               </span>
               <span className="text-xs text-stone-400 dark:text-stone-500">{verse_key}</span>
             </>
           ) : (
-            <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{verse_key}</span>
+            <span className="text-sm font-semibold text-navy-600 dark:text-navy-400">{verse_key}</span>
           )}
         </Link>
         <div className="flex shrink-0 items-center gap-1.5">
           {ana_tema && (
             <button
               onClick={() => onTagClick(ana_tema)}
-              className="rounded-md border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 transition-colors hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50"
+              className="rounded-md border border-navy-200 bg-navy-50 px-2.5 py-1 text-xs font-medium text-navy-700 transition-colors hover:bg-navy-100 dark:border-navy-800 dark:bg-navy-900/30 dark:text-navy-300 dark:hover:bg-navy-900/50"
             >
               {formatAnaTemaBadge(ana_tema)}
             </button>
@@ -97,7 +97,7 @@ export function VerseCard({ verse, onTagClick, onBeforeUnfavorite, onFavoriteTog
             <button
               key={tag}
               onClick={() => onTagClick(tag)}
-              className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 transition-colors hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 dark:hover:bg-emerald-900/50"
+              className="rounded-full border border-navy-200 bg-navy-50 px-2.5 py-1 text-xs font-medium text-navy-700 transition-colors hover:bg-navy-100 dark:border-navy-800 dark:bg-navy-900/30 dark:text-navy-300 dark:hover:bg-navy-900/50"
             >
               {tag}
             </button>

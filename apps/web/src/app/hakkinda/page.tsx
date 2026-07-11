@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-8">
-      <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">{title}</h2>
+      <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-navy-700 dark:text-navy-400">{title}</h2>
       {children}
     </section>
   );
@@ -105,7 +105,7 @@ export default function HakkindaPage() {
             <p className="mb-3 text-sm leading-6 text-stone-500 dark:text-stone-400">Öneri ve geri bildirimleriniz için:</p>
             <a
               href={`mailto:${CONTACT_MAIL}`}
-              className="inline-flex rounded-lg bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
+              className="inline-flex rounded-lg bg-navy-50 px-4 py-2 text-sm font-semibold text-navy-700 hover:bg-navy-100 dark:bg-navy-950/30 dark:text-navy-300 dark:hover:bg-navy-950/50"
             >
               {CONTACT_MAIL}
             </a>

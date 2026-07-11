@@ -40,8 +40,8 @@ function Chevron({ open }: { open: boolean }) {
 }
 
 function badgeClass(degree: string) {
-  if (/kur'?an/i.test(degree)) return "border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-800/50 dark:bg-indigo-950/20 dark:text-indigo-300";
-  if (/sahih/i.test(degree)) return "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800/50 dark:bg-emerald-950/20 dark:text-emerald-300";
+  if (/kur'?an/i.test(degree)) return "border-navy-200 bg-navy-50 text-navy-700 dark:border-navy-800/50 dark:bg-navy-950/20 dark:text-navy-300";
+  if (/sahih/i.test(degree)) return "border-navy-200 bg-navy-50 text-navy-700 dark:border-navy-800/50 dark:bg-navy-950/20 dark:text-navy-300";
   if (/hasan/i.test(degree)) return "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-800/50 dark:bg-orange-950/20 dark:text-orange-300";
   return "border-stone-200 bg-stone-100 text-stone-600 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300";
 }
@@ -90,7 +90,7 @@ function DuaCard({ dua }: { dua: Dua }) {
       {hasDetail ? (
         <div className="mt-3">
           <button
-            className="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-400"
+            className="flex items-center gap-2 text-xs font-bold text-navy-700 dark:text-navy-400"
             onClick={() => setOpen((current) => !current)}
             type="button"
             aria-expanded={open}
@@ -122,7 +122,7 @@ function KategoriAccordion({ kategori }: { kategori: Kategori }) {
         type="button"
         aria-expanded={open}
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy-600 text-sm font-bold text-white">
           {kategori.kod}
         </span>
         <span className="min-w-0 flex-1 text-sm font-bold text-stone-900 dark:text-stone-100">{kategori.isim}</span>
@@ -146,7 +146,7 @@ export function DualarClient() {
     <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700">
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">
             {DATA.kategoriler.length} kategori · {total} dua
           </p>
           <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-50">{DATA.baslik}</h1>

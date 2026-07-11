@@ -34,14 +34,14 @@ const FEATURED_THEMES: ThemeCard[] = [
     kod:      "E1_KEVNI_AYETLER",
     baslik:   "Evren ve Yaratılış",
     aciklama: "Göklerin, yerin ve tabiatın varoluşundaki ilahi deliller",
-    gradient: "from-amber-400 to-orange-500",
+    gradient: "from-gold-400 to-orange-500",
     ikon:     "🌌",
   },
   {
     kod:      "A1_ALLAH_ULUHIYET",
     baslik:   "Allah & Uluhiyet",
     aciklama: "Allah'ın isim, sıfat ve birliği",
-    gradient: "from-indigo-500 to-purple-600",
+    gradient: "from-navy-500 to-purple-600",
     ikon:     "✨",
   },
   {
@@ -55,7 +55,7 @@ const FEATURED_THEMES: ThemeCard[] = [
     kod:      "B2_SERI_IBADETLER",
     baslik:   "İbadetler",
     aciklama: "Namaz, oruç, zekât, hac",
-    gradient: "from-emerald-400 to-teal-600",
+    gradient: "from-navy-400 to-navy-600",
     ikon:     "🤲",
   },
   // Kural 1: E1 mükerreri → E2_INSANIN_MAHIYETI
@@ -217,9 +217,9 @@ function AkordeonItem({
               <button
                 key={t.kod}
                 onClick={() => onTagClick(t.kod)}
-                className="flex items-center justify-between rounded-lg border border-stone-100 bg-stone-50 px-3 py-2 text-left transition-colors hover:border-indigo-200 hover:bg-indigo-50"
+                className="flex items-center justify-between rounded-lg border border-stone-100 bg-stone-50 px-3 py-2 text-left transition-colors hover:border-navy-200 hover:bg-navy-50"
               >
-                <span className="text-xs font-medium text-stone-700 group-hover:text-indigo-700">
+                <span className="text-xs font-medium text-stone-700 group-hover:text-navy-700">
                   {t.isim}
                 </span>
                 <span className="shrink-0 rounded-full bg-white border border-stone-200 px-2 py-0.5 text-xs text-stone-500">
@@ -307,13 +307,13 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
               <div className="grid gap-3 sm:grid-cols-2">
                 <Link
                   href="/manevi-siginak"
-                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-indigo-700"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-navy-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-navy-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-xl leading-none dark:bg-indigo-900/30">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-xl leading-none dark:bg-navy-900/30">
                     🛡️
                   </span>
                   <div className="min-w-0">
-                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-indigo-700 dark:text-stone-100 dark:group-hover:text-indigo-400">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-navy-700 dark:text-stone-100 dark:group-hover:text-navy-400">
                       Manevi Sığınak
                     </p>
                     <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
@@ -321,7 +321,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     </p>
                   </div>
                   <svg
-                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-indigo-400 dark:text-stone-600"
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-navy-400 dark:text-stone-600"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -329,13 +329,13 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                 </Link>
                 <Link
                   href="/manevi-siginak/ismi-azam"
-                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-amber-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-amber-700"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-gold-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-gold-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-xl leading-none dark:bg-amber-900/30">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-50 text-xl leading-none dark:bg-gold-900/30">
                     ✨
                   </span>
                   <div className="min-w-0">
-                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-amber-700 dark:text-stone-100 dark:group-hover:text-amber-400">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-gold-700 dark:text-stone-100 dark:group-hover:text-gold-400">
                       İsmi Azam ve Sekine
                     </p>
                     <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
@@ -343,7 +343,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     </p>
                   </div>
                   <svg
-                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-amber-400 dark:text-stone-600"
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-gold-400 dark:text-stone-600"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -373,13 +373,13 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                 </Link>
                 <Link
                   href="/ibadet-rehberi"
-                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-navy-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-navy-700"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl leading-none dark:bg-emerald-900/30">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-xl leading-none dark:bg-navy-900/30">
                     📿
                   </span>
                   <div className="min-w-0">
-                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-emerald-700 dark:text-stone-100 dark:group-hover:text-emerald-400">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-navy-700 dark:text-stone-100 dark:group-hover:text-navy-400">
                       İbadet Rehberi
                     </p>
                     <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
@@ -387,7 +387,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     </p>
                   </div>
                   <svg
-                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-emerald-400 dark:text-stone-600"
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-navy-400 dark:text-stone-600"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

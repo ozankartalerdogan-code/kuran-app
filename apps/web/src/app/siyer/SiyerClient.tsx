@@ -89,7 +89,7 @@ function QuranRefChip({ refKey }: { refKey: string }) {
   return (
     <Link
       href={`/surah/${surah}/ayah/${ayah}`}
-      className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 hover:border-emerald-300 dark:border-emerald-800/50 dark:bg-emerald-950/20 dark:text-emerald-300"
+      className="rounded-full border border-navy-200 bg-navy-50 px-2.5 py-1 text-xs font-bold text-navy-700 hover:border-navy-300 dark:border-navy-800/50 dark:bg-navy-950/20 dark:text-navy-300"
     >
       {refKey}
     </Link>
@@ -125,7 +125,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
 
           {event.quran_refs.length > 0 ? (
             <div>
-              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Kur'an Referansları</p>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">Kur'an Referansları</p>
               <div className="flex flex-wrap gap-2">
                 {event.quran_refs.map((ref) => <QuranRefChip key={ref} refKey={ref} />)}
               </div>
@@ -134,7 +134,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
 
           {event.key_lessons.length > 0 ? (
             <div>
-              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Öğretiler</p>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">Öğretiler</p>
               <ul className="space-y-1.5">
                 {event.key_lessons.map((lesson, index) => (
                   <li key={index} className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">• {lesson}</li>
@@ -148,7 +148,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
           ) : null}
 
           {event.reliability_note ? (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300">
+            <div className="rounded-lg border border-gold-200 bg-gold-50 px-3 py-2 text-xs leading-relaxed text-gold-800 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300">
               {event.reliability_note}
             </div>
           ) : null}
@@ -196,7 +196,7 @@ export function SiyerClient() {
     <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700">
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">
             {PERIODS.length} dönem · {EVENTS.length} olay
           </p>
           <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-50">{META.title}</h1>

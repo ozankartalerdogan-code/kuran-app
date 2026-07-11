@@ -221,7 +221,7 @@ export function SearchContent() {
           </div>
           <Link
             href="/discover"
-            className="flex shrink-0 items-center gap-1.5 rounded-xl border border-indigo-300 bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 active:scale-95"
+            className="flex shrink-0 items-center gap-1.5 rounded-xl border border-navy-300 bg-navy-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-navy-700 active:scale-95"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <circle cx="12" cy="12" r="3" />
@@ -236,7 +236,7 @@ export function SearchContent() {
         {state.status === "tag_results" && (
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm text-stone-600">Filtre:</span>
-            <span className="rounded-md border border-indigo-200 bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700">
+            <span className="rounded-md border border-navy-200 bg-navy-50 px-3 py-1 text-sm font-medium text-navy-700">
               {tagLabel(state.tag, state.tagType)}
             </span>
             <span className="text-sm text-stone-500">— {state.total} ayet</span>
@@ -266,13 +266,13 @@ export function SearchContent() {
                   <Link
                     key={k.href}
                     href={k.href}
-                    className="group flex items-start gap-3 rounded-xl border border-stone-200 bg-white px-3.5 py-3 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md"
+                    className="group flex items-start gap-3 rounded-xl border border-stone-200 bg-white px-3.5 py-3 shadow-sm transition-all hover:border-navy-200 hover:shadow-md"
                   >
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-50 text-lg leading-none">
                       {k.ikon}
                     </span>
                     <div className="min-w-0">
-                      <p className="truncate text-xs font-semibold text-stone-800 group-hover:text-indigo-700">
+                      <p className="truncate text-xs font-semibold text-stone-800 group-hover:text-navy-700">
                         {k.baslik}
                       </p>
                       <p className="text-[11px] text-stone-400">{k.aciklama}</p>
@@ -301,7 +301,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700 transition-all hover:bg-teal-100 active:scale-95"
+                    className="rounded-full border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
                   >
                     🕌 {label}
                   </button>
@@ -326,7 +326,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 transition-all hover:bg-indigo-100 active:scale-95"
+                    className="rounded-full border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
                   >
                     🛡️ {label}
                   </button>
@@ -347,7 +347,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 transition-all hover:bg-amber-100 active:scale-95"
+                    className="rounded-full border border-gold-200 bg-gold-50 px-3 py-1 text-xs font-medium text-gold-700 transition-all hover:bg-gold-100 active:scale-95"
                   >
                     ✨ {label}
                   </button>
@@ -398,11 +398,11 @@ export function SearchContent() {
         {state.status === "verse_results" && (
           <>
             {state.suggestedSurah && (
-              <div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2.5">
-                <span className="text-sm text-amber-700">Bunu mu demek istediniz?</span>
+              <div className="flex items-center gap-2 rounded-lg border border-gold-200 bg-gold-50 px-4 py-2.5">
+                <span className="text-sm text-gold-700">Bunu mu demek istediniz?</span>
                 <Link
                   href={`/surah/${state.suggestedSurah.id}/ayah/1`}
-                  className="rounded-md border border-amber-300 bg-white px-3 py-1 text-sm font-semibold text-amber-800 hover:bg-amber-100"
+                  className="rounded-md border border-gold-300 bg-white px-3 py-1 text-sm font-semibold text-gold-800 hover:bg-gold-100"
                 >
                   {state.suggestedSurah.name} Suresi →
                 </Link>

@@ -34,9 +34,9 @@ const TIP_ETİKET: Record<string, string> = {
 // ── Abdest renk haritası ──────────────────────────────────────────────────────
 
 const ABDEST_RENK = {
-  yesil: { header: "border-emerald-200 bg-emerald-50 dark:border-emerald-800/40 dark:bg-emerald-950/30", badge: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300", farzBg: "bg-emerald-50 dark:bg-emerald-950/20", farzBorder: "border-emerald-200 dark:border-emerald-800/40", ayetBg: "border-emerald-100 bg-emerald-50/60 hover:border-emerald-200 dark:border-emerald-900/50 dark:bg-emerald-950/20", ayetTxt: "text-emerald-700 dark:text-emerald-400", divider: "border-emerald-100 dark:border-emerald-900/40", chevron: "text-emerald-500" },
+  yesil: { header: "border-navy-200 bg-navy-50 dark:border-navy-800/40 dark:bg-navy-950/30", badge: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300", farzBg: "bg-navy-50 dark:bg-navy-950/20", farzBorder: "border-navy-200 dark:border-navy-800/40", ayetBg: "border-navy-100 bg-navy-50/60 hover:border-navy-200 dark:border-navy-900/50 dark:bg-navy-950/20", ayetTxt: "text-navy-700 dark:text-navy-400", divider: "border-navy-100 dark:border-navy-900/40", chevron: "text-navy-500" },
   mavi:  { header: "border-sky-200 bg-sky-50 dark:border-sky-800/40 dark:bg-sky-950/30", badge: "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300", farzBg: "bg-sky-50 dark:bg-sky-950/20", farzBorder: "border-sky-200 dark:border-sky-800/40", ayetBg: "border-sky-100 bg-sky-50/60 hover:border-sky-200 dark:border-sky-900/50 dark:bg-sky-950/20", ayetTxt: "text-sky-700 dark:text-sky-400", divider: "border-sky-100 dark:border-sky-900/40", chevron: "text-sky-500" },
-  amber: { header: "border-amber-200 bg-amber-50 dark:border-amber-800/40 dark:bg-amber-950/30", badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300", farzBg: "bg-amber-50 dark:bg-amber-950/20", farzBorder: "border-amber-200 dark:border-amber-800/40", ayetBg: "border-amber-100 bg-amber-50/60 hover:border-amber-200 dark:border-amber-900/50 dark:bg-amber-950/20", ayetTxt: "text-amber-700 dark:text-amber-400", divider: "border-amber-100 dark:border-amber-900/40", chevron: "text-amber-500" },
+  amber: { header: "border-gold-200 bg-gold-50 dark:border-gold-800/40 dark:bg-gold-950/30", badge: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300", farzBg: "bg-gold-50 dark:bg-gold-950/20", farzBorder: "border-gold-200 dark:border-gold-800/40", ayetBg: "border-gold-100 bg-gold-50/60 hover:border-gold-200 dark:border-gold-900/50 dark:bg-gold-950/20", ayetTxt: "text-gold-700 dark:text-gold-400", divider: "border-gold-100 dark:border-gold-900/40", chevron: "text-gold-500" },
 } as const;
 
 // ── Ortak: Ayet linki listesi ──────────────────────────────────────────────────
@@ -120,16 +120,16 @@ function Akordeon({ baslik, altBaslik, ikon, headerCls, chevronCls, defaultAcik 
 function InancKarti({ sart, renk }: { sart: InancSarti; renk: "yesil" | "mavi" }) {
   const isYesil = renk === "yesil";
   const headerCls = isYesil
-    ? "border-emerald-200 bg-emerald-50 dark:border-emerald-800/40 dark:bg-emerald-950/30"
+    ? "border-navy-200 bg-navy-50 dark:border-navy-800/40 dark:bg-navy-950/30"
     : "border-sky-200 bg-sky-50 dark:border-sky-800/40 dark:bg-sky-950/30";
   const badgeCls = isYesil
-    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
+    ? "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300"
     : "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300";
   const ayetBg = isYesil
-    ? "border-emerald-100 bg-emerald-50/60 hover:border-emerald-200 dark:border-emerald-900/50 dark:bg-emerald-950/20"
+    ? "border-navy-100 bg-navy-50/60 hover:border-navy-200 dark:border-navy-900/50 dark:bg-navy-950/20"
     : "border-sky-100 bg-sky-50/60 hover:border-sky-200 dark:border-sky-900/50 dark:bg-sky-950/20";
-  const ayetTxt = isYesil ? "text-emerald-700 dark:text-emerald-400" : "text-sky-700 dark:text-sky-400";
-  const chevronCls = isYesil ? "text-emerald-500" : "text-sky-500";
+  const ayetTxt = isYesil ? "text-navy-700 dark:text-navy-400" : "text-sky-700 dark:text-sky-400";
+  const chevronCls = isYesil ? "text-navy-500" : "text-sky-500";
 
   return (
     <Akordeon baslik={sart.baslik} altBaslik={`${sart.ayetler.length} referans ayet`} ikon={sart.ikon} headerCls={headerCls} chevronCls={chevronCls}>
@@ -144,7 +144,7 @@ function InancTabu() {
     <div className="space-y-6">
       <section>
         <div className="mb-3 flex items-center gap-2">
-          <div className="h-1 w-6 rounded-full bg-emerald-500" />
+          <div className="h-1 w-6 rounded-full bg-navy-500" />
           <div>
             <h2 className="text-sm font-bold text-stone-800 dark:text-stone-100">İslam&apos;ın 5 Şartı</h2>
             <p className="text-xs text-stone-400">Dinin pratik temelleri</p>
@@ -226,37 +226,37 @@ function IbadetlerTabu() {
   return (
     <div className="space-y-2">
       <Akordeon baslik="Namaz (Salât)" altBaslik="5 vakit · rekat tablosu · farz/sünnet" ikon="🕌"
-        headerCls="border-emerald-200 bg-emerald-50 dark:border-emerald-800/40 dark:bg-emerald-950/30"
-        chevronCls="text-emerald-500">
+        headerCls="border-navy-200 bg-navy-50 dark:border-navy-800/40 dark:bg-navy-950/30"
+        chevronCls="text-navy-500">
         <NamazTablosu />
         <AyetListesi
           ayetler={[
             { sureId: 4, sureAdi: "Nisâ", ayetNo: 103, kisaMetin: "Namaz müminlere belirlenmiş vakitlerde farz kılınmıştır." },
             { sureId: 29, sureAdi: "Ankebût", ayetNo: 45, kisaMetin: "Namaz, hayâsızlıktan ve kötülükten alıkoyar." },
           ]}
-          badgeCls="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
-          bgCls="border-emerald-100 bg-emerald-50/60 hover:border-emerald-200 dark:border-emerald-900/50 dark:bg-emerald-950/20"
-          txtCls="text-emerald-700 dark:text-emerald-400"
+          badgeCls="bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300"
+          bgCls="border-navy-100 bg-navy-50/60 hover:border-navy-200 dark:border-navy-900/50 dark:bg-navy-950/20"
+          txtCls="text-navy-700 dark:text-navy-400"
         />
         <Link
           href="/namaz-rehberi"
-          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-navy-700 hover:underline dark:text-navy-400"
         >
           Detaylı Namaz Rehberi (adım adım kılınış, dualar, özel namazlar) →
         </Link>
       </Akordeon>
 
       <Akordeon baslik="Oruç (Savm)" altBaslik="Ramazan · farz/sünnet · kefaret" ikon="🌙"
-        headerCls="border-amber-200 bg-amber-50 dark:border-amber-800/40 dark:bg-amber-950/30"
-        chevronCls="text-amber-500">
+        headerCls="border-gold-200 bg-gold-50 dark:border-gold-800/40 dark:bg-gold-950/30"
+        chevronCls="text-gold-500">
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
           Ramazan ayında şafaktan güneş batımına kadar yiyecek, içecek ve kötü davranışlardan kaçınmaktır.
         </p>
         <MaddeListesi maddeler={ORUC_MADDELERİ} />
         <AyetListesi ayetler={ORUC_AYETLERİ}
-          badgeCls="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300"
-          bgCls="border-amber-100 bg-amber-50/60 hover:border-amber-200 dark:border-amber-900/50 dark:bg-amber-950/20"
-          txtCls="text-amber-700 dark:text-amber-400"
+          badgeCls="bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300"
+          bgCls="border-gold-100 bg-gold-50/60 hover:border-gold-200 dark:border-gold-900/50 dark:bg-gold-950/20"
+          txtCls="text-gold-700 dark:text-gold-400"
         />
       </Akordeon>
 
@@ -414,14 +414,14 @@ export function IbadetRehberiClient() {
     <div>
       <Link
         href="/dualar"
-        className="mb-4 block rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 transition-colors hover:border-emerald-300 hover:bg-emerald-100/60 dark:border-emerald-800/50 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/35"
+        className="mb-4 block rounded-xl border border-navy-200 bg-navy-50 px-4 py-3 transition-colors hover:border-navy-300 hover:bg-navy-100/60 dark:border-navy-800/50 dark:bg-navy-950/20 dark:hover:bg-navy-950/35"
       >
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="text-sm font-bold text-stone-800 dark:text-stone-100">Dualar ve Zikirler</p>
             <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">Günlük dualar, zikirler ve kaynak notları</p>
           </div>
-          <span className="text-emerald-600 dark:text-emerald-400">→</span>
+          <span className="text-navy-600 dark:text-navy-400">→</span>
         </div>
       </Link>      {/* Yapışkan sekme çubuğu */}
       <div className="sticky top-0 z-10 bg-stone-100 pb-2 pt-1 dark:bg-stone-950">

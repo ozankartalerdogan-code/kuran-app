@@ -26,16 +26,16 @@ function DersCard({ ders, progress }: { ders: DersMeta; progress: AllDersProgres
   return (
     <Link
       href={`/ogren/dersler/${ders.id}`}
-      className={`group relative overflow-hidden rounded-2xl border bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:bg-stone-900 ${done ? "border-emerald-300 dark:border-emerald-700" : "border-amber-200/70 hover:border-amber-300 dark:border-stone-700 dark:hover:border-amber-700"}`}
+      className={`group relative overflow-hidden rounded-2xl border bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:bg-stone-900 ${done ? "border-navy-300 dark:border-navy-700" : "border-gold-200/70 hover:border-gold-300 dark:border-stone-700 dark:hover:border-gold-700"}`}
     >
       {done ? (
-        <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-xs font-black text-white">✓</span>
+        <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-navy-500 text-xs font-black text-white">✓</span>
       ) : null}
       <div className="mb-4 flex items-start justify-between gap-3">
         <span className="text-4xl leading-none">{ders.ikon}</span>
-        <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-amber-700 dark:bg-amber-950/30 dark:text-amber-300">~{ders.sure} dk</span>
+        <span className="rounded-full bg-gold-50 px-2.5 py-1 text-[11px] font-bold text-gold-700 dark:bg-gold-950/30 dark:text-gold-300">~{ders.sure} dk</span>
       </div>
-      <h2 className="text-base font-bold text-stone-900 group-hover:text-amber-800 dark:text-stone-50 dark:group-hover:text-amber-300">{ders.baslik}</h2>
+      <h2 className="text-base font-bold text-stone-900 group-hover:text-gold-800 dark:text-stone-50 dark:group-hover:text-gold-300">{ders.baslik}</h2>
       <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">{ders.kartSayisi} kart + 10 soruluk quiz</p>
       {pct > 0 ? (
         <div className="mt-4">
@@ -44,7 +44,7 @@ function DersCard({ ders, progress }: { ders: DersMeta; progress: AllDersProgres
             <span>{pct}%</span>
           </div>
           <div className="h-1.5 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
-            <div className={`h-full rounded-full ${done ? "bg-emerald-500" : "bg-amber-500"}`} style={{ width: `${pct}%` }} />
+            <div className={`h-full rounded-full ${done ? "bg-navy-500" : "bg-gold-500"}`} style={{ width: `${pct}%` }} />
           </div>
         </div>
       ) : null}
@@ -76,8 +76,8 @@ export function DerslerClient() {
           ← Öğren
         </Link>
 
-        <header className="mb-6 overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-emerald-50 p-6 dark:border-amber-900/50 dark:from-amber-950/20 dark:via-stone-900 dark:to-emerald-950/20">
-          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-amber-700 dark:text-amber-400">{DERSLER_META.length} ders · quizli öğrenme</p>
+        <header className="mb-6 overflow-hidden rounded-3xl border border-gold-200 bg-gradient-to-br from-gold-50 via-white to-navy-50 p-6 dark:border-gold-900/50 dark:from-gold-950/20 dark:via-stone-900 dark:to-navy-950/20">
+          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-gold-700 dark:text-gold-400">{DERSLER_META.length} ders · quizli öğrenme</p>
           <h1 className="text-3xl font-black tracking-tight text-stone-950 dark:text-stone-50">Dersler</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600 dark:text-stone-300">
             İbadet, iman, ahlak, siyer ve tecvid konularını kısa kartlarla oku; sonunda 10 soruluk testle pekiştir.
@@ -92,7 +92,7 @@ export function DerslerClient() {
                 key={tab.key}
                 type="button"
                 onClick={() => setSortMode(tab.key)}
-                className={`rounded-xl px-2 py-2.5 text-xs font-bold transition-colors sm:text-sm ${active ? "bg-amber-500 text-stone-950" : "text-stone-500 hover:bg-stone-50 dark:text-stone-400 dark:hover:bg-stone-800"}`}
+                className={`rounded-xl px-2 py-2.5 text-xs font-bold transition-colors sm:text-sm ${active ? "bg-gold-500 text-stone-950" : "text-stone-500 hover:bg-stone-50 dark:text-stone-400 dark:hover:bg-stone-800"}`}
                 aria-pressed={active}
               >
                 {tab.label}
@@ -118,7 +118,7 @@ export function DerslerClient() {
           </div>
         )}
 
-        <p className="mt-8 rounded-2xl border border-amber-200/60 bg-amber-50/60 px-4 py-3 text-center text-xs leading-5 text-stone-500 dark:border-amber-900/40 dark:bg-amber-950/10 dark:text-stone-400">
+        <p className="mt-8 rounded-2xl border border-gold-200/60 bg-gold-50/60 px-4 py-3 text-center text-xs leading-5 text-stone-500 dark:border-gold-900/40 dark:bg-gold-950/10 dark:text-stone-400">
           Dersler Kur'an-ı Kerim, sahih hadis kaynakları ve klasik ilmihal birikimi esas alınarak hazırlanmıştır.
         </p>
       </div>

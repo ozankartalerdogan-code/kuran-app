@@ -47,9 +47,9 @@ export function NoteEditor({ verseKey }: { verseKey: string }) {
   const dirty = text !== saved;
 
   return (
-    <section className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm dark:border-amber-800/40 dark:bg-amber-950/20">
+    <section className="rounded-xl border border-gold-200 bg-gold-50 p-5 shadow-sm dark:border-gold-800/40 dark:bg-gold-950/20">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h2 className="text-sm font-semibold text-amber-800 dark:text-amber-300">
+        <h2 className="text-sm font-semibold text-gold-800 dark:text-gold-300">
           📝 Kişisel Not
         </h2>
         {saved && (
@@ -68,7 +68,7 @@ export function NoteEditor({ verseKey }: { verseKey: string }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="Bu ayet hakkında notunuzu buraya yazın…"
         rows={4}
-        className="w-full resize-y rounded-lg border border-amber-200 bg-white px-3 py-2.5 text-sm leading-relaxed text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 dark:border-amber-800/40 dark:bg-stone-900 dark:text-stone-200 dark:placeholder-stone-600 dark:focus:border-amber-600 dark:focus:ring-amber-800/40"
+        className="w-full resize-y rounded-lg border border-gold-200 bg-white px-3 py-2.5 text-sm leading-relaxed text-stone-800 placeholder-stone-400 focus:border-gold-400 focus:outline-none focus:ring-2 focus:ring-gold-200 dark:border-gold-800/40 dark:bg-stone-900 dark:text-stone-200 dark:placeholder-stone-600 dark:focus:border-gold-600 dark:focus:ring-gold-800/40"
       />
 
       <div className="mt-2 flex items-center justify-between gap-2">
@@ -78,7 +78,7 @@ export function NoteEditor({ verseKey }: { verseKey: string }) {
           } ${
             status === "deleted"
               ? "text-rose-500 dark:text-rose-400"
-              : "text-emerald-600 dark:text-emerald-400"
+              : "text-navy-600 dark:text-navy-400"
           }`}
         >
           {status === "saved" ? "✓ Kaydedildi" : "✗ Not silindi"}
@@ -87,7 +87,7 @@ export function NoteEditor({ verseKey }: { verseKey: string }) {
           onClick={save}
           disabled={!dirty}
           type="button"
-          className="rounded-lg bg-amber-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-amber-700 dark:hover:bg-amber-600"
+          className="rounded-lg bg-gold-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-gold-700 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-gold-700 dark:hover:bg-gold-600"
         >
           Kaydet
         </button>

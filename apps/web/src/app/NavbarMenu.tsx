@@ -56,7 +56,7 @@ function BrandMark() {
   return (
     <span
       aria-hidden="true"
-      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-white"
+      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-gold-300 ring-1 ring-gold-500/40"
     >
       <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
         <path
@@ -84,7 +84,7 @@ export function NavbarMenu() {
         <Link
           href="/"
           aria-label="Ana sayfaya git"
-          className="flex shrink-0 items-center gap-2 text-sm font-bold tracking-tight text-stone-800 hover:text-emerald-700 dark:text-stone-200 dark:hover:text-emerald-400"
+          className="flex shrink-0 items-center gap-2 text-sm font-bold tracking-tight text-stone-800 hover:text-navy-700 dark:text-stone-200 dark:hover:text-navy-400"
         >
           <BrandMark />
           <span>Kuran Yolu</span>
@@ -99,7 +99,7 @@ export function NavbarMenu() {
             aria-current={isActive(href) ? "page" : undefined}
             className={`hidden shrink-0 border-b-2 pb-0.5 text-sm font-medium transition-colors sm:block ${
               isActive(href)
-                ? "border-emerald-600 text-emerald-700 dark:border-emerald-500 dark:text-emerald-400"
+                ? "border-navy-600 text-navy-700 dark:border-navy-500 dark:text-navy-400"
                 : "border-transparent text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
             }`}
           >
@@ -134,8 +134,8 @@ export function NavbarMenu() {
           aria-current={isActive("/notlarim") ? "page" : undefined}
           className={`hidden shrink-0 items-center gap-1 text-sm font-medium transition-colors sm:flex ${
             isActive("/notlarim")
-              ? "text-amber-600 dark:text-amber-400"
-              : "text-stone-600 hover:text-amber-600 dark:text-stone-400 dark:hover:text-amber-400"
+              ? "text-gold-600 dark:text-gold-400"
+              : "text-stone-600 hover:text-gold-600 dark:text-stone-400 dark:hover:text-gold-400"
           }`}
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
@@ -146,7 +146,7 @@ export function NavbarMenu() {
         <Link
           href="/discover"
           aria-label="Keşfet sayfasına git"
-          className="hidden shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 sm:flex"
+          className="hidden shrink-0 items-center gap-1.5 rounded-lg bg-navy-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-navy-700 sm:flex"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <circle cx="12" cy="12" r="3" />
@@ -190,9 +190,9 @@ export function NavbarMenu() {
               onClick={() => setOpen(false)}
               className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                 accent
-                  ? "mt-1 bg-emerald-600 text-white hover:bg-emerald-700"
+                  ? "mt-1 bg-navy-600 text-white hover:bg-navy-700"
                   : isActive(href)
-                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+                    ? "bg-navy-50 text-navy-700 dark:bg-navy-950/40 dark:text-navy-400"
                     : "text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800"
               }`}
             >

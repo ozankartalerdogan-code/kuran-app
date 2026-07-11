@@ -67,7 +67,7 @@ const VAKIT_META: VakitMeta[] = [
   },
   {
     id: "ogle", ikon: "☀️", ad: "Öğle",
-    renk: { sol: "bg-amber-50 dark:bg-amber-900/20", bant: "border-l-amber-400", badge: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300" },
+    renk: { sol: "bg-gold-50 dark:bg-gold-900/20", bant: "border-l-gold-400", badge: "bg-gold-100 text-gold-800 dark:bg-gold-900/40 dark:text-gold-300" },
   },
   {
     id: "ikindi", ikon: "🌤️", ad: "İkindi",
@@ -79,7 +79,7 @@ const VAKIT_META: VakitMeta[] = [
   },
   {
     id: "yatsi", ikon: "🌙", ad: "Yatsı",
-    renk: { sol: "bg-indigo-50 dark:bg-indigo-900/20", bant: "border-l-indigo-500", badge: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300" },
+    renk: { sol: "bg-navy-50 dark:bg-navy-900/20", bant: "border-l-navy-500", badge: "bg-navy-100 text-navy-800 dark:bg-navy-900/40 dark:text-navy-300" },
   },
   {
     id: "teheccud", ikon: "🌌", ad: "Teheccüd",
@@ -139,13 +139,13 @@ export async function NamazVakitTablosu() {
     {motto && (
       <Link
         href={verseHref(motto.verse_key)}
-        className="group mb-5 block overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50/40 px-5 py-4 shadow-sm transition-all hover:border-emerald-300 hover:shadow-md dark:border-emerald-800/50 dark:from-emerald-950/30 dark:to-teal-950/20"
+        className="group mb-5 block overflow-hidden rounded-2xl border border-navy-200 bg-gradient-to-br from-navy-50 to-navy-50/40 px-5 py-4 shadow-sm transition-all hover:border-navy-300 hover:shadow-md dark:border-navy-800/50 dark:from-navy-950/30 dark:to-navy-950/20"
       >
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-navy-600 dark:text-navy-400">
             Namaz Vakitlere Bağlı Bir Farzdır
           </span>
-          <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
+          <span className="rounded-md bg-navy-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-navy-700 dark:bg-navy-900/50 dark:text-navy-300">
             Nisâ {motto.verse_key}
           </span>
         </div>

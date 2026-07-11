@@ -22,11 +22,11 @@ export function AyahDetailTabs({ tabs }: AyahDetailTabsProps) {
   }
 
   return (
-    <section className="rounded-md border border-stone-200 bg-white shadow-sm">
+    <section className="rounded-xl border border-stone-200 bg-white shadow-card">
       <div
         className="flex gap-1 overflow-x-auto border-b border-stone-200 px-3 py-3"
         role="tablist"
-        aria-label="Ayet detay bolumleri"
+        aria-label="Ayet detay bölümleri"
       >
         {tabs.map((tab) => {
           const isActive = tab.id === activeTab.id;
@@ -38,8 +38,8 @@ export function AyahDetailTabs({ tabs }: AyahDetailTabsProps) {
               className={[
                 "whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium",
                 isActive
-                  ? "bg-stone-900 text-white"
-                  : "text-stone-700 hover:bg-stone-100"
+                  ? "bg-navy-900 text-white shadow-sm"
+                  : "text-stone-700 hover:bg-navy-50"
               ].join(" ")}
               id={`${panelBaseId}-${tab.id}-tab`}
               key={tab.id}

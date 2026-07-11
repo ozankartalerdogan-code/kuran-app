@@ -21,8 +21,8 @@ function RevelationBadge({ place }: { place: string }) {
       className={
         "rounded-full px-2 py-0.5 text-xs font-medium " +
         (isMekki
-          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
-          : "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400")
+          ? "bg-navy-100 text-navy-700 dark:bg-navy-950/40 dark:text-navy-400"
+          : "bg-gold-100 text-gold-800 dark:bg-gold-950/40 dark:text-gold-400")
       }
     >
       {place}
@@ -51,7 +51,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
           <button
             className={`px-4 py-2 text-sm font-medium transition-all active:scale-95 ${
               order === "mushaf"
-                ? "bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
+                ? "bg-navy-900 text-white dark:bg-stone-100 dark:text-stone-900"
                 : "text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-800"
             }`}
             onClick={() => setOrder("mushaf")}
@@ -62,7 +62,7 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
           <button
             className={`border-l border-stone-200 px-4 py-2 text-sm font-medium transition-all active:scale-95 dark:border-stone-700 ${
               order === "nuzul"
-                ? "bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
+                ? "bg-navy-900 text-white dark:bg-stone-100 dark:text-stone-900"
                 : "text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-800"
             }`}
             onClick={() => setOrder("nuzul")}

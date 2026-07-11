@@ -43,7 +43,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
           </p>
           <button
             onClick={() => router.back()}
-            className="mt-4 rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
+            className="mt-4 rounded-lg bg-navy-600 px-4 py-2 text-sm text-white hover:bg-navy-700"
           >
             Geri Dön
           </button>
@@ -101,7 +101,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
                 <div
                   key={surahId}
                   title={`Sure ${surahId} — Geçiş sayısı: ${freq}`}
-                  className="flex h-10 w-10 items-center justify-center text-[10px] font-medium transition-colors hover:ring-2 hover:ring-emerald-400 sm:h-11 sm:w-11 sm:text-xs"
+                  className="flex h-10 w-10 items-center justify-center text-[10px] font-medium transition-colors hover:ring-2 hover:ring-navy-400 sm:h-11 sm:w-11 sm:text-xs"
                   style={{
                     backgroundColor: bg,
                     color: fg,
@@ -196,7 +196,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
                               </span>
                             </div>
                             <div className="flex shrink-0 items-center gap-2">
-                              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                              <span className="rounded-full bg-navy-100 px-2 py-0.5 text-xs font-semibold text-navy-700 dark:bg-navy-900 dark:text-navy-300">
                                 {group.occurrences.length} ayet
                               </span>
                               <svg
@@ -214,7 +214,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
                                   key={i}
                                   onClick={() => router.push(`/surah/${o.surahId}/ayah/${o.ayahNumber}`)}
                                   title={o.meaning}
-                                  className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-300"
+                                  className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-navy-300 hover:bg-navy-50 hover:text-navy-700 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-300"
                                 >
                                   {o.surahId}:{o.ayahNumber}
                                 </button>

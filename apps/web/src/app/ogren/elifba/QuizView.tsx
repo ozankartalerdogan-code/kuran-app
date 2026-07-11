@@ -50,7 +50,7 @@ function ScoreScreen({
       </div>
       <div className="h-3 w-full max-w-xs overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
         <div
-          className="h-full rounded-full bg-emerald-500 transition-all"
+          className="h-full rounded-full bg-navy-500 transition-all"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -201,13 +201,13 @@ export function QuizView({
           <span>
             Soru {currentIdx + 1} / {sorular.length}
           </span>
-          <span className="text-emerald-600 dark:text-emerald-400">
+          <span className="text-navy-600 dark:text-navy-400">
             {score} doğru
           </span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
           <div
-            className="h-full rounded-full bg-indigo-500 transition-all"
+            className="h-full rounded-full bg-navy-500 transition-all"
             style={{
               width: `${Math.round((currentIdx / sorular.length) * 100)}%`,
             }}
@@ -238,10 +238,10 @@ export function QuizView({
 
           if (!answered) {
             cls +=
-              "border-stone-200 bg-white text-stone-700 hover:border-emerald-400 hover:bg-emerald-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-emerald-700 dark:hover:bg-emerald-900/20";
+              "border-stone-200 bg-white text-stone-700 hover:border-navy-400 hover:bg-navy-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-navy-700 dark:hover:bg-navy-900/20";
           } else if (isRight) {
             cls +=
-              "border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300";
+              "border-navy-500 bg-navy-50 text-navy-700 dark:border-navy-600 dark:bg-navy-900/30 dark:text-navy-300";
           } else if (isSelected && !isRight) {
             cls +=
               "border-red-400 bg-red-50 text-red-700 dark:border-red-600 dark:bg-red-900/30 dark:text-red-300";
@@ -269,7 +269,7 @@ export function QuizView({
 
       {/* İpucu (yanlış cevapta) */}
       {answered && !isCorrect && soru.ipucu && (
-        <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-300">
+        <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800 dark:border-gold-800/50 dark:bg-gold-900/20 dark:text-gold-300">
           <span className="mr-1.5 font-semibold">💡 İpucu:</span>
           {soru.ipucu}
         </div>
@@ -279,7 +279,7 @@ export function QuizView({
       {answered && (
         <button
           onClick={handleNext}
-          className="w-full rounded-xl bg-indigo-600 py-3 text-sm font-semibold text-white transition-all hover:bg-indigo-700"
+          className="w-full rounded-xl bg-navy-600 py-3 text-sm font-semibold text-white transition-all hover:bg-navy-700"
         >
           {currentIdx + 1 >= sorular.length ? "Sonucu Gör →" : "Sonraki →"}
         </button>

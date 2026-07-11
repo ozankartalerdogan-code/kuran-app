@@ -76,56 +76,56 @@ const NAV_CARDS = [
     icon: "🔍",
     title: "Keşfet",
     desc: "Dua kategorileri, temalar ve etiketler",
-    tint: "bg-emerald-100 dark:bg-emerald-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/ibadet-rehberi",
     icon: "📿",
     title: "İbadet Rehberi",
     desc: "İnanç, namaz, oruç, zekât, abdest",
-    tint: "bg-sky-100 dark:bg-sky-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/namaz",
     icon: "🕌",
     title: "Namaz",
     desc: "Namaz sureleri ve duaları",
-    tint: "bg-indigo-100 dark:bg-indigo-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/manevi-siginak",
     icon: "🤲",
     title: "Manevi Sığınak",
     desc: "Zor anlarda dua ve ayetler",
-    tint: "bg-violet-100 dark:bg-violet-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/root",
     icon: "🌿",
     title: "Kelime Kökü",
     desc: "Arapça kökleri keşfet",
-    tint: "bg-amber-100 dark:bg-amber-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/kible",
     icon: "🧭",
     title: "Kıble",
     desc: "Kabe'nin yönünü bul",
-    tint: "bg-teal-100 dark:bg-teal-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/hatim",
     icon: "📖",
     title: "Hatim",
     desc: "30 cüz okuma takibi",
-    tint: "bg-rose-100 dark:bg-rose-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
   {
     href: "/ogren",
     icon: "📚",
     title: "Konular",
     desc: "Elifba, dersler, Esmaül Hüsna, dualar",
-    tint: "bg-cyan-100 dark:bg-cyan-950/50",
+    tint: "bg-navy-50 dark:bg-navy-900/40",
   },
 ];
 
@@ -186,34 +186,42 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen">
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-700 to-stone-900 px-4 py-16 sm:py-24">
-        <div className="absolute inset-0 opacity-10"
+      <section className="relative overflow-hidden bg-gradient-to-b from-navy-900 via-navy-950 to-navy-950 px-4 py-16 sm:py-24">
+        <div className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}
         />
+        {/* Altın ışıma — abartısız tek vurgu */}
+        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-gold-400/10 blur-3xl" />
         <div className="relative mx-auto max-w-2xl text-center">
           {hijriDate && (
-            <p className="mb-3 text-sm font-medium text-emerald-200/80">{hijriDate}</p>
+            <p className="mb-4 text-sm font-medium tracking-wide text-gold-300/90">{hijriDate}</p>
           )}
           <h1
             dir="rtl"
             lang="ar"
-            className="mb-3 font-arabic text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl"
+            className="mb-4 font-arabic text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl"
           >
             ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ
           </h1>
-          <p className="mb-1 text-lg font-semibold text-white">
+          <p className="mb-1 font-display text-lg italic text-navy-100">
             “Yaratan Rabbinin adıyla oku!”
           </p>
-          <p className="mb-8 text-sm text-emerald-200/70">
+          <p className="mb-3 text-sm text-navy-300">
             Alak suresi, 1. ayet
           </p>
+          {/* İnce altın ayraç */}
+          <div aria-hidden="true" className="mx-auto mb-8 flex items-center justify-center gap-2">
+            <span className="h-px w-10 bg-gold-500/40" />
+            <span className="h-1.5 w-1.5 rotate-45 bg-gold-400/70" />
+            <span className="h-px w-10 bg-gold-500/40" />
+          </div>
 
           {/* Search */}
           <div className="mx-auto max-w-lg">
             <div className="rounded-2xl bg-white/10 p-1.5 shadow-lg backdrop-blur-sm ring-1 ring-white/25 transition focus-within:bg-white/15 focus-within:ring-white/50">
               <SearchBar />
             </div>
-            <p className="mt-2.5 text-xs text-emerald-200/60">
+            <p className="mt-2.5 text-xs text-navy-300/80">
               Sure adı, ayet numarası veya Türkçe kelime arayın
             </p>
           </div>
@@ -224,12 +232,12 @@ export default async function HomePage() {
 
         {/* ── GÜNLÜK AYET ── */}
         {dailyVerse && (
-          <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-md dark:border-amber-800/40 dark:bg-amber-950/30">
+          <section className="rounded-2xl border border-gold-200 bg-gold-50 p-6 shadow-card dark:border-gold-800/40 dark:bg-gold-950/30">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-amber-800 dark:text-amber-300">
+              <h2 className="text-sm font-semibold text-gold-800 dark:text-gold-300">
                 ✨ Günün Ayeti
               </h2>
-              <span className="text-xs text-amber-600/70 dark:text-amber-400/60">
+              <span className="text-xs text-gold-600/70 dark:text-gold-400/60">
                 {dailyVerse.surah_name} · {dailyVerse.surah_id}:{dailyVerse.ayah_number}
               </span>
             </div>
@@ -241,7 +249,7 @@ export default async function HomePage() {
               {dailyVerse.arabic_text}
             </p>
             {dailyVerse.reading_tr && (
-              <p className="mb-1.5 text-sm leading-relaxed text-amber-900/80 dark:text-amber-200/80">
+              <p className="mb-1.5 text-sm leading-relaxed text-gold-900/80 dark:text-gold-200/80">
                 {dailyVerse.reading_tr}
               </p>
             )}
@@ -252,7 +260,7 @@ export default async function HomePage() {
             )}
             <div className="mt-3 text-right">
               <Link
-                className="text-xs font-medium text-amber-700 hover:text-amber-900 dark:text-amber-400 dark:hover:text-amber-200"
+                className="text-xs font-medium text-gold-700 hover:text-gold-900 dark:text-gold-400 dark:hover:text-gold-200"
                 href={`/surah/${dailyVerse.surah_id}/ayah/${dailyVerse.ayah_number}`}
               >
                 Ayet sayfasına git →
@@ -265,14 +273,14 @@ export default async function HomePage() {
         <div className="-mx-4 sm:mx-0">
           <div className="flex gap-2 overflow-x-auto px-4 pb-2 [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
             {([
-              { etiket: "😌 Huzur arıyorum",     tag: "rahmet",         renk: "border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 dark:border-teal-800/50 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/50" },
-              { etiket: "😰 Stres altındayım",   tag: "sabır",          renk: "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-800/50 dark:bg-amber-950/40 dark:text-amber-300 dark:hover:bg-amber-900/50" },
+              { etiket: "😌 Huzur arıyorum",     tag: "rahmet",         renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
+              { etiket: "😰 Stres altındayım",   tag: "sabır",          renk: "border-gold-200 bg-gold-50 text-gold-700 hover:bg-gold-100 dark:border-gold-800/50 dark:bg-gold-950/40 dark:text-gold-300 dark:hover:bg-gold-900/50" },
               { etiket: "🙏 Tövbe etmek",        tag: "tövbe",          renk: "border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 dark:border-violet-800/50 dark:bg-violet-950/40 dark:text-violet-300 dark:hover:bg-violet-900/50" },
               { etiket: "💔 Geçim sıkıntısı",    tag: "rızık",          renk: "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50" },
               { etiket: "😔 Üzüntülüyüm",        tag: "tevekkül",       renk: "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:border-blue-800/50 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/50" },
               { etiket: "🤍 Şükretmek",          tag: "şükür",          renk: "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 dark:border-yellow-800/50 dark:bg-yellow-950/40 dark:text-yellow-300 dark:hover:bg-yellow-900/50" },
-              { etiket: "⚖️ Haksızlığa uğradım", tag: "adalet",         renk: "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:border-indigo-800/50 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/50" },
-              { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", kind: "ana", renk: "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-800/50 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/50" },
+              { etiket: "⚖️ Haksızlığa uğradım", tag: "adalet",         renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
+              { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", kind: "ana", renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
               { etiket: "🌟 İlham almak",         tag: "hidayet",        renk: "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 dark:border-orange-800/50 dark:bg-orange-950/40 dark:text-orange-300 dark:hover:bg-orange-900/50" },
               { etiket: "💀 Ölümü düşünmek",      tag: "ecel",           renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
             ] as const).map((item) => (
@@ -291,7 +299,7 @@ export default async function HomePage() {
               <Link
                 key={card.href}
                 href={card.href}
-                className="group rounded-2xl border border-stone-200 bg-white p-4 shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md active:translate-y-0 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-emerald-700"
+                className="group rounded-2xl border border-stone-200 bg-white p-4 shadow-sm transition-all duration-150 hover:-translate-y-0.5 hover:border-navy-300 hover:shadow-card active:translate-y-0 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-navy-700"
               >
                 <div
                   aria-hidden="true"
@@ -299,7 +307,7 @@ export default async function HomePage() {
                 >
                   {card.icon}
                 </div>
-                <div className="text-sm font-semibold leading-tight text-stone-900 group-hover:text-emerald-800 dark:text-stone-100 dark:group-hover:text-emerald-300 sm:text-base">
+                <div className="text-sm font-semibold leading-tight text-stone-900 group-hover:text-navy-800 dark:text-stone-100 dark:group-hover:text-navy-300 sm:text-base">
                   {card.title}
                 </div>
                 <div className="mt-1 text-[11px] leading-snug text-stone-500 dark:text-stone-400 sm:text-xs">
@@ -312,18 +320,18 @@ export default async function HomePage() {
 
         {/* ── GÜNÜN DUASI ── */}
         {dailyDua && (
-          <section className="rounded-2xl border border-teal-200 bg-teal-50 p-6 shadow-md dark:border-teal-800/40 dark:bg-teal-900/20">
+          <section className="rounded-2xl border border-navy-200 bg-navy-50 p-6 shadow-card dark:border-navy-800/40 dark:bg-navy-900/20">
             {/* Başlık */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <h2 className="text-sm font-semibold text-teal-800 dark:text-teal-300">
+                <h2 className="text-sm font-semibold text-navy-800 dark:text-navy-300">
                   🤲 Günün Duası
                 </h2>
-                <span className="rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-900/60 dark:text-teal-400">
+                <span className="rounded-full bg-navy-100 px-2 py-0.5 text-xs font-medium text-navy-700 dark:bg-navy-900/60 dark:text-navy-400">
                   {formatDuaTag(dailyDua.tag)}
                 </span>
               </div>
-              <span className="text-xs text-teal-600/70 dark:text-teal-400/60">
+              <span className="text-xs text-navy-600/70 dark:text-navy-400/60">
                 {dailyDua.surah_name ?? "—"} · {dailyDua.surah_id}:{dailyDua.ayah_number}
               </span>
             </div>
@@ -341,7 +349,7 @@ export default async function HomePage() {
 
             {/* Okunuş */}
             {dailyDua.reading_tr && (
-              <p className="mb-1.5 text-sm leading-relaxed text-teal-900/80 dark:text-teal-200/80">
+              <p className="mb-1.5 text-sm leading-relaxed text-navy-900/80 dark:text-navy-200/80">
                 {dailyDua.reading_tr}
               </p>
             )}
@@ -357,7 +365,7 @@ export default async function HomePage() {
             <div className="mt-3 text-right">
               <Link
                 href={`/surah/${dailyDua.surah_id}/ayah/${dailyDua.ayah_number}`}
-                className="text-xs font-medium text-teal-700 hover:text-teal-900 dark:text-teal-400 dark:hover:text-teal-200"
+                className="text-xs font-medium text-navy-700 hover:text-navy-900 dark:text-navy-400 dark:hover:text-navy-200"
               >
                 Ayete git →
               </Link>
@@ -370,7 +378,7 @@ export default async function HomePage() {
 
 
         {/* ── HIZLI ERİŞİM ── */}
-        <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-md dark:border-stone-700 dark:bg-stone-900">
+        <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-card dark:border-stone-700 dark:bg-stone-900">
           <h2 className="mb-4 text-sm font-semibold text-stone-700 dark:text-stone-200">
             📚 Hızlı Erişim
           </h2>
@@ -388,7 +396,7 @@ export default async function HomePage() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-2 rounded-xl border border-stone-100 bg-stone-50 px-3 py-2 text-sm transition-all hover:border-emerald-200 hover:bg-emerald-50 active:scale-95 dark:border-stone-700 dark:bg-stone-800 dark:hover:border-emerald-700 dark:hover:bg-emerald-950/30"
+                className="flex items-center gap-2 rounded-xl border border-stone-100 bg-stone-50 px-3 py-2 text-sm transition-all hover:border-navy-200 hover:bg-navy-50 active:scale-95 dark:border-stone-700 dark:bg-stone-800 dark:hover:border-navy-700 dark:hover:bg-navy-950/30"
               >
                 <span className="text-xs font-semibold text-stone-400 dark:text-stone-500">{item.num}</span>
                 <span className="font-medium text-stone-700 dark:text-stone-300">{item.label}</span>

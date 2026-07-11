@@ -74,8 +74,8 @@ const OZET_TABLO = Array.isArray(ROOT.ozet_tablo) ? ROOT.ozet_tablo : [];
 const DAYANAK_SEVIYELERI = Array.isArray(ROOT.dayanak_seviyeleri?.seviyeler) ? ROOT.dayanak_seviyeleri.seviyeler : [];
 
 const DAYANAK: Record<DayanakKey, { label: string; cls: string; border: string }> = {
-  sahih: { label: "Sahih", cls: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800/50 dark:bg-emerald-950/20 dark:text-emerald-300", border: "border-l-emerald-300 dark:border-l-emerald-700" },
-  tartismali: { label: "Tartışmalı", cls: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300", border: "border-l-amber-300 dark:border-l-amber-700" },
+  sahih: { label: "Sahih", cls: "border-navy-200 bg-navy-50 text-navy-700 dark:border-navy-800/50 dark:bg-navy-950/20 dark:text-navy-300", border: "border-l-navy-300 dark:border-l-navy-700" },
+  tartismali: { label: "Tartışmalı", cls: "border-gold-200 bg-gold-50 text-gold-700 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300", border: "border-l-gold-300 dark:border-l-gold-700" },
   zayif: { label: "Zayıf", cls: "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-800/50 dark:bg-orange-950/20 dark:text-orange-300", border: "border-l-orange-300 dark:border-l-orange-700" },
   kulturel: { label: "Kültürel", cls: "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-800/50 dark:bg-sky-950/20 dark:text-sky-300", border: "border-l-sky-300 dark:border-l-sky-700" },
   uydurma: { label: "Uydurma", cls: "border-red-200 bg-red-50 text-red-700 dark:border-red-800/50 dark:bg-red-950/20 dark:text-red-300", border: "border-l-red-300 dark:border-l-red-700" },
@@ -84,7 +84,7 @@ const DAYANAK: Record<DayanakKey, { label: string; cls: string; border: string }
 const IBADET_DURUM: Record<IbadetDurumKey, string> = {
   farz: "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
   vacip: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
-  sunnet: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+  sunnet: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300",
   mustehap: "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300",
   tavsiye: "bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-300",
 };
@@ -162,7 +162,7 @@ function GunCard({ gun }: { gun: Gun }) {
           {kuranRef && (kuranRef.metin || kuranRef.not || (kuranRef.sure && kuranRef.ayet)) ? (
             <div className="rounded-xl border border-stone-200 bg-stone-50 px-3 py-3 dark:border-stone-700 dark:bg-stone-950/40">
               {kuranRef.sure && kuranRef.ayet ? (
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">
                   {kuranRef.sure} {String(kuranRef.ayet)}
                 </p>
               ) : null}
@@ -175,7 +175,7 @@ function GunCard({ gun }: { gun: Gun }) {
 
           {ibadetler.length > 0 ? (
             <div>
-              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">İbadetler</p>
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">İbadetler</p>
               <div className="space-y-2">
                 {ibadetler.map((ibadet, index) => <IbadetCard key={index} ibadet={ibadet} />)}
               </div>
@@ -183,7 +183,7 @@ function GunCard({ gun }: { gun: Gun }) {
           ) : null}
 
           {gun.ozel_not ? (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300">
+            <div className="rounded-lg border border-gold-200 bg-gold-50 px-3 py-2 text-xs leading-relaxed text-gold-800 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300">
               {gun.ozel_not}
             </div>
           ) : null}
@@ -203,7 +203,7 @@ export function MubarekGunlerClient() {
     <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700">
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">
             {GUNLER.length} kayıt
           </p>
           <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-50">{baslik}</h1>
@@ -246,7 +246,7 @@ export function MubarekGunlerClient() {
         </section>
 
         {genelNot ? (
-          <div className="mt-5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/20 dark:text-amber-300">
+          <div className="mt-5 rounded-lg border border-gold-200 bg-gold-50 px-3 py-2 text-xs leading-relaxed text-gold-800 dark:border-gold-800/50 dark:bg-gold-950/20 dark:text-gold-300">
             {genelNot}
           </div>
         ) : null}

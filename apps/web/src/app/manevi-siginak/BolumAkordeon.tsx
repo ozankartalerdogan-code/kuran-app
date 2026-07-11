@@ -6,8 +6,8 @@ import type { ReactNode } from "react";
 type Score = "10/10" | "8/10" | "0/10";
 
 const SCORE_CFG: Record<Score, { emoji: string; cls: string }> = {
-  "10/10": { emoji: "🟢", cls: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300" },
-  "8/10":  { emoji: "🟡", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
+  "10/10": { emoji: "🟢", cls: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300" },
+  "8/10":  { emoji: "🟡", cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300" },
   "0/10":  { emoji: "🔴", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
 };
 

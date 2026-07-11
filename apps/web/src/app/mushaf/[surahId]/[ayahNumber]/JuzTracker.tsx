@@ -117,9 +117,9 @@ export function JuzTracker({ surahId, ayahNumber }: Props) {
               title={`${entry.cuz}. Cüz`}
               className={`h-2.5 flex-1 rounded-sm transition-colors ${
                 done
-                  ? "bg-emerald-500 dark:bg-emerald-600"
+                  ? "bg-navy-500 dark:bg-navy-600"
                   : current
-                    ? "bg-amber-500 dark:bg-amber-400"
+                    ? "bg-gold-500 dark:bg-gold-400"
                     : "bg-stone-200 dark:bg-stone-600"
               }`}
             />
@@ -136,7 +136,7 @@ export function JuzTracker({ surahId, ayahNumber }: Props) {
           type="button"
           className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors ${
             saved
-              ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+              ? "border-navy-300 bg-navy-50 text-navy-700 dark:border-navy-700 dark:bg-navy-900/30 dark:text-navy-400"
               : "border-stone-300 bg-stone-50 text-stone-700 hover:bg-white dark:border-stone-600 dark:bg-stone-700 dark:text-stone-300 dark:hover:bg-stone-600"
           }`}
         >
@@ -162,14 +162,14 @@ export function JuzTracker({ surahId, ayahNumber }: Props) {
           <button
             onClick={goToBookmark}
             type="button"
-            className="flex items-center gap-1.5 rounded-lg border border-amber-300 bg-amber-50 px-3 py-1.5 text-sm font-medium text-amber-700 transition-colors hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-900/20 dark:text-amber-400 dark:hover:bg-amber-900/40"
+            className="flex items-center gap-1.5 rounded-lg border border-gold-300 bg-gold-50 px-3 py-1.5 text-sm font-medium text-gold-700 transition-colors hover:bg-gold-100 dark:border-gold-700 dark:bg-gold-900/20 dark:text-gold-400 dark:hover:bg-gold-900/40"
           >
             <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fillRule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5zM3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
             </svg>
             Kaldığım yer: {bookmark}
             {bookmarkCuz !== null && (
-              <span className="ml-0.5 text-amber-500 dark:text-amber-500">
+              <span className="ml-0.5 text-gold-500 dark:text-gold-500">
                 · {bookmarkCuz}. Cüz
               </span>
             )}

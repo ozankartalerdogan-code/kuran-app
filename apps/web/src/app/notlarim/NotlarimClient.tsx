@@ -114,7 +114,7 @@ export function NotlarimClient() {
         </div>
 
         {error && !loading && (
-          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-300">
+          <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800 dark:border-gold-800/50 dark:bg-gold-900/20 dark:text-gold-300">
             {error}
           </div>
         )}
@@ -141,7 +141,7 @@ export function NotlarimClient() {
             </p>
             <Link
               href="/surah"
-              className="mt-5 inline-block rounded-xl bg-amber-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-amber-700 active:scale-95"
+              className="mt-5 inline-block rounded-xl bg-gold-600 px-5 py-2 text-sm font-semibold text-white transition-transform hover:bg-gold-700 active:scale-95"
             >
               Surelere Göz At
             </Link>
@@ -160,7 +160,7 @@ export function NotlarimClient() {
                     href={`/surah/${note.surahId}/ayah/${note.ayahNumber}`}
                     className="group flex items-center gap-2 hover:underline"
                   >
-                    <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
+                    <span className="rounded-full bg-gold-100 px-2.5 py-0.5 text-xs font-semibold text-gold-700 dark:bg-gold-900/40 dark:text-gold-400">
                       {note.verseKey}
                     </span>
                     {note.surahName ? (

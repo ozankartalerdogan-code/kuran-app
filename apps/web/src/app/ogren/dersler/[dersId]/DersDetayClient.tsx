@@ -34,7 +34,7 @@ function scoreEmoji(score: number, total: number) {
   return "📚";
 }
 
-function ProgressBar({ pct, color = "bg-amber-500" }: { pct: number; color?: string }) {
+function ProgressBar({ pct, color = "bg-gold-500" }: { pct: number; color?: string }) {
   return (
     <div className="h-2 overflow-hidden rounded-full bg-stone-100 dark:bg-stone-800">
       <div className={`h-full rounded-full transition-all ${color}`} style={{ width: `${Math.max(0, Math.min(100, pct))}%` }} />
@@ -49,8 +49,8 @@ function LessonText({ children }: { children: string }) {
 function Highlight({ text }: { text?: string }) {
   if (!text) return null;
   return (
-    <div className="rounded-2xl border-l-4 border-amber-500 bg-amber-50 px-4 py-3 dark:bg-amber-950/20">
-      <p className="whitespace-pre-line text-sm font-bold leading-6 text-amber-800 dark:text-amber-300">✦ {cleanText(text)}</p>
+    <div className="rounded-2xl border-l-4 border-gold-500 bg-gold-50 px-4 py-3 dark:bg-gold-950/20">
+      <p className="whitespace-pre-line text-sm font-bold leading-6 text-gold-800 dark:text-gold-300">✦ {cleanText(text)}</p>
     </div>
   );
 }
@@ -70,7 +70,7 @@ function LessonCard({ kart }: { kart: DersKart }) {
           />
         </div>
       ) : null}
-      <article className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm dark:border-amber-900/50 dark:bg-stone-900">
+      <article className="rounded-2xl border border-gold-200 bg-white p-5 shadow-sm dark:border-gold-900/50 dark:bg-stone-900">
         <LessonText>{kart.icerik ?? ""}</LessonText>
       </article>
       <Highlight text={kart.vurgu} />
@@ -89,7 +89,7 @@ function ResultScreen({ score, questions, wrongAnswers, onReturn, onRetry }: { s
         <div className="text-6xl">{emoji}</div>
         <h1 className="mt-3 text-2xl font-black text-stone-950 dark:text-stone-50">{score} / {total} doğru</h1>
         <p className="mt-1 text-sm font-semibold text-stone-500 dark:text-stone-400">%{pct} başarı</p>
-        <div className="mt-5"><ProgressBar pct={pct} color={pct >= 70 ? "bg-emerald-500" : "bg-amber-500"} /></div>
+        <div className="mt-5"><ProgressBar pct={pct} color={pct >= 70 ? "bg-navy-500" : "bg-gold-500"} /></div>
         <p className="mt-3 text-xs text-stone-500 dark:text-stone-400">%70 ve üzeri ders tamamlandı sayılır.</p>
       </div>
 
@@ -99,7 +99,7 @@ function ResultScreen({ score, questions, wrongAnswers, onReturn, onRetry }: { s
           {wrongAnswers.map((soru, index) => (
             <div key={`${soru.id}-${index}`} className="rounded-2xl border border-stone-200 bg-white p-4 dark:border-stone-700 dark:bg-stone-900">
               <p className="text-sm font-bold leading-6 text-stone-900 dark:text-stone-50">{index + 1}. {soru.soru}</p>
-              <p className="mt-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400">✓ Doğru cevap: {soru.cevaplar.find((cevap) => cevap.harf === soru.dogru)?.metin}</p>
+              <p className="mt-2 text-sm font-semibold text-navy-700 dark:text-navy-400">✓ Doğru cevap: {soru.cevaplar.find((cevap) => cevap.harf === soru.dogru)?.metin}</p>
               {soru.aciklama ? <p className="mt-2 text-xs leading-5 text-stone-500 dark:text-stone-400">{soru.aciklama}</p> : null}
             </div>
           ))}
@@ -108,7 +108,7 @@ function ResultScreen({ score, questions, wrongAnswers, onReturn, onRetry }: { s
 
       <div className="grid gap-3 sm:grid-cols-2">
         <button type="button" onClick={onReturn} className="rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm font-bold text-stone-700 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800">Derse Dön</button>
-        <button type="button" onClick={onRetry} className="rounded-2xl bg-amber-500 px-4 py-3 text-sm font-black text-stone-950 hover:bg-amber-400">Tekrar Çöz</button>
+        <button type="button" onClick={onRetry} className="rounded-2xl bg-gold-500 px-4 py-3 text-sm font-black text-stone-950 hover:bg-gold-400">Tekrar Çöz</button>
       </div>
     </div>
   );
@@ -154,7 +154,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
           <div className="text-5xl">📚</div>
           <h1 className="mt-4 text-xl font-black text-stone-950 dark:text-stone-50">Ders bulunamadı</h1>
           <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">{baslik} içeriği şu anda görüntülenemiyor.</p>
-          <Link href="/ogren/dersler" className="mt-5 inline-flex rounded-xl bg-amber-500 px-4 py-2 text-sm font-bold text-stone-950">Derslere Dön</Link>
+          <Link href="/ogren/dersler" className="mt-5 inline-flex rounded-xl bg-gold-500 px-4 py-2 text-sm font-bold text-stone-950">Derslere Dön</Link>
         </div>
       </main>
     );
@@ -227,7 +227,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
           <section className="mt-6 rounded-3xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-700 dark:bg-stone-900">
             <h1 className="text-lg font-black leading-7 text-stone-950 dark:text-stone-50">{currentQuestion.soru}</h1>
             {showResult && currentQuestion.aciklama ? (
-              <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-stone-700 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-stone-300">{currentQuestion.aciklama}</div>
+              <div className="mt-4 rounded-2xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm leading-6 text-stone-700 dark:border-gold-900/50 dark:bg-gold-950/20 dark:text-stone-300">{currentQuestion.aciklama}</div>
             ) : null}
           </section>
 
@@ -236,9 +236,9 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
               const correct = cevap.harf === currentQuestion.dogru;
               const picked = cevap.harf === selectedAnswer;
               const cls = !showResult
-                ? "border-stone-200 bg-white text-stone-800 hover:border-amber-300 hover:bg-amber-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200 dark:hover:border-amber-800 dark:hover:bg-amber-950/20"
+                ? "border-stone-200 bg-white text-stone-800 hover:border-gold-300 hover:bg-gold-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200 dark:hover:border-gold-800 dark:hover:bg-gold-950/20"
                 : correct
-                  ? "border-emerald-500 bg-emerald-600 text-white"
+                  ? "border-navy-500 bg-navy-600 text-white"
                   : picked
                     ? "border-rose-500 bg-rose-600 text-white"
                     : "border-stone-200 bg-white text-stone-400 opacity-60 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-500";
@@ -251,7 +251,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
             })}
           </div>
 
-          <button type="button" disabled={!showResult} onClick={nextQuestion} className="mt-5 w-full rounded-2xl bg-amber-500 px-4 py-3 text-sm font-black text-stone-950 transition disabled:cursor-not-allowed disabled:opacity-40">
+          <button type="button" disabled={!showResult} onClick={nextQuestion} className="mt-5 w-full rounded-2xl bg-gold-500 px-4 py-3 text-sm font-black text-stone-950 transition disabled:cursor-not-allowed disabled:opacity-40">
             {qIndex + 1 >= quizQuestions.length ? "Sonuçları Gör" : "Sonraki Soru →"}
           </button>
         </div>
@@ -279,7 +279,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
               </section>
             ))}
           </div>
-          {hasQuiz ? <button type="button" onClick={startQuiz} className="mt-8 w-full rounded-2xl bg-amber-500 px-4 py-3 text-sm font-black text-stone-950 hover:bg-amber-400">Teste Başla</button> : null}
+          {hasQuiz ? <button type="button" onClick={startQuiz} className="mt-8 w-full rounded-2xl bg-gold-500 px-4 py-3 text-sm font-black text-stone-950 hover:bg-gold-400">Teste Başla</button> : null}
         </div>
       </main>
     );
@@ -294,7 +294,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
         </div>
 
         <header className="mb-5">
-          <p className="mb-1 text-xs font-black uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">Kart {index + 1}/{total}</p>
+          <p className="mb-1 text-xs font-black uppercase tracking-[0.18em] text-gold-700 dark:text-gold-400">Kart {index + 1}/{total}</p>
           <h1 className="text-2xl font-black leading-tight text-stone-950 dark:text-stone-50">{kart.baslik}</h1>
           <div className="mt-4"><ProgressBar pct={lessonPct} /></div>
         </header>
@@ -304,9 +304,9 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
         <div className="mt-6 grid grid-cols-2 gap-3">
           <button type="button" disabled={isFirst} onClick={() => navigate(-1)} className="rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm font-bold text-stone-700 transition hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800">← Önceki</button>
           {isLast ? (
-            <button type="button" disabled={!hasQuiz} onClick={startQuiz} className="rounded-2xl bg-amber-500 px-4 py-3 text-sm font-black text-stone-950 transition hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-40">Teste Başla</button>
+            <button type="button" disabled={!hasQuiz} onClick={startQuiz} className="rounded-2xl bg-gold-500 px-4 py-3 text-sm font-black text-stone-950 transition hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-40">Teste Başla</button>
           ) : (
-            <button type="button" onClick={() => navigate(1)} className="rounded-2xl bg-amber-500 px-4 py-3 text-sm font-black text-stone-950 transition hover:bg-amber-400">Sonraki →</button>
+            <button type="button" onClick={() => navigate(1)} className="rounded-2xl bg-gold-500 px-4 py-3 text-sm font-black text-stone-950 transition hover:bg-gold-400">Sonraki →</button>
           )}
         </div>
       </div>

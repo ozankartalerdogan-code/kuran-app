@@ -223,7 +223,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
         <div className="mx-auto flex max-w-3xl items-center gap-2 px-3 py-2">
           <Link
             href="/mushaf"
-            className="shrink-0 rounded-full p-2 text-emerald-700 hover:bg-stone-100 dark:text-emerald-400 dark:hover:bg-stone-800"
+            className="shrink-0 rounded-full p-2 text-navy-700 hover:bg-stone-100 dark:text-navy-400 dark:hover:bg-stone-800"
             aria-label="Tek ayet görünümüne dön"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -246,7 +246,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
             <button
               type="button"
               onClick={goToBookmarkPage}
-              className="hidden shrink-0 items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-700 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-400 sm:flex"
+              className="hidden shrink-0 items-center gap-1 rounded-full border border-gold-300 bg-gold-50 px-2.5 py-1 text-[11px] font-semibold text-gold-700 hover:bg-gold-100 dark:border-gold-700 dark:bg-gold-950/30 dark:text-gold-400 sm:flex"
             >
               🔖 Kaldığım Yer
             </button>
@@ -259,7 +259,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               aria-label="Kaldığım yer olarak işaretle"
               className={`rounded-full border px-2.5 py-1.5 text-xs font-semibold transition-colors ${
                 bookmarkSaved || bookmarkOnThisPage
-                  ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
+                  ? "border-gold-300 bg-gold-50 text-gold-700 dark:border-gold-700 dark:bg-gold-950/30 dark:text-gold-400"
                   : "border-stone-200 text-stone-400 dark:border-stone-700 dark:text-stone-500"
               }`}
             >
@@ -272,7 +272,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               aria-label="Hatim takibini aç"
               className={`rounded-full border px-2.5 py-1.5 text-xs font-semibold transition-colors ${
                 hatimOpen
-                  ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+                  ? "border-navy-300 bg-navy-50 text-navy-700 dark:border-navy-700 dark:bg-navy-950/40 dark:text-navy-400"
                   : "border-stone-200 text-stone-400 dark:border-stone-700 dark:text-stone-500"
               }`}
             >
@@ -284,7 +284,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               aria-pressed={tajweed}
               className={`rounded-full border px-2.5 py-1.5 text-xs font-semibold transition-colors ${
                 tajweed
-                  ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+                  ? "border-navy-300 bg-navy-50 text-navy-700 dark:border-navy-700 dark:bg-navy-950/40 dark:text-navy-400"
                   : "border-stone-200 text-stone-400 dark:border-stone-700 dark:text-stone-500"
               }`}
             >
@@ -331,7 +331,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               <button
                 type="button"
                 onClick={handleJump}
-                className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700"
+                className="rounded-lg bg-navy-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-navy-700"
               >
                 Git
               </button>
@@ -343,7 +343,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                   type="button"
                   onClick={() => sureyeGit(s.id)}
                   className={`flex w-full items-center gap-3 border-b border-stone-100 px-4 py-2 text-left last:border-0 hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-800 ${
-                    s.id === startSurahId ? "bg-emerald-50 dark:bg-emerald-950/20" : ""
+                    s.id === startSurahId ? "bg-navy-50 dark:bg-navy-950/20" : ""
                   }`}
                 >
                   <span className="w-7 shrink-0 text-center text-[11px] font-bold text-stone-400 dark:text-stone-500">{s.id}</span>
@@ -367,7 +367,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                 <button
                   type="button"
                   onClick={startHatim}
-                  className="rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700"
+                  className="rounded-lg bg-navy-600 px-4 py-2 text-xs font-bold text-white hover:bg-navy-700"
                 >
                   Yeni Hatim Başlat
                 </button>
@@ -384,13 +384,13 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                       onClick={toggleCurrentJuzRead}
                       className={`rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors ${
                         currentJuzRead
-                          ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400"
+                          ? "border-navy-300 bg-navy-50 text-navy-700 dark:border-navy-700 dark:bg-navy-950/30 dark:text-navy-400"
                           : "border-stone-300 text-stone-600 hover:bg-stone-50 dark:border-stone-600 dark:text-stone-300"
                       }`}
                     >
                       {currentJuzRead ? `✓ ${juz}. Cüz Okundu` : `${juz}. Cüzü Okudum`}
                     </button>
-                    <Link href="/hatim" className="text-xs font-semibold text-emerald-700 hover:underline dark:text-emerald-400">
+                    <Link href="/hatim" className="text-xs font-semibold text-navy-700 hover:underline dark:text-navy-400">
                       Tümünü Gör →
                     </Link>
                   </div>
@@ -406,9 +406,9 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                         title={`${j.juz}. Cüz — Sayfa ${ayetinSayfasi(j.startSurah, j.startAyah)}`}
                         className={`flex h-9 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${
                           done
-                            ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400"
+                            ? "border-navy-300 bg-navy-50 text-navy-700 dark:border-navy-700 dark:bg-navy-950/30 dark:text-navy-400"
                             : j.juz === juz
-                              ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
+                              ? "border-gold-300 bg-gold-50 text-gold-700 dark:border-gold-700 dark:bg-gold-950/30 dark:text-gold-400"
                               : "border-stone-200 text-stone-500 hover:bg-stone-50 dark:border-stone-700 dark:text-stone-400"
                         }`}
                       >
@@ -428,9 +428,9 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
         <div className="rounded-2xl border border-stone-200 bg-white px-4 py-6 dark:border-stone-700 dark:bg-stone-900 sm:px-8 sm:py-8">
           {bloklar.map((blok, i) =>
             blok.tip === "sure" ? (
-              <div key={`s${blok.surahId}`} className="mb-4 rounded-xl border-2 border-amber-300/70 py-3 text-center dark:border-amber-700/50">
+              <div key={`s${blok.surahId}`} className="mb-4 rounded-xl border-2 border-gold-300/70 py-3 text-center dark:border-gold-700/50">
                 <p dir="rtl" lang="ar" className="font-scheherazade text-2xl leading-relaxed text-stone-900 dark:text-stone-50">{blok.arabicName}</p>
-                <p className="mt-0.5 text-xs font-bold tracking-wide text-amber-700 dark:text-amber-400">{blok.surahId}. {blok.name} Suresi</p>
+                <p className="mt-0.5 text-xs font-bold tracking-wide text-gold-700 dark:text-gold-400">{blok.surahId}. {blok.name} Suresi</p>
                 {blok.besmele && (
                   <p dir="rtl" lang="ar" className="font-scheherazade mt-2 text-stone-900 dark:text-stone-50" style={besmeleStyle}>
                     {BESMELE}
@@ -460,10 +460,10 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                       role="button"
                       tabIndex={0}
                       aria-label={`${a.surahId}:${a.ayahNumber} ayetini seç`}
-                      className={`cursor-pointer rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500 ${isSecili ? "bg-amber-200/70 dark:bg-amber-500/30" : ""}`}
+                      className={`cursor-pointer rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy-500 ${isSecili ? "bg-gold-200/70 dark:bg-gold-500/30" : ""}`}
                     >
                       <AyetMetni ayet={a} tajweed={tajweed} />
-                      <span className="text-emerald-700 dark:text-emerald-400"> ﴿{arapRakam(a.ayahNumber)}﴾ </span>
+                      <span className="text-navy-700 dark:text-navy-400"> ﴿{arapRakam(a.ayahNumber)}﴾ </span>
                     </span>
                   );
                 })}
@@ -515,7 +515,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
             </span>
             <Link
               href={`/surah/${selected.surahId}/ayah/${selected.ayahNumber}`}
-              className="shrink-0 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-emerald-700"
+              className="shrink-0 rounded-lg bg-navy-600 px-3.5 py-2 text-xs font-bold text-white hover:bg-navy-700"
             >
               Detaya Git ›
             </Link>
