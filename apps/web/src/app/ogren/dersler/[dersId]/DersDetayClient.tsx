@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DERS_DATA, BASLIKLAR, getQuiz, type DersKart } from "../../../../data/dersler/registry";
 import { normalizeQuizSorular, shuffle, shuffleQuizOptions, type QuizSoru } from "../../../../data/dersler/quizUtils";
@@ -60,7 +61,13 @@ function LessonCard({ kart }: { kart: DersKart }) {
     <div className="space-y-4">
       {gorselSrc ? (
         <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-900">
-          <img src={gorselSrc} alt={`${kart.baslik} görseli`} className="h-auto w-full object-cover" />
+          <Image
+            src={gorselSrc}
+            alt={`${kart.baslik} görseli`}
+            width={1300}
+            height={720}
+            className="h-auto w-full object-cover"
+          />
         </div>
       ) : null}
       <article className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm dark:border-amber-900/50 dark:bg-stone-900">
