@@ -4,6 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
+import {
+  BookOpen, BookMarked, GraduationCap, BookmarkCheck,
+  Heart, NotebookPen, Compass, Menu, X,
+  type LucideIcon,
+} from "lucide-react";
 import { NightModeToggle } from "./NightModeToggle";
 
 const SearchBar = dynamic(
@@ -11,37 +16,22 @@ const SearchBar = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full rounded-lg border border-stone-200 bg-stone-50 py-2.5 px-4 text-sm text-stone-400">
+      <div className="w-full rounded-md border border-white/15 bg-white/10 py-1.5 px-3 text-sm text-navy-300">
         Ara…
       </div>
     ),
   },
 );
 
-const NAV_LINKS = [
-  { href: "/surah",      label: "Tüm Sureler" },
-  { href: "/mushaf-sayfa", label: "Mushaf" },
-  { href: "/ogren",      label: "Konular" },
-  { href: "/hatim",      label: "Hatim" },
-  {
-    href: "/favoriler",
-    label: "Favoriler",
-    icon: (
-      <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
-  },
-  {
-    href: "/notlarim",
-    label: "Notlarım",
-    icon: (
-      <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-      </svg>
-    ),
-  },
-  { href: "/discover",   label: "Keşfet",     accent: true },
+// Mobil açılır menü — tüm bölümler, ikonlu
+const NAV_LINKS: { href: string; label: string; icon: LucideIcon; accent?: boolean }[] = [
+  { href: "/surah",        label: "Tüm Sureler", icon: BookOpen },
+  { href: "/mushaf-sayfa", label: "Mushaf",      icon: BookMarked },
+  { href: "/ogren",        label: "Konular",     icon: GraduationCap },
+  { href: "/hatim",        label: "Hatim",       icon: BookmarkCheck },
+  { href: "/favoriler",    label: "Favoriler",   icon: Heart },
+  { href: "/notlarim",     label: "Notlarım",    icon: NotebookPen },
+  { href: "/discover",     label: "Keşfet",      icon: Compass, accent: true },
 ];
 
 // Masaüstünde markanın yanında görünen ana bölümler
@@ -51,20 +41,14 @@ const DESKTOP_LEFT_LINKS = [
   { href: "/ogren",        label: "Konular" },
 ];
 
-/** Marka işareti: emoji yerine tutarlı render edilen SVG kitap ikonu */
+/** Marka işareti: lacivert kutu içinde altın kitap — hero/footer ile aynı kimlik */
 function BrandMark() {
   return (
     <span
       aria-hidden="true"
-      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-gold-300 ring-1 ring-gold-500/40"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-navy-800 to-navy-950 text-gold-300 ring-1 ring-gold-500/50 shadow-sm"
     >
-      <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-        />
-      </svg>
+      <BookOpen className="h-4 w-4" strokeWidth={2} />
     </span>
   );
 }
@@ -79,79 +63,83 @@ export function NavbarMenu() {
   return (
     <>
       {/* ── Ana çubuk ── */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-4">
         {/* Marka / Ana Sayfa */}
         <Link
           href="/"
           aria-label="Ana sayfaya git"
-          className="flex shrink-0 items-center gap-2 text-sm font-bold tracking-tight text-stone-800 hover:text-navy-700 dark:text-stone-200 dark:hover:text-navy-400"
+          className="group flex shrink-0 items-center gap-2.5"
         >
           <BrandMark />
-          <span>Kuran Yolu</span>
+          <span className="text-[15px] font-bold tracking-tight text-white transition-colors group-hover:text-gold-200">
+            Kuran <span className="text-gold-300">Yolu</span>
+          </span>
         </Link>
 
-        {/* Masaüstü: ek linkler */}
-        {DESKTOP_LEFT_LINKS.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            aria-label={`${label} sayfasına git`}
-            aria-current={isActive(href) ? "page" : undefined}
-            className={`hidden shrink-0 border-b-2 pb-0.5 text-sm font-medium transition-colors sm:block ${
-              isActive(href)
-                ? "border-navy-600 text-navy-700 dark:border-navy-500 dark:text-navy-400"
-                : "border-transparent text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-            }`}
-          >
-            {label}
-          </Link>
-        ))}
+        {/* İnce altın ayraç — marka ile linkler arasında */}
+        <span aria-hidden="true" className="hidden h-5 w-px bg-white/15 sm:block" />
 
-        {/* Arama barı — ana sayfada hero'da büyük arama olduğu için gizlenir */}
-        <div className="flex-1">
+        {/* Masaüstü: ana bölümler */}
+        <div className="hidden items-center gap-1 sm:flex">
+          {DESKTOP_LEFT_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              aria-label={`${label} sayfasına git`}
+              aria-current={isActive(href) ? "page" : undefined}
+              className={`relative rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors ${
+                isActive(href)
+                  ? "text-white after:absolute after:inset-x-2.5 after:-bottom-[13px] after:h-0.5 after:rounded-full after:bg-gold-400"
+                  : "text-navy-200 hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Arama — ana sayfada hero'da büyük arama olduğu için gizlenir */}
+        <div className="min-w-0 flex-1">
           {pathname === "/" ? null : <SearchBar />}
         </div>
 
-        {/* Masaüstü: sağ linkler */}
-        <Link
-          href="/favoriler"
-          aria-label="Favoriler sayfasına git"
-          aria-current={isActive("/favoriler") ? "page" : undefined}
-          className={`hidden shrink-0 items-center gap-1 text-sm font-medium transition-colors sm:flex ${
-            isActive("/favoriler")
-              ? "text-rose-600 dark:text-rose-400"
-              : "text-stone-600 hover:text-rose-500 dark:text-stone-400 dark:hover:text-rose-400"
-          }`}
-        >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-          Favoriler
-        </Link>
-        <Link
-          href="/notlarim"
-          aria-label="Notlarım sayfasına git"
-          aria-current={isActive("/notlarim") ? "page" : undefined}
-          className={`hidden shrink-0 items-center gap-1 text-sm font-medium transition-colors sm:flex ${
-            isActive("/notlarim")
-              ? "text-gold-600 dark:text-gold-400"
-              : "text-stone-600 hover:text-gold-600 dark:text-stone-400 dark:hover:text-gold-400"
-          }`}
-        >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
-          Notlarım
-        </Link>
+        {/* Masaüstü: kişisel bölümler */}
+        <div className="hidden shrink-0 items-center gap-1 sm:flex">
+          <Link
+            href="/favoriler"
+            aria-label="Favoriler sayfasına git"
+            aria-current={isActive("/favoriler") ? "page" : undefined}
+            className={`flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors ${
+              isActive("/favoriler")
+                ? "bg-white/10 text-white"
+                : "text-navy-200 hover:bg-white/5 hover:text-white"
+            }`}
+          >
+            <Heart aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            Favoriler
+          </Link>
+          <Link
+            href="/notlarim"
+            aria-label="Notlarım sayfasına git"
+            aria-current={isActive("/notlarim") ? "page" : undefined}
+            className={`flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors ${
+              isActive("/notlarim")
+                ? "bg-white/10 text-white"
+                : "text-navy-200 hover:bg-white/5 hover:text-white"
+            }`}
+          >
+            <NotebookPen aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            Notlarım
+          </Link>
+        </div>
+
+        {/* Keşfet — altın CTA */}
         <Link
           href="/discover"
           aria-label="Keşfet sayfasına git"
-          className="hidden shrink-0 items-center gap-1.5 rounded-lg bg-navy-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-navy-700 sm:flex"
+          className="hidden shrink-0 items-center gap-1.5 rounded-lg bg-gold-500 px-3.5 py-1.5 text-sm font-semibold text-navy-950 shadow-sm ring-1 ring-gold-400/60 transition-colors hover:bg-gold-400 sm:flex"
         >
-          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-            <circle cx="12" cy="12" r="3" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-          </svg>
+          <Compass aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
           Keşfet
         </Link>
 
@@ -164,39 +152,33 @@ export function NavbarMenu() {
           type="button"
           aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
           aria-expanded={open}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 sm:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-navy-100 transition-colors hover:bg-white/10 sm:hidden"
         >
-          {open ? (
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
+          {open
+            ? <X aria-hidden="true" className="h-5 w-5" strokeWidth={2} />
+            : <Menu aria-hidden="true" className="h-5 w-5" strokeWidth={2} />}
         </button>
       </div>
 
       {/* ── Mobil açılır menü ── */}
       {open && (
-        <div className="mt-2 border-t border-stone-100 pt-2 dark:border-stone-800 sm:hidden">
-          {NAV_LINKS.map(({ href, label, icon, accent }) => (
+        <div className="mt-3 border-t border-white/10 pt-2 sm:hidden">
+          {NAV_LINKS.map(({ href, label, icon: Icon, accent }) => (
             <Link
               key={href}
               href={href}
               aria-label={`${label} sayfasına git`}
               aria-current={isActive(href) ? "page" : undefined}
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                 accent
-                  ? "mt-1 bg-navy-600 text-white hover:bg-navy-700"
+                  ? "mt-2 bg-gold-500 text-navy-950 hover:bg-gold-400"
                   : isActive(href)
-                    ? "bg-navy-50 text-navy-700 dark:bg-navy-950/40 dark:text-navy-400"
-                    : "text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800"
+                    ? "bg-white/10 text-gold-300"
+                    : "text-navy-100 hover:bg-white/5 hover:text-white"
               }`}
             >
-              {icon ?? null}
+              <Icon aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={2} />
               {label}
             </Link>
           ))}

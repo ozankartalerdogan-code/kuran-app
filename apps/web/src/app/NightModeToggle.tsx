@@ -33,8 +33,8 @@ export function NightModeToggle() {
       aria-pressed={active}
       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${
         active
-          ? "border-gold-600 bg-[#0f0c00] text-gold-400 hover:bg-[#1a1400]"
-          : "border-stone-200 bg-white text-stone-500 hover:border-stone-300 hover:bg-stone-50 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800"
+          ? "border-gold-500/70 bg-gold-500/15 text-gold-300 hover:bg-gold-500/25"
+          : "border-white/20 bg-white/5 text-navy-200 hover:bg-white/10 hover:text-white"
       }`}
     >
       {active ? (

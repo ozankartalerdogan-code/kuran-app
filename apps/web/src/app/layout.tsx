@@ -73,9 +73,10 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-2">
           İçeriğe geç
         </a>
+        {/* Lacivert navbar — hero ve footer ile aynı marka kimliği, altın alt çizgi */}
         <nav
           aria-label="Ana navigasyon"
-          className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 px-4 py-3 backdrop-blur-md dark:border-stone-700 dark:bg-stone-900/90 sm:px-6"
+          className="sticky top-0 z-40 border-b border-gold-500/25 bg-navy-950/95 px-4 py-3 backdrop-blur-md sm:px-6"
         >
           <NavbarMenu />
         </nav>
