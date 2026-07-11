@@ -35,6 +35,7 @@ import { AyahDetailTabs, type AyahDetailTabItem } from "./AyahDetailTabs";
 import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
 import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
+import { arapRakam, ayetinSayfasi } from "../../../../../lib/mushafSayfaUtils";
 import dynamicImport from "next/dynamic";
 import { FavoriteButton } from "../../../../../components/FavoriteButton";
 import { AudioPlayer } from "../../../../../components/AudioPlayer";
@@ -545,6 +546,17 @@ function SectionCard({
   );
 }
 
+/** Mushaf kartındaki bölümler arası ince altın ayraç */
+function GoldDivider() {
+  return (
+    <div aria-hidden="true" className="mx-auto my-5 flex items-center justify-center gap-2">
+      <span className="h-px w-10 bg-gold-400/50" />
+      <span className="h-1 w-1 rotate-45 bg-gold-500/70" />
+      <span className="h-px w-10 bg-gold-400/50" />
+    </div>
+  );
+}
+
 function EmptyState({ children = "Veri yok" }: { children?: ReactNode }) {
   return (
     <p className="rounded-xl border border-dashed border-stone-300 bg-stone-50 p-4 text-sm text-stone-600">
@@ -750,60 +762,6 @@ function WordAnalysisDebugToggle({
         >
           Kelime bazlı analiz
         </Link>
-      </div>
-    </div>
-  );
-}
-
-function HiddenSourcesSummary({ sources }: { sources: string[] }) {
-  if (sources.length === 0) {
-    return null;
-  }
-
-  return (
-    <div className="space-y-2 text-sm text-stone-600">
-      <details className="rounded-xl border border-stone-200 bg-stone-50 px-3 py-2">
-        <summary className="cursor-pointer font-medium text-stone-700">
-          Diğer kaynak adlarını göster
-        </summary>
-        <p className="mt-2 leading-6">{sources.join(", ")}</p>
-      </details>
-    </div>
-  );
-}
-
-function OtherTranslations({
-  displayableTranslations,
-  primaryTranslation,
-  filteredSources
-}: {
-  displayableTranslations: Translation[];
-  primaryTranslation: Translation | null;
-  filteredSources: string[];
-}) {
-  const otherTranslations = displayableTranslations.filter(
-    (translation) => translation !== primaryTranslation
-  );
-
-  if (otherTranslations.length === 0) {
-    return <EmptyState>Diğer Türkçe mealler için temiz görüntü verisi bulunamadı.</EmptyState>;
-  }
-
-  return (
-    <div className="space-y-4">
-      <HiddenSourcesSummary sources={filteredSources} />
-      <div className="grid gap-3 md:grid-cols-2">
-        {otherTranslations.map((translation) => (
-          <article
-            className="rounded-xl border border-stone-200 bg-stone-50 p-4"
-            key={`${translation.source}-${translation.text}`}
-          >
-            <h3 className="mb-2 text-sm font-semibold text-stone-700">
-              {getTranslationSourceName(translation)}
-            </h3>
-            <p className="text-sm leading-6 text-stone-800">{translation.text}</p>
-          </article>
-        ))}
       </div>
     </div>
   );
@@ -1302,42 +1260,6 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   const tabItems: AyahDetailTabItem[] = [
     {
-      id: "meal",
-      label: "Mealler",
-      content: (
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-lg font-semibold text-navy-900">Ana Meal</h2>
-              <StatusBadge status={sectionStatuses.primaryTranslation} show={showDeveloperDebug} />
-            </div>
-            <p className="text-sm text-stone-600">{primarySelection.note}</p>
-            {primaryTranslation?.text ? (
-              <div>
-                <p className="mb-2 text-sm font-semibold text-stone-600">
-                  {getTranslationSourceName(primaryTranslation)}
-                </p>
-                <p className="text-lg leading-8 text-stone-900">{primaryTranslation.text}</p>
-              </div>
-            ) : (
-              <EmptyState>Ana meal için temiz veri yok.</EmptyState>
-            )}
-          </div>
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-lg font-semibold text-navy-900">Diğer Türkçe Mealler</h2>
-              <StatusBadge status={sectionStatuses.otherTranslations} show={showDeveloperDebug} />
-            </div>
-            <OtherTranslations
-              displayableTranslations={displayableTranslations}
-              filteredSources={filteredTranslationSources}
-              primaryTranslation={primaryTranslation}
-            />
-          </div>
-        </div>
-      )
-    },
-    {
       id: "word-analysis",
       label: "Kelime Analizi",
       content: (
@@ -1492,27 +1414,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 <AyahJumpForm initialSurahId={surahId} initialAyahNumber={ayahNumber} surahs={surahs} />
               </div>
             </div>
-            <div className="flex flex-col items-end gap-3">
-              <StatusBadge status={sectionStatuses.page} show={showDeveloperDebug} />
-              <div className="flex w-full flex-col gap-2">
-                <div className="min-h-[44px] w-full">
-                  <AudioPlayer surahId={surahId} variant="detail" />
-                </div>
-                <div className="flex min-h-[44px] w-full items-center gap-1.5 rounded-lg border border-stone-200 bg-stone-50 px-3 py-1.5 dark:border-stone-700 dark:bg-stone-800">
-                  <FavoriteButton verseKey={`${surahId}:${ayahNumber}`} size="lg" />
-                  <span className="text-sm text-stone-500 dark:text-stone-400">Favori</span>
-                </div>
-                <div className="min-h-[44px] w-full">
-                  <ShareButton
-                    verseKey={`${surahId}:${ayahNumber}`}
-                    meal={primaryTranslation?.text ?? null}
-                    surahName={detail.surah?.turkishName.text ?? null}
-                    surahId={surahId}
-                    ayahNumber={ayahNumber}
-                  />
-                </div>
-              </div>
-            </div>
+            <StatusBadge status={sectionStatuses.page} show={showDeveloperDebug} />
           </div>
         </header>
 
@@ -1539,57 +1441,107 @@ export default async function Page({ params, searchParams }: PageProps) {
           />
         ) : null}
 
-        <SectionCard title="Arapça Metin" status={sectionStatuses.arabicText} showStatus={showDeveloperDebug} tone="parchment">
-          {detail.ayah.arabicText ? (
-            <div className="rounded-xl border border-gold-300/40 px-4 py-5 sm:px-6">
-              <p className="text-right text-4xl leading-[2.25] text-navy-950" dir="rtl" lang="ar">
-                {detail.ayah.arabicText}
-              </p>
-            </div>
-          ) : (
-            <EmptyState />
-          )}
-        </SectionCard>
-
-        <SectionCard
-          title="Okunuş"
-          status={sectionStatuses.transliteration}
-          note="Ayetin Türkçe okunuşu."
-          showStatus={showDeveloperDebug}
-        >
-          {detail.ayah.transliteration ? (
-            <div className="space-y-4">
-              <p className="text-lg leading-8 text-stone-900">
-                {detail.ayah.readingTr ?? readingTrResult?.output ?? detail.ayah.transliteration}
-              </p>
-              {showExperimentalControls ? (
-                <details className="rounded-xl border border-stone-200 bg-stone-50 p-4">
-                  <summary className="cursor-pointer text-sm font-medium text-stone-700">
-                    Teknik okunuşu göster
-                  </summary>
-                  {detail.ayah.readingTr ? (
-                    <p className="mt-2 text-xs text-stone-500">
-                      Kaynak: Kuran Yolu sade açıklama
-                    </p>
-                  ) : null}
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-stone-500">
-                    Ham transliteration
-                  </p>
-                  <p className="mt-1 text-sm leading-7 text-stone-700">
-                    {detail.ayah.transliteration}
-                  </p>
-                  {!detail.ayah.readingTr && readingTrResult?.suspiciousMatches.length ? (
-                    <p className="mt-2 text-xs text-stone-600">
-                      Şüpheli dönüşüm izleri: {readingTrResult.suspiciousMatches.join(", ")}
-                    </p>
-                  ) : null}
-                </details>
+        {/* ── MUSHAF KARTI: Arapça + okunuş + Elmalılı meali tek kâğıtta ──
+            Mobildeki "tam mushaf görünümü" referans alındı: altın sure başlığı
+            bandı, altın ﴿ayet rakamı﴾, eylemler kâğıdın üzerinde. */}
+        <section className="rounded-2xl border border-gold-300/60 bg-[#fdfbf4] p-3 shadow-card dark:border-gold-800/40 dark:bg-stone-900 sm:p-5">
+          <div className="rounded-xl border border-gold-300/40 px-4 py-5 dark:border-gold-800/30 sm:px-6">
+            {/* Altın sure başlığı bandı */}
+            <div className="mb-6 rounded-lg border border-gold-300/70 bg-gradient-to-b from-gold-100/70 to-gold-50/20 py-2.5 text-center dark:border-gold-700/50 dark:from-gold-950/30 dark:to-transparent">
+              {currentSurah.arabicName ? (
+                <p dir="rtl" lang="ar" className="text-xl leading-relaxed text-navy-950 dark:text-stone-50">
+                  {currentSurah.arabicName}
+                </p>
               ) : null}
+              <p className="mt-0.5 text-xs font-bold tracking-wide text-gold-700 dark:text-gold-400">
+                {surahId}. {detail.surah?.turkishName.text ?? `Sure ${surahId}`} Suresi · {ayahNumber}. Ayet
+              </p>
             </div>
-          ) : (
-            <EmptyState />
-          )}
-        </SectionCard>
+
+            {/* Arapça metin + altın ayet rakamı */}
+            {detail.ayah.arabicText ? (
+              <p className="text-right text-3xl leading-[2.3] text-navy-950 dark:text-stone-50 sm:text-4xl" dir="rtl" lang="ar">
+                {detail.ayah.arabicText}
+                <span className="text-gold-600 dark:text-gold-500"> ﴿{arapRakam(ayahNumber)}﴾ </span>
+              </p>
+            ) : (
+              <EmptyState />
+            )}
+
+            {/* Okunuş */}
+            {detail.ayah.transliteration ? (
+              <>
+                <GoldDivider />
+                <p className="text-center font-display text-base italic leading-8 text-stone-600 dark:text-stone-400">
+                  {detail.ayah.readingTr ?? readingTrResult?.output ?? detail.ayah.transliteration}
+                </p>
+                {showExperimentalControls ? (
+                  <details className="mt-4 rounded-xl border border-stone-200 bg-stone-50 p-4">
+                    <summary className="cursor-pointer text-sm font-medium text-stone-700">
+                      Teknik okunuşu göster
+                    </summary>
+                    {detail.ayah.readingTr ? (
+                      <p className="mt-2 text-xs text-stone-500">
+                        Kaynak: Kuran Yolu sade açıklama
+                      </p>
+                    ) : null}
+                    <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-stone-500">
+                      Ham transliteration
+                    </p>
+                    <p className="mt-1 text-sm leading-7 text-stone-700">
+                      {detail.ayah.transliteration}
+                    </p>
+                    {!detail.ayah.readingTr && readingTrResult?.suspiciousMatches.length ? (
+                      <p className="mt-2 text-xs text-stone-600">
+                        Şüpheli dönüşüm izleri: {readingTrResult.suspiciousMatches.join(", ")}
+                      </p>
+                    ) : null}
+                  </details>
+                ) : null}
+              </>
+            ) : null}
+
+            {/* Meal — yalnızca Elmalılı (temiz değilse otomatik yedek kaynak) */}
+            <GoldDivider />
+            {primaryTranslation?.text ? (
+              <div>
+                <p className="text-lg leading-8 text-stone-900 dark:text-stone-100 sm:text-xl sm:leading-9">
+                  {primaryTranslation.text}
+                </p>
+                <p className="mt-3 text-right text-xs font-semibold tracking-wide text-gold-700 dark:text-gold-400">
+                  — {getTranslationSourceName(primaryTranslation)}
+                </p>
+                {primarySelection.isFallback ? (
+                  <p className="mt-1 text-right text-[11px] text-stone-500">{primarySelection.note}</p>
+                ) : null}
+              </div>
+            ) : (
+              <EmptyState>Ana meal için temiz veri yok.</EmptyState>
+            )}
+          </div>
+
+          {/* Eylemler — kâğıdın üzerinde */}
+          <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-gold-200/60 pt-3 dark:border-gold-800/30">
+            <AudioPlayer surahId={surahId} variant="detail" />
+            <div className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 shadow-sm dark:border-stone-700 dark:bg-stone-800">
+              <FavoriteButton verseKey={`${surahId}:${ayahNumber}`} size="lg" />
+              <span className="text-sm text-stone-500 dark:text-stone-400">Favori</span>
+            </div>
+            <ShareButton
+              verseKey={`${surahId}:${ayahNumber}`}
+              meal={primaryTranslation?.text ?? null}
+              surahName={detail.surah?.turkishName.text ?? null}
+              surahId={surahId}
+              ayahNumber={ayahNumber}
+            />
+            <Link
+              href={`/mushaf-sayfa/${ayetinSayfasi(surahId, ayahNumber)}`}
+              className="flex items-center gap-1.5 rounded-lg border border-gold-300 bg-gold-50 px-3 py-1.5 text-sm font-medium text-gold-800 shadow-sm transition-colors hover:bg-gold-100 dark:border-gold-700 dark:bg-gold-950/30 dark:text-gold-400"
+            >
+              <span aria-hidden="true">📖</span> Mushafta Aç
+            </Link>
+          </div>
+        </section>
 
         <AyahDetailTabs tabs={tabItems} />
 

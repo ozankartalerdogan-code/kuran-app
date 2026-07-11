@@ -133,7 +133,7 @@ export async function GET(
         style={{
           width: W, height: H,
           display: "flex", flexDirection: "column",
-          background: "linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%)",
+          background: "linear-gradient(135deg,#131d2e 0%,#1e2c42 55%,#2a3c58 100%)",
           padding: "56px 64px",
           fontFamily: "Amiri",
           position: "relative", overflow: "hidden",
@@ -143,12 +143,12 @@ export async function GET(
         <div style={{
           position: "absolute", top: -120, right: -120,
           width: 420, height: 420, borderRadius: "50%",
-          background: "rgba(255,255,255,0.05)",
+          background: "rgba(208,171,76,0.09)",
         }} />
         <div style={{
           position: "absolute", bottom: -80, left: -80,
           width: 280, height: 280, borderRadius: "50%",
-          background: "rgba(255,255,255,0.04)",
+          background: "rgba(255,255,255,0.05)",
         }} />
 
         {/* Üst bar: logo + ayet konumu */}
@@ -159,7 +159,7 @@ export async function GET(
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{
               width: 38, height: 38, borderRadius: "50%",
-              background: "rgba(255,255,255,0.15)",
+              background: "rgba(194,147,58,0.28)",
               display: "flex", alignItems: "center",
               justifyContent: "center", fontSize: 20,
             }}>✨</div>
@@ -168,7 +168,7 @@ export async function GET(
               fontSize: 22, fontWeight: 700, letterSpacing: 1,
             }}>Kuran Yolu</span>
           </div>
-          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 17 }}>
+          <span style={{ color: "rgba(220,194,114,0.85)", fontSize: 17 }}>
             {label}
           </span>
         </div>
@@ -176,7 +176,7 @@ export async function GET(
         {/* Arapça metin */}
         {arabic ? (
           <div style={{
-            color: "rgba(255,255,255,0.82)", fontSize: 34,
+            color: "rgba(251,247,236,0.95)", fontSize: 34,
             textAlign: "right", lineHeight: 1.85,
             marginBottom: 16, direction: "rtl",
           }}>
@@ -198,7 +198,7 @@ export async function GET(
         {/* Ayraç */}
         <div style={{
           width: 64, height: 2, borderRadius: 2,
-          background: "rgba(255,255,255,0.25)", marginBottom: 24,
+          background: "rgba(208,171,76,0.65)", marginBottom: 24,
         }} />
 
         {/* Meal metni */}
@@ -213,14 +213,14 @@ export async function GET(
         <div style={{
           display: "flex", justifyContent: "space-between",
           alignItems: "center", marginTop: 32, paddingTop: 20,
-          borderTop: "1px solid rgba(255,255,255,0.12)",
+          borderTop: "1px solid rgba(208,171,76,0.28)",
         }}>
           <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 15 }}>
             Kuran Yolu
           </span>
           <span style={{
-            background: "rgba(255,255,255,0.12)",
-            color: "rgba(255,255,255,0.7)",
+            background: "rgba(194,147,58,0.22)",
+            color: "#eadaa5",
             fontSize: 14, fontWeight: 600,
             padding: "5px 14px", borderRadius: 20,
           }}>
