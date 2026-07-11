@@ -118,6 +118,13 @@ const NAV_CARDS = [
     desc: "30 cüz okuma takibi",
     gradient: "from-rose-500 to-pink-600",
   },
+  {
+    href: "/ogren",
+    icon: "📚",
+    title: "Konular",
+    desc: "Elifba, dersler, Esmaül Hüsna, dualar",
+    gradient: "from-cyan-500 to-sky-600",
+  },
 ];
 
 export default async function HomePage() {
@@ -175,7 +182,7 @@ export default async function HomePage() {
   const hijriDate = getHijriDate();
 
   return (
-    <main className="min-h-screen bg-stone-50 dark:bg-stone-950">
+    <main className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-700 to-stone-900 px-4 py-16 sm:py-24">
         <div className="absolute inset-0 opacity-10"
@@ -286,7 +293,7 @@ export default async function HomePage() {
                 href={card.href}
                 className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${card.gradient} p-4 text-white shadow-md transition-all duration-150 hover:scale-105 hover:shadow-lg active:scale-95`}
               >
-                <div className="mb-1.5 text-2xl">{card.icon}</div>
+                <div aria-hidden="true" className="mb-1.5 text-2xl">{card.icon}</div>
                 <div className="text-sm font-semibold leading-tight sm:text-base">{card.title}</div>
                 <div className="mt-1 text-[11px] leading-snug text-white/75 sm:text-xs">{card.desc}</div>
               </Link>

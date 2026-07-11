@@ -89,7 +89,7 @@ export function NotlarimClient() {
   }
 
   return (
-    <main className="min-h-screen bg-stone-100 px-4 py-8 dark:bg-stone-950 sm:px-6">
+    <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>

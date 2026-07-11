@@ -499,7 +499,10 @@ function getSectionStatuses({
   };
 }
 
-function StatusBadge({ status }: { status: SectionStatus }) {
+// Veri durumu rozetleri iç-veri jargonu olduğu için yalnızca geliştirici
+// (debug) modunda gösterilir; son kullanıcı arayüzünde gizlenir.
+function StatusBadge({ status, show = false }: { status: SectionStatus; show?: boolean }) {
+  if (!show) return null;
   return (
     <span
       className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${statusClasses[status]}`}
@@ -514,18 +517,20 @@ function SectionCard({
   title,
   status,
   children,
-  note
+  note,
+  showStatus = false
 }: {
   title: string;
   status: SectionStatus;
   children: ReactNode;
   note?: string;
+  showStatus?: boolean;
 }) {
   return (
-    <section className="rounded-md border border-stone-200 bg-white p-5 shadow-sm">
+    <section className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold text-stone-950">{title}</h2>
-        <StatusBadge status={status} />
+        <StatusBadge status={status} show={showStatus} />
       </div>
       {note ? <p className="mb-4 text-sm text-stone-600">{note}</p> : null}
       {children}
@@ -535,7 +540,7 @@ function SectionCard({
 
 function EmptyState({ children = "Veri yok" }: { children?: ReactNode }) {
   return (
-    <p className="rounded-md border border-dashed border-stone-300 bg-stone-50 p-4 text-sm text-stone-600">
+    <p className="rounded-xl border border-dashed border-stone-300 bg-stone-50 p-4 text-sm text-stone-600">
       {children}
     </p>
   );
@@ -543,7 +548,7 @@ function EmptyState({ children = "Veri yok" }: { children?: ReactNode }) {
 
 function ErrorState({ message }: { message: string }) {
   return (
-    <main className="min-h-screen bg-stone-100 px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <SectionCard title="Geçersiz ayet adresi" status="missing">
           <EmptyState>{message}</EmptyState>
@@ -667,25 +672,25 @@ function AyahNavigation({
     <nav className="flex flex-wrap items-center justify-between gap-3" aria-label="Ayet gezinme">
       {previous ? (
         <Link
-          className="rounded-md border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-800 shadow-sm hover:bg-stone-50"
+          className="rounded-xl border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-800 shadow-sm hover:bg-stone-50"
           href={`/surah/${previous.surahId}/ayah/${previous.ayahNumber}`}
         >
           {previous.label}
         </Link>
       ) : (
-        <span className="rounded-md border border-stone-200 bg-stone-100 px-4 py-2 text-sm text-stone-500">
+        <span className="rounded-xl border border-stone-200 bg-stone-100 px-4 py-2 text-sm text-stone-500">
           Önceki ayet yok
         </span>
       )}
       {next ? (
         <Link
-          className="rounded-md border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-800 shadow-sm hover:bg-stone-50"
+          className="rounded-xl border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-800 shadow-sm hover:bg-stone-50"
           href={`/surah/${next.surahId}/ayah/${next.ayahNumber}`}
         >
           {next.label}
         </Link>
       ) : (
-        <span className="rounded-md border border-stone-200 bg-stone-100 px-4 py-2 text-sm text-stone-500">
+        <span className="rounded-xl border border-stone-200 bg-stone-100 px-4 py-2 text-sm text-stone-500">
           Sonraki ayet yok
         </span>
       )}
@@ -716,12 +721,12 @@ function WordAnalysisDebugToggle({
     source: "canonical",
     surahId
   });
-  const baseClass = "rounded-md border px-3 py-1.5 text-xs font-medium";
+  const baseClass = "rounded-xl border px-3 py-1.5 text-xs font-medium";
   const activeClass = "border-stone-900 bg-stone-900 text-white";
   const inactiveClass = "border-stone-300 bg-white text-stone-700 hover:bg-stone-50";
 
   return (
-    <div className="rounded-md border border-dashed border-stone-300 bg-stone-50 p-3">
+    <div className="rounded-xl border border-dashed border-stone-300 bg-stone-50 p-3">
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
         Analiz kaynağı karşılaştırması
       </p>
@@ -750,7 +755,7 @@ function HiddenSourcesSummary({ sources }: { sources: string[] }) {
 
   return (
     <div className="space-y-2 text-sm text-stone-600">
-      <details className="rounded-md border border-stone-200 bg-stone-50 px-3 py-2">
+      <details className="rounded-xl border border-stone-200 bg-stone-50 px-3 py-2">
         <summary className="cursor-pointer font-medium text-stone-700">
           Diğer kaynak adlarını göster
         </summary>
@@ -783,7 +788,7 @@ function OtherTranslations({
       <div className="grid gap-3 md:grid-cols-2">
         {otherTranslations.map((translation) => (
           <article
-            className="rounded-md border border-stone-200 bg-stone-50 p-4"
+            className="rounded-xl border border-stone-200 bg-stone-50 p-4"
             key={`${translation.source}-${translation.text}`}
           >
             <h3 className="mb-2 text-sm font-semibold text-stone-700">
@@ -1015,7 +1020,7 @@ function UniqueRootList({ words }: { words: WordAnalysis[] }) {
     <div className="grid gap-3 md:grid-cols-2">
       {roots.map((rootSummary) => (
         <article
-          className="rounded-md border border-stone-200 bg-stone-50 p-4"
+          className="rounded-xl border border-stone-200 bg-stone-50 p-4"
           key={rootSummary.root}
         >
           <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
@@ -1054,7 +1059,7 @@ function RawMeaningSummaryCard({ wordAnalyses }: { wordAnalyses: WordAnalysis[] 
   if (meanings.length === 0) return null;
 
   return (
-    <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+    <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
       <h3 className="text-sm font-semibold text-stone-900">Ham Anlam Özeti</h3>
       <p className="mt-1 text-xs text-stone-500">Kelimelerin sırasıyla doğrudan anlamları</p>
       <p className="mt-3 text-sm leading-7 text-stone-700">{meanings.join(" ") + "."}</p>
@@ -1172,9 +1177,9 @@ function buildAyahDetailDebugPayload({
 
 function AyahDetailDebugPanel({ payload }: { payload: AyahDetailDebugPayload }) {
   return (
-    <section className="rounded-md border border-dashed border-amber-300 bg-amber-50 p-5 shadow-sm">
+    <section className="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 shadow-sm">
       <h2 className="mb-3 text-lg font-semibold text-stone-950">Dev Debug: Render Data</h2>
-      <pre className="max-h-[520px] overflow-auto rounded-md bg-stone-950 p-4 text-xs leading-5 text-stone-50">
+      <pre className="max-h-[520px] overflow-auto rounded-xl bg-stone-950 p-4 text-xs leading-5 text-stone-50">
         {JSON.stringify(payload, null, 2)}
       </pre>
     </section>
@@ -1297,7 +1302,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-lg font-semibold text-stone-950">Ana Meal</h2>
-              <StatusBadge status={sectionStatuses.primaryTranslation} />
+              <StatusBadge status={sectionStatuses.primaryTranslation} show={showDeveloperDebug} />
             </div>
             <p className="text-sm text-stone-600">{primarySelection.note}</p>
             {primaryTranslation?.text ? (
@@ -1314,7 +1319,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-lg font-semibold text-stone-950">Diğer Türkçe Mealler</h2>
-              <StatusBadge status={sectionStatuses.otherTranslations} />
+              <StatusBadge status={sectionStatuses.otherTranslations} show={showDeveloperDebug} />
             </div>
             <OtherTranslations
               displayableTranslations={displayableTranslations}
@@ -1337,15 +1342,15 @@ export default async function Page({ params, searchParams }: PageProps) {
                   ? "Kelime Bazlı Morfolojik Analiz"
                   : "Morfolojik Segment Analizi"}
               </h2>
-              <StatusBadge status={sectionStatuses.wordAnalysis} />
+              <StatusBadge status={sectionStatuses.wordAnalysis} show={showDeveloperDebug} />
             </div>
             <p className="text-sm text-stone-600">{wordAnalysisNote}</p>
           </div>
           <WordAnalysisTable words={detail.wordAnalyses} />
           <div className="border-t border-stone-200 pt-4">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <h3 className="text-base font-semibold text-stone-950">Kelime Anlamlari</h3>
-              <StatusBadge status={sectionStatuses.wordMeanings} />
+              <h3 className="text-base font-semibold text-stone-950">Kelime Anlamları</h3>
+              <StatusBadge status={sectionStatuses.wordMeanings} show={showDeveloperDebug} />
             </div>
             <WordMeaningSummary words={detail.wordAnalyses} />
           </div>
@@ -1362,10 +1367,10 @@ export default async function Page({ params, searchParams }: PageProps) {
               <h2 className="text-lg font-semibold text-stone-950">
                 Kök Bilgisi ve Kök Açıklaması
               </h2>
-              <StatusBadge status={sectionStatuses.rootExplanations} />
+              <StatusBadge status={sectionStatuses.rootExplanations} show={showDeveloperDebug} />
             </div>
             <p className="text-sm text-stone-600">
-              Kok icermeyen kelimeler ile aciklamasi eksik kokler ayri gosterilir.
+              Kök içermeyen kelimeler ile açıklaması eksik kökler ayrı gösterilir.
             </p>
           </div>
           <RootExplanationSummary words={detail.wordAnalyses} />
@@ -1380,10 +1385,10 @@ export default async function Page({ params, searchParams }: PageProps) {
         <div className="space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-lg font-semibold text-stone-950">Analiz</h2>
-            <StatusBadge status={detail.ayah.literalCeviri ? "ready" : "partially_ready"} />
+            <StatusBadge status={detail.ayah.literalCeviri ? "ready" : "partially_ready"} show={showDeveloperDebug} />
           </div>
           {detail.ayah.hamAnlamOzeti ? (
-            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
               <h3 className="text-sm font-semibold text-stone-900">Ham Kelime Çevirisi</h3>
               <p className="mt-1 text-xs text-stone-500">
                 Kelimelerin sırasıyla doğrudan anlamları, yorum yapılmadan
@@ -1397,7 +1402,7 @@ export default async function Page({ params, searchParams }: PageProps) {
             <RawMeaningSummaryCard wordAnalyses={detail.wordAnalyses} />
           )}
           {detail.ayah.literalCeviri ? (
-            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
               <h3 className="text-sm font-semibold text-stone-900">Literal Çeviri</h3>
               <p className="mt-1 text-xs text-stone-500">
                 Kelimelerin orijinal sırasına birebir sadık, Türkçe dil bilgisine uygun çeviri
@@ -1406,7 +1411,7 @@ export default async function Page({ params, searchParams }: PageProps) {
             </div>
           ) : null}
           {detail.ayah.farkAnalizi ? (
-            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
               <h3 className="text-sm font-semibold text-stone-900">Fark Analizi</h3>
               <p className="mt-1 text-xs text-stone-500">
                 Literal çeviri ile meal arasındaki anlam farkının incelemesi
@@ -1417,7 +1422,7 @@ export default async function Page({ params, searchParams }: PageProps) {
             </div>
           ) : null}
           {(detail.ayah.anaTema || (detail.ayah.altTaglar && detail.ayah.altTaglar.length > 0)) ? (
-            <div className="rounded-md border border-stone-200 bg-white p-4 shadow-sm">
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
               <h3 className="text-sm font-semibold text-stone-900">Tema Etiketleri</h3>
               <p className="mt-1 text-xs text-stone-500">
                 Tıklayarak aynı temadaki tüm ayetleri görün
@@ -1426,7 +1431,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 <div className="mt-3">
                   <Link
                     href={`/search?tag=${encodeURIComponent(detail.ayah.anaTema)}`}
-                    className="inline-flex items-center rounded-md border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
+                    className="inline-flex items-center rounded-xl border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
                   >
                     {detail.ayah.anaTema.replace(/_/g, " ")}
                   </Link>
@@ -1453,9 +1458,20 @@ export default async function Page({ params, searchParams }: PageProps) {
   ];
 
   return (
-    <main className="min-h-screen bg-stone-100 px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-6">
-        <header className="rounded-md border border-stone-200 bg-white p-6 shadow-sm">
+    <main className="min-h-screen px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl space-y-6">
+        <header className="rounded-xl border border-stone-200 bg-white p-6 shadow-sm">
+          <nav aria-label="İçerik yolu" className="mb-3 flex items-center gap-1.5 text-xs text-stone-500">
+            <Link href="/surah" className="hover:text-emerald-700 hover:underline">
+              Sureler
+            </Link>
+            <span aria-hidden="true">›</span>
+            <span className="font-medium text-stone-700">
+              {detail.surah?.turkishName.text ?? `Sure ${surahId}`}
+            </span>
+            <span aria-hidden="true">›</span>
+            <span>{ayahNumber}. Ayet</span>
+          </nav>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <h1 className="text-3xl font-semibold">
@@ -1469,7 +1485,7 @@ export default async function Page({ params, searchParams }: PageProps) {
               </div>
             </div>
             <div className="flex flex-col items-end gap-3">
-              <StatusBadge status={sectionStatuses.page} />
+              <StatusBadge status={sectionStatuses.page} show={showDeveloperDebug} />
               <div className="flex w-full flex-col gap-2">
                 <div className="min-h-[44px] w-full">
                   <AudioPlayer surahId={surahId} variant="detail" />
@@ -1492,13 +1508,15 @@ export default async function Page({ params, searchParams }: PageProps) {
           </div>
         </header>
 
+        {/* Gezinme, accordion altından header'ın hemen altına taşındı —
+            sayfaya girer girmez önceki/sonraki ayete geçilebilsin */}
+        <AyahNavigation previous={previousAyah} next={nextAyah} />
+
         <SurahAboutAccordion
           surahId={surahId}
           revelationOrder={currentSurah.revelationOrder}
           revelationPlace={currentSurah.revelationPlace}
         />
-
-        <AyahNavigation previous={previousAyah} next={nextAyah} />
 
         {showDeveloperDebug ? (
           <AyahDetailDebugPanel payload={ayahDetailDebugPayload} />
@@ -1513,7 +1531,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           />
         ) : null}
 
-        <SectionCard title="Arapça Metin" status={sectionStatuses.arabicText}>
+        <SectionCard title="Arapça Metin" status={sectionStatuses.arabicText} showStatus={showDeveloperDebug}>
           {detail.ayah.arabicText ? (
             <p className="text-right text-4xl leading-[2.25] text-stone-950" dir="rtl" lang="ar">
               {detail.ayah.arabicText}
@@ -1527,6 +1545,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           title="Okunuş"
           status={sectionStatuses.transliteration}
           note="Ayetin Türkçe okunuşu."
+          showStatus={showDeveloperDebug}
         >
           {detail.ayah.transliteration ? (
             <div className="space-y-4">
@@ -1534,7 +1553,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 {detail.ayah.readingTr ?? readingTrResult?.output ?? detail.ayah.transliteration}
               </p>
               {showExperimentalControls ? (
-                <details className="rounded-md border border-stone-200 bg-stone-50 p-4">
+                <details className="rounded-xl border border-stone-200 bg-stone-50 p-4">
                   <summary className="cursor-pointer text-sm font-medium text-stone-700">
                     Teknik okunuşu göster
                   </summary>
@@ -1567,6 +1586,9 @@ export default async function Page({ params, searchParams }: PageProps) {
         <NoteEditor verseKey={`${surahId}:${ayahNumber}`} />
 
         <StreakTracker />
+
+        {/* Uzun sayfanın sonunda da gezinme — yukarı kaydırmadan sonraki ayete geç */}
+        <AyahNavigation previous={previousAyah} next={nextAyah} />
 
       </div>
     </main>

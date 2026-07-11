@@ -70,7 +70,7 @@ export function DerslerClient() {
   const sorted = useMemo(() => sortMode === "sure" ? [...DERSLER_META].sort((a, b) => a.sure - b.sure) : DERSLER_META, [sortMode]);
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950 sm:px-6">
+    <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <Link href="/ogren" className="mb-5 inline-flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">
           ← Öğren

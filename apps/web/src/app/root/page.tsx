@@ -38,11 +38,11 @@ export default async function RootIndexPage() {
   }
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 sm:px-6 night-mode:bg-stone-950">
-      <h1 className="mb-1 text-center text-2xl font-semibold text-stone-900 night-mode:text-stone-100">
+    <main className="min-h-screen px-4 py-8 sm:px-6">
+      <h1 className="mb-1 text-center text-2xl font-semibold text-stone-900 dark:text-stone-100">
         Kelime Kökleri
       </h1>
-      <p className="mb-6 text-center text-sm text-stone-500 night-mode:text-stone-400">
+      <p className="mb-6 text-center text-sm text-stone-500 dark:text-stone-400">
         En çok geçen 200 Arapça kök
       </p>
       <RootListClient roots={roots} />

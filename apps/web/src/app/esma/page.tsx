@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { EsmaList } from "./EsmaList";
+import { PageHeader } from "../../components/PageHeader";
 
 // Statik içerik (DB yok) → force-dynamic gereksiz; SEO + hız için statik render.
 export const metadata: Metadata = {
@@ -17,18 +18,11 @@ export const metadata: Metadata = {
 export default function EsmaPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
-      {/* Hero */}
-      <div className="mb-6">
-        <div className="mb-2 flex items-center gap-2.5">
-          <span className="text-2xl leading-none">📿</span>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
-            Esmaül Hüsna
-          </h1>
-        </div>
-        <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
-          Allah'ın 99 güzel ismi — Arapça yazılışı, okunuşu, anlamı ve her ismin kök (etimolojik) anlamıyla.
-        </p>
-      </div>
+      <PageHeader
+        icon="📿"
+        title="Esmaül Hüsna"
+        description="Allah'ın 99 güzel ismi — Arapça yazılışı, okunuşu, anlamı ve her ismin kök (etimolojik) anlamıyla."
+      />
 
       {/* Bilgi notu */}
       <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-3.5 dark:border-amber-700/50 dark:bg-amber-900/15">

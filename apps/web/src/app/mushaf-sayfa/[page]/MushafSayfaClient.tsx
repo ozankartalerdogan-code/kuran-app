@@ -451,7 +451,16 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                     <span
                       key={`${a.surahId}:${a.ayahNumber}`}
                       onClick={() => handleAyetSec(a.surahId, a.ayahNumber)}
-                      className={`cursor-pointer rounded ${isSecili ? "bg-amber-200/70 dark:bg-amber-500/30" : ""}`}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          handleAyetSec(a.surahId, a.ayahNumber);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`${a.surahId}:${a.ayahNumber} ayetini seç`}
+                      className={`cursor-pointer rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500 ${isSecili ? "bg-amber-200/70 dark:bg-amber-500/30" : ""}`}
                     >
                       <AyetMetni ayet={a} tajweed={tajweed} />
                       <span className="text-emerald-700 dark:text-emerald-400"> ﴿{arapRakam(a.ayahNumber)}﴾ </span>

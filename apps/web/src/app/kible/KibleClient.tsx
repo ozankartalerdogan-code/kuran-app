@@ -122,7 +122,7 @@ export function KibleClient() {
   const arrowAngle = qibla !== null && heading !== null ? (qibla - heading + 360) % 360 : qibla;
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950">
+    <main className="min-h-screen px-4 py-8">
       <div className="mx-auto max-w-sm">
         {/* Başlık */}
         <div className="mb-8 text-center">

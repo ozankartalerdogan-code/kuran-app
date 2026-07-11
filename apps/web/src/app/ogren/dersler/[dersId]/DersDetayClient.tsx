@@ -149,7 +149,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
 
   if (!dersData || !kart) {
     return (
-      <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950">
+      <main className="min-h-screen px-4 py-8">
         <div className="mx-auto max-w-2xl rounded-3xl border border-stone-200 bg-white p-8 text-center dark:border-stone-700 dark:bg-stone-900">
           <div className="text-5xl">📚</div>
           <h1 className="mt-4 text-xl font-black text-stone-950 dark:text-stone-50">Ders bulunamadı</h1>
@@ -216,7 +216,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
   if (mode === "quiz" && currentQuestion) {
     const quizPct = Math.round(((qIndex + 1) / quizQuestions.length) * 100);
     return (
-      <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950 sm:px-6">
+      <main className="min-h-screen px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-2xl">
           <div className="mb-5 flex items-center gap-3">
             <button type="button" onClick={() => setMode("kart")} className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">← Derse Dön</button>
@@ -261,7 +261,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
 
   if (mode === "oku") {
     return (
-      <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950 sm:px-6">
+      <main className="min-h-screen px-4 py-8 sm:px-6">
         <div className="mx-auto max-w-2xl">
           <div className="mb-5 flex items-center gap-3">
             <Link href="/ogren/dersler" className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">← Dersler</Link>
@@ -286,7 +286,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
   }
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950 sm:px-6">
+    <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-2xl">
         <div className="mb-5 flex items-center gap-3">
           <Link href="/ogren/dersler" className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">← Dersler</Link>

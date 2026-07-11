@@ -3,6 +3,25 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════════
+   Arapça font — Amiri (yerel dosya, harici istek yok)
+   font-arabic ve font-scheherazade utility'leri tailwind.config.ts'te
+   bu aileye bağlanır; tanım olmadan ikisi de Georgia'ya düşüyordu.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* font sınıfı verilmemiş tüm Arapça metinler de (lang="ar") Amiri kullansın */
+[lang="ar"] {
+  font-family: "Amiri", "Scheherazade New", "Traditional Arabic", serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    Erişilebilirlik (a11y) yardımcı sınıfları — screen-reader-only
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -151,12 +170,13 @@ html.night-mode .text-stone-600 {
   color: #808080 !important;
 }
 
+/* WCAG: #070707 zeminde en az 4.5:1 kontrast için alt sınır ~#7a7a7a */
 html.night-mode .text-stone-500 {
-  color: #686868 !important;
+  color: #9a9a9a !important;
 }
 
 html.night-mode .text-stone-400 {
-  color: #505050 !important;
+  color: #8a8a8a !important;
 }
 
 /* ── Arapça metin — okunabilirliği koru ──────────────────────────── */

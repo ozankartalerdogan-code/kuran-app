@@ -255,7 +255,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
   }, [router]);
 
   return (
-    <main className="min-h-screen bg-stone-100 px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl space-y-6">
 
         <header className="flex items-center gap-3">

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
+import Link from "next/link";
 import { NavbarMenu } from "./NavbarMenu";
 import "./globals.css";
 
@@ -70,6 +71,20 @@ export default function RootLayout({
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>
+        {/* Yetim /hakkinda ve /privacy sayfalarına tek erişim noktası */}
+        <footer className="border-t border-stone-200 px-4 py-6 dark:border-stone-700 sm:px-6">
+          <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 text-xs text-stone-500 dark:text-stone-400">
+            <span>© {new Date().getFullYear()} Kuran Yolu</span>
+            <span className="flex items-center gap-4">
+              <Link href="/hakkinda" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">
+                Hakkında
+              </Link>
+              <Link href="/privacy" className="hover:text-emerald-700 hover:underline dark:hover:text-emerald-400">
+                Gizlilik
+              </Link>
+            </span>
+          </div>
+        </footer>
       </body>
     </html>
   );

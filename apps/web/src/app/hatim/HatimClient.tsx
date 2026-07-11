@@ -56,7 +56,7 @@ export function HatimClient() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950">
+    <main className="min-h-screen px-4 py-8">
       <div className="mx-auto max-w-lg">
 
         {/* Başlık */}

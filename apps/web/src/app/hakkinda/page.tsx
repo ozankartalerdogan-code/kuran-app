@@ -43,7 +43,7 @@ function Paragraph({ children }: { children: React.ReactNode }) {
 
 export default function HakkindaPage() {
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-10 dark:bg-stone-950 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-8 border-b border-stone-200 pb-6 dark:border-stone-700">
           <h1 className="text-3xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Kaynaklar ve Açıklamalar</h1>

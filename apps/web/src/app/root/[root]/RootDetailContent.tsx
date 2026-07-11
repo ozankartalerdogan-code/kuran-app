@@ -36,9 +36,9 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
 
   if (error || !data) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-stone-50 night-mode:bg-stone-950">
+      <main className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <p className="text-lg text-stone-600 night-mode:text-stone-400">
+          <p className="text-lg text-stone-600 dark:text-stone-400">
             {error ?? "Veri bulunamadı."}
           </p>
           <button
@@ -55,20 +55,20 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
   const maxFreq = Math.max(...Object.values(data.distribution), 1);
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 sm:px-6 night-mode:bg-stone-950">
+    <main className="min-h-screen px-4 py-8 sm:px-6">
       {/* Root Header */}
       <div className="mb-6 text-center">
         <p
-          className="text-3xl font-bold text-stone-900 night-mode:text-stone-100"
+          className="text-3xl font-bold text-stone-900 dark:text-stone-100"
           dir="rtl"
           lang="ar"
         >
           {data.root}
         </p>
-        <p className="mt-2 text-lg text-stone-600 night-mode:text-stone-400">
+        <p className="mt-2 text-lg text-stone-600 dark:text-stone-400">
           {data.meaningTr}
         </p>
-        <p className="mt-1 text-sm text-stone-400 night-mode:text-stone-500">
+        <p className="mt-1 text-sm text-stone-400 dark:text-stone-500">
           Toplam{" "}
           {Object.values(data.distribution).reduce((s, c) => s + c, 0)} geçiş
           — {Object.values(data.distribution).filter((c) => c > 0).length}{" "}
@@ -78,11 +78,11 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
 
       {/* Heatmap */}
       <section className="mb-8">
-        <h2 className="mb-3 text-lg font-semibold text-stone-800 night-mode:text-stone-200">
+        <h2 className="mb-3 text-lg font-semibold text-stone-800 dark:text-stone-200">
           Sure Dağılımı (Isı Haritası)
         </h2>
-        <div className="overflow-x-auto rounded-lg border border-stone-200 night-mode:border-stone-700">
-          <div className="mx-auto grid w-fit grid-cols-12 gap-px bg-stone-300 p-px night-mode:bg-stone-600">
+        <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-700">
+          <div className="mx-auto grid w-fit grid-cols-12 gap-px bg-stone-300 p-px dark:bg-stone-600">
             {SURAHS.map((surahId) => {
               const freq = data.distribution[surahId] ?? 0;
               const isNight =
@@ -115,7 +115,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
           </div>
         </div>
         {/* Legend */}
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-stone-500 night-mode:text-stone-400">
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-[10px] text-stone-500 dark:text-stone-400">
           <span
             className="inline-block h-3 w-3 rounded-sm"
             style={{ background: "#f0f0f0" }}
@@ -137,7 +137,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
       {/* Derived Words — anlama göre gruplandırılmış */}
       <section>
         {data.derivedWords.length === 0 ? (
-          <p className="py-6 text-center text-sm text-stone-400 night-mode:text-stone-500">
+          <p className="py-6 text-center text-sm text-stone-400 dark:text-stone-500">
             Henüz türev kelime bulunamadı.
           </p>
         ) : (
@@ -168,7 +168,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
 
               return (
                 <>
-                  <h2 className="mb-3 text-lg font-semibold text-stone-800 night-mode:text-stone-200">
+                  <h2 className="mb-3 text-lg font-semibold text-stone-800 dark:text-stone-200">
                     Türev Kelimeler
                     <span className="ml-2 text-sm font-normal text-stone-500">
                       ({groups.length} form)
@@ -181,22 +181,22 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
                       return (
                         <div
                           key={group.word}
-                          className="rounded-lg border border-stone-200 bg-white night-mode:border-stone-700 night-mode:bg-stone-800"
+                          className="rounded-lg border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-800"
                         >
                           <button
                             onClick={() => setExpandedWord(isOpen ? null : group.word)}
                             className="flex w-full items-center justify-between px-4 py-3 text-left"
                           >
                             <div className="flex min-w-0 flex-1 items-center gap-3">
-                              <span className="text-lg font-semibold text-stone-900 night-mode:text-stone-100" dir="rtl" lang="ar">
+                              <span className="text-lg font-semibold text-stone-900 dark:text-stone-100" dir="rtl" lang="ar">
                                 {group.word}
                               </span>
-                              <span className="truncate text-sm text-stone-600 night-mode:text-stone-400">
+                              <span className="truncate text-sm text-stone-600 dark:text-stone-400">
                                 {mainMeaning}
                               </span>
                             </div>
                             <div className="flex shrink-0 items-center gap-2">
-                              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700 night-mode:bg-emerald-900 night-mode:text-emerald-300">
+                              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
                                 {group.occurrences.length} ayet
                               </span>
                               <svg
@@ -208,13 +208,13 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
                             </div>
                           </button>
                           {isOpen && (
-                            <div className="flex flex-wrap gap-1.5 border-t border-stone-100 px-4 py-3 night-mode:border-stone-700">
+                            <div className="flex flex-wrap gap-1.5 border-t border-stone-100 px-4 py-3 dark:border-stone-700">
                               {group.occurrences.map((o, i) => (
                                 <button
                                   key={i}
                                   onClick={() => router.push(`/surah/${o.surahId}/ayah/${o.ayahNumber}`)}
                                   title={o.meaning}
-                                  className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 night-mode:border-stone-600 night-mode:bg-stone-700 night-mode:text-stone-300"
+                                  className="rounded border border-stone-200 bg-stone-50 px-2 py-1 text-xs text-stone-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 dark:border-stone-600 dark:bg-stone-700 dark:text-stone-300"
                                 >
                                   {o.surahId}:{o.ayahNumber}
                                 </button>

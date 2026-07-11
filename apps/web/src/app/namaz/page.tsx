@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { NamazKategorileri } from "./NamazKategorileri";
 import { NamazVakitTablosu } from "./NamazVakitTablosu";
+import { PageHeader } from "../../components/PageHeader";
 
 export const metadata = { title: "Namaz" };
 
@@ -32,23 +33,18 @@ function KategoriSkeleton() {
 export default function NamazPage() {
   return (
     <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
-        <div className="mb-2 flex items-center gap-2.5">
-          <span className="text-2xl leading-none">🕌</span>
-          <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
-            Namaz
-          </h1>
-        </div>
-        <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
-          Kur&apos;an&apos;da namaza dair ayetler; vakitler, huşu, teheccüd ve daha fazlası.
-        </p>
+      <PageHeader
+        icon="🕌"
+        title="Namaz"
+        description="Kur'an'da namaza dair ayetler; vakitler, huşu, teheccüd ve daha fazlası."
+      >
         <Link
           href="/namaz-rehberi"
           className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
         >
           Namazın adım adım nasıl kılındığını öğrenmek için Namaz Rehberi&apos;ne bakın →
         </Link>
-      </div>
+      </PageHeader>
 
       <Suspense fallback={<VakitSkeleton />}>
         <NamazVakitTablosu />

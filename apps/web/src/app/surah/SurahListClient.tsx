@@ -21,8 +21,8 @@ function RevelationBadge({ place }: { place: string }) {
       className={
         "rounded-full px-2 py-0.5 text-xs font-medium " +
         (isMekki
-          ? "bg-emerald-100 text-emerald-700"
-          : "bg-orange-100 text-orange-700")
+          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+          : "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400")
       }
     >
       {place}

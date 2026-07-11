@@ -12,7 +12,7 @@ export default function SearchPage() {
   return (
     <Suspense
       fallback={
-        <main className="min-h-screen bg-stone-100 px-4 py-8 sm:px-6 lg:px-8">
+        <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl space-y-4">
             <div className="h-8 w-48 animate-pulse rounded bg-stone-200" />
             <div className="h-10 animate-pulse rounded-lg bg-stone-200" />

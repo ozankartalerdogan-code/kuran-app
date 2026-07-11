@@ -53,7 +53,7 @@ export default function RootListClient({ roots }: Props) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Kök veya anlam ara..."
-          className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-900 placeholder-stone-400 shadow-sm transition-colors focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-200 night-mode:border-stone-600 night-mode:bg-stone-800 night-mode:text-stone-200 night-mode:placeholder-stone-500"
+          className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-900 placeholder-stone-400 shadow-sm transition-colors focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-200 dark:placeholder-stone-500"
         />
       </div>
 
@@ -71,8 +71,8 @@ export default function RootListClient({ roots }: Props) {
             onClick={() => setSortKey(key)}
             className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
               sortKey === key
-                ? "bg-emerald-600 text-white shadow-sm night-mode:bg-emerald-500"
-                : "bg-stone-200 text-stone-700 hover:bg-stone-300 night-mode:bg-stone-700 night-mode:text-stone-300 night-mode:hover:bg-stone-600"
+                ? "bg-emerald-600 text-white shadow-sm dark:bg-emerald-500"
+                : "bg-stone-200 text-stone-700 hover:bg-stone-300 dark:bg-stone-700 dark:text-stone-300 dark:hover:bg-stone-600"
             }`}
           >
             {label}
@@ -83,7 +83,7 @@ export default function RootListClient({ roots }: Props) {
       {/* Kart listesi */}
       <div className="flex flex-col gap-2">
         {processed.length === 0 ? (
-          <p className="py-10 text-center text-sm text-stone-400 night-mode:text-stone-500">
+          <p className="py-10 text-center text-sm text-stone-400 dark:text-stone-500">
             Sonuç bulunamadı
           </p>
         ) : (
@@ -91,23 +91,23 @@ export default function RootListClient({ roots }: Props) {
             <button
               key={r.root}
               onClick={() => router.push(`/root/${encodeURIComponent(r.root)}`)}
-              className="flex w-full items-center justify-between rounded-lg border border-stone-200 bg-white px-4 py-3 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50 night-mode:border-stone-700 night-mode:bg-stone-800 night-mode:hover:border-emerald-600 night-mode:hover:bg-stone-700/80"
+              className="flex w-full items-center justify-between rounded-lg border border-stone-200 bg-white px-4 py-3 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50 dark:border-stone-700 dark:bg-stone-800 dark:hover:border-emerald-600 dark:hover:bg-stone-700/80"
             >
               <div className="flex min-w-0 flex-1 flex-col items-start text-left">
-                <span className="text-sm text-stone-600 night-mode:text-stone-400">
+                <span className="text-sm text-stone-600 dark:text-stone-400">
                   {r.meaning_tr}
                 </span>
               </div>
 
               <span
-                className="mx-3 flex-1 text-center text-lg font-semibold text-stone-900 night-mode:text-stone-100"
+                className="mx-3 flex-1 text-center text-lg font-semibold text-stone-900 dark:text-stone-100"
                 dir="rtl"
                 lang="ar"
               >
                 {r.root}
               </span>
 
-              <span className="shrink-0 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium text-stone-500 night-mode:bg-stone-700 night-mode:text-stone-400">
+              <span className="shrink-0 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium text-stone-500 dark:bg-stone-700 dark:text-stone-400">
                 {r.frequency}
               </span>
             </button>

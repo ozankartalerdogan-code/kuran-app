@@ -21,6 +21,7 @@ const NAV_LINKS = [
   { href: "/surah",      label: "Tüm Sureler" },
   { href: "/mushaf-sayfa", label: "Mushaf" },
   { href: "/ogren",      label: "Konular" },
+  { href: "/hatim",      label: "Hatim" },
   {
     href: "/favoriler",
     label: "Favoriler",
@@ -55,7 +56,7 @@ export function NavbarMenu() {
           aria-label="Ana sayfaya git"
           className="shrink-0 text-sm font-semibold text-stone-800 hover:text-emerald-700 dark:text-stone-200 dark:hover:text-emerald-400"
         >
-          📖 Kuran Yolu
+          <span aria-hidden="true">📖</span> Kuran Yolu
         </Link>
 
         {/* Masaüstü: ek linkler */}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHeader } from "../../components/PageHeader";
 
 const OGREN_LINKS = [
   {
@@ -113,10 +114,11 @@ function LinkGrid({ items }: { items: typeof OGREN_LINKS }) {
 export function OgrenContent() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-10">
-      <div className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
-        <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Konular</h1>
-        <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">Öğrenme içerikleri, ibadet rehberleri ve dualar.</p>
-      </div>
+      <PageHeader
+        icon="📚"
+        title="Konular"
+        description="Öğrenme içerikleri, ibadet rehberleri ve dualar."
+      />
 
       <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-stone-400 dark:text-stone-500">📚 Öğren</h2>
       <LinkGrid items={OGREN_LINKS} />

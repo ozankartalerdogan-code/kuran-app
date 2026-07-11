@@ -4,7 +4,7 @@ import Link from "next/link";
 // override eder ve monorepo çift-React sorunundan kaçınır.
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-stone-100 px-4">
+    <main className="flex min-h-screen flex-col items-center justify-center px-4">
       <div className="rounded-lg border border-stone-200 bg-white p-10 text-center shadow-sm">
         <p className="text-5xl font-bold text-stone-300">404</p>
         <h1 className="mt-4 text-xl font-semibold text-stone-800">Sayfa bulunamadı</h1>

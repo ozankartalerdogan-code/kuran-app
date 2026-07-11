@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { dbAll } from "../../lib/dbUtils";
+import { PageHeader } from "../../components/PageHeader";
 
 interface PageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -65,18 +66,13 @@ export default async function AramaPage({ searchParams }: PageProps) {
     : { surahMatch: null, results: [] };
 
   return (
-    <main className="min-h-screen bg-stone-100 px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
-        <header>
-          <h1 className="text-xl font-semibold text-stone-900">
-            {q ? (<><span className="text-stone-500">Arama: </span>{q}</>) : "Arama"}
-          </h1>
-        </header>
-        {!q && (
-          <p className="text-sm text-stone-500">
-            Arama yapmak için arama kutusuna kelime yazın ve Enter'a basın.
-          </p>
-        )}
+        <PageHeader
+          icon="🔍"
+          title={q ? `Arama: ${q}` : "Arama"}
+          description={q ? undefined : "Arama yapmak için arama kutusuna kelime yazın ve Enter'a basın."}
+        />
         {surahMatch && (
           <section>
             <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">Sure</h2>
@@ -91,11 +87,11 @@ export default async function AramaPage({ searchParams }: PageProps) {
         {q && (
           <section>
             <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
-              {results.length > 0 ? `Ayet sonuclari (${results.length})` : "Ayet sonuclari"}
+              {results.length > 0 ? `Ayet sonuçları (${results.length})` : "Ayet sonuçları"}
             </h2>
             {results.length === 0 ? (
               <div className="rounded-md border border-stone-200 bg-white p-6">
-                <p className="text-sm text-stone-600">{q} icin sonuc bulunamadi.</p>
+                <p className="text-sm text-stone-600">{q} için sonuç bulunamadı.</p>
               </div>
             ) : (
               <ul className="overflow-hidden rounded-md border border-stone-200 bg-white shadow-sm">

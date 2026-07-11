@@ -16,7 +16,7 @@ export function NamazRehberiClient() {
   const [tab, setTab] = useState<TabId>("rehber");
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 dark:bg-stone-950 sm:px-6">
+    <main className="min-h-screen px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
           <div className="mb-2 flex items-center gap-2.5">

@@ -24,5 +24,15 @@ export default function MushafSayfaIndexPage() {
     router.replace(`/mushaf-sayfa/${target}`);
   }, [router]);
 
-  return null;
+  // Yönlendirme sırasında boş sayfa flaşı yerine küçük bir iskelet göster
+  return (
+    <main className="mx-auto max-w-3xl px-3 py-4">
+      <div className="animate-pulse rounded-2xl border border-stone-200 bg-white px-4 py-6 dark:border-stone-700 dark:bg-stone-900 sm:px-8 sm:py-8">
+        <div className="mx-auto mb-4 h-10 w-2/3 rounded-xl bg-stone-100 dark:bg-stone-800" />
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="mb-3 h-6 rounded bg-stone-100 dark:bg-stone-800" />
+        ))}
+      </div>
+    </main>
+  );
 }
