@@ -43,7 +43,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="tr">
+    <html lang="tr" className="scroll-smooth">
       {/* Anti-flicker: React hydrate'dan önce gece modunu uygula */}
       <head>
         <script

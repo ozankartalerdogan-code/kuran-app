@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { dbAll, dbGet } from "../../lib/dbUtils";
+import { NamazVakitAccordion } from "./NamazVakitAccordion";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -98,75 +99,6 @@ function verseHref(verseKey: string): string {
   return `/surah/${s}/ayah/${a?.split("-")[0]}`;
 }
 
-// ── Verse satırı ──────────────────────────────────────────────────────────────
-
-function VerseEntry({ verse }: { verse: VerseData }) {
-  return (
-    <Link
-      href={verseHref(verse.verseKey)}
-      className="group flex items-start gap-2.5 rounded-lg border border-transparent px-2.5 py-2 transition-all hover:border-stone-200 hover:bg-white hover:shadow-sm dark:hover:border-stone-600 dark:hover:bg-stone-800"
-    >
-      <span className="mt-0.5 shrink-0 rounded-md bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-stone-500 dark:bg-stone-700 dark:text-stone-400">
-        {verse.verseKey}
-      </span>
-      <div className="min-w-0">
-        <span className="text-[11px] font-semibold text-stone-500 dark:text-stone-400">
-          {verse.sureAdi}
-          {verse.isim ? " · " : ""}
-        </span>
-        {verse.isim && (
-          <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200">
-            {verse.isim}
-          </span>
-        )}
-        {verse.aciklama && (
-          <p className="mt-0.5 text-[11px] leading-relaxed text-stone-400 line-clamp-1 dark:text-stone-500">
-            {verse.aciklama}
-          </p>
-        )}
-      </div>
-      <svg
-        className="mt-1 h-3 w-3 shrink-0 text-stone-300 transition-colors group-hover:text-stone-500 dark:text-stone-600 dark:group-hover:text-stone-400"
-        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-    </Link>
-  );
-}
-
-// ── Tablo satırı ─────────────────────────────────────────────────────────────
-
-function VakitRow({ meta, verses }: { meta: VakitMeta; verses: VerseData[] }) {
-  if (verses.length === 0) return null;
-
-  return (
-    <div className={`flex gap-0 border-b border-stone-100 last:border-0 dark:border-stone-700/50`}>
-      {/* Sol — vakit adı */}
-      <div
-        className={`flex w-28 shrink-0 flex-col items-start justify-start gap-1 border-l-4 ${meta.renk.bant} ${meta.renk.sol} px-3 py-3`}
-      >
-        <span className="text-xl leading-none">{meta.ikon}</span>
-        <span
-          className={`rounded-md px-2 py-0.5 text-[11px] font-bold ${meta.renk.badge}`}
-        >
-          {meta.ad}
-        </span>
-        <span className="text-[10px] text-stone-400 dark:text-stone-500">
-          {verses.length} ayet
-        </span>
-      </div>
-
-      {/* Sağ — ayetler */}
-      <div className="flex flex-1 flex-col gap-0.5 py-2 pr-2">
-        {verses.map((v) => (
-          <VerseEntry key={v.verseKey} verse={v} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ── Server bileşeni ───────────────────────────────────────────────────────────
 
 export async function NamazVakitTablosu() {
@@ -230,33 +162,7 @@ export async function NamazVakitTablosu() {
       </Link>
     )}
 
-    <div className="mb-10 overflow-hidden rounded-2xl border border-stone-200 bg-stone-50/60 shadow-sm dark:border-stone-700/60 dark:bg-stone-900/60">
-      {/* Başlık */}
-      <div className="border-b border-stone-200 bg-white px-4 py-3 dark:border-stone-700/60 dark:bg-stone-900">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-base leading-none">🕐</span>
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-              Namaz Vakitleri & Teheccüd
-            </h2>
-          </div>
-          <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-[11px] font-medium text-stone-500 dark:bg-stone-800 dark:text-stone-400">
-            {toplamAyet} ayet
-          </span>
-        </div>
-      </div>
-
-      {/* Tablo gövdesi */}
-      <div>
-        {VAKIT_META.map((meta) => (
-          <VakitRow
-            key={meta.id}
-            meta={meta}
-            verses={vakitVerses[meta.id] ?? []}
-          />
-        ))}
-      </div>
-    </div>
+    <NamazVakitAccordion vakitMeta={VAKIT_META} vakitVerses={vakitVerses} toplamAyet={toplamAyet} />
     </>
   );
 }

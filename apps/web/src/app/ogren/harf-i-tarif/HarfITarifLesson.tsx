@@ -15,9 +15,9 @@ const TIP_CLS = {
 } as const;
 const TIP_LABEL = { semsiye: "☀️ Şemsiye", kameriye: "🌙 Kameriye" } as const;
 
-function SectionShell({ baslik, alt, children }: { baslik: string; alt?: string; children: React.ReactNode }) {
+function SectionShell({ id, baslik, alt, children }: { id?: string; baslik: string; alt?: string; children: React.ReactNode }) {
   return (
-    <section className="mb-5 rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-700/60 dark:bg-stone-800/40">
+    <section id={id} className="mb-5 scroll-mt-20 rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-700/60 dark:bg-stone-800/40">
       <h2 className="text-base font-bold text-stone-900 dark:text-stone-50">{baslik}</h2>
       {alt && <p className="mt-0.5 text-[12px] text-stone-500 dark:text-stone-400">{alt}</p>}
       <div className="mt-3">{children}</div>
@@ -191,7 +191,7 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
         </SectionShell>
       );
     case "quiz":
-      return <SectionShell baslik={b.baslik}><Quiz b={b} /></SectionShell>;
+      return <SectionShell id="quiz" baslik={b.baslik}><Quiz b={b} /></SectionShell>;
     case "ozet":
       return (
         <SectionShell baslik={b.baslik}>
@@ -224,9 +224,15 @@ export function HarfITarifLesson() {
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">{d.baslik}</h1>
         </div>
         <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">{d.aciklama}</p>
-        <div className="mt-2 flex flex-wrap gap-2 text-[11px] font-semibold">
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] font-semibold">
           <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400">⏱️ {d.sure}</span>
           <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400">📋 Ön koşul: {d.on_kosul}</span>
+          <a
+            href="#quiz"
+            className="ml-auto rounded-full bg-emerald-600 px-4 py-1.5 text-[12px] font-bold text-white transition-colors hover:bg-emerald-700"
+          >
+            🧠 Teste Başla
+          </a>
         </div>
       </div>
 
