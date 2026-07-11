@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { MushafSurahSelect } from "./MushafSurahSelect";
 import type { SurahOption } from "./MushafSurahSelect";
 import { JuzTracker } from "./JuzTracker";
+import { ayetinSayfasi } from "../../../../lib/mushafSayfaUtils";
 
 interface PageProps {
   params: {
@@ -121,6 +122,9 @@ export default async function MushafPage({ params }: PageProps) {
             </NavButton>
           </div>
 
+          <NavButton href={`/mushaf-sayfa/${ayetinSayfasi(surahId, ayahNumber)}`}>
+            📖 Sayfa Görünümü
+          </NavButton>
         </nav>
 
         {/* ── Sure başlığı ── */}

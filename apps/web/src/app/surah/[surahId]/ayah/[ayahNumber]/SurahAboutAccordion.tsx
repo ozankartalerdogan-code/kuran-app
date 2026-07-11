@@ -8,6 +8,8 @@ interface SurahAboutAccordionProps {
   revelationOrder: number | null;
 }
 
+type TafsirMode = "original" | "simplified";
+
 export function SurahAboutAccordion({
   surahId,
   revelationPlace,
@@ -15,6 +17,9 @@ export function SurahAboutAccordion({
 }: SurahAboutAccordionProps) {
   const [open, setOpen]     = useState(false);
   const [tafsir, setTafsir] = useState<string | null>(null);
+  const [simplifiedTafsir, setSimplifiedTafsir] = useState<string | null>(null);
+  const [availableModes, setAvailableModes] = useState<TafsirMode[]>(["original"]);
+  const [mode, setMode] = useState<TafsirMode>("original");
   const [loading, setLoading] = useState(false);
 
   async function handleOpen() {
@@ -25,8 +30,15 @@ export function SurahAboutAccordion({
       setLoading(true);
       try {
         const res  = await fetch(`/api/tafsir/${surahId}`);
-        const data = await res.json() as { content: string | null };
+        const data = await res.json() as {
+          content: string | null;
+          simplifiedContent: string | null;
+          availableModes: TafsirMode[];
+        };
         setTafsir(data.content ?? "");
+        setSimplifiedTafsir(data.simplifiedContent);
+        setAvailableModes(data.availableModes?.length ? data.availableModes : ["original"]);
+        setMode(data.simplifiedContent ? "simplified" : "original");
       } catch {
         setTafsir("");
       } finally {
@@ -34,6 +46,8 @@ export function SurahAboutAccordion({
       }
     }
   }
+
+  const displayedText = mode === "simplified" ? simplifiedTafsir : tafsir;
 
   return (
     <div className="rounded-md border border-stone-200 bg-white shadow-sm">
@@ -80,11 +94,34 @@ export function SurahAboutAccordion({
             </div>
           )}
 
-          {!loading && tafsir != null && tafsir.length > 0 && (
-            <p className="whitespace-pre-line text-sm leading-7 text-stone-700">{tafsir}</p>
+          {!loading && availableModes.length > 1 && (
+            <div className="mb-3 flex overflow-hidden rounded-lg border border-stone-200 text-xs">
+              <button
+                className={`px-3 py-1.5 font-medium transition-colors ${
+                  mode === "simplified" ? "bg-stone-900 text-white" : "text-stone-600 hover:bg-stone-50"
+                }`}
+                onClick={() => setMode("simplified")}
+                type="button"
+              >
+                Sadeleştirilmiş
+              </button>
+              <button
+                className={`border-l border-stone-200 px-3 py-1.5 font-medium transition-colors ${
+                  mode === "original" ? "bg-stone-900 text-white" : "text-stone-600 hover:bg-stone-50"
+                }`}
+                onClick={() => setMode("original")}
+                type="button"
+              >
+                Orijinal
+              </button>
+            </div>
           )}
 
-          {!loading && tafsir !== null && tafsir.length === 0 && (
+          {!loading && displayedText != null && displayedText.length > 0 && (
+            <p className="whitespace-pre-line text-sm leading-7 text-stone-700">{displayedText}</p>
+          )}
+
+          {!loading && displayedText !== null && displayedText.length === 0 && (
             <p className="text-sm text-stone-400">Tefsir metni bulunamadı.</p>
           )}
 

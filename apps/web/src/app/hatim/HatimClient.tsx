@@ -3,35 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { JUZ_DATA } from "./juzData";
+import { type HatimStore, loadHatimStore, saveHatimStore, newHatim, toggleHatimJuz } from "../../lib/hatimStore";
 
-interface Hatim {
-  id: string;
-  startDate: string;
-  completedDate: string | null;
-  readJuz: number[];
-}
-
-interface HatimStore {
-  hatims: Hatim[];
-  currentId: string | null;
-}
-
-const STORAGE_KEY = "hatimTakibi";
-
-function load(): HatimStore {
-  if (typeof window === "undefined") return { hatims: [], currentId: null };
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") ?? { hatims: [], currentId: null };
-  } catch { return { hatims: [], currentId: null }; }
-}
-
-function save(data: HatimStore) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* localStorage kullanılamıyor */ }
-}
-
-function newHatim(): Hatim {
-  return { id: Date.now().toString(), startDate: new Date().toISOString(), completedDate: null, readJuz: [] };
-}
+const load = loadHatimStore;
+const save = saveHatimStore;
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
@@ -63,14 +38,7 @@ export function HatimClient() {
   };
 
   const toggleJuz = (juzNo: number) => {
-    const next = store.hatims.map((h) => {
-      if (h.id !== store.currentId) return h;
-      const already = h.readJuz.includes(juzNo);
-      const readJuz = already ? h.readJuz.filter((j) => j !== juzNo) : [...h.readJuz, juzNo];
-      const completedDate = readJuz.length === 30 ? (h.completedDate ?? new Date().toISOString()) : null;
-      return { ...h, readJuz, completedDate };
-    });
-    persist({ ...store, hatims: next });
+    persist(toggleHatimJuz(store, juzNo));
   };
 
   const resetCurrent = () => {

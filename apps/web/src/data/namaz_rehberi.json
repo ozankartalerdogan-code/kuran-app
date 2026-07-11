@@ -1,0 +1,579 @@
+{
+  "namaz_rehberi": {
+    "id": "namaz_rehberi",
+    "baslik": "Namaz Rehberi",
+    "versiyon": "1.0",
+    "olusturulma": "2026-06-16",
+    "dil": "tr",
+    "aciklama": "Yeni başlayanlar için adım adım namaz rehberi. Türkiye’de yaygın anlatım dili korunurken, mezhepler arasındaki başlıca farklılıklara da işaret edilmiştir.",
+    "kaynak_not": "İçerik Türkiye’de yaygın ilmihal dili ve temel sünnî namaz kaynakları esas alınarak sadeleştirilmiştir. Ayrıntılı mezhep farklılıklarında kişi kendi geleneğini veya güvendiği hocasını esas alabilir.",
+    "temel_kavramlar": {
+      "baslik": "Farz mı, Sünnet mi? Ne Fark Eder?",
+      "aciklama": "Namazda bazı unsurlar namazın iskeletini oluşturur; bazıları ise Peygamberimizin öğrettiği tamamlayıcı uygulamalardır. Bu rehber, öğretimi kolaylaştırmak için yaygın ilmihal dilini sadeleştirerek kullanır.",
+      "kavramlar": [
+        {
+          "id": "farz",
+          "isim": "Farz",
+          "renk": "kirmizi",
+          "aciklama": "Namazın geçerli olması için temel kabul edilen unsurlar. Bunlar olmadan namazın iskeleti tamamlanmış sayılmaz.",
+          "örnek": "İftitah tekbiri, kıyam, rükû, secde, son oturuş"
+        },
+        {
+          "id": "vacip",
+          "isim": "Vacip",
+          "renk": "turuncu",
+          "aciklama": "Bu rehberde “vacip” etiketi özellikle Hanefî ilmihal dilinde kuvvetle istenen uygulamaları gösterir. Diğer mezheplerde aynı başlıklar farklı hüküm adlarıyla anılabilir.",
+          "örnek": "Vitirde kunut, farz namazların ilk iki rekâtında zamm-ı sûre"
+        },
+        {
+          "id": "sunnet",
+          "isim": "Sünnet",
+          "renk": "yesil",
+          "aciklama": "Hz. Peygamberin devamlı yaptığı ve namazı güzelleştiren uygulamalar. Bunların ayrıntılarında mezhepler arasında bazı farklılıklar görülebilir.",
+          "örnek": "Sübhaneke okumak, tesbihleri tekrar etmek, bazı geçiş duaları"
+        }
+      ],
+      "teselli_notu": "Yeni başlıyorsan endişelenme. Önce temel iskeleti öğren, sonra ayrıntılar zamanla yerleşir. Allah kulunun niyetini ve gayretini de bilir."
+    },
+    "farz_sunnet_namaz_farki": {
+      "baslik": "Farz Namaz ile Sünnet Namaz Arasındaki Fark",
+      "aciklama": "Günde 5 vakit namazın bazı rekatları farz, bazıları sünnettir. Ne farkı var?",
+      "karsilastirma": [
+        {
+          "ozellik": "Yapma zorunluluğu",
+          "farz_namaz": "Kesinlikle kılınması gerekir, terk etmek günahtır",
+          "sunnet_namaz": "Kılmak çok sevaplıdır ama terk etmek günahtır değil"
+        },
+        {
+          "ozellik": "Kaçırılırsa",
+          "farz_namaz": "Kaza edilmesi (sonradan kılınması) gerekir",
+          "sunnet_namaz": "Kaza edilmez, o vakit geçer"
+        },
+        {
+          "ozellik": "Amacı",
+          "farz_namaz": "Temel ibadet yükümlülüğü",
+          "sunnet_namaz": "Farz namazı tamamlar, sevabı artırır"
+        }
+      ],
+      "vakit_rekat_tablosu": [
+        {
+          "vakit": "Sabah",
+          "sunnet": "2 rekat sünnet",
+          "farz": "2 rekat farz",
+          "toplam": "4 rekat"
+        },
+        {
+          "vakit": "Öğle",
+          "sunnet": "4 rekat sünnet (önce) + 2 rekat sünnet (sonra)",
+          "farz": "4 rekat farz",
+          "toplam": "10 rekat"
+        },
+        {
+          "vakit": "İkindi",
+          "sunnet": "4 rekat sünnet",
+          "farz": "4 rekat farz",
+          "toplam": "8 rekat"
+        },
+        {
+          "vakit": "Akşam",
+          "sunnet": "2 rekat sünnet (sonra)",
+          "farz": "3 rekat farz",
+          "toplam": "5 rekat"
+        },
+        {
+          "vakit": "Yatsı",
+          "sunnet": "4 rekat sünnet (önce) + 2 rekat sünnet (sonra) + 3 rekat vitir",
+          "farz": "4 rekat farz",
+          "toplam": "13 rekat"
+        }
+      ],
+      "not": "Vitir namazı Türkiye’de yaygın Hanefî uygulamada vacip kabul edilir; diğer sünnî mezheplerde kuvvetli sünnet olarak anlatılabilir. Bu rehber, vakit namazlarının Türkiye’de yaygın kılınışını esas alır."
+    },
+    "namaz_oncesi": {
+      "baslik": "Namaza Başlamadan Önce",
+      "adimlar": [
+        {
+          "id": "taharet",
+          "isim": "Abdest",
+          "durum": "farz",
+          "aciklama": "Namaz kılabilmek için abdestli olmak farzdır. Abdestsiz namaz geçersizdir."
+        },
+        {
+          "id": "kible",
+          "isim": "Kıbleye Yönelmek",
+          "durum": "farz",
+          "aciklama": "Namaz kılarken Kabe'nin bulunduğu yöne (kıbleye) dönmek farzdır."
+        },
+        {
+          "id": "niyet",
+          "isim": "Niyet",
+          "durum": "farz",
+          "aciklama": "Hangi namazı kılacağını kalben belirlemek esastır. Dil ile söylemek zorunlu değildir; isteyen öğrenmeyi kolaylaştırmak için sözlü olarak da ifade edebilir.",
+          "niyet_ornekleri": [
+            {
+              "namaz": "Sabah farzı",
+              "niyet": "Niyet ettim Allah rızası için bugünkü sabah namazının farzını kılmaya."
+            },
+            {
+              "namaz": "Öğle farzı",
+              "niyet": "Niyet ettim Allah rızası için bugünkü öğle namazının farzını kılmaya."
+            },
+            {
+              "namaz": "İkindi farzı",
+              "niyet": "Niyet ettim Allah rızası için bugünkü ikindi namazının farzını kılmaya."
+            },
+            {
+              "namaz": "Akşam farzı",
+              "niyet": "Niyet ettim Allah rızası için bugünkü akşam namazının farzını kılmaya."
+            },
+            {
+              "namaz": "Yatsı farzı",
+              "niyet": "Niyet ettim Allah rızası için bugünkü yatsı namazının farzını kılmaya."
+            },
+            {
+              "namaz": "Vitir namazı",
+              "niyet": "Niyet ettim Allah rızası için bugünkü vitir namazını kılmaya."
+            }
+          ],
+          "not": "Niyetin özü kalptedir. Aşağıdaki ifadeler ezberlenmesi gereken zorunlu kalıplar değil, Türkçe öğretici örneklerdir."
+        }
+      ]
+    },
+    "namaz_adimlari": [
+      {
+        "id": "iftitah_tekbiri",
+        "sira": 1,
+        "isim": "İftitah Tekbiri (Başlangıç Tekbiri)",
+        "konum": "Kıyam (Ayakta)",
+        "durum": "farz",
+        "aciklama": "Elleri kulak memesi hizasına kaldırarak 'Allahu Ekber' denir ve eller bağlanır.",
+        "dua": null,
+        "dua_arapca": null,
+        "el_pozisyonu_notu": "Türkiye’de yaygın Hanefî uygulamada eller göbek altına bağlanır. Diğer sünnî mezheplerde göğüs üstü, göğüs-altı veya yanlarda salık bırakma gibi farklı uygulamalar görülebilir.",
+        "anlam_notu": "Bu tekbir ile dünya işleri geride bırakılır, Allah'ın huzuruna çıkılır."
+      },
+      {
+        "id": "subhaneke",
+        "sira": 2,
+        "isim": "Sübhaneke",
+        "konum": "Kıyam (Ayakta)",
+        "durum": "sunnet",
+        "ne_zaman": "Sadece namazın ilk rekatında, iftitah tekbirinden hemen sonra okunur.",
+        "dua": "Sübhânekellâhümme ve bi hamdike ve tebârekesmüke ve teâlâ ceddüke ve lâ ilâhe ğayrük.",
+        "dua_arapca": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَهَ غَيْرُكَ",
+        "anlam": "Allah'ım! Seni her türlü noksanlıktan tenzih eder, sana hamdederim. Senin adın mübarektir, şanın yücedir. Senden başka ilah yoktur.",
+        "not": "Sünnet olduğu için unutsan namaz bozulmaz ama okumak çok güzeldir."
+      },
+      {
+        "id": "euzu_besmele",
+        "sira": 3,
+        "isim": "Euzü Besmele",
+        "konum": "Kıyam (Ayakta)",
+        "durum": "sunnet",
+        "ne_zaman": "Sadece ilk rekatta, Sübhaneke'den sonra, Fatiha'dan önce okunur.",
+        "dua": "Eûzü billâhi mine'ş-şeytâni'r-racîm. Bismillâhi'r-rahmâni'r-rahîm.",
+        "dua_arapca": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
+        "anlam": "Kovulmuş şeytandan Allah'a sığınırım. Rahman ve Rahim olan Allah'ın adıyla.",
+        "not": "Diğer rekatlarda sadece besmele çekilir, euzü okunmaz."
+      },
+      {
+        "id": "fatiha",
+        "sira": 4,
+        "isim": "Fatiha Suresi",
+        "konum": "Kıyam (Ayakta)",
+        "durum": "farz",
+        "ne_zaman": "Her rekâtta okunur. Bu rehberde namazın temel kıraati olarak öğretilir; Fâtiha’nın hükmü ve cemaatle namazdaki uygulaması mezheplere göre farklı anlatılabilir.",
+        "dua": "Bismillâhi'r-rahmâni'r-rahîm. Elhamdü lillâhi rabbi'l-âlemîn. Er-rahmâni'r-rahîm. Mâliki yevmi'd-dîn. İyyâke na'budü ve iyyâke neste'în. İhdinâ's-sırâta'l-müstekîm. Sırâta'llezîne en'amte aleyhim ğayri'l-mağdûbi aleyhim ve le'd-dâllîn.",
+        "dua_arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+        "anlam": "Rahman ve Rahim olan Allah'ın adıyla. Hamd, âlemlerin Rabbi Allah'a mahsustur. O, Rahman'dır, Rahim'dir. Din gününün sahibidir. Yalnız sana ibadet eder, yalnız senden yardım dileriz. Bizi doğru yola ilet. Nimet verdiklerinin yoluna; gazaba uğrayanların ve sapkınların yoluna değil.",
+        "not": "Fatiha’dan sonra sessizce “Âmin” demek yaygın bir sünnet uygulamasıdır. Cemaatle kılınan namazlarda kıraat ayrıntıları mezheplere göre değişebilir."
+      },
+      {
+        "id": "zamm_i_sure",
+        "sira": 5,
+        "isim": "Zamm-ı Sure",
+        "konum": "Kıyam (Ayakta)",
+        "durum": "vacip",
+        "ne_zaman": "Bu rehberde farz namazların ilk iki rekâtında ve sünnet/vitir namazlarının her rekâtında Fatiha’dan sonra okunacak ek kıraat olarak öğretilir. Ayrıntılı hüküm dili mezheplere göre farklı ifade edilebilir.",
+        "aciklama": "Fatiha'dan sonra en az 3 kısa ayet veya bir kısa sure okunur. En çok tercih edilen sureler aşağıda listelenmiştir.",
+        "sureler": [
+          {
+            "id": "ihlas",
+            "isim": "İhlas Suresi (112)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ هُوَ اللَّهُ أَحَدٌ اللَّهُ الصَّمَدُ لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+            "okunusu": "Kul hüvallâhü ehad. Allâhü's-Samed. Lem yelid ve lem yûled. Ve lem yekün lehû küfüven ehad.",
+            "anlam": "De ki: O, Allah'tır, bir ve tektir. Allah Samed'dir (her şey ona muhtaçtır, o hiçbir şeye muhtaç değildir). Doğurmamıştır ve doğurulmamıştır. Hiçbir şey ona denk ve benzer değildir.",
+            "rekat_sayisi": 4
+          },
+          {
+            "id": "felak",
+            "isim": "Felak Suresi (113)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+            "okunusu": "Kul eûzü bi rabbi'l-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerri'n-neffâsâti fi'l-ukad. Ve min şerri hâsidin izâ hased.",
+            "anlam": "De ki: Sığınırım sabahın Rabbine; yarattığı şeylerin kötülüğünden, bastığında karanlığın kötülüğünden, düğümlere üfleyenlerin kötülüğünden, kıskandığında kıskanç kişinin kötülüğünden.",
+            "rekat_sayisi": 5
+          },
+          {
+            "id": "nas",
+            "isim": "Nas Suresi (114)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَالنَّاسِ",
+            "okunusu": "Kul eûzü bi rabbi'n-nâs. Meliki'n-nâs. İlâhi'n-nâs. Min şerri'l-vesvâsi'l-hannâs. Ellezî yüvesvisü fî sudûri'n-nâs. Mine'l-cinneti ve'n-nâs.",
+            "anlam": "De ki: Sığınırım insanların Rabbine, insanların Melikine, insanların İlahına; sinsi vesvesecinin kötülüğünden, o ki insanların göğüslerine vesvese verir; cinlerden ve insanlardan olan o vesveseci.",
+            "rekat_sayisi": 6
+          },
+          {
+            "id": "kevser",
+            "isim": "Kevser Suresi (108)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ فَصَلِّ لِرَبِّكَ وَانْحَرْ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+            "okunusu": "İnnâ a'taynâke'l-kevser. Fe salli li rabbike ve'nhar. İnne şânieke hüve'l-ebter.",
+            "anlam": "Şüphesiz biz sana Kevser'i verdik. Öyleyse Rabbin için namaz kıl ve kurban kes. Asıl sonu kesik olan, sana kin besleyendir.",
+            "rekat_sayisi": 3
+          },
+          {
+            "id": "asr",
+            "isim": "Asr Suresi (103)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ وَالْعَصْرِ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
+            "okunusu": "Ve'l-asr. İnne'l-insâne le fî hüsr. İlle'llezîne âmenû ve amilü's-sâlihâti ve tevâsav bi'l-hakkı ve tevâsav bi's-sabr.",
+            "anlam": "Asra yemin olsun ki, insan gerçekten ziyan içindedir. Ancak iman edip salih amel işleyenler, birbirlerine hakkı tavsiye edenler ve birbirlerine sabrı tavsiye edenler başka.",
+            "rekat_sayisi": 3
+          },
+          {
+            "id": "fil",
+            "isim": "Fil Suresi (105)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ",
+            "okunusu": "Elem tera keyfe feale rabbüke bi ashâbi'l-fîl. Elem yec'al keydehüm fî tadlîl. Ve ersele aleyhim tayran ebâbîl. Termîhim bi hicâratin min siccîl. Feceelehüm ke'asfin me'kûl.",
+            "anlam": "Rabbinin fil sahiplerine ne yaptığını görmedin mi? Onların tuzaklarını boşa çıkarmadı mı? Üzerlerine sürü sürü kuşlar gönderdi. Onlara pişirilmiş çamurdan taşlar atıyorlardı. Böylece onları yenilmiş ekin yaprağı gibi yaptı.",
+            "rekat_sayisi": 5
+          },
+          {
+            "id": "kureys",
+            "isim": "Kureyş Suresi (106)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ فَلْيَعْبُدُوا رَبَّ هَذَا الْبَيْتِ الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ",
+            "okunusu": "Li îlâfi kureyş. Îlâfihim rihleteş-şitâi ve's-sayf. Felya'büdû rabbe hâze'l-beyt. Ellezî et'amehüm min cû'in ve âmenehüm min havf.",
+            "anlam": "Kureyş'in ısınıp alışması için; kış ve yaz yolculuklarına ısınmaları için. Öyleyse bu Beyt'in Rabbine ibadet etsinler. O ki, onları açlıktan doyurdu ve korkudan güvene kavuşturdu.",
+            "rekat_sayisi": 4
+          },
+          {
+            "id": "maun",
+            "isim": "Maun Suresi (107)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ فَذَلِكَ الَّذِي يَدُعُّ الْيَتِيمَ وَلَا يَحُضُّ عَلَى طَعَامِ الْمِسْكِينِ فَوَيْلٌ لِّلْمُصَلِّينَ الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ الَّذِينَ هُمْ يُرَاءُونَ وَيَمْنَعُونَ الْمَاعُونَ",
+            "okunusu": "Ereeytelleziî yükezzibü bid-diyn. Fezâlike'llezî yedu'ul-yetîm. Ve lâ yehuddu alâ taâmi'l-miskîn. Fe veylün lil musallîn. Ellezîne hüm an salâtihim sâhûn. Ellezîne hüm yürâûne ve yemne'ûnel-mâ'ûn.",
+            "anlam": "Dini yalanlayanı gördün mü? İşte o, yetimi iter kakar. Yoksulu doyurmaya teşvik etmez. Yazıklar olsun o namaz kılanlara ki, onlar namazlarından gafildirler; onlar gösteriş yaparlar ve hayra engel olurlar.",
+            "rekat_sayisi": 7
+          },
+          {
+            "id": "kafirun",
+            "isim": "Kafirun Suresi (109)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ يَا أَيُّهَا الْكَافِرُونَ لَا أَعْبُدُ مَا تَعْبُدُونَ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ لَكُمْ دِينُكُمْ وَلِيَ دِينِ",
+            "okunusu": "Kul yâ eyyühe'l-kâfirûn. Lâ a'büdü mâ ta'büdûn. Ve lâ entüm âbidûne mâ a'büd. Ve lâ ene âbidün mâ abedtüm. Ve lâ entüm âbidûne mâ a'büd. Leküm dînüküm ve liye dîn.",
+            "anlam": "De ki: Ey kafirler! Ben sizin taptıklarınıza tapmam. Siz de benim taptığıma tapmazsınız. Ben de sizin taptıklarınıza tapacak değilim. Siz de benim taptığıma tapacak değilsiniz. Sizin dininiz size, benim dinim bana.",
+            "rekat_sayisi": 6
+          },
+          {
+            "id": "nasr",
+            "isim": "Nasr Suresi (110)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا",
+            "okunusu": "İzâ câe nasrullâhi ve'l-feth. Ve raeyte'n-nâse yedhulûne fî dînillâhi efvâcâ. Fe sebbih bi hamdi rabbike vestağfirh. İnnehû kâne tevvâbâ.",
+            "anlam": "Allah'ın yardımı ve zafer geldiğinde ve insanların Allah'ın dinine akın akın girdiklerini gördüğünde Rabbini hamd ile tespih et ve ondan bağışlama dile. Şüphesiz O, tövbeleri çok kabul edendir.",
+            "rekat_sayisi": 3
+          }
+        ]
+      },
+      {
+        "id": "ruku_tekbiri",
+        "sira": 6,
+        "isim": "Rükuya Gidiş Tekbiri",
+        "konum": "Geçiş",
+        "durum": "farz",
+        "aciklama": "'Allahu Ekber' diyerek rükuya eğilinir."
+      },
+      {
+        "id": "ruku",
+        "sira": 7,
+        "isim": "Rüku Tesbihi",
+        "konum": "Rüku (Eğik)",
+        "durum": "sunnet",
+        "aciklama": "Sırt düz, eller dizlerde, baş sırt hizasında olacak şekilde eğilinir.",
+        "dua": "Sübhâne Rabbiye'l-azîm.",
+        "dua_arapca": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
+        "anlam": "Yüce Rabbim her türlü noksanlıktan uzaktır.",
+        "tekrar": "3 kez okumak sünnettir. Tek sayılarda daha fazla da okunabilir (5, 7...).",
+        "farz_notu": "Rükuya gitmek ve biraz beklemek (sükûnet) farzdır. Tesbihi söylemek sünnettir."
+      },
+      {
+        "id": "rukudan_kalkis",
+        "sira": 8,
+        "isim": "Rükudan Kalkış",
+        "konum": "Geçiş",
+        "durum": "farz",
+        "dua": "Semi'allâhü limen hamideh. — Rabbena ve lekel hamd.",
+        "dua_arapca": "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ — رَبَّنَا وَلَكَ الْحَمْدُ",
+        "anlam": "Allah, kendisine hamd edeni işitir. — Rabbimiz, hamd sana mahsustur.",
+        "aciklama": "Rükudan doğrulurken 'Semi'allahü limen hamideh' denir, tam dik durulunca 'Rabbena ve lekel hamd' denir.",
+        "durum_detay": "Rükûdan doğrulup tam dik durmak namazın önemli bir parçasıdır. Okunan zikirlerin lafız ve hüküm ayrıntıları mezheplere göre farklı anlatılabilir."
+      },
+      {
+        "id": "secde_tekbiri",
+        "sira": 9,
+        "isim": "Secdeye Gidiş Tekbiri",
+        "konum": "Geçiş",
+        "durum": "farz",
+        "aciklama": "'Allahu Ekber' diyerek secdeye gidilir."
+      },
+      {
+        "id": "secde",
+        "sira": 10,
+        "isim": "Secde Tesbihi",
+        "konum": "Secde",
+        "durum": "sunnet",
+        "aciklama": "Alın, burun, iki el, iki diz ve ayak parmakları yere değer. Yedi uzuv yere temas eder.",
+        "dua": "Sübhâne Rabbiye'l-a'lâ.",
+        "dua_arapca": "سُبْحَانَ رَبِّيَ الْأَعْلَى",
+        "anlam": "En yüce Rabbim her türlü noksanlıktan uzaktır.",
+        "tekrar": "3 kez okumak sünnettir.",
+        "farz_notu": "Secdeye gitmek farzdır, tesbihi okumak sünnettir.",
+        "anlam_notu": "Secde, kulun Allah'a en yakın olduğu andır. Bu yüzden secde anında dua etmek çok kıymetlidir."
+      },
+      {
+        "id": "iki_secde_arasi",
+        "sira": 11,
+        "isim": "İki Secde Arası Oturuş",
+        "konum": "Oturuş",
+        "durum": "farz",
+        "dua": "Rabbigfirli.",
+        "dua_arapca": "رَبِّ اغْفِرْ لِي",
+        "anlam": "Rabbim beni bağışla.",
+        "aciklama": "Birinci secdeden sonra kalkılır, kısaca oturulur, 'Rabbigfirli' denir ve tekrar secdeye gidilir.",
+        "not": "İki secde arasında kısa bir sükûnetle oturulur. Bu oturuşun hükmü ve okunacak dua ayrıntıları mezheplere göre farklı açıklanabilir."
+      },
+      {
+        "id": "kade_i_ula",
+        "sira": 12,
+        "isim": "Birinci Oturuş (Ka'de-i Ula)",
+        "konum": "Oturuş",
+        "durum": "vacip",
+        "ne_zaman": "Sadece 3 ve 4 rekatlı namazların 2. rekatı sonunda yapılır. 2 rekatlı namazlarda yoktur.",
+        "aciklama": "İkinci rekatın sonunda oturulur, sadece Tahiyyat okunur ve kalkılır. Salli-Barik bu oturuşta okunmaz.",
+        "dua_id": "tahiyyat",
+        "not": "Bu oturuşta sadece Tahiyyat okunur, diğer dualar son oturuşa bırakılır."
+      },
+      {
+        "id": "kade_i_ahire",
+        "sira": 13,
+        "isim": "Son Oturuş (Ka'de-i Ahire)",
+        "konum": "Oturuş",
+        "durum": "farz",
+        "ne_zaman": "Her namazın son rekatından sonra yapılır.",
+        "aciklama": "Namazın son oturuşudur. Burada sırasıyla tüm dualar okunur.",
+        "okuma_sirasi": [
+          "tahiyyat",
+          "salli",
+          "barik",
+          "rabbena_atina",
+          "rabbena_gfirli"
+        ]
+      }
+    ],
+    "dualar": [
+      {
+        "id": "tahiyyat",
+        "isim": "Tahiyyat (Ettehiyyatü)",
+        "ne_zaman": "Her oturuşta (hem birinci hem son oturuşta) okunur.",
+        "durum": "vacip",
+        "dua": "Ettehıyyâtü lillâhi ve's-salavâtü ve't-tayyibât. Es-selâmü aleyke eyyühe'n-nebiyyü ve rahmetullâhi ve berekâtüh. Es-selâmü aleynâ ve alâ ibâdillâhi's-sâlihîn. Eşhedü en lâ ilâhe illallâh ve eşhedü enne Muhammeden abdühû ve rasûlüh.",
+        "dua_arapca": "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+        "anlam": "Dil ile, beden ile ve mal ile yapılan bütün ibadetler Allah'a mahsustur. Ey Peygamber! Allah'ın selamı, rahmeti ve bereketi senin üzerine olsun. Selam bizim üzerimize ve Allah'ın salih kullarının üzerine olsun. Şehadet ederim ki Allah'tan başka ilah yoktur ve şehadet ederim ki Muhammed onun kulu ve resulüdür.",
+        "parmak_notu": "'Eşhedü' derken şahadet parmağı kaldırılır, 'illallah' derken indirilir."
+      },
+      {
+        "id": "salli",
+        "isim": "Allahümme Salli (Salli)",
+        "ne_zaman": "Sadece son oturuşta, Tahiyyat'tan sonra okunur.",
+        "durum": "sunnet",
+        "dua": "Allâhümme salli alâ Muhammedin ve alâ âli Muhammed. Kemâ salleyte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+        "dua_arapca": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        "anlam": "Allah'ım! İbrahim'e ve İbrahim'in ailesine salat ettiğin gibi, Muhammed'e ve Muhammed'in ailesine de salat et. Şüphesiz sen Hamid'sin, Mecid'sin."
+      },
+      {
+        "id": "barik",
+        "isim": "Allahümme Barik (Barik)",
+        "ne_zaman": "Sadece son oturuşta, Salli'den sonra okunur.",
+        "durum": "sunnet",
+        "dua": "Allâhümme bârik alâ Muhammedin ve alâ âli Muhammed. Kemâ bârekte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+        "dua_arapca": "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        "anlam": "Allah'ım! İbrahim'e ve İbrahim'in ailesine bereket verdiğin gibi, Muhammed'e ve Muhammed'in ailesine de bereket ver. Şüphesiz sen Hamid'sin, Mecid'sin."
+      },
+      {
+        "id": "rabbena_atina",
+        "isim": "Rabbena Atina",
+        "ne_zaman": "Son oturuşta, Salli ve Barik'ten sonra okunur.",
+        "durum": "sunnet",
+        "dua": "Rabbenâ âtinâ fi'd-dünyâ haseneten ve fi'l-âhirati haseneten ve kınâ azâbe'n-nâr.",
+        "dua_arapca": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+        "anlam": "Rabbimiz! Bize dünyada da güzellik ver, ahirette de güzellik ver ve bizi ateşin azabından koru.",
+        "kuran_kaynagi": "Bakara Suresi 2:201"
+      },
+      {
+        "id": "rabbena_gfirli",
+        "isim": "Rabbena Ğfirli",
+        "ne_zaman": "Son oturuşta, Rabbena Atina'dan sonra okunur.",
+        "durum": "sunnet",
+        "dua": "Rabbenağfirli ve li vâlideyye ve li'l-mü'minîne yevme yekûmü'l-hisâb.",
+        "dua_arapca": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
+        "anlam": "Rabbimiz! Hesap gününde beni, annemi-babamı ve tüm müminleri bağışla.",
+        "kuran_kaynagi": "İbrahim Suresi 14:41"
+      },
+      {
+        "id": "kunut",
+        "isim": "Kunut Duası",
+        "ne_zaman": "Bu rehberde anlatılan Hanefî vitirde, son rekâtta zamm-ı sûreden sonra ve rükûdan önce kıyamda okunur. Şâfiî geleneğinde sabah namazında da kunut uygulaması bulunur.",
+        "durum": "vacip",
+        "dua": "Allâhümme innâ neste'înüke ve nestağfirük. Ve nü'minü bike ve netevekkelü aleyke. Ve nüsnî aleyke'l-hayr. Ve neşküruke ve lâ nekfürük. Ve nahleu ve netrükü men yefcürük. Allâhümme iyyâke na'büdü ve leke nüsallî ve nescüdü. Ve ileyke nes'â ve nahfidü. Nercû rahmeteke ve nahşâ azâbek. İnne azâbeke bi'l-küffâri mülhak.",
+        "dua_arapca": "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ وَنَشْكُرُكَ وَلَا نَكْفُرُكَ وَنَخْلَعُ وَنَتْرُكُ مَنْ يَفْجُرُكَ اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَى وَنَحْفِدُ نَرْجُو رَحْمَتَكَ وَنَخْشَى عَذَابَكَ إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحَقٌ",
+        "anlam": "Allah'ım! Senden yardım ister, senden bağışlanma dileriz. Sana iman eder, sana tevekkül ederiz. Seni hayırla överiz. Sana şükreder, nankörlük etmeyiz. Sana karşı geleni terk ederiz. Allah'ım! Yalnız sana ibadet eder, senin için namaz kılar, secde ederiz. Yalnız sana koşar ve hizmet ederiz. Rahmetini umarız, azabından korkarız. Şüphesiz senin azabın kafirlere ulaşır.",
+        "not": "Bu rehber Türkiye’de yaygın Hanefî kunut uygulamasını esas alır. Kunut duasını henüz bilmiyorsan, ezberleyene kadar kısa dualarla veya “Rabbenâ âtinâ” ile devam edebilirsin."
+      }
+    ],
+    "selam": {
+      "id": "selam",
+      "isim": "Selam",
+      "durum": "vacip",
+      "aciklama": "Namaz selam ile tamamlanır. İki tarafa selam verilir.",
+      "adimlar": [
+        {
+          "sira": 1,
+          "aciklama": "Baş yavaşça sağ tarafa çevrilir, gözler sağ omuzun üzerine yönelir.",
+          "dua": "Esselâmü aleyküm ve rahmetullâh.",
+          "dua_arapca": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+          "anlam": "Allah'ın selamı ve rahmeti üzerinize olsun."
+        },
+        {
+          "sira": 2,
+          "aciklama": "Ardından baş sol tarafa çevrilir, gözler sol omuzun üzerine yönelir.",
+          "dua": "Esselâmü aleyküm ve rahmetullâh.",
+          "dua_arapca": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+          "anlam": "Allah'ın selamı ve rahmeti üzerinize olsun."
+        }
+      ],
+      "anlam_notu": "Selam ile namaz tamamlanır. Kişi hem namazdan çıkar hem de sağ ve solundaki meleklere ve varsa cemaatteki müminlere selam vermiş olur."
+    },
+    "vitir_namazi": {
+      "baslik": "Vitir Namazı Nasıl Kılınır?",
+      "durum": "vacip",
+      "rekat": "3 rekat",
+      "ne_zaman": "Yatsı namazından sonra kılınır; vakti gece boyunca sabah namazına kadar sürer. Gece namazı (teheccüd) kılan kişi vitri gecenin sonuna erteleyebilir.",
+      "aciklama": "Bu bölümde Türkiye’de yaygın Hanefî uygulamadaki üç rekâtlık vitir anlatılır. Diğer sünnî mezheplerde vitir bir, üç veya daha farklı rekât tertipleriyle; bazen ayrı selamlarla da kılınabilir. En belirgin Hanefî özellik, son rekâtta rükûdan önce kunut duası okunmasıdır.",
+      "ozellikler": [
+        {
+          "baslik": "Her rekatta zamm-ı sure",
+          "durum": "vacip",
+          "aciklama": "Farz namazların aksine vitirin üç rekatında da Fatiha'dan sonra bir sure (zamm-ı sure) okunur."
+        },
+        {
+          "baslik": "Kunut tekbiri",
+          "durum": "vacip",
+          "aciklama": "3. rekatta zamm-ı sure bittikten sonra, rükûya gitmeden eller kulak hizasına kaldırılıp 'Allâhu Ekber' denir ve eller tekrar bağlanır."
+        },
+        {
+          "baslik": "Kunut duası",
+          "durum": "vacip",
+          "aciklama": "Kunut tekbirinden sonra, rükûya gitmeden Kunut duası okunur. (Kunut duası ve anlamı aşağıdaki 'Dualar' bölümünde mevcuttur.)"
+        }
+      ],
+      "adimlar": [
+        {
+          "rekat": "1. Rekat",
+          "durum": "vacip",
+          "aciklama": "'Niyet ettim Allah rızası için vitir namazını kılmaya' diye niyet edilir, iftitah tekbiri (Allâhu Ekber) alınır. Sübhaneke → Eûzü-Besmele → Fatiha → zamm-ı sure okunur; rükû ve iki secde yapılır."
+        },
+        {
+          "rekat": "2. Rekat",
+          "durum": "vacip",
+          "aciklama": "Besmele → Fatiha → zamm-ı sure okunur; rükû ve iki secde yapılır. Sonra oturulup yalnız Tahiyyat okunur ve 3. rekata kalkılır (Salli-Barik bu oturuşta okunmaz)."
+        },
+        {
+          "rekat": "3. Rekat",
+          "durum": "vacip",
+          "aciklama": "Besmele → Fatiha → zamm-ı sure okunur. Zamm-ı sureden sonra RÜKÛYA GİTMEDEN eller kaldırılıp 'Allâhu Ekber' denir (kunut tekbiri), eller bağlanır ve Kunut duası okunur. Ardından 'Allâhu Ekber' ile rükûya gidilir, iki secde yapılır ve son oturuşa geçilir."
+        },
+        {
+          "rekat": "Son Oturuş",
+          "durum": "farz",
+          "aciklama": "Sırasıyla Tahiyyat → Salli → Barik → Rabbenâ duaları okunur ve önce sağa, sonra sola selâm verilerek namaz tamamlanır."
+        }
+      ],
+      "kunut_dua_id": "kunut",
+      "yaygin_hata": "Türkiye’de yaygın Hanefî uygulamada en sık unutulan şey, üçüncü rekâttaki kunut tekbirinin ve kunut duasının rükûdan önce gelmesidir.",
+      "not": "Bu rehberdeki vitir anlatımı Türkiye’de yaygın Hanefî uygulamayı esas alır. Farklı bir mezhep pratiğini takip edenler kendi geleneklerine göre tek selam, çift selam veya farklı kunut yerleşimleri görebilir."
+    },
+    "rekat_yapisi": {
+      "baslik": "Hangi Rekatta Ne Okunur?",
+      "aciklama": "Karışık gelen en sık soru budur. İşte özet tablo:",
+      "tablo": [
+        {
+          "rekat": "1. Rekat",
+          "subhaneke": "✓ Okunur",
+          "euzu_besmele": "✓ Okunur",
+          "fatiha": "✓ Okunur",
+          "zamm_i_sure": "✓ Okunur (farz ve sünnet)",
+          "oturuş": "-"
+        },
+        {
+          "rekat": "2. Rekat",
+          "subhaneke": "✗ Okunmaz",
+          "euzu_besmele": "Sadece besmele",
+          "fatiha": "✓ Okunur",
+          "zamm_i_sure": "✓ Okunur (farz ve sünnet)",
+          "oturuş": "Tahiyyat okunur (3-4 rekatlıda kalkılır, 2 rekatlıda selam verilir)"
+        },
+        {
+          "rekat": "3. Rekat",
+          "subhaneke": "✗ Okunmaz",
+          "euzu_besmele": "Sadece besmele",
+          "fatiha": "✓ Okunur",
+          "zamm_i_sure": "✗ Farz namazda okunmaz, sünnet namazda okunur",
+          "oturuş": "-"
+        },
+        {
+          "rekat": "4. Rekat",
+          "subhaneke": "✗ Okunmaz",
+          "euzu_besmele": "Sadece besmele",
+          "fatiha": "✓ Okunur",
+          "zamm_i_sure": "✗ Farz namazda okunmaz, sünnet namazda okunur",
+          "oturuş": "Tüm dualar okunur (Tahiyyat + Salli + Barik + Rabbena)"
+        }
+      ],
+      "ozet_notu": "Kısaca: Sübhaneke ve Euzü sadece ilk rekatta. Zamm-ı sure farz namazda ilk iki rekatta, sünnet namazda her rekatta. Fatiha her rekatta."
+    },
+    "yeni_baslayan_notu": {
+      "baslik": "Yeni Başlıyorum, Ne Yapmalıyım?",
+      "maddeler": [
+        "Önce namazın temel akışını öğren: tekbir, kıyam, kıraat, rükû, secde ve selam.",
+        "Kunut duasını veya uzun duaları hemen ezberleyemiyorsan kısa dualarla başlayıp zamanla tamamlayabilirsin.",
+        "Fatiha’dan sonra eklemek için önce İhlas gibi kısa bir sûre öğrenmen işini çok kolaylaştırır.",
+        "Sünnet ve mezhep ayrıntılarını zamanla ekleyebilirsin; başlangıçta her şeyi aynı anda kusursuz yapmak gerekmez.",
+        "Eksiklerini öğrenmeye devam ederek namazı sürdürmek, tamamen bırakmaktan daha hayırlıdır."
+      ]
+    },
+    "meta": {
+      "etiketler": [
+        "namaz",
+        "dua",
+        "farz",
+        "sünnet",
+        "vacip",
+        "rekat",
+        "zamm-ı sure",
+        "kunut",
+        "selam",
+        "niyet",
+        "vitir namazı"
+      ],
+      "ilgili_dersler": [
+        "harf_i_tarif",
+        "elif_ba"
+      ]
+    },
+    "kapsam_notu": "Bu rehber Türkiye’de yaygın Hanefî anlatımı merkeze alır; ancak namazın özü ve temel adımları bütün Müslümanlar için ortaktır. Ellerin bağlanma yeri, Fâtiha ve zamm-ı sûre hükümleri, vitir ve kunut gibi bazı ayrıntılarda mezhepler arasında farklı uygulamalar bulunabilir."
+  }
+}

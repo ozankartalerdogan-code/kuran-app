@@ -74,6 +74,7 @@ export function NotlarimClient() {
   }, [loadNotes]);
 
   function deleteNote(verseKey: string) {
+    if (!window.confirm("Bu notu silmek istediğinize emin misiniz?")) return;
     const raw = getNotes();
     delete raw[verseKey];
     setNotes(raw);
@@ -81,6 +82,7 @@ export function NotlarimClient() {
   }
 
   function clearAll() {
+    if (!window.confirm("Tüm notları silmek istediğinize emin misiniz?")) return;
     setNotes({});
     setNotesState([]);
     setError(null);

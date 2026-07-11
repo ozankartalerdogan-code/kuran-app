@@ -1,0 +1,113 @@
+{
+  "ders_id": "iman-esaslari",
+  "baslik": "İman Esasları",
+  "aciklama": "İslam'ın temel inanç ilkeleri olan imanın altı şartını öğren.",
+  "kartlar": [
+    {
+      "id": "iman_k01",
+      "tip": "metin",
+      "baslik": "İman Nedir?",
+      "icerik": "Cibril hadisine göre iman: \"İman; Allah'a, meleklerine, kitaplarına, peygamberlerine, ahiret gününe, hayır ve şerriyle kadere inanmaktır.\" (Buhârî, İman 37; Müslim, İman 1)\n\nHz. Cebrail insan suretinde Hz. Peygamber'e gelerek İslam'ı, imanı ve ihsanı (Allah'ı görüyormuş gibi kulluk bilinci) sormuştur. Bu hadis, imanın altı şartını öğreten temel kaynak olarak kabul edilmektedir.",
+      "vurgu": "İmanın altı şartı — Cibril hadisi (Buhârî ve Müslim)"
+    },
+    {
+      "id": "iman_k02",
+      "tip": "metin",
+      "baslik": "İslam'ın 5 Şartı ile İmanın 6 Şartı Farkı",
+      "icerik": "İslam'ın 5 Şartı (eyleme dönük ibadetler):\n• Kelime-i Şehadet\n• Namaz\n• Oruç\n• Zekat\n• Hac\n\nİmanın 6 Şartı (kalbe dönük inançlar):\n• Allah'a iman\n• Meleklere iman\n• Kitaplara iman\n• Peygamberlere iman\n• Ahiret gününe iman\n• Kaza ve kadere iman\n\nİslam dışa görünen ibadetleri, iman ise içe dönük inanç esaslarını ifade eder.",
+      "vurgu": "İslam'ın şartları eylem · İmanın şartları kalp"
+    },
+    {
+      "id": "iman_k03",
+      "tip": "metin",
+      "baslik": "Allah'a İman (Tevhid)",
+      "icerik": "Tevhid, Allah'ın bir ve tek olduğuna, ortağı ve benzeri bulunmadığına inanmaktır. Bu, imanın birinci ve en temel şartıdır.\n\nAllah; ezeli (başlangıcı yok), ebedi (sonu yok), hiçbir şeye muhtaç değil, her şeyin yaratıcısı ve sahibidir.\n\nİhlas Suresi (112/1-4):\n\"De ki: O Allah'tır, bir tektir.\nAllah Samed'dir (her şey O'na muhtaç, O hiçbir şeye muhtaç değil).\nO doğurmamış ve doğurulmamıştır.\nHiçbir şey O'na denk değildir.\"",
+      "vurgu": "Tevhid: Allah bir ve tektir, ortağı ve benzeri yoktur — İhlas 112/1-4"
+    },
+    {
+      "id": "iman_k04",
+      "tip": "metin",
+      "baslik": "Meleklere İman",
+      "icerik": "Melekler, Allah'ın nurdan yarattığı, gözle görülmeyen varlıklardır.\n\nTemel özellikleri:\n• Nurdan yaratılmışlardır\n• Günah işlemezler; Allah'ın emirlerine kesinlikle uyarlar\n• Her şekle girebilirler\n• Yemezler, içmezler, uyumazlar\n• Cinsiyetleri yoktur\n\nAllah'ın kulları ve memurları olan meleklere iman etmek, imanın ikinci şartıdır.",
+      "vurgu": "Melekler nurdan yaratılmış, günah işlemez varlıklardır"
+    },
+    {
+      "id": "iman_k05",
+      "tip": "metin",
+      "baslik": "Dört Büyük Melek ve Görevleri",
+      "icerik": "Dört büyük melek ve görevleri:\n\n• Cebrail (a.s.): Peygamberlere Allah'ın vahyini (Allah'tan gelen ilahi bilgiyi) iletmekle görevlidir. Kur'an'da \"Ruh-ul Kudüs\" (mukaddes/temiz ruh) ve \"Ruh-ul Emin\" (güvenilir ruh) olarak da anılır.\n\n• Mikail (a.s.): Allah'ın izniyle yağmur, rüzgar ve tabiat olaylarıyla ilgili görevleri yürütür.\n\n• İsrafil (a.s.): Kıyametin kopması ve insanların yeniden dirilişi için sura (mahiyetini tam bilemediğimiz ilahi çağrı/boru) üfleyecektir.\n\n• Azrail (a.s.): Can almakla görevlidir; melek-ül mevt (ölüm meleği) olarak bilinir.",
+      "vurgu": "Cebrail: vahiy · Mikail: tabiat · İsrafil: sur · Azrail: can"
+    },
+    {
+      "id": "iman_k06",
+      "tip": "metin",
+      "baslik": "Diğer Melekler",
+      "icerik": "Dört büyük meleğin yanı sıra özel görevleri olan başka melekler de vardır:\n\n• Kiramen Katibin (değerli yazıcılar): Her insanın sağında ve solunda bulunarak amellerini (iyi ve kötü davranışlarını) kaydeden meleklerdir.\n\n• Münker ve Nekir: Kişi öldükten sonra kabir sorgusunda görevli meleklerdir. \"Rabbin kim? Dinin ne? Peygamberin kim?\" soruları bu başlık altında anlatılır.\n\n• Hafaza Melekleri (koruyucu melekler): Allah'ın izniyle insanları korumakla görevli meleklerdir.",
+      "vurgu": "Kiramen Katibin: amel yazar · Münker-Nekir: kabir sorusu sorar"
+    },
+    {
+      "id": "iman_k07",
+      "tip": "metin",
+      "baslik": "Kitaplara İman",
+      "icerik": "Allah, insanlığa peygamberleri aracılığıyla ilahi kitaplar göndermiştir. Dört büyük kitap:\n\n• Tevrat → Hz. Musa'ya indirildi\n• Zebur → Hz. Davud'a indirildi\n• İncil → Hz. İsa'ya indirildi\n• Kur'an-ı Kerim → Hz. Muhammed'e indirildi\n\nMüslümanlar, bu kitapların Allah tarafından gönderildiğine inanır. Kur'an, önceki vahiyleri tasdik eden ve tahrifatı (sonradan oluşan bozulma/değiştirmeleri) düzelten, Allah'ın koruma altına aldığı son ilahi kitaptır.\nAyet: \"Şüphesiz Zikr'i biz indirdik; onu koruyacak olan da biziz.\" (Hicr, 15/9)",
+      "vurgu": "Tevrat·Zebur·İncil·Kur'an — Kur'an korunmuş son kitaptır"
+    },
+    {
+      "id": "iman_k08",
+      "tip": "metin",
+      "baslik": "Suhuf (Sahifeler)",
+      "icerik": "Büyük kitaplar dışında bazı peygamberlere daha kısa vahiy sayfaları verilmiştir. Bu sayfalara suhuf (sahifeler, yani ilahi sayfalar) denir.\n\nYaygın ilmihal bilgisinde suhuf alan peygamberler şöyle öğretilir:\n• Hz. Adem'e 10 sahife\n• Hz. Şit'e 50 sahife\n• Hz. İdris'e 30 sahife\n• Hz. İbrahim'e 10 sahife\n\nBazı kaynaklarda Hz. Musa'ya verilen levhalar/sayfalar da ayrıca anılır. Bu sahifeler günümüze özgün haliyle ulaşmamıştır.",
+      "vurgu": "Suhuf: Adem 10 · Şit 50 · İdris 30 · İbrahim 10 sahife"
+    },
+    {
+      "id": "iman_k09",
+      "tip": "metin",
+      "baslik": "Peygamberlere İman",
+      "icerik": "Allah, insanlara doğru yolu göstermek için tarih boyunca peygamberler göndermiştir.\n\n• Peygamberlerin ilki: Hz. Adem (a.s.)\n• Peygamberlerin sonuncusu: Hz. Muhammed (s.a.s.) — \"Hatemü'n-Nebiyyîn\" (Peygamberlerin Mührü, yani son peygamber)\n• Kur'an'da 25 peygamberin adı geçmektedir\n• Müslüman, Allah'ın gönderdiği bütün peygamberlere iman eder; peygamberlerden birini bilerek reddetmek iman açısından ciddi bir problemdir\n\nAyet: \"Muhammed, erkeklerinizden hiçbirinin babası değildir; fakat O, Allah'ın elçisi ve peygamberlerin sonuncusudur.\" (Ahzab, 33/40)",
+      "vurgu": "İlk: Hz. Adem · Son: Hz. Muhammed · Aralarında fark gözetilmez"
+    },
+    {
+      "id": "iman_k10",
+      "tip": "metin",
+      "baslik": "Nebi ve Resul Farkı",
+      "icerik": "Peygamberler klasik kaynaklarda nebi ve resul başlıklarıyla anlatılır:\n\nNebi: Kendisine vahiy (Allah'tan ilahi bilgi) gelen; fakat yeni bir şeriat (dinî hüküm ve uygulama düzeni) getirmeyen peygamber.\n\nResul: Kendisine yeni bir şeriat veya önceki hükümleri yenileyen özel bir tebliğ görevi verilen peygamber.\n\nTemel kural:\n• Her resul aynı zamanda nebidir\n• Ancak her nebi resul değildir\n• Resul sayısı daha az, nebi sayısı daha fazladır",
+      "vurgu": "Her resul nebidir · Ama her nebi resul değildir"
+    },
+    {
+      "id": "iman_k11",
+      "tip": "metin",
+      "baslik": "Ahiret Gününe İman",
+      "icerik": "Ahiret gününe iman, ölümden sonraki hayatın tüm aşamalarına inanmayı kapsar:\n\n• Kabir Hayatı: Ölümden kıyamete kadar süren berzah (geçiş) dönemi\n• Kıyamet: Dünyanın ve evrenin sona ermesi\n• Ba's (diriliş): Tüm insanların yeniden diriltilmesi\n• Mahşer (toplanma yeri): Hesap için tüm insanların bir araya getirilmesi\n• Mizan (ilahi ölçü/terazi): Amellerin tartılması\n• Sırat (ahiret köprüsü): Cehennem üzerindeki köprüden geçiş\n• Cennet ve Cehennem: Ebedi ödül ve ceza mekânları",
+      "vurgu": "Kabir → Kıyamet → Mahşer → Mizan → Sırat → Cennet/Cehennem"
+    },
+    {
+      "id": "iman_k12",
+      "tip": "metin",
+      "baslik": "Kabir Hayatı",
+      "icerik": "Ölümün ardından başlayan kabir hayatı, berzah (geçiş) hayatıdır.\n\nKabir sorgusunda Münker ve Nekir meleklerinin şu temel soruları soracağı anlatılır:\n1. \"Rabbin kim?\"\n2. \"Dinin ne?\"\n3. \"Peygamberin kim?\"\n\nİmanla yaşayan kimse için kabir nimeti; inkâr ve nifak üzere ölen kimseler için kabir azabı söz konusudur. Günahkâr müminlerle ilgili nihai hüküm ise Allah'ın rahmetine ve adaletine bağlıdır.\n\nKabir hayatı, kıyamet kopana kadar devam eder.",
+      "vurgu": "Münker-Nekir: Rabbin kim? Dinin ne? Peygamberin kim?"
+    },
+    {
+      "id": "iman_k13",
+      "tip": "metin",
+      "baslik": "Kıyamet Alametleri",
+      "icerik": "Kıyametin alametleri iki gruba ayrılır:\n\nKüçük Alametler: Kıyametin yaklaştığını gösteren pek çok belirti (ilmin azalması, kötülüğün artması, fitne ve savaşların çoğalması vb.).\n\nBüyük Alametler: Kıyamete çok yakın dönemde gerçekleşeceği bildirilen büyük olaylardır. Müslim, Fiten 39'da 10 alamet sayılır:\n• Deccal'in (büyük fitne sebebi olacak yalancı/aldatıcı kişi) çıkması\n• Hz. İsa'nın (Mesih: Allah'ın peygamberi Hz. İsa) yeryüzüne inmesi\n• Ye'cüc ve Me'cüc'ün (büyük bozguncu topluluklar) çıkması\n• Güneşin batıdan doğması\n• Dumanın, yani duhanın ortaya çıkması\n• Dâbbetü'l-Arz'ın (yerden çıkacağı bildirilen özel varlık/alamet) ortaya çıkması\n• Doğu'da büyük yer batması\n• Batı'da büyük yer batması\n• Arap yarımadasında yer batması\n• İnsanları mahşere (hesap için toplanma yerine) sürecek Yemen'den çıkan büyük ateş\n\nBu konular gaybîdir (duyularla bilinmeyen alanla ilgilidir); ayrıntılarında kesin konuşmadan, sahih kaynakların bildirdiği kadarına inanılır.",
+      "vurgu": "Büyük alametler gaybî konulardır; kaynakların bildirdiği ölçüde anlatılır"
+    },
+    {
+      "id": "iman_k14",
+      "tip": "metin",
+      "baslik": "Kaza ve Kadere İman",
+      "icerik": "İmanın altıncı şartı kadere imandır.\n\nKader: Allah'ın her şeyi ezelde (başlangıcı olmayan ilmiyle) bilmesi, takdir etmesi ve yazmasıdır.\n\nKaza: Allah'ın takdir ettiği şeylerin zamanı gelince yaratılarak gerçekleşmesidir.\n\nCibril hadisinde iman tanımı: \"...hayır ve şerriyle kadere inanmaktır.\" (Buhârî, İman 37; Müslim, İman 1)\n\nKadere iman, insanın irade ve sorumluluğunu ortadan kaldırmaz. İnsan doğruyu seçmekle yükümlüdür; sonuç ise Allah'ın ilmi, kudreti ve takdiri içinde gerçekleşir.",
+      "vurgu": "Kader: Allah'ın ezeli ilmi · Kaza: olayların yaratılması"
+    },
+    {
+      "id": "iman_k15",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "İman esaslarının ana çerçevesi Müslümanlar arasında ortaktır: Allah'a, meleklerine, kitaplarına, peygamberlerine, ahirete ve kadere iman.\n\nBazı ayrıntılarda âlimler farklı açıklamalar yapmıştır:\n\n• Maturidi/Hanefi çizgisi: İmanın özü tasdiktir (kalben doğrulama). Ameller imanın çok önemli sonucu ve tamamlayıcısıdır; fakat büyük günah işleyen kişi sırf bu yüzden dinden çıkmış sayılmaz.\n\n• Eş'ari ve Hanbeli çizgilerde: Amellerin imanı güçlendiren yönü daha çok vurgulanır. İmanın ibadetle güçlenmesi, günahla zayıflaması üzerinde durulur.\n\n• Kader meselesi: Ehl-i Sünnet (Maturidi ve Eş'ari ana çizgi) Allah'ın ilmini ve yaratmasını kabul ederken insanın irade ve sorumluluğunu da korur. Mutezile gibi bazı ekoller insan iradesini daha farklı açıklamıştır.\n\n• Şia içinde özellikle İmâmiyye Şiası, imamet (Hz. Ali soyundan gelen imamların dinî rehberliği) konusuna özel önem verir.\n\nYeni öğrenen biri için temel ölçü şudur: Altı iman esasını doğru öğrenmek, sorumluluk bilinciyle yaşamak ve ayrıntılı mezhep tartışmalarını acele hükme dönüştürmemek.\n\n🎉 İmanın Şartları dersini tamamladın! Daha fazla ayet ve açıklama için {{link:ibadet-inanc|İbadet Rehberi}}'nin İnanç bölümüne göz atabilir; hazır hissediyorsan aşağıdaki 'Teste Başla' butonuyla kendini sınayabilirsin.",
+      "vurgu": "Ana iman esasları ortaktır; ayrıntılar öğrenirken sade ve dikkatli anlatılmalıdır"
+    }
+  ],
+  "quiz_havuzu_id": "iman-esaslari"
+}

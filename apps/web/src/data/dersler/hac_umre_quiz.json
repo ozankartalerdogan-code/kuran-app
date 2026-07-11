@@ -1,0 +1,757 @@
+{
+  "quiz_id": "hac-umre",
+  "baslik": "Hac & Umre",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "hac_001",
+      "konu": "temel",
+      "soru": "Hac İslam'ın kaçıncı şartıdır?",
+      "secenekler": [
+        "A) 2.",
+        "B) 3.",
+        "C) 4.",
+        "D) 5."
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hac, İslam'ın beş şartından beşincisidir: Kelime-i Şehadet, Namaz, Oruç, Zekat ve Hac.",
+      "zorluk": "kolay",
+      "kaynak": "Al-i İmran, 3/97"
+    },
+    {
+      "id": "hac_002",
+      "konu": "temel",
+      "soru": "Hac bir Müslümana ömründe kaç kez farzdır?",
+      "secenekler": [
+        "A) Her yıl",
+        "B) 3 kez",
+        "C) 5 kez",
+        "D) 1 kez"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Gücü yeten her Müslümana hac ömründe bir kez farzdır.",
+      "zorluk": "kolay",
+      "kaynak": "Al-i İmran, 3/97"
+    },
+    {
+      "id": "hac_003",
+      "konu": "arafat",
+      "soru": "Arafat vakfesi Zilhicce'nin kaçıncı günü yapılır?",
+      "secenekler": [
+        "A) 7. günü",
+        "B) 8. günü",
+        "C) 9. günü",
+        "D) 10. günü"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Arafat vakfesi Zilhicce'nin 9. günü (Arefe günü) yapılır.",
+      "zorluk": "kolay",
+      "kaynak": "Ebu Davud, Menasik 69"
+    },
+    {
+      "id": "hac_004",
+      "konu": "tavaf",
+      "soru": "Tavafta Kâbe kaç kez dolaşılır?",
+      "secenekler": [
+        "A) 5 kez",
+        "B) 6 kez",
+        "C) 7 kez",
+        "D) 9 kez"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tavafta Kâbe 7 kez dolaşılır. Her bir dönüşe şavt denir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_005",
+      "konu": "tavaf",
+      "soru": "Tavaf hangi yönde yapılır?",
+      "secenekler": [
+        "A) Saat yönünde",
+        "B) Saat yönünün tersine",
+        "C) Her iki yönde dönüşümlü",
+        "D) Doğudan batıya"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tavaf, Kâbe solda bırakılarak saat yönünün tersine yapılır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_006",
+      "konu": "say",
+      "soru": "Sa'y hangi iki tepe arasında yapılır?",
+      "secenekler": [
+        "A) Hira ile Nur",
+        "B) Safa ile Merve",
+        "C) Mina ile Arafat",
+        "D) Safa ile Mina"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sa'y, Safa ile Merve tepeleri arasında yapılan ibadettir. Safa ile Merve, Kur'an'da Allah'ın şeairi (dinî işaretleri) olarak anılır.",
+      "zorluk": "kolay",
+      "kaynak": "Bakara, 2/158"
+    },
+    {
+      "id": "hac_007",
+      "konu": "say",
+      "soru": "Sa'y kaç şavttan (turdan) oluşur?",
+      "secenekler": [
+        "A) 5",
+        "B) 6",
+        "C) 7",
+        "D) 8"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sa'y 7 şavttan oluşur. Safa'dan Merve'ye gidiş 1, Merve'den Safa'ya dönüş 2. şavt sayılır ve 7. şavt Merve'de biter.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_008",
+      "konu": "say",
+      "soru": "Sa'ya hangi tepeden başlanır?",
+      "secenekler": [
+        "A) Safa",
+        "B) Merve",
+        "C) Hira",
+        "D) Mina"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Sa'y Safa'dan başlanır ve 7. şavt Merve'de tamamlanır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_009",
+      "konu": "umre",
+      "soru": "Umre yılın hangi zamanında yapılabilir?",
+      "secenekler": [
+        "A) Yalnızca Zilhicce'de",
+        "B) Yalnızca hac mevsiminde",
+        "C) Her zaman",
+        "D) Yalnızca Ramazan'da"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Umre, belirli bir mevsimle sınırlı olmaksızın yılın her zamanında yapılabilir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_010",
+      "konu": "ihram",
+      "soru": "Telbiye hangi kelimeyle başlar?",
+      "secenekler": [
+        "A) \"Allahu Ekber\"",
+        "B) \"Lebbeyk\"",
+        "C) \"Sübhanallah\"",
+        "D) \"Elhamdülillah\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Telbiye \"Lebbeyk Allahümme lebbeyk...\" ifadesiyle başlar. Anlamı: \"Buyur Allah'ım, buyur!\"",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_011",
+      "konu": "tavaf",
+      "soru": "Ziyaret tavafının hükmü nedir?",
+      "secenekler": [
+        "A) Sünnet",
+        "B) Vacip",
+        "C) Farz",
+        "D) Müstehap"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ziyaret tavafı haccın farzlarından biridir. Bayram günlerinden itibaren yapılır; ilk günlerde yapılması esastır, geciktirme hükümleri mezheplere göre değişebilir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_012",
+      "konu": "mina",
+      "soru": "Şeytan taşlama nerede yapılır?",
+      "secenekler": [
+        "A) Mina'da",
+        "B) Arafat'ta",
+        "C) Mekke'de",
+        "D) Müzdelife'de"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Şeytan taşlama, Mina'daki cemrelere gerçekleştirilir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_013",
+      "konu": "mina",
+      "soru": "Şeytan taşlamada kaç cemre taşlanır?",
+      "secenekler": [
+        "A) 1",
+        "B) 2",
+        "C) 3",
+        "D) 4"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Mina'da küçük, orta ve büyük (Akabe) olmak üzere üç cemre taşlanır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_014",
+      "konu": "mina",
+      "soru": "Şeytan taşlamada her cemreye kaç taş atılır?",
+      "secenekler": [
+        "A) 5",
+        "B) 6",
+        "C) 7",
+        "D) 9"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Her cemreye 7 taş atılır ve her taş atışında \"Bismillah Allahu Ekber\" denir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_015",
+      "konu": "mina",
+      "soru": "Şeytan taşlarken ne söylenir?",
+      "secenekler": [
+        "A) \"Allahu Ekber\"",
+        "B) \"Bismillah Allahu Ekber\"",
+        "C) \"Sübhanallah\"",
+        "D) \"Lebbeyk\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Her taş atışında \"Bismillah Allahu Ekber\" denir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_016",
+      "konu": "ihram",
+      "soru": "İhramda erkeğin giymesi gereken kıyafet için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Beyaz takım elbise",
+        "B) Dikişsiz iki örtü; beyaz tercih edilir ama şart değildir",
+        "C) Siyah cübbe",
+        "D) Normal tesettür giysisi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Erkekler ihramda dikişsiz iki örtüye bürünür. Beyaz renk tercih edilir ama ihramın şartı değildir. Kadınlar normal tesettür kıyafeti giyer.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_017",
+      "konu": "umre",
+      "soru": "Umre kaç adımdan oluşur?",
+      "secenekler": [
+        "A) 3",
+        "B) 4",
+        "C) 5",
+        "D) 6"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Umre; ihram, tavaf, sa'y ve tıraş/saç kısaltmak olmak üzere 4 ana adımdan oluşur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_018",
+      "konu": "say",
+      "soru": "Sa'y hangi kişinin su arayışını anmak için yapılır?",
+      "secenekler": [
+        "A) Hz. İbrahim",
+        "B) Hz. İsmail",
+        "C) Hz. Hacer",
+        "D) Hz. Hatice"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sa'y, Hz. Hacer'in çocuğu İsmail için su arayışını simgeler.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_019",
+      "konu": "arafat",
+      "soru": "Arafat vakfesinden sonra nereye hareket edilir?",
+      "secenekler": [
+        "A) Mina'ya",
+        "B) Mekke'ye",
+        "C) Müzdelife'ye",
+        "D) Medine'ye"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Akşam ezanından sonra Müzdelife'ye hareket edilir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_020",
+      "konu": "ihram",
+      "soru": "Aşağıdakilerden hangisi ihramlıya yasaktır?",
+      "secenekler": [
+        "A) Namaz kılmak",
+        "B) Saç ve tırnak kesmek",
+        "C) Su içmek",
+        "D) Dua etmek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "İhramlıya saç/tırnak kesmek, koku sürmek, avlanmak ve cinsel ilişki yasaktır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_021",
+      "konu": "arafat",
+      "soru": "Arafat vakfesinin zamanı için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Sadece sabahtan öğleye kadardır",
+        "B) Arefe günü öğleden bayram gecesi fecrine kadar süren vakitte yapılır",
+        "C) Sadece akşamdan sabaha kadardır",
+        "D) Yalnızca bayram günü yapılır"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Arafat vakfesinin zamanı Arefe günü öğle vaktinden bayram gecesi fecrine kadar devam eder. Gündüz Arafat'a gelen hacının güneş batımına kadar kalması Hanefi uygulamasında vacip olarak öğretilir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_022",
+      "konu": "tavaf",
+      "soru": "Tavaf hangi taşın hizasından başlanır?",
+      "secenekler": [
+        "A) Hacerü'l-Esved",
+        "B) Makam-ı İbrahim",
+        "C) Rükn-ü Yemani",
+        "D) Zemzem kuyusu"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Tavaf Hacerü'l-Esved'den başlanır ve her şavt Hacerü'l-Esved'de tamamlanır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_023",
+      "konu": "farzlar",
+      "soru": "Aşağıdakilerden hangisi haccın farzlarından biridir?",
+      "secenekler": [
+        "A) Sa'y",
+        "B) Şeytan taşlama",
+        "C) Arafat vakfesi",
+        "D) Kurban kesmek"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hanefi mezhebine göre haccın farzları ihram, Arafat vakfesi ve ziyaret tavafıdır. Sa'y diğer mezheplerde rükün kabul edilebilir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_024",
+      "konu": "umre",
+      "soru": "Umrenin son adımı nedir?",
+      "secenekler": [
+        "A) İhram giymek",
+        "B) Tavaf",
+        "C) Sa'y",
+        "D) Tıraş veya saç kısaltmak"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Umrenin dördüncü ve son adımı tıraş olmak veya saç kısaltmaktır. Bu adımla ihramdan çıkılır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_025",
+      "konu": "mina",
+      "soru": "Temettu veya kıran haccında bayramın 1. günü genel sıra hangisidir?",
+      "secenekler": [
+        "A) Tavaf → Kurban → Tıraş → Cemre",
+        "B) Cemre → Kurban → Tıraş → Ziyaret tavafı",
+        "C) Tıraş → Cemre → Kurban → Tavaf",
+        "D) Kurban → Cemre → Tıraş → Tavaf"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Temettu veya kıran haccında genel sıra: Akabe cemresi → Hedy (hac kurbanı) → Tıraş → Ziyaret tavafı şeklindedir. İfrad haccında hedy kurbanı vacip değildir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_026",
+      "konu": "ihram",
+      "soru": "İhramdan nasıl çıkılır?",
+      "secenekler": [
+        "A) Selam vererek",
+        "B) Saçların tıraş edilmesi veya kısaltılmasıyla",
+        "C) Mekke'den ayrılarak",
+        "D) Gusül abdesti alarak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Saçların tıraş edilmesi veya kısaltılmasıyla ihramdan çıkılır. Ziyaret tavafından sonra tamamen ihramdan çıkılmış olur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_027",
+      "konu": "temel",
+      "soru": "Haccın farz olma şartlarından hangisi doğrudur?",
+      "secenekler": [
+        "A) Arapça bilmek",
+        "B) Evli olmak",
+        "C) Yol güvenliğinin bulunması",
+        "D) 40 yaşından büyük olmak"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Haccın farz olma şartları: Müslüman olmak, akıl sahibi olmak, erginlik, maddi imkân, sağlık ve yol güvenliği.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_028",
+      "konu": "arafat",
+      "soru": "\"Hac Arafat'tır\" sözü kime aittir?",
+      "secenekler": [
+        "A) Hz. Ebubekir",
+        "B) Hz. Ömer",
+        "C) Hz. Peygamber",
+        "D) Hz. Ali"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Hac Arafat'tır\" Hz. Peygamber'in hadisidir. Arafat vakfesinin haccın özü olduğunu gösterir.",
+      "zorluk": "orta",
+      "kaynak": "Ebu Davud, Menasik 69; Tirmizi, Hac 57"
+    },
+    {
+      "id": "hac_029",
+      "konu": "umre",
+      "soru": "Hac ile umrenin ortak adımları hangileridir?",
+      "secenekler": [
+        "A) Arafat vakfesi ve tavaf",
+        "B) Şeytan taşlama ve tavaf",
+        "C) İhram, tavaf, sa'y ve tıraş",
+        "D) Kurban ve tavaf"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hac ve umrenin ortak adımları ihram, tavaf, sa'y ve tıraştır. Arafat vakfesi, Müzdelife, Mina ve şeytan taşlama yalnızca hacda bulunur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_030",
+      "konu": "tavaf",
+      "soru": "Ziyaret tavafı için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Hacdan önce yapılır",
+        "B) Bayram günlerinden itibaren yapılan haccın farz tavafıdır",
+        "C) Arafat vakfesinden önce yapılır",
+        "D) Sadece Mekke'ye ilk varışta yapılır"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ziyaret tavafı haccın farz tavafıdır. Bayram günlerinden itibaren yapılır; ilk günlerde yapılması esastır, geciktirme hükümleri mezheplere göre değişebilir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_031",
+      "konu": "tavaf",
+      "soru": "Veda tavafı ne zaman yapılır?",
+      "secenekler": [
+        "A) Hacdan önce",
+        "B) Arafat'ta",
+        "C) Mekke'den ayrılmadan önce",
+        "D) Kurban günü"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Veda tavafı Mekke'den ayrılmadan önce yapılır. Hükmü mezheplere göre vacip veya sünnet olarak değerlendirilir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_032",
+      "konu": "ihram",
+      "soru": "İhrama girilmesi gereken sınırın adı nedir?",
+      "secenekler": [
+        "A) Arafat",
+        "B) Mikat",
+        "C) Mina",
+        "D) Müzdelife"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Mikat, hac veya umre için ihrama girilmesi gereken sınırdır. Mikat geçilmeden ihrama girilmelidir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_033",
+      "konu": "temel",
+      "soru": "Haccın farz olması için gereken maddi imkân şartı neyi kapsar?",
+      "secenekler": [
+        "A) Yol ve geçim masrafları",
+        "B) Yalnızca uçak bileti",
+        "C) Hedy kurbanı bedeli",
+        "D) Yalnızca konaklama masrafı"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Maddi imkân şartı; gidip dönüş yol masraflarını ve Mekke'deki geçim masraflarını karşılayabilmeyi kapsar.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_034",
+      "konu": "say",
+      "soru": "Sa'yde yeşil ışıklar arasında erkekler ne yapar?",
+      "secenekler": [
+        "A) Yavaş yürür",
+        "B) Hızlı yürür veya hafif koşar",
+        "C) Durup dua eder",
+        "D) Geri yürür"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sa'yde yeşil ışıklar arasındaki bölümde erkekler hızlı yürür veya hafif koşar; kadınlar normal yürür.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_035",
+      "konu": "ihram",
+      "soru": "Aşağıdakilerden hangisi ihramlıya yasak DEĞİLDİR?",
+      "secenekler": [
+        "A) Saç kesmek",
+        "B) Koku sürmek",
+        "C) Avlanmak",
+        "D) Dua etmek"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Dua etmek ihramlıya yasak değildir. Yasaklar: saç/tırnak kesmek, koku sürmek, avlanmak ve cinsel ilişki.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_036",
+      "konu": "mina",
+      "soru": "Hedy nedir?",
+      "secenekler": [
+        "A) İhram örtüsü",
+        "B) Telbiye duası",
+        "C) Temettu ve kıran haccında kesilen hac kurbanı",
+        "D) Cemre taşı"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hedy, hac kurbanıdır. Temettu ve kıran haccında vacip kabul edilir; ifrad haccında ayrıca hedy kurbanı vacip değildir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_037",
+      "konu": "umre",
+      "soru": "Hz. Peygamber'e göre iki umre arasındaki günahlara ne olur?",
+      "secenekler": [
+        "A) Kaza gerekir",
+        "B) Fidye ödenir",
+        "C) Kefaret olarak silinir",
+        "D) Bir şey olmaz"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Peygamber: \"İki umre aralarındaki günahlara kefarettir.\" (Buhari, Umre 1; Müslim, Hac 437)",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Umre 1; Müslim, Hac 437"
+    },
+    {
+      "id": "hac_038",
+      "konu": "mina",
+      "soru": "Kurban bayramının 2. ve 3. günlerinde şeytan taşlama nasıl yapılır?",
+      "secenekler": [
+        "A) Yalnızca Akabe cemresine",
+        "B) Yalnızca küçük cemreye",
+        "C) Üç cemreye de",
+        "D) Taşlama yapılmaz"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "2. ve 3. günlerde küçük, orta ve büyük (Akabe) olmak üzere üç cemreye de 7'şer taş atılır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_039",
+      "konu": "umre",
+      "soru": "Hac ile umre arasındaki temel fark nedir?",
+      "secenekler": [
+        "A) Umrede ihram gerekmez",
+        "B) Hac belirli günlerde, umre her zaman yapılır",
+        "C) Umrede tavaf yapılmaz",
+        "D) Hacda sa'y yoktur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hac belirli hac günlerinde yapılır; umre ise yılın her zamanında yapılabilir. Hacda Arafat, Müzdelife, Mina ve şeytan taşlama vardır; umrede yoktur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_040",
+      "konu": "mina",
+      "soru": "Şeytan taşlama hangi olayı simgeler?",
+      "secenekler": [
+        "A) Hz. Muhammed'in Mekke'yi fethetmesini",
+        "B) Hz. Hacer'in su arayışını",
+        "C) Hz. İbrahim'in şeytanı taşlamasını",
+        "D) Hz. İsmail'in kurban edilmesini"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Şeytan taşlama, Hz. İbrahim'in şeytanı taşlamasını simgeler.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_041",
+      "konu": "kaynak",
+      "soru": "\"Kabul edilmiş haccın karşılığı ancak cennettir\" hadisinin kaynağı hangisidir?",
+      "secenekler": [
+        "A) Buhari, Umre 1; Müslim, Hac 437",
+        "B) Ebu Davud, Menasik 1",
+        "C) Tirmizi, Hac 57",
+        "D) İbn Mace, Menasik 5"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bu hadis hem Buhari (Umre 1) hem de Müslim'de (Hac 437) geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "Buhari, Umre 1; Müslim, Hac 437"
+    },
+    {
+      "id": "hac_042",
+      "konu": "kaynak",
+      "soru": "\"Hac Arafat'tır\" hadisinin kaynağı hangisidir?",
+      "secenekler": [
+        "A) Buhari, Savm 2",
+        "B) Ebu Davud, Menasik 69; Tirmizi, Hac 57",
+        "C) Müslim, Hac 412",
+        "D) İbn Mace, Menasik 5"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Hac Arafat'tır\" hadisi Ebu Davud (Menasik 69) ve Tirmizi'de (Hac 57) geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "Ebu Davud, Menasik 69; Tirmizi, Hac 57"
+    },
+    {
+      "id": "hac_043",
+      "konu": "kaynak",
+      "soru": "\"Peş peşe hac ve umre yapın, fakirliği ve günahları giderir\" hadisinin kaynağı hangisidir?",
+      "secenekler": [
+        "A) Buhari, Umre 1",
+        "B) Müslim, Hac 437",
+        "C) Tirmizi, Hac 2",
+        "D) İbn Mace, Menasik 5"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Bu hadis Tirmizi'de (Hac 2) geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "Tirmizi, Hac 2"
+    },
+    {
+      "id": "hac_044",
+      "konu": "kaynak",
+      "soru": "\"Hacılar ve umreciler Allah'a gelen elçilerdir\" hadisinin kaynağı hangisidir?",
+      "secenekler": [
+        "A) Buhari, Umre 1",
+        "B) Müslim, Hac 437",
+        "C) Ebu Davud, Menasik 1",
+        "D) İbn Mace, Menasik 5"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Bu hadis İbn Mace'de (Menasik 5) geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "İbn Mace, Menasik 5"
+    },
+    {
+      "id": "hac_045",
+      "konu": "kaynak",
+      "soru": "\"Safa ile Merve Allah'ın şeairlerindendir\" hangi ayette geçmektedir?",
+      "secenekler": [
+        "A) Al-i İmran, 3/97",
+        "B) Bakara, 2/158",
+        "C) Bakara, 2/183",
+        "D) Hac, 22/27"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Safa ile Merve Allah'ın şeairlerindendir.\" Bakara suresinin 158. ayetinde geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "Bakara, 2/158"
+    },
+    {
+      "id": "hac_046",
+      "konu": "kaynak",
+      "soru": "\"Ey insanlar! Hac size farz kılındı, haccedin!\" hadisinin kaynağı hangisidir?",
+      "secenekler": [
+        "A) Buhari, Umre 1",
+        "B) Müslim, Hac 412",
+        "C) Tirmizi, Hac 57",
+        "D) Ebu Davud, Menasik 69"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Bu hadis Müslim'de (Hac 412) geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "Müslim, Hac 412"
+    },
+    {
+      "id": "hac_047",
+      "konu": "temel",
+      "soru": "Hac ibadeti İslam öncesinde hangi peygambere uzanmaktadır?",
+      "secenekler": [
+        "A) Hz. Nuh",
+        "B) Hz. Musa",
+        "C) Hz. İbrahim",
+        "D) Hz. Süleyman"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hac, Hz. İbrahim döneminden bu yana süregelen kadim bir ibadettir.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "hac_048",
+      "konu": "kaynak",
+      "soru": "\"Haccetmek isteyen acele etsin! Olur ki hastalanır ya da hacca gitmesini engelleyen bir ihtiyaç ortaya çıkar\" hadisinin kaynağı?",
+      "secenekler": [
+        "A) Buhari, Umre 1",
+        "B) Müslim, Hac 412",
+        "C) Tirmizi, Hac 57",
+        "D) Ebu Davud, Menasik 1"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Bu hadis Ebu Davud'da (Menasik 1) geçmektedir.",
+      "zorluk": "zor",
+      "kaynak": "Ebu Davud, Menasik 1"
+    },
+    {
+      "id": "hac_049",
+      "konu": "kaynak",
+      "soru": "\"Yoluna gücü yetenlerin Beytullah'ı hac etmesi Allah'ın insanlar üzerindeki hakkıdır\" ayeti hangi surede geçmektedir?",
+      "secenekler": [
+        "A) Bakara",
+        "B) Al-i İmran",
+        "C) Nisa",
+        "D) Hac"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Bu ayet Al-i İmran suresinin 97. ayetidir.",
+      "zorluk": "zor",
+      "kaynak": "Al-i İmran, 3/97"
+    },
+    {
+      "id": "hac_050",
+      "konu": "temel",
+      "soru": "Hz. Peygamber'in \"Kabul edilmiş haccın karşılığı ancak cennettir\" hadisinde geçen \"kabul edilmiş hac\" ifadesi Arapçada nasıl geçmektedir?",
+      "secenekler": [
+        "A) Hacc-ı ekber",
+        "B) Hacc-ı mebrur",
+        "C) Hacc-ı müfret",
+        "D) Hacc-ı kıran"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hadiste geçen \"el-hacc el-mebrur\" (hacc-ı mebrur) ifadesi, kabul edilmiş, makbul hac anlamına gelir.",
+      "zorluk": "zor",
+      "kaynak": "Buhari, Umre 1; Müslim, Hac 437"
+    }
+  ]
+}

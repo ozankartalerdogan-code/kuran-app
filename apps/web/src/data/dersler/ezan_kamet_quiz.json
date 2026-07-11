@@ -1,0 +1,502 @@
+{
+  "quiz_id": "ezan-kamet",
+  "baslik": "Ezan ve Kamet",
+  "toplam_soru": 33,
+  "sorular": [
+    {
+      "id": "ezan_001",
+      "konu": "ezan_sozleri",
+      "soru": "\"Ezan\" kelimesinin sözlük anlamı nedir?",
+      "secenekler": [
+        "A) Çağırmak ve toplanmak",
+        "B) İbadet etmek ve secde etmek",
+        "C) Duyurmak ve bildirmek",
+        "D) Okumak ve ezberlemek"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ezan sözlükte \"duyurmak, bildirmek\" anlamına gelir. Farz namazların vakitlerini bildirmek için özel sözlerle yapılan çağrıdır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_002",
+      "konu": "hukumler",
+      "soru": "Ezan İslam açısından ne hükmündedir?",
+      "secenekler": [
+        "A) Müekked sünnet",
+        "B) Farz-ı ayn",
+        "C) Mekruh",
+        "D) Vacip"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ezan Hanefi uygulamasında müekked sünnet kabul edilir; bazı alimler toplumsal yönü sebebiyle farz-ı kifaye olarak da değerlendirmiştir. Bu yüzden terk edilmesi hoş karşılanmaz.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_003",
+      "konu": "tarih",
+      "soru": "İlk ezanı okuyan sahabi kimdir?",
+      "secenekler": [
+        "A) Hz. Ömer",
+        "B) Abdullah bin Zeyd",
+        "C) Hz. Ebubekir",
+        "D) Hz. Bilal-i Habeşi"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "İlk ezanı Hz. Bilal-i Habeşi okumuştur. Hz. Peygamber, sesi güçlü olduğu için onu seçmiştir. Ezanı rüyasında öğrenen kişi ise Abdullah bin Zeyd'dir.",
+      "zorluk": "orta",
+      "kaynak": "Ebu Davud, Salat 27"
+    },
+    {
+      "id": "ezan_004",
+      "konu": "tarih",
+      "soru": "Ezan hangi şehirde ve hangi dönemde başladı?",
+      "secenekler": [
+        "A) Mekke'de, hicret öncesinde",
+        "B) Medine'de, hicret sonrasında",
+        "C) Mekke'de, vahyin başlangıcında",
+        "D) Taif'te, Hicretin 3. yılında"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Namaz Mekke döneminde farz kılındı; ancak ezan Medine'ye hicretten sonra başladı. Hz. Peygamber sahabeyle nasıl çağrı yapılacağını istişare etti ve ilk ezan Medine'de okundu.",
+      "zorluk": "kolay",
+      "kaynak": "Ebu Davud, Salat 27"
+    },
+    {
+      "id": "ezan_005",
+      "konu": "tarih",
+      "soru": "Ezanın nasıl okunacağını rüyasında öğrenerek Hz. Peygamber'e bildiren sahabi kimdir?",
+      "secenekler": [
+        "A) Abdullah bin Zeyd",
+        "B) Hz. Bilal-i Habeşi",
+        "C) Hz. Ebubekir",
+        "D) Hz. Ali"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Sahabi Abdullah bin Zeyd rüyasında ezanı öğrendi ve Hz. Peygamber'e bildirdi. Hz. Ömer de aynı rüyayı görmüştü. Hz. Peygamber \"Sâdık bir rüyadır\" diyerek onayladı.",
+      "zorluk": "orta",
+      "kaynak": "Ebu Davud, Salat 27"
+    },
+    {
+      "id": "ezan_006",
+      "konu": "ezan_sozleri",
+      "soru": "Standart bir ezanda (sabah hariç) \"Allahu Ekber\" toplam kaç kez tekrarlanır?",
+      "secenekler": [
+        "A) 4 kez",
+        "B) 8 kez",
+        "C) 6 kez",
+        "D) 2 kez"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ezan başında 4 kez, sonunda 2 kez olmak üzere toplam 6 kez \"Allahu Ekber\" tekrarlanır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_007",
+      "konu": "ezan_sozleri",
+      "soru": "\"Hayye ale's-salah\" ne anlama gelir?",
+      "secenekler": [
+        "A) Haydi namaza",
+        "B) Haydi kurtuluşa",
+        "C) Allah en büyüktür",
+        "D) Namaz uykudan hayırlıdır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Hayye ale's-salah\" \"Haydi namaza\" anlamına gelir. Ezanda 2 kez tekrarlanır. \"Hayye ale'l-felah\" ise \"Haydi kurtuluşa\" anlamındadır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_008",
+      "konu": "ezan_sozleri",
+      "soru": "\"Hayye ale'l-felah\" ne anlama gelir?",
+      "secenekler": [
+        "A) Haydi namaza",
+        "B) Allah en büyüktür",
+        "C) Namaz uykudan hayırlıdır",
+        "D) Haydi kurtuluşa"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"Hayye ale'l-felah\" \"Haydi kurtuluşa\" anlamına gelir. Felah; kurtuluş, başarı ve mutluluk demektir. Bu cümle ezanda 2 kez tekrarlanır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_009",
+      "konu": "ezan_sozleri",
+      "soru": "Ezanda şehadet cümlelerinden hemen sonra gelen ifade hangisidir?",
+      "secenekler": [
+        "A) Allahu Ekber",
+        "B) Hayye ale's-salah",
+        "C) La ilahe illallah",
+        "D) Kad kameti's-salah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ezan sırasına göre: Allahu Ekber → Şehadet cümleleri → Hayye ale's-salah → Hayye ale'l-felah → Allahu Ekber → La ilahe illallah. Şehadetlerin ardından \"Hayye ale's-salah\" gelir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_010",
+      "konu": "ezan_sozleri",
+      "soru": "Standart bir ezanda (sabah ezanı hariç) toplam kaç cümle bulunur?",
+      "secenekler": [
+        "A) 7",
+        "B) 11",
+        "C) 15",
+        "D) 17"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Standart ezan 15 cümledir. Sabah ezanına 2 kez \"es-Salatu hayrun mine'n-nevm\" eklenince sabah ezanı 17 cümle olur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_011",
+      "konu": "ezan_sozleri",
+      "soru": "Ezanın son cümlesi hangisidir?",
+      "secenekler": [
+        "A) Allahu Ekber",
+        "B) Hayye ale'l-felah",
+        "C) Eşhedu enne Muhammeden Resulullah",
+        "D) La ilahe illallah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ezanın son cümlesi \"La ilahe illallah\" (Allah'tan başka ilah yoktur) olup 1 kez tekrarlanır. Ezan tevhid bildirisiyle biter.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_012",
+      "konu": "sabah_ezani",
+      "soru": "Sabah ezanında diğer vakitlerden farklı olarak eklenen özel cümle hangisidir?",
+      "secenekler": [
+        "A) Es-Salatu hayrun mine'n-nevm",
+        "B) Kad kameti's-salah",
+        "C) La havle ve la kuvvete illa billah",
+        "D) Sadakte ve berirte"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Sabah ezanında \"Hayye ale'l-felah\"tan sonra 2 kez \"es-Salatu hayrun mine'n-nevm\" (Namaz uykudan hayırlıdır) eklenir. Bu yalnızca sabah ezanına özgüdür.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_013",
+      "konu": "sabah_ezani",
+      "soru": "\"Es-Salatu hayrun mine'n-nevm\" ne anlama gelir?",
+      "secenekler": [
+        "A) Haydi kurtuluşa",
+        "B) Namaz başladı",
+        "C) Namaz uykudan hayırlıdır",
+        "D) Allah en büyüktür"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Es-Salatu hayrun mine'n-nevm\" \"Namaz uykudan hayırlıdır\" anlamına gelir. Bu ifade sabah ezanında 2 kez tekrarlanır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_014",
+      "konu": "sabah_ezani",
+      "soru": "Sabah ezanında \"es-Salatu hayrun mine'n-nevm\" kaç kez okunur?",
+      "secenekler": [
+        "A) 1 kez",
+        "B) 2 kez",
+        "C) 3 kez",
+        "D) 4 kez"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Es-Salatu hayrun mine'n-nevm\" sabah ezanında 2 kez okunur. Bu ifade sabah namazına özel bir uyarıdır ve namazın uykudan hayırlı olduğunu hatırlatır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_015",
+      "konu": "icabet",
+      "soru": "Ezan dinleyen kişi \"Hayye ale's-salah\" ve \"Hayye ale'l-felah\" cümlelerinde ne demelidir?",
+      "secenekler": [
+        "A) Allahu Ekber",
+        "B) Sadakte ve berirte",
+        "C) Hayye ale's-salah",
+        "D) La havle ve la kuvvete illa billah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "İcabette kural olarak müezzinin (ezanı okuyan kişinin) söyledikleri tekrar edilir; ancak \"Hayye ale's-salah\" ve \"Hayye ale'l-felah\" için bunun yerine \"La havle ve la kuvvete illa billah\" (Güç ve kuvvet yalnızca Allah'tandır) denir.",
+      "zorluk": "zor",
+      "kaynak": "Müslim, Salat 11"
+    },
+    {
+      "id": "ezan_016",
+      "konu": "icabet",
+      "soru": "Ezanı dinleyenin müezzini sessizce tekrar etmesine ne denir?",
+      "secenekler": [
+        "A) İcabet",
+        "B) Teressül",
+        "C) Kamet",
+        "D) Tertil"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İcabet (ezanı duyunca uygun cevapları tekrar etme), ezanı dinleyenin müezzinin (ezanı okuyan kişinin) söylediklerini sessizce tekrar etmesidir. \"Ezanı işittiğinizde müezzinin (ezanı okuyan kişinin) söylediklerini siz de söyleyin.\" (Müslim, Salat 11)",
+      "zorluk": "kolay",
+      "kaynak": "Müslim, Salat 11"
+    },
+    {
+      "id": "ezan_017",
+      "konu": "icabet",
+      "soru": "Sabah ezanında \"es-Salatu hayrun mine'n-nevm\" duyulduğunda ne denir?",
+      "secenekler": [
+        "A) La havle ve la kuvvete illa billah",
+        "B) Allahu Ekber",
+        "C) Sadakte ve berirte",
+        "D) Hayye ale'l-felah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sabah ezanında \"es-Salatu hayrun mine'n-nevm\" duyulduğunda \"Sadakte ve berirte\" (Doğru ve güzel söyledin) denir. Diğer cümlelerde olduğu gibi aynısı tekrar edilmez.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_018",
+      "konu": "icabet",
+      "soru": "Ezan bittikten sonra ne yapılmalıdır?",
+      "secenekler": [
+        "A) Doğruca namaza durulur",
+        "B) Salawat getirilir ve ezan duası okunur",
+        "C) Yalnızca kamet beklenir",
+        "D) Kıbleye yönelinerek sessiz kalınır"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ezan bittikten sonra önce Hz. Peygamber'e salawat getirilir, ardından ezan duası okunur. Hz. Peygamber bu duayı okuyana kıyamet günü şefaatini vaad etmiştir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Ezan 8"
+    },
+    {
+      "id": "ezan_019",
+      "konu": "icabet",
+      "soru": "Ezan duasını okuyan kişi ne kazanır?",
+      "secenekler": [
+        "A) Günahları bağışlanır",
+        "B) O namazın sevabı iki katına çıkar",
+        "C) Cennette özel bir makam verilir",
+        "D) Hz. Peygamber'in kıyamet günü şefaatine mazhar olur"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hz. Peygamber: \"Kim ezanı işitince bu duayı okursa, kıyamet günü şefaatim ona vacip olur.\" buyurmuştur. Bu, ezan duasının faziletini anlatan güçlü bir müjdedir. (Buhari, Ezan 8)",
+      "zorluk": "zor",
+      "kaynak": "Buhari, Ezan 8"
+    },
+    {
+      "id": "ezan_020",
+      "konu": "kamet",
+      "soru": "Kamette ezandan farklı olarak eklenen özel cümle hangisidir?",
+      "secenekler": [
+        "A) Kad kameti's-salah",
+        "B) Es-Salatu hayrun mine'n-nevm",
+        "C) La havle ve la kuvvete illa billah",
+        "D) Sadakte ve berirte"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kamette ezan sözlerinin aynısı okunur; tek farkı \"Hayye ale'l-felah\"tan sonra 2 kez \"Kad kameti's-salah\" (Namaz başladı) eklenmesidir.",
+      "zorluk": "kolay",
+      "kaynak": "Ebu Davud, Salat 28"
+    },
+    {
+      "id": "ezan_021",
+      "konu": "kamet",
+      "soru": "\"Kad kameti's-salah\" ne anlama gelir?",
+      "secenekler": [
+        "A) Allah en büyüktür",
+        "B) Haydi namaza",
+        "C) Namaz başladı",
+        "D) Namaz uykudan hayırlıdır"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Kad kameti's-salah\" \"Namaz başladı\" anlamına gelir. Bu cümle yalnızca kamette yer alır ve namazın başladığını cemaate bildirir.",
+      "zorluk": "orta",
+      "kaynak": "Ebu Davud, Salat 28"
+    },
+    {
+      "id": "ezan_022",
+      "konu": "kamet",
+      "soru": "Ezan ve kamet arasındaki temel fark nedir?",
+      "secenekler": [
+        "A) Kamet yüksek sesle, ezan alçak sesle okunur",
+        "B) Ezan vaktin girdiğini, kamet namazın başladığını bildirir",
+        "C) Kamet yalnızca sabah namazında okunur",
+        "D) Ezan erkekler, kamet kadınlar için okunur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ezan namaz vaktinin girdiğini herkese duyurur. Kamet (namaza başlama çağrısı) ise namazın başladığını cemaate bildirir. Ezan uzun ve yavaş, kamet ise daha hızlı okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_023",
+      "konu": "kamet",
+      "soru": "Kamet nasıl okunur?",
+      "secenekler": [
+        "A) Ezan gibi yavaş ve uzun (teressül ile)",
+        "B) Sadece imam tarafından ve alçak sesle",
+        "C) Minare üzerinden herkese duyuracak şekilde",
+        "D) Hızlı okunur"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kamet (namaza başlama çağrısı), ezan gibi uzun ve aralıklı okunmaz; daha hızlı okunur. Ezan vakti duyurmak için yavaş ve uzun okunurken, kamet namaza geçiş çağrısıdır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_024",
+      "konu": "kamet",
+      "soru": "Kamette \"Kad kameti's-salah\" kaç kez tekrarlanır?",
+      "secenekler": [
+        "A) 2 kez",
+        "B) 1 kez",
+        "C) 4 kez",
+        "D) 3 kez"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Kad kameti's-salah\" kamette 2 kez tekrarlanır. Bu, ezan sözlerinin çoğunun 2'şer kez okunmasıyla uyumludur.",
+      "zorluk": "zor",
+      "kaynak": "Ebu Davud, Salat 28"
+    },
+    {
+      "id": "ezan_025",
+      "konu": "kamet",
+      "soru": "Kamet getirilirken camiye giren kişi ne yapmalıdır?",
+      "secenekler": [
+        "A) Hemen namaza durmalıdır",
+        "B) Dışarıda beklemelidir",
+        "C) Oturmalı, ayakta beklememeli",
+        "D) Kamet bitene kadar dışarıda durmalıdır"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kamet getirilirken camiye giren kişi ayakta beklememeli, oturmalıdır. Namaza ancak imam tekbir alınca kalkılır.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_026",
+      "konu": "hukumler",
+      "soru": "Ezan okunabilmesi için zorunlu olan şart hangisidir?",
+      "secenekler": [
+        "A) Cemaatin hazır bulunması",
+        "B) Namaz vaktinin girmiş olması",
+        "C) İmamın izninin alınmış olması",
+        "D) Caminin açık olması"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ezan için vaktin girmiş olması esastır. Özellikle Hanefi uygulamasında vakit girmeden okunan ezan, vakit girince yeniden okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_027",
+      "konu": "hukumler",
+      "soru": "Vakit girmeden okunan ezan hakkında ne yapılmalıdır?",
+      "secenekler": [
+        "A) Geçerlidir, tekrar okunmaz",
+        "B) Yalnızca sabah ezanında geçersizdir",
+        "C) Cemaat arasından biri yeniden duyurur",
+        "D) Vakit girince yeniden okunur"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ezan için vaktin girmiş olması esastır. Hanefi uygulamasında vakit girmeden okunan ezan geçerli sayılmaz; vakit girince yeniden okunması gerekir. Sabah ezanında bazı mezheplerin erken ezan ruhsatı ayrıca değerlendirilir.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_028",
+      "konu": "hukumler",
+      "soru": "Ezan okunurken camide bulunan kişi o vaktin namazını kılmadan çıkarsa ne olur?",
+      "secenekler": [
+        "A) Mekruh işlemiş olur",
+        "B) Namazı kaza etmesi gerekir",
+        "C) Günah değildir, izin alınırsa çıkılabilir",
+        "D) Hiçbir hükmü yoktur"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ezan okunurken camide olan kişi o vaktin namazını kılmadan çıkarsa mekruh işlemiş olur. Ezana icabet eden ve camiye giren kişinin namazı kılması beklenir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_029",
+      "konu": "hukumler",
+      "soru": "Müezzinde bulunması gereken özellikler arasında hangisi yer almaz?",
+      "secenekler": [
+        "A) Erkek olmak",
+        "B) Sesi güzel ve güçlü olmak",
+        "C) Hâfız olmak (Kur'an'ı ezbere bilmek)",
+        "D) Akıllı olmak"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Cami ve cemaat ezanında müezzinin erkek, akıllı, sesi güzel ve güçlü olması beklenir. Hâfız olmak zorunlu bir şart değildir. Abdestli olmak ise şart değil, müstehap/adabdır (yapılması güzel olan edeptir).",
+      "zorluk": "orta",
+      "kaynak": "Darimi, Salat 7"
+    },
+    {
+      "id": "ezan_030",
+      "konu": "hukumler",
+      "soru": "Ezan cümleleri arasında bekleme yaparak yavaş okumaya ne denir?",
+      "secenekler": [
+        "A) İcabet",
+        "B) Teressül",
+        "C) Tertil",
+        "D) Tercî"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ezan cümleleri arasında bekleyerek yavaş okumaya teressül denir. Teressül ile okunan ezan daha geniş bir alana duyurulur ve dinleyicilerin icabette bulunması için yeterli süre sağlanır.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_031",
+      "konu": "icabet",
+      "soru": "Ezan okunurken dinleyenin yapması en uygun davranış hangisidir?",
+      "secenekler": [
+        "A) Konuşmaya devam etmek",
+        "B) Mümkünse susup ezanı dinlemek ve icabet etmek",
+        "C) Ezan bitmeden namaza başlamak",
+        "D) Sadece kameti beklemek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ezanı duyan kişinin mümkünse susması, ezanı dinlemesi ve müezzine icabet etmesi edeptir. Ezan bittikten sonra salavat (Peygamberimize dua) ve ezan duası okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Müslim, Salat 11; Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_032",
+      "konu": "mezhep",
+      "soru": "Tercî uygulaması hangi mezhepte ezanla ilgili belirgin bir farklılık olarak görülür?",
+      "secenekler": [
+        "A) Hanefi",
+        "B) Şafi",
+        "C) Maliki",
+        "D) Hanbeli"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tercî (şehadet cümlelerini önce alçak sonra yüksek sesle okuma), şehadet cümlelerini önce alçak sonra yüksek sesle tekrar etme uygulamasıdır. Şafiilerde görülür; Hanefi ve Maliki uygulamasında yapılmaz.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "ezan_033",
+      "konu": "mezhep",
+      "soru": "Hanefi uygulamasına göre fecr-i sadık girmeden okunan sabah ezanı için ne gerekir?",
+      "secenekler": [
+        "A) Geçerlidir, hiçbir şey gerekmez",
+        "B) Vakit girince yeniden okunması gerekir",
+        "C) Sadece kamet getirilir",
+        "D) Yalnızca ezan duası okunur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hanefi uygulamasında sabah ezanı fecr-i sadık (gerçek şafak/imsak vakti) girdikten sonra okunur; vakit girmeden okunmuşsa vakit girince yeniden okunması gerekir. Bazı mezheplerde erken ezan ruhsatı ayrıca vardır.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    }
+  ]
+}

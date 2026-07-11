@@ -1,0 +1,197 @@
+{
+  "ders_id": "peygamberler",
+  "baslik": "Peygamber Kıssaları",
+  "aciklama": "Kur'an-ı Kerim'de adı geçen 25 peygamberin kıssaları, mucizeleri ve hayattan dersler.",
+  "kartlar": [
+    {
+      "id": "peyg_k00",
+      "tip": "metin",
+      "baslik": "Kur'an'da 25 Peygamber",
+      "icerik": "Kur'an-ı Kerim'de toplam 25 peygamberin adı geçmektedir. Tüm peygamberlere iman etmek imanın dördüncü şartıdır. Müslüman, Allah'ın gönderdiği peygamberlerin hepsine saygı ve imanla yaklaşır.\n\n\"Muhammed... peygamberlerin sonuncusudur.\" (Ahzab 33/40)\n\nKur'an'da adı geçen 25 peygamber:\nAdem · İdris · Nuh · Hud · Salih · İbrahim · Lut · İsmail · İshak · Yakup · Yusuf · Şuayb · Eyüp · Musa · Harun · Davud · Süleyman · İlyas · Elyesa · Zülkifl · Yunus · Zekeriya · Yahya · İsa · Muhammed\n\nÜlü'l-Azm (azim ve sabır sahibi, büyük sorumluluk taşıyan) 5 büyük peygamber: Nuh · İbrahim · Musa · İsa · Muhammed (Ahkaf 46/35)",
+      "vurgu": "25 peygambere iman · İlk: Hz. Adem · Son: Hz. Muhammed"
+    },
+    {
+      "id": "peyg_k01",
+      "tip": "metin",
+      "baslik": "Hz. Adem (a.s.) — İlk İnsan ve İlk Peygamber",
+      "icerik": "Unvanı: Safiyullah (Allah'ın seçtiği kul)\n\nAllah Hz. Adem'i topraktan yarattı, ona ruh üfledi. Melekler Allah'ın emriyle Hz. Adem'e secde etti; bu secde ibadet değil, Allah'ın emrine itaat ve Hz. Adem'e saygı anlamındaydı. Yalnızca İblis büyüklenerek reddetti: \"Ben ondan üstünüm.\" (Araf 7/12) Hz. Adem ve eşi yasak meyveden yedikten sonra yeryüzüne indirildi. \"Rabbimiz! Biz kendimize zulmettik...\" diyerek tövbe ettiler, Allah tövbelerini kabul etti. (Araf 7/23)\n\nKur'an, Hz. Adem'in iki oğlundan söz eder; isimlerini vermez. Rivayetlerde bu iki oğul Habil ve Kabil olarak anılır. Kabil kıskançlıkla kardeşini öldürmüş, bu olay yeryüzündeki ilk cinayet olarak anlatılmıştır. (Maide 5/27-31)\n\nMucizeler: Allah'ın doğrudan yaratması · Bütün isimlerin öğretilmesi\nAna ders: Kibir şeytanın çıkışıdır; hata yapmak insanidir, tövbe etmek ise kurtuluştur\nAna sureler: Bakara (2) · Araf (7)",
+      "vurgu": "İlk insan · Topraktan yaratıldı · Tövbesiyle affedildi"
+    },
+    {
+      "id": "peyg_k02",
+      "tip": "metin",
+      "baslik": "Hz. İdris (a.s.) — Yüksek Makama Yükseltilen",
+      "icerik": "Unvanı: Sıddık (çok doğru sözlü) · Peygamber\n\nKur'an, Hz. İdris hakkında yalnızca iki ayette bilgi verir:\n• \"O doğru sözlü bir peygamberdi, biz onu yüksek bir makama yükselttik.\" (Meryem 19/56-57)\n• Sabredenler ve iyilik yapanlar arasında zikredilir. (Enbiya 21/85-86)\n\nBunun ötesinde Kur'an'da detaylı kıssası yoktur.\n\nAna ders: Doğruluk ve sabır Allah katında yüksek makamlara eriştirir\nNot: Hz. İdris'in Hz. Nuh'tan önce mi sonra mı yaşadığı konusunda âlimler farklı görüştedir. Bu ayrıntı kesin bilgi gibi değil, rivayet bilgisi olarak öğrenilmelidir.",
+      "vurgu": "Doğru sözlü peygamber · Yüksek makama yükseltildi (Meryem 19/56)"
+    },
+    {
+      "id": "peyg_k03",
+      "tip": "metin",
+      "baslik": "Hz. Nuh (a.s.) — 950 Yıllık Sabır",
+      "icerik": "Unvanı: Şükreden kul (İsra 17/3)\n\nKavmini 950 yıl boyunca tevhide davet etti; gece gündüz, açıktan ve gizlice. (Nuh 71/5-9) Çok az kişi iman etti. Allah'ın emriyle gemi inşa etti; kavmi alay etti. Tufan başladığında her canlıdan bir çift ve iman edenleri gemiye aldı.\n\nOğlu iman etmedi ve boğuldu. Hz. Nuh'un duasına Allah: \"O senin ailenden değil; kötü amelin sahibiydi.\" (Hud 11/46) Gemi Cudi dağına oturdu.\n\nMucize: Tufandan kurtuluş\nAna ders: Aile bağı imanın önüne geçemez; 950 yıllık sabır ve yılmazlık\nAna sureler: Nuh (71) · Hud (11)",
+      "vurgu": "950 yıl davet · Oğlu iman etmedi · Cudi dağına oturdu"
+    },
+    {
+      "id": "peyg_k04",
+      "tip": "metin",
+      "baslik": "Hz. Hud (a.s.) — Ad Kavmine Peygamber",
+      "icerik": "Güçlü ve büyük binalar inşa eden Ad kavmine gönderildi. Tevhide davet etti; kavmi büyüklenerek reddetti.\n\nAllah üzerlerine 7 gece 8 gün aralıksız şiddetli bir rüzgar gönderdi; kavim kökten yok edildi. (Hakka 69/6-8 · Ahkaf 46/21-25)\n\nHud ve iman edenler kurtuldu.\n\nAna ders: Ad kavmi büyüklenerek Hz. Hud'u reddetti; Allah üzerlerine 7 gece 8 gün kesintisiz bir rüzgar gönderdi ve onları kökünden helak etti\nAna sureler: Hud (11) · Araf (7)",
+      "vurgu": "Ad kavmi · 7 gece 8 gün rüzgar · Büyüklenme helake götürür"
+    },
+    {
+      "id": "peyg_k05",
+      "tip": "metin",
+      "baslik": "Hz. Salih (a.s.) — Develi Peygamber",
+      "icerik": "Kayalara ev oyan Semud kavmine gönderildi. Kavim mucize istedi; Allah bir dişi deve gönderdi: \"Bu Allah'ın devesidir, dokunmayın, su içmesine izin verin.\" (Hud 11/64)\n\nKavmin azgınları deveyi kesti. Hz. Salih uyardı: \"Üç gün daha yararlanın, sonra azap gelir.\" Üç günün sonunda şiddetli bir ses, yani sayha (sarsıcı/helak edici ses) kavmi yerle bir etti. (Şems 91/11-14)\n\nMucize: Allah'ın izniyle gönderilen dişi deve\nAna ders: Semud kavmi Allah'ın devesini keserek mucizeyi çiğnedi; üç günün sonunda sayha onları yerle bir etti\nAna sureler: Hud (11) · Araf (7)",
+      "vurgu": "Semud kavmi · Dişi deve mucizesi · Üç günlük uyarı"
+    },
+    {
+      "id": "peyg_k06",
+      "tip": "metin",
+      "baslik": "Hz. İbrahim (a.s.) — Halilullah",
+      "icerik": "Unvanı: Halilullah (Allah'ın dostu) · Nisa 4/125\n\nGençliğinde putları kırdı. Ateşe atıldı; Allah emretti: \"Ey ateş! İbrahim'e serin ve selamet ol.\" Ateş yakmadı. (Enbiya 21/68-70) Babası iman etmeyince ondan ayrıldı. Rüyasında oğlunu kurban etmeye hazırlandı; oğlu \"Emredileni yap, sabredeceğim\" dedi — Allah bir koç gönderdi. (Saffat 37/102-107)\n\nHz. İsmail ile birlikte Kâbe'yi inşa etti. (Bakara 2/127) Allah onu insanlara imam (önder) ve hanif dinin (şirkten uzak, Allah'a yönelen tevhid yolu) temsilcisi kıldı.\n\nMucizeler: Ateşin yakmaması · Dört kuşun dirilmesi\nAna ders: Tam teslimiyet — can ve aile dahil her şeyi Allah için feda etmeye hazır olmak\nAna sureler: İbrahim (14) · Bakara (2) · Saffat (37)",
+      "vurgu": "Halilullah · Ateş yakmadı · Kâbe'yi inşa etti"
+    },
+    {
+      "id": "peyg_k07",
+      "tip": "metin",
+      "baslik": "Hz. Lut (a.s.) — Sodom'un Peygamberi",
+      "icerik": "Hz. İbrahim'in yeğeni. Sodom halkını hem tevhide hem de ahlaki arınmaya davet etti. Kur'an, kavminin daha önce görülmemiş çirkin fiiller işlediğini bildirir. (Araf 7/80) Kavmi bu uyarıyı reddetti.\n\nAllah melekleri misafir olarak gönderdi. Kavim meleklere kötülük yapmak istedi. Allah'ın emriyle Hz. Lut ve iman edenler gece şehirden çıktı; ancak karısı iman etmediği için geride kaldı. Sabah olunca şehir altüst edildi, üzerine taş yağdı. (Hud 11/77-83)\n\nAna ders: Sodom halkı iman etmedi; şehir sabah altüst edildi ve üzerine taş yağdı — Hz. Lut'un karısı da iman etmediği için kurtulamadı\nAna sureler: Hud (11) · Araf (7)",
+      "vurgu": "Hz. İbrahim'in yeğeni · Sodom helak edildi · Karısı iman etmedi"
+    },
+    {
+      "id": "peyg_k08",
+      "tip": "metin",
+      "baslik": "Hz. İsmail (a.s.) — Sadıkul Vaad",
+      "icerik": "Unvanı: Sadıkul Vaad (sözüne sadık) · Meryem 19/54\n\nHz. İbrahim'in büyük oğlu. Annesi Hacer ile susuz çölde, Mekke vadisinde bırakıldı. Zemzem suyunun ortaya çıkışı Kur'an'da adıyla anlatılmaz; Hacer validemizin gayretiyle ilgili sahih rivayetlerde yer alır. (Buhârî, Enbiya 9)\n\nBabası kurban etmek isteyince: \"Emredileni yap babacığım! İnşallah beni sabredenlerden bulacaksın.\" (Saffat 37/102) Allah bu teslimiyeti gördü ve bir koç gönderdi. Babası İbrahim ile Kâbe'yi inşa etti. (Bakara 2/127)\n\nHz. Muhammed (s.a.s.) Hz. İsmail'in soyundan gelmektedir.\n\nAna ders: Tam teslimiyet ve sözünde durma\nAna sureler: Bakara (2) · Saffat (37)",
+      "vurgu": "Sadıkul Vaad · Kurban imtihanı · Kâbe inşasına ortak oldu"
+    },
+    {
+      "id": "peyg_k09",
+      "tip": "metin",
+      "baslik": "Hz. İshak (a.s.) — Müjdeyle Gelen Peygamber",
+      "icerik": "Hz. İbrahim'in ikinci oğlu, Hz. İsmail'in kardeşi. Çok yaşlı anne (Hz. Sare) ve babadan doğacağı müjdelendi.\n\nMelekler Hz. İbrahim'e geldiğinde Sare \"Yaşlı bir kadınım, kocam da ihtiyar — bu şaşılacak bir şey!\" dedi. Melekler: \"Allah'ın emri böyle.\" (Hud 11/72)\n\nHz. İshak'tan Hz. Yakup, Hz. Yakup'tan 12 oğul (İsrailoğullarının ataları) geldi. Peygamberlik soyu devam etti.\n\nMucize: Yaşlı ve kısır anne-babadan doğması\nAna ders: Allah için imkânsız yoktur\nAna sureler: Hud (11) · Saffat (37)",
+      "vurgu": "Yaşlı ebeveynlerden doğdu · Hz. Yakup'un babası"
+    },
+    {
+      "id": "peyg_k10",
+      "tip": "metin",
+      "baslik": "Hz. Yakup (a.s.) — İsrail",
+      "icerik": "Unvanı: İsrail (Allah'ın kulu) · Hz. İshak'ın oğlu\n\nOğulları Hz. Yusuf'u kıskandı, kuyuya attı, kanlı gömleği getirdi. Hz. Yakup: \"Nefisleriniz sizi bir işe sürükledi. Güzel bir sabır gerekli.\" (Yusuf 12/18) Üzüntüden gözleri aktı.\n\nYıllar sonra Yusuf'un kokusunu uzaktan hissetti. Oğulları gömleği getirince gözleri açıldı. (Yusuf 12/94-96) Mısır'a gidip oğluyla kavuştu; çocukluk rüyası gerçekleşti.\n\n12 oğlu İsrailoğullarının atalarıdır.\n\nAna ders: Güzel sabır (sabr-ı cemil) — Allah'tan ümit kesmemek\nAna sure: Yusuf (12)",
+      "vurgu": "İsrail lakabı · Yusuf'a hasret · Güzel sabır"
+    },
+    {
+      "id": "peyg_k11",
+      "tip": "metin",
+      "baslik": "Hz. Yusuf (a.s.) — Kıssaların En Güzeli",
+      "icerik": "Unvanı: Sıddık (çok doğru sözlü) · \"Kıssaların en güzeli\" (Yusuf 12/3)\n\nKardeşleri kuyuya attı → köle olarak Mısır'a satıldı → Kur'an'da Aziz'in karısı olarak geçen, rivayetlerde Züleyha diye anılan kadının tuzağına düşmedi → zindana atıldı → Mısır hükümdarının rüyasını yorumladı (7 yıl bolluk, 7 yıl kıtlık) → ülkenin hazinelerinden sorumlu güvenilir bir yönetici oldu.\n\nKıtlıkta gelen kardeşlerini tanıdı ama belli etmedi; sonunda açıkladı: \"Ben Yusuf'um. Bugün size kınama yok, Allah sizi bağışlasın.\" (Yusuf 12/90-92) Babası gelince çocukluk rüyası gerçekleşti.\n\nMucize: Rüya yorumu · Allah'ın onu temize çıkarması\nAna ders: Sabır ve iffet; kötülüğe kötülükle karşılık vermemek\nAna sure: Yusuf (12) — tamamı",
+      "vurgu": "Kıssaların en güzeli · İffet ve sabır · Kardeşlerini affetti"
+    },
+    {
+      "id": "peyg_k12",
+      "tip": "metin",
+      "baslik": "Hz. Şuayb (a.s.) — Ticaret Ahlakının Peygamberi",
+      "icerik": "Medyen halkına gönderildi. Bazı rivayetlerde Hz. Musa'nın Medyen'de yanında çalıştığı salih kişinin Hz. Şuayb olduğu söylenir; Kur'an bu kişinin adını açıkça vermez.\n\nKavmi alışverişte hile yapıyor, ölçü ve tartıyı eksik tutuyordu. \"Ölçeği ve tartıyı tam tutun, insanların mallarını eksik vermeyin.\" (Hud 11/85) Kavmi reddedince gölgelik bir bulut üzerlerine geldi — serinlik umdular ama azapla karşılaştılar; şiddetli bir ses kavmi yok etti.\n\nHz. Musa Medyen'e kaçınca salih bir kişinin kızıyla evlendi ve yıllarca çobanlık yaptı. Bu kişi, rivayetlerde çoğunlukla Hz. Şuayb olarak anılır.\n\nAna ders: Ticaret ahlakı ibadetten ayrı değildir; helal kazanç bir ibadettir\nAna sureler: Hud (11) · Araf (7)",
+      "vurgu": "Medyen kavmi · Ölçü-tartı adaleti · Hz. Musa bağlantısı rivayetlerde anlatılır"
+    },
+    {
+      "id": "peyg_k13",
+      "tip": "metin",
+      "baslik": "Hz. Eyüp (a.s.) — Sabrın Zirvesi",
+      "icerik": "Unvanı: \"Ne güzel kul! Çünkü o çok yönelendi.\" (Sad 38/44)\n\nAğır hastalıkla yıllarca sınandı — malını, çocuklarını ve sağlığını kaybetti. Ama şikâyet etmedi, teslimiyetle Allah'a yöneldi.\n\nDua etti: \"Ya Rabb! Bana zarar dokundu; sen merhametlilerin en merhametlisisin.\" (Enbiya 21/83) Allah duasını kabul etti, hastalığını giderdi, ailesini ve daha fazlasını geri verdi.\n\nMucize: Şifaya kavuşması\nAna ders: En ağır sınavda bile Allah'a yönelmek; sıkıntı karşısında sabır, dua ve ümit hâlini korumak\nAna sureler: Enbiya (21) · Sad (38)",
+      "vurgu": "Yıllarca hastalık · Şikâyet etmedi · Duasıyla şifa buldu"
+    },
+    {
+      "id": "peyg_k14",
+      "tip": "metin",
+      "baslik": "Hz. Musa (a.s.) — Kelimullah",
+      "icerik": "Unvanı: Kelimullah (Allah ile konuşan) · Kur'an'da en çok adı geçen peygamber (136 kez)\n\nFiravun döneminde sandıkla Nil'e bırakıldı, sarayda büyüdü. Sina'da Allah ile konuştu. Firavun'a gönderildi. 9 mucize gösterildi: asa, beyaz el, tufan, çekirge, haşerat (zararlı böcekler), kurbağa, kan, kıtlık ve meyvelerin azalması. Firavun her seferinde inkâr etti.\n\nAsasıyla denizi yardı; İsrailoğulları geçti, Firavun boğuldu. Sina'da Allah ile 40 gece konuştu; Tevrat verildi.\n\nMucizeler: Asanın yılana dönüşmesi · Denizin yarılması · Allah ile doğrudan konuşma\nAna ders: Firavun tüm mucizeleri kibriyle reddetti; denizde İsrailoğullarının peşinden gitti ve boğuldu — Allah dilediğini dilediği yerden yetiştirir\nAna sureler: Taha (20) · Kasas (28) · Araf (7)",
+      "vurgu": "Kelimullah · 136 kez anılır · Denizi yardı · Tevrat verildi"
+    },
+    {
+      "id": "peyg_k15",
+      "tip": "metin",
+      "baslik": "Hz. Harun (a.s.) — Musa'nın Yardımcısı",
+      "icerik": "Hz. Musa'nın ağabeyi. Hz. Musa Allah'a dua etti: \"Kardeşim Harun'u yardımcım yap, gücümü artır.\" (Taha 20/29-32) Allah kabul etti; Hz. Harun da peygamber olarak görevlendirildi.\n\nHz. Musa Sina'dayken kavim altın buzağıya taptı. Hz. Harun engellemeye çalıştı: \"Ey kavmim! Siz bununla sınandınız.\" Ama kavim dinlemedi. (Taha 20/90-94) Musa döndüğünde \"Beni dinlemediler, az kalsın öldüreceklerdi\" dedi.\n\nAna ders: Yardımlaşma güçtür; lider bile bazen kavmini tutamaz — sorumluluk bireyseldir\nAna sureler: Taha (20) · Araf (7)",
+      "vurgu": "Musa'nın yardımcısı · Buzağı taptırmaya engel olamadı"
+    },
+    {
+      "id": "peyg_k16",
+      "tip": "metin",
+      "baslik": "Hz. Davud (a.s.) — Halifetullah",
+      "icerik": "Unvanı: Halifetullah (Allah'ın yeryüzünde adaletle hükmetme görevi verdiği kul) · Sad 38/26\n\nGenç bir çoban iken Calut'u sapanıyla yendi ve öldürdü. Allah ona mülk (yönetim), hikmet (derin anlayış) ve Zebur'u verdi. (Bakara 2/251)\n\nDağlar ve kuşlar onunla tesbih ederdi. (Sad 38/18-20) Demiri ona yumuşattı, zırh yapmasını öğretti. (Enbiya 21/80) \"Ey Davud! Seni yeryüzünde halife kıldık, insanlar arasında adaletle hükmet.\" (Sad 38/26)\n\nMucizeler: Dağlar ve kuşların tesbih etmesi · Demirin yumuşaması · Zebur\nAna ders: Güç Allah'ın ihsanıdır; adaletli yönetim en büyük emanettir\nAna sureler: Sad (38) · Enbiya (21)",
+      "vurgu": "Halifetullah · Zebur verildi · Demiri yumuşattı"
+    },
+    {
+      "id": "peyg_k17",
+      "tip": "metin",
+      "baslik": "Hz. Süleyman (a.s.) — Cinlere ve Rüzgara Hükmeden",
+      "icerik": "Hz. Davud'un oğlu. Allah rüzgarı, cinleri ve kuş dilini ona musahhar kıldı (emrine verdi). (Neml 27/17 · Sebe 34/12)\n\nHüdhüd kuşu, Sebe ülkesinin melikesinin ve halkının güneşe taptığını haber verdi. Kur'an bu melikenin adını vermez; rivayetlerde Belkıs diye anılır. Hz. Süleyman onu Allah'a davet eden bir mektup yazdı. Tahtı \"göz açıp kapayıncaya kadar\" getirildi. Melike kristal zemini su sandı; gerçeği anlayınca \"Süleyman ile birlikte alemlerin Rabbine teslim oldum\" dedi ve iman etti. (Neml 27/44)\n\nHz. Süleyman asasına dayanmış halde vefat etti; cinler asayı kemiren kurdu görünceye kadar bunu anlamadı. Bu olay, gaybı (duyularla bilinmeyen gizli bilgiyi) yalnızca Allah'ın bildiğini gösterir.\n\nAna ders: Büyük nimet büyük şükür gerektirir; gaybı yalnızca Allah bilir\nAna sureler: Neml (27) · Sad (38)",
+      "vurgu": "Rüzgar ve cinlere hükmetti · Sebe melikesi iman etti · Gaybı Allah bilir"
+    },
+    {
+      "id": "peyg_k18",
+      "tip": "metin",
+      "baslik": "Hz. İlyas (a.s.) — Ba'l Putuna Karşı Duran",
+      "icerik": "İsrailoğullarına gönderildi. Kavminin Ba'l adlı puta tapmasına karşı çıktı: \"Ba'l'a mı ibadet ediyorsunuz, en güzel yaratanı bırakıp? Rabbiniz olan Allah'tan korkun.\" (Saffat 37/124-126)\n\nKavmi yalanladı. Allah onu iyilik yapanlar ve seçilmişler arasında andı ve selam verdi.\n\nKur'an'da adı 3 kez geçer: En'am 6/85, Saffat 37/123 ve 37/130.\n\nAna ders: Putperestliğe karşı durmak peygamberlerin ortak görevidir\nAna sure: Saffat (37)",
+      "vurgu": "İsrailoğullarına · Ba'l putuna karşı çıktı · Allah selam verdi"
+    },
+    {
+      "id": "peyg_k19",
+      "tip": "metin",
+      "baslik": "Hz. Elyesa (a.s.) — Seçilmişlerden",
+      "icerik": "Kur'an Hz. Elyesa'yı yalnızca iki ayette zikreder:\n• En'am 6/86: İbrahim soyundan gelen peygamberler arasında\n• Sad 38/48: Hayırlılar arasında\n\n\"Bunların hepsini hayırlılar arasında saydık.\" (Sad 38/48)\n\nBunun ötesinde Kur'an'da detaylı kıssası verilmemiştir. Hz. İlyas dönemine yakın yaşadığı rivayet edilir.\n\nAna ders: Tüm peygamberlere iman etmek esastır, kıssaları kısa olsa bile\nAna sureler: Enam (6) · Sad (38)",
+      "vurgu": "İki ayette geçer · Hayırlılar arasında zikredildi"
+    },
+    {
+      "id": "peyg_k20",
+      "tip": "metin",
+      "baslik": "Hz. Yunus (a.s.) — Zün-Nun",
+      "icerik": "Unvanı: Zün-Nun (balık sahibi) · Sahib-ül Hut (balıkla anılan kişi)\n\nNinova'da kavmini davet etti. Allah'ın izni olmaksızın kavmini terk etti. Gemide kura çekildi, denize atıldı. Büyük bir balık yuttu.\n\nKaranlıklar içinde dua etti: \"La ilahe illa ente subhaneke inni küntü minez-zalimin\" (Senden başka ilah yoktur; seni eksiklikten tenzih ederim; ben gerçekten kendime zulmedenlerden oldum). (Enbiya 21/87) Allah duasını kabul etti; balık onu sahile bıraktı.\n\nKavmi de tövbe etti — azabı görünce iman eden ve tövbesi kabul edilen tek kavim olarak geçer. (Yunus 10/98)\n\nMucize: Balığın karnında sağ kalması\nAna ders: En karanlık anda dua kurtuluş getirir; Allah'ın izni alınmadan görevden ayrılınmaz\nAna sureler: Yunus (10) · Saffat (37)",
+      "vurgu": "Zün-Nun · Balığın karnında dua · Kavmi tövbe etti ve kurtuldu"
+    },
+    {
+      "id": "peyg_k21",
+      "tip": "metin",
+      "baslik": "Hz. Zekeriya (a.s.) — Allah'tan Hep Diledi",
+      "icerik": "Mabetteki Hz. Meryem'in yanında her seferinde yiyecek buldu. \"Bu sana nereden geliyor?\" \"Allah'tan.\" (Ali İmran 3/37) Bunun üzerine Allah'tan çocuk diledi:\n\n\"Rabbim! Kemiklerim zayıfladı, saçlarım ağardı; eşim de kısırdı. Bana senin katından bir veli ver.\" (Meryem 19/4-6) Allah: \"Sana Yahya'yı müjdeleriz; bu ismi daha önce kimseye vermedik.\" (Meryem 19/7)\n\nMucize: Yaşlı ve kısır eşinden Hz. Yahya'nın doğması\nAna ders: Allah'tan dilekte bulunmaktan vazgeçmemek; gizli dua samimiyetin göstergesidir\nAna sureler: Meryem (19) · Ali İmran (3)",
+      "vurgu": "Meryem'den ilham aldı · Kısır eşinden Hz. Yahya doğdu"
+    },
+    {
+      "id": "peyg_k22",
+      "tip": "metin",
+      "baslik": "Hz. Yahya (a.s.) — Çocukken Hikmet Verilen",
+      "icerik": "Hz. Zekeriya'nın oğlu. Yaşlı ve kısır anne-babadan doğdu.\n\n\"Ey Yahya! Kitabı kuvvetle tut. Biz ona çocukken hikmet verdik.\" (Meryem 19/12) İnsanlara karşı merhametli, günahlardan uzak, ana babasına saygılı, zorba ve asi değildi. (Meryem 19/13-14)\n\nHz. İsa ile çağdaştır. Adı daha önce hiç kimseye verilmemişti. (Meryem 19/7)\n\nMucizeler: Çocukken hikmete kavuşması · Adının benzersiz olması\nAna ders: Hikmet yaşa bağlı değildir; ana babaya saygı peygamberlerin ortak vasfıdır\nAna sureler: Meryem (19) · Ali İmran (3)",
+      "vurgu": "Çocukken hikmet verildi · Adı ilk kez kullanıldı"
+    },
+    {
+      "id": "peyg_k23",
+      "tip": "metin",
+      "baslik": "Hz. Zülkifl (a.s.) — Sabredenlerden",
+      "icerik": "Kur'an Hz. Zülkifl'i yalnızca iki ayette zikreder:\n• Enbiya 21/85-86: Hz. İsmail ve İdris ile birlikte sabredenler arasında\n• Sad 38/48: Hayırlılar arasında\n\nBunun ötesinde Kur'an'da detaylı kıssası yoktur.\n\nÖnemli Not: Hz. Zülkifl, Kur'an'da adı geçen 25 peygamber içinde sayılır. Âlimlerin çoğu onu peygamber kabul eder; bazı âlimler ise sâlih bir yönetici olabileceğini söylemiştir. Bu yüzden ayrıntıda kesin konuşmak yerine, Kur'an'ın onu sabır ve hayırla andığını bilmek yeterlidir.\n\nAna ders: Tüm peygamberlere iman esastır; kıssaları kısa olsa da Allah katındaki değerleri büyüktür",
+      "vurgu": "İki ayette zikredildi · Sabır ve hayırla anıldı"
+    },
+    {
+      "id": "peyg_k24",
+      "tip": "metin",
+      "baslik": "Hz. İsa (a.s.) — Ruhullah ve Kelimetullah",
+      "icerik": "Unvanı: Ruhullah (Allah'tan bir ruh ifadesiyle anılan) ve Kelimetullah (Allah'ın \"ol\" emriyle yaratılan) · Ali İmran 3/45\n\nHz. Meryem'den babasız doğdu: \"Ol dedik, oldu.\" (Ali İmran 3/47) Beşikte konuştu: \"Ben Allah'ın kuluyum, bana kitap verdi, beni peygamber kıldı.\" (Meryem 19/30) Allah'ın izniyle: balçıktan kuş yapıp üfledi (uçtu), körü ve alaca hastasını iyileştirdi, ölüleri diriltti, gökten sofra indirdi. (Ali İmran 3/49)\n\nYahudiler öldürmek istedi; Allah \"seni kendime yükselteceğim\" dedi. (Nisa 4/157-158)\n\nKur'an açıkça bildirir: Hz. İsa Allah'ın kuludur, Allah'ın oğlu değildir. (Nisa 4/171)\n\nMucizeler: Babasız doğma · Beşikte konuşma · Ölüleri diriltme · Gökten sofra\nAna sureler: Meryem (19) · Ali İmran (3)",
+      "vurgu": "Ruhullah · Babasız doğdu · Beşikte konuştu · Allah'ın kuludur"
+    },
+    {
+      "id": "peyg_k25",
+      "tip": "metin",
+      "baslik": "Hz. Muhammed (s.a.s.) — Son Peygamber",
+      "icerik": "Unvanı: Hatem-ül Enbiya (Peygamberlerin Mührü, yani son peygamber)\n\n\"Muhammed erkeklerinizden hiçbirinin babası değildir; fakat O, Allah'ın elçisi ve peygamberlerin sonuncusudur.\" (Ahzab 33/40)\n\n\"Muhammed\" ismi Kur'an'da 4 kez geçer: Ali İmran 3/144, Ahzab 33/40, Muhammed 47/2, Fetih 48/29. \"Ahmed\" ismiyle de 1 kez anılır (Saf 61/6 — Hz. İsa'nın müjdelemesi).\n\nMucizeleri: Kur'an-ı Kerim (en büyük ve ebedi mucize) · İsra ve Miraç (gece yolculuğu ve yüce makamlara yükseliş) · Ayın yarılması\n\nAna ders: Son peygamber — sonrasında peygamber gelmez; Kur'an kıyamete kadar korunacak\n\nNot: Detaylı hayatı için Siyer bölümüne bakınız.",
+      "vurgu": "Son peygamber · Kur'an en büyük mucizesi · Siyer bölümünde detaylı"
+    },
+    {
+      "id": "peyg_k26",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları ve Önemli Notlar",
+      "icerik": "Peygamber kıssalarıyla ilgili bazı önemli konular:\n\n• Peygamberlerin toplam sayısı: Bazı hadis rivayetlerinde 124.000 peygamber gönderildiği zikredilir. Kur'an'da yalnızca 25 isim geçer; diğerleri hakkında detay bildirilmemiştir. Bu yüzden kesin bildiğimiz isimler Kur'an'da geçenlerdir.\n\n• Ülü'l-Azm peygamberler: Azim ve sabırda öne çıkan 5 büyük peygamber: Nuh, İbrahim, Musa, İsa ve Muhammed (s.a.s.). (Ahkaf 46/35)\n\n• İsrailiyat: Peygamber kıssalarına Tevrat ve Yahudi-Hristiyan rivayetlerinden giren bilgilere \"İsrailiyat\" denir. Kur'an'da yer almayan detaylara (ör. Habil-Kabil isimleri, Belkıs ismi, bazı tarih ayrıntıları) ihtiyatla yaklaşılır; doğrulayan veya yanlışlayan bir ayet yoksa \"rivayet edilir\" denilir.\n\n• Hz. Zülkifl: Âlimlerin çoğu onu peygamber kabul eder; bazı âlimler ise sâlih bir yönetici olabileceğini söylemiştir. Kur'an onu sabreden ve hayırlı kullar arasında anar.\n\n🎉 Peygamber Kıssaları dersini tamamladın! Kıssaların tamamını {{link:peygamber-kissalari|Peygamber Kıssaları}} bölümünde okuyabilir; hazır hissediyorsan aşağıdaki 'Teste Başla' butonuyla kendini sınayabilirsin.",
+      "vurgu": "Kur’an’ın bildirdiği kesin; rivayetler ise dikkatle ve ihtiyatla anlatılır"
+    }
+  ],
+  "quiz_havuzu_id": "peygamberler"
+}

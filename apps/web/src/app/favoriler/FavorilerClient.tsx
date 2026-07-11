@@ -50,7 +50,18 @@ export function FavorilerClient() {
     router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`);
   }
 
+  function confirmRemoveFavorite() {
+    return window.confirm("Bu ayeti favorilerden kaldırmak istediğinize emin misiniz?");
+  }
+
+  function handleFavoriteToggle(isFavorite: boolean, verseKey: string) {
+    if (isFavorite) return;
+    setKeys((prev) => prev.filter((key) => key !== verseKey));
+    setVerses((prev) => prev.filter((verse) => verse.verse_key !== verseKey));
+  }
+
   function clearAll() {
+    if (!window.confirm("Tüm favori ayetleri kaldırmak istediğinize emin misiniz?")) return;
     setFavorites([]);
     setVerses([]);
     setKeys([]);
@@ -156,6 +167,8 @@ export function FavorilerClient() {
                 key={verse.verse_key}
                 verse={verse}
                 onTagClick={handleTagClick}
+                onBeforeUnfavorite={confirmRemoveFavorite}
+                onFavoriteToggle={handleFavoriteToggle}
               />
             ))}
           </div>

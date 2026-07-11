@@ -1,0 +1,457 @@
+{
+  "quiz_id": "namaz-dualar",
+  "baslik": "Namaz Duaları",
+  "toplam_soru": 30,
+  "sorular": [
+    {
+      "id": "namaz_dualar_001",
+      "konu": "subhaneke",
+      "soru": "Sübhaneke namazın hangi rekâtında okunur?",
+      "secenekler": [
+        "A) Her rekatta",
+        "B) Sadece ilk rekatta",
+        "C) Sadece son rekatta",
+        "D) İlk ve son rekatta"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sübhaneke sadece ilk rekatta, iftitah tekbirinden hemen sonra okunur. Diğer rekatlarda okunmaz.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_002",
+      "konu": "subhaneke",
+      "soru": "Sübhaneke'nin hükmü nedir?",
+      "secenekler": [
+        "A) Farz",
+        "B) Vacip",
+        "C) Sünnet",
+        "D) Mekruh"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sübhaneke sünnettir. Okunmaması namazı bozmaz ancak okumak büyük sevap kazandırır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_003",
+      "konu": "fatiha",
+      "soru": "Fatiha suresinin namazdaki hükmü için en doğru ifade hangisidir?",
+      "secenekler": [
+        "A) Hanefi'de vacip; Şafii, Maliki ve Hanbeli'de farzdır",
+        "B) Bütün mezheplerde yalnızca sünnettir",
+        "C) Sadece son oturuşta okunur",
+        "D) Namazda okunmaz"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Fatiha'nın hükmü mezheplere göre farklı değerlendirilir. Hanefi'de vacip; Şafii, Maliki ve Hanbeli'de farz kabul edilir. Uygulamada her rekatta Fatiha okumak öğretilir.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari, Ezan 95; Müslim, Salat 34"
+    },
+    {
+      "id": "namaz_dualar_004",
+      "konu": "fatiha",
+      "soru": "Hanefi uygulamasında Fatiha suresinden sonra ne denir?",
+      "secenekler": [
+        "A) Sübhanallah",
+        "B) Amin",
+        "C) Elhamdülillah",
+        "D) Allahu Ekber"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Fatiha'dan sonra 'Amin' demek sünnettir. Hanefi uygulamasında genellikle sessiz söylenir; bazı mezheplerde sesli namazlarda sesli söylenebilir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_005",
+      "konu": "ruku-secde",
+      "soru": "'Sübhâne Rabbiye'l-Azîm' ne anlama gelir?",
+      "secenekler": [
+        "A) En yüce Rabbim noksanlıktan uzaktır",
+        "B) Yüce Rabbim her türlü noksanlıktan uzaktır",
+        "C) Allah'ım seni tenzih ederim",
+        "D) Rabbim beni bağışla"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Sübhâne Rabbiye'l-Azîm' — Yüce Rabbim her türlü noksanlıktan uzaktır. Rükûda okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_006",
+      "konu": "ruku-secde",
+      "soru": "'Sübhâne Rabbiye'l-A'lâ' ne anlama gelir?",
+      "secenekler": [
+        "A) Yüce Rabbim her türlü noksanlıktan uzaktır",
+        "B) En yüce Rabbim her türlü noksanlıktan uzaktır",
+        "C) Allah'tan başka ilah yoktur",
+        "D) Rabbim beni bağışla"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Sübhâne Rabbiye'l-A'lâ' — En yüce Rabbim her türlü noksanlıktan uzaktır. Secdede okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_007",
+      "konu": "ruku-secde",
+      "soru": "Rükû zikri en az kaç kez okunur?",
+      "secenekler": [
+        "A) 1",
+        "B) 3",
+        "C) 5",
+        "D) 7"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Rükûda 'Sübhâne Rabbiye'l-Azîm' en az 1 kez okunması yeterlidir. 3 kez okumak sünnettir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_008",
+      "konu": "ruku-secde",
+      "soru": "Secde zikri kaç kez okunmak sünnettir?",
+      "secenekler": [
+        "A) 1",
+        "B) 3",
+        "C) 5",
+        "D) 7"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Secdede 'Sübhâne Rabbiye'l-A'lâ' 3 kez okumak sünnettir. En az 1 kez okunması yeterlidir.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_009",
+      "konu": "ruku-secde",
+      "soru": "'Rabbigfirli' ne zaman okunur?",
+      "secenekler": [
+        "A) Rükûda",
+        "B) Secdede",
+        "C) İki secde arasında (celse — iki secde arasındaki kısa oturuş)",
+        "D) Son oturuşta"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Rabbigfirli' (Rabbim beni bağışla), iki secde arasındaki kısa oturuşta (celse — iki secde arasındaki kısa oturuş) okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_010",
+      "konu": "ruku-secde",
+      "soru": "'Rabbigfirli' ne anlama gelir?",
+      "secenekler": [
+        "A) Allah'ım seni tenzih ederim",
+        "B) Hamd sana mahsustur",
+        "C) Rabbim beni bağışla",
+        "D) Allah'tan başka ilah yoktur"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Rabbigfirli' — Rabbim beni bağışla. İki secde arasındaki oturuşta okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_011",
+      "konu": "oturus",
+      "soru": "Tahiyyat namazın hangi oturuşlarında okunur?",
+      "secenekler": [
+        "A) Yalnızca son oturuşta",
+        "B) Her oturuşta",
+        "C) Yalnızca ilk oturuşta",
+        "D) Yalnızca 4 rekatlı namazlarda"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tahiyyat (oturuş duası), namazın her oturuşunda okunur; hem ilk ka'dede (oturuşta) hem son ka'dede (oturuşta).",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_012",
+      "konu": "oturus",
+      "soru": "Tahiyyat'ın hükmü nedir?",
+      "secenekler": [
+        "A) Farz",
+        "B) Vacip",
+        "C) Sünnet",
+        "D) Müstehap"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hanefi öğretiminde Tahiyyat okumak vacip olarak öğretilir. Son oturuşun kendisi ise namazın rükünlerindendir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_013",
+      "konu": "oturus",
+      "soru": "Tahiyyat'ın ilk kelimesi nedir?",
+      "secenekler": [
+        "A) Allahümme",
+        "B) Ettehıyyatü",
+        "C) Eşhedü",
+        "D) Esselamü"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tahiyyat 'Ettehıyyatü lillahi...' diye başlar. Namazın her oturuşunda okunur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_014",
+      "konu": "oturus",
+      "soru": "Salli ve Barik duaları namazın hangi oturuşunda okunur?",
+      "secenekler": [
+        "A) Her oturuşta",
+        "B) Sadece ilk oturuşta",
+        "C) Sadece son oturuşta",
+        "D) Hiç okunmaz"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Salli ve Barik duaları sadece son oturuşta (ka'de-i ahire) Tahiyyat'tan sonra okunur.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_015",
+      "konu": "oturus",
+      "soru": "Salli ve Barik dualarının hükmü nedir?",
+      "secenekler": [
+        "A) Farz",
+        "B) Vacip",
+        "C) Sünnet",
+        "D) Mekruh"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Salli ve Barik sünnettir. Son oturuşta Tahiyyat'tan sonra sırasıyla okunur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_016",
+      "konu": "kavme",
+      "soru": "Rükûdan kalkarken söylenen 'Semi'allâhü limen hamideh' ne anlama gelir?",
+      "secenekler": [
+        "A) Yüce Rabbimi tenzih ederim",
+        "B) Allah, kendisine hamd edeni işitir",
+        "C) Rabbimiz, hamd sana mahsustur",
+        "D) Allah en büyüktür"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Semi'allâhü limen hamideh' — Allah, kendisine hamd edeni işitir. Rükûdan kalkarken söylenir.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Ezan 122; Müslim, Salat 196"
+    },
+    {
+      "id": "namaz_dualar_017",
+      "konu": "kavme",
+      "soru": "'Rabbena ve lekel hamd' ne zaman okunur?",
+      "secenekler": [
+        "A) Rükûa eğilirken",
+        "B) Rükûdan kalkarken",
+        "C) Kavmede (rükûdan sonra dik duruşta) tam dik durulunca",
+        "D) Secdeye giderken"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Rükûdan kalkarken 'Semi'allahu' denir, ardından kavmede tam dik durulunca 'Rabbena ve lekel hamd' okunur.",
+      "zorluk": "orta",
+      "kaynak": "Buhari, Ezan 122; Müslim, Salat 196"
+    },
+    {
+      "id": "namaz_dualar_018",
+      "konu": "kavme",
+      "soru": "'Rabbena ve lekel hamd' ne anlama gelir?",
+      "secenekler": [
+        "A) Allah en büyüktür",
+        "B) Rabbimiz, hamd sana mahsustur",
+        "C) Seni tenzih ederim",
+        "D) Rabbim beni bağışla"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Rabbena ve lekel hamd' — 'Rabbimiz, hamd sana mahsustur.' Kavmede (rükûdan sonra dik duruşta), rükûdan tam dik durulunca söylenir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_019",
+      "konu": "kunut",
+      "soru": "Hanefi uygulamasında Kunut duası (vitirde okunan özel dua) hangi namazda okunur?",
+      "secenekler": [
+        "A) Sabah namazında",
+        "B) Öğle namazında",
+        "C) Vitir namazında",
+        "D) Tüm namazlarda"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hanefi uygulamasında Kunut duası (vitirde okunan özel dua) vitir namazının üçüncü rekâtında, rükûya gitmeden önce okunur. Şafii mezhebinde sabah namazında kunut uygulaması da vardır.",
+      "zorluk": "kolay",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_020",
+      "konu": "kunut",
+      "soru": "Hanefi uygulamasında Kunut duası (vitirde okunan özel dua) vitir namazının hangi rekâtında okunur?",
+      "secenekler": [
+        "A) Birinci rekatta",
+        "B) İkinci rekatta",
+        "C) Üçüncü (son) rekatta",
+        "D) Her rekatta"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hanefi uygulamasında Kunut duası (vitirde okunan özel dua) vitir namazının üçüncü rekâtında zamm-ı sureden (Fatiha'dan sonra okunan ek sureden) sonra, rükûya gitmeden önce okunur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_021",
+      "konu": "subhaneke",
+      "soru": "Sübhaneke'deki 'Sübhânekellâhümme' ifadesi ne anlama gelir?",
+      "secenekler": [
+        "A) Allah'ım sana şükrederim",
+        "B) Allah'ım seni tenzih ederim",
+        "C) Allah'ım senden yardım dilerim",
+        "D) Allah'ım beni bağışla"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Sübhânekellâhümme' — 'Allah'ım, seni her türlü noksanlıktan tenzih ederim.' Sübhaneke bu ifadeyle başlar.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_022",
+      "konu": "kunut",
+      "soru": "Kunut dualarını henüz bilmeyen biri ne yapabilir?",
+      "secenekler": [
+        "A) Kısa bir dua okuyup Kunut'u öğrenmeye devam eder",
+        "B) Namazı tamamen terk eder",
+        "C) Hiçbir şey öğrenmesine gerek yoktur",
+        "D) Kunut tekbirini sürekli tekrarlar"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kunut dualarını henüz bilmeyen kişi öğrenene kadar kısa bir dua okuyabilir; amaç Kunut dualarını ezberlemeye devam etmektir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_023",
+      "konu": "namaz-sonrasi",
+      "soru": "Namaz sonrası kaç kez Sübhanallah, kaç kez Elhamdülillah, kaç kez Allahu Ekber denir?",
+      "secenekler": [
+        "A) 10 - 10 - 10",
+        "B) 33 - 33 - 33",
+        "C) 99 - 99 - 99",
+        "D) 7 - 7 - 7"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Selam verildikten sonra Sübhanallah 33, Elhamdülillah 33, Allahu Ekber 33 kez söylenir.",
+      "zorluk": "kolay",
+      "kaynak": "Buhari, Ezan 155; Müslim, Mesacid 144"
+    },
+    {
+      "id": "namaz_dualar_024",
+      "konu": "rabbena",
+      "soru": "'Rabbena Atina' duası hangi Kur'an suresinden alınmıştır?",
+      "secenekler": [
+        "A) Fatiha Suresi",
+        "B) Bakara Suresi",
+        "C) Al-i İmran Suresi",
+        "D) İbrahim Suresi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Rabbena Atina fi'd-dünya haseneten...' duası Bakara Suresi 201. ayetten alınmıştır.",
+      "zorluk": "zor",
+      "kaynak": "Bakara Suresi 2:201"
+    },
+    {
+      "id": "namaz_dualar_025",
+      "konu": "rabbena",
+      "soru": "'Rabbenâğfir lî' duası hangi Kur'an suresinden alınmıştır?",
+      "secenekler": [
+        "A) Fatiha Suresi",
+        "B) Bakara Suresi",
+        "C) Al-i İmran Suresi",
+        "D) İbrahim Suresi"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "'Rabbenâğfir lî ve li valideyye...' duası İbrahim Suresi 41. ayetten alınmıştır.",
+      "zorluk": "zor",
+      "kaynak": "İbrahim Suresi 14:41"
+    },
+    {
+      "id": "namaz_dualar_026",
+      "konu": "oturus",
+      "soru": "Son oturuşta Tahiyyat'tan sonra hangi sırayla dua okunur?",
+      "secenekler": [
+        "A) Barik → Salli → Rabbena",
+        "B) Salli → Barik → Rabbena",
+        "C) Rabbena → Salli → Barik",
+        "D) Salli → Rabbena → Barik"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Son oturuşta Tahiyyat'tan sonra Salli, ardından Barik, sonra Rabbena duaları sırasıyla okunur.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_027",
+      "konu": "subhaneke",
+      "soru": "Sübhaneke'nin anlamında aşağıdakilerden hangisi geçmez?",
+      "secenekler": [
+        "A) Allah'ı tenzih etmek",
+        "B) Allah'a hamd etmek",
+        "C) Allah'tan bağışlanma dilemek",
+        "D) Senden başka ilah olmadığını bildirmek"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sübhaneke'de Allah'ı tenzih, hamd ve başka ilah olmadığı geçer. Bağışlanma dilemek 'Rabbigfirli'ye aittir.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_028",
+      "konu": "ruku-secde",
+      "soru": "Kul Allah'a en yakın olduğu an hangisidir?",
+      "secenekler": [
+        "A) Rükûda",
+        "B) Kıyamda",
+        "C) Secdede",
+        "D) Oturuşta"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Peygamber: 'Kul, secdede Allah'a en yakın olduğu andadır.' (Müslim, Salat 215)",
+      "zorluk": "kolay",
+      "kaynak": "Müslim, Salat 215"
+    },
+    {
+      "id": "namaz_dualar_029",
+      "konu": "namaz-sonrasi",
+      "soru": "Aşağıdaki zikirlerden hangisi namaz içinde değil, namaz sonrasında okunur?",
+      "secenekler": [
+        "A) Sübhane Rabbiye'l-Azîm",
+        "B) Rabbigfirli",
+        "C) Elhamdülillah (33 kez)",
+        "D) Semi'allahu limen hamideh"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Elhamdülillah 33 kez namaz sonrasında okunur. Diğerleri namazın içindeki zikirlerdir.",
+      "zorluk": "orta",
+      "kaynak": "Temel ilmihal bilgisi"
+    },
+    {
+      "id": "namaz_dualar_030",
+      "konu": "oturus",
+      "soru": "Hanefi öğretiminde aşağıdakilerden hangisi namazda vacip olarak vurgulanır?",
+      "secenekler": [
+        "A) Sübhaneke",
+        "B) Tahiyyat",
+        "C) Salli",
+        "D) Barik"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hanefi öğretiminde Tahiyyat okumak vacip olarak öğretilir. Sübhaneke, Salli ve Barik ise sünnettir.",
+      "zorluk": "zor",
+      "kaynak": "Temel ilmihal bilgisi"
+    }
+  ]
+}

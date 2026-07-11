@@ -1,0 +1,423 @@
+{
+  "quiz_id": "kitaplara-iman",
+  "baslik": "Kitaplara İman",
+  "toplam_soru": 32,
+  "sorular": [
+    {
+      "id": "kitaplara_iman_001",
+      "konu": "tanim",
+      "soru": "Kitaplara iman imanın kaçıncı şartıdır?",
+      "secenekler": [
+        "A) İkinci",
+        "B) Dördüncü",
+        "C) Üçüncü",
+        "D) Beşinci"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Cibril hadisinde iman; Allah'a, meleklerine, kitaplarına, peygamberlerine, ahiret gününe ve kadere iman olarak sayılır. Kitaplara iman üçüncü şarttır."
+    },
+    {
+      "id": "kitaplara_iman_002",
+      "konu": "tanim",
+      "soru": "Kitaplara imanın temel içeriği nedir?",
+      "secenekler": [
+        "A) Yalnızca Kur'an'ı kabul etmek",
+        "B) Allah'ın peygamberlerine vahiy ve ilahi kitaplar gönderdiğine inanmak",
+        "C) Tüm dini metinleri kutsal saymak",
+        "D) Tarihsel kitapları okumak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Mümin sadece Kur'an'a değil, Allah'ın daha önce gönderdiği hak vahiylere de iman eder."
+    },
+    {
+      "id": "kitaplara_iman_003",
+      "konu": "neden_kitap",
+      "soru": "Allah'ın insanlara kitap göndermesinin temel sebebi nedir?",
+      "secenekler": [
+        "A) İnsanların birbirleriyle anlaşması için",
+        "B) Tarih yazmak için",
+        "C) Dil geliştirmek için",
+        "D) İnsan aklının tek başına her konuda eksiksiz hidayet bulamayacağı için"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Allah, insanın yalnız aklıyla bulamayacağı hidayeti vahiy ve kitaplarla göndermiştir."
+    },
+    {
+      "id": "kitaplara_iman_004",
+      "konu": "neden_kitap",
+      "soru": "Peygamber ile ilahi kitap arasındaki ilişki nasıl tanımlanır?",
+      "secenekler": [
+        "A) Peygamber mesajı tebliğ eder, kitap bu mesajı taşır",
+        "B) Kitap peygamberi yönetir",
+        "C) İkisi birbirinden bağımsız hareket eder",
+        "D) Kitap sonradan ortaya çıkar, peygamber öncedir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Peygamber vahyi tebliğ eder, kitap da bu mesajı taşır; ikisi birbirinden kopuk düşünülemez."
+    },
+    {
+      "id": "kitaplara_iman_005",
+      "konu": "dort_kitap",
+      "soru": "İslam inancında adı açıkça bilinen dört büyük ilahi kitap hangileridir?",
+      "secenekler": [
+        "A) Zebur, Kur'an, Mektup, İncil",
+        "B) Tevrat, İncil, Kur'an, Suhuf",
+        "C) Tevrat, Zebur, İncil, Kur'an",
+        "D) Tevrat, Zebur, İncil, Hadis"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Adı açıkça bilinen dört büyük ilahi kitap: Tevrat (Hz. Musa), Zebur (Hz. Davud), İncil (Hz. İsa), Kur'an (Hz. Muhammed)."
+    },
+    {
+      "id": "kitaplara_iman_006",
+      "konu": "dort_kitap",
+      "soru": "Tevrat hangi peygambere indirilmiştir?",
+      "secenekler": [
+        "A) Hz. Musa",
+        "B) Hz. İbrahim",
+        "C) Hz. Davud",
+        "D) Hz. İsa"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Tevrat, Hz. Musa'ya indirilen ilahi kitaptır."
+    },
+    {
+      "id": "kitaplara_iman_007",
+      "konu": "dort_kitap",
+      "soru": "Zebur'u diğer büyük ilahi kitaplardan ayıran temel özelliği nedir?",
+      "secenekler": [
+        "A) Hukuki hükümler içermesi",
+        "B) Kıyamet günü ahvalini detaylı anlatması",
+        "C) Tarihsel olayları kayıt altına alması",
+        "D) Ağırlıklı olarak dua, hamd ve zikir dili taşıması"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Zebur, Hz. Davud'a verilmiş ve ağırlıklı olarak dua, hamd ve zikir içeren lirik bir kitap olarak tanımlanır."
+    },
+    {
+      "id": "kitaplara_iman_008",
+      "konu": "dort_kitap",
+      "soru": "Kur'an'ın Hz. İsa'ya verilen İncil hakkında bildirdiği temel özellik nedir?",
+      "secenekler": [
+        "A) Hz. Musa şeriatını tamamen ortadan kaldırması",
+        "B) Hidayet ve nur taşıması",
+        "C) Yalnızca ahlaki öğütler içermesi",
+        "D) Kur'an'ın özetini oluşturması"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, Hz. İsa'ya verilen İncil'in hidayet ve nur taşıdığını bildirir; bu önceki vahiylerin gerçekliğine imana örnek teşkil eder."
+    },
+    {
+      "id": "kitaplara_iman_009",
+      "konu": "tevrat",
+      "soru": "Kur'an'ın Tevrat hakkında bildirdiği temel gerçek nedir?",
+      "secenekler": [
+        "A) Tevrat hiçbir zaman geçerli olmadı",
+        "B) Tevrat yalnızca tarihsel bir metindir",
+        "C) Tevrat'ın aslında hidayet ve nur bulunduğu",
+        "D) Tevrat Müslümanları bağlamaz"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kur'an, Tevrat'ın aslında hidayet ve nur bulunduğunu bildirir; bu onun Allah'tan gelen hak bir kitap olduğunu öğretir."
+    },
+    {
+      "id": "kitaplara_iman_010",
+      "konu": "zebur",
+      "soru": "Zebur'un öne çıkan içerik ve dil özelliği nedir?",
+      "secenekler": [
+        "A) Savaş anlatıları ve kanunlar",
+        "B) Ticaret hükümleri",
+        "C) Peygamberlerin hayat hikayeleri",
+        "D) Dua, zikir, kulluk ve Allah'a yöneliş dili"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Zebur denince dua, zikir, kulluk ve Allah'a yöneliş dili öne çıkar."
+    },
+    {
+      "id": "kitaplara_iman_011",
+      "konu": "incil",
+      "soru": "Kur'an'ın Hz. İsa'ya verilen İncil hakkındaki bildirimi nedir?",
+      "secenekler": [
+        "A) İncil'in aslında hidayet ve nur bulunduğu ve önceki vahyi doğruladığı",
+        "B) İncil tamamen insanlar tarafından yazılmıştır",
+        "C) İncil hakkında hiçbir bilgi verilmemiştir",
+        "D) İncil Kur'an'la çelişir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kur'an, İncil'in aslında hidayet ve nur bulunduğunu ve önceki vahyi doğrulayıcı bir yön taşıdığını bildirir."
+    },
+    {
+      "id": "kitaplara_iman_012",
+      "konu": "kuran",
+      "soru": "Kur'an'ın diğer ilahi kitaplardan en belirgin farkı nedir?",
+      "secenekler": [
+        "A) En uzun kitap olması",
+        "B) Son ilahi kitap olması ve Allah tarafından korunmuşluğu",
+        "C) Yalnızca Araplara gönderilmesi",
+        "D) En çok peygamberi kapsayan kitap olması"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, Hz. Muhammed'e indirilen son ilahi kitaptır ve Allah tarafından korunmuş; hükmü kıyamete kadar geçerlidir."
+    },
+    {
+      "id": "kitaplara_iman_013",
+      "konu": "kuran",
+      "soru": "Müslüman için inançta ve dinde son ölçü nedir?",
+      "secenekler": [
+        "A) Genel tarihsel gelenek",
+        "B) Ulemânın çoğunluk görüşü",
+        "C) Kur'an",
+        "D) Önceki peygamberlerin uygulamaları"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kur'an korunmuş son ilahi kitaptır; bu sebeple inançta ve dinde son ölçü Kur'an'dır."
+    },
+    {
+      "id": "kitaplara_iman_014",
+      "konu": "kuran_onceki",
+      "soru": "Kur'an, önceki ilahi kitaplara nasıl bir tutum sergiler?",
+      "secenekler": [
+        "A) Toptan reddeder",
+        "B) Hepsini olduğu gibi onaylar",
+        "C) Yalnızca Tevrat'a değer verir",
+        "D) Asıllarını tasdik eder, üzerlerinde gözetici ve ölçü koyucu olur"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kur'an önceki kitapların Allah'tan geldiğini doğrular; aynı zamanda onlar üzerinde gözetici ve ölçü koyucu bir rehberdir."
+    },
+    {
+      "id": "kitaplara_iman_015",
+      "konu": "kuran_onceki",
+      "soru": "Müslümanın önceki kitaplara bakarken takınması gereken denge nedir?",
+      "secenekler": [
+        "A) Kur'an'a uyanı kabul, aykırı olanı reddetmek; bilgisiz konularda ihtiyatlı olmak",
+        "B) Her şeyi olduğu gibi kabul etmek",
+        "C) Her şeyi toptan reddetmek",
+        "D) Yalnızca akademik açıdan değerlendirmek"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Peygamber'in öğrettiği denge: toptan onaylamak da yanlış, toptan yalanlamak da yanlış; Kur'an ölçüsü esastır."
+    },
+    {
+      "id": "kitaplara_iman_016",
+      "konu": "asil_iman",
+      "soru": "Müslümanın Tevrat, Zebur ve İncil konusundaki iman tutumu nasıl olmalıdır?",
+      "secenekler": [
+        "A) Bunları inkâr etmek",
+        "B) Bu kitapları bugünkü haliyle kutsal saymak",
+        "C) Allah'tan gelen asıllarına iman etmek",
+        "D) Bunlar hakkında hiç konuşmamak"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Müslümanlar, önceki kitapların Allah'tan gelen asıllarına iman eder; bugünkü metinler hakkında ise Kur'an ölçüsünde ihtiyatlı konuşur."
+    },
+    {
+      "id": "kitaplara_iman_017",
+      "konu": "asil_iman",
+      "soru": "Bugün elde bulunan Tevrat, Zebur ve İncil metinleri hakkında neden ihtiyatlı konuşulur?",
+      "secenekler": [
+        "A) Bunlar çok eski olduğu için",
+        "B) Kesin ölçü Kur'an olduğundan; metinlerde değişiklik ve karışma ihtimali olduğundan",
+        "C) Bunları okumak yasak olduğundan",
+        "D) İçeriklerinin tamamen anlamsız olduğundan"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Asıllarına iman edilir; ancak kesin ölçü Kur'an'dır ve bugünkü tarihsel metinlerde karışmalar olmuş olabilir."
+    },
+    {
+      "id": "kitaplara_iman_018",
+      "konu": "suhuf",
+      "soru": "Suhuf nedir?",
+      "secenekler": [
+        "A) Kur'an'ın bölümleri",
+        "B) Hadis kitapları",
+        "C) İslam öncesi Arap şiiri",
+        "D) Peygamberlere verilen kısa ilahi sayfalar"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Suhuf, büyük ilahi kitaplar dışında bazı peygamberlere verilen kısa ilahi sayfalardır; kısa öğütler ve temel inanç hatırlatmaları içerir."
+    },
+    {
+      "id": "kitaplara_iman_019",
+      "konu": "suhuf",
+      "soru": "Suhuf hakkında hangisi doğrudur?",
+      "secenekler": [
+        "A) Allah farklı peygamberlere suhuf şeklinde de vahiy göndermiştir",
+        "B) Dört büyük kitabın diğer adıdır",
+        "C) Allah'ın vahyi yalnızca dört büyük kitaptan ibarettir",
+        "D) Suhuf Kur'an'ın bir parçasıdır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Allah'ın vahyi yalnızca dört büyük kitapla sınırlı değildir; çeşitli peygamberlere suhuf (kısa ilahi sayfalar) da gönderilmiştir."
+    },
+    {
+      "id": "kitaplara_iman_020",
+      "konu": "dil",
+      "soru": "Müslümanın ehl-i kitapla konuşurken dilinin nasıl olması gerekir?",
+      "secenekler": [
+        "A) Küçümseyen ve alay eden",
+        "B) Her şeyi onaylayan",
+        "C) Saygılı ve itikadi çizgiyi koruyan",
+        "D) Her şeyi reddeden"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Saygılı olmak, inanç çizgisini belirsizleştirmek demek değildir; kendi imanını net tutar ve insanlarla güzel bir üslupla konuşur."
+    },
+    {
+      "id": "kitaplara_iman_021",
+      "konu": "dil",
+      "soru": "Kur'an Ehl-i Kitapla tartışmayı nasıl tarif eder?",
+      "secenekler": [
+        "A) Onlarla hiç konuşmamak gerekir",
+        "B) En güzel yolla tartışmak (cedel değil, en güzel yaklaşım)",
+        "C) Onları zorlamak",
+        "D) Onların bütün inançlarını kabul etmek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, Ehl-i Kitapla en güzel yolla tartışmayı öğütler. Saygılı dil kurarız; ama ölçümüzü kaybetmeyiz."
+    },
+    {
+      "id": "kitaplara_iman_022",
+      "konu": "peygamberler_arasi",
+      "soru": "Müslüman peygamberler arasında iman bakımından ayrım yapar mı?",
+      "secenekler": [
+        "A) Evet, yalnızca Hz. Muhammed'e iman eder",
+        "B) Evet, yalnızca Tevrat peygamberlerine iman eder",
+        "C) Hayır ama bu konu belirsizdir",
+        "D) Hayır, Allah'ın gönderdiği peygamberler arasında ayrım yapmaz"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Müslüman, Allah'ın gönderdiği peygamberler arasında iman bakımından ayrım yapmaz; hepsine iman eder."
+    },
+    {
+      "id": "kitaplara_iman_023",
+      "konu": "vahiy_zinciri",
+      "soru": "Allah'ın insanlığa vahiy gönderme sürecindeki temel tutumu nasıl tanımlanabilir?",
+      "secenekler": [
+        "A) Farklı dönemlerde peygamberler aracılığıyla tutarlı ve birbiriyle örtüşen bir hidayet zinciri kurmuştur",
+        "B) Her çağda birbiriyle çelişen mesajlar göndermiştir",
+        "C) Vahyi yalnızca tek bir dönemle sınırlı tutmuştur",
+        "D) Her peygambere tamamen farklı bir din öğretmiştir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İlahi vahiy birbiriyle çelişmez; Allah farklı dönemlerde peygamberler aracılığıyla tutarlı bir hidayet zinciri kurmuş, Kur'an bu zincirin son halkasıdır."
+    },
+    {
+      "id": "kitaplara_iman_024",
+      "konu": "tevrat",
+      "soru": "Müslümanın Tevrat konusundaki temel inanç görevi nedir?",
+      "secenekler": [
+        "A) Tevrat'ın tüm hükümlerini uygulamak",
+        "B) Tevrat'ı Kur'an'dan üstün tutmak",
+        "C) Hz. Musa'ya ilahi bir kitap verildiğine iman etmek",
+        "D) Tevrat'ı okumak"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Müslümanın temel görevi, Hz. Musa'ya ilahi bir kitap verildiğine iman etmektir; son ölçü ise daima Kur'an'dır."
+    },
+    {
+      "id": "kitaplara_iman_025",
+      "konu": "zebur",
+      "soru": "Zebur ile Kur'an arasında bildirilen bir bağ nedir?",
+      "secenekler": [
+        "A) Zebur Kur'an'ın Davud diline çevirisidir",
+        "B) Zebur'da salih kulların yeryüzüne mirasçı olacağı hakikatinin yazıldığı haber verilir",
+        "C) Zebur Kur'an'dan alıntılar içerir",
+        "D) İkisi aynı dönemde indirilmiştir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, Zebur'da salih kulların yeryüzüne mirasçı olacağı hakikatinin yazıldığını haber verir; bu önceki vahiylerle Kur'an arasındaki sürekliliği gösterir."
+    },
+    {
+      "id": "kitaplara_iman_026",
+      "konu": "denge",
+      "soru": "Kitaplara imanda İslam'ın temel dengesi nedir?",
+      "secenekler": [
+        "A) Asıllarına iman etmek, Kur'an'ı son ölçü kabul etmek, bugünkü metinlerde ihtiyatlı olmak",
+        "B) Tüm kitapları aynı seviyede tutmak",
+        "C) Önceki kitapları tamamen görmezden gelmek",
+        "D) Yalnızca Kur'an'ı vahiy saymak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kitaplara imanda denge: önceki vahiylerin asıllarına iman etmek, Kur'an'ın son ve korunmuş kitap olduğunu bilmek, bugünkü metinleri Kur'an ölçüsüyle değerlendirmek."
+    },
+    {
+      "id": "kitaplara_iman_027",
+      "konu": "kuran",
+      "soru": "Kur'an hangi özelliğiyle önceki kitaplardan ayrışır?",
+      "secenekler": [
+        "A) Yalnızca ibadet kurallarından oluşması",
+        "B) En kısa ilahi kitap olması",
+        "C) Yalnızca Arapça olması",
+        "D) Allah tarafından korunmuş olması ve hükmünün kıyamete kadar geçerli olması"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kur'an, Allah tarafından korunmuş son ilahi kitaptır ve hükmü kıyamete kadar geçerlidir."
+    },
+    {
+      "id": "kitaplara_iman_028",
+      "konu": "neden_kitap",
+      "soru": "Müslümanın önceki peygamberler ve kitaplar hakkındaki genel tutumu nasıl olmalıdır?",
+      "secenekler": [
+        "A) Onları küçümsemek",
+        "B) Onlar hakkında hiç konuşmamak",
+        "C) Onları vahiy zincirinin meşru halkası olarak görmek ve saygı duymak",
+        "D) Onların kitaplarını İslam'ın kaynağı kabul etmek"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Müslüman, önceki peygamberleri ve onlara gönderilen ilahi kitapları vahiy zincirinin hak bir parçası olarak görür ve saygıyla yaklaşır."
+    },
+    {
+      "id": "kitaplara_iman_029",
+      "konu": "tanim",
+      "soru": "Müslümanın önceki kitaplara ve peygamberlere iman etmesinin Kur'an'daki temeli nedir?",
+      "secenekler": [
+        "A) Tarihsel merak",
+        "B) Kur'an müminleri hem kendine indirilene hem de daha önce indirilenlere inanmakla övmüştür",
+        "C) Bu gelenek Hz. Muhammed sonradan ekledi",
+        "D) Bunun hakkında Kur'an'da açık bilgi yoktur"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, müminleri hem kendisine indirilene hem de daha önce indirilenlere inanmakla övenlerden saymıştır."
+    },
+    {
+      "id": "kitaplara_iman_030",
+      "konu": "vahiy_zinciri",
+      "soru": "Dört büyük kitabın sıralanışı (kronolojik olarak en eskiden en yeniye) hangisidir?",
+      "secenekler": [
+        "A) Tevrat, Zebur, İncil, Kur'an",
+        "B) İncil, Tevrat, Zebur, Kur'an",
+        "C) Zebur, Tevrat, İncil, Kur'an",
+        "D) Kur'an, İncil, Zebur, Tevrat"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kronolojik sırayla: Tevrat (Hz. Musa) → Zebur (Hz. Davud) → İncil (Hz. İsa) → Kur'an (Hz. Muhammed)."
+    },
+    {
+      "id": "kitaplara_iman_031",
+      "konu": "suhuf",
+      "soru": "Suhuf konusunda dikkatli olunması gereken husus nedir?",
+      "secenekler": [
+        "A) Suhuf konusu tamamen görmezden gelinmelidir",
+        "B) Suhuf Kur'an'la aynı değerdedir",
+        "C) Suhuf yalnızca Hz. İbrahim'e verilmiştir",
+        "D) Suhufun sayısı ve ayrıntıları kesin bilgi gibi anlatılmamalıdır"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Suhufun sayısı ve bazı tarihsel ayrıntıları hakkında kesin bilgi gibi konuşmaktan kaçınmak gerekir."
+    },
+    {
+      "id": "kitaplara_iman_032",
+      "konu": "denge",
+      "soru": "Kitaplara imanda saygılı dil kurmanın sınırı nedir?",
+      "secenekler": [
+        "A) Saygı her şeyin önünde gelir; inanç farkı gizlenmelidir",
+        "B) Saygı yalnızca Müslümanlara gösterilir",
+        "C) Saygı inanç çizgisini belirsizleştirmeyi gerektirmez; ölçü Kur'an'dır",
+        "D) Saygı göstermek imana zarar verir"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Saygılı olmak, inanç çizgisini belirsizleştirmek demek değildir. Mümin güzel üslupla konuşur, ama Kur'an ölçüsünü kaybetmez."
+    }
+  ]
+}

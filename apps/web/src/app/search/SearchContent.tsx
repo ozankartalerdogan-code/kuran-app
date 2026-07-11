@@ -8,6 +8,7 @@ import { SearchBar } from "../../components/SearchBar";
 import { VerseCard, type VerseCardData } from "../../components/VerseCard";
 import type { TagFilterResponse, TagFilterErrorResponse } from "../api/tags/filter/route";
 import type { SearchResponse } from "../api/search/search-types";
+import { parseDirectAyahQuery } from "../../lib/ayahRefs";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
@@ -177,11 +178,16 @@ export function SearchContent() {
     if (tagParam) {
       fetchTagResults(tagParam, pageParam);
     } else if (qParam) {
+      const directRef = parseDirectAyahQuery(qParam);
+      if (directRef) {
+        router.replace(`/surah/${directRef.surahId}/ayah/${directRef.ayahNumber}`);
+        return;
+      }
       fetchVerseResults(qParam);
     } else {
       setState({ status: "idle" });
     }
-  }, [tagParam, qParam, pageParam, fetchTagResults, fetchVerseResults]);
+  }, [tagParam, qParam, pageParam, fetchTagResults, fetchVerseResults, router]);
 
   // Bulgu 2: useCallback ile stabil referans
   const handleTagClick = useCallback((tag: string) => {

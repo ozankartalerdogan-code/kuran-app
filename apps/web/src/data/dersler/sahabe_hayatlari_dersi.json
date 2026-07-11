@@ -1,0 +1,147 @@
+{
+  "ders_id": "sahabe-hayatlari",
+  "baslik": "Sahabe Hayatları",
+  "aciklama": "Önemli sahabilerin hayatlarından kısa kesitlerle, onların bıraktığı iman, ahlak ve sorumluluk derslerini öğren.",
+  "kartlar": [
+    {
+      "id": "sahabe_k00",
+      "tip": "metin",
+      "baslik": "Sahabe Kimdir?",
+      "icerik": "Sahabe; Hz. Peygamber'i görüp ona iman eden ve Müslüman olarak vefat eden kimselere verilen isimdir. Onlar vahyin indiği günleri yaşadılar, Kur'an'ı Resulullah'tan öğrendiler ve İslam'ı yalnız sözle değil bedel ödeyerek taşıdılar.\n\nKur'an, muhacir ve ensarın öncülerini övmekte; Allah'ın onlardan razı olduğunu bildirmektedir. Bu yüzden sahabe hayatlarını öğrenmek sadece tarih bilgisi edinmek değil, dinin ete kemiğe bürünmüş ilk örneklerini tanımaktır.\n\nDayanaklar: Tevbe 9:100; Haşr 59:8-9.",
+      "vurgu": "Sahabe, dini ilk yaşayan ve sonraki nesillere taşıyan örnek kuşaktır"
+    },
+    {
+      "id": "sahabe_k01",
+      "tip": "metin",
+      "baslik": "Sahabe Hayatları Nasıl Okunmalı?",
+      "icerik": "Sahabe hayatları okunurken onları sadece kahramanlık hikayeleri gibi görmek eksik olur. Asıl önemli olan, bir sahabinin hangi şart altında hangi tavrı ortaya koyduğunu görmek ve bugüne bakan yönünü fark etmektir.\n\nBu derste bu yüzden her sahabeyi çok uzun biyografiyle değil; kısa hayat çizgisi, öne çıkan hizmeti ve ondan alınacak istikamet üzerinden işleyeceğiz. Ama bunu yaparken onları sloganlaştırmadan, insan yönlerini ve fedakarlıklarını da hatırda tutacağız.",
+      "vurgu": "Odağımız sadece bilgi değil, sahabeden bugüne taşınan istikamettir"
+    },
+    {
+      "id": "sahabe_k02",
+      "tip": "metin",
+      "baslik": "Hz. Ebû Bekir",
+      "icerik": "Hz. Ebû Bekir, ilk iman edenlerden, Resulullah'ın en yakın dostu ve hicret yol arkadaşıdır. Malını, itibarını ve güvenliğini İslam uğruna ortaya koymuş; zor günlerde sarsılmayan bir sadakat göstermiştir. Peygamberimizin vefatından sonra da dağılma tehlikesi yaşayan ümmeti toparlayan ilk halife olmuştur.\n\nOnun hayatında öne çıkan ders, sevgiyi sözde bırakmayan sadakattir. Hz. Ebû Bekir sadece seven biri değil; sevdiğinin yükünü taşıyan, kriz anında paniğe kapılmayan, merhametle ama kararlılıkla duran bir mümindi.\n\nDayanaklar: Buhari 3656; Tirmizi 3790; Tevbe 9:40 dolaylı hicret bağlamı.",
+      "vurgu": "Sadakat, sevdiğinin davası ağırlaştığında da yanında kalabilmektir"
+    },
+    {
+      "id": "sahabe_k03",
+      "tip": "metin",
+      "baslik": "Hz. Ömer",
+      "icerik": "Hz. Ömer, güçlü karakteri, açık sözlülüğü ve adalet hassasiyetiyle tanınan büyük sahabilerdendir. Müslüman olduktan sonra İslam'ın görünürlüğü ve toplum düzeni için çok önemli roller üstlenmiş, halifeliği döneminde de adaletiyle öne çıkmıştır.\n\nOnun hayatının verdiği en büyük derslerden biri şudur: Sert mizaç, hakka teslim olduğunda zulüm değil adalet üretir. Hz. Ömer, gücünü nefsine değil hakka bağladığı için unutulmaz olmuştur.\n\nDayanaklar: Buhari 3671; Tirmizi 3790.",
+      "vurgu": "Güç, hakka teslim olursa adalete dönüşür"
+    },
+    {
+      "id": "sahabe_k04",
+      "tip": "metin",
+      "baslik": "Hz. Osman",
+      "icerik": "Hz. Osman, ilk Müslümanlardan, iki hicret yaşamış, Resulullah'ın damadı olmuş ve sonraki dönemde mushaf hizmetiyle ümmete büyük katkı sunmuş bir sahabidir. Haya sahibi, yumuşak huylu ve son derece cömert bir kişilik olarak tanınmıştır.\n\nOnun hayatının merkezindeki ders, sessiz ama derin hayırdır. Her hizmet gürültülü olmaz; bazı insanlar konuşarak değil, haya, infak ve istikrarla ümmete omuz verir. Hz. Osman bunu gösteren büyük bir örnektir.\n\nDayanaklar: Tirmizi 3747; Tirmizi 3790.",
+      "vurgu": "Haya ve cömertlik, sessiz görünen ama çok güçlü bir kulluktur"
+    },
+    {
+      "id": "sahabe_k05",
+      "tip": "metin",
+      "baslik": "Hz. Ali",
+      "icerik": "Hz. Ali, çocuk yaşta iman edenlerdendir. Resulullah'ın akrabası, damadı ve ilimle cesareti bir arada taşıyan seçkin sahabilerdendir. Savaş meydanlarında cesaretiyle, ilim meclislerinde derinliğiyle ve birçok zor meselede vakar sahibi tavrıyla öne çıkmıştır.\n\nHz. Ali'nin hayatından alınacak temel ders, ilim ile cesaretin birbirinden ayrılmaması gerektiğidir. Sadece konuşan ama risk almayan ya da sadece atılan ama ölçüsüz davranan biri değil; hakkı bilip onun için durabilen bir mümin profili sunar.\n\nDayanaklar: Tirmizi 3712; Tirmizi 3747.",
+      "vurgu": "İlim, cesaretle birleştiğinde şahsiyet inşa eder"
+    },
+    {
+      "id": "sahabe_k06",
+      "tip": "metin",
+      "baslik": "Hz. Hatice",
+      "icerik": "Hz. Hatice, Resulullah'a ilk iman eden kişi, en zor yıllarda onu yalnız bırakmayan eş ve büyük bir destek kaynağıdır. İlk vahiy geldiğinde korku ve sarsıntı içindeki Resulullah'ı teskin etmiş, malıyla ve varlığıyla davanın ilk yükünü taşımıştır.\n\nOnun hayatındaki büyük ders, imanın sadece duygusal bağlılık değil omuz verme oluşudur. Hz. Hatice, sevginin güven, fedakarlık ve yük paylaşımı olduğunu öğretir. İlk destek bazen tarihin yönünü değiştirir.\n\nDayanaklar: Müslim 2432; Buhari 3815.",
+      "vurgu": "Gerçek destek, sevdiğinin en ağır gününde omuz olabilmektir"
+    },
+    {
+      "id": "sahabe_k07",
+      "tip": "metin",
+      "baslik": "Hz. Âişe",
+      "icerik": "Hz. Âişe, Resulullah'ın eşi, çok güçlü hafızaya ve kavrayışa sahip bir sahabi, aynı zamanda ümmete ilim taşıyan önemli bir öğretmendir. Pek çok hadis, fıkıh bilgisi ve aile hayatına dair incelik ondan rivayet edilmiştir.\n\nOnun hayatının öne çıkan dersi, öğrenen ve öğreten mümin kimliğidir. Dini sevmenin bir yolu da onu dikkatle öğrenmek, soru sormak, anlamak ve sonraki nesillere emanet etmektir. Hz. Âişe bu bakımdan özellikle ilim yolunda yürüyenler için büyük bir örnektir.\n\nDayanaklar: Buhari 3769; ilgili hadis rivayet mirası.",
+      "vurgu": "İman, öğrenmeye ve öğretmeye dönüştüğünde kalıcı olur"
+    },
+    {
+      "id": "sahabe_k08",
+      "tip": "metin",
+      "baslik": "Bilâl-i Habeşî",
+      "icerik": "Bilâl-i Habeşî, İslam'ın ilk yıllarında ağır işkencelere rağmen tevhidden vazgeçmeyen sahabilerdendir. Daha sonra ezanla özdeşleşmiş, sesiyle İslam'ın çağrısını yeryüzüne duyuran büyük bir isim olmuştur.\n\nBilâl'in hayatından çıkan ders, imanın rahat zamanda değil baskı anında belli olduğudur. O, iman ettiği hakikati bedel ödeyerek taşıdı. Ayrıca ibadette sürekliliğin insanı yücelttiğini gösterdi.\n\nDayanaklar: Buhari 1149; ezan geleneğine dair sahih rivayetler ve siyer birikimi.",
+      "vurgu": "Tevhid, baskı altında bile terk edilmiyorsa kök salmıştır"
+    },
+    {
+      "id": "sahabe_k09",
+      "tip": "metin",
+      "baslik": "Mus'ab bin Umeyr",
+      "icerik": "Mus'ab bin Umeyr, Mekke'nin rahat ve varlıklı gençlerinden biri iken İslam'ı seçtiği için ailesinin baskısına uğramış, konforunu terk etmiş ve sonunda Medine'ye İslam'ı öğretmek için gönderilmiştir. Akabe'den sonra Medine'de yürüttüğü tebliğ çalışması, hicret öncesi zeminin hazırlanmasında çok etkili olmuştur. Uhud'da sancaktarlık yaparken şehid düşmüştür.\n\nOnun hayatında öne çıkan ders, gençliğin keyif değil adanmışlık zamanı da olabileceğidir. Mus'ab, imanın insanı rahatından çıkarıp hizmete yöneltebileceğini, tebliğin çoğu zaman görünmeyen ama çok belirleyici bir emek olduğunu öğretir.\n\nDayanaklar: çağdaş İslami kaynaklar, Mus'ab b. Umeyr; Buhari, Cenaiz 27 ve Megazi bölümlerine atıfla Uhud sonrası kefen rivayetleri.",
+      "vurgu": "İman, konforu bırakıp sorumluluk almaya çağırabilir"
+    },
+    {
+      "id": "sahabe_k10",
+      "tip": "metin",
+      "baslik": "Selmân-ı Fârisî",
+      "icerik": "Selmân-ı Fârisî, İran asıllı bir sahabi olarak uzun bir hakikat arayışından sonra İslam'la buluşmuştur. Farklı dinî çevrelerden geçmiş, son peygamberi aramış, Medine'ye ulaştığında işaretleri görünce iman etmiştir. Hendek fikriyle de İslam toplumuna önemli katkı sunmuştur.\n\nOnun hayatının ana dersi, hakikati arayan insanın milliyet, köken ve alışkanlık duvarlarını aşabilmesidir. Selman, Müslüman olmayı sadece miras değil bilinçli bir arayış olarak yaşayanların güçlü örneklerinden biridir.\n\nDayanaklar: çağdaş İslami kaynaklar, Selmân-ı Fârisî; Hendek bağlamına dair siyer kaynakları.",
+      "vurgu": "Hakikati arayan kalp, uzak yollardan geçse de doğruya varabilir"
+    },
+    {
+      "id": "sahabe_k11",
+      "tip": "metin",
+      "baslik": "Abdurrahman bin Avf",
+      "icerik": "Abdurrahman bin Avf, ilk Müslümanlardan ve cennetle müjdelenen sahabilerdendir. Hicret etmiş, ticaretle uğraşmış, helal kazancı büyütmüş ve büyük infaklarıyla tanınmıştır. Zenginliği onu ağırlaştırmamış; aksine ümmet için bir imkana dönüştürmüştür.\n\nOnun hayatının verdiği ders, malın kötü değil; malsız kalbin asıl mesele olduğudur. Helal kazanç, cömertlikle birleştiğinde ibadete dönüşür. Abdurrahman bin Avf, dünya içinde olup dünyaya teslim olmamayı öğretir.\n\nDayanaklar: Tirmizi 3747; çağdaş İslami kaynaklar, Abdurrahman b. Avf.",
+      "vurgu": "Helal kazanç, cömertlikle birleşince ahiret sermayesine döner"
+    },
+    {
+      "id": "sahabe_k12",
+      "tip": "metin",
+      "baslik": "Sa'd bin Ebû Vakkas",
+      "icerik": "Sa'd bin Ebû Vakkas, ilk Müslümanlardan, cennetle müjdelenen sahabilerden ve önemli kumandanlardandır. Ailesinin baskısına rağmen imanından dönmemiş, annesinin çok ağır duygusal baskısına karşı bile saygıyı koruyarak hakta sebat etmiştir.\n\nOnun hayatındaki temel derslerden biri, anne-babaya saygıyla Allah'a itaat arasında doğru denge kurmaktır. Sevgi ve saygı korunur; ama iman pazarlık konusu yapılmaz. Ayrıca duası, sebatı ve hizmet disipliniyle uzun soluklu kulluğun örneğini sunar.\n\nDayanaklar: Tirmizi 3747; Ankebut 29:8 bağlamı klasik tefsirlerde onun kıssasıyla ilişkilendirilir; çağdaş İslami kaynaklar, Sa'd b. Ebû Vakkās.",
+      "vurgu": "Saygı başka, imandan taviz vermek başkadır"
+    },
+    {
+      "id": "sahabe_k13",
+      "tip": "metin",
+      "baslik": "Talha bin Ubeydullah",
+      "icerik": "Talha bin Ubeydullah, cennetle müjdelenen sahabilerdendir. Uhud'da Resulullah'ı korumak için kendini siper etmiş, ağır yaralar almış ve bu fedakarlığıyla hatırlanmıştır. Hayatının farklı dönemlerinde infak ve cesareti bir arada taşımıştır.\n\nTalha'nın hayatının verdiği en güçlü ders, sevginin bedel ödemeye hazır olmasıdır. Tehlike anında geri çekilmeyen bir sadakat, kuru sevgiden daha öğreticidir. O, imanın bazen bedeni ortaya koyan bir koruyuculuğa dönüştüğünü gösterir.\n\nDayanaklar: Tirmizi 3747; çağdaş İslami kaynaklar, Talha b. Ubeydullah.",
+      "vurgu": "Sadakat, tehlike anında geri adım atmayan sevgidir"
+    },
+    {
+      "id": "sahabe_k14",
+      "tip": "metin",
+      "baslik": "Zübeyr bin Avvam",
+      "icerik": "Zübeyr bin Avvam, Hz. Peygamber'e ilk iman edenlerden ve cennetle müjdelenen sahabilerdendir. Genç yaşta işkence görmüş, inancından dönmemiş, savaşlarda cesaretiyle öne çıkmış ve Resulullah tarafından özel güven duyulan sahabilerden biri olmuştur.\n\nOnun hayatından çıkan ders, erken yaşta doğru istikamet bulmanın büyük bir nimet olduğudur. Zübeyr, cesaretin öfke değil sorumlulukla birleştiğinde değer kazandığını; sadakatin de genç yaşta başlayıp ömür boyu taşınabileceğini gösterir.\n\nDayanaklar: Tirmizi 3747; Müslim, Fezailü's-Sahabe 48 bağlamında Her peygamberin bir havarisi vardır rivayeti; çağdaş İslami kaynaklar, Zübeyr b. Avvâm.",
+      "vurgu": "Genç yaşta bulunan hakikat, ömür boyu taşınan sadakate dönüşebilir"
+    },
+    {
+      "id": "sahabe_k15",
+      "tip": "metin",
+      "baslik": "Muâz bin Cebel",
+      "icerik": "Muâz bin Cebel, ilmi, kavrayışı ve öğreticiliğiyle öne çıkan sahabilerdendir. Resulullah onu özellikle helal-haram bilgisiyle anmış; çeşitli görevlere gönderirken ilim ve temsil sorumluluğunu ona emanet etmiştir.\n\nOnun hayatının dersi, bilginin kuru ezber değil sorumluluk olduğudur. Dini öğrenmek, hayatı doğru yönetmek ve başkalarına güvenle aktarabilmek için derinlik gerekir. Muâz bu derinliğin sahabi örneklerinden biridir.\n\nDayanaklar: Tirmizi 3790; çağdaş İslami kaynaklar, Muâz b. Cebel.",
+      "vurgu": "İlim, omuza yüklenen bir emanet ve sorumluluktur"
+    },
+    {
+      "id": "sahabe_k16",
+      "tip": "metin",
+      "baslik": "Übey bin Ka'b",
+      "icerik": "Übey bin Ka'b, ensarın büyük âlimlerinden, vahiy ve Kur'an bilgisiyle öne çıkan sahabilerdendir. Kur'an'ı öğrenme, öğretme ve doğru okuma konusunda özel bir yere sahiptir.\n\nOnun hayatının ana dersi, Kur'an'la kurulan ilişkinin yüzeyde kalmaması gerektiğidir. Kur'an'ı sadece duymak değil; ezberlemek, anlamak, düzgün okumak ve onunla şekillenmek gerekir. Übey bin Ka'b bu Kur'an merkezli kulluğun güçlü örneklerindendir.\n\nDayanaklar: Tirmizi 3790; çağdaş İslami kaynaklar, Übey b. Ka'b.",
+      "vurgu": "Kur'an'la yakınlık, sadece okumak değil onunla şekillenmektir"
+    },
+    {
+      "id": "sahabe_k17",
+      "tip": "metin",
+      "baslik": "Esmâ bint Ebû Bekir",
+      "icerik": "Esmâ bint Ebû Bekir, ilk Müslümanlardan, Hz. Ebû Bekir'in kızı ve Hz. Âişe'nin ablasıdır. Hicret hazırlığında Resulullah ve babası için azık hazırlamış, kuşağını ikiye bölerek onların yol hazırlığını tamamlamış ve bu yüzden Zâtü'n-nitâkayn lakabıyla anılmıştır. Baskı ve tehdit karşısında sır saklamayı başarmış, ağır bir tokat yemesine rağmen geri adım atmamıştır.\n\nOnun hayatı, büyük hizmetlerin bazen görünmeyen ama kritik destekler olduğunu öğretir. Her kahramanlık savaş meydanında olmaz; bazen emanet taşımak, sır korumak ve korku anında metin kalmak da büyük bir imandır.\n\nDayanaklar: çağdaş İslami kaynaklar, Esmâ bint Ebû Bekir; hicret bağlamındaki siyer rivayetleri.",
+      "vurgu": "Görünmeyen destekler de davanın kaderini değiştirebilir"
+    },
+    {
+      "id": "sahabe_k18",
+      "tip": "metin",
+      "baslik": "Ümmü Umâre (Nesîbe bint Ka'b)",
+      "icerik": "Ümmü Umâre, Medineli ilk Müslüman kadınlardan ve savaşlarda gösterdiği cesaretle tanınan sahabedir. Uhud'da müslümanların dağıldığı anda Resulullah'ı koruyan az sayıdaki kişiden biri olmuş, ağır yaralanmasına rağmen geri çekilmemiştir. Sonraki yıllarda da aktif biçimde hizmet etmeyi sürdürmüştür.\n\nOnun hayatının verdiği ders, kadınların İslam tarihinde pasif figürler olmadığıdır. Gerektiğinde ilimde, gerektiğinde fedakarlıkta, gerektiğinde bedel ödemede ön safta yer almışlardır. Ümmü Umâre, sorumluluğun cinsiyet değil iman meselesi olduğunu hatırlatır.\n\nDayanaklar: çağdaş İslami kaynaklar, Ümmü Umâre; Ahzab 33:35'in nüzul sebebine dair Tirmizi, Tefsir 33 rivayeti.",
+      "vurgu": "Sorumluluk, imanı olan herkes içindir; cesaret bunun bir parçasıdır"
+    },
+    {
+      "id": "sahabe_k19",
+      "tip": "metin",
+      "baslik": "Bu Hayatlardan Ne Öğreniyoruz?",
+      "icerik": "Bu sahabilerin hayatları birbirine benzemez: kimi yönetimde, kimi ilimde, kimi ticarette, kimi ev içinde, kimi savaşta, kimi hicret yolunda öne çıkar. Ama hepsinde ortak olan çizgi aynıdır: iman, insanın hayat düzenini gerçekten değiştirir.\n\nSahabe hayatlarını okumanın amacı onları ulaşılmaz kahramanlar yapmak değil; Allah için yaşamanın çok farklı biçimleri olabileceğini fark etmektir. Bize düşen, hangisinin hangi yönü bugün bizi ayağa kaldıracaksa onu ciddiyetle alıp hayata taşımaktır.\n\nDayanaklar: Tevbe 9:100; Haşr 59:8-9 ve sahabenin faziletine dair sahih rivayetler.",
+      "vurgu": "Sahabeden alınacak en büyük ders, imanın hayatı gerçekten dönüştürmesidir"
+    }
+  ]
+}

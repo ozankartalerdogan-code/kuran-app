@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { dbAll } from "../../lib/dbUtils";
+import { NUZUL } from "../../data/nuzul";
 import { SurahListClient, type SurahItem } from "./SurahListClient";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default async function SurahListPage() {
     name:              s.adi_turkce ?? null,
     arabicName:        s.adi_arapca ?? null,
     verseCount:        s.ayet_sayisi ?? null,
-    revelationOrder:   null,
+    revelationOrder:   NUZUL[s.id] ?? null,
     revelationPlace:   s.tur === "medinan" ? "Medine" : "Mekke",
     shortIntroduction: null,
   }));

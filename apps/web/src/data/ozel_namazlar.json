@@ -1,0 +1,574 @@
+{
+  "ozel_namazlar": {
+    "id": "ozel_namazlar",
+    "baslik": "Özel Namazlar Rehberi",
+    "versiyon": "2.0",
+    "olusturulma": "2026-06-20",
+    "dil": "tr",
+    "aciklama": "Günlük beş vakit dışında kılınan özel namazlar; kılınış sebebi, vakti, rekat sayısı, mezhep görüşleri ve dualarıyla birlikte detaylı rehber.",
+    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları ve klasik fıkıh birikimi esas alınarak derlenmiştir.",
+    "namazlar": [
+      {
+        "id": "cenaze_namazi",
+        "isim": "Cenaze Namazı",
+        "durum": "farz_i_kifaye",
+        "durum_aciklama": "Cemaatten bir kişi bile kılsa diğerlerinden sorumluluk kalkar. Hiç kimse kılmazsa tüm Müslümanlar günahkâr olur.",
+        "mezhep_gorusleri": "Dört mezhepte de farz-ı kifâyedir. Mezhep görüşleri bu konuda birleşmektedir.",
+        "ne_zaman_kilinir": "Bir Müslüman vefat ettiğinde, cenaze yıkanıp kefenlendikten sonra definden önce kılınır.",
+        "rekat": "Rekatsız — 4 tekbirle kılınır. Rükû ve secde yoktur, tamamen ayakta kılınır.",
+        "vakit": "Güneşin doğuş, batış ve zenitten geçiş (kerahet) vakitleri dışında her zaman kılınabilir.",
+        "on_sartlar": [
+          "Abdestli olmak",
+          "Kıbleye yönelmek",
+          "Cenazenin yıkanmış ve kefenlenmiş olması",
+          "Cenazenin Müslüman olması",
+          "Cenazenin cemaat önünde bulunması"
+        ],
+        "niyet": {
+          "erkek_cenaze": "Niyet ettim Allah rızası için hazır olan bu erkek cenaze namazını kılmaya, uydum imama.",
+          "kadin_cenaze": "Niyet ettim Allah rızası için hazır olan bu kadın cenaze namazını kılmaya, uydum imama.",
+          "not": "Cenazenin erkek mi kadın mı olduğu niyette belirtilir."
+        },
+        "kilinic": [
+          {
+            "adim": 1,
+            "isim": "1. Tekbir — İftitah",
+            "aciklama": "Eller kulak hizasına kaldırılarak 'Allahu Ekber' denir ve eller bağlanır.",
+            "dua": "Sübhânekellâhümme ve bi hamdike ve tebârekesmüke ve teâlâ ceddüke ve celle senâüke ve lâ ilâhe ğayrük.",
+            "dua_arapca": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَجَلَّ ثَنَاؤُكَ وَلَا إِلَهَ غَيْرُكَ",
+            "anlam": "Allah'ım! Seni her türlü noksanlıktan tenzih eder, sana hamdederim. Senin adın mübarektir, şanın yücedir, senden başka ilah yoktur.",
+            "not": "Normal Sübhaneke'den farkı: 've celle senâüke' ifadesi eklenir."
+          },
+          {
+            "adim": 2,
+            "isim": "2. Tekbir",
+            "aciklama": "Eller kaldırılmadan 'Allahu Ekber' denir. Salli ve Barik duaları okunur.",
+            "dua_1": "Allâhümme salli alâ Muhammedin ve alâ âli Muhammed. Kemâ salleyte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+            "dua_1_arapca": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+            "dua_2": "Allâhümme bârik alâ Muhammedin ve alâ âli Muhammed. Kemâ bârekte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+            "dua_2_arapca": "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ"
+          },
+          {
+            "adim": 3,
+            "isim": "3. Tekbir",
+            "aciklama": "Eller kaldırılmadan 'Allahu Ekber' denir. Cenaze duası okunur. Bilmeyenler Fatiha okur.",
+            "dua": "Allâhümmeğfir li hayyinâ ve meyyitinâ ve şâhidinâ ve ğâibinâ ve sağîrinâ ve kebîrinâ ve zekerînâ ve ünsânâ. Allâhümme men ahyeytehu minnâ fe ahyihi alel islâm, ve men teveffeytehu minnâ fe teveffehû alel îmân. Allâhümme lâ tahrimnâ ecrehu ve lâ teftinnâ ba'dehu.",
+            "dua_arapca": "اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَشَاهِدِنَا وَغَائِبِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الْإِسْلَامِ وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الْإِيمَانِ اللَّهُمَّ لَا تَحْرِمْنَا أَجْرَهُ وَلَا تَفْتِنَّا بَعْدَهُ",
+            "anlam": "Allah'ım! Aramızdaki yaşayanları, ölüleri, burada olanları, olmayanları, küçükleri, büyükleri, erkekleri ve kadınları bağışla. Allah'ım! Yaşattıklarımızı İslam üzere yaşat, vefat ettirdiklerini iman üzere vefat ettir. Allah'ım! Bu meyitin sevabından bizi mahrum etme ve ondan sonra bizi fitneye düşürme.",
+            "bilmeyenler_icin": "Cenaze duasını bilmeyenler Fatiha Suresi'ni veya 'Rabbena atina' duasını dua niyetiyle okur."
+          },
+          {
+            "adim": 4,
+            "isim": "4. Tekbir — Selam",
+            "aciklama": "Eller kaldırılmadan son 'Allahu Ekber' denir. Hiçbir şey okunmaz. Ardından sağa ve sola selam verilir.",
+            "selam": "Esselâmü aleyküm ve rahmetullâh."
+          }
+        ],
+        "cenaze_duasi_kisa": {
+          "baslik": "Bilmeyenler için Kısa Cenaze Duası",
+          "dua": "Allâhümmerham hâzel meyyite — Allah'ım bu ölmüş kuluna rahmet et.",
+          "not": "Cenaze duasını henüz ezberleyememişler bu kısa duayı okuyabilir."
+        },
+        "ozel_notlar": [
+          "Cenaze namazında Fatiha ve Kuran okumak caiz değildir — dua niyetiyle ayet okunabilir.",
+          "Cenaze namazı 3 saf halinde kılınması menduptur.",
+          "Aynı cenaze için namaz bir kez kılınır, tekrarı mekruhtur.",
+          "Birden fazla cenaze için mümkünse ayrı ayrı namaz kılmak daha faziletlidir.",
+          "Hanefî ve Mâlikî mezhebine göre zaruret olmadıkça cami içinde kılmak mekruhtur; musallada (özel alan) kılınır. Şâfiî ve Hanbelîler ise cami içinde kılmayı câiz, hatta mendûp görür."
+        ],
+        "hadis_kaynagi": "Tirmizi, Cenâiz 38 (sahih)"
+      },
+      {
+        "id": "bayram_namazi",
+        "isim": "Bayram Namazı",
+        "durum": "vacip",
+        "durum_aciklama": "Hanefî mezhebine göre cuma namazı kılmakla yükümlü erkekler için vâciptir. Diğer mezhepler için aşağıya bkz.",
+        "mezhep_gorusleri": "Hanefî: vâcip (cuma yükümlüsü erkeklere). Şâfiî ve Mâlikî: müekked sünnet. Hanbelî: farz-ı kifâye. Cemaatle kılınması tüm mezheplerde esastır.",
+        "cesitleri": [
+          {
+            "isim": "Ramazan Bayramı Namazı",
+            "hicri_tarih": "Şevval ayının 1. günü sabahı",
+            "tekbir_notu": "Bayrama giderken tekbirler sessiz getirilir."
+          },
+          {
+            "isim": "Kurban Bayramı Namazı",
+            "hicri_tarih": "Zilhicce ayının 10. günü sabahı",
+            "tekbir_notu": "Bayrama giderken tekbirler açıktan getirilir. Hanefî uygulamada teşrik tekbirleri arefe günü sabah namazından başlayıp bayramın 4. günü ikindi namazına kadar farzların ardından getirilir."
+          }
+        ],
+        "ne_zaman_kilinir": "Bayram sabahı, güneş doğup bir mızrak boyu yükseldikten sonra (yaklaşık 45 dakika) öğle namazı vaktine kadar kılınır.",
+        "rekat": "2 rekat — ancak her rekatta 3'er adet ziyade (ek) tekbir vardır.",
+        "niyet": {
+          "ramazan": "Niyet ettim Allah rızası için Ramazan Bayramı namazını kılmaya, uydum hazır olan imama.",
+          "kurban": "Niyet ettim Allah rızası için Kurban Bayramı namazını kılmaya, uydum hazır olan imama."
+        },
+        "kilinic": [
+          {
+            "adim": 1,
+            "isim": "Niyet ve İftitah Tekbiri",
+            "aciklama": "Niyet edilir, eller kulak hizasına kaldırılarak 'Allahu Ekber' denir ve eller bağlanır.",
+            "dua": "Sübhaneke okunur."
+          },
+          {
+            "adim": 2,
+            "isim": "1. Rekatta Ziyade Tekbirler",
+            "aciklama": "Sübhaneke'den sonra, Fatiha okunmadan önce 3 adet ziyade tekbir alınır.",
+            "detay": "Her tekbirde eller kulak hizasına kaldırılır ve yanlara salınır (bırakılır). 3. ziyade tekbirden sonra eller bağlanır.",
+            "not": "Bu 3 tekbir Hanefîye göre vâciptir — namazın rükû ve secdeleri farzdır."
+          },
+          {
+            "adim": 3,
+            "isim": "1. Rekatta Kıraat",
+            "aciklama": "İmam sesli olarak Besmele, Fatiha ve zamm-ı sure okur. Cemaat sessizce dinler.",
+            "dua": "Fatiha + zamm-ı sure"
+          },
+          {
+            "adim": 4,
+            "isim": "Rükû ve Secde",
+            "aciklama": "Normal namaz gibi rükû ve iki secde yapılır, 2. rekâta kalkılır."
+          },
+          {
+            "adim": 5,
+            "isim": "2. Rekatta Kıraat",
+            "aciklama": "İmam Fatiha ve zamm-ı sure okur. Cemaat sessizce dinler."
+          },
+          {
+            "adim": 6,
+            "isim": "2. Rekatta Ziyade Tekbirler",
+            "aciklama": "2. rekatta ziyade tekbirler kıraattan SONRA, rükudan ÖNCE alınır.",
+            "detay": "3 adet ziyade tekbir alınır, her tekbirde eller yanlara salınır. 3. tekbirden sonra eller BAĞLANMADAN doğrudan rükuya gidilir — 4. tekbir rüku tekbiridir.",
+            "not": "1. rekattaki sıra: Sübhaneke → 3 tekbir → Fatiha → sure → rükû. 2. rekattaki sıra: Fatiha → sure → 3 tekbir → rükû. Bu fark önemlidir."
+          },
+          {
+            "adim": 7,
+            "isim": "Son Oturuş ve Selam",
+            "aciklama": "Secdenin ardından oturulur, Tahiyyat, Salli, Barik duaları okunur ve selam verilir."
+          },
+          {
+            "adim": 8,
+            "isim": "Hutbe ve Teşrik Tekbirleri",
+            "aciklama": "Bayram namazından sonra imam hutbeye çıkar. Kurban Bayramı günlerinde ayrıca farz namazların ardından teşrik tekbirleri getirilir.",
+            "tesbih": "Allahu Ekber, Allahu Ekber, La ilahe illallah. Allahu Ekber, Allahu Ekber ve lillahil hamd.",
+            "not": "Hutbe bayram namazında namazdan SONRA okunur. Cumada ise namazdan önce."
+          }
+        ],
+        "ozel_notlar": [
+          "Bayram namazının cemaatle kılınması esastır. Hanefîye göre cemaat bulamayanın tek başına kılması gerekmez.",
+          "Bayram günleri oruç tutmak haramdır.",
+          "Ramazan Bayramı'nda tekbirler sessiz, Kurban Bayramı'nda tekbirler açıktan getirilir.",
+          "Hanefî uygulamada fert olarak klasik kaza anlayışı yoktur; ancak mazeretle cemaat kaçırılırsa aynı gün veya uygun sonraki günlerde yeniden cemaat kurulmasına dair fıkhî ayrıntılar vardır.",
+          "Kurban Bayramı'nda Hanefî uygulamada teşrik tekbirleri arefe günü sabah namazından başlayıp bayramın 4. günü ikindi namazına kadar farzların ardından getirilir."
+        ],
+        "hadis_kaynagi": "Buhari, Müslim (sahih)"
+      },
+      {
+        "id": "teheccud_namazi",
+        "isim": "Teheccüd Namazı (Gece Namazı)",
+        "durum": "sunnet_musteap",
+        "durum_aciklama": "Hz. Peygamber'e farz olduğu bildirilmiş, ümmetine ise müstehap (nafile) olarak tavsiye edilmiştir. Devamlı kılmak çok faziletlidir.",
+        "mezhep_gorusleri": "Dört mezhepte de ümmet için müekked sünnet ya da müstehap (nafile) hükmündedir; farz değildir. Hz. Peygamber'e farz olup olmadığı da âlimler arasında ihtilaflıdır; bir kısım âlim farz, bir kısmı ise sonradan nâfileye dönüştürüldüğü görüşündedir.",
+        "ne_zaman_kilinir": "Yatsı namazından sonra, bir miktar uyuyup uyandıktan sonra sabah namazına kadar kılınır. Gecenin son üçte birinde kılmak en faziletlisidir.",
+        "rekat": "En az 2 rekattır. 2'şer rekat halinde kılmak daha faziletlidir. 8 rekat yaygın bir uygulamadır; üst sınır konusunda mezhepler arasında farklı değerlendirmeler vardır.",
+        "kuran_referansi": {
+          "sure": "İsra",
+          "ayet": 79,
+          "metin": "Gecenin bir kısmında da uyanıp sana mahsus fazladan bir ibadet olarak teheccüd namazı kıl. Umulur ki Rabbin seni övgüye değer bir makama ulaştırır."
+        },
+        "niyet": "Niyet ettim Allah rızası için teheccüd namazı kılmaya.",
+        "kilinic": {
+          "aciklama": "Normal nafile namaz gibi kılınır. 2'şer rekat halinde kılınır, her 2 rekatta selam verilir.",
+          "1_rekat": [
+            "Sübhaneke",
+            "Euzü Besmele",
+            "Fatiha",
+            "Zamm-ı sure (uzun sure okumak faziletlidir)",
+            "Rükû",
+            "Secde"
+          ],
+          "2_rekat": [
+            "Besmele",
+            "Fatiha",
+            "Zamm-ı sure",
+            "Rükû",
+            "Secde",
+            "Tahiyyat, Salli, Barik, Rabbena → Selam"
+          ],
+          "not": "Daha fazla rekat kılınacaksa aynı şekilde 2'şer 2'şer devam edilir."
+        },
+        "teheccud_duasi": {
+          "dua": "Allâhümme lekel hamdü ente kayyümes semâvâti vel ardı ve men fîhinn. Ve lekel hamdü ente nûrus semâvâti vel ardı ve men fîhinn. Ve lekel hamdü entel hakkû ve va'dukel hakkû ve likâüke hakkûn ve kavlüke hakkûn vel cenneti hakkûn ven nâru hakkûn ven nebiyyûne hakkûn ve Muhammedün sallallahü aleyhi ve sellem hakkûn ves sâatü hakkûn. Allâhümme leke eslemtü ve bike âmentü ve aleyke tevekkeltü ve ileyke enebtü ve bike hâsamtü ve ileyke hâkemtü fağfirli mâ kaddemtü ve mâ ahhartü ve mâ esrartü ve mâ a'lentü entel mükkadimü ve entel muahhiru lâ ilâhe illâ ente.",
+          "dua_kaynagi": "Buhari, Teheccüd 1 (sahih) — Hz. Peygamber teheccüde kalkarken bu duayı okurdu",
+          "anlam": "Allah'ım, hamd sanadır. Sen göklerin, yerin ve içindekilerin yaratıcı ve koruyucususun. Allah'ım, sana teslim oldum, sana inandım, sana dayandım, sana yöneldim. Geçmişimi, geleceğimi, gizlimi, açığımı bağışla. Sen öne geçirensin, Sen geri bırakansın. Senden başka ilah yoktur."
+        },
+        "fazileti": [
+          "Hz. Peygamber: 'Farz namazdan sonra en faziletli namaz, gecenin ortasında kılınan namazdır.' (Müslim)",
+          "Hz. Peygamber: 'Gece namazını kılın; çünkü bu sizden önceki salih kulların sünnetidir, Allah'a yaklaşma vesilesidir, günahları örter ve bedeni hastalıklardan korur.' (Tirmizi)"
+        ],
+        "ozel_notlar": [
+          "Teheccüde kalkmayı planlıyorsan vitir namazını teheccüdden sonraya bırakabilirsin — vitir gecenin son namazı olsun.",
+          "Kalkamazsan yatsıdan sonra vitri kılmış olman yeterlidir.",
+          "Hz. Peygamber hastalık veya seyahat nedeniyle gece namazını kılamazsa gündüz 12 rekat kılarak telafi ederdi (Müslim).",
+          "Gece namazı sessiz okunur, başkalarını rahatsız etmemek sünnettir."
+        ],
+        "hadis_kaynagi": "Buhari, Müslim (sahih)"
+      },
+      {
+        "id": "kusluk_namazi",
+        "isim": "Kuşluk Namazı (Duha / İşrak)",
+        "durum": "sunnet",
+        "durum_aciklama": "Hz. Peygamber'in tavsiye ettiği ve zaman zaman kıldığı nafile bir namazdır. Dört mezhepte de meşrudur; hükmün derecesinde mezhep farklılıkları vardır.",
+        "mezhep_gorusleri": "Mâlikî ve Şâfiî mezheplerinde müekked sünnet, Hanefî ve Hanbelî çizgide ise çoğunlukla müstehap/mandup olarak anlatılır. Namazın meşruiyetinde ihtilaf yoktur; vurgu derecesi değişir.",
+        "ne_zaman_kilinir": "Güneş doğduktan yaklaşık 45 dakika sonra başlar, öğlenden 45 dakika önceye kadar kılınabilir. En faziletli vakti güneşin iyice yükselip ısısının hissedildiği zamandır.",
+        "rekat": "En az 2, en fazla 12 rekat. 4 veya 8 rekat olarak kılmak tavsiye edilir. 2'şer rekat halinde kılınır.",
+        "niyet": "Niyet ettim Allah rızası için kuşluk namazı kılmaya.",
+        "kilinic": {
+          "aciklama": "Normal nafile namaz gibi 2'şer rekat halinde kılınır.",
+          "1_rekat": [
+            "Sübhaneke",
+            "Euzü Besmele",
+            "Fatiha",
+            "Zamm-ı sure",
+            "Rükû",
+            "Secde"
+          ],
+          "2_rekat": [
+            "Besmele",
+            "Fatiha",
+            "Zamm-ı sure",
+            "Rükû",
+            "Secde",
+            "Tahiyyat, Salli, Barik, Rabbena → Selam"
+          ]
+        },
+        "tavsiye_edilen_sureler": "Şems Suresi, Duha Suresi veya dilediğin herhangi bir sure okunabilir.",
+        "fazileti": [
+          "Hz. Peygamber: 'Her gün her eklem için bir sadaka gerekir. Kuşlukta kılınan iki rekat namaz bunların hepsine kâfidir.' (Müslim)",
+          "Hz. Peygamber: 'Kim sabah namazını cemaatle kılar, sonra güneş doğana kadar oturur zikrederse, ardından iki rekat namaz kılarsa tam bir hac ve umre sevabı alır.' (Tirmizi)"
+        ],
+        "ozel_notlar": [
+          "İşrak namazı, kuşluk namazının erken vaktinde kılınan ilk kısmı gibi anlatılır; her kuşluk namazı işrak değildir.",
+          "Sabah namazından sonra zikirle meşgul olup güneş doğduktan sonra kılınan ilk 2 rekata özel olarak 'işrak namazı' denir.",
+          "Kerahet vakti (güneş doğarken, zirveye çıkarken ve batarken) namaz kılınmaz."
+        ],
+        "hadis_kaynagi": "Müslim, Buhari (sahih)"
+      },
+      {
+        "id": "istihare_namazi",
+        "isim": "İstihare Namazı",
+        "durum": "sunnet",
+        "durum_aciklama": "Önemli bir karar vermeden önce Allah'tan hayırlısını istemek için kılınan nafile namazdır. Dört mezhepte de müstehap/sünnet hükmündedir.",
+        "mezhep_gorusleri": "Dört mezhepte de müstehap ya da sünnet hükmündedir; mezhep farkı yoktur.",
+        "ne_zaman_kilinir": "Kerahet vakitleri dışında her zaman kılınabilir. Yatmadan önce kılmak ve ardından uyumak tavsiye edilir.",
+        "rekat": "2 rekat",
+        "niyet": "Niyet ettim Allah rızası için istihare namazı kılmaya.",
+        "sebep": "Kişinin önemli bir karar vermekte zorlandığında — evlilik, iş değişikliği, büyük bir alım, seyahat gibi — hayırlısını Allah'tan istemek için kılınır.",
+        "kilinic": {
+          "aciklama": "Normal 2 rekatlık nafile namaz gibi kılınır.",
+          "tavsiye_edilen_sureler": "1. rekatta Kafirun Suresi, 2. rekatta İhlas Suresi okumak tavsiye edilmiştir.",
+          "adimlar": [
+            "Abdest alınır",
+            "2 rekat nafile namaz kılınır",
+            "Namazın ardından istihare duası okunur",
+            "Kalbinde o meseleyi düşünerek Allah'tan hayırlısını istersin",
+            "Tercihen hemen uyunur"
+          ]
+        },
+        "istihare_duasi": {
+          "dua": "Allâhümme innî estahîruke bi'ilmike ve estaqdiruke bi'kudratike ve es'elüke min fadlike'l-azîm. Feinneke takdiru ve lâ akdiru ve ta'lemü ve lâ a'lemü ve ente allâmü'l-guyûb. Allâhümme in künte ta'lemü enne hâze'l-emre hayrun lî fî dînî ve meâşî ve âkıbeti emrî fak'dur hü lî ve yessir hü lî sümme bârik lî fîh. Ve in künte ta'lemü enne hâze'l-emre şerrun lî fî dînî ve meâşî ve âkıbeti emrî fassrif hü annî vassrifnî anh. Vak'dur liye'l-hayre haysu kâne sümme ardınî bih.",
+          "dua_arapca": "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ",
+          "anlam": "Allah'ım! İlminle senden hayır istiyorum, kudretinle güç istiyorum, büyük fazlından diliyorum. Sen kadire gelirsin, ben edemem. Sen bilirsin, ben bilmem. Gaybları bilen sensin. Allah'ım, bu işin dinim, geçimim ve işimin sonucu bakımından benim için hayırlı olduğunu biliyorsan onu bana nasip et, kolaylaştır ve mübarek kıl. Eğer dinim, geçimim ve işimin sonucu için şerli olduğunu biliyorsan onu benden uzaklaştır, beni de ondan uzaklaştır. Hayırı nerede olursa benim için takdir et, sonra da beni buna razı kıl.",
+          "not": "Duada 'hâze'l-emr' (bu iş) derken o konuyu kalbinde düşünürsün.",
+          "kaynagi": "Buhari, Deavat 48 (sahih)"
+        },
+        "istihare_sonucu": {
+          "aciklama": "İstihare sonucu nasıl anlaşılır?",
+          "maddeler": [
+            "Rüya görmek şart değildir — halk arasında 'istihareye yatmak ve rüya görmek' şeklinde yanlış bilinmektedir.",
+            "Kalbe doğan huzur ve kolaylık hissi, kişi için bir yönlendirme olarak değerlendirilebilir.",
+            "Kalpte süren sıkıntı veya isteksizlik de temkin işareti sayılabilir; ancak tek başına kesin hüküm yerine geçmez.",
+            "Sonuç açık gelmezse 7'ye kadar tekrar edilebilir.",
+            "İstihare, iradeyi ortadan kaldırmaz — sen kararı verirsin, Allah hayırlısını nasip eder."
+          ]
+        },
+        "ozel_notlar": [
+          "İstihare sadece büyük ve meşru kararlar için yapılır — haramı helal yapamaz.",
+          "Rüya görmek şart değildir, huzur veya sıkıntı hissi de yeterlidir.",
+          "İstihare sonucu başkasından danışmanlık almaya engel değildir — ikisi birlikte yapılabilir."
+        ],
+        "hadis_kaynagi": "Buhari (sahih) — Cabir b. Abdullah'tan rivayet"
+      },
+      {
+        "id": "teravih_namazi",
+        "isim": "Teravih Namazı",
+        "durum": "sunnet_i_muekked",
+        "durum_aciklama": "Sadece Ramazan ayında kılınan müekked bir sünnettir. Dört mezhepte de bu hüküm geçerlidir.",
+        "mezhep_gorusleri": "Dört mezhepte de sünnet-i müekkeddir. Rekat sayısı: Hanefî, Şâfiî ve Hanbelî'de 20 rekat (Hz. Ömer döneminden bu yana icmâ ile); Mâlikî'de 36 rekat görüşü de mevcuttur. Hz. Âişe'nin rivayetindeki 8-11 rekat ise Hz. Peygamber'in genel gece namazına aittir, teravihe özgü değildir.",
+        "ne_zaman_kilinir": "Sadece Ramazan ayında, yatsı namazından sonra vitir namazından önce kılınır.",
+        "rekat": "20 rekat — 2'şer rekat halinde 10 grupta kılınır. Her 4 rekatte bir kısa istirahat yapılır.",
+        "niyet": "Niyet ettim Allah rızası için teravih namazı kılmaya, uydum hazır olan imama.",
+        "kilinic": {
+          "aciklama": "Normal nafile namaz gibi 2'şer rekat halinde kılınır. Her selamdan sonra kısa bir oturuş (teravih arası) yapılır.",
+          "adimlar": [
+            "2 rekat kılınır selam verilir",
+            "Kısa oturulur veya tesbih çekilir",
+            "Tekrar 2 rekat kılınır",
+            "Bu şekilde 20 rekata kadar devam edilir",
+            "20 rekatin ardından 3 rekat vitir kılınır"
+          ]
+        },
+        "teravih_arasi_tesbih": "Sübhâne zil mülki vel melekût. Sübhâne zil izzeti vel azameti vel heybeti vel kudreti vel kibriyâi vel ceberût. Sübhânellahil hayyillezî lâ yenâmü ve lâ yemût. Sübbûhun kuddûsün rabbünâ ve rabbül melâiketi ver rûh.",
+        "fazileti": [
+          "Hz. Peygamber: 'Kim Ramazan'da inanarak ve sevabını Allah'tan bekleyerek gece namaz kılarsa geçmiş günahları bağışlanır.' (Buhari, Müslim)"
+        ],
+        "ozel_notlar": [
+          "Hz. Ömer döneminde cemaatle kılınmaya başlanmış ve o zamandan beri müekked sünnet olarak devam etmektedir.",
+          "Teravih ile vitir arasında ayrılık yapmamak faziletlidir — imamla birlikte tamamlamak sünnettir.",
+          "Cemaatle kılmak münferiden kılmaktan daha faziletlidir."
+        ],
+        "hadis_kaynagi": "Buhari, Müslim (sahih)"
+      },
+      {
+        "id": "tahiyyetul_mescid",
+        "isim": "Tahiyyetül Mescid",
+        "durum": "sunnet",
+        "durum_aciklama": "Camiye girildiğinde, oturmadan önce kılınan 2 rekatlık nafile namazdır.",
+        "mezhep_gorusleri": "Hanefî ve Mâlikî: kerahet vakitlerinde kılınmaz. Şâfiî: sebebi olan namaz (tahiyyetü'l-mescid gibi) kerahet vakitlerinde de kılınabilir. Bu fark pratikte önemlidir.",
+        "ne_zaman_kilinir": "Camiye her girildiğinde, oturmadan önce kılınır. Hanefî ve Mâlikî'ye göre kerahet vakitlerinde kılınmaz; Şâfiî'ye göre sebebi olan namaz olduğundan kerahet vakitlerinde de kılınabilir.",
+        "rekat": "2 rekat",
+        "niyet": "Niyet ettim Allah rızası için tahiyyetül mescid namazı kılmaya.",
+        "kilinic": "Normal 2 rekatlık nafile namaz gibi kılınır.",
+        "fazileti": "Hz. Peygamber: 'Biriniz camiye girdiğinde oturmadan önce iki rekat namaz kılsın.' (Buhari, Müslim)",
+        "ozel_notlar": [
+          "Vakit namazına yetişmek için acele ediliyorsa tahiyyetül mescid bırakılabilir.",
+          "Sünnet namazı kılındığında tahiyyetül mescid de yerine gelmiş sayılır.",
+          "Hanefî ve Mâlikî'ye göre kerahet vakitlerinde (güneş doğarken, batarken ve zirveye çıkarken) kılınmaz. Şâfiî ise kerahet vakitlerinde de kılınabileceğini söyler."
+        ],
+        "hadis_kaynagi": "Buhari, Müslim (sahih)"
+      },
+      {
+        "id": "kusuf_husuf",
+        "isim": "Küsuf ve Hüsuf Namazı (Güneş/Ay Tutulması)",
+        "durum": "sunnet_i_muekked",
+        "durum_aciklama": "Güneş tutulmasında cemaatle kılınır. Ay tutulmasında ise tek başına veya cemaatle kılınabilir.",
+        "mezhep_gorusleri": "Namazın yapısı mezheplere göre farklılık gösterir: Hanefî mezhebinde her rekatta tek kıyam, tek rükû ve iki secde vardır (normal nafile gibi). Cumhur görüşü (Şâfiî, Mâlikî, Hanbelî) ise her rekatta iki kıyam ve iki rükû olduğunu benimser. Bu dosyadaki kılınış anlatımı cumhur (Şâfiî/Mâlikî/Hanbelî) görüşünü yansıtmaktadır; Hanefî uygulama için normal nafile kılınış yeterlidir.",
+        "cesitleri": [
+          {
+            "isim": "Küsuf Namazı",
+            "aciklama": "Güneş tutulmasında kılınır. Cemaatle ve camide kılınması sünnettir."
+          },
+          {
+            "isim": "Hüsuf Namazı",
+            "aciklama": "Ay tutulmasında kılınır. Tek başına veya cemaatle kılınabilir."
+          }
+        ],
+        "ne_zaman_kilinir": "Güneş veya ay tutulduğu zaman, tutulma süresince kılınır.",
+        "rekat": "2 rekat — cumhur görüşüne göre her rekatta 2 kere kıyam, 2 kere rükû ve 2 kere secde yapılır. Hanefî'de ise normal nafile gibi her rekatta 1 rükû vardır.",
+        "kilinic": [
+          {
+            "adim": 1,
+            "isim": "1. Rekat (cumhur görüşü)",
+            "aciklama": "Niyet → Tekbir → Fatiha + Uzun sure → Rükû → Kıyama dön → Fatiha + Sure → Tekrar Rükû → Kıyama dön → İki Secde"
+          },
+          {
+            "adim": 2,
+            "isim": "2. Rekat (cumhur görüşü)",
+            "aciklama": "Aynı şekilde — Fatiha + Sure → Rükû → Kıyama dön → Fatiha + Sure → Rükû → Kıyama dön → İki Secde → Oturuş → Selam"
+          }
+        ],
+        "niyet": "Niyet ettim Allah rızası için güneş tutulması namazını kılmaya.",
+        "fazileti": "Hz. Peygamber: 'Güneş ve ay Allah'ın ayetlerinden iki ayettir. Kimsenin ölümü veya doğumu için tutulmazlar. Tutulmalarını gördüğünüzde Allah'a dua edin, tekbir getirin, namaz kılın ve sadaka verin.' (Buhari, Müslim)",
+        "ozel_notlar": [
+          "Hz. Peygamber bu namazı oğlu İbrahim'in vefatı gününe denk gelen güneş tutulmasında kıldırmış ve 'güneş kimsenin ölümü için tutulmaz' buyurmuştur.",
+          "Tutulma bitmeden namaz bitmişse namaz kesilmez, devam edilir.",
+          "Tutulma namaz kılınmadan bitmişse sadece dua edilir.",
+          "Hanefî uygulama için normal nafile (her rekatta 1 rükû) yeterlidir."
+        ],
+        "hadis_kaynagi": "Buhari, Müslim (sahih)"
+      },
+      {
+        "id": "istiska_namazi",
+        "isim": "Yağmur Duası Namazı (İstiska)",
+        "durum": "sunnet",
+        "durum_aciklama": "Kuraklık veya su sıkıntısı zamanında yağmur için dua etmek amacıyla kılınan namazdır.",
+        "mezhep_gorusleri": "Namazın yapısı mezheplere göre farklılık gösterir. Hanefî: İstiska namazı 2 rekatlık normal nafile gibi kılınır, ziyade (ek) tekbir YOKTUR; namaz sonrası açık alanda imam hutbe okur ve dua eder. İmam Ebû Hanîfe'ye göre müstakil namaz olmayıp yalnızca dua ve istiğfar yeterlidir; müstakil namaz İmameyn'in (Ebû Yûsuf ve Muhammed) görüşüdür. Şâfiî ve Hanbelî: Bayram namazı gibi kılınır (1. rekatta 7, 2. rekatta 5 ziyade tekbir). Bu dosyadaki ziyade tekbirle ilgili kılınış yalnızca Şâfiî/Hanbelî görüşünü yansıtmaktadır.",
+        "ne_zaman_kilinir": "Kuraklık veya su sıkıntısı olduğunda, mümkünse açık alanda, cemaatle kılınır.",
+        "rekat": "2 rekat. Hanefîye göre normal nafile yapısında (ziyade tekbir yok); Şâfiî ve Hanbelîye göre bayram namazı gibi (ziyade tekbirli).",
+        "kilinic_hanafi": "Normal 2 rekatlık nafile namaz gibi kılınır. Namazın ardından imam hutbe okur ve dua eder.",
+        "kilinic_safii_hanbeli": "Bayram namazı gibi kılınır (1. rekatta 7, 2. rekatta 5 ziyade tekbir). Ardından imam hutbe okur, hutbe esnasında ridayı (omuz örtüsü) ters giyer ve elleri kaldırarak dua eder.",
+        "niyet": "Niyet ettim Allah rızası için yağmur duası namazı kılmaya.",
+        "dua": "Allâhümme eskınâ ğaysen muğîsen henîen merîen nâfian ğayra dârrin âcilen ğayra âcilin. — Allah'ım! Bize hoş, bereketli, zararsız, faydalı, gecikmeksizin yağmur yağdır.",
+        "fazileti": "Hz. Peygamber kuraklık zamanlarında sahabeyle birlikte açık alana çıkarak bu namazı kıldırmıştır. (Buhari, sahih)",
+        "ozel_notlar": [
+          "Cemaatle ve açık alanda kılmak sünnettir.",
+          "Namaz öncesinde topluca tövbe ve istiğfar etmek tavsiye edilir.",
+          "Namaz kılınamıyorsa sadece dua da edilebilir."
+        ],
+        "hadis_kaynagi": "Buhari (sahih)"
+      },
+      {
+        "id": "sukur_secdesi",
+        "isim": "Şükür Secdesi",
+        "durum": "sunnet",
+        "durum_aciklama": "Bir nimete kavuşulduğunda veya kötülükten korunulduğunda Allah'a şükür için yapılan secdedir. Namaz değil, secde şeklinde yapılır.",
+        "mezhep_gorusleri": "Hanefî: şükür için ayrıca 2 rekatlık 'şükür namazı' kılmak müstehaptır; şükür secdesi de yapılabilir. Şâfiî ve Hanbelî: şükür secdesi müstehaptır. Abdest meselesinde cumhur (Şâfiî, Hanbelî, Mâlikî) abdesti şart koşar; Hanefî de tercihen abdestli yapılmasını tavsiye eder.",
+        "ne_zaman_yapilir": "Büyük bir nimete kavuşulduğunda, kötü bir haberden kurtulunduğunda veya sevinçli bir haber alındığında.",
+        "rekat": "Namaz değildir — sadece bir secde yapılır.",
+        "kilinic": [
+          "Abdestli olmak tavsiye edilir (cumhura göre şarttır).",
+          "Kıbleye yönelilir.",
+          "Tekbir alınarak secdeye gidilir.",
+          "Secdede Allah'a hamd ve şükredilir.",
+          "Tekbir alınarak kalkılır."
+        ],
+        "secde_duasi": "Sübhâne rabbiyel a'lâ. — Elhamdülillah. — Şükür Ya Rabb!",
+        "fazileti": "Hz. Peygamber müjdeli bir haber aldığında veya sevindirici bir gelişme olduğunda secdeye kapanır, Allah'a şükrederdi. (Ebu Davud, sahih)",
+        "ozel_notlar": [
+          "Cumhura (Şâfiî, Hanbelî, Mâlikî) göre abdest şarttır; Hanefî de abdestli yapmayı tercih eder.",
+          "Ayakkabıyla yapılmamalıdır.",
+          "Tilavetle ilgili değildir — o ayrı bir konu olan tilavet secdesidir."
+        ],
+        "hadis_kaynagi": "Ebu Davud, Tirmizi (sahih)"
+      },
+      {
+        "id": "tovbe_namazi",
+        "isim": "Tövbe Namazı",
+        "durum": "sunnet",
+        "durum_aciklama": "Günah işlendikten sonra Allah'a tövbe etmek ve bağışlanma dilemek için kılınan nafile namazdır. Dört mezhepte de müstehap ya da sünnet hükmündedir.",
+        "mezhep_gorusleri": "Dört mezhepte de müstehap ya da sünnet hükmündedir; mezhep farkı yoktur.",
+        "ne_zaman_kilinir": "Bir günah işlendiğinde, kerahet vakitleri dışında her zaman kılınabilir.",
+        "rekat": "2 rekat",
+        "niyet": "Niyet ettim Allah rızası için tövbe namazı kılmaya.",
+        "kilinic": "Normal 2 rekatlık nafile namaz gibi kılınır. Namazın ardından samimi bir tövbe yapılır.",
+        "tovbe_duasi": "Estağfirullâhel azîm ellezî lâ ilâhe illâ hüvel hayyel kayyûme ve etûbü ileyh. — Tövbe ettim sana Ya Rabbi, bir daha bu günahı işlemeyeceğim.",
+        "tovbe_sartlari": [
+          "Günahı kabul etmek",
+          "Samimi pişmanlık duymak",
+          "O günahı terk etmek",
+          "Bir daha yapmamaya kesinlikle karar vermek",
+          "Kul hakkı varsa sahibine ödemek veya helalleşmek"
+        ],
+        "fazileti": "Hz. Peygamber: 'Her kim abdest alıp iki rekat namaz kılar ve Allah'tan bağışlanma dilerse, Allah onu bağışlar.' (Ebu Davud, sahih)",
+        "ozel_notlar": [
+          "Tövbe etmek için namaz şart değildir — her an tövbe edilebilir. Namaz, tövbeyi daha kıymetli kılar.",
+          "Tövbe gecikilmeden yapılmalıdır — Hz. Peygamber günah işleyince hemen iki rekat kılardı.",
+          "Kul hakkı söz konusuysa sadece tövbe namazı yetmez, hak sahibiyle helalleşmek şarttır."
+        ],
+        "hadis_kaynagi": "Ebu Davud (sahih)"
+      },
+      {
+        "id": "hacet_namazi",
+        "isim": "Hacet Namazı",
+        "durum": "sunnet",
+        "durum_aciklama": "Bir ihtiyaç veya sıkıntı zamanında Allah'tan yardım istemek için kılınan nafile namazdır.",
+        "mezhep_gorusleri": "Hanefî ve Şâfiî'de 2 rekat olarak geçmektedir. 12 rekat görüşü İmam Gazzâlî'ye ve Hanefî mezhebindeki azınlık rivayetine dayanmaktadır. Dayanak hadisin isnadına hadis âlimlerince (Tirmizî, İbnü'l-Arabî) eleştiriler yöneltilmiş; 'hasen' nitelemesi en iyi değerlendirme olarak kabul edilmektedir.",
+        "ne_zaman_kilinir": "Bir ihtiyaç veya sıkıntı zamanında, kerahet vakitleri dışında her zaman kılınabilir.",
+        "rekat": "2 rekat. Bazı rivayetlerde (İmam Gazzâlî ve Hanefî'deki azınlık görüşü) 12 rekata kadar kılınabileceği geçmektedir; ancak bu görüşün dayandığı hadis zayıf olarak değerlendirilmiştir.",
+        "niyet": "Niyet ettim Allah rızası için hacet namazı kılmaya.",
+        "kilinic": "Normal nafile namaz gibi kılınır. Namazın ardından hacet duası okunur.",
+        "hacet_duasi": "Lâ ilâhe illallâhul halîmül kerîm. Sübhânallâhi rabbil arşil azîm. Elhamdülillâhi rabbil âlemîn. Es'elüke mücibâti rahmetike ve azâime mağfiretike vel ganîmete min külli birrin ves selâmete min külli ism. Lâ teda' lî zenben illâ ğaferte ve lâ hemmen illâ ferracte ve lâ hâceten hiye leke rıdan illâ kadaytehâ Yâ erhamer râhimîn.",
+        "anlam": "Allah'tan başka ilah yoktur, O Halim'dir, Kerim'dir. Arşın Rabbi Allah her türlü noksanlıktan münezzehtir. Âlemlerin Rabbi Allah'a hamd olsun. Senden rahmetini gerektiren şeyleri, bağışlamanın kesinliklerini, her hayırdan kâr elde etmeyi ve her günahtan esenliği istiyorum. Ya Erhamirrahimin! Günahlarımın hiçbirini bağışlamadan, sıkıntılarımın hiçbirini gidermeden ve razı olduğun hiçbir ihtiyacımı gidermeden beni bırakma.",
+        "fazileti": "Hz. Peygamber: 'Bir ihtiyacı olan kimse abdest alsın, iki rekat namaz kılsın, sonra Allah'a hamd etsin, Peygambere salavat getirsin ve bu duayı okusun.' (Tirmizi, hasen)",
+        "ozel_notlar": [
+          "Hacet namazı, Müslümanların ihtiyaçlarını önce Allah'a sunmaları geleneğini yaşatır.",
+          "İstihare ile karıştırılmamalıdır — istihare karar vermek için, hacet namazı ihtiyaç için kılınır.",
+          "Allah'tan haram olan şeyler istenemez.",
+          "12 rekat görüşü İmam Gazzâlî'ye dayansa da, 2 rekat daha sağlam rivayetle sabittir."
+        ],
+        "hadis_kaynagi": "Tirmizi (hasen), İbn Mace"
+      }
+    ],
+    "hizli_bakis_tablosu": [
+      {
+        "isim": "Cenaze Namazı",
+        "durum": "Farz-ı Kifaye (4 mezhep)",
+        "rekat": "4 tekbir (rekatsız)",
+        "vakit": "Cenaze hazır olduğunda"
+      },
+      {
+        "isim": "Bayram Namazı",
+        "durum": "Vacip (Hanefî) / Müekked Sünnet (Şâfiî-Mâlikî) / Farz-ı Kifâye (Hanbelî)",
+        "rekat": "2 rekat (ziyade tekbirli)",
+        "vakit": "Bayram sabahı"
+      },
+      {
+        "isim": "Teravih Namazı",
+        "durum": "Sünnet-i Müekked (4 mezhep)",
+        "rekat": "20 rekat",
+        "vakit": "Sadece Ramazan, yatsıdan sonra"
+      },
+      {
+        "isim": "Teheccüd Namazı",
+        "durum": "Müstehap / Sünnet (4 mezhep)",
+        "rekat": "2-12 rekat",
+        "vakit": "Gece yatsıdan sonra"
+      },
+      {
+        "isim": "Kuşluk Namazı",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2-12 rekat",
+        "vakit": "Güneş doğduktan 45dk sonra - öğleden 45dk önce"
+      },
+      {
+        "isim": "İstihare Namazı",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2 rekat",
+        "vakit": "Karar öncesi, tercihen uyku öncesi"
+      },
+      {
+        "isim": "Tahiyyetül Mescid",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2 rekat",
+        "vakit": "Camiye girince, oturmadan önce (kerahet vakti: Hanefî-Mâlikî hayır, Şâfiî evet)"
+      },
+      {
+        "isim": "Küsuf/Hüsuf Namazı",
+        "durum": "Sünnet-i Müekked (4 mezhep)",
+        "rekat": "2 rekat (Hanefî: normal yapı; cumhur: 2 rükûlu özel yapı)",
+        "vakit": "Güneş/ay tutulmasında"
+      },
+      {
+        "isim": "İstiska Namazı",
+        "durum": "Sünnet",
+        "rekat": "2 rekat (Hanefî: normal; Şâfiî-Hanbelî: ziyade tekbirli)",
+        "vakit": "Kuraklık zamanında"
+      },
+      {
+        "isim": "Şükür Secdesi",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "Namaz değil, 1 secde",
+        "vakit": "Nimete kavuşunca"
+      },
+      {
+        "isim": "Tövbe Namazı",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2 rekat",
+        "vakit": "Günah sonrası"
+      },
+      {
+        "isim": "Hacet Namazı",
+        "durum": "Sünnet (hasen hadis)",
+        "rekat": "2 rekat (asıl); 12 rekat Gazzâlî görüşü, zayıf rivayete dayanır",
+        "vakit": "İhtiyaç zamanında"
+      }
+    ],
+    "meta": {
+      "etiketler": [
+        "namaz",
+        "cenaze",
+        "bayram",
+        "teheccüd",
+        "kuşluk",
+        "istihare",
+        "teravih",
+        "özel namaz",
+        "nafile",
+        "mezhep"
+      ],
+      "ilgili_dosyalar": [
+        "namaz_rehberi",
+        "mubarek_gunler"
+      ],
+      "degisiklik_notu": "v2.0 (2026-06-20): Mezhep görüşleri eklendi (bayram namazı, küsuf yapısı, istiska ziyade tekbir, şükür secdesi abdest, tahiyyetül mescid kerahet). Teheccüd hükmü netleştirildi. Hacet namazı 12 rekat görüşüne kaynak ve sıhhat notu eklendi. Tövbe namazı field adlarındaki Türkçe karakter tutarsızlıkları düzeltildi (tovbe_duasi, tovbe_sartlari). Hızlı bakış tablosuna mezhep notları eklendi."
+    }
+  }
+}

@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import { Suspense } from "react";
+import Link from "next/link";
 import { NamazKategorileri } from "./NamazKategorileri";
 import { NamazVakitTablosu } from "./NamazVakitTablosu";
 
@@ -41,6 +42,12 @@ export default function NamazPage() {
         <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">
           Kur&apos;an&apos;da namaza dair ayetler; vakitler, huşu, teheccüd ve daha fazlası.
         </p>
+        <Link
+          href="/namaz-rehberi"
+          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-400"
+        >
+          Namazın adım adım nasıl kılındığını öğrenmek için Namaz Rehberi&apos;ne bakın →
+        </Link>
       </div>
 
       <Suspense fallback={<VakitSkeleton />}>

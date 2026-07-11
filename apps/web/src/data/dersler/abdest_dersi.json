@@ -1,0 +1,141 @@
+{
+  "ders_id": "abdest-gusul",
+  "baslik": "Abdest, Gusül ve Teyemmüm",
+  "aciklama": "İslam'da hükmi temizliğin üç temel yöntemini öğren: abdest, gusül (boy abdesti) ve teyemmüm (su bulunmadığında toprakla yapılan temizlik).",
+  "kartlar": [
+    {
+      "id": "abdest_k01",
+      "tip": "metin",
+      "baslik": "Temizlik İbadetin Temelidir",
+      "icerik": "İslam'da taharet (dini temizlik) ibadetlerin ön koşuludur. Hz. Peygamber «Temizlik imanın yarısıdır» buyurmuştur. (Müslim, Taharet 1)\n\nİki tür hükmi kirlilik (ibadete engel olan manevi kirlilik hali) vardır:\n• Küçük kirlilik — abdesti bozan durumlar\n• Büyük kirlilik — gusül gerektiren durumlar\n\nHer ikisi de ilgili temizlikle giderilir.",
+      "vurgu": "«et-Tahûru şatrul îmân — Temizlik imanın yarısıdır.» (Müslim, Taharet 1)"
+    },
+    {
+      "id": "abdest_k02",
+      "tip": "metin",
+      "baslik": "Abdestin Farzları — 4 Temel Adım",
+      "icerik": "Hanefi mezhebine göre Kur'an'daki (Maide 5/6) abdest ayetinden çıkarılan 4 farz vardır:\n\n1. Yüzü yıkamak — alnın saç bitiminden çene altına, iki kulak yumuşağı arasını\n2. Kolları dirseklerle birlikte yıkamak\n3. Başı meshetmek (ıslak elle sürme, yıkamadan farklı) — en az başın dörtte biri (Hanefi)\n4. Ayakları topuklarla birlikte yıkamak\n\nBu 4 farz yerine getirilmeden abdest geçerli olmaz. Mezheplerin farz sayısı ve mesh miktarındaki farklı görüşleri son kartta ele alınmaktadır.",
+      "vurgu": "«Ey iman edenler! Namaza kalkacağınızda yüzlerinizi ve ellerinizi yıkayın, başlarınızı meshedin, ayaklarınızı yıkayın.» (Maide 5/6)"
+    },
+    {
+      "id": "abdest_k03",
+      "tip": "metin",
+      "baslik": "Abdestin Sünnetleri",
+      "icerik": "Abdesti daha faziletli kılan sünnetler ve önemli adablar:\n\n• Niyet etmek — Hanefi'de sünnet, Şafi ve bazı mezheplerde farzdır\n• Besmele ile başlamak\n• Elleri bileklere kadar 3 kez yıkamak\n• Mazmaza (ağzı çalkalamak)\n• İstinşak (burna su çekmek)\n• Sakalı ve parmak aralarını hilallemek (parmaklarla aramak)\n• Sağ taraftan başlamak\n• Her uzvu 3 kez yıkamak\n• Başın tamamını meshetmek\n• Kulakları meshetmek\n• Abdest duası okumak — her uzvu yıkarken veya abdest bitiminde dua edilmesi tavsiye edilir",
+      "vurgu": "Niyet ve besmele abdeste bilinç kazandırır; sünnetleri yerine getirmek abdesti güzelleştirir ve sevabını artırır."
+    },
+    {
+      "id": "abdest_k04",
+      "tip": "metin",
+      "baslik": "Abdesti Bozan Durumlar",
+      "icerik": "Şu durumlar abdesti bozar:\n\n• Büyük veya küçük abdest bozmak\n• Yellenmek\n• İdrar veya dışkı yollarından herhangi bir şeyin çıkması\n• Ka'de (namaz oturuşu) dışında uyumak — uzanarak, yan yatarak veya yaslanarak uyumak abdesti bozar; yalnızca namaz kılar gibi ka'de pozisyonunda uyuklayan kişinin abdesti bozulmaz (Hanefi)\n• Bayılmak veya sarhoş olmak\n• Kan, irin gibi necis sıvıların akması (Hanefi mezhebine göre)\n\nBu durumların biri meydana gelince namaz kılmak için yeniden abdest almak gerekir.",
+      "vurgu": "Abdesti bozan bir durum oluşunca namaz kılınamaz, Mushaf tutulamaz."
+    },
+    {
+      "id": "abdest_k05",
+      "tip": "metin",
+      "baslik": "Abdest Gerektiren İbadetler",
+      "icerik": "Abdest olmadan şu ibadetler yapılamaz:\n\n• Namaz kılmak (Maide 5/6; Nisa 4/43)\n• Mushaf'a dokunmak — Kur'an'ı ezbere okumak caizdir (Vakıa 56/79: «Ona ancak temizlenenler dokunabilir»)\n• Kâbe'yi tavaf etmek («Tavaf namazdır» — Tirmizi, Hac 112; İbn Huzeyma, 2739)\n• Tilavet secdesi (Kur'an'da secde ayeti okunduğunda yapılan secde) yapmak — namaz hükmünde olduğu için\n\nBunların dışında yatmadan önce abdestli olmak ve her vakit için ayrı abdest almak müstehap (yapılması tavsiye edilen, terk edilmesi günah olmayan amel) sayılır.",
+      "vurgu": "Namaz, tavaf ve Mushaf'a dokunmak için abdest şarttır. (Maide 5/6; Vakıa 56/79)"
+    },
+    {
+      "id": "abdest_k06",
+      "tip": "metin",
+      "baslik": "Gusül (Boy Abdesti) Nedir ve Ne Zaman Gerekir?",
+      "icerik": "Gusül (tüm bedenin yıkanması — boy abdesti), büyük hükmi kirlilikten temizlenmek için yapılır.\n\nGusülü gerektiren durumlar:\n• Cünüplük (cinsel ilişki sonrası veya ihtilam — uykuda boşalma — ile oluşan büyük kirlilik)\n• Hayız (kadının adet kanaması dönemi) bitiminde\n• Nifas (doğum sonrası kanama dönemi) bitiminde\n\nKur'an'da «Eğer cünüp iseniz iyice temizlenin» (Maide 5/6) buyurulmuştur.",
+      "vurgu": "Cünüplük, hayız ve nifas → Gusül farzdır. (Buhari, Gusül 22; Müslim, Hayız 87)"
+    },
+    {
+      "id": "abdest_k07",
+      "tip": "metin",
+      "baslik": "Gusülün Farzları — 3 Temel Adım",
+      "icerik": "Hanefilere göre gusülün 3 farzı vardır; biri eksik kalırsa gusül geçersiz olur:\n\n1. Ağza su vermek (mazmaza) — ağız içinin tamamını çalkalamak\n2. Burna su çekmek (istinşak) — burnun içini suyla temizlemek\n3. Tüm bedeni yıkamak — iğne ucu kadar kuru yer kalmayacak şekilde baştan ayağa yıkamak\n\nSaç dipleri, göbek içi, kulak arkaları, parmak araları dikkat gerektirir.",
+      "vurgu": "Oje, boya, yapıştırıcı gibi suya engel maddeler önceden temizlenmeli; aksi halde gusül geçersiz olur."
+    },
+    {
+      "id": "abdest_k08",
+      "tip": "metin",
+      "baslik": "Gusül Nasıl Alınır? (Sünnet Yol)",
+      "icerik": "Sünnete uygun gusül sırası:\n\n1. Besmele çekip niyet et\n2. Elleri ve avret yerini (örtülmesi gereken mahrem bölgeyi) yıka\n3. Namaz abdesti gibi abdest al (mazmaza ve istinşak dahil)\n4. Önce başa, sonra sağ omuza, sonra sol omuza üçer kez su dök ve bedeni iyice ova\n5. Kuru yer kalmayacak şekilde tüm vücudu yıka\n\nGusül alan kişi ayrıca abdest almak zorunda değildir; gusül, abdest yerine de geçer. (Buhari, Gusül 1; Müslim, Hayız 35)",
+      "vurgu": "Gusülden sonra ayrıca abdest almaya gerek yoktur — gusül abdest yerine geçer."
+    },
+    {
+      "id": "abdest_k09",
+      "tip": "metin",
+      "baslik": "Cünüpken Yapılması Yasak Olan Şeyler",
+      "icerik": "Cünüp iken şunlar yapılamaz:\n\n• Namaz kılmak (Maide 5/6; Nisa 4/43)\n• Kur'an'ı tilavet niyetiyle (ibadet amacıyla okuyuş olarak) okumak — dört mezhep bu yasağa hükmetmiştir\n• Mushaf'a dokunmak (Vakıa 56/79)\n• Kâbe'yi tavaf etmek\n• Camiye girmek (Nisa 4/43: «Cünüp iken... geçenler hariç namaz yerine yaklaşmayın»)\n\nAncak cünüpken dua, zikir, besmele gibi gündelik ifadeleri söylemek; yemek-içmek, uyumak (avret yerini yıkayıp abdest alarak), dünya işleriyle meşgul olmak caizdir.\n\nBir namaz vaktini kaçırmadan gusletmek gerekir; geciktirmek haramdır.",
+      "vurgu": "Cünüp iken namaz, Kur'an'ı tilavet niyetiyle okuma ve tavaf yasaktır. (Tirmizi, Taharet 98; Nisa 4/43)"
+    },
+    {
+      "id": "abdest_k10",
+      "tip": "metin",
+      "baslik": "Teyemmüm Nedir ve Ne Zaman Yapılır?",
+      "icerik": "Teyemmüm (su bulunamadığında toprakla yapılan hükmi temizlik), İslam'ın Müslümanlara tanıdığı bir kolaylıktır. Su bulunamadığında veya kullanılamadığında abdest ve gusül yerine geçer.\n\nKur'an'da «Su bulamazsanız temiz bir toprağa teyemmüm edin» (Maide 5/6) buyurulmuştur.\n\nTeyemmümü caiz kılan durumlar:\n• Su bulunamaması\n• Suyu kullanırsa hasta olma tehlikesi\n• Aşırı soğuk\n• Su yolunda tehlike",
+      "vurgu": "«Yeryüzü benim için mescid ve temizlenme aracı kılındı.» (Buhari, Teyemmüm 1)"
+    },
+    {
+      "id": "abdest_k11",
+      "tip": "metin",
+      "baslik": "Teyemmümün Farzları ve Yapılışı",
+      "icerik": "Teyemmümün (su kullanılamadığında toprakla yapılan hükmi temizliğin) farzları:\n1. Niyet etmek\n2. Yüzü meshetmek\n3. Kolları dirseklerle birlikte meshetmek\n\nYapılışı:\n• Temiz toprağa, taşa veya kuma (yeryüzü cinsinden temiz bir şeye) iki avucu açık vur, silkele\n• Birinci vuruşla yüzü meshet\n• İkinci vuruşla sol elle sağ kolu, sağ elle sol kolu dirseklerle birlikte meshet\n\nOdun, demir, bakır gibi maddelerle teyemmüm yapılmaz.",
+      "vurgu": "Toprak, taş, kum, tuğla, kiremit → Teyemmüm yapılabilir | Odun, metal → Yapılamaz"
+    },
+    {
+      "id": "abdest_k12",
+      "tip": "metin",
+      "baslik": "Teyemmümü Bozan Durumlar",
+      "icerik": "Teyemmümü iki şey bozar:\n\n1. Abdesti veya gusülü bozan her durum teyemmümü de bozar — çünkü teyemmüm, bunların yerini tutar\n\n2. Teyemmümü caiz kılan mazeretinin ortadan kalkması:\n• Su bulunması\n• Hastalığın geçmesi\n• Soğuğun dinmesi gibi\n\nSu namaz sırasında bulunursa (Hanefi, Şafi ve Hanbeli görüşüne göre) namaz bozulur, abdest alınıp yeniden kılınır. Maliki'ye göre namaz geçerli sayılır.",
+      "vurgu": "Su bulununca teyemmüm geçersiz olur — hemen abdest alınmalıdır."
+    },
+    {
+      "id": "abdest_k13",
+      "tip": "metin",
+      "baslik": "Abdest, Gusül ve Teyemmümün Ortak Hikmeti",
+      "icerik": "İslam'daki üç temizlik yöntemi de aynı amaca hizmet eder: İnsanı ibadet için hem bedenen hem manen hazırlamak.\n\n• Abdest günde beş vakit namaz için alınır; abdest bozulmamışsa yenilenmesi gerekmez\n• Gusül büyük kirlilikten tam arınmayı sağlar\n• Teyemmüm ise ibadetin hiçbir koşulda aksamamasını güvence altına alır\n\n«Allah size güçlük çıkarmak istemez; sizi temizlemek ve nimetini tamamlamak ister.» (Maide 5/6)",
+      "vurgu": "İslam kolaylık dinidir — su yoksa teyemmüm; ibadet hiçbir koşulda düşmez, Allah özrü kabul eder."
+    },
+    {
+      "id": "abdest_k14",
+      "tip": "metin",
+      "baslik": "Özür Hali ve Sürekli Abdestsizlik",
+      "icerik": "Sürekli akan kanı, idrarı veya benzeri bir durumu olan kişiye «özür sahibi» denir.\n\nÖzür sayılabilmek için (Hanefi): Mazeretli halin tam bir vakit boyunca kesintisiz devam etmesi şarttır. Bir vakit içinde hiç kesilmeden sürerse özür tanınır; tek sefer olursa özür sayılmaz.\n\nÖzür sahibinin hükümleri:\n• Her vakit için abdest alır\n• Bu abdest vakit boyunca geçerlidir; vakit çıkınca yenilenmesi gerekir\n• Özür dışında başka bir abdest bozucu durum oluşursa abdest bozulur\n\nÖrnek: Sürekli idrar kaçıran bir kişi her vakit için yeni abdest alır; bu abdest o vaktin tüm namazlarını kapsar.",
+      "vurgu": "Özür sahibi her vakit için yeni abdest alır; bu abdest o vaktin namazını kapsar."
+    },
+    {
+      "id": "abdest_k15",
+      "tip": "metin",
+      "baslik": "Mest Üzerine Mesh",
+      "icerik": "Mest (ayağı topuklarla birlikte örten, yürümeye elverişli özel ayakkabı/çorap) üzerine mesh, abdestte ayakları yıkamak yerine verilen bir kolaylıktır.\n\nGenel şartlar:\n• Mest abdestli iken giyilmiş olmalıdır\n• Ayağı topuklarla birlikte örtmelidir\n• Yürümeye dayanıklı olmalıdır\n• Üzerinde suyun ayağa ulaşmasına engel olacak büyük yırtık bulunmamalıdır\n\nMesh süresi (Hanefi, Şafi ve Hanbeli):\n• Mukim (yolcu olmayan) için 1 gün 1 gece\n• Yolcu için 3 gün 3 gece\n\nMaliki mezhebinde bu konuda süre sınırı öngörülmez.\n\nSüre, mest giyildikten sonra abdestin ilk bozulduğu andan itibaren başlar. Mesh, ıslak elle mestin üst kısmına yapılır.",
+      "vurgu": "Mest abdestli giyilmişse, süre içinde ayakları yıkamak yerine mestin üstüne mesh yapılabilir."
+    },
+    {
+      "id": "abdest_k16",
+      "tip": "metin",
+      "baslik": "Yara ve Sargı Üzerine Mesh",
+      "icerik": "Yara, yanık, alçı, bandaj veya sargı sebebiyle bir uzvu yıkamak zarar verecekse İslam kolaylık tanır.\n\nUygulama sırası:\n1. Sağlam yerler normal şekilde yıkanır\n2. Yaralı/sargılı yer yıkanamıyorsa sargının üstü ıslak elle meshedilir\n3. Mesh de zarar veriyorsa o bölge terk edilir\n\nSargının abdestli iken takılmış olması şart değildir. Gerektiği kadar alan sarılabilir; fakat gereksiz yere geniş sarılan yerlerde sağlam bölge mümkünse yıkanmalıdır.\n\nYara iyileşince normal yıkamaya dönülür.",
+      "vurgu": "Din kolaylık ister: yıkamak zarar verirse sargı üzerine mesh yapılır; mesh de zarar verirse o bölge affedilir."
+    },
+    {
+      "id": "abdest_k17",
+      "tip": "metin",
+      "baslik": "Abdest Duası",
+      "icerik": "Abdest tamamlandıktan sonra şu dua okunur:\n\nArapça:\nأَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ\n\nOkunuşu:\n«Eşhedü en lâ ilâhe illallâhu vahdehû lâ şerîke leh, ve eşhedü enne Muhammeden abdühû ve resûlüh. Allahümmec-alnî mine't-tevvâbîne vec-alnî mine'l-mutatahhirîn.»\n\nAnlamı:\n«Allah'tan başka ilah olmadığına, O'nun ortağı bulunmadığına ve Muhammed'in O'nun kulu ve elçisi olduğuna şehadet ederim. Allah'ım! Beni çok tevbe edenlerden ve temizlenenlerden kıl.»\n\nHz. Peygamber şöyle buyurmuştur: «Kim abdest alır ve güzelce alırsa, ardından bu duayı okursa ona cennetin sekiz kapısı da açılır; dilediği kapıdan girer.» (Müslim, Taharet 17; ayrıca Tirmizi, Taharet 55; İbn Mâce, Taharet 57)",
+      "vurgu": "«Allahümmec-alnî mine't-tevvâbîne vec-alnî mine'l-mutatahhirîn — Allah'ım! Beni tevbe edenlerden ve temizlenenlerden kıl.» (Müslim, Taharet 17)"
+    },
+    {
+      "id": "abdest_k18",
+      "tip": "metin",
+      "baslik": "İlk Kez Öğrenenler İçin — Temel Temizlik Rehberi",
+      "icerik": "**Abdest almak için ne yapman gerekiyor?**\n\n1. Yüzünü yıka\n2. Kollarını dirseklerinle birlikte yıka\n3. Başının bir kısmını ıslak elle sür\n4. Ayaklarını topuklarınla birlikte yıka\n\nHepsi bu. Bu 4 adımı yaptıysan abdestlisin.\n\n---\n\n**Gusül (boy abdesti) için ne yapman gerekiyor?**\n\n1. Ağzına su al ve çalkala\n2. Burnuna su çek ve temizle\n3. Tüm vücudunu kuru yer kalmayacak şekilde yıka\n\nHepsi bu. Saç diplerini, göbeğini, parmak aralarını unutma.\n\n---\n\n**Su yoksa ne yaparsın? (Teyemmüm)**\n\n1. Temiz bir toprağa, taşa veya kuma iki avucunu vur\n2. Yüzünü meshet\n3. Tekrar vur, kollarını dirseklerinle birlikte meshet\n\nHepsi bu. Su bulununca abdest alman gerekir.\n\n---\n\nNot: Bu kartta yeni başlayanlar için en temel uygulama özeti veriliyor. Abdest ve teyemmümde niyet, tertip, muvalat gibi konularda mezhepler arasında farz/sünnet farklılıkları vardır. Gusülün farzları burada Hanefi görüşüne göre özetlenmiştir; diğer mezheplerde mazmaza ve istinşak çoğunlukla sünnet sayılır. Sünnetler, ayrıntılar ve mezhep farklılıkları için önceki ve sonraki kartlara dön.",
+      "vurgu": "Bu kart hızlı özet içindir; mezhep ayrıntıları ve özel durumlar için diğer kartlara da bak."
+    },
+    {
+      "id": "abdest_k19",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "Dört mezhepte temel görüş farklılıkları:\n\n**Abdestin farz sayısı:**\n• Hanefi: 4 farz\n• Şafi: 6 farz (niyet ve tertip de dahil)\n• Maliki: 7 farz (niyet, muvalat ve tedlik de dahil)\n• Hanbeli: 6 farz\n\n**Başın meshinin miktarı:**\n• Hanefi: Başın dörtte biri yeterli\n• Maliki ve Hanbeli: Tamamını meshetmek farzdır\n• Şafi: Az bir kısım yeterli\n\n**Gusülde mazmaza ve istinşak:**\n• Hanefi: Farzdır\n• Şafi, Maliki ve Hanbeli: Farz değil, sünnettir\n\n**Kan ve irin:**\n• Hanefi: Vücuttan akan kan ve irin abdesti bozar\n• Şafi, Maliki ve Hanbeli: Bozmaz\n\n**Teyemmümde namaz sayısı:**\n• Hanefi ve Maliki: Teyemmüm bozulmadıkça dilediği kadar namaz kılınabilir\n• Şafi ve Hanbeli: Bir teyemmümle yalnızca bir farz namaz kılınabilir\n\n**Niyet ve sıra:**\n• Hanefi: Abdestte niyet sünnettir; farzların sırası şart değildir\n• Şafi, Maliki ve Hanbeli: Niyet farzdır; özellikle Şafi ve Hanbeli'de tertip de farz kabul edilir\n\n🎉 Abdest dersini tamamladın! Gusül ve teyemmümle birlikte tümünü {{link:ibadet-abdest|İbadet Rehberi}}'nin Abdest bölümünde bulabilir; hazır hissediyorsan aşağıdaki 'Teste Başla' butonuyla kendini sınayabilirsin.",
+      "vurgu": "Tüm mezhepler temizliğin farziyetinde ve temel yöntemlerinde ittifak halindedir."
+    }
+  ],
+  "quiz_havuzu_id": "abdest-gusul"
+}

@@ -1,0 +1,119 @@
+{
+  "ders_id": "kurban",
+  "baslik": "Kurban",
+  "aciklama": "Kur'an, sahih hadisler ve yaygın ilmihal çerçevesiyle kurban ibadetini temel düzeyde öğren.",
+  "kartlar": [
+    {
+      "id": "kurban_k01",
+      "tip": "metin",
+      "baslik": "Kurban Nedir?",
+      "icerik": "Kurban; belirli günlerde, belirli şartları taşıyan hayvanı Allah rızası için usulüne uygun biçimde keserek yerine getirilen bir ibadettir. Arapçada bu ibadet için udhiyye ve kurban gibi kelimeler kullanılır.\n\nKurban sadece et elde etmek için yapılan bir işlem değildir. Esası; kulluğu, teslimiyeti, şükrü ve paylaşmayı diri tutmaktır. Bu yüzden kurban ibadeti hem kalbe hem topluma dokunan bir ibadettir.",
+      "vurgu": "Kurban, et değil öncelikle ibadet niyetiyle yapılan bir yakınlaşmadır"
+    },
+    {
+      "id": "kurban_k02",
+      "tip": "metin",
+      "baslik": "Kur'an'da Kurbanın Temeli",
+      "icerik": "Kur'an'da her ümmet için Allah'ın adının anılacağı kurban ve benzeri ibadetler konulduğu bildirilir. Ayrıca kurbanlık hayvanların Allah'ın nişanelerinden olduğu ve onlarda insanlar için hayır bulunduğu ifade edilir.\n\nBu ayetler kurbanın köksüz bir gelenek değil, vahiy ile anlam kazanan bir ibadet olduğunu gösterir. Kurban keserken Allah'ın adını anmak bu ibadetin merkezindedir.\n\nDayanaklar: Hac 22:34; Hac 22:36.",
+      "vurgu": "Kurbanın özü, Allah'ın adını anarak O'na yönelmektir"
+    },
+    {
+      "id": "kurban_k03",
+      "tip": "metin",
+      "baslik": "Hz. İbrahim ve Teslimiyet Dersi",
+      "icerik": "Kurban ibadeti, Hz. İbrahim ile oğlu arasındaki büyük teslimiyet kıssasını hatırlatır. Kur'an'da Hz. İbrahim'in gördüğü rüyayı oğluna açtığı, oğlunun da sabır ve teslimiyet gösterdiği anlatılır. Sonunda Allah Teala büyük bir kurbanlık vererek bu imtihanı rahmetle tamamlamıştır.\n\nBu kıssa, kurbanın sadece kesim işlemi değil; Allah'ın emrine gönülden teslim olma eğitimi olduğunu öğretir.\n\nDayanak: Saffat 37:102-107.",
+      "vurgu": "Kurbanın ruhu, Hz. İbrahim'in teslimiyetinde saklıdır"
+    },
+    {
+      "id": "kurban_k04",
+      "tip": "metin",
+      "baslik": "Kurbanın Ruhu: Takva ve Niyet",
+      "icerik": "Kur'an açıkça bildirir ki kurbanlıkların ne etleri ne de kanları Allah'a ulaşır; Allah'a ulaşan şey kulların takvasıdır. Bu yüzden gösteriş, yarış, et hesabı veya sosyal baskı ile yapılan kesim ibadetin ruhunu zedeler.\n\nDoğru niyet; Allah rızasını istemek, nimet vereni unutmamak ve kullarla paylaşmaktır. Niyet bozulursa ibadetin manevi değeri zayıflar.\n\nDayanak: Hac 22:37.",
+      "vurgu": "Allah'a ulaşan şey et değil, takvadır"
+    },
+    {
+      "id": "kurban_k05",
+      "tip": "metin",
+      "baslik": "Kurbanın Hükmü",
+      "icerik": "Fıkıhta kurbanın hükmü mezheplere göre farklı değerlendirilmiştir. Türkiye'de yaygın Hanefi ilmihal çizgisinde, mali imkanı yerinde olan mukim Müslüman için vacip kabul edilir. Diğer bazı mezheplerde ise kuvvetli sünnet olarak değerlendirilmiştir.\n\nBu farklılık, ibadetin önemini küçültmez. Aksine İslam hukukunun delilleri değerlendirme biçimindeki yöntem farkını gösterir. Uygulamada kişi kendi mezhebine veya güvenilir ilmihal rehberliğine göre amel eder.",
+      "vurgu": "Hükümde mezhep farkı bulunsa da kurban güçlü ve köklü bir ibadettir"
+    },
+    {
+      "id": "kurban_k06",
+      "tip": "metin",
+      "baslik": "Kimler Kurbanla Yükümlü Sayılır?",
+      "icerik": "Yaygın Hanefi ilmihal yaklaşımında kurban; akıllı, ergen, temel ihtiyaçları ve borçları dışında nisap miktarı mala sahip, yolcu olmayan Müslümana vacip görülür. Burada ölçü sadece zengin görünmek değil; gerçekten mali yeterliliğe sahip olmaktır.\n\nİbadet insanı ezmek için değil, Allah'ın verdiği nimete şükür için vardır. Bu yüzden maddi gücü olmayan biri kendini zorlayıp borç yükü altında kalmamalıdır.\n\nNot: Bu kart, Türkiye'de yaygın Hanefi ilmihal çerçevesini özetler.",
+      "vurgu": "Kurban yükümlülüğü, mali güç ve şartlarla ilgilidir"
+    },
+    {
+      "id": "kurban_k07",
+      "tip": "metin",
+      "baslik": "Kurban Kesim Vakti",
+      "icerik": "Kurban kesim vaktinin başlangıcı bayram namazından sonradır. Peygamber Efendimiz, bayram namazından önce kesilen hayvanın kurban yerine geçmeyeceğini, bunun sadece aile için hazırlanmış bir et olacağını bildirmiştir.\n\nBitiş vakti mezheplere göre farklı değerlendirilmiştir. Türkiye'de yaygın Hanefi uygulamasında bayramın üçüncü günü güneş batıncaya kadar kesilebilir.\n\nDayanak: Buhari 5545.",
+      "vurgu": "Bayram namazından önce kesilen hayvan, kurban yerine geçmez"
+    },
+    {
+      "id": "kurban_k08",
+      "tip": "metin",
+      "baslik": "Hangi Hayvanlar Kurban Olur?",
+      "icerik": "Kur'an'da kurbanlıkların behimetü'l-en'am denilen ehil hayvanlar cinsinden olduğu görülür. Uygulamada koyun, keçi, sığır, manda ve deve kurbanlık olarak değerlendirilir.\n\nKurban ibadetinde hayvanın cinsi kadar sağlıklı ve kurbana uygun olması da önemlidir. Rastgele herhangi bir hayvan kurban ibadeti için yeterli sayılmaz.\n\nDayanaklar: Hac 22:34; Hac 22:36.",
+      "vurgu": "Kurban, belirlenmiş hayvan türleriyle yerine getirilir"
+    },
+    {
+      "id": "kurban_k09",
+      "tip": "metin",
+      "baslik": "Ortaklık Olur mu?",
+      "icerik": "Sahih hadiste deve ve sığırın yedi kişi adına yeterli olduğu bildirilmiştir. Bu nedenle büyükbaş kurbanda ortaklık mümkündür. Koyun ve keçi ise bir kişi adına kurban edilir.\n\nOrtaklıkta esas, bütün ortakların ibadet niyetinin sahih olması ve kurban payının gerçekten ibadet amacı taşımasıdır.\n\nDayanak: Müslim 1318a.",
+      "vurgu": "Sığır ve deve yedi kişi adına; koyun ve keçi ise bir kişi adına olur"
+    },
+    {
+      "id": "kurban_k10",
+      "tip": "metin",
+      "baslik": "Yaş Şartı",
+      "icerik": "Peygamber Efendimiz, kurban olarak musinne yani yetişkin bir hayvan kesilmesini, ancak zorlanılması halinde altı ayı geçmiş bir koçun kurban edilebileceğini bildirmiştir.\n\nFıkıhta yaygın uygulamada koyun için bir yaşını doldurmuş olması; altı ayı geçmiş ve bir yaşında gibi gelişmiş koçun da yeterli sayılabilmesi; keçi için bir, sığır için iki, deve için beş yaşını doldurmuş olması esas alınır.\n\nDayanak: Müslim 1963.",
+      "vurgu": "Kurbanlık hayvanın yaşı, ibadetin geçerliliğinde önemlidir"
+    },
+    {
+      "id": "kurban_k11",
+      "tip": "metin",
+      "baslik": "Kusurlu Hayvan Olmamalı",
+      "icerik": "Peygamber Efendimiz, açık kusurlu hayvanların kurban edilmemesini öğretmiştir. Tek gözü kör veya kusuru açık olan, hastalığı belli olan, aksaklığı belirgin olan ve aşırı zayıf düşmüş hayvanlar kurban için uygun görülmemiştir.\n\nBu ölçü bize şunu öğretir: Allah için ayrılan kurban, değersiz görülen veya elden çıkarılmak istenen bir hayvan olmamalıdır. İbadette özen, takvanın parçasıdır.\n\nDayanak: Ebu Davud 2802.",
+      "vurgu": "Kurbanlık hayvan belirgin kusurlardan uzak olmalıdır"
+    },
+    {
+      "id": "kurban_k12",
+      "tip": "metin",
+      "baslik": "Kesim Adabı ve Merhamet",
+      "icerik": "İslam, kurban kesimini bile merhamet ve ihsan çerçevesine yerleştirir. Peygamber Efendimiz, bıçağın iyi bilenmesini ve hayvana eziyet edilmemesini emretmiştir. Hayvanı gereksiz yere bekletmek, korkutmak veya acısını artıracak davranışlarda bulunmak doğru değildir.\n\nKurban ibadeti merhameti yok eden değil, merhameti disipline eden bir kulluk eğitimidir.\n\nDayanak: Müslim 1967.",
+      "vurgu": "Kurban kesiminde bile ihsan ve merhamet korunur"
+    },
+    {
+      "id": "kurban_k13",
+      "tip": "metin",
+      "baslik": "Allah'ın Adını Anmak",
+      "icerik": "Kur'an, kurbanlık hayvanlar üzerine Allah'ın adının anılmasını vurgular. Sahih hadislerde de Resulullah'ın kurban keserken Allah'ın adını andığı, tekbir getirdiği ve dua ettiği anlatılır.\n\nBu nedenle kurban sıradan bir kesim işi gibi görülmez. Kesim anı, niyetin ve zikrin açıkça birleştiği bir kulluk anıdır.\n\nDayanaklar: Hac 22:34; Buhari 5558; Buhari 5565; Müslim 1967.",
+      "vurgu": "Kurban, Allah'ın adıyla yerine getirilen bir ibadettir"
+    },
+    {
+      "id": "kurban_k14",
+      "tip": "metin",
+      "baslik": "Kurban Etinden Yemek ve İkram",
+      "icerik": "Kur'an, kurbanlıklardan yenmesini ve ihtiyaç sahiplerine yedirilmesini bildirir. Peygamber Efendimiz de kurban etinden yemeyi, başkalarına yedirmeyi ve gerektiğinde saklamayı öğretmiştir.\n\nBu, kurbanın sadece kesimle bitmediğini; sofraya, komşuluğa ve infaka uzandığını gösterir. Kişi kurban etinden kendisi de yiyebilir, ailesine ikram edebilir ve muhtaçlarla paylaşabilir.\n\nDayanaklar: Hac 22:36; Buhari 5569.",
+      "vurgu": "Kurban eti hem yenir hem de ihtiyaç sahipleriyle paylaşılır"
+    },
+    {
+      "id": "kurban_k15",
+      "tip": "metin",
+      "baslik": "Kurbanın Toplumsal Boyutu",
+      "icerik": "Kurban ibadeti bireysel takva kadar toplumsal dayanışmayı da güçlendirir. Bayram günlerinde muhtaçların sofralarına et ulaşması, akraba ve komşular arasında ikramın artması, nimetin sadece elde tutulmayıp dolaşıma girmesi bu ibadetin hikmetlerinden biridir.\n\nAncak sosyal fayda önemlidir diye kurban sadece yardım kampanyasına indirgenemez. Yardım yönü kıymetlidir ama ibadetin kalbindeki niyet, Allah'a yakınlaşma niyetidir.\n\nDayanaklar: Hac 22:36; Hac 22:37; Buhari 5569.",
+      "vurgu": "Kurban hem takva hem paylaşma eğitimidir"
+    },
+    {
+      "id": "kurban_k16",
+      "tip": "metin",
+      "baslik": "Sık Yapılan Hatalar",
+      "icerik": "Kurban konusunda bazı hatalar sık görülür: Bayram namazından önce kesmek, açık kusurlu hayvan seçmek, gösterişe kapılmak, ibadeti sadece et hesabına indirgemek ve paylaşma yönünü ihmal etmek bunlardan bazılarıdır.\n\nSağlıklı bir denge için şu sıra korunmalıdır: Önce doğru niyet, sonra sahih vakit ve uygun hayvan, ardından merhametli kesim ve paylaşım. Böylece kurban hem zahiren doğru hem de manen diri bir ibadet olur.\n\nDayanaklar: Buhari 5545; Ebu Davud 2802; Hac 22:37; Buhari 5569.\n\n🎉 Kurban dersini tamamladın! Daha fazla ayet ve detay için {{link:ibadet-ibadetler|İbadet Rehberi}}'ne göz atabilir; hazır hissediyorsan aşağıdaki 'Teste Başla' butonuyla kendini sınayabilirsin.",
+      "vurgu": "Doğru kurban için niyet, vakit, uygun hayvan ve paylaşım birlikte korunmalıdır"
+    }
+  ]
+}

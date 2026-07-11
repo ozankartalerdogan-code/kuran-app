@@ -3,13 +3,19 @@
 import { useEffect, useState } from "react";
 import { getFavorites, setFavorites } from "../lib/storageUtils";
 
+type FavoriteButtonProps = {
+  verseKey: string;
+  size?: "sm" | "md" | "lg";
+  onBeforeUnfavorite?: (verseKey: string) => boolean;
+  onToggle?: (isFavorite: boolean, verseKey: string) => void;
+};
+
 export function FavoriteButton({
   verseKey,
   size = "md",
-}: {
-  verseKey: string;
-  size?: "sm" | "md" | "lg";
-}) {
+  onBeforeUnfavorite,
+  onToggle,
+}: FavoriteButtonProps) {
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
@@ -20,11 +26,16 @@ export function FavoriteButton({
     e.preventDefault();
     e.stopPropagation();
     const current = getFavorites();
-    const next = current.includes(verseKey)
+    const currentlyFavorite = current.includes(verseKey);
+    if (currentlyFavorite && onBeforeUnfavorite && !onBeforeUnfavorite(verseKey)) return;
+
+    const next = currentlyFavorite
       ? current.filter((v) => v !== verseKey)
       : [...current, verseKey];
+    const nextIsFav = next.includes(verseKey);
     setFavorites(next);
-    setIsFav(next.includes(verseKey));
+    setIsFav(nextIsFav);
+    onToggle?.(nextIsFav, verseKey);
   }
 
   const iconSize = size === "sm" ? "h-4 w-4" : size === "lg" ? "h-6 w-6" : "h-5 w-5";

@@ -46,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/ogren", "weekly", 0.7],
     ["/ogren/harf-i-tarif", "weekly", 0.7],
     ["/namaz", "weekly", 0.7],
+    ["/namaz-rehberi", "weekly", 0.7],
     ["/ibadet-rehberi", "weekly", 0.7],
     ["/manevi-siginak", "weekly", 0.7],
     ["/manevi-siginak/ismi-azam", "weekly", 0.7],
@@ -53,8 +54,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/root", "weekly", 0.6],
     ["/hatim", "weekly", 0.6],
     ["/mushaf", "weekly", 0.6],
+    ["/mushaf-sayfa", "weekly", 0.6],
     ["/kible", "monthly", 0.4],
     ["/privacy", "yearly", 0.2],
+    ["/hakkinda", "yearly", 0.2],
   ];
   const entries: MetadataRoute.Sitemap = staticPaths.map(([p, changeFrequency, priority]) => ({
     url: `${BASE}${p}`,

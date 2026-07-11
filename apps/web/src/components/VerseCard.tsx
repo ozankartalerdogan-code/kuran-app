@@ -18,6 +18,8 @@ export interface VerseCardData {
 interface VerseCardProps {
   verse: VerseCardData;
   onTagClick: (tag: string) => void;
+  onBeforeUnfavorite?: (verseKey: string) => boolean;
+  onFavoriteToggle?: (isFavorite: boolean, verseKey: string) => void;
 }
 
 function formatAnaTemaBadge(code: string): string {
@@ -28,7 +30,7 @@ function formatAnaTemaBadge(code: string): string {
   return label ? `${prefix} · ${label}` : prefix;
 }
 
-export function VerseCard({ verse, onTagClick }: VerseCardProps) {
+export function VerseCard({ verse, onTagClick, onBeforeUnfavorite, onFavoriteToggle }: VerseCardProps) {
   const { verse_key, surah_id, ayah_number, surah_name, arabic_text, reading_tr, meal, ana_tema, alt_taglar } = verse;
 
   return (
@@ -59,7 +61,7 @@ export function VerseCard({ verse, onTagClick }: VerseCardProps) {
               {formatAnaTemaBadge(ana_tema)}
             </button>
           )}
-          <FavoriteButton verseKey={verse_key} size="sm" />
+          <FavoriteButton verseKey={verse_key} size="sm" onBeforeUnfavorite={onBeforeUnfavorite} onToggle={onFavoriteToggle} />
         </div>
       </div>
 

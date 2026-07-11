@@ -1,0 +1,507 @@
+{
+  "quiz_id": "peygamberler",
+  "baslik": "Peygamber Kıssaları Quiz",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "peyg_001",
+      "konu": "Hz. Adem",
+      "soru": "Hz. Adem hangi maddeden yaratılmıştır?",
+      "secenekler": ["A) Topraktan", "B) Ateşten", "C) Nurdan", "D) Havadan"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Andolsun biz insanı kuru bir çamurdan, şekillendirilmiş balçıktan yarattık.\" (Hicr 15/26) Hz. Adem topraktan yaratılmıştır.",
+      "zorluk": "kolay",
+      "kaynak": "Hicr 15/26; Araf 7/12"
+    },
+    {
+      "id": "peyg_002",
+      "konu": "Hz. Adem",
+      "soru": "İblis Allah'ın emrine rağmen Hz. Adem'e neden secde etmedi?",
+      "secenekler": ["A) Yanında değildi", "B) Unuttu", "C) Secdenin caiz olmadığını düşündü", "D) Kibriyle kendini Hz. Adem'den üstün saydı"],
+      "dogru_cevap": "D",
+      "aciklama": "İblis dedi ki: 'Ben ondan daha üstünüm; beni ateşten, onu çamurdan yarattın.' (Araf 7/12) Kibir ve büyüklenme İblis'in çıkışının sebebidir.",
+      "zorluk": "orta",
+      "kaynak": "Araf 7/12; Sad 38/76"
+    },
+    {
+      "id": "peyg_003",
+      "konu": "Hz. Adem",
+      "soru": "Rivayetlerde Hz. Adem'in oğullarından hangisinin kardeşini öldürdüğü anlatılır?",
+      "secenekler": ["A) Habil", "B) Kabil", "C) Şit", "D) İdris"],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, Hz. Adem'in iki oğlundan söz eder ama isimlerini vermez. Rivayetlerde Kabil'in kıskançlıkla kardeşi Habil'i öldürdüğü anlatılır. (Maide 5/27-31)",
+      "zorluk": "kolay",
+      "kaynak": "Maide 5/27-31"
+    },
+    {
+      "id": "peyg_004",
+      "konu": "Hz. Adem",
+      "soru": "Hz. Adem ve Havva yasak meyveden yedikten sonra ne oldu?",
+      "secenekler": ["A) Şeytanı suçladılar", "B) Cennete dönmeye çalıştılar", "C) Tövbe ettiler ve Allah affetti", "D) Yüz yıl azap gördüler"],
+      "dogru_cevap": "C",
+      "aciklama": "\"Rabbimiz! Biz kendimize zulmettik. Eğer bizi bağışlamaz ve bize merhamet etmezsen mutlaka ziyan edenlerden oluruz.\" (Araf 7/23) Allah bu tövbeyi kabul etti.",
+      "zorluk": "orta",
+      "kaynak": "Araf 7/23; Bakara 2/37"
+    },
+    {
+      "id": "peyg_005",
+      "konu": "Hz. Nuh",
+      "soru": "Hz. Nuh kavmini kaç yıl boyunca tevhide davet etmiştir?",
+      "secenekler": ["A) 950 yıl", "B) 700 yıl", "C) 400 yıl", "D) 1000 yıl"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Andolsun biz Nuh'u kavmine gönderdik, o da aralarında elli yılı eksik olmak üzere bin sene kaldı.\" (Ankebut 29/14) 1000 - 50 = 950 yıl.",
+      "zorluk": "kolay",
+      "kaynak": "Ankebut 29/14; Nuh 71/1-5"
+    },
+    {
+      "id": "peyg_006",
+      "konu": "Hz. Nuh",
+      "soru": "Hz. Nuh'un iman etmeyen oğlu tufan sırasında ne yaptı ve akıbeti ne oldu?",
+      "secenekler": ["A) Dağa sığındı ve kurtuldu", "B) Gemiye son anda bindi", "C) Bir tekneyle kaçtı", "D) Dağa sığınmak istedi ama dalgalar aralarına girdi ve boğuldu"],
+      "dogru_cevap": "D",
+      "aciklama": "Oğlu dedi: 'Beni suya karşı koruyacak bir dağa sığınırım.' Nuh: 'Bugün Allah'ın emrinden kurtarıcı yoktur.' Dalgalar aralarına girdi ve oğlu boğulanlardan oldu. (Hud 11/42-43)",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/42-43"
+    },
+    {
+      "id": "peyg_007",
+      "konu": "Hz. Nuh",
+      "soru": "Tufan sona erince Hz. Nuh'un gemisi hangi dağa oturdu?",
+      "secenekler": ["A) Tur", "B) Cudi", "C) Sina", "D) Ararat"],
+      "dogru_cevap": "B",
+      "aciklama": "\"Ve denildi: Ey yer! Suyunu yut; ey gök! Sen de tut. Su çekildi, iş bitti. Gemi Cudi üzerine oturdu.\" (Hud 11/44)",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/44"
+    },
+    {
+      "id": "peyg_008",
+      "konu": "Hz. Nuh",
+      "soru": "Kur'an Hz. Nuh'u hangi özelliğiyle özellikle övmektedir?",
+      "secenekler": ["A) Halilullah (Allah'ın dostu) olması", "B) Kelimullah (Allah ile konuşması)", "C) Çok şükreden bir kul olması", "D) Sadıkul Vaad (sözüne sadık) olması"],
+      "dogru_cevap": "C",
+      "aciklama": "\"O, şükreden bir kuldu.\" (İsra 17/3) Hz. Nuh Kur'an'da şükrü ile tanımlanan bir peygamberdir.",
+      "zorluk": "zor",
+      "kaynak": "İsra 17/3"
+    },
+    {
+      "id": "peyg_009",
+      "konu": "Hz. Hud",
+      "soru": "Hz. Hud hangi kavme gönderilmiştir?",
+      "secenekler": ["A) Ad kavmi", "B) Semud kavmi", "C) Medyen halkı", "D) Sodom halkı"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Ad kavmine de kardeşleri Hud'u gönderdik.\" (Hud 11/50) Ad kavmi Arabistan'ın güneyinde, güçlü binalar yapan bir kavimdi.",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/50; Araf 7/65"
+    },
+    {
+      "id": "peyg_010",
+      "konu": "Hz. Salih",
+      "soru": "Semud kavmine mucize olarak gönderilen şey neydi?",
+      "secenekler": ["A) Şiddetli bir rüzgar", "B) Büyük bir asa", "C) Ateşten bir bulut", "D) Dişi bir deve"],
+      "dogru_cevap": "D",
+      "aciklama": "\"İşte size Allah'ın devesi bir mucize olarak geldi. Onu Allah'ın otlağında bırakın, ona kötülük dokundurmayın.\" (Hud 11/64) Deveyi kesenler helak edildi.",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/64; Araf 7/73"
+    },
+    {
+      "id": "peyg_011",
+      "konu": "Hz. İbrahim",
+      "soru": "Hz. İbrahim'in Allah katındaki özel unvanı nedir?",
+      "secenekler": ["A) Kelimullah", "B) Halilullah", "C) Sadıkul Vaad", "D) Ruhullah"],
+      "dogru_cevap": "B",
+      "aciklama": "\"Allah İbrahim'i dost (halil) edindi.\" (Nisa 4/125) Bu nedenle Hz. İbrahim \"Halilullah\" (Allah'ın dostu) unvanıyla anılır.",
+      "zorluk": "kolay",
+      "kaynak": "Nisa 4/125"
+    },
+    {
+      "id": "peyg_012",
+      "konu": "Hz. İbrahim",
+      "soru": "Hz. İbrahim ateşe atıldığında Allah ateşe ne emretti?",
+      "secenekler": ["A) \"Küçül ve İbrahim'i yakma\"", "B) \"Söndürül\"", "C) \"İbrahim'e serin ve selamet ol\"", "D) \"İbrahim'e zarar verme\""],
+      "dogru_cevap": "C",
+      "aciklama": "\"Ey ateş! İbrahim'e karşı serin ve selamet ol dedik.\" (Enbiya 21/69) Ateş, Allah'ın emriyle Hz. İbrahim'i yakmadı.",
+      "zorluk": "zor",
+      "kaynak": "Enbiya 21/69"
+    },
+    {
+      "id": "peyg_013",
+      "konu": "Hz. İsmail",
+      "soru": "Hz. İbrahim oğlunu kurban etmek isteyince Hz. İsmail ne dedi?",
+      "secenekler": ["A) \"Emredileni yap babacığım! Sabredenlerden bulacaksın beni\"", "B) Ağlayarak yalvardı", "C) Kaçmaya çalıştı", "D) Allah'a dua etti ve serbest kaldı"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Babacığım! Emredileni yap; inşaallah beni sabredenlerden bulacaksın.\" (Saffat 37/102) Bu tam teslimiyet Allah katında büyük değer taşır.",
+      "zorluk": "orta",
+      "kaynak": "Saffat 37/102"
+    },
+    {
+      "id": "peyg_014",
+      "konu": "Hz. İbrahim",
+      "soru": "Kâbe'nin temellerini kim yükseltmiştir?",
+      "secenekler": ["A) Hz. Nuh ve Hz. İsmail", "B) Hz. Musa ve Hz. Harun", "C) Hz. İbrahim ve Hz. İshak", "D) Hz. İbrahim ve Hz. İsmail"],
+      "dogru_cevap": "D",
+      "aciklama": "\"İbrahim İsmail ile birlikte evin (Kâbe'nin) temellerini yükseltiyordu: Rabbimiz! Bunu bizden kabul et...\" (Bakara 2/127)",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2/127"
+    },
+    {
+      "id": "peyg_015",
+      "konu": "Hz. İbrahim",
+      "soru": "Hz. İbrahim başta babası için dua etmişti. Sonunda bu duayı neden bıraktı?",
+      "secenekler": ["A) Babası vefat etti", "B) Babasının Allah'ın düşmanı olduğu ortaya çıktı", "C) Allah dua etmesini açıkça yasakladı", "D) Babası şehirden ayrılıp kayboldu"],
+      "dogru_cevap": "B",
+      "aciklama": "\"İbrahim'in babası için af dilemesi yalnızca ona verdiği bir söz nedeniyledir. Onun Allah'ın düşmanı olduğu açıklınca ondan uzaklaştı.\" (Tevbe 9/114)",
+      "zorluk": "zor",
+      "kaynak": "Tevbe 9/114"
+    },
+    {
+      "id": "peyg_016",
+      "konu": "Hz. Lut",
+      "soru": "Hz. Lut hangi peygamberin yeğenidir?",
+      "secenekler": ["A) Hz. Musa", "B) Hz. İshak", "C) Hz. İbrahim", "D) Hz. Yusuf"],
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Lut, Kur'an'da Hz. İbrahim ile birlikte anılır ve tefsir/hadis kaynaklarına göre Hz. İbrahim'in yeğenidir. İkisi aynı dönemde yaşamıştır.",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/70; Enbiya 21/71"
+    },
+    {
+      "id": "peyg_017",
+      "konu": "Hz. Lut",
+      "soru": "Hz. Lut'un ailesi şehirden çıkarken hangi aile üyesi geride kaldı ve helak oldu?",
+      "secenekler": ["A) Karısı", "B) Annesi", "C) Oğlu", "D) Kızı"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Karın hariç; çünkü o geride kalacak olanlar arasındadır.\" (Hud 11/81) Hz. Lut'un karısı iman etmediği için helak oldu.",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/81; Tahrim 66/10"
+    },
+    {
+      "id": "peyg_018",
+      "konu": "Hz. İsmail",
+      "soru": "Hz. İsmail hangi unvanla anılır?",
+      "secenekler": ["A) Halilullah", "B) Kelimullah", "C) Ruhullah", "D) Sadıkul Vaad"],
+      "dogru_cevap": "D",
+      "aciklama": "\"O, sözüne sadık (sadıkul vaad) idi; resul ve nebiydi.\" (Meryem 19/54) Hz. İsmail 'sözüne sadık' anlamında Sadıkul Vaad unvanıyla anılır.",
+      "zorluk": "orta",
+      "kaynak": "Meryem 19/54"
+    },
+    {
+      "id": "peyg_019",
+      "konu": "Hz. İsmail",
+      "soru": "Zemzem suyu hakkında Kur'an ve rivayetler açısından doğru bilgi hangisidir?",
+      "secenekler": ["A) Zemzem adı Kur'an'da açıkça geçer", "B) Kur'an, Hz. İbrahim'in ailesini Mekke vadisine yerleştirmesinden söz eder; Zemzem'in çıkışı rivayetlerde anlatılır", "C) Kur'an, Cebrail'in yere vurmasıyla Zemzem'in çıktığını açıkça anlatır", "D) Zemzem'in Kâbe inşasında ortaya çıktığı Kur'an'da bildirilir"],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an, Hz. İbrahim'in ailesini Beyt-i Haram yanında tarım yapılmaz bir vadiye yerleştirdiğini bildirir. (İbrahim 14/37) Zemzem'in ortaya çıkışı Hacer validemizin gayretiyle ilgili sahih rivayetlerde anlatılır.",
+      "zorluk": "zor",
+      "kaynak": "İbrahim 14/37"
+    },
+    {
+      "id": "peyg_020",
+      "konu": "Hz. İshak",
+      "soru": "Hz. İshak'ın doğum müjdesini duyan annesi Hz. Sare neden şaşırdı?",
+      "secenekler": ["A) Hz. İbrahim'in başka şehirde olması", "B) Savaş döneminde bulunmaları", "C) Hem kendisi hem de kocasının çok yaşlı, kendisinin de kısır olması", "D) Hz. İbrahim'in ayrılmak üzere olması"],
+      "dogru_cevap": "C",
+      "aciklama": "\"Vay başıma gelene! Ben kocamış, kocam da ihtiyarlamış bir kadınım. Bu gerçekten şaşılacak bir şey!\" (Hud 11/72) Hem yaşlılık hem kısırlık bir aradaydı.",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/72; Saffat 37/112-113"
+    },
+    {
+      "id": "peyg_021",
+      "konu": "Hz. Yakup",
+      "soru": "Hz. Yakup'un diğer adı (lakabı) nedir?",
+      "secenekler": ["A) İsrail", "B) Halilullah", "C) Kelimullah", "D) Sıddık"],
+      "dogru_cevap": "A",
+      "aciklama": "Hz. Yakup'un diğer adı İsrail'dir. İsrailoğulları bu isimden gelmektedir. (Bakara 2/132-133)",
+      "zorluk": "kolay",
+      "kaynak": "Bakara 2/132-133; Ali İmran 3/93"
+    },
+    {
+      "id": "peyg_022",
+      "konu": "Hz. Yakup",
+      "soru": "Üzüntüden akan Hz. Yakup'un gözleri nasıl açıldı?",
+      "secenekler": ["A) Mısır'a gidince gözleri kendiliğinden açıldı", "B) Uzun dua ettikten sonra açıldı", "C) Yusuf'un mektubunu okuyunca açıldı", "D) Yusuf'un gömleğini yüzüne sürünce açıldı"],
+      "dogru_cevap": "D",
+      "aciklama": "\"Müjdeci gelince gömleği yüzüne koydu; hemen gözleri açılıverdi.\" (Yusuf 12/96)",
+      "zorluk": "orta",
+      "kaynak": "Yusuf 12/94-96"
+    },
+    {
+      "id": "peyg_023",
+      "konu": "Hz. Yusuf",
+      "soru": "Hz. Yusuf'un rüyasında kaç yıldız kendisine secde ediyordu?",
+      "secenekler": ["A) 7", "B) 11", "C) 9", "D) 12"],
+      "dogru_cevap": "B",
+      "aciklama": "\"Babacığım! Ben rüyamda on bir yıldızın, güneşin ve ayın bana secde ettiğini gördüm.\" (Yusuf 12/4) 11 yıldız 11 kardeşi temsil ediyordu.",
+      "zorluk": "kolay",
+      "kaynak": "Yusuf 12/4"
+    },
+    {
+      "id": "peyg_024",
+      "konu": "Hz. Yusuf",
+      "soru": "Hz. Yusuf'un kıssası Kur'an'da yalnızca hangi surede tamamıyla anlatılır?",
+      "secenekler": ["A) Hud", "B) Kasas", "C) Yusuf", "D) Enbiya"],
+      "dogru_cevap": "C",
+      "aciklama": "\"Biz sana bu Kur'an'ı vahyetmekle kıssaların en güzelini sana anlatıyoruz.\" (Yusuf 12/3) Hz. Yusuf'a tüm suresi ayrılan tek peygamberdir.",
+      "zorluk": "kolay",
+      "kaynak": "Yusuf 12/1-111"
+    },
+    {
+      "id": "peyg_025",
+      "konu": "Hz. Yusuf",
+      "soru": "Kur'an'da Aziz'in karısı olarak geçen, rivayetlerde Züleyha diye anılan kadının iftirasından sonra Hz. Yusuf'a ne yapıldı?",
+      "secenekler": ["A) Zindana atıldı", "B) Şehirden kovuldu", "C) Öldürülmek istendi", "D) Tekrar köle olarak satıldı"],
+      "dogru_cevap": "A",
+      "aciklama": "Kur'an bu kadının adını vermez; rivayetlerde Züleyha diye anılır. İftiradan sonra Hz. Yusuf bir süre zindana atıldı. (Yusuf 12/35)",
+      "zorluk": "orta",
+      "kaynak": "Yusuf 12/35"
+    },
+    {
+      "id": "peyg_026",
+      "konu": "Hz. Yusuf",
+      "soru": "Hz. Yusuf kendini kardeşlerine açıklarken ne dedi?",
+      "secenekler": ["A) \"Sizi affetmiyorum, hesap vereceksiniz\"", "B) \"Allah sizi cezalandırsın\"", "C) \"Bana yaptıklarınızı öğrendim\"", "D) \"Bugün size kınama yok; Allah sizi bağışlasın\""],
+      "dogru_cevap": "D",
+      "aciklama": "\"Dedi ki: Bugün size kınama yok. Allah sizi bağışlasın; O, merhametlilerin en merhametlisidir.\" (Yusuf 12/92) Bu af, Kur'an'ın en güzel affetme örneklerinden biridir.",
+      "zorluk": "kolay",
+      "kaynak": "Yusuf 12/92"
+    },
+    {
+      "id": "peyg_027",
+      "konu": "Hz. Yusuf",
+      "soru": "Hz. Yusuf'un yorumladığı Mısır hükümdarının rüyasına göre yıllar nasıl sıralandı?",
+      "secenekler": ["A) Önce 7 yıl kıtlık, sonra 7 yıl bolluk", "B) Önce 7 yıl bolluk, sonra 7 yıl kıtlık", "C) 14 yıl bolluk, ardından kıtlık", "D) 3 yıl bolluk, 3 yıl kıtlık döngüsü"],
+      "dogru_cevap": "B",
+      "aciklama": "Kur'an kıssasında rüya gören kişi Mısır hükümdarıdır. Hz. Yusuf'un yorumuna göre önce 7 yıl bolluk, ardından 7 yıl kıtlık gelecektir. (Yusuf 12/47-48)",
+      "zorluk": "orta",
+      "kaynak": "Yusuf 12/43-49"
+    },
+    {
+      "id": "peyg_028",
+      "konu": "Hz. Şuayb",
+      "soru": "Hz. Şuayb kavmini öncelikle hangi günahtan dolayı uyardı?",
+      "secenekler": ["A) Putlara tapmak", "B) Adam öldürmek", "C) Ölçü ve tartıda hile yapmak", "D) Faiz almak"],
+      "dogru_cevap": "C",
+      "aciklama": "\"Ölçeği ve tartıyı tam tutun, insanların mallarını eksik vermeyin ve yeryüzünde bozgunculuk yapmayın.\" (Hud 11/85) Ticaret ahlakı Şuayb'ın temel daveti.",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/84-85; Araf 7/85"
+    },
+    {
+      "id": "peyg_029",
+      "konu": "Hz. Eyüp",
+      "soru": "Hz. Eyüp ağır hastalık döneminde Allah'a nasıl dua etti?",
+      "secenekler": ["A) \"Ya Rabb! Bana zarar dokundu; sen merhametlilerin en merhametlisisin\"", "B) \"Ya Rabb! Beni bu hastalıktan kurtar, sana kulluk edeceğim\"", "C) \"Allah'ım! Sana sığınıyorum, başka çarem yok\"", "D) \"Şeytanın bana dokundurduğu hastalıktan koru beni\""],
+      "dogru_cevap": "A",
+      "aciklama": "\"Şüphesiz bana zarar dokunmuştur; sen merhametlilerin en merhametlisisin.\" (Enbiya 21/83) Bu dua en kısa ve en derin teslimiyetin örneğidir.",
+      "zorluk": "orta",
+      "kaynak": "Enbiya 21/83"
+    },
+    {
+      "id": "peyg_030",
+      "konu": "Hz. Eyüp",
+      "soru": "Kur'an Hz. Eyüp'ü 'ne güzel kul' dedikten sonra hangi özelliğini vurgular?",
+      "secenekler": ["A) Çok sabretmesi", "B) Çok namaz kılması", "C) Çok şükretmesi", "D) Çok yönelendi (Allah'a döndü)"],
+      "dogru_cevap": "D",
+      "aciklama": "\"Ne güzel kul! Çünkü o çok yönelendi (evvab).\" (Sad 38/44) 'Sabır' değil, Allah'a 'yöneliş' vurgulanır.",
+      "zorluk": "zor",
+      "kaynak": "Sad 38/44"
+    },
+    {
+      "id": "peyg_031",
+      "konu": "Hz. Musa",
+      "soru": "Hz. Musa Kur'an'da kaç kez zikredilir?",
+      "secenekler": ["A) 69", "B) 136", "C) 97", "D) 43"],
+      "dogru_cevap": "B",
+      "aciklama": "Hz. Musa ismi Kur'an'da 136 kez geçmektedir; bu, Kur'an'da en çok adı geçen peygamber olduğunu gösterir.",
+      "zorluk": "kolay",
+      "kaynak": "Kur'an geneli"
+    },
+    {
+      "id": "peyg_032",
+      "konu": "Hz. Musa",
+      "soru": "Hz. Musa hangi unvanla anılır?",
+      "secenekler": ["A) Halilullah", "B) Sadıkul Vaad", "C) Kelimullah", "D) Ruhullah"],
+      "dogru_cevap": "C",
+      "aciklama": "Hz. Musa Sina'da Allah ile doğrudan konuştuğu için 'Kelimullah' (Allah ile konuşan) unvanıyla anılır. (Nisa 4/164)",
+      "zorluk": "orta",
+      "kaynak": "Nisa 4/164"
+    },
+    {
+      "id": "peyg_033",
+      "konu": "Hz. Musa",
+      "soru": "Hz. Musa'ya verilen emirle deniz nasıl yarıldı?",
+      "secenekler": ["A) Asasıyla denize vurarak", "B) Elini denize uzatarak", "C) Dua ederek", "D) Ayağını yere vurarak"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Musa'ya: Asanla denize vur! diye vahyettik. Deniz yarıldı; her parça büyük bir dağ gibi oldu.\" (Şuara 26/63)",
+      "zorluk": "kolay",
+      "kaynak": "Şuara 26/63; Taha 20/77"
+    },
+    {
+      "id": "peyg_034",
+      "konu": "Hz. Musa",
+      "soru": "Hz. Musa'nın 9 mucizesi arasında hangisi YER ALMAZ?",
+      "secenekler": ["A) Asanın yılana dönüşmesi", "B) Kurbağalar", "C) Tufan", "D) Ölüleri diriltmek"],
+      "dogru_cevap": "D",
+      "aciklama": "Hz. Musa'nın 9 mucizesi: asa (yılan), beyaz el, tufan, çekirge, haşerat, kurbağa, kan, kıtlık, meyvelerin azalması. (İsra 17/101) Ölü diriltmek Hz. İsa'nın mucizesidir.",
+      "zorluk": "zor",
+      "kaynak": "İsra 17/101; Araf 7/130-136"
+    },
+    {
+      "id": "peyg_035",
+      "konu": "Hz. Musa",
+      "soru": "Hz. Musa Sina'da Allah ile kaç gece konuştu ve Tevrat'ı aldı?",
+      "secenekler": ["A) 30 gece", "B) 40 gece", "C) 7 gece", "D) 100 gece"],
+      "dogru_cevap": "B",
+      "aciklama": "\"Musa'ya otuz gece vaadettik ve buna on gece daha ekledik; böylece Rabbinin tayin ettiği süre kırk geceye tamamlandı.\" (Araf 7/142)",
+      "zorluk": "zor",
+      "kaynak": "Araf 7/142"
+    },
+    {
+      "id": "peyg_036",
+      "konu": "Hz. Harun",
+      "soru": "Hz. Musa Sina'dayken kavim buzağıya tapınca Hz. Harun ne yaptı?",
+      "secenekler": ["A) Onlarla birlikte ibadet etti", "B) Kavmi terk edip dağa çıktı", "C) Engellemeye çalıştı ama kavim dinlemedi", "D) Hz. Musa'ya haber gönderdi"],
+      "dogru_cevap": "C",
+      "aciklama": "\"Harun onlara daha önce şöyle demişti: Ey kavmim! Siz bununla sınandınız. Rabbiniz Rahman'dır. Bana uyun.\" Ama dinlemediler. (Taha 20/90)",
+      "zorluk": "orta",
+      "kaynak": "Taha 20/90-94"
+    },
+    {
+      "id": "peyg_037",
+      "konu": "Hz. Davud",
+      "soru": "Hz. Davud'a hangi ilahi kitap verilmiştir?",
+      "secenekler": ["A) Zebur", "B) Tevrat", "C) İncil", "D) Suhuf"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Davud'a Zebur'u verdik.\" (Nisa 4/163 · İsra 17/55) Zebur, Hz. Davud'a indirilen ilahi kitaptır.",
+      "zorluk": "kolay",
+      "kaynak": "Nisa 4/163; İsra 17/55"
+    },
+    {
+      "id": "peyg_038",
+      "konu": "Hz. Davud",
+      "soru": "Allah Hz. Davud'a demiri yumuşatıp ne yapmasını öğretti?",
+      "secenekler": ["A) Bina", "B) Gemi", "C) Kılıç", "D) Zırh"],
+      "dogru_cevap": "D",
+      "aciklama": "\"Ona zırh yapma sanatını öğrettik ki sizi harbinizde korusun.\" (Enbiya 21/80) Hz. Davud zırh yapımıyla bilinir.",
+      "zorluk": "zor",
+      "kaynak": "Enbiya 21/80; Sebe 34/10-11"
+    },
+    {
+      "id": "peyg_039",
+      "konu": "Hz. Süleyman",
+      "soru": "Allah Hz. Süleyman'a aşağıdakilerden hangisini musahhar (emrine amade) kıldı?",
+      "secenekler": ["A) Deniz ve dalgalar", "B) Rüzgar ve cinler", "C) Yer altı ve madenler", "D) Tüm hayvanlar"],
+      "dogru_cevap": "B",
+      "aciklama": "Allah, Hz. Süleyman'a rüzgarı ve cinleri musahhar kıldı; yani emrine verdi. (Enbiya 21/81-82; Sebe 34/12)",
+      "zorluk": "kolay",
+      "kaynak": "Enbiya 21/81-82; Sebe 34/12"
+    },
+    {
+      "id": "peyg_040",
+      "konu": "Hz. Süleyman",
+      "soru": "Seba melikesini, rivayetlerdeki adıyla Belkıs'ı, iman etmeye yönelten son olay neydi?",
+      "secenekler": ["A) Hüdhüd'ün kendisi hakkında haber getirmesi", "B) Hz. Süleyman'ın büyük ordusunu görmesi", "C) Kristal zemini su sanıp eteğini kaldırması, ardından anlaması", "D) Tahtının kısa sürede getirilmiş olması"],
+      "dogru_cevap": "C",
+      "aciklama": "Kur'an Sebe melikesinin adını vermez; rivayetlerde Belkıs diye anılır. Kristal zemini su sanıp gerçeği anlayınca 'Süleyman ile birlikte alemlerin Rabbine teslim oldum' dedi. (Neml 27/44)",
+      "zorluk": "orta",
+      "kaynak": "Neml 27/44"
+    },
+    {
+      "id": "peyg_041",
+      "konu": "Hz. İlyas",
+      "soru": "Hz. İlyas kavmini hangi puta tapmamaları için uyardı?",
+      "secenekler": ["A) Ba'l", "B) Hübel", "C) Uzza", "D) Lat"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Siz Ba'l'a mı tapıyorsunuz, yaratıcıların en iyisini bırakarak?\" (Saffat 37/125) Ba'l, İsrailoğullarının taptığı bir puttu.",
+      "zorluk": "orta",
+      "kaynak": "Saffat 37/123-126"
+    },
+    {
+      "id": "peyg_042",
+      "konu": "Hz. Yunus",
+      "soru": "Hz. Yunus balığın karnında hangi duayı okudu?",
+      "secenekler": ["A) \"Ya Rabb! Beni kurtar, bir daha kavmimi terk etmeyeceğim\"", "B) \"Ya Rabb! Bana zarar dokundu, sen merhametlilerin en merhametlisisin\"", "C) \"Allah'ım! Sana sığınıyorum, başka çarem yok\"", "D) \"La ilahe illa ente subhaneke inni küntü minez-zalimin\""],
+      "dogru_cevap": "D",
+      "aciklama": "\"Karanlıklar içinde 'Senden başka hiçbir ilah yoktur, seni tenzih ederim, ben gerçekten zalimlerden oldum' diye dua etti.\" (Enbiya 21/87)",
+      "zorluk": "kolay",
+      "kaynak": "Enbiya 21/87"
+    },
+    {
+      "id": "peyg_043",
+      "konu": "Hz. Yunus",
+      "soru": "Hz. Yunus'un kavmi Kur'an'daki peygamber kıssaları arasında neden özeldir?",
+      "secenekler": ["A) En çok peygamber gönderilen kavim olduğu için", "B) Azabı görünce iman eden ve bu imanı kabul edilen tek kavim olduğu için", "C) Hz. Yunus'un en uzun süre davet ettiği kavim olduğu için", "D) Kavmin tamamının iman etmesi için"],
+      "dogru_cevap": "B",
+      "aciklama": "\"Yunus'un kavminden başka iman edip de imanı kendilerine yarayan hiçbir şehir halkı olmadı.\" (Yunus 10/98) Kavim azabın belirtilerini görünce iman etti; Allah azabı kaldırdı. Diğer kavimler azap tam gelince iman etmiş ama kabul edilmemişti. (Mümin 40/84-85)",
+      "zorluk": "orta",
+      "kaynak": "Yunus 10/98"
+    },
+    {
+      "id": "peyg_044",
+      "konu": "Hz. Zekeriya",
+      "soru": "Hz. Zekeriya Allah'tan çocuk istemesine ne vesile oldu?",
+      "secenekler": ["A) Zengin olmak istediği için", "B) Krallığını sürdürmek istediği için", "C) Hz. Meryem'in yanında her seferinde yiyecek bulması", "D) Hz. İbrahim'in mucizesinden ilham alması"],
+      "dogru_cevap": "C",
+      "aciklama": "\"Zekeriya mabede her girişinde onun yanında rızık buldu. Dedi ki: Ey Meryem! Bu sana nereden geliyor? Allah katından, dedi.\" Bunun üzerine Allah'tan çocuk diledi. (Ali İmran 3/37-38)",
+      "zorluk": "orta",
+      "kaynak": "Ali İmran 3/37-38"
+    },
+    {
+      "id": "peyg_045",
+      "konu": "Hz. Yahya",
+      "soru": "Allah Hz. Yahya'ya çocukken ne ihsan etmiştir?",
+      "secenekler": ["A) Hikmet", "B) Peygamberlik kitabı", "C) Güçlü bir beden", "D) Büyük servet"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Ey Yahya! Kitabı kuvvetle tut. Biz ona çocukken hikmet verdik.\" (Meryem 19/12)",
+      "zorluk": "kolay",
+      "kaynak": "Meryem 19/12"
+    },
+    {
+      "id": "peyg_046",
+      "konu": "Hz. İsa",
+      "soru": "Kur'an Hz. İsa'ya hangi unvanları vermiştir?",
+      "secenekler": ["A) Halilullah ve Kelimullah", "B) Safiyullah ve Ruhullah", "C) Sıddık ve Resul", "D) Ruhullah ve Kelimetullah"],
+      "dogru_cevap": "D",
+      "aciklama": "Kur'an Hz. İsa'yı Allah'tan bir kelime (Kelimetullah: Allah'ın 'ol' emriyle yaratılan) ve Allah'tan bir ruh (Ruhullah: Allah'ın özel yaratmasıyla var edilen) ifadeleriyle anar. Bu ifadeler onun Allah'ın kulu ve peygamberi olduğu gerçeğini değiştirmez. (Nisa 4/171; Ali İmran 3/45)",
+      "zorluk": "orta",
+      "kaynak": "Nisa 4/171; Ali İmran 3/45"
+    },
+    {
+      "id": "peyg_047",
+      "konu": "Hz. İsa",
+      "soru": "Hz. İsa beşikte konuşarak ne söyledi?",
+      "secenekler": ["A) \"Ben Allah'ın oğluyum\"", "B) \"Ben Allah'ın kuluyum; O bana kitap verdi ve beni peygamber kıldı\"", "C) \"Ben Mesih'im, bana inanın\"", "D) \"Annem günahsızdır, inanın ona\""],
+      "dogru_cevap": "B",
+      "aciklama": "\"Dedi ki: Ben gerçekten Allah'ın kuluyum. O bana Kitap verdi ve beni peygamber kıldı.\" (Meryem 19/30) İlk sözleri Allah'a kulluğunu ilan etmesidir.",
+      "zorluk": "kolay",
+      "kaynak": "Meryem 19/30"
+    },
+    {
+      "id": "peyg_048",
+      "konu": "Hz. İsa",
+      "soru": "Hz. İsa'nın Kur'an'da geçen mucizeleri arasında hangisi YER ALMAZ?",
+      "secenekler": ["A) Balçıktan kuş yapıp üflemesi", "B) Körü iyileştirmesi", "C) Suyu şaraba çevirmesi", "D) Ölüleri diriltmesi"],
+      "dogru_cevap": "C",
+      "aciklama": "Kur'an'da Hz. İsa'nın mucizeleri: balçıktan kuş yapıp üflemek, körü ve alacayı iyileştirmek, ölüleri diriltmek, gökten sofra indirmek. (Ali İmran 3/49; Maide 5/110-115) 'Suyu şaraba çevirmek' Kur'an'da geçmez.",
+      "zorluk": "zor",
+      "kaynak": "Ali İmran 3/49; Maide 5/110"
+    },
+    {
+      "id": "peyg_049",
+      "konu": "Hz. İsa",
+      "soru": "Yahudiler Hz. İsa'yı öldürdüklerini ve çarmıha gerdiklerini iddia etmektedir. Kur'an bu konuda ne söyler?",
+      "secenekler": ["A) Onu öldüremediler; yalnızca benzeri öldürüldü, Allah onu kendisine yükseltti", "B) Gerçekten öldürdüler; ancak Allah onu diriltti", "C) Hz. İsa kaçtı ve başka bir ülkeye sığındı", "D) Öldürme olayı tartışmalıdır, Kur'an kesin hüküm vermez"],
+      "dogru_cevap": "A",
+      "aciklama": "\"Onu ne öldürdüler ne de astılar; fakat (öldürdükleri) onlara İsa gibi gösterildi... Hayır; Allah onu kendisine yükseltti.\" (Nisa 4/157-158)",
+      "zorluk": "zor",
+      "kaynak": "Nisa 4/157-158"
+    },
+    {
+      "id": "peyg_050",
+      "konu": "Genel",
+      "soru": "Azim ve sabırlarıyla öne çıkan 'Ülü'l-Azm' peygamberler kimlerdir?",
+      "secenekler": ["A) Adem, Nuh, İbrahim, Musa, Davud", "B) Nuh, İbrahim, Musa, Davud, İsa", "C) İbrahim, İsmail, İshak, Yakup, Yusuf", "D) Nuh, İbrahim, Musa, İsa, Muhammed"],
+      "dogru_cevap": "D",
+      "aciklama": "Ülü'l-Azm, azim ve sabır sahibi büyük peygamberler demektir. Bu peygamberler Hz. Nuh, Hz. İbrahim, Hz. Musa, Hz. İsa ve Hz. Muhammed'dir (s.a.s.). (Ahkaf 46/35)",
+      "zorluk": "zor",
+      "kaynak": "Ahkaf 46/35"
+    }
+  ]
+}

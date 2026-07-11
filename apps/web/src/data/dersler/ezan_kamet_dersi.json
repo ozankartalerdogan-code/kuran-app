@@ -1,0 +1,92 @@
+{
+  "ders_id": "ezan-kamet",
+  "baslik": "Ezan ve Kamet (namaza başlama çağrısı)",
+  "aciklama": "Farz namazların vaktini ve başlangıcını bildiren İslam'ın şiarı; ezanın sözleri, hükümleri ve kamet (namaza başlama çağrısı).",
+  "kartlar": [
+    {
+      "id": "ezan_kamet_k01",
+      "tip": "metin",
+      "baslik": "Ezan Nedir?",
+      "icerik": "Ezan sözlükte \"duyurmak, bildirmek\" anlamına gelir. Farz namazların vakitlerini bildirmek için özel sözlerle yapılan çağrıdır.\n\nEzan, İslam'ın şiarı (bir dinin/toplumun sembolü, tanımlayıcı işareti) olup müekked sünnet (Hz. Peygamber'in devamlı yaptığı, terk edilmesi hoş karşılanmayan sünnet) hükmündedir. Ezan okuyan kişiye müezzin (ezanı okuyan kişi) (ezan okuyan kişi) denir.\n\nKur'an'da \"Namaza çağırdığınız zaman...\" (Maide 5/58) ifadesiyle ezana işaret edilmiştir.",
+      "vurgu": "\"Namaz vakti geldiğinde içinizden biri ezan okusun.\" (Buhari, Ezan 17)"
+    },
+    {
+      "id": "ezan_kamet_k02",
+      "tip": "metin",
+      "baslik": "Ezanın Tarihi — Rüya ve İlk Ezan",
+      "icerik": "Namaz Mekke döneminde farz kılındı; ancak ezan Medine'ye hicretten sonra başladı. Hz. Peygamber sahabe ile nasıl çağrı yapılacağını istişare etti.\n\nÇan (Hristiyan), boru (Yahudi) ve ateş (Mecusi) teklifleri reddedildi. Bu sırada sahabi Abdullah bin Zeyd rüyasında ezanı öğrendi; Hz. Ömer de aynı rüyayı görmüştü. Hz. Peygamber \"Sâdık bir rüyadır\" diyerek onayladı.\n\nİlk ezanı sesi güçlü olan Hz. Bilal-i Habeşi okudu. (Ebu Davud, Salat 27)",
+      "vurgu": "İlk müezzin (ezanı okuyan kişi): Hz. Bilal-i Habeşi | Rüyayı gören: Abdullah bin Zeyd"
+    },
+    {
+      "id": "ezan_kamet_k03",
+      "tip": "metin",
+      "baslik": "Ezan Sözleri ve Anlamları",
+      "icerik": "Ezan sözleri sırasıyla:\n• Allahu Ekber (4 kez) — \"Allah en büyüktür\"\n• Eşhedu en la ilahe illallah (2 kez) — \"Allah'tan başka ilah olmadığına şahadet ederim\"\n• Eşhedu enne Muhammeden Resulullah (2 kez) — \"Muhammed'in Allah'ın elçisi olduğuna şahadet ederim\"\n• Hayye ale's-salah (2 kez) — \"Haydi namaza\"\n• Hayye ale'l-felah (2 kez) — \"Haydi kurtuluşa\"\n• Allahu Ekber (2 kez) — \"Allah en büyüktür\"\n• La ilahe illallah (1 kez) — \"Allah'tan başka ilah yoktur\"\n\nSabah ezanında \"Hayye ale'l-felah\"tan sonra 2 kez \"es-Salatu hayrun mine'n-nevm\" (Namaz uykudan hayırlıdır) eklenir.",
+      "vurgu": "Ezan 15 cümle, sabah ezanı 17 cümledir."
+    },
+    {
+      "id": "ezan_kamet_k04",
+      "tip": "metin",
+      "baslik": "Ezana İcabet — Ezanı Dinleyenin Yapacakları",
+      "icerik": "Ezanı duyan kişi saygıyla dinler; mümkünse konuşmayı ve meşguliyeti bırakır. Müezzinin (ezanı okuyan kişinin) söylediklerini sessizce tekrar eder; buna icabet (ezanı duyunca uygun cevapları tekrar etme) denir.\n\nİstisna: \"Hayye ale's-salah\" ve \"Hayye ale'l-felah\" cümlelerinde \"La havle ve la kuvvete illa billah\" (Güç ve kuvvet yalnızca Allah'tandır) denir.\n\nSabah ezanında \"es-Salatu hayrun mine'n-nevm\" duyulunca \"Sadakte ve berirte\" (Doğru ve güzel söyledin) denir.\n\nEzan bittikten sonra salavat (Peygamberimize dua) getirilir ve ezan duası okunur.",
+      "vurgu": "Ezanı dinlemek bir edeptir: mümkünse sus, icabet et, ardından salavat ve ezan duası oku. (Müslim, Salat 11)"
+    },
+    {
+      "id": "ezan_kamet_k05",
+      "tip": "metin",
+      "baslik": "Ezan Duası",
+      "icerik": "Ezan bittikten sonra şu dua okunur:\n\n\"Allahümme Rabbe hazihid-da'vetit-tammeti ve's-salatil-kaime, ati Muhammeden el-vesile vel-fazile veb'ashu makamen mahmudeni'llezi va'adteh.\"\n\nAnlamı: \"Ey şu eksiksiz davetin ve kılınacak namazın Rabbi olan Allahım! Muhammed'e vesileyi ve fazileti ver, onu vaad ettiğin Makam-ı Mahmud'a yükselt.\"\n\nHz. Peygamber bu duayı okuyana kıyamet günü şefaatini vaad etmiştir. (Buhari, Ezan 8)",
+      "vurgu": "Ezan duasını okuyanın Hz. Peygamber'in şefaatine nail olacağı müjdelenmiştir."
+    },
+    {
+      "id": "ezan_kamet_k06",
+      "tip": "metin",
+      "baslik": "Ezanın Hükümleri",
+      "icerik": "Ezan Hanefi uygulamasında müekked sünnet kabul edilir; bazı alimler toplumsal yönü sebebiyle farz-ı kifaye olarak da değerlendirmiştir. Bu yüzden terk edilmesi hoş karşılanmaz. Ezan için vaktin girmiş olması esastır; vakit girmeden okunan ezan, özellikle Hanefi uygulamasında vakit girince yeniden okunur.\n\nCami ve cemaat ezanında müezzinin (ezanı okuyan kişinin) erkek, akıllı, sesi güzel ve güçlü olması beklenir. Abdestli olması müstehaptır (yapılması güzel/tavsiye edilen adab); abdestsiz okunan ezan geçerli olmakla birlikte uygun görülmez.\n\nEzan cümleleri arasında bekleyerek yavaş okumaya teressül denir. Ezanın tane tane ve anlaşılır okunması, dinleyenin icabet (ezanı duyunca uygun cevapları tekrar etme) edebilmesi için önemlidir.\n\nEzan Arapça okunur, tertip sırasına uyulur.",
+      "vurgu": "Ezan hem ibadet adabı hem toplum çağrısıdır; vakit, tertip ve saygılı okuyuş önemlidir."
+    },
+    {
+      "id": "ezan_kamet_k07",
+      "tip": "metin",
+      "baslik": "Kamet (Namaza Başlama Çağrısı) Nedir?",
+      "icerik": "Kamet (ikamet), farz namaza başlamadan hemen önce namazın başladığını bildiren çağrıdır. Sözlükte \"yerine getirmek, doğrultmak\" anlamına gelir.\n\nEzan sözlerinin aynısı okunur; tek farkı \"Hayye ale'l-felah\"tan sonra 2 kez \"Kad kameti's-salah\" (Namaz başladı) eklenmesidir.\n\nEzan ile aynı rüyada öğretilmiştir. (Ebu Davud, Salat 28)",
+      "vurgu": "Kamet = Ezan sözleri + \"Kad kameti's-salah\" (Namaz başladı)"
+    },
+    {
+      "id": "ezan_kamet_k08",
+      "tip": "metin",
+      "baslik": "Ezan ve Kamet Arasındaki Farklar",
+      "icerik": "Ezan:\n• Namaz vaktinin girdiğini duyurur\n• Yavaş ve uzun okunur (teressül ile)\n• Minareden veya yüksek yerden okunabilir\n• Herkes için çağrıdır\n\nKamet (namaza başlama çağrısı):\n• Namazın başladığını duyurur\n• Daha hızlı okunur\n• Cemaat içinde okunur\n• Namaza geçiş çağrısıdır\n\nKadınların kendi aralarında ezan/kamet okumaları ve erkek cemaate ezan okumaları konusunda mezhepler arasında ayrıntılı görüş farkları vardır; erkek cemaate ezan okumaları genel uygulamada uygun görülmemiştir.",
+      "vurgu": "Ezan → vaktin girişi, dışarıya | Kamet → namazın başlangıcı, cemaate"
+    },
+    {
+      "id": "ezan_kamet_k09",
+      "tip": "metin",
+      "baslik": "Kim Ezan Okur, Kim Kamet Getirir?",
+      "icerik": "Camide ezan okumak müezzinin (ezanı okuyan kişinin) görevidir. Yalnız namaz kılan erkek için ezan okumak ve kamet (namaza başlama çağrısı) getirmek sünnet/adap kabul edilir.\n\nCemaatle farz namaza başlanırken kamet getirilir; bu güçlü bir sünnettir ve namaza geçişi düzenler.\n\nEzan okunurken camide olan kişi, zaruret yoksa o vaktin namazını kılmadan çıkmamalıdır; çıkması mekruh görülmüştür.\n\nKamet getirilirken camiye giren kişi ayakta beklememeli, oturmalıdır; imam namaza başlayınca cemaate katılır.",
+      "vurgu": "Tek başına namaz → Ezan + Kamet sünnet/adap | Cemaat → Kamet güçlü sünnettir"
+    },
+    {
+      "id": "ezan_kamet_k10",
+      "tip": "metin",
+      "baslik": "Sabah Ezanının Özelliği",
+      "icerik": "Sabah ezanı diğer vakitlerden farklıdır. \"Hayye ale'l-felah\"tan sonra 2 kez \"es-Salatu hayrun mine'n-nevm\" (Namaz uykudan hayırlıdır) okunur.\n\nBu ifade, sabah namazına özel bir uyarıdır; uykudan kalkıp namaza yönelmeyi hatırlatır.\n\nSabah ezanının vakti konusunda mezheplerin uygulamaları farklıdır. Hanefi uygulamasında ezan fecr-i sadık girdikten sonra okunur; vakit girmeden okunmuşsa vakit girince yeniden okunması gerekir. Bazı mezheplerde ise sabah için vakte yakın erken ezan uygulamasına ruhsat verilmiştir.",
+      "vurgu": "\"es-Salatu hayrun mine'n-nevm\" — yalnızca sabah ezanında, 2 kez"
+    },
+    {
+      "id": "ezan_kamet_k11",
+      "tip": "metin",
+      "baslik": "Ezanın Hikmeti ve Önemi",
+      "icerik": "Ezan yalnızca vakti bildiren bir duyuru değildir; aynı zamanda her gün tekrarlanan bir iman beyanıdır. Her ezanda Allah'ın büyüklüğü, Hz. Muhammed'in peygamberliği ve namazın kurtuluş yolu olduğu ilan edilir.\n\nDünyada her an farklı bir yerde ezan okunmakta, gece gündüz fasılasız Allah'ın adı yükselmektedir.\n\nHz. Peygamber ezanın sesini seven, onu dinleyen ve icabet (ezanı duyunca uygun cevapları tekrar etme) edenleri övmüştür.",
+      "vurgu": "Ezan; tevhid, nübüvvet ve kurtuluşun her gün yenilenen ilanıdır."
+    },
+    {
+      "id": "ezan_kamet_k12",
+      "tip": "metin",
+      "baslik": "Mezhep Farklılıkları",
+      "icerik": "Ezan kıraatinin özü tüm mezheplerde aynıdır; teknik detaylarda farklılıklar vardır:\n\n• Ezanın hükmü: Hanefilere göre müekked sünnet; bazı alimlere göre farz-ı kifaye (toplumda bir kişi okursa yeterli olan sorumluluk).\n\n• Tekbir sayısı: Dört mezhep de ezana 4 tekbirle başlar. Maliki kameti daha kısadır; ezandaki cümleler kamette tekrarlanmaz, çoğu cümle bir kez söylenir. Kamet, namaza başlama çağrısıdır.\n\n• Tercî (şehadet cümlelerini önce alçak, sonra yüksek sesle tekrarlama): Şafiilerde şehadet cümlelerine tercî yapılır. Hanefiler ve Malikiler tercî yapmaz.\n\n• Sabah ezanı vakti: Hanefilere göre fecr-i sadık (gerçek şafak/imsak vakti) girmeden okunan ezan yeniden okunmalıdır. Diğer bazı mezheplerde sabah için vakte yakın erken ezan uygulamasına ruhsat verilmiştir.\n\n• Kadının ezan okuması: Kadının erkek cemaate ezan okuması genel olarak uygun görülmemiştir; kadınların kendi aralarında ezan/kamet okuyup okuyamayacağı konusunda mezhepler arasında görüş ayrılığı vardır.",
+      "vurgu": "Ezanın özü aynıdır; farklılıklar daha çok uygulama ve teknik ayrıntılardadır."
+    }
+  ],
+  "quiz_havuzu_id": "ezan-kamet"
+}

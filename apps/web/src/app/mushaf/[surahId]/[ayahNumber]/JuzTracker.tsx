@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getMushafBookmark, setMushafBookmark, parseMushafBookmark } from "../../../../lib/mushafBookmark";
 
 // ── Standart 30 cüz başlangıç ayetleri ─────────────────────────────────────
 export const CUZ_MAPPING = [
@@ -37,8 +38,6 @@ export const CUZ_MAPPING = [
   { cuz: 30, surahId: 78, ayahNumber: 1   },
 ] as const;
 
-const STORAGE_KEY = "mushaf_bookmark";
-
 // surahId * 10000 + ayahNumber — Kuran sıralamasında güvenli karşılaştırma
 // (max ayet sayısı 286, 10000'den çok küçük)
 function toLinear(surahId: number, ayahNumber: number): number {
@@ -56,16 +55,6 @@ export function getCurrentCuz(surahId: number, ayahNumber: number): number {
   return result;
 }
 
-function parseVerseKey(key: string): { surahId: number; ayahNumber: number } | null {
-  const parts = key.split(":");
-  if (parts.length !== 2) return null;
-  const s = Number(parts[0]);
-  const a = Number(parts[1]);
-  return Number.isInteger(s) && s >= 1 && Number.isInteger(a) && a >= 1
-    ? { surahId: s, ayahNumber: a }
-    : null;
-}
-
 interface Props {
   surahId: number;
   ayahNumber: number;
@@ -77,18 +66,17 @@ export function JuzTracker({ surahId, ayahNumber }: Props) {
   const [saved, setSaved]       = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = getMushafBookmark();
     if (stored) setBookmark(stored);
   }, []);
 
   const currentCuz   = getCurrentCuz(surahId, ayahNumber);
-  const parsedBm     = bookmark ? parseVerseKey(bookmark) : null;
+  const parsedBm     = bookmark ? parseMushafBookmark(bookmark) : null;
   const bookmarkCuz  = parsedBm ? getCurrentCuz(parsedBm.surahId, parsedBm.ayahNumber) : null;
 
   function markHere() {
-    const key = `${surahId}:${ayahNumber}`;
-    localStorage.setItem(STORAGE_KEY, key);
-    setBookmark(key);
+    setMushafBookmark(surahId, ayahNumber);
+    setBookmark(`${surahId}:${ayahNumber}`);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }

@@ -5,6 +5,7 @@ import {
 import type { WordAnalysisSource } from "@quran-app/core";
 import { getAyahDetailFromDb } from "../../../../../lib/getAyahDetailFromDb";
 import { dbAll, dbGet } from "../../../../../lib/dbUtils";
+import { NUZUL } from "../../../../../data/nuzul";
 import { cleanMealText } from "../../../../../lib/cleanMeal";
 import type { Metadata } from "next";
 import type {
@@ -1188,15 +1189,18 @@ export default async function Page({ params, searchParams }: PageProps) {
     return <ErrorState message="Sûre veya ayet numarası pozitif tam sayı olmalı." />;
   }
 
-  interface SurahNavRow { id: number; ayet_sayisi: number; adi_turkce: string; arabicName: string | null; }
+  interface SurahNavRow { id: number; ayet_sayisi: number; adi_turkce: string; arabicName: string | null; tur: string; }
   const surahs = (await dbAll<SurahNavRow>(
-    "SELECT id, ayet_sayisi, adi_turkce, adi_arapca AS arabicName FROM sureler ORDER BY id"
+    "SELECT id, ayet_sayisi, adi_turkce, adi_arapca AS arabicName, tur FROM sureler ORDER BY id"
   )).map((s) => ({
     id: s.id,
     verseCount: s.ayet_sayisi,
     turkishName: { language: "tr" as const, source: null, text: s.adi_turkce, status: "available" as const },
     arabicName: s.arabicName,
-    revelationType: null, revelationPlace: null, revelationOrder: null, shortIntroduction: null, status: "available" as const,
+    revelationType: null,
+    revelationPlace: s.tur === "medinan" ? "Medine" : "Mekke",
+    revelationOrder: NUZUL[s.id] ?? null,
+    shortIntroduction: null, status: "available" as const,
   }));
 
   // getSurahFullTafsir kaldırıldı — Bakara için 1.5MB, accordion lazy fetch ile alıyor

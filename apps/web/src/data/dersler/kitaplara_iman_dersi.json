@@ -1,0 +1,92 @@
+{
+  "ders_id": "kitaplara-iman",
+  "baslik": "Kitaplara İman",
+  "aciklama": "Allah'ın peygamberlerine gönderdiği ilahi kitaplara imanı sade ve güvenli bir çerçevede öğren.",
+  "kartlar": [
+    {
+      "id": "kitaplar_k01",
+      "tip": "metin",
+      "baslik": "Kitaplara İman Nedir?",
+      "icerik": "Kitaplara iman, Allah'ın peygamberlerine vahiy ve ilahi kitaplar gönderdiğine inanmaktır. Bu, imanın temel esaslarından biridir. Cibril hadisinde iman; Allah'a, meleklerine, kitaplarına, peygamberlerine, ahiret gününe ve kadere iman olarak öğretilmiştir.\n\nMümin, sadece Kur'an'a değil, Allah'ın daha önce gönderdiği hak vahiylere de iman eder. Kur'an, müminleri hem kendisine indirilene hem de daha önce indirilenlere inanmakla över.\n\nDayanaklar: Buhari, İman 37; Müslim, İman 1; Bakara 2:4; Nisa 4:136.",
+      "vurgu": "Kitaplara iman, imanın altı şartından biridir"
+    },
+    {
+      "id": "kitaplar_k02",
+      "tip": "metin",
+      "baslik": "Allah Neden Kitap Gönderdi?",
+      "icerik": "İnsan, sadece kendi aklıyla her konuda eksiksiz hidayet bulamaz. Bu yüzden Allah peygamberler göndermiş, onlarla birlikte vahiy ve kitap indirmiştir. İlahi kitaplar insana neye inanacağını, nasıl yaşayacağını ve hangi sınırları koruyacağını öğretir.\n\nPeygamberle kitap birbirinden kopuk düşünülmez. Peygamber mesajı tebliğ eder, kitap da bu mesajı taşır. Müslüman, Allah'ın gönderdiği peygamberler arasında iman bakımından ayrım yapmaz.\n\nDayanak: Bakara 2:136.",
+      "vurgu": "Peygamber vahyi taşır, kitap vahyi açıklar"
+    },
+    {
+      "id": "kitaplar_k03",
+      "tip": "metin",
+      "baslik": "Dört Büyük İlahi Kitap",
+      "icerik": "İslam inancında adı açıkça bilinen dört büyük ilahi kitap vardır:\n\n• Tevrat — Hz. Musa'ya indirildi\n• Zebur — Hz. Davud'a verildi\n• İncil — Hz. İsa'ya verildi\n• Kur'an-ı Kerim — Hz. Muhammed'e indirildi\n\nBu kitapların hepsi aslında Allah'tan gelmiştir. Bu yüzden Müslüman, önceki kitapların asıllarını küçümsemez; onları da vahiy zincirinin bir parçası olarak görür.",
+      "vurgu": "Tevrat, Zebur, İncil ve Kur'an aynı ilahi kaynağa bağlanır"
+    },
+    {
+      "id": "kitaplar_k04",
+      "tip": "metin",
+      "baslik": "Tevrat",
+      "icerik": "Tevrat, Hz. Musa'ya indirilen ilahi kitaptır. Kur'an, Tevrat'ın aslında hidayet ve nur bulunduğunu bildirir. Bu da bize Tevrat'ın ilk halinin Allah'tan gelen hak bir kitap olduğunu öğretir.\n\nMüslümanın temel görevi, Hz. Musa'ya ilahi bir kitap verildiğine iman etmektir. Bugünkü tarihsel ayrıntılar konuşulurken ise son ölçü yine Kur'an'dır.\n\nDayanak: Maide 5:44.",
+      "vurgu": "Tevrat'ın aslı Allah'tan gelen hidayet ve nurdur"
+    },
+    {
+      "id": "kitaplar_k05",
+      "tip": "metin",
+      "baslik": "Zebur",
+      "icerik": "Zebur, Hz. Davud'a verilen ilahi kitaptır. Kur'an bunu açıkça bildirir. Zebur denince dua, zikir, kulluk ve Allah'a yöneliş dili öne çıkar.\n\nKur'an ayrıca Zebur'da salih kulların yeryüzüne mirasçı olacağı hakikatinin yazıldığını haber verir. Bu, önceki vahiylerle Kur'an arasındaki bağın devam ettiğini gösterir.\n\nDayanaklar: İsra 17:55; Enbiya 21:105.",
+      "vurgu": "Zebur da vahiy zincirinin hak bir halkasıdır"
+    },
+    {
+      "id": "kitaplar_k06",
+      "tip": "metin",
+      "baslik": "İncil",
+      "icerik": "İncil, Hz. İsa'ya verilen ilahi kitaptır. Kur'an, İncil'in aslında hidayet ve nur bulunduğunu ve önceki vahyi doğrulayıcı bir yön taşıdığını bildirir.\n\nBu yüzden Müslüman, Hz. İsa'ya verilen gerçek İncil'i inkâr etmez. Fakat bugün elde bulunan metinler konuşulurken son ölçünün Kur'an olduğunu da unutmaz.\n\nDayanak: Maide 5:46.",
+      "vurgu": "Hz. İsa'ya verilen gerçek İncil de Allah'tan gelen vahiydir"
+    },
+    {
+      "id": "kitaplar_k07",
+      "tip": "metin",
+      "baslik": "Kur'an-ı Kerim",
+      "icerik": "Kur'an, Hz. Muhammed'e indirilen son ilahi kitaptır. Önceki vahiyleri doğrular, insanlara son ve açık ölçüyü verir. Hükmü kıyamete kadar geçerli olan kitap Kur'an'dır.\n\nKur'an'ın en önemli özelliklerinden biri, Allah tarafından korunmuş olmasıdır. Bu sebeple Müslüman için inançta ve dinde son ölçü Kur'an'dır.\n\nDayanak: Hicr 15:9.",
+      "vurgu": "Kur'an korunmuş son ilahi kitaptır"
+    },
+    {
+      "id": "kitaplar_k08",
+      "tip": "metin",
+      "baslik": "Kur'an Önceki Kitaplarla Nasıl İlişki Kurar?",
+      "icerik": "Kur'an, önceki ilahi kitapların Allah'tan geldiğini doğrular. Aynı zamanda onların üzerinde gözetici ve ölçü koyucu bir rehberdir. Yani Kur'an, önceki kitapların aslını tasdik eder; insanlar tarafından karışan noktalarda ise hak ile batılı ayıran ölçü olur.\n\nBu yüzden Müslüman, önceki kitaplara bakarken Kur'an'ın gösterdiği dengeyi korur: ne toptan inkâr eder ne de ölçüsüz biçimde her şeyi onaylar.\n\nDayanaklar: Al-i İmran 3:3-4; Maide 5:48.",
+      "vurgu": "Kur'an önceki vahiyleri tasdik eder, ölçüyü de belirler"
+    },
+    {
+      "id": "kitaplar_k09",
+      "tip": "metin",
+      "baslik": "Asıllarına İman, Bugünkü Metinlerde İhtiyat",
+      "icerik": "Müslümanlar, Tevrat, Zebur ve İncil'in Allah'tan gelen asıllarına iman eder. Bugün elde bulunan metinler hakkında ise ihtiyatlı konuşur. Çünkü kesin ölçü Kur'an'dır.\n\nHz. Peygamber'in öğrettiği denge de budur: Ehl-i kitabın her sözünü hemen doğrulamak da doğru değildir, her şeyi toptan yalanlamak da doğru değildir. Kur'an'a uyan kısım kabul edilir; ona aykırı olan reddedilir; hakkında kesin bilgi olmayan konularda ise ihtiyatlı davranılır.\n\nDayanak: Buhari, Tevhid 51.",
+      "vurgu": "Önceki kitapların asıllarına iman eder, bugünkü metinlerde Kur'an ölçüsünü koruruz"
+    },
+    {
+      "id": "kitaplar_k10",
+      "tip": "metin",
+      "baslik": "Suhuf Nedir?",
+      "icerik": "Büyük kitaplar dışında bazı peygamberlere daha kısa ilahi sayfalar da verilmiştir. Bunlara suhuf denir. Suhuf, kısa öğütler, temel inanç hatırlatmaları ve hikmetli mesajlar olarak anlatılır.\n\nYeni başlayan biri için burada temel nokta şudur: Allah'ın vahyi sadece dört büyük kitaptan ibaret değildir. Ancak suhufun sayısı ve bazı tarihsel ayrıntılar kesin bilgi gibi anlatılmamalıdır.",
+      "vurgu": "Allah farklı peygamberlere farklı şekillerde vahiy göndermiştir"
+    },
+    {
+      "id": "kitaplar_k11",
+      "tip": "metin",
+      "baslik": "Bu Konuda Dilimiz Nasıl Olmalı?",
+      "icerik": "Müslüman, önceki kitapların asıllarına iman ettiği için saygılı konuşur. Başka din mensuplarını küçümseyen, alay eden veya polemik için sertleşen bir dil doğru değildir.\n\nSaygılı olmak, inanç çizgisini belirsizleştirmek demek de değildir. Biz kendi imanımızı net tutar, Kur'an'ı ölçü kabul eder ve insanlarla güzel bir üslupla konuşuruz.\n\nDayanak: Ankebut 29:46.",
+      "vurgu": "Saygılı dil kurarız; ama ölçümüzü de kaybetmeyiz"
+    },
+    {
+      "id": "kitaplar_k12",
+      "tip": "metin",
+      "baslik": "Özet: Kitaplara İmanda Denge",
+      "icerik": "Kitaplara imanda denge şudur: Allah'ın bütün hak vahiylerine inanmak, dört büyük kitabın asıllarını tasdik etmek, Kur'an'ın son ve korunmuş kitap olduğunu bilmek ve bugünkü tarihsel metinleri Kur'an ölçüsüyle değerlendirmek.\n\nBu denge hem saygıyı hem de itikadi açıklığı korur. Böylece Müslüman, önceki vahiyleri inkâr etmeden Kur'an'a bağlı kalır.\n\nKitaplara İman dersini tamamladın! İstersen {{link:ibadet-inanc|İbadet Rehberi}}'nin İnanç bölümüne göz atarak bu başlıkları yeniden okuyabilirsin.",
+      "vurgu": "Saygı ile itikadi netlik birlikte korunur"
+    }
+  ],
+  "quiz_havuzu_id": "kitaplara-iman"
+}

@@ -1,0 +1,133 @@
+{
+  "ders_id": "guzel-ahlak",
+  "baslik": "Güzel Ahlak",
+  "aciklama": "Kur'an ve sahih hadisler ışığında güzel ahlakın temel ilkelerini öğren.",
+  "kartlar": [
+    {
+      "id": "guzel_ahlak_k01",
+      "tip": "metin",
+      "baslik": "Güzel Ahlak Nedir?",
+      "icerik": "Güzel ahlak; insanın Allah'a karşı saygısını, insanlara karşı adaletini, dilindeki nezaketi, kalbindeki merhameti ve davranışlarındaki dürüstlüğü bir araya getiren kulluk halidir.\n\nSadece nazik görünmek güzel ahlak için yeterli değildir. Güzel ahlak; doğru konuşmak, kimseyi küçümsememek, öfkeyi yönetmek, emanete riayet etmek, affedici olmak ve insanlara zarar vermemekle ortaya çıkar.\n\nMüslümanın ahlakı, ibadetlerinden ayrı bir alan değil; ibadetlerin hayata yansıyan meyvesidir.",
+      "vurgu": "Güzel ahlak, imanın davranışlara yansımasıdır"
+    },
+    {
+      "id": "guzel_ahlak_k02",
+      "tip": "metin",
+      "baslik": "Güzel Ahlak Neden Bu Kadar Önemlidir?",
+      "icerik": "Peygamber Efendimiz, kıyamet gününde mizanda en ağır gelecek şeylerden birinin güzel ahlak olduğunu bildirmiştir. Bu, güzel ahlakın sadece sosyal bir nezaket değil, büyük bir ahiret sermayesi olduğunu gösterir.\n\nİyi ahlak sahibi kimse, sadece insanlarla iyi geçinen kişi değildir; Allah'ın razı olduğu kulluk çizgisini korumaya çalışan kişidir. Güzel ahlak, insanı hem insanlar yanında güvenilir kılar hem de Allah katında derecesini yükseltir.\n\nDayanaklar: Tirmizi 2003, Ebu Davud 4799.",
+      "vurgu": "Güzel ahlak, mizanda ağır gelen büyük bir kulluk değeridir"
+    },
+    {
+      "id": "guzel_ahlak_k03",
+      "tip": "metin",
+      "baslik": "Resulullah En Güzel Örnektir",
+      "icerik": "Kur'an, Allah Resulü'nün müminler için güzel bir örnek olduğunu bildirir. Bu yüzden güzel ahlak öğrenilirken ölçü, insanların modası değil Resulullah'ın örnekliğidir.\n\nHadislerde de Peygamberimizin kötü ve çirkin sözlü olmadığı, insanların en hayırlılarının ahlakı en güzel olanlar olduğu bildirilir. Onun sünneti; merhametli, sabırlı, güvenilir, ölçülü ve vakar sahibi bir hayat öğretir.\n\nDayanaklar: Ahzab 33:21; Buhari 3559.",
+      "vurgu": "Ahlakta ölçü, Resulullah'ın örnekliğidir"
+    },
+    {
+      "id": "guzel_ahlak_k04",
+      "tip": "metin",
+      "baslik": "Adalet ve İhsan",
+      "icerik": "Kur'an, Allah'ın adaleti, ihsanı ve yakınlara yardım etmeyi emrettiğini; hayasızlığı, kötülüğü ve taşkınlığı yasakladığını bildirir.\n\nAdalet, herkese hakkını vermektir. İhsan ise sadece hakkı vermekle kalmayıp iyiliği güzellikle tamamlamaktır. Güzel ahlak sahibi mümin, hakkı çiğnemez; fırsat bulduğunda iyilikte de ileri gider.\n\nAhlakın temelinde keyif değil ölçü vardır. Bir davranış bize hoş gelse bile adaletsizlik içeriyorsa güzel ahlak sayılmaz.\n\nDayanak: Nahl 16:90.",
+      "vurgu": "Güzel ahlakın omurgası: adalet, ihsan ve taşkınlıktan uzak durmaktır"
+    },
+    {
+      "id": "guzel_ahlak_k05",
+      "tip": "metin",
+      "baslik": "Doğruluk ve Güvenilirlik",
+      "icerik": "Peygamber Efendimiz, doğruluğun insanı iyiliğe, iyiliğin de cennete götürdüğünü; yalanın ise kötülüğe ve ateşe sürüklediğini haber vermiştir.\n\nDoğruluk sadece yalan söylememek değildir. Verdiği sözde durmak, emanete ihanet etmemek, eksik veya çarpıtılmış bilgi vermemek de doğruluğun parçalarıdır. Güven, güzel ahlakın en görünür meyvelerinden biridir.\n\nMüslüman kısa vadeli çıkar için yalanı araç edinmez. Çünkü dildeki küçük bir bozulma zamanla karakteri de bozar.\n\nDayanak: Buhari 6094.",
+      "vurgu": "Doğruluk karakteri yükseltir, yalan ise insanı bozar"
+    },
+    {
+      "id": "guzel_ahlak_k06",
+      "tip": "metin",
+      "baslik": "Dil Ahlakı",
+      "icerik": "Resulullah, Allah'a ve ahiret gününe iman eden kimsenin ya hayır söylemesini ya da susmasını öğütlemiştir.\n\nDil; kalpteki imanın, öfkenin, kibirin veya merhametin dışarı açılan kapısıdır. Güzel ahlak; boş, kırıcı, kaba ve fitneye sebep olan sözleri terk etmeyi gerektirir. Doğru bir söz sadaka olabilir; yanlış bir söz ise uzun süreli bir kırgınlığa dönüşebilir.\n\nKonuşmadan önce şu üç soruyu sormak faydalıdır: Doğru mu, gerekli mi, nezaketli mi?\n\nDayanak: Buhari 6475.",
+      "vurgu": "Hayır söyle; hayır yoksa sus"
+    },
+    {
+      "id": "guzel_ahlak_k07",
+      "tip": "metin",
+      "baslik": "Alay, Hakaret ve Kötü Lakaplardan Kaçınmak",
+      "icerik": "Kur'an, bir topluluğun başka bir toplulukla alay etmesini, insanların birbirini ayıplamasını ve kötü lakaplarla çağırmasını yasaklar.\n\nBir kişiyi küçük görmek bazen şaka kisvesiyle yapılır; fakat kalp kıran şaka güzel ahlak değildir. İnsanların kusurlarını eğlence konusu yapmak, sosyal ortamda güçlü görünme arzusu olsa bile Allah katında ağır bir hatadır.\n\nMümin, başkasını aşağılayarak değil; başkasına değer vererek yükselir.\n\nDayanak: Hucurat 49:11.",
+      "vurgu": "Başkalarını küçültmek, güzel ahlak değil zulümdür"
+    },
+    {
+      "id": "guzel_ahlak_k08",
+      "tip": "metin",
+      "baslik": "Zan, Tecessüs ve Gıybet",
+      "icerik": "Kur'an; kötü zandan, gizli kusur araştırmaktan ve gıybetten sakındırır. Gıybet, bir kardeşinin hoşlanmayacağı şeyi arkasından söylemektir.\n\nBir kimsenin niyetini delilsiz biçimde kötüye yormak, dijital ortamda insanların özelini araştırmak veya onların arkasından konuşmak kalbi karartan davranışlardır. Güzel ahlak, insanın dilini ve merakını dizginleyebilmesidir.\n\nBaşkalarının kusuruna odaklanmak yerine kendi kusurunu düzeltmeye yönelen kimse, ahlak yolunda daha hızlı ilerler.\n\nDayanak: Hucurat 49:12.",
+      "vurgu": "Kötü zan, tecessüs ve gıybet kalbi kirletir"
+    },
+    {
+      "id": "guzel_ahlak_k09",
+      "tip": "metin",
+      "baslik": "Öfkeyi Yönetmek",
+      "icerik": "Kur'an, takva sahiplerini öfkelerini yutan ve insanları affeden kimseler olarak över. Resulullah da tekrar tekrar 'Öfkelenme' diye nasihat etmiştir.\n\nÖfke duygusunun gelmesi günah değildir; fakat öfkenin yönetilemeyip dile, ele ve kararlara hakim olması büyük zararlara yol açar. Güzel ahlak, duyguyu inkar etmek değil; duyguyu Allah'ın razı olacağı biçimde yönetmektir.\n\nÖfke anında susmak, ortamdan biraz uzaklaşmak, abdest almak, hemen karar vermemek ve kırıcı cevap vermeyi ertelemek faydalıdır.\n\nDayanaklar: Ali İmran 3:134; Buhari 6116.",
+      "vurgu": "Güç, öfkeyi boşaltmakta değil; öfkeyi yönetmektedir"
+    },
+    {
+      "id": "guzel_ahlak_k10",
+      "tip": "metin",
+      "baslik": "Affetmek ve Kötülüğe Güzellikle Karşılık Vermek",
+      "icerik": "Kur'an, kötülükle iyiliğin bir olmadığını; kötülüğün en güzel tavırla savılmasını öğütler. Böyle davranıldığında düşmanlık taşıyan kişinin bile sıcak bir dosta dönüşebileceği bildirilir.\n\nAffetmek her durumda hakkı tamamen terk etmek demek değildir. Ama intikamı büyütmek yerine ıslahı, yumuşatmayı ve kırılmayı onarmayı hedeflemek güzel ahlakın yüksek bir derecesidir. Özellikle kişisel hırs sebebiyle sertleşmemek büyük bir olgunluktur.\n\nDayanak: Fussilet 41:34.",
+      "vurgu": "Kötülüğe iyilikle karşılık vermek, ahlakın yüksek derecelerindendir"
+    },
+    {
+      "id": "guzel_ahlak_k11",
+      "tip": "metin",
+      "baslik": "Tevazu ve Kibirden Uzak Durmak",
+      "icerik": "Lokman suresinde insanlara karşı yüz çevirmemek, yeryüzünde böbürlenerek yürümemek emredilir. Kibir, insanın kendini büyük görüp başkalarını küçük görmesine yol açar.\n\nTevazu ise kendini değersiz görmek değildir. Allah'ın verdiği nimeti bilmek ama o nimetle insanlara tepeden bakmamaktır. Güzel ahlak sahibi kişi, ilmiyle, ibadetiyle veya imkanıyla övünerek kırıcı olmaz.\n\nDayanak: Lokman 31:18.",
+      "vurgu": "Tevazu insanı güzelleştirir; kibir ise kalbi karartır"
+    },
+    {
+      "id": "guzel_ahlak_k12",
+      "tip": "metin",
+      "baslik": "Vakar, Ölçü ve Ses Tonu",
+      "icerik": "Kur'an, yürüyüşte ölçülü olmayı ve sesi gereksizce yükseltmemeyi öğretir. Güzel ahlak sadece büyük kararlar değil; yürüyüş, oturuş, konuşma tonu ve üslupta da kendini gösterir.\n\nSertlik ve bağırma çoğu zaman haklılığı güçlendirmez; aksine sözü çirkinleştirir. Vakar sahibi mümin, kendini fark ettirmek için gürültü çıkarmaz. Sakinlik, denge ve ölçü ahlakın dışa yansıyan güzelliklerindendir.\n\nDayanaklar: Lokman 31:19; Ebu Davud 4776.",
+      "vurgu": "Güzel ahlak; sözde, yürüyüşte ve tavırda ölçü ister"
+    },
+    {
+      "id": "guzel_ahlak_k13",
+      "tip": "metin",
+      "baslik": "Merhamet",
+      "icerik": "Resulullah, merhamet edenlere Rahman'ın merhamet edeceğini; yeryüzündekilere merhamet eden kimseye göktekinin merhamet edeceğini bildirmiştir.\n\nMerhamet, sadece acımak değil; başkasının ihtiyacını fark edip ona iyi davranmaktır. Evde, işte, sokakta, hayvanlara karşı, çocuklara karşı ve zayıflara karşı yumuşaklık göstermek güzel ahlakın temel işaretlerindendir.\n\nMerhametsizlik kalbi katılaştırır. Merhamet ise insanı hem Rabbine hem kullara yaklaştırır.\n\nDayanak: Tirmizi 1924.",
+      "vurgu": "Merhamet edene merhamet edilir"
+    },
+    {
+      "id": "guzel_ahlak_k14",
+      "tip": "metin",
+      "baslik": "Aile İçinde Güzel Ahlak",
+      "icerik": "Peygamber Efendimiz, insanların en hayırlılarının ailesine karşı en iyi davrananlar olduğunu bildirmiştir. Gerçek ahlak, dışarıda kibar ama evde kırıcı olmamakla sınanır.\n\nAnne-babaya saygı, eşe nezaket, çocuklara şefkat ve ev içinde adalet; güzel ahlakın en önemli alanlarındandır. İnsan bazen en çok sevdiğine karşı en kontrolsüz davranır. Bu yüzden aile hayatı, ahlakın samimiyet testidir.\n\nDayanak: Tirmizi 3895.",
+      "vurgu": "Ahlakın en gerçek sınavı çoğu zaman evin içindedir"
+    },
+    {
+      "id": "guzel_ahlak_k15",
+      "tip": "metin",
+      "baslik": "Komşu Hakkı ve İnsanlara Eziyet Vermemek",
+      "icerik": "Resulullah, komşusu kötülüğünden emin olmayan kişinin imanında ciddi eksiklik bulunduğunu çok çarpıcı bir dille haber vermiştir. Yine hayır söylemek, komşuya eziyet etmemek ve misafire ikram etmek imanın gereği olarak öğretilmiştir.\n\nGüzel ahlak; kimseye ağır yük olmamak, ortak alanlarda saygılı davranmak, yüksek sesle rahatsız etmemek, maddi veya manevi zarar vermemek ve komşuluk hukukunu gözetmekle görünür hale gelir.\n\nDayanaklar: Buhari 6016; Buhari 6475.",
+      "vurgu": "Mümin, komşusuna ve çevresine güven veren kişidir"
+    },
+    {
+      "id": "guzel_ahlak_k16",
+      "tip": "metin",
+      "baslik": "Haya, Edep ve Mahremiyet",
+      "icerik": "Peygamber Efendimiz, hayanın imandan bir parça olduğunu bildirmiştir. Haya; insanın Allah'tan utanmasını, kendine yakışmayanı terk etmesini ve sınırları korumasını sağlayan bir edeptir.\n\nKur'an da başkasının evine izin istemeden ve selam vermeden girilmemesini emreder. Bu, sadece kapı adabı değil; özel alana saygı, mahremiyet ve incelik eğitimidir. Güzel ahlak, insanların sınırlarını koruyabilmeyi de içerir.\n\nDayanaklar: Buhari 24; Nur 24:27.",
+      "vurgu": "Haya imanın parçasıdır; mahremiyete saygı da ahlakın parçasıdır"
+    },
+    {
+      "id": "guzel_ahlak_k17",
+      "tip": "metin",
+      "baslik": "Güler Yüz ve Küçük İyilikler",
+      "icerik": "Resulullah, kardeşinin yüzüne tebessüm etmeyi bile sadaka saymıştır. Bu, güzel ahlakın sadece büyük fedakarlıklardan ibaret olmadığını gösterir.\n\nYol üzerindeki eziyeti kaldırmak, insana yol göstermek, küçük bir yardımı küçümsememek, insanlara sert değil sıcak davranmak günlük hayatın güzel ahlak fırsatlarıdır. Bazen küçük görülen bir iyilik, büyük bir gönül kazanır.\n\nDayanak: Tirmizi 1956.",
+      "vurgu": "Küçük iyilikleri küçümseme; tebessüm bile sadakadır"
+    },
+    {
+      "id": "guzel_ahlak_k18",
+      "tip": "metin",
+      "baslik": "Güzel Ahlakı Geliştirmek İçin Günlük Yol Haritası",
+      "icerik": "Güzel ahlak bir günde oluşmaz; tekrar edilen küçük tercihlerle yerleşir. Bunun için her gün bir alan seçmek faydalıdır: bugün dilime dikkat edeceğim, bugün öfkede susacağım, bugün aileme daha nazik davranacağım gibi.\n\nAhlak eğitimi için üç adım yararlıdır:\n\n• Gün sonunda kendini muhasebe etmek\n• Hata olunca hemen tevbe edip telafi etmek\n• Resulullah'ın örnekliğini sık sık hatırlamak\n\nİbadetler, dua ve salih çevre güzel ahlakı güçlendirir. Hedef kusursuz görünmek değil; her gün biraz daha olgunlaşmaktır.",
+      "vurgu": "Güzel ahlak, niyetli tekrar ve muhasebe ile güçlenir"
+    }
+  ]
+}

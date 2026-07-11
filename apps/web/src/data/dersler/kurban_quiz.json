@@ -1,0 +1,462 @@
+{
+  "quiz_id": "kurban",
+  "baslik": "Kurban",
+  "toplam_soru": 35,
+  "sorular": [
+    {
+      "id": "kurban_001",
+      "konu": "tanim",
+      "soru": "Kurbanın ibadetin ruhunu oluşturan unsur nedir?",
+      "secenekler": [
+        "A) Kesilen hayvanın eti ve derisi",
+        "B) Kurban etinin dağıtılması",
+        "C) Teslimiyetle yapılan niyet",
+        "D) Hayvanın büyüklüğü"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kurban yalnızca bir kesim eylemi değil, teslimiyetle yapılan bir ibadettir. İbadet niyeti olmadan kesilen bir hayvan kurban sayılmaz."
+    },
+    {
+      "id": "kurban_002",
+      "konu": "tanim",
+      "soru": "Kurban neden yalnızca et veya maddi yardım olarak değerlendirilemez?",
+      "secenekler": [
+        "A) Çünkü kurban ibadet niyeti taşımayan bir kesimle anlam kazanmaz",
+        "B) Çünkü eti yemek caiz değildir",
+        "C) Çünkü yalnızca zenginlere yönelik bir uygulamadır",
+        "D) Çünkü hayvan seçimi belirlidir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban, kestikçe anlam kazanan değil; teslimiyetle niyet ederek anlam kazanan bir ibadettir."
+    },
+    {
+      "id": "kurban_003",
+      "konu": "ibrahimin_kissasi",
+      "soru": "Hz. İbrahim'in oğlunu kurban etmeye hazırlanması kıssasında öne çıkan temel mesaj nedir?",
+      "secenekler": [
+        "A) Kesim tekniği ve hayvan seçimi",
+        "B) Komşularla paylaşma önemi",
+        "C) Uzun bir seyahatin sonu",
+        "D) Allah'a tam teslimiyet"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hz. İbrahim kıssası, Allah'a tam teslimiyetin; Hz. İsmail'in kıssası ise bilinçli kulluk bilincinin simgesidir."
+    },
+    {
+      "id": "kurban_004",
+      "konu": "ibrahimin_kissasi",
+      "soru": "Hz. İsmail'in kurban kıssasındaki tutumu ne ifade eder?",
+      "secenekler": [
+        "A) Çaresizlik içinde boyun eğmek",
+        "B) Bilinçli kulluk ve teslimiyeti seçmek",
+        "C) Korku nedeniyle itaat etmek",
+        "D) Babasına saygı göstermek"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hz. İsmail'in kıssası, bilinçli kulluk bilincini ve teslimiyeti seçişi simgeler."
+    },
+    {
+      "id": "kurban_005",
+      "konu": "kurbanin_ruhu",
+      "soru": "\"Allah'a ulaşan şey ne eti ne kanıdır\" ifadesinin öğrettiği esas mesaj nedir?",
+      "secenekler": [
+        "A) Kurban kesilmesi zorunlu değildir",
+        "B) Büyük bir kurban kesmek gerekir",
+        "C) Kurbanın özü et değil, kalpten gelen takva ve niyettir",
+        "D) Kan dökmek yasaklanmıştır"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kurbanın özü takva ve niyettir; et ve kan değil, kalpteki teslimiyettir Allah'a ulaşan."
+    },
+    {
+      "id": "kurban_006",
+      "konu": "hukum",
+      "soru": "Hanefi mezhebine göre kurbanın hükmü nedir?",
+      "secenekler": [
+        "A) Farz",
+        "B) Vacip",
+        "C) Sünnet-i müekkede",
+        "D) Müstehap"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hanefi mezhebine göre kurban vaciptir; diğer mezheplerde kuvvetli sünnet (sünnet-i müekkede) olarak değerlendirilir."
+    },
+    {
+      "id": "kurban_007",
+      "konu": "hukum",
+      "soru": "Hanefi dışındaki mezheplerin kurban hakkındaki görüşü nedir?",
+      "secenekler": [
+        "A) Farz",
+        "B) Vacip",
+        "C) Nafile",
+        "D) Kuvvetli sünnet"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hanefi dışındaki mezhepler kurbanı vacip değil, sünnet-i müekkede (kuvvetli sünnet) olarak değerlendirmiştir."
+    },
+    {
+      "id": "kurban_008",
+      "konu": "yukumluluk",
+      "soru": "Kurban kesmekle yükümlü olmanın şartları arasında hangisi yoktur?",
+      "secenekler": [
+        "A) Yüksek öğrenim görmüş olmak",
+        "B) Akıl sağlığı",
+        "C) Ergenlik",
+        "D) Mukim olmak"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban yükümlülüğünün şartları: akıllı, ergen, mukim ve mali yeterliliğe sahip olmaktır. Eğitim durumu bir şart değildir."
+    },
+    {
+      "id": "kurban_009",
+      "konu": "yukumluluk",
+      "soru": "Kurban yükümlülüğü bakımından 'mukim olmak' ne anlama gelir?",
+      "secenekler": [
+        "A) Büyük şehirde yaşamak",
+        "B) Ev sahibi olmak",
+        "C) Seferi (yolcu) olmamak",
+        "D) Yerli nüfusa kayıtlı olmak"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Mukim olmak, seferi (yolcu sayılan) değil ikamet eden kişi demektir; seferi olanlar kurban yükümlülüğünden muaftır."
+    },
+    {
+      "id": "kurban_010",
+      "konu": "kesim_vakti",
+      "soru": "Kurban ne zaman kesilmelidir?",
+      "secenekler": [
+        "A) Bayram gecesi herhangi bir saatte",
+        "B) Bayram namazından sonra, bayramın üç gününde",
+        "C) Bayram namazından önce, sabah erkeni",
+        "D) Yalnızca ilk gün öğle vakti"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kurban, bayram namazından sonra kesilir. Bayram namazından önce kesmek geçersizdir ve yenilenmesi gerekir."
+    },
+    {
+      "id": "kurban_011",
+      "konu": "kesim_vakti",
+      "soru": "Bayram namazından önce kurban kesen kimsenin durumu nedir?",
+      "secenekler": [
+        "A) Kurbanı kabul edilmiştir",
+        "B) Yalnızca sünnet geri kalmıştır",
+        "C) Keffaret ödemesi yeterlidir",
+        "D) Kurban geçersiz sayılır ve yeniden kesilmesi gerekir"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Bayram namazından önce yapılan kesim kurban sayılmaz; vacip yerine getirilmemiş olur."
+    },
+    {
+      "id": "kurban_012",
+      "konu": "hayvan_turleri",
+      "soru": "Kurban için kesilebilecek hayvanlar hangileridir?",
+      "secenekler": [
+        "A) Koyun, keçi, sığır, manda ve deve",
+        "B) Yalnızca koyun ve keçi",
+        "C) Her türlü evcil hayvan",
+        "D) Koyun, keçi ve tavuk"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban için kesilebilecek hayvanlar: koyun, keçi, sığır, manda ve devedir."
+    },
+    {
+      "id": "kurban_013",
+      "konu": "ortaklik",
+      "soru": "Büyükbaş bir hayvana kaç kişi ortak olabilir?",
+      "secenekler": [
+        "A) 3 kişi",
+        "B) 5 kişi",
+        "C) 7 kişi",
+        "D) 10 kişi"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sığır, manda ve deve gibi büyükbaş hayvanlarda en fazla 7 kişi ortak olabilir."
+    },
+    {
+      "id": "kurban_014",
+      "konu": "ortaklik",
+      "soru": "Koyun veya keçi kurbanında ortaklık kaç kişiyle mümkündür?",
+      "secenekler": [
+        "A) 7 kişi",
+        "B) 1 kişi",
+        "C) 3 kişi",
+        "D) 2 kişi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Koyun ve keçi kurbanı yalnızca 1 kişi adına kesilir; ortaklık geçersizdir."
+    },
+    {
+      "id": "kurban_015",
+      "konu": "yas_sarti",
+      "soru": "Koyun kurbanında aranan yaş şartı nedir?",
+      "secenekler": [
+        "A) En az 6 aylık",
+        "B) En az 2 yaş",
+        "C) Yaş şartı yoktur",
+        "D) En az 1 yaş veya gelişmiş 6 aylık koç"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Koyun için en az 1 yaş şartı aranır; ancak çok iyi gelişmiş bir koç 6 aylık da olsa kesilebilir."
+    },
+    {
+      "id": "kurban_016",
+      "konu": "yas_sarti",
+      "soru": "Bir çiftçi 18 aylık sağlıklı bir sığırı kurban kesmek istiyor. Bu kurban geçerli midir?",
+      "secenekler": [
+        "A) Hayır; sığır ve mandada en az 2 yaş şartı aranır",
+        "B) Evet; 1 yaş üzeri her sığır kesilebilir",
+        "C) Evet; sağlıklı olması yeterlidir, yaş şartı yoktur",
+        "D) Hayır; ancak 3 yaş üzeri sığır kesilebilir"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Sığır ve manda kurbanında en az 2 yaş şartı aranır; 18 aylık sığır bu şartı karşılamaz."
+    },
+    {
+      "id": "kurban_017",
+      "konu": "yas_sarti",
+      "soru": "Kurban için devede aranan minimum yaş kaçtır?",
+      "secenekler": [
+        "A) 2 yaş",
+        "B) 5 yaş",
+        "C) 3 yaş",
+        "D) 4 yaş"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Deve kurbanında en az 5 yaş şartı aranır."
+    },
+    {
+      "id": "kurban_018",
+      "konu": "et_paylasimi",
+      "soru": "Kurban etinin üçe bölünmesi hâlinde bu parçalar kime verilir?",
+      "secenekler": [
+        "A) Tamamı fakirlere dağıtılır",
+        "B) Tamamı ev halkına aittir",
+        "C) Biri ev halkına, biri komşu ve akrabaya, biri fakirlere",
+        "D) İkisi fakirlere, biri kurban sahibine"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Müstehap olan; kurban etini üçe bölüp bir bölümü ev halkına, bir bölümü komşu ve akrabaya, bir bölümü fakirlere vermektir."
+    },
+    {
+      "id": "kurban_019",
+      "konu": "kusurlu_hayvan",
+      "soru": "Aşağıdakilerden hangisi kurban için hayvanı geçersiz kılan kusurlardan biridir?",
+      "secenekler": [
+        "A) Hayvanın rengi koyu olmak",
+        "B) Hayvanın erkek olmak",
+        "C) Hayvanın ağırlıklı yem yemiş olmak",
+        "D) Hayvanın bir gözü kör olmak"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kör, hasta, ağır topallayan veya aşırı zayıf hayvanlar kurban için geçersizdir."
+    },
+    {
+      "id": "kurban_020",
+      "konu": "kusurlu_hayvan",
+      "soru": "Hafif topallayan bir hayvan kurban edilebilir mi?",
+      "secenekler": [
+        "A) Evet, hafif topallık kusur sayılmaz",
+        "B) Hayır, hiçbir şekilde",
+        "C) Yalnızca büyükbaş için geçerlidir",
+        "D) Sadece zaruri durumlarda"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Yürüyüşünü engelleyen ağır topallık kusur sayılır; hafif topallık kurban geçerliliğini bozmaz."
+    },
+    {
+      "id": "kurban_021",
+      "konu": "kesim_adabi",
+      "soru": "Bıçağın iyi bilenmesi neden önemlidir?",
+      "secenekler": [
+        "A) Kesimin hızlı görünmesi için",
+        "B) Et kalitesini artırmak için",
+        "C) Hayvanın acı çekmemesi için",
+        "D) Geleneksel bir alışkanlık olduğu için"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Allah'ın yarattığı canlılara karşı merhamet göstermek İslam'ın temel bir ilkesidir. Bıçağı iyi bilemek, hayvanın acı çekmesini azaltır."
+    },
+    {
+      "id": "kurban_022",
+      "konu": "kesim_adabi",
+      "soru": "Kurban kesilirken hayvanın önünde bıçak bilemek neden yasaklanmıştır?",
+      "secenekler": [
+        "A) Temizlik kuralları gerektirdiği için",
+        "B) Hayvanı korkutmamak ve eziyet etmemek için",
+        "C) Bıçağın paslanmaması için",
+        "D) Geleneksel bir uygulama olduğu için"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Resulullah'ın emri, hayvanı görmeyecek şekilde bıçağın bilenmesini içerir; bu İslam'ın merhamet ilkesinin yansımasıdır."
+    },
+    {
+      "id": "kurban_023",
+      "konu": "bismillah",
+      "soru": "Kurban keserken Allah'ın adını anmak neden zorunludur?",
+      "secenekler": [
+        "A) Kesimin helal olabilmesi için",
+        "B) Sesi yüksek tutmak için",
+        "C) Hayvanı rahatlatmak için",
+        "D) Çevredekilere duyurmak için"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Allah'ın adı anılmadan kesilen hayvanın eti helal sayılmaz. Bismillah kurbanın dini boyutunun ayrılmaz parçasıdır."
+    },
+    {
+      "id": "kurban_024",
+      "konu": "etten_yemek",
+      "soru": "Kurban sahibinin kendi kurbanının etinden yemesi konusundaki hüküm nedir?",
+      "secenekler": [
+        "A) Yasaktır, tümü dağıtılmalıdır",
+        "B) Yalnızca yoksullar için kesildiğinden yenmemelidir",
+        "C) Zorunlu olmakla birlikte farz değildir",
+        "D) Müstehaptır; etinden yemek sünnetle uygundur"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kurban sahibinin etinden yemesi müstehap, ikram etmesi ise ibadetin sosyal boyutudur."
+    },
+    {
+      "id": "kurban_025",
+      "konu": "et_paylasimi",
+      "soru": "Kurban etinin geleneksel olarak nasıl paylaştırıldığı önerilmektedir?",
+      "secenekler": [
+        "A) Tamamı fakirlere verilir",
+        "B) Tamamı aile içinde tüketilir",
+        "C) Bir kısmı kendine, bir kısmı komşulara, bir kısmı muhtaçlara",
+        "D) Yalnızca akrabalara dağıtılır"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Geleneksel uygulama: bir bölümü kendine, bir bölümü komşu ve dostlara, bir bölümü de muhtaçlara vermektir."
+    },
+    {
+      "id": "kurban_026",
+      "konu": "toplumsal_boyut",
+      "soru": "Kurbanın toplumsal boyutu nedir?",
+      "secenekler": [
+        "A) Yalnızca bireysel bir ibadet olduğunu gösterir",
+        "B) Paylaşım, dayanışma ve ihtiyaç sahiplerine ulaşmayı kapsar",
+        "C) Et fiyatlarını düzenlemek için yapılır",
+        "D) Toplantı düzenleme vesilesidir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kurban; paylaşım kültürü, toplumsal dayanışma ve ihtiyaç sahiplerine ulaşma boyutlarını içerir."
+    },
+    {
+      "id": "kurban_027",
+      "konu": "sik_hatalar",
+      "soru": "Kurban kesmeden önce paranın bağışlanması kurbanın yerini tutar mı?",
+      "secenekler": [
+        "A) Hayır, kurban ibadeti ayrı bir ibadet olup sadakayla değiştirilemez",
+        "B) Evet, kurban ile aynı sevaptır",
+        "C) Yalnızca fakirler için geçerlidir",
+        "D) Mana önemli olduğundan aynıdır"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban bedelini bağışlamak hayırlıdır; ancak kurban vacip olanın bu yükümlülüğünü düşürmez."
+    },
+    {
+      "id": "kurban_028",
+      "konu": "sik_hatalar",
+      "soru": "Kurban derisi satılarak parasının elde tutulması konusunda hüküm nedir?",
+      "secenekler": [
+        "A) Kesinlikle serbesttir",
+        "B) Kurban sahibi deriden yararlanabilir",
+        "C) Yalnızca deri satışı için özel izin gerekir",
+        "D) Derinin satılması caiz değildir; hayır kurumuna verilmelidir"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kurban derisi kurban sahibi tarafından satılıp parası kendine alınamaz; hayır amacıyla bağışlanmalıdır."
+    },
+    {
+      "id": "kurban_029",
+      "konu": "sik_hatalar",
+      "soru": "Aşağıdakilerden hangisi kurban ibadetinde yapılan yaygın hatalardan biridir?",
+      "secenekler": [
+        "A) Büyükbaşta 7 kişiyle ortak olmak",
+        "B) Hayvanın yaşını kontrol etmek",
+        "C) Bayram namazından önce kesmek",
+        "D) Bismillah okuyarak kesmek"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Bayram namazından önce kesmek, kurbanı geçersiz kılan en yaygın hatalardan biridir."
+    },
+    {
+      "id": "kurban_030",
+      "konu": "merhamet",
+      "soru": "İslam'ın kurban kesimiyle ilgili merhamet ilkesi neden önemlidir?",
+      "secenekler": [
+        "A) Kesim süresini kısaltmak için",
+        "B) Hayvanın acısını azaltmak ve Allah'ın yarattığı canlılara saygı göstermek için",
+        "C) Alışkanlıktan kaynaklanır",
+        "D) Et kalitesini artırmak için"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Allah'ın yarattığı canlılara karşı merhamet İslam'ın temel ilkelerindendir; hayvanı görmeden bıçak bilemek bu anlayışın pratiğidir."
+    },
+    {
+      "id": "kurban_031",
+      "konu": "teslimiyet",
+      "soru": "Hz. İbrahim kıssasından kişisel hayata yansıması beklenen ders nedir?",
+      "secenekler": [
+        "A) Her yıl daha büyük hayvan kesmek",
+        "B) Çocuklara her şeyi öğretmek",
+        "C) Daha fazla sadaka vermek",
+        "D) Allah için bağlılıklardan vazgeçmeyi göze alabilmek"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Kurban, nefsimizi Allah'a karşı nereye koyduğumuzu test eder; kıssadan alınacak ders Allah için bağlılıklardan vazgeçebilmektir."
+    },
+    {
+      "id": "kurban_032",
+      "konu": "takvim",
+      "soru": "Kurban kesim vakti kaç gün sürer?",
+      "secenekler": [
+        "A) 3 gün",
+        "B) 1 gün",
+        "C) 2 gün",
+        "D) 4 gün"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Kurban kesim vakti, bayram namazından sonra başlayarak 3 gün sürer."
+    },
+    {
+      "id": "kurban_033",
+      "konu": "hisse",
+      "soru": "Büyükbaş hayvanda hisselerin eşit olması neden zorunludur?",
+      "secenekler": [
+        "A) Eti eşit bölmek için",
+        "B) Vergiden muaf olmak için",
+        "C) Niyetin sahih sayılabilmesi için hisselerin eşit olması şarttır",
+        "D) Hayvanın değerini belirlemek için"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Büyükbaş ortaklığında hisselerin eşit ve ayrı niyet taşıması gerekir; eşitsiz hisseler kurbanı geçersiz kılabilir."
+    },
+    {
+      "id": "kurban_034",
+      "konu": "niyet",
+      "soru": "Kurban kesimi sırasında niyet ne zaman yapılmalıdır?",
+      "secenekler": [
+        "A) Hayvan alınmadan birkaç gün önce",
+        "B) Kesim anında veya öncesinde kalp ile",
+        "C) Bayram hutbesi sırasında",
+        "D) Niyet etmek şart değildir"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Kurban ibadeti niyet gerektiren bir ibadettir; kesim anında ya da öncesinde Allah rızası için yapıldığına kalp ile niyet edilmelidir."
+    },
+    {
+      "id": "kurban_035",
+      "konu": "mali_yeterlilik",
+      "soru": "Kurban yükümlülüğü için mali yeterlilik nasıl tanımlanır?",
+      "secenekler": [
+        "A) Zengin olmak",
+        "B) Sabit bir gelire sahip olmak",
+        "C) Mülk sahibi olmak",
+        "D) Temel ihtiyaçların ötesinde kurban alabilecek kadar mala sahip olmak"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Temel ihtiyaçlarını karşıladıktan sonra kurban alabilecek kadar mala sahip olan kişi mali yeterlilik şartını karşılar."
+    }
+  ]
+}

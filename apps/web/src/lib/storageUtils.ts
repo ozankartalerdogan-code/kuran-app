@@ -24,3 +24,19 @@ export function getNotes(): Record<string, string> {
 export function setNotes(notes: Record<string, string>): void {
   localStorage.setItem("notes", JSON.stringify(notes));
 }
+
+export function getRecentSearches(): string[] {
+  try {
+    return JSON.parse(localStorage.getItem("recentSearches") ?? "[]") as string[];
+  } catch {
+    return [];
+  }
+}
+
+export function setRecentSearches(searches: string[]): void {
+  try {
+    localStorage.setItem("recentSearches", JSON.stringify(searches));
+  } catch {
+    // localStorage can be unavailable in private browsing or restricted contexts.
+  }
+}
