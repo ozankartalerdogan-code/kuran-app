@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface SurahAboutAccordionProps {
   surahId:       number;
@@ -48,6 +48,16 @@ export function SurahAboutAccordion({
   }
 
   const displayedText = mode === "simplified" ? simplifiedTafsir : tafsir;
+
+  // Çift satır sonunda paragraflara böl, ayırıcı-satırları (----, ==== vb.)
+  // ele — mobil tefsir ekranıyla (tafsir/[surahId].tsx) aynı mantık.
+  const paragraphs = useMemo(() => {
+    if (!displayedText) return [];
+    return displayedText
+      .split(/\n{2,}/)
+      .map((p) => p.trim())
+      .filter((p) => p.length > 0 && !/^[-_=*\s]+$/.test(p));
+  }, [displayedText]);
 
   return (
     <div className="rounded-md border border-stone-200 bg-white shadow-sm">
@@ -117,15 +127,23 @@ export function SurahAboutAccordion({
             </div>
           )}
 
-          {!loading && displayedText != null && displayedText.length > 0 && (
-            <p className="whitespace-pre-line text-sm leading-7 text-stone-700">{displayedText}</p>
+          {!loading && paragraphs.length > 0 && (
+            <div className="space-y-3.5">
+              {paragraphs.map((p, i) => (
+                <p key={i} className="text-sm leading-7 text-stone-700">{p}</p>
+              ))}
+            </div>
           )}
 
-          {!loading && displayedText !== null && displayedText.length === 0 && (
+          {!loading && displayedText !== null && paragraphs.length === 0 && (
             <p className="text-sm text-stone-400">Tefsir metni bulunamadı.</p>
           )}
 
-          <p className="mt-4 text-xs text-stone-400">Kaynak: Elmalılı Hamdi Yazır Tefsiri</p>
+          <p className="mt-4 text-xs text-stone-400">
+            {mode === "simplified"
+              ? "Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir."
+              : "Kaynak: Elmalılı Hamdi Yazır"}
+          </p>
         </div>
       )}
     </div>
