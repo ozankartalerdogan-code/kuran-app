@@ -173,7 +173,7 @@ export default function SurahDetailScreen() {
 
 if (loading) {
     return (
-      <View style={[styles.centered, { alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 12 }]}>
+      <View style={[styles.centered, { backgroundColor: c.bg, alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 12 }]}>
         <Stack.Screen options={{ title: "Sure" }} />
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
@@ -182,7 +182,7 @@ if (loading) {
 
   if (error || !data) {
     return (
-      <View style={styles.centered}>
+      <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title: "Sure" }} />
         <Text style={styles.errorText}>{error ?? "Veri yüklenemedi."}</Text>
       </View>

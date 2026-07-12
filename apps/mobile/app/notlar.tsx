@@ -199,7 +199,9 @@ const styles = StyleSheet.create({
   emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },
   goBtn:           { backgroundColor: "#b45309", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10, marginTop: 6 },
   goBtnText:       { color: "#fff", fontWeight: "700", fontSize: 14 },
-  list:            { padding: 12, paddingBottom: 32, backgroundColor: "#f5f0e8" },
+  // Arka plan bilinçli YOK: Stack contentStyle (c.bg) görünür — gece modunda
+  // sabit krem kalmasın (boş/hata durumları zaten c.bg override'ı kullanıyor).
+  list:            { padding: 12, paddingBottom: 32 },
   headerWrap:      { marginBottom: 10 },
   listHeader:      { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   noteCount:       { fontSize: 13, color: "#78716c", fontWeight: "500" },

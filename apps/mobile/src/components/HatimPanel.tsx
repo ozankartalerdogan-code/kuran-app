@@ -48,7 +48,16 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
     if (!visible) return;
     let isMounted = true;
     storage.getString(STORAGE_KEYS.hatimTracking)
-      .then((v) => { if (isMounted) setStore(parseHatimStore(v)); })
+      .then((v) => {
+        if (!isMounted) return;
+        const parsed = parseHatimStore(v);
+        // Kutlama yalnız panel AÇIKKEN 29→30 geçişinde oynasın. prevProgress 0'dan
+        // başlarsa, tamamlanmış hatimle her açılışta (uygulama yeniden başlayınca)
+        // kutlama tekrar patlar — yüklenen ilerlemeyle tohumla.
+        prevProgress.current =
+          parsed.hatims.find((h) => h.id === parsed.currentId)?.readJuz.length ?? 0;
+        setStore(parsed);
+      })
       .catch(() => { if (isMounted) setStore(EMPTY_HATIM_STORE); })
       .finally(() => { if (isMounted) setMounted(true); });
     return () => { isMounted = false; };
