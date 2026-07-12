@@ -6,6 +6,17 @@ import type { RootItem } from "../../types/root";
 
 type SortKey = "alphabetical" | "frequency" | "meaning";
 
+// Arapça arama normalizasyonu (mobil ile aynı): hemze/elif varyantları, elif
+// maksura, te marbuta ve harekeleri sadeleştir → "اله" yazınca "أله" de bulunur.
+function normalizeArabic(value: string): string {
+  return value
+    .replace(/[أإآٱ]/g, "ا") // أ إ آ ٱ → ا
+    .replace(/ى/g, "ي")      // ى → ي
+    .replace(/ة/g, "ه")      // ة → ه
+    .replace(/[ً-ٰٟ]/g, "")   // harekeler
+    .trim();
+}
+
 interface Props {
   roots: RootItem[];
 }
@@ -21,9 +32,10 @@ export default function RootListClient({ roots }: Props) {
     let list = [...roots];
 
     if (normalizedSearch) {
+      const arQuery = normalizeArabic(search.trim());
       list = list.filter(
         (r) =>
-          r.root.includes(search.trim()) ||
+          (arQuery && normalizeArabic(r.root).includes(arQuery)) ||
           r.meaning_tr.toLocaleLowerCase("tr-TR").includes(normalizedSearch)
       );
     }

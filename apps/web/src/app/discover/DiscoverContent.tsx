@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
 import {
   Sparkles, Orbit, Moon, HandHeart, Brain, Scale,
-  Star, Gem, Globe, BookOpen, Scroll, Shield, MoonStar, LayoutGrid,
+  Star, Gem, Globe, BookOpen, Scroll, Shield, MoonStar, LayoutGrid, Sprout,
   type LucideIcon,
 } from "lucide-react";
 
@@ -384,6 +384,28 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                   </div>
                   <svg
                     className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-violet-400 dark:text-stone-600"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/root"
+                  className="group flex items-start gap-3.5 rounded-xl border border-stone-200 bg-white px-4 py-3.5 shadow-sm transition-all hover:border-gold-200 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-gold-700"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-50 dark:bg-gold-900/30">
+                    <Sprout aria-hidden="true" className="h-5 w-5 text-gold-700 dark:text-gold-300" strokeWidth={1.75} />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-gold-700 dark:text-stone-100 dark:group-hover:text-gold-400">
+                      Kelime Kökleri
+                    </p>
+                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                      En sık geçen 200 Arapça kök — anlamları, sure dağılımı ve türevleri
+                    </p>
+                  </div>
+                  <svg
+                    className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition-colors group-hover:text-gold-400 dark:text-stone-600"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

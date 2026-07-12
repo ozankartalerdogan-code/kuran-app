@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import {
   BookOpen, BookMarked, GraduationCap, BookmarkCheck,
-  Heart, NotebookPen, Compass, Menu, X,
+  Heart, NotebookPen, Compass, Menu, X, Sprout,
   type LucideIcon,
 } from "lucide-react";
 import { NightModeToggle } from "./NightModeToggle";
@@ -28,6 +28,7 @@ const NAV_LINKS: { href: string; label: string; icon: LucideIcon; accent?: boole
   { href: "/surah",        label: "Tüm Sureler", icon: BookOpen },
   { href: "/mushaf-sayfa", label: "Mushaf",      icon: BookMarked },
   { href: "/ogren",        label: "Konular",     icon: GraduationCap },
+  { href: "/root",         label: "Kökler",      icon: Sprout },
   { href: "/hatim",        label: "Hatim",       icon: BookmarkCheck },
   { href: "/favoriler",    label: "Favoriler",   icon: Heart },
   { href: "/notlarim",     label: "Notlarım",    icon: NotebookPen },
@@ -39,6 +40,7 @@ const DESKTOP_LEFT_LINKS = [
   { href: "/surah",        label: "Sureler" },
   { href: "/mushaf-sayfa", label: "Mushaf" },
   { href: "/ogren",        label: "Konular" },
+  { href: "/root",         label: "Kökler" },
 ];
 
 /** Marka işareti: lacivert kutu içinde altın kitap — hero/footer ile aynı kimlik */
