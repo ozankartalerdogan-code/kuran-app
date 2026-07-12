@@ -82,7 +82,9 @@ module.exports = {
       [
         'expo-notifications',
         {
-          icon: './assets/icon.png',
+          // Durum çubuğu ikonu: Android yalnız ALFA kanalını kullanır — beyaz/şeffaf
+          // monokrom olmalı. Opak icon.png beyaz kare olarak görünüyordu.
+          icon: './assets/notification-icon.png',
           color: '#059669',
           sounds: [],
         },
