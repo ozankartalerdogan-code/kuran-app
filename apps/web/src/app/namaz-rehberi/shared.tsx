@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Info, TriangleAlert, ChevronDown, type LucideIcon } from "lucide-react";
 import { getDevotionalSourceLabel, getEvidenceLabel } from "../../lib/sourceLabels";
 
 export type Durum = "farz" | "vacip" | "sunnet" | string;
@@ -56,15 +57,17 @@ export function DuaBlock({
 }
 
 export function Note({ children, tone = "info" }: { children: React.ReactNode; tone?: "info" | "warn" }) {
+  const Ikon = tone === "warn" ? TriangleAlert : Info;
   return (
     <p
-      className={`mt-2 rounded-md p-2.5 text-xs leading-relaxed ${
+      className={`mt-2 flex items-start gap-2 rounded-md p-2.5 text-xs leading-relaxed ${
         tone === "warn"
           ? "border border-orange-200 bg-orange-50 text-orange-800 dark:border-orange-800/40 dark:bg-orange-950/30 dark:text-orange-300"
           : "bg-stone-100 text-stone-600 dark:bg-stone-800/60 dark:text-stone-400"
       }`}
     >
-      {children}
+      <Ikon aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" strokeWidth={2} />
+      <span className="min-w-0">{children}</span>
     </p>
   );
 }
@@ -82,9 +85,9 @@ export function Bullets({ items }: { items: string[] }) {
 }
 
 export function Section({
-  emoji, title, children, defaultOpen = false,
+  ikon: Ikon, title, children, defaultOpen = false,
 }: {
-  emoji: string; title: string; children: React.ReactNode; defaultOpen?: boolean;
+  ikon: LucideIcon; title: string; children: React.ReactNode; defaultOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
@@ -95,9 +98,15 @@ export function Section({
         aria-expanded={open}
         className="flex w-full items-center gap-2.5 bg-white px-4 py-3.5 text-left transition-colors hover:bg-stone-50 dark:bg-stone-800/40 dark:hover:bg-stone-800"
       >
-        <span className="text-lg leading-none">{emoji}</span>
+        <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-navy-50 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
+          <Ikon className="h-4 w-4" strokeWidth={1.75} />
+        </span>
         <span className="flex-1 text-sm font-bold text-stone-900 dark:text-stone-50">{title}</span>
-        <span className="text-xs text-stone-400">{open ? "▲" : "▼"}</span>
+        <ChevronDown
+          aria-hidden="true"
+          className={`h-4 w-4 shrink-0 text-stone-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          strokeWidth={2}
+        />
       </button>
       {open && <div className="border-t border-stone-100 bg-white px-4 py-4 dark:border-stone-800 dark:bg-stone-800/20">{children}</div>}
     </div>

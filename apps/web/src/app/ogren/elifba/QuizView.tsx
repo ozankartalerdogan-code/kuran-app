@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Trophy, PartyPopper, ThumbsUp, Dumbbell, BookOpen, type LucideIcon } from "lucide-react";
 
 type QuizSoru = {
   quiz_id: number;
@@ -26,20 +27,22 @@ function ScoreScreen({
   onBack: () => void;
 }) {
   const pct = total > 0 ? Math.round((score / total) * 100) : 0;
-  const rating =
+  const rating: { ikon: LucideIcon; label: string } =
     pct === 100
-      ? { emoji: "🌟", label: "Mükemmel!" }
+      ? { ikon: Trophy,      label: "Mükemmel!" }
       : pct >= 80
-        ? { emoji: "🎉", label: "Harika!" }
+        ? { ikon: PartyPopper, label: "Harika!" }
         : pct >= 60
-          ? { emoji: "👍", label: "İyi!" }
+          ? { ikon: ThumbsUp,  label: "İyi!" }
           : pct >= 40
-            ? { emoji: "💪", label: "Devam et!" }
-            : { emoji: "📚", label: "Tekrar çalış!" };
+            ? { ikon: Dumbbell, label: "Devam et!" }
+            : { ikon: BookOpen, label: "Tekrar çalış!" };
 
   return (
     <div className="flex flex-col items-center gap-6 py-8 text-center">
-      <span className="text-7xl leading-none">{rating.emoji}</span>
+      <span aria-hidden="true" className="flex h-24 w-24 items-center justify-center rounded-full bg-gold-100 text-gold-600 dark:bg-gold-900/40 dark:text-gold-300">
+        <rating.ikon className="h-12 w-12" strokeWidth={1.5} />
+      </span>
       <div>
         <p className="text-2xl font-bold text-stone-900 dark:text-stone-50">
           {rating.label}
@@ -270,7 +273,7 @@ export function QuizView({
       {/* İpucu (yanlış cevapta) */}
       {answered && !isCorrect && soru.ipucu && (
         <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800 dark:border-gold-800/50 dark:bg-gold-900/20 dark:text-gold-300">
-          <span className="mr-1.5 font-semibold">💡 İpucu:</span>
+          <span className="mr-1.5 font-semibold">İpucu:</span>
           {soru.ipucu}
         </div>
       )}

@@ -3,6 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
+  BadgeCheck, MoonStar, Moon, HandCoins, Landmark, Sparkles, Feather,
+  BookOpen, Sprout, Scale, Waves, Droplets, ShowerHead, Mountain,
+  Sunrise, Sun, CloudSun, Sunset, Star, PawPrint,
+  type LucideIcon,
+} from "lucide-react";
+import {
   ISLAM_SARTLARI, IMAN_SARTLARI,
   NAMAZ_VAKİTLERİ, NAMAZ_MADDELERİ,
   ORUC_MADDELERİ, ORUC_AYETLERİ,
@@ -29,6 +35,23 @@ const TIP_ETİKET: Record<string, string> = {
   sunnet:   "Sünnet",
   mustahap: "Müstahap",
   info:     "Bilgi",
+};
+
+// ── İkon eşlemeleri (id/ad → lucide) ──────────────────────────────────────────
+// Veri dosyasındaki emoji ikonlar platformlar arası tutarsız render ediliyordu;
+// görsel dil marka ikon setine (lucide) bağlandı.
+
+const INANC_IKON: Record<string, LucideIcon> = {
+  sehadet: BadgeCheck, namaz: MoonStar, oruc: Moon, zekat: HandCoins, hac: Landmark,
+  allah: Sparkles, melek: Feather, kitap: BookOpen, peygamber: Sprout, ahiret: Scale, kader: Waves,
+};
+
+const ABDEST_IKON: Record<string, LucideIcon> = {
+  "namaz-abdesti": Droplets, gusul: ShowerHead, teyemmum: Mountain,
+};
+
+const VAKIT_IKON: Record<string, LucideIcon> = {
+  Sabah: Sunrise, "Öğle": Sun, "İkindi": CloudSun, "Akşam": Sunset, "Yatsı": Moon,
 };
 
 // ── Abdest renk haritası ──────────────────────────────────────────────────────
@@ -88,8 +111,8 @@ function MaddeListesi({ maddeler }: { maddeler: Madde[] }) {
 
 // ── Ortak: Akordeon wrapper ───────────────────────────────────────────────────
 
-function Akordeon({ baslik, altBaslik, ikon, headerCls, chevronCls, defaultAcik = false, children }: {
-  baslik: string; altBaslik?: string; ikon: string;
+function Akordeon({ baslik, altBaslik, ikon: Ikon, headerCls, chevronCls, defaultAcik = false, children }: {
+  baslik: string; altBaslik?: string; ikon: LucideIcon;
   headerCls: string; chevronCls: string;
   defaultAcik?: boolean; children: React.ReactNode;
 }) {
@@ -101,7 +124,7 @@ function Akordeon({ baslik, altBaslik, ikon, headerCls, chevronCls, defaultAcik 
         className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:brightness-95"
         aria-expanded={acik}
       >
-        <span className="text-xl">{ikon}</span>
+        <Ikon aria-hidden="true" className="h-5 w-5 shrink-0 text-stone-600 dark:text-stone-300" strokeWidth={1.75} />
         <div className="min-w-0 flex-1">
           <p className="text-sm font-bold text-stone-800 dark:text-stone-100">{baslik}</p>
           {altBaslik && <p className="text-[11px] text-stone-400">{altBaslik}</p>}
@@ -132,7 +155,7 @@ function InancKarti({ sart, renk }: { sart: InancSarti; renk: "yesil" | "mavi" }
   const chevronCls = isYesil ? "text-navy-500" : "text-sky-500";
 
   return (
-    <Akordeon baslik={sart.baslik} altBaslik={`${sart.ayetler.length} referans ayet`} ikon={sart.ikon} headerCls={headerCls} chevronCls={chevronCls}>
+    <Akordeon baslik={sart.baslik} altBaslik={`${sart.ayetler.length} referans ayet`} ikon={INANC_IKON[sart.id] ?? Star} headerCls={headerCls} chevronCls={chevronCls}>
       <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-400">{sart.aciklama}</p>
       <AyetListesi ayetler={sart.ayetler} badgeCls={badgeCls} bgCls={ayetBg} txtCls={ayetTxt} />
     </Akordeon>
@@ -196,7 +219,11 @@ function NamazTablosu() {
               <tr key={v.vakit} className="border-b border-stone-100 last:border-0 dark:border-stone-800">
                 <td className="py-2.5 pr-3">
                   <span className="flex items-center gap-1.5 font-semibold text-stone-700 dark:text-stone-200">
-                    <span>{v.ikon}</span>{v.vakit}
+                    {(() => {
+                      const VIkon = VAKIT_IKON[v.vakit] ?? Sun;
+                      return <VIkon aria-hidden="true" className="h-3.5 w-3.5 text-stone-400" strokeWidth={2} />;
+                    })()}
+                    {v.vakit}
                   </span>
                 </td>
                 <td className="py-2.5 px-2 text-center text-stone-500">{v.ilkSunnet > 0 ? v.ilkSunnet : "—"}</td>
@@ -225,7 +252,7 @@ function NamazTablosu() {
 function IbadetlerTabu() {
   return (
     <div className="space-y-2">
-      <Akordeon baslik="Namaz (Salât)" altBaslik="5 vakit · rekat tablosu · farz/sünnet" ikon="🕌"
+      <Akordeon baslik="Namaz (Salât)" altBaslik="5 vakit · rekat tablosu · farz/sünnet" ikon={MoonStar}
         headerCls="border-navy-200 bg-navy-50 dark:border-navy-800/40 dark:bg-navy-950/30"
         chevronCls="text-navy-500">
         <NamazTablosu />
@@ -246,7 +273,7 @@ function IbadetlerTabu() {
         </Link>
       </Akordeon>
 
-      <Akordeon baslik="Oruç (Savm)" altBaslik="Ramazan · farz/sünnet · kefaret" ikon="🌙"
+      <Akordeon baslik="Oruç (Savm)" altBaslik="Ramazan · farz/sünnet · kefaret" ikon={Moon}
         headerCls="border-gold-200 bg-gold-50 dark:border-gold-800/40 dark:bg-gold-950/30"
         chevronCls="text-gold-500">
         <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
@@ -260,7 +287,7 @@ function IbadetlerTabu() {
         />
       </Akordeon>
 
-      <Akordeon baslik="Zekât" altBaslik="Nisap · %2,5 · 8 sınıf" ikon="💛"
+      <Akordeon baslik="Zekât" altBaslik="Nisap · %2,5 · 8 sınıf" ikon={HandCoins}
         headerCls="border-yellow-200 bg-yellow-50 dark:border-yellow-800/40 dark:bg-yellow-950/30"
         chevronCls="text-yellow-500">
         <div className="space-y-4">
@@ -301,7 +328,7 @@ function IbadetlerTabu() {
         </div>
       </Akordeon>
 
-      <Akordeon baslik="Hac" altBaslik="Farz · vacip · sünnet adımlar" ikon="🕋"
+      <Akordeon baslik="Hac" altBaslik="Farz · vacip · sünnet adımlar" ikon={Landmark}
         headerCls="border-stone-300 bg-stone-50 dark:border-stone-600 dark:bg-stone-800/50"
         chevronCls="text-stone-500">
         <div className="space-y-4">
@@ -326,7 +353,7 @@ function IbadetlerTabu() {
         </div>
       </Akordeon>
 
-      <Akordeon baslik="Kurban" altBaslik="Hüküm · hayvan şartları · pay" ikon="🐑"
+      <Akordeon baslik="Kurban" altBaslik="Hüküm · hayvan şartları · pay" ikon={PawPrint}
         headerCls="border-rose-200 bg-rose-50 dark:border-rose-800/40 dark:bg-rose-950/30"
         chevronCls="text-rose-500">
         <MaddeListesi maddeler={KURBAN_MADDELERİ} />
@@ -374,7 +401,7 @@ function AbdestTablosu({ satirlar, miktarBg }: { satirlar: { organ: string; mikt
 function AbdestAkordeonItem({ bolum }: { bolum: AbdestBolumu }) {
   const r = ABDEST_RENK[bolum.renk];
   return (
-    <Akordeon baslik={bolum.baslik} altBaslik={bolum.altBaslik} ikon={bolum.ikon} headerCls={r.header} chevronCls={r.chevron}>
+    <Akordeon baslik={bolum.baslik} altBaslik={bolum.altBaslik} ikon={ABDEST_IKON[bolum.id] ?? Droplets} headerCls={r.header} chevronCls={r.chevron}>
       <p className="text-xs leading-relaxed text-stone-600 dark:text-stone-400">{bolum.aciklama}</p>
       <div>
         <p className={`mb-2 text-[11px] font-bold uppercase tracking-wider ${r.ayetTxt}`}>Farzlar ({bolum.farzlar.length})</p>
@@ -401,10 +428,10 @@ function AbdestTabu() {
 
 type Tab = "inanc" | "ibadetler" | "abdest";
 
-const TABS: { id: Tab; baslik: string; ikon: string }[] = [
-  { id: "inanc",    baslik: "İnanç Esasları", ikon: "📿" },
-  { id: "ibadetler",baslik: "İbadetler",      ikon: "🕌" },
-  { id: "abdest",   baslik: "Abdest",         ikon: "💧" },
+const TABS: { id: Tab; baslik: string; ikon: LucideIcon }[] = [
+  { id: "inanc",    baslik: "İnanç Esasları", ikon: Star },
+  { id: "ibadetler",baslik: "İbadetler",      ikon: MoonStar },
+  { id: "abdest",   baslik: "Abdest",         ikon: Droplets },
 ];
 
 export function IbadetRehberiClient() {
@@ -436,7 +463,7 @@ export function IbadetRehberiClient() {
                   : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
               }`}
             >
-              <span>{t.ikon}</span>
+              <t.ikon aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />
               <span className="hidden sm:inline">{t.baslik}</span>
               <span className="sm:hidden">{t.baslik.split(" ")[0]}</span>
             </button>

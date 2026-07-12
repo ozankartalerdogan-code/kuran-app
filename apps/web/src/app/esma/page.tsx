@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Sparkles } from "lucide-react";
 import { EsmaList } from "./EsmaList";
 import { PageHeader } from "../../components/PageHeader";
 
@@ -17,9 +18,9 @@ export const metadata: Metadata = {
 
 export default function EsmaPage() {
   return (
-    <main className="mx-auto max-w-2xl px-4 py-8">
+    <main className="mx-auto max-w-2xl px-4 py-10">
       <PageHeader
-        icon="📿"
+        icon={Sparkles}
         title="Esmaül Hüsna"
         description="Allah'ın 99 güzel ismi — Arapça yazılışı, okunuşu, anlamı ve her ismin kök (etimolojik) anlamıyla."
       />

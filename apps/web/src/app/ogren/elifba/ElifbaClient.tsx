@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
+import { Star, Play, Lock, Trophy, BookOpen, Brain } from "lucide-react";
 import { QuizView } from "./QuizView";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -493,7 +494,7 @@ function LessonPopup({
         {/* Quiz score */}
         {hasQuiz && quizScore && (
           <div className="mb-3 flex items-center gap-2 rounded-lg bg-navy-50 px-3 py-2 text-sm dark:bg-navy-900/20">
-            <span>🧠</span>
+            <Brain aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
             <span className="text-navy-700 dark:text-navy-300">
               Test: {quizScore.score}/{quizScore.total}
               {quizScore.score >= QUIZ_PASS
@@ -504,14 +505,14 @@ function LessonPopup({
         )}
         {hasQuiz && !quizScore && status !== "locked" && (
           <div className="mb-3 rounded-lg bg-gold-50 px-3 py-2 text-xs text-gold-700 dark:bg-gold-900/20 dark:text-gold-300">
-            💡 Bu dersi açmak için teste gir ve en az {QUIZ_PASS}/15 al.
+            Bu dersi açmak için teste gir ve en az {QUIZ_PASS}/15 al.
           </div>
         )}
 
         {/* Locked notice */}
         {status === "locked" && (
           <div className="mb-3 rounded-lg bg-stone-50 px-3 py-2 text-xs text-stone-500 dark:bg-stone-800 dark:text-stone-400">
-            🔒 Önceki dersi tamamla
+            Önceki dersi tamamla
           </div>
         )}
 
@@ -522,14 +523,14 @@ function LessonPopup({
               onClick={onFlashcard}
               className="rounded-xl bg-navy-500 py-2.5 text-sm font-semibold text-white transition-all hover:bg-navy-600"
             >
-              📇 Kartlar
+              Kartlar
             </button>
             {hasQuiz && (
               <button
                 onClick={onQuiz}
                 className="rounded-xl bg-navy-600 py-2.5 text-sm font-semibold text-white transition-all hover:bg-navy-700"
               >
-                🧠 Test
+                Test
               </button>
             )}
           </div>
@@ -605,11 +606,11 @@ function PathNode({
 
         {/* Icon */}
         {status === "completed" ? (
-          <span className="relative z-10 text-xl leading-none">⭐</span>
+          <Star aria-hidden="true" className="relative z-10 h-5 w-5 fill-current" strokeWidth={1.5} />
         ) : status === "active" ? (
-          <span className="relative z-10 text-base font-bold">▶</span>
+          <Play aria-hidden="true" className="relative z-10 h-4 w-4 fill-current" strokeWidth={2} />
         ) : (
-          <span className="relative z-10 text-base leading-none">🔒</span>
+          <Lock aria-hidden="true" className="relative z-10 h-4 w-4" strokeWidth={2} />
         )}
 
         {/* Ping ring for active */}
@@ -741,7 +742,7 @@ function OverallProgress({
     <div className="mb-8 rounded-2xl border border-stone-200 bg-white px-5 py-4 dark:border-stone-700 dark:bg-stone-900">
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="text-lg leading-none">🏆</span>
+          <Trophy aria-hidden="true" className="h-4 w-4 text-gold-500" strokeWidth={2} />
           <span className="text-sm font-bold text-stone-800 dark:text-stone-100">
             İlerleme
           </span>
@@ -758,7 +759,7 @@ function OverallProgress({
       </div>
       {pct === 100 && (
         <p className="mt-2 text-center text-xs font-bold text-navy-600 dark:text-navy-400">
-          🎉 Tüm dersler tamamlandı!
+          Tüm dersler tamamlandı!
         </p>
       )}
     </div>
@@ -914,7 +915,9 @@ export function ElifbaClient({ dersler }: { dersler: DersWithHarfler[] }) {
       {/* Hero */}
       <div className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
         <div className="mb-1 flex items-center gap-2.5">
-          <span className="text-2xl leading-none">📖</span>
+          <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
+            <BookOpen className="h-5 w-5" strokeWidth={1.75} />
+          </span>
           <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
             Elif-Ba Öğren
           </h1>

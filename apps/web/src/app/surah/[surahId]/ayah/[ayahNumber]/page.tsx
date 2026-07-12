@@ -20,6 +20,7 @@ import type {
 } from "@quran-app/types";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { BookOpen } from "lucide-react";
 import {
   buildUnavailableSemanticSummary,
   type SelectedSemanticProviderSummary
@@ -568,7 +569,7 @@ function EmptyState({ children = "Veri yok" }: { children?: ReactNode }) {
 
 function ErrorState({ message }: { message: string }) {
   return (
-    <main className="min-h-screen px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 text-stone-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <SectionCard title="Geçersiz ayet adresi" status="missing">
           <EmptyState>{message}</EmptyState>
@@ -1395,7 +1396,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   ];
 
   return (
-    <main className="min-h-screen px-4 py-8 text-stone-950 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 text-stone-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
         <header className="rounded-2xl border border-stone-200 bg-white p-6 shadow-card">
           <nav aria-label="İçerik yolu" className="mb-3 flex items-center gap-1.5 text-xs text-stone-500">
@@ -1545,7 +1546,7 @@ export default async function Page({ params, searchParams }: PageProps) {
               href={`/mushaf-sayfa/${ayetinSayfasi(surahId, ayahNumber)}`}
               className="flex items-center gap-1.5 rounded-lg border border-gold-300 bg-gold-50 px-3 py-1.5 text-sm font-medium text-gold-800 shadow-sm transition-colors hover:bg-gold-100 dark:border-gold-700 dark:bg-gold-950/30 dark:text-gold-400"
             >
-              <span aria-hidden="true">📖</span> Mushafta Aç
+              <BookOpen aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} /> Mushafta Aç
             </Link>
           </div>
         </section>

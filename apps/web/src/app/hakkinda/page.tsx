@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BookOpen, Microscope, ChevronRight, type LucideIcon } from "lucide-react";
 
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 const TANZIL_URL = "https://tanzil.net/";
@@ -19,7 +20,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function SourceCard({ icon, title, url }: { icon: string; title: string; url: string }) {
+function SourceCard({ icon: Icon, title, url }: { icon: LucideIcon; title: string; url: string }) {
   return (
     <a
       href={url}
@@ -27,12 +28,17 @@ function SourceCard({ icon, title, url }: { icon: string; title: string; url: st
       rel="noopener noreferrer"
       className="flex items-center gap-3 rounded-xl border border-stone-200 bg-white p-4 transition-colors hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800"
     >
-      <span className="text-2xl leading-none">{icon}</span>
+      <span
+        aria-hidden="true"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300"
+      >
+        <Icon className="h-5 w-5" strokeWidth={1.75} />
+      </span>
       <span className="min-w-0 flex-1">
         <span className="block text-sm font-semibold text-stone-900 dark:text-stone-50">{title}</span>
         <span className="block truncate text-xs text-stone-500 dark:text-stone-400">{url}</span>
       </span>
-      <span className="text-stone-300 dark:text-stone-600">›</span>
+      <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-stone-300 dark:text-stone-600" strokeWidth={2} />
     </a>
   );
 }
@@ -53,11 +59,11 @@ export default function HakkindaPage() {
         </header>
 
         <Section title="Tanzil Quran Text">
-          <SourceCard icon="🕌" title="Tanzil Quran Text" url={TANZIL_URL} />
+          <SourceCard icon={BookOpen} title="Tanzil Quran Text" url={TANZIL_URL} />
         </Section>
 
         <Section title="Quranic Arabic Corpus">
-          <SourceCard icon="🔬" title="Quranic Arabic Corpus" url={QAC_URL} />
+          <SourceCard icon={Microscope} title="Quranic Arabic Corpus" url={QAC_URL} />
         </Section>
 
         <section className="mt-8 border-y border-stone-200 py-5 dark:border-stone-700">

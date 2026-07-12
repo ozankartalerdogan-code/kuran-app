@@ -1,6 +1,6 @@
 export default function RootDetailLoading() {
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="animate-pulse">
         {/* Header skeleton */}
         <div className="mb-6 flex flex-col items-center gap-3">

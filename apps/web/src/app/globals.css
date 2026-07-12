@@ -56,11 +56,98 @@ body {
   min-height: 100vh;
   background: #f7f1e4;
   color: #1f1a17;
-  /* UI = sans (tailwind theme.sans); Arapça = Amiri ([lang="ar"] kuralı) */
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  /* UI = Figtree (next/font --font-sans); Arapça = Amiri ([lang="ar"] kuralı) */
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Sayfa geçişi + skeleton shimmer + kademeli kart girişi
+   prefers-reduced-motion'a saygılı: animasyonlar yalnızca izin varsa oynar.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Rota geçişinde içerik yumuşak girer (template.tsx her gezinmede mount olur) */
+  .page-enter {
+    animation: page-enter 220ms ease-out both;
+  }
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Skeleton'larda soldan sağa hafif parıltı */
+  .skeleton-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent
+    );
+    transform: translateX(-100%);
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  }
+
+  html.night-mode .skeleton-shimmer::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.06),
+      transparent
+    );
+  }
+
+  @keyframes skeleton-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Kart grid'lerinde kademeli giriş: ilk 12 çocuk sırayla belirir */
+  .stagger-children > * {
+    animation: stagger-in 320ms ease-out backwards;
+  }
+
+  .stagger-children > *:nth-child(1)  { animation-delay: 30ms; }
+  .stagger-children > *:nth-child(2)  { animation-delay: 60ms; }
+  .stagger-children > *:nth-child(3)  { animation-delay: 90ms; }
+  .stagger-children > *:nth-child(4)  { animation-delay: 120ms; }
+  .stagger-children > *:nth-child(5)  { animation-delay: 150ms; }
+  .stagger-children > *:nth-child(6)  { animation-delay: 180ms; }
+  .stagger-children > *:nth-child(7)  { animation-delay: 210ms; }
+  .stagger-children > *:nth-child(8)  { animation-delay: 240ms; }
+  .stagger-children > *:nth-child(9)  { animation-delay: 270ms; }
+  .stagger-children > *:nth-child(10) { animation-delay: 300ms; }
+  .stagger-children > *:nth-child(11) { animation-delay: 330ms; }
+  .stagger-children > *:nth-child(12) { animation-delay: 360ms; }
+
+  @keyframes stagger-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 /* Marka dokunuşu: metin seçimi altın, klavye odağı lacivert */
@@ -83,98 +170,101 @@ body {
 
 /* Zemin ve varsayılan renk */
 html.night-mode body {
-  background-color: #070707 !important;
-  color: #909090 !important;
+  background-color: #0a0d14 !important; /* nötr siyah değil, laciverte çalan koyu */
+  color: #98a0ad !important;
 }
 
 /* Navbar */
 html.night-mode nav {
-  background-color: #0c0c0c !important;
-  border-color: #1a1a1a !important;
+  background-color: #0b0f17 !important;
+  border-color: #1c2231 !important;
 }
 
 /* Sayfa ana alanı */
 html.night-mode main {
-  background-color: #070707 !important;
+  background-color: #0a0d14 !important;
 }
 
 /* ── Arka plan rengi geçersizleştirmeleri ─────────────────────────── */
 
 html.night-mode .bg-white {
-  background-color: #101010 !important;
+  background-color: #10141d !important;
 }
 
 html.night-mode .bg-stone-50 {
-  background-color: #090909 !important;
+  background-color: #0c0f16 !important;
 }
 
 html.night-mode .bg-stone-100 {
-  background-color: #0a0a0a !important;
+  background-color: #0e1219 !important;
 }
 
 html.night-mode .bg-amber-50 {
-  background-color: #080808 !important;
+  background-color: #15110a !important; /* altın tonu hissedilir */
 }
 
 /* Marka paleti (navy/gold) açık zeminleri gece modunda koyulaşır */
 html.night-mode .bg-navy-50,
-html.night-mode .bg-navy-100,
+html.night-mode .bg-navy-100 {
+  background-color: #0e1420 !important; /* lacivert tint */
+}
+
 html.night-mode .bg-gold-50,
 html.night-mode .bg-gold-100 {
-  background-color: #080808 !important;
+  background-color: #15110a !important; /* altın tint */
 }
 
 html.night-mode .bg-navy-950,
 html.night-mode .bg-navy-900 {
-  background-color: #060606 !important;
+  background-color: #090c12 !important;
 }
 
 html.night-mode .bg-teal-50 {
-  background-color: #080808 !important;
+  background-color: #0c1114 !important;
 }
 
 html.night-mode .bg-sky-50 {
-  background-color: #080808 !important;
+  background-color: #0b1017 !important;
 }
 
 html.night-mode .bg-emerald-50 {
-  background-color: #080808 !important;
+  background-color: #0b1210 !important;
 }
 
 /* dark: ile gelen koyu kartlar — daha da koyulaştır */
 html.night-mode .bg-stone-800 {
-  background-color: #0e0e0e !important;
+  background-color: #12161f !important;
 }
 
 html.night-mode .bg-stone-900 {
-  background-color: #080808 !important;
+  background-color: #0c0f16 !important;
 }
 
 /* Belirli bileşen arka planları */
 html.night-mode .bg-stone-950 {
-  background-color: #050505 !important;
+  background-color: #080b10 !important;
 }
 
 /* ── Kenarlıklar ──────────────────────────────────────────────────── */
 
 html.night-mode .border-stone-100 {
-  border-color: #161616 !important;
+  border-color: #181d28 !important;
 }
 
 html.night-mode .border-stone-200 {
-  border-color: #1c1c1c !important;
+  border-color: #1e2431 !important;
 }
 
 html.night-mode .border-stone-300 {
-  border-color: #222 !important;
+  border-color: #262d3c !important;
 }
 
 html.night-mode .border-stone-700 {
-  border-color: #1a1a1a !important;
+  border-color: #1b212e !important;
 }
 
 html.night-mode .border-stone-800 {
-  border-color: #161616 !important;
+  border-color: #171c27 !important;
 }
 
 /* ── Metin renkleri — göz yormayan düşük kontrast ─────────────────── */

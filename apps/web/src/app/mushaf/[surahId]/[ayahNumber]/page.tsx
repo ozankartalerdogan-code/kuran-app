@@ -123,7 +123,7 @@ export default async function MushafPage({ params }: PageProps) {
           </div>
 
           <NavButton href={`/mushaf-sayfa/${ayetinSayfasi(surahId, ayahNumber)}`}>
-            📖 Sayfa Görünümü
+            Sayfa Görünümü
           </NavButton>
         </nav>
 

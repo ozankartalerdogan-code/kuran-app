@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { MoonStar } from "lucide-react";
 import { GuideTab } from "./GuideTab";
 import { OzelNamazlarTab } from "./OzelNamazlarTab";
 
@@ -16,11 +17,13 @@ export function NamazRehberiClient() {
   const [tab, setTab] = useState<TabId>("rehber");
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700/60">
           <div className="mb-2 flex items-center gap-2.5">
-            <span className="text-2xl leading-none">🕌</span>
+            <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
+              <MoonStar className="h-5 w-5" strokeWidth={1.75} />
+            </span>
             <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Namaz Rehberi</h1>
           </div>
           <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">

@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Search } from "lucide-react";
 import { dbAll } from "../../lib/dbUtils";
 import { PageHeader } from "../../components/PageHeader";
 
@@ -66,10 +67,10 @@ export default async function AramaPage({ searchParams }: PageProps) {
     : { surahMatch: null, results: [] };
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
         <PageHeader
-          icon="🔍"
+          icon={Search}
           title={q ? `Arama: ${q}` : "Arama"}
           description={q ? undefined : "Arama yapmak için arama kutusuna kelime yazın ve Enter'a basın."}
         />

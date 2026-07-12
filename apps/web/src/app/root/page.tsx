@@ -38,7 +38,7 @@ export default async function RootIndexPage() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <h1 className="mb-1 text-center text-2xl font-semibold text-stone-900 dark:text-stone-100">
         Kelime Kökleri
       </h1>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { SunMoon, Clock, ClipboardList, Brain } from "lucide-react";
 import {
   HARF_I_TARIF_DERSI,
   type HarfTarifBolum,
@@ -13,7 +14,7 @@ const TIP_CLS = {
   semsiye: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300",
   kameriye: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300",
 } as const;
-const TIP_LABEL = { semsiye: "☀️ Şemsiye", kameriye: "🌙 Kameriye" } as const;
+const TIP_LABEL = { semsiye: "Şemsiye", kameriye: "Kameriye" } as const;
 
 function SectionShell({ id, baslik, alt, children }: { id?: string; baslik: string; alt?: string; children: React.ReactNode }) {
   return (
@@ -124,7 +125,10 @@ function Quiz({ b }: { b: HarfTarifBolum }) {
   return (
     <>
       <div className="mb-3 flex items-center justify-between rounded-xl bg-stone-100 px-4 py-2.5 text-sm dark:bg-stone-800/60">
-        <span className="font-semibold text-stone-700 dark:text-stone-200">🧠 {done} / {sorular.length} yanıtlandı</span>
+        <span className="font-semibold text-stone-700 dark:text-stone-200">
+          <Brain aria-hidden="true" className="mr-1 inline h-3.5 w-3.5" strokeWidth={2} />
+          {done} / {sorular.length} yanıtlandı
+        </span>
         <span className="font-bold text-navy-600 dark:text-navy-400">{correct} doğru</span>
       </div>
       <div className="space-y-2.5">
@@ -135,7 +139,7 @@ function Quiz({ b }: { b: HarfTarifBolum }) {
       {done === sorular.length && (
         <div className="mt-4 rounded-xl border border-navy-300 bg-navy-50 px-4 py-3 text-center dark:border-navy-700/60 dark:bg-navy-900/20">
           <p className="text-sm font-bold text-navy-800 dark:text-navy-300">
-            Bitti! {correct}/{sorular.length} doğru {correct === sorular.length ? "🎉 Tam puan!" : "— tekrar edebilirsin"}
+            Bitti! {correct}/{sorular.length} doğru {correct === sorular.length ? "Tam puan!" : "— tekrar edebilirsin"}
           </p>
         </div>
       )}
@@ -168,7 +172,7 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
           {b.icerik && <p className="text-[13.5px] leading-relaxed text-stone-700 dark:text-stone-300">{b.icerik}</p>}
           {b.hafiza_ipucu && (
             <div className="mt-3 rounded-xl border border-gold-200 bg-gold-50/70 px-4 py-3 dark:border-gold-700/50 dark:bg-gold-900/15">
-              <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-gold-700 dark:text-gold-400">💡 Hafıza İpucu</p>
+              <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-gold-700 dark:text-gold-400">Hafıza İpucu</p>
               <p className="text-[13px] leading-relaxed text-stone-700 dark:text-stone-300">{b.hafiza_ipucu}</p>
             </div>
           )}
@@ -212,7 +216,7 @@ function Bolum({ b }: { b: HarfTarifBolum }) {
 export function HarfITarifLesson() {
   const d = HARF_I_TARIF_DERSI;
   return (
-    <main className="mx-auto max-w-2xl px-4 py-8">
+    <main className="mx-auto max-w-2xl px-4 py-10">
       <Link href="/ogren" className="mb-5 inline-flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">
         ← Elif-Ba
       </Link>
@@ -220,18 +224,20 @@ export function HarfITarifLesson() {
       {/* Hero */}
       <div className="mb-5">
         <div className="mb-2 flex items-center gap-2.5">
-          <span className="text-2xl leading-none">☀️🌙</span>
+          <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">
+            <SunMoon className="h-5 w-5" strokeWidth={1.75} />
+          </span>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">{d.baslik}</h1>
         </div>
         <p className="text-sm leading-relaxed text-stone-500 dark:text-stone-400">{d.aciklama}</p>
         <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] font-semibold">
-          <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400">⏱️ {d.sure}</span>
-          <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400">📋 Ön koşul: {d.on_kosul}</span>
+          <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400"><Clock aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />{d.sure}</span>
+          <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-600 dark:bg-stone-800 dark:text-stone-400"><ClipboardList aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />Ön koşul: {d.on_kosul}</span>
           <a
             href="#quiz"
             className="ml-auto rounded-full bg-navy-600 px-4 py-1.5 text-[12px] font-bold text-white transition-colors hover:bg-navy-700"
           >
-            🧠 Teste Başla
+            <Brain aria-hidden="true" className="mr-1 inline h-3.5 w-3.5" strokeWidth={2} />Teste Başla
           </a>
         </div>
       </div>

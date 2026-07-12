@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { Navigation, MapPin } from "lucide-react";
 
 // Kabe koordinatları
 const MECCA_LAT = 21.4225;
@@ -122,11 +123,14 @@ export function KibleClient() {
   const arrowAngle = qibla !== null && heading !== null ? (qibla - heading + 360) % 360 : qibla;
 
   return (
-    <main className="min-h-screen px-4 py-8">
+    <main className="min-h-screen px-4 py-10">
       <div className="mx-auto max-w-sm">
         {/* Başlık */}
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">🕋 Kıble Yönü</h1>
+          <h1 className="flex items-center justify-center gap-2 text-2xl font-bold text-stone-900 dark:text-stone-100">
+            <Navigation aria-hidden="true" className="h-6 w-6 text-navy-600 dark:text-navy-400" strokeWidth={1.75} />
+            Kıble Yönü
+          </h1>
           <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
             Konumunuza göre Kabe&apos;nin yönünü bulun
           </p>
@@ -138,7 +142,8 @@ export function KibleClient() {
             onClick={getLocation}
             className="mx-auto flex items-center gap-2 rounded-xl bg-navy-600 px-6 py-3 font-semibold text-white shadow-md hover:bg-navy-700 active:scale-95"
           >
-            📍 Konumumu Bul
+            <MapPin aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+            Konumumu Bul
           </button>
         )}
 
@@ -202,8 +207,8 @@ export function KibleClient() {
               >
                 <div className="flex h-full flex-col items-center justify-center">
                   <div className="h-28 w-1 rounded-full bg-gradient-to-b from-navy-500 to-transparent" />
-                  {/* Ok ucu — Kabe ikonu */}
-                  <div className="-mt-2 text-2xl">🕋</div>
+                  {/* Ok ucu — stilize Kabe işareti (lacivert küp + altın kuşak) */}
+                  <div aria-hidden="true" className="-mt-2 h-5 w-5 rounded-[4px] bg-navy-900 shadow-sm ring-2 ring-gold-400 dark:bg-navy-800" />
                   <div className="h-20 w-1 rounded-full bg-gradient-to-t from-stone-300 to-transparent opacity-40" />
                 </div>
               </div>
@@ -225,7 +230,7 @@ export function KibleClient() {
                 onClick={requestOrientation}
                 className="mx-auto flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-5 py-2.5 text-sm font-medium text-stone-700 shadow-sm hover:bg-stone-50 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-300"
               >
-                🧭 Canlı Pusula Aç
+                Canlı Pusula Aç
               </button>
             )}
             {orientationGranted && heading !== null && (

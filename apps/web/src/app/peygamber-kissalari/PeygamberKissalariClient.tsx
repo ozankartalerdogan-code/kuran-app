@@ -203,7 +203,7 @@ function PeygamberCard({ peygamber }: { peygamber: Peygamber }) {
 
 export function PeygamberKissalariClient() {
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 border-b border-stone-200 pb-6 dark:border-stone-700">
           <p className="mb-2 text-xs font-bold uppercase tracking-wider text-navy-700 dark:text-navy-400">

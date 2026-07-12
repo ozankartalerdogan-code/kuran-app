@@ -1,5 +1,6 @@
 "use client";
 
+import { Sprout, BookMarked, Clock, Droplets, MoonStar, BookOpen, HandHeart, Moon, ClipboardList, Repeat } from "lucide-react";
 import namazRehberiRaw from "../../data/namaz_rehberi.json";
 import { Section, DurumBadge, DuaBlock, Note, Bullets } from "./shared";
 
@@ -48,11 +49,11 @@ export function GuideTab() {
         </div>
       )}
 
-      <Section emoji="🌱" title={R.yeni_baslayan_notu.baslik} defaultOpen>
+      <Section ikon={Sprout} title={R.yeni_baslayan_notu.baslik} defaultOpen>
         <Bullets items={R.yeni_baslayan_notu.maddeler} />
       </Section>
 
-      <Section emoji="📘" title={R.temel_kavramlar.baslik}>
+      <Section ikon={BookMarked} title={R.temel_kavramlar.baslik}>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{R.temel_kavramlar.aciklama}</p>
         {R.temel_kavramlar.kavramlar.map((k) => (
           <div key={k.id} className="mt-2.5 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-900/60">
@@ -62,11 +63,11 @@ export function GuideTab() {
           </div>
         ))}
         <p className="mt-3 rounded-lg bg-navy-50 p-3 text-xs leading-relaxed text-navy-700 dark:bg-navy-950/30 dark:text-navy-400">
-          💚 {R.temel_kavramlar.teselli_notu}
+          {R.temel_kavramlar.teselli_notu}
         </p>
       </Section>
 
-      <Section emoji="🕐" title="Vakit ve Rekat Sayıları">
+      <Section ikon={Clock} title="Vakit ve Rekat Sayıları">
         {R.farz_sunnet_namaz_farki.karsilastirma?.map((row) => (
           <div key={row.ozellik} className="mt-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-900/60">
             <p className="text-sm font-bold text-stone-900 dark:text-stone-50">{row.ozellik}</p>
@@ -86,10 +87,10 @@ export function GuideTab() {
             </div>
           ))}
         </div>
-        <Note>ℹ️ {R.farz_sunnet_namaz_farki.not}</Note>
+        <Note>{R.farz_sunnet_namaz_farki.not}</Note>
       </Section>
 
-      <Section emoji="🧼" title={R.namaz_oncesi.baslik}>
+      <Section ikon={Droplets} title={R.namaz_oncesi.baslik}>
         {R.namaz_oncesi.adimlar.map((a, i) => (
           <div key={i} className="mt-3 first:mt-0">
             <div className="flex flex-wrap items-center gap-2">
@@ -108,12 +109,12 @@ export function GuideTab() {
                 ))}
               </div>
             )}
-            {a.not && <Note>ℹ️ {a.not}</Note>}
+            {a.not && <Note>{a.not}</Note>}
           </div>
         ))}
       </Section>
 
-      <Section emoji="🕌" title="Namaz Nasıl Kılınır? (Adım Adım)">
+      <Section ikon={MoonStar} title="Namaz Nasıl Kılınır? (Adım Adım)">
         {R.namaz_adimlari.map((a, i) => (
           <div key={a.id ?? i} className="mt-4 first:mt-0">
             <div className="flex flex-wrap items-center gap-2">
@@ -126,17 +127,17 @@ export function GuideTab() {
             {a.ne_zaman && <p className="text-[11px] text-stone-400 dark:text-stone-500">{a.ne_zaman}</p>}
             {a.aciklama && <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{a.aciklama}</p>}
             <DuaBlock arapca={a.dua_arapca} okunus={a.dua} anlam={a.anlam} />
-            {a.tekrar && <p className="mt-1 text-xs text-stone-400 dark:text-stone-500">🔁 {a.tekrar}</p>}
-            {a.farz_notu && <Note>ℹ️ {a.farz_notu}</Note>}
-            {a.durum_detay && <Note>ℹ️ {a.durum_detay}</Note>}
-            {a.not && <Note>ℹ️ {a.not}</Note>}
-            {a.anlam_notu && <Note>💡 {a.anlam_notu}</Note>}
+            {a.tekrar && <p className="mt-1 flex items-center gap-1 text-xs text-stone-400 dark:text-stone-500"><Repeat aria-hidden="true" className="h-3 w-3" strokeWidth={2} /> {a.tekrar}</p>}
+            {a.farz_notu && <Note>{a.farz_notu}</Note>}
+            {a.durum_detay && <Note>{a.durum_detay}</Note>}
+            {a.not && <Note>{a.not}</Note>}
+            {a.anlam_notu && <Note>{a.anlam_notu}</Note>}
             {a.sureler && <p className="mt-1 text-xs font-semibold text-navy-700 dark:text-navy-400">↓ Sureler aşağıdaki &quot;Zamm-ı Sureler&quot; bölümünde</p>}
           </div>
         ))}
       </Section>
 
-      <Section emoji="📖" title={`Zamm-ı Sureler (${zammSureler.length} Kısa Sure)`}>
+      <Section ikon={BookOpen} title={`Zamm-ı Sureler (${zammSureler.length} Kısa Sure)`}>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           Fatiha&apos;dan sonra okunabilecek, en çok tercih edilen kısa sureler:
         </p>
@@ -148,7 +149,7 @@ export function GuideTab() {
         ))}
       </Section>
 
-      <Section emoji="📿" title="Namaz Duaları">
+      <Section ikon={HandHeart} title="Namaz Duaları">
         {R.dualar.map((d, i) => (
           <div key={d.id ?? i} className="mt-4 first:mt-0">
             <div className="flex flex-wrap items-center gap-2">
@@ -157,12 +158,12 @@ export function GuideTab() {
             </div>
             {d.ne_zaman && <p className="text-[11px] text-stone-400 dark:text-stone-500">{d.ne_zaman}</p>}
             <DuaBlock arapca={d.dua_arapca} okunus={d.dua} anlam={d.anlam} kaynak={d.kuran_kaynagi} />
-            {d.not && <Note>ℹ️ {d.not}</Note>}
+            {d.not && <Note>{d.not}</Note>}
           </div>
         ))}
       </Section>
 
-      <Section emoji="🤲" title={R.selam.isim}>
+      <Section ikon={HandHeart} title={R.selam.isim}>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{R.selam.aciklama}</p>
         {R.selam.adimlar.map((a, i) => (
           <div key={i} className="mt-3">
@@ -170,10 +171,10 @@ export function GuideTab() {
             <DuaBlock arapca={a.dua_arapca} okunus={a.dua} anlam={a.anlam} />
           </div>
         ))}
-        <Note>💡 {R.selam.anlam_notu}</Note>
+        <Note>{R.selam.anlam_notu}</Note>
       </Section>
 
-      <Section emoji="🌙" title={R.vitir_namazi.baslik}>
+      <Section ikon={Moon} title={R.vitir_namazi.baslik}>
         <div className="flex flex-wrap items-center gap-2">
           <DurumBadge durum={R.vitir_namazi.durum} />
           <span className="text-xs text-stone-400 dark:text-stone-500">{R.vitir_namazi.rekat}</span>
@@ -203,11 +204,11 @@ export function GuideTab() {
           </div>
         ))}
 
-        <Note tone="warn">⚠️ {R.vitir_namazi.yaygin_hata}</Note>
-        <Note>ℹ️ {R.vitir_namazi.not}</Note>
+        <Note tone="warn">{R.vitir_namazi.yaygin_hata}</Note>
+        <Note>{R.vitir_namazi.not}</Note>
       </Section>
 
-      <Section emoji="📋" title={R.rekat_yapisi.baslik}>
+      <Section ikon={ClipboardList} title={R.rekat_yapisi.baslik}>
         <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{R.rekat_yapisi.aciklama}</p>
         {R.rekat_yapisi.tablo.map((t) => (
           <div key={t.rekat} className="mt-2.5 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-900/60">
@@ -219,7 +220,7 @@ export function GuideTab() {
             <p className="text-xs text-stone-600 dark:text-stone-300">Oturuş: {t["oturuş"]}</p>
           </div>
         ))}
-        <Note>📌 {R.rekat_yapisi.ozet_notu}</Note>
+        <Note>{R.rekat_yapisi.ozet_notu}</Note>
       </Section>
 
       <p className="mt-6 text-center text-[11px] italic text-stone-400 dark:text-stone-500">{R.kaynak_not}</p>

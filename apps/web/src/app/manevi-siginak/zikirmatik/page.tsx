@@ -380,7 +380,7 @@ export default function ZikirmatikPage() {
 
   // ── Render ──
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
       {/* ═══ Hero Başlık ═══ */}
       <div className="mb-8 text-center">
         <div className="mb-3 flex items-center justify-center gap-3">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  Shield, User, HandHeart, HeartPulse, Anchor, Repeat,
+  Shield, User, HandHeart, HeartPulse, Anchor, Repeat, HandHelping,
   type LucideIcon,
 } from "lucide-react";
 import type { DuaKategoriData, DuaVerse } from "./DuaKategorileri";
@@ -119,10 +119,8 @@ function KategoriItem({ kategori }: { kategori: DuaKategoriData }) {
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg}`}
         >
           {(() => {
-            const Ikon = KATEGORI_IKON[kategori.id];
-            return Ikon
-              ? <Ikon aria-hidden="true" className="h-5 w-5 text-stone-700" strokeWidth={1.75} />
-              : <span className="text-lg leading-none">{kategori.ikon}</span>;
+            const Ikon = KATEGORI_IKON[kategori.id] ?? HandHeart;
+            return <Ikon aria-hidden="true" className="h-5 w-5 text-stone-700" strokeWidth={1.75} />;
           })()}
         </span>
 
@@ -220,7 +218,7 @@ export function DuaAkordeonPanel({
       <div className="mb-6">
         <div className="mb-1.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-base leading-none">🤲</span>
+            <HandHelping aria-hidden="true" className="h-4 w-4 text-stone-400" strokeWidth={2} />
             <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400">
               Dualar & Tesbih
             </h2>

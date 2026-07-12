@@ -2,8 +2,33 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import {
+  MoonStar, HandHeart, Moon, PawPrint, Landmark, BookOpen, Library, Sparkles,
+  Handshake, Star, Bird, Sprout, Scroll, Droplets, Volume2, HandCoins, Check,
+  GraduationCap, type LucideIcon,
+} from "lucide-react";
 import { DERSLER_META, KATEGORILER, type DersMeta } from "../../../data/dersler/registry";
 import { useDersProgress, type AllDersProgress } from "../../../hooks/useDersProgress";
+
+// Ders ikonları — registry'deki emoji yerine id üzerinden marka ikon seti (lucide)
+const DERS_IKON: Record<string, LucideIcon> = {
+  "namaz":            MoonStar,
+  "namaz-dualar":     HandHeart,
+  "oruc":             Moon,
+  "kurban":           PawPrint,
+  "hac-umre":         Landmark,
+  "iman-esaslari":    BookOpen,
+  "kitaplara-iman":   Library,
+  "nefsini-tani":     Sparkles,
+  "guzel-ahlak":      Handshake,
+  "peygamberler":     Star,
+  "sahabe-hayatlari": Bird,
+  "siyer":            Sprout,
+  "tecvid":           Scroll,
+  "abdest-gusul":     Droplets,
+  "ezan-kamet":       Volume2,
+  "zekat":            HandCoins,
+};
 
 type SortMode = "tumu" | "sure" | "konu";
 
@@ -29,10 +54,17 @@ function DersCard({ ders, progress }: { ders: DersMeta; progress: AllDersProgres
       className={`group relative overflow-hidden rounded-2xl border bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:bg-stone-900 ${done ? "border-navy-300 dark:border-navy-700" : "border-gold-200/70 hover:border-gold-300 dark:border-stone-700 dark:hover:border-gold-700"}`}
     >
       {done ? (
-        <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-navy-500 text-xs font-black text-white">✓</span>
+        <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-navy-500 text-white">
+          <Check aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={3} />
+        </span>
       ) : null}
       <div className="mb-4 flex items-start justify-between gap-3">
-        <span className="text-4xl leading-none">{ders.ikon}</span>
+        <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-50 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
+          {(() => {
+            const Ikon = DERS_IKON[ders.id] ?? GraduationCap;
+            return <Ikon className="h-6 w-6" strokeWidth={1.75} />;
+          })()}
+        </span>
         <span className="rounded-full bg-gold-50 px-2.5 py-1 text-[11px] font-bold text-gold-700 dark:bg-gold-950/30 dark:text-gold-300">~{ders.sure} dk</span>
       </div>
       <h2 className="text-base font-bold text-stone-900 group-hover:text-gold-800 dark:text-stone-50 dark:group-hover:text-gold-300">{ders.baslik}</h2>
@@ -70,7 +102,7 @@ export function DerslerClient() {
   const sorted = useMemo(() => sortMode === "sure" ? [...DERSLER_META].sort((a, b) => a.sure - b.sure) : DERSLER_META, [sortMode]);
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <Link href="/ogren" className="mb-5 inline-flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">
           ← Öğren

@@ -1,6 +1,11 @@
 "use client";
 
 import ozelNamazlarRaw from "../../data/ozel_namazlar.json";
+import {
+  Bird, PartyPopper, MoonStar, Sunrise, HelpCircle, Moon, Landmark, CircleOff,
+  CloudRain, HandHeart, Droplets, Table,
+  type LucideIcon,
+} from "lucide-react";
 import { Section, DurumBadge, DuaBlock, Note, Bullets, getEvidenceLabel } from "./shared";
 
 // ozel_namazlar.json içeriği bilinçli olarak polimorfik (her namaz tipi farklı alan
@@ -49,10 +54,10 @@ const O = (ozelNamazlarRaw as unknown as {
   };
 }).ozel_namazlar;
 
-const OZEL_EMOJI: Record<string, string> = {
-  cenaze_namazi: "🕊️", bayram_namazi: "🎉", teheccud_namazi: "🌌", kusluk_namazi: "🌅",
-  istihare_namazi: "🤔", teravih_namazi: "🌙", tahiyyetul_mescid: "🕌", kusuf_husuf: "🌑",
-  istiska_namazi: "🌧️", sukur_secdesi: "🙏", tovbe_namazi: "💧", hacet_namazi: "🤲",
+const OZEL_IKON: Record<string, LucideIcon> = {
+  cenaze_namazi: Bird, bayram_namazi: PartyPopper, teheccud_namazi: MoonStar, kusluk_namazi: Sunrise,
+  istihare_namazi: HelpCircle, teravih_namazi: Moon, tahiyyetul_mescid: Landmark, kusuf_husuf: CircleOff,
+  istiska_namazi: CloudRain, sukur_secdesi: HandHeart, tovbe_namazi: Droplets, hacet_namazi: HandHeart,
 };
 
 const NIYET_LABEL: Record<string, string> = {
@@ -79,7 +84,7 @@ function Niyet({ niyet }: { niyet?: NiyetData }) {
           </p>
         </div>
       ))}
-      {niyet.not && <Note>ℹ️ {niyet.not}</Note>}
+      {niyet.not && <Note>{niyet.not}</Note>}
     </>
   );
 }
@@ -95,8 +100,8 @@ function StepBlock({ step }: { step: Step }) {
       {step.dua_2 && <DuaBlock arapca={step.dua_2_arapca} okunus={step.dua_2} />}
       {step.tesbih && <p className="mt-1 text-sm italic text-stone-700 dark:text-stone-300">{step.tesbih}</p>}
       {step.selam && <p className="mt-1 text-sm italic text-stone-700 dark:text-stone-300">{step.selam}</p>}
-      {step.bilmeyenler_icin && <Note>ℹ️ {step.bilmeyenler_icin}</Note>}
-      {step.not && <Note>ℹ️ {step.not}</Note>}
+      {step.bilmeyenler_icin && <Note>{step.bilmeyenler_icin}</Note>}
+      {step.not && <Note>{step.not}</Note>}
     </div>
   );
 }
@@ -118,8 +123,8 @@ function KilinicObjectView({ obj }: { obj: KilinicObj }) {
         </div>
       )}
       {Array.isArray(obj.adimlar) && <Bullets items={obj.adimlar} />}
-      {obj.tavsiye_edilen_sureler && <Note>📖 {obj.tavsiye_edilen_sureler}</Note>}
-      {obj.not && <Note>ℹ️ {obj.not}</Note>}
+      {obj.tavsiye_edilen_sureler && <Note>{obj.tavsiye_edilen_sureler}</Note>}
+      {obj.not && <Note>{obj.not}</Note>}
     </>
   );
 }
@@ -149,7 +154,7 @@ function DuaObjView({ obj, anlamFallback }: { obj?: DuaLike; anlamFallback?: str
     <>
       {obj.baslik && <p className="text-sm font-bold text-stone-900 dark:text-stone-50">{obj.baslik}</p>}
       <DuaBlock arapca={obj.dua_arapca} okunus={obj.dua} anlam={obj.anlam ?? anlamFallback} kaynak={obj.kaynagi ?? obj.dua_kaynagi ?? obj.kaynak} />
-      {obj.not && <Note>ℹ️ {obj.not}</Note>}
+      {obj.not && <Note>{obj.not}</Note>}
     </>
   );
 }
@@ -160,7 +165,7 @@ function Fazilet({ data }: { data: string | string[] }) {
     <>
       {arr.map((f, i) => (
         <p key={i} className="mt-2 rounded-lg bg-navy-50 p-2.5 text-xs leading-relaxed text-navy-700 dark:bg-navy-950/30 dark:text-navy-400">
-          💎 {f}
+          {f}
         </p>
       ))}
     </>
@@ -170,7 +175,7 @@ function Fazilet({ data }: { data: string | string[] }) {
 function OzelNamazCard({ n }: { n: OzelNamaz }) {
   const neZaman = n.ne_zaman_kilinir ?? n.ne_zaman_yapilir;
   return (
-    <Section emoji={OZEL_EMOJI[n.id] ?? "🕌"} title={n.isim}>
+    <Section ikon={OZEL_IKON[n.id] ?? MoonStar} title={n.isim}>
       <div className="mb-1 flex flex-wrap items-center gap-2">
         <DurumBadge durum={n.durum} />
         {n.rekat && <span className="text-xs font-semibold text-stone-500 dark:text-stone-400">{n.rekat}</span>}
@@ -179,7 +184,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
 
       {neZaman && (
         <>
-          <p className="mb-0.5 mt-2.5 text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">🕐 Ne Zaman?</p>
+          <p className="mb-0.5 mt-2.5 text-[11px] font-bold uppercase tracking-wide text-navy-700 dark:text-navy-400">Ne Zaman?</p>
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{neZaman}</p>
         </>
       )}
@@ -193,7 +198,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
 
       {n.mezhep_gorusleri && (
         <p className="mt-2 rounded-md border border-navy-200 bg-navy-50 p-2.5 text-xs leading-relaxed text-navy-800 dark:border-navy-800/40 dark:bg-navy-950/30 dark:text-navy-300">
-          ⚖️ {n.mezhep_gorusleri}
+          {n.mezhep_gorusleri}
         </p>
       )}
 
@@ -212,7 +217,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
               <p className="text-sm font-bold text-stone-900 dark:text-stone-50">{ce.isim}</p>
               {ce.hicri_tarih && <p className="text-xs text-stone-400 dark:text-stone-500">{ce.hicri_tarih}</p>}
               {ce.aciklama && <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{ce.aciklama}</p>}
-              {ce.tekbir_notu && <Note>ℹ️ {ce.tekbir_notu}</Note>}
+              {ce.tekbir_notu && <Note>{ce.tekbir_notu}</Note>}
             </div>
           ))}
         </div>
@@ -248,7 +253,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
           <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{n.kilinic_safii_hanbeli}</p>
         </>
       )}
-      {n.tavsiye_edilen_sureler && <Note>📖 {n.tavsiye_edilen_sureler}</Note>}
+      {n.tavsiye_edilen_sureler && <Note>{n.tavsiye_edilen_sureler}</Note>}
 
       {n.teheccud_duasi && (<><p className="mb-1 mt-3 text-sm font-bold text-stone-900 dark:text-stone-50">Teheccüd Duası</p><DuaObjView obj={n.teheccud_duasi} /></>)}
       {n.istihare_duasi && (<><p className="mb-1 mt-3 text-sm font-bold text-stone-900 dark:text-stone-50">İstihare Duası</p><DuaObjView obj={n.istihare_duasi} /></>)}
@@ -283,7 +288,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
       )}
 
       {n.hadis_kaynagi && (
-        <p className="mt-3 text-[11px] font-bold text-navy-700 dark:text-navy-400">📚 {getEvidenceLabel(n.hadis_kaynagi)}</p>
+        <p className="mt-3 text-[11px] font-bold text-navy-700 dark:text-navy-400">{getEvidenceLabel(n.hadis_kaynagi)}</p>
       )}
     </Section>
   );
@@ -294,7 +299,7 @@ export function OzelNamazlarTab() {
     <div className="mx-auto max-w-3xl">
       <p className="mb-4 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{O.aciklama}</p>
 
-      <Section emoji="📊" title="Hızlı Bakış" defaultOpen>
+      <Section ikon={Table} title="Hızlı Bakış" defaultOpen>
         <div className="space-y-2">
           {O.hizli_bakis_tablosu.map((row, i) => (
             <div key={i} className="rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-900/60">

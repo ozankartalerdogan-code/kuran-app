@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { BookMarked } from "lucide-react";
 import { JUZ_DATA } from "./juzData";
 import { type HatimStore, loadHatimStore, saveHatimStore, newHatim, toggleHatimJuz } from "../../lib/hatimStore";
 
@@ -56,12 +57,15 @@ export function HatimClient() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen px-4 py-8">
+    <main className="min-h-screen px-4 py-10">
       <div className="mx-auto max-w-lg">
 
         {/* Başlık */}
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">📖 Hatim Takibi</h1>
+          <h1 className="flex items-center justify-center gap-2 text-2xl font-bold text-stone-900 dark:text-stone-100">
+            <BookMarked aria-hidden="true" className="h-6 w-6 text-navy-600 dark:text-navy-400" strokeWidth={1.75} />
+            Hatim Takibi
+          </h1>
           <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
             30 cüzlük okumanızı işaretleyin
           </p>
@@ -90,7 +94,7 @@ export function HatimClient() {
                   <p className="text-xs text-stone-400 dark:text-stone-500">Başlangıç: {formatDate(current.startDate)}</p>
                   {current.completedDate && (
                     <p className="text-xs text-navy-600 dark:text-navy-400">
-                      ✅ Tamamlandı: {formatDate(current.completedDate)} ({daysBetween(current.startDate, current.completedDate)} günde)
+                      Tamamlandı: {formatDate(current.completedDate)} ({daysBetween(current.startDate, current.completedDate)} günde)
                     </p>
                   )}
                 </div>

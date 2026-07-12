@@ -172,7 +172,7 @@ function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
         Öne Çıkan Temalar
       </h2>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <div className="stagger-children grid grid-cols-2 gap-3 sm:grid-cols-3">
         {FEATURED_THEMES.map((t) => (
           <button
             key={t.kod}
@@ -273,7 +273,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
   }, [router]);
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl space-y-6">
 
         <header className="flex items-center gap-3">

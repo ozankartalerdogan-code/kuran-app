@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function IbadetRehberiPage() {
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-2xl">
         {/* Başlık */}
         <header className="mb-6 flex items-center gap-3">

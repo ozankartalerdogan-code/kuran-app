@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { Suspense } from "react";
 import Link from "next/link";
+import { MoonStar } from "lucide-react";
 import { NamazKategorileri } from "./NamazKategorileri";
 import { NamazVakitTablosu } from "./NamazVakitTablosu";
 import { PageHeader } from "../../components/PageHeader";
@@ -37,9 +38,9 @@ function KategoriSkeleton() {
 
 export default function NamazPage() {
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+    <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <PageHeader
-        icon="🕌"
+        icon={MoonStar}
         title="Namaz — Vakitler ve Ayetler"
         description="Bugünün namaz vakitleri ve Kur'an'da namaza dair ayetler; huşu, teheccüd ve daha fazlası."
       >

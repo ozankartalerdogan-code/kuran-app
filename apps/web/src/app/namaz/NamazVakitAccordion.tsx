@@ -2,6 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {
+  Sunrise, Sun, CloudSun, Sunset, Moon, MoonStar, Clock, ChevronDown, ChevronRight,
+  type LucideIcon,
+} from "lucide-react";
+
+// Vakit ikonları — id üzerinden eşleme (ikon bileşeni server→client sınırından geçemez)
+const VAKIT_IKON: Record<string, LucideIcon> = {
+  sabah:    Sunrise,
+  ogle:     Sun,
+  ikindi:   CloudSun,
+  aksam:    Sunset,
+  yatsi:    Moon,
+  teheccud: MoonStar,
+};
 
 interface VerseData {
   verseKey: string;
@@ -12,7 +26,6 @@ interface VerseData {
 
 interface VakitMeta {
   id: string;
-  ikon: string;
   ad: string;
   renk: { sol: string; bant: string; badge: string };
 }
@@ -47,12 +60,11 @@ function VerseEntry({ verse }: { verse: VerseData }) {
           </p>
         )}
       </div>
-      <svg
+      <ChevronRight
+        aria-hidden="true"
         className="mt-1 h-3 w-3 shrink-0 text-stone-300 transition-colors group-hover:text-stone-500 dark:text-stone-600 dark:group-hover:text-stone-400"
-        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
+        strokeWidth={2.5}
+      />
     </Link>
   );
 }
@@ -65,7 +77,10 @@ function VakitRow({ meta, verses }: { meta: VakitMeta; verses: VerseData[] }) {
       <div
         className={`flex w-28 shrink-0 flex-col items-start justify-start gap-1 border-l-4 ${meta.renk.bant} ${meta.renk.sol} px-3 py-3`}
       >
-        <span className="text-xl leading-none">{meta.ikon}</span>
+        {(() => {
+          const Ikon = VAKIT_IKON[meta.id] ?? Clock;
+          return <Ikon aria-hidden="true" className="h-5 w-5 text-stone-600 dark:text-stone-300" strokeWidth={1.75} />;
+        })()}
         <span className={`rounded-md px-2 py-0.5 text-[11px] font-bold ${meta.renk.badge}`}>
           {meta.ad}
         </span>
@@ -100,7 +115,7 @@ export function NamazVakitAccordion({
         className="flex w-full items-center justify-between border-b border-stone-200 bg-white px-4 py-3 text-left transition-colors hover:bg-stone-50 dark:border-stone-700/60 dark:bg-stone-900 dark:hover:bg-stone-800"
       >
         <div className="flex items-center gap-2">
-          <span className="text-base leading-none">🕐</span>
+          <Clock aria-hidden="true" className="h-4 w-4 text-stone-400 dark:text-stone-500" strokeWidth={2} />
           <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
             Namaz Vakitleri & Teheccüd
           </h2>
@@ -109,12 +124,11 @@ export function NamazVakitAccordion({
           <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-[11px] font-medium text-stone-500 dark:bg-stone-800 dark:text-stone-400">
             {toplamAyet} ayet
           </span>
-          <svg
+          <ChevronDown
+            aria-hidden="true"
             className={`h-4 w-4 shrink-0 text-stone-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+            strokeWidth={2}
+          />
         </div>
       </button>
 

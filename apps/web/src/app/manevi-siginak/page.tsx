@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
+import { Shield, Sparkles, Star, BookOpen, Scale, TriangleAlert } from "lucide-react";
 import { ManeviVerseList } from "./ManeviVerseList";
 import { BolumAkordeon } from "./BolumAkordeon";
 import { fetchVerses } from "./fetchVerses";
@@ -11,13 +12,14 @@ export const metadata = { title: "Manevi Sığınak — Kuran Yolu" };
 
 function ScoreBadge({ score, label }: { score: "10/10" | "8/10" | "0/10"; label?: string }) {
   const cfg = {
-    "10/10": { emoji: "🟢", cls: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300" },
-    "8/10":  { emoji: "🟡", cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300" },
-    "0/10":  { emoji: "🔴", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
+    "10/10": { dot: "bg-navy-500", cls: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300" },
+    "8/10":  { dot: "bg-gold-500", cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300" },
+    "0/10":  { dot: "bg-red-500",  cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
   }[score];
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${cfg.cls}`}>
-      {cfg.emoji} {score}{label ? ` — ${label}` : ""}
+    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${cfg.cls}`}>
+      <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${cfg.dot}`} />
+      {score}{label ? ` — ${label}` : ""}
     </span>
   );
 }
@@ -64,7 +66,7 @@ function HadisKutusu({ baslik, arapca, anlam, uygulama }: { baslik: string; arap
   return (
     <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3.5 dark:border-gold-800/50 dark:bg-gold-900/15">
       <div className="mb-2 flex items-center gap-2">
-        <span className="text-sm leading-none">🟢</span>
+        <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-navy-500" />
         <p className="text-[11px] font-bold uppercase tracking-widest text-gold-700 dark:text-gold-400">{baslik}</p>
       </div>
       <p className="mb-1.5 font-mono text-[13px] leading-relaxed text-stone-700 dark:text-stone-300 italic">{arapca}</p>
@@ -112,7 +114,7 @@ function GuvenilirlikPuani() {
   return (
     <div className="mb-8">
       <div className="mb-3 flex items-center gap-2">
-        <span className="text-base leading-none">📊</span>
+        <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-stone-400" />
         <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
           Güvenilirlik Puanı Sistemi
         </h2>
@@ -120,7 +122,7 @@ function GuvenilirlikPuani() {
       <div className="grid gap-3 sm:grid-cols-3">
         <div className="rounded-xl border border-navy-200 bg-navy-50 px-4 py-3 dark:border-navy-800/60 dark:bg-navy-900/20">
           <div className="mb-1.5 flex items-center gap-2">
-            <span className="text-lg">🟢</span>
+            <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-navy-500" />
             <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[11px] font-bold text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">10/10</span>
           </div>
           <p className="mb-1 text-xs font-semibold text-stone-700 dark:text-stone-200">Kesin Sünnet / Kur&apos;an</p>
@@ -128,7 +130,7 @@ function GuvenilirlikPuani() {
         </div>
         <div className="rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 dark:border-gold-800/60 dark:bg-gold-900/20">
           <div className="mb-1.5 flex items-center gap-2">
-            <span className="text-lg">🟡</span>
+            <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-gold-500" />
             <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[11px] font-bold text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">8/10</span>
           </div>
           <p className="mb-1 text-xs font-semibold text-stone-700 dark:text-stone-200">Ulema İctihadı / Meşru Rukye</p>
@@ -136,7 +138,7 @@ function GuvenilirlikPuani() {
         </div>
         <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 dark:border-red-800/60 dark:bg-red-900/20">
           <div className="mb-1.5 flex items-center gap-2">
-            <span className="text-lg">🔴</span>
+            <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" />
             <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-bold text-red-700 dark:bg-red-900/40 dark:text-red-300">0/10</span>
           </div>
           <p className="mb-1 text-xs font-semibold text-stone-700 dark:text-stone-200">Hurafe ve Şirk Riski</p>
@@ -206,7 +208,7 @@ function Bolum2({ verses }: { verses: VerseCardData[] }) {
 
       <UyariKutusu
         renk="red"
-        mesaj="🔴 Uyarı: Cinci, medyum ve «büyü bozuyorum» diyen şarlatanlara gitmek şirke götürebilir. Şifayı yalnız Allah'tan iste!"
+        mesaj="Uyarı: Cinci, medyum ve «büyü bozuyorum» diyen şarlatanlara gitmek şirke götürebilir. Şifayı yalnız Allah'tan iste!"
       />
 
       <VerseSubHeader tag="korunma-sihir" />
@@ -248,7 +250,7 @@ function Bolum3({ verses }: { verses: VerseCardData[] }) {
 
       <UyariKutusu
         renk="red"
-        mesaj="🔴 Not: Nazar boncuğu takmak, kurşun döktürmek yok. Koruma yalnız Allah'tandır."
+        mesaj="Not: Nazar boncuğu takmak, kurşun döktürmek yok. Koruma yalnız Allah'tandır."
       />
 
       <VerseSubHeader tag="korunma-nazar" />
@@ -283,7 +285,7 @@ function Bolum4({ verses }: { verses: VerseCardData[] }) {
 
       <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3 dark:border-gold-800/50 dark:bg-gold-900/15">
         <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
-          <span className="font-semibold">🟢 Sahih Hadis Notu (Müslim, İbn Mâce):</span> Cebrail&apos;in (a.s.) Nazar Rukyesi duası hasede karşı da okunur.
+          <span className="font-semibold">Sahih Hadis Notu (Müslim, İbn Mâce):</span> Cebrail&apos;in (a.s.) Nazar Rukyesi duası hasede karşı da okunur.
           Bölüm 3&apos;teki aynı duayı 7 defa oku.
         </p>
       </div>
@@ -319,7 +321,7 @@ function Bolum5({ verses }: { verses: VerseCardData[] }) {
 
       <UyariKutusu
         renk="amber"
-        mesaj="⚠️ Not: Vesvese, imanın varlığına işarettir. Vesveseyi büyütme, üzerinde durma. Allah'a sığınıp geç."
+        mesaj="Not: Vesvese, imanın varlığına işarettir. Vesveseyi büyütme, üzerinde durma. Allah'a sığınıp geç."
       />
 
       <VerseSubHeader tag="korunma-siginma" />
@@ -368,7 +370,7 @@ function Bolum6({ verses }: { verses: VerseCardData[] }) {
 
       <UyariKutusu
         renk="amber"
-        mesaj="⚠️ Not: Kur'an şifadır ama doktora gitmeyi ihmal etme. Manevi ve maddi tedaviyi birlikte yürüt."
+        mesaj="Not: Kur'an şifadır ama doktora gitmeyi ihmal etme. Manevi ve maddi tedaviyi birlikte yürüt."
       />
 
       <VerseSubHeader tag="korunma-sifa" />
@@ -389,25 +391,27 @@ function MitAvcisi() {
   ];
 
   const hurafeler = [
-    { baslik: "Nazar Boncuğu", hukum: "🔴 Şirk Riski", aciklama: "Peygamberimiz: «Kim nazarlık takarsa Allah onu korumasın.» Boncuğun kendisinin koruduğuna inanmak şirktir." },
-    { baslik: "Kurşun Döktürmek", hukum: "🔴 Batıl", aciklama: "Eski Türk geleneğinden İslam'a karışmıştır. Dinde hiçbir dayanağı yoktur." },
-    { baslik: "Sirke-Tuz-Su Karışımı", hukum: "🔴 Hurafe", aciklama: "Maddi sıvıya manevi enerji emme gücü atfetmek şirke kapı aralar. Koruma sadece Allah'tandır." },
-    { baslik: "Defne Yaprağı / Tütsü", hukum: "🔴 Hurafe", aciklama: "Dumanın cinleri kovduğuna inanmak batıldır. Evi Kur'an okuyarak temizle." },
-    { baslik: "Cinci / Medyum / Falcı", hukum: "🔴 Büyük Günah", aciklama: "«Kim kâhine gidip söylediklerini tasdik ederse Muhammed'e indirileni inkâr etmiş olur.»" },
-    { baslik: "Yıldızname / Astroloji", hukum: "🔴 Küfür Riski", aciklama: "Gaybı Allah'tan başka kimse bilemez. Yıldızname ile gelecek söylemek büyük günahtır." },
-    { baslik: "Muska / Temîme (Semboller)", hukum: "🔴 Şirk", aciklama: "Peygamberimiz temîmeyi yasaklamıştır. En güvenlisi: muskasız, doğrudan ayetleri okuyarak sığınmak." },
-    { baslik: "Sihirli Su Satanlar", hukum: "🔴 Haram", aciklama: "Rukye için suya ayet okumak caizdir — ama bunu kendin yapmalısın. Başkasının hazırladığı asla içilmez." },
+    { baslik: "Nazar Boncuğu", hukum: "Şirk Riski", aciklama: "Peygamberimiz: «Kim nazarlık takarsa Allah onu korumasın.» Boncuğun kendisinin koruduğuna inanmak şirktir." },
+    { baslik: "Kurşun Döktürmek", hukum: "Batıl", aciklama: "Eski Türk geleneğinden İslam'a karışmıştır. Dinde hiçbir dayanağı yoktur." },
+    { baslik: "Sirke-Tuz-Su Karışımı", hukum: "Hurafe", aciklama: "Maddi sıvıya manevi enerji emme gücü atfetmek şirke kapı aralar. Koruma sadece Allah'tandır." },
+    { baslik: "Defne Yaprağı / Tütsü", hukum: "Hurafe", aciklama: "Dumanın cinleri kovduğuna inanmak batıldır. Evi Kur'an okuyarak temizle." },
+    { baslik: "Cinci / Medyum / Falcı", hukum: "Büyük Günah", aciklama: "«Kim kâhine gidip söylediklerini tasdik ederse Muhammed'e indirileni inkâr etmiş olur.»" },
+    { baslik: "Yıldızname / Astroloji", hukum: "Küfür Riski", aciklama: "Gaybı Allah'tan başka kimse bilemez. Yıldızname ile gelecek söylemek büyük günahtır." },
+    { baslik: "Muska / Temîme (Semboller)", hukum: "Şirk", aciklama: "Peygamberimiz temîmeyi yasaklamıştır. En güvenlisi: muskasız, doğrudan ayetleri okuyarak sığınmak." },
+    { baslik: "Sihirli Su Satanlar", hukum: "Haram", aciklama: "Rukye için suya ayet okumak caizdir — ama bunu kendin yapmalısın. Başkasının hazırladığı asla içilmez." },
   ];
 
   return (
     <div>
       <div className="mb-4 flex items-center gap-2">
-        <span className="text-xl leading-none">⚖️</span>
+        <Scale aria-hidden="true" className="h-5 w-5 text-stone-600 dark:text-stone-300" strokeWidth={1.75} />
         <h2 className="text-base font-bold text-stone-800 dark:text-stone-100">Mit Avcısı — Yap / Yapma</h2>
       </div>
 
       <div className="mb-6 rounded-xl border border-navy-200 bg-navy-50/70 px-4 py-3.5 dark:border-navy-800/50 dark:bg-navy-900/15">
-        <p className="mb-2.5 text-xs font-bold text-navy-700 dark:text-navy-400">🟢 YAP</p>
+        <p className="mb-2.5 flex items-center gap-1.5 text-xs font-bold text-navy-700 dark:text-navy-400">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-navy-500" /> YAP
+        </p>
         <ul className="space-y-1.5">
           {yapilacaklar.map((m) => (
             <li key={m} className="flex items-start gap-2 text-[12px] leading-relaxed text-stone-600 dark:text-stone-300">
@@ -419,7 +423,9 @@ function MitAvcisi() {
 
       <div className="overflow-hidden rounded-xl border border-red-200 dark:border-red-800/40">
         <div className="border-b border-red-100 bg-red-50 px-4 py-2 dark:border-red-900/40 dark:bg-red-900/20">
-          <p className="text-xs font-bold text-red-700 dark:text-red-400">🔴 YAPMA — Hurafeler ve Fıkhî Hükümleri</p>
+          <p className="flex items-center gap-1.5 text-xs font-bold text-red-700 dark:text-red-400">
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-red-500" /> YAPMA — Hurafeler ve Fıkhî Hükümleri
+          </p>
         </div>
         <div className="divide-y divide-red-50 bg-white dark:divide-stone-800 dark:bg-stone-900">
           {hurafeler.map((h) => (
@@ -443,49 +449,49 @@ function UzakDurulmasi() {
   const maddeler = [
     {
       harf: "A", baslik: "Sirke-Tuz-Su Karışımı",
-      hukum: "🔴 0/10 — HURAFE",
+      hukum: "0/10 — HURAFE",
       neden: "Kur'an ve sünnette asla yeri yoktur. Sirke ve tuzun gıda olarak bereketi vardır ancak metafizik koruma gücü yoktur.",
       sakinca: "Maddi bir sıvıya manevi enerji emme gücü atfetmek şirke kapı aralar. Koruma sadece Allah'tandır.",
     },
     {
       harf: "B", baslik: "Nazar Boncuğu / Mavi Boncuk",
-      hukum: "🔴 0/10 — ŞİRK RİSKİ",
+      hukum: "0/10 — ŞİRK RİSKİ",
       neden: "Peygamberimiz (s.a.s.): «Kim nazarlık takarsa Allah onu korumasın» buyurmuştur.",
       sakinca: "Boncuğun kendisinin koruduğuna inanmak şirktir. Alternatif: Ayetel Kürsi'yi ezberle ve oku.",
     },
     {
       harf: "C", baslik: "Kurşun Döktürmek",
-      hukum: "🔴 0/10 — BATIL",
+      hukum: "0/10 — BATIL",
       neden: "Eski Türk geleneklerinden İslam'a karışmıştır. Dinde hiçbir dayanağı yoktur.",
       sakinca: "Nazar için meşru yöntem Felak-Nas okumaktır. Kurşun döktürme ritüeli buna hiçbir şey katmaz.",
     },
     {
       harf: "D", baslik: "Defne Yaprağı / Tütsü Yakmak",
-      hukum: "🔴 0/10 — HURAFE",
+      hukum: "0/10 — HURAFE",
       neden: "Defne yaprağının veya dumanın cinleri kovduğuna inanmak batıldır.",
       sakinca: "Evi Kur'an okuyarak temizle. Bakara Suresi okunan eve şeytan giremez (sahih hadis).",
     },
     {
       harf: "E", baslik: "Cinci / Medyum / Falcıya Gitmek",
-      hukum: "🔴 0/10 — BÜYÜK GÜNAH",
+      hukum: "0/10 — BÜYÜK GÜNAH",
       neden: "Peygamberimiz: «Kim kâhine gidip söylediklerini tasdik ederse Muhammed'e indirileni inkâr etmiş olur.»",
       sakinca: "Bu kişilerin hiçbiri gaybı bilemez. Amaçları maddi sömürüdür. Ebedî kurtuluşu tehlikeye atar.",
     },
     {
       harf: "F", baslik: "Yıldızname / Astroloji ile Teşhis",
-      hukum: "🔴 0/10 — KÜFÜR RİSKİ",
+      hukum: "0/10 — KÜFÜR RİSKİ",
       neden: "Gaybı Allah'tan başka kimse bilemez. Yıldızname ile gelecek söylemek büyük günahtır.",
       sakinca: "Burç yorumuna güvenmek Allah'a olan tevekkülü zedeler ve şirke açılan kapıdır.",
     },
     {
       harf: "G", baslik: "Muska / Temîme (Anlaşılmaz Semboller)",
-      hukum: "🔴 0/10 — ŞİRK",
+      hukum: "0/10 — ŞİRK",
       neden: "Peygamberimiz temîmeyi yasaklamıştır. İçinde anlaşılmaz harfler, şekiller veya melek isimleri olan muskalar haramdır.",
       sakinca: "En güvenlisi: muskasız, doğrudan ayetleri okuyarak Allah'a sığınmak. Sadece Kur'an ayetli muskalar bazı alimlerce tartışmalıdır.",
     },
     {
       harf: "H", baslik: "Sihirli / Büyülü Su Satanlar",
-      hukum: "🔴 0/10 — DOLANDIRICILIK + HARAM",
+      hukum: "0/10 — DOLANDIRICILIK + HARAM",
       neden: "Cinlerle işbirliği yapılarak «enerji yüklendiği» iddia edilen sular dolandırıcılık ve haramdır.",
       sakinca: "Rukye için suya ayet okumak caizdir ama bunu kendin yapmalısın. Başkasının cinlerle hazırladığı su asla içilmez.",
     },
@@ -494,15 +500,16 @@ function UzakDurulmasi() {
   return (
     <div>
       <div className="mb-4 flex items-center gap-2">
-        <span className="text-xl leading-none">⚠️</span>
+        <TriangleAlert aria-hidden="true" className="h-5 w-5 text-red-500" strokeWidth={1.75} />
         <h2 className="text-base font-bold text-stone-800 dark:text-stone-100">
           Uzak Durulması Gerekenler
         </h2>
       </div>
       <div className="overflow-hidden rounded-2xl border border-red-200/60 bg-white dark:border-red-800/30 dark:bg-stone-900">
         <div className="border-b border-red-100 bg-red-50/80 px-4 py-2.5 dark:border-red-900/40 dark:bg-red-900/15">
-          <p className="text-[11px] font-medium text-red-700 dark:text-red-400">
-            🔴 0/10 — Hurafe ve Şirk Riski: Koruma yalnız Allah&apos;tandır
+          <p className="flex items-center gap-1.5 text-[11px] font-medium text-red-700 dark:text-red-400">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-red-500" />
+            0/10 — Hurafe ve Şirk Riski: Koruma yalnız Allah&apos;tandır
           </p>
         </div>
         <div className="divide-y divide-stone-100 dark:divide-stone-800">
@@ -543,14 +550,14 @@ function GenelIlkeler() {
       </p>
       <ul className="space-y-2">
         {[
-          { ikon: "🟢", metin: "YAP: Kur'an ve sahih sünnetten öğrenilen duaları bizzat kendin oku." },
-          { ikon: "🟢", metin: "YAP: Şifayı yalnız Allah'tan iste, vesilelere değil Vesileler Sahibi'ne güven." },
-          { ikon: "🔴", metin: "YAPMA: Hiçbir nesneye (tuz, sirke, boncuk, ip, muska) koruyucu güç atfetme." },
-          { ikon: "🔴", metin: "YAPMA: Cinci, medyum, falcı, yıldıznameci, büyü bozuculara asla gitme." },
-          { ikon: "🟢", metin: "UNUTMA: Korunmanın en büyük kalkanı takvadır. Haramlardan sakın, farzları yerine getir." },
+          { renk: "bg-navy-500", metin: "YAP: Kur'an ve sahih sünnetten öğrenilen duaları bizzat kendin oku." },
+          { renk: "bg-navy-500", metin: "YAP: Şifayı yalnız Allah'tan iste, vesilelere değil Vesileler Sahibi'ne güven." },
+          { renk: "bg-red-500",  metin: "YAPMA: Hiçbir nesneye (tuz, sirke, boncuk, ip, muska) koruyucu güç atfetme." },
+          { renk: "bg-red-500",  metin: "YAPMA: Cinci, medyum, falcı, yıldıznameci, büyü bozuculara asla gitme." },
+          { renk: "bg-navy-500", metin: "UNUTMA: Korunmanın en büyük kalkanı takvadır. Haramlardan sakın, farzları yerine getir." },
         ].map((il) => (
           <li key={il.metin} className="flex items-start gap-2 text-[12px] leading-relaxed text-stone-600 dark:text-stone-300">
-            <span className="shrink-0">{il.ikon}</span>
+            <span aria-hidden="true" className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${il.renk}`} />
             {il.metin}
           </li>
         ))}
@@ -570,11 +577,13 @@ export default async function ManeviSiginakPage() {
   const sifa    = await fetchVerses("korunma-sifa");
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+    <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       {/* Hero */}
       <div className="mb-8">
         <div className="mb-2 flex items-center gap-2.5">
-          <span className="text-2xl leading-none">🛡️</span>
+          <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
+            <Shield className="h-5 w-5" strokeWidth={1.75} />
+          </span>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
             Manevi Sığınak
           </h1>
@@ -599,7 +608,9 @@ export default async function ManeviSiginakPage() {
           className="group block overflow-hidden rounded-2xl border border-gold-200 bg-gradient-to-br from-gold-50 to-yellow-50 transition-shadow hover:shadow-md dark:border-gold-800/50 dark:from-gold-950/40 dark:to-yellow-950/20"
         >
           <div className="flex items-center gap-4 px-5 py-4">
-            <span className="text-3xl">✨</span>
+            <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">
+              <Sparkles className="h-5 w-5" strokeWidth={1.75} />
+            </span>
             <div className="flex-1">
               <p className="text-sm font-bold text-gold-800 dark:text-gold-300 group-hover:underline">
                 İsmi Azam & Korunma Duaları
@@ -620,7 +631,9 @@ export default async function ManeviSiginakPage() {
           className="group block overflow-hidden rounded-2xl border border-navy-200 bg-gradient-to-br from-navy-50 to-navy-50 transition-shadow hover:shadow-md dark:border-navy-800/50 dark:from-navy-950/40 dark:to-navy-950/20"
         >
           <div className="flex items-center gap-4 px-5 py-4">
-            <span className="text-3xl">📿</span>
+            <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
+              <Star className="h-5 w-5" strokeWidth={1.75} />
+            </span>
             <div className="flex-1">
               <p className="text-sm font-bold text-navy-800 dark:text-navy-300 group-hover:underline">
                 Esmaül Hüsna — 99 İsim
@@ -636,7 +649,7 @@ export default async function ManeviSiginakPage() {
 
       <div className="mb-3 mt-8">
         <div className="mb-1 flex items-center gap-2">
-          <span className="text-base leading-none">📖</span>
+          <BookOpen aria-hidden="true" className="h-4 w-4 text-stone-400 dark:text-stone-500" strokeWidth={2} />
           <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
             Uygulama Rehberleri
           </h2>
@@ -648,7 +661,7 @@ export default async function ManeviSiginakPage() {
 
       <div className="mb-8 space-y-2.5">
         <BolumAkordeon
-          ikon="🛡️" baslik="Genel Korunma Kalkanı — Günlük Rutin"
+          ikon="shield" baslik="Genel Korunma Kalkanı — Günlük Rutin"
           score="10/10" scoreLabel="Kesin Sünnet"
           borderCls="border-l-navy-400"
           headerCls="from-navy-50/70 dark:from-navy-900/20"
@@ -658,7 +671,7 @@ export default async function ManeviSiginakPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="✨" baslik="Büyü ve Sihir — Sihrin Bozulması"
+          ikon="sparkles" baslik="Büyü ve Sihir — Sihrin Bozulması"
           score="8/10" scoreLabel="Ulema İctihadı"
           borderCls="border-l-violet-400"
           headerCls="from-violet-50/70 dark:from-violet-900/20"
@@ -668,7 +681,7 @@ export default async function ManeviSiginakPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="👁️" baslik="Nazar — Göz Değmesi"
+          ikon="eye" baslik="Nazar — Göz Değmesi"
           score="10/10" scoreLabel="Kesin Sünnet"
           borderCls="border-l-sky-400"
           headerCls="from-sky-50/70 dark:from-sky-900/20"
@@ -678,7 +691,7 @@ export default async function ManeviSiginakPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="💚" baslik="Hased — Kıskançlık Şerrinden Korunma"
+          ikon="flame" baslik="Hased — Kıskançlık Şerrinden Korunma"
           score="10/10" scoreLabel="Kesin Sünnet"
           borderCls="border-l-navy-400"
           headerCls="from-navy-50/70 dark:from-navy-900/20"
@@ -688,7 +701,7 @@ export default async function ManeviSiginakPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="🤲" baslik="Şeytan Vesvesesi — Sığınma"
+          ikon="hands" baslik="Şeytan Vesvesesi — Sığınma"
           score="10/10" scoreLabel="Kesin Sünnet"
           borderCls="border-l-navy-400"
           headerCls="from-navy-50/70 dark:from-navy-900/20"
@@ -698,7 +711,7 @@ export default async function ManeviSiginakPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="💊" baslik="Şifa — Kur'an ile İyileşme"
+          ikon="heartpulse" baslik="Şifa — Kur'an ile İyileşme"
           score="10/10" scoreLabel="Kesin Sünnet"
           borderCls="border-l-rose-400"
           headerCls="from-rose-50/70 dark:from-rose-900/20"

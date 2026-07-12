@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { Bookmark, BookmarkCheck, ListChecks, Palette, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { RENK, parseTajweed, TAJWEED_LEGEND } from "../../../lib/tajweed";
@@ -248,7 +249,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               onClick={goToBookmarkPage}
               className="hidden shrink-0 items-center gap-1 rounded-full border border-gold-300 bg-gold-50 px-2.5 py-1 text-[11px] font-semibold text-gold-700 hover:bg-gold-100 dark:border-gold-700 dark:bg-gold-950/30 dark:text-gold-400 sm:flex"
             >
-              🔖 Kaldığım Yer
+              <Bookmark aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} /> Kaldığım Yer
             </button>
           )}
           <div className="flex shrink-0 items-center gap-1">
@@ -263,7 +264,9 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                   : "border-stone-200 text-stone-400 dark:border-stone-700 dark:text-stone-500"
               }`}
             >
-              🔖
+              {bookmarkSaved || bookmarkOnThisPage
+                ? <BookmarkCheck aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+                : <Bookmark aria-hidden="true" className="h-4 w-4" strokeWidth={2} />}
             </button>
             <button
               type="button"
@@ -276,7 +279,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                   : "border-stone-200 text-stone-400 dark:border-stone-700 dark:text-stone-500"
               }`}
             >
-              📑
+              <ListChecks aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -288,7 +291,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                   : "border-stone-200 text-stone-400 dark:border-stone-700 dark:text-stone-500"
               }`}
             >
-              🎨
+              <Palette aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -528,7 +531,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               className="shrink-0 p-1 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200"
               aria-label="Seçimi kaldır"
             >
-              ✕
+              <X aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
             </button>
           </div>
         </div>

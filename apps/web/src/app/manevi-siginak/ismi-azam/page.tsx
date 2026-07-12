@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+import { Sparkles } from "lucide-react";
 import { ManeviVerseList } from "../ManeviVerseList";
 import { BolumAkordeon } from "../BolumAkordeon";
 import { fetchVerses } from "../fetchVerses";
@@ -76,13 +77,13 @@ function DuaKartiFull({ dua }: { dua: DuaKarti }) {
     dua.guvenilirlik === "10/10"
       ? "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300"
       : "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-400";
-  const scoreEmoji = dua.guvenilirlik === "10/10" ? "🟢" : "🟡";
+  const scoreDot = dua.guvenilirlik === "10/10" ? "bg-navy-500" : "bg-gold-500";
 
   return (
     <div className="mb-4 overflow-hidden rounded-xl border border-gold-200 bg-gold-50/60 dark:border-gold-800/50 dark:bg-gold-900/15">
       {/* Başlık */}
       <div className="flex flex-wrap items-center gap-2 border-b border-gold-200/60 px-4 py-3 dark:border-gold-800/40">
-        <span className="text-sm">{scoreEmoji}</span>
+        <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${scoreDot}`} />
         <p className="text-xs font-bold text-gold-800 dark:text-gold-300">{dua.baslik}</p>
         <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${scoreColor}`}>
           {dua.guvenilirlik}
@@ -126,10 +127,10 @@ function DuaKartiFull({ dua }: { dua: DuaKarti }) {
 // ── Korunma Duası Kartı (Arapça RTL + Meal + Kategori etiketi) ───────────────
 
 const korunmaKategoriLabel: Record<KorunmaDuasi["kategori"], string> = {
-  "sabah-aksam": "☀️ Sabah-Akşam",
-  "evden-cikarken": "🚪 Evden Çıkarken",
-  "yatarken": "🌙 Yatarken",
-  "genel-korunma": "🛡️ Genel Korunma",
+  "sabah-aksam": "Sabah-Akşam",
+  "evden-cikarken": "Evden Çıkarken",
+  "yatarken": "Yatarken",
+  "genel-korunma": "Genel Korunma",
 };
 
 function KorunmaKarti({ dua }: { dua: KorunmaDuasi }) {
@@ -137,7 +138,7 @@ function KorunmaKarti({ dua }: { dua: KorunmaDuasi }) {
     <div className="mb-4 overflow-hidden rounded-xl border border-navy-200 bg-navy-50/60 dark:border-navy-800/50 dark:bg-navy-900/15">
       {/* Başlık */}
       <div className="flex flex-wrap items-center gap-2 border-b border-navy-200/60 px-4 py-3 dark:border-navy-800/40">
-        <span className="text-sm">🟢</span>
+        <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-navy-500" />
         <p className="text-xs font-bold text-navy-800 dark:text-navy-300">{dua.baslik}</p>
         <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[10px] font-semibold text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
           {dua.guvenilirlik}
@@ -201,7 +202,7 @@ function MetotKutusu({
   return (
     <div className={`mb-4 rounded-xl border px-4 py-4 ${border}`}>
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <span className="text-sm">{isSekiz ? "🟡" : "🟢"}</span>
+        <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${isSekiz ? "bg-gold-500" : "bg-navy-500"}`} />
         <p className={`text-xs font-bold ${labelColor}`}>{baslik}</p>
         <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${badgeColor}`}>{kaynak}</span>
       </div>
@@ -228,7 +229,7 @@ function GuvenilirlikBadgeleri() {
     <div className="mb-6 grid gap-3 sm:grid-cols-2">
       <div className="rounded-xl border border-navy-200 bg-navy-50 px-4 py-3 dark:border-navy-800/60 dark:bg-navy-900/20">
         <div className="mb-1 flex items-center gap-2">
-          <span>🟢</span>
+          <span aria-hidden="true" className="mt-1 h-2 w-2 shrink-0 rounded-full bg-navy-500" />
           <span className="rounded-full bg-navy-100 px-2 py-0.5 text-[11px] font-bold text-navy-700 dark:bg-navy-900/40 dark:text-navy-300">
             10/10
           </span>
@@ -240,7 +241,7 @@ function GuvenilirlikBadgeleri() {
       </div>
       <div className="rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 dark:border-gold-800/60 dark:bg-gold-900/20">
         <div className="mb-1 flex items-center gap-2">
-          <span>🟡</span>
+          <span aria-hidden="true" className="mt-1 h-2 w-2 shrink-0 rounded-full bg-gold-500" />
           <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[11px] font-bold text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">
             8/10
           </span>
@@ -309,7 +310,7 @@ function Bolum2Icerik({ verses }: { verses: VerseCardData[] }) {
       <div className="mb-4 overflow-hidden rounded-xl border border-violet-200 bg-violet-50/60 dark:border-violet-800/50 dark:bg-violet-900/15">
         <div className="border-b border-violet-200/60 px-4 py-3 dark:border-violet-800/40">
           <p className="text-xs font-bold text-violet-800 dark:text-violet-300">
-            📦 Tabut-u Sekine Nedir?
+            Tabut-u Sekine Nedir?
           </p>
         </div>
         {/* Arapça Ayet */}
@@ -391,7 +392,7 @@ function Bolum3Icerik() {
 
       <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3.5 dark:border-gold-800/50 dark:bg-gold-900/15">
         <p className="text-[12px] leading-relaxed text-gold-800 dark:text-gold-300">
-          <span className="font-bold">📿 Tavsiye:</span> Bu duaları günlük rutininize ekleyin.
+          <span className="font-bold">Tavsiye:</span> Bu duaları günlük rutininize ekleyin.
           Sabah-akşam korunma duası, evden çıkarken ve yatarken okunan dualar, sizi Allah'ın
           izniyle görünmez kazalardan ve şerlerden muhafaza eder.
         </p>
@@ -407,11 +408,13 @@ export default async function IsmiAzamPage() {
   const sekineVerses = await fetchVerses("ismiazam-sekine");
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-8">
+    <main className="mx-auto max-w-2xl px-4 py-10">
       {/* Hero */}
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-2.5">
-          <span className="text-2xl leading-none">✨</span>
+          <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300">
+            <Sparkles className="h-5 w-5" strokeWidth={1.75} />
+          </span>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
             İsmi Azam ve Korunma Duaları
           </h1>
@@ -448,7 +451,7 @@ export default async function IsmiAzamPage() {
 
       <div className="space-y-2.5">
         <BolumAkordeon
-          ikon="🟢"
+          ikon="star"
           baslik="Sahih İsmi Azam — Rivayetler ve Metodlar"
           score="10/10"
           scoreLabel="Kesin Sünnet"
@@ -460,7 +463,7 @@ export default async function IsmiAzamPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="🌀"
+          ikon="sparkles"
           baslik="Sekine Duası — 19 Ayet Protokolü"
           score="8/10"
           scoreLabel="Ulema Tertibi"
@@ -472,7 +475,7 @@ export default async function IsmiAzamPage() {
         </BolumAkordeon>
 
         <BolumAkordeon
-          ikon="🛡️"
+          ikon="shield"
           baslik="Günlük Korunma Duaları"
           score="10/10"
           scoreLabel="Kesin Sünnet"

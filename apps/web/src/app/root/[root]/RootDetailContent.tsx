@@ -55,7 +55,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
   const maxFreq = Math.max(...Object.values(data.distribution), 1);
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       {/* Root Header */}
       <div className="mb-6 text-center">
         <p

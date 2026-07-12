@@ -50,7 +50,7 @@ export function NoteEditor({ verseKey }: { verseKey: string }) {
     <section className="rounded-xl border border-gold-200 bg-gold-50 p-5 shadow-sm dark:border-gold-800/40 dark:bg-gold-950/20">
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-sm font-semibold text-gold-800 dark:text-gold-300">
-          📝 Kişisel Not
+          Kişisel Not
         </h2>
         {saved && (
           <button

@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BookOpen } from "lucide-react";
 import { parseDirectAyahQuery } from "../../lib/ayahRefs";
 import { getRecentSearches, setRecentSearches } from "../../lib/storageUtils";
 import type { SearchResponse } from "../api/search/search-types";
@@ -263,7 +264,7 @@ export function SearchBar({ initialValue = "", placeholder = "Sure veya kelime a
               className="flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-stone-50 dark:hover:bg-stone-800"
               type="button"
             >
-              <span className="text-stone-400 dark:text-stone-500">📖</span>
+              <BookOpen aria-hidden="true" className="h-4 w-4 shrink-0 text-stone-400 dark:text-stone-500" strokeWidth={1.75} />
               <span className="text-sm font-medium text-stone-800 dark:text-stone-100">{dropdown.surahName}</span>
               <span className="ml-auto text-xs text-stone-400 dark:text-stone-500">Sure →</span>
             </button>

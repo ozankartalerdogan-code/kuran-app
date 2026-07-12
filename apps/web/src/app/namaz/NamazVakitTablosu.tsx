@@ -55,34 +55,34 @@ const MOTTO_KEY = "4:103";
 
 interface VakitMeta {
   id:   string;
-  ikon: string;
   ad:   string;
   renk: { sol: string; bant: string; badge: string };
 }
 
+// İkonlar NamazVakitAccordion içinde id üzerinden eşlenir (lucide, client tarafı)
 const VAKIT_META: VakitMeta[] = [
   {
-    id: "sabah", ikon: "🌅", ad: "Sabah",
+    id: "sabah", ad: "Sabah",
     renk: { sol: "bg-sky-50 dark:bg-sky-900/20", bant: "border-l-sky-400", badge: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300" },
   },
   {
-    id: "ogle", ikon: "☀️", ad: "Öğle",
+    id: "ogle", ad: "Öğle",
     renk: { sol: "bg-gold-50 dark:bg-gold-900/20", bant: "border-l-gold-400", badge: "bg-gold-100 text-gold-800 dark:bg-gold-900/40 dark:text-gold-300" },
   },
   {
-    id: "ikindi", ikon: "🌤️", ad: "İkindi",
+    id: "ikindi", ad: "İkindi",
     renk: { sol: "bg-orange-50 dark:bg-orange-900/20", bant: "border-l-orange-500", badge: "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300" },
   },
   {
-    id: "aksam", ikon: "🌆", ad: "Akşam",
+    id: "aksam", ad: "Akşam",
     renk: { sol: "bg-rose-50 dark:bg-rose-900/20", bant: "border-l-rose-500", badge: "bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300" },
   },
   {
-    id: "yatsi", ikon: "🌙", ad: "Yatsı",
+    id: "yatsi", ad: "Yatsı",
     renk: { sol: "bg-navy-50 dark:bg-navy-900/20", bant: "border-l-navy-500", badge: "bg-navy-100 text-navy-800 dark:bg-navy-900/40 dark:text-navy-300" },
   },
   {
-    id: "teheccud", ikon: "🌌", ad: "Teheccüd",
+    id: "teheccud", ad: "Teheccüd",
     renk: { sol: "bg-violet-50 dark:bg-violet-900/20", bant: "border-l-violet-600", badge: "bg-violet-100 text-violet-900 dark:bg-violet-900/40 dark:text-violet-300" },
   },
 ];

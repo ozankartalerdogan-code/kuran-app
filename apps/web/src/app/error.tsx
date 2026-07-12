@@ -26,7 +26,7 @@ export default function GlobalError({
             Tekrar dene
           </button>
           <Link
-            href="/surah/1/ayah/1"
+            href="/"
             className="rounded-lg bg-navy-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700"
           >
             Ana sayfaya dön

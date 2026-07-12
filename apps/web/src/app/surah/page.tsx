@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
+import { BookOpen } from "lucide-react";
 import { dbAll } from "../../lib/dbUtils";
 import { NUZUL } from "../../data/nuzul";
 import { SurahListClient, type SurahItem } from "./SurahListClient";
@@ -37,10 +38,10 @@ export default async function SurahListPage() {
   }));
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-4xl">
         <PageHeader
-          icon="📖"
+          icon={BookOpen}
           title="Sureler"
           description="114 sure — Mushaf veya nüzul (vahiy geliş) sırasına göre."
         />

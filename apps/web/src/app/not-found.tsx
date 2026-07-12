@@ -12,12 +12,20 @@ export default function NotFound() {
         <p className="mt-2 text-sm text-stone-500">
           Aradığınız sayfa mevcut değil ya da taşınmış olabilir.
         </p>
-        <Link
-          href="/"
-          className="mt-6 inline-block rounded-lg bg-navy-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700"
-        >
-          Ana sayfaya dön
-        </Link>
+        <div className="mt-6 flex justify-center gap-3">
+          <Link
+            href="/"
+            className="rounded-lg bg-navy-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700"
+          >
+            Ana sayfaya dön
+          </Link>
+          <Link
+            href="/search"
+            className="rounded-lg border border-stone-300 bg-white px-5 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-50"
+          >
+            Arama yap
+          </Link>
+        </div>
       </div>
     </main>
   );

@@ -336,7 +336,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-4xl space-y-6 px-4 py-8 sm:px-6">
+      <div className="mx-auto max-w-4xl space-y-6 px-4 py-10 sm:px-6">
 
         {/* ── GÜNLÜK AYET ── */}
         {dailyVerse && (
@@ -382,16 +382,16 @@ export default async function HomePage() {
         <div className="-mx-4 sm:mx-0">
           <div className="flex gap-2 overflow-x-auto px-4 pb-2 [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
             {([
-              { etiket: "😌 Huzur arıyorum",     tag: "rahmet",         renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
-              { etiket: "😰 Stres altındayım",   tag: "sabır",          renk: "border-gold-200 bg-gold-50 text-gold-700 hover:bg-gold-100 dark:border-gold-800/50 dark:bg-gold-950/40 dark:text-gold-300 dark:hover:bg-gold-900/50" },
-              { etiket: "🙏 Tövbe etmek",        tag: "tövbe",          renk: "border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 dark:border-violet-800/50 dark:bg-violet-950/40 dark:text-violet-300 dark:hover:bg-violet-900/50" },
-              { etiket: "💔 Geçim sıkıntısı",    tag: "rızık",          renk: "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50" },
-              { etiket: "😔 Üzüntülüyüm",        tag: "tevekkül",       renk: "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:border-blue-800/50 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/50" },
-              { etiket: "🤍 Şükretmek",          tag: "şükür",          renk: "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 dark:border-yellow-800/50 dark:bg-yellow-950/40 dark:text-yellow-300 dark:hover:bg-yellow-900/50" },
-              { etiket: "⚖️ Haksızlığa uğradım", tag: "adalet",         renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
-              { etiket: "👨‍👩‍👧 Aile meselesi",     tag: "D1_AILE_HUKUKU", kind: "ana", renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
-              { etiket: "🌟 İlham almak",         tag: "hidayet",        renk: "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 dark:border-orange-800/50 dark:bg-orange-950/40 dark:text-orange-300 dark:hover:bg-orange-900/50" },
-              { etiket: "💀 Ölümü düşünmek",      tag: "ecel",           renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
+              { etiket: "Huzur arıyorum",     ikon: "leaf",       tag: "rahmet",         renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
+              { etiket: "Stres altındayım",   ikon: "cloudrain",  tag: "sabır",          renk: "border-gold-200 bg-gold-50 text-gold-700 hover:bg-gold-100 dark:border-gold-800/50 dark:bg-gold-950/40 dark:text-gold-300 dark:hover:bg-gold-900/50" },
+              { etiket: "Tövbe etmek",        ikon: "sunrise",    tag: "tövbe",          renk: "border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 dark:border-violet-800/50 dark:bg-violet-950/40 dark:text-violet-300 dark:hover:bg-violet-900/50" },
+              { etiket: "Geçim sıkıntısı",    ikon: "wheat",      tag: "rızık",          renk: "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/50" },
+              { etiket: "Üzüntülüyüm",        ikon: "heartcrack", tag: "tevekkül",       renk: "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 dark:border-blue-800/50 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/50" },
+              { etiket: "Şükretmek",          ikon: "heart",      tag: "şükür",          renk: "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 dark:border-yellow-800/50 dark:bg-yellow-950/40 dark:text-yellow-300 dark:hover:bg-yellow-900/50" },
+              { etiket: "Haksızlığa uğradım", ikon: "scale",      tag: "adalet",         renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
+              { etiket: "Aile meselesi",      ikon: "users",      tag: "D1_AILE_HUKUKU", kind: "ana", renk: "border-navy-200 bg-navy-50 text-navy-700 hover:bg-navy-100 dark:border-navy-800/50 dark:bg-navy-950/40 dark:text-navy-300 dark:hover:bg-navy-900/50" },
+              { etiket: "İlham almak",        ikon: "lightbulb",  tag: "hidayet",        renk: "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 dark:border-orange-800/50 dark:bg-orange-950/40 dark:text-orange-300 dark:hover:bg-orange-900/50" },
+              { etiket: "Ölümü düşünmek",     ikon: "hourglass",  tag: "ecel",           renk: "border-slate-300 bg-slate-100 text-slate-600 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-700/60" },
             ] as const).map((item) => (
               <MoodTagButton key={item.tag} {...item} />
             ))}
@@ -403,7 +403,7 @@ export default async function HomePage() {
 
         {/* ── NAVİGASYON KARTLARI ── */}
         <section>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="stagger-children grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {NAV_CARDS.map((card) => (
               <Link
                 key={card.href}

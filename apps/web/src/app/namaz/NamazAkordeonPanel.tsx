@@ -2,11 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {
+  MoonStar, Clock, HandHeart, Moon, Users, Droplets, ShieldAlert, Plane,
+  type LucideIcon,
+} from "lucide-react";
 import type { NamazKategoriData, NamazVerse } from "./NamazKategorileri";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
 const INITIAL_VISIBLE = 12;
+
+// Kategori ikonları — emoji yerine marka diline uygun çizgi ikonlar.
+// (İkon bileşeni server→client sınırından geçemediği için eşleme burada, id üzerinden.)
+const KATEGORI_IKON: Record<string, LucideIcon> = {
+  "namaz-genel":    MoonStar,
+  "namaz-vakit":    Clock,
+  "namaz-husu":     HandHeart,
+  "namaz-teheccud": Moon,
+  "namaz-cuma":     Users,
+  "namaz-abdest":   Droplets,
+  "namaz-korku":    ShieldAlert,
+  "namaz-sefer":    Plane,
+};
 
 // ── Kategori renk haritası ────────────────────────────────────────────────────
 
@@ -99,9 +116,12 @@ function KategoriItem({ kategori }: { kategori: NamazKategoriData }) {
         className={`flex w-full items-center gap-3 bg-gradient-to-r ${renk.header} to-transparent px-4 py-3.5 text-left`}
       >
         <span
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg} text-lg leading-none`}
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg}`}
         >
-          {kategori.ikon}
+          {(() => {
+            const Ikon = KATEGORI_IKON[kategori.id] ?? MoonStar;
+            return <Ikon aria-hidden="true" className="h-[18px] w-[18px] text-stone-600 dark:text-stone-300" strokeWidth={1.75} />;
+          })()}
         </span>
 
         <div className="min-w-0 flex-1">
@@ -186,7 +206,7 @@ export function NamazAkordeonPanel({
       <div className="mb-6">
         <div className="mb-1.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-base leading-none">🕌</span>
+            <MoonStar aria-hidden="true" className="h-4 w-4 text-stone-400 dark:text-stone-500" strokeWidth={2} />
             <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
               Namaz Ayetleri
             </h2>

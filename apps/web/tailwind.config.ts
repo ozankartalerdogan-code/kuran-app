@@ -45,11 +45,13 @@ const config: Config = {
         "card-hover": "0 2px 4px rgba(19,29,46,0.06), 0 10px 28px rgba(19,29,46,0.10)",
       },
       fontFamily: {
-        // Başlık serifi: içerik odaklı, kitap hissi (yalnızca display kullanımında)
-        display: ["Georgia", "Cambria", "Times New Roman", "serif"],
-        // UI tipografisi: sistem sans yığını (indirme yok, her platformda
-        // yerli his). Georgia gövde fontu UI elemanlarını amatör gösteriyordu.
+        // Başlık serifi: Lora (next/font, --font-display) — kitap hissi,
+        // Türkçe latin-ext desteği. Yüklenemezse Georgia'ya düşer.
+        display: ["var(--font-display)", "Georgia", "Cambria", "Times New Roman", "serif"],
+        // UI tipografisi: Figtree (next/font, --font-sans) — karakterli ama
+        // okunaklı geometrik sans; fallback sistem yığını.
         sans: [
+          "var(--font-sans)",
           "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI",
           "Roboto", "Helvetica Neue", "Arial", "sans-serif"
         ],

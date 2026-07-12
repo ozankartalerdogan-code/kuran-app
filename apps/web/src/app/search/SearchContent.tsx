@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { MoonStar, Shield, Sparkles, type LucideIcon } from "lucide-react";
 import { Pagination } from "../../components/Pagination";
 import { SearchBar } from "../../components/SearchBar";
 import { VerseCard, type VerseCardData } from "../../components/VerseCard";
@@ -201,7 +202,7 @@ export function SearchContent() {
 
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
 
         <header>
@@ -258,18 +259,18 @@ export function SearchContent() {
                 Özel Koleksiyonlar
               </h2>
               <div className="grid gap-2.5 sm:grid-cols-3">
-                {[
-                  { href: "/namaz",                      ikon: "🕌", baslik: "Namaz Ayetleri",        aciklama: "Vakit, huşu, teheccüd" },
-                  { href: "/manevi-siginak",              ikon: "🛡️", baslik: "Manevi Sığınak",         aciklama: "Büyü, nazar, hased, şifa" },
-                  { href: "/manevi-siginak/ismi-azam",    ikon: "✨", baslik: "İsmi Azam ve Sekine",   aciklama: "Sahih dualar ve protokol" },
-                ].map((k) => (
+                {([
+                  { href: "/namaz",                      ikon: MoonStar, baslik: "Namaz Ayetleri",        aciklama: "Vakit, huşu, teheccüd" },
+                  { href: "/manevi-siginak",              ikon: Shield,   baslik: "Manevi Sığınak",         aciklama: "Büyü, nazar, hased, şifa" },
+                  { href: "/manevi-siginak/ismi-azam",    ikon: Sparkles, baslik: "İsmi Azam ve Sekine",   aciklama: "Sahih dualar ve protokol" },
+                ] as { href: string; ikon: LucideIcon; baslik: string; aciklama: string }[]).map((k) => (
                   <Link
                     key={k.href}
                     href={k.href}
                     className="group flex items-start gap-3 rounded-xl border border-stone-200 bg-white px-3.5 py-3 shadow-sm transition-all hover:border-navy-200 hover:shadow-md"
                   >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-50 text-lg leading-none">
-                      {k.ikon}
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-stone-50">
+                      <k.ikon aria-hidden="true" className="h-[18px] w-[18px] text-navy-700" strokeWidth={1.75} />
                     </span>
                     <div className="min-w-0">
                       <p className="truncate text-xs font-semibold text-stone-800 group-hover:text-navy-700">
@@ -303,7 +304,8 @@ export function SearchContent() {
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
                     className="rounded-full border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
                   >
-                    🕌 {label}
+                    <MoonStar aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />
+                    {label}
                   </button>
                 ))}
               </div>
@@ -328,7 +330,8 @@ export function SearchContent() {
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
                     className="rounded-full border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
                   >
-                    🛡️ {label}
+                    <Shield aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />
+                    {label}
                   </button>
                 ))}
               </div>
@@ -349,7 +352,8 @@ export function SearchContent() {
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
                     className="rounded-full border border-gold-200 bg-gold-50 px-3 py-1 text-xs font-medium text-gold-700 transition-all hover:bg-gold-100 active:scale-95"
                   >
-                    ✨ {label}
+                    <Sparkles aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />
+                    {label}
                   </button>
                 ))}
               </div>

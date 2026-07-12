@@ -2,7 +2,21 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {
+  Shield, Sparkles, Eye, Flame, DoorOpen, HeartPulse,
+  type LucideIcon,
+} from "lucide-react";
 import type { KorunmaKategoriData, KorunmaVerse } from "./KorunmaKategorileri";
+
+// Kategori ikonları — id üzerinden lucide eşleme (emoji tutarsız render ediliyordu)
+const KATEGORI_IKON: Record<string, LucideIcon> = {
+  "korunma-genel":   Shield,
+  "korunma-sihir":   Sparkles,
+  "korunma-nazar":   Eye,
+  "korunma-hased":   Flame,
+  "korunma-siginma": DoorOpen,
+  "korunma-sifa":    HeartPulse,
+};
 
 const KATEGORI_RENK: Record<
   string,
@@ -74,8 +88,11 @@ function KategoriItem({ kategori }: { kategori: KorunmaKategoriData }) {
         onClick={() => setAcik((p) => !p)}
         className={`flex w-full items-center gap-3 bg-gradient-to-r ${renk.header} to-transparent px-4 py-3.5 text-left`}
       >
-        <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg} text-lg leading-none`}>
-          {kategori.ikon}
+        <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${renk.iconBg}`}>
+          {(() => {
+            const Ikon = KATEGORI_IKON[kategori.id] ?? Shield;
+            return <Ikon aria-hidden="true" className="h-[18px] w-[18px] text-stone-600 dark:text-stone-300" strokeWidth={1.75} />;
+          })()}
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold text-stone-800 dark:text-stone-100">
@@ -125,7 +142,7 @@ export function KorunmaAkordeonPanel({
       <div className="mb-6">
         <div className="mb-1.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-base leading-none">🛡️</span>
+            <Shield aria-hidden="true" className="h-4 w-4 text-stone-400 dark:text-stone-500" strokeWidth={2} />
             <h2 className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
               Koruyucu Ayetler
             </h2>

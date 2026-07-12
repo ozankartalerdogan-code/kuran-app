@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { TriangleAlert, Heart } from "lucide-react";
 import { VerseCard, type VerseCardData } from "../../components/VerseCard";
 import { getFavorites, setFavorites } from "../../lib/storageUtils";
 
@@ -69,7 +70,7 @@ export function FavorilerClient() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -106,7 +107,9 @@ export function FavorilerClient() {
 
         {!loading && error && keys.length > 0 && (
           <div className="rounded-2xl border border-gold-200 bg-white px-8 py-12 text-center shadow-md dark:border-gold-800 dark:bg-stone-800">
-            <div className="mb-3 text-4xl">⚠️</div>
+            <div className="mb-3 flex justify-center">
+              <TriangleAlert aria-hidden="true" className="h-10 w-10 text-gold-500" strokeWidth={1.5} />
+            </div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Favoriler yüklenemedi
             </p>
@@ -125,7 +128,9 @@ export function FavorilerClient() {
 
         {!loading && !error && keys.length === 0 && (
           <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
-            <div className="mb-3 text-4xl">🤍</div>
+            <div className="mb-3 flex justify-center">
+              <Heart aria-hidden="true" className="h-10 w-10 text-stone-300 dark:text-stone-600" strokeWidth={1.5} />
+            </div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Henüz favori ayet eklemediniz
             </p>
@@ -143,7 +148,9 @@ export function FavorilerClient() {
 
         {!loading && !error && keys.length > 0 && verses.length === 0 && (
           <div className="rounded-2xl border border-stone-200 bg-white px-8 py-12 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
-            <div className="mb-3 text-4xl">📭</div>
+            <div className="mb-3 flex justify-center">
+              <Heart aria-hidden="true" className="h-10 w-10 text-stone-300 dark:text-stone-600" strokeWidth={1.5} />
+            </div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Favoriler bulundu ama içerik listesi oluşturulamadı
             </p>

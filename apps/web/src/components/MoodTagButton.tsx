@@ -2,12 +2,27 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
+import {
+  Leaf, CloudRain, Sunrise, Wheat, HeartCrack, Heart,
+  Scale, Users, Lightbulb, Hourglass,
+  type LucideIcon,
+} from "lucide-react";
 import type { MoodRandomResponse } from "../app/api/mood/random/route";
+
+// İkon eşlemesi burada (client): sunucu bileşeninden fonksiyon geçirilemez,
+// bu yüzden ana sayfa string anahtar yollar. Emoji tutarsız render ediliyordu.
+const IKON_MAP: Record<string, LucideIcon> = {
+  leaf: Leaf, cloudrain: CloudRain, sunrise: Sunrise, wheat: Wheat,
+  heartcrack: HeartCrack, heart: Heart, scale: Scale, users: Users,
+  lightbulb: Lightbulb, hourglass: Hourglass,
+};
 
 interface Props {
   etiket: string;
   tag:    string;
   renk:   string;
+  /** IKON_MAP anahtarı (ör. "leaf") — lucide ikona çözülür. */
+  ikon?:  string;
   /** Etiket türü statik biliniyor → API'de DB yoklaması atlanır. Varsayılan "tag". */
   kind?:  "ana" | "tag";
 }
@@ -32,7 +47,8 @@ function saveHistory(tag: string, keys: string[]) {
   }
 }
 
-export function MoodTagButton({ etiket, tag, renk, kind = "tag" }: Props) {
+export function MoodTagButton({ etiket, tag, renk, ikon, kind = "tag" }: Props) {
+  const Ikon = ikon ? IKON_MAP[ikon] : undefined;
   const [verse, setVerse]     = useState<MoodRandomResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
@@ -94,8 +110,9 @@ export function MoodTagButton({ etiket, tag, renk, kind = "tag" }: Props) {
     <>
       <button
         onClick={handleOpen}
-        className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors active:scale-95 ${renk}`}
+        className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors active:scale-95 ${renk}`}
       >
+        {Ikon && <Ikon aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={2} />}
         {etiket}
       </button>
 
@@ -112,7 +129,8 @@ export function MoodTagButton({ etiket, tag, renk, kind = "tag" }: Props) {
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-stone-100 px-5 py-3 dark:border-stone-800">
-              <span className="text-sm font-semibold text-stone-700 dark:text-stone-200">
+              <span className="flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-200">
+                {Ikon && <Ikon aria-hidden="true" className="h-4 w-4 text-navy-600 dark:text-navy-400" strokeWidth={2} />}
                 {etiket}
               </span>
               <button

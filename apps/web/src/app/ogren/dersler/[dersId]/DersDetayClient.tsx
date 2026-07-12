@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Trophy, Star, ThumbsUp, BookOpen, type LucideIcon } from "lucide-react";
 import { DERS_DATA, BASLIKLAR, getQuiz, type DersKart } from "../../../../data/dersler/registry";
 import { normalizeQuizSorular, shuffle, shuffleQuizOptions, type QuizSoru } from "../../../../data/dersler/quizUtils";
 import { useDersProgress } from "../../../../hooks/useDersProgress";
@@ -26,12 +27,12 @@ function cleanText(value: string) {
   return value.replace(/\{\{link:[^|}]+\|([^}]+)}}/g, "$1");
 }
 
-function scoreEmoji(score: number, total: number) {
+function scoreIkon(score: number, total: number): LucideIcon {
   const pct = total > 0 ? score / total : 0;
-  if (pct >= 0.9) return "🏆";
-  if (pct >= 0.7) return "🌟";
-  if (pct >= 0.5) return "👍";
-  return "📚";
+  if (pct >= 0.9) return Trophy;
+  if (pct >= 0.7) return Star;
+  if (pct >= 0.5) return ThumbsUp;
+  return BookOpen;
 }
 
 function ProgressBar({ pct, color = "bg-gold-500" }: { pct: number; color?: string }) {
@@ -81,12 +82,16 @@ function LessonCard({ kart }: { kart: DersKart }) {
 function ResultScreen({ score, questions, wrongAnswers, onReturn, onRetry }: { score: number; questions: QuizSoru[]; wrongAnswers: QuizSoru[]; onReturn: () => void; onRetry: () => void }) {
   const total = questions.length;
   const pct = total > 0 ? Math.round((score / total) * 100) : 0;
-  const emoji = scoreEmoji(score, total);
+  const SkorIkon = scoreIkon(score, total);
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8">
+    <div className="mx-auto max-w-2xl px-4 py-10">
       <div className="mb-6 rounded-3xl border border-stone-200 bg-white p-6 text-center shadow-sm dark:border-stone-700 dark:bg-stone-900">
-        <div className="text-6xl">{emoji}</div>
+        <div className="flex justify-center">
+          <span aria-hidden="true" className="flex h-20 w-20 items-center justify-center rounded-full bg-gold-100 text-gold-600 dark:bg-gold-900/40 dark:text-gold-300">
+            <SkorIkon className="h-10 w-10" strokeWidth={1.5} />
+          </span>
+        </div>
         <h1 className="mt-3 text-2xl font-black text-stone-950 dark:text-stone-50">{score} / {total} doğru</h1>
         <p className="mt-1 text-sm font-semibold text-stone-500 dark:text-stone-400">%{pct} başarı</p>
         <div className="mt-5"><ProgressBar pct={pct} color={pct >= 70 ? "bg-navy-500" : "bg-gold-500"} /></div>
@@ -149,9 +154,11 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
 
   if (!dersData || !kart) {
     return (
-      <main className="min-h-screen px-4 py-8">
+      <main className="min-h-screen px-4 py-10">
         <div className="mx-auto max-w-2xl rounded-3xl border border-stone-200 bg-white p-8 text-center dark:border-stone-700 dark:bg-stone-900">
-          <div className="text-5xl">📚</div>
+          <div className="flex justify-center">
+            <BookOpen aria-hidden="true" className="h-12 w-12 text-stone-300 dark:text-stone-600" strokeWidth={1.5} />
+          </div>
           <h1 className="mt-4 text-xl font-black text-stone-950 dark:text-stone-50">Ders bulunamadı</h1>
           <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">{baslik} içeriği şu anda görüntülenemiyor.</p>
           <Link href="/ogren/dersler" className="mt-5 inline-flex rounded-xl bg-gold-500 px-4 py-2 text-sm font-bold text-stone-950">Derslere Dön</Link>
@@ -216,7 +223,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
   if (mode === "quiz" && currentQuestion) {
     const quizPct = Math.round(((qIndex + 1) / quizQuestions.length) * 100);
     return (
-      <main className="min-h-screen px-4 py-8 sm:px-6">
+      <main className="min-h-screen px-4 py-10 sm:px-6">
         <div className="mx-auto max-w-2xl">
           <div className="mb-5 flex items-center gap-3">
             <button type="button" onClick={() => setMode("kart")} className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">← Derse Dön</button>
@@ -261,7 +268,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
 
   if (mode === "oku") {
     return (
-      <main className="min-h-screen px-4 py-8 sm:px-6">
+      <main className="min-h-screen px-4 py-10 sm:px-6">
         <div className="mx-auto max-w-2xl">
           <div className="mb-5 flex items-center gap-3">
             <Link href="/ogren/dersler" className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">← Dersler</Link>
@@ -286,7 +293,7 @@ export function DersDetayClient({ dersId }: { dersId: string }) {
   }
 
   return (
-    <main className="min-h-screen px-4 py-8 sm:px-6">
+    <main className="min-h-screen px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-2xl">
         <div className="mb-5 flex items-center gap-3">
           <Link href="/ogren/dersler" className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:hover:bg-stone-800">← Dersler</Link>

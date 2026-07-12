@@ -1,8 +1,26 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { Lora, Figtree } from "next/font/google";
 import { NavbarMenu } from "./NavbarMenu";
 import "./globals.css";
+
+// Marka tipografisi — next/font: build sırasında indirilir, self-host edilir,
+// CLS'siz yüklenir. Başlıklar Lora (kitap hissi veren serif), UI Figtree.
+// latin-ext şart: Türkçe ğ/ş/ı karakterleri bu altkümede.
+const fontDisplay = Lora({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const fontSans = Figtree({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -28,8 +46,12 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: "/icon.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    // iOS SVG apple-touch-icon desteklemez — 180x180 PNG şart
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -44,7 +66,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="tr" className="scroll-smooth">
+    <html lang="tr" className={`scroll-smooth ${fontDisplay.variable} ${fontSans.variable}`}>
       {/* Anti-flicker: React hydrate'dan önce gece modunu uygula */}
       <head>
         {/* Arapça font erken yüklensin — ayet metinleri fontla boyansın (FOUT engeli) */}
@@ -130,6 +152,9 @@ export default function RootLayout({
                 <Link href="/privacy" className="hover:text-white hover:underline">
                   Gizlilik
                 </Link>
+                <a href="mailto:kuranyolu.iletisim@gmail.com" className="hover:text-white hover:underline">
+                  İletişim
+                </a>
               </span>
             </div>
           </div>

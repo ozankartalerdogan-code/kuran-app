@@ -2,13 +2,24 @@
 
 import { useState } from "react";
 import type { ReactNode } from "react";
+import {
+  Shield, Sparkles, Eye, HandHeart, Star, CircleDot, Flame, HeartPulse,
+  type LucideIcon,
+} from "lucide-react";
 
 type Score = "10/10" | "8/10" | "0/10";
 
-const SCORE_CFG: Record<Score, { emoji: string; cls: string }> = {
-  "10/10": { emoji: "🟢", cls: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300" },
-  "8/10":  { emoji: "🟡", cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300" },
-  "0/10":  { emoji: "🔴", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
+const SCORE_CFG: Record<Score, { dot: string; cls: string }> = {
+  "10/10": { dot: "bg-navy-500",  cls: "bg-navy-100 text-navy-700 dark:bg-navy-900/40 dark:text-navy-300" },
+  "8/10":  { dot: "bg-gold-500",  cls: "bg-gold-100 text-gold-700 dark:bg-gold-900/40 dark:text-gold-300" },
+  "0/10":  { dot: "bg-red-500",   cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" },
+};
+
+// ikon prop'u string anahtar — sunucu bileşeninden fonksiyon geçirilemediği için
+// eşleme burada yapılır (emoji tutarsız render ediliyordu)
+const IKON_MAP: Record<string, LucideIcon> = {
+  shield: Shield, sparkles: Sparkles, eye: Eye, hands: HandHeart, star: Star,
+  flame: Flame, heartpulse: HeartPulse,
 };
 
 export function BolumAkordeon({
@@ -31,7 +42,8 @@ export function BolumAkordeon({
   children:   ReactNode;
 }) {
   const [acik, setAcik] = useState(false);
-  const { emoji, cls } = SCORE_CFG[score];
+  const { dot, cls } = SCORE_CFG[score];
+  const Ikon = IKON_MAP[ikon] ?? CircleDot;
 
   return (
     <div
@@ -45,9 +57,9 @@ export function BolumAkordeon({
         className={`flex w-full items-center gap-3 bg-gradient-to-r ${headerCls} to-transparent px-4 py-3.5 text-left`}
       >
         <span
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${iconBgCls} text-xl leading-none`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${iconBgCls}`}
         >
-          {ikon}
+          <Ikon aria-hidden="true" className="h-5 w-5 text-stone-600 dark:text-stone-300" strokeWidth={1.75} />
         </span>
 
         <div className="min-w-0 flex-1">
@@ -57,7 +69,8 @@ export function BolumAkordeon({
           <span
             className={`mt-0.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${cls}`}
           >
-            {emoji} {score}{scoreLabel ? ` — ${scoreLabel}` : ""}
+            <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${dot}`} />
+            {score}{scoreLabel ? ` — ${scoreLabel}` : ""}
           </span>
         </div>
 
