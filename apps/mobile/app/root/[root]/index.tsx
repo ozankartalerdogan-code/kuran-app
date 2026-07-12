@@ -15,14 +15,33 @@ import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
 
-function heatColor(count: number, max: number, isDark: boolean): string {
-  if (count === 0) return isDark ? "#292524" : "#f5f5f4";
-  const ratio = Math.min(count / Math.max(max, 1), 1);
-  const intensity = Math.round(ratio * 255);
-  const r = Math.round(255 - intensity * 0.8);
-  const g = Math.round(255 - intensity * 0.1);
-  const b = Math.round(255 - intensity * 0.7);
-  return `rgb(${r},${g},${b})`;
+function lerpHex(from: string, to: string, t: number): string {
+  const a = parseInt(from.slice(1), 16);
+  const b = parseInt(to.slice(1), 16);
+  const ch = (shift: number) =>
+    Math.round(((a >> shift) & 0xff) + (((b >> shift) & 0xff) - ((a >> shift) & 0xff)) * t);
+  return `rgb(${ch(16)},${ch(8)},${ch(0)})`;
+}
+
+// Tema zümrütüne oturan ısı rampası: boş hücre krem/taş, dolu hücreler
+// açık zümrütten accent'e. sqrt ile düşük geçişler de seçilebilir kalır.
+function heatCell(count: number, max: number, isDark: boolean): { bg: string; text: string } {
+  if (count === 0) {
+    return isDark
+      ? { bg: "#292524", text: "#78716c" }
+      : { bg: "#ede6d6", text: "#a8a29e" };
+  }
+  const t = Math.sqrt(Math.min(count / Math.max(max, 1), 1));
+  if (isDark) {
+    return {
+      bg: lerpHex("#0d3b2e", "#10b981", t),
+      text: t > 0.6 ? "#022c22" : "#a7f3d0",
+    };
+  }
+  return {
+    bg: lerpHex("#d1fae5", "#059669", t),
+    text: t > 0.6 ? "#ffffff" : "#065f46",
+  };
 }
 
 const SURAH_SHORT: Record<number, string> = {
@@ -56,13 +75,13 @@ const HeatGrid = memo(function HeatGrid({
       <View style={hg.grid}>
         {Array.from({ length: 114 }, (_, i) => i + 1).map((id) => {
           const count = distribution[id] ?? 0;
-          const backgroundColor = heatColor(count, maxCount, c.isDark);
+          const cell = heatCell(count, maxCount, c.isDark);
           const isDisabled = count === 0;
 
           return (
             <TouchableOpacity
               key={id}
-              style={[hg.cell, { backgroundColor }]}
+              style={[hg.cell, { backgroundColor: cell.bg }]}
               onPress={() => count > 0 && setModalInfo({ surahId: id, count })}
               activeOpacity={0.7}
               accessibilityRole="button"
@@ -70,7 +89,7 @@ const HeatGrid = memo(function HeatGrid({
               accessibilityHint={isDisabled ? "Bu surede bu kök geçmiyor" : `${count} geçiş bilgisini açar`}
               accessibilityState={{ disabled: isDisabled }}
             >
-              <Text style={[hg.cellText, count > 0 && { color: "#1c1917" }]}>
+              <Text style={[hg.cellText, { color: cell.text }]}>
                 {SURAH_SHORT[id] ?? id}
               </Text>
             </TouchableOpacity>
@@ -91,13 +110,13 @@ const HeatGrid = memo(function HeatGrid({
           accessibilityRole="button"
           accessibilityLabel="Sure bilgi penceresini kapat"
         >
-          <View style={hg.modalCard}>
+          <View style={[hg.modalCard, { backgroundColor: c.card, borderColor: c.border }]}>
             {modalInfo && (
               <>
-                <Text style={hg.modalSurah}>{modalInfo.surahId}. Sure</Text>
-                <Text style={hg.modalCount}>{modalInfo.count} geçiş</Text>
+                <Text style={[hg.modalSurah, { color: c.text }]}>{modalInfo.surahId}. Sure</Text>
+                <Text style={[hg.modalCount, { color: c.textMuted }]}>{modalInfo.count} geçiş</Text>
                 <TouchableOpacity
-                  style={hg.modalBtn}
+                  style={[hg.modalBtn, { backgroundColor: c.accent }]}
                   onPress={() => {
                     setModalInfo(null);
                     router.push(`/surah/${modalInfo.surahId}`);
@@ -157,11 +176,11 @@ const MeaningGroup = memo(function MeaningGroup({
       </TouchableOpacity>
 
       {isOpen && (
-        <View style={s.versesWrap}>
+        <View style={[s.versesWrap, { borderTopColor: c.cardAlt }]}>
           {verses.slice(0, 80).map((verse, index) => (
             <TouchableOpacity
               key={index}
-              style={[s.verseChip, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}
+              style={[s.verseChip, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}
               onPressIn={() => prefetchAyah(verse.surahId, verse.ayahNumber)}
               onPress={() => router.push(`/ayah/${verse.surahId}/${verse.ayahNumber}`)}
               activeOpacity={0.7}
@@ -174,7 +193,7 @@ const MeaningGroup = memo(function MeaningGroup({
           ))}
           {verses.length > 80 && (
             <View style={s.verseMore}>
-              <Text style={s.verseMoreText}>+{verses.length - 80} ayet daha</Text>
+              <Text style={[s.verseMoreText, { color: c.textMuted }]}>+{verses.length - 80} ayet daha</Text>
             </View>
           )}
         </View>
@@ -328,7 +347,7 @@ export default function RootDetailScreen() {
               ) : null}
               <View style={s.statsRow}>
                 {([[totalOccurrences, "geçiş"], [surahCount, "sure"], [uniqueForms, "türev"]] as const).map(([num, label]) => (
-                  <View key={label} style={[s.statBadge, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}>
+                  <View key={label} style={[s.statBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
                     <Text style={[s.statNum, c.isDark && { color: "#6ee7b7" }]}>{num}</Text>
                     <Text style={[s.statLabel, c.isDark && { color: "#34d399" }]}>{label}</Text>
                   </View>
@@ -450,7 +469,7 @@ const hg = StyleSheet.create({
   cellText: { fontSize: 7, color: "#a8a29e", fontWeight: "500" },
 
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
-  modalCard: { backgroundColor: "#fffdf6", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200 },
+  modalCard: { backgroundColor: "#fffdf6", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200, borderWidth: 1 },
   modalSurah: { fontSize: 18, fontWeight: "700", color: "#1c1917", marginBottom: 6 },
   modalCount: { fontSize: 14, color: "#78716c", marginBottom: 16 },
   modalBtn: { backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 24, paddingVertical: 10 },

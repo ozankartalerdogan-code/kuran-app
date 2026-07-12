@@ -23,7 +23,10 @@ const SORT_LABELS: Record<SortKey, string> = {
   meaning: "Anlam",
 };
 
-const Separator = () => <View style={s.sep} />;
+const Separator = () => {
+  const c = useColors();
+  return <View style={[s.sep, { backgroundColor: c.cardAlt }]} />;
+};
 
 const arCollator = new Intl.Collator("ar");
 const trCollator = new Intl.Collator("tr");
@@ -53,7 +56,7 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
         <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
       </View>
-      <View style={[s.freqBadge, c.isDark && { backgroundColor: "#064e3b", borderColor: "#065f46" }]}>
+      <View style={[s.freqBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
         <Text style={[s.freqText, c.isDark && { color: "#6ee7b7" }]}>{item.frequency}</Text>
       </View>
     </TouchableOpacity>
