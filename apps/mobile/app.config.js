@@ -102,6 +102,9 @@ module.exports = {
       ['expo-audio', { recordAudioAndroid: false }],
       '@react-native-firebase/app',
       '@react-native-firebase/analytics',
+      // Bulut yedek (anonim auth + Firestore tek doküman) — src/lib/cloudBackup.ts.
+      // Firestore'un ayrı config plugin'i yok; native kodu paket kurulumuyla gelir.
+      '@react-native-firebase/auth',
       // Sentry: org/project burada (commit'li, EAS'e gider); AUTH TOKEN ise EAS
       // secret'ı (SENTRY_AUTH_TOKEN) — source map upload için. Olaylar 'react-native'
       // projesine gidiyor (DSN), source map de oraya yüklenmeli.

@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Bulut yedek (apps/mobile/src/lib/cloudBackup.ts): her kullanıcı YALNIZ
+    // kendi backups/{uid} dokümanını okuyabilir/yazabilir (anonim auth dahil).
+    match /backups/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Başka hiçbir koleksiyona erişim yok.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

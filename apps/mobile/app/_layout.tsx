@@ -15,6 +15,7 @@ import { AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotifications";
 // Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
 import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
+import { initCloudBackup } from "../src/lib/cloudBackup";
 import { useColors } from "../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 
@@ -232,6 +233,13 @@ function RootLayout() {
 
   useEffect(() => {
     maybeAskReview();
+  }, []);
+
+  // Bulut yedek: anonim oturum aç, ilk kurulumda ilerlemeyi geri yükle, sonrasında
+  // değişiklikleri debounce'la Firestore'a yaz. Native modül yoksa (eski build)
+  // sessiz no-op; beklenen hatalar modül içinde yutulur, buraya sızan BEKLENMEDİK'tir.
+  useEffect(() => {
+    initCloudBackup().catch((err) => { Sentry.captureException(err); });
   }, []);
 
   useEffect(() => {

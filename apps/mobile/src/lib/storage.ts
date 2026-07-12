@@ -106,6 +106,18 @@ function safeParse<T>(raw: string): T | null {
   }
 }
 
+// ── Değişiklik dinleyicisi (bulut yedek tetikleyicisi) ────────────────────────
+// cloudBackup.ts kendini buraya kaydeder; storage bu modülü import ETMEZ
+// (dairesel bağımlılık olmasın). Dinleyici hatası yazmayı asla engellemez.
+type StorageChangeListener = (key: string) => void;
+let changeListener: StorageChangeListener | null = null;
+export function setStorageChangeListener(fn: StorageChangeListener | null): void {
+  changeListener = fn;
+}
+function notifyChange(key: string): void {
+  try { changeListener?.(key); } catch (err) { logStorageWarning("notify", key, err); }
+}
+
 export const storage = {
   // Senkron okuma — yalnız MMKV varken gerçek değer döner (tema/gece modu gibi
   // ilk-boyama anahtarları için). MMKV yoksa null (AsyncStorage sync okuyamaz).
@@ -136,8 +148,9 @@ export const storage = {
   },
 
   async setString(key: string, value: string): Promise<void> {
-    if (mmkv) { mmkv.set(key, value); return; }
+    if (mmkv) { mmkv.set(key, value); notifyChange(key); return; }
     await AsyncStorage.setItem(key, value);
+    notifyChange(key);
   },
 
   async getJSON<T>(key: string, defaultValue: T | null = null): Promise<T | null> {
@@ -156,14 +169,16 @@ export const storage = {
   },
 
   async remove(key: string): Promise<void> {
-    if (mmkv) { mmkv.remove(key); return; }
+    if (mmkv) { mmkv.remove(key); notifyChange(key); return; }
     await AsyncStorage.removeItem(key);
+    notifyChange(key);
   },
 
   async removeMany(keys: string[]): Promise<void> {
     const m = mmkv;
-    if (m) { keys.forEach((k) => m.remove(k)); return; }
-    await AsyncStorage.multiRemove(keys);
+    if (m) { keys.forEach((k) => m.remove(k)); }
+    else { await AsyncStorage.multiRemove(keys); }
+    keys.forEach(notifyChange);
   },
 };
 
