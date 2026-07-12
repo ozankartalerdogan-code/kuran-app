@@ -26,7 +26,7 @@ export default function PrivacyPage() {
         <li>Bazı uygulama tercihleri (gece modu, yazı boyutu, tecvid)</li>
       </ul>
       <p>Bu veriler öncelikle cihazınızda saklanır. Favori veya not eklenmiş ayetlerin meal ve ayet bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API&apos;sine iletilebilir.</p>
-      <p><strong>Bulut yedekleme (Firebase):</strong> Yukarıdaki veriler, uygulamayı kaldırıp yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan <strong>anonim bir kimlikle</strong> (Firebase Anonymous Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizin silinmesini istediğinizde aşağıdaki iletişim adresinden talep edebilirsiniz.</p>
+      <p><strong>Bulut yedekleme (Firebase):</strong> Yukarıdaki veriler, uygulamayı kaldırıp yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan <strong>anonim bir kimlikle</strong> (Firebase Anonymous Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizi ve anonim hesabınızı dilediğiniz an uygulama içinden kalıcı olarak silebilirsiniz (aşağıdaki <a href="#hesap-silme">&quot;Hesap ve Veri Silme&quot;</a> bölümüne bakınız).</p>
       <p><strong>Android sistem yedeği:</strong> Ayrıca Android'in sistem yedekleme özelliği açıksa bu cihaz-içi veriler, cihazınızın bağlı olduğu Google Drive hesabınıza da otomatik yedeklenebilir. Bu yedek Google tarafından yönetilir ve cihaz ayarlarınızdan kapatılabilir.</p>
       <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitlerini hesaplamak için yaklaşık konumunuz, üçüncü taraf <strong>Aladhan.com</strong> servisine gönderilir (aşağıdaki &quot;Üçüncü Taraf Hizmetler&quot; bölümüne bakınız). Konum verisi bizim sunucularımızda saklanmaz.</p>
       <p><strong>Arama verisi:</strong> Uygulama içindeki arama özelliği kullanıldığında, arama sorgusu yalnızca arama sonuçlarını getirmek amacıyla uygulama sunucusuna iletilebilir. Arama sorguları reklam hedefleme veya kullanıcı profili oluşturma amacıyla kullanılmaz; Firebase Analytics&apos;e arama metni gönderilmez.</p>
@@ -73,10 +73,19 @@ export default function PrivacyPage() {
       </ul>
       <p>Bu haklarınızı kullanmak için: <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a></p>
 
-      <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>7. Değişiklikler</h2>
+      <h2 id="hesap-silme" style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>7. Hesap ve Veri Silme</h2>
+      <p>Uygulama, bulut yedeği için ad-soyad veya e-posta istemeyen <strong>anonim bir Firebase hesabı</strong> kullanır. Bu hesabı ve buluttaki tüm yedeğinizi uygulama içinden silebilirsiniz:</p>
+      <ol>
+        <li>Uygulamada <strong>Daha Fazla → Gizlilik Politikası</strong> ekranını açın.</li>
+        <li>&quot;7. Hesap ve Veri Silme&quot; bölümündeki <strong>&quot;Bulut yedeğimi sil&quot;</strong> düğmesine dokunun ve onaylayın.</li>
+      </ol>
+      <p>Silme işlemi anında ve kalıcıdır: buluttaki yedek dokümanınız ve anonim Firebase hesabınız silinir; silinen veriler geri getirilemez. Cihazınızdaki yerel veriler etkilenmez — onları uygulamayı kaldırarak veya cihaz ayarlarından uygulama verilerini temizleyerek silebilirsiniz. Silme sonrası bulut yedekleme, siz uygulama içinden yeniden açana kadar kapalı kalır.</p>
+      <p>Uygulamaya erişiminiz yoksa silme talebinizi <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a> adresine iletebilirsiniz; size yedeğinizin silinmesi konusunda yardımcı oluruz.</p>
+
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>8. Değişiklikler</h2>
       <p>Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişikliklerde uygulama içinde bildirim yapılır.</p>
 
-      <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>8. İletişim</h2>
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>9. İletişim</h2>
       <p>Sorularınız için: <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a></p>
     </main>
   );

@@ -3,12 +3,18 @@
  * Web'deki /privacy sayfasıyla aynı içerik; çevrimdışı erişilebilir.
  * İçerik değişirse İKİ tarafı da güncelle: apps/web/src/app/privacy/page.tsx
  */
-import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking, Alert, ActivityIndicator } from "react-native";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import {
+  cloudBackupAvailable,
+  deleteCloudBackup,
+  enableCloudBackup,
+  isCloudBackupDisabled,
+} from "../src/lib/cloudBackup";
 
 const LAST_UPDATED = "12 Temmuz 2026";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
@@ -33,6 +39,81 @@ function Bullet({ children, c }: { children: React.ReactNode; c: AppColors }) {
       <Text style={[s.bulletDot, { color: c.accent }]}>•</Text>
       <Text style={[s.p, s.bulletText, { color: c.textSecondary }]}>{children}</Text>
     </View>
+  );
+}
+
+// Play/App Store hesap-veri silme gereksinimi: bulut yedeği + anonim hesap
+// uygulama İÇİNDEN silinebilmeli. Eski build'de (native modül yok) hiç görünmez.
+function CloudBackupControls({ c }: { c: AppColors }) {
+  const [state, setState] = useState<"loading" | "active" | "disabled" | "busy">("loading");
+  const danger = c.isDark ? "#f87171" : "#dc2626";
+
+  useEffect(() => {
+    isCloudBackupDisabled()
+      .then((d) => setState(d ? "disabled" : "active"))
+      .catch(() => setState("active"));
+  }, []);
+
+  if (!cloudBackupAvailable || state === "loading") return null;
+  if (state === "busy") return <ActivityIndicator style={s.backupBusy} color={c.accent} />;
+
+  if (state === "disabled") {
+    return (
+      <>
+        <P c={c}>
+          <Text style={s.bold}>Bulut yedekleme şu an kapalı.</Text> Yedeğiniz ve anonim hesabınız
+          silindi; siz yeniden açana kadar hiçbir veri buluta gönderilmez.
+        </P>
+        <TouchableOpacity
+          style={[s.backupBtn, { borderColor: c.accent }]}
+          onPress={async () => {
+            setState("busy");
+            await enableCloudBackup();
+            setState("active");
+          }}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel="Bulut yedeklemeyi yeniden aç"
+        >
+          <Text style={[s.backupBtnText, { color: c.accent }]}>Bulut yedeklemeyi yeniden aç</Text>
+        </TouchableOpacity>
+      </>
+    );
+  }
+
+  return (
+    <TouchableOpacity
+      style={[s.backupBtn, { borderColor: danger }]}
+      onPress={() => {
+        Alert.alert(
+          "Bulut yedeği silinsin mi?",
+          "Buluttaki yedeğiniz ve anonim hesabınız kalıcı olarak silinir; bu işlem geri alınamaz. " +
+            "Cihazınızdaki veriler etkilenmez. Bulut yedekleme, siz yeniden açana kadar kapalı kalır.",
+          [
+            { text: "Vazgeç", style: "cancel" },
+            {
+              text: "Sil",
+              style: "destructive",
+              onPress: async () => {
+                setState("busy");
+                const ok = await deleteCloudBackup();
+                setState(ok ? "disabled" : "active");
+                if (ok) {
+                  Alert.alert("Silindi", "Bulut yedeğiniz ve anonim hesabınız kalıcı olarak silindi.");
+                } else {
+                  Alert.alert("Silinemedi", "İnternet bağlantınızı kontrol edip yeniden deneyin.");
+                }
+              },
+            },
+          ],
+        );
+      }}
+      activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityLabel="Bulut yedeğimi sil"
+    >
+      <Text style={[s.backupBtnText, { color: danger }]}>Bulut yedeğimi sil</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -86,8 +167,9 @@ export default function GizlilikScreen() {
             numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan anonim bir kimlikle (Firebase Anonymous
             Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim
             kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği
-            reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizin
-            silinmesini istediğinizde aşağıdaki iletişim adresinden talep edebilirsiniz.
+            reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizi ve
+            anonim hesabınızı dilediğiniz an uygulama içinden kalıcı olarak silebilirsiniz (bkz. "7. Hesap ve
+            Veri Silme").
           </P>
           <P c={c}>
             <Text style={s.bold}>Android sistem yedeği:</Text> Ayrıca Android'in sistem yedekleme özelliği
@@ -153,13 +235,26 @@ export default function GizlilikScreen() {
           <Bullet c={c}>Verilerinizin silinmesini talep hakkı</Bullet>
         </Section>
 
-        <Section title="7. Değişiklikler">
+        <Section title="7. Hesap ve Veri Silme">
+          <P c={c}>
+            Bulut yedeği, kimlik bilgisi istemeyen <Text style={s.bold}>anonim bir Firebase hesabıyla</Text>{" "}
+            eşleştirilir. Aşağıdaki düğme, buluttaki yedeğinizi ve bu anonim hesabı kalıcı olarak siler;
+            silinen veriler geri getirilemez. Cihazınızdaki yerel veriler etkilenmez — onları uygulamayı
+            kaldırarak veya cihaz ayarlarından uygulama verilerini temizleyerek silebilirsiniz.
+          </P>
+          <CloudBackupControls c={c} />
+          <P c={c}>
+            Silme talebinizi dilerseniz aşağıdaki iletişim adresine e-posta göndererek de iletebilirsiniz.
+          </P>
+        </Section>
+
+        <Section title="8. Değişiklikler">
           <P c={c}>
             Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişikliklerde uygulama içinde bildirim yapılır.
           </P>
         </Section>
 
-        <Section title="8. İletişim">
+        <Section title="9. İletişim">
           <P c={c}>Sorularınız ve KVKK talepleriniz için:</P>
           <TouchableOpacity
             style={[s.mailBtn, { backgroundColor: c.accent + "20" }]}
@@ -192,4 +287,7 @@ const s = StyleSheet.create({
   bulletText: { flex: 1, marginBottom: 0 },
   mailBtn:    { marginTop: 6, borderRadius: 8, paddingVertical: 11, alignItems: "center" },
   mailBtnText:{ fontSize: 14, fontWeight: "600" },
+  backupBtn:     { marginTop: 4, marginBottom: 12, borderRadius: 8, borderWidth: 1.5, paddingVertical: 11, alignItems: "center" },
+  backupBtnText: { fontSize: 14, fontWeight: "700" },
+  backupBusy:    { marginVertical: 14 },
 });

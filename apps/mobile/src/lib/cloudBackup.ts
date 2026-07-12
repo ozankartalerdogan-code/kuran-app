@@ -53,16 +53,20 @@ const BACKUP_KEYS: string[] = [
 ];
 
 const RESTORE_DONE_KEY = "cloud_restore_done_v1";
+// Kullanıcı yedeğini uygulama içinden sildiğinde konur: yedekleme, kullanıcı
+// yeniden açana kadar tamamen kapalı kalır (silinen veri sessizce geri yüklenmesin).
+const DISABLED_KEY = "cloud_backup_disabled_v1";
 const DEBOUNCE_MS = 20_000;
+const DELETE_TIMEOUT_MS = 10_000;
 
 let uid: string | null = null;
 let dirty = false;
 let pushTimer: ReturnType<typeof setTimeout> | null = null;
 let pushing = false;
 
-function backupDocRef() {
+function backupDocRef(id: string) {
   const fs = fsMod!;
-  return fs.doc(fs.getFirestore(), "backups", uid!);
+  return fs.doc(fs.getFirestore(), "backups", id);
 }
 
 // Auth durumunun diskten geri yüklenmesi asenkron — cold start'ta currentUser'a
@@ -99,13 +103,14 @@ async function collectSnapshot(): Promise<Record<string, string>> {
 }
 
 async function pushBackup(): Promise<void> {
-  if (!uid || !fsMod || pushing) return;
+  const id = uid;
+  if (!id || !fsMod || pushing) return;
   pushing = true;
   try {
     const { setDoc, serverTimestamp } = fsMod;
     const data = await collectSnapshot();
     // merge YOK: doküman her zaman tam anlık görüntü — silinenler bulutta kalmaz.
-    await setDoc(backupDocRef(), { data, updatedAt: serverTimestamp(), schema: 1 });
+    await setDoc(backupDocRef(id), { data, updatedAt: serverTimestamp(), schema: 1 });
     dirty = false;
   } catch { /* ağ/izin hatası — dirty kalır, sonraki tetikte yeniden denenir */ }
   finally { pushing = false; }
@@ -121,12 +126,13 @@ function schedulePush(): void {
 // olan anahtarları doldur. Bayrak MMKV'de → kaldır-kur'da silinir, restore yine
 // çalışır; normal açılışlarda 0 Firestore okuması.
 async function maybeRestore(): Promise<boolean> {
-  if (!uid || !fsMod) return false;
+  const id = uid;
+  if (!id || !fsMod) return false;
   const done = await storage.getString(RESTORE_DONE_KEY);
   if (done) return false;
 
   const { getDoc } = fsMod;
-  const snap = await getDoc(backupDocRef());
+  const snap = await getDoc(backupDocRef(id));
   const remote = (snap.exists() ? snap.data()?.data : null) as Record<string, string> | null;
   if (remote) {
     for (const key of BACKUP_KEYS) {
@@ -142,20 +148,19 @@ async function maybeRestore(): Promise<boolean> {
   return true; // ilk aktivasyon — çağıran ilk push'ı tetikler
 }
 
-/**
- * Uygulama açılışında bir kez çağrılır. Native modül yoksa anında döner.
- * Hata durumları sessizdir (ağ yok, anonim auth kapalı vb.) — bir sonraki
- * açılışta baştan denenir; kullanıcı deneyimi asla bloklanmaz.
- */
-export async function initCloudBackup(): Promise<void> {
-  if (!cloudBackupAvailable) return;
+// AppState dinleyicisi süreç ömrü boyunca bir kez kurulur (kaldırılamaz);
+// storage dinleyicisi ise silme sonrası kapatılıp yeniden açmada tekrar kurulur.
+let appStateWired = false;
 
+function wireListeners(): void {
   // Değişiklik dinleyicisini HEMEN kur — auth beklerken olan değişiklikler de
   // dirty işaretlesin (push zaten uid gelene kadar no-op).
   setStorageChangeListener((key) => {
     if (BACKUP_KEYS.includes(key)) schedulePush();
   });
 
+  if (appStateWired) return;
+  appStateWired = true;
   // Arka plana geçerken bekleyen değişiklikleri hemen gönder — debounce süresi
   // dolmadan uygulama öldürülürse veri kaybolmasın.
   AppState.addEventListener("change", (state) => {
@@ -164,6 +169,20 @@ export async function initCloudBackup(): Promise<void> {
       void pushBackup();
     }
   });
+}
+
+/**
+ * Uygulama açılışında bir kez çağrılır. Native modül yoksa anında döner.
+ * Hata durumları sessizdir (ağ yok, anonim auth kapalı vb.) — bir sonraki
+ * açılışta baştan denenir; kullanıcı deneyimi asla bloklanmaz.
+ */
+export async function initCloudBackup(): Promise<void> {
+  if (!cloudBackupAvailable) return;
+  // Kullanıcı yedeğini silmişse yedekleme kapalıdır — dinleyici bile kurulmaz,
+  // hiçbir veri buluta gitmez (yeniden açana kadar).
+  if (await storage.getString(DISABLED_KEY)) return;
+
+  wireListeners();
 
   try {
     uid = await ensureSignedIn();
@@ -174,4 +193,65 @@ export async function initCloudBackup(): Promise<void> {
     // açılışlarda yalnız gerçek değişiklikler push tetikler.
     if (firstRun && !dirty) schedulePush();
   } catch { /* sessiz — sonraki açılışta yeniden denenir */ }
+}
+
+// ── Uygulama içi silme (Play/App Store hesap-veri silme gereksinimi) ──────────
+
+function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), ms)),
+  ]);
+}
+
+/** Yedekleme, kullanıcı tarafından silinip kapatılmış mı? (gizlilik ekranı UI'ı için) */
+export async function isCloudBackupDisabled(): Promise<boolean> {
+  return (await storage.getString(DISABLED_KEY)) != null;
+}
+
+/**
+ * Buluttaki yedeği VE anonim Firebase hesabını kalıcı olarak siler; yedeklemeyi
+ * kullanıcı yeniden açana kadar kapatır. Cihazdaki yerel veriye dokunmaz.
+ * Ağ yoksa/hata olursa false döner ve hiçbir şey değişmez (yedekleme sürer).
+ */
+export async function deleteCloudBackup(): Promise<boolean> {
+  if (!cloudBackupAvailable) return false;
+
+  // Bekleyen push'u iptal et ve uid'i düşür — silme sürerken debounce/AppState
+  // tetiklense bile pushBackup no-op kalsın, doküman geri yazılmasın.
+  if (pushTimer) { clearTimeout(pushTimer); pushTimer = null; }
+  const prevUid = uid;
+  uid = null;
+  dirty = false;
+
+  try {
+    const { getAuth } = authMod!;
+    await waitForInitialAuthState();
+    const user = getAuth().currentUser;
+    if (user) {
+      // Önce doküman, sonra hesap: kurallar silme için auth'lu kullanıcı istiyor.
+      const { deleteDoc } = fsMod!;
+      await withTimeout(deleteDoc(backupDocRef(user.uid)), DELETE_TIMEOUT_MS);
+      // Hesap silme ikincil: başarısız olsa da (ör. requires-recent-login) veri
+      // zaten gitti, geride içeriksiz anonim hesap kalır — kullanıcıya başarı denir.
+      try { await withTimeout(user.delete(), DELETE_TIMEOUT_MS); } catch { /* boş hesap kalabilir */ }
+    }
+    setStorageChangeListener(null);
+    await storage.setString(DISABLED_KEY, "1");
+    // Yeniden açılırsa restore baştan denensin (doküman yok → zararsız).
+    await storage.remove(RESTORE_DONE_KEY);
+    return true;
+  } catch {
+    uid = prevUid; // silinemedi — yedekleme eskisi gibi devam eder
+    return false;
+  }
+}
+
+/** Silme sonrası kapatılan bulut yedeklemeyi yeniden başlatır (yeni anonim hesapla). */
+export async function enableCloudBackup(): Promise<void> {
+  if (!cloudBackupAvailable) return;
+  await storage.remove(DISABLED_KEY);
+  // init dinleyicileri yeniden kurar, yeni anonim hesap açar ve maybeRestore'un
+  // ilk-aktivasyon yolu mevcut yerel veriyi ilk push ile buluta taşır.
+  await initCloudBackup();
 }
