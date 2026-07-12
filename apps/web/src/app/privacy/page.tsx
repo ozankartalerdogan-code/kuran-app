@@ -2,7 +2,7 @@ export default function PrivacyPage() {
   return (
     <main style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1a1a1a' }}>
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Gizlilik Politikası</h1>
-      <p style={{ color: '#666', marginBottom: 40 }}>Son Güncelleme: 9 Temmuz 2026</p>
+      <p style={{ color: '#666', marginBottom: 40 }}>Son Güncelleme: 12 Temmuz 2026</p>
 
       <p><strong>Geliştirici:</strong> Kartal Studio<br/>
       <strong>İletişim:</strong> kuranyolu.iletisim@gmail.com<br/>
@@ -16,16 +16,18 @@ export default function PrivacyPage() {
         <li>Uygulama versiyonu</li>
         <li>Anonim kullanıcı kimliği</li>
       </ul>
-      <p><strong>Yalnızca cihazınızda yerel olarak saklanan:</strong></p>
+      <p><strong>Cihazınızda saklanan ve bulut yedeğine dahil edilen:</strong></p>
       <ul>
         <li>Favori ayetler</li>
         <li>Kişisel notlar</li>
-        <li>Hatim takibi</li>
-        <li>Namaz vakti bildirimleri tercihi</li>
+        <li>Hatim takibi ve okuma konumu (yer imi)</li>
+        <li>Ders ve elifba ilerlemesi</li>
         <li>Günlük seri (streak) bilgisi</li>
+        <li>Bazı uygulama tercihleri (gece modu, yazı boyutu, tecvid)</li>
       </ul>
-      <p>Favoriler, not metinleri, hatim ve ders ilerlemesi gibi veriler cihazda yerel olarak saklanır. Not metinleri sunucuya gönderilmez. Ancak favori veya not eklenmiş ayetlerin meal ve ayet bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API&apos;sine iletilebilir.</p>
-      <p><strong>Yedekleme:</strong> Bu cihaz-içi veriler (favori, not, ilerleme), Android'in sistem yedekleme özelliği açıksa cihazınızın bağlı olduğu Google Drive hesabınıza otomatik yedeklenebilir; böylece uygulamayı yeniden kurduğunuzda veya yeni cihaza geçtiğinizde geri gelebilir. Bu yedek Google tarafından yönetilir, bizim sunucularımıza gönderilmez ve cihaz ayarlarınızdan kapatılabilir.</p>
+      <p>Bu veriler öncelikle cihazınızda saklanır. Favori veya not eklenmiş ayetlerin meal ve ayet bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API&apos;sine iletilebilir.</p>
+      <p><strong>Bulut yedekleme (Firebase):</strong> Yukarıdaki veriler, uygulamayı kaldırıp yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan <strong>anonim bir kimlikle</strong> (Firebase Anonymous Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizin silinmesini istediğinizde aşağıdaki iletişim adresinden talep edebilirsiniz.</p>
+      <p><strong>Android sistem yedeği:</strong> Ayrıca Android'in sistem yedekleme özelliği açıksa bu cihaz-içi veriler, cihazınızın bağlı olduğu Google Drive hesabınıza da otomatik yedeklenebilir. Bu yedek Google tarafından yönetilir ve cihaz ayarlarınızdan kapatılabilir.</p>
       <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitlerini hesaplamak için yaklaşık konumunuz, üçüncü taraf <strong>Aladhan.com</strong> servisine gönderilir (aşağıdaki &quot;Üçüncü Taraf Hizmetler&quot; bölümüne bakınız). Konum verisi bizim sunucularımızda saklanmaz.</p>
       <p><strong>Arama verisi:</strong> Uygulama içindeki arama özelliği kullanıldığında, arama sorgusu yalnızca arama sonuçlarını getirmek amacıyla uygulama sunucusuna iletilebilir. Arama sorguları reklam hedefleme veya kullanıcı profili oluşturma amacıyla kullanılmaz; Firebase Analytics&apos;e arama metni gönderilmez.</p>
       <p><strong>Reklam kimliği:</strong> Uygulama reklam içermez ve reklam kimliğinizi (Advertising ID) toplamaz.</p>
@@ -44,6 +46,8 @@ export default function PrivacyPage() {
       <p>Uygulama aşağıdaki üçüncü taraf hizmetleri kullanır:</p>
       <ul>
         <li><strong>Firebase Analytics</strong> — Kullanım istatistikleri (<a href="https://policies.google.com/privacy" target="_blank">Google Gizlilik Politikası</a>)</li>
+        <li><strong>Firebase Authentication</strong> — Bulut yedeğin size özel eşleştirilmesi için anonim kimlik (<a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Gizlilik Politikası</a>)</li>
+        <li><strong>Cloud Firestore</strong> — Bulut yedek depolama (<a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Gizlilik Politikası</a>)</li>
         <li><strong>Sentry</strong> — Hata raporlama (<a href="https://sentry.io/privacy/" target="_blank">Sentry Gizlilik Politikası</a>)</li>
         <li><strong>Aladhan.com</strong> — Namaz vakitleri API (<a href="https://aladhan.com/privacy" target="_blank">Aladhan Gizlilik Politikası</a>)</li>
         <li><strong>Turso</strong> — Veritabanı (<a href="https://turso.tech/privacy" target="_blank">Turso Gizlilik Politikası</a>)</li>
@@ -52,8 +56,9 @@ export default function PrivacyPage() {
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>4. Veri Güvenliği</h2>
       <ul>
         <li>Tüm API iletişimleri HTTPS üzerinden şifrelenir</li>
-        <li>Kullanıcı hesabı, ad-soyad, e-posta, telefon numarası veya not metni gibi kişisel içerikler uygulama sunucularında saklanmaz</li>
-        <li>Not metinleri cihazınızda tutulur; favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API&apos;ye iletilebilir</li>
+        <li>Kullanıcı hesabı istenmez; ad-soyad, e-posta veya telefon numarası toplanmaz</li>
+        <li>Not metinleriniz cihazınızda ve yalnızca size özel, anonim kimlikle korunan bulut yedeğinizde saklanır; başka hiçbir amaçla kullanılmaz</li>
+        <li>Favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API&apos;ye iletilebilir</li>
       </ul>
 
       <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 40, marginBottom: 12 }}>5. Çocukların Gizliliği</h2>

@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
-const LAST_UPDATED = "9 Temmuz 2026";
+const LAST_UPDATED = "12 Temmuz 2026";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -66,24 +66,33 @@ export default function GizlilikScreen() {
           <Bullet c={c}>Uygulama versiyonu</Bullet>
           <Bullet c={c}>Anonim kullanıcı kimliği</Bullet>
 
-          <Text style={[s.p, s.subhead, { color: c.text }]}>Yalnızca cihazınızda yerel olarak saklanan:</Text>
+          <Text style={[s.p, s.subhead, { color: c.text }]}>Cihazınızda saklanan ve bulut yedeğine dahil edilen:</Text>
           <Bullet c={c}>Favori ayetler</Bullet>
           <Bullet c={c}>Kişisel notlar</Bullet>
-          <Bullet c={c}>Hatim takibi</Bullet>
-          <Bullet c={c}>Namaz vakti bildirimleri tercihi</Bullet>
+          <Bullet c={c}>Hatim takibi ve okuma konumu (yer imi)</Bullet>
+          <Bullet c={c}>Ders ve elifba ilerlemesi</Bullet>
           <Bullet c={c}>Günlük seri (streak) bilgisi</Bullet>
+          <Bullet c={c}>Bazı uygulama tercihleri (gece modu, yazı boyutu, tecvid)</Bullet>
 
           <P c={c}>
-            Favoriler, not metinleri, hatim ve ders ilerlemesi gibi veriler cihazda yerel olarak saklanır.
-            Not metinleri sunucuya gönderilmez. Ancak favori veya not eklenmiş ayetlerin meal ve ayet
+            Bu veriler öncelikle cihazınızda saklanır. Favori veya not eklenmiş ayetlerin meal ve ayet
             bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API'sine iletilebilir.
           </P>
 
           <P c={c}>
-            <Text style={s.bold}>Yedekleme:</Text> Bu cihaz-içi veriler (favori, not, ilerleme), Android'in sistem
-            yedekleme özelliği açıksa Google Drive hesabınıza otomatik yedeklenebilir; böylece uygulamayı yeniden
-            kurduğunuzda veya yeni cihaza geçtiğinizde geri gelebilir. Bu yedek Google tarafından yönetilir, bizim
-            sunucularımıza gönderilmez ve cihaz ayarlarınızdan kapatılabilir.
+            <Text style={s.bold}>Bulut yedekleme (Firebase):</Text> Yukarıdaki veriler, uygulamayı kaldırıp
+            yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google
+            Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon
+            numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan anonim bir kimlikle (Firebase Anonymous
+            Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim
+            kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği
+            reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizin
+            silinmesini istediğinizde aşağıdaki iletişim adresinden talep edebilirsiniz.
+          </P>
+          <P c={c}>
+            <Text style={s.bold}>Android sistem yedeği:</Text> Ayrıca Android'in sistem yedekleme özelliği
+            açıksa bu cihaz-içi veriler, cihazınızın bağlı olduğu Google Drive hesabınıza da otomatik
+            yedeklenebilir. Bu yedek Google tarafından yönetilir ve cihaz ayarlarınızdan kapatılabilir.
           </P>
           <P c={c}>
             <Text style={s.bold}>Konum verisi:</Text> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi)
@@ -117,6 +126,8 @@ export default function GizlilikScreen() {
         <Section title="3. Üçüncü Taraf Hizmetler">
           <P c={c}>Uygulama aşağıdaki üçüncü taraf hizmetleri kullanır:</P>
           <Bullet c={c}>Firebase Analytics — Kullanım istatistikleri</Bullet>
+          <Bullet c={c}>Firebase Authentication — Bulut yedeğin size özel eşleştirilmesi için anonim kimlik</Bullet>
+          <Bullet c={c}>Cloud Firestore — Bulut yedek depolama</Bullet>
           <Bullet c={c}>Sentry — Hata raporlama</Bullet>
           <Bullet c={c}>Aladhan.com — Namaz vakitleri API</Bullet>
           <Bullet c={c}>Turso — Veritabanı</Bullet>
@@ -124,8 +135,9 @@ export default function GizlilikScreen() {
 
         <Section title="4. Veri Güvenliği">
           <Bullet c={c}>Tüm API iletişimleri HTTPS üzerinden şifrelenir</Bullet>
-          <Bullet c={c}>Kullanıcı hesabı, ad-soyad, e-posta, telefon numarası veya not metni gibi kişisel içerikler uygulama sunucularında saklanmaz</Bullet>
-          <Bullet c={c}>Not metinleri cihazınızda tutulur; favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API'ye iletilebilir</Bullet>
+          <Bullet c={c}>Kullanıcı hesabı istenmez; ad-soyad, e-posta veya telefon numarası toplanmaz</Bullet>
+          <Bullet c={c}>Not metinleriniz cihazınızda ve yalnızca size özel, anonim kimlikle korunan bulut yedeğinizde saklanır; başka hiçbir amaçla kullanılmaz</Bullet>
+          <Bullet c={c}>Favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API'ye iletilebilir</Bullet>
         </Section>
 
         <Section title="5. Çocukların Gizliliği">
