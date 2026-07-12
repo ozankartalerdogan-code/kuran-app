@@ -707,6 +707,7 @@ export default function AyahDetailScreen() {
         style={[styles.scroll, { backgroundColor: colors.bg }]}
         contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: 24 }]}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {/* ═══ Mushaf Kartı — sayfa görünümüyle aynı kâğıt estetiği ═══ */}
         <View {...ayahTarget} style={[styles.paperCard, paper]}>

@@ -601,7 +601,7 @@ const styles = StyleSheet.create({
   idleSection: { fontSize: 11, fontWeight: "700", color: "#78716c", textTransform: "uppercase", letterSpacing: 0.8, marginTop: 16, marginBottom: 8 },
 
   chipRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  chip:    { borderRadius: 20, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 6 },
+  chip:    { borderRadius: 20, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 9 },
   chipText:{ fontSize: 12, fontWeight: "600" },
 
   recentHeader:{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" },

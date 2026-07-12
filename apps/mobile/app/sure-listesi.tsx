@@ -154,6 +154,7 @@ export default function SureListesiScreen() {
         data={filtered}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        keyboardShouldPersistTaps="handled"
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
         contentContainerStyle={[styles.listContent, { paddingBottom: 20 + insets.bottom }]}
         ListEmptyComponent={

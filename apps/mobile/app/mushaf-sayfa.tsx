@@ -71,11 +71,17 @@ function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
 }
 
 // Tecvid açıkken ayet metni renkli segmentlerle dizilir (markup yoksa düz metin).
+// parseTajweed memoize: seçim değişince sayfa yeniden render olur; karakter
+// bazlı ayrıştırmayı her dokunuşta 3 sayfa × tüm ayetler için tekrarlamamak şart.
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
-  if (tajweed && ayet.tajweed) {
+  const segs = useMemo(
+    () => (tajweed && ayet.tajweed ? parseTajweed(ayet.tajweed) : null),
+    [tajweed, ayet.tajweed],
+  );
+  if (segs) {
     return (
       <>
-        {parseTajweed(ayet.tajweed).map((s, i) =>
+        {segs.map((s, i) =>
           s.code && RENK[s.code]
             ? <Text key={i} style={{ color: RENK[s.code] }}>{s.t}</Text>
             : <Text key={i}>{s.t}</Text>,
@@ -396,7 +402,7 @@ export default function MushafSayfaEkrani() {
             <TouchableOpacity
               style={[st.fontBtn, { borderColor: hatimOpen ? c.accent : c.border }]}
               onPress={() => { logFeature("mushaf_sayfa_hatim_ac"); setHatimOpen(true); }}
-              hitSlop={6} activeOpacity={0.7}
+              hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel="Hatim takibini aç"
             >
@@ -405,7 +411,7 @@ export default function MushafSayfaEkrani() {
             <TouchableOpacity
               style={[st.fontBtn, { borderColor: tajweed ? c.accent : c.border }]}
               onPress={handleTajweedToggle}
-              hitSlop={6} activeOpacity={0.7}
+              hitSlop={10} activeOpacity={0.7}
               accessibilityRole="switch"
               accessibilityState={{ checked: tajweed }}
               accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
@@ -416,7 +422,7 @@ export default function MushafSayfaEkrani() {
               style={[st.fontBtn, { borderColor: c.border }, fontScale <= FONT_SCALE_MIN && st.fontBtnOff]}
               onPress={() => changeFontScale(-FONT_SCALE_STEP)}
               disabled={fontScale <= FONT_SCALE_MIN}
-              hitSlop={6} activeOpacity={0.7}
+              hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button" accessibilityLabel="Yazıyı küçült"
               accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
             >
@@ -426,7 +432,7 @@ export default function MushafSayfaEkrani() {
               style={[st.fontBtn, { borderColor: c.border }, fontScale >= FONT_SCALE_MAX && st.fontBtnOff]}
               onPress={() => changeFontScale(FONT_SCALE_STEP)}
               disabled={fontScale >= FONT_SCALE_MAX}
-              hitSlop={6} activeOpacity={0.7}
+              hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button" accessibilityLabel="Yazıyı büyüt"
               accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
             >
@@ -480,6 +486,7 @@ export default function MushafSayfaEkrani() {
                   initialScrollIndex={Math.max(0, aktifSure - 1)}
                   initialNumToRender={12}
                   windowSize={7}
+                  keyboardShouldPersistTaps="handled"
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{ paddingBottom: insets.bottom + 8 }}
                 />
