@@ -40,9 +40,12 @@ module.exports = {
       //    Play hassas-konum beyanı/incelemesi gerekmez.
       //  • AD_ID (Firebase Analytics ekler) → reklamsız app; reklam kimliği toplamayı
       //    kapatır, Play Veri Güvenliği'nde "reklam kimliği" beyanı gerekmez.
+      //  • ACTIVITY_RECOGNITION (expo-sensors'ın Pedometer modülü ekler) → app yalnız
+      //    Magnetometer/Accelerometer/DeviceMotion kullanıyor (kıble), adım sayar yok.
       blockedPermissions: [
         'android.permission.ACCESS_FINE_LOCATION',
         'com.google.android.gms.permission.AD_ID',
+        'android.permission.ACTIVITY_RECOGNITION',
       ],
       // App Links: paylaşılan ayet URL'i (https://.../surah/x/ayah/y) uygulama
       // kuruluysa doğrudan içinde açılsın, tarayıcıya düşmesin. autoVerify için
