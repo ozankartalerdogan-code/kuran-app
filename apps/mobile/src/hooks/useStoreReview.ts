@@ -13,21 +13,27 @@ const APP_OPEN_COUNT_KEY = 'app_open_count';
 const MIN_OPENS_BEFORE_ASK = 3;
 
 export async function trackAppOpen() {
-  const count = parseInt(await storage.getString(APP_OPEN_COUNT_KEY) || '0') + 1;
+  const stored = parseInt(await storage.getString(APP_OPEN_COUNT_KEY) || '0');
+  // Bozuk değer (NaN) sayacı kalıcı bozmasın — sıfırdan başlat.
+  const count = (Number.isFinite(stored) ? stored : 0) + 1;
   await storage.setString(APP_OPEN_COUNT_KEY, String(count));
   return count;
 }
 
+// Sayım (trackAppOpen) açılışta hemen yapılır; SORU ise çağıranın uygun gördüğü
+// anda (splash/onboarding bittikten sonra) sorulur. Play In-App Review tek
+// atımlık: bayrak ilk denemede konur, o yüzden cold start'ta splash'in üstüne
+// sorup hakkı yakmamak önemli.
 export async function maybeAskReview() {
-  // Açılış sayacı her koşulda ilerlesin (review modülü olmayan build'de bile) —
-  // aksi halde Expo Go'da geçen açılışlar sayılmaz, gerçek build'de baştan başlardı.
-  const count = await trackAppOpen();
   if (!StoreReview) return;
 
   const alreadyAsked = await storage.getString(REVIEW_ASKED_KEY);
   if (alreadyAsked) return;
 
-  if (count < MIN_OPENS_BEFORE_ASK) return;
+  const count = parseInt(await storage.getString(APP_OPEN_COUNT_KEY) || '0');
+  // NaN >= N her zaman false → bozuk sayaçta sormadan çık (trackAppOpen zaten
+  // bir sonraki açılışta sayacı onarır).
+  if (!(count >= MIN_OPENS_BEFORE_ASK)) return;
 
   try {
     const isAvailable = await StoreReview.isAvailableAsync();

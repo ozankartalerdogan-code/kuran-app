@@ -1,6 +1,6 @@
 import { Stack, router, useNavigationContainerRef } from "expo-router";
 import type { Href } from "expo-router";
-import { maybeAskReview } from '../src/hooks/useStoreReview';
+import { maybeAskReview, trackAppOpen } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { AppState } from "react-native";
@@ -231,9 +231,18 @@ function RootLayout() {
     SplashScreen.hideAsync().catch(() => {});
   }, []);
 
+  // Açılış sayacı hemen ilerler; puanlama SORUSU ise splash/onboarding bitip
+  // kullanıcı gerçekten uygulamadayken (ready + kısa gecikme) sorulur. Play
+  // In-App Review tek atımlık — cold start'ta splash üstüne sorup hakkı yakma.
   useEffect(() => {
-    maybeAskReview();
+    trackAppOpen();
   }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    const timer = setTimeout(() => { maybeAskReview(); }, 12_000);
+    return () => clearTimeout(timer);
+  }, [ready]);
 
   // Bulut yedek: anonim oturum aç, ilk kurulumda ilerlemeyi geri yükle, sonrasında
   // değişiklikleri debounce'la Firestore'a yaz. Native modül yoksa (eski build)
