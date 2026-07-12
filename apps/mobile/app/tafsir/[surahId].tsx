@@ -113,6 +113,9 @@ export default function TafsirScreen() {
                   style={[styles.tab, selectedMode === "original" && styles.tabActive]}
                   onPress={() => setSelectedMode("original")}
                   activeOpacity={0.8}
+                  accessibilityRole="tab"
+                  accessibilityLabel="Orijinal tefsir metni"
+                  accessibilityState={{ selected: selectedMode === "original" }}
                 >
                   <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>Orijinal</Text>
                 </TouchableOpacity>
@@ -120,6 +123,9 @@ export default function TafsirScreen() {
                   style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
                   onPress={() => setSelectedMode("simplified")}
                   activeOpacity={0.8}
+                  accessibilityRole="tab"
+                  accessibilityLabel="Sadeleştirilmiş tefsir metni"
+                  accessibilityState={{ selected: selectedMode === "simplified" }}
                 >
                   <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>Sadeleştirilmiş</Text>
                 </TouchableOpacity>

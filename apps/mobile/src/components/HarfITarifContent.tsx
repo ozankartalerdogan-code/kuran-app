@@ -175,6 +175,7 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
               <View key={i} style={[s.harfBox, { backgroundColor: isS ? "#fffbeb" : "#eef2ff", borderColor: isS ? "#fde68a" : "#c7d2fe" }]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                   <Text style={[s.harfAd, { color: c.text }]}>{h.ad}</Text>
+                  {/* harfBox açık zeminli (fffbeb/eef2ff) — koyu harf rengi bilinçli, temadan bağımsız */}
                   <Text style={s.harfArapca}>{h.arapca}</Text>
                 </View>
                 <Text style={[s.okunus, { color: c.textMuted }]}>{h.okunusu}</Text>
@@ -197,7 +198,8 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
                     {"  "}
                     <Text style={[s.aciklama, { color: c.textMuted }]}>{o.anlam}</Text>
                   </Text>
-                  <Text style={s.harfArapca}>{o.arapca}</Text>
+                  {/* ornekBox zemini c.card — sabit koyu harf gece modunda kaybolur */}
+                  <Text style={[s.harfArapca, { color: c.text }]}>{o.arapca}</Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
                   <Tag tip={o.tip} />

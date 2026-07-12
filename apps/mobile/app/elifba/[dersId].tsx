@@ -19,6 +19,7 @@ import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-aud
 import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { useColors } from "../../src/hooks/useColors";
 import {
   parseElifbaProgress,
   parseElifbaQuizScores,
@@ -69,6 +70,7 @@ async function playHarfSes(harfId: number, onError?: () => void) {
 function Flashcard({ harf, onNext, onPrev, isLast }: {
   harf: ElifbaHarf; onNext: () => void; onPrev: () => void; isLast: boolean;
 }) {
+  const c = useColors();
   const [flipped, setFlipped] = useState(false);
   const [sesHata, setSesHata] = useState(false);
   const sesHataTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -107,7 +109,12 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
       )}
 
       <TouchableOpacity
-        style={flipped ? fc.cardBack : fc.cardFront}
+        style={[
+          flipped ? fc.cardBack : fc.cardFront,
+          flipped
+            ? c.isDark && { backgroundColor: "#052e22", borderColor: "#065f46" }
+            : { backgroundColor: c.card, borderColor: c.border },
+        ]}
         onPress={() => setFlipped((f) => !f)}
         activeOpacity={0.85}
         accessibilityRole="button"
@@ -117,23 +124,23 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
       >
         {!flipped ? (
           <>
-            <Text style={fc.arabicChar}>{harf.tek_basina}</Text>
-            <Text style={fc.hint}>Dokunarak çevir</Text>
+            <Text style={[fc.arabicChar, { color: c.text }]}>{harf.tek_basina}</Text>
+            <Text style={[fc.hint, { color: c.textMuted }]}>Dokunarak çevir</Text>
           </>
         ) : (
           <ScrollView contentContainerStyle={fc.backContent}>
-            <Text style={fc.arabicSmall}>{harf.tek_basina}</Text>
-            <Text style={fc.harfAdi}>{harf.harf_adi}</Text>
-            <Text style={fc.harfSesi}>{harf.harf_sesi}</Text>
+            <Text style={[fc.arabicSmall, { color: c.text }]}>{harf.tek_basina}</Text>
+            <Text style={[fc.harfAdi, c.isDark && { color: "#6ee7b7" }]}>{harf.harf_adi}</Text>
+            <Text style={[fc.harfSesi, { color: c.accent }]}>{harf.harf_sesi}</Text>
             <View style={fc.formsRow}>
               {[["BAŞTA", harf.basta], ["ORTADA", harf.ortada], ["SONDA", harf.sonda]].map(([l, v]) => (
-                <View key={l} style={fc.formBox}>
-                  <Text style={fc.formLabel}>{l}</Text>
-                  <Text style={fc.formChar}>{v}</Text>
+                <View key={l} style={[fc.formBox, { backgroundColor: c.card }]}>
+                  <Text style={[fc.formLabel, { color: c.textMuted }]}>{l}</Text>
+                  <Text style={[fc.formChar, { color: c.text }]}>{v}</Text>
                 </View>
               ))}
             </View>
-            <Text style={fc.mahrec}>Mahreç: {harf.mahrec}</Text>
+            <Text style={[fc.mahrec, { color: c.textMuted }]}>Mahreç: {harf.mahrec}</Text>
             <View style={fc.badges}>
               <View style={[fc.badge, { backgroundColor: harf.kalin_ince === "kalın" ? "#fef3c7" : "#dbeafe" }]}>
                 <Text style={fc.badgeText}>{harf.kalin_ince}</Text>
@@ -147,12 +154,12 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
       </TouchableOpacity>
       <View style={fc.navRow}>
         <TouchableOpacity
-          style={fc.navBtn}
+          style={[fc.navBtn, { backgroundColor: c.card, borderColor: c.border }]}
           onPress={onPrev}
           accessibilityRole="button"
           accessibilityLabel="Önceki harfe geç"
         >
-          <Text style={fc.navBtnText}>← Önceki</Text>
+          <Text style={[fc.navBtnText, { color: c.textSecondary }]}>← Önceki</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[fc.navBtn, fc.navBtnActive]}
@@ -185,6 +192,7 @@ function normalizeQuizSorular(data: ElifbaQuizSoru[]): ElifbaQuizSoru[] {
 }
 
 function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
+  const c = useColors();
   const [sorular, setSorular] = useState<ElifbaQuizSoru[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState(false);
@@ -251,11 +259,11 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     else { setIdx((i) => i + 1); setSelected(null); setAnswered(false); }
   }
 
-  if (loading) return <ActivityIndicator size="large" color="#059669" style={{ marginTop: 40 }} />;
+  if (loading) return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
   if (error) return (
     <View style={qv.errBox}>
       <Text style={qv.errEmoji}>📚</Text>
-      <Text style={qv.noQ}>Sorular yüklenemedi.{"\n"}Bağlantını kontrol et.</Text>
+      <Text style={[qv.noQ, { color: c.textMuted }]}>Sorular yüklenemedi.{"\n"}Bağlantını kontrol et.</Text>
       <TouchableOpacity
         style={qv.retryBtn}
         onPress={loadQuiz}
@@ -266,14 +274,14 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
       </TouchableOpacity>
     </View>
   );
-  if (sorular.length === 0) return <Text style={qv.noQ}>Bu ders için soru bulunamadı.</Text>;
+  if (sorular.length === 0) return <Text style={[qv.noQ, { color: c.textMuted }]}>Bu ders için soru bulunamadı.</Text>;
   if (done) {
     const pct = Math.round((score / sorular.length) * 100);
     return (
       <View style={qv.done}>
         <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>
-        <Text style={qv.doneTitle}>{pct >= 80 ? "Harika!" : pct >= 60 ? "İyi!" : "Tekrar dene!"}</Text>
-        <Text style={qv.doneSub}>{score}/{sorular.length} doğru · %{pct}</Text>
+        <Text style={[qv.doneTitle, { color: c.text }]}>{pct >= 80 ? "Harika!" : pct >= 60 ? "İyi!" : "Tekrar dene!"}</Text>
+        <Text style={[qv.doneSub, { color: c.textMuted }]}>{score}/{sorular.length} doğru · %{pct}</Text>
         <TouchableOpacity
           style={qv.doneBtn}
           onPress={() => onFinish(score, sorular.length)}
@@ -296,10 +304,10 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     return (
       <>
         {arabicLines.map((line, i) => (
-          <Text key={`ar-${i}`} style={qv.soruArabicLine}>{line}</Text>
+          <Text key={`ar-${i}`} style={[qv.soruArabicLine, { color: c.text }]}>{line}</Text>
         ))}
         {otherLines.map((line, i) => (
-          <Text key={`tr-${i}`} style={qv.soruText}>{line}</Text>
+          <Text key={`tr-${i}`} style={[qv.soruText, { color: c.text }]}>{line}</Text>
         ))}
       </>
     );
@@ -308,22 +316,22 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   return (
     <View style={qv.container}>
       <Text style={qv.progress}>Soru {idx + 1}/{sorular.length} · {score} doğru</Text>
-      <View style={qv.soruBox}>
+      <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
         {renderSoru(soru.soru)}
       </View>
       <View style={qv.options}>
         {soru.secenekler.map((s) => {
           const isRight    = s === soru.dogru_cevap;
           const isSelected = s === selected;
-          let bg = "#fff";
+          let bg = c.card;
           if (answered) {
-            if (isRight) bg = "#dcfce7";
-            else if (isSelected) bg = "#fee2e2";
+            if (isRight) bg = c.isDark ? "#052e22" : "#dcfce7";
+            else if (isSelected) bg = c.isDark ? "#450a0a" : "#fee2e2";
           }
           return (
             <TouchableOpacity
               key={s}
-              style={[qv.option, { backgroundColor: bg }]}
+              style={[qv.option, { backgroundColor: bg, borderColor: c.border }]}
               onPress={() => handleSelect(s)}
               disabled={answered}
               activeOpacity={0.75}
@@ -331,7 +339,7 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
               accessibilityLabel={`Cevap seçeneği: ${s}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
-              <Text style={[qv.optionText, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
+              <Text style={[qv.optionText, { color: c.text }, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
                 {answered && isRight ? "✓ " : ""}{s}
               </Text>
             </TouchableOpacity>
@@ -339,8 +347,8 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
         })}
       </View>
       {answered && soru.ipucu && selected !== soru.dogru_cevap && (
-        <View style={qv.ipucu}>
-          <Text style={qv.ipucuText}>💡 {soru.ipucu}</Text>
+        <View style={[qv.ipucu, c.isDark && { backgroundColor: "#422006" }]}>
+          <Text style={[qv.ipucuText, c.isDark && { color: "#fde68a" }]}>💡 {soru.ipucu}</Text>
         </View>
       )}
       {answered && (
@@ -377,6 +385,7 @@ export default function DersScreen() {
   }>();
   const dersId = Number(raw);
   const insets = useSafeAreaInsets();
+  const c = useColors();
   useEffect(() => { logScreen('ElifBaDers'); }, []);
 
   // Harf sesi modül seviyesinde tutuluyor (playHarfSes); ekrandan çıkarken
@@ -446,9 +455,9 @@ export default function DersScreen() {
 
   if (loading) {
     return (
-      <View style={styles.centered}>
+      <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title: rawBaslik ?? "Ders" }} />
-        <ActivityIndicator size="large" color="#059669" />
+        <ActivityIndicator size="large" color={c.accent} />
       </View>
     );
   }
@@ -459,28 +468,28 @@ export default function DersScreen() {
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+      <View style={[styles.container, { paddingBottom: insets.bottom, backgroundColor: c.bg }]}>
         {/* Mod seçici */}
         <View style={styles.modeBar}>
           <TouchableOpacity
-            style={[styles.modeBtn, mode === "flashcard" && styles.modeBtnActive]}
+            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "flashcard" && styles.modeBtnActive]}
             onPress={() => setMode("flashcard")}
             accessibilityRole="tab"
             accessibilityLabel={`Kartlar modu, ilerleme yüzde ${pct}`}
             accessibilityState={{ selected: mode === "flashcard" }}
           >
-            <Text style={[styles.modeBtnText, mode === "flashcard" && styles.modeBtnTextActive]}>
+            <Text style={[styles.modeBtnText, { color: c.textSecondary }, mode === "flashcard" && styles.modeBtnTextActive]}>
               📇 Kartlar ({pct}%)
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.modeBtn, mode === "quiz" && styles.modeBtnActive]}
+            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "quiz" && styles.modeBtnActive]}
             onPress={() => setMode("quiz")}
             accessibilityRole="tab"
             accessibilityLabel="Test modu"
             accessibilityState={{ selected: mode === "quiz" }}
           >
-            <Text style={[styles.modeBtnText, mode === "quiz" && styles.modeBtnTextActive]}>
+            <Text style={[styles.modeBtnText, { color: c.textSecondary }, mode === "quiz" && styles.modeBtnTextActive]}>
               🧠 Test
             </Text>
           </TouchableOpacity>
@@ -522,8 +531,8 @@ export default function DersScreen() {
               )}
             </>
           ) : (
-            <View style={styles.centered}>
-              <Text style={styles.noData}>Bu ders için harf verisi bulunamadı.</Text>
+            <View style={[styles.centered, { backgroundColor: c.bg }]}>
+              <Text style={[styles.noData, { color: c.textMuted }]}>Bu ders için harf verisi bulunamadı.</Text>
             </View>
           )
         ) : (

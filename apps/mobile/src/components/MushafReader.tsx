@@ -63,6 +63,9 @@ function AyahSelector({ count, current, onSelect }: { count: number; current: nu
         style={[juzSt.seg, { backgroundColor: c.cardAlt, borderColor: c.border }, active && juzSt.segActive]}
         onPress={() => onSelect(n)}
         activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={`${n}. cüze git`}
+        accessibilityState={{ selected: active }}
       >
         <Text style={[juzSt.label, { color: c.textMuted }, active && juzSt.labelActive]}>{n}</Text>
       </TouchableOpacity>
