@@ -55,8 +55,18 @@ Sentry.init({
   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
   debug: __DEV__,
   environment: __DEV__ ? 'development' : 'production',
-  tracesSampleRate: 0.2,
+  // Dev'de 0: performans izleme (navigation transaction + native frame/stall
+  // tracking) her tab dokunuşunda native köprüye senkron çağrı + (debug:true
+  // sayesinde) ayrıntılı konsol logu üretiyordu — Metro'ya bağlıyken bu gerçekten
+  // yavaş, tıklamada donma hissi buradan geliyordu. Crash yakalama etkilenmez,
+  // yalnızca performans transaction'ları kapanıyor.
+  tracesSampleRate: __DEV__ ? 0 : 0.2,
   integrations: [navigationIntegration],
+  // SDK'nın bilinen hatası (tracesSampleRate < 1 iken app start ölçümü ilk
+  // sample'lanmayan transaction'ın span id'sine kilitleniyor ve asla eşleşmiyor
+  // → "[AppStart] ... does not match" uyarısı, https://github.com/getsentry/sentry-react-native/issues/5757).
+  // Bu metriği kullanmıyoruz, kapatmak uyarıyı gerçek kaynağında çözer.
+  enableAppStartTracking: false,
   // DSN yoksa (env eksik) tamamen kapalı kalsın — boşa init olmasın.
   enabled: !!process.env.EXPO_PUBLIC_SENTRY_DSN,
 });
