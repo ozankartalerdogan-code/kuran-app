@@ -14,14 +14,17 @@ import { ErrorBoundary } from "../../src/components/ErrorBoundary";
 import { SkeletonAyetCard } from "../../src/components/SkeletonLoader";
 import { api } from "../../src/lib/api";
 import * as Haptics from 'expo-haptics';
+// UIManager.hasViewManagerConfig ön-kontrolü kasten kaldırıldı: RN'in yeni
+// mimarisinde (Fabric/Bridgeless) o kontrol "unstable" bir API'ye dayanıyor ve
+// native global henüz kurulmamışsa modül yüklenirken throw edip native modül
+// gerçekten linkli olsa bile LottieView'i sessizce null bırakabiliyor. Bunun
+// yerine JS tarafı koşulsuz import ediliyor; native eksikse hata render
+// sırasında oluşur ve aşağıda ErrorBoundary ile yakalanır.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const mod = require('lottie-react-native').default;
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { UIManager } = require('react-native');
-  if (UIManager.hasViewManagerConfig?.('LottieAnimationView')) LottieView = mod;
+  LottieView = require('lottie-react-native').default;
 } catch (_e) { /* noop */ }
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { TasbihModal } from '../../src/components/ZikirMatik';
@@ -267,17 +270,15 @@ function HomeContent() {
 
       {/* Streak + Gece modu */}
       <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
-        {streak.current > 0 ? (
-          LottieView ? (
+        {streak.current > 0 && LottieView ? (
+          <ErrorBoundary fallback={<Text style={styles.streakEmoji}>🔥</Text>}>
             <LottieView
               source={require('../../assets/flamefire.json')}
               autoPlay
               loop
               style={{ width: 40, height: 40 }}
             />
-          ) : (
-            <Text style={styles.streakEmoji}>🔥</Text>
-          )
+          </ErrorBoundary>
         ) : (
           <Text style={styles.streakEmoji}>🔥</Text>
         )}
