@@ -118,7 +118,7 @@ export default function BildirimlerScreen() {
         const locationMsg = isFallback
           ? "Konum izni verilmediği için namaz vakitleri İstanbul'a göre hesaplandı."
           : "Namaz vakitleri bulunduğunuz konuma göre hesaplandı.";
-        Alert.alert("Bildirimler Açık", `Her namaz vaktinden 5 dakika önce, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\n${locationMsg}`);
+        Alert.alert("Bildirimler Açık", `Her namaz vakti girdikten kısa süre sonra, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\n${locationMsg}`);
       } else if (!dailyVerseEnabled) {
         setUsingFallback(false);
       }

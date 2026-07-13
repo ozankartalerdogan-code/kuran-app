@@ -100,8 +100,7 @@ export async function requestNotificationPermission(): Promise<boolean> {
 // Bir güne ait vakitler + o günün takvim tarihi (çok-günlü planlama için).
 export type DayTimes = { date: Date; times: PrayerTimes };
 
-// Kaç gün ileriye planlanır. 6 vakit × 7 gün ("vaktine 5 dk var") + 5 vakit ×
-// CHECKIN_DAYS gün ("kıldınız mı?") + 2 günlük ayet/dua = en fazla 54 bildirim —
+// Kaç gün ileriye planlanır. 6 vakit × 7 gün + 2 günlük ayet/dua = 44 bildirim —
 // iOS'un 64 planlı bildirim limitinin altında. Eskiden DAILY tetikleyici tek
 // güne kuruluyordu; uygulama günlerce açılmazsa vakitler (gün be gün kayar)
 // 10+ dk şaşabiliyordu. Şimdi 7 günün GERÇEK vakitleri ayrı ayrı planlanır.
@@ -218,22 +217,12 @@ export async function fetchPrayerTimes(
   }
 }
 
-// Vakitten kaç dakika önce tek bildirim (hatırlatma + namaz-taglı ayet birlikte)
-const REMIND_BEFORE_MIN = 5;
-
-// "Kıldınız mı?" kontrol bildirimi, vaktin başlangıcından kaç dakika sonra gider.
-// Amaç: cihaz Doze/pil optimizasyonuyla "vaktine 5 dk var" bildirimini geç
-// teslim ederse (o zaman vakit çoktan geçmiş olur ama metin hâlâ "yaklaşıyor"
-// der), kullanıcı en azından doğru zamanlı ikinci bir bildirimle doğru mesajı
-// alsın. Güneş (Sunrise) hariç — o bir namaz vakti değil, yalnız İmsak
-// penceresinin bittiği an.
-const CHECKIN_AFTER_MIN = 20;
-const CHECKIN_VAKITLER = new Set(["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"]);
-// Kontrol bildirimleri yalnız ilk N gün için kurulur (iOS'un 64 planlı bildirim
-// limitini aşmamak için — 7 günün TAMAMI için 5 vakit × 7 gün eklense toplam
-// bütçe taşardı). "Vaktine 5 dk var" hatırlatması yine de tam 7 gün korunur;
-// uygulama her açılışta zaten tazelendiğinden bu kısa pencere pratikte yeterli.
-const CHECKIN_DAYS = 2;
+// Vakit başlangıcından kaç dakika SONRA tek bildirim gider (hatırlatma +
+// namaz-taglı ayet birlikte). Bilerek "önce" değil "sonra": "5 dk kaldı" gibi
+// bir metin, cihaz Doze/pil optimizasyonuyla bildirimi geç teslim ederse
+// (vakit çoktan geçmişken hâlâ "yaklaşıyor" der) yanlış görünüyordu. "X vakti
+// girdi" ifadesi zamanında da gelse geç de gelse hep doğru okunur.
+const NOTIFY_AFTER_MIN = 2;
 
 // Android 8+ bildirim kanalları — yüksek öncelik (heads-up + ses). Olmadan bildirimler
 // varsayılan kanalda sessiz/önemsiz görünebilir. İKİ AYRI kanal: kullanıcı Android
@@ -277,23 +266,10 @@ function dailyTriggerBefore(hour: number, minute: number, offsetMin: number, cha
   } as const;
 }
 
-// Belirli bir takvim günü + saat için, offsetMin dakika öncesine tek seferlik
-// DATE tetikleyicisi. Geçmişte kalmışsa null (planlanmaz).
-function dateTriggerBefore(day: Date, hour: number, minute: number, offsetMin: number, channelId: string) {
-  const at = new Date(day);
-  at.setHours(hour, minute - offsetMin, 0, 0);
-  if (at.getTime() <= Date.now()) return null;
-  return {
-    type: Notifications.SchedulableTriggerInputTypes.DATE,
-    date: at,
-    channelId, // iOS'ta yok sayılır
-  } as const;
-}
-
 // Belirli bir takvim günü + saat için, offsetMin dakika sonrasına tek seferlik
-// DATE tetikleyicisi ("kıldınız mı?" kontrol bildirimi). Geçmişte kalmışsa
-// null (planlanmaz) — ör. uygulama vaktin +20 dk'sından sonra açılıp yeniden
-// planlama yapılırsa bugünkü bu bildirim atlanır, yarınkinden devam eder.
+// DATE tetikleyicisi. Geçmişte kalmışsa null (planlanmaz) — ör. uygulama
+// vaktin +NOTIFY_AFTER_MIN'inden sonra açılıp yeniden planlama yapılırsa
+// bugünkü bu bildirim atlanır, yarınkinden devam eder.
 function dateTriggerAfter(day: Date, hour: number, minute: number, offsetMin: number, channelId: string) {
   const at = new Date(day);
   at.setHours(hour, minute + offsetMin, 0, 0);
@@ -305,9 +281,9 @@ function dateTriggerAfter(day: Date, hour: number, minute: number, offsetMin: nu
   } as const;
 }
 
-// Günlük namaz bildirimlerini planla. Her vakit için TEK bildirim (5 dk önce):
-// hatırlatma + namaz-taglı ayet meali birlikte (her yeniden planlamada rastgele →
-// dinamik). Ayrı ayet bildirimi kaldırıldı → günde 5 bildirim (10 değil), fatigue azalır.
+// Günlük namaz bildirimlerini planla. Her vakit için TEK bildirim (vakit
+// girdikten NOTIFY_AFTER_MIN dk sonra): hatırlatma + namaz-taglı ayet meali
+// birlikte (her yeniden planlamada rastgele → dinamik).
 type ValidVakit = { key: string; label: string; hour: number; minute: number };
 
 function parseValid(times: PrayerTimes): ValidVakit[] {
@@ -336,48 +312,27 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
   const verseByKey = new Map(vakitKeys.map((key, i) => [key, verses[i]]));
 
   const jobs: Promise<string>[] = [];
-  days.forEach(({ date, times }, dayIdx) => {
+  for (const { date, times } of days) {
     for (const { key, label, hour, minute } of parseValid(times)) {
-      const beforeTrigger = dateTriggerBefore(date, hour, minute, REMIND_BEFORE_MIN, ANDROID_CHANNEL_ID_PRAYER);
-      if (beforeTrigger) {
-        const translation = verseByKey.get(key)?.translation;
-        const verseLine = translation
-          ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
-          : "";
-        jobs.push(
-          Notifications.scheduleNotificationAsync({
-            content: {
-              title: `🕌 ${label} Vaktine ${REMIND_BEFORE_MIN} Dakika`,
-              body:  `${label} vakti yaklaşıyor, namaza hazırlanın.${verseLine}`,
-              sound: true,
-              data:  { route: "/namaz" },
-            },
-            trigger: beforeTrigger,
-          })
-        );
-      }
-
-      // "Kıldınız mı?" kontrol bildirimi — vaktin başlangıcından ayrı ve
-      // bağımsız planlanır, "5 dk var" bildirimi geç teslim edilse bile
-      // (Doze/pil optimizasyonu) doğru zamanlı ve doğru metinli kalır.
-      if (CHECKIN_VAKITLER.has(key) && dayIdx < CHECKIN_DAYS) {
-        const afterTrigger = dateTriggerAfter(date, hour, minute, CHECKIN_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
-        if (afterTrigger) {
-          jobs.push(
-            Notifications.scheduleNotificationAsync({
-              content: {
-                title: `🕌 ${label} Vakti`,
-                body:  `${label} namazını kıldınız mı?`,
-                sound: true,
-                data:  { route: "/namaz" },
-              },
-              trigger: afterTrigger,
-            })
-          );
-        }
-      }
+      const trigger = dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
+      if (!trigger) continue; // bugünün geçmiş vakitleri
+      const translation = verseByKey.get(key)?.translation;
+      const verseLine = translation
+        ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
+        : "";
+      jobs.push(
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: `🕌 ${label} Vakti Girdi`,
+            body:  `${label} vakti girdi, namaza hazırlanabilirsiniz.${verseLine}`,
+            sound: true,
+            data:  { route: "/namaz" },
+          },
+          trigger,
+        })
+      );
     }
-  });
+  }
   await Promise.all(jobs);
 }
 

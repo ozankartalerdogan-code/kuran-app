@@ -87,7 +87,7 @@ export default function OnboardingScreen() {
               </View>
               <Text style={[s.title, { color: c.text }]}>Namaz vakitlerini hatırlatalım mı?</Text>
               <Text style={[s.sub, { color: c.textSecondary }]}>
-                Her vakitten 5 dakika önce nazik bir hatırlatma; günde bir kez de günün ayeti ve duası gönderilir.
+                Her vakit girdikten kısa süre sonra nazik bir hatırlatma; günde bir kez de günün ayeti ve duası gönderilir.
               </Text>
 
               <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}>
