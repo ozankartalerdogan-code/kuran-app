@@ -362,16 +362,22 @@ function HomeContent() {
       <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
-          <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}</Text>
+          {/* Bildirim ayarları /bildirimler ekranında yönetilir — buraya kısayol. */}
+          <TouchableOpacity onPress={() => router.push("/bildirimler")} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Namaz vakti bildirimleri">
+            <Ionicons name="notifications-outline" size={19} color={c.isDark ? "#818cf8" : "#3730a3"} />
+          </TouchableOpacity>
         </View>
-        {nextPrayer && (
-          <View style={styles.countdownRow}>
-            <Ionicons name="time-outline" size={14} color={c.isDark ? "#818cf8" : "#4338ca"} />
-            <Text style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
-              {PRAYER_DATIVE[nextPrayer.key] ?? nextPrayer.label} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin)}</Text> kaldı
-            </Text>
-          </View>
-        )}
+        <View style={styles.countdownRow}>
+          <Ionicons name="time-outline" size={14} color={c.isDark ? "#818cf8" : "#4338ca"} />
+          <Text numberOfLines={1} style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
+            <Text style={styles.countdownCity}>{prayerCity}</Text>
+            {nextPrayer ? (
+              <>
+                {" · "}{PRAYER_DATIVE[nextPrayer.key] ?? nextPrayer.label} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin)}</Text> kaldı
+              </>
+            ) : null}
+          </Text>
+        </View>
         {!prayers && prayerLoading ? (
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
         ) : !prayers ? (
@@ -405,11 +411,6 @@ function HomeContent() {
             })}
           </View>
         )}
-
-        {/* Bildirim ayarları /bildirimler ekranında yönetilir — buraya kısayol. */}
-        <TouchableOpacity onPress={() => router.push("/bildirimler")} activeOpacity={0.7} style={styles.prayerNotifLink} accessibilityRole="button" accessibilityLabel="Namaz vakti bildirimleri">
-          <Text style={[styles.prayerNotifLinkText, { color: c.isDark ? "#a5b4fc" : "#4338ca" }]}>🔔 Namaz vakti bildirimleri →</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Günün Duası */}
@@ -543,10 +544,9 @@ const styles = StyleSheet.create({
 
   prayerCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
   countdownRow: { flexDirection: "row", alignItems: "center", gap: 6 },
-  countdown: { fontSize: 14 },
+  countdown: { fontSize: 14, flexShrink: 1 },
+  countdownCity: { fontWeight: "700" },
   countdownStrong: { fontWeight: "800" },
-  prayerNotifLink: { marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: "rgba(99,102,241,0.25)", alignItems: "center" },
-  prayerNotifLinkText: { fontSize: 13, fontWeight: "600" },
   prayerRow:  { flexDirection: "row", marginTop: 10 },
   prayerItem: {
     flex: 1, alignItems: "center", gap: 3, paddingVertical: 9,
