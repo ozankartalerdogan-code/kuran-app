@@ -347,7 +347,7 @@ export default function MushafSayfaEkrani() {
         accessibilityLabel={`${s.name} suresine git`}
       >
         <View style={[st.sureNoBadge, { backgroundColor: aktif ? c.accent : c.cardAlt, borderColor: aktif ? c.accent : c.border }]}>
-          <Text style={[st.sureNo, { color: aktif ? "#fff" : c.textMuted }]}>{s.id}</Text>
+          <Text style={[st.sureNo, { color: aktif ? "#fff" : c.textMuted }]} maxFontSizeMultiplier={1.2}>{s.id}</Text>
         </View>
         <View style={st.sureOrta}>
           <Text style={[st.sureName, { color: c.text }]} numberOfLines={1}>{s.name}</Text>

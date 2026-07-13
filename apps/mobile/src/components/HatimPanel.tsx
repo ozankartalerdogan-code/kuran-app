@@ -213,7 +213,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                           accessibilityLabel={`${juz.juz}. cüz okundu olarak işaretle`}
                         >
                           <View style={[st.juzCheck, { borderColor: c.border }, done && st.juzCheckDone]}>
-                            <Text style={[st.juzNum, { color: c.textMuted }, done && st.juzNumDone]}>
+                            <Text style={[st.juzNum, { color: c.textMuted }, done && st.juzNumDone]} maxFontSizeMultiplier={1.2}>
                               {done ? "✓" : juz.juz}
                             </Text>
                           </View>

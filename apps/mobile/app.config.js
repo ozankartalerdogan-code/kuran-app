@@ -13,7 +13,10 @@ module.exports = {
       "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
     assetBundlePatterns: ['**/*'],
     ios: {
-      supportsTablet: true,
+      // Uygulama dikey (portrait) kilitli ve tablet düzeni hiç tasarlanmadı/test
+      // edilmedi — supportsTablet:true iPad'i "destekleniyor" gibi listeler ama
+      // yatay moda hiç geçilemez, gerçekte tablet deneyimi yok.
+      supportsTablet: false,
       bundleIdentifier: 'com.kuranapp.mobile',
       infoPlist: {
         NSLocationWhenInUseUsageDescription:

@@ -486,7 +486,7 @@ export default function DersDetayScreen() {
               accessibilityLabel={`${cevap.harf}: ${cevap.metin}`}
             >
               <View style={[s.answerHarf, { borderColor: answerBorderColor(cevap.harf) }]}>
-                <Text style={[s.answerHarfText, { color: answerTextColor(cevap.harf) }]}>
+                <Text style={[s.answerHarfText, { color: answerTextColor(cevap.harf) }]} maxFontSizeMultiplier={1.2}>
                   {cevap.harf}
                 </Text>
               </View>

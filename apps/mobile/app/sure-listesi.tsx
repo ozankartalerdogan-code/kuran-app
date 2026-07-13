@@ -45,7 +45,7 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
       accessibilityLabel={`${item.id}. sure: ${item.name}`}
     >
       <View style={[styles.rowNumber, { backgroundColor: c.isDark ? c.cardAlt : sortMode === "nuzul" ? "#ede9fe" : "#f5f0e8" }]}>
-        <Text style={[styles.numberText, { color: sortMode === "nuzul" ? "#7c3aed" : c.textMuted }]}>{circleNum}</Text>
+        <Text style={[styles.numberText, { color: sortMode === "nuzul" ? "#7c3aed" : c.textMuted }]} maxFontSizeMultiplier={1.2}>{circleNum}</Text>
       </View>
       <View style={styles.rowCenter}>
         <Text style={[styles.surahName, { color: c.text }]}>{item.name}</Text>
