@@ -36,7 +36,7 @@ export function AyahDetailTabs({ tabs }: AyahDetailTabsProps) {
               aria-controls={`${panelBaseId}-${tab.id}`}
               aria-selected={isActive}
               className={[
-                "whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium",
+                "min-h-11 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium",
                 isActive
                   ? "bg-navy-900 text-white shadow-sm"
                   : "text-stone-700 hover:bg-navy-50"

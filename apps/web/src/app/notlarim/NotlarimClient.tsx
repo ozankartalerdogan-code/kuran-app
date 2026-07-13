@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { NotebookPen } from "lucide-react";
 import { getNotes, setNotes } from "../../lib/storageUtils";
 
 interface NoteEntry {
@@ -93,8 +94,9 @@ export function NotlarimClient() {
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
-              📝 Notlarım
+            <h1 className="flex items-center gap-2 text-2xl font-semibold text-stone-900 dark:text-stone-100">
+              <NotebookPen aria-hidden="true" className="h-6 w-6 text-navy-600 dark:text-navy-400" strokeWidth={1.75} />
+              Notlarım
             </h1>
             {!loading && notes.length > 0 && (
               <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
@@ -114,13 +116,13 @@ export function NotlarimClient() {
         </div>
 
         {error && !loading && (
-          <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800 dark:border-gold-800/50 dark:bg-gold-900/20 dark:text-gold-300">
+          <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800 dark:border-gold-800/50 dark:bg-gold-900/20 dark:text-gold-300" role="status">
             {error}
           </div>
         )}
 
         {loading && (
-          <div className="space-y-3">
+          <div className="space-y-3" aria-busy="true" aria-live="polite" role="status">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
@@ -131,7 +133,7 @@ export function NotlarimClient() {
         )}
 
         {!loading && notes.length === 0 && (
-          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
+          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-card dark:border-stone-700 dark:bg-stone-800" aria-live="polite" role="status">
             <div className="mb-3 text-4xl">📝</div>
             <p className="text-lg font-bold text-stone-700 dark:text-stone-200">
               Henüz not eklemediniz

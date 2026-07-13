@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { MubarekGunlerClient } from "./MubarekGunlerClient";
 
 export const metadata: Metadata = {
-  title: "Mübarek Gün ve Geceler — Kuran Yolu",
+  title: "Mübarek Gün ve Geceler",
   description: "Mübarek gün ve geceleri, dayanak notları ve ibadet önerileriyle okuyun.",
 };
 

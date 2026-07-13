@@ -148,14 +148,14 @@ export function KibleClient() {
         )}
 
         {status === "loading" && (
-          <div className="text-center text-stone-500 dark:text-stone-400">
+          <div className="text-center text-stone-500 dark:text-stone-400" aria-live="polite" role="status">
             <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-navy-500 border-t-transparent" />
             Konum alınıyor…
           </div>
         )}
 
         {status === "error" && (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-center dark:border-red-800 dark:bg-red-950/30">
+          <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-center dark:border-red-800 dark:bg-red-950/30" role="alert">
             <p className="mb-3 text-sm text-red-700 dark:text-red-400">{errorMsg}</p>
             <button
               onClick={getLocation}

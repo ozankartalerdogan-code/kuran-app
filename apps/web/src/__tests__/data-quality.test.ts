@@ -8,20 +8,18 @@
  * (Eski meal-no-ocr-errors.test.ti değiştirir: o, artık gösterimde kullanılmayan
  *  primary_translation'ı + %100 yanlış-pozitif '_' kalıbını test ediyordu.)
  */
-import { describe, it, before } from "node:test";
 import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { hasEncodingError } from "../lib/cleanMeal.ts";
 
-const DB_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../../data/app.db");
+const DB_PATH = path.resolve(__dirname, "../../../../data/app.db");
 
 interface Row { verse_key: string; surah_id: number; literal_ceviri: string | null; fark_analizi: string | null }
 
 describe("Veri kalitesi — verses (literal + fark)", () => {
   let rows: Row[];
-  before(() => {
+  beforeAll(() => {
     const db = new DatabaseSync(DB_PATH, { readOnly: true });
     rows = db.prepare("SELECT verse_key, surah_id, literal_ceviri, fark_analizi FROM verses").all() as unknown as Row[];
     db.close();

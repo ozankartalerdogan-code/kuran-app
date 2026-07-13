@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { PeygamberKissalariClient } from "./PeygamberKissalariClient";
 
 export const metadata: Metadata = {
-  title: "Peygamber Kıssaları — Kuran Yolu",
+  title: "Peygamber Kıssaları",
   description: "Kur'an'da adı geçen peygamberlerin kıssalarını okuyun.",
 };
 

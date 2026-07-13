@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["", "daily", 1.0],
     ["/surah", "weekly", 0.9],
     ["/discover", "weekly", 0.8],
-    ["/arama", "weekly", 0.6],
+    ["/search", "weekly", 0.6],
     ["/ogren", "weekly", 0.7],
     ["/ogren/elifba", "weekly", 0.7],
     ["/ogren/harf-i-tarif", "weekly", 0.7],

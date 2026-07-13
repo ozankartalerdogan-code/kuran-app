@@ -255,7 +255,7 @@ export function SearchContent() {
           <div className="space-y-6">
             {/* Özel koleksiyonlar */}
             <section>
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
                 Özel Koleksiyonlar
               </h2>
               <div className="grid gap-2.5 sm:grid-cols-3">
@@ -285,7 +285,7 @@ export function SearchContent() {
 
             {/* Namaz tag filtreleri */}
             <section>
-              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
                 Namaz Etiketleri
               </h2>
               <div className="flex flex-wrap gap-2">
@@ -302,7 +302,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
+                    className="min-h-9 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
                   >
                     <MoonStar aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />
                     {label}
@@ -313,7 +313,7 @@ export function SearchContent() {
 
             {/* Korunma tag filtreleri */}
             <section>
-              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
                 Korunma Etiketleri
               </h2>
               <div className="flex flex-wrap gap-2">
@@ -328,7 +328,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
+                    className="min-h-9 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-xs font-medium text-navy-700 transition-all hover:bg-navy-100 active:scale-95"
                   >
                     <Shield aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />
                     {label}
@@ -339,7 +339,7 @@ export function SearchContent() {
 
             {/* İsmi Azam tag filtreleri */}
             <section>
-              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              <h2 className="mb-2.5 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
                 İsmi Azam Etiketleri
               </h2>
               <div className="flex flex-wrap gap-2">
@@ -350,7 +350,7 @@ export function SearchContent() {
                   <button
                     key={tag}
                     onClick={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                    className="rounded-full border border-gold-200 bg-gold-50 px-3 py-1 text-xs font-medium text-gold-700 transition-all hover:bg-gold-100 active:scale-95"
+                    className="min-h-9 rounded-full border border-gold-200 bg-gold-50 px-3 py-1.5 text-xs font-medium text-gold-700 transition-all hover:bg-gold-100 active:scale-95"
                   >
                     <Sparkles aria-hidden="true" className="mr-1 inline h-3 w-3" strokeWidth={2} />
                     {label}
@@ -363,7 +363,8 @@ export function SearchContent() {
 
         {/* Bulgu 5: loading sırasında önceki sonuçlar hafifçe soluklaşır (flash yok) */}
         {state.status === "loading" && (
-          <div className="space-y-3">
+          <div className="space-y-3" aria-busy="true" aria-live="polite" role="status">
+            <span className="sr-only">Arama sonuçları yükleniyor</span>
             {[...Array(5)].map((_, i) => (
               <div key={i} className="h-28 animate-pulse rounded-lg bg-stone-200" />
             ))}
@@ -371,13 +372,13 @@ export function SearchContent() {
         )}
 
         {state.status === "error" && (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800/50 dark:bg-red-900/20 dark:text-red-400">
+          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800/50 dark:bg-red-900/20 dark:text-red-400" role="alert">
             {state.message}
           </div>
         )}
 
         {state.status === "no_results" && (
-          <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center dark:border-stone-600 dark:bg-stone-800">
+          <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center dark:border-stone-600 dark:bg-stone-800" aria-live="polite" role="status">
             <p className="text-stone-500">Sonuç bulunamadı.</p>
           </div>
         )}

@@ -102,9 +102,9 @@ export default function RootLayout({
         >
           <NavbarMenu />
         </nav>
-        <main id="main-content" tabIndex={-1}>
+        <div id="main-content" tabIndex={-1}>
           {children}
-        </main>
+        </div>
         <footer className="mt-12 border-t border-gold-500/20 bg-navy-950 px-4 py-10 text-navy-200 sm:px-6">
           <div className="mx-auto max-w-4xl">
             <div className="grid gap-8 sm:grid-cols-3">
@@ -124,10 +124,10 @@ export default function RootLayout({
                   İçerik
                 </p>
                 <ul className="space-y-2 text-navy-200">
-                  <li><Link href="/surah" className="hover:text-white hover:underline">Tüm Sureler</Link></li>
-                  <li><Link href="/mushaf-sayfa" className="hover:text-white hover:underline">Mushaf</Link></li>
-                  <li><Link href="/ogren" className="hover:text-white hover:underline">Konular</Link></li>
-                  <li><Link href="/discover" className="hover:text-white hover:underline">Keşfet</Link></li>
+                  <li><Link href="/surah" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Tüm Sureler</Link></li>
+                  <li><Link href="/mushaf-sayfa" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Mushaf</Link></li>
+                  <li><Link href="/ogren" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Konular</Link></li>
+                  <li><Link href="/discover" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Keşfet</Link></li>
                 </ul>
               </nav>
               {/* Araçlar + kurumsal */}
@@ -136,23 +136,23 @@ export default function RootLayout({
                   Araçlar
                 </p>
                 <ul className="space-y-2 text-navy-200">
-                  <li><Link href="/hatim" className="hover:text-white hover:underline">Hatim Takibi</Link></li>
-                  <li><Link href="/kible" className="hover:text-white hover:underline">Kıble Pusulası</Link></li>
-                  <li><Link href="/namaz" className="hover:text-white hover:underline">Namaz Vakitleri</Link></li>
-                  <li><Link href="/manevi-siginak/zikirmatik" className="hover:text-white hover:underline">Zikirmatik</Link></li>
+                  <li><Link href="/hatim" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Hatim Takibi</Link></li>
+                  <li><Link href="/kible" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Kıble Pusulası</Link></li>
+                  <li><Link href="/namaz" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Namaz Vakitleri</Link></li>
+                  <li><Link href="/manevi-siginak/zikirmatik" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Zikirmatik</Link></li>
                 </ul>
               </nav>
             </div>
             <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-navy-800 pt-5 text-xs text-navy-300">
               <span>© {new Date().getFullYear()} Kuran Yolu</span>
               <span className="flex items-center gap-4">
-                <Link href="/hakkinda" className="hover:text-white hover:underline">
+                <Link href="/hakkinda" className="inline-flex min-h-8 items-center hover:text-white hover:underline">
                   Hakkında
                 </Link>
-                <Link href="/privacy" className="hover:text-white hover:underline">
+                <Link href="/privacy" className="inline-flex min-h-8 items-center hover:text-white hover:underline">
                   Gizlilik
                 </Link>
-                <a href="mailto:kuranyolu.iletisim@gmail.com" className="hover:text-white hover:underline">
+                <a href="mailto:kuranyolu.iletisim@gmail.com" className="inline-flex min-h-8 items-center hover:text-white hover:underline">
                   İletişim
                 </a>
               </span>

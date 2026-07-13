@@ -66,10 +66,10 @@ export function AyahJumpForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2"
+      className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-end gap-2"
     >
-      <div className="flex items-center gap-2">
-        <label className="w-10 shrink-0 text-xs text-stone-500" htmlFor="jump-surah">
+      <div className="min-w-0">
+        <label className="sr-only" htmlFor="jump-surah">
           Sûre
         </label>
         <input
@@ -80,12 +80,12 @@ export function AyahJumpForm({
           value={selectedSurahId}
           onChange={handleSurahChange}
           placeholder="Sure no"
-          className="min-h-[44px] w-24 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0"
+          className="min-h-[44px] w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-navy-400"
         />
       </div>
 
-      <div className="flex items-center gap-2">
-        <label className="w-10 shrink-0 text-xs text-stone-500" htmlFor="jump-ayah">
+      <div className="min-w-0">
+        <label className="sr-only" htmlFor="jump-ayah">
           Ayet
         </label>
         <input
@@ -96,14 +96,14 @@ export function AyahJumpForm({
           value={selectedAyah}
           onChange={handleAyahChange}
           placeholder="Ayet no"
-          className="min-h-[44px] w-24 rounded border border-stone-300 px-2 py-1 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 sm:min-h-0"
+          className="min-h-[44px] w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-navy-400"
         />
       </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="min-h-[44px] w-full rounded border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-800 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-400 disabled:opacity-50 sm:min-h-0 sm:w-auto"
+        className="min-h-[44px] rounded-lg bg-navy-600 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-400 disabled:opacity-50"
       >
         {isPending ? "…" : "Git"}
       </button>

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { HadislerClient } from "./HadislerClient";
 
 export const metadata: Metadata = {
-  title: "Hadisler — Kuran Yolu",
+  title: "Hadisler",
   description: "Seçme hadisleri konu başlıklarına göre okuyun.",
 };
 

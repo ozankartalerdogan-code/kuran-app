@@ -95,7 +95,7 @@ export function FavorilerClient() {
         </div>
 
         {loading && (
-          <div className="space-y-3">
+          <div className="space-y-3" aria-busy="true" aria-live="polite" role="status">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
@@ -106,7 +106,7 @@ export function FavorilerClient() {
         )}
 
         {!loading && error && keys.length > 0 && (
-          <div className="rounded-2xl border border-gold-200 bg-white px-8 py-12 text-center shadow-md dark:border-gold-800 dark:bg-stone-800">
+          <div className="rounded-2xl border border-gold-200 bg-white px-8 py-12 text-center shadow-card dark:border-gold-800 dark:bg-stone-800" role="alert">
             <div className="mb-3 flex justify-center">
               <TriangleAlert aria-hidden="true" className="h-10 w-10 text-gold-500" strokeWidth={1.5} />
             </div>
@@ -127,7 +127,7 @@ export function FavorilerClient() {
         )}
 
         {!loading && !error && keys.length === 0 && (
-          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-md dark:border-stone-700 dark:bg-stone-800">
+          <div className="rounded-2xl border border-stone-200 bg-white px-8 py-16 text-center shadow-card dark:border-stone-700 dark:bg-stone-800" aria-live="polite" role="status">
             <div className="mb-3 flex justify-center">
               <Heart aria-hidden="true" className="h-10 w-10 text-stone-300 dark:text-stone-600" strokeWidth={1.5} />
             </div>

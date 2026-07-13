@@ -14,6 +14,14 @@ export interface SurahItem {
   shortIntroduction: string | null;
 }
 
+function normalizeSearch(value: string): string {
+  return value.toLocaleLowerCase("tr")
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/\u0131/g, "i")
+    .trim();
+}
+
 function RevelationBadge({ place }: { place: string }) {
   const isMekki = place === "Mekke";
   return (
@@ -33,9 +41,17 @@ function RevelationBadge({ place }: { place: string }) {
 export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
   const [order, setOrder] = useState<"mushaf" | "nuzul">("mushaf");
   const [place, setPlace] = useState<"all" | "Mekke" | "Medine">("all");
+  const [query, setQuery] = useState("");
 
-  const filtered =
-    place === "all" ? surahs : surahs.filter((s) => s.revelationPlace === place);
+  const normalizedQuery = normalizeSearch(query);
+  const filtered = surahs.filter((surah) => {
+    const matchesPlace = place === "all" || surah.revelationPlace === place;
+    const matchesQuery =
+      !normalizedQuery ||
+      (surah.name && normalizeSearch(surah.name).includes(normalizedQuery)) ||
+      String(surah.id) === normalizedQuery;
+    return matchesPlace && matchesQuery;
+  });
 
   const sorted =
     order === "mushaf"
@@ -55,6 +71,17 @@ export function SurahListClient({ surahs }: { surahs: SurahItem[] }) {
 
   return (
     <>
+      <div className="mb-4">
+        <label htmlFor="surah-filter" className="sr-only">Sure ara</label>
+        <input
+          id="surah-filter"
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Sure adı veya numarası"
+          className="min-h-[44px] w-full rounded-xl border border-stone-300 bg-white px-4 text-sm text-stone-900 shadow-sm outline-none transition focus:border-navy-500 focus:ring-2 focus:ring-navy-200 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:focus:ring-navy-800 sm:max-w-sm"
+        />
+      </div>
       {/* Toggle */}
       <div className="mb-4 flex items-center gap-3">
         <div className="flex overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm dark:border-stone-700 dark:bg-stone-900">

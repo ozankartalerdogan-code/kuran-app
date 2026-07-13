@@ -4,7 +4,7 @@ import { dbAll } from "../../../lib/dbUtils";
 import { ElifbaClient, type DersWithHarfler } from "./ElifbaClient";
 
 export const metadata: Metadata = {
-  title: "Elif-Ba Öğren — Kuran Yolu",
+  title: "Elif-Ba Öğren",
   description: "Arap harflerini adım adım öğren — 9 konu, flashcard çalışma modu.",
   alternates: { canonical: "/ogren/elifba" },
 };

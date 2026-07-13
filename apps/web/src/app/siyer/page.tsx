@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { SiyerClient } from "./SiyerClient";
 
 export const metadata: Metadata = {
-  title: "Siyer-i Nebî — Kuran Yolu",
+  title: "Siyer-i Nebî",
   description: "Hz. Peygamber'in hayatını dönemlere göre okuyun.",
 };
 

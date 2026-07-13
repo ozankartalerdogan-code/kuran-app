@@ -7,7 +7,7 @@ type PageProps = { params: { dersId: string } };
 export function generateMetadata({ params }: PageProps): Metadata {
   const title = BASLIKLAR[params.dersId] ?? "Ders";
   return {
-    title: `${title} — Kuran Yolu`,
+    title,
     description: `${title} dersini kartlarla okuyun ve quizle pekiştirin.`,
   };
 }

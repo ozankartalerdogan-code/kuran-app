@@ -54,7 +54,24 @@ export function HatimClient() {
   const progress = current ? current.readJuz.length : 0;
   const pct = Math.round((progress / 30) * 100);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <main className="min-h-screen px-4 py-10" aria-busy="true" aria-label="Hatim bilgileri yükleniyor">
+        <div className="mx-auto max-w-lg">
+          <div className="mb-6 text-center">
+            <h1 className="flex items-center justify-center gap-2 text-2xl font-bold text-stone-900 dark:text-stone-100">
+              <BookMarked aria-hidden="true" className="h-6 w-6 text-navy-600 dark:text-navy-400" strokeWidth={1.75} />
+              Hatim Takibi
+            </h1>
+            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">30 cüzlük okumanızı işaretleyin</p>
+          </div>
+          <div className="h-36 animate-pulse rounded-2xl border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-900">
+            <span className="sr-only">Hatim bilgileri yükleniyor</span>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen px-4 py-10">

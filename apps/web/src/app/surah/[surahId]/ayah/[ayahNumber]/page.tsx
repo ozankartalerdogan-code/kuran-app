@@ -1398,7 +1398,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   return (
     <main className="min-h-screen px-4 py-10 text-stone-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
-        <header className="rounded-2xl border border-stone-200 bg-white p-6 shadow-card">
+        <header className="rounded-2xl border border-stone-200 bg-white p-4 shadow-card sm:p-6">
           <nav aria-label="İçerik yolu" className="mb-3 flex items-center gap-1.5 text-xs text-stone-500">
             <Link href="/surah" className="hover:text-navy-700 hover:underline">
               Sureler
@@ -1419,7 +1419,7 @@ export default async function Page({ params, searchParams }: PageProps) {
               <p className="mt-2 text-sm text-stone-600">
                 Sûre {detail.surah?.id ?? surahId} · Ayet {detail.ayah.verseNumber}
               </p>
-              <div className="mt-4">
+              <div className="mt-3 sm:mt-4">
                 <AyahJumpForm initialSurahId={surahId} initialAyahNumber={ayahNumber} surahs={surahs} />
               </div>
             </div>

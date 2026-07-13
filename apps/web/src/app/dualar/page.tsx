@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { DualarClient } from "./DualarClient";
 
 export const metadata: Metadata = {
-  title: "Dualar ve Zikirler — Kuran Yolu",
+  title: "Dualar ve Zikirler",
   description: "Duaları ve zikirleri kategori bazında okuyun.",
 };
 

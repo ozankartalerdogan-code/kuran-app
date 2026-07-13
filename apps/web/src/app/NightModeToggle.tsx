@@ -31,7 +31,7 @@ export function NightModeToggle() {
       aria-label="Gece modunu değiştir"
       title={active ? "Gece modunu kapat" : "Gece modunu aç"}
       aria-pressed={active}
-      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors ${
         active
           ? "border-gold-500/70 bg-gold-500/15 text-gold-300 hover:bg-gold-500/25"
           : "border-white/20 bg-white/5 text-navy-200 hover:bg-white/10 hover:text-white"

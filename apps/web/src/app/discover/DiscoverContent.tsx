@@ -169,7 +169,7 @@ const AKORDEON_GRUPLARI: AkordeonGrup[] = [
 function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
   return (
     <section>
-      <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+      <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
         Öne Çıkan Temalar
       </h2>
       <div className="stagger-children grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -184,7 +184,7 @@ function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
             </span>
             <p className="mt-2 text-sm font-bold leading-tight text-white">{t.baslik}</p>
             <p className="mt-1 text-xs leading-snug text-white/75 line-clamp-2">{t.aciklama}</p>
-            <span className="mt-2.5 inline-block rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-gold-200">
+            <span className="mt-2.5 inline-block rounded-full bg-white/15 px-2 py-0.5 text-xs font-semibold tracking-wide text-gold-200">
               {t.ayet.toLocaleString("tr-TR")} ayet
             </span>
             <span className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/10" />
@@ -209,6 +209,7 @@ function AkordeonItem({
     <div className="overflow-hidden rounded-lg border border-stone-200 bg-white">
       <button
         onClick={() => setAcik((p) => !p)}
+        aria-expanded={acik}
         className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
       >
         <div className="flex items-center gap-2 min-w-0">
@@ -298,6 +299,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
             <button
               key={tab.id}
               onClick={() => setAktifTab(tab.id)}
+              aria-pressed={aktifTab === tab.id}
               className={`flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-lg py-2.5 text-xs font-semibold transition-all duration-150 ${
                 aktifTab === tab.id
                   ? "bg-white shadow-sm text-stone-800"
@@ -319,7 +321,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
 
             {/* Özel rehber sayfaları */}
             <section>
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
                 Özel Rehberler
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -334,7 +336,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-navy-700 dark:text-stone-100 dark:group-hover:text-navy-400">
                       Manevi Sığınak
                     </p>
-                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                    <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                       Büyü, nazar, hased ve vesveseden korunma — Kur&apos;an rehberi
                     </p>
                   </div>
@@ -356,7 +358,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-gold-700 dark:text-stone-100 dark:group-hover:text-gold-400">
                       İsmi Azam ve Sekine
                     </p>
-                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                    <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                       Sahih İsmi Azam duaları ve 19 ayetlik Sekine protokolü
                     </p>
                   </div>
@@ -378,7 +380,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-violet-700 dark:text-stone-100 dark:group-hover:text-violet-400">
                       Esmaül Hüsna
                     </p>
-                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                    <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                       Allah&apos;ın 99 güzel ismi — anlamları ve kök analizleriyle
                     </p>
                   </div>
@@ -400,7 +402,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-gold-700 dark:text-stone-100 dark:group-hover:text-gold-400">
                       Kelime Kökleri
                     </p>
-                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                    <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                       En sık geçen 200 Arapça kök — anlamları, sure dağılımı ve türevleri
                     </p>
                   </div>
@@ -422,7 +424,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                     <p className="mb-0.5 text-sm font-semibold text-stone-800 group-hover:text-navy-700 dark:text-stone-100 dark:group-hover:text-navy-400">
                       İbadet Rehberi
                     </p>
-                    <p className="text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                    <p className="text-xs leading-relaxed text-stone-500 dark:text-stone-400">
                       İslam ve İman şartları · Namaz, Oruç, Zekât, Hac, Kurban · Abdest &amp; Temizlik
                     </p>
                   </div>
@@ -437,7 +439,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
             </section>
 
             <section>
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
                 Tüm Temalar
               </h2>
               <div className="space-y-2">

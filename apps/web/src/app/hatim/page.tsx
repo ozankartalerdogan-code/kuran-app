@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { HatimClient } from "./HatimClient";
 
 export const metadata: Metadata = {
-  title: "Hatim Takibi — Kuran Yolu",
+  title: "Hatim Takibi",
   description: "30 cüzlük Kuran okumanızı takip edin.",
 };
 

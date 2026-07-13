@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { redirect } from "next/navigation";
 import { dbAll } from "../../lib/dbUtils";
 import { PageHeader } from "../../components/PageHeader";
 
@@ -62,6 +63,8 @@ async function runQuery(q: string): Promise<{ surahMatch: SurahRow | null; resul
 
 export default async function AramaPage({ searchParams }: PageProps) {
   const q = typeof searchParams?.q === "string" ? searchParams.q.trim() : "";
+  redirect(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
+
   const { surahMatch, results } = q.length >= 2
     ? await runQuery(q)
     : { surahMatch: null, results: [] };
@@ -78,9 +81,9 @@ export default async function AramaPage({ searchParams }: PageProps) {
           <section>
             <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">Sure</h2>
             <div className="overflow-hidden rounded-md border border-stone-200 bg-white shadow-sm">
-              <Link href={`/surah/${surahMatch.id}/ayah/1`} className="flex items-center justify-between px-5 py-4 hover:bg-stone-50">
-                <span className="font-medium text-stone-900">{surahMatch.adi_turkce}</span>
-                <span className="text-sm text-stone-400">Sure {surahMatch.id} →</span>
+              <Link href={`/surah/${surahMatch!.id}/ayah/1`} className="flex items-center justify-between px-5 py-4 hover:bg-stone-50">
+                <span className="font-medium text-stone-900">{surahMatch!.adi_turkce}</span>
+                <span className="text-sm text-stone-400">Sure {surahMatch!.id} →</span>
               </Link>
             </div>
           </section>

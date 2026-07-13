@@ -219,8 +219,9 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
 
   return (
     <div className="min-h-screen pb-24">
+      <h1 className="sr-only">Mushaf — Sayfa {page}</h1>
       {/* Üst bar */}
-      <div className="sticky top-0 z-20 border-b border-stone-200 bg-white/95 backdrop-blur dark:border-stone-800 dark:bg-stone-900/95">
+      <div className="sticky top-[69px] z-20 border-b border-stone-200 bg-white/95 backdrop-blur dark:border-stone-800 dark:bg-stone-900/95">
         <div className="mx-auto flex max-w-3xl items-center gap-2 px-3 py-2">
           <Link
             href="/mushaf"
@@ -285,6 +286,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
               type="button"
               onClick={toggleTajweed}
               aria-pressed={tajweed}
+              aria-label={tajweed ? "Tecvid renklerini kapat" : "Tecvid renklerini aç"}
               className={`rounded-full border px-2.5 py-1.5 text-xs font-semibold transition-colors ${
                 tajweed
                   ? "border-navy-300 bg-navy-50 text-navy-700 dark:border-navy-700 dark:bg-navy-950/40 dark:text-navy-400"

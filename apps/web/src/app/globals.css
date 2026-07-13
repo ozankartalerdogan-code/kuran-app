@@ -150,6 +150,15 @@ body {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-ping,
+  .animate-pulse,
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+
 /* Marka dokunuşu: metin seçimi altın, klavye odağı lacivert */
 ::selection {
   background: #eadaa5;

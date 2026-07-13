@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { KibleClient } from "./KibleClient";
 
 export const metadata: Metadata = {
-  title: "Kıble Yönü — Kuran Yolu",
+  title: "Kıble Yönü",
   description: "Konumunuza göre Kabe'nin yönünü bulun.",
 };
 

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const page = parsePage(params.page);
   if (!page) return { title: "Mushaf Sayfa Görünümü" };
   return {
-    title: `Sayfa ${page} — Mushaf | Kuran Yolu`,
+    title: `Sayfa ${page} — Mushaf`,
     description: `Kur'an-ı Kerim mushaf sayfa görünümü, sayfa ${page} (Cüz ${sayfaninCuzu(page)}).`,
     alternates: { canonical: `/mushaf-sayfa/${page}` },
   };

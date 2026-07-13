@@ -70,7 +70,7 @@ export function NavbarMenu() {
         <Link
           href="/"
           aria-label="Ana sayfaya git"
-          className="group flex shrink-0 items-center gap-2.5"
+          className="group flex min-h-11 shrink-0 items-center gap-2.5"
         >
           <BrandMark />
           <span className="text-[15px] font-bold tracking-tight text-white transition-colors group-hover:text-gold-200">
@@ -79,10 +79,10 @@ export function NavbarMenu() {
         </Link>
 
         {/* İnce altın ayraç — marka ile linkler arasında */}
-        <span aria-hidden="true" className="hidden h-5 w-px bg-white/15 sm:block" />
+        <span aria-hidden="true" className="hidden h-5 w-px bg-white/15 lg:block" />
 
         {/* Masaüstü: ana bölümler */}
-        <div className="hidden items-center gap-1 sm:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {DESKTOP_LEFT_LINKS.map(({ href, label }) => (
             <Link
               key={href}
@@ -106,7 +106,7 @@ export function NavbarMenu() {
         </div>
 
         {/* Masaüstü: kişisel bölümler */}
-        <div className="hidden shrink-0 items-center gap-1 sm:flex">
+        <div className="hidden shrink-0 items-center gap-1 lg:flex">
           <Link
             href="/favoriler"
             aria-label="Favoriler sayfasına git"
@@ -139,7 +139,7 @@ export function NavbarMenu() {
         <Link
           href="/discover"
           aria-label="Keşfet sayfasına git"
-          className="hidden shrink-0 items-center gap-1.5 rounded-lg bg-gold-500 px-3.5 py-1.5 text-sm font-semibold text-navy-950 shadow-sm ring-1 ring-gold-400/60 transition-colors hover:bg-gold-400 sm:flex"
+          className="hidden min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-gold-500 px-3.5 py-1.5 text-sm font-semibold text-navy-950 shadow-sm ring-1 ring-gold-400/60 transition-colors hover:bg-gold-400 lg:flex"
         >
           <Compass aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
           Keşfet
@@ -154,7 +154,7 @@ export function NavbarMenu() {
           type="button"
           aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
           aria-expanded={open}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-navy-100 transition-colors hover:bg-white/10 sm:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-navy-100 transition-colors hover:bg-white/10 lg:hidden"
         >
           {open
             ? <X aria-hidden="true" className="h-5 w-5" strokeWidth={2} />
@@ -164,7 +164,7 @@ export function NavbarMenu() {
 
       {/* ── Mobil açılır menü ── */}
       {open && (
-        <div className="mt-3 border-t border-white/10 pt-2 sm:hidden">
+        <div className="mt-3 border-t border-white/10 pt-2 lg:hidden">
           {NAV_LINKS.map(({ href, label, icon: Icon, accent }) => (
             <Link
               key={href}

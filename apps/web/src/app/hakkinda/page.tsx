@@ -6,7 +6,7 @@ const TANZIL_URL = "https://tanzil.net/";
 const QAC_URL = "https://corpus.quran.com/";
 
 export const metadata: Metadata = {
-  title: "Kaynaklar ve Açıklamalar — Kuran Yolu",
+  title: "Kaynaklar ve Açıklamalar",
   description: "Kuran Yolu uygulamasında kullanılan Kur'an metni, meal, tefsir, morfoloji ve hadis kaynakları hakkında açıklamalar.",
   alternates: { canonical: "/hakkinda" },
 };
