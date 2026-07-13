@@ -253,8 +253,8 @@ function UniqueRootList({
 
 // ── Hızlı Ayet Atlama ────────────────────────────────────────────────────────
 
-function AyahJumpBar({ surahId, current, total, colors }: {
-  surahId: number; current: number; total: number; colors: ThemeColors;
+function AyahJumpBar({ surahId, current, total, colors, onJump }: {
+  surahId: number; current: number; total: number; colors: ThemeColors; onJump: () => void;
 }) {
   const [surahVal, setSurahVal] = useState(String(surahId));
   const [ayahVal,  setAyahVal]  = useState(String(current));
@@ -272,6 +272,7 @@ function AyahJumpBar({ surahId, current, total, colors }: {
     // Aynı surede kalınıyorsa üst sınır belli → kırp. Farklı surenin ayet
     // sayısı burada bilinmiyor; aşarsa mevcut hata ekranı devreye girer.
     if (targetSurah === surahId) targetAyah = Math.min(targetAyah, total);
+    onJump();
     router.replace(`/ayah/${targetSurah}/${targetAyah}`);
   }
 
@@ -1162,6 +1163,7 @@ export default function AyahDetailScreen() {
               current={ayahNumber}
               total={data.verseCount}
               colors={colors}
+              onJump={() => setJumpOpen(false)}
             />
           ) : null}
           <View style={styles.navRow}>
