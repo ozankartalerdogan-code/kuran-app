@@ -62,6 +62,14 @@ Sentry.init({
   // yalnızca performans transaction'ları kapanıyor.
   tracesSampleRate: __DEV__ ? 0 : 0.2,
   integrations: [navigationIntegration],
+  // Native frame/stall tracking, her navigasyon span'ında (her tab dokunuşu
+  // dahil) native köprüye ek çağrı + JS tarafında sürekli takip yapar — dev'deki
+  // "tıklamada donma" hissinin asıl kaynağı buydu. tracesSampleRate sadece
+  // event GÖNDERİMİNİ örnekler, bu takibin KURULMASINI engellemez; yani
+  // production'da (tracesSampleRate 0.2) aynı donma hissi hâlâ oluşabiliyordu.
+  // Basit navigasyon/crash breadcrumb'ları için bu ayrıntı düzeyi gereksiz.
+  enableNativeFramesTracking: false,
+  enableStallTracking: false,
   // SDK'nın bilinen hatası (tracesSampleRate < 1 iken app start ölçümü ilk
   // sample'lanmayan transaction'ın span id'sine kilitleniyor ve asla eşleşmiyor
   // → "[AppStart] ... does not match" uyarısı, https://github.com/getsentry/sentry-react-native/issues/5757).
