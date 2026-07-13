@@ -37,9 +37,23 @@
     android:countDown="true"
     android:format="@string/prayer_widget_chrono_format"
     android:textColor="@color/prayer_widget_text"
-    android:textSize="22sp"
+    android:textSize="24sp"
     android:textStyle="bold"
     android:singleLine="true"
+    android:visibility="gone" />
+
+  <!-- Yalnız canlı sayaç modunda görünür: "İmsak vakti: 03:44" — 4x2 hücrede
+       sayacın altındaki boşluğu bilgiyle doldurur (cihazda üst-boşluk sorunu
+       ekran görüntüsüyle doğrulanmıştı). -->
+  <TextView
+    android:id="@+id/prayer_widget_subtitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:textColor="@color/prayer_widget_text_muted"
+    android:textSize="12sp"
+    android:singleLine="true"
+    android:ellipsize="end"
     android:visibility="gone" />
 
   <TextView

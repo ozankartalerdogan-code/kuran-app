@@ -20,8 +20,9 @@ type BackgroundTaskLike = {
 type AndroidWidgetLike = {
   requestWidgetUpdate: (props: {
     widgetName: string;
+    // info: paketin WidgetInfo'su — satır bütçesi için yalnız height kullanılıyor.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    renderWidget: (info: unknown) => any;
+    renderWidget: (info: { height?: number }) => any;
   }) => Promise<void>;
 };
 
@@ -50,7 +51,7 @@ async function refreshWidget(): Promise<void> {
   const { buildEmirWidgetRepresentation } = require("./EmirAyetWidget");
   await AndroidWidgetModule.requestWidgetUpdate({
     widgetName: WIDGET_NAME,
-    renderWidget: () => buildEmirWidgetRepresentation(ayet),
+    renderWidget: (info) => buildEmirWidgetRepresentation(ayet, info?.height),
   });
 }
 

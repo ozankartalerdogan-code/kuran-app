@@ -93,7 +93,7 @@ object PrayerWidgetReconciler {
       // hiçbir iş çalışmaz; ekran kapanıp açılınca da doğru süreden devam eder.
       val remainingMillis = next.timestamp - now
       val base = SystemClock.elapsedRealtime() + remainingMillis
-      renderAll(context, manager, ids, chronometer(context, next.label, base))
+      renderAll(context, manager, ids, chronometer(context, next, base))
       val armed = scheduleAlarm(context, next.timestamp + ALARM_SLACK_MS)
       if (!armed) {
         // İzin görünürde vardı ama alarm kurulamadı (yarış: tam bu sırada
@@ -118,12 +118,15 @@ object PrayerWidgetReconciler {
     return views
   }
 
-  /** Canlı sayaç: "Sıradaki vakit: Akşam" + Chronometer "01:24:36 kaldı". */
-  private fun chronometer(context: Context, label: String, base: Long): RemoteViews {
+  private fun formatTime(timestamp: Long): String =
+    SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timestamp))
+
+  /** Canlı sayaç: "Sıradaki vakit: Akşam" + "01:24:36 kaldı" + "Akşam vakti: 20:41". */
+  private fun chronometer(context: Context, next: PrayerWidgetStore.PrayerEntry, base: Long): RemoteViews {
     val views = baseViews(context)
     views.setTextViewText(
       R.id.prayer_widget_title,
-      context.getString(R.string.prayer_widget_title_next) + ": " + label,
+      context.getString(R.string.prayer_widget_title_next) + ": " + next.label,
     )
     views.setChronometerCountDown(R.id.prayer_widget_chrono, true)
     views.setChronometer(
@@ -132,7 +135,12 @@ object PrayerWidgetReconciler {
       context.getString(R.string.prayer_widget_chrono_format),
       true,
     )
+    views.setTextViewText(
+      R.id.prayer_widget_subtitle,
+      next.label + " vakti: " + formatTime(next.timestamp),
+    )
     views.setViewVisibility(R.id.prayer_widget_chrono, View.VISIBLE)
+    views.setViewVisibility(R.id.prayer_widget_subtitle, View.VISIBLE)
     views.setViewVisibility(R.id.prayer_widget_static, View.GONE)
     return views
   }
@@ -140,10 +148,10 @@ object PrayerWidgetReconciler {
   /** Statik güvenli görünüm: "Sıradaki vakit" + "Akşam 20:41". */
   private fun staticNext(context: Context, label: String, timestamp: Long): RemoteViews {
     val views = baseViews(context)
-    val time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timestamp))
     views.setTextViewText(R.id.prayer_widget_title, context.getString(R.string.prayer_widget_title_next))
-    views.setTextViewText(R.id.prayer_widget_static, "$label $time")
+    views.setTextViewText(R.id.prayer_widget_static, "$label ${formatTime(timestamp)}")
     views.setViewVisibility(R.id.prayer_widget_chrono, View.GONE)
+    views.setViewVisibility(R.id.prayer_widget_subtitle, View.GONE)
     views.setViewVisibility(R.id.prayer_widget_static, View.VISIBLE)
     return views
   }
@@ -154,6 +162,7 @@ object PrayerWidgetReconciler {
     views.setTextViewText(R.id.prayer_widget_title, context.getString(R.string.prayer_widget_label))
     views.setTextViewText(R.id.prayer_widget_static, context.getString(R.string.prayer_widget_open_app))
     views.setViewVisibility(R.id.prayer_widget_chrono, View.GONE)
+    views.setViewVisibility(R.id.prayer_widget_subtitle, View.GONE)
     views.setViewVisibility(R.id.prayer_widget_static, View.VISIBLE)
     return views
   }

@@ -35,8 +35,26 @@ const PALETTES = {
   },
 } as const satisfies Record<Theme, Record<string, `#${string}`>>;
 
-export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; theme?: Theme }) {
+// Widget'ın gerçek yüksekliğine (dp, widgetInfo.height) göre Arapça/meal satır
+// bütçesi. Eskiden sabit 2+2 satırdı: kullanıcı widget'ı büyüttüğünde meal 2
+// satırda kesilip altında koca boşluk kalıyordu (cihaz ekran görüntüsüyle
+// doğrulandı). Eşikler kabaca: başlık ~28dp + padding ~24dp düşüldükten sonra
+// Arapça satırı ~24dp, meal satırı ~18dp yer kaplar.
+function lineBudget(heightDp?: number): { arabic: number; meal: number } {
+  const h = heightDp ?? 0;
+  if (h >= 280) return { arabic: 4, meal: 9 };
+  if (h >= 200) return { arabic: 3, meal: 6 };
+  if (h >= 140) return { arabic: 2, meal: 4 };
+  return { arabic: 2, meal: 2 }; // en küçük boy (ve yükseklik bilinmiyorsa) eski davranış
+}
+
+export function EmirAyetWidget({
+  ayet,
+  theme = "light",
+  heightDp,
+}: { ayet: EmirAyet; theme?: Theme; heightDp?: number }) {
   const c = PALETTES[theme];
+  const lines = lineBudget(heightDp);
   const deepLink = `kuranyolu://surah/${ayet.surah_id}/ayah/${ayet.ayah_number}`;
   const badge = ayet.surah_name
     ? `${ayet.surah_name} ${ayet.surah_id}:${ayet.ayah_number}`
@@ -82,20 +100,31 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
           <TextWidget text="↻" style={{ color: c.textMuted, fontSize: 16 }} />
         </FlexWidget>
       </FlexWidget>
-      {ayet.arabic_text ? (
+      {/* İçerik bloğu kalan alanı doldurur (flex:1) ve dikeyde ortalanır —
+          büyük widget boylarında metin üstte toplanıp altta boşluk kalmasın. */}
+      <FlexWidget
+        style={{
+          width: "match_parent",
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        {ayet.arabic_text ? (
+          <TextWidget
+            text={ayet.arabic_text}
+            style={{ color: c.text, fontSize: 15, textAlign: "right", marginBottom: 4 }}
+            maxLines={lines.arabic}
+            truncate="END"
+          />
+        ) : null}
         <TextWidget
-          text={ayet.arabic_text}
-          style={{ color: c.text, fontSize: 15, textAlign: "right", marginBottom: 4 }}
-          maxLines={2}
+          text={ayet.meal}
+          style={{ color: c.textSecondary, fontSize: 12 }}
+          maxLines={lines.meal}
           truncate="END"
         />
-      ) : null}
-      <TextWidget
-        text={ayet.meal}
-        style={{ color: c.textSecondary, fontSize: 12 }}
-        maxLines={2}
-        truncate="END"
-      />
+      </FlexWidget>
     </FlexWidget>
   );
 }
@@ -132,7 +161,8 @@ function EmirAyetWidgetFallback({ theme = "light" }: { theme?: Theme }) {
 // Tek noktadan {light, dark} çifti üretir — widget-task-handler.tsx ve
 // widgetRefresh.ts bu yardımcıyı ortak kullanır, aksiyon/render eşleştirmesi
 // tekilleşir. ayet null ise (boş havuz) fallback görünümü döner.
-export function buildEmirWidgetRepresentation(ayet: EmirAyet | null): {
+// heightDp: widgetInfo.height — verilmezse en küçük boy varsayılır (2+2 satır).
+export function buildEmirWidgetRepresentation(ayet: EmirAyet | null, heightDp?: number): {
   light: React.JSX.Element;
   dark: React.JSX.Element;
 } {
@@ -143,7 +173,7 @@ export function buildEmirWidgetRepresentation(ayet: EmirAyet | null): {
     };
   }
   return {
-    light: <EmirAyetWidget ayet={ayet} theme="light" />,
-    dark: <EmirAyetWidget ayet={ayet} theme="dark" />,
+    light: <EmirAyetWidget ayet={ayet} theme="light" heightDp={heightDp} />,
+    dark: <EmirAyetWidget ayet={ayet} theme="dark" heightDp={heightDp} />,
   };
 }
