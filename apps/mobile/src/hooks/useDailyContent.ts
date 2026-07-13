@@ -18,10 +18,39 @@ interface PrayerTimes {
   Asr: string; Maghrib: string; Isha: string;
 }
 
+export interface HijriDate {
+  day: number;
+  monthNumber: number; // 1-12, Muharrem=1
+  year: number;
+}
+
+const HIJRI_MONTHS_TR = [
+  "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir",
+  "Cemaziyelevvel", "Cemaziyelahir", "Recep", "Şaban",
+  "Ramazan", "Şevval", "Zilkade", "Zilhicce",
+];
+
+export function formatHijriDate(h: HijriDate | null): string {
+  if (!h) return "";
+  const monthName = HIJRI_MONTHS_TR[h.monthNumber - 1] ?? "";
+  return `${h.day} ${monthName} ${h.year}`;
+}
+
+function parseHijri(raw: unknown): HijriDate | null {
+  if (!raw || typeof raw !== "object") return null;
+  const h = raw as Record<string, unknown>;
+  const day = Number(h.day);
+  const year = Number(h.year);
+  const monthNumber = Number((h.month as Record<string, unknown> | undefined)?.number);
+  if (!Number.isFinite(day) || !Number.isFinite(year) || !Number.isFinite(monthNumber)) return null;
+  return { day, monthNumber, year };
+}
+
 export interface UseDailyContentResult {
   verse: DailyVerse | null;
   dua: DailyVerse | null;
   prayers: PrayerTimes | null;
+  hijriDate: HijriDate | null;
   prayerCity: string;
   nextPrayer: { key: string; label: string; time: string; remainingMin: number } | null;
   PRAYER_LABELS: Record<string, string>;
@@ -42,6 +71,7 @@ const PRAYER_LABELS: Record<string, string> = {
 interface PrayerCache {
   date: string;
   timings: PrayerTimes;
+  hijri?: HijriDate | null;
 }
 
 function isValidPrayerTimes(data: unknown): data is PrayerTimes {
@@ -75,6 +105,7 @@ export function useDailyContent(): UseDailyContentResult {
   const [verse, setVerse] = useState<DailyVerse | null>(null);
   const [dua, setDua] = useState<DailyVerse | null>(null);
   const [prayers, setPrayers] = useState<PrayerTimes | null>(null);
+  const [hijriDate, setHijriDate] = useState<HijriDate | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [verseLoading, setVerseLoading] = useState<boolean>(true);
   const [duaLoading, setDuaLoading] = useState<boolean>(true);
@@ -174,6 +205,7 @@ export function useDailyContent(): UseDailyContentResult {
           isValidPrayerTimes((cached as PrayerCache).timings)
         ) {
           setPrayers((cached as PrayerCache).timings);
+          if ((cached as PrayerCache).hijri) setHijriDate((cached as PrayerCache).hijri ?? null);
           markSuccess();
         }
       }
@@ -326,10 +358,13 @@ export function useDailyContent(): UseDailyContentResult {
         if (!isCurrent()) return;
         if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
+          const hijri = parseHijri(d.data.date?.hijri);
+          if (hijri) setHijriDate(hijri);
           markSuccess();
           storage.setJSON(STORAGE_KEYS.prayerCache, {
             date: todayKey(),
             timings: d.data.timings,
+            hijri,
           }).catch(() => {});
         } else {
           markFailure();
@@ -399,6 +434,7 @@ export function useDailyContent(): UseDailyContentResult {
     verse,
     dua,
     prayers,
+    hijriDate,
     prayerCity,
     nextPrayer,
     PRAYER_LABELS,

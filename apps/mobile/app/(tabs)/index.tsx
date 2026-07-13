@@ -8,7 +8,7 @@ import { router, useFocusEffect } from "expo-router";
 import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useStreak } from "../../src/hooks/useStreak";
-import { useDailyContent } from "../../src/hooks/useDailyContent";
+import { useDailyContent, formatHijriDate } from "../../src/hooks/useDailyContent";
 import { useColors, toggleTheme } from "../../src/hooks/useColors";
 import { ErrorBoundary } from "../../src/components/ErrorBoundary";
 import { SkeletonAyetCard } from "../../src/components/SkeletonLoader";
@@ -89,7 +89,15 @@ function HomeContent() {
   const { streak, refresh: refreshStreak } = useStreak({ record: false });
   // Ana sayfa tab olarak takılı kalır; ayet okuyup dönünce seri kartı güncellensin.
   useFocusEffect(useCallback(() => { refreshStreak(); }, [refreshStreak]));
-  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading, refresh: refreshDaily } = useDailyContent();
+  const { verse, dua, prayers, hijriDate, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading, refresh: refreshDaily } = useDailyContent();
+  // Miladi tarih cihaz saatinden anında hesaplanır (ağdan bağımsız); Hicri tarih
+  // namaz vakti API yanıtıyla birlikte gelir (aynı Gregorian tarihe göre hesaplanır,
+  // bu yüzden ikisi asla birbirinden sapmaz).
+  const gregorianToday = useMemo(
+    () => new Date().toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }),
+    [],
+  );
+  const hijriLabel = formatHijriDate(hijriDate);
   // Aşağı çek → günlük içerik + namaz vakitleri + seri kartı yeniden yüklenir
   // ("yüklenemedi" durumlarında uygulama içi tek kurtarma yolu).
   const [refreshing, setRefreshing] = useState(false);
@@ -238,6 +246,10 @@ function HomeContent() {
         <Ionicons name="search-outline" size={18} color={c.textMuted} />
         <Text style={[styles.searchText, { color: c.textMuted }]}>Sure, ayet veya kelime ara…</Text>
       </TouchableOpacity>
+
+      <Text style={[styles.dateLine, { color: c.textMuted }]}>
+        {gregorianToday}{hijriLabel ? ` · ${hijriLabel}` : ""}
+      </Text>
 
       {error && (
         <View style={[styles.errorBanner, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
@@ -492,6 +504,7 @@ const styles = StyleSheet.create({
   searchBar:  { flexDirection: "row", alignItems: "center", gap: 10, borderRadius: 14,
                 borderWidth: 1.5, paddingVertical: 13, paddingHorizontal: 14, marginBottom: 12 },
   searchText: { fontSize: 14, flex: 1 },
+  dateLine:   { fontSize: 12, fontWeight: "600", textAlign: "center", marginBottom: 12 },
 
   streakCard: {
     flexDirection: "row", alignItems: "center", gap: 12,
