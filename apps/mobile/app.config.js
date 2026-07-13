@@ -45,10 +45,19 @@ module.exports = {
       //    kapatır, Play Veri Güvenliği'nde "reklam kimliği" beyanı gerekmez.
       //  • ACTIVITY_RECOGNITION (expo-sensors'ın Pedometer modülü ekler) → app yalnız
       //    Magnetometer/Accelerometer/DeviceMotion kullanıyor (kıble), adım sayar yok.
+      //  • READ/WRITE_EXTERNAL_STORAGE (expo-file-system ekler, maxSdk 32) → app
+      //    yalnız kendi cache/document dizinlerini kullanıyor, paylaşılan/genel
+      //    depolamaya hiç erişmiyor.
+      //  • SYSTEM_ALERT_WINDOW (react-native'in debug-only manifest'i ekler) →
+      //    yalnız debug build'de dev-overlay için kullanılır, release AAB'a zaten
+      //    girmez; burada engellenmesi yalnız debug build'i temiz tutar.
       blockedPermissions: [
         'android.permission.ACCESS_FINE_LOCATION',
         'com.google.android.gms.permission.AD_ID',
         'android.permission.ACTIVITY_RECOGNITION',
+        'android.permission.READ_EXTERNAL_STORAGE',
+        'android.permission.WRITE_EXTERNAL_STORAGE',
+        'android.permission.SYSTEM_ALERT_WINDOW',
       ],
       // App Links: paylaşılan ayet URL'i (https://.../surah/x/ayah/y) uygulama
       // kuruluysa doğrudan içinde açılsın, tarayıcıya düşmesin. autoVerify için

@@ -436,8 +436,8 @@ export default function AyahDetailScreen() {
   const surahId    = Number(rawS);
   const ayahNumber = Number(rawA);
 
-  const { getNote, saveNote } = useNotes();
-  const { isFavorite, toggle: toggleFav } = useFavorites();
+  const { getNote, saveNote, loaded: notesLoaded } = useNotes();
+  const { isFavorite, toggle: toggleFav, loaded: favLoaded } = useFavorites();
   useStreak(); // Ayet görüntülenince okuma serisini güncelle
   const verseKey = `${surahId}:${ayahNumber}`;
 
@@ -506,11 +506,27 @@ export default function AyahDetailScreen() {
   const saveNoteRef = useRef(saveNote);
   useEffect(() => { saveNoteRef.current = saveNote; }, [saveNote]);
 
-  // Mevcut notu yükle; ayet değişirken/ekrandan çıkarken KAYDEDİLMEMİŞ dolu
-  // taslağı otomatik kaydet — Önceki/Sonraki taslağı sessizce siliyordu. Boş
-  // bırakılan taslak kayıtlı notu SİLMEZ (silme yalnız "Notu Sil" ile).
+  // Notlar storage'dan asenkron yükleniyor; verseKey değişmese bile notesLoaded
+  // false→true olunca taslağı gerçek notla doldurmalıyız — aksi halde ilk açılışta
+  // boş görünür ve "Kaydet" mevcut notu siler. Kullanıcı yükleme bitmeden yazmaya
+  // başlarsa hydratedKeyRef bunu işaretler, taslağı ezmeyiz.
+  const notesHydratedKeyRef = useRef<string | null>(null);
   useEffect(() => {
+    if (!notesLoaded) return;
+    if (notesHydratedKeyRef.current === verseKey) return;
+    notesHydratedKeyRef.current = verseKey;
     setNoteDraft(getNoteRef.current(verseKey));
+  }, [verseKey, notesLoaded]);
+
+  const handleNoteDraftChange = useCallback((text: string) => {
+    notesHydratedKeyRef.current = verseKey;
+    setNoteDraft(text);
+  }, [verseKey]);
+
+  // Ayet değişirken/ekrandan çıkarken KAYDEDİLMEMİŞ dolu taslağı otomatik kaydet
+  // — Önceki/Sonraki taslağı sessizce siliyordu. Boş bırakılan taslak kayıtlı
+  // notu SİLMEZ (silme yalnız "Notu Sil" ile).
+  useEffect(() => {
     return () => {
       const draft = noteDraftRef.current.trim();
       if (draft && draft !== getNoteRef.current(verseKey)) {
@@ -624,19 +640,21 @@ export default function AyahDetailScreen() {
   }, []);
 
   const handleSaveNote = useCallback(async () => {
+    if (!notesLoaded) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const ok = await saveNote(verseKey, noteDraft);
     if (!ok) { Alert.alert("Not kaydedilemedi", "Lütfen tekrar deneyin."); return; }
     setNoteSaved(true);
     if (noteSavedTimerRef.current) clearTimeout(noteSavedTimerRef.current);
     noteSavedTimerRef.current = setTimeout(() => setNoteSaved(false), 2000);
-  }, [verseKey, noteDraft, saveNote]);
+  }, [verseKey, noteDraft, saveNote, notesLoaded]);
 
   const handleToggleFav = useCallback(() => {
+    if (!favLoaded) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     logFeature(AnalyticsEvents.FAVORI_EKLE);
     toggleFav(verseKey);
-  }, [toggleFav, verseKey]);
+  }, [toggleFav, verseKey, favLoaded]);
 
   const handleMushaftaAc = useCallback(() => {
     logFeature("ayah_mushafta_ac", { verse: verseKey });
@@ -652,6 +670,7 @@ export default function AyahDetailScreen() {
   }, [data, navigate]);
 
   const handleDeleteNote = useCallback(() => {
+    if (!notesLoaded) return;
     Alert.alert(
       "Not silinsin mi?",
       "Bu ayete ekledi\u011finiz ki\u015fisel not kald\u0131r\u0131lacak.",
@@ -675,7 +694,7 @@ export default function AyahDetailScreen() {
         },
       ],
     );
-  }, [noteDraft, saveNote, verseKey]);
+  }, [noteDraft, saveNote, verseKey, notesLoaded]);
 
   // ── Yükleme ──
   if (loading) {
@@ -867,10 +886,11 @@ export default function AyahDetailScreen() {
                   : { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
               ]}
               onPress={handleToggleFav}
+              disabled={!favLoaded}
               hitSlop={6}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityState={{ selected: isFavorite(verseKey) }}
+              accessibilityState={{ selected: isFavorite(verseKey), disabled: !favLoaded }}
               accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}
             >
               <Ionicons
@@ -1106,7 +1126,7 @@ export default function AyahDetailScreen() {
           <TextInput
             style={[styles.noteInput, { color: colors.textPrimary, borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}
             value={noteDraft}
-            onChangeText={setNoteDraft}
+            onChangeText={handleNoteDraftChange}
             placeholder="Bu ayet hakkında notlarınızı buraya yazın…"
             placeholderTextColor={colors.textMuted}
             multiline

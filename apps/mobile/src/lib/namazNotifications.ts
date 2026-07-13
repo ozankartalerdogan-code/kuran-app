@@ -88,8 +88,14 @@ async function getLocationRequesting(): Promise<Coords> {
 // İzin iste
 export async function requestNotificationPermission(): Promise<boolean> {
   if (!Device.isDevice) return false;
-  if (Platform.OS === "android" && Platform.Version < 33) return true;
 
+  // Android 13 (API 33) öncesinde POST_NOTIFICATIONS çalışma zamanı izni yok,
+  // ama kullanıcı bildirimleri sistem ayarlarından kapatmış olabilir. Eskiden
+  // burada doğrudan true dönülüyordu — bu, kapalı bildirimi "açık" gösterip
+  // hiç ulaşmayan bildirimlere yol açıyordu. getPermissionsAsync/requestPermissionsAsync
+  // Android'de her sürümde NotificationManagerCompat.areNotificationsEnabled()
+  // tabanlı gerçek durumu okur; API 33 altında requestPermissionsAsync sistem
+  // diyaloğu göstermeden aynı gerçek durumu döner.
   const { status: existing } = await Notifications.getPermissionsAsync();
   if (existing === "granted") return true;
 
