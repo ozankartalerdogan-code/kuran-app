@@ -907,43 +907,14 @@ function WordMeaningSummary({ words }: { words: WordAnalysis[] }) {
   );
 }
 
-function RootExplanationSummary({ words }: { words: WordAnalysis[] }) {
-  const naturallyRootless = words.filter((word) => getNaturallyRootlessLabel(word));
-  const withoutRoot = words.filter((word) => !word.root && !getNaturallyRootlessLabel(word));
-  const rootWithoutExplanation = words.filter((word) => word.root && !word.rootExplanation?.text);
-  const withExplanation = words.filter((word) => word.rootExplanation?.text);
-
-  if (words.length === 0) {
-    return <EmptyState>Kök bilgisi yok.</EmptyState>;
-  }
-
-  if (withoutRoot.length === words.length && withExplanation.length === 0) {
-    return <EmptyState>Kök bilgisi yok.</EmptyState>;
-  }
-
-  return (
-    <div className="space-y-3 text-sm text-stone-700">
-      <p>
-        Açıklaması olan kök: {withExplanation.length}. Kök var, açıklaması eksik:{" "}
-        {rootWithoutExplanation.length}. Kök içermeyen kelime: {naturallyRootless.length}. Kök
-        bilgisi yok: {withoutRoot.length}.
-      </p>
-      {rootWithoutExplanation.length > 0 ? (
-        <EmptyState>Kök var, açıklaması eksik olan kayıtlar mevcut.</EmptyState>
-      ) : null}
-      {naturallyRootless.length > 0 ? (
-        <EmptyState>Edat veya bağlaç gibi bazı kelimeler doğal olarak kök içermez.</EmptyState>
-      ) : null}
-      {withoutRoot.length > 0 ? <EmptyState>Kök bilgisi olmayan kelimeler mevcut.</EmptyState> : null}
-    </div>
-  );
-}
-
 interface UniqueRootSummary {
   root: string;
   explanation: string | null;
   count: number;
 }
+
+// Mobildeki app/ayah/[surahId]/[ayahNumber].tsx ile aynı Arapça alfabetik sıralama.
+const arCollator = new Intl.Collator("ar");
 
 function getUniqueRootSummaries(words: WordAnalysis[]): UniqueRootSummary[] {
   const rootSummaries = new Map<string, UniqueRootSummary>();
@@ -973,7 +944,7 @@ function getUniqueRootSummaries(words: WordAnalysis[]): UniqueRootSummary[] {
     });
   }
 
-  return Array.from(rootSummaries.values());
+  return Array.from(rootSummaries.values()).sort((a, b) => arCollator.compare(a.root, b.root));
 }
 
 function UniqueRootList({ words }: { words: WordAnalysis[] }) {
@@ -1311,7 +1282,6 @@ export default async function Page({ params, searchParams }: PageProps) {
               Kök içermeyen kelimeler ile açıklaması eksik kökler ayrı gösterilir.
             </p>
           </div>
-          <RootExplanationSummary words={detail.wordAnalyses} />
           <UniqueRootList words={detail.wordAnalyses} />
         </div>
       )
