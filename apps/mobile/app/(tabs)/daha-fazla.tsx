@@ -41,6 +41,7 @@ const SECTIONS: { title: string; items: Item[] }[] = [
     title: "⚙️ Uygulama",
     items: [
       { icon: "notifications-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: "Bildirimler", sub: "Namaz vakti ve günlük ayet bildirimleri", route: "/bildirimler" },
+      { icon: "grid-outline", iconBg: "#fae8ff", iconColor: "#a21caf", darkIconBg: "#701a75", darkIconColor: "#f0abfc", label: "Ana Ekran Widget'ı", sub: "Emir ayetlerini ana ekranından takip et", route: "/widget-ekle" },
       { icon: "information-circle-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: "Kaynaklar ve Açıklamalar", sub: "Kaynaklar, açıklamalar, versiyon bilgisi", route: "/hakkinda" },
       { icon: "lock-closed-outline", iconBg: "#e5e7eb", iconColor: "#4b5563", darkIconBg: "#292524", darkIconColor: "#d6d3d1", label: "Gizlilik Politikası", sub: "Verileriniz nasıl korunuyor", route: "/gizlilik" },
       { icon: "refresh-circle-outline", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4", label: "Tanıtımı Tekrar Göster", sub: "Uygulama rehberini baştan başlat", action: "restartTour" },

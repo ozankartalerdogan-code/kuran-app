@@ -77,6 +77,21 @@ module.exports = {
       'expo-router',
       'expo-location',
       'expo-sensors',
+      // R8/ProGuard release build'de açılırsa (bugün kapalı olabilir, ama garanti
+      // değil) react-native-android-widget'ın WorkManager Worker sınıfını (arka
+      // plan widget güncellemesi) reflection ile bulamayıp sessizce silebiliyor —
+      // kütüphane kendi consumer-proguard kuralını içermiyor. Bu kurallar
+      // minifyEnabled kapalıyken zararsız durur, açılırsa koruma sağlar.
+      [
+        'expo-build-properties',
+        {
+          android: {
+            extraProguardRules:
+              '-keep class * extends androidx.work.ListenableWorker { public <init>(android.content.Context, androidx.work.WorkerParameters); }\n' +
+              '-keep class com.reactnativeandroidwidget.** { *; }',
+          },
+        },
+      ],
       [
         'expo-splash-screen',
         {
@@ -117,6 +132,27 @@ module.exports = {
       // secret'ı (SENTRY_AUTH_TOKEN) — source map upload için. Olaylar 'react-native'
       // projesine gidiyor (DSN), source map de oraya yüklenmeli.
       ['@sentry/react-native', { organization: 'ozan-kartal', project: 'react-native', url: 'https://sentry.io/' }],
+      // Android ana ekran widget'ı — "Emir Ayetleri" (bkz. src/widgets/). Sadece
+      // Android'de native kod ekler, iOS/web build'ini etkilemez.
+      // 'name' değeri src/widgets/emirRotation.ts'teki WIDGET_NAME ile AYNI OLMALI.
+      [
+        'react-native-android-widget',
+        {
+          widgets: [
+            {
+              name: 'EmirAyetleri',
+              label: 'Emir Ayetleri',
+              description: 'Kur\'an\'dan emir kipiyle gelen ayetler, günde 6 kez döner.',
+              minWidth: '250dp',
+              minHeight: '110dp',
+              targetCellWidth: 4,
+              targetCellHeight: 2,
+              resizeMode: 'horizontal|vertical',
+              updatePeriodMillis: 14400000, // 4 saat = günde 6 dilim (Android minimumu 30 dk)
+            },
+          ],
+        },
+      ],
     ],
     experiments: {
       typedRoutes: true,

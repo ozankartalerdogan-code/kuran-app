@@ -15,6 +15,8 @@ import { AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotifications";
 // Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
 import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
+// Import yan etkisi önemli: widget arka plan görevi tanımı global kapsamda kurulur.
+import { registerWidgetRefresh } from "../src/widgets/widgetRefresh";
 import { initCloudBackup } from "../src/lib/cloudBackup";
 import { useColors } from "../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
@@ -299,6 +301,8 @@ function RootLayout() {
     // Uygulama kapalıyken de tazeleme: OS'e periyodik arka plan görevi kaydet
     // (yeni build gerektirir; eski build'de sessiz no-op).
     registerBackgroundRefresh().catch(reportUnexpected);
+    // Emir Ayetleri widget'ını da aynı şekilde tazele (yeni build gerektirir).
+    registerWidgetRefresh().catch(reportUnexpected);
     const sub = AppState.addEventListener("change", (state) => {
       if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
     });
