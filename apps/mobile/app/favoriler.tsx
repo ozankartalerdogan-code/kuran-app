@@ -169,7 +169,7 @@ export default function FavorilerScreen() {
       contentContainerStyle={[styles.list, { paddingTop: 14, paddingBottom: insets.bottom + 32 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
-          <Text style={styles.count}>{favorites.length} ayet kaydedildi</Text>
+          <Text style={[styles.count, { color: c.textMuted }]}>{favorites.length} ayet kaydedildi</Text>
           <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel="Tüm favorileri temizle">
             <Text style={styles.clearAll}>Tümünü Temizle</Text>
           </TouchableOpacity>

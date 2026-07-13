@@ -177,6 +177,7 @@ export default function BildirimlerScreen() {
                 disabled={dailyVerseLoading}
                 trackColor={{ false: "#d4d4d4", true: "#6ee7b7" }}
                 thumbColor={notifEnabled ? "#059669" : "#f5f5f5"}
+                accessibilityLabel="Namaz vakti bildirimleri"
               />
           }
         </View>
@@ -199,6 +200,7 @@ export default function BildirimlerScreen() {
                 disabled={notifLoading}
                 trackColor={{ false: "#d4d4d4", true: "#6ee7b7" }}
                 thumbColor={dailyVerseEnabled ? "#059669" : "#f5f5f5"}
+                accessibilityLabel="Günlük ayet ve dua bildirimi"
               />
           }
         </View>

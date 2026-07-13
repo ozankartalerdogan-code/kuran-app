@@ -169,6 +169,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
 function PathNode({ ders, status, pct, onPress }: {
   ders: ElifbaDers; status: LessonStatus; pct: number; onPress: () => void;
 }) {
+  const c = useColors();
   const isComp   = status === "completed";
   const isActive = status === "active";
   const isLocked = status === "locked";
@@ -199,7 +200,8 @@ function PathNode({ ders, status, pct, onPress }: {
           }]} />
         </View>
       )}
-      <Text style={[nd.label, { color: isLocked ? "#9ca3af" : "#44403c" }]} numberOfLines={2}>
+      {/* Etiket ekran zemininde (c.bg) durur — sabit koyu gri gece modunda okunmuyordu. */}
+      <Text style={[nd.label, { color: isLocked ? c.textMuted : c.textSecondary }]} numberOfLines={2}>
         {shortBaslik(ders.baslik).split(" ").slice(0, 3).join(" ")}
       </Text>
     </TouchableOpacity>

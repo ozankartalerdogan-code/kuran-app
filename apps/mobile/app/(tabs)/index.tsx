@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo, type ComponentProps } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
+  RefreshControl,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useFocusEffect } from "expo-router";
@@ -88,7 +89,15 @@ function HomeContent() {
   const { streak, refresh: refreshStreak } = useStreak({ record: false });
   // Ana sayfa tab olarak takılı kalır; ayet okuyup dönünce seri kartı güncellensin.
   useFocusEffect(useCallback(() => { refreshStreak(); }, [refreshStreak]));
-  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading } = useDailyContent();
+  const { verse, dua, prayers, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading, refresh: refreshDaily } = useDailyContent();
+  // Aşağı çek → günlük içerik + namaz vakitleri + seri kartı yeniden yüklenir
+  // ("yüklenemedi" durumlarında uygulama içi tek kurtarma yolu).
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try { await Promise.all([refreshDaily(), refreshStreak()]); }
+    finally { setRefreshing(false); }
+  }, [refreshDaily, refreshStreak]);
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [selectedMood, setSelectedMood] = useState<MoodResult | null>(null);
   const [tasbihOpen, setTasbihOpen]   = useState(false);
@@ -210,6 +219,14 @@ function HomeContent() {
       style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          tintColor={c.accent}
+          colors={[c.accent]}
+        />
+      }
     >
       <TouchableOpacity
         style={[styles.searchBar, { backgroundColor: c.card, borderColor: c.border }]}
@@ -223,8 +240,10 @@ function HomeContent() {
       </TouchableOpacity>
 
       {error && (
-        <View style={styles.errorBanner}>
-          <Text style={styles.errorBannerText}>Günlük içerik yüklenemedi. İnternet bağlantınızı kontrol edin.</Text>
+        <View style={[styles.errorBanner, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
+          <Text style={[styles.errorBannerText, c.isDark && { color: "#fca5a5" }]}>
+            Günlük içerik yüklenemedi. İnternet bağlantınızı kontrol edip yenilemek için aşağı çekin.
+          </Text>
         </View>
       )}
 
@@ -278,8 +297,10 @@ function HomeContent() {
         style={[styles.verseCard, { backgroundColor: c.isDark ? "#1c1405" : "#fffbeb", borderColor: c.isDark ? "#78350f" : "#fcd34d" }]}
         onPress={() => verse && router.push(`/ayah/${verse.surah_id}/${verse.ayah_number}`)}
         activeOpacity={0.85}
+        disabled={!verse}
         accessibilityRole="button"
         accessibilityLabel="Günün ayetini aç"
+        accessibilityState={{ disabled: !verse }}
       >
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>✨ Günün Ayeti</Text>
@@ -365,8 +386,10 @@ function HomeContent() {
         style={[styles.duaCard, { backgroundColor: c.isDark ? "#042f2e" : "#f0fdfa", borderColor: c.isDark ? "#0f766e" : "#5eead4" }]}
         onPress={() => dua && router.push(`/ayah/${dua.surah_id}/${dua.ayah_number}`)}
         activeOpacity={0.85}
+        disabled={!dua}
         accessibilityRole="button"
         accessibilityLabel="Günün duasını aç"
+        accessibilityState={{ disabled: !dua }}
       >
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>🤲 Günün Duası</Text>

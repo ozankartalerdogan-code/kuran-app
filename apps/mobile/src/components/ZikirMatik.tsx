@@ -216,8 +216,16 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   }, [count, triggerComplete]);
 
   const tap = useCallback(() => {
-    if (completingRef.current) return;
-    setCount(p => p + 1);
+    if (completingRef.current) {
+      // Kutlama (1.6 sn) sırasında gelen dokunuşu yutma: akıcı zikir çeken
+      // kullanıcının çekişi kaybolmasın — kutlamayı bitir, yeni tura 1'den başla.
+      if (autoResetRef.current) { clearTimeout(autoResetRef.current); autoResetRef.current = null; }
+      completingRef.current = false;
+      setCompleting(false);
+      setCount(1);
+    } else {
+      setCount(p => p + 1);
+    }
     playFeedback(false);
     Animated.sequence([
       Animated.timing(tapAnim, { toValue: 0.92, duration: 65, useNativeDriver: true }),
@@ -374,8 +382,9 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                   borderColor: active ? ALTIN : (c.isDark ? "#252f45" : "#cbd5e1"),
                 }]}
               >
-                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]}>{z.isim}</Text>
-                <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]}>
+                {/* Pil kutusu sabit 125×80 — sistem yazı ölçeği sınırlanmazsa metin taşar */}
+                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.2}>{z.isim}</Text>
+                <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]} maxFontSizeMultiplier={1.2}>
                   ×{z.ozel ? customTarget : (targetOverrides[z.isim] ?? z.hedef)}
                 </Text>
               </TouchableOpacity>
@@ -488,9 +497,10 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
               shadowColor: completing ? ALTIN : LACIVERT,
               transform: [{ scale: scaleAnim }],
             }]}>
-              <Text style={[m.countNum, { color: completing ? ALTIN : c.text }]}>{count}</Text>
-              <Text style={[m.countDen, { color: c.textMuted }]}>/ {target}</Text>
-              {completing && <Text style={[m.doneText, { color: ALTIN }]}>✓ Tamam</Text>}
+              {/* Daire sabit 132px — sayaç metinleri sistem ölçeğinden sınırlı büyür */}
+              <Text style={[m.countNum, { color: completing ? ALTIN : c.text }]} maxFontSizeMultiplier={1.1}>{count}</Text>
+              <Text style={[m.countDen, { color: c.textMuted }]} maxFontSizeMultiplier={1.2}>/ {target}</Text>
+              {completing && <Text style={[m.doneText, { color: ALTIN }]} maxFontSizeMultiplier={1.2}>✓ Tamam</Text>}
             </Animated.View>
           </View>
         </View>
@@ -509,11 +519,12 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
               accessibilityHint={`${count} / ${target}`}
               style={({ pressed }) => [m.tapBtn, { opacity: pressed ? 0.85 : 1 }]}
             >
+              {/* Buton sabit 120px daire — metinler sistem ölçeğinden sınırlı büyür */}
               {isOzel && customName
-                ? <Text style={m.tapCustomName} numberOfLines={1}>{customName}</Text>
-                : <Text style={m.tapArabic}>اللَّه</Text>
+                ? <Text style={m.tapCustomName} numberOfLines={1} maxFontSizeMultiplier={1.2}>{customName}</Text>
+                : <Text style={m.tapArabic} maxFontSizeMultiplier={1.2}>اللَّه</Text>
               }
-              <Text style={m.tapLabel}>Çek</Text>
+              <Text style={m.tapLabel} maxFontSizeMultiplier={1.2}>Çek</Text>
             </Pressable>
           </Animated.View>
         </View>

@@ -1,6 +1,6 @@
 import {
   View, Text, TouchableOpacity,
-  TextInput, StyleSheet,
+  TextInput, StyleSheet, RefreshControl,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { useState, useEffect, useCallback, useMemo, memo } from "react";
@@ -73,14 +73,24 @@ export default function SureListesiScreen() {
   const [error, setError]       = useState<string | null>(null);
   const [filter, setFilter]     = useState("");
   const [sortMode, setSortMode] = useState<"mushaf" | "nuzul">("mushaf");
+  const [reloadKey, setReloadKey] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
+    setLoading((prev) => prev || surahs.length === 0);
+    setError(null);
     api.surahs.list()
       .then((list) => { if (isMounted) setSurahs(list); })
       .catch(() => { if (isMounted) setError("Sureler yüklenemedi. İnternet bağlantısını kontrol edin."); })
-      .finally(() => { if (isMounted) setLoading(false); });
+      .finally(() => { if (isMounted) { setLoading(false); setRefreshing(false); } });
     return () => { isMounted = false; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reloadKey]);
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    setReloadKey((k) => k + 1);
   }, []);
 
   const filtered = useMemo(() => {
@@ -114,7 +124,16 @@ export default function SureListesiScreen() {
   if (error) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Text style={styles.errorText}>{error}</Text>
+        <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error}</Text>
+        <TouchableOpacity
+          style={[styles.retryBtn, { backgroundColor: c.accent }]}
+          onPress={() => { setLoading(true); setReloadKey((k) => k + 1); }}
+          activeOpacity={0.8}
+          accessibilityRole="button"
+          accessibilityLabel="Tekrar dene"
+        >
+          <Text style={styles.retryText}>Tekrar Dene</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -154,6 +173,14 @@ export default function SureListesiScreen() {
         data={filtered}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={c.accent}
+            colors={[c.accent]}
+          />
+        }
         keyboardShouldPersistTaps="handled"
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
         contentContainerStyle={[styles.listContent, { paddingBottom: 20 + insets.bottom }]}
@@ -174,6 +201,8 @@ const styles = StyleSheet.create({
   centerWrap:   { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   centered:     { flex: 1, alignItems: "center", justifyContent: "center", padding: 20 },
   errorText:    { color: "#dc2626", fontSize: 14, textAlign: "center" },
+  retryBtn:     { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10, marginTop: 14 },
+  retryText:    { color: "#fff", fontSize: 14, fontWeight: "700" },
   searchWrapper:{ paddingHorizontal: 16, paddingVertical: 10 },
   searchInput:  { borderRadius: 10, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 9, fontSize: 14, marginBottom: 8 },
   toggleRow:    { flexDirection: "row", borderRadius: 10, padding: 3, gap: 3 },

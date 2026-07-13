@@ -99,23 +99,30 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
   const [loading, setLoading] = useState(false);
   const [verses, setVerses] = useState<VerseRow[]>([]);
   const [fetched, setFetched] = useState(false);
+  const [error, setError] = useState(false);
+
+  const fetchVerses = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await api.tags.filter(tag);
+      setVerses((res.results ?? []).slice(0, 20).map(r => ({
+        verse_key: r.verse_key, surah_id: r.surah_id, ayah_number: r.ayah_number,
+        surah_name: r.surah_name, reading_tr: r.reading_tr, meal: r.meal,
+      })));
+    } catch {
+      // Hata yutulursa boş liste "Ayet bulunamadı" gibi görünür — ayrı durum + retry.
+      setError(true);
+    }
+    setLoading(false);
+    setFetched(true);
+  }, [tag]);
 
   const onPress = useCallback(async () => {
     const next = !open;
     setOpen(next);
-    if (next && !fetched) {
-      setLoading(true);
-      try {
-        const res = await api.tags.filter(tag);
-        setVerses((res.results ?? []).slice(0, 20).map(r => ({
-          verse_key: r.verse_key, surah_id: r.surah_id, ayah_number: r.ayah_number,
-          surah_name: r.surah_name, reading_tr: r.reading_tr, meal: r.meal,
-        })));
-      } catch { /* yoksay */ }
-      setLoading(false);
-      setFetched(true);
-    }
-  }, [open, fetched, tag]);
+    if (next && !fetched) await fetchVerses();
+  }, [open, fetched, fetchVerses]);
 
   return (
     <View style={[na.accCard, { backgroundColor: c.card, borderColor: c.border, borderLeftColor: renk }]}>
@@ -127,8 +134,16 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
       {open && (
         <View style={[na.accBody, { borderTopColor: c.border }]}>
           {loading && <ActivityIndicator color={c.accent} style={{ marginVertical: 10 }} />}
-          {!loading && fetched && verses.length === 0 && <Text style={[na.empty, { color: c.textMuted }]}>Ayet bulunamadı.</Text>}
-          {!loading && verses.map(v => (
+          {!loading && error && (
+            <View style={na.errorWrap}>
+              <Text style={[na.empty, { color: c.isDark ? "#fca5a5" : "#dc2626" }]}>Ayetler yüklenemedi.</Text>
+              <TouchableOpacity style={[na.retryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
+                <Text style={na.retryText}>Tekrar Dene</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {!loading && !error && fetched && verses.length === 0 && <Text style={[na.empty, { color: c.textMuted }]}>Ayet bulunamadı.</Text>}
+          {!loading && !error && verses.map(v => (
             <TouchableOpacity key={v.verse_key} style={[na.verseRow, { borderBottomColor: c.border }]} onPressIn={() => prefetchAyah(v.surah_id, v.ayah_number)} onPress={() => router.push(`/ayah/${v.surah_id}/${v.ayah_number}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${v.surah_name ?? v.verse_key}, ayeti aç`}>
               <View style={[na.keyBox, { backgroundColor: c.accentLight }]}><Text style={[na.keyText, { color: c.accent }]}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
@@ -853,6 +868,9 @@ const na = StyleSheet.create({
   accChev:   { fontSize: 12 },
   accBody:   { borderTopWidth: 1, padding: 10 },
   empty:     { fontSize: 13, padding: 8 },
+  errorWrap: { alignItems: "center", gap: 6, paddingVertical: 6 },
+  retryBtn:  { borderRadius: 8, paddingHorizontal: 16, paddingVertical: 7 },
+  retryText: { fontSize: 12, fontWeight: "700", color: "#fff" },
   verseRow:  { flexDirection: "row", alignItems: "flex-start", gap: 10, paddingVertical: 8, borderBottomWidth: 1 },
   keyBox:    { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, marginTop: 2 },
   keyText:   { fontSize: 11, fontWeight: "700", color: "#065f46" },

@@ -35,6 +35,9 @@ export default function TabsLayout() {
           fontSize:   10,
           fontWeight: "600",
         },
+        // 10pt etiket, sistemin büyük yazı ayarında sekme çubuğundan taşıyor;
+        // sekmeler zaten ikonlu — etiket sistem ölçeğinden muaf tutulur.
+        tabBarAllowFontScaling: false,
       }}
     >
       {TABS.map((tab) => (

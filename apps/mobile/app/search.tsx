@@ -21,6 +21,7 @@ type SearchState =
   | { status: "loading" }
   | { status: "error"; message: string }
   | { status: "done"; data: SearchResponse }
+  | { status: "direct"; surahId: number; ayahNumber: number }
   | { status: "tag_results"; tag: string; results: TagFilterResult[]; total: number; page: number; pages: number };
 
 type IdleItem =
@@ -129,6 +130,27 @@ function SurahCard({ surahId, surahName }: { surahId: number; surahName: string 
         <View style={styles.cardBody}>
           <Text style={[styles.typeLabel, { color: c.accent }]}>Sure Bulundu</Text>
           <Text style={[styles.cardTitle, { color: c.text }]}>{surahName}</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+function DirectAyahCard({ surahId, ayahNumber }: { surahId: number; ayahNumber: number }) {
+  const c = useColors();
+  return (
+    <TouchableOpacity style={[styles.resultCard, styles.surahCard, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}
+      onPressIn={() => prefetchAyah(surahId, ayahNumber)}
+      onPress={() => { Keyboard.dismiss(); router.push(`/ayah/${surahId}/${ayahNumber}`); }} activeOpacity={0.72}
+      accessibilityRole="button" accessibilityLabel={`${surahId}:${ayahNumber} ayetini aç`}>
+      <View style={styles.cardInner}>
+        <View style={[styles.iconCircle, c.isDark && { backgroundColor: "#064e3b" }]}>
+          <Ionicons name="navigate" size={20} color={c.accent} />
+        </View>
+        <View style={styles.cardBody}>
+          <Text style={[styles.typeLabel, { color: c.accent }]}>Ayete Git</Text>
+          <Text style={[styles.cardTitle, { color: c.text }]}>{surahId}. Sure · {ayahNumber}. Ayet</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
       </View>
@@ -246,16 +268,16 @@ export default function SearchScreen() {
     const trimmed = query.trim();
     if (trimmed.length < MIN_LEN) { setState({ status: "idle" }); return; }
 
-    // "2:255" / "2/255" gibi doğrudan ayet referansı → API'ye hiç gitmeden ayete git.
-    const directRef = parseDirectAyahQuery(trimmed);
-    if (directRef) {
-      Keyboard.dismiss();
-      router.push(`/ayah/${directRef.surahId}/${directRef.ayahNumber}`);
-      return;
-    }
-
     setState({ status: "loading" });
     debounceRef.current = setTimeout(async () => {
+      // "2:255" / "2/255" gibi doğrudan ayet referansı → yönlendirme YOK, "Ayete
+      // Git" kartı gösterilir. (Anında yönlendirme "2:2"de tetiklenip 2:25/2:255'e
+      // yazarak ulaşmayı imkânsız kılıyordu; Enter ise handleSubmit'te direkt gider.)
+      const directRef = parseDirectAyahQuery(trimmed);
+      if (directRef) {
+        setState({ status: "direct", surahId: directRef.surahId, ayahNumber: directRef.ayahNumber });
+        return;
+      }
       try {
         const data = await api.search.query(trimmed);
         setState({ status: "done", data });
@@ -305,6 +327,15 @@ export default function SearchScreen() {
       .then(data => { setState({ status: "done", data }); })
       .catch(() => setState({ status: "error", message: "Arama başarısız." }));
   }, [query]);
+
+  // Hata kutusundaki "Tekrar Dene" — son denenen işlemi (etiket filtresi ya da
+  // metin araması) parametrelere bakarak yineler.
+  const handleRetryError = useCallback(() => {
+    const page = parseInt(params.page ?? "1", 10) || 1;
+    if (params.type === "tag" && params.q) fetchTagResults(params.q, page);
+    else if (params.tag) fetchTagResults(params.tag, page);
+    else handleSubmit();
+  }, [params.type, params.q, params.tag, params.page, fetchTagResults, handleSubmit]);
 
   const handlePageChange = useCallback((newPage: number) => {
     if (params.type === 'tag' && params.q) {
@@ -403,6 +434,10 @@ export default function SearchScreen() {
             autoCorrect={false}
             autoCapitalize="none"
             selectionColor={c.accent}
+            // Ana sayfadaki arama çubuğu sahte (dokununca buraya gelir) — burada
+            // klavye kendiliğinden açılsın. Etiket/sorgu parametresiyle gelişte
+            // (sonuçlar zaten görünecek) klavye açılmaz.
+            autoFocus={!initialQuery}
           />
           {query.length > 0 && (
             <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel="Aramayı temizle">
@@ -441,6 +476,17 @@ export default function SearchScreen() {
         <View style={[styles.errorBox, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
           <Ionicons name="alert-circle-outline" size={18} color={c.isDark ? "#fca5a5" : "#dc2626"} />
           <Text style={[styles.errorText, c.isDark && { color: "#fca5a5" }]}>{state.message}</Text>
+          <TouchableOpacity onPress={handleRetryError} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Tekrar dene">
+            <Text style={[styles.errorRetry, { color: c.accent }]}>Tekrar Dene</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {/* Doğrudan ayet referansı ("2:255") */}
+      {state.status === "direct" && !isLoading && (
+        <View style={styles.singleWrap}>
+          <Text style={[styles.queryLabel, { color: c.textMuted }]}>"{query.trim()}" için sonuç:</Text>
+          <DirectAyahCard surahId={state.surahId} ayahNumber={state.ayahNumber} />
         </View>
       )}
 
@@ -559,6 +605,7 @@ const styles = StyleSheet.create({
 
   errorBox:  { flexDirection: "row", alignItems: "center", gap: 8, margin: 14, backgroundColor: "#fef2f2", borderRadius: 12, padding: 14, borderWidth: 1, borderColor: "#fecaca" },
   errorText: { fontSize: 13, color: "#dc2626", flex: 1 },
+  errorRetry:{ fontSize: 13, fontWeight: "700" },
 
   listContent: { paddingHorizontal: 14, paddingTop: 4, paddingBottom: 32 },
   singleWrap:  { padding: 14 },

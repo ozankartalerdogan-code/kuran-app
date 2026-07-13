@@ -3,8 +3,6 @@ import { Text, StyleProp, TextStyle } from "react-native";
 import { RENK, parseTajweed } from "../lib/tajweed";
 
 // Tecvid ayrıştırma + renk/lejant SAF modülde (lib/tajweed.ts) — test edilir.
-// TAJWEED_LEGEND'i geriye re-export et ki mevcut importlar (MushafReader) bozulmasın.
-export { TAJWEED_LEGEND } from "../lib/tajweed";
 
 export function TajweedText({ markup, style }: { markup: string; style?: StyleProp<TextStyle> }) {
   const segs = parseTajweed(markup);

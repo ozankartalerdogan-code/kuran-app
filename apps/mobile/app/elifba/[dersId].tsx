@@ -401,6 +401,9 @@ export default function DersScreen() {
 
   const [harfler, setHarfler]   = useState<ElifbaHarf[]>([]);
   const [loading, setLoading]   = useState(true);
+  // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
+  const [loadError, setLoadError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
@@ -408,9 +411,11 @@ export default function DersScreen() {
 
   useEffect(() => {
     let isMounted = true;
+    setLoading(true);
+    setLoadError(false);
     api.elifba.harfler(dersId)
       .then((h) => { if (isMounted) setHarfler(h); })
-      .catch(() => {})
+      .catch(() => { if (isMounted) setLoadError(true); })
       .finally(() => setLoading(false));
     storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
       .then((rawProgress) => {
@@ -422,7 +427,7 @@ export default function DersScreen() {
       })
       .catch(() => {});
     return () => { isMounted = false; };
-  }, [dersId]);
+  }, [dersId, reloadKey]);
 
   const markSeen = useCallback((harfId: number) => {
     setSeenIds((prev) => {
@@ -532,7 +537,20 @@ export default function DersScreen() {
             </>
           ) : (
             <View style={[styles.centered, { backgroundColor: c.bg }]}>
-              <Text style={[styles.noData, { color: c.textMuted }]}>Bu ders için harf verisi bulunamadı.</Text>
+              <Text style={[styles.noData, { color: c.textMuted }]}>
+                {loadError ? "Harfler yüklenemedi.\nBağlantını kontrol et." : "Bu ders için harf verisi bulunamadı."}
+              </Text>
+              {loadError && (
+                <TouchableOpacity
+                  style={qv.retryBtn}
+                  onPress={() => setReloadKey((k) => k + 1)}
+                  activeOpacity={0.75}
+                  accessibilityRole="button"
+                  accessibilityLabel="Tekrar dene"
+                >
+                  <Text style={qv.retryText}>Tekrar dene</Text>
+                </TouchableOpacity>
+              )}
             </View>
           )
         ) : (
@@ -548,7 +566,7 @@ export default function DersScreen() {
 const styles = StyleSheet.create({
   container: { flex:1, backgroundColor:"#f5f0e8" },
   centered:  { flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"#f5f0e8" },
-  noData:    { color:"#78716c", fontSize:14 },
+  noData:    { color:"#78716c", fontSize:14, textAlign:"center" },
   modeBar:   { flexDirection:"row", margin:12, gap:8 },
   modeBtn:   { flex:1, paddingVertical:10, borderRadius:10, backgroundColor:"#fffdf6", borderWidth:1, borderColor:"#e7dfcc", alignItems:"center" },
   modeBtnActive: { backgroundColor:"#059669", borderColor:"#059669" },

@@ -68,8 +68,14 @@ function CloudBackupControls({ c }: { c: AppColors }) {
           style={[s.backupBtn, { borderColor: c.accent }]}
           onPress={async () => {
             setState("busy");
-            await enableCloudBackup();
-            setState("active");
+            try {
+              await enableCloudBackup();
+              setState("active");
+            } catch {
+              // Beklenmedik hata (initCloudBackup'tan sızan) — sonsuz spinner'da kalma.
+              setState("disabled");
+              Alert.alert("Açılamadı", "İnternet bağlantınızı kontrol edip yeniden deneyin.");
+            }
           }}
           activeOpacity={0.7}
           accessibilityRole="button"
@@ -258,7 +264,12 @@ export default function GizlilikScreen() {
           <P c={c}>Sorularınız ve KVKK talepleriniz için:</P>
           <TouchableOpacity
             style={[s.mailBtn, { backgroundColor: c.accent + "20" }]}
-            onPress={() => Linking.openURL(`mailto:${CONTACT_MAIL}`)}
+            // Posta uygulaması yoksa openURL reddedilir — sessiz hata yerine bilgi ver.
+            onPress={() => {
+              Linking.openURL(`mailto:${CONTACT_MAIL}`).catch(() => {
+                Alert.alert("E-posta uygulaması bulunamadı", `Bize şu adresten ulaşabilirsiniz: ${CONTACT_MAIL}`);
+              });
+            }}
             activeOpacity={0.7}
             accessibilityRole="link"
             accessibilityLabel="E-posta gönder"

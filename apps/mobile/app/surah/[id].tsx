@@ -128,6 +128,7 @@ export default function SurahDetailScreen() {
   const [data, setData]         = useState<VerseListResponse | null>(null);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => { logScreen('SureDetay'); }, []);
 
@@ -138,13 +139,15 @@ export default function SurahDetailScreen() {
       return;
     }
     let isMounted = true;
+    setLoading(true);
+    setError(null);
     // Sadece ayetleri bekle — tefsir akordiyon açılınca tembel yüklenir
     api.verses.bySurah(surahId)
       .then((res) => { if (isMounted) setData(res); })
       .catch(() => setError("Ayetler yüklenemedi. Bağlantını kontrol et."))
       .finally(() => setLoading(false));
     return () => { isMounted = false; };
-  }, [surahId]);
+  }, [surahId, reloadKey]);
 
   // Yer imi MANUEL — sure açmak/ayete tıklamak artık otomatik yer imi koymaz.
   const handleAyahPress = useCallback(
@@ -184,7 +187,18 @@ if (loading) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title: "Sure" }} />
-        <Text style={styles.errorText}>{error ?? "Veri yüklenemedi."}</Text>
+        <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error ?? "Veri yüklenemedi."}</Text>
+        {surahId ? (
+          <TouchableOpacity
+            style={[styles.retryBtn, { backgroundColor: c.accent }]}
+            onPress={() => setReloadKey((k) => k + 1)}
+            activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel="Tekrar dene"
+          >
+            <Text style={styles.retryText}>Tekrar Dene</Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     );
   }
@@ -220,6 +234,8 @@ const styles = StyleSheet.create({
   centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 20, backgroundColor: "#f5f0e8" },
   loadingText: { marginTop: 12, color: "#78716c", fontSize: 14 },
   errorText:   { color: "#dc2626", fontSize: 14, textAlign: "center" },
+  retryBtn:    { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10, marginTop: 14 },
+  retryText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
 
   // ── Header ──
   header: {

@@ -496,16 +496,36 @@ export default function AyahDetailScreen() {
   }), [fontScale]);
   const noteSavedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Mevcut notu yükle
+  // Taslak/kayıt erişimi ref üzerinden: aşağıdaki flush cleanup'ı yalnız verseKey
+  // değişiminde koşmalı; getNote/saveNote kimlik değişimleri onu tetiklememeli.
+  const noteDraftRef = useRef("");
+  useEffect(() => { noteDraftRef.current = noteDraft; }, [noteDraft]);
+  const getNoteRef = useRef(getNote);
+  useEffect(() => { getNoteRef.current = getNote; }, [getNote]);
+  const saveNoteRef = useRef(saveNote);
+  useEffect(() => { saveNoteRef.current = saveNote; }, [saveNote]);
+
+  // Mevcut notu yükle; ayet değişirken/ekrandan çıkarken KAYDEDİLMEMİŞ dolu
+  // taslağı otomatik kaydet — Önceki/Sonraki taslağı sessizce siliyordu. Boş
+  // bırakılan taslak kayıtlı notu SİLMEZ (silme yalnız "Notu Sil" ile).
   useEffect(() => {
-    setNoteDraft(getNote(verseKey));
-  }, [verseKey, getNote]);
+    setNoteDraft(getNoteRef.current(verseKey));
+    return () => {
+      const draft = noteDraftRef.current.trim();
+      if (draft && draft !== getNoteRef.current(verseKey)) {
+        void saveNoteRef.current(verseKey, draft);
+      }
+    };
+  }, [verseKey]);
 
   // "Kaydedildi" rozeti ayete özgü — ayet değişince taşınmasın. (getNote'a
   // bağlı üstteki effect'e konulamaz: kaydetme sonrası rozeti anında söndürürdü.)
   useEffect(() => {
     setNoteSaved(false);
   }, [verseKey]);
+
+  // Hata ekranındaki "Tekrar Dene" fetch'i yeniden tetikler.
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     // Bozuk/eksik deep link parametresi (örn. dış link, App Links) → sonsuz
@@ -544,7 +564,7 @@ export default function AyahDetailScreen() {
       .catch(() => { if (isMounted) setError("Ayet yüklenemedi. Bağlantını kontrol et."); })
       .finally(() => { if (isMounted) setLoading(false); });
     return () => { isMounted = false; };
-  }, [surahId, ayahNumber]);
+  }, [surahId, ayahNumber, reloadKey]);
 
   // Kök anlamları doğrudan /api/ayah yanıtından (data.rootMeanings) gelir.
   // Backend root_meanings JOIN ile veriyor; eski fallback /root/[root] fetch'i
@@ -683,15 +703,27 @@ export default function AyahDetailScreen() {
           <Text style={[styles.errorText, { color: colors.error }]}>
             {error ?? "Veri yüklenemedi."}
           </Text>
+          {surahId && ayahNumber ? (
+            <TouchableOpacity
+              onPress={() => setReloadKey((k) => k + 1)}
+              style={[styles.backBtn, { backgroundColor: colors.accent }]}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Tekrar dene"
+            >
+              <Ionicons name="refresh" size={16} color="#fff" />
+              <Text style={styles.backBtnText}>Tekrar Dene</Text>
+            </TouchableOpacity>
+          ) : null}
           <TouchableOpacity
             onPress={() => router.back()}
-            style={[styles.backBtn, { backgroundColor: colors.accent }]}
+            style={[styles.backBtn, { backgroundColor: colors.surfaceAlt, borderWidth: 1, borderColor: colors.border }]}
             activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel="Geri dön"
           >
-            <Ionicons name="chevron-back" size={16} color="#fff" />
-            <Text style={styles.backBtnText}>Geri Dön</Text>
+            <Ionicons name="chevron-back" size={16} color={colors.textSecondary} />
+            <Text style={[styles.backBtnText, { color: colors.textSecondary }]}>Geri Dön</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -1079,6 +1111,9 @@ export default function AyahDetailScreen() {
             multiline
             numberOfLines={4}
             textAlignVertical="top"
+            // Edge-to-edge'de klavye pencereyi daraltmadığından not alanı klavyenin
+            // altında kalabilir; odaklanınca (klavye yerleştikten sonra) sona kaydır.
+            onFocus={() => setTimeout(() => tourScroll.ref.current?.scrollToEnd({ animated: true }), 250)}
           />
           <View style={styles.noteActions}>
             {noteDraft.trim().length > 0 && (

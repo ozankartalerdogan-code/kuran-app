@@ -234,8 +234,16 @@ export default function MushafSayfaEkrani() {
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
   const [initialPage, setInitialPage] = useState<number | null>(null);
 
+  // Sure listesi düşerse atlama paneli sonsuz "yükleniyor"da kalmasın — hata
+  // durumu + tekrar dene (sayfa numarasıyla atlama zaten çalışmaya devam eder).
+  const [surahListError, setSurahListError] = useState(false);
+  const loadSurahList = useCallback(() => {
+    setSurahListError(false);
+    api.surahs.list().then(setSurahList).catch(() => setSurahListError(true));
+  }, []);
+
   useEffect(() => {
-    api.surahs.list().then(setSurahList).catch(() => {});
+    loadSurahList();
     const paramPage = Number(sayfaParam);
     if (Number.isInteger(paramPage) && paramPage >= 1 && paramPage <= SAYFA_SAYISI) {
       setPage(paramPage);
@@ -473,8 +481,25 @@ export default function MushafSayfaEkrani() {
               {/* Sure listesi */}
               {surahList.length === 0 ? (
                 <View style={st.sureBos}>
-                  <ActivityIndicator size="small" color={c.accent} />
-                  <Text style={[st.centerText, { color: c.textMuted }]}>Sure listesi yükleniyor…</Text>
+                  {surahListError ? (
+                    <>
+                      <Text style={[st.centerText, { color: c.textMuted }]}>Sure listesi yüklenemedi.</Text>
+                      <TouchableOpacity
+                        style={[st.retryBtn, { backgroundColor: c.accentLight, marginTop: 0 }]}
+                        onPress={loadSurahList}
+                        activeOpacity={0.75}
+                        accessibilityRole="button"
+                        accessibilityLabel="Sure listesini tekrar yükle"
+                      >
+                        <Text style={[st.retryText, { color: c.accent }]}>Tekrar Dene</Text>
+                      </TouchableOpacity>
+                    </>
+                  ) : (
+                    <>
+                      <ActivityIndicator size="small" color={c.accent} />
+                      <Text style={[st.centerText, { color: c.textMuted }]}>Sure listesi yükleniyor…</Text>
+                    </>
+                  )}
                 </View>
               ) : (
                 <FlatList

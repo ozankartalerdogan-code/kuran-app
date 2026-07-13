@@ -25,11 +25,16 @@ export default function TafsirScreen() {
 
   const [tafsir, setTafsir] = useState<TafsirResponse | null | "loading">("loading");
   const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");
+  // Ağ hatasını "veri yok"tan ayır: hata → Tekrar Dene sunulur, yanıltıcı
+  // "bulunamadı" mesajı gösterilmez.
+  const [fetchFailed, setFetchFailed] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     if (!surahId) { setTafsir(null); return; }
     let alive = true;
     setTafsir("loading");
+    setFetchFailed(false);
     setSelectedMode("original");
 
     api.tafsir.get(surahId)
@@ -42,6 +47,7 @@ export default function TafsirScreen() {
       })
       .catch(() => {
         if (!alive) return;
+        setFetchFailed(true);
         setTafsir(
           localSimplifiedContent
             ? { content: null, simplifiedContent: localSimplifiedContent, availableModes: ["original", "simplified"] }
@@ -52,7 +58,7 @@ export default function TafsirScreen() {
     return () => {
       alive = false;
     };
-  }, [localSimplifiedContent, surahId]);
+  }, [localSimplifiedContent, surahId, reloadKey]);
 
   const availableModes = useMemo<TafsirMode[]>(() => {
     if (!tafsir || tafsir === "loading") return ["original"];
@@ -97,7 +103,20 @@ export default function TafsirScreen() {
         </View>
       ) : paragraphs.length === 0 ? (
         <View style={styles.centered}>
-          <Text style={[styles.muted, { color: c.textMuted }]}>Tefsir verisi bulunamadı.</Text>
+          <Text style={[styles.muted, { color: c.textMuted }]}>
+            {fetchFailed ? "Tefsir yüklenemedi. Bağlantını kontrol et." : "Tefsir verisi bulunamadı."}
+          </Text>
+          {fetchFailed && surahId ? (
+            <TouchableOpacity
+              style={[styles.retryBtn, { backgroundColor: c.accent }]}
+              onPress={() => setReloadKey((k) => k + 1)}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel="Tekrar dene"
+            >
+              <Text style={styles.retryText}>Tekrar Dene</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       ) : (
         <FlatList
@@ -153,7 +172,9 @@ export default function TafsirScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24, gap: 12 },
-  muted: { fontSize: 14, fontStyle: "italic" },
+  muted: { fontSize: 14, fontStyle: "italic", textAlign: "center" },
+  retryBtn: { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10, marginTop: 4 },
+  retryText: { color: "#fff", fontSize: 14, fontWeight: "700" },
   listContent: { padding: 16, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   source: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginBottom: 14 },
   sourceFooter: { fontSize: 12, fontStyle: "italic", lineHeight: 18, marginTop: 20, paddingTop: 12, borderTopWidth: StyleSheet.hairlineWidth },

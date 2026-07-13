@@ -70,7 +70,8 @@ function DuaCard({ dua }: { dua: Dua }) {
       </View>
       {dua.arapca ? (
         /[؀-ۿ]/.test(dua.arapca)
-          ? <Text style={s.arabic}>{dua.arapca}</Text>
+          // Kart zemini temaya bağlı (c.card) — sabit koyu renk gece modunda kaybolurdu.
+          ? <Text style={[s.arabic, { color: c.text }]}>{dua.arapca}</Text>
           : <Text style={[s.refNote, { backgroundColor: c.cardAlt, color: c.textSecondary }]}>📎 {dua.arapca}</Text>
       ) : null}
       {dua.okunus ? <Text style={[s.okunus, { color: c.text }]}>{dua.okunus}</Text> : null}

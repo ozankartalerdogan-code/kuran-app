@@ -306,11 +306,7 @@ function TagVerseAccordion({
   const labelColor = isViolet ? colors.violetText : colors.amberText;
   const badgeBg = isViolet ? colors.cardBg : colors.amberBg;
 
-  const toggle = async () => {
-    const next = !expanded;
-    setExpanded(next);
-    if (!next || loaded) return;
-
+  const fetchVerses = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -323,6 +319,13 @@ function TagVerseAccordion({
       setLoading(false);
       setLoaded(true);
     }
+  };
+
+  const toggle = async () => {
+    const next = !expanded;
+    setExpanded(next);
+    if (!next || loaded) return;
+    await fetchVerses();
   };
 
   const countLabel = loaded && total > 0 ? `${total} ayet` : "Ayetleri Aç";
@@ -342,7 +345,20 @@ function TagVerseAccordion({
       {expanded ? (
         <View style={styles.verseAccBody}>
           {loading ? <ActivityIndicator color={labelColor} style={{ marginVertical: 8 }} /> : null}
-          {!loading && error ? <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>{error}</Text> : null}
+          {!loading && error ? (
+            <View style={styles.verseErrorWrap}>
+              <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>{error}</Text>
+              <TouchableOpacity
+                style={[styles.verseRetryBtn, { borderColor: boxBorder }]}
+                onPress={fetchVerses}
+                activeOpacity={0.75}
+                accessibilityRole="button"
+                accessibilityLabel="Tekrar dene"
+              >
+                <Text style={[styles.verseRetryText, { color: labelColor }]}>Tekrar Dene</Text>
+              </TouchableOpacity>
+            </View>
+          ) : null}
           {!loading && !error && loaded && verses.length === 0 ? (
             <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>Bu etiket için ayet bulunamadı.</Text>
           ) : null}
@@ -776,4 +792,7 @@ const styles = StyleSheet.create({
   verseMeal: { fontSize: 11, lineHeight: 18 },
   verseHint: { fontSize: 11, lineHeight: 16, marginTop: 2 },
   inlineNote: { fontSize: 12, lineHeight: 18 },
+  verseErrorWrap: { alignItems: "center", gap: 8, paddingVertical: 4 },
+  verseRetryBtn:  { borderWidth: 1, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 6 },
+  verseRetryText: { fontSize: 12, fontWeight: "700" },
 });
