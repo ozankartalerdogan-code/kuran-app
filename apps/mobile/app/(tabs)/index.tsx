@@ -37,6 +37,11 @@ const PRAYER_DATIVE: Record<string, string> = {
   Asr: "İkindi'ye", Maghrib: "Akşam'a", Isha: "Yatsı'ya",
 };
 
+const PRAYER_ICONS: Record<string, IoniconName> = {
+  Fajr: "moon-outline", Sunrise: "sunny-outline", Dhuhr: "sunny",
+  Asr: "partly-sunny-outline", Maghrib: "cloudy-night-outline", Isha: "moon",
+};
+
 function formatRemaining(min: number): string {
   if (min < 1) return "1 dk'dan az";
   const h = Math.floor(min / 60);
@@ -98,6 +103,7 @@ function HomeContent() {
     [],
   );
   const hijriLabel = formatHijriDate(hijriDate);
+  const nextPrayerIdx = nextPrayer ? PRAYER_ORDER.indexOf(nextPrayer.key) : -1;
   // Aşağı çek → günlük içerik + namaz vakitleri + seri kartı yeniden yüklenir
   // ("yüklenemedi" durumlarında uygulama içi tek kurtarma yolu).
   const [refreshing, setRefreshing] = useState(false);
@@ -359,9 +365,12 @@ function HomeContent() {
           <Text style={[styles.cardRef, { color: c.isDark ? "#6366f1" : "#4338ca" }]}>{prayerCity}</Text>
         </View>
         {nextPrayer && (
-          <Text style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
-            {PRAYER_DATIVE[nextPrayer.key] ?? nextPrayer.label} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin)}</Text> kaldı
-          </Text>
+          <View style={styles.countdownRow}>
+            <Ionicons name="time-outline" size={14} color={c.isDark ? "#818cf8" : "#4338ca"} />
+            <Text style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
+              {PRAYER_DATIVE[nextPrayer.key] ?? nextPrayer.label} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin)}</Text> kaldı
+            </Text>
+          </View>
         )}
         {!prayers && prayerLoading ? (
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
@@ -370,21 +379,31 @@ function HomeContent() {
             Namaz vakitleri şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.
           </Text>
         ) : (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
-            {PRAYER_ORDER.map((key) => {
-              const isNext = nextPrayer?.label === PRAYER_LABELS[key];
+          <View style={styles.prayerRow}>
+            {PRAYER_ORDER.map((key, idx) => {
+              const isNext = nextPrayer?.key === key;
+              // nextPrayerIdx===0 (Fajr) bilerek "geçti" saymıyoruz — hem gün henüz Fajr'a
+              // gelmemiş hem de gece yarısından sonra ertesi güne sarkmış olabilir,
+              // iki durumda da yanlış soluklaşmayı önlemek daha güvenli.
+              const isPassed = nextPrayerIdx > 0 && idx < nextPrayerIdx;
               return (
                 <View key={key} style={[
                   styles.prayerItem,
                   { backgroundColor: c.isDark ? "#1e1b4b" : "#fff", borderColor: c.isDark ? "#3730a3" : "#e0e7ff" },
                   isNext && styles.prayerItemActive,
+                  isPassed && styles.prayerItemPassed,
                 ]}>
-                  <Text style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{PRAYER_LABELS[key]}</Text>
-                  <Text style={[styles.prayerTime, { color: c.isDark ? "#c7d2fe" : "#312e81" }, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
+                  <Ionicons
+                    name={PRAYER_ICONS[key]}
+                    size={15}
+                    color={isNext ? "#fff" : (c.isDark ? "#a5b4fc" : "#6366f1")}
+                  />
+                  <Text numberOfLines={1} style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{PRAYER_LABELS[key]}</Text>
+                  <Text numberOfLines={1} style={[styles.prayerTime, { color: c.isDark ? "#c7d2fe" : "#312e81" }, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
                 </View>
               );
             })}
-          </ScrollView>
+          </View>
         )}
 
         {/* Bildirim ayarları /bildirimler ekranında yönetilir — buraya kısayol. */}
@@ -523,18 +542,21 @@ const styles = StyleSheet.create({
   verseMeal:    { fontSize: 13, lineHeight: 20 },
 
   prayerCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
-  countdown: { fontSize: 14, marginTop: 2 },
+  countdownRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  countdown: { fontSize: 14 },
   countdownStrong: { fontWeight: "800" },
   prayerNotifLink: { marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: "rgba(99,102,241,0.25)", alignItems: "center" },
   prayerNotifLinkText: { fontSize: 13, fontWeight: "600" },
+  prayerRow:  { flexDirection: "row", marginTop: 10 },
   prayerItem: {
-    alignItems: "center", paddingHorizontal: 12, paddingVertical: 8,
-    marginRight: 8, borderRadius: 10, borderWidth: 1, minWidth: 64,
+    flex: 1, alignItems: "center", gap: 3, paddingVertical: 9,
+    marginHorizontal: 2.5, borderRadius: 12, borderWidth: 1,
   },
   prayerItemActive:    { backgroundColor: "#4f46e5", borderColor: "#4f46e5" },
-  prayerLabel:         { fontSize: 11, fontWeight: "600" },
+  prayerItemPassed:    { opacity: 0.45 },
+  prayerLabel:         { fontSize: 10, fontWeight: "600" },
   prayerLabelActive:   { color: "#fff" },
-  prayerTime:          { fontSize: 13, fontWeight: "700", marginTop: 2 },
+  prayerTime:          { fontSize: 11.5, fontWeight: "700" },
   prayerTimeActive:    { color: "#fff" },
 
   duaCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 16 },
