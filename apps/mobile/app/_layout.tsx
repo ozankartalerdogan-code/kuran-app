@@ -17,6 +17,7 @@ import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotificatio
 import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
 // Import yan etkisi önemli: widget arka plan görevi tanımı global kapsamda kurulur.
 import { registerWidgetRefresh } from "../src/widgets/widgetRefresh";
+import { syncPrayerWidget } from "../src/widgets/prayerWidgetSync";
 import { initCloudBackup } from "../src/lib/cloudBackup";
 import { useColors } from "../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
@@ -303,8 +304,15 @@ function RootLayout() {
     registerBackgroundRefresh().catch(reportUnexpected);
     // Emir Ayetleri widget'ını da aynı şekilde tazele (yeni build gerektirir).
     registerWidgetRefresh().catch(reportUnexpected);
+    // Namaz vakti widget'ına güncel vakit programını aktar + görünümü tazele
+    // (yeni build gerektirir; eski build'de sessiz no-op). Öne gelişte de çağrılır:
+    // kullanıcı sistem ayarından exact alarm izni verip döndüğünde sayaç açılır.
+    syncPrayerWidget().catch(reportUnexpected);
     const sub = AppState.addEventListener("change", (state) => {
-      if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
+      if (state === "active") {
+        ensureNotificationsFresh().catch(reportUnexpected);
+        syncPrayerWidget().catch(reportUnexpected);
+      }
     });
     return () => sub.remove();
   }, []);

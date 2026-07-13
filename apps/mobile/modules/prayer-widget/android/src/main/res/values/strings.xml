@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="prayer_widget_label">Namaz Vakitleri</string>
+  <string name="prayer_widget_description">Sıradaki namaz vaktine kalan süreyi canlı geri sayımla gösterir.</string>
+  <string name="prayer_widget_title_next">Sıradaki vakit</string>
+  <string name="prayer_widget_open_app">Namaz vakitlerini güncellemek için uygulamayı açın</string>
+  <string name="prayer_widget_chrono_format">%s kaldı</string>
+</resources>

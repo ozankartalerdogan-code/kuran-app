@@ -5,7 +5,9 @@ import { Platform } from "react-native";
 import { api } from "./api";
 import { storage, STORAGE_KEYS } from "./storage";
 
-const VAKITLER = [
+// Bildirimlerin yanı sıra namaz widget'ı da (src/widgets/prayerWidgetSync.ts)
+// "hangi vakitler dahil" sorusunun TEK kaynağı olarak bu listeyi kullanır.
+export const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
   { key: "Sunrise", label: "Güneş" },
   { key: "Dhuhr",   label: "Öğle"  },
@@ -48,7 +50,8 @@ function localDayStr(d = new Date()): string {
 }
 
 // İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
-async function getLocationSilent(): Promise<Coords> {
+// Widget senkronizasyonu da (prayerWidgetSync.ts) aynı sessiz konum yolunu paylaşır.
+export async function getLocationSilent(): Promise<Coords> {
   try {
     const { status } = await Location.getForegroundPermissionsAsync();
     if (status !== "granted") return savedCoordsOrIstanbul();

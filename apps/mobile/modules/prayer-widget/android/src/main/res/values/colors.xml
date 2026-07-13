@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uygulamanın krem/zümrüt paleti (src/hooks/useColors.ts ve EmirAyetWidget.tsx
+     ile birebir aynı değerler). Gece modu values-night/ altında. -->
+<resources>
+  <color name="prayer_widget_bg">#fffdf6</color>
+  <color name="prayer_widget_border">#e7dfcc</color>
+  <color name="prayer_widget_text">#1c1917</color>
+  <color name="prayer_widget_text_secondary">#44403c</color>
+  <color name="prayer_widget_text_muted">#78716c</color>
+  <color name="prayer_widget_accent">#059669</color>
+</resources>

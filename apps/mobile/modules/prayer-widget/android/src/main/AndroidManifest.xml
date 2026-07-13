@@ -1,0 +1,58 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!--
+    Namaz vakti geri sayım widget'ının native bileşenleri. Bu manifest, Android
+    kütüphane manifest'i olarak APP manifest'ine MERGE edilir (prebuild/CNG'de
+    elle dosya yazmaya gerek yok, merge doğası gereği idempotenttir).
+
+    İzinler:
+    • SCHEDULE_EXACT_ALARM — vakit girdiği SANİYEDE sayacın sonraki vakte
+      geçebilmesi için tek exact alarm. Kullanıcı denetimindedir (Android 14+
+      yeni kurulumlarda varsayılan kapalı); yoksa widget statik görünüme düşer.
+      USE_EXACT_ALARM BİLEREK KULLANILMIYOR (Play politikası gereği yalnız
+      alarm/takvim uygulamalarına açık, bizde gerekçesi yok).
+    • RECEIVE_BOOT_COMPLETED — yeniden başlatmada alarm + Chronometer tabanı
+      geçersizleşir; boot'ta yeniden kurulum gerekir. (Uygulamada expo-notifications
+      zaten bu izni ekliyor — merge'de tekilleşir, fiilen YENİ izin değildir.)
+  -->
+  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+  <application>
+    <!-- Ana ekran widget provider'ı — "Namaz Vakitleri". Emir Ayetleri widget'ından
+         (com.kuranapp.mobile.widget.EmirAyetleri, react-native-android-widget)
+         TAMAMEN AYRI bir provider; onun kaydına/verisine dokunmaz. -->
+    <receiver
+      android:name="expo.modules.prayerwidget.PrayerWidgetProvider"
+      android:exported="false"
+      android:label="@string/prayer_widget_label">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/prayer_widget_info" />
+    </receiver>
+
+    <!-- Vakit girişinde tetiklenen exact alarm hedefi. Bildirim alarmlarıyla
+         (expo-notifications kendi receiver'ı) hiçbir action/requestCode paylaşmaz. -->
+    <receiver
+      android:name="expo.modules.prayerwidget.PrayerWidgetAlarmReceiver"
+      android:exported="false" />
+
+    <!-- Sistem olayları: boot, saat/saat dilimi değişimi, uygulama güncellemesi,
+         exact alarm izin durumu değişimi. DATE_CHANGED bilerek YOK — Android 8+
+         implicit broadcast kısıtlamasında manifest receiver'a zaten iletilmez;
+         gece yarısı geçişini exact alarm + updatePeriodMillis karşılar. -->
+    <receiver
+      android:name="expo.modules.prayerwidget.PrayerWidgetSystemReceiver"
+      android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+        <action android:name="android.intent.action.TIME_SET" />
+        <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+        <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>
