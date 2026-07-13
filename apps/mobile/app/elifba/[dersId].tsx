@@ -36,33 +36,47 @@ function harfSesUrl(harfId: number): string {
 let harfPlayer: AudioPlayer | null = null;
 let audioModeSet = false;
 
-async function playHarfSes(harfId: number, onError?: () => void) {
-  try {
-    if (!audioModeSet) {
-      await setAudioModeAsync({ playsInSilentMode: true });
-      audioModeSet = true;
-    }
-    if (harfPlayer) {
-      try { harfPlayer.remove(); } catch { /* yoksay */ }
-    }
-    const player = createAudioPlayer(harfSesUrl(harfId));
-    harfPlayer = player;
+function playHarfSes(harfId: number, onError?: () => void): () => void {
+  let cancelled = false;
+  let sub: { remove(): void } | null = null;
+  let timer: ReturnType<typeof setTimeout> | null = null;
 
-    // .play() ağ hatasında THROW ETMEZ; başarısızlık ya status.error ile gelir
-    // ya da ses hiç yüklenmez (internet yok). İkisini de yakalayıp geri bildir.
-    let done = false, ok = false;
-    const fail = () => { if (!done) { done = true; onError?.(); } };
-    const sub = player.addListener("playbackStatusUpdate", (status) => {
-      if (status.isLoaded && status.playing) ok = true;
-      if (status.error) fail();
-    });
-    // 3 sn içinde yüklenip çalmadıysa (offline/askıda) başarısız say + listener temizle.
-    setTimeout(() => { if (!ok) fail(); try { sub.remove(); } catch { /* yoksay */ } }, 3000);
+  (async () => {
+    try {
+      if (!audioModeSet) {
+        await setAudioModeAsync({ playsInSilentMode: true });
+        audioModeSet = true;
+      }
+      if (cancelled) return;
+      if (harfPlayer) {
+        try { harfPlayer.remove(); } catch { /* yoksay */ }
+      }
+      const player = createAudioPlayer(harfSesUrl(harfId));
+      harfPlayer = player;
 
-    player.play();
-  } catch {
-    onError?.();
-  }
+      // .play() ağ hatasında THROW ETMEZ; başarısızlık ya status.error ile gelir
+      // ya da ses hiç yüklenmez (internet yok). İkisini de yakalayıp geri bildir.
+      let done = false, ok = false;
+      const fail = () => { if (!done && !cancelled) { done = true; onError?.(); } };
+      sub = player.addListener("playbackStatusUpdate", (status) => {
+        if (status.isLoaded && status.playing) ok = true;
+        if (status.error) fail();
+      });
+      // 3 sn içinde yüklenip çalmadıysa (offline/askıda) başarısız say + listener temizle.
+      // Kart değişip playHarfSes iptal edilirse bu timer da cancelled kontrolüyle no-op olur.
+      timer = setTimeout(() => { if (!ok) fail(); try { sub?.remove(); } catch { /* yoksay */ } }, 3000);
+
+      player.play();
+    } catch {
+      if (!cancelled) onError?.();
+    }
+  })();
+
+  return () => {
+    cancelled = true;
+    if (timer) clearTimeout(timer);
+    try { sub?.remove(); } catch { /* yoksay */ }
+  };
 }
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
@@ -74,16 +88,26 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
   const [flipped, setFlipped] = useState(false);
   const [sesHata, setSesHata] = useState(false);
   const sesHataTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelPlayRef = useRef<(() => void) | null>(null);
   const cardLabel = flipped
     ? `${harf.harf_adi} harfi. Ses: ${harf.harf_sesi}. Mahreç: ${harf.mahrec}`
     : `${harf.harf_adi} harf kartı`;
 
-  useEffect(() => { setFlipped(false); setSesHata(false); }, [harf.harf_id]);
-  useEffect(() => () => { if (sesHataTimer.current) clearTimeout(sesHataTimer.current); }, []);
+  // Kart değişince önceki kartın bekleyen ses/timeout'unu iptal et — yoksa gecikmiş
+  // hata callback'i yeni karta ait "ses hatası" uyarısını yanlışlıkla tetikleyebilir.
+  useEffect(() => {
+    cancelPlayRef.current?.();
+    setFlipped(false); setSesHata(false);
+  }, [harf.harf_id]);
+  useEffect(() => () => {
+    if (sesHataTimer.current) clearTimeout(sesHataTimer.current);
+    cancelPlayRef.current?.();
+  }, []);
 
   const handlePlay = useCallback(() => {
     setSesHata(false);
-    void playHarfSes(harf.harf_id, () => {
+    cancelPlayRef.current?.();
+    cancelPlayRef.current = playHarfSes(harf.harf_id, () => {
       setSesHata(true);
       if (sesHataTimer.current) clearTimeout(sesHataTimer.current);
       sesHataTimer.current = setTimeout(() => setSesHata(false), 3000);
