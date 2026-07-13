@@ -318,11 +318,12 @@ export default function KibleScreen() {
       } catch { /* ignore */ }
     }
 
-    // 3. GPS (uzun bekleme)
+    // 3. GPS (yüksek doğruluk, uzun bekleme) — 2. adım ağ tabanlı hızlı denemeydi;
+    // burada gerçek uydu sabitlemesi için daha fazla süre tanınır (iç mekan/zayıf sinyalde işe yarar).
     if (!coords) {
       try {
         const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High }),
           new Promise<null>(r => setTimeout(() => r(null), 25000)),
         ]);
         if (pos && "coords" in pos) coords = pos.coords;
