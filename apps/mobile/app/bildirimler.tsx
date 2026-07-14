@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import {
   requestNotificationPermission,
+  getNotificationPermissionStatus,
   fetchPrayerDays,
   applyNotifications,
   cancelNamazNotifications,
@@ -57,20 +58,27 @@ export default function BildirimlerScreen() {
   const [dailyVerseEnabled, setDailyVerseEnabled] = useState(false);
   const [dailyVerseLoading, setDailyVerseLoading] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
+  // Uygulama TERCİHİNDEN (yukarıdaki iki state) kasıtlı olarak AYRI tutulur:
+  // kullanıcı sistem ayarlarından bildirimleri kapatmış olabilir — bu durumda
+  // tercih "açık" kalır (niyet kaybolmaz) ama gerçek OS izni burada gösterilir.
+  const [osPermissionGranted, setOsPermissionGranted] = useState(true);
 
-  // Güncel tercih durumunu oku ve göster. Otomatik-planla/tazele artık burada DEĞİL —
-  // _layout.tsx her açılışta/ön plana gelişte ensureNotificationsFresh() ile app-wide
-  // hallediyor (bu ekran hiç açılmasa bile çalışır). Burası yalnız o sonucu yansıtır.
+  // Güncel tercih durumunu VE gerçek OS izin durumunu oku/göster. Otomatik-planla/
+  // tazele artık burada DEĞİL — _layout.tsx her açılışta/ön plana gelişte
+  // ensureNotificationsFresh() ile app-wide hallediyor (bu ekran hiç açılmasa
+  // bile çalışır). Burası yalnız o sonucu yansıtır.
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [pv, dv] = await Promise.all([
+      const [pv, dv, granted] = await Promise.all([
         storage.getString(NOTIF_KEY),
         storage.getString(DAILY_VERSE_KEY),
+        getNotificationPermissionStatus(),
       ]);
       if (cancelled) return;
       setNotifEnabled(pv === "1");
       setDailyVerseEnabled(dv === "1");
+      setOsPermissionGranted(granted);
     })();
     return () => { cancelled = true; };
   }, []);
@@ -110,6 +118,7 @@ export default function BildirimlerScreen() {
     setNotifLoading(true);
     try {
       if (val && !(await ensurePermission())) { setNotifLoading(false); return; }
+      if (val) setOsPermissionGranted(true);
       const isFallback = await rescheduleNotifs(val, dailyVerseEnabled);
       await storage.setString(NOTIF_KEY, val ? "1" : "0");
       setNotifEnabled(val);
@@ -133,6 +142,7 @@ export default function BildirimlerScreen() {
     setDailyVerseLoading(true);
     try {
       if (val && !(await ensurePermission())) { setDailyVerseLoading(false); return; }
+      if (val) setOsPermissionGranted(true);
       const isFallback = await rescheduleNotifs(notifEnabled, val);
       await storage.setString(DAILY_VERSE_KEY, val ? "1" : "0");
       setDailyVerseEnabled(val);
@@ -161,11 +171,13 @@ export default function BildirimlerScreen() {
         <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
             <Text style={[styles.notifTitle, { color: c.text }]}>🔔 Namaz Vakti Bildirimleri</Text>
-            <Text style={[styles.notifSub, { color: c.textMuted }]}>
+            <Text style={[styles.notifSub, { color: notifEnabled && !osPermissionGranted ? "#b45309" : c.textMuted }]}>
               {notifEnabled
-                ? usingFallback
-                  ? "İstanbul için bildirim planlandı (konum izni verilmedi)"
-                  : "Bulunduğunuz konum için bildirim planlandı"
+                ? !osPermissionGranted
+                  ? "Sistem bildirim izni kapalı — hiçbir bildirim ulaşmaz. Ayarlardan tekrar açabilirsiniz."
+                  : usingFallback
+                    ? "İstanbul için bildirim planlandı (konum izni verilmedi)"
+                    : "Bulunduğunuz konum için bildirim planlandı"
                 : "Her namaz vakti için, içinde namaz temalı ayet bulunan hatırlatma"}
             </Text>
           </View>
@@ -186,9 +198,11 @@ export default function BildirimlerScreen() {
         <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
             <Text style={[styles.notifTitle, { color: c.text }]}>📖 Günlük Ayet & Dua</Text>
-            <Text style={[styles.notifSub, { color: c.textMuted }]}>
+            <Text style={[styles.notifSub, { color: dailyVerseEnabled && !osPermissionGranted ? "#b45309" : c.textMuted }]}>
               {dailyVerseEnabled
-                ? "Her gün 2 kez — namaz vakitleriyle çakışmayan saatlerde"
+                ? !osPermissionGranted
+                  ? "Sistem bildirim izni kapalı — hiçbir bildirim ulaşmaz. Ayarlardan tekrar açabilirsiniz."
+                  : "Her gün 2 kez — namaz vakitleriyle çakışmayan saatlerde"
                 : "Günün Ayeti ve Günün Duası'nı bildirimle al"}
             </Text>
           </View>

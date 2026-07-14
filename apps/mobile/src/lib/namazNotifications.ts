@@ -106,6 +106,17 @@ export async function requestNotificationPermission(): Promise<boolean> {
   return status === "granted";
 }
 
+// Gerçek OS izin DURUMUNU (istemeden) okur — uygulama tercihi (NOTIF_KEY/
+// DAILY_VERSE_KEY) ile OS izni KASITLI OLARAK ayrı tutulur: kullanıcı sistem
+// ayarlarından bildirimleri kapatırsa tercih "açık" kalmaya devam eder (niyeti
+// kaybolmaz, izni tekrar verirse otomatik devam eder), ama bu fonksiyon
+// gerçek durumu ayrıca raporlar ki hem tazeleme döngüsü boşa ağ isteği
+// yapmasın hem de Bildirimler ekranı kullanıcıya doğru durumu gösterebilsin.
+export async function getNotificationPermissionStatus(): Promise<boolean> {
+  const { status } = await Notifications.getPermissionsAsync();
+  return status === "granted";
+}
+
 // Bir güne ait vakitler + o günün takvim tarihi (çok-günlü planlama için).
 export type DayTimes = { date: Date; times: PrayerTimes };
 
@@ -188,37 +199,55 @@ export async function fetchPrayerDays(
   }
 
   const days: DayTimes[] = [];
+  const missing: Date[] = [];
   for (const d of wanted) {
     const times = byDate.get(ddmmyyyy(d));
     if (times) days.push({ date: d, times });
+    else missing.push(d);
+  }
+
+  // Pencere birden çok ayı kapsayabilir (ayrı istekler); YALNIZ biri
+  // başarısız olursa önceden o aya denk gelen günler sessizce atlanıyordu.
+  // Diğer aylardan en az bir gün geldiyse, eksik günleri tek-tek (nokta
+  // atışı) tamamla — tüm pencere boşsa zaten aşağıdaki tam yedek devreye girer.
+  if (missing.length > 0 && days.length > 0) {
+    const filled = await Promise.all(missing.map((d) => fetchPrayerTimes(lat, lng, d)));
+    filled.forEach((times, i) => { if (times) days.push({ date: missing[i], times }); });
+    days.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
   if (days.length > 0) return days;
 
-  // Takvim alınamadı → tek günlük yedek.
+  // Takvim tümüyle alınamadı → tek günlük yedek (bugün).
   const single = await fetchPrayerTimes(lat, lng);
   return single ? [{ date: today, times: single }] : null;
 }
 
-// Aladhan API'den namaz vakitlerini al (tek gün — yedek yol ve ana sayfa kullanımı)
+// Aladhan API'den namaz vakitlerini al (tek gün — takvim ucu başarısız
+// olduğunda hem tüm-pencere hem tek-gün nokta atışı yedeği). date verilmezse
+// bugün kullanılır.
 export async function fetchPrayerTimes(
   lat: number,
-  lng: number
+  lng: number,
+  date: Date = new Date(),
 ): Promise<PrayerTimes | null> {
   // Kötü ağda donmayı önlemek için 8 sn timeout (AbortController — RN'de geniş uyumlu).
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const yyyy = today.getFullYear();
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const yyyy = date.getFullYear();
     const res = await fetch(
       // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
       `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
-    return data?.data?.timings ?? null;
+    const timings = data?.data?.timings;
+    // Bu uç da takvim ucu gibi "05:03 (+03)" biçiminde dönebilir — sanitizeTimes
+    // olmadan parseValid/computeGapSlots içindeki Number() dönüşümü NaN üretip
+    // o günü sessizce atlıyordu (tek-günlük yedek yolunun kendisi bozuktu).
+    return timings ? sanitizeTimes(timings) : null;
   } catch {
     return null;
   } finally {
@@ -331,6 +360,11 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
         : "";
       jobs.push(
         Notifications.scheduleNotificationAsync({
+          // Sabit kimlik: aynı gün + aynı vakit için ikinci bir schedule çağrısı
+          // (ör. lease zaman aşımına uğrayıp iki sürecin üst üste binmesi) yeni bir
+          // kopya EKLEMEZ, var olanın üzerine yazar — aynı vakit için çift bildirim
+          // yapısal olarak imkansız hale gelir.
+          identifier: `namaz-${localDayStr(date)}-${key}`,
           content: {
             title: `🕌 ${label} Vakti Girdi`,
             body:  `${label} vakti girdi, namaza hazırlanabilirsiniz.${verseLine}`,
@@ -373,15 +407,18 @@ async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void
   const slots = computeGapSlots(times);
   const items = [
     daily.verse?.meal
-      ? { title: "📖 Günün Ayeti", body: daily.verse.meal, sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
+      ? { kind: "verse", title: "📖 Günün Ayeti", body: daily.verse.meal, sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
       : null,
     daily.dua?.meal
-      ? { title: "🤲 Günün Duası", body: daily.dua.meal, sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
+      ? { kind: "dua", title: "🤲 Günün Duası", body: daily.dua.meal, sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
       : null,
   ].filter((x): x is NonNullable<typeof x> => !!x && !!x.slot);
 
   const jobs = items.map((x) =>
     Notifications.scheduleNotificationAsync({
+      // Sabit kimlik (tarihsiz — her gün aynı DAILY tetikleyiciyi günceller):
+      // aynı türden ikinci bir schedule çağrısı üzerine yazar, kopyalamaz.
+      identifier: `daily-${x.kind}`,
       content: {
         title: x.title,
         body:  `${x.body.slice(0, 150)}${x.body.length > 150 ? "…" : ""}`,
@@ -397,7 +434,7 @@ async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void
 // Orkestratör: cancelAll bir kez → iki bildirim türünü bağımsız toggle'lara göre planlar.
 // Namaz bildirimleri 7 günün gerçek vakitlerine (DATE), günlük ayet/dua bugünün
 // boşluk saatlerine (DAILY) kurulur.
-export async function applyNotifications(opts: {
+async function applyNotificationsInner(opts: {
   days: DayTimes[];
   prayer: boolean;
   dailyVerse: boolean;
@@ -407,6 +444,80 @@ export async function applyNotifications(opts: {
   await ensureAndroidChannel();
   if (opts.prayer) await schedulePrayerNotifications(opts.days);
   if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days[0].times);
+}
+
+// ── Süreçler arası planlama kilidi (lease) ──────────────────────────────────
+// applyNotifications birden çok bağımsız YÇM (JS runtime)'dan çağrılabilir:
+// _layout.tsx'in otomatik ensureNotificationsFresh()'i (ön plan) VE
+// backgroundRefresh.ts'in headless görevi (Android'de AYRI bir JS runtime'da
+// çalışır). Modül-seviyesi bir promise kilidi yalnız AYNI runtime içindeki
+// çağrıları serileştirir — ikisi neredeyse aynı anda tetiklenirse iki ayrı
+// cancelAll+schedule birbirine girip bazı vakitler için İKİ bildirim
+// kalabiliyordu ("toplu geliyor" bug'ı). Bunun yerine MMKV üzerinde, sahip
+// damgalı + süreli (TTL) bir lease tutulur: yazdıktan hemen sonra GERİ OKUYUP
+// sahiplik doğrulanır (aynı anda başka bir süreç de yazdıysa son yazan kazanır,
+// kaybeden tekrar dener); kilidi yalnız gerçek sahibi bırakır (TTL dolup
+// başkası almışsa onun kilidini SİLMEZ) — çöken/askıda kalan bir süreç TTL
+// sonunda kendiliğinden çözülür.
+type Lease = { owner: string; expiresAt: number };
+const LEASE_KEY = "namazNotifSchedLease";
+const LEASE_TTL_MS = 60_000; // ağ + ~44 bildirim planlamasını rahatça kapsar
+const LEASE_ACQUIRE_TIMEOUT_MS = 20_000;
+const LEASE_POLL_MS = 400;
+const LEASE_VERIFY_DELAY_MS = 200; // tam o an yarışan başka bir yazmayı yakalayabilmek için
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+function makeLeaseOwnerToken(): string {
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+}
+
+async function acquireLease(owner: string): Promise<boolean> {
+  const deadline = Date.now() + LEASE_ACQUIRE_TIMEOUT_MS;
+  for (;;) {
+    const current = await storage.getJSON<Lease>(LEASE_KEY);
+    const held = !!current && current.expiresAt > Date.now();
+    if (!held) {
+      await storage.setJSON<Lease>(LEASE_KEY, { owner, expiresAt: Date.now() + LEASE_TTL_MS });
+      await sleep(LEASE_VERIFY_DELAY_MS);
+      const verify = await storage.getJSON<Lease>(LEASE_KEY);
+      if (verify?.owner === owner) return true; // sahiplik doğrulandı
+      // başka bir süreç aynı anda yazdı ve kazandı — aşağıda tekrar denenir
+    }
+    if (Date.now() >= deadline) return false;
+    await sleep(LEASE_POLL_MS);
+  }
+}
+
+async function releaseLease(owner: string): Promise<void> {
+  try {
+    const current = await storage.getJSON<Lease>(LEASE_KEY);
+    if (current?.owner === owner) await storage.remove(LEASE_KEY);
+  } catch { /* sessiz — TTL zaten kendi kendine çözer */ }
+}
+
+export async function applyNotifications(opts: {
+  days: DayTimes[];
+  prayer: boolean;
+  dailyVerse: boolean;
+}): Promise<void> {
+  const owner = makeLeaseOwnerToken();
+  const gotLease = await acquireLease(owner);
+  if (!gotLease) {
+    // Kilit LEASE_ACQUIRE_TIMEOUT_MS içinde alınamadı — kilitsiz devam ETMEK
+    // yerine güvenle vazgeçilir (cancelAll+schedule başka bir sürecinkiyle asla
+    // iç içe girmez). Eldeki planlama korunur; çağıranların hepsi (ensureNotif
+    // ationsFreshInner/enablePrayerNotificationsFirstRun/bildirimler.tsx) zaten
+    // bu hatayı bekleyip bir sonraki tetiklemede/kullanıcı eyleminde tekrar dener.
+    throw new Error("namazNotifications: lease zaman aşımına uğradı, planlama güvenle iptal edildi");
+  }
+  try {
+    await applyNotificationsInner(opts);
+  } finally {
+    await releaseLease(owner);
+  }
 }
 
 // Bildirimleri kapat
@@ -468,11 +579,13 @@ export async function declinePrayerNotifications(): Promise<void> {
 //     ve günlük ayet/dua İÇERİĞİ (DAILY tetikleyici ilk planlanan içeriği sonsuza
 //     dek tekrarlar) donuk kalıyordu. Artık uygulama her ön plana geçtiğinde kontrol
 //     edilir → gerçekten "günlük" ve doğru saatli kalır.
-// Eşzamanlı çağrıları SERİLEŞTİR: _layout mount + AppState "active" neredeyse
-// aynı anda tetikliyor → iki applyNotifications yarışıp (biri cancelAll yaparken
-// diğeri henüz schedule etmemişse) ÇİFT bildirim planlanıyordu. In-flight promise
-// paylaşımıyla ikinci çağrı birincinin sonucunu bekler (ikinci applyNotifications
-// çalışmaz); birinci SCHED_DAY_KEY'i yazınca sonraki açılışlar zaten erken döner.
+// Aynı JS runtime içindeki eşzamanlı çağrıları (ör. _layout mount + AppState
+// "active" neredeyse aynı anda tetikliyor) boşuna tekrar konum/ağ isteği
+// yapmasın diye in-flight promise paylaşılır — ikinci çağrı birincinin
+// sonucunu bekler. Süreçler arası (ön plan ↔ headless arka plan görevi)
+// asıl çift-planlama koruması artık applyNotifications'taki MMKV lease'i
+// (bkz. yukarıda acquireLease/releaseLease) — bu değişken yalnız bir
+// performans optimizasyonudur, doğruluk ona bağlı DEĞİLDİR.
 let freshInFlight: Promise<void> | null = null;
 
 // interactive:false → arka plan görevinden çağrı; OS izin pencereleri AÇILAMAZ,
@@ -507,6 +620,13 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
   const prayerOn = pvRaw === "1";
   const dailyOn  = dvRaw === "1";
   if (!prayerOn && !dailyOn) return;
+
+  // OS izni HER tazelemede (günlük gate'ten ÖNCE) ayrıca doğrulanır — yalnız
+  // yerel binder çağrısı, ağ gerektirmez. Kullanıcı sistem ayarlarından
+  // bildirimleri kapattıysa tercih anahtarları "1" kalsa bile burada durulur:
+  // hem boşuna ağ isteği + yeniden planlama yapılmaz, hem de izin tekrar
+  // verildiğinde bir sonraki tazeleme otomatik devam eder (tercih SİLİNMEZ).
+  if (!(await getNotificationPermissionStatus())) return;
 
   const today = localDayStr();
   const lastDay = await storage.getString(SCHED_DAY_KEY);
