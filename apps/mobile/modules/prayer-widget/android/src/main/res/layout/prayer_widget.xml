@@ -19,11 +19,15 @@
   android:paddingTop="10dp"
   android:paddingBottom="10dp">
 
-  <View
+  <!-- Altın vurgu çizgisi. DİKKAT: RemoteViews yalnız beyaz-listedeki view'ları
+       inflate eder — düz <View> LİSTEDE YOK ve launcher "widget yüklenemiyor"
+       hatası basıyordu (cihazda görüldü, 2026-07-14). ImageView listede. -->
+  <ImageView
     android:layout_width="3dp"
     android:layout_height="38dp"
     android:layout_marginRight="12dp"
-    android:background="@drawable/prayer_widget_accent_bar" />
+    android:background="@drawable/prayer_widget_accent_bar"
+    android:importantForAccessibility="no" />
 
   <LinearLayout
     android:layout_width="match_parent"
