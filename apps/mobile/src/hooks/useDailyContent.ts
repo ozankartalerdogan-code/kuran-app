@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
+import { samePrayerLocation, toPrayerCoords } from "../lib/prayerLocation";
 import * as Location from "expo-location";
 
 interface DailyVerse {
@@ -62,7 +63,7 @@ export interface UseDailyContentResult {
   refresh: () => Promise<void>;
 }
 
-const ISTANBUL = { lat: 41.0082, lon: 28.9784, city: "İstanbul" };
+const ISTANBUL = { lat: 41.0082, lon: 28.9784, city: "İstanbul varsayılanı — konum yok", isFallback: true as const };
 const PRAYER_LABELS: Record<string, string> = {
   Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle",
   Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı",
@@ -72,6 +73,8 @@ interface PrayerCache {
   date: string;
   timings: PrayerTimes;
   hijri?: HijriDate | null;
+  lat: number;
+  lon: number;
 }
 
 function isValidPrayerTimes(data: unknown): data is PrayerTimes {
@@ -140,6 +143,8 @@ export function useDailyContent(): UseDailyContentResult {
     setVerseLoading(true);
     setDuaLoading(true);
     setPrayerLoading(true);
+    setPrayers(null);
+    setPrayerCityState("Konum doğrulanıyor");
     setLoading(true);
 
     let verseDone = false;
@@ -192,26 +197,6 @@ export function useDailyContent(): UseDailyContentResult {
       }
     } catch { /* ignore */ }
 
-    // 1. Namaz vakitlerini önce cache'den yükle (anında)
-    try {
-      const raw = await storage.getString(STORAGE_KEYS.prayerCache);
-      if (raw) {
-        const cached: unknown = JSON.parse(raw);
-        if (
-          isCurrent() &&
-          cached &&
-          typeof cached === "object" &&
-          (cached as PrayerCache).date === todayKey() &&
-          isValidPrayerTimes((cached as PrayerCache).timings)
-        ) {
-          setPrayers((cached as PrayerCache).timings);
-          if ((cached as PrayerCache).hijri) setHijriDate((cached as PrayerCache).hijri ?? null);
-          markSuccess();
-        }
-      }
-    } catch {
-      // stale cache — ignore
-    }
 
     // 2. Günün Ayeti + Günün Duası — geniş havuzdan tarih bazlı seçim
     api.daily
@@ -306,7 +291,7 @@ export function useDailyContent(): UseDailyContentResult {
 
     // 4. Namaz vakitlerini gerçek konumla çek. Ana sayfada izin İSTEMEYİZ; yalnız
     //    önceden verilmişse kullanırız (izin asıl context'inde — kıble / namaz
-    //    bildirimi açılırken — istenir). Yoksa sessizce İstanbul'a düşeriz.
+    //    bildirimi açılırken — istenir). Yoksa İstanbul varsayılanı açıkça etiketlenir.
     // Şehir adı (reverse geocode) namaz vakti isteğini BLOKE ETMEZ — arka planda
     // ayrı çözülür, gelince yalnız görünen etiketi günceller. Konum de önce OS'un
     // önbelleklediği "son bilinen konum"u dener (anında); yoksa canlı GPS fix ister.
@@ -333,7 +318,8 @@ export function useDailyContent(): UseDailyContentResult {
               if (cityName) setPrayerCityState(cityName);
             })
             .catch(() => { /* ignore — İstanbul etiketiyle kalır */ });
-          return { lat: latitude, lon: longitude };
+          setPrayerCityState("Konumunuza göre");
+          return { lat: latitude, lon: longitude, isFallback: false as const };
         }
       } catch { /* ignore */ }
       return ISTANBUL;
@@ -342,6 +328,26 @@ export function useDailyContent(): UseDailyContentResult {
     // Konum çözümü 15 sn'e kadar sürebilir; bu sırada unmount/yeni-load olduysa
     // artık namaz fetch'ini başlatma ve state'e dokunma.
     if (!isCurrent()) return;
+    setPrayerCityState(coords.isFallback ? ISTANBUL.city : "Konumunuza göre");
+
+    // Eski cache kayıtlarında koordinat yoktur; yanlış şehre ait vakti yeniden
+    // göstermemek için yalnız bugünkü ve aynı yaklaşık konuma ait cache kabul edilir.
+    try {
+      const cached = await storage.getJSON<PrayerCache>(STORAGE_KEYS.prayerCache);
+      const cachedCoords = toPrayerCoords(cached ? { lat: cached.lat, lng: cached.lon } : null);
+      if (
+        isCurrent() &&
+        cached &&
+        cached.date === todayKey() &&
+        cachedCoords &&
+        samePrayerLocation(cachedCoords, { lat: coords.lat, lng: coords.lon }) &&
+        isValidPrayerTimes(cached.timings)
+      ) {
+        setPrayers(cached.timings);
+        if (cached.hijri) setHijriDate(cached.hijri);
+        markSuccess();
+      }
+    } catch { /* geçersiz cache — canlı istekle devam et */ }
 
     const ts = buildDateStr();
     const prayerAC = new AbortController();
@@ -365,6 +371,8 @@ export function useDailyContent(): UseDailyContentResult {
             date: todayKey(),
             timings: d.data.timings,
             hijri,
+            lat: coords.lat,
+            lon: coords.lon,
           }).catch(() => {});
         } else {
           markFailure();

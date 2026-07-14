@@ -77,7 +77,11 @@ async function syncInner(): Promise<void> {
   const timezone = getPrayerWidgetTimezone();
   if (!timezone) return;
 
-  const { lat, lng } = await getLocationSilent();
+  const coords = await getLocationSilent();
+  // Geçerli canlı/kayıtlı koordinat yoksa native taraftaki mevcut statik güvenli
+  // görünümü koru; İstanbul için yeni ve yanlış bir program yazma.
+  if (!coords) return;
+  const { lat, lng } = coords;
   const days = await fetchPrayerDays(lat, lng); // 7 günlük mevcut takvim yolu
   if (!days || days.length === 0) return;
 

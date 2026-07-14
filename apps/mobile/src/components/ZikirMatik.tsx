@@ -4,6 +4,7 @@ import {
   Animated, Platform, Pressable, ScrollView, TextInput, Alert,
 } from "react-native";
 import { storage } from "../lib/storage";
+import { parseSavedZikirList, parseZikirPresetTargets, parseZikirState } from "../lib/storageSchemas";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
@@ -125,7 +126,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
 
   useEffect(() => {
     storage.getString(STORAGE_KEY)
-      .then(raw => { if (raw) setSavedList(JSON.parse(raw)); })
+      .then(raw => setSavedList(parseSavedZikirList(raw)))
       .catch(() => {});
   }, []);
 
@@ -133,10 +134,10 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   useEffect(() => {
     Promise.all([storage.getString(STATE_KEY), storage.getString(PRESET_KEY)])
       .then(([rawState, rawPreset]) => {
-        let overrides: Record<string, number> = {};
-        if (rawPreset) { try { overrides = JSON.parse(rawPreset); setTargetOverrides(overrides); } catch { /* yoksay */ } }
-        if (!rawState) return;
-        const st = JSON.parse(rawState) as Partial<{ zikirIdx: number; count: number; tur: number; customName: string; customTarget: number }>;
+        const overrides = parseZikirPresetTargets(rawPreset);
+        setTargetOverrides(overrides);
+        const st = parseZikirState(rawState);
+        if (!st) return;
         const idx = typeof st.zikirIdx === "number" && st.zikirIdx >= 0 && st.zikirIdx < ZİKİRLER.length ? st.zikirIdx : 0;
         const ct  = typeof st.customTarget === "number" && st.customTarget > 0 ? st.customTarget : 33;
         if (typeof st.customName === "string") setCustomName(st.customName);

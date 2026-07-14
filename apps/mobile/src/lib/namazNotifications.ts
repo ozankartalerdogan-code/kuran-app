@@ -3,6 +3,7 @@ import * as Device from "expo-device";
 import * as Location from "expo-location";
 import { Platform } from "react-native";
 import { api } from "./api";
+import { toPrayerCoords, type PrayerCoords } from "./prayerLocation";
 import { storage, STORAGE_KEYS } from "./storage";
 
 // Bildirimlerin yanı sıra namaz widget'ı da (src/widgets/prayerWidgetSync.ts)
@@ -23,26 +24,24 @@ export type PrayerTimes = Record<string, string>;
 export const NOTIF_KEY = "namazNotifEnabled";
 export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 export const SCHED_DAY_KEY = "namazNotifSchedDay";
-
-const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
+export const PRAYER_SCHEDULE_UNAVAILABLE_KEY = "namazNotifScheduleUnavailable";
 
 // Başarılı her konum çözümü buraya yazılır. Canlı konum alınamadığında (özellikle
-// ARKA PLAN görevi: yalnız-ön-plan izinle GPS çağrısı başarısız olur) İstanbul'a
-// düşmeden önce kullanıcının son bilinen konumu kullanılır.
+// ARKA PLAN görevi: yalnız-ön-plan izinle GPS çağrısı başarısız olur) kullanıcının
+// doğrulanmış son bilinen konumu kullanılır. O da yoksa yanlış şehir planlanmaz.
 const LAST_COORDS_KEY = "lastKnownCoords";
 
-type Coords = { lat: number; lng: number };
+type Coords = PrayerCoords;
 
 function rememberCoords(c: Coords): void {
   storage.setJSON(LAST_COORDS_KEY, c).catch(() => {});
 }
 
-async function savedCoordsOrIstanbul(): Promise<Coords> {
+async function savedCoordsOrNull(): Promise<Coords | null> {
   try {
-    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
-    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
-  } catch { /* okunamadı — İstanbul'a düş */ }
-  return ISTANBUL_FALLBACK;
+    return toPrayerCoords(await storage.getJSON<unknown>(LAST_COORDS_KEY));
+  } catch { /* okunamadı — konum yok say */ }
+  return null;
 }
 
 function localDayStr(d = new Date()): string {
@@ -51,40 +50,42 @@ function localDayStr(d = new Date()): string {
 
 // İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
 // Widget senkronizasyonu da (prayerWidgetSync.ts) aynı sessiz konum yolunu paylaşır.
-export async function getLocationSilent(): Promise<Coords> {
+export async function getLocationSilent(): Promise<Coords | null> {
   try {
     const { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== "granted") return savedCoordsOrIstanbul();
+    if (status !== "granted") return savedCoordsOrNull();
     const pos = await Promise.race([
       Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
       new Promise<null>((r) => setTimeout(() => r(null), 8000)),
     ]);
-    if (!pos || !("coords" in pos)) return savedCoordsOrIstanbul();
-    const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    if (!pos || !("coords" in pos)) return savedCoordsOrNull();
+    const c = toPrayerCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    if (!c) return savedCoordsOrNull();
     rememberCoords(c);
     return c;
   } catch {
-    return savedCoordsOrIstanbul();
+    return savedCoordsOrNull();
   }
 }
 
 // İzin İSTEYEREK konum getirir — yalnız ilk-hiç-açılış otomatik-etkinleştirmesinde
 // kullanılır (kullanıcı henüz hiçbir yerde karar vermemişse gerçek OS izin
-// penceresini açar). Reddedilirse/hata olursa sessizce İstanbul'a düşer.
-async function getLocationRequesting(): Promise<Coords> {
+// penceresini açar). Reddedilirse/hata olursa null döner; yanlış şehir planlanmaz.
+export async function getLocationRequesting(): Promise<Coords | null> {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") return ISTANBUL_FALLBACK;
+    if (status !== "granted") return null;
     const pos = await Promise.race([
       Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
       new Promise<null>((r) => setTimeout(() => r(null), 8000)),
     ]);
-    if (!pos || !("coords" in pos)) return ISTANBUL_FALLBACK;
-    const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    if (!pos || !("coords" in pos)) return null;
+    const c = toPrayerCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    if (!c) return null;
     rememberCoords(c);
     return c;
   } catch {
-    return ISTANBUL_FALLBACK;
+    return null;
   }
 }
 
@@ -520,6 +521,15 @@ export async function applyNotifications(opts: {
   }
 }
 
+export async function cancelScheduledPrayerNotifications(): Promise<void> {
+  const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+  await Promise.all(
+    scheduled
+      .filter(({ identifier }) => identifier.startsWith("namaz-"))
+      .map(({ identifier }) => Notifications.cancelScheduledNotificationAsync(identifier)),
+  );
+}
+
 // Bildirimleri kapat
 export async function cancelNamazNotifications(): Promise<void> {
   await Notifications.cancelAllScheduledNotificationsAsync();
@@ -534,17 +544,25 @@ export async function cancelNamazNotifications(): Promise<void> {
 //  - "error":   ağ vb. hata — tercih YAZILMAZ, sonraki açılışta otomatik tekrar denenir
 export async function enablePrayerNotificationsFirstRun(): Promise<"enabled" | "denied" | "error"> {
   const notifGranted = await requestNotificationPermission();
-  // Konum bildirimden BAĞIMSIZ istenir — namaz vakitleri ve kıble için de gerekli;
-  // reddedilirse İstanbul'a düşülür.
-  const { lat, lng } = await getLocationRequesting();
   if (!notifGranted) {
     await Promise.all([
       storage.setString(NOTIF_KEY, "0"),
       storage.setString(DAILY_VERSE_KEY, "0"),
+      storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
+    ]);
+    return "denied";
+  }
+  const coords = await getLocationRequesting();
+  if (!coords) {
+    await Promise.all([
+      storage.setString(NOTIF_KEY, "0"),
+      storage.setString(DAILY_VERSE_KEY, "0"),
+      storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
     ]);
     return "denied";
   }
   try {
+    const { lat, lng } = coords;
     const days = await fetchPrayerDays(lat, lng);
     if (!days) return "error";
     await applyNotifications({ days, prayer: true, dailyVerse: true });
@@ -552,6 +570,7 @@ export async function enablePrayerNotificationsFirstRun(): Promise<"enabled" | "
       storage.setString(NOTIF_KEY, "1"),
       storage.setString(DAILY_VERSE_KEY, "1"),
       storage.setString(SCHED_DAY_KEY, localDayStr()),
+      storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
     ]);
     return "enabled";
   } catch {
@@ -565,6 +584,7 @@ export async function declinePrayerNotifications(): Promise<void> {
   await Promise.all([
     storage.setString(NOTIF_KEY, "0"),
     storage.setString(DAILY_VERSE_KEY, "0"),
+    storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
   ]);
 }
 
@@ -633,10 +653,26 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
   if (lastDay === today) return;
 
   try {
-    const { lat, lng } = await getLocationSilent();
+    const coords = await getLocationSilent();
+    if (!coords) {
+      // Önceki sürümün İstanbul fallback'iyle kurmuş olabileceği namaz işlerini
+      // temizle; günlük ayet tercihini ve işlerini sebepsiz yere sıfırlama.
+      if (prayerOn) {
+        try {
+          await cancelScheduledPrayerNotifications();
+        } finally {
+          await storage.setString(PRAYER_SCHEDULE_UNAVAILABLE_KEY, "1");
+        }
+      }
+      return;
+    }
+    const { lat, lng } = coords;
     const days = await fetchPrayerDays(lat, lng);
     if (!days) return;
     await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
-    await storage.setString(SCHED_DAY_KEY, today);
+    await Promise.all([
+      storage.setString(SCHED_DAY_KEY, today),
+      storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
+    ]);
   } catch { /* sessiz — eldeki planlama korunur, bir sonraki açılışta tekrar denenir */ }
 }

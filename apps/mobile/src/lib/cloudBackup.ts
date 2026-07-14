@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 import { AppState } from "react-native";
 import { storage, STORAGE_KEYS, setStorageChangeListener } from "./storage";
+import type { CloudBackupDeleteResult, DeleteStepStatus } from "./cloudBackupDeleteResult";
 
 // ── Bulut yedek (Firebase anonim auth + Firestore) ─────────────────────────────
-// Amaç: kaldır-kur / yeni telefon / "verileri temizle" senaryolarında kullanıcı
-// ilerlemesinin (favori, not, streak, ders/elifba ilerlemesi, hatim) kaybolmaması.
+// Amaç: aynı anonim Firebase kimliğinin korunabildiği kurulumlarda kullanıcı
+// ilerlemesini (favori, not, streak, ders/elifba ilerlemesi, hatim) yedeklemek.
 //
 // Tasarım:
-//  • Anonim oturum → kullanıcıdan hesap İSTENMEZ. UID cihazda saklanır; Android
-//    Auto Backup (allowBackup: true) auth durumunu da Google Drive'a yedeklediği
-//    için kaldır-kur'da çoğu cihazda aynı UID geri gelir → yedek bulunur.
+//  • Anonim oturum → kullanıcıdan hesap İSTENMEZ. UID cihazda saklanır. Sistem
+//    yedeği UID'yi yeni kurulum/cihaza taşımayabilir; bu yüzden cihazlar arası
+//    geri yükleme garanti edilmez.
 //  • Firestore'da TEK doküman: backups/{uid}. Her yazma tam anlık görüntüdür
 //    (merge yok) → yerelde silinen anahtar bulutta da silinir, çakışma mantığı yok.
 //  • Maliyet: okuma yalnız ilk kurulumda 1 kez (restore bayrağı sonrası 0 okuma);
@@ -210,12 +211,17 @@ export async function isCloudBackupDisabled(): Promise<boolean> {
 }
 
 /**
- * Buluttaki yedeği VE anonim Firebase hesabını kalıcı olarak siler; yedeklemeyi
- * kullanıcı yeniden açana kadar kapatır. Cihazdaki yerel veriye dokunmaz.
- * Ağ yoksa/hata olursa false döner ve hiçbir şey değişmez (yedekleme sürer).
+ * Firestore yedeğini ve anonim Firebase hesabını sırayla siler. İki Firebase
+ * adımının sonucu ayrı raporlanır; yedek silindiyse veya etkin hesap yoksa yedekleme kapatılır.
+ * Cihazdaki yerel kullanıcı verisine dokunulmaz.
  */
-export async function deleteCloudBackup(): Promise<boolean> {
-  if (!cloudBackupAvailable) return false;
+export async function deleteCloudBackup(): Promise<CloudBackupDeleteResult> {
+  const failed: CloudBackupDeleteResult = {
+    firestore: "failed",
+    account: "not-attempted",
+    backupDisabled: false,
+  };
+  if (!cloudBackupAvailable) return failed;
 
   // Bekleyen push'u iptal et ve uid'i düşür — silme sürerken debounce/AppState
   // tetiklense bile pushBackup no-op kalsın, doküman geri yazılmasın.
@@ -224,6 +230,8 @@ export async function deleteCloudBackup(): Promise<boolean> {
   uid = null;
   dirty = false;
 
+  let firestore: DeleteStepStatus = "not-found";
+  let account: DeleteStepStatus = "not-found";
   try {
     const { getAuth } = authMod!;
     await waitForInitialAuthState();
@@ -231,19 +239,34 @@ export async function deleteCloudBackup(): Promise<boolean> {
     if (user) {
       // Önce doküman, sonra hesap: kurallar silme için auth'lu kullanıcı istiyor.
       const { deleteDoc } = fsMod!;
-      await withTimeout(deleteDoc(backupDocRef(user.uid)), DELETE_TIMEOUT_MS);
-      // Hesap silme ikincil: başarısız olsa da (ör. requires-recent-login) veri
-      // zaten gitti, geride içeriksiz anonim hesap kalır — kullanıcıya başarı denir.
-      try { await withTimeout(user.delete(), DELETE_TIMEOUT_MS); } catch { /* boş hesap kalabilir */ }
+      try {
+        await withTimeout(deleteDoc(backupDocRef(user.uid)), DELETE_TIMEOUT_MS);
+        firestore = "deleted";
+      } catch {
+        uid = prevUid;
+        return failed;
+      }
+
+      try {
+        await withTimeout(user.delete(), DELETE_TIMEOUT_MS);
+        account = "deleted";
+      } catch {
+        account = "failed";
+      }
     }
+
     setStorageChangeListener(null);
-    await storage.setString(DISABLED_KEY, "1");
+    try {
+      await storage.setString(DISABLED_KEY, "1");
+    } catch {
+      return { firestore, account, backupDisabled: false };
+    }
     // Yeniden açılırsa restore baştan denensin (doküman yok → zararsız).
-    await storage.remove(RESTORE_DONE_KEY);
-    return true;
+    await storage.remove(RESTORE_DONE_KEY).catch(() => {});
+    return { firestore, account, backupDisabled: true };
   } catch {
-    uid = prevUid; // silinemedi — yedekleme eskisi gibi devam eder
-    return false;
+    uid = prevUid;
+    return failed;
   }
 }
 

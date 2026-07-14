@@ -169,15 +169,26 @@ export const storage = {
   },
 
   async remove(key: string): Promise<void> {
-    if (mmkv) { mmkv.remove(key); notifyChange(key); return; }
+    if (mmkv) {
+      // Önce legacy kaynağı temizle; bu adım başarısızsa MMKV değerini koruyup
+      // sonraki okumada eski AsyncStorage değerinin "geri gelmesini" engelle.
+      await AsyncStorage.removeItem(key);
+      mmkv.remove(key);
+      notifyChange(key);
+      return;
+    }
     await AsyncStorage.removeItem(key);
     notifyChange(key);
   },
 
   async removeMany(keys: string[]): Promise<void> {
     const m = mmkv;
-    if (m) { keys.forEach((k) => m.remove(k)); }
-    else { await AsyncStorage.multiRemove(keys); }
+    if (m) {
+      await AsyncStorage.multiRemove(keys);
+      keys.forEach((k) => m.remove(k));
+    } else {
+      await AsyncStorage.multiRemove(keys);
+    }
     keys.forEach(notifyChange);
   },
 };

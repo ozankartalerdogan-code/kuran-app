@@ -1,7 +1,6 @@
 import {
   View, Text, ScrollView, ActivityIndicator, StyleSheet, Switch, Alert, Linking,
 } from "react-native";
-import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -12,42 +11,21 @@ import {
   fetchPrayerDays,
   applyNotifications,
   cancelNamazNotifications,
+  cancelScheduledPrayerNotifications,
   NOTIF_KEY,
   DAILY_VERSE_KEY,
   SCHED_DAY_KEY,
+  PRAYER_SCHEDULE_UNAVAILABLE_KEY,
+  getLocationRequesting,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
-
-const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
+import { getPrayerNotificationStatus } from "../src/lib/prayerNotificationStatus";
 
 function localDayStr(d = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
-  try {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert(
-        "Konum İzni",
-        "Konum izni verilmedi. Namaz vakitleri İstanbul için gösterilecek.",
-        [{ text: "Tamam" }],
-      );
-      return { ...ISTANBUL, isFallback: true };
-    }
-    const pos = await Promise.race([
-      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-      new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
-    ]);
-    if (!pos || !("coords" in pos)) {
-      return { ...ISTANBUL, isFallback: true };
-    }
-    return { lat: pos.coords.latitude, lng: pos.coords.longitude, isFallback: false };
-  } catch {
-    return { ...ISTANBUL, isFallback: true };
-  }
-}
 
 export default function BildirimlerScreen() {
   const insets = useSafeAreaInsets();
@@ -57,11 +35,11 @@ export default function BildirimlerScreen() {
   const [notifLoading, setNotifLoading] = useState(false);
   const [dailyVerseEnabled, setDailyVerseEnabled] = useState(false);
   const [dailyVerseLoading, setDailyVerseLoading] = useState(false);
-  const [usingFallback, setUsingFallback] = useState(false);
   // Uygulama TERCİHİNDEN (yukarıdaki iki state) kasıtlı olarak AYRI tutulur:
   // kullanıcı sistem ayarlarından bildirimleri kapatmış olabilir — bu durumda
   // tercih "açık" kalır (niyet kaybolmaz) ama gerçek OS izni burada gösterilir.
   const [osPermissionGranted, setOsPermissionGranted] = useState(true);
+  const [prayerScheduleUnavailable, setPrayerScheduleUnavailable] = useState(false);
 
   // Güncel tercih durumunu VE gerçek OS izin durumunu oku/göster. Otomatik-planla/
   // tazele artık burada DEĞİL — _layout.tsx her açılışta/ön plana gelişte
@@ -70,15 +48,17 @@ export default function BildirimlerScreen() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [pv, dv, granted] = await Promise.all([
+      const [pv, dv, granted, scheduleUnavailable] = await Promise.all([
         storage.getString(NOTIF_KEY),
         storage.getString(DAILY_VERSE_KEY),
         getNotificationPermissionStatus(),
+        storage.getString(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
       ]);
       if (cancelled) return;
       setNotifEnabled(pv === "1");
       setDailyVerseEnabled(dv === "1");
       setOsPermissionGranted(granted);
+      setPrayerScheduleUnavailable(scheduleUnavailable === "1");
     })();
     return () => { cancelled = true; };
   }, []);
@@ -100,39 +80,69 @@ export default function BildirimlerScreen() {
   }
 
   // Ortak: iki toggle durumuna göre bildirimleri yeniden kur (cancelAll orkestratörde).
-  async function rescheduleNotifs(prayerOn: boolean, dailyOn: boolean): Promise<boolean> {
+  async function rescheduleNotifs(prayerOn: boolean, dailyOn: boolean): Promise<void> {
     if (!prayerOn && !dailyOn) {
       await cancelNamazNotifications();
-      await storage.remove(SCHED_DAY_KEY);
-      return false;
+      await Promise.all([
+        storage.remove(SCHED_DAY_KEY),
+        storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
+      ]);
+      setPrayerScheduleUnavailable(false);
+      return;
     }
-    const { lat, lng, isFallback } = await getUserLocation();
+    const coords = await getLocationRequesting();
+    if (!coords) {
+      if (prayerOn) {
+        try {
+          await cancelScheduledPrayerNotifications();
+        } finally {
+          if (notifEnabled) {
+            await storage.setString(PRAYER_SCHEDULE_UNAVAILABLE_KEY, "1");
+            setPrayerScheduleUnavailable(true);
+          }
+        }
+      }
+      throw new Error("location-unavailable");
+    }
+    const { lat, lng } = coords;
     const days = await fetchPrayerDays(lat, lng);
     if (!days) throw new Error("no-times");
     await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
-    await storage.setString(SCHED_DAY_KEY, localDayStr());
-    return isFallback;
+    await Promise.all([
+      storage.setString(SCHED_DAY_KEY, localDayStr()),
+      storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
+    ]);
+    setPrayerScheduleUnavailable(false);
   }
 
   async function toggleNotif(val: boolean) {
     setNotifLoading(true);
     try {
-      if (val && !(await ensurePermission())) { setNotifLoading(false); return; }
-      if (val) setOsPermissionGranted(true);
-      const isFallback = await rescheduleNotifs(val, dailyVerseEnabled);
-      await storage.setString(NOTIF_KEY, val ? "1" : "0");
-      setNotifEnabled(val);
-      if (val) {
-        setUsingFallback(isFallback);
-        const locationMsg = isFallback
-          ? "Konum izni verilmediği için namaz vakitleri İstanbul'a göre hesaplandı."
-          : "Namaz vakitleri bulunduğunuz konuma göre hesaplandı.";
-        Alert.alert("Bildirimler Açık", `Her namaz vakti girdikten kısa süre sonra, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\n${locationMsg}`);
-      } else if (!dailyVerseEnabled) {
-        setUsingFallback(false);
+      if (!val) {
+        await cancelScheduledPrayerNotifications();
+        const updates: Promise<void>[] = [
+          storage.setString(NOTIF_KEY, "0"),
+          storage.remove(PRAYER_SCHEDULE_UNAVAILABLE_KEY),
+        ];
+        if (!dailyVerseEnabled) updates.push(storage.remove(SCHED_DAY_KEY));
+        await Promise.all(updates);
+        setPrayerScheduleUnavailable(false);
+        setNotifEnabled(false);
+        return;
       }
-    } catch {
-      Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
+      if (!(await ensurePermission())) { setNotifLoading(false); return; }
+      setOsPermissionGranted(true);
+      await rescheduleNotifs(true, dailyVerseEnabled);
+      await storage.setString(NOTIF_KEY, "1");
+      setNotifEnabled(true);
+      Alert.alert("Bildirimler Açık", "Her namaz vakti girdikten kısa süre sonra, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\nNamaz vakitleri bulunduğunuz konuma göre hesaplandı.");
+    } catch (error) {
+      Alert.alert(
+        "Bildirimler Açılamadı",
+        error instanceof Error && error.message === "location-unavailable"
+          ? "Konum alınamadığı için namaz bildirimleri açılmadı. Konum iznini verip yeniden deneyin."
+          : "İşlem başarısız. Lütfen tekrar deneyin.",
+      );
     } finally {
       setNotifLoading(false);
     }
@@ -143,21 +153,31 @@ export default function BildirimlerScreen() {
     try {
       if (val && !(await ensurePermission())) { setDailyVerseLoading(false); return; }
       if (val) setOsPermissionGranted(true);
-      const isFallback = await rescheduleNotifs(notifEnabled, val);
+      await rescheduleNotifs(notifEnabled, val);
       await storage.setString(DAILY_VERSE_KEY, val ? "1" : "0");
       setDailyVerseEnabled(val);
       if (val) {
-        setUsingFallback(isFallback);
         Alert.alert("Günlük Ayet Açık", "Her gün, namaz vakitleriyle çakışmayan iki farklı saatte Günün Ayeti ve Günün Duası gönderilecek.");
-      } else if (!notifEnabled) {
-        setUsingFallback(false);
       }
-    } catch {
-      Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
+    } catch (error) {
+      Alert.alert(
+        "Bildirimler Açılamadı",
+        error instanceof Error && error.message === "location-unavailable"
+          ? "Konum alınamadığı için bildirim saatleri güvenle planlanamadı. Konum iznini verip yeniden deneyin."
+          : "İşlem başarısız. Lütfen tekrar deneyin.",
+      );
     } finally {
       setDailyVerseLoading(false);
     }
   }
+
+  const prayerStatus = getPrayerNotificationStatus({
+    preferenceEnabled: notifEnabled,
+    osPermissionGranted,
+    scheduleUnavailable: prayerScheduleUnavailable,
+  });
+  const prayerStatusIsWarning =
+    prayerStatus.kind === "permission-denied" || prayerStatus.kind === "location-unavailable";
 
   return (
     <>
@@ -171,14 +191,8 @@ export default function BildirimlerScreen() {
         <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
             <Text style={[styles.notifTitle, { color: c.text }]}>🔔 Namaz Vakti Bildirimleri</Text>
-            <Text style={[styles.notifSub, { color: notifEnabled && !osPermissionGranted ? "#b45309" : c.textMuted }]}>
-              {notifEnabled
-                ? !osPermissionGranted
-                  ? "Sistem bildirim izni kapalı — hiçbir bildirim ulaşmaz. Ayarlardan tekrar açabilirsiniz."
-                  : usingFallback
-                    ? "İstanbul için bildirim planlandı (konum izni verilmedi)"
-                    : "Bulunduğunuz konum için bildirim planlandı"
-                : "Her namaz vakti için, içinde namaz temalı ayet bulunan hatırlatma"}
+            <Text style={[styles.notifSub, { color: prayerStatusIsWarning ? "#b45309" : c.textMuted }]}>
+              {prayerStatus.message}
             </Text>
           </View>
           {notifLoading

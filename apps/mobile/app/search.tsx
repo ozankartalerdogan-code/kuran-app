@@ -8,6 +8,7 @@ import type { Href } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { api, prefetchAyah, type SearchResponse, type TagFilterResult } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
+import { parseRecentSearches } from "../src/lib/storageSchemas";
 import { useColors } from "../src/hooks/useColors";
 import { logFeature, AnalyticsEvents } from "../src/lib/analytics";
 import { parseDirectAyahQuery } from "../src/lib/ayahRefs";
@@ -80,7 +81,7 @@ function tagLabel(tag: string): string {
 }
 
 async function loadRecent(): Promise<string[]> {
-  try { return (await storage.getJSON<string[]>(STORAGE_KEYS.recentSearches)) ?? []; }
+  try { return parseRecentSearches(await storage.getString(STORAGE_KEYS.recentSearches)); }
   catch { return []; }
 }
 async function saveRecent(list: string[]) {

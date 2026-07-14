@@ -15,8 +15,9 @@ import {
   enableCloudBackup,
   isCloudBackupDisabled,
 } from "../src/lib/cloudBackup";
+import { getCloudBackupDeleteFeedback } from "../src/lib/cloudBackupDeleteResult";
 
-const LAST_UPDATED = "12 Temmuz 2026";
+const LAST_UPDATED = "14 Temmuz 2026";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -61,8 +62,8 @@ function CloudBackupControls({ c }: { c: AppColors }) {
     return (
       <>
         <P c={c}>
-          <Text style={s.bold}>Bulut yedekleme şu an kapalı.</Text> Yedeğiniz ve anonim hesabınız
-          silindi; siz yeniden açana kadar hiçbir veri buluta gönderilmez.
+          <Text style={s.bold}>Bulut yedekleme şu an kapalı.</Text> Siz yeniden açana kadar hiçbir veri
+          buluta gönderilmez. Son silme işleminin ayrıntısı işlem sırasında ayrıca bildirilir.
         </P>
         <TouchableOpacity
           style={[s.backupBtn, { borderColor: c.accent }]}
@@ -102,13 +103,10 @@ function CloudBackupControls({ c }: { c: AppColors }) {
               style: "destructive",
               onPress: async () => {
                 setState("busy");
-                const ok = await deleteCloudBackup();
-                setState(ok ? "disabled" : "active");
-                if (ok) {
-                  Alert.alert("Silindi", "Bulut yedeğiniz ve anonim hesabınız kalıcı olarak silindi.");
-                } else {
-                  Alert.alert("Silinemedi", "İnternet bağlantınızı kontrol edip yeniden deneyin.");
-                }
+                const result = await deleteCloudBackup();
+                const feedback = getCloudBackupDeleteFeedback(result);
+                setState(feedback.disabled ? "disabled" : "active");
+                Alert.alert(feedback.title, feedback.message);
               },
             },
           ],
@@ -167,15 +165,15 @@ export default function GizlilikScreen() {
           </P>
 
           <P c={c}>
-            <Text style={s.bold}>Bulut yedekleme (Firebase):</Text> Yukarıdaki veriler, uygulamayı kaldırıp
-            yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google
-            Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon
-            numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan anonim bir kimlikle (Firebase Anonymous
-            Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim
-            kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği
-            reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizi ve
-            anonim hesabınızı dilediğiniz an uygulama içinden kalıcı olarak silebilirsiniz (bkz. "7. Hesap ve
-            Veri Silme").
+            <Text style={s.bold}>Bulut yedekleme (Firebase):</Text> Yukarıdaki veriler Google Firebase (Cloud
+            Firestore) altyapısında, ad-soyad, e-posta veya telefon numarası istenmeden oluşturulan anonim bir
+            kimlikle (Firebase Anonymous Authentication) eşleştirilerek yedeklenir. Geri yükleme yalnız aynı
+            anonim Firebase kimliği uygulamada kullanılabildiği sürece mümkündür. Bu anonim kimlik yeni cihaza
+            veya temiz kuruluma taşınmazsa önceki yedeğe erişilemeyebilir; yeni cihazda geri yükleme garanti
+            edilmez. Yedeğinize erişim güvenlik kurallarıyla anonim kimliğinizle sınırlandırılmıştır; iletim HTTPS
+            ile şifrelenir. Not metinleriniz dahil yedek içeriği reklam, profilleme veya analitik amaçla
+            kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizi ve anonim hesabınızı uygulama içinden silmeyi
+            deneyebilirsiniz; iki silme adımının sonucu ayrı bildirilir (bkz. "7. Hesap ve Veri Silme").
           </P>
           <P c={c}>
             <Text style={s.bold}>Android sistem yedeği:</Text> Ayrıca Android'in sistem yedekleme özelliği
@@ -244,8 +242,8 @@ export default function GizlilikScreen() {
         <Section title="7. Hesap ve Veri Silme">
           <P c={c}>
             Bulut yedeği, kimlik bilgisi istemeyen <Text style={s.bold}>anonim bir Firebase hesabıyla</Text>{" "}
-            eşleştirilir. Aşağıdaki düğme, buluttaki yedeğinizi ve bu anonim hesabı kalıcı olarak siler;
-            silinen veriler geri getirilemez. Cihazınızdaki yerel veriler etkilenmez — onları uygulamayı
+            eşleştirilir. Aşağıdaki düğme buluttaki yedeği, ardından anonim hesabı silmeyi dener ve iki adımın
+            sonucunu ayrı bildirir. Silinen veriler geri getirilemez. Cihazınızdaki yerel veriler etkilenmez — onları uygulamayı
             kaldırarak veya cihaz ayarlarından uygulama verilerini temizleyerek silebilirsiniz.
           </P>
           <CloudBackupControls c={c} />
