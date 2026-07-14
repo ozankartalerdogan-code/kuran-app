@@ -32,11 +32,11 @@ function Step({ n, text, c }: { n: number; text: string; c: AppColors }) {
   );
 }
 
-// Canlı geri sayımın exact alarm izni durumu + kullanıcı kontrollü izin akışı.
-// Otomatik sistem ekranı AÇILMAZ: önce uygulama içi kısa gerekçe (Alert), kullanıcı
-// onaylarsa Android'in "Alarmlar ve hatırlatıcılar" ayarı açılır; dönüşte durum
-// yeniden okunur ve widget tazelenir. API 31 öncesinde izin kavramı olmadığından
-// kart her zaman "etkin" görünür.
+// Canlı geri sayımın exact alarm izni durumu kartı.
+// Otomatik sistem ekranı AÇILMAZ: kullanıcı butona bastığında ikinci bir onay
+// penceresi gösterilmeden doğrudan Android'in "Alarmlar ve hatırlatıcılar" ayarı
+// açılır; uygulamaya dönüşte durum yeniden okunur ve widget tazelenir. API 31
+// öncesinde bu izin kavramı olmadığından kart hiç gösterilmez (bkz. çağıran taraf).
 function CanliSayacKarti({ c }: { c: AppColors }) {
   const [izinVar, setIzinVar] = useState(() => canScheduleExactAlarms());
 
@@ -51,38 +51,34 @@ function CanliSayacKarti({ c }: { c: AppColors }) {
   }, []);
 
   const izinIste = useCallback(() => {
-    Alert.alert(
-      "Canlı Geri Sayım",
-      "Canlı geri sayımın namaz vakti girdiğinde tam zamanında sonraki vakte geçebilmesi için Android'in “Alarmlar ve hatırlatıcılar” erişimi gerekir. İzin verilmezse widget namaz saatlerini göstermeye devam eder ancak saniyelik sayaç kullanılmaz.",
-      [
-        { text: "Vazgeç", style: "cancel" },
-        {
-          text: "Ayarları Aç",
-          onPress: () => {
-            const acildi = openExactAlarmSettings();
-            if (!acildi) {
-              Alert.alert(
-                "Ayarlar açılamadı",
-                "Sistem Ayarları > Uygulamalar > Kuran Yolu > Alarmlar ve hatırlatıcılar yolundan izni elle verebilirsiniz.",
-              );
-            }
-          },
-        },
-      ],
-    );
+    const acildi = openExactAlarmSettings();
+    if (!acildi) {
+      Alert.alert(
+        "Ayarlar açılamadı",
+        "“Alarmlar ve hatırlatıcılar” ayarını cihazınızın uygulama ayarlarından manuel olarak açabilirsiniz.",
+        [{ text: "Tamam" }],
+      );
+    }
   }, []);
 
   return (
     <View style={[s.card, { backgroundColor: c.card, borderColor: c.border, marginTop: 10 }]}>
       {izinVar ? (
-        <Text style={[s.paragraph, { color: c.textSecondary }]}>
-          ✓ Canlı geri sayım etkin. Widget, sıradaki vakte kalan süreyi saniye saniye gösterir.
-        </Text>
+        <>
+          <Text style={[s.cardTitle, { color: c.accent }]}>Canlı geri sayım aktif</Text>
+          <Text style={[s.paragraph, { color: c.textSecondary, marginTop: 4 }]}>
+            Namaz vakti widget'ı sıradaki vakte kalan süreyi saniye saniye gösteriyor.
+          </Text>
+        </>
       ) : (
         <>
-          <Text style={[s.paragraph, { color: c.textSecondary }]}>
-            Saniyelik canlı geri sayım için Android'in “Alarmlar ve hatırlatıcılar” izni gerekir. İzin verilmezse
-            widget, sıradaki vakti ve saatini göstermeye devam eder.
+          <Text style={[s.cardTitle, { color: "#b45309" }]}>Canlı geri sayım kapalı</Text>
+          <Text style={[s.paragraph, { color: c.textSecondary, marginTop: 4 }]}>
+            Namaz vakti widget'ı şu anda yalnızca sıradaki vakti ve saatini gösteriyor. Sıradaki vakte kalan süreyi
+            saniye saniye görmek için Android'in “Alarmlar ve hatırlatıcılar” erişimini açın.
+          </Text>
+          <Text style={[s.smallText, { color: c.textMuted }]}>
+            Bu erişim yalnızca widget sayacının vakit değişimlerinde zamanında yenilenmesi için kullanılır.
           </Text>
           <Pressable
             onPress={izinIste}
@@ -104,6 +100,9 @@ export default function WidgetEkleScreen() {
   // Native modül ancak yeni build'de var — eski build'de namaz widget'ı bölümü
   // gösterilmez (widget da eklenemezdi zaten), yalnız Emir Ayetleri anlatılır.
   const namazWidgetVar = isAndroid && isPrayerWidgetAvailable;
+  // Exact alarm izni kavramı yalnız Android 12 (API 31) ve üzerinde var;
+  // altındaki sürümlerde kart hiç gösterilmez.
+  const canliSayacKartiVar = namazWidgetVar && typeof Platform.Version === "number" && Platform.Version >= 31;
 
   return (
     <>
@@ -123,7 +122,7 @@ export default function WidgetEkleScreen() {
                 sonraki vakte geçer; dokununca uygulamadaki namaz ekranı açılır.
               </Text>
             </View>
-            <CanliSayacKarti c={c} />
+            {canliSayacKartiVar ? <CanliSayacKarti c={c} /> : null}
           </Section>
         ) : null}
 
@@ -174,7 +173,9 @@ const s = StyleSheet.create({
   section: { marginTop: 24 },
   sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   card: { borderRadius: 12, borderWidth: 1, padding: 14 },
+  cardTitle: { fontSize: 15, fontWeight: "700" },
   paragraph: { fontSize: 14, lineHeight: 22 },
+  smallText: { fontSize: 12, lineHeight: 18, marginTop: 8 },
   stepRow: { flexDirection: "row", alignItems: "flex-start", gap: 12, marginBottom: 14 },
   stepBadge: { width: 24, height: 24, borderRadius: 12, alignItems: "center", justifyContent: "center", marginTop: 1 },
   stepBadgeText: { color: "#fff", fontSize: 12, fontWeight: "700" },
