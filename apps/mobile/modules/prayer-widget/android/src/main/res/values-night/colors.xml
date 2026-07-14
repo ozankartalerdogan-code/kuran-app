@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <color name="prayer_widget_bg">#1c1917</color>
-  <color name="prayer_widget_border">#44403c</color>
-  <color name="prayer_widget_text">#fafaf9</color>
-  <color name="prayer_widget_text_secondary">#d6d3d1</color>
-  <color name="prayer_widget_text_muted">#a8a29e</color>
-  <color name="prayer_widget_accent">#10b981</color>
-</resources>

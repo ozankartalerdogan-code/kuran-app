@@ -13,27 +13,29 @@ import type { EmirAyet } from "./emirRotation";
 
 type Theme = "light" | "dark";
 
-// useColors.ts'teki light/dark paletle birebir eşleşir — widget ayrı süreçte
-// render olduğu için hook değil, sabit palet kullanılıyor. `as const`: TextWidget/
-// FlexWidget renk prop'ları `#${string}` literal tipini bekliyor (plain string olmaz).
+// Widget tasarım ailesi: sıcak parşömen zemin + derin Kuran Yolu yeşili + ölçülü
+// altın detay — namaz vakti widget'ının native paletiyle (modules/prayer-widget
+// res/values/colors.xml) birebir aynı değerler. Parşömen kimlik gece modunda da
+// korunur (iki tema aynı palet) — native taraf da values-night kullanmıyor.
+// `as const`: TextWidget/FlexWidget renk prop'ları `#${string}` literal tipi bekler.
+const PARCHMENT = {
+  bgTop: "#F4EDDF",
+  bgBottom: "#E8DDC7",
+  border: "#D9C9A6",
+  text: "#28241F",
+  textSecondary: "#584E42",
+  textMuted: "#9A8A74",
+  accent: "#1E5343",
+  gold: "#B08B44",
+} as const satisfies Record<string, `#${string}`>;
+
 const PALETTES = {
-  light: {
-    bg: "#fffdf6",
-    border: "#e7dfcc",
-    text: "#1c1917",
-    textSecondary: "#44403c",
-    textMuted: "#78716c",
-    accent: "#059669",
-  },
-  dark: {
-    bg: "#1c1917",
-    border: "#44403c",
-    text: "#fafaf9",
-    textSecondary: "#d6d3d1",
-    textMuted: "#a8a29e",
-    accent: "#10b981",
-  },
+  light: PARCHMENT,
+  dark: PARCHMENT,
 } as const satisfies Record<Theme, Record<string, `#${string}`>>;
+
+// İnce, düşük opaklıklı altın ayraçlar (mockup'taki zarif detay).
+const GOLD_SOFT = "rgba(176, 139, 68, 0.35)" as const;
 
 // Widget'ın gerçek yüksekliğine (dp, widgetInfo.height) göre Arapça/meal satır
 // bütçesi. Eskiden sabit 2+2 satırdı: kullanıcı widget'ı büyüttüğünde meal 2
@@ -69,11 +71,12 @@ export function EmirAyetWidget({
         height: "match_parent",
         width: "match_parent",
         flexDirection: "column",
-        backgroundColor: c.bg,
+        backgroundGradient: { from: c.bgTop, to: c.bgBottom, orientation: "TOP_BOTTOM" },
         borderRadius: 16,
         borderWidth: 1,
         borderColor: c.border,
-        padding: 12,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
       }}
     >
       <FlexWidget
@@ -82,12 +85,11 @@ export function EmirAyetWidget({
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 4,
         }}
       >
         <TextWidget
           text={badge}
-          style={{ color: c.accent, fontSize: 11, fontWeight: "700" }}
+          style={{ color: c.accent, fontSize: 11, fontWeight: "600", letterSpacing: 0.3 }}
           maxLines={1}
         />
         {/* Ayrı bir dokunma alanı olarak 36x36dp'lik kutuya alındı — yalnız "↻"
@@ -97,9 +99,11 @@ export function EmirAyetWidget({
           accessibilityLabel="Başka bir emir ayeti göster"
           style={{ width: 36, height: 36, alignItems: "center", justifyContent: "center" }}
         >
-          <TextWidget text="↻" style={{ color: c.textMuted, fontSize: 16 }} />
+          <TextWidget text="↻" style={{ color: c.textMuted, fontSize: 15 }} />
         </FlexWidget>
       </FlexWidget>
+      {/* Başlık ile içerik arasındaki ince, düşük opaklıklı altın ayraç. */}
+      <FlexWidget style={{ width: 36, height: 1, backgroundColor: GOLD_SOFT, marginTop: 2, marginBottom: 6 }} />
       {/* İçerik bloğu kalan alanı doldurur (flex:1) ve dikeyde ortalanır —
           büyük widget boylarında metin üstte toplanıp altta boşluk kalmasın. */}
       <FlexWidget
@@ -111,16 +115,25 @@ export function EmirAyetWidget({
         }}
       >
         {ayet.arabic_text ? (
-          <TextWidget
-            text={ayet.arabic_text}
-            style={{ color: c.text, fontSize: 15, textAlign: "right", marginBottom: 4 }}
-            maxLines={lines.arabic}
-            truncate="END"
-          />
+          <FlexWidget style={{ width: "match_parent", flexDirection: "column" }}>
+            {/* lineHeight 24: hareke ve uzatmaların üst/alt kırpılmaması için. */}
+            <TextWidget
+              text={ayet.arabic_text}
+              style={{ color: c.text, fontSize: 15, lineHeight: 24, textAlign: "right" }}
+              maxLines={lines.arabic}
+              truncate="END"
+            />
+            {/* Arapça ile meal arasındaki kısa altın detay (sağa hizalı, Arapça akış yönü). */}
+            <FlexWidget
+              style={{ width: "match_parent", flexDirection: "row", justifyContent: "flex-end", marginTop: 3, marginBottom: 3 }}
+            >
+              <FlexWidget style={{ width: 24, height: 1, backgroundColor: GOLD_SOFT }} />
+            </FlexWidget>
+          </FlexWidget>
         ) : null}
         <TextWidget
           text={ayet.meal}
-          style={{ color: c.textSecondary, fontSize: 12 }}
+          style={{ color: c.textSecondary, fontSize: 12, lineHeight: 18 }}
           maxLines={lines.meal}
           truncate="END"
         />
@@ -142,7 +155,7 @@ function EmirAyetWidgetFallback({ theme = "light" }: { theme?: Theme }) {
         width: "match_parent",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: c.bg,
+        backgroundGradient: { from: c.bgTop, to: c.bgBottom, orientation: "TOP_BOTTOM" },
         borderRadius: 16,
         borderWidth: 1,
         borderColor: c.border,
@@ -151,7 +164,7 @@ function EmirAyetWidgetFallback({ theme = "light" }: { theme?: Theme }) {
     >
       <TextWidget
         text="İçerik yüklenemedi. Açmak için dokunun."
-        style={{ color: c.textMuted, fontSize: 12, textAlign: "center" }}
+        style={{ color: c.textSecondary, fontSize: 12, textAlign: "center" }}
         maxLines={3}
       />
     </FlexWidget>

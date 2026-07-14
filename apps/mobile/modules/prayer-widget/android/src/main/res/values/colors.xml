@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Uygulamanın krem/zümrüt paleti (src/hooks/useColors.ts ve EmirAyetWidget.tsx
-     ile birebir aynı değerler). Gece modu values-night/ altında. -->
+<!-- Widget tasarım ailesi: sıcak parşömen zemin + derin Kuran Yolu yeşili +
+     ölçülü altın vurgu (referans mockup yönü). Gece modunda da aynı kimlik
+     kullanılır (values-night bilerek YOK — parşömen görünüm her temada sabit;
+     Emir Ayetleri widget'ı da EmirAyetWidget.tsx'te aynı paleti paylaşır). -->
 <resources>
-  <color name="prayer_widget_bg">#fffdf6</color>
-  <color name="prayer_widget_border">#e7dfcc</color>
-  <color name="prayer_widget_text">#1c1917</color>
-  <color name="prayer_widget_text_secondary">#44403c</color>
-  <color name="prayer_widget_text_muted">#78716c</color>
-  <color name="prayer_widget_accent">#059669</color>
+  <color name="prayer_widget_bg_top">#F4EDDF</color>
+  <color name="prayer_widget_bg_bottom">#E8DDC7</color>
+  <color name="prayer_widget_border">#D9C9A6</color>
+  <color name="prayer_widget_text">#28241F</color>
+  <color name="prayer_widget_text_secondary">#584E42</color>
+  <color name="prayer_widget_text_muted">#8A7A68</color>
+  <color name="prayer_widget_accent">#1E5343</color>
+  <color name="prayer_widget_gold">#B08B44</color>
 </resources>

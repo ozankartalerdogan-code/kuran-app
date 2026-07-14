@@ -6,12 +6,15 @@
   (Saniyelik canlı akış Chronometer'ın işi — launcher süreci kendisi çizer,
   bizim tarafta periyodik iş ÇALIŞMAZ.)
 -->
+<!-- İki satırlı kompakt içerik (başlık 12sp + sayaç 24sp + 20dp dikey padding
+     ≈ 69dp) 1 hücre yüksekliğe sığar; 70dp alt sınır yoğun grid'li launcher'larda
+     kırpılmayı önler. Kullanıcı dikeyde büyütürse içerik ortalı kalır. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
   android:minWidth="250dp"
-  android:minHeight="110dp"
+  android:minHeight="70dp"
   android:targetCellWidth="4"
-  android:targetCellHeight="2"
-  android:resizeMode="horizontal"
+  android:targetCellHeight="1"
+  android:resizeMode="horizontal|vertical"
   android:description="@string/prayer_widget_description"
   android:initialLayout="@layout/prayer_widget"
   android:updatePeriodMillis="1800000"

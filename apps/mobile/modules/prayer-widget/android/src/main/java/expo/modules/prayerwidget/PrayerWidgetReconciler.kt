@@ -118,51 +118,44 @@ object PrayerWidgetReconciler {
     return views
   }
 
+  /** Vakit adları Türkçe (İmsak, Öğle…) — büyük harfe çevirim tr kurallarıyla (İ/ı). */
+  private val TR_LOCALE: Locale = Locale.forLanguageTag("tr-TR")
+
   private fun formatTime(timestamp: Long): String =
     SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timestamp))
 
-  /** Canlı sayaç: "Sıradaki vakit: Akşam" + "01:24:36 kaldı" + "Akşam vakti: 20:41". */
+  /** Canlı sayaç (iki satır): "İMSAK · 03:44" + "1:29:44 kaldı" (sayaç ana odak). */
   private fun chronometer(context: Context, next: PrayerWidgetStore.PrayerEntry, base: Long): RemoteViews {
     val views = baseViews(context)
     views.setTextViewText(
       R.id.prayer_widget_title,
-      context.getString(R.string.prayer_widget_title_next) + ": " + next.label,
+      next.label.uppercase(TR_LOCALE) + " · " + formatTime(next.timestamp),
     )
     views.setChronometerCountDown(R.id.prayer_widget_chrono, true)
-    views.setChronometer(
-      R.id.prayer_widget_chrono,
-      base,
-      context.getString(R.string.prayer_widget_chrono_format),
-      true,
-    )
-    views.setTextViewText(
-      R.id.prayer_widget_subtitle,
-      next.label + " vakti: " + formatTime(next.timestamp),
-    )
-    views.setViewVisibility(R.id.prayer_widget_chrono, View.VISIBLE)
-    views.setViewVisibility(R.id.prayer_widget_subtitle, View.VISIBLE)
+    // format=null: Chronometer ham süreyi yazar; "kaldı" eki layout'ta ayrı,
+    // daha düşük ağırlıklı bir TextView (tipografik hiyerarşi).
+    views.setChronometer(R.id.prayer_widget_chrono, base, null, true)
+    views.setViewVisibility(R.id.prayer_widget_chrono_row, View.VISIBLE)
     views.setViewVisibility(R.id.prayer_widget_static, View.GONE)
     return views
   }
 
-  /** Statik güvenli görünüm: "Sıradaki vakit" + "Akşam 20:41". */
+  /** Statik güvenli görünüm (iki satır): "SIRADAKİ VAKİT" + "İmsak · 03:44". */
   private fun staticNext(context: Context, label: String, timestamp: Long): RemoteViews {
     val views = baseViews(context)
     views.setTextViewText(R.id.prayer_widget_title, context.getString(R.string.prayer_widget_title_next))
-    views.setTextViewText(R.id.prayer_widget_static, "$label ${formatTime(timestamp)}")
-    views.setViewVisibility(R.id.prayer_widget_chrono, View.GONE)
-    views.setViewVisibility(R.id.prayer_widget_subtitle, View.GONE)
+    views.setTextViewText(R.id.prayer_widget_static, "$label · ${formatTime(timestamp)}")
+    views.setViewVisibility(R.id.prayer_widget_chrono_row, View.GONE)
     views.setViewVisibility(R.id.prayer_widget_static, View.VISIBLE)
     return views
   }
 
-  /** Veri yok/bitmiş/saat dilimi uyuşmuyor: "…uygulamayı açın". */
+  /** Veri yok/bitmiş/saat dilimi uyuşmuyor (iki satır): "NAMAZ VAKİTLERİ" + "Güncellemek için dokunun". */
   private fun message(context: Context): RemoteViews {
     val views = baseViews(context)
-    views.setTextViewText(R.id.prayer_widget_title, context.getString(R.string.prayer_widget_label))
+    views.setTextViewText(R.id.prayer_widget_title, context.getString(R.string.prayer_widget_title_empty))
     views.setTextViewText(R.id.prayer_widget_static, context.getString(R.string.prayer_widget_open_app))
-    views.setViewVisibility(R.id.prayer_widget_chrono, View.GONE)
-    views.setViewVisibility(R.id.prayer_widget_subtitle, View.GONE)
+    views.setViewVisibility(R.id.prayer_widget_chrono_row, View.GONE)
     views.setViewVisibility(R.id.prayer_widget_static, View.VISIBLE)
     return views
   }

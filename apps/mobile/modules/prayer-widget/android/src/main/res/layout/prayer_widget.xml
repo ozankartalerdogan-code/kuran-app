@@ -1,70 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Namaz vakti widget yerleşimi. Üç durum, görünürlük RemoteViews ile yönetilir:
-  • Canlı sayaç:  title="Sıradaki vakit: Akşam" + Chronometer "01:24:36 kaldı"
-  • Statik:       title="Sıradaki vakit"        + static  "Akşam 20:41"
-  • Hata/veri yok: title="Namaz Vakitleri"      + static  "…uygulamayı açın"
-  Chronometer varsayılan GONE — başıboş sayaç asla görünmesin (negatif süre yasağı).
+  Namaz vakti widget'ı — İKİ satırlı düzen (üçüncü satır bilerek YOK):
+  • Canlı sayaç:  "İMSAK · 03:44" (derin yeşil) + "1:29:44" (büyük antrasit) + "kaldı" (soluk)
+  • Statik:       "SIRADAKİ VAKİT"               + "İmsak · 03:44"
+  • Veri yok:     "NAMAZ VAKİTLERİ"              + "Güncellemek için dokunun"
+  Solda mockup'taki ince altın vurgu çizgisi. Görünürlük RemoteViews ile yönetilir;
+  Chronometer satırı varsayılan GONE (başıboş/negatif sayaç asla görünmez).
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/prayer_widget_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
+  android:orientation="horizontal"
   android:gravity="center_vertical"
   android:background="@drawable/prayer_widget_bg"
-  android:paddingLeft="14dp"
-  android:paddingRight="14dp"
+  android:paddingLeft="16dp"
+  android:paddingRight="16dp"
   android:paddingTop="10dp"
   android:paddingBottom="10dp">
 
-  <TextView
-    android:id="@+id/prayer_widget_title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/prayer_widget_title_next"
-    android:textColor="@color/prayer_widget_accent"
-    android:textSize="12sp"
-    android:textStyle="bold"
-    android:singleLine="true"
-    android:ellipsize="end" />
+  <View
+    android:layout_width="3dp"
+    android:layout_height="38dp"
+    android:layout_marginRight="12dp"
+    android:background="@drawable/prayer_widget_accent_bar" />
 
-  <Chronometer
-    android:id="@+id/prayer_widget_chrono"
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
-    android:countDown="true"
-    android:format="@string/prayer_widget_chrono_format"
-    android:textColor="@color/prayer_widget_text"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    android:singleLine="true"
-    android:visibility="gone" />
+    android:orientation="vertical">
 
-  <!-- Yalnız canlı sayaç modunda görünür: "İmsak vakti: 03:44" — 4x2 hücrede
-       sayacın altındaki boşluğu bilgiyle doldurur (cihazda üst-boşluk sorunu
-       ekran görüntüsüyle doğrulanmıştı). -->
-  <TextView
-    android:id="@+id/prayer_widget_subtitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    android:textColor="@color/prayer_widget_text_muted"
-    android:textSize="12sp"
-    android:singleLine="true"
-    android:ellipsize="end"
-    android:visibility="gone" />
+    <TextView
+      android:id="@+id/prayer_widget_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/prayer_widget_title_empty"
+      android:textColor="@color/prayer_widget_accent"
+      android:textSize="12sp"
+      android:fontFamily="sans-serif-medium"
+      android:letterSpacing="0.08"
+      android:singleLine="true"
+      android:ellipsize="end" />
 
-  <TextView
-    android:id="@+id/prayer_widget_static"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
-    android:text="@string/prayer_widget_open_app"
-    android:textColor="@color/prayer_widget_text_secondary"
-    android:textSize="15sp"
-    android:singleLine="false"
-    android:maxLines="2"
-    android:ellipsize="end" />
+    <!-- Sayaç satırı: Chronometer (ana odak) + daha düşük ağırlıklı "kaldı" eki,
+         taban çizgisinde hizalı (LinearLayout baselineAligned varsayılanı). -->
+    <LinearLayout
+      android:id="@+id/prayer_widget_chrono_row"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+      <Chronometer
+        android:id="@+id/prayer_widget_chrono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:countDown="true"
+        android:textColor="@color/prayer_widget_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:singleLine="true" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/prayer_widget_chrono_suffix"
+        android:textColor="@color/prayer_widget_text_muted"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:singleLine="true" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/prayer_widget_static"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:text="@string/prayer_widget_open_app"
+      android:textColor="@color/prayer_widget_text"
+      android:textSize="18sp"
+      android:fontFamily="sans-serif-medium"
+      android:singleLine="true"
+      android:ellipsize="end" />
+  </LinearLayout>
 </LinearLayout>
