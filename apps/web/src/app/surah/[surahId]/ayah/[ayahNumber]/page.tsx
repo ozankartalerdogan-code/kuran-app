@@ -38,32 +38,32 @@ import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
 import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
 import { arapRakam, ayetinSayfasi } from "../../../../../lib/mushafSayfaUtils";
-import dynamicImport from "next/dynamic";
+import { NoteEditor, StreakTracker } from "./ClientOnlyAyahTools";
 import { FavoriteButton } from "../../../../../components/FavoriteButton";
 import { ShareButton } from "./ShareButton";
 
-const NoteEditor    = dynamicImport(() => import("./NoteEditor").then((m) => m.NoteEditor),    { ssr: false });
-const StreakTracker = dynamicImport(() => import("./StreakTracker").then((m) => m.StreakTracker), { ssr: false });
-
 type SectionStatus = "ready" | "partially_ready" | "missing";
 
+interface PageSearchParams {
+  debug?: string | string[];
+  reading_source?: string | string[];
+  wa_source?: string | string[];
+}
+
 interface PageProps {
-  params: {
+  params: Promise<{
     surahId: string;
     ayahNumber: string;
-  };
-  searchParams?: {
-    debug?: string | string[];
-    reading_source?: string | string[];
-    wa_source?: string | string[];
-  };
+  }>;
+  searchParams?: Promise<PageSearchParams>;
 }
 
 // Ayete özel paylaşım/önizleme metadata'sı (WhatsApp/Telegram/sosyal kartı).
 // Olmadan tüm ayet linkleri layout'taki jenerik "Kuran Yolu" kartını gösteriyordu.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const surahId    = Number(params.surahId);
-  const ayahNumber = Number(params.ayahNumber);
+  const resolvedParams = await params;
+  const surahId    = Number(resolvedParams.surahId);
+  const ayahNumber = Number(resolvedParams.ayahNumber);
   if (!Number.isInteger(surahId) || !Number.isInteger(ayahNumber)) return {};
 
   const verseKey = `${surahId}:${ayahNumber}`;
@@ -255,7 +255,7 @@ function getWordAnalysisSourceHref({
   surahId
 }: {
   ayahNumber: number;
-  searchParams: PageProps["searchParams"];
+  searchParams: PageSearchParams | undefined;
   source: WordAnalysisSource;
   surahId: number;
 }): string {
@@ -727,7 +727,7 @@ function WordAnalysisDebugToggle({
 }: {
   ayahNumber: number;
   currentSource: WordAnalysisSource;
-  searchParams: PageProps["searchParams"];
+  searchParams: PageSearchParams | undefined;
   surahId: number;
 }) {
   const legacyHref = getWordAnalysisSourceHref({
@@ -1125,8 +1125,9 @@ function AyahDetailDebugPanel({ payload }: { payload: AyahDetailDebugPayload }) 
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
-  const surahId = parsePositiveInteger(params.surahId);
-  const ayahNumber = parsePositiveInteger(params.ayahNumber);
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const surahId = parsePositiveInteger(resolvedParams.surahId);
+  const ayahNumber = parsePositiveInteger(resolvedParams.ayahNumber);
 
   if (surahId === null || ayahNumber === null) {
     return <ErrorState message="Sûre veya ayet numarası pozitif tam sayı olmalı." />;
@@ -1157,14 +1158,14 @@ export default async function Page({ params, searchParams }: PageProps) {
   // ?debug=1 yalnızca development'ta etkili — production'da deneysel/teknik
   // paneller görünmesin. QURAN_APP_ENABLE_EXPERIMENTAL_QUERY env değişkeni
   // bilinçli bir deploy-zamanı anahtarı olduğu için ortamdan bağımsız kalır.
-  const debugQueryEnabled = isDevelopment && getSingleQueryValue(searchParams?.debug) === "1";
+  const debugQueryEnabled = isDevelopment && getSingleQueryValue(resolvedSearchParams?.debug) === "1";
   const experimentalUiEnabled =
     process.env.QURAN_APP_ENABLE_EXPERIMENTAL_QUERY === "1" ||
     process.env.QURAN_APP_ENABLE_EXPERIMENTAL_QUERY === "true";
   const showExperimentalControls = debugQueryEnabled || experimentalUiEnabled;
   const wordAnalysisSource = resolveWordAnalysisSource(
-    searchParams?.wa_source,
-    searchParams?.debug
+    resolvedSearchParams?.wa_source,
+    resolvedSearchParams?.debug
   );
   let detail: Awaited<ReturnType<typeof getAyahDetailFromDb>>;
   try {
@@ -1415,7 +1416,7 @@ export default async function Page({ params, searchParams }: PageProps) {
           <WordAnalysisDebugToggle
             ayahNumber={ayahNumber}
             currentSource={wordAnalysisSource}
-            searchParams={searchParams}
+            searchParams={resolvedSearchParams}
             surahId={surahId}
           />
         ) : null}

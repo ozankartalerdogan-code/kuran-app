@@ -6,7 +6,7 @@ import { SAYFA_SAYISI, sayfaAraligi, sayfaninCuzu, sayfaBasSuresi, ayetinSayfasi
 import { MushafSayfaClient, type MushafSayfaVerse, type MushafSayfaSurah, type MushafSayfaSurahListItem } from "./MushafSayfaClient";
 
 interface PageProps {
-  params: { page: string };
+  params: Promise<{ page: string }>;
 }
 
 interface VerseRow { surah_id: number; ayah_number: number; arabic_text: string | null; arabic_tajweed: string | null }
@@ -19,7 +19,8 @@ function parsePage(value: string): number | null {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const page = parsePage(params.page);
+  const { page: rawPage } = await params;
+  const page = parsePage(rawPage);
   if (!page) return { title: "Mushaf Sayfa Görünümü" };
   return {
     title: `Sayfa ${page} — Mushaf`,
@@ -29,7 +30,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function MushafSayfaPage({ params }: PageProps) {
-  const page = parsePage(params.page);
+  const { page: rawPage } = await params;
+  const page = parsePage(rawPage);
   if (!page) redirect("/mushaf-sayfa/1");
 
   const { bas, son } = sayfaAraligi(page);

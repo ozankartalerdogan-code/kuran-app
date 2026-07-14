@@ -17,9 +17,10 @@ export type QuizSoru = Omit<QuizRow, "secenekler"> & { secenekler: string[] };
 
 export async function GET(
   _req: Request,
-  { params }: { params: { lessonId: string } },
+  { params }: { params: Promise<{ lessonId: string }> },
 ) {
-  const lessonId = Number(params.lessonId);
+  const { lessonId: rawLessonId } = await params;
+  const lessonId = Number(rawLessonId);
   if (!Number.isInteger(lessonId) || lessonId < 1)
     return NextResponse.json({ error: "Geçersiz ders ID" }, { status: 400 });
 

@@ -4,11 +4,12 @@ import type { RootDetail } from "../../../types/rootDetail";
 import RootDetailContent from "./RootDetailContent";
 
 interface Props {
-  params: { root: string };
+  params: Promise<{ root: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const root = decodeURIComponent(params.root);
+  const { root: encodedRoot } = await params;
+  const root = decodeURIComponent(encodedRoot);
   return {
     title: `Kök: ${root}`,
     description: `${root} kökünün anlamı, sure dağılımı ve türev kelimeleri`,
@@ -16,7 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function RootDetailPage({ params }: Props) {
-  const root = decodeURIComponent(params.root);
+  const { root: encodedRoot } = await params;
+  const root = decodeURIComponent(encodedRoot);
 
   let data: RootDetail | null = null;
   let error: string | null = null;

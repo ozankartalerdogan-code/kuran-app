@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import { BASLIKLAR } from "../../../../data/dersler/registry";
 import { DersDetayClient } from "./DersDetayClient";
 
-type PageProps = { params: { dersId: string } };
+type PageProps = { params: Promise<{ dersId: string }> };
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const title = BASLIKLAR[params.dersId] ?? "Ders";
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { dersId } = await params;
+  const title = BASLIKLAR[dersId] ?? "Ders";
   return {
     title,
     description: `${title} dersini kartlarla okuyun ve quizle pekiştirin.`,
   };
 }
 
-export default function DersDetayPage({ params }: PageProps) {
-  return <DersDetayClient dersId={params.dersId} />;
+export default async function DersDetayPage({ params }: PageProps) {
+  const { dersId } = await params;
+  return <DersDetayClient dersId={dersId} />;
 }

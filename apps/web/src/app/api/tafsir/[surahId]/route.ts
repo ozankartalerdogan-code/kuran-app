@@ -8,9 +8,10 @@ type TafsirMode = "original" | "simplified";
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { surahId: string } }
+  { params }: { params: Promise<{ surahId: string }> }
 ): Promise<NextResponse> {
-  const id = parseInt(params.surahId, 10);
+  const { surahId } = await params;
+  const id = parseInt(surahId, 10);
   if (!Number.isFinite(id) || id < 1 || id > 114) {
     return NextResponse.json({ content: null, simplifiedContent: null, availableModes: ["original"] }, { status: 400 });
   }

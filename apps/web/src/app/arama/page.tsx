@@ -7,11 +7,12 @@ import { dbAll } from "../../lib/dbUtils";
 import { PageHeader } from "../../components/PageHeader";
 
 interface PageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export function generateMetadata({ searchParams }: PageProps): Metadata {
-  const q = typeof searchParams?.q === "string" ? searchParams.q.trim() : "";
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const resolvedSearchParams = await searchParams;
+  const q = typeof resolvedSearchParams?.q === "string" ? resolvedSearchParams.q.trim() : "";
   return { title: q ? `"${q}" — Arama` : "Arama" };
 }
 
@@ -62,7 +63,8 @@ async function runQuery(q: string): Promise<{ surahMatch: SurahRow | null; resul
 }
 
 export default async function AramaPage({ searchParams }: PageProps) {
-  const q = typeof searchParams?.q === "string" ? searchParams.q.trim() : "";
+  const resolvedSearchParams = await searchParams;
+  const q = typeof resolvedSearchParams?.q === "string" ? resolvedSearchParams.q.trim() : "";
   redirect(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
 
   const { surahMatch, results } = q.length >= 2

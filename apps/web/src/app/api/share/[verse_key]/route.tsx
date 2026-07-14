@@ -80,11 +80,12 @@ function trunc(text: string | null | undefined, max: number): string {
 
 export async function GET(
   req: NextRequest,
-  context: { params: { verse_key: string } }
+  context: { params: Promise<{ verse_key: string }> }
 ): Promise<ImageResponse | Response> {
+  const { verse_key: encodedVerseKey } = await context.params;
   let verseKey: string;
   try {
-    verseKey = decodeURIComponent(context.params.verse_key ?? "");
+    verseKey = decodeURIComponent(encodedVerseKey ?? "");
   } catch {
     return new Response("Geçersiz verse_key. Örn: 2:255", { status: 400 });
   }
