@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!--
+    GEÇİCİ TEŞHİS MODÜLÜ — tecvid nested-Text shaping sorununu izole etmek için
+    tek TextView + tek SpannableStringBuilder + yalnız ForegroundColorSpan
+    kullanan test view'ı. İzin/receiver/service YOK; manifest bilinçli boş.
+    Test sonuçlanınca modül ya üretim renderer'ına dönüştürülecek ya da silinecek.
+  -->
+</manifest>

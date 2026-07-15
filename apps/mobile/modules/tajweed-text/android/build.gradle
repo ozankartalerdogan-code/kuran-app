@@ -1,0 +1,20 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.tajweedtext'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.tajweedtext"
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}
+
+dependencies {
+  // TextViewCompat.setLineHeight (API 28 altı dahil tüm sürümlerde birebir satır yüksekliği)
+  implementation 'androidx.core:core-ktx:1.13.1'
+}

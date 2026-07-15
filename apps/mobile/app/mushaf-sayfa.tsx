@@ -14,7 +14,8 @@ import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi } from "../src/lib/mushafSayfa";
-import { RENK, parseTajweed, TAJWEED_LEGEND } from "../src/lib/tajweed";
+import { RENK, parseTajweed, TAJWEED_LEGEND, segmentsToRanges, groupSegmentsByWord, type TajweedRange } from "../src/lib/tajweed";
+import { TajweedNativeText, isTajweedNativeAvailable } from "../modules/tajweed-text";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -73,9 +74,12 @@ function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
 // Tecvid açıkken ayet metni renkli segmentlerle dizilir (markup yoksa düz metin).
 // parseTajweed memoize: seçim değişince sayfa yeniden render olur; karakter
 // bazlı ayrıştırmayı her dokunuşta 3 sayfa × tüm ayetler için tekrarlamamak şart.
+// KELİME-BAZLI fallback: Android'de kelime içine denk gelen nested-Text sınırı
+// harf bitişmesini kırar (cihazda A/B ile kanıtlandı) — bu yol yalnız native
+// renderer'ın OLMADIĞI eski build'lerde kullanılır; kelime içi bölünme yapmaz.
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
   const segs = useMemo(
-    () => (tajweed && ayet.tajweed ? parseTajweed(ayet.tajweed) : null),
+    () => (tajweed && ayet.tajweed ? groupSegmentsByWord(parseTajweed(ayet.tajweed)) : null),
     [tajweed, ayet.tajweed],
   );
   if (segs) {
@@ -90,6 +94,67 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][numbe
     );
   }
   return <>{ayet.arabic ?? ""}</>;
+}
+
+// ── Native tecvid bloğu ──────────────────────────────────────────────────────
+// Android tek-TextView/tek-Spannable renderer: blok içindeki TÜM ayetler tek
+// string olarak akar (basılı mushaf düzeni), tecvid renkleri + ayet numaraları
+// UTF-16 aralıklarıyla boyanır; shaping asla bozulmaz (harf düzeyi hassasiyet).
+// Dokunma: native, dokunulan karakterin indeksini verir → ayet aralığına eşlenir.
+type AyetAralik = { surahId: number; ayahNumber: number; start: number; end: number };
+
+function MetinBloguNative({ ayetler, fontSize, lineHeight, textColor, accent, secili, seciliRenk, onAyetSec }: {
+  ayetler: MushafPageResponse["verses"];
+  fontSize: number;
+  lineHeight: number;
+  textColor: string;
+  accent: string;
+  secili: SeciliAyet;
+  seciliRenk: string;
+  onAyetSec: (surahId: number, ayahNumber: number) => void;
+}) {
+  const { text, ranges, araliklar } = useMemo(() => {
+    let text = "";
+    const ranges: TajweedRange[] = [];
+    const araliklar: AyetAralik[] = [];
+    for (const a of ayetler) {
+      const start = text.length;
+      if (a.tajweed) {
+        const r = segmentsToRanges(parseTajweed(a.tajweed), text.length);
+        text += r.text;
+        ranges.push(...r.ranges);
+      } else {
+        text += a.arabic ?? "";
+      }
+      const num = ` ﴿${arapRakam(a.ayahNumber)}﴾ `;
+      ranges.push({ start: text.length, end: text.length + num.length, color: accent });
+      text += num;
+      araliklar.push({ surahId: a.surahId, ayahNumber: a.ayahNumber, start, end: text.length });
+    }
+    return { text, ranges, araliklar };
+  }, [ayetler, accent]);
+
+  const highlightRanges = useMemo(() => {
+    if (!secili) return [];
+    const a = araliklar.find((x) => x.surahId === secili.surahId && x.ayahNumber === secili.ayahNumber);
+    return a ? [{ start: a.start, end: a.end, color: seciliRenk }] : [];
+  }, [araliklar, secili, seciliRenk]);
+
+  return (
+    <TajweedNativeText
+      text={text}
+      ranges={ranges}
+      highlightRanges={highlightRanges}
+      fontSize={fontSize}
+      lineHeight={lineHeight}
+      textColor={textColor}
+      textAlign="justify"
+      onCharPress={(index) => {
+        const a = araliklar.find((x) => index >= x.start && index < x.end);
+        if (a) onAyetSec(a.surahId, a.ayahNumber);
+      }}
+    />
+  );
 }
 
 const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, secili, onAyetSec }: {
@@ -164,6 +229,21 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
                     </Text>
                   )}
                 </View>
+              ) : tajweed && isTajweedNativeAvailable ? (
+                // Tecvid açık + yeni build: native tek-Spannable renderer (harf
+                // düzeyi renk, shaping bozulmaz, dokun→seç native indeksle).
+                <MetinBloguNative
+                  key={`m${i}`}
+                  ayetler={blok.ayetler}
+                  fontSize={arabicStyle.fontSize}
+                  lineHeight={arabicStyle.lineHeight}
+                  textColor={c.text}
+                  accent={c.accent}
+                  secili={secili}
+                  // rgba() native parseColor'da yok — aynı renklerin #AARRGGBB eşdeğeri
+                  seciliRenk={c.isDark ? "#59CA8A04" : "#8CFDE047"}
+                  onAyetSec={onAyetSec}
+                />
               ) : (
                 <Text key={`m${i}`} style={[st.arabic, arabicStyle, { color: c.text }]}>
                   {blok.ayetler.map((a) => {

@@ -824,15 +824,21 @@ export default function AyahDetailScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾ */}
-          <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
-            {data.arabicTajweed && tajweed ? (
-              <TajweedText markup={data.arabicTajweed} />
-            ) : (
-              data.arabicText ?? "—"
-            )}
-            <Text style={{ color: gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
-          </Text>
+          {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾. Tecvid yolu dış Text
+              KULLANMAZ: stil+numara TajweedText'e gider (native tek-Spannable
+              renderer'da metnin bölünmemesi şart — Android shaping bug'ı). */}
+          {data.arabicTajweed && tajweed ? (
+            <TajweedText
+              markup={data.arabicTajweed}
+              style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}
+              suffix={{ text: ` ﴿${arapRakam(data.ayahNumber)}﴾`, color: gold }}
+            />
+          ) : (
+            <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
+              {data.arabicText ?? "—"}
+              <Text style={{ color: gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
+            </Text>
+          )}
 
           {/* Okunuş — aynı kâğıtta, ince ayraçla */}
           {reading ? (
