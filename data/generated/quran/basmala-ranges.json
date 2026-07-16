@@ -1,0 +1,797 @@
+{
+  "sourceSha256": "7f30c647331a61100ebf24a80507dc0fcdd9f2df97f1312b5b2dfcb982a7f326",
+  "coordinateSystem": "unicode-code-point-half-open",
+  "ranges": [
+    {
+      "verseKey": "1:1",
+      "kind": "ayah",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 39
+    },
+    {
+      "verseKey": "2:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "3:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "4:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "5:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "6:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "7:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "8:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "10:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "11:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "12:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "13:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "14:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "15:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "16:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "17:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "18:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "19:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "20:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "21:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "22:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "23:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "24:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "25:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "26:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "27:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "28:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "29:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "30:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "31:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "32:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "33:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "34:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "35:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "36:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "37:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "38:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "39:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "40:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "41:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "42:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "43:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "44:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "45:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "46:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "47:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "48:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "49:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "50:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "51:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "52:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "53:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "54:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "55:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "56:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "57:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "58:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "59:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "60:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "61:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "62:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "63:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "64:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "65:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "66:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "67:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "68:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "69:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "70:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "71:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "72:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "73:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "74:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "75:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "76:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "77:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "78:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "79:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "80:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "81:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "82:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "83:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "84:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "85:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "86:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "87:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "88:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "89:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "90:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "91:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "92:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "93:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "94:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "95:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 40,
+      "bodyStartCp": 41
+    },
+    {
+      "verseKey": "96:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "97:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 40,
+      "bodyStartCp": 41
+    },
+    {
+      "verseKey": "98:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "99:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "100:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "101:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "102:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "103:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "104:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "105:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "106:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "107:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "108:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "109:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "110:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "111:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "112:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "113:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    },
+    {
+      "verseKey": "114:1",
+      "kind": "prefix",
+      "startCp": 0,
+      "endCp": 39,
+      "bodyStartCp": 40
+    }
+  ]
+}
