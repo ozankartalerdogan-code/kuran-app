@@ -65,3 +65,16 @@ const ARAP_RAKAM = "٠١٢٣٤٥٦٧٨٩";
 export function arapRakam(n: number): string {
   return String(n).split("").map((d) => ARAP_RAKAM[Number(d)] ?? d).join("");
 }
+
+// Vakif isaretleri (U+06D6-06DC) ham arabic_text'te (Tanzil) SIRADAN bir
+// bosluktan sonra gelir - basili mushafta isaret, kelime arasindaki bosluk
+// uzerinde "yuzer" (kaynagin dogru/amacli kodlamasi; isaretin kendisi asla
+// degistirilmez/silinmez). Mushaf sayfasi tek uzun/justified blok olarak
+// aktiginda, satir kirma tam o bosluktan olursa isaret yeni satirin ilk
+// karakteri olur; tabansiz kalinca kesikli daire (U+25CC, .notdef) cizilir.
+// NBSP (U+00A0) ayni boslugu birebir korur (ayni genislik, ayni uzunluk),
+// yalniz satir kirma noktasi OLMAZ - metin ve anlam degismez.
+const VAKIF_ONCESI_BOSLUK = /\u0020(?=[\u06D6-\u06DC])/g;
+export function vakifBosluguSabitle(text: string): string {
+  return text.replace(VAKIF_ONCESI_BOSLUK, "\u00A0");
+}

@@ -31,7 +31,7 @@ import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
 import { isImageShareAvailable } from "../../../src/lib/shareImage";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../../../src/hooks/useFontScale";
-import { arapRakam, ayetinSayfasi } from "../../../src/lib/mushafSayfa";
+import { arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../../../src/lib/mushafSayfa";
 import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
@@ -828,14 +828,19 @@ export default function AyahDetailScreen() {
               KULLANMAZ: stil+numara TajweedText'e gider (native tek-Spannable
               renderer'da metnin bölünmemesi şart — Android shaping bug'ı). */}
           {data.arabicTajweed && tajweed ? (
+            // mushafMetniHazirla markup'a parse'tan ÖNCE uygulanır: eşlenen
+            // işaretler (U+06DF/06E3/06EB) markup sözdiziminin parçası değil ve
+            // parser'ın mark sınıfında birebir aynı kalırlar — parse/renk
+            // davranışı değişmez, yalnız KFGQPC'nin desteklediği eşdeğer
+            // karakterler fonta gider (siyah placeholder daire sorunu).
             <TajweedText
-              markup={data.arabicTajweed}
+              markup={mushafMetniHazirla(data.arabicTajweed)}
               style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}
               suffix={{ text: ` ﴿${arapRakam(data.ayahNumber)}﴾`, color: gold }}
             />
           ) : (
             <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
-              {data.arabicText ?? "—"}
+              {mushafMetniHazirla(data.arabicText ?? "—")}
               <Text style={{ color: gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
             </Text>
           )}

@@ -13,7 +13,7 @@ import { useColors } from "../src/hooks/useColors";
 import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
-import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi } from "../src/lib/mushafSayfa";
+import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../src/lib/mushafSayfa";
 import { RENK, parseTajweed, TAJWEED_LEGEND, segmentsToRanges, groupSegmentsByWord, type TajweedRange } from "../src/lib/tajweed";
 import { TajweedNativeText, isTajweedNativeAvailable } from "../modules/tajweed-text";
 import { HatimPanel } from "../src/components/HatimPanel";
@@ -78,8 +78,10 @@ function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
 // harf bitişmesini kırar (cihazda A/B ile kanıtlandı) — bu yol yalnız native
 // renderer'ın OLMADIĞI eski build'lerde kullanılır; kelime içi bölünme yapmaz.
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
+  // mushafMetniHazirla parse'tan ÖNCE: eşlenen işaretler markup sözdiziminin
+  // parçası değil, parser mark sınıfında aynı kalırlar — parse/renk değişmez.
   const segs = useMemo(
-    () => (tajweed && ayet.tajweed ? groupSegmentsByWord(parseTajweed(ayet.tajweed)) : null),
+    () => (tajweed && ayet.tajweed ? groupSegmentsByWord(parseTajweed(mushafMetniHazirla(ayet.tajweed))) : null),
     [tajweed, ayet.tajweed],
   );
   if (segs) {
@@ -93,7 +95,7 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][numbe
       </>
     );
   }
-  return <>{ayet.arabic ?? ""}</>;
+  return <>{mushafMetniHazirla(ayet.arabic ?? "")}</>;
 }
 
 // ── Native tecvid bloğu ──────────────────────────────────────────────────────
@@ -131,7 +133,10 @@ function MetinBloguNative({ ayetler, fontSize, lineHeight, textColor, accent, se
       text += num;
       araliklar.push({ surahId: a.surahId, ayahNumber: a.ayahNumber, start, end: text.length });
     }
-    return { text, ranges, araliklar };
+    // Uyum haritası + NBSP, birleştirilmiş SON metne uygulanır: 1:1 (uzunluk
+    // korunur) olduğundan yukarıda hesaplanan tüm aralık/indeksler geçerli
+    // kalır; tecvid metnindeki seyrek U+06DF'ler (66 ayet) de böylece düzelir.
+    return { text: mushafMetniHazirla(text), ranges, araliklar };
   }, [ayetler, accent]);
 
   const highlightRanges = useMemo(() => {

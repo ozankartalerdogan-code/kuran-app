@@ -5,7 +5,7 @@ import { Bookmark, BookmarkCheck, ListChecks, Palette, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { RENK, parseTajweed, TAJWEED_LEGEND } from "../../../lib/tajweed";
-import { SAYFA_SAYISI, arapRakam, ayetinSayfasi } from "../../../lib/mushafSayfaUtils";
+import { SAYFA_SAYISI, arapRakam, ayetinSayfasi, vakifBosluguSabitle } from "../../../lib/mushafSayfaUtils";
 import { getMushafBookmark, setMushafBookmark, parseMushafBookmark } from "../../../lib/mushafBookmark";
 import { loadHatimStore, saveHatimStore, getCurrentHatim, toggleHatimJuz, newHatim, type HatimStore } from "../../../lib/hatimStore";
 import { JUZ_DATA } from "../../hatim/juzData";
@@ -79,7 +79,7 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafSayfaVerse; tajweed: boolean
       </>
     );
   }
-  return <>{ayet.arabic ?? ""}</>;
+  return <>{vakifBosluguSabitle(ayet.arabic ?? "")}</>;
 }
 
 export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, surahList }: Props) {
