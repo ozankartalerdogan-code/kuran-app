@@ -22,6 +22,7 @@ import expo.modules.kotlin.modules.ModuleDefinition
 import expo.modules.kotlin.records.Field
 import expo.modules.kotlin.records.Record
 import expo.modules.kotlin.viewevent.EventDispatcher
+import java.security.MessageDigest
 import expo.modules.kotlin.views.ExpoView
 import kotlin.math.roundToInt
 
@@ -43,6 +44,8 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
   // bildiririz, JS style.height'ı günceller (yalnız değişince — döngü yok).
   private val onMeasured by EventDispatcher()
   // Dokunulan karakterin UTF-16 indeksi (mushaf'ta "dokun → hangi ayet" için).
+  // Native TextView readback proof: SHA-256 plus direct input equality.
+  private val onTextVerified by EventDispatcher()
   private val onCharPress by EventDispatcher()
   private var lastDispatchedHeight = -1
 
@@ -196,6 +199,16 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
     }
     textView.setText(sb, TextView.BufferType.SPANNABLE)
     requestLayout()
+    val readback = textView.text.toString()
+    val digest = MessageDigest.getInstance("SHA-256")
+      .digest(readback.toByteArray(Charsets.UTF_8))
+      .joinToString("") { "%02x".format(it) }
+    onTextVerified(mapOf(
+      "sha256" to digest,
+      "matchesInput" to (readback == arabicText),
+      "utf16Length" to readback.length,
+      "codePointLength" to readback.codePointCount(0, readback.length),
+    ))
   }
 
   private fun parseColorOrNull(value: String): Int? = try {
@@ -226,7 +239,7 @@ class TajweedTextModule : Module() {
     Name("TajweedText")
 
     View(TajweedTextView::class) {
-      Events("onMeasured", "onCharPress")
+      Events("onMeasured", "onCharPress", "onTextVerified")
 
       Prop("text") { view: TajweedTextView, text: String ->
         view.setArabicText(text)

@@ -1,2 +1,6 @@
 * text=auto eol=lf
 *.bat text eol=crlf
+
+# Tanzil Uthmani 1.1 is a byte-for-byte vendor source. Never apply EOL or
+# encoding conversions to this file.
+data/vendor/tanzil/uthmani-1.1/quran-uthmani.txt -text

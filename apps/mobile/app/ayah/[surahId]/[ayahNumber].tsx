@@ -774,7 +774,7 @@ export default function AyahDetailScreen() {
           </View>
 
           <View style={styles.tajRow}>
-            {data.arabicTajweed ? (
+            {data.tajweedSpans.length > 0 ? (
               <TouchableOpacity
                 style={[
                   styles.tajToggle,
@@ -827,14 +827,14 @@ export default function AyahDetailScreen() {
           {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾. Tecvid yolu dış Text
               KULLANMAZ: stil+numara TajweedText'e gider (native tek-Spannable
               renderer'da metnin bölünmemesi şart — Android shaping bug'ı). */}
-          {data.arabicTajweed && tajweed ? (
-            // mushafMetniHazirla markup'a parse'tan ÖNCE uygulanır: eşlenen
-            // işaretler (U+06DF/06E3/06EB) markup sözdiziminin parçası değil ve
-            // parser'ın mark sınıfında birebir aynı kalırlar — parse/renk
-            // davranışı değişmez, yalnız KFGQPC'nin desteklediği eşdeğer
-            // karakterler fonta gider (siyah placeholder daire sorunu).
+          {data.arabicText && data.tajweedSpans.length > 0 && tajweed ? (
+            // mushafMetniHazirla spans hesaplanmadan ÖNCE text'e uygulanır: eşlenen
+            // işaretler (U+06DF/06E3/06EB) 1:1 karakter eşlemesidir, uzunluk/indeks
+            // korunur — code-point span aralıkları kaymaz, yalnız KFGQPC'nin
+            // desteklediği eşdeğer karakterler fonta gider (siyah placeholder daire sorunu).
             <TajweedText
-              markup={mushafMetniHazirla(data.arabicTajweed)}
+              text={mushafMetniHazirla(data.arabicText)}
+              spans={data.tajweedSpans}
               style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}
               suffix={{ text: ` ﴿${arapRakam(data.ayahNumber)}﴾`, color: gold }}
             />
@@ -854,7 +854,7 @@ export default function AyahDetailScreen() {
           ) : null}
 
           {/* Tecvid lejantı — mushaftaki gibi, renklendirme açıkken */}
-          {tajweed && data.arabicTajweed ? (
+          {tajweed && data.tajweedSpans.length > 0 ? (
             <View style={styles.legend}>
               {TAJWEED_LEGEND.map((l) => (
                 <View key={l.ad} style={styles.legendItem}>

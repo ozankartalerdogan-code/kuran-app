@@ -4,7 +4,7 @@ import { getRelativeDataPath, readJsonFile, dbGet } from "./shared";
 import { getAppDb } from "./appDb";
 
 const surahSource = getRelativeDataPath("normalized", "surah-meta.json");
-const verseSource = getRelativeDataPath("normalized", "arabic.json");
+const verseSource = getRelativeDataPath("generated", "quran", "verses.json");
 
 interface RevelationContextEntry {
   surahId: number;
@@ -19,7 +19,7 @@ interface TafsirEntry {
 
 const arabicIndexPromise: Promise<Map<string, NormalizedArabicAyah>> = readJsonFile<
   NormalizedArabicAyah[]
->("normalized", "arabic.json").then(
+>("generated", "quran", "verses.json").then(
   (records) =>
     new Map(records.map((record) => [`${record.surahId}:${record.ayahNumber}`, record]))
 );

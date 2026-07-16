@@ -42,13 +42,32 @@ function sayfaAraligi(page: number) {
   return { bas: { surahId: s1, ayahNumber: a1 }, son };
 }
 
-interface VerseRow { surah_id: number; ayah_number: number; arabic_text: string | null; arabic_tajweed: string | null }
+export type QuranTajweedSpan = { startCp: number; endCp: number; rule: string; color: string };
+export type BasmalaRange = { kind: "ayah" | "prefix"; startCp: number; endCp: number; bodyStartCp: number };
+interface VerseRow {
+  verse_key: string;
+  surah_id: number;
+  ayah_number: number;
+  arabic_text: string | null;
+  basmala_kind: "ayah" | "prefix" | null;
+  basmala_start_cp: number | null;
+  basmala_end_cp: number | null;
+  body_start_cp: number | null;
+}
+interface SpanRow { verse_key: string; start_cp: number; end_cp: number; rule: string; color: string }
 interface SurahRow { id: number; adi_turkce: string; adi_arapca: string }
 
 export type MushafPageResponse = {
+  schemaVersion: 4;
   page: number;
   juz: number;
-  verses: { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }[];
+  verses: {
+    surahId: number;
+    ayahNumber: number;
+    arabic: string | null;
+    tajweedSpans: QuranTajweedSpan[];
+    basmalaRange: BasmalaRange | null;
+  }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
 
@@ -60,27 +79,57 @@ export async function GET(req: NextRequest) {
 
   const { bas, son } = sayfaAraligi(page);
   const juz = sonBaslangicIndeksi(cuzler, bas.surahId, bas.ayahNumber) + 1;
+  const rangeArgs = [bas.surahId, bas.surahId, bas.ayahNumber, son.surahId, son.surahId, son.ayahNumber];
 
   try {
-    const [verses, surahs] = await Promise.all([
+    const [verses, spans, surahs] = await Promise.all([
       dbAll<VerseRow>(
-        `SELECT surah_id, ayah_number, arabic_text, arabic_tajweed FROM verses
-         WHERE (surah_id > ? OR (surah_id = ? AND ayah_number >= ?))
-           AND (surah_id < ? OR (surah_id = ? AND ayah_number <= ?))
-         ORDER BY surah_id, ayah_number`,
-        bas.surahId, bas.surahId, bas.ayahNumber,
-        son.surahId, son.surahId, son.ayahNumber,
+        `SELECT v.verse_key, v.surah_id, v.ayah_number, v.arabic_text,
+                m.basmala_kind, m.basmala_start_cp, m.basmala_end_cp, m.body_start_cp
+         FROM verses v
+         LEFT JOIN quran_verse_metadata m ON m.verse_key = v.verse_key
+         WHERE (v.surah_id > ? OR (v.surah_id = ? AND v.ayah_number >= ?))
+           AND (v.surah_id < ? OR (v.surah_id = ? AND v.ayah_number <= ?))
+         ORDER BY v.surah_id, v.ayah_number`,
+        ...rangeArgs,
+      ),
+      dbAll<SpanRow>(
+        `SELECT t.verse_key, t.start_cp, t.end_cp, t.rule, t.color
+         FROM tajweed_spans t
+         JOIN verses v ON v.verse_key = t.verse_key
+         WHERE (v.surah_id > ? OR (v.surah_id = ? AND v.ayah_number >= ?))
+           AND (v.surah_id < ? OR (v.surah_id = ? AND v.ayah_number <= ?))
+         ORDER BY v.surah_id, v.ayah_number, t.start_cp`,
+        ...rangeArgs,
       ),
       dbAll<SurahRow>(
         "SELECT id, adi_turkce, adi_arapca FROM sureler WHERE id BETWEEN ? AND ? ORDER BY id",
         bas.surahId, son.surahId,
       ),
     ]);
+    const spansByVerse = new Map<string, QuranTajweedSpan[]>();
+    for (const span of spans) {
+      const list = spansByVerse.get(span.verse_key) ?? [];
+      list.push({ startCp: span.start_cp, endCp: span.end_cp, rule: span.rule, color: span.color });
+      spansByVerse.set(span.verse_key, list);
+    }
 
     const body: MushafPageResponse = {
+      schemaVersion: 4,
       page,
       juz,
-      verses: verses.map((v) => ({ surahId: v.surah_id, ayahNumber: v.ayah_number, arabic: v.arabic_text, tajweed: v.arabic_tajweed })),
+      verses: verses.map((verse) => ({
+        surahId: verse.surah_id,
+        ayahNumber: verse.ayah_number,
+        arabic: verse.arabic_text,
+        tajweedSpans: spansByVerse.get(verse.verse_key) ?? [],
+        basmalaRange: verse.basmala_kind === null ? null : {
+          kind: verse.basmala_kind,
+          startCp: verse.basmala_start_cp ?? 0,
+          endCp: verse.basmala_end_cp ?? 0,
+          bodyStartCp: verse.body_start_cp ?? 0,
+        },
+      })),
       surahs: surahs.map((s) => ({ id: s.id, name: s.adi_turkce, arabicName: s.adi_arapca })),
     };
 

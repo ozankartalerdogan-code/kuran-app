@@ -4,13 +4,19 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { Bookmark, BookmarkCheck, ListChecks, Palette, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { RENK, parseTajweed, TAJWEED_LEGEND } from "../../../lib/tajweed";
+import { RENK, TAJWEED_LEGEND } from "../../../lib/tajweed";
 import { SAYFA_SAYISI, arapRakam, ayetinSayfasi, vakifBosluguSabitle } from "../../../lib/mushafSayfaUtils";
 import { getMushafBookmark, setMushafBookmark, parseMushafBookmark } from "../../../lib/mushafBookmark";
 import { loadHatimStore, saveHatimStore, getCurrentHatim, toggleHatimJuz, newHatim, type HatimStore } from "../../../lib/hatimStore";
 import { JUZ_DATA } from "../../hatim/juzData";
 
-export interface MushafSayfaVerse { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }
+export interface MushafSayfaVerse {
+  surahId: number;
+  ayahNumber: number;
+  arabic: string | null;
+  tajweedSpans: { startCp: number; endCp: number; rule: string; color: string }[];
+  basmalaRange: { kind: "ayah" | "prefix"; startCp: number; endCp: number; bodyStartCp: number } | null;
+}
 export interface MushafSayfaSurah { id: number; name: string; arabicName: string }
 export interface MushafSayfaSurahListItem { id: number; name: string; arabicName: string; verseCount: number; page: number }
 
@@ -23,7 +29,6 @@ interface Props {
   surahList: MushafSayfaSurahListItem[];
 }
 
-const BESMELE = "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ";
 const FONT_SCALE_MIN = 0.85;
 const FONT_SCALE_MAX = 1.6;
 const FONT_SCALE_STEP = 0.15;
@@ -31,31 +36,51 @@ const TAJWEED_KEY = "mushafTajweed";
 const FONT_SCALE_KEY = "mushafFontScale";
 const LAST_PAGE_KEY = "mushafSayfaLastPage";
 
+type RenderVerse = MushafSayfaVerse & {
+  renderArabic: string;
+  renderSpans: MushafSayfaVerse["tajweedSpans"];
+};
+
 type Blok =
-  | { tip: "sure"; surahId: number; arabicName: string; name: string; besmele: boolean }
-  | { tip: "metin"; ayetler: MushafSayfaVerse[] };
+  | { tip: "sure"; surahId: number; arabicName: string; name: string; besmele: string | null }
+  | { tip: "metin"; ayetler: RenderVerse[] };
+
+function prepareVerse(verse: MushafSayfaVerse): { verse: RenderVerse; basmala: string | null } {
+  const arabic = verse.arabic ?? "";
+  const chars = Array.from(arabic);
+  const range = verse.basmalaRange;
+  if (!range || range.kind !== "prefix") return { verse: { ...verse, renderArabic: arabic, renderSpans: verse.tajweedSpans }, basmala: null };
+  const renderArabic = chars.slice(range.bodyStartCp).join("");
+  const basmala = chars.slice(range.startCp, range.endCp).join("");
+  const separator = chars.slice(range.endCp, range.bodyStartCp).join("");
+  if (`${basmala}${separator}${renderArabic}` !== arabic) throw new Error(`Canonical basmala split failed for ${verse.surahId}:${verse.ayahNumber}`);
+  const renderSpans = verse.tajweedSpans
+    .filter((span) => span.startCp >= range.bodyStartCp && span.endCp <= chars.length)
+    .map((span) => ({ ...span, startCp: span.startCp - range.bodyStartCp, endCp: span.endCp - range.bodyStartCp }));
+  return { verse: { ...verse, renderArabic, renderSpans }, basmala };
+}
 
 function bloklariKur(verses: MushafSayfaVerse[], surahs: MushafSayfaSurah[]): Blok[] {
   const adMap = new Map(surahs.map((s) => [s.id, s]));
   const bloklar: Blok[] = [];
-  let metin: MushafSayfaVerse[] = [];
+  let metin: RenderVerse[] = [];
   const metniKapat = () => {
     if (metin.length > 0) { bloklar.push({ tip: "metin", ayetler: metin }); metin = []; }
   };
-  for (const v of verses) {
-    if (v.ayahNumber === 1) {
+  for (const sourceVerse of verses) {
+    const prepared = prepareVerse(sourceVerse);
+    if (sourceVerse.ayahNumber === 1) {
       metniKapat();
-      const meta = adMap.get(v.surahId);
+      const meta = adMap.get(sourceVerse.surahId);
       bloklar.push({
         tip: "sure",
-        surahId: v.surahId,
+        surahId: sourceVerse.surahId,
         arabicName: meta?.arabicName ?? "",
-        name: meta?.name ?? `Sure ${v.surahId}`,
-        // Fatiha'nın 1. ayeti zaten besmele; Tevbe besmelesiz başlar.
-        besmele: v.surahId !== 1 && v.surahId !== 9,
+        name: meta?.name ?? `Sure ${sourceVerse.surahId}`,
+        besmele: prepared.basmala,
       });
     }
-    metin.push(v);
+    metin.push(prepared.verse);
   }
   metniKapat();
   return bloklar;
@@ -67,19 +92,23 @@ function ayniAyet(a: Secili, s: number, n: number): boolean {
   return a !== null && a.surahId === s && a.ayahNumber === n;
 }
 
-function AyetMetni({ ayet, tajweed }: { ayet: MushafSayfaVerse; tajweed: boolean }) {
-  if (tajweed && ayet.tajweed) {
-    return (
-      <>
-        {parseTajweed(ayet.tajweed).map((s, i) =>
-          s.code && RENK[s.code]
-            ? <span key={i} style={{ color: RENK[s.code] }}>{s.t}</span>
-            : <span key={i}>{s.t}</span>,
-        )}
-      </>
-    );
+function AyetMetni({ ayet, tajweed }: { ayet: RenderVerse; tajweed: boolean }) {
+  // vakifBosluguSabitle span hesabından ÖNCE uygulanır: 1:1 (uzunluk korunur),
+  // code-point aralıkları kaymaz — mobil taraftaki aynı düzeltmenin (bkz.
+  // mushafSayfa.ts mushafMetniHazirla) web eşdeğeri (yalnız NBSP, Amiri/
+  // Scheherazade fontu işaretleri zaten doğru basıyor).
+  const arabic = vakifBosluguSabitle(ayet.renderArabic);
+  if (!tajweed || ayet.renderSpans.length === 0) return <>{arabic}</>;
+  const chars = Array.from(arabic);
+  const nodes: React.ReactNode[] = [];
+  let cursor = 0;
+  for (const span of ayet.renderSpans) {
+    if (span.startCp > cursor) nodes.push(<span key={`p${cursor}`}>{chars.slice(cursor, span.startCp).join("")}</span>);
+    nodes.push(<span key={`s${span.startCp}`} style={{ color: RENK[span.rule] ?? span.color }}>{chars.slice(span.startCp, span.endCp).join("")}</span>);
+    cursor = span.endCp;
   }
-  return <>{vakifBosluguSabitle(ayet.arabic ?? "")}</>;
+  if (cursor < chars.length) nodes.push(<span key={`p${cursor}`}>{chars.slice(cursor).join("")}</span>);
+  return <>{nodes}</>;
 }
 
 export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, surahList }: Props) {
@@ -440,7 +469,7 @@ export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, sur
                 <p className="mt-0.5 text-xs font-bold tracking-wide text-gold-700 dark:text-gold-400">{blok.surahId}. {blok.name} Suresi</p>
                 {blok.besmele && (
                   <p dir="rtl" lang="ar" className="font-scheherazade mt-2 text-stone-900 dark:text-stone-50" style={besmeleStyle}>
-                    {BESMELE}
+                    {vakifBosluguSabitle(blok.besmele)}
                   </p>
                 )}
               </div>

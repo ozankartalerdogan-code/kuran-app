@@ -24,9 +24,21 @@ GoogleService-Info.plist
 .env.development
 
 # Büyük veri dizinleri (sadece root seviyesi)
-/data/
+/data/*
 /data2/
 /elmalili-fix/
+
+# Immutable Tanzil vendor source and reproducible Quran runtime artefacts are
+# intentionally versioned even though the rest of /data is local/large.
+!/data/vendor/
+!/data/vendor/tanzil/
+!/data/vendor/tanzil/uthmani-1.1/
+!/data/vendor/tanzil/uthmani-1.1/quran-uthmani.txt
+!/data/vendor/tanzil/uthmani-1.1/manifest.json
+!/data/generated/
+!/data/generated/quran/
+!/data/generated/quran/*.json
+
 
 # Log dosyaları
 *.log

@@ -75,7 +75,7 @@ function pushStringIssues(
 
 export async function auditNormalizedCaches(): Promise<EncodingAuditReport> {
   const [arabic, translations, tafsir, surahMeta] = await Promise.all([
-    readJsonFile<NormalizedArabicAyah[]>("normalized", "arabic.json"),
+    readJsonFile<NormalizedArabicAyah[]>("generated", "quran", "verses.json"),
     readJsonFile<NormalizedAyahTranslations[]>("normalized", "translations.json"),
     readJsonFile<NormalizedTafsirRange[]>("normalized", "tafsir.json"),
     readJsonFile<NormalizedSurahMeta[]>("normalized", "surah-meta.json")
@@ -111,7 +111,7 @@ export async function auditNormalizedCaches(): Promise<EncodingAuditReport> {
   const report: EncodingAuditReport = {
     generatedAt: new Date().toISOString(),
     filesScanned: [
-      "data/normalized/arabic.json",
+      "data/generated/quran/verses.json",
       "data/normalized/translations.json",
       "data/normalized/tafsir.json",
       "data/normalized/surah-meta.json"

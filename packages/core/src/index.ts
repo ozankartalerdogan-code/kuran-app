@@ -70,4 +70,5 @@ export { sanitizeSearchQuery, expandSearchPatterns } from "./search/sanitizeQuer
 export { buildAllCaches } from "./pipeline/buildAllCaches";
 export { auditNormalizedCaches } from "./pipeline/auditNormalizedCaches";
 export { buildNormalizedCaches } from "./pipeline/buildNormalizedCaches";
+export { preserveCanonicalQuranArabic } from "./adapters/quranArabic";
 export { buildCoverageReport } from "./pipeline/buildCoverageReport";

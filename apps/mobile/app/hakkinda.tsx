@@ -57,8 +57,8 @@ function SourcesAccordion({ c }: { c: AppColors }) {
             <Text style={s.bold}>Kur'an-ı Kerim Arapça metni:</Text>
           </Paragraph>
           <Paragraph c={c}>
-            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an-ı Kerim metni kaynaklarından biridir ve
-            uygulamada değiştirilmeden kullanılmalıdır.
+            Tanzil Quran Text — Uthmani 1.1, CC BY 3.0 lisansıyla ve Tanzil.net kaynak gösterilerek sunulur.
+            Kur'an metni indirilen kanonik Unicode dizisi korunarak değiştirilmeden kullanılmaktadır.
           </Paragraph>
           <Paragraph c={c}>
             <Text style={s.bold}>Meal ve orijinal tefsir kaynağı:</Text> Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili.
@@ -124,6 +124,7 @@ export default function HakkindaScreen() {
             <Text style={s.sourceIcon}>🕌</Text>
             <View style={{ flex: 1 }}>
               <Text style={[s.sourceName, { color: c.text }]}>Tanzil Quran Text</Text>
+              <Text style={[s.sourceDesc, { color: c.textMuted }]}>Uthmani 1.1 · CC BY 3.0</Text>
               <Text style={[s.sourceDesc, { color: c.textMuted }]}>{TANZIL_URL}</Text>
             </View>
             <Text style={[s.arrow, { color: c.textMuted }]}>›</Text>

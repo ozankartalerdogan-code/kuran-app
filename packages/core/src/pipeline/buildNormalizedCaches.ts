@@ -12,6 +12,7 @@ import {
   repairTextDetailed,
   resolveDataPath
 } from "../adapters/shared";
+import { preserveCanonicalQuranArabic } from "../adapters/quranArabic";
 import { writeDataJson } from "./shared";
 
 interface ExternalSurahMetaRecord {
@@ -21,15 +22,6 @@ interface ExternalSurahMetaRecord {
   verses: number;
   revelation: string;
   revelationOrder?: number;
-}
-
-interface ExternalSurahVerseRecord {
-  verseNumber: number;
-  arabic?: string;
-}
-
-interface ExternalSurahJsonRecord {
-  verses: ExternalSurahVerseRecord[];
 }
 
 interface ExternalTranslationVerse {
@@ -75,7 +67,7 @@ const externalSurahMetaPath = [
   "data",
   "surahs.json"
 ] as const;
-const externalArabicDirectory = [...externalDirectory, "json-main", "sure"] as const;
+const generatedArabicPath = ["generated", "quran", "verses.json"] as const;
 const externalTafsirDirectory = [...externalDirectory, "json-main", "tafseer", "elmalili"] as const;
 const localTransliterationPath = ["quran", "transliteration.json"] as const;
 
@@ -223,26 +215,16 @@ export async function buildNormalizedCaches(): Promise<NormalizationReport> {
     normalizedSurahMeta.map((record) => [record.surahId, record.verseCount ?? 0])
   );
 
-  const normalizedArabic: NormalizedArabicAyah[] = [];
-
-  for (let surahId = 1; surahId <= 114; surahId += 1) {
-    const fileContent = await readFile(
-      resolveDataPath(...externalArabicDirectory, `${surahId}.json`),
-      "utf8"
-    );
-    const surahRecord = JSON.parse(fileContent) as ExternalSurahJsonRecord;
-
-    for (const verse of surahRecord.verses) {
-      const arabicText = repairTrackedText(verse.arabic ?? null);
-
-      normalizedArabic.push({
-        surahId,
-        ayahNumber: verse.verseNumber,
-        arabicText,
-        status: arabicText === null ? "missing" : "available"
-      });
-    }
-  }
+  // Quran Arabic bypasses repairTrackedText/normalizeTextValue entirely. This
+  // generated cache is produced byte-for-byte from the immutable Tanzil file
+  // by scripts/build-quran-runtime.mjs.
+  const generatedArabic = JSON.parse(
+    await readFile(resolveDataPath(...generatedArabicPath), "utf8")
+  ) as NormalizedArabicAyah[];
+  const normalizedArabic = generatedArabic.map((record) => ({
+    ...record,
+    arabicText: preserveCanonicalQuranArabic(record.arabicText)
+  }));
 
   const normalizedTranslationMap = new Map<string, NormalizedAyahTranslations>();
   const translationFiles = sortTranslationFiles(
@@ -332,7 +314,6 @@ export async function buildNormalizedCaches(): Promise<NormalizationReport> {
   normalizedTafsir.sort((left, right) => left.surahId - right.surahId);
 
   await Promise.all([
-    writeDataJson([...normalizedDirectory, "arabic.json"], normalizedArabic),
     writeDataJson([...normalizedDirectory, "translations.json"], normalizedTranslations),
     writeDataJson([...normalizedDirectory, "tafsir.json"], normalizedTafsir),
     writeDataJson([...normalizedDirectory, "surah-meta.json"], normalizedSurahMeta)
