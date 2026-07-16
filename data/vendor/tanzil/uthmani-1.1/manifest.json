@@ -1,0 +1,21 @@
+{
+  "id": "tanzil-quran-text-uthmani-1.1",
+  "title": "Tanzil Quran Text ? Uthmani",
+  "version": "1.1",
+  "releaseDate": "2021-02-12",
+  "sourcePage": "https://tanzil.net/download/",
+  "sourceUrl": "https://tanzil.net/pub/download/index.php?quranType=uthmani&outType=txt&agree=true",
+  "downloadOptions": [
+    "Include pause marks",
+    "Include sajdah signs",
+    "Include rub-el-hizb signs",
+    "Add tatweel below small high letters"
+  ],
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+  "terms": "Tanzil.net must be clearly attributed and linked. The Quran text must be distributed verbatim and unmodified.",
+  "file": "quran-uthmani.txt",
+  "sha256": "7f30c647331a61100ebf24a80507dc0fcdd9f2df97f1312b5b2dfcb982a7f326",
+  "verseCount": 6236,
+  "writePolicy": "immutable-read-only-source"
+}

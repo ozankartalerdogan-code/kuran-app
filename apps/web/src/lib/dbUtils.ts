@@ -20,7 +20,7 @@ import { DatabaseSync as _DatabaseSync } from "node:sqlite";
 
 // Veri kaynağı tek ve net: TURSO_DB_URL + TURSO_AUTH_TOKEN set ise Turso,
 // aksi halde yerel data/app.db (dev). Sessiz fallback yok.
-const USE_TURSO = !!(
+const USE_TURSO = process.env.QURAN_APP_FORCE_LOCAL_DB !== "1" && !!(
   process.env.TURSO_DB_URL && process.env.TURSO_AUTH_TOKEN
 );
 

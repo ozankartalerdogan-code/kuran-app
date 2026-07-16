@@ -97,7 +97,7 @@ const workspaceRoot = path.resolve(currentDirectory, "..");
 const snapshotDirectory = path.join(workspaceRoot, "data", "analysis-snapshots");
 const snapshotPath = path.join(snapshotDirectory, "verse-analysis-v4-canonical-optin-audit-1000.json");
 const markdownPath = path.join(workspaceRoot, "docs", "V4_CANONICAL_OPTIN_AUDIT_1000.md");
-const arabicPath = path.join(workspaceRoot, "data", "normalized", "arabic.json");
+const arabicPath = path.join(workspaceRoot, "data", "generated", "quran", "verses.json");
 
 const existingAuditScripts = [
   "scripts/audit-verse-analysis-global.ts",

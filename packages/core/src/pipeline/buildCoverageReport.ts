@@ -27,7 +27,7 @@ export async function buildCoverageReport(): Promise<CoverageReport> {
     readJsonFile<SurahTafsirCacheEntry[]>("tafsir", "surah", "index.json"),
     readJsonFile<SurahRevelationContextCacheEntry[]>("revelation-context", "surah", "index.json"),
     readJsonFile<AyahRangeTafsirCacheEntry[]>("tafsir", "ayah-ranges", "index.json"),
-    readJsonFile<NormalizedArabicAyah[]>("normalized", "arabic.json"),
+    readJsonFile<NormalizedArabicAyah[]>("generated", "quran", "verses.json"),
     readJsonFile<WordMeaningCoverageEntry[]>(
       "word-analysis",
       "reports",

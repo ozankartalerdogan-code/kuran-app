@@ -230,7 +230,7 @@ export async function buildFinalReadinessReport(): Promise<FinalReadinessReport>
     revelationContext,
     fidelity
   ] = await Promise.all([
-    readFile(resolveDataPath("normalized", "arabic.json"), "utf8").then(
+    readFile(resolveDataPath("generated", "quran", "verses.json"), "utf8").then(
       (content) => JSON.parse(content) as NormalizedArabicAyah[]
     ),
     readFile(resolveDataPath("normalized", "translations.json"), "utf8").then(

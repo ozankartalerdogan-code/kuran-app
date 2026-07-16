@@ -18,6 +18,14 @@ SUPPRESSED_VISIBLE_ROOTS = {"Any", "أني", "فأي", "ياس", "كيف"}
 
 def normalize_text(value: str | None) -> str:
     if not value:
+
+def preserve_quran_text(value: str | None) -> str:
+    """Return canonical Quran text without normalization or whitespace edits."""
+    if value is None:
+        return ""
+    return str(value)
+
+
         return ""
     return " ".join(str(value).strip().split())
 
@@ -179,7 +187,7 @@ def main() -> None:
     source_meta: dict[str, str] = {}
     partial_sources: list[str] = []
 
-    arabic_data, arabic_status = safe_json_load(DATA_DIR / "normalized" / "arabic.json")
+    arabic_data, arabic_status = safe_json_load(DATA_DIR / "generated" / "quran" / "verses.json")
     translations_data, translations_status = safe_json_load(DATA_DIR / "normalized" / "translations.json")
     canonical_data, canonical_status = safe_json_load(DATA2_DIR / "processed" / "canonical_word_analysis.json")
     overrides_data, overrides_status = safe_json_load(DATA2_DIR / "processed" / "meaning_overrides_tr.json")
@@ -270,7 +278,7 @@ def main() -> None:
             verse_index[verse_key] = {
                 "surah_id": int(item["surahId"]),
                 "ayah_number": int(item["ayahNumber"]),
-                "arabic_text": normalize_text(item.get("arabicText")),
+                "arabic_text": preserve_quran_text(item.get("arabicText")),
                 "translations": [],
             }
 

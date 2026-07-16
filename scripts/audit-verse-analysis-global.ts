@@ -108,7 +108,7 @@ const defaultMarkdownPath = path.join(workspaceRoot, "docs", "KANITLI_ANALIZ_GLO
 const v2Audit100Path = path.join(snapshotDirectory, "verse-analysis-v2-audit-100.json");
 const v3Audit100Path = path.join(snapshotDirectory, "verse-analysis-v3-audit-100.json");
 const v4Audit100Path = path.join(snapshotDirectory, "verse-analysis-v4-audit-100.json");
-const arabicPath = path.join(workspaceRoot, "data", "normalized", "arabic.json");
+const arabicPath = path.join(workspaceRoot, "data", "generated", "quran", "verses.json");
 const checkpointPath = path.join(snapshotDirectory, "verse-analysis-global-audit.checkpoint.json");
 
 const riskWeights: Record<RiskType, number> = {

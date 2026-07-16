@@ -242,13 +242,21 @@ export type VerseListResponse = {
 };
 
 // Mushaf sayfa görünümü — /api/mushaf?page=N (604 sayfalık Medine düzeni)
+export type QuranTajweedSpan = { startCp: number; endCp: number; rule: string; color: string };
+export type BasmalaRange = { kind: "ayah" | "prefix"; startCp: number; endCp: number; bodyStartCp: number };
 export type MushafPageResponse = {
+  schemaVersion: 4;
   page: number;
   juz: number;
-  verses: { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }[];
+  verses: {
+    surahId: number;
+    ayahNumber: number;
+    arabic: string | null;
+    tajweedSpans: QuranTajweedSpan[];
+    basmalaRange: BasmalaRange | null;
+  }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
-
 export type DailyVerseItem = {
   verse_key: string;
   surah_id: number;
@@ -278,7 +286,7 @@ export type AyahDetailResponse = {
   arabicName: string;
   verseCount: number;
   arabicText: string | null;
-  arabicTajweed: string | null;
+  tajweedSpans: QuranTajweedSpan[];
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;
@@ -411,10 +419,10 @@ export const api = {
     // Parametre CDN cache'ini, anahtar da yerel MMKV cache'ini yeniler.
     page: (page: number) =>
       withCacheFallback(
-        `cache_mushaf_v3_p${page}`,
+        `cache_mushaf_v4_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=3`, undefined, signal),
+          request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
         ),
       ),
   },

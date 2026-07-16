@@ -1,0 +1,14 @@
+{
+  "source": "tanzil-quran-text-uthmani-1.1",
+  "sourceSha256": "7f30c647331a61100ebf24a80507dc0fcdd9f2df97f1312b5b2dfcb982a7f326",
+  "verseCount": 6236,
+  "reconstructedSourceSha256": "7f30c647331a61100ebf24a80507dc0fcdd9f2df97f1312b5b2dfcb982a7f326",
+  "textOnlySha256": "32cc746d817cad9fd4366c7597bfceb177e7649233616c0a80309074b2eb99ee",
+  "generatedFiles": [
+    "verses.json",
+    "basmala-ranges.json",
+    "tajweed-spans.json",
+    "tajweed-coverage.json"
+  ],
+  "unicodePolicy": "No normalization, replacement, sanitization, trimming, or combining-mark reordering is applied to Quran text."
+}

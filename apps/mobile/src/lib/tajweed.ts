@@ -163,3 +163,56 @@ export function parseTajweed(text: string): TajweedSegment[] {
   }
   return out;
 }
+
+export type QuranCodePointSpan = {
+  startCp: number;
+  endCp: number;
+  rule: string;
+  color: string;
+};
+
+/** Convert generated half-open code-point ranges to Android/RN UTF-16 ranges. */
+export function codePointSpansToUtf16Ranges(
+  text: string,
+  spans: QuranCodePointSpan[],
+  baseOffset = 0,
+): TajweedRange[] {
+  const chars = Array.from(text);
+  const utf16Offsets = [0];
+  for (const char of chars) utf16Offsets.push(utf16Offsets[utf16Offsets.length - 1] + char.length);
+  const ranges: TajweedRange[] = [];
+  for (const span of spans) {
+    if (span.startCp < 0 || span.endCp <= span.startCp || span.endCp > chars.length) continue;
+    ranges.push({
+      start: baseOffset + utf16Offsets[span.startCp],
+      end: baseOffset + utf16Offsets[span.endCp],
+      color: span.color,
+    });
+  }
+  return ranges;
+}
+
+/**
+ * Old-build/iOS fallback: keep each Arabic word in one nested Text run so
+ * shaping is not split. The first safe generated span in that word supplies
+ * its color; the joined output remains the canonical string byte-for-byte.
+ */
+export function groupCanonicalTextByWord(
+  text: string,
+  spans: QuranCodePointSpan[],
+): TajweedSegment[] {
+  const chars = Array.from(text);
+  const out: TajweedSegment[] = [];
+  let start = 0;
+  const flush = (end: number) => {
+    if (end <= start) return;
+    const span = spans.find((candidate) => candidate.startCp < end && candidate.endCp > start);
+    out.push({ code: span?.rule ?? null, t: chars.slice(start, end).join("") });
+    start = end;
+  };
+  for (let index = 0; index < chars.length; index += 1) {
+    if (/\s/u.test(chars[index])) flush(index + 1);
+  }
+  flush(chars.length);
+  return out;
+}

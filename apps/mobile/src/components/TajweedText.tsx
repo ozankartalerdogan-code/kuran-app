@@ -1,34 +1,30 @@
 import React from "react";
-import { Text, StyleSheet, StyleProp, TextStyle } from "react-native";
-import { RENK, parseTajweed, segmentsToRanges, groupSegmentsByWord } from "../lib/tajweed";
+import { Text, StyleSheet, type StyleProp, type TextStyle } from "react-native";
+import {
+  RENK,
+  codePointSpansToUtf16Ranges,
+  groupCanonicalTextByWord,
+  type QuranCodePointSpan,
+} from "../lib/tajweed";
 import { TajweedNativeText, isTajweedNativeAvailable } from "../../modules/tajweed-text";
-
-// Tecvid ayrıştırma + renk/lejant SAF modülde (lib/tajweed.ts) — test edilir.
-//
-// RENDER YOLU (Android nested-Text shaping bug'ı — cihazda A/B ile kanıtlandı:
-// kelime İÇİNE denk gelen her nested-Text sınırı Arapça harf bitişmesini kırar):
-// 1) Android + yeni build: native tek-TextView/tek-Spannable renderer — harf
-//    düzeyi renk hassasiyeti TAM, shaping bozulmaz.
-// 2) Fallback (iOS / eski build): kelime-bazlı nested Text — kelime içinde asla
-//    bölünme olmaz; renk kelime düzeyine iner (bilinçli ödün, metin bütünlüğü önce).
 
 type Suffix = { text: string; color: string };
 
+/** Render only canonical Tanzil text; generated tajweed ranges affect color. */
 export function TajweedText({
-  markup,
+  text,
+  spans,
   style,
   suffix,
 }: {
-  markup: string;
+  text: string;
+  spans: QuranCodePointSpan[];
   style?: StyleProp<TextStyle>;
-  /** Mushaf tarzı ayet numarası (﴿٥﴾) — native yolda aynı string'e renkli aralık olarak eklenir. */
   suffix?: Suffix;
 }) {
-  const segs = parseTajweed(markup);
-
   if (isTajweedNativeAvailable) {
     const flat = StyleSheet.flatten(style) ?? {};
-    const { text, ranges } = segmentsToRanges(segs);
+    const ranges = codePointSpansToUtf16Ranges(text, spans);
     let fullText = text;
     if (suffix) {
       ranges.push({ start: fullText.length, end: fullText.length + suffix.text.length, color: suffix.color });
@@ -47,13 +43,13 @@ export function TajweedText({
     );
   }
 
-  const kelimeler = groupSegmentsByWord(segs);
+  const words = groupCanonicalTextByWord(text, spans);
   return (
     <Text style={style} selectable>
-      {kelimeler.map((s, i) =>
-        s.code && RENK[s.code]
-          ? <Text key={i} style={{ color: RENK[s.code] }}>{s.t}</Text>
-          : <Text key={i}>{s.t}</Text>,
+      {words.map((word, index) =>
+        word.code && RENK[word.code]
+          ? <Text key={index} style={{ color: RENK[word.code] }}>{word.t}</Text>
+          : <Text key={index}>{word.t}</Text>,
       )}
       {suffix ? <Text style={{ color: suffix.color }}>{suffix.text}</Text> : null}
     </Text>

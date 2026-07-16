@@ -72,8 +72,8 @@ export default function HakkindaPage() {
             <strong className="font-bold text-stone-800 dark:text-stone-100">Kur&apos;an-ı Kerim Arapça metni:</strong>
           </Paragraph>
           <Paragraph>
-            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur&apos;an-ı Kerim metni kaynaklarından biridir ve
-            uygulamada değiştirilmeden kullanılmalıdır.
+            Tanzil Quran Text — Uthmani 1.1, CC BY 3.0 lisansıyla ve Tanzil.net kaynak gösterilerek sunulur.
+            Kur&apos;an metni indirilen kanonik Unicode dizisi korunarak değiştirilmeden kullanılmaktadır.
           </Paragraph>
           <Paragraph>
             <strong className="font-bold text-stone-800 dark:text-stone-100">Meal ve orijinal tefsir kaynağı:</strong> Elmalılı Hamdi Yazır, Hak Dini Kur&apos;an Dili.

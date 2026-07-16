@@ -22,6 +22,7 @@ type NativeProps = {
   onMeasured?: (e: { nativeEvent: { height: number } }) => void;
   /** Dokunulan karakterin UTF-16 indeksi (mushaf'ta ayet seçimi için). */
   onCharPress?: (e: { nativeEvent: { index: number } }) => void;
+  onTextVerified?: (e: { nativeEvent: { sha256: string; matchesInput: boolean; utf16Length: number; codePointLength: number } }) => void;
   style?: StyleProp<ViewStyle>;
 };
 
