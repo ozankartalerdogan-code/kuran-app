@@ -38,6 +38,18 @@ if (Platform.OS === "android") {
 
 export const isTajweedNativeAvailable = NativeView !== null;
 
+// Son ölçülen yükseklikler (anahtar = fontSize:lineHeight:metin — remount
+// key'i ile birebir aynı). Tecvid aç/kapa gibi geçişlerde aynı metin yeniden
+// mount olduğunda 10px yerine bilinen yükseklikle başlar → alt içeriğin
+// saliselik yukarı sıçraması (ölçüm gidiş-dönüşü) görünmez olur. Yükseklik
+// genişliğe de bağlıdır ama anahtarda genişlik yok: dönüş/yeniden boyutlanma
+// sonrası cache değeri yaklaşık kalır ve native ölçüm (her mount'ta daima
+// yayınlanır) 1-2 frame içinde düzeltir — bugünkü 10px başlangıcıyla aynı
+// öz-düzeltme, sadece çok daha yakın bir başlangıç. Renk/highlight aralıkları
+// metric etkilemediği için anahtar metrik olarak eksiksizdir.
+const olculenYukseklikler = new Map<string, number>();
+const YUKSEKLIK_CACHE_TAVANI = 40; // sayfa metinleri büyük — sınırsız birikmesin
+
 /**
  * Tek Android TextView + tek SpannableStringBuilder + yalnız ForegroundColorSpan.
  * Yoga native içerik yüksekliğini bilemediği için native taraf ölçtüğü yüksekliği
@@ -49,19 +61,27 @@ export function TajweedNativeText({
 }: Omit<NativeProps, "onMeasured" | "style" | "onCharPress"> & {
   onCharPress?: (index: number) => void;
 }) {
-  const [height, setHeight] = useState(10);
+  const cacheKey = `${props.fontSize ?? ""}:${props.lineHeight ?? ""}:${props.text}`;
+  const [height, setHeight] = useState(() => olculenYukseklikler.get(cacheKey) ?? 10);
   if (!NativeView) return null;
   return (
     <NativeView
       // RN, native içeriden gelen requestLayout'u güvenilir işlemez: metin/boyut
       // değişince view'ı remount ederiz → taze onLayout + onMeasured garanti
       // (yoksa A± büyütmede/sayfa verisi değişiminde yükseklik bayat kalıp metin kırpılır).
-      key={`${props.fontSize ?? ""}:${props.lineHeight ?? ""}:${props.text}`}
+      key={cacheKey}
       {...props}
       style={{ width: "100%", height }}
       onMeasured={(e) => {
         const h = Math.ceil(e.nativeEvent.height);
-        if (h > 0 && h !== height) setHeight(h);
+        if (h <= 0) return;
+        if (olculenYukseklikler.size >= YUKSEKLIK_CACHE_TAVANI && !olculenYukseklikler.has(cacheKey)) {
+          // Map ekleme sıralıdır — en eski kaydı at (basit FIFO tavanı).
+          const enEski = olculenYukseklikler.keys().next().value;
+          if (enEski !== undefined) olculenYukseklikler.delete(enEski);
+        }
+        olculenYukseklikler.set(cacheKey, h);
+        if (h !== height) setHeight(h);
       }}
       onCharPress={onCharPress ? (e) => onCharPress(e.nativeEvent.index) : undefined}
     />
