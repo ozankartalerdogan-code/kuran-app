@@ -310,8 +310,15 @@ export function alignTajweedSpans(canonicalText, tajweedMarkup) {
       // mergeStandaloneAnnotationTokens), ignore it here so it cannot turn an
       // otherwise-unambiguous letter into a falsely "ambiguous" cluster.
       const ruleBearingItems = sourceCluster.items.filter((item) => !QURANIC_ANNOTATION_MARKS.has(item.char));
-      const rules = new Set((ruleBearingItems.length ? ruleBearingItems : sourceCluster.items).map((item) => item.rule));
-      if (rules.size !== 1) {
+      const candidateItems = ruleBearingItems.length ? ruleBearingItems : sourceCluster.items;
+      // The source markup routinely closes a rule bracket right after a
+      // shadda-doubled letter (e.g. "[g[نّ]َ"), leaving the cluster's own
+      // trailing vowel mark outside the bracket with no rule of its own. That
+      // mark's absence of a rule is not a competing rule assignment — it
+      // abstains rather than vetoes — so only genuinely distinct *assigned*
+      // rules within a cluster count as a conflict.
+      const distinctAssignedRules = new Set(candidateItems.map((item) => item.rule).filter((rule) => rule !== null));
+      if (distinctAssignedRules.size > 1) {
         ambiguousClusters += 1;
         uncoloredRanges.push({
           startCp: canonicalCluster.startCp,
@@ -320,7 +327,7 @@ export function alignTajweedSpans(canonicalText, tajweedMarkup) {
         });
         continue;
       }
-      const [rule] = rules;
+      const [rule] = distinctAssignedRules;
       if (!rule || !TAJWEED_RULE_COLORS[rule]) continue;
       const startCp = canonicalCluster.startCp;
       const endCp = canonicalCluster.endCp;

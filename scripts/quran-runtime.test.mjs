@@ -146,19 +146,19 @@ test("tajweed alignment failures are explicit uncolored ranges and never receive
   const coverage = readJson("tajweed-coverage.json");
 
   assert.deepEqual(coverage.summary.statusCounts, {
-    mapped: 6115,
+    mapped: 6160,
     "token-count-mismatch": 2,
     "no-rule-clusters": 63,
-    "unmapped-rule-clusters": 56,
+    "unmapped-rule-clusters": 11,
   });
   assert.equal(Object.values(coverage.summary.statusCounts).reduce((sum, count) => sum + count, 0), 6236);
   assert.equal(coverage.totals.unmatchedTokens, 3106);
-  assert.equal(coverage.totals.ambiguousClusters, 30150);
+  assert.equal(coverage.totals.ambiguousClusters, 720);
   assert.equal(coverage.summary.unmatchedTokenVerses, 2257);
-  assert.equal(coverage.summary.ambiguousClusterVerses, 5853);
-  assert.equal(coverage.summary.affectedVerses, 5948);
-  assert.equal(coverage.summary.coverage.percent, 57.6119);
-  assert.equal(coverage.summary.coverage.verseSpanCoveragePercent, 98.0597);
+  assert.equal(coverage.summary.ambiguousClusterVerses, 625);
+  assert.equal(coverage.summary.affectedVerses, 2612);
+  assert.equal(coverage.summary.coverage.percent, 91.5977);
+  assert.equal(coverage.summary.coverage.verseSpanCoveragePercent, 98.7813);
   assert.equal(coverage.summary.coverage.tokenAlignmentPercent, 95.9991);
 
   // Tanzil sometimes spells a hamza with the decomposed Uthmani convention
