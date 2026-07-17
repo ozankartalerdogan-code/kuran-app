@@ -43,6 +43,73 @@ test("tajweed toggle changes ranges only; runtime text SHA-256 is identical", ()
   assert.ok(on.ranges.length > 0);
 });
 
+test("v5 verse (server-split body + canonicalArabic) renders body once and verifies reconstruction", () => {
+  const v5: MushafPageResponse["verses"][number] = {
+    surahId: 2,
+    ayahNumber: 1,
+    arabic: "الٓمٓ", // sunucu gövdeyi zaten ayırdı
+    tajweed: "[legacy markup]",
+    tajweedSpans: [{ startCp: 0, endCp: 1, rule: "m", color: "#b91c1c" }], // gövde koordinatlı
+    canonicalArabic: canonical,
+    canonicalTajweedSpans: [{ startCp: endCp + 1, endCp: endCp + 2, rule: "m", color: "#b91c1c" }],
+    basmalaRange: { kind: "prefix", startCp: 0, endCp, bodyStartCp: endCp + 1 },
+    basmalaText: basmala,
+  };
+  const prepared = prepareCanonicalVerseForRender(v5);
+  assert.equal(prepared.verse.renderArabic, "الٓمٓ");
+  assert.equal(prepared.basmalaText, basmala);
+  assert.equal(`${prepared.basmalaText}${prepared.basmalaSeparator}${prepared.verse.renderArabic}`, canonical);
+  // Gövde span'ları sunucudan geldiği gibi kullanılır (yeniden bölme yok).
+  assert.deepEqual(prepared.verse.renderTajweedSpans, [{ startCp: 0, endCp: 1, rule: "m", color: "#b91c1c" }]);
+});
+
+test("v5 verse without prefix (9:1 shape) must match canonical exactly; tampered body throws", () => {
+  const v5: MushafPageResponse["verses"][number] = {
+    surahId: 9,
+    ayahNumber: 1,
+    arabic: "بَرَآءَةٌ",
+    tajweedSpans: [],
+    canonicalArabic: "بَرَآءَةٌ",
+    canonicalTajweedSpans: [],
+    basmalaRange: null,
+  };
+  assert.equal(prepareCanonicalVerseForRender(v5).verse.renderArabic, "بَرَآءَةٌ");
+  assert.throws(
+    () => prepareCanonicalVerseForRender({ ...v5, arabic: "بَرَآءَةٌ_bozuk" }),
+    /Canonical\/body mismatch/,
+  );
+});
+
+test("v5 split integrity: body that does not reconstruct canonical throws (Kuran metni asla sessizce bozulmaz)", () => {
+  const v5: MushafPageResponse["verses"][number] = {
+    surahId: 2,
+    ayahNumber: 1,
+    arabic: "الٓمٓ EKSTRA",
+    tajweedSpans: [],
+    canonicalArabic: canonical,
+    canonicalTajweedSpans: [],
+    basmalaRange: { kind: "prefix", startCp: 0, endCp, bodyStartCp: endCp + 1 },
+    basmalaText: basmala,
+  };
+  assert.throws(() => prepareCanonicalVerseForRender(v5), /split changed/);
+});
+
+test("old-schema API verse (no tajweedSpans/basmalaRange fields) degrades to uncolored, never crashes", () => {
+  // Prod henüz eski /api/mushaf şemasını dönebilir: bu alanlar hiç yok.
+  const eski = {
+    surahId: 96,
+    ayahNumber: 1,
+    arabic: canonical,
+  } as unknown as MushafPageResponse["verses"][number];
+  const prepared = prepareCanonicalVerseForRender(eski);
+  assert.equal(prepared.verse.renderArabic, canonical);
+  assert.deepEqual(prepared.verse.renderTajweedSpans, []);
+  assert.deepEqual(prepared.basmalaSpans, []);
+  // Çökme senaryosunun kendisi: undefined span listesi render yolunda iterate ediliyordu.
+  const ranges = codePointSpansToUtf16Ranges(prepared.verse.renderArabic, prepared.verse.renderTajweedSpans);
+  assert.deepEqual(ranges, []);
+});
+
 test("code-point spans convert to UTF-16 without changing text", () => {
   const text = "A😀بِ";
   const before = Buffer.from(text, "utf8");

@@ -564,7 +564,10 @@ export default function AyahDetailScreen() {
     api.ayah.get(surahId, ayahNumber)
       .then((ayahData) => {
         if (!isMounted) return;
-        setData(ayahData);
+        // Prod API eski şema dönebilir (tajweedSpans alanı hiç yok) — ekran bu
+        // listeye .length/iterasyonla doğrudan eriştiği için undefined çökertir;
+        // renksiz devam etmek doğru düşüş.
+        setData({ ...ayahData, tajweedSpans: ayahData.tajweedSpans ?? [] });
         if (ayahData.readingTr) {
           setReading(ayahData.readingTr);
         } else {

@@ -22,12 +22,55 @@ function shiftSpans(spans: QuranTajweedSpan[], startCp: number, endCp: number): 
 export function prepareCanonicalVerseForRender(
   verse: MushafPageResponse["verses"][number],
 ): PreparedCanonicalVerse {
+  // Prod API henüz eski şemayı (tajweedSpans/basmalaRange alanları yok) dönüyor
+  // olabilir; alan yokken renksiz devam etmek doğru düşüş — undefined span
+  // listesi render'da for-of/iterasyon TypeError'ı ile ekranı çökertiyordu.
+  const tajweedSpans = verse.tajweedSpans ?? [];
+
+  // v5 (schemaVersion 5): sunucu basmala önekini ZATEN ayırmıştır — arabic
+  // gövdedir, tajweedSpans gövde koordinatlıdır, kanonik bütün canonicalArabic
+  // alanındadır. Burada yalnız bölünmenin kanonik metni birebir yeniden
+  // kurduğu doğrulanır (metin bütünlüğü garantisi), yeni bölme YAPILMAZ.
+  const canonical = verse.canonicalArabic;
+  if (canonical != null) {
+    const body = verse.arabic ?? "";
+    const range = verse.basmalaRange;
+    if (!range || range.kind !== "prefix") {
+      if (body !== canonical) {
+        throw new Error(`Canonical/body mismatch without prefix at ${verse.surahId}:${verse.ayahNumber}`);
+      }
+      return {
+        verse: { ...verse, renderArabic: body, renderTajweedSpans: tajweedSpans },
+        basmalaText: null,
+        basmalaSeparator: "",
+        basmalaSpans: [],
+      };
+    }
+    const canonicalChars = Array.from(canonical);
+    if (range.startCp !== 0 || range.endCp <= 0 || range.bodyStartCp <= range.endCp || range.bodyStartCp > canonicalChars.length) {
+      throw new Error(`Invalid canonical basmala range for ${verse.surahId}:${verse.ayahNumber}`);
+    }
+    const basmalaText = verse.basmalaText ?? canonicalChars.slice(range.startCp, range.endCp).join("");
+    const basmalaSeparator = canonicalChars.slice(range.endCp, range.bodyStartCp).join("");
+    if (`${basmalaText}${basmalaSeparator}${body}` !== canonical) {
+      throw new Error(`Canonical basmala split changed ${verse.surahId}:${verse.ayahNumber}`);
+    }
+    return {
+      verse: { ...verse, renderArabic: body, renderTajweedSpans: tajweedSpans },
+      basmalaText,
+      basmalaSeparator,
+      basmalaSpans: shiftSpans(verse.canonicalTajweedSpans ?? [], range.startCp, range.endCp),
+    };
+  }
+
+  // v4 ve öncesi (yerel eski dev sunucu / eski cache): arabic basmala GÖMÜLÜ
+  // tam metindir, tajweedSpans bu tam metne göredir — bölme burada yapılır.
   const arabic = verse.arabic ?? "";
   const chars = Array.from(arabic);
   const range = verse.basmalaRange;
   if (!range || range.kind !== "prefix") {
     return {
-      verse: { ...verse, renderArabic: arabic, renderTajweedSpans: verse.tajweedSpans },
+      verse: { ...verse, renderArabic: arabic, renderTajweedSpans: tajweedSpans },
       basmalaText: null,
       basmalaSeparator: "",
       basmalaSpans: [],
@@ -46,10 +89,10 @@ export function prepareCanonicalVerseForRender(
     verse: {
       ...verse,
       renderArabic,
-      renderTajweedSpans: shiftSpans(verse.tajweedSpans, range.bodyStartCp, chars.length),
+      renderTajweedSpans: shiftSpans(tajweedSpans, range.bodyStartCp, chars.length),
     },
     basmalaText,
     basmalaSeparator,
-    basmalaSpans: shiftSpans(verse.tajweedSpans, range.startCp, range.endCp),
+    basmalaSpans: shiftSpans(tajweedSpans, range.startCp, range.endCp),
   };
 }

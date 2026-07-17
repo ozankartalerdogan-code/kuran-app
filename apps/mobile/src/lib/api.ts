@@ -245,15 +245,25 @@ export type VerseListResponse = {
 export type QuranTajweedSpan = { startCp: number; endCp: number; rule: string; color: string };
 export type BasmalaRange = { kind: "ayah" | "prefix"; startCp: number; endCp: number; bodyStartCp: number };
 export type MushafPageResponse = {
-  schemaVersion: 4;
+  schemaVersion: 5;
   page: number;
   juz: number;
   verses: {
     surahId: number;
     ayahNumber: number;
+    /** v5: basmala önekSİZ ayet gövdesi (eski istemcilerle ortak alan). */
     arabic: string | null;
+    /** Eski istemci tecvid markup'ı — yeni istemci kullanmaz, alan korunur. */
+    tajweed?: string | null;
+    /** Gövde (arabic) koordinatlı span'lar. */
     tajweedSpans: QuranTajweedSpan[];
+    /** v5: basmala dahil tam kanonik Tanzil metni. */
+    canonicalArabic?: string | null;
+    /** v5: kanonik metin koordinatlı span'lar. */
+    canonicalTajweedSpans?: QuranTajweedSpan[];
     basmalaRange: BasmalaRange | null;
+    /** v5: kanonikten kesilen gerçek basmala (Tîn'de şeddeli varyant vb.). */
+    basmalaText?: string | null;
   }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
@@ -314,7 +324,7 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 
 // Cache sürümü — artırınca tüm eski yerel cache'ler geçersiz olur.
 // (v2: gloss/literal/fark analizi büyük veri güncellemesi)
-const CACHE_VERSION = "v4"; // v4: AsyncStorage → MMKV geçişi, eski cache biçimi geçersiz
+const CACHE_VERSION = "v5"; // v5: schemaVersion 4 API geçişi (tajweedSpans/basmalaRange) — eski şemalı yanıt önbellekleri geçersiz
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 // Diğer modüllerin (örn. useDailyContent) aynı sürümlü anahtarı hardcode etmeden
 // okuyabilmesi için dışa açılır — sürüm ileride tekrar artınca burada da otomatik değişir.
@@ -415,14 +425,15 @@ export const api = {
   },
 
   mushaf: {
-    // v=3: bozuk v2 döneminde cihazda cache'lenen tecvidsiz sayfaları atlatır.
-    // Parametre CDN cache'ini, anahtar da yerel MMKV cache'ini yeniler.
+    // v=5: schemaVersion 4 (tajweedSpans/basmalaRange) geçişi — eski şemalı
+    // CDN kopyalarını atlatır. Parametre CDN cache'ini, anahtar da yerel MMKV
+    // cache'ini yeniler.
     page: (page: number) =>
       withCacheFallback(
-        `cache_mushaf_v4_p${page}`,
+        `cache_mushaf_v5_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
+          request<MushafPageResponse>(`/mushaf?page=${page}&v=5`, undefined, signal),
         ),
       ),
   },
