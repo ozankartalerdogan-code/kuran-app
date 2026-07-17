@@ -146,20 +146,51 @@ test("tajweed alignment failures are explicit uncolored ranges and never receive
   const coverage = readJson("tajweed-coverage.json");
 
   assert.deepEqual(coverage.summary.statusCounts, {
-    mapped: 5838,
-    "token-count-mismatch": 259,
-    "no-rule-clusters": 60,
-    "unmapped-rule-clusters": 79,
+    mapped: 6115,
+    "token-count-mismatch": 2,
+    "no-rule-clusters": 63,
+    "unmapped-rule-clusters": 56,
   });
   assert.equal(Object.values(coverage.summary.statusCounts).reduce((sum, count) => sum + count, 0), 6236);
-  assert.equal(coverage.totals.unmatchedTokens, 11199);
-  assert.equal(coverage.totals.ambiguousClusters, 27731);
-  assert.equal(coverage.summary.unmatchedTokenVerses, 3693);
-  assert.equal(coverage.summary.ambiguousClusterVerses, 5629);
-  assert.equal(coverage.summary.affectedVerses, 6009);
-  assert.equal(coverage.summary.coverage.percent, 48.9871);
-  assert.equal(coverage.summary.coverage.verseSpanCoveragePercent, 93.6177);
-  assert.equal(coverage.summary.coverage.tokenAlignmentPercent, 86.4187);
+  assert.equal(coverage.totals.unmatchedTokens, 3106);
+  assert.equal(coverage.totals.ambiguousClusters, 30150);
+  assert.equal(coverage.summary.unmatchedTokenVerses, 2257);
+  assert.equal(coverage.summary.ambiguousClusterVerses, 5853);
+  assert.equal(coverage.summary.affectedVerses, 5948);
+  assert.equal(coverage.summary.coverage.percent, 57.6119);
+  assert.equal(coverage.summary.coverage.verseSpanCoveragePercent, 98.0597);
+  assert.equal(coverage.summary.coverage.tokenAlignmentPercent, 95.9991);
+
+  // Tanzil sometimes spells a hamza with the decomposed Uthmani convention
+  // (tatweel-carried hamza mark + bare seat letter, e.g. ٱلْـَٔاخَرِينَ) where
+  // AlQuran.cloud's source always uses the single precomposed hamza letter
+  // (ٱلْأَخَرِينَ). Confirms the equivalence recovers a known instance.
+  const akhirinItem = coverage.verses.find((item) => item.verseKey === "26:64");
+  assert.equal(akhirinItem.status, "mapped");
+
+  // The only two ayahs where AlQuran.cloud's tajweed source genuinely
+  // segments a word differently from Tanzil's canonical text ("بَعْدَ مَا"
+  // vs the source's joined "بَعْدَمَا"), left uncolored rather than guessed.
+  const mismatchKeys = coverage.verses
+    .filter((item) => item.status === "token-count-mismatch")
+    .map((item) => item.verseKey)
+    .sort();
+  assert.deepEqual(mismatchKeys, ["13:37", "2:181"]);
+
+  // Every surah-opening ayah with a basmala prefix must report it as an
+  // explicit, always-uncolored range (AlQuran.cloud's per-ayah tajweed
+  // source never includes the basmala), never as a silently-colored guess.
+  const basmalaRanges = readJson("basmala-ranges.json").ranges.filter((range) => range.kind === "prefix");
+  assert.equal(basmalaRanges.length, 112);
+  const coverageByKey = new Map(coverage.verses.map((item) => [item.verseKey, item]));
+  for (const range of basmalaRanges) {
+    const item = coverageByKey.get(range.verseKey);
+    assert.ok(item.uncoloredRanges.some((uncolored) =>
+      uncolored.reason === "basmala-prefix-not-in-tajweed-source" &&
+      uncolored.startCp === 0 &&
+      uncolored.endCp === range.bodyStartCp,
+    ), `${range.verseKey}: missing basmala-prefix uncolored range`);
+  }
 
   for (const item of coverage.verses) {
     const length = codePoints(byKey.get(item.verseKey)).length;

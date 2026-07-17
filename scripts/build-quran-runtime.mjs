@@ -123,7 +123,7 @@ export function parseTajweedMarkup(markup) {
     for (let i = stack.length - 1; i >= 0; i -= 1) {
       if (stack[i] !== null) { rule = stack[i]; break; }
     }
-    characters.push({ char, rule });
+    characters.push({ char, rule, cpIndex: characters.length });
     offset += char.length;
   }
   return characters;
@@ -133,25 +133,52 @@ function isSeparator(char) {
   return char === "\u200c" || /\s/u.test(char);
 }
 
+// Tanzil's plain-text format writes these Quranic pause/annotation signs as
+// standalone space-delimited "words", while the AlQuran.cloud tajweed source
+// glues them onto the preceding letter with no separating space. They carry
+// no tajweed rule of their own in either source, so for alignment purposes
+// only (never for the stored canonical text) a lone sign token is folded
+// into the previous token, matching the source's grouping.
+const QURANIC_ANNOTATION_MARKS = new Set([
+  "\u06d6", "\u06d7", "\u06d8", "\u06d9", "\u06da", "\u06db", "\u06dc", "\u06de", "\u06e9",
+]);
+
+function mergeStandaloneAnnotationTokens(tokens) {
+  const merged = [];
+  for (const token of tokens) {
+    const isLoneAnnotationMark = token.items.length === 1 && QURANIC_ANNOTATION_MARKS.has(token.items[0].char);
+    if (isLoneAnnotationMark && merged.length) {
+      merged[merged.length - 1].items.push(token.items[0]);
+    } else {
+      merged.push(token);
+    }
+  }
+  return merged;
+}
+
 function tokenize(characters) {
   const tokens = [];
   let token = null;
-  for (let cpIndex = 0; cpIndex < characters.length; cpIndex += 1) {
-    const item = characters[cpIndex];
+  for (const item of characters) {
     if (isSeparator(item.char)) {
       if (token) { tokens.push(token); token = null; }
       continue;
     }
-    if (!token) token = { startCp: cpIndex, items: [] };
+    if (!token) token = { items: [] };
     token.items.push(item);
   }
   if (token) tokens.push(token);
-  return tokens;
+  return mergeStandaloneAnnotationTokens(tokens);
 }
 
 function matchingChar(char) {
   if (char === "\u0672") return "\u0670";
   if (char === "\u066e") return "\u0649";
+  // U+06DF ARABIC SMALL HIGH ROUNDED ZERO is Tanzil's mark for a written-but-
+  // silent letter (e.g. the alif in "...\u0648\u0627\u06df"); AlQuran.cloud's tajweed
+  // source marks the same silent position with the plain U+0652 SUKUN. Both
+  // denote "no vowel sound here" for the same letter, not a different rule.
+  if (char === "\u06df") return "\u0652";
   return char;
 }
 
@@ -159,25 +186,72 @@ function isMark(char) {
   return /^\p{Mark}$/u.test(char);
 }
 
+// Tanzil sometimes spells a hamza using the decomposed Uthmani convention —
+// a tatweel carrying the hamza mark, immediately followed by its bare "seat"
+// letter (alif/waw/ya) — while AlQuran.cloud's tajweed source always uses the
+// single precomposed hamza letter for the same word. Both denote the exact
+// same letter; this is a documented Unicode/Uthmani-orthography equivalence
+// (U+0623 etc. canonically decompose to seat+hamza-mark), not a tajweed
+// judgment call. Only a tatweel-carried hamza mark immediately followed by a
+// bare, unmarked seat letter is merged — anything else (already-precomposed
+// letters, a seat letter carrying its own marks, no seat letter at all) is
+// left untouched and falls back to the existing conservative "unmatched"
+// handling.
+const HAMZA_ABOVE = "ٔ";
+const HAMZA_BELOW = "ٕ";
+const HAMZA_SEAT_PRECOMPOSED = {
+  [HAMZA_ABOVE]: { "ا": "أ", "و": "ؤ", "ى": "ئ", "ي": "ئ" },
+  [HAMZA_BELOW]: { "ا": "إ" },
+};
+
+function mergeDecomposedHamzaClusters(clusters) {
+  const merged = [];
+  for (let index = 0; index < clusters.length; index += 1) {
+    const cluster = clusters[index];
+    const next = clusters[index + 1];
+    const hamzaMark = cluster.items.find((item) => item.char === HAMZA_ABOVE || item.char === HAMZA_BELOW);
+    const seatMap = hamzaMark && HAMZA_SEAT_PRECOMPOSED[hamzaMark.char];
+    const precomposed = seatMap && next && next.items.length === 1 && seatMap[next.items[0].char];
+    if (cluster.items[0].char === "ـ" && precomposed) {
+      const hareke = cluster.items
+        .filter((item) => item !== hamzaMark && item.char !== "ـ")
+        .map((item) => matchingChar(item.char))
+        .join("");
+      merged.push({ items: [...cluster.items, ...next.items], key: precomposed + hareke });
+      index += 1; // consume the seat-letter cluster too
+      continue;
+    }
+    merged.push(cluster);
+  }
+  return merged;
+}
+
 function clustersFor(items) {
   const clusters = [];
-  for (let index = 0; index < items.length; index += 1) {
-    const item = items[index];
+  for (const item of items) {
     if (isMark(item.char) && clusters.length) {
-      clusters[clusters.length - 1].items.push({ ...item, index });
+      clusters[clusters.length - 1].items.push(item);
     } else {
-      clusters.push({ start: index, items: [{ ...item, index }] });
+      clusters.push({ items: [item] });
     }
   }
-  return clusters.map((cluster) => ({
-    ...cluster,
-    end: cluster.start + cluster.items.length,
-    key: cluster.items.map((item) => matchingChar(item.char)).join(""),
+  return mergeDecomposedHamzaClusters(clusters).map((cluster) => ({
+    items: cluster.items,
+    key: cluster.key ?? cluster.items.map((item) => matchingChar(item.char)).join(""),
+    // Positions are derived from each item's own source cpIndex rather than
+    // an offset relative to the token start, so alignment stays correct even
+    // when mergeStandaloneAnnotationTokens() has folded a non-adjacent
+    // annotation-mark token into this one (see tokenize()).
+    startCp: cluster.items[0].cpIndex,
+    endCp: cluster.items[cluster.items.length - 1].cpIndex + 1,
   }));
 }
 
 function tokenKey(token) {
-  return token.items.map((item) => matchingChar(item.char)).join("");
+  // Built from the same cluster keys used for the detailed comparison below
+  // (including the decomposed-hamza merge), so this early whole-token check
+  // can't reject a token pair that the cluster-level comparison would accept.
+  return clustersFor(token.items).map((cluster) => cluster.key).join("");
 }
 
 function knownRuleClusters(tokens) {
@@ -188,14 +262,14 @@ function knownRuleClusters(tokens) {
 
 function fullTokenRange(token, reason) {
   return {
-    startCp: token.startCp,
-    endCp: token.startCp + token.items.length,
+    startCp: token.items[0].cpIndex,
+    endCp: token.items[token.items.length - 1].cpIndex + 1,
     reason,
   };
 }
 
 export function alignTajweedSpans(canonicalText, tajweedMarkup) {
-  const canonicalItems = codePoints(canonicalText).map((char) => ({ char, rule: null }));
+  const canonicalItems = codePoints(canonicalText).map((char, cpIndex) => ({ char, rule: null, cpIndex }));
   const sourceItems = parseTajweedMarkup(tajweedMarkup);
   const canonicalTokens = tokenize(canonicalItems);
   const sourceTokens = tokenize(sourceItems);
@@ -231,20 +305,25 @@ export function alignTajweedSpans(canonicalText, tajweedMarkup) {
     for (let clusterIndex = 0; clusterIndex < canonicalClusters.length; clusterIndex += 1) {
       const canonicalCluster = canonicalClusters[clusterIndex];
       const sourceCluster = sourceClusters[clusterIndex];
-      const rules = new Set(sourceCluster.items.map((item) => item.rule));
+      // Quranic annotation marks (waqf/pause signs) carry no tajweed rule of
+      // their own; when one has been merged onto a letter's cluster (see
+      // mergeStandaloneAnnotationTokens), ignore it here so it cannot turn an
+      // otherwise-unambiguous letter into a falsely "ambiguous" cluster.
+      const ruleBearingItems = sourceCluster.items.filter((item) => !QURANIC_ANNOTATION_MARKS.has(item.char));
+      const rules = new Set((ruleBearingItems.length ? ruleBearingItems : sourceCluster.items).map((item) => item.rule));
       if (rules.size !== 1) {
         ambiguousClusters += 1;
         uncoloredRanges.push({
-          startCp: canonicalToken.startCp + canonicalCluster.start,
-          endCp: canonicalToken.startCp + canonicalCluster.end,
+          startCp: canonicalCluster.startCp,
+          endCp: canonicalCluster.endCp,
           reason: "ambiguous-cluster",
         });
         continue;
       }
       const [rule] = rules;
       if (!rule || !TAJWEED_RULE_COLORS[rule]) continue;
-      const startCp = canonicalToken.startCp + canonicalCluster.start;
-      const endCp = canonicalToken.startCp + canonicalCluster.end;
+      const startCp = canonicalCluster.startCp;
+      const endCp = canonicalCluster.endCp;
       mappedRuleClusters += 1;
       const last = spans[spans.length - 1];
       if (last && last.rule === rule && last.endCp === startCp) last.endCp = endCp;
@@ -308,9 +387,39 @@ function aggregateCoverage(diagnostics, keyOf) {
   );
 }
 
+// AlQuran.cloud's per-ayah tajweed source structurally excludes the basmala
+// prefix for every surah-opening ayah that carries one (Tanzil embeds it as
+// the verse's first four words instead). There is no tajweed rule data for
+// that prefix in this source at all, so it is aligned separately against
+// only the ayah body (using the already-verified basmala range) and the
+// prefix itself is always reported uncolored — never guessed.
+export function alignVerseTajweed(verseText, markup, basmalaRange) {
+  if (!basmalaRange || basmalaRange.kind !== "prefix") {
+    return alignTajweedSpans(verseText, markup);
+  }
+  const chars = codePoints(verseText);
+  const offset = basmalaRange.bodyStartCp;
+  const bodyText = chars.slice(offset).join("");
+  const aligned = alignTajweedSpans(bodyText, markup);
+  return {
+    spans: aligned.spans.map((span) => ({ ...span, startCp: span.startCp + offset, endCp: span.endCp + offset })),
+    uncoloredRanges: [
+      { startCp: 0, endCp: offset, reason: "basmala-prefix-not-in-tajweed-source" },
+      ...aligned.uncoloredRanges.map((range) => ({ ...range, startCp: range.startCp + offset, endCp: range.endCp + offset })),
+    ],
+    matchedTokens: aligned.matchedTokens,
+    unmatchedTokens: aligned.unmatchedTokens,
+    ambiguousClusters: aligned.ambiguousClusters,
+    ruleClusters: aligned.ruleClusters,
+    mappedRuleClusters: aligned.mappedRuleClusters,
+    tokenCountMismatch: aligned.tokenCountMismatch,
+  };
+}
+
 export function buildRuntimeData({ dbPath = LOCAL_DB_PATH } = {}) {
   const source = readCanonicalSource();
   const basmalaRanges = buildBasmalaRanges(source.verses);
+  const basmalaByKey = new Map(basmalaRanges.map((range) => [range.verseKey, range]));
   const tajweedMarkup = readTajweedMarkup(dbPath, source.verses.map((verse) => verse.verseKey));
   const pageStarts = JSON.parse(fs.readFileSync(MUSHAF_PAGE_DATA_PATH, "utf8")).sayfaBaslangiclari;
   const tajweedVerses = [];
@@ -322,7 +431,7 @@ export function buildRuntimeData({ dbPath = LOCAL_DB_PATH } = {}) {
   };
   for (const verse of source.verses) {
     const markup = tajweedMarkup.get(verse.verseKey);
-    const aligned = markup ? alignTajweedSpans(verse.arabicText, markup) : {
+    const aligned = markup ? alignVerseTajweed(verse.arabicText, markup, basmalaByKey.get(verse.verseKey)) : {
       spans: [], uncoloredRanges: [{ startCp: 0, endCp: codePoints(verse.arabicText).length, reason: "missing-source" }],
       matchedTokens: 0, unmatchedTokens: codePoints(verse.arabicText).length,
       ambiguousClusters: 0, ruleClusters: 0, mappedRuleClusters: 0, tokenCountMismatch: false,
