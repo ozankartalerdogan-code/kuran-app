@@ -1,0 +1,16 @@
+{
+  "snapshot_file": "scripts/morphology/legacy-canonical-builder.snapshot.js",
+  "source_path": "data2/scripts/build_canonical_word_analysis.js",
+  "source_sha256": "7c97b9111c621394d56904bc0fce93e13a2b70d7be866c79ac8f8a5f43124e39",
+  "snapshot_sha256": "7c97b9111c621394d56904bc0fce93e13a2b70d7be866c79ac8f8a5f43124e39",
+  "captured_at": "2026-07-18",
+  "byte_identical": true,
+  "source_file_mtime": "2026-07-04T18:02:00+03:00",
+  "source_size_bytes": 22614,
+  "notes": [
+    "Kaynak dosya git-ignore altindaki data2/ dizininde yasar; Git gecmisi yoktur ve bu snapshot alinana kadar tek kopyaydi.",
+    "Bu snapshot'in data/app.db icindeki words verisini gecmiste kesin olarak urettigi BILINMEMEKTEDIR; yalnizca bilinen tek hayatta kalan builder kodudur.",
+    "Snapshot byte-birebir kopyadir; icine baslik yorumu, guvenlik kodu veya cikis yolu degisikligi EKLENMEMISTIR. Calistirilabilir candidate uyarlamasi icin scripts/morphology/build-legacy-canonical-candidate.js kullanilir.",
+    "Snapshot ASLA dogrudan calistirilmamalidir; yalnizca scripts/morphology/build-legacy-canonical-candidate.js wrapper'i uzerinden kullanilmalidir. Dogrudan calistirilirsa orijinal script gibi data2/processed/ altina yazar."
+  ]
+}

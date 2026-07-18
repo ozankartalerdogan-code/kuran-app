@@ -39,6 +39,10 @@ GoogleService-Info.plist
 !/data/generated/quran/
 !/data/generated/quran/*.json
 
+# Morfoloji candidate build çıktıları — üretilen yerel veridir, asla commit edilmez.
+# (Zaten /data/* ile ignore edilir; niyet belgelenmesi için açık satır.)
+/data/candidates/
+
 
 # Log dosyaları
 *.log

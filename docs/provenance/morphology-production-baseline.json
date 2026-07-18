@@ -1,0 +1,489 @@
+{
+  "manifest_version": 1,
+  "classification": "legacy_unreproducible_baseline",
+  "LEGACY_PIPELINE_REPRODUCIBILITY": "NOT_REPRODUCIBLE",
+  "generated_by": "scripts/morphology/capture-production-baseline.py",
+  "statement": "data/app.db is a legacy production reference whose original build chain is not fully known. This manifest records its current state for comparison purposes only and does NOT claim the database can be reproduced from the sources listed here.",
+  "production_db": {
+    "path": "data/app.db",
+    "sha256": "f00a3864c59282c91a187438c499687412d044d083987240d502414d80ac7208",
+    "size_bytes": 237547520,
+    "pragma_schema_version": 155,
+    "pragma_user_version": 0,
+    "tables": [
+      "aktif_mealler",
+      "ayet_fts",
+      "ayet_fts_config",
+      "ayet_fts_content",
+      "ayet_fts_data",
+      "ayet_fts_docsize",
+      "ayet_fts_idx",
+      "context_notes",
+      "elifba_dersler",
+      "elifba_harf_ders",
+      "elifba_harfler",
+      "elifba_quiz",
+      "fidelity_comparisons",
+      "fidelity_signals",
+      "morfoloji",
+      "quran_runtime_meta",
+      "quran_verse_metadata",
+      "root_meanings",
+      "sqlite_sequence",
+      "sqlite_stat1",
+      "surah_tafsir",
+      "sureler",
+      "tajweed_spans",
+      "translations",
+      "verse_tag_items",
+      "verse_tags",
+      "verses",
+      "words"
+    ],
+    "table_row_counts": {
+      "aktif_mealler": 5,
+      "ayet_fts": 6236,
+      "ayet_fts_config": 1,
+      "ayet_fts_content": 6236,
+      "ayet_fts_data": 1080,
+      "ayet_fts_docsize": 6236,
+      "ayet_fts_idx": 1018,
+      "context_notes": 18708,
+      "elifba_dersler": 9,
+      "elifba_harf_ders": 234,
+      "elifba_harfler": 29,
+      "elifba_quiz": 405,
+      "fidelity_comparisons": 31164,
+      "fidelity_signals": 36810,
+      "morfoloji": 130030,
+      "quran_runtime_meta": 3,
+      "quran_verse_metadata": 113,
+      "root_meanings": 1703,
+      "surah_tafsir": 114,
+      "sureler": 114,
+      "tajweed_spans": 64196,
+      "translations": 31180,
+      "verse_tag_items": 21045,
+      "verse_tags": 6236,
+      "verses": 6236,
+      "words": 77429
+    },
+    "words_row_count": 77429,
+    "words_schema": {
+      "table_info": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "verse_key",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "word_index",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "segment_index",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "arabic",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "root",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "lemma",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "pos",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "morphology",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "meaning_tr",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "gloss_en",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "confidence",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "source",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "role",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "index_list": [
+        {
+          "name": "idx_words_pos",
+          "unique": false,
+          "origin": "c",
+          "partial": false,
+          "columns": [
+            "pos"
+          ]
+        },
+        {
+          "name": "idx_words_arabic",
+          "unique": false,
+          "origin": "c",
+          "partial": false,
+          "columns": [
+            "arabic"
+          ]
+        },
+        {
+          "name": "idx_words_meaning_tr",
+          "unique": false,
+          "origin": "c",
+          "partial": false,
+          "columns": [
+            "meaning_tr"
+          ]
+        },
+        {
+          "name": "idx_words_root",
+          "unique": false,
+          "origin": "c",
+          "partial": true,
+          "columns": [
+            "root"
+          ]
+        },
+        {
+          "name": "idx_words_role",
+          "unique": false,
+          "origin": "c",
+          "partial": false,
+          "columns": [
+            "role"
+          ]
+        },
+        {
+          "name": "idx_words_lookup",
+          "unique": false,
+          "origin": "c",
+          "partial": false,
+          "columns": [
+            "verse_key",
+            "word_index"
+          ]
+        }
+      ],
+      "create_sql": [
+        {
+          "type": "table",
+          "name": "words",
+          "sql": "CREATE TABLE words (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          verse_key TEXT,\n          word_index INTEGER,\n          segment_index INTEGER,\n          arabic TEXT,\n          root TEXT,\n          lemma TEXT,\n          pos TEXT,\n          morphology TEXT,\n          meaning_tr TEXT,\n          gloss_en TEXT,\n          confidence TEXT,\n          source TEXT\n        , role TEXT)"
+        },
+        {
+          "type": "index",
+          "name": "idx_words_arabic",
+          "sql": "CREATE INDEX idx_words_arabic ON words(arabic)"
+        },
+        {
+          "type": "index",
+          "name": "idx_words_lookup",
+          "sql": "CREATE INDEX idx_words_lookup ON words(verse_key, word_index)"
+        },
+        {
+          "type": "index",
+          "name": "idx_words_meaning_tr",
+          "sql": "CREATE INDEX idx_words_meaning_tr ON words(meaning_tr)"
+        },
+        {
+          "type": "index",
+          "name": "idx_words_pos",
+          "sql": "CREATE INDEX idx_words_pos ON words(pos)"
+        },
+        {
+          "type": "index",
+          "name": "idx_words_role",
+          "sql": "CREATE INDEX idx_words_role ON words(role)"
+        },
+        {
+          "type": "index",
+          "name": "idx_words_root",
+          "sql": "CREATE INDEX idx_words_root ON words(root) WHERE root IS NOT NULL"
+        }
+      ]
+    },
+    "words_ufffd_column_counts": {
+      "per_column_row_counts": {
+        "arabic": 0,
+        "root": 0,
+        "lemma": 0,
+        "pos": 0,
+        "morphology": 0,
+        "meaning_tr": 0,
+        "gloss_en": 0,
+        "source": 0
+      },
+      "rows_with_any_ufffd": 0,
+      "row_locations_sample": []
+    }
+  },
+  "backup_db": {
+    "path": "data/app.db.yedek_20260521_164049",
+    "sha256": "70e3f568000292d8c555d6b7cd8e2bc297e37664bf149418db3e85b1853a4344",
+    "size_bytes": 237547520,
+    "pragma_schema_version": 72,
+    "pragma_user_version": 0,
+    "tables": [
+      "aktif_mealler",
+      "ayet_fts",
+      "ayet_fts_config",
+      "ayet_fts_content",
+      "ayet_fts_data",
+      "ayet_fts_docsize",
+      "ayet_fts_idx",
+      "context_notes",
+      "fidelity_comparisons",
+      "fidelity_signals",
+      "morfoloji",
+      "root_meanings",
+      "sqlite_sequence",
+      "sqlite_stat1",
+      "surah_tafsir",
+      "sureler",
+      "translations",
+      "verses",
+      "words"
+    ],
+    "table_row_counts": {
+      "aktif_mealler": 5,
+      "ayet_fts": 6236,
+      "ayet_fts_config": 1,
+      "ayet_fts_content": 6236,
+      "ayet_fts_data": 571,
+      "ayet_fts_docsize": 6236,
+      "ayet_fts_idx": 542,
+      "context_notes": 18708,
+      "fidelity_comparisons": 31164,
+      "fidelity_signals": 36810,
+      "morfoloji": 130030,
+      "root_meanings": 1833,
+      "surah_tafsir": 114,
+      "sureler": 114,
+      "translations": 31164,
+      "verses": 6236,
+      "words": 77429
+    },
+    "words_row_count": 77429
+  },
+  "core_db": {
+    "path": "data/kuran_core.db",
+    "sha256": "891142d182f580dde0f9c96b7e5b7ba3bf581d4a6774dca81acc34b631934c68",
+    "size_bytes": 207802368,
+    "pragma_schema_version": 14,
+    "table_count": 9
+  },
+  "morphology_sources": [
+    {
+      "path": "data/word-analysis/quran-morphology.txt",
+      "sha256": "f3732e9c293eb2c8fe8371ea6b4d15e26ee8e39784057a297e04c374df36e450",
+      "size_bytes": 6323114,
+      "line_count": 130030,
+      "ufffd_line_count": 62,
+      "ufffd_line_numbers": [
+        356,
+        385,
+        469,
+        499,
+        1043,
+        6180,
+        8512,
+        13566,
+        14557,
+        17274,
+        18611,
+        21562,
+        22237,
+        24643,
+        24974,
+        25654,
+        25993,
+        27357,
+        28055,
+        32114,
+        32812,
+        37941,
+        41662,
+        42010,
+        42347,
+        42686,
+        43029,
+        43373,
+        48418,
+        52146,
+        60245,
+        64561,
+        66230,
+        67222,
+        67558,
+        68251,
+        68589,
+        72355,
+        74378,
+        76412,
+        77061,
+        78378,
+        82406,
+        82743,
+        83415,
+        84420,
+        86115,
+        93161,
+        93498,
+        93835,
+        95177,
+        101600,
+        105000,
+        108737,
+        112058,
+        112730,
+        113071,
+        119103,
+        121460,
+        124127,
+        126076,
+        126403
+      ]
+    },
+    {
+      "path": "data2/corpus-morphology.txt",
+      "sha256": "a1d12923815341face765083805d2148ed2d9f5cc3f7d6665219d887675d8c46",
+      "size_bytes": 6309503,
+      "line_count": 128276,
+      "ufffd_line_count": 0,
+      "ufffd_line_numbers": []
+    },
+    {
+      "path": "data2/quran-morphology/quran-morphology.txt",
+      "sha256": "742bfac59941b2cb09736d5b7aae694af50792261fb8450cbf6afafcc340645f",
+      "size_bytes": 6322866,
+      "line_count": 130030,
+      "ufffd_line_count": 0,
+      "ufffd_line_numbers": []
+    }
+  ],
+  "canonical_outputs": [
+    {
+      "path": "data2/processed/canonical_word_analysis_v2.json",
+      "sha256": "7a5d2dabdddbfc95edf2e9b82299abb9aaefddc53c155f7b98f997498df2ddb8",
+      "size_bytes": 76543377,
+      "verse_key_count": 6236,
+      "word_entry_count": 77429
+    },
+    {
+      "path": "data2/processed/canonical_word_analysis_v3.json",
+      "sha256": "85bcc1cd7d4de9b5f6a319be0c9bb03a55eb74e0221eccde2bb56acf4ee213d8",
+      "size_bytes": 76705881,
+      "verse_key_count": 6236,
+      "word_entry_count": 77429
+    },
+    {
+      "path": "data2/processed/canonical_word_analysis_v4.json",
+      "sha256": "6b375f372acda16173ad78179e31f729eb63229b805661d29802dc2f1c1f573c",
+      "size_bytes": 76714255,
+      "verse_key_count": 6236,
+      "word_entry_count": 77429,
+      "classification": "latest_surviving_canonical_derivative",
+      "note": "Most recent surviving canonical output; used as the static input for the morphology validation candidate DB. It is a DERIVATIVE of the lost raw inputs (quran-json chapters, quran_dictionary.csv, base canonical v1) and does NOT substitute for them as provenance."
+    },
+    {
+      "path": "data2/processed/canonical_word_analysis_enriched.json",
+      "sha256": "eac578a1db1966850feca5a5ae6105ede20479eb2e4cc88e0468e482d488b354",
+      "size_bytes": 73971421,
+      "verse_key_count": 6236,
+      "word_entry_count": 77429
+    }
+  ],
+  "legacy_builder": {
+    "path": "data2/scripts/build_canonical_word_analysis.js",
+    "sha256": "7c97b9111c621394d56904bc0fce93e13a2b70d7be866c79ac8f8a5f43124e39",
+    "size_bytes": 22614,
+    "note": "Only surviving copy of the canonical word-analysis builder; it lives under git-ignored data2/ and has no Git history. A byte-identical tracked snapshot exists at scripts/morphology/legacy-canonical-builder.snapshot.js (see legacy-canonical-builder.snapshot.meta.json).",
+    "currently_runnable": false,
+    "runnable_note": "The snapshot (and the original) cannot currently be executed: its required inputs data2/quran-json/dist/chapters/ and data2/QURAN-NLP/data/quran/corpus/quran_dictionary.csv no longer exist on disk (see known_provenance_gaps)."
+  },
+  "known_provenance_gaps": [
+    "The builder that originally produced data/app.db is lost; the last syntactically sound tracked builder (c0d671d:scripts/build-core-analysis-db.py) targeted data/kuran_core.db, not app.db.",
+    "data2/processed/canonical_word_analysis.json (the v1/base canonical output consumed by that builder) no longer exists on disk; only v2/v3/v4/enriched derivatives survive.",
+    "Manual Turso and local patch commands applied to production data were not logged and cannot be replayed.",
+    "data/app.db cannot be reproduced byte-for-byte or row-for-row from any known input chain.",
+    "data2/quran-json/dist/chapters/ — the Arabic word input of the legacy canonical builder — is missing from disk. It was git-ignored, so it cannot be recovered from Git history, and no hash of its former content is known. It may have still existed when canonical_word_analysis_v4.json was produced, but the exact date it disappeared is unknown.",
+    "data2/QURAN-NLP/data/quran/corpus/quran_dictionary.csv — the gloss_en input of the legacy canonical builder — is missing from disk. It was git-ignored, so it cannot be recovered from Git history, and no hash of its former content is known."
+  ]
+}
