@@ -226,6 +226,11 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
     textView.setText(sb, TextView.BufferType.SPANNABLE)
     spannableApplyCount += 1
     requestLayout()
+    // Apply artık post edildiği için RN'in bu view için yaptığı layout geçişinden
+    // SONRA çalışır ve RN, native çocuktan gelen requestLayout'a yeni bir geçiş
+    // vermez → onLayout bir daha koşmaz. O yüzden ölçümü burada kendimiz
+    // tekrarlarız; yoksa yükseklik metinsiz ölçüme (tek satır) takılı kalır.
+    olcVeYukseklikBildir()
     if (!verifyText) return
     val readback = textView.text.toString()
     val digest = MessageDigest.getInstance("SHA-256")
@@ -247,13 +252,17 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
   }
 
   override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-    val width = right - left
-    if (width <= 0) return
+    olcVeYukseklikBildir(right - left)
+  }
+
+  /** Çocuğu ölç + yerleştir, yükseklik değiştiyse JS'e bildir (style.height'ı o günceller). */
+  private fun olcVeYukseklikBildir(genislik: Int = width) {
+    if (genislik <= 0) return
     textView.measure(
-      MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+      MeasureSpec.makeMeasureSpec(genislik, MeasureSpec.EXACTLY),
       MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
     )
-    textView.layout(0, 0, width, textView.measuredHeight)
+    textView.layout(0, 0, genislik, textView.measuredHeight)
     val desired = textView.measuredHeight
     if (desired != lastDispatchedHeight) {
       lastDispatchedHeight = desired

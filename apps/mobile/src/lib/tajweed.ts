@@ -206,7 +206,7 @@ export function groupCanonicalTextByWord(
   let start = 0;
   const flush = (end: number) => {
     if (end <= start) return;
-    const span = spans.find((candidate) => candidate.startCp < end && candidate.endCp > start);
+    const span = spans?.find((candidate) => candidate.startCp < end && candidate.endCp > start);
     out.push({ code: span?.rule ?? null, t: chars.slice(start, end).join("") });
     start = end;
   };
