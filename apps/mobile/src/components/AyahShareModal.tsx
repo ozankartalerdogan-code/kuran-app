@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet, Dimensions,
 } from "react-native";
 import { useColors } from "../hooks/useColors";
+import { buildAyahImageShareContent } from "../lib/ayahImageShare";
 import { captureAndShareView } from "../lib/shareImage";
 
 // Görsel ayet paylaşımı — "Kuran Yolu" markalı kart önizlemesi + paylaşım seçimi.
@@ -26,23 +27,46 @@ interface Props {
   surahName: string;
   ayahNumber: number;
   arabic: string | null;
+  reading?: string | null;
   meal: string | null;
+  webUrl: string;
   onShareText: () => void; // metin paylaşımı (mevcut davranış) — fallback ve seçenek
 }
 
-export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic, meal, onShareText }: Props) {
+export function AyahShareModal({
+  visible,
+  onClose,
+  surahName,
+  ayahNumber,
+  arabic,
+  reading,
+  meal,
+  webUrl,
+  onShareText,
+}: Props) {
   const c = useColors();
   const cardRef = useRef<View>(null);
   const [sharing, setSharing] = useState(false);
+  const [shareError, setShareError] = useState<string | null>(null);
+  const shareContent = buildAyahImageShareContent({
+    surahName,
+    ayahNumber,
+    reading,
+    webUrl,
+  });
 
   const handleShareImage = async () => {
     if (sharing) return;
+    setShareError(null);
     setSharing(true);
-    const ok = await captureAndShareView(cardRef.current, `${surahName} ${ayahNumber}. Ayet`);
+    const result = await captureAndShareView(cardRef.current, shareContent);
     setSharing(false);
-    if (ok) onClose();
-    // Başarısızsa (iptal dahil) modal açık kalır; kullanıcı tekrar deneyebilir
-    // veya metin paylaşımını seçebilir.
+
+    if (result === "shared") {
+      onClose();
+    } else if (result === "error") {
+      setShareError("Görsel paylaşımı açılamadı. Lütfen tekrar deneyin.");
+    }
   };
 
   const handleShareText = () => {
@@ -62,7 +86,12 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
                 {arabic}
               </Text>
             ) : null}
-            <View style={m.cardDivider} />
+            {shareContent.reading ? (
+              <Text style={[m.cardReading, arabic ? m.cardReadingAfterArabic : null]}>
+                {shareContent.reading}
+              </Text>
+            ) : null}
+            {meal && (arabic || shareContent.reading) ? <View style={m.cardDivider} /> : null}
             {meal ? (
               <Text style={[m.cardMeal, { fontSize: mealFontSize(meal.length), lineHeight: mealFontSize(meal.length) * 1.65 }]}>
                 “{meal}”
@@ -89,6 +118,7 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
                 ? <ActivityIndicator color="#fff" size="small" />
                 : <Text style={m.primaryBtnText}>🖼️ Görsel Olarak Paylaş</Text>}
             </TouchableOpacity>
+            {shareError ? <Text accessibilityRole="alert" style={m.shareError}>{shareError}</Text> : null}
             <TouchableOpacity
               style={[m.secondaryBtn, { borderColor: c.border }]}
               onPress={handleShareText}
@@ -132,6 +162,10 @@ const m = StyleSheet.create({
     fontFamily: "Amiri", color: "#1c1917",
     textAlign: "right", writingDirection: "rtl", width: "100%",
   },
+  cardReading: {
+    color: "#57534e", fontSize: 14, lineHeight: 22, textAlign: "center",
+  },
+  cardReadingAfterArabic: { marginTop: 10 },
   cardDivider: {
     alignSelf: "center", width: 44, height: 2, borderRadius: 1,
     backgroundColor: "#a7f3d0", marginVertical: 14,
@@ -154,6 +188,7 @@ const m = StyleSheet.create({
     borderRadius: 10, paddingVertical: 12, alignItems: "center", minHeight: 44, justifyContent: "center",
   },
   primaryBtnText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
+  shareError: { color: "#b91c1c", fontSize: 12, lineHeight: 18, textAlign: "center" },
   secondaryBtn: {
     borderRadius: 10, borderWidth: 1, paddingVertical: 11, alignItems: "center",
   },

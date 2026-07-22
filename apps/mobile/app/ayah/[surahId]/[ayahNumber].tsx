@@ -18,6 +18,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonLoader";
 import { TajweedText } from "../../../src/components/TajweedText";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
+import { resolveWordDeepLink } from "../../../src/lib/ayahWordTarget";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useColors } from "../../../src/hooks/useColors";
 import { useFavorites } from "../../../src/hooks/useFavorites";
@@ -30,6 +31,7 @@ import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
 import { isImageShareAvailable } from "../../../src/lib/shareImage";
+import { buildAyahShareText } from "../../../src/lib/ayahShare";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../../../src/hooks/useFontScale";
 import { arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../../../src/lib/mushafSayfa";
 import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
@@ -431,8 +433,8 @@ export default function AyahDetailScreen() {
   const analysisTabTarget = useTourTarget("ayah.analysis");
   const tourScroll = useTourScroller();
 
-  const { surahId: rawS, ayahNumber: rawA } =
-    useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
+  const { surahId: rawS, ayahNumber: rawA, word: rawWord } =
+    useLocalSearchParams<{ surahId: string; ayahNumber: string; word?: string | string[] }>();
   const surahId    = Number(rawS);
   const ayahNumber = Number(rawA);
 
@@ -446,6 +448,31 @@ export default function AyahDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
+  const targetWordCardRef = useRef<View>(null);
+  const targetWordScrollKeyRef = useRef<string | null>(null);
+  const wordDeepLink = useMemo(() => resolveWordDeepLink(data?.words, rawWord), [data?.words, rawWord]);
+  const targetWordIndex = wordDeepLink?.wordIndex ?? null;
+
+  useEffect(() => {
+    if (wordDeepLink) setActiveTab(wordDeepLink.tab);
+  }, [wordDeepLink]);
+
+  const handleTargetWordLayout = useCallback(() => {
+    if (targetWordIndex === null) return;
+    const targetKey = `${verseKey}:${targetWordIndex}`;
+    if (targetWordScrollKeyRef.current === targetKey) return;
+    targetWordScrollKeyRef.current = targetKey;
+    requestAnimationFrame(() => {
+      try {
+        targetWordCardRef.current?.measureInWindow((_x, pageY) => {
+          const scroller = tourScroll.ref.current as { scrollTo?: (options: { y: number; animated?: boolean }) => void } | null;
+          scroller?.scrollTo?.({ y: Math.max(0, pageY - insets.top - 16), animated: true });
+        });
+      } catch {
+        // Scroll measurement failures leave the target card visible.
+      }
+    });
+  }, [insets.top, targetWordIndex, tourScroll.ref, verseKey]);
   // Sure/ayet atlama çubuğu — yapışkan alt bardaki "x / y" sayacına dokununca açılır.
   const [jumpOpen, setJumpOpen] = useState(false);
   // Edge-to-edge Android'de klavye pencereyi daraltmaz, alttaki barın üzerine
@@ -609,18 +636,17 @@ export default function AyahDetailScreen() {
     if (!data) return;
     const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
     const title = `${data.surahName} ${data.ayahNumber}. Ayet`;
-    const bodyParts = [
-      `${data.surahName} · ${data.ayahNumber}. Ayet`,
-      data.arabicText ?? "",
-      reading ?? "",
-      data.meal ?? "",
-    ].filter(Boolean);
-    // Android'in paylaşım intent'i yalnızca `message` alanını okur, `url`'i yok sayar
-    // → link mesaja gömülmeli. iOS ise `url`'i ayrı bir bağlantı önizlemesi olarak
-    // gösterir; mesaja da gömülürse link iki kez görünür.
-    const shareOptions = Platform.OS === "ios"
-      ? { title, message: bodyParts.join("\n\n"), url: webUrl }
-      : { title, message: [...bodyParts, webUrl].join("\n\n") };
+    const message = buildAyahShareText({
+      surahName: data.surahName,
+      ayahNumber: data.ayahNumber,
+      arabicText: data.arabicText,
+      reading,
+      meal: data.meal,
+      webUrl,
+    });
+    // URL hem Android hem iOS'ta mesaj gövdesindedir; hedef uygulamaların `url`
+    // alanını yok sayması paylaşılmış ayet bağlantısını kaybettirmez.
+    const shareOptions = { title, message };
     try {
       await Share.share(shareOptions);
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
@@ -947,10 +973,13 @@ export default function AyahDetailScreen() {
                 <View style={styles.wordsList}>
                   {data.words.map((w) => (
                     <View
+                      ref={w.wordIndex === targetWordIndex ? targetWordCardRef : undefined}
+                      onLayout={w.wordIndex === targetWordIndex ? handleTargetWordLayout : undefined}
                       key={w.wordIndex}
                       style={[
                         styles.wordCard,
                         { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+                        w.wordIndex === targetWordIndex && { borderColor: colors.accent, borderWidth: 2 },
                       ]}
                     >
                       {/* Arapça kelime */}
@@ -1284,7 +1313,9 @@ export default function AyahDetailScreen() {
         surahName={data.surahName}
         ayahNumber={data.ayahNumber}
         arabic={data.arabicText}
+        reading={reading}
         meal={data.meal}
+        webUrl={`${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`}
         onShareText={handleShareText}
       />
     </>

@@ -182,7 +182,14 @@ const MeaningGroup = memo(function MeaningGroup({
               key={index}
               style={[s.verseChip, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}
               onPressIn={() => prefetchAyah(verse.surahId, verse.ayahNumber)}
-              onPress={() => router.push(`/ayah/${verse.surahId}/${verse.ayahNumber}`)}
+              onPress={() => router.push({
+                pathname: "/ayah/[surahId]/[ayahNumber]",
+                params: {
+                  surahId: String(verse.surahId),
+                  ayahNumber: String(verse.ayahNumber),
+                  word: String(verse.wordIndex),
+                },
+              })}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={`${verse.surahId} sure ${verse.ayahNumber}. ayet`}
@@ -353,6 +360,14 @@ export default function RootDetailScreen() {
                   </View>
                 ))}
               </View>
+              {data.isTruncated === true && typeof data.derivedTotal === "number" && (
+                <Text style={[s.truncationNotice, { color: c.textMuted }]}>
+                  {"Bu k\u00F6k i\u00E7in "}
+                  {data.derivedTotal.toLocaleString("tr-TR")}
+                  {" ge\u00E7i\u015Ften ilk "}{data.derivedWords.length.toLocaleString("tr-TR")}
+                  {"'i g\u00F6steriliyor."}
+                </Text>
+              )}
             </View>
 
             <View {...heatmapTarget} style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -435,6 +450,7 @@ const s = StyleSheet.create({
   meaningLabel: { fontSize: 10, fontWeight: "700", letterSpacing: 0.5, textTransform: "uppercase", color: "#a8a29e", marginBottom: 2 },
   meaning: { fontSize: 16, color: "#44403c", marginBottom: 12 },
   statsRow: { flexDirection: "row", gap: 16 },
+  truncationNotice: { marginTop: 10, fontSize: 12, lineHeight: 17, textAlign: "center" },
   statBadge: { alignItems: "center", backgroundColor: "#f0fdf4", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8, borderWidth: 1, borderColor: "#86efac" },
   statNum: { fontSize: 18, fontWeight: "700", color: "#065f46" },
   statLabel: { fontSize: 10, color: "#059669", marginTop: 1 },

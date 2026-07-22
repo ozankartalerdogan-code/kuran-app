@@ -1,46 +1,95 @@
-// Görsel paylaşım altyapısı — react-native-view-shot + expo-sharing NATIVE
-// modüllerdir; mevcut dev build'de yoksa require patlar → null'a düşer ve
-// çağıran taraf metin paylaşımına devam eder (build-gated guard deseni,
-// bkz. useKeepAwakeSafe / storage MMKV guard'ı).
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+import {
+  buildNativeImageShareOptions,
+  getImageShareResult,
+  type ImageSharePlatform,
+} from "./ayahImageShare";
 
 type CaptureRefFn = (
   ref: unknown,
-  options?: { format?: "png" | "jpg"; quality?: number; result?: "tmpfile" | "base64" | "data-uri" },
+  options?: {
+    format?: "png" | "jpg";
+    quality?: number;
+    result?: "tmpfile" | "base64" | "data-uri";
+  },
 ) => Promise<string>;
 
-type ShareAsyncFn = (
-  url: string,
-  options?: { mimeType?: string; dialogTitle?: string; UTI?: string },
-) => Promise<void>;
+type ShareOpenResult = {
+  success: boolean;
+  dismissedAction?: boolean;
+};
+
+type ShareOpenFn = (options: {
+  url: string;
+  type: "image/png";
+  title: string;
+  message: string;
+  failOnCancel: false;
+  useInternalStorage?: true;
+}) => Promise<ShareOpenResult>;
 
 let captureRefImpl: CaptureRefFn | null = null;
-let shareAsyncImpl: ShareAsyncFn | null = null;
+let shareOpenImpl: ShareOpenFn | null = null;
 
 try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-  const vs = require("react-native-view-shot") as { captureRef?: CaptureRefFn };
-  if (typeof vs.captureRef === "function") captureRefImpl = vs.captureRef;
-} catch { /* modül build'de yok — görsel paylaşım kapalı */ }
+  const viewShot = require("react-native-view-shot") as {
+    captureRef?: CaptureRefFn;
+  };
+  captureRefImpl = viewShot.captureRef ?? null;
+} catch {
+  captureRefImpl = null;
+}
 
 try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-  const sh = require("expo-sharing") as { shareAsync?: ShareAsyncFn };
-  if (typeof sh.shareAsync === "function") shareAsyncImpl = sh.shareAsync;
-} catch { /* modül build'de yok — görsel paylaşım kapalı */ }
+  const sharing = require("react-native-share") as {
+    default?: { open?: ShareOpenFn };
+    open?: ShareOpenFn;
+  };
+  shareOpenImpl = sharing.default?.open ?? sharing.open ?? null;
+} catch {
+  shareOpenImpl = null;
+}
 
-// İki modül birden varsa görsel paylaşım sunulabilir; yoksa UI bu seçeneği hiç göstermez.
-export const isImageShareAvailable = captureRefImpl !== null && shareAsyncImpl !== null;
+export const isImageShareAvailable =
+  captureRefImpl !== null && shareOpenImpl !== null;
 
-// Verilen view ref'ini PNG'ye çevirip paylaşım sayfasını açar.
-// Başarı: true; kullanıcı iptali dahil her hata: false (çağıran fallback'e karar verir).
-export async function captureAndShareView(ref: unknown, dialogTitle: string): Promise<boolean> {
-  if (!captureRefImpl || !shareAsyncImpl) return false;
+export type ImageShareResult = "shared" | "cancelled" | "error";
+
+function getImageSharePlatform(): ImageSharePlatform {
+  const reactNative = require("react-native") as {
+    Platform?: { OS?: string };
+  };
+
+  return reactNative.Platform?.OS === "ios" ? "ios" : "android";
+}
+
+export async function captureAndShareView(
+  ref: unknown,
+  content: { title: string; message: string },
+): Promise<ImageShareResult> {
+  if (!captureRefImpl || !shareOpenImpl) {
+    return "error";
+  }
+
   try {
-    const uri = await captureRefImpl(ref, { format: "png", quality: 1, result: "tmpfile" });
+    const uri = await captureRefImpl(ref, {
+      format: "png",
+      quality: 1,
+      result: "tmpfile",
+    });
     const fileUri = uri.startsWith("file://") ? uri : `file://${uri}`;
-    await shareAsyncImpl(fileUri, { mimeType: "image/png", dialogTitle, UTI: "public.png" });
-    return true;
+    const result = await shareOpenImpl(
+      buildNativeImageShareOptions({
+        fileUri,
+        title: content.title,
+        message: content.message,
+        platform: getImageSharePlatform(),
+      }),
+    );
+
+    return getImageShareResult(result);
   } catch {
-    return false;
+    return "error";
   }
 }

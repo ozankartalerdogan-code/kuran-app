@@ -138,11 +138,15 @@ export type RootDetail = {
   root: string;
   meaningTr: string;
   distribution: Record<number, number>;
+  // Eski ?nbellek yan?tlar?nda bu alanlar bulunmayabilir.
+  derivedTotal?: number;
+  isTruncated?: boolean;
   derivedWords: Array<{
     word: string;
     meaning: string;
     surahId: number;
     ayahNumber: number;
+    wordIndex: number;
   }>;
 };
 
