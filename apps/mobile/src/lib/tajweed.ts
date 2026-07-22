@@ -174,14 +174,14 @@ export type QuranCodePointSpan = {
 /** Convert generated half-open code-point ranges to Android/RN UTF-16 ranges. */
 export function codePointSpansToUtf16Ranges(
   text: string,
-  spans: QuranCodePointSpan[],
+  spans: readonly QuranCodePointSpan[] | null | undefined,
   baseOffset = 0,
 ): TajweedRange[] {
   const chars = Array.from(text);
   const utf16Offsets = [0];
   for (const char of chars) utf16Offsets.push(utf16Offsets[utf16Offsets.length - 1] + char.length);
   const ranges: TajweedRange[] = [];
-  for (const span of spans) {
+  for (const span of spans ?? []) {
     if (span.startCp < 0 || span.endCp <= span.startCp || span.endCp > chars.length) continue;
     ranges.push({
       start: baseOffset + utf16Offsets[span.startCp],
@@ -199,7 +199,7 @@ export function codePointSpansToUtf16Ranges(
  */
 export function groupCanonicalTextByWord(
   text: string,
-  spans: QuranCodePointSpan[],
+  spans: readonly QuranCodePointSpan[] | null | undefined,
 ): TajweedSegment[] {
   const chars = Array.from(text);
   const out: TajweedSegment[] = [];

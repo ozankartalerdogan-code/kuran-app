@@ -7,7 +7,11 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseTajweed, RENK, TAJWEED_LEGEND, segmentsToRanges, groupSegmentsByWord } from "./tajweed.ts";
+import { codePointSpansToUtf16Ranges, parseTajweed, RENK, TAJWEED_LEGEND, segmentsToRanges, groupSegmentsByWord } from "./tajweed.ts";
+test("eksik tecvid span listesi boş renk aralığına düşer", () => {
+  assert.deepEqual(codePointSpansToUtf16Ranges("بِسْمِ", undefined), []);
+  assert.deepEqual(codePointSpansToUtf16Ranges("بِسْمِ", null), []);
+});
 
 test("markup yok: tek segment, kod null, metin aynen", () => {
   assert.deepEqual(parseTajweed("abc"), [{ code: null, t: "abc" }]);
