@@ -13,9 +13,10 @@ import { useColors } from "../src/hooks/useColors";
 import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
-import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../src/lib/mushafSayfa";
-import { RENK, TAJWEED_LEGEND, codePointSpansToUtf16Ranges, groupCanonicalTextByWord, type TajweedRange } from "../src/lib/tajweed";
+import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla, mushafSayfaAyetSirasiGecerli } from "../src/lib/mushafSayfa";
+import { RENK, TAJWEED_LEGEND, groupCanonicalTextByWord } from "../src/lib/tajweed";
 import { prepareCanonicalVerseForRender, type CanonicalRenderVerse } from "../src/lib/mushafCanonical";
+import { mushafMetinBloguHazirla, seciliAyetVurguAraliklari, utf16IndeksindekiAyetiBul } from "../src/lib/mushafTextBlock";
 import { TajweedNativeText, isTajweedNativeAvailable } from "../modules/tajweed-text";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
@@ -99,9 +100,8 @@ function AyetMetni({ ayet, tajweed }: { ayet: CanonicalRenderVerse; tajweed: boo
 // string olarak akar (basılı mushaf düzeni), tecvid renkleri + ayet numaraları
 // UTF-16 aralıklarıyla boyanır; shaping asla bozulmaz (harf düzeyi hassasiyet).
 // Dokunma: native, dokunulan karakterin indeksini verir → ayet aralığına eşlenir.
-type AyetAralik = { surahId: number; ayahNumber: number; start: number; end: number };
 
-function MetinBloguNative({ ayetler, tajweed, fontSize, lineHeight, textColor, accent, secili, seciliRenk, onAyetSec }: {
+const MetinBloguNative = React.memo(function MetinBloguNative({ ayetler, tajweed, fontSize, lineHeight, textColor, accent, secili, seciliRenk, onAyetSec }: {
   ayetler: CanonicalRenderVerse[];
   tajweed: boolean;
   fontSize: number;
@@ -112,30 +112,21 @@ function MetinBloguNative({ ayetler, tajweed, fontSize, lineHeight, textColor, a
   seciliRenk: string;
   onAyetSec: (surahId: number, ayahNumber: number) => void;
 }) {
-  const { text, ranges, araliklar } = useMemo(() => {
-    let text = "";
-    const ranges: TajweedRange[] = [];
-    const araliklar: AyetAralik[] = [];
-    for (const ayet of ayetler) {
-      const start = text.length;
-      if (tajweed) ranges.push(...codePointSpansToUtf16Ranges(ayet.renderArabic, ayet.renderTajweedSpans, text.length));
-      text += ayet.renderArabic;
-      const num = ` ﴿${arapRakam(ayet.ayahNumber)}﴾ `;
-      ranges.push({ start: text.length, end: text.length + num.length, color: accent });
-      text += num;
-      araliklar.push({ surahId: ayet.surahId, ayahNumber: ayet.ayahNumber, start, end: text.length });
-    }
-    // Uyum haritası + NBSP, birleştirilmiş SON metne uygulanır: 1:1 (uzunluk
-    // korunur) olduğundan yukarıda hesaplanan tüm aralık/indeksler geçerli
-    // kalır; tecvid metnindeki seyrek U+06DF'ler de böylece düzelir.
-    return { text: mushafMetniHazirla(text), ranges, araliklar };
-  }, [ayetler, tajweed, accent]);
-
-  const highlightRanges = useMemo(() => {
-    if (!secili) return [];
-    const a = araliklar.find((x) => x.surahId === secili.surahId && x.ayahNumber === secili.ayahNumber);
-    return a ? [{ start: a.start, end: a.end, color: seciliRenk }] : [];
-  }, [araliklar, secili, seciliRenk]);
+  const { text, ranges, araliklar } = useMemo(
+    () => mushafMetinBloguHazirla(ayetler, tajweed, accent),
+    [ayetler, tajweed, accent],
+  );
+  const highlightRanges = useMemo(
+    () => seciliAyetVurguAraliklari(araliklar, secili, seciliRenk),
+    [araliklar, secili, seciliRenk],
+  );
+  const onCharPress = useCallback((index: number) => {
+    const a = utf16IndeksindekiAyetiBul(araliklar, index);
+    if (a) onAyetSec(a.surahId, a.ayahNumber);
+  }, [araliklar, onAyetSec]);
+  const onTextVerified = useCallback((event: { nativeEvent: { sha256: string; matchesInput: boolean; utf16Length: number; codePointLength: number; applyCount: number } }) => {
+    if (__DEV__) console.debug("[mushaf-canonical-text]", { tajweed, source: "arabic_text", ...event.nativeEvent });
+  }, [tajweed]);
 
   return (
     <TajweedNativeText
@@ -146,33 +137,26 @@ function MetinBloguNative({ ayetler, tajweed, fontSize, lineHeight, textColor, a
       lineHeight={lineHeight}
       textColor={textColor}
       textAlign="justify"
-      onTextVerified={(event) => {
-        if (__DEV__) {
-          console.debug("[mushaf-canonical-text]", {
-            tajweed,
-            source: "arabic_text",
-            nativeSha256: event.nativeEvent.sha256,
-            nativeMatchesJsInput: event.nativeEvent.matchesInput,
-            utf16Length: event.nativeEvent.utf16Length,
-            codePointLength: event.nativeEvent.codePointLength,
-          });
-        }
-      }}
-      onCharPress={(index) => {
-        const a = araliklar.find((x) => index >= x.start && index < x.end);
-        if (a) onAyetSec(a.surahId, a.ayahNumber);
-      }}
+      verifyText={__DEV__}
+      onTextVerified={__DEV__ ? onTextVerified : undefined}
+      onCharPress={onCharPress}
     />
   );
-}
+});
 
-const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, secili, onAyetSec }: {
+type MushafSayfasiProps = {
   page: number;
   width: number;
   tajweed: boolean;
   secili: SeciliAyet;
   onAyetSec: (surahId: number, ayahNumber: number) => void;
-}) {
+  isVisible: boolean;
+};
+
+function seciliSayfada(secili: SeciliAyet, page: number): SeciliAyet {
+  return secili && ayetinSayfasi(secili.surahId, secili.ayahNumber) === page ? secili : null;
+}
+const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, secili, onAyetSec }: MushafSayfasiProps) {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { fontScale } = useFontScale();
@@ -183,7 +167,12 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
     let cancelled = false;
     setDurum({ status: "loading" });
     api.mushaf.page(page)
-      .then((data) => { if (!cancelled) setDurum({ status: "ready", bloklar: bloklariKur(data) }); })
+      .then((data) => {
+        if (!mushafSayfaAyetSirasiGecerli(page, data.verses)) {
+          throw new Error(`Eksik veya sırasız Mushaf sayfası: ${page}`);
+        }
+        if (!cancelled) setDurum({ status: "ready", bloklar: bloklariKur(data) });
+      })
       .catch(() => { if (!cancelled) setDurum({ status: "error" }); });
     return () => { cancelled = true; };
   }, [page, denemeNo]);
@@ -293,8 +282,13 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
       )}
     </View>
   );
+}, (onceki, sonraki) => {
+  if (onceki.page !== sonraki.page || onceki.width !== sonraki.width || onceki.onAyetSec !== sonraki.onAyetSec || onceki.isVisible !== sonraki.isVisible) return false;
+  if (sonraki.isVisible && onceki.tajweed !== sonraki.tajweed) return false;
+  const oncekiSecili = seciliSayfada(onceki.secili, onceki.page);
+  const sonrakiSecili = seciliSayfada(sonraki.secili, sonraki.page);
+  return oncekiSecili?.surahId === sonrakiSecili?.surahId && oncekiSecili?.ayahNumber === sonrakiSecili?.ayahNumber;
 });
-
 // ── Ana ekran ────────────────────────────────────────────────────────────────
 
 const TUM_SAYFALAR = Array.from({ length: SAYFA_SAYISI }, (_, i) => i + 1);
@@ -327,6 +321,16 @@ export default function MushafSayfaEkrani() {
   // Sure listesi düşerse atlama paneli sonsuz "yükleniyor"da kalmasın — hata
   // durumu + tekrar dene (sayfa numarasıyla atlama zaten çalışmaya devam eder).
   const [surahListError, setSurahListError] = useState(false);
+
+  // MMKV bulunmayan iOS/Expo Go/eski build yolunda tercih AsyncStorage'dadır;
+  // senkron başlangıçtan sonra aynı kalıcı değeri asenkron tamamla.
+  useEffect(() => {
+    let alive = true;
+    storage.getString(STORAGE_KEYS.tajweed).then((value) => {
+      if (alive && value != null) setTajweed(value !== "0");
+    });
+    return () => { alive = false; };
+  }, []);
   const loadSurahList = useCallback(() => {
     setSurahListError(false);
     api.surahs.list().then(setSurahList).catch(() => setSurahListError(true));
@@ -463,9 +467,9 @@ export default function MushafSayfaEkrani() {
 
   const renderItem = useCallback(
     ({ item }: { item: number }) => (
-      <MushafSayfasi page={item} width={width} tajweed={tajweed} secili={secili} onAyetSec={onAyetSec} />
+      <MushafSayfasi page={item} width={width} tajweed={tajweed} secili={secili} onAyetSec={onAyetSec} isVisible={item === page} />
     ),
-    [width, tajweed, secili, onAyetSec],
+    [width, tajweed, secili, onAyetSec, page],
   );
   const getItemLayout = useCallback(
     (_: unknown, index: number) => ({ length: width, offset: width * index, index }),

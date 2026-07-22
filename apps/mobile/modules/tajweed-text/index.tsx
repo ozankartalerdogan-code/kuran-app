@@ -19,10 +19,12 @@ type NativeProps = {
   /** "justify" yalnız Android API 26+; altında sağa hizalı kalır. */
   textAlign?: "right" | "justify";
   selectable?: boolean;
+  /** Development-only canonical text readback assertion. */
+  verifyText?: boolean;
   onMeasured?: (e: { nativeEvent: { height: number } }) => void;
   /** Dokunulan karakterin UTF-16 indeksi (mushaf'ta ayet seçimi için). */
   onCharPress?: (e: { nativeEvent: { index: number } }) => void;
-  onTextVerified?: (e: { nativeEvent: { sha256: string; matchesInput: boolean; utf16Length: number; codePointLength: number } }) => void;
+  onTextVerified?: (e: { nativeEvent: { sha256: string; matchesInput: boolean; utf16Length: number; codePointLength: number; applyCount: number } }) => void;
   style?: StyleProp<ViewStyle>;
 };
 

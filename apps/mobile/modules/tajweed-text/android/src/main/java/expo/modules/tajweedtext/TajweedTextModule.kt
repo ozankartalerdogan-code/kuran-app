@@ -52,6 +52,9 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
   private var arabicText: String = ""
   private var ranges: List<TajweedColorRange> = emptyList()
   private var highlightRanges: List<TajweedColorRange> = emptyList()
+  private var spannableApplyPending = false
+  private var verifyText = false
+  private var spannableApplyCount = 0
 
   private val textView = TextView(context).apply {
     layoutDirection = View.LAYOUT_DIRECTION_RTL
@@ -108,18 +111,25 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
   }
 
   fun setHighlightRanges(next: List<TajweedColorRange>) {
+    if (sameRanges(highlightRanges, next)) return
     highlightRanges = next
-    applySpannable()
+    scheduleSpannableApply()
   }
 
   fun setArabicText(text: String) {
+    if (arabicText == text) return
     arabicText = text
-    applySpannable()
+    scheduleSpannableApply()
   }
 
   fun setRanges(next: List<TajweedColorRange>) {
+    if (sameRanges(ranges, next)) return
     ranges = next
-    applySpannable()
+    scheduleSpannableApply()
+  }
+
+  fun setVerifyText(value: Boolean) {
+    verifyText = value
   }
 
   private var fontSizeSp = 14f
@@ -180,7 +190,23 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
    * start/end UTF-16 indeksleri [0, length] aralığına kelepçelenir; ters/boş
    * veya rengi bozuk aralıklar sessizce atlanır (çökme yok, metin daima tam).
    */
-  private fun applySpannable() {
+  private fun sameRanges(a: List<TajweedColorRange>, b: List<TajweedColorRange>): Boolean =
+    a.size == b.size && a.indices.all { index ->
+      a[index].start == b[index].start && a[index].end == b[index].end && a[index].color == b[index].color
+    }
+
+  // React Native applies text/range props separately. Coalesce that transaction so
+  // one visible TextView builds and draws one Spannable instead of up to three.
+  private fun scheduleSpannableApply() {
+    if (spannableApplyPending) return
+    spannableApplyPending = true
+    post {
+      spannableApplyPending = false
+      applySpannableIfChanged()
+    }
+  }
+
+  private fun applySpannableIfChanged() {
     val sb = SpannableStringBuilder(arabicText)
     val len = sb.length
     for (r in ranges) {
@@ -198,7 +224,9 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
       sb.setSpan(BackgroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
     textView.setText(sb, TextView.BufferType.SPANNABLE)
+    spannableApplyCount += 1
     requestLayout()
+    if (!verifyText) return
     val readback = textView.text.toString()
     val digest = MessageDigest.getInstance("SHA-256")
       .digest(readback.toByteArray(Charsets.UTF_8))
@@ -208,6 +236,7 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
       "matchesInput" to (readback == arabicText),
       "utf16Length" to readback.length,
       "codePointLength" to readback.codePointCount(0, readback.length),
+      "applyCount" to spannableApplyCount,
     ))
   }
 
@@ -249,6 +278,9 @@ class TajweedTextModule : Module() {
       }
       Prop("highlightRanges") { view: TajweedTextView, ranges: List<TajweedColorRange> ->
         view.setHighlightRanges(ranges)
+      }
+      Prop("verifyText") { view: TajweedTextView, value: Boolean ->
+        view.setVerifyText(value)
       }
       Prop("fontSize") { view: TajweedTextView, size: Float ->
         view.setFontSizeSp(size)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Text, StyleSheet, type StyleProp, type TextStyle } from "react-native";
 import {
   RENK,
@@ -22,14 +22,16 @@ export function TajweedText({
   style?: StyleProp<TextStyle>;
   suffix?: Suffix;
 }) {
+  const nativePayload = useMemo(() => {
+    const ranges = codePointSpansToUtf16Ranges(text, spans);
+    if (!suffix) return { fullText: text, ranges };
+    ranges.push({ start: text.length, end: text.length + suffix.text.length, color: suffix.color });
+    return { fullText: text + suffix.text, ranges };
+  }, [text, spans, suffix]);
+
   if (isTajweedNativeAvailable) {
     const flat = StyleSheet.flatten(style) ?? {};
-    const ranges = codePointSpansToUtf16Ranges(text, spans);
-    let fullText = text;
-    if (suffix) {
-      ranges.push({ start: fullText.length, end: fullText.length + suffix.text.length, color: suffix.color });
-      fullText += suffix.text;
-    }
+    const { fullText, ranges } = nativePayload;
     return (
       <TajweedNativeText
         text={fullText}
