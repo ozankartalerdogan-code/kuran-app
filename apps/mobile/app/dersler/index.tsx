@@ -9,6 +9,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERSLER_META as DERSLER, KATEGORILER } from "../../src/data/Dersler/dersler_registry";
+import { goBackOrReplace } from "../../src/lib/safeBack";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
 type SortMode = "tumu" | "sure" | "konu";
@@ -96,7 +97,7 @@ export default function DerslerScreen() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
+        <TouchableOpacity onPress={() => goBackOrReplace(router, "/(tabs)")} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
           <Text style={s.backText}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>Dersler</Text>

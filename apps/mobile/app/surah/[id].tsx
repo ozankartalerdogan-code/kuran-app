@@ -14,6 +14,7 @@ import { SkeletonListItem } from "../../src/components/SkeletonLoader";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { logScreen } from "../../src/lib/analytics";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { isValidSurahId } from "../../src/lib/ayahRefs";
 
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
@@ -133,7 +134,7 @@ export default function SurahDetailScreen() {
   useEffect(() => { logScreen('SureDetay'); }, []);
 
   useEffect(() => {
-    if (!surahId) {
+    if (!isValidSurahId(surahId)) {
       setError("Geçersiz sure bağlantısı.");
       setLoading(false);
       return;
@@ -188,7 +189,7 @@ if (loading) {
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title: "Sure" }} />
         <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error ?? "Veri yüklenemedi."}</Text>
-        {surahId ? (
+        {isValidSurahId(surahId) ? (
           <TouchableOpacity
             style={[styles.retryBtn, { backgroundColor: c.accent }]}
             onPress={() => setReloadKey((k) => k + 1)}

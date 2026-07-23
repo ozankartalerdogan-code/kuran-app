@@ -38,6 +38,10 @@ export type TextSegment =
 // sure[:/]ayet(-aralık)? — sayılar baştan sıfırsız (saatleri elemeye yardım eder)
 const REF_RE = /([1-9]\d{0,2})[:/]([1-9]\d{0,2})(?:-\d{1,3})?/g;
 
+export function isValidSurahId(surahId: number): boolean {
+  return Number.isInteger(surahId) && surahId >= 1 && surahId <= 114;
+}
+
 export function isValidAyahRef(surahId: number, ayahNumber: number): boolean {
   if (!Number.isInteger(surahId) || !Number.isInteger(ayahNumber)) return false;
   if (surahId < 1 || surahId > 114) return false;

@@ -16,6 +16,7 @@ import {
 } from "../src/lib/namazNotifications";
 
 // İlk açılış akışı — 2 adım: tanıtım + "Namaz vakitlerini hatırlatalım mı?".
+import { consumeOnboardingReturnTarget } from "../src/lib/onboardingReturnTarget";
 // İzinler (bildirim + konum) bağlam içinde, kullanıcı EVET dedikten sonra istenir;
 // _layout'taki otomatik ilk-kurulum dalı onboarding bitene kadar devre dışıdır.
 
@@ -35,7 +36,8 @@ export default function OnboardingScreen() {
   const finish = async (choice: "enabled" | "denied" | "error" | "declined") => {
     logFeature("onboarding_tamam", { bildirim: choice });
     await storage.setString(STORAGE_KEYS.onboarding, "1").catch(() => {});
-    router.replace("/(tabs)");
+    const returnTarget = await consumeOnboardingReturnTarget(storage).catch(() => null);
+    router.replace(returnTarget ?? "/(tabs)");
   };
 
   const handleEnable = async () => {

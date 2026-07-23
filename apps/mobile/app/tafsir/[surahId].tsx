@@ -13,6 +13,7 @@ import { api, type TafsirResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { getSimplifiedTafsir } from "../../src/data/tafsirSimplified";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { isValidSurahId } from "../../src/lib/ayahRefs";
 
 type TafsirMode = "original" | "simplified";
 
@@ -21,7 +22,7 @@ export default function TafsirScreen() {
   const insets = useSafeAreaInsets();
   const { surahId: rawId, name } = useLocalSearchParams<{ surahId: string; name?: string }>();
   const surahId = Number(rawId);
-  const localSimplifiedContent = surahId ? getSimplifiedTafsir(surahId) : null;
+  const localSimplifiedContent = isValidSurahId(surahId) ? getSimplifiedTafsir(surahId) : null;
 
   const [tafsir, setTafsir] = useState<TafsirResponse | null | "loading">("loading");
   const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");
@@ -31,7 +32,7 @@ export default function TafsirScreen() {
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
-    if (!surahId) { setTafsir(null); return; }
+    if (!isValidSurahId(surahId)) { setTafsir(null); return; }
     let alive = true;
     setTafsir("loading");
     setFetchFailed(false);

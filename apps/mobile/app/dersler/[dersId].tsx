@@ -25,6 +25,7 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
 
+import { goBackOrReplace } from "../../src/lib/safeBack";
 // Quiz geçme oranı: bu orandaki doğru → ders "tamamlandı" sayılır + kutlama.
 // Mutlak sayı değil oran — soru havuzu 10'un altına düşerse eşik ulaşılamaz olmasın.
 const QUIZ_PASS_RATIO = 0.7;
@@ -83,7 +84,7 @@ function YakindaEkran({ baslik }: { baslik: string }) {
     <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
+        <TouchableOpacity onPress={() => goBackOrReplace(router, "/dersler")} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
           <Text style={s.accent}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
@@ -277,7 +278,7 @@ export default function DersDetayScreen() {
         <Stack.Screen options={{ headerShown: false }} />
         <View style={s.contentColumn}>
         <View style={[s.header, { borderBottomColor: c.border }]}>
-          <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
+          <TouchableOpacity onPress={() => goBackOrReplace(router, "/dersler")} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
             <Text style={s.accent}>‹ Geri</Text>
           </TouchableOpacity>
           <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
@@ -528,7 +529,7 @@ export default function DersDetayScreen() {
       <View style={s.contentColumn}>
       {/* Header */}
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
+        <TouchableOpacity onPress={() => goBackOrReplace(router, "/dersler")} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
           <Text style={s.accent}>‹ Geri</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>

@@ -32,6 +32,8 @@ import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
 import { isImageShareAvailable } from "../../../src/lib/shareImage";
 import { buildAyahShareText } from "../../../src/lib/ayahShare";
+import { goBackOrReplace } from "../../../src/lib/safeBack";
+import { isValidAyahRef } from "../../../src/lib/ayahRefs";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../../../src/hooks/useFontScale";
 import { arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../../../src/lib/mushafSayfa";
 import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
@@ -574,7 +576,7 @@ export default function AyahDetailScreen() {
   useEffect(() => {
     // Bozuk/eksik deep link parametresi (örn. dış link, App Links) → sonsuz
     // yükleniyor ekranında kalmasın, mevcut hata ekranına düşsün.
-    if (!surahId || !ayahNumber) {
+    if (!isValidAyahRef(surahId, ayahNumber)) {
       setError("Geçersiz ayet bağlantısı.");
       setLoading(false);
       return;
@@ -752,7 +754,7 @@ export default function AyahDetailScreen() {
           <Text style={[styles.errorText, { color: colors.error }]}>
             {error ?? "Veri yüklenemedi."}
           </Text>
-          {surahId && ayahNumber ? (
+          {isValidAyahRef(surahId, ayahNumber) ? (
             <TouchableOpacity
               onPress={() => setReloadKey((k) => k + 1)}
               style={[styles.backBtn, { backgroundColor: colors.accent }]}
@@ -765,7 +767,7 @@ export default function AyahDetailScreen() {
             </TouchableOpacity>
           ) : null}
           <TouchableOpacity
-            onPress={() => router.back()}
+            onPress={() => goBackOrReplace(router, "/(tabs)")}
             style={[styles.backBtn, { backgroundColor: colors.surfaceAlt, borderWidth: 1, borderColor: colors.border }]}
             activeOpacity={0.7}
             accessibilityRole="button"

@@ -14,6 +14,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
+import { decodeRootRouteParam } from "../../../src/lib/rootRoute";
+import { goBackOrReplace } from "../../../src/lib/safeBack";
 
 function lerpHex(from: string, to: string, t: number): string {
   const a = parseInt(from.slice(1), 16);
@@ -216,7 +218,7 @@ export default function RootDetailScreen() {
   const tourScroll = useTourScroller<FlatList>();
   const { root: encodedRoot } = useLocalSearchParams<{ root: string | string[] }>();
   const rawRoot = Array.isArray(encodedRoot) ? encodedRoot[0] : encodedRoot;
-  const root = rawRoot ? decodeURIComponent(rawRoot) : "";
+  const root = decodeRootRouteParam(rawRoot);
 
   const [data, setData] = useState<RootDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -307,7 +309,7 @@ export default function RootDetailScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={s.backBtn}
-              onPress={() => router.back()}
+              onPress={() => goBackOrReplace(router, "/(tabs)")}
               accessibilityRole="button"
               accessibilityLabel="Önceki ekrana dön"
             >

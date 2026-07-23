@@ -1,4 +1,4 @@
-import { Stack, router, useNavigationContainerRef } from "expo-router";
+import { Stack, router, useNavigationContainerRef, usePathname } from "expo-router";
 import type { Href } from "expo-router";
 import { maybeAskReview, trackAppOpen } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
-import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
+import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback, useRef } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
@@ -22,6 +22,7 @@ import { initCloudBackup } from "../src/lib/cloudBackup";
 import { useColors } from "../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 
+import { saveOnboardingReturnTarget } from "../src/lib/onboardingReturnTarget";
 type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
 type SentryLike = {
   init: (options: Record<string, unknown>) => void;
@@ -143,13 +144,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
   // Header/StatusBar uygulama temasını izler — "auto" yalnız sistem temasını
   // izlerdi, ana sayfadaki manuel tema düğmesi header'ları etkilemezdi.
+  const pathname = usePathname();
+  const onboardingRedirectStarted = useRef(false);
   const c = useColors();
 
   // İlk kurulum: Stack mount olduktan sonra onboarding'e geç (izinler orada,
   // bağlam içinde istenir). replace → geri tuşu onboarding'e dönemez.
   useEffect(() => {
-    if (needsOnboarding) router.replace("/onboarding");
-  }, [needsOnboarding]);
+    if (!needsOnboarding || onboardingRedirectStarted.current) return;
+    onboardingRedirectStarted.current = true;
+    void saveOnboardingReturnTarget(pathname, storage)
+      .catch(() => {})
+      .finally(() => router.replace("/onboarding"));
+  }, [needsOnboarding, pathname]);
 
   return (
     <SafeAreaProvider>

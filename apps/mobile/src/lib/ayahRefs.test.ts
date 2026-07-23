@@ -7,7 +7,8 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseAyahRefs, isValidAyahRef, hasAyahRef, parseDirectAyahQuery } from "./ayahRefs.ts";
+import { readFileSync } from "node:fs";
+import { parseAyahRefs, isValidAyahRef, isValidSurahId, hasAyahRef, parseDirectAyahQuery, SURAH_AYAH_COUNTS } from "./ayahRefs.ts";
 
 function ayahs(text: string) {
   return parseAyahRefs(text).filter((s) => s.type === "ayah");
@@ -92,4 +93,86 @@ test("parseDirectAyahQuery: geçersiz/parçalı sorgular eşleşmez", () => {
   assert.equal(parseDirectAyahQuery("sabır"), null);      // düz metin
   assert.equal(parseDirectAyahQuery("bkz 2:255"), null);  // tüm sorgu değil, içinde geçiyor
   assert.equal(parseDirectAyahQuery("112/1-4"), null);    // aralık desteklenmez (arama tek ayete gider)
+});
+
+test("ayah route validation accepts valid first and last ayahs", () => {
+  assert.equal(isValidAyahRef(1, 1), true);
+
+  const lastAyah = SURAH_AYAH_COUNTS[2];
+  assert.equal(isValidAyahRef(2, lastAyah), true);
+  assert.equal(isValidAyahRef(2, lastAyah + 1), false);
+});
+
+test("ayah route validation rejects malformed and out-of-range params", () => {
+  const invalidValues: Array<string | undefined> = [
+    undefined,
+    "",
+    "not-a-number",
+    "-1",
+    "0",
+    "1.5",
+    "Infinity",
+  ];
+
+  for (const raw of invalidValues) {
+    assert.equal(isValidAyahRef(Number(raw), 1), false, `invalid surah: ${raw}`);
+    assert.equal(isValidAyahRef(1, Number(raw)), false, `invalid ayah: ${raw}`);
+  }
+  assert.equal(isValidAyahRef(115, 1), false);
+});
+
+test("invalid ayah route params enter the existing error flow before data fetching", () => {
+  const source = readFileSync(
+    new URL("../../app/ayah/[surahId]/[ayahNumber].tsx", import.meta.url),
+    "utf8",
+  );
+  const guard = source.indexOf("if (!isValidAyahRef(surahId, ayahNumber))");
+  const error = source.indexOf("setError(", guard);
+  const earlyReturn = source.indexOf("return;", error);
+  const request = source.indexOf("api.ayah.get(surahId, ayahNumber)", guard);
+
+  assert.ok(guard >= 0 && error > guard && earlyReturn > error && request > earlyReturn);
+});
+
+test("surah route validation accepts 1 and 114 and rejects invalid params", () => {
+  assert.equal(isValidSurahId(Number("1")), true);
+  assert.equal(isValidSurahId(Number("114")), true);
+
+  for (const raw of [undefined, "", "not-a-number", "0", "-1", "115", "1.5", "Infinity"]) {
+    assert.equal(isValidSurahId(Number(raw)), false, `invalid surah: ${raw}`);
+  }
+});
+
+test("dynamic /surah/1 validates before fetching and keeps the existing route", () => {
+  const source = readFileSync(
+    new URL("../../app/surah/[id].tsx", import.meta.url),
+    "utf8",
+  );
+  const params = source.indexOf("useLocalSearchParams<{ id: string }>()");
+  const guard = source.indexOf("if (!isValidSurahId(surahId))");
+  const error = source.indexOf("setError(", guard);
+  const earlyReturn = source.indexOf("return;", error);
+  const request = source.indexOf("api.verses.bySurah(surahId)", guard);
+
+  assert.ok(params >= 0 && guard > params);
+  assert.ok(error > guard && earlyReturn > error && request > earlyReturn);
+});
+
+test("dynamic /tafsir/1 validates before fetching and keeps the existing route", () => {
+  const source = readFileSync(
+    new URL("../../app/tafsir/[surahId].tsx", import.meta.url),
+    "utf8",
+  );
+  const params = source.indexOf("useLocalSearchParams<{ surahId: string; name?: string }>()");
+  const localContent = source.indexOf(
+    "isValidSurahId(surahId) ? getSimplifiedTafsir(surahId) : null",
+  );
+  const guard = source.indexOf("if (!isValidSurahId(surahId))");
+  const errorFlow = source.indexOf("setTafsir(null)", guard);
+  const earlyReturn = source.indexOf("return;", errorFlow);
+  const request = source.indexOf("api.tafsir.get(surahId)", guard);
+
+  assert.ok(params >= 0 && localContent > params);
+  assert.ok(guard > localContent);
+  assert.ok(errorFlow > guard && earlyReturn > errorFlow && request > earlyReturn);
 });

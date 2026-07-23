@@ -25,6 +25,10 @@ import {
   parseElifbaQuizScores,
   type ElifbaProgress,
 } from "../../src/lib/elifbaProgress";
+import {
+  isValidElifbaLessonId,
+  isValidElifbaLessonNumber,
+} from "../../src/lib/elifbaLessonRefs";
 import { AUDIO_BASE_URL } from "../../src/lib/runtimeConfig";
 
 const AUDIO_BASE = AUDIO_BASE_URL;
@@ -427,6 +431,7 @@ export default function DersScreen() {
   const [loading, setLoading]   = useState(true);
   // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
   const [loadError, setLoadError] = useState(false);
+  const [lessonExists, setLessonExists] = useState<boolean | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
@@ -437,19 +442,38 @@ export default function DersScreen() {
     let isMounted = true;
     setLoading(true);
     setLoadError(false);
-    api.elifba.harfler(dersId)
-      .then((h) => { if (isMounted) setHarfler(h); })
-      .catch(() => { if (isMounted) setLoadError(true); })
-      .finally(() => setLoading(false));
-    storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
-      .then((rawProgress) => {
-        if (isMounted) {
-          const parsedProgress = parseElifbaProgress(rawProgress);
-          progressRef.current = parsedProgress;
-          setSeenIds(parsedProgress[String(dersId)] ?? []);
+    setHarfler([]);
+    setLessonExists(null);
+
+    if (!isValidElifbaLessonNumber(dersId)) {
+      setLessonExists(false);
+      setLoading(false);
+      return () => { isMounted = false; };
+    }
+
+    api.elifba.dersler()
+      .then((lessons) => {
+        if (!isMounted) return;
+        if (!isValidElifbaLessonId(dersId, lessons)) {
+          setLessonExists(false);
+          return;
         }
+
+        setLessonExists(true);
+        storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
+          .then((rawProgress) => {
+            if (isMounted) {
+              const parsedProgress = parseElifbaProgress(rawProgress);
+              progressRef.current = parsedProgress;
+              setSeenIds(parsedProgress[String(dersId)] ?? []);
+            }
+          })
+          .catch(() => {});
+        return api.elifba.harfler(dersId);
       })
-      .catch(() => {});
+      .then((h) => { if (isMounted && h) setHarfler(h); })
+      .catch(() => { if (isMounted) setLoadError(true); })
+      .finally(() => { if (isMounted) setLoading(false); });
     return () => { isMounted = false; };
   }, [dersId, reloadKey]);
 
@@ -524,7 +548,7 @@ export default function DersScreen() {
           </TouchableOpacity>
         </View>
 
-        {mode === "flashcard" ? (
+        {mode === "flashcard" || lessonExists !== true ? (
           harfler.length > 0 ? (
             <>
               <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
