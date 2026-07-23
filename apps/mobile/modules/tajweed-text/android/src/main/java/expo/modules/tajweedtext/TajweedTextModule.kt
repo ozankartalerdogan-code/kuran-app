@@ -283,7 +283,13 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
     )
     textView.layout(0, 0, genislik, textView.measuredHeight)
     val desired = textView.measuredHeight
-    if (desired != lastDispatchedHeight) {
+    // Bildirim guard'ı yalnız "aynı değeri tekrar yollama" içindir. View'ın
+    // gerçek yüksekliği ölçümden belirgin biçimde ayrıştıysa (JS bir şekilde
+    // başka bir değere yerleşmişse) guard'ı deler ve doğru değeri yeniden
+    // bildiririz; RN native requestLayout'u yuttuğu için native'in başka
+    // düzeltme yolu yok. Eşik, dp→px yuvarlama farklarını döngüye sokmaz.
+    val cerceveAyristi = kotlin.math.abs(desired - height) > 2
+    if (desired != lastDispatchedHeight || cerceveAyristi) {
       lastDispatchedHeight = desired
       val density = context.resources.displayMetrics.density
       onMeasured(mapOf("height" to desired / density))

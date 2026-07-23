@@ -2,7 +2,7 @@
 // mevcut dev client/eski build'de requireNativeViewManager throw eder; prayer-widget
 // ile aynı build-gated guard deseni: modül yoksa bileşen null döner, uygulama çökmez.
 import React, { useState } from "react";
-import { Platform, type StyleProp, type ViewStyle } from "react-native";
+import { Platform, useWindowDimensions, type StyleProp, type ViewStyle } from "react-native";
 
 export type TajweedColorRange = { start: number; end: number; color: string };
 
@@ -41,14 +41,12 @@ if (Platform.OS === "android") {
 
 export const isTajweedNativeAvailable = NativeView !== null;
 
-// Son ölçülen yükseklikler (anahtar = fontSize:lineHeight:metin — remount
-// key'i ile birebir aynı). Tecvid aç/kapa gibi geçişlerde aynı metin yeniden
-// mount olduğunda 10px yerine bilinen yükseklikle başlar → alt içeriğin
+// Son ölçülen yükseklikler (anahtar = pencereGenişliği:fontSize:lineHeight:metin
+// — remount key'i ile birebir aynı). Tecvid aç/kapa gibi geçişlerde aynı metin
+// yeniden mount olduğunda 10px yerine bilinen yükseklikle başlar → alt içeriğin
 // saliselik yukarı sıçraması (ölçüm gidiş-dönüşü) görünmez olur. Yükseklik
-// genişliğe de bağlıdır ama anahtarda genişlik yok: dönüş/yeniden boyutlanma
-// sonrası cache değeri yaklaşık kalır ve native ölçüm (her mount'ta daima
-// yayınlanır) 1-2 frame içinde düzeltir — bugünkü 10px başlangıcıyla aynı
-// öz-düzeltme, sadece çok daha yakın bir başlangıç. Renk/highlight aralıkları
+// genişliğe de bağlı olduğu için pencere genişliği anahtarın parçasıdır: ekran
+// döndürme sonrası bayat bir yükseklikle başlanmaz. Renk/highlight aralıkları
 // metric etkilemediği için anahtar metrik olarak eksiksizdir.
 const olculenYukseklikler = new Map<string, number>();
 const YUKSEKLIK_CACHE_TAVANI = 40; // sayfa metinleri büyük — sınırsız birikmesin
@@ -64,8 +62,16 @@ export function TajweedNativeText({
 }: Omit<NativeProps, "onMeasured" | "style" | "onCharPress"> & {
   onCharPress?: (index: number) => void;
 }) {
-  const cacheKey = `${props.fontSize ?? ""}:${props.lineHeight ?? ""}:${props.text}`;
-  const [height, setHeight] = useState(() => olculenYukseklikler.get(cacheKey) ?? 10);
+  const { width: pencereGenisligi } = useWindowDimensions();
+  const cacheKey = `${pencereGenisligi}:${props.fontSize ?? ""}:${props.lineHeight ?? ""}:${props.text}`;
+  // Yükseklik anahtarıyla BİRLİKTE tutulur. Aksi halde state, alttaki native
+  // view remount olsa bile yaşamaya devam eder ve zoom/blok değişiminde bir
+  // önceki bloğun yüksekliği yeni metne uygulanır (görünür sıçrama). Anahtar
+  // değişince değer kendiliğinden o anahtarın bilinen ölçüsüne düşer.
+  const [olculen, setOlculen] = useState<{ key: string; yukseklik: number } | null>(null);
+  const height = olculen?.key === cacheKey
+    ? olculen.yukseklik
+    : olculenYukseklikler.get(cacheKey) ?? 10;
   if (!NativeView) return null;
   return (
     <NativeView
@@ -84,7 +90,7 @@ export function TajweedNativeText({
           if (enEski !== undefined) olculenYukseklikler.delete(enEski);
         }
         olculenYukseklikler.set(cacheKey, h);
-        if (h !== height) setHeight(h);
+        if (h !== height) setOlculen({ key: cacheKey, yukseklik: h });
       }}
       onCharPress={onCharPress ? (e) => onCharPress(e.nativeEvent.index) : undefined}
     />
