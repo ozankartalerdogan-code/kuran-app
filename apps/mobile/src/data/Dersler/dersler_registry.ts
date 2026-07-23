@@ -189,7 +189,9 @@ function safeRequire<T = any>(loader: () => T, label: string): T | null {
     const mod = loader();
     return (mod ?? null) as T | null;
   } catch (err) {
-    console.warn(`[dersler] y\u00FCklenemedi, atland\u0131: ${label} \u2014`, err instanceof Error ? err.message : err);
+    if (__DEV__) {
+      console.warn(`[dersler] y\u00FCklenemedi, atland\u0131: ${label} \u2014`, err instanceof Error ? err.message : err);
+    }
     return null;
   }
 }
@@ -240,7 +242,9 @@ const RAW_KAYITLAR: Kayit[] = [
 // Yaln\u0131zca ge\u00E7erli dersleri tut \u2192 bozuk/eksik ders t\u00FCm b\u00F6l\u00FCm\u00FC d\u00FC\u015F\u00FCrmez, sadece gizlenir.
 const KAYITLAR: Kayit[] = RAW_KAYITLAR.filter((k) => {
   if (isValidDers(k.ders)) return true;
-  console.warn(`[dersler] ge\u00E7ersiz/eksik ders atland\u0131: ${k.id}`);
+  if (__DEV__) {
+    console.warn(`[dersler] ge\u00E7ersiz/eksik ders atland\u0131: ${k.id}`);
+  }
   return false;
 });
 
