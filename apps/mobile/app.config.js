@@ -54,6 +54,8 @@ module.exports = {
       blockedPermissions: [
         'android.permission.ACCESS_FINE_LOCATION',
         'com.google.android.gms.permission.AD_ID',
+        'android.permission.ACCESS_ADSERVICES_AD_ID',
+        'android.permission.ACCESS_ADSERVICES_ATTRIBUTION',
         'android.permission.ACTIVITY_RECOGNITION',
         'android.permission.READ_EXTERNAL_STORAGE',
         'android.permission.WRITE_EXTERNAL_STORAGE',
