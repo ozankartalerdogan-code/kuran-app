@@ -21,10 +21,17 @@ import {
   type NativeSyntheticEvent,
   type ViewStyle,
 } from "react-native";
-import { router, usePathname } from "expo-router";
+import { router, useGlobalSearchParams, usePathname, useSegments } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
-import { APP_TOUR_STEPS, type AppTourStep } from "./appTourSteps";
+import {
+  APP_TOUR_STEPS,
+  buildTourRoute,
+  getSafeTourExitRoute,
+  getTourNavigationTarget,
+  getTourPath,
+  type AppTourStep,
+} from "./appTourSteps";
 import { completeAppTour, hasCompletedAppTour, resetAppTour } from "./appTourStorage";
 
 type TargetRect = { x: number; y: number; width: number; height: number };
@@ -59,8 +66,8 @@ function normalizePath(path: string): string {
   return p.endsWith("/") && p.length > 1 ? p.slice(0, -1) : p;
 }
 
-function navigateTo(path: string): void {
-  (router.push as unknown as (href: string) => void)(path);
+function replaceTourRoute(path: string): void {
+  (router.replace as unknown as (href: string) => void)(path);
 }
 
 function clamp(value: number, min: number, max: number): number {
@@ -76,7 +83,11 @@ const CARD_MARGIN = 16;
 const ARROW = 11;
 
 export function AppTourProvider({ children }: { children: ReactNode }) {
-  const pathname = normalizePath(usePathname());
+  const rawPathname = usePathname();
+  const segments = useSegments();
+  const routeParams = useGlobalSearchParams() as Record<string, string | string[] | undefined>;
+  const currentRoute = buildTourRoute(rawPathname, segments, routeParams);
+  const pathname = getTourPath(currentRoute);
   const targets = useRef(new Map<string, TargetHandle>());
   const scrollers = useRef(new Map<string, ScrollHandle>());
   const [isActive, setIsActive] = useState(false);
@@ -84,6 +95,7 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
   const [targetRect, setTargetRect] = useState<TargetRect | null | undefined>(undefined);
   const checkedStartup = useRef(false);
 
+  const tourStartRoute = useRef("/");
   const step = isActive ? APP_TOUR_STEPS[stepIndex] : null;
 
   const registerTarget = useCallback((id: string, handle: TargetHandle) => {
@@ -99,25 +111,34 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
     scrollers.current.delete(route);
   }, []);
 
-  const startTour = useCallback(() => {
+  const startTour = useCallback((originRoute: string = currentRoute) => {
+    tourStartRoute.current = getSafeTourExitRoute(originRoute);
     setStepIndex(0);
     setIsActive(true);
-  }, []);
+  }, [currentRoute]);
 
   const restartTour = useCallback(async () => {
+    const originRoute = getSafeTourExitRoute(currentRoute);
     await resetAppTour();
-    navigateTo(APP_TOUR_STEPS[0].route);
+    const firstTarget = getTourNavigationTarget(currentRoute, APP_TOUR_STEPS[0].route);
+    if (firstTarget) replaceTourRoute(firstTarget);
     // Farklı bir sekmeden (Daha Fazla) başlatıldığında home tab'a geçiş + mount +
     // anchor kaydı zaman alır. İlk-run'daki 650ms gecikmeyi burada da uygula ki
     // ilk hedefler ölçülebilsin (aksi halde oklar yanlış/boşa konumlanıyordu).
-    setTimeout(() => startTour(), 650);
-  }, [startTour]);
+    setTimeout(() => startTour(originRoute), 650);
+  }, [currentRoute, startTour]);
 
   const finishTour = useCallback(async () => {
+    const exitRoute = getSafeTourExitRoute(tourStartRoute.current);
+    const exitTarget = getTourNavigationTarget(currentRoute, exitRoute);
     setIsActive(false);
     setTargetRect(undefined);
-    await completeAppTour();
-  }, []);
+    try {
+      await completeAppTour();
+    } finally {
+      if (exitTarget) replaceTourRoute(exitTarget);
+    }
+  }, [currentRoute]);
 
   // İlk açılışta (tamamlanmamışsa) turu otomatik başlat.
   useEffect(() => {
@@ -129,19 +150,19 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
     hasCompletedAppTour()
       .then((completed) => {
         if (cancelled || completed) return;
-        timer = setTimeout(() => { if (!cancelled) startTour(); }, 650);
+        timer = setTimeout(() => { if (!cancelled) startTour(currentRoute); }, 650);
       })
       .catch(() => {});
 
     return () => { cancelled = true; if (timer) clearTimeout(timer); };
-  }, [pathname, startTour]);
+  }, [currentRoute, pathname, startTour]);
 
   // Adımın ekranında değilsek o ekrana götür (geri/ileri sonrası düzeltici).
   useEffect(() => {
     if (!step || pathname === "/onboarding") return;
-    const targetRoute = normalizePath(step.route);
-    if (pathname !== targetRoute) navigateTo(targetRoute);
-  }, [pathname, step]);
+    const targetRoute = getTourNavigationTarget(currentRoute, step.route);
+    if (targetRoute) replaceTourRoute(targetRoute);
+  }, [currentRoute, pathname, step]);
 
   // Hedefi ölç — gerekirse fold dışındaki hedefi scroll ile görünür yap, sonra ölç.
   useEffect(() => {
@@ -198,16 +219,12 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
       void finishTour();
       return;
     }
-    const next = stepIndex + 1;
-    setStepIndex(next);
-    navigateTo(APP_TOUR_STEPS[next].route);
+    setStepIndex((current) => current + 1);
   }, [finishTour, step, stepIndex]);
 
   const goBack = useCallback(() => {
     if (stepIndex <= 0) return;
-    const prev = stepIndex - 1;
-    setStepIndex(prev);
-    navigateTo(APP_TOUR_STEPS[prev].route);
+    setStepIndex((current) => Math.max(0, current - 1));
   }, [stepIndex]);
 
   const value = useMemo<AppTourContextValue>(() => ({

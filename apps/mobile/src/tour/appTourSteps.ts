@@ -15,6 +15,75 @@ export type AppTourStep = {
   placement?: TourPlacement;
 };
 
+type TourRouteParams = Record<string, string | string[] | undefined>;
+
+function normalizedPath(path: string): string {
+  if (!path || path === "/(tabs)") return "/";
+  let normalized = path;
+  try { normalized = decodeURIComponent(path); } catch { /* keep malformed encoding unchanged */ }
+  return normalized.endsWith("/") && normalized.length > 1
+    ? normalized.slice(0, -1)
+    : normalized;
+}
+
+export function normalizeTourRoute(route: string): string {
+  const withoutHash = route.split("#", 1)[0];
+  const queryIndex = withoutHash.indexOf("?");
+  const path = normalizedPath(queryIndex >= 0 ? withoutHash.slice(0, queryIndex) : withoutHash);
+  if (queryIndex < 0) return path;
+
+  const query = new URLSearchParams(withoutHash.slice(queryIndex + 1));
+  query.sort();
+  const serialized = query.toString();
+  return serialized ? `${path}?${serialized}` : path;
+}
+
+export function buildTourRoute(
+  pathname: string,
+  segments: readonly string[],
+  params: TourRouteParams,
+): string {
+  const dynamicKeys = new Set(
+    segments
+      .map((segment) => segment.match(/^\[(?:\.\.\.)?(.+)\]$/)?.[1])
+      .filter((key): key is string => !!key),
+  );
+  const query = new URLSearchParams();
+
+  for (const key of Object.keys(params).sort()) {
+    if (dynamicKeys.has(key)) continue;
+    const value = params[key];
+    const values = Array.isArray(value) ? value : value === undefined ? [] : [value];
+    for (const item of values) query.append(key, item);
+  }
+
+  const serialized = query.toString();
+  return normalizeTourRoute(`${pathname}${serialized ? `?${serialized}` : ""}`);
+}
+
+export function getTourPath(route: string): string {
+  return normalizeTourRoute(route).split("?", 1)[0];
+}
+
+export function getTourNavigationTarget(currentRoute: string, targetRoute: string): string | null {
+  const current = normalizeTourRoute(currentRoute);
+  const target = normalizeTourRoute(targetRoute);
+  return current === target ? null : target;
+}
+
+export function getSafeTourExitRoute(route: string): string {
+  if (!route || route !== route.trim() || !route.startsWith("/") || route.startsWith("//") || route.includes("\\")) {
+    return "/";
+  }
+  const normalized = normalizeTourRoute(route);
+  if (!normalized.startsWith("/") || normalized.startsWith("//") || normalized.includes("\\")) {
+    return "/";
+  }
+  const path = getTourPath(normalized);
+  if (path === "/onboarding" || path.split("/").some((part) => part === "." || part === "..")) return "/";
+  return normalized;
+}
+
 export const APP_TOUR_STEPS: AppTourStep[] = [
   {
     id: "welcome",
