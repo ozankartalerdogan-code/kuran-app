@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.text.Layout
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -52,6 +54,7 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
   private var arabicText: String = ""
   private var ranges: List<TajweedColorRange> = emptyList()
   private var highlightRanges: List<TajweedColorRange> = emptyList()
+  private val uiHandler = Handler(Looper.getMainLooper())
   private var spannableApplyPending = false
   private var verifyText = false
   private var spannableApplyCount = 0
@@ -197,10 +200,16 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
 
   // React Native applies text/range props separately. Coalesce that transaction so
   // one visible TextView builds and draws one Spannable instead of up to three.
+  //
+  // View.post KULLANILMAZ: view o an pencereye bağlı değilse (FlatList
+  // removeClippedSubviews sayfaları koparıp geri ekler) runnable view'ın kendi
+  // run queue'suna düşer ve yalnız attach'ta boşalır — pratikte hiç çalışmaz.
+  // O zaman TextView boş kalır, tek satır ölçülür ve spannableApplyPending
+  // sonsuza dek true kalarak yeni apply planlanmasını da engeller.
   private fun scheduleSpannableApply() {
     if (spannableApplyPending) return
     spannableApplyPending = true
-    post {
+    uiHandler.post {
       spannableApplyPending = false
       applySpannableIfChanged()
     }
@@ -230,6 +239,11 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
     // SONRA çalışır ve RN, native çocuktan gelen requestLayout'a yeni bir geçiş
     // vermez → onLayout bir daha koşmaz. O yüzden ölçümü burada kendimiz
     // tekrarlarız; yoksa yükseklik metinsiz ölçüme (tek satır) takılı kalır.
+    // İki koruma şart: (1) View.measure aynı spec'lerde FORCE_LAYOUT yoksa
+    // kendini kısa devre yapıp ESKİ (metinsiz) ölçüyü döndürür; (2) bildirim
+    // guard'ı, ölçüm bu yüzden değişmemiş görünürse düzeltmeyi yutar.
+    textView.requestLayout()
+    lastDispatchedHeight = -1
     olcVeYukseklikBildir()
     if (!verifyText) return
     val readback = textView.text.toString()
@@ -258,6 +272,11 @@ class TajweedTextView(context: Context, appContext: AppContext) : ExpoView(conte
   /** Çocuğu ölç + yerleştir, yükseklik değiştiyse JS'e bildir (style.height'ı o günceller). */
   private fun olcVeYukseklikBildir(genislik: Int = width) {
     if (genislik <= 0) return
+    // Metin henüz TextView'a uygulanmadıysa (apply post edildiği için ilk
+    // onLayout boş TextView'ı ölçer) bu ölçüm YANILTICIDIR: tek satır çıkar.
+    // Böyle bir yüksekliği JS'e bildirmek sayfayı tek satıra kilitler — apply
+    // sonrası gelen doğru değerin üstüne, sırası gereği, bu değer yazılabiliyor.
+    if ((textView.text?.length ?: 0) != arabicText.length) return
     textView.measure(
       MeasureSpec.makeMeasureSpec(genislik, MeasureSpec.EXACTLY),
       MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
