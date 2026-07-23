@@ -37,21 +37,32 @@ export async function getRootDetailFromDb(root: string): Promise<RootDetail | nu
   const distribution: Record<number, number> = {};
   for (let i = 1; i <= 114; i++) distribution[i] = 0;
   for (const row of distRows) distribution[row.surah_id] = row.count;
+  const derivedTotal = distRows.reduce((total, row) => total + row.count, 0);
 
   const derivedRows = await dbAll<{
     arabic:     string;
     meaning_tr: string | null;
     verse_key:  string;
+    word_index: number;
   }>(`
-    SELECT DISTINCT arabic, meaning_tr, verse_key
+    SELECT arabic, meaning_tr, verse_key, word_index
     FROM   words
     WHERE  root = ?
-    ORDER  BY arabic, verse_key
+    ORDER  BY arabic,
+              CAST(SUBSTR(verse_key, 1, INSTR(verse_key, ':') - 1) AS INTEGER),
+              CAST(SUBSTR(verse_key, INSTR(verse_key, ':') + 1) AS INTEGER),
+              word_index
     LIMIT  2000`, root);  // en yaygın kök (قول) ~1722 → 2000 tümünü kapsar, ısı haritasıyla tutarlı
 
   const derivedWords = derivedRows.map((row) => {
     const [s, a] = (row.verse_key ?? "1:1").split(":").map(Number);
-    return { word: row.arabic, meaning: row.meaning_tr ?? "", surahId: s, ayahNumber: a };
+    return {
+      word: row.arabic,
+      meaning: row.meaning_tr ?? "",
+      surahId: s,
+      ayahNumber: a,
+      wordIndex: row.word_index,
+    };
   });
 
   return {
@@ -59,5 +70,7 @@ export async function getRootDetailFromDb(root: string): Promise<RootDetail | nu
     meaningTr: rootInfo.meaning_tr,
     distribution,
     derivedWords,
+    derivedTotal,
+    isTruncated: derivedWords.length < derivedTotal,
   };
 }

@@ -7,10 +7,14 @@
  * kaybeden eski "form→ilk anlam" bug'ının regresyon kalkanı.
  */
 
-export type Verse = { surahId: number; ayahNumber: number };
-export type DerivedWord = { word: string; meaning: string; surahId: number; ayahNumber: number };
+export type Verse = { surahId: number; ayahNumber: number; wordIndex: number };
+export type DerivedWord = { word: string; meaning: string; surahId: number; ayahNumber: number; wordIndex: number };
 export type MeaningGroup = { forms: string[]; verses: Verse[] };
 export type MeaningEntry = [string, MeaningGroup];
+
+export function getRootOccurrenceAyahHref(verse: Verse): string {
+  return `/surah/${verse.surahId}/ayah/${verse.ayahNumber}?word=${verse.wordIndex}`;
+}
 
 // Bu sayının altında ayette geçen anlamlar "Diğer anlamlar" altına katlanır.
 export const PRIMARY_MIN_VERSES = 3;
@@ -45,7 +49,7 @@ export function groupRootMeanings(
     if (!group.forms.some((form) => normalize(form) === normalize(dw.word))) {
       group.forms.push(dw.word);
     }
-    group.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber });
+    group.verses.push({ surahId: dw.surahId, ayahNumber: dw.ayahNumber, wordIndex: dw.wordIndex });
   }
 
   const sorted = Array.from(meaningMap.entries()).sort(

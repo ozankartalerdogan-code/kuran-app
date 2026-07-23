@@ -13,6 +13,7 @@ import { ChevronDown } from "lucide-react";
 import type { RootDetail } from "../../../types/rootDetail";
 import {
   groupRootMeanings,
+  getRootOccurrenceAyahHref,
   type MeaningEntry,
   type Verse,
 } from "../../../lib/rootMeaningGroups";
@@ -156,7 +157,7 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
     setOpenMeaning((previous) => (previous === meaning ? null : meaning));
 
   const handleVerseClick = (verse: Verse) =>
-    router.push(`/surah/${verse.surahId}/ayah/${verse.ayahNumber}`);
+    router.push(getRootOccurrenceAyahHref(verse));
 
   const renderGroup = ([meaning, group]: MeaningEntry) => (
     <MeaningGroupCard
@@ -201,6 +202,14 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
               </div>
             ))}
           </div>
+          {data.isTruncated === true && typeof data.derivedTotal === "number" && (
+            <p className="mt-3 text-xs text-amber-700 dark:text-amber-300">
+              {"Bu k\u00F6k i\u00E7in "}
+              {data.derivedTotal.toLocaleString("tr-TR")}
+              {" ge\u00E7i\u015Ften ilk "}{data.derivedWords.length.toLocaleString("tr-TR")}
+              {"'i g\u00F6steriliyor."}
+            </p>
+          )}
         </div>
 
         {/* ── Isı haritası ── */}

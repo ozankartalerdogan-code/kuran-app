@@ -6,6 +6,8 @@ interface CollapsibleAreaProps {
   children: ReactNode;
   /** İçerik öğe sayısı — eşiğin altındaysa katlama hiç devreye girmez */
   itemCount: number;
+  /** Hedef baglantisiyla acildiginda icerigin ilk anda acik olmasi gerekir. */
+  initiallyOpen?: boolean;
   /** Bu sayı ve altı öğede katlama yok (varsayılan 12) */
   minItems?: number;
   /** Kapalı durumdaki azami yükseklik (px, varsayılan 460) */
@@ -23,6 +25,7 @@ interface CollapsibleAreaProps {
  * geldiğinden yalnızca sunum katmanıdır — SEO içeriği HTML'de kalır.
  */
 export function CollapsibleArea({
+  initiallyOpen = false,
   children,
   itemCount,
   minItems = 12,
@@ -30,7 +33,7 @@ export function CollapsibleArea({
   showLabel = "Tümünü göster",
   hideLabel = "Daha az göster",
 }: CollapsibleAreaProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(initiallyOpen);
   const collapsible = itemCount > minItems;
 
   if (!collapsible) return <>{children}</>;

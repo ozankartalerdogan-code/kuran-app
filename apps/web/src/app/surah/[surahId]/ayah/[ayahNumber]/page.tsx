@@ -35,6 +35,8 @@ import {
 import { AyahDetailTabs, type AyahDetailTabItem } from "./AyahDetailTabs";
 import { CollapsibleArea } from "../../../../../components/CollapsibleArea";
 import { AyahJumpForm } from "./AyahJumpForm";
+import { WordAnalysisTargetScroller } from "./WordAnalysisTargetScroller";
+import { parseTargetWordIndex } from "../../../../../lib/wordTarget";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
 import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
 import { arapRakam, ayetinSayfasi } from "../../../../../lib/mushafSayfaUtils";
@@ -47,6 +49,7 @@ type SectionStatus = "ready" | "partially_ready" | "missing";
 interface PageSearchParams {
   debug?: string | string[];
   reading_source?: string | string[];
+  word?: string | string[];
   wa_source?: string | string[];
 }
 
@@ -799,7 +802,13 @@ function RootExplanation({ word }: { word: WordAnalysis }) {
   return <span className="text-stone-500">Kök bilgisi yok.</span>;
 }
 
-function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
+function WordAnalysisTable({
+  words,
+  targetWordIndex,
+}: {
+  words: WordAnalysis[];
+  targetWordIndex: number | null;
+}) {
   if (words.length === 0) {
     return <EmptyState>Kelime analizi verisi yok.</EmptyState>;
   }
@@ -811,7 +820,8 @@ function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
         {words.map((word, index) => (
           <div
             key={`m-${index + 1}-${word.arabic ?? "missing"}`}
-            className="rounded-lg border border-stone-200 bg-stone-50 p-3 text-sm"
+            data-word-target={word.wordIndex === targetWordIndex ? word.wordIndex : undefined}
+            className={`rounded-lg border border-stone-200 bg-stone-50 p-3 text-sm ${word.wordIndex === targetWordIndex ? "ring-2 ring-gold-400 ring-offset-2" : ""}`}
           >
             <div className="mb-2 flex items-center justify-between gap-2">
               <span className="text-xs font-semibold text-stone-400">#{index + 1}</span>
@@ -862,7 +872,8 @@ function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
           <tbody>
             {words.map((word, index) => (
               <tr
-                className="border-b border-stone-100 align-top"
+                data-word-target={word.wordIndex === targetWordIndex ? word.wordIndex : undefined}
+                className={`border-b border-stone-100 align-top ${word.wordIndex === targetWordIndex ? "bg-gold-50 dark:bg-gold-950/20" : ""}`}
                 key={`${index + 1}-${word.arabic ?? "missing"}`}
               >
                 <td className="py-3 pr-4 text-stone-500">{index + 1}</td>
@@ -875,7 +886,9 @@ function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
                 <td className="py-3 pr-4 text-stone-700">
                   <WordMeaning word={word} />
                 </td>
-                <td className="py-3 pr-4 text-stone-700">{getRootDisplayText(word)}</td>
+                <td className="py-3 pr-4 text-stone-700">
+                  {word.root ? <Link href={`/root/${encodeURIComponent(word.root)}`}>{word.root}</Link> : getRootDisplayText(word)}
+                </td>
                 <td className="py-3 text-stone-700">
                   <RootExplanation word={word} />
                 </td>
@@ -1176,6 +1189,10 @@ export default async function Page({ params, searchParams }: PageProps) {
   }
   const _verseKey = `${surahId}:${ayahNumber}`;
   // getAyahAnalysisEngine kaldırıldı — getAyahDetail'i ikinci kez çekerek ~2s gecikmeye yol açıyordu.
+  const requestedWordIndex = parseTargetWordIndex(resolvedSearchParams?.word);
+  const targetWordIndex = requestedWordIndex !== null && detail.wordAnalyses.some(
+    (word) => word.wordIndex === requestedWordIndex,
+  ) ? requestedWordIndex : null;
   const readingTrResult = normalizeTransliterationToReadingTrDetailed(detail.ayah.transliteration);
   const activeTranslations = detail.translations.filter((t) => {
     const key = t.source?.split("#").at(-1) ?? "";
@@ -1249,13 +1266,15 @@ export default async function Page({ params, searchParams }: PageProps) {
             </div>
             <p className="text-sm text-stone-600">{wordAnalysisNote}</p>
           </div>
+          {targetWordIndex !== null && <WordAnalysisTargetScroller wordIndex={targetWordIndex} />}
           <CollapsibleArea
             itemCount={detail.wordAnalyses.length}
             minItems={10}
             collapsedHeight={520}
             showLabel="Tüm kelimeleri göster"
+            initiallyOpen={targetWordIndex !== null}
           >
-            <WordAnalysisTable words={detail.wordAnalyses} />
+            <WordAnalysisTable words={detail.wordAnalyses} targetWordIndex={targetWordIndex} />
           </CollapsibleArea>
           <div className="border-t border-stone-200 pt-4">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
