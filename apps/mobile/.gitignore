@@ -10,3 +10,8 @@ expo-env.d.ts
 # (ör. modules/prayer-widget) yanlışlıkla ignore edilmesin.
 /android/
 /ios/
+
+# Yerel native modul Gradle build ciktilari (kaynak kod DEGIL, tamamen yeniden
+# uretilir). /android/ koke sabitli oldugu icin bu yollar kapsam disinda kaliyordu.
+/modules/prayer-widget/android/build/
+/modules/tajweed-text/android/build/
