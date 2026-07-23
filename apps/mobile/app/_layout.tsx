@@ -52,7 +52,16 @@ try {
 // üçüncü parti zamanlama sorunu). Bunun yerine navigasyon entegrasyonunu kendimiz
 // oluşturup, RootLayout mount olduktan SONRA (navigationRef gerçekten dolmuşken)
 // elle kaydediyoruz — aynı navigasyon breadcrumb/performans takibini sağlar.
-const navigationIntegration = Sentry.reactNavigationIntegration();
+const navigationIntegration = Sentry.reactNavigationIntegration({
+  // Dev'de tracesSampleRate 0 olduğu için navigasyon span'i örneklenmiyor ve
+  // Sentry root span'i olmuyor; SDK bu durumda "Not sampling empty navigation
+  // spans only works for Sentry Transactions" uyarısı basıyor
+  // (onSpanEndUtils.js). Bu seçeneği yalnız tracing'in gerçekten açık olduğu
+  // production'da isteyerek uyarının bu varyantını kaynağında kapatıyoruz.
+  // SDK'nın ikinci çağrısı (ignoreEmptyRouteChangeTransactions) koşulsuzdur;
+  // ondan gelen tek uyarı dev'de kalır, zararsızdır (debug: __DEV__ ile gated).
+  ignoreEmptyBackNavigationTransactions: !__DEV__,
+});
 
 Sentry.init({
   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,

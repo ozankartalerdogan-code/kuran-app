@@ -3,6 +3,7 @@
 // ile aynı build-gated guard deseni: modül yoksa bileşen null döner, uygulama çökmez.
 import React, { useState } from "react";
 import { Platform, useWindowDimensions, type StyleProp, type ViewStyle } from "react-native";
+import { gecerliYukseklik, yukseklikAnahtari, type OlculenYukseklik } from "./yukseklik";
 
 export type TajweedColorRange = { start: number; end: number; color: string };
 
@@ -63,15 +64,18 @@ export function TajweedNativeText({
   onCharPress?: (index: number) => void;
 }) {
   const { width: pencereGenisligi } = useWindowDimensions();
-  const cacheKey = `${pencereGenisligi}:${props.fontSize ?? ""}:${props.lineHeight ?? ""}:${props.text}`;
+  const cacheKey = yukseklikAnahtari({
+    genislik: pencereGenisligi,
+    fontSize: props.fontSize,
+    lineHeight: props.lineHeight,
+    text: props.text,
+  });
   // Yükseklik anahtarıyla BİRLİKTE tutulur. Aksi halde state, alttaki native
   // view remount olsa bile yaşamaya devam eder ve zoom/blok değişiminde bir
   // önceki bloğun yüksekliği yeni metne uygulanır (görünür sıçrama). Anahtar
   // değişince değer kendiliğinden o anahtarın bilinen ölçüsüne düşer.
-  const [olculen, setOlculen] = useState<{ key: string; yukseklik: number } | null>(null);
-  const height = olculen?.key === cacheKey
-    ? olculen.yukseklik
-    : olculenYukseklikler.get(cacheKey) ?? 10;
+  const [olculen, setOlculen] = useState<OlculenYukseklik>(null);
+  const height = gecerliYukseklik(olculen, cacheKey, olculenYukseklikler);
   if (!NativeView) return null;
   return (
     <NativeView
