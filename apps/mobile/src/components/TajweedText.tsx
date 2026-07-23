@@ -22,12 +22,17 @@ export function TajweedText({
   style?: StyleProp<TextStyle>;
   suffix?: Suffix;
 }) {
+  // Bağımlılıklar suffix nesnesinin kimliğine değil alanlarına bakar: çağıranlar
+  // suffix'i satır içi literal olarak veriyor (her render'da yeni nesne) ve
+  // nesne kimliğine bağlansaydı memo hiçbir zaman tutmazdı.
+  const suffixText = suffix?.text;
+  const suffixColor = suffix?.color;
   const nativePayload = useMemo(() => {
     const ranges = codePointSpansToUtf16Ranges(text, spans);
-    if (!suffix) return { fullText: text, ranges };
-    ranges.push({ start: text.length, end: text.length + suffix.text.length, color: suffix.color });
-    return { fullText: text + suffix.text, ranges };
-  }, [text, spans, suffix]);
+    if (suffixText === undefined || suffixColor === undefined) return { fullText: text, ranges };
+    ranges.push({ start: text.length, end: text.length + suffixText.length, color: suffixColor });
+    return { fullText: text + suffixText, ranges };
+  }, [text, spans, suffixText, suffixColor]);
 
   if (isTajweedNativeAvailable) {
     const flat = StyleSheet.flatten(style) ?? {};

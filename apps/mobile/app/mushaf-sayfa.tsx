@@ -465,11 +465,23 @@ export default function MushafSayfaEkrani() {
     });
   }, []);
 
+  // "Görünür" bilgisi ekranda olan sayfayı izler, kaydırma bitişini beklemez:
+  // ekran dışı sayfalar tecvid değişimini üstlenmez (ANR koruması), ama
+  // kaydırırken gelen sayfa yarıyı geçtiği anda güncel renklendirmeyle gelir.
+  const [gorunenSayfa, setGorunenSayfa] = useState<number | null>(null);
+  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 50 }).current;
+  const onViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: { item: number }[] }) => {
+      const ilk = viewableItems[0]?.item;
+      if (typeof ilk === "number") setGorunenSayfa(ilk);
+    },
+  ).current;
+
   const renderItem = useCallback(
     ({ item }: { item: number }) => (
-      <MushafSayfasi page={item} width={width} tajweed={tajweed} secili={secili} onAyetSec={onAyetSec} isVisible={item === page} />
+      <MushafSayfasi page={item} width={width} tajweed={tajweed} secili={secili} onAyetSec={onAyetSec} isVisible={item === (gorunenSayfa ?? page)} />
     ),
-    [width, tajweed, secili, onAyetSec, page],
+    [width, tajweed, secili, onAyetSec, page, gorunenSayfa],
   );
   const getItemLayout = useCallback(
     (_: unknown, index: number) => ({ length: width, offset: width * index, index }),
@@ -630,6 +642,8 @@ export default function MushafSayfaEkrani() {
             getItemLayout={getItemLayout}
             initialScrollIndex={initialPage - 1}
             onMomentumScrollEnd={onMomentumEnd}
+            viewabilityConfig={viewabilityConfig}
+            onViewableItemsChanged={onViewableItemsChanged}
             initialNumToRender={1}
             maxToRenderPerBatch={2}
             windowSize={3}
