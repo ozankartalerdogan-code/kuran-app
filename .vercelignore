@@ -8,3 +8,19 @@ apps/mobile
 .expo
 apps/web/public/audio/surah/*.mp3
 *.log
+# Web build'i kök data/public/docs kullanmaz (web kendi src/data'sını import
+# eder; prod veri kaynağı Turso). Bu klasörler GB'larca dev verisi taşıyor ve
+# CLI upload'ını patlatıyordu.
+
+# Repo-kökü Vercel CLI deploy dışlamaları
+/data/
+/data2/
+/.agent-runs/
+/backups/
+/scripts/output/
+/apps/mobile/
+/public/
+/docs/
+/.claude/
+/.codex/
+/.agents/
