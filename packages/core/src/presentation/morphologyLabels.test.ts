@@ -114,10 +114,29 @@ test("null ve boş değerleri güvenli işler", () => {
   assert.deepEqual(getUnknownMorphologyCodes(""), []);
 });
 
-test("birleşik POS kodlarını ayet detayında İngilizce kısaltma bırakmadan gösterir", () => {
-  const display = translatePosTr("N+V+P");
-  assert.equal(display, "İsim + Fiil + Edat");
-  assert.doesNotMatch(display, /(?:^|\s|\+)N|V|P(?:$|\s|\+)/);
+test("nihai POS sunumunu tekil ve birleşik kodlarda sıra koruyarak Türkçeleştirir", () => {
+  const cases = [
+    ["N", "İsim"],
+    ["V", "Fiil"],
+    ["P", "Edat"],
+    ["P+N", "Edat + İsim"],
+    ["P+V", "Edat + Fiil"],
+    ["N+P+V", "İsim + Edat + Fiil"],
+    ["P+XYZ+N", "Edat + XYZ + İsim"],
+  ] as const;
+
+  for (const [canonical, expected] of cases) {
+    assert.equal(translatePosTr(canonical), expected);
+  }
+
+  const knownOutputs = cases.slice(0, -1).map(([canonical]) => translatePosTr(canonical));
+  assert.ok(knownOutputs.every((display) => !["V (Fiil)", "N (İsim)", "P+N"].includes(display)));
+  assert.ok(knownOutputs.every((display) => !/(?:^|\s|\+)N|V|P(?:$|\s|\+)/.test(display)));
+});
+
+test("POS erişilebilirlik metni yalnız Türkçe nihai formatter çıktısını okur", () => {
+  assert.equal(`Kelime türü ${translatePosTr("V")}`, "Kelime türü Fiil");
+  assert.equal(`Kelime türü ${translatePosTr("P+N")}`, "Kelime türü Edat + İsim");
 });
 
 test("web ve mobil aynı ortak sunum helperını kullanır", () => {
@@ -132,6 +151,10 @@ test("web ve mobil aynı ortak sunum helperını kullanır", () => {
   );
   assert.match(webPage, /translatePosTr.+from "@quran-app\/core"/s);
   assert.match(mobilePage, /formatMorphologyTr, translatePosTr.+packages\/core\/src\/presentation\/morphologyLabels"/s);
+  assert.match(webPage, /aria-label=\{`Kelime türü: \$\{label\}`\}/);
+  assert.match(mobilePage, /accessibilityLabel=\{`Kelime türü \$\{translatePosTr\(w\.pos\)\}`\}/);
+  assert.doesNotMatch(webPage, /\{(?:part\.)?code\}\s*\(\{(?:part\.)?label\}\)/);
+  assert.doesNotMatch(mobilePage, /Kelime türü \$\{w\.pos\}/);
 });
 
 test("API biçimli raw alanları ve Arapça lemma/kök değerlerini değiştirmez", () => {
