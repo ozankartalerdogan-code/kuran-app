@@ -315,6 +315,7 @@ export type AyahDetailResponse = {
     meaningTr: string | null;
     pos: string | null;
     root: string | null;
+    lemma: string | null;
     morphology: string | null;
   }[];
   prevAyah: { surahId: number; ayahNumber: number } | null;
@@ -434,10 +435,10 @@ export const api = {
     // cache'ini yeniler.
     page: (page: number) =>
       withCacheFallback(
-        `cache_mushaf_v5_p${page}`,
+        `cache_mushaf_v6_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=5`, undefined, signal),
+          request<MushafPageResponse>(`/mushaf?page=${page}&v=6`, undefined, signal),
         ),
       ),
   },
