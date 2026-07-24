@@ -26,6 +26,7 @@ interface WordRow {
   meaning_tr: string | null;
   pos: string | null;
   root: string | null;
+  lemma: string | null;
   morphology: string | null;
   root_meaning: string | null;
 }
@@ -63,6 +64,7 @@ export type AyahDetailResponse = {
     meaningTr: string | null;
     pos: string | null;
     root: string | null;
+    lemma: string | null;
     morphology: string | null;
   }[];
   prevAyah: { surahId: number; ayahNumber: number } | null;
@@ -127,6 +129,7 @@ export async function GET(req: NextRequest) {
                MIN(w.meaning_tr)  AS meaning_tr,
                MIN(w.pos)         AS pos,
                MIN(w.root)        AS root,
+               MIN(w.lemma)       AS lemma,
                MIN(w.morphology)  AS morphology,
                -- kök anlamı liste/detay ile aynı önceliği kullansın (zengin seed),
                -- aksi halde tekrarlı root_meanings'te MIN farklı anlam getirebilir
@@ -182,6 +185,7 @@ export async function GET(req: NextRequest) {
         meaningTr: w.meaning_tr,
         pos:       w.pos,
         root:      normalizeVisibleRoot(w.root),
+        lemma:     w.lemma,
         morphology: w.morphology,
       })),
       prevAyah,
