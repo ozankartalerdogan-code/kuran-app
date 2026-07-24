@@ -890,7 +890,11 @@ export default function AyahDetailScreen() {
 
                       {/* Tür */}
                       {w.pos ? (
-                        <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
+                        <View
+                          style={[styles.wordDetailRow, { borderTopColor: colors.border }]}
+                          accessible
+                          accessibilityLabel={`Kelime türü ${translatePosTr(w.pos)}`}
+                        >
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
                             Tür
                           </Text>
