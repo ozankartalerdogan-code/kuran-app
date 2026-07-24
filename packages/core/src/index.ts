@@ -71,3 +71,16 @@ export { buildAllCaches } from "./pipeline/buildAllCaches";
 export { auditNormalizedCaches } from "./pipeline/auditNormalizedCaches";
 export { buildNormalizedCaches } from "./pipeline/buildNormalizedCaches";
 export { buildCoverageReport } from "./pipeline/buildCoverageReport";
+export {
+  CORPUS_MORPHOLOGY_CODES,
+  CORPUS_MORPHOLOGY_VALUE_KEYS,
+  CORPUS_POS_CODES,
+  MORPHOLOGY_LABELS_TR,
+  POS_LABELS_TR,
+  formatMorphologyTr,
+  getPosLabelTr,
+  getUnknownMorphologyCodes,
+  parseMorphologyForDisplay,
+  translatePosTr
+} from "./presentation/morphologyLabels";
+export type { MorphologyDisplayToken } from "./presentation/morphologyLabels";

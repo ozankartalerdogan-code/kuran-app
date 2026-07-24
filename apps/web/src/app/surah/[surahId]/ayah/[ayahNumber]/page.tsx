@@ -36,7 +36,7 @@ import { AyahDetailTabs, type AyahDetailTabItem } from "./AyahDetailTabs";
 import { CollapsibleArea } from "../../../../../components/CollapsibleArea";
 import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
-import { MORPH_LABELS, MORPH_ABBR } from "../../../../../lib/morphologyLabels";
+import { translatePosTr } from "@quran-app/core";
 import { arapRakam, ayetinSayfasi } from "../../../../../lib/mushafSayfaUtils";
 import dynamicImport from "next/dynamic";
 import { FavoriteButton } from "../../../../../components/FavoriteButton";
@@ -422,20 +422,10 @@ function getFidelityStatus(fidelity: FidelityAnalysis | null): SectionStatus {
 
 function MorphBadge({ morphology }: { morphology: string | null }) {
   if (!morphology) return <span className="text-stone-400">—</span>;
-  const abbr = MORPH_ABBR[morphology] ?? morphology;
-  const label = MORPH_LABELS[morphology] ?? morphology;
-  const hasLabel = label !== abbr;
+  const label = translatePosTr(morphology);
   return (
-    <span className="inline-flex flex-col leading-tight">
-      <span>
-        {abbr}
-        {hasLabel && (
-          <span className="hidden sm:inline text-stone-500"> ({label})</span>
-        )}
-      </span>
-      {hasLabel && (
-        <span className="text-[10px] text-stone-400 sm:hidden">{label}</span>
-      )}
+    <span className="inline-flex leading-tight" aria-label={`Kelime türü: ${label}`}>
+      {label}
     </span>
   );
 }
