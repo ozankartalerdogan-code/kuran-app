@@ -123,6 +123,18 @@ let _localDb: _DatabaseSync | null = null;
 
 function getLocalDb(): _DatabaseSync {
   if (_localDb === null) {
+    // Vercel'de yerel app.db yoktur; sessizce ona düşmek anlamsız bir
+    // "unable to open database file" (ERR_SQLITE_ERROR) üretir. Eksik Turso
+    // env'ini gizlemek yerine nedenini söyleyerek başarısız ol.
+    if (process.env.VERCEL && process.env.QURAN_APP_FORCE_LOCAL_DB !== "1") {
+      throw new Error(
+        "[dbUtils] Turso yapılandırılmamış: bu Vercel ortamında (" +
+          `VERCEL_ENV=${process.env.VERCEL_ENV ?? "?"}) TURSO_DB_URL ve ` +
+          "TURSO_AUTH_TOKEN tanımlı değil. Env değişkenlerini ilgili ortama " +
+          "(Production/Preview/Development) ekleyin; yerel SQLite fallback'i " +
+          "Vercel'de kullanılamaz.",
+      );
+    }
     _localDb = new _DatabaseSync(DB_PATH, { readOnly: true });
     // Salt-okunur ortamda bazı PRAGMA'lar hata verebilir;
     // her pragma'yı tek tek dene, başarısız olanı yut.
