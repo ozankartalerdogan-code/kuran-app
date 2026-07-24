@@ -1,7 +1,3 @@
-import * as dotenv from "dotenv";
-import { existsSync } from "node:fs";
-import path from "node:path";
-
 import {
   getSafeSemanticSummary,
   getSemanticWarnings,
@@ -58,8 +54,6 @@ function uniqueWarnings(warnings: SelectableSemanticWarning[]): SelectableSemant
   return Array.from(new Set(warnings));
 }
 
-let semanticServerEnvLoaded = false;
-
 function buildUnavailableSemanticSummary(
   status: Exclude<SemanticSummaryStatus, "ok">,
   reason: string
@@ -75,47 +69,7 @@ function buildUnavailableSemanticSummary(
   };
 }
 
-function loadSemanticServerEnvIfNeeded(): void {
-  if (semanticServerEnvLoaded) {
-    return;
-  }
-
-  semanticServerEnvLoaded = true;
-
-  const hasProviderEnv =
-    (process.env.GROQ_API_KEY?.trim() ?? "").length > 0 ||
-    (process.env.GEMINI_API_KEY?.trim() ?? "").length > 0;
-
-  if (hasProviderEnv) {
-    return;
-  }
-
-  const candidatePaths = Array.from(
-    new Set([
-      path.resolve(process.cwd(), ".env.local"),
-      path.resolve(process.cwd(), "../../.env.local")
-    ])
-  );
-
-  for (const candidatePath of candidatePaths) {
-    if (!existsSync(candidatePath)) {
-      continue;
-    }
-
-    dotenv.config({ path: candidatePath, override: false, quiet: true });
-
-    if (
-      (process.env.GROQ_API_KEY?.trim() ?? "").length > 0 ||
-      (process.env.GEMINI_API_KEY?.trim() ?? "").length > 0
-    ) {
-      return;
-    }
-  }
-}
-
 export function resolveServerSemanticProviderFromEnv(): SemanticAiProvider | null {
-  loadSemanticServerEnvIfNeeded();
-
   const groqApiKey = process.env.GROQ_API_KEY?.trim() ?? "";
 
   if (groqApiKey.length > 0) {
