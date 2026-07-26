@@ -1,0 +1,997 @@
+{
+  "artifact_catalog": {
+    "backups/app-before-aad-homograph-v1_8-2026-07-24T17-48-25-391Z.db": {
+      "bytes": 237547520,
+      "sha256": "d1db6f80991a9d8a54567d339f3c68855f563980b43473a76c746297058ec8ca"
+    },
+    "backups/app-before-buckwalter-cleanup-v1_8-2026-07-24T18-17-57-246Z.db": {
+      "bytes": 237547520,
+      "sha256": "bcfc4c332ac2ceda8374d7ee0aa072f9bda032e73601287005156b1ebfc0df79"
+    },
+    "backups/app-before-certain-rollback-v1_8-2026-07-24T14-38-32-016Z.db": {
+      "bytes": 237547520,
+      "sha256": "0c24bde1a60fc346ddd0e3ccbb5409d5c471cf039b8d8558cb9c44d95abd9893"
+    },
+    "backups/app-before-meaning-corrections-v1_8-2026-07-24T16-16-16-705Z.db": {
+      "bytes": 237547520,
+      "sha256": "11628121794b2d675d2bd065c002d5c2cabba5377f6cf960f09e9b1a96a24675"
+    },
+    "backups/app-before-proper-name-root-null-v1_8-2026-07-24T16-28-46-541Z.db": {
+      "bytes": 237547520,
+      "sha256": "b6f7bff214c347be46cafa8e5d2725dd13cb92f938ce8a5052a87936cd5216c7"
+    },
+    "data/app.db.yedek_20260724_134257_premerge_v1_8": {
+      "bytes": 237547520,
+      "sha256": "f00a3864c59282c91a187438c499687412d044d083987240d502414d80ac7208"
+    },
+    "data/app.db.yedek_20260725_010115_pre_token_realign_v1_9": {
+      "bytes": 237547520,
+      "sha256": "0df76b58560aea6afe91eaf47e92400cd5fb8bc0ec452b9825c147c0c03833d6"
+    },
+    "data/app.db.yedek_20260725_014713_pre_batch_a_37_130": {
+      "bytes": 237547520,
+      "sha256": "55eaa203df9b62be419ef26f41f81c17f753445634374618c9a8003064e29022"
+    },
+    "data/app.db.yedek_20260726_142652_pre_batch_bc_meaning_tr": {
+      "bytes": 237547520,
+      "sha256": "ee767d6dc968a45601447da6e93d75a8b0f788ddbadb8f5604e9ac1d52f47f3a"
+    },
+    "data/app.db.yedek_20260727_013427_pre_batch_a_37_130_lemma_normalization": {
+      "bytes": 237547520,
+      "sha256": "9084d2998c06f5efd94d4d6dfa197d589bde8772eb6fef3f304cd224d4d00abe"
+    },
+    "data/candidates/morphology/camel-morph-msa-v1.0/token-map.jsonl": {
+      "bytes": 183880988,
+      "sha256": "2f56784c102bec10a6ed58a54cc099631fa740c782c47d9b42a3d77e78348329"
+    },
+    "data/candidates/morphology/camel-token-map-v1_1-fatiha/manifest.json": {
+      "bytes": 3571,
+      "sha256": "f3a224f60e7241b210b5e3489a440dada6e23b58647f437d27ba9229facecc4d"
+    },
+    "data/candidates/morphology/camel-token-map-v1_1-fatiha/policy.json": {
+      "bytes": 855,
+      "sha256": "8c297ab3b3f667065a40bbeb2bcb04d25d35be1295ee7bee11ae60b700acb82f"
+    },
+    "data/candidates/morphology/camel-token-map-v1_1-fatiha/token-map.jsonl": {
+      "bytes": 183890579,
+      "sha256": "03961d28a23d68abaa617ef3d531cce32d4525ea9d9bf1ff4fd2c4363b3228eb"
+    },
+    "data/candidates/morphology/camel-token-map-v1_1-fatiha/validation-report.json": {
+      "bytes": 1730,
+      "sha256": "be98e54bcb33a1e47e95075aeb65a704a47216b13e1179d2427bfdf40f16df53"
+    },
+    "data/candidates/morphology/final-v1_8/app.db.merge-candidate": {
+      "bytes": 237547520,
+      "sha256": "0c24bde1a60fc346ddd0e3ccbb5409d5c471cf039b8d8558cb9c44d95abd9893"
+    },
+    "data/candidates/morphology/final-v1_8/apply-report.json": {
+      "bytes": 8802,
+      "sha256": "30d1539fb82813cc2e3cef0840e1635e466291852d070378a181745f0fd25225"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/apply-report.json": {
+      "bytes": 1256,
+      "sha256": "73dc8bc714af2da04ae066ad1fee43dd33db0a7e90fe9e89758799e8e266123e"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/dry-run-summary.json": {
+      "bytes": 5059,
+      "sha256": "09af08615995fda9ba30d3e48bc02298f2276e774aa37c9adde0e1bc3acb2016"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/forward.sql": {
+      "bytes": 915,
+      "sha256": "77d47190d7dd5beb8cf365d11c0c3e70932ed12659cb2856604bb54d847b633f"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/pre-image-local.json": {
+      "bytes": 345367,
+      "sha256": "98f8b10b7aa94d5acea0559b5b8c7cd7942fbcc14a2494c7b6835a93489b5a0d"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/pre-image-turso.json": {
+      "bytes": 325500,
+      "sha256": "e4ac2b57de20919e97d333cb66c21220f1a4fb40f3f03132c93383f8a5b06bff"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/reverse.sql": {
+      "bytes": 227005,
+      "sha256": "ab0ca8ebc5a0a92c727deed3078de9be8acbd8ab28c338925138d276e2ec7cba"
+    },
+    "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/review-cells.jsonl": {
+      "bytes": 1335605,
+      "sha256": "86a46a94069f8a94e496a27c9d353c8b6e35e60bb6916ae39e2d68cbc1291f3a"
+    },
+    "data/candidates/morphology/final-v1_8/checksums.json": {
+      "bytes": 337,
+      "sha256": "a11f1ecf5fa34b62244ffa99b4f9c21780bb2907e57c0b7a9205a215d01a4922"
+    },
+    "data/candidates/morphology/final-v1_8/determinism.json": {
+      "bytes": 934,
+      "sha256": "ac35c6fafe45918b4841279da0b82f3e532a3f4f63e8fe398b7557d37b3b1d1d"
+    },
+    "data/candidates/morphology/final-v1_8/final-morphology-v1_8.jsonl": {
+      "bytes": 59196475,
+      "sha256": "190438be8d0f997e75ec2b0d71680aa903494106a703fcd67d3897a0ff33b3f9"
+    },
+    "data/candidates/morphology/final-v1_8/final-morphology-v1_8.sqlite": {
+      "bytes": 30457856,
+      "sha256": "7c08ed883703b5573a2bfea51cdebaa3a3adabe1eaecadf0392eef6fce37dc62"
+    },
+    "data/candidates/morphology/final-v1_8/legacy-comparison-report.json": {
+      "bytes": 44281,
+      "sha256": "fc8d6f0aea6444f65cde7d7116915159020af68e67f9b65eee427d7728bca5e1"
+    },
+    "data/candidates/morphology/final-v1_8/legacy-comparison.jsonl": {
+      "bytes": 52239230,
+      "sha256": "7032b5950b2d95d454e41d666879992c900557851f0a127f3050462f6657c7d4"
+    },
+    "data/candidates/morphology/final-v1_8/merge-forward.sql": {
+      "bytes": 80653,
+      "sha256": "16046274705751448e19e583c8dbb3ff9c56c91a5b593d6b9a91d69e13b92c53"
+    },
+    "data/candidates/morphology/final-v1_8/merge-report.json": {
+      "bytes": 4653,
+      "sha256": "e4f6320f1eff9a9bb15f30ec5484d1e9bc18d33b0515d4c67baba98feebbcec8"
+    },
+    "data/candidates/morphology/final-v1_8/merge-review.jsonl": {
+      "bytes": 330875,
+      "sha256": "70a0df445b1be00d0aabc23d2f529a3997d267fd266dc14ae96415cd881039c8"
+    },
+    "data/candidates/morphology/final-v1_8/merge-rollback.sql": {
+      "bytes": 43520,
+      "sha256": "af19e5b3776a5691e72e7ea2c4ffbc5cbb9cfbb591fd7fe4f8d495dd807bf894"
+    },
+    "data/candidates/morphology/final-v1_8/merge-verification.json": {
+      "bytes": 434,
+      "sha256": "52e673a94edd4359b6b3bcc90fdf690ab00312773321960778c6898856aab50f"
+    },
+    "data/candidates/morphology/final-v1_8/summary.json": {
+      "bytes": 3358,
+      "sha256": "806d6050c1546b3b00140708d2282536f1d6651ee12abe5055ccc7eac5fea0c5"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-apply-report.json": {
+      "bytes": 1531,
+      "sha256": "f018bcb6b5d94549a2c395351458b28bfc78a49feab0d1b3f4f19245d5ebb16c"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-pre-image.json": {
+      "bytes": 1047,
+      "sha256": "cc4cc709c8b5a6bc031be21f04dd3ced9c8a3b1328115a1a80a879a742004dfd"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-reverse.sql": {
+      "bytes": 449,
+      "sha256": "5180ec8dc4e5b18c2ffde4267e7da10506d089bdb1d98f5252d2331025d57408"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-apply-report.json": {
+      "bytes": 762,
+      "sha256": "5e6f5cc38d776eb593d27566cf9f51661550c4380b8281d56e5e2cb7faa04a68"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-reverse.sql": {
+      "bytes": 9096,
+      "sha256": "25ea8117e6841eba52e5e7b1b1db67834a78500323cda850893b3a1faa6632b4"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-summary.json": {
+      "bytes": 591,
+      "sha256": "78fe2905a318b1c32e13b5404929f12ed9ee891d4a5c66dd0973d6c062190240"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-turso-reverse.sql": {
+      "bytes": 9656,
+      "sha256": "1c6586540c8be93c3bf9a8e6414bdee7a866da9931b76c2361988c2fd870e500"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback.sql": {
+      "bytes": 7443,
+      "sha256": "ed9bc6e2fa777b0e33fd997b978775fd448f52bbfa659cf7bc4dfff659b7cf32"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-apply-report.json": {
+      "bytes": 1640,
+      "sha256": "e6060fc4915e0de35cfc5167c28fc049ed90685f6a470819519c3dffc9da2d56"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-pre-image.json": {
+      "bytes": 799,
+      "sha256": "dc56be3d699cfe5e270cc664bcef8e6e2bc25b1d317d7879ae751476c99cdaa6"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-reverse.sql": {
+      "bytes": 761,
+      "sha256": "be95f5e5a9c1028b2147485d37a199d2d576b9246005986d8941cc06c2e6fce5"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-review.jsonl": {
+      "bytes": 2693,
+      "sha256": "23f56f36298a0ea5b1d819af2c3e649703975912477c88c6bc74871b3703010a"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-apply-report.json": {
+      "bytes": 717,
+      "sha256": "643b12333503872ab118f5e3e242f348b55767f132e77148d96d8a0b0e883375"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-pre-image.json": {
+      "bytes": 5614,
+      "sha256": "d30ba0d8f0eb37282f94742db8c3dd96893e8dd25038a7597a4acb603eeb49aa"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-reverse.sql": {
+      "bytes": 4531,
+      "sha256": "f151140dad64fb0f10ee32ee72fd06fd84fbd078983bdebdf0dbad03537394b5"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-policy.json": {
+      "bytes": 12919,
+      "sha256": "8e2256d77d812d56b0cc1bf0b3631aa1a6a8c198ec53eaec6149e0b4206db780"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/root-meaning-policy-review.json": {
+      "bytes": 1289,
+      "sha256": "ff1b747c35081a11bdc9929e18d7a3aa0fbafcbe05d8cb710f4fac83a9aa7376"
+    },
+    "data/candidates/morphology/final-v1_8/surgical-v1_8/turso-pre-rollback-backup.json": {
+      "bytes": 4909,
+      "sha256": "e0a4bbabb0d60123164acc82709c18f3402aa3f1c4c2afde3ecb9eceba73b4f3"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/sync-forward.sql": {
+      "bytes": 97,
+      "sha256": "3048cabcdd23a4f53cadf27166aeebf02681f1ebfd2820464ad345db4d14bbd0"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/sync-review.jsonl": {
+      "bytes": 194832,
+      "sha256": "47a2b88518bad77b46b058d3800c638dd0517311bbd24001e09110c57272abc9"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/sync-rollback.PREAPPLY.sql": {
+      "bytes": 43488,
+      "sha256": "25aec1d2a26602342db3993dd9d1f5cf95279eeccf007391cf12ee5f79381002"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/sync-rollback.sql": {
+      "bytes": 83,
+      "sha256": "bb95e90b0fb0b9a66b3cca05d0ff30497ae5fa9fd87367a4a9cc51d9703e5e3e"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/sync-summary.json": {
+      "bytes": 450,
+      "sha256": "6a2bd795131a1d9f65b37f6eb9034f099cff4e7406f3eda2228d0d3197704a4b"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/turso-target-backup.PREAPPLY.json": {
+      "bytes": 105319,
+      "sha256": "c695efabc04e4d95772807f1705b44752ac777f178217217cc9632fd36ab55e0"
+    },
+    "data/candidates/morphology/final-v1_8/turso-sync/turso-target-backup.json": {
+      "bytes": 111091,
+      "sha256": "85efc9f32a41a7c339b49114b57722d1606ea6b8a0ee0ea62602f58fe1e4fe32"
+    },
+    "data/candidates/morphology/reports/camel-token-policy.json": {
+      "bytes": 856,
+      "sha256": "143135857db7976607346eb27bd81e7f8a2f3dc388f55fddb6c8e223a22ab13a"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/decisions.json": {
+      "bytes": 628,
+      "sha256": "2c21b0ebfd4afb4a97419cfb3c735842972c61e31516ad5b195296f7961e4516"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/field-change-manifest.json": {
+      "bytes": 384,
+      "sha256": "be09b1739a1ee413fe4b9fa141fd07e3f2b228dd85a7615db05ca62b8f5f6ccb"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/forward.sql": {
+      "bytes": 751,
+      "sha256": "9c21b62bb13be2ddd7df0a440c8ae73662e3ba68d0a146ee8e9928acbdf43c13"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/full-regression-report.json": {
+      "bytes": 1522,
+      "sha256": "ab4475cf96540c417dbc98956ef216b808c9040a36636a272618878f256642af"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/live-api-verification.json": {
+      "bytes": 243,
+      "sha256": "04dd5cc4cbaeb9fa2249b983736f7de496fc8d563d0ed96d24261a45cdb4e194"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/local-apply-report.json": {
+      "bytes": 650,
+      "sha256": "9516d755c5a9572371540f5cd52309630285f7efc97d41f8060feda1f9231bce"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/preflight-report.json": {
+      "bytes": 572,
+      "sha256": "32bb655830c62f34349034c62a4edd184971b099f169e2d91e739320ff36d439"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/preimage.json": {
+      "bytes": 372,
+      "sha256": "af45a4870f5149f6213213b841ac22da4178102713bc4a29f33304ae033fcb52"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/reverse.sql": {
+      "bytes": 722,
+      "sha256": "0e87dcfc1445f1d5750c9fd484012f3bf4af9afa89a19e7f27ff5deae96700f1"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/summary.json": {
+      "bytes": 928,
+      "sha256": "aa92994b0e5526aae2c12286763d5db6232b191f09faba7c92580c22dc62a8b6"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/turso-apply-report.json": {
+      "bytes": 755,
+      "sha256": "8db84c3c31d370851b8f452bcb75980f40512f73eb663e7b16756f9e4508de67"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/turso-preimage-20260726T223420Z.json": {
+      "bytes": 492,
+      "sha256": "dd391539bb36a0fc0af18c50ae3a363c24f374b3d1ae9739633dd2aab6734b0a"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/decisions.json": {
+      "bytes": 1496,
+      "sha256": "783dfd3adab5fff692daa9a4b2075ca08c1b36be3e20eaf15447738f32b8ff05"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/field-change-manifest.json": {
+      "bytes": 620,
+      "sha256": "cdcdb300ec018f3ff045b39cb7ce0ae67648bba3dbec384f374a3900c2c5650d"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/forward.sql": {
+      "bytes": 673,
+      "sha256": "dcf7f4259ece615075223d087a94d29e33360f7567ac76eabd34d384eafdd45b"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/local-apply-report.json": {
+      "bytes": 611,
+      "sha256": "1406ec6e02b1751490b8482c1bb60ace9772888505b804bce94143ab4d0484f4"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/preflight-report.json": {
+      "bytes": 124,
+      "sha256": "d8cd5a8466a9c6f28d32c074ec26bb58bbb1d75ed7137c70cf9a59305a868e4f"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/preimage.json": {
+      "bytes": 365,
+      "sha256": "f162081bbd7609139a031d9e917af63bd561b923e2dc68def23f63335d7435ae"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/rerun-and-reverse-verification.json": {
+      "bytes": 591,
+      "sha256": "630f986df112f89a504a5ca0ac05d5a88fc40765cb57b7446146b5b54bf95df2"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/reverse.sql": {
+      "bytes": 481,
+      "sha256": "6d9c9f29c577e93bca83a01efd16be18b92f1ae84d8c7b51920df7e2d5954737"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/summary.json": {
+      "bytes": 286,
+      "sha256": "0085e9d2579d86c67a4074b32f3ea168d51955e33922f09e752c9eac90d6fc6c"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/turso-apply-report.json": {
+      "bytes": 210,
+      "sha256": "b39df31c2ec6144bb3ae41e1fdbd88b050e1ea9939ca0a7b312ced88c85893ab"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-a-37-130/turso-preimage.json": {
+      "bytes": 462,
+      "sha256": "c903d877ca13195d8cb750363c0256a518a830c7691873d213ccf22edd55abf3"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-b-meanings/worksheet.csv": {
+      "bytes": 14213,
+      "sha256": "5057cd3b73c55c5e766d26e3f862937547cc7ea8697434e71f2e3da9d5adc7fa"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-b-meanings/worksheet.md": {
+      "bytes": 24038,
+      "sha256": "2d2139d26702e896e08d57d4146c57c04d6a988fb84d233195705a8d2e04aba7"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/application-report.json": {
+      "bytes": 3335,
+      "sha256": "52ce8c982bb093549c77d4d7fe59016d9aa6ee684f36bdb3f227d01c0b18d728"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/decisions.json": {
+      "bytes": 211081,
+      "sha256": "56ffb9153bc92bd564a19f6e459c7a46326069ffa23b11798a77e95c06168125"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/dry-run-report.json": {
+      "bytes": 1369,
+      "sha256": "a310880255df3f5e186567f361858060ca9515d9f423f1d841268816c5c70cb9"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/field-change-manifest.json": {
+      "bytes": 196461,
+      "sha256": "afb7f6a9a9ca88c7b6b39b78ea8951923c2b3efdb75e07cb702faea1d4886f68"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/forward.sql": {
+      "bytes": 131414,
+      "sha256": "86d808aaf03d42310e5f0575e822f8bdb912550df78ad160f03f442f8410a1d3"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/live-api-verification.json": {
+      "bytes": 25482,
+      "sha256": "9de6882e4960a946cce65321aa46418b7c5fae0b050f836dd558560f234c419d"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/local-apply-report.json": {
+      "bytes": 624,
+      "sha256": "1e1350c1098cc59f6836a435bf53402d3362e91069d1d1e89011dfc827f7e836"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/preflight-report.json": {
+      "bytes": 462,
+      "sha256": "b4c6a28c6a77b25b53eb828b375b23085a4af598425f19f150dcc2b314691204"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/preimage.json": {
+      "bytes": 253798,
+      "sha256": "94c5502808defcea88b8d0347846e3f50e256fc8f8f4fdb578d41cea1e149563"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/rerun-and-reverse-verification.json": {
+      "bytes": 654,
+      "sha256": "3d145a9d16830a2cb6d16c2fc82cc3256caf3a39275b76dafca04e67d5cec5b6"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/reverse.sql": {
+      "bytes": 131380,
+      "sha256": "4d888d843d8826e702276b14639f8136521816049637b122506c7bdb93d2447e"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/source-audit.json": {
+      "bytes": 2098,
+      "sha256": "45d3b361ddb61b263006df3083a1b2d065437383509438a424731d383b17ea9e"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/sql-invalidation.json": {
+      "bytes": 692,
+      "sha256": "0a975b5886231651bf57480a52a8f81467abc2805692182dc5031c880211cc46"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/summary.json": {
+      "bytes": 10065,
+      "sha256": "2bbdf9af66983fedc769c84bd12f4fda935e272cf6108455b52ca69d85646488"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-apply-report.json": {
+      "bytes": 8083,
+      "sha256": "fd64a81a0140818c2db54bd27e11f7d969e42723b1ebc59bf0d6b254dc257b59"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-postflight-verification.json": {
+      "bytes": 8076,
+      "sha256": "1829204df6d005345dfb7a1e2b59783298fa8b612635fcd47bbbe5d0d4d8302a"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-preimage-20260726T112642Z.json": {
+      "bytes": 264246,
+      "sha256": "561c051d33882239daf49252857aad2c2f760d2474f13b821bd60d4d7f44c267"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-preimage.json": {
+      "bytes": 264245,
+      "sha256": "6c656977016feb322e382f6c8449d1f38679c76dfcb2ccf378af42861b086d49"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-c-gloss/classes.csv": {
+      "bytes": 3059,
+      "sha256": "476fbf8dc765b7569c09c6364aea483ba82e1e55769d5494c55287d8cd09143e"
+    },
+    "data/candidates/morphology/surgical-v1_10/batch-c-gloss/classes.md": {
+      "bytes": 3496,
+      "sha256": "94dedae9034a25b6d3295c312a3556c2c59cf18249f88ccdca131a2a558634d8"
+    },
+    "data/candidates/morphology/token-realign-v1_9/BACKUP.txt": {
+      "bytes": 182,
+      "sha256": "222352b376fae1d6ff8c78763442980c647937f40f6e0bcf6dfc175b9fac952a"
+    },
+    "data/candidates/morphology/token-realign-v1_9/PREIMAGE_BACKUP_PLAN.md": {
+      "bytes": 4016,
+      "sha256": "1cab74597f60b8df31138196b5ec7a1037292e12fbe320efac378742a3f87de1"
+    },
+    "data/candidates/morphology/token-realign-v1_9/before-after.jsonl": {
+      "bytes": 68292,
+      "sha256": "e2d4aeec5798058ac78ae20666d5b3576555f399c6f2fafbe702813e03b69436"
+    },
+    "data/candidates/morphology/token-realign-v1_9/dry-run-verification.json": {
+      "bytes": 635,
+      "sha256": "6ea85bece98bab3feae7716f48b140dab6f1813542f3020874d16cc33f1eceff"
+    },
+    "data/candidates/morphology/token-realign-v1_9/field-change-manifest.json": {
+      "bytes": 57543,
+      "sha256": "973ae250b0035008688d80a19d6c5db85de9a7bbf66f8e0c4d9e6e8c556a56c4"
+    },
+    "data/candidates/morphology/token-realign-v1_9/forward.sql": {
+      "bytes": 17305,
+      "sha256": "ac8e6ed1d03c82aff54e34ce32f88f82901b5660226ffc571db79b3c2b71638d"
+    },
+    "data/candidates/morphology/token-realign-v1_9/integrity-report.json": {
+      "bytes": 422,
+      "sha256": "e8bedb602f3b4ca56c5ab0da1d931df85f2daa8747350a2ea1862d68cd591d4a"
+    },
+    "data/candidates/morphology/token-realign-v1_9/live-api-verification.json": {
+      "bytes": 3712,
+      "sha256": "3bdda10904af36136583830e1ede3bb1114a9acc0473b4df9c80969d650d7e7f"
+    },
+    "data/candidates/morphology/token-realign-v1_9/local-apply-report.json": {
+      "bytes": 1523,
+      "sha256": "f2fc48afe3ea14dc83b96bd90a24f645d858cbcbb4ed011b1579c1fbf02665fa"
+    },
+    "data/candidates/morphology/token-realign-v1_9/meaning-adjudication.json": {
+      "bytes": 69749,
+      "sha256": "132aecfb08f86b5dadd5123b6ba55bde4199c9923cd134c9c74a9f81c06eeca2"
+    },
+    "data/candidates/morphology/token-realign-v1_9/preflight-report.json": {
+      "bytes": 198,
+      "sha256": "b8178360f770ef24828066b9dea92e60f0418a1585e69f1eb6bc0f738bc79399"
+    },
+    "data/candidates/morphology/token-realign-v1_9/preimage.json": {
+      "bytes": 29841,
+      "sha256": "4b95d6c25537dc9f2ab8b1a053e599c29527cdf5c2c280e33ad3bb208e115095"
+    },
+    "data/candidates/morphology/token-realign-v1_9/rerun-and-reverse-verification.json": {
+      "bytes": 520,
+      "sha256": "32c8521197fdb9cb75733a1cdabd12f9d1a4097fc5c2105338a28211fedbae54"
+    },
+    "data/candidates/morphology/token-realign-v1_9/reverse.sql": {
+      "bytes": 12313,
+      "sha256": "fa955a1b54142ad81ca5c249d705faa2efb2f5f7209ed441185ac37669b3cafb"
+    },
+    "data/candidates/morphology/token-realign-v1_9/row-mapping.jsonl": {
+      "bytes": 110067,
+      "sha256": "f33c801e71d67960902117b4eda5f633d523a3606f1f8e10616e9c803251e2eb"
+    },
+    "data/candidates/morphology/token-realign-v1_9/turso-apply-report.json": {
+      "bytes": 2268,
+      "sha256": "4c531a083fef32d1aec2de22b248a5b43547f16e4f24c5640e7e346d2b161785"
+    },
+    "data/candidates/morphology/token-realign-v1_9/turso-preimage.json": {
+      "bytes": 49932,
+      "sha256": "d3cb23d808d5d15b2c58fb7d3d10eebff63e8a087efd36232ac8734b1ae1d6ff"
+    },
+    "data/candidates/morphology/token-realign-v1_9/verse-plan.json": {
+      "bytes": 22332,
+      "sha256": "8c7466d0cd036899d456532a65d877e3c257e20d742e9d880b82629d5fcff70b"
+    },
+    "docs/morfoloji-final-artefakt-v1_8-entegrasyon-oncesi.md": {
+      "bytes": 14974,
+      "sha256": "7afdd2e0be9e26ae5ffe3f412b16a16f19aa92169abbab9a5dc30c5bd541fea6"
+    },
+    "docs/morfoloji-hc1-production-v1_8.md": {
+      "bytes": 6229,
+      "sha256": "6465d5af8ec9b94b20ca6461765d5fa692d68b459240eadd186bbde2570b032a"
+    },
+    "docs/provenance/camel-token-policy.md": {
+      "bytes": 5952,
+      "sha256": "21664d8b342241ac257e35503533334e53526e78de38591ed482a8611873fc48"
+    },
+    "docs/token-realign-v1_9-blockers.md": {
+      "bytes": 15845,
+      "sha256": "6aecfc22768cc848acd69885df0d1e91135bbb46b49178c9a3a4180a537b43df"
+    },
+    "docs/token-realign-v1_9-dry-run.md": {
+      "bytes": 14575,
+      "sha256": "d9e78d29e04c174ca0a338edbb9d6f0b9dc86304cacdc3935d6dd9b4b9041e99"
+    },
+    "docs/token-realign-v1_9-uygulama-raporu.md": {
+      "bytes": 8975,
+      "sha256": "7cd1b2c04ab3e92f437db2cdb624d37ce1ae76ad8a57e5b1c069fa8035d70048"
+    },
+    "docs/yayin-oncesi-final-denetim-raporu.md": {
+      "bytes": 49840,
+      "sha256": "668d85ac56554338d80e9ef371b37f6ffc32efb1437e03d26e984f43149e99b2"
+    },
+    "scripts/morphology/adjudicate-token-realign-v1_9-meanings.py": {
+      "bytes": 16395,
+      "sha256": "c5912f6afaf63c9c26b47088ef1eb30cb44e584298408cba28ef661d946c24cb"
+    },
+    "scripts/morphology/apply-aad-homograph-fix-v1_8.mjs": {
+      "bytes": 11933,
+      "sha256": "eee88da955f25766c10a194346f3addbfa54f107ba181eb4f5155ecfa6ce4149"
+    },
+    "scripts/morphology/apply-additive-merge-to-prod-v1_8.py": {
+      "bytes": 9979,
+      "sha256": "3bb61c5c84985df42ca3228fb039a8f5587487ace60a6bc2534aa0aa5607074d"
+    },
+    "scripts/morphology/apply-certain-rollback-v1_8.mjs": {
+      "bytes": 14433,
+      "sha256": "31640c930b6c1baaca7966af2551a54a00144f935b5961ee72655807e111a0cf"
+    },
+    "scripts/morphology/apply-meaning-corrections-v1_8.mjs": {
+      "bytes": 10386,
+      "sha256": "d23ad37e83fc2c9d008eebbb1a28c1c846e5483f34a059e15d04f4aa1f8c42f6"
+    },
+    "scripts/morphology/apply-proper-name-root-null-v1_8.mjs": {
+      "bytes": 9964,
+      "sha256": "a2e7f686dba1b373345d2404fb3765333b1f2b9bba93a0dbc313ea9e03d16950"
+    },
+    "scripts/morphology/apply-token-realign-v1_9-local.py": {
+      "bytes": 7791,
+      "sha256": "d8349369a03fa413a61bf71a25676e1b0b46266359d3ece61d6a281dc9152f5f"
+    },
+    "scripts/morphology/apply-token-realign-v1_9-turso.mjs": {
+      "bytes": 7633,
+      "sha256": "852ba95580d3e168984b4dc4b48e5381c5095562aed7d5856a314cf33c1bd681"
+    },
+    "scripts/morphology/build-final-morphology-artifact-v1_8.py": {
+      "bytes": 19174,
+      "sha256": "76162de0d8b2395ae74014e3f142cefb9a7b410156efb730c2a2eedf159f8e62"
+    },
+    "scripts/morphology/build-hc1-token-map-v1_8.py": {
+      "bytes": 8334,
+      "sha256": "01ceb3311f158703451b322b3ee19b745db328832f2fb962a05189488b13d5cf"
+    },
+    "scripts/morphology/camel-poc/build-token-map.py": {
+      "bytes": 19820,
+      "sha256": "cfd017a7bb51461a2a4128adb818f72843bfa2ee282450b0f16125b2ae5dd34a"
+    },
+    "scripts/morphology/camel-poc/freeze-token-map-v1_1.py": {
+      "bytes": 7755,
+      "sha256": "961a1f13ece07a02401bdb93faf355bd7017aa9a57a3fb39c4668467d6769208"
+    },
+    "scripts/morphology/camel-poc/test-token-map.py": {
+      "bytes": 9684,
+      "sha256": "34530c27c2311f9d9e7a9901085949739f143d6d09ecfc384a44936f10cdd9ed"
+    },
+    "scripts/morphology/camel-poc/validate-token-map.py": {
+      "bytes": 14718,
+      "sha256": "9489d8f5f580d64702ecbb4017fae0d747e52acb2464691eb1ff7f04b888048d"
+    },
+    "scripts/morphology/camel-poc/verify-token-map-production-v1_1.py": {
+      "bytes": 10398,
+      "sha256": "9f79ab7404def7259b3f71c723f1e59297d14b6e984543c8127c6bf97907793b"
+    },
+    "scripts/morphology/freeze-final-provenance.py": {
+      "bytes": 12715,
+      "sha256": "30ab010c2ef71aaf8ef1ae79fd9f2b37d8148ede6bdf22ff6d857ca3820c2288"
+    },
+    "scripts/morphology/freeze-hc1-production-v1_8.py": {
+      "bytes": 15334,
+      "sha256": "57846cc4fc67dc8322620156ee316b6631c6c4375beb35d3963d6761b0160929"
+    },
+    "scripts/morphology/merge-additive-v1_8.py": {
+      "bytes": 14129,
+      "sha256": "ff050094637d96097111fdbad8742918e7d807c75b8640d0fbf64d80a4bc3c60"
+    },
+    "scripts/morphology/plan-token-realign-v1_9.py": {
+      "bytes": 45698,
+      "sha256": "2dbf0685190453e8e905278bf4457808415877a3e81ef0f1c2676448bba142b8"
+    },
+    "scripts/morphology/preflight-token-realign-v1_9.mjs": {
+      "bytes": 12189,
+      "sha256": "63ff66b915714f1e0aea438831d8649626fc059a4e96542b51a571b621eb9a3c"
+    },
+    "scripts/morphology/prepare-buckwalter-cleanup-v1_8.mjs": {
+      "bytes": 30177,
+      "sha256": "8013c7b007adf57686b1b09ce465c13ea48d877784ba6b5ebf725936580a846a"
+    },
+    "scripts/morphology/select-camel-candidate-v1_8.py": {
+      "bytes": 20920,
+      "sha256": "f6802599b0b6ca2d7f1de3a30911c3e922014fcdeee802e3fa1c766e871d9b7d"
+    },
+    "scripts/morphology/surgical/apply_local.py": {
+      "bytes": 6247,
+      "sha256": "2ee76f20fa59b33fb43b2999501aa91411000e81c4309c498d1e2c26ce11c869"
+    },
+    "scripts/morphology/surgical/apply_turso.mjs": {
+      "bytes": 10296,
+      "sha256": "474710f445ca3a1cb3c478019892b939edc871bb8c3abaff5a46c767aeceabb0"
+    },
+    "scripts/morphology/surgical/build_guarded_meaning_patch.py": {
+      "bytes": 22608,
+      "sha256": "af9fa0c3aaac044238fce9d98c36deee802e5aeaa8725af92ea605ae89edff79"
+    },
+    "scripts/morphology/surgical/preflight.mjs": {
+      "bytes": 8059,
+      "sha256": "801ee46b10d83a280b510dd773ffa55b5c2f3327930c87e96090cf025026cc17"
+    },
+    "scripts/morphology/surgical/verify_37_130_lemma_regression.mjs": {
+      "bytes": 17006,
+      "sha256": "aa9c3f5677aa7cac6eb0c67b98eb353a4afb276bc593259cae3c1f8e2c274463"
+    },
+    "scripts/morphology/sync-additive-v1_8-to-turso.mjs": {
+      "bytes": 11512,
+      "sha256": "befcf0809541ae923e172e904a341868c7ff5691f788d282da2e12887a65539e"
+    },
+    "scripts/morphology/verify-additive-merge-v1_8.py": {
+      "bytes": 4867,
+      "sha256": "dbb70ac7ebd8b07f4f1c54b68b4262a0810c9bac47812b1eaf44a28355f258ad"
+    },
+    "scripts/morphology/verify-final-artifact-determinism-v1_8.py": {
+      "bytes": 3052,
+      "sha256": "f14cb27f04a669538dabaf541d237f5ca5c131bbb0f13f0a62ee34ad05acdb89"
+    },
+    "scripts/morphology/verify-hc1-determinism-v1_8.py": {
+      "bytes": 6840,
+      "sha256": "1827c0730d43c84c4865a8af05cee082b1872b8344684e318e5540c061554ec1"
+    },
+    "scripts/morphology/verify-token-realign-v1_9-live-api.mjs": {
+      "bytes": 4593,
+      "sha256": "84582f7973b76edca58e50b1b23e9f9945db7b741bdfb8a3024b0193014fcd16"
+    },
+    "scripts/morphology/verify-token-realign-v1_9-rerun-and-reverse.py": {
+      "bytes": 3903,
+      "sha256": "6acb71b53ebfed86727309708036a821d86c3afcc786267d792b91ea789c8be2"
+    },
+    "scripts/morphology/verify-token-realign-v1_9-sandbox.py": {
+      "bytes": 4865,
+      "sha256": "646b553cebea42baf560e04725e8d782dc28a8f32e67f2e18eb574c279adfe81"
+    }
+  },
+  "final_regression": {
+    "checked": {
+      "local_turso_fields": 1162876,
+      "local_turso_rows": 85372,
+      "meaning_manifest_cells": 648,
+      "proper_name_roots": 53,
+      "realignment_verses": 9,
+      "v1_10_cells_after_overlays": 650,
+      "v1_8_cells": 997,
+      "v1_9_cells_after_overlays": 280,
+      "verses_word_index": 6236
+    },
+    "errors": {
+      "alignment": 0,
+      "encoding": 0,
+      "lemma": 0,
+      "meaning": 0,
+      "root": 0
+    },
+    "local_turso_differences": 0,
+    "new_regressions": 0,
+    "ran_at": "2026-07-26T23:46:31.965Z",
+    "report_path": "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/full-regression-report.json",
+    "report_sha256": "ab4475cf96540c417dbc98956ef216b808c9040a36636a272618878f256642af",
+    "status": "PASS"
+  },
+  "groups": {
+    "applied_sql": [
+      "data/candidates/morphology/final-v1_8/merge-forward.sql",
+      "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/forward.sql",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback.sql",
+      "data/candidates/morphology/final-v1_8/turso-sync/sync-forward.sql",
+      "data/candidates/morphology/token-realign-v1_9/forward.sql",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/forward.sql",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/forward.sql",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/forward.sql"
+    ],
+    "backups": [
+      "data/app.db.yedek_20260724_134257_premerge_v1_8",
+      "backups/app-before-buckwalter-cleanup-v1_8-2026-07-24T18-17-57-246Z.db",
+      "backups/app-before-aad-homograph-v1_8-2026-07-24T17-48-25-391Z.db",
+      "backups/app-before-certain-rollback-v1_8-2026-07-24T14-38-32-016Z.db",
+      "backups/app-before-meaning-corrections-v1_8-2026-07-24T16-16-16-705Z.db",
+      "backups/app-before-proper-name-root-null-v1_8-2026-07-24T16-28-46-541Z.db",
+      "data/app.db.yedek_20260725_010115_pre_token_realign_v1_9",
+      "data/app.db.yedek_20260725_014713_pre_batch_a_37_130",
+      "data/app.db.yedek_20260727_013427_pre_batch_a_37_130_lemma_normalization",
+      "data/app.db.yedek_20260726_142652_pre_batch_bc_meaning_tr"
+    ],
+    "code": [
+      "scripts/morphology/build-final-morphology-artifact-v1_8.py",
+      "scripts/morphology/verify-final-artifact-determinism-v1_8.py",
+      "scripts/morphology/merge-additive-v1_8.py",
+      "scripts/morphology/verify-additive-merge-v1_8.py",
+      "scripts/morphology/apply-additive-merge-to-prod-v1_8.py",
+      "scripts/morphology/sync-additive-v1_8-to-turso.mjs",
+      "scripts/morphology/prepare-buckwalter-cleanup-v1_8.mjs",
+      "scripts/morphology/apply-aad-homograph-fix-v1_8.mjs",
+      "scripts/morphology/apply-certain-rollback-v1_8.mjs",
+      "scripts/morphology/apply-meaning-corrections-v1_8.mjs",
+      "scripts/morphology/apply-proper-name-root-null-v1_8.mjs",
+      "scripts/morphology/freeze-hc1-production-v1_8.py",
+      "scripts/morphology/verify-hc1-determinism-v1_8.py",
+      "scripts/morphology/build-hc1-token-map-v1_8.py",
+      "scripts/morphology/select-camel-candidate-v1_8.py",
+      "scripts/morphology/plan-token-realign-v1_9.py",
+      "scripts/morphology/adjudicate-token-realign-v1_9-meanings.py",
+      "scripts/morphology/preflight-token-realign-v1_9.mjs",
+      "scripts/morphology/apply-token-realign-v1_9-local.py",
+      "scripts/morphology/apply-token-realign-v1_9-turso.mjs",
+      "scripts/morphology/verify-token-realign-v1_9-live-api.mjs",
+      "scripts/morphology/verify-token-realign-v1_9-rerun-and-reverse.py",
+      "scripts/morphology/verify-token-realign-v1_9-sandbox.py",
+      "scripts/morphology/surgical/build_guarded_meaning_patch.py",
+      "scripts/morphology/surgical/apply_local.py",
+      "scripts/morphology/surgical/apply_turso.mjs",
+      "scripts/morphology/surgical/preflight.mjs",
+      "scripts/morphology/surgical/verify_37_130_lemma_regression.mjs",
+      "scripts/morphology/camel-poc/build-token-map.py",
+      "scripts/morphology/camel-poc/validate-token-map.py",
+      "scripts/morphology/camel-poc/test-token-map.py",
+      "scripts/morphology/camel-poc/freeze-token-map-v1_1.py",
+      "scripts/morphology/camel-poc/verify-token-map-production-v1_1.py",
+      "scripts/morphology/freeze-final-provenance.py"
+    ],
+    "documentation": [
+      "docs/morfoloji-final-artefakt-v1_8-entegrasyon-oncesi.md",
+      "docs/morfoloji-hc1-production-v1_8.md",
+      "docs/token-realign-v1_9-blockers.md",
+      "docs/token-realign-v1_9-dry-run.md",
+      "docs/token-realign-v1_9-uygulama-raporu.md",
+      "docs/yayin-oncesi-final-denetim-raporu.md",
+      "docs/provenance/camel-token-policy.md"
+    ],
+    "preimages": [
+      "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/pre-image-local.json",
+      "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/pre-image-turso.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-pre-image.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-pre-image.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-pre-image.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/turso-pre-rollback-backup.json",
+      "data/candidates/morphology/final-v1_8/turso-sync/turso-target-backup.PREAPPLY.json",
+      "data/candidates/morphology/final-v1_8/turso-sync/turso-target-backup.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/preimage.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/turso-preimage-20260726T223420Z.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/preimage.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/turso-preimage.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/preimage.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-preimage-20260726T112642Z.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-preimage.json",
+      "data/candidates/morphology/token-realign-v1_9/BACKUP.txt",
+      "data/candidates/morphology/token-realign-v1_9/PREIMAGE_BACKUP_PLAN.md",
+      "data/candidates/morphology/token-realign-v1_9/preimage.json",
+      "data/candidates/morphology/token-realign-v1_9/turso-preimage.json"
+    ],
+    "regression_reports": [
+      "data/candidates/morphology/camel-token-map-v1_1-fatiha/validation-report.json",
+      "data/candidates/morphology/final-v1_8/apply-report.json",
+      "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/apply-report.json",
+      "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/dry-run-summary.json",
+      "data/candidates/morphology/final-v1_8/determinism.json",
+      "data/candidates/morphology/final-v1_8/legacy-comparison-report.json",
+      "data/candidates/morphology/final-v1_8/merge-report.json",
+      "data/candidates/morphology/final-v1_8/merge-verification.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-apply-report.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-apply-report.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-apply-report.json",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/full-regression-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/live-api-verification.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/local-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/preflight-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/turso-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/local-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/preflight-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/rerun-and-reverse-verification.json",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/turso-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/application-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/dry-run-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/live-api-verification.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/local-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/preflight-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/rerun-and-reverse-verification.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-apply-report.json",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-postflight-verification.json",
+      "data/candidates/morphology/token-realign-v1_9/dry-run-verification.json",
+      "data/candidates/morphology/token-realign-v1_9/integrity-report.json",
+      "data/candidates/morphology/token-realign-v1_9/live-api-verification.json",
+      "data/candidates/morphology/token-realign-v1_9/local-apply-report.json",
+      "data/candidates/morphology/token-realign-v1_9/preflight-report.json",
+      "data/candidates/morphology/token-realign-v1_9/rerun-and-reverse-verification.json",
+      "data/candidates/morphology/token-realign-v1_9/turso-apply-report.json"
+    ],
+    "rollback_sql": [
+      "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/reverse.sql",
+      "data/candidates/morphology/final-v1_8/merge-rollback.sql",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-reverse.sql",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-reverse.sql",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-turso-reverse.sql",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-reverse.sql",
+      "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-reverse.sql",
+      "data/candidates/morphology/final-v1_8/turso-sync/sync-rollback.PREAPPLY.sql",
+      "data/candidates/morphology/final-v1_8/turso-sync/sync-rollback.sql",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/reverse.sql",
+      "data/candidates/morphology/surgical-v1_10/batch-a-37-130/reverse.sql",
+      "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/reverse.sql",
+      "data/candidates/morphology/token-realign-v1_9/reverse.sql"
+    ],
+    "versions": {
+      "token_map_v1_1": [
+        "data/candidates/morphology/camel-token-map-v1_1-fatiha/manifest.json",
+        "data/candidates/morphology/camel-token-map-v1_1-fatiha/policy.json",
+        "data/candidates/morphology/camel-token-map-v1_1-fatiha/token-map.jsonl",
+        "data/candidates/morphology/camel-token-map-v1_1-fatiha/validation-report.json"
+      ],
+      "v1_10": [
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/decisions.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/field-change-manifest.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/forward.sql",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/full-regression-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/live-api-verification.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/local-apply-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/preflight-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/preimage.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/reverse.sql",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/summary.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/turso-apply-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/turso-preimage-20260726T223420Z.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/decisions.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/field-change-manifest.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/forward.sql",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/local-apply-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/preflight-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/preimage.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/rerun-and-reverse-verification.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/reverse.sql",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/summary.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/turso-apply-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-a-37-130/turso-preimage.json",
+        "data/candidates/morphology/surgical-v1_10/batch-b-meanings/worksheet.csv",
+        "data/candidates/morphology/surgical-v1_10/batch-b-meanings/worksheet.md",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/application-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/decisions.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/dry-run-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/field-change-manifest.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/forward.sql",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/live-api-verification.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/local-apply-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/preflight-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/preimage.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/rerun-and-reverse-verification.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/reverse.sql",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/source-audit.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/sql-invalidation.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/summary.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-apply-report.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-postflight-verification.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-preimage-20260726T112642Z.json",
+        "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/turso-preimage.json",
+        "data/candidates/morphology/surgical-v1_10/batch-c-gloss/classes.csv",
+        "data/candidates/morphology/surgical-v1_10/batch-c-gloss/classes.md"
+      ],
+      "v1_8": [
+        "data/candidates/morphology/final-v1_8/app.db.merge-candidate",
+        "data/candidates/morphology/final-v1_8/apply-report.json",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/apply-report.json",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/dry-run-summary.json",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/forward.sql",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/pre-image-local.json",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/pre-image-turso.json",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/reverse.sql",
+        "data/candidates/morphology/final-v1_8/buckwalter-cleanup-v1_8/review-cells.jsonl",
+        "data/candidates/morphology/final-v1_8/checksums.json",
+        "data/candidates/morphology/final-v1_8/determinism.json",
+        "data/candidates/morphology/final-v1_8/final-morphology-v1_8.jsonl",
+        "data/candidates/morphology/final-v1_8/final-morphology-v1_8.sqlite",
+        "data/candidates/morphology/final-v1_8/legacy-comparison-report.json",
+        "data/candidates/morphology/final-v1_8/legacy-comparison.jsonl",
+        "data/candidates/morphology/final-v1_8/merge-forward.sql",
+        "data/candidates/morphology/final-v1_8/merge-report.json",
+        "data/candidates/morphology/final-v1_8/merge-review.jsonl",
+        "data/candidates/morphology/final-v1_8/merge-rollback.sql",
+        "data/candidates/morphology/final-v1_8/merge-verification.json",
+        "data/candidates/morphology/final-v1_8/summary.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-apply-report.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-pre-image.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/aad-homograph-reverse.sql",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-apply-report.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-reverse.sql",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-summary.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback-turso-reverse.sql",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/certain-rollback.sql",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-apply-report.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-pre-image.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-reverse.sql",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/meaning-corrections-review.jsonl",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-apply-report.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-pre-image.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-null-reverse.sql",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/proper-name-root-policy.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/root-meaning-policy-review.json",
+        "data/candidates/morphology/final-v1_8/surgical-v1_8/turso-pre-rollback-backup.json",
+        "data/candidates/morphology/final-v1_8/turso-sync/sync-forward.sql",
+        "data/candidates/morphology/final-v1_8/turso-sync/sync-review.jsonl",
+        "data/candidates/morphology/final-v1_8/turso-sync/sync-rollback.PREAPPLY.sql",
+        "data/candidates/morphology/final-v1_8/turso-sync/sync-rollback.sql",
+        "data/candidates/morphology/final-v1_8/turso-sync/sync-summary.json",
+        "data/candidates/morphology/final-v1_8/turso-sync/turso-target-backup.PREAPPLY.json",
+        "data/candidates/morphology/final-v1_8/turso-sync/turso-target-backup.json"
+      ],
+      "v1_9": [
+        "data/candidates/morphology/token-realign-v1_9/BACKUP.txt",
+        "data/candidates/morphology/token-realign-v1_9/PREIMAGE_BACKUP_PLAN.md",
+        "data/candidates/morphology/token-realign-v1_9/before-after.jsonl",
+        "data/candidates/morphology/token-realign-v1_9/dry-run-verification.json",
+        "data/candidates/morphology/token-realign-v1_9/field-change-manifest.json",
+        "data/candidates/morphology/token-realign-v1_9/forward.sql",
+        "data/candidates/morphology/token-realign-v1_9/integrity-report.json",
+        "data/candidates/morphology/token-realign-v1_9/live-api-verification.json",
+        "data/candidates/morphology/token-realign-v1_9/local-apply-report.json",
+        "data/candidates/morphology/token-realign-v1_9/meaning-adjudication.json",
+        "data/candidates/morphology/token-realign-v1_9/preflight-report.json",
+        "data/candidates/morphology/token-realign-v1_9/preimage.json",
+        "data/candidates/morphology/token-realign-v1_9/rerun-and-reverse-verification.json",
+        "data/candidates/morphology/token-realign-v1_9/reverse.sql",
+        "data/candidates/morphology/token-realign-v1_9/row-mapping.jsonl",
+        "data/candidates/morphology/token-realign-v1_9/turso-apply-report.json",
+        "data/candidates/morphology/token-realign-v1_9/turso-preimage.json",
+        "data/candidates/morphology/token-realign-v1_9/verse-plan.json"
+      ]
+    }
+  },
+  "production_invariants": {
+    "local_db_integrity_check": "ok",
+    "local_db_sha256_at_freeze": "58d847a4302162f8ab67f354532f88ffaea87f4d22becca2b753251092fc9c91",
+    "root_meanings": 1703,
+    "token_map_sha256": "03961d28a23d68abaa617ef3d531cce32d4525ea9d9bf1ff4fd2c4363b3228eb",
+    "verses": 6236,
+    "words": 77433
+  },
+  "schema_version": "morphology-final-provenance-freeze-v1",
+  "sql_history": {
+    "invalidated_v1_10_meaning_sql": {
+      "forward.sql": "023d6049cbb3106be6808bd34a880375de547611aae92ce0a996fa8e6ec46da8",
+      "reverse.sql": "c79ea5c67b32e75067e149dadd61ac5a211d7b2ec803b233fbe18198bf46a2a6"
+    },
+    "replacement_v1_10_meaning_sql": {
+      "forward.sql": "86d808aaf03d42310e5f0575e822f8bdb912550df78ad160f03f442f8410a1d3",
+      "reverse.sql": "4d888d843d8826e702276b14639f8136521816049637b122506c7bdb93d2447e"
+    }
+  },
+  "status": "PASS",
+  "token_map_history": {
+    "current": {
+      "path": "data/candidates/morphology/camel-token-map-v1_1-fatiha/token-map.jsonl",
+      "sha256": "03961d28a23d68abaa617ef3d531cce32d4525ea9d9bf1ff4fd2c4363b3228eb",
+      "tokens": 77433
+    },
+    "superseded_retained": {
+      "path": "data/candidates/morphology/camel-morph-msa-v1.0/token-map.jsonl",
+      "policy_path": "data/candidates/morphology/reports/camel-token-policy.json",
+      "sha256": "2f56784c102bec10a6ed58a54cc099631fa740c782c47d9b42a3d77e78348329",
+      "tokens": 77429
+    }
+  },
+  "write_scope": {
+    "local_db_modified": false,
+    "turso_modified": false
+  }
+}
