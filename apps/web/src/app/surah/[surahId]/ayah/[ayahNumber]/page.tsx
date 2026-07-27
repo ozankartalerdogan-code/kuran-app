@@ -195,14 +195,8 @@ interface AyahDetailDebugPayload {
 }
 
 const primaryReferenceSource = "yazir";
-const preferredPrimarySources = ["yazir", "diyanet", "bulac", "vakfi", "ozturk"];
-
 const SOURCE_DISPLAY_NAMES: Record<string, string> = {
-  diyanet: "Karşılaştırma meali 1",
   yazir:   "Elmalılı H. Yazır",
-  bulac:   "Karşılaştırma meali 2",
-  vakfi:   "Karşılaştırma meali 3",
-  ozturk:  "Karşılaştırma meali 4",
 };
 const statusClasses: Record<SectionStatus, string> = {
   ready: "border-navy-200 bg-navy-50 text-navy-800",
@@ -578,14 +572,9 @@ function getTranslationSourceKey(translation: Pick<Translation, "source">): stri
   return translation.source?.split("#").at(-1) ?? "";
 }
 
-function getTranslationBySource(translations: Translation[], source: string): Translation | null {
-  return translations.find((translation) => getTranslationSourceKey(translation) === source) ?? null;
-}
-
 function getPrimaryTranslationSelection(
   qualities: TranslationSourceQuality[]
 ): PrimaryTranslationSelection {
-  const translations = qualities.map((quality) => quality.translation);
   const referenceQuality =
     qualities.find((quality) => getTranslationSourceKey(quality.translation) === primaryReferenceSource) ?? null;
   const referenceTranslation = referenceQuality?.translation ?? null;
@@ -598,25 +587,6 @@ function getPrimaryTranslationSelection(
       note: `Ana meal olarak ${primaryDisplayName} gösteriliyor.`,
       isFallback: false
     };
-  }
-
-  for (const source of preferredPrimarySources) {
-    if (source === primaryReferenceSource) {
-      continue;
-    }
-
-    const matched = getTranslationBySource(translations, source);
-
-    if (matched && isCleanTranslation(matched)) {
-      const fallbackName = SOURCE_DISPLAY_NAMES[source] ?? source;
-      return {
-        translation: matched,
-        note: referenceTranslation
-          ? `${primaryDisplayName} bu ayette temiz görüntülenemediği için ${fallbackName} gösteriliyor.`
-          : `${primaryDisplayName} bu ayette bulunamadığı için ${fallbackName} gösteriliyor.`,
-        isFallback: true
-      };
-    }
   }
 
   return {
@@ -1179,7 +1149,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   const readingTrResult = normalizeTransliterationToReadingTrDetailed(detail.ayah.transliteration);
   const activeTranslations = detail.translations.filter((t) => {
     const key = t.source?.split("#").at(-1) ?? "";
-    return preferredPrimarySources.includes(key);
+    return key === primaryReferenceSource;
   });
   const translationSourceQualities = getTranslationSourceQualities(activeTranslations);
   const displayableTranslations = getDisplayableTranslations(translationSourceQualities);

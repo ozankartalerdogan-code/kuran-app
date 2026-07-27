@@ -91,7 +91,7 @@ export async function getAyahDetailFromDb(
         verseKey
       ),
       dbAll<TranslationRow>(
-        "SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source ASC",
+        "SELECT source, text FROM translations WHERE verse_key = ? AND source = 'yazir' ORDER BY source ASC",
         verseKey
       ),
       dbAll<WordRow>(

@@ -88,7 +88,7 @@ interface RootExplanationCoverageEntry {
   coverageRatio: number;
 }
 
-const targetMealSources = ["diyanet", "yazir", "bulac", "vakfi", "ozturk"];
+const targetMealSources = ["yazir"];
 const externalTranslationsDirectory = [
   "quran",
   "external",
@@ -304,7 +304,7 @@ export async function buildFinalReadinessReport(): Promise<FinalReadinessReport>
         status: translationReadyAyahs === totalAyahs ? "ready" : "partially_ready",
         coverageRatio: asRatio(translationReadyAyahs, totalAyahs),
         qualityNote:
-          "Meal kaynaklari onarimdan gecti; fidelity ve karsilastirma katmani yalniz available satirlari kullaniyor.",
+          "Production meal katmani yalnız 6.236 ayetlik Elmalılı kaynağını kullanıyor.",
         safeForUi: translationReadyAyahs > 0
       },
       word_analysis: {
@@ -353,13 +353,13 @@ export async function buildFinalReadinessReport(): Promise<FinalReadinessReport>
         status: fidelityReady === totalAyahs ? "ready" : "partially_ready",
         coverageRatio: asRatio(fidelityReady, totalAyahs),
         qualityNote:
-          "Fidelity yalniz temiz meal, Arapca metin, morfoloji ve yeterli kelime anlami kapsami olan ayetlerde available.",
-        safeForUi: fidelityReady > 0
+          "Meal karşılaştırma verisi runtime'dan kaldırıldı; bu alan karşılaştırma için kullanılamaz.",
+        safeForUi: false
       }
     },
     decision: {
       canStartRealDataWebUi: true,
-      canOpenFidelityTab: true,
+      canOpenFidelityTab: false,
       uiMissingSemantics: [
         "ayet bazli nuzul",
         "ayet araligi tefsiri",

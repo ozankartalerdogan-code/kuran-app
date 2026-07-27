@@ -16,7 +16,7 @@ export function generateMetadata({ searchParams }: PageProps): Metadata {
 }
 
 interface SurahRow { id: number; adi_turkce: string; adi_arapca: string }
-interface FtsRow   { sure: number; ayet: number; diyanet: string }
+interface FtsRow   { verse_key: string; surah_id: number; ayah_number: number; meal: string }
 
 interface ResultItem {
   verseKey:   string;
@@ -45,15 +45,15 @@ async function runQuery(q: string): Promise<{ surahMatch: SurahRow | null; resul
     const surahMatch = findSurahMatch(q, allSurahs);
     const surahMap   = new Map(allSurahs.map(s => [s.id, s.adi_turkce]));
     const ftsRows    = await dbAll<FtsRow>(
-      "SELECT sure, ayet, diyanet FROM ayet_fts WHERE ayet_fts MATCH ? LIMIT 20",
+      "SELECT verse_key, surah_id, ayah_number, meal FROM ayet_fts WHERE ayet_fts MATCH ? LIMIT 20",
       ftsQuery
     );
     const results = ftsRows.map(row => ({
-      verseKey:   `${row.sure}:${row.ayet}`,
-      surahId:    row.sure,
-      ayahNumber: row.ayet,
-      surahName:  surahMap.get(row.sure) ?? `Sure ${row.sure}`,
-      excerpt:    row.diyanet.length > 80 ? row.diyanet.slice(0, 80) + "…" : row.diyanet,
+      verseKey:   row.verse_key,
+      surahId:    row.surah_id,
+      ayahNumber: row.ayah_number,
+      surahName:  surahMap.get(row.surah_id) ?? `Sure ${row.surah_id}`,
+      excerpt:    row.meal.length > 80 ? row.meal.slice(0, 80) + "…" : row.meal,
     }));
     return { surahMatch, results };
   } catch {

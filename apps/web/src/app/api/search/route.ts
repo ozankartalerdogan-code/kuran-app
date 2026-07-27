@@ -98,7 +98,7 @@ async function searchFts(q: string): Promise<{ results: VerseRow[]; total: numbe
       total += cnt;
 
       const rows = await dbAll<VerseRow>(`
-          SELECT f.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
+          SELECT f.verse_key, f.meal AS meal, s.adi_turkce AS surah_name,
                  v.arabic_text, v.reading_tr
           FROM   ayet_fts f
           JOIN   sureler s ON s.id = CAST(substr(f.verse_key, 1, instr(f.verse_key, ':') - 1) AS INTEGER)

@@ -309,8 +309,10 @@ function uniqueNonEmpty(values: Array<string | null | undefined>): string[] {
 }
 
 function selectPrimaryTranslation(translations: Translation[]): Translation | null {
-  const diyanet = translations.find((translation) => translation.source?.endsWith("#diyanet") || translation.source === "diyanet");
-  return diyanet ?? translations[0] ?? null;
+  return translations.find(
+    (translation) =>
+      translation.source?.endsWith("#yazir") || translation.source === "yazir"
+  ) ?? null;
 }
 
 function deriveRiskNotes(

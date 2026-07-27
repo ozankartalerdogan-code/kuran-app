@@ -56,8 +56,7 @@ export async function buildCoverageReport(): Promise<CoverageReport> {
     const ayahKey = `${entry.surahId}:${entry.ayahNumber}`;
     const arabicEntry = arabicIndex.get(ayahKey) ?? null;
     const wordCoverage = wordCoverageIndex.get(ayahKey) ?? null;
-    const hasCleanPrimaryMeal = entry.entries.some((item) => item.sourceName === "diyanet");
-    const cleanHelperMealCount = entry.entries.filter((item) => item.sourceName !== "diyanet").length;
+    const hasCleanPrimaryMeal = entry.entries.some((item) => item.sourceName === "yazir");
     const hasValidArabic = arabicEntry?.status === "available" && arabicEntry.arabicText !== null;
     const hasMorphology = wordCoverage?.hasMorphology === true && (wordCoverage?.totalWords ?? 0) > 0;
     const hasMeaningCoverage =
@@ -65,7 +64,6 @@ export async function buildCoverageReport(): Promise<CoverageReport> {
       (wordCoverage?.matchedWords ?? 0) > 0;
     const isReady =
       hasCleanPrimaryMeal &&
-      cleanHelperMealCount >= 1 &&
       hasValidArabic &&
       hasMorphology &&
       hasMeaningCoverage;

@@ -207,7 +207,7 @@ const NAV_CARDS: {
 export default async function HomePage() {
 
   // ── Günün Ayeti ─────────────────────────────────────────────────────
-  // translations tablosundan diyanet kaynağını kullan — her satır tek ayete karşılık gelir
+  // literal_ceviri alanını kullan — her satır tek ayete karşılık gelir
   // arabic_text + reading_tr + literal_ceviri hepsi aynı verses satırından → her zaman tutarlı
   const totalRow = await dbGet<{ cnt: number }>(
     `SELECT COUNT(*) AS cnt FROM verses

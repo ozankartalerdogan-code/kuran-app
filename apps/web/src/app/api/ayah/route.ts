@@ -107,7 +107,7 @@ export async function GET(req: NextRequest) {
         verseKey,
       ),
       dbAll<TranslationRow>(
-        "SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source",
+        "SELECT source, text FROM translations WHERE verse_key = ? AND source = 'yazir' ORDER BY source",
         verseKey,
       ),
       dbGet<VerseTagRow>(

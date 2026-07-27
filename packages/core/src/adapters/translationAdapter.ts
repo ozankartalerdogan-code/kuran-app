@@ -38,7 +38,12 @@ export async function getAyahTranslations(
   }
 
   return record.translations
-    .filter((translation) => translation.text !== null && translation.status === "available")
+    .filter(
+      (translation) =>
+        translation.source === "yazir" &&
+        translation.text !== null &&
+        translation.status === "available"
+    )
     .map((translation) => ({
       language: "tr",
       source: `${translationSource}#${translation.source}`,

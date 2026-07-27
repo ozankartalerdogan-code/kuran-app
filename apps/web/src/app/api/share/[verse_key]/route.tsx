@@ -52,7 +52,7 @@ async function fetchVerse(verseKey: string): Promise<VerseRow | null> {
         FROM   verses v
         JOIN   sureler s ON s.id = v.surah_id
         LEFT   JOIN translations t
-               ON t.verse_key = v.verse_key AND t.source = 'diyanet'
+               ON t.verse_key = v.verse_key AND t.source = 'yazir'
         WHERE  v.verse_key = ?
         LIMIT  1`,
       args: [verseKey],

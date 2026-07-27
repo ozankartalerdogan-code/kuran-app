@@ -116,19 +116,8 @@ function stripMarkdown(value: string | null): string | null {
   return normalized || null;
 }
 
-function sortTranslationFiles(fileNames: string[]): string[] {
-  return [...fileNames].sort((left, right) => {
-    if (left === "tr.diyanet.json") {
-      return -1;
-    }
-
-    if (right === "tr.diyanet.json") {
-      return 1;
-    }
-
-    return left.localeCompare(right, "tr");
-  });
-}
+// Production runtime yalnız Elmalılı mealini taşır; diğer kaynaklar normalize edilmez.
+const runtimeTranslationFiles = new Set(["tr.yazir.json"]);
 
 function getTranslationVerses(record: ExternalTranslationFile): ExternalTranslationVerse[] {
   if (Array.isArray(record)) {
@@ -245,9 +234,12 @@ export async function buildNormalizedCaches(): Promise<NormalizationReport> {
   }
 
   const normalizedTranslationMap = new Map<string, NormalizedAyahTranslations>();
-  const translationFiles = sortTranslationFiles(
-    translationFileNames.filter((fileName) => /^tr\..+\.json$/iu.test(fileName))
-  );
+  const translationFiles = translationFileNames
+    .filter(
+      (fileName) =>
+        /^tr\..+\.json$/iu.test(fileName) && runtimeTranslationFiles.has(fileName)
+    )
+    .sort((left, right) => left.localeCompare(right, "tr"));
 
   for (const translationFile of translationFiles) {
     const source = normalizeTranslationSource(translationFile);

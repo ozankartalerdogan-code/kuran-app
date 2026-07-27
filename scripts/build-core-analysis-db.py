@@ -52,9 +52,8 @@ def pick_primary_translation(translations: list[dict[str, Any]]) -> str | None:
     available = [item for item in translations if item.get("status") == "available" and normalize_text(item.get("text"))]
     if not available:
         return None
-    diyanet = next((item for item in available if item.get("source") == "diyanet"), None)
-    chosen = diyanet or available[0]
-    return normalize_text(chosen.get("text"))
+    yazir = next((item for item in available if item.get("source") == "yazir"), None)
+    return normalize_text(yazir.get("text")) if yazir else None
 
 
 def choose_word_confidence(entry: dict[str, Any], meaning_tr: str | None) -> str:

@@ -112,7 +112,11 @@ export function readVerseAnalysisContextFromCoreDb(
     }
 
     const translations = dbAll<CoreDbVerseTranslation>(
-      database.prepare(`SELECT source, text FROM translations WHERE verse_key = ? ORDER BY source ASC, id ASC`),
+      database.prepare(
+        `SELECT source, text FROM translations
+         WHERE verse_key = ? AND (source = 'yazir' OR source LIKE '%#yazir')
+         ORDER BY source ASC, id ASC`
+      ),
       verseKey
     );
 

@@ -31,7 +31,10 @@ export type MissingReason =
   | "parser_gap"
   | "matching_gap"
   | "insufficient_data"
-  | "not_applicable";
+  | "not_applicable"
+  // Kaynak mevcut ancak production runtime'dan bilinçli olarak çıkarıldı
+  // (ör. yalnız Elmalılı meali yayınlanırken kaldırılan karşılaştırma mealleri).
+  | "removed_from_runtime";
 
 export interface SourceMetadata {
   sourceName: string;
