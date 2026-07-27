@@ -83,6 +83,7 @@ export async function getWordAnalyses(
     return {
       wordIndex: entry.wordIndex,
       arabic: entry.arabic,
+      lemma: entry.lemma,
       transliteration: null,
       root: entry.root,
       rootExplanation,

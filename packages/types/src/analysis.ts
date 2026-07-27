@@ -189,6 +189,7 @@ export interface EncodingAuditReport {
 export interface WordAnalysis {
   wordIndex: number;
   arabic: string | null;
+  lemma?: string | null;
   transliteration: string | null;
   root: string | null;
   rootExplanation: Translation | null;

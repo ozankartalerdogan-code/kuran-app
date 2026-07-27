@@ -193,6 +193,7 @@ function mapDbWordToLegacy(row: WordRow, rootExplanationsV2: Map<string, string>
   return {
     wordIndex: row.word_index,
     arabic,
+    lemma: asNullableText(row.lemma),
     transliteration: null,
     root,
     rootExplanation,
@@ -279,6 +280,7 @@ export function mapCanonicalWordAnalysisToLegacy(
   return {
     wordIndex: word.position,
     arabic,
+    lemma: asNullableText(word.lemma),
     transliteration: null,
     root,
     rootExplanation,

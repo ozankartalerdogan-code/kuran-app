@@ -171,3 +171,15 @@ test("API biçimli raw alanları ve Arapça lemma/kök değerlerini değiştirme
   assert.match(display, /Lemma: اللَّه/);
   assert.equal(translatePosTr(response.pos), "Edat + İsim");
 });
+
+test("web word analysis shows raw lemma only when non-null", () => {
+  const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../..");
+  const webPage = fs.readFileSync(
+    path.join(repoRoot, "apps/web/src/app/surah/[surahId]/ayah/[ayahNumber]/page.tsx"),
+    "utf8",
+  );
+
+  assert.match(webPage, /\{word\.lemma \? \(/);
+  assert.match(webPage, /Lemma: <span dir="rtl" lang="ar">\{word\.lemma\}<\/span>/);
+  assert.doesNotMatch(webPage, /translate\w*Tr\(word\.lemma\)/);
+});

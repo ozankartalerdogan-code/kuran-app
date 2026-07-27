@@ -818,6 +818,12 @@ function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
                 <dt className="font-semibold uppercase tracking-wide text-stone-400">Anlam</dt>
                 <dd className="mt-0.5 text-stone-700"><WordMeaning word={word} /></dd>
               </div>
+              {word.lemma ? (
+                <div>
+                  <dt className="font-semibold uppercase tracking-wide text-stone-400">Lemma</dt>
+                  <dd className="mt-0.5 text-stone-700" dir="rtl" lang="ar">{word.lemma}</dd>
+                </div>
+              ) : null}
               <div>
                 <dt className="font-semibold uppercase tracking-wide text-stone-400">Kök</dt>
                 <dd className="mt-0.5 text-stone-700">{getRootDisplayText(word)}</dd>
@@ -858,6 +864,11 @@ function WordAnalysisTable({ words }: { words: WordAnalysis[] }) {
                 <td className="py-3 pr-4 text-stone-500">{index + 1}</td>
                 <td className="py-3 pr-4 text-xl leading-8 text-stone-950" dir="rtl" lang="ar">
                   {word.arabic ?? "Metin yok"}
+                  {word.lemma ? (
+                    <span className="mt-1 block text-xs leading-5 text-stone-500" dir="ltr" lang="tr">
+                      Lemma: <span dir="rtl" lang="ar">{word.lemma}</span>
+                    </span>
+                  ) : null}
                 </td>
                 <td className="py-3 pr-4 text-stone-700">
                   <MorphBadge morphology={word.morphology} />
