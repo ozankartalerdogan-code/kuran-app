@@ -79,6 +79,13 @@ export default function HakkindaPage() {
             <strong className="font-bold text-stone-800 dark:text-stone-100">Meal ve orijinal tefsir kaynağı:</strong> Elmalılı Hamdi Yazır, Hak Dini Kur&apos;an Dili.
           </Paragraph>
           <Paragraph>
+            Uygulamada yalnız Elmalılı Hamdi Yazır meali kullanılır. Daha önce karşılaştırma amacıyla taşınan
+            dört meal kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma
+            ortamından tamamen kaldırılmıştır (<code>removed_from_runtime</code>); bu kaynaklara ait hiçbir metin
+            artık uygulamada gösterilmez. Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance
+            belgelerinde saklanır.
+          </Paragraph>
+          <Paragraph>
             Sade tefsir açıklamaları, Elmalılı Hamdi Yazır&apos;ın orijinal tefsir metni esas alınarak Kuran Yolu için daha anlaşılır
             bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
           </Paragraph>

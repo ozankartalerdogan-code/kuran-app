@@ -64,6 +64,12 @@ function SourcesAccordion({ c }: { c: AppColors }) {
             <Text style={s.bold}>Meal ve orijinal tefsir kaynağı:</Text> Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili.
           </Paragraph>
           <Paragraph c={c}>
+            Uygulamada yalnız Elmalılı Hamdi Yazır meali kullanılır. Daha önce karşılaştırma amacıyla taşınan dört meal
+            kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen
+            kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez.
+            Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.
+          </Paragraph>
+          <Paragraph c={c}>
             Sade tefsir açıklamaları, Elmalılı Hamdi Yazır'ın orijinal tefsir metni esas alınarak Kuran Yolu için daha anlaşılır
             bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
           </Paragraph>
