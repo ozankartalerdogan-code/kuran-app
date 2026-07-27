@@ -182,4 +182,11 @@ test("web word analysis shows raw lemma only when non-null", () => {
   assert.match(webPage, /\{word\.lemma \? \(/);
   assert.match(webPage, /Lemma: <span dir="rtl" lang="ar">\{word\.lemma\}<\/span>/);
   assert.doesNotMatch(webPage, /translate\w*Tr\(word\.lemma\)/);
+  const webDbAdapter = fs.readFileSync(
+    path.join(repoRoot, "apps/web/src/lib/getAyahDetailFromDb.ts"),
+    "utf8",
+  );
+  assert.match(webDbAdapter, /MIN\(lemma\) AS lemma/);
+  assert.match(webDbAdapter, /lemma: row\.lemma/);
+
 });

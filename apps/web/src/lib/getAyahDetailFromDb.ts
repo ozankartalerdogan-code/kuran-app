@@ -44,6 +44,7 @@ interface WordRow {
   word_index: number;
   arabic: string | null;
   root: string | null;
+  lemma: string | null;
   pos: string | null;
   morphology: string | null;
   meaning_tr: string | null;
@@ -95,6 +96,7 @@ export async function getAyahDetailFromDb(
       ),
       dbAll<WordRow>(
         `SELECT word_index, MIN(arabic) AS arabic, MIN(root) AS root,
+                MIN(lemma) AS lemma,
                 MIN(pos) AS pos, MIN(morphology) AS morphology,
                 MIN(meaning_tr) AS meaning_tr, MIN(gloss_en) AS gloss_en,
                 MIN(source) AS source
@@ -199,6 +201,7 @@ export async function getAyahDetailFromDb(
     return {
       wordIndex: row.word_index,
       arabic: row.arabic,
+      lemma: row.lemma,
       transliteration: null,
       root: visibleRoot,
       rootExplanation: rootMeaning
