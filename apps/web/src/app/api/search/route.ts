@@ -135,18 +135,26 @@ async function searchLikeFallback(q: string): Promise<{ results: VerseRow[]; tot
   let total = 0;
 
   for (const pattern of patterns) {
+    // FTS `meal` sütununu indeksliyor; fallback de aynı alanda arayıp aynı
+    // alanı göstermeli ki iki yol arasında sonuç/metin tutarsızlığı olmasın.
     const countRow = await dbGet<CountRow>(
-      "SELECT COUNT(*) AS total FROM verses WHERE literal_ceviri LIKE ?", pattern
+      `SELECT COUNT(*) AS total
+       FROM   verses v
+       JOIN   translations yt ON yt.verse_key = v.verse_key
+              AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
+       WHERE  yt.text LIKE ?`, pattern
     );
     const cnt = countRow?.total ?? 0;
     total += cnt;
 
     const rows = await dbAll<VerseRow>(`
-        SELECT v.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
+        SELECT v.verse_key, yt.text AS meal, s.adi_turkce AS surah_name,
                v.arabic_text, v.reading_tr
         FROM   verses v
         JOIN   sureler s ON s.id = v.surah_id
-        WHERE  v.literal_ceviri LIKE ?
+        JOIN   translations yt ON yt.verse_key = v.verse_key
+               AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
+        WHERE  yt.text LIKE ?
         ORDER  BY v.surah_id, v.ayah_number
         LIMIT  ?
       `, pattern, VERSE_LIMIT);
@@ -209,11 +217,15 @@ export async function GET(
     if (tagMatch) {
       if (tagMatch.tagType === "alt_tag") {
         const verseRows = await dbAll<VerseRow>(`
-            SELECT vti.verse_key, v.literal_ceviri AS meal, s.adi_turkce AS surah_name,
+            SELECT vti.verse_key,
+                   COALESCE(yt.text, v.literal_ceviri) AS meal,
+                   s.adi_turkce AS surah_name,
                    v.arabic_text, v.reading_tr
             FROM   verse_tag_items vti
             JOIN   verses v ON v.verse_key = vti.verse_key
             JOIN   sureler s ON s.id = v.surah_id
+            LEFT   JOIN translations yt ON yt.verse_key = v.verse_key
+                   AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
             WHERE  vti.tag = ?
             ORDER  BY v.surah_id, v.ayah_number
             LIMIT  ?
