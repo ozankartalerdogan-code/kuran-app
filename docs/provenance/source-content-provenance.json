@@ -15,8 +15,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 114036,
-    "sha256": "d79949296a9632e5abf182ca7ed66483e84a31b3511dbde17047c3900147ffa9",
+    "totalBytes": 114109,
+    "sha256": "2b494eb37fce5d171f1016f10b3991ebe1687c0fec0374e0154f6c27516356bb",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -85,8 +85,8 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 5194,
-        "sha256": "ba6bb0a6f96531488b45e20df11109b19fae673167b389d3606c3d5ecbc165a5"
+        "bytes": 5267,
+        "sha256": "6d97de3e1fadedafb1c649d44078dfefc4cd25f8ca0a953acce48b27c1ffb56c"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
