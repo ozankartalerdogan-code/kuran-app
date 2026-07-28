@@ -52,10 +52,14 @@ describe("/api/ayah lemma desteği", () => {
     expect(w.root).toBeNull();
   });
 
-  it("root-only kayıt: hem root hem (önceden var olan) lemma dolu (2:34:8)", async () => {
-    const w = await fetchWord(2, 34, 8);
-    expect(w.root).toBe("أبلس");
-    expect(w.lemma).toBe("إِبْلِيس");
+  // Örnek token 2:34:8 (إبليس) idi; v1.8 merge'ün oraya eklediği "أبلس" kökü
+  // sonradan apply-certain-rollback-v1_8.mjs ile UNRESOLVED verdict'i nedeniyle
+  // kalıcı olarak NULL'landı. Sınıfın kendisi (v1.8 yalnız root ekledi, lemma
+  // zaten vardı) 2:79:1 ile korunuyor — doğrulanmış ve rollback dışı bir token.
+  it("root-only kayıt: hem root hem (önceden var olan) lemma dolu (2:79:1)", async () => {
+    const w = await fetchWord(2, 79, 1);
+    expect(w.root).toBe("ويل");
+    expect(w.lemma).toBe("وَيْل");
   });
 
   it("both kayıt: root ve lemma birlikte dolu (2:181:14)", async () => {
