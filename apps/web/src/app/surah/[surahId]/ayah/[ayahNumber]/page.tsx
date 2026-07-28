@@ -38,32 +38,37 @@ import { AyahJumpForm } from "./AyahJumpForm";
 import { SurahAboutAccordion } from "./SurahAboutAccordion";
 import { translatePosTr } from "@quran-app/core";
 import { arapRakam, ayetinSayfasi } from "../../../../../lib/mushafSayfaUtils";
-import dynamicImport from "next/dynamic";
 import { FavoriteButton } from "../../../../../components/FavoriteButton";
 import { ShareButton } from "./ShareButton";
-
-const NoteEditor    = dynamicImport(() => import("./NoteEditor").then((m) => m.NoteEditor),    { ssr: false });
-const StreakTracker = dynamicImport(() => import("./StreakTracker").then((m) => m.StreakTracker), { ssr: false });
+// Next 15: `ssr: false` Server Component'te kullanılamaz — tembel client
+// import'ları LazyClientWidgets sınırına taşındı (davranış aynı).
+import { NoteEditor, StreakTracker } from "./LazyClientWidgets";
 
 type SectionStatus = "ready" | "partially_ready" | "missing";
 
+// Next 15'te params/searchParams birer Promise. Çözülmüş biçim ayrı bir tip
+// olarak tutulur; sayfa içi yardımcılar (getWordAnalysisSourceHref,
+// WordAnalysisDebugToggle) Promise değil çözülmüş nesneyi alır.
+type ResolvedSearchParams = {
+  debug?: string | string[];
+  reading_source?: string | string[];
+  wa_source?: string | string[];
+};
+
 interface PageProps {
-  params: {
+  params: Promise<{
     surahId: string;
     ayahNumber: string;
-  };
-  searchParams?: {
-    debug?: string | string[];
-    reading_source?: string | string[];
-    wa_source?: string | string[];
-  };
+  }>;
+  searchParams?: Promise<ResolvedSearchParams>;
 }
 
 // Ayete özel paylaşım/önizleme metadata'sı (WhatsApp/Telegram/sosyal kartı).
 // Olmadan tüm ayet linkleri layout'taki jenerik "Kuran Yolu" kartını gösteriyordu.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const surahId    = Number(params.surahId);
-  const ayahNumber = Number(params.ayahNumber);
+  const resolvedParams = await params;
+  const surahId    = Number(resolvedParams.surahId);
+  const ayahNumber = Number(resolvedParams.ayahNumber);
   if (!Number.isInteger(surahId) || !Number.isInteger(ayahNumber)) return {};
 
   const verseKey = `${surahId}:${ayahNumber}`;
@@ -249,7 +254,7 @@ function getWordAnalysisSourceHref({
   surahId
 }: {
   ayahNumber: number;
-  searchParams: PageProps["searchParams"];
+  searchParams: ResolvedSearchParams | undefined;
   source: WordAnalysisSource;
   surahId: number;
 }): string {
@@ -687,7 +692,7 @@ function WordAnalysisDebugToggle({
 }: {
   ayahNumber: number;
   currentSource: WordAnalysisSource;
-  searchParams: PageProps["searchParams"];
+  searchParams: ResolvedSearchParams | undefined;
   surahId: number;
 }) {
   const legacyHref = getWordAnalysisSourceHref({
@@ -1095,9 +1100,11 @@ function AyahDetailDebugPanel({ payload }: { payload: AyahDetailDebugPayload }) 
   );
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
-  const surahId = parsePositiveInteger(params.surahId);
-  const ayahNumber = parsePositiveInteger(params.ayahNumber);
+export default async function Page({ params, searchParams: searchParamsPromise }: PageProps) {
+  const resolvedParams = await params;
+  const searchParams = await searchParamsPromise;
+  const surahId = parsePositiveInteger(resolvedParams.surahId);
+  const ayahNumber = parsePositiveInteger(resolvedParams.ayahNumber);
 
   if (surahId === null || ayahNumber === null) {
     return <ErrorState message="Sûre veya ayet numarası pozitif tam sayı olmalı." />;

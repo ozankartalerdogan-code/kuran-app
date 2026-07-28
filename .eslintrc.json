@@ -30,6 +30,7 @@
     ".next/",
     "dist/",
     "*.js",
-    "*.mjs"
+    "*.mjs",
+    "next-env.d.ts"
   ]
 }
