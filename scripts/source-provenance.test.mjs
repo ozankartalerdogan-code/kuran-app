@@ -103,10 +103,30 @@ test("tajweed metrics use the audited limited-override wording and values", () =
 });
 
 test("runtime risks and the later Elmalılı-only migration remain explicit", () => {
-  assert.deepEqual(manifest.productionPolicy.retainedRuntimeRisks, [
-    "morfoloji table",
-    "verses.arabic_tajweed",
-  ]);
+  // `morfoloji` runtime'dan kaldirildi; kayit removedRuntimeArtifacts altina tasindi.
+  assert.deepEqual(manifest.productionPolicy.retainedRuntimeRisks, ["verses.arabic_tajweed"]);
+  assert.match(
+    manifest.productionPolicy.removedRuntimeArtifacts["morfoloji table"],
+    /removed_from_runtime/u,
+  );
+  // Canonical words morfolojisi ve QAC atfi korunmali.
+  assert.match(
+    manifest.productionPolicy.removedRuntimeArtifacts["morfoloji table"],
+    /words table \(77,433 rows\) is unaffected/u,
+  );
+  assert.ok(
+    manifest.entries.some((entry) => entry.id === "qac-mustafa0x-source-chain"),
+    "QAC kaynak zinciri kaydi korunmali",
+  );
+  // Tecvid: urun karariyla korunuyor, dogru metriklerle.
+  assert.match(
+    manifest.productionPolicy.retainedRuntimeRiskNotes["verses.arabic_tajweed"],
+    /91\.6254%/u,
+  );
+  assert.match(
+    manifest.productionPolicy.retainedRuntimeRiskNotes["verses.arabic_tajweed"],
+    /2,398 ayahs/u,
+  );
   assert.match(manifest.productionPolicy.targetTranslation, /only Elmalılı/u);
   const retired = manifest.entries.find((entry) => entry.id === "removed-runtime-translations-v1");
   assert.equal(retired?.runtimeStatus, "removed_from_runtime");
