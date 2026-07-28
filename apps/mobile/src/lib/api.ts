@@ -245,7 +245,15 @@ export type VerseListResponse = {
 export type MushafPageResponse = {
   page: number;
   juz: number;
-  verses: { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }[];
+  verses: {
+    surahId: number;
+    ayahNumber: number;
+    arabic: string | null;
+    /** ESKİ alan: ham markup — yalnız span yoksa yedek. */
+    tajweed: string | null;
+    /** Gövde (arabic) koordinatlı canonical span'lar. */
+    tajweedSpans?: { startCp: number; endCp: number; rule: string; color: string }[];
+  }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
 
@@ -279,6 +287,8 @@ export type AyahDetailResponse = {
   verseCount: number;
   arabicText: string | null;
   arabicTajweed: string | null;
+  /** Canonical tajweed_spans; eski sunucularda alan hiç gelmeyebilir. */
+  tajweedSpans?: { startCp: number; endCp: number; rule: string; color: string }[];
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;

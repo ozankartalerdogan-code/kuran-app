@@ -4,13 +4,21 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { Bookmark, BookmarkCheck, ListChecks, Palette, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { RENK, parseTajweed, TAJWEED_LEGEND } from "../../../lib/tajweed";
+import { RENK, parseTajweed, segmentsFromSpans, TAJWEED_LEGEND, type TajweedSpan } from "../../../lib/tajweed";
 import { SAYFA_SAYISI, arapRakam, ayetinSayfasi } from "../../../lib/mushafSayfaUtils";
 import { getMushafBookmark, setMushafBookmark, parseMushafBookmark } from "../../../lib/mushafBookmark";
 import { loadHatimStore, saveHatimStore, getCurrentHatim, toggleHatimJuz, newHatim, type HatimStore } from "../../../lib/hatimStore";
 import { JUZ_DATA } from "../../hatim/juzData";
 
-export interface MushafSayfaVerse { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }
+export interface MushafSayfaVerse {
+  surahId: number;
+  ayahNumber: number;
+  arabic: string | null;
+  /** ESKİ kaynak: AlQuran.cloud ham markup'ı — yalnız span yoksa yedek olarak kullanılır. */
+  tajweed: string | null;
+  /** Canonical kaynak: üretilmiş tajweed_spans satırları (kod noktası koordinatlı). */
+  spans?: TajweedSpan[];
+}
 export interface MushafSayfaSurah { id: number; name: string; arabicName: string }
 export interface MushafSayfaSurahListItem { id: number; name: string; arabicName: string; verseCount: number; page: number }
 
@@ -68,18 +76,27 @@ function ayniAyet(a: Secili, s: number, n: number): boolean {
 }
 
 function AyetMetni({ ayet, tajweed }: { ayet: MushafSayfaVerse; tajweed: boolean }) {
-  if (tajweed && ayet.tajweed) {
-    return (
-      <>
-        {parseTajweed(ayet.tajweed).map((s, i) =>
-          s.code && RENK[s.code]
-            ? <span key={i} style={{ color: RENK[s.code] }}>{s.t}</span>
-            : <span key={i}>{s.t}</span>,
-        )}
-      </>
-    );
-  }
-  return <>{ayet.arabic ?? ""}</>;
+  // Canonical span'lar önceliklidir: renkler canonical Tanzil metni üzerinde,
+  // hizalamanın kesin olduğu yerlerde uygulanır. Span kaydı olmayan ayetlerde
+  // (ör. migration öncesi ortam) eski ham markup yedeği devreye girer.
+  const segments =
+    tajweed && ayet.spans && ayet.spans.length > 0 && ayet.arabic
+      ? segmentsFromSpans(ayet.arabic, ayet.spans)
+      : tajweed && ayet.tajweed
+        ? parseTajweed(ayet.tajweed)
+        : null;
+
+  if (!segments) return <>{ayet.arabic ?? ""}</>;
+
+  return (
+    <>
+      {segments.map((s, i) =>
+        s.code && RENK[s.code]
+          ? <span key={i} style={{ color: RENK[s.code] }}>{s.t}</span>
+          : <span key={i}>{s.t}</span>,
+      )}
+    </>
+  );
 }
 
 export function MushafSayfaClient({ page, juz, startSurahId, verses, surahs, surahList }: Props) {

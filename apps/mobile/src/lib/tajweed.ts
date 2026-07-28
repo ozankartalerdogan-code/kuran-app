@@ -8,6 +8,42 @@
 
 export type TajweedSegment = { code: string | null; t: string };
 
+/** Canonical `tajweed_spans` satırı (kod noktası koordinatlı, yarı-açık [start, end)). */
+export type TajweedSpan = { startCp: number; endCp: number; rule: string; color?: string };
+
+/**
+ * Canonical span'lardan segment üretir — `parseTajweed` ile AYNI çıktı şeklini
+ * verir, böylece TajweedText tek bir render yolu üzerinden çalışır.
+ *
+ * Koordinatlar kod noktası tabanlıdır; metin `Array.from` ile ayrıştırılır
+ * (UTF-16 indeksleme Arapça'da yanlış keser). Span'ın kapsamadığı aralık
+ * `code: null` (renksiz) kalır. Geçersiz/taşan aralıklar yok sayılır; canonical
+ * metin hiçbir koşulda değiştirilmez.
+ *
+ * NOT: apps/web/src/lib/tajweed.ts içindeki eşleniğiyle davranışça aynıdır.
+ */
+export function segmentsFromSpans(text: string, spans: readonly TajweedSpan[]): TajweedSegment[] {
+  const chars = Array.from(text);
+  if (chars.length === 0) return [];
+
+  const codes: (string | null)[] = new Array(chars.length).fill(null);
+  for (const span of spans) {
+    if (!Number.isInteger(span.startCp) || !Number.isInteger(span.endCp)) continue;
+    if (span.endCp <= span.startCp) continue;
+    const start = Math.max(0, span.startCp);
+    const end = Math.min(chars.length, span.endCp);
+    for (let i = start; i < end; i += 1) codes[i] = span.rule;
+  }
+
+  const segments: TajweedSegment[] = [];
+  for (let i = 0; i < chars.length; i += 1) {
+    const last = segments[segments.length - 1];
+    if (last && last.code === codes[i]) last.t += chars[i];
+    else segments.push({ code: codes[i], t: chars[i] });
+  }
+  return segments;
+}
+
 // AlQuran.cloud tecvid kodu → renk. 4 grup: med (kırmızı), ğunne/ihfâ/idgâm (yeşil),
 // kalkale (mavi), sessiz/idgâm-bilâ-ğunne (gri). Kurallar otorite kaynaktan; biz renkleriz.
 export const RENK: Record<string, string> = {

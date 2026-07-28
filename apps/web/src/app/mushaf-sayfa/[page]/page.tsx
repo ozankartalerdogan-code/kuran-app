@@ -9,7 +9,8 @@ interface PageProps {
   params: { page: string };
 }
 
-interface VerseRow { surah_id: number; ayah_number: number; arabic_text: string | null; arabic_tajweed: string | null }
+interface VerseRow { surah_id: number; ayah_number: number; verse_key: string; arabic_text: string | null; arabic_tajweed: string | null }
+interface SpanRow { verse_key: string; start_cp: number; end_cp: number; rule: string; color: string }
 interface SurahRow { id: number; adi_turkce: string; adi_arapca: string }
 interface SurahListRow { id: number; adi_turkce: string; adi_arapca: string; ayet_sayisi: number }
 
@@ -36,7 +37,7 @@ export default async function MushafSayfaPage({ params }: PageProps) {
 
   const [verses, surahs, surahList] = await Promise.all([
     dbAll<VerseRow>(
-      `SELECT surah_id, ayah_number, arabic_text, arabic_tajweed FROM verses
+      `SELECT surah_id, ayah_number, verse_key, arabic_text, arabic_tajweed FROM verses
        WHERE (surah_id > ? OR (surah_id = ? AND ayah_number >= ?))
          AND (surah_id < ? OR (surah_id = ? AND ayah_number <= ?))
        ORDER BY surah_id, ayah_number`,
@@ -50,11 +51,32 @@ export default async function MushafSayfaPage({ params }: PageProps) {
     dbAll<SurahListRow>("SELECT id, adi_turkce, adi_arapca, ayet_sayisi FROM sureler ORDER BY id"),
   ]);
 
+  // tajweed_spans yoksa (migration öncesi ortam) sorgu sessizce boş döner ve
+  // render ham markup yedeğine düşer; sayfa hiçbir koşulda patlamaz.
+  const spans = await dbAll<SpanRow>(
+    `SELECT t.verse_key, t.start_cp, t.end_cp, t.rule, t.color
+     FROM tajweed_spans t
+     JOIN verses v ON v.verse_key = t.verse_key
+     WHERE (v.surah_id > ? OR (v.surah_id = ? AND v.ayah_number >= ?))
+       AND (v.surah_id < ? OR (v.surah_id = ? AND v.ayah_number <= ?))
+     ORDER BY v.surah_id, v.ayah_number, t.start_cp`,
+    bas.surahId, bas.surahId, bas.ayahNumber,
+    son.surahId, son.surahId, son.ayahNumber,
+  ).catch(() => [] as SpanRow[]);
+
+  const spansByVerse = new Map<string, { startCp: number; endCp: number; rule: string; color: string }[]>();
+  for (const s of spans) {
+    const list = spansByVerse.get(s.verse_key) ?? [];
+    list.push({ startCp: s.start_cp, endCp: s.end_cp, rule: s.rule, color: s.color });
+    spansByVerse.set(s.verse_key, list);
+  }
+
   const versesOut: MushafSayfaVerse[] = verses.map((v) => ({
     surahId: v.surah_id,
     ayahNumber: v.ayah_number,
     arabic: v.arabic_text,
     tajweed: v.arabic_tajweed,
+    spans: spansByVerse.get(v.verse_key) ?? [],
   }));
   const surahsOut: MushafSayfaSurah[] = surahs.map((s) => ({
     id: s.id,

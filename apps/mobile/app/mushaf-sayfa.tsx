@@ -14,7 +14,7 @@ import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi } from "../src/lib/mushafSayfa";
-import { RENK, parseTajweed, TAJWEED_LEGEND } from "../src/lib/tajweed";
+import { RENK, parseTajweed, segmentsFromSpans, TAJWEED_LEGEND } from "../src/lib/tajweed";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -74,10 +74,15 @@ function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
 // parseTajweed memoize: seçim değişince sayfa yeniden render olur; karakter
 // bazlı ayrıştırmayı her dokunuşta 3 sayfa × tüm ayetler için tekrarlamamak şart.
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
-  const segs = useMemo(
-    () => (tajweed && ayet.tajweed ? parseTajweed(ayet.tajweed) : null),
-    [tajweed, ayet.tajweed],
-  );
+  // Canonical span'lar önceliklidir (gövde koordinatlı, `arabic` ile eşleşir);
+  // span gelmeyen eski sunucu yanıtlarında ham markup yedeği kullanılır.
+  const segs = useMemo(() => {
+    if (!tajweed) return null;
+    if (ayet.arabic && ayet.tajweedSpans && ayet.tajweedSpans.length > 0) {
+      return segmentsFromSpans(ayet.arabic, ayet.tajweedSpans);
+    }
+    return ayet.tajweed ? parseTajweed(ayet.tajweed) : null;
+  }, [tajweed, ayet.arabic, ayet.tajweedSpans, ayet.tajweed]);
   if (segs) {
     return (
       <>

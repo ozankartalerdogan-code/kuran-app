@@ -50,6 +50,7 @@ export type AyahDetailResponse = {
   verseCount: number;
   arabicText: string | null;
   arabicTajweed: string | null;
+  tajweedSpans: { startCp: number; endCp: number; rule: string; color: string }[];
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;
@@ -116,6 +117,13 @@ export async function GET(req: NextRequest) {
       ),
     ]);
 
+    // Canonical tecvid span'ları. Tablo yoksa (migration öncesi ortam) boş döner
+    // ve istemci ham markup yedeğine düşer.
+    const tajweedSpans = await dbAll<{ start_cp: number; end_cp: number; rule: string; color: string }>(
+      "SELECT start_cp, end_cp, rule, color FROM tajweed_spans WHERE verse_key = ? ORDER BY start_cp",
+      verseKey,
+    ).catch(() => []);
+
     let altTaglar: string[] = [];
     try { altTaglar = tagRow?.alt_taglar ? JSON.parse(tagRow.alt_taglar) : []; } catch { altTaglar = []; }
 
@@ -165,7 +173,14 @@ export async function GET(req: NextRequest) {
       arabicName:  surah.adi_arapca,
       verseCount:  surah.ayet_sayisi,
       arabicText:    verse.arabic_text,
+      // ESKİ istemciler için korunur; yeni istemciler tajweedSpans kullanır.
       arabicTajweed: verse.arabic_tajweed ?? null,
+      tajweedSpans:  tajweedSpans.map((s) => ({
+        startCp: s.start_cp,
+        endCp:   s.end_cp,
+        rule:    s.rule,
+        color:   s.color,
+      })),
       readingTr:     verse.reading_tr ?? null,
       meal:          cleanMealText(
         translations.find(t => (t.source ?? "").split("#").at(-1) === "yazir")?.text

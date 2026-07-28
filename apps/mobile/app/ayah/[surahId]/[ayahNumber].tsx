@@ -679,6 +679,11 @@ export default function AyahDetailScreen() {
     );
   }
 
+  // Tecvid kaynağı: tercihen canonical span'lar, yoksa eski ham markup yedeği.
+  // Toggle, renklendirme ve lejant aynı koşula bağlanır ki üçü hep tutarlı olsun.
+  const hasTajweedSource =
+    (!!data.arabicText && (data.tajweedSpans?.length ?? 0) > 0) || !!data.arabicTajweed;
+
   // ── Veri görünümü ──
   return (
     <>
@@ -703,7 +708,7 @@ export default function AyahDetailScreen() {
           </View>
 
           <View style={styles.tajRow}>
-            {data.arabicTajweed ? (
+            {hasTajweedSource ? (
               <TouchableOpacity
                 style={[
                   styles.tajToggle,
@@ -755,8 +760,12 @@ export default function AyahDetailScreen() {
           </View>
           {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾ */}
           <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
-            {data.arabicTajweed && tajweed ? (
-              <TajweedText markup={data.arabicTajweed} />
+            {hasTajweedSource && tajweed ? (
+              <TajweedText
+                text={data.arabicText}
+                spans={data.tajweedSpans ?? null}
+                markup={data.arabicTajweed}
+              />
             ) : (
               data.arabicText ?? "—"
             )}
@@ -772,7 +781,7 @@ export default function AyahDetailScreen() {
           ) : null}
 
           {/* Tecvid lejantı — mushaftaki gibi, renklendirme açıkken */}
-          {tajweed && data.arabicTajweed ? (
+          {tajweed && hasTajweedSource ? (
             <View style={styles.legend}>
               {TAJWEED_LEGEND.map((l) => (
                 <View key={l.ad} style={styles.legendItem}>
