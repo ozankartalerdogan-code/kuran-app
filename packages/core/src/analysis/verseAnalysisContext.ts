@@ -10,7 +10,6 @@ import type {
   WordRole
 } from "@quran-app/types";
 import { getCanonicalWordAnalysesAsLegacy, loadRootExplanationsV2Map } from "../adapters/canonicalWordAnalysisAdapter";
-import { getMorphologyForAyah } from "../adapters/kuranSorguMorphologyAdapter";
 import { getFidelityAnalysis } from "../adapters/fidelityAdapter";
 import { getMealComparison } from "../adapters/external/mealComparisonAdapter";
 import { readAyahFromLocalData } from "../adapters/quranAdapter";
@@ -722,24 +721,12 @@ async function buildJsonBaseData(
   const primaryTranslation = selectPrimaryTranslation(ayah.translations);
   let wordByWord = canonicalWords.map(mapCanonicalWordToContextEntry);
 
-  // Fallback: kök bilgisi canonical'da eksikse kuran.db morfoloji tablosundan al
-  const morphFallback = getMorphologyForAyah(surahId, ayahNumber);
-
-  if (morphFallback.length > 0) {
-    const morphByIndex = new Map(morphFallback.map((m) => [m.wordIndex, m]));
-    wordByWord = wordByWord.map((entry) => {
-      if (entry.root !== null && entry.lemma !== null) {
-        return entry;
-      }
-      const morph = morphByIndex.get(entry.wordIndex);
-      if (!morph) return entry;
-      return {
-        ...entry,
-        root: entry.root ?? morph.root,
-        lemma: entry.lemma ?? morph.lemma
-      };
-    });
-  }
+  // NOT: Ham QAC-türevi `morfoloji` tablosuna dayanan kök/lemma fallback'i
+  // kaldırıldı. Tablo segment düzeyindeydi, `words` ise kelime düzeyinde;
+  // fallback aggregate'i boş hücrelerin %100'üne kelimenin kendi lemması yerine
+  // öndeki edat/bağlaç değerini (و, ل, ب) yazıyordu. Doğrulanabilir 4 kök
+  // hücresi kalıcı olarak `words`'e alındı; canonical `words` morfolojisi tek
+  // kaynaktır.
 
   if (options.useRootExplanationsV2 === true) {
     const rootV2Map = await loadRootExplanationsV2Map();

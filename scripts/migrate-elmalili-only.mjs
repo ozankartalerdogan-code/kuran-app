@@ -40,7 +40,6 @@ const EXPECTED = {
 const OFF_TARGET_TABLES = [
   "words",
   "root_meanings",
-  "morfoloji",
   "tajweed_spans",
   "surah_tafsir",
   "context_notes",
