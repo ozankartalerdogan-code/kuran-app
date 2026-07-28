@@ -10,16 +10,6 @@ const nextConfig = {
     "@quran-app/ui",
     "@quran-app/storage",
   ],
-  typescript: {
-    // Async Server Component'ler (discover/namaz Keşfet panelleri) Vercel build
-    // ORTAMINDA yanlış React tip çözümlemesiyle reddediliyor ("Promise<Element>
-    // is not a valid JSX element type"). Bu hata YERELDE HİÇBİR KONFİGÜRASYONDA
-    // tekrarlanamıyor: `next build` @types/react 18/19 ve TS 5.8/6.0'ın her
-    // kombinasyonunda GEÇİYOR — yani kod doğru, sorun Vercel install ağacına
-    // özgü. Gerçek tip denetimi `npm run typecheck` (tsc --noEmit) ile ayrıca
-    // yapılıyor ve geçiyor. Kalıcı çözüm bulunana kadar build'i bloke etmesin.
-    ignoreBuildErrors: true,
-  },
   eslint: {
     // Lint ayrı adımda (pre-commit + `npm run lint`) çalışır; `next build`
     // sırasında tekrar çalıştırmaya gerek yok (monorepo'da standart).

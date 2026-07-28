@@ -1,9 +1,9 @@
 name: Typecheck
 
-# `next build` içinde typescript.ignoreBuildErrors: true açık (Vercel ortamına
-# özgü, yerelde tekrarlanamayan async Server Component tip false-positive'i için).
-# Bu CI, gerçek tip denetimini (tsc --noEmit) web + mobil workspace'lerinde ayrıca
-# çalıştırarak o güvenlik ağını geri getirir. Bkz apps/web/next.config.mjs.
+# `next build` artık tip hatalarında duruyor (typescript.ignoreBuildErrors kaldırıldı,
+# bkz apps/web/next.config.mjs). Bu CI hâlâ gerekli: `next build` yalnız apps/web
+# tsconfig'ini denetler; buradaki `tsc --noEmit` mobil ve packages/* workspace'lerini
+# de kapsar ve hatayı build'den önce yakalar.
 
 on:
   push:
