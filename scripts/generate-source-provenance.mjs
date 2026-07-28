@@ -412,7 +412,11 @@ const manifest = {
       "only Elmalılı Hamdi Yazır; bulac, diyanet, ozturk and vakfi were removed from the runtime by the guarded Elmalılı-only migration and are retained in provenance as removed_from_runtime",
     morphology: "usable Kuran Yolu transformed/verified output",
     tajweed: "usable Kuran Yolu aligned span output",
-    retainedRuntimeRisks: ["morfoloji table", "verses.arabic_tajweed"],
+    retainedRuntimeRisks: ["verses.arabic_tajweed"],
+    removedRuntimeArtifacts: {
+      "morfoloji table":
+        "removed_from_runtime. The raw QAC-derived segment-level morphology table (130,030 rows) was dropped from the local and Turso runtime databases. It had no user-facing web, mobile or API consumer; its only reader was an unused root/lemma fallback in verseAnalysisContext, reachable solely from offline audit scripts. That fallback aggregated segment-level values to word level and would have written the leading particle (و, ل, ب) as the word's lemma in 2,180 of 2,182 empty cells, so it was removed rather than persisted. Four root cells that were individually verified against the canonical token were backfilled into words beforehand (2:72 w9 كون, 15:7 w4 ملك, 15:7 w6 كون, 27:20 w10 كون). The full table is retained outside the runtime as a hashed provenance artifact. The final canonical Kuran Yolu morphology in the words table (77,433 rows) is unaffected and remains the single source; QAC and CAMeL attribution for that layer is unchanged.",
+    },
     retainedRuntimeRiskNotes: {
       "verses.arabic_tajweed":
         "Raw AlQuran.cloud tajweed markup is retained in the runtime database for now. A span-only runtime was implemented and verified, but the canonical tajweed_spans layer maps only 79,343 of 86,595 source rule clusters (91.6254%); by the alignment ambiguity policy the remaining 7,252 clusters stay uncolored. Switching would reduce visible colouring in 2,398 ayahs and remove it entirely in 13, which was not accepted as a product decision. The raw field therefore remains the rendering source for web and mobile, and also serves as the build input for span regeneration.",
