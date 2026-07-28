@@ -84,3 +84,13 @@ export {
   translatePosTr
 } from "./presentation/morphologyLabels";
 export type { MorphologyDisplayToken } from "./presentation/morphologyLabels";
+export {
+  SOURCE_LICENSE_CONTENT,
+  SOURCE_LICENSE_LINKS,
+  SOURCE_LICENSE_SECTIONS,
+  getSourceLicenseLinks
+} from "./presentation/sourceLicenses";
+export type {
+  SourceLicenseLink,
+  SourceLicenseSection
+} from "./presentation/sourceLicenses";

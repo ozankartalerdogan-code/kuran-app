@@ -1,0 +1,1753 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-27",
+  "scope": "Kuran Yolu source, license and project-production provenance",
+  "legalDisclaimer": "This manifest records technical provenance and attribution evidence; it is not legal advice or a warranty of legal status.",
+  "productionPolicy": {
+    "quranText": "Tanzil Uthmani 1.1 canonical text",
+    "targetTranslation": "only Elmalılı Hamdi Yazır; bulac, diyanet, ozturk and vakfi were removed from the runtime by the guarded Elmalılı-only migration and are retained in provenance as removed_from_runtime",
+    "morphology": "usable Kuran Yolu transformed/verified output",
+    "tajweed": "usable Kuran Yolu aligned span output",
+    "retainedRuntimeRisks": [
+      "morfoloji table",
+      "verses.arabic_tajweed"
+    ]
+  },
+  "licenseAndDisclosureArtifacts": {
+    "fileCount": 15,
+    "totalBytes": 114036,
+    "sha256": "d79949296a9632e5abf182ca7ed66483e84a31b3511dbde17047c3900147ffa9",
+    "files": [
+      {
+        "path": "apps/mobile/app/hakkinda.tsx",
+        "bytes": 8275,
+        "sha256": "ea99237ff8a2ff5ea59c78f83fda11928fac01ecdfe5213416956b20c30c2b68"
+      },
+      {
+        "path": "apps/web/src/app/hakkinda/page.tsx",
+        "bytes": 4109,
+        "sha256": "cb5b1e1fe618a2279e687cd168cfbe34abfcced8ecc12117ead60331f0c811c1"
+      },
+      {
+        "path": "licenses/CAMEL-MORPH-CC-BY-4.0-NOTICE.md",
+        "bytes": 734,
+        "sha256": "d3e2770aef0d53ffbf4bf01658e18af008cf415f49d0dbd178d434ca074ed048"
+      },
+      {
+        "path": "licenses/CAMEL-TOOLS-MIT.txt",
+        "bytes": 1087,
+        "sha256": "31e48a693912186b474dce3d8e03551b5ee6e5a2ebbec7b19027ef360d6c845b"
+      },
+      {
+        "path": "licenses/FONT-NOTICES.md",
+        "bytes": 811,
+        "sha256": "2e76c80ccb1503b87f5fa512d25aef7567e50641fd3dd6605f18f52d5724460b"
+      },
+      {
+        "path": "licenses/OFL-1.1.txt",
+        "bytes": 4008,
+        "sha256": "01ce47ed828b43688223e9bc4ffa998aab6507539b1ab7da333781ccca828623"
+      },
+      {
+        "path": "licenses/PACKAGE-LICENSE-TEXTS.txt",
+        "bytes": 66389,
+        "sha256": "11dff6c6ed68d01098c514de63fb887aaf3d51c848f21d3b77efe6865243e94f"
+      },
+      {
+        "path": "licenses/PACKAGE-NOTICES.md",
+        "bytes": 10495,
+        "sha256": "df0b1bae60195da9671cd58829b45e5ee253cc45b44dc9e53ac6dad09f998c63"
+      },
+      {
+        "path": "licenses/README.md",
+        "bytes": 941,
+        "sha256": "44765c90d4cd6ab7688289499ad8ffa3b44b773713f7c417d466e023b3775632"
+      },
+      {
+        "path": "licenses/SEMAR-KETIR-MIT.txt",
+        "bytes": 1133,
+        "sha256": "279b8d084ae757dfff31733724d37b1fb121748162e3880593a61bdb24b37f88"
+      },
+      {
+        "path": "licenses/TANZIL-QURAN-TEXT-NOTICE.txt",
+        "bytes": 930,
+        "sha256": "c4cfe69fbca2106d0dffb009573c93821a83c1ddd54b4bc99f5b6a1f79def4cf"
+      },
+      {
+        "path": "licenses/UTHMANIC-HAFS-EULA.txt",
+        "bytes": 1422,
+        "sha256": "5eceeb4b5e91bcaa396ba47cf43d0cc8c92618f90c0278acbe97e7208859deee"
+      },
+      {
+        "path": "NOTICE",
+        "bytes": 2037,
+        "sha256": "bc9e1bb5d6b44bf2fe14ae1301b768c379a516da2d4e5c63e7b4466a71f5eca0"
+      },
+      {
+        "path": "packages/core/src/presentation/sourceLicenses.ts",
+        "bytes": 5194,
+        "sha256": "ba6bb0a6f96531488b45e20df11109b19fae673167b389d3606c3d5ecbc165a5"
+      },
+      {
+        "path": "THIRD_PARTY_LICENSES.md",
+        "bytes": 6471,
+        "sha256": "de8e55318d4ba138294b3e6b45e77cf46dbbbfa775e3d92e672f01dacc30040b"
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "tanzil-uthmani-1.1",
+      "sourceUrls": [
+        "https://tanzil.net/docs/Text_License",
+        "https://tanzil.net/download/"
+      ],
+      "classification": "direct-open-licensed-source",
+      "sourceContribution": "Canonical Uthmani Arabic Quran text.",
+      "projectContribution": "Immutable storage, SHA-256 gate, tokenization and rendering-only compatibility.",
+      "toolModel": "Tanzil Quran Text Uthmani 1.1",
+      "method": "Verbatim canonical source retained behind an immutable hash gate.",
+      "generatedAt": "2021-02-12",
+      "humanReview": "Tanzil verification plus Kuran Yolu corpus and alignment regression checks.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 0,
+        "totalBytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "files": [],
+        "absentFromRepo": [
+          "data/vendor/tanzil/uthmani-1.1/manifest.json",
+          "data/vendor/tanzil/uthmani-1.1/quran-uthmani.txt"
+        ]
+      }
+    },
+    {
+      "id": "elmalili-semar-ketir",
+      "sourceUrls": [
+        "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi",
+        "https://github.com/kurancilar/json"
+      ],
+      "classification": "public-domain-work-and-open-digital-edition",
+      "sourceContribution": "Elmalılı Hamdi Yazır's Hak Dini Kur'an Dili and Semar Ketir's digital transcription.",
+      "projectContribution": "Normalization, application packaging and separate AI-assisted simplified explanations.",
+      "toolModel": "Semar Ketir JSON Quran dataset; Kuran Yolu import pipeline",
+      "method": "Digital surah files imported and checked as the original tafsir layer.",
+      "generatedAt": null,
+      "humanReview": "Application-level coverage and content checks; edition-specific legal status is not asserted as legal certainty.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 115,
+        "totalBytes": 11516557,
+        "sha256": "a2ea4d96f5bb08f64c086aa136c9061da8cd902f2b510b44161159611ce0e753",
+        "files": [
+          {
+            "path": "data/quran/external/Kuran/json-main/LICENSE",
+            "bytes": 1077,
+            "sha256": "af0296c5da8f9bcd2d8299cb18e78fa46a413a79f3e3dde225e27f6c6f5999c2"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/1.md",
+            "bytes": 303466,
+            "sha256": "d26b963215bd127f899558d72c19f1f132e15a949f78d2733d379817f6fb4e4a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/10.md",
+            "bytes": 160454,
+            "sha256": "6cc3f6446a7d5f7439b818bb9e1d3c140c0a1763c6f1b5afdbc0337e7a015f7f"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/100.md",
+            "bytes": 15327,
+            "sha256": "5c63b91729a0217db73b1cf0e1beb35f2c93e238c7a99bc2e738630d88b1ef5a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/101.md",
+            "bytes": 49211,
+            "sha256": "6eb518d672bab972fd837d3694056c499341cf09bd6190fc3fadad2137dc16b0"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/102.md",
+            "bytes": 93229,
+            "sha256": "46d838798c0274bb0454fecacdcdaa08de8e786768c09a3cfd384c06f5e035df"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/103.md",
+            "bytes": 36913,
+            "sha256": "3a53ad1749d4ea27fe99324094075a6301939b322a6db836b22dcea4b508e605"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/104.md",
+            "bytes": 37500,
+            "sha256": "19f4598b5c0fb21686350db1a031bffb7470b18f809ab564effcbe338b42a0a5"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/105.md",
+            "bytes": 96295,
+            "sha256": "badcc8ebd448cf0f272a0c729ec6663da7c49515df33baf846531f2bdee3f627"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/106.md",
+            "bytes": 26920,
+            "sha256": "6808f45d6fe2e21d818464b78bf76ea99c47e61f01d054f90a864f8518f714c8"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/107.md",
+            "bytes": 12802,
+            "sha256": "6f96e94ac73e93c9c0a7e42853880961776d05267b63e0e74df8db574fb9d0d9"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/108.md",
+            "bytes": 73527,
+            "sha256": "ae9684f208a6a7502a11713a4cde08d83551739faa226fdd9df4ccdfc0e765cc"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/109.md",
+            "bytes": 38161,
+            "sha256": "17682cd2756cbe48e4d91ae1df401ebb226250cbfffe3ee4e7e1f5261bd53ed4"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/11.md",
+            "bytes": 155815,
+            "sha256": "55d0cf5d50b0faa81097de442f66f4d098b70d285e51895f99bad9a07416e224"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/110.md",
+            "bytes": 40231,
+            "sha256": "355fa3d31e058372647cb0d1f00e7a443513a3d199dab4a0f7b6375308c1ae1c"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/111.md",
+            "bytes": 21863,
+            "sha256": "7765ec510d679f20254d2c4f264985695cf106e7f83ad81b4c4063a9463fa124"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/112.md",
+            "bytes": 177604,
+            "sha256": "8d366a9512a2f345b6812a5e377688d7e149adfb5e9609cd2bc9e0dbc1cf5c0c"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/113.md",
+            "bytes": 87992,
+            "sha256": "82c8724212e26a000bd95b117bd08d1dcaa7f8822d695e6eee88182452716ce3"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/114.md",
+            "bytes": 53488,
+            "sha256": "ad671ec0bcc2ffcabe78e11348a7f436b4f3605dc74c75654f2ab7a0da089401"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/12.md",
+            "bytes": 184752,
+            "sha256": "155f0480a0252ef6d60f354e1d3486a35011e0b444d339e7b70b1502fcf760df"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/13.md",
+            "bytes": 129672,
+            "sha256": "671f4da55f632ab9799095f7b62cfd6632368117d3a30bb7876c6929da450762"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/14.md",
+            "bytes": 37060,
+            "sha256": "bd3cfcff11dc8ef2e6a0e0edac69d74334d96fdc342464a5031b3512cb3c5fbe"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/15.md",
+            "bytes": 74510,
+            "sha256": "ffcd8729aec3a12502fda06597af8d23e6d552bad1e387edd5f10153b8650828"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/16.md",
+            "bytes": 67498,
+            "sha256": "8f2bccc6e20d8b684c5e8792fc08647def5c2516f9d692a22d61d577eea857f7"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/17.md",
+            "bytes": 123705,
+            "sha256": "4dc51f7c62196370647baa350f6f1cb414dd057d87c8c0a34c5194f84b1ef9f6"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/18.md",
+            "bytes": 111539,
+            "sha256": "45d74f3089113f4072277ca45618610a91952b554528738429562c2aef82929f"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/19.md",
+            "bytes": 17163,
+            "sha256": "296d9c0d996a7993f7e4d7912706c64861d89d061542b6fc5c42298b5af22cd5"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/2.md",
+            "bytes": 1704473,
+            "sha256": "efc00bbde8a7dd22e80c01275c179911853cf05be49ab62686c263dd33a31500"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/20.md",
+            "bytes": 21142,
+            "sha256": "41a9c9332e5e17c726dded0dccb6b9b381663879d9121e083904130750238181"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/21.md",
+            "bytes": 52778,
+            "sha256": "378c786ca3f01eb5db075896dd748bfb4e2fc2f339b00b9d87dc2068ccc6e27d"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/22.md",
+            "bytes": 61028,
+            "sha256": "fb9b179181e049774809effbaaad3c63707bc3daa5a2208b7e115d3e9efff450"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/23.md",
+            "bytes": 57769,
+            "sha256": "d1ab9bf81dbf47c3bdf0082eeb0e7463a2a51103d0f76292cbfda3cca33dd443"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/24.md",
+            "bytes": 124778,
+            "sha256": "925c360e9f8aae4b04fb34e4862f4143710f0fa8c44b20eda1f88ba9efd7433e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/25.md",
+            "bytes": 95197,
+            "sha256": "a8903e5d7aa6a35b55eda44ff9fc25e6a0358968294b9f71760f0a54b67f4efa"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/26.md",
+            "bytes": 41474,
+            "sha256": "2e3da04c47758e0c1af93d23790b374ea019446aab29f295da6a47786fb30a42"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/27.md",
+            "bytes": 95748,
+            "sha256": "894699b7d066525857ec6d7eb10d20f613280e4dfb007588b03ecb3761720a22"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/28.md",
+            "bytes": 54537,
+            "sha256": "cfee64f082af9045af666e29e0e8eab4026749c848f7dfa88e5aa9e66052070d"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/29.md",
+            "bytes": 37076,
+            "sha256": "5952c05746a085b3723e902c1d6ccf8c463dcaf11d57e7cff08523928d8e50f9"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/3.md",
+            "bytes": 481120,
+            "sha256": "0acc322da7ef0ad556280d4a0e1f8fd7ca020bd8d21d4a16b3aec5c861f3675e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/30.md",
+            "bytes": 66017,
+            "sha256": "34bbfe0428d9872d1e5f69f114a39310e3b18b15b2d99f400a57555abca3bb36"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/31.md",
+            "bytes": 26505,
+            "sha256": "a64675bee82147ad57ce7828618e89becbf29d2336c52b8291788b25d9e719ad"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/32.md",
+            "bytes": 7867,
+            "sha256": "a77fd451426969757c1a215396c5c5220f6e6905870ffb4498d01d6bb21a822a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/33.md",
+            "bytes": 106578,
+            "sha256": "cad7dafd12d35885709c2108619f4b634470f4d2694dda68682135763e296087"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/34.md",
+            "bytes": 42858,
+            "sha256": "b5f8a859d32e8a497139bfd5bc1c8a88f643f37465e3c81708982cb328ba5330"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/35.md",
+            "bytes": 43508,
+            "sha256": "0e16cd201501da375302b4a8443b35f20e653104f7ca6cae8dc7fad1530fc47f"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/36.md",
+            "bytes": 58386,
+            "sha256": "c1da2dfd19235b65e8857d68895baddfb3eb31ec44a10af58df112d455b1c929"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/37.md",
+            "bytes": 51125,
+            "sha256": "5f2ceccfff643ed609a1143b8c0876fa790e52b59d95e7446455bd73197a6496"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/38.md",
+            "bytes": 42211,
+            "sha256": "2b72c8c2bc1b132d17c5441320a4214b81487b670793f59bebb4605f3c21f0c5"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/39.md",
+            "bytes": 31785,
+            "sha256": "8c112b2c6a52606b3c92a85af5aaa256c814ae5840981da896f6b54032390432"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/4.md",
+            "bytes": 455064,
+            "sha256": "e5bee031b48b8114aa74f5f156fc92070a254d5af4428c00f6a6933366dafccb"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/40.md",
+            "bytes": 54977,
+            "sha256": "f7d063e5f0f22c3bbc5e2ad4a1bf0f06740410f05134fd73c0cc7ce88523b40b"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/41.md",
+            "bytes": 53255,
+            "sha256": "b603a84cc818980ce1beae1bce7c86fb8457dc123bf451affe72fb51bc2f562d"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/42.md",
+            "bytes": 81295,
+            "sha256": "2b95ab5ba6b419b83f830e3c0906b4761f1a9c842f00d53dc620b150040fb171"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/43.md",
+            "bytes": 32669,
+            "sha256": "ba1ec290c8fa7cc4446cd71fdea2fd8a1980afb94e6aa9b43ac225be4d53335a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/44.md",
+            "bytes": 19929,
+            "sha256": "9659e3230cf68a309f7ced8d658a332339f65f73cc7e6e42a58be46eab0b68cb"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/45.md",
+            "bytes": 30631,
+            "sha256": "23c8bf9a5c1ded626c34475e19ead741ccaf033fc168a67ec7f6e03094d3ae87"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/46.md",
+            "bytes": 52827,
+            "sha256": "973ddcb4f516babe730037b09f084fa8e94bc9903c3a629fc859377bc1678ad8"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/47.md",
+            "bytes": 53762,
+            "sha256": "fdbca02041133a71c5d42ed111627a30e117f1e3a3ef155cf22d1a6d90d6e4ef"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/48.md",
+            "bytes": 70471,
+            "sha256": "1cd239878c0276fce8d0aadd3d27c3637b35e587bc80714e0733ca6ad0ed0745"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/49.md",
+            "bytes": 75545,
+            "sha256": "391a6535b489a4fc940a1160fad05c7ae635f1cbdc9af37004503446f407c7ff"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/5.md",
+            "bytes": 564891,
+            "sha256": "988fc820dbdbf07ac4061d0354ecb196670a3f701f66bea2008a5f6d43523aa9"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/50.md",
+            "bytes": 64845,
+            "sha256": "3500ad028fd8c8ee8938d760bf84ab63978010ee0398d39de5156224beeee41c"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/51.md",
+            "bytes": 36712,
+            "sha256": "b0f9b317fbfe1d81af126ed32279b0df0bcbf29634373996f8a2d6227fc2c1f8"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/52.md",
+            "bytes": 29269,
+            "sha256": "6dc21630a2e2b09f3908d0ae868d9260ce5f289e1f08c97370b72f407dbe6ec3"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/53.md",
+            "bytes": 95469,
+            "sha256": "8b9b07f52f7411152a4394cd55f334e05ea2c6dadbca1b07b3e9721bb79c1102"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/54.md",
+            "bytes": 71922,
+            "sha256": "e81e8fdb3833ecdcceb4a806a174ed0aca9e4b7c572579e03806cc10a877db16"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/55.md",
+            "bytes": 125922,
+            "sha256": "29d9a6af7a95fa77308a86880f015110ab82061cefc810835adf0f406a0cdd05"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/56.md",
+            "bytes": 47548,
+            "sha256": "6c6c3f6181671e2f7bd47f722fdb88bd99063cdf2e755badbfeba00ffe210825"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/57.md",
+            "bytes": 84515,
+            "sha256": "89e36313e1bfe24dfe74fddbb1c323537c3d9ec07586324ef689b7d2bc8a77fb"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/58.md",
+            "bytes": 64692,
+            "sha256": "d3b73caea14320860233d2ad93364bc0f3b16261a23f0d67b12cb56460fed291"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/59.md",
+            "bytes": 139661,
+            "sha256": "6b3690c1c6e370075b07a3e3d4191db9482af9f3ad1906e84d0e459414133950"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/6.md",
+            "bytes": 427517,
+            "sha256": "eb7d67608071bd769bfe7d8e4ee29d80dfa87a9a637fbe1ec35e3330578453f2"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/60.md",
+            "bytes": 37446,
+            "sha256": "81ccc0275bad83784c6717a63e2d73d5e6101cee7fe7b6de01eb512e05123395"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/61.md",
+            "bytes": 99638,
+            "sha256": "366e33046c7063bd32005cc4b59978e44fcd0f823c99a9f6e98ba29807affcfa"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/62.md",
+            "bytes": 79266,
+            "sha256": "0233b9771d7ec89a20921dcbf30741610b520ac92e50d283a56f307d7956ab9a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/63.md",
+            "bytes": 44461,
+            "sha256": "d1a0ca1f1deba32f2b1b43123b16ddc589e1d4f28e044c50feaab806b98fa1f8"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/64.md",
+            "bytes": 43705,
+            "sha256": "9e606f7d35cbdb53885982ba2f5a6917d79979811b708101eb94bb545d1df253"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/65.md",
+            "bytes": 83303,
+            "sha256": "b1209cd8af20fd92ef874595c16a0a53890c6af31e5ea1a39575ecaec2a0f253"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/66.md",
+            "bytes": 66051,
+            "sha256": "a5cb53badfe7d48acb78d6c4f88206402f5b5b27a8d0af1c6f1a5179fe2cf8db"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/67.md",
+            "bytes": 223432,
+            "sha256": "f988d506cbc5337495f1fd7fa37bf032573121e373ec6eefe634c5db51c01104"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/68.md",
+            "bytes": 109083,
+            "sha256": "a2a9be3e6c49f34b15a813418cf086e4fee647ebd464377364a54a990180eec8"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/69.md",
+            "bytes": 84279,
+            "sha256": "051cd824cd58bb047d8b019a4967d3e238ee194847066f0498e05e95aa0a733e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/7.md",
+            "bytes": 435072,
+            "sha256": "4903a7171ad647a9e1d20acd7925e86c227223a35a6d788f5f2d51af4f958f7a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/70.md",
+            "bytes": 39444,
+            "sha256": "2bd41fb7abf1b15f1cfa75acf89e7626d2ca15dfcc74e7671eda1eaf7e01c213"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/71.md",
+            "bytes": 97166,
+            "sha256": "c1ed7e2e0291cf9d4483abd66e183ac5e8ca04a72476571e0f34110bfd7df57e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/72.md",
+            "bytes": 36806,
+            "sha256": "31336f5fb0636c3db0439eaf65dab7aa7754472177341ac457098424ccce9c6e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/73.md",
+            "bytes": 48248,
+            "sha256": "f021f0ce4055544b50e785f950f138dda741c8556127d7a6e163dfdcf733ec07"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/74.md",
+            "bytes": 42085,
+            "sha256": "f9f51a53cdb34d7976e2d462c627f3abc0cde79e7fb360bb8ad9d52ab6677c6a"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/75.md",
+            "bytes": 34211,
+            "sha256": "88820a19219b58fef3e2b4faa24211c38920bf6127c286bc8b2f7851761458ca"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/76.md",
+            "bytes": 53614,
+            "sha256": "855750d41963c92ade33b0fba976d4c43fc93ec6a55cf82a26db03bf78250d1c"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/77.md",
+            "bytes": 43441,
+            "sha256": "81f05ebdece30bb3476d7af7420efaf582fdc4846fac63f87587e371f9b8e77d"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/78.md",
+            "bytes": 45071,
+            "sha256": "3dc3616491618d53362c6ea0fae841cf86fb041c5c670efb79108fdcc87f8b16"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/79.md",
+            "bytes": 77671,
+            "sha256": "0cd048347ee41c5871239c976a04f4f6881d3b936554a4e12b7dad0b68a064d8"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/8.md",
+            "bytes": 139486,
+            "sha256": "7aa6acb1049bda32c50dbfb6ceb5f6503a0922bbe664f53cf69bef24e962e936"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/80.md",
+            "bytes": 44424,
+            "sha256": "cd75716311bf70ab85ebd0d873a7d91071584a09a8902a05e603b7aeebb43adb"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/81.md",
+            "bytes": 98351,
+            "sha256": "dbbef523555b5c4a96822b0a45505dc147baaed6ca6a1bb7496dac5c37a1b266"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/82.md",
+            "bytes": 26159,
+            "sha256": "891ca38b2e7d74d65d62dee80fab892e66c5f96dcd694d7aa18b525b0e08990c"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/83.md",
+            "bytes": 45375,
+            "sha256": "ffb4e7c7325ddb7fe9498b598c0b27165dbb17b4ce473f49eb8166a7127f8aa1"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/84.md",
+            "bytes": 29535,
+            "sha256": "1e288ce586b22c425ab3cb01a7b17465d28b3f4599c212d6250bbf14cf3d5144"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/85.md",
+            "bytes": 17688,
+            "sha256": "ed7626f134dd1434a653cd9ef9122cc00eb6a5e6bf895279546b7dbdbbd41ec4"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/86.md",
+            "bytes": 73353,
+            "sha256": "c23c0893f120f6c2150f183100aebb19ac255c236f5937795eab68499f2cd0bf"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/87.md",
+            "bytes": 73859,
+            "sha256": "5cdfd71107ccb64bebe46d1c0fd01c8495033d3c9af29dfd949d8df3543048b2"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/88.md",
+            "bytes": 33422,
+            "sha256": "c910a735828540261a6fae2c82e6f9d9dcf8f861ff22cab8c51f890027db394e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/89.md",
+            "bytes": 68199,
+            "sha256": "ec3a0b9074156ed45295ea2f6313fc9b3de0bf9a0c05c37ed8381c412cc2e72f"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/9.md",
+            "bytes": 410956,
+            "sha256": "3d24a0114aa3e6232162276c6c1279e88eafdb237c766a0fc21fdd8800a2fcb3"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/90.md",
+            "bytes": 47140,
+            "sha256": "96ef040f4705a282839848e994e37baba5a9a21956c6886dd766871d73e9c73b"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/91.md",
+            "bytes": 44653,
+            "sha256": "ba4e267a4c7b042b23cd9c56979643436d3bb3a68ed9d4df317adeab6d343fde"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/92.md",
+            "bytes": 24514,
+            "sha256": "cc5e12ca1d0364469641d81485494fafa18eacd8cc022df0032d086f35c4a1a1"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/93.md",
+            "bytes": 50964,
+            "sha256": "728dd64850c3751327940d1afc4f056369724261ca3bc8a7eea090ed63f2c7eb"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/94.md",
+            "bytes": 33508,
+            "sha256": "8b0970846e18a6bd35f6e5e7378b25b690290f2e0a02bfcd28f57e3747f7c014"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/95.md",
+            "bytes": 30125,
+            "sha256": "9c46db4732f7a1e895f44b786c7a5818547d60391b9c7b771b994ddc1c36fefc"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/96.md",
+            "bytes": 46307,
+            "sha256": "039910e9854e9ef7eaafec067e64b4fc670c9d002e86b412a43693a3da461ce5"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/97.md",
+            "bytes": 39612,
+            "sha256": "0af363d2373ba9ceb84d02d0d7c9b7e73a8f92483839ea01b6ba8a42c1e5d75e"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/98.md",
+            "bytes": 35484,
+            "sha256": "b0cdcc0029d44e5cfb17aebada21f5aa2a3cb146d8fa808e1808bb7e0fb66192"
+          },
+          {
+            "path": "data/quran/external/Kuran/json-main/tafseer/elmalili/99.md",
+            "bytes": 14828,
+            "sha256": "a66786043bcbcc4c8fcb54b98e448f5024061faee6b02dedb1995178a60b9cfa"
+          }
+        ]
+      }
+    },
+    {
+      "id": "qac-mustafa0x-source-chain",
+      "sourceUrls": [
+        "https://corpus.quran.com/download/",
+        "https://github.com/mustafa0x/quran-morphology"
+      ],
+      "classification": "modified-third-party-source",
+      "sourceContribution": "Quranic Arabic Corpus v0.4 morphology and the mustafa0x Arabic/fix fork.",
+      "projectContribution": "Used as morphology input and teacher/reference evidence; raw runtime morphology remains a separately tracked risk layer.",
+      "toolModel": "QAC v0.4; mustafa0x/quran-morphology",
+      "method": "Segment morphology imported by the legacy builder and later compared with canonical token decisions.",
+      "generatedAt": null,
+      "humanReview": "Cell-level source-flow audit and subsequent project correction stages.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 3,
+        "totalBytes": 12650539,
+        "sha256": "713eea2f1600e958305fceb59a014d338338b6a7045f436636afd74febee8d1a",
+        "files": [
+          {
+            "path": "data/word-analysis/quran-morphology.txt",
+            "bytes": 6323114,
+            "sha256": "f3732e9c293eb2c8fe8371ea6b4d15e26ee8e39784057a297e04c374df36e450"
+          },
+          {
+            "path": "data2/quran-morphology/quran-morphology.txt",
+            "bytes": 6322866,
+            "sha256": "742bfac59941b2cb09736d5b7aae694af50792261fb8450cbf6afafcc340645f"
+          },
+          {
+            "path": "data2/quran-morphology/README.md",
+            "bytes": 4559,
+            "sha256": "caec314d4c64cc26e27b3c45c12a33be7059a83fc3db385c43615d6a5792ba5f"
+          }
+        ]
+      }
+    },
+    {
+      "id": "camel-tools-and-morph",
+      "sourceUrls": [
+        "https://github.com/CAMeL-Lab/camel_tools",
+        "https://github.com/CAMeL-Lab/camel_morph"
+      ],
+      "classification": "tool-and-open-licensed-model-data",
+      "sourceContribution": "CAMeL Tools analyzer and CAMeL Morph morphology database candidates.",
+      "projectContribution": "Contextual candidate selection, rejection, Unicode normalization and manual review.",
+      "toolModel": "CAMeL Tools; CAMeL Morph MSA",
+      "method": "Candidate analyses were ranked and selected into the Kuran Yolu canonical morphology layer.",
+      "generatedAt": "2026-07-24",
+      "humanReview": "v1.8 acceptance, rollback and regression packages.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 4,
+        "totalBytes": 10581,
+        "sha256": "93979af271166f706033d027217326710fcf53466033c83ac058c146cbd07dc5",
+        "files": [
+          {
+            "path": "data/candidates/morphology/final-v1_8/checksums.json",
+            "bytes": 337,
+            "sha256": "a11f1ecf5fa34b62244ffa99b4f9c21780bb2907e57c0b7a9205a215d01a4922"
+          },
+          {
+            "path": "data/candidates/morphology/final-v1_8/determinism.json",
+            "bytes": 934,
+            "sha256": "ac35c6fafe45918b4841279da0b82f3e532a3f4f63e8fe398b7557d37b3b1d1d"
+          },
+          {
+            "path": "data/candidates/morphology/final-v1_8/summary.json",
+            "bytes": 3358,
+            "sha256": "806d6050c1546b3b00140708d2282536f1d6651ee12abe5055ccc7eac5fea0c5"
+          },
+          {
+            "path": "docs/provenance/camel-token-policy.md",
+            "bytes": 5952,
+            "sha256": "21664d8b342241ac257e35503533334e53526e78de38591ed482a8611873fc48"
+          }
+        ]
+      }
+    },
+    {
+      "id": "alquran-cloud-tajweed-source",
+      "sourceUrls": [
+        "https://api.alquran.cloud/v1/quran/quran-tajweed",
+        "https://alquran.cloud/tajweed-guide",
+        "https://alquran.cloud/terms-and-conditions"
+      ],
+      "classification": "direct-runtime-source-and-transformation-input",
+      "sourceContribution": "quran-tajweed rule markers.",
+      "projectContribution": "Canonical Tanzil alignment, span coordinates, rule colors, safety checks and manual overrides.",
+      "toolModel": "AlQuran.cloud quran-tajweed API",
+      "method": "The raw marked text is fetched into verses.arabic_tajweed, then parsed and aligned; the raw runtime field is not removed by this task.",
+      "generatedAt": null,
+      "humanReview": "Source-diff audit, alignment diagnostics and verse-scoped overrides.",
+      "exactResearchUrlHistoryPreserved": true,
+      "evidenceGap": "A standalone immutable pre-transform snapshot/hash of the raw AlQuran.cloud marker response was not preserved.",
+      "runtimeLocation": "data/app.db: verses.arabic_tajweed",
+      "artifacts": {
+        "fileCount": 1,
+        "totalBytes": 8236,
+        "sha256": "cd47a1a79cbe2a1356f282f50fc98856db23ade9dcdc22dec3e99275e559a224",
+        "files": [
+          {
+            "path": "scripts/_build-tajweed.mjs",
+            "bytes": 8236,
+            "sha256": "9ebae411a594cbd1f3817efab90ffaace39639ed075a88e7baefdbcc245f60d5"
+          }
+        ],
+        "absentFromRepo": [
+          "scripts/audit-tajweed-source-diff.mjs",
+          "scripts/output/tajweed-source-diff-summary.md"
+        ]
+      }
+    },
+    {
+      "id": "kuran-yolu-morphology-layer",
+      "sourceUrls": [
+        "https://corpus.quran.com/download/",
+        "https://github.com/mustafa0x/quran-morphology",
+        "https://github.com/CAMeL-Lab/camel_tools",
+        "https://github.com/CAMeL-Lab/camel_morph"
+      ],
+      "classification": "project-transformed-and-manually-verified-output",
+      "sourceContribution": "QAC/mustafa0x and CAMeL evidence.",
+      "projectContribution": "Canonical token alignment, Unicode normalization, contextual selection, error correction, Turkish meanings and manual verification.",
+      "toolModel": "Kuran Yolu morphology pipeline with QAC/CAMeL inputs and manual decisions",
+      "method": "v1.8 enrichment/cleanup, v1.9 nine-verse realignment, v1.10 guarded corrections and token-map v1.1 freeze.",
+      "generatedAt": "2026-07-27",
+      "humanReview": "Guarded migrations, pre-images, reverse checks, full-corpus regressions and final freeze.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 8,
+        "totalBytes": 184205004,
+        "sha256": "17b921a90a1f69e79372c899de98daf26669e5e8877caa90217cc3c95562b949",
+        "files": [
+          {
+            "path": "data/candidates/morphology/camel-token-map-v1_1-fatiha/manifest.json",
+            "bytes": 3571,
+            "sha256": "f3a224f60e7241b210b5e3489a440dada6e23b58647f437d27ba9229facecc4d"
+          },
+          {
+            "path": "data/candidates/morphology/camel-token-map-v1_1-fatiha/token-map.jsonl",
+            "bytes": 183890579,
+            "sha256": "03961d28a23d68abaa617ef3d531cce32d4525ea9d9bf1ff4fd2c4363b3228eb"
+          },
+          {
+            "path": "data/candidates/morphology/camel-token-map-v1_1-fatiha/validation-report.json",
+            "bytes": 1730,
+            "sha256": "be98e54bcb33a1e47e95075aeb65a704a47216b13e1179d2427bfdf40f16df53"
+          },
+          {
+            "path": "data/candidates/morphology/surgical-v1_10/batch-a-37-130-lemma-normalization/field-change-manifest.json",
+            "bytes": 384,
+            "sha256": "be09b1739a1ee413fe4b9fa141fd07e3f2b228dd85a7615db05ca62b8f5f6ccb"
+          },
+          {
+            "path": "data/candidates/morphology/surgical-v1_10/batch-a-37-130/field-change-manifest.json",
+            "bytes": 620,
+            "sha256": "cdcdb300ec018f3ff045b39cb7ce0ae67648bba3dbec384f374a3900c2c5650d"
+          },
+          {
+            "path": "data/candidates/morphology/surgical-v1_10/batch-bc-meaning-tr/field-change-manifest.json",
+            "bytes": 196461,
+            "sha256": "afb7f6a9a9ca88c7b6b39b78ea8951923c2b3efdb75e07cb702faea1d4886f68"
+          },
+          {
+            "path": "data/candidates/morphology/token-realign-v1_9/field-change-manifest.json",
+            "bytes": 57543,
+            "sha256": "973ae250b0035008688d80a19d6c5db85de9a7bbf66f8e0c4d9e6e8c556a56c4"
+          },
+          {
+            "path": "docs/provenance/morphology-final-freeze-v1_10-token-map-v1_1.json",
+            "bytes": 54116,
+            "sha256": "70c85dbda0b8502c80f51d4f182581d9bfeda8ff857de911e9eb01e136d2902c"
+          }
+        ],
+        "absentFromRepo": [
+          "docs/provenance/morphology-production-baseline.json"
+        ]
+      }
+    },
+    {
+      "id": "kuran-yolu-tajweed-layer",
+      "sourceUrls": [
+        "https://tanzil.net/docs/Text_License",
+        "https://alquran.cloud/tajweed-guide",
+        "https://alquran.cloud/terms-and-conditions"
+      ],
+      "classification": "project-transformed-and-manually-corrected-output",
+      "sourceContribution": "AlQuran.cloud marker rules.",
+      "projectContribution": "Canonical code-point spans, coordinate and color mapping, validation guards and manual additions.",
+      "toolModel": "Kuran Yolu tajweed alignment engine",
+      "method": "Markers are aligned to canonical Tanzil graphemes and emitted as code-point spans.",
+      "generatedAt": "2026-07-27",
+      "humanReview": "14 verses received 23 manual spans covering 24 clusters.",
+      "exactResearchUrlHistoryPreserved": true,
+      "metrics": {
+        "recognizedSourceClusters": 86595,
+        "alignedSourceClusters": 79343,
+        "alignedPercent": 91.6254,
+        "manualOverrideVerses": 14,
+        "manualSpans": 23,
+        "manualClusters": 24
+      },
+      "artifacts": {
+        "fileCount": 0,
+        "totalBytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "files": [],
+        "absentFromRepo": [
+          "data/generated/quran/tajweed-coverage.json",
+          "data/generated/quran/tajweed-spans.json",
+          "data/tajweed-span-overrides.json",
+          "scripts/build-quran-runtime.mjs"
+        ]
+      }
+    },
+    {
+      "id": "ai-transliteration",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Arabic Quran text used as the transliteration input.",
+      "projectContribution": "Turkish-reader-oriented transliteration regenerated for Kuran Yolu.",
+      "toolModel": "AI model; exact provider/model/run not preserved",
+      "method": "Verse-level AI regeneration followed by project normalization.",
+      "generatedAt": null,
+      "humanReview": "Project review declared; record-level review manifest is not preserved.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 1,
+        "totalBytes": 2214403,
+        "sha256": "a3806f67cb139ecb1d0e7a0a825768cc3b7958befb3fd90c5611d97ff48ef393",
+        "files": [
+          {
+            "path": "data/quran/transliteration.json",
+            "bytes": 2214403,
+            "sha256": "36369741f23fe2b64fdcca39d047659256dab7b40f1717aefcb6198c514313a0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex-hadith-translations",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Classical hadith references and Arabic/source identifiers.",
+      "projectContribution": "Turkish translations and presentation text prepared for Kuran Yolu.",
+      "toolModel": "OpenAI Codex; exact model/run not preserved",
+      "method": "Hadith records translated and edited into the application schema.",
+      "generatedAt": null,
+      "humanReview": "Project review declared; entry-level decision log is not preserved.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 2,
+        "totalBytes": 365876,
+        "sha256": "4a49e25b9c8da16ed0ee4da1939b945a8c257bbeeb715afed5d3f4b403106bf7",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/hadisler_v2.json",
+            "bytes": 182938,
+            "sha256": "270a821dc8a29edd3e9e1c7b8f372b5b20f43cb49d401a56acf31db2193ffff6"
+          },
+          {
+            "path": "apps/web/src/data/hadisler_v2.json",
+            "bytes": 182938,
+            "sha256": "270a821dc8a29edd3e9e1c7b8f372b5b20f43cb49d401a56acf31db2193ffff6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deep-research-siyer-kissa",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Historical and religious references consulted during research.",
+      "projectContribution": "Original Turkish narrative structure and application presentation.",
+      "toolModel": "OpenAI Deep Research plus AI writing tools; exact runs not preserved",
+      "method": "Research synthesis, AI-assisted drafting and project editing.",
+      "generatedAt": null,
+      "humanReview": "Project review declared; per-claim citation ledger is incomplete.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 4,
+        "totalBytes": 255854,
+        "sha256": "7b4d52684f3247f47764d80c59ef25c07112300ec0402d4be45230e8eb3b1dd1",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/peygamber_kissalari.json",
+            "bytes": 59621,
+            "sha256": "d112197232a6f78e85b7420f2671dcd5756e5955d7e3896b74d7efb5ff3bac20"
+          },
+          {
+            "path": "apps/mobile/src/data/siyer_i_nebi.json",
+            "bytes": 68306,
+            "sha256": "a805e3e04b918bf2bbba5dbf1ccc1311b580a73afdb27fa4e0105c8de77b4587"
+          },
+          {
+            "path": "apps/web/src/data/peygamber_kissalari.json",
+            "bytes": 59621,
+            "sha256": "d112197232a6f78e85b7420f2671dcd5756e5955d7e3896b74d7efb5ff3bac20"
+          },
+          {
+            "path": "apps/web/src/data/siyer_i_nebi.json",
+            "bytes": 68306,
+            "sha256": "a805e3e04b918bf2bbba5dbf1ccc1311b580a73afdb27fa4e0105c8de77b4587"
+          }
+        ]
+      }
+    },
+    {
+      "id": "chatgpt-lesson-research",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Religious and educational references used for lesson research.",
+      "projectContribution": "Kuran Yolu lesson organization and Turkish presentation.",
+      "toolModel": "ChatGPT; exact model/run not preserved",
+      "method": "AI-assisted research and drafting followed by project editing.",
+      "generatedAt": null,
+      "humanReview": "Project review declared; lesson-level generation logs are not preserved.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 32,
+        "totalBytes": 503776,
+        "sha256": "2692f39e4164a4e5db4a74a94a36802d79e5c4fcd740cad85ea8ac9807aa8a79",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/Dersler/abdest_dersi.json",
+            "bytes": 16850,
+            "sha256": "a27ee362a2f3f46af6c829c2640e550f65c612dbdd109fa3f1b5c8c4d9bfca01"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/ezan_kamet_dersi.json",
+            "bytes": 10213,
+            "sha256": "51d20d9a77318ba1210b1521a02e37d448e712f72e07735826eb1d08631b782a"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/guzel_ahlak_dersi.json",
+            "bytes": 13152,
+            "sha256": "ef48bfe06aa52911958016971526217821d2b2e7907a34ba3be4aa2ed9361329"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/hac_umre_dersi.json",
+            "bytes": 10918,
+            "sha256": "45c3f7f6acd459f7d06e6f551c1f1851b96126dcafb116001279a8c94120ad8a"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/iman_esaslari_dersi.json",
+            "bytes": 12319,
+            "sha256": "4feef1dd6be525dee3d0ec22bc0aaee62e18b3e3c0bcfbe435eb282d1987462c"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kitaplara_iman_dersi.json",
+            "bytes": 7975,
+            "sha256": "a031303de29c2226413f66816474a7006375f0a9198fa1532753bfad243a8b4c"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kurban_dersi.json",
+            "bytes": 10810,
+            "sha256": "b975f281aac50cfd74aecf1dd042f6c2a6ef8110092c377d2389e52a22c53e85"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_dersi.json",
+            "bytes": 19610,
+            "sha256": "267ff2cbfb4c5f364b0051a1198553ca8611f7dbe1b0b3abe5b37700fb875826"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_dualar_dersi.json",
+            "bytes": 11802,
+            "sha256": "1e9e9c12f7d96c7b5a52a68866d1f29600801e8dccf25a859288d046c5eacd24"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/nefsini_tani_ders_modulu.json",
+            "bytes": 39308,
+            "sha256": "7b6710878fdc11a44f9abd58d5c23c3f97eaec1ba4bb60c292a8a093b0eb112f"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/oruc_dersi.json",
+            "bytes": 11359,
+            "sha256": "8de7751ab46ae52dbece56d01cc05d4084815bacea956c34c41eb6946e5673b6"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_dersi.json",
+            "bytes": 24757,
+            "sha256": "5342d46bae9411edb030d0e2e5d83597a7e5ca35eb4faf3ada961e0f3a511bbd"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_dersi.json",
+            "bytes": 16498,
+            "sha256": "0b4afe4bc774f850f1cbc787183a05acb4a0cb9eff4bdb77239d39d17e1e8199"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/siyer_dersi.json",
+            "bytes": 19224,
+            "sha256": "a12b5843235678f5fcbbf4429a204f75e74ad535bfa574486cabef0e9b950556"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/tecvid_dersi.json",
+            "bytes": 15582,
+            "sha256": "27944cc1f44559c71f1238f9cf98c3e6456a10caabadc10fae715dddac1de47f"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/zekat_dersi.json",
+            "bytes": 11511,
+            "sha256": "73dd24c9c2f00e952da39a7b002bd324a2d7489f86e1d85d0971311d06b36949"
+          },
+          {
+            "path": "apps/web/src/data/dersler/abdest_dersi.json",
+            "bytes": 16850,
+            "sha256": "a27ee362a2f3f46af6c829c2640e550f65c612dbdd109fa3f1b5c8c4d9bfca01"
+          },
+          {
+            "path": "apps/web/src/data/dersler/ezan_kamet_dersi.json",
+            "bytes": 10213,
+            "sha256": "51d20d9a77318ba1210b1521a02e37d448e712f72e07735826eb1d08631b782a"
+          },
+          {
+            "path": "apps/web/src/data/dersler/guzel_ahlak_dersi.json",
+            "bytes": 13152,
+            "sha256": "ef48bfe06aa52911958016971526217821d2b2e7907a34ba3be4aa2ed9361329"
+          },
+          {
+            "path": "apps/web/src/data/dersler/hac_umre_dersi.json",
+            "bytes": 10918,
+            "sha256": "45c3f7f6acd459f7d06e6f551c1f1851b96126dcafb116001279a8c94120ad8a"
+          },
+          {
+            "path": "apps/web/src/data/dersler/iman_esaslari_dersi.json",
+            "bytes": 12319,
+            "sha256": "4feef1dd6be525dee3d0ec22bc0aaee62e18b3e3c0bcfbe435eb282d1987462c"
+          },
+          {
+            "path": "apps/web/src/data/dersler/kitaplara_iman_dersi.json",
+            "bytes": 7975,
+            "sha256": "a031303de29c2226413f66816474a7006375f0a9198fa1532753bfad243a8b4c"
+          },
+          {
+            "path": "apps/web/src/data/dersler/kurban_dersi.json",
+            "bytes": 10810,
+            "sha256": "b975f281aac50cfd74aecf1dd042f6c2a6ef8110092c377d2389e52a22c53e85"
+          },
+          {
+            "path": "apps/web/src/data/dersler/namaz_dersi.json",
+            "bytes": 19610,
+            "sha256": "267ff2cbfb4c5f364b0051a1198553ca8611f7dbe1b0b3abe5b37700fb875826"
+          },
+          {
+            "path": "apps/web/src/data/dersler/namaz_dualar_dersi.json",
+            "bytes": 11802,
+            "sha256": "1e9e9c12f7d96c7b5a52a68866d1f29600801e8dccf25a859288d046c5eacd24"
+          },
+          {
+            "path": "apps/web/src/data/dersler/nefsini_tani_ders_modulu.json",
+            "bytes": 39308,
+            "sha256": "7b6710878fdc11a44f9abd58d5c23c3f97eaec1ba4bb60c292a8a093b0eb112f"
+          },
+          {
+            "path": "apps/web/src/data/dersler/oruc_dersi.json",
+            "bytes": 11359,
+            "sha256": "8de7751ab46ae52dbece56d01cc05d4084815bacea956c34c41eb6946e5673b6"
+          },
+          {
+            "path": "apps/web/src/data/dersler/peygamber_kissalari_dersi.json",
+            "bytes": 24757,
+            "sha256": "5342d46bae9411edb030d0e2e5d83597a7e5ca35eb4faf3ada961e0f3a511bbd"
+          },
+          {
+            "path": "apps/web/src/data/dersler/sahabe_hayatlari_dersi.json",
+            "bytes": 16498,
+            "sha256": "0b4afe4bc774f850f1cbc787183a05acb4a0cb9eff4bdb77239d39d17e1e8199"
+          },
+          {
+            "path": "apps/web/src/data/dersler/siyer_dersi.json",
+            "bytes": 19224,
+            "sha256": "a12b5843235678f5fcbbf4429a204f75e74ad535bfa574486cabef0e9b950556"
+          },
+          {
+            "path": "apps/web/src/data/dersler/tecvid_dersi.json",
+            "bytes": 15582,
+            "sha256": "27944cc1f44559c71f1238f9cf98c3e6456a10caabadc10fae715dddac1de47f"
+          },
+          {
+            "path": "apps/web/src/data/dersler/zekat_dersi.json",
+            "bytes": 11511,
+            "sha256": "73dd24c9c2f00e952da39a7b002bd324a2d7489f86e1d85d0971311d06b36949"
+          }
+        ]
+      }
+    },
+    {
+      "id": "claude-card-quiz-generation",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Kuran Yolu lesson material.",
+      "projectContribution": "Cards and quizzes generated and integrated into the learning flow.",
+      "toolModel": "Anthropic Claude; exact model/run not preserved",
+      "method": "AI generation from lesson topics followed by schema validation and project editing.",
+      "generatedAt": null,
+      "humanReview": "Project review declared; item-level generation prompts are not preserved.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 32,
+        "totalBytes": 720076,
+        "sha256": "831750103907cb694ddb602518fd0bdce906c3aec0a4b839c4a6de37d336e37c",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/Dersler/abdest_quiz.json",
+            "bytes": 19715,
+            "sha256": "555731e9b8463843585096036c8cd5ccef90f50b06925d8b61f1b1d1d437a1df"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/ezan_kamet_quiz.json",
+            "bytes": 19738,
+            "sha256": "ad848a2ec90c32e16bae0cbf778afc05f90f5449d0e46db6b064fbf7fba98731"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/guzel_ahlak_quiz.json",
+            "bytes": 19502,
+            "sha256": "d8b7974e8f28c0bb63a6380aa5cc330a31187b3931340a6fee563e5783cece48"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/hac_umre_quiz.json",
+            "bytes": 24849,
+            "sha256": "498c1a945a379868f6e8d46df2c459f9e244bc756b76b1527a09338d3037a52c"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/iman_esaslari_quiz.json",
+            "bytes": 28154,
+            "sha256": "e54aaac80401655ed4e28582b159cec2cfe6fa6fd935fb1f43130ddb3e82234e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kitaplara_iman_quiz.json",
+            "bytes": 18391,
+            "sha256": "1fc036c355c5ab56cf50ed4ba7326398a8ffbd2b0a9dbb3414d2b45d0bf94114"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kurban_quiz.json",
+            "bytes": 18177,
+            "sha256": "7d9c9d8d7f2651a9d3bc8fa4e69c0e849c47f236e98bcff018f1f96d04da487e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_dualar_quiz.json",
+            "bytes": 16087,
+            "sha256": "33be9d690a5136bc81ff788596f8b2e729f64a03b69963ae1e60d9a7bd9f8a69"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_quiz.json",
+            "bytes": 26796,
+            "sha256": "f9948c7b4eb747bc421568b79fb1e1fcf09c3260513805f9acf5b1bd13b73eb2"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/nefsini_tani_quiz.json",
+            "bytes": 22403,
+            "sha256": "0b432fea98d9033eb9b502472be0e1d2b9170a3118bedbfd0af98c98e3e5edc9"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/oruc_quiz.json",
+            "bytes": 28178,
+            "sha256": "ef92a01e873264b925a5a99f6ac16d049ec2926c9d69655964cd1caa6ba64afd"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_quiz.json",
+            "bytes": 27799,
+            "sha256": "d170903d122b1b32bcb94714af3374cf3775b3faa6283ac0e935609693e048f7"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_quiz.json",
+            "bytes": 21133,
+            "sha256": "2a0bc3786d280bb7bd21d1ee6ea3931101dc3dce2f84ca8e4e6e88be05c436ba"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/siyer_quiz.json",
+            "bytes": 25956,
+            "sha256": "99df3bea0a6146b6cc6a9a5b34c6b02bbc4a8c469ef4e448bcd270e1b8a53b6e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/tecvid_quiz.json",
+            "bytes": 24790,
+            "sha256": "bbb9ff2083ef67945668650fca780a4f862fed3f90df1193f153028515a4abcc"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/zekat_quiz.json",
+            "bytes": 18370,
+            "sha256": "95c4e6f914764ede3fe5a6f5996ee2eecdf4a0b4cf141ac89daf072c4e6d53f4"
+          },
+          {
+            "path": "apps/web/src/data/dersler/abdest_quiz.json",
+            "bytes": 19715,
+            "sha256": "555731e9b8463843585096036c8cd5ccef90f50b06925d8b61f1b1d1d437a1df"
+          },
+          {
+            "path": "apps/web/src/data/dersler/ezan_kamet_quiz.json",
+            "bytes": 19738,
+            "sha256": "ad848a2ec90c32e16bae0cbf778afc05f90f5449d0e46db6b064fbf7fba98731"
+          },
+          {
+            "path": "apps/web/src/data/dersler/guzel_ahlak_quiz.json",
+            "bytes": 19502,
+            "sha256": "d8b7974e8f28c0bb63a6380aa5cc330a31187b3931340a6fee563e5783cece48"
+          },
+          {
+            "path": "apps/web/src/data/dersler/hac_umre_quiz.json",
+            "bytes": 24849,
+            "sha256": "498c1a945a379868f6e8d46df2c459f9e244bc756b76b1527a09338d3037a52c"
+          },
+          {
+            "path": "apps/web/src/data/dersler/iman_esaslari_quiz.json",
+            "bytes": 28154,
+            "sha256": "e54aaac80401655ed4e28582b159cec2cfe6fa6fd935fb1f43130ddb3e82234e"
+          },
+          {
+            "path": "apps/web/src/data/dersler/kitaplara_iman_quiz.json",
+            "bytes": 18391,
+            "sha256": "1fc036c355c5ab56cf50ed4ba7326398a8ffbd2b0a9dbb3414d2b45d0bf94114"
+          },
+          {
+            "path": "apps/web/src/data/dersler/kurban_quiz.json",
+            "bytes": 18177,
+            "sha256": "7d9c9d8d7f2651a9d3bc8fa4e69c0e849c47f236e98bcff018f1f96d04da487e"
+          },
+          {
+            "path": "apps/web/src/data/dersler/namaz_dualar_quiz.json",
+            "bytes": 16087,
+            "sha256": "33be9d690a5136bc81ff788596f8b2e729f64a03b69963ae1e60d9a7bd9f8a69"
+          },
+          {
+            "path": "apps/web/src/data/dersler/namaz_quiz.json",
+            "bytes": 26796,
+            "sha256": "f9948c7b4eb747bc421568b79fb1e1fcf09c3260513805f9acf5b1bd13b73eb2"
+          },
+          {
+            "path": "apps/web/src/data/dersler/nefsini_tani_quiz.json",
+            "bytes": 22403,
+            "sha256": "0b432fea98d9033eb9b502472be0e1d2b9170a3118bedbfd0af98c98e3e5edc9"
+          },
+          {
+            "path": "apps/web/src/data/dersler/oruc_quiz.json",
+            "bytes": 28178,
+            "sha256": "ef92a01e873264b925a5a99f6ac16d049ec2926c9d69655964cd1caa6ba64afd"
+          },
+          {
+            "path": "apps/web/src/data/dersler/peygamber_kissalari_quiz.json",
+            "bytes": 27799,
+            "sha256": "d170903d122b1b32bcb94714af3374cf3775b3faa6283ac0e935609693e048f7"
+          },
+          {
+            "path": "apps/web/src/data/dersler/sahabe_hayatlari_quiz.json",
+            "bytes": 21133,
+            "sha256": "2a0bc3786d280bb7bd21d1ee6ea3931101dc3dce2f84ca8e4e6e88be05c436ba"
+          },
+          {
+            "path": "apps/web/src/data/dersler/siyer_quiz.json",
+            "bytes": 25956,
+            "sha256": "99df3bea0a6146b6cc6a9a5b34c6b02bbc4a8c469ef4e448bcd270e1b8a53b6e"
+          },
+          {
+            "path": "apps/web/src/data/dersler/tecvid_quiz.json",
+            "bytes": 24790,
+            "sha256": "bbb9ff2083ef67945668650fca780a4f862fed3f90df1193f153028515a4abcc"
+          },
+          {
+            "path": "apps/web/src/data/dersler/zekat_quiz.json",
+            "bytes": 18370,
+            "sha256": "95c4e6f914764ede3fe5a6f5996ee2eecdf4a0b4cf141ac89daf072c4e6d53f4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gemini-elifba-audio-and-images",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-generated-project-assets",
+      "sourceContribution": "Kuran Yolu asset prompts and lesson requirements.",
+      "projectContribution": "Elifba pronunciation assets and prayer-guide visuals.",
+      "toolModel": "Google Gemini; exact model/run not preserved",
+      "method": "AI audio/image generation, file selection and application packaging.",
+      "generatedAt": null,
+      "humanReview": "Project selection and placement; prompt/run archive is not preserved.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 45,
+        "totalBytes": 4429666,
+        "sha256": "b28b0a63bdbacc52a95991880c2fc50dce3cdfd3a5fafdabdcef8b1456300eb7",
+        "files": [
+          {
+            "path": "apps/mobile/assets/images/namaz/celse.jpg",
+            "bytes": 286669,
+            "sha256": "ef672fbe2bd4a8a761935827b5465968bb6c21f5f851de528f990fbf353a071f"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/kavme.jpg",
+            "bytes": 243219,
+            "sha256": "5cdb116d9ca66c98c8e17344d489ee2e7a63fe76910e73ba998f0abcc182d55b"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/kıyam.jpg",
+            "bytes": 243508,
+            "sha256": "f50fdc88b446a2ad85e950b0979aac373cd707abd756a602a008886c4a3a2029"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/ruku.jpg",
+            "bytes": 248190,
+            "sha256": "43bbe5377f195e8a0dd7755f2ac355a95b50f67a7e4e9d775aa88121b0c29bf1"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/secde.jpg",
+            "bytes": 299330,
+            "sha256": "e2e195326cd1b92299e2fc4fc2a7aff73d019cd4e65b89b890902fa682f12a6b"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/selam.jpg",
+            "bytes": 262253,
+            "sha256": "b8c69fff104fcfbe1ff902077bbf00ea14431b50a65a5894bb932f6c5ac4b5b9"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/tekbir.jpg",
+            "bytes": 232630,
+            "sha256": "85ece7d59776aaa1697eb0d20d670f70c541cfbeff010c2e4f82a5426301bc60"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/tesehhüd.jpg",
+            "bytes": 252250,
+            "sha256": "5794105e471d31da3daea5be520ed21eb88fe140cc39645f4bbbe6db5f508962"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_01.mp3",
+            "bytes": 10944,
+            "sha256": "cc7027d7abd135e02a38f95692cbb6157768832b17db6db44186ca802d6f2400"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_02.mp3",
+            "bytes": 10176,
+            "sha256": "14fa5a4cb9c83959b7e912c094b7ade1c544e1c7eba296943c5668cf4d1e2567"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_03.mp3",
+            "bytes": 9984,
+            "sha256": "b2cb7cdba71358521d38718808d449ca43a0cfd4d6e2b44b86c4d7285dd12fc5"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_04.mp3",
+            "bytes": 10176,
+            "sha256": "baaa1030350b458ade29593a15c9a1762472a291a39ca05a0d75b7841362da0b"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_05.mp3",
+            "bytes": 9984,
+            "sha256": "f8b1c21c0099158e9b4098cfdbaed1395740800d7883a4c9c1c8a5cb33c05ae3"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_06.mp3",
+            "bytes": 10176,
+            "sha256": "97f0429187616e4a513f452a42a7e54701c0d2efee222bd1ddd8a387921aa2a3"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_07.mp3",
+            "bytes": 10176,
+            "sha256": "0521fdc19aa52f1989c01d094a4fbbd2cdef0a6f4f23f70e52008ddf896d18a2"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_08.mp3",
+            "bytes": 9792,
+            "sha256": "87229098dce1dcbfc212c535f17a00b8731ea119c5ea4e2b476fc230827885d2"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_09.mp3",
+            "bytes": 9600,
+            "sha256": "8986cb0053490752b4b1b79a4abbe79075e13d58281230f88d391ba9458cb436"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_10.mp3",
+            "bytes": 9408,
+            "sha256": "324c2b9aec1ae6f95d860e9e89d1eb371847e2f0e1292231e3b7ee928d919c2b"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_11.mp3",
+            "bytes": 9792,
+            "sha256": "e7c5e0f9682067a98cc3ac9cfd93cf645e680c2855940e61db09bfb0a9aca7c3"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_12.mp3",
+            "bytes": 9984,
+            "sha256": "e65ff7acf95949395ec35a273120150ac9ff491bf189c28d04f8e01a8005fa5b"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_13.mp3",
+            "bytes": 9984,
+            "sha256": "326f441aa94b901707a89d4de74280609f3c0803e70240c30e195cc76b88d289"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_14.mp3",
+            "bytes": 10176,
+            "sha256": "98f744aae7f6a8aa3426cf74120a99561de7d68aec1e9a6f12e4daa36b80e344"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_15.mp3",
+            "bytes": 9984,
+            "sha256": "a4f6b1f1631643aa9334ac9e1a94fd3328f33e7963e58d7275bdb95c99bff822"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_16.mp3",
+            "bytes": 9600,
+            "sha256": "1b003db5807e99dc4c8c10800a6aa6422ae32c305f84f2df74ecbd3a9dc82be1"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_17.mp3",
+            "bytes": 9792,
+            "sha256": "27692bbe4cb125c56d971fc07c1b2fb541c98f512db20ae2a12e2b521334a928"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_18.mp3",
+            "bytes": 9792,
+            "sha256": "bc1ea5ec0ff8f4ccd21a5b7cccb9af68bff752a923d092012b659a01854694d7"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_19.mp3",
+            "bytes": 9984,
+            "sha256": "a94dd03b88c6ebb3ab72a9b6fa8a6fccaafdba7e11e5d6f2a9abce9b6bcd4c93"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_20.mp3",
+            "bytes": 10368,
+            "sha256": "3b8fb12d2c4d1566557af7d40abffccaf53dba8627472e15d856d9552dbafe57"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_21.mp3",
+            "bytes": 10560,
+            "sha256": "c5b9298dd5a18059d015f3e6609169ea84d10be900a137ab0c78216fb729372c"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_22.mp3",
+            "bytes": 10560,
+            "sha256": "254bff7d88ece6d54035e0398178f3db08d8bda6656529e565c20026749eae6b"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_23.mp3",
+            "bytes": 9600,
+            "sha256": "5af1410774ba334adebd66ed216055fa5afdcbf5105e4d29716126b9aabc2d4c"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_24.mp3",
+            "bytes": 9600,
+            "sha256": "340eb2910a54cd9ae681f1a32a57a7eb16c8ef58637631136910e374eac07ea2"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_25.mp3",
+            "bytes": 9984,
+            "sha256": "e87c6759875c5cdf995d7170d3d8e46f77938f07eb3d14c316a0dc0e101c358c"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_26.mp3",
+            "bytes": 10176,
+            "sha256": "f28a0142611fc26ccdac25f49c1e039e455be47fbcfe86bd5aa378fb1f0f3edd"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_27.mp3",
+            "bytes": 9984,
+            "sha256": "7118cc797eddf5a8723c27daef0379fd3e359c42acc05b2ec11e18fb9d2b9d03"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_28.mp3",
+            "bytes": 9792,
+            "sha256": "94dc7d873a0881406666d2aff9689d3da94f1e2982b3ea6520f1048c15377e62"
+          },
+          {
+            "path": "apps/web/public/audio/elifba/harf_29.mp3",
+            "bytes": 13440,
+            "sha256": "e81f6542f7b9a68fecf519440a2ce4a5efc76bcbb4697a793b3ed62bab4f9294"
+          },
+          {
+            "path": "apps/web/public/images/namaz/celse.jpg",
+            "bytes": 286669,
+            "sha256": "ef672fbe2bd4a8a761935827b5465968bb6c21f5f851de528f990fbf353a071f"
+          },
+          {
+            "path": "apps/web/public/images/namaz/kavme.jpg",
+            "bytes": 243219,
+            "sha256": "5cdb116d9ca66c98c8e17344d489ee2e7a63fe76910e73ba998f0abcc182d55b"
+          },
+          {
+            "path": "apps/web/public/images/namaz/kıyam.jpg",
+            "bytes": 243508,
+            "sha256": "f50fdc88b446a2ad85e950b0979aac373cd707abd756a602a008886c4a3a2029"
+          },
+          {
+            "path": "apps/web/public/images/namaz/ruku.jpg",
+            "bytes": 248190,
+            "sha256": "43bbe5377f195e8a0dd7755f2ac355a95b50f67a7e4e9d775aa88121b0c29bf1"
+          },
+          {
+            "path": "apps/web/public/images/namaz/secde.jpg",
+            "bytes": 299330,
+            "sha256": "e2e195326cd1b92299e2fc4fc2a7aff73d019cd4e65b89b890902fa682f12a6b"
+          },
+          {
+            "path": "apps/web/public/images/namaz/selam.jpg",
+            "bytes": 262253,
+            "sha256": "b8c69fff104fcfbe1ff902077bbf00ea14431b50a65a5894bb932f6c5ac4b5b9"
+          },
+          {
+            "path": "apps/web/public/images/namaz/tekbir.jpg",
+            "bytes": 232630,
+            "sha256": "85ece7d59776aaa1697eb0d20d670f70c541cfbeff010c2e4f82a5426301bc60"
+          },
+          {
+            "path": "apps/web/public/images/namaz/tesehhüd.jpg",
+            "bytes": 252250,
+            "sha256": "5794105e471d31da3daea5be520ed21eb88fe140cc39645f4bbbe6db5f508962"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ai-prayer-dhikr-guides-explanations",
+      "sourceUrls": [
+        "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi"
+      ],
+      "classification": "project-authored-and-ai-assisted-output",
+      "sourceContribution": "Historical prayer/dhikr texts, Elmalılı tafsir and religious references.",
+      "projectContribution": "Turkish meanings, worship guides and simplified explanatory presentation.",
+      "toolModel": "AI translation/writing tools; DeepSeek v4 Flash for simplified tafsir; other exact runs not preserved",
+      "method": "Project-authored guides plus AI-assisted translation and simplification.",
+      "generatedAt": null,
+      "humanReview": "Project review declared; exact coverage varies by content group.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 9,
+        "totalBytes": 1799571,
+        "sha256": "a0e7f361f4740267d90feef437879dd9b9c4cdddb512f1bf1b2304ea1a417478",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/dualar.json",
+            "bytes": 111578,
+            "sha256": "588430af9dc4cdb929f507d0d7a2b7b854e92e93ed9430152af79c4088c66b78"
+          },
+          {
+            "path": "apps/mobile/src/data/ismi_azam_dualari.ts",
+            "bytes": 8221,
+            "sha256": "93eef46a900aafbc06e8e25e1ef44c6104ece5baeba561d0f51bc0e503bb6ef0"
+          },
+          {
+            "path": "apps/mobile/src/data/namaz_rehberi.json",
+            "bytes": 37763,
+            "sha256": "13d49c5dc204c51c3c9dca750370ca13ce5988dc0b75f8d673d25c057bc97ab3"
+          },
+          {
+            "path": "apps/mobile/src/data/ozel_namazlar.json",
+            "bytes": 41040,
+            "sha256": "dbb93e38213d2fe63553e257beaa607d66751c3bf58d22c680f46ce2c675b2d0"
+          },
+          {
+            "path": "apps/web/src/data/dualar.json",
+            "bytes": 111578,
+            "sha256": "588430af9dc4cdb929f507d0d7a2b7b854e92e93ed9430152af79c4088c66b78"
+          },
+          {
+            "path": "apps/web/src/data/namaz_rehberi.json",
+            "bytes": 37763,
+            "sha256": "13d49c5dc204c51c3c9dca750370ca13ce5988dc0b75f8d673d25c057bc97ab3"
+          },
+          {
+            "path": "apps/web/src/data/ozel_namazlar.json",
+            "bytes": 41040,
+            "sha256": "dbb93e38213d2fe63553e257beaa607d66751c3bf58d22c680f46ce2c675b2d0"
+          },
+          {
+            "path": "content/tafsir/simplified-surah.json",
+            "bytes": 1394909,
+            "sha256": "85825305324ea6cf8bfb55211a0734e86041b15914820233e6af70495ca67521"
+          },
+          {
+            "path": "scripts/generate-simplified-tafsir-deepseek.mjs",
+            "bytes": 15679,
+            "sha256": "a01d26bd4366a8d3228581308a8c58d2a129e915fbd9e79014ee7489f7d0d7af"
+          }
+        ]
+      }
+    },
+    {
+      "id": "removed-runtime-translations-v1",
+      "sourceUrls": [
+        "https://github.com/kurancilar/json"
+      ],
+      "classification": "retired-runtime-translation-sources",
+      "sourceContribution": "Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk and Diyanet Vakfı Turkish translations, previously carried as comparison meals.",
+      "projectContribution": "Normalization and packaging only; no derived text remains in the runtime after the Elmalılı-only migration.",
+      "toolModel": "scripts/migrate-elmalili-only.mjs (guarded forward/reverse migration)",
+      "method": "Production runtime reduced to Elmalılı Hamdi Yazır: 24944 translation rows removed from translations, aktif_mealler pruned to yazir, verses.primary_translation and ayet_fts.meal repointed to Elmalılı, and fidelity comparison rows dropped. Provenance is retained here rather than deleted.",
+      "generatedAt": null,
+      "humanReview": "Counts verified before and after the migration; off-target columns checksum-compared and unchanged.",
+      "exactResearchUrlHistoryPreserved": true,
+      "runtimeStatus": "removed_from_runtime",
+      "sources": [
+        "bulac",
+        "diyanet",
+        "ozturk",
+        "vakfi"
+      ],
+      "artifacts": {
+        "fileCount": 4,
+        "totalBytes": 6041916,
+        "sha256": "a2320ac474b0d7b1c401d265285406a965da48c5faf287b7e058847cfd5c1e2e",
+        "files": [
+          {
+            "path": "data/quran/external/Kuran/Kuran-Rehberi-main/data/translations/tr.bulac.json",
+            "bytes": 1512675,
+            "sha256": "4fb90506aed1e91c35535a1a6b74d7956f96696b85b066be5819de46687133a1"
+          },
+          {
+            "path": "data/quran/external/Kuran/Kuran-Rehberi-main/data/translations/tr.diyanet.json",
+            "bytes": 1564554,
+            "sha256": "c6468b9a49622118cd07861ab6c64eff712164611a31aa036532e68d0d88aff4"
+          },
+          {
+            "path": "data/quran/external/Kuran/Kuran-Rehberi-main/data/translations/tr.ozturk.json",
+            "bytes": 1480902,
+            "sha256": "761bba0a1ad278b5f33e9716669e8e9bb6b1a18dccfdbaa9ada17ac8cf9a5b31"
+          },
+          {
+            "path": "data/quran/external/Kuran/Kuran-Rehberi-main/data/translations/tr.vakfi.json",
+            "bytes": 1483785,
+            "sha256": "c2d5dea39d8a83203fe59a27b9767735d0edea017115f16500cc0796879547d1"
+          }
+        ]
+      }
+    }
+  ]
+}
