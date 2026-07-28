@@ -871,7 +871,7 @@ export default function AyahDetailScreen() {
                       {/* Arapça kelime */}
                       <View style={styles.wordTopRow}>
                         <Text style={[styles.wordIndex, { color: colors.textMuted }]}>
-                          #{w.wordIndex + 1}
+                          #{w.wordIndex}
                         </Text>
                         <Text style={[styles.wordArabicChip, { color: colors.textPrimary }]}>
                           {w.arabic ?? "—"}
