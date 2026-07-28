@@ -2,31 +2,85 @@
  * mushafCompat.test.ts — /api/mushaf v5 geriye-uyumluluk katmanı testleri.
  * Çalıştır: npm test  (Node yerleşik test runner + native TS)
  *
- * Post-migration DB durumu, üretilen gerçek verilerle (verses.json +
- * basmala-ranges.json + tajweed-spans.json) birebir simüle edilir; migration
- * DB'ye tam olarak bu içeriği yazar. Testler iki istemci neslinin de basmalayı
+ * Post-migration DB durumu, canonical `data/app.db` üzerinden birebir simüle
+ * edilir: route'un okuduğu verses + quran_verse_metadata + tajweed_spans
+ * tabloları salt-okunur okunur. Testler iki istemci neslinin de basmalayı
  * TAM BİR KEZ gördüğünü, span'ların grapheme sınırlarına saygılı kaldığını ve
  * eski istemcinin yeni yanıtı parse ederken kırılmadığını kanıtlar.
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import fs from "node:fs";
 import path from "node:path";
+import { DatabaseSync } from "node:sqlite";
 import { fileURLToPath } from "node:url";
 import { buildMushafVerse, type MushafVersePayload, type BasmalaRange, type QuranTajweedSpan } from "./mushafCompat.ts";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../..");
-const readJson = (p: string) => JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8"));
 
-const verses: { verseKey: string; surahId: number; ayahNumber: number; arabicText: string }[] =
-  readJson("data/generated/quran/verses.json");
-const basmalaRanges: { ranges: (BasmalaRange & { verseKey: string })[] } =
-  readJson("data/generated/quran/basmala-ranges.json");
-const tajweedSpans: { verses: { verseKey: string; spans: QuranTajweedSpan[] }[] } =
-  readJson("data/generated/quran/tajweed-spans.json");
+// Kanonik kaynak = /api/mushaf route'unun okuduğu üç tablonun ta kendisi
+// (verses + quran_verse_metadata + tajweed_spans). Bu testin eski girdileri
+// (data/generated/quran/*.json) hiçbir zaman bu dalın geçmişine girmemiş bir
+// üretim hattının ara dosyalarıydı; runtime'ın tek doğruluk kaynağı DB olduğu
+// için sözleşme doğrudan onun üzerinden doğrulanır. Bağlantı salt-okunur açılır
+// ve satırlar sorgu sırasına göre deterministik okunur.
+const db = new DatabaseSync(path.join(ROOT, "data", "app.db"), { readOnly: true });
 
-const rangeByKey = new Map(basmalaRanges.ranges.map((r) => [r.verseKey, r]));
-const spansByKey = new Map(tajweedSpans.verses.map((v) => [v.verseKey, v.spans]));
+interface VerseRow { verse_key: string; surah_id: number; ayah_number: number; arabic_text: string }
+interface MetadataRow {
+  verse_key: string;
+  basmala_kind: "ayah" | "prefix";
+  basmala_start_cp: number;
+  basmala_end_cp: number;
+  body_start_cp: number;
+}
+interface SpanRow { verse_key: string; start_cp: number; end_cp: number; rule: string; color: string }
+
+const verses: { verseKey: string; surahId: number; ayahNumber: number; arabicText: string }[] = (
+  db.prepare(
+    `SELECT verse_key, surah_id, ayah_number, arabic_text
+     FROM verses
+     ORDER BY surah_id, ayah_number`,
+  ).all() as unknown as VerseRow[]
+).map((v) => ({
+  verseKey: v.verse_key,
+  surahId: v.surah_id,
+  ayahNumber: v.ayah_number,
+  arabicText: v.arabic_text,
+}));
+
+const rangeByKey = new Map(
+  (
+    db.prepare(
+      `SELECT m.verse_key, m.basmala_kind, m.basmala_start_cp, m.basmala_end_cp, m.body_start_cp
+       FROM quran_verse_metadata m
+       JOIN verses v ON v.verse_key = m.verse_key
+       ORDER BY v.surah_id, v.ayah_number`,
+    ).all() as unknown as MetadataRow[]
+  ).map((m): [string, BasmalaRange & { verseKey: string }] => [
+    m.verse_key,
+    {
+      verseKey: m.verse_key,
+      kind: m.basmala_kind,
+      startCp: m.basmala_start_cp,
+      endCp: m.basmala_end_cp,
+      bodyStartCp: m.body_start_cp,
+    },
+  ]),
+);
+
+const spansByKey = new Map<string, QuranTajweedSpan[]>();
+for (const s of db.prepare(
+  `SELECT t.verse_key, t.start_cp, t.end_cp, t.rule, t.color
+   FROM tajweed_spans t
+   JOIN verses v ON v.verse_key = t.verse_key
+   ORDER BY v.surah_id, v.ayah_number, t.start_cp`,
+).all() as unknown as SpanRow[]) {
+  const list = spansByKey.get(s.verse_key) ?? [];
+  list.push({ startCp: s.start_cp, endCp: s.end_cp, rule: s.rule, color: s.color });
+  spansByKey.set(s.verse_key, list);
+}
+
+db.close();
 
 /** Post-migration DB satırından v5 payload üret. */
 function payloadFor(verseKey: string): MushafVersePayload {
@@ -43,7 +97,7 @@ function payloadFor(verseKey: string): MushafVersePayload {
   });
 }
 
-const PREFIX_KEYS = basmalaRanges.ranges.filter((r) => r.kind === "prefix").map((r) => r.verseKey);
+const PREFIX_KEYS = [...rangeByKey.values()].filter((r) => r.kind === "prefix").map((r) => r.verseKey);
 
 // Yayındaki AAB'nin (54ca74a) sabit besmele satırı ve blok koşulu — birebir kopya.
 const OLD_CLIENT_BESMELE = "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ";

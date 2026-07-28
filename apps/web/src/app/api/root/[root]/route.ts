@@ -5,9 +5,9 @@ import type { RootDetail } from "../../../../types/rootDetail";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ root: string }> }
+  { params }: { params: { root: string } }
 ): Promise<NextResponse<RootDetail | { error: string }>> {
-  const { root: encodedRoot } = await params;
+  const { root: encodedRoot } = params;
 
   try {
     const root = decodeURIComponent(encodedRoot);
