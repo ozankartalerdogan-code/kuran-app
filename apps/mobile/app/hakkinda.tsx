@@ -12,6 +12,17 @@ const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 const TANZIL_URL = "https://tanzil.net/";
 const QAC_URL = "https://corpus.quran.com/";
 
+// Atıf zorunluluğu olan kaynaklar. URL'ler packages/core/src/presentation/
+// sourceLicenses.ts ile birebir aynı tutulmalı (ileride oraya bağlanacak).
+const ATTRIBUTION_LINKS: readonly { title: string; license?: string; url: string }[] = [
+  { title: "CAMeL Morph", license: "CC BY 4.0", url: "https://github.com/CAMeL-Lab/camel_morph" },
+  { title: "CAMeL Tools", license: "MIT", url: "https://github.com/CAMeL-Lab/camel_tools" },
+  { title: "mustafa0x Quran Morphology", url: "https://github.com/mustafa0x/quran-morphology" },
+  { title: "Semar Ketir dijital Kur'an verisi", license: "MIT", url: "https://github.com/kurancilar/json" },
+  { title: "AlQuran.cloud Tecvid Rehberi", url: "https://alquran.cloud/tajweed-guide" },
+  { title: "AlQuran.cloud Kullanım Şartları", url: "https://alquran.cloud/terms-and-conditions" },
+] as const;
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const c = useColors();
 
@@ -27,8 +38,40 @@ function Paragraph({ children, c }: { children: React.ReactNode; c: AppColors })
   return <Text style={[s.paragraph, { color: c.textSecondary }]}>{children}</Text>;
 }
 
+// Atıf satırı — kaynak adı, lisansı ve tıklanabilir bağlantısı.
+function AttributionRow({
+  title,
+  license,
+  url,
+  c,
+  onOpenUrl,
+}: {
+  title: string;
+  license?: string;
+  url: string;
+  c: AppColors;
+  onOpenUrl: (url: string) => void;
+}) {
+  return (
+    <TouchableOpacity
+      style={s.attributionRow}
+      onPress={() => onOpenUrl(url)}
+      activeOpacity={0.6}
+      accessibilityRole="link"
+      accessibilityLabel={license ? `${title}, ${license} lisansı` : title}
+      accessibilityHint="Web sitesini açar"
+    >
+      <Text style={[s.attributionTitle, { color: c.text }]}>
+        {title}
+        {license ? <Text style={[s.attributionLicense, { color: c.textMuted }]}>{`  ${license}`}</Text> : null}
+      </Text>
+      <Text style={[s.attributionUrl, { color: c.textMuted }]}>{url}</Text>
+    </TouchableOpacity>
+  );
+}
+
 // İnce, kartsız akordiyon — yalnız üst/alt ince çizgi, arka plan/kenarlık yok.
-function SourcesAccordion({ c }: { c: AppColors }) {
+function SourcesAccordion({ c, onOpenUrl }: { c: AppColors; onOpenUrl: (url: string) => void }) {
   const [open, setOpen] = useState(false);
 
   const toggle = () => {
@@ -74,14 +117,35 @@ function SourcesAccordion({ c }: { c: AppColors }) {
             bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
           </Paragraph>
           <Paragraph c={c}>
-            Kelime kökleri ve morfolojik çözümlemelerde Quranic Arabic Corpus verilerinden yararlanılmıştır. Türkçe
-            anlamlandırma, kök düzeltmeleri, veri temizliği ve kullanıcı dostu morfoloji gösterimi Kuran Yolu analiz altyapısı ile
-            ayrıca hazırlanmıştır.
+            Elmalılı meal metninin dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır.
+          </Paragraph>
+          <Paragraph c={c}>
+            Kelime kökleri ve morfolojik çözümlemelerde Quranic Arabic Corpus, mustafa0x Quran Morphology ve CAMeL
+            kaynaklarından (CAMeL Tools, CAMeL Morph) yararlanılmıştır. Türkçe anlamlandırma, kök düzeltmeleri, canonical
+            token hizalama, veri temizliği ve kullanıcı dostu morfoloji gösterimi Kuran Yolu analiz altyapısı ile ayrıca
+            hazırlanmıştır; nihai veri kaynak dosyaların birebir kopyası değildir.
+          </Paragraph>
+          <Paragraph c={c}>
+            <Text style={s.bold}>Tecvid:</Text> Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak
+            canonical Tanzil metnine yeniden hizalanmıştır. Renk eşlemesi, span sistemi ve güvenlik kontrolleri Kuran Yolu
+            tarafından hazırlanmıştır; belirsiz kalan yerler renklendirilmeden bırakılır.
           </Paragraph>
           <Paragraph c={c}>
             Hadis içeriklerinde klasik hadis kaynaklarından yararlanılmıştır. Açıklama ve sunum metinleri Kuran Yolu için
             sadeleştirilmiş bilgilendirme diliyle hazırlanmıştır.
           </Paragraph>
+
+          <Text style={[s.attributionHeading, { color: c.textSecondary }]}>Kaynak lisansları ve bağlantıları</Text>
+          {ATTRIBUTION_LINKS.map((link) => (
+            <AttributionRow
+              key={link.url}
+              title={link.title}
+              license={link.license}
+              url={link.url}
+              c={c}
+              onOpenUrl={onOpenUrl}
+            />
+          ))}
         </View>
       )}
     </View>
@@ -154,7 +218,7 @@ export default function HakkindaScreen() {
           </TouchableOpacity>
         </Section>
 
-        <SourcesAccordion c={c} />
+        <SourcesAccordion c={c} onOpenUrl={(url) => void openExternalUrl(url)} />
 
         <Section title="Uygulama Hakkında">
           <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
@@ -215,6 +279,11 @@ const s = StyleSheet.create({
   accordionChevron: { fontSize: 12, marginLeft: 8 },
   accordionBody: { paddingTop: 2, paddingBottom: 4 },
   bold: { fontWeight: "700" },
+  attributionHeading: { fontSize: 13, fontWeight: "700", marginTop: 4, marginBottom: 8, paddingHorizontal: 2 },
+  attributionRow: { paddingVertical: 8, paddingHorizontal: 2 },
+  attributionTitle: { fontSize: 13, fontWeight: "600" },
+  attributionLicense: { fontSize: 12, fontWeight: "400" },
+  attributionUrl: { fontSize: 12, lineHeight: 17, marginTop: 2 },
   sourceCard: { flexDirection: "row", alignItems: "center", borderRadius: 12, borderWidth: 1, padding: 12, gap: 10 },
   sourceIcon: { fontSize: 22 },
   sourceName: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
