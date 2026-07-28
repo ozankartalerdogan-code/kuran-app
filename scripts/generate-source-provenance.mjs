@@ -413,6 +413,10 @@ const manifest = {
     morphology: "usable Kuran Yolu transformed/verified output",
     tajweed: "usable Kuran Yolu aligned span output",
     retainedRuntimeRisks: ["morfoloji table", "verses.arabic_tajweed"],
+    retainedRuntimeRiskNotes: {
+      "verses.arabic_tajweed":
+        "Raw AlQuran.cloud tajweed markup is retained in the runtime database for now. A span-only runtime was implemented and verified, but the canonical tajweed_spans layer maps only 79,343 of 86,595 source rule clusters (91.6254%); by the alignment ambiguity policy the remaining 7,252 clusters stay uncolored. Switching would reduce visible colouring in 2,398 ayahs and remove it entirely in 13, which was not accepted as a product decision. The raw field therefore remains the rendering source for web and mobile, and also serves as the build input for span regeneration.",
+    },
   },
   licenseAndDisclosureArtifacts: artifactGroup([
     "NOTICE",
