@@ -1,5 +1,10 @@
 import sayfaData from "../data/mushaf_sayfalari.json";
 
+// Metin hazırlama yardımcıları JSON'suz bir modülde durur (bu dosya büyük bir
+// JSON import ettiği için testten doğrudan çekilemiyor); mevcut importlar
+// bozulmasın diye buradan re-export edilirler.
+export { arapRakam, mushafMetniHazirla } from "./mushafText";
+
 // Standart 604 sayfalık Medine mushafı düzeni — sayfa/cüz sınırları Tanzil
 // quran-data.xml (cc-by) kaynaklı; web API'deki /api/mushaf ucu aynı verinin
 // kopyasını kullanır (iki taraf ayrışmasın diye üretilmiş tek JSON'dan).
@@ -41,10 +46,4 @@ export function sayfaninCuzu(page: number): number {
 export function sayfaBasSuresi(page: number): number {
   const p = Math.min(SAYFA_SAYISI, Math.max(1, page));
   return sayfalar[p - 1][0];
-}
-
-// Batı rakamı → Arap-Hindi rakamı (ayet sonu işaretleri için): 12 → ١٢
-const ARAP_RAKAM = "٠١٢٣٤٥٦٧٨٩";
-export function arapRakam(n: number): string {
-  return String(n).split("").map((d) => ARAP_RAKAM[Number(d)] ?? d).join("");
 }

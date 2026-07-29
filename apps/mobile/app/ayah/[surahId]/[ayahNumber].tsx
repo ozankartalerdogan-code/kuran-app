@@ -31,7 +31,7 @@ import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
 import { isImageShareAvailable } from "../../../src/lib/shareImage";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../../../src/hooks/useFontScale";
-import { arapRakam, ayetinSayfasi } from "../../../src/lib/mushafSayfa";
+import { arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../../../src/lib/mushafSayfa";
 import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
 import { formatMorphologyTr, translatePosTr } from "../../../../../packages/core/src/presentation/morphologyLabels";
 
@@ -755,11 +755,12 @@ export default function AyahDetailScreen() {
           </View>
           {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾ */}
           <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
-            {/* Metin her zaman canonical; tecvid yalnız renk katar. */}
+            {/* Metin her zaman canonical; tecvid yalnız renk katar. KFGQPC uyum
+                haritası 1:1 ve uzunluk korur — span indeksleri kaymaz. */}
             {tajweed && data.tajweedSpans?.length ? (
-              <TajweedText text={data.arabicText ?? ""} spans={data.tajweedSpans} />
+              <TajweedText text={mushafMetniHazirla(data.arabicText ?? "")} spans={data.tajweedSpans} />
             ) : (
-              data.arabicText ?? "—"
+              data.arabicText ? mushafMetniHazirla(data.arabicText) : "—"
             )}
             <Text style={{ color: gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
           </Text>
@@ -1329,7 +1330,8 @@ const styles = StyleSheet.create({
   },
   wordIndex: { fontSize: 11, fontWeight: "700" },
   wordArabicChip: {
-    fontSize: 22, fontFamily: "Amiri",
+    // Canonical metinden kesilen kelimeler — mushafla aynı font.
+    fontSize: 22, fontFamily: "UthmanicHafs",
     textAlign: "right", writingDirection: "rtl",
   },
   // borderTopColor tema renginden inline verilir (karanlık modda görünür kalsın)

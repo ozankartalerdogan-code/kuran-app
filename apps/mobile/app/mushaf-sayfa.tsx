@@ -13,7 +13,7 @@ import { useColors } from "../src/hooks/useColors";
 import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
-import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi } from "../src/lib/mushafSayfa";
+import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../src/lib/mushafSayfa";
 import { tajweedPartsFromSpans, TAJWEED_LEGEND } from "../src/lib/tajweed";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
@@ -80,7 +80,10 @@ function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
 // memoize: seçim değişince sayfa yeniden render olur; 3 sayfa × tüm ayetler
 // için bölmeyi her dokunuşta tekrarlamamak şart.
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
-  const metin = ayet.arabic ?? "";
+  // KFGQPC uyum haritası: font U+06DF/06E3/06EB için gerçek glif taşımıyor,
+  // o yuvalarda "noktalı daire + siyah top" placeholder çizimi var. Eşleme
+  // 1:1 ve uzunluk korur — tajweedSpans'in kod noktası indeksleri kaymaz.
+  const metin = useMemo(() => mushafMetniHazirla(ayet.arabic ?? ""), [ayet.arabic]);
   const parcalar = useMemo(
     () => (tajweed && ayet.tajweedSpans?.length ? tajweedPartsFromSpans(metin, ayet.tajweedSpans) : null),
     [tajweed, metin, ayet.tajweedSpans],

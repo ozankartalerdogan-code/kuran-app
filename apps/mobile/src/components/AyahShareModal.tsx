@@ -129,7 +129,8 @@ const m = StyleSheet.create({
     letterSpacing: 1.2, textAlign: "center", marginBottom: 14,
   },
   cardArabic: {
-    fontFamily: "Amiri", color: "#1c1917",
+    // Canonical Hafs metni — mushafla aynı font (Amiri Hafs işaretlerini taşımıyor).
+    fontFamily: "UthmanicHafs", color: "#1c1917",
     textAlign: "right", writingDirection: "rtl", width: "100%",
   },
   cardDivider: {

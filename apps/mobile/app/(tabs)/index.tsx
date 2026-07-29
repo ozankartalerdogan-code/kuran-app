@@ -561,7 +561,11 @@ const styles = StyleSheet.create({
   prayerTimeActive:    { color: "#fff" },
 
   duaCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 16 },
-  duaArabic: { fontSize: 18, textAlign: "right", writingDirection: "rtl", lineHeight: 36, marginBottom: 8, fontFamily: "Amiri" },
+  // Günün Ayeti ve Günün Duası: ikisi de canonical Hafs metni. Amiri, Hafs
+  // imlasının işaretlerini (hançer elif U+0670, küçük vav/ye U+06E5/06E6)
+  // taşıyamadığı için harekeler harften kopup yukarıda ayrı bir şerit
+  // oluşturuyordu — mushafla aynı fonta alındı.
+  duaArabic: { fontSize: 18, textAlign: "right", writingDirection: "rtl", lineHeight: 36, marginBottom: 8, fontFamily: "UthmanicHafs" },
 
   themeBtn:     { width: 36, height: 36, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },

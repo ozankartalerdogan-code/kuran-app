@@ -35,10 +35,22 @@ export const TAJWEED_LEGEND: { renk: string; ad: string }[] = [
 //      değiştirilmeden dağıtılmasını şart koşar.
 //   2. Markup grupları harf ile harekesinin arasından bölünebiliyor; ayrı
 //      <Text>'e düşen işaret Android'de noktalı daire olarak çiziliyordu
-//      (kırmızı/yeşil benek). Span sınırları küme başında başlar.
+//      (kırmızı/yeşil benek). Span sınırları burada küme başına hizalanır —
+//      sunucu verisi bunu garanti ETMİYOR (ör. 2:54 `إِنَّهُۥ`: `هُ` düz metinde
+//      kalıp `ۥ` tek başına renkli span'a düşüyordu).
 //   3. Ayet başına ~68 segment yerine ~5 span → çok daha az Android span'ı.
 
 export type TajweedSpan = { startCp: number; endCp: number; rule: string; color: string };
+
+/**
+ * Taşıyıcı harfine bağlanan, tek başına çizilemeyen kod noktaları.
+ *
+ * `\p{Mn}` harekeleri, medd (U+0653), hançer elif (U+0670), sıfır (U+06DF) ve
+ * vakf işaretlerini kapsar; küçük vav/ye (U+06E5/U+06E6) Unicode'da `Lm`
+ * olduğu için `\p{Mn}`'e girmez ama davranışı aynıdır — asıl gördüğümüz vaka
+ * da odur, bu yüzden açıkça eklenir.
+ */
+const BIRLESEN = /[\p{Mn}ۥۦ]/u;
 
 /** Renklendirilecek parça. `color` null ise düz metin. */
 export type TajweedPart = { color: string | null; t: string };
@@ -69,11 +81,37 @@ export function tajweedPartsFromSpans(
     .sort((a, b) => a.startCp - b.startCp);
 
   let imlec = 0;
-  for (const s of sirali) {
-    const bas = Math.max(s.startCp, 0);
-    const son = Math.min(s.endCp, cps.length);
+  for (const [idx, s] of sirali.entries()) {
+    let bas = Math.max(s.startCp, 0);
+    let son = Math.min(s.endCp, cps.length);
     if (son <= bas) continue;        // boş/ters aralık
     if (bas < imlec) continue;       // çakışan span: ilki kazanır
+
+    // Küme sonunu da tamamla: harfin ardından gelen işaretler span dışında
+    // kalırsa bu kez düz parçanın başında sahipsiz kalırlar. Sonraki span'ın
+    // alanına taşma — taşarsak o span çakışma sayılıp rengini kaybederdi.
+    const sonrakiBas = sirali[idx + 1] ? Math.max(sirali[idx + 1].startCp, 0) : cps.length;
+    const tavan = Math.min(cps.length, sonrakiBas);
+    while (son < tavan && BIRLESEN.test(cps[son])) son += 1;
+
+    // Küme başına hizala. Span birleşen bir işaretle başlıyorsa o işaret
+    // taşıyıcısından ayrı bir <Text>'e düşer ve Android onu noktalı daireyle
+    // (U+25CC) çizer. Önce taşıyıcı harfi span'a almayı dene: tecvid açısından
+    // da doğrusu budur (med işareti taşıyıcısıyla birlikte renklenir).
+    while (bas > imlec && BIRLESEN.test(cps[bas])) bas -= 1;
+
+    if (BIRLESEN.test(cps[bas])) {
+      // Geriye alınamadı: hemen önünde başka bir span bitiyor. İşaretleri o
+      // parçanın rengiyle ekle — aynı <Text>'te taşıyıcısına kavuşurlar.
+      // Rengi kuralınkinden sapar, ama sahipsiz işaret çizmeye yeğdir.
+      let ileri = bas;
+      while (ileri < son && BIRLESEN.test(cps[ileri])) ileri += 1;
+      ekle(parts[parts.length - 1]?.color ?? null, cps.slice(bas, ileri).join(""));
+      bas = ileri;
+      imlec = ileri;
+      if (son <= bas) continue;      // span tümüyle işaretlerden ibaretti
+    }
+
     ekle(null, cps.slice(imlec, bas).join(""));
     ekle(s.color || RENK[s.rule] || null, cps.slice(bas, son).join(""));
     imlec = son;
