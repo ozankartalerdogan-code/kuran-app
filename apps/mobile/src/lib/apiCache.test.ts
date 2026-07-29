@@ -104,11 +104,11 @@ test("mushaf sayfası sürümlü anahtardan okur, aynı anahtara yazar ve tekrar
   }
 });
 
-test("mobil, cihaz cache'inde bulunmayan schemaVersion 5 alanlarına bağımlı değil", () => {
+test("henüz kullanılmayan schemaVersion 5 alanları sürüm artışı olmadan eklenemez", () => {
   // Eski cihaz cache'i schemaVersion 5 öncesi yanıtları tutuyor olabilir.
-  // Mobil bu yeni alanlardan birini okumaya başlarsa, cache sürümü de
-  // artırılmadıkça eski kayıtlarda undefined görür ve mushaf bozulur.
-  const additiveOnlyFields = [
+  // Bu alanlardan biri kullanılmaya başlanırsa cache sürümü de artırılmalı,
+  // yoksa eski kayıtlarda undefined görülür ve mushaf bozulur.
+  const henuzKullanilmayan = [
     "canonicalArabic",
     "canonicalTajweedSpans",
     "basmalaRange",
@@ -116,11 +116,30 @@ test("mobil, cihaz cache'inde bulunmayan schemaVersion 5 alanlarına bağımlı 
   ];
   const source = readFileSync(API_SOURCE_PATH, "utf8");
 
-  for (const field of additiveOnlyFields) {
+  for (const field of henuzKullanilmayan) {
     assert.ok(
       !source.includes(field),
       `api.ts "${field}" alanını kullanıyor: bu alan eski cihaz cache'inde yok, ` +
         "kullanılacaksa mushaf cache sürümü de artırılmalı",
     );
   }
+});
+
+test("tajweedSpans kullanılıyorsa mushaf cache sürümü en az 4 olmalı", () => {
+  // Render canonical `arabic` + `tajweedSpans` ile çalışıyor. tajweedSpans
+  // schemaVersion 5 ile geldi ve v3 döneminde cache'lenmiş kayıtlarda YOK;
+  // o kayıtlar okunursa tecvid sessizce kaybolur. Sürüm artışı bu yüzden
+  // bu bağımlılığın ayrılmaz parçası.
+  const source = readFileSync(API_SOURCE_PATH, "utf8");
+  if (!source.includes("tajweedSpans")) return; // kullanılmıyorsa kısıt da yok
+
+  const { requestVersion, cacheKeyVersion } = readMushafVersions(source);
+  assert.ok(
+    Number(requestVersion) >= 4,
+    `tajweedSpans kullanılıyor ama istek sürümü v${requestVersion}: en az v4 olmalı`,
+  );
+  assert.ok(
+    Number(cacheKeyVersion) >= 4,
+    `tajweedSpans kullanılıyor ama cache anahtarı v${cacheKeyVersion}: en az v4 olmalı`,
+  );
 });

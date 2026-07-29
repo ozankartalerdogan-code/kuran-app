@@ -14,7 +14,7 @@ import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi } from "../src/lib/mushafSayfa";
-import { RENK, parseTajweed, TAJWEED_LEGEND } from "../src/lib/tajweed";
+import { tajweedPartsFromSpans, TAJWEED_LEGEND } from "../src/lib/tajweed";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -70,26 +70,33 @@ function ayniAyet(a: SeciliAyet, s: number, n: number): boolean {
   return a !== null && a.surahId === s && a.ayahNumber === n;
 }
 
-// Tecvid açıkken ayet metni renkli segmentlerle dizilir (markup yoksa düz metin).
-// parseTajweed memoize: seçim değişince sayfa yeniden render olur; karakter
-// bazlı ayrıştırmayı her dokunuşta 3 sayfa × tüm ayetler için tekrarlamamak şart.
+// Tecvid açıkken ayet metni renkli parçalarla dizilir.
+//
+// Metin HER ZAMAN canonical `arabic` (Tanzil) — tecvid yalnız renk katar.
+// Eskiden AlQuran markup metni basılıyordu; o metin canonical'dan farklı
+// (6236 ayetin 4280'inde) ve grup sınırları harf/hareke arasından geçtiği için
+// ekranda renkli benekler oluşuyordu. Span'lar canonical koordinatlarda gelir.
+//
+// memoize: seçim değişince sayfa yeniden render olur; 3 sayfa × tüm ayetler
+// için bölmeyi her dokunuşta tekrarlamamak şart.
 function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][number]; tajweed: boolean }) {
-  const segs = useMemo(
-    () => (tajweed && ayet.tajweed ? parseTajweed(ayet.tajweed) : null),
-    [tajweed, ayet.tajweed],
+  const metin = ayet.arabic ?? "";
+  const parcalar = useMemo(
+    () => (tajweed && ayet.tajweedSpans?.length ? tajweedPartsFromSpans(metin, ayet.tajweedSpans) : null),
+    [tajweed, metin, ayet.tajweedSpans],
   );
-  if (segs) {
+  if (parcalar) {
     return (
       <>
-        {segs.map((s, i) =>
-          s.code && RENK[s.code]
-            ? <Text key={i} style={{ color: RENK[s.code] }}>{s.t}</Text>
-            : <Text key={i}>{s.t}</Text>,
+        {parcalar.map((p, i) =>
+          p.color
+            ? <Text key={i} style={{ color: p.color }}>{p.t}</Text>
+            : p.t,
         )}
       </>
     );
   }
-  return <>{ayet.arabic ?? ""}</>;
+  return <>{metin}</>;
 }
 
 const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, secili, onAyetSec }: {

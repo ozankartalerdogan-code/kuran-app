@@ -245,7 +245,16 @@ export type VerseListResponse = {
 export type MushafPageResponse = {
   page: number;
   juz: number;
-  verses: { surahId: number; ayahNumber: number; arabic: string | null; tajweed: string | null }[];
+  verses: {
+    surahId: number;
+    ayahNumber: number;
+    /** Canonical Tanzil metni — ekranda basılan budur. */
+    arabic: string | null;
+    /** ESKİ yol: AlQuran markup'ı. Artık render'da KULLANILMIYOR (bkz. tajweedSpans). */
+    tajweed: string | null;
+    /** Tecvid renkleri, `arabic` üzerinde KOD NOKTASI koordinatlarıyla. */
+    tajweedSpans?: { startCp: number; endCp: number; rule: string; color: string }[];
+  }[];
   surahs: { id: number; name: string; arabicName: string }[];
 };
 
@@ -408,14 +417,16 @@ export const api = {
   },
 
   mushaf: {
-    // v=3: bozuk v2 döneminde cihazda cache'lenen tecvidsiz sayfaları atlatır.
+    // v=4: render artık canonical `arabic` + `tajweedSpans` kullanıyor (markup
+    // metni değil). tajweedSpans eski cihaz cache'inde YOK; sürüm artırılmazsa
+    // eski kayıtlar renksiz ve yanlış metinle sunulurdu.
     // Parametre CDN cache'ini, anahtar da yerel MMKV cache'ini yeniler.
     page: (page: number) =>
       withCacheFallback(
-        `cache_mushaf_v3_p${page}`,
+        `cache_mushaf_v4_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=3`, undefined, signal),
+          request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
         ),
       ),
   },

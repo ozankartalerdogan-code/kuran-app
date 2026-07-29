@@ -26,6 +26,63 @@ export const TAJWEED_LEGEND: { renk: string; ad: string }[] = [
   { renk: "#9ca3af", ad: "Sessiz harf" },
 ];
 
+// ── Span tabanlı tecvid (tercih edilen yol) ──────────────────────────────────
+// Sunucu canonical Tanzil metnini (`arabic`) ve renkleri KOD NOKTASI
+// koordinatlarıyla (`tajweedSpans`) ayrı ayrı gönderir. Markup metnini basmak
+// yerine bunu kullanmak üç sorunu birden çözer:
+//   1. Markup metni canonical metinden farklı (6236 ayetin 4280'inde; örn. 2:2
+//      canonical U+0670 hançer elif, markup U+0672 tam harf) — tecvid açıkken
+//      farklı bir Kur'an metni gösteriliyordu. Tanzil lisansı metnin
+//      değiştirilmeden dağıtılmasını şart koşar.
+//   2. Markup grupları harf ile harekesinin arasından bölünebiliyor; ayrı
+//      <Text>'e düşen işaret Android'de noktalı daire olarak çiziliyordu
+//      (kırmızı/yeşil benek). Span sınırları küme başında başlar.
+//   3. Ayet başına ~68 segment yerine ~5 span → çok daha az Android span'ı.
+
+export type TajweedSpan = { startCp: number; endCp: number; rule: string; color: string };
+
+/** Renklendirilecek parça. `color` null ise düz metin. */
+export type TajweedPart = { color: string | null; t: string };
+
+/**
+ * Canonical metni span'lara göre renkli parçalara böler.
+ *
+ * `startCp`/`endCp` KOD NOKTASI indeksleridir (UTF-16 değil) — Arapça'da
+ * yüzeysel `slice` yanlış keser, bu yüzden `Array.from` ile çalışılır.
+ * Bozuk/çakışan span'lar sessizce atlanır: renksiz göstermek, metni yanlış
+ * kesmeye yeğdir.
+ */
+export function tajweedPartsFromSpans(
+  text: string,
+  spans: readonly TajweedSpan[],
+): TajweedPart[] {
+  const cps = Array.from(text);
+  const parts: TajweedPart[] = [];
+  const ekle = (color: string | null, t: string) => {
+    if (!t) return;
+    const last = parts[parts.length - 1];
+    if (last && last.color === color) last.t += t;
+    else parts.push({ color, t });
+  };
+
+  const sirali = [...spans]
+    .filter((s) => Number.isInteger(s.startCp) && Number.isInteger(s.endCp))
+    .sort((a, b) => a.startCp - b.startCp);
+
+  let imlec = 0;
+  for (const s of sirali) {
+    const bas = Math.max(s.startCp, 0);
+    const son = Math.min(s.endCp, cps.length);
+    if (son <= bas) continue;        // boş/ters aralık
+    if (bas < imlec) continue;       // çakışan span: ilki kazanır
+    ekle(null, cps.slice(imlec, bas).join(""));
+    ekle(s.color || RENK[s.rule] || null, cps.slice(bas, son).join(""));
+    imlec = son;
+  }
+  ekle(null, cps.slice(imlec).join(""));
+  return parts;
+}
+
 const OPEN = /^\[([a-z]+)(?::\d+)?\[/;
 
 // Stack-tabanlı parser — iç içe (nested) + kodsuz [..] destekli; en içteki kural
