@@ -6,7 +6,6 @@
  * TAJWEED_LEGEND'i geriye re-export eder (mevcut importları bozmadan).
  */
 
-export type TajweedSegment = { code: string | null; t: string };
 
 // AlQuran.cloud tecvid kodu → renk. 4 grup: med (kırmızı), ğunne/ihfâ/idgâm (yeşil),
 // kalkale (mavi), sessiz/idgâm-bilâ-ğunne (gri). Kurallar otorite kaynaktan; biz renkleriz.
@@ -83,29 +82,8 @@ export function tajweedPartsFromSpans(
   return parts;
 }
 
-const OPEN = /^\[([a-z]+)(?::\d+)?\[/;
-
-// Stack-tabanlı parser — iç içe (nested) + kodsuz [..] destekli; en içteki kural
-// geçerli. Bozuk/kapanmamış markup'ta çökmeden en iyi çabayı gösterir.
-export function parseTajweed(text: string): TajweedSegment[] {
-  const raw: TajweedSegment[] = [];
-  const stack: (string | null)[] = [];
-  let i = 0;
-  while (i < text.length) {
-    const om = OPEN.exec(text.slice(i));
-    if (om) { stack.push(om[1]); i += om[0].length; continue; }
-    if (text[i] === "[") { stack.push(null); i++; continue; }            // kodsuz grup (şeffaf)
-    if (text[i] === "]") { if (stack.length) stack.pop(); i++; continue; }
-    let code: string | null = null;
-    for (let k = stack.length - 1; k >= 0; k--) if (stack[k] !== null) { code = stack[k]; break; }
-    raw.push({ code, t: text[i] });
-    i++;
-  }
-  const segs: TajweedSegment[] = [];
-  for (const ch of raw) {
-    const last = segs[segs.length - 1];
-    if (last && last.code === ch.code) last.t += ch.t;
-    else segs.push({ code: ch.code, t: ch.t });
-  }
-  return segs;
-}
+// NOT: AlQuran markup parser'ı (parseTajweed) kaldırıldı. Markup metni canonical
+// Tanzil metninden farklıydı ve grup sınırları harf/hareke arasından geçtiği için
+// ekranda sahipsiz işaret üretiyordu. Render artık yalnız canonical metin +
+// tajweedSpans ile çalışır; `arabicTajweed` alanı API'de geriye-uyumluluk için
+// duruyor ama hiçbir ekranda basılmıyor.

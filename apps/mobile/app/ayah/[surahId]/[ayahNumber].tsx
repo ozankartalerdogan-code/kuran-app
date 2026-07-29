@@ -703,7 +703,7 @@ export default function AyahDetailScreen() {
           </View>
 
           <View style={styles.tajRow}>
-            {data.arabicTajweed ? (
+            {data.tajweedSpans?.length ? (
               <TouchableOpacity
                 style={[
                   styles.tajToggle,
@@ -755,8 +755,9 @@ export default function AyahDetailScreen() {
           </View>
           {/* Ayet metni + mushaf tarzı altın ﴿ayet numarası﴾ */}
           <Text selectable style={[styles.arabicText, scaledText.arabic, { color: colors.textPrimary }]}>
-            {data.arabicTajweed && tajweed ? (
-              <TajweedText markup={data.arabicTajweed} />
+            {/* Metin her zaman canonical; tecvid yalnız renk katar. */}
+            {tajweed && data.tajweedSpans?.length ? (
+              <TajweedText text={data.arabicText ?? ""} spans={data.tajweedSpans} />
             ) : (
               data.arabicText ?? "—"
             )}
@@ -772,7 +773,7 @@ export default function AyahDetailScreen() {
           ) : null}
 
           {/* Tecvid lejantı — mushaftaki gibi, renklendirme açıkken */}
-          {tajweed && data.arabicTajweed ? (
+          {tajweed && data.tajweedSpans?.length ? (
             <View style={styles.legend}>
               {TAJWEED_LEGEND.map((l) => (
                 <View key={l.ad} style={styles.legendItem}>

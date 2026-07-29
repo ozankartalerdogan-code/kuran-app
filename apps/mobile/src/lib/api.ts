@@ -286,8 +286,12 @@ export type AyahDetailResponse = {
   surahName: string;
   arabicName: string;
   verseCount: number;
+  /** Canonical Tanzil metni — ekranda basılan budur. */
   arabicText: string | null;
+  /** ESKİ yol: AlQuran markup'ı. Artık render'da KULLANILMIYOR (bkz. tajweedSpans). */
   arabicTajweed: string | null;
+  /** Tecvid renkleri, `arabicText` üzerinde KOD NOKTASI koordinatlarıyla. */
+  tajweedSpans?: { startCp: number; endCp: number; rule: string; color: string }[];
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;
@@ -432,9 +436,12 @@ export const api = {
   },
 
   ayah: {
+    // v2: render artık canonical `arabicText` + `tajweedSpans` kullanıyor.
+    // tajweedSpans sürümsüz dönemde cache'lenmiş kayıtlarda YOK; anahtar
+    // sürümlenmezse o kayıtlar tecvidsiz sunulurdu.
     get: (surahId: number, ayahNumber: number) =>
       withCacheFallback(
-        `cache_ayah_${surahId}_${ayahNumber}`,
+        `cache_ayah_v2_${surahId}_${ayahNumber}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
           request<AyahDetailResponse>(

@@ -1,18 +1,34 @@
 import React from "react";
 import { Text, StyleProp, TextStyle } from "react-native";
-import { RENK, parseTajweed } from "../lib/tajweed";
+import { tajweedPartsFromSpans, type TajweedSpan } from "../lib/tajweed";
 
-// Tecvid ayrıştırma + renk/lejant SAF modülde (lib/tajweed.ts) — test edilir.
+// Tecvid bölme/renk mantığı SAF modülde (lib/tajweed.ts) — test edilir.
+//
+// Metin HER ZAMAN canonical Tanzil metnidir; tecvid yalnız renk katar.
+// Eskiden AlQuran markup metni basılıyordu: o metin canonical'dan farklı
+// (6236 ayetin 4280'inde) ve grup sınırları harf ile harekesinin arasından
+// geçtiği için ayrı <Text>'e düşen işaret Android'de noktalı daire olarak
+// çiziliyordu (ekranda renkli benek). Span'lar canonical koordinatlarda gelir.
 
-export function TajweedText({ markup, style }: { markup: string; style?: StyleProp<TextStyle> }) {
-  const segs = parseTajweed(markup);
+export function TajweedText({
+  text,
+  spans,
+  style,
+}: {
+  text: string;
+  spans?: readonly TajweedSpan[];
+  style?: StyleProp<TextStyle>;
+}) {
+  const parcalar = spans?.length ? tajweedPartsFromSpans(text, spans) : null;
   return (
     <Text style={style} selectable>
-      {segs.map((s, i) =>
-        s.code && RENK[s.code]
-          ? <Text key={i} style={{ color: RENK[s.code] }}>{s.t}</Text>
-          : <Text key={i}>{s.t}</Text>,
-      )}
+      {parcalar
+        ? parcalar.map((p, i) =>
+            p.color
+              ? <Text key={i} style={{ color: p.color }}>{p.t}</Text>
+              : p.t,
+          )
+        : text}
     </Text>
   );
 }

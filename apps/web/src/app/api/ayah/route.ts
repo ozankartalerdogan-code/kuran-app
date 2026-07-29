@@ -36,6 +36,21 @@ interface TranslationRow {
   text: string | null;
 }
 
+interface SpanRow { start_cp: number; end_cp: number; rule: string; color: string }
+
+// tajweed_spans tablosu migration'dan önce production'da YOK; route ondan önce
+// deploy edilebilmeli. "no such table" hata değil, "henüz veri yok" demektir —
+// tecvid renksiz kalır, ayet yine de servis edilir. Diğer hatalar fırlatılır.
+// (Aynı yaklaşım /api/mushaf route'unda da var.)
+async function tolerantAll<T>(query: Promise<T[]>): Promise<T[]> {
+  try {
+    return await query;
+  } catch (err) {
+    if (String(err instanceof Error ? err.message : err).includes("no such table")) return [];
+    throw err;
+  }
+}
+
 interface VerseTagRow {
   ana_tema:  string | null;
   alt_taglar: string | null; // JSON array
@@ -49,7 +64,15 @@ export type AyahDetailResponse = {
   arabicName: string;
   verseCount: number;
   arabicText: string | null;
+  /** ESKİ yol: AlQuran markup'ı. Metni canonical'dan farklı; render'da kullanılmamalı. */
   arabicTajweed: string | null;
+  /**
+   * Tecvid renkleri, `arabicText` üzerinde KOD NOKTASI koordinatlarıyla.
+   * İstemci canonical metni basıp rengi buradan uygulamalı — markup metnini
+   * basmak canonical'dan sapar ve harf/hareke bölünmesi yüzünden ekranda
+   * sahipsiz işaret (noktalı daire) üretir.
+   */
+  tajweedSpans: { startCp: number; endCp: number; rule: string; color: string }[];
   readingTr: string | null;
   meal: string | null;
   literalCeviri: string | null;
@@ -101,7 +124,7 @@ export async function GET(req: NextRequest) {
 
     const verseKey = `${surahId}:${ayahNumber}`;
 
-    const [verse, translations, tagRow] = await Promise.all([
+    const [verse, translations, tagRow, spans] = await Promise.all([
       dbGet<VerseRow>(
         "SELECT verse_key, arabic_text, arabic_tajweed, primary_translation, reading_tr, literal_ceviri, fark_analizi FROM verses WHERE verse_key = ?",
         verseKey,
@@ -114,6 +137,11 @@ export async function GET(req: NextRequest) {
         "SELECT ana_tema, alt_taglar FROM verse_tags WHERE verse_key = ?",
         verseKey,
       ),
+      // Ham satırlar canonical koordinatlıdır; arabic_text ile birebir hizalanır.
+      tolerantAll(dbAll<SpanRow>(
+        "SELECT start_cp, end_cp, rule, color FROM tajweed_spans WHERE verse_key = ? ORDER BY start_cp",
+        verseKey,
+      )),
     ]);
 
     let altTaglar: string[] = [];
@@ -166,6 +194,9 @@ export async function GET(req: NextRequest) {
       verseCount:  surah.ayet_sayisi,
       arabicText:    verse.arabic_text,
       arabicTajweed: verse.arabic_tajweed ?? null,
+      tajweedSpans:  spans.map((s) => ({
+        startCp: s.start_cp, endCp: s.end_cp, rule: s.rule, color: s.color,
+      })),
       readingTr:     verse.reading_tr ?? null,
       meal:          cleanMealText(
         translations.find(t => (t.source ?? "").split("#").at(-1) === "yazir")?.text
