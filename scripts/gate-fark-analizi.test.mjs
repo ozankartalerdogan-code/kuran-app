@@ -107,3 +107,16 @@ test("K5: 'farklı' deyip anlam farkı olmadığını itiraf eden metin yakalan�
   assert.equal(checkSelfContradiction("Meal 'azap' yorumunu eklemiştir.", false), null);
   assert.equal(checkSelfContradiction("anlam farkı yoktur", true), null, "ayni=true ise denetlenmez");
 });
+
+test("birleşik meal açıklaması meşru üçüncü durumdur — denetim dışı", () => {
+  const t = "Bu ayetin meali, 37:124–126 ayetlerini birlikte kapsamaktadır. Arapça cümle ayet sınırını aştığı için meal ile tek ayetin literal çevirisi birebir karşılaştırılamaz.";
+  assert.equal(checkShape(t), null, "footer beklenmez");
+  assert.deepEqual(gateVerse({ text: t, mealText: "herhangi", arabicText: "herhangi" }), [],
+    "içindeki ayet aralığı sure atfı sayılmaz");
+});
+
+test("birleşik meal kalıbına benzeyen ama uymayan metin denetlenir", () => {
+  const t = `Meal, 37:124 ayetinde geçmeyen bir ifade eklemiştir.\n\n${FOOTER}`;
+  const issues = gateVerse({ text: t, mealText: "x", arabicText: "y" });
+  assert.ok(issues.some((i) => i.code === "K3_SURE_ATFI"));
+});

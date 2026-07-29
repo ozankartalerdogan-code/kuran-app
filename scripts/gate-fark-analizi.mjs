@@ -30,6 +30,15 @@ const DB_PATH = path.resolve(dir, "../data/app.db");
 export const FOOTER = "ℹ️ AI tarafından üretilmiştir. Kesin bilgi için güvenilir tefsirlere başvurunuz.";
 export const AYNI_TEXT = "Meal ile literal çeviri arasında anlam farkı yoktur, sadece üslup farkı vardır.";
 
+/**
+ * Üçüncü meşru metin durumu: Elmalılı bazı ayet gruplarını tek cümlede çevirmiş
+ * (Arapça cümle ayet sınırını aşıyor), o aralıktaki her ayete aynı birleşik meal
+ * yazılı. Bu ayetlerde meal ile tek ayet literali karşılaştırılamaz; yerine bu
+ * durumu açıklayan sabit metin yazılır. AI üretimi olmadığı için footer taşımaz ve
+ * içindeki "37:124–126" aralığı sure atfı değildir — denetim dışı bırakılır.
+ */
+export const SPAN_RE = /^Bu ayetin meali, \d+:\d+–\d+ ayetlerini birlikte kapsamaktadır\./;
+
 /** Türkçe metni karşılaştırma için sadeleştirir. */
 export function normTr(s) {
   return (s ?? "")
@@ -160,6 +169,7 @@ export function checkShape(text) {
   const t = (text ?? "").trim();
   if (!t) return "boş";
   if (t === AYNI_TEXT) return null;               // kalıp metin: footer beklenmez
+  if (SPAN_RE.test(t)) return null;               // birleşik meal açıklaması: footer beklenmez
   if (!t.includes(FOOTER)) return "footer yok";
   const body = t.replace(FOOTER, "").trim();
   if (body.length < 60) return `gövde çok kısa (${body.length})`;
@@ -172,7 +182,7 @@ export function gateVerse({ text, mealText, arabicText, roots = [] }) {
   const t = (text ?? "").trim();
   const shape = checkShape(t);
   if (shape) issues.push({ code: "K4_BICIM", detail: shape });
-  if (t === AYNI_TEXT || !t) return issues;
+  if (t === AYNI_TEXT || SPAN_RE.test(t) || !t) return issues;
 
   const body = t.replace(FOOTER, "").trim();
   const quotes = checkMealQuote(body, mealText);
