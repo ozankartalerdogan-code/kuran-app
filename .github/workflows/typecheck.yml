@@ -45,3 +45,12 @@ jobs:
           npm run test
           npm run test:mobile
           npm run test:core
+      # Script paketleri de aynı mantıkla: girdileri (Tanzil vendor anlık
+      # görüntüsü, manifesto artefaktları) CI checkout'unda bulunmayanlar kendi
+      # kapılarıyla atlanır, girdiden bağımsız olanlar koşar. Hiçbiri daha önce
+      # otomasyona bağlı değildi.
+      - name: Script suites (quran runtime + provenance + tajweed audit)
+        run: |
+          npm run test:quran
+          npm run test:provenance
+          npm run test:tajweed-audit
