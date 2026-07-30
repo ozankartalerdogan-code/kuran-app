@@ -1,0 +1,39 @@
+Kuran Yolu — Source, License and Provenance Notice
+
+This repository combines openly licensed source material, public-domain or
+historical works, project-authored material, and AI-assisted project output.
+Technical provenance is recorded in:
+
+  docs/provenance/source-content-provenance.json
+
+Primary source notices:
+
+- Qur'an Arabic text: Tanzil Quran Text, Uthmani 1.1, CC BY 3.0.
+  Copyright (C) 2007-2026 Tanzil Project. The canonical source is retained
+  verbatim and attributed at https://tanzil.net/.
+- Morphology references: Quranic Arabic Corpus v0.4 and the
+  mustafa0x/quran-morphology fork; CAMeL Tools (MIT) and CAMeL Morph
+  (CC BY 4.0). Kuran Yolu adds canonical token alignment, Unicode
+  normalization, contextual selection, corrections and manual verification.
+- Tajweed rule source: AlQuran.cloud quran-tajweed markers. Kuran Yolu
+  realigns them to canonical Tanzil text and produces its own span,
+  coordinate, color, validation and manual-override layer.
+- Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili; the digital source chain
+  includes Semar Ketir's MIT-licensed JSON Quran work.
+- Fonts: Amiri, Figtree and Lora under SIL OFL 1.1; UthmanicHafs under
+  the embedded KFGQPC end-user license.
+
+Kuran Yolu project contributions include Turkish word meanings, morphology
+curation, tajweed alignment and overrides, presentation code, project-authored
+guides, and AI-assisted translations, explanations, lessons and media. AI
+tool provenance and known evidence gaps are listed in the central manifest.
+
+The raw runtime `morfoloji` table and `verses.arabic_tajweed` field are
+retained technical risk layers pending separate migrations. Elmalılı is the
+only production meal; the four other meals (bulac, diyanet, ozturk, vakfi)
+were removed from the runtime by a guarded migration and are retained in the
+provenance manifest as removed_from_runtime.
+
+See THIRD_PARTY_LICENSES.md and the files under licenses/ for license and
+attribution details. These records document technical provenance and are not
+legal advice.
