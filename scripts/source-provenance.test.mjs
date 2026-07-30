@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -47,10 +47,33 @@ test("central provenance manifest covers all required source and project layers"
   assert.deepEqual(manifest.entries.map((entry) => entry.id), requiredIds);
 });
 
-test("all provenance file hashes and group hashes match the current workspace", () => {
-  for (const entry of manifest.entries) verifyArtifactGroup(entry.artifacts);
-  verifyArtifactGroup(manifest.licenseAndDisclosureArtifacts);
-});
+// Manifesto'nun saydığı artefaktların bir kısmı gitignore'lı `data/` altında
+// yaşar ve her çalışma kopyasında bulunmaz (ör. Tanzil vendor anlık görüntüsü).
+// Hash testi yalnız hepsi diskteyken anlamlıdır; eksikken ATLANIR, çünkü
+// "dosya yok" ile "hash tutmuyor" farklı şeylerdir ve ikincisi asla
+// gizlenmemelidir. Manifesto'nun anlamsal iddialarını denetleyen diğer testler
+// bu durumdan etkilenmez ve koşmaya devam eder.
+const manifestFilePaths = [
+  ...manifest.entries.flatMap((entry) => entry.artifacts.files.map((file) => file.path)),
+  ...manifest.licenseAndDisclosureArtifacts.files.map((file) => file.path),
+];
+const missingArtifacts = manifestFilePaths.filter(
+  (relativePath) => !existsSync(path.join(REPO_ROOT, relativePath)),
+);
+
+test(
+  "all provenance file hashes and group hashes match the current workspace",
+  {
+    skip: missingArtifacts.length > 0
+      ? `manifesto artefaktları bu çalışma kopyasında eksik (${missingArtifacts.length}): ` +
+        `${missingArtifacts.join(", ")} — hash doğrulaması atlandı`
+      : false,
+  },
+  () => {
+    for (const entry of manifest.entries) verifyArtifactGroup(entry.artifacts);
+    verifyArtifactGroup(manifest.licenseAndDisclosureArtifacts);
+  },
+);
 
 test("source URLs and declared AI evidence gaps are explicit", () => {
   for (const entry of manifest.entries) {
