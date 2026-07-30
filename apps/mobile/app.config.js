@@ -83,6 +83,11 @@ module.exports = {
       output: 'static',
     },
     plugins: [
+      // Gradle clean görev sıralaması: autolinked modüllerin clean/CMake-cache
+      // görevleri app'in externalNativeBuildClean'inden SONRA koşmalı, yoksa
+      // app CMake yeniden yapılandırması silinmiş JNI kaynaklarını tüketmeye
+      // çalışıyor. Bkz. plugins/with-native-clean-codegen-ordering.js.
+      './plugins/with-native-clean-codegen-ordering',
       'expo-router',
       'expo-location',
       'expo-sensors',
