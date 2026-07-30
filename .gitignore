@@ -81,6 +81,9 @@ __pycache__/
 # Zamanlanmış görev kilidi (yerel çalışma durumu)
 .claude/scheduled_tasks.lock
 
+# Codex yerel yapılandırması (MCP sunucu tanımları; secret taşıyabilir)
+.codex/
+
 .vercel
 .mcp.json
 

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Efficient Coding"
+  short_description: "Kodlama, orkestrasyon ve token ekonomisi"
+  default_prompt: "Use $efficient-coding to complete this coding task with the smallest correct change and least sufficient evidence."
+
+policy:
+  allow_implicit_invocation: true

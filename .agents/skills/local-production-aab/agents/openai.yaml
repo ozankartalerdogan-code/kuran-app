@@ -1,0 +1,7 @@
+interface:
+  display_name: "Local Production AAB"
+  short_description: "Güvenli yerel Play AAB üretimi"
+  default_prompt: "Use $local-production-aab to build and verify the existing Kuran Yolu production Android AAB locally."
+
+policy:
+  allow_implicit_invocation: false

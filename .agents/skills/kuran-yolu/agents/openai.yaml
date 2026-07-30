@@ -1,0 +1,7 @@
+interface:
+  display_name: "Kuran Yolu"
+  short_description: "Proje kontrolü, veri hattı ve yayın yönlendirmesi"
+  default_prompt: "Use $kuran-yolu to inspect or manage the requested Kuran Yolu project workflow."
+
+policy:
+  allow_implicit_invocation: false
