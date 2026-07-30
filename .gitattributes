@@ -1,2 +1,6 @@
 * text=auto eol=lf
 *.bat text eol=crlf
+
+# Değişmez Tanzil kaynağı: SHA-256 kapısına tabi (bkz. build-quran-runtime.mjs
+# readCanonicalSource). Git satır sonu normalizasyonu uygularsa hash tutmaz.
+/data/vendor/tanzil/** -text

@@ -24,7 +24,17 @@ GoogleService-Info.plist
 .env.development
 
 # Büyük veri dizinleri (sadece root seviyesi)
-/data/
+# NOT: `/data/` yerine `/data/*` — git, ebeveyn DİZİNİ hariç tutulmuş bir
+# dosyayı negation ile geri dahil EDEMEZ. Aşağıdaki vendor istisnasının
+# çalışması için dizinin kendisi değil içeriği hariç tutulmalı.
+/data/*
+# İSTİSNA: değişmez Tanzil vendor anlık görüntüsü (1,4MB). Bu dosya ca7ff22'de
+# izleniyordu, /data/ ignore'u negation'larını kaybedince düştü ve diskteki tek
+# kopya yok olunca pipeline'ın SHA-256 kapısı, provenance üretimi ve 23 kanonik
+# metin testi çalışamaz hale geldi. tanzil.net artık GÜNCEL metni sunuyor
+# (farklı SHA), yani yeniden indirmek bu dosyayı geri getirmez. CC BY 3.0
+# birebir yeniden dağıtıma izin veriyor; atıf NOTICE ve licenses/ altında.
+!/data/vendor/
 /data2/
 /elmalili-fix/
 

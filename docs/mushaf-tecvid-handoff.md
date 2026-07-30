@@ -21,35 +21,33 @@ Production Turso'ya yazılmadı. AAB üretilmedi. **Fiziksel cihaz kontrolü bu 
 - 6.236 ayetten kaynağı yeniden oluşturan SHA-256 da aynıdır.
 - Build/import kodu vendor dosyasına yazmaz; yalnız data/generated/quran alanını üretir.
 
-### AÇIK RİSK (2026-07-30): vendor anlık görüntüsü bu çalışma kopyasında YOK
+### ÇÖZÜLDÜ (2026-07-31): vendor anlık görüntüsü kurtarıldı ve artık İZLENİYOR
 
-`data/vendor/tanzil/uthmani-1.1/` dizini diskte bulunmuyor. Dizin `/data/` ile
-gitignore'lı olduğu için repoda da yedeği yok; `backups/`, `data2/` ve repo
-genelinde arandı, bulunamadı.
+Bir süre `data/vendor/tanzil/uthmani-1.1/` diskte yoktu; `provenance:sources`,
+tecvid denetim script'leri ve `readCanonicalSource()` SHA-256 kapısı bu yüzden
+çalışamıyordu. Dosya git nesne deposunda bulundu (`ca7ff22`; `477d47d`/`c5b8099`
+ile commit edilmişti) ve geri getirildi. Doğrulama: 1.396.684 bayt, CR yok,
+SHA-256 `7f30c647...` — beklenen değerle birebir.
 
-Etkisi — aşağıdakiler uçtan uca ÇALIŞTIRILAMIYOR (kod sağlam, girdi eksik):
+Kök neden: dosya bir zamanlar izleniyordu, `/data/` ignore kuralı negation'larını
+kaybedince takipten düştü ve diskteki tek kopya silinince erişilemez hale geldi.
+Tekrarlanmaması için `.gitignore`'a `!/data/vendor/` istisnası eklendi ve dosya
+yeniden izlemeye alındı (1,4MB; CC BY 3.0 birebir yeniden dağıtıma izin veriyor,
+atıf NOTICE ve `licenses/` altında).
 
-- `npm run provenance:sources` — manifestoyu yeniden üretemez.
-- `npm run audit:tajweed-source-diff` ve `analyze:tajweed-actionable-review`.
-- `build-quran-runtime.mjs` içindeki `readCanonicalSource()` SHA-256 kapısı.
+`.gitattributes`'a `/data/vendor/tanzil/** -text` kuralı eklendi: bu makinede
+`core.autocrlf=true` ve satır sonu normalizasyonu dosyayı bozup SHA kapısını
+düşürürdü. Index'ten okunan blob round-trip ile doğrulandı (CR yok, hash tutuyor).
 
-Metnin kendisi kaybolmadı ve bozulmadı: `data/app.db`'deki 6.236 ayetin
-`arabic_text` alanından hesaplanan SHA-256, DB'nin `quran_runtime_meta`
-tablosunda kayıtlı `text_only_sha256` değeriyle (`32cc746d81...`) **birebir
-uyuşuyor**. Yani uygulamanın gösterdiği metin doğrulanabilir biçimde 2021-02-12
-anlık görüntüsüne sadık.
+**Yeniden indirme geçerli bir çözüm DEĞİLDİR** — ileride yine gerekirse diye:
+tanzil.net'ten inen güncel Uthmani metni ölçüldü, format birebir aynı ama ayet
+metninin SHA-256'sı `fe8fd2e0ae...` çıkıyor. Tanzil metni 2021'den bu yana
+güncellenmiş; o dosyayı koymak kanonik metni sessizce değiştirir ve tüm
+tecvid/morfoloji hizalamalarını geçersiz kılardı.
 
-**Yeniden indirme geçerli bir çözüm DEĞİLDİR.** tanzil.net'ten güncel Uthmani
-metni indirilip ölçüldü: dosya formatı birebir aynı (6.236 satır, `s|a|metin`,
-LF, `#` önekli telif bloğu) ama ayet metninin SHA-256'sı `fe8fd2e0ae...`
-çıkıyor — yani Tanzil metni 2021'den bu yana güncellenmiş. Bu dosyayı koymak
-kanonik metni sessizce değiştirir ve tüm tecvid/morfoloji hizalamalarını
-geçersiz kılar.
-
-Doğru çözüm: **orijinal 2021-02-12 anlık görüntüsünün** (SHA-256
-`7f30c647...`) dosyayı hâlâ barındıran makineden veya harici yedekten geri
-konması. Geri konduğunda `npm run test:provenance` içindeki hash testi kendi
-kendine devreye girer (şu an eksik dosyaları adlandırarak atlanıyor).
+Bağımsız teyit: `data/app.db`'deki 6.236 ayetin `arabic_text` SHA-256'sı, DB'nin
+`quran_runtime_meta` tablosundaki `text_only_sha256` (`32cc746d81...`) ile
+uyuşuyor — uygulamanın gösterdiği metin de aynı anlık görüntüye sadık.
 
 ## Tecvid coverage — tanım ve dört ayrı ölçüm
 
