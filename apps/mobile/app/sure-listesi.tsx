@@ -59,7 +59,7 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
           )}
         </View>
       </View>
-      <Text style={[styles.arabicName, { color: c.textSecondary }]}>{item.arabicName}</Text>
+      <Text style={[styles.arabicName, { color: c.textSecondary }]} numberOfLines={1}>{item.arabicName}</Text>
     </TouchableOpacity>
   );
 });
@@ -221,7 +221,10 @@ const styles = StyleSheet.create({
   rowMeta:      { flexDirection: "row", alignItems: "center", gap: 6, flexWrap: "wrap" },
   metaText:     { fontSize: 12 },
   nuzulText:    { fontSize: 11 },
-  arabicName:   { fontSize: 20, fontFamily: "Amiri", writingDirection: "rtl", textAlign: "right", marginLeft: 8 },
+  // flexShrink: 0 — rowCenter flex:1 ile alanı aldığı için, varsayılan
+  // flexShrink:1 bu Text'i sıkıştırıp kırpıyordu. Tek kelimelik adlar sığdığı
+  // için hata yalnız boşluk içeren tek isimde ("آل عمران" -> "آل") görünüyordu.
+  arabicName:   { fontSize: 20, fontFamily: "Amiri", writingDirection: "rtl", textAlign: "right", marginLeft: 8, flexShrink: 0 },
   badge:        { borderRadius: 10, paddingHorizontal: 7, paddingVertical: 2 },
   badgeText:    { fontSize: 10, fontWeight: "600" },
 });

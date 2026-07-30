@@ -338,7 +338,9 @@ const s = StyleSheet.create({
   hero: { borderRadius: 16, padding: 18, marginBottom: 12, alignItems: "center", backgroundColor: "#0f172a", gap: 6 },
   heroIcon: { fontSize: 36, marginBottom: 2 },
   heroTitle: { fontSize: 18, fontWeight: "800", color: "#e2e8f0", textAlign: "center" },
-  heroDesc: { fontSize: 12, color: "#64748b", lineHeight: 18, textAlign: "center" },
+  // Kontrast: #64748b koyu hero zemininde (#0f172a) 3.75:1 kalıyordu, WCAG AA
+  // normal metin eşiği 4.5:1. #94a3b8 ile 7.13:1'e çıkıyor.
+  heroDesc: { fontSize: 12, color: "#94a3b8", lineHeight: 18, textAlign: "center" },
 
   ozetBox: { borderRadius: 14, borderWidth: 1, padding: 14, marginBottom: 10 },
   ozetTitle: { fontSize: 13, fontWeight: "700", marginBottom: 10 },

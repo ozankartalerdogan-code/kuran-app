@@ -230,8 +230,10 @@ const s = StyleSheet.create({
   heroCard:    { borderRadius: 16, padding: 18, marginBottom: 14, gap: 6, alignItems: "center" },
   heroIcon:    { fontSize: 36, marginBottom: 4 },
   heroTitle:   { fontSize: 22, fontWeight: "800", color: "#f8fafc", textAlign: "center" },
-  heroSub:     { fontSize: 13, color: "#94a3b8", textAlign: "center" },
-  heroDesc:    { fontSize: 12, color: "#64748b", lineHeight: 18, textAlign: "center", marginTop: 4 },
+  // Kontrast: #64748b koyu hero zemininde 3.58:1 kalıyordu (WCAG AA eşiği 4.5:1).
+  // heroDesc #94a3b8'e (6.65:1), heroSub hiyerarşi için #cbd5e1'e (11.49:1) alındı.
+  heroSub:     { fontSize: 13, color: "#cbd5e1", textAlign: "center" },
+  heroDesc:    { fontSize: 12, color: "#94a3b8", lineHeight: 18, textAlign: "center", marginTop: 4 },
   stats:    { flexDirection: "row", gap: 10, marginTop: 8 },
   statChip: { backgroundColor: "#16213e", borderRadius: 10, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
   statNum:  { fontSize: 18, fontWeight: "800", color: "#e2e8f0" },

@@ -153,8 +153,17 @@ export default function BildirimlerScreen() {
     <>
       <Stack.Screen options={{ title: "Bildirimler" }} />
       <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
+        {/*
+          Metin duruma göre değişmeli: ilk açılışta ikisi de yalnız BİLDİRİM İZNİ
+          VERİLİRSE açılır (enablePrayerNotificationsFirstRun). İzin reddedilirse
+          tercihler kapalı yazılır ve bir daha otomatik sorulmaz — o durumda
+          koşulsuz "varsayılan olarak açıktır" demek yanıltıcıydı: kullanıcı
+          kapalı toggle'ları görüp nedenini anlayamıyordu.
+        */}
         <Text style={[styles.intro, { color: c.textMuted }]}>
-          İkisi de varsayılan olarak açıktır. İstediğin zaman buradan kapatabilirsin, birbirlerinden bağımsızdır.
+          {notifEnabled || dailyVerseEnabled
+            ? "İstediğin zaman buradan kapatabilirsin; ikisi birbirinden bağımsızdır."
+            : "İkisi de kapalı. Bildirim izni verilmediyse ilk kurulumda otomatik açılmamış olabilir; buradan açabilirsin. İkisi birbirinden bağımsızdır."}
         </Text>
 
         {/* Namaz Vakti Bildirimleri */}

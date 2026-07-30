@@ -373,8 +373,11 @@ const s = StyleSheet.create({
   hero: { borderRadius: 16, padding: 18, marginBottom: 12, alignItems: "center", backgroundColor: "#1a1a2e", gap: 5 },
   heroIcon: { fontSize: 34, marginBottom: 2 },
   heroTitle: { fontSize: 18, fontWeight: "800", color: "#e2e8f0", textAlign: "center" },
-  heroSub: { fontSize: 12, color: "#94a3b8", textAlign: "center" },
-  heroDesc: { fontSize: 11.5, color: "#64748b", lineHeight: 17, textAlign: "center", marginTop: 2 },
+  // Kontrast: #64748b koyu hero zemininde (#1a1a2e) 3.58:1 kalıyordu, WCAG AA
+  // normal metin eşiği 4.5:1. heroDesc #94a3b8'e (6.65:1) çekildi; hiyerarşi
+  // korunsun diye heroSub bir ton açıldı (#cbd5e1, 11.49:1).
+  heroSub: { fontSize: 12, color: "#cbd5e1", textAlign: "center" },
+  heroDesc: { fontSize: 11.5, color: "#94a3b8", lineHeight: 17, textAlign: "center", marginTop: 2 },
   stats: { flexDirection: "row", gap: 10, marginTop: 8 },
   statChip: { backgroundColor: "#16213e", borderRadius: 10, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
   statNum: { fontSize: 18, fontWeight: "800", color: "#e2e8f0" },
