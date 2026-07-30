@@ -1,17 +1,32 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   CORPUS_MORPHOLOGY_CODES,
   CORPUS_MORPHOLOGY_VALUE_KEYS,
+  CORPUS_POS_CODES,
   MORPHOLOGY_LABELS_TR,
   POS_LABELS_TR,
   formatMorphologyTr,
   getUnknownMorphologyCodes,
+  parseMorphologyForDisplay,
   translatePosTr,
 } from "./morphologyLabels";
+
+// data/app.db 227MB ve gitignore'lı; CI checkout'unda bulunmaz. DB'ye bağlı tek
+// test yokken atlanır, dosya genelindeki DB'siz testler koşmaya devam eder.
+const APP_DB_PATH = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../../..",
+  "data",
+  "app.db",
+);
+const APP_DB_SKIP_REASON =
+  "data/app.db yok (gitignore'lı, CI checkout'unda bulunmaz) — DB'ye bağlı test atlandı";
+const dbMissing = !fs.existsSync(APP_DB_PATH);
 
 const REQUIRED_POS_LABELS = {
   N: "İsim",
@@ -45,6 +60,66 @@ test("corpus envanterindeki her morphology kodu ve değer anahtarı eşlenmişti
     assert.ok(MORPHOLOGY_LABELS_TR[code], `Eksik eşleme: ${code}`);
   }
 });
+
+test(
+  "production DB'deki distinct POS ve morphology kodlarının tamamını ortak sunum katmanı kapsar",
+  { skip: dbMissing ? APP_DB_SKIP_REASON : false },
+  () => {
+    const db = new DatabaseSync(APP_DB_PATH, { readOnly: true });
+    const distinctPos = db.prepare(
+      "SELECT DISTINCT pos FROM words WHERE pos IS NOT NULL AND TRIM(pos) <> '' ORDER BY pos",
+    ).all() as Array<{ pos: string }>;
+    const distinctMorphology = db.prepare(
+      "SELECT DISTINCT morphology FROM words " +
+        "WHERE morphology IS NOT NULL AND TRIM(morphology) <> '' ORDER BY morphology",
+    ).all() as Array<{ morphology: string }>;
+    db.close();
+
+    const posCodes = [...new Set(
+      distinctPos.flatMap(({ pos }) => pos.split("+").map((code) => code.trim())),
+    )].sort();
+    const morphologyCodes = new Set<string>();
+    const morphologyValueKeys = new Set<string>();
+    const unknownCodes = new Set<string>();
+
+    for (const { morphology } of distinctMorphology) {
+      for (const segment of morphology.trim().split(/\s+\|\s+(?=\d+:)/)) {
+        const features = segment.split("|").map((part) => part.trim()).filter(Boolean);
+        const head = features.shift();
+        if (!head) continue;
+        const headMatch = /^(\d+):([A-Z]+):(.+)$/.exec(head);
+        const displayFeatures = headMatch ? [headMatch[3], ...features] : [head];
+        for (const feature of displayFeatures) {
+          const separatorIndex = feature.indexOf(":");
+          (separatorIndex < 0 ? morphologyCodes : morphologyValueKeys).add(
+            separatorIndex < 0 ? feature : feature.slice(0, separatorIndex),
+          );
+        }
+      }
+
+      for (const token of parseMorphologyForDisplay(morphology)) {
+        if (!token.known) unknownCodes.add(token.code);
+        assert.notEqual(token.label, token.code, `Ham kod kullanıcıya sızıyor: ${token.code}`);
+      }
+    }
+
+    assert.deepEqual(posCodes, [...CORPUS_POS_CODES].sort());
+    assert.deepEqual([...morphologyCodes].sort(), [...CORPUS_MORPHOLOGY_CODES].sort());
+    assert.deepEqual(
+      [...morphologyValueKeys].sort(),
+      [...CORPUS_MORPHOLOGY_VALUE_KEYS].sort(),
+    );
+    assert.deepEqual([...unknownCodes], []);
+
+    for (const { pos } of distinctPos) {
+      const translatedParts = translatePosTr(pos).split(" + ");
+      assert.ok(
+        translatedParts.every((part) => !CORPUS_POS_CODES.some((code) => code === part)),
+        `Ham POS kullanıcıya sızıyor: ${pos}`,
+      );
+    }
+  },
+);
 
 test("MOOD değerlerini yalnız MOOD bağlamında Türkçeleştirir", () => {
   const cases = [
@@ -149,12 +224,24 @@ test("web ve mobil aynı ortak sunum helperını kullanır", () => {
     path.join(repoRoot, "apps/mobile/app/ayah/[surahId]/[ayahNumber].tsx"),
     "utf8",
   );
+  const webRootPage = fs.readFileSync(
+    path.join(repoRoot, "apps/web/src/app/root/[root]/RootDetailContent.tsx"),
+    "utf8",
+  );
+  const mobileRootPage = fs.readFileSync(
+    path.join(repoRoot, "apps/mobile/app/root/[root]/index.tsx"),
+    "utf8",
+  );
   assert.match(webPage, /translatePosTr.+from "@quran-app\/core"/s);
   assert.match(mobilePage, /formatMorphologyTr, translatePosTr.+packages\/core\/src\/presentation\/morphologyLabels"/s);
   assert.match(webPage, /aria-label=\{`Kelime türü: \$\{label\}`\}/);
   assert.match(mobilePage, /accessibilityLabel=\{`Kelime türü \$\{translatePosTr\(w\.pos\)\}`\}/);
   assert.doesNotMatch(webPage, /\{(?:part\.)?code\}\s*\(\{(?:part\.)?label\}\)/);
+  assert.doesNotMatch(webPage, />\s*\{word\.morphology\}\s*</);
+  assert.doesNotMatch(mobilePage, />\s*\{w\.(?:pos|morphology)\}\s*</);
   assert.doesNotMatch(mobilePage, /Kelime türü \$\{w\.pos\}/);
+  assert.doesNotMatch(webRootPage, /\.(?:pos|morphology)\b/);
+  assert.doesNotMatch(mobileRootPage, /\.(?:pos|morphology)\b/);
 });
 
 test("API biçimli raw alanları ve Arapça lemma/kök değerlerini değiştirmez", () => {
@@ -189,4 +276,19 @@ test("web word analysis shows raw lemma only when non-null", () => {
   assert.match(webDbAdapter, /MIN\(lemma\) AS lemma/);
   assert.match(webDbAdapter, /lemma: row\.lemma/);
 
+});
+
+test("API route ham pos ve morphology sözleşmesini sunum çevirisinden bağımsız bırakır", () => {
+  const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../..");
+  const apiRoute = fs.readFileSync(
+    path.join(repoRoot, "apps/web/src/app/api/ayah/route.ts"),
+    "utf8",
+  );
+
+  assert.match(apiRoute, /pos:\s+w\.pos/);
+  assert.match(apiRoute, /morphology:\s+w\.morphology/);
+  assert.doesNotMatch(
+    apiRoute,
+    /translatePosTr|formatMorphologyTr|MORPHOLOGY_LABELS_TR|POS_LABELS_TR/,
+  );
 });

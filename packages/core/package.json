@@ -16,6 +16,6 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "node --no-warnings --loader ../../scripts/ts-extension-loader.mjs --test src/analysis/verseAnalysisQualitySet.test.ts"
+    "test": "node --no-warnings --loader ../../scripts/ts-extension-loader.mjs --test \"src/**/*.test.ts\""
   }
 }
