@@ -57,8 +57,29 @@ scripts/_fark_*.json
 scripts/_farkb_*.json
 scripts/_gloss_*.json
 scripts/_literal_*.json
+scripts/_weak_gloss_*.json
+scripts/_meal_span_runs.json
+scripts/_review_template.html
 scripts/_*_watchdog.sh
 scripts/_*.log
+
+# Denetim script'lerinin üretilmiş JSON çıktıları (35MB; tajweed-source-diff.json
+# tek başına 28MB). İnsan-okur .md raporları commit'li, JSON'lar script'ten
+# yeniden üretilir.
+scripts/output/*.json
+
+# Ajan çalışma dizini — çıkarılmış APK/dex dökümleri gibi tek seferlik
+# inceleme artıkları (350MB+)
+.agent-runs/
+
+# Turso DB dökümleri (kök seviyesi, 24MB+)
+/turso-snapshot-*.json
+
+# Python bytecode
+__pycache__/
+
+# Zamanlanmış görev kilidi (yerel çalışma durumu)
+.claude/scheduled_tasks.lock
 
 .vercel
 .mcp.json
