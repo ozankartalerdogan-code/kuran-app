@@ -4,26 +4,30 @@ import { Stack } from "expo-router";
 import Constants from "expo-constants";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SOURCE_LICENSE_CONTENT, getSourceLicenseLinks } from "../../../packages/core/src/presentation/sourceLicenses";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
-import { getSourceLicenseLinks } from "../../../packages/core/src/presentation/sourceLicenses";
 
 const APP_VERSION = Constants.expoConfig?.version ?? "-";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
-const TANZIL_URL = "https://tanzil.net/";
-const QAC_URL = "https://corpus.quran.com/";
 
-// Atıf zorunluluğu olan kaynaklar. Başlık/lisans/URL değerleri artık web ile
-// ortak olan sourceLicenses.ts'ten okunur; bilinmeyen bir id verilirse
-// getSourceLicenseLinks fırlatır, yani sessiz sapma mümkün değil.
-const ATTRIBUTION_LINKS = getSourceLicenseLinks([
-  "camel-morph",
-  "camel-tools",
-  "mustafa0x",
-  "semar-ketir",
-  "alquran-tajweed",
-  "alquran-terms",
-]);
+async function openExternalUrl(url: string) {
+  try {
+    void Haptics.selectionAsync();
+    const supported = await Linking.canOpenURL(url);
+    if (!supported) {
+      Alert.alert("Bağlantı açılamadı", "Bu bağlantı şu anda cihazınızda açılamıyor.");
+      return;
+    }
+
+    await Linking.openURL(url);
+  } catch (error) {
+    if (__DEV__) {
+      console.warn("Failed to open external URL", error);
+    }
+    Alert.alert("Bağlantı açılamadı", "Lütfen daha sonra tekrar deneyin.");
+  }
+}
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const c = useColors();
@@ -40,41 +44,9 @@ function Paragraph({ children, c }: { children: React.ReactNode; c: AppColors })
   return <Text style={[s.paragraph, { color: c.textSecondary }]}>{children}</Text>;
 }
 
-// Atıf satırı — kaynak adı, lisansı ve tıklanabilir bağlantısı.
-function AttributionRow({
-  title,
-  license,
-  url,
-  c,
-  onOpenUrl,
-}: {
-  title: string;
-  license?: string;
-  url: string;
-  c: AppColors;
-  onOpenUrl: (url: string) => void;
-}) {
-  return (
-    <TouchableOpacity
-      style={s.attributionRow}
-      onPress={() => onOpenUrl(url)}
-      activeOpacity={0.6}
-      accessibilityRole="link"
-      accessibilityLabel={license ? `${title}, ${license} lisansı` : title}
-      accessibilityHint="Web sitesini açar"
-    >
-      <Text style={[s.attributionTitle, { color: c.text }]}>
-        {title}
-        {license ? <Text style={[s.attributionLicense, { color: c.textMuted }]}>{`  ${license}`}</Text> : null}
-      </Text>
-      <Text style={[s.attributionUrl, { color: c.textMuted }]}>{url}</Text>
-    </TouchableOpacity>
-  );
-}
-
 // İnce, kartsız akordiyon — yalnız üst/alt ince çizgi, arka plan/kenarlık yok.
-function SourcesAccordion({ c, onOpenUrl }: { c: AppColors; onOpenUrl: (url: string) => void }) {
-  const [open, setOpen] = useState(false);
+function SourcesAccordion({ c }: { c: AppColors }) {
+  const [open, setOpen] = useState(true);
 
   const toggle = () => {
     void Haptics.selectionAsync();
@@ -88,65 +60,36 @@ function SourcesAccordion({ c, onOpenUrl }: { c: AppColors; onOpenUrl: (url: str
         onPress={toggle}
         activeOpacity={0.6}
         accessibilityRole="button"
-        accessibilityLabel="Kaynaklar ve kullanım açıklamaları"
+        accessibilityLabel="Kaynaklar ve lisanslar"
         accessibilityHint={open ? "Açıklamaları gizler" : "Açıklamaları gösterir"}
         accessibilityState={{ expanded: open }}
       >
-        <Text style={[s.accordionTitle, { color: c.textSecondary }]}>Kaynaklar ve kullanım açıklamaları</Text>
+        <Text style={[s.accordionTitle, { color: c.textSecondary }]}>Kaynaklar ve lisanslar</Text>
         <Text style={[s.accordionChevron, { color: c.textMuted }]}>{open ? "▴" : "▾"}</Text>
       </TouchableOpacity>
 
       {open && (
         <View style={s.accordionBody}>
-          <Paragraph c={c}>
-            <Text style={s.bold}>Kur'an-ı Kerim Arapça metni:</Text>
-          </Paragraph>
-          <Paragraph c={c}>
-            Tanzil Quran Text esas alınarak sunulmaktadır. Tanzil metni, doğrulanmış Kur'an-ı Kerim metni kaynaklarından biridir ve
-            uygulamada değiştirilmeden kullanılmalıdır.
-          </Paragraph>
-          <Paragraph c={c}>
-            <Text style={s.bold}>Meal ve orijinal tefsir kaynağı:</Text> Elmalılı Hamdi Yazır, Hak Dini Kur'an Dili.
-          </Paragraph>
-          <Paragraph c={c}>
-            Uygulamada yalnız Elmalılı Hamdi Yazır meali kullanılır. Daha önce karşılaştırma amacıyla taşınan dört meal
-            kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen
-            kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez.
-            Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.
-          </Paragraph>
-          <Paragraph c={c}>
-            Sade tefsir açıklamaları, Elmalılı Hamdi Yazır'ın orijinal tefsir metni esas alınarak Kuran Yolu için daha anlaşılır
-            bir dille yeniden düzenlenmiştir. Bu açıklamalar bilgilendirme amaçlıdır; fetva niteliği taşımaz.
-          </Paragraph>
-          <Paragraph c={c}>
-            Elmalılı meal metninin dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır.
-          </Paragraph>
-          <Paragraph c={c}>
-            Kelime kökleri ve morfolojik çözümlemelerde Quranic Arabic Corpus, mustafa0x Quran Morphology ve CAMeL
-            kaynaklarından (CAMeL Tools, CAMeL Morph) yararlanılmıştır. Türkçe anlamlandırma, kök düzeltmeleri, canonical
-            token hizalama, veri temizliği ve kullanıcı dostu morfoloji gösterimi Kuran Yolu analiz altyapısı ile ayrıca
-            hazırlanmıştır; nihai veri kaynak dosyaların birebir kopyası değildir.
-          </Paragraph>
-          <Paragraph c={c}>
-            <Text style={s.bold}>Tecvid:</Text> Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak
-            canonical Tanzil metnine yeniden hizalanmıştır. Renk eşlemesi, span sistemi ve güvenlik kontrolleri Kuran Yolu
-            tarafından hazırlanmıştır; belirsiz kalan yerler renklendirilmeden bırakılır.
-          </Paragraph>
-          <Paragraph c={c}>
-            Hadis içeriklerinde klasik hadis kaynaklarından yararlanılmıştır. Açıklama ve sunum metinleri Kuran Yolu için
-            sadeleştirilmiş bilgilendirme diliyle hazırlanmıştır.
-          </Paragraph>
-
-          <Text style={[s.attributionHeading, { color: c.textSecondary }]}>Kaynak lisansları ve bağlantıları</Text>
-          {ATTRIBUTION_LINKS.map((link) => (
-            <AttributionRow
-              key={link.url}
-              title={link.title}
-              license={link.license}
-              url={link.url}
-              c={c}
-              onOpenUrl={onOpenUrl}
-            />
+          {SOURCE_LICENSE_CONTENT.sections.map((sourceSection) => (
+            <View key={sourceSection.id} style={s.sourceSection}>
+              <Text style={[s.sourceSectionTitle, { color: c.text }]}>{sourceSection.title}</Text>
+              <Paragraph c={c}>{sourceSection.body}</Paragraph>
+              {getSourceLicenseLinks(sourceSection.linkIds).map((link) => (
+                <TouchableOpacity
+                  key={link.id}
+                  style={s.sourceLink}
+                  onPress={() => void openExternalUrl(link.url)}
+                  activeOpacity={0.65}
+                  accessibilityRole="link"
+                  accessibilityLabel={`${link.title} bağlantısı`}
+                >
+                  <Text style={[s.sourceLinkText, { color: c.accent }]}>
+                    {link.title}{link.license ? ` · ${link.license}` : ""}
+                  </Text>
+                  <Text style={[s.sourceLinkArrow, { color: c.textMuted }]}>›</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           ))}
         </View>
       )}
@@ -158,22 +101,6 @@ export default function HakkindaScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
 
-  async function openExternalUrl(url: string) {
-    try {
-      void Haptics.selectionAsync();
-      const supported = await Linking.canOpenURL(url);
-      if (!supported) {
-        Alert.alert("Bağlantı açılamadı", "Bu bağlantı şu anda cihazınızda açılamıyor.");
-        return;
-      }
-
-      await Linking.openURL(url);
-    } catch (error) {
-      console.warn("Failed to open external URL", error);
-      Alert.alert("Bağlantı açılamadı", "Lütfen daha sonra tekrar deneyin.");
-    }
-  }
-
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
@@ -182,45 +109,10 @@ export default function HakkindaScreen() {
         contentContainerStyle={[s.content, { paddingTop: insets.top + 20, paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.pageTitle, { color: c.text }]}>Kaynaklar ve Açıklamalar</Text>
+        <Text style={[s.pageTitle, { color: c.text }]}>{SOURCE_LICENSE_CONTENT.title}</Text>
+        <Text style={[s.pageIntro, { color: c.textMuted }]}>{SOURCE_LICENSE_CONTENT.intro}</Text>
 
-        <Section title="Tanzil Quran Text">
-          <TouchableOpacity
-            style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
-            onPress={() => void openExternalUrl(TANZIL_URL)}
-            activeOpacity={0.7}
-            accessibilityRole="link"
-            accessibilityLabel="Tanzil Quran Text bağlantısı"
-            accessibilityHint="Web sitesini açar"
-          >
-            <Text style={s.sourceIcon}>🕌</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[s.sourceName, { color: c.text }]}>Tanzil Quran Text</Text>
-              <Text style={[s.sourceDesc, { color: c.textMuted }]}>{TANZIL_URL}</Text>
-            </View>
-            <Text style={[s.arrow, { color: c.textMuted }]}>›</Text>
-          </TouchableOpacity>
-        </Section>
-
-        <Section title="Quranic Arabic Corpus">
-          <TouchableOpacity
-            style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
-            onPress={() => void openExternalUrl(QAC_URL)}
-            activeOpacity={0.7}
-            accessibilityRole="link"
-            accessibilityLabel="Quranic Arabic Corpus bağlantısı"
-            accessibilityHint="Web sitesini açar"
-          >
-            <Text style={s.sourceIcon}>🔬</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[s.sourceName, { color: c.text }]}>Quranic Arabic Corpus</Text>
-              <Text style={[s.sourceDesc, { color: c.textMuted }]}>{QAC_URL}</Text>
-            </View>
-            <Text style={[s.arrow, { color: c.textMuted }]}>›</Text>
-          </TouchableOpacity>
-        </Section>
-
-        <SourcesAccordion c={c} onOpenUrl={(url) => void openExternalUrl(url)} />
+        <SourcesAccordion c={c} />
 
         <Section title="Uygulama Hakkında">
           <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
@@ -261,6 +153,7 @@ export default function HakkindaScreen() {
 const s = StyleSheet.create({
   content: { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   pageTitle: { fontSize: 28, fontWeight: "800", marginBottom: 20 },
+  pageIntro: { fontSize: 14, lineHeight: 21, marginTop: -10, marginBottom: 4 },
   section: { marginTop: 24 },
   sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   paragraph: { fontSize: 14, lineHeight: 22, paddingHorizontal: 2, marginBottom: 12 },
@@ -280,17 +173,11 @@ const s = StyleSheet.create({
   accordionTitle: { fontSize: 13, fontWeight: "600", letterSpacing: 0.3 },
   accordionChevron: { fontSize: 12, marginLeft: 8 },
   accordionBody: { paddingTop: 2, paddingBottom: 4 },
-  bold: { fontWeight: "700" },
-  attributionHeading: { fontSize: 13, fontWeight: "700", marginTop: 4, marginBottom: 8, paddingHorizontal: 2 },
-  attributionRow: { paddingVertical: 8, paddingHorizontal: 2 },
-  attributionTitle: { fontSize: 13, fontWeight: "600" },
-  attributionLicense: { fontSize: 12, fontWeight: "400" },
-  attributionUrl: { fontSize: 12, lineHeight: 17, marginTop: 2 },
-  sourceCard: { flexDirection: "row", alignItems: "center", borderRadius: 12, borderWidth: 1, padding: 12, gap: 10 },
-  sourceIcon: { fontSize: 22 },
-  sourceName: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
-  sourceDesc: { fontSize: 12, lineHeight: 17 },
-  arrow: { fontSize: 20 },
+  sourceSection: { marginBottom: 14 },
+  sourceSectionTitle: { fontSize: 15, fontWeight: "700", marginBottom: 6 },
+  sourceLink: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 7 },
+  sourceLinkText: { flex: 1, fontSize: 13, fontWeight: "600", lineHeight: 18 },
+  sourceLinkArrow: { marginLeft: 8, fontSize: 18 },
   metaBox: { borderRadius: 12, borderWidth: 1, overflow: "hidden", paddingVertical: 14 },
   infoRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12 },
   infoRowBorder: { borderTopWidth: 1 },

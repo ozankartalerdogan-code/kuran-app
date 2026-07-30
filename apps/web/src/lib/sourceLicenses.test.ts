@@ -11,10 +11,12 @@ import {
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../..");
 
 // packages/core/src/presentation/sourceLicenses.ts merkezi kaynak/lisans
-// içeriğidir. Web ve mobil hakkında ekranlarının ikisi de artık ona bağlıdır.
-// Bu test merkezi içeriğin KENDİ tutarlılığını, atıf zorunluluğu olan
-// kaynakların mobil ekranda FİİLEN göründüğünü (asıl lisans riski burada) ve
-// ekranların merkezi içeriği baypas edip URL kopyalamadığını doğrular.
+// içeriğidir. Web ve mobil hakkında ekranlarının İKİSİ DE artık metni satır içi
+// tutmuyor, bu içerikten render ediyor. Lisans şartının karşılandığı yer bu
+// yüzden merkezi içeriktir; bu dosya (1) içeriğin atıf zorunluluğu olan tüm
+// kaynakları taşıdığını, (2) her iki ekranın onu gerçekten render ettiğini ve
+// (3) hiçbir ekranın URL kopyalayarak merkezi içeriği baypas etmediğini
+// doğrular.
 
 /** Atıfı lisans şartı olan kaynaklar — ekranda görünmek zorundalar. */
 const REQUIRED_ON_SCREEN = [
@@ -27,59 +29,62 @@ const REQUIRED_ON_SCREEN = [
   { needle: "Quranic Arabic Corpus", why: "QAC kaynak atfı" },
 ];
 
-test("mobil Kaynaklar ekranı, atıf zorunluluğu olan tüm kaynakları gösterir", () => {
-  const mobile = readFileSync(path.join(REPO_ROOT, "apps/mobile/app/hakkinda.tsx"), "utf8");
-
-  for (const { needle, why } of REQUIRED_ON_SCREEN) {
-    assert.ok(mobile.includes(needle), `mobil hakkinda ekranında "${needle}" atfı yok — ${why}`);
-  }
-});
-
-/** Mobil atıf listesinin merkezi içerikten istediği bağlantı id'leri. */
-const MOBILE_ATTRIBUTION_IDS = [
-  "camel-morph",
-  "camel-tools",
-  "mustafa0x",
-  "semar-ketir",
-  "alquran-tajweed",
-  "alquran-terms",
+/** Ekranların merkezi içeriği render ettiği dosyalar. */
+const SCREEN_FILES = [
+  "apps/mobile/app/hakkinda.tsx",
+  "apps/web/src/app/hakkinda/page.tsx",
 ];
 
-test("mobil ekran atıf bağlantılarını merkezi içerikten alır, URL kopyalamaz", () => {
-  const mobile = readFileSync(path.join(REPO_ROOT, "apps/mobile/app/hakkinda.tsx"), "utf8");
-  const centralUrls = new Map(SOURCE_LICENSE_CONTENT.links.map((link) => [link.id, link.url]));
+test("merkezi içerik, atıf zorunluluğu olan tüm kaynakları taşır", () => {
+  // Ekranlar artık metni satır içi tutmuyor, SOURCE_LICENSE_CONTENT'ten render
+  // ediyor. Lisans şartının karşılandığı yer bu yüzden merkezi içeriktir.
+  const rendered = [
+    SOURCE_LICENSE_CONTENT.title,
+    SOURCE_LICENSE_CONTENT.intro,
+    ...SOURCE_LICENSE_CONTENT.sections.flatMap((section) => [section.title, section.body]),
+    ...SOURCE_LICENSE_CONTENT.links.flatMap((link) => [link.title, link.license ?? "", link.url]),
+  ].join("\n");
 
-  assert.match(
-    mobile,
-    /getSourceLicenseLinks.+sourceLicenses"/s,
-    "mobil ekran merkezi sourceLicenses modülünü import etmiyor",
-  );
-
-  for (const id of MOBILE_ATTRIBUTION_IDS) {
-    assert.ok(centralUrls.get(id), `merkezi içerikte "${id}" bağlantısı yok`);
-    assert.match(
-      mobile,
-      new RegExp(`"${id}"`),
-      `mobil ekran "${id}" bağlantısını merkezi listeden istemiyor`,
-    );
-  }
-
-  // Merkezi içerik baypas edilip URL elle yazılırsa sapma yeniden mümkün olur.
-  for (const id of MOBILE_ATTRIBUTION_IDS) {
-    const url = centralUrls.get(id) as string;
-    assert.ok(
-      !mobile.includes(url),
-      `mobil ekran "${id}" URL'ini elle kopyalıyor (${url}) — merkezi listeden okunmalı`,
-    );
+  for (const { needle, why } of REQUIRED_ON_SCREEN) {
+    assert.ok(rendered.includes(needle), `merkezi içerikte "${needle}" atfı yok — ${why}`);
   }
 });
 
-test("merkezi bağlantı listesi mobil ekranın istediği tüm id'leri karşılar", () => {
-  const resolved = getSourceLicenseLinks(MOBILE_ATTRIBUTION_IDS);
-  assert.equal(resolved.length, MOBILE_ATTRIBUTION_IDS.length);
-  for (const link of resolved) {
-    assert.ok(link.title.trim(), `${link.id} başlıksız`);
-    assert.equal(new URL(link.url).protocol, "https:");
+test("her iki ekran da merkezi içeriği render eder ve kopya taşımaz", () => {
+  const centralUrls = SOURCE_LICENSE_CONTENT.links.map((link) => link.url);
+
+  for (const relativePath of SCREEN_FILES) {
+    const screen = readFileSync(path.join(REPO_ROOT, relativePath), "utf8");
+
+    assert.match(
+      screen,
+      /SOURCE_LICENSE_CONTENT.+sourceLicenses"|SOURCE_LICENSE_CONTENT.+@quran-app\/core"/s,
+      `${relativePath} merkezi sourceLicenses içeriğini import etmiyor`,
+    );
+    assert.match(
+      screen,
+      /SOURCE_LICENSE_CONTENT\.sections\.map/,
+      `${relativePath} bölümleri merkezi içerikten render etmiyor`,
+    );
+
+    // Merkezi içerik baypas edilip URL elle yazılırsa sapma yeniden mümkün olur.
+    for (const url of centralUrls) {
+      assert.ok(
+        !screen.includes(url),
+        `${relativePath} "${url}" adresini elle kopyalıyor — merkezi listeden okunmalı`,
+      );
+    }
+  }
+});
+
+test("her bölümün bağlantı id'leri merkezi listede çözülür", () => {
+  for (const section of SOURCE_LICENSE_CONTENT.sections) {
+    const resolved = getSourceLicenseLinks(section.linkIds);
+    assert.equal(resolved.length, section.linkIds.length, `${section.id} bölümünde çözülemeyen id var`);
+    for (const link of resolved) {
+      assert.ok(link.title.trim(), `${link.id} başlıksız`);
+      assert.equal(new URL(link.url).protocol, "https:");
+    }
   }
 });
 

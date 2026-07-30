@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT_PATH = path.join(REPO_ROOT, "docs/provenance/source-content-provenance.json");
-const GENERATED_AT = "2026-07-27";
+const GENERATED_AT = "2026-07-31";
 const RESEARCH_HISTORY_GAP =
   "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.";
 

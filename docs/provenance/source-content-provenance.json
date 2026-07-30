@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27",
+  "generatedAt": "2026-07-31",
   "scope": "Kuran Yolu source, license and project-production provenance",
   "legalDisclaimer": "This manifest records technical provenance and attribution evidence; it is not legal advice or a warranty of legal status.",
   "productionPolicy": {
@@ -15,8 +15,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 113774,
-    "sha256": "376406dd7542d4b3af91b5c8296c5ade7405f03b9ca08a026653e55d59d9b5a6",
+    "totalBytes": 112197,
+    "sha256": "adcb3b55fbf3b0da9c977cb43a48ad809c7eb8c783752b9d896e017fdcd1cc80",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -50,13 +50,13 @@
       },
       {
         "path": "licenses/PACKAGE-LICENSE-TEXTS.txt",
-        "bytes": 66408,
-        "sha256": "cc2833f4be8d6f58c551b27d01039383e065225e268d6a2cd787ecbe0041ee6c"
+        "bytes": 65048,
+        "sha256": "d08d13c73739ca369afade9fb5b23258e805f02487299ed3dd3ae35a0538788c"
       },
       {
         "path": "licenses/PACKAGE-NOTICES.md",
-        "bytes": 10495,
-        "sha256": "df0b1bae60195da9671cd58829b45e5ee253cc45b44dc9e53ac6dad09f998c63"
+        "bytes": 10278,
+        "sha256": "9f6867d49c611055b7aa6c2b68294aa9d7ea6c850439edfd00f68b0545b21c31"
       },
       {
         "path": "licenses/README.md",
