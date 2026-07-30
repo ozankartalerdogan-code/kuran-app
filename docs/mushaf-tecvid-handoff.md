@@ -21,6 +21,36 @@ Production Turso'ya yazılmadı. AAB üretilmedi. **Fiziksel cihaz kontrolü bu 
 - 6.236 ayetten kaynağı yeniden oluşturan SHA-256 da aynıdır.
 - Build/import kodu vendor dosyasına yazmaz; yalnız data/generated/quran alanını üretir.
 
+### AÇIK RİSK (2026-07-30): vendor anlık görüntüsü bu çalışma kopyasında YOK
+
+`data/vendor/tanzil/uthmani-1.1/` dizini diskte bulunmuyor. Dizin `/data/` ile
+gitignore'lı olduğu için repoda da yedeği yok; `backups/`, `data2/` ve repo
+genelinde arandı, bulunamadı.
+
+Etkisi — aşağıdakiler uçtan uca ÇALIŞTIRILAMIYOR (kod sağlam, girdi eksik):
+
+- `npm run provenance:sources` — manifestoyu yeniden üretemez.
+- `npm run audit:tajweed-source-diff` ve `analyze:tajweed-actionable-review`.
+- `build-quran-runtime.mjs` içindeki `readCanonicalSource()` SHA-256 kapısı.
+
+Metnin kendisi kaybolmadı ve bozulmadı: `data/app.db`'deki 6.236 ayetin
+`arabic_text` alanından hesaplanan SHA-256, DB'nin `quran_runtime_meta`
+tablosunda kayıtlı `text_only_sha256` değeriyle (`32cc746d81...`) **birebir
+uyuşuyor**. Yani uygulamanın gösterdiği metin doğrulanabilir biçimde 2021-02-12
+anlık görüntüsüne sadık.
+
+**Yeniden indirme geçerli bir çözüm DEĞİLDİR.** tanzil.net'ten güncel Uthmani
+metni indirilip ölçüldü: dosya formatı birebir aynı (6.236 satır, `s|a|metin`,
+LF, `#` önekli telif bloğu) ama ayet metninin SHA-256'sı `fe8fd2e0ae...`
+çıkıyor — yani Tanzil metni 2021'den bu yana güncellenmiş. Bu dosyayı koymak
+kanonik metni sessizce değiştirir ve tüm tecvid/morfoloji hizalamalarını
+geçersiz kılar.
+
+Doğru çözüm: **orijinal 2021-02-12 anlık görüntüsünün** (SHA-256
+`7f30c647...`) dosyayı hâlâ barındıran makineden veya harici yedekten geri
+konması. Geri konduğunda `npm run test:provenance` içindeki hash testi kendi
+kendine devreye girer (şu an eksik dosyaları adlandırarak atlanıyor).
+
 ## Tecvid coverage — tanım ve dört ayrı ölçüm
 
 `scripts/build-quran-runtime.mjs`'teki tanım: **mapped rule cluster / recognized rule cluster** (AlQuran.cloud kaynağındaki, tek bir tanınan tecvid kural etiketi taşıyan grapheme cluster'lar; bunlardan kaç tanesi kanonik Tanzil metnine güvenle taşınabildi).

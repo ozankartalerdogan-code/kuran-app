@@ -6,22 +6,24 @@ import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { getSourceLicenseLinks } from "../../../packages/core/src/presentation/sourceLicenses";
 
 const APP_VERSION = Constants.expoConfig?.version ?? "-";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 const TANZIL_URL = "https://tanzil.net/";
 const QAC_URL = "https://corpus.quran.com/";
 
-// Atıf zorunluluğu olan kaynaklar. URL'ler packages/core/src/presentation/
-// sourceLicenses.ts ile birebir aynı tutulmalı (ileride oraya bağlanacak).
-const ATTRIBUTION_LINKS: readonly { title: string; license?: string; url: string }[] = [
-  { title: "CAMeL Morph", license: "CC BY 4.0", url: "https://github.com/CAMeL-Lab/camel_morph" },
-  { title: "CAMeL Tools", license: "MIT", url: "https://github.com/CAMeL-Lab/camel_tools" },
-  { title: "mustafa0x Quran Morphology", url: "https://github.com/mustafa0x/quran-morphology" },
-  { title: "Semar Ketir dijital Kur'an verisi", license: "MIT", url: "https://github.com/kurancilar/json" },
-  { title: "AlQuran.cloud Tecvid Rehberi", url: "https://alquran.cloud/tajweed-guide" },
-  { title: "AlQuran.cloud Kullanım Şartları", url: "https://alquran.cloud/terms-and-conditions" },
-] as const;
+// Atıf zorunluluğu olan kaynaklar. Başlık/lisans/URL değerleri artık web ile
+// ortak olan sourceLicenses.ts'ten okunur; bilinmeyen bir id verilirse
+// getSourceLicenseLinks fırlatır, yani sessiz sapma mümkün değil.
+const ATTRIBUTION_LINKS = getSourceLicenseLinks([
+  "camel-morph",
+  "camel-tools",
+  "mustafa0x",
+  "semar-ketir",
+  "alquran-tajweed",
+  "alquran-terms",
+]);
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const c = useColors();
