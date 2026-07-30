@@ -502,7 +502,12 @@ export function selectVerseAnalysisProfile(context: VerseAnalysisContext): Verse
   if (scores.emir_yasak >= 4 && !hasStrongHukumIstisnaAnchor(signals)) {
     scores.hukum_istisna = 0;
   }
-  if (hasAnyToken(signals, ["anne", "baba", "babaya", "iyilik", "buyurdu"])) {
+  // Anne-baba ekseni (17:23) emir dilini güçlendirir. Yalnız GERÇEK ebeveyn
+  // token'ı sayılır: "iyilik" ve "buyurdu" mealde çok yaygın olduğu için bu
+  // listede yer aldıklarında kural 126 ayette tetikleniyor ve 115'i alakasız
+  // oluyordu (ör. 7:156 "bir iyilik yaz" / "Buyurdu ki" → emir_yasak +3 →
+  // rahmet_magfiret -4 → 7-7 beraberlik → genel_karma).
+  if (hasAnyToken(signals, ["anne", "baba", "babaya"])) {
     scores.emir_yasak += 3;
     scores.dua_kulluk = Math.max(0, scores.dua_kulluk - 3);
   }
