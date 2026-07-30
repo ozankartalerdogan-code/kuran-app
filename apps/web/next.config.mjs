@@ -20,25 +20,18 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
-  async headers() {
-    return [
-      {
-        source: "/api/:path*",
-        headers: [
-          {
-            key: "Access-Control-Allow-Origin",
-            value: process.env.NODE_ENV === "development"
-              ? "*"
-              : process.env.ALLOWED_ORIGINS || "https://kuran-app-web-ozan-s-projects8.vercel.app",
-          },
-          { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
-          { key: "Access-Control-Max-Age",       value: "86400" },
-          { key: "Vary",                         value: "Origin" },
-        ],
-      },
-    ];
-  },
+  // Access-Control-* başlıkları BURADA DEĞİL, apps/web/src/middleware.ts içinde
+  // kurulur: statik headers() bloğu istek başına origin eşleştirmesi yapamıyor
+  // ve ALLOWED_ORIGINS virgüllü liste olduğunda geçersiz bir tek-değerli
+  // Access-Control-Allow-Origin üretiyordu; ayrıca middleware'deki preflight
+  // fallback origin'inden ayrışmıştı.
+  //
+  // Vary: Origin de buradan VERİLEMİYOR: Next 14, app-router /api yanıtlarına
+  // kendi Vary değerlerini (RSC, Next-Router-*) yazıp hem buradaki statik
+  // başlığı hem middleware'deki set/append'i eziyor (ölçüldü). Origin'e göre
+  // değişen ACAO'nun paylaşımlı cache'e düşmesi bu yüzden Vary ile değil,
+  // middleware'de Cache-Control'ü private'a çekerek engelleniyor —
+  // bkz. apps/web/src/middleware.ts applyCors().
   async rewrites() {
     return [
       // /api/v1/* → /api/* — mevcut route'lar korunur, v1 prefix mobil için eklendi
