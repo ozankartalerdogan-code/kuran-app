@@ -24,6 +24,9 @@
       ],
       "@quran-app/ui": [
         "packages/ui/src"
+      ],
+      "@quran-app/storage": [
+        "packages/storage/src"
       ]
     }
   }

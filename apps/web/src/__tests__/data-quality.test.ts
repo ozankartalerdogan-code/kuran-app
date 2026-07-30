@@ -9,15 +9,21 @@
  *  primary_translation'ı + %100 yanlış-pozitif '_' kalıbını test ediyordu.)
  */
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { hasEncodingError } from "../lib/cleanMeal.ts";
 
 const DB_PATH = path.resolve(__dirname, "../../../../data/app.db");
 
+// data/app.db 227MB ve gitignore'lı; CI checkout'unda bulunmaz. Yokken bu suite
+// hata vermek yerine atlanır (bkz. apps/web/src/lib/testDbGuard.ts — o modül ESM
+// olduğu için ts-jest/CJS tarafında burada aynı kontrol elle yapılır).
+const describeWithDb = fs.existsSync(DB_PATH) ? describe : describe.skip;
+
 interface Row { verse_key: string; surah_id: number; literal_ceviri: string | null; fark_analizi: string | null }
 
-describe("Veri kalitesi — verses (literal + fark)", () => {
+describeWithDb("Veri kalitesi — verses (literal + fark)", () => {
   let rows: Row[];
   beforeAll(() => {
     const db = new DatabaseSync(DB_PATH, { readOnly: true });

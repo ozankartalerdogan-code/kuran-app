@@ -36,7 +36,12 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Unit tests (web + mobile)
+      # data/app.db 227MB ve gitignore'lı olduğu için CI checkout'unda yoktur;
+      # DB'ye bağlı testler kendi kapılarıyla atlanır (apps/web/src/lib/testDbGuard.ts),
+      # DB'den bağımsız olanlar koşar. test:core buraya eklendi çünkü analiz
+      # kalite seti daha önce hiçbir otomasyona bağlı değildi.
+      - name: Unit tests (web + mobile + core)
         run: |
           npm run test
           npm run test:mobile
+          npm run test:core

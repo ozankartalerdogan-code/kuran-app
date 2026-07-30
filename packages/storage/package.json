@@ -2,6 +2,9 @@
   "name": "@quran-app/storage",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {

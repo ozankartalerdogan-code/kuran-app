@@ -11,12 +11,20 @@
  * Turso yerine daima local DB kullanılır (QURAN_APP_FORCE_LOCAL_DB=1) ve DB
  * yolu cwd'den bağımsız sabitlenir (DATA_PATH), böylece test deterministiktir.
  */
+import fs from "fs";
 import path from "path";
 import { NextRequest } from "next/server";
 
 // route → dbUtils modül yüklenmeden ÖNCE ayarlanmalı (dinamik import ile garanti).
 process.env.QURAN_APP_FORCE_LOCAL_DB = "1";
 process.env.DATA_PATH = path.resolve(__dirname, "../../../../data");
+
+// data/app.db 227MB ve gitignore'lı; CI checkout'unda bulunmaz. Yokken bu suite
+// hata vermek yerine atlanır (bkz. apps/web/src/lib/testDbGuard.ts — o modül ESM
+// olduğu için ts-jest/CJS tarafında burada aynı kontrol elle yapılır).
+const describeWithDb = fs.existsSync(path.join(process.env.DATA_PATH, "app.db"))
+  ? describe
+  : describe.skip;
 
 type AyahWord = {
   wordIndex: number;
@@ -44,7 +52,7 @@ async function fetchWord(surahId: number, ayahNumber: number, wordIndex: number)
   return word;
 }
 
-describe("/api/ayah lemma desteği", () => {
+describeWithDb("/api/ayah lemma desteği", () => {
   it("lemma-only kayıt: root null, lemma dolu (2:8:10)", async () => {
     const w = await fetchWord(2, 8, 10);
     expect(w).toHaveProperty("lemma");

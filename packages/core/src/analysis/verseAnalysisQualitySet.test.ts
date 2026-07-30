@@ -1,8 +1,23 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
 import { buildVerseAnalysisContext } from "./verseAnalysisContext";
 import { buildMainMeaningAxisForProfile, selectVerseAnalysisProfile } from "./verseAnalysisDecision";
 import { verseAnalysisQualitySet } from "./verseAnalysisQualitySet";
+
+// Bu suite kanonik data/app.db'yi okur (buildVerseAnalysisContext üzerinden).
+// DB 227MB ve gitignore'lı olduğundan CI checkout'unda bulunmaz; yokken suite
+// hata vermek yerine atlanır. DB erişimi it() gövdelerinde tembel olduğu için
+// describe seviyesinde skip yeterlidir.
+const APP_DB_PATH = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../../..",
+  "data",
+  "app.db",
+);
+const dbMissing = !fs.existsSync(APP_DB_PATH);
 
 function normalizeForHintMatch(value: string): string {
   return value
@@ -13,7 +28,11 @@ function normalizeForHintMatch(value: string): string {
     .trim();
 }
 
-describe("verseAnalysisQualitySet", () => {
+describe("verseAnalysisQualitySet", {
+  skip: dbMissing
+    ? "data/app.db yok (gitignore'lı, CI checkout'unda bulunmaz) — analiz kalite seti atlandı"
+    : false,
+}, () => {
   for (const qualityCase of verseAnalysisQualitySet) {
     it(`${qualityCase.verseKey} — ${qualityCase.shortNote}`, { timeout: 30000 }, async () => {
       const context = await buildVerseAnalysisContext(qualityCase.surahId, qualityCase.ayahNumber);

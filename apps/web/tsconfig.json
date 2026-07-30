@@ -21,6 +21,10 @@
   "exclude": [
     "node_modules",
     "src/**/*.test.ts",
+    // *.dbtests.ts = *.test.ts dosyalarından taşınan, DB gerektiren test
+    // gövdeleri (bkz. src/lib/testDbGuard.ts). Test dosyalarıyla aynı muameleyi
+    // görürler; typecheck kapsamı taşıma öncesiyle birebir aynı kalır.
+    "src/**/*.dbtests.ts",
     "src/__tests__/**"
   ]
 }
