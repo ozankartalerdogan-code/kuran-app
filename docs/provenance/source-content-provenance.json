@@ -9,14 +9,21 @@
     "morphology": "usable Kuran Yolu transformed/verified output",
     "tajweed": "usable Kuran Yolu aligned span output",
     "retainedRuntimeRisks": [
-      "morfoloji table",
       "verses.arabic_tajweed"
+    ],
+    "resolvedRuntimeRisks": [
+      {
+        "item": "morfoloji table",
+        "status": "removed_from_runtime",
+        "removedAt": "2026-07-28",
+        "evidence": "Yerel app.db ve Turso'dan düşürüldü; düşürme öncesi 130.030 satırlık tam pre-image ve şema, hash'li provenance artefaktlarına yazıldı (backups/turso-pre-image-morfoloji-*.json, backups/morfoloji-provenance-*.json)."
+      }
     ]
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 112197,
-    "sha256": "adcb3b55fbf3b0da9c977cb43a48ad809c7eb8c783752b9d896e017fdcd1cc80",
+    "totalBytes": 112298,
+    "sha256": "7c3a90e2e0b57d37122994c62592ade143b2ca9d5b4836e929c0cdff684b448d",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -90,8 +97,8 @@
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
-        "bytes": 6471,
-        "sha256": "de8e55318d4ba138294b3e6b45e77cf46dbbbfa775e3d92e672f01dacc30040b"
+        "bytes": 6572,
+        "sha256": "2fef3089e9a86c7f207e761353fc3b526df46648509bd34198a46196f30a4346"
       }
     ]
   },

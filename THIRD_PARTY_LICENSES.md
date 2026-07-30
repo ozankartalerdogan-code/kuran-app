@@ -28,7 +28,7 @@
 - Attribution requirement: The source should be clearly indicated and linked to `https://corpus.quran.com/` so users can track updates.
 - Fork chain: `https://github.com/mustafa0x/quran-morphology`, a modified Arabic/fix fork of QAC v0.4.
 - Change notice: Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu'nun canonical token hizalama, Unicode normalizasyonu, bağlamsal seçim, hata düzeltme ve manuel doğrulama süreçleriyle hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.
-- Runtime note: the raw `morfoloji` table is retained as a separately tracked migration risk and is not reclassified as the final Kuran Yolu morphology output.
+- Runtime note: the raw `morfoloji` table was removed from the runtime on 2026-07-28 (local and Turso); its full 130,030-row pre-image and schema are preserved in hashed provenance artefacts. It was never reclassified as the final Kuran Yolu morphology output.
 
 ## Kuran Yolu Analysis Layer
 

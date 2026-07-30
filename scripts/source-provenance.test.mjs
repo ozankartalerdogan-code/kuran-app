@@ -104,10 +104,16 @@ test("tajweed metrics use the audited limited-override wording and values", () =
 });
 
 test("runtime risks and the later Elmalılı-only migration remain explicit", () => {
+  // Beyan, DB'nin GERÇEK durumuyla uyuşmalı: morfoloji tablosu 2026-07-28'de
+  // düşürüldü, bu yüzden "retained" listesinde yer alamaz; kaydı resolved
+  // listesinde kanıtıyla durur. verses.arabic_tajweed hâlâ mevcut.
   assert.deepEqual(manifest.productionPolicy.retainedRuntimeRisks, [
-    "morfoloji table",
     "verses.arabic_tajweed",
   ]);
+  const resolvedMorfoloji = manifest.productionPolicy.resolvedRuntimeRisks
+    ?.find((risk) => risk.item === "morfoloji table");
+  assert.equal(resolvedMorfoloji?.status, "removed_from_runtime");
+  assert.ok(resolvedMorfoloji?.evidence, "morfoloji kaldırma kaydı kanıtsız");
   assert.match(manifest.productionPolicy.targetTranslation, /only Elmalılı/u);
   const retired = manifest.entries.find((entry) => entry.id === "removed-runtime-translations-v1");
   assert.equal(retired?.runtimeStatus, "removed_from_runtime");

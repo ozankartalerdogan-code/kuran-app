@@ -392,7 +392,19 @@ const manifest = {
       "only Elmalılı Hamdi Yazır; bulac, diyanet, ozturk and vakfi were removed from the runtime by the guarded Elmalılı-only migration and are retained in provenance as removed_from_runtime",
     morphology: "usable Kuran Yolu transformed/verified output",
     tajweed: "usable Kuran Yolu aligned span output",
-    retainedRuntimeRisks: ["morfoloji table", "verses.arabic_tajweed"],
+    // Yalnız FİİLEN runtime'da duran ham artefaktlar listelenir. verses.arabic_tajweed
+    // bilerek korunuyor: render tajweed_spans ile çalışıyor, kolon yalnız /api
+    // geriye-uyumluluk sözleşmesi için duruyor (bkz. apps/mobile/src/lib/tajweed.ts).
+    retainedRuntimeRisks: ["verses.arabic_tajweed"],
+    resolvedRuntimeRisks: [
+      {
+        item: "morfoloji table",
+        status: "removed_from_runtime",
+        removedAt: "2026-07-28",
+        evidence:
+          "Yerel app.db ve Turso'dan düşürüldü; düşürme öncesi 130.030 satırlık tam pre-image ve şema, hash'li provenance artefaktlarına yazıldı (backups/turso-pre-image-morfoloji-*.json, backups/morfoloji-provenance-*.json).",
+      },
+    ],
   },
   licenseAndDisclosureArtifacts: artifactGroup([
     "NOTICE",
