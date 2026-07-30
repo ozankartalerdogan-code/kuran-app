@@ -1,0 +1,67 @@
+{
+  "artifacts": {
+    "data/candidates/morphology/selector-v1_4/report.json": {
+      "note": "frozen v1.4 report",
+      "sha256": "025e65929db7669c16a4c7b5e617bd935b4481a1fe61c1c25c6d9494354694e4"
+    },
+    "data/candidates/morphology/selector-v1_4/selection.jsonl": {
+      "note": "frozen v1.4 selection output (baseline for v1.5)",
+      "sha256": "76539ecbefa3bbe9db40a741ab61da4658a71b903d3da72d0e41b24ed58eaff4"
+    },
+    "scripts/morphology/analyze-teacher-camel-coverage.py": {
+      "note": "frozen coverage/classification helpers",
+      "sha256": "87d5aabd9ad0bd07c22f6200025a77fc3d3b4c042086c9d1d055fb48afb7bbbc"
+    },
+    "scripts/morphology/resources/quran-proper-name-closure-lexicon.json": {
+      "note": "FROZEN proper-name closure lexicon (v1.4)",
+      "sha256": "eca88f7af8d884738d7998e3c68ed1c46f84b8574e0263dee111fbe18dcc945c"
+    },
+    "scripts/morphology/resources/quran-proper-name-lexicon.json": {
+      "note": "FROZEN proper-name selection lexicon (v1.3)",
+      "sha256": "39172fec60a4a839240dc077fb85082eb87154cbea6b873f29da2d26eb020a45"
+    },
+    "scripts/morphology/resources/quran-proper-name-recall-lexicon.json": {
+      "note": "FROZEN proper-name recall lexicon (v1.3r)",
+      "sha256": "207689c4b849dc4d4e219256a34af31e7daf49a8580789301312506d33725e24"
+    },
+    "scripts/morphology/select-camel-candidate-v1_2c.py": {
+      "note": "frozen selector v1.2c (rule cascade R1-R9)",
+      "sha256": "c1b88f4b8791ff963327465b8984e965212d5d58d053e179f6f203cbd2b6a1dd"
+    },
+    "scripts/morphology/select-camel-candidate-v1_3.py": {
+      "note": "frozen selector v1.3 (proper-name selection lexicon layer)",
+      "sha256": "f9f6975c8ce75e3f7b557a91066b3211794e1faff79fdd4da2e27568bde03cd7"
+    },
+    "scripts/morphology/select-camel-candidate-v1_3r.py": {
+      "note": "frozen selector v1.3r (proper-name recall layer)",
+      "sha256": "879e0040622ecac132747f44a1509cb90cf83374e43d25f252d1be9d0c88d690"
+    },
+    "scripts/morphology/select-camel-candidate-v1_4.py": {
+      "note": "FROZEN selector v1.4 (proper-name closure layer)",
+      "sha256": "5683939e8550501e0c41b661170b9f4cd5af5304dca9052c7fbd34a3cada478d"
+    },
+    "scripts/morphology/verify-recall-contract-r1r5-gate-final.py": {
+      "note": "frozen recall gate (gate_v2 + Dawud allowlist)",
+      "sha256": "a7e96f7050df05e56319105fdd8f70328bb9a56ffbf141be8145b2bf27d01516"
+    },
+    "scripts/morphology/verify-recall-contract-r1r5.py": {
+      "note": "frozen R1-R5 recall contract",
+      "sha256": "d3646c6841f179bc9ee958da8c60b245f38bf90e710463ec26761e3b9e325646"
+    }
+  },
+  "expected": {
+    "v1_4_ambiguous": 34451,
+    "v1_4_correct": 30610,
+    "v1_4_incorrect": 3064,
+    "v1_4_recall_gap": 9304,
+    "v1_4_tokens": 77429
+  },
+  "frozen_at_commit_note": "v1.4 and the proper-name lexicons are closed; later selectors may only ADD candidates",
+  "policy": {
+    "later_layers": "may only append candidates to pools of tokens v1.4 left non-CORRECT; no rule change, no verse-key override, no teacher lookup at runtime",
+    "proper_name_lexicons": "immutable - the two authored proper-name lexicons (recall + closure) and the v1.3 selection lexicon are closed sets",
+    "suwa_record": "71:23 w9 سُوَاعًا stays UNRESOLVED_PROPER_NAME with verified_root = null; no root may be guessed from the surface skeleton",
+    "v1_4_selector": "immutable - imported as a module by later selectors, never edited"
+  },
+  "schema_version": "morphology-freeze-v1_4"
+}

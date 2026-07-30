@@ -1,0 +1,559 @@
+{
+  "contract": {
+    "applies_only_to": "tokens v1.3r leaves non-CORRECT",
+    "keyed_by": "canonical Tanzil surface - never a verse key",
+    "precedence": "for the closed surface list only, a lexicon entry whose lemma and root are confirmed counts as independent lexical evidence ahead of a general CAMeL verb/noun analysis",
+    "purpose": "close the 15 residual L7A tokens that frozen v1.3r declined, with independently verified lemma and root",
+    "root_policy": "authored from Arabic lexicography and then confirmed against the independently attested reading; never derived from the surface, never copied from the check",
+    "rules_untouched": "R1-R9 and the frozen recall layer are unchanged",
+    "teacher_use": "build-time confirmation and veto only"
+  },
+  "entries": [
+    {
+      "canonical_lemma": "فِرْعَوْن",
+      "classification": "VOCATIVE_FUSED",
+      "competing_camel_reading": "verb فرع",
+      "expected_pos": "noun_prop",
+      "group": "COMPETING_ANALYSES",
+      "independent_check": {
+        "attested_lemma": "فرعون",
+        "attested_pos": "N",
+        "attested_root": null,
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Fir'awn, Pharaoh - an Egyptian title borrowed into Arabic",
+      "locations": 2,
+      "normalized_lemma": "فرعون",
+      "normalized_root": null,
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "not derived from an Arabic root (loan word)",
+      "status": "RESOLVED",
+      "surface_key": "يافرعون",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "فِرْعَوْن",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰفِرْعَوْنُ",
+      "v1_3r_status": {
+        "RECALL_GAP": 2
+      },
+      "verified_root": null,
+      "verse_keys": [
+        "7:104:3",
+        "17:102:14"
+      ]
+    },
+    {
+      "canonical_lemma": "لُوط",
+      "classification": "VOCATIVE_FUSED",
+      "competing_camel_reading": "verb لاط",
+      "expected_pos": "noun_prop",
+      "group": "COMPETING_ANALYSES",
+      "independent_check": {
+        "attested_lemma": "لوط",
+        "attested_pos": "N",
+        "attested_root": null,
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Lut, the prophet Lot",
+      "locations": 2,
+      "normalized_lemma": "لوط",
+      "normalized_root": null,
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "foreign name; the homographic Arabic verb لاط is unrelated",
+      "status": "RESOLVED",
+      "surface_key": "يالوط",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "لُوط",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰلُوطُ",
+      "v1_3r_status": {
+        "RECALL_GAP": 2
+      },
+      "verified_root": null,
+      "verse_keys": [
+        "11:81:2",
+        "26:167:5"
+      ]
+    },
+    {
+      "canonical_lemma": "هامان",
+      "classification": "VOCATIVE_FUSED",
+      "competing_camel_reading": "assorted nominal readings of the ه-م-ن skeleton",
+      "expected_pos": "noun_prop",
+      "group": "COMPETING_ANALYSES",
+      "independent_check": {
+        "attested_lemma": "هامان",
+        "attested_pos": "N",
+        "attested_root": null,
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Haman, the minister of Pharaoh",
+      "locations": 2,
+      "normalized_lemma": "هامان",
+      "normalized_root": null,
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "foreign name",
+      "status": "RESOLVED",
+      "surface_key": "ياهامان",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "هامان",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰهَـٰمَـٰنُ",
+      "v1_3r_status": {
+        "RECALL_GAP": 2
+      },
+      "verified_root": null,
+      "verse_keys": [
+        "28:38:13",
+        "40:36:3"
+      ]
+    },
+    {
+      "canonical_lemma": "هارُوت",
+      "classification": "PLAIN_PROPER_NAME",
+      "competing_camel_reading": "verb هَرَا",
+      "expected_pos": "noun_prop",
+      "group": "COMPETING_ANALYSES",
+      "independent_check": {
+        "attested_lemma": "هاروت",
+        "attested_pos": "N",
+        "attested_root": null,
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Harut, one of the two angels of 2:102",
+      "locations": 1,
+      "normalized_lemma": "هاروت",
+      "normalized_root": null,
+      "proclitics": [],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "foreign name; the CAMeL verb هَرَا is unrelated",
+      "status": "RESOLVED",
+      "surface_key": "هاروت",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "هارُوت",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "هَـٰرُوتَ",
+      "v1_3r_status": {
+        "RECALL_GAP": 1
+      },
+      "verified_root": null,
+      "verse_keys": [
+        "2:102:22"
+      ]
+    },
+    {
+      "canonical_lemma": "يَعُوق",
+      "classification": "CLITIC_FUSED",
+      "competing_camel_reading": "verbs عَاق / عَوَّق",
+      "expected_pos": "noun_prop",
+      "group": "COMPETING_ANALYSES",
+      "independent_check": {
+        "attested_lemma": "يعوق",
+        "attested_pos": "N",
+        "attested_root": null,
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Ya'uq, a pre-Islamic idol named in 71:23",
+      "locations": 1,
+      "normalized_lemma": "يعوق",
+      "normalized_root": null,
+      "proclitics": [
+        {
+          "class": "CONJUNCTIVE",
+          "letters": "و",
+          "slot": "prc2",
+          "tag": "wa_prc"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "treated as a non-derived name; the CAMeL verbs عَاق / عَوَّق are homographic only",
+      "status": "RESOLVED",
+      "surface_key": "ويعوق",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "يَعُوق",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "wa_prc",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "وَيَعُوقَ",
+      "v1_3r_status": {
+        "RECALL_GAP": 1
+      },
+      "verified_root": null,
+      "verse_keys": [
+        "71:23:12"
+      ]
+    },
+    {
+      "canonical_lemma": "يَغُوث",
+      "classification": "PLAIN_PROPER_NAME",
+      "competing_camel_reading": "verb غَوَّث",
+      "expected_pos": "noun_prop",
+      "group": "COMPETING_ANALYSES",
+      "independent_check": {
+        "attested_lemma": "يغوث",
+        "attested_pos": "N",
+        "attested_root": null,
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Yaghuth, a pre-Islamic idol named in 71:23",
+      "locations": 1,
+      "normalized_lemma": "يغوث",
+      "normalized_root": null,
+      "proclitics": [],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "treated as a non-derived name; the CAMeL verb غَوَّث is homographic only",
+      "status": "RESOLVED",
+      "surface_key": "يغوث",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "يَغُوث",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَغُوثَ",
+      "v1_3r_status": {
+        "RECALL_GAP": 1
+      },
+      "verified_root": null,
+      "verse_keys": [
+        "71:23:11"
+      ]
+    },
+    {
+      "canonical_lemma": "زَبُور",
+      "classification": "PLAIN_PROPER_NAME",
+      "expected_pos": "noun_prop",
+      "group": "ROOT_BEARING",
+      "independent_check": {
+        "attested_lemma": "زبور",
+        "attested_pos": "N",
+        "attested_root": "زبر",
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "az-Zabur, the scripture given to Dawud",
+      "locations": 2,
+      "normalized_lemma": "زبور",
+      "normalized_root": "زبر",
+      "proclitics": [],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "derived from zabara (ز-ب-ر) 'to write, to inscribe'; zabur is the written thing",
+      "status": "RESOLVED",
+      "surface_key": "زبور",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "زَبُور",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": "زبر",
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "زَبُورًا",
+      "v1_3r_status": {
+        "RECALL_GAP": 2
+      },
+      "verified_root": "زبر",
+      "verse_keys": [
+        "4:163:25",
+        "17:55:15"
+      ]
+    },
+    {
+      "canonical_lemma": "أَحْقاف",
+      "classification": "CLITIC_FUSED",
+      "expected_pos": "noun_prop",
+      "group": "ROOT_BEARING",
+      "independent_check": {
+        "attested_lemma": "احقاف",
+        "attested_pos": "N",
+        "attested_root": "حقف",
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "al-Ahqaf, the place name that titles surah 46",
+      "locations": 1,
+      "normalized_lemma": "احقاف",
+      "normalized_root": "حقف",
+      "proclitics": [
+        {
+          "class": "PREPOSITIONAL",
+          "letters": "ب",
+          "slot": "prc1",
+          "tag": "bi_prc"
+        },
+        {
+          "class": "DETERMINER",
+          "letters": "ال",
+          "slot": "prc0",
+          "tag": "Al_det"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "plural of hiqf (ح-ق-ف), a curved elongated sand dune; the place is named after the dunes",
+      "status": "RESOLVED",
+      "surface_key": "بالاحقاف",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "أَحْقاف",
+        "pos": "noun_prop",
+        "prc0": "Al_det",
+        "prc1": "bi_prc",
+        "prc2": "0",
+        "prc3": "0",
+        "root": "حقف",
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "بِٱلْأَحْقَافِ",
+      "v1_3r_status": {
+        "RECALL_GAP": 1
+      },
+      "verified_root": "حقف",
+      "verse_keys": [
+        "46:21:7"
+      ]
+    },
+    {
+      "canonical_lemma": "سُواع",
+      "classification": "PLAIN_PROPER_NAME",
+      "expected_pos": "noun_prop",
+      "group": "ROOT_BEARING",
+      "independently_verified": false,
+      "lemma_provenance": "Suwa', a pre-Islamic idol named in 71:23",
+      "locations": 1,
+      "normalized_lemma": "سواع",
+      "normalized_root": null,
+      "production_ready": false,
+      "reason": "no defensible independent root exists for this name; closing it would require taking the surface skeleton as the root",
+      "requires_manual_verification": true,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "NOT AUTHORED: the name has no accepted derivation. The only candidate root is its own skeleton س-و-ع, which is exactly the surface guess this pipeline refuses to make",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "surface_key": "سواع",
+      "tanzil_surface": "سُوَاعًا",
+      "verified_root": null,
+      "verse_keys": [
+        "71:23:9"
+      ]
+    },
+    {
+      "canonical_lemma": "سامِرِيّ",
+      "classification": "VOCATIVE_FUSED",
+      "expected_pos": "noun_prop",
+      "group": "ROOT_BEARING",
+      "independent_check": {
+        "attested_lemma": "سامري",
+        "attested_pos": "N",
+        "attested_root": "سمر",
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "as-Samiri, the man who made the calf; the lemma keeps the nisba ya', which the Uthmani surface writes as alif maqsura - it cannot be read off the surface",
+      "locations": 1,
+      "normalized_lemma": "سامري",
+      "normalized_root": "سمر",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "nisba formed on س-م-ر",
+      "status": "RESOLVED",
+      "surface_key": "ياسامرى",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "سامِرِيّ",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": "سمر",
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰسَـٰمِرِىُّ",
+      "v1_3r_status": {
+        "RECALL_GAP": 1
+      },
+      "verified_root": "سمر",
+      "verse_keys": [
+        "20:95:4"
+      ]
+    },
+    {
+      "canonical_lemma": "يَحْيَى",
+      "classification": "VOCATIVE_FUSED",
+      "expected_pos": "noun_prop",
+      "group": "ROOT_BEARING",
+      "independent_check": {
+        "attested_lemma": "يحيى",
+        "attested_pos": "N",
+        "attested_root": "حيي",
+        "authored_lemma_matches": true,
+        "authored_root_matches": true
+      },
+      "independently_verified": true,
+      "lemma_provenance": "Yahya, John the Baptist",
+      "locations": 1,
+      "normalized_lemma": "يحيى",
+      "normalized_root": "حيي",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "requires_manual_verification": false,
+      "root_is_authored_not_surface_derived": true,
+      "root_provenance": "formed on hayiya (ح-ي-ي) 'to live'; the name is treated as derived in the Arabic grammatical tradition",
+      "status": "RESOLVED",
+      "surface_key": "يايحيى",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "يَحْيَى",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": "حيي",
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰيَحْيَىٰ",
+      "v1_3r_status": {
+        "RECALL_GAP": 1
+      },
+      "verified_root": "حيي",
+      "verse_keys": [
+        "19:12:1"
+      ]
+    }
+  ],
+  "schema_version": "quran-proper-name-closure-lexicon-v1",
+  "totals": {
+    "by_group": {
+      "COMPETING_ANALYSES": 6,
+      "ROOT_BEARING": 5
+    },
+    "by_group_resolved": {
+      "COMPETING_ANALYSES": 6,
+      "ROOT_BEARING": 4
+    },
+    "locations": 15,
+    "resolved_locations": 14,
+    "resolved_surfaces": 10,
+    "root_bearing_resolved": 4,
+    "surfaces": 11,
+    "unresolved_locations": 1,
+    "unresolved_surfaces": 1
+  }
+}

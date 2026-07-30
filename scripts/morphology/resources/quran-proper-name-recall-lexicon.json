@@ -1,0 +1,1258 @@
+{
+  "contract": {
+    "applies_only_to": "tokens v1.3 leaves RECALL_GAP / UNRESOLVED_PROPER_NAME",
+    "candidate_fields": [
+      "lex",
+      "pos",
+      "root(null)",
+      "prc0-prc3",
+      "enc0",
+      "source(quran_proper_name_lexicon)"
+    ],
+    "keyed_by": "canonical Tanzil surface - never a verse key",
+    "never_synthesized": [
+      "root",
+      "cas",
+      "gen",
+      "num",
+      "stt",
+      "mod",
+      "vox",
+      "asp",
+      "per"
+    ],
+    "pool_semantics": "the candidate is ADDED to the pool; nothing is removed",
+    "proclitic_tags": "lexicon-namespaced; the surface proves the letter, not the syntactic subtype, so wa_conj/wa_sub-style tags are deliberately not asserted",
+    "production_readiness": "entries whose name could not be independently confirmed from the surface are marked production_ready=false and carry requires_manual_verification=true",
+    "purpose": "supply one verifiable noun_prop candidate for the residual L7A surfaces, for which CAMeL produces no noun_prop analysis at all",
+    "teacher_use": "build-time confirmation and veto only - never a runtime lookup, fingerprint or verse-key decision",
+    "unique_parse_required": "a surface with more than one valid split against the closed name inventory yields no candidate"
+  },
+  "entries": [
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "موسى",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "موسى",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "موسى",
+      "lexical_core_note": "Musa, Moses",
+      "locations": 11,
+      "normalized_lemma": "موسى",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰمُوسَىٰ') = 'ياموسى' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'موسى'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 11 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياموسى",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "موسى",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰمُوسَىٰ",
+      "v1_3_status": {
+        "RECALL_GAP": 11
+      },
+      "verse_keys": [
+        "2:55:3",
+        "2:61:3",
+        "17:101:17",
+        "20:17:4",
+        "20:19:3",
+        "20:36:5",
+        "20:40:34",
+        "20:49:4",
+        "20:57:7",
+        "20:83:5",
+        "27:10:12"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ثمود",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ثمود",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ثمود",
+      "lexical_core_note": "Thamud, the people of Salih",
+      "locations": 7,
+      "normalized_lemma": "ثمود",
+      "proclitics": [],
+      "production_ready": true,
+      "provenance": "core_key('ثَمُودُ') = 'ثمود' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ثمود'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 7 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ثمود",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ثمود",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "ثَمُودُ",
+      "v1_3_status": {
+        "RECALL_GAP": 7
+      },
+      "verse_keys": [
+        "11:95:10",
+        "26:141:2",
+        "41:17:2",
+        "54:23:2",
+        "69:4:2",
+        "69:5:2",
+        "91:11:2"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ثمود",
+          "proclitics": [
+            "wa_prc"
+          ]
+        }
+      ],
+      "classification": "CLITIC_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ثمود",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ثمود",
+      "lexical_core_note": "Thamud, the people of Salih",
+      "locations": 6,
+      "normalized_lemma": "ثمود",
+      "proclitics": [
+        {
+          "class": "CONJUNCTIVE",
+          "letters": "و",
+          "slot": "prc2",
+          "tag": "wa_prc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('وَثَمُودَ') = 'وثمود' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ثمود'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 6 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "وثمود",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ثمود",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "wa_prc",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "وَثَمُودَ",
+      "v1_3_status": {
+        "RECALL_GAP": 6
+      },
+      "verse_keys": [
+        "9:70:10",
+        "14:9:10",
+        "40:31:6",
+        "41:13:9",
+        "85:18:2",
+        "89:9:1"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ثمود",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ثمود",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ثمود",
+      "lexical_core_note": "Thamud, the people of Salih",
+      "locations": 5,
+      "normalized_lemma": "ثمود",
+      "proclitics": [],
+      "production_ready": true,
+      "provenance": "core_key('ثَمُودَ') = 'ثمود' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ثمود'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 5 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ثمود",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ثمود",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "ثَمُودَ",
+      "v1_3_status": {
+        "RECALL_GAP": 5
+      },
+      "verse_keys": [
+        "7:73:2",
+        "11:61:2",
+        "17:59:12",
+        "27:45:4",
+        "51:43:2"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "مريم",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "مريم",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "مريم",
+      "lexical_core_note": "Maryam, Mary",
+      "locations": 5,
+      "normalized_lemma": "مريم",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰمَرْيَمُ') = 'يامريم' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'مريم'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 5 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "يامريم",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "مريم",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰمَرْيَمُ",
+      "v1_3_status": {
+        "RECALL_GAP": 5
+      },
+      "verse_keys": [
+        "3:37:19",
+        "3:42:4",
+        "3:43:1",
+        "3:45:4",
+        "19:27:6"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ثمود",
+          "proclitics": [
+            "wa_prc"
+          ]
+        }
+      ],
+      "classification": "CLITIC_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ثمود",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ثمود",
+      "lexical_core_note": "Thamud, the people of Salih",
+      "locations": 3,
+      "normalized_lemma": "ثمود",
+      "proclitics": [
+        {
+          "class": "CONJUNCTIVE",
+          "letters": "و",
+          "slot": "prc2",
+          "tag": "wa_prc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('وَثَمُودُ') = 'وثمود' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ثمود'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 3 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "وثمود",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ثمود",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "wa_prc",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "وَثَمُودُ",
+      "v1_3_status": {
+        "RECALL_GAP": 3
+      },
+      "verse_keys": [
+        "22:42:9",
+        "38:13:1",
+        "50:12:7"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "شعيب",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "شعيب",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "شعيب",
+      "lexical_core_note": "Shu'ayb, prophet of Madyan",
+      "locations": 3,
+      "normalized_lemma": "شعيب",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰشُعَيْبُ') = 'ياشعيب' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'شعيب'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 3 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياشعيب",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "شعيب",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰشُعَيْبُ",
+      "v1_3_status": {
+        "RECALL_GAP": 3
+      },
+      "verse_keys": [
+        "7:88:8",
+        "11:87:2",
+        "11:91:2"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "عيسى",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "عيسى",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "عيسى",
+      "lexical_core_note": "'Isa, Jesus son of Maryam",
+      "locations": 3,
+      "normalized_lemma": "عيسى",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰعِيسَى') = 'ياعيسى' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'عيسى'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 3 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياعيسى",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "عيسى",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰعِيسَى",
+      "v1_3_status": {
+        "RECALL_GAP": 3
+      },
+      "verse_keys": [
+        "5:110:4",
+        "5:112:4",
+        "5:116:4"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "زبور",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "زبور",
+        "attested_pos": "N",
+        "attested_root": "زبر"
+      },
+      "lexical_core": "زبور",
+      "lexical_core_note": "az-Zabur, the psalms given to Dawud",
+      "locations": 2,
+      "normalized_lemma": "زبور",
+      "proclitics": [],
+      "production_ready": false,
+      "reason": "the name carries an Arabic root that the surface does not reveal (attested root 'زبر'); rule 4 forbids synthesizing one, and a rootless candidate would be scored as a wrong selection",
+      "requires_manual_verification": true,
+      "status": "UNRESOLVED_PROPER_NAME",
+      "surface_key": "زبور",
+      "tanzil_surface": "زَبُورًا",
+      "v1_3_status": {
+        "RECALL_GAP": 2
+      },
+      "verse_keys": [
+        "4:163:25",
+        "17:55:15"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "فرعون",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "فرعون",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "فرعون",
+      "lexical_core_note": "Fir'awn, Pharaoh",
+      "locations": 2,
+      "normalized_lemma": "فرعون",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰفِرْعَوْنُ') = 'يافرعون' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'فرعون'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 2 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "يافرعون",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "فرعون",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰفِرْعَوْنُ",
+      "v1_3_status": {
+        "RECALL_GAP": 2
+      },
+      "verse_keys": [
+        "7:104:3",
+        "17:102:14"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "لوط",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "لوط",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "لوط",
+      "lexical_core_note": "Lut, Lot",
+      "locations": 2,
+      "normalized_lemma": "لوط",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰلُوطُ') = 'يالوط' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'لوط'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 2 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "يالوط",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "لوط",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰلُوطُ",
+      "v1_3_status": {
+        "RECALL_GAP": 2
+      },
+      "verse_keys": [
+        "11:81:2",
+        "26:167:5"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "موسى",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "موسى",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "موسى",
+      "lexical_core_note": "Musa, Moses",
+      "locations": 2,
+      "normalized_lemma": "موسى",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰمُوسَى') = 'ياموسى' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'موسى'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 2 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياموسى",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "موسى",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰمُوسَى",
+      "v1_3_status": {
+        "RECALL_GAP": 2
+      },
+      "verse_keys": [
+        "7:134:6",
+        "7:138:13"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "هامان",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "هامان",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "هامان",
+      "lexical_core_note": "Haman, minister of Pharaoh",
+      "locations": 2,
+      "normalized_lemma": "هامان",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('يَـٰهَـٰمَـٰنُ') = 'ياهامان' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'هامان'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 2 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياهامان",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "هامان",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "yA_voc",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَـٰهَـٰمَـٰنُ",
+      "v1_3_status": {
+        "RECALL_GAP": 2
+      },
+      "verse_keys": [
+        "28:38:13",
+        "40:36:3"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "احقاف",
+          "proclitics": [
+            "bi_prc",
+            "Al_det"
+          ]
+        }
+      ],
+      "classification": "CLITIC_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "احقاف",
+        "attested_pos": "N",
+        "attested_root": "حقف"
+      },
+      "lexical_core": "احقاف",
+      "lexical_core_note": "al-Ahqaf, the dunes (surah 46 place name)",
+      "locations": 1,
+      "normalized_lemma": "احقاف",
+      "proclitics": [
+        {
+          "class": "PREPOSITIONAL",
+          "letters": "ب",
+          "slot": "prc1",
+          "tag": "bi_prc"
+        },
+        {
+          "class": "DETERMINER",
+          "letters": "ال",
+          "slot": "prc0",
+          "tag": "Al_det"
+        }
+      ],
+      "production_ready": false,
+      "reason": "the name carries an Arabic root that the surface does not reveal (attested root 'حقف'); rule 4 forbids synthesizing one, and a rootless candidate would be scored as a wrong selection",
+      "requires_manual_verification": true,
+      "status": "UNRESOLVED_PROPER_NAME",
+      "surface_key": "بالاحقاف",
+      "tanzil_surface": "بِٱلْأَحْقَافِ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "46:21:7"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "سواع",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "سواع",
+        "attested_pos": "N",
+        "attested_root": "سوع"
+      },
+      "lexical_core": "سواع",
+      "lexical_core_note": "Suwa', a pre-Islamic idol (71:23)",
+      "locations": 1,
+      "normalized_lemma": "سواع",
+      "proclitics": [],
+      "production_ready": false,
+      "reason": "the name carries an Arabic root that the surface does not reveal (attested root 'سوع'); rule 4 forbids synthesizing one, and a rootless candidate would be scored as a wrong selection",
+      "requires_manual_verification": true,
+      "status": "UNRESOLVED_PROPER_NAME",
+      "surface_key": "سواع",
+      "tanzil_surface": "سُوَاعًا",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "71:23:9"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ثمود",
+          "proclitics": [
+            "li_prc"
+          ]
+        }
+      ],
+      "classification": "CLITIC_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ثمود",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ثمود",
+      "lexical_core_note": "Thamud, the people of Salih",
+      "locations": 1,
+      "normalized_lemma": "ثمود",
+      "proclitics": [
+        {
+          "class": "PREPOSITIONAL",
+          "letters": "ل",
+          "slot": "prc1",
+          "tag": "li_prc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('لِّثَمُودَ') = 'لثمود' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ثمود'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 1 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "لثمود",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ثمود",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "li_prc",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "لِّثَمُودَ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "11:68:12"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "هاروت",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "هاروت",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "هاروت",
+      "lexical_core_note": "Harut, the angel of 2:102",
+      "locations": 1,
+      "normalized_lemma": "هاروت",
+      "proclitics": [],
+      "production_ready": true,
+      "provenance": "core_key('هَـٰرُوتَ') = 'هاروت' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'هاروت'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 1 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "هاروت",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "هاروت",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "هَـٰرُوتَ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "2:102:22"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "يعوق",
+          "proclitics": [
+            "wa_prc"
+          ]
+        }
+      ],
+      "classification": "CLITIC_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "يعوق",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "يعوق",
+      "lexical_core_note": "Ya'uq, a pre-Islamic idol (71:23)",
+      "locations": 1,
+      "normalized_lemma": "يعوق",
+      "proclitics": [
+        {
+          "class": "CONJUNCTIVE",
+          "letters": "و",
+          "slot": "prc2",
+          "tag": "wa_prc"
+        }
+      ],
+      "production_ready": true,
+      "provenance": "core_key('وَيَعُوقَ') = 'ويعوق' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'يعوق'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 1 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ويعوق",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "يعوق",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "wa_prc",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "وَيَعُوقَ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "71:23:12"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ياجوج",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ياجوج",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ياجوج",
+      "lexical_core_note": "Ya'juj, Gog",
+      "locations": 1,
+      "normalized_lemma": "ياجوج",
+      "proclitics": [],
+      "production_ready": true,
+      "provenance": "core_key('يَأْجُوجَ') = 'ياجوج' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ياجوج'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 1 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياجوج",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ياجوج",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَأْجُوجَ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "18:94:5"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "ياجوج",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "ياجوج",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "ياجوج",
+      "lexical_core_note": "Ya'juj, Gog",
+      "locations": 1,
+      "normalized_lemma": "ياجوج",
+      "proclitics": [],
+      "production_ready": true,
+      "provenance": "core_key('يَأْجُوجُ') = 'ياجوج' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'ياجوج'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 1 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "ياجوج",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "ياجوج",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَأْجُوجُ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "21:96:4"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "سامرى",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "سامري",
+        "attested_pos": "N",
+        "attested_root": "سمر"
+      },
+      "lexical_core": "سامرى",
+      "lexical_core_note": "as-Samiri, the man who made the calf",
+      "locations": 1,
+      "normalized_lemma": "سامرى",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": false,
+      "reason": "the name carries an Arabic root that the surface does not reveal (attested root 'سمر'); rule 4 forbids synthesizing one, and a rootless candidate would be scored as a wrong selection",
+      "requires_manual_verification": true,
+      "status": "UNRESOLVED_PROPER_NAME",
+      "surface_key": "ياسامرى",
+      "tanzil_surface": "يَـٰسَـٰمِرِىُّ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "20:95:4"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "يحيى",
+          "proclitics": [
+            "yA_voc"
+          ]
+        }
+      ],
+      "classification": "VOCATIVE_FUSED",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "يحيى",
+        "attested_pos": "N",
+        "attested_root": "حيي"
+      },
+      "lexical_core": "يحيى",
+      "lexical_core_note": "Yahya, John",
+      "locations": 1,
+      "normalized_lemma": "يحيى",
+      "proclitics": [
+        {
+          "class": "VOCATIVE",
+          "letters": "يا",
+          "slot": "prc3",
+          "tag": "yA_voc"
+        }
+      ],
+      "production_ready": false,
+      "reason": "the name carries an Arabic root that the surface does not reveal (attested root 'حيي'); rule 4 forbids synthesizing one, and a rootless candidate would be scored as a wrong selection",
+      "requires_manual_verification": true,
+      "status": "UNRESOLVED_PROPER_NAME",
+      "surface_key": "يايحيى",
+      "tanzil_surface": "يَـٰيَحْيَىٰ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "19:12:1"
+      ]
+    },
+    {
+      "candidate_parses": [
+        {
+          "lexical_core": "يغوث",
+          "proclitics": []
+        }
+      ],
+      "classification": "PLAIN_PROPER_NAME",
+      "deterministic_from_surface_alone": true,
+      "expected_pos": "noun_prop",
+      "independent_check": {
+        "attested_lemma": "يغوث",
+        "attested_pos": "N",
+        "attested_root": null
+      },
+      "lexical_core": "يغوث",
+      "lexical_core_note": "Yaghuth, a pre-Islamic idol (71:23)",
+      "locations": 1,
+      "normalized_lemma": "يغوث",
+      "proclitics": [],
+      "production_ready": true,
+      "provenance": "core_key('يَغُوثَ') = 'يغوث' peels to exactly one (proclitic chain, name) split against the closed inventory, giving 'يغوث'. No root, case, gender, number, state, mood, voice, aspect or person is synthesized. Independently confirmed against the attested lemma at all 1 locations.",
+      "requires_manual_verification": false,
+      "status": "RESOLVED",
+      "surface_key": "يغوث",
+      "synthetic_candidate": {
+        "enc0": "0",
+        "lex": "يغوث",
+        "pos": "noun_prop",
+        "prc0": "0",
+        "prc1": "0",
+        "prc2": "0",
+        "prc3": "0",
+        "root": null,
+        "source": "quran_proper_name_lexicon"
+      },
+      "tanzil_surface": "يَغُوثَ",
+      "v1_3_status": {
+        "RECALL_GAP": 1
+      },
+      "verse_keys": [
+        "71:23:11"
+      ]
+    }
+  ],
+  "name_inventory": {
+    "احقاف": "al-Ahqaf, the dunes (surah 46 place name)",
+    "ثمود": "Thamud, the people of Salih",
+    "زبور": "az-Zabur, the psalms given to Dawud",
+    "سامرى": "as-Samiri, the man who made the calf",
+    "سواع": "Suwa', a pre-Islamic idol (71:23)",
+    "شعيب": "Shu'ayb, prophet of Madyan",
+    "عيسى": "'Isa, Jesus son of Maryam",
+    "فرعون": "Fir'awn, Pharaoh",
+    "لوط": "Lut, Lot",
+    "مريم": "Maryam, Mary",
+    "موسى": "Musa, Moses",
+    "هاروت": "Harut, the angel of 2:102",
+    "هارون": "Harun, Aaron",
+    "هامان": "Haman, minister of Pharaoh",
+    "ياجوج": "Ya'juj, Gog",
+    "يحيى": "Yahya, John",
+    "يعوق": "Ya'uq, a pre-Islamic idol (71:23)",
+    "يغوث": "Yaghuth, a pre-Islamic idol (71:23)"
+  },
+  "proclitic_inventory": [
+    {
+      "class": "VOCATIVE",
+      "letters": "يا",
+      "slot": "prc3",
+      "tag": "yA_voc"
+    },
+    {
+      "class": "CONJUNCTIVE",
+      "letters": "و",
+      "slot": "prc2",
+      "tag": "wa_prc"
+    },
+    {
+      "class": "CONJUNCTIVE",
+      "letters": "ف",
+      "slot": "prc2",
+      "tag": "fa_prc"
+    },
+    {
+      "class": "PREPOSITIONAL",
+      "letters": "ب",
+      "slot": "prc1",
+      "tag": "bi_prc"
+    },
+    {
+      "class": "PREPOSITIONAL",
+      "letters": "ل",
+      "slot": "prc1",
+      "tag": "li_prc"
+    },
+    {
+      "class": "PREPOSITIONAL",
+      "letters": "ك",
+      "slot": "prc1",
+      "tag": "ka_prc"
+    },
+    {
+      "class": "DETERMINER",
+      "letters": "ال",
+      "slot": "prc0",
+      "tag": "Al_det"
+    }
+  ],
+  "schema_version": "quran-proper-name-recall-lexicon-v1",
+  "totals": {
+    "by_classification": {
+      "CLITIC_FUSED": 5,
+      "PLAIN_PROPER_NAME": 8,
+      "VOCATIVE_FUSED": 10
+    },
+    "by_classification_resolved": {
+      "CLITIC_FUSED": 4,
+      "PLAIN_PROPER_NAME": 6,
+      "VOCATIVE_FUSED": 8
+    },
+    "distinct_names": 12,
+    "locations": 63,
+    "production_ready_surfaces": 18,
+    "requires_manual_verification_surfaces": 5,
+    "resolved_locations": 57,
+    "resolved_surfaces": 18,
+    "surfaces": 23,
+    "unresolved_locations": 6,
+    "unresolved_surfaces": 5
+  }
+}

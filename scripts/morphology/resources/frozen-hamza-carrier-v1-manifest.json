@@ -1,0 +1,111 @@
+{
+  "artifacts": {
+    "data/candidates/morphology/hamza-carrier-v1/checksums.json": {
+      "note": "hamza-carrier-v1 checksums",
+      "sha256": "bb7152331b9fd6d5f239a0802a6aecd11cd894f1306c99a9a439b43208edc0a0"
+    },
+    "data/candidates/morphology/hamza-carrier-v1/classification.jsonl": {
+      "note": "per-token evidence for all 42 tokens under all six candidate rules",
+      "sha256": "77456c423c5d341a8a35540601b5674df70825d2461629aefbaf4e96b180a9d3"
+    },
+    "data/candidates/morphology/hamza-carrier-v1/report.json": {
+      "note": "families, in-scope gain, broad negative sample, verdicts",
+      "sha256": "5cef2bd11371fcdae8698c794d1e8300759b8f81fb979ae07282ef2c2d846a7b"
+    },
+    "docs/morfoloji-hamza-carrier-v1.md": {
+      "note": "write-up",
+      "sha256": "ec209abff3f692a178f9055880b2a4222b6d372f0e3b5836e794235468f52325"
+    },
+    "scripts/morphology/analyze-hamza-carrier-v1.py": {
+      "note": "FROZEN: carrier-only rule search, edit-script + inverse enforced",
+      "sha256": "dab4b5e5277baab8491c8fb8293addea8bca38cd844416b0f8f0eae0d8a2a662"
+    }
+  },
+  "byte_identical_two_runs": true,
+  "chains_from": {
+    "path": "scripts/morphology/resources/frozen-paradigm-gap-v2-manifest.json",
+    "schema_version": "morphology-freeze-paradigm-gap-v2",
+    "sha256": "a3da0d06a199ee3ce7e3dda46d25bc3d08aafb61cca3e51e3ec5f3189c1ba479"
+  },
+  "closable_tokens": 29,
+  "families": {
+    "BARE_AFTER_LONG_ALEF_BEFORE_WAW": 29,
+    "BARE_AFTER_LONG_ALEF_OTHER": 1,
+    "BARE_AFTER_LONG_YEH": 1,
+    "BARE_AFTER_LONG_YEH+BARE_AFTER_SUKUN_GLIDE": 2,
+    "SEATED_WAW": 7,
+    "SEATED_YEH": 2
+  },
+  "open_records": {
+    "note": "left open deliberately. The يَبْدَؤُا۟ family additionally needs something that is not a carrier change - MSA يبدأ also drops the silent alef, and that rule (O3) was withdrawn in v1.7.",
+    "risky_detail": "3 reached only via HC2/HC3 (ٱسْتَيْـَٔسَ, ٱسْتَيْـَٔسُوا۟, سِيٓـَٔتْ), 7 only via HC4X (يَبْدَؤُا۟ x6, يُنَبَّؤُا۟), 2 only via HC5X (ٱئْتُوا۟)",
+    "risky_tokens": 12,
+    "unresolved_detail": "4:1:21 تَسَآءَلُونَ, lemma يَتَساءَلُ - no carrier rule reaches it",
+    "unresolved_tokens": 1
+  },
+  "policy": {
+    "carrier_only": "each edit replaces one hamza-family codepoint with another; length preservation and carrier membership are asserted",
+    "edit_script_and_inverse_checked_on_every_variant": true,
+    "frozen_rules_unchanged": [
+      "R1-R3 hamza",
+      "R1-R5 recall",
+      "selector cascade",
+      "O1a/O2a/O5"
+    ],
+    "full_dump_not_regenerated": true,
+    "inherited": "every policy of the paradigm-gap-v2, v1.7, v1 and v1.6 manifests",
+    "no_hamza_deleted_or_folded_to_a_non_hamza_letter": true,
+    "no_verse_key_no_surface_allowlist_no_teacher_gate": true,
+    "production_db": "not written",
+    "selector_not_run": true,
+    "teacher_use": "scoring only"
+  },
+  "rule_evidence": {
+    "HC1_BARE_AFTER_LONG_ALEF_BEFORE_WAW": {
+      "candidates_compatible": 86,
+      "candidates_incompatible": 29,
+      "in_scope_fired": 29,
+      "in_scope_reached_teacher_core": 29,
+      "negative_sample_surfaces": 8,
+      "note": "the frozen R2 declines this context on purpose (it keeps a hamza after a long vowel on the line), so HC1 is a new context, not an edit to R2",
+      "rule": "U+0621 -> U+0624 when the preceding letter is U+0627/U+0622/U+0671 carrying no short vowel and the following letter is U+0648",
+      "v1_7_correct_tokens_given_a_competing_core": 0
+    },
+    "HC2_BARE_AFTER_SUKUN_GLIDE": {
+      "in_scope_reached_teacher_core": 2,
+      "negative_sample_surfaces": 17,
+      "v1_7_correct_tokens_given_a_competing_core": 9
+    },
+    "HC3_BARE_AFTER_LONG_YEH": {
+      "in_scope_reached_teacher_core": 3,
+      "negative_sample_surfaces": 358,
+      "v1_7_correct_tokens_given_a_competing_core": 13
+    },
+    "HC4X_WAW_SEAT_TO_YEH_SEAT": {
+      "in_scope_reached_teacher_core": 7,
+      "negative_sample_surfaces": 693,
+      "v1_7_correct_tokens_given_a_competing_core": 58
+    },
+    "HC5X_YEH_SEAT_TO_ALEF_SEAT": {
+      "in_scope_reached_teacher_core": 2,
+      "negative_sample_surfaces": 919,
+      "v1_7_correct_tokens_given_a_competing_core": 178
+    },
+    "HC6X_WAW_SEAT_TO_ALEF_SEAT": {
+      "in_scope_reached_teacher_core": 0,
+      "negative_sample_surfaces": 693,
+      "v1_7_correct_tokens_given_a_competing_core": 85
+    }
+  },
+  "rule_verdicts": {
+    "HC1_BARE_AFTER_LONG_ALEF_BEFORE_WAW": "PROPOSED_PRODUCTION_CANDIDATE",
+    "HC2_BARE_AFTER_SUKUN_GLIDE": "REJECTED",
+    "HC3_BARE_AFTER_LONG_YEH": "REJECTED",
+    "HC4X_WAW_SEAT_TO_YEH_SEAT": "REJECTED",
+    "HC5X_YEH_SEAT_TO_ALEF_SEAT": "REJECTED",
+    "HC6X_WAW_SEAT_TO_ALEF_SEAT": "REJECTED"
+  },
+  "schema_version": "morphology-freeze-hamza-carrier-v1",
+  "status": "MEASURED_NOT_APPLIED",
+  "verdict_criterion": "Applied uniformly, no rule gets a special case: no gain -> rejected; gain with zero competing cores on tokens the frozen v1.7 selection already gets CORRECT -> proposed; otherwise rejected when it risks more already-correct tokens than it closes, deferred when it risks fewer. No rule landed in the deferral band this round. Narrowing by allowlist was not an option."
+}

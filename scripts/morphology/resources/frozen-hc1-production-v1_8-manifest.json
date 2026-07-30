@@ -1,0 +1,503 @@
+{
+  "acceptance_gates": {
+    "all_29_expected_tokens_have_exact_candidate_in_pool": true,
+    "all_additions_attributable_to_added_forms": true,
+    "every_expected_conversion_selects_the_exact_candidate": true,
+    "expected_scope_is_29_tokens": true,
+    "no_correct_lost_to_incorrect_or_ambiguous": true,
+    "no_hc1_token_selecting_a_wrong_lemma": true,
+    "no_new_incorrect": true,
+    "no_selection_change_outside_hc1_tokens": true,
+    "no_v1_7_correct_fingerprint_changed": true,
+    "purely_additive_pools": true
+  },
+  "acceptance_results": {
+    "additions_not_attributable_to_added_forms": 0,
+    "analyzer_forms_added": 70,
+    "comparison_byte_identical_two_runs": true,
+    "correct_lost_to_incorrect_or_ambiguous": 0,
+    "dump_shards_byte_identical_two_runs": 114,
+    "expected_conversions_selecting_exact_candidate": 16,
+    "expected_converted_by_rule": {
+      "HC1_PLUS_O4_BARE_TO_WAW_SEAT_PLUS_OTIOSE_ALEF": 9,
+      "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW": 7
+    },
+    "expected_converted_recall_gap_to_correct": 16,
+    "expected_left_ambiguous_detail": [
+      {
+        "arabic": "جَآءُوكَ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "4:62",
+        "word_index": 9
+      },
+      {
+        "arabic": "جَآءُوكَ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "4:64",
+        "word_index": 14
+      },
+      {
+        "arabic": "جَآءُوكُمْ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "4:90",
+        "word_index": 10
+      },
+      {
+        "arabic": "جَآءُوكَ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "5:42",
+        "word_index": 6
+      },
+      {
+        "arabic": "جَآءُوكُمْ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "5:61",
+        "word_index": 2
+      },
+      {
+        "arabic": "جَآءُوكَ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "6:25",
+        "word_index": 23
+      },
+      {
+        "arabic": "فَجَآءُوهُم",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "10:74",
+        "word_index": 8
+      },
+      {
+        "arabic": "فَجَآءُوهُم",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "30:47",
+        "word_index": 8
+      },
+      {
+        "arabic": "جَآءُوكُم",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "33:10",
+        "word_index": 2
+      },
+      {
+        "arabic": "جَآءُوهَا",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "39:71",
+        "word_index": 9
+      },
+      {
+        "arabic": "جَآءُوهَا",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "39:73",
+        "word_index": 10
+      },
+      {
+        "arabic": "جَآءُوهَا",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "41:20",
+        "word_index": 4
+      },
+      {
+        "arabic": "جَآءُوكَ",
+        "pool_has_exact_candidate": true,
+        "rules": [
+          "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW"
+        ],
+        "v1_8_verdict": "AMBIGUOUS",
+        "verse_key": "58:8",
+        "word_index": 19
+      }
+    ],
+    "expected_left_ambiguous_exact_present_but_cascade_undecided": 13,
+    "expected_pool_exact_by_rule": {
+      "HC1_PLUS_O4_BARE_TO_WAW_SEAT_PLUS_OTIOSE_ALEF": 9,
+      "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW": 20
+    },
+    "expected_tokens": 29,
+    "expected_tokens_with_exact_candidate_in_pool": 29,
+    "hc1_tokens_selecting_a_wrong_lemma": 0,
+    "new_incorrect_selections": 0,
+    "pools_removed_or_altered": 0,
+    "recall_gap_to_correct_total": 20,
+    "rules_disjoint": true,
+    "selection_byte_identical_two_runs": true,
+    "selection_changes_outside_hc1_tokens": 0,
+    "selections_changed_total": 20,
+    "token_map_byte_identical_two_runs": true,
+    "tokens_extended": 35,
+    "tokens_gaining_candidates": 35,
+    "trigger_tokens_by_rule": {
+      "HC1_PLUS_O4_BARE_TO_WAW_SEAT_PLUS_OTIOSE_ALEF": 13,
+      "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW": 22
+    },
+    "v1_7_correct_fingerprints_changed": 0,
+    "verdict_transitions": {
+      "AMBIGUOUS->AMBIGUOUS": 34454,
+      "CORRECT->CORRECT": 30709,
+      "INCORRECT->INCORRECT": 3064,
+      "RECALL_GAP->AMBIGUOUS": 13,
+      "RECALL_GAP->CORRECT": 20,
+      "RECALL_GAP->RECALL_GAP": 9169
+    }
+  },
+  "also_pins": {
+    "note": "the production line v1.8 extends; its token map is this round's input and its selection is this round's baseline",
+    "path": "scripts/morphology/resources/frozen-orthographic-production-v1_7-manifest.json",
+    "schema_version": "morphology-freeze-orthographic-production-v1_7",
+    "sha256": "c79909669750a3006720b882d0c8ddd4801f6c1335a3be29a344bcf91e0d0c52"
+  },
+  "artifacts": {
+    "data/candidates/morphology/hc1-ext-v1_8/determinism-v1_8.json": {
+      "note": "byte comparison of the two independent runs",
+      "sha256": "d1bb812bbe266b62d849b7744e12ba421b07742998aad354380f15dccb74e627"
+    },
+    "data/candidates/morphology/hc1-ext-v1_8/token-map-hc1-ext-v1_8.jsonl": {
+      "note": "derived production token map: 77,429 records, 35 extended, canonical form untouched, v1.7 forms kept at their v1.7 positions",
+      "sha256": "6d9e2975208726e1c54d714b19f37df269cb11fd025e838ab0542614e152c516"
+    },
+    "data/candidates/morphology/hc1-ext-v1_8/trigger-report.json": {
+      "note": "per-rule trigger totals and the fired token keys",
+      "sha256": "d001a7afa90ea5f9b2b43013d1a2c51ec49af430cf1cb50971eb5cb988886934"
+    },
+    "data/candidates/morphology/selector-v1_8/checksums.json": {
+      "note": "v1.8 selection checksums",
+      "sha256": "c2fc5025ad99ced482fbb9d374a388bb25738e425c469d6b652a700ebed9acd0"
+    },
+    "data/candidates/morphology/selector-v1_8/selection.jsonl": {
+      "note": "FROZEN v1.8 selection (baseline for the next round)",
+      "sha256": "ab777b7931c6af916eb3bd26287a28e3b55d9301f30d7da7d73dee5d294bb561"
+    },
+    "data/candidates/morphology/selector-v1_8/v1_8-vs-v1_7-comparison.json": {
+      "note": "acceptance evidence vs frozen v1.7",
+      "sha256": "463ba22d28fefa3d47beb233316d97216a94963604925df90c06b8ad6ca4f5e6"
+    },
+    "docs/morfoloji-hc1-production-v1_8.md": {
+      "note": "write-up",
+      "sha256": "6465d5af8ec9b94b20ca6461765d5fa692d68b459240eadd186bbde2570b032a"
+    },
+    "scripts/morphology/build-full-analysis-hc1-ext-v1_8.py": {
+      "note": "dump builder; reuses the frozen full-analysis builder verbatim",
+      "sha256": "5c1ad8ca77feedf494df366cef1d25753633b968e9e507818cd43f23978215ce"
+    },
+    "scripts/morphology/build-hc1-token-map-v1_8.py": {
+      "note": "teacher-free derived token map builder (no allowlist, no verse filter)",
+      "sha256": "01ceb3311f158703451b322b3ee19b745db328832f2fb962a05189488b13d5cf"
+    },
+    "scripts/morphology/hamza_carrier_production_rules.py": {
+      "note": "FROZEN production rule set: HC1a and HC1_PLUS_O4 as edit scripts, carrier membership and the alef binding asserted on every variant",
+      "sha256": "bf8cc202d67e0b13e59e4c66733b3fcca5dff3d52265a7f5055a36779c1374c5"
+    },
+    "scripts/morphology/select-camel-candidate-v1_8.py": {
+      "note": "runs the FROZEN v1.7 line on the HC1 dump; acceptance gates",
+      "sha256": "f6802599b0b6ca2d7f1de3a30911c3e922014fcdeee802e3fa1c766e871d9b7d"
+    },
+    "scripts/morphology/verify-hc1-determinism-v1_8.py": {
+      "note": "second independent run and the byte comparison against run A",
+      "sha256": "1827c0730d43c84c4865a8af05cee082b1872b8344684e318e5540c061554ec1"
+    }
+  },
+  "chains_from": {
+    "path": "scripts/morphology/resources/frozen-hamza-carrier-v1-manifest.json",
+    "schema_version": "morphology-freeze-hamza-carrier-v1",
+    "sha256": "3fbc666d31ee97f381b2d780958f6392cf854bdbac6ea47a9c0b0ae84e55dcac"
+  },
+  "hamza_carrier_bucket": {
+    "bucket_tokens": 42,
+    "closed_this_round": 29,
+    "left_unresolved": 13,
+    "note": "left OPEN deliberately. No allowlist, verse-key override or lexicon entry was added to close them. They are reachable only via the rejected HC2/HC3/HC4X/HC5X rules, or by no carrier rule at all (4:1:21 تَسَآءَلُونَ).",
+    "unresolved_tokens": [
+      {
+        "arabic": "تَسَآءَلُونَ",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "4:1",
+        "word_index": 21
+      },
+      {
+        "arabic": "يَبْدَؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "10:4",
+        "word_index": 8
+      },
+      {
+        "arabic": "يَبْدَؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "10:34",
+        "word_index": 6
+      },
+      {
+        "arabic": "يَبْدَؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "10:34",
+        "word_index": 12
+      },
+      {
+        "arabic": "ٱسْتَيْـَٔسُوا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "12:80",
+        "word_index": 2
+      },
+      {
+        "arabic": "ٱسْتَيْـَٔسَ",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "12:110",
+        "word_index": 3
+      },
+      {
+        "arabic": "ٱئْتُوا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "20:64",
+        "word_index": 4
+      },
+      {
+        "arabic": "يَبْدَؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "27:64",
+        "word_index": 2
+      },
+      {
+        "arabic": "يَبْدَؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "30:11",
+        "word_index": 2
+      },
+      {
+        "arabic": "يَبْدَؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "30:27",
+        "word_index": 3
+      },
+      {
+        "arabic": "ٱئْتُوا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "45:25",
+        "word_index": 12
+      },
+      {
+        "arabic": "سِيٓـَٔتْ",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "67:27",
+        "word_index": 4
+      },
+      {
+        "arabic": "يُنَبَّؤُا۟",
+        "v1_8_verdict": "RECALL_GAP",
+        "verse_key": "75:13",
+        "word_index": 1
+      }
+    ]
+  },
+  "hc1_dump": {
+    "analysis_words": 77429,
+    "containment_vs_frozen_v1_7": {
+      "purely_additive": true,
+      "tokens_that_gained_candidates": 35,
+      "tokens_with_a_candidate_altered_or_reordered": 0,
+      "tokens_with_a_candidate_removed": 0
+    },
+    "dir": "data/candidates/morphology/camel-morph-msa-v1.0/full-analysis-hc1-ext-v1_8",
+    "extended_db_sha256": "dcf375e8658baf906064b1f0e9fb48510ffd893b20e7eda44ad7051dbd604b5f",
+    "original_db_sha256": "110e03baa282874062d076e23d9671e985b6f76520b891d58cba4e55de0b8f60",
+    "shard_sha256": {
+      "surah-001.jsonl.gz": "2937db3fe7b40b96c77bfabba28919059e3124c4a800ed2e419ae10021dd9406",
+      "surah-002.jsonl.gz": "91e81d971ed1d763035f3b2adba76a4d83c6b139a87007077b2c1b8a04cdb61e",
+      "surah-003.jsonl.gz": "ab740e0d8d9147a312f330c19184df709095eaec97eaac01492689d4f4365a4a",
+      "surah-004.jsonl.gz": "2a6b26e69a1d8f0762f298bb4078309724a8b93ac3ad2488da97ff386d8ea1d4",
+      "surah-005.jsonl.gz": "3e7600d21429523f6234aa318357d28aabcc26c9d99cafd46e5b50729a4b9734",
+      "surah-006.jsonl.gz": "b2c82b6aaceba16bd9ed3d0d8cc2e51d28cccca288e33f78348f15506bdc6bc7",
+      "surah-007.jsonl.gz": "cdb68b840151b5bb4827c1c941673b835752cdd71ddcb1a0edc56fa98c2d09fe",
+      "surah-008.jsonl.gz": "904e125a66b93ffb28393bbc6067f43996e123093cf79b480d98ae9fc6674836",
+      "surah-009.jsonl.gz": "997e99d6c7c69961cf2aa0601934f5bb64e5a888727a2181f7412e48008467bc",
+      "surah-010.jsonl.gz": "e44e38f53fcf4199e9ab116021b8a59bf951662d20d2cea3326a145bbe159c05",
+      "surah-011.jsonl.gz": "632315028114245acd731933eb3bbb33ea0b34b2abe3b6398fa81bf9438c32d0",
+      "surah-012.jsonl.gz": "0081a03e5e8ff6148dd1c4b41cab054ed4bf8e2055cfb94b3536267189928557",
+      "surah-013.jsonl.gz": "0996e578a3f5bb222bd8a777bf63b93a249d84f2ce91b89677829c0a87f8d541",
+      "surah-014.jsonl.gz": "137e82375afb472ce036663e2ae727b6aff7112fae1f8fa6355aca8ec5518a35",
+      "surah-015.jsonl.gz": "63963e8bc0fe17d06fc3af3419790e547d8694facf8eff8f19d7697e71ce74ff",
+      "surah-016.jsonl.gz": "e671cfc7c4bba6fc1ec9c4d18c285e935eab234a5de8d1d085589098cc37be70",
+      "surah-017.jsonl.gz": "47a1b4a5ec46f557aa08bd9ec02bbd884515c51b2425cd2d9f1f4fbdbd0418ef",
+      "surah-018.jsonl.gz": "2960664036433fb1273d7d184872222d6975a6256961a82ad893c192e1e6196f",
+      "surah-019.jsonl.gz": "cfaeece8de07fbe42427666b12c89b2c805d7e9bde9f39ee5bbc5fd13c43a710",
+      "surah-020.jsonl.gz": "c4bcee2a070fe7b9115be26b47d0156a637956c54363bc4b7cd3bf0af14f1f3d",
+      "surah-021.jsonl.gz": "debc93e56d61fb2c0c6928b695d777d1456b9f9a166541062fd656f1157059a7",
+      "surah-022.jsonl.gz": "99069313fecb9186bd29a1a28a6a016d9b3248cb1e8367495328a4dd91877f07",
+      "surah-023.jsonl.gz": "caa0a676f8beabe8032aaedfb51ec8008e35e69bd3b79738dd8c8363c73797e5",
+      "surah-024.jsonl.gz": "88b4526d38e449d2ce501ca8d26da4f7cbf114894e02bbf16bf74f7f2444b0a6",
+      "surah-025.jsonl.gz": "65c6ff3217b22608f5dcc1eadb9675806457fde6ab122ea1e3117e8757f6e321",
+      "surah-026.jsonl.gz": "1c042ac9fd91c3a0c18013876acc27cca05af4ed7e47890727b66cf42d81bc8a",
+      "surah-027.jsonl.gz": "95bacb198d682364ec916b8b982659dbd5aa37441b86abe5943bdacef2597335",
+      "surah-028.jsonl.gz": "2f9b2244ac660c6e9ac46f32f129840811aa69b0f8b41a965b370cb81a3eb74b",
+      "surah-029.jsonl.gz": "c7967fefca652ea6d908792ab5ed0b213a1016e8e7b6a6d373738df5f71519e2",
+      "surah-030.jsonl.gz": "02a0cf93c4511e4577138deabf520dfacdc63a4578feadb17a570a7180ab06c7",
+      "surah-031.jsonl.gz": "d8c0751a5e3e828885500f0197527831741aae7bd7c6e3abd4e9c1b73ff88fc8",
+      "surah-032.jsonl.gz": "4ee5d102cafe16a26eb293d97ee1d72f93fc511dae788577ca7be0c96c747cd4",
+      "surah-033.jsonl.gz": "28e0665e00015ccfb2f2b6ab56c88c72d895973e802dc34be64f5346aa826b7b",
+      "surah-034.jsonl.gz": "05e449c6ced6746c8950996619bc4f76cabf9decf329e52a632d84e8e1fa62a2",
+      "surah-035.jsonl.gz": "507ec3f87bd99b0ea9dfee8db81d28e71e52de2b888b3345ee2fbb7e9054cdf7",
+      "surah-036.jsonl.gz": "a7e422ca666a6063f03e8b211e30536e22d3d95475512e3a688ebecd3b52b071",
+      "surah-037.jsonl.gz": "e7b41a965db5b1f941169bcc3507a0b88bd4b7cfa41b8ad112a85d9216f52946",
+      "surah-038.jsonl.gz": "b5731123c4a63d239adee001f8a51a8a305ef475537b03414dc9f64290359e15",
+      "surah-039.jsonl.gz": "11d2f652d02e4fbc566259a236fba63a9163376b943a0988a0b4b2cd9f6a1db5",
+      "surah-040.jsonl.gz": "a6b1f45dfdc0d57cbfc79d587ed6f1207750d696c6e0f1e67311adacfa24b1ba",
+      "surah-041.jsonl.gz": "916e47a1954f8a06a7d75d2582cccdf978376e412000dfb0cf714bd10595e3bc",
+      "surah-042.jsonl.gz": "1492637590ee90582a47b2a1aff8d1f48b67f595a0dfabb05b86f8d93d517db0",
+      "surah-043.jsonl.gz": "5f048f6d36a5f0772ef79c034e81fbb960790b4347c83849f458344a739cbed1",
+      "surah-044.jsonl.gz": "95eb850602b5b56b4e0117559cc99efafdf01a02b72adfbbe5fdd0902f5cfd66",
+      "surah-045.jsonl.gz": "d54b92e83a086b77eeecc4e34b6df61a76a7bfdbab27ab64ea0bd2b2bfcef8f1",
+      "surah-046.jsonl.gz": "e1df47dc614f398428cd887fc9a51030b8737aee8ad4f9d35275c0a59c35c18e",
+      "surah-047.jsonl.gz": "c98d6772468fcda0f644b7065f2547c70269cf1ae97f7f99faae0dee9a80afb1",
+      "surah-048.jsonl.gz": "646f31c32d77e11907b7a7fe1fb7a5ff96012ba4160d1798a176af4be4c33192",
+      "surah-049.jsonl.gz": "a02b12a8b8516af7ba0665972000605bc42d0763051f89df89de4b14bd3989b5",
+      "surah-050.jsonl.gz": "5f2dce2e84527ef0f64402115b5a0a2f031de9333a16c83bba4b4f489d7d37a1",
+      "surah-051.jsonl.gz": "398d6ad37b0266ae55b8cddbbc093556990b6cb829c5240a052672502e59fbc3",
+      "surah-052.jsonl.gz": "f8f4de8de081dbec6c471c109a4653526f15519c29f87736f3ad04d046408261",
+      "surah-053.jsonl.gz": "e49941ccca68546bf065eeb260c1f7523790457364c9b28df24177f773b5cd1b",
+      "surah-054.jsonl.gz": "927965d350576abe27d2f43526de3c0433ea52844a2b80d65f94ed5857e1bcf0",
+      "surah-055.jsonl.gz": "b8b96e4c9afdc800a208fbba58fad6c8b1609acc2110b57908277d91a15e4ccd",
+      "surah-056.jsonl.gz": "aee8e23cf3cebbbd4d38f8b139257768fa419655fccc9be06f6101cec23ac40e",
+      "surah-057.jsonl.gz": "34f21d0f2c2026d8545804407b3850466a0afcf9f5093e8227159e792af1b560",
+      "surah-058.jsonl.gz": "2cd73889af6bd0ed68cb8f5f194a6ff7652236034bc9e835725de0fd1a146b4c",
+      "surah-059.jsonl.gz": "c575cd75b1cd1800782bc70b9a51361fc9345739eceb8cb373c4c948db907ddf",
+      "surah-060.jsonl.gz": "beaa6557a8d984190dbce1e7b3249aa0d7acc98dbac8e617aaa41aa59e9c960e",
+      "surah-061.jsonl.gz": "88e9cd3ed60f9575545d11ed0d7be4f1837472eec1b1358b4379db1c3770a113",
+      "surah-062.jsonl.gz": "764a78082513de92ad029e7b572df90c07d59813caeb99f24a117daa69bf3625",
+      "surah-063.jsonl.gz": "3029b068c5e26a33a486a841321d2fdbd16882a9319d070c306ffea00408c8f6",
+      "surah-064.jsonl.gz": "4ba08a6613e14687326ffb021c52856e850323e030adc228cc2181ac5fa57da4",
+      "surah-065.jsonl.gz": "fc07200aafdc3de1cad76b45e6954961cedfb2f93fe87bb4d44cf0cb1a880dbe",
+      "surah-066.jsonl.gz": "b5f0e1374df92934ce7ecf1b2329a3df9801763eead31325ca079787a8b062fc",
+      "surah-067.jsonl.gz": "2cc205d9f5283fa1cf4dddecd595e3e7228ae13763cf3c0f2b5237498df0b7fe",
+      "surah-068.jsonl.gz": "96bf61837e154a502bafd4649ef2edf6c1fa360be569d55e1a66ca464f499525",
+      "surah-069.jsonl.gz": "308135054f313bcacf1a499bee7bfd66e965917294780ff1059c49d329c8a57f",
+      "surah-070.jsonl.gz": "22d8c960120a003a09702ac0fb5541222c88d037fb3a5dfd1d06df5b57bcc938",
+      "surah-071.jsonl.gz": "971829a91c1dd3cb7bd6f085b227b163ea243cd90fd310e57ed693385469959c",
+      "surah-072.jsonl.gz": "42bffd9f6bef5b8245cc2463b0b369430cc45bb3e2d096e3a10a1355a076a35a",
+      "surah-073.jsonl.gz": "61b5f01562d1ce529e6786ec35226ea0b401da725bc037650fe0af315f039a25",
+      "surah-074.jsonl.gz": "53d3da73607e75b610bc139eac389d70a4e6421559247f30e23c7401d129f36d",
+      "surah-075.jsonl.gz": "1b2e9c9189b3b8e4e0ce5c72ab77758573c92c86850d25ebfa5b9814bf72c0e8",
+      "surah-076.jsonl.gz": "5c39212d0efa5854a2d16a43b4deff59f5f4ce42c7cc5ac0f9af813b2364a06b",
+      "surah-077.jsonl.gz": "fc353dfc69eefe0d50db1ebcdac9842eaf62fbb6be141d8c3198e657526bb868",
+      "surah-078.jsonl.gz": "7fa1badc3d05fe4d4bfb5add762b861271dd1c1137f9b41ece4bba10b7a243b9",
+      "surah-079.jsonl.gz": "e67bfb8aad6b2c653e86dfeb18a248750fc081d82a58069be024d724c4b388c2",
+      "surah-080.jsonl.gz": "8db7a679f6f8328501b3ef0b6fec7d43ef664df411c45a1233508d3195f4e81d",
+      "surah-081.jsonl.gz": "8e4f43b68b98cf14e89e659b16d3606187362727d5d014501960d5f2b0e74f59",
+      "surah-082.jsonl.gz": "92b876be5ec224e07a349e551a65848c8a2ab3bfd6bbe53c68107a48db6d56dd",
+      "surah-083.jsonl.gz": "99d218a271c0545f8fc1d8678d63cb3c23d705d213b6ed31fd14fe40380f097b",
+      "surah-084.jsonl.gz": "9a4105fcbadf05b2f202683dd29e8bc4f056ef25e93ce4106ead81956b79b178",
+      "surah-085.jsonl.gz": "6cdfe0b97e9f8cf63046b6f1be0ed726b3e46e1ab837a1eaab4d55e12a860977",
+      "surah-086.jsonl.gz": "501f5ea974767f3ff2883fcee430a7dad2a2f9db020bed4cfa20126e372fcd11",
+      "surah-087.jsonl.gz": "37c47b320d8db837ca488f5bc2632b14bd4b1e784d90901d1f272ed3faf4fe06",
+      "surah-088.jsonl.gz": "86d4c1c00a4927f062001e942f6f7bdd44b4bbbf574c4b9505a616eddc7b7165",
+      "surah-089.jsonl.gz": "77ca51311e0b24820844ee108190be2fc3faa6accae3137d59bab8a3ea516f15",
+      "surah-090.jsonl.gz": "825871554803467bac486cc79428b4bb882e3c9489537f2b803252ae319e56c5",
+      "surah-091.jsonl.gz": "8bb2bff3a62597280f84c957b019ae8b86d899744a9cf20f9db1d5a89b4c3707",
+      "surah-092.jsonl.gz": "7654125f475c427b7dbf695495d6dd81e394a974152f8765a76e4dc7ac54e162",
+      "surah-093.jsonl.gz": "f057b50ca883eb1d623166529c78ed87e56e90d8308bba22ab80259e868db69d",
+      "surah-094.jsonl.gz": "0cbb159b53ab61a42fb0b96ed838fa9678db99163a19b604893183b28412e958",
+      "surah-095.jsonl.gz": "f0d7da6bdbb24bd7b8559030ef2c40d53fa51d30be589d76bc7f60d12fa9b3b4",
+      "surah-096.jsonl.gz": "7ae6b7974d69fb8a539df4548f0309868808167c4199710df78f49f81255da4b",
+      "surah-097.jsonl.gz": "2cae641409f221347ee778ec984c7e5103e63e2753228c7695592c3d3a9837d2",
+      "surah-098.jsonl.gz": "8720399589ad24f4ab94f926d502fd3685985d26da33112d8bf28d686dc5c0e6",
+      "surah-099.jsonl.gz": "b351ceb2f1d704461817d0105614eb3d08c4b5e0d850dfdd911101c45b79c713",
+      "surah-100.jsonl.gz": "712e4f80a498b98b5e53c5ae30739933adea133bf9e9093f666fe0657facf050",
+      "surah-101.jsonl.gz": "b026b43ecdfacb2209e004e5557750cabb9f6c413ca4b3f94f40212868ef52d7",
+      "surah-102.jsonl.gz": "2790814f8f2762b13ead6aa1aba32b2ac84e224a32774bd2e5555eba91766a9f",
+      "surah-103.jsonl.gz": "b5e5f69b5d3913803ed2e6ffd89819049900b55e765bd894577a967aae28fc3a",
+      "surah-104.jsonl.gz": "aae06d196c75bde797ca81887e6aa17d5c29c805f304b0b3d96f482eba74f5fc",
+      "surah-105.jsonl.gz": "40c762bc4db1d02e567ce4b30f855e9053cf33ee77c097bf7e7042c349ae92ed",
+      "surah-106.jsonl.gz": "eea8101e83f9a23796b18e95effe282a30192b231917767f21dd9a8119fe004c",
+      "surah-107.jsonl.gz": "fdc631b0d77d45f7abae8b2739462ebb517c99ffd6b7a15e92cd56987c1bb5bb",
+      "surah-108.jsonl.gz": "926d7c334e60faa483d9730c7669865ed58564409cf1214d204082728cb83ebc",
+      "surah-109.jsonl.gz": "b0a11709a62cecaef590003ec6b9278b098e07ee535961e40f8522cc0532178d",
+      "surah-110.jsonl.gz": "ce5554f9469400a3330be2d80d9788a704daa446550ee50a8d212d1219ed89ee",
+      "surah-111.jsonl.gz": "47579d4c75b21d383862e841bf52c8a26fce39b5038868c9d678d257f67c3c19",
+      "surah-112.jsonl.gz": "63d0afa4bed2cc98be432529824af54435ab25bbae401d87df6d20f6e965f5e6",
+      "surah-113.jsonl.gz": "423200b3cee708c3fe0e8b1cc7f58ded82fa69e9d9ff0276c86aec2af2cc2448",
+      "surah-114.jsonl.gz": "1039604de1168e5837910d9104ad844c6c985a8bbc1917a339ebb29c7431ddb3"
+    },
+    "token_map_sha256": "6d9e2975208726e1c54d714b19f37df269cb11fd025e838ab0542614e152c516"
+  },
+  "policy": {
+    "additions": "analyzer input forms only, appended after the v1.7 forms",
+    "canonical_text": "untouched; analysis_forms[0] is the frozen canonical form",
+    "carrier_only": "each carrier edit replaces one hamza-family codepoint with another; carrier membership is asserted on every variant",
+    "edit_script_and_inverse_checked_on_every_variant": true,
+    "frozen_lines_unchanged": "v1.8 imports select-camel-candidate-v1_7 and calls its runner - itself select-camel-candidate-v1_5.main() - with the dump and output directory redirected only. V.TOKEN_MAP_PATH stays on the FROZEN token map so R1-R5 build exactly the variants they built in v1.6 and v1.7. No selector, recall, split, hamza, orthographic or lexicon rule was edited and no rule ordering was changed.",
+    "hamza_pass_not_chained": "the frozen R1-R3 rewrite is not applied on top of the carrier variants, so the production pools are exactly what the narrowing round measured",
+    "inherited": "every policy of the hamza-carrier-v1, orthographic-production-v1_7, paradigm-gap-v2, v1.6 and v1.5 manifests",
+    "no_verse_key_no_surface_allowlist_no_teacher_gate": true,
+    "otiose_alef": "only ever inside a script that also carries the carrier edit from the same site, with `bound_to_carrier_at` recorded",
+    "production_db": "not written; data/app.db untouched",
+    "teacher_use": "evaluation only; the token map builder never opens it"
+  },
+  "rule_verdict_reasons": {
+    "HC1_BARE_AFTER_LONG_ALEF_BEFORE_WAW": "Superseded by the pair above. Its own 29-token figure came from a root-matching, lemma-agnostic criterion; measured as exact lemma+root+POS it reaches only 20, because on word-final surfaces جاؤو analyses as the adjective جَائِي rather than the verb جَاء.",
+    "HC1_PLUS_O4_BARE_TO_WAW_SEAT_PLUS_OTIOSE_ALEF": "Accepted. Same site, word-final waw: the carrier substitution and the otiose alef are ONE edit script. 13 trigger tokens corpus-wide, 9 of them in-scope; all 13 convert RECALL_GAP->CORRECT and every selected candidate is exact lemma+root+POS.",
+    "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW": "Accepted. U+0621 -> U+0624 in one codepoint neighbourhood (unvowelled long alef before, waw after) and only where real affix material follows the waw. 22 trigger tokens corpus-wide, 20 of them in-scope. The added carrier form puts an exact lemma+root+POS candidate into all 20 pools; the FROZEN cascade selects it on the 7 يَشَآءُونَ/تَشَآءُونَ tokens and leaves the 13 جَآءُو + enclitic tokens AMBIGUOUS, where the verb جَاء and the adjective جَائِي are both exact-root and the unchanged cascade declines to choose. No token the frozen v1.7 selection already gets CORRECT receives a competing lexical core; the 13 stay RECALL_GAP->AMBIGUOUS, which costs nothing under any regression gate.",
+    "HC2_BARE_AFTER_SUKUN_GLIDE": "REJECTED in the carrier round: closes 2, gives 9 already-CORRECT tokens a competing core.",
+    "HC3_BARE_AFTER_LONG_YEH": "REJECTED: closes 3, risks 13.",
+    "HC4X_WAW_SEAT_TO_YEH_SEAT": "REJECTED: closes 7, risks 58.",
+    "HC5X_YEH_SEAT_TO_ALEF_SEAT": "REJECTED: closes 2, risks 178.",
+    "HC6X_WAW_SEAT_TO_ALEF_SEAT": "REJECTED: closes 0, risks 85.",
+    "O4X_PLURAL_WAW_OTIOSE_ALEF": "Not revived as a standalone rule and it cannot be: the alef edit has no trigger of its own, is emitted only alongside a carrier edit produced by the same site, records `bound_to_carrier_at`, and `derive()` raises if it ever sees an unbound alef edit."
+  },
+  "rule_verdicts": {
+    "HC1_BARE_AFTER_LONG_ALEF_BEFORE_WAW": "SUPERSEDED",
+    "HC1_PLUS_O4_BARE_TO_WAW_SEAT_PLUS_OTIOSE_ALEF": "ACCEPTED_PRODUCTION",
+    "HC1a_BARE_TO_WAW_SEAT_BEFORE_AFFIXED_WAW": "ACCEPTED_PRODUCTION",
+    "HC2_BARE_AFTER_SUKUN_GLIDE": "REJECTED",
+    "HC3_BARE_AFTER_LONG_YEH": "REJECTED",
+    "HC4X_WAW_SEAT_TO_YEH_SEAT": "REJECTED",
+    "HC5X_YEH_SEAT_TO_ALEF_SEAT": "REJECTED",
+    "HC6X_WAW_SEAT_TO_ALEF_SEAT": "REJECTED",
+    "O4X_PLURAL_WAW_OTIOSE_ALEF": "NOT_REVIVED_STANDALONE"
+  },
+  "schema_version": "morphology-freeze-hc1-production-v1_8",
+  "status": "ACCEPTED_PRODUCTION"
+}

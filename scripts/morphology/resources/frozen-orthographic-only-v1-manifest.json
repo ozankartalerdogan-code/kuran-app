@@ -1,0 +1,48 @@
+{
+  "artifacts": {
+    "data/candidates/morphology/orthographic-only-v1/analysis-form-extension.jsonl": {
+      "note": "frozen v1 diagnostic: teacher-gated emission - NOT a production input",
+      "sha256": "ec70bc30160c1e4877884b273684e171cede237a0c7d1efcae7b3451cba9a0d7"
+    },
+    "data/candidates/morphology/orthographic-only-v1/checksums.json": {
+      "note": "frozen v1 diagnostic checksums",
+      "sha256": "8889a0b22a3e909df7181397cf59d1e41fd6bf95237abb2e07e82595705796ca"
+    },
+    "data/candidates/morphology/orthographic-only-v1/classification.jsonl": {
+      "note": "frozen v1 diagnostic: per-token transform measurement over the 120 tokens",
+      "sha256": "6b36eced472ed73cb578cc0e37b4d04b22bac84e9e70fe78b394f5943df4ec96"
+    },
+    "data/candidates/morphology/orthographic-only-v1/report.json": {
+      "note": "frozen v1 diagnostic report",
+      "sha256": "2c73be618b91231dcdf3e4f04eef64ce1a75bdf2c9fa8f7ed46b3c48b372b58d"
+    },
+    "docs/morfoloji-orthographic-only-v1.md": {
+      "note": "frozen v1 diagnostic write-up",
+      "sha256": "3037c1096d50d18a444223a431eb2d0f76d05f295f61a9cf18635720122d223e"
+    },
+    "scripts/morphology/analyze-orthographic-only-v1.py": {
+      "note": "frozen v1 diagnostic script",
+      "sha256": "0f45b567daebd8ef968d527df6b063b6b858c4d6b912cbcfcd1b27f439ef83de"
+    }
+  },
+  "chains_from": {
+    "path": "scripts/morphology/resources/frozen-v1_6-manifest.json",
+    "schema_version": "morphology-freeze-v1_6",
+    "sha256": "7ef699851f0eab39a61689bccce9bbc1a16af7a77f4c5cd78c061144d613997f"
+  },
+  "schema_version": "orthographic-only-freeze-v1",
+  "status": "DIAGNOSTIC_ONLY",
+  "status_note": "This round's extension was emitted only where the teacher confirmed a gain, so it must never be fed to a dump regeneration. The teacher-free corpus-wide application of O1/O3/O5 is a separate round (v1.7).",
+  "transform_verdict_reasons": {
+    "O4X_PLURAL_WAW_OTIOSE_ALEF": "12 triggers inside the bucket, 0 closures: CAMeL returns no analysis at all for جاءوا / جَآءُوا / جاءوك / جاءوكم, so restoring the otiose alef reaches nothing on its own. Rejected. CORRECTION to this round's write-up: the ~25-token جَآءُو family is NOT a paradigm gap. The residual reclassification shows CAMeL does carry the lexeme, spelled with a waw carrier - جاءو -> جاؤو (U+0621 -> U+0624) reaches root ج.ي.أ - so the family belongs to HAMZA_CARRIER. That does not revive O4X: the alef is not what was missing.",
+    "O6X_FINAL_ALEF_TO_MAQSURA": "closes 14 tokens but no source notation licenses it and its added candidates are majority noise (+41 teacher-matching / +87 not, and +108 / +297 on وَرَءَا). Not applied this round."
+  },
+  "transform_verdicts": {
+    "O1_SMALL_WAW_TO_WAW": "PROMOTED_TO_TEACHER_FREE_ROUND",
+    "O2_SMALL_YEH_TO_YEH": "PROMOTED_TO_TEACHER_FREE_ROUND",
+    "O3_SILENT_LETTER_DROP": "PROMOTED_TO_TEACHER_FREE_ROUND",
+    "O4X_PLURAL_WAW_OTIOSE_ALEF": "REJECTED",
+    "O5_SMALL_SEEN_SAD_TO_SEEN": "PROMOTED_TO_TEACHER_FREE_ROUND",
+    "O6X_FINAL_ALEF_TO_MAQSURA": "DEFERRED"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "artifacts": {
+    "data/candidates/morphology/lexicon-gap-v2/checksums.json": {
+      "note": "lexicon-gap-v2 checksums",
+      "sha256": "f988d90619d7913de2090178a675dad860a201a1849fe3c9a285527daa1abd60"
+    },
+    "data/candidates/morphology/lexicon-gap-v2/classification.jsonl": {
+      "note": "the merged LEXICON_OOV bucket: 50 tokens, 30 distinct surfaces",
+      "sha256": "472d07e2d9193492601b44e1f388daba95c2ebb2aa56b5f3f1526877bdbfeb30"
+    },
+    "data/candidates/morphology/lexicon-gap-v2/report.json": {
+      "note": "migration report with the evidence that motivated it",
+      "sha256": "58187ca2e29566a01fc326761d323ace9d724adad71244514129d5532bdbcad2"
+    },
+    "data/candidates/morphology/paradigm-gap-v2/camel_morph_msa_v1.0+paradigm-stem-v2.CANDIDATE.db": {
+      "note": "REJECTED candidate DB, kept as evidence: it fails surface validation and additionally leaks 27 analyses onto unrelated surfaces. Never shippable.",
+      "sha256": "511cfae2a0c99dc7a9486ea5583bc58a69f7a5ded4742db4b44057138cc6d322"
+    },
+    "data/candidates/morphology/paradigm-gap-v2/checksums.json": {
+      "note": "paradigm-gap-v2 checksums",
+      "sha256": "3850dd55b7289e98afd2f8b17334c9e543ab2c44e52bbe165b9df9d89ea20980"
+    },
+    "data/candidates/morphology/paradigm-gap-v2/classification.jsonl": {
+      "note": "per-token derivation evidence for all 44 tokens, both matching regimes",
+      "sha256": "0f554ec040819257bd6f77f0e03623f2f96690864f604985c9a8922e164a2a68"
+    },
+    "data/candidates/morphology/paradigm-gap-v2/report.json": {
+      "note": "NEGATIVE RESULT: 0 accepted entries, 0 expected closures",
+      "sha256": "525aa6b1184a0876c2029e756d0e1ac0ce4aa42dce07945b120d94d1e4eb6800"
+    },
+    "docs/morfoloji-paradigm-gap-v2.md": {
+      "note": "write-up of the negative result",
+      "sha256": "ff568dec02619776c436908ff865d00ce1b0564a70576e353b473689b0e4e1b2"
+    },
+    "scripts/morphology/analyze-paradigm-gap-v2.py": {
+      "note": "FROZEN: the derivation search and its surface validation",
+      "sha256": "0a298be3697d6def48b30c407658d20d2bfe218e42b44ffff34c4d175afb3e15"
+    },
+    "scripts/morphology/merge-lexicon-gap-v2.py": {
+      "note": "FROZEN: the PARADIGM_GAP -> LEXICON_OOV migration",
+      "sha256": "7a507937fc629c7fbc715f53ed7d631f35d1f5aefd4431f0a7a33015195145dd"
+    }
+  },
+  "bucket_migration": {
+    "buckets_after": {
+      "HAMZA_CARRIER": 42,
+      "LEXICON_OOV": 50,
+      "SEGMENTATION": 2
+    },
+    "buckets_before": {
+      "HAMZA_CARRIER": 42,
+      "LEXICON_OOV": 6,
+      "PARADIGM_GAP": 44,
+      "SEGMENTATION": 2
+    },
+    "from": "PARADIGM_GAP",
+    "frozen_residual_v1_edited": false,
+    "lexicon_gap_distinct_surfaces": 30,
+    "lexicon_gap_total": 50,
+    "note": "the v1.7 residual classification is frozen and was not edited; the migration is a new artefact under lexicon-gap-v2/",
+    "to": "LEXICON_OOV",
+    "tokens_migrated": 44
+  },
+  "chains_from": {
+    "path": "scripts/morphology/resources/frozen-orthographic-production-v1_7-manifest.json",
+    "schema_version": "morphology-freeze-orthographic-production-v1_7",
+    "sha256": "c79909669750a3006720b882d0c8ddd4801f6c1335a3be29a344bcf91e0d0c52"
+  },
+  "policy": {
+    "camel_db_dump_and_selector_untouched": true,
+    "derivation_source": "existing CAMeL stem entries only",
+    "full_dump_not_regenerated": true,
+    "inherited": "every policy of the v1.7, v1 diagnostic and v1.6 manifests",
+    "no_root_or_lemma_guessing": true,
+    "production_db": "not written",
+    "teacher_use": "evaluation oracle only; never selects which token is derived"
+  },
+  "result": {
+    "accepted_distinct_lexemes": 0,
+    "accepted_entries": 0,
+    "byte_identical_two_runs": true,
+    "candidate_db_additivity": {
+      "additions_outside_generated_lexemes": 27,
+      "analyses_removed_or_altered": 0,
+      "purely_additive": false,
+      "surfaces_checked": 18993
+    },
+    "candidate_entries": 2,
+    "dropped_before_generation": 3,
+    "expected_closures_next_full_dump_round": 0,
+    "outcomes_letters_only_regime": {
+      "AMBIGUOUS_LEXEME_DROPPED": 22,
+      "NO_EXISTING_STEM_UNDER_AN_OVERT_PARADIGM": 21,
+      "SAFE_DERIVATION": 1
+    },
+    "outcomes_vocalized_regime": {
+      "AMBIGUOUS_LEXEME_DROPPED": 6,
+      "NO_EXISTING_STEM_UNDER_AN_OVERT_PARADIGM": 34,
+      "SAFE_DERIVATION": 4
+    },
+    "scope_tokens": 44,
+    "surface_paradigm_types": {
+      "NO_OVERT_NUMBER_OR_GENDER_ENDING": 17,
+      "SOUND_MASC_PLURAL": 7,
+      "VERB_PLURAL_WAW": 20
+    },
+    "surface_validation": {
+      "DROPPED_ROOT_DISAGREES_WITH_TEACHER": 1,
+      "DROPPED_SURFACE_STILL_NOT_ANALYZABLE": 1,
+      "KEPT": 0
+    }
+  },
+  "schema_version": "morphology-freeze-paradigm-gap-v2",
+  "status": "NEGATIVE_RESULT_FROZEN",
+  "why_a_negative_result_is_frozen": "Without it the next round re-derives the same two rejected candidates and re-spends surface validation to reject them again. The rejected candidate DB is pinned for the same reason."
+}

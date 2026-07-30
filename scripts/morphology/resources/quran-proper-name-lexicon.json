@@ -1,0 +1,2889 @@
+{
+  "contract": {
+    "excluded": [
+      "general rootless-noun_prop ban",
+      "general proper-name guessing",
+      "verse_key overrides",
+      "any change to selector v1.2c or the frozen R1-R5 layer"
+    ],
+    "match_predicate": "normalized canonical surface is an accepted surface of the entry AND candidate pos == 'noun_prop' AND normalized root == camel_selector.normalized_root AND normalized lemma == camel_selector.normalized_lemma",
+    "no_guessing": "if the predicate leaves more than one distinct lexical core the token is reported AMBIGUOUS_PROPER_NAME; if it leaves none it is reported UNRESOLVED_PROPER_NAME",
+    "purpose": "narrow, closed list of Quranic proper names used to resolve tokens the frozen selector v1.2c leaves unselected",
+    "runtime_inputs": [
+      "this file",
+      "the token's normalized canonical Tanzil surface",
+      "CAMeL candidate fields (pos, root, lex)"
+    ],
+    "teacher_use": "development-time entry validation only - the selector never reads the teacher and this file contains no verse_key override"
+  },
+  "entries": [
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 38,
+          "normalized": "اِبْرَاهِيمَ",
+          "tanzil_forms": [
+            "إِبْرَٰهِيمَ"
+          ],
+          "verse_keys": [
+            "3:33:7",
+            "3:65:6",
+            "3:84:10",
+            "3:95:6",
+            "3:97:5",
+            "4:54:13",
+            "4:125:12",
+            "4:125:16",
+            "4:163:13",
+            "6:75:3",
+            "6:83:4",
+            "6:161:11",
+            "9:70:12",
+            "9:114:4",
+            "9:114:20",
+            "11:69:4",
+            "11:74:4",
+            "11:75:2",
+            "12:6:20",
+            "12:38:4",
+            "15:51:4",
+            "16:120:2",
+            "16:123:7",
+            "19:41:4",
+            "19:58:17",
+            "21:51:3",
+            "21:69:7",
+            "22:43:2",
+            "22:78:17",
+            "26:69:4",
+            "29:31:4",
+            "37:109:3",
+            "38:45:3",
+            "42:13:15",
+            "51:24:5",
+            "60:4:7",
+            "60:4:35",
+            "87:19:2"
+          ]
+        },
+        {
+          "locations": 5,
+          "normalized": "اِبْرَاهِيمُ",
+          "tanzil_forms": [
+            "إِبْرَٰهِيمُ"
+          ],
+          "verse_keys": [
+            "3:67:3",
+            "6:74:3",
+            "14:35:3",
+            "21:60:7",
+            "43:26:3"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "بِاِبْرَاهِيمَ",
+          "tanzil_forms": [
+            "بِإِبْرَٰهِيمَ"
+          ],
+          "verse_keys": [
+            "3:68:4"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "لَاِبْرَاهِيمَ",
+          "tanzil_forms": [
+            "لَإِبْرَٰهِيمَ"
+          ],
+          "verse_keys": [
+            "37:83:4"
+          ]
+        },
+        {
+          "locations": 4,
+          "normalized": "وَاِبْرَاهِيمَ",
+          "tanzil_forms": [
+            "وَإِبْرَٰهِيمَ"
+          ],
+          "verse_keys": [
+            "29:16:1",
+            "33:7:9",
+            "53:37:1",
+            "57:26:4"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِبْرَاهِيم",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "ابراهيم",
+        "normalized_root": null
+      },
+      "canonical_lemma": "إِبْرَاهِيم",
+      "canonical_lexical_core": "ابراهيم",
+      "covered_locations": 49,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 49 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "ابراهيم",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 8,
+          "normalized": "اِبْلِيسَ",
+          "tanzil_forms": [
+            "إِبْلِيسَ"
+          ],
+          "verse_keys": [
+            "2:34:8",
+            "7:11:12",
+            "15:31:2",
+            "17:61:8",
+            "18:50:8",
+            "20:116:8",
+            "26:95:2",
+            "38:74:2"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "اِبْلِيسُ",
+          "tanzil_forms": [
+            "إِبْلِيسُ"
+          ],
+          "verse_keys": [
+            "34:20:4"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِبْلِيس",
+        "camel_root_field": "أ.ب.ل.س",
+        "normalized_lemma": "ابليس",
+        "normalized_root": "ابلس"
+      },
+      "canonical_lemma": "إِبْلِيس",
+      "canonical_lexical_core": "ابليس",
+      "covered_locations": 9,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 9 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "ابليس",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "اَحْمَدُ",
+          "tanzil_forms": [
+            "أَحْمَدُ"
+          ],
+          "verse_keys": [
+            "61:6:24"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "أَحْمَد",
+        "camel_root_field": "ح.م.د",
+        "normalized_lemma": "احمد",
+        "normalized_root": "حمد"
+      },
+      "canonical_lemma": "أَحْمَد",
+      "canonical_lexical_core": "احمد",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "احمد",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "حمد"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 13,
+          "normalized": "ءَادَمَ",
+          "tanzil_forms": [
+            "ءَادَمَ"
+          ],
+          "verse_keys": [
+            "2:31:2",
+            "3:33:4",
+            "3:59:7",
+            "5:27:5",
+            "7:26:2",
+            "7:27:2",
+            "7:31:2",
+            "7:35:2",
+            "7:172:6",
+            "17:70:4",
+            "19:58:10",
+            "20:115:4",
+            "36:60:5"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "ءَادَمُ",
+          "tanzil_forms": [
+            "ءَادَمُ"
+          ],
+          "verse_keys": [
+            "2:37:2",
+            "20:121:13"
+          ]
+        },
+        {
+          "locations": 5,
+          "normalized": "لَِادَمَ",
+          "tanzil_forms": [
+            "لِـَٔادَمَ"
+          ],
+          "verse_keys": [
+            "2:34:5",
+            "7:11:9",
+            "17:61:5",
+            "18:50:5",
+            "20:116:5"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "آدَم",
+        "camel_root_field": "أ.د.م",
+        "normalized_lemma": "ادم",
+        "normalized_root": "ادم"
+      },
+      "canonical_lemma": "آدَم",
+      "canonical_lexical_core": "ادم",
+      "covered_locations": 20,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 20 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "ادم",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "ادم"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 6,
+          "normalized": "اِسْحَاقَ",
+          "tanzil_forms": [
+            "إِسْحَـٰقَ"
+          ],
+          "verse_keys": [
+            "6:84:3",
+            "11:71:8",
+            "19:49:10",
+            "21:72:3",
+            "29:27:3",
+            "37:113:4"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "بِاِسْحَاقَ",
+          "tanzil_forms": [
+            "بِإِسْحَـٰقَ"
+          ],
+          "verse_keys": [
+            "11:71:5",
+            "37:112:2"
+          ]
+        },
+        {
+          "locations": 9,
+          "normalized": "وَاِسْحَاقَ",
+          "tanzil_forms": [
+            "وَإِسْحَـٰقَ"
+          ],
+          "verse_keys": [
+            "2:133:22",
+            "2:136:12",
+            "2:140:6",
+            "3:84:12",
+            "4:163:15",
+            "12:6:21",
+            "12:38:5",
+            "14:39:9",
+            "38:45:4"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِسْحَاق",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "اسحاق",
+        "normalized_root": null
+      },
+      "canonical_lemma": "إِسْحَاق",
+      "canonical_lexical_core": "اسحاق",
+      "covered_locations": 17,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 17 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "اسحاق",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 41,
+          "normalized": "اِسْرَاءِيلَ",
+          "tanzil_forms": [
+            "إِسْرَٰٓءِيلَ"
+          ],
+          "verse_keys": [
+            "2:40:2",
+            "2:47:2",
+            "2:83:5",
+            "2:122:2",
+            "2:211:3",
+            "2:246:7",
+            "3:49:4",
+            "3:93:6",
+            "5:12:6",
+            "5:32:7",
+            "5:70:5",
+            "5:72:14",
+            "5:78:6",
+            "5:110:50",
+            "7:105:18",
+            "7:134:22",
+            "7:137:18",
+            "7:138:3",
+            "10:90:3",
+            "10:90:24",
+            "10:93:4",
+            "17:2:7",
+            "17:4:4",
+            "17:101:9",
+            "17:104:5",
+            "20:47:9",
+            "20:80:2",
+            "20:94:15",
+            "26:17:5",
+            "26:22:8",
+            "26:59:4",
+            "26:197:9",
+            "27:76:7",
+            "32:23:14",
+            "40:53:7",
+            "43:59:10",
+            "44:30:4",
+            "45:16:4",
+            "46:10:14",
+            "61:6:7",
+            "61:14:26"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "اِسْرَاءِيلُ",
+          "tanzil_forms": [
+            "إِسْرَٰٓءِيلُ"
+          ],
+          "verse_keys": [
+            "3:93:10"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَاِسْرَاءِيلَ",
+          "tanzil_forms": [
+            "وَإِسْرَٰٓءِيلَ"
+          ],
+          "verse_keys": [
+            "19:58:18"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِسْرَائِيل",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "اسرائيل",
+        "normalized_root": null
+      },
+      "canonical_lemma": "إِسْرَائِيل",
+      "canonical_lexical_core": "اسرائيل",
+      "covered_locations": 43,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 43 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "اسرائيل",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "الْاِسْلَامَ",
+          "tanzil_forms": [
+            "ٱلْإِسْلَـٰمَ"
+          ],
+          "verse_keys": [
+            "5:3:49"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "الْاِسْلَامُ",
+          "tanzil_forms": [
+            "ٱلْإِسْلَـٰمُ"
+          ],
+          "verse_keys": [
+            "3:19:5"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "الْاِسْلَامِ",
+          "tanzil_forms": [
+            "ٱلْإِسْلَـٰمِ"
+          ],
+          "verse_keys": [
+            "3:85:4",
+            "61:7:11"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِسْلَام",
+        "camel_root_field": "س.ل.م",
+        "normalized_lemma": "اسلام",
+        "normalized_root": "سلم"
+      },
+      "canonical_lemma": "إِسْلَام",
+      "canonical_lexical_core": "اسلام",
+      "covered_locations": 4,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 4 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "اسلام",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "سلم"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 3,
+          "normalized": "اِسْمَاعِيلَ",
+          "tanzil_forms": [
+            "إِسْمَـٰعِيلَ"
+          ],
+          "verse_keys": [
+            "14:39:8",
+            "19:54:4",
+            "38:48:2"
+          ]
+        },
+        {
+          "locations": 8,
+          "normalized": "وَاِسْمَاعِيلَ",
+          "tanzil_forms": [
+            "وَإِسْمَـٰعِيلَ"
+          ],
+          "verse_keys": [
+            "2:125:15",
+            "2:133:21",
+            "2:136:11",
+            "2:140:5",
+            "3:84:11",
+            "4:163:14",
+            "6:86:1",
+            "21:85:1"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَاِسْمَاعِيلُ",
+          "tanzil_forms": [
+            "وَإِسْمَـٰعِيلُ"
+          ],
+          "verse_keys": [
+            "2:127:7"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِسْمَاعِيل",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "اسماعيل",
+        "normalized_root": null
+      },
+      "canonical_lemma": "إِسْمَاعِيل",
+      "canonical_lexical_core": "اسماعيل",
+      "covered_locations": 12,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 12 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "اسماعيل",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "اللَّاتَ",
+          "tanzil_forms": [
+            "ٱللَّـٰتَ"
+          ],
+          "verse_keys": [
+            "53:19:2"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "اللات",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "اللات",
+        "normalized_root": null
+      },
+      "canonical_lemma": "اللات",
+      "canonical_lexical_core": "اللات",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "اللات",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "اَبِاللَّهِ",
+          "tanzil_forms": [
+            "أَبِٱللَّهِ"
+          ],
+          "verse_keys": [
+            "9:65:9"
+          ]
+        },
+        {
+          "locations": 139,
+          "normalized": "بِاللَّهِ",
+          "tanzil_forms": [
+            "بِٱللَّهِ"
+          ],
+          "verse_keys": [
+            "2:8:6",
+            "2:28:3",
+            "2:62:10",
+            "2:67:16",
+            "2:126:16",
+            "2:136:3",
+            "2:177:13",
+            "2:228:19",
+            "2:232:22",
+            "2:256:14",
+            "2:264:16",
+            "2:285:11",
+            "3:52:17",
+            "3:84:3",
+            "3:101:12",
+            "3:110:12",
+            "3:114:2",
+            "3:151:9",
+            "3:154:17",
+            "3:179:29",
+            "3:199:7",
+            "4:6:36",
+            "4:38:8",
+            "4:39:5",
+            "4:45:5",
+            "4:45:8",
+            "4:48:16",
+            "4:59:22",
+            "4:62:11",
+            "4:70:6",
+            "4:79:17",
+            "4:81:23",
+            "4:116:16",
+            "4:132:9",
+            "4:136:5",
+            "4:136:19",
+            "4:146:6",
+            "4:150:4",
+            "4:152:3",
+            "4:162:20",
+            "4:166:12",
+            "4:171:27",
+            "4:171:52",
+            "4:175:4",
+            "5:53:7",
+            "5:59:10",
+            "5:69:10",
+            "5:72:22",
+            "5:81:4",
+            "5:84:5",
+            "5:106:33",
+            "5:107:16",
+            "6:81:9",
+            "6:109:2",
+            "7:33:17",
+            "7:128:5",
+            "7:158:21",
+            "7:158:27",
+            "7:200:7",
+            "8:41:19",
+            "9:18:7",
+            "9:19:9",
+            "9:29:5",
+            "9:42:13",
+            "9:44:5",
+            "9:45:6",
+            "9:54:10",
+            "9:56:2",
+            "9:61:13",
+            "9:62:2",
+            "9:74:2",
+            "9:80:19",
+            "9:84:14",
+            "9:86:6",
+            "9:95:2",
+            "9:99:5",
+            "10:29:2",
+            "10:84:7",
+            "11:88:31",
+            "12:37:22",
+            "12:38:12",
+            "12:106:4",
+            "13:43:8",
+            "16:38:2",
+            "16:98:5",
+            "16:106:3",
+            "16:127:5",
+            "17:92:10",
+            "17:96:3",
+            "18:39:12",
+            "22:31:8",
+            "22:78:38",
+            "24:2:19",
+            "24:6:14",
+            "24:8:8",
+            "24:47:3",
+            "24:53:2",
+            "24:62:5",
+            "24:62:23",
+            "27:49:3",
+            "29:10:6",
+            "29:52:3",
+            "29:52:16",
+            "31:13:10",
+            "31:33:29",
+            "33:3:5",
+            "33:10:15",
+            "33:39:12",
+            "33:48:11",
+            "34:33:14",
+            "35:5:13",
+            "35:42:2",
+            "40:42:3",
+            "40:56:19",
+            "40:84:6",
+            "41:36:7",
+            "48:6:7",
+            "48:9:2",
+            "48:13:4",
+            "48:28:13",
+            "49:15:5",
+            "57:7:2",
+            "57:8:5",
+            "57:14:19",
+            "57:19:3",
+            "57:21:14",
+            "58:4:19",
+            "58:22:5",
+            "60:1:23",
+            "60:4:31",
+            "60:12:11",
+            "61:11:2",
+            "64:8:2",
+            "64:9:10",
+            "64:11:10",
+            "65:2:22",
+            "65:11:18",
+            "69:33:5",
+            "85:8:7"
+          ]
+        },
+        {
+          "locations": 239,
+          "normalized": "وَاللَّهُ",
+          "tanzil_forms": [
+            "وَٱللَّهُ"
+          ],
+          "verse_keys": [
+            "2:19:17",
+            "2:72:6",
+            "2:95:7",
+            "2:96:22",
+            "2:105:17",
+            "2:105:22",
+            "2:202:6",
+            "2:205:11",
+            "2:207:9",
+            "2:212:15",
+            "2:213:43",
+            "2:216:21",
+            "2:218:14",
+            "2:220:14",
+            "2:221:29",
+            "2:224:12",
+            "2:225:12",
+            "2:228:38",
+            "2:232:29",
+            "2:234:22",
+            "2:240:25",
+            "2:245:12",
+            "2:246:52",
+            "2:247:36",
+            "2:247:41",
+            "2:249:58",
+            "2:256:22",
+            "2:258:39",
+            "2:261:18",
+            "2:261:22",
+            "2:263:9",
+            "2:264:34",
+            "2:265:24",
+            "2:268:6",
+            "2:268:11",
+            "2:271:17",
+            "2:276:6",
+            "2:282:125",
+            "2:283:29",
+            "2:284:24",
+            "3:4:15",
+            "3:11:12",
+            "3:13:19",
+            "3:14:21",
+            "3:15:22",
+            "3:20:24",
+            "3:29:18",
+            "3:30:24",
+            "3:31:12",
+            "3:34:5",
+            "3:36:8",
+            "3:54:4",
+            "3:57:8",
+            "3:66:15",
+            "3:68:11",
+            "3:73:30",
+            "3:74:5",
+            "3:86:14",
+            "3:98:8",
+            "3:115:7",
+            "3:121:9",
+            "3:122:7",
+            "3:129:14",
+            "3:134:11",
+            "3:140:21",
+            "3:146:19",
+            "3:148:8",
+            "3:152:36",
+            "3:153:22",
+            "3:154:72",
+            "3:156:30",
+            "3:156:33",
+            "3:163:5",
+            "3:167:30",
+            "3:174:12",
+            "3:180:27",
+            "3:189:5",
+            "3:195:40",
+            "4:12:86",
+            "4:25:17",
+            "4:25:56",
+            "4:26:12",
+            "4:27:1",
+            "4:45:1",
+            "4:81:13",
+            "4:84:18",
+            "4:88:6",
+            "4:176:47",
+            "5:17:38",
+            "5:19:24",
+            "5:38:11",
+            "5:40:15",
+            "5:54:35",
+            "5:61:12",
+            "5:64:44",
+            "5:67:15",
+            "5:71:16",
+            "5:74:6",
+            "5:76:13",
+            "5:93:22",
+            "5:95:47",
+            "5:99:6",
+            "5:101:23",
+            "5:108:18",
+            "6:58:12",
+            "7:28:8",
+            "8:29:15",
+            "8:30:14",
+            "8:41:29",
+            "8:47:14",
+            "8:48:34",
+            "8:66:24",
+            "8:67:15",
+            "8:67:18",
+            "8:70:22",
+            "8:71:11",
+            "8:72:42",
+            "9:15:9",
+            "9:16:21",
+            "9:19:20",
+            "9:24:29",
+            "9:27:10",
+            "9:37:27",
+            "9:39:12",
+            "9:40:41",
+            "9:42:20",
+            "9:44:12",
+            "9:47:15",
+            "9:60:20",
+            "9:62:5",
+            "9:80:21",
+            "9:91:24",
+            "9:97:14",
+            "9:98:14",
+            "9:103:14",
+            "9:106:10",
+            "9:107:21",
+            "9:108:21",
+            "9:109:23",
+            "9:110:13",
+            "10:25:1",
+            "11:12:23",
+            "12:18:14",
+            "12:19:13",
+            "12:21:24",
+            "12:77:21",
+            "13:41:9",
+            "16:19:1",
+            "16:65:1",
+            "16:70:1",
+            "16:71:1",
+            "16:72:1",
+            "16:78:1",
+            "16:80:1",
+            "16:81:1",
+            "16:101:6",
+            "20:73:12",
+            "22:52:25",
+            "24:18:5",
+            "24:19:16",
+            "24:21:32",
+            "24:22:24",
+            "24:28:19",
+            "24:29:12",
+            "24:32:15",
+            "24:35:45",
+            "24:38:9",
+            "24:39:20",
+            "24:41:18",
+            "24:45:1",
+            "24:46:5",
+            "24:58:47",
+            "24:59:17",
+            "24:60:21",
+            "24:64:19",
+            "28:28:11",
+            "29:45:18",
+            "33:4:23",
+            "33:37:22",
+            "33:51:27",
+            "33:53:34",
+            "35:9:1",
+            "35:11:1",
+            "35:15:7",
+            "37:96:1",
+            "40:20:1",
+            "45:19:13",
+            "47:19:11",
+            "47:26:13",
+            "47:30:10",
+            "47:35:8",
+            "47:38:17",
+            "49:5:10",
+            "49:8:5",
+            "49:16:5",
+            "49:16:13",
+            "49:18:7",
+            "57:4:33",
+            "57:10:34",
+            "57:21:22",
+            "57:23:10",
+            "57:28:19",
+            "57:29:19",
+            "58:1:12",
+            "58:3:18",
+            "58:6:11",
+            "58:11:27",
+            "58:13:21",
+            "59:6:21",
+            "59:11:25",
+            "60:3:10",
+            "60:7:11",
+            "60:7:13",
+            "60:10:53",
+            "61:5:19",
+            "61:7:12",
+            "61:8:6",
+            "62:4:7",
+            "62:5:19",
+            "62:7:7",
+            "62:11:19",
+            "63:1:9",
+            "63:1:13",
+            "63:11:8",
+            "64:2:8",
+            "64:4:11",
+            "64:6:14",
+            "64:8:7",
+            "64:11:13",
+            "64:15:5",
+            "64:17:10",
+            "66:1:12",
+            "66:2:7",
+            "71:17:1",
+            "71:19:1",
+            "73:20:16",
+            "84:23:1",
+            "85:9:6",
+            "85:20:1"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَاللَّهِ",
+          "tanzil_forms": [
+            "وَٱللَّهِ"
+          ],
+          "verse_keys": [
+            "6:23:8"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "اللَّٰه",
+        "camel_root_field": "أ.ل.ه",
+        "normalized_lemma": "الله",
+        "normalized_root": "اله"
+      },
+      "canonical_lemma": "اللَّٰه",
+      "canonical_lexical_core": "الله",
+      "covered_locations": 380,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 380 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "الله",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "اله"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "وَاِلْيَاسَ",
+          "tanzil_forms": [
+            "وَإِلْيَاسَ"
+          ],
+          "verse_keys": [
+            "6:85:4"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "إِلْيَاس",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "الياس",
+        "normalized_root": null
+      },
+      "canonical_lemma": "إِلْيَاس",
+      "canonical_lexical_core": "الياس",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "الياس",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 2,
+          "normalized": "وَالْيَسَعَ",
+          "tanzil_forms": [
+            "وَٱلْيَسَعَ"
+          ],
+          "verse_keys": [
+            "6:86:2",
+            "38:48:3"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "اليسع",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "اليسع",
+        "normalized_root": null
+      },
+      "canonical_lemma": "اليسع",
+      "canonical_lexical_core": "اليسع",
+      "covered_locations": 2,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 2 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "اليسع",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 2,
+          "normalized": "الْاِنجِيلَ",
+          "tanzil_forms": [
+            "ٱلْإِنجِيلَ"
+          ],
+          "verse_keys": [
+            "5:46:14",
+            "57:27:11"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "الْاِنجِيلِ",
+          "tanzil_forms": [
+            "ٱلْإِنجِيلِ"
+          ],
+          "verse_keys": [
+            "5:47:3",
+            "48:29:31"
+          ]
+        },
+        {
+          "locations": 5,
+          "normalized": "وَالْاِنجِيلَ",
+          "tanzil_forms": [
+            "وَٱلْإِنجِيلَ"
+          ],
+          "verse_keys": [
+            "3:3:11",
+            "3:48:5",
+            "5:66:5",
+            "5:68:10",
+            "5:110:26"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَالْاِنجِيلُ",
+          "tanzil_forms": [
+            "وَٱلْإِنجِيلُ"
+          ],
+          "verse_keys": [
+            "3:65:10"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "وَالْاِنجِيلِ",
+          "tanzil_forms": [
+            "وَٱلْإِنجِيلِ"
+          ],
+          "verse_keys": [
+            "7:157:12",
+            "9:111:22"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "أنجيل",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "انجيل",
+        "normalized_root": null
+      },
+      "canonical_lemma": "أنجيل",
+      "canonical_lexical_core": "انجيل",
+      "covered_locations": 12,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 12 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "انجيل",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "اَيُّوبَ",
+          "tanzil_forms": [
+            "أَيُّوبَ"
+          ],
+          "verse_keys": [
+            "38:41:3"
+          ]
+        },
+        {
+          "locations": 3,
+          "normalized": "وَاَيُّوبَ",
+          "tanzil_forms": [
+            "وَأَيُّوبَ"
+          ],
+          "verse_keys": [
+            "4:163:19",
+            "6:84:15",
+            "21:83:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "أَيُّوب",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "ايوب",
+        "normalized_root": null
+      },
+      "canonical_lemma": "أَيُّوب",
+      "canonical_lexical_core": "ايوب",
+      "covered_locations": 4,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 4 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "ايوب",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "بِجَالُوتَ",
+          "tanzil_forms": [
+            "بِجَالُوتَ"
+          ],
+          "verse_keys": [
+            "2:249:41"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "جَالُوتَ",
+          "tanzil_forms": [
+            "جَالُوتَ"
+          ],
+          "verse_keys": [
+            "2:251:6"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "جَالُوت",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "جالوت",
+        "normalized_root": null
+      },
+      "canonical_lemma": "جَالُوت",
+      "canonical_lexical_core": "جالوت",
+      "covered_locations": 2,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 2 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "جالوت",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "لِّجِبْرِيلَ",
+          "tanzil_forms": [
+            "لِّجِبْرِيلَ"
+          ],
+          "verse_keys": [
+            "2:97:5"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَجِبْرِيلَ",
+          "tanzil_forms": [
+            "وَجِبْرِيلَ"
+          ],
+          "verse_keys": [
+            "2:98:7"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَجِبْرِيلُ",
+          "tanzil_forms": [
+            "وَجِبْرِيلُ"
+          ],
+          "verse_keys": [
+            "66:4:15"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "جِبْرِيل",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "جبريل",
+        "normalized_root": null
+      },
+      "canonical_lemma": "جِبْرِيل",
+      "canonical_lexical_core": "جبريل",
+      "covered_locations": 3,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 3 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "جبريل",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "الْجُمُعَةِ",
+          "tanzil_forms": [
+            "ٱلْجُمُعَةِ"
+          ],
+          "verse_keys": [
+            "62:9:9"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "جُمْعَة",
+        "camel_root_field": "ج.م.ع",
+        "normalized_lemma": "جمعة",
+        "normalized_root": "جمع"
+      },
+      "canonical_lemma": "جُمْعَة",
+      "canonical_lexical_core": "جمعة",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "جمعة",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "جمع"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "حُنَيْنٍ",
+          "tanzil_forms": [
+            "حُنَيْنٍ"
+          ],
+          "verse_keys": [
+            "9:25:8"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "حنين",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "حنين",
+        "normalized_root": null
+      },
+      "canonical_lemma": "حنين",
+      "canonical_lexical_core": "حنين",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "حنين",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "وَدَاوُدَ",
+          "tanzil_forms": [
+            "وَدَاوُۥدَ"
+          ],
+          "verse_keys": [
+            "21:78:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "دَاوُد",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "داود",
+        "normalized_root": null
+      },
+      "canonical_lemma": "دَاوُد",
+      "canonical_lexical_core": "داود",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "داود",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 4,
+          "normalized": "زَكَرِيَّا",
+          "tanzil_forms": [
+            "زَكَرِيَّا",
+            "زَكَرِيَّآ"
+          ],
+          "verse_keys": [
+            "3:37:9",
+            "3:37:13",
+            "3:38:3",
+            "19:2:5"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "وَزَكَرِيَّا",
+          "tanzil_forms": [
+            "وَزَكَرِيَّا",
+            "وَزَكَرِيَّآ"
+          ],
+          "verse_keys": [
+            "6:85:1",
+            "21:89:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "زَكَرِيَّا",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "زكريا",
+        "normalized_root": null
+      },
+      "canonical_lemma": "زَكَرِيَّا",
+      "canonical_lexical_core": "زكريا",
+      "covered_locations": 6,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 6 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "زكريا",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 7,
+          "normalized": "سُلَيْمَانَ",
+          "tanzil_forms": [
+            "سُلَيْمَـٰنَ"
+          ],
+          "verse_keys": [
+            "2:102:7",
+            "21:79:2",
+            "27:30:3",
+            "27:36:3",
+            "27:44:25",
+            "38:30:3",
+            "38:34:3"
+          ]
+        },
+        {
+          "locations": 3,
+          "normalized": "سُلَيْمَانُ",
+          "tanzil_forms": [
+            "سُلَيْمَـٰنُ"
+          ],
+          "verse_keys": [
+            "2:102:10",
+            "27:16:2",
+            "27:18:15"
+          ]
+        },
+        {
+          "locations": 4,
+          "normalized": "وَسُلَيْمَانَ",
+          "tanzil_forms": [
+            "وَسُلَيْمَـٰنَ"
+          ],
+          "verse_keys": [
+            "4:163:22",
+            "6:84:14",
+            "21:78:2",
+            "27:15:4"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "وَلِسُلَيْمَانَ",
+          "tanzil_forms": [
+            "وَلِسُلَيْمَـٰنَ"
+          ],
+          "verse_keys": [
+            "21:81:1",
+            "34:12:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "سُلَيْمَان",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "سليمان",
+        "normalized_root": null
+      },
+      "canonical_lemma": "سُلَيْمَان",
+      "canonical_lexical_core": "سليمان",
+      "covered_locations": 16,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 16 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "سليمان",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "سَيْنَاءَ",
+          "tanzil_forms": [
+            "سَيْنَآءَ"
+          ],
+          "verse_keys": [
+            "23:20:5"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "سِينَاء",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "سيناء",
+        "normalized_root": null
+      },
+      "canonical_lemma": "سِينَاء",
+      "canonical_lexical_core": "سيناء",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "سيناء",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 7,
+          "normalized": "شُعَيْبًا",
+          "tanzil_forms": [
+            "شُعَيْبًا"
+          ],
+          "verse_keys": [
+            "7:85:4",
+            "7:90:9",
+            "7:92:3",
+            "7:92:10",
+            "11:84:4",
+            "11:94:5",
+            "29:36:4"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "شعيب",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "شعيب",
+        "normalized_root": null
+      },
+      "canonical_lemma": "شعيب",
+      "canonical_lexical_core": "شعيب",
+      "covered_locations": 7,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 7 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "شعيب",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 10,
+          "normalized": "الشَّيْطَانَ",
+          "tanzil_forms": [
+            "ٱلشَّيْطَـٰنَ"
+          ],
+          "verse_keys": [
+            "4:83:28",
+            "4:119:13",
+            "7:22:25",
+            "12:5:12",
+            "17:53:8",
+            "17:53:12",
+            "19:44:4",
+            "19:44:6",
+            "35:6:2",
+            "36:60:9"
+          ]
+        },
+        {
+          "locations": 34,
+          "normalized": "الشَّيْطَانُ",
+          "tanzil_forms": [
+            "ٱلشَّيْطَـٰنُ"
+          ],
+          "verse_keys": [
+            "2:36:2",
+            "2:268:1",
+            "2:275:11",
+            "3:155:10",
+            "3:175:3",
+            "4:38:14",
+            "4:60:26",
+            "4:120:5",
+            "5:91:3",
+            "6:43:11",
+            "6:68:16",
+            "7:20:3",
+            "7:27:5",
+            "7:175:10",
+            "8:48:4",
+            "12:42:11",
+            "12:100:34",
+            "14:22:2",
+            "16:63:10",
+            "17:27:7",
+            "17:64:17",
+            "18:63:13",
+            "20:120:3",
+            "22:52:13",
+            "22:52:20",
+            "22:53:4",
+            "25:29:9",
+            "27:24:10",
+            "29:38:10",
+            "31:21:17",
+            "38:41:9",
+            "43:62:3",
+            "47:25:12",
+            "58:19:3"
+          ]
+        },
+        {
+          "locations": 19,
+          "normalized": "الشَّيْطَانِ",
+          "tanzil_forms": [
+            "ٱلشَّيْطَـٰنِ"
+          ],
+          "verse_keys": [
+            "2:168:12",
+            "2:208:11",
+            "3:36:23",
+            "4:76:15",
+            "4:76:18",
+            "5:90:12",
+            "6:142:12",
+            "7:200:4",
+            "7:201:8",
+            "8:11:16",
+            "16:98:7",
+            "24:21:7",
+            "24:21:11",
+            "28:15:34",
+            "41:36:4",
+            "58:10:4",
+            "58:19:9",
+            "58:19:13",
+            "59:16:2"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "لِلشَّيْطَانِ",
+          "tanzil_forms": [
+            "لِلشَّيْطَـٰنِ"
+          ],
+          "verse_keys": [
+            "19:45:10"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "شَيْطَان",
+        "camel_root_field": "ش.ط.ن",
+        "normalized_lemma": "شيطان",
+        "normalized_root": "شطن"
+      },
+      "canonical_lemma": "شَيْطَان",
+      "canonical_lexical_core": "شيطان",
+      "covered_locations": 64,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 64 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "شيطان",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "شطن"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "طَالُوتَ",
+          "tanzil_forms": [
+            "طَالُوتَ"
+          ],
+          "verse_keys": [
+            "2:247:9"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "طَالُوتُ",
+          "tanzil_forms": [
+            "طَالُوتُ"
+          ],
+          "verse_keys": [
+            "2:249:3"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "طالوت",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "طالوت",
+        "normalized_root": null
+      },
+      "canonical_lemma": "طالوت",
+      "canonical_lexical_core": "طالوت",
+      "covered_locations": 2,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 2 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "طالوت",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "عَرَفَاتٍ",
+          "tanzil_forms": [
+            "عَرَفَـٰتٍ"
+          ],
+          "verse_keys": [
+            "2:198:12"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "عَرَفَات",
+        "camel_root_field": "ع.ر.ف",
+        "normalized_lemma": "عرفات",
+        "normalized_root": "عرف"
+      },
+      "canonical_lemma": "عَرَفَات",
+      "canonical_lexical_core": "عرفات",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "عرفات",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "عرف"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "قُرَيْشٍ",
+          "tanzil_forms": [
+            "قُرَيْشٍ"
+          ],
+          "verse_keys": [
+            "106:1:2"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "قُرَيْش",
+        "camel_root_field": "ق.ر.ش",
+        "normalized_lemma": "قريش",
+        "normalized_root": "قرش"
+      },
+      "canonical_lemma": "قُرَيْش",
+      "canonical_lexical_core": "قريش",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "قريش",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "قرش"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "الْكَعْبَةَ",
+          "tanzil_forms": [
+            "ٱلْكَعْبَةَ"
+          ],
+          "verse_keys": [
+            "5:97:3"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "الْكَعْبَةِ",
+          "tanzil_forms": [
+            "ٱلْكَعْبَةِ"
+          ],
+          "verse_keys": [
+            "5:95:26"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "كَعْبَة",
+        "camel_root_field": "ك.ع.ب",
+        "normalized_lemma": "كعبة",
+        "normalized_root": "كعب"
+      },
+      "canonical_lemma": "كَعْبَة",
+      "canonical_lexical_core": "كعبة",
+      "covered_locations": 2,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 2 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "كعبة",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "كعب"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 6,
+          "normalized": "وَلُوطًا",
+          "tanzil_forms": [
+            "وَلُوطًا"
+          ],
+          "verse_keys": [
+            "6:86:4",
+            "7:80:1",
+            "21:71:2",
+            "21:74:1",
+            "27:54:1",
+            "29:28:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "لوط",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "لوط",
+        "normalized_root": null
+      },
+      "canonical_lemma": "لوط",
+      "canonical_lexical_core": "لوط",
+      "covered_locations": 6,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 6 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "لوط",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "وَمَاْجُوجَ",
+          "tanzil_forms": [
+            "وَمَأْجُوجَ"
+          ],
+          "verse_keys": [
+            "18:94:6"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَمَاْجُوجُ",
+          "tanzil_forms": [
+            "وَمَأْجُوجُ"
+          ],
+          "verse_keys": [
+            "21:96:5"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "مأجوج",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "ماجوج",
+        "normalized_root": null
+      },
+      "canonical_lemma": "مأجوج",
+      "canonical_lexical_core": "ماجوج",
+      "covered_locations": 2,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 2 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "ماجوج",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "وَمَارُوتَ",
+          "tanzil_forms": [
+            "وَمَـٰرُوتَ"
+          ],
+          "verse_keys": [
+            "2:102:23"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "ماروت",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "ماروت",
+        "normalized_root": null
+      },
+      "canonical_lemma": "ماروت",
+      "canonical_lexical_core": "ماروت",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "ماروت",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 2,
+          "normalized": "مُحَمَّدٌ",
+          "tanzil_forms": [
+            "مُحَمَّدٌ"
+          ],
+          "verse_keys": [
+            "3:144:2",
+            "33:40:3"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "مُحَمَّدٍ",
+          "tanzil_forms": [
+            "مُحَمَّدٍ"
+          ],
+          "verse_keys": [
+            "47:2:9"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "مُّحَمَّدٌ",
+          "tanzil_forms": [
+            "مُّحَمَّدٌ"
+          ],
+          "verse_keys": [
+            "48:29:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "مُحَمَّد",
+        "camel_root_field": "ح.م.د",
+        "normalized_lemma": "محمد",
+        "normalized_root": "حمد"
+      },
+      "canonical_lemma": "مُحَمَّد",
+      "canonical_lexical_core": "محمد",
+      "covered_locations": 4,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 4 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "محمد",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "حمد"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "وَالْمَرْوَةَ",
+          "tanzil_forms": [
+            "وَٱلْمَرْوَةَ"
+          ],
+          "verse_keys": [
+            "2:158:3"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "مُرُوَّة",
+        "camel_root_field": "م.ر.و",
+        "normalized_lemma": "مروة",
+        "normalized_root": "مرو"
+      },
+      "canonical_lemma": "مُرُوَّة",
+      "canonical_lexical_core": "مروة",
+      "covered_locations": 1,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 1 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "مروة",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "مرو"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 28,
+          "normalized": "مَرْيَمَ",
+          "tanzil_forms": [
+            "مَرْيَمَ"
+          ],
+          "verse_keys": [
+            "2:87:12",
+            "2:253:17",
+            "3:36:17",
+            "3:44:15",
+            "3:45:14",
+            "4:156:4",
+            "4:157:7",
+            "4:171:17",
+            "4:171:23",
+            "5:17:10",
+            "5:17:23",
+            "5:46:6",
+            "5:72:10",
+            "5:75:4",
+            "5:78:12",
+            "5:110:6",
+            "5:112:6",
+            "5:114:4",
+            "5:116:6",
+            "9:31:10",
+            "19:16:4",
+            "19:34:4",
+            "23:50:3",
+            "33:7:13",
+            "43:57:4",
+            "57:27:9",
+            "61:6:5",
+            "61:14:11"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَمَرْيَمَ",
+          "tanzil_forms": [
+            "وَمَرْيَمَ"
+          ],
+          "verse_keys": [
+            "66:12:1"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "مَرْيَم",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "مريم",
+        "normalized_root": null
+      },
+      "canonical_lemma": "مَرْيَم",
+      "canonical_lexical_core": "مريم",
+      "covered_locations": 29,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 29 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "مريم",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 2,
+          "normalized": "الْمَسِيحَ",
+          "tanzil_forms": [
+            "ٱلْمَسِيحَ"
+          ],
+          "verse_keys": [
+            "4:157:4",
+            "5:17:21"
+          ]
+        },
+        {
+          "locations": 8,
+          "normalized": "الْمَسِيحُ",
+          "tanzil_forms": [
+            "ٱلْمَسِيحُ"
+          ],
+          "verse_keys": [
+            "3:45:11",
+            "4:171:14",
+            "4:172:3",
+            "5:17:8",
+            "5:72:8",
+            "5:72:12",
+            "5:75:2",
+            "9:30:8"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَالْمَسِيحَ",
+          "tanzil_forms": [
+            "وَٱلْمَسِيحَ"
+          ],
+          "verse_keys": [
+            "9:31:8"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "مَسِيح",
+        "camel_root_field": "م.س.ح",
+        "normalized_lemma": "مسيح",
+        "normalized_root": "مسح"
+      },
+      "canonical_lemma": "مَسِيح",
+      "canonical_lexical_core": "مسيح",
+      "covered_locations": 11,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 11 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "مسيح",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "مسح"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 2,
+          "normalized": "مِصْرَ",
+          "tanzil_forms": [
+            "مِصْرَ"
+          ],
+          "verse_keys": [
+            "12:99:10",
+            "43:51:10"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "مِّصْرَ",
+          "tanzil_forms": [
+            "مِّصْرَ"
+          ],
+          "verse_keys": [
+            "12:21:5"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "مِصْر",
+        "camel_root_field": "م.ص.ر",
+        "normalized_lemma": "مصر",
+        "normalized_root": "مصر"
+      },
+      "canonical_lemma": "مِصْر",
+      "canonical_lexical_core": "مصر",
+      "covered_locations": 3,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 3 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "مصر",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "مصر"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 6,
+          "normalized": "نُوحٌ",
+          "tanzil_forms": [
+            "نُوحٌ"
+          ],
+          "verse_keys": [
+            "11:42:8",
+            "11:45:2",
+            "26:106:5",
+            "37:75:3",
+            "71:21:2",
+            "71:26:2"
+          ]
+        },
+        {
+          "locations": 22,
+          "normalized": "نُوحٍ",
+          "tanzil_forms": [
+            "نُوحٍ"
+          ],
+          "verse_keys": [
+            "4:163:7",
+            "7:69:18",
+            "9:70:8",
+            "10:71:4",
+            "11:36:3",
+            "11:89:11",
+            "14:9:8",
+            "17:3:5",
+            "17:17:7",
+            "19:58:14",
+            "22:42:7",
+            "25:37:2",
+            "26:105:3",
+            "37:79:3",
+            "38:12:4",
+            "40:5:4",
+            "40:31:4",
+            "50:12:4",
+            "51:46:2",
+            "53:52:2",
+            "54:9:4",
+            "66:10:7"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "نُّوحٍ",
+          "tanzil_forms": [
+            "نُّوحٍ"
+          ],
+          "verse_keys": [
+            "33:7:8"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "نُوح",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "نوح",
+        "normalized_root": null
+      },
+      "canonical_lemma": "نُوح",
+      "canonical_lexical_core": "نوح",
+      "covered_locations": 29,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 29 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "نوح",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 9,
+          "normalized": "هَارُونَ",
+          "tanzil_forms": [
+            "هَـٰرُونَ"
+          ],
+          "verse_keys": [
+            "2:248:20",
+            "7:142:15",
+            "19:28:2",
+            "19:53:6",
+            "20:30:1",
+            "20:70:7",
+            "23:45:5",
+            "25:35:8",
+            "26:13:8"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "هَارُونُ",
+          "tanzil_forms": [
+            "هَـٰرُونُ"
+          ],
+          "verse_keys": [
+            "20:90:4",
+            "28:34:2"
+          ]
+        },
+        {
+          "locations": 8,
+          "normalized": "وَهَارُونَ",
+          "tanzil_forms": [
+            "وَهَـٰرُونَ"
+          ],
+          "verse_keys": [
+            "4:163:21",
+            "6:84:18",
+            "7:122:3",
+            "10:75:6",
+            "21:48:4",
+            "26:48:3",
+            "37:114:5",
+            "37:120:4"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "هَارُون",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "هارون",
+        "normalized_root": null
+      },
+      "canonical_lemma": "هَارُون",
+      "canonical_lexical_core": "هارون",
+      "covered_locations": 19,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 19 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "هارون",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 4,
+          "normalized": "وَهَامَانَ",
+          "tanzil_forms": [
+            "وَهَـٰمَـٰنَ"
+          ],
+          "verse_keys": [
+            "28:6:7",
+            "28:8:10",
+            "29:39:3",
+            "40:24:3"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "هامان",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "هامان",
+        "normalized_root": null
+      },
+      "canonical_lemma": "هامان",
+      "canonical_lexical_core": "هامان",
+      "covered_locations": 4,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 4 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "هامان",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "هُودٌ",
+          "tanzil_forms": [
+            "هُودٌ"
+          ],
+          "verse_keys": [
+            "26:124:5"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "هُودٍ",
+          "tanzil_forms": [
+            "هُودٍ"
+          ],
+          "verse_keys": [
+            "11:60:17",
+            "11:89:14"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "هُود",
+        "camel_root_field": "ه.و.د",
+        "normalized_lemma": "هود",
+        "normalized_root": "هود"
+      },
+      "canonical_lemma": "هُود",
+      "canonical_lexical_core": "هود",
+      "covered_locations": 3,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 3 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "هود",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": "هود"
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 1,
+          "normalized": "بِيُوسُفَ",
+          "tanzil_forms": [
+            "بِيُوسُفَ"
+          ],
+          "verse_keys": [
+            "12:89:6"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "لَيُوسُفُ",
+          "tanzil_forms": [
+            "لَيُوسُفُ"
+          ],
+          "verse_keys": [
+            "12:8:3"
+          ]
+        },
+        {
+          "locations": 3,
+          "normalized": "لِيُوسُفَ",
+          "tanzil_forms": [
+            "لِيُوسُفَ"
+          ],
+          "verse_keys": [
+            "12:21:17",
+            "12:56:3",
+            "12:76:13"
+          ]
+        },
+        {
+          "locations": 1,
+          "normalized": "وَيُوسُفَ",
+          "tanzil_forms": [
+            "وَيُوسُفَ"
+          ],
+          "verse_keys": [
+            "6:84:16"
+          ]
+        },
+        {
+          "locations": 14,
+          "normalized": "يُوسُفَ",
+          "tanzil_forms": [
+            "يُوسُفَ"
+          ],
+          "verse_keys": [
+            "12:7:4",
+            "12:9:2",
+            "12:10:6",
+            "12:11:8",
+            "12:17:7",
+            "12:51:6",
+            "12:58:3",
+            "12:69:4",
+            "12:80:23",
+            "12:84:6",
+            "12:85:5",
+            "12:87:5",
+            "12:94:9",
+            "12:99:4"
+          ]
+        },
+        {
+          "locations": 7,
+          "normalized": "يُوسُفُ",
+          "tanzil_forms": [
+            "يُوسُفُ"
+          ],
+          "verse_keys": [
+            "12:4:3",
+            "12:29:1",
+            "12:46:1",
+            "12:77:11",
+            "12:90:4",
+            "12:90:7",
+            "40:34:3"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "يُوسِف",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "يوسف",
+        "normalized_root": null
+      },
+      "canonical_lemma": "يُوسِف",
+      "canonical_lexical_core": "يوسف",
+      "covered_locations": 27,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 27 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "يوسف",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    },
+    {
+      "accepted_surfaces": [
+        {
+          "locations": 2,
+          "normalized": "وَيُونُسَ",
+          "tanzil_forms": [
+            "وَيُونُسَ"
+          ],
+          "verse_keys": [
+            "4:163:20",
+            "6:86:3"
+          ]
+        },
+        {
+          "locations": 2,
+          "normalized": "يُونُسَ",
+          "tanzil_forms": [
+            "يُونُسَ"
+          ],
+          "verse_keys": [
+            "10:98:9",
+            "37:139:2"
+          ]
+        }
+      ],
+      "camel_selector": {
+        "camel_lex_field": "يُونِس",
+        "camel_root_field": "NTWS",
+        "normalized_lemma": "يونس",
+        "normalized_root": null
+      },
+      "canonical_lemma": "يُونِس",
+      "canonical_lexical_core": "يونس",
+      "covered_locations": 4,
+      "pos": "noun_prop",
+      "provenance": "Derived from the CAMeL candidate pools of tokens the frozen selector v1.2c leaves unselected. Exactly one noun_prop lexical core occurs in every pool of every accepted surface; QAC marks the token PN at all 4 locations and its lemma/root agree with that core.",
+      "status": "RESOLVED",
+      "teacher_confirmation": {
+        "teacher_lemma": "يونس",
+        "teacher_marks_pn": true,
+        "teacher_pos": "N",
+        "teacher_root": null
+      }
+    }
+  ],
+  "residual_l7a_proper_names": [
+    {
+      "locations": 1,
+      "normalized": "بِالْاَحْقَافِ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "بِٱلْأَحْقَافِ",
+      "verse_keys": [
+        "46:21:7"
+      ]
+    },
+    {
+      "locations": 5,
+      "normalized": "ثَمُودَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "ثَمُودَ",
+      "verse_keys": [
+        "7:73:2",
+        "11:61:2",
+        "17:59:12",
+        "27:45:4",
+        "51:43:2"
+      ]
+    },
+    {
+      "locations": 7,
+      "normalized": "ثَمُودُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "ثَمُودُ",
+      "verse_keys": [
+        "11:95:10",
+        "26:141:2",
+        "41:17:2",
+        "54:23:2",
+        "69:4:2",
+        "69:5:2",
+        "91:11:2"
+      ]
+    },
+    {
+      "locations": 2,
+      "normalized": "زَبُورًا",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "زَبُورًا",
+      "verse_keys": [
+        "4:163:25",
+        "17:55:15"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "سُوَاعًا",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "سُوَاعًا",
+      "verse_keys": [
+        "71:23:9"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "لِّثَمُودَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "لِّثَمُودَ",
+      "verse_keys": [
+        "11:68:12"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "هَارُوتَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "هَـٰرُوتَ",
+      "verse_keys": [
+        "2:102:22"
+      ]
+    },
+    {
+      "locations": 6,
+      "normalized": "وَثَمُودَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "وَثَمُودَ",
+      "verse_keys": [
+        "9:70:10",
+        "14:9:10",
+        "40:31:6",
+        "41:13:9",
+        "85:18:2",
+        "89:9:1"
+      ]
+    },
+    {
+      "locations": 3,
+      "normalized": "وَثَمُودُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "وَثَمُودُ",
+      "verse_keys": [
+        "22:42:9",
+        "38:13:1",
+        "50:12:7"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "وَيَعُوقَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "وَيَعُوقَ",
+      "verse_keys": [
+        "71:23:12"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "يَاْجُوجَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَأْجُوجَ",
+      "verse_keys": [
+        "18:94:5"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "يَاْجُوجُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَأْجُوجُ",
+      "verse_keys": [
+        "21:96:4"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "يَغُوثَ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَغُوثَ",
+      "verse_keys": [
+        "71:23:11"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "يَاسَامِرِىُّ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰسَـٰمِرِىُّ",
+      "verse_keys": [
+        "20:95:4"
+      ]
+    },
+    {
+      "locations": 3,
+      "normalized": "يَاشُعَيْبُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰشُعَيْبُ",
+      "verse_keys": [
+        "7:88:8",
+        "11:87:2",
+        "11:91:2"
+      ]
+    },
+    {
+      "locations": 3,
+      "normalized": "يَاعِيسَى",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰعِيسَى",
+      "verse_keys": [
+        "5:110:4",
+        "5:112:4",
+        "5:116:4"
+      ]
+    },
+    {
+      "locations": 2,
+      "normalized": "يَافِرْعَوْنُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰفِرْعَوْنُ",
+      "verse_keys": [
+        "7:104:3",
+        "17:102:14"
+      ]
+    },
+    {
+      "locations": 2,
+      "normalized": "يَالُوطُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰلُوطُ",
+      "verse_keys": [
+        "11:81:2",
+        "26:167:5"
+      ]
+    },
+    {
+      "locations": 5,
+      "normalized": "يَامَرْيَمُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰمَرْيَمُ",
+      "verse_keys": [
+        "3:37:19",
+        "3:42:4",
+        "3:43:1",
+        "3:45:4",
+        "19:27:6"
+      ]
+    },
+    {
+      "locations": 2,
+      "normalized": "يَامُوسَى",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰمُوسَى",
+      "verse_keys": [
+        "7:134:6",
+        "7:138:13"
+      ]
+    },
+    {
+      "locations": 11,
+      "normalized": "يَامُوسَىا",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰمُوسَىٰ",
+      "verse_keys": [
+        "2:55:3",
+        "2:61:3",
+        "17:101:17",
+        "20:17:4",
+        "20:19:3",
+        "20:36:5",
+        "20:40:34",
+        "20:49:4",
+        "20:57:7",
+        "20:83:5",
+        "27:10:12"
+      ]
+    },
+    {
+      "locations": 2,
+      "normalized": "يَاهَامَانُ",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰهَـٰمَـٰنُ",
+      "verse_keys": [
+        "28:38:13",
+        "40:36:3"
+      ]
+    },
+    {
+      "locations": 1,
+      "normalized": "يَايَحْيَىا",
+      "reason": "no CAMeL noun_prop candidate exists in the frozen pool for this surface, so no entry can be independently verified; not forced into the lexicon",
+      "status": "UNRESOLVED_PROPER_NAME",
+      "tanzil_surface": "يَـٰيَحْيَىٰ",
+      "verse_keys": [
+        "19:12:1"
+      ]
+    }
+  ],
+  "schema_version": "quran-proper-name-lexicon-v1",
+  "totals": {
+    "accepted_surfaces": 95,
+    "covered_locations": 806,
+    "entries": 42,
+    "residual_l7a_locations": 63,
+    "residual_l7a_surfaces": 23,
+    "residual_l7a_unresolved": 23
+  }
+}
