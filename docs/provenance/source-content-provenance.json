@@ -11,19 +11,17 @@
     "retainedRuntimeRisks": [
       "verses.arabic_tajweed"
     ],
-    "resolvedRuntimeRisks": [
-      {
-        "item": "morfoloji table",
-        "status": "removed_from_runtime",
-        "removedAt": "2026-07-28",
-        "evidence": "Yerel app.db ve Turso'dan düşürüldü; düşürme öncesi 130.030 satırlık tam pre-image ve şema, hash'li provenance artefaktlarına yazıldı (backups/turso-pre-image-morfoloji-*.json, backups/morfoloji-provenance-*.json)."
-      }
-    ]
+    "removedRuntimeArtifacts": {
+      "morfoloji table": "removed_from_runtime on 2026-07-28. The raw QAC-derived segment-level morphology table (130,030 rows) was dropped from the local and Turso runtime databases. It had no user-facing web, mobile or API consumer; its only reader was an unused root/lemma fallback in verseAnalysisContext, reachable solely from offline audit scripts. That fallback aggregated segment-level values to word level and would have written the leading particle (و, ل, ب) as the word's lemma in 2,180 of 2,182 empty cells, so it was removed rather than persisted. Four root cells that were individually verified against the canonical token were backfilled into words beforehand (2:72 w9 كون, 15:7 w4 ملك, 15:7 w6 كون, 27:20 w10 كون). The full table is retained outside the runtime as a hashed provenance artifact. The final canonical Kuran Yolu morphology in the words table (77,433 rows) is unaffected and remains the single source; QAC and CAMeL attribution for that layer is unchanged. Evidence: the pre-drop 130,030-row full pre-image and schema were written to hashed provenance artefacts (backups/turso-pre-image-morfoloji-*.json, backups/morfoloji-provenance-*.json)."
+    },
+    "retainedRuntimeRiskNotes": {
+      "verses.arabic_tajweed": "Raw AlQuran.cloud tajweed markup is retained in the runtime database for now. A span-only runtime was implemented and verified, but the canonical tajweed_spans layer maps only 79,343 of 86,595 source rule clusters (91.6254%); by the alignment ambiguity policy the remaining 7,252 clusters stay uncolored. Switching to a span-only SOURCE would reduce visible colouring in 2,398 ayahs and remove it entirely in 13, which was not accepted as a product decision. Rendering itself no longer reads this field: web and mobile now draw canonical text plus tajweed_spans, and the markup parser was removed. The raw column is retained as the build input for span regeneration and to keep the /api backward-compatibility contract for clients already published."
+    }
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 112298,
-    "sha256": "7c3a90e2e0b57d37122994c62592ade143b2ca9d5b4836e929c0cdff684b448d",
+    "totalBytes": 112652,
+    "sha256": "d9077512cf6712c1d8e3ac3becbb04a5c88e063e432c8ab3363d703ff1644ecf",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -92,8 +90,8 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 4913,
-        "sha256": "1d82ad2cc9b3713cbdcd4484e45d8c9002cf5fc3a3129d65e6b3c1d46f9b3803"
+        "bytes": 5267,
+        "sha256": "6d97de3e1fadedafb1c649d44078dfefc4cd25f8ca0a953acce48b27c1ffb56c"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",

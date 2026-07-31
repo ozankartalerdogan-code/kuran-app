@@ -66,6 +66,13 @@ test("her iki ekran da merkezi içeriği render eder ve kopya taşımaz", () => 
       /SOURCE_LICENSE_CONTENT\.sections\.map/,
       `${relativePath} bölümleri merkezi içerikten render etmiyor`,
     );
+    // Bağlantılar da merkezi listeden çözülmeli — ekran kendi listesini kurarsa
+    // merkezi içerikten sessizce sapar.
+    assert.match(
+      screen,
+      /getSourceLicenseLinks/,
+      `${relativePath} bağlantıları getSourceLicenseLinks ile çözmüyor`,
+    );
 
     // Merkezi içerik baypas edilip URL elle yazılırsa sapma yeniden mümkün olur.
     for (const url of centralUrls) {
@@ -98,7 +105,7 @@ test("required morphology and tajweed disclosures stay exact", () => {
   );
   assert.equal(
     tajweed?.body,
-    "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. 14 ayette 23 manuel span eklenmiştir.",
+    "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. Tanınan 86.595 kaynak kümesinin 79.343'ü hizalanmıştır (%91,6254); 14 ayette 23 manuel span eklenmiştir.",
   );
 });
 

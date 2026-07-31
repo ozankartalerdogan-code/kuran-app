@@ -34,29 +34,49 @@ function walk(relativeDirectory, accept = () => true) {
   return found;
 }
 
-function artifactGroup(paths) {
+/**
+ * Provenance açısından anlamlı dosyaları iki gruba ayırır:
+ *  - depoda bulunanlar: hash'lenir ve grup sha256'sına girer,
+ *  - depoda saklanmayanlar: `absentFromRepo` altında yol olarak korunur.
+ *
+ * Bu depo, üretilmiş tecvid çıktıları, vendor'lanmış Tanzil kaynağı ve bazı
+ * morfoloji ara çıktıları gibi büyük veri dosyalarını taşımıyor. Bu dosyaları
+ * listeden düşürmek provenance kaydını kaybettirirdi; hash'lemeye çalışmak ise
+ * üretimi imkânsız kılardı. Bu yüzden kayıt korunur, hash zinciri yalnız
+ * gerçekten mevcut dosyaları kapsar.
+ */
+function artifactGroup(paths, extraAbsentPaths = []) {
   const uniquePaths = [...new Set(paths)].sort((left, right) => left.localeCompare(right, "en"));
-  const files = uniquePaths.map((relativePath) => {
+  const absentPaths = [...extraAbsentPaths];
+  const files = [];
+
+  for (const relativePath of uniquePaths) {
     const absolutePath = path.join(REPO_ROOT, relativePath);
     if (!existsSync(absolutePath) || !statSync(absolutePath).isFile()) {
-      throw new Error(`Required provenance file is missing: ${relativePath}`);
+      absentPaths.push(relativePath);
+      continue;
     }
     const bytes = readFileSync(absolutePath);
-    return {
+    files.push({
       path: normalizePath(relativePath),
       bytes: bytes.length,
       sha256: sha256(bytes),
-    };
-  });
+    });
+  }
 
   const groupInput = files
     .map((file) => `${file.path}\0${file.bytes}\0${file.sha256}\n`)
     .join("");
+  const absentFromRepo = [...new Set(absentPaths)]
+    .map((relativePath) => normalizePath(relativePath))
+    .sort((left, right) => left.localeCompare(right, "en"));
+
   return {
     fileCount: files.length,
     totalBytes: files.reduce((sum, file) => sum + file.bytes, 0),
     sha256: sha256(Buffer.from(groupInput, "utf8")),
     files,
+    ...(absentFromRepo.length > 0 ? { absentFromRepo } : {}),
   };
 }
 
@@ -396,15 +416,14 @@ const manifest = {
     // bilerek korunuyor: render tajweed_spans ile çalışıyor, kolon yalnız /api
     // geriye-uyumluluk sözleşmesi için duruyor (bkz. apps/mobile/src/lib/tajweed.ts).
     retainedRuntimeRisks: ["verses.arabic_tajweed"],
-    resolvedRuntimeRisks: [
-      {
-        item: "morfoloji table",
-        status: "removed_from_runtime",
-        removedAt: "2026-07-28",
-        evidence:
-          "Yerel app.db ve Turso'dan düşürüldü; düşürme öncesi 130.030 satırlık tam pre-image ve şema, hash'li provenance artefaktlarına yazıldı (backups/turso-pre-image-morfoloji-*.json, backups/morfoloji-provenance-*.json).",
-      },
-    ],
+    removedRuntimeArtifacts: {
+      "morfoloji table":
+        "removed_from_runtime on 2026-07-28. The raw QAC-derived segment-level morphology table (130,030 rows) was dropped from the local and Turso runtime databases. It had no user-facing web, mobile or API consumer; its only reader was an unused root/lemma fallback in verseAnalysisContext, reachable solely from offline audit scripts. That fallback aggregated segment-level values to word level and would have written the leading particle (و, ل, ب) as the word's lemma in 2,180 of 2,182 empty cells, so it was removed rather than persisted. Four root cells that were individually verified against the canonical token were backfilled into words beforehand (2:72 w9 كون, 15:7 w4 ملك, 15:7 w6 كون, 27:20 w10 كون). The full table is retained outside the runtime as a hashed provenance artifact. The final canonical Kuran Yolu morphology in the words table (77,433 rows) is unaffected and remains the single source; QAC and CAMeL attribution for that layer is unchanged. Evidence: the pre-drop 130,030-row full pre-image and schema were written to hashed provenance artefacts (backups/turso-pre-image-morfoloji-*.json, backups/morfoloji-provenance-*.json).",
+    },
+    retainedRuntimeRiskNotes: {
+      "verses.arabic_tajweed":
+        "Raw AlQuran.cloud tajweed markup is retained in the runtime database for now. A span-only runtime was implemented and verified, but the canonical tajweed_spans layer maps only 79,343 of 86,595 source rule clusters (91.6254%); by the alignment ambiguity policy the remaining 7,252 clusters stay uncolored. Switching to a span-only SOURCE would reduce visible colouring in 2,398 ayahs and remove it entirely in 13, which was not accepted as a product decision. Rendering itself no longer reads this field: web and mobile now draw canonical text plus tajweed_spans, and the markup parser was removed. The raw column is retained as the build input for span regeneration and to keep the /api backward-compatibility contract for clients already published.",
+    },
   },
   licenseAndDisclosureArtifacts: artifactGroup([
     "NOTICE",

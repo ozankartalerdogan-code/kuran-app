@@ -76,7 +76,7 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "meal-tafsir",
     title: "Meal ve tefsir",
     body:
-      "Production'da yalnız Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili meali kullanılır. Dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır. Sade açıklamalar AI desteği ve insan kontrolüyle Kuran Yolu için yeniden hazırlanır; bilgilendirme amaçlıdır ve fetva niteliği taşımaz. Önceki dört meal kaynağı runtime'dan kaldırılmış, provenance kayıtlarında korunmuştur.",
+      "Production'da yalnız Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili meali kullanılır. Dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır. Sade açıklamalar AI desteği ve insan kontrolüyle Kuran Yolu için yeniden hazırlanır; bilgilendirme amaçlıdır ve fetva niteliği taşımaz. Daha önce karşılaştırma amacıyla taşınan dört meal kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez. Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.",
     linkIds: ["elmalili", "semar-ketir"],
   },
   {
@@ -90,7 +90,7 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "tajweed",
     title: "Tecvid",
     body:
-      "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. 14 ayette 23 manuel span eklenmiştir.",
+      "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. Tanınan 86.595 kaynak kümesinin 79.343'ü hizalanmıştır (%91,6254); 14 ayette 23 manuel span eklenmiştir.",
     linkIds: ["alquran-tajweed", "alquran-terms"],
   },
   {

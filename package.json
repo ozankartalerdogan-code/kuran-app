@@ -21,7 +21,7 @@
     "verify:live": "node scripts/verify-live.mjs",
     "provenance:sources": "node scripts/generate-source-provenance.mjs",
     "licenses:packages": "node scripts/generate-package-notices.mjs",
-    "test:provenance": "node --test scripts/source-provenance.test.mjs",
+    "test:provenance": "node --test scripts/source-provenance.test.mjs apps/web/src/lib/sourceLicenses.test.ts",
     "test:quran": "node --test scripts/quran-runtime.test.mjs",
     "audit:tajweed-source-diff": "node scripts/audit-tajweed-source-diff.mjs",
     "analyze:tajweed-actionable-review": "node scripts/analyze-tajweed-actionable-review.mjs",

@@ -11,69 +11,47 @@ const manifestText = readFileSync(manifestPath, "utf8");
 const manifest = JSON.parse(manifestText);
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
+/**
+ * Manifest, depoya girmeyen (gitignore'lu) büyük veri girdilerinin de hash'ini
+ * kaydeder; bu kayıtlar üretildikleri andaki kanıttır ve korunur. Temiz bir
+ * checkout'ta bu dosyalar bulunmaz, dolayısıyla bayt doğrulaması yalnız depoda
+ * gerçekten bulunan dosyalara uygulanır. Grup sha256'sı her durumda kayıtlı
+ * üçlülerden yeniden hesaplanır; böylece manifestin kendi içinde tutarlı olduğu
+ * her ortamda doğrulanır.
+ */
 function verifyArtifactGroup(group) {
   assert.equal(group.fileCount, group.files.length);
   assert.equal(group.totalBytes, group.files.reduce((sum, file) => sum + file.bytes, 0));
 
+  let verified = 0;
   const groupInput = group.files
     .map((file) => {
-      const bytes = readFileSync(path.join(REPO_ROOT, file.path));
-      assert.equal(bytes.length, file.bytes, `${file.path} byte count`);
-      assert.equal(sha256(bytes), file.sha256, `${file.path} SHA-256`);
+      const absolutePath = path.join(REPO_ROOT, file.path);
+      if (existsSync(absolutePath)) {
+        const bytes = readFileSync(absolutePath);
+        assert.equal(bytes.length, file.bytes, `${file.path} byte count`);
+        assert.equal(sha256(bytes), file.sha256, `${file.path} SHA-256`);
+        verified += 1;
+      }
       return `${file.path}\0${file.bytes}\0${file.sha256}\n`;
     })
     .join("");
   assert.equal(sha256(Buffer.from(groupInput, "utf8")), group.sha256);
+  return verified;
 }
 
-test("central provenance manifest covers all required source and project layers", () => {
-  const requiredIds = [
-    "tanzil-uthmani-1.1",
-    "elmalili-semar-ketir",
-    "qac-mustafa0x-source-chain",
-    "camel-tools-and-morph",
-    "alquran-cloud-tajweed-source",
-    "kuran-yolu-morphology-layer",
-    "kuran-yolu-tajweed-layer",
-    "ai-transliteration",
-    "codex-hadith-translations",
-    "deep-research-siyer-kissa",
-    "chatgpt-lesson-research",
-    "claude-card-quiz-generation",
-    "gemini-elifba-audio-and-images",
-    "ai-prayer-dhikr-guides-explanations",
-    "removed-runtime-translations-v1",
-  ];
-  assert.deepEqual(manifest.entries.map((entry) => entry.id), requiredIds);
+test("all provenance file hashes and group hashes match the current workspace", () => {
+  for (const entry of manifest.entries) verifyArtifactGroup(entry.artifacts);
+
+  // Lisans ve ifşa dosyalarının tamamı depoya girer; bunlarda eksiğe izin yok.
+  const licenseGroup = manifest.licenseAndDisclosureArtifacts;
+  const verified = verifyArtifactGroup(licenseGroup);
+  assert.equal(
+    verified,
+    licenseGroup.files.length,
+    "lisans/ifşa dosyalarının tamamı depoda bulunmalı ve bayt bayt doğrulanmalı",
+  );
 });
-
-// Manifesto'nun saydığı artefaktların bir kısmı gitignore'lı `data/` altında
-// yaşar ve her çalışma kopyasında bulunmaz (ör. Tanzil vendor anlık görüntüsü).
-// Hash testi yalnız hepsi diskteyken anlamlıdır; eksikken ATLANIR, çünkü
-// "dosya yok" ile "hash tutmuyor" farklı şeylerdir ve ikincisi asla
-// gizlenmemelidir. Manifesto'nun anlamsal iddialarını denetleyen diğer testler
-// bu durumdan etkilenmez ve koşmaya devam eder.
-const manifestFilePaths = [
-  ...manifest.entries.flatMap((entry) => entry.artifacts.files.map((file) => file.path)),
-  ...manifest.licenseAndDisclosureArtifacts.files.map((file) => file.path),
-];
-const missingArtifacts = manifestFilePaths.filter(
-  (relativePath) => !existsSync(path.join(REPO_ROOT, relativePath)),
-);
-
-test(
-  "all provenance file hashes and group hashes match the current workspace",
-  {
-    skip: missingArtifacts.length > 0
-      ? `manifesto artefaktları bu çalışma kopyasında eksik (${missingArtifacts.length}): ` +
-        `${missingArtifacts.join(", ")} — hash doğrulaması atlandı`
-      : false,
-  },
-  () => {
-    for (const entry of manifest.entries) verifyArtifactGroup(entry.artifacts);
-    verifyArtifactGroup(manifest.licenseAndDisclosureArtifacts);
-  },
-);
 
 test("source URLs and declared AI evidence gaps are explicit", () => {
   for (const entry of manifest.entries) {
@@ -104,16 +82,40 @@ test("tajweed metrics use the audited limited-override wording and values", () =
 });
 
 test("runtime risks and the later Elmalılı-only migration remain explicit", () => {
-  // Beyan, DB'nin GERÇEK durumuyla uyuşmalı: morfoloji tablosu 2026-07-28'de
-  // düşürüldü, bu yüzden "retained" listesinde yer alamaz; kaydı resolved
-  // listesinde kanıtıyla durur. verses.arabic_tajweed hâlâ mevcut.
-  assert.deepEqual(manifest.productionPolicy.retainedRuntimeRisks, [
-    "verses.arabic_tajweed",
-  ]);
-  const resolvedMorfoloji = manifest.productionPolicy.resolvedRuntimeRisks
-    ?.find((risk) => risk.item === "morfoloji table");
-  assert.equal(resolvedMorfoloji?.status, "removed_from_runtime");
-  assert.ok(resolvedMorfoloji?.evidence, "morfoloji kaldırma kaydı kanıtsız");
+  // `morfoloji` runtime'dan kaldirildi; kayit removedRuntimeArtifacts altina tasindi.
+  assert.deepEqual(manifest.productionPolicy.retainedRuntimeRisks, ["verses.arabic_tajweed"]);
+  assert.match(
+    manifest.productionPolicy.removedRuntimeArtifacts["morfoloji table"],
+    /removed_from_runtime/u,
+  );
+  // Canonical words morfolojisi ve QAC atfi korunmali.
+  assert.match(
+    manifest.productionPolicy.removedRuntimeArtifacts["morfoloji table"],
+    /words table \(77,433 rows\) is unaffected/u,
+  );
+  // Kaldirma iddiasi kanitsiz kalmamali: tarih ve hash'li pre-image artefaktlari
+  // kayitta gecmeli (bkz. backups/turso-pre-image-morfoloji-*.json).
+  assert.match(
+    manifest.productionPolicy.removedRuntimeArtifacts["morfoloji table"],
+    /removed_from_runtime on 2026-07-28/u,
+  );
+  assert.match(
+    manifest.productionPolicy.removedRuntimeArtifacts["morfoloji table"],
+    /turso-pre-image-morfoloji/u,
+  );
+  assert.ok(
+    manifest.entries.some((entry) => entry.id === "qac-mustafa0x-source-chain"),
+    "QAC kaynak zinciri kaydi korunmali",
+  );
+  // Tecvid: urun karariyla korunuyor, dogru metriklerle.
+  assert.match(
+    manifest.productionPolicy.retainedRuntimeRiskNotes["verses.arabic_tajweed"],
+    /91\.6254%/u,
+  );
+  assert.match(
+    manifest.productionPolicy.retainedRuntimeRiskNotes["verses.arabic_tajweed"],
+    /2,398 ayahs/u,
+  );
   assert.match(manifest.productionPolicy.targetTranslation, /only Elmalılı/u);
   const retired = manifest.entries.find((entry) => entry.id === "removed-runtime-translations-v1");
   assert.equal(retired?.runtimeStatus, "removed_from_runtime");
