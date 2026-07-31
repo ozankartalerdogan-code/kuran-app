@@ -200,9 +200,12 @@ function PathNode({ ders, status, pct, onPress }: {
           }]} />
         </View>
       )}
-      {/* Etiket ekran zemininde (c.bg) durur — sabit koyu gri gece modunda okunmuyordu. */}
+      {/* Etiket ekran zemininde (c.bg) durur — sabit koyu gri gece modunda okunmuyordu.
+          Taşmayı numberOfLines={2} yönetir; başlığı ayrıca ilk 3 kelimeye kesmek
+          "ASAR, MED ve KASR"ı "ASAR, MED ve" yapıp bağlaçla bitiriyordu (9 dersten
+          yalnız o 3 kelimeden uzun olduğu için hata tek satırda görünür kalmıştı). */}
       <Text style={[nd.label, { color: isLocked ? c.textMuted : c.textSecondary }]} numberOfLines={2}>
-        {shortBaslik(ders.baslik).split(" ").slice(0, 3).join(" ")}
+        {shortBaslik(ders.baslik)}
       </Text>
     </TouchableOpacity>
   );

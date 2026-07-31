@@ -30,6 +30,12 @@ import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics'
 import { TasbihModal } from '../../src/components/ZikirMatik';
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+// Günün Ayeti/Duası kartları UthmanicHafs ile basılır; o font U+06DF, U+06E3 ve
+// U+06EB yuvarlak/işmam yuvalarında gerçek glif taşımaz ve yerlerine noktalı
+// daire çizer (U+06DF tek başına korpüste ~3988 yerde geçer, çoğul -û ekinde).
+// Mushaf sayfası ve ayet detayı bu eşlemeyi zaten uyguluyordu; ana sayfa
+// atlanmıştı. Eşleme 1:1'dir, uzunluk korunur, veri değişmez.
+import { mushafMetniHazirla } from "../../src/lib/mushafText";
 
 
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
@@ -329,7 +335,7 @@ function HomeContent() {
           verseLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]}>Günün ayeti şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.</Text>
         ) : (
           <>
-            {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.arabic_text}</Text>}
+            {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{mushafMetniHazirla(verse.arabic_text)}</Text>}
             {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.reading_tr}</Text>}
             {verse.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]} numberOfLines={3}>{verse.meal}</Text>}
           </>
@@ -432,7 +438,7 @@ function HomeContent() {
           duaLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]}>Günün duası şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.</Text>
         ) : (
           <>
-            {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.arabic_text}</Text>}
+            {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{mushafMetniHazirla(dua.arabic_text)}</Text>}
             {dua.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.reading_tr}</Text>}
             {dua.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]} numberOfLines={3}>{dua.meal}</Text>}
           </>

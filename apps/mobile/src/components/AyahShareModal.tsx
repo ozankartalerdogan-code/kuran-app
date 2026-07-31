@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { useColors } from "../hooks/useColors";
 import { captureAndShareView } from "../lib/shareImage";
+import { mushafMetniHazirla } from "../lib/mushafText";
 
 // Görsel ayet paylaşımı — "Kuran Yolu" markalı kart önizlemesi + paylaşım seçimi.
 // Kart tasarımı temadan BAĞIMSIZ sabittir (krem zemin): paylaşılan görsel her
@@ -32,6 +33,14 @@ interface Props {
 
 export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic, meal, onShareText }: Props) {
   const c = useColors();
+  // KARTTA basılan metin font uyumluluğundan geçmeli: production fontu U+06DF,
+  // U+06E3 ve U+06EB yuvalarında gerçek glif taşımaz, yerlerine noktalı daire
+  // (sahipsiz işaret) çizer. Mushaf sayfası ve ayet detayı bunu zaten uyguluyor;
+  // paylaşım kartı atlanmıştı ve paylaşılan görselde o daireler görünüyordu.
+  // Eşleme idempotent — hazırlanmış metin ikinci kez geçse de değişmez.
+  // Yalnız GÖRÜNTÜ için: onShareText canonical Unicode'u paylaşmaya devam eder,
+  // çünkü alıcının fontu bizimki değildir ve metinde canonical doğru olandır.
+  const kartArapca = arabic ? mushafMetniHazirla(arabic) : null;
   const cardRef = useRef<View>(null);
   const [sharing, setSharing] = useState(false);
 
@@ -57,9 +66,9 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
           {/* Yakalanan kart — collapsable={false}: Android'de view-shot için şart */}
           <View ref={cardRef} collapsable={false} style={m.card}>
             <Text style={m.cardHeader}>{surahName.toLocaleUpperCase("tr-TR")} · {ayahNumber}. AYET</Text>
-            {arabic ? (
-              <Text style={[m.cardArabic, { fontSize: arabicFontSize(arabic.length), lineHeight: arabicFontSize(arabic.length) * 1.8 }]}>
-                {arabic}
+            {kartArapca ? (
+              <Text style={[m.cardArabic, { fontSize: arabicFontSize(kartArapca.length), lineHeight: arabicFontSize(kartArapca.length) * 1.8 }]}>
+                {kartArapca}
               </Text>
             ) : null}
             <View style={m.cardDivider} />
