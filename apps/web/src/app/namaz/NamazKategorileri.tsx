@@ -1,4 +1,5 @@
 import {dbAll } from "../../lib/dbUtils";
+import { asServerComponent } from "../../lib/serverComponent";
 import {
   NAMAZ_KATEGORILER,
   TAG_ISIM,
@@ -61,7 +62,7 @@ function buildGrouped(rows: Array<{ verseKey: string; tag: string; isim?: string
 
 // ── Sunucu bileşeni ───────────────────────────────────────────────────────────
 
-export async function NamazKategorileri() {
+async function NamazKategorileriImpl() {
 
   const dbRows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'namaz-%' ORDER BY verse_key");
 
@@ -83,3 +84,5 @@ export async function NamazKategorileri() {
 
   return <NamazAkordeonPanel kategoriler={kategoriler} totalVerses={totalVerses} />;
 }
+
+export const NamazKategorileri = asServerComponent(NamazKategorileriImpl);

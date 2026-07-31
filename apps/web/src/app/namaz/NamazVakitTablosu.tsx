@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { dbAll, dbGet } from "../../lib/dbUtils";
+import { asServerComponent } from "../../lib/serverComponent";
 import { NamazVakitAccordion } from "./NamazVakitAccordion";
 
 // ── Tipler ────────────────────────────────────────────────────────────────────
@@ -101,7 +102,7 @@ function verseHref(verseKey: string): string {
 
 // ── Server bileşeni ───────────────────────────────────────────────────────────
 
-export async function NamazVakitTablosu() {
+async function NamazVakitTablosuImpl() {
 
   const rows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag IN ('namaz-vakit','namaz-teheccud') ORDER BY verse_key");
 
@@ -166,3 +167,5 @@ export async function NamazVakitTablosu() {
     </>
   );
 }
+
+export const NamazVakitTablosu = asServerComponent(NamazVakitTablosuImpl);

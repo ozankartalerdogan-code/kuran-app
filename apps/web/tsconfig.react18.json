@@ -1,0 +1,30 @@
+// React 18 tipleriyle DETERMİNİSTİK typecheck.
+//
+// Monorepo kökünde React Native yüzünden `@types/react` 19, apps/web altında
+// ise Next 14 ile uyumlu `@types/react` 18 duruyor. İkisi de aynı programa
+// giriyor ve global JSX ad alanını hangisinin belirlediği npm'in kurduğu ağaca
+// göre değişiyor: lokalde 19 kazanıp build geçerken, Vercel'in kurulumunda 18
+// kazanıp build kırılmıştı (TS2786, async Server Component'ler).
+//
+// Bu config `paths` ile 18'i sabitler, böylece hata nerede çalışırsa çalışsın
+// aynı şekilde görünür. `paths` BİLEREK ana tsconfig.json'a konmadı: Next.js
+// tsconfig `paths` girdilerini webpack alias'ına çeviriyor ve `react`'i bir
+// @types dizinine yönlendirmek bundle'ı bozardı. Bu dosyayı yalnız
+// `npm run typecheck` okur; `next build` hiç görmez.
+//
+// paths değerleri baseUrl'e (tsconfig.base.json'dan miras, repo kökü) göredir.
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@quran-app/types": ["packages/types/src"],
+      "@quran-app/core": ["packages/core/src"],
+      "@quran-app/ui": ["packages/ui/src"],
+      "@quran-app/storage": ["packages/storage/src"],
+      "react": ["apps/web/node_modules/@types/react"],
+      "react/*": ["apps/web/node_modules/@types/react/*"],
+      "react-dom": ["apps/web/node_modules/@types/react-dom"],
+      "react-dom/*": ["apps/web/node_modules/@types/react-dom/*"]
+    }
+  }
+}

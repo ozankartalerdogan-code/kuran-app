@@ -1,4 +1,5 @@
 import {dbAll } from "../../lib/dbUtils";
+import { asServerComponent } from "../../lib/serverComponent";
 import {
   AYET_ACIKLAMA,
   DUA_KATEGORILER,
@@ -62,7 +63,7 @@ function buildGrouped(rows: Array<{ verseKey: string; tag: string; isim?: string
 
 // ── Sunucu bileşeni ───────────────────────────────────────────────────────────
 
-export async function DuaKategorileri() {
+async function DuaKategorileriImpl() {
 
   const dbRows = await dbAll<DbRow>("SELECT verse_key, tag, isim, aciklama FROM verse_tag_items WHERE tag LIKE 'dua-%' ORDER BY verse_key");
 
@@ -102,3 +103,5 @@ export async function DuaKategorileri() {
 
   return <DuaAkordeonPanel kategoriler={kategoriler} totalVerses={totalVerses} />;
 }
+
+export const DuaKategorileri = asServerComponent(DuaKategorileriImpl);

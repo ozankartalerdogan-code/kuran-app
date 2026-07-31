@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.react18.json",
     "test": "jest",
     "test:ocr": "jest --testPathPattern=\"meal-no-ocr-errors\""
   },
