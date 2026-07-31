@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, type MouseEvent } from "react";
 import Link from "next/link";
 import { BookMarked } from "lucide-react";
 import { JUZ_DATA } from "./juzData";
@@ -190,7 +190,7 @@ export function HatimClient() {
                     {/* Sure linki */}
                     <Link
                       href={`/surah/${juz.startSurah}/ayah/${juz.startAyah}`}
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e: MouseEvent<HTMLAnchorElement>) => e.stopPropagation()}
                       className="shrink-0 rounded-lg border border-stone-200 px-2 py-1 text-[10px] text-stone-400 hover:border-navy-300 hover:text-navy-600 dark:border-stone-600 dark:text-stone-500"
                     >
                       Git →

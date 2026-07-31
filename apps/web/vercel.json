@@ -1,6 +1,6 @@
 {
   "installCommand": "cd ../.. && npm ci --legacy-peer-deps",
-  "buildCommand": "next build",
+  "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["fra1"],
