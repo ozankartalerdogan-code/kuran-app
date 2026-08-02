@@ -33,15 +33,18 @@ export default function HakkindaPage() {
           </p>
         </header>
 
-        <section className="mt-8 border-y border-stone-200 py-5 dark:border-stone-700">
+        <section className="mt-8 grid gap-4 sm:grid-cols-2">
           {SOURCE_LICENSE_CONTENT.sections.map((sourceSection) => {
             const links = getSourceLicenseLinks(sourceSection.linkIds);
             return (
-              <div key={sourceSection.id} className="mb-6 last:mb-0">
+              <div
+                key={sourceSection.id}
+                className="rounded-xl border border-stone-200 bg-white p-4 dark:border-stone-700 dark:bg-stone-900"
+              >
                 <h2 className="mb-2 text-sm font-semibold text-stone-700 dark:text-stone-200">{sourceSection.title}</h2>
                 <Paragraph>{sourceSection.body}</Paragraph>
                 {links.length > 0 && (
-                  <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-stone-200 pt-3 dark:border-stone-700">
                     {links.map((link) => (
                       <a
                         key={link.id}

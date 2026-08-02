@@ -94,3 +94,7 @@ export type {
   SourceLicenseLink,
   SourceLicenseSection
 } from "./presentation/sourceLicenses";
+export {
+  isCombinedMealVerse,
+  pickAttributionFreeMealText
+} from "./presentation/combinedMealBlocks";

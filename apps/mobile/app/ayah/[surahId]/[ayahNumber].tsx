@@ -34,6 +34,7 @@ import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from ".
 import { arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../../../src/lib/mushafSayfa";
 import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
 import { formatMorphologyTr, translatePosTr } from "../../../../../packages/core/src/presentation/morphologyLabels";
+import { pickAttributionFreeMealText } from "../../../../../packages/core/src/presentation/combinedMealBlocks";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -531,6 +532,14 @@ export default function AyahDetailScreen() {
     router.push(`/root/${encodeURIComponent(root)}`);
   }, []);
 
+  // Paylaşımda Elmalılı atfı yapılmaz (görsel kartta/mesajda "meal" başlığı yok);
+  // bu yüzden birleşik blok ayetlerinde tek ayete özgü literal çeviri kullanılır —
+  // aksi halde kullanıcı komşu ayetleri de kapsayan metni tek ayet sanarak paylaşır.
+  const shareMeal = useMemo(
+    () => (data ? pickAttributionFreeMealText(data.verseKey, data.meal, data.literalCeviri) : null),
+    [data]
+  );
+
   const handleShareText = useCallback(async () => {
     if (!data) return;
     const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
@@ -539,7 +548,7 @@ export default function AyahDetailScreen() {
       `${data.surahName} · ${data.ayahNumber}. Ayet`,
       data.arabicText ?? "",
       reading ?? "",
-      data.meal ?? "",
+      shareMeal ?? "",
     ].filter(Boolean);
     // Android'in paylaşım intent'i yalnızca `message` alanını okur, `url`'i yok sayar
     // → link mesaja gömülmeli. iOS ise `url`'i ayrı bir bağlantı önizlemesi olarak
@@ -550,7 +559,7 @@ export default function AyahDetailScreen() {
     try {
       await Share.share(shareOptions);
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
-  }, [data, surahId, ayahNumber, reading]);
+  }, [data, surahId, ayahNumber, reading, shareMeal]);
 
   // Paylaş düğmesi: görsel paylaşım modülleri build'de varsa kart önizlemesi açılır
   // (görsel/metin seçimi orada); yoksa doğrudan mevcut metin paylaşımı.
@@ -1205,7 +1214,7 @@ export default function AyahDetailScreen() {
         surahName={data.surahName}
         ayahNumber={data.ayahNumber}
         arabic={data.arabicText}
-        meal={data.meal}
+        meal={shareMeal}
         onShareText={handleShareText}
       />
     </>

@@ -44,7 +44,7 @@ function Paragraph({ children, c }: { children: React.ReactNode; c: AppColors })
   return <Text style={[s.paragraph, { color: c.textSecondary }]}>{children}</Text>;
 }
 
-// İnce, kartsız akordiyon — yalnız üst/alt ince çizgi, arka plan/kenarlık yok.
+// İnce, kartsız akordiyon başlığı — açıldığında her kaynak ayrı kart olarak listelenir.
 function SourcesAccordion({ c }: { c: AppColors }) {
   const [open, setOpen] = useState(true);
 
@@ -71,13 +71,16 @@ function SourcesAccordion({ c }: { c: AppColors }) {
       {open && (
         <View style={s.accordionBody}>
           {SOURCE_LICENSE_CONTENT.sections.map((sourceSection) => (
-            <View key={sourceSection.id} style={s.sourceSection}>
+            <View
+              key={sourceSection.id}
+              style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
+            >
               <Text style={[s.sourceSectionTitle, { color: c.text }]}>{sourceSection.title}</Text>
               <Paragraph c={c}>{sourceSection.body}</Paragraph>
               {getSourceLicenseLinks(sourceSection.linkIds).map((link) => (
                 <TouchableOpacity
                   key={link.id}
-                  style={s.sourceLink}
+                  style={[s.sourceLink, { borderTopColor: c.border }]}
                   onPress={() => void openExternalUrl(link.url)}
                   activeOpacity={0.65}
                   accessibilityRole="link"
@@ -173,9 +176,15 @@ const s = StyleSheet.create({
   accordionTitle: { fontSize: 13, fontWeight: "600", letterSpacing: 0.3 },
   accordionChevron: { fontSize: 12, marginLeft: 8 },
   accordionBody: { paddingTop: 2, paddingBottom: 4 },
-  sourceSection: { marginBottom: 14 },
+  sourceCard: { borderRadius: 12, borderWidth: 1, padding: 14, marginBottom: 12 },
   sourceSectionTitle: { fontSize: 15, fontWeight: "700", marginBottom: 6 },
-  sourceLink: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 7 },
+  sourceLink: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 7,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
   sourceLinkText: { flex: 1, fontSize: 13, fontWeight: "600", lineHeight: 18 },
   sourceLinkArrow: { marginLeft: 8, fontSize: 18 },
   metaBox: { borderRadius: 12, borderWidth: 1, overflow: "hidden", paddingVertical: 14 },
