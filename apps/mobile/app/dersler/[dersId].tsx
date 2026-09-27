@@ -33,12 +33,12 @@ const QUIZ_PASS_RATIO = 0.7;
 
 const GORSEL_MAP: Record<string, number> = {
   namaz_tekbir:   require("../../assets/images/namaz/tekbir.jpg"),
-  namaz_kiyam:    require("../../assets/images/namaz/kıyam.jpg"),
+  namaz_kiyam:    require("../../assets/images/namaz/kiyam.jpg"),
   namaz_ruku:     require("../../assets/images/namaz/ruku.jpg"),
   namaz_kavme:    require("../../assets/images/namaz/kavme.jpg"),
   namaz_secde:    require("../../assets/images/namaz/secde.jpg"),
   namaz_celse:    require("../../assets/images/namaz/celse.jpg"),
-  namaz_tesehhud: require("../../assets/images/namaz/tesehhüd.jpg"),
+  namaz_tesehhud: require("../../assets/images/namaz/tesehhud.jpg"),
   namaz_selam:    require("../../assets/images/namaz/selam.jpg"),
 };
 
