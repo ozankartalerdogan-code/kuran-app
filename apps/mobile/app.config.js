@@ -191,7 +191,9 @@ module.exports = {
       './plugins/with-ios-no-background-audio',
       ['expo-audio', { recordAudioAndroid: false }],
       '@react-native-firebase/app',
-      '@react-native-firebase/analytics',
+      // iOS: reklam kimliği (IDFA) desteği olmadan kur — Android'de AD_ID engelli;
+      // reklamsız app, ATT izni ve App Store "tracking" beyanı gerekmesin.
+      ['@react-native-firebase/analytics', { ios: { withoutAdIdSupport: true } }],
       // Bulut yedek (anonim auth + Firestore tek doküman) — src/lib/cloudBackup.ts.
       // Firestore'un ayrı config plugin'i yok; native kodu paket kurulumuyla gelir.
       '@react-native-firebase/auth',

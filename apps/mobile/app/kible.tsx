@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing,
+  ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing, Platform,
 } from "react-native";
 import { Stack, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -216,9 +216,13 @@ export default function KibleScreen() {
       onDeg((declRef.current + magHeading + 360) % 360);
     };
 
-    // watchHeadingAsync yedeği (bazı cihaz/SDK'larda hiç event yollamıyor; OS heading zaten tilt-telafili)
+    // watchHeadingAsync: iOS'ta birincil (CLLocationManager heading — Apple'ın pusulası,
+    // tilt-telafili), Android'de yedek. trueHeading yoksa (-1) manyetik yöne
+    // deklinasyon eklenir — diğer yollarla aynı gerçek-kuzey referansı.
     const startLocationHeading = () => {
-      Location.watchHeadingAsync(h => onDeg(h.trueHeading >= 0 ? h.trueHeading : h.magHeading))
+      Location.watchHeadingAsync(h => onDeg(
+        h.trueHeading >= 0 ? h.trueHeading : (h.magHeading + declRef.current + 360) % 360,
+      ))
         .then(sub => { if (active) subsRef.current.push(sub); else sub.remove(); })
         .catch(() => { if (active) setCompassOk(false); });
     };
@@ -240,7 +244,13 @@ export default function KibleScreen() {
     // Birincil: DeviceMotion (OS füzyonu). 1.5 sn içinde veri gelmezse (rotation
     // yok / eski cihaz) manyetometreye düşer.
     let dmFallbackTimer: ReturnType<typeof setTimeout> | null = null;
-    if (USE_DEVICE_MOTION) {
+    if (Platform.OS === "ios") {
+      // iOS'ta DeviceMotion.rotation.alpha = CMAttitude.yaw (xMagneticNorthZVertical:
+      // X ekseni kuzey) — Android'deki -azimut'tan farklı eksen referansı, DM_SIGN/
+      // DM_OFFSET Android'e göre ayarlı. iOS'un kendi heading servisi doğrudan
+      // pusula yönü verir; platform farkı taşımaz.
+      startLocationHeading();
+    } else if (USE_DEVICE_MOTION) {
       try {
         DeviceMotion.setUpdateInterval(100);
         subsRef.current.push(
