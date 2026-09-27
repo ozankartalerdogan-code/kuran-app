@@ -9,11 +9,11 @@ Yalnız daha önce doğrulanmış Windows + EAS production credentials + Gradle 
 
 ## Sabit yollar
 
-- Repo: `C:\Dev\kuran_app`
-- Mobile: `C:\Dev\kuran_app\apps\mobile`
-- Android: `C:\Dev\kuran_app\apps\mobile\android`
+- Repo: `C:\Projects\kuran_app`
+- Mobile: `C:\Projects\kuran_app\apps\mobile`
+- Android: `C:\Projects\kuran_app\apps\mobile\android`
 - Package: `com.kuranapp.mobile`
-- AAB: `C:\Dev\kuran_app\apps\mobile\android\app\build\outputs\bundle\release\app-release.aab`
+- AAB: `C:\Projects\kuran_app\apps\mobile\android\app\build\outputs\bundle\release\app-release.aab`
 - EAS profile: `production`
 - Secretsiz resume checkpoint: `$env:TEMP\kuran-yolu-local-aab-checkpoint.json`
 
@@ -30,7 +30,7 @@ Yalnız daha önce doğrulanmış Windows + EAS production credentials + Gradle 
 ## 2. Ön kontrol
 
 ```powershell
-Set-Location C:\Dev\kuran_app
+Set-Location C:\Projects\kuran_app
 git status --short --branch
 git log -5 --oneline
 rg -n "applicationId|versionCode|versionName" apps/mobile/android/app/build.gradle
@@ -60,9 +60,9 @@ JDK 17, SDK, CMake 3.31.6 veya Ninja yoksa dur; proje sürümünü değiştirere
 ## 4. Tek seferlik test kapısı
 
 ```powershell
-Set-Location C:\Dev\kuran_app\apps\mobile
+Set-Location C:\Projects\kuran_app\apps\mobile
 npm run typecheck
-Set-Location C:\Dev\kuran_app
+Set-Location C:\Projects\kuran_app
 npm run test:mobile
 ```
 
@@ -79,7 +79,7 @@ Checkpoint yoksa:
 1. Remote değeri al:
 
 ```powershell
-Set-Location C:\Dev\kuran_app\apps\mobile
+Set-Location C:\Projects\kuran_app\apps\mobile
 npx --no-install eas build:version:get --platform android --profile production --json --non-interactive
 ```
 
@@ -106,8 +106,8 @@ Remote ve native hedef değer aynı değilse dur. `versionName` değiştirilmeme
 Credentials indirmeden önce cleanup fonksiyonunu tanımla:
 
 ```powershell
-$mobile = 'C:\Dev\kuran_app\apps\mobile'
-$android = 'C:\Dev\kuran_app\apps\mobile\android'
+$mobile = 'C:\Projects\kuran_app\apps\mobile'
+$android = 'C:\Projects\kuran_app\apps\mobile\android'
 $credentialsJson = Join-Path $mobile 'credentials.json'
 $keystorePathExpected = Join-Path $mobile 'credentials\android\keystore.jks'
 $initGradle = Join-Path $android 'local-eas-production.init.gradle'
@@ -175,7 +175,7 @@ Kalıcı Gradle/signing dosyasına secret yazma.
 Uzun komutları tek sefer çalıştır, tam logu geçici dosyada tut ve yalnız son küçük bölüm/ilk gerçek hatayı context'e al:
 
 ```powershell
-Set-Location C:\Dev\kuran_app\apps\mobile\android
+Set-Location C:\Projects\kuran_app\apps\mobile\android
 .\gradlew.bat --stop
 .\gradlew.bat -I .\local-eas-production.init.gradle clean
 .\gradlew.bat -I .\local-eas-production.init.gradle app:bundleRelease
@@ -206,10 +206,10 @@ Başarılıysa checkpoint'i `build_verified=true` olarak güncelle; cleanup sonr
 Her sonuçta:
 
 ```powershell
-Test-Path 'C:\Dev\kuran_app\apps\mobile\credentials.json'
-Test-Path 'C:\Dev\kuran_app\apps\mobile\credentials\android\keystore.jks'
-Test-Path 'C:\Dev\kuran_app\apps\mobile\android\local-eas-production.init.gradle'
-git -C C:\Dev\kuran_app status --short
+Test-Path 'C:\Projects\kuran_app\apps\mobile\credentials.json'
+Test-Path 'C:\Projects\kuran_app\apps\mobile\credentials\android\keystore.jks'
+Test-Path 'C:\Projects\kuran_app\apps\mobile\android\local-eas-production.init.gradle'
+git -C C:\Projects\kuran_app status --short
 ```
 
 Üç geçici yol da yok olmalıdır. İlgisiz untracked dosyalara dokunma.

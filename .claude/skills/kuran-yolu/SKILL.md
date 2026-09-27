@@ -5,7 +5,7 @@ description: Kuran Yolu monoreposunda genel kontrol, son değişiklik incelemesi
 
 # Kuran Yolu Ana Kontrol
 
-Repo kökü: `C:\Dev\kuran_app`
+Repo kökü: `C:\Projects\kuran_app`
 
 Bu skill proje kararlarını yönetir; kodlama/orkestrasyon için `efficient-coding`, production AAB için `local-production-aab` kurallarını uygular.
 
@@ -36,7 +36,7 @@ Birden fazlası varsa yalnız gerekli en geniş akışı seç. AAB akışı kend
 Önce:
 
 ```powershell
-Set-Location C:\Dev\kuran_app
+Set-Location C:\Projects\kuran_app
 git status --short --branch
 git diff --stat
 git diff --name-only
