@@ -1,5 +1,12 @@
 const path = require('path');
 
+// iOS konum izni metni — hem infoPlist'te hem expo-location plugin'inde aynı
+// metin kullanılır (plugin aksi halde İngilizce varsayılan metni yazıyor).
+const LOCATION_USAGE_TR =
+  'Kıble yönü ve namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Kıble yönü cihazda hesaplanır; namaz vakitleri için yaklaşık konumunuz Aladhan.com servisine gönderilir, sunucularımızda saklanmaz.';
+const MOTION_USAGE_TR =
+  'Kıble pusulasının telefonunuzun yönünü doğru gösterebilmesi için hareket sensörleri kullanılır. Veriler cihazda kalır.';
+
 module.exports = {
   expo: {
     name: 'Kuran Yolu',
@@ -18,9 +25,34 @@ module.exports = {
       // yatay moda hiç geçilemez, gerçekte tablet deneyimi yok.
       supportsTablet: false,
       bundleIdentifier: 'com.kuranapp.mobile',
+      // Firebase iOS yapılandırması: Android'deki google-services.json ile aynı
+      // desen — EAS'te file-type env (GOOGLE_SERVICES_PLIST), yerelde gitignore'lı
+      // dosya. Commit'lenmez.
+      googleServicesFile:
+        process.env.GOOGLE_SERVICES_PLIST || path.resolve(__dirname, 'GoogleService-Info.plist'),
+      config: {
+        // App yalnız standart HTTPS/TLS kullanıyor (muaf şifreleme) → App Store
+        // Connect her build'de ihracat uyumluluğu sormasın.
+        usesNonExemptEncryption: false,
+      },
       infoPlist: {
-        NSLocationWhenInUseUsageDescription:
-          'Kıble yönü ve namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Kıble yönü cihazda hesaplanır; namaz vakitleri için yaklaşık konumunuz Aladhan.com servisine gönderilir, sunucularımızda saklanmaz.',
+        NSLocationWhenInUseUsageDescription: LOCATION_USAGE_TR,
+        // İzin penceresi varsayılan olarak "yaklaşık konum" açılsın — Android'deki
+        // COARSE-only kararıyla ve gizlilik metnindeki "hassas konum kullanılmaz"
+        // beyanıyla tutarlı (kıble/namaz vakti için şehir düzeyi yeterli).
+        NSLocationDefaultAccuracyReduced: true,
+      },
+      // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). MMKV/AsyncStorage
+      // (UserDefaults), expo-file-system (dosya zamanı/disk alanı) ve RN/Sentry
+      // (sistem açılış süresi) bu API'leri kullanıyor; yalnız app-içi amaçlar.
+      privacyManifests: {
+        NSPrivacyTracking: false,
+        NSPrivacyAccessedAPITypes: [
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults', NSPrivacyAccessedAPITypeReasons: ['CA92.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp', NSPrivacyAccessedAPITypeReasons: ['0A2A.1', '3B52.1', 'C617.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace', NSPrivacyAccessedAPITypeReasons: ['E174.1', '85F4.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategorySystemBootTime', NSPrivacyAccessedAPITypeReasons: ['35F9.1'] },
+        ],
       },
     },
     android: {
@@ -89,8 +121,19 @@ module.exports = {
       // çalışıyor. Bkz. plugins/with-native-clean-codegen-ordering.js.
       './plugins/with-native-clean-codegen-ordering',
       'expo-router',
-      'expo-location',
-      'expo-sensors',
+      // iOS: yalnız "uygulama kullanılırken" konum — arka plan/"her zaman" izni
+      // istenmez (plugin varsayılanı bu anahtarları İngilizce metinle ekliyordu).
+      // Android çıktısı değişmez (izinler yukarıdaki permissions/blocked listesiyle).
+      [
+        'expo-location',
+        {
+          locationWhenInUsePermission: LOCATION_USAGE_TR,
+          locationAlwaysAndWhenInUsePermission: false,
+          locationAlwaysPermission: false,
+          motionUsagePermission: MOTION_USAGE_TR,
+        },
+      ],
+      ['expo-sensors', { motionPermission: MOTION_USAGE_TR }],
       // R8/ProGuard release build'de açılırsa (bugün kapalı olabilir, ama garanti
       // değil) react-native-android-widget'ın WorkManager Worker sınıfını (arka
       // plan widget güncellemesi) reflection ile bulamayıp sessizce silebiliyor —
@@ -103,6 +146,12 @@ module.exports = {
             extraProguardRules:
               '-keep class * extends androidx.work.ListenableWorker { public <init>(android.content.Context, androidx.work.WorkerParameters); }\n' +
               '-keep class com.reactnativeandroidwidget.** { *; }',
+          },
+          // iOS: React Native Firebase statik framework ister; RNFB pod'ları
+          // precompiled RN ile modular-header çakışması yaşamasın diye statik linklenir.
+          ios: {
+            useFrameworks: 'static',
+            forceStaticLinking: ['RNFBApp', 'RNFBAnalytics', 'RNFBAuth', 'RNFBFirestore'],
           },
         },
       ],
@@ -136,6 +185,10 @@ module.exports = {
       // (mikrofon) iznini ekleme. Aksi halde expo-audio varsayılan olarak ekliyor;
       // reklamsız/minimal-izin app için gereksiz + Play Veri Güvenliği'nde mikrofon
       // beyanı gerektirirdi. MODIFY_AUDIO_SETTINGS (normal izin) korunur.
+      // iOS: expo-audio'nun eklediği arka plan "audio" modunu kaldırır (yalnız iOS).
+      // expo-audio'dan ÖNCE listelenmeli: config mod'ları ters sırada çalışır,
+      // bu plugin'in Info.plist mod'u expo-audio'nunkinden sonra işlesin.
+      './plugins/with-ios-no-background-audio',
       ['expo-audio', { recordAudioAndroid: false }],
       '@react-native-firebase/app',
       '@react-native-firebase/analytics',

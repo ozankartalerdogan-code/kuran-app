@@ -7,6 +7,7 @@
 //
 // Native modül: yeni build gelene kadar (mevcut dev client / eski build) require
 // başarısız olur → no-op. (storage/Sentry/backgroundRefresh ile aynı build-gated desen.)
+import { Platform } from "react-native";
 import { currentEmirAyet, WIDGET_NAME } from "./emirRotation";
 
 type TaskManagerLike = {
@@ -28,7 +29,9 @@ type AndroidWidgetLike = {
 let TaskManager: TaskManagerLike | null = null;
 let BackgroundTask: BackgroundTaskLike | null = null;
 let AndroidWidgetModule: AndroidWidgetLike | null = null;
-try {
+// Widget yalnız Android'de var; iOS'ta kütüphane throw etmeyip no-op modül
+// döndürüyor → guard olmasa iOS'ta boşuna arka plan görevi kaydedilirdi.
+if (Platform.OS === "android") try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
   TaskManager = require("expo-task-manager");
   // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires

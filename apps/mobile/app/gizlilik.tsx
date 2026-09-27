@@ -178,9 +178,10 @@ export default function GizlilikScreen() {
             Veri Silme").
           </P>
           <P c={c}>
-            <Text style={s.bold}>Android sistem yedeği:</Text> Ayrıca Android'in sistem yedekleme özelliği
-            açıksa bu cihaz-içi veriler, cihazınızın bağlı olduğu Google Drive hesabınıza da otomatik
-            yedeklenebilir. Bu yedek Google tarafından yönetilir ve cihaz ayarlarınızdan kapatılabilir.
+            <Text style={s.bold}>Cihaz sistem yedeği:</Text> Ayrıca cihazınızın sistem yedekleme özelliği
+            açıksa bu cihaz-içi veriler otomatik yedeklenebilir: Android'de cihazınızın bağlı olduğu Google
+            Drive hesabına, iOS'ta iCloud hesabınıza. Bu yedek Google veya Apple tarafından yönetilir ve cihaz
+            ayarlarınızdan kapatılabilir.
           </P>
           <P c={c}>
             <Text style={s.bold}>Konum verisi:</Text> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi)
