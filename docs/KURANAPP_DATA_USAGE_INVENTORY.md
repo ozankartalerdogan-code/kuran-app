@@ -200,8 +200,8 @@ Karar:
 
 | Kaynak | Ne işe yarar? | Kullanım yeri | Sınıf | Risk | Öncelik |
 | --- | --- | --- | --- | --- | --- |
-| `docs/KANITLI_ANALIZ_V1_CHECKPOINT.md` | V1 davranış sınırları | AI/system guardrail referansı | debug-only | doküman güncel tutulmalı | yüksek |
-| `docs/KURANAPP_DATA_INVENTORY_STRATEGY.md` | veri stratejisi | AI/context planning | debug-only | eski bulgular yeni raporlarla reconcile edilmeli | orta |
+| `docs/arsiv/KANITLI_ANALIZ_V1_CHECKPOINT.md` | V1 davranış sınırları | AI/system guardrail referansı | debug-only | doküman güncel tutulmalı | yüksek |
+| `docs/arsiv/KURANAPP_DATA_INVENTORY_STRATEGY.md` | veri stratejisi | AI/context planning | debug-only | eski bulgular yeni raporlarla reconcile edilmeli | orta |
 | `docs/*AUDIT*.md` | audit karar geçmişi | AI/reference | debug-only | runtime truth değil | orta |
 | `data/analysis-snapshots/*.json` | audit samples | AI eval/reference | debug-only | kullanıcı-facing değil | orta |
 
