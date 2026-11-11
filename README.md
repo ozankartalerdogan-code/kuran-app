@@ -130,8 +130,11 @@ Web hedefi Vercel’dir. `apps/web/vercel.json`; Next.js build komutunu,
 `.next` çıktısını ve `fra1` bölgesini tanımlar. Sahip notlarındaki proje adı
 `kuran-app-web` olarak geçer.
 
-TODO: Güncel production domainini, Vercel proje bağlantısını ve ortam
-değişkenlerinin kapsamını doğrulayın.
+Production web adresi: <https://kuran-app-web-ozan-s-projects8.vercel.app>.
+Mobil uygulama bu adresi varsayılan API hedefi olarak kullanır
+(`apps/mobile/src/lib/runtimeConfig.ts`; Android uygulama bağlantısı
+`apps/mobile/app.config.js`). Özel alan adına geçilirse iki yer birlikte
+güncellenmelidir.
 
 Mobilde `apps/mobile/eas.json` geliştirme, preview ve production profillerini
 tanımlar; production Android çıktı türü `app-bundle` olarak ayarlanmıştır.
@@ -140,9 +143,11 @@ Production Android AAB işlemlerinde mevcut
 [yerel üretim prosedürü](.agents/skills/local-production-aab/SKILL.md)
 kullanılır. Mevcut signing yöntemi korunur; yeni key veya keystore oluşturulmaz.
 
-TODO: AGENTS.md içindeki mevcut olmayan `.Codex/...` prosedür yolunu,
-repo içinde bulunan `.agents/...` yoluyla eşitleyin.
-iOS dağıtım hedefi ve mağaza yayın durumu ayrıca belgelenmelidir.
+iOS paket kimliği `com.kuranapp.mobile`; App Store hazırlığı (izin metinleri,
+privacy manifest, Firebase plist) yapılmıştır, gönderim `eas.json` içindeki
+`submit.production` profiliyle yapılır.
+
+TODO: App Store yayın durumunu belgeleyin.
 
 ## Lisans ve üçüncü taraf kaynaklar
 
