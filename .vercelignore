@@ -8,3 +8,5 @@ apps/mobile
 .expo
 apps/web/public/audio/surah/*.mp3
 *.log
+
+_arsiv/

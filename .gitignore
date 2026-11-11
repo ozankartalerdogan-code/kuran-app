@@ -102,3 +102,30 @@ __pycache__/
 # Yerel veri yedekleri ve kök tarama raporları (166MB+ DB dump içerir)
 backups/
 kok_final_*.txt
+
+# Yalnız yerelde tutulan arşiv ve araç ayarları
+_arsiv/
+.claude/settings.local.json
+/.geminiignore.txt
+
+# Scriptlerin yeniden oluşturduğu geçici dizinler
+/.tmp/
+/.dry-run-tmp/
+
+# Ortam dosyalarının diğer varyantları; örnek şablonlar korunur
+.env.*
+!.env.example
+!.env.*.example
+
+# Yerel signing / özel anahtar / servis hesabı dosyaları
+*.jks
+*.keystore
+*.key
+*.p12
+*.pfx
+*service-account*.json
+*service_account*.json
+*serviceAccount*.json
+
+# Sürümlenen ders kaynağını açıkça koru
+!/data/semsiye_kameriye_dersi.json

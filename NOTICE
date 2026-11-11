@@ -28,8 +28,11 @@ curation, tajweed alignment and overrides, presentation code, project-authored
 guides, and AI-assisted translations, explanations, lessons and media. AI
 tool provenance and known evidence gaps are listed in the central manifest.
 
-The raw runtime `morfoloji` table and `verses.arabic_tajweed` field are
-retained technical risk layers pending separate migrations. Elmalılı is the
+The raw `morfoloji` table was removed from the runtime on 2026-07-28 and is
+retained only as a hashed provenance artifact. The raw `verses.arabic_tajweed`
+field is retained as the build input for tajweed span regeneration and for API
+backward compatibility; rendering uses canonical text plus tajweed spans.
+Elmalılı is the
 only production meal; the four other meals (bulac, diyanet, ozturk, vakfi)
 were removed from the runtime by a guarded migration and are retained in the
 provenance manifest as removed_from_runtime.

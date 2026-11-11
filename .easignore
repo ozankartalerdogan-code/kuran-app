@@ -13,3 +13,4 @@ apps/web/public/audio/surah
 .env*.local
 dist/
 apps/web/.next/
+_arsiv/
