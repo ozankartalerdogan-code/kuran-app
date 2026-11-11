@@ -1,5 +1,7 @@
 # Kuran Yolu
 
+[English](README.en.md) · **Türkçe**
+
 Kuran Yolu; Kur’an okuma, Elmalılı Hamdi Yazır meali, kelime ve kök analizi,
 tecvid gösterimi, tefsir açıklamaları, Elifba ve ders içerikleri, dua ve ibadet
 rehberleri ile namaz vakitlerini bir araya getiren web ve mobil uygulamasıdır.
@@ -187,6 +189,5 @@ eşitliği yerel kayıtta doğrulanır.
 Aktif veri, script girdisi ve provenance artefaktları tüketici yolları
 incelenmeden taşınmaz. `data2/` ve `backups/` mevcut yerlerinde korunur.
 
-Eski dalların uçları ileride `archive/<dal-adı>` tag’leriyle korunacak;
-ardından eski dallar ve `old-onedrive` remote’u ayrı bakım adımında
-kaldırılacaktır.
+Kaldırılan eski dalların uçları `archive/<dal-adı>` etiketleriyle GitHub'da
+korunur (11 Kasım 2026); `old-onedrive` remote'u kaldırılmıştır.
