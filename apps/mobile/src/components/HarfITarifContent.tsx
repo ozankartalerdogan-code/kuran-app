@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { useColors } from "../hooks/useColors";
+import { useStrings, useLang, fmt } from "../i18n";
+import { useLocalizedData } from "../i18n/localizedData";
+import { localizedTranslit } from "../lib/translitEn";
+import harfStrings from "../i18n/strings/harfITarif";
 import {
-  HARF_I_TARIF_DERSI,
+  harfITarifDersi,
   type HarfTarifBolum,
   type HarfTarifSoru,
 } from "../data/harfITarifDersi";
 
 type C = ReturnType<typeof useColors>;
 
-const TIP_LABEL = { semsiye: "☀️ Şemsiye", kameriye: "🌙 Kameriye" } as const;
 const TIP_COLOR = { semsiye: "#b45309", kameriye: "#4338ca" } as const;
 const TIP_BG    = { semsiye: "#fef3c7", kameriye: "#e0e7ff" } as const;
 
 function parseOptions(soru: string): [string, string] | null {
-  const parts = soru.split(",");
+  const parts = soru.includes(",") ? soru.split(",") : soru.split(/\s+or\s+/i);
   if (parts.length !== 2) return null;
-  const clean = (p: string) => p.replace(/\s*m[ıiuü]\s*\??\s*$/i, "").trim();
+  const clean = (p: string) => p.replace(/\s*m[ıiuü]\s*\??\s*$/i, "").replace(/\s*\?\s*$/, "").trim();
   const a = clean(parts[0]), b = clean(parts[1]);
   return a && b ? [a, b] : null;
 }
@@ -32,14 +35,16 @@ function Card({ c, baslik, alt, children }: { c: C; baslik: string; alt?: string
 }
 
 function Tag({ tip }: { tip: "semsiye" | "kameriye" }) {
+  const t = useStrings(harfStrings);
   return (
     <View style={[s.tag, { backgroundColor: TIP_BG[tip] }]}>
-      <Text style={[s.tagText, { color: TIP_COLOR[tip] }]}>{TIP_LABEL[tip]}</Text>
+      <Text style={[s.tagText, { color: TIP_COLOR[tip] }]}>{tip === "semsiye" ? t.sun : t.moon}</Text>
     </View>
   );
 }
 
 function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C; onAnswer: (ok: boolean) => void }) {
+  const t = useStrings(harfStrings);
   const [picked, setPicked] = useState<string | null>(null);
   const opts = parseOptions(q.soru) ?? [q.dogru_cevap, "—"];
   return (
@@ -62,7 +67,7 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
               activeOpacity={0.8}
               onPress={() => { setPicked(opt); onAnswer(isCorrect); }}
               accessibilityRole="button"
-              accessibilityLabel={`Harf-i Tarif cevap seçeneği: ${opt}`}
+              accessibilityLabel={fmt(t.answerA11y, { opt })}
               accessibilityState={{ disabled: picked !== null, selected: isPicked }}
               style={[s.opt, { backgroundColor: bg, borderColor: brd }]}
             >
@@ -82,6 +87,7 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
 }
 
 function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
+  const t = useStrings(harfStrings);
   const sorular = b.sorular ?? [];
   const [started, setStarted] = useState(false);
   const [ans, setAns]         = useState<Record<string, boolean>>({});
@@ -92,16 +98,16 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
     return (
       <View style={[s.quizStart, { backgroundColor: c.bg }]}>
         <Text style={[s.quizStartInfo, { color: c.textMuted }]}>
-          {sorular.length} soru · Şemsiye / Kameriye
+          {fmt(t.quizInfo, { n: sorular.length })}
         </Text>
         <TouchableOpacity
           style={s.quizStartBtn}
           onPress={() => setStarted(true)}
           activeOpacity={0.8}
           accessibilityRole="button"
-          accessibilityLabel="Harf-i Tarif testine başla"
+          accessibilityLabel={t.startA11y}
         >
-          <Text style={s.quizStartBtnText}>🧠 Teste Başla</Text>
+          <Text style={s.quizStartBtnText}>{t.start}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -110,8 +116,8 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
   return (
     <>
       <View style={[s.quizBar, { backgroundColor: c.bg }]}>
-        <Text style={[s.quizBarText, { color: c.text }]}>🧠 {done} / {sorular.length} yanıtlandı</Text>
-        <Text style={[s.quizBarText, { color: "#059669", fontWeight: "700" }]}>{correct} doğru</Text>
+        <Text style={[s.quizBarText, { color: c.text }]}>{fmt(t.answered, { a: done, b: sorular.length })}</Text>
+        <Text style={[s.quizBarText, { color: "#059669", fontWeight: "700" }]}>{fmt(t.correct, { n: correct })}</Text>
       </View>
       <View style={{ gap: 10, marginTop: 10 }}>
         {sorular.map((q, i) => (
@@ -121,16 +127,16 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
       {done === sorular.length ? (
         <View style={s.quizDone}>
           <Text style={s.quizDoneText}>
-            Bitti! {correct}/{sorular.length} doğru {correct === sorular.length ? "🎉 Tam puan!" : "— tekrar edebilirsin"}
+            {fmt(t.finished, { c: correct, n: sorular.length })}{correct === sorular.length ? t.perfect : t.again}
           </Text>
           <TouchableOpacity
             style={[s.quizStartBtn, { marginTop: 10 }]}
             onPress={() => { setStarted(false); setAns({}); }}
             activeOpacity={0.8}
             accessibilityRole="button"
-            accessibilityLabel="Harf-i Tarif testini tekrar başlat"
+            accessibilityLabel={t.restartA11y}
           >
-            <Text style={s.quizStartBtnText}>↺ Tekrar</Text>
+            <Text style={s.quizStartBtnText}>{t.restart}</Text>
           </TouchableOpacity>
         </View>
       ) : null}
@@ -139,6 +145,8 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
 }
 
 function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
+  const t = useStrings(harfStrings);
+  const lang = useLang();
   switch (b.tip) {
     case "bilgi":
       return (
@@ -159,7 +167,7 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {b.hafiza_ipucu ? (
             <View style={s.ipucu}>
-              <Text style={s.ipucuLabel}>💡 HAFIZA İPUCU</Text>
+              <Text style={s.ipucuLabel}>{t.memoryTip}</Text>
               <Text style={[s.body, { color: "#78350f" }]}>{b.hafiza_ipucu}</Text>
             </View>
           ) : null}
@@ -178,7 +186,7 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
                   {/* harfBox açık zeminli (fffbeb/eef2ff) — koyu harf rengi bilinçli, temadan bağımsız */}
                   <Text style={s.harfArapca}>{h.arapca}</Text>
                 </View>
-                <Text style={[s.okunus, { color: c.textMuted }]}>{h.okunusu}</Text>
+                <Text style={[s.okunus, { color: c.textMuted }]}>{localizedTranslit(h.okunusu, lang)}</Text>
                 {h.ornek_esma ? <Text style={s.esma}>{h.ornek_esma}</Text> : null}
               </View>
             ))}
@@ -243,7 +251,7 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
 
 export function HarfITarifContent({ paddingTop = 16, paddingBottom = 40 }: { paddingTop?: number; paddingBottom?: number }) {
   const c = useColors();
-  const d = HARF_I_TARIF_DERSI;
+  const d = useLocalizedData(harfITarifDersi);
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: c.bg }}

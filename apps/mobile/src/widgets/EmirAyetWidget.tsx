@@ -35,8 +35,22 @@ const PALETTES = {
   },
 } as const satisfies Record<Theme, Record<string, `#${string}`>>;
 
+// Arayüz dili İngilizceyse Pickthall meali. Widget headless JS görevinde çalışır;
+// englishMeal → i18n → storage (MMKV/AsyncStorage) zinciri orada güvenli olmayabilir,
+// bu yüzden tembel require + try/catch ile Türkçe metne düşülür.
+function widgetMeal(ayet: EmirAyet): string {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+    const { localizedMeal } = require("../lib/englishMeal") as typeof import("../lib/englishMeal");
+    return localizedMeal({ surah: ayet.surah_id, ayah: ayet.ayah_number }, ayet.meal);
+  } catch {
+    return ayet.meal;
+  }
+}
+
 export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; theme?: Theme }) {
   const c = PALETTES[theme];
+  const meal = widgetMeal(ayet);
   const deepLink = `kuranyolu://surah/${ayet.surah_id}/ayah/${ayet.ayah_number}`;
   const badge = ayet.surah_name
     ? `${ayet.surah_name} ${ayet.surah_id}:${ayet.ayah_number}`
@@ -46,7 +60,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
     <FlexWidget
       clickAction="OPEN_URI"
       clickActionData={{ uri: deepLink }}
-      accessibilityLabel={`${badge}. ${ayet.meal}. Ayeti uygulamada açmak için dokun.`}
+      accessibilityLabel={`${badge}. ${meal}. Ayeti uygulamada açmak için dokun.`}
       style={{
         height: "match_parent",
         width: "match_parent",
@@ -91,7 +105,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
         />
       ) : null}
       <TextWidget
-        text={ayet.meal}
+        text={meal}
         style={{ color: c.textSecondary, fontSize: 12 }}
         maxLines={2}
         truncate="END"

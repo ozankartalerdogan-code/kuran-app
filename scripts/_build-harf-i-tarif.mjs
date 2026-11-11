@@ -48,9 +48,14 @@ const ts = `${TYPES}\nexport const HARF_I_TARIF_DERSI: HarfTarifDers = ${JSON.st
 
 const targets = [
   path.join(ROOT, "apps", "web", "src", "data", "harf-i-tarif-dersi.ts"),
-  path.join(ROOT, "apps", "mobile", "src", "data", "harfITarifDersi.ts"),
+
 ];
 for (const t of targets) {
   fs.writeFileSync(t, ts, "utf-8");
   console.log(`✅ yazildi: ${path.relative(ROOT, t)} (${lesson.bolumler.length} bölüm)`);
 }
+
+// Mobil: ders verisi JSON (harfITarifDersi.ts yalnız tip + localizedData sarmalayıcısı; elle bakımlı).
+const mobileJson = path.join(ROOT, "apps", "mobile", "src", "data", "content", "harf_i_tarif.json");
+fs.writeFileSync(mobileJson, JSON.stringify(lesson, null, 2) + "\n", "utf-8");
+console.log(`✅ yazildi: ${path.relative(ROOT, mobileJson)} (EN karşılığı harf_i_tarif.en.json elle/çeviriyle güncellenir)`);

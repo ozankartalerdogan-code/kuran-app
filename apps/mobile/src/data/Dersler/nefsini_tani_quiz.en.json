@@ -1,0 +1,551 @@
+{
+  "schemaVersion": "1.0.0",
+  "quizId": "nefsini-tani-quiz",
+  "moduleId": "nefsini-tani",
+  "title": "Know Your Nafs Quiz",
+  "language": "en",
+  "questionCount": 35,
+  "questionType": "multiple_choice",
+  "optionsPerQuestion": 4,
+  "passingScorePercent": 70,
+  "description": "Questions about the concept of the nafs, its stages, and ways to discipline it.",
+  "scoring": {
+    "correctAnswerPoint": 1,
+    "wrongAnswerPoint": 0,
+    "allowRetry": true,
+    "showExplanationAfterAnswer": true
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "lessonId": "lesson-01-nefs-nedir",
+      "difficulty": "easy",
+      "question": "Which is the most accurate definition of the nafs?",
+      "options": [
+        "It is an independent evil entity that must be destroyed.",
+        "It is only an impulse that leads to evil.",
+        "It is a broad concept relating to a person's inner self, desires, inclinations, and sphere of responsibility.",
+        "It refers only to bodily needs."
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "The nafs is our inner self, which must not be destroyed but purified, disciplined, and directed toward Allah's pleasure."
+    },
+    {
+      "id": "q002",
+      "lessonId": "lesson-01-nefs-nedir",
+      "difficulty": "easy",
+      "question": "What is the main goal regarding the nafs?",
+      "options": [
+        "To purify and discipline the nafs and direct it toward Allah's pleasure",
+        "To suppress the nafs completely",
+        "To deny the existence of the nafs",
+        "To fulfill every desire of the nafs"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "The nafs exists not to be destroyed, but to be purified and directed toward Allah."
+    },
+    {
+      "id": "q003",
+      "lessonId": "lesson-01-nefs-nedir",
+      "difficulty": "medium",
+      "question": "What is the fundamental Quranic principle concerning the nafs as capable of inclining toward both good and evil?",
+      "options": [
+        "A person cannot attain salvation without struggling against the nafs.",
+        "The nafs can be controlled only by strong people.",
+        "The evil side of the nafs must be completely suppressed.",
+        "Purifying the nafs brings success, while corrupting it brings loss."
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "Purifying the nafs brings success, while corrupting it brings loss. Human beings were created with these two inclinations."
+    },
+    {
+      "id": "q004",
+      "lessonId": "lesson-02-ham-nefs",
+      "difficulty": "easy",
+      "question": "How is the heading 'Raw Nafs' presented?",
+      "options": [
+        "As a required stage explicitly mentioned in the Quran",
+        "As an educational heading that gives beginners an introduction",
+        "As the first stage of the classical seven-stage classification",
+        "As a technical term used in Sufi literature"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "Raw Nafs is not part of the classical classification; it is an instructional heading added to provide an accessible introduction for users unfamiliar with the subject."
+    },
+    {
+      "id": "q005",
+      "lessonId": "lesson-02-ham-nefs",
+      "difficulty": "medium",
+      "question": "What is the defining feature of the raw nafs?",
+      "options": [
+        "An inner state that constantly questions its desires",
+        "An awareness that leads one to perform every action for Allah's pleasure",
+        "A state of following desires without questioning them, with little inner direction",
+        "A state of being aware of sin but unable to stop"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "The raw nafs represents an inner state that follows desires without questioning them or asking, 'Does this desire bring me closer to Allah?'"
+    },
+    {
+      "id": "q006",
+      "lessonId": "lesson-03-nefs-i-emmare",
+      "difficulty": "easy",
+      "question": "What does a person in the Emmâre state typically do after making a mistake?",
+      "options": [
+        "Commits the sin, then makes excuses and defends it",
+        "Admits the mistake and apologizes",
+        "Feels remorse and turns to repentance",
+        "Realizes the sin and weeps"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "In the Emmâre state, a person not only commits a sin but also defends it, downplays it, and makes excuses."
+    },
+    {
+      "id": "q007",
+      "lessonId": "lesson-03-nefs-i-emmare",
+      "difficulty": "medium",
+      "question": "What is the clearest sign of the Nefs-i Emmâre state?",
+      "options": [
+        "Feeling remorse for sins and repenting",
+        "Submitting only to external pressures",
+        "Making only minor mistakes",
+        "Not only committing a sin but also making excuses and justifications for it"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "In the Emmâre state, a person not only makes a mistake but also defends it, downplays it, and makes excuses."
+    },
+    {
+      "id": "q008",
+      "lessonId": "lesson-03-nefs-i-emmare",
+      "difficulty": "medium",
+      "question": "Which is not among the main signs of the Emmâre state?",
+      "options": [
+        "Pride",
+        "Feeling remorse for sin",
+        "Greed and envy",
+        "Putting desire before truth"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "Remorse is a sign of Levvâme, not Emmâre. In the Emmâre state, a person defends sin and makes excuses."
+    },
+    {
+      "id": "q009",
+      "lessonId": "lesson-03-nefs-i-emmare",
+      "difficulty": "medium",
+      "question": "What is recommended as the first step in dealing with the Emmâre state?",
+      "options": [
+        "Seeing the sin as greater than it is",
+        "Giving up all desires",
+        "Recognizing the aspect of the nafs that commands evil and turning to repentance",
+        "Being alone"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "Recognizing Emmâre teaches a person to seek refuge in Allah's mercy instead of justifying themselves."
+    },
+    {
+      "id": "q010",
+      "lessonId": "lesson-04-nefs-i-levvame",
+      "difficulty": "easy",
+      "question": "Which behavior best describes the Levvâme state?",
+      "options": [
+        "Feeling sincere remorse after a mistake and holding oneself accountable",
+        "Continuing to make mistakes without noticing them",
+        "Sinking deeper as one commits sins",
+        "Remaining indifferent to everything"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "Levvâme is a state of inward self-examination, remorse, and self-reproach after a mistake."
+    },
+    {
+      "id": "q011",
+      "lessonId": "lesson-04-nefs-i-levvame",
+      "difficulty": "medium",
+      "question": "How should remorse in the Levvâme state be understood?",
+      "options": [
+        "As the beginning of despair",
+        "As a sign of a flaw and weakness",
+        "As proof that the person can no longer attain salvation",
+        "As a sign of awakening, not downfall"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "Levvâme is a sign of awakening, not downfall. If directed properly, remorse can lead to repentance and reform."
+    },
+    {
+      "id": "q012",
+      "lessonId": "lesson-04-nefs-i-levvame",
+      "difficulty": "medium",
+      "question": "What happens when the feeling of remorse is directed properly?",
+      "options": [
+        "The person feels worthless and abandons worship",
+        "It leads to repentance, reform, and steadfastness on the right path",
+        "Sins are automatically never repeated",
+        "The person begins to condemn others as well"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "If directed properly, remorse leads to repentance, reform, and steadfastness on the right path; it should not turn into excessive guilt."
+    },
+    {
+      "id": "q013",
+      "lessonId": "lesson-05-nefs-i-mulhime",
+      "difficulty": "medium",
+      "question": "Which statement about the name Nefs-i Mülhime is correct?",
+      "options": [
+        "It appears explicitly in the Quran as 'nefs-i mülhime'",
+        "It is a term found only in hadith",
+        "It does not appear as a name in the Quran; it is used in the ethical and Sufi tradition based on the expression of inspiration",
+        "It is one of the four major stages of the nafs"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "The name Mülhime does not appear explicitly in the Quran; it is a name used in the Sufi and ethical tradition based on the inspiration of both good and evil to the nafs."
+    },
+    {
+      "id": "q014",
+      "lessonId": "lesson-05-nefs-i-mulhime",
+      "difficulty": "medium",
+      "question": "What is the main thing to be mindful of in the Mülhime state?",
+      "options": [
+        "Evaluating inner voices against the standards of the Quran and Sunnah",
+        "Accepting every thought that arises within as inspiration",
+        "Blindly following one's inner voice",
+        "Failing to distinguish between whisperings and inspiration"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "Not every inner voice is accepted as true. A believer weighs thoughts that arise within against the standards of the Quran, Sunnah, and morality, and strengthens inclinations that call toward God-consciousness."
+    },
+    {
+      "id": "q015",
+      "lessonId": "lesson-05-nefs-i-mulhime",
+      "difficulty": "medium",
+      "question": "Why is it important to distinguish between whisperings, base desires, and sound inclinations in the Mülhime state?",
+      "options": [
+        "Because a person should never trust their own nafs",
+        "Because the nafs is considered completely purified in this state",
+        "Because supplication is meaningless in this state",
+        "Because blindly acting on everything that arises within is dangerous"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "Not every inner voice is inspiration; it may also be whisperings or base desires. Therefore, it is essential to measure thoughts that arise within against the standards of the Quran and Sunnah."
+    },
+    {
+      "id": "q016",
+      "lessonId": "lesson-06-nefs-i-mutmainne",
+      "difficulty": "easy",
+      "question": "How does a person in the Mutmainne state respond during difficult times?",
+      "options": [
+        "By ignoring the difficulty",
+        "By maintaining trust in Allah even when shaken",
+        "By renewing their iman after the difficulty has passed",
+        "By complaining and questioning at every hardship"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "The Mutmainne state does not deny difficulties; a person can face them while maintaining trust in Allah."
+    },
+    {
+      "id": "q017",
+      "lessonId": "lesson-06-nefs-i-mutmainne",
+      "difficulty": "medium",
+      "question": "How is the peace of the Mutmainne state described?",
+      "options": [
+        "The complete disappearance of all desires",
+        "The complete improvement of external circumstances",
+        "The heart learning to trust Allah",
+        "Never making a mistake"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "The peace of Mutmainne is not the disappearance of desires; it is the heart learning to trust Allah. A person does not deny difficulties, but does not lose their way by forgetting their Lord."
+    },
+    {
+      "id": "q018",
+      "lessonId": "lesson-06-nefs-i-mutmainne",
+      "difficulty": "medium",
+      "question": "Which statement about the Mutmainne state is false?",
+      "options": [
+        "A person in this state never struggles or feels sad",
+        "The heart has learned to trust Allah",
+        "There is steadfastness in worship",
+        "Resistance to sin has grown stronger"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "The Mutmainne state does not mean that a person never feels sad or struggles; it describes a state in which one can maintain trust in Allah amid difficulties."
+    },
+    {
+      "id": "q019",
+      "lessonId": "lesson-07-nefs-i-raziye",
+      "difficulty": "easy",
+      "question": "How does a person in the state of Râzıye respond when faced with a severe trial?",
+      "options": [
+        "They carry on by denying their situation",
+        "They find relief by submitting to oppression and remaining silent",
+        "They feel no pain and remain indifferent to everything",
+        "Even in pain, they maintain their trust in Allah and do not rebel"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "Rıza is not the absence of pain; it is not losing trust in Allah amid pain."
+    },
+    {
+      "id": "q020",
+      "lessonId": "lesson-07-nefs-i-raziye",
+      "difficulty": "medium",
+      "question": "What does Rıza mean?",
+      "options": [
+        "Feeling no pain at all",
+        "Not losing trust in Allah, even amid pain",
+        "Remaining silent about everything",
+        "Ignoring difficulties"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "Rıza is not the absence of pain; it is not losing trust in Allah, even amid pain. Rıza encompasses patience, gratitude, and submission."
+    },
+    {
+      "id": "q021",
+      "lessonId": "lesson-07-nefs-i-raziye",
+      "difficulty": "medium",
+      "question": "Can the state of Rıza be interpreted as submitting to oppression or remaining silent in the face of injustice?",
+      "options": [
+        "Yes, Rıza means accepting everything",
+        "Yes, oppression is also Allah's decree",
+        "No; Rıza is submission to Allah's decree, while the responsibility to uphold people's rights and justice remains",
+        "No, but nothing can be said about this"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "Rıza is submission to Allah's decree; it is not submission to oppression. The responsibility to uphold people's rights and justice remains."
+    },
+    {
+      "id": "q022",
+      "lessonId": "lesson-08-nefs-i-marziyye",
+      "difficulty": "easy",
+      "question": "Which sentence best describes the state of Marzıyye?",
+      "options": [
+        "The servant aims to earn Allah's pleasure through sincerity and humility",
+        "The servant regards their salvation as certain because they have performed acts of worship",
+        "The servant shares their spiritual superiority with others",
+        "The servant has reached a state in which they no longer sin"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "Marzıyye is the effort to place sincerity, humility, and Allah's pleasure at the center; it is not self-admiration."
+    },
+    {
+      "id": "q023",
+      "lessonId": "lesson-08-nefs-i-marziyye",
+      "difficulty": "medium",
+      "question": "Which attitude is incompatible with the state of Marzıyye?",
+      "options": [
+        "Sincerity and humility",
+        "Good character and compassion",
+        "Placing Allah's pleasure at the center",
+        "Declaring oneself a servant with whom Allah is certainly pleased"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "The station of Marzıyye is not self-admiration or saying, 'Allah is certainly pleased with me'; it is the effort to place sincerity, humility, and Allah's pleasure at the center."
+    },
+    {
+      "id": "q024",
+      "lessonId": "lesson-08-nefs-i-marziyye",
+      "difficulty": "medium",
+      "question": "In the state of Marzıyye, what is a believer expected to choose instead of relying on their deeds?",
+      "options": [
+        "Abandoning worship",
+        "Continuing with humility and hope in Allah's mercy",
+        "Continuing in reliance on their deeds",
+        "Judging the worship of others"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "The servant continues with humility and hope in Allah's mercy, rather than relying on their deeds; this is the essence of the state of Marzıyye."
+    },
+    {
+      "id": "q025",
+      "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
+      "difficulty": "easy",
+      "question": "Which statement about Nefs-i Kâmile is correct?",
+      "options": [
+        "In this state, a person no longer makes any mistakes",
+        "A person begins to see themselves as superior to others",
+        "As a person becomes purified, they feel their need for Allah more deeply",
+        "Once a person reaches this state, there is no longer any need to discipline the nafs"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "The perfected nafs is not one that sees itself as flawless; it is one that feels its need for Allah more deeply as it becomes purified."
+    },
+    {
+      "id": "q026",
+      "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
+      "difficulty": "medium",
+      "question": "How is the perfected nafs defined?",
+      "options": [
+        "A nafs that never forgets its need for Allah",
+        "A nafs that makes no mistakes",
+        "A nafs completely freed from all its desires",
+        "A nafs that sees itself as flawless"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "The perfected nafs is not one that sees itself as flawless; it is one that never forgets its need for Allah."
+    },
+    {
+      "id": "q027",
+      "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
+      "difficulty": "medium",
+      "question": "What attitude could pose a danger in the state of Kâmile/Zekiyye?",
+      "options": [
+        "Continually repenting",
+        "Continuing with humility",
+        "Avoiding hidden sins",
+        "Claiming spiritual superiority"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "Kâmile/Zekiyye should not be interpreted in a way that leads a person to claim spiritual superiority; every stage is understood in the context of Allah's grace and the servant's effort."
+    },
+    {
+      "id": "q028",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "easy",
+      "question": "What is the first step in disciplining the nafs?",
+      "options": [
+        "Performing a great deal of voluntary worship",
+        "Repentance",
+        "Being alone",
+        "Criticizing others"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "Disciplining the nafs begins with repentance, continues with self-examination, and is strengthened by worship and good character."
+    },
+    {
+      "id": "q029",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "easy",
+      "question": "What is the fundamental pillar of disciplining the nafs?",
+      "options": [
+        "Only increasing voluntary acts of worship",
+        "Only cutting off social relationships",
+        "Holding fast to obligations and avoiding what is forbidden",
+        "Only reading books"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "Holding fast to obligations and avoiding what is forbidden are the foundation of disciplining the nafs; supplication, dhikr, patience, gratitude, and righteous company provide support."
+    },
+    {
+      "id": "q030",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "medium",
+      "question": "Which of the following is not among the things that strengthen the discipline of the nafs?",
+      "options": [
+        "Focusing on the faults of others",
+        "Supplication and dhikr",
+        "Patience and gratitude",
+        "Righteous company"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "Focusing on the faults of others does not strengthen the discipline of the nafs; it prevents a person from confronting their own faults."
+    },
+    {
+      "id": "q031",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "medium",
+      "question": "What kind of process is disciplining the nafs?",
+      "options": [
+        "A task done once and then completed",
+        "Something that happens only during major acts of worship",
+        "An effort that can be started only in old age",
+        "A lifelong discipline of servitude renewed every day"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "Disciplining the nafs is not completed all at once; it is a lifelong discipline of servitude renewed every day."
+    },
+    {
+      "id": "q032",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "medium",
+      "question": "Which of the following is not a practical question that can be used in daily self-examination of the nafs?",
+      "options": [
+        "What did I do today for Allah's pleasure?",
+        "What did I gain from others today?",
+        "Did I violate anyone's rights today?",
+        "What should I repent for today?"
+      ],
+      "correctOptionIndex": 1,
+      "explanation": "Self-examination of the nafs focuses on our inner life and our responsibility toward Allah; what one has gained from others is not a question for this self-examination."
+    },
+    {
+      "id": "q033",
+      "lessonId": "lesson-04-nefs-i-levvame",
+      "difficulty": "hard",
+      "question": "What can happen if remorse is misdirected in the state of Levvâme?",
+      "options": [
+        "It turns into Mutmainne",
+        "It turns into repentance and reform",
+        "It can turn into despair and feelings of worthlessness",
+        "It does not cause a regression to Emmâre"
+      ],
+      "correctOptionIndex": 2,
+      "explanation": "When directed properly, remorse turns into repentance and reform; when misdirected, it can lead to excessive guilt and despair."
+    },
+    {
+      "id": "q034",
+      "lessonId": "lesson-01-nefs-nedir",
+      "difficulty": "easy",
+      "question": "In the classical Sufi tradition, how many stages are used to classify the levels of the nafs?",
+      "options": [
+        "7",
+        "5",
+        "6",
+        "8"
+      ],
+      "correctOptionIndex": 0,
+      "explanation": "According to the majority of Sufis, the classical seven-stage classification is accepted: emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye, kâmile/zekiyye."
+    },
+    {
+      "id": "q035",
+      "lessonId": "lesson-10-nefis-terbiyesinin-yollari",
+      "difficulty": "medium",
+      "question": "What does the narration say about a person who struggles against their nafs?",
+      "options": [
+        "This person is protected from every sin",
+        "This person is already saved",
+        "This person no longer needs to discipline their nafs",
+        "This person is a mujahid in the true sense"
+      ],
+      "correctOptionIndex": 3,
+      "explanation": "It has been stated that a person who struggles against their own nafs is a mujahid in the true sense. Struggling against the nafs is regarded as a great effort of servitude."
+    }
+  ],
+  "answerKey": {
+    "q001": 2,
+    "q002": 0,
+    "q003": 3,
+    "q004": 1,
+    "q005": 2,
+    "q006": 0,
+    "q007": 3,
+    "q008": 1,
+    "q009": 2,
+    "q010": 0,
+    "q011": 3,
+    "q012": 1,
+    "q013": 2,
+    "q014": 0,
+    "q015": 3,
+    "q016": 1,
+    "q017": 2,
+    "q018": 0,
+    "q019": 3,
+    "q020": 1,
+    "q021": 2,
+    "q022": 0,
+    "q023": 3,
+    "q024": 1,
+    "q025": 2,
+    "q026": 0,
+    "q027": 3,
+    "q028": 1,
+    "q029": 2,
+    "q030": 0,
+    "q031": 3,
+    "q032": 1,
+    "q033": 2,
+    "q034": 0,
+    "q035": 3
+  },
+  "importHints": {
+    "slugField": "quizId",
+    "canShuffle": true
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "ders_id": "namaz",
+  "baslik": "Salah",
+  "aciklama": "Learn the basics of salah, one of the five pillars of Islam.",
+  "kartlar": [
+    {
+      "id": "namaz_k01",
+      "tip": "metin",
+      "baslik": "What Is Salah?",
+      "icerik": "Salah is the second of the five pillars of Islam. It is an act of worship in which Muslims turn to Allah five times a day. It is called 'salat' in Arabic; the Turkish word 'namaz' comes from Persian.\n\nThe five pillars of Islam, in order, are:\n1. The declaration of faith\n2. Salah\n3. Sawm\n4. Zakat\n5. Hajj",
+      "vurgu": "The second of the five pillars of Islam"
+    },
+    {
+      "id": "namaz_k02",
+      "tip": "metin",
+      "baslik": "Why Is Salah Performed?",
+      "icerik": "Salah is performed to remember Allah, give thanks, and draw closer to Him. The command 'Establish salah properly' is repeated in many verses of the Quran. It also keeps a person from wrongdoing.",
+      "vurgu": "To remember Allah and draw closer to Him"
+    },
+    {
+      "id": "namaz_k03",
+      "tip": "metin",
+      "baslik": "The Five Daily Prayers",
+      "icerik": "Performing salah five times a day is obligatory:\n\n• Fajr — from dawn until sunrise\n• Dhuhr — after the sun passes its highest point\n• Asr — from the afternoon until evening\n• Maghrib — after sunset\n• Isha — from evening until dawn\n\nIt is preferable not to delay Isha too long without an excuse. Its time continues until dawn; the details of preferred and disliked times are assessed differently by the schools of law.",
+      "vurgu": "Fajr · Dhuhr · Asr · Maghrib · Isha"
+    },
+    {
+      "id": "namaz_k04",
+      "tip": "metin",
+      "baslik": "Conditions for Salah to Become Obligatory",
+      "icerik": "For salah to be obligatory for a person, the following conditions must be met:\n\n• Being Muslim\n• Being of sound mind\n• Having reached puberty\n\nSalah is not obligatory for a person who does not meet these three conditions.",
+      "vurgu": "Muslim · Of sound mind · Having reached puberty"
+    },
+    {
+      "id": "namaz_k05",
+      "tip": "metin",
+      "baslik": "Conditions for the Validity of Salah",
+      "icerik": "Six conditions must be met for salah to be valid:\n\n• Purification from ritual impurity — being in a state of wudu\n• Purification from physical impurity — the body, clothing, and place being clean\n• Covering the awrah — covering the parts of the body that must be covered\n• Facing the qiblah — facing the Kaaba\n• The time — the time for the prayer must have begun\n• Intention — intending to perform the particular prayer",
+      "vurgu": "If any one of these conditions is missing, the salah is considered invalid"
+    },
+    {
+      "id": "namaz_k06",
+      "tip": "metin",
+      "baslik": "The Essential Elements of Salah",
+      "icerik": "The obligatory acts that must be performed within salah are called its essential elements:\n\n• Opening takbir — beginning by saying 'Allahu Ekber'\n• Qiyam — standing\n• Recitation — reciting enough of the Quran for the salah to be valid. The ruling on al-Fatihah and an additional surah is assessed differently by the schools of law; the additional surah is a surah or verse recited after al-Fatihah\n• Ruku — bowing\n• Sujud — placing the forehead on the ground (twice in each rak'ah)\n• Final sitting\n\nIf any one of these obligatory elements is omitted, the salah is invalidated.",
+      "vurgu": "If an essential element is missing, the salah is invalidated and cannot be corrected by the prostration of forgetfulness"
+    },
+    {
+      "id": "namaz_k07",
+      "tip": "gorsel",
+      "baslik": "The Opening Takbir",
+      "icerik": "At the beginning of salah, one first makes the intention in the heart for the prayer to be performed, then makes the opening takbir. In Hanafi practice, men raise their hands to ear level and women to shoulder level; then 'Allahu Ekber' is said.\n\nThe essence of intention is in the heart. Saying it aloud may help; what matters is turning to Allah while knowing which prayer one is performing. After the takbir, the hands are folded; where they are placed may differ between schools of law.\n\nExamples of intentions:\n• Obligatory Fajr: \"I intend to perform today's obligatory Fajr prayer for the sake of Allah.\"\n• Obligatory Dhuhr: \"I intend to perform today's obligatory Dhuhr prayer for the sake of Allah.\"\n• Obligatory Asr: \"I intend to perform today's obligatory Asr prayer for the sake of Allah.\"\n• Obligatory Maghrib: \"I intend to perform today's obligatory Maghrib prayer for the sake of Allah.\"\n• Obligatory Isha: \"I intend to perform today's obligatory Isha prayer for the sake of Allah.\"\n• Witr: \"I intend to perform today's Witr prayer for the sake of Allah.\"",
+      "gorsel": "namaz_tekbir",
+      "vurgu": "The intention is made in the heart · Salah begins with the opening takbir"
+    },
+    {
+      "id": "namaz_k08",
+      "tip": "gorsel",
+      "baslik": "Qiyam — Standing",
+      "icerik": "Qiyam is the standing part of salah. In Hanafi practice, the hands are folded below the navel, with the right hand over the left; in other schools of law, the position or manner of folding the hands may differ.\n\nIn the first rak'ah, Sübhaneke, Eûzü-Besmele, and al-Fatihah are recited. In subsequent rak'ahs, al-Fatihah is generally recited with the Besmele. The ruling on al-Fatihah is assessed differently by the schools of law; in practice, reciting al-Fatihah in every rak'ah is taught.",
+      "gorsel": "namaz_kiyam",
+      "vurgu": "Standing with reverence during qiyam is Sunnah · The position of the hands may differ by school of law"
+    },
+    {
+      "id": "namaz_k09",
+      "tip": "gorsel",
+      "baslik": "Ruku — Bowing",
+      "icerik": "Bend forward from the waist, place the hands on the knees, and keep the back straight. 'Sübhane Rabbiye'l-Azîm' is recited at least once; reciting it three times is Sunnah.",
+      "gorsel": "namaz_ruku",
+      "vurgu": "Sübhane Rabbiye'l-Azîm — Glory be to my Lord, the Magnificent"
+    },
+    {
+      "id": "namaz_k10",
+      "tip": "gorsel",
+      "baslik": "Qawmah — Rising from Ruku",
+      "icerik": "While rising from ruku, say 'Semi'allahu limen hamideh'. Once fully upright, say 'Rabbena ve lekel hamd'. Remain standing upright briefly.",
+      "gorsel": "namaz_kavme",
+      "vurgu": "Semi'allahu limen hamideh — Allah hears the one who praises Him"
+    },
+    {
+      "id": "namaz_k11",
+      "tip": "gorsel",
+      "baslik": "Sujud — Prostration",
+      "icerik": "The forehead, nose, both hands, both knees, and toes touch the ground. 'Sübhane Rabbiye'l-A'lâ' is recited at least once; reciting it three times is Sunnah. Two prostrations are performed in each rak'ah.",
+      "gorsel": "namaz_secde",
+      "vurgu": "A servant is closest to Allah in prostration — Muslim"
+    },
+    {
+      "id": "namaz_k12",
+      "tip": "gorsel",
+      "baslik": "Jalsah — Between the Two Prostrations",
+      "icerik": "Sit briefly between the two prostrations. The left foot is laid flat, the right foot is held upright, and the hands rest on the knees. Say 'Rabbigfirli'.",
+      "gorsel": "namaz_celse",
+      "vurgu": "Rabbigfirli — My Lord, forgive me"
+    },
+    {
+      "id": "namaz_k13",
+      "tip": "gorsel",
+      "baslik": "Tashahhud — The Sitting in Which Tahiyyat Is Recited",
+      "icerik": "Sit in the final rak'ah and recite Tahiyyat, Salli-Barik, and the Rabbena supplications. Both hands rest flat on the knees, with the fingers extended toward the qiblah.",
+      "gorsel": "namaz_tesehhud",
+      "vurgu": "Tahiyyat — Greetings, mercy, and blessings to Allah"
+    },
+    {
+      "id": "namaz_k14",
+      "tip": "gorsel",
+      "baslik": "Salam — Ending Salah",
+      "icerik": "Turn first toward the right shoulder, then toward the left shoulder, saying 'Esselamu aleykum ve rahmetullah'. Salah is completed with the salam.",
+      "gorsel": "namaz_selam",
+      "vurgu": "Salah is completed with the salam"
+    },
+    {
+      "id": "namaz_k15",
+      "tip": "metin",
+      "baslik": "Things That Invalidate Salah",
+      "icerik": "The following invalidate salah:\n\n• Speaking or making a sound\n• Breaking wudu\n• Turning away from the qiblah\n• Eating or drinking\n• Laughing aloud — loudly enough for someone else to hear (smiling does not invalidate it)\n• Crying aloud for a worldly reason (crying out of fear of the Hereafter or Allah does not invalidate salah)\n• Making excessive movements unrelated to salah\n• Breaking the intention\n\nIf any of these occurs, the salah is performed again.",
+      "vurgu": "If salah is invalidated, it is performed again from the beginning"
+    },
+    {
+      "id": "namaz_k16",
+      "tip": "metin",
+      "baslik": "Numbers of Rak'ahs",
+      "icerik": "The number of rak'ahs in each daily prayer:\n\n• Fajr: 2 Sunnah + 2 fard (4 total)\n• Dhuhr: 4 Sunnah (before) + 4 fard + 2 Sunnah (after) (10 total)\n• Asr: 4 Sunnah + 4 fard (8 total)\n• Maghrib: 3 fard + 2 Sunnah (after) (5 total)\n• Isha: 4 Sunnah (before) + 4 fard + 2 Sunnah (after) + 3 Witr (13 total)\n\nWitr is considered wajib in the Hanafi practice common in Türkiye. In other Sunni schools, it may be described as an emphasized Sunnah. This card is based on the common way of performing the daily prayers in Türkiye.",
+      "vurgu": "Fard rak'ahs must always be performed · Witr is wajib · Sunnah prayers earn reward"
+    },
+    {
+      "id": "namaz_k17",
+      "tip": "metin",
+      "baslik": "Making Up Missed Prayers",
+      "icerik": "A fard prayer that could not be performed on time is called a make-up prayer.\n\n'Whoever misses a prayer because of sleep or forgetfulness should perform it when they remember.' (Bukhari, Mevakît, 37; Muslim, Mesacid, 315)\n\nValid excuses (no sin): sleep, forgetfulness, illness, necessity.\nOmitting a prayer without an excuse (a sin): it must still be made up.\n\nNote: Jumu'ah, Eid and Sunnah prayers cannot be made up. Only fard and Witr prayers are made up.",
+      "vurgu": "A missed fard prayer must always be made up"
+    },
+    {
+      "id": "namaz_k18",
+      "tip": "metin",
+      "baslik": "What Are Fard, Wajib and Sunnah?",
+      "icerik": "There are three important levels of rulings in salah:\n\n• Fard: Something that must be done. If omitted, the prayer is invalidated and it is a sin.\n• Wajib: Something required, but not at the level of fard. In Hanafi practice, if it is forgotten, it is compensated for by the prostration of forgetfulness.\n• Sunnah: Something the Prophet ﷺ did consistently. If omitted, one misses out on its reward.\n\nIf a fard prayer is missed, it must be made up. The making up of Sunnah prayers involves details that vary by school and prayer time; in general teaching, the obligation to make up prayers is emphasized for fard prayers and, in the Hanafi school, Witr.",
+      "vurgu": "If a fard is missing, the prayer is invalidated · If a wajib is missing, the prostration of forgetfulness may be required · Sunnah increases the reward"
+    },
+    {
+      "id": "namaz_k19",
+      "tip": "metin",
+      "baslik": "What Is Recited and When During Salah?",
+      "icerik": "The recitations in salah are summarized as follows:\n\n• In the first rak'ah: Sübhaneke, Eûzü-Besmele\n• In every rak'ah: al-Fatihah is recited; its ruling is assessed differently across the schools\n• In the first 2 rak'ahs of fard prayers: an additional surah is recited after al-Fatihah; this is considered wajib in the Hanafi school and Sunnah in the other schools\n• In ruku: Sübhane Rabbiye'l-Azîm (at least once)\n• In sujood: Sübhane Rabbiye'l-A'lâ (at least once)\n• While standing after ruku: Rabbena ve lekel hamd\n• While sitting between the two prostrations: Rabbigfirli",
+      "vurgu": "Al-Fatihah is taught in every rak'ah · Schools differ on the ruling for an additional surah"
+    },
+    {
+      "id": "namaz_k20",
+      "tip": "metin",
+      "baslik": "The First and Final Sitting",
+      "icerik": "There are two types of sitting in salah:\n\n• Ka'de-i ula (the first sitting): Performed after the second rak'ah in prayers of 3 or 4 rak'ahs. Only Tahiyyat is recited, and rising is described as wajib in Hanafi teaching.\n• Ka'de-i ahire (the final sitting): Performed in the final rak'ah of the prayer. Tahiyyat + Salli + Barik + Rabbena supplications are recited. Salam is given after this sitting.",
+      "vurgu": "Only Tahiyyat in ka'de-i ula · All the supplications in ka'de-i ahire"
+    },
+    {
+      "id": "namaz_k21",
+      "tip": "metin",
+      "baslik": "The Prostration of Forgetfulness",
+      "icerik": "In Hanafi practice, the prostration of forgetfulness is performed if a wajib is forgotten during salah:\n\n• When: When a wajib is forgotten or delayed during the prayer\n• How: After reciting Tahiyyat in the final sitting, salam is given to the right, 2 prostrations are performed, one sits again, recites the supplications and gives salam to both sides\n• What it compensates for: Forgotten wajib acts (such as an additional surah or ka'de-i ula)\n• What it does not compensate for: A forgotten fard — if a fard is missing, the prayer is invalidated and must be performed again\n\nThe details of how the prostration of forgetfulness is performed may vary between schools.",
+      "vurgu": "A wajib is forgotten → the prostration of forgetfulness may be required · A fard is forgotten → the prayer is performed again"
+    },
+    {
+      "id": "namaz_k22",
+      "tip": "metin",
+      "baslik": "Salam and Its Ruling",
+      "icerik": "Salah is completed with salam.\nFirst, towards the right shoulder: 'Esselamü aleyküm ve rahmetullah'\nThen, towards the left shoulder: 'Esselamü aleyküm ve rahmetullah'\nWhen salam is given, the prayer ends.",
+      "vurgu": "Right shoulder first · Salah is completed with salam"
+    },
+    {
+      "id": "namaz_k23",
+      "tip": "metin",
+      "baslik": "Congregational Prayer",
+      "icerik": "The Prophet ﷺ said: \"Prayer performed in congregation is 27 degrees superior to prayer performed alone.\" (Bukhari, Ezan 30; Muslim, Mesacid 249)\n\n• Praying in congregation is an emphasized Sunnah for men.\n• Following the imam: if one reaches ruku before the imam rises from it, one is considered to have caught that rak'ah.\n• The congregation follows the imam's movements; they do not go into ruku or sujood before the imam.\n• The imam recites aloud in prayers with audible recitation and silently in prayers with silent recitation. The schools differ on whether the congregation recites al-Fatihah.",
+      "vurgu": "Congregational prayer: 27 degrees · Follow the imam; do not move ahead of him"
+    },
+    {
+      "id": "namaz_k24",
+      "tip": "metin",
+      "baslik": "Witr Prayer",
+      "icerik": "This card describes Witr according to the Hanafi practice common in Türkiye.\n\nWitr is performed after Isha and is taught in the Hanafi school as a wajib prayer of 3 rak'ahs. In other Sunni schools, Witr may be considered an emphasized Sunnah, and the arrangement of its rak'ahs may differ.\n\n• After the second rak'ah, sit, recite Tahiyyat and stand up\n• In the third rak'ah, after reciting al-Fatihah + a surah, raise the hands and say the takbir (the qunut takbir — the takbir said before the Qunut supplication)\n• In Hanafi practice, the Qunut supplication is recited before ruku\n• Complete the prayer by performing ruku and sujood\n\nIf one is going to sleep without having performed Witr, it is performed before going to bed.",
+      "vurgu": "Hanafi Witr as commonly practiced in Türkiye · 3 rak'ahs · Qunut supplication in the third rak'ah"
+    },
+    {
+      "id": "namaz_k25",
+      "tip": "metin",
+      "baslik": "The Virtue of Salah",
+      "icerik": "The Prophet ﷺ said:\n\n\"The best deed in Allah's sight is prayer performed on time.\" (Bukhari, Edeb 1; Muslim, İman 139)\n\nSalah is the believer's ascension. A servant is closest to Allah while in sujood. (Muslim, Salat 215)\n\nSalah keeps a person away from evil. (al-Ankabut 29:45)",
+      "vurgu": "The best deed is prayer performed on time"
+    },
+    {
+      "id": "namaz_k26",
+      "tip": "metin",
+      "baslik": "Covering the Awrah (Setr-i Avret)",
+      "icerik": "It is fard to cover the awrah during salah:\n• Men: The area between the navel and the kneecap\n• Women: In general teaching, the body must be covered except for the hands and face; the ruling on the feet is assessed differently across the schools\n\nIf an area that must be covered remains noticeably exposed to an extent that affects the prayer, the validity of the prayer is affected. There are detailed rulings for small, accidental exposures that are corrected immediately.",
+      "vurgu": "Covering the awrah is a condition for the validity of salah · Details differ between schools"
+    },
+    {
+      "id": "namaz_k27",
+      "tip": "metin",
+      "baslik": "Hands and Gaze While Standing",
+      "icerik": "While standing in salah, the right hand is placed over the left and the hands are folded. (Folding the hands is Sunnah; their position varies by school.)\n\nThe eyes look at the place of prostration, and one does not look around.\nThe Prophet ﷺ said: 'Looking around during prayer is something Satan steals from a servant's prayer.' (Bukhari, Ezan 93)",
+      "vurgu": "Eyes on the place of prostration · Folding the hands is Sunnah; their position varies by school"
+    },
+    {
+      "id": "namaz_k28",
+      "tip": "metin",
+      "baslik": "Surahs That Can Be Recited as an Additional Surah",
+      "icerik": "Short surahs that can be recited after al-Fatihah:\n\n• Surah al-Ikhlas (surah 112)\n• Surah al-Falaq (surah 113)\n• Surah an-Nas (surah 114)\n• Surah al-Kawthar (surah 108)\n• Surah al-Asr (surah 103)\n• Surah al-Fil (surah 105)\n• Surah Quraysh (surah 106)\n• Surah al-Ma'un (surah 107)\n• Surah al-Kafirun (surah 109)\n• Surah an-Nasr (surah 110)\n\nThe easiest surahs for beginners to start with are al-Ikhlas, al-Kawthar, and al-Asr.\n\n👉 You can also find these surahs, along with their pronunciations and meanings, in the {{link:zamm-sureler|Salah Guide}}.",
+      "vurgu": "The shortest surahs are al-Kawthar, al-Asr, and an-Nasr — 3 verses each · Beginners can start with the same short surahs too"
+    },
+    {
+      "id": "namaz_k29",
+      "tip": "metin",
+      "baslik": "For Beginners: Your First Salah",
+      "icerik": "When learning salah, a beginner can first grasp its basic structure:\n\n1. Perform wudu\n2. Face the qiblah and make your intention in your heart\n3. Say 'Allahu Ekber' and fold your hands\n4. Recite al-Fatihah; if you know one, add a short surah\n5. Bow in ruku: 'Sübhane Rabbiye'l-Azîm'\n6. Stand upright\n7. Go into prostration: 'Sübhane Rabbiye'l-A'lâ'\n8. Sit, then prostrate again\n9. Complete the rak'ahs\n10. In the final sitting, recite Tahiyyat and give the salam\n\nThis summary is intended to help you begin learning. As you learn the Sunnah acts, wajib acts, supplications, and practices of the schools of law, your salah can be completed more correctly and beautifully.",
+      "vurgu": "This is a beginner's guide · Supplications, Sunnah acts, and details are added as you learn"
+    },
+    {
+      "id": "namaz_k30",
+      "tip": "metin",
+      "baslik": "Differences Between Schools of Law",
+      "icerik": "The four schools of law hold different views on some matters related to salah:\n\n• The ruling on Witr salah: In the Hanafi school, it is wajib and consists of 3 rak'ahs; the other schools consider it an emphasized Sunnah, and practices regarding the number of rak'ahs may vary.\n\n• The ruling on the salam: In the Hanafi school, it is wajib for exiting salah; in the Maliki, Shafi'i, and Hanbali schools, at least one salam is considered obligatory or an essential part of salah.\n\n• The position of the hands while standing: In the Hanafi school, below the navel; in the Shafi'i and Hanbali schools, around the chest; in some Maliki practices, the hands may be left at the sides.\n\n• A woman's feet during salah: In the Hanafi school, the ruling on the feet is more flexible; in the Shafi'i and Hanbali schools, they are considered among the parts that must be covered.\n\n• The nose touching the ground in prostration: This is more strongly emphasized in the Hanafi and Hanbali schools; in the Maliki and Shafi'i schools, the forehead touching the ground is essential, while the nose is considered Sunnah.\n\n• Reciting al-Fatihah in congregation: In the Hanafi and Maliki schools, the congregation does not recite while the imam is reciting; in the Shafi'i school, the congregation also recites; the Hanbali school has detailed practices.\n\n• The ruling on an additional surah: In the Hanafi school, it is wajib in the first two rak'ahs of obligatory prayers; in the Maliki, Shafi'i, and Hanbali schools, it is considered Sunnah.\n\n• The index finger during Tahiyyat: The timing of raising it and its movement vary between the schools of law.\n\n🎉 You have completed the salah lesson! If you would like to learn more, you can explore the {{link:namaz-rehberi|Salah Guide}}; if you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "Differences between schools of law are intended to show the way to correct practice, not to make learning difficult · It is sufficient to follow your own school of law"
+    }
+  ],
+  "quiz_havuzu_id": "namaz"
+}

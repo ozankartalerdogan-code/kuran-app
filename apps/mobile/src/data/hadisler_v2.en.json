@@ -1,0 +1,3868 @@
+{
+  "meta": {
+    "title": "Selected Hadiths",
+    "subtitle": "A collection of sayings of the Prophet Muhammad ﷺ arranged by topic",
+    "description": "The hadiths in this module are drawn primarily from Bukhari and Muslim, with some taken from well-known narrations in major hadith sources such as Tirmidhi, Abu Dawud, Ibn Majah and Ahmad ibn Hanbal. The aim is to offer a reliable and instructive selection arranged by topic.",
+    "reliability_standard": "The hadiths were selected from major hadith sources wherever possible. Narrations with a direct numbered citation are displayed through sunnah_url, while some entries retain an explanatory source note at the thematic level.",
+    "sources": [
+      "Sahih al-Bukhari",
+      "Sahih Muslim",
+      "Jami' at-Tirmidhi",
+      "Sunan Abu Dawud",
+      "Sunan Ibn Majah",
+      "Musnad Ahmad"
+    ],
+    "version": "2.0.0"
+  },
+  "topics": [
+    {
+      "id": "namaz",
+      "name": "Salah",
+      "group": "İbadet",
+      "group_order": 1,
+      "order": 1,
+      "intro": "Salah is one of the five pillars of Islam and is performed five times a day. Hadiths often emphasize its central place in a believer's life, its role in cleansing sins and the account of it in the Hereafter. Salah is one of the most direct connections a servant has with Allah."
+    },
+    {
+      "id": "oruc",
+      "name": "Sawm",
+      "group": "İbadet",
+      "group_order": 1,
+      "order": 2,
+      "intro": "Sawm means abstaining from food, drink and other things that break the fast from sunrise to sunset during the month of Ramadan. The Prophet ﷺ emphasized that fasting is not merely hunger, but a spiritual act of worship that disciplines one's speech, behavior and character."
+    },
+    {
+      "id": "dua-zikir",
+      "name": "Supplication and Remembrance",
+      "group": "İbadet",
+      "group_order": 1,
+      "order": 3,
+      "intro": "Supplication is when a servant turns to Allah with a request; remembrance is remembering Allah and keeping Him constantly in mind. Hadiths emphasize that supplication and remembrance are among the most essential deeds that keep the heart of worship alive."
+    },
+    {
+      "id": "niyet-ihlas",
+      "name": "Intention and Sincerity",
+      "group": "Ahlak & Karakter",
+      "group_order": 2,
+      "order": 4,
+      "intro": "Intention is the purpose behind an action that comes from the heart. In Islam, the value of a deed is measured by the intention of the person who does it. Sincerity means acting solely to seek Allah's pleasure. The Prophet's ﷺ most famous hadith concerns this subject: 'Actions are judged by intentions.'"
+    },
+    {
+      "id": "dogruluk-durustluk",
+      "name": "Truthfulness and Honesty",
+      "group": "Ahlak & Karakter",
+      "group_order": 2,
+      "order": 5,
+      "intro": "Truthfulness is one of the cornerstones of Islamic ethics. Even before receiving prophethood, the Prophet ﷺ was known as 'el-Emîn' (the trustworthy) and 'es-Sâdık' (the truthful). Lying, on the other hand, is a major sign of hypocrisy."
+    },
+    {
+      "id": "sabir-sukur",
+      "name": "Patience and Gratitude",
+      "group": "Ahlak & Karakter",
+      "group_order": 2,
+      "order": 6,
+      "intro": "Patience means enduring difficulties and complaining less. Gratitude means being thankful in the knowledge that blessings come from Allah. The Prophet ﷺ stated that the believer's situation is always good: if they are grateful in happiness and patient in hardship, they earn a reward."
+    },
+    {
+      "id": "ofke-kontrolu",
+      "name": "Controlling Anger",
+      "group": "Ahlak & Karakter",
+      "group_order": 2,
+      "order": 7,
+      "intro": "Anger is a powerful emotion that, when left unchecked, can harm a person and those around them. The Prophet ﷺ advised remaining silent when angry, exercising self-control instead of displaying strength, and calming the body. Practical advice such as sitting down and changing position appears in authentic narrations, while the advice to perform wudu appears in weaker narrations."
+    },
+    {
+      "id": "kibir-tevazu",
+      "name": "Pride and Humility",
+      "group": "Ahlak & Karakter",
+      "group_order": 2,
+      "order": 8,
+      "intro": "Pride means considering oneself superior to others and refusing to accept the truth. Humility means behaving modestly while knowing one's true worth. The Prophet ﷺ clearly stated that an arrogant person cannot enter Paradise."
+    },
+    {
+      "id": "giybet-iftira",
+      "name": "Backbiting and Slander",
+      "group": "Ahlak & Karakter",
+      "group_order": 2,
+      "order": 9,
+      "intro": "Backbiting means speaking about someone in their absence in a way they would dislike. Slander means attributing something to a person that is not true of them. Both are considered major sins in Islam. The Quran condemns backbiting with the striking comparison of 'eating the flesh of one's dead brother,' while hadiths explain the difference between backbiting and slander."
+    },
+    {
+      "id": "anne-baba-hakki",
+      "name": "Parents' Rights",
+      "group": "Aile & İlişkiler",
+      "group_order": 3,
+      "order": 10,
+      "intro": "Obedience and kindness to parents are mentioned in the Quran immediately after worship of Allah. The Prophet ﷺ counted disobedience to parents among the greatest sins after associating partners with Allah. A mother's right is given three times the priority of a father's."
+    },
+    {
+      "id": "eslere-davranis",
+      "name": "Treatment of Spouses",
+      "group": "Aile & İlişkiler",
+      "group_order": 3,
+      "order": 11,
+      "intro": "The Prophet ﷺ regarded a person's treatment of their spouses as a measure of moral maturity and said, 'The best of you is the one who is best to his family, and I am the best of you to my family.' Treating spouses with patience, understanding and kindness is among the fundamental teachings of Islam."
+    },
+    {
+      "id": "komsu-hakki",
+      "name": "Neighbors' Rights",
+      "group": "Aile & İlişkiler",
+      "group_order": 3,
+      "order": 12,
+      "intro": "The Prophet ﷺ described kindness to one's neighbors as a requirement of iman. Harming a neighbor is a sign of weak iman. The rights of neighbors extend not only to Muslim neighbors but also to non-Muslim and distant neighbors."
+    },
+    {
+      "id": "akraba-ziyareti",
+      "name": "Visiting Relatives",
+      "group": "Aile & İlişkiler",
+      "group_order": 3,
+      "order": 13,
+      "intro": "Maintaining family ties is an act of worship in Islam that brings great benefits both in this world and in the Hereafter. Blessings in sustenance and lifespan have been linked to maintaining family ties, while severing them has been said to keep a person from Paradise."
+    },
+    {
+      "id": "ticaret-ahlaki",
+      "name": "Business Ethics",
+      "group": "Toplum & Muamelat",
+      "group_order": 4,
+      "order": 14,
+      "intro": "The Prophet ﷺ regarded trade as a lawful means of earning a living and considered honesty, transparency and trustworthiness essential to it. Truthfulness in trade is presented as a source of blessing, while cheating and deception are presented as causes of spiritual ruin."
+    },
+    {
+      "id": "emanet-vefa",
+      "name": "Trust and Keeping One's Word",
+      "group": "Toplum & Muamelat",
+      "group_order": 4,
+      "order": 15,
+      "intro": "Trust means faithfully safeguarding everything entrusted to a person—property, a secret, a duty or a promise. Keeping one's word and not betraying a trust are signs of strong iman. The Prophet ﷺ described betraying a trust as a clear sign of hypocrisy."
+    },
+    {
+      "id": "adalet-zulum",
+      "name": "Justice and Wrongdoing",
+      "group": "Toplum & Muamelat",
+      "group_order": 4,
+      "order": 16,
+      "intro": "Justice is the foundation of social order in Islam. Allah has forbidden wrongdoing for Himself and has also forbidden it for His servants. Wrongdoing returns to the one who commits it as darkness on the Day of Judgment, and no barrier prevents the supplication of the wronged person from reaching Allah."
+    },
+    {
+      "id": "tovbe-af",
+      "name": "Repentance and Forgiveness",
+      "group": "Manevî Hayat",
+      "group_order": 5,
+      "order": 17,
+      "intro": "Repentance means feeling remorse for a sin and turning back to Allah. In Islam, the door of repentance remains open until the moment of death. Allah's forgiveness and mercy are far greater than a servant's sins. The Prophet ﷺ used striking comparisons to describe Allah's joy at His servant's repentance."
+    },
+    {
+      "id": "rizik-tevekkul",
+      "name": "Sustenance and Trust in Allah",
+      "group": "Manevî Hayat",
+      "group_order": 5,
+      "order": 18,
+      "intro": "Sustenance is the provision and means of living that Allah has decreed for every living creature. Trust in Allah means leaving the outcome to Him after making the necessary effort. The Prophet ﷺ taught that true wealth lies not in an abundance of possessions but in the contentment of the heart."
+    },
+    {
+      "id": "saglik-sifa",
+      "name": "Health and Healing",
+      "group": "Manevî Hayat",
+      "group_order": 5,
+      "order": 19,
+      "intro": "Islam regards health as a great blessing and encourages seeking treatment when ill. The Prophet ﷺ said, 'Allah has created a cure for every ailment,' and showed both medical and spiritual ways of seeking healing. Facing illness with patience serves as an expiation for sins."
+    },
+    {
+      "id": "olumu-hatirlamak",
+      "name": "Remembering Death",
+      "group": "Manevî Hayat",
+      "group_order": 5,
+      "order": 20,
+      "intro": "The Prophet ﷺ advised remembering death often and described it as 'the destroyer of pleasures and delights.' Death is the strongest reminder that prevents a person from thinking this world is an eternal place. Remembering death reduces attachment to this world and helps one prepare for the Hereafter."
+    },
+    {
+      "id": "ilim-ogrenmek",
+      "name": "Seeking Knowledge",
+      "group": "Bilgi",
+      "group_order": 6,
+      "order": 21,
+      "intro": "The first command of Islam is 'Read!' The hadith strongly encourage seeking knowledge and teach that embarking on the path of knowledge is an effort that brings a person closer to Allah. Learning and sharing beneficial knowledge is an ongoing responsibility for a Muslim."
+    },
+    {
+      "id": "kader",
+      "name": "Divine Decree",
+      "group": "Merak Edilen",
+      "group_order": 7,
+      "order": 22,
+      "intro": "Divine decree is Allah's prior knowledge and ordainment of all things. In Islam, belief in divine decree is one of the six articles of faith. However, divine decree does not remove human responsibility; people remain accountable for their choices and deeds. Divine decree is a reflection of Allah's infinite knowledge."
+    },
+    {
+      "id": "kiyamet-alametleri",
+      "name": "Signs of the Day of Judgment",
+      "group": "Merak Edilen",
+      "group_order": 7,
+      "order": 23,
+      "intro": "The Day of Judgment is the great day on which this universe will come to an end. The Prophet ﷺ stated that only Allah knows exactly when it will occur, but he foretold signs of its approach. These signs include both moral decline and major social changes."
+    },
+    {
+      "id": "cennet-cehennem",
+      "name": "Paradise and Hell",
+      "group": "Merak Edilen",
+      "group_order": 7,
+      "order": 24,
+      "intro": "Paradise is the abode of eternal happiness that Allah has prepared for His righteous servants. Hell is a place of punishment. The Prophet ﷺ taught that the blessings of Paradise are greater than the human mind can imagine, and that being spared from Hell depends on Allah's mercy."
+    },
+    {
+      "id": "ruya-tabiri",
+      "name": "Dreams and Their Interpretation",
+      "group": "Merak Edilen",
+      "group_order": 7,
+      "order": 25,
+      "intro": "In Islam, dreams are of three kinds: a good dream from Allah, a dream arising from a person's own thoughts, and a nightmare from Satan. A good and true dream is considered one of the forty-six parts of prophethood. After a bad dream, one should blow to the left three times and seek refuge in Allah."
+    },
+    {
+      "id": "seytan-vesvese",
+      "name": "Satan and Whisperings",
+      "group": "Merak Edilen",
+      "group_order": 7,
+      "order": 26,
+      "intro": "Satan is an open enemy who tries to lead people away from Allah. Whisperings are evil thoughts that Satan casts into the heart; what matters is not acting on them. The Prophet ﷺ taught ways to protect oneself from Satan and said that remembering Allah, the call to prayer, and salah drive Satan away."
+    },
+    {
+      "id": "olum-kabir",
+      "name": "Death and the Grave",
+      "group": "Merak Edilen",
+      "group_order": 7,
+      "order": 27,
+      "intro": "Death is the gateway to a new life that begins when the soul leaves the body. The hadith describe life in the grave as a stage of transition between this world and the Hereafter, where a person may experience blessings or hardship."
+    }
+  ],
+  "hadiths": [
+    {
+      "id": "islam-bes-temel",
+      "topic_id": "namaz",
+      "turkish_text": "Islam is built upon five pillars: testifying that there is no god but Allah and that Muhammad is His messenger, establishing salah, giving zakat (a religious levy given to the poor once a year), performing Hajj, and observing sawm during Ramadan.",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman, 8",
+      "source_muslim": "Muslim, Iman, 16",
+      "sunnah_url": "https://sunnah.com/bukhari:8",
+      "key_lesson": "Salah is one of the five foundational pillars upon which Islam is built.",
+      "tags": [
+        "namaz",
+        "islam-sartlari",
+        "iman"
+      ]
+    },
+    {
+      "id": "namaz-hesap",
+      "topic_id": "namaz",
+      "turkish_text": "On the Day of Judgment, the first deed for which a servant will be called to account is salah. If their salah is sound, their other deeds will be considered sound; if their salah is deficient, their other deeds will be considered deficient.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman (contextual)",
+      "source_muslim": "Muslim, Salah, 269",
+      "sunnah_url": "https://sunnah.com/muslim:269",
+      "key_lesson": "Salah is the first deed to be examined in the Hereafter; it should be placed at the center of life.",
+      "tags": [
+        "namaz",
+        "ahiret",
+        "hesap"
+      ]
+    },
+    {
+      "id": "yedi-golge-namaz",
+      "topic_id": "namaz",
+      "turkish_text": "On the Day of Judgment, when there will be no shade except His, Allah will shelter seven people in His shade: a ruler who governs justly; a young person who grows up worshipping Allah; a person whose heart is attached to the mosque; two people who love each other for Allah's sake—they come together and part in that love; a person invited to sin by a woman who says, 'I fear Allah'; a person who gives charity so secretly that their left hand does not know what their right hand gives; and a person who remembers Allah in solitude and sheds tears.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adhan, 660",
+      "source_muslim": "Muslim, Zakat, 1031",
+      "sunnah_url": "https://sunnah.com/bukhari:660",
+      "key_lesson": "Deep devotion to the mosque and salah is one of the deeds that bring Allah's special protection at the most difficult moment of the Day of Judgment.",
+      "info_note": "The phrase 'two people who love each other for Allah's sake' describes a genuine bond of friendship and brotherhood formed to seek Allah's pleasure; it refers to love based on the brotherhood of iman rather than worldly gain. The phrase 'Allah's shade' means His mercy and protection.",
+      "tags": [
+        "namaz",
+        "mescid",
+        "ahiret",
+        "sadaka",
+        "adalet"
+      ]
+    },
+    {
+      "id": "namaz-gunah-siler",
+      "topic_id": "namaz",
+      "turkish_text": "The five daily prayers, from one Friday to the next and from one Ramadan to the next, are an expiation (a means of cleansing) for the minor sins committed between them, as long as major sins are avoided.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman (contextual)",
+      "source_muslim": "Muslim, Purification, 233",
+      "sunnah_url": "https://sunnah.com/muslim:233",
+      "key_lesson": "The five daily prayers, performed regularly, erase minor sins committed in daily life; this shows the value of salah.",
+      "info_note": "Expiation: Something that serves as a means of erasing sins. Major sins, such as associating partners with Allah, murder, and adultery, require separate repentance; salah alone does not erase them. Minor sins, however, are cleansed through regular worship.",
+      "tags": [
+        "namaz",
+        "gunah",
+        "keffaret",
+        "cuma",
+        "ramazan"
+      ]
+    },
+    {
+      "id": "namaz-abdest-cevher",
+      "topic_id": "namaz",
+      "turkish_text": "When one of you performs wudu for salah and does so well, then stands in prayer, their sins fall away as long as they turn to Allah—even from their fingertips.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Wudu, 164",
+      "source_muslim": "Muslim, Purification, 244",
+      "sunnah_url": "https://sunnah.com/bukhari:164",
+      "key_lesson": "When salah begins with a thorough wudu and is performed with humility and tranquility of heart, it cleanses the whole body of sins.",
+      "tags": [
+        "namaz",
+        "abdest",
+        "taharet",
+        "gunah"
+      ]
+    },
+    {
+      "id": "ramazan-iman-ihtisab",
+      "topic_id": "oruc",
+      "turkish_text": "Whoever observes sawm during Ramadan solely out of faith in Allah and hoping for its reward from Him alone will have their past sins forgiven.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sawm, 1901",
+      "source_muslim": "Muslim, Prayer of Travelers, 760",
+      "sunnah_url": "https://sunnah.com/bukhari:1901",
+      "key_lesson": "Sawm observed solely for Allah erases a person's past sins.",
+      "info_note": "This promise applies to sawm observed solely to seek Allah's pleasure, not for show or out of habit.",
+      "tags": [
+        "oruc",
+        "ramazan",
+        "magfiret",
+        "ihlas"
+      ]
+    },
+    {
+      "id": "kadir-gecesi",
+      "topic_id": "oruc",
+      "turkish_text": "Whoever spends the Night of Decree in worship through salah, supplication, and remembrance, solely out of faith in Allah and hoping for its reward from Him alone, will have their past sins forgiven.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sawm, 1901",
+      "source_muslim": "Muslim, Prayer of Travelers, 760",
+      "sunnah_url": "https://sunnah.com/bukhari:1901",
+      "key_lesson": "Spending the Night of Decree with sincerity allows one to benefit fully from the blessings of this night, which is better than a thousand months.",
+      "info_note": "The Night of Decree is the night on which the revelation of the Quran began and which is said to be 'better than a thousand months.' It falls within the last ten days of Ramadan; its exact date is unknown, and it is recommended to seek it on the odd-numbered nights (21, 23, 25, 27, 29).",
+      "tags": [
+        "oruc",
+        "kadir-gecesi",
+        "ramazan",
+        "magfiret"
+      ]
+    },
+    {
+      "id": "oruc-kalkan",
+      "topic_id": "oruc",
+      "turkish_text": "Sawm is a shield (a protection). Let the person who is fasting refrain from foul speech and ignorant behavior. If someone provokes or insults them, let them say, 'I am fasting.'",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sawm, 1894",
+      "source_muslim": "Muslim, Sawm, 1151",
+      "sunnah_url": "https://sunnah.com/bukhari:1894",
+      "key_lesson": "Sawm is not merely hunger; it is a spiritual shield that disciplines speech, behavior, and character.",
+      "info_note": "Saying 'I am fasting' while observing sawm is a sign of maturity, not weakness. It reminds both you and the other person and calms tension.",
+      "tags": [
+        "oruc",
+        "ahlak",
+        "sabir",
+        "nefis-terbiyesi"
+      ]
+    },
+    {
+      "id": "oruc-koku",
+      "topic_id": "oruc",
+      "turkish_text": "By Allah, in whose hand is my soul, the smell from the mouth of a fasting person is more pleasing to Allah than the fragrance of musk (a pleasant scent). The fasting person gives up food, drink, and bodily desires for My sake. Sawm is for Me, and I will give its reward.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sawm, 1894",
+      "source_muslim": "Muslim, Sawm, 1151",
+      "sunnah_url": "https://sunnah.com/bukhari:1894",
+      "key_lesson": "Fasting is a special act of worship that Allah has declared He will reward directly; its reward is unlimited.",
+      "info_note": "This hadith describes the special value Allah places on the fasting person. Musk: A highly prized natural substance with a pleasant fragrance. The smell of a fasting person's breath is unpleasant in this world, but this hadith shows how valuable it is to Allah in the Hereafter.",
+      "tags": [
+        "oruc",
+        "allah-rızası",
+        "odul",
+        "ihlas"
+      ]
+    },
+    {
+      "id": "dua-kabul",
+      "topic_id": "dua-zikir",
+      "turkish_text": "The supplication of each of you will be answered as long as they are not impatient. A person says, 'I supplicated, but I was not answered,' and so loses hope and stops supplicating.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications, 6340",
+      "source_muslim": "Muslim, Remembrance, 2735",
+      "sunnah_url": "https://sunnah.com/bukhari:6340",
+      "key_lesson": "One must not become impatient or lose hope while waiting for a supplication to be answered; Allah does not leave a supplication unanswered, whether He answers it immediately, at a better time, or in the Hereafter.",
+      "tags": [
+        "dua",
+        "sabir",
+        "kabul",
+        "tevekkul"
+      ]
+    },
+    {
+      "id": "dua-siginma",
+      "topic_id": "dua-zikir",
+      "turkish_text": "The Prophet ﷺ used to seek refuge in Allah from four things: encountering an unwanted outcome (a bad decree), falling into misery, the rejoicing of enemies, and being overwhelmed by calamity.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications, 6347",
+      "source_muslim": "Muslim, Remembrance, 2707",
+      "sunnah_url": "https://sunnah.com/bukhari:6347",
+      "key_lesson": "Alongside believing in divine decree, it is Sunnah to seek refuge in Allah from bad outcomes and to supplicate.",
+      "info_note": "Seeking refuge from a bad decree does not mean rejecting divine decree. Supplication is also part of divine decree; Allah may decree both a calamity and protection from it.",
+      "tags": [
+        "dua",
+        "siginma",
+        "bela",
+        "kader"
+      ]
+    },
+    {
+      "id": "zikir-kalp",
+      "topic_id": "dua-zikir",
+      "turkish_text": "The difference between one who remembers Allah and one who does not is like the difference between the living and the dead.",
+      "narrator": "Abu Musa (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications, 6407",
+      "source_muslim": "Muslim, Prayer of Travellers, 779",
+      "sunnah_url": "https://sunnah.com/bukhari:6407",
+      "key_lesson": "Remembering Allah keeps the heart alive; when dhikr (remembrance of Allah) is abandoned, the heart loses its vitality.",
+      "info_note": "Dhikr: Remembering Allah, mentioning His name, glorifying Him (sübhanallah), thanking Him (elhamdülillah), and exalting Him (Allahu ekber). What matters is not only the tongue, but also the heart's connection to Allah.",
+      "tags": [
+        "zikir",
+        "kalp",
+        "diri-kalp",
+        "iman"
+      ]
+    },
+    {
+      "id": "niyet-ameller",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "Actions are only according to intentions; everyone is rewarded according to their intention. Whoever migrates (hijrah) for Allah and His Messenger, their migration is counted as being for Allah and His Messenger. Whoever migrates for some worldly gain or someone they wish to marry, their migration is for whatever they intended.",
+      "narrator": "Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Beginning of Revelation, 1",
+      "source_muslim": "Muslim, Leadership, 1907",
+      "sunnah_url": "https://sunnah.com/bukhari:1",
+      "key_lesson": "The value and reward of a deed are determined by the intention in the heart of the person who does it; the same action can lead to very different outcomes depending on the intention.",
+      "info_note": "This hadith is one of the most fundamental hadiths in Islam; many scholars have described it as 'one third of Islam.' The example of hijrah belongs to history, but its message is universal: whatever deed you do, let your intention be pure and sound.",
+      "tags": [
+        "niyet",
+        "ihlas",
+        "amel",
+        "hicret"
+      ]
+    },
+    {
+      "id": "allah-kalbe-bakar",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "Allah does not look at your outward appearance or your wealth; rather, He looks at your hearts and your deeds.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Heart-Softening Narrations (contextual)",
+      "source_muslim": "Muslim, Righteousness, 2564",
+      "sunnah_url": "https://sunnah.com/muslim:2564",
+      "key_lesson": "Your worth in Allah's sight is measured not by how good you appear on the outside, but by the sincerity in your heart and your actual deeds.",
+      "tags": [
+        "niyet",
+        "ihlas",
+        "kalp",
+        "amel"
+      ]
+    },
+    {
+      "id": "gosteris-tehlike",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "What I fear most for you is minor shirk (hidden association of partners with Allah). The Companions asked, 'What is minor shirk?' He said, 'Showing off (riya).' He said, 'On the Day of Judgment, when Allah rewards people for their deeds, He will say to those who showed off: Go to those for whom you showed off in the world and see whether you can find any reward with them.'",
+      "narrator": "Mahmud ibn Labid (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Heart-Softening Narrations (contextual)",
+      "source_muslim": "Muslim, Asceticism, 2985",
+      "sunnah_url": "https://sunnah.com/muslim:2985",
+      "key_lesson": "A deed done to show off will receive no reward in the Hereafter; showing off is one of the most dangerous traps that destroys sincerity (a pure intention).",
+      "info_note": "Riya: Worshipping or doing good deeds for people's approval rather than solely for Allah. Calling it 'minor shirk' shows that, although it is not as grave as shirk, it is very dangerous. Praying, giving charity, or appearing good to show off all fall into this category.",
+      "tags": [
+        "niyet",
+        "ihlas",
+        "gosteris",
+        "riya",
+        "sirk"
+      ]
+    },
+    {
+      "id": "dogruluk-cennet",
+      "topic_id": "dogruluk-durustluk",
+      "turkish_text": "Hold fast to truthfulness, for truthfulness leads to goodness, and goodness leads to Paradise. A person continues to speak the truth until they are recorded with Allah as 'very truthful.' Beware of lying, for lying leads to evil, and evil leads to Hell. A person continues to lie until they are recorded with Allah as 'a great liar.'",
+      "narrator": "Abdullah ibn Mas'ud (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Good Manners, 6094",
+      "source_muslim": "Muslim, Righteousness, 2607",
+      "sunnah_url": "https://sunnah.com/bukhari:6094",
+      "key_lesson": "Truthfulness is a path to Paradise, while lying is a path to Hell; a person progresses along either path by making it a habit.",
+      "info_note": "The hadith explains that lying and truthfulness are habits that gradually lead a person in two different directions. It emphasizes the danger of persistent lying, rather than a single lie.",
+      "tags": [
+        "dogruluk",
+        "yalan",
+        "cennet",
+        "cehennem",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "ticaret-dogruluk",
+      "topic_id": "dogruluk-durustluk",
+      "turkish_text": "The buyer and seller have the right to withdraw from a transaction as long as they have not parted. If they speak truthfully and disclose the actual condition of the goods, their transaction will be blessed. If they conceal the truth and lie, the blessing of their transaction will be wiped away.",
+      "narrator": "Hakim ibn Hizam (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales, 2079",
+      "source_muslim": "Muslim, Sales, 1532",
+      "sunnah_url": "https://sunnah.com/bukhari:2079",
+      "key_lesson": "Openness and honesty in trade bring blessings; concealment and lying drive blessings away.",
+      "info_note": "Blessing: Lasting and growing goodness that brings more than what is apparent. Honest earnings are blessed even if they seem small; what is gained through deception lacks blessing even if it is abundant.",
+      "tags": [
+        "dogruluk",
+        "ticaret",
+        "bereket",
+        "yalan"
+      ]
+    },
+    {
+      "id": "musibet-keffaret",
+      "topic_id": "sabir-sukur",
+      "turkish_text": "No fatigue, illness, sorrow, grief, hurt, or distress afflicts a Muslim—not even a thorn prick—without Allah forgiving some of that person's sins because of it.",
+      "narrator": "Abu Sa'id al-Khudri and Abu Hurayrah (may Allah be pleased with them)",
+      "source_bukhari": "Bukhari, Patients, 5641",
+      "source_muslim": "Muslim, Righteousness, 2573",
+      "sunnah_url": "https://sunnah.com/bukhari:5641",
+      "key_lesson": "Every kind of hardship faced with patience erases sins, whether the hardship is great or small.",
+      "info_note": "Expiation: Something that serves as a means of erasing sins. This hadith gives the glad tidings that illness and sorrow may be an opportunity for purification that erases sins, rather than a punishment from Allah. Patience is an important condition; whining and complaining may reduce this benefit.",
+      "tags": [
+        "sabir",
+        "musibet",
+        "keffaret",
+        "hastalik"
+      ]
+    },
+    {
+      "id": "mumin-hal-hayirli",
+      "topic_id": "sabir-sukur",
+      "turkish_text": "How wonderful is the condition of the believer (the person who believes in Allah)! All their affairs are good for them; this belongs only to the believer. When joy comes, if they give thanks, it is good for them. When hardship comes, if they are patient, it is also good for them.",
+      "narrator": "Suhayb (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Heart-Softening Narrations (contextual)",
+      "source_muslim": "Muslim, Asceticism, 2999",
+      "sunnah_url": "https://sunnah.com/muslim:2999",
+      "key_lesson": "For the believer, both joy and hardship are opportunities for gain; one becomes a source of good through gratitude, and the other through patience.",
+      "tags": [
+        "sabir",
+        "sukur",
+        "iman",
+        "iyimserlik"
+      ]
+    },
+    {
+      "id": "sabir-genis",
+      "topic_id": "sabir-sukur",
+      "turkish_text": "Patience is at the first blow (endurance at the moment of initial shock).",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Funerals, 1283",
+      "source_muslim": "Muslim, Funerals, 926",
+      "sunnah_url": "https://sunnah.com/bukhari:1283",
+      "key_lesson": "True patience is the endurance shown at the first moment, when pain is felt most freshly and intensely; endurance naturally becomes easier as time passes.",
+      "info_note": "The Prophet ﷺ said this to a woman who was weeping in a graveyard. When she said, 'You do not know my sorrow,' the Prophet identified himself. The woman apologized, and the Prophet said, 'Patience is at the first blow.' Patience is shown at the most intense moment of pain, not when the pain has passed.",
+      "tags": [
+        "sabir",
+        "musibet",
+        "yas",
+        "tahammul"
+      ]
+    },
+    {
+      "id": "ofke-guclu",
+      "topic_id": "ofke-kontrolu",
+      "turkish_text": "The strong person is not the one who defeats people in wrestling. The truly strong person is the one who can control himself when angry.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 6114",
+      "source_muslim": "Muslim, Birr, 2609",
+      "sunnah_url": "https://sunnah.com/bukhari:6114",
+      "key_lesson": "True strength is being able to swallow your anger and control yourself; real courage lies in strength of will, not physical strength.",
+      "tags": [
+        "ofke",
+        "nefis-terbiyesi",
+        "guc",
+        "irade"
+      ]
+    },
+    {
+      "id": "ofke-tekrar",
+      "topic_id": "ofke-kontrolu",
+      "turkish_text": "A man asked the Prophet ﷺ for advice. The Prophet ﷺ said, 'Do not get angry.' The man asked repeatedly, and each time the Prophet ﷺ said, 'Do not get angry.'",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 6116",
+      "source_muslim": "Muslim, Birr (contextual)",
+      "sunnah_url": "https://sunnah.com/bukhari:6116",
+      "key_lesson": "The most important advice in life can be summed up briefly: control your anger. This is the shortest way to prevent many wrongs.",
+      "info_note": "The Prophet ﷺ repeating the same advice many times shows how important it is to control anger. Uncontrolled anger lies at the root of many sins, injustices, and regrets.",
+      "tags": [
+        "ofke",
+        "tavsiye",
+        "ahlak",
+        "kontrol"
+      ]
+    },
+    {
+      "id": "ofke-otur",
+      "topic_id": "ofke-kontrolu",
+      "turkish_text": "When one of you becomes angry while standing, let him sit down; if that is enough, well and good. If not, let him lie down.",
+      "narrator": "Abu Dharr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab (contextual)",
+      "source_muslim": "Muslim, Birr, 2610",
+      "sunnah_url": "https://sunnah.com/muslim:2610",
+      "key_lesson": "Changing your physical position when anger arises reduces its effect; this simple Sunnah prevents great harm.",
+      "info_note": "Anger is felt more strongly while standing; sitting or lying down calms the body and reduces the intensity of anger. Other hadiths also report that performing wudu (ablution) calms anger.",
+      "tags": [
+        "ofke",
+        "pratik-tavsiye",
+        "kontrol",
+        "sünnet"
+      ]
+    },
+    {
+      "id": "kibir-zerre",
+      "topic_id": "kibir-tevazu",
+      "turkish_text": "A person who has even a mustard seed's weight of arrogance in his heart cannot enter Paradise. A man asked, 'A person likes his clothes and shoes to look good; is that arrogance?' The Prophet ﷺ said, 'Allah is beautiful and loves beauty. Arrogance is refusing to accept the truth and looking down on people.'",
+      "narrator": "Abdullah ibn Mas'ud (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Libas (contextual)",
+      "source_muslim": "Muslim, Iman, 91",
+      "sunnah_url": "https://sunnah.com/muslim:91",
+      "key_lesson": "Arrogance is not dressing well; it is rejecting the truth and looking down on people.",
+      "info_note": "This hadith corrects an important misunderstanding: dressing well and being well-groomed are not arrogance. The essence of arrogance is: (1) refusing to accept the truth—denying what is right out of pride even though you know it; (2) looking down on people—considering yourself superior to others.",
+      "tags": [
+        "kibir",
+        "tevazu",
+        "cennet",
+        "hak",
+        "gururlanma"
+      ]
+    },
+    {
+      "id": "amel-cennet-rahmet",
+      "topic_id": "kibir-tevazu",
+      "turkish_text": "None of you can enter Paradise through your deeds. They asked, 'Not even you, O Messenger of Allah?' The Prophet said, 'Not even me, unless Allah envelops me in His mercy.'",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "Bukhari, Riqaq, 6464",
+      "source_muslim": "Muslim, Munafiqin, 2818",
+      "sunnah_url": "https://sunnah.com/bukhari:6464",
+      "key_lesson": "Paradise is attained through Allah's mercy; doing many good deeds should lead to greater gratitude and humility, not pride.",
+      "info_note": "This may bring to mind the question, 'Then why do good deeds at all?' The answer is that good deeds open the door to Allah's mercy, and Allah directs His mercy through good deeds. But ultimately, Allah's boundless mercy is greater than a person's deeds. This awareness destroys arrogance and increases gratitude.",
+      "tags": [
+        "tevazu",
+        "rahmet",
+        "amel",
+        "cennet"
+      ]
+    },
+    {
+      "id": "kabir-azap-iki",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "The Prophet ﷺ passed by two graves and said, 'They are being punished, and not for something difficult to avoid. The first did not take proper care to avoid urine. The second used to carry tales, taking people's words from one person to another and causing discord.'",
+      "narrator": "Ibn Abbas (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Wudu, 216",
+      "source_muslim": "Muslim, Taharah, 292",
+      "sunnah_url": "https://sunnah.com/bukhari:216",
+      "key_lesson": "Habits considered minor—neglecting cleanliness and carrying tales—are among the sins serious enough to lead to punishment in the grave.",
+      "info_note": "Tale-carrying (namimah) is trying to cause discord between people by passing what one person said to another. It differs from backbiting: backbiting is speaking ill of someone in their absence, whereas tale-carrying is deliberately causing discord between people. Both are major sins.",
+      "tags": [
+        "giybet",
+        "nemime",
+        "soztagimak",
+        "kabir-azabi",
+        "temizlik"
+      ]
+    },
+    {
+      "id": "muslumanin-dokunulmazligi",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "Everything belonging to a Muslim is inviolable to another Muslim: their life, property, and honor.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Ilm (contextual)",
+      "source_muslim": "Muslim, Birr, 2564",
+      "sunnah_url": "https://sunnah.com/muslim:2564",
+      "key_lesson": "Damaging a Muslim's honor—through backbiting, slander, or humiliation—is as serious a forbidden act as harming their life or property.",
+      "info_note": "Honor (ird): a person's standing in society, reputation, and dignity. Backbiting and slander are considered attacks on the last of these three inviolable things—honor—and are unquestionably haram (forbidden in Islam).",
+      "tags": [
+        "giybet",
+        "iftira",
+        "onur",
+        "haram",
+        "kardeslik"
+      ]
+    },
+    {
+      "id": "giybet-tanimi",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "The Prophet ﷺ asked, 'Do you know what backbiting is?' They said, 'Allah and His Messenger know best.' He said, 'It is mentioning your brother in a way he would dislike.' Someone asked, 'What if what I say is really true of him?' He said, 'If it is true of him, you have backbitten him; if it is not, you have slandered him.'",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab (contextual)",
+      "source_muslim": "Muslim, Birr, 2589",
+      "sunnah_url": "https://sunnah.com/muslim:2589",
+      "key_lesson": "Even if it is true, saying something a person would dislike in their absence is backbiting; if it is untrue, it is slander—both are haram.",
+      "info_note": "Backbiting is telling the truth—and not only about bad things. For example, imitating someone's physical features, laughter, or way of walking also counts as backbiting. Slander is attributing something untrue to a person; it is a more serious sin than backbiting.",
+      "tags": [
+        "giybet",
+        "iftira",
+        "tanim",
+        "haram"
+      ]
+    },
+    {
+      "id": "buyuk-gunah-anne",
+      "topic_id": "anne-baba-hakki",
+      "turkish_text": "The Prophet ﷺ listed the major sins: 'Associating partners with Allah, disobeying one's parents, killing a person, and bearing false witness.'",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 5977",
+      "source_muslim": "Muslim, Iman, 88",
+      "sunnah_url": "https://sunnah.com/bukhari:5977",
+      "key_lesson": "Disobeying one's parents is one of the greatest sins, coming immediately after associating partners with Allah.",
+      "info_note": "Disobedience to parents (uquq) means hurting them, violating their rights, and defying them. Shirk means associating another being with Allah; it is the greatest sin in Islam. This order clearly shows how important parents' rights are.",
+      "tags": [
+        "anne-baba",
+        "buyuk-gunah",
+        "sirk",
+        "isyan"
+      ]
+    },
+    {
+      "id": "anne-once",
+      "topic_id": "anne-baba-hakki",
+      "turkish_text": "A man asked, 'Who is most deserving of my good treatment?' The Prophet ﷺ said, 'Your mother.' He asked, 'Then who?' He said, 'Your mother.' He asked, 'Then who?' He said, 'Your mother.' When he asked, 'Then who?' he said, 'Your father.'",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 5971",
+      "source_muslim": "Muslim, Birr, 2548",
+      "sunnah_url": "https://sunnah.com/bukhari:5971",
+      "key_lesson": "The mother has priority when it comes to kindness and respect; the father comes third.",
+      "info_note": "The mother being mentioned three times has been interpreted to mean that her right carries three times the weight of the father's. Scholars have attributed this to the burdens of pregnancy, childbirth, and breastfeeding that are unique to the mother. This does not diminish the father's right; it expresses recognition of the hardship the mother has endured.",
+      "tags": [
+        "anne-baba",
+        "anne-hakki",
+        "iyilik",
+        "oncelik"
+      ]
+    },
+    {
+      "id": "kadinlara-iyilik",
+      "topic_id": "eslere-davranis",
+      "turkish_text": "Treat women well. Woman was created from a rib. The most curved part of the rib is its upper part. If you try to straighten it by force, you will break it; if you leave it alone, it will remain curved. So treat women well.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Anbiya, 3331",
+      "source_muslim": "Muslim, Rada, 1468",
+      "sunnah_url": "https://sunnah.com/bukhari:3331",
+      "key_lesson": "Patience and understanding, rather than coercion and pressure, are essential in treating one's wife; one should understand her fitrah (innate nature) and act accordingly.",
+      "info_note": "The expression 'rib' is a metaphor, not a biological fact; it conveys that women are not like men and have a different nature. The word 'crooked' is used to mean difference, not a flaw. The message is that, instead of trying to make a woman like a man, one should understand this difference and treat her with patience and kindness.",
+      "tags": [
+        "kadin-hakki",
+        "evlilik",
+        "es",
+        "sabir",
+        "iyilik"
+      ]
+    },
+    {
+      "id": "hayirli-aile",
+      "topic_id": "eslere-davranis",
+      "turkish_text": "The best of you is the one who is best to his family. And I am the best of you to my family.",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "Bukhari, Manaqib (contextual)",
+      "source_muslim": "Muslim, Fada'il al-Sahabah, 2467",
+      "sunnah_url": "https://sunnah.com/muslim:2467",
+      "key_lesson": "True virtue and moral maturity begin with those closest to us—with the family. A person who appears good in public but disturbs the peace at home is not truly good.",
+      "tags": [
+        "aile",
+        "es",
+        "iyilik",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "komsu-misafir-iman",
+      "topic_id": "komsu-hakki",
+      "turkish_text": "Whoever believes in Allah and the Last Day should not harm their neighbor. Whoever believes in Allah and the Last Day should honor their guest. Whoever believes in Allah and the Last Day should either speak good or remain silent.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 6018",
+      "source_muslim": "Muslim, Iman, 47",
+      "sunnah_url": "https://sunnah.com/bukhari:6018",
+      "key_lesson": "Refraining from harming one's neighbor, honoring one's guest, and speaking only what is good are concrete behaviors through which iman should be reflected in daily life.",
+      "tags": [
+        "komsu",
+        "misafir",
+        "iman",
+        "dil"
+      ]
+    },
+    {
+      "id": "komsu-acken-tok",
+      "topic_id": "komsu-hakki",
+      "turkish_text": "A person who goes to bed full while their neighbor is hungry has not truly believed.",
+      "narrator": "Ibn Abbas (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab (contextual)",
+      "source_muslim": "Muslim, Iman, 46",
+      "sunnah_url": "https://sunnah.com/muslim:46",
+      "key_lesson": "Indifference to a neighbor's condition is a sign of deficient iman; true iman requires sharing.",
+      "tags": [
+        "komsu",
+        "iman",
+        "paylasmak",
+        "aclik"
+      ]
+    },
+    {
+      "id": "komsu-kırk",
+      "topic_id": "komsu-hakki",
+      "turkish_text": "Jibril (the chief angel who brings messages to the prophets) advised me so often about the neighbor that I almost thought he would make the neighbor an heir.",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "Bukhari, Adab, 6014",
+      "source_muslim": "Muslim, Birr, 2624",
+      "sunnah_url": "https://sunnah.com/bukhari:6014",
+      "key_lesson": "The rights of neighbors are so important and extensive that Allah repeatedly emphasized them through the angel of revelation.",
+      "info_note": "Jibril: The chief angel who brought Allah's commands and the Quran to the Prophet ﷺ. The expression 'I almost thought he would make the neighbor an heir' is an exaggerated but striking way of conveying how strongly the rights of neighbors are emphasized.",
+      "tags": [
+        "komsu",
+        "hak",
+        "cebrail",
+        "vasiyet"
+      ]
+    },
+    {
+      "id": "rahim-ars",
+      "topic_id": "akraba-ziyareti",
+      "turkish_text": "The bond of kinship is suspended from the exalted Throne, the symbol of Allah's greatness, and says: 'Allah maintains ties with whoever maintains me, and Allah abandons whoever neglects me.'",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "Bukhari, Adab, 5989",
+      "source_muslim": "Muslim, Birr, 2555",
+      "sunnah_url": "https://sunnah.com/bukhari:5989",
+      "key_lesson": "Maintaining family ties brings Allah's protection, while neglecting them leads to being deprived of His care.",
+      "info_note": "The Throne: The supreme symbol of Allah's greatness and sovereignty. The image of 'the bond of kinship being suspended from the Throne' is a metaphor emphasizing the sacredness and value of this bond in Allah's sight.",
+      "tags": [
+        "akraba",
+        "sila-i-rahim",
+        "allah-koruması"
+      ]
+    },
+    {
+      "id": "rizik-omur-akraba",
+      "topic_id": "akraba-ziyareti",
+      "turkish_text": "Whoever wishes for their provision (livelihood) to be increased and their life to be blessed should maintain family ties.",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Buyu', 2067",
+      "source_muslim": "Muslim, Birr, 2557",
+      "sunnah_url": "https://sunnah.com/bukhari:2067",
+      "key_lesson": "Caring for relatives is not only a spiritual duty; it is also a tangible benefit that brings blessings to one's provision and life.",
+      "info_note": "Silat al-rahim: Keeping family ties alive, visiting relatives, and caring for them. The expression 'a blessed life' has also been interpreted as a life filled with meaning and good deeds.",
+      "tags": [
+        "akraba",
+        "sila-i-rahim",
+        "rizik",
+        "omur",
+        "bereket"
+      ]
+    },
+    {
+      "id": "sila-kesen-cennet",
+      "topic_id": "akraba-ziyareti",
+      "turkish_text": "A person who severs family ties cannot enter Paradise.",
+      "narrator": "Jubair ibn Mut'im (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 5984",
+      "source_muslim": "Muslim, Birr, 2556",
+      "sunnah_url": "https://sunnah.com/bukhari:5984",
+      "key_lesson": "Completely severing ties with relatives and remaining indifferent to them is one of the serious sins that prevent entry into Paradise.",
+      "info_note": "This hadith has been interpreted as requiring people to maintain relationships with their relatives, visit them, and respect their basic rights, rather than requiring them to love their relatives. It has been stated that even a relative who acts unjustly should not be completely abandoned.",
+      "tags": [
+        "akraba",
+        "sila-i-rahim",
+        "cennet",
+        "gunah"
+      ]
+    },
+    {
+      "id": "ticaret-bereket",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "The buyer and seller have the right to cancel a transaction until they part. If they tell the truth and disclose the true condition of the goods, their transaction will be blessed. If they conceal the truth and lie, the blessing of their transaction will be wiped away.",
+      "narrator": "Hakim ibn Hizam (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Buyu', 2079",
+      "source_muslim": "Muslim, Buyu', 1532",
+      "sunnah_url": "https://sunnah.com/bukhari:2079",
+      "key_lesson": "Openness and honesty are the foundation of trade; they bring blessings, while deception and lies drive blessings away.",
+      "info_note": "Blessing: Lasting and increasing good that brings more than meets the eye. Honest earnings are blessed even if they seem small; wealth gained through deception remains without blessing even if it is great.",
+      "tags": [
+        "ticaret",
+        "dogruluk",
+        "bereket",
+        "hile"
+      ]
+    },
+    {
+      "id": "munafik-uc-alamet",
+      "topic_id": "emanet-vefa",
+      "turkish_text": "There are three signs of a hypocrite: when they speak, they lie; when they make a promise, they break it; and when something is entrusted to them, they betray that trust.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman, 33",
+      "source_muslim": "Muslim, Iman, 59",
+      "sunnah_url": "https://sunnah.com/bukhari:33",
+      "key_lesson": "Lying, breaking promises, and betraying a trust—these three traits are clear signs of hypocrisy, and a believer should avoid them.",
+      "info_note": "Hypocrite (munafiq): In Islamic history, a person who outwardly appeared Muslim while inwardly disbelieving. This hadith is not limited to that period; it is a warning to everyone who has these three bad habits. The expression 'a sign of hypocrisy' emphasizes how serious these behaviors are.",
+      "tags": [
+        "emanet",
+        "vefa",
+        "ikiyzuluuk",
+        "yalan",
+        "sozunden-donme"
+      ]
+    },
+    {
+      "id": "gadir-bayrak",
+      "topic_id": "emanet-vefa",
+      "turkish_text": "On the Day of Judgment, a flag (banner) will be raised for every person who breaks a promise and betrays a trust, by which they will be recognized.",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Jihad, 3188",
+      "source_muslim": "Muslim, Jihad, 1735",
+      "sunnah_url": "https://sunnah.com/bukhari:3188",
+      "key_lesson": "Betrayal and breaking promises are disgraces that will be publicly exposed before everyone at the gathering on the Day of Judgment.",
+      "info_note": "The 'raising of a flag' on the Day of Judgment symbolizes exposure and disgrace, not punishment. No matter how secretly betrayal is committed, it will be revealed in the Hereafter.",
+      "tags": [
+        "emanet",
+        "vefa",
+        "ihanet",
+        "kiyamet",
+        "tesir"
+      ]
+    },
+    {
+      "id": "zulum-karanlik",
+      "topic_id": "adalet-zulum",
+      "turkish_text": "Beware of injustice (oppression), for injustice will become darkness (pitch darkness) on the Day of Judgment.",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Mazalim, 2447",
+      "source_muslim": "Muslim, Birr, 2579",
+      "sunnah_url": "https://sunnah.com/bukhari:2447",
+      "key_lesson": "Injustice engulfs the person who commits it in darkness, not only in this world but also in the Hereafter.",
+      "info_note": "The expression 'injustice becomes darkness' means that injustice darkens both the inner world of the person who commits it and engulfs them in darkness at the gathering on the Day of Judgment.",
+      "tags": [
+        "zulum",
+        "adalet",
+        "kiyamet",
+        "haksizlik"
+      ]
+    },
+    {
+      "id": "adil-yonetici",
+      "topic_id": "adalet-zulum",
+      "turkish_text": "The first of seven people whom Allah will shelter in His shade on the Day of Judgment, when there is no shade but His, is a ruler who governs justly.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adhan, 660",
+      "source_muslim": "Muslim, Zakat, 1031",
+      "sunnah_url": "https://sunnah.com/bukhari:660",
+      "key_lesson": "Governing justly is a deed that earns one of the highest ranks in Allah's sight.",
+      "tags": [
+        "adalet",
+        "yonetici",
+        "ahiret",
+        "mahser"
+      ]
+    },
+    {
+      "id": "mazlum-dua",
+      "topic_id": "adalet-zulum",
+      "turkish_text": "Beware of the supplication of the oppressed (the one who has been wronged), for there is no veil between their supplication and Allah.",
+      "narrator": "Ibn Abbas (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Zakat, 1496",
+      "source_muslim": "Muslim, Iman, 19",
+      "sunnah_url": "https://sunnah.com/bukhari:1496",
+      "key_lesson": "The supplication of a wronged person against their wrongdoer reaches Allah directly and without obstruction; therefore, one must take great care to avoid wronging anyone.",
+      "info_note": "This hadith shows that a wronged person's right to supplicate against their wrongdoer remains valid even if that person is sinful. The supplication of the oppressed is not exclusive to Muslims; the supplication of anyone who has been wronged is valued by Allah.",
+      "tags": [
+        "adalet",
+        "zulum",
+        "mazlum",
+        "dua",
+        "beddua"
+      ]
+    },
+    {
+      "id": "tovbe-deve",
+      "topic_id": "tovbe-af",
+      "turkish_text": "Allah's joy at the repentance of His servant is far greater than the joy of a person who loses his camel, carrying his food and drink, in a deserted wilderness, gives up all hope and lies down in the shade of a tree, then finds the animal beside him and mistakenly says out of overwhelming joy, 'O Allah! You are my servant and I am Your lord.'",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications, 6309",
+      "source_muslim": "Muslim, Repentance, 2747",
+      "sunnah_url": "https://sunnah.com/bukhari:6309",
+      "key_lesson": "Allah feels such great joy at His servant's repentance; this is the strongest glad tiding for a sinner never to lose hope of repentance.",
+      "info_note": "The phrase 'the man said it by mistake' means that the wrong words slipped from his mouth because of his overwhelming joy. This comparison expresses most vividly Allah's mercy toward His servant and how much He loves repentance.",
+      "tags": [
+        "tovbe",
+        "af",
+        "rahmet",
+        "umit"
+      ]
+    },
+    {
+      "id": "tovbe-kapisi-acik",
+      "topic_id": "tovbe-af",
+      "turkish_text": "Allah waits until night to accept the repentance of one who sins during the day, and waits until day to accept the repentance of one who sins at night. This continues until the sun rises from the west (the Day of Judgment).",
+      "narrator": "Abu Musa (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications (contextual)",
+      "source_muslim": "Muslim, Repentance, 2759",
+      "sunnah_url": "https://sunnah.com/muslim:2759",
+      "key_lesson": "The door of repentance never closes until the moment of death or the Day of Judgment; whenever you turn back, Allah accepts you.",
+      "info_note": "The sun rising from the west is one of the major signs of the Day of Judgment. At that point, new iman will no longer be accepted. This hadith gives the glad tiding that repentance remains valid at any time until then.",
+      "tags": [
+        "tovbe",
+        "af",
+        "rahmet",
+        "umit"
+      ]
+    },
+    {
+      "id": "gercek-zenginlik",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Wealth is not measured by an abundance of possessions. True wealth is richness of the heart (being inwardly content and at peace).",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Softening of Hearts, 6446",
+      "source_muslim": "Muslim, Zakat, 1051",
+      "sunnah_url": "https://sunnah.com/bukhari:6446",
+      "key_lesson": "True wealth is for your heart to be content with what Allah has allotted and to be satisfied with little.",
+      "info_note": "Richness of the heart means an inner life filled with contentment, satisfaction and gratitude. An abundance of possessions does not make a person wealthy; someone who always wants more lives in poverty, no matter how much they own. Someone who is content with little and grateful is truly wealthy.",
+      "tags": [
+        "rizik",
+        "kanaat",
+        "zenginlik",
+        "sukur",
+        "tevekkul"
+      ]
+    },
+    {
+      "id": "dunya-fitne",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "By Allah, I do not fear poverty for you. What I fear is that the world will be opened up to you as it was opened up to those before you, that you will compete for it as they competed, and that it will destroy you as it destroyed them.",
+      "narrator": "Amr ibn Awf (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Military Expeditions, 3158",
+      "source_muslim": "Muslim, Asceticism, 2961",
+      "sunnah_url": "https://sunnah.com/bukhari:3158",
+      "key_lesson": "The real danger is not poverty, but becoming insatiable amid abundance and forgetting the Hereafter in pursuit of the world.",
+      "tags": [
+        "rizik",
+        "dunya",
+        "fitne",
+        "helak",
+        "kanaat"
+      ]
+    },
+    {
+      "id": "bal-sifa",
+      "topic_id": "saglik-sifa",
+      "turkish_text": "A man said, 'My brother has diarrhea.' The Prophet ﷺ said, 'Give him honey to drink.' The man went and gave it to him, but he did not recover. He came back, and the Prophet again said, 'Give him honey to drink.' The third time, the Prophet said, 'Allah has spoken the truth, and your brother's belly has lied.' The man gave him the honey to drink, and he recovered.",
+      "narrator": "Abu Sa'id al-Khudri (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Medicine, 5716",
+      "source_muslim": "Muslim, Greetings, 2217",
+      "sunnah_url": "https://sunnah.com/bukhari:5716",
+      "key_lesson": "Allah is the One who grants healing. Seeking natural and permissible treatments is Sunnah, but Allah determines the outcome.",
+      "info_note": "The words 'Allah has spoken the truth, and your brother's belly has lied' refer to the Quran's statement that honey contains healing (an-Nahl 16:69). Honey is a source of healing, but its effects may appear later because of the body's resistance or the nature of the illness. The importance of patiently continuing treatment is also emphasized.",
+      "tags": [
+        "saglik",
+        "sifa",
+        "bal",
+        "tedavi",
+        "sabir"
+      ]
+    },
+    {
+      "id": "dert-deva",
+      "topic_id": "saglik-sifa",
+      "turkish_text": "Allah has not sent down any disease without also sending down its cure.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Medicine, 5678",
+      "source_muslim": "Muslim, Greetings, 2204",
+      "sunnah_url": "https://sunnah.com/bukhari:5678",
+      "key_lesson": "There is a cure for every disease; seeking treatment is both Sunnah and a requirement of respecting Allah's decree.",
+      "info_note": "This hadith strongly encourages medical research and treatment. The fact that cures for some diseases have not yet been discovered does not mean that they do not exist. Seeking treatment does not negate tawakkul (trust in Allah); tawakkul means taking the available means and leaving the outcome to Allah.",
+      "tags": [
+        "saglik",
+        "sifa",
+        "tedavi",
+        "hastalik",
+        "deva"
+      ]
+    },
+    {
+      "id": "uc-tabi",
+      "topic_id": "olumu-hatirlamak",
+      "turkish_text": "Three things follow the deceased: their family, their wealth and their deeds. Two return, and one remains with them. Their family and wealth return, and only their deeds remain with them.",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Softening of Hearts, 6514",
+      "source_muslim": "Muslim, Asceticism, 2960",
+      "sunnah_url": "https://sunnah.com/bukhari:6514",
+      "key_lesson": "Only a person's deeds accompany them to the grave; this is the strongest reminder against excessive attachment to the world.",
+      "tags": [
+        "olum",
+        "amel",
+        "ahiret",
+        "dunya",
+        "mal"
+      ]
+    },
+    {
+      "id": "lezzet-yok-eden",
+      "topic_id": "olumu-hatirlamak",
+      "turkish_text": "Remember often the one that puts an end to pleasures and delights (death).",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Softening of Hearts (contextual)",
+      "source_muslim": "Muslim, Funerals, 914",
+      "sunnah_url": "https://sunnah.com/muslim:914",
+      "key_lesson": "Remembering death often prevents excessive attachment to the world and helps one prepare for the Hereafter.",
+      "info_note": "This expression refers to death; it is described this way because it puts an end to every pleasure and delight experienced in this world. This reminder is not meant to inspire pessimism, but to encourage us to make the most of every moment and prepare for the Hereafter while remaining aware that life is limited.",
+      "tags": [
+        "olum",
+        "ahiret",
+        "dunya",
+        "hatirlamak"
+      ]
+    },
+    {
+      "id": "ilim-fikih",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "When Allah wishes good for someone, He grants them a deep understanding of the religion.",
+      "narrator": "Mu'awiyah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Knowledge, 71",
+      "source_muslim": "Muslim, Zakat, 1037",
+      "sunnah_url": "https://sunnah.com/bukhari:71",
+      "key_lesson": "The ability to understand the religion correctly and deeply is a gift from Allah; the way to attain this gift is to seek knowledge.",
+      "info_note": "Having deep understanding means understanding the religion by grasping its essence rather than superficially. This is not exclusive to religious scholars; every Muslim is encouraged to deepen their religious knowledge at their own level.",
+      "tags": [
+        "ilim",
+        "anlayis",
+        "hayir",
+        "din"
+      ]
+    },
+    {
+      "id": "ilim-yagmur",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "The guidance and knowledge with which Allah sent me are like abundant rain falling on the earth. Some of the land is fertile; it absorbs the water and grows abundant vegetation. Some is hard and rocky; it retains the water, and people drink from it, water their animals and crops, and sow. Some is flat and barren; it neither retains water nor produces vegetation. This is like the one who understands Allah's religion, learns and teaches others, and also like the one who does not even raise their head or pay attention to this guidance.",
+      "narrator": "Abu Musa al-Ash'ari (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Knowledge, 79",
+      "source_muslim": "Muslim, Virtues, 2282",
+      "sunnah_url": "https://sunnah.com/bukhari:79",
+      "key_lesson": "What matters is to acquire knowledge, put it into practice and pass it on to others. One who learns but cannot pass it on also brings benefit, but one who turns away from learning altogether cannot benefit from anything.",
+      "tags": [
+        "ilim",
+        "ogretmek",
+        "yagmur",
+        "rehberlik"
+      ]
+    },
+    {
+      "id": "ana-rahmi-kader",
+      "topic_id": "kader",
+      "turkish_text": "Each of you is a nutfe (the first fertilized cell) in your mother's womb for forty days, then an alaka (an embryo attached to the womb) for forty days, then a mudga (a piece of flesh in which the early forms of organs appear) for forty days. Then Allah sends an angel; the soul is breathed into the person, and the angel is commanded to write down four things: their provision, the end of their life, the deeds they will do, and whether they will be happy or unhappy.",
+      "narrator": "Abdullah ibn Mas'ud (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Beginning of Creation, 3208",
+      "source_muslim": "Muslim, Divine Decree, 2643",
+      "sunnah_url": "https://sunnah.com/bukhari:3208",
+      "key_lesson": "Provision, lifespan and the deeds a person will do are predetermined by Allah's knowledge; but this does not remove human responsibility or free will.",
+      "info_note": "Nutfah: The initial form at the moment of fertilization. Alaqah: The embryo during the stage when it attaches to the womb and blood vessels begin to form. Mudghah: A small piece of flesh in which the beginnings of organs appear. These stages are also mentioned in the Quran (al-Mu'minun 23:13–14). The destiny of being happy or unhappy relates to divine knowledge, which also encompasses the choices a person will make throughout life; it is not strict determinism (the belief that everything is fixed in advance and cannot change).",
+      "tags": [
+        "kader",
+        "rizik",
+        "ecel",
+        "amel",
+        "cocuk-gelisimi"
+      ]
+    },
+    {
+      "id": "kader-sag-sol",
+      "topic_id": "kader",
+      "turkish_text": "The Prophet ﷺ said: 'When Allah created Adam, He took his right hand and declared that Paradise was for those within it and that they would perform the deeds of the people of Paradise. He took his left hand and declared that Hell was for those within it and that they would perform the deeds of the people of Hell.'",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Tafsir (contextual)",
+      "source_muslim": "Muslim, Qadar, 2662",
+      "sunnah_url": "https://sunnah.com/muslim:2662",
+      "key_lesson": "Qadar is Allah's prior knowledge and encompassing awareness of everything; a person's deeds are part of this knowledge, which does not negate free will.",
+      "info_note": "Attributing a 'right hand' and a 'left hand' to Allah is figurative language; Allah does not have limbs like a human being. This expression is used to convey the certainty of the two groups and Allah's absolute knowledge.",
+      "tags": [
+        "kader",
+        "cennet",
+        "cehennem",
+        "irade",
+        "ilahi-bilgi"
+      ]
+    },
+    {
+      "id": "cibril-kiyamet",
+      "topic_id": "kiyamet-alametleri",
+      "turkish_text": "Jibril (the archangel who brings revelation to the prophets) asked the Prophet ﷺ about the signs of the Hour. The Prophet said: 'The slave woman will give birth to her master (her own child), and barefoot, destitute, poor people will compete with one another in constructing tall buildings (for show).' The Prophet then said, 'That was Jibril; he came to teach you your religion.'",
+      "narrator": "Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman, 50",
+      "source_muslim": "Muslim, Iman, 8",
+      "sunnah_url": "https://sunnah.com/bukhari:50",
+      "key_lesson": "The upheaval of the social order and competition in showing off are signs that the Hour is approaching.",
+      "info_note": "Classical scholars have interpreted the phrase 'the slave woman will give birth to her master' as follows: (1) Near the Hour, mothers will be treated like servants by their children; (2) The social order will be completely disrupted. 'Barefoot poor people competing in constructing tall buildings' is a sign of the transition from material poverty to extreme wealth and the spread of a culture of showing off.",
+      "tags": [
+        "kiyamet",
+        "alametler",
+        "cebrail",
+        "toplumsal-bozulma"
+      ]
+    },
+    {
+      "id": "ilim-kalkmasi",
+      "topic_id": "kiyamet-alametleri",
+      "turkish_text": "Time will grow short, righteous deeds will decrease, stinginess will be cast into hearts, trials will appear, and killings will increase.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Fitan, 7061",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:7061",
+      "key_lesson": "Increasing social unrest and senseless violence are among the important warning signs as the Hour approaches.",
+      "info_note": "In the previous version, this entry was combined with the phrases 'the removal of knowledge' and 'the increase of earthquakes,' which do not appear in its source. It has been corrected according to the original text in Bukhari 7061.",
+      "tags": [
+        "kiyamet",
+        "fitne",
+        "oldurme",
+        "cimrilik",
+        "zaman"
+      ]
+    },
+    {
+      "id": "goz-gormedi-cennet",
+      "topic_id": "cennet-cehennem",
+      "turkish_text": "Allah said: 'I have prepared for My righteous servants blessings that no eye has seen, no ear has heard, and no human heart has ever imagined, even in a passing thought.'",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Bad' al-Khalq, 3244",
+      "source_muslim": "Muslim, Jannah, 2824",
+      "sunnah_url": "https://sunnah.com/bukhari:3244",
+      "key_lesson": "The blessings of Paradise are far beyond human understanding and imagination; this truth is the strongest motivation for avoiding excessive attachment to the blessings of this world.",
+      "info_note": "This hadith is also alluded to in the Quran (as-Sajdah 32:17). The fact that the blessings of Paradise are of a kind no eye has seen means that even the finest things we experience in this world cannot be compared with Paradise.",
+      "tags": [
+        "cennet",
+        "nimet",
+        "ahiret",
+        "allah-vaadi"
+      ]
+    },
+    {
+      "id": "cennet-rahmetle",
+      "topic_id": "cennet-cehennem",
+      "turkish_text": "None of you can enter Paradise by virtue of your deeds. They said, 'Not even you, O Messenger of Allah?' The Prophet said, 'Not even I, unless Allah envelops me in His mercy.'",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "Bukhari, Riqaq, 6464",
+      "source_muslim": "Muslim, Munafiqin, 2818",
+      "sunnah_url": "https://sunnah.com/bukhari:6464",
+      "key_lesson": "Entry into Paradise is through Allah's mercy; deeds open the door to this mercy, but deeds themselves do not make a person 'deserving' of Paradise.",
+      "info_note": "The question may arise: 'Then why perform good deeds?' The answer is that deeds open the door to Allah's mercy. But ultimately, Allah's infinite mercy is greater than a person's deeds. This awareness breaks down pride and increases gratitude.",
+      "tags": [
+        "cennet",
+        "rahmet",
+        "amel",
+        "tevazu"
+      ]
+    },
+    {
+      "id": "ruya-peygamber",
+      "topic_id": "ruya-tabiri",
+      "turkish_text": "Whoever sees me in a dream has truly seen me, for Satan cannot take my appearance (imitate my form).",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Ta'bir, 6994",
+      "source_muslim": "Muslim, Ru'ya, 2266",
+      "sunnah_url": "https://sunnah.com/bukhari:6994",
+      "key_lesson": "Seeing the Prophet ﷺ in a dream is a true vision that Satan cannot imitate.",
+      "info_note": "The great majority of scholars accept that a person seen in a dream while 'knowing that he is the Prophet' is truly the Prophet ﷺ. What matters is the sense of recognition felt in the dream, saying, 'This is the Prophet.'",
+      "tags": [
+        "ruya",
+        "peygamber",
+        "tanimak",
+        "seytan"
+      ]
+    },
+    {
+      "id": "guzel-ruya-kotu-ruya",
+      "topic_id": "ruya-tabiri",
+      "turkish_text": "A good dream is from Allah, while a bad and disturbing dream is from Satan. Whoever sees a dream they dislike should blow to their left three times and seek refuge in Allah from the evil of Satan; that dream cannot harm them. If they wish, they may refrain from telling anyone about it.",
+      "narrator": "Abu Qatadah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Ta'bir, 6995",
+      "source_muslim": "Muslim, Ru'ya, 2261",
+      "sunnah_url": "https://sunnah.com/bukhari:6995",
+      "key_lesson": "When one has a bad dream, it is enough to take the practical steps prescribed by the Sunnah—blowing and seeking refuge in Allah—instead of panicking; the dream cannot cause harm.",
+      "info_note": "Refraining from telling others about a bad dream helps one let it go instead of mentally 'feeding' it. A bad dream is neither a prophecy (a vision of the future) nor something that will necessarily come true.",
+      "tags": [
+        "ruya",
+        "kotu-ruya",
+        "seytan",
+        "siginma"
+      ]
+    },
+    {
+      "id": "seytan-ezan-kacar",
+      "topic_id": "seytan-vesvese",
+      "turkish_text": "When the adhan is called for salah, Satan flees so that he will not hear it. When the adhan ends, he returns. When the announcement that salah is about to begin (iqamah) is made, he flees again. When the iqamah ends, he returns and comes between a person and their inner self, saying, 'Remember this, remember that.' The person then remembers things that were not previously on their mind and becomes unaware of what they are doing in salah.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adhan, 608",
+      "source_muslim": "Muslim, Salah, 389",
+      "sunnah_url": "https://sunnah.com/bukhari:608",
+      "key_lesson": "Satan flees from salah, but he tries to distract people even during it; a significant share of the wandering thoughts experienced during salah comes from Satan's influence.",
+      "info_note": "Iqamah: The call announcing that the obligatory salah is about to begin; it is shorter than the adhan and is recited only within the congregation. The phrase 'Remember this, remember that' indicates that the worldly thoughts that come to mind during salah are Satan's interference.",
+      "tags": [
+        "seytan",
+        "ezan",
+        "namaz",
+        "vesvese"
+      ]
+    },
+    {
+      "id": "esneme-seytan",
+      "topic_id": "seytan-vesvese",
+      "turkish_text": "Allah loves sneezing and dislikes yawning. When one of you yawns, let them try to restrain it as much as possible; for when one of you yawns and makes a sound, Satan laughs.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 6223",
+      "source_muslim": "Muslim, Zuhd, 2994",
+      "sunnah_url": "https://sunnah.com/bukhari:6223",
+      "key_lesson": "Laxity and inattention please Satan, while alertness and self-discipline drive him away.",
+      "info_note": "Sneezing is preferred because it indicates vitality and healthy breathing, while yawning indicates the onset of sleep and a decrease in alertness. The statement that Satan 'laughs' is figurative; it conveys that the open mouth and relaxed state during yawning open the door to Satan's influence.",
+      "tags": [
+        "seytan",
+        "esneme",
+        "aksirma",
+        "uyaniklik"
+      ]
+    },
+    {
+      "id": "kabir-yeri-gosterme",
+      "topic_id": "olum-kabir",
+      "turkish_text": "When one of you dies, he is shown his place in the Hereafter morning and evening (every day). If he is destined for Paradise, he is shown the place of the people of Paradise; if he is destined for Hell, he is shown the place of the people of Hell. He is told, 'This is your place until Allah sends you here on the Day of Resurrection.'",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Funerals, 1379",
+      "source_muslim": "Muslim, Paradise, 2866",
+      "sunnah_url": "https://sunnah.com/bukhari:1379",
+      "key_lesson": "The grave is a temporary dwelling where a person will see their place in the Hereafter every day; this awareness makes clear the importance of how one lives in this world.",
+      "info_note": "Life in the grave: The intermediate period that continues from the soul's separation from the body until the Day of Resurrection. During this time, a person experiences either blessings or hardship. Life in the grave is part of Islamic belief established by the Quran and authentic hadiths.",
+      "tags": [
+        "olum",
+        "kabir",
+        "ahiret",
+        "kabir-hayati"
+      ]
+    },
+    {
+      "id": "kabir-azap-neden",
+      "topic_id": "olum-kabir",
+      "turkish_text": "The Prophet ﷺ passed by two graves and said, 'These two are being punished, and not for something that was difficult to avoid. The first did not take proper care to avoid urine; the second carried tales between people.' He then took a fresh branch, split it in two, and placed a piece on each grave. He said, 'Perhaps their punishment will be lightened until these dry out.'",
+      "narrator": "Ibn Abbas (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Wudu, 216",
+      "source_muslim": "Muslim, Purification, 292",
+      "sunnah_url": "https://sunnah.com/bukhari:216",
+      "key_lesson": "Two causes of punishment in the grave—neglecting cleanliness and carrying tales—may be considered minor, but their consequences are severe.",
+      "info_note": "The Prophet ﷺ placing fresh branches has been interpreted to mean that a plant remembers Allah as long as it is alive, and that this remembrance may lighten the punishment. Carrying tales (namimah): Deliberately relaying what people say in order to cause division between them; it is a more serious sin than backbiting.",
+      "tags": [
+        "olum",
+        "kabir-azabi",
+        "temizlik",
+        "soz-tasimak"
+      ]
+    },
+    {
+      "id": "dua-ibadet-ozu",
+      "topic_id": "dua-zikir",
+      "turkish_text": "The Prophet ﷺ used to pray: 'O Allah! I seek refuge in You from helplessness, laziness, cowardice, miserliness, senility, and the punishment of the grave. O Allah! Grant my soul its mindfulness of You and purify it; You are the best of those who purify it. You are its Protector and Master.'",
+      "narrator": "Zayd ibn Arqam (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Remembrance, 2722",
+      "sunnah_url": "https://sunnah.com/muslim:2722",
+      "key_lesson": "The supplications taught by the Prophet include not only asking for things but also purifying the soul and struggling against bad habits.",
+      "tags": [
+        "dua",
+        "zikir",
+        "siginma",
+        "nefis",
+        "kabir"
+      ],
+      "info_note": "The wording 'Supplication is the essence of worship' in the previous entry did not match the narration in Muslim with this number. The entry was therefore corrected using the authentic supplication found directly in Muslim 2722."
+    },
+    {
+      "id": "dua-kul-yakin",
+      "topic_id": "dua-zikir",
+      "turkish_text": "A servant is closest to their Lord when in prostration (placing the forehead on the ground). So make plenty of supplication.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Call to Prayer (contextual)",
+      "source_muslim": "Muslim, Prayer, 482",
+      "sunnah_url": "https://sunnah.com/muslim:482",
+      "key_lesson": "One is closest to Allah in prostration; prostration, the most precious moment of salah, is the most fruitful time for supplication.",
+      "info_note": "Prostration: The act of placing the forehead on the ground during salah. This is the moment when a servant is lowest before Allah and therefore closest to Him.",
+      "tags": [
+        "dua",
+        "secde",
+        "yakinlik",
+        "namaz"
+      ]
+    },
+    {
+      "id": "zikir-subhanallah",
+      "topic_id": "dua-zikir",
+      "turkish_text": "The words 'Sübhânallah (Allah is free from every imperfection), elhamdülillah (all praise belongs to Allah), lâ ilâhe illallah (there is no god but Allah), and Allahu ekber (Allah is the Greatest)' are dearer to me than everything over which the sun rises.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications (contextual)",
+      "source_muslim": "Muslim, Remembrance, 2695",
+      "sunnah_url": "https://sunnah.com/muslim:2695",
+      "key_lesson": "These four short phrases of remembrance are more valuable than everything in the world; one should keep reciting them.",
+      "info_note": "Sübhânallah: Declaring Allah free from every flaw and imperfection. Elhamdülillah: Expressing that all praise and thanks belong to Allah. Lâ ilâhe illallah: Declaring that Allah alone is God. Allahu ekber: Saying that Allah is greater and more exalted than everything.",
+      "tags": [
+        "zikir",
+        "tesbih",
+        "hamd",
+        "tekbir"
+      ]
+    },
+    {
+      "id": "satici-emin-peygamber",
+      "topic_id": "dogruluk-durustluk",
+      "turkish_text": "The honest and trustworthy merchant will be with the prophets, the truthful (siddiqs), and the martyrs on the Day of Resurrection.",
+      "narrator": "Abu Sa'id al-Khudri (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales (contextual)",
+      "source_muslim": "Muslim, Sales (contextual)",
+      "sunnah_url": "https://sunnah.com/tirmidhi:1209",
+      "key_lesson": "Honesty in trade is so valuable that an honest merchant will be alongside the prophets in the Hereafter.",
+      "info_note": "Siddiq: A person who is completely truthful in character and speech and never resorts to lying. This hadith shows that trade is not merely a worldly activity; when conducted ethically, it also holds great value in the Hereafter.",
+      "tags": [
+        "dogruluk",
+        "ticaret",
+        "ahiret",
+        "peygamber"
+      ]
+    },
+    {
+      "id": "yaniltmak-haram",
+      "topic_id": "dogruluk-durustluk",
+      "turkish_text": "Whoever deceives (misleads) us is not one of us.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales, 2059",
+      "source_muslim": "Muslim, Iman, 164",
+      "sunnah_url": "https://sunnah.com/muslim:164",
+      "key_lesson": "Deceiving and misleading are actions that Islam absolutely does not approve of; honesty is an inseparable part of being a Muslim.",
+      "tags": [
+        "dogruluk",
+        "aldatmak",
+        "haram",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "sukur-nimet-artar",
+      "topic_id": "sabir-sukur",
+      "turkish_text": "When Allah bestows a blessing on a servant, He loves to see the trace (effect) of that blessing on the servant.",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Clothing (contextual)",
+      "source_muslim": "Muslim, Clothing, 2819",
+      "sunnah_url": "https://sunnah.com/muslim:2819",
+      "key_lesson": "Showing the blessings Allah has given—with the intention of giving thanks rather than showing off—is pleasing to Allah.",
+      "info_note": "This hadith explains that it is better not to hide the blessings Allah has given, but to enjoy and display them with the intention of giving thanks. This is different from displaying them with the intention of showing off (riya).",
+      "tags": [
+        "sukur",
+        "nimet",
+        "allah-rizasi"
+      ]
+    },
+    {
+      "id": "tevazu-allah-yukseltir",
+      "topic_id": "kibir-tevazu",
+      "turkish_text": "The more a person shows humility (is humble) for Allah's sake, the more Allah raises them, until they reach the highest ranks. The more they show arrogance, the more Allah lowers them, until they fall to the lowest ranks.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Manners (contextual)",
+      "source_muslim": "Muslim, Righteousness, 2588",
+      "sunnah_url": "https://sunnah.com/muslim:2588",
+      "key_lesson": "Humility raises a person, while arrogance lowers them; this concerns their true rank in Allah's sight, not their appearance in this world.",
+      "tags": [
+        "tevazu",
+        "kibir",
+        "yukselme",
+        "alcalma"
+      ]
+    },
+    {
+      "id": "kibir-hak-reddetmek",
+      "topic_id": "kibir-tevazu",
+      "turkish_text": "Greatness (majesty) is Allah's rida (covering), and might is His izar (covering worn around the waist). Whoever tries to contend with Allah over these, Allah will punish them.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Manners (contextual)",
+      "source_muslim": "Muslim, Righteousness, 2620",
+      "sunnah_url": "https://sunnah.com/muslim:2620",
+      "key_lesson": "True greatness and majesty belong to Allah alone; it is a grave mistake for a person to try to share in them through arrogance.",
+      "info_note": "Rida and izar: Two pieces of cloth worn in Arab culture. They have a figurative meaning here: Greatness and majesty are like Allah's 'garments'; it is inappropriate for anyone else to try to wear them.",
+      "tags": [
+        "kibir",
+        "tevazu",
+        "allah-yüceliği",
+        "azap"
+      ]
+    },
+    {
+      "id": "su-doldurma-iftira",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "Whoever conceals a believer's fault in this world, Allah will conceal their fault on the Day of Resurrection.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Wrongs, 2442",
+      "source_muslim": "Muslim, Remembrance, 2699",
+      "sunnah_url": "https://sunnah.com/bukhari:2442",
+      "key_lesson": "Concealing another person's fault instead of exposing it is a means by which Allah will conceal that person's fault in the Hereafter.",
+      "tags": [
+        "giybet",
+        "iftira",
+        "ortu",
+        "kardeslik",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "dil-tehlikesi",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "If people are dragged face down (on their noses) into Hell, it is most likely because of what their tongues have reaped (earned).",
+      "narrator": "Mu'adh ibn Jabal (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman (contextual)",
+      "source_muslim": "Muslim, Iman (contextual)",
+      "sunnah_url": "https://sunnah.com/tirmidhi:2616",
+      "key_lesson": "The sins caused by the tongue—backbiting, lying, slander, and gossip—are among the most dangerous traps that lead a person to Hell.",
+      "info_note": "This hadith emphasizes the central importance of controlling one's tongue in Islam. Backbiting, slander, carrying tales, lying, and needless talk are among the foremost sins of the tongue.",
+      "tags": [
+        "giybet",
+        "dil",
+        "cehennem",
+        "tehlike"
+      ]
+    },
+    {
+      "id": "ana-baba-riza-allah",
+      "topic_id": "anne-baba-hakki",
+      "turkish_text": "The Lord's pleasure lies in the parents' pleasure, and the Lord's anger lies in the parents' anger.",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Manners (contextual)",
+      "source_muslim": "Muslim, Righteousness (contextual)",
+      "sunnah_url": "https://sunnah.com/tirmidhi:1899",
+      "key_lesson": "The pleasure of one's parents is directly linked to Allah's pleasure, and their anger is directly linked to Allah's anger.",
+      "tags": [
+        "anne-baba",
+        "rıza",
+        "allah-rizasi",
+        "itaat"
+      ]
+    },
+    {
+      "id": "en-iyi-iman-ahlak",
+      "topic_id": "eslere-davranis",
+      "turkish_text": "The believer with the most complete iman is the one with the best character. The best of you are those who are best to their women.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Marriage (contextual)",
+      "source_muslim": "Muslim, Breastfeeding, 1468",
+      "sunnah_url": "https://sunnah.com/muslim:1468",
+      "key_lesson": "The maturity of iman is measured by good character; the clearest sign of good character is how one treats one's spouse and family.",
+      "tags": [
+        "iman",
+        "ahlak",
+        "kadin-hakki",
+        "evlilik"
+      ]
+    },
+    {
+      "id": "hile-helal-degil",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "Whoever deceives us is not one of us.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales, 2059",
+      "source_muslim": "Muslim, Iman, 164",
+      "sunnah_url": "https://sunnah.com/muslim:164",
+      "key_lesson": "Cheating and deception in trade are incompatible with Islam.",
+      "tags": [
+        "ticaret",
+        "hile",
+        "aldatmak",
+        "haram"
+      ]
+    },
+    {
+      "id": "yemin-bereket-siler",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "Beware of one who sells many goods by swearing oaths, for this destroys both the blessing of the goods and the profit.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales, 2087",
+      "source_muslim": "Muslim, Irrigation, 1607",
+      "sunnah_url": "https://sunnah.com/bukhari:2087",
+      "key_lesson": "Swearing unnecessary and false oaths in trade destroys the blessing of the goods and the continuity of one's earnings.",
+      "info_note": "Using statements such as 'I swear by Allah that there is nothing like this product' to increase sales falls under what is haram. A false oath causes blessings to disappear.",
+      "tags": [
+        "ticaret",
+        "yemin",
+        "bereket",
+        "haram"
+      ]
+    },
+    {
+      "id": "helal-kazanc-farz",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "The Prophet ﷺ stated that there is nothing wrong with wealth for a person who has taqwa, but that the blessing of health is better than wealth and that contentment is also considered a blessing.",
+      "narrator": "The uncle of Mu'adh ibn Abdullah ibn Khubayb (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/ibnmajah:2141",
+      "key_lesson": "Islam does not regard wealth as inherently bad; the true measure is taqwa, health, and knowing how to be grateful for blessings.",
+      "info_note": "The narration in Ibn Majah 2141 does not contain the wording 'seeking lawful earnings is obligatory'; it explains that wealth is unobjectionable when accompanied by taqwa and that health is a greater blessing. The entry was corrected according to this original text.",
+      "tags": [
+        "rizik",
+        "tevekkul",
+        "zenginlik",
+        "takva",
+        "saglik"
+      ]
+    },
+    {
+      "id": "sozunde-dur",
+      "topic_id": "emanet-vefa",
+      "turkish_text": "One who has no iman has no trustworthiness, and one who does not keep their commitments has no religion.",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman (contextual)",
+      "source_muslim": "Muslim, Iman (contextual)",
+      "sunnah_url": "https://sunnah.com/ahmad:12406",
+      "key_lesson": "Trustworthiness and keeping one's word are inseparable parts of iman and religious devotion; without them, one's religion remains incomplete.",
+      "tags": [
+        "emanet",
+        "vefa",
+        "iman",
+        "din",
+        "ahit"
+      ]
+    },
+    {
+      "id": "günah-hemen-tovbe",
+      "topic_id": "tovbe-af",
+      "turkish_text": "Every child of Adam makes mistakes, and the best of those who make mistakes are those who repent often.",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications (contextual)",
+      "source_muslim": "Muslim, Repentance (contextual)",
+      "sunnah_url": "https://sunnah.com/tirmidhi:2499",
+      "key_lesson": "What matters is not never making mistakes, but returning to repentance immediately after making one.",
+      "info_note": "Child of Adam: A human being, anyone descended from Adam. This narration appears in Tirmidhi; however, on the same page it is also assessed as weak (daif) in a modern critical evaluation. Nevertheless, the importance of turning to repentance is established by the general teachings of Islam.",
+      "tags": [
+        "tovbe",
+        "hata",
+        "af",
+        "insan-tabiat"
+      ]
+    },
+    {
+      "id": "tovbe-geciktirme",
+      "topic_id": "tovbe-af",
+      "turkish_text": "Allah waits until the day to accept the repentance of one who sins at night, and waits until the night to accept the repentance of one who sins during the day.",
+      "narrator": "Abu Musa (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications (contextual)",
+      "source_muslim": "Muslim, Repentance, 2759",
+      "sunnah_url": "https://sunnah.com/muslim:2759",
+      "key_lesson": "Allah waits patiently and compassionately to accept repentance; one should not delay repenting.",
+      "tags": [
+        "tovbe",
+        "af",
+        "rahmet",
+        "sabir"
+      ]
+    },
+    {
+      "id": "helal-rizik-ara",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "No one has ever eaten food better than what they earned through their own work. Dawud, the prophet of Allah, also earned his living through his own work.",
+      "narrator": "Miqdam (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales, 2072",
+      "source_muslim": "Muslim, Mosques (contextual)",
+      "sunnah_url": "https://sunnah.com/bukhari:2072",
+      "key_lesson": "Earning through one's own work is the most lawful and blessed way to make a living; working does not eliminate reliance on Allah, but complements it.",
+      "info_note": "Dawud: This great figure, who was both a prophet and a ruler, earned his own living by working as a blacksmith. This example shows the dignity of work and that reliance on Allah goes hand in hand with taking practical means.",
+      "tags": [
+        "rizik",
+        "calisma",
+        "helal",
+        "emek",
+        "tevekkul"
+      ]
+    },
+    {
+      "id": "iki-nimet-saglik",
+      "topic_id": "saglik-sifa",
+      "turkish_text": "There are two blessings concerning which most people are deceived (do not properly appreciate): health and free time.",
+      "narrator": "Ibn Abbas (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Heart-Softening Narrations, 6412",
+      "source_muslim": "Muslim (contextual)",
+      "sunnah_url": "https://sunnah.com/bukhari:6412",
+      "key_lesson": "Health and free time are among the greatest blessings that most people lose and only appreciate after losing them.",
+      "tags": [
+        "saglik",
+        "nimet",
+        "zaman",
+        "kiymet"
+      ]
+    },
+    {
+      "id": "hasta-ziyaret-sevap",
+      "topic_id": "saglik-sifa",
+      "turkish_text": "Visit the sick, feed the hungry, and free the captive (one in distress).",
+      "narrator": "Abu Musa (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, The Sick, 5649",
+      "source_muslim": "Muslim, Greetings, 2182",
+      "sunnah_url": "https://sunnah.com/bukhari:5649",
+      "key_lesson": "Visiting the sick is not merely an act of help, but an Islamic duty to be fulfilled by Allah's command.",
+      "tags": [
+        "saglik",
+        "hasta-ziyaret",
+        "yardim",
+        "gorev"
+      ]
+    },
+    {
+      "id": "dunya-misafir",
+      "topic_id": "olumu-hatirlamak",
+      "turkish_text": "Be in this world like a stranger or a traveler.",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Heart-Softening Narrations, 6416",
+      "source_muslim": "Muslim (contextual)",
+      "sunnah_url": "https://sunnah.com/bukhari:6416",
+      "key_lesson": "The world is a temporary place of stay; ordering one's life accordingly makes it easier to prepare for death.",
+      "info_note": "The Prophet ﷺ said these words while placing his hand on Ibn Umar's shoulder; Ibn Umar also added: 'When evening comes, do not wait for morning, and when morning comes, do not wait for evening; prepare for illness while you are healthy, and for death while you are alive.'",
+      "tags": [
+        "olum",
+        "dunya",
+        "misafir",
+        "ahiret",
+        "hazirlik"
+      ]
+    },
+    {
+      "id": "ilim-yol-cennet",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "Whoever sets out on a path to seek knowledge, Allah makes the path to Paradise easy for them.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Knowledge (contextual)",
+      "source_muslim": "Muslim, Remembrance, 2699",
+      "sunnah_url": "https://sunnah.com/muslim:2699",
+      "key_lesson": "Every journey undertaken to seek knowledge becomes a means by which the path to Paradise is made easier.",
+      "tags": [
+        "ilim",
+        "cennet",
+        "yolculuk",
+        "ogrenme"
+      ]
+    },
+    {
+      "id": "ilim-olum-sonrasi",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "When a person dies, their deeds come to an end except for three things: ongoing charity (a good deed that continues to benefit others), beneficial knowledge, and a righteous child who prays for them.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Wills (contextual)",
+      "source_muslim": "Muslim, Wills, 1631",
+      "sunnah_url": "https://sunnah.com/muslim:1631",
+      "key_lesson": "Knowledge that is taught and passed on to others is one of the few deeds that continue to bring reward after death.",
+      "info_note": "Ongoing charity (sadaka-i câriye): Good works that provide lasting benefit to society, such as mosques, schools, and fountains. Beneficial knowledge: Knowledge that is taught to others and put to use. This hadith shows how valuable sharing knowledge is.",
+      "tags": [
+        "ilim",
+        "olum",
+        "sadaka",
+        "sevap",
+        "miras"
+      ]
+    },
+    {
+      "id": "kader-tedbir-ikiside",
+      "topic_id": "kader",
+      "turkish_text": "Be strong and seek Allah's help; do not become helpless. If something happens to you, do not say, 'If I had done such and such, this would have happened.' Say, 'Allah decreed it, and He did what He willed.' For the words 'if I had done' open the door to Satan.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Divine Decree (contextual)",
+      "source_muslim": "Muslim, Divine Decree, 2664",
+      "sunnah_url": "https://sunnah.com/muslim:2664",
+      "key_lesson": "Belief in divine decree means doing one's best while leaving the outcome to Allah and accepting what happens; it does not mean abandoning effort.",
+      "info_note": "The expression 'If I had done such and such, this would have happened' represents being stuck in the past and living with regret. This is a tool Satan uses to overwhelm a person with grief. Belief in divine decree includes both action and acceptance.",
+      "tags": [
+        "kader",
+        "tedbir",
+        "tevekkul",
+        "rizayet"
+      ]
+    },
+    {
+      "id": "cennet-cehennem-arzular",
+      "topic_id": "cennet-cehennem",
+      "turkish_text": "Hell is surrounded by things the self finds pleasing (desires), while Paradise is surrounded by things the self dislikes (hardships).",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Heart-Softening Narrations, 6487",
+      "source_muslim": "Muslim, Paradise, 2823",
+      "sunnah_url": "https://sunnah.com/bukhari:6487",
+      "key_lesson": "The path to Paradise often passes through hardships and things the self does not desire; the path to Hell is paved with desires that readily appeal to it.",
+      "info_note": "The self (nefis): The whole of a person's inner self, desires, and emotions. This hadith explains why acts of worship sometimes feel difficult while evil appears attractive. The path to Paradise is hidden in things that require struggle.",
+      "tags": [
+        "cennet",
+        "cehennem",
+        "nefis",
+        "arzular",
+        "zorluk"
+      ]
+    },
+    {
+      "id": "cennet-kapi",
+      "topic_id": "cennet-cehennem",
+      "turkish_text": "Paradise has eight gates; one of them is called Reyyân, and only those who fast enter through it.",
+      "narrator": "Sahl ibn Sa'd (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sawm, 1896",
+      "source_muslim": "Muslim, Siyam, 1152",
+      "sunnah_url": "https://sunnah.com/bukhari:1896",
+      "key_lesson": "A special gate in Paradise has been reserved for those who fast; this gate shows the special value of fasting in the sight of Allah.",
+      "info_note": "Rayyan: Means 'fully quenched, satisfied.' Those who endure thirst and hunger while fasting in this world enter Paradise through this gate, fully satisfied. The eight gates of Paradise: Each gate represents a different act of worship or virtue.",
+      "tags": [
+        "cennet",
+        "oruc",
+        "reyyan",
+        "kapi"
+      ]
+    },
+    {
+      "id": "ruya-kirk-alti",
+      "topic_id": "ruya-tabiri",
+      "turkish_text": "A believer's good dream is one of the forty-six parts of prophethood.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Ta'bir, 6988",
+      "source_muslim": "Muslim, Ru'ya, 2263",
+      "sunnah_url": "https://sunnah.com/bukhari:6988",
+      "key_lesson": "A believer's good dream is a gift from Allah and a small reflection of revelation.",
+      "info_note": "The forty-six parts of prophethood: This is a comparison describing a good dream as a small but real part in relation to the entirety of the revelation received by the Prophet ﷺ. It shows that good dreams are not without value; they are a gift from Allah to His servant.",
+      "tags": [
+        "ruya",
+        "guzel-ruya",
+        "peygamberlik",
+        "ihsan"
+      ]
+    },
+    {
+      "id": "ruya-anlat-sevdigine",
+      "topic_id": "ruya-tabiri",
+      "turkish_text": "Tell the dream only to someone who loves you or to a wise person.",
+      "narrator": "Abu Sa'id al-Khudri (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Ta'bir, 7045",
+      "source_muslim": "Muslim, Ru'ya, 2261",
+      "sunnah_url": "https://sunnah.com/bukhari:7045",
+      "key_lesson": "A dream should not be told to everyone, but only to someone trustworthy and well-intentioned or someone who knows how to interpret dreams.",
+      "info_note": "Dream interpretation is a sensitive field that requires knowledge and experience. A dream told to someone ill-intentioned or uninformed may be interpreted incorrectly and cause harm. This is why the advice to tell it to someone you love or someone knowledgeable is important.",
+      "tags": [
+        "ruya",
+        "tabir",
+        "anlatma",
+        "guven"
+      ]
+    },
+    {
+      "id": "seytan-kaninda-dolasar",
+      "topic_id": "seytan-vesvese",
+      "turkish_text": "Satan circulates in a person's blood, just as blood flows through the veins. I feared that he might whisper evil things into your hearts.",
+      "narrator": "Safiyyah (may Allah be pleased with her)",
+      "source_bukhari": "Bukhari, I'tikaf, 2038",
+      "source_muslim": "Muslim, Salam, 2175",
+      "sunnah_url": "https://sunnah.com/bukhari:2038",
+      "key_lesson": "Satan is very close to people and constantly tries to whisper evil suggestions; therefore, it is essential to remain alert and seek refuge in Allah.",
+      "info_note": "This hadith was spoken during a visit by Safiyyah, the wife of the Prophet ﷺ, while he was in i'tikaf (seclusion in the mosque). 'Satan circulating in the blood' is a figurative expression describing how close Satan is to people and how strongly he influences them.",
+      "tags": [
+        "seytan",
+        "vesvese",
+        "kan",
+        "uyaniklik"
+      ]
+    },
+    {
+      "id": "uc-soru-kabir",
+      "topic_id": "olum-kabir",
+      "turkish_text": "After a servant is placed in the grave, as his companions turn and leave, he hears their footsteps. Then two angels come to him, sit him up and ask: 'What did you say about this man (the Prophet Muhammad ﷺ)?' The believer says, 'He is Allah's servant and Messenger.' The hypocrite and the disbeliever say, 'I do not know; people were saying things, so I said them too.'",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Jana'iz, 1338",
+      "source_muslim": "Muslim, Jannah, 2870",
+      "sunnah_url": "https://sunnah.com/bukhari:1338",
+      "key_lesson": "Among the first questions asked in the grave are those concerning faith in the Prophet ﷺ and adherence to the religion; only those with true iman can answer them correctly.",
+      "info_note": "The two angels: The angels known as Munkar and Nakir, who question people in the grave. This hadith shows that questioning in the grave is real and that iman should be deep rather than superficial.",
+      "tags": [
+        "olum",
+        "kabir",
+        "sorgu",
+        "melek",
+        "iman"
+      ]
+    },
+    {
+      "id": "ofke-abdest",
+      "topic_id": "ofke-kontrolu",
+      "turkish_text": "When one of you becomes angry, let him perform wudu; for anger comes from fire, and water extinguishes it.",
+      "narrator": "Atiyyah as-Sa'di (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab (contextual)",
+      "source_muslim": "Muslim, Birr (contextual)",
+      "sunnah_url": "https://sunnah.com/abudawud:4784",
+      "key_lesson": "Performing wudu is a practical Sunnah that helps a person calm down both physically and spiritually when angry.",
+      "info_note": "Comparing anger to fire emphasizes its destructive effect. However, this narration in Abu Dawud was graded weak (da'if) by Albani on the same page. Therefore, the advice to perform wudu may be seen as a beneficial practice, but it should not be presented on the same level as other advice on anger that has stronger authenticity.",
+      "tags": [
+        "ofke",
+        "abdest",
+        "su",
+        "sakinlesmek"
+      ]
+    },
+    {
+      "id": "komsu-hediye",
+      "topic_id": "komsu-hakki",
+      "turkish_text": "O Muslim women! Let no woman consider a gift to her neighbor insignificant, even if it is a sheep's hoof.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Hibah, 2566",
+      "source_muslim": "Muslim, Zakat, 1030",
+      "sunnah_url": "https://sunnah.com/bukhari:2566",
+      "key_lesson": "Sending a gift to a neighbor, however small, is a beautiful way to uphold the rights of neighbors and strengthen affection.",
+      "tags": [
+        "komsu",
+        "hediye",
+        "kadin",
+        "paylasim"
+      ]
+    },
+    {
+      "id": "akraba-sevgi-karsili",
+      "topic_id": "akraba-ziyareti",
+      "turkish_text": "A person who merely reciprocates, treating well those who treat him well, is not considered to have maintained the ties of kinship. The one who truly maintains ties of kinship is the person who preserves them even with someone who cuts them off.",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Adab, 5991",
+      "source_muslim": "Muslim, Birr, 2558",
+      "sunnah_url": "https://sunnah.com/bukhari:5991",
+      "key_lesson": "The true virtue of kinship is not merely caring for those who treat you well, but maintaining ties even with those who abandon you.",
+      "info_note": "Maintaining ties of kinship: Keeping family bonds alive and caring for relatives. This hadith teaches that relationships with relatives are based not on mutual expectations, but on a sense of virtue practiced even when it is not reciprocated.",
+      "tags": [
+        "akraba",
+        "sila-i-rahim",
+        "karsilik",
+        "erdem"
+      ]
+    },
+    {
+      "id": "haksizlik-hemen-gider",
+      "topic_id": "adalet-zulum",
+      "turkish_text": "Allah gives respite for wrongdoing for a long time, but when He seizes the wrongdoer, He does not let go.",
+      "narrator": "Abu Musa (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Tafsir (contextual)",
+      "source_muslim": "Muslim, Birr, 2583",
+      "sunnah_url": "https://sunnah.com/muslim:2583",
+      "key_lesson": "Although a wrongdoer may appear to go unpunished for a time, Allah's justice will surely prevail; its delay should be understood as a period of respite, not an opportunity.",
+      "tags": [
+        "adalet",
+        "zulum",
+        "allah-adaleti",
+        "sabir"
+      ]
+    },
+    {
+      "id": "az-yeter",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "A few morsels are enough to keep the son of Adam's back upright. If he must eat more, let him reserve one-third of his stomach for food, one-third for drink and one-third for breathing.",
+      "narrator": "Miqdam ibn Ma'dikarib (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, At'imah (contextual)",
+      "source_muslim": "Muslim, Ashribah, 2734",
+      "sunnah_url": "https://sunnah.com/muslim:2734",
+      "key_lesson": "Moderation in eating is one of Islam's fundamental recommendations for both health and contentment; a small but sufficient amount is better than excess.",
+      "info_note": "This hadith is important for both nutritional health and discipline of the self. Reserving one-third of the stomach for food, one-third for water and one-third for breathing is an approach to healthy eating that modern medicine also supports.",
+      "tags": [
+        "rizik",
+        "yemek",
+        "kanaat",
+        "saglik",
+        "olculu-bes"
+      ]
+    },
+    {
+      "id": "kabre-yat-duşun",
+      "topic_id": "olumu-hatirlamak",
+      "turkish_text": "Frequently remember the thing that cuts short and brings pleasures to an end: death.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/tirmidhi:2307",
+      "key_lesson": "Remembering death is a powerful opportunity for self-reflection that awakens a person from worldly intoxication.",
+      "tags": [
+        "olum",
+        "hatirlamak",
+        "zuhd",
+        "muhasebe"
+      ],
+      "info_note": "In the previous version, this entry was conveyed with an additional explanatory sentence not found in its source. It has been corrected according to the short, direct wording found in Tirmidhi 2307."
+    },
+    {
+      "id": "kader-yaz-kalem",
+      "topic_id": "kader",
+      "turkish_text": "Allah wrote the destinies of His creatures fifty thousand years before He created them; His Throne was upon the water.",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Qadar (contextual)",
+      "source_muslim": "Muslim, Qadar, 2653",
+      "sunnah_url": "https://sunnah.com/muslim:2653",
+      "key_lesson": "Destiny was determined in Allah's knowledge long before the creation of the universe; this is a sign of His infinite knowledge and will.",
+      "info_note": "The expression 'fifty thousand years' is according to our understanding of time; Allah is beyond time. This hadith explains that destiny was written in pre-eternity. This decree does not erase human will; rather, it points to Allah's infinite knowledge, which knows and encompasses all things.",
+      "tags": [
+        "kader",
+        "ezeli",
+        "allah-ilmi",
+        "yazi"
+      ]
+    },
+    {
+      "id": "kiyamet-guven-kalkar",
+      "topic_id": "kiyamet-alametleri",
+      "turkish_text": "The Hour will not come until trust disappears and betrayal increases.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Fitan (contextual)",
+      "source_muslim": "Muslim, Fitan, 2943",
+      "sunnah_url": "https://sunnah.com/muslim:2943",
+      "key_lesson": "The loss of trust in society and the spread of betrayal are among the important signs of the period before the Hour.",
+      "tags": [
+        "kiyamet",
+        "alametler",
+        "guven",
+        "ihanet"
+      ]
+    },
+    {
+      "id": "bismiilah-seytan-kackar",
+      "topic_id": "seytan-vesvese",
+      "turkish_text": "When a person mentions Allah upon entering his home (by saying the basmala), Satan says, 'You have no place to spend the night and no food here.' When he also mentions Allah while eating, Satan says, 'You have neither a place to spend the night nor food here.' If he enters without mentioning Allah, Satan says, 'You have found a place to spend the night'; and if he does not mention Allah while eating, Satan says, 'You have found both a place to spend the night and food.'",
+      "narrator": "Jabir (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Drinks (contextual)",
+      "source_muslim": "Muslim, Drinks, 2018",
+      "sunnah_url": "https://sunnah.com/muslim:2018",
+      "key_lesson": "Saying the basmala when entering the home and eating is a spiritual shield that prevents Satan from entering that space.",
+      "info_note": "Basmala: 'Bismillahirrahmanirrahim' — 'In the name of Allah, the Most Merciful, the Most Compassionate.' Beginning every task with the basmala means opening it to Allah's blessing and protection.",
+      "tags": [
+        "seytan",
+        "besmele",
+        "ev",
+        "yemek",
+        "koruma"
+      ]
+    },
+    {
+      "id": "zikir-iki-kelime",
+      "topic_id": "dua-zikir",
+      "turkish_text": "There are two phrases that are light on the tongue, heavy on the scales and beloved to the Most Merciful: 'Sübhânallahi ve bihamdihî' and 'Sübhânallâhi'l-azîm'.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Supplications, 6406",
+      "source_muslim": "Muslim, Remembrance, 2694",
+      "sunnah_url": "https://sunnah.com/bukhari:6406",
+      "key_lesson": "Brief but consistent acts of remembrance become deeds of great value in Allah's sight; a tongue accustomed to remembering Allah also keeps the heart alive.",
+      "tags": [
+        "dua",
+        "zikir",
+        "tesbih",
+        "mizan",
+        "kolay-amel"
+      ]
+    },
+    {
+      "id": "oruc-yalani-birakmak",
+      "topic_id": "oruc",
+      "turkish_text": "Whoever does not give up false speech, acting upon it and rude behavior, Allah has no need for him to give up his food and drink.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Manners, 6057",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6057",
+      "key_lesson": "Sawm (fasting) is not merely going hungry; a fast that does not also purify one's speech, conduct and character does not fully achieve its purpose.",
+      "tags": [
+        "oruc",
+        "yalan",
+        "dil",
+        "ahlak",
+        "nefis-terbiyesi"
+      ]
+    },
+    {
+      "id": "musluman-dil-ve-el",
+      "topic_id": "giybet-iftira",
+      "turkish_text": "A Muslim is one from whose tongue and hand other Muslims are safe. An emigrant is one who abandons what Allah has forbidden.",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman, 10",
+      "source_muslim": "Muslim, Iman, 40",
+      "sunnah_url": "https://sunnah.com/bukhari:10",
+      "key_lesson": "Not causing harm with one's tongue or hand is a fundamental sign of being Muslim; backbiting and slander are also serious forms of harmful speech that destroy this trust.",
+      "tags": [
+        "giybet",
+        "iftira",
+        "dil",
+        "zarar",
+        "muslumanlik"
+      ]
+    },
+    {
+      "id": "anne-baba-hizmeti-cihad",
+      "topic_id": "anne-baba-hakki",
+      "turkish_text": "A man asked permission to take part in jihad. The Messenger of Allah asked him, 'Are your parents alive?' When the man said, 'Yes,' he said, 'Then devote your efforts to serving them.'",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Jihad, 3004",
+      "source_muslim": "Muslim, Righteousness, 2549a",
+      "sunnah_url": "https://sunnah.com/bukhari:3004",
+      "key_lesson": "Serving one's parents is such a valuable act of worship that, in some circumstances, it takes precedence even over the greatest voluntary sacrifices.",
+      "tags": [
+        "anne-baba",
+        "hizmet",
+        "birr",
+        "cihad",
+        "fedakarlik"
+      ]
+    },
+    {
+      "id": "akrabalik-bagini-gozetmek-iman",
+      "topic_id": "akraba-ziyareti",
+      "turkish_text": "Whoever believes in Allah and the Last Day should honor their guest, maintain family ties, and either speak good or remain silent.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Manners, 6138",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6138",
+      "key_lesson": "Maintaining family ties is a clear expression of iman in daily life; it goes hand in hand with kind words and hospitality.",
+      "tags": [
+        "akraba",
+        "sila-i-rahim",
+        "iman",
+        "hayirli-soz",
+        "ikram"
+      ]
+    },
+    {
+      "id": "ticarette-yumusaklik",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "May Allah have mercy on the person who is gentle when buying, selling and seeking what is due to them.",
+      "narrator": "Jabir ibn Abdullah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Sales, 2076",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2076",
+      "key_lesson": "In trade, honesty, courtesy and making things easy for others are all important parts of blessing.",
+      "tags": [
+        "ticaret",
+        "alisveris",
+        "nezaket",
+        "bereket",
+        "hak-talebi"
+      ]
+    },
+    {
+      "id": "ilmi-teblig-etmek",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "Convey to people from me, even if it is only one verse. Whoever knowingly attributes a lie to me should prepare for their place in Hell.",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Prophets, 3461",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:3461",
+      "key_lesson": "Conveying useful knowledge accurately is a responsibility; but conveying unverified words in the Prophet's name is a grave wrongdoing.",
+      "tags": [
+        "ilim",
+        "teblig",
+        "hadis",
+        "dogruluk",
+        "sorumluluk"
+      ]
+    },
+    {
+      "id": "emanet-zayi-kiyamet",
+      "topic_id": "kiyamet-alametleri",
+      "turkish_text": "When a trust is lost, expect the Last Hour. When asked, 'How is it lost?' he said, 'When an affair is entrusted to those who are not qualified.'",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Knowledge, 59",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:59",
+      "key_lesson": "Entrusting a responsibility to someone unqualified is a serious sign of the Last Hour that indicates the corruption of society, as well as a failure of governance.",
+      "tags": [
+        "kiyamet",
+        "alametler",
+        "emanet",
+        "ehliyet",
+        "toplum"
+      ]
+    },
+    {
+      "id": "cibril-ihsan",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "Ihsan is to worship Allah as though you see Him. Although you do not see Him, He sees you.",
+      "narrator": "Umar (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Iman, 8a",
+      "sunnah_url": "https://sunnah.com/muslim:8a",
+      "key_lesson": "The essence of worship is to live in conscious and sincere devotion, knowing that Allah sees you at every moment.",
+      "info_note": "Grade: Sahih. This narration highlights the section on ihsan in the hadith of Jibril and teaches the inward dimension of worship.",
+      "tags": [
+        "ihsan",
+        "murakabe",
+        "ihlas",
+        "kulluk"
+      ]
+    },
+    {
+      "id": "tevhid-allahin-hakki",
+      "topic_id": "niyet-ihlas",
+      "turkish_text": "Allah's right over His servants is that they worship Him alone and associate nothing with Him.",
+      "narrator": "Mu'adh ibn Jabal (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Jihad, 2856",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2856",
+      "key_lesson": "Tawhid is more than a statement of belief; it is the fundamental principle that directs all worship and devotion to Allah alone.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim. The research text notes that it also appears in Muslim; only the Bukhari report, for which an explicit number was given, is presented here.",
+      "tags": [
+        "tevhid",
+        "sirkten-sakinma",
+        "kulluk",
+        "iman"
+      ]
+    },
+    {
+      "id": "din-nasihattir",
+      "topic_id": "dogruluk-durustluk",
+      "turkish_text": "Religion is sincere counsel; it is sincerity.",
+      "narrator": "Tamim ad-Dari (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Iman, 55a",
+      "sunnah_url": "https://sunnah.com/muslim:55a",
+      "key_lesson": "Religious devotion is lived through sincerity, loyalty and an honest way of life that inspires trust, rather than through showing off.",
+      "info_note": "Grade: Sahih. The continuation of the hadith explains that this sincerity is owed to Allah, His Book, His Messenger and the believers.",
+      "tags": [
+        "samimiyet",
+        "nasihat",
+        "durustluk",
+        "din"
+      ]
+    },
+    {
+      "id": "namaz-vaktinde",
+      "topic_id": "namaz",
+      "turkish_text": "The deed most beloved to Allah is performing salah (prayer) at its prescribed time.",
+      "narrator": "Abdullah ibn Mas'ud (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Prayer Times, 527",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:527",
+      "key_lesson": "The value of salah is shown not only in performing it, but also in observing its prescribed time and performing it with care.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim. The research text notes that it also appears in Muslim; the Bukhari report, for which an explicit number was given, is presented here.",
+      "tags": [
+        "namaz",
+        "vakit",
+        "amel",
+        "ibadet"
+      ]
+    },
+    {
+      "id": "kuran-ogren-ogret",
+      "topic_id": "ilim-ogrenmek",
+      "turkish_text": "The best of you are those who learn the Quran and teach it.",
+      "narrator": "Uthman ibn Affan (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Virtues of the Quran, 5027",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:5027",
+      "key_lesson": "One's connection with the Quran deepens not only through reading it, but also through learning it and passing it on to others.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "kuran",
+        "ilim",
+        "ogretmek",
+        "hayirlilik"
+      ]
+    },
+    {
+      "id": "kardesi-icin-sevmek",
+      "topic_id": "adalet-zulum",
+      "turkish_text": "None of you truly believes until they love for their brother what they love for themselves.",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman, 13",
+      "source_muslim": "Muslim, Iman, 45b",
+      "sunnah_url": "https://sunnah.com/bukhari:13",
+      "key_lesson": "True iman requires wishing good for others, abandoning envy and being fair in brotherhood.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "kardeslik",
+        "iman",
+        "adalet",
+        "hased"
+      ]
+    },
+    {
+      "id": "esler-merhamet-olcusu",
+      "topic_id": "eslere-davranis",
+      "turkish_text": "A believing man should not hate a believing woman entirely; if he dislikes one of her traits, he will be pleased with another.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Suckling, 1468b",
+      "sunnah_url": "https://sunnah.com/muslim:1468b",
+      "key_lesson": "In marriage, being able to see a spouse's good qualities instead of looking for faults preserves compassion and peace.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "evlilik",
+        "esler",
+        "merhamet",
+        "aile"
+      ]
+    },
+    {
+      "id": "helal-haram-supheli",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "What is halal is clear, and what is haram is clear. Between them are doubtful matters whose ruling most people do not know.",
+      "narrator": "Nu'man ibn Bashir (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Iman, 52",
+      "source_muslim": "Muslim, Sharecropping, 1599a",
+      "sunnah_url": "https://sunnah.com/bukhari:52",
+      "key_lesson": "A believer tries to avoid not only what is clearly haram, but also doubtful matters that could wear down the heart.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "helal",
+        "haram",
+        "supheli",
+        "takva"
+      ]
+    },
+    {
+      "id": "allah-temizdir",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Allah is pure and accepts only what is pure.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Zakat, 1015",
+      "sunnah_url": "https://sunnah.com/muslim:1015",
+      "key_lesson": "The blessing of worship is closely tied to earning and eating what is halal.",
+      "info_note": "Grade: Sahih. The continuation of the hadith explains that consuming what is haram can prevent a supplication from being accepted.",
+      "tags": [
+        "helal-kazanc",
+        "dua",
+        "temizlik",
+        "rızık"
+      ]
+    },
+    {
+      "id": "faiz-laneti",
+      "topic_id": "ticaret-ahlaki",
+      "turkish_text": "The Messenger of Allah cursed the one who takes interest, the one who pays it, the one who records it and the one who witnesses it.",
+      "narrator": "Jabir ibn Abdullah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Sharecropping, 1598",
+      "sunnah_url": "https://sunnah.com/muslim:1598",
+      "key_lesson": "Interest is a serious prohibition that extends beyond the one who takes it and the one who pays it to those who support it.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "faiz",
+        "haram",
+        "muamelat",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "sadaka-mali-eksiltmez",
+      "topic_id": "rizik-tevekkul",
+      "turkish_text": "Charity does not diminish wealth. Whenever a servant forgives, Allah increases their honor.",
+      "narrator": "Abu Hurairah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, Righteousness, 2588",
+      "sunnah_url": "https://sunnah.com/muslim:2588",
+      "key_lesson": "Giving and forgiving for Allah's sake may appear to diminish what one has, but in reality they bring blessing and honor.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "sadaka",
+        "affetmek",
+        "bereket",
+        "rızık"
+      ]
+    },
+    {
+      "id": "seyyidul-istigfar",
+      "topic_id": "dua-zikir",
+      "turkish_text": "O Allah! You are my Lord. There is no god but You. You created me, and I am Your servant. I remain faithful to my promise and covenant with You as much as I am able. I seek refuge in You from the evil of what I have done. I acknowledge Your blessings upon me, and I admit my sin. Forgive me, for no one forgives sins except You.",
+      "narrator": "Shaddad ibn Aws (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Da'wat, 6306",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6306",
+      "key_lesson": "One of the most powerful forms of seeking forgiveness is to ask Allah for forgiveness while acknowledging His oneness, His blessings, and one's own shortcomings.",
+      "info_note": "Grade: Sahih. The research text notes that particular emphasis is placed on reciting this supplication in the morning and evening.",
+      "tags": [
+        "istigfar",
+        "dua",
+        "tevbe",
+        "zikir"
+      ]
+    },
+    {
+      "id": "zikir-subhanallah-bihamdihi-yuz",
+      "topic_id": "dua-zikir",
+      "turkish_text": "Whoever says 'Sübhânallahi ve bihamdihî' one hundred times in a day will have their sins forgiven, even if they are as abundant as the foam of the sea.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Da'wat, 6405",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6405",
+      "key_lesson": "Short but regularly recited authentic words of remembrance keep the heart alive and nourish hope for forgiveness.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "zikir",
+        "tesbih",
+        "bagislanma",
+        "gunluk-amel"
+      ]
+    },
+    {
+      "id": "zikir-la-ilahe-illallah-yuz",
+      "topic_id": "dua-zikir",
+      "turkish_text": "Whoever says 'Lâ ilâhe illallahu vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü ve hüve alâ kulli şey'in kadîr' one hundred times in a day earns a great reward and is protected from Satan that day.",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, Da'wat, 6403",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6403",
+      "key_lesson": "Regularly repeating this remembrance of Allah's oneness is one of the powerful daily acts that bring reward, protection, and life to the heart.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "zikir",
+        "tevhid",
+        "korunma",
+        "gunluk-amel"
+      ]
+    },
+    {
+      "id": "iman-tadi-uc-sey",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 16",
+      "source_muslim": "Muslim, 43",
+      "sunnah_url": "https://sunnah.com/bukhari:16",
+      "turkish_text": "Whoever possesses these three qualities will taste the sweetness of iman: loving Allah and His Messenger more than anything else, loving someone only for Allah's sake, and hating to return to disbelief as much as being thrown into the Fire.",
+      "key_lesson": "The sweetness of iman is felt by placing Allah and His Messenger above everything else and directing one's love and hatred for Allah's sake.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "iman",
+        "sevgi",
+        "sadakat"
+      ]
+    },
+    {
+      "id": "resul-sevgisi-iman",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 15",
+      "source_muslim": "Muslim, 44",
+      "sunnah_url": "https://sunnah.com/bukhari:15",
+      "turkish_text": "None of you has complete iman until I am more beloved to him than his father, his child, and all people.",
+      "key_lesson": "Loving the Prophet ﷺ more than everyone else is one of the fundamental measures of the maturity of iman.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "iman",
+        "peygamber",
+        "sevgi"
+      ]
+    },
+    {
+      "id": "haya-imandandir",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 24",
+      "source_muslim": "Muslim, 36",
+      "sunnah_url": "https://sunnah.com/bukhari:24",
+      "turkish_text": "Modesty is part of iman.",
+      "key_lesson": "Modesty is a part of iman that keeps a person from sin and protects the heart.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "haya",
+        "iman",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "iman-subeleri",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 9",
+      "source_muslim": "Muslim, 35",
+      "sunnah_url": "https://sunnah.com/bukhari:9",
+      "turkish_text": "Iman has more than seventy branches. The highest is Lâ ilâhe illallah, and the lowest is removing something harmful from the road.",
+      "key_lesson": "Iman is not merely a belief held in the heart; it is a complete way of life expressed through words, actions, and good character.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "iman",
+        "tevhid",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "din-kolayliktir",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 39",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:39",
+      "turkish_text": "This religion is ease. Whoever makes the religion too difficult for themselves will be overcome by it.",
+      "key_lesson": "The religion teaches sustainable, balanced, and sincere worship, rather than excess that wears a person down.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "din",
+        "denge",
+        "istikamet"
+      ]
+    },
+    {
+      "id": "amantu-billah-istikamet",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Sufyan ibn Abdullah ath-Thaqafi (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 38",
+      "sunnah_url": "https://sunnah.com/muslim:38",
+      "turkish_text": "Say, 'I believe in Allah,' then remain steadfast.",
+      "key_lesson": "Iman is preserved not merely through words, but by living with honesty and steadfastness.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "iman",
+        "istikamet",
+        "amel"
+      ]
+    },
+    {
+      "id": "raditu-billah",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Abbas ibn Abd al-Muttalib (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 34",
+      "sunnah_url": "https://sunnah.com/muslim:34",
+      "turkish_text": "Whoever accepts and is content with Allah as Lord, Islam as religion, and Muhammad as Messenger tastes the sweetness of iman.",
+      "key_lesson": "Being content with Allah, Islam, and the Messenger of Allah turns iman into peace in the heart.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "iman",
+        "riza",
+        "teslimiyet"
+      ]
+    },
+    {
+      "id": "riya-ilk-hukum",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1905",
+      "sunnah_url": "https://sunnah.com/muslim:1905",
+      "turkish_text": "On the Day of Judgment, one of the first people to be judged against will be a person who performed deeds to show off.",
+      "key_lesson": "A deed performed so that people will see it may lose its value in Allah's sight, even if it appears great outwardly.",
+      "info_note": "Grade: Sahih. This narration reminds us that the intention behind a deed will be examined before its outward appearance.",
+      "tags": [
+        "riya",
+        "niyet",
+        "ihlas"
+      ]
+    },
+    {
+      "id": "rabbine-gore-zan",
+      "topic_id": "niyet-ihlas",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 7405",
+      "source_muslim": "Muslim, 2675",
+      "sunnah_url": "https://sunnah.com/bukhari:7405",
+      "turkish_text": "Allah said: I am as My servant thinks of Me.",
+      "key_lesson": "A servant should have hopeful and good expectations of their Lord, keeping the door of supplication and repentance open.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim. Having good expectations means repenting and hoping for mercy, not relying on sin.",
+      "tags": [
+        "husnuzan",
+        "dua",
+        "iman"
+      ]
+    },
+    {
+      "id": "namazi-terk-kufre-yakin",
+      "topic_id": "namaz",
+      "narrator": "Jabir ibn Abdullah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 82",
+      "sunnah_url": "https://sunnah.com/muslim:82",
+      "turkish_text": "Between a person and shirk and disbelief is abandoning salah.",
+      "key_lesson": "Salah is one of the clearest signs of a believer's identity; abandoning it leads a person to a very dangerous point.",
+      "info_note": "Grade: Sahih. Although scholars explain the hadith differently, they all agree that abandoning salah is an extremely serious danger.",
+      "tags": [
+        "namaz",
+        "iman",
+        "sorumluluk"
+      ]
+    },
+    {
+      "id": "beni-gordugunuz-gibi-namaz-kilin",
+      "topic_id": "namaz",
+      "narrator": "Malik ibn al-Huwayrith (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 631",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:631",
+      "turkish_text": "Pray as you have seen me pray.",
+      "key_lesson": "Salah should be learned and performed as the Prophet ﷺ taught it, rather than according to personal preference.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "namaz",
+        "sunnet",
+        "ibadet"
+      ]
+    },
+    {
+      "id": "cemaat-namazi-yirmiyedi-kat",
+      "topic_id": "namaz",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 645",
+      "source_muslim": "Muslim, 650",
+      "sunnah_url": "https://sunnah.com/bukhari:645",
+      "turkish_text": "Salah performed in congregation is twenty-seven degrees more virtuous than salah performed alone.",
+      "key_lesson": "Salah performed in congregation brings believers both greater reward and a spirit of unity.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "namaz",
+        "cemaat",
+        "fazilet"
+      ]
+    },
+    {
+      "id": "sabah-sunneti-dunyadan-hayirli",
+      "topic_id": "namaz",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 725",
+      "sunnah_url": "https://sunnah.com/muslim:725",
+      "turkish_text": "The two rak'ahs of Sunnah prayer before the morning prayer are better than the world and everything in it.",
+      "key_lesson": "Even Sunnah prayers that may seem small can be more valuable than the blessings of this world, so they should not be neglected.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "namaz",
+        "sunnet",
+        "sabah"
+      ]
+    },
+    {
+      "id": "mescid-yapan-cennet-evi",
+      "topic_id": "namaz",
+      "narrator": "Uthman ibn Affan (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 450",
+      "source_muslim": "Muslim, 533",
+      "sunnah_url": "https://sunnah.com/bukhari:450",
+      "turkish_text": "Whoever builds a mosque for Allah, Allah will build something similar for them in Paradise.",
+      "key_lesson": "Contributing to the building of a mosque for Allah is a lasting good deed whose effects continue after death.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "mescid",
+        "namaz",
+        "sadaka"
+      ]
+    },
+    {
+      "id": "ikamet-sonrasi-farz",
+      "topic_id": "namaz",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 710",
+      "sunnah_url": "https://sunnah.com/muslim:710",
+      "turkish_text": "When the iqamah is called for the obligatory prayer, there is no prayer except the obligatory prayer.",
+      "key_lesson": "Once the iqamah for the obligatory prayer begins, priority is given to the obligatory prayer; one does not occupy oneself with another voluntary prayer.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "namaz",
+        "farz",
+        "vakit"
+      ]
+    },
+    {
+      "id": "iki-serinlik-namazi-cennet",
+      "topic_id": "namaz",
+      "narrator": "Abu Musa al-Ash'ari (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 574",
+      "source_muslim": "Muslim, 635",
+      "sunnah_url": "https://sunnah.com/bukhari:574",
+      "turkish_text": "Whoever performs the morning and afternoon prayers will enter Paradise.",
+      "key_lesson": "Maintaining the morning and afternoon prayers is one of the great deeds that lead a servant to Paradise.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "namaz",
+        "sabah",
+        "ikindi"
+      ]
+    },
+    {
+      "id": "saflari-duzeltin",
+      "topic_id": "namaz",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 723",
+      "source_muslim": "Muslim, 433",
+      "sunnah_url": "https://sunnah.com/bukhari:723",
+      "turkish_text": "Straighten your rows, for keeping the rows straight is part of completing the prayer.",
+      "key_lesson": "Keeping the rows straight during salah is a sign of unity and seriousness in worship as well as order.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "namaz",
+        "saf",
+        "cemaat"
+      ]
+    },
+    {
+      "id": "ramazanda-cennet-kapilari",
+      "topic_id": "oruc",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1899",
+      "source_muslim": "Muslim, 1079",
+      "sunnah_url": "https://sunnah.com/bukhari:1899",
+      "turkish_text": "When Ramadan comes, the gates of Paradise are opened, the gates of Hell are closed, and the devils are chained.",
+      "key_lesson": "Ramadan is a special season of worship in which mercy expands and worship becomes easier.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "oruc",
+        "ramazan",
+        "rahmet"
+      ]
+    },
+    {
+      "id": "sahurda-bereket",
+      "topic_id": "oruc",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1923",
+      "source_muslim": "Muslim, 1095",
+      "sunnah_url": "https://sunnah.com/bukhari:1923",
+      "turkish_text": "Eat suhoor, for there is blessing in suhoor.",
+      "key_lesson": "Suhoor is more than just a meal; it is an important preparation that brings blessing to the fast and keeps the Sunnah alive.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "oruc",
+        "sahur",
+        "sunnet"
+      ]
+    },
+    {
+      "id": "iftari-geciktirmeyin",
+      "topic_id": "oruc",
+      "narrator": "Sahl ibn Sa'd (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1957",
+      "source_muslim": "Muslim, 1098",
+      "sunnah_url": "https://sunnah.com/bukhari:1957",
+      "turkish_text": "People will remain upon good as long as they hasten to break the fast.",
+      "key_lesson": "Breaking the fast at its proper time is part of completing the act of fasting in a balanced way in accordance with the Sunnah.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "oruc",
+        "iftar",
+        "sunnet"
+      ]
+    },
+    {
+      "id": "ramazani-onceden-karsilama-orucu",
+      "topic_id": "oruc",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1914",
+      "source_muslim": "Muslim, 1082",
+      "sunnah_url": "https://sunnah.com/bukhari:1914",
+      "turkish_text": "Let none of you fast one or two days before Ramadan begins.",
+      "key_lesson": "The beginning and end of Ramadan are determined by sound criteria and the Sunnah, not by personal estimation.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "oruc",
+        "ramazan",
+        "vakit"
+      ]
+    },
+    {
+      "id": "oructa-unutarak-yemek",
+      "topic_id": "oruc",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1933",
+      "source_muslim": "Muslim, 1155",
+      "sunnah_url": "https://sunnah.com/bukhari:1933",
+      "turkish_text": "Whoever eats or drinks forgetfully while fasting should complete the fast, for Allah has fed them and given them drink.",
+      "key_lesson": "A person who eats or drinks forgetfully does not sin; Allah has forgiven this mistake and counted the fast as valid.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "oruc",
+        "rahmet",
+        "kolaylik"
+      ]
+    },
+    {
+      "id": "hilali-gorunce-oruc",
+      "topic_id": "oruc",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1909",
+      "source_muslim": "Muslim, 1080",
+      "sunnah_url": "https://sunnah.com/bukhari:1909",
+      "turkish_text": "Fast when you see the crescent, and celebrate Eid when you see it again.",
+      "key_lesson": "Acts of worship observed at prescribed times, such as Ramadan and Eid, are begun and completed on the basis of sound religious criteria.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "oruc",
+        "hilal",
+        "ramazan"
+      ]
+    },
+    {
+      "id": "davud-orucu-en-faziletli",
+      "topic_id": "oruc",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1976",
+      "source_muslim": "Muslim, 1159",
+      "sunnah_url": "https://sunnah.com/bukhari:1976",
+      "turkish_text": "The fast most beloved to Allah is the fast of Dawud: he would fast one day and not fast the next.",
+      "key_lesson": "The most virtuous approach to voluntary worship is a balanced devotion that does not exhaust a person and can be sustained.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "oruc",
+        "nafile",
+        "denge"
+      ]
+    },
+    {
+      "id": "shawwal-alti-gun",
+      "topic_id": "oruc",
+      "narrator": "Abu Ayyub al-Ansari (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1164",
+      "sunnah_url": "https://sunnah.com/muslim:1164",
+      "turkish_text": "Whoever fasts Ramadan and then follows it with six days of Shawwal is like one who has fasted the entire year.",
+      "key_lesson": "Fasting six days in Shawwal after Ramadan strengthens consistency in worship.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "oruc",
+        "sevval",
+        "nafile"
+      ]
+    },
+    {
+      "id": "bakara-son-iki-ayet",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Mas'ud al-Badri (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 5009",
+      "source_muslim": "Muslim, 808",
+      "sunnah_url": "https://sunnah.com/bukhari:5009",
+      "turkish_text": "The last two verses of Surah al-Baqarah are sufficient for whoever recites them at night.",
+      "key_lesson": "The last two verses of Surah al-Baqarah are a great blessing, allowing a person to end the night with the Quran and providing spiritual protection.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "dua",
+        "zikir",
+        "kuran"
+      ]
+    },
+    {
+      "id": "la-havle-hazine",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Musa al-Ash'ari (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6409",
+      "source_muslim": "Muslim, 2704",
+      "sunnah_url": "https://sunnah.com/bukhari:6409",
+      "turkish_text": "Lâ havle ve lâ kuvvete illâ billâh is a treasure from the treasures of Paradise.",
+      "key_lesson": "This brief remembrance instills in the heart that true strength and help come only from Allah.",
+      "info_note": "Grade: Agreed upon. This remembrance teaches that strength and success are possible only through Allah's help.",
+      "tags": [
+        "zikir",
+        "teslimiyet",
+        "dua"
+      ]
+    },
+    {
+      "id": "taharet-yari-iman",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Malik al-Ash'ari (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 223",
+      "sunnah_url": "https://sunnah.com/muslim:223",
+      "turkish_text": "Purity is half of iman. Elhamdülillah fills the scale.",
+      "key_lesson": "When purity, remembrance and patience come together, they purify both the believer's body and inner life.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "zikir",
+        "temizlik",
+        "iman"
+      ]
+    },
+    {
+      "id": "zikir-meclisine-sekine",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2700",
+      "sunnah_url": "https://sunnah.com/muslim:2700",
+      "turkish_text": "A group that gathers to remember Allah is surrounded by angels and covered by mercy, and tranquility descends upon them.",
+      "key_lesson": "Gatherings where Allah is remembered are blessed settings in which tranquility descends upon hearts and divine mercy surrounds those present.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "zikir",
+        "sekine",
+        "meclis"
+      ]
+    },
+    {
+      "id": "rabbin-gece-inisi",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1145",
+      "source_muslim": "Muslim, 758",
+      "sunnah_url": "https://sunnah.com/bukhari:1145",
+      "turkish_text": "Our Lord descends to the lowest heaven when the last third of the night remains and calls upon those who supplicate.",
+      "key_lesson": "The time before dawn is one of the most precious times for supplication, seeking forgiveness and sincere prayer.",
+      "info_note": "Grade: Agreed upon. The expression in the hadith emphasizes the value of the time before dawn; the believer makes use of this time for supplication and seeking forgiveness.",
+      "tags": [
+        "dua",
+        "gece",
+        "istigfar"
+      ]
+    },
+    {
+      "id": "doksandokuz-isim",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2677",
+      "sunnah_url": "https://sunnah.com/muslim:2677",
+      "turkish_text": "Allah has ninety-nine names. Whoever preserves them and lives by them will enter Paradise.",
+      "key_lesson": "Learning and understanding Allah's names enables a person to know their Lord and turn to Him with greater awareness.",
+      "info_note": "Grade: Sahih. The meaning here is not merely to count the names, but to understand them and reflect them in one's life.",
+      "tags": [
+        "esma",
+        "zikir",
+        "dua"
+      ]
+    },
+    {
+      "id": "allaha-en-sevimli-dort-soz",
+      "topic_id": "dua-zikir",
+      "narrator": "Samurah ibn Jundub (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2137",
+      "sunnah_url": "https://sunnah.com/muslim:2137",
+      "turkish_text": "The words most beloved to Allah are: Sübhânallah, elhamdülillah, lâ ilâhe illallah and Allahu ekber.",
+      "key_lesson": "As the tongue remains engaged in remembrances beloved to Allah, the heart is purified and remains alive.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "zikir",
+        "tesbih",
+        "tevhid"
+      ]
+    },
+    {
+      "id": "bakara-okunan-evde-seytan-durmaz",
+      "topic_id": "dua-zikir",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 780",
+      "sunnah_url": "https://sunnah.com/muslim:780",
+      "turkish_text": "Satan flees from the house in which Surah al-Baqarah is recited.",
+      "key_lesson": "A home in which the Quran is recited grows spiritually stronger; Surah al-Baqarah in particular offers special protection in this regard.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "kuran",
+        "zikir",
+        "korunma"
+      ]
+    },
+    {
+      "id": "rifk-guzellestirir",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2594",
+      "sunnah_url": "https://sunnah.com/muslim:2594",
+      "turkish_text": "Gentleness beautifies whatever it is present in; when it is taken away, it leaves it ugly.",
+      "key_lesson": "Gentle and considerate conduct is a great moral principle that improves the outcome even in the most difficult matters.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "yumusaklik",
+        "ahlak",
+        "uslup"
+      ]
+    },
+    {
+      "id": "allah-rifki-sever",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2165",
+      "sunnah_url": "https://sunnah.com/muslim:2165",
+      "turkish_text": "Allah is gentle and loves gentleness, and He gives for gentleness what He does not give for harshness.",
+      "key_lesson": "Allah loves gentleness; kindness and gentle conduct can mend many things damaged by harshness.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "rifk",
+        "merhamet",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "suizan-sakinin",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6064",
+      "source_muslim": "Muslim, 2563",
+      "sunnah_url": "https://sunnah.com/bukhari:6064",
+      "turkish_text": "Beware of suspicion, for suspicion is the falsest of speech.",
+      "key_lesson": "Ill suspicion creates distance between people; a believer should avoid making hasty judgments about others.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "zan",
+        "dogruluk",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "her-iyilik-sadakadir",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Jabir ibn Abdullah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6021",
+      "source_muslim": "Muslim, 1005",
+      "sunnah_url": "https://sunnah.com/bukhari:6021",
+      "turkish_text": "Every good deed is charity.",
+      "key_lesson": "Every genuine act of goodness, beyond material assistance, also has the value of charity.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "iyilik",
+        "sadaka",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "ihsan-her-seyde-yazildi",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Shaddad ibn Aws (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1955",
+      "sunnah_url": "https://sunnah.com/muslim:1955",
+      "turkish_text": "Allah has prescribed excellence in all things.",
+      "key_lesson": "Awareness of excellence requires doing everything, from worship to daily interactions, with care, goodness and compassion.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "ihsan",
+        "guzellik",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "kolaylastirin-zorlastirmayin",
+      "topic_id": "dogruluk-durustluk",
+      "narrator": "Anas ibn Malik (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 69",
+      "source_muslim": "Muslim, 1734",
+      "sunnah_url": "https://sunnah.com/bukhari:69",
+      "turkish_text": "Make things easy and do not make them difficult; give glad tidings and do not drive people away.",
+      "key_lesson": "When teaching and putting religion into practice, one should adopt an approach that makes things easy, rather than harshness that drives people away.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "kolaylik",
+        "teblig",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "haya-hayirdir",
+      "topic_id": "kibir-tevazu",
+      "narrator": "Imran ibn Husayn (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 37",
+      "sunnah_url": "https://sunnah.com/muslim:37",
+      "turkish_text": "Modesty is entirely good.",
+      "key_lesson": "Modesty is a fine moral quality that protects a person from evil and directs them toward good, rather than diminishing them.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "haya",
+        "tevazu",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "nemmama-cennet-yok",
+      "topic_id": "giybet-iftira",
+      "narrator": "Hudhayfah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6056",
+      "source_muslim": "Muslim, 105",
+      "sunnah_url": "https://sunnah.com/bukhari:6056",
+      "turkish_text": "A person who carries tales will not enter Paradise.",
+      "key_lesson": "A person who carries tales and causes discord between people commits a grave sin that destroys trust in society.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "nemime",
+        "giybet",
+        "dil"
+      ]
+    },
+    {
+      "id": "muslumana-sovmek-fisku",
+      "topic_id": "giybet-iftira",
+      "narrator": "Abdullah ibn Mas'ud (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 48",
+      "source_muslim": "Muslim, 64",
+      "sunnah_url": "https://sunnah.com/bukhari:48",
+      "turkish_text": "Insulting a Muslim is sinful disobedience, and fighting a Muslim is disbelief.",
+      "key_lesson": "Insulting a Muslim and fighting a Muslim are among the gravest actions that harm the bonds of brotherhood.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "dil",
+        "iftira",
+        "kardeslik"
+      ]
+    },
+    {
+      "id": "kardesine-kafir-derse",
+      "topic_id": "giybet-iftira",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6045",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6045",
+      "turkish_text": "If a person says to his brother, 'O disbeliever,' the accusation returns to one of them.",
+      "key_lesson": "Calling a Muslim a disbeliever without due care also exposes the speaker to a dangerous burden of sin.",
+      "info_note": "Grade: Sahih. Declaring someone a disbeliever is a very serious judgment; words spoken in anger without knowledge bring a grave burden of sin.",
+      "tags": [
+        "tekfir",
+        "iftira",
+        "dil"
+      ]
+    },
+    {
+      "id": "allah-hayir-dilerse-musibet-verir",
+      "topic_id": "sabir-sukur",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 5645",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:5645",
+      "turkish_text": "When Allah wills good for a servant, He afflicts them with hardship.",
+      "key_lesson": "Sometimes a hardship that befalls a person can turn into a blessing that purifies them and brings them closer to Allah.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "sabir",
+        "musibet",
+        "imtihan"
+      ]
+    },
+    {
+      "id": "dunya-muminin-zindani",
+      "topic_id": "sabir-sukur",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2956",
+      "sunnah_url": "https://sunnah.com/muslim:2956",
+      "turkish_text": "The world is the believer's prison and the disbeliever's paradise.",
+      "key_lesson": "A believer sees worldly life as a place to prepare for the Hereafter, rather than a place of unlimited comfort.",
+      "info_note": "Grade: Sahih. The hadith does not mean that a believer will never rejoice; it means that a believer should live while comparing the blessings of this world with the Hereafter.",
+      "tags": [
+        "dunya",
+        "sabir",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "rahmet-gazabi-gecti",
+      "topic_id": "tovbe-af",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 7404",
+      "source_muslim": "Muslim, 2751",
+      "sunnah_url": "https://sunnah.com/bukhari:7404",
+      "turkish_text": "Allah said: My mercy has surpassed My wrath.",
+      "key_lesson": "Allah's mercy is vast; however many faults a person has, they should not close the door to repentance.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "rahmet",
+        "tevbe",
+        "umit"
+      ]
+    },
+    {
+      "id": "rahmet-yuz-parca",
+      "topic_id": "tovbe-af",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6000",
+      "source_muslim": "Muslim, 2752",
+      "sunnah_url": "https://sunnah.com/bukhari:6000",
+      "turkish_text": "Allah divided mercy into one hundred parts. He sent one part down to the world and kept ninety-nine for the Hereafter.",
+      "key_lesson": "All the mercy in this world is a very small reflection of Allah's infinite mercy.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "rahmet",
+        "merhamet",
+        "tevbe"
+      ]
+    },
+    {
+      "id": "olurken-husnuzan",
+      "topic_id": "tovbe-af",
+      "narrator": "Jabir ibn Abdullah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2877",
+      "sunnah_url": "https://sunnah.com/muslim:2877",
+      "turkish_text": "Let none of you die without thinking well of Allah.",
+      "key_lesson": "Even as death approaches, a servant should remain hopeful about their Lord and never despair of His mercy.",
+      "info_note": "Grade: Sahih. This hope is not complacency without action; it is turning to Allah's mercy together with repentance.",
+      "tags": [
+        "husnuzan",
+        "olum",
+        "tevbe"
+      ]
+    },
+    {
+      "id": "kul-gunah-eder-affedilir",
+      "topic_id": "tovbe-af",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 7507",
+      "source_muslim": "Muslim, 2758",
+      "sunnah_url": "https://sunnah.com/muslim:2758",
+      "turkish_text": "A servant commits a sin, then says, 'My Lord, forgive my sin.' Allah says, 'My servant knows that he has a Lord who forgives.'",
+      "key_lesson": "Whenever a servant falls, if they sincerely return to Allah, the door of repentance opens again.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "tevbe",
+        "af",
+        "gunah"
+      ]
+    },
+    {
+      "id": "mumin-azap-ve-rahmet-bilse",
+      "topic_id": "tovbe-af",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2755",
+      "sunnah_url": "https://sunnah.com/muslim:2755",
+      "turkish_text": "If the believer knew the punishment with Allah, no one would hope for Paradise; and if the disbeliever knew His mercy, no one would despair.",
+      "key_lesson": "Servitude to Allah calls for a balance: taking His punishment seriously while never despairing of His mercy.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "korku",
+        "umit",
+        "tevbe"
+      ]
+    },
+    {
+      "id": "anne-baba-yaslaninca-rusva",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2551",
+      "sunnah_url": "https://sunnah.com/muslim:2551",
+      "turkish_text": "May the person who lives to see both parents or one of them reach old age, yet does not attain Paradise, be disgraced.",
+      "key_lesson": "Serving one's aging parents is not a heavy burden but a great opportunity that opens the way to Paradise.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "anne-baba",
+        "cennet",
+        "hizmet"
+      ]
+    },
+    {
+      "id": "evlat-borcunu-odeyemez",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1510",
+      "sunnah_url": "https://sunnah.com/muslim:1510",
+      "turkish_text": "No child can fully repay their father, unless they find him enslaved and set him free.",
+      "key_lesson": "Whatever a child does, they can never fully repay their parents for their efforts and sacrifices.",
+      "info_note": "Grade: Sahih. The effort involved in childbirth and raising a child in particular explains why the rights of parents are held in such high regard.",
+      "tags": [
+        "anne-baba",
+        "hak",
+        "vefa"
+      ]
+    },
+    {
+      "id": "babanin-dostlarina-iyilik",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2552",
+      "sunnah_url": "https://sunnah.com/muslim:2552",
+      "turkish_text": "One of the highest forms of kindness is for a person to care for their father's friends.",
+      "key_lesson": "Loyalty to one's parents is a broad virtue that extends to caring for their friends after the parents have died.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "vefa",
+        "anne-baba",
+        "akraba"
+      ]
+    },
+    {
+      "id": "kiz-cocuklarina-iyilik",
+      "topic_id": "anne-baba-hakki",
+      "narrator": "Aishah (may Allah be pleased with her)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2629",
+      "sunnah_url": "https://sunnah.com/muslim:2629",
+      "turkish_text": "Whoever raises daughters well and treats them kindly, they will be a shield for that person against the Fire.",
+      "key_lesson": "Treating daughters with mercy and justice and giving them a good education is a great means of salvation.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "aile",
+        "cocuk",
+        "merhamet"
+      ]
+    },
+    {
+      "id": "dunya-metai-saliha-es",
+      "topic_id": "eslere-davranis",
+      "narrator": "Abdullah ibn Amr (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1467",
+      "sunnah_url": "https://sunnah.com/muslim:1467",
+      "turkish_text": "This world is a temporary provision. The best of its blessings is a righteous wife.",
+      "key_lesson": "One of the greatest blessings in this world is a righteous wife who supports a person in their faith and life.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "es",
+        "aile",
+        "nimet"
+      ]
+    },
+    {
+      "id": "kadin-dort-sey-icin-nikah",
+      "topic_id": "eslere-davranis",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 5090",
+      "source_muslim": "Muslim, 1466",
+      "sunnah_url": "https://sunnah.com/bukhari:5090",
+      "turkish_text": "A woman is married for four qualities: her wealth, lineage, beauty, and religion. Choose the one who is religious.",
+      "key_lesson": "The main measure that brings lasting peace to a marriage is not wealth or lineage, but faith and good character.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim. The hadith does not disregard the other factors, but emphasizes that religious commitment should be the primary consideration for lasting peace.",
+      "tags": [
+        "nikah",
+        "es",
+        "ahlak"
+      ]
+    },
+    {
+      "id": "esini-yataga-cagirinca",
+      "topic_id": "eslere-davranis",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1436",
+      "sunnah_url": "https://sunnah.com/muslim:1436",
+      "turkish_text": "If a man calls his wife to his bed and she does not come, and he spends the night angry, the angels curse her until morning.",
+      "key_lesson": "Taking each other's rights seriously in marriage is an important responsibility that protects family harmony.",
+      "info_note": "Grade: Sahih. This warning teaches spouses not to belittle the emotional and physical rights of marriage; it is meant to protect those rights, not to turn the relationship into one of oppression.",
+      "tags": [
+        "esler",
+        "hak",
+        "evlilik"
+      ]
+    },
+    {
+      "id": "gencler-evlensin",
+      "topic_id": "eslere-davranis",
+      "narrator": "Ibn Mas'ud (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1400",
+      "sunnah_url": "https://sunnah.com/muslim:1400",
+      "turkish_text": "O young people, whoever among you can afford to marry should marry. For it is more effective in lowering the gaze and better at preserving chastity.",
+      "key_lesson": "For a young person who has the means to marry, marriage is the safest way to preserve chastity and guard the gaze.",
+      "info_note": "Grade: Sahih. For someone who cannot afford to marry, sawm (fasting) is recommended as a temporary means of protection that disciplines desire.",
+      "tags": [
+        "evlilik",
+        "iffet",
+        "genclik"
+      ]
+    },
+    {
+      "id": "komsusu-zararindan-emin-olmayan",
+      "topic_id": "komsu-hakki",
+      "narrator": "Abu Shurayh al-Ka'bi (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 6016",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6016",
+      "turkish_text": "A person whose neighbor is not safe from their harm will not enter Paradise.",
+      "key_lesson": "A person who harms their neighbor undermines the trust and mercy required by iman.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "komsu",
+        "hak",
+        "iman"
+      ]
+    },
+    {
+      "id": "corbayi-artir-komsuya-ver",
+      "topic_id": "komsu-hakki",
+      "narrator": "Abu Dharr (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2625",
+      "sunnah_url": "https://sunnah.com/muslim:2625",
+      "turkish_text": "When you cook soup, add more water to it, then remember your neighbors.",
+      "key_lesson": "Good neighborliness is often maintained not through great resources, but through small acts of sharing and thoughtfulness.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "komsu",
+        "ikram",
+        "paylasim"
+      ]
+    },
+    {
+      "id": "komsunun-duvarina-engel-olma",
+      "topic_id": "komsu-hakki",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 2463",
+      "source_muslim": "Muslim, 1609",
+      "sunnah_url": "https://sunnah.com/bukhari:2463",
+      "turkish_text": "No neighbor should prevent another from placing a piece of wood or a beam against their wall.",
+      "key_lesson": "The rights of neighbors include not only avoiding harm but also accommodating reasonable requests.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "komsu",
+        "hak",
+        "adalet"
+      ]
+    },
+    {
+      "id": "zengin-borcunu-geciktirmek-zulum",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 2400",
+      "source_muslim": "Muslim, 1564",
+      "sunnah_url": "https://sunnah.com/bukhari:2400",
+      "turkish_text": "For a wealthy person to delay paying a debt is an injustice.",
+      "key_lesson": "A person who delays paying a debt despite being able to pay does more than commit a fault; they commit an injustice that violates another person's rights.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "borc",
+        "ticaret",
+        "zulum"
+      ]
+    },
+    {
+      "id": "borcu-odeme-niyeti",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 2387",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2387",
+      "turkish_text": "Whoever takes people's property intending to repay it, Allah helps them repay it; whoever takes it intending to destroy it, Allah destroys them.",
+      "key_lesson": "Allah helps the person who truly wants to repay a debt; the intention to deceive destroys blessings.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "borc",
+        "niyet",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "borcluya-muhlet-golge",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Abu al-Yusr (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 3006",
+      "sunnah_url": "https://sunnah.com/muslim:3006",
+      "turkish_text": "Whoever gives a debtor more time or reduces part of the debt, Allah will shade them in His own shade.",
+      "key_lesson": "Making things easier for a debtor may be a means for Allah to make things easier for His servant on the Day of Judgment.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "borc",
+        "kolaylik",
+        "ticaret"
+      ]
+    },
+    {
+      "id": "ihtikar-gunah",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ma'mar ibn Abdullah (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1605",
+      "sunnah_url": "https://sunnah.com/muslim:1605",
+      "turkish_text": "Whoever hoards goods has committed a sin.",
+      "key_lesson": "Hoarding what society needs and selling it when prices rise is not a gain, but a sin that harms society.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "ihtikar",
+        "ticaret",
+        "gunah"
+      ]
+    },
+    {
+      "id": "altin-altina-esit",
+      "topic_id": "ticaret-ahlaki",
+      "narrator": "Ubadah ibn as-Samit (may Allah be pleased with him)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1587",
+      "sunnah_url": "https://sunnah.com/muslim:1587",
+      "turkish_text": "Gold exchanged for gold and silver for silver must be equal in amount and exchanged on the spot; whoever takes more has engaged in riba.",
+      "key_lesson": "To avoid riba, attention must be paid to the requirements of fairness, equality, and immediate exchange when exchanging similar goods.",
+      "info_note": "Grade: Sahih. The hadith does not permit manipulation of quantities or payment terms when exchanging goods of the same kind, so as to close the paths to riba.",
+      "tags": [
+        "faiz",
+        "ticaret",
+        "muamelat"
+      ]
+    },
+    {
+      "id": "ust-el-hayirlidir",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Ibn Umar (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1429",
+      "source_muslim": "Muslim, 1033",
+      "sunnah_url": "https://sunnah.com/bukhari:1429",
+      "turkish_text": "The upper hand is better than the lower hand. The upper hand is the one that gives, and the lower hand is the one that asks.",
+      "key_lesson": "A believer strives to be the hand that gives whenever possible and does not burden others, rather than one that constantly asks.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "sadaka",
+        "rizik",
+        "infak"
+      ]
+    },
+    {
+      "id": "iki-melek-infak-dua",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1442",
+      "source_muslim": "Muslim, 1010",
+      "sunnah_url": "https://sunnah.com/bukhari:1442",
+      "turkish_text": "Every morning two angels descend. One asks for the person who gives to be compensated, and the other asks for the miser to be destroyed.",
+      "key_lesson": "Wealth spent in Allah's cause does not diminish; miserliness causes blessings to be withdrawn.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "infak",
+        "sadaka",
+        "bereket"
+      ]
+    },
+    {
+      "id": "yarim-hurmayla-korun",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Adiyy ibn Hatim (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1417",
+      "source_muslim": "Muslim, 1016",
+      "sunnah_url": "https://sunnah.com/bukhari:1417",
+      "turkish_text": "Protect yourselves from the Fire, even with half a date.",
+      "key_lesson": "Even a seemingly small act of charity, when given sincerely, can become a great good that protects a person from the Fire.",
+      "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
+      "tags": [
+        "sadaka",
+        "cehennem",
+        "infak"
+      ]
+    },
+    {
+      "id": "en-hayirli-sadaka-ihtiyac-fazlasi",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Abu Hurayrah (may Allah be pleased with him)",
+      "source_bukhari": "Bukhari, 1426",
+      "source_muslim": "Muslim, 1034",
+      "sunnah_url": "https://sunnah.com/bukhari:1426",
+      "turkish_text": "The best charity is that which a person gives from what is beyond their needs.",
+      "key_lesson": "When giving charity, a person should be generous while also not neglecting those they are responsible for supporting.",
+      "info_note": "Grade: Agreed upon. This balance also teaches a person not to leave their family in need when giving charity.",
+      "tags": [
+        "sadaka",
+        "denge",
+        "rizik"
+      ]
+    },
+    {
+      "id": "dilenerek-cogaltmak-ates",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1041",
+      "sunnah_url": "https://sunnah.com/muslim:1041",
+      "turkish_text": "Whoever begs from people to increase their wealth is in fact asking for a piece of burning coal.",
+      "key_lesson": "Making a habit of begging when there is no real need harms a person's dignity and their hereafter.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "rizik",
+        "dilenme",
+        "iffet"
+      ]
+    },
+    {
+      "id": "eklemler-icin-sadaka",
+      "topic_id": "rizik-tevekkul",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "Bukhari, 2989",
+      "source_muslim": "Muslim, 1009",
+      "sunnah_url": "https://sunnah.com/bukhari:2989",
+      "turkish_text": "Charity is due every day for every joint in a person's body.",
+      "key_lesson": "Charity is not given only through money; kind words and helpful actions performed each day also count as charity.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "sadaka",
+        "iyilik",
+        "sukur"
+      ]
+    },
+    {
+      "id": "hepiniz-cobansiniz",
+      "topic_id": "emanet-vefa",
+      "narrator": "Ibn Umar (r.a.)",
+      "source_bukhari": "Bukhari, 7138",
+      "source_muslim": "Muslim, 1829",
+      "sunnah_url": "https://sunnah.com/bukhari:7138",
+      "turkish_text": "All of you are shepherds, and all of you are responsible for those under your care.",
+      "key_lesson": "Every person is responsible for others in their position; authority and responsibility go hand in hand.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "emanet",
+        "sorumluluk",
+        "vefa"
+      ]
+    },
+    {
+      "id": "mumin-binaya-benzer",
+      "topic_id": "emanet-vefa",
+      "narrator": "Abu Musa al-Ash'ari (r.a.)",
+      "source_bukhari": "Bukhari, 481",
+      "source_muslim": "Muslim, 2585",
+      "sunnah_url": "https://sunnah.com/bukhari:481",
+      "turkish_text": "A believer is like a building to another believer; they support one another.",
+      "key_lesson": "Believers should stand together like a building whose parts support one another.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "kardeslik",
+        "emanet",
+        "dayanisma"
+      ]
+    },
+    {
+      "id": "muflis-hadisi",
+      "topic_id": "adalet-zulum",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2581",
+      "sunnah_url": "https://sunnah.com/muslim:2581",
+      "turkish_text": "The bankrupt person of my community is one who comes with salah, sawm and zakat, but has insulted one person, slandered another, consumed another's wealth, shed another's blood and struck another.",
+      "key_lesson": "Violating the rights of others is so serious that it can exhaust your good deeds in the hereafter, even if you have performed many acts of worship.",
+      "info_note": "Grade: Sahih. Even the rewards of salah, sawm and charity can be transferred to those whose rights were violated; therefore, violating others' rights requires making amends as well as repentance.",
+      "tags": [
+        "kul-hakki",
+        "adalet",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "haklar-koyuna-kadar-odenir",
+      "topic_id": "adalet-zulum",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2582",
+      "sunnah_url": "https://sunnah.com/muslim:2582",
+      "turkish_text": "On the Day of Judgment, rights will surely be restored to their owners; even the hornless sheep will receive its due from the horned sheep.",
+      "key_lesson": "No injustice is lost in Allah's sight; even the smallest wrong will surely receive its due.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "adalet",
+        "zulum",
+        "hak"
+      ]
+    },
+    {
+      "id": "karis-toprak-zulmu",
+      "topic_id": "adalet-zulum",
+      "narrator": "Sa'id ibn Zayd (r.a.)",
+      "source_bukhari": "Bukhari, 2452",
+      "source_muslim": "Muslim, 1610",
+      "sunnah_url": "https://sunnah.com/bukhari:2452",
+      "turkish_text": "Whoever unjustly takes a handspan of land will have seven layers of earth placed around their neck on the Day of Judgment.",
+      "key_lesson": "Unjustly taking another person's property or land is a grave injustice with severe consequences.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "zulum",
+        "mulkiyet",
+        "kul-hakki"
+      ]
+    },
+    {
+      "id": "kanlarda-ilk-hukum",
+      "topic_id": "adalet-zulum",
+      "narrator": "Abdullah ibn Mas'ud (r.a.)",
+      "source_bukhari": "Bukhari, 6864",
+      "source_muslim": "Muslim, 1678",
+      "sunnah_url": "https://sunnah.com/bukhari:6864",
+      "turkish_text": "The first matter to be judged between people on the Day of Judgment will be bloodshed.",
+      "key_lesson": "One of the first matters to be reckoned with on the Day of Judgment will be lives unjustly taken.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "adalet",
+        "kan-hakki",
+        "zulum"
+      ]
+    },
+    {
+      "id": "bugun-helallesin",
+      "topic_id": "adalet-zulum",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "Bukhari, 2449",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:2449",
+      "turkish_text": "Whoever has wronged their brother concerning his property or honor should seek his pardon today, before the day comes when there will be no gold or silver.",
+      "key_lesson": "When one has violated another person's rights, one should not leave the matter until the hereafter, but should seek forgiveness and make amends today.",
+      "info_note": "Grade: Sahih. It is easy to seek forgiveness in this world while one has money and means; in the hereafter, payment will be made from one's good deeds.",
+      "tags": [
+        "helallik",
+        "kul-hakki",
+        "adalet"
+      ]
+    },
+    {
+      "id": "cennet-daha-yakin",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Ibn Mas'ud (r.a.)",
+      "source_bukhari": "Bukhari, 6488",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:6488",
+      "turkish_text": "Paradise is as close to any one of you as the strap of their sandal, and so is Hell.",
+      "key_lesson": "What brings a person closer to Paradise or Hell may sometimes be a small action that is considered insignificant.",
+      "info_note": "Grade: Sahih. The hadith reminds us that every good and evil deed has a consequence, whether great or small.",
+      "tags": [
+        "cennet",
+        "cehennem",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "dunyanin-en-nimetlisi-cehenneme",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Anas ibn Malik (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2807",
+      "sunnah_url": "https://sunnah.com/muslim:2807",
+      "turkish_text": "The person destined for Hell who lived the most comfortable life in this world will be dipped into Hell once and will say that they never experienced any comfort.",
+      "key_lesson": "Comfort in this world is temporary; the true measure is the end a person will face in the hereafter.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "cehennem",
+        "dunya",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "dunya-atesi-yetmiste-bir",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "Bukhari, 3265",
+      "source_muslim": "Muslim, 2843",
+      "sunnah_url": "https://sunnah.com/bukhari:3265",
+      "turkish_text": "Your fire in this world is only one of seventy parts of the fire of Hell.",
+      "key_lesson": "Reflecting on the magnitude of the punishment of Hell keeps the heart alert and mindful of sin.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "cehennem",
+        "uyari",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "ilk-cennet-zumresi",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "Bukhari, 3245",
+      "source_muslim": "Muslim, 2834",
+      "sunnah_url": "https://sunnah.com/bukhari:3245",
+      "turkish_text": "The first group to enter Paradise will be radiant like the moon on the night of the full moon.",
+      "key_lesson": "Descriptions of Paradise awaken longing for the hereafter and eagerness for righteous deeds in the believer's heart.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "cennet",
+        "mujde",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "mahserde-ciplak-dirilis",
+      "topic_id": "olumu-hatirlamak",
+      "narrator": "Aishah (r.a.)",
+      "source_bukhari": "Bukhari, 3349",
+      "source_muslim": "Muslim, 2859",
+      "sunnah_url": "https://sunnah.com/bukhari:3349",
+      "turkish_text": "People will be gathered on the Day of Judgment barefoot, naked and uncircumcised.",
+      "key_lesson": "Reflecting on the reality of the gathering on the Day of Judgment humbles worldly pride and calls a person to prepare for their reckoning.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "olum",
+        "mahser",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "allaha-kavusmayi-sevme",
+      "topic_id": "olumu-hatirlamak",
+      "narrator": "Ubadah ibn as-Samit (r.a.)",
+      "source_bukhari": "Bukhari, 6507",
+      "source_muslim": "Muslim, 2683",
+      "sunnah_url": "https://sunnah.com/bukhari:6507",
+      "turkish_text": "Whoever loves to meet Allah, Allah loves to meet them.",
+      "key_lesson": "For a believer who is preparing through righteous deeds, death is not the end of existence but the moment of meeting their Lord.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "olum",
+        "ahiret",
+        "umit"
+      ]
+    },
+    {
+      "id": "rabbi-gormek-aya-bakis-gibi",
+      "topic_id": "cennet-cehennem",
+      "narrator": "Jarir ibn Abdullah (r.a.)",
+      "source_bukhari": "Bukhari, 7434",
+      "source_muslim": "Muslim, 633",
+      "sunnah_url": "https://sunnah.com/bukhari:7434",
+      "turkish_text": "You will see your Lord as clearly as you see this moon; you will not crowd one another to see Him.",
+      "key_lesson": "Seeing Allah in Paradise is the greatest and most exalted blessing for a believer.",
+      "info_note": "Grade: Agreed upon. The comparison describes the clarity of the sight; it does not mean that Allah is likened to His creation.",
+      "tags": [
+        "cennet",
+        "ruyetullah",
+        "ahiret"
+      ]
+    },
+    {
+      "id": "gipta-iki-kiside",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Ibn Mas'ud (r.a.)",
+      "source_bukhari": "Bukhari, 73",
+      "source_muslim": "Muslim, 816",
+      "sunnah_url": "https://sunnah.com/bukhari:73",
+      "turkish_text": "Envy is permitted only in the case of two people: one who spends their wealth in the cause of truth, and one who judges and teaches with wisdom.",
+      "key_lesson": "Lives worthy of admiration are those of people who benefit others through their knowledge and spend their wealth in the cause of truth.",
+      "info_note": "Grade: Agreed upon.",
+      "tags": [
+        "ilim",
+        "hikmet",
+        "infak"
+      ]
+    },
+    {
+      "id": "sahit-olani-ulastirsin",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Abu Bakrah (r.a.)",
+      "source_bukhari": "Bukhari, 67",
+      "source_muslim": "",
+      "sunnah_url": "https://sunnah.com/bukhari:67",
+      "turkish_text": "Let those present convey this to those absent. Many a person to whom the message is conveyed understands it better than the one who heard it.",
+      "key_lesson": "Treating the correct knowledge one hears as a trust and conveying it to others is one of the main ways knowledge spreads.",
+      "info_note": "Grade: Sahih. Therefore, reliable knowledge should be preserved and conveyed accurately.",
+      "tags": [
+        "ilim",
+        "teblig",
+        "emanet"
+      ]
+    },
+    {
+      "id": "hidayete-cagiranin-ecri",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 2674",
+      "sunnah_url": "https://sunnah.com/muslim:2674",
+      "turkish_text": "Whoever calls others to guidance will receive a reward equal to the rewards of those who follow them.",
+      "key_lesson": "Calling people to what is right brings a continuing reward equal to the rewards of those who do that good.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "ilim",
+        "teblig",
+        "hidayet"
+      ]
+    },
+    {
+      "id": "hayra-delalet-sevabi",
+      "topic_id": "ilim-ogrenmek",
+      "narrator": "Abu Mas'ud al-Ansari (r.a.)",
+      "source_bukhari": "",
+      "source_muslim": "Muslim, 1893",
+      "sunnah_url": "https://sunnah.com/muslim:1893",
+      "turkish_text": "Whoever guides someone to a good deed will receive a reward equal to that of the person who does it.",
+      "key_lesson": "Helping bring about a good deed is as valuable and rewarding as doing it oneself.",
+      "info_note": "Grade: Sahih.",
+      "tags": [
+        "ilim",
+        "iyilik",
+        "teblig"
+      ]
+    },
+    {
+      "id": "vesvese-gelirse-dursun",
+      "topic_id": "seytan-vesvese",
+      "narrator": "Abu Hurayrah (r.a.)",
+      "source_bukhari": "Bukhari, 3276",
+      "source_muslim": "Muslim, 134",
+      "sunnah_url": "https://sunnah.com/muslim:134",
+      "turkish_text": "If Satan comes to one of you and eventually asks, 'Who created your Lord?' let that person seek refuge in Allah and stop pursuing the thought.",
+      "key_lesson": "Satanic whispers are extinguished by stopping the discussion and seeking refuge in Allah, rather than pursuing them.",
+      "info_note": "Grade: Agreed upon. Continuing to argue with these whispers makes them grow; the best course is to seek refuge in Allah and direct one's mind elsewhere.",
+      "tags": [
+        "vesvese",
+        "seytan",
+        "iman"
+      ]
+    }
+  ]
+}

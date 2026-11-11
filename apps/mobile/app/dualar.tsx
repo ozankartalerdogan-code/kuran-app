@@ -7,6 +7,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import dualarRaw from "../src/data/dualar.json";
+import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
+import { useStrings, useLang } from "../src/i18n";
+import { localizedTranslit } from "../src/lib/translitEn";
+import dualarStrings from "../src/i18n/strings/dualar";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getDevotionalSourceLabel, getNarrationBadgeLabel } from "../src/lib/sourceLabels";
 
@@ -17,11 +21,15 @@ interface Dua {
 interface Kategori { kod: string; isim: string; dualar: Dua[] }
 interface DualarData { baslik: string; aciklama: string; kategoriler: Kategori[] }
 
-const D = dualarRaw as unknown as DualarData;
+const pickDualar = localizedData(
+  dualarRaw as unknown as DualarData,
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/dualar.en.json"),
+);
 
 // derece rozeti rengi
 function derecRenk(derece: string) {
-  if (/kur'?an/i.test(derece)) return { bg: "#eef2ff", border: "#a5b4fc", text: "#4338ca" };
+  if (/[kq]ur'?an/i.test(derece)) return { bg: "#eef2ff", border: "#a5b4fc", text: "#4338ca" };
   if (/sahih/i.test(derece))   return { bg: "#f0fdf4", border: "#86efac", text: "#15803d" };
   if (/hasan/i.test(derece))   return { bg: "#fff7ed", border: "#fdba74", text: "#c2410c" };
   return { bg: "#f1f5f9", border: "#cbd5e1", text: "#475569" };
@@ -41,6 +49,8 @@ function DerecBadge({ derece }: { derece: string }) {
 
 function DuaCard({ dua }: { dua: Dua }) {
   const c = useColors();
+  const t = useStrings(dualarStrings);
+  const lang = useLang();
   const [detay, setDetay] = useState(false);
   const hasDetay = !!(dua.aciklama || dua.not || dua.tekrar);
   const sourceLabel = getDevotionalSourceLabel({
@@ -53,9 +63,9 @@ function DuaCard({ dua }: { dua: Dua }) {
     Haptics.selectionAsync();
     const parts = [`🤲 ${dua.baslik}`];
     if (dua.arapca && /[؀-ۿ]/.test(dua.arapca)) parts.push(dua.arapca);
-    if (dua.okunus) parts.push(dua.okunus);
+    if (dua.okunus) parts.push(localizedTranslit(dua.okunus, lang));
     if (dua.anlam) parts.push(dua.anlam);
-    parts.push("Kuran Yolu uygulamasından");
+    parts.push(t.shareFooter);
     try { await Share.share({ message: parts.join("\n\n") }); } catch (_e) { /* noop */ }
   }
 
@@ -64,7 +74,7 @@ function DuaCard({ dua }: { dua: Dua }) {
       <View style={s.duaHead}>
         <Text style={[s.duaBaslik, { color: c.text }]}>{dua.baslik}</Text>
         <DerecBadge derece={dua.derece} />
-        <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Duayı paylaş">
+        <TouchableOpacity onPress={handleShare} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.shareA11y}>
           <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
         </TouchableOpacity>
       </View>
@@ -74,7 +84,7 @@ function DuaCard({ dua }: { dua: Dua }) {
           ? <Text style={[s.arabic, { color: c.text }]}>{dua.arapca}</Text>
           : <Text style={[s.refNote, { backgroundColor: c.cardAlt, color: c.textSecondary }]}>📎 {dua.arapca}</Text>
       ) : null}
-      {dua.okunus ? <Text style={[s.okunus, { color: c.text }]}>{dua.okunus}</Text> : null}
+      {dua.okunus ? <Text style={[s.okunus, { color: c.text }]}>{localizedTranslit(dua.okunus, lang)}</Text> : null}
       {dua.anlam ? <Text style={[s.anlam, { color: c.textSecondary }]}>{dua.anlam}</Text> : null}
 
       <View style={[s.metaBox, { backgroundColor: c.cardAlt }]}>
@@ -84,8 +94,8 @@ function DuaCard({ dua }: { dua: Dua }) {
 
       {hasDetay && (
         <>
-          <TouchableOpacity onPress={() => setDetay(d => !d)} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ expanded: detay }} accessibilityLabel="Açıklama ve fazileti">
-            <Text style={[s.detayToggle, { color: c.accent }]}>{detay ? "▲ Daha az" : "▼ Açıklama ve fazileti"}</Text>
+          <TouchableOpacity onPress={() => setDetay(d => !d)} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ expanded: detay }} accessibilityLabel={t.detailA11y}>
+            <Text style={[s.detayToggle, { color: c.accent }]}>{detay ? t.less : t.more}</Text>
           </TouchableOpacity>
           {detay && (
             <View style={s.detayBox}>
@@ -124,9 +134,11 @@ export default function DualarScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   useEffect(() => { logScreen('Dualar'); }, []);
+  const D = useLocalizedData(pickDualar);
+  const t = useStrings(dualarStrings);
   return (
     <>
-      <Stack.Screen options={{ title: "Dualar ve Zikirler" }} />
+      <Stack.Screen options={{ title: t.title }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
         contentContainerStyle={[s.content, { paddingTop: 8, paddingBottom: insets.bottom + 40 }]}

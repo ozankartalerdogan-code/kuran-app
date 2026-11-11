@@ -1,0 +1,607 @@
+{
+  "mubarek_gunler": {
+    "id": "mubarek_gunler",
+    "baslik": "Blessed Days and Nights",
+    "versiyon": "1.0",
+    "olusturulma": "2026-06-19",
+    "dil": "tr",
+    "aciklama": "Days and nights of significance in Islam, along with their religious basis, dates, and acts of worship specific to them.",
+    "kaynak_not": "The content has been prepared based on the Quran, authentic hadith sources, and classical Islamic sources.",
+    "dayanak_seviyeleri": {
+      "aciklama": "We indicate the religious basis of each day and night as follows:",
+      "seviyeler": [
+        {
+          "kod": "sahih",
+          "etiket": "✅ Quran and Authentic Hadith",
+          "aciklama": "Explicitly mentioned in the Quran or established in reliable hadith sources such as Bukhari and Muslim."
+        },
+        {
+          "kod": "tartismali",
+          "etiket": "⚠️ Disputed",
+          "aciklama": "The event itself is real, but scholars differ over its date or acts of worship specific to that night, and some hadiths are weak."
+        },
+        {
+          "kod": "zayif",
+          "etiket": "🔶 Weak Narration",
+          "aciklama": "There is a hadith, but it is weak; acting upon it is permissible, but it should not be treated as a matter of belief."
+        },
+        {
+          "kod": "kulturel",
+          "etiket": "ℹ️ Cultural Tradition",
+          "aciklama": "There is no religious command or authentic hadith basis; it is a cultural tradition that developed over time."
+        },
+        {
+          "kod": "uydurma",
+          "etiket": "❌ Not Authentic",
+          "aciklama": "The hadith on which it is based has been identified by hadith scholars as fabricated or very weak."
+        }
+      ]
+    },
+    "gunler": [
+      {
+        "id": "cuma",
+        "isim": "Friday",
+        "tip": "haftalik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "Explicitly mentioned in Surah al-Jumu'ah in the Quran. It is established by many authentic hadiths in Bukhari and Muslim.",
+        "kuran_referansi": {
+          "sure": "al-Jumu'ah",
+          "ayet": 9,
+          "metin": "O you who believe! When the call to prayer is made on Friday, hasten to the remembrance of Allah and leave off trading."
+        },
+        "hicri_tarih": "Every Friday",
+        "onem": "The Prophet ﷺ described Friday as the 'master of the week' and 'the most valuable day in the sight of Allah.' It is the believers' weekly gathering day.",
+        "tarihsel_bilgi": "It is narrated that Adam was created, entered Paradise, and was expelled from it on this day. It has also been reported that the Day of Judgment will occur on a Friday.",
+        "ibadetler": [
+          {
+            "isim": "Friday Prayer",
+            "durum": "farz",
+            "aciklama": "The Friday prayer, performed at midday, is obligatory for men. Two rak'ahs are performed after the imam delivers the sermon.",
+            "hadis_kaynagi": "Quran, Surah al-Jumu'ah, verse 9"
+          },
+          {
+            "isim": "Reciting Surah al-Kahf",
+            "durum": "sunnet",
+            "aciklama": "It is Sunnah to recite Surah al-Kahf on Friday or its night. The Prophet ﷺ encouraged this.",
+            "hadis_kaynagi": "Hakim, al-Mustadrak (authentic)"
+          },
+          {
+            "isim": "Sending Abundant Blessings upon the Prophet ﷺ",
+            "durum": "sunnet",
+            "aciklama": "It is recommended to send abundant blessings upon the Prophet ﷺ on Friday.",
+            "hadis_kaynagi": "Abu Dawud, Nasa'i (authentic)"
+          },
+          {
+            "isim": "Seeking the Times for Supplication",
+            "durum": "sunnet",
+            "aciklama": "Authentic hadiths report that there is a special time on Friday when supplications are accepted. There are differing views about its exact timing; among scholars, one prominent interpretation places it after the afternoon prayer.",
+            "hadis_kaynagi": "Bukhari, Muslim"
+          },
+          {
+            "isim": "Performing Ghusl",
+            "durum": "sunnet",
+            "aciklama": "It is Sunnah to perform ghusl before going to Friday prayer.",
+            "hadis_kaynagi": "Bukhari, Muslim"
+          }
+        ],
+        "ozel_not": null
+      },
+      {
+        "id": "arefe",
+        "isim": "Day of Arafah",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "It is explicitly mentioned in authentic hadith sources, particularly Bukhari and Muslim.",
+        "kuran_referansi": {
+          "sure": "al-Ma'idah",
+          "ayet": 3,
+          "metin": "Today I have perfected your religion for you, completed My favor upon you, and chosen Islam as your religion."
+        },
+        "hicri_tarih": "The 9th day of Dhul-Hijjah",
+        "onem": "The Prophet ﷺ gave the glad tidings that fasting on the Day of Arafah would expiate the sins of the previous and following years. This day, when those performing Hajj stand at Arafat, is one of the most precious days in Islam.",
+        "tarihsel_bilgi": "The 3rd verse of Surah al-Ma'idah ('I have perfected your religion') was revealed on this day. The standing at Arafat, a pillar of Hajj, takes place on this day.",
+        "ibadetler": [
+          {
+            "isim": "Fasting on the Day of Arafah",
+            "durum": "sunnet",
+            "aciklama": "Fasting on the Day of Arafah is highly valued for Muslims who are not performing Hajj. The Prophet ﷺ stated that this fast would expiate the sins of the previous and following years.",
+            "hadis_kaynagi": "Muslim (authentic)"
+          },
+          {
+            "isim": "Tahlil, Takbir, and Tahmid",
+            "durum": "sunnet",
+            "aciklama": "Saying 'La ilahe illallah, Allahu Ekber, Elhamdulillah' during these days is highly valued.",
+            "hadis_kaynagi": "Bukhari (authentic)"
+          },
+          {
+            "isim": "Supplication and Seeking Forgiveness",
+            "durum": "sunnet",
+            "aciklama": "The Day of Arafah is one of the most precious times for supplication. Abundant supplication and seeking forgiveness are recommended.",
+            "hadis_kaynagi": "Tirmidhi (hasan)"
+          }
+        ],
+        "ozel_not": "Fasting on the Day of Arafah is disliked for those performing Hajj—their being strong at Arafat takes priority."
+      },
+      {
+        "id": "kurban_bayrami",
+        "isim": "Eid al-Adha",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "The Eid prayer, Qurbani, and the takbirs of Tashriq are established by authentic hadiths and a strong tradition of Islamic jurisprudence. The basis of Qurbani is also explicitly mentioned in the Quran.",
+        "kuran_referansi": {
+          "sure": "al-Hajj",
+          "ayet": 34,
+          "metin": "For every community, We prescribed sacrifice so that they might mention His name over the sacrificial animals Allah has provided for them."
+        },
+        "hicri_tarih": "The 10th day of Dhul-Hijjah (the 11th–13th days are the days of Tashriq)",
+        "onem": "It is a major festival that recalls the submission of Ibrahim and Ismail and coincides with the main days of Hajj.",
+        "tarihsel_bilgi": "The slaughter for Qurbani begins after the Eid prayer. The days of Tashriq have been described as days of eating, drinking, and remembering Allah.",
+        "ibadetler": [
+          {
+            "isim": "Eid Prayer",
+            "durum": "vacip",
+            "aciklama": "The prayer performed on the morning of Eid is considered wajib in the Hanafi school and an emphasized Sunnah in the other schools.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Offering Qurbani",
+            "durum": "vacip",
+            "aciklama": "Offering Qurbani is considered wajib in the Hanafi school and an emphasized Sunnah in the other schools. The time for slaughter begins after the Eid prayer.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Takbirs of Tashriq",
+            "durum": "sunnet",
+            "aciklama": "Takbirs are recited beginning with the morning prayer on the Day of Arafah through the afternoon prayer on the fourth day of Eid. This is considered wajib in the Hanafi school and a strongly emphasized Sunnah in the other schools.",
+            "hadis_kaynagi": "Practice of the Companions and the tradition of Islamic jurisprudence"
+          }
+        ],
+        "ozel_not": "Fasting is not observed on the first day of Eid al-Adha or during the days of Tashriq. These are days for remembering Allah's blessings, feeding others, and sharing."
+      },
+      {
+        "id": "asure",
+        "isim": "Day of Ashura",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "It is established by authentic hadiths in Bukhari and Muslim. When the Prophet ﷺ migrated to Medina, he saw that the Jews fasted on this day. He asked why, and when he learned that it marked Musa's deliverance from Pharaoh, he commanded fasting.",
+        "kuran_referansi": null,
+        "hicri_tarih": "The 10th day of Muharram",
+        "onem": "It is a blessed day associated with the remembrance of the deliverance of Musa and the Children of Israel from Pharaoh. Narrations that it was the day Nuh's ark came to rest on land have also been transmitted; however, these are not the primary basis for fasting on Ashura.",
+        "tarihsel_bilgi": "The Prophet ﷺ would fast on this day and say, 'I am closer to Musa than you are.' Before his death, he said that he would also fast on the 9th day the following year—therefore, it is Sunnah to fast on the 9th and 10th or the 10th and 11th of Muharram.",
+        "ibadetler": [
+          {
+            "isim": "Fasting on Ashura",
+            "durum": "sunnet",
+            "aciklama": "Fasting on the 10th day of Muharram is Sunnah. The Prophet ﷺ recommended fasting a day before or after it as well, to differ from the Jews. Thus, fasting for two days on the 9th and 10th or the 10th and 11th of Muharram is more virtuous.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Supplication and Gratitude",
+            "durum": "sunnet",
+            "aciklama": "This day is a day of gratitude and supplication.",
+            "hadis_kaynagi": "General Sunnah"
+          }
+        ],
+        "ozel_not": "Observing Ashura as a day of mourning, beating oneself, or grieving is not part of the Sunnah of the Prophet ﷺ. This practice belongs to the Shia tradition and is based on the martyrdom of Husayn at Karbala—but the event of Karbala took place long after the Prophet ﷺ."
+      },
+      {
+        "id": "kadir_gecesi",
+        "isim": "Laylat al-Qadr",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "It is explicitly mentioned in Surah al-Qadr in the Quran. It is established by authentic hadiths in Bukhari and Muslim.",
+        "kuran_referansi": {
+          "sure": "al-Qadr",
+          "ayet": "1-5",
+          "metin": "Indeed, We sent it (the Quran) down on the Night of Decree. And what will make you know what the Night of Decree is? The Night of Decree is better than a thousand months."
+        },
+        "hicri_tarih": "It is sought on the odd-numbered nights of the last ten days of Ramadan—especially on the 27th night.",
+        "onem": "It is the night on which the revelation of the Quran began. The Quran states that it is 'better than a thousand months.' Worship on this night is more valuable than a thousand months—that is, 83 years.",
+        "tarihsel_bilgi": "The Prophet ﷺ did not specify exactly which night it is, but advised seeking it on the odd-numbered nights of the last ten days of Ramadan. Although it is widely believed to be the 27th night, this is not certain—its concealment is a deliberate blessing.",
+        "ibadetler": [
+          {
+            "isim": "Spending the Night in Worship",
+            "durum": "sunnet",
+            "aciklama": "Spending Laylat al-Qadr in salah, Quran recitation, supplication and remembrance of Allah is highly valuable. The Prophet ﷺ increased his worship and observed i'tikaf during the last ten days.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Reciting the Supplication for Laylat al-Qadr",
+            "durum": "sunnet",
+            "aciklama": "When Aisha asked the Prophet ﷺ, 'What should I say if I experience Laylat al-Qadr?' he taught her this supplication: 'Allahümme inneke afüvvün tuhibbül afve fa'fu anni' — O Allah, You are Forgiving and You love to forgive, so forgive me.",
+            "hadis_kaynagi": "Tirmidhi (authentic)"
+          },
+          {
+            "isim": "Reciting the Quran",
+            "durum": "sunnet",
+            "aciklama": "Reciting the Quran on this night, when its revelation began, is highly valuable.",
+            "hadis_kaynagi": "General Sunnah"
+          },
+          {
+            "isim": "I'tikaf",
+            "durum": "sunnet",
+            "aciklama": "The Prophet ﷺ observed i'tikaf during the last ten days of Ramadan. Keeping this Sunnah alive increases the likelihood of experiencing Laylat al-Qadr.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          }
+        ],
+        "ozel_not": "It is not known for certain exactly which night Laylat al-Qadr falls on. In the Hanafi school, the 27th night is prominent (the narration of Ubayy ibn Ka'b — Bukhari, Muslim). In the Shafi'i school, the narration identifying it as the 21st or 23rd night is considered stronger. The Prophet's ﷺ spending all the odd-numbered nights of the last 10 days in worship indicates that the night has been kept hidden."
+      },
+      {
+        "id": "ramazan",
+        "isim": "The Month of Ramadan",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "It is explicitly mentioned in Surah al-Baqarah in the Quran. Sawm is one of the five pillars of Islam.",
+        "kuran_referansi": {
+          "sure": "al-Baqarah",
+          "ayet": 185,
+          "metin": "The month of Ramadan is the month in which the Quran was revealed as guidance for humanity and as clear proofs of guidance and the distinction between right and wrong."
+        },
+        "hicri_tarih": "The 9th month of the Hijri calendar — it changes each year",
+        "onem": "It is the month in which the revelation of the Quran began. Fasting is obligatory during this month. The Prophet ﷺ said, 'When Ramadan comes, the gates of Paradise are opened, the gates of Hell are closed, and the devils are chained.'",
+        "tarihsel_bilgi": "Fasting was made obligatory in the month of Sha'ban, approximately 18 months after the Hijrah. The Prophet ﷺ fasted for 9 Ramadans during his 23 years as a prophet.",
+        "ibadetler": [
+          {
+            "isim": "Fasting in Ramadan",
+            "durum": "farz",
+            "aciklama": "Fasting throughout the month of Ramadan is obligatory for every Muslim. It begins with suhoor and is broken at the evening call to prayer.",
+            "hadis_kaynagi": "Quran, al-Baqarah 183–185"
+          },
+          {
+            "isim": "Tarawih Prayer",
+            "durum": "sunnet",
+            "aciklama": "Tarawih prayer, performed after the Isha prayer, is a Sunnah of the Prophet ﷺ. It began to be performed in congregation during the time of Umar.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Completing the Quran",
+            "durum": "sunnet",
+            "aciklama": "Every Ramadan, the Prophet ﷺ reviewed the Quran from beginning to end with Jibril. Increasing one's Quran recitation in Ramadan is Sunnah.",
+            "hadis_kaynagi": "Bukhari (authentic)"
+          },
+          {
+            "isim": "I'tikaf",
+            "durum": "sunnet",
+            "aciklama": "Observing i'tikaf in the mosque during the last ten days of Ramadan is a Sunnah that the Prophet ﷺ practiced regularly.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Charity and Zakat",
+            "durum": "sunnet",
+            "aciklama": "The Prophet ﷺ was at his most generous during Ramadan. Giving charity in Ramadan is highly valuable. Giving zakat in Ramadan is a widespread Sunnah.",
+            "hadis_kaynagi": "Bukhari (authentic)"
+          },
+          {
+            "isim": "Zakat al-Fitr",
+            "durum": "vacip",
+            "aciklama": "Zakat al-Fitr (sadaqa-i fitr), which must be given at the end of Ramadan before the Eid prayer, is wajib.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          }
+        ],
+        "ozel_not": null
+      },
+      {
+        "id": "ramazan_bayrami",
+        "isim": "Eid al-Fitr",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "The completion of the Ramadan fast, the Eid prayer and Zakat al-Fitr are established by authentic hadiths. The emphasis in al-Baqarah 185 on completing the fast and glorifying Allah with takbir also points to this joy.",
+        "kuran_referansi": {
+          "sure": "al-Baqarah",
+          "ayet": 185,
+          "metin": "He wants you to complete the prescribed days of fasting and proclaim Allah's greatness for having guided you."
+        },
+        "hicri_tarih": "The 1st day of Shawwal",
+        "onem": "It is a day of joy marking the completion of a month of fasting in Ramadan. For believers, it is a time of gratitude, joy, sharing and exchanging Eid greetings.",
+        "tarihsel_bilgi": "The Prophet ﷺ would go out for the Eid prayer, take different routes going and returning, and observe this day as a day of joy for the ummah.",
+        "ibadetler": [
+          {
+            "isim": "Eid Prayer",
+            "durum": "vacip",
+            "aciklama": "The prayer performed on the morning of Eid is considered wajib in the Hanafi school and an emphasized Sunnah in the other schools.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Zakat al-Fitr",
+            "durum": "vacip",
+            "aciklama": "Zakat al-Fitr must be given before the Eid prayer. In this way, those in need can also share in the joy of Eid.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Takbir and Eid Greetings",
+            "durum": "sunnet",
+            "aciklama": "Proclaiming takbir on the morning of Eid, visiting relatives and sharing joy are a beautiful Sunnah and part of Islamic etiquette.",
+            "hadis_kaynagi": "General Sunnah and the practice of the Companions"
+          }
+        ],
+        "ozel_not": "Fasting is not observed on the first day of Eid al-Fitr. Eid is a day of joy and hospitality."
+      },
+      {
+        "id": "mirac_kandili",
+        "isim": "The Night of Mi'raj",
+        "tip": "yillik",
+        "dayanak": "tartismali",
+        "dayanak_aciklama": "The event of the Mi'raj itself is unquestionably real—it is mentioned in verse 1 of Surah al-Isra in the Quran and in many authentic hadiths. However, there is no definitive hadith evidence that this event took place on the 27th night of Rajab. The date was established later. Furthermore, no act of worship specific to this night has been commanded.",
+        "kuran_referansi": {
+          "sure": "al-Isra",
+          "ayet": 1,
+          "metin": "Glory be to Allah, who took His servant by night from al-Masjid al-Haram to al-Masjid al-Aqsa, whose surroundings We have blessed."
+        },
+        "hicri_tarih": "The 27th night of Rajab (not certain, but generally accepted)",
+        "onem": "The Mi'raj describes the Prophet's ﷺ journey from Mecca to Jerusalem and his ascent from there into the presence of Allah. During this journey, the five daily prayers were given as a gift to his ummah, Paradise and Hell were shown to him, and he was given the good news that whoever dies without associating partners with Allah will enter Paradise.",
+        "tarihsel_bilgi": "There is considerable disagreement among scholars about the date on which the Mi'raj occurred. The 27th of Rajab is the widely held view, but it is not definitively established by hadiths. Worship and celebrations specific to this night did not exist in the time of the early Muslims; the 'kandil' tradition developed during the Ottoman period, when mosques were illuminated with lamps.",
+        "ibadetler": [
+          {
+            "isim": "Performing Voluntary Prayers",
+            "durum": "tavsiye",
+            "aciklama": "No prayer specific to this night has been commanded. However, Muslims have spent this night in voluntary prayer for centuries. It is good to give importance to salah in remembrance of the five daily prayers being given as a gift on this night.",
+            "hadis_kaynagi": "No authentic hadith specific to this night; see Muslim for the general virtue of voluntary prayer"
+          },
+          {
+            "isim": "Reciting the Quran",
+            "durum": "tavsiye",
+            "aciklama": "It is good to spend this night reciting the Quran and making supplication.",
+            "hadis_kaynagi": "General Sunnah"
+          },
+          {
+            "isim": "Reflecting on the Life of the Prophet ﷺ and the Mi'raj",
+            "durum": "tavsiye",
+            "aciklama": "Reading about the Mi'raj, sending blessings upon the Prophet ﷺ and drawing lessons from it is a good way to spend this night in worship.",
+            "hadis_kaynagi": "General Sunnah"
+          }
+        ],
+        "ozel_not": "Practices such as a 12-rak'ah prayer specific to this night or a prescribed number of repetitions of remembrance have no basis in hadith. Voluntary worship in general is good, but it is not correct to regard this worship as obligatory or wajib specifically for this night."
+      },
+      {
+        "id": "berat_kandili",
+        "isim": "The Night of Bara'ah",
+        "tip": "yillik",
+        "dayanak": "tartismali",
+        "dayanak_aciklama": "There are some hadiths about this night, but hadith scholars say that these reports are weak. Some scholars say that the 'blessed night' mentioned in Surah ad-Dukhan is the Night of Bara'ah, but the majority hold that it is the Night of Decree. Scholars differ on the matter—it is not entirely fabricated, but its basis is weak.",
+        "kuran_referansi": {
+          "sure": "ad-Dukhan",
+          "ayet": 3,
+          "metin": "Indeed, We sent it down on a blessed night.",
+          "not": "The vast majority of scholars (Ibn Abbas, Qatadah, and the majority of scholars) hold that the 'blessed night' here is the Night of Decree, since the Quran clearly states in al-Baqarah 185 that it was sent down in Ramadan and in al-Qadr 1 that it was sent down on the Night of Decree. The minority view that it is the Night of Bara'ah belongs to Ikrimah and some scholars."
+        },
+        "hicri_tarih": "The 15th night of Sha'ban",
+        "onem": "Throughout history, importance has been attached to this night in the middle of Sha'ban. Some reports about it emphasize the vastness of divine mercy and forgiveness; however, not all the details concerning the night have been established by authentic hadiths.",
+        "tarihsel_bilgi": "Although there are reports about this night, hadith scholars have regarded a substantial number of them as weak. Authentic reports establish that the Prophet ﷺ fasted more often during Sha'ban; however, no specific salah or established form of worship for the 15th night of Sha'ban is established by authentic hadiths.",
+        "ibadetler": [
+          {
+            "isim": "Fasting During Sha'ban",
+            "durum": "sunnet",
+            "aciklama": "The Prophet ﷺ used to fast frequently during Sha'ban. Following this Sunnah is supported by authentic hadiths. However, this Sunnah applies to the whole month of Sha'ban, not specifically to its 15th night.",
+            "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Spending the Night in Worship",
+            "durum": "tavsiye",
+            "aciklama": "For centuries, Muslims have spent this night in supplication, seeking forgiveness, and voluntary worship. A more cautious approach is to do so with the intention of performing general voluntary worship, without considering it a religious obligation.",
+            "hadis_kaynagi": "Weak reports; Muslim on the general virtue of voluntary salah"
+          },
+          {
+            "isim": "Seeking Forgiveness and Supplication",
+            "durum": "tavsiye",
+            "aciklama": "Spending this night in supplication and seeking forgiveness is a long-standing tradition among Muslims.",
+            "hadis_kaynagi": "General Sunnah"
+          }
+        ],
+        "ozel_not": "Practices such as visiting graves and distributing halva specifically for this night have no basis in hadith. They are cultural practices that developed over time."
+      },
+      {
+        "id": "mevlid_kandili",
+        "isim": "Mawlid Night",
+        "tip": "yillik",
+        "dayanak": "kulturel",
+        "dayanak_aciklama": "This night, celebrated as the birthday of the Prophet ﷺ, is not mentioned in the Quran or authentic hadiths as a religious command or recommendation. The Prophet ﷺ and his Companions did not observe this night with special worship. The kandil tradition began during the Ottoman period, when mosques were illuminated with oil lamps, and became widespread among Muslims.",
+        "kuran_referansi": null,
+        "hicri_tarih": "The 12th night of Rabi' al-Awwal",
+        "onem": "It is observed as the month in which the Prophet ﷺ was born. It is an expression of love and gratitude for him.",
+        "tarihsel_bilgi": "Scholars differ about the date of the Prophet's ﷺ birth. The 12th of Rabi' al-Awwal is the commonly held view, but it is not certain. The early Muslims and the Companions did not celebrate such a night. This tradition emerged over time and has been observed in different ways by different communities.",
+        "ibadetler": [
+          {
+            "isim": "Sending Blessings upon the Prophet ﷺ",
+            "durum": "sunnet",
+            "aciklama": "Sending blessings upon the Prophet ﷺ is always valuable and is supported by authentic hadiths. It is not specific to this night and can be done at any time.",
+            "hadis_kaynagi": "Quran, al-Ahzab 56; Bukhari, Muslim (authentic)"
+          },
+          {
+            "isim": "Reading and Learning About the Life of the Prophet ﷺ",
+            "durum": "tavsiye",
+            "aciklama": "The best way to love him is to learn about his life, character, and Sunnah. This night is a good opportunity to read his biography and recall his teachings.",
+            "hadis_kaynagi": "General Sunnah"
+          },
+          {
+            "isim": "Voluntary Salah and Supplication",
+            "durum": "tavsiye",
+            "aciklama": "No special act of worship has been prescribed for this night. However, general voluntary worship is always good.",
+            "hadis_kaynagi": "General Sunnah"
+          }
+        ],
+        "ozel_not": "Muslims have different approaches to commemorating this night. Permissible commemorations inspired by love for the Prophet ﷺ may be considered separately; however, it is not right to regard them as a religious obligation, condemn those who do not engage in worship, or present the night as having established acts of worship specific to it. The best way to observe Mawlid is to live by his Sunnah."
+      },
+      {
+        "id": "regaib_kandili",
+        "isim": "Raghaib Night",
+        "tip": "yillik",
+        "dayanak": "uydurma",
+        "dayanak_aciklama": "The hadith concerning this night has been identified as fabricated (mawdu') by leading hadith scholars. Ibn al-Jawzi described this hadith as 'a slander against the Messenger of Allah.' It emerged approximately 450 years after the Hijrah—the Prophet ﷺ and his Companions did not know of this night.",
+        "kuran_referansi": null,
+        "hicri_tarih": "The first Friday night of Rajab",
+        "onem": "Although it is observed as a kandil among Muslims, it has no religious basis.",
+        "tarihsel_bilgi": "The hadith narrated about this night is: 'Whoever fasts on the first Thursday of Rajab and performs 12 rak'ahs of salah between Maghrib and Isha, Allah will forgive their sins.' Hadith scholars have determined that this report is fabricated and that it first appeared in Jerusalem in 448 AH and in Baghdad in 480 AH. Ibn al-Qayyim said of these hadiths, 'They are all false.' Thus, there was no such night in the time of the Prophet ﷺ.",
+        "ibadetler": [
+          {
+            "isim": "General Voluntary Worship",
+            "durum": "tavsiye",
+            "aciklama": "No special act of worship has been prescribed for this night, and such a practice is not authentic. However, performing voluntary salah, reading the Quran, and making supplication on any night is good.",
+            "hadis_kaynagi": "Authentic hadiths concerning general voluntary worship—not specific to this night"
+          }
+        ],
+        "ozel_not": "The 12-rak'ah salah and prescribed forms of dhikr specific to this night have no authentic basis. Since Rajab is one of the sacred months, worship in general is good; however, linking it to a particular night and fixed special rituals has not been considered correct."
+      },
+      {
+        "id": "bayram_tekbir",
+        "isim": "The Nights of Eid (Eid al-Fitr and Eid al-Adha)",
+        "tip": "yillik",
+        "dayanak": "zayif",
+        "dayanak_aciklama": "The report in Ibn Majah about spending the Eid nights in worship is weak and, according to some scholars, fabricated (al-Albani: fabricated). Eid salah and the takbirs are established by authentic hadiths; the specific report about spending the night in worship, however, is weak.",
+        "kuran_referansi": null,
+        "hicri_tarih": "Eid al-Fitr: the 1st night of Shawwal — Eid al-Adha: the 10th night of Dhul-Hijjah",
+        "onem": "A weak report states that supplications are not rejected on five nights; the nights of Eid al-Fitr and Eid al-Adha are among those mentioned. The Eid nights carry the gratitude and joy of completing a month of fasting and the Hajj season.",
+        "tarihsel_bilgi": "The Eid nights carry the gratitude and joy of completing a month of fasting and the Hajj season. Although spending these nights in voluntary worship has been considered good, the specific report about spending the night in worship has been regarded as weak.",
+        "ibadetler": [
+          {
+            "isim": "Spending the Night in Voluntary Worship",
+            "durum": "tavsiye",
+            "aciklama": "Spending these nights in voluntary salah, supplication, and dhikr has been considered good. However, it cannot be said that this is established as an authentic Sunnah specific to the Eid night.",
+            "hadis_kaynagi": "The specific report about spending the night in worship has been regarded as weak; the general virtue of voluntary worship is established."
+          },
+          {
+            "isim": "Eid Salah",
+            "durum": "vacip",
+            "aciklama": "The Eid prayer, performed on the morning of Eid, is wajib according to the Hanafi school and an emphasized Sunnah according to the other schools. It is performed with takbirs, after which the imam delivers a sermon.",
+            "hadis_kaynagi": "Bukhari, Muslim (sahih)"
+          },
+          {
+            "isim": "Reciting Takbir",
+            "durum": "sunnet",
+            "aciklama": "On Eid al-Fitr, takbir is recited until one returns home; on Eid al-Adha, it is recited from the Day of Arafah until the last day of Tashriq.",
+            "hadis_kaynagi": "Bukhari (sahih)"
+          }
+        ],
+        "ozel_not": null
+      },
+      {
+        "id": "zilhicce_ilk_on",
+        "isim": "The First Ten Days of Dhul-Hijjah (Eyyâm-ı Aşere)",
+        "tip": "yillik",
+        "dayanak": "sahih",
+        "dayanak_aciklama": "The vast majority of the Companions and scholars, foremost among them Ibn Abbas, held that the 'ten nights' mentioned in verses 1–2 of Surah al-Fajr in the Quran are the first ten days of Dhul-Hijjah. This is established by sahih hadiths in Bukhari.",
+        "kuran_referansi": {
+          "sure": "al-Fajr",
+          "ayet": "1-2",
+          "metin": "By the dawn. And by the ten nights."
+        },
+        "hicri_tarih": "Days 1–10 of Dhul-Hijjah (the 10th day is Eid al-Adha)",
+        "onem": "The Prophet ﷺ said, 'These ten days are the days on which righteous deeds are most beloved to Allah.' The Day of Arafah (the 9th day) and Eid al-Adha (the 10th day) fall within this period.",
+        "tarihsel_bilgi": "Hajj is performed during these ten days. Muslims devote these days to worship through fasting, dhikr, takbir, charity, and reading the Quran. Offering Qurbani is also among the most important deeds of this period.",
+        "ibadetler": [
+          {
+            "isim": "Fasting (days 1–9)",
+            "durum": "sunnet",
+            "aciklama": "Fasting on the first nine days of Dhul-Hijjah is Sunnah. In particular, fasting on the Day of Arafah (the 9th day) expiates the sins of the preceding and following years.",
+            "hadis_kaynagi": "Abu Dawud (sahih), Muslim (fasting on Arafah)"
+          },
+          {
+            "isim": "Takbir, Tahlil, and Tahmid",
+            "durum": "sunnet",
+            "aciklama": "Saying 'Allahu Ekber, La ilahe illallah, Elhamdülillah' is highly valued during these days. The Prophet ﷺ would increase his recitation of tahlil, takbir, and tahmid during these days.",
+            "hadis_kaynagi": "Bukhari (sahih)"
+          },
+          {
+            "isim": "Offering Qurbani",
+            "durum": "vacip",
+            "aciklama": "Offering Qurbani on Eid al-Adha (the 10th day) is wajib according to the Hanafi school and an emphasized Sunnah according to the other schools.",
+            "hadis_kaynagi": "Bukhari, Muslim (sahih)"
+          },
+          {
+            "isim": "Charity and Good Deeds",
+            "durum": "sunnet",
+            "aciklama": "Charity given during these days is highly valued.",
+            "hadis_kaynagi": "Bukhari (sahih)"
+          }
+        ],
+        "ozel_not": "The Day of Arafah is the ninth of these ten days and is also listed as a separate entry in its own right. The first ten days of Dhul-Hijjah include Arafah."
+      }
+    ],
+    "ozet_tablo": [
+      {
+        "isim": "Friday",
+        "dayanak": "sahih",
+        "hicri": "Friday every week"
+      },
+      {
+        "isim": "Day of Arafah",
+        "dayanak": "sahih",
+        "hicri": "Dhul-Hijjah 9"
+      },
+      {
+        "isim": "Eid al-Adha",
+        "dayanak": "sahih",
+        "hicri": "Dhul-Hijjah 10"
+      },
+      {
+        "isim": "Day of Ashura",
+        "dayanak": "sahih",
+        "hicri": "Muharram 10"
+      },
+      {
+        "isim": "Laylat al-Qadr",
+        "dayanak": "sahih",
+        "hicri": "Last 10 days of Ramadan (especially the 27th)"
+      },
+      {
+        "isim": "Month of Ramadan",
+        "dayanak": "sahih",
+        "hicri": "9th month of the Hijri calendar"
+      },
+      {
+        "isim": "Eid al-Fitr",
+        "dayanak": "sahih",
+        "hicri": "Shawwal 1"
+      },
+      {
+        "isim": "Eid Nights",
+        "dayanak": "zayif",
+        "hicri": "The nights of Eid al-Fitr and Eid al-Adha"
+      },
+      {
+        "isim": "Laylat al-Miraj",
+        "dayanak": "tartismali",
+        "hicri": "Rajab 27 (not certain)"
+      },
+      {
+        "isim": "Laylat al-Bara'ah",
+        "dayanak": "tartismali",
+        "hicri": "Sha'ban 15"
+      },
+      {
+        "isim": "Mawlid Night",
+        "dayanak": "kulturel",
+        "hicri": "Rabi al-Awwal 12"
+      },
+      {
+        "isim": "Laylat al-Raghaib",
+        "dayanak": "uydurma",
+        "hicri": "First Friday of Rajab"
+      },
+      {
+        "isim": "First Ten Days of Dhul-Hijjah",
+        "dayanak": "sahih",
+        "hicri": "Dhul-Hijjah 1–10"
+      }
+    ],
+    "genel_not": "This content has been prepared to avoid misleading people. Celebrating days that are not established by sahih evidence is not haram—but presenting them as religious obligations or inventing special acts of worship is not right. What matters most is worshipping Allah at every moment, every day. Blessed days serve as a reminder of this.",
+    "meta": {
+      "etiketler": [
+        "mübarek günler",
+        "kandil",
+        "kadir gecesi",
+        "ramazan",
+        "cuma",
+        "arefe",
+        "aşure",
+        "miraç",
+        "berat",
+        "mevlid",
+        "regaib"
+      ],
+      "ilgili_dersler": [
+        "namaz_rehberi",
+        "harf_i_tarif"
+      ]
+    }
+  }
+}

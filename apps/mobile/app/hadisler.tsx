@@ -11,6 +11,23 @@ import { logScreen } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../src/tour/AppTourProvider";
 import rawData from "../src/data/hadisler_v2.json";
+import { useLang, useStrings, fmt, type Lang } from "../src/i18n";
+import { localizedData } from "../src/i18n/localizedData";
+import hadislerStrings from "../src/i18n/strings/hadisler";
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const pickData = localizedData<HadithData>(rawData as HadithData, () => require("../src/data/hadisler_v2.en.json"));
+
+// `group` alanı çevrilmedi (anahtar); İngilizce görünen adlar:
+const GROUP_NAMES_EN: Record<string, string> = {
+  "İbadet": "Worship",
+  "Ahlak & Karakter": "Morals & Character",
+  "Aile & İlişkiler": "Family & Relationships",
+  "Toplum & Muamelat": "Society & Dealings",
+  "Manevî Hayat": "Spiritual Life",
+  "Bilgi": "Knowledge",
+  "Merak Edilen": "Frequently Asked",
+};
 
 interface Meta {
   title?: string;
@@ -64,17 +81,24 @@ function ensureStringArray(value: unknown): string[] {
 }
 
 function hasContextualSource(value: string): boolean {
-  return /bağlamsal/i.test(value);
+  return /bağlamsal|contextual/i.test(value);
 }
 
-function parseSunnahSource(url?: string): string {
+function parseSunnahSource(url: string | undefined, lang: Lang): string {
   if (!url) return "";
 
   const match = url.match(/sunnah\.com\/([^:]+):(\d+)/i);
   if (!match) return "";
 
   const [, rawCollection, rawNumber] = match;
-  const collectionNames: Record<string, string> = {
+  const collectionNames: Record<string, string> = lang === "en" ? {
+    bukhari: "Bukhari",
+    muslim: "Muslim",
+    tirmidhi: "Tirmidhi",
+    ibnmajah: "Ibn Majah",
+    abudawud: "Abu Dawud",
+    ahmad: "Ahmad ibn Hanbal",
+  } : {
     bukhari: "Buhârî",
     muslim: "Müslim",
     tirmidhi: "Tirmizî",
@@ -87,75 +111,95 @@ function parseSunnahSource(url?: string): string {
   return `${collection}, ${rawNumber}`;
 }
 
-function buildSourceText(hadith: Hadith): string {
+function buildSourceText(hadith: Hadith, lang: Lang): string {
   const exactSources = ensureStringArray([hadith.source_bukhari, hadith.source_muslim])
     .filter(source => !hasContextualSource(source));
 
   if (exactSources.length > 0) return exactSources.join(" · ");
 
-  const parsedSource = parseSunnahSource(hadith.sunnah_url);
+  const parsedSource = parseSunnahSource(hadith.sunnah_url, lang);
   if (parsedSource) return parsedSource;
 
   return ensureStringArray([hadith.source_bukhari, hadith.source_muslim]).join(" · ");
 }
 
-const ROOT = rawData as HadithData;
-const META: Meta = ROOT.meta ?? {};
-const TOPICS: Topic[] = Array.isArray(ROOT.topics)
-  ? [...ROOT.topics]
-      .map(topic => ({
-        ...topic,
-        intro: topic.intro ?? "",
-      }))
-      .sort((a, b) => (a.group_order - b.group_order) || (a.order - b.order) || a.name.localeCompare(b.name, "tr"))
-  : [];
-const HADITHS: Hadith[] = Array.isArray(ROOT.hadiths)
-  ? ROOT.hadiths.map(hadith => ({
-      ...hadith,
-      source_muslim: hadith.source_muslim ?? "",
-      sunnah_url: hadith.sunnah_url ?? "",
-      tags: ensureStringArray(hadith.tags),
-      info_note: hadith.info_note ?? "",
-    }))
-  : [];
-
-const HADITHS_BY_TOPIC: Record<string, Hadith[]> = {};
-for (const hadith of HADITHS) {
-  if (!HADITHS_BY_TOPIC[hadith.topic_id]) HADITHS_BY_TOPIC[hadith.topic_id] = [];
-  HADITHS_BY_TOPIC[hadith.topic_id].push(hadith);
+interface PreparedData {
+  META: Meta;
+  TOPICS: Topic[];
+  HADITHS: Hadith[];
+  GROUPED: GroupData[];
 }
 
-const GROUP_MAP: Record<string, GroupData> = {};
-for (const topic of TOPICS) {
-  if (!GROUP_MAP[topic.group]) {
-    GROUP_MAP[topic.group] = { name: topic.group, order: topic.group_order, topics: [] };
+const DATA_CACHE: Partial<Record<Lang, PreparedData>> = {};
+
+function buildHadithData(lang: Lang): PreparedData {
+  const cached = DATA_CACHE[lang];
+  if (cached) return cached;
+  const ROOT = pickData(lang);
+  const loc = lang === "en" ? "en" : "tr";
+  const META: Meta = ROOT.meta ?? {};
+  const TOPICS: Topic[] = Array.isArray(ROOT.topics)
+    ? [...ROOT.topics]
+        .map(topic => ({
+          ...topic,
+          intro: topic.intro ?? "",
+        }))
+        .sort((a, b) => (a.group_order - b.group_order) || (a.order - b.order) || a.name.localeCompare(b.name, loc))
+    : [];
+  const HADITHS: Hadith[] = Array.isArray(ROOT.hadiths)
+    ? ROOT.hadiths.map(hadith => ({
+        ...hadith,
+        source_muslim: hadith.source_muslim ?? "",
+        sunnah_url: hadith.sunnah_url ?? "",
+        tags: ensureStringArray(hadith.tags),
+        info_note: hadith.info_note ?? "",
+      }))
+    : [];
+
+  const HADITHS_BY_TOPIC: Record<string, Hadith[]> = {};
+  for (const hadith of HADITHS) {
+    if (!HADITHS_BY_TOPIC[hadith.topic_id]) HADITHS_BY_TOPIC[hadith.topic_id] = [];
+    HADITHS_BY_TOPIC[hadith.topic_id].push(hadith);
   }
 
-  GROUP_MAP[topic.group].topics.push({
-    ...topic,
-    hadiths: HADITHS_BY_TOPIC[topic.id] ?? [],
-  });
-}
+  const GROUP_MAP: Record<string, GroupData> = {};
+  for (const topic of TOPICS) {
+    if (!GROUP_MAP[topic.group]) {
+      GROUP_MAP[topic.group] = { name: topic.group, order: topic.group_order, topics: [] };
+    }
 
-const GROUPED: GroupData[] = Object.values(GROUP_MAP)
-  .map(group => ({
-    ...group,
-    topics: [...group.topics].sort((a, b) => (a.order - b.order) || a.name.localeCompare(b.name, "tr")),
-  }))
-  .sort((a, b) => (a.order - b.order) || a.name.localeCompare(b.name, "tr"));
+    GROUP_MAP[topic.group].topics.push({
+      ...topic,
+      hadiths: HADITHS_BY_TOPIC[topic.id] ?? [],
+    });
+  }
+
+  const GROUPED: GroupData[] = Object.values(GROUP_MAP)
+    .map(group => ({
+      ...group,
+      topics: [...group.topics].sort((a, b) => (a.order - b.order) || a.name.localeCompare(b.name, loc)),
+    }))
+    .sort((a, b) => (a.order - b.order) || a.name.localeCompare(b.name, loc));
+
+  const result = { META, TOPICS, HADITHS, GROUPED };
+  DATA_CACHE[lang] = result;
+  return result;
+}
 
 function HadithCard({ hadith }: { hadith: Hadith }) {
   const c = useColors();
   const [open, setOpen] = useState(false);
-  const narrator = hadith.narrator || "Rivayet";
-  const hadithText = hadith.turkish_text || "Hadis metni eklenmedi.";
-  const sources = buildSourceText(hadith);
+  const t = useStrings(hadislerStrings);
+  const lang = useLang();
+  const narrator = hadith.narrator || t.narratorFallback;
+  const hadithText = hadith.turkish_text || t.textMissing;
+  const sources = buildSourceText(hadith, lang);
 
   async function handleShare() {
     void Haptics.selectionAsync();
     const message = [`"${hadithText}"`, `— ${narrator}`];
-    if (sources) message.push(`Kaynak: ${sources}`);
-    message.push("Kuran Yolu uygulamasından");
+    if (sources) message.push(fmt(t.sourcePrefix, { s: sources }));
+    message.push(t.shareFooter);
 
     try {
       await Share.share({ message: message.join("\n\n") });
@@ -173,7 +217,7 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
           style={{ flex: 1 }}
           accessibilityRole="button"
           accessibilityLabel={narrator}
-          accessibilityHint={`Hadis detayını ${open ? "kapatır" : "açar"}`}
+          accessibilityHint={open ? t.detailHintClose : t.detailHintOpen}
           accessibilityState={{ expanded: open }}
         >
           <Text style={[hd.text, { color: c.text }]} numberOfLines={open ? undefined : 3}>
@@ -186,8 +230,8 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
             hitSlop={8}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel={`${narrator} hadisini paylaş`}
-            accessibilityHint="Paylaşım menüsünü açar"
+            accessibilityLabel={fmt(t.shareA11y, { n: narrator })}
+            accessibilityHint={t.shareHint}
           >
             <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
           </TouchableOpacity>
@@ -196,7 +240,7 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
             hitSlop={8}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel={`Hadis detayını ${open ? "kapat" : "aç"}`}
+            accessibilityLabel={open ? t.detailClose : t.detailOpen}
             accessibilityState={{ expanded: open }}
           >
             <Text style={[hd.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
@@ -229,6 +273,7 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
 
 function TopicAccordion({ topic }: { topic: TopicWithHadiths }) {
   const c = useColors();
+  const t = useStrings(hadislerStrings);
   const [open, setOpen] = useState(false);
 
   return (
@@ -239,7 +284,7 @@ function TopicAccordion({ topic }: { topic: TopicWithHadiths }) {
         activeOpacity={0.75}
         accessibilityRole="button"
         accessibilityLabel={topic.name}
-        accessibilityHint={`Konu detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityHint={open ? t.topicHintClose : t.topicHintOpen}
         accessibilityState={{ expanded: open }}
       >
         <Text style={[tp.name, { color: c.text }]}>{topic.name}</Text>
@@ -257,7 +302,7 @@ function TopicAccordion({ topic }: { topic: TopicWithHadiths }) {
           {topic.hadiths.length > 0 ? (
             topic.hadiths.map(hadith => <HadithCard key={hadith.id} hadith={hadith} />)
           ) : (
-            <Text style={[tp.empty, { color: c.textMuted }]}>Bu konu için hadis kaydı bulunamadı.</Text>
+            <Text style={[tp.empty, { color: c.textMuted }]}>{t.topicEmpty}</Text>
           )}
         </View>
       ) : null}
@@ -267,6 +312,9 @@ function TopicAccordion({ topic }: { topic: TopicWithHadiths }) {
 
 function GroupAccordion({ group }: { group: GroupData }) {
   const c = useColors();
+  const t = useStrings(hadislerStrings);
+  const lang = useLang();
+  const groupName = lang === "en" ? (GROUP_NAMES_EN[group.name] ?? group.name) : group.name;
   const [open, setOpen] = useState(false);
   const total = group.topics.reduce((sum, topic) => sum + topic.hadiths.length, 0);
 
@@ -277,14 +325,14 @@ function GroupAccordion({ group }: { group: GroupData }) {
         onPress={() => setOpen(current => !current)}
         activeOpacity={0.75}
         accessibilityRole="button"
-        accessibilityLabel={group.name}
-        accessibilityHint={`Hadis grubunu ${open ? "kapatır" : "açar"}`}
+        accessibilityLabel={groupName}
+        accessibilityHint={open ? t.groupHintClose : t.groupHintOpen}
         accessibilityState={{ expanded: open }}
       >
-        <Text style={[gr.name, { color: c.text }]}>{group.name}</Text>
+        <Text style={[gr.name, { color: c.text }]}>{groupName}</Text>
         <View style={gr.right}>
           <View style={gr.badge}>
-            <Text style={gr.badgeText}>{`${total} hadis`}</Text>
+            <Text style={gr.badgeText}>{fmt(t.hadithCount, { n: total })}</Text>
           </View>
           <Text style={[gr.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
         </View>
@@ -304,6 +352,9 @@ export default function HadislerScreen() {
   const insets = useSafeAreaInsets();
   const topicsTarget = useTourTarget("hadith.topics");
   const tourScroll = useTourScroller();
+  const t = useStrings(hadislerStrings);
+  const lang = useLang();
+  const { META, TOPICS, HADITHS, GROUPED } = buildHadithData(lang);
   const sources = ensureStringArray(META.sources);
 
   useEffect(() => {
@@ -312,7 +363,7 @@ export default function HadislerScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: "Hadisler" }} />
+      <Stack.Screen options={{ title: t.title }} />
       <ScrollView
         {...tourScroll}
         style={{ flex: 1, backgroundColor: c.bg }}
@@ -321,33 +372,33 @@ export default function HadislerScreen() {
       >
         <View style={s.hero}>
           <Text style={s.heroIcon}>📿</Text>
-          <Text style={s.heroTitle}>{META.title ?? "Sahih Hadisler"}</Text>
+          <Text style={s.heroTitle}>{META.title ?? t.defaultTitle}</Text>
           {META.subtitle ? <Text style={s.heroSub}>{META.subtitle}</Text> : null}
           {META.description ? <Text style={s.heroDesc}>{META.description}</Text> : null}
           <View style={s.stats}>
             <View style={s.statChip}>
               <Text style={s.statNum}>{HADITHS.length}</Text>
-              <Text style={s.statLbl}>Hadis</Text>
+              <Text style={s.statLbl}>{t.statHadith}</Text>
             </View>
             <View style={s.statChip}>
               <Text style={s.statNum}>{TOPICS.length}</Text>
-              <Text style={s.statLbl}>Konu</Text>
+              <Text style={s.statLbl}>{t.statTopic}</Text>
             </View>
             <View style={s.statChip}>
               <Text style={s.statNum}>{GROUPED.length}</Text>
-              <Text style={s.statLbl}>Grup</Text>
+              <Text style={s.statLbl}>{t.statGroup}</Text>
             </View>
           </View>
         </View>
 
         {META.reliability_standard ? (
           <View style={[s.stdBox, { backgroundColor: c.card, borderColor: c.border }]}>
-            <Text style={[s.stdLabel, { color: c.accent }]}>⚖️ Güvenilirlik Standardı</Text>
+            <Text style={[s.stdLabel, { color: c.accent }]}>{t.reliability}</Text>
             <Text style={[s.stdText, { color: c.textSecondary }]}>{META.reliability_standard}</Text>
           </View>
         ) : null}
 
-        <Text style={[s.sectionHead, { color: c.textMuted }]}>Konular</Text>
+        <Text style={[s.sectionHead, { color: c.textMuted }]}>{t.topics}</Text>
 
         {GROUPED.length > 0 ? (
           GROUPED.map((group, index) => (
@@ -356,11 +407,11 @@ export default function HadislerScreen() {
             </View>
           ))
         ) : (
-          <Text style={[s.empty, { color: c.textMuted }]}>Bu bölüm için gösterilecek hadis kaydı bulunamadı.</Text>
+          <Text style={[s.empty, { color: c.textMuted }]}>{t.empty}</Text>
         )}
 
         {sources.length > 0 ? (
-          <Text style={[s.kaynak, { color: c.textMuted }]}>{`Kaynaklar: ${sources.join(" · ")}`}</Text>
+          <Text style={[s.kaynak, { color: c.textMuted }]}>{fmt(t.sources, { s: sources.join(" · ") })}</Text>
         ) : null}
       </ScrollView>
     </>

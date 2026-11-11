@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
+import { getStrings } from "../i18n";
+import prayerNameStrings from "../i18n/strings/prayerNames";
 
 interface DailyVerse {
   verse_key: string;
@@ -24,15 +26,9 @@ export interface HijriDate {
   year: number;
 }
 
-const HIJRI_MONTHS_TR = [
-  "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir",
-  "Cemaziyelevvel", "Cemaziyelahir", "Recep", "Şaban",
-  "Ramazan", "Şevval", "Zilkade", "Zilhicce",
-];
-
 export function formatHijriDate(h: HijriDate | null): string {
   if (!h) return "";
-  const monthName = HIJRI_MONTHS_TR[h.monthNumber - 1] ?? "";
+  const monthName = getStrings(prayerNameStrings).hijriMonths[h.monthNumber - 1] ?? "";
   return `${h.day} ${monthName} ${h.year}`;
 }
 

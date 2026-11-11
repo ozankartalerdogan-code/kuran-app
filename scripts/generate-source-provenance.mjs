@@ -135,6 +135,27 @@ const entries = [
     artifacts: artifactGroup(elmaliliDigital),
   },
   {
+    id: "pickthall-tanzil-en",
+    sourceUrls: [
+      "https://tanzil.net/trans/?transID=en.pickthall&type=txt-2",
+      "https://en.wikisource.org/wiki/Index:The_Meaning_of_the_Glorious_Koran_(1930).pdf",
+    ],
+    classification: "public-domain-work-and-open-digital-edition",
+    sourceContribution: "Marmaduke Pickthall's The Meaning of the Glorious Koran (Knopf, 1930; translator died 1936) in Tanzil.net's digital edition (en.pickthall, last update 2010-09-04).",
+    projectContribution: "Verse-count validation against the canonical surah list and packaging as a bundled mobile JSON shown when the UI language is English.",
+    toolModel: "Tanzil.net translation export; scripts/build-mobile-meal-en.mjs",
+    method: "Downloaded 2026-11-11; source SHA-256 pinned in the build script; 114 surahs / 6236 verses checked for gaps, duplicates and empty verses; spot-checked against the 1930 text (Tanzil has minor edits, e.g. 2:255 'God' -> 'deity').",
+    generatedAt: null,
+    humanReview: "Coverage and spot checks; public-domain status (life+70 and US 1930+95) is not asserted as legal certainty.",
+    exactResearchUrlHistoryPreserved: true,
+    artifacts: artifactGroup([
+      "data/translations/en.pickthall/en.pickthall.txt",
+      "data/translations/en.pickthall/SOURCE.md",
+      "scripts/build-mobile-meal-en.mjs",
+      "apps/mobile/src/data/meal_en_pickthall.json",
+    ]),
+  },
+  {
     id: "qac-mustafa0x-source-chain",
     sourceUrls: [
       "https://corpus.quran.com/download/",
@@ -269,6 +290,31 @@ const entries = [
     exactResearchUrlHistoryPreserved: false,
     evidenceGap: RESEARCH_HISTORY_GAP,
     artifacts: artifactGroup(["data/quran/transliteration.json"]),
+  },
+  {
+    id: "ai-english-translations-v1",
+    sourceUrls: [],
+    classification: "user-declared-ai-assisted-project-output",
+    sourceContribution: "Kuran Yolu's Turkish project content (lessons/quizzes, simplified Elmalılı tafsir, duas, hadith, seerah, prophets' stories, prayer guides, blessed days, Esma ul-Husna meanings, İsm-i Azam duas, worship guide, Manevi Sığınak, privacy policy, Harf-i Tarif lesson, source/license text; project outputs listed in other entries).",
+    projectContribution: "English translations for the mobile English UI mode; structure, ids, answer keys and link tokens preserved and machine-validated.",
+    toolModel: "Content JSON: OpenAI Codex CLI (gpt-6.1-terra; one lesson file gpt-6.1-sol) via scripts/translate-json-en.mjs (Harf-i Tarif with PROMPT_EXTRA adaptation rules). Tafsir: agy CLI (Gemini 3.8 Flash Medium) via scripts/translate-tafsir-en.mjs. UI strings (apps/mobile/src/i18n/strings) written by Claude Sonnet coding agents; Turkish→English transliteration spelling is rule-based (apps/mobile/src/lib/translitEn.ts).",
+    method: "Batch translation 2026-11-11 with per-batch validation (item count, quiz option prefixes, untranslated-Turkish heuristic, length ratio) and automated structure diff against the Turkish source (2895/2895 tafsir paragraphs aligned); manual spot checks of samples incl. privacy-policy paragraphs.",
+    generatedAt: "2026-11-11",
+    humanReview: "Spot checks only; full human review of religious content pending.",
+    exactResearchUrlHistoryPreserved: false,
+    evidenceGap: RESEARCH_HISTORY_GAP,
+    artifacts: artifactGroup([
+      "scripts/translate-json-en.mjs",
+      "scripts/translate-tafsir-en.mjs",
+      "content/tafsir/simplified-surah.en.json",
+      "packages/core/src/presentation/sourceLicensesEn.ts",
+      ...["apps/mobile/src/data/Dersler", "apps/mobile/src/data", "apps/mobile/src/data/content"].flatMap((dir) =>
+        readdirSync(path.join(REPO_ROOT, dir))
+          .filter((f) => f.endsWith(".en.json"))
+          .sort()
+          .map((f) => `${dir}/${f}`),
+      ),
+    ]),
   },
   {
     id: "codex-hadith-translations",

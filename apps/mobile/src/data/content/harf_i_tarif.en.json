@@ -1,0 +1,519 @@
+{
+  "id": "harf_i_tarif",
+  "baslik": "The Definite Article: al-, as-, at-... Why Is It Pronounced Differently?",
+  "seviye": "beginner",
+  "sure": "10–15 minutes",
+  "on_kosul": "Familiarity with the Arabic alphabet",
+  "aciklama": "In Arabic, the definite article 'al-' changes before certain letters. In this lesson, you will learn why it changes and which letters cause it to change.",
+  "bolumler": [
+    {
+      "id": "giris",
+      "tip": "bilgi",
+      "baslik": "What Is the Definite Article?",
+      "icerik": "In Arabic, the prefix 'al-' (ال) makes a word definite, like 'the'. You hear it every day: ar-Rahman, as-Salam, al-Malik... But why does 'al-' sometimes become 'ar-' or 'as-'? The reason is simple.",
+      "ornek": {
+        "dogru": "Ar-Rahman ✓",
+        "yanlis": "Al-Rahman ✗",
+        "aciklama": "Because Ra is a sun letter, the 'l' sound changes to 'r'."
+      }
+    },
+    {
+      "id": "kural",
+      "tip": "kural",
+      "baslik": "The Basic Rule: Where Does Your Tongue Touch?",
+      "icerik": "The rule is practical: if your tongue touches the roof of your mouth or your upper gums when you pronounce the letter on its own, it is a SUN letter—the article is assimilated. If it does not, it is a MOON letter—the article stays as it is.",
+      "hafiza_ipucu": "Shamsiyya means 'sun' (shams): the tongue moves forward, like the brightness of the sun. Qamariyya means 'moon' (qamar): the tongue stays back, like the quiet moon.",
+      "gorsel_aciklama": "al + ش (Shin) → ash-shin | al + ب (Ba) → al-ba"
+    },
+    {
+      "id": "semsiye_harfler",
+      "tip": "liste",
+      "baslik": "14 Sun Letters",
+      "alt_baslik": "The 'l' in 'al-' changes to the sound of these letters",
+      "harfler": [
+        {
+          "arapca": "ت",
+          "ad": "Ta",
+          "okunusu": "et-tau",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ث",
+          "ad": "Tha",
+          "okunusu": "es-seu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "د",
+          "ad": "Dal",
+          "okunusu": "ed-dalu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ذ",
+          "ad": "Dhal",
+          "okunusu": "ez-zelu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ر",
+          "ad": "Ra",
+          "okunusu": "er-rau",
+          "ornek_esma": "ar-Rahman, ar-Rahim, ar-Razzaq"
+        },
+        {
+          "arapca": "ز",
+          "ad": "Zay",
+          "okunusu": "ez-zayu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "س",
+          "ad": "Sin",
+          "okunusu": "es-sinu",
+          "ornek_esma": "as-Salam, as-Sami'"
+        },
+        {
+          "arapca": "ش",
+          "ad": "Shin",
+          "okunusu": "eş-şinu",
+          "ornek_esma": "ash-Shakur"
+        },
+        {
+          "arapca": "ص",
+          "ad": "Sad",
+          "okunusu": "es-sadu",
+          "ornek_esma": "as-Samad"
+        },
+        {
+          "arapca": "ض",
+          "ad": "Dad",
+          "okunusu": "ed-dadu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ط",
+          "ad": "Ta",
+          "okunusu": "et-tau",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ظ",
+          "ad": "Za",
+          "okunusu": "ez-zau",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ل",
+          "ad": "Lam",
+          "okunusu": "el-lamu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ن",
+          "ad": "Nun",
+          "okunusu": "en-nunu",
+          "ornek_esma": null
+        }
+      ]
+    },
+    {
+      "id": "kameriye_harfler",
+      "tip": "liste",
+      "baslik": "14 Moon Letters",
+      "alt_baslik": "The prefix 'al-' stays as it is",
+      "harfler": [
+        {
+          "arapca": "ا",
+          "ad": "Alif",
+          "okunusu": "el-elifu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ب",
+          "ad": "Ba",
+          "okunusu": "el-bau",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ج",
+          "ad": "Jim",
+          "okunusu": "el-cimu",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ح",
+          "ad": "Ha",
+          "okunusu": "el-hau",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "خ",
+          "ad": "Kha",
+          "okunusu": "el-hau",
+          "ornek_esma": null
+        },
+        {
+          "arapca": "ع",
+          "ad": "Ayn",
+          "okunusu": "el-aynu",
+          "ornek_esma": "al-Aziz, al-Alim, al-Afuww"
+        },
+        {
+          "arapca": "غ",
+          "ad": "Ghayn",
+          "okunusu": "el-ğaynu",
+          "ornek_esma": "al-Ghaffar, al-Ghaniyy"
+        },
+        {
+          "arapca": "ف",
+          "ad": "Fa",
+          "okunusu": "el-fau",
+          "ornek_esma": "al-Fattah"
+        },
+        {
+          "arapca": "ق",
+          "ad": "Qaf",
+          "okunusu": "el-kafu",
+          "ornek_esma": "al-Qahhar, al-Qawiyy, al-Qadir"
+        },
+        {
+          "arapca": "ك",
+          "ad": "Kaf",
+          "okunusu": "el-kafu",
+          "ornek_esma": "al-Karim"
+        },
+        {
+          "arapca": "م",
+          "ad": "Mim",
+          "okunusu": "el-mimu",
+          "ornek_esma": "al-Malik, al-Mu'min, al-Muhaymin"
+        },
+        {
+          "arapca": "ه",
+          "ad": "Ha",
+          "okunusu": "el-hau",
+          "ornek_esma": "al-Hadi"
+        },
+        {
+          "arapca": "و",
+          "ad": "Waw",
+          "okunusu": "el-vavu",
+          "ornek_esma": "al-Wadud, al-Wali"
+        },
+        {
+          "arapca": "ي",
+          "ad": "Ya",
+          "okunusu": "el-yau",
+          "ornek_esma": null
+        }
+      ]
+    },
+    {
+      "id": "esmaulhusna_ornekleri",
+      "tip": "ornekler",
+      "baslik": "Familiar Examples from the Beautiful Names of Allah",
+      "alt_baslik": "Notice this rule in names you hear every day",
+      "ornekler": [
+        {
+          "isim": "Er-Rahman",
+          "arapca": "الرَّحْمَن",
+          "anlam": "The Most Merciful",
+          "harf": "Ra (ر)",
+          "tip": "semsiye",
+          "aciklama": "Ra is a sun letter, so the 'l' sound changes to 'r' → ar-Rahman"
+        },
+        {
+          "isim": "Er-Rahim",
+          "arapca": "الرَّحِيم",
+          "anlam": "The Most Merciful",
+          "harf": "Ra (ر)",
+          "tip": "semsiye",
+          "aciklama": "Ra is a sun letter → ar-Rahim"
+        },
+        {
+          "isim": "El-Melik",
+          "arapca": "الْمَلِك",
+          "anlam": "The Sovereign",
+          "harf": "Mim (م)",
+          "tip": "kameriye",
+          "aciklama": "Mim is a moon letter, so 'al-' stays as it is → al-Malik"
+        },
+        {
+          "isim": "Es-Selam",
+          "arapca": "السَّلَام",
+          "anlam": "The Giver of Peace",
+          "harf": "Sin (س)",
+          "tip": "semsiye",
+          "aciklama": "Sin is a sun letter → as-Salam"
+        },
+        {
+          "isim": "El-Aziz",
+          "arapca": "الْعَزِيز",
+          "anlam": "The Mighty, the Exalted",
+          "harf": "Ayn (ع)",
+          "tip": "kameriye",
+          "aciklama": "Ayn is a moon letter → al-Aziz"
+        },
+        {
+          "isim": "En-Nur",
+          "arapca": "النُّور",
+          "anlam": "Light, illumination",
+          "harf": "Nun (ن)",
+          "tip": "semsiye",
+          "aciklama": "Nun is a sun letter → an-Nur"
+        },
+        {
+          "isim": "El-Kerim",
+          "arapca": "الْكَرِيم",
+          "anlam": "The Generous",
+          "harf": "Kaf (ك)",
+          "tip": "kameriye",
+          "aciklama": "Kaf is a moon letter → al-Karim"
+        },
+        {
+          "isim": "Eş-Şekur",
+          "arapca": "الشَّكُور",
+          "anlam": "The One Who Accepts Gratitude",
+          "harf": "Shin (ش)",
+          "tip": "semsiye",
+          "aciklama": "Shin is a sun letter → ash-Shakur"
+        }
+      ]
+    },
+    {
+      "id": "ezan_baglantisi",
+      "tip": "baglam",
+      "baslik": "It Is in the Adhan Too!",
+      "icerik": "The same rule applies in the phrase 'Allahu Akbar', which you hear in the adhan. At the beginning of 'Allahu', 'al-' + Lam (ل) → al-lahu → Allah. Because Lam is a sun letter, the 'l' sound is doubled (shadda). That is why the 'l' is pronounced with emphasis when you say 'Allah'.",
+      "not": "This is also the tajweed topic of the sun lam and the moon lam."
+    },
+    {
+      "id": "tecvid_baglantisi",
+      "tip": "baglam",
+      "baslik": "The Connection to Tajweed",
+      "icerik": "In tajweed, this rule is called 'idgham' (the merging of letters). With sun letters, the 'l' sound is assimilated into the next letter—it disappears, and that letter is pronounced with a shadda. You will see these shadda marks when reading the Quran.",
+      "gorsel_ipucu": "In the mushaf, you will see a shadda mark (ّ) over the sun letter, as in شَّ."
+    },
+    {
+      "id": "quiz",
+      "tip": "quiz",
+      "baslik": "Can You Tell?",
+      "sorular": [
+        {
+          "id": "q1",
+          "soru": "Es-Semi' or El-Semi'?",
+          "harf": "Sin (س)",
+          "dogru_cevap": "Es-Semi'",
+          "tip": "semsiye",
+          "aciklama": "Sin is a sun letter → as-Sami'"
+        },
+        {
+          "id": "q2",
+          "soru": "El-Fettah or Ef-Fettah?",
+          "harf": "Fa (ف)",
+          "dogru_cevap": "El-Fettah",
+          "tip": "kameriye",
+          "aciklama": "Fa is a moon letter → al-Fattah"
+        },
+        {
+          "id": "q3",
+          "soru": "Ed-Dar or El-Dar?",
+          "harf": "Dal (د)",
+          "dogru_cevap": "Ed-Dar",
+          "tip": "semsiye",
+          "aciklama": "Dal is a sun letter → ad-Darr"
+        },
+        {
+          "id": "q4",
+          "soru": "El-Vedud or Ev-Vedud?",
+          "harf": "Waw (و)",
+          "dogru_cevap": "El-Vedud",
+          "tip": "kameriye",
+          "aciklama": "Waw is a moon letter → al-Wadud"
+        },
+        {
+          "id": "q5",
+          "soru": "En-Nasır or El-Nasır?",
+          "harf": "Nun (ن)",
+          "dogru_cevap": "En-Nasır",
+          "tip": "semsiye",
+          "aciklama": "Nun is a sun letter → an-Nasir"
+        },
+        {
+          "id": "q6",
+          "soru": "El-Hakk or Eh-Hakk?",
+          "harf": "Ha (ح)",
+          "dogru_cevap": "El-Hakk",
+          "tip": "kameriye",
+          "aciklama": "Ha is a moon letter → al-Haqq"
+        },
+        {
+          "id": "q7",
+          "soru": "Er-Rezzak or El-Rezzak?",
+          "harf": "Ra (ر)",
+          "dogru_cevap": "Er-Rezzak",
+          "tip": "semsiye",
+          "aciklama": "Ra is a sun letter → ar-Razzaq"
+        },
+        {
+          "id": "q8",
+          "soru": "El-Kadir or Ek-Kadir?",
+          "harf": "Qaf (ق)",
+          "dogru_cevap": "El-Kadir",
+          "tip": "kameriye",
+          "aciklama": "Qaf is a moon letter → al-Qadir"
+        },
+        {
+          "id": "q9",
+          "soru": "Eş-Şekur or El-Şekur?",
+          "harf": "Shin (ش)",
+          "dogru_cevap": "Eş-Şekur",
+          "tip": "semsiye",
+          "aciklama": "Shin is a sun letter → ash-Shakur"
+        },
+        {
+          "id": "q10",
+          "soru": "El-Mu'min or Em-Mu'min?",
+          "harf": "Mim (م)",
+          "dogru_cevap": "El-Mu'min",
+          "tip": "kameriye",
+          "aciklama": "Mim is a moon letter → al-Mu'min"
+        },
+        {
+          "id": "q11",
+          "soru": "Es-Samed or El-Samed?",
+          "harf": "Sad (ص)",
+          "dogru_cevap": "Es-Samed",
+          "tip": "semsiye",
+          "aciklama": "Sad is a sun letter → as-Samad"
+        },
+        {
+          "id": "q12",
+          "soru": "El-Ğaffar or Eğ-Ğaffar?",
+          "harf": "Ghayn (غ)",
+          "dogru_cevap": "El-Ğaffar",
+          "tip": "kameriye",
+          "aciklama": "Ghayn is a moon letter → al-Ghaffar"
+        },
+        {
+          "id": "q13",
+          "soru": "Ez-Zahir or El-Zahir?",
+          "harf": "Dhal (ذ)",
+          "dogru_cevap": "Ez-Zahir",
+          "tip": "semsiye",
+          "aciklama": "Dhal is a sun letter → adh-Dhahir"
+        },
+        {
+          "id": "q14",
+          "soru": "El-Veli or Ev-Veli?",
+          "harf": "Waw (و)",
+          "dogru_cevap": "El-Veli",
+          "tip": "kameriye",
+          "aciklama": "Waw is a moon letter → al-Wali"
+        },
+        {
+          "id": "q15",
+          "soru": "Et-Tevvab or El-Tevvab?",
+          "harf": "Ta (ت)",
+          "dogru_cevap": "Et-Tevvab",
+          "tip": "semsiye",
+          "aciklama": "Ta is a sun letter → at-Tawwab"
+        },
+        {
+          "id": "q16",
+          "soru": "El-Cebbar or Ec-Cebbar?",
+          "harf": "Jim (ج)",
+          "dogru_cevap": "El-Cebbar",
+          "tip": "kameriye",
+          "aciklama": "Jim is a moon letter → al-Jabbar"
+        },
+        {
+          "id": "q17",
+          "soru": "En-Nur or El-Nur?",
+          "harf": "Nun (ن)",
+          "dogru_cevap": "En-Nur",
+          "tip": "semsiye",
+          "aciklama": "Nun is a sun letter → an-Nur"
+        },
+        {
+          "id": "q18",
+          "soru": "El-Hadi or Eh-Hadi?",
+          "harf": "Ha (ه)",
+          "dogru_cevap": "El-Hadi",
+          "tip": "kameriye",
+          "aciklama": "Ha is a moon letter → al-Hadi"
+        },
+        {
+          "id": "q19",
+          "soru": "Ed-Deyyân or El-Deyyân?",
+          "harf": "Dal (د)",
+          "dogru_cevap": "Ed-Deyyân",
+          "tip": "semsiye",
+          "aciklama": "Dal is a sun letter → ad-Dayyan"
+        },
+        {
+          "id": "q20",
+          "soru": "El-Alim or Ea-Alim?",
+          "harf": "Ayn (ع)",
+          "dogru_cevap": "El-Alim",
+          "tip": "kameriye",
+          "aciklama": "Ayn is a moon letter → al-Alim"
+        },
+        {
+          "id": "q21",
+          "soru": "Es-Selam or El-Selam?",
+          "harf": "Sin (س)",
+          "dogru_cevap": "Es-Selam",
+          "tip": "semsiye",
+          "aciklama": "Sin is a sun letter → as-Salam"
+        },
+        {
+          "id": "q22",
+          "soru": "El-Kahhar or Ek-Kahhar?",
+          "harf": "Qaf (ق)",
+          "dogru_cevap": "El-Kahhar",
+          "tip": "kameriye",
+          "aciklama": "Qaf is a moon letter → al-Qahhar"
+        },
+        {
+          "id": "q23",
+          "soru": "Ez-Zâhir or El-Zâhir?",
+          "harf": "Zay (ز)",
+          "dogru_cevap": "Ez-Zâhir",
+          "tip": "semsiye",
+          "aciklama": "Zay is a sun letter → az-Zahir"
+        },
+        {
+          "id": "q24",
+          "soru": "El-Müheymin or Em-Müheymin?",
+          "harf": "Mim (م)",
+          "dogru_cevap": "El-Müheymin",
+          "tip": "kameriye",
+          "aciklama": "Mim is a moon letter → al-Muhaymin"
+        },
+        {
+          "id": "q25",
+          "soru": "Et-Tarık or El-Tarık?",
+          "harf": "Ta (ط)",
+          "dogru_cevap": "Et-Tarık",
+          "tip": "semsiye",
+          "aciklama": "Ta is a sun letter → at-Tariq"
+        }
+      ]
+    },
+    {
+      "id": "ozet",
+      "tip": "ozet",
+      "baslik": "Summary: Remember",
+      "maddeler": [
+        "In Arabic, the prefix 'al-' makes a word definite",
+        "With the 14 sun letters, the 'l' sound changes to the sound of that letter (ar-, as-, an-...)",
+        "With the 14 moon letters, 'al-' stays as it is",
+        "Practical rule: if your tongue touches the roof of your mouth, it is a sun letter",
+        "This rule applies in the Beautiful Names of Allah, the adhan, and the Quran",
+        "In tajweed, these are called the sun lam and the moon lam"
+      ]
+    }
+  ]
+}

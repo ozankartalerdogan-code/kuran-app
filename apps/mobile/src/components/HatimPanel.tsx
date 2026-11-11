@@ -23,6 +23,8 @@ import {
 import { ayetinSayfasi } from "../lib/mushafSayfa";
 import { logFeature } from "../lib/analytics";
 import { READING_MAX_WIDTH } from "../lib/layout";
+import { useStrings, fmt, localeTag } from "../i18n";
+import componentStrings from "../i18n/strings/components";
 
 // ── HatimPanel — mushaf sayfa görünümüne gömülü hatim takibi ─────────────────
 // Eski /hatim ekranının "Takip" sekmesi, alttan açılan panel olarak. Veri
@@ -37,6 +39,8 @@ type Props = {
 
 export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
   const c = useColors();
+  const t = useStrings(componentStrings);
+  const loc = localeTag();
   const insets = useSafeAreaInsets();
   const [store, setStore]     = useState<HatimStore>(EMPTY_HATIM_STORE);
   const [mounted, setMounted] = useState(false);
@@ -122,12 +126,12 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <View style={st.overlay}>
-        <TouchableOpacity style={{ flex: 1 }} onPress={onClose} accessibilityRole="button" accessibilityLabel="Hatim panelini kapat" />
+        <TouchableOpacity style={{ flex: 1 }} onPress={onClose} accessibilityRole="button" accessibilityLabel={t.hatimCloseA11y} />
         <View style={[st.sheet, { backgroundColor: c.bg, paddingBottom: insets.bottom + 8 }]}>
           {/* Panel başlığı */}
           <View style={[st.sheetHeader, { borderBottomColor: c.border }]}>
-            <Text style={[st.sheetTitle, { color: c.text }]}>📖 Hatim Takibi</Text>
-            <TouchableOpacity onPress={onClose} hitSlop={10} accessibilityRole="button" accessibilityLabel="Kapat">
+            <Text style={[st.sheetTitle, { color: c.text }]}>{t.hatimTitle}</Text>
+            <TouchableOpacity onPress={onClose} hitSlop={10} accessibilityRole="button" accessibilityLabel={t.close}>
               <Ionicons name="close" size={22} color={c.textMuted} />
             </TouchableOpacity>
           </View>
@@ -138,9 +142,9 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
             <ScrollView contentContainerStyle={st.content} showsVerticalScrollIndicator={false}>
               {!current ? (
                 <View style={[st.emptyCard, { backgroundColor: c.card, borderColor: c.border }]}>
-                  <Text style={[st.emptyText, { color: c.textMuted }]}>Aktif hatim yok</Text>
-                  <TouchableOpacity style={st.startBtn} onPress={startHatim} accessibilityRole="button" accessibilityLabel="Yeni hatim başlat">
-                    <Text style={st.startBtnText}>+ Yeni Hatim Başlat</Text>
+                  <Text style={[st.emptyText, { color: c.textMuted }]}>{t.hatimNone}</Text>
+                  <TouchableOpacity style={st.startBtn} onPress={startHatim} accessibilityRole="button" accessibilityLabel={t.hatimStartA11y}>
+                    <Text style={st.startBtnText}>{t.hatimStart}</Text>
                   </TouchableOpacity>
                 </View>
               ) : (
@@ -149,9 +153,9 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                   <View style={[st.progressCard, { backgroundColor: c.card, borderColor: c.border }]}>
                     <View style={st.progressRow}>
                       <View>
-                        <Text style={[st.progressDate, { color: c.textMuted }]}>Başlangıç: {hatimFmt(current.startDate)}</Text>
+                        <Text style={[st.progressDate, { color: c.textMuted }]}>{fmt(t.hatimStarted, { date: hatimFmt(current.startDate, loc) })}</Text>
                         {current.completedDate && (
-                          <Text style={st.completedText}>✅ Tamamlandı! ({hatimGunSayisi(current.startDate, current.completedDate)} günde)</Text>
+                          <Text style={st.completedText}>{fmt(t.hatimDone, { n: hatimGunSayisi(current.startDate, current.completedDate) })}</Text>
                         )}
                       </View>
                       <Text style={st.progressCount}>{progress}/30</Text>
@@ -167,32 +171,32 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                         <TouchableOpacity
                           onPress={() => setConfirm(true)}
                           accessibilityRole="button"
-                          accessibilityLabel="Hatmi sıfırlama onayını aç"
+                          accessibilityLabel={t.hatimResetAskA11y}
                           hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                           style={st.actionBtn}
                         >
-                          <Text style={st.actionText}>Sıfırla</Text>
+                          <Text style={st.actionText}>{t.hatimReset}</Text>
                         </TouchableOpacity>
                       ) : (
                         <>
-                          <Text style={[st.confirmText, { color: c.textMuted }]}>Emin misiniz?</Text>
+                          <Text style={[st.confirmText, { color: c.textMuted }]}>{t.hatimSure}</Text>
                           <TouchableOpacity
                             onPress={resetCurrentHatim}
                             accessibilityRole="button"
-                            accessibilityLabel="Hatmi sıfırla"
+                            accessibilityLabel={t.hatimResetA11y}
                             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                             style={st.actionBtn}
                           >
-                            <Text style={[st.actionText, { color: "#dc2626", fontWeight: "700" }]}>Evet</Text>
+                            <Text style={[st.actionText, { color: "#dc2626", fontWeight: "700" }]}>{t.yes}</Text>
                           </TouchableOpacity>
                           <TouchableOpacity
                             onPress={() => setConfirm(false)}
                             accessibilityRole="button"
-                            accessibilityLabel="Sıfırlama işlemini iptal et"
+                            accessibilityLabel={t.hatimCancelA11y}
                             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                             style={st.actionBtn}
                           >
-                            <Text style={st.actionText}>Hayır</Text>
+                            <Text style={st.actionText}>{t.no}</Text>
                           </TouchableOpacity>
                         </>
                       )}
@@ -210,7 +214,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                           activeOpacity={0.7}
                           accessibilityRole="checkbox"
                           accessibilityState={{ checked: done }}
-                          accessibilityLabel={`${juz.juz}. cüz okundu olarak işaretle`}
+                          accessibilityLabel={fmt(t.juzMarkA11y, { n: juz.juz })}
                         >
                           <View style={[st.juzCheck, { borderColor: c.border }, done && st.juzCheckDone]}>
                             <Text style={[st.juzNum, { color: c.textMuted }, done && st.juzNumDone]} maxFontSizeMultiplier={1.2}>
@@ -218,7 +222,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                             </Text>
                           </View>
                           <View style={{ flex: 1 }}>
-                            <Text style={[st.juzTitle, { color: done ? green : c.text }]}>{juz.juz}. Cüz</Text>
+                            <Text style={[st.juzTitle, { color: done ? green : c.text }]}>{fmt(t.juzTitle, { n: juz.juz })}</Text>
                             <Text style={[st.juzRange, { color: c.textMuted }]}>{juz.startName} {juz.startAyah} – {juz.endName} {juz.endAyah}</Text>
                           </View>
                         </TouchableOpacity>
@@ -227,9 +231,9 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                           onPress={() => okuJuz(juz)}
                           activeOpacity={0.7}
                           accessibilityRole="button"
-                          accessibilityLabel={`${juz.juz}. cüzü oku`}
+                          accessibilityLabel={fmt(t.juzReadA11y, { n: juz.juz })}
                         >
-                          <Text style={st.juzReadBtnText}>Oku →</Text>
+                          <Text style={st.juzReadBtnText}>{t.juzRead}</Text>
                         </TouchableOpacity>
                       </View>
                     );
@@ -240,14 +244,14 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
               {/* Geçmiş */}
               {completed.length > 0 && (
                 <View style={st.historySection}>
-                  <Text style={[st.historyTitle, { color: c.textMuted }]}>Tamamlanan Hatimler ({completed.length})</Text>
+                  <Text style={[st.historyTitle, { color: c.textMuted }]}>{fmt(t.hatimHistory, { n: completed.length })}</Text>
                   {completed.map((h, i) => (
                     <View key={h.id} style={[st.historyRow, { backgroundColor: c.card, borderColor: c.border }]}>
                       <View>
-                        <Text style={[st.historyLabel, { color: c.text }]}>{completed.length - i}. Hatim</Text>
-                        <Text style={[st.historyDates, { color: c.textMuted }]}>{hatimFmt(h.startDate)} → {hatimFmt(h.completedDate)}</Text>
+                        <Text style={[st.historyLabel, { color: c.text }]}>{fmt(t.hatimOrdinal, { n: completed.length - i })}</Text>
+                        <Text style={[st.historyDates, { color: c.textMuted }]}>{hatimFmt(h.startDate, loc)} → {hatimFmt(h.completedDate, loc)}</Text>
                       </View>
-                      <Text style={st.historyDays}>{hatimGunSayisi(h.startDate, h.completedDate)} gün</Text>
+                      <Text style={st.historyDays}>{fmt(t.daysUnit, { n: hatimGunSayisi(h.startDate, h.completedDate) })}</Text>
                     </View>
                   ))}
                 </View>
@@ -269,16 +273,16 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                 style={{ width: 200, height: 200 }}
               />
             )}
-            <Text style={[st.celebrationTitle, { color: c.text }]}>Tebrikler! 🎉</Text>
-            <Text style={[st.celebrationSub, { color: c.textMuted }]}>Hatminizi tamamladınız!</Text>
+            <Text style={[st.celebrationTitle, { color: c.text }]}>{t.congrats}</Text>
+            <Text style={[st.celebrationSub, { color: c.textMuted }]}>{t.hatimCongrats}</Text>
             <TouchableOpacity
               style={[st.celebrationBtn, { backgroundColor: c.accent }]}
               onPress={() => setShowCelebration(false)}
               activeOpacity={0.85}
               accessibilityRole="button"
-              accessibilityLabel="Kutlamayı kapat"
+              accessibilityLabel={t.celebrationCloseA11y}
             >
-              <Text style={st.celebrationBtnText}>Tamam</Text>
+              <Text style={st.celebrationBtnText}>{t.ok}</Text>
             </TouchableOpacity>
           </View>
         </View>

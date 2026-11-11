@@ -9,6 +9,8 @@ import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { useStrings } from "../../src/i18n";
+import ibadetStrings from "../../src/i18n/strings/ibadetTab";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
 type Item = {
@@ -26,30 +28,31 @@ type Item = {
 
 export default function IbadetTab() {
   const c = useColors();
+  const t = useStrings(ibadetStrings);
   const [tasbihOpen, setTasbihOpen] = useState(false);
   const ibadetTarget = useTourTarget("ibadet.main");
   const tourScroll = useTourScroller();
 
   const SECTIONS: { title: string; items: Item[] }[] = [
     {
-      title: "📚 Rehberler",
+      title: t.secGuides,
       items: [
-        { icon: "accessibility-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: "Namaz Rehberi", sub: "Nasıl kılınır, özel namazlar", route: "/namaz-rehberi" },
-        { icon: "rose-outline", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4", label: "Dualar ve Zikirler", sub: "89 dua, 23 kategori", route: "/dualar" },
-        { icon: "reader-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: "İbadet Rehberi", sub: "Namaz, oruç, zekât, abdest", route: "/ibadet-rehberi" },
+        { icon: "accessibility-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: t.namazRehberiLabel, sub: t.namazRehberiSub, route: "/namaz-rehberi" },
+        { icon: "rose-outline", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4", label: t.dualarLabel, sub: t.dualarSub, route: "/dualar" },
+        { icon: "reader-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: t.ibadetRehberiLabel, sub: t.ibadetRehberiSub, route: "/ibadet-rehberi" },
       ],
     },
     {
-      title: "🧰 Araçlar",
+      title: t.secTools,
       items: [
-        { icon: "compass-outline", iconBg: "#ffedd5", iconColor: "#c2410c", darkIconBg: "#7c2d12", darkIconColor: "#fdba74", label: "Kıble", sub: "Kabe yönünü bul", route: "/kible" },
-        { icon: "radio-button-on-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: "Tespih", sub: "Dijital zikir matik", onPress: () => setTasbihOpen(true) },
+        { icon: "compass-outline", iconBg: "#ffedd5", iconColor: "#c2410c", darkIconBg: "#7c2d12", darkIconColor: "#fdba74", label: t.kibleLabel, sub: t.kibleSub, route: "/kible" },
+        { icon: "radio-button-on-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: t.tasbihLabel, sub: t.tasbihSub, onPress: () => setTasbihOpen(true) },
       ],
     },
     {
-      title: "🔖 Diğer",
+      title: t.secOther,
       items: [
-        { icon: "body-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: "Özel Namazlar", sub: "Cenaze, teheccüd, teravih...", route: "/namaz-rehberi", params: { tab: "ozel" } },
+        { icon: "body-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: t.ozelLabel, sub: t.ozelSub, route: "/namaz-rehberi", params: { tab: "ozel" } },
       ],
     },
   ];
@@ -76,7 +79,7 @@ export default function IbadetTab() {
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.heading, { color: c.text }]}>İbadet</Text>
+        <Text style={[s.heading, { color: c.text }]}>{t.heading}</Text>
 
         {SECTIONS.map((section, si) => (
           <View key={si} {...(si === 0 ? ibadetTarget : {})} style={si > 0 ? s.section : undefined}>

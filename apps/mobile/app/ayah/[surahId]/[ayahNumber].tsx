@@ -35,6 +35,11 @@ import { arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../../../src/lib/m
 import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
 import { formatMorphologyTr, translatePosTr } from "../../../../../packages/core/src/presentation/morphologyLabels";
 import { pickAttributionFreeMealText } from "../../../../../packages/core/src/presentation/combinedMealBlocks";
+import { englishMeal, EN_MEAL_SOURCE } from "../../../src/lib/englishMeal";
+import { useLang, useStrings, getStrings, fmt } from "../../../src/i18n";
+import { localizedTranslit } from "../../../src/lib/translitEn";
+import ayahStrings from "../../../src/i18n/strings/ayah";
+import { useSurahNameOf } from "../../../src/lib/surahNames";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -46,19 +51,19 @@ const SHOW_THEME_TAGS = false;
 // ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
 const naturallyRootlessPosLabels: Record<string, string> = {
-  particle:     "edat",
-  preposition:  "edat",
-  conjunction:  "bağlaç",
-  article:      "harf",
-  determiner:   "harf",
+  particle:     "rootlessParticle",
+  preposition:  "rootlessPreposition",
+  conjunction:  "rootlessConjunction",
+  article:      "rootlessArticle",
+  determiner:   "rootlessDeterminer",
 };
 
-function getRootDisplayText(word: AyahDetailResponse["words"][number]): string {
+function getRootDisplayText(word: AyahDetailResponse["words"][number], ay: Record<string, string>): string {
   if (word.root) return word.root;
   if (word.pos && naturallyRootlessPosLabels[word.pos]) {
-    return `Kök yok (${naturallyRootlessPosLabels[word.pos]})`;
+    return fmt(ay.noRootWith, { kind: ay[naturallyRootlessPosLabels[word.pos]] });
   }
-  return "Kök bilgisi yok";
+  return ay.noRootInfo;
 }
 
 function isRootClickable(
@@ -72,18 +77,19 @@ function isRootClickable(
 // Tefsir ayrı ekranda (/tafsir/[surahId]) gösteriliyor; ayet sayfasında tekrar
 // etmemek için akordiyon yerine o ekrana giden link.
 function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: ThemeColors }) {
+  const ay = useStrings(ayahStrings);
   return (
     <TouchableOpacity
       style={[styles.accordionBox, { backgroundColor: colors.card, borderColor: colors.border }]}
       onPress={() => router.push(`/tafsir/${surahId}`)}
       activeOpacity={0.7}
       accessibilityRole="button"
-      accessibilityLabel="Sure hakkında tefsiri aç"
+      accessibilityLabel={ay.openTafsirA11y}
     >
       <View style={styles.accordionHeader}>
         <View style={styles.accordionTitleRow}>
           <Ionicons name="book-outline" size={17} color={colors.accent} />
-          <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>Sure tefsirini oku</Text>
+          <Text style={[styles.accordionTitle, { color: colors.textPrimary }]}>{ay.readTafsir}</Text>
         </View>
         <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
       </View>
@@ -100,6 +106,7 @@ function RawMeaningSummary({
   words: AyahDetailResponse["words"];
   colors: ThemeColors;
 }) {
+  const ay = useStrings(ayahStrings);
   const meanings = words
     .map((w) => w.meaningTr?.trim())
     .filter((m): m is string => typeof m === "string" && m.length > 0);
@@ -109,10 +116,10 @@ function RawMeaningSummary({
   return (
     <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
       <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>
-        Ham Anlam Özeti
+        {ay.rawMeaningTitle}
       </Text>
       <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
-        Kelimelerin sırasıyla doğrudan anlamları
+        {ay.rawMeaningSub}
       </Text>
       <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
         {meanings.join(" ") + "."}
@@ -132,6 +139,7 @@ function UniqueRootList({
   rootMeanings: Record<string, string>;
   colors: ThemeColors;
 }) {
+  const ay = useStrings(ayahStrings);
   const rootMap = new Map<string, number>();
   for (const w of words) {
     if (w.root?.trim()) {
@@ -144,7 +152,7 @@ function UniqueRootList({
     return (
       <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
         <Text style={[styles.emptyText, { color: colors.textMuted }]}>
-          Bu ayet için kök bilgisi bulunamadı.
+          {ay.noRoots}
         </Text>
       </View>
     );
@@ -161,12 +169,12 @@ function UniqueRootList({
             onPress={() => router.push(`/root/${encodeURIComponent(root)}`)}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel={`${root} kökünü incele`}
+            accessibilityLabel={fmt(ay.inspectRootA11y, { root })}
           >
             <View style={styles.rootChipRow}>
               <Text style={[styles.rootChipArabic, { color: colors.accent }]}>{root}</Text>
               <View style={[styles.rootCountBadge, { backgroundColor: colors.accent + "18" }]}>
-                <Text style={[styles.rootCountText, { color: colors.accent }]}>{count} kelime</Text>
+                <Text style={[styles.rootCountText, { color: colors.accent }]}>{fmt(ay.wordCount, { n: count })}</Text>
               </View>
             </View>
             {meaning ? (
@@ -186,6 +194,7 @@ function UniqueRootList({
 function AyahJumpBar({ surahId, current, total, colors, onJump }: {
   surahId: number; current: number; total: number; colors: ThemeColors; onJump: () => void;
 }) {
+  const ay = useStrings(ayahStrings);
   const [surahVal, setSurahVal] = useState(String(surahId));
   const [ayahVal,  setAyahVal]  = useState(String(current));
   const ayahInputRef = useRef<TextInput>(null);
@@ -214,7 +223,7 @@ function AyahJumpBar({ surahId, current, total, colors, onJump }: {
 
   return (
     <View style={[styles.jumpBar, { borderColor: colors.border, alignItems: "center" }]}>
-      <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>Sure:</Text>
+      <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>{ay.surahLabel}</Text>
       <TextInput
         style={inputStyle}
         value={surahVal}
@@ -226,7 +235,7 @@ function AyahJumpBar({ surahId, current, total, colors, onJump }: {
         returnKeyType="next"
         selectTextOnFocus
       />
-      <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>Ayet:</Text>
+      <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>{ay.ayahLabel}</Text>
       <TextInput
         ref={ayahInputRef}
         style={inputStyle}
@@ -237,8 +246,8 @@ function AyahJumpBar({ surahId, current, total, colors, onJump }: {
         returnKeyType="go"
         selectTextOnFocus
       />
-      <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Ayete git">
-        <Text style={styles.jumpBtnText}>Git</Text>
+      <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={ay.goA11y}>
+        <Text style={styles.jumpBtnText}>{ay.go}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -259,11 +268,12 @@ function SegmentedTabs({
   colors: ThemeColors;
   analysisTarget?: ReturnType<typeof useTourTarget>;
 }) {
+  const ay = useStrings(ayahStrings);
   const tabs: { id: TabId; label: string }[] = [
-    { id: "meal", label: "Meal" },
-    { id: "words", label: "Kelimeler" },
-    { id: "roots", label: "Kökler" },
-    { id: "analysis", label: "Analiz" },
+    { id: "meal", label: ay.tabMeal },
+    { id: "words", label: ay.tabWords },
+    { id: "roots", label: ay.tabRoots },
+    { id: "analysis", label: ay.tabAnalysis },
   ];
 
   return (
@@ -478,7 +488,7 @@ export default function AyahDetailScreen() {
     // Bozuk/eksik deep link parametresi (örn. dış link, App Links) → sonsuz
     // yükleniyor ekranında kalmasın, mevcut hata ekranına düşsün.
     if (!surahId || !ayahNumber) {
-      setError("Geçersiz ayet bağlantısı.");
+      setError(getStrings(ayahStrings).invalidLink);
       setLoading(false);
       return;
     }
@@ -508,7 +518,7 @@ export default function AyahDetailScreen() {
             .catch(() => { /* okunuş yedeği başarısız — sessiz geç */ });
         }
       })
-      .catch(() => { if (isMounted) setError("Ayet yüklenemedi. Bağlantını kontrol et."); })
+      .catch(() => { if (isMounted) setError(getStrings(ayahStrings).loadError); })
       .finally(() => { if (isMounted) setLoading(false); });
     return () => { isMounted = false; };
   }, [surahId, ayahNumber, reloadKey]);
@@ -524,9 +534,11 @@ export default function AyahDetailScreen() {
     [],
   );
 
+  const surahNameOf = useSurahNameOf();
+  const ay = useStrings(ayahStrings);
   const headerTitle = data
-    ? `${data.surahName} · ${data.ayahNumber}. Ayet`
-    : "Ayet Detayı";
+    ? fmt(ay.headerTitle, { name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber })
+    : ay.detailTitle;
 
   const navToRoot = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
@@ -535,19 +547,25 @@ export default function AyahDetailScreen() {
   // Paylaşımda Elmalılı atfı yapılmaz (görsel kartta/mesajda "meal" başlığı yok);
   // bu yüzden birleşik blok ayetlerinde tek ayete özgü literal çeviri kullanılır —
   // aksi halde kullanıcı komşu ayetleri de kapsayan metni tek ayet sanarak paylaşır.
+  // İngilizce arayüzde Pickthall mealı (ayet başına, birleşik blok yok).
+  const lang = useLang();
+  const enMeal = useMemo(
+    () => (lang === "en" && data ? englishMeal(data.verseKey) : null),
+    [lang, data]
+  );
   const shareMeal = useMemo(
-    () => (data ? pickAttributionFreeMealText(data.verseKey, data.meal, data.literalCeviri) : null),
-    [data]
+    () => enMeal ?? (data ? pickAttributionFreeMealText(data.verseKey, data.meal, data.literalCeviri) : null),
+    [data, enMeal]
   );
 
   const handleShareText = useCallback(async () => {
     if (!data) return;
     const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
-    const title = `${data.surahName} ${data.ayahNumber}. Ayet`;
+    const title = fmt(ay.shareTitle, { name: data.surahName, n: data.ayahNumber });
     const bodyParts = [
-      `${data.surahName} · ${data.ayahNumber}. Ayet`,
+      fmt(ay.shareHead, { name: data.surahName, n: data.ayahNumber }),
       data.arabicText ?? "",
-      reading ?? "",
+      localizedTranslit(reading, lang) ?? "",
       shareMeal ?? "",
     ].filter(Boolean);
     // Android'in paylaşım intent'i yalnızca `message` alanını okur, `url`'i yok sayar
@@ -559,7 +577,7 @@ export default function AyahDetailScreen() {
     try {
       await Share.share(shareOptions);
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
-  }, [data, surahId, ayahNumber, reading, shareMeal]);
+  }, [data, surahId, ayahNumber, reading, shareMeal, ay, lang]);
 
   // Paylaş düğmesi: görsel paylaşım modülleri build'de varsa kart önizlemesi açılır
   // (görsel/metin seçimi orada); yoksa doğrudan mevcut metin paylaşımı.
@@ -581,11 +599,11 @@ export default function AyahDetailScreen() {
     if (!notesLoaded) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const ok = await saveNote(verseKey, noteDraft);
-    if (!ok) { Alert.alert("Not kaydedilemedi", "Lütfen tekrar deneyin."); return; }
+    if (!ok) { Alert.alert(ay.noteSaveFailTitle, ay.tryAgain); return; }
     setNoteSaved(true);
     if (noteSavedTimerRef.current) clearTimeout(noteSavedTimerRef.current);
     noteSavedTimerRef.current = setTimeout(() => setNoteSaved(false), 2000);
-  }, [verseKey, noteDraft, saveNote, notesLoaded]);
+  }, [verseKey, noteDraft, saveNote, notesLoaded, ay]);
 
   const handleToggleFav = useCallback(() => {
     if (!favLoaded) return;
@@ -610,12 +628,12 @@ export default function AyahDetailScreen() {
   const handleDeleteNote = useCallback(() => {
     if (!notesLoaded) return;
     Alert.alert(
-      "Not silinsin mi?",
-      "Bu ayete ekledi\u011finiz ki\u015fisel not kald\u0131r\u0131lacak.",
+      ay.deleteNoteTitle,
+      ay.deleteNoteBody,
       [
-        { text: "Vazge\u00e7", style: "cancel" },
+        { text: ay.cancel, style: "cancel" },
         {
-          text: "Sil",
+          text: ay.delete,
           style: "destructive",
           onPress: async () => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -623,7 +641,7 @@ export default function AyahDetailScreen() {
             const ok = await saveNote(verseKey, "");
             if (!ok) {
               setNoteDraft(previousDraft);
-              Alert.alert("Not silinemedi", "L\u00fctfen tekrar deneyin.");
+              Alert.alert(ay.noteDeleteFailTitle, ay.tryAgain);
               return;
             }
             setNoteDraft("");
@@ -632,13 +650,13 @@ export default function AyahDetailScreen() {
         },
       ],
     );
-  }, [noteDraft, saveNote, verseKey, notesLoaded]);
+  }, [noteDraft, saveNote, verseKey, notesLoaded, ay]);
 
   // ── Yükleme ──
   if (loading) {
     return (
       <>
-        <Stack.Screen options={{ title: "Ayet Detayı" }} />
+        <Stack.Screen options={{ title: ay.detailTitle }} />
         <View style={{ flex: 1, backgroundColor: colors.bg, padding: 16, paddingTop: insets.top + 16, gap: 14 }}>
           {/* Arapça metin — sağa dayalı */}
           <SkeletonBox width="88%" height={38} borderRadius={8} style={{ alignSelf: "flex-end" }} />
@@ -655,11 +673,11 @@ export default function AyahDetailScreen() {
   if (error || !data) {
     return (
       <>
-        <Stack.Screen options={{ title: "Hata" }} />
+        <Stack.Screen options={{ title: ay.errorTitle }} />
         <View style={[styles.centered, { backgroundColor: colors.bg }]}>
           <Ionicons name="cloud-offline-outline" size={44} color={colors.textMuted} />
           <Text style={[styles.errorText, { color: colors.error }]}>
-            {error ?? "Veri yüklenemedi."}
+            {error ?? ay.dataError}
           </Text>
           {surahId && ayahNumber ? (
             <TouchableOpacity
@@ -667,10 +685,10 @@ export default function AyahDetailScreen() {
               style={[styles.backBtn, { backgroundColor: colors.accent }]}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Tekrar dene"
+              accessibilityLabel={ay.retryA11y}
             >
               <Ionicons name="refresh" size={16} color="#fff" />
-              <Text style={styles.backBtnText}>Tekrar Dene</Text>
+              <Text style={styles.backBtnText}>{ay.retry}</Text>
             </TouchableOpacity>
           ) : null}
           <TouchableOpacity
@@ -678,10 +696,10 @@ export default function AyahDetailScreen() {
             style={[styles.backBtn, { backgroundColor: colors.surfaceAlt, borderWidth: 1, borderColor: colors.border }]}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel="Geri dön"
+            accessibilityLabel={ay.backA11y}
           >
             <Ionicons name="chevron-back" size={16} color={colors.textSecondary} />
-            <Text style={[styles.backBtnText, { color: colors.textSecondary }]}>Geri Dön</Text>
+            <Text style={[styles.backBtnText, { color: colors.textSecondary }]}>{ay.back}</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -707,7 +725,7 @@ export default function AyahDetailScreen() {
               {data.arabicName}
             </Text>
             <Text style={[styles.sureAdi, { color: gold }]} numberOfLines={1}>
-              {data.surahId}. {data.surahName} Suresi · {data.ayahNumber}. Ayet
+              {fmt(ay.surahTitleLine, { id: data.surahId, name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber })}
             </Text>
           </View>
 
@@ -725,11 +743,11 @@ export default function AyahDetailScreen() {
                 hitSlop={6}
                 accessibilityRole="switch"
                 accessibilityState={{ checked: tajweed }}
-                accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+                accessibilityLabel={ay.tajweedToggleA11y}
               >
                 <Ionicons name="color-palette-outline" size={14} color={tajweed ? colors.accent : colors.textMuted} />
                 <Text style={[styles.tajToggleText, { color: tajweed ? colors.accent : colors.textMuted }]}>
-                  Tecvid {tajweed ? "açık" : "kapalı"}
+                  {tajweed ? ay.tajweedOn : ay.tajweedOff}
                 </Text>
               </TouchableOpacity>
             ) : (
@@ -743,7 +761,7 @@ export default function AyahDetailScreen() {
                 activeOpacity={0.7}
                 hitSlop={6}
                 accessibilityRole="button"
-                accessibilityLabel="Yazıyı küçült"
+                accessibilityLabel={ay.shrinkA11y}
                 accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
               >
                 <MaterialCommunityIcons name="magnify-minus-outline" size={17} color={colors.textSecondary} />
@@ -755,7 +773,7 @@ export default function AyahDetailScreen() {
                 activeOpacity={0.7}
                 hitSlop={6}
                 accessibilityRole="button"
-                accessibilityLabel="Yazıyı büyüt"
+                accessibilityLabel={ay.growA11y}
                 accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
               >
                 <MaterialCommunityIcons name="magnify-plus-outline" size={17} color={colors.textSecondary} />
@@ -778,7 +796,7 @@ export default function AyahDetailScreen() {
           {reading ? (
             <>
               <View style={[styles.arabicDivider, { backgroundColor: paper.borderColor }]} />
-              <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{reading}</Text>
+              <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{localizedTranslit(reading, lang)}</Text>
             </>
           ) : null}
 
@@ -788,7 +806,7 @@ export default function AyahDetailScreen() {
               {TAJWEED_LEGEND.map((l) => (
                 <View key={l.ad} style={styles.legendItem}>
                   <View style={[styles.legendDot, { backgroundColor: l.renk }]} />
-                  <Text style={[styles.legendText, { color: colors.textMuted }]}>{l.ad}</Text>
+                  <Text style={[styles.legendText, { color: colors.textMuted }]}>{(ay as unknown as Record<string, string>)[l.renk] ?? l.ad}</Text>
                 </View>
               ))}
             </View>
@@ -802,10 +820,10 @@ export default function AyahDetailScreen() {
               onPress={handleMushaftaAc}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Bu ayeti mushaf sayfasında aç"
+              accessibilityLabel={ay.openInMushafA11y}
             >
               <Ionicons name="albums-outline" size={16} color={colors.accent} />
-              <Text style={[styles.mushafBtnText, { color: colors.textSecondary }]}>Mushafta Aç</Text>
+              <Text style={[styles.mushafBtnText, { color: colors.textSecondary }]}>{ay.openInMushaf}</Text>
             </TouchableOpacity>
             <View style={{ flex: 1 }} />
             <TouchableOpacity
@@ -814,7 +832,7 @@ export default function AyahDetailScreen() {
               hitSlop={6}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Ayeti paylaş"
+              accessibilityLabel={ay.shareA11y}
             >
               <Ionicons name="share-social-outline" size={18} color={colors.textSecondary} />
             </TouchableOpacity>
@@ -831,7 +849,7 @@ export default function AyahDetailScreen() {
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityState={{ selected: isFavorite(verseKey), disabled: !favLoaded }}
-              accessibilityLabel={isFavorite(verseKey) ? "Favorilerden çıkar" : "Favorilere ekle"}
+              accessibilityLabel={isFavorite(verseKey) ? ay.unfavA11y : ay.favA11y}
             >
               <Ionicons
                 name={isFavorite(verseKey) ? "heart" : "heart-outline"}
@@ -849,6 +867,13 @@ export default function AyahDetailScreen() {
         {activeTab === "meal" && (
           <View style={styles.tabContent}>
 
+            {enMeal ? (
+              <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>{EN_MEAL_SOURCE}</Text>
+                <Text style={[styles.mealText, scaledText.meal, { color: colors.textSecondary }]}>{enMeal}</Text>
+              </View>
+            ) : null}
+
             {data.meal ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>Elmalılı H. Yazır</Text>
@@ -856,7 +881,7 @@ export default function AyahDetailScreen() {
               </View>
             ) : (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.mealText, { color: colors.textMuted }]}>Meal verisi yok.</Text>
+                <Text style={[styles.mealText, { color: colors.textMuted }]}>{ay.noMeal}</Text>
               </View>
             )}
 
@@ -868,7 +893,7 @@ export default function AyahDetailScreen() {
             {data.words.length > 0 ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>
-                  KELİME ANALİZİ · {data.words.length} KELİME
+                  {fmt(ay.wordAnalysis, { n: data.words.length })}
                 </Text>
                 <View style={styles.wordsList}>
                   {data.words.map((w) => (
@@ -892,10 +917,10 @@ export default function AyahDetailScreen() {
                       {/* Anlam */}
                       <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                         <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                          Anlam
+                          {ay.meaning}
                         </Text>
                         <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
-                          {w.meaningTr ?? "Anlam yok"}
+                          {w.meaningTr ?? ay.noMeaning}
                         </Text>
                       </View>
 
@@ -904,25 +929,25 @@ export default function AyahDetailScreen() {
                         <View
                           style={[styles.wordDetailRow, { borderTopColor: colors.border }]}
                           accessible
-                          accessibilityLabel={`Kelime türü ${translatePosTr(w.pos)}`}
+                          accessibilityLabel={fmt(ay.wordTypeA11y, { pos: translatePosTr(w.pos, "—", lang) })}
                         >
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                            Tür
+                            {ay.type}
                           </Text>
                       <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
-                        {translatePosTr(w.pos)}
+                        {translatePosTr(w.pos, "—", lang)}
                       </Text>
                         </View>
                       ) : null}
 
                       {/* Detaylı morfoloji (varsa) */}
-                      {formatMorphologyTr(w.morphology) ? (
+                      {formatMorphologyTr(w.morphology, lang) ? (
                         <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                            Morfoloji
+                            {ay.morphology}
                           </Text>
                           <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
-                            {formatMorphologyTr(w.morphology)}
+                            {formatMorphologyTr(w.morphology, lang)}
                           </Text>
                         </View>
                       ) : null}
@@ -930,7 +955,7 @@ export default function AyahDetailScreen() {
                       {/* Kök */}
                       <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                         <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                          Kök
+                          {ay.root}
                         </Text>
                         {isRootClickable(w) ? (
                           <TouchableOpacity
@@ -938,7 +963,7 @@ export default function AyahDetailScreen() {
                             activeOpacity={0.6}
                             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                             accessibilityRole="button"
-                            accessibilityLabel={`${w.root} kökünü incele`}
+                            accessibilityLabel={fmt(ay.inspectRootA11y, { root: w.root })}
                           >
                             <Text style={[styles.rootLink, { color: colors.accent }]}>
                               {w.root}
@@ -946,7 +971,7 @@ export default function AyahDetailScreen() {
                           </TouchableOpacity>
                         ) : (
                           <Text style={[styles.wordDetailValue, { color: colors.textMuted }]}>
-                            {getRootDisplayText(w)}
+                            {getRootDisplayText(w, ay)}
                           </Text>
                         )}
                       </View>
@@ -957,7 +982,7 @@ export default function AyahDetailScreen() {
             ) : (
               <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
                 <Text style={[styles.emptyText, { color: colors.textMuted }]}>
-                  Kelime analizi verisi yok.
+                  {ay.noWordData}
                 </Text>
               </View>
             )}
@@ -967,7 +992,7 @@ export default function AyahDetailScreen() {
         {activeTab === "roots" && (
           <View style={styles.tabContent}>
             <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-              <Text style={[styles.sectionTitle, { color: colors.accent }]}>KÖKLER</Text>
+              <Text style={[styles.sectionTitle, { color: colors.accent }]}>{ay.rootsTitle}</Text>
               <UniqueRootList words={data.words} rootMeanings={data.rootMeanings ?? {}} colors={colors} />
             </View>
           </View>
@@ -979,9 +1004,9 @@ export default function AyahDetailScreen() {
             {/* Literal Çeviri */}
             {data.literalCeviri ? (
               <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>Literal Çeviri</Text>
+                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>{ay.literalTitle}</Text>
                 <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
-                  Kelimenin kelime karşılığı
+                  {ay.literalSub}
                 </Text>
                 <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
                   {data.literalCeviri}
@@ -992,9 +1017,9 @@ export default function AyahDetailScreen() {
             {/* Fark Analizi */}
             {data.farkAnalizi ? (
               <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>Fark Analizi</Text>
+                <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>{ay.diffTitle}</Text>
                 <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
-                  Meal ile literal çeviri arasındaki anlam farkları
+                  {ay.diffSub}
                 </Text>
                 <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
                   {data.farkAnalizi}
@@ -1010,7 +1035,7 @@ export default function AyahDetailScreen() {
                 Etiket verisi ve tag'e göre arama DB'de duruyor; yalnızca bu kart gizlendi. */}
             {SHOW_THEME_TAGS && (data.anaTema || data.altTaglar?.length > 0) && (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-                <Text style={[styles.sectionTitle, { color: colors.accent }]}>TEMA ETİKETLERİ</Text>
+                <Text style={[styles.sectionTitle, { color: colors.accent }]}>{ay.themeTags}</Text>
                 <View style={styles.tagRow}>
                   {data.anaTema && (
                     <TouchableOpacity
@@ -1018,7 +1043,7 @@ export default function AyahDetailScreen() {
                       onPress={() => { if (data.anaTema) router.push(`/search?tag=${encodeURIComponent(data.anaTema)}&page=1`); }}
                       activeOpacity={0.7}
                       accessibilityRole="button"
-                      accessibilityLabel={`${data.anaTema} etiketine göre ara`}
+                      accessibilityLabel={fmt(ay.searchTagA11y, { tag: data.anaTema })}
                     >
                       <Text style={styles.tagTextPrimary}>{data.anaTema}</Text>
                     </TouchableOpacity>
@@ -1030,7 +1055,7 @@ export default function AyahDetailScreen() {
                       onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
                       activeOpacity={0.7}
                       accessibilityRole="button"
-                      accessibilityLabel={`${tag} etiketine göre ara`}
+                      accessibilityLabel={fmt(ay.searchTagA11y, { tag })}
                     >
                       <Text style={styles.tagText}>{tag}</Text>
                     </TouchableOpacity>
@@ -1043,7 +1068,7 @@ export default function AyahDetailScreen() {
             {!data.literalCeviri && !data.farkAnalizi && data.words.filter((w) => w.meaningTr?.trim()).length === 0 && (
               <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
                 <Text style={[styles.emptyText, { color: colors.textMuted }]}>
-                  Bu ayet için analiz verisi bulunamadı.
+                  {ay.noAnalysis}
                 </Text>
               </View>
             )}
@@ -1058,12 +1083,12 @@ export default function AyahDetailScreen() {
           <View style={styles.noteHeader}>
             <View style={styles.noteTitleRow}>
               <Ionicons name="create-outline" size={16} color={colors.accent} />
-              <Text style={[styles.noteTitle, { color: colors.textPrimary }]}>Kişisel Not</Text>
+              <Text style={[styles.noteTitle, { color: colors.textPrimary }]}>{ay.personalNote}</Text>
             </View>
             {noteSaved && (
               <View style={styles.noteSavedRow}>
                 <Ionicons name="checkmark-circle" size={14} color={colors.accent} />
-                <Text style={[styles.noteSavedBadge, { color: colors.accent }]}>Kaydedildi</Text>
+                <Text style={[styles.noteSavedBadge, { color: colors.accent }]}>{ay.saved}</Text>
               </View>
             )}
           </View>
@@ -1071,7 +1096,7 @@ export default function AyahDetailScreen() {
             style={[styles.noteInput, { color: colors.textPrimary, borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}
             value={noteDraft}
             onChangeText={handleNoteDraftChange}
-            placeholder="Bu ayet hakkında notlarınızı buraya yazın…"
+            placeholder={ay.notePlaceholder}
             placeholderTextColor={colors.textMuted}
             multiline
             numberOfLines={4}
@@ -1086,9 +1111,9 @@ export default function AyahDetailScreen() {
                 onPress={handleDeleteNote}
                 activeOpacity={0.7}
                 accessibilityRole="button"
-                accessibilityLabel="Notu sil"
+                accessibilityLabel={ay.deleteNoteA11y}
               >
-                <Text style={[styles.noteDelete, { color: colors.error }]}>Notu Sil</Text>
+                <Text style={[styles.noteDelete, { color: colors.error }]}>{ay.deleteNote}</Text>
               </TouchableOpacity>
             )}
             <TouchableOpacity
@@ -1096,9 +1121,9 @@ export default function AyahDetailScreen() {
               onPress={handleSaveNote}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel="Notu kaydet"
+              accessibilityLabel={ay.saveNoteA11y}
             >
-              <Text style={styles.noteSaveBtnText}>Kaydet</Text>
+              <Text style={styles.noteSaveBtnText}>{ay.save}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -1140,7 +1165,7 @@ export default function AyahDetailScreen() {
               disabled={!data.prevAyah}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Önceki ayet"
+              accessibilityLabel={ay.prevA11y}
               accessibilityState={{ disabled: !data.prevAyah }}
             >
               <Ionicons name="chevron-back" size={16} color={data.prevAyah ? "#fff" : colors.textMuted} />
@@ -1150,7 +1175,7 @@ export default function AyahDetailScreen() {
                   !data.prevAyah && { color: colors.textMuted },
                 ]}
               >
-                Önceki
+                {ay.prev}
               </Text>
             </TouchableOpacity>
 
@@ -1160,7 +1185,7 @@ export default function AyahDetailScreen() {
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityState={{ expanded: jumpOpen }}
-              accessibilityLabel="Sure ve ayet atlama çubuğunu aç veya kapat"
+              accessibilityLabel={ay.toggleJumpA11y}
             >
               <View style={styles.navCenterRow}>
                 <Text style={[styles.navCenter, { color: colors.textMuted }]}>
@@ -1190,7 +1215,7 @@ export default function AyahDetailScreen() {
               disabled={!data.nextAyah}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Sonraki ayet"
+              accessibilityLabel={ay.nextA11y}
               accessibilityState={{ disabled: !data.nextAyah }}
             >
               <Text
@@ -1199,7 +1224,7 @@ export default function AyahDetailScreen() {
                   !data.nextAyah && { color: colors.textMuted },
                 ]}
               >
-                Sonraki
+                {ay.next}
               </Text>
               <Ionicons name="chevron-forward" size={16} color={data.nextAyah ? "#fff" : colors.textMuted} />
             </TouchableOpacity>
@@ -1211,7 +1236,7 @@ export default function AyahDetailScreen() {
       <AyahShareModal
         visible={shareOpen}
         onClose={() => setShareOpen(false)}
-        surahName={data.surahName}
+        surahName={surahNameOf(data.surahId, data.surahName)}
         ayahNumber={data.ayahNumber}
         arabic={data.arabicText}
         meal={shareMeal}

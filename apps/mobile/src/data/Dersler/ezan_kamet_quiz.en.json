@@ -1,0 +1,502 @@
+{
+  "quiz_id": "ezan-kamet",
+  "baslik": "Adhan and Iqamah",
+  "toplam_soru": 33,
+  "sorular": [
+    {
+      "id": "ezan_001",
+      "konu": "ezan_sozleri",
+      "soru": "What is the literal meaning of the word \"adhan\"?",
+      "secenekler": [
+        "A) To call and gather",
+        "B) To worship and prostrate",
+        "C) To announce and make known",
+        "D) To read and memorize"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Adhan literally means \"to announce, to make known.\" It is the call made with prescribed words to announce the times of obligatory prayers.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_002",
+      "konu": "hukumler",
+      "soru": "What is the Islamic ruling on the adhan?",
+      "secenekler": [
+        "A) Emphasized Sunnah",
+        "B) Individual obligation",
+        "C) Disliked",
+        "D) Wajib"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In Hanafi practice, the adhan is considered an emphasized Sunnah; some scholars have also regarded it as a communal obligation because of its social role. For this reason, leaving it out is discouraged.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_003",
+      "konu": "tarih",
+      "soru": "Which Companion gave the first adhan?",
+      "secenekler": [
+        "A) Umar",
+        "B) Abdullah bin Zayd",
+        "C) Abu Bakr",
+        "D) Bilal al-Habashi"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Bilal al-Habashi gave the first adhan. The Prophet ﷺ chose him because he had a strong voice. Abdullah bin Zayd was the one who learned the adhan in a dream.",
+      "zorluk": "orta",
+      "kaynak": "Abu Dawud, Salat 27"
+    },
+    {
+      "id": "ezan_004",
+      "konu": "tarih",
+      "soru": "In which city and during which period did the adhan begin?",
+      "secenekler": [
+        "A) In Mecca, before the migration",
+        "B) In Medina, after the migration",
+        "C) In Mecca, at the beginning of revelation",
+        "D) In Taif, in the third year after the migration"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Salah was made obligatory during the Meccan period, but the adhan began after the migration to Medina. The Prophet ﷺ consulted the Companions about how to make the call, and the first adhan was given in Medina.",
+      "zorluk": "kolay",
+      "kaynak": "Abu Dawud, Salat 27"
+    },
+    {
+      "id": "ezan_005",
+      "konu": "tarih",
+      "soru": "Which Companion learned how to give the adhan in a dream and told the Prophet ﷺ about it?",
+      "secenekler": [
+        "A) Abdullah bin Zayd",
+        "B) Bilal al-Habashi",
+        "C) Abu Bakr",
+        "D) Ali"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The Companion Abdullah bin Zayd learned the adhan in a dream and told the Prophet ﷺ about it. Umar had also seen the same dream. The Prophet ﷺ approved it, saying, \"It is a true dream.\"",
+      "zorluk": "orta",
+      "kaynak": "Abu Dawud, Salat 27"
+    },
+    {
+      "id": "ezan_006",
+      "konu": "ezan_sozleri",
+      "soru": "How many times in total is \"Allahu Ekber\" repeated in a standard adhan, excluding the morning adhan?",
+      "secenekler": [
+        "A) 4 times",
+        "B) 8 times",
+        "C) 6 times",
+        "D) 2 times"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Allahu Ekber\" is repeated a total of 6 times: 4 times at the beginning of the adhan and 2 times at the end.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_007",
+      "konu": "ezan_sozleri",
+      "soru": "What does \"Hayye ale's-salah\" mean?",
+      "secenekler": [
+        "A) Come to prayer",
+        "B) Come to salvation",
+        "C) Allah is the greatest",
+        "D) Prayer is better than sleep"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Hayye ale's-salah\" means \"Come to prayer.\" It is repeated twice in the adhan. \"Hayye ale'l-felah\" means \"Come to salvation.\"",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_008",
+      "konu": "ezan_sozleri",
+      "soru": "What does \"Hayye ale'l-felah\" mean?",
+      "secenekler": [
+        "A) Come to prayer",
+        "B) Allah is the greatest",
+        "C) Prayer is better than sleep",
+        "D) Come to salvation"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"Hayye ale'l-felah\" means \"Come to salvation.\" Felah means salvation, success, and happiness. This phrase is repeated twice in the adhan.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_009",
+      "konu": "ezan_sozleri",
+      "soru": "Which phrase comes immediately after the declarations of faith in the adhan?",
+      "secenekler": [
+        "A) Allahu Ekber",
+        "B) Hayye ale's-salah",
+        "C) La ilahe illallah",
+        "D) Kad kameti's-salah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The order of the adhan is: Allahu Ekber → Declarations of faith → Hayye ale's-salah → Hayye ale'l-felah → Allahu Ekber → La ilahe illallah. \"Hayye ale's-salah\" comes after the declarations of faith.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_010",
+      "konu": "ezan_sozleri",
+      "soru": "How many phrases are there in total in a standard adhan, excluding the morning adhan?",
+      "secenekler": [
+        "A) 7",
+        "B) 11",
+        "C) 15",
+        "D) 17"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The standard adhan consists of 15 phrases. When \"es-Salatu hayrun mine'n-nevm\" is added twice, the morning adhan consists of 17 phrases.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_011",
+      "konu": "ezan_sozleri",
+      "soru": "What is the last phrase of the adhan?",
+      "secenekler": [
+        "A) Allahu Ekber",
+        "B) Hayye ale'l-felah",
+        "C) Eşhedu enne Muhammeden Resulullah",
+        "D) La ilahe illallah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The last phrase of the adhan is \"La ilahe illallah\" (There is no god but Allah), and it is said once. The adhan ends with a declaration of the oneness of Allah.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_012",
+      "konu": "sabah_ezani",
+      "soru": "Which special phrase is added to the morning adhan, unlike the adhans at other times?",
+      "secenekler": [
+        "A) Es-Salatu hayrun mine'n-nevm",
+        "B) Kad kameti's-salah",
+        "C) La havle ve la kuvvete illa billah",
+        "D) Sadakte ve berirte"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In the morning adhan, \"es-Salatu hayrun mine'n-nevm\" (Prayer is better than sleep) is added twice after \"Hayye ale'l-felah.\" This is unique to the morning adhan.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_013",
+      "konu": "sabah_ezani",
+      "soru": "What does \"Es-Salatu hayrun mine'n-nevm\" mean?",
+      "secenekler": [
+        "A) Come to salvation",
+        "B) The prayer has begun",
+        "C) Prayer is better than sleep",
+        "D) Allah is the greatest"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Es-Salatu hayrun mine'n-nevm\" means \"Prayer is better than sleep.\" This phrase is repeated twice in the morning adhan.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_014",
+      "konu": "sabah_ezani",
+      "soru": "How many times is \"es-Salatu hayrun mine'n-nevm\" recited in the morning adhan?",
+      "secenekler": [
+        "A) Once",
+        "B) Twice",
+        "C) 3 times",
+        "D) 4 times"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Es-Salatu hayrun mine'n-nevm\" is recited twice in the morning adhan. This phrase is a special reminder for the morning prayer that prayer is better than sleep.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_015",
+      "konu": "icabet",
+      "soru": "What should a person listening to the adhan say when hearing \"Hayye ale's-salah\" and \"Hayye ale'l-felah\"?",
+      "secenekler": [
+        "A) Allahu Ekber",
+        "B) Sadakte ve berirte",
+        "C) Hayye ale's-salah",
+        "D) La havle ve la kuvvete illa billah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "As a rule, responding to the adhan means repeating what the muezzin (the person giving the adhan) says. However, for \"Hayye ale's-salah\" and \"Hayye ale'l-felah,\" one says \"La havle ve la kuvvete illa billah\" (Power and strength come only from Allah) instead.",
+      "zorluk": "zor",
+      "kaynak": "Muslim, Salat 11"
+    },
+    {
+      "id": "ezan_016",
+      "konu": "icabet",
+      "soru": "What is it called when a person listening to the adhan quietly repeats after the muezzin?",
+      "secenekler": [
+        "A) İcabet",
+        "B) Teressül",
+        "C) Kamet",
+        "D) Tertil"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "İcabet (repeating the appropriate responses upon hearing the adhan) is when a listener quietly repeats what the muezzin (the person giving the adhan) says. \"When you hear the adhan, say what the muezzin (the person giving the adhan) says.\" (Muslim, Salat 11)",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Salat 11"
+    },
+    {
+      "id": "ezan_017",
+      "konu": "icabet",
+      "soru": "What is said when \"es-Salatu hayrun mine'n-nevm\" is heard in the morning adhan?",
+      "secenekler": [
+        "A) La havle ve la kuvvete illa billah",
+        "B) Allahu Ekber",
+        "C) Sadakte ve berirte",
+        "D) Hayye ale'l-felah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "When \"es-Salatu hayrun mine'n-nevm\" is heard in the morning adhan, one says \"Sadakte ve berirte\" (You have spoken truthfully and well). Unlike the other phrases, it is not repeated verbatim.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_018",
+      "konu": "icabet",
+      "soru": "What should be done after the adhan ends?",
+      "secenekler": [
+        "A) Begin salah immediately",
+        "B) Send blessings upon the Prophet and recite the supplication after the adhan",
+        "C) Only wait for the iqamah",
+        "D) Face the qiblah and remain silent"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "After the adhan ends, one first sends blessings upon the Prophet ﷺ, then recites the supplication after the adhan. The Prophet ﷺ promised his intercession on the Day of Judgment to whoever recites this supplication.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 8"
+    },
+    {
+      "id": "ezan_019",
+      "konu": "icabet",
+      "soru": "What does a person gain by reciting the supplication after the adhan?",
+      "secenekler": [
+        "A) Their sins are forgiven",
+        "B) The reward for that prayer is doubled",
+        "C) They are given a special rank in Paradise",
+        "D) They receive the intercession of the Prophet ﷺ on the Day of Judgment"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Prophet ﷺ said: \"Whoever recites this supplication upon hearing the adhan will be assured of my intercession on the Day of Judgment.\" This is a powerful promise describing the virtue of the supplication after the adhan. (Bukhari, Adhan 8)",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Adhan 8"
+    },
+    {
+      "id": "ezan_020",
+      "konu": "kamet",
+      "soru": "Which special phrase is added to the iqamah that is not in the adhan?",
+      "secenekler": [
+        "A) Kad kameti's-salah",
+        "B) Es-Salatu hayrun mine'n-nevm",
+        "C) La havle ve la kuvvete illa billah",
+        "D) Sadakte ve berirte"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The same words as the adhan are recited in the iqamah; the only difference is that \"Kad kameti's-salah\" (The prayer has begun) is added twice after \"Hayye ale'l-felah\".",
+      "zorluk": "kolay",
+      "kaynak": "Abu Dawud, Salat 28"
+    },
+    {
+      "id": "ezan_021",
+      "konu": "kamet",
+      "soru": "What does \"Kad kameti's-salah\" mean?",
+      "secenekler": [
+        "A) Allah is the greatest",
+        "B) Come to prayer",
+        "C) The prayer has begun",
+        "D) Prayer is better than sleep"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Kad kameti's-salah\" means \"The prayer has begun.\" This phrase appears only in the iqamah and informs the congregation that the prayer has begun.",
+      "zorluk": "orta",
+      "kaynak": "Abu Dawud, Salat 28"
+    },
+    {
+      "id": "ezan_022",
+      "konu": "kamet",
+      "soru": "What is the main difference between the adhan and the iqamah?",
+      "secenekler": [
+        "A) The iqamah is recited loudly and the adhan quietly",
+        "B) The adhan announces that the time for prayer has begun, while the iqamah announces that the prayer has begun",
+        "C) The iqamah is recited only for the morning prayer",
+        "D) The adhan is recited for men and the iqamah for women"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The adhan announces to everyone that the time for prayer has begun. The iqamah (the call to begin prayer) informs the congregation that the prayer has begun. The adhan is recited slowly and at length, while the iqamah is recited more quickly.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_023",
+      "konu": "kamet",
+      "soru": "How is the iqamah recited?",
+      "secenekler": [
+        "A) Slowly and at length, like the adhan (with teressül)",
+        "B) Only by the imam and in a quiet voice",
+        "C) From the minaret so that everyone can hear it",
+        "D) It is recited quickly"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The iqamah (the call to begin prayer) is not recited at length and with pauses like the adhan; it is recited more quickly. While the adhan is recited slowly and at length to announce the time, the iqamah is the call to proceed to prayer.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_024",
+      "konu": "kamet",
+      "soru": "How many times is \"Kad kameti's-salah\" repeated in the iqamah?",
+      "secenekler": [
+        "A) 2 times",
+        "B) 1 time",
+        "C) 4 times",
+        "D) 3 times"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Kad kameti's-salah\" is repeated twice in the iqamah. This is consistent with most of the phrases of the adhan being recited twice each.",
+      "zorluk": "zor",
+      "kaynak": "Abu Dawud, Salat 28"
+    },
+    {
+      "id": "ezan_025",
+      "konu": "kamet",
+      "soru": "What should a person do if they enter the mosque while the iqamah is being recited?",
+      "secenekler": [
+        "A) They should immediately begin praying",
+        "B) They should wait outside",
+        "C) They should sit down rather than wait standing",
+        "D) They should remain outside until the iqamah ends"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A person who enters the mosque while the iqamah is being recited should sit down rather than wait standing. They should rise for prayer only when the imam says the takbir.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_026",
+      "konu": "hukumler",
+      "soru": "Which condition must be met for the adhan to be recited?",
+      "secenekler": [
+        "A) The congregation must be present",
+        "B) The time for prayer must have begun",
+        "C) The imam's permission must have been obtained",
+        "D) The mosque must be open"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "It is essential for the time of prayer to have begun before the adhan is recited. In Hanafi practice in particular, an adhan recited before the time begins is recited again once the time begins.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_027",
+      "konu": "hukumler",
+      "soru": "What should be done about an adhan recited before the time for prayer begins?",
+      "secenekler": [
+        "A) It is valid and is not recited again",
+        "B) It is invalid only for the morning adhan",
+        "C) Someone from the congregation announces it again",
+        "D) It is recited again once the time begins"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "It is essential for the time of prayer to have begun before the adhan is recited. In Hanafi practice, an adhan recited before the time begins is not considered valid; it must be recited again once the time begins. The allowance for an early morning adhan in some schools of thought is considered separately.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_028",
+      "konu": "hukumler",
+      "soru": "What happens if a person who is in the mosque while the adhan is being recited leaves without performing the prayer for that time?",
+      "secenekler": [
+        "A) They have done something disliked (makruh)",
+        "B) They must make up the prayer",
+        "C) It is not a sin; they may leave if they obtain permission",
+        "D) There is no ruling on it"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "If a person who is in the mosque while the adhan is being recited leaves without performing the prayer for that time, they have done something disliked (makruh). A person who responds to the adhan and enters the mosque is expected to perform the prayer.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_029",
+      "konu": "hukumler",
+      "soru": "Which of the following is not among the qualities expected of a muezzin?",
+      "secenekler": [
+        "A) Being male",
+        "B) Having a pleasant and strong voice",
+        "C) Being a hafiz (knowing the Quran by heart)",
+        "D) Being of sound mind"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "For the adhan in a mosque and congregation, the muezzin is expected to be male, of sound mind, and to have a pleasant and strong voice. Being a hafiz is not a requirement. Having wudu is also not a requirement, but is recommended or good etiquette.",
+      "zorluk": "orta",
+      "kaynak": "Darimi, Salat 7"
+    },
+    {
+      "id": "ezan_030",
+      "konu": "hukumler",
+      "soru": "What is it called to recite the adhan slowly, pausing between its phrases?",
+      "secenekler": [
+        "A) İcabet",
+        "B) Teressül",
+        "C) Tertil",
+        "D) Tercî"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Reciting the adhan slowly, with pauses between its phrases, is called teressül. An adhan recited with teressül can be heard over a wider area and gives listeners enough time to respond.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_031",
+      "konu": "icabet",
+      "soru": "What is the most appropriate thing for a listener to do while the adhan is being recited?",
+      "secenekler": [
+        "A) Continue talking",
+        "B) If possible, remain silent, listen to the adhan, and respond to it",
+        "C) Begin praying before the adhan ends",
+        "D) Wait only for the iqamah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "It is good etiquette for a person who hears the adhan to remain silent if possible, listen to it, and respond to the muezzin. After the adhan ends, salawat (a prayer for our Prophet) and the supplication after the adhan are recited.",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Salat 11; Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_032",
+      "konu": "mezhep",
+      "soru": "In which school of thought is the practice of tercî seen as a distinctive variation in the adhan?",
+      "secenekler": [
+        "A) Hanafi",
+        "B) Shafi'i",
+        "C) Maliki",
+        "D) Hanbali"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tercî (reciting the phrases of testimony first quietly and then aloud) is the practice of repeating the phrases of testimony first quietly and then aloud. It is found among Shafi'is; it is not practiced in Hanafi or Maliki practice.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "ezan_033",
+      "konu": "mezhep",
+      "soru": "According to Hanafi practice, what is required if the morning adhan is recited before fecr-i sadık?",
+      "secenekler": [
+        "A) It is valid and nothing is required",
+        "B) It must be recited again once the time begins",
+        "C) Only the iqamah is recited",
+        "D) Only the supplication after the adhan is recited"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In Hanafi practice, the morning adhan is recited after fecr-i sadık (true dawn/the time when fasting begins); if it was recited before the time began, it must be recited again once the time begins. Some schools of thought have a separate allowance for an early adhan.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    }
+  ]
+}

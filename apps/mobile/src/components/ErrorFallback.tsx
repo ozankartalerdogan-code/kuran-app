@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, useColorScheme } from "react-native";
 import { router } from "expo-router";
 import { useState } from "react";
+import { useStrings } from "../i18n";
+import misc1Strings from "../i18n/strings/misc1";
 
 interface ErrorFallbackProps {
   error: Error;
@@ -8,28 +10,29 @@ interface ErrorFallbackProps {
 }
 
 export default function ErrorFallback({ error, resetError }: ErrorFallbackProps) {
+  const t = useStrings(misc1Strings);
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
   const [showDetails, setShowDetails] = useState(false);
 
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
-      <Text style={[styles.title, isDark && styles.textDark]}>Bir şeyler ters gitti</Text>
+      <Text style={[styles.title, isDark && styles.textDark]}>{t.errTitle}</Text>
       <Text style={[styles.message, isDark && styles.textDark]}>
-        Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.
+        {t.errFallbackMsg}
       </Text>
 
-      <TouchableOpacity style={styles.button} onPress={resetError} accessibilityRole="button" accessibilityLabel="Yeniden dene">
-        <Text style={styles.buttonText}>Yeniden Dene</Text>
+      <TouchableOpacity style={styles.button} onPress={resetError} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
+        <Text style={styles.buttonText}>{t.retry}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.button, styles.homeButton]}
         onPress={() => router.replace("/")}
         accessibilityRole="button"
-        accessibilityLabel="Ana sayfaya dön"
+        accessibilityLabel={t.homeA11y}
       >
-        <Text style={styles.buttonText}>Ana Sayfaya Dön</Text>
+        <Text style={styles.buttonText}>{t.home}</Text>
       </TouchableOpacity>
 
       {__DEV__ && (
@@ -41,14 +44,14 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
             accessibilityState={{ expanded: showDetails }}
           >
             <Text style={[styles.detailToggleText, isDark && styles.textDark]}>
-              {showDetails ? "Hata Detayını Gizle" : "Hata Detayını Göster"}
+              {showDetails ? t.hideDetails : t.showDetails}
             </Text>
           </TouchableOpacity>
 
           {showDetails && (
             <ScrollView style={styles.detailContainer}>
               <Text style={[styles.detailText, isDark && styles.textDark]}>
-                {error?.message || "Bilinmeyen hata"}
+                {error?.message || t.unknownError}
               </Text>
               {error?.stack != null && (
                 <Text style={[styles.detailText, styles.stackText, isDark && styles.textDark]}>

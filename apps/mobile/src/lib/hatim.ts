@@ -69,8 +69,8 @@ export function parseHatimStore(raw: string | null): HatimStore {
   }
 }
 
-export function hatimFmt(iso: string): string {
-  return new Date(iso).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
+export function hatimFmt(iso: string, locale = "tr-TR"): string {
+  return new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
 }
 
 export function hatimGunSayisi(a: string, b: string): number {

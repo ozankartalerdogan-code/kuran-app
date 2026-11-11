@@ -1,0 +1,99 @@
+{
+  "ders_id": "zekat",
+  "baslik": "Zakat",
+  "aciklama": "One of the five pillars of Islam; it is the giving of a specified portion of the wealth of Muslims who possess the nisab to eligible recipients.",
+  "kartlar": [
+    {
+      "id": "zekat_k01",
+      "tip": "metin",
+      "baslik": "What Is Zakat?",
+      "icerik": "The Arabic word zakat means \"increase, purification, and blessing.\" In religious terms, it is the giving of a specified portion of the wealth of Muslims who possess the nisab to eligible recipients for the sake of Allah.\n\nZakat is one of the five pillars of Islam. It was made obligatory in Madinah in the second year after the Hijrah. It appears in 30 verses of the Quran and is mentioned alongside salah in 27 of them.",
+      "vurgu": "\"Establish salah and give zakat.\" (al-Baqarah 2/43)"
+    },
+    {
+      "id": "zekat_k02",
+      "tip": "metin",
+      "baslik": "Conditions for Zakat to Be Obligatory",
+      "icerik": "The basic conditions for zakat to be obligatory are:\n\n1. Being Muslim\n2. Possessing wealth equal to the nisab (the minimum amount of wealth required for zakat to be obligatory)\n3. Having full ownership of the wealth\n4. The wealth being surplus to basic needs and debts that must be paid\n5. The wealth being nâmî (capable of growth, generating income, or holding value)\n6. The condition of havelânü'l-havl (the passing of one lunar year over the wealth) being met\n\nIn the Hanafi school, sanity and puberty are considered conditions for zakat to be obligatory on a person. In the Shafi'i, Maliki, and Hanbali schools, if a child or a person with a mental illness has wealth subject to zakat, their guardian pays zakat on their behalf.\n\nFor some kinds of wealth, such as agricultural produce, the passing of a year is not required; zakat/ushr becomes due at harvest time.",
+      "vurgu": "Nisab · Full ownership · Wealth surplus to basic needs · Details according to the schools of law"
+    },
+    {
+      "id": "zekat_k03",
+      "tip": "metin",
+      "baslik": "The Nisab Amount",
+      "icerik": "The nisab is the minimum amount of wealth required for zakat to be obligatory. Classical sources set separate nisab amounts for different kinds of wealth:\n\n• Gold: 80.18 grams\n• Silver: 595 grams\n• Money and trade goods: Calculated based on the value of the gold or silver nisab; in current practice, the gold nisab is most commonly used\n• Sheep/goats: 40 animals\n• Cattle: 30 animals\n• Camels: 5 animals\n\nZakat becomes obligatory on wealth subject to zakat that reaches this amount and has been held for one lunar year. For agricultural produce, harvest time is considered instead of the passing of a year.",
+      "vurgu": "Gold nisab: 80.18 g · Silver nisab: 595 g · Calculation methods may vary in practice"
+    },
+    {
+      "id": "zekat_k04",
+      "tip": "metin",
+      "baslik": "Zakat Rate — 2.5%",
+      "icerik": "Zakat on gold, silver, money, and trade goods is one-fortieth (2.5%). Thus, the zakat on 100,000 lira subject to zakat is 2,500 lira.\n\nThis rate is applied to the wealth subject to zakat that remains after basic needs, short-term debts that must be paid, and assets not included in zakat have been excluded. A home, personal vehicle, work tools, and everyday items are not included in the nisab calculation.\n\nThere is no single time of year for giving zakat; it must be given when the nisab and havelânü'l-havl conditions are met. Giving it in Ramadan is a common practice, but Ramadan is not the only required time.",
+      "vurgu": "One-fortieth (2.5%) · Calculated on net wealth subject to zakat"
+    },
+    {
+      "id": "zekat_k05",
+      "tip": "metin",
+      "baslik": "Wealth Subject to Zakat",
+      "icerik": "Types of wealth on which zakat must be paid:\n• Gold and silver\n• Cash and deposits\n• Trade goods\n• Sâime livestock (animals that graze on pasture for most of the year)\n• Agricultural produce\n• Foreign currency and similar assets treated as money\n\nThe calculation for shares and investment instruments may vary according to intention and practice. Shares held for buying and selling are generally treated like trade goods. For shares held for long-term ownership or investment, contemporary fatwas offer different methods of calculation based on the company's assets subject to zakat, the market value, or the income earned.\n\nA person's residence, vehicle, work tools, and clothing are not subject to zakat; these are considered basic needs.",
+      "vurgu": "Money, gold, and trade goods are subject to zakat · The calculation method for shares may vary according to intention"
+    },
+    {
+      "id": "zekat_k06",
+      "tip": "metin",
+      "baslik": "Ushr — Zakat on Agricultural Produce",
+      "icerik": "Ushr (zakat on agricultural produce) is the agricultural zakat given from field and garden produce. For agricultural produce, havelânü'l-havl, the passing of one year, is not required; it becomes due when the produce is harvested.\n\nThe rate varies according to how the land is irrigated:\n• Irrigated by rain, rivers, or natural water: 1/10 (one-tenth)\n• Irrigated by costly methods such as pumps, wells, or irrigation systems: 1/20 (one-twentieth)\n\nDetails concerning the nisab and deduction of expenses for agricultural produce may be assessed differently according to the schools of law and contemporary fatwas. In the Hanafi school, ushr is applied more broadly, while the other schools place greater emphasis on a specified amount or nisab.",
+      "vurgu": "Given at harvest time · Natural irrigation: 1/10 · Costly irrigation: 1/20"
+    },
+    {
+      "id": "zekat_k07",
+      "tip": "metin",
+      "baslik": "Who Can Receive Zakat? (8 Categories)",
+      "icerik": "The Quran explicitly identifies eight categories of people who may receive zakat (at-Tawbah 9/60):\n\n1. The poor — those unable to meet their basic needs\n2. The needy — those in greater poverty\n3. Zakat workers — those who collect and distribute zakat\n4. Müellefe-i kulûb (people whose hearts are to be drawn toward Islam)\n5. Enslaved people — those seeking to purchase their freedom\n6. People in debt\n7. Those in the cause of Allah\n8. Stranded travelers — travelers left without money",
+      "vurgu": "\"Charitable funds belong to these eight categories as an obligation from Allah.\" (at-Tawbah 9/60)"
+    },
+    {
+      "id": "zekat_k08",
+      "tip": "metin",
+      "baslik": "Who Cannot Receive Zakat?",
+      "icerik": "Zakat cannot be given to the following people:\n• Mothers, fathers, and grandparents\n• Sons, daughters, and grandchildren\n• Spouses\n• Wealthy people who possess wealth equal to the nisab (the minimum amount of wealth required for zakat to be obligatory)\n\nThe primary recipients of zakat are the eligible people identified in at-Tawbah 9/60. According to the majority view, obligatory zakat is given to eligible Muslims; non-Muslims may be given charity and assistance outside of zakat. The category of müellefe-i kulûb and its present-day application have been assessed differently by the schools of law.\n\nIn zakat, temlik (transfer of ownership) is essential: ownership of the wealth must pass to the eligible recipient or a trusted agent receiving it on their behalf. Zakat is not given directly toward mosque buildings, construction, or general institutional expenses; however, it may be given to an institution acting as an agent to deliver it to eligible recipients. Preparing and serving food does not count as zakat unless ownership is transferred to the eligible recipient.",
+      "vurgu": "Transfer of ownership is required · An institution may act as an agent; a building or expense cannot receive zakat in place of an eligible recipient"
+    },
+    {
+      "id": "zekat_k09",
+      "tip": "metin",
+      "baslik": "The Difference Between Zakat, Fitr, and Sadaqah",
+      "icerik": "Zakat — It is a pillar of Islam and is obligatory; it is paid on zakatable wealth that reaches the nisab threshold. The rate for money, gold, and trade goods is generally 2.5%, and it is given to the eligible recipients specified in at-Tawbah 9:60.\n\nFitrah (Sadaqat al-Fitr — a financial act of worship given at the end of Ramadan) — It is a financial act of worship given at the end of Ramadan. It is described as wajib in the Hanafi school and fard in the other schools. It is not subject to the same conditions as zakat; it applies to Muslims who have resources beyond their basic needs. It is more virtuous to give it before the Eid prayer; if delayed, it must still be paid.\n\nSadaqah — It is voluntary, and its amount and timing are unrestricted. It is a form of charity other than zakat and fitrah.",
+      "vurgu": "Zakat is obligatory · Fitrah is a separate financial act of worship · Sadaqah is voluntary"
+    },
+    {
+      "id": "zekat_k10",
+      "tip": "metin",
+      "baslik": "The Wisdom of Zakat — Individual",
+      "icerik": "Zakat \"purifies\" wealth — indeed, the Arabic word zakat means both \"to increase\" and \"to purify.\"\n\n\"Take charity from their wealth by which you purify them.\" (at-Tawbah 9:103)\n\nA person who gives zakat is freed from stinginess and excessive attachment to wealth, gives thanks, and receives blessings in their wealth.",
+      "vurgu": "\"Protect your wealth with zakat.\" (Abu Dawud, Zakat 1)"
+    },
+    {
+      "id": "zekat_k11",
+      "tip": "metin",
+      "baslik": "The Wisdom of Zakat — Social",
+      "icerik": "Zakat is the system of social solidarity established by Islam. It keeps wealth circulating in society and prevents it from accumulating only among the rich.\n\nAbu Bakr fought those who refused to pay zakat; zakat was preserved as a fundamental social institution of Islam.\n\nZakat reduces poverty and class conflict.",
+      "vurgu": "\"So that wealth does not circulate only among the rich.\" (al-Hashr 59:7)"
+    },
+    {
+      "id": "zekat_k12",
+      "tip": "metin",
+      "baslik": "The Ruling on Denying Zakat",
+      "icerik": "The obligation of zakat is established by the Qur'an and Sunnah. Therefore, knowingly and stubbornly denying that zakat is obligatory is a very serious matter of belief.\n\nAccepting that zakat is obligatory but failing to pay it is a major sin; the obligation remains and must be fulfilled later.\n\nThe Prophet ﷺ stated that those who do not pay zakat will face severe punishment in the Hereafter. (Bukhari, Zakat 3)\n\nThis subject should be learned to understand the seriousness of zakat as an act of worship, not to pass judgment on individuals.",
+      "vurgu": "Denying its obligatory status is very serious · Failing to pay it is a major sin, and the obligation remains"
+    },
+    {
+      "id": "zekat_k13",
+      "tip": "metin",
+      "baslik": "Differences Among the Schools of Law",
+      "icerik": "All schools of law agree that zakat is obligatory. There are differences of opinion on some details:\n\n• Wealth of a child or a person with a mental illness: According to the Hanafi school, zakat is not obligatory on it. According to the Shafi'i, Maliki, and Hanbali schools, the guardian is obliged to pay zakat on it.\n\n• Deduction of debts: According to the Hanafi school, short-term debts or debts due for payment are taken into account when calculating zakat. In the Shafi'i school, the effect of debt on zakat is assessed more narrowly.\n\n• Calculating the nisab: There are different practices regarding calculations based on the gold nisab (80.18 g) and the silver nisab (595 g). In current practice in Türkiye, the gold nisab is generally used.\n\n• Ushr rates and expenses: A rate of 1/10 or 1/20 is applied depending on the method of irrigation; contemporary scholars differ on whether modern agricultural expenses should be taken into account.\n\n• Shares: Different methods of calculating zakat may be used depending on whether shares are held for trade or long-term investment and on the structure of the company's assets.\n\n🎉 You have completed the zakat lesson! For more verses and details, you can explore the {{link:ibadet-ibadetler|Worship Guide}}; if you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "The obligation of zakat is agreed upon · Schools of law and fatwas may differ on calculation details"
+    }
+  ],
+  "quiz_havuzu_id": "zekat"
+}

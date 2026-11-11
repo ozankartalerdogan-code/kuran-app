@@ -38,25 +38,26 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { mushafMetniHazirla } from "../../src/lib/mushafText";
 
 
+import { useMealOf } from "../../src/lib/englishMeal";
+import { useSurahNameOf } from "../../src/lib/surahNames";
+import { useStrings, useLang, fmt, localeTag } from "../../src/i18n";
+import { localizedTranslit } from "../../src/lib/translitEn";
+import moodStrings from "../../src/i18n/strings/moods";
+import homeStrings from "../../src/i18n/strings/home";
+import prayerNameStrings from "../../src/i18n/strings/prayerNames";
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
-
-// Geri sayım cümlesi için -e hali (ünlü uyumu elle; etiketler sabit).
-const PRAYER_DATIVE: Record<string, string> = {
-  Fajr: "İmsak'a", Sunrise: "Güneş'e", Dhuhr: "Öğle'ye",
-  Asr: "İkindi'ye", Maghrib: "Akşam'a", Isha: "Yatsı'ya",
-};
 
 const PRAYER_ICONS: Record<string, IoniconName> = {
   Fajr: "moon-outline", Sunrise: "sunny-outline", Dhuhr: "sunny",
   Asr: "partly-sunny-outline", Maghrib: "cloudy-night-outline", Isha: "moon",
 };
 
-function formatRemaining(min: number): string {
-  if (min < 1) return "1 dk'dan az";
+function formatRemaining(min: number, hs: Record<string, string>): string {
+  if (min < 1) return hs.lessThanMin;
   const h = Math.floor(min / 60);
   const m = min % 60;
-  if (h > 0) return m > 0 ? `${h} sa ${m} dk` : `${h} sa`;
-  return `${m} dk`;
+  if (h > 0) return m > 0 ? fmt(hs.hrMin, { h, m }) : fmt(hs.hr, { h });
+  return fmt(hs.min, { m });
 }
 
 const RUH_HALI = [
@@ -98,6 +99,13 @@ type QuickAction = {
 
 function HomeContent() {
   const c          = useColors();
+  const lang = useLang();
+  const mealOf = useMealOf();
+  const surahNameOf = useSurahNameOf();
+  const moodS = useStrings(moodStrings) as Record<string, string>;
+  const hs = useStrings(homeStrings) as Record<string, string>;
+  const pn = useStrings(prayerNameStrings) as unknown as Record<string, string>;
+  const moodLabel = (m: { tag: string; label: string }) => moodS[m.tag] ?? m.label;
   // Salt gösterim — seriyi yalnız gerçek okuma (ayet ekranı) ilerletir;
   // uygulamayı açmak "okuma" sayılmaz.
   const { streak, refresh: refreshStreak } = useStreak({ record: false });
@@ -108,8 +116,9 @@ function HomeContent() {
   // namaz vakti API yanıtıyla birlikte gelir (aynı Gregorian tarihe göre hesaplanır,
   // bu yüzden ikisi asla birbirinden sapmaz).
   const gregorianToday = useMemo(
-    () => new Date().toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }),
-    [],
+    () => new Date().toLocaleDateString(localeTag(), { day: "numeric", month: "long", year: "numeric" }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [hs],
   );
   const hijriLabel = formatHijriDate(hijriDate);
   const nextPrayerIdx = nextPrayer ? PRAYER_ORDER.indexOf(nextPrayer.key) : -1;
@@ -139,7 +148,7 @@ function HomeContent() {
     {
       id: "quran",
       icon: "book-outline",
-      label: "Kur'an-ı Kerim",
+      label: hs.quran,
       route: "/sure-listesi",
       bg: "#d1fae5",
       iconBg: "#ecfdf5",
@@ -150,7 +159,7 @@ function HomeContent() {
     {
       id: "learn",
       icon: "school-outline",
-      label: "Öğren",
+      label: hs.learn,
       route: "/ne-ogreneyim",
       bg: "#fef3c7",
       iconBg: "#fffbeb",
@@ -161,7 +170,7 @@ function HomeContent() {
     {
       id: "tasbih",
       icon: "radio-button-on-outline",
-      label: "Tespih",
+      label: hs.tasbih,
       bg: "#dcfce7",
       iconBg: "#f0fdf4",
       iconColor: "#15803d",
@@ -172,7 +181,7 @@ function HomeContent() {
     {
       id: "qibla",
       icon: "compass-outline",
-      label: "Kıble",
+      label: hs.qibla,
       route: "/kible",
       bg: "#ede9fe",
       iconBg: "#f5f3ff",
@@ -180,7 +189,7 @@ function HomeContent() {
       darkIconBg: "#4c1d95",
       darkIconColor: "#c4b5fd",
     },
-  ], [openTasbih]);
+  ], [openTasbih, hs]);
   // Tag bazında gösterilen TÜM ayetler — exclude olarak gönderilir, böylece o tag'in
   // havuzu bitene kadar aynı ayet bir daha gelmez. Havuz tükenince (hepsi exclude'da →
   // sunucu "ayet bulunamadı" döner) ilgili tag sıfırlanıp yeni tur başlar.
@@ -256,10 +265,10 @@ function HomeContent() {
         onPress={handleSearchPress}
         activeOpacity={0.8}
         accessibilityRole="button"
-        accessibilityLabel="Ayet veya sure ara"
+        accessibilityLabel={hs.searchA11y}
       >
         <Ionicons name="search-outline" size={18} color={c.textMuted} />
-        <Text style={[styles.searchText, { color: c.textMuted }]}>Sure, ayet veya kelime ara…</Text>
+        <Text style={[styles.searchText, { color: c.textMuted }]}>{hs.searchPlaceholder}</Text>
       </TouchableOpacity>
 
       <Text style={[styles.dateLine, { color: c.textMuted }]}>
@@ -269,7 +278,7 @@ function HomeContent() {
       {error && (
         <View style={[styles.errorBanner, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
           <Text style={[styles.errorBannerText, c.isDark && { color: "#fca5a5" }]}>
-            Günlük içerik yüklenemedi. İnternet bağlantınızı kontrol edip yenilemek için aşağı çekin.
+            {hs.dailyError}
           </Text>
         </View>
       )}
@@ -291,11 +300,11 @@ function HomeContent() {
         <View style={{ flex: 1 }}>
           {streak.current > 0 ? (
             <>
-              <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>{streak.current} günlük seri!</Text>
-              <Text style={[styles.streakSub, { color: c.isDark ? "#f97316" : "#c2410c" }]}>Rekor: {streak.longest} gün</Text>
+              <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>{fmt(hs.streakDays, { n: streak.current })}</Text>
+              <Text style={[styles.streakSub, { color: c.isDark ? "#f97316" : "#c2410c" }]}>{fmt(hs.streakRecord, { n: streak.longest })}</Text>
             </>
           ) : (
-            <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>Kuran Yolu</Text>
+            <Text style={[styles.streakTitle, { color: c.isDark ? "#fb923c" : "#9a3412" }]}>{hs.appName}</Text>
           )}
         </View>
         <TouchableOpacity
@@ -303,7 +312,7 @@ function HomeContent() {
           activeOpacity={0.75}
           hitSlop={6}
           accessibilityRole="button"
-          accessibilityLabel={c.isDark ? "Aydınlık moda geç" : "Gece moduna geç"}
+          accessibilityLabel={c.isDark ? hs.toLight : hs.toDark}
           style={[styles.themeBtn, {
             backgroundColor: c.isDark ? "#292524" : "#e7e5e4",
             borderColor: c.isDark ? "#44403c" : "#d6d3d1",
@@ -324,26 +333,26 @@ function HomeContent() {
         activeOpacity={0.85}
         disabled={!verse}
         accessibilityRole="button"
-        accessibilityLabel="Günün ayetini aç"
+        accessibilityLabel={hs.openVerseA11y}
         accessibilityState={{ disabled: !verse }}
       >
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>✨ Günün Ayeti</Text>
-          {verse && <Text style={[styles.cardRef, { color: c.isDark ? "#d97706" : "#a16207" }]}>{verse.surah_name} · {verse.surah_id}:{verse.ayah_number}</Text>}
+          <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>{hs.verseOfDay}</Text>
+          {verse && <Text style={[styles.cardRef, { color: c.isDark ? "#d97706" : "#a16207" }]}>{surahNameOf(verse.surah_id, verse.surah_name)} · {verse.surah_id}:{verse.ayah_number}</Text>}
         </View>
         {!verse ? (
-          verseLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]}>Günün ayeti şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.</Text>
+          verseLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]}>{hs.verseFail}</Text>
         ) : (
           <>
             {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{mushafMetniHazirla(verse.arabic_text)}</Text>}
-            {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{verse.reading_tr}</Text>}
-            {verse.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]} numberOfLines={3}>{verse.meal}</Text>}
+            {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{localizedTranslit(verse.reading_tr, lang)}</Text>}
+            {verse.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]} numberOfLines={3}>{mealOf({ surah: verse.surah_id, ayah: verse.ayah_number }, verse.meal)}</Text>}
           </>
         )}
       </TouchableOpacity>
 
       {/* Ruh Haline Göre */}
-      <Text style={[styles.sectionLabel, { color: c.textMuted }]}>💭 Ruh Haline Göre</Text>
+      <Text style={[styles.sectionLabel, { color: c.textMuted }]}>{hs.moodSection}</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
         {RUH_HALI.map(m => (
           <TouchableOpacity
@@ -353,14 +362,14 @@ function HomeContent() {
             activeOpacity={0.7}
             disabled={!!moodLoading}
             accessibilityRole="button"
-            accessibilityLabel={m.label}
+            accessibilityLabel={moodLabel(m)}
             accessibilityState={{ disabled: !!moodLoading, busy: moodLoading === m.tag }}
           >
             {moodLoading === m.tag
               ? <ActivityIndicator size="small" color={c.text} />
               : <Text style={{ fontSize: 18 }}>{m.emoji}</Text>
             }
-            <Text style={[styles.moodLabel, { color: c.text }]}>{m.label}</Text>
+            <Text style={[styles.moodLabel, { color: c.text }]}>{moodLabel(m)}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -368,9 +377,9 @@ function HomeContent() {
       {/* Namaz Vakitleri */}
       <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>🕌 Namaz Vakitleri</Text>
+          <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>{hs.prayerTimes}</Text>
           {/* Bildirim ayarları /bildirimler ekranında yönetilir — buraya kısayol. */}
-          <TouchableOpacity onPress={() => router.push("/bildirimler")} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Namaz vakti bildirimleri">
+          <TouchableOpacity onPress={() => router.push("/bildirimler")} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={hs.prayerNotifA11y}>
             <Ionicons name="notifications-outline" size={19} color={c.isDark ? "#818cf8" : "#3730a3"} />
           </TouchableOpacity>
         </View>
@@ -380,7 +389,7 @@ function HomeContent() {
             <Text style={styles.countdownCity}>{prayerCity}</Text>
             {nextPrayer ? (
               <>
-                {" · "}{PRAYER_DATIVE[nextPrayer.key] ?? nextPrayer.label} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin)}</Text> kaldı
+                {" · "}{pn["to" + nextPrayer.key] ?? nextPrayer.label}{hs.countdownBefore} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin, hs)}</Text>{hs.countdownAfter}
               </>
             ) : null}
           </Text>
@@ -389,7 +398,7 @@ function HomeContent() {
           <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
         ) : !prayers ? (
           <Text style={[styles.verseMeal, { color: c.isDark ? "#c7d2fe" : "#4338ca", marginVertical: 8 }]}>
-            Namaz vakitleri şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.
+            {hs.prayerFail}
           </Text>
         ) : (
           <View style={styles.prayerRow}>
@@ -411,7 +420,7 @@ function HomeContent() {
                     size={15}
                     color={isNext ? "#fff" : (c.isDark ? "#a5b4fc" : "#6366f1")}
                   />
-                  <Text numberOfLines={1} style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{PRAYER_LABELS[key]}</Text>
+                  <Text numberOfLines={1} style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{pn[key] ?? PRAYER_LABELS[key]}</Text>
                   <Text numberOfLines={1} style={[styles.prayerTime, { color: c.isDark ? "#c7d2fe" : "#312e81" }, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
                 </View>
               );
@@ -427,27 +436,27 @@ function HomeContent() {
         activeOpacity={0.85}
         disabled={!dua}
         accessibilityRole="button"
-        accessibilityLabel="Günün duasını aç"
+        accessibilityLabel={hs.openDuaA11y}
         accessibilityState={{ disabled: !dua }}
       >
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>🤲 Günün Duası</Text>
-          {dua && <Text style={[styles.cardRef, { color: c.isDark ? "#14b8a6" : "#0d9488" }]}>{dua.surah_name} · {dua.surah_id}:{dua.ayah_number}</Text>}
+          <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>{hs.duaOfDay}</Text>
+          {dua && <Text style={[styles.cardRef, { color: c.isDark ? "#14b8a6" : "#0d9488" }]}>{surahNameOf(dua.surah_id, dua.surah_name)} · {dua.surah_id}:{dua.ayah_number}</Text>}
         </View>
         {!dua ? (
-          duaLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]}>Günün duası şu an yüklenemedi. Lütfen daha sonra tekrar deneyin.</Text>
+          duaLoading ? <SkeletonAyetCard /> : <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]}>{hs.duaFail}</Text>
         ) : (
           <>
             {dua.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{mushafMetniHazirla(dua.arabic_text)}</Text>}
-            {dua.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{dua.reading_tr}</Text>}
-            {dua.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]} numberOfLines={3}>{dua.meal}</Text>}
+            {dua.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#99f6e4" : "#134e4a" }]}>{localizedTranslit(dua.reading_tr, lang)}</Text>}
+            {dua.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#ccfbf1" : "#134e4a" }]} numberOfLines={3}>{mealOf({ surah: dua.surah_id, ayah: dua.ayah_number }, dua.meal)}</Text>}
           </>
         )}
       </TouchableOpacity>
 
       {/* Bugün ne yapmak istiyorsun? */}
       <View style={[styles.quickWidget, { backgroundColor: c.card, borderColor: c.border }]}>
-        <Text style={[styles.quickTitle, { color: c.textMuted }]}>Bugün ne yapmak istiyorsun?</Text>
+        <Text style={[styles.quickTitle, { color: c.textMuted }]}>{hs.quickTitle}</Text>
         <View style={styles.quickGrid}>
           {QUICK_ACTIONS.map(a => (
             <TouchableOpacity
@@ -476,7 +485,7 @@ function HomeContent() {
       onRequestClose={closeMoodCard}
     >
       <View style={styles.moodModalBackdrop}>
-        <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={closeMoodCard} accessibilityRole="button" accessibilityLabel="Kapat" />
+        <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={closeMoodCard} accessibilityRole="button" accessibilityLabel={hs.close} />
         {selectedMood && (
           <View style={[styles.moodModalCard, { backgroundColor: c.card, borderColor: c.border }]}>
             <View style={styles.moodModalHeader}>
@@ -484,10 +493,10 @@ function HomeContent() {
                 <Text style={styles.moodModalEmoji}>{selectedMood.emoji}</Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.moodModalTitle, { color: c.text }]}>{selectedMood.label}</Text>
-                <Text style={[styles.moodModalSub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır meali</Text>
+                <Text style={[styles.moodModalTitle, { color: c.text }]}>{moodLabel(selectedMood)}</Text>
+                <Text style={[styles.moodModalSub, { color: c.textMuted }]}>{hs.mealBy}</Text>
               </View>
-              <TouchableOpacity onPress={closeMoodCard} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Kapat">
+              <TouchableOpacity onPress={closeMoodCard} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={hs.close}>
                 <Ionicons name="close" size={22} color={c.textMuted} />
               </TouchableOpacity>
             </View>
@@ -497,16 +506,16 @@ function HomeContent() {
               activeOpacity={0.75}
               style={[styles.moodAyahLink, { backgroundColor: c.isDark ? c.cardAlt : "#f8fafc", borderColor: c.border }]}
               accessibilityRole="button"
-              accessibilityLabel="Ayeti aç"
+              accessibilityLabel={hs.openAyah}
             >
               <Text style={[styles.moodAyahLinkText, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>
-                {selectedMood.surah_name ?? "Ayet"} · {selectedMood.surah_id}:{selectedMood.ayah_number}
+                {surahNameOf(selectedMood.surah_id, selectedMood.surah_name) ?? hs.ayah} · {selectedMood.surah_id}:{selectedMood.ayah_number}
               </Text>
               <Ionicons name="open-outline" size={16} color={c.isDark ? "#fbbf24" : "#92400e"} />
             </TouchableOpacity>
 
             <Text style={[styles.moodMeal, { color: c.text }]}>
-              {selectedMood.meal || "Bu ayetin meali şu an yüklenemedi. Ayet sayfasından tekrar kontrol edebilirsiniz."}
+              {mealOf({ surah: selectedMood.surah_id, ayah: selectedMood.ayah_number }, selectedMood.meal) || hs.mealFail}
             </Text>
           </View>
         )}

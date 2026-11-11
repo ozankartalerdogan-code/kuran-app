@@ -1,0 +1,462 @@
+{
+  "quiz_id": "guzel-ahlak",
+  "baslik": "Good Character",
+  "toplam_soru": 35,
+  "sorular": [
+    {
+      "id": "guzel_ahlak_001",
+      "konu": "tanim",
+      "soru": "Good character is more than just looking good. Which of the following is part of what good character truly encompasses?",
+      "secenekler": [
+        "A) Being polite in public but hurtful at home",
+        "B) Only performing acts of worship completely",
+        "C) Being popular among people",
+        "D) Speaking truthfully, controlling anger and honoring trusts"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Good character is shown by speaking truthfully, looking down on no one, controlling anger, honoring trusts, being forgiving and not harming others."
+    },
+    {
+      "id": "guzel_ahlak_002",
+      "konu": "onemi",
+      "soru": "What did the Prophet say would be among the heaviest things on the scales on the Day of Judgment?",
+      "secenekler": [
+        "A) Performing a great deal of salah",
+        "B) Good character",
+        "C) A long life",
+        "D) Having great wealth"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Good character is more than social politeness; it is also a great asset for the Hereafter."
+    },
+    {
+      "id": "guzel_ahlak_003",
+      "konu": "olcek",
+      "soru": "What is especially emphasized as the standard for good character?",
+      "secenekler": [
+        "A) The example of the Messenger of Allah",
+        "B) General social acceptance",
+        "C) The expectations of those around us",
+        "D) The fashion of the time"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "When learning good character, the standard is the example of the Messenger of Allah, not what is fashionable among people."
+    },
+    {
+      "id": "guzel_ahlak_004",
+      "konu": "adalet_ihsan",
+      "soru": "What is the fundamental difference between justice and ihsan?",
+      "secenekler": [
+        "A) They mean exactly the same thing",
+        "B) Justice concerns iman, while ihsan concerns worship",
+        "C) Justice is giving people their due, while ihsan is giving them their due and completing the good deed with excellence",
+        "D) Ihsan is a lower degree than justice"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Justice is giving everyone their due; ihsan is not only giving people their due but also completing the good deed with excellence."
+    },
+    {
+      "id": "guzel_ahlak_005",
+      "konu": "dogruluk",
+      "soru": "Truthfulness is more than not telling lies. Which of the following is also part of truthfulness?",
+      "secenekler": [
+        "A) Telling the truth when it brings a benefit",
+        "B) Being honest with those in power",
+        "C) Being honest only in official matters",
+        "D) Keeping one's word and honoring trusts"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Truthfulness gains its full meaning through keeping one's word, not betraying trusts and not giving incomplete or distorted information."
+    },
+    {
+      "id": "guzel_ahlak_006",
+      "konu": "dogruluk",
+      "soru": "Why is lying seen as a great danger?",
+      "secenekler": [
+        "A) Because a small corruption in speech can eventually corrupt one's character",
+        "B) Because it has only legal consequences",
+        "C) Because people notice it immediately",
+        "D) Because it applies only to business"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "A Muslim does not use lies for short-term gain, because a small corruption in speech can eventually corrupt one's character."
+    },
+    {
+      "id": "guzel_ahlak_007",
+      "konu": "dil_ahlaki",
+      "soru": "What aspect of good conduct in speech does the principle “Speak good or remain silent” teach?",
+      "secenekler": [
+        "A) Those who talk a lot are considered more respectable",
+        "B) Every thought should be shared openly",
+        "C) One should avoid idle, hurtful and divisive speech",
+        "D) Silence is always the best solution"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The tongue is the doorway through which the iman, anger, arrogance or mercy in the heart finds expression. Good character requires controlling this doorway."
+    },
+    {
+      "id": "guzel_ahlak_008",
+      "konu": "dil_ahlaki",
+      "soru": "Which three questions are recommended before speaking?",
+      "secenekler": [
+        "A) Is it pleasant, interesting and new?",
+        "B) Is it true, necessary and polite?",
+        "C) Is it brief, quick and effective?",
+        "D) Is it useful to everyone, entertaining and memorable?"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "For good conduct in speech, this three-part assessment is recommended: Is what I am about to say true, necessary and polite?"
+    },
+    {
+      "id": "guzel_ahlak_009",
+      "konu": "alay_hakaret",
+      "soru": "How does the Quran regard one group mocking another, finding fault with people and calling them offensive names?",
+      "secenekler": [
+        "A) It regards them as jokes",
+        "B) It considers them minor faults",
+        "C) It forbids them only toward strangers",
+        "D) It clearly forbids them"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Looking down on someone is sometimes disguised as a joke, but a joke that hurts someone's feelings is not good character."
+    },
+    {
+      "id": "guzel_ahlak_010",
+      "konu": "alay_hakaret",
+      "soru": "Which statement about a joke that hurts someone's feelings is true?",
+      "secenekler": [
+        "A) There is no responsibility because it is a joke",
+        "B) It is always acceptable among close friends",
+        "C) If it belittles someone, it is not considered good character",
+        "D) Hurt feelings go away on their own over time"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A joke that belittles someone or hurts their feelings is not considered good character. A believer rises by valuing others."
+    },
+    {
+      "id": "guzel_ahlak_011",
+      "konu": "giybet_zan",
+      "soru": "What does backbiting mean?",
+      "secenekler": [
+        "A) Saying something about someone behind their back that they would dislike",
+        "B) Saying hurtful words to someone's face",
+        "C) Criticizing someone in public",
+        "D) Judging someone unfairly"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Backbiting is saying something about someone behind their back that they would dislike. The Quran describes it with the powerful comparison of eating the flesh of one's dead brother."
+    },
+    {
+      "id": "guzel_ahlak_012",
+      "konu": "giybet_zan",
+      "soru": "Negative assumptions, looking for hidden faults and backbiting are forbidden together in the Quran. What danger do all three share?",
+      "secenekler": [
+        "A) They constitute legal offenses",
+        "B) They stain the heart and damage trust",
+        "C) They harm only those close to us",
+        "D) They cause social unrest"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Negative assumptions without evidence create distrust in the heart; looking for others' hidden faults damages the spirit of brotherhood; and backbiting stains the heart."
+    },
+    {
+      "id": "guzel_ahlak_013",
+      "konu": "ofke",
+      "soru": "How does the Quran describe people of taqwa in relation to their anger?",
+      "secenekler": [
+        "A) As people who never get angry",
+        "B) As people who constantly express their anger",
+        "C) As people who restrain their anger and forgive others",
+        "D) As people who direct their anger at others"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Quran praises people of taqwa as those who restrain their anger and forgive others."
+    },
+    {
+      "id": "guzel_ahlak_014",
+      "konu": "ofke",
+      "soru": "What advice did the Prophet repeatedly give to a Companion who asked for advice?",
+      "secenekler": [
+        "A) Make a great deal of supplication",
+        "B) Shout at people",
+        "C) Make decisions hastily",
+        "D) Do not become angry"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "By advising, “Do not become angry,” the Messenger of Allah emphasized that controlling anger is a powerful step in serving Allah."
+    },
+    {
+      "id": "guzel_ahlak_015",
+      "konu": "ofke",
+      "soru": "Which response is recommended as helpful when one is angry?",
+      "secenekler": [
+        "A) Remaining silent and not judging hastily",
+        "B) Immediately making a firm decision",
+        "C) Raising one's voice to gain the upper hand",
+        "D) Responding immediately to everything the other person says"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "When angry, one is advised to remain silent, avoid hasty decisions and delay a hurtful response."
+    },
+    {
+      "id": "guzel_ahlak_016",
+      "konu": "affetmek",
+      "soru": "What does forgiveness not mean?",
+      "secenekler": [
+        "A) Not escalating revenge",
+        "B) Having to regard wrongdoing as acceptable in every situation",
+        "C) Not becoming harsh out of personal resentment",
+        "D) Aiming to reform and soften the situation"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Forgiveness means being able to restrain oneself from revenge, not legitimizing wrongdoing."
+    },
+    {
+      "id": "guzel_ahlak_017",
+      "konu": "affetmek",
+      "soru": "According to the Quran, what may happen when evil is met with the best response?",
+      "secenekler": [
+        "A) The other person will change immediately",
+        "B) This approach always works",
+        "C) Enmity may turn into friendship over time",
+        "D) One's rights will be lost"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Quran says that repelling evil with the best response can turn even someone who bears enmity into a warm friend."
+    },
+    {
+      "id": "guzel_ahlak_018",
+      "konu": "tevazu",
+      "soru": "What is humility?",
+      "secenekler": [
+        "A) Seeing oneself as worthless",
+        "B) Withdrawing in every situation",
+        "C) Never expressing one's own opinions",
+        "D) Recognizing the blessings Allah has given without looking down on people because of them"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Humility is recognizing the blessings Allah has given without looking down on people because of them. Arrogance is the exact opposite."
+    },
+    {
+      "id": "guzel_ahlak_019",
+      "konu": "tevazu",
+      "soru": "Which behavior is clearly condemned in Surah Luqman of the Quran?",
+      "secenekler": [
+        "A) Treating people arrogantly and turning one's face away from them",
+        "B) Working hard",
+        "C) Remaining silent",
+        "D) Helping neighbors"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Surah Luqman commands people not to turn their faces away from others and not to walk arrogantly on the earth."
+    },
+    {
+      "id": "guzel_ahlak_020",
+      "konu": "vakar",
+      "soru": "What does the Quran advise about walking and speaking?",
+      "secenekler": [
+        "A) Walk quickly and speak loudly",
+        "B) Walk differently to attract attention",
+        "C) Be moderate in your walking and do not raise your voice unnecessarily",
+        "D) Speaking by shouting is effective"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Calmness, balance, and moderation are among the outward expressions of good character. Harshness and shouting do not strengthen words; on the contrary, they make them unpleasant."
+    },
+    {
+      "id": "guzel_ahlak_021",
+      "konu": "merhamet",
+      "soru": "What does the hadith \"Show mercy to those on earth so that the One in heaven may show mercy to you\" teach?",
+      "secenekler": [
+        "A) That mercy should be shown only to relatives",
+        "B) The connection between a servant's mercy and divine mercy",
+        "C) That mercy is the same as the act of zakat",
+        "D) That mercy is directed only toward the weak"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "It has been stated that the Most Merciful will show mercy to those who show mercy. Mercy brings a person closer both to their Lord and to His servants."
+    },
+    {
+      "id": "guzel_ahlak_022",
+      "konu": "merhamet",
+      "soru": "What does mercy mean?",
+      "secenekler": [
+        "A) Only feeling pity",
+        "B) Accepting every request without question",
+        "C) Only providing financial help",
+        "D) Recognizing another person's needs and treating them kindly"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Mercy is not merely feeling pity; it is recognizing another person's needs and treating them kindly."
+    },
+    {
+      "id": "guzel_ahlak_023",
+      "konu": "aile",
+      "soru": "How did the Prophet ﷺ describe the best of people?",
+      "secenekler": [
+        "A) Those who treat their families best",
+        "B) Those who perform the most acts of worship",
+        "C) Those who hold the highest positions",
+        "D) Those who live the longest"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "It has been stated that the best of people are those who treat their families best. Family life is a test of the sincerity of one's character."
+    },
+    {
+      "id": "guzel_ahlak_024",
+      "konu": "aile",
+      "soru": "Why is family life considered a \"sincerity test\" of one's character?",
+      "secenekler": [
+        "A) Rules are stricter at home",
+        "B) Family members can be deceived more easily",
+        "C) True character is tested by remaining good at home as well as outside",
+        "D) Relationships outside the home are unimportant"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "People sometimes behave most recklessly toward those they love most. Therefore, being polite outside but hurtful at home is not true good character."
+    },
+    {
+      "id": "guzel_ahlak_025",
+      "konu": "komsuluk",
+      "soru": "What did the Prophet ﷺ say about a person whose neighbor is not safe from their harm?",
+      "secenekler": [
+        "A) That they should be patient until their neighbor changes",
+        "B) That there is a serious deficiency in their iman",
+        "C) That it is enough to apologize to their neighbor",
+        "D) That it would be better for them to move"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A believer is someone who gives their neighbor and those around them a sense of safety. It has been stated in striking terms that there is a serious deficiency in the iman of one who disturbs their neighbor."
+    },
+    {
+      "id": "guzel_ahlak_026",
+      "konu": "haya",
+      "soru": "How did the Prophet ﷺ describe modesty?",
+      "secenekler": [
+        "A) As social shyness",
+        "B) As a quality exclusive to women",
+        "C) As a sign of weakness",
+        "D) As a part of iman"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Modesty is part of iman. It leads a person to feel a sense of shame before Allah, abandon what is unbecoming, and observe boundaries."
+    },
+    {
+      "id": "guzel_ahlak_027",
+      "konu": "haya",
+      "soru": "What etiquette does the Quran teach for entering someone else's home?",
+      "secenekler": [
+        "A) Ask permission and give greetings first",
+        "B) Enter quietly",
+        "C) Enter without knocking",
+        "D) Enter only during the day"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "This is not just etiquette at the door; it teaches respect for personal space, privacy, and consideration."
+    },
+    {
+      "id": "guzel_ahlak_028",
+      "konu": "kucuk_iyilikler",
+      "soru": "How did the Prophet ﷺ describe smiling at one's brother?",
+      "secenekler": [
+        "A) An empty courtesy",
+        "B) Only a Sunnah",
+        "C) Charity",
+        "D) A waste of time"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Good character does not consist only of great sacrifices; even acts of kindness considered small can win many hearts."
+    },
+    {
+      "id": "guzel_ahlak_029",
+      "konu": "kucuk_iyilikler",
+      "soru": "Which statement about small acts of kindness is correct?",
+      "secenekler": [
+        "A) They have no effect because they are small",
+        "B) Even acts of kindness considered small can win many hearts",
+        "C) Only financial help has value",
+        "D) Only great sacrifices are meaningful"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Removing something harmful from a path, giving directions, and greeting others with a smile are everyday opportunities to show good character."
+    },
+    {
+      "id": "guzel_ahlak_030",
+      "konu": "gelisim",
+      "soru": "How does good character develop?",
+      "secenekler": [
+        "A) It forms instantly by listening to a single piece of advice",
+        "B) Only by being careful in a crowd",
+        "C) By preparing for great sacrifices",
+        "D) It becomes established through small, conscious choices repeated over time"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Good character does not develop in a single day; it grows stronger by paying attention to one area each day and reflecting on one's conduct."
+    },
+    {
+      "id": "guzel_ahlak_031",
+      "konu": "gelisim",
+      "soru": "What three daily steps are recommended for developing good character?",
+      "secenekler": [
+        "A) Reflect on one's conduct, repent and make amends, and remember the example of the Messenger of Allah",
+        "B) Talk a lot, listen a lot, and write a lot",
+        "C) Only read books",
+        "D) Focus on major acts of worship"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Reflecting on one's conduct at the end of the day, repenting and making amends when one makes a mistake, and frequently remembering the example of the Messenger of Allah strengthen good character."
+    },
+    {
+      "id": "guzel_ahlak_032",
+      "konu": "ibadet_iliski",
+      "soru": "How is the relationship between good character and acts of worship described?",
+      "secenekler": [
+        "A) They are two completely independent areas",
+        "B) Acts of worship do not require good character",
+        "C) Good character is the fruit of worship reflected in daily life",
+        "D) Good character takes the place of worship"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A Muslim's character is not separate from their acts of worship; it is the fruit of worship reflected in daily life."
+    },
+    {
+      "id": "guzel_ahlak_033",
+      "konu": "sinav",
+      "soru": "When is good character tested most?",
+      "secenekler": [
+        "A) When people are watching you",
+        "B) In moments of anger or difficulty",
+        "C) When you win and are at the height of your power",
+        "D) At religious gatherings"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Remaining silent when angry, forgiving, and responding to evil with kindness are among the hardest and most valuable tests of good character."
+    },
+    {
+      "id": "guzel_ahlak_034",
+      "konu": "kibir",
+      "soru": "Which of the following is one of the main behaviors that harm good character?",
+      "secenekler": [
+        "A) Being self-critical",
+        "B) Performing acts of kindness quietly",
+        "C) Admitting mistakes",
+        "D) Focusing on others' faults without correcting oneself"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "A person who focuses on correcting their own faults instead of those of others makes faster progress on the path of good character."
+    },
+    {
+      "id": "guzel_ahlak_035",
+      "konu": "tanim",
+      "soru": "Which of the following is not one of the fundamental aspects of good character?",
+      "secenekler": [
+        "A) Arrogance and looking down on others",
+        "B) Honesty and trustworthiness",
+        "C) Mercy and forgiveness",
+        "D) Politeness in speech and modesty"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Arrogance is not a part of good character; it is one of the foremost diseases that harm it."
+    }
+  ]
+}

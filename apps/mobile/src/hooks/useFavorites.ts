@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { storage, STORAGE_KEYS, StorageQuotaError } from "../lib/storage";
+import { getStrings } from "../i18n";
+import storageErrorStrings from "../i18n/strings/storageErrors";
 
 export interface UseFavoritesResult {
   favorites: string[];
@@ -36,7 +38,7 @@ export function useFavorites(): UseFavoritesResult {
       setFavorites(nextFavorites);
       setLoaded(true);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Favoriler yüklenemedi";
+      const msg = err instanceof Error ? err.message : getStrings(storageErrorStrings).favLoad;
       setError(msg);
       setLoaded(true);
     } finally {
@@ -76,9 +78,9 @@ export function useFavorites(): UseFavoritesResult {
       await writeQueueRef.current.catch(() => {});
       await load();
       if (err instanceof StorageQuotaError) {
-        setError("Depolama alanı dolu, favori güncellenemedi.");
+        setError(getStrings(storageErrorStrings).favQuota);
       } else {
-        setError(err instanceof Error ? err.message : "Favori güncellenemedi");
+        setError(err instanceof Error ? err.message : getStrings(storageErrorStrings).favUpdate);
       }
       return wasFavorite;
     }

@@ -1,0 +1,574 @@
+{
+  "ozel_namazlar": {
+    "id": "ozel_namazlar",
+    "baslik": "Guide to Special Prayers",
+    "versiyon": "2.0",
+    "olusturulma": "2026-06-20",
+    "dil": "tr",
+    "aciklama": "A detailed guide to special prayers performed outside the five daily prayers, including their reasons, times, number of rak'ahs, the views of the schools of law, and supplications.",
+    "kaynak_not": "The content has been compiled based on the Qur'an, authentic hadith sources, and the classical tradition of Islamic jurisprudence.",
+    "namazlar": [
+      {
+        "id": "cenaze_namazi",
+        "isim": "Funeral Prayer",
+        "durum": "farz_i_kifaye",
+        "durum_aciklama": "If even one member of the community performs it, the obligation is lifted from the others. If no one performs it, all Muslims are sinful.",
+        "mezhep_gorusleri": "It is a communal obligation in all four schools of law. The schools agree on this point.",
+        "ne_zaman_kilinir": "When a Muslim dies, it is performed after the deceased has been washed and shrouded and before burial.",
+        "rekat": "No rak'ahs — it is performed with 4 takbirs. There is no bowing or prostration; it is performed entirely while standing.",
+        "vakit": "It may be performed at any time except during the discouraged times of sunrise, sunset, and when the sun passes its zenith.",
+        "on_sartlar": [
+          "Being in a state of wudu",
+          "Facing the qiblah",
+          "The deceased having been washed and shrouded",
+          "The deceased being a Muslim",
+          "The deceased being present in front of the congregation"
+        ],
+        "niyet": {
+          "erkek_cenaze": "I intend, for the sake of Allah, to perform the funeral prayer for this deceased man who is present, following the imam.",
+          "kadin_cenaze": "I intend, for the sake of Allah, to perform the funeral prayer for this deceased woman who is present, following the imam.",
+          "not": "Whether the deceased is a man or a woman is specified in the intention."
+        },
+        "kilinic": [
+          {
+            "adim": 1,
+            "isim": "1st Takbir — Opening",
+            "aciklama": "Raise the hands to ear level, say 'Allahu Ekber,' and fold the hands.",
+            "dua": "Sübhânekellâhümme ve bi hamdike ve tebârekesmüke ve teâlâ ceddüke ve celle senâüke ve lâ ilâhe ğayrük.",
+            "dua_arapca": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَجَلَّ ثَنَاؤُكَ وَلَا إِلَهَ غَيْرُكَ",
+            "anlam": "O Allah! I declare You free of all imperfection and praise You. Blessed is Your name, exalted is Your glory, and there is no deity but You.",
+            "not": "Difference from the usual Subhanaka: the phrase 've celle senâüke' is added."
+          },
+          {
+            "adim": 2,
+            "isim": "2nd Takbir",
+            "aciklama": "Say 'Allahu Ekber' without raising the hands. Recite the Salli and Barik supplications.",
+            "dua_1": "Allâhümme salli alâ Muhammedin ve alâ âli Muhammed. Kemâ salleyte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+            "dua_1_arapca": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+            "dua_2": "Allâhümme bârik alâ Muhammedin ve alâ âli Muhammed. Kemâ bârekte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+            "dua_2_arapca": "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ"
+          },
+          {
+            "adim": 3,
+            "isim": "3rd Takbir",
+            "aciklama": "Say 'Allahu Ekber' without raising the hands. Recite the funeral supplication. Those who do not know it recite al-Fatihah.",
+            "dua": "Allâhümmeğfir li hayyinâ ve meyyitinâ ve şâhidinâ ve ğâibinâ ve sağîrinâ ve kebîrinâ ve zekerînâ ve ünsânâ. Allâhümme men ahyeytehu minnâ fe ahyihi alel islâm, ve men teveffeytehu minnâ fe teveffehû alel îmân. Allâhümme lâ tahrimnâ ecrehu ve lâ teftinnâ ba'dehu.",
+            "dua_arapca": "اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَشَاهِدِنَا وَغَائِبِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الْإِسْلَامِ وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الْإِيمَانِ اللَّهُمَّ لَا تَحْرِمْنَا أَجْرَهُ وَلَا تَفْتِنَّا بَعْدَهُ",
+            "anlam": "O Allah! Forgive those among us who are living and those who are dead, those who are present and those who are absent, the young and the old, the men and the women. O Allah! Cause those of us whom You keep alive to live in Islam, and cause those whom You take in death to die in iman. O Allah! Do not deprive us of the reward for this deceased person, and do not lead us into trial after them.",
+            "bilmeyenler_icin": "Those who do not know the funeral supplication recite Surah al-Fatihah or the 'Rabbena atina' supplication with the intention of making a supplication."
+          },
+          {
+            "adim": 4,
+            "isim": "4th Takbir — Salutation",
+            "aciklama": "Say the final 'Allahu Ekber' without raising the hands. Nothing is recited. Then give the salutation to the right and left.",
+            "selam": "Esselâmü aleyküm ve rahmetullâh."
+          }
+        ],
+        "cenaze_duasi_kisa": {
+          "baslik": "Short Funeral Supplication for Those Who Do Not Know It",
+          "dua": "Allâhümmerham hâzel meyyite — Allah'ım bu ölmüş kuluna rahmet et.",
+          "not": "Those who have not yet memorized the funeral supplication may recite this short supplication."
+        },
+        "ozel_notlar": [
+          "Reciting al-Fatihah and the Qur'an in the funeral prayer is not permissible — verses may be recited with the intention of making a supplication.",
+          "It is recommended to perform the funeral prayer in 3 rows.",
+          "The prayer is performed once for the same deceased person; repeating it is disliked.",
+          "For more than one deceased person, it is more virtuous to perform a separate prayer for each if possible.",
+          "According to the Hanafi and Maliki schools, performing it inside a mosque is disliked unless necessary; it is performed in a musalla (a designated area). The Shafi'i and Hanbali schools consider it permissible and even recommended to perform it inside a mosque."
+        ],
+        "hadis_kaynagi": "Tirmidhi, Jana'iz 38 (authentic)"
+      },
+      {
+        "id": "bayram_namazi",
+        "isim": "Eid Prayer",
+        "durum": "vacip",
+        "durum_aciklama": "According to the Hanafi school, it is wajib for men who are obliged to perform Friday prayer. See below for the other schools.",
+        "mezhep_gorusleri": "Hanafi: wajib (for men obliged to perform Friday prayer). Shafi'i and Maliki: emphasized Sunnah. Hanbali: communal obligation. Performing it in congregation is the established practice in all schools.",
+        "cesitleri": [
+          {
+            "isim": "Eid al-Fitr Prayer",
+            "hicri_tarih": "On the morning of the 1st day of Shawwal",
+            "tekbir_notu": "The takbirs are said quietly on the way to the Eid prayer."
+          },
+          {
+            "isim": "Eid al-Adha Prayer",
+            "hicri_tarih": "On the morning of the 10th day of Dhul-Hijjah",
+            "tekbir_notu": "The takbirs are said aloud on the way to the Eid prayer. In Hanafi practice, the tashriq takbirs are said after the obligatory prayers, beginning with the morning prayer on the day of Arafah and continuing through the afternoon prayer on the 4th day of Eid."
+          }
+        ],
+        "ne_zaman_kilinir": "It is performed on the morning of Eid, after the sun has risen to the height of a spear (approximately 45 minutes), until the time of the noon prayer.",
+        "rekat": "2 rak'ahs — but there are 3 additional takbirs in each rak'ah.",
+        "niyet": {
+          "ramazan": "I intend, for the sake of Allah, to perform the Eid al-Fitr prayer, following the imam who is present.",
+          "kurban": "I intend, for the sake of Allah, to perform the Eid al-Adha prayer, following the imam who is present."
+        },
+        "kilinic": [
+          {
+            "adim": 1,
+            "isim": "Intention and Opening Takbir",
+            "aciklama": "Make the intention, raise the hands to ear level, say 'Allahu Ekber,' and fold the hands.",
+            "dua": "Sübhaneke okunur."
+          },
+          {
+            "adim": 2,
+            "isim": "Additional Takbirs in the 1st Rak'ah",
+            "aciklama": "After Subhanaka and before reciting al-Fatihah, say 3 additional takbirs.",
+            "detay": "For each takbir, raise the hands to ear level and let them fall to the sides. Fold the hands after the 3rd additional takbir.",
+            "not": "These 3 takbirs are wajib according to the Hanafi school — the bowing and prostrations of the prayer are obligatory."
+          },
+          {
+            "adim": 3,
+            "isim": "Recitation in the 1st Rak'ah",
+            "aciklama": "The imam recites the Basmalah, al-Fatihah, and an additional surah aloud. The congregation listens quietly.",
+            "dua": "Fatiha + zamm-ı sure"
+          },
+          {
+            "adim": 4,
+            "isim": "Bowing and Prostration",
+            "aciklama": "Bowing and two prostrations are performed as in a regular prayer, and one rises for the 2nd rak'ah."
+          },
+          {
+            "adim": 5,
+            "isim": "Recitation in the 2nd Rak'ah",
+            "aciklama": "The imam recites al-Fatihah and an additional surah. The congregation listens quietly."
+          },
+          {
+            "adim": 6,
+            "isim": "Additional Takbirs in the 2nd Rak'ah",
+            "aciklama": "In the 2nd rak'ah, the additional takbirs are said AFTER the recitation and BEFORE bowing.",
+            "detay": "Say 3 additional takbirs, letting the hands fall to the sides with each takbir. After the 3rd takbir, go directly into bowing WITHOUT folding the hands — the 4th takbir is the takbir for bowing.",
+            "not": "The order in the 1st rak'ah: Subhanaka → 3 takbirs → al-Fatihah → surah → bowing. The order in the 2nd rak'ah: al-Fatihah → surah → 3 takbirs → bowing. This difference is important."
+          },
+          {
+            "adim": 7,
+            "isim": "Final Sitting and Salutation",
+            "aciklama": "After the prostration, sit and recite the Tahiyyat, Salli, and Barik supplications, then give the salutation."
+          },
+          {
+            "adim": 8,
+            "isim": "Sermon and Tashriq Takbirs",
+            "aciklama": "After the Eid prayer, the imam delivers the sermon. During Eid al-Adha, the tashriq takbirs are also said after the obligatory prayers.",
+            "tesbih": "Allahu Ekber, Allahu Ekber, La ilahe illallah. Allahu Ekber, Allahu Ekber ve lillahil hamd.",
+            "not": "The sermon for the Eid prayer is delivered AFTER the prayer. For Friday prayer, it is delivered before the prayer."
+          }
+        ],
+        "ozel_notlar": [
+          "Performing the Eid prayer in congregation is the established practice. According to the Hanafi school, a person who cannot find a congregation does not need to perform it alone.",
+          "Fasting on the days of Eid is forbidden.",
+          "The takbirs are said quietly on Eid al-Fitr and aloud on Eid al-Adha.",
+          "In Hanafi practice, there is no conventional make-up prayer for an individual; however, if the congregational prayer is missed for a valid excuse, there are legal details concerning the formation of another congregation on the same day or on suitable subsequent days.",
+          "In Hanafi practice during Eid al-Adha, the tashriq takbirs are said after the obligatory prayers, beginning with the morning prayer on the day of Arafah and continuing through the afternoon prayer on the 4th day of Eid."
+        ],
+        "hadis_kaynagi": "Bukhari, Muslim (authentic)"
+      },
+      {
+        "id": "teheccud_namazi",
+        "isim": "Tahajjud Prayer (Night Prayer)",
+        "durum": "sunnet_musteap",
+        "durum_aciklama": "It has been reported that it was obligatory for the Prophet ﷺ, while his community was encouraged to perform it as a recommended voluntary prayer. Performing it regularly is highly virtuous.",
+        "mezhep_gorusleri": "In all four schools, it is considered an emphasized Sunnah or a recommended voluntary prayer for the community; it is not obligatory. Scholars differ on whether it was obligatory for the Prophet ﷺ: some hold that it was obligatory, while others hold that it was later made voluntary.",
+        "ne_zaman_kilinir": "It is performed after the Isha prayer, after sleeping for a while and waking up, until the Fajr prayer. The most virtuous time to perform it is during the last third of the night.",
+        "rekat": "It consists of at least 2 rak'ahs. It is more virtuous to perform it in sets of 2 rak'ahs. Performing 8 rak'ahs is a common practice; the schools of law differ in their assessments of the upper limit.",
+        "kuran_referansi": {
+          "sure": "al-Isra",
+          "ayet": 79,
+          "metin": "And during part of the night, wake and perform the Tahajjud prayer as an additional act of worship specifically for you. It may be that your Lord will raise you to a praiseworthy station."
+        },
+        "niyet": "I intend to perform the Tahajjud prayer for the sake of Allah.",
+        "kilinic": {
+          "aciklama": "It is performed like a regular voluntary prayer, in sets of 2 rak'ahs, with salam at the end of each set.",
+          "1_rekat": [
+            "Subhanaka",
+            "A'udhu and Bismillah",
+            "al-Fatihah",
+            "An additional surah (reciting a long surah is virtuous)",
+            "Ruku",
+            "Sujood"
+          ],
+          "2_rekat": [
+            "Bismillah",
+            "al-Fatihah",
+            "An additional surah",
+            "Ruku",
+            "Sujood",
+            "Tahiyyat, Salli, Barik, Rabbana → Salam"
+          ],
+          "not": "If more rak'ahs are to be performed, continue in the same way, 2 at a time."
+        },
+        "teheccud_duasi": {
+          "dua": "Allâhümme lekel hamdü ente kayyümes semâvâti vel ardı ve men fîhinn. Ve lekel hamdü ente nûrus semâvâti vel ardı ve men fîhinn. Ve lekel hamdü entel hakkû ve va'dukel hakkû ve likâüke hakkûn ve kavlüke hakkûn vel cenneti hakkûn ven nâru hakkûn ven nebiyyûne hakkûn ve Muhammedün sallallahü aleyhi ve sellem hakkûn ves sâatü hakkûn. Allâhümme leke eslemtü ve bike âmentü ve aleyke tevekkeltü ve ileyke enebtü ve bike hâsamtü ve ileyke hâkemtü fağfirli mâ kaddemtü ve mâ ahhartü ve mâ esrartü ve mâ a'lentü entel mükkadimü ve entel muahhiru lâ ilâhe illâ ente.",
+          "dua_kaynagi": "Bukhari, Tahajjud 1 (sahih) — The Prophet ﷺ would recite this supplication when he rose for Tahajjud.",
+          "anlam": "O Allah, all praise is Yours. You are the Creator and Sustainer of the heavens, the earth and all that is within them. O Allah, I have submitted to You, believed in You, relied on You and turned to You. Forgive my past and my future, what I have kept secret and what I have made public. You are the One who brings forward and the One who puts back. There is no deity but You."
+        },
+        "fazileti": [
+          "The Prophet ﷺ said: 'The most virtuous prayer after the obligatory prayer is the prayer performed in the middle of the night.' (Muslim)",
+          "The Prophet ﷺ said: 'Perform the night prayer, for it is the Sunnah of the righteous servants before you, a means of drawing closer to Allah, it covers sins and protects the body from illnesses.' (Tirmidhi)"
+        ],
+        "ozel_notlar": [
+          "If you plan to wake up for Tahajjud, you may leave the Witr prayer until after Tahajjud, so that Witr is your last prayer of the night.",
+          "If you cannot wake up, having performed Witr after Isha is sufficient.",
+          "If the Prophet ﷺ could not perform the night prayer because of illness or travel, he would make up for it by performing 12 rak'ahs during the day (Muslim).",
+          "The night prayer is recited quietly; it is Sunnah not to disturb others."
+        ],
+        "hadis_kaynagi": "Bukhari, Muslim (sahih)"
+      },
+      {
+        "id": "kusluk_namazi",
+        "isim": "Duha Prayer (Duha / Ishraq)",
+        "durum": "sunnet",
+        "durum_aciklama": "It is a voluntary prayer that the Prophet ﷺ recommended and performed from time to time. It is permissible in all four schools of law, though they differ in the degree of its ruling.",
+        "mezhep_gorusleri": "In the Maliki and Shafi'i schools it is an emphasized Sunnah, while in the Hanafi and Hanbali traditions it is generally described as recommended. There is no disagreement about the permissibility of the prayer; the degree of emphasis differs.",
+        "ne_zaman_kilinir": "Its time begins approximately 45 minutes after sunrise and lasts until 45 minutes before noon. Its most virtuous time is when the sun has risen well and its warmth can be felt.",
+        "rekat": "A minimum of 2 and a maximum of 12 rak'ahs. Performing 4 or 8 rak'ahs is recommended. It is performed in sets of 2 rak'ahs.",
+        "niyet": "I intend to perform the Duha prayer for the sake of Allah.",
+        "kilinic": {
+          "aciklama": "It is performed like a regular voluntary prayer, in sets of 2 rak'ahs.",
+          "1_rekat": [
+            "Subhanaka",
+            "A'udhu and Bismillah",
+            "al-Fatihah",
+            "An additional surah",
+            "Ruku",
+            "Sujood"
+          ],
+          "2_rekat": [
+            "Bismillah",
+            "al-Fatihah",
+            "An additional surah",
+            "Ruku",
+            "Sujood",
+            "Tahiyyat, Salli, Barik, Rabbana → Salam"
+          ]
+        },
+        "tavsiye_edilen_sureler": "Surah ash-Shams, Surah ad-Duha or any other surah of your choice may be recited.",
+        "fazileti": [
+          "The Prophet ﷺ said: 'Every day, charity is due for every joint. Two rak'ahs performed at Duha suffice for all of them.' (Muslim)",
+          "The Prophet ﷺ said: 'Whoever performs the Fajr prayer in congregation, then sits remembering Allah until the sun rises, and then performs two rak'ahs, receives the reward of a complete Hajj and Umrah.' (Tirmidhi)"
+        ],
+        "ozel_notlar": [
+          "The Ishraq prayer is described as the first part of the Duha prayer, performed early in its time; not every Duha prayer is Ishraq.",
+          "The first 2 rak'ahs performed after sunrise, following remembrance of Allah after the Fajr prayer, are specifically called the 'Ishraq prayer.'",
+          "Salah is not performed during the discouraged times: as the sun rises, reaches its zenith and sets."
+        ],
+        "hadis_kaynagi": "Muslim, Bukhari (sahih)"
+      },
+      {
+        "id": "istihare_namazi",
+        "isim": "Istikharah Prayer",
+        "durum": "sunnet",
+        "durum_aciklama": "It is a voluntary prayer performed to ask Allah for what is best before making an important decision. It is considered recommended or Sunnah in all four schools of law.",
+        "mezhep_gorusleri": "It is considered recommended or Sunnah in all four schools of law; there is no difference between the schools.",
+        "ne_zaman_kilinir": "It may be performed at any time except during the discouraged times. It is recommended to perform it before going to bed and then sleep.",
+        "rekat": "2 rak'ahs",
+        "niyet": "I intend to perform the Istikharah prayer for the sake of Allah.",
+        "sebep": "It is performed to ask Allah for what is best when a person has difficulty making an important decision, such as marriage, changing jobs, a major purchase or travel.",
+        "kilinic": {
+          "aciklama": "It is performed like a regular voluntary prayer of 2 rak'ahs.",
+          "tavsiye_edilen_sureler": "It has been recommended to recite Surah al-Kafirun in the first rak'ah and Surah al-Ikhlas in the second.",
+          "adimlar": [
+            "Perform wudu",
+            "Perform 2 rak'ahs of voluntary prayer",
+            "Recite the Istikharah supplication after the prayer",
+            "Ask Allah for what is best while keeping the matter in your heart",
+            "Preferably go to sleep immediately"
+          ]
+        },
+        "istihare_duasi": {
+          "dua": "Allâhümme innî estahîruke bi'ilmike ve estaqdiruke bi'kudratike ve es'elüke min fadlike'l-azîm. Feinneke takdiru ve lâ akdiru ve ta'lemü ve lâ a'lemü ve ente allâmü'l-guyûb. Allâhümme in künte ta'lemü enne hâze'l-emre hayrun lî fî dînî ve meâşî ve âkıbeti emrî fak'dur hü lî ve yessir hü lî sümme bârik lî fîh. Ve in künte ta'lemü enne hâze'l-emre şerrun lî fî dînî ve meâşî ve âkıbeti emrî fassrif hü annî vassrifnî anh. Vak'dur liye'l-hayre haysu kâne sümme ardınî bih.",
+          "dua_arapca": "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ",
+          "anlam": "O Allah! I ask You for what is best through Your knowledge, and I ask You for strength through Your power, and I ask of Your great bounty. You have power, and I do not. You know, and I do not. You are the Knower of the unseen. O Allah, if You know that this matter is good for me in my religion, my livelihood and the outcome of my affairs, then grant it to me, make it easy for me and bless it. If You know that it is bad for my religion, my livelihood and the outcome of my affairs, then turn it away from me and turn me away from it. Decree what is good for me wherever it may be, and then make me content with it.",
+          "not": "When saying 'hâze'l-emr' (this matter) in the supplication, keep the matter in your heart.",
+          "kaynagi": "Bukhari, Da'wat 48 (sahih)"
+        },
+        "istihare_sonucu": {
+          "aciklama": "How is the result of Istikharah understood?",
+          "maddeler": [
+            "It is not necessary to have a dream; the popular belief that Istikharah requires going to sleep and having a dream is incorrect.",
+            "A feeling of peace and ease in the heart may be regarded as guidance for the person.",
+            "Ongoing distress or reluctance in the heart may also be considered a sign to be cautious, but it is not conclusive on its own.",
+            "If the result is not clear, it may be repeated up to 7 times.",
+            "Istikharah does not take away your free will; you make the decision, and Allah grants what is best."
+          ]
+        },
+        "ozel_notlar": [
+          "Istikharah is only for major, permissible decisions; it cannot make what is forbidden permissible.",
+          "A dream is not necessary; a feeling of peace or distress is also sufficient.",
+          "The result of Istikharah does not prevent you from seeking advice from others; both can be done together."
+        ],
+        "hadis_kaynagi": "Bukhari (sahih) — Narrated from Jabir ibn Abdullah"
+      },
+      {
+        "id": "teravih_namazi",
+        "isim": "Tarawih Prayer",
+        "durum": "sunnet_i_muekked",
+        "durum_aciklama": "It is an emphasized Sunnah performed only during Ramadan. This ruling applies in all four schools of law.",
+        "mezhep_gorusleri": "It is an emphasized Sunnah in all four schools of law. Number of rak'ahs: 20 in the Hanafi, Shafi'i and Hanbali schools (by consensus since the time of Umar); the Maliki school also has a view of 36 rak'ahs. The 8–11 rak'ahs in Aishah's narration refer to the Prophet's ﷺ general night prayer, not specifically to Tarawih.",
+        "ne_zaman_kilinir": "It is performed only during Ramadan, after the Isha prayer and before the Witr prayer.",
+        "rekat": "20 rak'ahs — performed in 10 sets of 2 rak'ahs. A short rest is taken after every 4 rak'ahs.",
+        "niyet": "I intend to perform the Tarawih prayer for the sake of Allah, following the imam present.",
+        "kilinic": {
+          "aciklama": "It is performed in sets of 2 rak'ahs like an ordinary voluntary prayer. After each salam, there is a short sitting (a Tarawih break).",
+          "adimlar": [
+            "Perform 2 rak'ahs and give salam.",
+            "Sit briefly or recite tasbih.",
+            "Perform another 2 rak'ahs.",
+            "Continue in this way until 20 rak'ahs are completed.",
+            "After the 20 rak'ahs, perform 3 rak'ahs of Witr."
+          ]
+        },
+        "teravih_arasi_tesbih": "Sübhâne zil mülki vel melekût. Sübhâne zil izzeti vel azameti vel heybeti vel kudreti vel kibriyâi vel ceberût. Sübhânellahil hayyillezî lâ yenâmü ve lâ yemût. Sübbûhun kuddûsün rabbünâ ve rabbül melâiketi ver rûh.",
+        "fazileti": [
+          "The Prophet ﷺ said: 'Whoever prays at night during Ramadan with faith and seeking reward from Allah will have their past sins forgiven.' (Bukhari, Muslim)"
+        ],
+        "ozel_notlar": [
+          "It began to be performed in congregation during the time of Umar and has continued as an emphasized Sunnah ever since.",
+          "It is virtuous not to separate Tarawih from Witr — completing them with the imam is Sunnah.",
+          "Performing it in congregation is more virtuous than performing it individually."
+        ],
+        "hadis_kaynagi": "Bukhari, Muslim (sahih)"
+      },
+      {
+        "id": "tahiyyetul_mescid",
+        "isim": "Tahiyyat al-Masjid",
+        "durum": "sunnet",
+        "durum_aciklama": "A voluntary prayer of 2 rak'ahs performed upon entering a mosque, before sitting down.",
+        "mezhep_gorusleri": "Hanafi and Maliki: It is not performed during disliked times. Shafi'i: A prayer performed for a specific reason, such as Tahiyyat al-Masjid, may also be performed during disliked times. This difference is important in practice.",
+        "ne_zaman_kilinir": "It is performed every time one enters a mosque, before sitting down. According to the Hanafi and Maliki schools, it is not performed during disliked times; according to the Shafi'i school, it may also be performed during disliked times because it is a prayer performed for a specific reason.",
+        "rekat": "2 rak'ahs",
+        "niyet": "I intend to perform the Tahiyyat al-Masjid prayer for the sake of Allah.",
+        "kilinic": "It is performed like an ordinary voluntary prayer of 2 rak'ahs.",
+        "fazileti": "The Prophet ﷺ said: 'When one of you enters a mosque, let them pray two rak'ahs before sitting down.' (Bukhari, Muslim)",
+        "ozel_notlar": [
+          "Tahiyyat al-Masjid may be omitted if one is hurrying to join the obligatory prayer.",
+          "When a Sunnah prayer is performed, Tahiyyat al-Masjid is also considered fulfilled.",
+          "According to the Hanafi and Maliki schools, it is not performed during disliked times (while the sun is rising, setting, or reaching its zenith). The Shafi'i school says it may also be performed during disliked times."
+        ],
+        "hadis_kaynagi": "Bukhari, Muslim (sahih)"
+      },
+      {
+        "id": "kusuf_husuf",
+        "isim": "Kusuf and Khusuf Prayers (Solar and Lunar Eclipses)",
+        "durum": "sunnet_i_muekked",
+        "durum_aciklama": "It is performed in congregation during a solar eclipse. During a lunar eclipse, it may be performed individually or in congregation.",
+        "mezhep_gorusleri": "The structure of the prayer differs between the schools of Islamic law: in the Hanafi school, each rak'ah has one standing, one bowing and two prostrations, as in an ordinary voluntary prayer. The majority view (Shafi'i, Maliki and Hanbali) holds that each rak'ah has two standings and two bowings. The instructions in this file reflect the majority view (Shafi'i/Maliki/Hanbali); for the Hanafi practice, the ordinary method of performing a voluntary prayer is sufficient.",
+        "cesitleri": [
+          {
+            "isim": "Kusuf Prayer",
+            "aciklama": "It is performed during a solar eclipse. It is Sunnah to perform it in congregation in a mosque."
+          },
+          {
+            "isim": "Khusuf Prayer",
+            "aciklama": "It is performed during a lunar eclipse. It may be performed individually or in congregation."
+          }
+        ],
+        "ne_zaman_kilinir": "It is performed when a solar or lunar eclipse occurs, for the duration of the eclipse.",
+        "rekat": "2 rak'ahs — according to the majority view, each rak'ah has 2 standings, 2 bowings and 2 prostrations. In the Hanafi school, each rak'ah has 1 bowing, as in an ordinary voluntary prayer.",
+        "kilinic": [
+          {
+            "adim": 1,
+            "isim": "First Rak'ah (majority view)",
+            "aciklama": "Intention → Takbir → al-Fatihah + a long surah → Bowing → Return to standing → al-Fatihah + a surah → Bowing again → Return to standing → Two prostrations"
+          },
+          {
+            "adim": 2,
+            "isim": "Second Rak'ah (majority view)",
+            "aciklama": "In the same way — al-Fatihah + a surah → Bowing → Return to standing → al-Fatihah + a surah → Bowing → Return to standing → Two prostrations → Sitting → Salam"
+          }
+        ],
+        "niyet": "I intend to perform the solar eclipse prayer for the sake of Allah.",
+        "fazileti": "The Prophet ﷺ said: 'The sun and the moon are two of Allah's signs. They are not eclipsed because of anyone's death or birth. When you see them eclipsed, supplicate to Allah, say the takbir, pray and give charity.' (Bukhari, Muslim)",
+        "ozel_notlar": [
+          "The Prophet ﷺ led this prayer during a solar eclipse that coincided with the day his son Ibrahim died, and said, 'The sun is not eclipsed because of anyone's death.'",
+          "If the prayer has ended before the eclipse ends, the prayer is not interrupted; it is continued.",
+          "If the eclipse has ended before the prayer was performed, only supplication is made.",
+          "For the Hanafi practice, an ordinary voluntary prayer with 1 bowing in each rak'ah is sufficient."
+        ],
+        "hadis_kaynagi": "Bukhari, Muslim (sahih)"
+      },
+      {
+        "id": "istiska_namazi",
+        "isim": "Prayer for Rain (Istisqa)",
+        "durum": "sunnet",
+        "durum_aciklama": "A prayer performed to ask for rain during drought or water shortages.",
+        "mezhep_gorusleri": "The structure of the prayer differs between the schools of Islamic law. Hanafi: The Istisqa prayer is performed like an ordinary voluntary prayer of 2 rak'ahs, with NO additional takbirs; after the prayer, the imam delivers a sermon and supplicates in an open area. According to Imam Abu Hanifa, there is no separate prayer; supplication and seeking forgiveness alone are sufficient. The separate prayer is the view of his two students, Abu Yusuf and Muhammad. Shafi'i and Hanbali: It is performed like the Eid prayer, with 7 additional takbirs in the first rak'ah and 5 in the second. The instructions involving additional takbirs in this file reflect only the Shafi'i and Hanbali view.",
+        "ne_zaman_kilinir": "It is performed in congregation during a drought or water shortage, in an open area if possible.",
+        "rekat": "2 rak'ahs. According to the Hanafi school, it follows the structure of an ordinary voluntary prayer, with no additional takbirs; according to the Shafi'i and Hanbali schools, it is performed like the Eid prayer, with additional takbirs.",
+        "kilinic_hanafi": "It is performed like an ordinary voluntary prayer of 2 rak'ahs. After the prayer, the imam delivers a sermon and supplicates.",
+        "kilinic_safii_hanbeli": "It is performed like the Eid prayer, with 7 additional takbirs in the first rak'ah and 5 in the second. The imam then delivers a sermon, turns the rida (shoulder garment) inside out during the sermon, and raises his hands in supplication.",
+        "niyet": "I intend to perform the prayer for rain for the sake of Allah.",
+        "dua": "Allâhümme eskınâ ğaysen muğîsen henîen merîen nâfian ğayra dârrin âcilen ğayra âcilin. — Allah'ım! Bize hoş, bereketli, zararsız, faydalı, gecikmeksizin yağmur yağdır.",
+        "fazileti": "During times of drought, the Prophet ﷺ would go out to an open area with the Companions and lead this prayer. (Bukhari, sahih)",
+        "ozel_notlar": [
+          "It is Sunnah to perform it in congregation in an open area.",
+          "It is recommended to repent and seek forgiveness together before the prayer.",
+          "If the prayer cannot be performed, supplication alone may also be offered."
+        ],
+        "hadis_kaynagi": "Bukhari (sahih)"
+      },
+      {
+        "id": "sukur_secdesi",
+        "isim": "Prostration of Gratitude",
+        "durum": "sunnet",
+        "durum_aciklama": "A prostration made to thank Allah upon receiving a blessing or being protected from harm. It is performed as a prostration, not as a prayer.",
+        "mezhep_gorusleri": "Hanafi: It is recommended to perform a separate 'prayer of gratitude' of 2 rak'ahs; a prostration of gratitude may also be made. Shafi'i and Hanbali: The prostration of gratitude is recommended. Regarding wudu, the majority (Shafi'i, Hanbali and Maliki) consider it a requirement; the Hanafi school also recommends preferably having wudu.",
+        "ne_zaman_yapilir": "Upon receiving a great blessing, being spared bad news, or receiving joyful news.",
+        "rekat": "It is not a prayer — only one prostration is made.",
+        "kilinic": [
+          "Having wudu is recommended; according to the majority, it is required.",
+          "Face the qiblah.",
+          "Say the takbir and go into prostration.",
+          "Praise and thank Allah in prostration.",
+          "Say the takbir and rise."
+        ],
+        "secde_duasi": "Sübhâne rabbiyel a'lâ. — Elhamdülillah. — Şükür Ya Rabb!",
+        "fazileti": "When the Prophet received good news or something joyful happened, he would prostrate and thank Allah. (Abu Dawud, sahih)",
+        "ozel_notlar": [
+          "According to the majority (Shafi'i, Hanbali, Maliki), wudu is required; the Hanafi school also prefers performing it with wudu.",
+          "It should not be performed while wearing shoes.",
+          "It is unrelated to recitation—that is the separate subject of the prostration of recitation."
+        ],
+        "hadis_kaynagi": "Abu Dawud, Tirmidhi (sahih)"
+      },
+      {
+        "id": "tovbe_namazi",
+        "isim": "Prayer of Repentance",
+        "durum": "sunnet",
+        "durum_aciklama": "A voluntary prayer performed after committing a sin to repent to Allah and seek forgiveness. It is considered recommended or Sunnah in all four schools.",
+        "mezhep_gorusleri": "It is considered recommended or Sunnah in all four schools; there is no difference between the schools.",
+        "ne_zaman_kilinir": "It can be performed whenever a sin has been committed, except during times when prayer is discouraged.",
+        "rekat": "2 rak'ahs",
+        "niyet": "I intend to perform the prayer of repentance for the sake of Allah.",
+        "kilinic": "It is performed like a normal two-rak'ah voluntary prayer. After the prayer, one repents sincerely.",
+        "tovbe_duasi": "Estağfirullâhel azîm ellezî lâ ilâhe illâ hüvel hayyel kayyûme ve etûbü ileyh. — I repent to You, my Lord; I will not commit this sin again.",
+        "tovbe_sartlari": [
+          "Acknowledge the sin",
+          "Feel sincere remorse",
+          "Abandon the sin",
+          "Resolve firmly not to commit it again",
+          "If another person's rights are involved, restore their rights or seek their forgiveness"
+        ],
+        "fazileti": "The Prophet said: 'Whoever performs wudu, prays two rak'ahs and asks Allah for forgiveness, Allah will forgive them.' (Abu Dawud, sahih)",
+        "ozel_notlar": [
+          "Prayer is not a condition for repentance—one can repent at any time. Prayer makes repentance more valuable.",
+          "Repentance should not be delayed—the Prophet would immediately pray two rak'ahs after committing a sin.",
+          "If another person's rights are involved, the prayer of repentance alone is not enough; seeking forgiveness from the person whose rights were violated is required."
+        ],
+        "hadis_kaynagi": "Abu Dawud (sahih)"
+      },
+      {
+        "id": "hacet_namazi",
+        "isim": "Prayer of Need",
+        "durum": "sunnet",
+        "durum_aciklama": "A voluntary prayer performed to ask Allah for help in a time of need or distress.",
+        "mezhep_gorusleri": "In the Hanafi and Shafi'i schools, it is described as two rak'ahs. The view of 12 rak'ahs is based on Imam al-Ghazali and a minority narration in the Hanafi school. Hadith scholars (Tirmidhi and Ibn al-Arabi) have criticized the chain of transmission of the supporting hadith; its classification as 'hasan' is considered the most favorable assessment.",
+        "ne_zaman_kilinir": "It can be performed at any time of need or distress, except during times when prayer is discouraged.",
+        "rekat": "2 rak'ahs. Some narrations (Imam al-Ghazali and the minority Hanafi view) state that it may be performed as up to 12 rak'ahs; however, the hadith on which this view is based has been assessed as weak.",
+        "niyet": "I intend to perform the prayer of need for the sake of Allah.",
+        "kilinic": "It is performed like a normal voluntary prayer. After the prayer, the supplication of need is recited.",
+        "hacet_duasi": "Lâ ilâhe illallâhul halîmül kerîm. Sübhânallâhi rabbil arşil azîm. Elhamdülillâhi rabbil âlemîn. Es'elüke mücibâti rahmetike ve azâime mağfiretike vel ganîmete min külli birrin ves selâmete min külli ism. Lâ teda' lî zenben illâ ğaferte ve lâ hemmen illâ ferracte ve lâ hâceten hiye leke rıdan illâ kadaytehâ Yâ erhamer râhimîn.",
+        "anlam": "There is no god but Allah; He is Forbearing, Generous. Allah, Lord of the Throne, is free from every imperfection. Praise be to Allah, Lord of the worlds. I ask You for the things that bring Your mercy, the assurances of Your forgiveness, a share of every good, and safety from every sin. O Most Merciful of the merciful! Do not leave any of my sins unforgiven, any of my troubles unrelieved, or any need of mine that is pleasing to You unmet.",
+        "fazileti": "The Prophet said: 'Whoever has a need should perform wudu, pray two rak'ahs, then praise Allah, send blessings upon the Prophet and recite this supplication.' (Tirmidhi, hasan)",
+        "ozel_notlar": [
+          "The prayer of need keeps alive the tradition of Muslims presenting their needs to Allah first.",
+          "It should not be confused with istikharah—istikharah is performed to make a decision, while the prayer of need is performed for a need.",
+          "One cannot ask Allah for things that are forbidden.",
+          "Although the view of 12 rak'ahs is based on Imam al-Ghazali, two rak'ahs are established by a stronger narration."
+        ],
+        "hadis_kaynagi": "Tirmidhi (hasan), Ibn Majah"
+      }
+    ],
+    "hizli_bakis_tablosu": [
+      {
+        "isim": "Funeral Prayer",
+        "durum": "Farz-ı Kifaye (4 mezhep)",
+        "rekat": "4 takbirs (without rak'ahs)",
+        "vakit": "When the deceased is ready"
+      },
+      {
+        "isim": "Eid Prayer",
+        "durum": "Vacip (Hanefî) / Müekked Sünnet (Şâfiî-Mâlikî) / Farz-ı Kifâye (Hanbelî)",
+        "rekat": "2 rak'ahs (with additional takbirs)",
+        "vakit": "On the morning of Eid"
+      },
+      {
+        "isim": "Tarawih Prayer",
+        "durum": "Sünnet-i Müekked (4 mezhep)",
+        "rekat": "20 rak'ahs",
+        "vakit": "Only in Ramadan, after the Isha prayer"
+      },
+      {
+        "isim": "Tahajjud Prayer",
+        "durum": "Müstehap / Sünnet (4 mezhep)",
+        "rekat": "2–12 rak'ahs",
+        "vakit": "At night, after the Isha prayer"
+      },
+      {
+        "isim": "Duha Prayer",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2–12 rak'ahs",
+        "vakit": "From 45 minutes after sunrise to 45 minutes before noon"
+      },
+      {
+        "isim": "Istikharah Prayer",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2 rak'ahs",
+        "vakit": "Before making a decision, preferably before sleep"
+      },
+      {
+        "isim": "Tahiyyat al-Masjid",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2 rak'ahs",
+        "vakit": "Upon entering a mosque, before sitting down (during discouraged prayer times: Hanafi and Maliki, no; Shafi'i, yes)"
+      },
+      {
+        "isim": "Solar/Lunar Eclipse Prayer",
+        "durum": "Sünnet-i Müekked (4 mezhep)",
+        "rekat": "2 rak'ahs (Hanafi: normal form; majority: special form with 2 bowings)",
+        "vakit": "During a solar or lunar eclipse"
+      },
+      {
+        "isim": "Prayer for Rain",
+        "durum": "Sünnet",
+        "rekat": "2 rak'ahs (Hanafi: normal; Shafi'i and Hanbali: with additional takbirs)",
+        "vakit": "During a drought"
+      },
+      {
+        "isim": "Prostration of Gratitude",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "Not a prayer; 1 prostration",
+        "vakit": "Upon receiving a blessing"
+      },
+      {
+        "isim": "Prayer of Repentance",
+        "durum": "Sünnet (4 mezhep)",
+        "rekat": "2 rak'ahs",
+        "vakit": "After a sin"
+      },
+      {
+        "isim": "Prayer of Need",
+        "durum": "Sünnet (hasen hadis)",
+        "rekat": "2 rak'ahs (principal view); 12 rak'ahs is al-Ghazali's view and is based on a weak narration",
+        "vakit": "In a time of need"
+      }
+    ],
+    "meta": {
+      "etiketler": [
+        "namaz",
+        "cenaze",
+        "bayram",
+        "teheccüd",
+        "kuşluk",
+        "istihare",
+        "teravih",
+        "özel namaz",
+        "nafile",
+        "mezhep"
+      ],
+      "ilgili_dosyalar": [
+        "namaz_rehberi",
+        "mubarek_gunler"
+      ],
+      "degisiklik_notu": "v2.0 (2026-06-20): Added views of the schools (Eid prayer, form of the eclipse prayer, additional takbirs in the prayer for rain, wudu for the prostration of gratitude, and Tahiyyat al-Masjid during discouraged prayer times). Clarified the ruling on Tahajjud. Added a source and an authenticity note for the 12-rak'ah view of the prayer of need. Corrected inconsistencies in Turkish characters in the prayer of repentance field names (tovbe_duasi, tovbe_sartlari). Added notes on the schools to the quick-reference table."
+    }
+  }
+}

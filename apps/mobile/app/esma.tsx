@@ -6,8 +6,18 @@ import { FlashList } from "@shopify/flash-list";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
-import { ESMA_UL_HUSNA, type EsmaItem } from "../src/data/esmaulHusna";
+import { ESMA_UL_HUSNA as ESMA_TR, type EsmaItem } from "../src/data/esmaulHusna";
+import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { useStrings, useLang } from "../src/i18n";
+import { localizedTranslit } from "../src/lib/translitEn";
+import misc1Strings from "../src/i18n/strings/misc1";
+
+const pickEsma = localizedData(
+  ESMA_TR,
+  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+  () => (require("../src/data/esmaulHusna.en.json") as { ESMA_UL_HUSNA: EsmaItem[] }).ESMA_UL_HUSNA,
+);
 
 function norm(s: string) {
   return s.toLocaleLowerCase("tr-TR").trim();
@@ -15,8 +25,11 @@ function norm(s: string) {
 
 export default function EsmaScreen() {
   const c = useColors();
+  const t = useStrings(misc1Strings);
+  const lang = useLang();
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
+  const ESMA_UL_HUSNA = useLocalizedData(pickEsma);
 
   const data = useMemo(() => {
     const q = norm(query);
@@ -28,7 +41,7 @@ export default function EsmaScreen() {
         || norm(e.kok).includes(q)
         || norm(e.kokAnlam).includes(q),
     );
-  }, [query]);
+  }, [query, ESMA_UL_HUSNA]);
 
   const renderItem = useCallback(({ item }: { item: EsmaItem }) => (
     <View style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -37,32 +50,32 @@ export default function EsmaScreen() {
       </View>
       <View style={{ flex: 1 }}>
         <View style={s.topRow}>
-          <Text style={[s.isim, { color: c.text }]}>{item.isim}</Text>
+          <Text style={[s.isim, { color: c.text }]}>{localizedTranslit(item.isim, lang)}</Text>
           <Text style={[s.arapca, { color: c.text }]}>{item.arapca}</Text>
         </View>
         <Text style={[s.anlam, { color: c.textSecondary ?? c.textMuted }]}>{item.anlam}</Text>
         <View style={[s.kokRow, { borderTopColor: c.border }]}>
-          <Text style={[s.kokLabel, { color: c.textMuted }]}>KÖK</Text>
+          <Text style={[s.kokLabel, { color: c.textMuted }]}>{t.esmaRoot}</Text>
           <Text style={[s.kokArapca, { color: c.accent }]}>{item.kok}</Text>
           <Text style={[s.kokAnlam, { color: c.textMuted }]}>{item.kokAnlam}</Text>
         </View>
       </View>
     </View>
-  ), [c]);
+  ), [c, t, lang]);
 
   return (
     <>
-      <Stack.Screen options={{ title: "Esmaül Hüsna" }} />
+      <Stack.Screen options={{ title: t.esmaTitle }} />
       <View style={[s.container, { backgroundColor: c.bg }]}>
         <View style={s.centerWrap}>
         <View style={s.header}>
-          <Text style={[s.sub, { color: c.textMuted }]}>Allah&apos;ın 99 güzel ismi</Text>
-          <Text style={[s.note, { color: c.textMuted }]}>Bu ekranda yaygın 99 isim tertibi esas alınmıştır; bazı kaynaklarda sıralama ve yazımda küçük farklar görülebilir.</Text>
+          <Text style={[s.sub, { color: c.textMuted }]}>{t.esmaSub}</Text>
+          <Text style={[s.note, { color: c.textMuted }]}>{t.esmaNote}</Text>
         </View>
 
         <TextInput
           style={[s.search, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}
-          placeholder="İsim, Arapça, anlam veya kök ara…"
+          placeholder={t.esmaSearch}
           placeholderTextColor={c.textMuted}
           value={query}
           onChangeText={setQuery}
@@ -76,7 +89,7 @@ export default function EsmaScreen() {
           contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 40 }]}
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
-            <Text style={[s.empty, { color: c.textMuted }]}>Sonuç bulunamadı.</Text>
+            <Text style={[s.empty, { color: c.textMuted }]}>{t.esmaEmpty}</Text>
           }
         />
         </View>

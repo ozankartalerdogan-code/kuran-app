@@ -12,8 +12,12 @@ import { SkeletonListItem } from "../src/components/SkeletonLoader";
 import { useTourTarget } from "../src/tour/AppTourProvider";
 import { NUZUL } from "../src/constants/nuzul";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { useSurahNameOf } from "../src/lib/surahNames";
+import { useStrings, getStrings, fmt } from "../src/i18n";
+import surahStrings from "../src/i18n/strings/surahs";
 
 function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
+  const t = useStrings(surahStrings);
   const isMekki = place === "Mekke";
   return (
     <View style={[styles.badge, {
@@ -26,13 +30,15 @@ function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
           ? (c.isDark ? "#6ee7b7" : "#065f46")
           : (c.isDark ? "#fca5a5" : "#9a3412"),
       }]}>
-        {place}
+        {isMekki ? t.mekke : t.medine}
       </Text>
     </View>
   );
 }
 
 const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahListItem; c: AppColors; sortMode: "mushaf" | "nuzul" }) {
+  const surahNameOf = useSurahNameOf();
+  const t = useStrings(surahStrings);
   const circleNum    = sortMode === "nuzul" ? (NUZUL[item.id] ?? item.id) : item.id;
   const secondaryNum = sortMode === "nuzul" ? item.id : (NUZUL[item.id] ?? null);
 
@@ -42,19 +48,19 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
       onPress={() => router.push(`/surah/${item.id}`)}
       activeOpacity={0.7}
       accessibilityRole="button"
-      accessibilityLabel={`${item.id}. sure: ${item.name}`}
+      accessibilityLabel={fmt(t.surahA11y, { n: item.id, name: surahNameOf(item.id, item.name) })}
     >
       <View style={[styles.rowNumber, { backgroundColor: c.isDark ? c.cardAlt : sortMode === "nuzul" ? "#ede9fe" : "#f5f0e8" }]}>
         <Text style={[styles.numberText, { color: sortMode === "nuzul" ? "#7c3aed" : c.textMuted }]} maxFontSizeMultiplier={1.2}>{circleNum}</Text>
       </View>
       <View style={styles.rowCenter}>
-        <Text style={[styles.surahName, { color: c.text }]}>{item.name}</Text>
+        <Text style={[styles.surahName, { color: c.text }]}>{surahNameOf(item.id, item.name)}</Text>
         <View style={styles.rowMeta}>
-          <Text style={[styles.metaText, { color: c.textMuted }]}>{item.verseCount} ayet</Text>
+          <Text style={[styles.metaText, { color: c.textMuted }]}>{fmt(t.verseCount, { n: item.verseCount })}</Text>
           <PlaceBadge place={item.revelationPlace} c={c} />
           {secondaryNum != null && (
             <Text style={[styles.nuzulText, { color: c.textMuted }]}>
-              {sortMode === "nuzul" ? `Mushaf: ${secondaryNum}` : `Nüzul: ${secondaryNum}`}
+              {sortMode === "nuzul" ? fmt(t.mushafNo, { n: secondaryNum }) : fmt(t.nuzulNo, { n: secondaryNum })}
             </Text>
           )}
         </View>
@@ -66,6 +72,7 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
 
 export default function SureListesiScreen() {
   const c = useColors();
+  const t = useStrings(surahStrings);
   const searchTarget = useTourTarget("surahList.search");
   const insets = useSafeAreaInsets();
   const [surahs, setSurahs]     = useState<SurahListItem[]>([]);
@@ -82,7 +89,7 @@ export default function SureListesiScreen() {
     setError(null);
     api.surahs.list()
       .then((list) => { if (isMounted) setSurahs(list); })
-      .catch(() => { if (isMounted) setError("Sureler yüklenemedi. İnternet bağlantısını kontrol edin."); })
+      .catch(() => { if (isMounted) setError(getStrings(surahStrings).listError); })
       .finally(() => { if (isMounted) { setLoading(false); setRefreshing(false); } });
     return () => { isMounted = false; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,9 +137,9 @@ export default function SureListesiScreen() {
           onPress={() => { setLoading(true); setReloadKey((k) => k + 1); }}
           activeOpacity={0.8}
           accessibilityRole="button"
-          accessibilityLabel="Tekrar dene"
+          accessibilityLabel={t.retryA11y}
         >
-          <Text style={styles.retryText}>Tekrar Dene</Text>
+          <Text style={styles.retryText}>{t.retry}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -144,7 +151,7 @@ export default function SureListesiScreen() {
       <View {...searchTarget} style={[styles.searchWrapper, { backgroundColor: c.bg }]}>
         <TextInput
           style={[styles.searchInput, { backgroundColor: c.card, borderColor: c.border, color: c.text }]}
-          placeholder="Sure ara (ad veya numara)"
+          placeholder={t.searchPlaceholder}
           placeholderTextColor={c.textMuted}
           value={filter}
           onChangeText={setFilter}
@@ -160,10 +167,10 @@ export default function SureListesiScreen() {
               activeOpacity={0.8}
               accessibilityRole="button"
               accessibilityState={{ selected: sortMode === mode }}
-              accessibilityLabel={mode === "mushaf" ? "Mushaf sırası" : "Nüzul sırası"}
+              accessibilityLabel={mode === "mushaf" ? t.mushafOrderA11y : t.nuzulOrderA11y}
             >
               <Text style={[styles.toggleText, { color: sortMode === mode ? "#fff" : c.textMuted }]}>
-                {mode === "mushaf" ? "📖 Mushaf Sırası" : "✨ Nüzul Sırası"}
+                {mode === "mushaf" ? t.mushafOrder : t.nuzulOrder}
               </Text>
             </TouchableOpacity>
           ))}
@@ -186,8 +193,8 @@ export default function SureListesiScreen() {
         contentContainerStyle={[styles.listContent, { paddingBottom: 20 + insets.bottom }]}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Text style={[styles.emptyText, { color: c.textSecondary }]}>Sonuç bulunamadı</Text>
-            <Text style={[styles.emptySubText, { color: c.textMuted }]}>Farklı bir sure adı veya numara deneyin</Text>
+            <Text style={[styles.emptyText, { color: c.textSecondary }]}>{t.noResults}</Text>
+            <Text style={[styles.emptySubText, { color: c.textMuted }]}>{t.noResultsHint}</Text>
           </View>
         }
       />

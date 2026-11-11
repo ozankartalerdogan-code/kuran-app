@@ -19,6 +19,11 @@ module.exports = {
     description:
       "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
     assetBundlePatterns: ['**/*'],
+    // iOS izin metinlerinin İngilizce karşılıkları (Türkçe varsayılan infoPlist'te).
+    locales: {
+      tr: './languages/tr.json',
+      en: './languages/en.json',
+    },
     ios: {
       // Uygulama dikey (portrait) kilitli ve tablet düzeni hiç tasarlanmadı/test
       // edilmedi — supportsTablet:true iPad'i "destekleniyor" gibi listeler ama
@@ -41,6 +46,9 @@ module.exports = {
         // COARSE-only kararıyla ve gizlilik metnindeki "hassas konum kullanılmaz"
         // beyanıyla tutarlı (kıble/namaz vakti için şehir düzeyi yeterli).
         NSLocationDefaultAccuracyReduced: true,
+        // Arayüz tr + en; iOS'un uygulamayı İngilizce destekli tanıması için.
+        CFBundleLocalizations: ['tr', 'en'],
+        CFBundleAllowMixedLocalizations: true,
       },
       // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). MMKV/AsyncStorage
       // (UserDefaults), expo-file-system (dosya zamanı/disk alanı) ve RN/Sentry
@@ -121,6 +129,8 @@ module.exports = {
       // çalışıyor. Bkz. plugins/with-native-clean-codegen-ordering.js.
       './plugins/with-native-clean-codegen-ordering',
       'expo-router',
+      // Cihaz dilini okur (src/i18n) — Türkçe dışı cihazlarda arayüz İngilizce.
+      'expo-localization',
       // iOS: yalnız "uygulama kullanılırken" konum — arka plan/"her zaman" izni
       // istenmez (plugin varsayılanı bu anahtarları İngilizce metinle ekliyordu).
       // Android çıktısı değişmez (izinler yukarıdaki permissions/blocked listesiyle).

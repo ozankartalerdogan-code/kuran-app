@@ -10,6 +10,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { useStrings, fmt } from "../../src/i18n";
+import elifbaStrings from "../../src/i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import {
   parseElifbaProgress,
@@ -21,8 +23,8 @@ import { HarfITarifContent } from "../../src/components/HarfITarifContent";
 
 type TabKey = "elifba" | "harfi-tarif";
 const TABS: { key: TabKey; label: string }[] = [
-  { key: "elifba",      label: "Elif-Ba" },
-  { key: "harfi-tarif", label: "Harf-i Tarif" },
+  { key: "elifba",      label: "tabElifba" },
+  { key: "harfi-tarif", label: "tabTarif" },
 ];
 
 const QUIZ_PASS = 10;
@@ -73,27 +75,28 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
   quizScore: QuizScore | null; onClose: () => void;
   onFlashcard: () => void; onQuiz: () => void;
 }) {
+  const ep = useStrings(elifbaStrings);
   const pct = ders.harf_sayisi > 0 ? Math.round((seenCount / ders.harf_sayisi) * 100) : 0;
   const sev = SEVIYE_COLOR[ders.seviye] ?? SEVIYE_COLOR.temel;
   const dersAdi = shortBaslik(ders.baslik);
 
   return (
     <Modal transparent animationType="fade" onRequestClose={onClose}>
-      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel="Kapat">
+      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel={ep.close}>
         <TouchableOpacity style={pp.card} activeOpacity={1} accessible={false}>
 
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 12 }}>
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 }}>
                 <View style={[pp.badge, { backgroundColor: "#f5f0e8" }]}>
-                  <Text style={[pp.badgeText, { color: "#78716c" }]}>Konu {ders.konu_sirasi}</Text>
+                  <Text style={[pp.badgeText, { color: "#78716c" }]}>{fmt(ep.lessonN, { n: ders.konu_sirasi })}</Text>
                 </View>
                 <View style={[pp.badge, { backgroundColor: sev.bg }]}>
-                  <Text style={[pp.badgeText, { color: sev.text }]}>{ders.seviye}</Text>
+                  <Text style={[pp.badgeText, { color: sev.text }]}>{({ "başlangıç": ep.levelBaslangic, temel: ep.levelTemel, orta: ep.levelOrta } as Record<string, string>)[ders.seviye] ?? ders.seviye}</Text>
                 </View>
                 {status === "completed" && (
                   <View style={[pp.badge, { backgroundColor: "#d1fae5" }]}>
-                    <Text style={[pp.badgeText, { color: "#065f46" }]}>✓ Tamamlandı</Text>
+                    <Text style={[pp.badgeText, { color: "#065f46" }]}>{ep.completed}</Text>
                   </View>
                 )}
               </View>
@@ -103,14 +106,14 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
               onPress={onClose}
               style={{ padding: 4 }}
               accessibilityRole="button"
-              accessibilityLabel={`${dersAdi} penceresini kapat`}
+              accessibilityLabel={fmt(ep.closeLessonA11y, { name: dersAdi })}
             >
               <Text style={{ fontSize: 16, color: "#9ca3af" }}>✕</Text>
             </TouchableOpacity>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
-            <Text style={pp.label}>Kartlar: {seenCount} / {ders.harf_sayisi}</Text>
+            <Text style={pp.label}>{fmt(ep.cards, { a: seenCount, b: ders.harf_sayisi })}</Text>
             {pct === 100 && <Text style={[pp.label, { color: "#059669", fontWeight: "700" }]}>✓</Text>}
           </View>
           <View style={pp.bar}><View style={[pp.fill, { width: `${pct}%` as DimensionValue }]} /></View>
@@ -118,23 +121,23 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
           {quizScore ? (
             <View style={[pp.infoBox, { backgroundColor: "#eff6ff", marginTop: 8 }]}>
               <Text style={{ fontSize: 13, color: "#1d4ed8" }}>
-                {"🧠 Test: "}{quizScore.score}/{quizScore.total}
+                {ep.quizPrefix}{quizScore.score}/{quizScore.total}
                 {quizScore.score >= QUIZ_PASS
-                  ? <Text style={{ color: "#059669", fontWeight: "700" }}> ✓ Geçti</Text>
-                  : <Text style={{ color: "#78716c" }}> — tekrar dene</Text>}
+                  ? <Text style={{ color: "#059669", fontWeight: "700" }}>{ep.passed}</Text>
+                  : <Text style={{ color: "#78716c" }}>{ep.tryAgainDash}</Text>}
               </Text>
             </View>
           ) : status !== "locked" ? (
             <View style={[pp.infoBox, { backgroundColor: "#fef9c3", marginTop: 8 }]}>
               <Text style={{ fontSize: 12, color: "#854d0e" }}>
-                💡 Dersi tamamlamak için teste gir ve en az {QUIZ_PASS}/15 al.
+                {fmt(ep.passHint, { n: QUIZ_PASS })}
               </Text>
             </View>
           ) : null}
 
           {status === "locked" && (
             <View style={[pp.infoBox, { backgroundColor: "#f5f5f4", marginTop: 8 }]}>
-              <Text style={{ fontSize: 12, color: "#78716c" }}>🔒 Önceki dersi tamamla</Text>
+              <Text style={{ fontSize: 12, color: "#78716c" }}>{ep.lockedHint}</Text>
             </View>
           )}
 
@@ -144,17 +147,17 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
                 style={pp.btnGreen}
                 onPress={onFlashcard}
                 accessibilityRole="button"
-                accessibilityLabel={`${dersAdi} kartlarını aç`}
+                accessibilityLabel={fmt(ep.openCardsA11y, { name: dersAdi })}
               >
-                <Text style={pp.btnText}>📇 Kartlar</Text>
+                <Text style={pp.btnText}>{ep.cardsBtn}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={pp.btnIndigo}
                 onPress={onQuiz}
                 accessibilityRole="button"
-                accessibilityLabel={`${dersAdi} testini aç`}
+                accessibilityLabel={fmt(ep.openQuizA11y, { name: dersAdi })}
               >
-                <Text style={pp.btnText}>🧠 Test</Text>
+                <Text style={pp.btnText}>{ep.quizBtn}</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -170,12 +173,13 @@ function PathNode({ ders, status, pct, onPress }: {
   ders: ElifbaDers; status: LessonStatus; pct: number; onPress: () => void;
 }) {
   const c = useColors();
+  const ep = useStrings(elifbaStrings);
   const isComp   = status === "completed";
   const isActive = status === "active";
   const isLocked = status === "locked";
   const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : "#d1d5db";
   const border   = isComp ? "#047857" : isActive ? "#d97706" : "#9ca3af";
-  const statusLabel = isComp ? "tamamlandı" : isActive ? "aktif" : "kilitli";
+  const statusLabel = isComp ? ep.stCompleted : isActive ? ep.stActive : ep.stLocked;
   const dersAdi = shortBaslik(ders.baslik);
 
   return (
@@ -185,8 +189,8 @@ function PathNode({ ders, status, pct, onPress }: {
       disabled={isLocked}
       activeOpacity={isLocked ? 1 : 0.75}
       accessibilityRole="button"
-      accessibilityLabel={`${dersAdi} dersi, ${statusLabel}, ilerleme yüzde ${pct}`}
-      accessibilityHint={isLocked ? "Önceki dersi tamamladıktan sonra açılır" : "Ders seçeneklerini açar"}
+      accessibilityLabel={fmt(ep.nodeA11y, { name: dersAdi, status: statusLabel, pct })}
+      accessibilityHint={isLocked ? ep.nodeHintLocked : ep.nodeHint}
       accessibilityState={{ disabled: isLocked }}
     >
       <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
@@ -235,6 +239,7 @@ function VLineRow({ side, color }: { side: "left" | "right"; color: string }) {
 
 export default function OgrenScreen() {
   const c = useColors();
+  const ep = useStrings(elifbaStrings) as Record<string, string>;
   const insets = useSafeAreaInsets();
   const [tab, setTab]               = useState<TabKey>("elifba");
   const { data: dersler = [], isLoading: loading, isError: error, refetch: loadDersler } = useQuery({
@@ -298,7 +303,7 @@ export default function OgrenScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: "Elifba" }} />
+      <Stack.Screen options={{ title: ep.screenTitle }} />
       <View style={{ flex: 1, backgroundColor: c.bg }}>
 
         {/* Üst sekme bar — her zaman görünür */}
@@ -312,10 +317,10 @@ export default function OgrenScreen() {
                 onPress={() => setTab(t.key)}
                 activeOpacity={0.7}
                 accessibilityRole="tab"
-                accessibilityLabel={`${t.label} sekmesi`}
+                accessibilityLabel={fmt(ep.tabA11y, { label: ep[t.label] })}
                 accessibilityState={{ selected: active }}
               >
-                <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>{t.label}</Text>
+                <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>{ep[t.label]}</Text>
               </TouchableOpacity>
             );
           })}
@@ -331,15 +336,15 @@ export default function OgrenScreen() {
             <View style={s.centered}>
               <Text style={s.errEmoji}>📚</Text>
               <Text style={[s.errText, { color: c.text }]}>
-                {error ? "Dersler yüklenemedi.\nBağlantını kontrol et." : "Henüz ders bulunamadı."}
+                {error ? ep.loadError : ep.noLessons}
               </Text>
               <TouchableOpacity
                 style={[s.retryBtn, { backgroundColor: c.accent }]}
                 onPress={() => { void loadDersler(); }}
                 accessibilityRole="button"
-                accessibilityLabel="Elifba derslerini tekrar yükle"
+                accessibilityLabel={ep.reloadA11y}
               >
-                <Text style={s.retryText}>Tekrar dene</Text>
+                <Text style={s.retryText}>{ep.retry}</Text>
               </TouchableOpacity>
             </View>
           ) : (
@@ -349,14 +354,14 @@ export default function OgrenScreen() {
                 {/* Genel ilerleme */}
                 <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
                   <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
-                    <Text style={[s.overallTitle, { color: c.text }]}>🏆 İlerleme</Text>
-                    <Text style={[s.overallCount, { color: c.accent }]}>{completedCount} / {dersler.length} ders</Text>
+                    <Text style={[s.overallTitle, { color: c.text }]}>{ep.progress}</Text>
+                    <Text style={[s.overallCount, { color: c.accent }]}>{fmt(ep.lessonsCount, { a: completedCount, b: dersler.length })}</Text>
                   </View>
                   <View style={s.overallBar}>
                     <View style={[s.overallFill, { width: `${overallPct}%` as DimensionValue }]} />
                   </View>
                   {overallPct === 100 && (
-                    <Text style={s.overallDone}>🎉 Tüm dersler tamamlandı!</Text>
+                    <Text style={s.overallDone}>{ep.allDone}</Text>
                   )}
                 </View>
 

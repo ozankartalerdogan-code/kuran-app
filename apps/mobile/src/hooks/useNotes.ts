@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { storage, STORAGE_KEYS, StorageQuotaError } from "../lib/storage";
+import { getStrings } from "../i18n";
+import storageErrorStrings from "../i18n/strings/storageErrors";
 
 type NotesMap = Record<string, string>;
 
@@ -41,7 +43,7 @@ export function useNotes(): UseNotesResult {
       setNotes(nextNotes);
       setLoaded(true);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Notlar yüklenemedi";
+      const msg = err instanceof Error ? err.message : getStrings(storageErrorStrings).notesLoad;
       setError(msg);
       setLoaded(true);
     } finally {
@@ -90,9 +92,9 @@ export function useNotes(): UseNotesResult {
       await writeQueueRef.current.catch(() => {});
       await load();
       if (err instanceof StorageQuotaError) {
-        setError("Depolama alanı dolu, not kaydedilemedi.");
+        setError(getStrings(storageErrorStrings).notesQuota);
       } else {
-        const msg = err instanceof Error ? err.message : "Not kaydedilemedi";
+        const msg = err instanceof Error ? err.message : getStrings(storageErrorStrings).noteSave;
         setError(msg);
       }
       return false;

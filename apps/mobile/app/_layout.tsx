@@ -19,6 +19,8 @@ import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
 import { registerWidgetRefresh } from "../src/widgets/widgetRefresh";
 import { initCloudBackup } from "../src/lib/cloudBackup";
 import { useColors } from "../src/hooks/useColors";
+import { useStrings } from "../src/i18n";
+import layoutStrings from "../src/i18n/strings/layout";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 
 type NavigationIntegration = { registerNavigationContainer: (ref: unknown) => void };
@@ -134,6 +136,7 @@ function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
   // Header/StatusBar uygulama temasını izler — "auto" yalnız sistem temasını
   // izlerdi, ana sayfadaki manuel tema düğmesi header'ları etkilemezdi.
   const c = useColors();
+  const t = useStrings(layoutStrings);
 
   // İlk kurulum: Stack mount olduktan sonra onboarding'e geç (izinler orada,
   // bağlam içinde istenir). replace → geri tuşu onboarding'e dönemez.
@@ -156,39 +159,39 @@ function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
       >
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
         <Stack.Screen name="onboarding"                     options={{ headerShown: false, gestureEnabled: false }} />
-        <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: "Geri" }} />
+        <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: t.back }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />
         <Stack.Screen name="surah/[surahId]/ayah/[ayahNumber]" options={{ headerShown: false }} />
-        <Stack.Screen name="tafsir/[surahId]"               options={{ headerBackTitle: "Geri" }} />
-        <Stack.Screen name="elifba/index"                          options={{ title: "Elif-Ba Öğren", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="elifba/[dersId]"                      options={{ headerBackTitle: "Dersler" }} />
-        <Stack.Screen name="ibadet-rehberi"                  options={{ title: "İbadet Rehberi", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="namaz"                          options={{ title: "Namaz & İbadet", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="bildirimler"                    options={{ title: "Bildirimler", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="manevi-siginak"                 options={{ title: "Manevi Sığınak", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: "İsmi Azam ve Sekine", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="search"                         options={{ title: "Arama", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="mushaf/index"                         options={{ title: "Mushaf", headerBackTitle: "Geri", headerShown: false }} />
+        <Stack.Screen name="tafsir/[surahId]"               options={{ headerBackTitle: t.back }} />
+        <Stack.Screen name="elifba/index"                          options={{ title: t.elifba, headerBackTitle: t.back }} />
+        <Stack.Screen name="elifba/[dersId]"                      options={{ headerBackTitle: t.backLessons }} />
+        <Stack.Screen name="ibadet-rehberi"                  options={{ title: t.worshipGuide, headerBackTitle: t.back }} />
+        <Stack.Screen name="namaz"                          options={{ title: t.prayerWorship, headerBackTitle: t.back }} />
+        <Stack.Screen name="bildirimler"                    options={{ title: t.notifications, headerBackTitle: t.back }} />
+        <Stack.Screen name="manevi-siginak"                 options={{ title: t.refuge, headerBackTitle: t.back }} />
+        <Stack.Screen name="manevi-siginak/ismi-azam"       options={{ title: t.ismiAzam, headerBackTitle: t.back }} />
+        <Stack.Screen name="search"                         options={{ title: t.search, headerBackTitle: t.back }} />
+        <Stack.Screen name="mushaf/index"                         options={{ title: t.mushaf, headerBackTitle: t.back, headerShown: false }} />
         <Stack.Screen name="mushaf-sayfa"                         options={{ headerShown: false }} />
-        <Stack.Screen name="mushaf/[surahId]/[ayahNumber]"        options={{ headerBackTitle: "Mushaf", headerShown: false }} />
-        <Stack.Screen name="root/index"                           options={{ title: "Kelime Kökleri", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: "Kökler" }} />
-        <Stack.Screen name="kible"                                options={{ title: "Kıble Yönü", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="mushaf/[surahId]/[ayahNumber]"        options={{ headerBackTitle: t.backMushaf, headerShown: false }} />
+        <Stack.Screen name="root/index"                           options={{ title: t.roots, headerBackTitle: t.back }} />
+        <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: t.backRoots }} />
+        <Stack.Screen name="kible"                                options={{ title: t.qibla, headerBackTitle: t.back }} />
         <Stack.Screen name="hatim"                                options={{ headerShown: false }} />
-        <Stack.Screen name="siyer"                                options={{ title: "Siyer-i Nebî", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="peygamber-kissalari"                  options={{ title: "Peygamber Kıssaları", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="mubarek-gunler"                       options={{ title: "Mübarek Gün ve Geceler", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="hadisler"                             options={{ title: "Hadisler", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="siyer"                                options={{ title: t.siyer, headerBackTitle: t.back }} />
+        <Stack.Screen name="peygamber-kissalari"                  options={{ title: t.stories, headerBackTitle: t.back }} />
+        <Stack.Screen name="mubarek-gunler"                       options={{ title: t.blessed, headerBackTitle: t.back }} />
+        <Stack.Screen name="hadisler"                             options={{ title: t.hadiths, headerBackTitle: t.back }} />
 
-        <Stack.Screen name="sure-listesi"                         options={{ title: "Sure Listesi", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="favoriler"                           options={{ title: "Favorilerim", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="notlar"                              options={{ title: "Notlarım", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="sure-listesi"                         options={{ title: t.surahList, headerBackTitle: t.back }} />
+        <Stack.Screen name="favoriler"                           options={{ title: t.favorites, headerBackTitle: t.back }} />
+        <Stack.Screen name="notlar"                              options={{ title: t.notes, headerBackTitle: t.back }} />
         <Stack.Screen name="ne-ogreneyim"                        options={{ headerShown: false }} />
         <Stack.Screen name="hakkinda"                            options={{ headerShown: false }} />
         <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
-        <Stack.Screen name="dualar"                              options={{ title: "Dualar ve Zikirler", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="esma"                                options={{ title: "Esmaül Hüsna", headerBackTitle: "Geri" }} />
-        <Stack.Screen name="elifba/harf-i-tarif"                 options={{ title: "Harf-i Tarif", headerBackTitle: "Geri" }} />
+        <Stack.Screen name="dualar"                              options={{ title: t.duas, headerBackTitle: t.back }} />
+        <Stack.Screen name="esma"                                options={{ title: t.names, headerBackTitle: t.back }} />
+        <Stack.Screen name="elifba/harf-i-tarif"                 options={{ title: t.harfITarif, headerBackTitle: t.back }} />
       </Stack>
       </AppTourProvider>
     </SafeAreaProvider>

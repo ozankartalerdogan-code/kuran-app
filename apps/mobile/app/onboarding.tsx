@@ -14,20 +14,23 @@ import {
   enablePrayerNotificationsFirstRun,
   declinePrayerNotifications,
 } from "../src/lib/namazNotifications";
+import { useStrings } from "../src/i18n";
+import onboardingStrings from "../src/i18n/strings/onboarding";
 
 // İlk açılış akışı — 2 adım: tanıtım + "Namaz vakitlerini hatırlatalım mı?".
 // İzinler (bildirim + konum) bağlam içinde, kullanıcı EVET dedikten sonra istenir;
 // _layout'taki otomatik ilk-kurulum dalı onboarding bitene kadar devre dışıdır.
 
 const FEATURES = [
-  { icon: "book-outline",     text: "Mushaf, meal ve tefsirle Kur'an okuma" },
-  { icon: "search-outline",   text: "Kelime kelime analiz ve kök incelemesi" },
-  { icon: "time-outline",     text: "Namaz vakitleri, kıble pusulası ve hatim takibi" },
-  { icon: "school-outline",   text: "Elif-Ba dersleri ile Kur'an harflerini öğrenme" },
+  { icon: "book-outline",     key: "feat1" },
+  { icon: "search-outline",   key: "feat2" },
+  { icon: "time-outline",     key: "feat3" },
+  { icon: "school-outline",   key: "feat4" },
 ] as const;
 
 export default function OnboardingScreen() {
   const c = useColors();
+  const t = useStrings(onboardingStrings);
   const insets = useSafeAreaInsets();
   const [step, setStep] = useState<"intro" | "notif">("intro");
   const [busy, setBusy] = useState(false);
@@ -64,9 +67,9 @@ export default function OnboardingScreen() {
               <View style={[s.heroCircle, { backgroundColor: c.accentLight }]}>
                 <Text style={s.heroEmoji}>🕌</Text>
               </View>
-              <Text style={[s.title, { color: c.text }]}>Kuran Yolu&apos;na Hoş Geldin</Text>
+              <Text style={[s.title, { color: c.text }]}>{t.welcome}</Text>
               <Text style={[s.sub, { color: c.textSecondary }]}>
-                Kur&apos;an-ı Kerim&apos;i okumak, anlamak ve günlük hayatında yaşamak için yol arkadaşın.
+                {t.welcomeSub}
               </Text>
 
               <View style={[s.featureCard, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -75,7 +78,7 @@ export default function OnboardingScreen() {
                     <View style={[s.featureIcon, { backgroundColor: c.accentLight }]}>
                       <Ionicons name={f.icon} size={20} color={c.accent} />
                     </View>
-                    <Text style={[s.featureText, { color: c.textSecondary }]}>{f.text}</Text>
+                    <Text style={[s.featureText, { color: c.textSecondary }]}>{t[f.key]}</Text>
                   </View>
                 ))}
               </View>
@@ -85,15 +88,15 @@ export default function OnboardingScreen() {
               <View style={[s.heroCircle, { backgroundColor: c.accentLight }]}>
                 <Text style={s.heroEmoji}>🔔</Text>
               </View>
-              <Text style={[s.title, { color: c.text }]}>Namaz vakitlerini hatırlatalım mı?</Text>
+              <Text style={[s.title, { color: c.text }]}>{t.notifTitle}</Text>
               <Text style={[s.sub, { color: c.textSecondary }]}>
-                Her vakit girdikten kısa süre sonra nazik bir hatırlatma; günde bir kez de günün ayeti ve duası gönderilir.
+                {t.notifSub}
               </Text>
 
               <View style={[s.infoBox, { backgroundColor: c.card, borderColor: c.border }]}>
                 <Ionicons name="location-outline" size={18} color={c.accent} style={{ marginTop: 1 }} />
                 <Text style={[s.infoText, { color: c.textMuted }]}>
-                  Vakitleri doğru hesaplamak için konum iznin istenecek. İzin vermezsen vakitler İstanbul&apos;a göre gösterilir; bu tercihi sonradan Bildirimler ekranından değiştirebilirsin.
+                  {t.locInfo}
                 </Text>
               </View>
             </>
@@ -114,14 +117,14 @@ export default function OnboardingScreen() {
               onPress={() => setStep("notif")}
               activeOpacity={0.85}
               accessibilityRole="button"
-              accessibilityLabel="Devam et"
+              accessibilityLabel={t.continueA11y}
             >
-              <Text style={s.primaryBtnText}>Devam</Text>
+              <Text style={s.primaryBtnText}>{t.continueBtn}</Text>
             </TouchableOpacity>
           ) : busy ? (
             <View style={[s.primaryBtn, { backgroundColor: c.accent, flexDirection: "row", gap: 10 }]}>
               <ActivityIndicator color="#fff" size="small" />
-              <Text style={s.primaryBtnText}>Hazırlanıyor…</Text>
+              <Text style={s.primaryBtnText}>{t.preparing}</Text>
             </View>
           ) : (
             <>
@@ -130,18 +133,18 @@ export default function OnboardingScreen() {
                 onPress={handleEnable}
                 activeOpacity={0.85}
                 accessibilityRole="button"
-                accessibilityLabel="Evet, namaz vakitlerini hatırlat"
+                accessibilityLabel={t.enableA11y}
               >
-                <Text style={s.primaryBtnText}>🔔 Evet, Hatırlat</Text>
+                <Text style={s.primaryBtnText}>{t.enableBtn}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={s.secondaryBtn}
                 onPress={handleDecline}
                 activeOpacity={0.7}
                 accessibilityRole="button"
-                accessibilityLabel="Şimdi değil"
+                accessibilityLabel={t.declineA11y}
               >
-                <Text style={[s.secondaryBtnText, { color: c.textMuted }]}>Şimdi Değil</Text>
+                <Text style={[s.secondaryBtnText, { color: c.textMuted }]}>{t.declineBtn}</Text>
               </TouchableOpacity>
             </>
           )}

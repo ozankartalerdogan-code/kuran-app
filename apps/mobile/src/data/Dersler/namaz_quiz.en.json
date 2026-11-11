@@ -1,0 +1,757 @@
+{
+  "quiz_id": "namaz",
+  "baslik": "Salah",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "namaz_001",
+      "konu": "temel",
+      "soru": "Which pillar of Islam is salah?",
+      "secenekler": [
+        "A) First",
+        "B) Second",
+        "C) Third",
+        "D) Fourth"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Salah is the second of the five pillars of Islam. The first is the declaration of faith, the third is sawm, the fourth is zakat, and the fifth is Hajj.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Iman 1; Muslim, Iman 19-22"
+    },
+    {
+      "id": "namaz_002",
+      "konu": "vakitler",
+      "soru": "How many daily prayers are obligatory?",
+      "secenekler": [
+        "A) 3",
+        "B) 4",
+        "C) 5",
+        "D) 7"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "It is obligatory to perform salah 5 times a day: Fajr, Dhuhr, Asr, Maghrib, and Isha.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Mawaqit 1; Muslim, Masajid 285"
+    },
+    {
+      "id": "namaz_003",
+      "konu": "sartlar",
+      "soru": "Which of the following is not a condition for salah to be obligatory upon a person?",
+      "secenekler": [
+        "A) Being Muslim",
+        "B) Being of sound mind",
+        "C) Being wealthy",
+        "D) Having reached puberty"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "For salah to be obligatory, a person must be Muslim, of sound mind, and have reached puberty. Wealth is not a condition for salah to be obligatory.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_004",
+      "konu": "sartlar",
+      "soru": "Which of the following is not a condition for the validity of salah?",
+      "secenekler": [
+        "A) Having wudu",
+        "B) Facing the qiblah",
+        "C) Praying in congregation",
+        "D) The prayer time having begun"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Praying in congregation is a Sunnah, not a condition for the validity of salah. The conditions for the validity of salah are wudu, cleanliness from physical impurities, covering the awrah, facing the qiblah, the prayer time having begun, and intention.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_005",
+      "konu": "rukunler",
+      "soru": "What is the 'Allahu Ekber' said at the beginning of salah called?",
+      "secenekler": [
+        "A) The takbir of ruku",
+        "B) The opening takbir",
+        "C) The takbir of qunut",
+        "D) The takbir of sujud"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The 'Allahu Ekber' said while raising the hands at the beginning of salah is called the opening takbir. This takbir is one of the obligatory elements of salah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_006",
+      "konu": "mezhep",
+      "soru": "Which statement best describes the ruling on reciting al-Fatihah?",
+      "secenekler": [
+        "A) It is wajib in the Hanafi school and obligatory in the Shafi'i, Maliki, and Hanbali schools",
+        "B) It is only Sunnah in all schools",
+        "C) It is recited only in the final rak'ah",
+        "D) It is not recited outside salah"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The ruling on al-Fatihah is assessed differently by the schools of law. It is considered wajib in the Hanafi school and obligatory in the Shafi'i, Maliki, and Hanbali schools. In practice, reciting al-Fatihah in every rak'ah is taught.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 95; Muslim, Salat 34"
+    },
+    {
+      "id": "namaz_007",
+      "konu": "mezhep",
+      "soru": "According to the Hanafi school, what is the ruling on reciting an additional surah or verse after al-Fatihah in the first two rak'ahs of obligatory prayers?",
+      "secenekler": [
+        "A) Obligatory (fard)",
+        "B) Wajib",
+        "C) Sunnah",
+        "D) Disliked (makruh)"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "According to the Hanafi school, reciting an additional surah or verse after al-Fatihah in the first two rak'ahs of obligatory prayers is wajib. In the other schools, this is generally considered Sunnah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_008",
+      "konu": "rukunler",
+      "soru": "What is the minimum number of times 'Sübhane Rabbiye'l-Azîm' is recited in ruku?",
+      "secenekler": [
+        "A) 1",
+        "B) 3",
+        "C) 5",
+        "D) 7"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Reciting 'Sübhane Rabbiye'l-Azîm' at least 1 time in ruku is sufficient, but reciting it 3 times is Sunnah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_009",
+      "konu": "rukunler",
+      "soru": "How many body parts should touch the ground in sujud?",
+      "secenekler": [
+        "A) 5",
+        "B) 6",
+        "C) 7",
+        "D) 8"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Seven body parts should touch the ground in sujud: the forehead and nose, the two hands, the two knees, and the toes of both feet.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 133; Muslim, Salat 230"
+    },
+    {
+      "id": "namaz_010",
+      "konu": "rukunler",
+      "soru": "How many prostrations are performed in each rak'ah?",
+      "secenekler": [
+        "A) 1",
+        "B) 2",
+        "C) 3",
+        "D) 4"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Two prostrations are performed in each rak'ah. There is a brief sitting (jalsah) between the two prostrations.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_011",
+      "konu": "rekatlar",
+      "soru": "How many rak'ahs are in the Fajr prayer?",
+      "secenekler": [
+        "A) 2 Sunnah + 2 obligatory",
+        "B) 4 Sunnah + 2 obligatory",
+        "C) 2 Sunnah + 4 obligatory",
+        "D) Only 2 obligatory"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The Fajr prayer consists of 2 Sunnah rak'ahs and 2 obligatory rak'ahs, making 4 rak'ahs in total.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_012",
+      "konu": "rekatlar",
+      "soru": "How many rak'ahs are there in the Dhuhr prayer in total?",
+      "secenekler": [
+        "A) 8",
+        "B) 10",
+        "C) 12",
+        "D) 6"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Dhuhr prayer: 4 Sunnah rak'ahs (before) + 4 obligatory rak'ahs + 2 Sunnah rak'ahs (after) = 10 rak'ahs in total.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_013",
+      "konu": "rekatlar",
+      "soru": "How many obligatory rak'ahs are in the Maghrib prayer?",
+      "secenekler": [
+        "A) 2",
+        "B) 3",
+        "C) 4",
+        "D) 5"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The obligatory part of the Maghrib prayer consists of 3 rak'ahs. It is followed by 2 Sunnah rak'ahs.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_014",
+      "konu": "rekatlar",
+      "soru": "How many obligatory rak'ahs are there in the five daily prayers in total?",
+      "secenekler": [
+        "A) 15",
+        "B) 17",
+        "C) 19",
+        "D) 21"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Fajr 2 + Dhuhr 4 + Asr 4 + Maghrib 3 + Isha 4 = 17 obligatory rak'ahs. Sunnah and witr are not included in this number.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_015",
+      "konu": "okunuslar",
+      "soru": "What is said when rising from ruku?",
+      "secenekler": [
+        "A) Sübhanallah",
+        "B) Semi'allahu limen hamideh",
+        "C) Allahu Ekber",
+        "D) Elhamdülillah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "When rising from ruku, 'Semi'allahu limen hamideh' (Allah hears the one who praises Him) is said. Once standing upright, 'Rabbena ve lekel hamd' is said.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 122; Muslim, Salat 196"
+    },
+    {
+      "id": "namaz_016",
+      "konu": "bozanlar",
+      "soru": "Which of the following does not invalidate salah?",
+      "secenekler": [
+        "A) Speaking aloud",
+        "B) Smiling",
+        "C) Breaking one's wudu",
+        "D) Turning away from the qiblah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Smiling does not invalidate salah. However, laughing loudly enough for another person to hear invalidates salah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_017",
+      "konu": "sartlar",
+      "soru": "What is the ruling on intention in salah?",
+      "secenekler": [
+        "A) Sunnah",
+        "B) Wajib",
+        "C) Obligatory (fard)",
+        "D) Recommended (mustahabb)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "It is obligatory to intend the prayer one is about to perform. The essence of intention is in the heart; saying it aloud is Sunnah and is not required.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_018",
+      "konu": "okunuslar",
+      "soru": "In which rak'ah of salah is Sübhaneke recited?",
+      "secenekler": [
+        "A) In every rak'ah",
+        "B) Only in the final rak'ah",
+        "C) Only in the first rak'ah",
+        "D) In the first and final rak'ahs"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In Hanafi practice, Sübhaneke is recited in the first rak'ah of salah, immediately after the opening takbir. It is not recited in the other rak'ahs.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_019",
+      "konu": "sartlar",
+      "soru": "Which direction does one face when performing salah?",
+      "secenekler": [
+        "A) East",
+        "B) West",
+        "C) The qiblah (the Kaaba)",
+        "D) Madinah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Salah is performed facing the qiblah, that is, the direction of the Kaaba in Makkah. This is one of the conditions for the validity of salah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_020",
+      "konu": "rukunler",
+      "soru": "What is the final act that ends salah?",
+      "secenekler": [
+        "A) Sujud",
+        "B) Ruku",
+        "C) The salam",
+        "D) Reciting the tashahhud"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Salah is completed with the salam. One turns first toward the right shoulder, then toward the left shoulder, saying 'Esselamü aleyküm ve rahmetullah'.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_021",
+      "konu": "rukunler",
+      "soru": "What is the ruling on the opening takbir?",
+      "secenekler": [
+        "A) Sunnah",
+        "B) Wajib",
+        "C) Obligatory (fard)",
+        "D) Recommended (mustahabb)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The opening takbir (beginning salah by saying Allahu Ekber) is one of the obligatory elements of salah. If it is omitted, the prayer is considered invalid.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_022",
+      "konu": "rukunler",
+      "soru": "What is the brief sitting between the two prostrations called?",
+      "secenekler": [
+        "A) Ka'de",
+        "B) Celse",
+        "C) Teşehhüd",
+        "D) Kavme"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The brief sitting between the two prostrations is called celse. During this sitting, 'Rabbigfirli' (My Lord, forgive me) is said.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_023",
+      "konu": "rukunler",
+      "soru": "What is standing fully upright after ruku called?",
+      "secenekler": [
+        "A) Celse",
+        "B) Kavme",
+        "C) Ka'de",
+        "D) Kıyam"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Standing fully upright after rising from ruku is called kavme. During this, 'Rabbena ve lekel hamd' is recited.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic jurisprudence"
+    },
+    {
+      "id": "namaz_024",
+      "konu": "kaza",
+      "soru": "What is an obligatory prayer that could not be performed on time called?",
+      "secenekler": [
+        "A) A voluntary prayer",
+        "B) A make-up prayer",
+        "C) A Sunnah prayer",
+        "D) The Tahajjud prayer"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "An obligatory prayer that could not be performed on time is called a make-up prayer. The Prophet ﷺ said: 'Whoever forgets a prayer should perform it when they remember it.' (Bukhari, Mawaqit 37)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Mawaqit 37; Muslim, Masajid 315"
+    },
+    {
+      "id": "namaz_025",
+      "konu": "kaza",
+      "soru": "Which of the following cannot be made up?",
+      "secenekler": [
+        "A) The obligatory Fajr prayer",
+        "B) The witr prayer (a special prayer performed after Isha)",
+        "C) The Friday prayer",
+        "D) The obligatory Isha prayer"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Friday and Eid prayers are not made up in the same way outside their prescribed times. In general instruction, the obligation to make up missed prayers is emphasized for obligatory prayers and, in the Hanafi school, the witr prayer.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_026",
+      "konu": "rukunler",
+      "soru": "Where in the prayer is Ka'de-i ahire (the final sitting) performed?",
+      "secenekler": [
+        "A) In every two rakahs",
+        "B) Only in the first sitting",
+        "C) In the very last rakah of the prayer",
+        "D) After every rakah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ka'de-i ahire (the final sitting) is the sitting in the last rakah of the prayer and is obligatory. The Tahiyyat, Salli, Barik and Rabbena supplications are recited during this sitting.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_027",
+      "konu": "rukunler",
+      "soru": "What happens if one of the pillars (essential elements) of the prayer (its internal obligatory acts) is missing?",
+      "secenekler": [
+        "A) It is completed by the prostration of forgetfulness",
+        "B) The prayer is invalidated and must be performed again",
+        "C) Nothing happens",
+        "D) Only that rakah is repeated"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "If one of the pillars (essential elements) of the prayer is missing, the prayer is invalidated and must be performed again. It cannot be compensated for by the prostration of forgetfulness.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_028",
+      "konu": "okunuslar",
+      "soru": "What does 'Sübhane Rabbiye'l-A'lâ' mean in prostration?",
+      "secenekler": [
+        "A) Allah is the All-Hearing",
+        "B) I declare my Lord, the Most High, free from imperfection",
+        "C) Praise be to Allah",
+        "D) Allah is the Greatest"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Sübhane Rabbiye'l-A'lâ' means 'I declare my Lord, the Most High, free from all imperfection.' It is recited at least once in prostration.",
+      "zorluk": "orta",
+      "kaynak": "Abu Dawud, Salat 152; Ibn Majah, Iqamah 20"
+    },
+    {
+      "id": "namaz_029",
+      "konu": "bozanlar",
+      "soru": "Which of the following invalidates the prayer?",
+      "secenekler": [
+        "A) Smiling",
+        "B) Coughing",
+        "C) Crying audibly for a worldly reason",
+        "D) Thinking something to oneself"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Crying for a worldly reason in a voice loud enough for someone else to hear invalidates the prayer. Crying out of fear of Allah or at the thought of the Hereafter is not treated in the same way. Smiling does not invalidate the prayer.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_030",
+      "konu": "fazilet",
+      "soru": "According to the Prophet ﷺ, which deed is most beloved to Allah?",
+      "secenekler": [
+        "A) Observing sawm",
+        "B) Performing Hajj",
+        "C) Performing salah on time",
+        "D) Giving zakat"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In response to Abdullah ibn Masud's question, the Prophet ﷺ said, 'Performing salah on time.' (Bukhari, Adab 1; Muslim, Iman 139)",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adab 1; Muslim, Iman 139"
+    },
+    {
+      "id": "namaz_031",
+      "konu": "rekatlar",
+      "soru": "How many rakahs are there in the Asr prayer in total?",
+      "secenekler": [
+        "A) 4 Sunnah + 4 obligatory (8)",
+        "B) 4 Sunnah + 4 obligatory + 2 Sunnah (10)",
+        "C) Only 4 obligatory (4)",
+        "D) 2 Sunnah + 4 obligatory (6)"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The Asr prayer consists of 4 Sunnah rakahs and 4 obligatory rakahs, making 8 in total. There is no Sunnah prayer after Asr.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_032",
+      "konu": "rekatlar",
+      "soru": "How many rakahs are there in the Isha prayer in total, including witr?",
+      "secenekler": [
+        "A) 9",
+        "B) 11",
+        "C) 13",
+        "D) 15"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Isha: 4 Sunnah (before) + 4 obligatory + 2 Sunnah (after) + 3 witr = 13 rakahs in total.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_033",
+      "konu": "cemaat",
+      "soru": "By how many degrees is the reward for prayer in congregation greater than that for prayer performed alone?",
+      "secenekler": [
+        "A) 7",
+        "B) 17",
+        "C) 27",
+        "D) 70"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet ﷺ said, 'Prayer in congregation is 27 degrees superior to prayer performed alone.'",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 30; Muslim, Masajid 249"
+    },
+    {
+      "id": "namaz_034",
+      "konu": "okunuslar",
+      "soru": "In which sittings of the prayer is Tahiyyat (Ettahiyyatü) recited?",
+      "secenekler": [
+        "A) Only in the final sitting",
+        "B) In every sitting",
+        "C) Only in the first sitting",
+        "D) Only after the second rakah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tahiyyat is recited in every sitting of the prayer: both in the first sitting (ka'de-i ula) and in the final sitting (ka'de-i ahire).",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_035",
+      "konu": "vitir",
+      "soru": "In which rakah of the witr prayer is the qunut supplication recited?",
+      "secenekler": [
+        "A) In the first rakah",
+        "B) In the second rakah",
+        "C) In the third (final) rakah",
+        "D) In every rakah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In the third (final) rakah of the witr prayer, the takbir is said and the qunut supplication is recited before bowing. The qunut supplication is a special supplication recited in witr.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_036",
+      "konu": "vakitler",
+      "soru": "When does the time for the Fajr prayer begin?",
+      "secenekler": [
+        "A) At midnight",
+        "B) At true dawn (the time of imsak)",
+        "C) One hour before sunrise",
+        "D) At false dawn"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The time for the Fajr prayer begins at true dawn (the time of imsak) and continues until sunrise.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_037",
+      "konu": "vakitler",
+      "soru": "When does the time for the Maghrib prayer begin?",
+      "secenekler": [
+        "A) As soon as the Asr prayer ends",
+        "B) At sunset",
+        "C) When it becomes completely dark",
+        "D) When the stars appear"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The time for the Maghrib prayer begins at sunset and lasts until the twilight (the redness) disappears.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_038",
+      "konu": "bozanlar",
+      "soru": "What should be done if one's wudu is broken during prayer?",
+      "secenekler": [
+        "A) Continue from where one left off",
+        "B) The prayer is invalidated; renew wudu and perform the prayer again from the beginning",
+        "C) Complete it with the prostration of forgetfulness",
+        "D) If praying in congregation, the imam completes it"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "If one's wudu is broken during prayer, the prayer is invalidated. Wudu is renewed and the prayer is performed again from the beginning.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_039",
+      "konu": "adab",
+      "soru": "Where should one's eyes look during qiyam (standing) in prayer?",
+      "secenekler": [
+        "A) At the ceiling",
+        "B) At the place where one will prostrate",
+        "C) To the right and left",
+        "D) At the qiblah wall"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "It is Sunnah to look at the place of prostration during qiyam. This helps with khushu (deep reverence and concentration).",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_040",
+      "konu": "sehiv",
+      "soru": "When is the prostration of forgetfulness performed?",
+      "secenekler": [
+        "A) When an obligatory act of the prayer is omitted",
+        "B) When a necessary act of the prayer is forgotten or performed late",
+        "C) When one speaks during the prayer",
+        "D) When one faces the wrong qiblah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In Hanafi practice, the prostration of forgetfulness (a compensatory prostration) is performed at the end of the prayer when one of its necessary acts is forgotten or delayed. If a pillar is missing, the prayer is performed again.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_041",
+      "konu": "vakitler",
+      "soru": "When does the time for the Dhuhr prayer begin?",
+      "secenekler": [
+        "A) Six hours after sunrise",
+        "B) When the sun passes its highest point (zawal)",
+        "C) Immediately after the Fajr prayer",
+        "D) At 12:00 noon"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The time for the Dhuhr prayer begins when the sun passes its highest point (the time of zawal) and continues until the time for Asr.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_042",
+      "konu": "okunuslar",
+      "soru": "When is 'Rabbena ve lekel hamd' said?",
+      "secenekler": [
+        "A) While bowing into ruku",
+        "B) While rising from ruku (before standing fully upright)",
+        "C) When standing fully upright in qawmah",
+        "D) While going into prostration"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "While rising from ruku, 'Semi'allahu limen hamideh' is said. Then, upon standing fully upright in qawmah, 'Rabbena ve lekel hamd' is recited.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 122; Muslim, Salat 196"
+    },
+    {
+      "id": "namaz_043",
+      "konu": "okunuslar",
+      "soru": "In Hanafi practice, in which rakahs of obligatory prayers is an additional surah or verse recited after al-Fatihah?",
+      "secenekler": [
+        "A) In all rakahs",
+        "B) Only in the first rakah",
+        "C) In the first two rakahs",
+        "D) In the last two rakahs"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In Hanafi practice, an additional surah or verse is recited after al-Fatihah in the first two rakahs of obligatory prayers. In the third and fourth rakahs, generally only al-Fatihah is recited.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_044",
+      "konu": "okunuslar",
+      "soru": "After which rakah is Ka'de-i ula (the first sitting) performed in a four-rakah obligatory prayer?",
+      "secenekler": [
+        "A) After the first rakah",
+        "B) After the second rakah",
+        "C) After the third rakah",
+        "D) After every rakah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ka'de-i ula (the first sitting) is performed at the end of the second rakah in four-rakah obligatory prayers. Only Tahiyyat is recited during this sitting, after which one stands up.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_045",
+      "konu": "rukunler",
+      "soru": "What is the ruling on touching the forehead to the ground during prostration?",
+      "secenekler": [
+        "A) Sunnah",
+        "B) Necessary (wajib)",
+        "C) Obligatory (fard)",
+        "D) Recommended (mustahabb)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Touching the forehead to the ground during prostration is obligatory.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_046",
+      "konu": "sartlar",
+      "soru": "Which part of a man's body must be covered during prayer?",
+      "secenekler": [
+        "A) Only the awrah (the private area that must be covered)",
+        "B) From the navel to the kneecaps",
+        "C) From the shoulders to the feet",
+        "D) The entire body"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "For a man, covering the awrah (the parts that must be covered) is a condition for the validity of salah. It is obligatory to cover the area from the navel to the kneecaps.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_047",
+      "konu": "rukunler",
+      "soru": "Where are the hands placed during ruku (bowing)?",
+      "secenekler": [
+        "A) Left hanging at the sides",
+        "B) On the knees",
+        "C) On the ground",
+        "D) On the waist"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "During ruku, the hands are placed on the knees with the fingers spread, and the back is held straight and parallel to the ground.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_048",
+      "konu": "okunuslar",
+      "soru": "In Hanafi practice, in which rak'ah of salah is Eûzü (the phrase seeking refuge in Allah) recited?",
+      "secenekler": [
+        "A) In every rak'ah",
+        "B) Only in the first rak'ah",
+        "C) Only in the last rak'ah",
+        "D) It is never recited"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In Hanafi practice, Eûzübillah is recited only in the first rak'ah, after Sübhaneke and before the Besmele. It is not recited in the other rak'ahs.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_049",
+      "konu": "okunuslar",
+      "soru": "What is recited during the first sitting (ka'de-i ula) of a four-rak'ah obligatory salah?",
+      "secenekler": [
+        "A) Tahiyyat + Salli + Barik",
+        "B) Only Tahiyyat",
+        "C) Tahiyyat + Rabbena",
+        "D) Fatiha + an additional surah or verse recited after Fatiha"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "During ka'de-i ula, the first sitting, only Tahiyyat is recited. The Salli, Barik and Rabbena supplications are recited only in the final sitting (ka'de-i ahire).",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_050",
+      "konu": "selam",
+      "soru": "How many times is the salam said to end the salah?",
+      "secenekler": [
+        "A) Once (only to the right)",
+        "B) Twice (first toward the right shoulder, then toward the left shoulder)",
+        "C) Three times",
+        "D) It depends on the type of salah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "To end the salah, one turns first toward the right shoulder and then toward the left shoulder, saying 'Esselamu aleyküm ve rahmetullah'.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    }
+  ]
+}

@@ -19,7 +19,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
-import { DERS_DATA, getQuiz, BASLIKLAR } from "../../src/data/Dersler/dersler_registry";
+import { getDers, getQuizFor, getBaslik } from "../../src/data/Dersler/dersler_registry";
+import { useLang } from "../../src/i18n";
 import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
@@ -125,8 +126,9 @@ export default function DersDetayScreen() {
   const quizAnimStyle = { opacity: quizOpacity };
 
   const dersKey  = dersId ?? "";
-  const dersData = DERS_DATA[dersKey];
-  const quizData = getQuiz(dersKey);
+  const lang     = useLang();
+  const dersData = getDers(dersKey, lang);
+  const quizData = getQuizFor(dersKey, lang);
   // Normalize bozuk soruları eler; hasQuiz gerçek kullanılabilir soru sayısına
   // bakar — aksi halde tümü bozuksa "Teste Başla" sessizce çalışmaz.
   const validQuiz = useMemo(
@@ -134,7 +136,7 @@ export default function DersDetayScreen() {
     [quizData],
   );
   const hasQuiz  = validQuiz.length > 0;
-  const baslik   = BASLIKLAR[dersKey] ?? dersKey;
+  const baslik   = getBaslik(dersKey, lang);
   const quizPass = Math.max(1, Math.ceil(quizQuestions.length * QUIZ_PASS_RATIO));
 
   const { progress, hydrated, updateProgress, setQuizBitti } = useDersProgress();

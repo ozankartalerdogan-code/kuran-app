@@ -1,0 +1,757 @@
+{
+  "quiz_id": "tecvid",
+  "baslik": "Tajweed",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "tecvid_001",
+      "konu": "tecvid",
+      "soru": "What does the word \"tajweed\" mean in Arabic?",
+      "secenekler": [
+        "A) To beautify",
+        "B) To correct",
+        "C) To read",
+        "D) To memorize"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In Arabic, \"tajweed\" means \"to beautify, to make beautiful.\" This discipline teaches how to recite the letters of the Quran correctly and beautifully.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_002",
+      "konu": "tecvid",
+      "soru": "In which surah is the verse \"Recite the Quran with measured recitation\" found?",
+      "secenekler": [
+        "A) al-Baqarah",
+        "B) al-Furqan",
+        "C) al-Muzzammil",
+        "D) al-Alaq"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The verse \"Recite the Quran with measured recitation\" is found in al-Muzzammil 73:4. Measured recitation means reading the Quran slowly, distinctly, and thoughtfully.",
+      "zorluk": "kolay",
+      "kaynak": "Quran, al-Muzzammil 73:4"
+    },
+    {
+      "id": "tecvid_003",
+      "konu": "tecvid",
+      "soru": "In which surah is the verse \"We have recited it in measured recitation\" found?",
+      "secenekler": [
+        "A) al-Baqarah",
+        "B) al-Muzzammil",
+        "C) an-Nisa",
+        "D) al-Furqan"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The expression \"We have recited it in measured recitation\" appears in al-Furqan 25:32. This verse indicates that the Quran was revealed with measured recitation.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Furqan 25:32"
+    },
+    {
+      "id": "tecvid_004",
+      "konu": "tecvid",
+      "soru": "What is the basic responsibility regarding the correct recitation of enough of the Quran to perform salah?",
+      "secenekler": [
+        "A) It is an individual responsibility to pronounce the letters correctly enough to avoid changing the meaning",
+        "B) Tajweed is entirely unnecessary",
+        "C) It is obligatory only for those who have memorized the Quran",
+        "D) It is enough simply to recite in a beautiful voice"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In salah, al-Fatihah and the surahs in particular must be recited without changing the letters and while avoiding obvious errors that would alter the meaning. Learning the details of tajweed is a process that develops step by step.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "tecvid_005",
+      "konu": "tecvid",
+      "soru": "How many points of articulation are there in total in Quranic tajweed?",
+      "secenekler": [
+        "A) 10",
+        "B) 17",
+        "C) 21",
+        "D) 29"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The places from which letters are pronounced are called points of articulation. In the classical account, there are 17 points of articulation, grouped in the throat, tongue, lips, and nasal passage.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_006",
+      "konu": "tecvid",
+      "soru": "How many letters are always pronounced with a heavy sound (harf-i müsta'liye)?",
+      "secenekler": [
+        "A) 4",
+        "B) 5",
+        "C) 6",
+        "D) 7"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "There are 7 letters that are always pronounced with a heavy sound: خ ص ض ط ظ غ ق",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_007",
+      "konu": "tecvid",
+      "soru": "When is the letter Ra (ر) pronounced with a light sound?",
+      "secenekler": [
+        "A) When it has a kasrah",
+        "B) When it has a fathah",
+        "C) When it has a dammah",
+        "D) It is always pronounced with a light sound"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ra is pronounced with a heavy sound when it has a fathah or dammah, and with a light sound when it has a kasrah. When it has a sukun, the preceding vowel is considered.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_008",
+      "konu": "tecvid",
+      "soru": "What does \"tafkheem\" mean?",
+      "secenekler": [
+        "A) Pronouncing with a light sound",
+        "B) Prolonging",
+        "C) Pronouncing with a heavy sound",
+        "D) Stopping"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tafkheem is pronouncing letters with a heavy, full sound. Its opposite is tarqeeq, or pronouncing with a light sound.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_009",
+      "konu": "tecvid",
+      "soru": "What does \"tarqeeq\" mean?",
+      "secenekler": [
+        "A) Pronouncing with a heavy sound",
+        "B) Pronouncing with a light sound",
+        "C) Pronouncing with a concealed sound",
+        "D) Pronouncing quickly"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tarqeeq is pronouncing letters with a light, thin sound. The letters خ ص ض ط ظ غ ق are always considered heavy; some other letters have special cases.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_010",
+      "konu": "tecvid",
+      "soru": "From which point of articulation are the letters Mim (م) and Ba (ب) pronounced?",
+      "secenekler": [
+        "A) The throat",
+        "B) The palate",
+        "C) The tip of the tongue",
+        "D) The lips"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ba (ب) and Mim (م) are pronounced by closing both lips completely. Therefore, when Ba follows a sakin Mim, lip ikhfa is applied; they are close to each other because they share the same point of articulation.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_011",
+      "konu": "tecvid",
+      "soru": "Which are the qalqalah letters?",
+      "secenekler": [
+        "A) ق ط ب ج د",
+        "B) ء ه ع ح غ خ",
+        "C) ي م ن و",
+        "D) ت ث ج د ذ"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "There are 5 qalqalah letters: ق ط ب ج د — they can be memorized as \"Kutbe Cd\".",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_012",
+      "konu": "tecvid",
+      "soru": "What condition must a letter be in for qalqalah to be applied?",
+      "secenekler": [
+        "A) It must have a shaddah",
+        "B) It must have a vowel mark",
+        "C) It must have a sukun (no vowel)",
+        "D) It must have a fathah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "When qalqalah letters have a sukun, or when stopping at the end of a word, they are pronounced with a slight echo. If one stops on a qalqalah letter with a shaddah, the qalqalah is heard more distinctly.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_013",
+      "konu": "tecvid",
+      "soru": "In which two letters is ghunnah found?",
+      "secenekler": [
+        "A) Lam and Ra",
+        "B) Mim and Nun",
+        "C) Waw and Ya",
+        "D) Ba and Fa"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ghunnah, a resonant sound from the nasal passage, is found only in the letters Mim (م) and Nun (ن).",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_014",
+      "konu": "tecvid",
+      "soru": "How long is ghunnah held?",
+      "secenekler": [
+        "A) The length of one vowel count",
+        "B) The length of three vowel counts",
+        "C) The length of four alifs",
+        "D) The length of two vowel counts"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ghunnah lasts for the time it takes to pronounce two vowel counts.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_015",
+      "konu": "tecvid",
+      "soru": "What is a practical way to tell whether ghunnah is being performed correctly?",
+      "secenekler": [
+        "A) Pinch the nose while reciting — if the sound changes, the ghunnah is correct",
+        "B) Keep the mouth closed",
+        "C) Touch the tip of the tongue to the palate",
+        "D) Produce the sound from the throat"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "If the sound changes when you pinch your nose while reciting ghunnah, the ghunnah is being performed correctly; if the sound stays the same, the nasal passage is not being used.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_016",
+      "konu": "tecvid",
+      "soru": "What is tanween?",
+      "secenekler": [
+        "A) A Nun without a vowel mark",
+        "B) A Mim with a shaddah",
+        "C) A double vowel mark at the end of a word",
+        "D) A prolonged sound"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tanween consists of double vowel marks at the end of a word that produce an n sound: ً ٍ ٌ. A sakin Nun, on the other hand, is a Nun without a vowel mark or with a sukun.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_017",
+      "konu": "tecvid",
+      "soru": "How many different rules are applied after tanween and sakin Nun?",
+      "secenekler": [
+        "A) 2",
+        "B) 4",
+        "C) 6",
+        "D) 3"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Depending on the letter that follows tanween or sakin Nun, 4 different rules are applied: izhar, idgham, iqlab, and ikhfa.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_018",
+      "konu": "tecvid",
+      "soru": "What is the Turkish meaning of the word \"izhar\"?",
+      "secenekler": [
+        "A) To conceal",
+        "B) To merge",
+        "C) To transform",
+        "D) To make clear"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Izhar means \"to pronounce clearly and distinctly.\" When a throat letter follows tanween or sakin Nun, the Nun sound is pronounced clearly.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_019",
+      "konu": "tecvid",
+      "soru": "How many izhar letters are there?",
+      "secenekler": [
+        "A) 6",
+        "B) 5",
+        "C) 8",
+        "D) 4"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "There are 6 izhar letters: ء ه ع ح غ خ — all are throat letters.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_020",
+      "konu": "tecvid",
+      "soru": "What is done if the letter \"غ\" (ghayn) follows a sakin Nun?",
+      "secenekler": [
+        "A) Idgham",
+        "B) Ikhfa",
+        "C) Izhar",
+        "D) Iqlab"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"غ\" (ghayn) is an izhar letter (the throat letters are: ء ه ع ح غ خ). Therefore, the sakin Nun is pronounced clearly.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_021",
+      "konu": "tecvid",
+      "soru": "What does \"idgham\" mean?",
+      "secenekler": [
+        "A) Pronouncing clearly",
+        "B) Pronouncing one letter by merging it into another",
+        "C) Pronouncing a letter with concealment",
+        "D) Pronouncing a letter by transforming it"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Idgham is when the Nun sound shifts into a particular letter that follows tanween or sakin Nun.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_022",
+      "konu": "tecvid",
+      "soru": "What does the mnemonic word \"Yemenu\" help us remember?",
+      "secenekler": [
+        "A) The ikhfa letters",
+        "B) The izhar letters",
+        "C) The iqlab letter",
+        "D) The letters of idgham with ghunnah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"Yemenu\" (ي م ن و) helps us remember the 4 letters with which idgham is performed with ghunnah: Ya, Mim, Nun, and Waw.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_023",
+      "konu": "tecvid",
+      "soru": "With which two letters is idgham performed without ghunnah?",
+      "secenekler": [
+        "A) Lam and Ra",
+        "B) Mim and Nun",
+        "C) Waw and Ya",
+        "D) Hamzah and Ha"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The letters Lam (ل) and Ra (ر) are the letters of idgham without ghunnah. The Nun sound is silently merged into these letters.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_024",
+      "konu": "tecvid",
+      "soru": "What is done if sakin Nun and Ya occur together in the same word?",
+      "secenekler": [
+        "A) Idgham is performed with ghunnah",
+        "B) Idgham is performed without ghunnah",
+        "C) Izhar is applied",
+        "D) Ikhfa is applied"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "If sakin Nun and an idgham letter occur together within the same word, idgham is not performed; izhar is applied. Idgham is applied only between two separate words.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_025",
+      "konu": "tecvid",
+      "soru": "What does the word \"iqlab\" mean?",
+      "secenekler": [
+        "A) To conceal",
+        "B) To transform",
+        "C) To merge",
+        "D) To pronounce clearly"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Iqlab means \"to transform.\" When Ba follows tanween or sakin Nun, the Nun sound changes into a Mim sound.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_026",
+      "konu": "tecvid",
+      "soru": "In iqlab, into which sound does the Nun sound change?",
+      "secenekler": [
+        "A) A Lam sound",
+        "B) A Nun sound pronounced heavily",
+        "C) A Ba sound",
+        "D) A Mim sound"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "In iqlab, nun sakinah or tanwin changes into a mim sound and is recited with ghunnah. A small م appears at this point in the mushaf.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_027",
+      "konu": "tecvid",
+      "soru": "How many letters is ikhfa applied with?",
+      "secenekler": [
+        "A) 15",
+        "B) 12",
+        "C) 6",
+        "D) 4"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "There are 15 ikhfa letters: ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_028",
+      "konu": "tecvid",
+      "soru": "How is the nun sound recited in ikhfa?",
+      "secenekler": [
+        "A) Fully and clearly",
+        "B) By changing completely into a mim sound",
+        "C) Concealed with a slight nasal resonance",
+        "D) By being completely swallowed"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In ikhfa, the nun sound is not pronounced fully; it is concealed with a slight nasal resonance (ghunnah). It is not as clear as in izhar or as complete as in idgham.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_029",
+      "konu": "tecvid",
+      "soru": "Which mark appears in the mushaf where iqlab occurs?",
+      "secenekler": [
+        "A) A small ن",
+        "B) A small م",
+        "C) The ط mark",
+        "D) The لا mark"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A small م (mim) is written in the mushaf where iqlab occurs; it shows that the nun sound has changed into a mim sound.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_030",
+      "konu": "tecvid",
+      "soru": "How many rules are there for mim sakinah?",
+      "secenekler": [
+        "A) 2",
+        "B) 5",
+        "C) 4",
+        "D) 3"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "There are 3 rules for mim sakinah: Idgham al-Mithlayn, Ikhfa Shafawi, and Izhar Shafawi.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_031",
+      "konu": "tecvid",
+      "soru": "What is done if a vowelled mim follows mim sakinah?",
+      "secenekler": [
+        "A) Idgham al-Mithlayn — they merge with ghunnah",
+        "B) Ikhfa Shafawi is applied",
+        "C) Izhar Shafawi is applied",
+        "D) Iqlab is applied"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "If a vowelled mim follows mim sakinah, the two mims merge (Idgham al-Mithlayn) and are recited with ghunnah.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_032",
+      "konu": "tecvid",
+      "soru": "When is \"Ikhfa Shafawi\" (labial ikhfa) applied?",
+      "secenekler": [
+        "A) When mim follows mim sakinah",
+        "B) When nun follows mim sakinah",
+        "C) When ba follows mim sakinah",
+        "D) When ha follows mim sakinah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "If ba (ب) follows mim sakinah, Ikhfa Shafawi (labial ikhfa) is applied: it is recited in a concealed manner with ghunnah, without closing the lips.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_033",
+      "konu": "tecvid",
+      "soru": "When is \"Izhar Shafawi\" (labial izhar) applied?",
+      "secenekler": [
+        "A) When ba follows mim sakinah",
+        "B) When a letter other than mim or ba follows mim sakinah",
+        "C) When nun follows mim sakinah",
+        "D) When hamzah follows mim sakinah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "When any letter other than mim or ba follows mim sakinah, Izhar Shafawi (labial izhar) is applied; the mim is pronounced clearly.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_034",
+      "konu": "tecvid",
+      "soru": "Why is mim recited without closing the lips in Ikhfa Shafawi?",
+      "secenekler": [
+        "A) Because ba is a throat letter",
+        "B) Because mim is a heavy letter",
+        "C) Because the mim sound must be completely swallowed",
+        "D) Because ba and mim have the same articulation point; when the lips close, the transition is made in a concealed manner with ghunnah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ba and mim share the same articulation point (the lips). When ba follows mim sakinah, the transition is made with ghunnah without closing the lips—this both conceals the mim and allows a natural transition to ba.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_035",
+      "konu": "tecvid",
+      "soru": "What are the madd letters?",
+      "secenekler": [
+        "A) Alif, waw, ya",
+        "B) Mim, nun, lam",
+        "C) Qaf, ayn, ha",
+        "D) Ba, ta, tha"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "There are three madd letters: alif (ا), waw (و), and ya (ي). Alif is a basic elongation letter when the preceding letter has a fathah, waw when the preceding letter has a dammah, and ya when the preceding letter has a kasrah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_036",
+      "konu": "tecvid",
+      "soru": "How long is the elongation in Madd Tabii?",
+      "secenekler": [
+        "A) 2 alifs",
+        "B) 4 alifs",
+        "C) 1 alif",
+        "D) 3 alifs"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Madd Tabii (natural, basic elongation) is elongated for the length of 1 alif. In this rule, the madd letter is not followed by a hamzah or a sukun/jazm.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_037",
+      "konu": "tecvid",
+      "soru": "When does Madd Muttasil occur?",
+      "secenekler": [
+        "A) When a hamzah follows a madd letter in a different word",
+        "B) When a hamzah follows a madd letter in the same word",
+        "C) When a sukun follows a madd letter",
+        "D) When a letter with a shaddah follows a madd letter"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Madd Muttasil (joined madd) occurs when a hamzah follows a madd letter in the same word. The hamzah being in the same word is the distinguishing feature of this rule.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_038",
+      "konu": "tecvid",
+      "soru": "For how many alifs is Madd Muttasil elongated?",
+      "secenekler": [
+        "A) 1 alif",
+        "B) 2 alifs",
+        "C) 3 alifs",
+        "D) 4 alifs"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "In the commonly taught Hafs recitation, Madd Muttasil is generally elongated for 4 alifs.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_039",
+      "konu": "tecvid",
+      "soru": "What is the main difference between Madd Munfasil and Madd Muttasil?",
+      "secenekler": [
+        "A) In Muttasil, the hamzah is in the same word; in Munfasil, it is in a separate word",
+        "B) Muttasil is elongated for a shorter time",
+        "C) In Munfasil, the hamzah is in the same word",
+        "D) They are the same rule with different names"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In Muttasil, the madd letter and hamzah are in the same word. In Munfasil, the madd letter is in one word and the hamzah is in a separate word; the length of elongation may vary according to the recitation tradition.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_040",
+      "konu": "tecvid",
+      "soru": "When does Madd Lazim occur?",
+      "secenekler": [
+        "A) When stopping (waqf)",
+        "B) When a hamzah occurs in the same word",
+        "C) When a letter with a shaddah or jazm follows a madd letter",
+        "D) When a letter with a fathah precedes waw or ya"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Madd Lazim (obligatory madd) occurs when an original sukun/jazm or a shaddah follows a madd letter in the same word. In common teaching, it is elongated for 4 alifs.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_041",
+      "konu": "tecvid",
+      "soru": "When does Madd Arid occur?",
+      "secenekler": [
+        "A) When a hamzah follows a madd letter",
+        "B) When a syllable normally read short is elongated when stopping (waqf)",
+        "C) When a letter with a shaddah follows a madd letter",
+        "D) When the letter ba follows a madd letter"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Madd Arid (temporary madd) occurs at a place where the reciter stops. Waqf means stopping while reciting in a way that preserves the meaning.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_042",
+      "konu": "tecvid",
+      "soru": "What two basic conditions are required for Madd Lin?",
+      "secenekler": [
+        "A) A hamzah and sukun must follow a madd letter",
+        "B) An elongation letter must occur before a letter with a shaddah",
+        "C) One must stop at a word containing a hamzah",
+        "D) Waw or ya must have a jazm, and the preceding letter must have a fathah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "For Madd Lin, waw (و) or ya (ي) must have a jazm/be sakin, and the preceding letter must have a fathah. This madd becomes particularly apparent at waqf. Example: خَوْف (havf).",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_043",
+      "konu": "tecvid",
+      "soru": "In Shamsiyyah, how is the lam after the prefix \"el\" pronounced?",
+      "secenekler": [
+        "A) It is swallowed, and the following letter is pronounced with a shaddah",
+        "B) It is pronounced clearly",
+        "C) It is pronounced with ghunnah",
+        "D) Qalqalah is applied"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In Shamsiyyah, the lam is swallowed and the following letter is pronounced with a shaddah. Example: \"eş-şems\"—there is no lam.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_044",
+      "konu": "tecvid",
+      "soru": "Which rule does the alif-lam in the word \"el-kamer\" (moon) illustrate?",
+      "secenekler": [
+        "A) Shamsiyyah",
+        "B) Qalqalah",
+        "C) Qamariyyah",
+        "D) Idgham"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In the word \"el-kamer\", the lam is pronounced clearly; qaf is a qamariyyah letter. Qamariyyah brings to mind the moon letters with which the lam sound is heard.",
+      "zorluk": "orta",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_045",
+      "konu": "tecvid",
+      "soru": "What does the م (mim) waqf mark in the mushaf mean?",
+      "secenekler": [
+        "A) One may stop or continue",
+        "B) One must stop here; continuing may cause confusion in the meaning",
+        "C) It is preferable to continue",
+        "D) One should not stop"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "At the م (Waqf Lazim) mark, one must stop; continuing may distort or confuse the meaning. This mark guides the reader in preserving the meaning.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_046",
+      "konu": "tecvid",
+      "soru": "What does the لا (la) waqf mark in the mushaf mean?",
+      "secenekler": [
+        "A) Stopping is obligatory",
+        "B) It is preferable to stop",
+        "C) One may either stop or continue",
+        "D) One should not stop and should continue"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The لا (Waqf Mamnu) mark generally means that one should not stop and should continue. If one has to stop, one resumes from an appropriate place that completes the meaning.",
+      "zorluk": "zor",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_047",
+      "konu": "tecvid",
+      "soru": "What is Lahn-i Jali?",
+      "secenekler": [
+        "A) A major error in pronouncing a letter or word that can affect the meaning",
+        "B) A minor error such as insufficient ikhfa or ghunnah",
+        "C) Reciting very quickly",
+        "D) Not observing the stopping signs"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Lahn-i Jali (an obvious or major error) is the clearly incorrect pronunciation of a letter or word. Major errors that change the meaning may affect the validity of salah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice knowledge"
+    },
+    {
+      "id": "tecvid_048",
+      "konu": "tecvid",
+      "soru": "How does Lahn-i Khafi affect salah?",
+      "secenekler": [
+        "A) It invalidates salah in every case",
+        "B) It invalidates salah and requires it to be made up",
+        "C) It generally does not invalidate salah; it reduces the perfection of the recitation",
+        "D) It has no significance in tajweed"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Lahn-i Khafi (a hidden or minor error) is an omission in the finer points of tajweed, such as ikhfa, idgham, and ghunnah. It generally does not invalidate salah, but it reduces the beauty and perfection of the recitation.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic practice knowledge"
+    },
+    {
+      "id": "tecvid_049",
+      "konu": "tecvid",
+      "soru": "How is the recitation level of \"Tahqiq\" defined?",
+      "secenekler": [
+        "A) The fastest recitation",
+        "B) The slowest recitation, in which each letter is pronounced with the utmost care and given its due",
+        "C) Recitation at a moderate pace",
+        "D) The only valid recitation for salah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tahqiq is the slowest recitation, in which each letter is given its due; it is suitable for the learning stage.",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    },
+    {
+      "id": "tecvid_050",
+      "konu": "tecvid",
+      "soru": "What is the fastest permissible level of Qur'an recitation?",
+      "secenekler": [
+        "A) Tartil",
+        "B) Tahqiq",
+        "C) Tadwir",
+        "D) Hadr"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hadr is the fastest level of recitation performed while observing the rules of tajweed. It is the fastest of the three levels (tahqiq, tadwir, and hadr).",
+      "zorluk": "kolay",
+      "kaynak": "Basic tajweed knowledge"
+    }
+  ]
+}

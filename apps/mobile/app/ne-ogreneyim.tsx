@@ -8,6 +8,8 @@ import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
+import { useStrings } from "../src/i18n";
+import misc1Strings from "../src/i18n/strings/misc1";
 
 const GAP = 12;
 const PAD = 16;
@@ -29,23 +31,24 @@ type LearnItem = {
 };
 
 const ITEMS: LearnItem[] = [
-  { icon: "library-outline", title: "Dersler", route: "/dersler", desc: "Kart kart öğren, kendini test et", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
-  { icon: "list-outline", title: "Kur'an", route: "/sure-listesi", desc: "Ayet oku, meal incele", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd" },
-  { icon: "book-outline", title: "Mushaf", route: "/mushaf-sayfa", desc: "604 sayfalık mushaf düzeninde oku", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a" },
-  { icon: "git-network-outline", title: "Kelime Kökü", route: "/root", desc: "Kelimelerin anlamını keşfet", iconBg: "#ffe4e6", iconColor: "#e11d48", darkIconBg: "#881337", darkIconColor: "#fda4af" },
-  { icon: "accessibility-outline", title: "Namaz", route: "/namaz-rehberi", desc: "Nasıl kılınır, özel namazlar", iconBg: "#e0f2fe", iconColor: "#0369a1", darkIconBg: "#0c4a6e", darkIconColor: "#7dd3fc" },
-  { icon: "reader-outline", title: "İbadet Rehberi", route: "/ibadet-rehberi", desc: "İslam'ın ve imanın şartları, abdest, oruç, zekât", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd" },
-  { icon: "rose-outline", title: "Dualar", route: "/dualar", desc: "89 dua, 23 kategori", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4" },
-  { icon: "shield-outline", title: "Manevi Sığınak", route: "/manevi-siginak", desc: "Korunma ve şifa duaları", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
-  { icon: "sparkles-outline", title: "Esmaül Hüsna", route: "/esma", desc: "Allah'ın 99 ismi", iconBg: "#fef3c7", iconColor: "#ca8a04", darkIconBg: "#713f12", darkIconColor: "#fde68a" },
-  { icon: "people-outline", title: "Peygamber Kıssaları", route: "/peygamber-kissalari", desc: "25 peygamberin kıssası", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
-  { icon: "moon-outline", title: "Siyer-i Nebî", route: "/siyer", desc: "Hz. Muhammed'in hayatı", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd" },
-  { icon: "chatbubble-ellipses-outline", title: "Hadisler", route: "/hadisler", desc: "114 seçme sahih hadis", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a" },
-  { icon: "calendar-outline", title: "Mübarek Günler", route: "/mubarek-gunler", desc: "Kandiller ve fazileti", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd" },
+  { icon: "library-outline", title: "lessonsTitle", route: "/dersler", desc: "lessonsDesc", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
+  { icon: "list-outline", title: "quranTitle", route: "/sure-listesi", desc: "quranDesc", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd" },
+  { icon: "book-outline", title: "mushafTitle", route: "/mushaf-sayfa", desc: "mushafDesc", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a" },
+  { icon: "git-network-outline", title: "rootTitle", route: "/root", desc: "rootDesc", iconBg: "#ffe4e6", iconColor: "#e11d48", darkIconBg: "#881337", darkIconColor: "#fda4af" },
+  { icon: "accessibility-outline", title: "prayerTitle", route: "/namaz-rehberi", desc: "prayerDesc", iconBg: "#e0f2fe", iconColor: "#0369a1", darkIconBg: "#0c4a6e", darkIconColor: "#7dd3fc" },
+  { icon: "reader-outline", title: "worshipTitle", route: "/ibadet-rehberi", desc: "worshipDesc", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd" },
+  { icon: "rose-outline", title: "duasTitle", route: "/dualar", desc: "duasDesc", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4" },
+  { icon: "shield-outline", title: "refugeTitle", route: "/manevi-siginak", desc: "refugeDesc", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
+  { icon: "sparkles-outline", title: "namesTitle", route: "/esma", desc: "namesDesc", iconBg: "#fef3c7", iconColor: "#ca8a04", darkIconBg: "#713f12", darkIconColor: "#fde68a" },
+  { icon: "people-outline", title: "storiesTitle", route: "/peygamber-kissalari", desc: "storiesDesc", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac" },
+  { icon: "moon-outline", title: "siyerTitle", route: "/siyer", desc: "siyerDesc", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd" },
+  { icon: "chatbubble-ellipses-outline", title: "hadithTitle", route: "/hadisler", desc: "hadithDesc", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a" },
+  { icon: "calendar-outline", title: "blessedTitle", route: "/mubarek-gunler", desc: "blessedDesc", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd" },
 ];
 
 export default function NeOgreneyimScreen() {
   const c = useColors();
+  const t = useStrings(misc1Strings) as Record<string, string>;
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const columns = Math.max(2, Math.floor((width - PAD * 2) / CARD_MIN_WIDTH));
@@ -62,8 +65,8 @@ export default function NeOgreneyimScreen() {
     <View style={{ flex: 1, backgroundColor: c.bg }}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={[s.header, { paddingTop: insets.top + 6 }]}>
-        <TouchableOpacity onPress={goBack} hitSlop={10} style={s.backBtn} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
-          <Text style={[s.backText, { color: c.accent }]}>‹ Geri</Text>
+        <TouchableOpacity onPress={goBack} hitSlop={10} style={s.backBtn} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.backA11y}>
+          <Text style={[s.backText, { color: c.accent }]}>{t.back}</Text>
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -71,23 +74,23 @@ export default function NeOgreneyimScreen() {
         contentContainerStyle={{ padding: PAD, paddingTop: 8, paddingBottom: 32 + insets.bottom }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.title, { color: c.text }]}>Ne öğrenmek istiyorsunuz?</Text>
-        <Text style={[s.subtitle, { color: c.textMuted }]}>Bir konu seçin</Text>
+        <Text style={[s.title, { color: c.text }]}>{t.learnTitle}</Text>
+        <Text style={[s.subtitle, { color: c.textMuted }]}>{t.learnSub}</Text>
         <View style={s.grid}>
           {ITEMS.map((item) => (
             <TouchableOpacity
-              key={item.title}
+              key={item.route}
               style={[s.card, { backgroundColor: c.card, width: cardW }]}
               onPress={() => { Haptics.selectionAsync(); router.push(item.route as Href); }}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={`${item.title}: ${item.desc}`}
+              accessibilityLabel={`${t[item.title]}: ${t[item.desc]}`}
             >
               <View style={[s.iconWrap, { backgroundColor: c.isDark ? item.darkIconBg : item.iconBg }]}>
                 <Ionicons name={item.icon} size={22} color={c.isDark ? item.darkIconColor : item.iconColor} />
               </View>
-              <Text style={[s.cardTitle, { color: c.text }]}>{item.title}</Text>
-              <Text style={[s.cardDesc, { color: c.textMuted }]}>{item.desc}</Text>
+              <Text style={[s.cardTitle, { color: c.text }]}>{t[item.title]}</Text>
+              <Text style={[s.cardDesc, { color: c.textMuted }]}>{t[item.desc]}</Text>
             </TouchableOpacity>
           ))}
         </View>

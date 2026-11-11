@@ -1,0 +1,113 @@
+{
+  "ders_id": "hac-umre",
+  "baslik": "Hajj & Umrah",
+  "aciklama": "Learn the basics of Hajj and Umrah, including Hajj, one of the five pillars of Islam.",
+  "kartlar": [
+    {
+      "id": "hac_k01",
+      "tip": "metin",
+      "baslik": "What Is Hajj?",
+      "icerik": "Hajj is the fifth of the five pillars of Islam. It consists of every Muslim who is able traveling to Mecca once in their lifetime to perform certain acts of worship. It was made obligatory in the 9th year after the Hijrah.\n\nBeing \"able\" to perform Hajj means being able to cover travel expenses, provide for the family left behind, have sufficient health, and have a safe journey.\n\nVerse: \"Pilgrimage to the House of Allah (the Kaaba) is a duty owed to Allah by those who are able to make the journey.\" (Al Imran, 3:97)",
+      "vurgu": "The fifth pillar of Islam · Obligatory once in a lifetime for those who are able"
+    },
+    {
+      "id": "hac_k02",
+      "tip": "metin",
+      "baslik": "The Virtue of Hajj",
+      "icerik": "The Prophet ﷺ said: \"The reward for an accepted Hajj is nothing but Paradise.\" (Bukhari, Umrah 1; Muslim, Hajj 437)\n\nThe Prophet ﷺ said: \"O people! Hajj has been made obligatory for you, so perform Hajj!\" (Muslim, Hajj 412)\n\nThe Prophet ﷺ said: \"Let whoever wishes to perform Hajj hasten to do so! They may become ill, or a need may arise that prevents them from going on Hajj.\" (Abu Dawud, Manasik 1)",
+      "vurgu": "The reward for an accepted Hajj is Paradise — Bukhari"
+    },
+    {
+      "id": "hac_k03",
+      "tip": "metin",
+      "baslik": "Conditions That Make Hajj Obligatory",
+      "icerik": "For Hajj to be obligatory for a person, they must:\n• Be Muslim\n• Be of sound mind\n• Have reached puberty\n• Have sufficient financial means (for travel, accommodation, and the living expenses of the family left behind)\n• Be healthy or otherwise able to perform the acts of worship\n• Have a safe journey\n\nHajj is obligatory once in a lifetime for a person who meets these conditions. When the opportunity to perform Hajj arises, it is recommended not to delay it unnecessarily.",
+      "vurgu": "Financial and physical ability · A safe journey · Obligatory once in a lifetime"
+    },
+    {
+      "id": "hac_k04",
+      "tip": "metin",
+      "baslik": "The Obligatory Acts of Hajj",
+      "icerik": "According to the Hanafi school, Hajj has three obligatory acts. If any one of them is missing, the Hajj is considered invalid:\n• Ihram — entering a state of certain restrictions with the intention of performing Hajj or Umrah\n• Standing at Arafat — being present at Arafat on the 9th of Dhul-Hijjah\n• Tawaf al-Ziyarah — circling the Kaaba 7 times\n\nIn other schools, sa'y (walking between Safa and Marwah) and shaving or shortening the hair may also be considered pillars (essential elements of worship). Therefore, when learning about Hajj, it is important to follow the practice of one's own school.",
+      "vurgu": "Ihram · Standing at Arafat · Tawaf al-Ziyarah"
+    },
+    {
+      "id": "hac_k05",
+      "tip": "metin",
+      "baslik": "Ihram",
+      "icerik": "Ihram is entering a state of certain restrictions with the intention of performing Hajj or Umrah. Ihram is not just clothing; it is also the state of beginning the act of worship.\n\n• Men: Wrap themselves in two seamless cloths; white is preferred but not required\n• Women: Wear their normal modest clothing; special ihram cloths like those worn by men are not required\n• Ihram is entered before crossing the miqat (the boundary for entering ihram)\n• The talbiyah is recited: \"Lebbeyk Allahümme lebbeyk...\" meaning \"Here I am, O Allah, at Your command\"\n\nWhile in ihram, cutting the hair or nails, applying fragrance, hunting, sexual relations, and certain everyday activities are prohibited. The details of these restrictions should be learned according to the schools of law.",
+      "vurgu": "Ihram is the state of beginning worship · It is entered before the miqat boundary"
+    },
+    {
+      "id": "hac_k06",
+      "tip": "metin",
+      "baslik": "Standing at Arafat",
+      "icerik": "Being present on the plain of Arafat on the 9th of Dhul-Hijjah (the Day of Arafah) is the most fundamental pillar of Hajj.\n\nThe Prophet ﷺ said: \"Hajj is Arafat.\" (Abu Dawud, Manasik 69; Tirmidhi, Hajj 57)\n\nThe time for standing at Arafat lasts from noon on the Day of Arafah until dawn on the night of Eid. Being present at Arafat for a moment during this period fulfills this pillar of Hajj.\n\nIn Hanafi practice, a pilgrim who arrives at Arafat during the day is taught that it is wajib to remain until sunset. After sunset, pilgrims proceed to Muzdalifah (the stopping area between Arafat and Mina).",
+      "vurgu": "Hajj is Arafat · Standing at Arafat is a pillar of Hajj"
+    },
+    {
+      "id": "hac_k07",
+      "tip": "metin",
+      "baslik": "Tawaf",
+      "icerik": "Tawaf means circling the Kaaba counterclockwise 7 times, keeping it to one's left.\n• Begin in line with Hajar al-Aswad (the Black Stone)\n• Each circuit is completed in line with Hajar al-Aswad\n• Tawaf al-Ziyarah: The obligatory tawaf of Hajj; it is performed from the days of Eid onward. It is generally performed in the first few days; rulings on delaying it may differ between schools\n• Farewell tawaf: The final tawaf performed before leaving Mecca; its ruling is considered wajib or Sunnah depending on the school",
+      "vurgu": "Tawaf consists of 7 circuits · Tawaf al-Ziyarah is one of the obligatory acts of Hajj"
+    },
+    {
+      "id": "hac_k08",
+      "tip": "metin",
+      "baslik": "Sa'y",
+      "icerik": "Sa'y consists of 7 journeys between the hills of Safa and Marwah. The journey from Safa to Marwah counts as the first, and the return from Marwah to Safa as the second; in this way, the seventh journey ends at Marwah.\n\nSa'y recalls Hajar's search for water for her son Ismail.\n• It begins at Safa and ends at Marwah\n• In the section between the green lights, men walk briskly or jog lightly; women walk normally\n\nVerse: \"Safa and Marwah are among the symbols of Allah (the religious signs of Allah).\" (al-Baqarah, 2:158)",
+      "vurgu": "Sa'y consists of 7 journeys · It begins at Safa and ends at Marwah"
+    },
+    {
+      "id": "hac_k09",
+      "tip": "metin",
+      "baslik": "Stoning the Devil",
+      "icerik": "Stoning the devil is performed by throwing small stones at the jamarat (stoning sites) in Mina. It recalls Ibrahim's stand against the devil.\n• First day of Eid al-Adha: Only Jamarat al-Aqabah (the largest jamrah) is stoned, with 7 stones\n• Second and third days: 7 stones are thrown at each of the small, middle, and large jamarat\n• With each stone, \"Bismillah Allahu Ekber\" is said\n\nThis act of worship symbolizes a conscious stand against evil and temptation.",
+      "vurgu": "Stoning the jamarat takes place in Mina · Say Bismillah Allahu Ekber with each stone"
+    },
+    {
+      "id": "hac_k10",
+      "tip": "metin",
+      "baslik": "Sacrifice and Shaving",
+      "icerik": "The general order on the first day of Eid al-Adha is as follows:\n1. Jamarat al-Aqabah is stoned\n2. Hady (the Hajj sacrifice) is offered\n3. The hair is shaved or shortened → the first stage of leaving ihram is completed\n4. Tawaf al-Ziyarah is performed → all ihram restrictions are lifted\n\nThe ruling on the hady sacrifice is not the same for every type of Hajj. It is considered wajib in Hajj al-Tamattu (performing Umrah first and then Hajj on the same journey) and Hajj al-Qiran (performing Umrah and Hajj in the same state of ihram). In Hajj al-Ifrad (performing Hajj alone), no separate sacrifice is required; a person may offer one voluntarily if they wish.",
+      "vurgu": "Hady is wajib in Tamattu and Qiran · Shaving is a step in leaving ihram"
+    },
+    {
+      "id": "hac_k11",
+      "tip": "metin",
+      "baslik": "What Is Umrah?",
+      "icerik": "Umrah is a visit to the Kaaba that can be performed without being restricted to a particular season. Unlike Hajj, it does not include standing at Arafat, stoning the devil, or the Hajj sacrifice.\n\nThe Prophet ﷺ said: \"One Umrah to the next is an expiation for the sins committed between them.\" (Bukhari, Umrah 1; Muslim, Hajj 437)\n\nThe Prophet ﷺ said: \"Perform Hajj and Umrah one after the other, for they remove poverty and sins.\" (Tirmidhi, Hajj 2)\n\nThe ruling on Umrah differs between schools: it is considered Sunnah mu'akkadah (a strongly emphasized Sunnah) in the Hanafi and Maliki schools, and obligatory in the Shafi'i and Hanbali schools.",
+      "vurgu": "Umrah can be performed at any time · Its ruling differs between schools"
+    },
+    {
+      "id": "hac_k12",
+      "tip": "metin",
+      "baslik": "The Steps of Umrah",
+      "icerik": "Umrah consists of four main steps:\n1. Entering ihram — making the intention at the miqat boundary and reciting the talbiyah\n2. Tawaf — circling the Kaaba 7 times (shawts)\n3. Sa'y — walking between Safa and Marwah for 7 lengths (shawts)\n4. Shaving or shortening the hair — exiting ihram\n\nUmrah can be performed at any time of year. Unlike Hajj, Umrah does not include standing at Arafat, Muzdalifah, Mina, stoning the pillars, or the Hajj sacrifice.",
+      "vurgu": "Ihram → Tawaf → Sa'y → Shaving"
+    },
+    {
+      "id": "hac_k13",
+      "tip": "metin",
+      "baslik": "The Difference Between Hajj and Umrah",
+      "icerik": "• Time: Hajj is performed only during the days of Hajj; Umrah can be performed at any time of year\n• Ruling: Hajj is obligatory for those who are able; depending on the school of thought, Umrah is considered an emphasized Sunnah or obligatory\n• Standing at Arafat: Only part of Hajj\n• Muzdalifah and Mina: Part of Hajj, but not Umrah\n• Stoning the pillars and the Hajj sacrifice: Part of Hajj, but not Umrah\n• Duration: Hajj takes several days; Umrah can be completed in less time",
+      "vurgu": "Hajj is performed on specific days · Umrah can be performed at any time · Standing at Arafat is only part of Hajj"
+    },
+    {
+      "id": "hac_k14",
+      "tip": "metin",
+      "baslik": "The Importance of Hajj and Umrah",
+      "icerik": "The Prophet ﷺ said: \"Those who perform Hajj and Umrah are envoys who come to Allah. If they pray, He answers them; if they seek forgiveness, He forgives them.\" (Ibn Majah, Manasik 5)\n\nHajj is an ancient act of worship that has continued since the time of Prophet Ibrahim.",
+      "vurgu": "Those who perform Hajj and Umrah are Allah's guests"
+    },
+    {
+      "id": "hac_k15",
+      "tip": "metin",
+      "baslik": "Differences Between Schools of Thought",
+      "icerik": "The four schools of thought have different views on certain matters related to Hajj and Umrah:\n\n• The ruling on Umrah: An emphasized Sunnah (a strongly recommended Sunnah) in the Hanafi and Maliki schools; obligatory in the Shafi'i and Hanbali schools.\n\n• The ruling on sa'y: Wajib in the Hanafi school; a pillar (an essential or obligatory element of the act of worship) in the Shafi'i, Maliki, and Hanbali schools.\n\n• The role of the talbiyah in ihram: One of the conditions for entering ihram in the Hanafi school; considered Sunnah in the Shafi'i and Maliki schools.\n\n• The ruling on the farewell tawaf: Wajib in the Hanafi, Shafi'i, and Hanbali schools; Sunnah in the Maliki school.\n\n• The ruling on spending the night at Muzdalifah: Wajib in the Hanafi, Maliki, and Hanbali schools; Sunnah in the Shafi'i school.\n\n• The hady sacrifice: Wajib in tamattu and qiran Hajj; it may be offered voluntarily in ifrad Hajj.\n\n🎉 You have completed the Hajj and Umrah lesson! For more verses and details, you can check the {{link:ibadet-ibadetler|Worship Guide}}; if you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "Differences between schools of thought explain details of practice · It is sufficient to follow your own school of thought"
+    }
+  ],
+  "quiz_havuzu_id": "hac-umre"
+}

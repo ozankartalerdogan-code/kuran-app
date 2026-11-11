@@ -10,6 +10,8 @@ import { Magnetometer, Accelerometer, DeviceMotion } from "expo-sensors";
 import * as Haptics from "expo-haptics";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useColors } from "../src/hooks/useColors";
+import { useStrings, getStrings } from "../src/i18n";
+import kibleStrings from "../src/i18n/strings/kible";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -121,6 +123,7 @@ export default function KibleScreen() {
   useKeepAwakeSafe(); // Pusulaya bakarken ekran kararmasın
   const insets = useSafeAreaInsets();
   const c = useColors();
+  const ks = useStrings(kibleStrings) as Record<string, string>;
   const dark = c.isDark;
   const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);
@@ -297,12 +300,13 @@ export default function KibleScreen() {
     if (!isMountedRef.current) return;
 
     if (status !== "granted") {
+      const t = getStrings(kibleStrings);
       Alert.alert(
-        "Konum İzni Gerekli",
-        "Kıble pusulası için konum iznine ihtiyaç var.\n\nAyarlar → Uygulama → Kuran Yolu → İzinler → Konum → İzin Ver",
+        t.permTitle,
+        t.permBody,
         [
-          { text: "Ayarlara Git", onPress: () => Linking.openSettings() },
-          { text: "Tamam", style: "cancel" },
+          { text: t.goSettings, onPress: () => Linking.openSettings() },
+          { text: t.ok, style: "cancel" },
         ],
       );
       goHome();
@@ -343,12 +347,13 @@ export default function KibleScreen() {
     if (!isMountedRef.current) return;
 
     if (!coords) {
+      const t = getStrings(kibleStrings);
       Alert.alert(
-        "Konum Alınamadı",
-        "GPS sinyali bulunamadı.\n\n• Açık alanda deneyin\n• WiFi veya mobil veriyi açın\n• Telefon ayarlarından konum servisini etkinleştirin",
+        t.noLocTitle,
+        t.noLocBody,
         [
-          { text: "Ayarlara Git", onPress: () => Linking.openSettings() },
-          { text: "Tamam", style: "cancel" },
+          { text: t.goSettings, onPress: () => Linking.openSettings() },
+          { text: t.ok, style: "cancel" },
         ],
       );
       goHome();
@@ -382,11 +387,11 @@ export default function KibleScreen() {
   if (step === "locating") {
     return (
       <>
-        <Stack.Screen options={{ title: "Kıble Yönü" }} />
+        <Stack.Screen options={{ title: ks.screenTitle }} />
         <View style={[s.centered, dark && { backgroundColor: "#042f2e" }, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
           <ActivityIndicator size="large" color={c.accent} />
-          <Text style={[s.loadingText, dark && { color: "#ccfbf1" }]}>Konumunuz alınıyor…</Text>
-          <Text style={[s.loadingSub, dark && { color: "#2dd4bf" }]}>Bu işlem 10–25 saniye sürebilir</Text>
+          <Text style={[s.loadingText, dark && { color: "#ccfbf1" }]}>{ks.locating}</Text>
+          <Text style={[s.loadingSub, dark && { color: "#2dd4bf" }]}>{ks.locatingSub}</Text>
         </View>
       </>
     );
@@ -395,14 +400,14 @@ export default function KibleScreen() {
   // ── PUSULA ────────────────────────────────────────────────────────────────
   return (
     <>
-      <Stack.Screen options={{ title: "Kıble Yönü" }} />
+      <Stack.Screen options={{ title: ks.screenTitle }} />
       <View style={[s.container, dark && { backgroundColor: "#042f2e" }, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}>
         <BgGradient isDark={dark} />
 
         {/* Kalibrasyon — sade tek satır */}
         {showCalib && (
-          <TouchableOpacity style={[s.calibSlim, dark && { backgroundColor: "#422006", borderColor: "#713f12" }]} onPress={() => setShowCalib(false)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Kalibrasyon uyarısını kapat">
-            <Text style={[s.calibSlimText, dark && { color: "#fde68a" }]}>🔄 Doğruluk için telefonu <Text style={{ fontWeight: "800" }}>8 şeklinde</Text> birkaç kez çevirin</Text>
+          <TouchableOpacity style={[s.calibSlim, dark && { backgroundColor: "#422006", borderColor: "#713f12" }]} onPress={() => setShowCalib(false)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={ks.calibA11y}>
+            <Text style={[s.calibSlimText, dark && { color: "#fde68a" }]}>{ks.calibPre}<Text style={{ fontWeight: "800" }}>{ks.calibBold}</Text>{ks.calibPost}</Text>
             <Text style={[s.calibSlimX, dark && { color: "#fbbf24" }]}>✕</Text>
           </TouchableOpacity>
         )}
@@ -439,7 +444,7 @@ export default function KibleScreen() {
                     { transform: [{ rotate: headingAnim.interpolate({ inputRange: [0, 1], outputRange: [`${-d.b}deg`, `${1 - d.b}deg`], extrapolate: "extend" }) }] },
                   ]}
                 >
-                  {d.l}
+                  {ks[d.l] ?? d.l}
                 </Animated.Text>
               </View>
             ))}
@@ -466,7 +471,7 @@ export default function KibleScreen() {
         <View style={[s.badge, dark && { backgroundColor: "#134e4a", borderColor: "#0f766e" }, isAligned && [s.badgeOk, dark && { backgroundColor: "#064e3b", borderColor: "#34d399" }]]}>
           <Text style={[s.badgeNum, dark && { color: "#a7f3d0" }, isAligned && [s.badgeNumOk, dark && { color: "#6ee7b7" }]]}>{Math.round(qibla ?? 0)}°</Text>
           <Text style={[s.badgeSub, dark && { color: "#5eead4" }, isAligned && [s.badgeSubOk, dark && { color: "#34d399" }]]}>
-            {isAligned ? "✓ Kabe'ye dönüksünüz" : "Kuzeyden Kabe yönü"}
+            {isAligned ? ks.aligned : ks.northToKaaba}
           </Text>
         </View>
 
@@ -474,13 +479,13 @@ export default function KibleScreen() {
         {compassOk === false && (
           <View style={[s.infoBox, dark ? { borderColor: "#7f1d1d", backgroundColor: "#450a0a" } : { borderColor: "#fca5a5", backgroundColor: "#fff1f2" }]}>
             <Text style={[s.infoText, { color: dark ? "#fca5a5" : "#991b1b" }]}>
-              ⚠️ Pusula verisi alınamıyor. Bu cihazda manyetometre yok/kapalı olabilir — başka bir telefonda deneyin. İbre kıble derecesinde sabit kalır.
+              {ks.noCompass}
             </Text>
           </View>
         )}
         {compassOk === true && (
           <View style={[s.infoBox, dark && { backgroundColor: "#042f2e", borderColor: "#0f766e" }]}>
-            <Text style={[s.infoText, dark && { color: "#99f6e4" }]}>📱 Telefonu çevirin; 🕋 oku üstteki kırmızı ▼ ile hizalanınca Kabe'ye dönüksünüz</Text>
+            <Text style={[s.infoText, dark && { color: "#99f6e4" }]}>{ks.hint}</Text>
           </View>
         )}
 
@@ -489,9 +494,9 @@ export default function KibleScreen() {
           onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(); }}
           activeOpacity={0.7}
           accessibilityRole="button"
-          accessibilityLabel="Konumu yenile"
+          accessibilityLabel={ks.refreshA11y}
         >
-          <Text style={[s.backBtnText, { color: c.accent }]}>🔄 Konumu Yenile</Text>
+          <Text style={[s.backBtnText, { color: c.accent }]}>{ks.refresh}</Text>
         </TouchableOpacity>
       </View>
     </>

@@ -1,0 +1,173 @@
+{
+  "sonGuncelleme": "Son Güncelleme",
+  "tarih": "12 Temmuz 2026",
+  "meta": {
+    "gelistirici": "Geliştirici",
+    "gelistiriciAdi": "Kartal Studio",
+    "iletisim": "İletişim",
+    "uygulama": "Uygulama",
+    "uygulamaAdi": "Kuran Yolu - İslam'ı Öğren"
+  },
+  "bolumler": [
+    {
+      "baslik": "1. Toplanan Veriler",
+      "ogeler": [
+        { "tip": "altbaslik", "metin": "Firebase Analytics aracılığıyla otomatik toplanan:" },
+        { "tip": "madde", "metin": "Uygulama kullanım istatistikleri (hangi ekranlar açıldı)" },
+        { "tip": "madde", "metin": "Cihaz türü ve işletim sistemi versiyonu" },
+        { "tip": "madde", "metin": "Uygulama versiyonu" },
+        { "tip": "madde", "metin": "Anonim kullanıcı kimliği" },
+        { "tip": "altbaslik", "metin": "Cihazınızda saklanan ve bulut yedeğine dahil edilen:" },
+        { "tip": "madde", "metin": "Favori ayetler" },
+        { "tip": "madde", "metin": "Kişisel notlar" },
+        { "tip": "madde", "metin": "Hatim takibi ve okuma konumu (yer imi)" },
+        { "tip": "madde", "metin": "Ders ve elifba ilerlemesi" },
+        { "tip": "madde", "metin": "Günlük seri (streak) bilgisi" },
+        { "tip": "madde", "metin": "Bazı uygulama tercihleri (gece modu, yazı boyutu, tecvid)" },
+        {
+          "tip": "paragraf",
+          "metin": "Bu veriler öncelikle cihazınızda saklanır. Favori veya not eklenmiş ayetlerin meal ve ayet bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API'sine iletilebilir."
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Bulut yedekleme (Firebase):", "kalin": true },
+            { "metin": "Yukarıdaki veriler, uygulamayı kaldırıp yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan anonim bir kimlikle (Firebase Anonymous Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizi ve anonim hesabınızı dilediğiniz an uygulama içinden kalıcı olarak silebilirsiniz (bkz. \"7. Hesap ve Veri Silme\")." }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Cihaz sistem yedeği:", "kalin": true },
+            { "metin": "Ayrıca cihazınızın sistem yedekleme özelliği açıksa bu cihaz-içi veriler otomatik yedeklenebilir: Android'de cihazınızın bağlı olduğu Google Drive hesabına, iOS'ta iCloud hesabınıza. Bu yedek Google veya Apple tarafından yönetilir ve cihaz ayarlarınızdan kapatılabilir." }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Konum verisi:", "kalin": true },
+            { "metin": "Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitlerini hesaplamak için yaklaşık konumunuz, üçüncü taraf Aladhan.com servisine gönderilir. Konum verisi bizim sunucularımızda saklanmaz." }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Arama verisi:", "kalin": true },
+            { "metin": "Uygulama içindeki arama özelliği kullanıldığında, arama sorgusu yalnızca arama sonuçlarını getirmek amacıyla uygulama sunucusuna iletilebilir. Arama sorguları reklam hedefleme veya kullanıcı profili oluşturma amacıyla kullanılmaz; Firebase Analytics'e arama metni gönderilmez." }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Reklam kimliği:", "kalin": true },
+            { "metin": "Uygulama reklam içermez ve reklam kimliğinizi (Advertising ID) toplamaz." }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Mikrofon:", "kalin": true },
+            { "metin": "Uygulama mikrofon erişimi istemez ve ses kaydı yapmaz." }
+          ]
+        }
+      ]
+    },
+    {
+      "baslik": "2. Verilerin Kullanımı",
+      "ogeler": [
+        { "tip": "paragraf", "metin": "Toplanan veriler yalnızca şu amaçlarla kullanılır:" },
+        { "tip": "madde", "metin": "Uygulama performansını iyileştirmek" },
+        { "tip": "madde", "metin": "Hata tespiti ve düzeltme" },
+        { "tip": "madde", "metin": "Kullanıcı deneyimini geliştirmek" },
+        { "tip": "paragraf", "parcalar": [{ "metin": "Verileriniz asla üçüncü taraflara satılmaz.", "kalin": true }] }
+      ]
+    },
+    {
+      "baslik": "3. Üçüncü Taraf Hizmetler",
+      "ogeler": [
+        { "tip": "paragraf", "metin": "Uygulama aşağıdaki üçüncü taraf hizmetleri kullanır:" },
+        { "tip": "madde", "metin": "Firebase Analytics — Kullanım istatistikleri" },
+        { "tip": "madde", "metin": "Firebase Authentication — Bulut yedeğin size özel eşleştirilmesi için anonim kimlik" },
+        { "tip": "madde", "metin": "Cloud Firestore — Bulut yedek depolama" },
+        { "tip": "madde", "metin": "Sentry — Hata raporlama" },
+        { "tip": "madde", "metin": "Aladhan.com — Namaz vakitleri API" },
+        { "tip": "madde", "metin": "Turso — Veritabanı" }
+      ]
+    },
+    {
+      "baslik": "4. Veri Güvenliği",
+      "ogeler": [
+        { "tip": "madde", "metin": "Tüm API iletişimleri HTTPS üzerinden şifrelenir" },
+        { "tip": "madde", "metin": "Kullanıcı hesabı istenmez; ad-soyad, e-posta veya telefon numarası toplanmaz" },
+        { "tip": "madde", "metin": "Not metinleriniz cihazınızda ve yalnızca size özel, anonim kimlikle korunan bulut yedeğinizde saklanır; başka hiçbir amaçla kullanılmaz" },
+        { "tip": "madde", "metin": "Favori veya notlu ayetlerin ayet anahtarları yalnızca ilgili ayet bilgisini göstermek için API'ye iletilebilir" }
+      ]
+    },
+    {
+      "baslik": "5. Çocukların Gizliliği",
+      "ogeler": [
+        { "tip": "paragraf", "metin": "Uygulama 13 yaş altı çocuklara yönelik değildir. 13 yaş altı kullanıcılardan bilerek veri toplamıyoruz." }
+      ]
+    },
+    {
+      "baslik": "6. KVKK Hakları",
+      "ogeler": [
+        { "tip": "paragraf", "metin": "6698 sayılı KVKK kapsamında aşağıdaki haklara sahipsiniz:" },
+        { "tip": "madde", "metin": "Verilerinize erişim hakkı" },
+        { "tip": "madde", "metin": "Verilerinizin düzeltilmesini talep hakkı" },
+        { "tip": "madde", "metin": "Verilerinizin silinmesini talep hakkı" }
+      ]
+    },
+    {
+      "baslik": "7. Hesap ve Veri Silme",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Bulut yedeği, kimlik bilgisi istemeyen" },
+            { "metin": "anonim bir Firebase hesabıyla", "kalin": true },
+            { "metin": "eşleştirilir. Aşağıdaki düğme, buluttaki yedeğinizi ve bu anonim hesabı kalıcı olarak siler; silinen veriler geri getirilemez. Cihazınızdaki yerel veriler etkilenmez — onları uygulamayı kaldırarak veya cihaz ayarlarından uygulama verilerini temizleyerek silebilirsiniz." }
+          ]
+        },
+        { "tip": "yedekKontrol" },
+        { "tip": "paragraf", "metin": "Silme talebinizi dilerseniz aşağıdaki iletişim adresine e-posta göndererek de iletebilirsiniz." }
+      ]
+    },
+    {
+      "baslik": "8. Değişiklikler",
+      "ogeler": [
+        { "tip": "paragraf", "metin": "Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişikliklerde uygulama içinde bildirim yapılır." }
+      ]
+    },
+    {
+      "baslik": "9. İletişim",
+      "ogeler": [
+        { "tip": "paragraf", "metin": "Sorularınız ve KVKK talepleriniz için:" },
+        { "tip": "eposta" }
+      ]
+    }
+  ],
+  "eposta": {
+    "etiket": "E-posta gönder",
+    "bulunamadiBaslik": "E-posta uygulaması bulunamadı",
+    "bulunamadiMesaj": "Bize şu adresten ulaşabilirsiniz: {email}"
+  },
+  "yedek": {
+    "kapaliParcalar": [
+      { "metin": "Bulut yedekleme şu an kapalı.", "kalin": true },
+      { "metin": "Yedeğiniz ve anonim hesabınız silindi; siz yeniden açana kadar hiçbir veri buluta gönderilmez." }
+    ],
+    "yenidenAc": "Bulut yedeklemeyi yeniden aç",
+    "acilamadiBaslik": "Açılamadı",
+    "acilamadiMesaj": "İnternet bağlantınızı kontrol edip yeniden deneyin.",
+    "silOnayBaslik": "Bulut yedeği silinsin mi?",
+    "silOnayMesaj": "Buluttaki yedeğiniz ve anonim hesabınız kalıcı olarak silinir; bu işlem geri alınamaz. Cihazınızdaki veriler etkilenmez. Bulut yedekleme, siz yeniden açana kadar kapalı kalır.",
+    "vazgec": "Vazgeç",
+    "sil": "Sil",
+    "silindiBaslik": "Silindi",
+    "silindiMesaj": "Bulut yedeğiniz ve anonim hesabınız kalıcı olarak silindi.",
+    "silinemediBaslik": "Silinemedi",
+    "silinemediMesaj": "İnternet bağlantınızı kontrol edip yeniden deneyin.",
+    "yedegimiSil": "Bulut yedeğimi sil"
+  }
+}

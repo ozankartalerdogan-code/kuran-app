@@ -1,0 +1,457 @@
+{
+  "quiz_id": "zekat",
+  "baslik": "Zakat",
+  "toplam_soru": 30,
+  "sorular": [
+    {
+      "id": "zekat_001",
+      "konu": "temel",
+      "soru": "What are the meanings of the word zakat in Arabic?",
+      "secenekler": [
+        "A) Help, support, and blessing",
+        "B) Worship, supplication, and gratitude",
+        "C) Increase, purification, and blessing",
+        "D) Patience, gratitude, and trust in Allah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In Arabic, the word zakat means \"increase, purification, and blessing.\" This meaning indicates that zakat purifies both wealth and the soul.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_002",
+      "konu": "temel",
+      "soru": "Which pillar of Islam is zakat?",
+      "secenekler": [
+        "A) The fourth",
+        "B) The second",
+        "C) The third",
+        "D) The fifth"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The five pillars of Islam, in order, are the declaration of faith, salah, sawm, zakat, and Hajj. Zakat is the fourth pillar.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_003",
+      "konu": "temel",
+      "soru": "In which year and where was zakat made obligatory?",
+      "secenekler": [
+        "A) In Makkah in the 1st year after the Hijrah",
+        "B) In Madinah in the 5th year after the Hijrah",
+        "C) In Makkah in the 3rd year of prophethood",
+        "D) In Madinah in the 2nd year after the Hijrah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Zakat was made obligatory in Madinah in the 2nd year after the Hijrah. It had also been encouraged earlier during the Makkah period, but its form and amount were determined in Madinah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_004",
+      "konu": "temel",
+      "soru": "In how many verses of the Quran is zakat mentioned, and in how many of them is it mentioned alongside salah?",
+      "secenekler": [
+        "A) It is mentioned in 20 verses, alongside salah in 15",
+        "B) It is mentioned in 30 verses, alongside salah in 27",
+        "C) It is mentioned in 40 verses, alongside salah in 30",
+        "D) It is mentioned in 10 verses, alongside salah in 8"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Zakat is mentioned in 30 verses of the Quran, and in 27 of them it is mentioned alongside salah. This pairing shows that salah and zakat are two inseparable parts of iman.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_005",
+      "konu": "sartlar",
+      "soru": "What does the condition of \"Havelânü'l-havl\" mean?",
+      "secenekler": [
+        "A) The passage of one lunar year over the wealth",
+        "B) The wealth reaching the nisab (the minimum wealth required for zakat to become obligatory)",
+        "C) The wealth being of a productive nature",
+        "D) The wealth exceeding debts"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Havelânü'l-havl (the passage of one lunar year over the wealth) is the condition that one lunar year (approximately 354 days) must pass over the wealth. Zakat does not become obligatory before this period has passed.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_006",
+      "konu": "sartlar",
+      "soru": "What characteristic must wealth have for zakat to be obligatory on it?",
+      "secenekler": [
+        "A) It must have been inherited",
+        "B) It must be real estate (immovable property)",
+        "C) It must be nâmî (productive or growing)",
+        "D) It must have been held for at least five years"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Wealth subject to zakat must be nâmî (productive, income-generating, or growing). Therefore, a home and vehicle in use are not subject to zakat, whereas money, trade goods, and livestock are considered nâmî.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_007",
+      "konu": "nisap",
+      "soru": "How many grams is the zakat nisab for gold?",
+      "secenekler": [
+        "A) 96.2 grams",
+        "B) 80.18 grams",
+        "C) 70 grams",
+        "D) 100 grams"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The zakat nisab for gold is 80.18 grams. In current practice, the value of this amount of gold is generally used as the basis for money and trade goods; there is also a view that the calculation should be based on the silver nisab.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Zakat 32"
+    },
+    {
+      "id": "zekat_008",
+      "konu": "nisap",
+      "soru": "How many head of cattle make up the zakat nisab?",
+      "secenekler": [
+        "A) 5 head",
+        "B) 40 head",
+        "C) 20 head",
+        "D) 30 head"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The zakat nisab for cattle is 30 head. Sheep and goats are subject to zakat from 40 head, and camels from 5 head.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Zakat 32"
+    },
+    {
+      "id": "zekat_009",
+      "konu": "nisap",
+      "soru": "How many sheep and goats make up the zakat nisab?",
+      "secenekler": [
+        "A) 40",
+        "B) 30",
+        "C) 5",
+        "D) 20"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The zakat nisab for sheep and goats is 40 head. If there are fewer than this, zakat is not obligatory.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Zakat 32"
+    },
+    {
+      "id": "zekat_010",
+      "konu": "nisap",
+      "soru": "How many camels make up the zakat nisab?",
+      "secenekler": [
+        "A) 10",
+        "B) 3",
+        "C) 5",
+        "D) 15"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The zakat nisab for camels is 5 head. Among livestock, camels have the lowest nisab, and zakat becomes due from this number.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Zakat 32"
+    },
+    {
+      "id": "zekat_011",
+      "konu": "oran",
+      "soru": "What is the zakat rate for gold, silver, and trade goods?",
+      "secenekler": [
+        "A) 5%",
+        "B) 2.5% (one fortieth)",
+        "C) 10%",
+        "D) 1%"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Zakat on gold, silver, money, and trade goods is one fortieth, or 2.5%.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_012",
+      "konu": "osur",
+      "soru": "What is the ushr rate for crops irrigated by rain or river water?",
+      "secenekler": [
+        "A) 1/20 (one twentieth)",
+        "B) 1/40 (one fortieth)",
+        "C) 1/5 (one fifth)",
+        "D) 1/10 (one tenth)"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ushr (zakat on agricultural produce) is given at a rate of 1/10 (one tenth) on crops from land irrigated by rain or running water (rivers or streams). The rate is higher because no expenditure is required.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Zakat 55"
+    },
+    {
+      "id": "zekat_013",
+      "konu": "osur",
+      "soru": "What is the ushr rate for crops grown using motorized or costly irrigation?",
+      "secenekler": [
+        "A) 1/20 (one twentieth)",
+        "B) 1/10 (one tenth)",
+        "C) 1/40 (one fortieth)",
+        "D) 1/5 (one fifth)"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Ushr (zakat on agricultural produce) is given at a rate of 1/20 (one twentieth) on crops from land irrigated by motorized means or at expense. The rate is halved because of the cost of irrigation.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Zakat 55"
+    },
+    {
+      "id": "zekat_014",
+      "konu": "osur",
+      "soru": "When is ushr (zakat on agricultural produce) given?",
+      "secenekler": [
+        "A) On the first day of autumn",
+        "B) Once a year has passed over the wealth",
+        "C) On the day of harvest",
+        "D) At the beginning of Ramadan"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ushr (zakat on agricultural produce) is given on the day of harvest. For agricultural produce, havelânü'l-havl, the passage of a year, is not required; details concerning the nisab and expenses may be assessed differently by the schools of law.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-An'am 6/141"
+    },
+    {
+      "id": "zekat_015",
+      "konu": "oran",
+      "soru": "How much zakat is due on 100,000 TL?",
+      "secenekler": [
+        "A) 5,000 TL",
+        "B) 2,500 TL",
+        "C) 1,000 TL",
+        "D) 10,000 TL"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Since the zakat rate is 2.5% (one fortieth): 100,000 × 0.025 = 2,500 TL must be given as zakat.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_016",
+      "konu": "hak-sahipleri",
+      "soru": "According to at-Tawbah 9/60, how many categories of people may receive zakat?",
+      "secenekler": [
+        "A) 4",
+        "B) 6",
+        "C) 10",
+        "D) 8"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "At-Tawbah 9/60 clearly specifies 8 categories eligible to receive zakat: the poor, the destitute (the extremely poor), zakat administrators, müellefe-i kulûb, slaves, those in debt, those in the cause of Allah, and stranded travelers.",
+      "zorluk": "kolay",
+      "kaynak": "Quran, at-Tawbah 9/60"
+    },
+    {
+      "id": "zekat_017",
+      "konu": "hak-sahipleri",
+      "soru": "Who are \"Müellefe-i kulûb\"?",
+      "secenekler": [
+        "A) People whose hearts are to be inclined toward Islam",
+        "B) Slaves",
+        "C) Stranded travelers",
+        "D) Zakat administrators"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Müellefe-i kulûb (people whose hearts are to be inclined toward Islam) are people whose hearts are to be inclined toward Islam. The Prophet ﷺ gave zakat to this group; some scholars have maintained that this ruling continues to apply.",
+      "zorluk": "kolay",
+      "kaynak": "Quran, at-Tawbah 9/60"
+    },
+    {
+      "id": "zekat_018",
+      "konu": "hak-sahipleri",
+      "soru": "Which of the following is not among the categories eligible to receive zakat mentioned in at-Tawbah 9/60?",
+      "secenekler": [
+        "A) Those in debt",
+        "B) Stranded travelers",
+        "C) Mosques",
+        "D) Zakat administrators"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Mosque buildings are not among the 8 categories specified in the Quran. Zakat is transferred into the ownership of an eligible recipient, rather than given directly to a building; institutions may act as agents to deliver it to eligible recipients.",
+      "zorluk": "orta",
+      "kaynak": "Quran, at-Tawbah 9/60"
+    },
+    {
+      "id": "zekat_019",
+      "konu": "hak-sahipleri",
+      "soru": "Which statement about \"slaves\" among the 8 categories eligible to receive zakat is correct?",
+      "secenekler": [
+        "A) Zakat is given to slaves who want to escape",
+        "B) Zakat is given to slaves who want to purchase their freedom",
+        "C) Zakat is given only to Muslim slaves",
+        "D) Slaves are forbidden from receiving zakat"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Slaves who wish to purchase their freedom (mükâteb) may receive zakat. Zakat is given to support them in gaining their freedom.",
+      "zorluk": "orta",
+      "kaynak": "Quran, at-Tawbah 9/60"
+    },
+    {
+      "id": "zekat_020",
+      "konu": "hak-sahipleri",
+      "soru": "Who are \"İbni's-sebil\" (stranded travelers)?",
+      "secenekler": [
+        "A) Tired travelers returning from Hajj",
+        "B) Everyone who is unemployed in a city",
+        "C) Wealthy people who set out on a journey",
+        "D) Travelers who have run out of money and cannot return home"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "İbni's-sebil are travelers who have run out of money while traveling and are unable to return home. Even if they own property in their hometown, they may receive zakat because they are in need at that moment.",
+      "zorluk": "zor",
+      "kaynak": "Quran, at-Tawbah 9/60"
+    },
+    {
+      "id": "zekat_021",
+      "konu": "hak-sahipleri",
+      "soru": "Which of the following people cannot receive zakat?",
+      "secenekler": [
+        "A) Parents and children",
+        "B) Paternal uncles and aunts",
+        "C) Siblings",
+        "D) Neighbors"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Zakat cannot be given to parents, grandparents, sons, daughters, or grandchildren. The person giving zakat is already obligated to provide for them.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_022",
+      "konu": "temlik",
+      "soru": "What does the \"condition of transfer of ownership,\" which makes zakat valid, mean?",
+      "secenekler": [
+        "A) Zakat must be given during Ramadan",
+        "B) Zakat must be given to an individual rather than an organization",
+        "C) Ownership of the property must be transferred to the recipient",
+        "D) The person giving zakat must state their intention openly"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tamlik (transfer of ownership) means transferring ownership of property to another person. Zakat must be given in a way that leaves the recipient with full control over the property; therefore, providing someone with a meal does not count as zakat.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_023",
+      "konu": "temlik",
+      "soru": "Why does preparing a meal for a poor person and feeding them not count as zakat?",
+      "secenekler": [
+        "A) Because zakat cannot be food; it can only be money",
+        "B) Because providing a meal does not fulfill the condition of transfer of ownership",
+        "C) Because zakat can only be given to people who possess the nisab",
+        "D) Because food is not property subject to zakat"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "For zakat to be valid, tamlik, or transfer of ownership, is required. Preparing a meal and feeding someone does not count as zakat unless ownership of the property is transferred to the eligible recipient.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_024",
+      "konu": "mallar",
+      "soru": "Which of the following is not among the types of property subject to zakat?",
+      "secenekler": [
+        "A) Cash",
+        "B) Trade goods",
+        "C) Gold",
+        "D) The home a person lives in (a basic necessity)"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The home a person lives in is considered a basic necessity and is therefore not subject to zakat. Cash, trade goods, and gold are subject to zakat when they meet the nisab requirements.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_025",
+      "konu": "mallar",
+      "soru": "Which statement about zakat on shares is most accurate?",
+      "secenekler": [
+        "A) They may be subject to zakat depending on the intention and calculation method",
+        "B) They are not subject to zakat under any circumstances",
+        "C) Only dividends are subject to zakat; the principal value is never considered",
+        "D) Only government bonds are subject to zakat"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The calculation of zakat on shares may vary depending on intention and practice. Shares held for buying and selling are generally treated like trade goods; for long-term investments, there are different contemporary calculation methods.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_026",
+      "konu": "mallar",
+      "soru": "What characteristic must animals have to be subject to zakat?",
+      "secenekler": [
+        "A) Animals kept as pets in the city",
+        "B) Working animals",
+        "C) Sâime animals that graze freely in pasture",
+        "D) Poultry kept in cages"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Animals subject to zakat are sâime animals: animals that feed by grazing on pasture for most of the year. Working animals are not subject to zakat.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_027",
+      "konu": "mallar",
+      "soru": "A person's work tools and the vehicle they use are not subject to zakat. What is the reason for this?",
+      "secenekler": [
+        "A) They are difficult to sell",
+        "B) They are excluded from zakat because they are considered basic necessities",
+        "C) They are not nâmî (productive) property and their values are fixed",
+        "D) This rule applies only in non-Muslim countries"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The vehicle and work tools a person uses are considered basic necessities and are therefore excluded from zakat. Zakat applies to property in excess of basic necessities.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_028",
+      "konu": "fitre",
+      "soru": "When is fitrah (Sadaqat al-Fitr) given?",
+      "secenekler": [
+        "A) When the zakat nisab is reached",
+        "B) Before Eid al-Adha",
+        "C) When a Hijri year has passed",
+        "D) At the end of Ramadan, before the Eid prayer"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "It is more virtuous to give fitrah before the Eid prayer. If it is delayed, the obligation remains; it must still be paid.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_029",
+      "konu": "fitre",
+      "soru": "What is the main difference between zakat and sadaqah?",
+      "secenekler": [
+        "A) Zakat is obligatory and is given to 8 specified categories; sadaqah is voluntary and can be given to anyone",
+        "B) Zakat is given only in Ramadan; sadaqah can be given at any time",
+        "C) The amount of zakat is unspecified, while the amount of sadaqah is fixed",
+        "D) Zakat is given only as money; sadaqah can be given in any form"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Zakat is an obligatory act of worship, is subject to the nisab requirement, and is given to the 8 categories specified in at-Tawbah 9:60. Sadaqah is voluntary; its amount and timing are flexible, and it can be given to anyone.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "zekat_030",
+      "konu": "fitre",
+      "soru": "Which statement about the obligation to give fitrah is most accurate?",
+      "secenekler": [
+        "A) It is subject to exactly the same conditions as zakat",
+        "B) There is no financial means requirement",
+        "C) It applies to Muslims who have means beyond their basic needs",
+        "D) Only men are obliged to give fitrah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Fitrah is not subject to the same conditions as zakat; however, it is not an unrestricted obligation for everyone either. It applies to Muslims who have means beyond their basic needs.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    }
+  ]
+}

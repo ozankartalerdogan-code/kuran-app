@@ -4,6 +4,10 @@ import * as Location from "expo-location";
 import { Platform } from "react-native";
 import { api } from "./api";
 import { storage, STORAGE_KEYS } from "./storage";
+import { localizedMeal } from "./englishMeal";
+import { getStrings, fmt } from "../i18n";
+import notifStrings from "../i18n/strings/notifications";
+import prayerNameStrings from "../i18n/strings/prayerNames";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -240,7 +244,7 @@ const ANDROID_CHANNEL_ID_DAILY  = "gunun-ayeti";
 async function ensureAndroidChannel(): Promise<void> {
   if (Platform.OS !== "android") return;
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_PRAYER, {
-    name:             "Namaz Vakitleri",
+    name:             getStrings(notifStrings).channelPrayer,
     importance:       Notifications.AndroidImportance.HIGH,
     // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
     // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
@@ -249,7 +253,7 @@ async function ensureAndroidChannel(): Promise<void> {
     lightColor:       "#059669",
   });
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
-    name:             "Günün Ayeti ve Duası",
+    name:             getStrings(notifStrings).channelDaily,
     importance:       Notifications.AndroidImportance.HIGH,
     // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
     // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
@@ -294,7 +298,9 @@ type ValidVakit = { key: string; label: string; hour: number; minute: number };
 
 function parseValid(times: PrayerTimes): ValidVakit[] {
   const valid: ValidVakit[] = [];
-  for (const { key, label } of VAKITLER) {
+  const names = getStrings(prayerNameStrings) as unknown as Record<string, string>;
+  for (const { key, label: trLabel } of VAKITLER) {
+    const label = names[key] ?? trLabel;
     const timeStr = times[key];
     if (!timeStr) continue;
     const [hour, minute] = timeStr.split(":").map(Number);
@@ -317,6 +323,7 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
   );
   const verseByKey = new Map(vakitKeys.map((key, i) => [key, verses[i]]));
 
+  const ns = getStrings(notifStrings);
   const jobs: Promise<string>[] = [];
   for (const { date, times } of days) {
     for (const { key, label, hour, minute } of parseValid(times)) {
@@ -329,8 +336,8 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
       jobs.push(
         Notifications.scheduleNotificationAsync({
           content: {
-            title: `🕌 ${label} Vakti Girdi`,
-            body:  `${label} vakti girdi, namaza hazırlanabilirsiniz.${verseLine}`,
+            title: fmt(ns.prayerTitle, { label }),
+            body:  `${fmt(ns.prayerBody, { label })}${verseLine}`,
             sound: true,
             data:  { route: "/namaz" },
           },
@@ -368,12 +375,13 @@ async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void
   const daily = await api.daily.get().catch(() => null);
   if (!daily) return;
   const slots = computeGapSlots(times);
+  const ns = getStrings(notifStrings);
   const items = [
     daily.verse?.meal
-      ? { title: "📖 Günün Ayeti", body: daily.verse.meal, sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
+      ? { title: ns.dailyVerse, body: localizedMeal({ surah: daily.verse.surah_id, ayah: daily.verse.ayah_number }, daily.verse.meal), sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
       : null,
     daily.dua?.meal
-      ? { title: "🤲 Günün Duası", body: daily.dua.meal, sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
+      ? { title: ns.dailyDua, body: localizedMeal({ surah: daily.dua.surah_id, ayah: daily.dua.ayah_number }, daily.dua.meal), sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
       : null,
   ].filter((x): x is NonNullable<typeof x> => !!x && !!x.slot);
 
@@ -516,4 +524,16 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
     await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
     await storage.setString(SCHED_DAY_KEY, today);
   } catch { /* sessiz — eldeki planlama korunur, bir sonraki açılışta tekrar denenir */ }
+}
+
+// Dil değişince planlı bildirim metinleri eski dilde kalır: yalnız bildirimler
+// zaten yapılandırılmışsa günlük "taze" damgasını silip yeniden planlatır.
+export async function rescheduleNotificationsForLanguageChange(): Promise<void> {
+  const [pvRaw, dvRaw] = await Promise.all([
+    storage.getString(NOTIF_KEY),
+    storage.getString(DAILY_VERSE_KEY),
+  ]);
+  if (pvRaw !== "1" && dvRaw !== "1") return;
+  await storage.remove(SCHED_DAY_KEY);
+  await ensureNotificationsFresh();
 }

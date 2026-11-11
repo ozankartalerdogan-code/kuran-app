@@ -1,0 +1,113 @@
+{
+  "ders_id": "iman-esaslari",
+  "baslik": "Articles of Faith",
+  "aciklama": "Learn the six articles of iman, the fundamental beliefs of Islam.",
+  "kartlar": [
+    {
+      "id": "iman_k01",
+      "tip": "metin",
+      "baslik": "What Is Iman?",
+      "icerik": "According to the hadith of Jibril, iman is: \"Iman is to believe in Allah, His angels, His books, His prophets, the Last Day, and divine decree, both its good and its evil.\" (Bukhari, Iman 37; Muslim, Iman 1)\n\nJibril (peace be upon him) came to the Prophet ﷺ in human form and asked him about Islam, iman, and ihsan (worshipping Allah with an awareness as though one sees Him). This hadith is regarded as a fundamental source for the six articles of iman.",
+      "vurgu": "The six articles of iman — the hadith of Jibril (Bukhari and Muslim)"
+    },
+    {
+      "id": "iman_k02",
+      "tip": "metin",
+      "baslik": "The Difference Between the Five Pillars of Islam and the Six Articles of Iman",
+      "icerik": "The Five Pillars of Islam (acts of worship):\n• The declaration of faith\n• Salah (prayer)\n• Sawm (fasting)\n• Zakat\n• Hajj\n\nThe Six Articles of Iman (beliefs held in the heart):\n• Belief in Allah\n• Belief in the angels\n• Belief in the books\n• Belief in the prophets\n• Belief in the Last Day\n• Belief in divine will and decree\n\nIslam refers to outward acts of worship, while iman refers to inward principles of belief.",
+      "vurgu": "The pillars of Islam concern actions · The articles of iman concern the heart"
+    },
+    {
+      "id": "iman_k03",
+      "tip": "metin",
+      "baslik": "Belief in Allah (Tawhid)",
+      "icerik": "Tawhid is the belief that Allah is One and Unique, with no partner or equal. This is the first and most fundamental article of iman.\n\nAllah is without beginning and without end, needs nothing, and is the Creator and Owner of everything.\n\nSurah al-Ikhlas (112:1–4):\n\"Say: He is Allah, the One and Unique.\nAllah is as-Samad (everything depends on Him, and He depends on nothing).\nHe neither begets nor was He born.\nNothing is equal to Him.\"",
+      "vurgu": "Tawhid: Allah is One and Unique, with no partner or equal — al-Ikhlas 112:1–4"
+    },
+    {
+      "id": "iman_k04",
+      "tip": "metin",
+      "baslik": "Belief in the Angels",
+      "icerik": "Angels are beings created by Allah from light who cannot be seen by the eye.\n\nTheir main characteristics:\n• They were created from light\n• They do not sin; they obey Allah's commands without exception\n• They can take any form\n• They do not eat, drink, or sleep\n• They have no gender\n\nBelief in the angels, who are Allah's servants and carry out His commands, is the second article of iman.",
+      "vurgu": "Angels are beings created from light who do not sin"
+    },
+    {
+      "id": "iman_k05",
+      "tip": "metin",
+      "baslik": "The Four Great Angels and Their Duties",
+      "icerik": "The four great angels and their duties:\n\n• Jibril (peace be upon him): He is tasked with conveying Allah's revelation (divine knowledge from Allah) to the prophets. In the Quran, he is also called \"Ruh-ul Kudüs\" (the holy or pure spirit) and \"Ruh-ul Emin\" (the trustworthy spirit).\n\n• Mikail (peace be upon him): By Allah's permission, he carries out duties related to rain, wind, and natural events.\n\n• Israfil (peace be upon him): He will blow the sur (a divine call or trumpet whose exact nature we cannot fully know) for the coming of the Day of Judgment and the resurrection of people.\n\n• Azrail (peace be upon him): He is tasked with taking souls; he is known as melek-ül mevt (the angel of death).",
+      "vurgu": "Jibril: revelation · Mikail: nature · Israfil: the trumpet · Azrail: taking souls"
+    },
+    {
+      "id": "iman_k06",
+      "tip": "metin",
+      "baslik": "Other Angels",
+      "icerik": "Besides the four great angels, there are other angels with special duties:\n\n• Kiramen Katibin (the noble scribes): These angels are on each person's right and left, recording their deeds (good and bad actions).\n\n• Münker and Nekir: These angels are tasked with questioning a person in the grave after death. The questions \"Who is your Lord? What is your religion? Who is your prophet?\" are discussed under this topic.\n\n• Hafaza Angels (guardian angels): These angels are tasked with protecting people by Allah's permission.",
+      "vurgu": "Kiramen Katibin: record deeds · Münker and Nekir: ask questions in the grave"
+    },
+    {
+      "id": "iman_k07",
+      "tip": "metin",
+      "baslik": "Belief in the Books",
+      "icerik": "Allah sent divine books to humanity through His prophets. The four great books are:\n\n• The Torah → revealed to Moses (peace be upon him)\n• The Psalms → revealed to David (peace be upon him)\n• The Gospel → revealed to Jesus (peace be upon him)\n• The Noble Quran → revealed to Muhammad ﷺ\n\nMuslims believe that these books were sent by Allah. The Quran is the final divine book, which Allah has protected, confirming previous revelations and correcting their distortions (alterations or changes that occurred later).\nVerse: \"Indeed, We sent down the Reminder, and indeed, We will preserve it.\" (al-Hijr, 15:9)",
+      "vurgu": "Torah · Psalms · Gospel · Quran — the Quran is the preserved final book"
+    },
+    {
+      "id": "iman_k08",
+      "tip": "metin",
+      "baslik": "Suhuf (Scriptures)",
+      "icerik": "In addition to the great books, some prophets were given shorter pages of revelation. These pages are called suhuf (scriptures, meaning divine pages).\n\nIn common teachings on Islamic belief and practice, the prophets who received suhuf are taught as follows:\n• Adam (peace be upon him): 10 pages\n• Seth (peace be upon him): 50 pages\n• Idris (peace be upon him): 30 pages\n• Abraham (peace be upon him): 10 pages\n\nSome sources also mention the tablets or pages given to Moses (peace be upon him) separately. These pages have not survived to the present day in their original form.",
+      "vurgu": "Suhuf: Adam 10 · Seth 50 · Idris 30 · Abraham 10 pages"
+    },
+    {
+      "id": "iman_k09",
+      "tip": "metin",
+      "baslik": "Belief in the Prophets",
+      "icerik": "Allah sent prophets throughout history to guide people to the right path.\n\n• The first prophet: Adam (peace be upon him)\n• The last prophet: Muhammad ﷺ — \"Hatemü'n-Nebiyyîn\" (the Seal of the Prophets, meaning the final prophet)\n• The Quran mentions 25 prophets by name\n• A Muslim believes in all the prophets sent by Allah; knowingly rejecting one of the prophets is a serious problem for one's iman\n\nVerse: \"Muhammad is not the father of any of your men, but he is the Messenger of Allah and the last of the prophets.\" (al-Ahzab, 33:40)",
+      "vurgu": "First: Adam (peace be upon him) · Last: Muhammad ﷺ · No distinction is made between them"
+    },
+    {
+      "id": "iman_k10",
+      "tip": "metin",
+      "baslik": "The Difference Between a Nabi and a Rasul",
+      "icerik": "In classical sources, prophets are discussed under the categories of nabi and rasul:\n\nNabi: A prophet who receives revelation (divine knowledge from Allah) but does not bring a new sharia (a system of religious rulings and practices).\n\nRasul: A prophet who is given a new sharia or a special mission to convey a message that renews previous rulings.\n\nThe basic rule:\n• Every rasul is also a nabi\n• But not every nabi is a rasul\n• There are fewer rasuls and more nabis",
+      "vurgu": "Every rasul is a nabi · But not every nabi is a rasul"
+    },
+    {
+      "id": "iman_k11",
+      "tip": "metin",
+      "baslik": "Belief in the Last Day",
+      "icerik": "Belief in the Last Day encompasses belief in all stages of life after death:\n\n• Life in the Grave: The period of barzakh (transition) from death until the Day of Judgment\n• The Day of Judgment: The end of the world and the universe\n• Ba's (resurrection): The raising of all people to life again\n• Mahşer (the gathering place): The gathering of all people for judgment\n• Mizan (the divine measure or scale): The weighing of deeds\n• Sırat (the bridge of the Hereafter): Crossing the bridge over Hell\n• Paradise and Hell: Places of eternal reward and punishment",
+      "vurgu": "The grave → The Day of Judgment → The gathering → The scale → The bridge → Paradise or Hell"
+    },
+    {
+      "id": "iman_k12",
+      "tip": "metin",
+      "baslik": "Life in the Grave",
+      "icerik": "The life in the grave, which begins after death, is the life of barzakh (the transitional life).\n\nIt is narrated that during the questioning in the grave, the angels Munkar and Nakir will ask these fundamental questions:\n1. \"Who is your Lord?\"\n2. \"What is your religion?\"\n3. \"Who is your prophet?\"\n\nFor a person who lives with iman, there is blessing in the grave; for those who die in disbelief and hypocrisy, there is punishment in the grave. The final judgment concerning sinful believers rests with Allah's mercy and justice.\n\nLife in the grave continues until the Day of Judgment.",
+      "vurgu": "Munkar and Nakir: Who is your Lord? What is your religion? Who is your prophet?"
+    },
+    {
+      "id": "iman_k13",
+      "tip": "metin",
+      "baslik": "Signs of the Day of Judgment",
+      "icerik": "The signs of the Day of Judgment are divided into two groups:\n\nMinor Signs: Many indications that the Day of Judgment is approaching (the decline of knowledge, the increase of evil, the spread of turmoil and wars, etc.).\n\nMajor Signs: Major events reported to occur very close to the Day of Judgment. Ten signs are listed in Muslim, Fitan 39:\n• The emergence of the Dajjal (a liar and deceiver who will be a cause of great turmoil)\n• The descent of Prophet Isa (the Messiah: Allah's prophet Isa) to earth\n• The emergence of Ya'juj and Ma'juj (great destructive peoples)\n• The sun rising from the west\n• The appearance of smoke, known as dukhan\n• The appearance of Dabbat al-Ard (a special creature or sign reported to emerge from the earth)\n• A great landslide in the east\n• A great landslide in the west\n• A landslide in the Arabian Peninsula\n• A great fire emerging from Yemen that will drive people to the place of gathering for judgment\n\nThese matters belong to the unseen (the realm beyond sensory knowledge); one believes in them to the extent reported by authentic sources, without speaking definitively about their details.",
+      "vurgu": "The major signs are matters of the unseen; they are described to the extent reported by the sources"
+    },
+    {
+      "id": "iman_k14",
+      "tip": "metin",
+      "baslik": "Belief in Qada and Qadar",
+      "icerik": "The sixth article of iman is belief in qadar.\n\nQadar: Allah's knowing, decreeing and recording all things in eternity (through His knowledge, which has no beginning).\n\nQada: The realization of what Allah has decreed through its creation when its time comes.\n\nThe definition of iman in the hadith of Jibril: \"...to believe in qadar, both its good and its evil.\" (Bukhari, Iman 37; Muslim, Iman 1)\n\nBelief in qadar does not remove a person's free will or responsibility. A person is obliged to choose what is right; the outcome takes place within Allah's knowledge, power and decree.",
+      "vurgu": "Qadar: Allah's eternal knowledge · Qada: the creation of events"
+    },
+    {
+      "id": "iman_k15",
+      "tip": "metin",
+      "baslik": "Differences Between Schools of Thought",
+      "icerik": "The main framework of the articles of iman is shared among Muslims: belief in Allah, His angels, His books, His prophets, the Hereafter and qadar.\n\nScholars have offered different explanations on some details:\n\n• The Maturidi/Hanafi tradition: The essence of iman is affirmation (confirmation in the heart). Deeds are a very important result and complement of iman; however, a person who commits a major sin is not considered to have left the religion for that reason alone.\n\n• In the Ash'ari and Hanbali traditions: Greater emphasis is placed on how deeds strengthen iman. Emphasis is placed on iman growing stronger through worship and weaker through sin.\n\n• The question of qadar: Ahl al-Sunnah (the main Maturidi and Ash'ari traditions) affirms Allah's knowledge and creation while also upholding human free will and responsibility. Some schools, such as the Mu'tazilah, have explained human will differently.\n\n• Within Shia Islam, the Imami Shia in particular give special importance to the imamate (the religious guidance of imams descended from Ali).\n\nFor a new learner, the basic guideline is this: Learn the six articles of iman correctly, live with a sense of responsibility, and do not rush to judgment on detailed debates between schools of thought.\n\n🎉 You have completed the Articles of Iman lesson! For more verses and explanations, you can explore the Belief section of the {{link:ibadet-inanc|Worship Guide}}; if you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "The main articles of iman are shared; the details should be explained simply and carefully when learning"
+    }
+  ],
+  "quiz_havuzu_id": "iman-esaslari"
+}

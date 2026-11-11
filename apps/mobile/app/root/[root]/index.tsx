@@ -14,6 +14,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
+import { useStrings, getStrings, fmt, useLang } from "../../../src/i18n";
+import rootStrings from "../../../src/i18n/strings/root";
 
 function lerpHex(from: string, to: string, t: number): string {
   const a = parseInt(from.slice(1), 16);
@@ -68,6 +70,8 @@ const HeatGrid = memo(function HeatGrid({
   maxCount: number;
   c: AppColors;
 }) {
+  const t = useStrings(rootStrings);
+  const lang = useLang();
   const [modalInfo, setModalInfo] = useState<{ surahId: number; count: number } | null>(null);
 
   return (
@@ -85,12 +89,12 @@ const HeatGrid = memo(function HeatGrid({
               onPress={() => count > 0 && setModalInfo({ surahId: id, count })}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={`${id}. sure ${SURAH_SHORT[id] ?? ""}`.trim()}
-              accessibilityHint={isDisabled ? "Bu surede bu kök geçmiyor" : `${count} geçiş bilgisini açar`}
+              accessibilityLabel={fmt(t.surahA11y, { n: id, name: lang === "en" ? "" : (SURAH_SHORT[id] ?? "") }).trim()}
+              accessibilityHint={isDisabled ? t.notInSurah : fmt(t.occurrencesHint, { n: count })}
               accessibilityState={{ disabled: isDisabled }}
             >
               <Text style={[hg.cellText, { color: cell.text }]}>
-                {SURAH_SHORT[id] ?? id}
+                {lang === "en" ? id : (SURAH_SHORT[id] ?? id)}
               </Text>
             </TouchableOpacity>
           );
@@ -108,13 +112,13 @@ const HeatGrid = memo(function HeatGrid({
           activeOpacity={1}
           onPress={() => setModalInfo(null)}
           accessibilityRole="button"
-          accessibilityLabel="Sure bilgi penceresini kapat"
+          accessibilityLabel={t.closeInfoA11y}
         >
           <View style={[hg.modalCard, { backgroundColor: c.card, borderColor: c.border }]}>
             {modalInfo && (
               <>
-                <Text style={[hg.modalSurah, { color: c.text }]}>{modalInfo.surahId}. Sure</Text>
-                <Text style={[hg.modalCount, { color: c.textMuted }]}>{modalInfo.count} geçiş</Text>
+                <Text style={[hg.modalSurah, { color: c.text }]}>{fmt(t.surahN, { n: modalInfo.surahId })}</Text>
+                <Text style={[hg.modalCount, { color: c.textMuted }]}>{fmt(t.occurrences, { n: modalInfo.count })}</Text>
                 <TouchableOpacity
                   style={[hg.modalBtn, { backgroundColor: c.accent }]}
                   onPress={() => {
@@ -122,9 +126,9 @@ const HeatGrid = memo(function HeatGrid({
                     router.push(`/surah/${modalInfo.surahId}`);
                   }}
                   accessibilityRole="button"
-                  accessibilityLabel={`${modalInfo.surahId}. sureye git`}
+                  accessibilityLabel={fmt(t.goToSurahA11y, { n: modalInfo.surahId })}
                 >
-                  <Text style={hg.modalBtnText}>Sureye Git →</Text>
+                  <Text style={hg.modalBtnText}>{t.goToSurah}</Text>
                 </TouchableOpacity>
               </>
             )}
@@ -150,6 +154,7 @@ const MeaningGroup = memo(function MeaningGroup({
   onToggle: (meaning: string) => void;
   c: AppColors;
 }) {
+  const t = useStrings(rootStrings);
   return (
     <View style={[s.accordionCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
@@ -157,14 +162,14 @@ const MeaningGroup = memo(function MeaningGroup({
         onPress={() => onToggle(meaning)}
         activeOpacity={0.7}
         accessibilityRole="button"
-        accessibilityLabel={`${meaning} anlam grubu`}
-        accessibilityHint={`${verses.length} ayet içeren kullanım bağlamını ${isOpen ? "kapatır" : "açar"}`}
+        accessibilityLabel={fmt(t.meaningGroupA11y, { meaning })}
+        accessibilityHint={fmt(t.groupHint, { n: verses.length, action: isOpen ? t.actionClose : t.actionOpen })}
         accessibilityState={{ expanded: isOpen }}
       >
         <View style={{ flex: 1 }}>
           <Text style={[s.accordionTitle, { color: c.text }]}>
             {meaning}
-            <Text style={[s.accordionCount, { color: c.accent }]}> — {verses.length} ayet</Text>
+            <Text style={[s.accordionCount, { color: c.accent }]}>{fmt(t.versesCount, { n: verses.length })}</Text>
           </Text>
           <Text style={[s.accordionForms, { color: c.textMuted }]} numberOfLines={1}>
             {forms.join(" · ")}
@@ -185,15 +190,15 @@ const MeaningGroup = memo(function MeaningGroup({
               onPress={() => router.push(`/ayah/${verse.surahId}/${verse.ayahNumber}`)}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={`${verse.surahId} sure ${verse.ayahNumber}. ayet`}
-              accessibilityHint="Ayet detayını açar"
+              accessibilityLabel={fmt(t.verseA11y, { s: verse.surahId, a: verse.ayahNumber })}
+              accessibilityHint={t.opensVerse}
             >
               <Text style={[s.verseChipText, c.isDark && { color: "#6ee7b7" }]}>{verse.surahId}:{verse.ayahNumber}</Text>
             </TouchableOpacity>
           ))}
           {verses.length > 80 && (
             <View style={s.verseMore}>
-              <Text style={[s.verseMoreText, { color: c.textMuted }]}>+{verses.length - 80} ayet daha</Text>
+              <Text style={[s.verseMoreText, { color: c.textMuted }]}>{fmt(t.moreVerses, { n: verses.length - 80 })}</Text>
             </View>
           )}
         </View>
@@ -204,6 +209,7 @@ const MeaningGroup = memo(function MeaningGroup({
 
 export default function RootDetailScreen() {
   const c = useColors();
+  const t = useStrings(rootStrings);
   const insets = useSafeAreaInsets();
   const heatmapTarget = useTourTarget("root.heatmap");
   const tourScroll = useTourScroller<FlatList>();
@@ -224,7 +230,7 @@ export default function RootDetailScreen() {
       setData(null);
       setOpenMeaning(null);
       setOthersOpen(false);
-      setError("Geçersiz kök bağlantısı.");
+      setError(getStrings(rootStrings).invalidLink);
       setLoading(false);
       return;
     }
@@ -242,7 +248,7 @@ export default function RootDetailScreen() {
       setData(detail);
     } catch {
       if (!isMountedRef.current || requestIdRef.current !== currentRequestId) return;
-      setError("Kök detayı yüklenemedi.");
+      setError(getStrings(rootStrings).detailError);
     } finally {
       if (isMountedRef.current && requestIdRef.current === currentRequestId) {
         setLoading(false);
@@ -275,7 +281,7 @@ export default function RootDetailScreen() {
   if (loading) {
     return (
       <>
-        <Stack.Screen options={{ title: root || "Kelime Kökleri" }} />
+        <Stack.Screen options={{ title: root || t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
           <ActivityIndicator size="large" color="#059669" />
         </View>
@@ -286,25 +292,25 @@ export default function RootDetailScreen() {
   if (error || !data) {
     return (
       <>
-        <Stack.Screen options={{ title: root || "Kelime Kökleri" }} />
+        <Stack.Screen options={{ title: root || t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
-          <Text style={s.errorText}>{error ?? "Veri yüklenemedi."}</Text>
+          <Text style={s.errorText}>{error ?? t.dataError}</Text>
           <View style={s.errorActions}>
             <TouchableOpacity
               style={s.retryBtn}
               onPress={() => { void fetchDetail(root); }}
               accessibilityRole="button"
-              accessibilityLabel="Kök detayını yeniden dene"
+              accessibilityLabel={t.retryDetailA11y}
             >
-              <Text style={s.retryBtnText}>Tekrar Dene</Text>
+              <Text style={s.retryBtnText}>{t.retry}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={s.backBtn}
               onPress={() => router.back()}
               accessibilityRole="button"
-              accessibilityLabel="Önceki ekrana dön"
+              accessibilityLabel={t.backA11y}
             >
-              <Text style={s.backBtnText}>← Geri</Text>
+              <Text style={s.backBtnText}>{t.back}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -341,12 +347,12 @@ export default function RootDetailScreen() {
               <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
               {displayMeaning ? (
                 <>
-                  <Text style={[s.meaningLabel, { color: c.textMuted }]}>Kök anlamı</Text>
+                  <Text style={[s.meaningLabel, { color: c.textMuted }]}>{t.rootMeaning}</Text>
                   <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text>
                 </>
               ) : null}
               <View style={s.statsRow}>
-                {([[totalOccurrences, "geçiş"], [surahCount, "sure"], [uniqueForms, "türev"]] as const).map(([num, label]) => (
+                {([[totalOccurrences, t.statOcc], [surahCount, t.statSurah], [uniqueForms, t.statDerived]] as const).map(([num, label]) => (
                   <View key={label} style={[s.statBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
                     <Text style={[s.statNum, c.isDark && { color: "#6ee7b7" }]}>{num}</Text>
                     <Text style={[s.statLabel, c.isDark && { color: "#34d399" }]}>{label}</Text>
@@ -356,16 +362,16 @@ export default function RootDetailScreen() {
             </View>
 
             <View {...heatmapTarget} style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
-              <Text style={[s.sectionTitle, { color: c.text }]}>Sure Dağılımı</Text>
-              <Text style={[s.sectionHint, { color: c.textMuted }]}>Renkli hücreye dokun → sure bilgisi</Text>
+              <Text style={[s.sectionTitle, { color: c.text }]}>{t.distribution}</Text>
+              <Text style={[s.sectionHint, { color: c.textMuted }]}>{t.distributionHint}</Text>
               <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} />
             </View>
 
             {groups.primary.length > 0 && (
               <>
-                <Text style={[s.groupsTitle, { color: c.text }]}>Kullanım Bağlamları ({groups.primary.length})</Text>
+                <Text style={[s.groupsTitle, { color: c.text }]}>{fmt(t.contexts, { n: groups.primary.length })}</Text>
                 <Text style={[s.groupsHint, { color: c.textMuted }]}>
-                  Bu kökten türeyen kelimelerin ayet içindeki anlamları — kökün genel anlamından farklılaşabilir.
+                  {t.contextsHint}
                 </Text>
               </>
             )}
@@ -389,12 +395,12 @@ export default function RootDetailScreen() {
                 onPress={() => setOthersOpen((o) => !o)}
                 activeOpacity={0.6}
                 accessibilityRole="button"
-                accessibilityLabel={`Diğer anlamlar, ${groups.others.length} anlam`}
-                accessibilityHint="Nadir kullanılan anlamları açar veya kapatır"
+                accessibilityLabel={fmt(t.othersA11y, { n: groups.others.length })}
+                accessibilityHint={t.othersHint}
                 accessibilityState={{ expanded: othersOpen }}
               >
                 <Text style={[s.otherToggleText, { color: c.textMuted }]}>
-                  Diğer anlamlar ({groups.others.length})
+                  {fmt(t.others, { n: groups.others.length })}
                 </Text>
                 <Text style={[s.otherToggleChevron, { color: c.textMuted }, othersOpen && { transform: [{ rotate: "180deg" }] }]}>▾</Text>
               </TouchableOpacity>

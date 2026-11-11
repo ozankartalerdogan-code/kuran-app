@@ -1,0 +1,92 @@
+{
+  "ders_id": "kitaplara-iman",
+  "baslik": "Belief in the Books",
+  "aciklama": "Learn about belief in the divine books Allah sent to His prophets in a simple and reliable framework.",
+  "kartlar": [
+    {
+      "id": "kitaplar_k01",
+      "tip": "metin",
+      "baslik": "What Is Belief in the Books?",
+      "icerik": "Belief in the books means believing that Allah sent revelation and divine books to His prophets. This is one of the fundamental tenets of iman. In the hadith of Jibril, iman is taught as belief in Allah, His angels, His books, His prophets, the Last Day, and divine decree.\n\nA believer has faith not only in the Quran but also in the true revelations Allah sent before it. The Quran praises believers for believing in both what was revealed to them and what was revealed before.\n\nSources: Bukhari, Iman 37; Muslim, Iman 1; al-Baqarah 2:4; an-Nisa 4:136.",
+      "vurgu": "Belief in the books is one of the six articles of iman"
+    },
+    {
+      "id": "kitaplar_k02",
+      "tip": "metin",
+      "baslik": "Why Did Allah Send Books?",
+      "icerik": "Human beings cannot find complete guidance in every matter through their own reason alone. Therefore, Allah sent prophets and sent down revelation and books with them. Divine books teach people what to believe, how to live, and which boundaries to observe.\n\nA prophet and the book cannot be considered separately. The prophet conveys the message, and the book carries it. A Muslim makes no distinction between the prophets Allah sent when it comes to believing in them.\n\nSource: al-Baqarah 2:136.",
+      "vurgu": "The prophet carries revelation, and the book explains it"
+    },
+    {
+      "id": "kitaplar_k03",
+      "tip": "metin",
+      "baslik": "The Four Major Divine Books",
+      "icerik": "In Islamic belief, there are four major divine books whose names are explicitly known:\n\n• The Torah — revealed to Prophet Musa\n• The Zabur — given to Prophet Dawud\n• The Injil — given to Prophet Isa\n• The Noble Quran — revealed to Prophet Muhammad\n\nAll of these books originally came from Allah. Therefore, a Muslim does not look down on the original forms of the earlier books, but sees them as part of the chain of revelation.",
+      "vurgu": "The Torah, Zabur, Injil, and Quran share the same divine source"
+    },
+    {
+      "id": "kitaplar_k04",
+      "tip": "metin",
+      "baslik": "The Torah",
+      "icerik": "The Torah is the divine book revealed to Prophet Musa. The Quran states that the Torah originally contained guidance and light. This teaches us that the Torah in its original form was a true book from Allah.\n\nA Muslim's fundamental duty is to believe that Prophet Musa was given a divine book. When discussing present-day historical details, the Quran remains the final criterion.\n\nSource: al-Ma'idah 5:44.",
+      "vurgu": "The original Torah is guidance and light from Allah"
+    },
+    {
+      "id": "kitaplar_k05",
+      "tip": "metin",
+      "baslik": "The Zabur",
+      "icerik": "The Zabur is the divine book given to Prophet Dawud. The Quran states this clearly. The Zabur is associated especially with the language of supplication, remembrance, worship, and turning to Allah.\n\nThe Quran also states that the truth that righteous servants will inherit the earth was written in the Zabur. This shows that the connection between the earlier revelations and the Quran continues.\n\nSources: al-Isra 17:55; al-Anbiya 21:105.",
+      "vurgu": "The Zabur is also a true link in the chain of revelation"
+    },
+    {
+      "id": "kitaplar_k06",
+      "tip": "metin",
+      "baslik": "The Injil",
+      "icerik": "The Injil is the divine book given to Prophet Isa. The Quran states that the Injil originally contained guidance and light and that it confirmed the earlier revelation.\n\nTherefore, a Muslim does not deny the true Injil given to Prophet Isa. But when discussing the texts available today, a Muslim also remembers that the Quran is the final criterion.\n\nSource: al-Ma'idah 5:46.",
+      "vurgu": "The true Injil given to Prophet Isa is also revelation from Allah"
+    },
+    {
+      "id": "kitaplar_k07",
+      "tip": "metin",
+      "baslik": "The Noble Quran",
+      "icerik": "The Quran is the final divine book revealed to Prophet Muhammad. It confirms the earlier revelations and gives people the final and clear criterion. The Quran is the book whose rulings remain valid until the Day of Judgment.\n\nOne of the Quran's most important characteristics is that it has been preserved by Allah. For this reason, the Quran is the final criterion for a Muslim in matters of belief and religion.\n\nSource: al-Hijr 15:9.",
+      "vurgu": "The Quran is the preserved final divine book"
+    },
+    {
+      "id": "kitaplar_k08",
+      "tip": "metin",
+      "baslik": "How Does the Quran Relate to the Earlier Books?",
+      "icerik": "The Quran confirms that the earlier divine books came from Allah. At the same time, it is a guide that watches over them and serves as a criterion. In other words, the Quran confirms the original forms of the earlier books and serves as the criterion that distinguishes truth from falsehood where people have introduced changes.\n\nTherefore, when considering the earlier books, a Muslim maintains the balance shown by the Quran: neither denying them outright nor accepting everything without a criterion.\n\nSources: Al Imran 3:3-4; al-Ma'idah 5:48.",
+      "vurgu": "The Quran confirms the earlier revelations and establishes the criterion"
+    },
+    {
+      "id": "kitaplar_k09",
+      "tip": "metin",
+      "baslik": "Belief in Their Original Forms and Caution Regarding Today's Texts",
+      "icerik": "Muslims believe in the original forms of the Torah, Zabur, and Injil that came from Allah. They speak cautiously about the texts available today, because the Quran is the definitive criterion.\n\nThis is also the balance taught by the Prophet ﷺ: it is neither right to immediately confirm everything the People of the Book say nor to reject everything outright. What agrees with the Quran is accepted; what contradicts it is rejected; and caution is exercised regarding matters about which there is no certain knowledge.\n\nSource: Bukhari, Tawhid 51.",
+      "vurgu": "We believe in the original forms of the earlier books and retain the Quran as our criterion regarding today's texts"
+    },
+    {
+      "id": "kitaplar_k10",
+      "tip": "metin",
+      "baslik": "What Are the Suhuf?",
+      "icerik": "In addition to the major books, some prophets were also given shorter divine scrolls. These are called suhuf. The suhuf are described as containing brief advice, reminders of fundamental beliefs, and messages of wisdom.\n\nFor a beginner, the key point here is that Allah's revelation is not limited to the four major books. However, the number of the suhuf and some historical details should not be presented as certain knowledge.",
+      "vurgu": "Allah sent revelation to different prophets in different forms"
+    },
+    {
+      "id": "kitaplar_k11",
+      "tip": "metin",
+      "baslik": "How Should We Speak About This Subject?",
+      "icerik": "A Muslim speaks respectfully because they believe in the original forms of the earlier books. Language that belittles or mocks followers of other religions, or becomes harsh for the sake of argument, is inappropriate.\n\nBeing respectful does not mean making our beliefs unclear. We remain clear about our iman, accept the Quran as our criterion, and speak to people in a gracious manner.\n\nSource: al-Ankabut 29:46.",
+      "vurgu": "We speak respectfully while retaining our criterion"
+    },
+    {
+      "id": "kitaplar_k12",
+      "tip": "metin",
+      "baslik": "Summary: Balance in Belief in the Books",
+      "icerik": "Balance in belief in the books means believing in all of Allah's true revelations, affirming the original forms of the four major books, knowing that the Quran is the final and preserved book, and evaluating today's historical texts by the criterion of the Quran.\n\nThis balance preserves both respect and clarity of belief. In this way, a Muslim remains committed to the Quran without denying the earlier revelations.\n\nYou have completed the Belief in the Books lesson! If you wish, you can revisit these topics in the Belief section of the {{link:ibadet-inanc|Worship Guide}}.",
+      "vurgu": "Respect and clarity of belief are preserved together"
+    }
+  ],
+  "quiz_havuzu_id": "kitaplara-iman"
+}

@@ -1,0 +1,119 @@
+{
+  "ders_id": "kurban",
+  "baslik": "Qurbani",
+  "aciklama": "Learn the basics of Qurbani in light of the Qur'an, authentic hadiths, and the widely followed framework of Islamic practice.",
+  "kartlar": [
+    {
+      "id": "kurban_k01",
+      "tip": "metin",
+      "baslik": "What Is Qurbani?",
+      "icerik": "Qurbani is an act of worship performed by slaughtering an animal that meets certain conditions, in the prescribed manner, on specified days, for the sake of Allah. In Arabic, words such as udhiyye and kurban are used for this act of worship.\n\nQurbani is not merely a process of obtaining meat. Its essence is to keep servitude to Allah, submission, gratitude, and sharing alive. For this reason, Qurbani is an act of worship that touches both the heart and society.",
+      "vurgu": "Qurbani is a means of drawing closer to Allah, performed primarily with the intention of worship, not for meat"
+    },
+    {
+      "id": "kurban_k02",
+      "tip": "metin",
+      "baslik": "The Basis of Qurbani in the Qur'an",
+      "icerik": "The Qur'an states that acts of worship such as sacrifice, during which Allah's name is mentioned, have been prescribed for every community. It also states that sacrificial animals are among the symbols of Allah and that there is good in them for people.\n\nThese verses show that Qurbani is an act of worship given meaning by revelation, not a tradition without roots. Mentioning Allah's name when slaughtering the animal is central to this act of worship.\n\nReferences: al-Hajj 22:34; al-Hajj 22:36.",
+      "vurgu": "The essence of Qurbani is turning to Allah while mentioning His name"
+    },
+    {
+      "id": "kurban_k03",
+      "tip": "metin",
+      "baslik": "Prophet Ibrahim and the Lesson of Submission",
+      "icerik": "Qurbani reminds us of the great story of submission involving Prophet Ibrahim and his son. The Qur'an tells us that Prophet Ibrahim shared the dream he had seen with his son, and that his son showed patience and submission. In the end, Allah the Exalted provided a great sacrificial animal and brought this trial to a merciful conclusion.\n\nThis story teaches that Qurbani is not merely the act of slaughter; it is also training in wholehearted submission to Allah's command.\n\nReference: as-Saffat 37:102–107.",
+      "vurgu": "The spirit of Qurbani lies in Prophet Ibrahim's submission"
+    },
+    {
+      "id": "kurban_k04",
+      "tip": "metin",
+      "baslik": "The Spirit of Qurbani: Taqwa and Intention",
+      "icerik": "The Qur'an clearly states that neither the meat nor the blood of sacrificial animals reaches Allah; what reaches Allah is the taqwa of His servants. For this reason, slaughtering an animal to show off, compete, gain meat, or because of social pressure undermines the spirit of this act of worship.\n\nThe right intention is to seek Allah's pleasure, remember the One who grants blessings, and share with His servants. If the intention becomes corrupted, the spiritual value of the act of worship is weakened.\n\nReference: al-Hajj 22:37.",
+      "vurgu": "What reaches Allah is taqwa, not meat"
+    },
+    {
+      "id": "kurban_k05",
+      "tip": "metin",
+      "baslik": "The Ruling on Qurbani",
+      "icerik": "In Islamic law, the ruling on Qurbani has been assessed differently by the schools of thought. In the Hanafi approach to Islamic practice widely followed in Türkiye, it is considered wajib for a resident Muslim who has the financial means. In some other schools, it is considered a strongly recommended Sunnah.\n\nThis difference does not diminish the importance of the act of worship. Rather, it shows a difference in the methods used to assess evidence in Islamic law. In practice, a person follows their own school of thought or reliable guidance on Islamic practice.",
+      "vurgu": "Although the schools differ on its ruling, Qurbani is an important and well-established act of worship"
+    },
+    {
+      "id": "kurban_k06",
+      "tip": "metin",
+      "baslik": "Who Is Considered Obligated to Offer Qurbani?",
+      "icerik": "In the widely followed Hanafi approach to Islamic practice, Qurbani is considered wajib for a Muslim who is of sound mind, has reached puberty, is not travelling, and owns wealth equal to the nisab beyond their basic needs and debts. The measure here is not merely appearing wealthy, but actually having sufficient financial means.\n\nThis act of worship exists not to burden people, but to express gratitude for the blessings Allah has given. Therefore, someone without the financial means should not strain themselves and fall under a burden of debt.\n\nNote: This card summarizes the Hanafi framework of Islamic practice widely followed in Türkiye.",
+      "vurgu": "The obligation to offer Qurbani depends on financial means and other conditions"
+    },
+    {
+      "id": "kurban_k07",
+      "tip": "metin",
+      "baslik": "The Time for Slaughtering Qurbani",
+      "icerik": "The time for slaughtering Qurbani begins after the Eid prayer. The Prophet ﷺ stated that an animal slaughtered before the Eid prayer does not count as Qurbani and is only meat prepared for the family.\n\nThe schools of thought have assessed the ending time differently. In the Hanafi practice widely followed in Türkiye, it may be slaughtered until sunset on the third day of Eid.\n\nReference: Bukhari 5545.",
+      "vurgu": "An animal slaughtered before the Eid prayer does not count as Qurbani"
+    },
+    {
+      "id": "kurban_k08",
+      "tip": "metin",
+      "baslik": "Which Animals Can Be Offered for Qurbani?",
+      "icerik": "The Qur'an indicates that sacrificial animals are from the category of domesticated livestock called behimetü'l-en'am. In practice, sheep, goats, cattle, buffalo, and camels are considered suitable for Qurbani.\n\nIn Qurbani, it is important for the animal to be healthy and suitable for sacrifice, as well as being of the appropriate kind. Just any animal is not considered sufficient for this act of worship.\n\nReferences: al-Hajj 22:34; al-Hajj 22:36.",
+      "vurgu": "Qurbani is performed with specified types of animals"
+    },
+    {
+      "id": "kurban_k09",
+      "tip": "metin",
+      "baslik": "Can People Share in a Qurbani?",
+      "icerik": "An authentic hadith states that a camel or a cow is sufficient on behalf of seven people. Therefore, people may share in the sacrifice of a large animal. A sheep or goat, however, is sacrificed on behalf of one person.\n\nThe essential condition in a shared Qurbani is that every participant has a valid intention of worship and that their share of the sacrifice is truly intended as an act of worship.\n\nReference: Muslim 1318a.",
+      "vurgu": "A cow or camel is offered on behalf of seven people; a sheep or goat is offered on behalf of one person"
+    },
+    {
+      "id": "kurban_k10",
+      "tip": "metin",
+      "baslik": "The Age Requirement",
+      "icerik": "The Prophet ﷺ instructed that a musinne, meaning a mature animal, should be slaughtered for Qurbani, but that if this is difficult, a ram older than six months may be sacrificed.\n\nIn common practice in Islamic law, a sheep should have completed one year, though a ram older than six months that is as well developed as a one-year-old may also be considered sufficient. A goat should have completed one year, a cow two years, and a camel five years.\n\nReference: Muslim 1963.",
+      "vurgu": "The age of the sacrificial animal matters for the validity of the act of worship"
+    },
+    {
+      "id": "kurban_k11",
+      "tip": "metin",
+      "baslik": "The Animal Should Be Free of Defects",
+      "icerik": "The Prophet ﷺ taught that animals with obvious defects should not be sacrificed. Animals that are blind in one eye or have an obvious defect, are visibly ill, are noticeably lame, or are excessively emaciated are not considered suitable for Qurbani.\n\nThis standard teaches us that an animal set aside for Allah should not be one regarded as worthless or one that a person wants to get rid of. Taking care in worship is part of taqwa.\n\nReference: Abu Dawud 2802.",
+      "vurgu": "A sacrificial animal should be free of obvious defects"
+    },
+    {
+      "id": "kurban_k12",
+      "tip": "metin",
+      "baslik": "Proper Conduct and Mercy in Slaughter",
+      "icerik": "Islam places even the slaughter of a sacrificial animal within a framework of mercy and excellence. The Prophet ﷺ commanded that the blade be sharpened well and that the animal not be subjected to suffering. It is wrong to make the animal wait unnecessarily, frighten it, or behave in ways that increase its pain.\n\nQurbani is training in servitude to Allah that disciplines mercy rather than destroying it.\n\nReference: Muslim 1967.",
+      "vurgu": "Excellence and mercy are upheld even when slaughtering an animal for Qurbani"
+    },
+    {
+      "id": "kurban_k13",
+      "tip": "metin",
+      "baslik": "Mentioning Allah's Name",
+      "icerik": "The Qur'an emphasizes that Allah's name should be mentioned over sacrificial animals. Authentic hadiths also recount that the Messenger of Allah mentioned Allah's name, said the takbir, and made supplication when offering a sacrifice.\n\nFor this reason, Qurbani is not regarded as an ordinary act of slaughter. The moment of slaughter is an act of worship in which intention and remembrance of Allah come together openly.\n\nSources: al-Hajj 22:34; Bukhari 5558; Bukhari 5565; Muslim 1967.",
+      "vurgu": "Qurbani is an act of worship performed in Allah's name"
+    },
+    {
+      "id": "kurban_k14",
+      "tip": "metin",
+      "baslik": "Eating and Sharing Qurbani Meat",
+      "icerik": "The Qur'an instructs people to eat from sacrificial animals and feed those in need. The Prophet ﷺ also taught people to eat Qurbani meat, feed it to others, and store it when necessary.\n\nThis shows that Qurbani does not end with the slaughter; it extends to the table, relations with neighbors, and charitable giving. A person may eat the Qurbani meat, serve it to their family, and share it with those in need.\n\nSources: al-Hajj 22:36; Bukhari 5569.",
+      "vurgu": "Qurbani meat is eaten and shared with those in need"
+    },
+    {
+      "id": "kurban_k15",
+      "tip": "metin",
+      "baslik": "The Social Dimension of Qurbani",
+      "icerik": "The worship of Qurbani strengthens social solidarity as well as individual piety. One of the wisdoms behind this act of worship is that meat reaches the tables of those in need during the days of Eid, generosity increases among relatives and neighbors, and blessings are shared rather than kept to oneself.\n\nHowever, the importance of its social benefit does not mean that Qurbani can be reduced to a charitable campaign. Its charitable aspect is valuable, but the intention at the heart of this act of worship is to draw closer to Allah.\n\nSources: al-Hajj 22:36; al-Hajj 22:37; Bukhari 5569.",
+      "vurgu": "Qurbani teaches both piety and sharing"
+    },
+    {
+      "id": "kurban_k16",
+      "tip": "metin",
+      "baslik": "Common Mistakes",
+      "icerik": "Some common mistakes concerning Qurbani include slaughtering before the Eid prayer, choosing an animal with an obvious defect, giving in to showing off, reducing the act of worship to a calculation about meat, and neglecting to share.\n\nFor a sound balance, the following order should be maintained: first, the right intention; then, the valid time and a suitable animal; followed by compassionate slaughter and sharing. In this way, Qurbani becomes an act of worship that is both outwardly correct and spiritually alive.\n\nSources: Bukhari 5545; Abu Dawud 2802; al-Hajj 22:37; Bukhari 5569.\n\n🎉 You have completed the Qurbani lesson! For more verses and details, you can explore the {{link:ibadet-ibadetler|Worship Guide}}; if you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "For a correct Qurbani, intention, timing, a suitable animal, and sharing must all be observed."
+    }
+  ]
+}

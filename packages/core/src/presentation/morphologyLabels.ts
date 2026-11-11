@@ -138,6 +138,149 @@ const MORPHOLOGY_VALUE_LABELS_TR: Readonly<
   },
 };
 
+export type MorphologyLang = "tr" | "en";
+
+// İngilizce arayüz için standart Arapça dilbilgisi terimleri (yalnız etiketler).
+export const POS_LABELS_EN: Readonly<Record<string, string>> = {
+  N: "Noun",
+  V: "Verb",
+  P: "Particle",
+  PRON: "Pronoun",
+  PN: "Proper noun",
+  ADJ: "Adjective",
+  ADV: "Adverb",
+  CONJ: "Conjunction",
+  DET: "Determiner",
+  REL: "Relative pronoun",
+  DEM: "Demonstrative pronoun",
+  NEG: "Negative particle",
+  INTG: "Interrogative particle",
+  COND: "Conditional particle",
+  PREP: "Preposition",
+  ACC: "Accusative particle",
+  VOC: "Vocative particle",
+  T: "Time adverb",
+  LOC: "Location adverb",
+  NV: "Verbal noun",
+  INL: "Disconnected letters",
+  particle: "Particle",
+  noun: "Noun",
+  verb: "Verb",
+  adjective: "Adjective",
+  pronoun: "Pronoun",
+  adverb: "Adverb",
+  article: "Determiner",
+  determiner: "Determiner",
+  preposition: "Preposition",
+  conjunction: "Conjunction",
+  other: "Other",
+  unknown: "Unknown",
+};
+
+export const MORPHOLOGY_LABELS_EN: Readonly<Record<string, string>> = {
+  ...POS_LABELS_EN,
+  PREF: "Prefix",
+  STEM: "Stem",
+  SUFF: "Suffix",
+  LEM: "Lemma",
+  ROOT: "Root",
+  FAM: "Grammatical family",
+  MOOD: "Mood",
+  VF: "Verb form",
+  M: "Masculine",
+  F: "Feminine",
+  MS: "Masculine singular",
+  FS: "Feminine singular",
+  MP: "Masculine plural",
+  FP: "Feminine plural",
+  MD: "Masculine dual",
+  FD: "Feminine dual",
+  D: "Dual",
+  SG: "Singular",
+  PL: "Plural",
+  DUAL: "Dual",
+  "1S": "1st person singular",
+  "1P": "1st person plural",
+  "2MS": "2nd person masculine singular",
+  "2FS": "2nd person feminine singular",
+  "2MP": "2nd person masculine plural",
+  "2FP": "2nd person feminine plural",
+  "2MD": "2nd person masculine dual",
+  "2FD": "2nd person feminine dual",
+  "2D": "2nd person dual",
+  "3MS": "3rd person masculine singular",
+  "3FS": "3rd person feminine singular",
+  "3MP": "3rd person masculine plural",
+  "3FP": "3rd person feminine plural",
+  "3MD": "3rd person masculine dual",
+  "3FD": "3rd person feminine dual",
+  "3D": "3rd person dual",
+  NOM: "Nominative",
+  GEN: "Genitive",
+  INDEF: "Indefinite",
+  PERF: "Perfect",
+  IMPF: "Imperfect",
+  IMPV: "Imperative",
+  IND: "Indicative mood",
+  SUBJ: "Subjunctive mood",
+  JUS: "Jussive mood",
+  ACT: "Active voice",
+  PASS: "Passive voice",
+  ACT_PCPL: "Active participle",
+  PASS_PCPL: "Passive participle",
+  VN: "Verbal noun",
+  EMPH: "Emphatic particle",
+  PRP: "Purpose particle",
+  SUB: "Subordinating particle",
+  AMD: "Amendment particle",
+  ANS: "Answer particle",
+  AVR: "Aversion particle",
+  CAUS: "Causative particle",
+  CERT: "Certainty particle",
+  CIRC: "Circumstantial particle",
+  COM: "Comitative particle",
+  EQ: "Equalization particle",
+  EXH: "Exhortation particle",
+  EXL: "Explanation particle",
+  EXP: "Exceptive particle",
+  FUT: "Future particle",
+  INC: "Inceptive particle",
+  INT: "Interpretation particle",
+  PREV: "Preventive particle",
+  PRO: "Prohibition particle",
+  REM: "Resumption particle",
+  RES: "Restriction particle",
+  RET: "Retraction particle",
+  RSLT: "Result particle",
+  SUP: "Supplemental particle",
+  SUR: "Surprise particle",
+  ATT: "Attention particle",
+  DIST: "Distal suffix",
+  ADDR: "Address suffix",
+};
+
+const CASE_LABELS_EN: Readonly<Record<string, string>> = {
+  ACC: "Accusative",
+  NOM: "Nominative",
+  GEN: "Genitive",
+};
+
+const PARTICLE_LABELS_EN: Readonly<Record<string, string>> = {
+  ...MORPHOLOGY_LABELS_EN,
+  IMPV: "Imperative lām",
+  ACC: "Accusative particle",
+};
+
+const MORPHOLOGY_VALUE_LABELS_EN: Readonly<
+  Record<string, Readonly<Record<string, string>>>
+> = {
+  MOOD: {
+    IND: "Indicative mood",
+    SUBJ: "Subjunctive mood",
+    JUS: "Jussive mood",
+  },
+};
+
 export const CORPUS_POS_CODES = ["N", "P", "V"] as const;
 
 export const CORPUS_MORPHOLOGY_CODES = [
@@ -163,15 +306,24 @@ export interface MorphologyDisplayToken {
   known: boolean;
 }
 
-export function getPosLabelTr(code: string | null | undefined): string | null {
+export function getPosLabelTr(
+  code: string | null | undefined,
+  lang: MorphologyLang = "tr",
+): string | null {
   const normalized = code?.trim();
   if (!normalized) return null;
-  return POS_LABELS_TR[normalized] ?? POS_LABELS_TR[normalized.toLowerCase()] ?? null;
+  const labels = lang === "en" ? POS_LABELS_EN : POS_LABELS_TR;
+  return labels[normalized] ?? labels[normalized.toLowerCase()] ?? null;
+}
+
+export function translatePosEn(pos: string | null | undefined, emptyFallback = "—"): string {
+  return translatePosTr(pos, emptyFallback, "en");
 }
 
 export function translatePosTr(
   pos: string | null | undefined,
   emptyFallback = "—",
+  lang: MorphologyLang = "tr",
 ): string {
   const normalized = pos?.trim();
   if (!normalized) return emptyFallback;
@@ -179,32 +331,42 @@ export function translatePosTr(
     .split("+")
     .map((part) => {
       const code = part.trim();
-      return getPosLabelTr(code) ?? code;
+      return getPosLabelTr(code, lang) ?? code;
     })
     .join(" + ");
 }
 
-function translateFeature(code: string, segmentPos: string): MorphologyDisplayToken {
+function translateFeature(
+  code: string,
+  segmentPos: string,
+  lang: MorphologyLang = "tr",
+): MorphologyDisplayToken {
   const canonical = code.trim();
+  const en = lang === "en";
+  const particleLabels = en ? PARTICLE_LABELS_EN : PARTICLE_LABELS_TR;
+  const caseLabels = en ? CASE_LABELS_EN : CASE_LABELS_TR;
+  const labels = en ? MORPHOLOGY_LABELS_EN : MORPHOLOGY_LABELS_TR;
   const label =
     segmentPos === "P"
-      ? PARTICLE_LABELS_TR[canonical]
-      : CASE_LABELS_TR[canonical] ?? MORPHOLOGY_LABELS_TR[canonical];
+      ? particleLabels[canonical]
+      : caseLabels[canonical] ?? labels[canonical];
   return { code: canonical, label: label ?? canonical, value: null, known: label !== undefined };
 }
 
-function translateValueFeature(raw: string): MorphologyDisplayToken {
+function translateValueFeature(raw: string, lang: MorphologyLang = "tr"): MorphologyDisplayToken {
   const separatorIndex = raw.indexOf(":");
   const code = raw.slice(0, separatorIndex).trim();
   const canonicalValue = raw.slice(separatorIndex + 1).trim();
-  const label = MORPHOLOGY_LABELS_TR[code];
+  const label = (lang === "en" ? MORPHOLOGY_LABELS_EN : MORPHOLOGY_LABELS_TR)[code];
   const value =
-    MORPHOLOGY_VALUE_LABELS_TR[code]?.[canonicalValue] ?? canonicalValue;
+    (lang === "en" ? MORPHOLOGY_VALUE_LABELS_EN : MORPHOLOGY_VALUE_LABELS_TR)[code]?.[canonicalValue] ??
+    canonicalValue;
   return { code, label: label ?? code, value: value || null, known: label !== undefined };
 }
 
 export function parseMorphologyForDisplay(
   morphology: string | null | undefined,
+  lang: MorphologyLang = "tr",
 ): MorphologyDisplayToken[] {
   const normalized = morphology?.trim();
   if (!normalized) return [];
@@ -217,28 +379,33 @@ export function parseMorphologyForDisplay(
 
     const headMatch = /^(\d+):([A-Z]+):(.+)$/.exec(head);
     if (!headMatch) {
-      output.push(translateFeature(head, ""));
+      output.push(translateFeature(head, "", lang));
       continue;
     }
 
     const segmentPos = headMatch[2];
     const headFeature = headMatch[3];
     output.push(headFeature.includes(":")
-      ? translateValueFeature(headFeature)
-      : translateFeature(headFeature, segmentPos));
+      ? translateValueFeature(headFeature, lang)
+      : translateFeature(headFeature, segmentPos, lang));
     for (const feature of features) {
       output.push(feature.includes(":")
-        ? translateValueFeature(feature)
-        : translateFeature(feature, segmentPos));
+        ? translateValueFeature(feature, lang)
+        : translateFeature(feature, segmentPos, lang));
     }
   }
   return output;
 }
 
+export function formatMorphologyEn(morphology: string | null | undefined): string {
+  return formatMorphologyTr(morphology, "en");
+}
+
 export function formatMorphologyTr(
   morphology: string | null | undefined,
+  lang: MorphologyLang = "tr",
 ): string {
-  return parseMorphologyForDisplay(morphology)
+  return parseMorphologyForDisplay(morphology, lang)
     .map((token) => token.value ? `${token.label}: ${token.value}` : token.label)
     .join(" · ");
 }

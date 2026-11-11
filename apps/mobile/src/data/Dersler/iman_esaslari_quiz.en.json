@@ -1,0 +1,757 @@
+{
+  "quiz_id": "iman-esaslari",
+  "baslik": "Articles of Faith",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "iman_001",
+      "konu": "allah_tevhid",
+      "soru": "How many articles of faith are there?",
+      "secenekler": [
+        "A) 4",
+        "B) 5",
+        "C) 6",
+        "D) 7"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "There are six articles of faith: belief in Allah, His angels, His books, His messengers, the Last Day, and divine decree, both good and bad.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Iman 37; Muslim, Iman 1"
+    },
+    {
+      "id": "iman_002",
+      "konu": "allah_tevhid",
+      "soru": "According to the hadith of Jibril, which of the following is NOT among the articles of faith?",
+      "secenekler": [
+        "A) Belief in Allah",
+        "B) Belief in the books",
+        "C) Observing sawm (fasting)",
+        "D) Belief in divine decree"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The hadith of Jibril is the hadith in which Jibril, peace be upon him, came in human form and asked about Islam, iman, and ihsan. Sawm is one of the five pillars of Islam; it is not one of the six articles of faith.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Iman 37; Muslim, Iman 1"
+    },
+    {
+      "id": "iman_003",
+      "konu": "allah_tevhid",
+      "soru": "What does belief in tawhid (the oneness of Allah) mean?",
+      "secenekler": [
+        "A) That there are two Allahs",
+        "B) That Allah is One and Unique",
+        "C) That Allah was created",
+        "D) That there is more than one deity"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tawhid is believing that Allah is One and Unique, without partner or equal. It is the fundamental principle of iman.",
+      "zorluk": "kolay",
+      "kaynak": "Quran, al-Ikhlas 112/1-4"
+    },
+    {
+      "id": "iman_004",
+      "konu": "allah_tevhid",
+      "soru": "What is the first verse of Surah al-Ikhlas?",
+      "secenekler": [
+        "A) \"Allah is the Most Merciful and the Most Compassionate\"",
+        "B) \"Say: He is Allah, the One and Unique\"",
+        "C) \"There is no deity but Allah\"",
+        "D) \"Allah has power over all things\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The first verse of Surah al-Ikhlas is: \"Say: He is Allah, the One and Unique.\" (al-Ikhlas 112/1) It is a concise expression of belief in tawhid.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Ikhlas 112/1"
+    },
+    {
+      "id": "iman_005",
+      "konu": "allah_tevhid",
+      "soru": "What does the word \"Samed\" in Surah al-Ikhlas mean?",
+      "secenekler": [
+        "A) The Creator",
+        "B) The Forgiver",
+        "C) The One whom everything needs and who needs nothing",
+        "D) The One with infinite power"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Samed means the One whom every being needs and who Himself needs nothing. (al-Ikhlas 112/2)",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Ikhlas 112/2"
+    },
+    {
+      "id": "iman_006",
+      "konu": "allah_tevhid",
+      "soru": "In which surah do the words \"He neither begets nor was He begotten. Nothing is equal to Him\" appear?",
+      "secenekler": [
+        "A) Surah al-Fatihah",
+        "B) Surah al-Baqarah",
+        "C) Surah al-Ikhlas",
+        "D) Surah al-Falaq"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "These are the third and fourth verses of Surah al-Ikhlas. They declare Allah's uniqueness and that He is free from deficiencies such as being born or giving birth.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Ikhlas 112/3-4"
+    },
+    {
+      "id": "iman_007",
+      "konu": "allah_tevhid",
+      "soru": "In which sources is the hadith of Jibril narrated?",
+      "secenekler": [
+        "A) Bukhari only",
+        "B) Muslim only",
+        "C) Bukhari and Muslim",
+        "D) Tirmidhi and Abu Dawud"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The hadith of Jibril is narrated in both Bukhari (Iman 37) and Muslim (Iman 1). This hadith, which defines Islam, iman, and ihsan, is among the fundamental sources.",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Iman 37; Muslim, Iman 1"
+    },
+    {
+      "id": "iman_008",
+      "konu": "allah_tevhid",
+      "soru": "What does it mean that Allah is eternal, without beginning or end?",
+      "secenekler": [
+        "A) He has a beginning but no end",
+        "B) He has no beginning but has an end",
+        "C) He has neither beginning nor end",
+        "D) He is limited by time"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Allah is eternal, without beginning or end. He is not limited by time or space; while everything needs Him, He needs nothing.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_009",
+      "konu": "melekler",
+      "soru": "What were angels created from?",
+      "secenekler": [
+        "A) Fire",
+        "B) Earth",
+        "C) Light",
+        "D) Air"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Angels were created from light. They do not sin and obey Allah's commands without fail.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_010",
+      "konu": "melekler",
+      "soru": "Which angel is tasked with bringing revelation to the prophets?",
+      "secenekler": [
+        "A) Mikail",
+        "B) Jibril",
+        "C) Israfil",
+        "D) Azrail"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Jibril, peace be upon him, is the great angel tasked with conveying Allah's revelation (divine knowledge from Allah) to the prophets. He is also referred to in the Quran as \"Ruh-ul Kudüs\" (the holy or pure spirit) and \"Ruh-ul Emin\" (the trustworthy spirit).",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_011",
+      "konu": "melekler",
+      "soru": "Which angel is tasked with taking souls?",
+      "secenekler": [
+        "A) Jibril",
+        "B) Mikail",
+        "C) Israfil",
+        "D) Azrail"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Azrail, peace be upon him, is tasked with taking souls; he is also known as melek-ül mevt (the angel of death).",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_012",
+      "konu": "melekler",
+      "soru": "What is Mikail's duty?",
+      "secenekler": [
+        "A) To bring revelation",
+        "B) To take souls",
+        "C) To blow the trumpet",
+        "D) To govern rain and natural events"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Mikail, peace be upon him, is the great angel tasked with governing rain, wind, and natural events.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_013",
+      "konu": "melekler",
+      "soru": "When will Israfil blow the trumpet?",
+      "secenekler": [
+        "A) Every morning",
+        "B) At the end of the world and at the resurrection",
+        "C) Every night",
+        "D) During Ramadan"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Israfil, peace be upon him, will blow the trumpet first to bring about the end of the world and a second time for the resurrection of humanity.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_014",
+      "konu": "melekler",
+      "soru": "What do the angels Kiramen Katibin (the noble recorders) do?",
+      "secenekler": [
+        "A) Blow the trumpet",
+        "B) Take souls",
+        "C) Record people's deeds",
+        "D) Question people in the grave"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Kiramen Katibin (the noble recorders) are the angels who are on each person's right and left, recording their deeds (their good and bad actions).",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_015",
+      "konu": "melekler",
+      "soru": "What is the duty of Munker and Nakir?",
+      "secenekler": [
+        "A) To record deeds",
+        "B) To blow the trumpet",
+        "C) To conduct the questioning in the grave",
+        "D) To govern natural events"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Munker and Nakir are the angels tasked with questioning people in the grave. This questioning is described as taking place during the life of barzakh after death.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_016",
+      "konu": "melekler",
+      "soru": "Which statement about angels is FALSE?",
+      "secenekler": [
+        "A) They were created from light",
+        "B) They can sin",
+        "C) They can take any form",
+        "D) They obey Allah's commands without fail"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Angels do not sin; this is their most fundamental characteristic. The remaining options correctly describe angels.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_017",
+      "konu": "kitaplar_suhuf",
+      "soru": "To which prophet was the Torah revealed?",
+      "secenekler": [
+        "A) Prophet Dawud",
+        "B) Prophet Isa",
+        "C) Prophet Musa",
+        "D) Prophet Ibrahim"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Torah is the great divine book revealed to Prophet Musa.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_018",
+      "konu": "kitaplar_suhuf",
+      "soru": "To which prophet was the Zabur revealed?",
+      "secenekler": [
+        "A) Prophet Musa",
+        "B) Prophet Dawud",
+        "C) Prophet Isa",
+        "D) Prophet Sulayman"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Zabur is the great divine book revealed to Prophet Dawud.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_019",
+      "konu": "kitaplar_suhuf",
+      "soru": "To which prophet was the Injil revealed?",
+      "secenekler": [
+        "A) Prophet Musa",
+        "B) Prophet Yahya",
+        "C) Prophet Isa",
+        "D) Prophet Dawud"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Injil is the great divine book revealed to Prophet Isa.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_020",
+      "konu": "kitaplar_suhuf",
+      "soru": "What are the four great divine books?",
+      "secenekler": [
+        "A) The Torah, Zabur, Injil, and Quran",
+        "B) The Torah, Injil, Quran, and Suhuf",
+        "C) The Zabur, Injil, Quran, and scrolls",
+        "D) The Torah, Zabur, Injil, and hadith"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The four great divine books are the Torah (Prophet Musa), the Zabur (Prophet Dawud), the Injil (Prophet Isa), and the Noble Quran (Prophet Muhammad ﷺ).",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_021",
+      "konu": "kitaplar_suhuf",
+      "soru": "What are the Suhuf (divine scrolls)?",
+      "secenekler": [
+        "A) The great divine books",
+        "B) Short scrolls of revelation given to certain prophets",
+        "C) Books of hadith",
+        "D) Books of Quranic commentary written later"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Suhuf are short scrolls of revelation given to certain prophets. The word means scrolls, that is, divine pages.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_022",
+      "konu": "kitaplar_suhuf",
+      "soru": "How many scrolls were revealed to Prophet Ibrahim?",
+      "secenekler": [
+        "A) 5",
+        "B) 10",
+        "C) 30",
+        "D) 50"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ten scrolls were revealed to Prophet Ibrahim.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_023",
+      "konu": "kitaplar_suhuf",
+      "soru": "How many scrolls were revealed to Prophet Shith?",
+      "secenekler": [
+        "A) 10",
+        "B) 30",
+        "C) 50",
+        "D) 100"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Fifty scrolls were revealed to Prophet Shith.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_024",
+      "konu": "kitaplar_suhuf",
+      "soru": "Which of the following is NOT among the prophets who received scrolls (suhuf)?",
+      "secenekler": [
+        "A) Prophet Adam",
+        "B) Prophet Idris",
+        "C) Prophet Ibrahim",
+        "D) Prophet Dawud"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The great book called the Zabur was revealed to Prophet Dawud. Common Islamic catechism teaching identifies Prophet Adam, Prophet Shith, Prophet Idris, and Prophet Ibrahim as recipients of suhuf.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_025",
+      "konu": "peygamberler",
+      "soru": "Who was the first prophet?",
+      "secenekler": [
+        "A) Prophet Nuh",
+        "B) Prophet Ibrahim",
+        "C) Prophet Adam",
+        "D) Prophet Musa"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The first of the prophets is Adam (peace be upon him). He is the first of both humanity and the line of prophets.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_026",
+      "konu": "peygamberler",
+      "soru": "Who is the last of the prophets?",
+      "secenekler": [
+        "A) Jesus (peace be upon him)",
+        "B) John (peace be upon him)",
+        "C) Moses (peace be upon him)",
+        "D) Muhammad (peace be upon him)"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Muhammad ﷺ is the last of the prophets. \"Hatemü’n-Nebiyyîn\" means the seal of the prophets, that is, the last prophet. (al-Ahzab 33:40)",
+      "zorluk": "kolay",
+      "kaynak": "Quran, al-Ahzab 33:40"
+    },
+    {
+      "id": "iman_027",
+      "konu": "peygamberler",
+      "soru": "What is the fundamental principle of belief in the prophets?",
+      "secenekler": [
+        "A) Belief in Muhammad (peace be upon him) alone is sufficient",
+        "B) No distinction is made between them; one must believe in all of them",
+        "C) One believes only in those named in the Quran",
+        "D) Belief in the prophet of one's own time is sufficient"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A Muslim believes in all the prophets sent by Allah. Knowingly rejecting one of the prophets is a serious matter for one's iman.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_028",
+      "konu": "peygamberler",
+      "soru": "What does rasul mean?",
+      "secenekler": [
+        "A) A person who receives inspiration only",
+        "B) A prophet given a new law or a special mission to convey a message",
+        "C) A scholar who is a close servant of Allah",
+        "D) A leading Companion"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A rasul is a prophet given a new law or a special mission to convey a message that renews previous rulings. Every rasul is also a nabi.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_029",
+      "konu": "peygamberler",
+      "soru": "What is the fundamental difference between a nabi and a rasul?",
+      "secenekler": [
+        "A) A nabi is superior, while a rasul is lower in rank",
+        "B) There is no difference between them",
+        "C) A nabi does not bring a new law; a rasul is sent with a new law or a special mission to convey a message",
+        "D) A nabi is sent only to Muslims"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A nabi is a prophet who receives revelation but does not bring a new law. A rasul is described as a prophet sent with a new law or a special mission to convey a message.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_030",
+      "konu": "peygamberler",
+      "soru": "How many prophets are named in the Quran?",
+      "secenekler": [
+        "A) 10",
+        "B) 15",
+        "C) 25",
+        "D) 40"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Twenty-five prophets are named in the Quran.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_031",
+      "konu": "peygamberler",
+      "soru": "What can be understood from the statement, \"Every rasul is also a nabi, but not every nabi is a rasul\"?",
+      "secenekler": [
+        "A) There are more rasuls than nabis",
+        "B) There are more nabis than rasuls",
+        "C) There are equal numbers of both",
+        "D) A rasul is of a lower rank"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "This statement means that every rasul is a prophet, but not every prophet is called a rasul. Therefore, there are more nabis than rasuls.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_032",
+      "konu": "peygamberler",
+      "soru": "Will a new prophet come after Muhammad (peace be upon him)?",
+      "secenekler": [
+        "A) Yes, a new prophet will come near the Day of Judgment",
+        "B) No, Muhammad (peace be upon him) is the last prophet",
+        "C) Jesus (peace be upon him) will come as a new prophet",
+        "D) There is no certain knowledge on this matter"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Muhammad ﷺ is the last prophet; no new prophet will come after him. The descent of Jesus (peace be upon him) does not mean a new prophethood. (al-Ahzab 33:40)",
+      "zorluk": "zor",
+      "kaynak": "Quran, al-Ahzab 33:40"
+    },
+    {
+      "id": "iman_033",
+      "konu": "ahiret",
+      "soru": "When does life in the grave begin?",
+      "secenekler": [
+        "A) After the Day of Judgment",
+        "B) Immediately after death",
+        "C) At the place of gathering",
+        "D) Before life in this world"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Life in the grave is the period of barzakh (transition) that begins immediately after a person dies and lasts until the Day of Judgment.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_034",
+      "konu": "ahiret",
+      "soru": "What does mahshar (place of gathering) mean?",
+      "secenekler": [
+        "A) The inside of the grave",
+        "B) The place where all people will be gathered for judgment after the Day of Judgment",
+        "C) The gate of Paradise",
+        "D) The fire of Hell"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Mahshar is the great place of gathering where all people will be brought together to give an account after the Day of Judgment.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_035",
+      "konu": "ahiret",
+      "soru": "What does mizan (divine measure or scale) mean?",
+      "secenekler": [
+        "A) The bridge of Sirat",
+        "B) The punishment of the grave",
+        "C) The divine measure or scale on which deeds will be weighed",
+        "D) The rivers of Paradise"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Mizan refers to the divine measure or scale on which good and bad deeds will be weighed in the Hereafter.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_036",
+      "konu": "ahiret",
+      "soru": "What does Sirat (the bridge of the Hereafter) mean?",
+      "secenekler": [
+        "A) The gate of Paradise",
+        "B) The bridge over Hell",
+        "C) The questioning in the grave",
+        "D) The scale in the Hereafter"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sirat is the bridge of the Hereafter that is said to be set over Hell. This is a matter of the unseen; its details are known only to the extent that Allah has made them known.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_037",
+      "konu": "ahiret",
+      "soru": "Which questions are asked during the questioning in the grave?",
+      "secenekler": [
+        "A) \"How many years did you live? What work did you do?\"",
+        "B) \"Who is your Lord? What is your religion? Who is your prophet?\"",
+        "C) \"How many prayers did you perform? How many fasts did you observe?\"",
+        "D) \"Were you rich or poor?\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "During the questioning in the grave, the angels Munkar and Nakir ask three questions: \"Who is your Lord? What is your religion? Who is your prophet?\"",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_038",
+      "konu": "ahiret",
+      "soru": "Who receives the blessings and punishment of the grave?",
+      "secenekler": [
+        "A) Both are given equally to everyone",
+        "B) Blessings are given to those who lived with iman, and punishment to those who died in disbelief and hypocrisy",
+        "C) There is only punishment, with no blessing",
+        "D) There is only blessing, with no punishment"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The blessings of the grave are described as being for those who lived with iman, while the punishment of the grave is described as being for those who died in disbelief and hypocrisy. The final judgment concerning sinful believers rests with Allah's mercy and justice.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_039",
+      "konu": "ahiret",
+      "soru": "What kind of sign of the Day of Judgment is the Dajjal?",
+      "secenekler": [
+        "A) A minor sign",
+        "B) A major sign",
+        "C) It is not a sign",
+        "D) It is only symbolic"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Dajjal is described as a lying and deceptive figure who is said to cause great tribulation near the Day of Judgment. His appearance is one of the major signs.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Fitan 26"
+    },
+    {
+      "id": "iman_040",
+      "konu": "ahiret",
+      "soru": "What is narrated about Jesus (peace be upon him) near the Day of Judgment?",
+      "secenekler": [
+        "A) He will be sent again as a prophet",
+        "B) He will descend to earth and act according to the rulings of Islam",
+        "C) He will be judged in the Hereafter",
+        "D) It is narrated that he will bring a second Gospel"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "It is narrated that Jesus (peace be upon him) will descend to earth near the Day of Judgment and act according to the rulings of Islam. This is not a new prophethood.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Anbiya 49; Muslim, Fitan 39"
+    },
+    {
+      "id": "iman_041",
+      "konu": "ahiret",
+      "soru": "What does barzakh (period of transition) mean?",
+      "secenekler": [
+        "A) The region between Paradise and Hell",
+        "B) The period of transition between death and the Day of Judgment (life in the grave)",
+        "C) The name of the place of gathering",
+        "D) The edge of the bridge of Sirat"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Barzakh is the name given to the period of transition from death until the Day of Judgment. For this reason, life in the grave is also known as life in barzakh.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_042",
+      "konu": "ahiret",
+      "soru": "What kind of sign of the Day of Judgment are Gog and Magog?",
+      "secenekler": [
+        "A) A minor sign",
+        "B) A major sign",
+        "C) They are not a sign",
+        "D) They are connected with the Night of Decree"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Gog and Magog are described as great groups of corrupters who are said to appear near the Day of Judgment. Their appearance is one of the major signs. (al-Anbiya 21:96)",
+      "zorluk": "zor",
+      "kaynak": "Quran, al-Anbiya 21:96"
+    },
+    {
+      "id": "iman_043",
+      "konu": "kader_kaza",
+      "soru": "What does qadar mean?",
+      "secenekler": [
+        "A) The period before Allah's creation",
+        "B) Allah's eternal knowledge and decree of all things",
+        "C) The choices a person makes through their own free will",
+        "D) Events that happen by chance"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Qadar is Allah's knowing, determining and recording all things eternally, through His knowledge that has no beginning.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic teachings"
+    },
+    {
+      "id": "iman_044",
+      "konu": "kader_kaza",
+      "soru": "What does qada mean?",
+      "secenekler": [
+        "A) The punishment for a sin",
+        "B) The occurrence of what Allah has decreed when its time comes",
+        "C) Events in the past",
+        "D) A person's power to change their destiny"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Qada is the creation and occurrence, when their time comes, of the things Allah decreed in eternity.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_045",
+      "konu": "kader_kaza",
+      "soru": "According to the hadith of Jibril, how is belief in divine decree defined?",
+      "secenekler": [
+        "A) \"Believing that only good things come from Allah\"",
+        "B) \"Believing in divine decree, both its good and its evil\"",
+        "C) \"Believing that only death is in Allah's hands\"",
+        "D) \"Believing that divine decree can be changed\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In the hadith of Jibril, belief in divine decree is defined as \"believing in divine decree, both its good and its evil.\" This means that events that appear both good and difficult are within Allah's knowledge and decree.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Iman 37; Muslim, Iman 1"
+    },
+    {
+      "id": "iman_046",
+      "konu": "kader_kaza",
+      "soru": "Which statement about belief in divine decree is correct?",
+      "secenekler": [
+        "A) Divine decree frees people from all responsibility",
+        "B) Belief in divine decree does not eliminate human free will or responsibility",
+        "C) A person who believes in divine decree does not have to worship",
+        "D) Bad events are outside divine decree"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Belief in divine decree does not eliminate human free will or responsibility. People are responsible for their choices; everything is within Allah's eternal knowledge and decree.",
+      "zorluk": "orta",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_047",
+      "konu": "kader_kaza",
+      "soru": "According to belief in divine decree, which statement about \"good and evil\" is correct?",
+      "secenekler": [
+        "A) Good comes from Allah, and evil comes from humans",
+        "B) Both good and evil occur through Allah's creation",
+        "C) Evil does not come from Allah; Satan creates it",
+        "D) Humans create evil entirely by themselves"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "According to Sunni belief, both good and evil occur through Allah's creation; humans are responsible for their own choices and actions.",
+      "zorluk": "zor",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_048",
+      "konu": "genel",
+      "soru": "What is the main difference between the five pillars of Islam and the six articles of iman?",
+      "secenekler": [
+        "A) There is no difference",
+        "B) The articles of iman concern actions, while the pillars of Islam concern the heart",
+        "C) The articles of iman are beliefs of the heart, while the pillars of Islam are acts of worship",
+        "D) Both consist only of outward acts of worship"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The six articles of iman (Allah, angels, books, prophets, the Hereafter, and divine decree) are beliefs of the heart; the five pillars of Islam (the shahada, salah, sawm, zakat, and Hajj) are acts of worship.",
+      "zorluk": "kolay",
+      "kaynak": "Summary of classical Islamic catechism"
+    },
+    {
+      "id": "iman_049",
+      "konu": "genel",
+      "soru": "Which of the six articles of iman concerns the Day of Resurrection and life after death?",
+      "secenekler": [
+        "A) Belief in Allah",
+        "B) Belief in angels",
+        "C) Belief in the Last Day",
+        "D) Belief in the books"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Belief in the Last Day includes life after death, the Day of Resurrection, the gathering place, the divine scale, the bridge of the Hereafter, and Paradise and Hell.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Iman 37; Muslim, Iman 1"
+    },
+    {
+      "id": "iman_050",
+      "konu": "genel",
+      "soru": "Of the four major revealed books, which is the only one Allah has said He will protect?",
+      "secenekler": [
+        "A) The Torah",
+        "B) The Psalms",
+        "C) The Gospel",
+        "D) The Quran"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"Indeed, We have sent down the Reminder (the Quran), and We will surely protect it.\" (al-Hijr 15:9) The Quran is the only book that Allah Himself has undertaken to protect.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Hijr 15:9"
+    }
+  ]
+}

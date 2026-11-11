@@ -14,11 +14,17 @@ import { SkeletonListItem } from "../../src/components/SkeletonLoader";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { logScreen } from "../../src/lib/analytics";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useMealOf } from "../../src/lib/englishMeal";
+import { useSurahNameOf } from "../../src/lib/surahNames";
+import { useStrings, getStrings, useLang, fmt } from "../../src/i18n";
+import { localizedTranslit } from "../../src/lib/translitEn";
+import surahStrings from "../../src/i18n/strings/surahs";
 
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
 function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string }) {
   const c = useColors();
+  const t = useStrings(surahStrings);
   const readerTarget = useTourTarget("surah.reader");
   return (
     <View {...readerTarget} style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -27,10 +33,10 @@ function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string
         onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
         activeOpacity={0.75}
         accessibilityRole="button"
-        accessibilityLabel="Tefsir: Elmalılı Hamdi Yazır"
+        accessibilityLabel={t.tafsirA11y}
       >
         <View>
-          <Text style={[tf.title, { color: c.text }]}>📚 Sure Tefsiri</Text>
+          <Text style={[tf.title, { color: c.text }]}>{t.tafsirTitle}</Text>
           <Text style={[tf.sub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
         </View>
         <Text style={[tf.chevron, { color: c.accent }]}>›</Text>
@@ -54,24 +60,27 @@ const tf = StyleSheet.create({
 // ── Bileşenler ────────────────────────────────────────────────────────────────
 
 function RevelationBadge({ place }: { place: "Mekke" | "Medine" }) {
+  const t = useStrings(surahStrings);
   const isMekki = place === "Mekke";
   return (
     <View style={[styles.badge, isMekki ? styles.badgeMekki : styles.badgeMedine]}>
       <Text style={[styles.badgeText, isMekki ? styles.badgeMekkiText : styles.badgeMedineText]}>
-        {place}
+        {isMekki ? t.mekke : t.medine}
       </Text>
     </View>
   );
 }
 
 function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
+  const surahNameOf = useSurahNameOf();
+  const t = useStrings(surahStrings);
   const c = useColors();
   return (
     <View style={[styles.header, { backgroundColor: c.card, borderBottomColor: c.border }]}>
       <Text style={[styles.headerArabic, { color: c.text }]} numberOfLines={1}>{data.arabicName}</Text>
-      <Text style={[styles.headerName, { color: c.accent }]}>{data.name}</Text>
+      <Text style={[styles.headerName, { color: c.accent }]}>{surahNameOf(data.id, data.name)}</Text>
       <View style={styles.headerMeta}>
-        <Text style={[styles.headerMetaText, { color: c.textMuted }]}>{data.verseCount} ayet</Text>
+        <Text style={[styles.headerMetaText, { color: c.textMuted }]}>{fmt(t.verseCount, { n: data.verseCount })}</Text>
         <RevelationBadge place={data.revelationPlace} />
       </View>
     </View>
@@ -80,14 +89,20 @@ function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
 
 interface VerseRowProps {
   item: VerseItem;
+  surahId: number;
   onPress: (ayahNumber: number) => void;
   onPressIn?: (ayahNumber: number) => void;
 }
 
-function VerseRow({ item, onPress, onPressIn }: VerseRowProps) {
+function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
   const c = useColors();
-  const reading = item.reading ? item.reading.slice(0, 110) : null;
-  const meal    = item.meal    ? item.meal.slice(0, 80)     : null;
+  const t = useStrings(surahStrings);
+  const mealOf = useMealOf();
+  const lang = useLang();
+  const fullMeal = mealOf({ surah: surahId, ayah: item.ayahNumber }, item.meal);
+  const readingSrc = localizedTranslit(item.reading, lang);
+  const reading = readingSrc ? readingSrc.slice(0, 110) : null;
+  const meal    = fullMeal     ? fullMeal.slice(0, 80)      : null;
   return (
     <TouchableOpacity
       style={[styles.row, { backgroundColor: c.card }]}
@@ -95,7 +110,7 @@ function VerseRow({ item, onPress, onPressIn }: VerseRowProps) {
       onPress={() => onPress(item.ayahNumber)}
       activeOpacity={0.7}
       accessibilityRole="button"
-      accessibilityLabel={`${item.ayahNumber}. ayeti aç`}
+      accessibilityLabel={fmt(t.openVerseA11y, { n: item.ayahNumber })}
     >
       <View style={[styles.numberCircle, { backgroundColor: c.cardAlt }]}>
         <Text style={[styles.numberText, { color: c.textMuted }]}>{item.ayahNumber}</Text>
@@ -103,12 +118,12 @@ function VerseRow({ item, onPress, onPressIn }: VerseRowProps) {
       <View style={styles.rowContent}>
         {reading && (
           <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>
-            {reading}{(item.reading?.length ?? 0) > 110 ? "…" : ""}
+            {reading}{(readingSrc?.length ?? 0) > 110 ? "…" : ""}
           </Text>
         )}
         {meal && (
           <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={1}>
-            {meal}{(item.meal?.length ?? 0) > 80 ? "…" : ""}
+            {meal}{(fullMeal?.length ?? 0) > 80 ? "…" : ""}
           </Text>
         )}
         {!reading && !meal && <Text style={[styles.mealText, { color: c.textMuted }]}>—</Text>}
@@ -120,6 +135,8 @@ function VerseRow({ item, onPress, onPressIn }: VerseRowProps) {
 // ── Ana ekran ─────────────────────────────────────────────────────────────────
 
 export default function SurahDetailScreen() {
+  const surahNameOf = useSurahNameOf();
+  const t = useStrings(surahStrings);
   const c = useColors();
   const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -134,7 +151,7 @@ export default function SurahDetailScreen() {
 
   useEffect(() => {
     if (!surahId) {
-      setError("Geçersiz sure bağlantısı.");
+      setError(getStrings(surahStrings).invalidLink);
       setLoading(false);
       return;
     }
@@ -144,7 +161,7 @@ export default function SurahDetailScreen() {
     // Sadece ayetleri bekle — tefsir akordiyon açılınca tembel yüklenir
     api.verses.bySurah(surahId)
       .then((res) => { if (isMounted) setData(res); })
-      .catch(() => setError("Ayetler yüklenemedi. Bağlantını kontrol et."))
+      .catch(() => setError(getStrings(surahStrings).versesError))
       .finally(() => setLoading(false));
     return () => { isMounted = false; };
   }, [surahId, reloadKey]);
@@ -164,9 +181,9 @@ export default function SurahDetailScreen() {
 
   const renderItem = useCallback(
     ({ item }: { item: VerseItem }) => (
-      <VerseRow item={item} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
+      <VerseRow item={item} surahId={surahId} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
     ),
-    [handleAyahPress, handleAyahPrefetch],
+    [surahId, handleAyahPress, handleAyahPrefetch],
   );
 
   const keyExtractor = useCallback(
@@ -177,7 +194,7 @@ export default function SurahDetailScreen() {
 if (loading) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg, alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 12 }]}>
-        <Stack.Screen options={{ title: "Sure" }} />
+        <Stack.Screen options={{ title: t.surahTitle }} />
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
@@ -186,17 +203,17 @@ if (loading) {
   if (error || !data) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Stack.Screen options={{ title: "Sure" }} />
-        <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error ?? "Veri yüklenemedi."}</Text>
+        <Stack.Screen options={{ title: t.surahTitle }} />
+        <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error ?? t.dataError}</Text>
         {surahId ? (
           <TouchableOpacity
             style={[styles.retryBtn, { backgroundColor: c.accent }]}
             onPress={() => setReloadKey((k) => k + 1)}
             activeOpacity={0.8}
             accessibilityRole="button"
-            accessibilityLabel="Tekrar dene"
+            accessibilityLabel={t.retryA11y}
           >
-            <Text style={styles.retryText}>Tekrar Dene</Text>
+            <Text style={styles.retryText}>{t.retry}</Text>
           </TouchableOpacity>
         ) : null}
       </View>
@@ -205,7 +222,7 @@ if (loading) {
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}>
-      <Stack.Screen options={{ title: data.surah.name }} />
+      <Stack.Screen options={{ title: surahNameOf(data.surah.id, data.surah.name) }} />
       <FlatList
         data={data.verses}
         keyExtractor={keyExtractor}

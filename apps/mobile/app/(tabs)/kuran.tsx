@@ -8,14 +8,16 @@ import { useColors } from "../../src/hooks/useColors";
 import { logFeature } from "../../src/lib/analytics";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { useStrings } from "../../src/i18n";
+import kuranStrings from "../../src/i18n/strings/kuranTab";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
 type KuranCardRoute = "/mushaf-sayfa" | "/sure-listesi";
 type KuranCard = {
   id: "mushaf_page" | "surah_list";
   icon: IoniconName;
-  label: string;
-  sub: string;
+  labelKey: "mushafLabel" | "surahLabel";
+  subKey: "mushafSub" | "surahSub";
   route: KuranCardRoute;
   bg: string;
   border: string;
@@ -33,8 +35,8 @@ const CARDS: KuranCard[] = [
   {
     id: "mushaf_page",
     icon: "book-outline",
-    label: "Kur'an Oku",
-    sub: "604 sayfalık mushaf · kaldığın yerden devam · hatim takibi",
+    labelKey: "mushafLabel",
+    subKey: "mushafSub",
     route: "/mushaf-sayfa",
     bg: "#f0fdf4",
     border: "#86efac",
@@ -48,8 +50,8 @@ const CARDS: KuranCard[] = [
   {
     id: "surah_list",
     icon: "list-outline",
-    label: "Sure Listesi",
-    sub: "114 sure, ayet ayet incele",
+    labelKey: "surahLabel",
+    subKey: "surahSub",
     route: "/sure-listesi",
     bg: "#eff6ff",
     border: "#93c5fd",
@@ -64,6 +66,7 @@ const CARDS: KuranCard[] = [
 
 export default function KuranTab() {
   const c = useColors();
+  const t = useStrings(kuranStrings);
   const surahListTarget = useTourTarget("kuran.surahList");
 
   const handleCardPress = (card: KuranCard) => {
@@ -78,7 +81,7 @@ export default function KuranTab() {
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.heading, { color: c.text }]}>Kur'an-ı Kerim</Text>
+        <Text style={[s.heading, { color: c.text }]}>{t.heading}</Text>
 
         <View style={s.cards}>
           {CARDS.map(card => (
@@ -89,15 +92,15 @@ export default function KuranTab() {
               onPress={() => handleCardPress(card)}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel={card.label}
-              accessibilityHint={card.sub}
+              accessibilityLabel={t[card.labelKey]}
+              accessibilityHint={t[card.subKey]}
             >
               <View style={[s.iconWrap, { backgroundColor: c.isDark ? card.darkIconBg : card.iconBg }]}>
                 <Ionicons name={card.icon} size={22} color={c.isDark ? card.darkIconColor : card.iconColor} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[s.label, { color: c.text }]}>{card.label}</Text>
-                <Text style={[s.sub, { color: c.textMuted }]}>{card.sub}</Text>
+                <Text style={[s.label, { color: c.text }]}>{t[card.labelKey]}</Text>
+                <Text style={[s.sub, { color: c.textMuted }]}>{t[card.subKey]}</Text>
               </View>
               <Text style={[s.chev, { color: c.textMuted }]}>›</Text>
             </TouchableOpacity>

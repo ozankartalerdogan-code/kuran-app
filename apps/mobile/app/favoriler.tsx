@@ -14,8 +14,15 @@ import { SkeletonListItem } from "../src/components/SkeletonLoader";
 import * as Haptics from "expo-haptics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
+import { useMealOf } from "../src/lib/englishMeal";
+import { useSurahNameOf } from "../src/lib/surahNames";
+import { useStrings, getStrings, fmt } from "../src/i18n";
+import personalStrings from "../src/i18n/strings/personal";
 export default function FavorilerScreen() {
   const c = useColors();
+  const t = useStrings(personalStrings);
+  const mealOf = useMealOf();
+  const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const {
     favorites,
@@ -43,7 +50,7 @@ export default function FavorilerScreen() {
   });
 
   const requestError = storageError
-    ?? (isError ? (queryError instanceof Error ? queryError.message : "Favoriler yüklenemedi.") : null);
+    ?? (isError ? (queryError instanceof Error ? queryError.message : t.favLoadFail) : null);
 
   const handleRetry = useCallback(async () => {
     await refresh();
@@ -51,19 +58,19 @@ export default function FavorilerScreen() {
   }, [favorites.length, refetch, refresh]);
 
   function handleClearAll() {
-    Alert.alert("Tümünü Temizle", "Tüm favori ayetleri kaldırmak istediğinize emin misiniz?", [
-      { text: "İptal", style: "cancel" },
-      { text: "Temizle", style: "destructive", onPress: () => clearAll() },
+    Alert.alert(t.clearAllTitle, t.clearAllBody, [
+      { text: t.cancel, style: "cancel" },
+      { text: t.clear, style: "destructive", onPress: () => clearAll() },
     ]);
   }
 
   const handleRemoveOne = useCallback((verseKey: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    Alert.alert("Favoriden Kaldır", "Bu ayeti favorilerden kaldırmak istediğinize emin misiniz?", [
-      { text: "İptal", style: "cancel" },
-      { text: "Kaldır", style: "destructive", onPress: () => toggle(verseKey) },
+    Alert.alert(t.removeFavTitle, t.removeFavBody, [
+      { text: t.cancel, style: "cancel" },
+      { text: t.remove, style: "destructive", onPress: () => toggle(verseKey) },
     ]);
-  }, [toggle]);
+  }, [toggle, t]);
 
   const renderItem = useCallback(({ item }: { item: FavoriteVerse }) => (
     <TouchableOpacity
@@ -72,7 +79,7 @@ export default function FavorilerScreen() {
       onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
       activeOpacity={0.75}
       accessibilityRole="button"
-      accessibilityLabel={`${item.surah_name ?? item.verse_key}, ${item.ayah_number}. ayeti aç`}
+      accessibilityLabel={fmt(t.favOpenA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key, n: item.ayah_number })}
     >
       <View style={styles.cardHeader}>
         <View style={styles.keyBadge}>
@@ -80,15 +87,15 @@ export default function FavorilerScreen() {
         </View>
         {item.surah_name && (
           <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
-            {item.surah_name} · {item.ayah_number}. ayet
+            {fmt(t.favSurahLine, { name: surahNameOf(item.surah_id, item.surah_name) ?? "", n: item.ayah_number })}
           </Text>
         )}
-        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn} accessibilityRole="button" accessibilityLabel="Favoriden kaldır">
+        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn} accessibilityRole="button" accessibilityLabel={t.removeFavA11y}>
           <Text style={{ fontSize: 18 }}>❤️</Text>
         </TouchableOpacity>
       </View>
       {item.meal && (
-        <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{item.meal}</Text>
+        <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{mealOf(item.verse_key, item.meal)}</Text>
       )}
       {(item.ana_tema || item.alt_taglar?.length > 0) && (
         <View style={styles.tagRow}>
@@ -98,7 +105,7 @@ export default function FavorilerScreen() {
               onPress={() => { if (item.ana_tema) router.push(`/search?tag=${encodeURIComponent(item.ana_tema)}&page=1`); }}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={`${item.ana_tema} etiketine göre ara`}
+              accessibilityLabel={fmt(t.searchTagA11y, { tag: item.ana_tema })}
             >
               <Text style={styles.tagTextPrimary}>{item.ana_tema}</Text>
             </TouchableOpacity>
@@ -110,7 +117,7 @@ export default function FavorilerScreen() {
               onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={`${tag} etiketine göre ara`}
+              accessibilityLabel={fmt(t.searchTagA11y, { tag })}
             >
               <Text style={styles.tagText}>{tag}</Text>
             </TouchableOpacity>
@@ -118,7 +125,7 @@ export default function FavorilerScreen() {
         </View>
       )}
     </TouchableOpacity>
-  ), [c, handleRemoveOne]);
+  ), [c, handleRemoveOne, mealOf, surahNameOf, t]);
 
   if (!loaded || loading) {
     return (
@@ -132,16 +139,16 @@ export default function FavorilerScreen() {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>⚠️</Text>
-        <Text style={[styles.emptyTitle, { color: c.text }]}>Favoriler yüklenemedi</Text>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>{t.favErrTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{requestError}</Text>
         <TouchableOpacity
           style={[styles.goBtn, { backgroundColor: c.accent }]}
           onPress={handleRetry}
           activeOpacity={0.8}
           accessibilityRole="button"
-          accessibilityLabel="Tekrar dene"
+          accessibilityLabel={t.retryA11y}
         >
-          <Text style={styles.goBtnText}>Tekrar Dene</Text>
+          <Text style={styles.goBtnText}>{t.retry}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -151,12 +158,12 @@ export default function FavorilerScreen() {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>🤍</Text>
-        <Text style={[styles.emptyTitle, { color: c.text }]}>Henüz favori ayet yok</Text>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>{t.favEmptyTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
-          Ayet sayfasındaki 🤍 butonuna dokunarak favori ekleyebilirsin.
+          {t.favEmptySub}
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Surelere göz at">
-          <Text style={styles.goBtnText}>Surelere Göz At</Text>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.browseA11y}>
+          <Text style={styles.goBtnText}>{t.browse}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -169,9 +176,9 @@ export default function FavorilerScreen() {
       contentContainerStyle={[styles.list, { paddingTop: 14, paddingBottom: insets.bottom + 32 }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
-          <Text style={[styles.count, { color: c.textMuted }]}>{favorites.length} ayet kaydedildi</Text>
-          <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel="Tüm favorileri temizle">
-            <Text style={styles.clearAll}>Tümünü Temizle</Text>
+          <Text style={[styles.count, { color: c.textMuted }]}>{fmt(t.favCount, { n: favorites.length })}</Text>
+          <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.clearAllFavA11y}>
+            <Text style={styles.clearAll}>{t.clearAllTitle}</Text>
           </TouchableOpacity>
         </View>
       }

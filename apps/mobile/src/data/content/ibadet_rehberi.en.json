@@ -1,0 +1,1041 @@
+{
+  "islamSartlari": [
+    {
+      "id": "sehadet",
+      "ikon": "🌙",
+      "baslik": "The Declaration of Faith",
+      "aciklama": "It is to testify that there is no god but Allah and that Prophet Muhammad is His servant and messenger. It is the first step toward entering Islam and becoming a believer.",
+      "ayetler": [
+        {
+          "sureId": 3,
+          "sureAdi": "Al Imran",
+          "ayetNo": 18,
+          "kisaMetin": "Allah, the angels, and those who possess knowledge bear witness that He is the only god."
+        },
+        {
+          "sureId": 47,
+          "sureAdi": "Muhammad",
+          "ayetNo": 19,
+          "kisaMetin": "Know that there is no god but Allah."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 255,
+          "kisaMetin": "Ayat al-Kursi: Allah, there is no god but Him."
+        }
+      ]
+    },
+    {
+      "id": "namaz-inanc",
+      "ikon": "🕌",
+      "baslik": "Salah (Prayer)",
+      "aciklama": "Salah, performed five times a day, symbolizes a Muslim's direct connection with Allah. It is the act of worship most frequently commanded in the Quran; it is the physical expression of iman.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 43,
+          "kisaMetin": "Establish salah, give zakat, and bow with those who bow."
+        },
+        {
+          "sureId": 4,
+          "sureAdi": "an-Nisa",
+          "ayetNo": 103,
+          "kisaMetin": "Salah has been prescribed for the believers at appointed times."
+        },
+        {
+          "sureId": 20,
+          "sureAdi": "Ta-Ha",
+          "ayetNo": 14,
+          "kisaMetin": "Establish salah to remember Me."
+        },
+        {
+          "sureId": 29,
+          "sureAdi": "al-Ankabut",
+          "ayetNo": 45,
+          "kisaMetin": "Salah prevents indecency and wrongdoing."
+        }
+      ]
+    },
+    {
+      "id": "oruc-inanc",
+      "ikon": "🌟",
+      "baslik": "Sawm (Fasting)",
+      "aciklama": "It is to abstain from food, drink, and bad behavior from dawn until sunset during Ramadan. It is an act of worship that strengthens taqwa and disciplines the self.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 183,
+          "kisaMetin": "Fasting has been prescribed for you as it was prescribed for those before you, so that you may be mindful of Allah."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 185,
+          "kisaMetin": "Ramadan is the month in which the Quran was revealed, as guidance and a criterion."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 187,
+          "kisaMetin": "It has been made lawful for you to approach your wives on the nights of fasting."
+        }
+      ]
+    },
+    {
+      "id": "zekat-inanc",
+      "ikon": "💛",
+      "baslik": "Zakat",
+      "aciklama": "It is to give a specified proportion of wealth that reaches the nisab to those in need. It is mentioned repeatedly alongside salah in the Quran; it is the purification and sharing of wealth.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 43,
+          "kisaMetin": "Establish salah and give zakat."
+        },
+        {
+          "sureId": 9,
+          "sureAdi": "at-Tawbah",
+          "ayetNo": 60,
+          "kisaMetin": "Charitable contributions (zakat) are for eight categories—a duty prescribed by Allah."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 277,
+          "kisaMetin": "There is a reward for those who have iman and give zakat."
+        }
+      ]
+    },
+    {
+      "id": "hac-inanc",
+      "ikon": "🕋",
+      "baslik": "Hajj",
+      "aciklama": "It is for every Muslim who is able to travel to Mecca and perform certain acts of worship at least once in their lifetime. It is a duty of brotherhood in which all believers come together regardless of race or class.",
+      "ayetler": [
+        {
+          "sureId": 3,
+          "sureAdi": "Al Imran",
+          "ayetNo": 97,
+          "kisaMetin": "For whoever is able to make the journey, performing Hajj to the Kaaba is obligatory for the sake of Allah."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 196,
+          "kisaMetin": "Complete Hajj and Umrah for Allah."
+        },
+        {
+          "sureId": 22,
+          "sureAdi": "al-Hajj",
+          "ayetNo": 27,
+          "kisaMetin": "Proclaim Hajj among the people; let every traveler come from distant roads."
+        },
+        {
+          "sureId": 22,
+          "sureAdi": "al-Hajj",
+          "ayetNo": 29,
+          "kisaMetin": "Let them remove their dirt, fulfill their vows, and perform tawaf."
+        }
+      ]
+    }
+  ],
+  "imanSartlari": [
+    {
+      "id": "allah",
+      "ikon": "✨",
+      "baslik": "Belief in Allah",
+      "aciklama": "It is to believe in one's heart in Allah's existence, His oneness (tawhid), and His names and attributes revealed in the Quran. It is the foundation of all iman.",
+      "ayetler": [
+        {
+          "sureId": 112,
+          "sureAdi": "al-Ikhlas",
+          "ayetNo": 1,
+          "kisaMetin": "Say: He is Allah, the One."
+        },
+        {
+          "sureId": 112,
+          "sureAdi": "al-Ikhlas",
+          "ayetNo": 2,
+          "kisaMetin": "Allah is as-Samad; everything depends on Him, and He depends on nothing."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 255,
+          "kisaMetin": "Ayat al-Kursi: Allah is the Ever-Living and the Sustainer of all things."
+        }
+      ]
+    },
+    {
+      "id": "melek",
+      "ikon": "🪽",
+      "baslik": "Belief in Angels",
+      "aciklama": "It is to believe in the angels whom Allah created from light, who do not commit sins and who obey His commands completely.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 285,
+          "kisaMetin": "The Prophet and the believers have believed in Allah, His angels, His books, and His messengers."
+        },
+        {
+          "sureId": 4,
+          "sureAdi": "an-Nisa",
+          "ayetNo": 136,
+          "kisaMetin": "Believe in Allah, His messenger, His angels, His books, and His messengers."
+        }
+      ]
+    },
+    {
+      "id": "kitap",
+      "ikon": "📖",
+      "baslik": "Belief in the Books",
+      "aciklama": "It is to believe in the divine books Allah sent to the prophets, foremost among them the Torah, the Psalms, the Gospel, and the Quran.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 285,
+          "kisaMetin": "The believers have believed in Allah's books."
+        },
+        {
+          "sureId": 3,
+          "sureAdi": "Al Imran",
+          "ayetNo": 3,
+          "kisaMetin": "Allah sent down the Book to you in truth, confirming what came before it."
+        }
+      ]
+    },
+    {
+      "id": "peygamber",
+      "ikon": "🌿",
+      "baslik": "Belief in the Prophets",
+      "aciklama": "It is to believe in all the prophets sent from Adam to Prophet Muhammad. Twenty-five prophets are mentioned by name in the Quran.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 285,
+          "kisaMetin": "The believers have believed in Allah's messengers; we make no distinction between any of them."
+        },
+        {
+          "sureId": 6,
+          "sureAdi": "al-Anam",
+          "ayetNo": 84,
+          "kisaMetin": "We gave Isaac and Jacob to Abraham; We guided them all."
+        }
+      ]
+    },
+    {
+      "id": "ahiret",
+      "ikon": "⚖️",
+      "baslik": "Belief in the Last Day",
+      "aciklama": "It is to believe in resurrection after death, the Day of Judgment, Paradise, and Hell. It makes worldly life temporary and a sense of responsibility lasting.",
+      "ayetler": [
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 4,
+          "kisaMetin": "Those who believe with certainty in the Hereafter."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 62,
+          "kisaMetin": "There is a reward for those who believe in Allah and the Last Day and do righteous deeds."
+        },
+        {
+          "sureId": 99,
+          "sureAdi": "az-Zalzalah",
+          "ayetNo": 6,
+          "kisaMetin": "On that day, people will come forth separately so that their deeds may be shown to them."
+        }
+      ]
+    },
+    {
+      "id": "kader",
+      "ikon": "🌊",
+      "baslik": "Belief in Divine Decree and Destiny",
+      "aciklama": "It is to believe that everything is within Allah's knowledge, will, and decree. This belief lays the foundation for the virtues of trust in Allah, gratitude, and patience.",
+      "ayetler": [
+        {
+          "sureId": 54,
+          "sureAdi": "al-Qamar",
+          "ayetNo": 49,
+          "kisaMetin": "Indeed, We created everything according to a measure."
+        },
+        {
+          "sureId": 25,
+          "sureAdi": "al-Furqan",
+          "ayetNo": 2,
+          "kisaMetin": "He is the One who created everything and determined it according to a measure."
+        },
+        {
+          "sureId": 57,
+          "sureAdi": "al-Hadid",
+          "ayetNo": 22,
+          "kisaMetin": "No calamity occurs on earth or befalls you without being recorded in a book."
+        }
+      ]
+    }
+  ],
+  "namaz": {
+    "aciklama1": "Salah, performed five times a day, symbolizes a Muslim's direct connection with Allah. It is the act of worship most frequently commanded in the Quran.",
+    "aciklama2": "The rak'ahs and some details on this screen are summarized using the Hanafi teaching commonly followed in Türkiye; some rulings and practices may differ in other schools.",
+    "vakitler": [
+      {
+        "vakit": "Fajr",
+        "ikon": "🌅",
+        "ilkSunnet": 2,
+        "farz": 2,
+        "sonSunnet": 0,
+        "vitir": 0,
+        "toplam": 4
+      },
+      {
+        "vakit": "Dhuhr",
+        "ikon": "☀️",
+        "ilkSunnet": 4,
+        "farz": 4,
+        "sonSunnet": 2,
+        "vitir": 0,
+        "toplam": 10,
+        "not": "+2 voluntary"
+      },
+      {
+        "vakit": "Asr",
+        "ikon": "🌤️",
+        "ilkSunnet": 4,
+        "farz": 4,
+        "sonSunnet": 0,
+        "vitir": 0,
+        "toplam": 8
+      },
+      {
+        "vakit": "Maghrib",
+        "ikon": "🌇",
+        "ilkSunnet": 0,
+        "farz": 3,
+        "sonSunnet": 2,
+        "vitir": 0,
+        "toplam": 5,
+        "not": "+2 voluntary"
+      },
+      {
+        "vakit": "Isha",
+        "ikon": "🌙",
+        "ilkSunnet": 4,
+        "farz": 4,
+        "sonSunnet": 2,
+        "vitir": 3,
+        "toplam": 13
+      }
+    ],
+    "rekatNot": "In common practice in Türkiye, an additional two voluntary rak'ahs may be performed after each of Dhuhr and Maghrib.",
+    "maddeler": [
+      {
+        "tip": "info",
+        "metin": "Intention",
+        "detay": "To determine in one's heart which salah one is performing; the details of its ruling are explained differently across the schools."
+      },
+      {
+        "tip": "farz",
+        "metin": "Opening takbir",
+        "detay": "To begin salah by saying \"Allahu Ekber\"."
+      },
+      {
+        "tip": "farz",
+        "metin": "Standing",
+        "detay": "To stand if one is able."
+      },
+      {
+        "tip": "farz",
+        "metin": "Recitation",
+        "detay": "To perform salah with recitation of al-Fatihah and passages from the Quran; the details concerning rak'ahs and the minimum amount vary across the schools."
+      },
+      {
+        "tip": "farz",
+        "metin": "Bowing",
+        "detay": "To bend forward with the hands placed on the knees."
+      },
+      {
+        "tip": "farz",
+        "metin": "Prostrations",
+        "detay": "Two prostrations in each rak'ah, with seven parts of the body touching the ground."
+      },
+      {
+        "tip": "farz",
+        "metin": "Final sitting",
+        "detay": "To sit in the final rak'ah for the time it takes to recite the tashahhud."
+      },
+      {
+        "tip": "info",
+        "metin": "Salam",
+        "detay": "Salah is concluded with the salam; the details of its ruling are explained differently across the schools."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Sübhaneke",
+        "detay": "Recited in the first rak'ah before the Quran recitation."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Eûzü-Besmele",
+        "detay": "Recited in every rak'ah before the Quran recitation."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Glorifications during bowing",
+        "detay": "\"Sübhâne Rabbiye'l-azîm\" at least 3 times."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Glorifications during prostration",
+        "detay": "\"Sübhâne Rabbiye'l-a'lâ\" at least 3 times."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Ettehiyyatü",
+        "detay": "Recited in every sitting."
+      }
+    ],
+    "ayetler": [
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 43,
+        "kisaMetin": "Establish salah, give zakat, and bow with those who bow."
+      },
+      {
+        "sureId": 4,
+        "sureAdi": "an-Nisa",
+        "ayetNo": 103,
+        "kisaMetin": "Salah has been prescribed for the believers at appointed times."
+      },
+      {
+        "sureId": 20,
+        "sureAdi": "Ta-Ha",
+        "ayetNo": 14,
+        "kisaMetin": "Establish salah to remember Me."
+      },
+      {
+        "sureId": 29,
+        "sureAdi": "al-Ankabut",
+        "ayetNo": 45,
+        "kisaMetin": "Salah prevents indecency and wrongdoing."
+      }
+    ]
+  },
+  "oruc": {
+    "aciklama": "It is to abstain from food, drink, and bad behavior from dawn until sunset during Ramadan. It is an act of worship that strengthens taqwa.",
+    "maddeler": [
+      {
+        "tip": "farz",
+        "metin": "Intention",
+        "detay": "An intention is made for each day of Ramadan; making it at night is the most cautious approach, and the details vary across the schools."
+      },
+      {
+        "tip": "farz",
+        "metin": "Imsak",
+        "detay": "To abstain from eating, drinking, and sexual intercourse from true dawn until sunset."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Suhoor",
+        "detay": "Eating shortly before dawn; it carries great blessing."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Iftar and Supplication",
+        "detay": "It is Sunnah to break the fast as soon as the time begins, start with dates or water, and supplicate to Allah."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Hastening to Break the Fast",
+        "detay": "The fast is broken without delay when the sun sets."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Completing the Quran",
+        "detay": "Reading and completing the Quran during Ramadan brings great reward."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Tarawih Prayer",
+        "detay": "It is performed after Isha; the common practice in Türkiye is 20 rak'ahs in congregation, though other practices also exist."
+      },
+      {
+        "tip": "info",
+        "metin": "What Breaks the Fast",
+        "detay": "Deliberately eating or drinking; sexual intercourse; deliberate vomiting (if it fills the mouth and overflows)."
+      },
+      {
+        "tip": "info",
+        "metin": "Eating or Drinking Forgetfully",
+        "detay": "Eating or drinking forgetfully does not break the fast; the person stops immediately upon remembering and continues fasting."
+      },
+      {
+        "tip": "info",
+        "metin": "Making Up Fasts and Expiation",
+        "detay": "A Ramadan fast deliberately broken must be made up. In the Hanafi teaching common in Türkiye, deliberately eating, drinking or having sexual intercourse also calls for expiation; in some schools, expiation is described as applying only to sexual intercourse."
+      },
+      {
+        "tip": "info",
+        "metin": "The Form of Expiation",
+        "detay": "According to the classical order: first, freeing a slave; if that is not possible, fasting for 60 consecutive days; if one is unable to do that, feeding 60 poor people."
+      }
+    ],
+    "ayetler": [
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 183,
+        "kisaMetin": "O believers! Fasting has been prescribed for you as it was prescribed for those before you."
+      },
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 185,
+        "kisaMetin": "The month of Ramadan is the month in which the Quran was sent down as guidance for humanity."
+      },
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 187,
+        "kisaMetin": "It has been made lawful for you to approach your wives on the night of the fast."
+      }
+    ]
+  },
+  "zekat": {
+    "aciklama": "Giving a specified proportion of wealth that reaches the nisab to those in need. It is mentioned repeatedly alongside salah in the Quran.",
+    "nisap": [
+      {
+        "ikon": "🥇",
+        "etiket": "Gold",
+        "deger": "80.18 grams",
+        "son": "or its equivalent in money or property"
+      },
+      {
+        "ikon": "🥈",
+        "etiket": "Silver",
+        "deger": "595 grams",
+        "son": "(may give a more cautious result in some calculations)"
+      },
+      {
+        "ikon": "📊",
+        "etiket": "Rate",
+        "deger": "%2,5",
+        "son": "(once a year, one fortieth)"
+      }
+    ],
+    "siniflar": [
+      {
+        "no": 1,
+        "sinif": "The Poor (Fukarâ)",
+        "aciklama": "Poor people who own less than the nisab."
+      },
+      {
+        "no": 2,
+        "sinif": "The Needy (Mesâkîn)",
+        "aciklama": "Those who have no property or struggle to meet their daily needs."
+      },
+      {
+        "no": 3,
+        "sinif": "Zakat Collectors (Âmilîn)",
+        "aciklama": "People who collect and distribute zakat on behalf of the state."
+      },
+      {
+        "no": 4,
+        "sinif": "Those Whose Hearts Are to Be Reconciled",
+        "aciklama": "People whose hearts are to be inclined toward Islam or whose peaceful relations with the community are to be strengthened; its application is interpreted differently according to the period and school of law."
+      },
+      {
+        "no": 5,
+        "sinif": "Slaves (Rikâb)",
+        "aciklama": "Historically, slaves seeking their freedom; in the modern period, it is mentioned mainly as a classical category."
+      },
+      {
+        "no": 6,
+        "sinif": "Those in Debt (Gârimûn)",
+        "aciklama": "Those who have incurred debts for their own needs and whose assets do not cover their debts."
+      },
+      {
+        "no": 7,
+        "sinif": "In the Way of Allah (Fî Sebîlillah)",
+        "aciklama": "Those engaged in legitimate service and efforts in the way of Allah; its scope may be broader according to the school of law and contemporary fatwas."
+      },
+      {
+        "no": 8,
+        "sinif": "Stranded Travelers (İbnus-Sebîl)",
+        "aciklama": "People who run out of funds while traveling."
+      }
+    ],
+    "ayetler": [
+      {
+        "sureId": 9,
+        "sureAdi": "at-Tawbah",
+        "ayetNo": 60,
+        "kisaMetin": "Charitable funds (zakat) are for eight categories—a duty prescribed by Allah."
+      },
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 43,
+        "kisaMetin": "Establish salah and give zakat."
+      },
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 277,
+        "kisaMetin": "There is a reward for those who believe and give zakat."
+      }
+    ]
+  },
+  "hac": {
+    "aciklama1": "For every Muslim who is able, it is to travel to Mecca and perform certain acts of worship at least once in their lifetime.",
+    "aciklama2": "The following classification is based on the Hanafi teaching common in Türkiye; other schools may describe sa'y and some other items as pillars or obligatory acts.",
+    "adimlar": [
+      {
+        "no": 1,
+        "tip": "farz",
+        "baslik": "Entering Ihram",
+        "aciklama": "Ihram is entered before the miqat boundary with intention and the talbiyah; men wear special ihram garments."
+      },
+      {
+        "no": 2,
+        "tip": "farz",
+        "baslik": "Standing at Arafat",
+        "aciklama": "Being at Arafat on the 9th of Dhul-Hijjah is the fundamental pillar of Hajj; the time for standing lasts from noon until dawn on the night of Eid."
+      },
+      {
+        "no": 3,
+        "tip": "farz",
+        "baslik": "Tawaf al-Ifadah",
+        "aciklama": "Circling the Kaaba seven times between the 10th and 12th of Dhul-Hijjah."
+      },
+      {
+        "no": 4,
+        "tip": "vacip",
+        "baslik": "Staying Overnight at Muzdalifah",
+        "aciklama": "In the Hanafi teaching common in Türkiye, stopping at Muzdalifah after Arafat and spending the night there are described as wajib."
+      },
+      {
+        "no": 5,
+        "tip": "vacip",
+        "baslik": "Sa'y",
+        "aciklama": "Seven circuits are walked between Safa and Marwah; it is considered wajib in Hanafi teaching and a pillar or obligatory act in some other schools."
+      },
+      {
+        "no": 6,
+        "tip": "vacip",
+        "baslik": "Stoning the Jamarat",
+        "aciklama": "Throwing stones at the jamarat in Mina: seven stones at Jamarat al-Aqabah on the 10th day, and 21 stones at each of the three jamarat on the following days."
+      },
+      {
+        "no": 7,
+        "tip": "vacip",
+        "baslik": "Shaving or Shortening the Hair",
+        "aciklama": "Men shave their heads completely; women cut off a fingertip's length."
+      },
+      {
+        "no": 8,
+        "tip": "vacip",
+        "baslik": "Offering a Sacrifice",
+        "aciklama": "Offering a sacrifice is wajib in Hajj al-Tamattu and Hajj al-Qiran."
+      },
+      {
+        "no": 9,
+        "tip": "vacip",
+        "baslik": "Farewell Tawaf",
+        "aciklama": "The final tawaf performed before leaving Mecca; it is described as wajib in the Hanafi, Shafi'i and Hanbali schools, and Sunnah in the Maliki school."
+      },
+      {
+        "no": 10,
+        "tip": "sunnet",
+        "baslik": "Arrival Tawaf",
+        "aciklama": "The welcoming tawaf performed upon first arriving in Mecca."
+      }
+    ],
+    "ayetler": [
+      {
+        "sureId": 3,
+        "sureAdi": "Al Imran",
+        "ayetNo": 97,
+        "kisaMetin": "Pilgrimage to the Kaaba for Allah is obligatory for whoever is able to make the journey."
+      },
+      {
+        "sureId": 2,
+        "sureAdi": "al-Baqarah",
+        "ayetNo": 196,
+        "kisaMetin": "Complete Hajj and Umrah for Allah."
+      },
+      {
+        "sureId": 22,
+        "sureAdi": "al-Hajj",
+        "ayetNo": 27,
+        "kisaMetin": "Proclaim the Hajj among the people; let every traveler come from distant roads."
+      },
+      {
+        "sureId": 22,
+        "sureAdi": "al-Hajj",
+        "ayetNo": 29,
+        "kisaMetin": "Let them remove their impurities, fulfill their vows and perform tawaf."
+      }
+    ]
+  },
+  "kurban": {
+    "aciklama": "Wajib in the Hanafi school; an emphasized Sunnah in the other schools. It is the slaughter of an animal during Eid al-Adha to seek Allah's pleasure.",
+    "maddeler": [
+      {
+        "tip": "vacip",
+        "metin": "Its Ruling",
+        "detay": "Wajib in the Hanafi school; an emphasized Sunnah in the other schools."
+      },
+      {
+        "tip": "info",
+        "metin": "For Whom Is It Wajib?",
+        "detay": "In the Hanafi teaching common in Türkiye, it is wajib for resident Muslims who are of sound mind, have reached puberty and possess wealth equal to the nisab beyond their basic needs."
+      },
+      {
+        "tip": "info",
+        "metin": "Sheep / Goat",
+        "detay": "At least one year old; sacrificed on behalf of one person."
+      },
+      {
+        "tip": "info",
+        "metin": "Cattle / Buffalo",
+        "detay": "At least two years old; sacrificed jointly by no more than seven people."
+      },
+      {
+        "tip": "info",
+        "metin": "Camel",
+        "detay": "At least five years old; sacrificed jointly by no more than seven people."
+      },
+      {
+        "tip": "info",
+        "metin": "Time of Sacrifice",
+        "detay": "In places where the Eid prayer is performed, it begins after the prayer; in the general Hanafi teaching, it lasts until sunset on the third day. In the Shafi'i school, there is also a view that extends it to the fourth day."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Intention and Bismillah",
+        "detay": "The animal is slaughtered while saying \"Bismillah, Allahu Ekber\"; an intention is made."
+      },
+      {
+        "tip": "sunnet",
+        "metin": "Distribution of the Meat",
+        "detay": "One third for the family, one third for neighbors and friends, and one third for the poor (recommended)."
+      }
+    ],
+    "ayetler": [
+      {
+        "sureId": 22,
+        "sureAdi": "al-Hajj",
+        "ayetNo": 34,
+        "kisaMetin": "For every community We prescribed sacrifice so that they may mention His name."
+      },
+      {
+        "sureId": 22,
+        "sureAdi": "al-Hajj",
+        "ayetNo": 37,
+        "kisaMetin": "Neither their meat nor their blood reaches Allah, but your piety reaches Him."
+      },
+      {
+        "sureId": 108,
+        "sureAdi": "al-Kawthar",
+        "ayetNo": 2,
+        "kisaMetin": "Pray to your Lord and offer sacrifice."
+      }
+    ]
+  },
+  "abdestBolumler": [
+    {
+      "id": "abdest",
+      "ikon": "💧",
+      "baslik": "Wudu (Ablution)",
+      "altBaslik": "4 obligatory acts according to the Quran · Sunnah practices",
+      "aciklama": "The purification required for performing salah, touching the Quran and performing tawaf around the Kaaba.",
+      "farzlar": [
+        {
+          "organ": "Face",
+          "miktar": 1,
+          "aciklama": "Wash the entire face from the hairline on the forehead to beneath the chin, and between the earlobes."
+        },
+        {
+          "organ": "Arms",
+          "miktar": 1,
+          "aciklama": "Wash both arms, including the elbows, starting with the right."
+        },
+        {
+          "organ": "Head",
+          "miktar": 1,
+          "aciklama": "Wipe at least one quarter of the head with a wet hand (Hanafi)."
+        },
+        {
+          "organ": "Feet",
+          "miktar": 1,
+          "aciklama": "Wash both feet, including the ankles, starting with the right."
+        }
+      ],
+      "sunnetler": [
+        {
+          "organ": "Bismillah",
+          "miktar": "—",
+          "aciklama": "Say Bismillah."
+        },
+        {
+          "organ": "Intention",
+          "miktar": "—",
+          "aciklama": "Begin wudu consciously; it is considered Sunnah in the Hanafi school and obligatory in some other schools."
+        },
+        {
+          "organ": "Hands",
+          "miktar": 3,
+          "aciklama": "Wash both hands up to and including the wrists when beginning wudu."
+        },
+        {
+          "organ": "Mouth (Mazmaza)",
+          "miktar": 3,
+          "aciklama": "Take water into the mouth and rinse it."
+        },
+        {
+          "organ": "Nose (İstinşak)",
+          "miktar": 3,
+          "aciklama": "Draw water into the nose and clean it."
+        },
+        {
+          "organ": "Face",
+          "miktar": 3,
+          "aciklama": "Wash three times as a Sunnah practice."
+        },
+        {
+          "organ": "Arms",
+          "miktar": 3,
+          "aciklama": "Wash three times as a Sunnah practice."
+        },
+        {
+          "organ": "Entire Head",
+          "miktar": 1,
+          "aciklama": "Wipe the entire head."
+        },
+        {
+          "organ": "Ears",
+          "miktar": 1,
+          "aciklama": "Wipe the inside and back of the ears."
+        },
+        {
+          "organ": "Neck (Nape)",
+          "miktar": 1,
+          "aciklama": "Wipe the nape with the backs of the hands."
+        },
+        {
+          "organ": "Feet",
+          "miktar": 3,
+          "aciklama": "Wash three times as a Sunnah practice."
+        },
+        {
+          "organ": "Between the Fingers and Toes",
+          "miktar": 1,
+          "aciklama": "Pass the fingers between the fingers and toes."
+        },
+        {
+          "organ": "Order",
+          "miktar": "—",
+          "aciklama": "Wash the body parts in order."
+        },
+        {
+          "organ": "Continuity",
+          "miktar": "—",
+          "aciklama": "Wash the body parts without interruption."
+        }
+      ],
+      "ayetler": [
+        {
+          "sureId": 5,
+          "sureAdi": "al-Ma'idah",
+          "ayetNo": 6,
+          "kisaMetin": "O believers! When you rise for salah, wash your faces and your hands up to the elbows; wipe your heads and wash your feet up to the ankles."
+        },
+        {
+          "sureId": 4,
+          "sureAdi": "an-Nisa",
+          "ayetNo": 43,
+          "kisaMetin": "Do not perform salah while in a state of major ritual impurity until you have washed. If you cannot find water, perform tayammum with clean earth."
+        }
+      ],
+      "bozanlar": [
+        "Urinating or defecating · Passing wind",
+        "Deep sleep · Fainting",
+        "Flowing blood or pus (Hanafi)"
+      ]
+    },
+    {
+      "id": "gusul",
+      "ikon": "🚿",
+      "baslik": "Ghusl (Full-Body Ablution)",
+      "altBaslik": "3 obligatory acts in the Hanafi school · Sunnah practices",
+      "aciklama": "A complete purification requiring the washing of the entire body after states such as major ritual impurity, menstruation and postnatal bleeding.",
+      "farzlar": [
+        {
+          "organ": "Mouth",
+          "miktar": 1,
+          "aciklama": "Mazmaza: rinse the inside of the mouth thoroughly."
+        },
+        {
+          "organ": "Nose",
+          "miktar": 1,
+          "aciklama": "İstinşak: draw water into the nose and clean it."
+        },
+        {
+          "organ": "Entire Body",
+          "miktar": 1,
+          "aciklama": "Wash the entire body, including the roots of the hair, without leaving even a single hair dry."
+        }
+      ],
+      "sunnetler": [
+        {
+          "organ": "Hands",
+          "miktar": 3,
+          "aciklama": "Wash the hands three times when beginning ghusl."
+        },
+        {
+          "organ": "Intention",
+          "miktar": "—",
+          "aciklama": "It is considered Sunnah in the Hanafi school and obligatory in many other schools."
+        },
+        {
+          "organ": "Removing Impurities",
+          "miktar": "—",
+          "aciklama": "First remove any impurity from the body."
+        },
+        {
+          "organ": "Wudu",
+          "miktar": 1,
+          "aciklama": "Performing a complete wudu as for salah before beginning ghusl."
+        },
+        {
+          "organ": "Head",
+          "miktar": 3,
+          "aciklama": "Washing the head by pouring water over it three times."
+        },
+        {
+          "organ": "Right Side",
+          "miktar": "—",
+          "aciklama": "Starting with the right shoulder, then washing the left side."
+        },
+        {
+          "organ": "Rubbing",
+          "miktar": "—",
+          "aciklama": "Rubbing the body with the hands and washing every part thoroughly."
+        },
+        {
+          "organ": "Continuity",
+          "miktar": "—",
+          "aciklama": "Completing ghusl without interruption."
+        }
+      ],
+      "ayetler": [
+        {
+          "sureId": 5,
+          "sureAdi": "al-Ma'idah",
+          "ayetNo": 6,
+          "kisaMetin": "If you are in a state of major ritual impurity, wash yourselves thoroughly."
+        },
+        {
+          "sureId": 4,
+          "sureAdi": "an-Nisa",
+          "ayetNo": 43,
+          "kisaMetin": "Do not perform salah while in a state of major ritual impurity until you have washed yourselves."
+        },
+        {
+          "sureId": 2,
+          "sureAdi": "al-Baqarah",
+          "ayetNo": 222,
+          "kisaMetin": "When menstruation has ended and they have purified themselves, approach them."
+        }
+      ],
+      "bozanlar": [
+        "Major ritual impurity",
+        "The end of menstruation and postnatal bleeding"
+      ]
+    },
+    {
+      "id": "teyemmum",
+      "ikon": "🌿",
+      "baslik": "Tayammum (Dry Ablution)",
+      "altBaslik": "Essential obligations · Sunnahs",
+      "aciklama": "A method of purification that takes the place of wudu and ghusl when water cannot be found or used. It is performed with clean earth, sand, or stone.",
+      "farzlar": [
+        {
+          "organ": "Intention",
+          "miktar": "—",
+          "aciklama": "Intending to perform tayammum."
+        },
+        {
+          "organ": "Face",
+          "miktar": 1,
+          "aciklama": "After striking clean ground with both hands and shaking them off, wiping the entire face."
+        },
+        {
+          "organ": "Arms",
+          "miktar": 1,
+          "aciklama": "Striking the earth a second time and wiping both arms, including the elbows (Hanafi)."
+        }
+      ],
+      "sunnetler": [
+        {
+          "organ": "Order",
+          "miktar": "—",
+          "aciklama": "Following the order of wiping the face first, then the arms."
+        },
+        {
+          "organ": "Basmalah",
+          "miktar": "—",
+          "aciklama": "Saying Bismillah; it is Sunnah in the Hanafi and Shafi'i schools."
+        },
+        {
+          "organ": "Separating the Fingers",
+          "miktar": "—",
+          "aciklama": "Keeping the fingers apart before striking the earth."
+        },
+        {
+          "organ": "Shaking Off",
+          "miktar": "—",
+          "aciklama": "Lightly shaking off the hands after striking the earth."
+        },
+        {
+          "organ": "Between the Fingers",
+          "miktar": 1,
+          "aciklama": "Passing the fingers through one another."
+        },
+        {
+          "organ": "Starting on the Right",
+          "miktar": "—",
+          "aciklama": "Starting with the right side of the face and the right arm."
+        }
+      ],
+      "ayetler": [
+        {
+          "sureId": 5,
+          "sureAdi": "al-Ma'idah",
+          "ayetNo": 6,
+          "kisaMetin": "If you cannot find water, turn to clean earth and wipe your faces and hands with it."
+        },
+        {
+          "sureId": 4,
+          "sureAdi": "an-Nisa",
+          "ayetNo": 43,
+          "kisaMetin": "If you are ill or cannot find water while travelling, strike clean earth and wipe your face and hands."
+        }
+      ],
+      "bozanlar": [
+        "All conditions that invalidate wudu or ghusl",
+        "Becoming able to access or use water"
+      ]
+    }
+  ]
+}

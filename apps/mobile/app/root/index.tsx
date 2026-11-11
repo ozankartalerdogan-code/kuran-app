@@ -13,14 +13,16 @@ import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { useStrings, getStrings, fmt } from "../../src/i18n";
+import rootStrings from "../../src/i18n/strings/root";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
-const SORT_LABELS: Record<SortKey, string> = {
-  frequency: "Frekans",
-  alphabetical: "Alfabetik",
-  meaning: "Anlam",
+const SORT_KEYS: Record<SortKey, "sortFrequency" | "sortAlphabetical" | "sortMeaning"> = {
+  frequency: "sortFrequency",
+  alphabetical: "sortAlphabetical",
+  meaning: "sortMeaning",
 };
 
 const Separator = () => {
@@ -43,14 +45,15 @@ function normalizeArabic(value: string): string {
 }
 
 const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; onPress: (root: string) => void; c: AppColors }) {
+  const t = useStrings(rootStrings);
   return (
     <TouchableOpacity
       style={[s.card, { backgroundColor: c.card }]}
       onPress={() => onPress(item.root)}
       activeOpacity={0.75}
       accessibilityRole="button"
-      accessibilityLabel={`${item.root} kökü`}
-      accessibilityHint={`${item.meaning_tr} anlamı ve ${item.frequency} geçiş detayını açar`}
+      accessibilityLabel={fmt(t.rootA11y, { root: item.root })}
+      accessibilityHint={fmt(t.rootHint, { meaning: item.meaning_tr, n: item.frequency })}
     >
       <View style={s.cardLeft}>
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
@@ -65,6 +68,7 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
 
 export default function RootListScreen() {
   const c = useColors();
+  const t = useStrings(rootStrings);
   const insets = useSafeAreaInsets();
   const listTarget = useTourTarget("root.list");
   const [roots, setRoots] = useState<RootItem[]>([]);
@@ -83,7 +87,7 @@ export default function RootListScreen() {
       setRoots(nextRoots);
     } catch {
       if (!isMountedRef.current) return;
-      setError("Kökler yüklenemedi.");
+      setError(getStrings(rootStrings).listError);
     } finally {
       if (isMountedRef.current) setLoading(false);
     }
@@ -133,7 +137,7 @@ export default function RootListScreen() {
   if (loading) {
     return (
       <>
-        <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+        <Stack.Screen options={{ title: t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
           <ActivityIndicator size="large" color={c.accent} />
         </View>
@@ -144,7 +148,7 @@ export default function RootListScreen() {
   if (error) {
     return (
       <>
-        <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+        <Stack.Screen options={{ title: t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
           <Text style={s.errorText}>{error}</Text>
           <TouchableOpacity
@@ -152,10 +156,10 @@ export default function RootListScreen() {
             onPress={() => { void fetchRoots(); }}
             activeOpacity={0.75}
             accessibilityRole="button"
-            accessibilityLabel="Kök listesini yeniden dene"
-            accessibilityHint="Liste yükleme işlemini tekrar başlatır"
+            accessibilityLabel={t.retryListA11y}
+            accessibilityHint={t.retryListHint}
           >
-            <Text style={s.retryBtnText}>Tekrar Dene</Text>
+            <Text style={s.retryBtnText}>{t.retry}</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -164,7 +168,7 @@ export default function RootListScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+      <Stack.Screen options={{ title: t.title }} />
       <View style={[s.container, { backgroundColor: c.bg }]}>
         <View style={s.centerWrap}>
         <View {...listTarget} style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -172,7 +176,7 @@ export default function RootListScreen() {
             style={[s.searchInput, { color: c.text }]}
             value={search}
             onChangeText={setSearch}
-            placeholder="Kök veya anlam ara…"
+            placeholder={t.searchPlaceholder}
             placeholderTextColor={c.textMuted}
             autoCorrect={false}
             autoCapitalize="none"
@@ -181,18 +185,18 @@ export default function RootListScreen() {
         </View>
 
         <View style={s.sortRow}>
-          {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
+          {(Object.keys(SORT_KEYS) as SortKey[]).map((key) => (
             <TouchableOpacity
               key={key}
               style={[s.sortBtn, { backgroundColor: c.card, borderColor: c.border }, sort === key && s.sortBtnActive]}
               onPress={() => setSort(key)}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={`${SORT_LABELS[key]} sıralaması`}
+              accessibilityLabel={fmt(t.sortA11y, { label: t[SORT_KEYS[key]] })}
               accessibilityState={{ selected: sort === key }}
             >
               <Text style={[s.sortBtnText, { color: c.text }, sort === key && s.sortBtnTextActive]}>
-                {SORT_LABELS[key]}
+                {t[SORT_KEYS[key]]}
               </Text>
             </TouchableOpacity>
           ))}
@@ -205,7 +209,7 @@ export default function RootListScreen() {
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <View style={s.centered}>
-              <Text style={s.emptyText}>Sonuç bulunamadı</Text>
+              <Text style={s.emptyText}>{t.noResults}</Text>
             </View>
           }
           ItemSeparatorComponent={Separator}

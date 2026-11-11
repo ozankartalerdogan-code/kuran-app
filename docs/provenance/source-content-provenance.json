@@ -20,13 +20,13 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 113203,
-    "sha256": "958443522199cde60e0aa6ec3d10b1fa2b5e99323902ec2078a5f7d8649d4ae3",
+    "totalBytes": 115426,
+    "sha256": "3cabf8bc4b5845836390d4198655c6a995fa51897168885cd985060920becfd1",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
-        "bytes": 8523,
-        "sha256": "5f41d30ab74e7c21a5855a31d583ee974ca63cc57caab23ff04977dc779c4bf1"
+        "bytes": 8984,
+        "sha256": "4126578577f73754ad16a53ee098b733be39f7ba5c0914991a8ce618107cfb45"
       },
       {
         "path": "apps/web/src/app/hakkinda/page.tsx",
@@ -90,13 +90,13 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 5267,
-        "sha256": "6d97de3e1fadedafb1c649d44078dfefc4cd25f8ca0a953acce48b27c1ffb56c"
+        "bytes": 6178,
+        "sha256": "6f1337dcc0ba0a0d0026844d38967b6848e70c2c8e43edc5b247e4a2606655b1"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
-        "bytes": 6572,
-        "sha256": "2fef3089e9a86c7f207e761353fc3b526df46648509bd34198a46196f30a4346"
+        "bytes": 7423,
+        "sha256": "9b84ce4642f29d836c148bdbe7a131162a357df9db8851c743a50b975a2968f5"
       }
     ]
   },
@@ -731,6 +731,48 @@
       }
     },
     {
+      "id": "pickthall-tanzil-en",
+      "sourceUrls": [
+        "https://tanzil.net/trans/?transID=en.pickthall&type=txt-2",
+        "https://en.wikisource.org/wiki/Index:The_Meaning_of_the_Glorious_Koran_(1930).pdf"
+      ],
+      "classification": "public-domain-work-and-open-digital-edition",
+      "sourceContribution": "Marmaduke Pickthall's The Meaning of the Glorious Koran (Knopf, 1930; translator died 1936) in Tanzil.net's digital edition (en.pickthall, last update 2010-09-04).",
+      "projectContribution": "Verse-count validation against the canonical surah list and packaging as a bundled mobile JSON shown when the UI language is English.",
+      "toolModel": "Tanzil.net translation export; scripts/build-mobile-meal-en.mjs",
+      "method": "Downloaded 2026-11-11; source SHA-256 pinned in the build script; 114 surahs / 6236 verses checked for gaps, duplicates and empty verses; spot-checked against the 1930 text (Tanzil has minor edits, e.g. 2:255 'God' -> 'deity').",
+      "generatedAt": null,
+      "humanReview": "Coverage and spot checks; public-domain status (life+70 and US 1930+95) is not asserted as legal certainty.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 4,
+        "totalBytes": 1709054,
+        "sha256": "100edcf4075ce0cb73b02aa9e8b617322b313a3f68d51756030dd50bcd94cde6",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/meal_en_pickthall.json",
+            "bytes": 841210,
+            "sha256": "6139cca0102206480c39a4e845a32a17f4241994034d679167abffed672c503d"
+          },
+          {
+            "path": "data/translations/en.pickthall/en.pickthall.txt",
+            "bytes": 864918,
+            "sha256": "4aabbfa9d96796f5a6b0217d2c39dce1a3084f772bf6f2650e37082a774e3cc7"
+          },
+          {
+            "path": "data/translations/en.pickthall/SOURCE.md",
+            "bytes": 1043,
+            "sha256": "1aa356ad906a33cb4e4af860d1213e940ca1a0763c0d43f1d4aba5c69f7c8a87"
+          },
+          {
+            "path": "scripts/build-mobile-meal-en.mjs",
+            "bytes": 1883,
+            "sha256": "39006a34db24e9c5e34502c50c34ecef753d14d8d2e53eb732de23348e79b111"
+          }
+        ]
+      }
+    },
+    {
       "id": "qac-mustafa0x-source-chain",
       "sourceUrls": [
         "https://corpus.quran.com/download/",
@@ -990,6 +1032,271 @@
             "path": "data/quran/transliteration.json",
             "bytes": 2214403,
             "sha256": "36369741f23fe2b64fdcca39d047659256dab7b40f1717aefcb6198c514313a0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ai-english-translations-v1",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Kuran Yolu's Turkish project content (lessons/quizzes, simplified Elmalılı tafsir, duas, hadith, seerah, prophets' stories, prayer guides, blessed days, Esma ul-Husna meanings, İsm-i Azam duas, worship guide, Manevi Sığınak, privacy policy, Harf-i Tarif lesson, source/license text; project outputs listed in other entries).",
+      "projectContribution": "English translations for the mobile English UI mode; structure, ids, answer keys and link tokens preserved and machine-validated.",
+      "toolModel": "Content JSON: OpenAI Codex CLI (gpt-6.1-terra; one lesson file gpt-6.1-sol) via scripts/translate-json-en.mjs (Harf-i Tarif with PROMPT_EXTRA adaptation rules). Tafsir: agy CLI (Gemini 3.8 Flash Medium) via scripts/translate-tafsir-en.mjs. UI strings (apps/mobile/src/i18n/strings) written by Claude Sonnet coding agents; Turkish→English transliteration spelling is rule-based (apps/mobile/src/lib/translitEn.ts).",
+      "method": "Batch translation 2026-11-11 with per-batch validation (item count, quiz option prefixes, untranslated-Turkish heuristic, length ratio) and automated structure diff against the Turkish source (2895/2895 tafsir paragraphs aligned); manual spot checks of samples incl. privacy-policy paragraphs.",
+      "generatedAt": "2026-11-11",
+      "humanReview": "Spot checks only; full human review of religious content pending.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 49,
+        "totalBytes": 2943177,
+        "sha256": "a13a3e2f2dd06a49d28cccdb3347a11b09766e6d1149a8d89e3bfea2153b6526",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/content/gizlilik.en.json",
+            "bytes": 10823,
+            "sha256": "451d6e651b3d71ca7d4e0591160589d137fca9ec3c00d9f28c2678624259c06d"
+          },
+          {
+            "path": "apps/mobile/src/data/content/harf_i_tarif.en.json",
+            "bytes": 15816,
+            "sha256": "b0372a60188d28442fff41f90570f1fc39f584416757244b2f6afc435e65a92c"
+          },
+          {
+            "path": "apps/mobile/src/data/content/ibadet_rehberi.en.json",
+            "bytes": 35151,
+            "sha256": "e70d3eaee27dcb5665c43fd8f8891b37a3cdc9ba701760652fe42ca789477e08"
+          },
+          {
+            "path": "apps/mobile/src/data/content/manevi_siginak.en.json",
+            "bytes": 9232,
+            "sha256": "d86b8c6492799d474000846edf62170d5b527f9bcc47e26a96fd24259a804c5d"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/abdest_dersi.en.json",
+            "bytes": 19134,
+            "sha256": "ae1d2f1346ebf5c1e267bf1863bcb1f2bae3dad4ce594cfc4f816886d54ccd48"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/abdest_quiz.en.json",
+            "bytes": 21068,
+            "sha256": "609076d6f9eb40aa96bc1ca5ae331d4eeb90eb6f09291040653b1fd95f171439"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/ezan_kamet_dersi.en.json",
+            "bytes": 11663,
+            "sha256": "7b27b68942dff63e17876bc052d20e12b78aeab5192525ee05e64e13de39614e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/ezan_kamet_quiz.en.json",
+            "bytes": 21331,
+            "sha256": "c1d830136d8d7a14ac03e5fb873bbbf64602a99ddb3bb8c6c510b78766256457"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/guzel_ahlak_dersi.en.json",
+            "bytes": 13821,
+            "sha256": "dee81770dda3f45a056c583874efb3b619aa2ee1a8f1bf3bd855cf93f9ec6ca6"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/guzel_ahlak_quiz.en.json",
+            "bytes": 20176,
+            "sha256": "c01e4eae9e8ac947e9d96de28351b140511b3024808a803958d58f8f03073de8"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/hac_umre_dersi.en.json",
+            "bytes": 12091,
+            "sha256": "c58b28ed71c3fb574a5e57064f12710102d643c74a0048ca531ab3f2ce1f3d98"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/hac_umre_quiz.en.json",
+            "bytes": 26093,
+            "sha256": "ba40f9a1ea6ee517f4b89774daab3a9322bfc246317038a468020a82a4cee88e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/iman_esaslari_dersi.en.json",
+            "bytes": 13315,
+            "sha256": "621393143ae768a9e3ed6ba816b78d14628e07768edbd70dd3de86b5ef372fc4"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/iman_esaslari_quiz.en.json",
+            "bytes": 30116,
+            "sha256": "1ae82d36c128659b0aefce362051970db90000acd52f33ad8a277c6da74325f1"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kitaplara_iman_dersi.en.json",
+            "bytes": 8483,
+            "sha256": "2fce2ebdf2748b8cdb48b989a02aa2ecbc85273f3e4b31f7da15d103a3373841"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kitaplara_iman_quiz.en.json",
+            "bytes": 19566,
+            "sha256": "0dfee2ba37bffd629c2c8528de4020b6a77291f15060a7bae44dd8e5d87260c3"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kurban_dersi.en.json",
+            "bytes": 12010,
+            "sha256": "3bb7a31e218155e21e98f584f09ed1127a17e3a5e4eb8854ea56f0a4b14c291e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/kurban_quiz.en.json",
+            "bytes": 19191,
+            "sha256": "7ca73d5dcebde92a97e37bd2b6178e6ade6b695f5bbbce0e617a8dc547908d56"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_dersi.en.json",
+            "bytes": 21647,
+            "sha256": "164f74a776d75b025a6bf55836017580acd43b9a085ad0332ec8588067d53cdf"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_dualar_dersi.en.json",
+            "bytes": 12919,
+            "sha256": "807deabcb9a31fae77587ae765b2681b0ad4b2739049106fa2cdfc50a285b715"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_dualar_quiz.en.json",
+            "bytes": 17341,
+            "sha256": "859df97735c233bef8155c3c5ecf4c8f2a8d1dcb2a32813f486639443d3b45eb"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/namaz_quiz.en.json",
+            "bytes": 28758,
+            "sha256": "87c412bf9352d56ffbc1db71c6e34dd70e80ada4023c9b1b98acab15032cba29"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/nefsini_tani_ders_modulu.en.json",
+            "bytes": 41711,
+            "sha256": "92628ec07d3ac00ba708ec6997f21ad7b0761f271a27f4e7e41eedd24f74d02a"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/nefsini_tani_quiz.en.json",
+            "bytes": 23429,
+            "sha256": "cffeca24fcff8c3a104b012bd1c9517ce1bcdb2526073585c6dd98aca11feb6e"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/oruc_dersi.en.json",
+            "bytes": 12450,
+            "sha256": "788dfa9761fe8cacec27a6f3aa0a06176c716373705d6ed13399201fbca9c505"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/oruc_quiz.en.json",
+            "bytes": 30443,
+            "sha256": "76631c6a4fa9af66cfddce9462b8a48408a656c55236d2c1c1afabc443a2c0e1"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_dersi.en.json",
+            "bytes": 27677,
+            "sha256": "19cf887ad5645158162fc30c6787c38ab6ffc0c89483dfae45992dd36bfce1e8"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_quiz.en.json",
+            "bytes": 31564,
+            "sha256": "6576ec00e624ac903a075c7dd6abdcf97e563cd280398e92c8628df7a78938ab"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_dersi.en.json",
+            "bytes": 17774,
+            "sha256": "fe9f20da1715a1dc2bb5759d3c2ddaa1eb5282b070efb8d03b198f1f50fd2a83"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_quiz.en.json",
+            "bytes": 21844,
+            "sha256": "73e5e06aba3c61953d75985c7b957f7e8e20dbcd537fb37cf2467b32f57dcda2"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/siyer_dersi.en.json",
+            "bytes": 20805,
+            "sha256": "70f0c92daa291d895c3c5a174ed192e605a9656551e6e23acc6b2ae5aeee2995"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/siyer_quiz.en.json",
+            "bytes": 28660,
+            "sha256": "e8e7613cb9c88542ec77d2aa67c1af7079d69541c8ee405312b6bfdc403f3488"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/tecvid_dersi.en.json",
+            "bytes": 17308,
+            "sha256": "3c49399aa6ccb39e115e3f97db50336de3d9749bca3b9a080ba99e6195d34f70"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/tecvid_quiz.en.json",
+            "bytes": 28917,
+            "sha256": "33c227a01aa8fef001f1f016e076c54f2234c1a75f289bea5020f43ef97205d1"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/zekat_dersi.en.json",
+            "bytes": 12406,
+            "sha256": "380d157445b7c249a23e8bd52a519e8608e1600c2d483c947edce62cd2e050ed"
+          },
+          {
+            "path": "apps/mobile/src/data/Dersler/zekat_quiz.en.json",
+            "bytes": 19370,
+            "sha256": "7224af7f5eedc3f568ffe3e840592291901a00c0235e126b46b2b358d29a0922"
+          },
+          {
+            "path": "apps/mobile/src/data/dualar.en.json",
+            "bytes": 118847,
+            "sha256": "583a1cb8ada758ba4a0f0b2c4d76160b4a4cdb0413ca7a9c54a642cce0be4046"
+          },
+          {
+            "path": "apps/mobile/src/data/esmaulHusna.en.json",
+            "bytes": 25365,
+            "sha256": "dcade81830b82f99f5e89af4c02e2d6c8eed4c6c86ecae337d39bfc889a28b61"
+          },
+          {
+            "path": "apps/mobile/src/data/hadisler_v2.en.json",
+            "bytes": 194312,
+            "sha256": "981e18afe2ca710573d2d2b267cb064ead6c39cefcb03f98986e0820cd47c579"
+          },
+          {
+            "path": "apps/mobile/src/data/ismi_azam_dualari.en.json",
+            "bytes": 8178,
+            "sha256": "48bb8069f69dea6a92111cccc3ac4358b0ba04641b8a8d5ea0cfa51b08216207"
+          },
+          {
+            "path": "apps/mobile/src/data/mubarek_gunler.en.json",
+            "bytes": 37081,
+            "sha256": "b74e7f16fe76428781b41636201fa91365cc3b4b47e8b24f01ec651f22aaf849"
+          },
+          {
+            "path": "apps/mobile/src/data/namaz_rehberi.en.json",
+            "bytes": 39138,
+            "sha256": "d0bcab15bbb2e46b38f4ef5a9e58b3263fb11788ffda79b74e06eaf0abb8d691"
+          },
+          {
+            "path": "apps/mobile/src/data/ozel_namazlar.en.json",
+            "bytes": 44525,
+            "sha256": "38d2224eb0a66e5f35050f6d63c4df102a804664a73e253384e72dfbc4e91332"
+          },
+          {
+            "path": "apps/mobile/src/data/peygamber_kissalari.en.json",
+            "bytes": 63624,
+            "sha256": "8ab96439c0ab5da2953eec22a5da3844115e53f29f76e5eca95881a7cff8c2cd"
+          },
+          {
+            "path": "apps/mobile/src/data/siyer_i_nebi.en.json",
+            "bytes": 70876,
+            "sha256": "5c19ec9a78624a64c1bf9930f673fc96bb74f5698df09a6d954db4fe64e7af3d"
+          },
+          {
+            "path": "content/tafsir/simplified-surah.en.json",
+            "bytes": 1585745,
+            "sha256": "94f1e2b50824f55a2a8f08e410b668eaddcac3c187b8db85a871b1585a2a6572"
+          },
+          {
+            "path": "packages/core/src/presentation/sourceLicensesEn.ts",
+            "bytes": 6157,
+            "sha256": "b14c9e5f4a3d3eac1aea67eeaa8fa8ce63c26f7184b3d4ad3074ddddebd1ce55"
+          },
+          {
+            "path": "scripts/translate-json-en.mjs",
+            "bytes": 8696,
+            "sha256": "516dd27cdf24cc7ddb10d4c474253f4581dcb7203511b36d180936c223dce02a"
+          },
+          {
+            "path": "scripts/translate-tafsir-en.mjs",
+            "bytes": 6530,
+            "sha256": "10e9ca5d309a76ddb2b70fa660e8bdb705a1ce9d25d22a608ac7a391404e7541"
           }
         ]
       }

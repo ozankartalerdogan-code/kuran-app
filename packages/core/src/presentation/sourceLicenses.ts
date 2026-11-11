@@ -25,6 +25,12 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     url: "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi",
   },
   {
+    id: "pickthall",
+    title: "M. M. Pickthall — The Meaning of the Glorious Koran (1930), Tanzil.net",
+    url: "https://tanzil.net/trans/",
+    license: "Kamu malı / Public domain",
+  },
+  {
     id: "semar-ketir",
     title: "Semar Ketir dijital Kur'an verisi",
     url: "https://github.com/kurancilar/json",
@@ -76,8 +82,8 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "meal-tafsir",
     title: "Meal ve tefsir",
     body:
-      "Production'da yalnız Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili meali kullanılır. Dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır. Sade açıklamalar AI desteği ve insan kontrolüyle Kuran Yolu için yeniden hazırlanır; bilgilendirme amaçlıdır ve fetva niteliği taşımaz. Daha önce karşılaştırma amacıyla taşınan dört meal kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez. Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.",
-    linkIds: ["elmalili", "semar-ketir"],
+      "Türkçe meal olarak yalnız Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili meali kullanılır. Mobil uygulamada arayüz İngilizceyken Marmaduke Pickthall'un kamu malı \"The Meaning of the Glorious Koran\" (1930) çevirisi gösterilir; dijital metin Tanzil.net'ten alınmıştır. Dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır. Sade açıklamalar AI desteği ve insan kontrolüyle Kuran Yolu için yeniden hazırlanır; bilgilendirme amaçlıdır ve fetva niteliği taşımaz. Daha önce karşılaştırma amacıyla taşınan dört meal kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez. Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.",
+    linkIds: ["elmalili", "pickthall", "semar-ketir"],
   },
   {
     id: "morphology",
@@ -97,7 +103,7 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "project-content",
     title: "Kuran Yolu ve AI destekli içerikler",
     body:
-      "Türkçe kelime anlamları, transliterasyon, sade açıklamalar, hadis tercümeleri, siyer ve kıssa anlatımları, ders araştırmaları, kartlar, quizler, Elifba sesleri, bazı görseller, dua ve zikir anlamları AI araçlarından destek alınarak Kuran Yolu için hazırlanmış ve mümkün olan bölümlerde insan kontrolünden geçirilmiştir. İbadet rehberleri proje tarafından yazılmıştır. Kaynak ve üretim kayıtları merkezi provenance manifestinde tutulur.",
+      "Türkçe kelime anlamları, transliterasyon, sade açıklamalar, hadis tercümeleri, siyer ve kıssa anlatımları, ders araştırmaları, kartlar, quizler, Elifba sesleri, bazı görseller, dua ve zikir anlamları AI araçlarından destek alınarak Kuran Yolu için hazırlanmış ve mümkün olan bölümlerde insan kontrolünden geçirilmiştir. İbadet rehberleri proje tarafından yazılmıştır. Mobil uygulamanın İngilizce arayüzündeki ders, quiz, sade tefsir, dua ve zikir, hadis, siyer, kıssa, ibadet rehberi, Esmaül Hüsna ve arayüz metinleri bu Türkçe içeriklerden AI araçlarıyla İngilizceye çevrilmiştir (AI-assisted translation); çeviriler otomatik yapı ve tutarlılık kontrollerinden geçmiştir, insan incelemesi henüz tamamlanmamıştır. Kaynak ve üretim kayıtları merkezi provenance manifestinde tutulur.",
     linkIds: [],
   },
   {

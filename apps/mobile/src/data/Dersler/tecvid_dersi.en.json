@@ -1,0 +1,148 @@
+{
+  "ders_id": "tecvid",
+  "baslik": "Tajweed",
+  "aciklama": "The science that teaches how to pronounce the letters of the Quran from their correct points of articulation and according to the rules.",
+  "kartlar": [
+    {
+      "id": "tecvid_k01",
+      "tip": "metin",
+      "baslik": "What Is Tajweed?",
+      "icerik": "Tajweed (to beautify) is the science that teaches how to pronounce the letters of the Quran from their points of articulation and give each letter its due. A person who recites the Quran with tajweed is called a mujawwid (a person who recites the Quran with tajweed).\n\nThe science of tajweed safeguards the wording of the Quran and prevents incorrect pronunciation from altering its meaning. The Prophet ﷺ recited the Quran as he learned it from Jibril, that is, with tajweed, and passed this tradition on to his Companions.",
+      "vurgu": "“Recite the Quran with tartil (slowly and thoughtfully).” (al-Muzzammil 73:4)"
+    },
+    {
+      "id": "tecvid_k02",
+      "tip": "metin",
+      "baslik": "The Ruling on Tajweed",
+      "icerik": "Every Muslim is responsible for reciting the Quran accurately enough to pronounce the letters correctly and avoid obvious errors that alter the meaning. Having people who learn and teach the science of tajweed in detail is considered a communal obligation (fard kifayah): if enough people in the community know it, the responsibility is lifted from the others.\n\nDuring salah, particular care is taken to recite al-Fatihah and the surahs without changing the letters. Pronouncing one letter as another or reciting in a way that alters the meaning may affect the validity of the salah. Falling short in subtleties such as ikhfa, idgham and ghunnah generally does not invalidate the salah, but it diminishes the beauty and completeness of the recitation.\n\nFor a beginner, the goal is first to pronounce the letters correctly, then to improve the application of the tajweed rules step by step.",
+      "vurgu": "Priority: pronounce the letters correctly · Then improve your tajweed step by step"
+    },
+    {
+      "id": "tecvid_k03",
+      "tip": "metin",
+      "baslik": "Points of Articulation — Where Letters Are Pronounced",
+      "icerik": "A makhraj (the place in the mouth, throat or lips where a letter is pronounced) is the individual point of articulation of each letter. In the classical description, there are 17 points of articulation in total.\n\nThe main areas are:\n• Throat (halq): Hamzah, Ha, Ayn, Ha, Ghayn, Kha\n• Tongue (lisan): many letters are pronounced from this area\n• Tip of the tongue: Nun, Ra, Lam, Dal, Ta, Sad and similar letters\n• Lips (shafatayn): Ba, Mim, Fa and Waw\n• Nasal passage (khayshum): the ghunnah sound\n\nIf a letter is pronounced from the wrong point of articulation, a different letter is pronounced, and this can alter the meaning in some places. For this reason, the first step in tajweed is practising the points of articulation.",
+      "vurgu": "If each letter is not pronounced from its correct point of articulation, a different letter is pronounced."
+    },
+    {
+      "id": "tecvid_k04",
+      "tip": "metin",
+      "baslik": "Heavy and Light Letters",
+      "icerik": "There are two ways of pronouncing letters: tafkhim (heavy pronunciation) and tarqiq (light pronunciation).\n\nThe 7 letters that are always pronounced heavily: خ ص ض ط ظ غ ق\n\nLetters other than these 7 are generally pronounced lightly. However, some letters, such as Ra (ر), Lam (ل) and the Lam in Lafzatullah (the word Allah), have special rules depending on the context.\n\nThe basic rule for Ra (ر):\n• With a fathah or dammah → pronounced heavily\n• With a kasrah → pronounced lightly\n• When it has a sukun, meaning no vowel mark → the preceding vowel mark and the structure of the word are considered",
+      "vurgu": "خ ص ض ط ظ غ ق — always heavy; some letters, such as Ra, have special cases"
+    },
+    {
+      "id": "tecvid_k05",
+      "tip": "metin",
+      "baslik": "Qalqalah — The Echoing Sound",
+      "icerik": "There are 5 qalqalah letters (letters that produce a slight echoing sound when they have a sukun): ق ط ب ج د — they can be memorised as “Kutbe Cd”.\n\nWhen these letters have a sukun, meaning no vowel mark, or when stopping at the end of a word, they are pronounced with slight emphasis. The sound is neither prolonged excessively nor given a new vowel mark.\n\nImportant rule: A qalqalah letter with a shaddah (the mark indicating that it is pronounced twice) is not given an additional, unnecessary bounce when continuing. However, if one stops on a qalqalah letter with a shaddah, that is, at the end of a word, the qalqalah is heard more distinctly.\n\nExample: when stopping at the end of a word such as “hak”, final sounds like ق/ك are closed clearly; with qalqalah letters, this closure has a slight echo.",
+      "vurgu": "ق ط ب ج د — a slight echoing sound with sukun or when stopping"
+    },
+    {
+      "id": "tecvid_k06",
+      "tip": "metin",
+      "baslik": "Ghunnah — The Nasal Sound",
+      "icerik": "Ghunnah (a resonant sound coming from the nasal passage) occurs only in the letters Mim (م) and Nun (ن).\n\nThe duration of ghunnah is the time it takes to pronounce two vowel counts.\n\nHow to check: if the sound changes when you pinch your nose while pronouncing ghunnah, you are doing it correctly.\n\nGhunnah is obligatory on a Nun or Mim with a shaddah. Ghunnah also occurs in the rules of idgham, ikhfa and iqlab.",
+      "vurgu": "Ghunnah is the nasal sound of Mim and Nun."
+    },
+    {
+      "id": "tecvid_k07",
+      "tip": "metin",
+      "baslik": "Tanwin and Nun Sakinah",
+      "icerik": "Tanwin (the double vowel marks at the end of a word: ً ٍ ٌ) produces an “n” sound at the end of a word.\n\nNun sakinah (a Nun with a sukun, meaning no vowel mark) occurs within or at the end of a word. The sukun indicates that the letter has no vowel mark.\n\nOne of 4 different rules applies depending on the letter that follows either of them:\n1. Izhar — clear pronunciation\n2. Idgham — merging into the following letter\n3. Iqlab — conversion\n4. Ikhfa — concealed pronunciation",
+      "vurgu": "Pay attention to what follows tanwin and nun sakinah — there are 4 different rules."
+    },
+    {
+      "id": "tecvid_k08",
+      "tip": "metin",
+      "baslik": "Izhar — Clear Pronunciation",
+      "icerik": "Izhar (pronouncing clearly and distinctly) — If one of the 6 throat letters follows tanwin or nun sakinah, the nun sound is pronounced clearly, without any change.\n\nThe izhar letters are: ء ه ع ح غ خ (hamzah, ha, ayn, ha, ghayn, kha)\n\nBecause these letters come from the throat, they do not blend with the nun sound; both are heard separately.\n\nExample: “مَنْ آمَنَ” — the nun is pronounced clearly, followed by hamzah.",
+      "vurgu": "ء ه ع ح غ خ — 6 throat letters → Izhar"
+    },
+    {
+      "id": "tecvid_k09",
+      "tip": "metin",
+      "baslik": "Idgham — Merging One Letter into Another",
+      "icerik": "Idgham (pronouncing two letters by merging them) — When certain letters follow tanwin or nun sakinah, the nun sound merges into that letter.\n\nThere are two types:\n• Idgham with ghunnah: the letters ي م ن و (Ya, Mim, Nun, Waw — memorise as “Yemenu”). The nun merges into these letters with ghunnah.\n• Idgham without ghunnah: the letters Lam (ل) and Ra (ر). The nun merges silently into these letters.\n\nImportant rule: If tanwin or nun sakinah and an idgham letter occur together within the same word, idgham is not applied; izhar is used.",
+      "vurgu": "“Yemenu” (ي م ن و) → Idgham with ghunnah | Lam-Ra → Idgham without ghunnah"
+    },
+    {
+      "id": "tecvid_k10",
+      "tip": "metin",
+      "baslik": "Iqlab — Conversion",
+      "icerik": "Iqlab (conversion) — If the letter Ba (ب) alone follows tanwin or nun sakinah, the nun sound changes completely into a mim sound and is pronounced with ghunnah.\n\nTurkish comparison: pronouncing “on beş” like “omm beş” is an example of this.\n\nIn the mushaf, a small م appears where iqlab occurs. This mark shows that the nun sound has changed into a mim sound.",
+      "vurgu": "Nun sakinah + Ba (ب) → changes into a mim sound → Iqlab"
+    },
+    {
+      "id": "tecvid_k11",
+      "tip": "metin",
+      "baslik": "Ikhfa — Concealed Pronunciation",
+      "icerik": "Ikhfa (concealing, covering) — If the letter following tanwin or nun sakinah is neither an izhar, idgham nor iqlab letter, ikhfa is applied.\n\nThe nun sound is not pronounced in full; it is concealed and pronounced with a slight nasal resonance (ghunnah). It is neither as clear as izhar nor as fully merged as idgham; its sound is between the two.\n\nThere are 15 ikhfa letters: ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك",
+      "vurgu": "15 ikhfa letters → The nun is concealed, with a slight nasal resonance."
+    },
+    {
+      "id": "tecvid_k12",
+      "tip": "metin",
+      "baslik": "Rules of Mim Sakinah",
+      "icerik": "Three rules apply depending on what follows a Mim with a sukun (مْ):\n\n1. İdgam-ı Misleyn (merging with ghunnah): If a Mim with a vowel mark (م) follows, the two Mims merge and are read with ghunnah.\n\n2. İhfa-i Şefevi — Labial Ikhfa: If a Ba (ب) follows, it is read with ghunnah and concealment, without closing the lips.\n\n3. İzhar-ı Şefevi — Labial Izhar: If any other letter follows, the Mim is read clearly.",
+      "vurgu": "Mim + Mim → Idgham | Mim + Ba → Labial Ikhfa | Mim + Other → Izhar"
+    },
+    {
+      "id": "tecvid_k13",
+      "tip": "metin",
+      "baslik": "Med-i Tabii — Basic Elongation",
+      "icerik": "Madd (elongation) is the measured lengthening of letters in certain situations. Its measure is a unit of time called the \"length of an alif.\"\n\nMed-i Tabii (natural, basic elongation): This is the simplest type of elongation. The three madd letters and their conditions are:\n• Alif (ا): Causes elongation when the preceding letter has a fatha\n• Waw (و): Causes elongation when it has a sukun and the preceding letter has a damma\n• Ya (ي): Causes elongation when it has a sukun and the preceding letter has a kasra\n\nIf no hamza (ء) or sukun follows the madd letter, it is lengthened for one alif. This elongation comes from the natural flow of the tongue and occurs without forcing it.",
+      "vurgu": "Med-i Tabii → elongation for one alif; it is the most basic rule."
+    },
+    {
+      "id": "tecvid_k14",
+      "tip": "metin",
+      "baslik": "Muttasıl and Munfasıl Madd",
+      "icerik": "Med-i Muttasıl (joined madd) occurs when a hamza (ء) follows a madd letter in the same word. In the Hafs recitation commonly taught in Turkey, it is generally lengthened for four alifs.\n\nMed-i Munfasıl (separate madd) occurs when the madd letter is in one word and the hamza is in a separate word. In common teaching, it is lengthened for 4–5 alifs; the length may vary according to the imams of qira'at.\n\nHamza is a sharp initial sound produced from the throat. In the rules of madd, attention is paid to whether the hamza occurs in the same word or a separate word.",
+      "vurgu": "Muttasıl → hamza in the same word, 4 alifs | Munfasıl → hamza in a separate word, 4–5 alifs"
+    },
+    {
+      "id": "tecvid_k15",
+      "tip": "metin",
+      "baslik": "Lazım, Arız and Lin Madd",
+      "icerik": "Med-i Lazım (obligatory madd) occurs when an original sukun or a shadda follows a madd letter in the same word. In common Hafs teaching, it is lengthened for four alifs; this elongation is considered obligatory.\n\nMed-i Arız (temporary madd) occurs when making waqf (stopping during recitation). A syllable that is normally read short may be lengthened when stopping, depending on the recitation tradition.\n\nMed-i Lin occurs when a Waw or Ya has a sukun and the preceding letter has a fatha; it becomes particularly noticeable at waqf. For example, when stopping at the word خَوْف (havf).\n\nA practical guide for beginners: Med-i Tabii is short and natural; Med-i Muttasıl and Med-i Munfasıl are longer; and Med-i Lazım is one of the strongest types of madd.",
+      "vurgu": "Lazım → obligatory elongation for 4 alifs | Arız and Lin → types of madd that occur or are lengthened at waqf"
+    },
+    {
+      "id": "tecvid_k16",
+      "tip": "metin",
+      "baslik": "Alif-Lam: Kameriyye and Şemsiyye",
+      "icerik": "In Arabic, one of two rules applies depending on the letter that follows the prefix \"el\" (ال).\n\nKameriyye (moon letters — 14 letters): The Lam sound is read clearly.\nLetters: ا ب ج ح خ ع غ ف ق ك م و ه ي\n\nŞemsiyye (sun letters — 14 letters): The Lam is not read, and the following letter is read with a shadda.\nLetters: ت ث د ذ ر ز س ش ص ض ط ظ ل ن\n\nExample: \"eş-şems\" (the sun) → the Lam is absorbed; \"el-kamer\" (the moon) → the Lam is read.",
+      "vurgu": "Kameriyye → the Lam is read | Şemsiyye → the Lam is absorbed"
+    },
+    {
+      "id": "tecvid_k17",
+      "tip": "metin",
+      "baslik": "Waqf — Stop Signs",
+      "icerik": "Waqf (stopping during recitation) and ibtida (resuming after a stop) are important rules of Qur'an recitation. The aim is to stop where the meaning will not be disrupted and to resume from the correct place.\n\nSome of the Secavend/waqf signs in the mushaf are:\n• م (mim) — Vakf-ı Lazım: One must stop here; continuing may disrupt the meaning.\n• ط (tı) — Vakf-ı Mutlak: Stopping is preferable.\n• ج (cim) — Vakf-ı Caiz: Either stopping or continuing is permitted.\n• ص (sad) — Vakf-ı Murakhhas: Continuing is preferable, but one may stop if necessary.\n• لا (la) — Vakf-ı Memnû: One should not stop here; if stopping is unavoidable, one resumes from a point that completes the meaning.\n\nThese signs guide the reader in taking breaths and stopping while preserving the meaning.",
+      "vurgu": "Waqf signs provide guidance for preserving the meaning"
+    },
+    {
+      "id": "tecvid_k18",
+      "tip": "metin",
+      "baslik": "Lahn — Recitation Errors",
+      "icerik": "Lahn (recitation error) is of two types:\n\nLahn-ı Celi (obvious/major error) refers to errors that anyone can notice, such as clearly misreading a letter or word, or changing a vowel mark and disrupting the meaning. Major errors that change the meaning may affect the validity of salah. One example is changing one letter into another.\n\nLahn-ı Hafi (hidden/minor error) refers to errors that are more likely to be noticed by those who know tajweed, such as not fully observing ikhfa, idgham or ghunnah. These generally do not invalidate salah, but they reduce the beauty and completeness of the recitation.\n\nA beginner should first try to avoid lahn-ı celi, then correct the finer points associated with lahn-ı hafi.",
+      "vurgu": "First correct major errors in letters and words; then improve the finer points of tajweed"
+    },
+    {
+      "id": "tecvid_k19",
+      "tip": "metin",
+      "baslik": "Levels of Recitation",
+      "icerik": "The Qur'an can be recited at three different speeds:\n\n• Tahkik (slowest) — Reading each letter with the greatest care and giving it its due. It is suitable for the learning stage.\n\n• Tedvir (medium speed) — A commonly used style of recitation between tahkik and hadr. It is the most suitable speed for salah.\n\n• Hadr (fast recitation) — The rules of tajweed are still observed; only the speed increases.\n\nAll three are permissible. Whatever the speed of tilawah (Qur'an recitation), the rules must be observed.",
+      "vurgu": "Tahkik (slow) → Tedvir (medium) → Hadr (fast) — all three are permissible."
+    },
+    {
+      "id": "tecvid_k20",
+      "tip": "metin",
+      "baslik": "Differences Between Schools of Thought and Qira'at",
+      "icerik": "In the science of tajweed, there are some differences of opinion and practice among schools of thought and imams of qira'at:\n\n• The ruling on tajweed: Learning enough to pronounce the letters correctly and avoid errors that disrupt the meaning is an individual responsibility. Teaching the science of tajweed in detail is a communal responsibility fulfilled when there are enough qualified people in the community.\n\n• Differences in qira'at: The Hafs transmission of the qira'at of Asim is common in Turkey. Qira'at are the authentic ways of reciting the Qur'an; a riwayah is a branch of transmission of a particular way of recitation. There are authentic recitations known as Kıraat-i Seb'a (7 qira'at) and Kıraat-i Aşere (10 qira'at). The Warsh transmission is common in North Africa.\n\n• Lengths of madd: The length of some types of madd, particularly med-i munfasıl, may vary according to the imams of qira'at and the teaching tradition; this is an authentic difference.\n\n• Waqf signs: Secavend signs in mushafs guide readers on when to stop or continue. Scholars may offer different explanations in their detailed assessment of these signs.",
+      "vurgu": "Authentic qira'at are different ways of recitation; the text of the Qur'an is one"
+    }
+  ],
+  "quiz_havuzu_id": "tecvid"
+}

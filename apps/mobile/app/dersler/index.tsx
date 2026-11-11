@@ -8,7 +8,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
-import { DERSLER_META as DERSLER, KATEGORILER } from "../../src/data/Dersler/dersler_registry";
+import { DERSLER_META as DERSLER, getDerslerMeta, getKategoriler } from "../../src/data/Dersler/dersler_registry";
+import { useLang } from "../../src/i18n";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
 type SortMode = "tumu" | "sure" | "konu";
@@ -43,9 +44,12 @@ export default function DerslerScreen() {
 
   useFocusEffect(useCallback(() => { load(); }, [load]));
 
+  const lang = useLang();
+  const derslerL = useMemo(() => getDerslerMeta(lang), [lang]);
+  const kategorilerL = useMemo(() => getKategoriler(lang), [lang]);
   const sortedData = useMemo(
-    () => sortMode === "sure" ? [...DERSLER].sort((a, b) => a.sure - b.sure) : DERSLER,
-    [sortMode],
+    () => sortMode === "sure" ? [...derslerL].sort((a, b) => a.sure - b.sure) : derslerL,
+    [sortMode, derslerL],
   );
 
   const renderCard = useCallback((item: Ders) => {
@@ -131,9 +135,9 @@ export default function DerslerScreen() {
           contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
           showsVerticalScrollIndicator={false}
         >
-          {KATEGORILER.map(kat => {
+          {kategorilerL.map(kat => {
             const katDersler = kat.ids
-              .map(id => DERSLER.find(d => d.id === id))
+              .map(id => derslerL.find(d => d.id === id))
               .filter(Boolean) as Ders[];
             const pairs = chunk(katDersler, numColumns);
             return (
