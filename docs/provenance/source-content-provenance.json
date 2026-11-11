@@ -20,18 +20,18 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 112652,
-    "sha256": "d9077512cf6712c1d8e3ac3becbb04a5c88e063e432c8ab3363d703ff1644ecf",
+    "totalBytes": 113203,
+    "sha256": "958443522199cde60e0aa6ec3d10b1fa2b5e99323902ec2078a5f7d8649d4ae3",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
-        "bytes": 8275,
-        "sha256": "ea99237ff8a2ff5ea59c78f83fda11928fac01ecdfe5213416956b20c30c2b68"
+        "bytes": 8523,
+        "sha256": "5f41d30ab74e7c21a5855a31d583ee974ca63cc57caab23ff04977dc779c4bf1"
       },
       {
         "path": "apps/web/src/app/hakkinda/page.tsx",
-        "bytes": 4109,
-        "sha256": "cb5b1e1fe618a2279e687cd168cfbe34abfcced8ecc12117ead60331f0c811c1"
+        "bytes": 4255,
+        "sha256": "7ca25b80638c078ccbfd51df30bbd05e809096bdb3f3f1795d4bd56a49d66a2d"
       },
       {
         "path": "licenses/CAMEL-MORPH-CC-BY-4.0-NOTICE.md",
@@ -55,8 +55,8 @@
       },
       {
         "path": "licenses/PACKAGE-LICENSE-TEXTS.txt",
-        "bytes": 65048,
-        "sha256": "d08d13c73739ca369afade9fb5b23258e805f02487299ed3dd3ae35a0538788c"
+        "bytes": 65029,
+        "sha256": "5a6ba318a7f11ca7d20acba9600858444062de2365f968023d1695f618206a3d"
       },
       {
         "path": "licenses/PACKAGE-NOTICES.md",
@@ -85,8 +85,8 @@
       },
       {
         "path": "NOTICE",
-        "bytes": 2037,
-        "sha256": "bc9e1bb5d6b44bf2fe14ae1301b768c379a516da2d4e5c63e7b4466a71f5eca0"
+        "bytes": 2213,
+        "sha256": "75d2aaf5d51bb30ad479730fa3fdc58dd9516d57e135d789899ed5caade8a067"
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
@@ -1439,7 +1439,7 @@
       "artifacts": {
         "fileCount": 45,
         "totalBytes": 4429666,
-        "sha256": "b28b0a63bdbacc52a95991880c2fc50dce3cdfd3a5fafdabdcef8b1456300eb7",
+        "sha256": "594a6cb4492edcd7b2256d530227a7be225c0ce0016979a14f32ad873acc70d9",
         "files": [
           {
             "path": "apps/mobile/assets/images/namaz/celse.jpg",
@@ -1452,7 +1452,7 @@
             "sha256": "5cdb116d9ca66c98c8e17344d489ee2e7a63fe76910e73ba998f0abcc182d55b"
           },
           {
-            "path": "apps/mobile/assets/images/namaz/kıyam.jpg",
+            "path": "apps/mobile/assets/images/namaz/kiyam.jpg",
             "bytes": 243508,
             "sha256": "f50fdc88b446a2ad85e950b0979aac373cd707abd756a602a008886c4a3a2029"
           },
@@ -1477,7 +1477,7 @@
             "sha256": "85ece7d59776aaa1697eb0d20d670f70c541cfbeff010c2e4f82a5426301bc60"
           },
           {
-            "path": "apps/mobile/assets/images/namaz/tesehhüd.jpg",
+            "path": "apps/mobile/assets/images/namaz/tesehhud.jpg",
             "bytes": 252250,
             "sha256": "5794105e471d31da3daea5be520ed21eb88fe140cc39645f4bbbe6db5f508962"
           },
