@@ -20,8 +20,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 115426,
-    "sha256": "3cabf8bc4b5845836390d4198655c6a995fa51897168885cd985060920becfd1",
+    "totalBytes": 115174,
+    "sha256": "9a7e569c542e38e9d2a415f4adba2d27c9a04814a3cfa587fa4642719467f01d",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -90,13 +90,13 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 6178,
-        "sha256": "6f1337dcc0ba0a0d0026844d38967b6848e70c2c8e43edc5b247e4a2606655b1"
+        "bytes": 6044,
+        "sha256": "72b096afac8b4f82741c198e4cfa5c6c55dff59b11bb98ded493e5c26a4d81cc"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
-        "bytes": 7423,
-        "sha256": "9b84ce4642f29d836c148bdbe7a131162a357df9db8851c743a50b975a2968f5"
+        "bytes": 7305,
+        "sha256": "96b4ea1566f2ecfec6bd7b2470c4c14047a01e36fb01369c18c64d880f25dc21"
       }
     ]
   },
@@ -1050,8 +1050,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 49,
-        "totalBytes": 2943177,
-        "sha256": "a13a3e2f2dd06a49d28cccdb3347a11b09766e6d1149a8d89e3bfea2153b6526",
+        "totalBytes": 2943015,
+        "sha256": "5310a62f82c620778b34fb8cd6755cf7fbee32f3349189d99cd914f6fa6b0d2b",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1290,8 +1290,8 @@
           },
           {
             "path": "scripts/translate-json-en.mjs",
-            "bytes": 8696,
-            "sha256": "516dd27cdf24cc7ddb10d4c474253f4581dcb7203511b36d180936c223dce02a"
+            "bytes": 8534,
+            "sha256": "d03ef423fe19373721499c962a93e1ee79406127b166c37d370c9bf1e299ec3f"
           },
           {
             "path": "scripts/translate-tafsir-en.mjs",
