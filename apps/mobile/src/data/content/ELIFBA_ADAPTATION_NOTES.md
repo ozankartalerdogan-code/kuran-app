@@ -1,7 +1,7 @@
 # Elif-Ba / Harf-i Tarif İngilizce uyarlama notları
 
 ## Kapsam
-- Elif-Ba dersleri (harf adı, sesi, mahreç, ipucu, quiz) yerel dosyada DEĞİL; `/elifba/dersler`, `/elifba/dersler/:id/harfler`, `/elifba/quiz/:id` API uçlarından gelir (`src/lib/api.ts`). Bu içerik uygulama paketinde olmadığından burada JSON'a taşınamadı; İngilizce uyarlaması sunucu/API tarafında yapılmalıdır (`app/elifba/index.tsx`, `app/elifba/[dersId].tsx` yalnız UI i18n kullanır). Ses referansları (CDN ses dosyaları) dokunulmadan kalmalı.
+- Elif-Ba dersleri (harf adı, sesi, mahreç, ipucu, quiz) Türkçe olarak `/elifba/...` API uçlarından gelir (`src/lib/api.ts`); sunucu değişmez. İngilizce, uygulamaya gömülü `src/data/elifba.en.json` sözlüğüyle (Türkçe metin anahtarlı) `src/lib/elifbaEn.ts` tarafından üstüne uygulanır; eşleşmeyen soru bütünüyle Türkçe kalır. Üretim: `scripts/export-elifba-source.mjs` (yerel app.db, salt-okunur) → `scripts/translate-elifba-en.mjs letters|strings` → `scripts/build-elifba-en.mjs` (doğrulama). Sunucudaki Elif-Ba içeriği değişirse bu üç adım yeniden çalıştırılmalı. `seviye`, `kalin_ince`, `grup` anahtar olarak kalır; ekranda etiketleri çevrilir. Ses referansları (CDN ses dosyaları) dokunulmadan kalmalı.
 - Harf-i Tarif: `harf_i_tarif.json` (TR) ve `harf_i_tarif.en.json` (EN, şimdilik TR'nin birebir kopyası/placeholder). Ekran: `src/components/HarfITarifContent.tsx` `useLocalizedData(harfITarifDersi)` ile okur.
 
 ## Çevrilmeyecek alanlar (harf_i_tarif.json)

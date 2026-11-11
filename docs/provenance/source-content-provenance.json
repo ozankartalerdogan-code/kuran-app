@@ -20,8 +20,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 115174,
-    "sha256": "9a7e569c542e38e9d2a415f4adba2d27c9a04814a3cfa587fa4642719467f01d",
+    "totalBytes": 115183,
+    "sha256": "b36582de27e92769aa845ce43eb091ffa2ab17b1f7d62ebb9581cdb05035fd88",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -90,8 +90,8 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 6044,
-        "sha256": "72b096afac8b4f82741c198e4cfa5c6c55dff59b11bb98ded493e5c26a4d81cc"
+        "bytes": 6053,
+        "sha256": "a7097ed271af57f333fadd9b3b0440e948634e0c6c6b49196729cc995e9a258e"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
@@ -1040,18 +1040,18 @@
       "id": "ai-english-translations-v1",
       "sourceUrls": [],
       "classification": "user-declared-ai-assisted-project-output",
-      "sourceContribution": "Kuran Yolu's Turkish project content (lessons/quizzes, simplified Elmalılı tafsir, duas, hadith, seerah, prophets' stories, prayer guides, blessed days, Esma ul-Husna meanings, İsm-i Azam duas, worship guide, Manevi Sığınak, privacy policy, Harf-i Tarif lesson, source/license text; project outputs listed in other entries).",
+      "sourceContribution": "Kuran Yolu's Turkish project content (lessons/quizzes, simplified Elmalılı tafsir, duas, hadith, seerah, prophets' stories, prayer guides, blessed days, Esma ul-Husna meanings, İsm-i Azam duas, worship guide, Manevi Sığınak, privacy policy, Harf-i Tarif lesson, source/license text, Elif-Ba lesson titles/letter names/sounds/makhraj/quiz texts exported read-only from the local DB; project outputs listed in other entries).",
       "projectContribution": "English translations for the mobile English UI mode; structure, ids, answer keys and link tokens preserved and machine-validated.",
-      "toolModel": "Content JSON: OpenAI Codex CLI (gpt-6.1-terra; one lesson file gpt-6.1-sol) via scripts/translate-json-en.mjs (Harf-i Tarif with PROMPT_EXTRA adaptation rules). Tafsir: agy CLI (Gemini 3.8 Flash Medium) via scripts/translate-tafsir-en.mjs. UI strings (apps/mobile/src/i18n/strings) written by Claude Sonnet coding agents; Turkish→English transliteration spelling is rule-based (apps/mobile/src/lib/translitEn.ts).",
+      "toolModel": "Content JSON: OpenAI Codex CLI (gpt-6.1-terra; one lesson file gpt-6.1-sol) via scripts/translate-json-en.mjs (Harf-i Tarif with PROMPT_EXTRA adaptation rules). Tafsir: agy CLI (Gemini 3.8 Flash Medium) via scripts/translate-tafsir-en.mjs. Elif-Ba (2026-11-12): Codex gpt-6.1-terra via scripts/translate-elifba-en.mjs (letter table first, then deduplicated quiz strings bound to it; one lesson title corrected manually), assembled and validated by scripts/build-elifba-en.mjs (every correct answer among options, Arabic preserved, no Turkish letters). UI strings (apps/mobile/src/i18n/strings) written by Claude Sonnet coding agents; Turkish→English transliteration spelling is rule-based (apps/mobile/src/lib/translitEn.ts).",
       "method": "Batch translation 2026-11-11 with per-batch validation (item count, quiz option prefixes, untranslated-Turkish heuristic, length ratio) and automated structure diff against the Turkish source (2895/2895 tafsir paragraphs aligned); manual spot checks of samples incl. privacy-policy paragraphs.",
       "generatedAt": "2026-11-11",
       "humanReview": "Spot checks only; full human review of religious content pending.",
       "exactResearchUrlHistoryPreserved": false,
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
-        "fileCount": 49,
-        "totalBytes": 2943015,
-        "sha256": "5310a62f82c620778b34fb8cd6755cf7fbee32f3349189d99cd914f6fa6b0d2b",
+        "fileCount": 56,
+        "totalBytes": 3151560,
+        "sha256": "099a3ce2b345b011ada99d801d5a2fae3a419ed7f9ad981f82cac79dcb782dd7",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1239,6 +1239,11 @@
             "sha256": "583a1cb8ada758ba4a0f0b2c4d76160b4a4cdb0413ca7a9c54a642cce0be4046"
           },
           {
+            "path": "apps/mobile/src/data/elifba.en.json",
+            "bytes": 32444,
+            "sha256": "ece09443fc4ec96e52fd39b24f44f67241f80c68001bfac6059c084958dae290"
+          },
+          {
             "path": "apps/mobile/src/data/esmaulHusna.en.json",
             "bytes": 25365,
             "sha256": "dcade81830b82f99f5e89af4c02e2d6c8eed4c6c86ecae337d39bfc889a28b61"
@@ -1279,14 +1284,44 @@
             "sha256": "5c19ec9a78624a64c1bf9930f673fc96bb74f5698df09a6d954db4fe64e7af3d"
           },
           {
+            "path": "content/elifba/letters.en.json",
+            "bytes": 4544,
+            "sha256": "07daf8a998b7b59d237ca090d5e384800743db14b2208b494b049e5796b0eb22"
+          },
+          {
+            "path": "content/elifba/source.tr.json",
+            "bytes": 131032,
+            "sha256": "c22fb12f9d94daeb8b99f500c7eee0666f6c19e9c9c7b6dd5c61de97e8fd4b21"
+          },
+          {
+            "path": "content/elifba/strings.en.json",
+            "bytes": 27611,
+            "sha256": "955a270e91aa4c67f01d6c9e657fe8f2f756e37c9196af9462a8d56a64199b03"
+          },
+          {
             "path": "content/tafsir/simplified-surah.en.json",
             "bytes": 1585745,
             "sha256": "94f1e2b50824f55a2a8f08e410b668eaddcac3c187b8db85a871b1585a2a6572"
           },
           {
             "path": "packages/core/src/presentation/sourceLicensesEn.ts",
-            "bytes": 6157,
-            "sha256": "b14c9e5f4a3d3eac1aea67eeaa8fa8ce63c26f7184b3d4ad3074ddddebd1ce55"
+            "bytes": 6174,
+            "sha256": "36aac6cb10212265bbdca7d89d082d247855d8e93bbc88f01db78715651c7111"
+          },
+          {
+            "path": "scripts/build-elifba-en.mjs",
+            "bytes": 3337,
+            "sha256": "2ae4d24bf575e057f727ad561b5d185c72c3c2e5e748a707a83206a5eee9a5a6"
+          },
+          {
+            "path": "scripts/export-elifba-source.mjs",
+            "bytes": 2145,
+            "sha256": "017849828ffd3b067b2b7b0100c5d2a0f792308901f7e6e28cafe6ef678e18aa"
+          },
+          {
+            "path": "scripts/translate-elifba-en.mjs",
+            "bytes": 7415,
+            "sha256": "3c9dd7a862576c7b08315f9fb4d688c88810a8174073bb05ea682340dc90b552"
           },
           {
             "path": "scripts/translate-json-en.mjs",

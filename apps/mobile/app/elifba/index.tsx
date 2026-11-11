@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
   View, Text, TouchableOpacity, ScrollView, Modal,
   ActivityIndicator, StyleSheet,
@@ -10,7 +10,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
-import { useStrings, fmt } from "../../src/i18n";
+import { useStrings, useLang, fmt } from "../../src/i18n";
+import { localizeDersler } from "../../src/lib/elifbaEn";
 import elifbaStrings from "../../src/i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import {
@@ -41,7 +42,7 @@ const SEVIYE_COLOR: Record<string, { bg: string; text: string }> = {
 };
 
 function shortBaslik(b: string) {
-  return b.replace(/^\d+\.\s*KONU:\s*/i, "");
+  return b.replace(/^\d+\.\s*(KONU|LESSON):\s*/i, "");
 }
 
 function checkCompleted(
@@ -242,11 +243,13 @@ export default function OgrenScreen() {
   const ep = useStrings(elifbaStrings) as Record<string, string>;
   const insets = useSafeAreaInsets();
   const [tab, setTab]               = useState<TabKey>("elifba");
-  const { data: dersler = [], isLoading: loading, isError: error, refetch: loadDersler } = useQuery({
+  const lang = useLang();
+  const { data: derslerRaw, isLoading: loading, isError: error, refetch: loadDersler } = useQuery({
     queryKey: ["elifba-dersler"],
     queryFn: () => api.elifba.dersler(),
     staleTime: 60 * 60 * 1000,
   });
+  const dersler = useMemo(() => localizeDersler(derslerRaw ?? [], lang), [derslerRaw, lang]);
 
   const [progress, setProgress]     = useState<ElifbaProgress>({});
   const [quizScores, setQuizScores] = useState<Record<string, QuizScore>>({});

@@ -1,6 +1,8 @@
 import { defineStrings } from "../index";
 
-// app/elifba/index.tsx + app/elifba/[dersId].tsx — ders içeriği (harf adı/sesi/mahreç, ipucu) Türkçe kalır.
+// app/elifba/index.tsx + app/elifba/[dersId].tsx — ders içeriği (başlık, harf adı/sesi/mahreç,
+// quiz) sunucudan Türkçe gelir; İngilizce karşılığı src/lib/elifbaEn.ts + data/elifba.en.json
+// ile bindirilir (çevirisi eksikse Türkçe kalır).
 export default defineStrings({
   tr: {
     screenTitle: "Elifba",
@@ -77,6 +79,11 @@ export default defineStrings({
     lettersError: "Harfler yüklenemedi.\nBağlantını kontrol et.",
     noLetters: "Bu ders için harf verisi bulunamadı.",
     retryA11y: "Tekrar dene",
+    kalinLabel: "kalın",
+    inceLabel: "ince",
+    herIkisiLabel: "her ikisi",
+    birlesenLabel: "birleşen",
+    birlesmeyenLabel: "birleşmeyen",
   },
   en: {
     screenTitle: "Elifba",
@@ -152,5 +159,10 @@ export default defineStrings({
     lettersError: "Couldn't load letters.\nCheck your connection.",
     noLetters: "No letter data found for this lesson.",
     retryA11y: "Try again",
+    kalinLabel: "heavy",
+    inceLabel: "light",
+    herIkisiLabel: "both",
+    birlesenLabel: "connecting",
+    birlesmeyenLabel: "non-connecting",
   },
 });

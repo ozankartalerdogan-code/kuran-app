@@ -2,7 +2,7 @@ import {
   View, Text, TouchableOpacity, ActivityIndicator,
   StyleSheet, ScrollView,
 } from "react-native";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
 try {
@@ -26,7 +26,8 @@ import {
   type ElifbaProgress,
 } from "../../src/lib/elifbaProgress";
 import { AUDIO_BASE_URL } from "../../src/lib/runtimeConfig";
-import { useStrings, fmt } from "../../src/i18n";
+import { useStrings, useLang, fmt } from "../../src/i18n";
+import { localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
 import elifbaStrings from "../../src/i18n/strings/elifba";
 
 const AUDIO_BASE = AUDIO_BASE_URL;
@@ -88,6 +89,10 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
 }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
+  const badgeLabels: Record<string, string> = {
+    "kalın": ep.kalinLabel, ince: ep.inceLabel, "her ikisi": ep.herIkisiLabel,
+    birlesen: ep.birlesenLabel, birlesmeyen: ep.birlesmeyenLabel,
+  };
   const [flipped, setFlipped] = useState(false);
   const [sesHata, setSesHata] = useState(false);
   const sesHataTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -170,10 +175,10 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
             <Text style={[fc.mahrec, { color: c.textMuted }]}>{fmt(ep.makhraj, { m: harf.mahrec })}</Text>
             <View style={fc.badges}>
               <View style={[fc.badge, { backgroundColor: harf.kalin_ince === "kalın" ? "#fef3c7" : "#dbeafe" }]}>
-                <Text style={fc.badgeText}>{harf.kalin_ince}</Text>
+                <Text style={fc.badgeText}>{badgeLabels[harf.kalin_ince] ?? harf.kalin_ince}</Text>
               </View>
               <View style={[fc.badge, { backgroundColor: "#f0fdf4" }]}>
-                <Text style={fc.badgeText}>{harf.grup}</Text>
+                <Text style={fc.badgeText}>{badgeLabels[harf.grup] ?? harf.grup}</Text>
               </View>
             </View>
           </ScrollView>
@@ -221,6 +226,7 @@ function normalizeQuizSorular(data: ElifbaQuizSoru[]): ElifbaQuizSoru[] {
 function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
+  const lang = useLang();
   const [sorular, setSorular] = useState<ElifbaQuizSoru[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState(false);
@@ -247,7 +253,7 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
     api.elifba.quiz(dersId)
       .then((data) => {
         if (requestIdRef.current !== requestId) return;
-        const arr = normalizeQuizSorular(data);
+        const arr = normalizeQuizSorular(localizeQuiz(data, lang));
         for (let i = arr.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -260,7 +266,7 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
       .finally(() => {
         if (requestIdRef.current === requestId) setLoading(false);
       });
-  }, [dersId]);
+  }, [dersId, lang]);
 
   useEffect(() => { loadQuiz(); }, [loadQuiz]);
 
@@ -428,7 +434,9 @@ export default function DersScreen() {
     };
   }, []);
 
-  const [harfler, setHarfler]   = useState<ElifbaHarf[]>([]);
+  const lang = useLang();
+  const [harflerRaw, setHarfler] = useState<ElifbaHarf[]>([]);
+  const harfler = useMemo(() => localizeHarfler(harflerRaw, lang), [harflerRaw, lang]);
   const [loading, setLoading]   = useState(true);
   // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
   const [loadError, setLoadError] = useState(false);

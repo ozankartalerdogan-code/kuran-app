@@ -1,0 +1,216 @@
+{
+  "harfler": [
+    {
+      "harf_id": 1,
+      "harf_adi": "Alif",
+      "harf_sesi": "a / glottal stop",
+      "mahrec": "Deepest part of the throat"
+    },
+    {
+      "harf_id": 2,
+      "harf_adi": "Ba",
+      "harf_sesi": "b",
+      "mahrec": "Lips"
+    },
+    {
+      "harf_id": 3,
+      "harf_adi": "Ta",
+      "harf_sesi": "t",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 4,
+      "harf_adi": "Tha",
+      "harf_sesi": "th (as in think)",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 5,
+      "harf_adi": "Jeem",
+      "harf_sesi": "j",
+      "mahrec": "Middle of tongue – palate"
+    },
+    {
+      "harf_id": 6,
+      "harf_adi": "Haa",
+      "harf_sesi": "h (breathy)",
+      "mahrec": "Middle of the throat"
+    },
+    {
+      "harf_id": 7,
+      "harf_adi": "Khaa",
+      "harf_sesi": "kh (as in loch)",
+      "mahrec": "Upper part of the throat"
+    },
+    {
+      "harf_id": 8,
+      "harf_adi": "Dal",
+      "harf_sesi": "d",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 9,
+      "harf_adi": "Dhal",
+      "harf_sesi": "th (as in this)",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 10,
+      "harf_adi": "Ra",
+      "harf_sesi": "r",
+      "mahrec": "Tip of tongue – upper palate"
+    },
+    {
+      "harf_id": 11,
+      "harf_adi": "Zay",
+      "harf_sesi": "z",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 12,
+      "harf_adi": "Seen",
+      "harf_sesi": "s",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 13,
+      "harf_adi": "Sheen",
+      "harf_sesi": "sh",
+      "mahrec": "Middle of tongue – palate"
+    },
+    {
+      "harf_id": 14,
+      "harf_adi": "Sad",
+      "harf_sesi": "s (heavy)",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 15,
+      "harf_adi": "Dad",
+      "harf_sesi": "d (heavy)",
+      "mahrec": "Side of tongue – molars"
+    },
+    {
+      "harf_id": 16,
+      "harf_adi": "Taa",
+      "harf_sesi": "t (heavy)",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 17,
+      "harf_adi": "Dhaa",
+      "harf_sesi": "th (heavy, as in this)",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 18,
+      "harf_adi": "Ayn",
+      "harf_sesi": "ʿ (throat sound)",
+      "mahrec": "Middle of the throat"
+    },
+    {
+      "harf_id": 19,
+      "harf_adi": "Ghayn",
+      "harf_sesi": "gh (like French r)",
+      "mahrec": "Upper part of the throat"
+    },
+    {
+      "harf_id": 20,
+      "harf_adi": "Fa",
+      "harf_sesi": "f",
+      "mahrec": "Lower lip – upper teeth"
+    },
+    {
+      "harf_id": 21,
+      "harf_adi": "Qaf",
+      "harf_sesi": "q (deep k)",
+      "mahrec": "Root of tongue – uvula"
+    },
+    {
+      "harf_id": 22,
+      "harf_adi": "Kaf",
+      "harf_sesi": "k",
+      "mahrec": "Middle of tongue – palate"
+    },
+    {
+      "harf_id": 23,
+      "harf_adi": "Lam",
+      "harf_sesi": "l",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 24,
+      "harf_adi": "Meem",
+      "harf_sesi": "m",
+      "mahrec": "Lips"
+    },
+    {
+      "harf_id": 25,
+      "harf_adi": "Noon",
+      "harf_sesi": "n",
+      "mahrec": "Tip of tongue – upper teeth"
+    },
+    {
+      "harf_id": 26,
+      "harf_adi": "Waw",
+      "harf_sesi": "w",
+      "mahrec": "Lips"
+    },
+    {
+      "harf_id": 27,
+      "harf_adi": "Ha",
+      "harf_sesi": "h",
+      "mahrec": "Deepest part of the throat"
+    },
+    {
+      "harf_id": 28,
+      "harf_adi": "Ya",
+      "harf_sesi": "y",
+      "mahrec": "Middle of tongue – palate"
+    },
+    {
+      "harf_id": 29,
+      "harf_adi": "Lam-Alif",
+      "harf_sesi": "laa",
+      "mahrec": "Combined letters (Lam + Alif)"
+    }
+  ],
+  "dersler": [
+    {
+      "id": 1,
+      "baslik": "1. LESSON: LETTERS"
+    },
+    {
+      "id": 2,
+      "baslik": "2. LESSON: LETTER FORMS IN WORDS"
+    },
+    {
+      "id": 3,
+      "baslik": "3. LESSON: HARAKAT (VOWEL MARKS)"
+    },
+    {
+      "id": 4,
+      "baslik": "4. LESSON: SUKUN"
+    },
+    {
+      "id": 5,
+      "baslik": "5. LESSON: SHADDAH"
+    },
+    {
+      "id": 6,
+      "baslik": "6. LESSON: MADD LETTERS"
+    },
+    {
+      "id": 7,
+      "baslik": "7. LESSON: TANWEEN"
+    },
+    {
+      "id": 8,
+      "baslik": "8. LESSON: STANDING HARAKAT, MADD AND QASR"
+    },
+    {
+      "id": 9,
+      "baslik": "9. LESSON: PRONOUN AND LAFZATULLAH (THE WORD ALLAH)"
+    }
+  ]
+}
