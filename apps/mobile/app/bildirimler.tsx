@@ -14,6 +14,7 @@ import {
   NOTIF_KEY,
   DAILY_VERSE_KEY,
   SCHED_DAY_KEY,
+  schedStamp,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
@@ -21,10 +22,6 @@ import { useStrings, getStrings, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
 
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
-
-function localDayStr(d = new Date()): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
 
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
   try {
@@ -102,7 +99,7 @@ export default function BildirimlerScreen() {
     const days = await fetchPrayerDays(lat, lng);
     if (!days) throw new Error("no-times");
     await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
-    await storage.setString(SCHED_DAY_KEY, localDayStr());
+    await storage.setString(SCHED_DAY_KEY, schedStamp());
     return isFallback;
   }
 

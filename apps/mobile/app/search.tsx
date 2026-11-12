@@ -320,7 +320,8 @@ export default function SearchScreen() {
         setState({ status: "direct", surahId: directRef.surahId, ayahNumber: directRef.ayahNumber });
         return;
       }
-      setEnHits(localEnglishHits(trimmed));
+      const hits = localEnglishHits(trimmed);
+      setEnHits(hits);
       try {
         const data = await api.search.query(trimmed);
         setState({ status: "done", data });
@@ -335,7 +336,9 @@ export default function SearchScreen() {
           return next;
         });
       } catch {
-        setState({ status: "error", message: getStrings(searchStrings).searchError });
+        // EN: gömülü Pickthall isabetleri çevrimdışı da gösterilir.
+        if (hits.length > 0) setState({ status: "done", data: { type: "none" } });
+        else setState({ status: "error", message: getStrings(searchStrings).searchError });
       }
     }, DEBOUNCE_MS);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
@@ -365,11 +368,14 @@ export default function SearchScreen() {
       return;
     }
 
-    setEnHits(localEnglishHits(trimmed));
+    const hits = localEnglishHits(trimmed);
+    setEnHits(hits);
     setState({ status: "loading" });
     api.search.query(trimmed)
       .then(data => { setState({ status: "done", data }); })
-      .catch(() => setState({ status: "error", message: getStrings(searchStrings).searchFailed }));
+      .catch(() => setState(hits.length > 0
+        ? { status: "done", data: { type: "none" } }
+        : { status: "error", message: getStrings(searchStrings).searchFailed }));
   }, [query]);
 
   // Hata kutusundaki "Tekrar Dene" — son denenen işlemi (etiket filtresi ya da
@@ -615,7 +621,7 @@ export default function SearchScreen() {
                     <Text style={[styles.suggestionLink, c.isDark && { color: "#fbbf24" }]}>{fmt(ss.surahLink, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}</Text>
                   </TouchableOpacity>
                 )}
-                <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultsCount, { q: query.trim(), n: d.total })}{d.total > d.results.length ? fmt(ss.firstN, { n: d.results.length }) : ""}</Text>
+                <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultsCount, { q: query.trim(), n: d.total + enHits.filter(k => !d.results.some(r => r.verse_key === k)).length })}{d.total > d.results.length ? fmt(ss.firstN, { n: d.results.length }) : ""}</Text>
               </View>
             }
             keyboardShouldPersistTaps="handled"

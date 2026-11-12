@@ -11,6 +11,7 @@ import { useStrings, getLangPreference, setLangPreference, useLang } from "../..
 import type { LangPreference } from "../../src/i18n";
 import dahaFazlaStrings from "../../src/i18n/strings/dahaFazla";
 import { rescheduleNotificationsForLanguageChange } from "../../src/lib/namazNotifications";
+import { refreshWidgetNow } from "../../src/widgets/widgetRefresh";
 
 type Strings = Record<string, string>;
 
@@ -138,7 +139,7 @@ export default function DahaFazlaTab() {
                 return (
                   <TouchableOpacity
                     key={opt.value}
-                    onPress={() => { void setLangPreference(opt.value).then(() => rescheduleNotificationsForLanguageChange()).catch(() => {}); }}
+                    onPress={() => { void setLangPreference(opt.value).then(() => Promise.all([rescheduleNotificationsForLanguageChange(), refreshWidgetNow()])).catch(() => {}); }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
                     accessibilityState={{ selected: active }}

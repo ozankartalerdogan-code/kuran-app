@@ -29,6 +29,9 @@ export default function TafsirScreen() {
   // olmayan surede Türkçe sadeleştirilmiş metne düşülür.
   const localEnContent = lang === "en" && surahId ? getSimplifiedTafsirEn(surahId) : null;
   const localSimplifiedContent = localEnContent ?? (surahId ? getSimplifiedTafsir(surahId) : null);
+  // İngilizce arayüzde orijinal (Türkçe) Elmalılı metni gösterilmez: yalnız
+  // İngilizce sade tefsir (114 surenin hepsinde var). İki dil aynı anda görünmez.
+  const enOnly = lang === "en" && !!localEnContent;
 
   const [tafsir, setTafsir] = useState<TafsirResponse | null | "loading">("loading");
   const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");
@@ -39,6 +42,8 @@ export default function TafsirScreen() {
 
   useEffect(() => {
     if (!surahId) { setTafsir(null); return; }
+    // EN: içerik yerel, sunucudaki Türkçe metne gerek yok.
+    if (enOnly) { setTafsir(null); setFetchFailed(false); return; }
     let alive = true;
     setTafsir("loading");
     setFetchFailed(false);
@@ -65,9 +70,10 @@ export default function TafsirScreen() {
     return () => {
       alive = false;
     };
-  }, [localSimplifiedContent, surahId, reloadKey]);
+  }, [enOnly, localSimplifiedContent, surahId, reloadKey]);
 
   const availableModes = useMemo<TafsirMode[]>(() => {
+    if (enOnly) return ["simplified"];
     if (!tafsir || tafsir === "loading") return ["original"];
 
     const modes: TafsirMode[] = tafsir.availableModes?.length
@@ -79,15 +85,16 @@ export default function TafsirScreen() {
     }
 
     return modes;
-  }, [localSimplifiedContent, tafsir]);
+  }, [enOnly, localSimplifiedContent, tafsir]);
 
   const activeContent = useMemo(() => {
+    if (enOnly) return localEnContent;
     if (!tafsir || tafsir === "loading") return null;
     if (selectedMode === "simplified") {
       return localEnContent ?? tafsir.simplifiedContent ?? localSimplifiedContent;
     }
     return tafsir.content ?? null;
-  }, [localEnContent, localSimplifiedContent, selectedMode, tafsir]);
+  }, [enOnly, localEnContent, localSimplifiedContent, selectedMode, tafsir]);
 
   const paragraphs = useMemo(() => {
     if (!activeContent) return [];
@@ -97,13 +104,13 @@ export default function TafsirScreen() {
       .filter((p) => p.length > 0 && !/^[-_=*\s]+$/.test(p));
   }, [activeContent]);
 
-  const isSimplified = selectedMode === "simplified";
+  const isSimplified = enOnly || selectedMode === "simplified";
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}> 
       <Stack.Screen options={{ title: name ? fmt(s.titleNamed, { name }) : s.title }} />
 
-      {tafsir === "loading" ? (
+      {tafsir === "loading" && !enOnly ? (
         <View style={styles.centered}>
           <ActivityIndicator size="large" color={c.accent} />
           <Text style={[styles.muted, { color: c.textMuted }]}>{s.loading}</Text>

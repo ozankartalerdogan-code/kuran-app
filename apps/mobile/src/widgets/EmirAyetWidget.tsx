@@ -7,7 +7,6 @@
 // üstteki "↻" (REFRESH_AYET → zamanlanmış dilimi beklemeden widget'ı yerinde
 // yeniler). Android RemoteViews'ta iç içe PendingIntent'ler birbirine karışmaz —
 // her tıklanabilir bölge kendi clickAction'ını bağımsız tetikler.
-import { localizedSurahName } from "../lib/surahNames";
 import React from "react";
 import { FlexWidget, TextWidget } from "react-native-android-widget";
 import type { EmirAyet } from "./emirRotation";
@@ -39,6 +38,16 @@ const PALETTES = {
 // Arayüz dili İngilizceyse Pickthall meali. Widget headless JS görevinde çalışır;
 // englishMeal → i18n → storage (MMKV/AsyncStorage) zinciri orada güvenli olmayabilir,
 // bu yüzden tembel require + try/catch ile Türkçe metne düşülür.
+function widgetSurahName(ayet: EmirAyet): string | null {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+    const { localizedSurahName } = require("../lib/surahNames") as typeof import("../lib/surahNames");
+    return localizedSurahName(ayet.surah_id, ayet.surah_name);
+  } catch {
+    return ayet.surah_name;
+  }
+}
+
 function widgetMeal(ayet: EmirAyet): string {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
@@ -78,7 +87,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
   const meal = widgetMeal(ayet);
   const deepLink = `kuranyolu://surah/${ayet.surah_id}/ayah/${ayet.ayah_number}`;
   const badge = ayet.surah_name
-    ? `${localizedSurahName(ayet.surah_id, ayet.surah_name)} ${ayet.surah_id}:${ayet.ayah_number}`
+    ? `${widgetSurahName(ayet)} ${ayet.surah_id}:${ayet.ayah_number}`
     : `${ayet.surah_id}:${ayet.ayah_number}`;
 
   return (

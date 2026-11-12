@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 import { api } from "./api";
 import { storage, STORAGE_KEYS } from "./storage";
 import { localizedMeal } from "./englishMeal";
-import { getStrings, fmt } from "../i18n";
+import { getStrings, fmt, getLang } from "../i18n";
 import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 
@@ -25,6 +25,7 @@ export type PrayerTimes = Record<string, string>;
 export const NOTIF_KEY = "namazNotifEnabled";
 export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 export const SCHED_DAY_KEY = "namazNotifSchedDay";
+export const schedStamp = () => `${localDayStr()}|${getLang()}`;
 
 const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
 
@@ -447,7 +448,7 @@ export async function enablePrayerNotificationsFirstRun(): Promise<"enabled" | "
     await Promise.all([
       storage.setString(NOTIF_KEY, "1"),
       storage.setString(DAILY_VERSE_KEY, "1"),
-      storage.setString(SCHED_DAY_KEY, localDayStr()),
+      storage.setString(SCHED_DAY_KEY, schedStamp()),
     ]);
     return "enabled";
   } catch {
@@ -515,7 +516,9 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
   const dailyOn  = dvRaw === "1";
   if (!prayerOn && !dailyOn) return;
 
-  const today = localDayStr();
+  // Damga gün + arayüz dili: sistem dili değişince ("otomatik" tercih) ilk açılışta
+  // bildirimler yeni dilde yeniden planlanır.
+  const today = schedStamp();
   const lastDay = await storage.getString(SCHED_DAY_KEY);
   if (lastDay === today) return;
 
