@@ -143,8 +143,8 @@
       "konu": "ihram",
       "soru": "With which word does the talbiyah begin?",
       "secenekler": [
-        "A) \"Allahu Ekber\"",
-        "B) \"Lebbeyk\"",
+        "A) \"Allahu Akbar\"",
+        "B) \"Labbayk\"",
         "C) \"Subhanallah\"",
         "D) \"Alhamdulillah\""
       ],
@@ -209,7 +209,7 @@
         "D) 9"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Seven stones are thrown at each jamrah, and \"Bismillah Allahu Ekber\" is said with each throw.",
+      "aciklama": "Seven stones are thrown at each jamrah, and \"Bismillah Allahu Akbar\" is said with each throw.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -218,13 +218,13 @@
       "konu": "mina",
       "soru": "What is said while stoning the devil?",
       "secenekler": [
-        "A) \"Allahu Ekber\"",
-        "B) \"Bismillah Allahu Ekber\"",
+        "A) \"Allahu Akbar\"",
+        "B) \"Bismillah Allahu Akbar\"",
         "C) \"Subhanallah\"",
-        "D) \"Lebbeyk\""
+        "D) \"Labbayk\""
       ],
       "dogru_cevap": "B",
-      "aciklama": "\"Bismillah Allahu Ekber\" is said with each throw.",
+      "aciklama": "\"Bismillah Allahu Akbar\" is said with each throw.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -749,7 +749,7 @@
         "D) Hajj al-qiran"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The expression \"el-hacc el-mebrur\" (Hajj mabrur) in the hadith means an accepted Hajj.",
+      "aciklama": "The expression \"al-hajj al-mabrur\" (Hajj mabrur) in the hadith means an accepted Hajj.",
       "zorluk": "zor",
       "kaynak": "Bukhari, Umrah 1; Muslim, Hajj 437"
     }

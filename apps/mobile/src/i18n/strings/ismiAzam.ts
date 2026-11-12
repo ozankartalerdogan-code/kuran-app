@@ -106,7 +106,7 @@ export default defineStrings({
     ulemaA: "While preserving the narrated wordings on the subject of the Ism al-A'zam, many scholars say it is more accurate not to reduce the matter to a formula of letters. That is why we keep the authentically narrated duas exactly as they are here, and present the spiritual (irfani) explanations only as a framework that prepares the heart. The point is not only which name you say; it is ",
     ulemaB: "with which heart you say it",
     ulemaC: ".",
-    trust10Title: "Certain Sunnah / Qur'an",
+    trust10Title: "Established Sunnah / Qur'an",
     trust10Desc: "Verses and duas established by authentic hadith, which the Prophet ﷺ himself called the \"Ism al-A'zam\".",
     trust8Title: "Lawful and Accepted",
     trust8Desc: "Arrangements of the Companions and scholars; practices made up of authentic verses and Divine Names, accepted by the scholars.",
@@ -144,6 +144,6 @@ export default defineStrings({
     sec3Title: "🛡️ Daily Protection Duas",
     aboutTitle: "About the Protection Duas",
     aboutBody: "The duas below are daily protection duas that the Prophet ﷺ himself recited and recommended to his ummah, established by authentic hadith. Each carries a reliability score of 10/10.",
-    advice: "📿 Add these duas to your daily routine. By Allah's permission, they will protect you from unseen accidents and evils.",
+    advice: "📿 Add these duas to your daily routine. By Allah's permission, they will protect you from unforeseen accidents and harm.",
   },
 });

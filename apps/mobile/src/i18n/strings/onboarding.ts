@@ -22,7 +22,7 @@ export default defineStrings({
   en: {
     feat1: "Read the Quran with mushaf, translation and tafsir",
     feat2: "Word-by-word analysis and root study",
-    feat3: "Prayer times, Qibla compass and Hatim tracking",
+    feat3: "Prayer times, Qibla compass and Khatm tracking",
     feat4: "Learn the letters of the Quran with Elifba lessons",
     welcome: "Welcome to Kuran Yolu",
     welcomeSub: "Your companion for reading the Quran, understanding it and living it in daily life.",

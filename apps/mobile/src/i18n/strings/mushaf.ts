@@ -44,7 +44,7 @@ export default defineStrings({
     jumpA11y: "Go to a page or surah",
     jumpHint: "Jump by entering a page number or choosing a surah",
     headerSub: "Juz {j} · Page {p}/{t} ▾",
-    openHatimA11y: "Open Hatim tracking",
+    openHatimA11y: "Open Khatm tracking",
     tajweedA11y: "Toggle tajweed coloring",
     shrinkA11y: "Decrease text size",
     growA11y: "Increase text size",

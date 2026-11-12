@@ -42,6 +42,7 @@ import { useMealOf } from "../../src/lib/englishMeal";
 import { useSurahNameOf } from "../../src/lib/surahNames";
 import { useStrings, useLang, fmt, localeTag } from "../../src/i18n";
 import { localizedTranslit } from "../../src/lib/translitEn";
+import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
 import moodStrings from "../../src/i18n/strings/moods";
 import homeStrings from "../../src/i18n/strings/home";
 import prayerNameStrings from "../../src/i18n/strings/prayerNames";
@@ -345,7 +346,7 @@ function HomeContent() {
         ) : (
           <>
             {verse.arabic_text && <Text style={[styles.duaArabic, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{mushafMetniHazirla(verse.arabic_text)}</Text>}
-            {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{localizedTranslit(verse.reading_tr, lang)}</Text>}
+            {verse.reading_tr && <Text style={[styles.verseReading, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{localizedVerseTranslit({ surah: verse.surah_id, ayah: verse.ayah_number }, verse.reading_tr, lang)}</Text>}
             {verse.meal && <Text style={[styles.verseMeal, { color: c.isDark ? "#fef3c7" : "#451a03" }]} numberOfLines={3}>{mealOf({ surah: verse.surah_id, ayah: verse.ayah_number }, verse.meal)}</Text>}
           </>
         )}

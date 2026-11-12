@@ -164,7 +164,7 @@
         "D) ت ث ج د ذ"
       ],
       "dogru_cevap": "A",
-      "aciklama": "There are 5 qalqalah letters: ق ط ب ج د — they can be memorized as \"Kutbe Cd\".",
+      "aciklama": "There are 5 qalqalah letters: ق ط ب ج د — they can be memorized as \"Qutb Jad\".",
       "zorluk": "kolay",
       "kaynak": "Basic tajweed knowledge"
     },
@@ -321,7 +321,7 @@
     {
       "id": "tecvid_022",
       "konu": "tecvid",
-      "soru": "What does the mnemonic word \"Yemenu\" help us remember?",
+      "soru": "What does the mnemonic word \"Yanmu\" help us remember?",
       "secenekler": [
         "A) The ikhfa letters",
         "B) The izhar letters",
@@ -329,7 +329,7 @@
         "D) The letters of idgham with ghunnah"
       ],
       "dogru_cevap": "D",
-      "aciklama": "\"Yemenu\" (ي م ن و) helps us remember the 4 letters with which idgham is performed with ghunnah: Ya, Mim, Nun, and Waw.",
+      "aciklama": "\"Yanmu\" (ي م ن و) helps us remember the 4 letters with which idgham is performed with ghunnah: Ya, Mim, Nun, and Waw.",
       "zorluk": "kolay",
       "kaynak": "Basic tajweed knowledge"
     },
@@ -531,7 +531,7 @@
     {
       "id": "tecvid_036",
       "konu": "tecvid",
-      "soru": "How long is the elongation in Madd Tabii?",
+      "soru": "How long is the elongation in Madd Tabi'i?",
       "secenekler": [
         "A) 2 alifs",
         "B) 4 alifs",
@@ -539,7 +539,7 @@
         "D) 3 alifs"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Madd Tabii (natural, basic elongation) is elongated for the length of 1 alif. In this rule, the madd letter is not followed by a hamzah or a sukun/jazm.",
+      "aciklama": "Madd Tabi'i (natural, basic elongation) is elongated for the length of 1 alif. In this rule, the madd letter is not followed by a hamzah or a sukun/jazm.",
       "zorluk": "kolay",
       "kaynak": "Basic tajweed knowledge"
     },
@@ -629,7 +629,7 @@
         "D) Waw or ya must have a jazm, and the preceding letter must have a fathah"
       ],
       "dogru_cevap": "D",
-      "aciklama": "For Madd Lin, waw (و) or ya (ي) must have a jazm/be sakin, and the preceding letter must have a fathah. This madd becomes particularly apparent at waqf. Example: خَوْف (havf).",
+      "aciklama": "For Madd Lin, waw (و) or ya (ي) must have a jazm/be sakin, and the preceding letter must have a fathah. This madd becomes particularly apparent at waqf. Example: خَوْف (khawf).",
       "zorluk": "zor",
       "kaynak": "Basic tajweed knowledge"
     },
@@ -651,7 +651,7 @@
     {
       "id": "tecvid_044",
       "konu": "tecvid",
-      "soru": "Which rule does the alif-lam in the word \"el-kamer\" (moon) illustrate?",
+      "soru": "Which rule does the alif-lam in the word \"al-qamar\" (moon) illustrate?",
       "secenekler": [
         "A) Shamsiyyah",
         "B) Qalqalah",
@@ -659,7 +659,7 @@
         "D) Idgham"
       ],
       "dogru_cevap": "C",
-      "aciklama": "In the word \"el-kamer\", the lam is pronounced clearly; qaf is a qamariyyah letter. Qamariyyah brings to mind the moon letters with which the lam sound is heard.",
+      "aciklama": "In the word \"al-qamar\", the lam is pronounced clearly; qaf is a qamariyyah letter. Qamariyyah brings to mind the moon letters with which the lam sound is heard.",
       "zorluk": "orta",
       "kaynak": "Basic tajweed knowledge"
     },
@@ -696,7 +696,7 @@
     {
       "id": "tecvid_047",
       "konu": "tecvid",
-      "soru": "What is Lahn-i Jali?",
+      "soru": "What is Lahn al-Jali?",
       "secenekler": [
         "A) A major error in pronouncing a letter or word that can affect the meaning",
         "B) A minor error such as insufficient ikhfa or ghunnah",
@@ -704,14 +704,14 @@
         "D) Not observing the stopping signs"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Lahn-i Jali (an obvious or major error) is the clearly incorrect pronunciation of a letter or word. Major errors that change the meaning may affect the validity of salah.",
+      "aciklama": "Lahn al-Jali (an obvious or major error) is the clearly incorrect pronunciation of a letter or word. Major errors that change the meaning may affect the validity of salah.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic practice knowledge"
     },
     {
       "id": "tecvid_048",
       "konu": "tecvid",
-      "soru": "How does Lahn-i Khafi affect salah?",
+      "soru": "How does Lahn al-Khafi affect salah?",
       "secenekler": [
         "A) It invalidates salah in every case",
         "B) It invalidates salah and requires it to be made up",
@@ -719,7 +719,7 @@
         "D) It has no significance in tajweed"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Lahn-i Khafi (a hidden or minor error) is an omission in the finer points of tajweed, such as ikhfa, idgham, and ghunnah. It generally does not invalidate salah, but it reduces the beauty and perfection of the recitation.",
+      "aciklama": "Lahn al-Khafi (a hidden or minor error) is an omission in the finer points of tajweed, such as ikhfa, idgham, and ghunnah. It generally does not invalidate salah, but it reduces the beauty and perfection of the recitation.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic practice knowledge"
     },

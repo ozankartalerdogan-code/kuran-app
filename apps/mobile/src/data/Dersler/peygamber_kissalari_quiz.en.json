@@ -39,12 +39,12 @@
       "soru": "According to narrations, which of Prophet Adam's sons killed his brother?",
       "secenekler": [
         "A) Habil",
-        "B) Kabil",
+        "B) Qabil",
         "C) Seth",
         "D) Idris"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The Quran mentions two sons of Prophet Adam but does not give their names. Narrations say that Kabil killed his brother Habil out of jealousy. (al-Ma'idah 5/27-31)",
+      "aciklama": "The Quran mentions two sons of Prophet Adam but does not give their names. Narrations say that Qabil killed his brother Habil out of jealousy. (al-Ma'idah 5/27-31)",
       "zorluk": "kolay",
       "kaynak": "al-Ma'idah 5/27-31"
     },
@@ -113,8 +113,8 @@
       "konu": "Hz. Nuh",
       "soru": "For which quality does the Quran especially praise Prophet Nuh?",
       "secenekler": [
-        "A) Being Halilullah (Allah's friend)",
-        "B) Being Kelimullah (one who spoke with Allah)",
+        "A) Being Khalilullah (Allah's friend)",
+        "B) Being Kalimullah (one who spoke with Allah)",
         "C) Being a very grateful servant",
         "D) Being Sadiq al-Wa'd (true to his word)"
       ],
@@ -158,13 +158,13 @@
       "konu": "Hz. İbrahim",
       "soru": "What is Prophet Ibrahim's special title with Allah?",
       "secenekler": [
-        "A) Kelimullah",
-        "B) Halilullah",
+        "A) Kalimullah",
+        "B) Khalilullah",
         "C) Sadiq al-Wa'd",
         "D) Ruhullah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "\"Allah took Ibrahim as a friend (halil).\" (an-Nisa 4/125) For this reason, Prophet Ibrahim is known by the title \"Halilullah\" (Allah's friend).",
+      "aciklama": "\"Allah took Ibrahim as a friend (khalil).\" (an-Nisa 4/125) For this reason, Prophet Ibrahim is known by the title \"Khalilullah\" (Allah's friend).",
       "zorluk": "kolay",
       "kaynak": "an-Nisa 4/125"
     },
@@ -263,8 +263,8 @@
       "konu": "Hz. İsmail",
       "soru": "By which title is Prophet Ismail known?",
       "secenekler": [
-        "A) Halilullah",
-        "B) Kelimullah",
+        "A) Khalilullah",
+        "B) Kalimullah",
         "C) Ruhullah",
         "D) Sadiq al-Wa'd"
       ],
@@ -309,8 +309,8 @@
       "soru": "What is Prophet Yaqub's other name (title)?",
       "secenekler": [
         "A) Israel",
-        "B) Halilullah",
-        "C) Kelimullah",
+        "B) Khalilullah",
+        "C) Kalimullah",
         "D) Siddiq"
       ],
       "dogru_cevap": "A",
@@ -449,7 +449,7 @@
         "D) He frequently turned to Allah"
       ],
       "dogru_cevap": "D",
-      "aciklama": "\"What an excellent servant! Indeed, he was one who frequently turned to Allah (evvab).\" (Sad 38/44) The emphasis is on 'turning to Allah,' not 'patience.'",
+      "aciklama": "\"What an excellent servant! Indeed, he was one who frequently turned to Allah (awwab).\" (Sad 38/44) The emphasis is on 'turning to Allah,' not 'patience.'",
       "zorluk": "zor",
       "kaynak": "Sad 38/44"
     },
@@ -473,13 +473,13 @@
       "konu": "Hz. Musa",
       "soru": "By which title is Prophet Musa known?",
       "secenekler": [
-        "A) Halilullah",
+        "A) Khalilullah",
         "B) Sadiq al-Wa'd",
-        "C) Kelimullah",
+        "C) Kalimullah",
         "D) Ruhullah"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Prophet Musa is known by the title 'Kelimullah' (the one who spoke with Allah) because he spoke directly with Allah at Sinai. (an-Nisa 4/164)",
+      "aciklama": "Prophet Musa is known by the title 'Kalimullah' (the one who spoke with Allah) because he spoke directly with Allah at Sinai. (an-Nisa 4/164)",
       "zorluk": "orta",
       "kaynak": "an-Nisa 4/164"
     },
@@ -683,13 +683,13 @@
       "konu": "Hz. İsa",
       "soru": "What titles does the Quran give Prophet Jesus?",
       "secenekler": [
-        "A) Halilullah and Kelimullah",
+        "A) Khalilullah and Kalimullah",
         "B) Safiyullah and Ruhullah",
         "C) Siddiq and Rasul",
-        "D) Ruhullah and Kelimetullah"
+        "D) Ruhullah and Kalimatullah"
       ],
       "dogru_cevap": "D",
-      "aciklama": "The Quran refers to Prophet Jesus as a word from Allah (Kelimetullah: created by Allah's command 'Be') and a spirit from Allah (Ruhullah: brought into existence through Allah's special act of creation). These expressions do not change the fact that he is Allah's servant and prophet. (an-Nisa 4/171; Al Imran 3/45)",
+      "aciklama": "The Quran refers to Prophet Jesus as a word from Allah (Kalimatullah: created by Allah's command 'Be') and a spirit from Allah (Ruhullah: brought into existence through Allah's special act of creation). These expressions do not change the fact that he is Allah's servant and prophet. (an-Nisa 4/171; Al Imran 3/45)",
       "zorluk": "orta",
       "kaynak": "an-Nisa 4/171; Al Imran 3/45"
     },

@@ -345,7 +345,7 @@
       {
         "tip": "farz",
         "metin": "Opening takbir",
-        "detay": "To begin salah by saying \"Allahu Ekber\"."
+        "detay": "To begin salah by saying \"Allahu Akbar\"."
       },
       {
         "tip": "farz",
@@ -723,7 +723,7 @@
       {
         "tip": "sunnet",
         "metin": "Intention and Bismillah",
-        "detay": "The animal is slaughtered while saying \"Bismillah, Allahu Ekber\"; an intention is made."
+        "detay": "The animal is slaughtered while saying \"Bismillah, Allahu Akbar\"; an intention is made."
       },
       {
         "tip": "sunnet",
@@ -798,7 +798,7 @@
           "aciklama": "Wash both hands up to and including the wrists when beginning wudu."
         },
         {
-          "organ": "Mouth (Mazmaza)",
+          "organ": "Mouth (Madmadah)",
           "miktar": 3,
           "aciklama": "Take water into the mouth and rinse it."
         },
@@ -883,7 +883,7 @@
         {
           "organ": "Mouth",
           "miktar": 1,
-          "aciklama": "Mazmaza: rinse the inside of the mouth thoroughly."
+          "aciklama": "Madmadah: rinse the inside of the mouth thoroughly."
         },
         {
           "organ": "Nose",

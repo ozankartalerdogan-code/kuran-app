@@ -10,6 +10,7 @@ import { getDevotionalSourceLabel } from "../../src/lib/sourceLabels";
 import { useMealOf } from "../../src/lib/englishMeal";
 import { useStrings, getStrings, useLang, fmt } from "../../src/i18n";
 import { localizedTranslit } from "../../src/lib/translitEn";
+import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
 import { localizedData, useLocalizedData } from "../../src/i18n/localizedData";
 import ismiStrings from "../../src/i18n/strings/ismiAzam";
 import { useSurahNameOf } from "../../src/lib/surahNames";
@@ -426,7 +427,7 @@ function TagVerseAccordion({
                 </Text>
               </View>
               {verse.reading_tr ? (
-                <Text style={[styles.verseReading, { color: colors.text }]} numberOfLines={3}>{localizedTranslit(verse.reading_tr, lang)}</Text>
+                <Text style={[styles.verseReading, { color: colors.text }]} numberOfLines={3}>{localizedVerseTranslit(verse.verse_key, verse.reading_tr, lang)}</Text>
               ) : null}
               {verse.meal ? (
                 <Text style={[styles.verseMeal, { color: colors.textSecondary }]} numberOfLines={4}>{mealOf(verse.verse_key, verse.meal)}</Text>

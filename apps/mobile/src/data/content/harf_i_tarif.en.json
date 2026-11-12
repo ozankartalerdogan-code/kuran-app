@@ -34,85 +34,85 @@
         {
           "arapca": "ت",
           "ad": "Ta",
-          "okunusu": "et-tau",
+          "okunusu": "at-tau",
           "ornek_esma": null
         },
         {
           "arapca": "ث",
           "ad": "Tha",
-          "okunusu": "es-seu",
+          "okunusu": "ath-thau",
           "ornek_esma": null
         },
         {
           "arapca": "د",
           "ad": "Dal",
-          "okunusu": "ed-dalu",
+          "okunusu": "ad-dalu",
           "ornek_esma": null
         },
         {
           "arapca": "ذ",
           "ad": "Dhal",
-          "okunusu": "ez-zelu",
+          "okunusu": "adh-dhalu",
           "ornek_esma": null
         },
         {
           "arapca": "ر",
           "ad": "Ra",
-          "okunusu": "er-rau",
+          "okunusu": "ar-rau",
           "ornek_esma": "ar-Rahman, ar-Rahim, ar-Razzaq"
         },
         {
           "arapca": "ز",
           "ad": "Zay",
-          "okunusu": "ez-zayu",
+          "okunusu": "az-zayu",
           "ornek_esma": null
         },
         {
           "arapca": "س",
           "ad": "Sin",
-          "okunusu": "es-sinu",
+          "okunusu": "as-sinu",
           "ornek_esma": "as-Salam, as-Sami'"
         },
         {
           "arapca": "ش",
           "ad": "Shin",
-          "okunusu": "eş-şinu",
+          "okunusu": "ash-shinu",
           "ornek_esma": "ash-Shakur"
         },
         {
           "arapca": "ص",
           "ad": "Sad",
-          "okunusu": "es-sadu",
+          "okunusu": "as-sadu",
           "ornek_esma": "as-Samad"
         },
         {
           "arapca": "ض",
           "ad": "Dad",
-          "okunusu": "ed-dadu",
+          "okunusu": "ad-dadu",
           "ornek_esma": null
         },
         {
           "arapca": "ط",
           "ad": "Ta",
-          "okunusu": "et-tau",
+          "okunusu": "at-tau",
           "ornek_esma": null
         },
         {
           "arapca": "ظ",
           "ad": "Za",
-          "okunusu": "ez-zau",
+          "okunusu": "az-zau",
           "ornek_esma": null
         },
         {
           "arapca": "ل",
           "ad": "Lam",
-          "okunusu": "el-lamu",
+          "okunusu": "al-lamu",
           "ornek_esma": null
         },
         {
           "arapca": "ن",
           "ad": "Nun",
-          "okunusu": "en-nunu",
+          "okunusu": "an-nunu",
           "ornek_esma": null
         }
       ]
@@ -126,85 +126,85 @@
         {
           "arapca": "ا",
           "ad": "Alif",
-          "okunusu": "el-elifu",
+          "okunusu": "al-alifu",
           "ornek_esma": null
         },
         {
           "arapca": "ب",
           "ad": "Ba",
-          "okunusu": "el-bau",
+          "okunusu": "al-bau",
           "ornek_esma": null
         },
         {
           "arapca": "ج",
           "ad": "Jim",
-          "okunusu": "el-cimu",
+          "okunusu": "al-jimu",
           "ornek_esma": null
         },
         {
           "arapca": "ح",
           "ad": "Ha",
-          "okunusu": "el-hau",
+          "okunusu": "al-hau",
           "ornek_esma": null
         },
         {
           "arapca": "خ",
           "ad": "Kha",
-          "okunusu": "el-hau",
+          "okunusu": "al-hau",
           "ornek_esma": null
         },
         {
           "arapca": "ع",
           "ad": "Ayn",
-          "okunusu": "el-aynu",
+          "okunusu": "al-aynu",
           "ornek_esma": "al-Aziz, al-Alim, al-Afuww"
         },
         {
           "arapca": "غ",
           "ad": "Ghayn",
-          "okunusu": "el-ğaynu",
+          "okunusu": "al-ghaynu",
           "ornek_esma": "al-Ghaffar, al-Ghaniyy"
         },
         {
           "arapca": "ف",
           "ad": "Fa",
-          "okunusu": "el-fau",
+          "okunusu": "al-fau",
           "ornek_esma": "al-Fattah"
         },
         {
           "arapca": "ق",
           "ad": "Qaf",
-          "okunusu": "el-kafu",
+          "okunusu": "al-kafu",
           "ornek_esma": "al-Qahhar, al-Qawiyy, al-Qadir"
         },
         {
           "arapca": "ك",
           "ad": "Kaf",
-          "okunusu": "el-kafu",
+          "okunusu": "al-kafu",
           "ornek_esma": "al-Karim"
         },
         {
           "arapca": "م",
           "ad": "Mim",
-          "okunusu": "el-mimu",
+          "okunusu": "al-mimu",
           "ornek_esma": "al-Malik, al-Mu'min, al-Muhaymin"
         },
         {
           "arapca": "ه",
           "ad": "Ha",
-          "okunusu": "el-hau",
+          "okunusu": "al-hau",
           "ornek_esma": "al-Hadi"
         },
         {
           "arapca": "و",
           "ad": "Waw",
-          "okunusu": "el-vavu",
+          "okunusu": "al-wawu",
           "ornek_esma": "al-Wadud, al-Wali"
         },
         {
           "arapca": "ي",
           "ad": "Ya",
-          "okunusu": "el-yau",
+          "okunusu": "al-yau",
           "ornek_esma": null
         }
       ]
@@ -216,7 +216,7 @@
       "alt_baslik": "Notice this rule in names you hear every day",
       "ornekler": [
         {
-          "isim": "Er-Rahman",
+          "isim": "Ar-Rahman",
           "arapca": "الرَّحْمَن",
           "anlam": "The Most Merciful",
           "harf": "Ra (ر)",
@@ -224,7 +224,7 @@
           "aciklama": "Ra is a sun letter, so the 'l' sound changes to 'r' → ar-Rahman"
         },
         {
-          "isim": "Er-Rahim",
+          "isim": "Ar-Rahim",
           "arapca": "الرَّحِيم",
           "anlam": "The Most Merciful",
           "harf": "Ra (ر)",
@@ -232,7 +232,7 @@
           "aciklama": "Ra is a sun letter → ar-Rahim"
         },
         {
-          "isim": "El-Melik",
+          "isim": "Al-Malik",
           "arapca": "الْمَلِك",
           "anlam": "The Sovereign",
           "harf": "Mim (م)",
@@ -240,7 +240,7 @@
           "aciklama": "Mim is a moon letter, so 'al-' stays as it is → al-Malik"
         },
         {
-          "isim": "Es-Selam",
+          "isim": "As-Salam",
           "arapca": "السَّلَام",
           "anlam": "The Giver of Peace",
           "harf": "Sin (س)",
@@ -248,7 +248,7 @@
           "aciklama": "Sin is a sun letter → as-Salam"
         },
         {
-          "isim": "El-Aziz",
+          "isim": "Al-Aziz",
           "arapca": "الْعَزِيز",
           "anlam": "The Mighty, the Exalted",
           "harf": "Ayn (ع)",
@@ -256,7 +256,7 @@
           "aciklama": "Ayn is a moon letter → al-Aziz"
         },
         {
-          "isim": "En-Nur",
+          "isim": "An-Nur",
           "arapca": "النُّور",
           "anlam": "Light, illumination",
           "harf": "Nun (ن)",
@@ -264,7 +264,7 @@
           "aciklama": "Nun is a sun letter → an-Nur"
         },
         {
-          "isim": "El-Kerim",
+          "isim": "Al-Karim",
           "arapca": "الْكَرِيم",
           "anlam": "The Generous",
           "harf": "Kaf (ك)",
@@ -302,33 +302,33 @@
       "sorular": [
         {
           "id": "q1",
-          "soru": "Es-Semi' or El-Semi'?",
+          "soru": "As-Sami' or Al-Sami'?",
           "harf": "Sin (س)",
-          "dogru_cevap": "Es-Semi'",
+          "dogru_cevap": "As-Sami'",
           "tip": "semsiye",
           "aciklama": "Sin is a sun letter → as-Sami'"
         },
         {
           "id": "q2",
-          "soru": "El-Fettah or Ef-Fettah?",
+          "soru": "Al-Fattah or Af-Fattah?",
           "harf": "Fa (ف)",
-          "dogru_cevap": "El-Fettah",
+          "dogru_cevap": "Al-Fattah",
           "tip": "kameriye",
           "aciklama": "Fa is a moon letter → al-Fattah"
         },
         {
           "id": "q3",
-          "soru": "Ed-Dar or El-Dar?",
+          "soru": "Ad-Darr or Al-Darr?",
           "harf": "Dal (د)",
-          "dogru_cevap": "Ed-Dar",
+          "dogru_cevap": "Ad-Darr",
           "tip": "semsiye",
           "aciklama": "Dal is a sun letter → ad-Darr"
         },
         {
           "id": "q4",
-          "soru": "El-Vedud or Ev-Vedud?",
+          "soru": "Al-Wadud or Aw-Wadud?",
           "harf": "Waw (و)",
-          "dogru_cevap": "El-Vedud",
+          "dogru_cevap": "Al-Wadud",
           "tip": "kameriye",
           "aciklama": "Waw is a moon letter → al-Wadud"
         },
@@ -342,25 +342,25 @@
         },
         {
           "id": "q6",
-          "soru": "El-Hakk or Eh-Hakk?",
+          "soru": "Al-Haqq or Ah-Haqq?",
           "harf": "Ha (ح)",
-          "dogru_cevap": "El-Hakk",
+          "dogru_cevap": "Al-Haqq",
           "tip": "kameriye",
           "aciklama": "Ha is a moon letter → al-Haqq"
         },
         {
           "id": "q7",
-          "soru": "Er-Rezzak or El-Rezzak?",
+          "soru": "Ar-Razzaq or Al-Razzaq?",
           "harf": "Ra (ر)",
-          "dogru_cevap": "Er-Rezzak",
+          "dogru_cevap": "Ar-Razzaq",
           "tip": "semsiye",
           "aciklama": "Ra is a sun letter → ar-Razzaq"
         },
         {
           "id": "q8",
-          "soru": "El-Kadir or Ek-Kadir?",
+          "soru": "Al-Qadir or Aq-Qadir?",
           "harf": "Qaf (ق)",
-          "dogru_cevap": "El-Kadir",
+          "dogru_cevap": "Al-Qadir",
           "tip": "kameriye",
           "aciklama": "Qaf is a moon letter → al-Qadir"
         },
@@ -374,17 +374,17 @@
         },
         {
           "id": "q10",
-          "soru": "El-Mu'min or Em-Mu'min?",
+          "soru": "Al-Mu'min or Am-Mu'min?",
           "harf": "Mim (م)",
-          "dogru_cevap": "El-Mu'min",
+          "dogru_cevap": "Al-Mu'min",
           "tip": "kameriye",
           "aciklama": "Mim is a moon letter → al-Mu'min"
         },
         {
           "id": "q11",
-          "soru": "Es-Samed or El-Samed?",
+          "soru": "As-Samad or Al-Samad?",
           "harf": "Sad (ص)",
-          "dogru_cevap": "Es-Samed",
+          "dogru_cevap": "As-Samad",
           "tip": "semsiye",
           "aciklama": "Sad is a sun letter → as-Samad"
         },
@@ -398,49 +398,49 @@
         },
         {
           "id": "q13",
-          "soru": "Ez-Zahir or El-Zahir?",
+          "soru": "Adh-Dhahir or Al-Dhahir?",
           "harf": "Dhal (ذ)",
-          "dogru_cevap": "Ez-Zahir",
+          "dogru_cevap": "Adh-Dhahir",
           "tip": "semsiye",
           "aciklama": "Dhal is a sun letter → adh-Dhahir"
         },
         {
           "id": "q14",
-          "soru": "El-Veli or Ev-Veli?",
+          "soru": "Al-Wali or Aw-Wali?",
           "harf": "Waw (و)",
-          "dogru_cevap": "El-Veli",
+          "dogru_cevap": "Al-Wali",
           "tip": "kameriye",
           "aciklama": "Waw is a moon letter → al-Wali"
         },
         {
           "id": "q15",
-          "soru": "Et-Tevvab or El-Tevvab?",
+          "soru": "At-Tawwab or Al-Tawwab?",
           "harf": "Ta (ت)",
-          "dogru_cevap": "Et-Tevvab",
+          "dogru_cevap": "At-Tawwab",
           "tip": "semsiye",
           "aciklama": "Ta is a sun letter → at-Tawwab"
         },
         {
           "id": "q16",
-          "soru": "El-Cebbar or Ec-Cebbar?",
+          "soru": "Al-Jabbar or Aj-Jabbar?",
           "harf": "Jim (ج)",
-          "dogru_cevap": "El-Cebbar",
+          "dogru_cevap": "Al-Jabbar",
           "tip": "kameriye",
           "aciklama": "Jim is a moon letter → al-Jabbar"
         },
         {
           "id": "q17",
-          "soru": "En-Nur or El-Nur?",
+          "soru": "An-Nur or Al-Nur?",
           "harf": "Nun (ن)",
-          "dogru_cevap": "En-Nur",
+          "dogru_cevap": "An-Nur",
           "tip": "semsiye",
           "aciklama": "Nun is a sun letter → an-Nur"
         },
         {
           "id": "q18",
-          "soru": "El-Hadi or Eh-Hadi?",
+          "soru": "Al-Hadi or Ah-Hadi?",
           "harf": "Ha (ه)",
-          "dogru_cevap": "El-Hadi",
+          "dogru_cevap": "Al-Hadi",
           "tip": "kameriye",
           "aciklama": "Ha is a moon letter → al-Hadi"
         },
@@ -454,25 +454,25 @@
         },
         {
           "id": "q20",
-          "soru": "El-Alim or Ea-Alim?",
+          "soru": "Al-Alim or Aa-Alim?",
           "harf": "Ayn (ع)",
-          "dogru_cevap": "El-Alim",
+          "dogru_cevap": "Al-Alim",
           "tip": "kameriye",
           "aciklama": "Ayn is a moon letter → al-Alim"
         },
         {
           "id": "q21",
-          "soru": "Es-Selam or El-Selam?",
+          "soru": "As-Salam or Al-Salam?",
           "harf": "Sin (س)",
-          "dogru_cevap": "Es-Selam",
+          "dogru_cevap": "As-Salam",
           "tip": "semsiye",
           "aciklama": "Sin is a sun letter → as-Salam"
         },
         {
           "id": "q22",
-          "soru": "El-Kahhar or Ek-Kahhar?",
+          "soru": "Al-Qahhar or Aq-Qahhar?",
           "harf": "Qaf (ق)",
-          "dogru_cevap": "El-Kahhar",
+          "dogru_cevap": "Al-Qahhar",
           "tip": "kameriye",
           "aciklama": "Qaf is a moon letter → al-Qahhar"
         },

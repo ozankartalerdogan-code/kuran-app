@@ -1,6 +1,6 @@
 // Kelime/kök İngilizce sözlüğünü birleştirir ve doğrular.
 //   node scripts/export-word-meanings-en-source.mjs        (kaynak + gloss dosyaları)
-//   TRANSLATOR=codex node scripts/translate-json-en.mjs content/words/meanings-nogloss.tr.json content/words/root-meanings.tr.json
+//   TRANSLATOR=codex node scripts/translate-json-en.mjs content/words/meanings-nogloss.tr.json content/words/root-meanings.tr.json content/words/meanings-root.tr.json
 //   node scripts/build-word-meanings-en.mjs                 → apps/mobile/src/data/wordMeaningsEn.json
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -12,7 +12,7 @@ const read = (f) => JSON.parse(readFileSync(path.join(W, f), "utf8"));
 const TR = /[çğışöüÇĞİŞÖÜ]/;
 
 // İngilizcede de aynı yazılan özel adlar.
-const SAME_IN_EN = new Set(["Allah", "Arafat", "Tubba'"]);
+const SAME_IN_EN = new Set(["Allah", "Arafat", "Tubba'", "Baal", "dinar", "dua", "hanif", "Hud", "ifrit", "Malik", "plan", "Sirius"]);
 const errors = [];
 function check(trObj, enObj, label) {
   const out = {};
@@ -26,7 +26,10 @@ function check(trObj, enObj, label) {
   }
   return out;
 }
-const meanings = check(read("meanings-nogloss.tr.json"), read("meanings-nogloss.tr.en.json"), "anlam");
+const meanings = {
+  ...check(read("meanings-root.tr.json"), read("meanings-root.tr.en.json"), "kök-anlam"),
+  ...check(read("meanings-nogloss.tr.json"), read("meanings-nogloss.tr.en.json"), "anlam"),
+};
 const roots = check(read("root-meanings.tr.json"), read("root-meanings.tr.en.json"), "kök");
 
 if (errors.length) {

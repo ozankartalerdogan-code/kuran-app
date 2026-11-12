@@ -28,7 +28,7 @@ export default defineStrings({
     secAdv: "🔬 Advanced",
     kissalarLabel: "Stories of the Prophets",
     kissalarSub: "Stories of 25 prophets",
-    siyerLabel: "Siyer (Life of the Prophet)",
+    siyerLabel: "Seerah (Life of the Prophet)",
     siyerSub: "The life of the Prophet Muhammad",
     mubarekLabel: "Blessed Days",
     mubarekSub: "The virtues of 13 days and nights",

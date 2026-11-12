@@ -42,14 +42,14 @@
       "id": "namaz_k06",
       "tip": "metin",
       "baslik": "The Essential Elements of Salah",
-      "icerik": "The obligatory acts that must be performed within salah are called its essential elements:\n\n• Opening takbir — beginning by saying 'Allahu Ekber'\n• Qiyam — standing\n• Recitation — reciting enough of the Quran for the salah to be valid. The ruling on al-Fatihah and an additional surah is assessed differently by the schools of law; the additional surah is a surah or verse recited after al-Fatihah\n• Ruku — bowing\n• Sujud — placing the forehead on the ground (twice in each rak'ah)\n• Final sitting\n\nIf any one of these obligatory elements is omitted, the salah is invalidated.",
+      "icerik": "The obligatory acts that must be performed within salah are called its essential elements:\n\n• Opening takbir — beginning by saying 'Allahu Akbar'\n• Qiyam — standing\n• Recitation — reciting enough of the Quran for the salah to be valid. The ruling on al-Fatihah and an additional surah is assessed differently by the schools of law; the additional surah is a surah or verse recited after al-Fatihah\n• Ruku — bowing\n• Sujud — placing the forehead on the ground (twice in each rak'ah)\n• Final sitting\n\nIf any one of these obligatory elements is omitted, the salah is invalidated.",
       "vurgu": "If an essential element is missing, the salah is invalidated and cannot be corrected by the prostration of forgetfulness"
     },
     {
       "id": "namaz_k07",
       "tip": "gorsel",
       "baslik": "The Opening Takbir",
-      "icerik": "At the beginning of salah, one first makes the intention in the heart for the prayer to be performed, then makes the opening takbir. In Hanafi practice, men raise their hands to ear level and women to shoulder level; then 'Allahu Ekber' is said.\n\nThe essence of intention is in the heart. Saying it aloud may help; what matters is turning to Allah while knowing which prayer one is performing. After the takbir, the hands are folded; where they are placed may differ between schools of law.\n\nExamples of intentions:\n• Obligatory Fajr: \"I intend to perform today's obligatory Fajr prayer for the sake of Allah.\"\n• Obligatory Dhuhr: \"I intend to perform today's obligatory Dhuhr prayer for the sake of Allah.\"\n• Obligatory Asr: \"I intend to perform today's obligatory Asr prayer for the sake of Allah.\"\n• Obligatory Maghrib: \"I intend to perform today's obligatory Maghrib prayer for the sake of Allah.\"\n• Obligatory Isha: \"I intend to perform today's obligatory Isha prayer for the sake of Allah.\"\n• Witr: \"I intend to perform today's Witr prayer for the sake of Allah.\"",
+      "icerik": "At the beginning of salah, one first makes the intention in the heart for the prayer to be performed, then makes the opening takbir. In Hanafi practice, men raise their hands to ear level and women to shoulder level; then 'Allahu Akbar' is said.\n\nThe essence of intention is in the heart. Saying it aloud may help; what matters is turning to Allah while knowing which prayer one is performing. After the takbir, the hands are folded; where they are placed may differ between schools of law.\n\nExamples of intentions:\n• Obligatory Fajr: \"I intend to perform today's obligatory Fajr prayer for the sake of Allah.\"\n• Obligatory Dhuhr: \"I intend to perform today's obligatory Dhuhr prayer for the sake of Allah.\"\n• Obligatory Asr: \"I intend to perform today's obligatory Asr prayer for the sake of Allah.\"\n• Obligatory Maghrib: \"I intend to perform today's obligatory Maghrib prayer for the sake of Allah.\"\n• Obligatory Isha: \"I intend to perform today's obligatory Isha prayer for the sake of Allah.\"\n• Witr: \"I intend to perform today's Witr prayer for the sake of Allah.\"",
       "gorsel": "namaz_tekbir",
       "vurgu": "The intention is made in the heart · Salah begins with the opening takbir"
     },
@@ -73,9 +73,9 @@
       "id": "namaz_k10",
       "tip": "gorsel",
       "baslik": "Qawmah — Rising from Ruku",
-      "icerik": "While rising from ruku, say 'Semi'allahu limen hamideh'. Once fully upright, say 'Rabbena ve lekel hamd'. Remain standing upright briefly.",
+      "icerik": "While rising from ruku, say 'Sami'allahu liman hamidah'. Once fully upright, say 'Rabbana wa lakal hamd'. Remain standing upright briefly.",
       "gorsel": "namaz_kavme",
-      "vurgu": "Semi'allahu limen hamideh — Allah hears the one who praises Him"
+      "vurgu": "Sami'allahu liman hamidah — Allah hears the one who praises Him"
     },
     {
       "id": "namaz_k11",
@@ -89,15 +89,15 @@
       "id": "namaz_k12",
       "tip": "gorsel",
       "baslik": "Jalsah — Between the Two Prostrations",
-      "icerik": "Sit briefly between the two prostrations. The left foot is laid flat, the right foot is held upright, and the hands rest on the knees. Say 'Rabbigfirli'.",
+      "icerik": "Sit briefly between the two prostrations. The left foot is laid flat, the right foot is held upright, and the hands rest on the knees. Say 'Rabbighfir li'.",
       "gorsel": "namaz_celse",
-      "vurgu": "Rabbigfirli — My Lord, forgive me"
+      "vurgu": "Rabbighfir li — My Lord, forgive me"
     },
     {
       "id": "namaz_k13",
       "tip": "gorsel",
       "baslik": "Tashahhud — The Sitting in Which Tahiyyat Is Recited",
-      "icerik": "Sit in the final rak'ah and recite Tahiyyat, Salli-Barik, and the Rabbena supplications. Both hands rest flat on the knees, with the fingers extended toward the qiblah.",
+      "icerik": "Sit in the final rak'ah and recite Tahiyyat, Salli-Barik, and the Rabbana supplications. Both hands rest flat on the knees, with the fingers extended toward the qiblah.",
       "gorsel": "namaz_tesehhud",
       "vurgu": "Tahiyyat — Greetings, mercy, and blessings to Allah"
     },
@@ -105,7 +105,7 @@
       "id": "namaz_k14",
       "tip": "gorsel",
       "baslik": "Salam — Ending Salah",
-      "icerik": "Turn first toward the right shoulder, then toward the left shoulder, saying 'Esselamu aleykum ve rahmetullah'. Salah is completed with the salam.",
+      "icerik": "Turn first toward the right shoulder, then toward the left shoulder, saying 'Assalamu alaykum wa rahmatullah'. Salah is completed with the salam.",
       "gorsel": "namaz_selam",
       "vurgu": "Salah is completed with the salam"
     },
@@ -148,14 +148,14 @@
       "id": "namaz_k20",
       "tip": "metin",
       "baslik": "The First and Final Sitting",
-      "icerik": "There are two types of sitting in salah:\n\n• Ka'de-i ula (the first sitting): Performed after the second rak'ah in prayers of 3 or 4 rak'ahs. Only Tahiyyat is recited, and rising is described as wajib in Hanafi teaching.\n• Ka'de-i ahire (the final sitting): Performed in the final rak'ah of the prayer. Tahiyyat + Salli + Barik + Rabbena supplications are recited. Salam is given after this sitting.",
-      "vurgu": "Only Tahiyyat in ka'de-i ula · All the supplications in ka'de-i ahire"
+      "icerik": "There are two types of sitting in salah:\n\n• Qa'dah al-ula (the first sitting): Performed after the second rak'ah in prayers of 3 or 4 rak'ahs. Only Tahiyyat is recited, and rising is described as wajib in Hanafi teaching.\n• Qa'dah al-akhirah (the final sitting): Performed in the final rak'ah of the prayer. Tahiyyat + Salli + Barik + Rabbana supplications are recited. Salam is given after this sitting.",
+      "vurgu": "Only Tahiyyat in qa'dah al-ula · All the supplications in qa'dah al-akhirah"
     },
     {
       "id": "namaz_k21",
       "tip": "metin",
       "baslik": "The Prostration of Forgetfulness",
-      "icerik": "In Hanafi practice, the prostration of forgetfulness is performed if a wajib is forgotten during salah:\n\n• When: When a wajib is forgotten or delayed during the prayer\n• How: After reciting Tahiyyat in the final sitting, salam is given to the right, 2 prostrations are performed, one sits again, recites the supplications and gives salam to both sides\n• What it compensates for: Forgotten wajib acts (such as an additional surah or ka'de-i ula)\n• What it does not compensate for: A forgotten fard — if a fard is missing, the prayer is invalidated and must be performed again\n\nThe details of how the prostration of forgetfulness is performed may vary between schools.",
+      "icerik": "In Hanafi practice, the prostration of forgetfulness is performed if a wajib is forgotten during salah:\n\n• When: When a wajib is forgotten or delayed during the prayer\n• How: After reciting Tahiyyat in the final sitting, salam is given to the right, 2 prostrations are performed, one sits again, recites the supplications and gives salam to both sides\n• What it compensates for: Forgotten wajib acts (such as an additional surah or qa'dah al-ula)\n• What it does not compensate for: A forgotten fard — if a fard is missing, the prayer is invalidated and must be performed again\n\nThe details of how the prostration of forgetfulness is performed may vary between schools.",
       "vurgu": "A wajib is forgotten → the prostration of forgetfulness may be required · A fard is forgotten → the prayer is performed again"
     },
     {
@@ -169,7 +169,7 @@
       "id": "namaz_k23",
       "tip": "metin",
       "baslik": "Congregational Prayer",
-      "icerik": "The Prophet ﷺ said: \"Prayer performed in congregation is 27 degrees superior to prayer performed alone.\" (Bukhari, Ezan 30; Muslim, Mesacid 249)\n\n• Praying in congregation is an emphasized Sunnah for men.\n• Following the imam: if one reaches ruku before the imam rises from it, one is considered to have caught that rak'ah.\n• The congregation follows the imam's movements; they do not go into ruku or sujood before the imam.\n• The imam recites aloud in prayers with audible recitation and silently in prayers with silent recitation. The schools differ on whether the congregation recites al-Fatihah.",
+      "icerik": "The Prophet ﷺ said: \"Prayer performed in congregation is 27 degrees superior to prayer performed alone.\" (Bukhari, Adhan 30; Muslim, Masajid 249)\n\n• Praying in congregation is an emphasized Sunnah for men.\n• Following the imam: if one reaches ruku before the imam rises from it, one is considered to have caught that rak'ah.\n• The congregation follows the imam's movements; they do not go into ruku or sujood before the imam.\n• The imam recites aloud in prayers with audible recitation and silently in prayers with silent recitation. The schools differ on whether the congregation recites al-Fatihah.",
       "vurgu": "Congregational prayer: 27 degrees · Follow the imam; do not move ahead of him"
     },
     {
@@ -189,7 +189,7 @@
     {
       "id": "namaz_k26",
       "tip": "metin",
-      "baslik": "Covering the Awrah (Setr-i Avret)",
+      "baslik": "Covering the Awrah (Satr al-Awrah)",
       "icerik": "It is fard to cover the awrah during salah:\n• Men: The area between the navel and the kneecap\n• Women: In general teaching, the body must be covered except for the hands and face; the ruling on the feet is assessed differently across the schools\n\nIf an area that must be covered remains noticeably exposed to an extent that affects the prayer, the validity of the prayer is affected. There are detailed rulings for small, accidental exposures that are corrected immediately.",
       "vurgu": "Covering the awrah is a condition for the validity of salah · Details differ between schools"
     },
@@ -197,7 +197,7 @@
       "id": "namaz_k27",
       "tip": "metin",
       "baslik": "Hands and Gaze While Standing",
-      "icerik": "While standing in salah, the right hand is placed over the left and the hands are folded. (Folding the hands is Sunnah; their position varies by school.)\n\nThe eyes look at the place of prostration, and one does not look around.\nThe Prophet ﷺ said: 'Looking around during prayer is something Satan steals from a servant's prayer.' (Bukhari, Ezan 93)",
+      "icerik": "While standing in salah, the right hand is placed over the left and the hands are folded. (Folding the hands is Sunnah; their position varies by school.)\n\nThe eyes look at the place of prostration, and one does not look around.\nThe Prophet ﷺ said: 'Looking around during prayer is something Satan steals from a servant's prayer.' (Bukhari, Adhan 93)",
       "vurgu": "Eyes on the place of prostration · Folding the hands is Sunnah; their position varies by school"
     },
     {

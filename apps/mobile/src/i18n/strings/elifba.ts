@@ -88,7 +88,7 @@ export default defineStrings({
   en: {
     screenTitle: "Elifba",
     tabElifba: "Elifba",
-    tabTarif: "Harf-i Tarif",
+    tabTarif: "Definite Article",
     tabA11y: "{label} tab",
     close: "Close",
     lessonN: "Topic {n}",

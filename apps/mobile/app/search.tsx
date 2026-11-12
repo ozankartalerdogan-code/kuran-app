@@ -17,7 +17,7 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useMealOf, getEnglishMealTable } from "../src/lib/englishMeal";
 import { searchMealTable } from "../src/lib/mealLookup";
 import { getLang, getStrings, useLang, useStrings, fmt } from "../src/i18n";
-import { localizedTranslit } from "../src/lib/translitEn";
+import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import searchStrings from "../src/i18n/strings/search";
 import tagStrings from "../src/i18n/strings/tagLabels";
 import { useSurahNameOf, localizedSurahName } from "../src/lib/surahNames";
@@ -233,7 +233,7 @@ function VerseCard({ verseKey, meal: trMeal, surahName, readingTr }: {
         <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{verseKey}</Text></View>
         {shownSurah ? <Text style={[styles.surahLabel, { color: c.textMuted }]} numberOfLines={1}>{shownSurah}{parsed ? fmt(ss.ayahSuffix, { a: parsed.ayahNumber }) : ""}</Text> : null}
       </View>
-      {readingTr ? <Text style={[styles.reading, { color: c.text }]} numberOfLines={2}>{localizedTranslit(readingTr, lang)}</Text> : null}
+      {readingTr ? <Text style={[styles.reading, { color: c.text }]} numberOfLines={2}>{localizedVerseTranslit(verseKey, readingTr, lang)}</Text> : null}
       {meal
         ? <Text style={[styles.meal, { color: c.textSecondary }]} numberOfLines={3}>{meal.length > 140 ? meal.slice(0, 140) + "…" : meal}</Text>
         : <Text style={[styles.mealEmpty, { color: c.textMuted }]}>{ss.noMeal}</Text>}

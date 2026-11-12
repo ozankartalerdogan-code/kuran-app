@@ -38,9 +38,10 @@ import { pickAttributionFreeMealText } from "../../../../../packages/core/src/pr
 import { englishMeal, EN_MEAL_SOURCE } from "../../../src/lib/englishMeal";
 import { literalEn } from "../../../src/lib/literalEn";
 import { useLang, useStrings, getStrings, fmt } from "../../../src/i18n";
-import { localizedTranslit } from "../../../src/lib/translitEn";
+import { localizedVerseTranslit, EN_TRANSLIT_SOURCE } from "../../../src/lib/verseTranslitEn";
 import { wordMeaningEn, rootMeaningEn } from "../../../src/lib/wordMeaningsEn";
 import ayahStrings from "../../../src/i18n/strings/ayah";
+import storageErrorStrings from "../../../src/i18n/strings/storageErrors";
 import { useSurahNameOf } from "../../../src/lib/surahNames";
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
@@ -556,6 +557,7 @@ export default function AyahDetailScreen() {
 
   const surahNameOf = useSurahNameOf();
   const ay = useStrings(ayahStrings);
+  const tj = useStrings(storageErrorStrings);
   const headerTitle = data
     ? fmt(ay.headerTitle, { name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber })
     : ay.detailTitle;
@@ -590,7 +592,7 @@ export default function AyahDetailScreen() {
     const bodyParts = [
       fmt(ay.shareHead, { name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber }),
       data.arabicText ?? "",
-      localizedTranslit(reading, lang) ?? "",
+      localizedVerseTranslit({ surah: surahId, ayah: ayahNumber }, reading, lang) ?? "",
       shareMeal ?? "",
     ].filter(Boolean);
     // Android'in paylaşım intent'i yalnızca `message` alanını okur, `url`'i yok sayar
@@ -821,7 +823,10 @@ export default function AyahDetailScreen() {
           {reading ? (
             <>
               <View style={[styles.arabicDivider, { backgroundColor: paper.borderColor }]} />
-              <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{localizedTranslit(reading, lang)}</Text>
+              <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{localizedVerseTranslit({ surah: surahId, ayah: ayahNumber }, reading, lang)}</Text>
+              {lang === "en" ? (
+                <Text style={{ fontSize: 10, marginTop: 4, color: colors.textMuted }}>{`Transliteration: ${EN_TRANSLIT_SOURCE}`}</Text>
+              ) : null}
             </>
           ) : null}
 
@@ -831,7 +836,7 @@ export default function AyahDetailScreen() {
               {TAJWEED_LEGEND.map((l) => (
                 <View key={l.ad} style={styles.legendItem}>
                   <View style={[styles.legendDot, { backgroundColor: l.renk }]} />
-                  <Text style={[styles.legendText, { color: colors.textMuted }]}>{(ay as unknown as Record<string, string>)[l.renk] ?? l.ad}</Text>
+                  <Text style={[styles.legendText, { color: colors.textMuted }]}>{(tj as unknown as Record<string, string>)[l.renk] ?? l.ad}</Text>
                 </View>
               ))}
             </View>

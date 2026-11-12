@@ -110,7 +110,7 @@
           {
             "isim": "Tahlil, Takbir, and Tahmid",
             "durum": "sunnet",
-            "aciklama": "Saying 'La ilahe illallah, Allahu Ekber, Elhamdulillah' during these days is highly valued.",
+            "aciklama": "Saying 'La ilaha illallah, Allahu Akbar, Alhamdulillah' during these days is highly valued.",
             "hadis_kaynagi": "Bukhari (authentic)"
           },
           {
@@ -274,7 +274,7 @@
           {
             "isim": "Zakat al-Fitr",
             "durum": "vacip",
-            "aciklama": "Zakat al-Fitr (sadaqa-i fitr), which must be given at the end of Ramadan before the Eid prayer, is wajib.",
+            "aciklama": "Zakat al-Fitr (sadaqat al-fitr), which must be given at the end of Ramadan before the Eid prayer, is wajib.",
             "hadis_kaynagi": "Bukhari, Muslim (authentic)"
           }
         ],

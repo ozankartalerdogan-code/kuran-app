@@ -31,6 +31,12 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     license: "Kamu malı / Public domain",
   },
   {
+    id: "translit-en",
+    title: "English Transliteration — AlQuran Cloud / Quran.com",
+    url: "https://alquran.cloud/terms-and-conditions",
+    license: "Kaynak belirtilerek / With attribution",
+  },
+  {
     id: "semar-ketir",
     title: "Semar Ketir dijital Kur'an verisi",
     url: "https://github.com/kurancilar/json",
@@ -82,8 +88,8 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "meal-tafsir",
     title: "Meal ve tefsir",
     body:
-      "Türkçe meal olarak yalnız Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili meali kullanılır. Mobil uygulamada arayüz İngilizceyken Marmaduke Pickthall'un kamu malı \"The Meaning of the Glorious Koran\" (1930) çevirisi gösterilir; dijital metin Tanzil.net'ten alınmıştır. Dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır. Sade açıklamalar AI desteği ve insan kontrolüyle Kuran Yolu için yeniden hazırlanır; bilgilendirme amaçlıdır ve fetva niteliği taşımaz. Daha önce karşılaştırma amacıyla taşınan dört meal kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez. Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.",
-    linkIds: ["elmalili", "pickthall", "semar-ketir"],
+      "Türkçe meal olarak yalnız Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili meali kullanılır. Mobil uygulamada arayüz İngilizceyken Marmaduke Pickthall'un kamu malı \"The Meaning of the Glorious Koran\" (1930) çevirisi gösterilir; dijital metin Tanzil.net'ten alınmıştır. Aynı modda ayetlerin İngilizce okunuşu (transliterasyon), AlQuran Cloud üzerinden alınan ve Quran.com'da da kullanılan \"English Transliteration\" metninden gösterilir (ayet sayfası, sure listesi, günün ayeti, arama, Manevi Sığınak, İsm-i Azam ve Namaz Rehberi ayetleri). Dijital nüsha zincirinde Semar Ketir'in MIT lisanslı çalışmasından yararlanılmıştır. Sade açıklamalar AI desteği ve insan kontrolüyle Kuran Yolu için yeniden hazırlanır; bilgilendirme amaçlıdır ve fetva niteliği taşımaz. Daha önce karşılaştırma amacıyla taşınan dört meal kaynağı — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk ve Diyanet Vakfı — çalışma ortamından tamamen kaldırılmıştır (removed_from_runtime); bu kaynaklara ait hiçbir metin artık uygulamada gösterilmez. Kayıtları yalnız kaynak geçmişi şeffaf kalsın diye provenance belgelerinde saklanır.",
+    linkIds: ["elmalili", "pickthall", "translit-en", "semar-ketir"],
   },
   {
     id: "morphology",
