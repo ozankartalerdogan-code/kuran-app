@@ -272,7 +272,7 @@
           "aciklama": "Kaf is a moon letter → al-Karim"
         },
         {
-          "isim": "Eş-Şekur",
+          "isim": "Ash-Shakur",
           "arapca": "الشَّكُور",
           "anlam": "The One Who Accepts Gratitude",
           "harf": "Shin (ش)",
@@ -334,9 +334,9 @@
         },
         {
           "id": "q5",
-          "soru": "En-Nasır or El-Nasır?",
+          "soru": "An-Nasir or Al-Nasir?",
           "harf": "Nun (ن)",
-          "dogru_cevap": "En-Nasır",
+          "dogru_cevap": "An-Nasir",
           "tip": "semsiye",
           "aciklama": "Nun is a sun letter → an-Nasir"
         },
@@ -366,9 +366,9 @@
         },
         {
           "id": "q9",
-          "soru": "Eş-Şekur or El-Şekur?",
+          "soru": "Ash-Shakur or Al-Shakur?",
           "harf": "Shin (ش)",
-          "dogru_cevap": "Eş-Şekur",
+          "dogru_cevap": "Ash-Shakur",
           "tip": "semsiye",
           "aciklama": "Shin is a sun letter → ash-Shakur"
         },
@@ -390,9 +390,9 @@
         },
         {
           "id": "q12",
-          "soru": "El-Ğaffar or Eğ-Ğaffar?",
+          "soru": "Al-Ghaffar or Agh-Ghaffar?",
           "harf": "Ghayn (غ)",
-          "dogru_cevap": "El-Ğaffar",
+          "dogru_cevap": "Al-Ghaffar",
           "tip": "kameriye",
           "aciklama": "Ghayn is a moon letter → al-Ghaffar"
         },
@@ -446,9 +446,9 @@
         },
         {
           "id": "q19",
-          "soru": "Ed-Deyyân or El-Deyyân?",
+          "soru": "Ad-Dayyan or Al-Dayyan?",
           "harf": "Dal (د)",
-          "dogru_cevap": "Ed-Deyyân",
+          "dogru_cevap": "Ad-Dayyan",
           "tip": "semsiye",
           "aciklama": "Dal is a sun letter → ad-Dayyan"
         },
@@ -478,25 +478,25 @@
         },
         {
           "id": "q23",
-          "soru": "Ez-Zâhir or El-Zâhir?",
+          "soru": "Az-Zahir or Al-Zahir?",
           "harf": "Zay (ز)",
-          "dogru_cevap": "Ez-Zâhir",
+          "dogru_cevap": "Az-Zahir",
           "tip": "semsiye",
           "aciklama": "Zay is a sun letter → az-Zahir"
         },
         {
           "id": "q24",
-          "soru": "El-Müheymin or Em-Müheymin?",
+          "soru": "Al-Muhaymin or Am-Muhaymin?",
           "harf": "Mim (م)",
-          "dogru_cevap": "El-Müheymin",
+          "dogru_cevap": "Al-Muhaymin",
           "tip": "kameriye",
           "aciklama": "Mim is a moon letter → al-Muhaymin"
         },
         {
           "id": "q25",
-          "soru": "Et-Tarık or El-Tarık?",
+          "soru": "At-Tariq or Al-Tariq?",
           "harf": "Ta (ط)",
-          "dogru_cevap": "Et-Tarık",
+          "dogru_cevap": "At-Tariq",
           "tip": "semsiye",
           "aciklama": "Ta is a sun letter → at-Tariq"
         }

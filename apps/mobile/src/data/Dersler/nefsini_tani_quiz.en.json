@@ -90,7 +90,7 @@
       "id": "q006",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "easy",
-      "question": "What does a person in the Emmâre state typically do after making a mistake?",
+      "question": "What does a person in the Ammara state typically do after making a mistake?",
       "options": [
         "Commits the sin, then makes excuses and defends it",
         "Admits the mistake and apologizes",
@@ -98,13 +98,13 @@
         "Realizes the sin and weeps"
       ],
       "correctOptionIndex": 0,
-      "explanation": "In the Emmâre state, a person not only commits a sin but also defends it, downplays it, and makes excuses."
+      "explanation": "In the Ammara state, a person not only commits a sin but also defends it, downplays it, and makes excuses."
     },
     {
       "id": "q007",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "medium",
-      "question": "What is the clearest sign of the Nefs-i Emmâre state?",
+      "question": "What is the clearest sign of the Nafs al-Ammara state?",
       "options": [
         "Feeling remorse for sins and repenting",
         "Submitting only to external pressures",
@@ -112,13 +112,13 @@
         "Not only committing a sin but also making excuses and justifications for it"
       ],
       "correctOptionIndex": 3,
-      "explanation": "In the Emmâre state, a person not only makes a mistake but also defends it, downplays it, and makes excuses."
+      "explanation": "In the Ammara state, a person not only makes a mistake but also defends it, downplays it, and makes excuses."
     },
     {
       "id": "q008",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "medium",
-      "question": "Which is not among the main signs of the Emmâre state?",
+      "question": "Which is not among the main signs of the Ammara state?",
       "options": [
         "Pride",
         "Feeling remorse for sin",
@@ -126,13 +126,13 @@
         "Putting desire before truth"
       ],
       "correctOptionIndex": 1,
-      "explanation": "Remorse is a sign of Levvâme, not Emmâre. In the Emmâre state, a person defends sin and makes excuses."
+      "explanation": "Remorse is a sign of Lawwama, not Ammara. In the Ammara state, a person defends sin and makes excuses."
     },
     {
       "id": "q009",
       "lessonId": "lesson-03-nefs-i-emmare",
       "difficulty": "medium",
-      "question": "What is recommended as the first step in dealing with the Emmâre state?",
+      "question": "What is recommended as the first step in dealing with the Ammara state?",
       "options": [
         "Seeing the sin as greater than it is",
         "Giving up all desires",
@@ -140,13 +140,13 @@
         "Being alone"
       ],
       "correctOptionIndex": 2,
-      "explanation": "Recognizing Emmâre teaches a person to seek refuge in Allah's mercy instead of justifying themselves."
+      "explanation": "Recognizing Ammara teaches a person to seek refuge in Allah's mercy instead of justifying themselves."
     },
     {
       "id": "q010",
       "lessonId": "lesson-04-nefs-i-levvame",
       "difficulty": "easy",
-      "question": "Which behavior best describes the Levvâme state?",
+      "question": "Which behavior best describes the Lawwama state?",
       "options": [
         "Feeling sincere remorse after a mistake and holding oneself accountable",
         "Continuing to make mistakes without noticing them",
@@ -154,13 +154,13 @@
         "Remaining indifferent to everything"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Levvâme is a state of inward self-examination, remorse, and self-reproach after a mistake."
+      "explanation": "Lawwama is a state of inward self-examination, remorse, and self-reproach after a mistake."
     },
     {
       "id": "q011",
       "lessonId": "lesson-04-nefs-i-levvame",
       "difficulty": "medium",
-      "question": "How should remorse in the Levvâme state be understood?",
+      "question": "How should remorse in the Lawwama state be understood?",
       "options": [
         "As the beginning of despair",
         "As a sign of a flaw and weakness",
@@ -168,7 +168,7 @@
         "As a sign of awakening, not downfall"
       ],
       "correctOptionIndex": 3,
-      "explanation": "Levvâme is a sign of awakening, not downfall. If directed properly, remorse can lead to repentance and reform."
+      "explanation": "Lawwama is a sign of awakening, not downfall. If directed properly, remorse can lead to repentance and reform."
     },
     {
       "id": "q012",
@@ -188,21 +188,21 @@
       "id": "q013",
       "lessonId": "lesson-05-nefs-i-mulhime",
       "difficulty": "medium",
-      "question": "Which statement about the name Nefs-i Mülhime is correct?",
+      "question": "Which statement about the name Nafs al-Mulhima (the inspired self) is correct?",
       "options": [
-        "It appears explicitly in the Quran as 'nefs-i mülhime'",
+        "It appears explicitly in the Quran as 'Nafs al-Mulhima'",
         "It is a term found only in hadith",
         "It does not appear as a name in the Quran; it is used in the ethical and Sufi tradition based on the expression of inspiration",
         "It is one of the four major stages of the nafs"
       ],
       "correctOptionIndex": 2,
-      "explanation": "The name Mülhime does not appear explicitly in the Quran; it is a name used in the Sufi and ethical tradition based on the inspiration of both good and evil to the nafs."
+      "explanation": "The name Mulhima does not appear explicitly in the Quran; it is a name used in the Sufi and ethical tradition based on the inspiration of both good and evil to the nafs."
     },
     {
       "id": "q014",
       "lessonId": "lesson-05-nefs-i-mulhime",
       "difficulty": "medium",
-      "question": "What is the main thing to be mindful of in the Mülhime state?",
+      "question": "What is the main thing to be mindful of in the Mulhima state?",
       "options": [
         "Evaluating inner voices against the standards of the Quran and Sunnah",
         "Accepting every thought that arises within as inspiration",
@@ -216,7 +216,7 @@
       "id": "q015",
       "lessonId": "lesson-05-nefs-i-mulhime",
       "difficulty": "medium",
-      "question": "Why is it important to distinguish between whisperings, base desires, and sound inclinations in the Mülhime state?",
+      "question": "Why is it important to distinguish between whisperings, base desires, and sound inclinations in the Mulhima state?",
       "options": [
         "Because a person should never trust their own nafs",
         "Because the nafs is considered completely purified in this state",
@@ -272,7 +272,7 @@
       "id": "q019",
       "lessonId": "lesson-07-nefs-i-raziye",
       "difficulty": "easy",
-      "question": "How does a person in the state of Râzıye respond when faced with a severe trial?",
+      "question": "How does a person in the state of Radiya respond when faced with a severe trial?",
       "options": [
         "They carry on by denying their situation",
         "They find relief by submitting to oppression and remaining silent",
@@ -280,13 +280,13 @@
         "Even in pain, they maintain their trust in Allah and do not rebel"
       ],
       "correctOptionIndex": 3,
-      "explanation": "Rıza is not the absence of pain; it is not losing trust in Allah amid pain."
+      "explanation": "Rida is not the absence of pain; it is not losing trust in Allah amid pain."
     },
     {
       "id": "q020",
       "lessonId": "lesson-07-nefs-i-raziye",
       "difficulty": "medium",
-      "question": "What does Rıza mean?",
+      "question": "What does Rida mean?",
       "options": [
         "Feeling no pain at all",
         "Not losing trust in Allah, even amid pain",
@@ -294,27 +294,27 @@
         "Ignoring difficulties"
       ],
       "correctOptionIndex": 1,
-      "explanation": "Rıza is not the absence of pain; it is not losing trust in Allah, even amid pain. Rıza encompasses patience, gratitude, and submission."
+      "explanation": "Rida is not the absence of pain; it is not losing trust in Allah, even amid pain. Rida encompasses patience, gratitude, and submission."
     },
     {
       "id": "q021",
       "lessonId": "lesson-07-nefs-i-raziye",
       "difficulty": "medium",
-      "question": "Can the state of Rıza be interpreted as submitting to oppression or remaining silent in the face of injustice?",
+      "question": "Can the state of Rida be interpreted as submitting to oppression or remaining silent in the face of injustice?",
       "options": [
-        "Yes, Rıza means accepting everything",
+        "Yes, Rida means accepting everything",
         "Yes, oppression is also Allah's decree",
-        "No; Rıza is submission to Allah's decree, while the responsibility to uphold people's rights and justice remains",
+        "No; Rida is submission to Allah's decree, while the responsibility to uphold people's rights and justice remains",
         "No, but nothing can be said about this"
       ],
       "correctOptionIndex": 2,
-      "explanation": "Rıza is submission to Allah's decree; it is not submission to oppression. The responsibility to uphold people's rights and justice remains."
+      "explanation": "Rida is submission to Allah's decree; it is not submission to oppression. The responsibility to uphold people's rights and justice remains."
     },
     {
       "id": "q022",
       "lessonId": "lesson-08-nefs-i-marziyye",
       "difficulty": "easy",
-      "question": "Which sentence best describes the state of Marzıyye?",
+      "question": "Which sentence best describes the state of Mardiyya?",
       "options": [
         "The servant aims to earn Allah's pleasure through sincerity and humility",
         "The servant regards their salvation as certain because they have performed acts of worship",
@@ -322,13 +322,13 @@
         "The servant has reached a state in which they no longer sin"
       ],
       "correctOptionIndex": 0,
-      "explanation": "Marzıyye is the effort to place sincerity, humility, and Allah's pleasure at the center; it is not self-admiration."
+      "explanation": "Mardiyya is the effort to place sincerity, humility, and Allah's pleasure at the center; it is not self-admiration."
     },
     {
       "id": "q023",
       "lessonId": "lesson-08-nefs-i-marziyye",
       "difficulty": "medium",
-      "question": "Which attitude is incompatible with the state of Marzıyye?",
+      "question": "Which attitude is incompatible with the state of Mardiyya?",
       "options": [
         "Sincerity and humility",
         "Good character and compassion",
@@ -336,13 +336,13 @@
         "Declaring oneself a servant with whom Allah is certainly pleased"
       ],
       "correctOptionIndex": 3,
-      "explanation": "The station of Marzıyye is not self-admiration or saying, 'Allah is certainly pleased with me'; it is the effort to place sincerity, humility, and Allah's pleasure at the center."
+      "explanation": "The station of Mardiyya is not self-admiration or saying, 'Allah is certainly pleased with me'; it is the effort to place sincerity, humility, and Allah's pleasure at the center."
     },
     {
       "id": "q024",
       "lessonId": "lesson-08-nefs-i-marziyye",
       "difficulty": "medium",
-      "question": "In the state of Marzıyye, what is a believer expected to choose instead of relying on their deeds?",
+      "question": "In the state of Mardiyya, what is a believer expected to choose instead of relying on their deeds?",
       "options": [
         "Abandoning worship",
         "Continuing with humility and hope in Allah's mercy",
@@ -350,13 +350,13 @@
         "Judging the worship of others"
       ],
       "correctOptionIndex": 1,
-      "explanation": "The servant continues with humility and hope in Allah's mercy, rather than relying on their deeds; this is the essence of the state of Marzıyye."
+      "explanation": "The servant continues with humility and hope in Allah's mercy, rather than relying on their deeds; this is the essence of the state of Mardiyya."
     },
     {
       "id": "q025",
       "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
       "difficulty": "easy",
-      "question": "Which statement about Nefs-i Kâmile is correct?",
+      "question": "Which statement about Nafs al-Kamila (the perfected self) is correct?",
       "options": [
         "In this state, a person no longer makes any mistakes",
         "A person begins to see themselves as superior to others",
@@ -384,7 +384,7 @@
       "id": "q027",
       "lessonId": "lesson-09-nefs-i-kamile-zekiyye",
       "difficulty": "medium",
-      "question": "What attitude could pose a danger in the state of Kâmile/Zekiyye?",
+      "question": "What attitude could pose a danger in the state of Kamila/Zakiyya?",
       "options": [
         "Continually repenting",
         "Continuing with humility",
@@ -392,7 +392,7 @@
         "Claiming spiritual superiority"
       ],
       "correctOptionIndex": 3,
-      "explanation": "Kâmile/Zekiyye should not be interpreted in a way that leads a person to claim spiritual superiority; every stage is understood in the context of Allah's grace and the servant's effort."
+      "explanation": "Kamila/Zakiyya should not be interpreted in a way that leads a person to claim spiritual superiority; every stage is understood in the context of Allah's grace and the servant's effort."
     },
     {
       "id": "q028",
@@ -468,12 +468,12 @@
       "id": "q033",
       "lessonId": "lesson-04-nefs-i-levvame",
       "difficulty": "hard",
-      "question": "What can happen if remorse is misdirected in the state of Levvâme?",
+      "question": "What can happen if remorse is misdirected in the state of Lawwama?",
       "options": [
         "It turns into Mutmainne",
         "It turns into repentance and reform",
         "It can turn into despair and feelings of worthlessness",
-        "It does not cause a regression to Emmâre"
+        "It does not cause a regression to Ammara"
       ],
       "correctOptionIndex": 2,
       "explanation": "When directed properly, remorse turns into repentance and reform; when misdirected, it can lead to excessive guilt and despair."
@@ -490,7 +490,7 @@
         "8"
       ],
       "correctOptionIndex": 0,
-      "explanation": "According to the majority of Sufis, the classical seven-stage classification is accepted: emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye, kâmile/zekiyye."
+      "explanation": "According to the majority of Sufis, the classical seven-stage classification is accepted: ammara, lawwama, mulhima, mutmainna, radiya, mardiyya, kamila/zakiyya."
     },
     {
       "id": "q035",

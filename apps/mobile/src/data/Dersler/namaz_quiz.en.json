@@ -111,7 +111,7 @@
     {
       "id": "namaz_008",
       "konu": "rukunler",
-      "soru": "What is the minimum number of times 'Sübhane Rabbiye'l-Azîm' is recited in ruku?",
+      "soru": "What is the minimum number of times 'Subhana Rabbiyal-Azim' is recited in ruku?",
       "secenekler": [
         "A) 1",
         "B) 3",
@@ -119,7 +119,7 @@
         "D) 7"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Reciting 'Sübhane Rabbiye'l-Azîm' at least 1 time in ruku is sufficient, but reciting it 3 times is Sunnah.",
+      "aciklama": "Reciting 'Subhana Rabbiyal-Azim' at least 1 time in ruku is sufficient, but reciting it 3 times is Sunnah.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -218,10 +218,10 @@
       "konu": "okunuslar",
       "soru": "What is said when rising from ruku?",
       "secenekler": [
-        "A) Sübhanallah",
+        "A) Subhanallah",
         "B) Semi'allahu limen hamideh",
         "C) Allahu Ekber",
-        "D) Elhamdülillah"
+        "D) Alhamdulillah"
       ],
       "dogru_cevap": "B",
       "aciklama": "When rising from ruku, 'Semi'allahu limen hamideh' (Allah hears the one who praises Him) is said. Once standing upright, 'Rabbena ve lekel hamd' is said.",
@@ -261,7 +261,7 @@
     {
       "id": "namaz_018",
       "konu": "okunuslar",
-      "soru": "In which rak'ah of salah is Sübhaneke recited?",
+      "soru": "In which rak'ah of salah is Subhanaka recited?",
       "secenekler": [
         "A) In every rak'ah",
         "B) Only in the final rak'ah",
@@ -269,7 +269,7 @@
         "D) In the first and final rak'ahs"
       ],
       "dogru_cevap": "C",
-      "aciklama": "In Hanafi practice, Sübhaneke is recited in the first rak'ah of salah, immediately after the opening takbir. It is not recited in the other rak'ahs.",
+      "aciklama": "In Hanafi practice, Subhanaka is recited in the first rak'ah of salah, immediately after the opening takbir. It is not recited in the other rak'ahs.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -299,7 +299,7 @@
         "D) Reciting the tashahhud"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Salah is completed with the salam. One turns first toward the right shoulder, then toward the left shoulder, saying 'Esselamü aleyküm ve rahmetullah'.",
+      "aciklama": "Salah is completed with the salam. One turns first toward the right shoulder, then toward the left shoulder, saying 'Assalamu alaykum wa rahmatullah'.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -325,7 +325,7 @@
       "secenekler": [
         "A) Ka'de",
         "B) Celse",
-        "C) Teşehhüd",
+        "C) Tashahhud",
         "D) Kavme"
       ],
       "dogru_cevap": "B",
@@ -341,7 +341,7 @@
         "A) Celse",
         "B) Kavme",
         "C) Ka'de",
-        "D) Kıyam"
+        "D) Qiyam"
       ],
       "dogru_cevap": "B",
       "aciklama": "Standing fully upright after rising from ruku is called kavme. During this, 'Rabbena ve lekel hamd' is recited.",
@@ -411,7 +411,7 @@
     {
       "id": "namaz_028",
       "konu": "okunuslar",
-      "soru": "What does 'Sübhane Rabbiye'l-A'lâ' mean in prostration?",
+      "soru": "What does 'Subhana Rabbiyal-A'la' mean in prostration?",
       "secenekler": [
         "A) Allah is the All-Hearing",
         "B) I declare my Lord, the Most High, free from imperfection",
@@ -419,7 +419,7 @@
         "D) Allah is the Greatest"
       ],
       "dogru_cevap": "B",
-      "aciklama": "'Sübhane Rabbiye'l-A'lâ' means 'I declare my Lord, the Most High, free from all imperfection.' It is recited at least once in prostration.",
+      "aciklama": "'Subhana Rabbiyal-A'la' means 'I declare my Lord, the Most High, free from all imperfection.' It is recited at least once in prostration.",
       "zorluk": "orta",
       "kaynak": "Abu Dawud, Salat 152; Ibn Majah, Iqamah 20"
     },
@@ -501,7 +501,7 @@
     {
       "id": "namaz_034",
       "konu": "okunuslar",
-      "soru": "In which sittings of the prayer is Tahiyyat (Ettahiyyatü) recited?",
+      "soru": "In which sittings of the prayer is Tahiyyat (At-tahiyyatu) recited?",
       "secenekler": [
         "A) Only in the final sitting",
         "B) In every sitting",
@@ -711,7 +711,7 @@
     {
       "id": "namaz_048",
       "konu": "okunuslar",
-      "soru": "In Hanafi practice, in which rak'ah of salah is Eûzü (the phrase seeking refuge in Allah) recited?",
+      "soru": "In Hanafi practice, in which rak'ah of salah is A'udhu (the phrase seeking refuge in Allah) recited?",
       "secenekler": [
         "A) In every rak'ah",
         "B) Only in the first rak'ah",
@@ -719,7 +719,7 @@
         "D) It is never recited"
       ],
       "dogru_cevap": "B",
-      "aciklama": "In Hanafi practice, Eûzübillah is recited only in the first rak'ah, after Sübhaneke and before the Besmele. It is not recited in the other rak'ahs.",
+      "aciklama": "In Hanafi practice, A'udhu billah is recited only in the first rak'ah, after Subhanaka and before the Basmala. It is not recited in the other rak'ahs.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -749,7 +749,7 @@
         "D) It depends on the type of salah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "To end the salah, one turns first toward the right shoulder and then toward the left shoulder, saying 'Esselamu aleyküm ve rahmetullah'.",
+      "aciklama": "To end the salah, one turns first toward the right shoulder and then toward the left shoulder, saying 'Assalamu alaykum wa rahmatullah'.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     }

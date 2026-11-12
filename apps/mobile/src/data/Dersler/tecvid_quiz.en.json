@@ -81,7 +81,7 @@
     {
       "id": "tecvid_006",
       "konu": "tecvid",
-      "soru": "How many letters are always pronounced with a heavy sound (harf-i müsta'liye)?",
+      "soru": "How many letters are always pronounced with a heavy sound (the elevated letters)?",
       "secenekler": [
         "A) 4",
         "B) 5",
@@ -644,7 +644,7 @@
         "D) Qalqalah is applied"
       ],
       "dogru_cevap": "A",
-      "aciklama": "In Shamsiyyah, the lam is swallowed and the following letter is pronounced with a shaddah. Example: \"eş-şems\"—there is no lam.",
+      "aciklama": "In Shamsiyyah, the lam is assimilated and the following letter is pronounced with a shaddah. Example: \"ash-shams\"—there is no lam.",
       "zorluk": "kolay",
       "kaynak": "Basic tajweed knowledge"
     },

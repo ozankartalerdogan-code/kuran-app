@@ -35,3 +35,9 @@ test("localizedTranslit: tr değişmez, en dönüştürür, boş değer korunur"
   assert.equal(localizedTranslit(null, "en"), null);
   assert.equal(localizedTranslit("", "en"), "");
 });
+
+test("localizedTranslit: Türkçe harfsiz (zaten İngilizce) metne dokunmaz", () => {
+  assert.equal(localizedTranslit("Subhanaka is recited.", "en"), "Subhanaka is recited.");
+  assert.equal(localizedTranslit("Allahummarham hadhal mayyit — O Allah, have mercy", "en"), "Allahummarham hadhal mayyit — O Allah, have mercy");
+  assert.equal(localizedTranslit("Ar-Rahman", "en"), "Ar-Rahman");
+});

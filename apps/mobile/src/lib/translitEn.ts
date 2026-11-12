@@ -36,9 +36,14 @@ export function trToEnTranslit(text: string): string {
   return out;
 }
 
+// Türkçeye özgü harf (ş ç ğ ı İ ö ü â î û) içermeyen metin zaten İngilizce yazımdır
+// (.en.json'daki okunuşlar ve İngilizce açıklama karışık dua metinleri): c->j / v->w
+// eşlemesi onu bozardı ("recited" -> "rejited", "have" -> "hawe"), dokunulmaz.
+const TR_SPECIFIC = /[şŞçÇğĞıİöÖüÜâÂîÎûÛ]/;
+
 export function localizedTranslit(text: string, lang: "tr" | "en"): string;
 export function localizedTranslit(text: string | null | undefined, lang: "tr" | "en"): string | null | undefined;
 export function localizedTranslit(text: string | null | undefined, lang: "tr" | "en"): string | null | undefined {
-  if (lang === "tr" || !text) return text;
+  if (lang === "tr" || !text || !TR_SPECIFIC.test(text)) return text;
   return trToEnTranslit(text);
 }

@@ -70,7 +70,7 @@
       "id": "tecvid_k10",
       "tip": "metin",
       "baslik": "Iqlab — Conversion",
-      "icerik": "Iqlab (conversion) — If the letter Ba (ب) alone follows tanwin or nun sakinah, the nun sound changes completely into a mim sound and is pronounced with ghunnah.\n\nTurkish comparison: pronouncing “on beş” like “omm beş” is an example of this.\n\nIn the mushaf, a small م appears where iqlab occurs. This mark shows that the nun sound has changed into a mim sound.",
+      "icerik": "Iqlab (conversion) — If the letter Ba (ب) alone follows tanwin or nun sakinah, the nun sound changes completely into a mim sound and is pronounced with ghunnah.\n\nEnglish comparison: pronouncing “in balance” like “im balance” is an example of this.\n\nIn the mushaf, a small م appears where iqlab occurs. This mark shows that the nun sound has changed into a mim sound.",
       "vurgu": "Nun sakinah + Ba (ب) → changes into a mim sound → Iqlab"
     },
     {
@@ -84,7 +84,7 @@
       "id": "tecvid_k12",
       "tip": "metin",
       "baslik": "Rules of Mim Sakinah",
-      "icerik": "Three rules apply depending on what follows a Mim with a sukun (مْ):\n\n1. İdgam-ı Misleyn (merging with ghunnah): If a Mim with a vowel mark (م) follows, the two Mims merge and are read with ghunnah.\n\n2. İhfa-i Şefevi — Labial Ikhfa: If a Ba (ب) follows, it is read with ghunnah and concealment, without closing the lips.\n\n3. İzhar-ı Şefevi — Labial Izhar: If any other letter follows, the Mim is read clearly.",
+      "icerik": "Three rules apply depending on what follows a Mim with a sukun (مْ):\n\n1. Idgham al-Mithlayn (merging with ghunnah): If a Mim with a vowel mark (م) follows, the two Mims merge and are read with ghunnah.\n\n2. Ikhfa Shafawi — Labial Ikhfa: If a Ba (ب) follows, it is read with ghunnah and concealment, without closing the lips.\n\n3. Izhar Shafawi — Labial Izhar: If any other letter follows, the Mim is read clearly.",
       "vurgu": "Mim + Mim → Idgham | Mim + Ba → Labial Ikhfa | Mim + Other → Izhar"
     },
     {
@@ -97,36 +97,36 @@
     {
       "id": "tecvid_k14",
       "tip": "metin",
-      "baslik": "Muttasıl and Munfasıl Madd",
-      "icerik": "Med-i Muttasıl (joined madd) occurs when a hamza (ء) follows a madd letter in the same word. In the Hafs recitation commonly taught in Turkey, it is generally lengthened for four alifs.\n\nMed-i Munfasıl (separate madd) occurs when the madd letter is in one word and the hamza is in a separate word. In common teaching, it is lengthened for 4–5 alifs; the length may vary according to the imams of qira'at.\n\nHamza is a sharp initial sound produced from the throat. In the rules of madd, attention is paid to whether the hamza occurs in the same word or a separate word.",
-      "vurgu": "Muttasıl → hamza in the same word, 4 alifs | Munfasıl → hamza in a separate word, 4–5 alifs"
+      "baslik": "Muttasil and Munfasil Madd",
+      "icerik": "Madd Muttasil (joined madd) occurs when a hamza (ء) follows a madd letter in the same word. In the Hafs recitation commonly taught in Turkey, it is generally lengthened for four alifs.\n\nMadd Munfasil (separate madd) occurs when the madd letter is in one word and the hamza is in a separate word. In common teaching, it is lengthened for 4–5 alifs; the length may vary according to the imams of qira'at.\n\nHamza is a sharp initial sound produced from the throat. In the rules of madd, attention is paid to whether the hamza occurs in the same word or a separate word.",
+      "vurgu": "Muttasil → hamza in the same word, 4 alifs | Munfasil → hamza in a separate word, 4–5 alifs"
     },
     {
       "id": "tecvid_k15",
       "tip": "metin",
-      "baslik": "Lazım, Arız and Lin Madd",
-      "icerik": "Med-i Lazım (obligatory madd) occurs when an original sukun or a shadda follows a madd letter in the same word. In common Hafs teaching, it is lengthened for four alifs; this elongation is considered obligatory.\n\nMed-i Arız (temporary madd) occurs when making waqf (stopping during recitation). A syllable that is normally read short may be lengthened when stopping, depending on the recitation tradition.\n\nMed-i Lin occurs when a Waw or Ya has a sukun and the preceding letter has a fatha; it becomes particularly noticeable at waqf. For example, when stopping at the word خَوْف (havf).\n\nA practical guide for beginners: Med-i Tabii is short and natural; Med-i Muttasıl and Med-i Munfasıl are longer; and Med-i Lazım is one of the strongest types of madd.",
-      "vurgu": "Lazım → obligatory elongation for 4 alifs | Arız and Lin → types of madd that occur or are lengthened at waqf"
+      "baslik": "Lazim, Arid and Lin Madd",
+      "icerik": "Madd Lazim (obligatory madd) occurs when an original sukun or a shadda follows a madd letter in the same word. In common Hafs teaching, it is lengthened for four alifs; this elongation is considered obligatory.\n\nMadd Arid (temporary madd) occurs when making waqf (stopping during recitation). A syllable that is normally read short may be lengthened when stopping, depending on the recitation tradition.\n\nMadd Lin occurs when a Waw or Ya has a sukun and the preceding letter has a fatha; it becomes particularly noticeable at waqf. For example, when stopping at the word خَوْف (khawf).\n\nA practical guide for beginners: Madd Tabii is short and natural; Madd Muttasil and Madd Munfasil are longer; and Madd Lazim is one of the strongest types of madd.",
+      "vurgu": "Lazim → obligatory elongation for 4 alifs | Arid and Lin → types of madd that occur or are lengthened at waqf"
     },
     {
       "id": "tecvid_k16",
       "tip": "metin",
-      "baslik": "Alif-Lam: Kameriyye and Şemsiyye",
-      "icerik": "In Arabic, one of two rules applies depending on the letter that follows the prefix \"el\" (ال).\n\nKameriyye (moon letters — 14 letters): The Lam sound is read clearly.\nLetters: ا ب ج ح خ ع غ ف ق ك م و ه ي\n\nŞemsiyye (sun letters — 14 letters): The Lam is not read, and the following letter is read with a shadda.\nLetters: ت ث د ذ ر ز س ش ص ض ط ظ ل ن\n\nExample: \"eş-şems\" (the sun) → the Lam is absorbed; \"el-kamer\" (the moon) → the Lam is read.",
-      "vurgu": "Kameriyye → the Lam is read | Şemsiyye → the Lam is absorbed"
+      "baslik": "Alif-Lam: Qamariyya and Shamsiyya",
+      "icerik": "In Arabic, one of two rules applies depending on the letter that follows the prefix \"al\" (ال).\n\nQamariyya (moon letters — 14 letters): The Lam sound is read clearly.\nLetters: ا ب ج ح خ ع غ ف ق ك م و ه ي\n\nShamsiyya (sun letters — 14 letters): The Lam is not read, and the following letter is read with a shadda.\nLetters: ت ث د ذ ر ز س ش ص ض ط ظ ل ن\n\nExample: \"ash-shams\" (the sun) → the Lam is absorbed; \"al-qamar\" (the moon) → the Lam is read.",
+      "vurgu": "Qamariyya → the Lam is read | Shamsiyya → the Lam is absorbed"
     },
     {
       "id": "tecvid_k17",
       "tip": "metin",
       "baslik": "Waqf — Stop Signs",
-      "icerik": "Waqf (stopping during recitation) and ibtida (resuming after a stop) are important rules of Qur'an recitation. The aim is to stop where the meaning will not be disrupted and to resume from the correct place.\n\nSome of the Secavend/waqf signs in the mushaf are:\n• م (mim) — Vakf-ı Lazım: One must stop here; continuing may disrupt the meaning.\n• ط (tı) — Vakf-ı Mutlak: Stopping is preferable.\n• ج (cim) — Vakf-ı Caiz: Either stopping or continuing is permitted.\n• ص (sad) — Vakf-ı Murakhhas: Continuing is preferable, but one may stop if necessary.\n• لا (la) — Vakf-ı Memnû: One should not stop here; if stopping is unavoidable, one resumes from a point that completes the meaning.\n\nThese signs guide the reader in taking breaths and stopping while preserving the meaning.",
+      "icerik": "Waqf (stopping during recitation) and ibtida (resuming after a stop) are important rules of Qur'an recitation. The aim is to stop where the meaning will not be disrupted and to resume from the correct place.\n\nSome of the sajawand/waqf signs in the mushaf are:\n• م (mim) — Waqf Lazim: One must stop here; continuing may disrupt the meaning.\n• ط (ta) — Waqf Mutlaq: Stopping is preferable.\n• ج (jim) — Waqf Jaiz: Either stopping or continuing is permitted.\n• ص (sad) — Waqf Murakhkhas: Continuing is preferable, but one may stop if necessary.\n• لا (la) — Waqf Mamnu: One should not stop here; if stopping is unavoidable, one resumes from a point that completes the meaning.\n\nThese signs guide the reader in taking breaths and stopping while preserving the meaning.",
       "vurgu": "Waqf signs provide guidance for preserving the meaning"
     },
     {
       "id": "tecvid_k18",
       "tip": "metin",
       "baslik": "Lahn — Recitation Errors",
-      "icerik": "Lahn (recitation error) is of two types:\n\nLahn-ı Celi (obvious/major error) refers to errors that anyone can notice, such as clearly misreading a letter or word, or changing a vowel mark and disrupting the meaning. Major errors that change the meaning may affect the validity of salah. One example is changing one letter into another.\n\nLahn-ı Hafi (hidden/minor error) refers to errors that are more likely to be noticed by those who know tajweed, such as not fully observing ikhfa, idgham or ghunnah. These generally do not invalidate salah, but they reduce the beauty and completeness of the recitation.\n\nA beginner should first try to avoid lahn-ı celi, then correct the finer points associated with lahn-ı hafi.",
+      "icerik": "Lahn (recitation error) is of two types:\n\nLahn Jali (obvious/major error) refers to errors that anyone can notice, such as clearly misreading a letter or word, or changing a vowel mark and disrupting the meaning. Major errors that change the meaning may affect the validity of salah. One example is changing one letter into another.\n\nLahn Khafi (hidden/minor error) refers to errors that are more likely to be noticed by those who know tajweed, such as not fully observing ikhfa, idgham or ghunnah. These generally do not invalidate salah, but they reduce the beauty and completeness of the recitation.\n\nA beginner should first try to avoid lahn jali, then correct the finer points associated with lahn khafi.",
       "vurgu": "First correct major errors in letters and words; then improve the finer points of tajweed"
     },
     {
@@ -140,7 +140,7 @@
       "id": "tecvid_k20",
       "tip": "metin",
       "baslik": "Differences Between Schools of Thought and Qira'at",
-      "icerik": "In the science of tajweed, there are some differences of opinion and practice among schools of thought and imams of qira'at:\n\n• The ruling on tajweed: Learning enough to pronounce the letters correctly and avoid errors that disrupt the meaning is an individual responsibility. Teaching the science of tajweed in detail is a communal responsibility fulfilled when there are enough qualified people in the community.\n\n• Differences in qira'at: The Hafs transmission of the qira'at of Asim is common in Turkey. Qira'at are the authentic ways of reciting the Qur'an; a riwayah is a branch of transmission of a particular way of recitation. There are authentic recitations known as Kıraat-i Seb'a (7 qira'at) and Kıraat-i Aşere (10 qira'at). The Warsh transmission is common in North Africa.\n\n• Lengths of madd: The length of some types of madd, particularly med-i munfasıl, may vary according to the imams of qira'at and the teaching tradition; this is an authentic difference.\n\n• Waqf signs: Secavend signs in mushafs guide readers on when to stop or continue. Scholars may offer different explanations in their detailed assessment of these signs.",
+      "icerik": "In the science of tajweed, there are some differences of opinion and practice among schools of thought and imams of qira'at:\n\n• The ruling on tajweed: Learning enough to pronounce the letters correctly and avoid errors that disrupt the meaning is an individual responsibility. Teaching the science of tajweed in detail is a communal responsibility fulfilled when there are enough qualified people in the community.\n\n• Differences in qira'at: The Hafs transmission of the qira'at of Asim is common in Turkey. Qira'at are the authentic ways of reciting the Qur'an; a riwayah is a branch of transmission of a particular way of recitation. There are authentic recitations known as Qira'at Sab'a (7 qira'at) and Qira'at Ashara (10 qira'at). The Warsh transmission is common in North Africa.\n\n• Lengths of madd: The length of some types of madd, particularly madd munfasil, may vary according to the imams of qira'at and the teaching tradition; this is an authentic difference.\n\n• Waqf signs: Sajawand signs in mushafs guide readers on when to stop or continue. Scholars may offer different explanations in their detailed assessment of these signs.",
       "vurgu": "Authentic qira'at are different ways of recitation; the text of the Qur'an is one"
     }
   ],

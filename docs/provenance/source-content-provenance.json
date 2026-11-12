@@ -1050,8 +1050,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3151738,
-        "sha256": "32d2b71bf284553d533975302c4644c26474a353e6c219d0255c11e548e41d7e",
+        "totalBytes": 3150615,
+        "sha256": "af33ee40aef58aa0261cc969df534db67ae9d292dc1c8242e08dcc5cc9f1eb20",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1060,38 +1060,38 @@
           },
           {
             "path": "apps/mobile/src/data/content/harf_i_tarif.en.json",
-            "bytes": 15816,
-            "sha256": "b0372a60188d28442fff41f90570f1fc39f584416757244b2f6afc435e65a92c"
+            "bytes": 15801,
+            "sha256": "0c1623a36713d17950687290402d9a633b05b070e18678c863a8b5d4ea846fc0"
           },
           {
             "path": "apps/mobile/src/data/content/ibadet_rehberi.en.json",
-            "bytes": 35151,
-            "sha256": "e70d3eaee27dcb5665c43fd8f8891b37a3cdc9ba701760652fe42ca789477e08"
+            "bytes": 35131,
+            "sha256": "74a391ae86647e2308f2d0edad3fb223f4331a2a9c5832bccde160c5c56d02a1"
           },
           {
             "path": "apps/mobile/src/data/content/manevi_siginak.en.json",
-            "bytes": 9232,
-            "sha256": "d86b8c6492799d474000846edf62170d5b527f9bcc47e26a96fd24259a804c5d"
+            "bytes": 9191,
+            "sha256": "2aef19686b9a56457cac5adbe45fb1702307ec0bec2f5a1db31b7b12909e1f14"
           },
           {
             "path": "apps/mobile/src/data/Dersler/abdest_dersi.en.json",
-            "bytes": 19134,
-            "sha256": "ae1d2f1346ebf5c1e267bf1863bcb1f2bae3dad4ce594cfc4f816886d54ccd48"
+            "bytes": 19111,
+            "sha256": "6327c9fdd02da548d7a8d61acb7a73b8c469401d337ff7bb6c380ada4220d883"
           },
           {
             "path": "apps/mobile/src/data/Dersler/abdest_quiz.en.json",
-            "bytes": 21068,
-            "sha256": "609076d6f9eb40aa96bc1ca5ae331d4eeb90eb6f09291040653b1fd95f171439"
+            "bytes": 21065,
+            "sha256": "bb10a72bf629bb5cb7b11bcd3559c9cb68a98bbd6210896018c810482a714897"
           },
           {
             "path": "apps/mobile/src/data/Dersler/ezan_kamet_dersi.en.json",
             "bytes": 11663,
-            "sha256": "7b27b68942dff63e17876bc052d20e12b78aeab5192525ee05e64e13de39614e"
+            "sha256": "d5f55f8488bb8125d3aa0a9ecc148a30a36f538ddddece1a2ba50c07c76d1259"
           },
           {
             "path": "apps/mobile/src/data/Dersler/ezan_kamet_quiz.en.json",
-            "bytes": 21331,
-            "sha256": "c1d830136d8d7a14ac03e5fb873bbbf64602a99ddb3bb8c6c510b78766256457"
+            "bytes": 21309,
+            "sha256": "3dec403382e689a452a15439662263238a82e2e1817fb8ea835ff40915de6cb9"
           },
           {
             "path": "apps/mobile/src/data/Dersler/guzel_ahlak_dersi.en.json",
@@ -1105,23 +1105,23 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/hac_umre_dersi.en.json",
-            "bytes": 12091,
-            "sha256": "c58b28ed71c3fb574a5e57064f12710102d643c74a0048ca531ab3f2ce1f3d98"
+            "bytes": 12090,
+            "sha256": "93dbbe1e4afddb49c3038832a6e22f2953c345189a331ebc6e04c6d9dae41f18"
           },
           {
             "path": "apps/mobile/src/data/Dersler/hac_umre_quiz.en.json",
-            "bytes": 26093,
-            "sha256": "ba40f9a1ea6ee517f4b89774daab3a9322bfc246317038a468020a82a4cee88e"
+            "bytes": 26081,
+            "sha256": "ba541fd25c6df7d930321eae07bdb88c3a224266d9116527bbbdbf5f80cf0cda"
           },
           {
             "path": "apps/mobile/src/data/Dersler/iman_esaslari_dersi.en.json",
-            "bytes": 13315,
-            "sha256": "621393143ae768a9e3ed6ba816b78d14628e07768edbd70dd3de86b5ef372fc4"
+            "bytes": 13309,
+            "sha256": "ad367f668cbd6cab6db0a6e24295138f466e8b17bbf1407f1e5375064e7312f8"
           },
           {
             "path": "apps/mobile/src/data/Dersler/iman_esaslari_quiz.en.json",
-            "bytes": 30116,
-            "sha256": "1ae82d36c128659b0aefce362051970db90000acd52f33ad8a277c6da74325f1"
+            "bytes": 30111,
+            "sha256": "8a05bd5093edd88ad8f47ee070763b866a26c76ce02ea2e8dbdf8ed65632b002"
           },
           {
             "path": "apps/mobile/src/data/Dersler/kitaplara_iman_dersi.en.json",
@@ -1135,8 +1135,8 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/kurban_dersi.en.json",
-            "bytes": 12010,
-            "sha256": "3bb7a31e218155e21e98f584f09ed1127a17e3a5e4eb8854ea56f0a4b14c291e"
+            "bytes": 12009,
+            "sha256": "62e9e630a09241fa54abc50e809ebea58c3c0e5fb56430d9ae0e37cf1e0ba386"
           },
           {
             "path": "apps/mobile/src/data/Dersler/kurban_quiz.en.json",
@@ -1145,98 +1145,98 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/namaz_dersi.en.json",
-            "bytes": 21647,
-            "sha256": "164f74a776d75b025a6bf55836017580acd43b9a085ad0332ec8588067d53cdf"
+            "bytes": 21644,
+            "sha256": "163411e1a7f0a1ef847f4eeeed30043f923f87bcd4d7b2fdcbbe6100d15842cd"
           },
           {
             "path": "apps/mobile/src/data/Dersler/namaz_dualar_dersi.en.json",
-            "bytes": 12919,
-            "sha256": "807deabcb9a31fae77587ae765b2681b0ad4b2739049106fa2cdfc50a285b715"
+            "bytes": 12786,
+            "sha256": "0412081d5b29b673658fecae8fd68fb4e60b430f07fa1aea937fb332feed378d"
           },
           {
             "path": "apps/mobile/src/data/Dersler/namaz_dualar_quiz.en.json",
-            "bytes": 17341,
-            "sha256": "859df97735c233bef8155c3c5ecf4c8f2a8d1dcb2a32813f486639443d3b45eb"
+            "bytes": 17276,
+            "sha256": "128439216b276db1cb0ba3ce06d2a3b3052fec5690ec0e088318ace5b549ec9d"
           },
           {
             "path": "apps/mobile/src/data/Dersler/namaz_quiz.en.json",
-            "bytes": 28758,
-            "sha256": "87c412bf9352d56ffbc1db71c6e34dd70e80ada4023c9b1b98acab15032cba29"
+            "bytes": 28737,
+            "sha256": "85df5ad10e543543569a59d166996b10a9f8bbe6b247e07f6020017a3c45fdfb"
           },
           {
             "path": "apps/mobile/src/data/Dersler/nefsini_tani_ders_modulu.en.json",
-            "bytes": 41552,
-            "sha256": "a49f9426645396a1ff4e147e60eb95586979a58b96302a8b3c8519c5586e1df5"
+            "bytes": 41520,
+            "sha256": "4fb0fd1ab598ba27a31fcf1d8473085cb5625014da362a919382f8ab68fbf1c9"
           },
           {
             "path": "apps/mobile/src/data/Dersler/nefsini_tani_quiz.en.json",
-            "bytes": 23429,
-            "sha256": "cffeca24fcff8c3a104b012bd1c9517ce1bcdb2526073585c6dd98aca11feb6e"
+            "bytes": 23427,
+            "sha256": "129cb35d64e04e26c76495d87c697a61937c072f661e4c7e1bf70a9704251776"
           },
           {
             "path": "apps/mobile/src/data/Dersler/oruc_dersi.en.json",
             "bytes": 12450,
-            "sha256": "788dfa9761fe8cacec27a6f3aa0a06176c716373705d6ed13399201fbca9c505"
+            "sha256": "578b27b9618dcb5a0dd3620d59180bb09d2ae5fbbc07fd0308d973167786bba7"
           },
           {
             "path": "apps/mobile/src/data/Dersler/oruc_quiz.en.json",
-            "bytes": 30443,
-            "sha256": "76631c6a4fa9af66cfddce9462b8a48408a656c55236d2c1c1afabc443a2c0e1"
+            "bytes": 30444,
+            "sha256": "cad085a18c6e56eb95a5e068dac933ae4033d382f0aa0fad0a7c7e192a799338"
           },
           {
             "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_dersi.en.json",
-            "bytes": 27677,
-            "sha256": "19cf887ad5645158162fc30c6787c38ab6ffc0c89483dfae45992dd36bfce1e8"
+            "bytes": 27667,
+            "sha256": "7a35b3d842ce0d2408fad966552b04c5f0277e82df8f5cac25ea58ddedfeb7c4"
           },
           {
             "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_quiz.en.json",
-            "bytes": 31564,
-            "sha256": "6576ec00e624ac903a075c7dd6abdcf97e563cd280398e92c8628df7a78938ab"
+            "bytes": 31556,
+            "sha256": "ccf682005747c37a15b7040189135bd71099fa6492a34f23ca4e5136adb75aae"
           },
           {
             "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_dersi.en.json",
-            "bytes": 17774,
-            "sha256": "fe9f20da1715a1dc2bb5759d3c2ddaa1eb5282b070efb8d03b198f1f50fd2a83"
+            "bytes": 17772,
+            "sha256": "69b08f7557d3f2ddac8dac619431551bfcdb445ae89293152263b5f15698c7e6"
           },
           {
             "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_quiz.en.json",
-            "bytes": 21844,
-            "sha256": "73e5e06aba3c61953d75985c7b957f7e8e20dbcd537fb37cf2467b32f57dcda2"
+            "bytes": 21842,
+            "sha256": "fa6f2bab12243404fbea202f1a5e3a799c0e196505dc80ea05b813cedbf1efdd"
           },
           {
             "path": "apps/mobile/src/data/Dersler/siyer_dersi.en.json",
-            "bytes": 20805,
-            "sha256": "70f0c92daa291d895c3c5a174ed192e605a9656551e6e23acc6b2ae5aeee2995"
+            "bytes": 20804,
+            "sha256": "a34e201a1f895970eeb6bfbe556c1e118ed173ddf80f31a27255fd181d9a6570"
           },
           {
             "path": "apps/mobile/src/data/Dersler/siyer_quiz.en.json",
-            "bytes": 28660,
-            "sha256": "e8e7613cb9c88542ec77d2aa67c1af7079d69541c8ee405312b6bfdc403f3488"
+            "bytes": 28651,
+            "sha256": "ccd8d8b9df9a9327a3c8937b3e4396e512e83714a2b93dddc6a15dd0a0657e17"
           },
           {
             "path": "apps/mobile/src/data/Dersler/tecvid_dersi.en.json",
-            "bytes": 17308,
-            "sha256": "3c49399aa6ccb39e115e3f97db50336de3d9749bca3b9a080ba99e6195d34f70"
+            "bytes": 17252,
+            "sha256": "0f42b5e0d7923d883a9c9ab1486074903905c37fb77e6baeba32d6745cdd909f"
           },
           {
             "path": "apps/mobile/src/data/Dersler/tecvid_quiz.en.json",
-            "bytes": 28917,
-            "sha256": "33c227a01aa8fef001f1f016e076c54f2234c1a75f289bea5020f43ef97205d1"
+            "bytes": 28921,
+            "sha256": "45f3e1ce16a1f054e05195ed746920e9b10aab278eeb00e9fc4dc8435bd7c473"
           },
           {
             "path": "apps/mobile/src/data/Dersler/zekat_dersi.en.json",
-            "bytes": 12406,
-            "sha256": "380d157445b7c249a23e8bd52a519e8608e1600c2d483c947edce62cd2e050ed"
+            "bytes": 12400,
+            "sha256": "e7733b9398dbe71ec132870871a00a1d744fd2a17f74562e2217adb6f5fb904a"
           },
           {
             "path": "apps/mobile/src/data/Dersler/zekat_quiz.en.json",
-            "bytes": 19370,
-            "sha256": "7224af7f5eedc3f568ffe3e840592291901a00c0235e126b46b2b358d29a0922"
+            "bytes": 19410,
+            "sha256": "2f6b4f9af2acaf227494c0081400c220198d8361b505d8f65bc51385e9e38dfd"
           },
           {
             "path": "apps/mobile/src/data/dualar.en.json",
-            "bytes": 118847,
-            "sha256": "583a1cb8ada758ba4a0f0b2c4d76160b4a4cdb0413ca7a9c54a642cce0be4046"
+            "bytes": 118710,
+            "sha256": "fe736a12d5cdf472120b269630f9f7be8dd40d838d59e41cdc0c0b8ff38a58f6"
           },
           {
             "path": "apps/mobile/src/data/elifba.en.json",
@@ -1245,43 +1245,43 @@
           },
           {
             "path": "apps/mobile/src/data/esmaulHusna.en.json",
-            "bytes": 25365,
-            "sha256": "dcade81830b82f99f5e89af4c02e2d6c8eed4c6c86ecae337d39bfc889a28b61"
+            "bytes": 25286,
+            "sha256": "633bbc320b4e1a04536ecf125f6178dd7363d4363543c0744b73dc5cf60ce7e4"
           },
           {
             "path": "apps/mobile/src/data/hadisler_v2.en.json",
-            "bytes": 194312,
-            "sha256": "981e18afe2ca710573d2d2b267cb064ead6c39cefcb03f98986e0820cd47c579"
+            "bytes": 194257,
+            "sha256": "ee994132925b8f1e1f51bc3ed8e11020679ba814d33a4ff9760001da30aaa32f"
           },
           {
             "path": "apps/mobile/src/data/ismi_azam_dualari.en.json",
-            "bytes": 8178,
-            "sha256": "48bb8069f69dea6a92111cccc3ac4358b0ba04641b8a8d5ea0cfa51b08216207"
+            "bytes": 8176,
+            "sha256": "ccff94c5e1fddb555dee1187f62b0efdb8dc0a0743209b13ef3ae0e44fe3ed5e"
           },
           {
             "path": "apps/mobile/src/data/mubarek_gunler.en.json",
-            "bytes": 37081,
-            "sha256": "b74e7f16fe76428781b41636201fa91365cc3b4b47e8b24f01ec651f22aaf849"
+            "bytes": 37076,
+            "sha256": "305491b5f83f43ad72dac83c9d3afa9a4827ea4b94f436d9ca4f56e19c395f69"
           },
           {
             "path": "apps/mobile/src/data/namaz_rehberi.en.json",
-            "bytes": 39138,
-            "sha256": "d0bcab15bbb2e46b38f4ef5a9e58b3263fb11788ffda79b74e06eaf0abb8d691"
+            "bytes": 38979,
+            "sha256": "20782e58c5c467a12298e031d499125321377e15db1e702e1a0232117e8fbee2"
           },
           {
             "path": "apps/mobile/src/data/ozel_namazlar.en.json",
-            "bytes": 44525,
-            "sha256": "38d2224eb0a66e5f35050f6d63c4df102a804664a73e253384e72dfbc4e91332"
+            "bytes": 44294,
+            "sha256": "5323fc31012b59a1d4ce251ba6a3198726f82aac5916a3895f03c1f35e046c49"
           },
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.en.json",
-            "bytes": 63624,
-            "sha256": "8ab96439c0ab5da2953eec22a5da3844115e53f29f76e5eca95881a7cff8c2cd"
+            "bytes": 63625,
+            "sha256": "912b18c101e0a09883f438df0be4f769695097244932272593035e8f35199e88"
           },
           {
             "path": "apps/mobile/src/data/siyer_i_nebi.en.json",
-            "bytes": 70876,
-            "sha256": "5c19ec9a78624a64c1bf9930f673fc96bb74f5698df09a6d954db4fe64e7af3d"
+            "bytes": 70874,
+            "sha256": "8401914466b971f826a8e11da5b0462e6545e95cec212ab1a8bdebb09a640b7e"
           },
           {
             "path": "content/elifba/letters.en.json",

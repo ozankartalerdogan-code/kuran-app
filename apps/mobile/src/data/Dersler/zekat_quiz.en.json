@@ -66,7 +66,7 @@
     {
       "id": "zekat_005",
       "konu": "sartlar",
-      "soru": "What does the condition of \"Havelânü'l-havl\" mean?",
+      "soru": "What does the condition of \"Hawlan al-hawl\" mean?",
       "secenekler": [
         "A) The passage of one lunar year over the wealth",
         "B) The wealth reaching the nisab (the minimum wealth required for zakat to become obligatory)",
@@ -74,7 +74,7 @@
         "D) The wealth exceeding debts"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Havelânü'l-havl (the passage of one lunar year over the wealth) is the condition that one lunar year (approximately 354 days) must pass over the wealth. Zakat does not become obligatory before this period has passed.",
+      "aciklama": "Hawlan al-hawl (the passage of one lunar year over the wealth) is the condition that one lunar year (approximately 354 days) must pass over the wealth. Zakat does not become obligatory before this period has passed.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -85,11 +85,11 @@
       "secenekler": [
         "A) It must have been inherited",
         "B) It must be real estate (immovable property)",
-        "C) It must be nâmî (productive or growing)",
+        "C) It must be nami (productive or growing)",
         "D) It must have been held for at least five years"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Wealth subject to zakat must be nâmî (productive, income-generating, or growing). Therefore, a home and vehicle in use are not subject to zakat, whereas money, trade goods, and livestock are considered nâmî.",
+      "aciklama": "Wealth subject to zakat must be nami (productive, income-generating, or growing). Therefore, a home and vehicle in use are not subject to zakat, whereas money, trade goods, and livestock are considered nami.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -209,7 +209,7 @@
         "D) At the beginning of Ramadan"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ushr (zakat on agricultural produce) is given on the day of harvest. For agricultural produce, havelânü'l-havl, the passage of a year, is not required; details concerning the nisab and expenses may be assessed differently by the schools of law.",
+      "aciklama": "Ushr (zakat on agricultural produce) is given on the day of harvest. For agricultural produce, hawlan al-hawl, the passage of a year, is not required; details concerning the nisab and expenses may be assessed differently by the schools of law.",
       "zorluk": "orta",
       "kaynak": "Quran, al-An'am 6/141"
     },
@@ -239,14 +239,14 @@
         "D) 8"
       ],
       "dogru_cevap": "D",
-      "aciklama": "At-Tawbah 9/60 clearly specifies 8 categories eligible to receive zakat: the poor, the destitute (the extremely poor), zakat administrators, müellefe-i kulûb, slaves, those in debt, those in the cause of Allah, and stranded travelers.",
+      "aciklama": "At-Tawbah 9/60 clearly specifies 8 categories eligible to receive zakat: the poor, the destitute (the extremely poor), zakat administrators, those whose hearts are to be reconciled, slaves, those in debt, those in the cause of Allah, and stranded travelers.",
       "zorluk": "kolay",
       "kaynak": "Quran, at-Tawbah 9/60"
     },
     {
       "id": "zekat_017",
       "konu": "hak-sahipleri",
-      "soru": "Who are \"Müellefe-i kulûb\"?",
+      "soru": "Who are \"those whose hearts are to be reconciled\"?",
       "secenekler": [
         "A) People whose hearts are to be inclined toward Islam",
         "B) Slaves",
@@ -254,7 +254,7 @@
         "D) Zakat administrators"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Müellefe-i kulûb (people whose hearts are to be inclined toward Islam) are people whose hearts are to be inclined toward Islam. The Prophet ﷺ gave zakat to this group; some scholars have maintained that this ruling continues to apply.",
+      "aciklama": "Those whose hearts are to be reconciled (people whose hearts are to be inclined toward Islam) are people whose hearts are to be inclined toward Islam. The Prophet ﷺ gave zakat to this group; some scholars have maintained that this ruling continues to apply.",
       "zorluk": "kolay",
       "kaynak": "Quran, at-Tawbah 9/60"
     },
@@ -284,14 +284,14 @@
         "D) Slaves are forbidden from receiving zakat"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Slaves who wish to purchase their freedom (mükâteb) may receive zakat. Zakat is given to support them in gaining their freedom.",
+      "aciklama": "Slaves who wish to purchase their freedom (mukatab) may receive zakat. Zakat is given to support them in gaining their freedom.",
       "zorluk": "orta",
       "kaynak": "Quran, at-Tawbah 9/60"
     },
     {
       "id": "zekat_020",
       "konu": "hak-sahipleri",
-      "soru": "Who are \"İbni's-sebil\" (stranded travelers)?",
+      "soru": "Who are \"Ibn al-sabil\" (stranded travelers)?",
       "secenekler": [
         "A) Tired travelers returning from Hajj",
         "B) Everyone who is unemployed in a city",
@@ -299,7 +299,7 @@
         "D) Travelers who have run out of money and cannot return home"
       ],
       "dogru_cevap": "D",
-      "aciklama": "İbni's-sebil are travelers who have run out of money while traveling and are unable to return home. Even if they own property in their hometown, they may receive zakat because they are in need at that moment.",
+      "aciklama": "Ibn al-sabil are travelers who have run out of money while traveling and are unable to return home. Even if they own property in their hometown, they may receive zakat because they are in need at that moment.",
       "zorluk": "zor",
       "kaynak": "Quran, at-Tawbah 9/60"
     },
@@ -385,11 +385,11 @@
       "secenekler": [
         "A) Animals kept as pets in the city",
         "B) Working animals",
-        "C) Sâime animals that graze freely in pasture",
+        "C) Saima animals that graze freely in pasture",
         "D) Poultry kept in cages"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Animals subject to zakat are sâime animals: animals that feed by grazing on pasture for most of the year. Working animals are not subject to zakat.",
+      "aciklama": "Animals subject to zakat are saima animals: animals that feed by grazing on pasture for most of the year. Working animals are not subject to zakat.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -400,7 +400,7 @@
       "secenekler": [
         "A) They are difficult to sell",
         "B) They are excluded from zakat because they are considered basic necessities",
-        "C) They are not nâmî (productive) property and their values are fixed",
+        "C) They are not nami (productive) property and their values are fixed",
         "D) This rule applies only in non-Muslim countries"
       ],
       "dogru_cevap": "B",

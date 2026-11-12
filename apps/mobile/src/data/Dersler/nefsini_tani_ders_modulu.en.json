@@ -18,12 +18,12 @@
       "Sufi and ethical classifications used in spiritual education"
     ],
     "importantNotice": "The sequence of eight presented in these lessons is not a mandatory list given in the Quran as exactly 'eight layers.' The common classification in classical Sufi literature has seven stages. In the app, 'Undisciplined Nafs' has been added as the first step, as an introductory lesson for users with no prior knowledge of the subject.",
-    "classificationNote": "According to most Sufis, there is one nafs in a body; terms such as emmâre, levvâme, mutmainne, râzıye and marzıyye are understood as different qualities or states of this single nafs."
+    "classificationNote": "According to most Sufis, there is one nafs in a body; terms such as ammara, lawwama, mutmainna, radiya and mardiyya are understood as different qualities or states of this single nafs."
   },
   "classicSevenStages": [
     {
       "order": 1,
-      "name": "Nefs-i Emmâre",
+      "name": "Nafs al-Ammara",
       "meaning": "The nafs that commands evil",
       "quranicBasis": [
         "Yusuf 12:53"
@@ -31,7 +31,7 @@
     },
     {
       "order": 2,
-      "name": "Nefs-i Levvâme",
+      "name": "Nafs al-Lawwama",
       "meaning": "The self-reproaching nafs",
       "quranicBasis": [
         "al-Qiyamah 75:2"
@@ -39,7 +39,7 @@
     },
     {
       "order": 3,
-      "name": "Nefs-i Mülhime",
+      "name": "Nafs al-Mulhima",
       "meaning": "The nafs that becomes aware of good and evil",
       "quranicBasis": [
         "ash-Shams 91:7-10"
@@ -56,7 +56,7 @@
     },
     {
       "order": 5,
-      "name": "Nefs-i Râzıye",
+      "name": "Nafs al-Radiya",
       "meaning": "The nafs pleased with Allah",
       "quranicBasis": [
         "al-Fajr 89:28"
@@ -64,7 +64,7 @@
     },
     {
       "order": 6,
-      "name": "Nefs-i Marzıyye",
+      "name": "Nafs al-Mardiyya",
       "meaning": "The nafs with which Allah is pleased",
       "quranicBasis": [
         "al-Fajr 89:28"
@@ -72,12 +72,12 @@
     },
     {
       "order": 7,
-      "name": "Nefs-i Kâmile / Zekiyye",
+      "name": "Nafs al-Kamila / Zakiyya",
       "meaning": "The purified and mature nafs",
       "quranicBasis": [
         "ash-Shams 91:9"
       ],
-      "note": "Some sources describe zekiyye/kâmile as the final stage in the seven-stage classification."
+      "note": "Some sources describe zakiyya/kamila as the final stage in the seven-stage classification."
     }
   ],
   "lessons": [
@@ -189,16 +189,16 @@
     {
       "id": "lesson-03-nefs-i-emmare",
       "order": 3,
-      "title": "Nefs-i Emmâre: The Nafs That Commands Evil",
+      "title": "Nafs al-Ammara: The Nafs That Commands Evil",
       "estimatedMinutes": 6,
       "classification": "quranic_term",
-      "summary": "Nefs-i emmâre is the state of the nafs that calls a person toward evil, sin, making excuses and following desires.",
+      "summary": "Nafs al-Ammara is the state of the nafs that calls a person toward evil, sin, making excuses and following desires.",
       "learningObjectives": [
-        "To learn the Quranic basis for nefs-i emmâre.",
+        "To learn the Quranic basis for Nafs al-Ammara.",
         "To recognize that defending sin and making excuses are signs of this state.",
         "To develop repentance and conscious resistance against the aspect of the nafs that commands evil."
       ],
-      "mainMessage": "Nefs-i emmâre is the inner voice that says, 'Never mind, just do it.'",
+      "mainMessage": "Nafs al-Ammara is the inner voice that says, 'Never mind, just do it.'",
       "quranReferences": [
         {
           "surah": "Yusuf",
@@ -220,11 +220,11 @@
         }
       ],
       "appContent": {
-        "intro": "Nefs-i emmâre describes a person's inclination toward sin and tendency to defend that inclination.",
+        "intro": "Nafs al-Ammara describes a person's inclination toward sin and tendency to defend that inclination.",
         "body": [
           "In this state, a person not only makes mistakes but also makes excuses for them.",
           "Arrogance, greed, envy, lust, anger and selfishness are among the prominent signs of this state.",
-          "Recognizing nefs-i emmâre teaches a person to seek refuge in Allah's mercy instead of declaring themselves free of blame."
+          "Recognizing Nafs al-Ammara teaches a person to seek refuge in Allah's mercy instead of declaring themselves free of blame."
         ],
         "symptoms": [
           "Making light of sin",
@@ -252,16 +252,16 @@
     {
       "id": "lesson-04-nefs-i-levvame",
       "order": 4,
-      "title": "Nefs-i Levvâme: The Self-Reproaching Nafs",
+      "title": "Nafs al-Lawwama: The Self-Reproaching Nafs",
       "estimatedMinutes": 6,
       "classification": "quranic_term",
-      "summary": "Nefs-i levvâme is the state of the nafs that recognizes wrongdoing, holds itself accountable, and feels the need for remorse and repentance.",
+      "summary": "Nafs al-Lawwama is the state of the nafs that recognizes wrongdoing, holds itself accountable, and feels the need for remorse and repentance.",
       "learningObjectives": [
-        "To learn the Qur’anic basis of the concept of levvâme.",
+        "To learn the Qur’anic basis of the concept of lawwama.",
         "To understand that remorse is a sign of awakening, not hopelessness.",
         "To grasp the importance of self-examination in disciplining the nafs."
       ],
-      "mainMessage": "Nefs-i levvâme is a sign of awakening, not downfall.",
+      "mainMessage": "Nafs al-Lawwama is a sign of awakening, not downfall.",
       "quranReferences": [
         {
           "surah": "al-Qiyamah",
@@ -293,7 +293,7 @@
       "appContent": {
         "intro": "If a person feels troubled within after making a mistake, this discomfort may be the beginning of their return.",
         "body": [
-          "Nefs-i levvâme is the state of the nafs that recognizes sin and holds itself accountable.",
+          "Nafs al-Lawwama is the state of the nafs that recognizes sin and holds itself accountable.",
           "At this stage, a person begins to question their mistake instead of treating it as normal.",
           "If guided in the right direction, remorse can lead to repentance, self-improvement, and a return to the right path."
         ],
@@ -316,19 +316,19 @@
         "shortDua": "O Allah, grant me the ability to recognize my mistakes, repent, and gain the strength not to fall into them again."
       },
       "safetyNotes": [
-        "The state of levvâme should guide the user toward a sense of responsibility and awareness of repentance, not toward seeing themselves as worthless.",
+        "The state of lawwama should guide the user toward a sense of responsibility and awareness of repentance, not toward seeing themselves as worthless.",
         "Excessive feelings of guilt should not be encouraged."
       ]
     },
     {
       "id": "lesson-05-nefs-i-mulhime",
       "order": 5,
-      "title": "Nefs-i Mülhime: Awareness of Good and Evil",
+      "title": "Nafs al-Mulhima: Awareness of Good and Evil",
       "estimatedMinutes": 6,
       "classification": "tasawwuf_classification_with_quranic_basis",
-      "summary": "Nefs-i mülhime is a moral and Sufi concept whose name does not appear in the Qur’an, but which is associated with the inspiration of the nafs with its inclination to evil and its capacity for taqwa in ash-Shams 91:8.",
+      "summary": "Nafs al-Mulhima is a moral and Sufi concept whose name does not appear in the Qur’an, but which is associated with the inspiration of the nafs with its inclination to evil and its capacity for taqwa in ash-Shams 91:8.",
       "learningObjectives": [
-        "To learn correctly that the name mülhime does not appear verbatim in the Qur’an.",
+        "To learn correctly that the name mulhima does not appear verbatim in the Qur’an.",
         "To understand how ash-Shams 91:8 provides a basis for the inner awareness of the nafs.",
         "To learn to distinguish carefully between inspiration, whispers, and desire."
       ],
@@ -356,7 +356,7 @@
       "appContent": {
         "intro": "Sometimes a person feels that a desire arising within them is wrong. This awareness is an important step in disciplining the nafs.",
         "body": [
-          "The term mülhime is used to describe the state of recognizing the nafs’s inclinations toward good and evil.",
+          "The term mulhima is used to describe the state of recognizing the nafs’s inclinations toward good and evil.",
           "However, not every inner voice is accepted as right. A believer weighs their inner thoughts against the standards of the Qur’an, Sunnah, and morality.",
           "At this stage, the focus is not on blindly following the inner voice, but on strengthening the inclination that calls one to taqwa."
         ],
@@ -378,7 +378,7 @@
         "shortDua": "O Allah, show me truth as truth and grant me the ability to follow it; show me falsehood as falsehood and grant me the ability to avoid it."
       },
       "safetyNotes": [
-        "The name nefs-i mülhime should not be presented as an expression that appears verbatim in the Qur’an.",
+        "The name Nafs al-Mulhima should not be presented as an expression that appears verbatim in the Qur’an.",
         "The user should not be given the message that ‘everything that comes from within is inspiration.’",
         "The distinction between whispers, whims, and sound inclinations should be emphasized."
       ]
@@ -449,12 +449,12 @@
     {
       "id": "lesson-07-nefs-i-raziye",
       "order": 7,
-      "title": "Nefs-i Râzıye: The Nafs Pleased with Allah",
+      "title": "Nafs al-Radiya: The Nafs Pleased with Allah",
       "estimatedMinutes": 5,
       "classification": "quranic_expression_interpreted_as_stage",
-      "summary": "Nefs-i râzıye is the state of the nafs associated with a servant learning to accept Allah’s judgment, commands, and decree.",
+      "summary": "Nafs al-Radiya is the state of the nafs associated with a servant learning to accept Allah’s judgment, commands, and decree.",
       "learningObjectives": [
-        "To learn that the expression râzıye is associated with the address ‘pleased’ in al-Fajr 89:28.",
+        "To learn that the expression radiya is associated with the address ‘pleased’ in al-Fajr 89:28.",
         "To grasp that acceptance does not mean feeling no pain, but maintaining trust in Allah.",
         "To understand the balance between patience and gratitude."
       ],
@@ -473,7 +473,7 @@
       "appContent": {
         "intro": "Acceptance is a servant learning to trust Allah’s knowledge and wisdom.",
         "body": [
-          "Nefs-i râzıye is described as the state of the nafs that moves away from speaking in rebellion against Allah’s commands and decree.",
+          "Nafs al-Radiya is described as the state of the nafs that moves away from speaking in rebellion against Allah’s commands and decree.",
           "This state does not mean that a person never feels the trials they face; it means continuing to trust their Lord through those trials.",
           "Contentment includes patience, gratitude, and submission."
         ],
@@ -503,16 +503,16 @@
     {
       "id": "lesson-08-nefs-i-marziyye",
       "order": 8,
-      "title": "Nefs-i Marzıyye: The Self with Which Allah Is Pleased",
+      "title": "Nafs al-Mardiyya: The Self with Which Allah Is Pleased",
       "estimatedMinutes": 5,
       "classification": "quranic_expression_interpreted_as_stage",
-      "summary": "Nefs-i marzıyye is explained as the self that aims to reach a state of servitude with which Allah is pleased.",
+      "summary": "Nafs al-Mardiyya is explained as the self that aims to reach a state of servitude with which Allah is pleased.",
       "learningObjectives": [
-        "Learn that the expression marzıyye is associated with the phrase 'well-pleasing' in al-Fajr 89:28.",
+        "Learn that the expression mardiyya is associated with the phrase 'well-pleasing' in al-Fajr 89:28.",
         "Understand the place of making Allah’s pleasure central to disciplining the self.",
         "Understand that this state requires humility and sincerity, not self-admiration."
       ],
-      "mainMessage": "The station of marzıyye is not about admiring oneself; it is about making it one’s central aim in life to be a servant with whom Allah is pleased.",
+      "mainMessage": "The station of mardiyya is not about admiring oneself; it is about making it one’s central aim in life to be a servant with whom Allah is pleased.",
       "quranReferences": [
         {
           "surah": "al-Fajr",
@@ -536,7 +536,7 @@
       "appContent": {
         "intro": "The believer’s goal is Allah’s pleasure, not people’s approval.",
         "body": [
-          "Nefs-i marzıyye refers to the self directed toward a state of servitude with which Allah is pleased.",
+          "Nafs al-Mardiyya refers to the self directed toward a state of servitude with which Allah is pleased.",
           "This state means living with sincerity, humility, and good character, not seeing oneself as superior.",
           "The servant continues on the path, relying not on their deeds but on hope in Allah’s mercy."
         ],
@@ -559,19 +559,19 @@
         "shortDua": "O Allah, make me one of Your servants with whom You are pleased."
       },
       "safetyNotes": [
-        "The state of marzıyye should not be presented as a person declaring with certainty that they are a servant with whom Allah is pleased.",
+        "The state of mardiyya should not be presented as a person declaring with certainty that they are a servant with whom Allah is pleased.",
         "A balance between hope and humility must be maintained."
       ]
     },
     {
       "id": "lesson-09-nefs-i-kamile-zekiyye",
       "order": 9,
-      "title": "Nefs-i Kâmile/Zekiyye: The Purified and Mature Self",
+      "title": "Nafs al-Kamila/Zakiyya: The Purified and Mature Self",
       "estimatedMinutes": 6,
       "classification": "tasawwuf_classification_with_quranic_basis",
-      "summary": "Nefs-i kâmile or zekiyye is explained as a state of the self that has been purified, has become consistent in good character, and does not forget its need for Allah.",
+      "summary": "Nafs al-Kamila or Zakiyya is explained as a state of the self that has been purified, has become consistent in good character, and does not forget its need for Allah.",
       "learningObjectives": [
-        "Learn that the heading kâmile/zekiyye appears as the final stage in the classical seven-stage classification.",
+        "Learn that the heading kamila/zakiyya appears as the final stage in the classical seven-stage classification.",
         "Understand that purification does not mean seeing oneself as flawless.",
         "Understand the importance of good character, humility, and continual repentance."
       ],
@@ -599,7 +599,7 @@
       "appContent": {
         "intro": "The self is purified not by a person seeing themselves as flawless, but through a deeper awareness of their need for their Lord.",
         "body": [
-          "The heading kâmile/zekiyye describes the goal of maturity and purification in disciplining the self.",
+          "The heading kamila/zakiyya describes the goal of maturity and purification in disciplining the self.",
           "In this state, a person does not take sin lightly or rely on their deeds, and seeks refuge in Allah’s mercy.",
           "Good character, sincerity, patience, humility, and mercy are the main signs of this goal."
         ],
@@ -737,7 +737,7 @@
         "ayahRange": "53",
         "sourceName": "Kuran Yolu commentary",
         "url": "",
-        "usage": "The main Qur'anic basis for the category of nefs-i emmâre."
+        "usage": "The main Qur'anic basis for the category of Nafs al-Ammara."
       },
       {
         "id": "quran-fecr-89-27-30",
@@ -747,7 +747,7 @@
         "ayahRange": "27-30",
         "sourceName": "Kuran Yolu commentary",
         "url": "",
-        "usage": "The main Qur'anic basis for the categories of mutmainne, râzıye and marzıyye."
+        "usage": "The main Qur'anic basis for the categories of mutmainna, radiya and mardiyya."
       },
       {
         "id": "quran-qiyamah-75-2",
@@ -757,7 +757,7 @@
         "ayahRange": "2",
         "sourceName": "Qur'an",
         "url": "",
-        "usage": "The main Qur'anic basis for the category of nefs-i levvâme."
+        "usage": "The main Qur'anic basis for the category of nafs al-lawwama."
       },
       {
         "id": "quran-naziat-79-40-41",
@@ -834,10 +834,10 @@
       {
         "id": "kaynak-atvar-i-seba",
         "type": "encyclopedia",
-        "title": "Atvâr-ı Seb‘a",
+        "title": "Atwar al-Sab‘a",
         "sourceName": "contemporary Islamic sources",
         "url": "",
-        "usage": "The seven states of the nafs: emmâre, levvâme, mülhime, mutmainne, râzıye, marzıyye and kâmile."
+        "usage": "The seven states of the nafs: ammara, lawwama, mulhima, mutmainna, radiya, mardiyya and kamila."
       }
     ],
     "avoidAsHadith": [

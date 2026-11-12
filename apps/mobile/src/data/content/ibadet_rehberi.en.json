@@ -379,27 +379,27 @@
       },
       {
         "tip": "sunnet",
-        "metin": "Sübhaneke",
+        "metin": "Subhanaka",
         "detay": "Recited in the first rak'ah before the Quran recitation."
       },
       {
         "tip": "sunnet",
-        "metin": "Eûzü-Besmele",
+        "metin": "A'udhu-Basmalah",
         "detay": "Recited in every rak'ah before the Quran recitation."
       },
       {
         "tip": "sunnet",
         "metin": "Glorifications during bowing",
-        "detay": "\"Sübhâne Rabbiye'l-azîm\" at least 3 times."
+        "detay": "\"Subhana Rabbiyal-Azim\" at least 3 times."
       },
       {
         "tip": "sunnet",
         "metin": "Glorifications during prostration",
-        "detay": "\"Sübhâne Rabbiye'l-a'lâ\" at least 3 times."
+        "detay": "\"Subhana Rabbiyal-A'la\" at least 3 times."
       },
       {
         "tip": "sunnet",
-        "metin": "Ettehiyyatü",
+        "metin": "At-tahiyyatu",
         "detay": "Recited in every sitting."
       }
     ],
@@ -535,17 +535,17 @@
     "siniflar": [
       {
         "no": 1,
-        "sinif": "The Poor (Fukarâ)",
+        "sinif": "The Poor (Fuqara)",
         "aciklama": "Poor people who own less than the nisab."
       },
       {
         "no": 2,
-        "sinif": "The Needy (Mesâkîn)",
+        "sinif": "The Needy (Masakin)",
         "aciklama": "Those who have no property or struggle to meet their daily needs."
       },
       {
         "no": 3,
-        "sinif": "Zakat Collectors (Âmilîn)",
+        "sinif": "Zakat Collectors (Amilin)",
         "aciklama": "People who collect and distribute zakat on behalf of the state."
       },
       {
@@ -555,22 +555,22 @@
       },
       {
         "no": 5,
-        "sinif": "Slaves (Rikâb)",
+        "sinif": "Slaves (Riqab)",
         "aciklama": "Historically, slaves seeking their freedom; in the modern period, it is mentioned mainly as a classical category."
       },
       {
         "no": 6,
-        "sinif": "Those in Debt (Gârimûn)",
+        "sinif": "Those in Debt (Gharimun)",
         "aciklama": "Those who have incurred debts for their own needs and whose assets do not cover their debts."
       },
       {
         "no": 7,
-        "sinif": "In the Way of Allah (Fî Sebîlillah)",
+        "sinif": "In the Way of Allah (Fi Sabilillah)",
         "aciklama": "Those engaged in legitimate service and efforts in the way of Allah; its scope may be broader according to the school of law and contemporary fatwas."
       },
       {
         "no": 8,
-        "sinif": "Stranded Travelers (İbnus-Sebîl)",
+        "sinif": "Stranded Travelers (Ibn as-Sabil)",
         "aciklama": "People who run out of funds while traveling."
       }
     ],
@@ -803,7 +803,7 @@
           "aciklama": "Take water into the mouth and rinse it."
         },
         {
-          "organ": "Nose (İstinşak)",
+          "organ": "Nose (Istinshaq)",
           "miktar": 3,
           "aciklama": "Draw water into the nose and clean it."
         },
@@ -888,7 +888,7 @@
         {
           "organ": "Nose",
           "miktar": 1,
-          "aciklama": "İstinşak: draw water into the nose and clean it."
+          "aciklama": "Istinshaq: draw water into the nose and clean it."
         },
         {
           "organ": "Entire Body",

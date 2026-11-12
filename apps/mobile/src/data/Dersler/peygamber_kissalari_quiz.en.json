@@ -116,7 +116,7 @@
         "A) Being Halilullah (Allah's friend)",
         "B) Being Kelimullah (one who spoke with Allah)",
         "C) Being a very grateful servant",
-        "D) Being Sadıkul Vaad (true to his word)"
+        "D) Being Sadiq al-Wa'd (true to his word)"
       ],
       "dogru_cevap": "C",
       "aciklama": "\"He was a grateful servant.\" (al-Isra 17/3) Prophet Nuh is a prophet described in the Quran by his gratitude.",
@@ -160,7 +160,7 @@
       "secenekler": [
         "A) Kelimullah",
         "B) Halilullah",
-        "C) Sadıkul Vaad",
+        "C) Sadiq al-Wa'd",
         "D) Ruhullah"
       ],
       "dogru_cevap": "B",
@@ -266,10 +266,10 @@
         "A) Halilullah",
         "B) Kelimullah",
         "C) Ruhullah",
-        "D) Sadıkul Vaad"
+        "D) Sadiq al-Wa'd"
       ],
       "dogru_cevap": "D",
-      "aciklama": "\"He was true to his word (sadıkul vaad); he was a messenger and a prophet.\" (Maryam 19/54) Prophet Ismail is known by the title Sadıkul Vaad, meaning 'true to his word.'",
+      "aciklama": "\"He was true to his word (sadiq al-wa'd); he was a messenger and a prophet.\" (Maryam 19/54) Prophet Ismail is known by the title Sadiq al-Wa'd, meaning 'true to his word.'",
       "zorluk": "orta",
       "kaynak": "Maryam 19/54"
     },
@@ -311,7 +311,7 @@
         "A) Israel",
         "B) Halilullah",
         "C) Kelimullah",
-        "D) Sıddık"
+        "D) Siddiq"
       ],
       "dogru_cevap": "A",
       "aciklama": "Prophet Yaqub's other name is Israel. The Children of Israel take their name from him. (al-Baqarah 2/132-133)",
@@ -366,7 +366,7 @@
     {
       "id": "peyg_025",
       "konu": "Hz. Yusuf",
-      "soru": "What was done to Prophet Yusuf after he was falsely accused by the woman described in the Quran as the wife of the Aziz and known in narrations as Züleyha?",
+      "soru": "What was done to Prophet Yusuf after he was falsely accused by the woman described in the Quran as the wife of the Aziz and known in narrations as Zulaikha?",
       "secenekler": [
         "A) He was thrown into prison",
         "B) He was expelled from the city",
@@ -374,7 +374,7 @@
         "D) He was sold into slavery again"
       ],
       "dogru_cevap": "A",
-      "aciklama": "The Quran does not give this woman's name; she is known in narrations as Züleyha. After the false accusation, Prophet Yusuf was imprisoned for a time. (Yusuf 12/35)",
+      "aciklama": "The Quran does not give this woman's name; she is known in narrations as Zulaikha. After the false accusation, Prophet Yusuf was imprisoned for a time. (Yusuf 12/35)",
       "zorluk": "orta",
       "kaynak": "Yusuf 12/35"
     },
@@ -474,7 +474,7 @@
       "soru": "By which title is Prophet Musa known?",
       "secenekler": [
         "A) Halilullah",
-        "B) Sadıkul Vaad",
+        "B) Sadiq al-Wa'd",
         "C) Kelimullah",
         "D) Ruhullah"
       ],
@@ -591,7 +591,7 @@
     {
       "id": "peyg_040",
       "konu": "Hz. Süleyman",
-      "soru": "What was the final event that led the Queen of Sheba, known in narrations as Belkıs, to embrace faith?",
+      "soru": "What was the final event that led the Queen of Sheba, known in narrations as Bilqis, to embrace faith?",
       "secenekler": [
         "A) The hoopoe bringing news about her",
         "B) Seeing Prophet Sulayman's great army",
@@ -626,7 +626,7 @@
         "A) \"O Lord! Save me, and I will never leave my people again\"",
         "B) \"O Lord! Harm has touched me, and You are the Most Merciful of those who show mercy\"",
         "C) \"O Allah! I seek refuge in You; I have no other recourse\"",
-        "D) \"La ilahe illa ente subhaneke inni küntü minez-zalimin\""
+        "D) \"La ilaha illa anta subhanaka inni kuntu min az-zalimin\""
       ],
       "dogru_cevap": "D",
       "aciklama": "\"He called out in the darkness, 'There is no deity but You; glory be to You. Indeed, I was among the wrongdoers.'\" (al-Anbiya 21/87)",
@@ -685,7 +685,7 @@
       "secenekler": [
         "A) Halilullah and Kelimullah",
         "B) Safiyullah and Ruhullah",
-        "C) Sıddık and Resul",
+        "C) Siddiq and Rasul",
         "D) Ruhullah and Kelimetullah"
       ],
       "dogru_cevap": "D",
@@ -741,7 +741,7 @@
     {
       "id": "peyg_050",
       "konu": "Genel",
-      "soru": "Who are the 'Ülü'l-Azm' prophets, distinguished by their determination and patience?",
+      "soru": "Who are the 'Ulu al-Azm' prophets, distinguished by their determination and patience?",
       "secenekler": [
         "A) Adam, Noah, Abraham, Moses, David",
         "B) Noah, Abraham, Moses, David, Jesus",
@@ -749,7 +749,7 @@
         "D) Noah, Abraham, Moses, Jesus, Muhammad"
       ],
       "dogru_cevap": "D",
-      "aciklama": "Ülü'l-Azm means the great prophets who possessed determination and patience. These prophets are Noah, Abraham, Moses, Jesus, and Muhammad ﷺ. (al-Ahqaf 46/35)",
+      "aciklama": "Ulu al-Azm means the great prophets who possessed determination and patience. These prophets are Noah, Abraham, Moses, Jesus, and Muhammad ﷺ. (al-Ahqaf 46/35)",
       "zorluk": "zor",
       "kaynak": "al-Ahqaf 46/35"
     }

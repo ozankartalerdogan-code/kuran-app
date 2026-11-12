@@ -546,7 +546,7 @@
     {
       "id": "oruc_037",
       "konu": "nafile",
-      "soru": "On which days of each month are the Eyyâm-ı Bîz fasts observed?",
+      "soru": "On which days of each month are the Ayyam al-Bid fasts observed?",
       "secenekler": [
         "A) The 1st, 2nd and 3rd days",
         "B) The 7th, 14th and 21st days",
@@ -554,7 +554,7 @@
         "D) The 10th, 20th and 30th days"
       ],
       "dogru_cevap": "C",
-      "aciklama": "The Eyyâm-ı Bîz fasts are observed on the 13th, 14th and 15th days of each month.",
+      "aciklama": "The Ayyam al-Bid fasts are observed on the 13th, 14th and 15th days of each month.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -636,7 +636,7 @@
     {
       "id": "oruc_043",
       "konu": "sahur-iftar",
-      "soru": "What is the meaning of the iftar supplication \"Zehebe'z-zamaü...\" given in the lessons?",
+      "soru": "What is the meaning of the iftar supplication \"Dhahaba adh-dhama...\" given in the lessons?",
       "secenekler": [
         "A) Thirst has gone, the veins are moistened, and the reward is assured, if Allah wills",
         "B) I intend to fast tomorrow",
@@ -644,7 +644,7 @@
         "D) My Lord, forgive me and my parents"
       ],
       "dogru_cevap": "A",
-      "aciklama": "The meaning of the supplication \"Zehebe'z-zamaü ve'btelletil-urûku ve sebete'l-ecru inşallah\" is: \"The thirst has gone, the veins are moistened, and the reward is assured, Allah willing.\"",
+      "aciklama": "The meaning of the supplication \"Dhahaba adh-dhama wabtallat al-uruq wa thabata al-ajr insha'Allah\" is: \"The thirst has gone, the veins are moistened, and the reward is assured, Allah willing.\"",
       "zorluk": "zor",
       "kaynak": "Basic knowledge of Islamic practice"
     },

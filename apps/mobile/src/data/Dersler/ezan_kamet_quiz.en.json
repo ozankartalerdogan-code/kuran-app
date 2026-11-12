@@ -160,7 +160,7 @@
       "secenekler": [
         "A) Allahu Ekber",
         "B) Hayye ale'l-felah",
-        "C) Eşhedu enne Muhammeden Resulullah",
+        "C) Ashhadu anna Muhammadan Rasulullah",
         "D) La ilahe illallah"
       ],
       "dogru_cevap": "D",
@@ -233,13 +233,13 @@
       "konu": "icabet",
       "soru": "What is it called when a person listening to the adhan quietly repeats after the muezzin?",
       "secenekler": [
-        "A) İcabet",
-        "B) Teressül",
+        "A) Ijaba",
+        "B) Tarassul",
         "C) Kamet",
         "D) Tertil"
       ],
       "dogru_cevap": "A",
-      "aciklama": "İcabet (repeating the appropriate responses upon hearing the adhan) is when a listener quietly repeats what the muezzin (the person giving the adhan) says. \"When you hear the adhan, say what the muezzin (the person giving the adhan) says.\" (Muslim, Salat 11)",
+      "aciklama": "Ijaba (repeating the appropriate responses upon hearing the adhan) is when a listener quietly repeats what the muezzin (the person giving the adhan) says. \"When you hear the adhan, say what the muezzin (the person giving the adhan) says.\" (Muslim, Salat 11)",
       "zorluk": "kolay",
       "kaynak": "Muslim, Salat 11"
     },
@@ -338,7 +338,7 @@
       "konu": "kamet",
       "soru": "How is the iqamah recited?",
       "secenekler": [
-        "A) Slowly and at length, like the adhan (with teressül)",
+        "A) Slowly and at length, like the adhan (with tarassul)",
         "B) Only by the imam and in a quiet voice",
         "C) From the minaret so that everyone can hear it",
         "D) It is recited quickly"
@@ -443,13 +443,13 @@
       "konu": "hukumler",
       "soru": "What is it called to recite the adhan slowly, pausing between its phrases?",
       "secenekler": [
-        "A) İcabet",
-        "B) Teressül",
+        "A) Ijaba",
+        "B) Tarassul",
         "C) Tertil",
-        "D) Tercî"
+        "D) Tarji"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Reciting the adhan slowly, with pauses between its phrases, is called teressül. An adhan recited with teressül can be heard over a wider area and gives listeners enough time to respond.",
+      "aciklama": "Reciting the adhan slowly, with pauses between its phrases, is called tarassul. An adhan recited with tarassul can be heard over a wider area and gives listeners enough time to respond.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -471,7 +471,7 @@
     {
       "id": "ezan_032",
       "konu": "mezhep",
-      "soru": "In which school of thought is the practice of tercî seen as a distinctive variation in the adhan?",
+      "soru": "In which school of thought is the practice of tarji seen as a distinctive variation in the adhan?",
       "secenekler": [
         "A) Hanafi",
         "B) Shafi'i",
@@ -479,14 +479,14 @@
         "D) Hanbali"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Tercî (reciting the phrases of testimony first quietly and then aloud) is the practice of repeating the phrases of testimony first quietly and then aloud. It is found among Shafi'is; it is not practiced in Hanafi or Maliki practice.",
+      "aciklama": "Tarji (reciting the phrases of testimony first quietly and then aloud) is the practice of repeating the phrases of testimony first quietly and then aloud. It is found among Shafi'is; it is not practiced in Hanafi or Maliki practice.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "ezan_033",
       "konu": "mezhep",
-      "soru": "According to Hanafi practice, what is required if the morning adhan is recited before fecr-i sadık?",
+      "soru": "According to Hanafi practice, what is required if the morning adhan is recited before true dawn?",
       "secenekler": [
         "A) It is valid and nothing is required",
         "B) It must be recited again once the time begins",
@@ -494,7 +494,7 @@
         "D) Only the supplication after the adhan is recited"
       ],
       "dogru_cevap": "B",
-      "aciklama": "In Hanafi practice, the morning adhan is recited after fecr-i sadık (true dawn/the time when fasting begins); if it was recited before the time began, it must be recited again once the time begins. Some schools of thought have a separate allowance for an early adhan.",
+      "aciklama": "In Hanafi practice, the morning adhan is recited after true dawn (true dawn/the time when fasting begins); if it was recited before the time began, it must be recited again once the time begins. Some schools of thought have a separate allowance for an early adhan.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     }

@@ -145,11 +145,11 @@
       "secenekler": [
         "A) \"Allahu Ekber\"",
         "B) \"Lebbeyk\"",
-        "C) \"Sübhanallah\"",
-        "D) \"Elhamdülillah\""
+        "C) \"Subhanallah\"",
+        "D) \"Alhamdulillah\""
       ],
       "dogru_cevap": "B",
-      "aciklama": "The talbiyah begins with the words \"Lebbeyk Allahümme lebbeyk...\" Meaning: \"Here I am, O Allah, here I am!\"",
+      "aciklama": "The talbiyah begins with the words \"Labbayka Allahumma labbayk...\" Meaning: \"Here I am, O Allah, here I am!\"",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -220,7 +220,7 @@
       "secenekler": [
         "A) \"Allahu Ekber\"",
         "B) \"Bismillah Allahu Ekber\"",
-        "C) \"Sübhanallah\"",
+        "C) \"Subhanallah\"",
         "D) \"Lebbeyk\""
       ],
       "dogru_cevap": "B",
@@ -743,13 +743,13 @@
       "konu": "temel",
       "soru": "What is the Arabic expression for \"accepted Hajj\" in the Prophet's ﷺ hadith, \"The reward for an accepted Hajj is nothing but Paradise\"?",
       "secenekler": [
-        "A) Hacc-ı ekber",
-        "B) Hacc-ı mebrur",
-        "C) Hacc-ı müfret",
-        "D) Hacc-ı kıran"
+        "A) Hajj al-akbar",
+        "B) Hajj mabrur",
+        "C) Hajj al-ifrad",
+        "D) Hajj al-qiran"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The expression \"el-hacc el-mebrur\" (hacc-ı mebrur) in the hadith means an accepted Hajj.",
+      "aciklama": "The expression \"el-hacc el-mebrur\" (Hajj mabrur) in the hadith means an accepted Hajj.",
       "zorluk": "zor",
       "kaynak": "Bukhari, Umrah 1; Muslim, Hajj 437"
     }

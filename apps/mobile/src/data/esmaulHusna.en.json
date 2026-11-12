@@ -3,7 +3,7 @@
     {
       "sira": 1,
       "arapca": "الرحمن",
-      "isim": "Er-Rahmân",
+      "isim": "Ar-Rahman",
       "anlam": "The One who shows infinite mercy to all creation in this world and the Hereafter",
       "kok": "ر ح م",
       "kokAnlam": "to show mercy and compassion"
@@ -11,7 +11,7 @@
     {
       "sira": 2,
       "arapca": "الرحيم",
-      "isim": "Er-Rahîm",
+      "isim": "Ar-Rahim",
       "anlam": "The One who grants special mercy and forgiveness to His believing servants in the Hereafter",
       "kok": "ر ح م",
       "kokAnlam": "to show mercy and compassion"
@@ -27,7 +27,7 @@
     {
       "sira": 4,
       "arapca": "القدوس",
-      "isim": "El-Kuddûs",
+      "isim": "Al-Quddus",
       "anlam": "The One who is completely free from every deficiency and flaw",
       "kok": "ق د س",
       "kokAnlam": "to cleanse, to sanctify, to become purified"
@@ -35,7 +35,7 @@
     {
       "sira": 5,
       "arapca": "السلام",
-      "isim": "Es-Selâm",
+      "isim": "As-Salam",
       "anlam": "The One who grants His servants peace and security and protects them from every danger",
       "kok": "س ل م",
       "kokAnlam": "peace, perfection, submission"
@@ -43,7 +43,7 @@
     {
       "sira": 6,
       "arapca": "المؤمن",
-      "isim": "El-Mü'min",
+      "isim": "Al-Mu'min",
       "anlam": "The One who gives safety and security and protects His believers from fears",
       "kok": "أ م ن",
       "kokAnlam": "to give assurance, to make secure"
@@ -51,7 +51,7 @@
     {
       "sira": 7,
       "arapca": "المهيمن",
-      "isim": "El-Müheymin",
+      "isim": "Al-Muhaymin",
       "anlam": "The One who watches over everything closely and keeps it under His control",
       "kok": "ه ي م ن",
       "kokAnlam": "to watch over, to protect and oversee"
@@ -59,7 +59,7 @@
     {
       "sira": 8,
       "arapca": "العزيز",
-      "isim": "El-Azîz",
+      "isim": "Al-Aziz",
       "anlam": "The One whose power extends over all things, the Mighty whom nothing can overcome",
       "kok": "ع ز ز",
       "kokAnlam": "to be mighty and invincible"
@@ -67,7 +67,7 @@
     {
       "sira": 9,
       "arapca": "الجبار",
-      "isim": "El-Cebbâr",
+      "isim": "Al-Jabbar",
       "anlam": "The One who mends what is broken and has the power to bring about whatever He wills",
       "kok": "ج ب ر",
       "kokAnlam": "to mend, to make good a deficiency, to set right by force"
@@ -75,7 +75,7 @@
     {
       "sira": 10,
       "arapca": "المتكبر",
-      "isim": "El-Mütekebbir",
+      "isim": "Al-Mutakabbir",
       "anlam": "The unique One to whom greatness and majesty alone belong",
       "kok": "ك ب ر",
       "kokAnlam": "to be great and exalted"
@@ -83,7 +83,7 @@
     {
       "sira": 11,
       "arapca": "الخالق",
-      "isim": "El-Hâlik",
+      "isim": "Al-Khaliq",
       "anlam": "The One who brings everything into existence from nothing and alone possesses the power to create",
       "kok": "خ ل ق",
       "kokAnlam": "to create from nothing, to decree"
@@ -91,7 +91,7 @@
     {
       "sira": 12,
       "arapca": "البارئ",
-      "isim": "El-Bâri'",
+      "isim": "Al-Bari'",
       "anlam": "The One who creates everything in perfect harmony",
       "kok": "ب ر أ",
       "kokAnlam": "to create perfectly and harmoniously"
@@ -107,7 +107,7 @@
     {
       "sira": 14,
       "arapca": "الغفار",
-      "isim": "El-Gaffâr",
+      "isim": "Al-Ghaffar",
       "anlam": "The One who repeatedly conceals and forgives sins",
       "kok": "غ ف ر",
       "kokAnlam": "to conceal, to forgive"
@@ -115,7 +115,7 @@
     {
       "sira": 15,
       "arapca": "القهار",
-      "isim": "El-Kahhâr",
+      "isim": "Al-Qahhar",
       "anlam": "The One who subdues everything and whose power nothing can resist",
       "kok": "ق ه ر",
       "kokAnlam": "to subdue, to prevail"
@@ -123,7 +123,7 @@
     {
       "sira": 16,
       "arapca": "الوهاب",
-      "isim": "El-Vehhâb",
+      "isim": "Al-Wahhab",
       "anlam": "The One who continually gives without expecting anything in return",
       "kok": "و ه ب",
       "kokAnlam": "to give freely, to bestow"
@@ -131,7 +131,7 @@
     {
       "sira": 17,
       "arapca": "الرزاق",
-      "isim": "Er-Rezzâk",
+      "isim": "Ar-Razzaq",
       "anlam": "The One who provides for every living creature and gives abundantly",
       "kok": "ر ز ق",
       "kokAnlam": "to provide sustenance and nourishment"
@@ -139,7 +139,7 @@
     {
       "sira": 18,
       "arapca": "الفتاح",
-      "isim": "El-Fettâh",
+      "isim": "Al-Fattah",
       "anlam": "The One who opens every closed door and the treasures of mercy",
       "kok": "ف ت ح",
       "kokAnlam": "to open, to bring to a solution"
@@ -147,7 +147,7 @@
     {
       "sira": 19,
       "arapca": "العليم",
-      "isim": "El-Alîm",
+      "isim": "Al-Alim",
       "anlam": "The One who knows everything completely, hidden and manifest, past and future",
       "kok": "ع ل م",
       "kokAnlam": "to know, to possess knowledge"
@@ -155,7 +155,7 @@
     {
       "sira": 20,
       "arapca": "القابض",
-      "isim": "El-Kâbid",
+      "isim": "Al-Qabid",
       "anlam": "The One who restricts sustenance, takes life, and brings about hardship in His wisdom",
       "kok": "ق ب ض",
       "kokAnlam": "to hold, to restrict, to take"
@@ -163,7 +163,7 @@
     {
       "sira": 21,
       "arapca": "الباسط",
-      "isim": "El-Bâsıt",
+      "isim": "Al-Basit",
       "anlam": "The One who expands sustenance and mercy and brings relief to hearts",
       "kok": "ب س ط",
       "kokAnlam": "to spread, to expand, to open"
@@ -171,7 +171,7 @@
     {
       "sira": 22,
       "arapca": "الخافض",
-      "isim": "El-Hâfid",
+      "isim": "Al-Khafid",
       "anlam": "The One who lowers the oppressors and the arrogant",
       "kok": "خ ف ض",
       "kokAnlam": "to lower, to bring down"
@@ -179,7 +179,7 @@
     {
       "sira": 23,
       "arapca": "الرافع",
-      "isim": "Er-Râfi'",
+      "isim": "Ar-Rafi'",
       "anlam": "The One who raises His worthy servants and the truth",
       "kok": "ر ف ع",
       "kokAnlam": "to raise, to lift up"
@@ -203,7 +203,7 @@
     {
       "sira": 26,
       "arapca": "السميع",
-      "isim": "Es-Semî'",
+      "isim": "As-Sami'",
       "anlam": "The One who hears every sound, every prayer, and every whisper",
       "kok": "س م ع",
       "kokAnlam": "to hear, to listen"
@@ -211,7 +211,7 @@
     {
       "sira": 27,
       "arapca": "البصير",
-      "isim": "El-Basîr",
+      "isim": "Al-Basir",
       "anlam": "The One who sees everything, hidden and manifest, down to the finest detail",
       "kok": "ب ص ر",
       "kokAnlam": "to see, to perceive with insight"
@@ -235,7 +235,7 @@
     {
       "sira": 30,
       "arapca": "اللطيف",
-      "isim": "El-Latîf",
+      "isim": "Al-Latif",
       "anlam": "The One who knows the finest details and treats His servants with grace",
       "kok": "ل ط ف",
       "kokAnlam": "subtlety, grace, gentleness"
@@ -243,7 +243,7 @@
     {
       "sira": 31,
       "arapca": "الخبير",
-      "isim": "El-Habîr",
+      "isim": "Al-Khabir",
       "anlam": "The One who knows the hidden inner reality and true state of everything",
       "kok": "خ ب ر",
       "kokAnlam": "to know the inner reality of something"
@@ -251,7 +251,7 @@
     {
       "sira": 32,
       "arapca": "الحليم",
-      "isim": "El-Halîm",
+      "isim": "Al-Halim",
       "anlam": "The One who treats even His disobedient servants with patience and gentleness",
       "kok": "ح ل م",
       "kokAnlam": "gentleness, forbearance without haste"
@@ -259,7 +259,7 @@
     {
       "sira": 33,
       "arapca": "العظيم",
-      "isim": "El-Azîm",
+      "isim": "Al-Azim",
       "anlam": "The One whose greatness and majesty surpass the limits of reason and imagination",
       "kok": "ع ظ م",
       "kokAnlam": "to be great and exalted"
@@ -267,7 +267,7 @@
     {
       "sira": 34,
       "arapca": "الغفور",
-      "isim": "El-Gafûr",
+      "isim": "Al-Ghafur",
       "anlam": "The One who forgives sins abundantly and whose forgiveness is vast",
       "kok": "غ ف ر",
       "kokAnlam": "to conceal, to forgive abundantly"
@@ -275,7 +275,7 @@
     {
       "sira": 35,
       "arapca": "الشكور",
-      "isim": "Eş-Şekûr",
+      "isim": "Ash-Shakur",
       "anlam": "The One who gives great rewards for a small good deed",
       "kok": "ش ك ر",
       "kokAnlam": "to reward goodness, to appreciate"
@@ -291,7 +291,7 @@
     {
       "sira": 37,
       "arapca": "الكبير",
-      "isim": "El-Kebîr",
+      "isim": "Al-Kabir",
       "anlam": "The One who is truly great, beside whom everything is small",
       "kok": "ك ب ر",
       "kokAnlam": "to be great and exalted"
@@ -299,7 +299,7 @@
     {
       "sira": 38,
       "arapca": "الحفيظ",
-      "isim": "El-Hafîz",
+      "isim": "Al-Hafiz",
       "anlam": "The One who preserves everything and protects it from perishing",
       "kok": "ح ف ظ",
       "kokAnlam": "to protect, to watch over, to preserve"
@@ -307,7 +307,7 @@
     {
       "sira": 39,
       "arapca": "المقيت",
-      "isim": "El-Mukît",
+      "isim": "Al-Muqit",
       "anlam": "The One who gives every living creature physical and spiritual strength",
       "kok": "ق و ت",
       "kokAnlam": "to give nourishment and strength, to nourish"
@@ -315,7 +315,7 @@
     {
       "sira": 40,
       "arapca": "الحسيب",
-      "isim": "El-Hasîb",
+      "isim": "Al-Hasib",
       "anlam": "The One who calls His servants to account for all their deeds and is just",
       "kok": "ح س ب",
       "kokAnlam": "to call to account, to be sufficient"
@@ -323,7 +323,7 @@
     {
       "sira": 41,
       "arapca": "الجليل",
-      "isim": "El-Celîl",
+      "isim": "Al-Jalil",
       "anlam": "The One who possesses awe and majesty, before whom all bow",
       "kok": "ج ل ل",
       "kokAnlam": "exaltation, awe, majesty"
@@ -331,7 +331,7 @@
     {
       "sira": 42,
       "arapca": "الكريم",
-      "isim": "El-Kerîm",
+      "isim": "Al-Karim",
       "anlam": "The One whose generosity is infinite and whose gifts are abundant and freely given",
       "kok": "ك ر م",
       "kokAnlam": "generosity, nobility, giving"
@@ -339,7 +339,7 @@
     {
       "sira": 43,
       "arapca": "الرقيب",
-      "isim": "Er-Rakîb",
+      "isim": "Ar-Raqib",
       "anlam": "The One who watches over His servants at every moment and from whom nothing escapes",
       "kok": "ر ق ب",
       "kokAnlam": "to watch over, to keep under observation"
@@ -347,7 +347,7 @@
     {
       "sira": 44,
       "arapca": "المجيب",
-      "isim": "El-Mucîb",
+      "isim": "Al-Mujib",
       "anlam": "The One who hears and answers every prayer",
       "kok": "ج و ب",
       "kokAnlam": "to answer, to respond"
@@ -355,7 +355,7 @@
     {
       "sira": 45,
       "arapca": "الواسع",
-      "isim": "El-Vâsi'",
+      "isim": "Al-Wasi'",
       "anlam": "The One whose mercy and knowledge are infinite and encompass everything",
       "kok": "و س ع",
       "kokAnlam": "to be vast, to encompass"
@@ -363,7 +363,7 @@
     {
       "sira": 46,
       "arapca": "الحكيم",
-      "isim": "El-Hakîm",
+      "isim": "Al-Hakim",
       "anlam": "The One who does everything with profound wisdom and purpose",
       "kok": "ح ك م",
       "kokAnlam": "wisdom, sound and appropriate judgment"
@@ -371,7 +371,7 @@
     {
       "sira": 47,
       "arapca": "الودود",
-      "isim": "El-Vedûd",
+      "isim": "Al-Wadud",
       "anlam": "The One who loves His servants infinitely and inspires them to love Him",
       "kok": "و د د",
       "kokAnlam": "to love, to cherish"
@@ -379,7 +379,7 @@
     {
       "sira": 48,
       "arapca": "المجيد",
-      "isim": "El-Mecîd",
+      "isim": "Al-Majid",
       "anlam": "The One whose glory and generosity are exalted and whose goodness is limitless",
       "kok": "م ج د",
       "kokAnlam": "glory, honor, exaltation"
@@ -387,7 +387,7 @@
     {
       "sira": 49,
       "arapca": "الباعث",
-      "isim": "El-Bâis",
+      "isim": "Al-Ba'ith",
       "anlam": "The One who raises the dead and brings them back to life on the Day of Judgment",
       "kok": "ب ع ث",
       "kokAnlam": "to raise to life, to send, to set in motion"
@@ -395,7 +395,7 @@
     {
       "sira": 50,
       "arapca": "الشهيد",
-      "isim": "Eş-Şehîd",
+      "isim": "Ash-Shahid",
       "anlam": "The One who personally witnesses everything, everywhere and at every moment",
       "kok": "ش ه د",
       "kokAnlam": "to witness, to bear witness"
@@ -411,7 +411,7 @@
     {
       "sira": 52,
       "arapca": "الوكيل",
-      "isim": "El-Vekîl",
+      "isim": "Al-Wakil",
       "anlam": "The One who takes care of the affairs of those who rely on Him in the best way",
       "kok": "و ك ل",
       "kokAnlam": "to take charge of affairs, to act as a representative"
@@ -427,7 +427,7 @@
     {
       "sira": 54,
       "arapca": "المتين",
-      "isim": "El-Metîn",
+      "isim": "Al-Matin",
       "anlam": "The One of infinite strength whom nothing can shake",
       "kok": "م ت ن",
       "kokAnlam": "to be firm, resilient, and strong"
@@ -443,7 +443,7 @@
     {
       "sira": 56,
       "arapca": "الحميد",
-      "isim": "El-Hamîd",
+      "isim": "Al-Hamid",
       "anlam": "The One who deserves all praise and commendation",
       "kok": "ح م د",
       "kokAnlam": "praise, to be worthy of praise"
@@ -451,7 +451,7 @@
     {
       "sira": 57,
       "arapca": "المحصي",
-      "isim": "El-Muhsî",
+      "isim": "Al-Muhsi",
       "anlam": "The One who knows the number and quantity of everything in the universe",
       "kok": "ح ص ي",
       "kokAnlam": "to count, to encompass completely"
@@ -467,7 +467,7 @@
     {
       "sira": 59,
       "arapca": "المعيد",
-      "isim": "El-Muîd",
+      "isim": "Al-Mu'id",
       "anlam": "The One who brings everything that has ceased to exist back into existence and raises the dead",
       "kok": "ع و د",
       "kokAnlam": "to bring back, to make again"
@@ -475,7 +475,7 @@
     {
       "sira": 60,
       "arapca": "المحيي",
-      "isim": "El-Muhyî",
+      "isim": "Al-Muhyi",
       "anlam": "The One who gives life to inanimate things and raises the dead",
       "kok": "ح ي ي",
       "kokAnlam": "to give life, to bring back to life"
@@ -483,7 +483,7 @@
     {
       "sira": 61,
       "arapca": "المميت",
-      "isim": "El-Mumît",
+      "isim": "Al-Mumit",
       "anlam": "The One who decrees death for every living creature and holds life and death in His hand",
       "kok": "م و ت",
       "kokAnlam": "to cause death, to take life"
@@ -499,7 +499,7 @@
     {
       "sira": 63,
       "arapca": "القيوم",
-      "isim": "El-Kayyûm",
+      "isim": "Al-Qayyum",
       "anlam": "The One who sustains everything by His own power, without whom nothing can exist",
       "kok": "ق و م",
       "kokAnlam": "to sustain, to bring into existence and govern"
@@ -507,7 +507,7 @@
     {
       "sira": 64,
       "arapca": "الواجد",
-      "isim": "El-Vâcid",
+      "isim": "Al-Wajid",
       "anlam": "The One who possesses everything He desires and lacks nothing",
       "kok": "و ج د",
       "kokAnlam": "to find, to obtain what one desires"
@@ -515,7 +515,7 @@
     {
       "sira": 65,
       "arapca": "الماجد",
-      "isim": "El-Mâcid",
+      "isim": "Al-Majid",
       "anlam": "The exalted One who possesses infinite honor and generosity",
       "kok": "م ج د",
       "kokAnlam": "to possess glory and honor"
@@ -523,7 +523,7 @@
     {
       "sira": 66,
       "arapca": "الواحد",
-      "isim": "El-Vâhid",
+      "isim": "Al-Wahid",
       "anlam": "The One who is one and unique in His essence, attributes, and actions",
       "kok": "و ح د",
       "kokAnlam": "to be one and unique"
@@ -547,7 +547,7 @@
     {
       "sira": 69,
       "arapca": "القادر",
-      "isim": "El-Kâdir",
+      "isim": "Al-Qadir",
       "anlam": "The One who has the power to do whatever He wills whenever He wills",
       "kok": "ق د ر",
       "kokAnlam": "to have power, measure and decree"
@@ -587,7 +587,7 @@
     {
       "sira": 74,
       "arapca": "الآخر",
-      "isim": "El-Âhir",
+      "isim": "Al-Akhir",
       "anlam": "The One who continues to exist even if everything perishes and has no end",
       "kok": "أ خ ر",
       "kokAnlam": "the Last, without end"
@@ -595,7 +595,7 @@
     {
       "sira": 75,
       "arapca": "الظاهر",
-      "isim": "Ez-Zâhir",
+      "isim": "Az-Zahir",
       "anlam": "The One whose signs of existence are plainly visible in everything He created",
       "kok": "ظ ه ر",
       "kokAnlam": "to be manifest, supreme, and clear"
@@ -603,7 +603,7 @@
     {
       "sira": 76,
       "arapca": "الباطن",
-      "isim": "El-Bâtın",
+      "isim": "Al-Batin",
       "anlam": "The One whose true essence cannot be fully grasped by any mind",
       "kok": "ب ط ن",
       "kokAnlam": "to be hidden, inward, and concealed"
@@ -611,7 +611,7 @@
     {
       "sira": 77,
       "arapca": "الوالي",
-      "isim": "El-Vâlî",
+      "isim": "Al-Wali",
       "anlam": "The sole authority who governs and manages the entire universe",
       "kok": "و ل ي",
       "kokAnlam": "to govern, to manage and take charge"
@@ -619,7 +619,7 @@
     {
       "sira": 78,
       "arapca": "المتعالي",
-      "isim": "El-Müteâlî",
+      "isim": "Al-Muta'ali",
       "anlam": "The One who is exalted beyond anything the mind can conceive",
       "kok": "ع ل و",
       "kokAnlam": "to be exalted above all things"
@@ -635,7 +635,7 @@
     {
       "sira": 80,
       "arapca": "التواب",
-      "isim": "Et-Tevvâb",
+      "isim": "At-Tawwab",
       "anlam": "The One who repeatedly forgives His servants who turn to Him in repentance",
       "kok": "ت و ب",
       "kokAnlam": "to accept repentance, to respond to a return"
@@ -643,7 +643,7 @@
     {
       "sira": 81,
       "arapca": "المنتقم",
-      "isim": "El-Müntakim",
+      "isim": "Al-Muntaqim",
       "anlam": "The One who punishes those who commit injustice and upholds what is right",
       "kok": "ن ق م",
       "kokAnlam": "to punish the guilty, to claim one's due"
@@ -651,7 +651,7 @@
     {
       "sira": 82,
       "arapca": "العفو",
-      "isim": "El-Afüvv",
+      "isim": "Al-Afuww",
       "anlam": "The One who completely erases sins without leaving a trace, whose forgiveness is vast",
       "kok": "ع ف و",
       "kokAnlam": "to forgive, to erase sin completely"
@@ -659,7 +659,7 @@
     {
       "sira": 83,
       "arapca": "الرؤوف",
-      "isim": "Er-Raûf",
+      "isim": "Ar-Ra'uf",
       "anlam": "The One who is exceedingly kind and merciful to His servants",
       "kok": "ر أ ف",
       "kokAnlam": "to be exceedingly kind and merciful"
@@ -667,7 +667,7 @@
     {
       "sira": 84,
       "arapca": "مالك الملك",
-      "isim": "Mâlikü'l-Mülk",
+      "isim": "Malik al-Mulk",
       "anlam": "The true Owner of all dominion, who gives it to whom He wills and takes it from whom He wills",
       "kok": "م ل ك",
       "kokAnlam": "to be the true owner of dominion"
@@ -675,7 +675,7 @@
     {
       "sira": 85,
       "arapca": "ذو الجلال والإكرام",
-      "isim": "Zü'l-Celâli ve'l-İkrâm",
+      "isim": "Dhul-Jalali wal-Ikram",
       "anlam": "The One who possesses the attributes of majesty and generosity to the highest degree",
       "kok": "ج ل ل / ك ر م",
       "kokAnlam": "to possess majesty and generosity"
@@ -691,7 +691,7 @@
     {
       "sira": 87,
       "arapca": "الجامع",
-      "isim": "El-Câmi'",
+      "isim": "Al-Jami'",
       "anlam": "The One who brings separate things together and gathers people on the Day of Judgment",
       "kok": "ج م ع",
       "kokAnlam": "to gather, to bring together"
@@ -707,7 +707,7 @@
     {
       "sira": 89,
       "arapca": "المغني",
-      "isim": "El-Muğnî",
+      "isim": "Al-Mughni",
       "anlam": "The One who enriches whichever of His servants He wills and relieves them of need",
       "kok": "غ ن ي",
       "kokAnlam": "to enrich, to relieve of need"
@@ -715,7 +715,7 @@
     {
       "sira": 90,
       "arapca": "المانع",
-      "isim": "El-Mâni'",
+      "isim": "Al-Mani'",
       "anlam": "The One who prevents harmful things and protects His servants",
       "kok": "م ن ع",
       "kokAnlam": "to prevent, to hold back, to protect"
@@ -723,7 +723,7 @@
     {
       "sira": 91,
       "arapca": "الضار",
-      "isim": "Ed-Dârr",
+      "isim": "Ad-Darr",
       "anlam": "The One who permits harm in accordance with His wisdom; everything happens by His decree",
       "kok": "ض ر ر",
       "kokAnlam": "to be able to cause harm (with wisdom)"
@@ -731,7 +731,7 @@
     {
       "sira": 92,
       "arapca": "النافع",
-      "isim": "En-Nâfi'",
+      "isim": "An-Nafi'",
       "anlam": "The true source of all benefit",
       "kok": "ن ف ع",
       "kokAnlam": "to grant benefit and goodness"
@@ -739,7 +739,7 @@
     {
       "sira": 93,
       "arapca": "النور",
-      "isim": "En-Nûr",
+      "isim": "An-Nur",
       "anlam": "The One who illuminates the heavens, the earth, and hearts",
       "kok": "ن و ر",
       "kokAnlam": "to give radiance, brightness, and light"
@@ -747,7 +747,7 @@
     {
       "sira": 94,
       "arapca": "الهادي",
-      "isim": "El-Hâdî",
+      "isim": "Al-Hadi",
       "anlam": "The One who guides His servants to the right path and the truth",
       "kok": "ه د ي",
       "kokAnlam": "to guide to the right path, to provide guidance"
@@ -755,7 +755,7 @@
     {
       "sira": 95,
       "arapca": "البديع",
-      "isim": "El-Bedî'",
+      "isim": "Al-Badi'",
       "anlam": "The One who creates uniquely and perfectly without any prior example",
       "kok": "ب د ع",
       "kokAnlam": "to bring into existence without equal or precedent"
@@ -763,7 +763,7 @@
     {
       "sira": 96,
       "arapca": "الباقي",
-      "isim": "El-Bâkî",
+      "isim": "Al-Baqi",
       "anlam": "While everything is temporary, His existence is eternal",
       "kok": "ب ق ي",
       "kokAnlam": "to be lasting and everlasting"
@@ -771,7 +771,7 @@
     {
       "sira": 97,
       "arapca": "الوارث",
-      "isim": "El-Vâris",
+      "isim": "Al-Warith",
       "anlam": "Even if everything perishes, He remains, the ultimate Owner of all things",
       "kok": "و ر ث",
       "kokAnlam": "to inherit, to remain and possess in the end"
@@ -779,7 +779,7 @@
     {
       "sira": 98,
       "arapca": "الرشيد",
-      "isim": "Er-Reşîd",
+      "isim": "Ar-Rashid",
       "anlam": "The One who conducts every matter in accordance with what is right and wise",
       "kok": "ر ش د",
       "kokAnlam": "to guide to what is right, to direct soundly"
@@ -787,7 +787,7 @@
     {
       "sira": 99,
       "arapca": "الصبور",
-      "isim": "Es-Sabûr",
+      "isim": "As-Sabur",
       "anlam": "The One who delays punishment and shows patience despite His servants' mistakes and rebellion",
       "kok": "ص ب ر",
       "kokAnlam": "to be patient, not to hasten punishment"

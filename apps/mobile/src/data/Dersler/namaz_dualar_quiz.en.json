@@ -6,7 +6,7 @@
     {
       "id": "namaz_dualar_001",
       "konu": "subhaneke",
-      "soru": "In which rak'ah of salah is Sübhaneke recited?",
+      "soru": "In which rak'ah of salah is Subhanaka recited?",
       "secenekler": [
         "A) In every rak'ah",
         "B) Only in the first rak'ah",
@@ -14,14 +14,14 @@
         "D) In the first and last rak'ahs"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Sübhaneke is recited only in the first rak'ah, immediately after the opening takbir. It is not recited in the other rak'ahs.",
+      "aciklama": "Subhanaka is recited only in the first rak'ah, immediately after the opening takbir. It is not recited in the other rak'ahs.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "namaz_dualar_002",
       "konu": "subhaneke",
-      "soru": "What is the ruling on reciting Sübhaneke?",
+      "soru": "What is the ruling on reciting Subhanaka?",
       "secenekler": [
         "A) Obligatory (fard)",
         "B) Required (wajib)",
@@ -29,7 +29,7 @@
         "D) Disliked (makruh)"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Reciting Sübhaneke is Sunnah. Omitting it does not invalidate salah, but reciting it brings great reward.",
+      "aciklama": "Reciting Subhanaka is Sunnah. Omitting it does not invalidate salah, but reciting it brings great reward.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -53,9 +53,9 @@
       "konu": "fatiha",
       "soru": "In Hanafi practice, what is said after Surah al-Fatihah?",
       "secenekler": [
-        "A) Sübhanallah",
+        "A) Subhanallah",
         "B) Amin",
-        "C) Elhamdülillah",
+        "C) Alhamdulillah",
         "D) Allahu Ekber"
       ],
       "dogru_cevap": "B",
@@ -66,7 +66,7 @@
     {
       "id": "namaz_dualar_005",
       "konu": "ruku-secde",
-      "soru": "What does 'Sübhâne Rabbiye'l-Azîm' mean?",
+      "soru": "What does 'Subhana Rabbiyal-Azim' mean?",
       "secenekler": [
         "A) My Lord, the Most High, is free from imperfection",
         "B) My Lord, the Magnificent, is free from all imperfection",
@@ -74,14 +74,14 @@
         "D) My Lord, forgive me"
       ],
       "dogru_cevap": "B",
-      "aciklama": "'Sübhâne Rabbiye'l-Azîm' — My Lord, the Magnificent, is free from all imperfection. It is recited while bowing.",
+      "aciklama": "'Subhana Rabbiyal-Azim' — My Lord, the Magnificent, is free from all imperfection. It is recited while bowing.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "namaz_dualar_006",
       "konu": "ruku-secde",
-      "soru": "What does 'Sübhâne Rabbiye'l-A'lâ' mean?",
+      "soru": "What does 'Subhana Rabbiyal-A'la' mean?",
       "secenekler": [
         "A) My Lord, the Magnificent, is free from all imperfection",
         "B) My Lord, the Most High, is free from all imperfection",
@@ -89,7 +89,7 @@
         "D) My Lord, forgive me"
       ],
       "dogru_cevap": "B",
-      "aciklama": "'Sübhâne Rabbiye'l-A'lâ' — My Lord, the Most High, is free from all imperfection. It is recited during prostration.",
+      "aciklama": "'Subhana Rabbiyal-A'la' — My Lord, the Most High, is free from all imperfection. It is recited during prostration.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -104,7 +104,7 @@
         "D) 7"
       ],
       "dogru_cevap": "A",
-      "aciklama": "Reciting 'Sübhâne Rabbiye'l-Azîm' at least once while bowing is sufficient. Reciting it 3 times is Sunnah.",
+      "aciklama": "Reciting 'Subhana Rabbiyal-Azim' at least once while bowing is sufficient. Reciting it 3 times is Sunnah.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -119,7 +119,7 @@
         "D) 7"
       ],
       "dogru_cevap": "B",
-      "aciklama": "It is Sunnah to recite 'Sübhâne Rabbiye'l-A'lâ' 3 times during prostration. Reciting it at least once is sufficient.",
+      "aciklama": "It is Sunnah to recite 'Subhana Rabbiyal-A'la' 3 times during prostration. Reciting it at least once is sufficient.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -188,13 +188,13 @@
       "konu": "oturus",
       "soru": "What is the first word of Tahiyyat?",
       "secenekler": [
-        "A) Allahümme",
-        "B) Ettehıyyatü",
-        "C) Eşhedü",
-        "D) Esselamü"
+        "A) Allahumma",
+        "B) At-tahiyyatu",
+        "C) Ashhadu",
+        "D) As-salamu"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Tahiyyat begins with 'Ettehıyyatü lillahi...' It is recited in every sitting of salah.",
+      "aciklama": "Tahiyyat begins with 'At-tahiyyatu lillahi...' It is recited in every sitting of salah.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -231,7 +231,7 @@
     {
       "id": "namaz_dualar_016",
       "konu": "kavme",
-      "soru": "What does 'Semi'allâhü limen hamideh', said when rising from bowing, mean?",
+      "soru": "What does 'Sami'allahu liman hamidah', said when rising from bowing, mean?",
       "secenekler": [
         "A) I declare my Magnificent Lord free from imperfection",
         "B) Allah hears the one who praises Him",
@@ -239,7 +239,7 @@
         "D) Allah is the Greatest"
       ],
       "dogru_cevap": "B",
-      "aciklama": "'Semi'allâhü limen hamideh' — Allah hears the one who praises Him. It is said when rising from bowing.",
+      "aciklama": "'Sami'allahu liman hamidah' — Allah hears the one who praises Him. It is said when rising from bowing.",
       "zorluk": "orta",
       "kaynak": "Bukhari, Adhan 122; Muslim, Salah 196"
     },
@@ -306,7 +306,7 @@
     {
       "id": "namaz_dualar_021",
       "konu": "subhaneke",
-      "soru": "What does the phrase 'Sübhânekellâhümme' in Sübhaneke mean?",
+      "soru": "What does the phrase 'Subhanaka Allahumma' in Subhanaka mean?",
       "secenekler": [
         "A) O Allah, I thank You",
         "B) O Allah, I declare You free from imperfection",
@@ -314,7 +314,7 @@
         "D) O Allah, forgive me"
       ],
       "dogru_cevap": "B",
-      "aciklama": "'Sübhânekellâhümme' — 'O Allah, I declare You free from all imperfection.' Sübhaneke begins with this phrase.",
+      "aciklama": "'Subhanakallahumma' — 'O Allah, I declare You free from all imperfection.' Subhanaka begins with this phrase.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -336,7 +336,7 @@
     {
       "id": "namaz_dualar_023",
       "konu": "namaz-sonrasi",
-      "soru": "How many times are Sübhanallah, Elhamdülillah, and Allahu Ekber each said after salah?",
+      "soru": "How many times are Subhanallah, Alhamdulillah, and Allahu Akbar each said after salah?",
       "secenekler": [
         "A) 10 - 10 - 10",
         "B) 33 - 33 - 33",
@@ -344,7 +344,7 @@
         "D) 7 - 7 - 7"
       ],
       "dogru_cevap": "B",
-      "aciklama": "After the salam, Sübhanallah, Elhamdülillah and Allahu Ekber are each recited 33 times.",
+      "aciklama": "After the salam, Subhanallah, Alhamdulillah and Allahu Akbar are each recited 33 times.",
       "zorluk": "kolay",
       "kaynak": "Bukhari, Adhan 155; Muslim, Masajid 144"
     },
@@ -359,14 +359,14 @@
         "D) Surah Ibrahim"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The supplication 'Rabbena Atina fi'd-dünya haseneten...' is taken from verse 201 of Surah al-Baqarah.",
+      "aciklama": "The supplication 'Rabbana atina fid-dunya hasanatan...' is taken from verse 201 of Surah al-Baqarah.",
       "zorluk": "zor",
       "kaynak": "Surah al-Baqarah 2:201"
     },
     {
       "id": "namaz_dualar_025",
       "konu": "rabbena",
-      "soru": "From which surah of the Qur'an is the 'Rabbenâğfir lî' supplication taken?",
+      "soru": "From which surah of the Qur'an is the 'Rabbanaghfir li' supplication taken?",
       "secenekler": [
         "A) Surah al-Fatihah",
         "B) Surah al-Baqarah",
@@ -374,7 +374,7 @@
         "D) Surah Ibrahim"
       ],
       "dogru_cevap": "D",
-      "aciklama": "The supplication 'Rabbenâğfir lî ve li valideyye...' is taken from verse 41 of Surah Ibrahim.",
+      "aciklama": "The supplication 'Rabbanaghfir li wa li walidayya...' is taken from verse 41 of Surah Ibrahim.",
       "zorluk": "zor",
       "kaynak": "Surah Ibrahim 14:41"
     },
@@ -396,7 +396,7 @@
     {
       "id": "namaz_dualar_027",
       "konu": "subhaneke",
-      "soru": "Which of the following is not included in the meaning of Sübhaneke?",
+      "soru": "Which of the following is not included in the meaning of Subhanaka?",
       "secenekler": [
         "A) Declaring Allah free from all imperfections",
         "B) Praising Allah",
@@ -404,7 +404,7 @@
         "D) Declaring that there is no god but You"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Sübhaneke includes declaring Allah free from all imperfections, praising Him and affirming that there is no other god. Asking for forgiveness is part of 'Rabbigfirli'.",
+      "aciklama": "Subhanaka includes declaring Allah free from all imperfections, praising Him and affirming that there is no other god. Asking for forgiveness is part of 'Rabbigfirli'.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -428,13 +428,13 @@
       "konu": "namaz-sonrasi",
       "soru": "Which of the following remembrances is recited after salah rather than during it?",
       "secenekler": [
-        "A) Sübhane Rabbiye'l-Azîm",
+        "A) Subhana Rabbiyal-Azim",
         "B) Rabbigfirli",
-        "C) Elhamdülillah (33 times)",
+        "C) Alhamdulillah (33 times)",
         "D) Semi'allahu limen hamideh"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Elhamdülillah is recited 33 times after salah. The others are remembrances recited during salah.",
+      "aciklama": "Alhamdulillah is recited 33 times after salah. The others are remembrances recited during salah.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -443,13 +443,13 @@
       "konu": "oturus",
       "soru": "In Hanafi teaching, which of the following is emphasized as wajib (obligatory) in salah?",
       "secenekler": [
-        "A) Sübhaneke",
+        "A) Subhanaka",
         "B) Tahiyyat",
         "C) Salli",
         "D) Barik"
       ],
       "dogru_cevap": "B",
-      "aciklama": "In Hanafi teaching, reciting Tahiyyat is taught as wajib (obligatory). Sübhaneke, Salli and Barik are Sunnah.",
+      "aciklama": "In Hanafi teaching, reciting Tahiyyat is taught as wajib (obligatory). Subhanaka, Salli and Barik are Sunnah.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     }

@@ -3,12 +3,12 @@
     "adimlar": [
       "After Fajr prayer: Recite 1 al-Fatihah + Ayat al-Kursi + 3 al-Ikhlas + 1 al-Falaq + 1 an-Nas.",
       "After Maghrib prayer: Repeat the same set. Recite into your palms and wipe them over your entire body.",
-      "Before going to bed: Recite Ayat al-Kursi + Amenerresulü (al-Baqarah 285-286).",
-      "When leaving home: Recite the supplication «Bismillâhi tevekkeltü alallâh, lâ havle ve lâ kuvvete illâ billâh»."
+      "Before going to bed: Recite Ayat al-Kursi + Amanar-Rasul (al-Baqarah 285-286).",
+      "When leaving home: Recite the supplication «Bismillahi tawakkaltu alallah, la hawla wa la quwwata illa billah»."
     ],
     "hadis": {
       "baslik": "Authentic Hadith Supplication — Morning and Evening Shield (Ibn Majah)",
-      "arapca": "Bismillâhillezî lâ yedurru me'asmihi şey'ün fil erdı ve lâ fissemâi ve hüves-semî'ul alîm.",
+      "arapca": "Bismillahil-ladhi la yadurru ma'asmihi shay'un fil ardi wa la fis-sama'i wa huwas-sami'ul alim.",
       "anlam": "In the name of Allah, with whose name nothing on earth or in heaven can cause harm.",
       "uygulama": "Recite 3 times each morning and evening."
     }
@@ -46,14 +46,14 @@
     ],
     "hadis": {
       "baslik": "Jibril's (peace be upon him) Ruqyah for the Evil Eye — Muslim, Ibn Majah (Authentic)",
-      "arapca": "Bismillâhi erkîke, min kulli şey'in yu'zîke, min şerri kulli nefsin ev ayni hâsidin, Allâhu yeşfîke, bismillâhi erkîke.",
+      "arapca": "Bismillahi arqika, min kulli shay'in yu'dhika, min sharri kulli nafsin aw ayni hasidin, Allahu yashfika, bismillahi arqika.",
       "anlam": "In the name of Allah, I perform ruqyah for you against everything that troubles you, against the evil of every living being and every envious eye. May Allah grant you healing.",
       "uygulama": "Recite it 7 times over the person you think has been affected by the evil eye."
     },
     "b": [
-      "For everything you admire, say, «Maşallah, may Allah protect it from the evil eye.»",
+      "For everything you admire, say, «Mashallah, may Allah protect it from the evil eye.»",
       "Every day, recite 3 al-Ikhlas + 1 al-Falaq + 1 an-Nas over children and blow on them.",
-      "Recite the supplication «Bismillâhillezî lâ yedurru...» 3 times each morning and evening."
+      "Recite the supplication «Bismillahil-ladhi la yadurru...» 3 times each morning and evening."
     ],
     "uyari": {
       "renk": "red",
@@ -69,7 +69,7 @@
       "Repeat morning and evening for 7 days."
     ],
     "b": [
-      "When you see someone else's blessing, say, «Maşallah, may Allah make it a source of good for them.»",
+      "When you see someone else's blessing, say, «Mashallah, may Allah make it a source of good for them.»",
       "When you feel envy, immediately seek Allah's forgiveness.",
       "Pray for the person you envy — this extinguishes the feeling.",
       "Recite Surahs al-Falaq and an-Nas morning and evening."
@@ -81,7 +81,7 @@
   },
   "b5": {
     "a": [
-      "Immediately say, «Eûzü billâhi mineş-şeytânir-racîm».",
+      "Immediately say, «A'udhu billahi min ash-shaytan ir-rajim».",
       "Spit lightly to your left 3 times (Sunnah).",
       "Recite verses 97-98 of al-Mu'minun 3 times.",
       "Hold fast to the remembrance «La ilahe illallah»."
@@ -102,13 +102,13 @@
       "Perform wudu and offer 2 rak'ahs of salah.",
       "Place your right hand on the painful area and say «Bismillah» 3 times.",
       "Recite al-Fatihah 7 times + al-Isra 82 7 times + Yunus 107 7 times.",
-      "Recite the supplication «Allâhumme Rabben-nâsi muzhibel-bâsi işfi enteş-Şâfî» 3 times.",
+      "Recite the supplication «Allahumma Rabban-nasi mudhhibal-ba'si ishfi antash-Shafi» 3 times.",
       "Blow on the painful area with each recitation.",
       "Repeat 3 times a day (morning, noon, and evening)."
     ],
     "hadis": {
       "baslik": "Supplication for Pain in a Specific Area — Muslim, Abu Dawud, Ibn Majah (Authentic)",
-      "arapca": "Eûzu billâhi ve kudretihî min şerri mâ ecidu ve uhâziru.",
+      "arapca": "A'udhu billahi wa qudratihi min sharri ma ajidu wa uhadhiru.",
       "anlam": "I seek refuge in Allah and His power from the evil of the pain I feel and fear.",
       "uygulama": "Place the right hand on the painful area, and after saying Bismillah 3 times, recite it 7 times."
     },
@@ -119,9 +119,9 @@
     "not": "The following suggestions for spiritual distress are supportive and do not replace medical or psychological support.",
     "b": [
       "Recite al-Fatihah every day while reflecting on its meaning.",
-      "Recite 100 times a day: «Lâ ilâhe illâ ente sübhâneke innî küntü minez-zâlimîn» (the supplication of Yunus).",
+      "Recite 100 times a day: «La ilaha illa anta subhanaka inni kuntu minaz-zalimin» (the supplication of Yunus).",
       "Recite al-Isra 82 over water 7 times and drink it for 7 days.",
-      "Frequently seek Allah's forgiveness: «Estağfirullâh» hundreds of times a day."
+      "Frequently seek Allah's forgiveness: «Astaghfirullah» hundreds of times a day."
     ]
   },
   "yapYapma": {
@@ -132,7 +132,7 @@
       "Seek healing and protection from Allah alone.",
       "Morning and evening: Ayat al-Kursi + 3 al-Ikhlas + al-Falaq + an-Nas.",
       "For the evil eye: Recite al-Qalam 51-52 and al-Falaq and an-Nas.",
-      "When intrusive thoughts come, recite the Eûzü and Besmele: «Eûzü billâhi mineş-şeytânir-racîm. Bismillâhir-rahmânir-rahîm.»",
+      "When intrusive thoughts come, recite the A'udhu and Bismillah: «A'udhu billahi min ash-shaytan ir-rajim. Bismillahir-rahmanir-rahim.»",
       "When ill: Use both medical care and the Qur'an together."
     ],
     "yapmaBaslik": "🔴 DON'T — Prohibited Practices",
@@ -158,7 +158,7 @@
         "aciklama": "Risk of disbelief — Allah alone knows the unseen."
       },
       {
-        "item": "Amulet / Temîme",
+        "item": "Amulet / Tamimah",
         "aciklama": "Risk of shirk / problematic area — Amulets with incomprehensible symbols are rejected. The safest course is to seek refuge in Allah by reciting the verses yourself."
       },
       {

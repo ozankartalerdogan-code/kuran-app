@@ -53,7 +53,7 @@
       "group": "Ahlak & Karakter",
       "group_order": 2,
       "order": 5,
-      "intro": "Truthfulness is one of the cornerstones of Islamic ethics. Even before receiving prophethood, the Prophet ﷺ was known as 'el-Emîn' (the trustworthy) and 'es-Sâdık' (the truthful). Lying, on the other hand, is a major sign of hypocrisy."
+      "intro": "Truthfulness is one of the cornerstones of Islamic ethics. Even before receiving prophethood, the Prophet ﷺ was known as 'al-Amin' (the trustworthy) and 'as-Sadiq' (the truthful). Lying, on the other hand, is a major sign of hypocrisy."
     },
     {
       "id": "sabir-sukur",
@@ -425,7 +425,7 @@
       "source_muslim": "Muslim, Prayer of Travellers, 779",
       "sunnah_url": "https://sunnah.com/bukhari:6407",
       "key_lesson": "Remembering Allah keeps the heart alive; when dhikr (remembrance of Allah) is abandoned, the heart loses its vitality.",
-      "info_note": "Dhikr: Remembering Allah, mentioning His name, glorifying Him (sübhanallah), thanking Him (elhamdülillah), and exalting Him (Allahu ekber). What matters is not only the tongue, but also the heart's connection to Allah.",
+      "info_note": "Dhikr: Remembering Allah, mentioning His name, glorifying Him (Subhanallah), thanking Him (Alhamdulillah), and exalting Him (Allahu akbar). What matters is not only the tongue, but also the heart's connection to Allah.",
       "tags": [
         "zikir",
         "kalp",
@@ -1396,13 +1396,13 @@
     {
       "id": "zikir-subhanallah",
       "topic_id": "dua-zikir",
-      "turkish_text": "The words 'Sübhânallah (Allah is free from every imperfection), elhamdülillah (all praise belongs to Allah), lâ ilâhe illallah (there is no god but Allah), and Allahu ekber (Allah is the Greatest)' are dearer to me than everything over which the sun rises.",
+      "turkish_text": "The words 'Subhanallah (Allah is free from every imperfection), Alhamdulillah (all praise belongs to Allah), la ilaha illallah (there is no god but Allah), and Allahu akbar (Allah is the Greatest)' are dearer to me than everything over which the sun rises.",
       "narrator": "Abu Hurairah (may Allah be pleased with him)",
       "source_bukhari": "Bukhari, Supplications (contextual)",
       "source_muslim": "Muslim, Remembrance, 2695",
       "sunnah_url": "https://sunnah.com/muslim:2695",
       "key_lesson": "These four short phrases of remembrance are more valuable than everything in the world; one should keep reciting them.",
-      "info_note": "Sübhânallah: Declaring Allah free from every flaw and imperfection. Elhamdülillah: Expressing that all praise and thanks belong to Allah. Lâ ilâhe illallah: Declaring that Allah alone is God. Allahu ekber: Saying that Allah is greater and more exalted than everything.",
+      "info_note": "Subhanallah: Declaring Allah free from every flaw and imperfection. Alhamdulillah: Expressing that all praise and thanks belong to Allah. La ilaha illallah: Declaring that Allah alone is God. Allahu akbar: Saying that Allah is greater and more exalted than everything.",
       "tags": [
         "zikir",
         "tesbih",
@@ -1752,7 +1752,7 @@
       "source_muslim": "Muslim, Wills, 1631",
       "sunnah_url": "https://sunnah.com/muslim:1631",
       "key_lesson": "Knowledge that is taught and passed on to others is one of the few deeds that continue to bring reward after death.",
-      "info_note": "Ongoing charity (sadaka-i câriye): Good works that provide lasting benefit to society, such as mosques, schools, and fountains. Beneficial knowledge: Knowledge that is taught to others and put to use. This hadith shows how valuable sharing knowledge is.",
+      "info_note": "Ongoing charity (sadaqah jariyah): Good works that provide lasting benefit to society, such as mosques, schools, and fountains. Beneficial knowledge: Knowledge that is taught to others and put to use. This hadith shows how valuable sharing knowledge is.",
       "tags": [
         "ilim",
         "olum",
@@ -1799,7 +1799,7 @@
     {
       "id": "cennet-kapi",
       "topic_id": "cennet-cehennem",
-      "turkish_text": "Paradise has eight gates; one of them is called Reyyân, and only those who fast enter through it.",
+      "turkish_text": "Paradise has eight gates; one of them is called Rayyan, and only those who fast enter through it.",
       "narrator": "Sahl ibn Sa'd (may Allah be pleased with him)",
       "source_bukhari": "Bukhari, Sawm, 1896",
       "source_muslim": "Muslim, Siyam, 1152",
@@ -2037,7 +2037,7 @@
     {
       "id": "zikir-iki-kelime",
       "topic_id": "dua-zikir",
-      "turkish_text": "There are two phrases that are light on the tongue, heavy on the scales and beloved to the Most Merciful: 'Sübhânallahi ve bihamdihî' and 'Sübhânallâhi'l-azîm'.",
+      "turkish_text": "There are two phrases that are light on the tongue, heavy on the scales and beloved to the Most Merciful: 'Subhanallahi wa bihamdihi' and 'Subhanallahil-azim'.",
       "narrator": "Abu Hurairah (may Allah be pleased with him)",
       "source_bukhari": "Bukhari, Supplications, 6406",
       "source_muslim": "Muslim, Remembrance, 2694",
@@ -2377,7 +2377,7 @@
     {
       "id": "zikir-subhanallah-bihamdihi-yuz",
       "topic_id": "dua-zikir",
-      "turkish_text": "Whoever says 'Sübhânallahi ve bihamdihî' one hundred times in a day will have their sins forgiven, even if they are as abundant as the foam of the sea.",
+      "turkish_text": "Whoever says 'Subhanallahi wa bihamdihi' one hundred times in a day will have their sins forgiven, even if they are as abundant as the foam of the sea.",
       "narrator": "Abu Hurayrah (may Allah be pleased with him)",
       "source_bukhari": "Bukhari, Da'wat, 6405",
       "source_muslim": "",
@@ -2394,7 +2394,7 @@
     {
       "id": "zikir-la-ilahe-illallah-yuz",
       "topic_id": "dua-zikir",
-      "turkish_text": "Whoever says 'Lâ ilâhe illallahu vahdehû lâ şerîke leh, lehü'l-mülkü ve lehü'l-hamdü ve hüve alâ kulli şey'in kadîr' one hundred times in a day earns a great reward and is protected from Satan that day.",
+      "turkish_text": "Whoever says 'La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa ala kulli shay'in qadir' one hundred times in a day earns a great reward and is protected from Satan that day.",
       "narrator": "Abu Hurayrah (may Allah be pleased with him)",
       "source_bukhari": "Bukhari, Da'wat, 6403",
       "source_muslim": "",
@@ -2463,7 +2463,7 @@
       "source_bukhari": "Bukhari, 9",
       "source_muslim": "Muslim, 35",
       "sunnah_url": "https://sunnah.com/bukhari:9",
-      "turkish_text": "Iman has more than seventy branches. The highest is Lâ ilâhe illallah, and the lowest is removing something harmful from the road.",
+      "turkish_text": "Iman has more than seventy branches. The highest is La ilaha illallah, and the lowest is removing something harmful from the road.",
       "key_lesson": "Iman is not merely a belief held in the heart; it is a complete way of life expressed through words, actions, and good character.",
       "info_note": "Grade: Agreed upon by Bukhari and Muslim.",
       "tags": [
@@ -2831,7 +2831,7 @@
       "source_bukhari": "Bukhari, 6409",
       "source_muslim": "Muslim, 2704",
       "sunnah_url": "https://sunnah.com/bukhari:6409",
-      "turkish_text": "Lâ havle ve lâ kuvvete illâ billâh is a treasure from the treasures of Paradise.",
+      "turkish_text": "La hawla wa la quwwata illa billah is a treasure from the treasures of Paradise.",
       "key_lesson": "This brief remembrance instills in the heart that true strength and help come only from Allah.",
       "info_note": "Grade: Agreed upon. This remembrance teaches that strength and success are possible only through Allah's help.",
       "tags": [
@@ -2847,7 +2847,7 @@
       "source_bukhari": "",
       "source_muslim": "Muslim, 223",
       "sunnah_url": "https://sunnah.com/muslim:223",
-      "turkish_text": "Purity is half of iman. Elhamdülillah fills the scale.",
+      "turkish_text": "Purity is half of iman. Alhamdulillah fills the scale.",
       "key_lesson": "When purity, remembrance and patience come together, they purify both the believer's body and inner life.",
       "info_note": "Grade: Sahih.",
       "tags": [
@@ -2911,7 +2911,7 @@
       "source_bukhari": "",
       "source_muslim": "Muslim, 2137",
       "sunnah_url": "https://sunnah.com/muslim:2137",
-      "turkish_text": "The words most beloved to Allah are: Sübhânallah, elhamdülillah, lâ ilâhe illallah and Allahu ekber.",
+      "turkish_text": "The words most beloved to Allah are: Subhanallah, Alhamdulillah, la ilaha illallah and Allahu akbar.",
       "key_lesson": "As the tongue remains engaged in remembrances beloved to Allah, the heart is purified and remains alive.",
       "info_note": "Grade: Sahih.",
       "tags": [

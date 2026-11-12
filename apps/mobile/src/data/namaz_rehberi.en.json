@@ -159,7 +159,7 @@
         "konum": "Qiyam (Standing)",
         "durum": "sunnet",
         "ne_zaman": "It is recited only in the first rak'ah of the prayer, immediately after the opening takbir.",
-        "dua": "Sübhânekellâhümme ve bi hamdike ve tebârekesmüke ve teâlâ ceddüke ve lâ ilâhe ğayrük.",
+        "dua": "Subhanaka Allahumma wa bihamdika wa tabarakasmuka wa ta'ala jadduka wa la ilaha ghayruk.",
         "dua_arapca": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَهَ غَيْرُكَ",
         "anlam": "O Allah! I declare You free of every imperfection and praise You. Your name is blessed, and Your glory is exalted. There is no deity but You.",
         "not": "Because it is Sunnah, forgetting it does not invalidate the prayer, but reciting it is very good."
@@ -171,7 +171,7 @@
         "konum": "Qiyam (Standing)",
         "durum": "sunnet",
         "ne_zaman": "It is recited only in the first rak'ah, after Subhanaka and before al-Fatihah.",
-        "dua": "Eûzü billâhi mine'ş-şeytâni'r-racîm. Bismillâhi'r-rahmâni'r-rahîm.",
+        "dua": "A'udhu billahi min ash-shaytan ir-rajim. Bismillahi r-rahmani r-rahim.",
         "dua_arapca": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
         "anlam": "I seek refuge in Allah from the accursed Satan. In the name of Allah, the Most Merciful, the Most Compassionate.",
         "not": "In the other rak'ahs, only the basmala is recited; the words seeking refuge are not recited."
@@ -183,7 +183,7 @@
         "konum": "Qiyam (Standing)",
         "durum": "farz",
         "ne_zaman": "It is recited in every rak'ah. In this guide, it is taught as the essential recitation of salah; its legal ruling and its recitation in congregational prayer may be explained differently across the schools of law.",
-        "dua": "Bismillâhi'r-rahmâni'r-rahîm. Elhamdü lillâhi rabbi'l-âlemîn. Er-rahmâni'r-rahîm. Mâliki yevmi'd-dîn. İyyâke na'budü ve iyyâke neste'în. İhdinâ's-sırâta'l-müstekîm. Sırâta'llezîne en'amte aleyhim ğayri'l-mağdûbi aleyhim ve le'd-dâllîn.",
+        "dua": "Bismillahi r-rahmani r-rahim. Alhamdu lillahi rabb il-'alamin. Ar-rahmani r-rahim. Maliki yawm id-din. Iyyaka na'budu wa iyyaka nasta'in. Ihdina s-sirat al-mustaqim. Sirat alladhina an'amta 'alayhim ghayr il-maghdubi 'alayhim wa la d-dallin.",
         "dua_arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
         "anlam": "In the name of Allah, the Most Merciful, the Most Compassionate. All praise belongs to Allah, Lord of the worlds. He is the Most Merciful, the Most Compassionate. Master of the Day of Judgment. You alone we worship, and You alone we ask for help. Guide us to the straight path: the path of those You have blessed, not those who have incurred anger or those who have gone astray.",
         "not": "Saying “Amin” quietly after al-Fatihah is a common Sunnah practice. The details of recitation in congregational prayer may vary between the schools of law."
@@ -294,7 +294,7 @@
         "konum": "Ruku (Bowing)",
         "durum": "sunnet",
         "aciklama": "Bow with your back straight, your hands on your knees, and your head level with your back.",
-        "dua": "Sübhâne Rabbiye'l-azîm.",
+        "dua": "Subhana Rabbiy al-'Azim.",
         "dua_arapca": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
         "anlam": "My Lord, the Most Great, is free from all imperfection.",
         "tekrar": "It is Sunnah to say it 3 times. It may also be said more times in odd numbers (5, 7...).",
@@ -306,10 +306,10 @@
         "isim": "Rising from Ruku",
         "konum": "Transition",
         "durum": "farz",
-        "dua": "Semi'allâhü limen hamideh. — Rabbena ve lekel hamd.",
+        "dua": "Sami'allahu liman hamidah. — Rabbana wa laka l-hamd.",
         "dua_arapca": "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ — رَبَّنَا وَلَكَ الْحَمْدُ",
         "anlam": "Allah hears those who praise Him. — Our Lord, all praise belongs to You.",
-        "aciklama": "While rising from ruku, say 'Semi'allahü limen hamideh'; once fully upright, say 'Rabbena ve lekel hamd'.",
+        "aciklama": "While rising from ruku, say 'Sami'allahu liman hamidah'; once fully upright, say 'Rabbana wa lakal hamd'.",
         "durum_detay": "Rising from ruku and standing fully upright is an important part of salah. The wording and rulings concerning the remembrances recited may be explained differently by different schools of law."
       },
       {
@@ -327,7 +327,7 @@
         "konum": "Sujud",
         "durum": "sunnet",
         "aciklama": "The forehead, nose, two hands, two knees, and toes touch the ground. Seven body parts make contact with the ground.",
-        "dua": "Sübhâne Rabbiye'l-a'lâ.",
+        "dua": "Subhana Rabbiy al-A'la.",
         "dua_arapca": "سُبْحَانَ رَبِّيَ الْأَعْلَى",
         "anlam": "My Lord, the Most High, is free from all imperfection.",
         "tekrar": "It is Sunnah to say it 3 times.",
@@ -377,29 +377,29 @@
     "dualar": [
       {
         "id": "tahiyyat",
-        "isim": "Tahiyyat (Ettehiyyatü)",
+        "isim": "Tahiyyat (At-tahiyyatu)",
         "ne_zaman": "It is recited in every sitting, both the first and the final sitting.",
         "durum": "vacip",
-        "dua": "Ettehıyyâtü lillâhi ve's-salavâtü ve't-tayyibât. Es-selâmü aleyke eyyühe'n-nebiyyü ve rahmetullâhi ve berekâtüh. Es-selâmü aleynâ ve alâ ibâdillâhi's-sâlihîn. Eşhedü en lâ ilâhe illallâh ve eşhedü enne Muhammeden abdühû ve rasûlüh.",
+        "dua": "At-tahiyyatu lillahi wa s-salawatu wa t-tayyibat. As-salamu 'alayka ayyuhan-nabiyyu wa rahmatullahi wa barakatuh. As-salamu 'alayna wa 'ala 'ibadillah is-salihin. Ashhadu an la ilaha illallah wa ashhadu anna Muhammadan 'abduhu wa rasuluh.",
         "dua_arapca": "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
         "anlam": "All acts of worship performed with the tongue, the body, and wealth belong to Allah. O Prophet! May Allah's peace, mercy, and blessings be upon you. Peace be upon us and upon Allah's righteous servants. I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and messenger.",
-        "parmak_notu": "Raise the index finger when saying 'Eşhedü' and lower it when saying 'illallah'."
+        "parmak_notu": "Raise the index finger when saying 'Ashhadu' and lower it when saying 'illallah'."
       },
       {
         "id": "salli",
-        "isim": "Allahümme Salli (Salli)",
+        "isim": "Allahumma Salli (Salli)",
         "ne_zaman": "It is recited only in the final sitting, after Tahiyyat.",
         "durum": "sunnet",
-        "dua": "Allâhümme salli alâ Muhammedin ve alâ âli Muhammed. Kemâ salleyte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+        "dua": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammad. Kama sallayta 'ala Ibrahima wa 'ala ali Ibrahim. Innaka hamidun majid.",
         "dua_arapca": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
         "anlam": "O Allah! Send blessings upon Muhammad and the family of Muhammad as You sent blessings upon Ibrahim and the family of Ibrahim. Surely You are Hamid, Mecid."
       },
       {
         "id": "barik",
-        "isim": "Allahümme Barik (Barik)",
+        "isim": "Allahumma Barik (Barik)",
         "ne_zaman": "It is recited only in the final sitting, after Salli.",
         "durum": "sunnet",
-        "dua": "Allâhümme bârik alâ Muhammedin ve alâ âli Muhammed. Kemâ bârekte alâ İbrâhîme ve alâ âli İbrâhîm. İnneke hamîdün mecîd.",
+        "dua": "Allahumma barik 'ala Muhammadin wa 'ala ali Muhammad. Kama barakta 'ala Ibrahima wa 'ala ali Ibrahim. Innaka hamidun majid.",
         "dua_arapca": "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
         "anlam": "O Allah! Bless Muhammad and the family of Muhammad as You blessed Ibrahim and the family of Ibrahim. Surely You are Hamid, Mecid."
       },
@@ -408,17 +408,17 @@
         "isim": "Rabbena Atina",
         "ne_zaman": "It is recited in the final sitting, after Salli and Barik.",
         "durum": "sunnet",
-        "dua": "Rabbenâ âtinâ fi'd-dünyâ haseneten ve fi'l-âhirati haseneten ve kınâ azâbe'n-nâr.",
+        "dua": "Rabbana atina fi d-dunya hasanatan wa fi l-akhirati hasanatan wa qina 'adhab an-nar.",
         "dua_arapca": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
         "anlam": "Our Lord! Give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
         "kuran_kaynagi": "Surah al-Baqarah 2:201"
       },
       {
         "id": "rabbena_gfirli",
-        "isim": "Rabbena Ğfirli",
+        "isim": "Rabbanaghfirli",
         "ne_zaman": "It is recited in the final sitting, after Rabbena Atina.",
         "durum": "sunnet",
-        "dua": "Rabbenağfirli ve li vâlideyye ve li'l-mü'minîne yevme yekûmü'l-hisâb.",
+        "dua": "Rabbana ghfir li wa liwalidayya wa lil-mu'minina yawma yaqum al-hisab.",
         "dua_arapca": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
         "anlam": "Our Lord! Forgive me, my parents, and all the believers on the Day of Reckoning.",
         "kuran_kaynagi": "Surah Ibrahim 14:41"
@@ -428,10 +428,10 @@
         "isim": "Qunut Supplication",
         "ne_zaman": "In the Hanafi witr described in this guide, it is recited while standing in the final rak'ah, after the additional surah and before ruku. The Shafi'i tradition also includes qunut in the dawn prayer.",
         "durum": "vacip",
-        "dua": "Allâhümme innâ neste'înüke ve nestağfirük. Ve nü'minü bike ve netevekkelü aleyke. Ve nüsnî aleyke'l-hayr. Ve neşküruke ve lâ nekfürük. Ve nahleu ve netrükü men yefcürük. Allâhümme iyyâke na'büdü ve leke nüsallî ve nescüdü. Ve ileyke nes'â ve nahfidü. Nercû rahmeteke ve nahşâ azâbek. İnne azâbeke bi'l-küffâri mülhak.",
+        "dua": "Allahumma inna nasta'inuka wa nastaghfiruk. Wa nu'minu bika wa natawakkalu 'alayka. Wa nuthni 'alayka l-khayr. Wa nashkuruka wa la nakfuruk. Wa nakhla'u wa natruku man yafjuruk. Allahumma iyyaka na'budu wa laka nusalli wa nasjudu. Wa ilayka nas'a wa nahfidu. Narju rahmataka wa nakhsha 'adhabak. Inna 'adhabaka bil-kuffari mulhaq.",
         "dua_arapca": "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ وَنَشْكُرُكَ وَلَا نَكْفُرُكَ وَنَخْلَعُ وَنَتْرُكُ مَنْ يَفْجُرُكَ اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَى وَنَحْفِدُ نَرْجُو رَحْمَتَكَ وَنَخْشَى عَذَابَكَ إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحَقٌ",
         "anlam": "O Allah! We seek Your help and ask Your forgiveness. We believe in You and put our trust in You. We praise You with goodness. We thank You and are not ungrateful to You. We leave those who disobey You. O Allah! You alone we worship; for You we pray and prostrate. To You alone we hasten and serve. We hope for Your mercy and fear Your punishment. Surely Your punishment reaches the disbelievers.",
-        "not": "This guide follows the Hanafi practice of qunut common in Türkiye. If you do not yet know the qunut supplication, you can continue with short supplications or “Rabbenâ âtinâ” until you memorize it."
+        "not": "This guide follows the Hanafi practice of qunut common in Türkiye. If you do not yet know the qunut supplication, you can continue with short supplications or “Rabbana atina” until you memorize it."
       }
     ],
     "selam": {
@@ -443,14 +443,14 @@
         {
           "sira": 1,
           "aciklama": "Slowly turn your head to the right, directing your gaze over your right shoulder.",
-          "dua": "Esselâmü aleyküm ve rahmetullâh.",
+          "dua": "As-salamu 'alaykum wa rahmatullah.",
           "dua_arapca": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
           "anlam": "May Allah's peace and mercy be upon you."
         },
         {
           "sira": 2,
           "aciklama": "Then turn your head to the left, directing your gaze over your left shoulder.",
-          "dua": "Esselâmü aleyküm ve rahmetullâh.",
+          "dua": "As-salamu 'alaykum wa rahmatullah.",
           "dua_arapca": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
           "anlam": "May Allah's peace and mercy be upon you."
         }
@@ -472,7 +472,7 @@
         {
           "baslik": "Takbir of qunut",
           "durum": "vacip",
-          "aciklama": "In the third rak'ah, after finishing the additional surah and before going into ruku, raise the hands to ear level, say 'Allâhu Ekber', and fold the hands again."
+          "aciklama": "In the third rak'ah, after finishing the additional surah and before going into ruku, raise the hands to ear level, say 'Allahu Akbar', and fold the hands again."
         },
         {
           "baslik": "Qunut supplication",
@@ -484,7 +484,7 @@
         {
           "rekat": "1st Rak'ah",
           "durum": "vacip",
-          "aciklama": "Make the intention by saying, 'I intend to perform the Witr prayer for the sake of Allah,' and say the opening takbir (Allâhu Ekber). Recite Sübhaneke → Eûzü-Besmele → al-Fatihah → an additional surah; perform ruku and two prostrations."
+          "aciklama": "Make the intention by saying, 'I intend to perform the Witr prayer for the sake of Allah,' and say the opening takbir (Allahu Akbar). Recite Subhanaka → A'udhu-Bismillah → al-Fatihah → an additional surah; perform ruku and two prostrations."
         },
         {
           "rekat": "2nd Rak'ah",
@@ -494,12 +494,12 @@
         {
           "rekat": "3rd Rak'ah",
           "durum": "vacip",
-          "aciklama": "Recite Besmele → al-Fatihah → an additional surah. After the additional surah, WITHOUT GOING INTO RUKU, raise the hands and say 'Allâhu Ekber' (the qunut takbir), fold the hands and recite the qunut supplication. Then go into ruku with 'Allâhu Ekber', perform two prostrations and move to the final sitting."
+          "aciklama": "Recite Bismillah → al-Fatihah → an additional surah. After the additional surah, WITHOUT GOING INTO RUKU, raise the hands and say 'Allahu Akbar' (the qunut takbir), fold the hands and recite the qunut supplication. Then go into ruku with 'Allahu Akbar', perform two prostrations and move to the final sitting."
         },
         {
           "rekat": "Final Sitting",
           "durum": "farz",
-          "aciklama": "Recite Tahiyyat → Salli → Barik → Rabbenâ in order, then complete the prayer by giving salam first to the right and then to the left."
+          "aciklama": "Recite Tahiyyat → Salli → Barik → Rabbana in order, then complete the prayer by giving salam first to the right and then to the left."
         }
       ],
       "kunut_dua_id": "qunut",
@@ -543,7 +543,7 @@
           "oturuş": "All supplications are recited (Tahiyyat + Salli + Barik + Rabbena)"
         }
       ],
-      "ozet_notu": "Briefly: Sübhaneke and Euzü are recited only in the first rak'ah. An additional surah is recited in the first two rak'ahs of a fard prayer and in every rak'ah of a Sunnah prayer. Al-Fatihah is recited in every rak'ah."
+      "ozet_notu": "Briefly: Subhanaka and A'udhu are recited only in the first rak'ah. An additional surah is recited in the first two rak'ahs of a fard prayer and in every rak'ah of a Sunnah prayer. Al-Fatihah is recited in every rak'ah."
     },
     "yeni_baslayan_notu": {
       "baslik": "I'm Just Starting; What Should I Do?",

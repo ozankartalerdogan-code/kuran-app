@@ -653,13 +653,13 @@
       "konu": "siyer",
       "soru": "What was the name of the educational platform established next to the Prophet's Mosque?",
       "secenekler": [
-        "A) Dârülerkam",
+        "A) Dar al-Arqam",
         "B) Suffe",
-        "C) Dârülhikme",
-        "D) Şi'b-i Ebî Tâlib"
+        "C) Dar al-Hikma",
+        "D) Shi'b Abi Talib"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The Suffe was an educational area established next to the Prophet's Mosque where Companions known as Ehlü's-Suffe studied. The mosque served as a center for worship, education, and administration.",
+      "aciklama": "The Suffe was an educational area established next to the Prophet's Mosque where Companions known as Ahl al-Suffa studied. The mosque served as a center for worship, education, and administration.",
       "zorluk": "zor",
       "kaynak": "Ibn Sa'd, Tabaqat"
     },
@@ -689,7 +689,7 @@
         "D) Ali"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The Prophet's ﷺ uncle Hamza was martyred at the Battle of Uhud. He is remembered by the title 'Seyyidü'ş-şühedâ' (master of the martyrs).",
+      "aciklama": "The Prophet's ﷺ uncle Hamza was martyred at the Battle of Uhud. He is remembered by the title 'Sayyid al-Shuhada' (master of the martyrs).",
       "zorluk": "zor",
       "kaynak": "Bukhari, Maghazi"
     },

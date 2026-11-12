@@ -57,7 +57,7 @@
       "id": "namaz_k08",
       "tip": "gorsel",
       "baslik": "Qiyam — Standing",
-      "icerik": "Qiyam is the standing part of salah. In Hanafi practice, the hands are folded below the navel, with the right hand over the left; in other schools of law, the position or manner of folding the hands may differ.\n\nIn the first rak'ah, Sübhaneke, Eûzü-Besmele, and al-Fatihah are recited. In subsequent rak'ahs, al-Fatihah is generally recited with the Besmele. The ruling on al-Fatihah is assessed differently by the schools of law; in practice, reciting al-Fatihah in every rak'ah is taught.",
+      "icerik": "Qiyam is the standing part of salah. In Hanafi practice, the hands are folded below the navel, with the right hand over the left; in other schools of law, the position or manner of folding the hands may differ.\n\nIn the first rak'ah, Subhanaka, A'udhu and Bismillah, and al-Fatihah are recited. In subsequent rak'ahs, al-Fatihah is generally recited with the Bismillah. The ruling on al-Fatihah is assessed differently by the schools of law; in practice, reciting al-Fatihah in every rak'ah is taught.",
       "gorsel": "namaz_kiyam",
       "vurgu": "Standing with reverence during qiyam is Sunnah · The position of the hands may differ by school of law"
     },
@@ -65,9 +65,9 @@
       "id": "namaz_k09",
       "tip": "gorsel",
       "baslik": "Ruku — Bowing",
-      "icerik": "Bend forward from the waist, place the hands on the knees, and keep the back straight. 'Sübhane Rabbiye'l-Azîm' is recited at least once; reciting it three times is Sunnah.",
+      "icerik": "Bend forward from the waist, place the hands on the knees, and keep the back straight. 'Subhana Rabbiyal-Azim' is recited at least once; reciting it three times is Sunnah.",
       "gorsel": "namaz_ruku",
-      "vurgu": "Sübhane Rabbiye'l-Azîm — Glory be to my Lord, the Magnificent"
+      "vurgu": "Subhana Rabbiyal-Azim — Glory be to my Lord, the Magnificent"
     },
     {
       "id": "namaz_k10",
@@ -81,7 +81,7 @@
       "id": "namaz_k11",
       "tip": "gorsel",
       "baslik": "Sujud — Prostration",
-      "icerik": "The forehead, nose, both hands, both knees, and toes touch the ground. 'Sübhane Rabbiye'l-A'lâ' is recited at least once; reciting it three times is Sunnah. Two prostrations are performed in each rak'ah.",
+      "icerik": "The forehead, nose, both hands, both knees, and toes touch the ground. 'Subhana Rabbiyal-A'la' is recited at least once; reciting it three times is Sunnah. Two prostrations are performed in each rak'ah.",
       "gorsel": "namaz_secde",
       "vurgu": "A servant is closest to Allah in prostration — Muslim"
     },
@@ -127,7 +127,7 @@
       "id": "namaz_k17",
       "tip": "metin",
       "baslik": "Making Up Missed Prayers",
-      "icerik": "A fard prayer that could not be performed on time is called a make-up prayer.\n\n'Whoever misses a prayer because of sleep or forgetfulness should perform it when they remember.' (Bukhari, Mevakît, 37; Muslim, Mesacid, 315)\n\nValid excuses (no sin): sleep, forgetfulness, illness, necessity.\nOmitting a prayer without an excuse (a sin): it must still be made up.\n\nNote: Jumu'ah, Eid and Sunnah prayers cannot be made up. Only fard and Witr prayers are made up.",
+      "icerik": "A fard prayer that could not be performed on time is called a make-up prayer.\n\n'Whoever misses a prayer because of sleep or forgetfulness should perform it when they remember.' (Bukhari, Prayer Times, 37; Muslim, Mosques, 315)\n\nValid excuses (no sin): sleep, forgetfulness, illness, necessity.\nOmitting a prayer without an excuse (a sin): it must still be made up.\n\nNote: Jumu'ah, Eid and Sunnah prayers cannot be made up. Only fard and Witr prayers are made up.",
       "vurgu": "A missed fard prayer must always be made up"
     },
     {
@@ -141,7 +141,7 @@
       "id": "namaz_k19",
       "tip": "metin",
       "baslik": "What Is Recited and When During Salah?",
-      "icerik": "The recitations in salah are summarized as follows:\n\n• In the first rak'ah: Sübhaneke, Eûzü-Besmele\n• In every rak'ah: al-Fatihah is recited; its ruling is assessed differently across the schools\n• In the first 2 rak'ahs of fard prayers: an additional surah is recited after al-Fatihah; this is considered wajib in the Hanafi school and Sunnah in the other schools\n• In ruku: Sübhane Rabbiye'l-Azîm (at least once)\n• In sujood: Sübhane Rabbiye'l-A'lâ (at least once)\n• While standing after ruku: Rabbena ve lekel hamd\n• While sitting between the two prostrations: Rabbigfirli",
+      "icerik": "The recitations in salah are summarized as follows:\n\n• In the first rak'ah: Subhanaka, A'udhu and Bismillah\n• In every rak'ah: al-Fatihah is recited; its ruling is assessed differently across the schools\n• In the first 2 rak'ahs of fard prayers: an additional surah is recited after al-Fatihah; this is considered wajib in the Hanafi school and Sunnah in the other schools\n• In ruku: Subhana Rabbiyal-Azim (at least once)\n• In sujood: Subhana Rabbiyal-A'la (at least once)\n• While standing after ruku: Rabbana wa lakal hamd\n• While sitting between the two prostrations: Rabbighfir li",
       "vurgu": "Al-Fatihah is taught in every rak'ah · Schools differ on the ruling for an additional surah"
     },
     {
@@ -162,7 +162,7 @@
       "id": "namaz_k22",
       "tip": "metin",
       "baslik": "Salam and Its Ruling",
-      "icerik": "Salah is completed with salam.\nFirst, towards the right shoulder: 'Esselamü aleyküm ve rahmetullah'\nThen, towards the left shoulder: 'Esselamü aleyküm ve rahmetullah'\nWhen salam is given, the prayer ends.",
+      "icerik": "Salah is completed with salam.\nFirst, towards the right shoulder: 'Assalamu alaykum wa rahmatullah'\nThen, towards the left shoulder: 'Assalamu alaykum wa rahmatullah'\nWhen salam is given, the prayer ends.",
       "vurgu": "Right shoulder first · Salah is completed with salam"
     },
     {
@@ -183,7 +183,7 @@
       "id": "namaz_k25",
       "tip": "metin",
       "baslik": "The Virtue of Salah",
-      "icerik": "The Prophet ﷺ said:\n\n\"The best deed in Allah's sight is prayer performed on time.\" (Bukhari, Edeb 1; Muslim, İman 139)\n\nSalah is the believer's ascension. A servant is closest to Allah while in sujood. (Muslim, Salat 215)\n\nSalah keeps a person away from evil. (al-Ankabut 29:45)",
+      "icerik": "The Prophet ﷺ said:\n\n\"The best deed in Allah's sight is prayer performed on time.\" (Bukhari, Manners 1; Muslim, Faith 139)\n\nSalah is the believer's ascension. A servant is closest to Allah while in sujood. (Muslim, Prayer 215)\n\nSalah keeps a person away from evil. (al-Ankabut 29:45)",
       "vurgu": "The best deed is prayer performed on time"
     },
     {
@@ -211,7 +211,7 @@
       "id": "namaz_k29",
       "tip": "metin",
       "baslik": "For Beginners: Your First Salah",
-      "icerik": "When learning salah, a beginner can first grasp its basic structure:\n\n1. Perform wudu\n2. Face the qiblah and make your intention in your heart\n3. Say 'Allahu Ekber' and fold your hands\n4. Recite al-Fatihah; if you know one, add a short surah\n5. Bow in ruku: 'Sübhane Rabbiye'l-Azîm'\n6. Stand upright\n7. Go into prostration: 'Sübhane Rabbiye'l-A'lâ'\n8. Sit, then prostrate again\n9. Complete the rak'ahs\n10. In the final sitting, recite Tahiyyat and give the salam\n\nThis summary is intended to help you begin learning. As you learn the Sunnah acts, wajib acts, supplications, and practices of the schools of law, your salah can be completed more correctly and beautifully.",
+      "icerik": "When learning salah, a beginner can first grasp its basic structure:\n\n1. Perform wudu\n2. Face the qiblah and make your intention in your heart\n3. Say 'Allahu Akbar' and fold your hands\n4. Recite al-Fatihah; if you know one, add a short surah\n5. Bow in ruku: 'Subhana Rabbiyal-Azim'\n6. Stand upright\n7. Go into prostration: 'Subhana Rabbiyal-A'la'\n8. Sit, then prostrate again\n9. Complete the rak'ahs\n10. In the final sitting, recite Tahiyyat and give the salam\n\nThis summary is intended to help you begin learning. As you learn the Sunnah acts, wajib acts, supplications, and practices of the schools of law, your salah can be completed more correctly and beautifully.",
       "vurgu": "This is a beginner's guide · Supplications, Sunnah acts, and details are added as you learn"
     },
     {
