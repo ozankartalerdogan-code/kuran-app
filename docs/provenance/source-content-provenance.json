@@ -1351,7 +1351,7 @@
       "artifacts": {
         "fileCount": 245,
         "totalBytes": 4130738,
-        "sha256": "373a94d6758fedacc2e4fb5aeb2c5cb67a19aa5dcf6e6c17cbe9484722d4ac9e",
+        "sha256": "67fe6ca62526bb24aef1214c476ec2ed7bf187bfbfa47f39942297e926861929",
         "files": [
           {
             "path": "apps/mobile/src/data/literalEn/001.json",
@@ -1401,7 +1401,7 @@
           {
             "path": "apps/mobile/src/data/literalEn/010.json",
             "bytes": 18892,
-            "sha256": "29f0291fda6daf1dc047a296684f3f72eb8482d4cfbcc58cc192d1fef856f158"
+            "sha256": "bc304c378d10cdeb77455e72d49e228a2c600406610836207b24b71f8e60c833"
           },
           {
             "path": "apps/mobile/src/data/literalEn/011.json",
@@ -1536,7 +1536,7 @@
           {
             "path": "apps/mobile/src/data/literalEn/037.json",
             "bytes": 11373,
-            "sha256": "77eb8ec3f0fd43345122a36ebc7a0475592436397a58a4aeebe492aed2c96075"
+            "sha256": "0ba4489ee64461ad3cc063c59744de43724ec81da3c4f9f7ddc33accae8fab8a"
           },
           {
             "path": "apps/mobile/src/data/literalEn/038.json",
@@ -1811,7 +1811,7 @@
           {
             "path": "apps/mobile/src/data/literalEn/092.json",
             "bytes": 1114,
-            "sha256": "90abfd9049e844851c235472f3282e28c2e1566584aaf6d5b54f90ef1b78cef3"
+            "sha256": "6e6ad9fc1e81469205edd197ebd1a6dd02d6c1879ef60bf5f2210ed4dfbed2f4"
           },
           {
             "path": "apps/mobile/src/data/literalEn/093.json",
