@@ -65,9 +65,10 @@ export function adjustHighLatitude<T extends Record<string, string>>(
   const noon = dhuhr - 5; // Dhuhr'a +5 dk temkin eklenmiş; güneşin tepe noktası
   const dec = declination(date.year, date.month, date.day);
   const D = 90 - absLat - dec * Math.sign(lat); // güneşin gece yarısı derinliği
-  // Diyanet tablolarına uydurulmuş katsayılar (enlemle hafif artar)
-  const kF = 0.6575 + 0.0045 * (absLat - 50);
-  const kI = 0.605 + 0.005 * (absLat - 50);
+  // Diyanet tablolarına uydurulmuş katsayılar: enlemle hafif artar, D'ye göre U biçimli.
+  // 8 şehirle uyduruldu, 6 farklı şehirde (Brüksel, Prag, Tallinn, Budapeşte, Hamburg, Münih) doğrulandı.
+  const kF = 0.66 + 0.001 * (absLat - 50) + 0.0002 * (D - 21) ** 2;
+  const kI = 0.605 + 0.001 * (absLat - 50) + 0.0004 * (D - 19) ** 2;
   const ishaNominal = /^(Europe|America)\//.test(timeZone) ? 16 : 17;
   const out: Record<string, string> = { ...times };
   // Açı 1°'nin altına inmez (gece yarısı güneşi bölgelerinde vakitler gün doğumu/batımına yapışmasın)
