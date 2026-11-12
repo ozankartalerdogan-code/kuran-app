@@ -237,7 +237,7 @@
         {
           "baslik": "Verses Recited for Protection at Night",
           "arapca": "(Ayat al-Kursi and al-Baqarah 285-286)",
-          "okunus": "(Ayat al-Kursi ve Amana ar-Rasulu ayetleri)",
+          "okunus": "(Ayat al-Kursi and the verses of Amana ar-Rasul)",
           "anlam": "This entry is a reminder of Ayat al-Kursi and the Amana ar-Rasul verses, which are recommended to be recited at night. Translations of these verses can be viewed in the relevant verse sections of the app.",
           "kaynak": "Bukhari, Wakalah, 10; Muslim, Musafirin, 257",
           "derece": "Sahih (Bukhari)",
@@ -261,7 +261,7 @@
         {
           "baslik": "Al-Mu'awwidhatayn (Protective Surahs)",
           "arapca": "Qul huwa Allahu ahad, Qul a'udhu bi rabbil-falaq, Qul a'udhu bi rabbin-nas.",
-          "okunus": "Ikhlas, Falaq ve Nas sureleri.",
+          "okunus": "Surahs al-Ikhlas, al-Falaq and an-Nas.",
           "anlam": "This entry serves as a reminder to recite Surahs al-Ikhlas, al-Falaq and an-Nas with the intention of seeking protection. Translations of the surahs can be viewed on their respective screens in the app.",
           "kaynak": "Bukhari, Fada'il al-Qur'an, 14; Tirmidhi, Da'awat, 22/3402; Hisn al-Muslim",
           "derece": "Sahih (Bukhari)",
@@ -278,8 +278,8 @@
       "dualar": [
         {
           "baslik": "Surahs for Protection from the Evil Eye",
-          "arapca": "Falaq ve Nas sureleri",
-          "okunus": "(Yukarıda A kategorisinde verilmiştir)",
+          "arapca": "Surahs al-Falaq and an-Nas",
+          "okunus": "(Given above in category A)",
           "anlam": "This entry serves as a reminder of the surahs recited for protection from the evil eye. Translations of the relevant surahs are available in the surah sections of the app.",
           "kaynak": "Bukhari, Tibb, 36; Muslim, Salam, 38/2188; Ibn Majah, Tibb, 31/3510; Hisn al-Muslim",
           "derece": "Sahih (Bukhari, Muslim)",
@@ -315,7 +315,7 @@
         {
           "baslik": "Healing with al-Fatihah, Protection with Ayat al-Kursi",
           "arapca": "Surah Al-Fatihah and Ayat al-Kursi",
-          "okunus": "Bu bölümde Fatiha sûresi ve Ayat al-Kursi okunur.",
+          "okunus": "In this section, Surah al-Fatihah and Ayat al-Kursi are recited.",
           "anlam": "This entry serves as a reminder to recite Surah al-Fatihah with the intention of seeking healing and Ayat al-Kursi with the intention of seeking protection. Translations of the relevant texts can be viewed on the surah and verse screens in the app.",
           "kaynak": "Abu Dawud, Tibb, 19/3900 (reciting al-Fatihah in ruqyah); Bukhari, Wakala, 10 (on protection at night through Ayat al-Kursi)",
           "derece": "Sahih (general narrations on healing and protection)",
@@ -326,8 +326,8 @@
         },
         {
           "baslik": "Verses to Be Recited Against Envy",
-          "arapca": "Baqarah Suresi 102. ayet, Falaq suresi 5. ayet, Kalem Suresi 51-52. ayetler",
-          "okunus": "Bu bölümde adı geçen ayetler okunur.",
+          "arapca": "Surah al-Baqarah 102, Surah al-Falaq 5, Surah al-Qalam 51-52",
+          "okunus": "In this section, the verses mentioned are recited.",
           "anlam": "A translation of the Quran should be consulted for the meaning of these verses.",
           "kaynak": "The Quran; Tirmidhi, Tafsir, 68/3310 (hasan-sahih)",
           "derece": "Quran",
@@ -369,7 +369,7 @@
         {
           "baslik": "Verses and Surahs Recited for Protection from Satan",
           "arapca": "Ayat al-Kursi, Surahs Al-Ikhlas, Al-Falaq, An-Nas",
-          "okunus": "(İlgili ayet ve surelerin okunuşu)",
+          "okunus": "(Recitation of the related verses and surahs)",
           "anlam": "This entry brings together reminders of the verses and surahs recited for protection from Satan. Translations of the relevant texts can be viewed in the surah and verse sections of the app.",
           "kaynak": "Bukhari, Wakala, 10; Muslim, Salat, 222/813",
           "derece": "Sahih (the virtues of the relevant verses and surahs are established)",
@@ -549,7 +549,7 @@
         {
           "baslik": "Protection at Home Through the Quran and Remembrance",
           "arapca": "Surah Al-Baqarah and Ayat al-Kursi",
-          "okunus": "Bu bölümde Baqarah sûresi ve Ayat al-Kursi gibi ilgili metinler okunur.",
+          "okunus": "In this section, related passages such as Surah al-Baqarah and Ayat al-Kursi are recited.",
           "anlam": "This entry serves as a reminder of the intention to seek protection through recitation of the Quran and remembrance at home. Translations of the relevant verses and surahs can be found in their respective sections in the app.",
           "kaynak": "Muslim, Musafirin, 212/780 (Satan does not enter a home in which Surah al-Baqarah is recited); Bukhari, Wakalah, 10 (on the protection provided by Ayat al-Kursi at night)",
           "derece": "Sahih (general narrations concerning protection)",
@@ -561,7 +561,7 @@
         {
           "baslik": "Toilet Etiquette and Supplications",
           "arapca": "(Entering) اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبْثِ وَالْخَبَائِثِ - (Leaving) غُفْرَانَكَ",
-          "okunus": "(Giriş) Allahumma inni a'udhu bika mina'l-khubuthi wa'l-khaba'ith. - (Çıkış) Ghufranaka.",
+          "okunus": "(Entering) Allahumma inni a'udhu bika mina'l-khubuthi wa'l-khaba'ith. - (Leaving) Ghufranaka.",
           "anlam": "When entering: O Allah! I seek refuge in You from male and female devils. When leaving: I seek Your forgiveness.",
           "kaynak": "(Entering) Bukhari, Wudu, 9/142; Muslim, Hayd, 17/375; (Leaving) Abu Dawud, Taharah, 20/30; Tirmidhi, Taharah, 14/7 (hasan)",
           "derece": "Sahih (Bukhari, Muslim)",
@@ -644,8 +644,8 @@
         },
         {
           "baslik": "Protecting Children with Surahs al-Falaq and an-Nas",
-          "arapca": "Falaq ve Nas sureleri",
-          "okunus": "Bu bölümde Falaq ve Nas sûreleri okunur.",
+          "arapca": "Surahs al-Falaq and an-Nas",
+          "okunus": "In this section, Surahs al-Falaq and an-Nas are recited.",
           "anlam": "This entry is a reminder to recite Surahs al-Falaq and an-Nas for children. Translations of the surahs are available on their respective screens in the app.",
           "kaynak": "Muslim, Peace, 38/2188; Tirmidhi, Supplications, 22/3402",
           "derece": "Sahih (the protective virtue of the surahs)",
@@ -657,7 +657,7 @@
         {
           "baslik": "Reciting Ayat al-Kursi at Night",
           "arapca": "Ayat al-Kursi (Al-Baqarah 255)",
-          "okunus": "Bu bölümde gece Ayat al-Kursi okunur.",
+          "okunus": "In this section, Ayat al-Kursi is recited at night.",
           "anlam": "This entry is a reminder to recite Ayat al-Kursi at night. A translation of the verse can be viewed on the relevant verse screen in the app.",
           "kaynak": "Bukhari, Agency, 10; Nasa'i, Actions of the Day, 100",
           "derece": "Sahih (the virtue of reciting it at night)",
@@ -813,7 +813,7 @@
         {
           "baslik": "Verses and Surahs to Recite During Illness",
           "arapca": "Surahs Al-Ikhlas, Al-Falaq, An-Nas; Surah Al-Fatihah",
-          "okunus": "(İlgili sure ve ayetlerin okunuşu)",
+          "okunus": "(Recitation of the related surahs and verses)",
           "anlam": "This entry is a reminder of the surahs and verses recited during illness. Translations of the relevant texts can be found in the surah and verse sections of the app.",
           "kaynak": "Muslim, Salam 50/2192 (al-Ikhlas, al-Falaq, an-Nas); Abu Dawud, Tibb 19/3900 (al-Fatihah); Hisn al-Muslim",
           "derece": "Sahih (narrations on ruqyah and healing)",
@@ -1011,7 +1011,7 @@
         {
           "baslik": "Repeating the Adhan and Sending Blessings",
           "arapca": "(Repeat each phrase of the muezzin; when you hear \"Hayya ala as-salah\" and \"Hayya ala al-falah\", say \"La hawla wa la quwwata illa billah\")",
-          "okunus": "Müezzin ne diyorsa aynısını tekrar et; \"Hayya 'ala-s-salah\" ve \"Hayya 'ala-l-falah\" için \"La hawla wa la quwwata illa billah\" de.",
+          "okunus": "Repeat whatever the muezzin says; for \"Hayya 'ala-s-salah\" and \"Hayya 'ala-l-falah\", say \"La hawla wa la quwwata illa billah\".",
           "anlam": "There is no power or strength except with Allah's help.",
           "kaynak": "Bukhari, Adhan 7/611; Muslim, Salat 11/383; Abu Dawud, Salat 37/527; Hisn al-Muslim",
           "derece": "Sahih (Bukhari, Muslim)",
@@ -1095,7 +1095,7 @@
         {
           "baslik": "Praising Allah After Sneezing",
           "arapca": "الْحَمْدُ لِلَّهِ",
-          "okunus": "Alhamdulillah. (veya: Alhamdu lillahi 'ala kulli hal)",
+          "okunus": "Alhamdulillah. (or: Alhamdu lillahi 'ala kulli hal)",
           "anlam": "Praise be to Allah. (Or: Praise be to Allah in all circumstances.)",
           "kaynak": "Bukhari, Adab 126/6224; Abu Dawud, Adab 91/5028; Tirmidhi, Adab 3/2742; Ibn Majah, Adab 20/3714; Hisn al-Muslim",
           "derece": "Sahih (Bukhari)",
@@ -1196,8 +1196,8 @@
         },
         {
           "baslik": "The First 10 Verses of Surah al-Kahf",
-          "arapca": "(Kahf Suresi, 1-10. ayetler)",
-          "okunus": "(Kahf Suresinin ilk 10 ayeti)",
+          "arapca": "(Surah al-Kahf, verses 1-10)",
+          "okunus": "(The first 10 verses of Surah al-Kahf)",
           "anlam": "This entry is a reminder to recite the first 10 verses of Surah al-Kahf. The translation of the verses can be viewed on the relevant surah screen in the app.",
           "kaynak": "Muslim, Musafirin 257/809; Abu Dawud, Malahim 14/4323; Nasa'i, Salat al-Layl 19; Hisn al-Muslim",
           "derece": "Sahih (Muslim)",
