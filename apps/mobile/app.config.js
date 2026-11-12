@@ -77,6 +77,10 @@ module.exports = {
       permissions: [
         'android.permission.ACCESS_COARSE_LOCATION',
         'android.permission.POST_NOTIFICATIONS',
+        // Namaz bildirimi tam vaktinde: expo-notifications izin varsa setExactAndAllowWhileIdle
+        // kullanır; yoksa Android 19 dk–1 saat erteleyebiliyor (cihazda ölçüldü: 17 dk).
+        // Kullanıcının verdiği izin (Alarmlar ve hatırlatıcılar); USE_EXACT_ALARM DEĞİL.
+        'android.permission.SCHEDULE_EXACT_ALARM',
       ],
       // Otomatik eklenen ama İSTEMEDİĞİMİZ izinleri engelle:
       //  • ACCESS_FINE_LOCATION (expo-location ekler) → kıble/namaz için COARSE yeter,

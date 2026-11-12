@@ -81,7 +81,17 @@ function widgetStrings(): WidgetStr {
   }
 }
 
-export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; theme?: Theme }) {
+// Meal satır sayısı widget yüksekliğinden (dp) hesaplanır — sabit 2 satır, büyütülmüş
+// widget'ta altta boşluk bırakıp metni "…" ile kesiyordu. Sabit kısımlar: dış padding
+// 24 + başlık satırı 36+4 + (varsa) Arapça 2 satır ~44+4. Meal satırı 12sp ≈ 18dp
+// (sistem yazı boyutu büyükse taşmasın diye cömert). Yükseklik bilinmiyorsa 2 satır.
+export function mealMaxLines(heightDp: number | undefined, hasArabic: boolean): number {
+  if (!heightDp || !Number.isFinite(heightDp)) return 2;
+  const free = heightDp - 24 - 40 - (hasArabic ? 48 : 0);
+  return Math.max(2, Math.min(14, Math.floor(free / 18)));
+}
+
+export function EmirAyetWidget({ ayet, theme = "light", heightDp }: { ayet: EmirAyet; theme?: Theme; heightDp?: number }) {
   const c = PALETTES[theme];
   const ws = widgetStrings();
   const meal = widgetMeal(ayet);
@@ -141,7 +151,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
       <TextWidget
         text={meal}
         style={{ color: c.textSecondary, fontSize: 12 }}
-        maxLines={2}
+        maxLines={mealMaxLines(heightDp, !!ayet.arabic_text)}
         truncate="END"
       />
     </FlexWidget>
@@ -181,7 +191,7 @@ function EmirAyetWidgetFallback({ theme = "light" }: { theme?: Theme }) {
 // Tek noktadan {light, dark} çifti üretir — widget-task-handler.tsx ve
 // widgetRefresh.ts bu yardımcıyı ortak kullanır, aksiyon/render eşleştirmesi
 // tekilleşir. ayet null ise (boş havuz) fallback görünümü döner.
-export function buildEmirWidgetRepresentation(ayet: EmirAyet | null): {
+export function buildEmirWidgetRepresentation(ayet: EmirAyet | null, heightDp?: number): {
   light: React.JSX.Element;
   dark: React.JSX.Element;
 } {
@@ -192,7 +202,7 @@ export function buildEmirWidgetRepresentation(ayet: EmirAyet | null): {
     };
   }
   return {
-    light: <EmirAyetWidget ayet={ayet} theme="light" />,
-    dark: <EmirAyetWidget ayet={ayet} theme="dark" />,
+    light: <EmirAyetWidget ayet={ayet} theme="light" heightDp={heightDp} />,
+    dark: <EmirAyetWidget ayet={ayet} theme="dark" heightDp={heightDp} />,
   };
 }

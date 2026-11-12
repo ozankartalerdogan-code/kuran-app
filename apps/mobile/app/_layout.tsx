@@ -13,6 +13,7 @@ import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
 import { AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotifications";
+import { maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
 // Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
 import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
 // Import yan etkisi önemli: widget arka plan görevi tanımı global kapsamda kurulur.
@@ -301,6 +302,9 @@ function RootLayout() {
     // (aksi halde bir kullanıcıda bildirimler hiç planlanmasa bile fark edilmez).
     const reportUnexpected = (err: unknown) => { Sentry.captureException(err); };
     ensureNotificationsFresh().catch(reportUnexpected);
+    // Bildirimleri zaten açık olan (güncellemeyle gelen) kullanıcıya tam-vaktinde
+    // alarm iznini bir kez sor; açılış ekranı geçsin diye biraz bekle.
+    const exactT = setTimeout(() => { void maybePromptExactAlarm().catch(() => {}); }, 2500);
     // Uygulama kapalıyken de tazeleme: OS'e periyodik arka plan görevi kaydet
     // (yeni build gerektirir; eski build'de sessiz no-op).
     registerBackgroundRefresh().catch(reportUnexpected);
@@ -309,7 +313,7 @@ function RootLayout() {
     const sub = AppState.addEventListener("change", (state) => {
       if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
     });
-    return () => sub.remove();
+    return () => { sub.remove(); clearTimeout(exactT); };
   }, []);
 
   if (!ready) return <AppSplash onFinish={handleSplashFinish} />;
