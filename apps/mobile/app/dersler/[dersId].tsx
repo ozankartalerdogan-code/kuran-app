@@ -43,6 +43,17 @@ const GORSEL_MAP: Record<string, number> = {
   namaz_tesehhud: require("../../assets/images/namaz/tesehhud.jpg"),
   namaz_selam:    require("../../assets/images/namaz/selam.jpg"),
 };
+// İngilizce arayüzde görseller içindeki yazılar İngilizce olan sürümlerle değişir.
+const GORSEL_MAP_EN: Record<string, number> = {
+  namaz_tekbir:   require("../../assets/images/namaz/tekbir_en.jpg"),
+  namaz_kiyam:    require("../../assets/images/namaz/kiyam_en.jpg"),
+  namaz_ruku:     require("../../assets/images/namaz/ruku_en.jpg"),
+  namaz_kavme:    require("../../assets/images/namaz/kavme_en.jpg"),
+  namaz_secde:    require("../../assets/images/namaz/secde_en.jpg"),
+  namaz_celse:    require("../../assets/images/namaz/celse_en.jpg"),
+  namaz_tesehhud: require("../../assets/images/namaz/tesehhud_en.jpg"),
+  namaz_selam:    require("../../assets/images/namaz/selam_en.jpg"),
+};
 
 // DERS_DATA, getQuiz, BASLIKLAR → dersler_registry.ts'ten import edildi
 
@@ -189,7 +200,7 @@ export default function DersDetayScreen() {
   const isFirst  = dersIndex === 0;
   const isLast   = dersIndex === total - 1;
   const dersProgressW = `${Math.round(((dersIndex + 1) / total) * 100)}%` as const;
-  const gorselSrc = kart?.tip === "gorsel" && kart.gorsel ? (GORSEL_MAP[kart.gorsel] ?? null) : null;
+  const gorselSrc = kart?.tip === "gorsel" && kart.gorsel ? ((lang === "en" ? GORSEL_MAP_EN[kart.gorsel] : undefined) ?? GORSEL_MAP[kart.gorsel] ?? null) : null;
 
   // ── Ders handlers ──
   const navigateDers = (dir: 1 | -1) => {
