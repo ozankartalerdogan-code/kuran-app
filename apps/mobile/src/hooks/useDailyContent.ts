@@ -4,6 +4,7 @@ import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
 import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
+import { aladhanTzParam } from "../lib/timeZone";
 
 interface DailyVerse {
   verse_key: string;
@@ -347,7 +348,7 @@ export function useDailyContent(): UseDailyContentResult {
 
     fetch(
       // school=0: Türkiye genelinde yaygın ikindi yöntemini hesaplar (school=1/Hanefi İkindi'yi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=0&midnightMode=0&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
     )
       .then((r) => r.json())
