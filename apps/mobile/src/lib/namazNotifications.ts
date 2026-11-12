@@ -8,7 +8,7 @@ import { localizedMeal } from "./englishMeal";
 import { getStrings, fmt, getLang } from "../i18n";
 import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
-import { aladhanTzParam } from "./timeZone";
+import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -26,7 +26,8 @@ export type PrayerTimes = Record<string, string>;
 export const NOTIF_KEY = "namazNotifEnabled";
 export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 export const SCHED_DAY_KEY = "namazNotifSchedDay";
-export const schedStamp = () => `${localDayStr()}|${getLang()}`;
+// Gün + dil + saat dilimi: biri değişince (yolculuk, dil tercihi) ilk açılışta yeniden planlanır.
+export const schedStamp = () => `${localDayStr()}|${getLang()}|${deviceTimeZone()}`;
 
 const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
 
