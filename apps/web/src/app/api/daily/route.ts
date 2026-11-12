@@ -1,15 +1,9 @@
 export const dynamic = "force-dynamic";
 export const preferredRegion = "fra1"; // DB (eu-west-1) + TR kullanıcılara yakın → düşük gecikme
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
-
-function getDailyOffset(total: number): number {
-  if (!Number.isFinite(total) || total <= 0) return 0;
-  const now  = new Date();
-  const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-  return seed % total;
-}
+import { getDailyOffset, parseDailyDate } from "../../../lib/dailyDate";
 
 interface VerseRow {
   verse_key: string;
@@ -26,7 +20,8 @@ export type DailyResponse = {
   dua:   VerseRow | null;
 };
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const day = parseDailyDate(req.nextUrl.searchParams.get("date"));
   const [totalRow, duaTotalRow] = await Promise.all([
     dbGet<{ cnt: number }>(
       `SELECT COUNT(*) AS cnt FROM verses
@@ -45,8 +40,8 @@ export async function GET() {
 
   const total    = totalRow?.cnt    ?? 4000;
   const duaTotal = duaTotalRow?.cnt ?? 255;
-  const offset    = getDailyOffset(total);
-  const duaOffset = getDailyOffset(duaTotal);
+  const offset    = getDailyOffset(total, day);
+  const duaOffset = getDailyOffset(duaTotal, day);
 
   const [verse, dua] = await Promise.all([
     dbGet<VerseRow>(
