@@ -3704,6 +3704,8 @@
     "zulüm": "injustice",
     "Zülkifl": "Dhul-Kifl",
     "zürriyetim": "my offspring",
+    "ilim": "knowledge",
+    "iyilik": "goodness",
     "-den": "from",
     "-den, -dan": "from",
     "-sene": "come on, do it",
@@ -4366,7 +4368,16 @@
     "yusuf": "Yusuf",
     "zekeriya": "Zakariyya",
     "zencefil": "ginger",
-    "Zeyd": "Zayd"
+    "Zeyd": "Zayd",
+    "idris": "Idris",
+    "imran": "Imran",
+    "incil": "Injil",
+    "incil (Hristiyanların kutsal kitabı)": "Injil (the Christians' holy book)",
+    "incil (Hristiyanlığın kutsal kitabı)": "Injil (the holy book of Christianity)",
+    "incil (Hz. İsa'ya indirilmiş kutsal kitap)": "Injil (the holy book revealed to Jesus)",
+    "incil, Hıristiyanların kutsal kitabı": "Injil, the Christians' holy book",
+    "incil, Hristiyan kutsal kitabı": "Injil, the Christian holy book",
+    "incil, Hz. İsa'nın kutsal kitabı": "Injil, the holy book of Jesus"
   },
   "roots": {
     "أبب": "herbage, pasture, fodder",

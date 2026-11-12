@@ -1349,9 +1349,9 @@
       "exactResearchUrlHistoryPreserved": false,
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
-        "fileCount": 247,
-        "totalBytes": 4482351,
-        "sha256": "0a4462848f8f92bf784da3de40625891c8290209f469ec90b4ab61566353a2b8",
+        "fileCount": 249,
+        "totalBytes": 11618561,
+        "sha256": "7ffcef85cfb5c4263a3076629e914ccc24852334593e4ad280d16965b9c29d48",
         "files": [
           {
             "path": "apps/mobile/src/data/literalEn/001.json",
@@ -2495,8 +2495,8 @@
           },
           {
             "path": "apps/mobile/src/data/wordMeaningsEn.json",
-            "bytes": 225722,
-            "sha256": "906bda47cdbf06ad60dc29f13968cb91830dd8e7e6df434a7bbcdd0899c52002"
+            "bytes": 226338,
+            "sha256": "f6bfe75da0dfdab55a466cf3158d70a1690981d7e3cb2a8d184881433a570583"
           },
           {
             "path": "content/ayah-literal/literal.tr.json",
@@ -2515,28 +2515,38 @@
           },
           {
             "path": "content/words/meanings-nogloss.tr.en.json",
-            "bytes": 31556,
-            "sha256": "748f7ef2afdf0be008ef38e8f3410895b0a797c0af514c3b0f7770c5429caa5a"
+            "bytes": 32103,
+            "sha256": "3f7b95683dd70aba27abb750fb069a25fced737cc6b49ba7ee7dc6086d67ba66"
           },
           {
             "path": "content/words/meanings-nogloss.tr.json",
-            "bytes": 28853,
-            "sha256": "9a6a00f3bc478ec4e479823f01ffce52edf115bf0613fa3059568ba35790f0f5"
+            "bytes": 29427,
+            "sha256": "fe64c41b1181be39b2db24cbef97a0dddde9a0a9cae5650904b236a7654905ea"
           },
           {
             "path": "content/words/meanings-root.tr.en.json",
-            "bytes": 114715,
-            "sha256": "6bb372b050ffe4a292ab2bcafa3e75f9ff509f759ed7707e1f1795185203b865"
+            "bytes": 114762,
+            "sha256": "14ecad1d7dbce4254aaf6b661a612a3f44c697985ebbd7b7922a6b0a3ebd8c41"
           },
           {
             "path": "content/words/meanings-root.tr.json",
-            "bytes": 113893,
-            "sha256": "fb4f719aaf76aa71de482744a03a4614e5c4cb586978563d09d863beabf3f62e"
+            "bytes": 113933,
+            "sha256": "2125c73be3d4de2cdc30ea9fce57d6fe27735b5b0d594ea28be2abfbfcf901c8"
           },
           {
             "path": "content/words/review-roots.json",
             "bytes": 235523,
             "sha256": "59bf0b9eaab901aadd2a7cb8eca4b06dcc0c7043611abbaff03a41f3aa9f92d8"
+          },
+          {
+            "path": "content/words/review-words-ctx.json",
+            "bytes": 7134326,
+            "sha256": "9cc2d6d209b1f8f3e418f2ebd87a58407050d9dabce1d5a45774a168b0ad4f87"
+          },
+          {
+            "path": "content/words/review-words-ctx.overrides.json",
+            "bytes": 60,
+            "sha256": "5c40115f4925e54e851920987593418126fe5e62d63377cd5d57b9153b0e8909"
           },
           {
             "path": "content/words/review-words.json",

@@ -18,6 +18,7 @@ export default defineStrings({
     enableBtn: "🔔 Evet, Hatırlat",
     declineA11y: "Şimdi değil",
     declineBtn: "Şimdi Değil",
+    langA11y: "Uygulama dili",
   },
   en: {
     feat1: "Read the Quran with mushaf, translation and tafsir",
@@ -36,5 +37,6 @@ export default defineStrings({
     enableBtn: "🔔 Yes, Remind Me",
     declineA11y: "Not now",
     declineBtn: "Not Now",
+    langA11y: "App language",
   },
 });

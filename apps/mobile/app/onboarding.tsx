@@ -13,8 +13,10 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import {
   enablePrayerNotificationsFirstRun,
   declinePrayerNotifications,
+  rescheduleNotificationsForLanguageChange,
 } from "../src/lib/namazNotifications";
-import { useStrings } from "../src/i18n";
+import { refreshWidgetNow } from "../src/widgets/widgetRefresh";
+import { useStrings, useLang, setLangPreference, type Lang } from "../src/i18n";
 import onboardingStrings from "../src/i18n/strings/onboarding";
 
 // İlk açılış akışı — 2 adım: tanıtım + "Namaz vakitlerini hatırlatalım mı?".
@@ -31,6 +33,7 @@ const FEATURES = [
 export default function OnboardingScreen() {
   const c = useColors();
   const t = useStrings(onboardingStrings);
+  const lang = useLang();
   const insets = useSafeAreaInsets();
   const [step, setStep] = useState<"intro" | "notif">("intro");
   const [busy, setBusy] = useState(false);
@@ -61,6 +64,29 @@ export default function OnboardingScreen() {
     <>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={[s.screen, { backgroundColor: c.bg, paddingTop: insets.top, paddingBottom: insets.bottom + 16 }]}>
+        {/* Dil seçici — telefon diline göre seçili gelir; dokununca ekran anında değişir. */}
+        <View style={[s.langBar, { backgroundColor: c.card, borderColor: c.border }]} accessibilityRole="radiogroup" accessibilityLabel={t.langA11y}>
+          {(["tr", "en"] as const satisfies readonly Lang[]).map((l) => {
+            const active = lang === l;
+            return (
+              <TouchableOpacity
+                key={l}
+                style={[s.langBtn, active && { backgroundColor: c.accent }]}
+                onPress={() => {
+                  if (active) return;
+                  void setLangPreference(l)
+                    .then(() => Promise.all([rescheduleNotificationsForLanguageChange(), refreshWidgetNow()]))
+                    .catch(() => {});
+                }}
+                activeOpacity={0.8}
+                accessibilityRole="radio"
+                accessibilityState={{ checked: active }}
+              >
+                <Text style={[s.langText, { color: active ? "#fff" : c.textSecondary }]}>{l === "tr" ? "Türkçe" : "English"}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
         <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false} bounces={false}>
           {step === "intro" ? (
             <>
@@ -156,6 +182,12 @@ export default function OnboardingScreen() {
 
 const s = StyleSheet.create({
   screen:  { flex: 1 },
+  langBar: {
+    flexDirection: "row", alignSelf: "flex-end", marginTop: 12, marginRight: 16,
+    borderRadius: 18, borderWidth: 1, padding: 3,
+  },
+  langBtn:  { borderRadius: 15, paddingHorizontal: 14, paddingVertical: 7, minHeight: 32, justifyContent: "center" },
+  langText: { fontSize: 13, fontWeight: "700" },
   content: {
     flexGrow: 1, justifyContent: "center", alignItems: "center",
     padding: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center",
