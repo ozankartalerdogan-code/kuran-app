@@ -1,7 +1,7 @@
 # Kuran Yolu — English store listing (draft)
 
 > Taslak: Codex (gpt-6.1-terra) uygulama kodundan üretti, 2026-11-11. Apple 4.2 itirazı sonuçlanmadan mağazaya girilmeyecek.
-> Not: İngilizce arayüzde kelime anlamları ve kök açıklamaları şimdilik Türkçe (sunucudan geliyor); bu çözülene kadar 'word-by-word' vurgusu dikkatli kullanılmalı.
+> Not (2026-11-12): Kelime anlamları, kök açıklamaları ve literal çeviri artık İngilizce (AI destekli; açıklamadaki "AI-assisted translations" cümlesi bunları da kapsar). Meal–literal fark analizi İngilizce modda gizli; açıklamada vaat edilmiyor. Gizlilik politikası URL'si için web'de İngilizce sayfa henüz yok (yalnız /privacy Türkçe).
 
 ## App Store (iOS)
 
