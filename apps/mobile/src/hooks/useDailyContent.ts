@@ -2,6 +2,10 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
+import { getStrings, getLang } from "../i18n";
+import prayerNameStrings from "../i18n/strings/prayerNames";
+import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
+import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
 
 interface DailyVerse {
   verse_key: string;
@@ -24,15 +28,9 @@ export interface HijriDate {
   year: number;
 }
 
-const HIJRI_MONTHS_TR = [
-  "Muharrem", "Safer", "Rebiülevvel", "Rebiülahir",
-  "Cemaziyelevvel", "Cemaziyelahir", "Recep", "Şaban",
-  "Ramazan", "Şevval", "Zilkade", "Zilhicce",
-];
-
 export function formatHijriDate(h: HijriDate | null): string {
   if (!h) return "";
-  const monthName = HIJRI_MONTHS_TR[h.monthNumber - 1] ?? "";
+  const monthName = getStrings(prayerNameStrings).hijriMonths[h.monthNumber - 1] ?? "";
   return `${h.day} ${monthName} ${h.year}`;
 }
 
@@ -63,10 +61,11 @@ export interface UseDailyContentResult {
 }
 
 const ISTANBUL = { lat: 41.0082, lon: 28.9784, city: "İstanbul" };
-const PRAYER_LABELS: Record<string, string> = {
-  Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle",
-  Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı",
-};
+// Dile göre vakit adları (TR: İmsak…, EN: Fajr…) — her render'da güncel dil okunur.
+function prayerLabels(): Record<string, string> {
+  const pn = getStrings(prayerNameStrings);
+  return { Fajr: pn.Fajr, Sunrise: pn.Sunrise, Dhuhr: pn.Dhuhr, Asr: pn.Asr, Maghrib: pn.Maghrib, Isha: pn.Isha };
+}
 
 interface PrayerCache {
   date: string;
@@ -113,7 +112,8 @@ export function useDailyContent(): UseDailyContentResult {
   const [error, setError] = useState<string | null>(null);
 
   const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
-  const prayerCity = prayerCityState;
+  const prayerCity = prayerCityState === ISTANBUL.city && getLang() === "en" ? "Istanbul" : prayerCityState;
+  const PRAYER_LABELS = prayerLabels();
 
   // Canlı geri sayım için tik — 30 sn'de bir yeniden render tetikler, nextPrayer
   // aşağıda her render'da yeniden hesaplandığı için kalan süre kendiliğinden
@@ -348,14 +348,15 @@ export function useDailyContent(): UseDailyContentResult {
     const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
 
     fetch(
-      // school=0: Türkiye genelinde yaygın ikindi yöntemini hesaplar (school=1/Hanefi İkindi'yi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
+      // Yöntem/ikindi/temkin: lib/prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
     )
       .then((r) => r.json())
       .then((d) => {
         clearTimeout(prayerTimeoutId);
         if (!isCurrent()) return;
+        if (d?.data?.timings) d.data.timings = adjustHighLatitude(d.data.timings, coords.lat, localYMD(new Date()), deviceTimeZone());
         if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
           const hijri = parseHijri(d.data.date?.hijri);

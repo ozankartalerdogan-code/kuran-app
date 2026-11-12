@@ -9,6 +9,11 @@ import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useColors } from "../src/hooks/useColors";
 
+import { useMealOf } from "../src/lib/englishMeal";
+import { useSurahNameOf } from "../src/lib/surahNames";
+import { useStrings, useLang, fmt } from "../src/i18n";
+import { localizedTranslit } from "../src/lib/translitEn";
+import namazStrings from "../src/i18n/strings/namaz";
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
 
 const VAKIT_KEYS: Record<string, { surahId: number; ayahNumber: number; label: string }[]> = {
@@ -53,12 +58,12 @@ const MOTTO = {
 };
 
 const VAKIT_META = [
-  { id: "sabah",    ikon: "🌅", ad: "Sabah",    bg: "#f0f9ff", border: "#38bdf8", badge: "#bae6fd", badgeText: "#0c4a6e" },
-  { id: "ogle",     ikon: "☀️", ad: "Öğle",     bg: "#fffbeb", border: "#fbbf24", badge: "#fde68a", badgeText: "#78350f" },
-  { id: "ikindi",   ikon: "🌤️", ad: "İkindi",   bg: "#fff7ed", border: "#fb923c", badge: "#fed7aa", badgeText: "#7c2d12" },
-  { id: "aksam",    ikon: "🌆", ad: "Akşam",    bg: "#fff1f2", border: "#f87171", badge: "#fecaca", badgeText: "#7f1d1d" },
-  { id: "yatsi",    ikon: "🌙", ad: "Yatsı",    bg: "#eef2ff", border: "#818cf8", badge: "#c7d2fe", badgeText: "#3730a3" },
-  { id: "teheccud", ikon: "🌌", ad: "Teheccüd", bg: "#f5f3ff", border: "#a78bfa", badge: "#ddd6fe", badgeText: "#4c1d95" },
+  { id: "sabah",    ikon: "🌅", ad: "vSabah",    bg: "#f0f9ff", border: "#38bdf8", badge: "#bae6fd", badgeText: "#0c4a6e" },
+  { id: "ogle",     ikon: "☀️", ad: "vOgle",     bg: "#fffbeb", border: "#fbbf24", badge: "#fde68a", badgeText: "#78350f" },
+  { id: "ikindi",   ikon: "🌤️", ad: "vIkindi",   bg: "#fff7ed", border: "#fb923c", badge: "#fed7aa", badgeText: "#7c2d12" },
+  { id: "aksam",    ikon: "🌆", ad: "vAksam",    bg: "#fff1f2", border: "#f87171", badge: "#fecaca", badgeText: "#7f1d1d" },
+  { id: "yatsi",    ikon: "🌙", ad: "vYatsi",    bg: "#eef2ff", border: "#818cf8", badge: "#c7d2fe", badgeText: "#3730a3" },
+  { id: "teheccud", ikon: "🌌", ad: "vTeheccud", bg: "#f5f3ff", border: "#a78bfa", badge: "#ddd6fe", badgeText: "#4c1d95" },
 ];
 
 const SURE_ADI: Record<number, string> = {
@@ -69,6 +74,10 @@ const SURE_ADI: Record<number, string> = {
 
 function VakitTablosu() {
   const c = useColors();
+  const t = useStrings(namazStrings) as Record<string, string>;
+  const surahNameOf = useSurahNameOf();
+  const sureAdi = (id: number) => surahNameOf(id, SURE_ADI[id] ?? fmt(t.surahFallback, { n: id }));
+  const mealOf = useMealOf();
   const allVakitVerse = VAKIT_KEYS;
 
   return (
@@ -79,24 +88,24 @@ function VakitTablosu() {
       activeOpacity={0.8}
       onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: MOTTO.surahId, ayahNumber: MOTTO.ayahNumber } })}
       accessibilityRole="button"
-      accessibilityLabel={`${MOTTO.label} ayetini aç`}
+      accessibilityLabel={fmt(t.openVerseA11y, { label: `${sureAdi(MOTTO.surahId)} ${MOTTO.surahId}:${MOTTO.ayahNumber}` })}
     >
       <View style={vt.mottoHead}>
-        <Text style={[vt.mottoEtiket, { color: c.accent }]}>Namaz Vakitlere Bağlı Bir Farzdır</Text>
-        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{MOTTO.label}</Text></View>
+        <Text style={[vt.mottoEtiket, { color: c.accent }]}>{t.mottoLabel}</Text>
+        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{sureAdi(MOTTO.surahId)} {MOTTO.surahId}:{MOTTO.ayahNumber}</Text></View>
       </View>
       <Text style={[vt.mottoArabic, { color: c.text }]}>{MOTTO.arabic}</Text>
-      <Text style={[vt.mottoMeal, { color: c.textSecondary }]}>“{MOTTO.meal}”</Text>
+      <Text style={[vt.mottoMeal, { color: c.textSecondary }]}>“{mealOf({ surah: MOTTO.surahId, ayah: MOTTO.ayahNumber }, MOTTO.meal)}”</Text>
     </TouchableOpacity>
 
     <View style={[vt.kapsam, { backgroundColor: c.card, borderColor: c.border }]}>
       {/* Başlık */}
       <View style={[vt.baslik, { backgroundColor: c.cardAlt, borderBottomColor: c.border }]}>
         <Text style={vt.baslikIkon}>🕐</Text>
-        <Text style={[vt.baslikMetin, { color: c.textMuted }]}>Namaz Vakitleri & Teheccüd</Text>
+        <Text style={[vt.baslikMetin, { color: c.textMuted }]}>{t.tableTitle}</Text>
         <View style={[vt.adetBadge, { backgroundColor: c.accentLight }]}>
           <Text style={[vt.adetText, { color: c.accent }]}>
-            {Object.values(allVakitVerse).reduce((s, a) => s + a.length, 0)} ayet
+            {fmt(t.verseCount, { n: Object.values(allVakitVerse).reduce((s, a) => s + a.length, 0) })}
           </Text>
         </View>
       </View>
@@ -110,18 +119,18 @@ function VakitTablosu() {
             <View style={[vt.vakitSol, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderLeftColor: m.border }]}>
               <Text style={{ fontSize: 22 }}>{m.ikon}</Text>
               <View style={[vt.vakitBadge, { backgroundColor: m.badge }]}>
-                <Text style={[vt.vakitBadgeText, { color: m.badgeText }]}>{m.ad}</Text>
+                <Text style={[vt.vakitBadgeText, { color: m.badgeText }]}>{t[m.ad]}</Text>
               </View>
-              <Text style={[vt.vakitAdet, { color: c.textMuted }]}>{verses.length} ayet</Text>
+              <Text style={[vt.vakitAdet, { color: c.textMuted }]}>{fmt(t.verseCount, { n: verses.length })}</Text>
             </View>
             {/* Sağ — ayetler */}
             <View style={vt.vakitSag}>
               {verses.map((v: { surahId: number; ayahNumber: number; label: string }) => (
                 <TouchableOpacity key={v.label} style={vt.ayetRow}
                   onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: v.surahId, ayahNumber: v.ayahNumber } })} activeOpacity={0.7}
-                  accessibilityRole="button" accessibilityLabel={`${SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}, ${v.label} ayetini aç`}>
+                  accessibilityRole="button" accessibilityLabel={fmt(t.openVerseNamedA11y, { name: sureAdi(v.surahId), label: v.label })}>
                   <View style={[vt.keyBadge, { backgroundColor: c.cardAlt }]}><Text style={[vt.keyText, { color: c.textMuted }]}>{v.label}</Text></View>
-                  <Text style={[vt.sureName, { color: c.text }]}>{SURE_ADI[v.surahId] ?? `Sure ${v.surahId}`}</Text>
+                  <Text style={[vt.sureName, { color: c.text }]}>{sureAdi(v.surahId)}</Text>
                   <Text style={[vt.arrow, { color: c.textMuted }]}>›</Text>
                 </TouchableOpacity>
               ))}
@@ -135,18 +144,22 @@ function VakitTablosu() {
 }
 
 const NAMAZ_TAGS = [
-  { tag: "namaz-genel",    label: "Genel Namaz Emirleri", emoji: "🕌", desc: "98 ayet — namaz emri, kılma şekli, tesbihat" },
-  { tag: "namaz-vakit",    label: "Namaz Vakitleri",       emoji: "🕐", desc: "12 ayet — sabah, öğle, ikindi, akşam, yatsı" },
-  { tag: "namaz-husu",     label: "Huşu",                  emoji: "🤲", desc: "8 ayet — kalp huzuru, derin teslimiyet" },
-  { tag: "namaz-teheccud", label: "Teheccüd Namazı",       emoji: "🌙", desc: "10 ayet — gece namazı, seçkin kulluk" },
-  { tag: "namaz-cuma",     label: "Cuma Namazı",           emoji: "📿", desc: "2 ayet — Cuma emri ve önemi" },
-  { tag: "namaz-abdest",   label: "Abdest",                emoji: "💧", desc: "2 ayet — temizlik ve abdest hükmü" },
-  { tag: "namaz-korku",    label: "Korku Namazı",          emoji: "⚔️", desc: "2 ayet — savaş ve tehlike anında namaz" },
-  { tag: "namaz-sefer",    label: "Seferi Namaz",          emoji: "🚶", desc: "1 ayet — yolculukta kısaltma" },
+  { tag: "namaz-genel",    label: "tGenel", emoji: "🕌", desc: "tGenelDesc" },
+  { tag: "namaz-vakit",    label: "tVakit",       emoji: "🕐", desc: "tVakitDesc" },
+  { tag: "namaz-husu",     label: "tHusu",                  emoji: "🤲", desc: "tHusuDesc" },
+  { tag: "namaz-teheccud", label: "tTeheccud",       emoji: "🌙", desc: "tTeheccudDesc" },
+  { tag: "namaz-cuma",     label: "tCuma",           emoji: "📿", desc: "tCumaDesc" },
+  { tag: "namaz-abdest",   label: "tAbdest",                emoji: "💧", desc: "tAbdestDesc" },
+  { tag: "namaz-korku",    label: "tKorku",          emoji: "⚔️", desc: "tKorkuDesc" },
+  { tag: "namaz-sefer",    label: "tSefer",          emoji: "🚶", desc: "tSeferDesc" },
 ] as const;
 
 const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }: { tag: string; label: string; emoji: string; desc: string }) {
   const c = useColors();
+  const t = useStrings(namazStrings) as Record<string, string>;
+  const mealOf = useMealOf();
+  const lang = useLang();
+  const surahNameOf = useSurahNameOf();
   const [open, setOpen]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [verses, setVerses]   = useState<TagFilterResult[]>([]);
@@ -170,11 +183,11 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
 
   return (
     <View style={[styles.accordion, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={label}>
+      <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={t[label]}>
         <Text style={{ fontSize: 20 }}>{emoji}</Text>
         <View style={{ flex: 1 }}>
-          <Text style={[styles.accordionTitle, { color: c.text }]}>{label}</Text>
-          <Text style={[styles.accordionDesc, { color: c.textMuted }]}>{desc}</Text>
+          <Text style={[styles.accordionTitle, { color: c.text }]}>{t[label]}</Text>
+          <Text style={[styles.accordionDesc, { color: c.textMuted }]}>{t[desc]}</Text>
         </View>
         <Text style={[styles.accordionChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
@@ -184,24 +197,24 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
             <ActivityIndicator color={c.accent} style={{ marginVertical: 10 }} />
           ) : error ? (
             <View style={styles.accordionError}>
-              <Text style={styles.accordionErrorText}>İçerik yüklenemedi. Lütfen tekrar deneyin.</Text>
-              <TouchableOpacity style={[styles.retryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Tekrar dene">
-                <Text style={styles.retryBtnText}>Tekrar Dene</Text>
+              <Text style={styles.accordionErrorText}>{t.loadError}</Text>
+              <TouchableOpacity style={[styles.retryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
+                <Text style={styles.retryBtnText}>{t.retry}</Text>
               </TouchableOpacity>
             </View>
           ) : fetched && verses.length === 0 ? (
-            <Text style={[styles.accordionEmpty, { color: c.textMuted }]}>İçerik bulunamadı.</Text>
+            <Text style={[styles.accordionEmpty, { color: c.textMuted }]}>{t.noContent}</Text>
           ) : verses.map((item) => (
             <TouchableOpacity key={item.verse_key} style={[styles.verseCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}
               onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
               onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}
-              accessibilityRole="button" accessibilityLabel={`${item.surah_name ?? item.verse_key}, ayeti aç`}>
+              accessibilityRole="button" accessibilityLabel={fmt(t.openVerseShortA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key })}>
               <View style={styles.verseHeader}>
                 <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{item.verse_key}</Text></View>
-                {item.surah_name && <Text style={[styles.surahLabel, { color: c.textMuted }]}>{item.surah_name}</Text>}
+                {item.surah_name && <Text style={[styles.surahLabel, { color: c.textMuted }]}>{surahNameOf(item.surah_id, item.surah_name)}</Text>}
               </View>
-              {item.reading_tr && <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>{item.reading_tr}</Text>}
-              {item.meal && <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={2}>{item.meal}</Text>}
+              {item.reading_tr && <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>{localizedTranslit(item.reading_tr, lang)}</Text>}
+              {item.meal && <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={2}>{mealOf(item.verse_key, item.meal)}</Text>}
             </TouchableOpacity>
           ))}
         </View>
@@ -213,18 +226,19 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
 export default function NamazScreen() {
   const insets = useSafeAreaInsets();
   const c = useColors();
+  const ns = useStrings(namazStrings);
 
   return (
     <>
-      <Stack.Screen options={{ title: "Namaz Hakkında" }} />
+      <Stack.Screen options={{ title: ns.screenTitle }} />
       <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
         {/* Namaz Vakitleri Tablosu */}
         <VakitTablosu />
 
         {/* Accordion kategoriler */}
         <View style={styles.accordionList}>
-          {NAMAZ_TAGS.map((t) => (
-            <NamazAccordion key={t.tag} tag={t.tag} label={t.label} emoji={t.emoji} desc={t.desc} />
+          {NAMAZ_TAGS.map((tg) => (
+            <NamazAccordion key={tg.tag} tag={tg.tag} label={tg.label} emoji={tg.emoji} desc={tg.desc} />
           ))}
         </View>
       </ScrollView>

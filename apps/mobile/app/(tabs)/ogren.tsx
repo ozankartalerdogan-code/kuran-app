@@ -8,6 +8,8 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { useStrings } from "../../src/i18n";
+import ogrenStrings from "../../src/i18n/strings/ogrenTab";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
 type LearnItem = {
@@ -21,26 +23,28 @@ type LearnItem = {
   route: string;
 };
 
-const SECTIONS = [
+const buildSections = (t: Record<string, string>) => [
   {
-    title: "📗 Orta",
+    title: t.secMid,
     items: [
-      { icon: "people-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: "Peygamber Kıssaları", sub: "25 peygamberin kıssası", route: "/peygamber-kissalari" },
-      { icon: "moon-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: "Siyer-i Nebî", sub: "Hz. Peygamber'in hayatı", route: "/siyer" },
-      { icon: "calendar-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: "Mübarek Günler", sub: "13 gün ve gecenin fazileti", route: "/mubarek-gunler" },
-      { icon: "chatbubble-ellipses-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: "Hadisler", sub: "219 seçme hadis, 27 konu", route: "/hadisler" },
+      { icon: "people-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: t.kissalarLabel, sub: t.kissalarSub, route: "/peygamber-kissalari" },
+      { icon: "moon-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: t.siyerLabel, sub: t.siyerSub, route: "/siyer" },
+      { icon: "calendar-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: t.mubarekLabel, sub: t.mubarekSub, route: "/mubarek-gunler" },
+      { icon: "chatbubble-ellipses-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: t.hadisLabel, sub: t.hadisSub, route: "/hadisler" },
     ],
   },
   {
-    title: "🔬 İleri",
+    title: t.secAdv,
     items: [
-      { icon: "git-network-outline", iconBg: "#ffe4e6", iconColor: "#e11d48", darkIconBg: "#881337", darkIconColor: "#fda4af", label: "Kelime Kökü Analizi", sub: "Ayetleri kök bazında incele", route: "/root" },
+      { icon: "git-network-outline", iconBg: "#ffe4e6", iconColor: "#e11d48", darkIconBg: "#881337", darkIconColor: "#fda4af", label: t.rootLabel, sub: t.rootSub, route: "/root" },
     ],
   },
 ] satisfies { title: string; items: LearnItem[] }[];
 
 export default function OgrenTab() {
   const c = useColors();
+  const t = useStrings(ogrenStrings);
+  const SECTIONS = buildSections(t);
   const derslerTarget = useTourTarget("learn.dersler");
   const hadithTarget = useTourTarget("learn.hadith");
   const tourScroll = useTourScroller();
@@ -52,7 +56,7 @@ export default function OgrenTab() {
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.heading, { color: c.text }]}>Öğren</Text>
+        <Text style={[s.heading, { color: c.text }]}>{t.heading}</Text>
 
         {/* Dersler — featured kart */}
         <TouchableOpacity
@@ -61,15 +65,15 @@ export default function OgrenTab() {
           onPress={() => { Haptics.selectionAsync(); router.push("/dersler" as Href); }}
           activeOpacity={0.8}
           accessibilityRole="button"
-          accessibilityLabel="Dersler"
-          accessibilityHint="Dersler ekranını açar"
+          accessibilityLabel={t.derslerTitle}
+          accessibilityHint={t.derslerHint}
         >
           <View style={[s.derslerIconWrap, { backgroundColor: c.isDark ? "#3f2d12" : "#fef3c7" }]}>
             <Ionicons name="library-outline" size={20} color={c.isDark ? "#fde68a" : "#c9a84c"} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={s.derslerTitle}>Dersler</Text>
-            <Text style={[s.derslerSub, { color: c.textMuted }]}>Kartlarla öğren · Kendini test et</Text>
+            <Text style={s.derslerTitle}>{t.derslerTitle}</Text>
+            <Text style={[s.derslerSub, { color: c.textMuted }]}>{t.derslerSub}</Text>
           </View>
           <Text style={s.chev}>›</Text>
         </TouchableOpacity>

@@ -1,0 +1,38 @@
+import { defineStrings } from "../index";
+
+export default defineStrings({
+  tr: {
+    titleNamed: "{name} Tefsiri",
+    title: "Sure Tefsiri",
+    loading: "Tefsir yükleniyor...",
+    loadFailed: "Tefsir yüklenemedi. Bağlantını kontrol et.",
+    notFound: "Tefsir verisi bulunamadı.",
+    retry: "Tekrar Dene",
+    retryA11y: "Tekrar dene",
+    original: "Orijinal",
+    originalA11y: "Orijinal tefsir metni",
+    simplified: "Sadeleştirilmiş",
+    simplifiedA11y: "Sadeleştirilmiş tefsir metni",
+    footerSimplified: "Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir.",
+    footerOriginal: "Kaynak: Elmalılı Hamdi Yazır",
+    simplifiedFallback: "Sadeleştirilmiş",
+    footerSimplifiedFallback: "Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir.",
+  },
+  en: {
+    titleNamed: "{name} Commentary",
+    title: "Surah Commentary",
+    loading: "Loading commentary...",
+    loadFailed: "Couldn't load the commentary. Check your connection.",
+    notFound: "No commentary found.",
+    retry: "Try Again",
+    retryA11y: "Try again",
+    original: "Original (Turkish)",
+    originalA11y: "Original commentary text in Turkish",
+    simplified: "English",
+    simplifiedA11y: "Simplified commentary in English",
+    footerSimplified: "AI-assisted English translation of a simplified modern-Turkish rendering of Elmalılı Hamdi Yazır's commentary (Hak Dini Kur'an Dili). It may contain errors; consult the original for precision.",
+    simplifiedFallback: "Simplified (Turkish)",
+    footerSimplifiedFallback: "Simplified into modern Turkish with AI from Elmalılı Hamdi Yazır's commentary. (English translation not yet available for this surah.)",
+    footerOriginal: "Source: Elmalılı Hamdi Yazır (Turkish)",
+  },
+});

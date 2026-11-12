@@ -9,8 +9,15 @@ import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/peygamber_kissalari.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
-const META        = (rawData as { peygamber_kissalari: PeygamberKissalariMeta }).peygamber_kissalari;
-const PEYGAMBERLER: Peygamber[] = META.peygamberler;
+import { useLang, useStrings, fmt } from "../src/i18n";
+import { localizedData } from "../src/i18n/localizedData";
+import kissalarStrings from "../src/i18n/strings/peygamberKissalari";
+
+const pickData = localizedData<{ peygamber_kissalari: PeygamberKissalariMeta }>(
+  rawData as { peygamber_kissalari: PeygamberKissalariMeta },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/peygamber_kissalari.en.json"),
+);
 
 interface Kissa {
   baslik: string;
@@ -47,6 +54,7 @@ interface PeygamberKissalariMeta {
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
 function RefChip({ refKey }: { refKey: string }) {
+  const t = useStrings(kissalarStrings);
   const parts = refKey.split(":");
   const surah = Number(parts[0]);
   const ayah = Number(parts[1]?.split("-")[0]);
@@ -58,8 +66,8 @@ function RefChip({ refKey }: { refKey: string }) {
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as Href)}
       activeOpacity={0.75}
       accessibilityRole="button"
-      accessibilityLabel={`${refKey} ayet referansı`}
-      accessibilityHint="Ayet detayını açar"
+      accessibilityLabel={fmt(t.refA11y, { ref: refKey })}
+      accessibilityHint={t.refHint}
     >
       <Text style={st.refChipText}>{refKey}</Text>
     </TouchableOpacity>
@@ -68,6 +76,7 @@ function RefChip({ refKey }: { refKey: string }) {
 
 function KissaCard({ kissa }: { kissa: Kissa }) {
   const c = useColors();
+  const t = useStrings(kissalarStrings);
   const [open, setOpen] = useState(false);
   return (
     <View style={[st.kissaCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
@@ -77,7 +86,7 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
         activeOpacity={0.75}
         accessibilityRole="button"
         accessibilityLabel={kissa.baslik}
-        accessibilityHint={`Kıssa detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityHint={open ? t.storyHintClose : t.storyHintOpen}
         accessibilityState={{ expanded: open }}
       >
         <Text style={[st.kissaBaslik, { color: c.text }]}>{kissa.baslik}</Text>
@@ -104,6 +113,7 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
 
 function PeygamberCard({ p }: { p: Peygamber }) {
   const c = useColors();
+  const t = useStrings(kissalarStrings);
   const [open, setOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
 
@@ -116,7 +126,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
         activeOpacity={0.75}
         accessibilityRole="button"
         accessibilityLabel={p.isim}
-        accessibilityHint={`Peygamber detayını ${open ? "kapatır" : "açar"}`}
+        accessibilityHint={open ? t.prophetHintClose : t.prophetHintOpen}
         accessibilityState={{ expanded: open }}
       >
         <View style={{ flex: 1, gap: 3 }}>
@@ -149,7 +159,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Kuran referansları */}
           {p.kuran_referanslari_ozet && p.kuran_referanslari_ozet.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>📖 Kur'an Referansları</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.quranRefs}</Text>
               <View style={st.refRow}>
                 {p.kuran_referanslari_ozet.map(r => <RefChip key={r} refKey={r} />)}
               </View>
@@ -159,7 +169,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Kıssalar */}
           {p.kissa.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>📜 Kıssalar</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.stories}</Text>
               {p.kissa.map((k, i) => <KissaCard key={i} kissa={k} />)}
             </View>
           )}
@@ -167,7 +177,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Mucizeler */}
           {p.mucizeler && p.mucizeler.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>✨ Mucizeler</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.miracles}</Text>
               {p.mucizeler.map((m, i) => (
                 <Text key={i} style={[st.bullet, { color: c.textSecondary }]}>• {m}</Text>
               ))}
@@ -177,7 +187,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Dersler */}
           {p.dersler && p.dersler.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>💎 Dersler</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.lessons}</Text>
               {p.dersler.map((d, i) => (
                 <Text key={i} style={[st.bullet, { color: c.textSecondary }]}>• {d}</Text>
               ))}
@@ -192,11 +202,11 @@ function PeygamberCard({ p }: { p: Peygamber }) {
                 onPress={() => setNotesOpen(prev => !prev)}
                 activeOpacity={0.75}
                 accessibilityRole="button"
-                accessibilityLabel={`${p.isim} özel notları`}
-                accessibilityHint={`Özel notları ${notesOpen ? "kapatır" : "açar"}`}
+                accessibilityLabel={fmt(t.notesA11y, { name: p.isim })}
+                accessibilityHint={notesOpen ? t.notesHintClose : t.notesHintOpen}
                 accessibilityState={{ expanded: notesOpen }}
               >
-                <Text style={[st.sectionLabel, { color: c.accent }]}>ℹ️ Özel Notlar</Text>
+                <Text style={[st.sectionLabel, { color: c.accent }]}>{t.notes}</Text>
                 <Text style={[st.chev, { color: c.textMuted }]}>{notesOpen ? "▲" : "▼"}</Text>
               </TouchableOpacity>
               {notesOpen && p.ozel_notlar.map((n, i) => (
@@ -218,10 +228,14 @@ function PeygamberCard({ p }: { p: Peygamber }) {
 export default function PeygamberKissalariScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const t = useStrings(kissalarStrings);
+  const lang = useLang();
+  const META = pickData(lang).peygamber_kissalari;
+  const PEYGAMBERLER: Peygamber[] = META.peygamberler;
 
   return (
     <>
-      <Stack.Screen options={{ title: "Peygamber Kıssaları" }} />
+      <Stack.Screen options={{ title: t.title }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
@@ -235,7 +249,7 @@ export default function PeygamberKissalariScreen() {
           <View style={s.heroStats}>
             <View style={s.statChip}>
               <Text style={s.statNum}>{META.toplam_peygamber}</Text>
-              <Text style={s.statLabel}>Peygamber</Text>
+              <Text style={s.statLabel}>{t.statProphet}</Text>
             </View>
           </View>
         </View>
@@ -243,7 +257,7 @@ export default function PeygamberKissalariScreen() {
         {/* Genel dersler */}
         {META.genel_dersler && META.genel_dersler.length > 0 && (
           <View style={[s.genelBox, { backgroundColor: c.card, borderColor: c.border }]}>
-            <Text style={[s.genelTitle, { color: c.text }]}>💎 Genel Dersler</Text>
+            <Text style={[s.genelTitle, { color: c.text }]}>{t.generalLessons}</Text>
             {META.genel_dersler.map((d: string, i: number) => (
               <Text key={i} style={[s.genelItem, { color: c.textSecondary }]}>• {d}</Text>
             ))}
@@ -251,7 +265,7 @@ export default function PeygamberKissalariScreen() {
         )}
 
         <Text style={[s.sectionHead, { color: c.textMuted }]}>
-          Peygamberler ({PEYGAMBERLER.length})
+          {fmt(t.prophets, { n: PEYGAMBERLER.length })}
         </Text>
 
         {PEYGAMBERLER.map(p => <PeygamberCard key={p.id} p={p} />)}

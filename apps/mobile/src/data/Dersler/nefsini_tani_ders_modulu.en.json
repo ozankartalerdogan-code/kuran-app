@@ -1,0 +1,872 @@
+{
+  "schemaVersion": "1.0.0",
+  "moduleId": "nefsini-tani",
+  "title": "Know Your Nafs",
+  "subtitle": "Disciplining the nafs in light of the Quran and authentic narrations",
+  "language": "en",
+  "status": "draft_ready_for_review",
+  "audience": {
+    "level": "beginner_to_intermediate",
+    "description": "Users who want to learn about the concept of the nafs and its stages in an orderly, reliable and accessible way."
+  },
+  "methodology": {
+    "principle": "Expressions concerning the nafs that appear explicitly in the Quran are explained separately from the Sufi and ethical classification of its stages.",
+    "sourcePriority": [
+      "Quranic verses",
+      "Authentic or reliable hadiths",
+      "Contemporary Islamic sources",
+      "Sufi and ethical classifications used in spiritual education"
+    ],
+    "importantNotice": "The sequence of eight presented in these lessons is not a mandatory list given in the Quran as exactly 'eight layers.' The common classification in classical Sufi literature has seven stages. In the app, 'Undisciplined Nafs' has been added as the first step, as an introductory lesson for users with no prior knowledge of the subject.",
+    "classificationNote": "According to most Sufis, there is one nafs in a body; terms such as ammara, lawwama, mutmainna, radiya and mardiyya are understood as different qualities or states of this single nafs."
+  },
+  "classicSevenStages": [
+    {
+      "order": 1,
+      "name": "Nafs al-Ammara",
+      "meaning": "The nafs that commands evil",
+      "quranicBasis": [
+        "Yusuf 12:53"
+      ]
+    },
+    {
+      "order": 2,
+      "name": "Nafs al-Lawwama",
+      "meaning": "The self-reproaching nafs",
+      "quranicBasis": [
+        "al-Qiyamah 75:2"
+      ]
+    },
+    {
+      "order": 3,
+      "name": "Nafs al-Mulhima",
+      "meaning": "The nafs that becomes aware of good and evil",
+      "quranicBasis": [
+        "ash-Shams 91:7-10"
+      ],
+      "note": "This name does not appear verbatim in the Quran; it is used in the ethical and Sufi tradition based on the reference to inspiration in ash-Shams 91:8."
+    },
+    {
+      "order": 4,
+      "name": "Nefs-i Mutmainne",
+      "meaning": "The nafs at peace",
+      "quranicBasis": [
+        "al-Fajr 89:27"
+      ]
+    },
+    {
+      "order": 5,
+      "name": "Nafs al-Radiya",
+      "meaning": "The nafs pleased with Allah",
+      "quranicBasis": [
+        "al-Fajr 89:28"
+      ]
+    },
+    {
+      "order": 6,
+      "name": "Nafs al-Mardiyya",
+      "meaning": "The nafs with which Allah is pleased",
+      "quranicBasis": [
+        "al-Fajr 89:28"
+      ]
+    },
+    {
+      "order": 7,
+      "name": "Nafs al-Kamila / Zakiyya",
+      "meaning": "The purified and mature nafs",
+      "quranicBasis": [
+        "ash-Shams 91:9"
+      ],
+      "note": "Some sources describe zakiyya/kamila as the final stage in the seven-stage classification."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson-01-nefs-nedir",
+      "order": 1,
+      "title": "What Is the Nafs?",
+      "estimatedMinutes": 5,
+      "classification": "quranic_foundation",
+      "summary": "The nafs is a broad concept relating to a person's inner self, desires, inclinations and sphere of responsibility. In the Quran, it can refer to the person, their inner inclinations or the part of them that urges them toward evil.",
+      "learningObjectives": [
+        "To learn that the nafs does not mean only the 'evil side.'",
+        "To understand that the nafs can be purified and disciplined.",
+        "To see that the Quran discusses the nafs in relation to both good and evil inclinations."
+      ],
+      "mainMessage": "The nafs is not a being to be destroyed; it is our inner self, which must be purified, disciplined and directed toward earning Allah's pleasure.",
+      "quranReferences": [
+        {
+          "surah": "ash-Shams",
+          "surahNumber": 91,
+          "ayahRange": "7-10",
+          "topic": "The shaping of the nafs, its capacity for evil and taqwa, purification and corruption",
+          "mealSummary": "Allah shaped the nafs and inspired it with an awareness of evil and taqwa. He declared that whoever purifies it will succeed, while whoever corrupts it will be lost.",
+          "sourceId": "quran-sems-91-7-10"
+        },
+        {
+          "surah": "al-Hashr",
+          "surahNumber": 59,
+          "ayahRange": "18",
+          "topic": "Self-examination",
+          "mealSummary": "Believers are commanded to be mindful of Allah and to look at what each person has prepared for tomorrow.",
+          "sourceId": "quran-hashr-59-18"
+        }
+      ],
+      "hadithReferences": [],
+      "appContent": {
+        "intro": "Within a person is a capacity to turn toward either good or evil. The Quran describes this through the concept of the nafs.",
+        "body": [
+          "The nafs can refer to a person, their desires or the inner struggle within them.",
+          "For this reason, the nafs should not be described simply as an 'evil enemy.'",
+          "The main goal is not to destroy the nafs, but to purify and discipline it and direct it toward what pleases Allah."
+        ],
+        "reflectionQuestion": "What inner voices calling me toward good and toward evil did I notice today?",
+        "practice": "At the end of the day, pause for 2 minutes and ask yourself: 'Did I do anything today that purified my nafs?'",
+        "shortDua": "O Allah, make it easy for me to purify my nafs and direct it toward earning Your pleasure."
+      },
+      "safetyNotes": [
+        "The concept of the nafs should not be reduced to a purely psychological term; it should be explained in its Quranic and ethical context.",
+        "The nafs should be explained in terms of a person's inner inclinations and states, not as an independent evil being."
+      ]
+    },
+    {
+      "id": "lesson-02-ham-nefs",
+      "order": 2,
+      "title": "Undisciplined Nafs: The Untrained Self",
+      "estimatedMinutes": 5,
+      "classification": "pedagogical_intro",
+      "summary": "Undisciplined nafs is an introductory teaching term used to describe a person whose inner self has not yet been trained through self-discipline, self-examination and awareness of taqwa.",
+      "learningObjectives": [
+        "To know that the first step in the eight-lesson structure is a teaching introduction, not a mandatory stage prescribed in the Quran.",
+        "To understand that the nafs can come under the influence of desires when left unchecked.",
+        "To understand that disciplining the nafs is an effort to purify and protect it."
+      ],
+      "mainMessage": "Undisciplined nafs describes a person's initial state when left alone with their desires; before training begins, there is little sense of direction in the inner world.",
+      "quranReferences": [
+        {
+          "surah": "ash-Shams",
+          "surahNumber": 91,
+          "ayahRange": "7-10",
+          "topic": "Purification or corruption of the nafs",
+          "mealSummary": "Whoever purifies their nafs succeeds, and whoever buries it in evil is lost.",
+          "sourceId": "quran-sems-91-7-10"
+        },
+        {
+          "surah": "an-Nazi'at",
+          "surahNumber": 79,
+          "ayahRange": "40-41",
+          "topic": "Restraining the nafs from desire",
+          "mealSummary": "The destination of the person who fears standing before their Lord and restrains their nafs from evil desires is Paradise.",
+          "sourceId": "quran-naziat-79-40-41"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6487",
+          "topic": "Desires and hardships",
+          "meaningSummary": "Hell is surrounded by desires, and Paradise is surrounded by things that are difficult for the nafs.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6487"
+        }
+      ],
+      "appContent": {
+        "intro": "Disciplining the nafs is a journey that begins within oneself. The first step is to notice our inner inclinations.",
+        "body": [
+          "Human beings were created with desires; these desires exist not to be eliminated entirely, but to be kept within halal and proper limits.",
+          "Undisciplined nafs represents the inner state of following one's desires without questioning them.",
+          "At this stage, a person often mistakes the prompting of their nafs for 'what I want.'"
+        ],
+        "reflectionQuestion": "Which desire did I follow today without questioning it?",
+        "practice": "When a desire arises, pause for 10 seconds before acting and ask: 'Does this desire bring me closer to Allah or take me further away from Him?'",
+        "shortDua": "O Allah, do not leave me at the mercy of the unchecked desires of my nafs."
+      },
+      "safetyNotes": [
+        "The heading 'Undisciplined Nafs' should not be presented as part of the classical seven-stage classification.",
+        "This heading should be labelled 'teaching introduction.'"
+      ]
+    },
+    {
+      "id": "lesson-03-nefs-i-emmare",
+      "order": 3,
+      "title": "Nafs al-Ammara: The Nafs That Commands Evil",
+      "estimatedMinutes": 6,
+      "classification": "quranic_term",
+      "summary": "Nafs al-Ammara is the state of the nafs that calls a person toward evil, sin, making excuses and following desires.",
+      "learningObjectives": [
+        "To learn the Quranic basis for Nafs al-Ammara.",
+        "To recognize that defending sin and making excuses are signs of this state.",
+        "To develop repentance and conscious resistance against the aspect of the nafs that commands evil."
+      ],
+      "mainMessage": "Nafs al-Ammara is the inner voice that says, 'Never mind, just do it.'",
+      "quranReferences": [
+        {
+          "surah": "Yusuf",
+          "surahNumber": 12,
+          "ayahRange": "53",
+          "topic": "The nafs commanding evil",
+          "mealSummary": "The nafs is described as inclined to command evil, except when the Lord shows mercy and protects it.",
+          "sourceId": "quran-yusuf-12-53"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6487",
+          "topic": "The danger of desires",
+          "meaningSummary": "Hell is surrounded by desires, and Paradise is surrounded by things that are difficult for the nafs.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6487"
+        }
+      ],
+      "appContent": {
+        "intro": "Nafs al-Ammara describes a person's inclination toward sin and tendency to defend that inclination.",
+        "body": [
+          "In this state, a person not only makes mistakes but also makes excuses for them.",
+          "Arrogance, greed, envy, lust, anger and selfishness are among the prominent signs of this state.",
+          "Recognizing Nafs al-Ammara teaches a person to seek refuge in Allah's mercy instead of declaring themselves free of blame."
+        ],
+        "symptoms": [
+          "Making light of sin",
+          "Making excuses",
+          "Being arrogant",
+          "Treating greed and envy as normal",
+          "Putting desire before truth"
+        ],
+        "treatment": [
+          "Repentance",
+          "Holding fast to obligatory duties",
+          "Staying away from what is forbidden",
+          "Self-examination",
+          "Righteous company"
+        ],
+        "reflectionQuestion": "What excuse did my nafs offer me today?",
+        "practice": "Instead of defending a mistake you made during the day, name it honestly.",
+        "shortDua": "O Allah, protect me from the part of my nafs that commands evil."
+      },
+      "safetyNotes": [
+        "It may be noted that there are differences of opinion in the tafsir regarding who is speaking in Yusuf 12:53.",
+        "The lesson should guide the person toward repentance and Allah’s mercy, not despair."
+      ]
+    },
+    {
+      "id": "lesson-04-nefs-i-levvame",
+      "order": 4,
+      "title": "Nafs al-Lawwama: The Self-Reproaching Nafs",
+      "estimatedMinutes": 6,
+      "classification": "quranic_term",
+      "summary": "Nafs al-Lawwama is the state of the nafs that recognizes wrongdoing, holds itself accountable, and feels the need for remorse and repentance.",
+      "learningObjectives": [
+        "To learn the Qur’anic basis of the concept of lawwama.",
+        "To understand that remorse is a sign of awakening, not hopelessness.",
+        "To grasp the importance of self-examination in disciplining the nafs."
+      ],
+      "mainMessage": "Nafs al-Lawwama is a sign of awakening, not downfall.",
+      "quranReferences": [
+        {
+          "surah": "al-Qiyamah",
+          "surahNumber": 75,
+          "ayahRange": "2",
+          "topic": "The self-reproaching nafs",
+          "mealSummary": "In the Qur’an, an oath is sworn by the self-reproaching nafs.",
+          "sourceId": "quran-qiyamah-75-2"
+        },
+        {
+          "surah": "al-Hashr",
+          "surahNumber": 59,
+          "ayahRange": "18",
+          "topic": "Holding the nafs accountable",
+          "mealSummary": "Everyone is commanded to consider what they have prepared for tomorrow.",
+          "sourceId": "quran-hashr-59-18"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6114",
+          "topic": "Controlling the nafs when angry",
+          "meaningSummary": "It is stated that the truly strong person is the one who controls themselves when angry.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6114"
+        }
+      ],
+      "appContent": {
+        "intro": "If a person feels troubled within after making a mistake, this discomfort may be the beginning of their return.",
+        "body": [
+          "Nafs al-Lawwama is the state of the nafs that recognizes sin and holds itself accountable.",
+          "At this stage, a person begins to question their mistake instead of treating it as normal.",
+          "If guided in the right direction, remorse can lead to repentance, self-improvement, and a return to the right path."
+        ],
+        "symptoms": [
+          "Remorse",
+          "Awakening of conscience",
+          "Desire to repent",
+          "Stopping the defense of one’s mistakes",
+          "Examining one’s inner self"
+        ],
+        "treatment": [
+          "Seeking forgiveness",
+          "Daily self-examination",
+          "Patience in the face of anger and desires",
+          "Making amends for mistakes",
+          "Increasing supplication"
+        ],
+        "reflectionQuestion": "Which of my actions should I hold myself accountable for today?",
+        "practice": "Before going to sleep at night, ask yourself three questions: What did I do well today? What did I do wrong? What will I correct tomorrow?",
+        "shortDua": "O Allah, grant me the ability to recognize my mistakes, repent, and gain the strength not to fall into them again."
+      },
+      "safetyNotes": [
+        "The state of lawwama should guide the user toward a sense of responsibility and awareness of repentance, not toward seeing themselves as worthless.",
+        "Excessive feelings of guilt should not be encouraged."
+      ]
+    },
+    {
+      "id": "lesson-05-nefs-i-mulhime",
+      "order": 5,
+      "title": "Nafs al-Mulhima: Awareness of Good and Evil",
+      "estimatedMinutes": 6,
+      "classification": "tasawwuf_classification_with_quranic_basis",
+      "summary": "Nafs al-Mulhima is a moral and Sufi concept whose name does not appear in the Qur’an, but which is associated with the inspiration of the nafs with its inclination to evil and its capacity for taqwa in ash-Shams 91:8.",
+      "learningObjectives": [
+        "To learn correctly that the name mulhima does not appear verbatim in the Qur’an.",
+        "To understand how ash-Shams 91:8 provides a basis for the inner awareness of the nafs.",
+        "To learn to distinguish carefully between inspiration, whispers, and desire."
+      ],
+      "mainMessage": "At this stage, a person hears not only desire but also warnings within; the question is which voice to heed.",
+      "quranReferences": [
+        {
+          "surah": "ash-Shams",
+          "surahNumber": 91,
+          "ayahRange": "8",
+          "topic": "The inspiration of the nafs with evil and taqwa",
+          "mealSummary": "Allah has inspired the nafs with its inclination to evil and its capacity for taqwa.",
+          "sourceId": "quran-sems-91-7-10"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Jami` at-Tirmidhi",
+          "reference": "1621",
+          "topic": "Struggling against the nafs",
+          "meaningSummary": "It is stated that a mujahid is a person who struggles against their own nafs.",
+          "grade": "Al-Tirmidhi grades the narration hasan-sahih; the Darussalam grading also lists it as hasan.",
+          "sourceId": "tirmidhi-1621"
+        }
+      ],
+      "appContent": {
+        "intro": "Sometimes a person feels that a desire arising within them is wrong. This awareness is an important step in disciplining the nafs.",
+        "body": [
+          "The term mulhima is used to describe the state of recognizing the nafs’s inclinations toward good and evil.",
+          "However, not every inner voice is accepted as right. A believer weighs their inner thoughts against the standards of the Qur’an, Sunnah, and morality.",
+          "At this stage, the focus is not on blindly following the inner voice, but on strengthening the inclination that calls one to taqwa."
+        ],
+        "symptoms": [
+          "An inner warning against sin",
+          "A desire to turn toward goodness",
+          "Growing awareness of taqwa",
+          "Weighing one’s actions in light of Allah’s pleasure"
+        ],
+        "treatment": [
+          "Turning to the standards of the Qur’an and Sunnah",
+          "Trying to distinguish whispers from sound warnings",
+          "Seeking knowledge",
+          "Supplication and seeking forgiveness",
+          "Benefiting from the explanations of trustworthy scholars"
+        ],
+        "reflectionQuestion": "Which warning within me should I have taken seriously today?",
+        "practice": "When making a decision, use these three criteria: Would Allah be pleased? Does it involve violating another person’s rights? Will it make me a better servant of Allah?",
+        "shortDua": "O Allah, show me truth as truth and grant me the ability to follow it; show me falsehood as falsehood and grant me the ability to avoid it."
+      },
+      "safetyNotes": [
+        "The name Nafs al-Mulhima should not be presented as an expression that appears verbatim in the Qur’an.",
+        "The user should not be given the message that ‘everything that comes from within is inspiration.’",
+        "The distinction between whispers, whims, and sound inclinations should be emphasized."
+      ]
+    },
+    {
+      "id": "lesson-06-nefs-i-mutmainne",
+      "order": 6,
+      "title": "Nefs-i Mutmainne: The Nafs at Peace",
+      "estimatedMinutes": 6,
+      "classification": "quranic_term",
+      "summary": "Nefs-i mutmainne is the state of the nafs that finds peace through iman, trusts Allah, and seeks steadfastness in serving Him.",
+      "learningObjectives": [
+        "To learn that the concept of mutmainne appears in al-Fajr 89:27.",
+        "To grasp that peace is not the absence of desires, but the heart learning to trust Allah.",
+        "To understand the relationship of worship, patience, and submission to peace of heart."
+      ],
+      "mainMessage": "Nefs-i mutmainne is the stage at which desires have not completely disappeared, but the heart has learned to trust Allah.",
+      "quranReferences": [
+        {
+          "surah": "al-Fajr",
+          "surahNumber": 89,
+          "ayahRange": "27-30",
+          "topic": "The nafs at peace",
+          "mealSummary": "The person who has attained the peace of iman is addressed and told to return to their Lord, pleased and pleasing to Him, join His servants, and enter Paradise.",
+          "sourceId": "quran-fecr-89-27-30"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sunan an-Nasa'i",
+          "reference": "5524",
+          "topic": "Seeking refuge in Allah from the evil of things done and left undone",
+          "meaningSummary": "It is reported that one of the supplications the Messenger of Allah frequently made was to seek refuge in Allah from the evil of things done and things not yet done.",
+          "grade": "Narrated in sahih sources; listed on Sunnah.com as al-Nasa'i 5524.",
+          "sourceId": "nasai-5524"
+        }
+      ],
+      "appContent": {
+        "intro": "Peace of heart comes not from external circumstances becoming entirely better, but from growing trust in Allah.",
+        "body": [
+          "Nefs-i mutmainne is the state of the nafs that has drawn close to tranquility through iman.",
+          "In this state, a person does not deny difficulties, but neither are they swept away by them and forget their Lord.",
+          "It is explained that this address relates to the believer who completes their worldly life with iman, respect for Allah’s commands, and compassion for creation."
+        ],
+        "symptoms": [
+          "Trust in Allah",
+          "Steadfastness in worship",
+          "Stronger resistance to sin",
+          "Tranquility in the heart",
+          "Not seeing worldly life as the ultimate goal"
+        ],
+        "treatment": [
+          "Consistency in salah",
+          "Remembrance of Allah and supplication",
+          "Reading the Qur’an",
+          "Patience",
+          "Gratitude"
+        ],
+        "reflectionQuestion": "In what matter did I struggle to trust Allah today?",
+        "practice": "Write down a matter that worries you and add this sentence beside it: ‘I will take the precautions I can and leave the outcome to my Lord.’",
+        "shortDua": "O Allah, grant my heart the peace of iman and trust in You."
+      },
+      "safetyNotes": [
+        "The state of mutmainne should not be described as meaning that a person never feels sad or faces difficulty.",
+        "This topic should not be presented as a treatment for psychological problems."
+      ]
+    },
+    {
+      "id": "lesson-07-nefs-i-raziye",
+      "order": 7,
+      "title": "Nafs al-Radiya: The Nafs Pleased with Allah",
+      "estimatedMinutes": 5,
+      "classification": "quranic_expression_interpreted_as_stage",
+      "summary": "Nafs al-Radiya is the state of the nafs associated with a servant learning to accept Allah’s judgment, commands, and decree.",
+      "learningObjectives": [
+        "To learn that the expression radiya is associated with the address ‘pleased’ in al-Fajr 89:28.",
+        "To grasp that acceptance does not mean feeling no pain, but maintaining trust in Allah.",
+        "To understand the balance between patience and gratitude."
+      ],
+      "mainMessage": "Acceptance does not mean feeling no pain; it means maintaining trust in Allah even amid pain.",
+      "quranReferences": [
+        {
+          "surah": "al-Fajr",
+          "surahNumber": 89,
+          "ayahRange": "28",
+          "topic": "The servant’s return, pleased with their Lord",
+          "mealSummary": "The nafs at peace is addressed and told to return to its Lord, pleased with Him.",
+          "sourceId": "quran-fecr-89-27-30"
+        }
+      ],
+      "hadithReferences": [],
+      "appContent": {
+        "intro": "Acceptance is a servant learning to trust Allah’s knowledge and wisdom.",
+        "body": [
+          "Nafs al-Radiya is described as the state of the nafs that moves away from speaking in rebellion against Allah’s commands and decree.",
+          "This state does not mean that a person never feels the trials they face; it means continuing to trust their Lord through those trials.",
+          "Contentment includes patience, gratitude, and submission."
+        ],
+        "symptoms": [
+          "Patience in adversity",
+          "Gratitude for blessings",
+          "Avoiding words of rebellion",
+          "Trusting Allah’s decree",
+          "Submission in servitude to Allah"
+        ],
+        "treatment": [
+          "Reflecting on verses about patience",
+          "Keeping a gratitude journal",
+          "Learning sound teachings about divine decree and destiny",
+          "Supplication",
+          "Guarding one’s tongue in times of adversity"
+        ],
+        "reflectionQuestion": "In what matter did I struggle to accept Allah’s decree today?",
+        "practice": "Think about an event you found difficult today and ask, 'What lesson about serving Allah might this event be teaching me?'",
+        "shortDua": "O Allah, make me among Your servants who are content with Your decree, patient, and grateful."
+      },
+      "safetyNotes": [
+        "Contentment should not be presented as accepting oppression or remaining silent in the face of injustice.",
+        "The responsibility to respect others’ rights and uphold justice must be maintained."
+      ]
+    },
+    {
+      "id": "lesson-08-nefs-i-marziyye",
+      "order": 8,
+      "title": "Nafs al-Mardiyya: The Self with Which Allah Is Pleased",
+      "estimatedMinutes": 5,
+      "classification": "quranic_expression_interpreted_as_stage",
+      "summary": "Nafs al-Mardiyya is explained as the self that aims to reach a state of servitude with which Allah is pleased.",
+      "learningObjectives": [
+        "Learn that the expression mardiyya is associated with the phrase 'well-pleasing' in al-Fajr 89:28.",
+        "Understand the place of making Allah’s pleasure central to disciplining the self.",
+        "Understand that this state requires humility and sincerity, not self-admiration."
+      ],
+      "mainMessage": "The station of mardiyya is not about admiring oneself; it is about making it one’s central aim in life to be a servant with whom Allah is pleased.",
+      "quranReferences": [
+        {
+          "surah": "al-Fajr",
+          "surahNumber": 89,
+          "ayahRange": "28",
+          "topic": "Allah’s pleasure with His servant",
+          "mealSummary": "The tranquil soul is addressed and told to return to its Lord, pleased and pleasing to Him.",
+          "sourceId": "quran-fecr-89-27-30"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6114",
+          "topic": "Self-control and good character",
+          "meaningSummary": "It is said that the truly strong person is the one who controls themselves when angry.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6114"
+        }
+      ],
+      "appContent": {
+        "intro": "The believer’s goal is Allah’s pleasure, not people’s approval.",
+        "body": [
+          "Nafs al-Mardiyya refers to the self directed toward a state of servitude with which Allah is pleased.",
+          "This state means living with sincerity, humility, and good character, not seeing oneself as superior.",
+          "The servant continues on the path, relying not on their deeds but on hope in Allah’s mercy."
+        ],
+        "symptoms": [
+          "Sincerity",
+          "Humility",
+          "Good character",
+          "Mercy",
+          "Putting Allah’s pleasure first"
+        ],
+        "treatment": [
+          "Examining one’s intention",
+          "Avoiding showing off",
+          "Avoiding violations of others’ rights",
+          "Doing good deeds in secret",
+          "Striving against anger and arrogance"
+        ],
+        "reflectionQuestion": "In which deed I did today might I have put people’s approval before Allah’s pleasure?",
+        "practice": "Do a small good deed today that no one else knows about.",
+        "shortDua": "O Allah, make me one of Your servants with whom You are pleased."
+      },
+      "safetyNotes": [
+        "The state of mardiyya should not be presented as a person declaring with certainty that they are a servant with whom Allah is pleased.",
+        "A balance between hope and humility must be maintained."
+      ]
+    },
+    {
+      "id": "lesson-09-nefs-i-kamile-zekiyye",
+      "order": 9,
+      "title": "Nafs al-Kamila/Zakiyya: The Purified and Mature Self",
+      "estimatedMinutes": 6,
+      "classification": "tasawwuf_classification_with_quranic_basis",
+      "summary": "Nafs al-Kamila or Zakiyya is explained as a state of the self that has been purified, has become consistent in good character, and does not forget its need for Allah.",
+      "learningObjectives": [
+        "Learn that the heading kamila/zakiyya appears as the final stage in the classical seven-stage classification.",
+        "Understand that purification does not mean seeing oneself as flawless.",
+        "Understand the importance of good character, humility, and continual repentance."
+      ],
+      "mainMessage": "The mature self does not see itself as flawless; it never forgets its need for Allah.",
+      "quranReferences": [
+        {
+          "surah": "ash-Shams",
+          "surahNumber": 91,
+          "ayahRange": "9",
+          "topic": "Purification of the self",
+          "mealSummary": "It is said that whoever purifies their self will attain success.",
+          "sourceId": "quran-sems-91-7-10"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Sunan an-Nasa'i",
+          "reference": "5524",
+          "topic": "Seeking refuge in Allah from the evil of one’s deeds",
+          "meaningSummary": "It is narrated that the Messenger of Allah sought refuge in Allah from the evil of what he had done and what he had not yet done.",
+          "grade": "Narrated in sahih sources; listed on Sunnah.com as al-Nasa'i 5524.",
+          "sourceId": "nasai-5524"
+        }
+      ],
+      "appContent": {
+        "intro": "The self is purified not by a person seeing themselves as flawless, but through a deeper awareness of their need for their Lord.",
+        "body": [
+          "The heading kamila/zakiyya describes the goal of maturity and purification in disciplining the self.",
+          "In this state, a person does not take sin lightly or rely on their deeds, and seeks refuge in Allah’s mercy.",
+          "Good character, sincerity, patience, humility, and mercy are the main signs of this goal."
+        ],
+        "symptoms": [
+          "Continual repentance",
+          "Humility",
+          "Sincerity",
+          "Mercy",
+          "Patience",
+          "Not taking sin lightly"
+        ],
+        "treatment": [
+          "Regularly examining one’s intention",
+          "Avoiding sins committed in secret",
+          "Respecting the rights of others",
+          "Improving one’s character",
+          "Maintaining an awareness of one’s need for Allah"
+        ],
+        "reflectionQuestion": "In which of my actions today did I show a tendency to justify myself?",
+        "practice": "Acknowledge a mistake today without defending it, and sincerely ask Allah for forgiveness.",
+        "shortDua": "O Allah, purify my self; You are the best of those who can purify it."
+      },
+      "safetyNotes": [
+        "The heading of the mature self should not be presented in a way that leads a person to claim spiritual superiority.",
+        "Every stage should be presented in a balanced way, in the context of Allah’s grace and the servant’s effort."
+      ]
+    },
+    {
+      "id": "lesson-10-nefis-terbiyesinin-yollari",
+      "order": 10,
+      "title": "Ways to Discipline the Self",
+      "estimatedMinutes": 7,
+      "classification": "practical_ethics",
+      "summary": "Disciplining the self is a continuous effort in servitude to Allah, supported by repentance, self-examination, holding fast to obligatory duties, avoiding what is forbidden, supplication, remembrance of Allah, patience, gratitude, and righteous company.",
+      "learningObjectives": [
+        "Learn practical ways to discipline the self.",
+        "Develop a habit of daily self-examination.",
+        "Understand that striving against the self is a lifelong process."
+      ],
+      "mainMessage": "Disciplining the self is not a task completed in an instant; it is a discipline of servitude renewed every day.",
+      "quranReferences": [
+        {
+          "surah": "al-Hashr",
+          "surahNumber": 59,
+          "ayahRange": "18",
+          "topic": "Preparing for the future and self-examination",
+          "mealSummary": "Everyone is commanded to look at what they have prepared for tomorrow.",
+          "sourceId": "quran-hashr-59-18"
+        },
+        {
+          "surah": "an-Nazi'at",
+          "surahNumber": 79,
+          "ayahRange": "40-41",
+          "topic": "Restraining the self from its desires",
+          "mealSummary": "It is said that Paradise is the destination of the person who fears standing before their Lord and restrains their self from evil desires.",
+          "sourceId": "quran-naziat-79-40-41"
+        }
+      ],
+      "hadithReferences": [
+        {
+          "collection": "Jami` at-Tirmidhi",
+          "reference": "1621",
+          "topic": "Striving against the self",
+          "meaningSummary": "It is said that the mujahid is the person who strives against their own self.",
+          "grade": "Al-Tirmidhi grades the narration hasan-sahih; the Darussalam grading also lists it as hasan.",
+          "sourceId": "tirmidhi-1621"
+        },
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6114",
+          "topic": "Controlling anger",
+          "meaningSummary": "It is said that the truly strong person is the one who controls themselves when angry.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6114"
+        },
+        {
+          "collection": "Sahih al-Bukhari",
+          "reference": "6487",
+          "topic": "Desires and hardships",
+          "meaningSummary": "Hell is surrounded by desires, while Paradise is surrounded by things that are difficult for the self.",
+          "grade": "Sahih",
+          "sourceId": "bukhari-6487"
+        }
+      ],
+      "appContent": {
+        "intro": "A person who knows their self learns not to wage war against it, but to direct it toward a path that pleases Allah.",
+        "body": [
+          "Disciplining the self begins with repentance, continues with self-examination, and is strengthened through worship and good character.",
+          "Holding fast to obligatory duties and staying away from what is forbidden are the foundation of this path.",
+          "Supplication, remembrance of Allah, the Qur’an, patience, gratitude, and righteous company are supports that strengthen the self."
+        ],
+        "practicalSteps": [
+          "Spend a little time examining yourself every day.",
+          "Give priority to consistency in obligatory acts of worship.",
+          "Set boundaries around forbidden and doubtful matters.",
+          "Name inner ailments such as anger, arrogance, envy, and greed.",
+          "Make supplication and seeking forgiveness part of your daily life.",
+          "Try to keep company with people who bring you closer to Allah."
+        ],
+        "dailyMuhasabahQuestions": [
+          "What did I do today for Allah’s pleasure?",
+          "What excuse did my self use to try to deceive me today?",
+          "Did I violate anyone’s rights today?",
+          "Was I able to control my anger, my tongue, or my gaze today?",
+          "What should I repent for today?",
+          "Which one of my behaviors do I intend to correct tomorrow?"
+        ],
+        "reflectionQuestion": "In what area do I struggle most when striving against my self?",
+        "practice": "For seven days, answer at least three of the daily self-examination questions every night.",
+        "shortDua": "O Allah, protect me from the evil of my self; make my heart, my tongue, and my deeds pleasing to You."
+      },
+      "safetyNotes": [
+        "Disciplining the self should not turn into a practice of searching for faults that leaves a person feeling hopeless.",
+        "Lessons should be presented with a balance of mercy, repentance, hope, and responsibility."
+      ]
+    }
+  ],
+  "referenceLibrary": {
+    "quran": [
+      {
+        "id": "quran-sems-91-7-10",
+        "type": "quran",
+        "surah": "ash-Shams",
+        "surahNumber": 91,
+        "ayahRange": "7-10",
+        "sourceName": "English translation and explanation of the Qur’an",
+        "url": "",
+        "usage": "The creation of the nafs, its capacity for evil and taqwa, and its purification and corruption."
+      },
+      {
+        "id": "quran-yusuf-12-53",
+        "type": "quran",
+        "surah": "Yusuf",
+        "surahNumber": 12,
+        "ayahRange": "53",
+        "sourceName": "Kuran Yolu commentary",
+        "url": "",
+        "usage": "The main Qur'anic basis for the category of Nafs al-Ammara."
+      },
+      {
+        "id": "quran-fecr-89-27-30",
+        "type": "quran",
+        "surah": "al-Fajr",
+        "surahNumber": 89,
+        "ayahRange": "27-30",
+        "sourceName": "Kuran Yolu commentary",
+        "url": "",
+        "usage": "The main Qur'anic basis for the categories of mutmainna, radiya and mardiyya."
+      },
+      {
+        "id": "quran-qiyamah-75-2",
+        "type": "quran",
+        "surah": "al-Qiyamah",
+        "surahNumber": 75,
+        "ayahRange": "2",
+        "sourceName": "Qur'an",
+        "url": "",
+        "usage": "The main Qur'anic basis for the category of nafs al-lawwama."
+      },
+      {
+        "id": "quran-naziat-79-40-41",
+        "type": "quran",
+        "surah": "an-Nazi'at",
+        "surahNumber": 79,
+        "ayahRange": "40-41",
+        "sourceName": "Qur'an",
+        "url": "",
+        "usage": "Restraining the nafs from desire and striving for Paradise."
+      },
+      {
+        "id": "quran-hashr-59-18",
+        "type": "quran",
+        "surah": "al-Hashr",
+        "surahNumber": 59,
+        "ayahRange": "18",
+        "sourceName": "Qur'an",
+        "url": "",
+        "usage": "Daily self-examination and preparation for the Hereafter."
+      }
+    ],
+    "hadith": [
+      {
+        "id": "bukhari-6487",
+        "type": "hadith",
+        "collection": "Sahih al-Bukhari",
+        "reference": "6487",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/bukhari:6487",
+        "grade": "Sahih",
+        "usage": "Disciplining the nafs in the context of desires and things the nafs finds difficult."
+      },
+      {
+        "id": "bukhari-6114",
+        "type": "hadith",
+        "collection": "Sahih al-Bukhari",
+        "reference": "6114",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/bukhari:6114",
+        "grade": "Sahih",
+        "usage": "Controlling anger and exercising self-restraint."
+      },
+      {
+        "id": "tirmidhi-1621",
+        "type": "hadith",
+        "collection": "Jami` at-Tirmidhi",
+        "reference": "1621",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/tirmidhi:1621",
+        "grade": "Graded hasan-sahih by al-Tirmidhi; the Darussalam grading lists it as hasan.",
+        "usage": "A mujahid is a person who struggles against their own nafs."
+      },
+      {
+        "id": "nasai-5524",
+        "type": "hadith",
+        "collection": "Sunan an-Nasa'i",
+        "reference": "5524",
+        "sourceName": "Sunnah.com",
+        "url": "https://sunnah.com/nasai:5524",
+        "grade": "A supplication narrated in sahih sources; recorded as al-Nasa'i 5524.",
+        "usage": "A supplication seeking refuge in Allah from the evil of what one has done and what one has not done."
+      }
+    ],
+    "encyclopedia": [
+      {
+        "id": "kaynak-nefis",
+        "type": "encyclopedia",
+        "title": "Nafs",
+        "sourceName": "contemporary Islamic sources",
+        "url": "",
+        "usage": "A basic explanation of the nafs as one entity, its different states and attributes, and its sevenfold classification."
+      },
+      {
+        "id": "kaynak-atvar-i-seba",
+        "type": "encyclopedia",
+        "title": "Atwar al-Sab‘a",
+        "sourceName": "contemporary Islamic sources",
+        "url": "",
+        "usage": "The seven states of the nafs: ammara, lawwama, mulhima, mutmainna, radiya, mardiyya and kamila."
+      }
+    ],
+    "avoidAsHadith": [
+      {
+        "phrase": "Whoever knows their nafs knows their Lord.",
+        "reason": "Although this is a common saying in Sufi literature, it should not be presented as a hadith in practice; it may be discussed separately as a wise saying."
+      },
+      {
+        "phrase": "We have returned from the lesser jihad to the greater jihad.",
+        "reason": "Although this is well known in the context of struggling against the nafs, a more reliable narration, such as Tirmidhi 1621, should be used instead of including it among authentic hadiths."
+      }
+    ]
+  },
+  "importHints": {
+    "recommendedDisplayOrder": "lessons[].order",
+    "slugField": "id",
+    "sourceJoinKey": "sourceId",
+    "safeDefaultLessonCount": 10,
+    "canSplitIntoCards": true,
+    "suggestedCardFields": [
+      "title",
+      "summary",
+      "mainMessage",
+      "quranReferences",
+      "hadithReferences",
+      "appContent.body",
+      "appContent.reflectionQuestion",
+      "appContent.practice",
+      "appContent.shortDua"
+    ]
+  }
+}

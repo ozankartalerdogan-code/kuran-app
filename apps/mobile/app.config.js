@@ -19,6 +19,11 @@ module.exports = {
     description:
       "Kur'an-ı Kerim'i okuyun, anlayın ve yaşayın. Türkçe meal, kelime analizi, kök açıklamaları, dua kategorileri ve günlük okuma takibi.",
     assetBundlePatterns: ['**/*'],
+    // iOS izin metinlerinin İngilizce karşılıkları (Türkçe varsayılan infoPlist'te).
+    locales: {
+      tr: './languages/tr.json',
+      en: './languages/en.json',
+    },
     ios: {
       // Uygulama dikey (portrait) kilitli ve tablet düzeni hiç tasarlanmadı/test
       // edilmedi — supportsTablet:true iPad'i "destekleniyor" gibi listeler ama
@@ -41,6 +46,9 @@ module.exports = {
         // COARSE-only kararıyla ve gizlilik metnindeki "hassas konum kullanılmaz"
         // beyanıyla tutarlı (kıble/namaz vakti için şehir düzeyi yeterli).
         NSLocationDefaultAccuracyReduced: true,
+        // Arayüz tr + en; iOS'un uygulamayı İngilizce destekli tanıması için.
+        CFBundleLocalizations: ['tr', 'en'],
+        CFBundleAllowMixedLocalizations: true,
       },
       // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). MMKV/AsyncStorage
       // (UserDefaults), expo-file-system (dosya zamanı/disk alanı) ve RN/Sentry
@@ -121,6 +129,8 @@ module.exports = {
       // çalışıyor. Bkz. plugins/with-native-clean-codegen-ordering.js.
       './plugins/with-native-clean-codegen-ordering',
       'expo-router',
+      // Cihaz dilini okur (src/i18n) — Türkçe dışı cihazlarda arayüz İngilizce.
+      'expo-localization',
       // iOS: yalnız "uygulama kullanılırken" konum — arka plan/"her zaman" izni
       // istenmez (plugin varsayılanı bu anahtarları İngilizce metinle ekliyordu).
       // Android çıktısı değişmez (izinler yukarıdaki permissions/blocked listesiyle).
@@ -201,6 +211,20 @@ module.exports = {
       // secret'ı (SENTRY_AUTH_TOKEN) — source map upload için. Olaylar 'react-native'
       // projesine gidiyor (DSN), source map de oraya yüklenmeli.
       ['@sentry/react-native', { organization: 'ozan-kartal', project: 'react-native', url: 'https://sentry.io/' }],
+      // Widget seçicideki ad/açıklama dile göre (values = EN, values-tr = TR).
+      // 'react-native-android-widget'tan ÖNCE gelmeli (bkz. plugins/with-widget-strings.js).
+      [
+        './plugins/with-widget-strings',
+        {
+          widgets: [
+            {
+              name: 'EmirAyetleri',
+              en: { label: 'Verses of Command', description: 'Quran verses in the imperative mood, rotating 6 times a day.' },
+              tr: { label: 'Emir Ayetleri', description: 'Kur\'an\'dan emir kipiyle gelen ayetler, günde 6 kez döner.' },
+            },
+          ],
+        },
+      ],
       // Android ana ekran widget'ı — "Emir Ayetleri" (bkz. src/widgets/). Sadece
       // Android'de native kod ekler, iOS/web build'ini etkilemez.
       // 'name' değeri src/widgets/emirRotation.ts'teki WIDGET_NAME ile AYNI OLMALI.
@@ -210,8 +234,9 @@ module.exports = {
           widgets: [
             {
               name: 'EmirAyetleri',
-              label: 'Emir Ayetleri',
-              description: 'Kur\'an\'dan emir kipiyle gelen ayetler, günde 6 kez döner.',
+              // Ad/açıklama dile göre: plugins/with-widget-strings.js (values + values-tr).
+              label: '@string/widget_emirayetleri_label',
+              description: 'Quran verses in the imperative mood, rotating 6 times a day.',
               minWidth: '250dp',
               minHeight: '110dp',
               targetCellWidth: 4,

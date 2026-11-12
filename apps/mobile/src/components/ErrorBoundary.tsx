@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { getStrings } from "../i18n";
+import misc1Strings from "../i18n/strings/misc1";
 
 // _layout.tsx'teki Sentry.init() zaten çalıştı (singleton) — burada yalnız
 // captureException'a erişmek için aynı build-gated require deseni tekrarlanır.
@@ -39,13 +41,14 @@ export class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback;
+      const t = getStrings(misc1Strings);
       return (
         <View style={styles.container}>
           <Text style={styles.emoji}>⚠️</Text>
-          <Text style={styles.title}>Bir şeyler ters gitti</Text>
-          <Text style={styles.sub}>Uygulama beklenmedik bir hatayla karşılaştı.</Text>
-          <TouchableOpacity style={styles.btn} onPress={this.reset} accessibilityRole="button" accessibilityLabel="Yeniden dene">
-            <Text style={styles.btnText}>Yeniden Dene</Text>
+          <Text style={styles.title}>{t.errTitle}</Text>
+          <Text style={styles.sub}>{t.errBoundarySub}</Text>
+          <TouchableOpacity style={styles.btn} onPress={this.reset} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
+            <Text style={styles.btnText}>{t.retry}</Text>
           </TouchableOpacity>
         </View>
       );

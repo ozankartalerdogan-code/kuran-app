@@ -1,0 +1,5287 @@
+{
+  "dersler": [
+    {
+      "id": 1,
+      "baslik": "1. KONU: HARFLER"
+    },
+    {
+      "id": 2,
+      "baslik": "2. KONU: HARFLERİN KELİME İÇİNDE YAZILIŞLARI"
+    },
+    {
+      "id": 3,
+      "baslik": "3. KONU: HAREKELER"
+    },
+    {
+      "id": 4,
+      "baslik": "4. KONU: CEZM"
+    },
+    {
+      "id": 5,
+      "baslik": "5. KONU: ŞEDDE"
+    },
+    {
+      "id": 6,
+      "baslik": "6. KONU: MED HARFLERİ"
+    },
+    {
+      "id": 7,
+      "baslik": "7. KONU: TENVİN"
+    },
+    {
+      "id": 8,
+      "baslik": "8. KONU: ASAR, MED ve KASR"
+    },
+    {
+      "id": 9,
+      "baslik": "9. KONU: ZAMİR VE LAFZATULLAH"
+    }
+  ],
+  "harfler": [
+    {
+      "harf_id": 1,
+      "harf_adi": "Elif",
+      "harf_sesi": "E",
+      "mahrec": "Boğaz sonu"
+    },
+    {
+      "harf_id": 2,
+      "harf_adi": "Be",
+      "harf_sesi": "B",
+      "mahrec": "Dudaklar"
+    },
+    {
+      "harf_id": 3,
+      "harf_adi": "Te",
+      "harf_sesi": "T",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 4,
+      "harf_adi": "Se",
+      "harf_sesi": "S",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 5,
+      "harf_adi": "Cim",
+      "harf_sesi": "C",
+      "mahrec": "Dil ortası-damak"
+    },
+    {
+      "harf_id": 6,
+      "harf_adi": "Ha",
+      "harf_sesi": "H",
+      "mahrec": "Boğaz ortası"
+    },
+    {
+      "harf_id": 7,
+      "harf_adi": "Hı",
+      "harf_sesi": "H (kalın)",
+      "mahrec": "Boğaz başı"
+    },
+    {
+      "harf_id": 8,
+      "harf_adi": "Dal",
+      "harf_sesi": "D",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 9,
+      "harf_adi": "Zel",
+      "harf_sesi": "Z",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 10,
+      "harf_adi": "Ra",
+      "harf_sesi": "R",
+      "mahrec": "Dil ucu-üst damak"
+    },
+    {
+      "harf_id": 11,
+      "harf_adi": "Ze",
+      "harf_sesi": "Z",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 12,
+      "harf_adi": "Sin",
+      "harf_sesi": "S",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 13,
+      "harf_adi": "Şın",
+      "harf_sesi": "Ş",
+      "mahrec": "Dil ortası-damak"
+    },
+    {
+      "harf_id": 14,
+      "harf_adi": "Sad",
+      "harf_sesi": "S (kalın)",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 15,
+      "harf_adi": "Dad",
+      "harf_sesi": "D (kalın)",
+      "mahrec": "Dil kenarı-azı dişler"
+    },
+    {
+      "harf_id": 16,
+      "harf_adi": "Tı",
+      "harf_sesi": "T (kalın)",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 17,
+      "harf_adi": "Zı",
+      "harf_sesi": "Z (kalın)",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 18,
+      "harf_adi": "Ayn",
+      "harf_sesi": "A (gırtlak)",
+      "mahrec": "Boğaz ortası"
+    },
+    {
+      "harf_id": 19,
+      "harf_adi": "Ğayn",
+      "harf_sesi": "Ğ",
+      "mahrec": "Boğaz başı"
+    },
+    {
+      "harf_id": 20,
+      "harf_adi": "Fe",
+      "harf_sesi": "F",
+      "mahrec": "Alt dudak-üst dişler"
+    },
+    {
+      "harf_id": 21,
+      "harf_adi": "Kaf",
+      "harf_sesi": "K (kalın)",
+      "mahrec": "Dil kökü-küçük dil"
+    },
+    {
+      "harf_id": 22,
+      "harf_adi": "Kef",
+      "harf_sesi": "K",
+      "mahrec": "Dil ortası-damak"
+    },
+    {
+      "harf_id": 23,
+      "harf_adi": "Lam",
+      "harf_sesi": "L",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 24,
+      "harf_adi": "Mim",
+      "harf_sesi": "M",
+      "mahrec": "Dudaklar"
+    },
+    {
+      "harf_id": 25,
+      "harf_adi": "Nun",
+      "harf_sesi": "N",
+      "mahrec": "Dil ucu-üst dişler"
+    },
+    {
+      "harf_id": 26,
+      "harf_adi": "Vav",
+      "harf_sesi": "V",
+      "mahrec": "Dudaklar"
+    },
+    {
+      "harf_id": 27,
+      "harf_adi": "He",
+      "harf_sesi": "H",
+      "mahrec": "Boğaz sonu"
+    },
+    {
+      "harf_id": 28,
+      "harf_adi": "Ye",
+      "harf_sesi": "Y",
+      "mahrec": "Dil ortası-damak"
+    },
+    {
+      "harf_id": 29,
+      "harf_adi": "Lamelif",
+      "harf_sesi": "La",
+      "mahrec": "Birleşik harf (Lam+Elif)"
+    }
+  ],
+  "quiz": [
+    {
+      "quiz_id": 1,
+      "soru": "'Ğayn' (غ) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 2,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nط",
+      "secenekler": [
+        "Hı",
+        "Zı",
+        "Dal",
+        "Tı"
+      ],
+      "dogru_cevap": "Tı",
+      "ipucu": "Bu harf \"T (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 3,
+      "soru": "'Dad' (ض) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 4,
+      "soru": "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 5,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nع",
+      "secenekler": [
+        "D",
+        "V",
+        "A (gırtlak)",
+        "T"
+      ],
+      "dogru_cevap": "A (gırtlak)",
+      "ipucu": "Bu harfin adı \"Ayn\"."
+    },
+    {
+      "quiz_id": 6,
+      "soru": "Aşağıdakilerden hangisi 'Nun' harfidir?",
+      "secenekler": [
+        "ث",
+        "ن",
+        "ي",
+        "م"
+      ],
+      "dogru_cevap": "ن",
+      "ipucu": "Nun, \"N\" sesini verir."
+    },
+    {
+      "quiz_id": 7,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nت",
+      "secenekler": [
+        "Be",
+        "Te",
+        "Ye",
+        "Nun"
+      ],
+      "dogru_cevap": "Te",
+      "ipucu": "Bu harf \"T\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 8,
+      "soru": "'Sin' (س) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "كـ",
+        "سـ",
+        "ضـ",
+        "شـ"
+      ],
+      "dogru_cevap": "سـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 9,
+      "soru": "'Tı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ق",
+        "ن",
+        "ط",
+        "ظ"
+      ],
+      "dogru_cevap": "ط",
+      "ipucu": "Tı, \"T (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 10,
+      "soru": "Aşağıdakilerden hangisi 'Dad' harfidir?",
+      "secenekler": [
+        "ش",
+        "ض",
+        "ص",
+        "و"
+      ],
+      "dogru_cevap": "ض",
+      "ipucu": "Dad, \"D (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 11,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nه",
+      "secenekler": [
+        "E",
+        "K",
+        "Ş",
+        "H"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"He\"."
+    },
+    {
+      "quiz_id": 12,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nش",
+      "secenekler": [
+        "Şın",
+        "Vav",
+        "Sin",
+        "Se"
+      ],
+      "dogru_cevap": "Şın",
+      "ipucu": "Bu harf \"Ş\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 13,
+      "soru": "Aşağıdakilerden hangisi 'Dal' harfidir?",
+      "secenekler": [
+        "د",
+        "ث",
+        "ذ",
+        "و"
+      ],
+      "dogru_cevap": "د",
+      "ipucu": "Dal, \"D\" sesini verir."
+    },
+    {
+      "quiz_id": 14,
+      "soru": "Aşağıdakilerden hangisi 'Vav' harfidir?",
+      "secenekler": [
+        "ق",
+        "ه",
+        "و",
+        "ض"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesini verir."
+    },
+    {
+      "quiz_id": 15,
+      "soru": "'Te' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ث",
+        "ت",
+        "ن",
+        "ي"
+      ],
+      "dogru_cevap": "ت",
+      "ipucu": "Te, \"T\" sesidir."
+    },
+    {
+      "quiz_id": 16,
+      "soru": "Aşağıdakilerden hangisi 'Zel' harfidir?",
+      "secenekler": [
+        "ا",
+        "ذ",
+        "د",
+        "ث"
+      ],
+      "dogru_cevap": "ذ",
+      "ipucu": "Zel, \"Z\" sesini verir."
+    },
+    {
+      "quiz_id": 17,
+      "soru": "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ضـ",
+        "صـ",
+        "ثـ",
+        "فـ"
+      ],
+      "dogru_cevap": "ضـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 18,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nح",
+      "secenekler": [
+        "Hı",
+        "Ha",
+        "He",
+        "Cim"
+      ],
+      "dogru_cevap": "Ha",
+      "ipucu": "Bu harf \"H\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 19,
+      "soru": "'He' (ه) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "جـ",
+        "غـ",
+        "نـ",
+        "هـ"
+      ],
+      "dogru_cevap": "هـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 20,
+      "soru": "'Ye' (ي) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 21,
+      "soru": "'Fe' (ف) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 22,
+      "soru": "'Cim' (ج) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "خـ",
+        "نـ",
+        "جـ",
+        "حـ"
+      ],
+      "dogru_cevap": "جـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 23,
+      "soru": "'Zel' (ذ) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 24,
+      "soru": "'Te' (ت) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "تـ",
+        "نـ",
+        "بـ",
+        "ثـ"
+      ],
+      "dogru_cevap": "تـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 25,
+      "soru": "'Zı' (ظ) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "لـ",
+        "مـ",
+        "طـ",
+        "ظـ"
+      ],
+      "dogru_cevap": "ظـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 26,
+      "soru": "Aşağıdakilerden hangisi 'He' harfidir?",
+      "secenekler": [
+        "د",
+        "ط",
+        "ه",
+        "و"
+      ],
+      "dogru_cevap": "ه",
+      "ipucu": "He, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 27,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nص",
+      "secenekler": [
+        "N",
+        "Z",
+        "S (kalın)",
+        "E"
+      ],
+      "dogru_cevap": "S (kalın)",
+      "ipucu": "Bu harfin adı \"Sad\"."
+    },
+    {
+      "quiz_id": 28,
+      "soru": "'Elif' (ا) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 29,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nل",
+      "secenekler": [
+        "S (kalın)",
+        "D",
+        "Ş",
+        "L"
+      ],
+      "dogru_cevap": "L",
+      "ipucu": "Bu harfin adı \"Lam\"."
+    },
+    {
+      "quiz_id": 30,
+      "soru": "'Elif' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ا",
+        "خ",
+        "ع",
+        "لا"
+      ],
+      "dogru_cevap": "ا",
+      "ipucu": "Elif, \"E\" sesidir."
+    },
+    {
+      "quiz_id": 31,
+      "soru": "'He' (ه) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 32,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nق",
+      "secenekler": [
+        "B",
+        "N",
+        "Ğ",
+        "K (kalın)"
+      ],
+      "dogru_cevap": "K (kalın)",
+      "ipucu": "Bu harfin adı \"Kaf\"."
+    },
+    {
+      "quiz_id": 33,
+      "soru": "'Vav' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ج",
+        "و",
+        "ه",
+        "خ"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesidir."
+    },
+    {
+      "quiz_id": 34,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nث",
+      "secenekler": [
+        "H (kalın)",
+        "L",
+        "S (kalın)",
+        "S"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Se\"."
+    },
+    {
+      "quiz_id": 35,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nص",
+      "secenekler": [
+        "Cim",
+        "Sad",
+        "Dad",
+        "Elif"
+      ],
+      "dogru_cevap": "Sad",
+      "ipucu": "Bu harf \"S (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 36,
+      "soru": "'Zı' (ظ) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 37,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nح",
+      "secenekler": [
+        "L",
+        "H (kalın)",
+        "H",
+        "Z"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"Ha\"."
+    },
+    {
+      "quiz_id": 38,
+      "soru": "'Ye' (ي) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 39,
+      "soru": "'Ayn' (ع) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "هـ",
+        "قـ",
+        "غـ",
+        "عـ"
+      ],
+      "dogru_cevap": "عـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 40,
+      "soru": "'Hı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ك",
+        "خ",
+        "ج",
+        "ح"
+      ],
+      "dogru_cevap": "خ",
+      "ipucu": "Hı, \"H (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 41,
+      "soru": "'Se' (ث) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "تـ",
+        "يـ",
+        "ثـ",
+        "نـ"
+      ],
+      "dogru_cevap": "ثـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 42,
+      "soru": "Aşağıdakilerden hangisi 'Tı' harfidir?",
+      "secenekler": [
+        "ط",
+        "س",
+        "ي",
+        "ظ"
+      ],
+      "dogru_cevap": "ط",
+      "ipucu": "Tı, \"T (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 43,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nر",
+      "secenekler": [
+        "Ra",
+        "Se",
+        "Ze",
+        "Sad"
+      ],
+      "dogru_cevap": "Ra",
+      "ipucu": "Bu harf \"R\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 44,
+      "soru": "'Ye' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ي",
+        "ن",
+        "ت",
+        "ب"
+      ],
+      "dogru_cevap": "ي",
+      "ipucu": "Ye, \"Y\" sesidir."
+    },
+    {
+      "quiz_id": 45,
+      "soru": "'Tı' (ط) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 46,
+      "soru": "'Kaf' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ف",
+        "ق",
+        "ن",
+        "ض"
+      ],
+      "dogru_cevap": "ق",
+      "ipucu": "Kaf, \"K (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 47,
+      "soru": "'Ayn' (ع) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 48,
+      "soru": "'Se' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ب",
+        "ي",
+        "ث",
+        "ن"
+      ],
+      "dogru_cevap": "ث",
+      "ipucu": "Se, \"S\" sesidir."
+    },
+    {
+      "quiz_id": 49,
+      "soru": "Aşağıdakilerden hangisi 'Mim' harfidir?",
+      "secenekler": [
+        "ت",
+        "ن",
+        "ب",
+        "م"
+      ],
+      "dogru_cevap": "م",
+      "ipucu": "Mim, \"M\" sesini verir."
+    },
+    {
+      "quiz_id": 50,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nي",
+      "secenekler": [
+        "Be",
+        "Te",
+        "Ye",
+        "Se"
+      ],
+      "dogru_cevap": "Ye",
+      "ipucu": "Bu harf \"Y\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 51,
+      "soru": "'Kaf' (ق) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 52,
+      "soru": "'Ayn' (ع) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "عـ",
+        "ظـ",
+        "غـ",
+        "صـ"
+      ],
+      "dogru_cevap": "عـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 53,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nر",
+      "secenekler": [
+        "H",
+        "H (kalın)",
+        "R",
+        "V"
+      ],
+      "dogru_cevap": "R",
+      "ipucu": "Bu harfin adı \"Ra\"."
+    },
+    {
+      "quiz_id": 54,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nح",
+      "secenekler": [
+        "A (gırtlak)",
+        "M",
+        "H",
+        "Ş"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"Ha\"."
+    },
+    {
+      "quiz_id": 55,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nح",
+      "secenekler": [
+        "Hı",
+        "Ha",
+        "He",
+        "Cim"
+      ],
+      "dogru_cevap": "Ha",
+      "ipucu": "Bu harf \"H\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 56,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nد",
+      "secenekler": [
+        "Dal",
+        "Mim",
+        "Sin",
+        "Zel"
+      ],
+      "dogru_cevap": "Dal",
+      "ipucu": "Bu harf \"D\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 57,
+      "soru": "'Lamelif' (لا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 58,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nغ",
+      "secenekler": [
+        "Sad",
+        "Ayn",
+        "Şın",
+        "Ğayn"
+      ],
+      "dogru_cevap": "Ğayn",
+      "ipucu": "Bu harf \"Ğ\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 59,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nص",
+      "secenekler": [
+        "T",
+        "D",
+        "L",
+        "S (kalın)"
+      ],
+      "dogru_cevap": "S (kalın)",
+      "ipucu": "Bu harfin adı \"Sad\"."
+    },
+    {
+      "quiz_id": 60,
+      "soru": "'Te' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ب",
+        "ي",
+        "ن",
+        "ت"
+      ],
+      "dogru_cevap": "ت",
+      "ipucu": "Te, \"T\" sesidir."
+    },
+    {
+      "quiz_id": 61,
+      "soru": "'Ha' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ح",
+        "خ",
+        "ج",
+        "ف"
+      ],
+      "dogru_cevap": "ح",
+      "ipucu": "Ha, \"H\" sesidir."
+    },
+    {
+      "quiz_id": 62,
+      "soru": "'Şın' (ش) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "شـ",
+        "ثـ",
+        "صـ",
+        "سـ"
+      ],
+      "dogru_cevap": "شـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 63,
+      "soru": "'Zel' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "د",
+        "ي",
+        "ض",
+        "ذ"
+      ],
+      "dogru_cevap": "ذ",
+      "ipucu": "Zel, \"Z\" sesidir."
+    },
+    {
+      "quiz_id": 64,
+      "soru": "'Sad' (ص) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "مـ",
+        "صـ",
+        "لـ",
+        "ضـ"
+      ],
+      "dogru_cevap": "صـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 65,
+      "soru": "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "يـ",
+        "صـ",
+        "ضـ",
+        "ثـ"
+      ],
+      "dogru_cevap": "ضـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 66,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nف",
+      "secenekler": [
+        "F",
+        "B",
+        "T (kalın)",
+        "R"
+      ],
+      "dogru_cevap": "F",
+      "ipucu": "Bu harfin adı \"Fe\"."
+    },
+    {
+      "quiz_id": 67,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nب",
+      "secenekler": [
+        "Te",
+        "Nun",
+        "Be",
+        "Ye"
+      ],
+      "dogru_cevap": "Be",
+      "ipucu": "Bu harf \"B\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 68,
+      "soru": "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 69,
+      "soru": "'Ye' (ي) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 70,
+      "soru": "Aşağıdakilerden hangisi 'Hı' harfidir?",
+      "secenekler": [
+        "خ",
+        "ح",
+        "ج",
+        "ي"
+      ],
+      "dogru_cevap": "خ",
+      "ipucu": "Hı, \"H (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 71,
+      "soru": "'Fe' (ف) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 72,
+      "soru": "'Lam' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ك",
+        "ل",
+        "ه",
+        "ز"
+      ],
+      "dogru_cevap": "ل",
+      "ipucu": "Lam, \"L\" sesidir."
+    },
+    {
+      "quiz_id": 73,
+      "soru": "Aşağıdakilerden hangisi 'Sad' harfidir?",
+      "secenekler": [
+        "ص",
+        "و",
+        "ض",
+        "ش"
+      ],
+      "dogru_cevap": "ص",
+      "ipucu": "Sad, \"S (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 74,
+      "soru": "'Lamelif' (لا) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 75,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nس",
+      "secenekler": [
+        "Sin",
+        "Lam",
+        "Sad",
+        "Şın"
+      ],
+      "dogru_cevap": "Sin",
+      "ipucu": "Bu harf \"S\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 76,
+      "soru": "'Zı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ط",
+        "ش",
+        "ظ",
+        "و"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 77,
+      "soru": "'Ye' (ي) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "نـ",
+        "يـ",
+        "بـ",
+        "تـ"
+      ],
+      "dogru_cevap": "يـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 78,
+      "soru": "Aşağıdakilerden hangisi 'Be' harfidir?",
+      "secenekler": [
+        "ي",
+        "ث",
+        "ن",
+        "ب"
+      ],
+      "dogru_cevap": "ب",
+      "ipucu": "Be, \"B\" sesini verir."
+    },
+    {
+      "quiz_id": 79,
+      "soru": "'Ra' (ر) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 80,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nن",
+      "secenekler": [
+        "Nun",
+        "Mim",
+        "Se",
+        "Te"
+      ],
+      "dogru_cevap": "Nun",
+      "ipucu": "Bu harf \"N\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 81,
+      "soru": "'He' (ه) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 82,
+      "soru": "Aşağıdakilerden hangisi 'He' harfidir?",
+      "secenekler": [
+        "و",
+        "ح",
+        "ه",
+        "غ"
+      ],
+      "dogru_cevap": "ه",
+      "ipucu": "He, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 83,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nا",
+      "secenekler": [
+        "Ğayn",
+        "He",
+        "Elif",
+        "Lamelif"
+      ],
+      "dogru_cevap": "Elif",
+      "ipucu": "Bu harf \"E\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 84,
+      "soru": "'Dal' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "و",
+        "ذ",
+        "د",
+        "ث"
+      ],
+      "dogru_cevap": "د",
+      "ipucu": "Dal, \"D\" sesidir."
+    },
+    {
+      "quiz_id": 85,
+      "soru": "'Elif' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ر",
+        "لا",
+        "ي",
+        "ا"
+      ],
+      "dogru_cevap": "ا",
+      "ipucu": "Elif, \"E\" sesidir."
+    },
+    {
+      "quiz_id": 86,
+      "soru": "'Ra' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ر",
+        "ز",
+        "ي",
+        "لا"
+      ],
+      "dogru_cevap": "ر",
+      "ipucu": "Ra, \"R\" sesidir."
+    },
+    {
+      "quiz_id": 87,
+      "soru": "'Nun' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "م",
+        "ث",
+        "ي",
+        "ن"
+      ],
+      "dogru_cevap": "ن",
+      "ipucu": "Nun, \"N\" sesidir."
+    },
+    {
+      "quiz_id": 88,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nت",
+      "secenekler": [
+        "Be",
+        "Se",
+        "Nun",
+        "Te"
+      ],
+      "dogru_cevap": "Te",
+      "ipucu": "Bu harf \"T\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 89,
+      "soru": "Aşağıdakilerden hangisi 'Ha' harfidir?",
+      "secenekler": [
+        "خ",
+        "ز",
+        "ح",
+        "ج"
+      ],
+      "dogru_cevap": "ح",
+      "ipucu": "Ha, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 90,
+      "soru": "'Tı' (ط) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 91,
+      "soru": "'Vav' (و) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 92,
+      "soru": "Aşağıdakilerden hangisi 'Lam' harfidir?",
+      "secenekler": [
+        "ل",
+        "ب",
+        "ر",
+        "ك"
+      ],
+      "dogru_cevap": "ل",
+      "ipucu": "Lam, \"L\" sesini verir."
+    },
+    {
+      "quiz_id": 93,
+      "soru": "'Te' (ت) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 94,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nا",
+      "secenekler": [
+        "D",
+        "E",
+        "K (kalın)",
+        "B"
+      ],
+      "dogru_cevap": "E",
+      "ipucu": "Bu harfin adı \"Elif\"."
+    },
+    {
+      "quiz_id": 95,
+      "soru": "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 96,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nه",
+      "secenekler": [
+        "Vav",
+        "Zel",
+        "Nun",
+        "He"
+      ],
+      "dogru_cevap": "He",
+      "ipucu": "Bu harf \"H\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 97,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nت",
+      "secenekler": [
+        "Te",
+        "Ye",
+        "Nun",
+        "Se"
+      ],
+      "dogru_cevap": "Te",
+      "ipucu": "Bu harf \"T\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 98,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nل",
+      "secenekler": [
+        "Z (kalın)",
+        "L",
+        "T (kalın)",
+        "V"
+      ],
+      "dogru_cevap": "L",
+      "ipucu": "Bu harfin adı \"Lam\"."
+    },
+    {
+      "quiz_id": 99,
+      "soru": "Aşağıdakilerden hangisi 'Tı' harfidir?",
+      "secenekler": [
+        "ط",
+        "ك",
+        "ت",
+        "ظ"
+      ],
+      "dogru_cevap": "ط",
+      "ipucu": "Tı, \"T (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 100,
+      "soru": "'Se' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ت",
+        "ب",
+        "ث",
+        "ي"
+      ],
+      "dogru_cevap": "ث",
+      "ipucu": "Se, \"S\" sesidir."
+    },
+    {
+      "quiz_id": 101,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nر",
+      "secenekler": [
+        "Ğ",
+        "H (kalın)",
+        "S (kalın)",
+        "R"
+      ],
+      "dogru_cevap": "R",
+      "ipucu": "Bu harfin adı \"Ra\"."
+    },
+    {
+      "quiz_id": 102,
+      "soru": "'Zı' (ظ) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 103,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nد",
+      "secenekler": [
+        "S",
+        "K",
+        "D",
+        "B"
+      ],
+      "dogru_cevap": "D",
+      "ipucu": "Bu harfin adı \"Dal\"."
+    },
+    {
+      "quiz_id": 104,
+      "soru": "'Cim' (ج) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 105,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nو",
+      "secenekler": [
+        "He",
+        "Fe",
+        "Hı",
+        "Vav"
+      ],
+      "dogru_cevap": "Vav",
+      "ipucu": "Bu harf \"V\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 106,
+      "soru": "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "غـ",
+        "ضـ",
+        "جـ",
+        "صـ"
+      ],
+      "dogru_cevap": "ضـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 107,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nخ",
+      "secenekler": [
+        "D (kalın)",
+        "H (kalın)",
+        "La",
+        "M"
+      ],
+      "dogru_cevap": "H (kalın)",
+      "ipucu": "Bu harfin adı \"Hı\"."
+    },
+    {
+      "quiz_id": 108,
+      "soru": "'Se' (ث) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "بـ",
+        "ثـ",
+        "تـ",
+        "نـ"
+      ],
+      "dogru_cevap": "ثـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 109,
+      "soru": "'Sad' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ض",
+        "ص",
+        "ا",
+        "لا"
+      ],
+      "dogru_cevap": "ص",
+      "ipucu": "Sad, \"S (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 110,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nس",
+      "secenekler": [
+        "T",
+        "N",
+        "K (kalın)",
+        "S"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Sin\"."
+    },
+    {
+      "quiz_id": 111,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nب",
+      "secenekler": [
+        "La",
+        "H",
+        "B",
+        "D (kalın)"
+      ],
+      "dogru_cevap": "B",
+      "ipucu": "Bu harfin adı \"Be\"."
+    },
+    {
+      "quiz_id": 112,
+      "soru": "'Dal' (د) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 113,
+      "soru": "'Kaf' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "خ",
+        "ق",
+        "ف",
+        "لا"
+      ],
+      "dogru_cevap": "ق",
+      "ipucu": "Kaf, \"K (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 114,
+      "soru": "'Ğayn' (غ) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 115,
+      "soru": "'Ha' (ح) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 116,
+      "soru": "'Ze' (ز) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 117,
+      "soru": "Aşağıdakilerden hangisi 'Ayn' harfidir?",
+      "secenekler": [
+        "غ",
+        "ح",
+        "ي",
+        "ع"
+      ],
+      "dogru_cevap": "ع",
+      "ipucu": "Ayn, \"A (gırtlak)\" sesini verir."
+    },
+    {
+      "quiz_id": 118,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nر",
+      "secenekler": [
+        "Ha",
+        "Ze",
+        "Ra",
+        "Be"
+      ],
+      "dogru_cevap": "Ra",
+      "ipucu": "Bu harf \"R\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 119,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nي",
+      "secenekler": [
+        "Ye",
+        "Nun",
+        "Te",
+        "Se"
+      ],
+      "dogru_cevap": "Ye",
+      "ipucu": "Bu harf \"Y\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 120,
+      "soru": "'Tı' (ط) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 121,
+      "soru": "Aşağıdakilerden hangisi 'Ha' harfidir?",
+      "secenekler": [
+        "ح",
+        "ج",
+        "ز",
+        "خ"
+      ],
+      "dogru_cevap": "ح",
+      "ipucu": "Ha, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 122,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nح",
+      "secenekler": [
+        "Ye",
+        "Cim",
+        "Hı",
+        "Ha"
+      ],
+      "dogru_cevap": "Ha",
+      "ipucu": "Bu harf \"H\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 123,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nلا",
+      "secenekler": [
+        "Lamelif",
+        "Lam",
+        "Elif",
+        "Ra"
+      ],
+      "dogru_cevap": "Lamelif",
+      "ipucu": "Bu harf \"La\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 124,
+      "soru": "'Lamelif' (لا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 125,
+      "soru": "Aşağıdakilerden hangisi 'Te' harfidir?",
+      "secenekler": [
+        "ن",
+        "ت",
+        "ي",
+        "ب"
+      ],
+      "dogru_cevap": "ت",
+      "ipucu": "Te, \"T\" sesini verir."
+    },
+    {
+      "quiz_id": 126,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nو",
+      "secenekler": [
+        "B",
+        "S",
+        "V",
+        "D (kalın)"
+      ],
+      "dogru_cevap": "V",
+      "ipucu": "Bu harfin adı \"Vav\"."
+    },
+    {
+      "quiz_id": 127,
+      "soru": "'He' (ه) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 128,
+      "soru": "Aşağıdakilerden hangisi 'Ğayn' harfidir?",
+      "secenekler": [
+        "غ",
+        "ح",
+        "ع",
+        "ث"
+      ],
+      "dogru_cevap": "غ",
+      "ipucu": "Ğayn, \"Ğ\" sesini verir."
+    },
+    {
+      "quiz_id": 129,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nث",
+      "secenekler": [
+        "B",
+        "S",
+        "V",
+        "C"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Se\"."
+    },
+    {
+      "quiz_id": 130,
+      "soru": "'Be' (ب) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 131,
+      "soru": "'Elif' (ا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 132,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nض",
+      "secenekler": [
+        "Şın",
+        "Dad",
+        "Sad",
+        "Sin"
+      ],
+      "dogru_cevap": "Dad",
+      "ipucu": "Bu harf \"D (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 133,
+      "soru": "'Ayn' (ع) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 134,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nش",
+      "secenekler": [
+        "Z",
+        "B",
+        "Ğ",
+        "Ş"
+      ],
+      "dogru_cevap": "Ş",
+      "ipucu": "Bu harfin adı \"Şın\"."
+    },
+    {
+      "quiz_id": 135,
+      "soru": "'Sin' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "غ",
+        "ث",
+        "س",
+        "ش"
+      ],
+      "dogru_cevap": "س",
+      "ipucu": "Sin, \"S\" sesidir."
+    },
+    {
+      "quiz_id": 136,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nع",
+      "secenekler": [
+        "Ş",
+        "R",
+        "B",
+        "A (gırtlak)"
+      ],
+      "dogru_cevap": "A (gırtlak)",
+      "ipucu": "Bu harfin adı \"Ayn\"."
+    },
+    {
+      "quiz_id": 137,
+      "soru": "'Lam' (ل) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ضـ",
+        "كـ",
+        "لـ",
+        "ظـ"
+      ],
+      "dogru_cevap": "لـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 138,
+      "soru": "'Ze' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ف",
+        "ز",
+        "ت",
+        "ر"
+      ],
+      "dogru_cevap": "ز",
+      "ipucu": "Ze, \"Z\" sesidir."
+    },
+    {
+      "quiz_id": 139,
+      "soru": "'Se' (ث) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 140,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nل",
+      "secenekler": [
+        "Lam",
+        "Be",
+        "Dal",
+        "Kef"
+      ],
+      "dogru_cevap": "Lam",
+      "ipucu": "Bu harf \"L\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 141,
+      "soru": "'Dal' (د) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 142,
+      "soru": "'Ayn' (ع) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "غـ",
+        "عـ",
+        "ظـ",
+        "بـ"
+      ],
+      "dogru_cevap": "عـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 143,
+      "soru": "'Lam' (ل) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 144,
+      "soru": "'Nun' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ي",
+        "ب",
+        "ن",
+        "م"
+      ],
+      "dogru_cevap": "ن",
+      "ipucu": "Nun, \"N\" sesidir."
+    },
+    {
+      "quiz_id": 145,
+      "soru": "'Fe' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ط",
+        "ق",
+        "ف",
+        "ن"
+      ],
+      "dogru_cevap": "ف",
+      "ipucu": "Fe, \"F\" sesidir."
+    },
+    {
+      "quiz_id": 146,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nخ",
+      "secenekler": [
+        "Cim",
+        "Mim",
+        "Ha",
+        "Hı"
+      ],
+      "dogru_cevap": "Hı",
+      "ipucu": "Bu harf \"H (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 147,
+      "soru": "'Hı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ل",
+        "خ",
+        "ح",
+        "ج"
+      ],
+      "dogru_cevap": "خ",
+      "ipucu": "Hı, \"H (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 148,
+      "soru": "'Ye' (ي) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 149,
+      "soru": "'Fe' (ف) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 150,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nي",
+      "secenekler": [
+        "Se",
+        "Nun",
+        "Ye",
+        "Te"
+      ],
+      "dogru_cevap": "Ye",
+      "ipucu": "Bu harf \"Y\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 151,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nب",
+      "secenekler": [
+        "Be",
+        "Te",
+        "Se",
+        "Ye"
+      ],
+      "dogru_cevap": "Be",
+      "ipucu": "Bu harf \"B\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 152,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nس",
+      "secenekler": [
+        "K",
+        "D (kalın)",
+        "H",
+        "S"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Sin\"."
+    },
+    {
+      "quiz_id": 153,
+      "soru": "'Sin' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "س",
+        "ش",
+        "ع",
+        "لا"
+      ],
+      "dogru_cevap": "س",
+      "ipucu": "Sin, \"S\" sesidir."
+    },
+    {
+      "quiz_id": 154,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nف",
+      "secenekler": [
+        "A (gırtlak)",
+        "F",
+        "V",
+        "N"
+      ],
+      "dogru_cevap": "F",
+      "ipucu": "Bu harfin adı \"Fe\"."
+    },
+    {
+      "quiz_id": 155,
+      "soru": "'Nun' (ن) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 156,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nخ",
+      "secenekler": [
+        "H (kalın)",
+        "Z",
+        "T",
+        "Y"
+      ],
+      "dogru_cevap": "H (kalın)",
+      "ipucu": "Bu harfin adı \"Hı\"."
+    },
+    {
+      "quiz_id": 157,
+      "soru": "'Tı' (ط) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "سـ",
+        "ظـ",
+        "خـ",
+        "طـ"
+      ],
+      "dogru_cevap": "طـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 158,
+      "soru": "Aşağıdakilerden hangisi 'Zı' harfidir?",
+      "secenekler": [
+        "ظ",
+        "غ",
+        "ع",
+        "ط"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 159,
+      "soru": "'Sin' (س) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 160,
+      "soru": "'Zı' (ظ) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "طـ",
+        "يـ",
+        "ظـ",
+        "عـ"
+      ],
+      "dogru_cevap": "ظـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 161,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nز",
+      "secenekler": [
+        "Ra",
+        "Ze",
+        "Te",
+        "Sad"
+      ],
+      "dogru_cevap": "Ze",
+      "ipucu": "Bu harf \"Z\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 162,
+      "soru": "'Vav' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ب",
+        "ف",
+        "ه",
+        "و"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesidir."
+    },
+    {
+      "quiz_id": 163,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nب",
+      "secenekler": [
+        "A (gırtlak)",
+        "H (kalın)",
+        "D (kalın)",
+        "B"
+      ],
+      "dogru_cevap": "B",
+      "ipucu": "Bu harfin adı \"Be\"."
+    },
+    {
+      "quiz_id": 164,
+      "soru": "Aşağıdakilerden hangisi 'Be' harfidir?",
+      "secenekler": [
+        "ث",
+        "ت",
+        "ن",
+        "ب"
+      ],
+      "dogru_cevap": "ب",
+      "ipucu": "Be, \"B\" sesini verir."
+    },
+    {
+      "quiz_id": 165,
+      "soru": "'Be' (ب) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 166,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nز",
+      "secenekler": [
+        "S (kalın)",
+        "D",
+        "Z",
+        "T"
+      ],
+      "dogru_cevap": "Z",
+      "ipucu": "Bu harfin adı \"Ze\"."
+    },
+    {
+      "quiz_id": 167,
+      "soru": "Aşağıdakilerden hangisi 'Lamelif' harfidir?",
+      "secenekler": [
+        "ا",
+        "ل",
+        "لا",
+        "س"
+      ],
+      "dogru_cevap": "لا",
+      "ipucu": "Lamelif, \"La\" sesini verir."
+    },
+    {
+      "quiz_id": 168,
+      "soru": "'Nun' (ن) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "يـ",
+        "نـ",
+        "بـ",
+        "مـ"
+      ],
+      "dogru_cevap": "نـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 169,
+      "soru": "'Tı' (ط) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 170,
+      "soru": "'Kaf' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "س",
+        "خ",
+        "ف",
+        "ق"
+      ],
+      "dogru_cevap": "ق",
+      "ipucu": "Kaf, \"K (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 171,
+      "soru": "'Sad' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "س",
+        "ص",
+        "ض",
+        "ز"
+      ],
+      "dogru_cevap": "ص",
+      "ipucu": "Sad, \"S (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 172,
+      "soru": "'Hı' (خ) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 173,
+      "soru": "'Ha' (ح) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 174,
+      "soru": "'Lamelif' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ب",
+        "ع",
+        "لا",
+        "ا"
+      ],
+      "dogru_cevap": "لا",
+      "ipucu": "Lamelif, \"La\" sesidir."
+    },
+    {
+      "quiz_id": 175,
+      "soru": "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 176,
+      "soru": "'Te' (ت) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 177,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nض",
+      "secenekler": [
+        "Ha",
+        "Dad",
+        "Cim",
+        "Sad"
+      ],
+      "dogru_cevap": "Dad",
+      "ipucu": "Bu harf \"D (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 178,
+      "soru": "'Dal' (د) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 179,
+      "soru": "'Se' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ب",
+        "ت",
+        "ي",
+        "ث"
+      ],
+      "dogru_cevap": "ث",
+      "ipucu": "Se, \"S\" sesidir."
+    },
+    {
+      "quiz_id": 180,
+      "soru": "'Dad' (ض) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 181,
+      "soru": "Aşağıdakilerden hangisi 'Zı' harfidir?",
+      "secenekler": [
+        "ط",
+        "ل",
+        "ك",
+        "ظ"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 182,
+      "soru": "'Be' (ب) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 183,
+      "soru": "'Ze' (ز) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 184,
+      "soru": "'Ye' (ي) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 185,
+      "soru": "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 186,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nس",
+      "secenekler": [
+        "F",
+        "Y",
+        "E",
+        "S"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Sin\"."
+    },
+    {
+      "quiz_id": 187,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nك",
+      "secenekler": [
+        "Lam",
+        "Fe",
+        "Vav",
+        "Kef"
+      ],
+      "dogru_cevap": "Kef",
+      "ipucu": "Bu harf \"K\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 188,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nث",
+      "secenekler": [
+        "H (kalın)",
+        "Y",
+        "S",
+        "N"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Se\"."
+    },
+    {
+      "quiz_id": 189,
+      "soru": "'Vav' (و) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 190,
+      "soru": "'Nun' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ت",
+        "ي",
+        "ن",
+        "م"
+      ],
+      "dogru_cevap": "ن",
+      "ipucu": "Nun, \"N\" sesidir."
+    },
+    {
+      "quiz_id": 191,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nغ",
+      "secenekler": [
+        "Te",
+        "Ğayn",
+        "Ayn",
+        "Kaf"
+      ],
+      "dogru_cevap": "Ğayn",
+      "ipucu": "Bu harf \"Ğ\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 192,
+      "soru": "'Kef' (ك) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 193,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nد",
+      "secenekler": [
+        "C",
+        "D (kalın)",
+        "D",
+        "V"
+      ],
+      "dogru_cevap": "D",
+      "ipucu": "Bu harfin adı \"Dal\"."
+    },
+    {
+      "quiz_id": 194,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nظ",
+      "secenekler": [
+        "Tı",
+        "Elif",
+        "Zel",
+        "Zı"
+      ],
+      "dogru_cevap": "Zı",
+      "ipucu": "Bu harf \"Z (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 195,
+      "soru": "'He' (ه) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 196,
+      "soru": "'Zı' (ظ) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 197,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nي",
+      "secenekler": [
+        "M",
+        "V",
+        "Y",
+        "T"
+      ],
+      "dogru_cevap": "Y",
+      "ipucu": "Bu harfin adı \"Ye\"."
+    },
+    {
+      "quiz_id": 198,
+      "soru": "'Zel' (ذ) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 199,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nج",
+      "secenekler": [
+        "Cim",
+        "Hı",
+        "Zel",
+        "Ha"
+      ],
+      "dogru_cevap": "Cim",
+      "ipucu": "Bu harf \"C\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 200,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nع",
+      "secenekler": [
+        "Ayn",
+        "Kef",
+        "Zel",
+        "Ğayn"
+      ],
+      "dogru_cevap": "Ayn",
+      "ipucu": "Bu harf \"A (gırtlak)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 201,
+      "soru": "'Te' (ت) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 202,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nو",
+      "secenekler": [
+        "Sin",
+        "Zı",
+        "Vav",
+        "He"
+      ],
+      "dogru_cevap": "Vav",
+      "ipucu": "Bu harf \"V\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 203,
+      "soru": "'Lam' (ل) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 204,
+      "soru": "Aşağıdakilerden hangisi 'Lamelif' harfidir?",
+      "secenekler": [
+        "ا",
+        "لا",
+        "ي",
+        "ن"
+      ],
+      "dogru_cevap": "لا",
+      "ipucu": "Lamelif, \"La\" sesini verir."
+    },
+    {
+      "quiz_id": 205,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nك",
+      "secenekler": [
+        "Y",
+        "K",
+        "D (kalın)",
+        "C"
+      ],
+      "dogru_cevap": "K",
+      "ipucu": "Bu harfin adı \"Kef\"."
+    },
+    {
+      "quiz_id": 206,
+      "soru": "Aşağıdakilerden hangisi 'Be' harfidir?",
+      "secenekler": [
+        "ي",
+        "ب",
+        "ت",
+        "ن"
+      ],
+      "dogru_cevap": "ب",
+      "ipucu": "Be, \"B\" sesini verir."
+    },
+    {
+      "quiz_id": 207,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nذ",
+      "secenekler": [
+        "Z",
+        "R",
+        "S (kalın)",
+        "Ş"
+      ],
+      "dogru_cevap": "Z",
+      "ipucu": "Bu harfin adı \"Zel\"."
+    },
+    {
+      "quiz_id": 208,
+      "soru": "Aşağıdakilerden hangisi 'Fe' harfidir?",
+      "secenekler": [
+        "ش",
+        "ف",
+        "خ",
+        "ق"
+      ],
+      "dogru_cevap": "ف",
+      "ipucu": "Fe, \"F\" sesini verir."
+    },
+    {
+      "quiz_id": 209,
+      "soru": "Aşağıdakilerden hangisi 'Sin' harfidir?",
+      "secenekler": [
+        "س",
+        "ش",
+        "لا",
+        "ن"
+      ],
+      "dogru_cevap": "س",
+      "ipucu": "Sin, \"S\" sesini verir."
+    },
+    {
+      "quiz_id": 210,
+      "soru": "'Ayn' (ع) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 211,
+      "soru": "'Fe' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ب",
+        "ق",
+        "ف",
+        "ت"
+      ],
+      "dogru_cevap": "ف",
+      "ipucu": "Fe, \"F\" sesidir."
+    },
+    {
+      "quiz_id": 212,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nلا",
+      "secenekler": [
+        "Lamelif",
+        "Sin",
+        "Elif",
+        "Sad"
+      ],
+      "dogru_cevap": "Lamelif",
+      "ipucu": "Bu harf \"La\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 213,
+      "soru": "'Se' (ث) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 214,
+      "soru": "'Cim' (ج) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 215,
+      "soru": "'Te' (ت) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ثـ",
+        "يـ",
+        "نـ",
+        "تـ"
+      ],
+      "dogru_cevap": "تـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 216,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nز",
+      "secenekler": [
+        "T",
+        "E",
+        "Z",
+        "H (kalın)"
+      ],
+      "dogru_cevap": "Z",
+      "ipucu": "Bu harfin adı \"Ze\"."
+    },
+    {
+      "quiz_id": 217,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nض",
+      "secenekler": [
+        "Tı",
+        "Sad",
+        "Dad",
+        "Ğayn"
+      ],
+      "dogru_cevap": "Dad",
+      "ipucu": "Bu harf \"D (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 218,
+      "soru": "'Ye' (ي) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 219,
+      "soru": "Aşağıdakilerden hangisi 'Nun' harfidir?",
+      "secenekler": [
+        "ت",
+        "ث",
+        "ن",
+        "ب"
+      ],
+      "dogru_cevap": "ن",
+      "ipucu": "Nun, \"N\" sesini verir."
+    },
+    {
+      "quiz_id": 220,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nه",
+      "secenekler": [
+        "S (kalın)",
+        "Ş",
+        "H",
+        "K"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"He\"."
+    },
+    {
+      "quiz_id": 221,
+      "soru": "'Fe' (ف) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 222,
+      "soru": "'Ayn' (ع) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 223,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nر",
+      "secenekler": [
+        "R",
+        "Z (kalın)",
+        "B",
+        "S (kalın)"
+      ],
+      "dogru_cevap": "R",
+      "ipucu": "Bu harfin adı \"Ra\"."
+    },
+    {
+      "quiz_id": 224,
+      "soru": "'Zı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ز",
+        "ص",
+        "ظ",
+        "ط"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 225,
+      "soru": "'Ğayn' (غ) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 226,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nا",
+      "secenekler": [
+        "Ye",
+        "Lamelif",
+        "Vav",
+        "Elif"
+      ],
+      "dogru_cevap": "Elif",
+      "ipucu": "Bu harf \"E\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 227,
+      "soru": "'Vav' (و) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 228,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nو",
+      "secenekler": [
+        "V",
+        "N",
+        "C",
+        "T"
+      ],
+      "dogru_cevap": "V",
+      "ipucu": "Bu harfin adı \"Vav\"."
+    },
+    {
+      "quiz_id": 229,
+      "soru": "'Ye' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ت",
+        "ي",
+        "ن",
+        "ب"
+      ],
+      "dogru_cevap": "ي",
+      "ipucu": "Ye, \"Y\" sesidir."
+    },
+    {
+      "quiz_id": 230,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nي",
+      "secenekler": [
+        "Te",
+        "Nun",
+        "Be",
+        "Ye"
+      ],
+      "dogru_cevap": "Ye",
+      "ipucu": "Bu harf \"Y\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 231,
+      "soru": "'Ye' (ي) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "نـ",
+        "تـ",
+        "يـ",
+        "بـ"
+      ],
+      "dogru_cevap": "يـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 232,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nي",
+      "secenekler": [
+        "F",
+        "C",
+        "Y",
+        "H"
+      ],
+      "dogru_cevap": "Y",
+      "ipucu": "Bu harfin adı \"Ye\"."
+    },
+    {
+      "quiz_id": 233,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nو",
+      "secenekler": [
+        "Sin",
+        "Vav",
+        "Dal",
+        "He"
+      ],
+      "dogru_cevap": "Vav",
+      "ipucu": "Bu harf \"V\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 234,
+      "soru": "'Ye' (ي) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 235,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nا",
+      "secenekler": [
+        "C",
+        "B",
+        "E",
+        "H (kalın)"
+      ],
+      "dogru_cevap": "E",
+      "ipucu": "Bu harfin adı \"Elif\"."
+    },
+    {
+      "quiz_id": 236,
+      "soru": "'Ye' (ي) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 237,
+      "soru": "'Elif' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "لا",
+        "ا",
+        "س",
+        "ش"
+      ],
+      "dogru_cevap": "ا",
+      "ipucu": "Elif, \"E\" sesidir."
+    },
+    {
+      "quiz_id": 238,
+      "soru": "'Elif' (ا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 239,
+      "soru": "Aşağıdakilerden hangisi 'Elif' harfidir?",
+      "secenekler": [
+        "ض",
+        "ل",
+        "لا",
+        "ا"
+      ],
+      "dogru_cevap": "ا",
+      "ipucu": "Elif, \"E\" sesini verir."
+    },
+    {
+      "quiz_id": 240,
+      "soru": "'Vav' (و) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 241,
+      "soru": "'Vav' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ه",
+        "غ",
+        "ز",
+        "و"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesidir."
+    },
+    {
+      "quiz_id": 242,
+      "soru": "Aşağıdakilerden hangisi 'Vav' harfidir?",
+      "secenekler": [
+        "ز",
+        "ه",
+        "غ",
+        "و"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesini verir."
+    },
+    {
+      "quiz_id": 243,
+      "soru": "'Elif' (ا) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 244,
+      "soru": "Aşağıdakilerden hangisi 'Ye' harfidir?",
+      "secenekler": [
+        "ث",
+        "ب",
+        "ن",
+        "ي"
+      ],
+      "dogru_cevap": "ي",
+      "ipucu": "Ye, \"Y\" sesini verir."
+    },
+    {
+      "quiz_id": 245,
+      "soru": "'Sad' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ص",
+        "ج",
+        "د",
+        "ض"
+      ],
+      "dogru_cevap": "ص",
+      "ipucu": "Sad, \"S (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 246,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nث",
+      "secenekler": [
+        "D",
+        "Z (kalın)",
+        "D (kalın)",
+        "S"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Se\"."
+    },
+    {
+      "quiz_id": 247,
+      "soru": "'Se' (ث) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 248,
+      "soru": "'Ze' (ز) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 249,
+      "soru": "'Tı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ظ",
+        "ط",
+        "ث",
+        "ي"
+      ],
+      "dogru_cevap": "ط",
+      "ipucu": "Tı, \"T (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 250,
+      "soru": "'Lam' (ل) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "كـ",
+        "عـ",
+        "طـ",
+        "لـ"
+      ],
+      "dogru_cevap": "لـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 251,
+      "soru": "'Lam' (ل) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 252,
+      "soru": "'Zı' (ظ) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 253,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nج",
+      "secenekler": [
+        "Hı",
+        "Ha",
+        "Cim",
+        "Vav"
+      ],
+      "dogru_cevap": "Cim",
+      "ipucu": "Bu harf \"C\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 254,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nخ",
+      "secenekler": [
+        "Ha",
+        "Fe",
+        "Hı",
+        "Cim"
+      ],
+      "dogru_cevap": "Hı",
+      "ipucu": "Bu harf \"H (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 255,
+      "soru": "Aşağıdakilerden hangisi 'Lam' harfidir?",
+      "secenekler": [
+        "ف",
+        "ك",
+        "ب",
+        "ل"
+      ],
+      "dogru_cevap": "ل",
+      "ipucu": "Lam, \"L\" sesini verir."
+    },
+    {
+      "quiz_id": 256,
+      "soru": "'Mim' (م) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 257,
+      "soru": "'Kef' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ك",
+        "ل",
+        "ب",
+        "ع"
+      ],
+      "dogru_cevap": "ك",
+      "ipucu": "Kef, \"K\" sesidir."
+    },
+    {
+      "quiz_id": 258,
+      "soru": "'Hı' (خ) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 259,
+      "soru": "'Ayn' (ع) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 260,
+      "soru": "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ضـ",
+        "سـ",
+        "مـ",
+        "صـ"
+      ],
+      "dogru_cevap": "ضـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 261,
+      "soru": "'Nun' (ن) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 262,
+      "soru": "'Ğayn' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "د",
+        "و",
+        "غ",
+        "ع"
+      ],
+      "dogru_cevap": "غ",
+      "ipucu": "Ğayn, \"Ğ\" sesidir."
+    },
+    {
+      "quiz_id": 263,
+      "soru": "'Ğayn' (غ) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 264,
+      "soru": "Aşağıdakilerden hangisi 'He' harfidir?",
+      "secenekler": [
+        "ن",
+        "ط",
+        "ه",
+        "و"
+      ],
+      "dogru_cevap": "ه",
+      "ipucu": "He, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 265,
+      "soru": "'Ha' (ح) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 266,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nش",
+      "secenekler": [
+        "L",
+        "Ş",
+        "T",
+        "Z (kalın)"
+      ],
+      "dogru_cevap": "Ş",
+      "ipucu": "Bu harfin adı \"Şın\"."
+    },
+    {
+      "quiz_id": 267,
+      "soru": "'Lamelif' (لا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 268,
+      "soru": "Aşağıdakilerden hangisi 'Ha' harfidir?",
+      "secenekler": [
+        "ح",
+        "ج",
+        "خ",
+        "ل"
+      ],
+      "dogru_cevap": "ح",
+      "ipucu": "Ha, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 269,
+      "soru": "'Tı' (ط) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 270,
+      "soru": "'Zı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ط",
+        "ظ",
+        "ت",
+        "ث"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 271,
+      "soru": "'Vav' (و) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 272,
+      "soru": "'Şın' (ش) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 273,
+      "soru": "'Be' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ي",
+        "ب",
+        "ث",
+        "ت"
+      ],
+      "dogru_cevap": "ب",
+      "ipucu": "Be, \"B\" sesidir."
+    },
+    {
+      "quiz_id": 274,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nر",
+      "secenekler": [
+        "Ze",
+        "Mim",
+        "Ra",
+        "Fe"
+      ],
+      "dogru_cevap": "Ra",
+      "ipucu": "Bu harf \"R\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 275,
+      "soru": "'Kaf' (ق) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 276,
+      "soru": "'Te' (ت) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 277,
+      "soru": "Aşağıdakilerden hangisi 'Be' harfidir?",
+      "secenekler": [
+        "ث",
+        "ت",
+        "ن",
+        "ب"
+      ],
+      "dogru_cevap": "ب",
+      "ipucu": "Be, \"B\" sesini verir."
+    },
+    {
+      "quiz_id": 278,
+      "soru": "'Tı' (ط) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 279,
+      "soru": "'Te' (ت) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "بـ",
+        "ثـ",
+        "تـ",
+        "نـ"
+      ],
+      "dogru_cevap": "تـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 280,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nا",
+      "secenekler": [
+        "Lamelif",
+        "Hı",
+        "Sad",
+        "Elif"
+      ],
+      "dogru_cevap": "Elif",
+      "ipucu": "Bu harf \"E\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 281,
+      "soru": "'Lamelif' (لا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 282,
+      "soru": "'Sad' (ص) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 283,
+      "soru": "'Ğayn' (غ) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 284,
+      "soru": "'Ayn' (ع) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 285,
+      "soru": "'Ra' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ي",
+        "ب",
+        "ر",
+        "ز"
+      ],
+      "dogru_cevap": "ر",
+      "ipucu": "Ra, \"R\" sesidir."
+    },
+    {
+      "quiz_id": 286,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nلا",
+      "secenekler": [
+        "Lamelif",
+        "Ye",
+        "Elif",
+        "Kef"
+      ],
+      "dogru_cevap": "Lamelif",
+      "ipucu": "Bu harf \"La\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 287,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nب",
+      "secenekler": [
+        "Y",
+        "B",
+        "H",
+        "S"
+      ],
+      "dogru_cevap": "B",
+      "ipucu": "Bu harfin adı \"Be\"."
+    },
+    {
+      "quiz_id": 288,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nش",
+      "secenekler": [
+        "F",
+        "Ş",
+        "K",
+        "S (kalın)"
+      ],
+      "dogru_cevap": "Ş",
+      "ipucu": "Bu harfin adı \"Şın\"."
+    },
+    {
+      "quiz_id": 289,
+      "soru": "'Sin' (س) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "بـ",
+        "طـ",
+        "شـ",
+        "سـ"
+      ],
+      "dogru_cevap": "سـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 290,
+      "soru": "'Be' (ب) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ثـ",
+        "بـ",
+        "نـ",
+        "تـ"
+      ],
+      "dogru_cevap": "بـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 291,
+      "soru": "'Dad' (ض) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 292,
+      "soru": "Aşağıdakilerden hangisi 'Zel' harfidir?",
+      "secenekler": [
+        "ذ",
+        "د",
+        "خ",
+        "ش"
+      ],
+      "dogru_cevap": "ذ",
+      "ipucu": "Zel, \"Z\" sesini verir."
+    },
+    {
+      "quiz_id": 293,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nط",
+      "secenekler": [
+        "Dal",
+        "Zı",
+        "Tı",
+        "Vav"
+      ],
+      "dogru_cevap": "Tı",
+      "ipucu": "Bu harf \"T (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 294,
+      "soru": "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ضـ",
+        "سـ",
+        "صـ",
+        "هـ"
+      ],
+      "dogru_cevap": "ضـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 295,
+      "soru": "'Sad' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ث",
+        "ض",
+        "ش",
+        "ص"
+      ],
+      "dogru_cevap": "ص",
+      "ipucu": "Sad, \"S (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 296,
+      "soru": "'Elif' (ا) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 297,
+      "soru": "Aşağıdakilerden hangisi 'Se' harfidir?",
+      "secenekler": [
+        "ت",
+        "ب",
+        "ث",
+        "ي"
+      ],
+      "dogru_cevap": "ث",
+      "ipucu": "Se, \"S\" sesini verir."
+    },
+    {
+      "quiz_id": 298,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nخ",
+      "secenekler": [
+        "Hı",
+        "Dad",
+        "Ha",
+        "Cim"
+      ],
+      "dogru_cevap": "Hı",
+      "ipucu": "Bu harf \"H (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 299,
+      "soru": "'Lamelif' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "لا",
+        "ص",
+        "ط",
+        "ا"
+      ],
+      "dogru_cevap": "لا",
+      "ipucu": "Lamelif, \"La\" sesidir."
+    },
+    {
+      "quiz_id": 300,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nط",
+      "secenekler": [
+        "Ğ",
+        "T (kalın)",
+        "F",
+        "S"
+      ],
+      "dogru_cevap": "T (kalın)",
+      "ipucu": "Bu harfin adı \"Tı\"."
+    },
+    {
+      "quiz_id": 301,
+      "soru": "'Fe' (ف) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "مـ",
+        "فـ",
+        "عـ",
+        "قـ"
+      ],
+      "dogru_cevap": "فـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 302,
+      "soru": "'Kef' (ك) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 303,
+      "soru": "Aşağıdakilerden hangisi 'Zı' harfidir?",
+      "secenekler": [
+        "ر",
+        "ف",
+        "ظ",
+        "ط"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 304,
+      "soru": "'Ayn' (ع) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "عـ",
+        "غـ",
+        "شـ",
+        "كـ"
+      ],
+      "dogru_cevap": "عـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 305,
+      "soru": "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 306,
+      "soru": "'Lam' (ل) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 307,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nم",
+      "secenekler": [
+        "Ğayn",
+        "Mim",
+        "Cim",
+        "Nun"
+      ],
+      "dogru_cevap": "Mim",
+      "ipucu": "Bu harf \"M\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 308,
+      "soru": "'Mim' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ث",
+        "م",
+        "ن",
+        "ك"
+      ],
+      "dogru_cevap": "م",
+      "ipucu": "Mim, \"M\" sesidir."
+    },
+    {
+      "quiz_id": 309,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nي",
+      "secenekler": [
+        "Ye",
+        "Se",
+        "Be",
+        "Te"
+      ],
+      "dogru_cevap": "Ye",
+      "ipucu": "Bu harf \"Y\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 310,
+      "soru": "Aşağıdakilerden hangisi 'Mim' harfidir?",
+      "secenekler": [
+        "ن",
+        "ت",
+        "م",
+        "ر"
+      ],
+      "dogru_cevap": "م",
+      "ipucu": "Mim, \"M\" sesini verir."
+    },
+    {
+      "quiz_id": 311,
+      "soru": "'Fe' (ف) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 312,
+      "soru": "Aşağıdakilerden hangisi 'Elif' harfidir?",
+      "secenekler": [
+        "لا",
+        "غ",
+        "ا",
+        "ج"
+      ],
+      "dogru_cevap": "ا",
+      "ipucu": "Elif, \"E\" sesini verir."
+    },
+    {
+      "quiz_id": 313,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nا",
+      "secenekler": [
+        "E",
+        "M",
+        "La",
+        "F"
+      ],
+      "dogru_cevap": "E",
+      "ipucu": "Bu harfin adı \"Elif\"."
+    },
+    {
+      "quiz_id": 314,
+      "soru": "Aşağıdakilerden hangisi 'Ye' harfidir?",
+      "secenekler": [
+        "ن",
+        "ي",
+        "ب",
+        "ث"
+      ],
+      "dogru_cevap": "ي",
+      "ipucu": "Ye, \"Y\" sesini verir."
+    },
+    {
+      "quiz_id": 315,
+      "soru": "'Ra' (ر) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 316,
+      "soru": "Aşağıdakilerden hangisi 'Se' harfidir?",
+      "secenekler": [
+        "ث",
+        "ن",
+        "ب",
+        "ي"
+      ],
+      "dogru_cevap": "ث",
+      "ipucu": "Se, \"S\" sesini verir."
+    },
+    {
+      "quiz_id": 317,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nت",
+      "secenekler": [
+        "Se",
+        "Te",
+        "Be",
+        "Nun"
+      ],
+      "dogru_cevap": "Te",
+      "ipucu": "Bu harf \"T\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 318,
+      "soru": "'Elif' (ا) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 319,
+      "soru": "'Dal' (د) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 320,
+      "soru": "'Zı' (ظ) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 321,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nف",
+      "secenekler": [
+        "F",
+        "K (kalın)",
+        "H (kalın)",
+        "D"
+      ],
+      "dogru_cevap": "F",
+      "ipucu": "Bu harfin adı \"Fe\"."
+    },
+    {
+      "quiz_id": 322,
+      "soru": "'Ze' (ز) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 323,
+      "soru": "'Ra' (ر) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 324,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nب",
+      "secenekler": [
+        "Te",
+        "Ye",
+        "Be",
+        "Nun"
+      ],
+      "dogru_cevap": "Be",
+      "ipucu": "Bu harf \"B\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 325,
+      "soru": "'Hı' (خ) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 326,
+      "soru": "'He' (ه) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "هـ",
+        "خـ",
+        "طـ",
+        "عـ"
+      ],
+      "dogru_cevap": "هـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 327,
+      "soru": "'Şın' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ش",
+        "ق",
+        "ذ",
+        "س"
+      ],
+      "dogru_cevap": "ش",
+      "ipucu": "Şın, \"Ş\" sesidir."
+    },
+    {
+      "quiz_id": 328,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nض",
+      "secenekler": [
+        "Zel",
+        "Sad",
+        "Dad",
+        "Kaf"
+      ],
+      "dogru_cevap": "Dad",
+      "ipucu": "Bu harf \"D (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 329,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nث",
+      "secenekler": [
+        "H",
+        "Z",
+        "S",
+        "H (kalın)"
+      ],
+      "dogru_cevap": "S",
+      "ipucu": "Bu harfin adı \"Se\"."
+    },
+    {
+      "quiz_id": 330,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nذ",
+      "secenekler": [
+        "H",
+        "Z",
+        "F",
+        "V"
+      ],
+      "dogru_cevap": "Z",
+      "ipucu": "Bu harfin adı \"Zel\"."
+    },
+    {
+      "quiz_id": 331,
+      "soru": "Aşağıdakilerden hangisi 'Şın' harfidir?",
+      "secenekler": [
+        "س",
+        "ر",
+        "و",
+        "ش"
+      ],
+      "dogru_cevap": "ش",
+      "ipucu": "Şın, \"Ş\" sesini verir."
+    },
+    {
+      "quiz_id": 332,
+      "soru": "Aşağıdakilerden hangisi 'Vav' harfidir?",
+      "secenekler": [
+        "و",
+        "س",
+        "ه",
+        "ي"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesini verir."
+    },
+    {
+      "quiz_id": 333,
+      "soru": "'Dal' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "د",
+        "ذ",
+        "ظ",
+        "ت"
+      ],
+      "dogru_cevap": "د",
+      "ipucu": "Dal, \"D\" sesidir."
+    },
+    {
+      "quiz_id": 334,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nص",
+      "secenekler": [
+        "Lam",
+        "Dad",
+        "Ze",
+        "Sad"
+      ],
+      "dogru_cevap": "Sad",
+      "ipucu": "Bu harf \"S (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 335,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nص",
+      "secenekler": [
+        "Y",
+        "S (kalın)",
+        "K (kalın)",
+        "B"
+      ],
+      "dogru_cevap": "S (kalın)",
+      "ipucu": "Bu harfin adı \"Sad\"."
+    },
+    {
+      "quiz_id": 336,
+      "soru": "Aşağıdakilerden hangisi 'Mim' harfidir?",
+      "secenekler": [
+        "ا",
+        "م",
+        "ن",
+        "ر"
+      ],
+      "dogru_cevap": "م",
+      "ipucu": "Mim, \"M\" sesini verir."
+    },
+    {
+      "quiz_id": 337,
+      "soru": "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ثـ",
+        "صـ",
+        "جـ",
+        "ضـ"
+      ],
+      "dogru_cevap": "ضـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 338,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nس",
+      "secenekler": [
+        "Lam",
+        "Mim",
+        "Sin",
+        "Şın"
+      ],
+      "dogru_cevap": "Sin",
+      "ipucu": "Bu harf \"S\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 339,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nث",
+      "secenekler": [
+        "Se",
+        "Ye",
+        "Nun",
+        "Te"
+      ],
+      "dogru_cevap": "Se",
+      "ipucu": "Bu harf \"S\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 340,
+      "soru": "'Tı' (ط) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 341,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nخ",
+      "secenekler": [
+        "T",
+        "H (kalın)",
+        "L",
+        "H"
+      ],
+      "dogru_cevap": "H (kalın)",
+      "ipucu": "Bu harfin adı \"Hı\"."
+    },
+    {
+      "quiz_id": 342,
+      "soru": "'Kaf' (ق) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Kalın okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "Kalın okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 343,
+      "soru": "'Tı' (ط) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "بـ",
+        "يـ",
+        "طـ",
+        "ظـ"
+      ],
+      "dogru_cevap": "طـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 344,
+      "soru": "Aşağıdakilerden hangisi 'Te' harfidir?",
+      "secenekler": [
+        "ت",
+        "ب",
+        "ن",
+        "ي"
+      ],
+      "dogru_cevap": "ت",
+      "ipucu": "Te, \"T\" sesini verir."
+    },
+    {
+      "quiz_id": 345,
+      "soru": "Aşağıdakilerden hangisi 'Fe' harfidir?",
+      "secenekler": [
+        "ق",
+        "ف",
+        "لا",
+        "ذ"
+      ],
+      "dogru_cevap": "ف",
+      "ipucu": "Fe, \"F\" sesini verir."
+    },
+    {
+      "quiz_id": 346,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nه",
+      "secenekler": [
+        "H",
+        "Z (kalın)",
+        "R",
+        "Ş"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"He\"."
+    },
+    {
+      "quiz_id": 347,
+      "soru": "'Hı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ح",
+        "ا",
+        "ج",
+        "خ"
+      ],
+      "dogru_cevap": "خ",
+      "ipucu": "Hı, \"H (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 348,
+      "soru": "Aşağıdakilerden hangisi 'Be' harfidir?",
+      "secenekler": [
+        "ي",
+        "ث",
+        "ن",
+        "ب"
+      ],
+      "dogru_cevap": "ب",
+      "ipucu": "Be, \"B\" sesini verir."
+    },
+    {
+      "quiz_id": 349,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nك",
+      "secenekler": [
+        "Kef",
+        "Dad",
+        "Lam",
+        "Sad"
+      ],
+      "dogru_cevap": "Kef",
+      "ipucu": "Bu harf \"K\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 350,
+      "soru": "'Kaf' (ق) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "ضـ",
+        "قـ",
+        "فـ",
+        "هـ"
+      ],
+      "dogru_cevap": "قـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 351,
+      "soru": "'Ye' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ث",
+        "ن",
+        "ت",
+        "ي"
+      ],
+      "dogru_cevap": "ي",
+      "ipucu": "Ye, \"Y\" sesidir."
+    },
+    {
+      "quiz_id": 352,
+      "soru": "'Mim' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ف",
+        "م",
+        "ن",
+        "س"
+      ],
+      "dogru_cevap": "م",
+      "ipucu": "Mim, \"M\" sesidir."
+    },
+    {
+      "quiz_id": 353,
+      "soru": "'Fe' (ف) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 354,
+      "soru": "'Lamelif' (لا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 355,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nش",
+      "secenekler": [
+        "Sin",
+        "Şın",
+        "Mim",
+        "Dad"
+      ],
+      "dogru_cevap": "Şın",
+      "ipucu": "Bu harf \"Ş\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 356,
+      "soru": "Aşağıdakilerden hangisi 'Elif' harfidir?",
+      "secenekler": [
+        "د",
+        "لا",
+        "ا",
+        "ق"
+      ],
+      "dogru_cevap": "ا",
+      "ipucu": "Elif, \"E\" sesini verir."
+    },
+    {
+      "quiz_id": 357,
+      "soru": "'Cim' (ج) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "İnce okunur",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 358,
+      "soru": "'He' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ل",
+        "و",
+        "ه",
+        "ف"
+      ],
+      "dogru_cevap": "ه",
+      "ipucu": "He, \"H\" sesidir."
+    },
+    {
+      "quiz_id": 359,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nع",
+      "secenekler": [
+        "Zel",
+        "Ayn",
+        "Dad",
+        "Ğayn"
+      ],
+      "dogru_cevap": "Ayn",
+      "ipucu": "Bu harf \"A (gırtlak)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 360,
+      "soru": "'Sin' (س) harfi nasıl okunur?",
+      "secenekler": [
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 361,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nذ",
+      "secenekler": [
+        "Se",
+        "Ye",
+        "Zel",
+        "Dal"
+      ],
+      "dogru_cevap": "Zel",
+      "ipucu": "Bu harf \"Z\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 362,
+      "soru": "'Kaf' (ق) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "هـ",
+        "شـ",
+        "فـ",
+        "قـ"
+      ],
+      "dogru_cevap": "قـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 363,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nغ",
+      "secenekler": [
+        "Kef",
+        "Zı",
+        "Ğayn",
+        "Ayn"
+      ],
+      "dogru_cevap": "Ğayn",
+      "ipucu": "Bu harf \"Ğ\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 364,
+      "soru": "'Vav' (و) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 365,
+      "soru": "'Te' (ت) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 366,
+      "soru": "'Zel' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "س",
+        "د",
+        "ض",
+        "ذ"
+      ],
+      "dogru_cevap": "ذ",
+      "ipucu": "Zel, \"Z\" sesidir."
+    },
+    {
+      "quiz_id": 367,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nظ",
+      "secenekler": [
+        "T (kalın)",
+        "M",
+        "Ş",
+        "Z (kalın)"
+      ],
+      "dogru_cevap": "Z (kalın)",
+      "ipucu": "Bu harfin adı \"Zı\"."
+    },
+    {
+      "quiz_id": 368,
+      "soru": "'Vav' (و) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 369,
+      "soru": "'Be' (ب) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "تـ",
+        "يـ",
+        "بـ",
+        "ثـ"
+      ],
+      "dogru_cevap": "بـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 370,
+      "soru": "'Zı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ذ",
+        "ط",
+        "ظ",
+        "ش"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 371,
+      "soru": "'Lamelif' (لا) harfi nasıl okunur?",
+      "secenekler": [
+        "Hem kalın hem ince okunabilir",
+        "Kalın okunur",
+        "İnce okunur"
+      ],
+      "dogru_cevap": "Hem kalın hem ince okunabilir",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 372,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nح",
+      "secenekler": [
+        "T (kalın)",
+        "K",
+        "H",
+        "E"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"Ha\"."
+    },
+    {
+      "quiz_id": 373,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nب",
+      "secenekler": [
+        "D (kalın)",
+        "Z (kalın)",
+        "B",
+        "V"
+      ],
+      "dogru_cevap": "B",
+      "ipucu": "Bu harfin adı \"Be\"."
+    },
+    {
+      "quiz_id": 374,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nط",
+      "secenekler": [
+        "Dad",
+        "Tı",
+        "He",
+        "Zı"
+      ],
+      "dogru_cevap": "Tı",
+      "ipucu": "Bu harf \"T (kalın)\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 375,
+      "soru": "Aşağıdakilerden hangisi 'Vav' harfidir?",
+      "secenekler": [
+        "ك",
+        "و",
+        "ه",
+        "خ"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesini verir."
+    },
+    {
+      "quiz_id": 376,
+      "soru": "Aşağıdakilerden hangisi 'Ha' harfidir?",
+      "secenekler": [
+        "خ",
+        "ظ",
+        "ح",
+        "ج"
+      ],
+      "dogru_cevap": "ح",
+      "ipucu": "Ha, \"H\" sesini verir."
+    },
+    {
+      "quiz_id": 377,
+      "soru": "'Lam' (ل) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "تـ",
+        "لـ",
+        "غـ",
+        "كـ"
+      ],
+      "dogru_cevap": "لـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 378,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nص",
+      "secenekler": [
+        "T",
+        "D",
+        "Z",
+        "S (kalın)"
+      ],
+      "dogru_cevap": "S (kalın)",
+      "ipucu": "Bu harfin adı \"Sad\"."
+    },
+    {
+      "quiz_id": 379,
+      "soru": "'Ayn' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ع",
+        "ظ",
+        "غ",
+        "و"
+      ],
+      "dogru_cevap": "ع",
+      "ipucu": "Ayn, \"A (gırtlak)\" sesidir."
+    },
+    {
+      "quiz_id": 380,
+      "soru": "'Vav' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "و",
+        "ه",
+        "م",
+        "ض"
+      ],
+      "dogru_cevap": "و",
+      "ipucu": "Vav, \"V\" sesidir."
+    },
+    {
+      "quiz_id": 381,
+      "soru": "'Ğayn' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ح",
+        "ع",
+        "غ",
+        "ش"
+      ],
+      "dogru_cevap": "غ",
+      "ipucu": "Ğayn, \"Ğ\" sesidir."
+    },
+    {
+      "quiz_id": 382,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nغ",
+      "secenekler": [
+        "Y",
+        "Ğ",
+        "F",
+        "V"
+      ],
+      "dogru_cevap": "Ğ",
+      "ipucu": "Bu harfin adı \"Ğayn\"."
+    },
+    {
+      "quiz_id": 383,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nذ",
+      "secenekler": [
+        "K",
+        "Z",
+        "M",
+        "E"
+      ],
+      "dogru_cevap": "Z",
+      "ipucu": "Bu harfin adı \"Zel\"."
+    },
+    {
+      "quiz_id": 384,
+      "soru": "'Cim' (ج) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+      "secenekler": [
+        "خـ",
+        "حـ",
+        "شـ",
+        "جـ"
+      ],
+      "dogru_cevap": "جـ",
+      "ipucu": "Başta gelen harfler sonraki harfe bağlanır."
+    },
+    {
+      "quiz_id": 385,
+      "soru": "Aşağıdakilerden hangisi 'Sin' harfidir?",
+      "secenekler": [
+        "ش",
+        "ح",
+        "ط",
+        "س"
+      ],
+      "dogru_cevap": "س",
+      "ipucu": "Sin, \"S\" sesini verir."
+    },
+    {
+      "quiz_id": 386,
+      "soru": "'Elif' (ا) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Hayır, birleşmez",
+        "Evet, birleşir"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 387,
+      "soru": "'Ğayn' (غ) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 388,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nا",
+      "secenekler": [
+        "Lamelif",
+        "Lam",
+        "Elif",
+        "Ra"
+      ],
+      "dogru_cevap": "Elif",
+      "ipucu": "Bu harf \"E\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 389,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nك",
+      "secenekler": [
+        "Kef",
+        "Hı",
+        "Şın",
+        "Lam"
+      ],
+      "dogru_cevap": "Kef",
+      "ipucu": "Bu harf \"K\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 390,
+      "soru": "Aşağıdakilerden hangisi 'Dad' harfidir?",
+      "secenekler": [
+        "ر",
+        "ض",
+        "ص",
+        "ذ"
+      ],
+      "dogru_cevap": "ض",
+      "ipucu": "Dad, \"D (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 391,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nف",
+      "secenekler": [
+        "Fe",
+        "Mim",
+        "Ğayn",
+        "Kaf"
+      ],
+      "dogru_cevap": "Fe",
+      "ipucu": "Bu harf \"F\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 392,
+      "soru": "Aşağıdakilerden hangisi 'Zel' harfidir?",
+      "secenekler": [
+        "ذ",
+        "ش",
+        "د",
+        "ن"
+      ],
+      "dogru_cevap": "ذ",
+      "ipucu": "Zel, \"Z\" sesini verir."
+    },
+    {
+      "quiz_id": 393,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nلا",
+      "secenekler": [
+        "La",
+        "T",
+        "L",
+        "Ş"
+      ],
+      "dogru_cevap": "La",
+      "ipucu": "Bu harfin adı \"Lamelif\"."
+    },
+    {
+      "quiz_id": 394,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nح",
+      "secenekler": [
+        "Ha",
+        "Cim",
+        "Hı",
+        "Fe"
+      ],
+      "dogru_cevap": "Ha",
+      "ipucu": "Bu harf \"H\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 395,
+      "soru": "'Ze' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ز",
+        "ش",
+        "ر",
+        "ث"
+      ],
+      "dogru_cevap": "ز",
+      "ipucu": "Ze, \"Z\" sesidir."
+    },
+    {
+      "quiz_id": 396,
+      "soru": "'Dal' (د) harfi nasıl okunur?",
+      "secenekler": [
+        "Kalın okunur",
+        "İnce okunur",
+        "Hem kalın hem ince okunabilir"
+      ],
+      "dogru_cevap": "İnce okunur",
+      "ipucu": "Kalın harfler dolgun, ince harfler yumuşak okunur."
+    },
+    {
+      "quiz_id": 397,
+      "soru": "Aşağıdakilerden hangisi 'Zı' harfidir?",
+      "secenekler": [
+        "ي",
+        "ط",
+        "ظ",
+        "ع"
+      ],
+      "dogru_cevap": "ظ",
+      "ipucu": "Zı, \"Z (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 398,
+      "soru": "Bu harfin Türkçe adı nedir?\n\nل",
+      "secenekler": [
+        "Hı",
+        "Lam",
+        "Dal",
+        "Kef"
+      ],
+      "dogru_cevap": "Lam",
+      "ipucu": "Bu harf \"L\" sesine karşılık gelir."
+    },
+    {
+      "quiz_id": 399,
+      "soru": "Aşağıdakilerden hangisi 'Kaf' harfidir?",
+      "secenekler": [
+        "م",
+        "ق",
+        "ف",
+        "ب"
+      ],
+      "dogru_cevap": "ق",
+      "ipucu": "Kaf, \"K (kalın)\" sesini verir."
+    },
+    {
+      "quiz_id": 400,
+      "soru": "'Hı' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "ج",
+        "ح",
+        "و",
+        "خ"
+      ],
+      "dogru_cevap": "خ",
+      "ipucu": "Hı, \"H (kalın)\" sesidir."
+    },
+    {
+      "quiz_id": 401,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nك",
+      "secenekler": [
+        "H (kalın)",
+        "Y",
+        "D (kalın)",
+        "K"
+      ],
+      "dogru_cevap": "K",
+      "ipucu": "Bu harfin adı \"Kef\"."
+    },
+    {
+      "quiz_id": 402,
+      "soru": "Bu harf hangi sese karşılık gelir?\n\nه",
+      "secenekler": [
+        "H",
+        "M",
+        "B",
+        "S"
+      ],
+      "dogru_cevap": "H",
+      "ipucu": "Bu harfin adı \"He\"."
+    },
+    {
+      "quiz_id": 403,
+      "soru": "'Ra' (ر) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Hayır, birleşmez",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    },
+    {
+      "quiz_id": 404,
+      "soru": "'He' harfinin Arapça yazılışı hangisidir?",
+      "secenekler": [
+        "و",
+        "ز",
+        "ه",
+        "ك"
+      ],
+      "dogru_cevap": "ه",
+      "ipucu": "He, \"H\" sesidir."
+    },
+    {
+      "quiz_id": 405,
+      "soru": "'Hı' (خ) harfi kendinden SONRAKİ harfle birleşir mi?",
+      "secenekler": [
+        "Evet, birleşir",
+        "Hayır, birleşmez"
+      ],
+      "dogru_cevap": "Evet, birleşir",
+      "ipucu": "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir."
+    }
+  ],
+  "strings": [
+    "'Ayn' (ع) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Ayn' (ع) harfi nasıl okunur?",
+    "'Ayn' (ع) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Ayn' harfinin Arapça yazılışı hangisidir?",
+    "'Be' (ب) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Be' (ب) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Be' harfinin Arapça yazılışı hangisidir?",
+    "'Cim' (ج) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Cim' (ج) harfi nasıl okunur?",
+    "'Cim' (ج) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Dad' (ض) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Dad' (ض) harfi nasıl okunur?",
+    "'Dad' (ض) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Dal' (د) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Dal' (د) harfi nasıl okunur?",
+    "'Dal' harfinin Arapça yazılışı hangisidir?",
+    "'Elif' (ا) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Elif' (ا) harfi nasıl okunur?",
+    "'Elif' harfinin Arapça yazılışı hangisidir?",
+    "'Fe' (ف) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Fe' (ف) harfi nasıl okunur?",
+    "'Fe' (ف) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Fe' harfinin Arapça yazılışı hangisidir?",
+    "'Ğayn' (غ) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Ğayn' (غ) harfi nasıl okunur?",
+    "'Ğayn' harfinin Arapça yazılışı hangisidir?",
+    "'Ha' (ح) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Ha' (ح) harfi nasıl okunur?",
+    "'Ha' harfinin Arapça yazılışı hangisidir?",
+    "'He' (ه) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'He' (ه) harfi nasıl okunur?",
+    "'He' (ه) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'He' harfinin Arapça yazılışı hangisidir?",
+    "'Hı' (خ) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Hı' (خ) harfi nasıl okunur?",
+    "'Hı' harfinin Arapça yazılışı hangisidir?",
+    "'Kaf' (ق) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Kaf' (ق) harfi nasıl okunur?",
+    "'Kaf' (ق) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Kaf' harfinin Arapça yazılışı hangisidir?",
+    "'Kef' (ك) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Kef' harfinin Arapça yazılışı hangisidir?",
+    "'Lam' (ل) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Lam' (ل) harfi nasıl okunur?",
+    "'Lam' (ل) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Lam' harfinin Arapça yazılışı hangisidir?",
+    "'Lamelif' (لا) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Lamelif' (لا) harfi nasıl okunur?",
+    "'Lamelif' harfinin Arapça yazılışı hangisidir?",
+    "'Mim' (م) harfi nasıl okunur?",
+    "'Mim' harfinin Arapça yazılışı hangisidir?",
+    "'Nun' (ن) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Nun' (ن) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Nun' harfinin Arapça yazılışı hangisidir?",
+    "'Ra' (ر) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Ra' (ر) harfi nasıl okunur?",
+    "'Ra' harfinin Arapça yazılışı hangisidir?",
+    "'Sad' (ص) harfi nasıl okunur?",
+    "'Sad' (ص) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Sad' harfinin Arapça yazılışı hangisidir?",
+    "'Se' (ث) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Se' (ث) harfi nasıl okunur?",
+    "'Se' (ث) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Se' harfinin Arapça yazılışı hangisidir?",
+    "'Sin' (س) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Sin' (س) harfi nasıl okunur?",
+    "'Sin' (س) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Sin' harfinin Arapça yazılışı hangisidir?",
+    "'Şın' (ش) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Şın' (ش) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Şın' harfinin Arapça yazılışı hangisidir?",
+    "'Te' (ت) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Te' (ت) harfi nasıl okunur?",
+    "'Te' (ت) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Te' harfinin Arapça yazılışı hangisidir?",
+    "'Tı' (ط) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Tı' (ط) harfi nasıl okunur?",
+    "'Tı' (ط) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Tı' harfinin Arapça yazılışı hangisidir?",
+    "'Vav' (و) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Vav' (و) harfi nasıl okunur?",
+    "'Vav' harfinin Arapça yazılışı hangisidir?",
+    "'Ye' (ي) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Ye' (ي) harfi nasıl okunur?",
+    "'Ye' (ي) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Ye' harfinin Arapça yazılışı hangisidir?",
+    "'Ze' (ز) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Ze' (ز) harfi nasıl okunur?",
+    "'Ze' harfinin Arapça yazılışı hangisidir?",
+    "'Zel' (ذ) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Zel' (ذ) harfi nasıl okunur?",
+    "'Zel' harfinin Arapça yazılışı hangisidir?",
+    "'Zı' (ظ) harfi kendinden SONRAKİ harfle birleşir mi?",
+    "'Zı' (ظ) harfi nasıl okunur?",
+    "'Zı' (ظ) harfinin kelime BAŞINDAKİ şekli hangisidir?",
+    "'Zı' harfinin Arapça yazılışı hangisidir?",
+    "A (gırtlak)",
+    "Aşağıdakilerden hangisi 'Ayn' harfidir?",
+    "Aşağıdakilerden hangisi 'Be' harfidir?",
+    "Aşağıdakilerden hangisi 'Dad' harfidir?",
+    "Aşağıdakilerden hangisi 'Dal' harfidir?",
+    "Aşağıdakilerden hangisi 'Elif' harfidir?",
+    "Aşağıdakilerden hangisi 'Fe' harfidir?",
+    "Aşağıdakilerden hangisi 'Ğayn' harfidir?",
+    "Aşağıdakilerden hangisi 'Ha' harfidir?",
+    "Aşağıdakilerden hangisi 'He' harfidir?",
+    "Aşağıdakilerden hangisi 'Hı' harfidir?",
+    "Aşağıdakilerden hangisi 'Kaf' harfidir?",
+    "Aşağıdakilerden hangisi 'Lam' harfidir?",
+    "Aşağıdakilerden hangisi 'Lamelif' harfidir?",
+    "Aşağıdakilerden hangisi 'Mim' harfidir?",
+    "Aşağıdakilerden hangisi 'Nun' harfidir?",
+    "Aşağıdakilerden hangisi 'Sad' harfidir?",
+    "Aşağıdakilerden hangisi 'Se' harfidir?",
+    "Aşağıdakilerden hangisi 'Sin' harfidir?",
+    "Aşağıdakilerden hangisi 'Şın' harfidir?",
+    "Aşağıdakilerden hangisi 'Te' harfidir?",
+    "Aşağıdakilerden hangisi 'Tı' harfidir?",
+    "Aşağıdakilerden hangisi 'Vav' harfidir?",
+    "Aşağıdakilerden hangisi 'Ye' harfidir?",
+    "Aşağıdakilerden hangisi 'Zel' harfidir?",
+    "Aşağıdakilerden hangisi 'Zı' harfidir?",
+    "Ayn",
+    "Ayn, \"A (gırtlak)\" sesidir.",
+    "Ayn, \"A (gırtlak)\" sesini verir.",
+    "B",
+    "Başta gelen harfler sonraki harfe bağlanır.",
+    "Be",
+    "Be, \"B\" sesidir.",
+    "Be, \"B\" sesini verir.",
+    "Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir.",
+    "Bu harf \"A (gırtlak)\" sesine karşılık gelir.",
+    "Bu harf \"B\" sesine karşılık gelir.",
+    "Bu harf \"C\" sesine karşılık gelir.",
+    "Bu harf \"D (kalın)\" sesine karşılık gelir.",
+    "Bu harf \"D\" sesine karşılık gelir.",
+    "Bu harf \"E\" sesine karşılık gelir.",
+    "Bu harf \"F\" sesine karşılık gelir.",
+    "Bu harf \"Ğ\" sesine karşılık gelir.",
+    "Bu harf \"H (kalın)\" sesine karşılık gelir.",
+    "Bu harf \"H\" sesine karşılık gelir.",
+    "Bu harf \"K\" sesine karşılık gelir.",
+    "Bu harf \"L\" sesine karşılık gelir.",
+    "Bu harf \"La\" sesine karşılık gelir.",
+    "Bu harf \"M\" sesine karşılık gelir.",
+    "Bu harf \"N\" sesine karşılık gelir.",
+    "Bu harf \"R\" sesine karşılık gelir.",
+    "Bu harf \"S (kalın)\" sesine karşılık gelir.",
+    "Bu harf \"S\" sesine karşılık gelir.",
+    "Bu harf \"Ş\" sesine karşılık gelir.",
+    "Bu harf \"T (kalın)\" sesine karşılık gelir.",
+    "Bu harf \"T\" sesine karşılık gelir.",
+    "Bu harf \"V\" sesine karşılık gelir.",
+    "Bu harf \"Y\" sesine karşılık gelir.",
+    "Bu harf \"Z (kalın)\" sesine karşılık gelir.",
+    "Bu harf \"Z\" sesine karşılık gelir.",
+    "Bu harf hangi sese karşılık gelir?\n\nا",
+    "Bu harf hangi sese karşılık gelir?\n\nب",
+    "Bu harf hangi sese karşılık gelir?\n\nث",
+    "Bu harf hangi sese karşılık gelir?\n\nح",
+    "Bu harf hangi sese karşılık gelir?\n\nخ",
+    "Bu harf hangi sese karşılık gelir?\n\nد",
+    "Bu harf hangi sese karşılık gelir?\n\nذ",
+    "Bu harf hangi sese karşılık gelir?\n\nر",
+    "Bu harf hangi sese karşılık gelir?\n\nز",
+    "Bu harf hangi sese karşılık gelir?\n\nس",
+    "Bu harf hangi sese karşılık gelir?\n\nش",
+    "Bu harf hangi sese karşılık gelir?\n\nص",
+    "Bu harf hangi sese karşılık gelir?\n\nط",
+    "Bu harf hangi sese karşılık gelir?\n\nظ",
+    "Bu harf hangi sese karşılık gelir?\n\nع",
+    "Bu harf hangi sese karşılık gelir?\n\nغ",
+    "Bu harf hangi sese karşılık gelir?\n\nف",
+    "Bu harf hangi sese karşılık gelir?\n\nق",
+    "Bu harf hangi sese karşılık gelir?\n\nك",
+    "Bu harf hangi sese karşılık gelir?\n\nل",
+    "Bu harf hangi sese karşılık gelir?\n\nلا",
+    "Bu harf hangi sese karşılık gelir?\n\nه",
+    "Bu harf hangi sese karşılık gelir?\n\nو",
+    "Bu harf hangi sese karşılık gelir?\n\nي",
+    "Bu harfin adı \"Ayn\".",
+    "Bu harfin adı \"Be\".",
+    "Bu harfin adı \"Dal\".",
+    "Bu harfin adı \"Elif\".",
+    "Bu harfin adı \"Fe\".",
+    "Bu harfin adı \"Ğayn\".",
+    "Bu harfin adı \"Ha\".",
+    "Bu harfin adı \"He\".",
+    "Bu harfin adı \"Hı\".",
+    "Bu harfin adı \"Kaf\".",
+    "Bu harfin adı \"Kef\".",
+    "Bu harfin adı \"Lam\".",
+    "Bu harfin adı \"Lamelif\".",
+    "Bu harfin adı \"Ra\".",
+    "Bu harfin adı \"Sad\".",
+    "Bu harfin adı \"Se\".",
+    "Bu harfin adı \"Sin\".",
+    "Bu harfin adı \"Şın\".",
+    "Bu harfin adı \"Tı\".",
+    "Bu harfin adı \"Vav\".",
+    "Bu harfin adı \"Ye\".",
+    "Bu harfin adı \"Ze\".",
+    "Bu harfin adı \"Zel\".",
+    "Bu harfin adı \"Zı\".",
+    "Bu harfin Türkçe adı nedir?\n\nا",
+    "Bu harfin Türkçe adı nedir?\n\nب",
+    "Bu harfin Türkçe adı nedir?\n\nت",
+    "Bu harfin Türkçe adı nedir?\n\nث",
+    "Bu harfin Türkçe adı nedir?\n\nج",
+    "Bu harfin Türkçe adı nedir?\n\nح",
+    "Bu harfin Türkçe adı nedir?\n\nخ",
+    "Bu harfin Türkçe adı nedir?\n\nد",
+    "Bu harfin Türkçe adı nedir?\n\nذ",
+    "Bu harfin Türkçe adı nedir?\n\nر",
+    "Bu harfin Türkçe adı nedir?\n\nز",
+    "Bu harfin Türkçe adı nedir?\n\nس",
+    "Bu harfin Türkçe adı nedir?\n\nش",
+    "Bu harfin Türkçe adı nedir?\n\nص",
+    "Bu harfin Türkçe adı nedir?\n\nض",
+    "Bu harfin Türkçe adı nedir?\n\nط",
+    "Bu harfin Türkçe adı nedir?\n\nظ",
+    "Bu harfin Türkçe adı nedir?\n\nع",
+    "Bu harfin Türkçe adı nedir?\n\nغ",
+    "Bu harfin Türkçe adı nedir?\n\nف",
+    "Bu harfin Türkçe adı nedir?\n\nك",
+    "Bu harfin Türkçe adı nedir?\n\nل",
+    "Bu harfin Türkçe adı nedir?\n\nلا",
+    "Bu harfin Türkçe adı nedir?\n\nم",
+    "Bu harfin Türkçe adı nedir?\n\nن",
+    "Bu harfin Türkçe adı nedir?\n\nه",
+    "Bu harfin Türkçe adı nedir?\n\nو",
+    "Bu harfin Türkçe adı nedir?\n\nي",
+    "C",
+    "Cim",
+    "D",
+    "D (kalın)",
+    "Dad",
+    "Dad, \"D (kalın)\" sesini verir.",
+    "Dal",
+    "Dal, \"D\" sesidir.",
+    "Dal, \"D\" sesini verir.",
+    "E",
+    "Elif",
+    "Elif, \"E\" sesidir.",
+    "Elif, \"E\" sesini verir.",
+    "Evet, birleşir",
+    "F",
+    "Fe",
+    "Fe, \"F\" sesidir.",
+    "Fe, \"F\" sesini verir.",
+    "Ğ",
+    "Ğayn",
+    "Ğayn, \"Ğ\" sesidir.",
+    "Ğayn, \"Ğ\" sesini verir.",
+    "H",
+    "H (kalın)",
+    "Ha",
+    "Ha, \"H\" sesidir.",
+    "Ha, \"H\" sesini verir.",
+    "Hayır, birleşmez",
+    "He",
+    "He, \"H\" sesidir.",
+    "He, \"H\" sesini verir.",
+    "Hem kalın hem ince okunabilir",
+    "Hı",
+    "Hı, \"H (kalın)\" sesidir.",
+    "Hı, \"H (kalın)\" sesini verir.",
+    "İnce okunur",
+    "K",
+    "K (kalın)",
+    "Kaf",
+    "Kaf, \"K (kalın)\" sesidir.",
+    "Kaf, \"K (kalın)\" sesini verir.",
+    "Kalın harfler dolgun, ince harfler yumuşak okunur.",
+    "Kalın okunur",
+    "Kef",
+    "Kef, \"K\" sesidir.",
+    "L",
+    "La",
+    "Lam",
+    "Lam, \"L\" sesidir.",
+    "Lam, \"L\" sesini verir.",
+    "Lamelif",
+    "Lamelif, \"La\" sesidir.",
+    "Lamelif, \"La\" sesini verir.",
+    "M",
+    "Mim",
+    "Mim, \"M\" sesidir.",
+    "Mim, \"M\" sesini verir.",
+    "N",
+    "Nun",
+    "Nun, \"N\" sesidir.",
+    "Nun, \"N\" sesini verir.",
+    "R",
+    "Ra",
+    "Ra, \"R\" sesidir.",
+    "S",
+    "S (kalın)",
+    "Sad",
+    "Sad, \"S (kalın)\" sesidir.",
+    "Sad, \"S (kalın)\" sesini verir.",
+    "Se",
+    "Se, \"S\" sesidir.",
+    "Se, \"S\" sesini verir.",
+    "Sin",
+    "Sin, \"S\" sesidir.",
+    "Sin, \"S\" sesini verir.",
+    "Ş",
+    "Şın",
+    "Şın, \"Ş\" sesidir.",
+    "Şın, \"Ş\" sesini verir.",
+    "T",
+    "T (kalın)",
+    "Te",
+    "Te, \"T\" sesidir.",
+    "Te, \"T\" sesini verir.",
+    "Tı",
+    "Tı, \"T (kalın)\" sesidir.",
+    "Tı, \"T (kalın)\" sesini verir.",
+    "V",
+    "Vav",
+    "Vav, \"V\" sesidir.",
+    "Vav, \"V\" sesini verir.",
+    "Y",
+    "Ye",
+    "Ye, \"Y\" sesidir.",
+    "Ye, \"Y\" sesini verir.",
+    "Z",
+    "Z (kalın)",
+    "Ze",
+    "Ze, \"Z\" sesidir.",
+    "Zel",
+    "Zel, \"Z\" sesidir.",
+    "Zel, \"Z\" sesini verir.",
+    "Zı",
+    "Zı, \"Z (kalın)\" sesidir.",
+    "Zı, \"Z (kalın)\" sesini verir.",
+    "ا",
+    "بـ",
+    "ب",
+    "ت",
+    "تـ",
+    "ث",
+    "ثـ",
+    "جـ",
+    "ج",
+    "حـ",
+    "ح",
+    "خـ",
+    "خ",
+    "د",
+    "ذ",
+    "ر",
+    "ز",
+    "سـ",
+    "س",
+    "شـ",
+    "ش",
+    "ص",
+    "صـ",
+    "ضـ",
+    "ض",
+    "ط",
+    "طـ",
+    "ظ",
+    "ظـ",
+    "ع",
+    "عـ",
+    "غـ",
+    "غ",
+    "فـ",
+    "ف",
+    "ق",
+    "قـ",
+    "كـ",
+    "ك",
+    "لـ",
+    "ل",
+    "لا",
+    "م",
+    "مـ",
+    "ن",
+    "نـ",
+    "ه",
+    "هـ",
+    "و",
+    "ي",
+    "يـ"
+  ]
+}

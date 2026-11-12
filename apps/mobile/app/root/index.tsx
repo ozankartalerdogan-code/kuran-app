@@ -13,14 +13,17 @@ import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
+import { useStrings, getStrings, fmt, useLang } from "../../src/i18n";
+import { rootMeaningEn } from "../../src/lib/wordMeaningsEn";
+import rootStrings from "../../src/i18n/strings/root";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
-const SORT_LABELS: Record<SortKey, string> = {
-  frequency: "Frekans",
-  alphabetical: "Alfabetik",
-  meaning: "Anlam",
+const SORT_KEYS: Record<SortKey, "sortFrequency" | "sortAlphabetical" | "sortMeaning"> = {
+  frequency: "sortFrequency",
+  alphabetical: "sortAlphabetical",
+  meaning: "sortMeaning",
 };
 
 const Separator = () => {
@@ -30,6 +33,16 @@ const Separator = () => {
 
 const arCollator = new Intl.Collator("ar");
 const trCollator = new Intl.Collator("tr");
+const enCollator = new Intl.Collator("en");
+
+// İngilizce arayüzde İngilizce kök anlamı; yoksa Türkçe (yan yana gösterilmez).
+function rootMeaningText(item: RootItem, lang: string): string {
+  if (lang === "en") {
+    const en = rootMeaningEn(item.root, item.meaning_tr);
+    if (en) return en;
+  }
+  return item.meaning_tr;
+}
 
 // Arapça arama normalizasyonu: hemze/elif varyantları, elif maksura, te marbuta
 // ve harekeleri sadeleştir → kullanıcı "اله" yazınca "أله" kökünü de bulur.
@@ -43,18 +56,21 @@ function normalizeArabic(value: string): string {
 }
 
 const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; onPress: (root: string) => void; c: AppColors }) {
+  const t = useStrings(rootStrings);
+  const lang = useLang();
+  const meaning = rootMeaningText(item, lang);
   return (
     <TouchableOpacity
       style={[s.card, { backgroundColor: c.card }]}
       onPress={() => onPress(item.root)}
       activeOpacity={0.75}
       accessibilityRole="button"
-      accessibilityLabel={`${item.root} kökü`}
-      accessibilityHint={`${item.meaning_tr} anlamı ve ${item.frequency} geçiş detayını açar`}
+      accessibilityLabel={fmt(t.rootA11y, { root: item.root })}
+      accessibilityHint={fmt(t.rootHint, { meaning, n: item.frequency })}
     >
       <View style={s.cardLeft}>
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
-        <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
+        <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{meaning}</Text>
       </View>
       <View style={[s.freqBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
         <Text style={[s.freqText, c.isDark && { color: "#6ee7b7" }]}>{item.frequency}</Text>
@@ -65,6 +81,8 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
 
 export default function RootListScreen() {
   const c = useColors();
+  const t = useStrings(rootStrings);
+  const lang = useLang();
   const insets = useSafeAreaInsets();
   const listTarget = useTourTarget("root.list");
   const [roots, setRoots] = useState<RootItem[]>([]);
@@ -83,7 +101,7 @@ export default function RootListScreen() {
       setRoots(nextRoots);
     } catch {
       if (!isMountedRef.current) return;
-      setError("Kökler yüklenemedi.");
+      setError(getStrings(rootStrings).listError);
     } finally {
       if (isMountedRef.current) setLoading(false);
     }
@@ -100,11 +118,12 @@ export default function RootListScreen() {
     let list = [...roots];
     if (search.trim()) {
       const rawQuery = search.trim();
-      const query = rawQuery.toLocaleLowerCase("tr-TR");
+      const locale = lang === "en" ? "en-US" : "tr-TR";
+      const query = rawQuery.toLocaleLowerCase(locale);
       const arQuery = normalizeArabic(rawQuery);
       list = list.filter((item) =>
         normalizeArabic(item.root).includes(arQuery) ||
-        item.meaning_tr.toLocaleLowerCase("tr-TR").includes(query),
+        rootMeaningText(item, lang).toLocaleLowerCase(locale).includes(query),
       );
     }
     switch (sort) {
@@ -115,11 +134,13 @@ export default function RootListScreen() {
         list.sort((a, b) => arCollator.compare(a.root, b.root));
         break;
       case "meaning":
-        list.sort((a, b) => trCollator.compare(a.meaning_tr, b.meaning_tr));
+        list.sort((a, b) =>
+          (lang === "en" ? enCollator : trCollator).compare(rootMeaningText(a, lang), rootMeaningText(b, lang)),
+        );
         break;
     }
     return list;
-  }, [roots, search, sort]);
+  }, [roots, search, sort, lang]);
 
   const handlePress = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
@@ -133,7 +154,7 @@ export default function RootListScreen() {
   if (loading) {
     return (
       <>
-        <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+        <Stack.Screen options={{ title: t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
           <ActivityIndicator size="large" color={c.accent} />
         </View>
@@ -144,7 +165,7 @@ export default function RootListScreen() {
   if (error) {
     return (
       <>
-        <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+        <Stack.Screen options={{ title: t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
           <Text style={s.errorText}>{error}</Text>
           <TouchableOpacity
@@ -152,10 +173,10 @@ export default function RootListScreen() {
             onPress={() => { void fetchRoots(); }}
             activeOpacity={0.75}
             accessibilityRole="button"
-            accessibilityLabel="Kök listesini yeniden dene"
-            accessibilityHint="Liste yükleme işlemini tekrar başlatır"
+            accessibilityLabel={t.retryListA11y}
+            accessibilityHint={t.retryListHint}
           >
-            <Text style={s.retryBtnText}>Tekrar Dene</Text>
+            <Text style={s.retryBtnText}>{t.retry}</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -164,7 +185,7 @@ export default function RootListScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: "Kelime Kökleri" }} />
+      <Stack.Screen options={{ title: t.title }} />
       <View style={[s.container, { backgroundColor: c.bg }]}>
         <View style={s.centerWrap}>
         <View {...listTarget} style={[s.searchBar, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -172,7 +193,7 @@ export default function RootListScreen() {
             style={[s.searchInput, { color: c.text }]}
             value={search}
             onChangeText={setSearch}
-            placeholder="Kök veya anlam ara…"
+            placeholder={t.searchPlaceholder}
             placeholderTextColor={c.textMuted}
             autoCorrect={false}
             autoCapitalize="none"
@@ -181,18 +202,18 @@ export default function RootListScreen() {
         </View>
 
         <View style={s.sortRow}>
-          {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
+          {(Object.keys(SORT_KEYS) as SortKey[]).map((key) => (
             <TouchableOpacity
               key={key}
               style={[s.sortBtn, { backgroundColor: c.card, borderColor: c.border }, sort === key && s.sortBtnActive]}
               onPress={() => setSort(key)}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={`${SORT_LABELS[key]} sıralaması`}
+              accessibilityLabel={fmt(t.sortA11y, { label: t[SORT_KEYS[key]] })}
               accessibilityState={{ selected: sort === key }}
             >
               <Text style={[s.sortBtnText, { color: c.text }, sort === key && s.sortBtnTextActive]}>
-                {SORT_LABELS[key]}
+                {t[SORT_KEYS[key]]}
               </Text>
             </TouchableOpacity>
           ))}
@@ -205,7 +226,7 @@ export default function RootListScreen() {
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <View style={s.centered}>
-              <Text style={s.emptyText}>Sonuç bulunamadı</Text>
+              <Text style={s.emptyText}>{t.noResults}</Text>
             </View>
           }
           ItemSeparatorComponent={Separator}

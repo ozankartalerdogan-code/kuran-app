@@ -13,10 +13,17 @@
 - Source: Elmalılı Hamdi Yazır, *Hak Dini Kur'an Dili*
 - Usage: Original meal and tafsir basis referenced by the app.
 - Digital source chain: Semar Ketir's `json-quran` transcription, MIT License, Copyright (c) 2015 Semar Ketir.
-- Production policy: Elmalılı is the only runtime meal.
+- Production policy: Elmalılı is the only Turkish runtime meal. When the mobile UI language is English, the Pickthall translation below is shown instead.
 - Provenance note: the former Bulac, Diyanet, Ozturk and Vakfi sources are retained in the hash chain with `removed_from_runtime` status and are not presented by the application.
 - Note: Simplified tafsir explanations are AI-assisted Kuran Yolu rewrites and are presented for informational use.
 - Rights note: Verify the edition-specific publication and redistribution status of the exact digital source used in packaged builds.
+
+## M. M. Pickthall — The Meaning of the Glorious Koran (English)
+
+- Source: Mohammed Marmaduke Pickthall, *The Meaning of the Glorious Koran* (Alfred A. Knopf, 1930). The translator died in 1936.
+- Digital source: Tanzil.net, translation ID `en.pickthall` (last update 2010-09-04): https://tanzil.net/trans/
+- Usage: Bundled in the mobile app (`apps/mobile/src/data/meal_en_pickthall.json`) and shown when the UI language is English.
+- Rights note: Treated as public domain (life+70; US publication 1930 + 95 years). Tanzil's digital edition contains minor wording edits relative to the 1930 print. Not asserted as legal certainty.
 
 ## Quranic Arabic Corpus
 

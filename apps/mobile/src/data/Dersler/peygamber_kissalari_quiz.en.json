@@ -1,0 +1,757 @@
+{
+  "quiz_id": "peygamberler",
+  "baslik": "Stories of the Prophets Quiz",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "peyg_001",
+      "konu": "Hz. Adem",
+      "soru": "From what was Prophet Adam created?",
+      "secenekler": [
+        "A) Earth",
+        "B) Fire",
+        "C) Light",
+        "D) Air"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Indeed, We created man from dry clay, from shaped mud.\" (al-Hijr 15/26) Prophet Adam was created from earth.",
+      "zorluk": "kolay",
+      "kaynak": "al-Hijr 15/26; al-A'raf 7/12"
+    },
+    {
+      "id": "peyg_002",
+      "konu": "Hz. Adem",
+      "soru": "Why did Iblis refuse to prostrate to Prophet Adam despite Allah's command?",
+      "secenekler": [
+        "A) He was not present",
+        "B) He forgot",
+        "C) He thought prostration was impermissible",
+        "D) In his arrogance, he considered himself superior to Prophet Adam"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Iblis said: 'I am better than him; You created me from fire and created him from clay.' (al-A'raf 7/12) Arrogance and pride were the reason for Iblis's defiance.",
+      "zorluk": "orta",
+      "kaynak": "al-A'raf 7/12; Sad 38/76"
+    },
+    {
+      "id": "peyg_003",
+      "konu": "Hz. Adem",
+      "soru": "According to narrations, which of Prophet Adam's sons killed his brother?",
+      "secenekler": [
+        "A) Habil",
+        "B) Kabil",
+        "C) Seth",
+        "D) Idris"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran mentions two sons of Prophet Adam but does not give their names. Narrations say that Kabil killed his brother Habil out of jealousy. (al-Ma'idah 5/27-31)",
+      "zorluk": "kolay",
+      "kaynak": "al-Ma'idah 5/27-31"
+    },
+    {
+      "id": "peyg_004",
+      "konu": "Hz. Adem",
+      "soru": "What happened after Prophet Adam and Hawwa ate from the forbidden fruit?",
+      "secenekler": [
+        "A) They blamed Satan",
+        "B) They tried to return to Paradise",
+        "C) They repented and Allah forgave them",
+        "D) They suffered punishment for a hundred years"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Our Lord! We have wronged ourselves. If You do not forgive us and have mercy on us, we will surely be among the losers.\" (al-A'raf 7/23) Allah accepted this repentance.",
+      "zorluk": "orta",
+      "kaynak": "al-A'raf 7/23; al-Baqarah 2/37"
+    },
+    {
+      "id": "peyg_005",
+      "konu": "Hz. Nuh",
+      "soru": "For how many years did Prophet Nuh call his people to tawhid?",
+      "secenekler": [
+        "A) 950 years",
+        "B) 700 years",
+        "C) 400 years",
+        "D) 1000 years"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Indeed, We sent Nuh to his people, and he remained among them a thousand years less fifty.\" (al-Ankabut 29/14) 1000 - 50 = 950 years.",
+      "zorluk": "kolay",
+      "kaynak": "al-Ankabut 29/14; Nuh 71/1-5"
+    },
+    {
+      "id": "peyg_006",
+      "konu": "Hz. Nuh",
+      "soru": "What did Prophet Nuh's disbelieving son do during the flood, and what happened to him?",
+      "secenekler": [
+        "A) He took refuge on a mountain and was saved",
+        "B) He boarded the ark at the last moment",
+        "C) He escaped in a boat",
+        "D) He wanted to take refuge on a mountain, but the waves came between them and he drowned"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "His son said: 'I will take refuge on a mountain that will protect me from the water.' Nuh said: 'Today there is no protector from Allah's command.' The waves came between them, and his son was among those who drowned. (Hud 11/42-43)",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/42-43"
+    },
+    {
+      "id": "peyg_007",
+      "konu": "Hz. Nuh",
+      "soru": "On which mountain did Prophet Nuh's ark come to rest when the flood ended?",
+      "secenekler": [
+        "A) Tur",
+        "B) Judi",
+        "C) Sinai",
+        "D) Ararat"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"And it was said: O earth, swallow your water; and O sky, withhold. The water receded, and the matter was settled. The ark came to rest on Judi.\" (Hud 11/44)",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/44"
+    },
+    {
+      "id": "peyg_008",
+      "konu": "Hz. Nuh",
+      "soru": "For which quality does the Quran especially praise Prophet Nuh?",
+      "secenekler": [
+        "A) Being Halilullah (Allah's friend)",
+        "B) Being Kelimullah (one who spoke with Allah)",
+        "C) Being a very grateful servant",
+        "D) Being Sadiq al-Wa'd (true to his word)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"He was a grateful servant.\" (al-Isra 17/3) Prophet Nuh is a prophet described in the Quran by his gratitude.",
+      "zorluk": "zor",
+      "kaynak": "al-Isra 17/3"
+    },
+    {
+      "id": "peyg_009",
+      "konu": "Hz. Hud",
+      "soru": "To which people was Prophet Hud sent?",
+      "secenekler": [
+        "A) The people of Ad",
+        "B) The people of Thamud",
+        "C) The people of Madyan",
+        "D) The people of Sodom"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"And to the people of Ad We sent their brother Hud.\" (Hud 11/50) The people of Ad lived in southern Arabia and built strong structures.",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/50; al-A'raf 7/65"
+    },
+    {
+      "id": "peyg_010",
+      "konu": "Hz. Salih",
+      "soru": "What was sent as a miracle to the people of Thamud?",
+      "secenekler": [
+        "A) A fierce wind",
+        "B) A large staff",
+        "C) A cloud of fire",
+        "D) A she-camel"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"Here is Allah's she-camel, sent to you as a miracle. Leave her to graze on Allah's land and do not harm her.\" (Hud 11/64) Those who slaughtered the camel were destroyed.",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/64; al-A'raf 7/73"
+    },
+    {
+      "id": "peyg_011",
+      "konu": "Hz. İbrahim",
+      "soru": "What is Prophet Ibrahim's special title with Allah?",
+      "secenekler": [
+        "A) Kelimullah",
+        "B) Halilullah",
+        "C) Sadiq al-Wa'd",
+        "D) Ruhullah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Allah took Ibrahim as a friend (halil).\" (an-Nisa 4/125) For this reason, Prophet Ibrahim is known by the title \"Halilullah\" (Allah's friend).",
+      "zorluk": "kolay",
+      "kaynak": "an-Nisa 4/125"
+    },
+    {
+      "id": "peyg_012",
+      "konu": "Hz. İbrahim",
+      "soru": "When Prophet Ibrahim was thrown into the fire, what did Allah command the fire?",
+      "secenekler": [
+        "A) \"Shrink and do not burn Ibrahim\"",
+        "B) \"Be extinguished\"",
+        "C) \"Be cool and safe for Ibrahim\"",
+        "D) \"Do not harm Ibrahim\""
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"O fire! We said: Be cool and safe for Ibrahim.\" (al-Anbiya 21/69) By Allah's command, the fire did not burn Prophet Ibrahim.",
+      "zorluk": "zor",
+      "kaynak": "al-Anbiya 21/69"
+    },
+    {
+      "id": "peyg_013",
+      "konu": "Hz. İsmail",
+      "soru": "When Prophet Ibrahim wanted to sacrifice his son, what did Prophet Ismail say?",
+      "secenekler": [
+        "A) \"Do as you are commanded, my father! You will find me among the patient\"",
+        "B) He pleaded in tears",
+        "C) He tried to run away",
+        "D) He prayed to Allah and was set free"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"My father! Do as you are commanded; if Allah wills, you will find me among the patient.\" (as-Saffat 37/102) This complete submission is of great value in Allah's sight.",
+      "zorluk": "orta",
+      "kaynak": "as-Saffat 37/102"
+    },
+    {
+      "id": "peyg_014",
+      "konu": "Hz. İbrahim",
+      "soru": "Who raised the foundations of the Kaaba?",
+      "secenekler": [
+        "A) Prophet Nuh and Prophet Ismail",
+        "B) Prophet Musa and Prophet Harun",
+        "C) Prophet Ibrahim and Prophet Ishaq",
+        "D) Prophet Ibrahim and Prophet Ismail"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"Ibrahim and Ismail were raising the foundations of the House (the Kaaba): Our Lord! Accept this from us...\" (al-Baqarah 2/127)",
+      "zorluk": "kolay",
+      "kaynak": "al-Baqarah 2/127"
+    },
+    {
+      "id": "peyg_015",
+      "konu": "Hz. İbrahim",
+      "soru": "Prophet Ibrahim had initially prayed for his father. Why did he eventually stop?",
+      "secenekler": [
+        "A) His father died",
+        "B) It became clear that his father was an enemy of Allah",
+        "C) Allah explicitly forbade him to pray",
+        "D) His father left the city and disappeared"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Ibrahim's asking forgiveness for his father was only because of a promise he had made to him. When it became clear that he was an enemy of Allah, he distanced himself from him.\" (at-Tawbah 9/114)",
+      "zorluk": "zor",
+      "kaynak": "at-Tawbah 9/114"
+    },
+    {
+      "id": "peyg_016",
+      "konu": "Hz. Lut",
+      "soru": "Which prophet was Prophet Lut's uncle?",
+      "secenekler": [
+        "A) Prophet Musa",
+        "B) Prophet Ishaq",
+        "C) Prophet Ibrahim",
+        "D) Prophet Yusuf"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Prophet Lut is mentioned alongside Prophet Ibrahim in the Quran and, according to tafsir and hadith sources, was Prophet Ibrahim's nephew. They lived in the same period.",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/70; al-Anbiya 21/71"
+    },
+    {
+      "id": "peyg_017",
+      "konu": "Hz. Lut",
+      "soru": "When Prophet Lut's family left the city, which family member stayed behind and was destroyed?",
+      "secenekler": [
+        "A) His wife",
+        "B) His mother",
+        "C) His son",
+        "D) His daughter"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Except your wife; she is among those who will remain behind.\" (Hud 11/81) Prophet Lut's wife was destroyed because she did not believe.",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/81; at-Tahrim 66/10"
+    },
+    {
+      "id": "peyg_018",
+      "konu": "Hz. İsmail",
+      "soru": "By which title is Prophet Ismail known?",
+      "secenekler": [
+        "A) Halilullah",
+        "B) Kelimullah",
+        "C) Ruhullah",
+        "D) Sadiq al-Wa'd"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"He was true to his word (sadiq al-wa'd); he was a messenger and a prophet.\" (Maryam 19/54) Prophet Ismail is known by the title Sadiq al-Wa'd, meaning 'true to his word.'",
+      "zorluk": "orta",
+      "kaynak": "Maryam 19/54"
+    },
+    {
+      "id": "peyg_019",
+      "konu": "Hz. İsmail",
+      "soru": "Which statement about Zamzam water is correct according to the Quran and narrations?",
+      "secenekler": [
+        "A) The name Zamzam is explicitly mentioned in the Quran",
+        "B) The Quran mentions Prophet Ibrahim settling his family in the valley of Makkah; the emergence of Zamzam is described in narrations",
+        "C) The Quran explicitly describes Zamzam emerging when Jibril struck the ground",
+        "D) The Quran states that Zamzam emerged during the building of the Kaaba"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran states that Prophet Ibrahim settled his family in an uncultivated valley near the Sacred House. (Ibrahim 14/37) The emergence of Zamzam is described in authentic narrations concerning the efforts of our mother Hajar.",
+      "zorluk": "zor",
+      "kaynak": "Ibrahim 14/37"
+    },
+    {
+      "id": "peyg_020",
+      "konu": "Hz. İshak",
+      "soru": "Why was Sarah, Prophet Ishaq's mother, surprised when she heard the good news of his birth?",
+      "secenekler": [
+        "A) Prophet Ibrahim was in another city",
+        "B) They were living in a time of war",
+        "C) Both she and her husband were very old, and she was also barren",
+        "D) Prophet Ibrahim was about to leave"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Woe to me! I am an old woman, and my husband is an old man. This is truly a strange thing!\" (Hud 11/72) Both old age and infertility were present.",
+      "zorluk": "orta",
+      "kaynak": "Hud 11/72; as-Saffat 37/112-113"
+    },
+    {
+      "id": "peyg_021",
+      "konu": "Hz. Yakup",
+      "soru": "What is Prophet Yaqub's other name (title)?",
+      "secenekler": [
+        "A) Israel",
+        "B) Halilullah",
+        "C) Kelimullah",
+        "D) Siddiq"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Prophet Yaqub's other name is Israel. The Children of Israel take their name from him. (al-Baqarah 2/132-133)",
+      "zorluk": "kolay",
+      "kaynak": "al-Baqarah 2/132-133; Al Imran 3/93"
+    },
+    {
+      "id": "peyg_022",
+      "konu": "Hz. Yakup",
+      "soru": "How was Prophet Yaqub's eyesight, which he had lost from sorrow, restored?",
+      "secenekler": [
+        "A) His eyesight returned on its own when he went to Egypt",
+        "B) It returned after he prayed for a long time",
+        "C) It returned when he read Yusuf's letter",
+        "D) It returned when he rubbed Yusuf's shirt over his face"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"When the bearer of good news arrived, he placed the shirt over his face, and his eyesight was immediately restored.\" (Yusuf 12/96)",
+      "zorluk": "orta",
+      "kaynak": "Yusuf 12/94-96"
+    },
+    {
+      "id": "peyg_023",
+      "konu": "Hz. Yusuf",
+      "soru": "How many stars were prostrating to Prophet Yusuf in his dream?",
+      "secenekler": [
+        "A) 7",
+        "B) 11",
+        "C) 9",
+        "D) 12"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"My dear father! In my dream, I saw eleven stars, the sun and the moon prostrating to me.\" (Yusuf 12/4) The 11 stars represented his 11 brothers.",
+      "zorluk": "kolay",
+      "kaynak": "Yusuf 12/4"
+    },
+    {
+      "id": "peyg_024",
+      "konu": "Hz. Yusuf",
+      "soru": "In which surah alone is Prophet Yusuf's story told in full in the Quran?",
+      "secenekler": [
+        "A) Hud",
+        "B) al-Qasas",
+        "C) Yusuf",
+        "D) al-Anbiya"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"We tell you the best of stories by revealing this Quran to you.\" (Yusuf 12/3) Prophet Yusuf is the only prophet to whom an entire surah is devoted.",
+      "zorluk": "kolay",
+      "kaynak": "Yusuf 12/1-111"
+    },
+    {
+      "id": "peyg_025",
+      "konu": "Hz. Yusuf",
+      "soru": "What was done to Prophet Yusuf after he was falsely accused by the woman described in the Quran as the wife of the Aziz and known in narrations as Zulaikha?",
+      "secenekler": [
+        "A) He was thrown into prison",
+        "B) He was expelled from the city",
+        "C) An attempt was made to kill him",
+        "D) He was sold into slavery again"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The Quran does not give this woman's name; she is known in narrations as Zulaikha. After the false accusation, Prophet Yusuf was imprisoned for a time. (Yusuf 12/35)",
+      "zorluk": "orta",
+      "kaynak": "Yusuf 12/35"
+    },
+    {
+      "id": "peyg_026",
+      "konu": "Hz. Yusuf",
+      "soru": "What did Prophet Yusuf say when he revealed his identity to his brothers?",
+      "secenekler": [
+        "A) \"I do not forgive you; you will be held accountable\"",
+        "B) \"May Allah punish you\"",
+        "C) \"I have learned what you did to me\"",
+        "D) \"There is no blame upon you today; may Allah forgive you\""
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"He said: There is no blame upon you today. May Allah forgive you; He is the Most Merciful of those who show mercy.\" (Yusuf 12/92) This forgiveness is one of the finest examples of forgiveness in the Quran.",
+      "zorluk": "kolay",
+      "kaynak": "Yusuf 12/92"
+    },
+    {
+      "id": "peyg_027",
+      "konu": "Hz. Yusuf",
+      "soru": "According to the Egyptian ruler's dream, which Prophet Yusuf interpreted, in what order would the years come?",
+      "secenekler": [
+        "A) 7 years of famine, followed by 7 years of abundance",
+        "B) 7 years of abundance, followed by 7 years of famine",
+        "C) 14 years of abundance, followed by famine",
+        "D) A cycle of 3 years of abundance and 3 years of famine"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In the Quranic account, the person who had the dream was the ruler of Egypt. According to Prophet Yusuf's interpretation, 7 years of abundance would be followed by 7 years of famine. (Yusuf 12/47-48)",
+      "zorluk": "orta",
+      "kaynak": "Yusuf 12/43-49"
+    },
+    {
+      "id": "peyg_028",
+      "konu": "Hz. Şuayb",
+      "soru": "For which sin did Prophet Shuayb primarily warn his people?",
+      "secenekler": [
+        "A) Worshipping idols",
+        "B) Killing people",
+        "C) Cheating in weights and measures",
+        "D) Charging interest"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Give full measure and weight, do not deprive people of their goods, and do not spread corruption on earth.\" (Hud 11/85) Ethics in trade were central to Shuayb's message.",
+      "zorluk": "kolay",
+      "kaynak": "Hud 11/84-85; al-A'raf 7/85"
+    },
+    {
+      "id": "peyg_029",
+      "konu": "Hz. Eyüp",
+      "soru": "How did Prophet Ayyub pray to Allah during his severe illness?",
+      "secenekler": [
+        "A) \"My Lord! Harm has afflicted me, and You are the Most Merciful of those who show mercy\"",
+        "B) \"My Lord! Save me from this illness, and I will worship You\"",
+        "C) \"O Allah! I seek refuge in You; I have no other recourse\"",
+        "D) \"Protect me from the illness with which Satan has afflicted me\""
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Indeed, harm has afflicted me, and You are the Most Merciful of those who show mercy.\" (al-Anbiya 21/83) This prayer is an example of the briefest and deepest submission.",
+      "zorluk": "orta",
+      "kaynak": "al-Anbiya 21/83"
+    },
+    {
+      "id": "peyg_030",
+      "konu": "Hz. Eyüp",
+      "soru": "After calling Prophet Ayyub 'an excellent servant,' which quality does the Quran emphasize?",
+      "secenekler": [
+        "A) His great patience",
+        "B) His frequent performance of salah",
+        "C) His great gratitude",
+        "D) He frequently turned to Allah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"What an excellent servant! Indeed, he was one who frequently turned to Allah (evvab).\" (Sad 38/44) The emphasis is on 'turning to Allah,' not 'patience.'",
+      "zorluk": "zor",
+      "kaynak": "Sad 38/44"
+    },
+    {
+      "id": "peyg_031",
+      "konu": "Hz. Musa",
+      "soru": "How many times is Prophet Musa mentioned in the Quran?",
+      "secenekler": [
+        "A) 69",
+        "B) 136",
+        "C) 97",
+        "D) 43"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Prophet Musa's name appears 136 times in the Quran, making him the most frequently named prophet in the Quran.",
+      "zorluk": "kolay",
+      "kaynak": "The Quran as a whole"
+    },
+    {
+      "id": "peyg_032",
+      "konu": "Hz. Musa",
+      "soru": "By which title is Prophet Musa known?",
+      "secenekler": [
+        "A) Halilullah",
+        "B) Sadiq al-Wa'd",
+        "C) Kelimullah",
+        "D) Ruhullah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Prophet Musa is known by the title 'Kelimullah' (the one who spoke with Allah) because he spoke directly with Allah at Sinai. (an-Nisa 4/164)",
+      "zorluk": "orta",
+      "kaynak": "an-Nisa 4/164"
+    },
+    {
+      "id": "peyg_033",
+      "konu": "Hz. Musa",
+      "soru": "How was the sea parted in response to the command given to Prophet Musa?",
+      "secenekler": [
+        "A) By striking the sea with his staff",
+        "B) By stretching his hand over the sea",
+        "C) By praying",
+        "D) By striking the ground with his foot"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"We revealed to Musa: Strike the sea with your staff! The sea parted, and each part was like a great mountain.\" (ash-Shu'ara 26/63)",
+      "zorluk": "kolay",
+      "kaynak": "ash-Shu'ara 26/63; Ta-Ha 20/77"
+    },
+    {
+      "id": "peyg_034",
+      "konu": "Hz. Musa",
+      "soru": "Which of the following is NOT among Prophet Musa's 9 miracles?",
+      "secenekler": [
+        "A) The staff turning into a snake",
+        "B) Frogs",
+        "C) The flood",
+        "D) Bringing the dead back to life"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Prophet Musa's 9 miracles were: the staff (snake), the white hand, the flood, locusts, vermin, frogs, blood, famine, and a reduction in fruits. (al-Isra 17/101) Bringing the dead back to life was a miracle of Prophet Isa.",
+      "zorluk": "zor",
+      "kaynak": "al-Isra 17/101; al-A'raf 7/130-136"
+    },
+    {
+      "id": "peyg_035",
+      "konu": "Hz. Musa",
+      "soru": "For how many nights did Prophet Musa speak with Allah at Sinai and receive the Torah?",
+      "secenekler": [
+        "A) 30 nights",
+        "B) 40 nights",
+        "C) 7 nights",
+        "D) 100 nights"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"We appointed thirty nights for Musa and added ten more to them, so the period appointed by his Lord was completed at forty nights.\" (al-A'raf 7/142)",
+      "zorluk": "zor",
+      "kaynak": "al-A'raf 7/142"
+    },
+    {
+      "id": "peyg_036",
+      "konu": "Hz. Harun",
+      "soru": "What did Prophet Harun do when the people worshipped the calf while Prophet Musa was at Sinai?",
+      "secenekler": [
+        "A) He worshipped with them",
+        "B) He left the people and went up the mountain",
+        "C) He tried to stop them, but the people would not listen",
+        "D) He sent word to Prophet Musa"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Harun had already said to them: O my people! You have been tested by this. Your Lord is the Most Merciful. Follow me.\" But they did not listen. (Ta-Ha 20/90)",
+      "zorluk": "orta",
+      "kaynak": "Ta-Ha 20/90-94"
+    },
+    {
+      "id": "peyg_037",
+      "konu": "Hz. Davud",
+      "soru": "Which divine scripture was given to Prophet Dawud?",
+      "secenekler": [
+        "A) The Zabur",
+        "B) The Torah",
+        "C) The Injil",
+        "D) The Suhuf"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"We gave Dawud the Zabur.\" (an-Nisa 4/163 · al-Isra 17/55) The Zabur is the divine scripture revealed to Prophet Dawud.",
+      "zorluk": "kolay",
+      "kaynak": "an-Nisa 4/163; al-Isra 17/55"
+    },
+    {
+      "id": "peyg_038",
+      "konu": "Hz. Davud",
+      "soru": "What did Allah teach Prophet Dawud to make by softening iron?",
+      "secenekler": [
+        "A) Buildings",
+        "B) Ships",
+        "C) Swords",
+        "D) Armor"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"We taught him the craft of making armor to protect you in your battles.\" (al-Anbiya 21/80) Prophet Dawud is known for making armor.",
+      "zorluk": "zor",
+      "kaynak": "al-Anbiya 21/80; Saba 34/10-11"
+    },
+    {
+      "id": "peyg_039",
+      "konu": "Hz. Süleyman",
+      "soru": "Which of the following did Allah make subject to Prophet Sulayman's command?",
+      "secenekler": [
+        "A) The sea and the waves",
+        "B) The wind and the jinn",
+        "C) The underground and minerals",
+        "D) All animals"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Allah made the wind and the jinn subject to Prophet Sulayman, placing them under his command. (al-Anbiya 21/81-82; Saba 34/12)",
+      "zorluk": "kolay",
+      "kaynak": "al-Anbiya 21/81-82; Saba 34/12"
+    },
+    {
+      "id": "peyg_040",
+      "konu": "Hz. Süleyman",
+      "soru": "What was the final event that led the Queen of Sheba, known in narrations as Bilqis, to embrace faith?",
+      "secenekler": [
+        "A) The hoopoe bringing news about her",
+        "B) Seeing Prophet Sulayman's great army",
+        "C) Mistaking the crystal floor for water, lifting her skirt, and then realizing what it was",
+        "D) Her throne being brought in a short time"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Quran does not give the name of the Queen of Sheba; she is called Bilqis in narrations. When she mistook the crystal floor for water and realized the truth, she said, 'I have submitted with Solomon to the Lord of the worlds.' (an-Naml 27/44)",
+      "zorluk": "orta",
+      "kaynak": "an-Naml 27/44"
+    },
+    {
+      "id": "peyg_041",
+      "konu": "Hz. İlyas",
+      "soru": "Which idol did Prophet Elijah warn his people not to worship?",
+      "secenekler": [
+        "A) Ba'l",
+        "B) Hubal",
+        "C) Uzza",
+        "D) Lat"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"Do you call upon Ba'l and forsake the best of creators?\" (as-Saffat 37/125) Ba'l was an idol worshipped by the Children of Israel.",
+      "zorluk": "orta",
+      "kaynak": "as-Saffat 37/123-126"
+    },
+    {
+      "id": "peyg_042",
+      "konu": "Hz. Yunus",
+      "soru": "What supplication did Prophet Jonah recite in the belly of the fish?",
+      "secenekler": [
+        "A) \"O Lord! Save me, and I will never leave my people again\"",
+        "B) \"O Lord! Harm has touched me, and You are the Most Merciful of those who show mercy\"",
+        "C) \"O Allah! I seek refuge in You; I have no other recourse\"",
+        "D) \"La ilaha illa anta subhanaka inni kuntu min az-zalimin\""
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "\"He called out in the darkness, 'There is no deity but You; glory be to You. Indeed, I was among the wrongdoers.'\" (al-Anbiya 21/87)",
+      "zorluk": "kolay",
+      "kaynak": "al-Anbiya 21/87"
+    },
+    {
+      "id": "peyg_043",
+      "konu": "Hz. Yunus",
+      "soru": "Why are Prophet Jonah's people distinctive among the stories of prophets in the Quran?",
+      "secenekler": [
+        "A) Because they were the people to whom the most prophets were sent",
+        "B) Because they were the only people who believed upon seeing the punishment and whose belief was accepted",
+        "C) Because they were the people whom Prophet Jonah called to faith for the longest time",
+        "D) So that all of the people would believe"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Was there any town that believed and benefited from its belief, other than the people of Jonah?\" (Yunus 10/98) The people believed when they saw the signs of punishment, and Allah lifted the punishment. Other peoples believed only when the punishment had fully arrived, but their belief was not accepted. (Ghafir 40/84-85)",
+      "zorluk": "orta",
+      "kaynak": "Yunus 10/98"
+    },
+    {
+      "id": "peyg_044",
+      "konu": "Hz. Zekeriya",
+      "soru": "What prompted Prophet Zechariah to ask Allah for a child?",
+      "secenekler": [
+        "A) He wanted to become wealthy",
+        "B) He wanted to continue his kingdom",
+        "C) He found food with Mary every time he visited her",
+        "D) He was inspired by Prophet Abraham's miracle"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Whenever Zechariah entered the sanctuary, he found provision with her. He said, 'O Mary! Where does this come to you from?' She said, 'It is from Allah.'\" Thereupon, he asked Allah for a child. (Al Imran 3/37-38)",
+      "zorluk": "orta",
+      "kaynak": "Al Imran 3/37-38"
+    },
+    {
+      "id": "peyg_045",
+      "konu": "Hz. Yahya",
+      "soru": "What did Allah grant Prophet John as a child?",
+      "secenekler": [
+        "A) Wisdom",
+        "B) A book of prophethood",
+        "C) A strong body",
+        "D) Great wealth"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"O John! Hold firmly to the Book. And We gave him wisdom while he was a child.\" (Maryam 19/12)",
+      "zorluk": "kolay",
+      "kaynak": "Maryam 19/12"
+    },
+    {
+      "id": "peyg_046",
+      "konu": "Hz. İsa",
+      "soru": "What titles does the Quran give Prophet Jesus?",
+      "secenekler": [
+        "A) Halilullah and Kelimullah",
+        "B) Safiyullah and Ruhullah",
+        "C) Siddiq and Rasul",
+        "D) Ruhullah and Kelimetullah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Quran refers to Prophet Jesus as a word from Allah (Kelimetullah: created by Allah's command 'Be') and a spirit from Allah (Ruhullah: brought into existence through Allah's special act of creation). These expressions do not change the fact that he is Allah's servant and prophet. (an-Nisa 4/171; Al Imran 3/45)",
+      "zorluk": "orta",
+      "kaynak": "an-Nisa 4/171; Al Imran 3/45"
+    },
+    {
+      "id": "peyg_047",
+      "konu": "Hz. İsa",
+      "soru": "What did Prophet Jesus say when he spoke in the cradle?",
+      "secenekler": [
+        "A) \"I am the son of Allah\"",
+        "B) \"I am the servant of Allah; He has given me a book and made me a prophet\"",
+        "C) \"I am the Messiah; believe in me\"",
+        "D) \"My mother is sinless; believe her\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"He said, 'Indeed, I am the servant of Allah. He has given me the Book and made me a prophet.'\" (Maryam 19/30) His first words declared his servitude to Allah.",
+      "zorluk": "kolay",
+      "kaynak": "Maryam 19/30"
+    },
+    {
+      "id": "peyg_048",
+      "konu": "Hz. İsa",
+      "soru": "Which of the following is NOT among Prophet Jesus's miracles mentioned in the Quran?",
+      "secenekler": [
+        "A) Making a bird from clay and breathing into it",
+        "B) Healing the blind",
+        "C) Turning water into wine",
+        "D) Bringing the dead to life"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Prophet Jesus's miracles in the Quran include making a bird from clay and breathing into it, healing the blind and those with skin disease, bringing the dead to life, and bringing down a table spread from heaven. (Al Imran 3/49; al-Ma'idah 5/110-115) Turning water into wine is not mentioned in the Quran.",
+      "zorluk": "zor",
+      "kaynak": "Al Imran 3/49; al-Ma'idah 5/110"
+    },
+    {
+      "id": "peyg_049",
+      "konu": "Hz. İsa",
+      "soru": "The Jews claim that they killed and crucified Prophet Jesus. What does the Quran say about this?",
+      "secenekler": [
+        "A) They did not kill him; only someone made to resemble him was killed, and Allah raised him to Himself",
+        "B) They did kill him, but Allah brought him back to life",
+        "C) Prophet Jesus escaped and took refuge in another country",
+        "D) The killing is disputed, and the Quran gives no definite ruling"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "\"They neither killed nor crucified him, but the one they killed was made to appear to them as Jesus... Rather, Allah raised him to Himself.\" (an-Nisa 4/157-158)",
+      "zorluk": "zor",
+      "kaynak": "an-Nisa 4/157-158"
+    },
+    {
+      "id": "peyg_050",
+      "konu": "Genel",
+      "soru": "Who are the 'Ulu al-Azm' prophets, distinguished by their determination and patience?",
+      "secenekler": [
+        "A) Adam, Noah, Abraham, Moses, David",
+        "B) Noah, Abraham, Moses, David, Jesus",
+        "C) Abraham, Ishmael, Isaac, Jacob, Joseph",
+        "D) Noah, Abraham, Moses, Jesus, Muhammad"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ulu al-Azm means the great prophets who possessed determination and patience. These prophets are Noah, Abraham, Moses, Jesus, and Muhammad ﷺ. (al-Ahqaf 46/35)",
+      "zorluk": "zor",
+      "kaynak": "al-Ahqaf 46/35"
+    }
+  ]
+}

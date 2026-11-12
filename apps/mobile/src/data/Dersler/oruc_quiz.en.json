@@ -1,0 +1,757 @@
+{
+  "quiz_id": "oruc",
+  "baslik": "Sawm (Fasting)",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "oruc_001",
+      "konu": "temel",
+      "soru": "Which pillar of Islam is sawm?",
+      "secenekler": [
+        "A) The second",
+        "B) The third",
+        "C) The fourth",
+        "D) The fifth"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sawm is the third of the five pillars of Islam. It comes after the declaration of faith and salah.",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Baqarah 2:183"
+    },
+    {
+      "id": "oruc_002",
+      "konu": "temel",
+      "soru": "Between what times is the fast observed?",
+      "secenekler": [
+        "A) From sunrise to sunset",
+        "B) From imsak to iftar",
+        "C) From noon to evening",
+        "D) From the dawn prayer to the night prayer"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The fast is observed from imsak, when dawn breaks, until iftar, when the sun sets.",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Baqarah 2:187"
+    },
+    {
+      "id": "oruc_003",
+      "konu": "fazilet",
+      "soru": "According to al-Baqarah 2:183, what is the purpose for which fasting was made obligatory?",
+      "secenekler": [
+        "A) To unite society",
+        "B) To stay healthy",
+        "C) To guard against evil",
+        "D) To express gratitude"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'O you who believe! Fasting has been prescribed for you... so that you may guard against evil.' (al-Baqarah 2:183)",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Baqarah 2:183"
+    },
+    {
+      "id": "oruc_004",
+      "konu": "fazilet",
+      "soru": "What did the Prophet ﷺ say in the hadith, 'Fasting is a ___'?",
+      "secenekler": [
+        "A) Shield",
+        "B) Sword",
+        "C) Suit of armor",
+        "D) Refuge"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "'Fasting is a shield. Let the person who is fasting not use foul language.' (Bukhari, Sawm 2)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Sawm 2"
+    },
+    {
+      "id": "oruc_005",
+      "konu": "sartlar",
+      "soru": "Which of the following is not a condition for fasting to be obligatory?",
+      "secenekler": [
+        "A) Being Muslim",
+        "B) Being of sound mind",
+        "C) Having reached puberty",
+        "D) Being wealthy"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The conditions for fasting to be obligatory are being Muslim, being of sound mind, and having reached puberty. Wealth is not a condition.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_006",
+      "konu": "niyet",
+      "soru": "What is the status of a fast observed without an intention?",
+      "secenekler": [
+        "A) It is accepted",
+        "B) It is not considered valid",
+        "C) It counts as a Sunnah fast",
+        "D) It counts as half a fast"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Intention is a condition for the validity of a fast. A fast without an intention is not considered valid; the time for making the intention may vary according to the type of fast and the school of law.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_007",
+      "konu": "niyet",
+      "soru": "What is the safest practice regarding intention for the Ramadan fast?",
+      "secenekler": [
+        "A) Make the intention the night before or at suhoor",
+        "B) Make the intention just before iftar",
+        "C) Recite a long text aloud",
+        "D) Make no intention"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The safest practice is to make the intention for the Ramadan fast the night before or at suhoor. In the Hanafi school, an intention made after imsak may be considered valid in some circumstances; other schools emphasize that the intention for an obligatory fast must be made the night before.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_008",
+      "konu": "niyet",
+      "soru": "What does getting up for suhoor count as?",
+      "secenekler": [
+        "A) It breaks the fast",
+        "B) It counts as an intention",
+        "C) It requires a make-up fast",
+        "D) It is not considered Sunnah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Getting up for suhoor counts as an intention for the Ramadan fast.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_009",
+      "konu": "bozanlar",
+      "soru": "Which of the following does not break the fast?",
+      "secenekler": [
+        "A) Eating deliberately",
+        "B) Smoking",
+        "C) Eating forgetfully",
+        "D) Deliberately vomiting a mouthful"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Whoever eats or drinks forgetfully should complete the fast. Allah has fed them and given them drink.' (Bukhari, Sawm 26; Muslim, Siyam 171)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Sawm 26; Muslim, Siyam 171"
+    },
+    {
+      "id": "oruc_010",
+      "konu": "bozanlar",
+      "soru": "In which sources is the hadith 'Whoever eats or drinks forgetfully should complete the fast' found?",
+      "secenekler": [
+        "A) Bukhari only",
+        "B) Bukhari and Muslim",
+        "C) Muslim only",
+        "D) Tirmidhi"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "This hadith appears in both Bukhari (Sawm 26) and Muslim (Siyam 171).",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Sawm 26; Muslim, Siyam 171"
+    },
+    {
+      "id": "oruc_011",
+      "konu": "ruhsat",
+      "soru": "What should sick people and travelers do about Ramadan fasts they miss?",
+      "secenekler": [
+        "A) They must pay fidya",
+        "B) They must make them up on other days",
+        "C) They do not need to do anything",
+        "D) They must make expiation"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Whoever is sick or traveling shall fast the same number of other days.' (al-Baqarah 2:185). Fasts missed because of temporary illness or travel are made up later, one day for each missed day.",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Baqarah 2:185"
+    },
+    {
+      "id": "oruc_012",
+      "konu": "ruhsat",
+      "soru": "Which surah contains the verse, 'Allah intends ease for you and does not want you to experience hardship'?",
+      "secenekler": [
+        "A) al-Baqarah 2:185",
+        "B) Al Imran 3:185",
+        "C) an-Nisa 4:28",
+        "D) al-Ma'idah 5:6"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "This is verse 185 of Surah al-Baqarah. It appears in the continuation of the verse stating that sick people and travelers may postpone their fast.",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Baqarah 2:185"
+    },
+    {
+      "id": "oruc_013",
+      "konu": "sahur-iftar",
+      "soru": "In which sources is the hadith 'There is blessing in suhoor' found?",
+      "secenekler": [
+        "A) Bukhari only",
+        "B) Bukhari and Muslim",
+        "C) Muslim only",
+        "D) Abu Dawud only"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Eat suhoor, for there is blessing in suhoor.' (Bukhari, Sawm 20; Muslim, Siyam 45)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Sawm 20; Muslim, Siyam 45"
+    },
+    {
+      "id": "oruc_014",
+      "konu": "sahur-iftar",
+      "soru": "What did the Prophet ﷺ say about hastening to break the fast?",
+      "secenekler": [
+        "A) It is more virtuous to delay it",
+        "B) People will continue to be upon goodness as long as they hasten to break the fast",
+        "C) Iftar should be eaten after salah",
+        "D) One should make a silent supplication at iftar"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'People will continue to be upon goodness as long as they hasten to break the fast.' (Bukhari, Sawm 45; Muslim, Siyam 48)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Sawm 45; Muslim, Siyam 48"
+    },
+    {
+      "id": "oruc_015",
+      "konu": "ramazan",
+      "soru": "In which year after the Hijrah was the Ramadan fast made obligatory?",
+      "secenekler": [
+        "A) The first year",
+        "B) The second year (in the month of Sha'ban)",
+        "C) The third year",
+        "D) The fifth year"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Ramadan fast was made obligatory in Sha'ban of the second year after the Hijrah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_016",
+      "konu": "ramazan",
+      "soru": "According to the Qur'an, what is the Night of Laylat al-Qadr worth?",
+      "secenekler": [
+        "A) Better than a hundred months",
+        "B) Better than five hundred months",
+        "C) Better than a thousand months",
+        "D) Better than a thousand days"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'The Night of Laylat al-Qadr is better than a thousand months.' (al-Qadr 97:3)",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Qadr 97:3"
+    },
+    {
+      "id": "oruc_017",
+      "konu": "ramazan",
+      "soru": "What type of salah is Tarawih?",
+      "secenekler": [
+        "A) Obligatory (fard)",
+        "B) Wajib",
+        "C) Sunnah",
+        "D) Disliked (makruh)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tarawih is a Sunnah salah specific to Ramadan.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_018",
+      "konu": "nafile",
+      "soru": "On which days did the Prophet ﷺ regularly observe voluntary fasts?",
+      "secenekler": [
+        "A) Tuesday and Wednesday",
+        "B) Friday and Saturday",
+        "C) Monday and Thursday",
+        "D) The first day of every month"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Monday and Thursday fasts are voluntary fasts that the Prophet ﷺ regularly observed. (Muslim, Siyam 197)",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Siyam 197"
+    },
+    {
+      "id": "oruc_019",
+      "konu": "nafile",
+      "soru": "In which month is the Ashura fast observed?",
+      "secenekler": [
+        "A) Dhul-Hijjah",
+        "B) Sha'ban",
+        "C) Muharram",
+        "D) Rajab"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Ashura fast is observed on the 9th and 10th or the 10th and 11th days of Muharram. (Muslim, Siyam 127)",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Siyam 127"
+    },
+    {
+      "id": "oruc_020",
+      "konu": "nafile",
+      "soru": "On which day of Dhul-Hijjah is the Arafah fast observed?",
+      "secenekler": [
+        "A) The 8th day",
+        "B) The 9th day",
+        "C) The 10th day",
+        "D) The 11th day"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Arafah fast is observed on the 9th day of Dhul-Hijjah. It is recommended for those who are not performing Hajj. (Muslim, Siyam 196)",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Siyam 196"
+    },
+    {
+      "id": "oruc_021",
+      "konu": "sartlar",
+      "soru": "For whom does the condition of being of sound mind mean that fasting is not obligatory?",
+      "secenekler": [
+        "A) Fasting is not obligatory for a person who is not of sound mind",
+        "B) It is obligatory for everyone of sound mind",
+        "C) It is not obligatory for elderly people",
+        "D) It is not obligatory for young people"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Fasting is not obligatory for a person who does not meet the condition of soundness of mind, that is, a person who is not of sound mind.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_022",
+      "konu": "sartlar",
+      "soru": "When a non-Muslim becomes Muslim, must they make up past Ramadan fasts?",
+      "secenekler": [
+        "A) Yes, they must make up all of them",
+        "B) No, it is not necessary",
+        "C) They must make up at least 3 years",
+        "D) They should consult their imam"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "When a non-Muslim becomes Muslim, they do not need to make up past fasts.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_023",
+      "konu": "niyet",
+      "soru": "Which statement about the intention for the Ramadan fast is correct?",
+      "secenekler": [
+        "A) It must be spoken aloud",
+        "B) It is made in the heart; saying it aloud is Sunnah and is not obligatory",
+        "C) It must be renewed at every salah",
+        "D) It must be made before iftar"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The intention is made in the heart. Saying it aloud is Sunnah and is not obligatory.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_024",
+      "konu": "kaza-kefaret",
+      "soru": "According to the Hanafi and Maliki schools, how does deliberately smoking during Ramadan affect the fast?",
+      "secenekler": [
+        "A) It has no effect",
+        "B) It breaks the fast; it only reduces the reward",
+        "C) It breaks the fast; a make-up fast is required (one day for each missed day), but expiation is not required",
+        "D) It breaks the fast; making up the fast and expiation are required (a serious obligation of compensation arises)"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "In the Hanafi and Maliki schools, deliberately breaking a Ramadan fast by smoking requires making up the fast and expiation. In the Shafi'i and Hanbali schools, expiation is emphasized particularly for sexual intercourse.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_025",
+      "konu": "bozanlar",
+      "soru": "Does a nutritional IV infusion or an injection with nutritional value break the fast?",
+      "secenekler": [
+        "A) No, it never breaks the fast",
+        "B) Yes, it breaks the fast",
+        "C) It breaks the fast only if it contains sugar",
+        "D) It breaks the fast only if administered at night"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A nutritional IV infusion or an injection with nutritional value breaks the fast. Contemporary fatwas provide detailed assessments of non-nutritional injections administered for treatment.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_026",
+      "konu": "bozanlar",
+      "soru": "How does involuntary (unintentional) vomiting affect the fast?",
+      "secenekler": [
+        "A) It breaks the fast and requires making it up",
+        "B) It does not break the fast",
+        "C) It breaks only a voluntary fast",
+        "D) It requires expiation"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Involuntary (unintentional) vomiting does not break the fast. Deliberate vomiting that fills the mouth, however, breaks it.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_027",
+      "konu": "bozanlar",
+      "soru": "How is the fast affected if water goes down the throat while rinsing the mouth?",
+      "secenekler": [
+        "A) The fast is broken and must be made up (a day is fasted later for each missed day)",
+        "B) The fast is not broken under any circumstances",
+        "C) Only a voluntary fast is broken",
+        "D) Expiation is required"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Taking water into the mouth and spitting it out does not break the fast; however, if water goes down the throat, the fast is broken and must be made up (a day is fasted later for each missed day).",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_028",
+      "konu": "kaza-kefaret",
+      "soru": "What is generally required for a Ramadan fast missed due to a temporary excuse?",
+      "secenekler": [
+        "A) Only making dua",
+        "B) Making up each missed day with one day of fasting",
+        "C) Expiation in every case",
+        "D) There is no obligation"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ramadan fasts missed due to excuses such as temporary illness, travel, menstruation or postnatal bleeding are made up later, one day for each missed day (a day is fasted later for each missed day). In cases of permanent inability, the ruling on fidya (feeding a person in need or giving its equivalent when one cannot fast) applies.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_029",
+      "konu": "kaza-kefaret",
+      "soru": "In the Hanafi and Maliki schools, what is required for deliberately breaking a Ramadan fast by eating, drinking or having sexual intercourse?",
+      "secenekler": [
+        "A) Only fidya (feeding a person in need or giving its equivalent when one cannot fast)",
+        "B) Making up the fast and expiation",
+        "C) Nothing is required",
+        "D) Only charity"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In the Hanafi and Maliki schools, deliberately breaking a Ramadan fast by eating, drinking or having sexual intercourse requires making up the fast and expiation. In the Shafi'i and Hanbali schools, expiation is emphasized particularly for sexual intercourse.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_030",
+      "konu": "kaza-kefaret",
+      "soru": "If fasting is undertaken as expiation, how many days must one fast and how?",
+      "secenekler": [
+        "A) 30 days, which may be non-consecutive",
+        "B) 60 consecutive days",
+        "C) 40 consecutive days",
+        "D) 30 consecutive days"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Expiation requires fasting for 60 consecutive days.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_031",
+      "konu": "fidye",
+      "soru": "What does fidya require?",
+      "secenekler": [
+        "A) Feeding a person in need morning and evening for each day",
+        "B) Giving ten dirhams for each day",
+        "C) Giving general charity for each day",
+        "D) Feeding 30 people in need for each month"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Fidya means feeding a person in need morning and evening for each day, or giving its monetary equivalent.",
+      "zorluk": "orta",
+      "kaynak": "Qur'an, al-Baqarah 2:184"
+    },
+    {
+      "id": "oruc_032",
+      "konu": "fidye",
+      "soru": "In which surah and verse is the statement, 'Those who cannot fast give fidya'?",
+      "secenekler": [
+        "A) al-Baqarah 2:183",
+        "B) al-Baqarah 2:184",
+        "C) al-Baqarah 2:185",
+        "D) al-Baqarah 2:186"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Those who cannot fast give the food of a person in need as fidya.' (al-Baqarah 2:184). Fidya is feeding a person in need or giving its equivalent by someone who is permanently unable to fast.",
+      "zorluk": "orta",
+      "kaynak": "Qur'an, al-Baqarah 2:184"
+    },
+    {
+      "id": "oruc_033",
+      "konu": "fidye",
+      "soru": "What is the main difference between fidya and making up a fast?",
+      "secenekler": [
+        "A) Fidya applies to everyone",
+        "B) Fidya takes the place of making up a fast; those who can make up fasts cannot rely on fidya alone",
+        "C) They are both the same thing",
+        "D) Fidya and making up a fast can be done together"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Fidya is for those who are permanently too weak to make up fasts, and it takes the place of making them up. Those who are able to make up fasts cannot rely on fidya alone.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_034",
+      "konu": "ramazan",
+      "soru": "What did the Prophet ﷺ say about the gates of Paradise during Ramadan?",
+      "secenekler": [
+        "A) The gates are shut tightly",
+        "B) The gates are opened",
+        "C) Only one gate is opened",
+        "D) Nothing changes"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'When Ramadan begins, the gates of Paradise are opened and the gates of Hell are closed.' (Bukhari, Sawm 5; Muslim, Siyam 1)",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Sawm 5; Muslim, Siyam 1"
+    },
+    {
+      "id": "oruc_035",
+      "konu": "ramazan",
+      "soru": "What did the Prophet ﷺ say about the gates of Hell during Ramadan?",
+      "secenekler": [
+        "A) The gates are opened",
+        "B) The gates are closed",
+        "C) Only one gate is closed",
+        "D) Nothing changes"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'When Ramadan begins, the gates of Paradise are opened and the gates of Hell are closed.' (Bukhari, Sawm 5; Muslim, Siyam 1)",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Sawm 5; Muslim, Siyam 1"
+    },
+    {
+      "id": "oruc_036",
+      "konu": "nafile",
+      "soru": "For whom is fasting on the Day of Arafah recommended?",
+      "secenekler": [
+        "A) For all Muslims equally",
+        "B) For those who are not performing Hajj",
+        "C) Only for men",
+        "D) Only for young people"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Fasting on the Day of Arafah (the 9th day of Dhul-Hijjah) is recommended for those who are not performing Hajj. (Muslim, Siyam 196)",
+      "zorluk": "orta",
+      "kaynak": "Muslim, Siyam 196"
+    },
+    {
+      "id": "oruc_037",
+      "konu": "nafile",
+      "soru": "On which days of each month are the Ayyam al-Bid fasts observed?",
+      "secenekler": [
+        "A) The 1st, 2nd and 3rd days",
+        "B) The 7th, 14th and 21st days",
+        "C) The 13th, 14th and 15th days",
+        "D) The 10th, 20th and 30th days"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Ayyam al-Bid fasts are observed on the 13th, 14th and 15th days of each month.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_038",
+      "konu": "nafile",
+      "soru": "What happens if a voluntary fast is not observed?",
+      "secenekler": [
+        "A) A sin is committed",
+        "B) It is not considered a sin",
+        "C) It must be made up",
+        "D) Fidya must be paid"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Voluntary fasts are fasts that are recommended, but it is not a sin to leave them.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_039",
+      "konu": "bozanlar",
+      "soru": "Does having blood drawn break the fast?",
+      "secenekler": [
+        "A) Yes, it always breaks the fast",
+        "B) No, it does not break the fast",
+        "C) It breaks the fast if a lot of blood is drawn",
+        "D) It breaks the fast only during Ramadan"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Having blood drawn is listed among the things that do not break the fast.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_040",
+      "konu": "nafile",
+      "soru": "On which days is the fast of Ashura observed?",
+      "secenekler": [
+        "A) The 1st and 2nd days of Muharram",
+        "B) The 9th and 10th or the 10th and 11th days of Muharram",
+        "C) The 14th and 15th days of Muharram",
+        "D) The last two days of Muharram"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The fast of Ashura is observed on the 9th and 10th or the 10th and 11th days of Muharram. (Muslim, Siyam 127)",
+      "zorluk": "orta",
+      "kaynak": "Muslim, Siyam 127"
+    },
+    {
+      "id": "oruc_041",
+      "konu": "fazilet",
+      "soru": "In the hadith qudsi, what did Allah say about the fasting person?",
+      "secenekler": [
+        "A) 'I will double their reward'",
+        "B) 'Fasting is an act of worship performed directly for Me, and I give its reward'",
+        "C) 'I accept every supplication of the fasting person'",
+        "D) 'I will admit the person who fasts to Paradise'"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hadith qudsi: 'Fasting is an act of worship performed directly for Me. I give its reward.' (Bukhari, Sawm 2; Muslim, Siyam 163)",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Sawm 2; Muslim, Siyam 163"
+    },
+    {
+      "id": "oruc_042",
+      "konu": "kaza-kefaret",
+      "soru": "What is required of someone who cannot fast for 60 days as expiation?",
+      "secenekler": [
+        "A) Feeding 30 people in need",
+        "B) Paying fidya in money",
+        "C) Feeding 60 people in need",
+        "D) The expiation is waived"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Someone who cannot fast for 60 consecutive days as expiation must feed 60 people in need.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "oruc_043",
+      "konu": "sahur-iftar",
+      "soru": "What is the meaning of the iftar supplication \"Dhahaba adh-dhama...\" given in the lessons?",
+      "secenekler": [
+        "A) Thirst has gone, the veins are moistened, and the reward is assured, if Allah wills",
+        "B) I intend to fast tomorrow",
+        "C) O Allah, grant me knowledge",
+        "D) My Lord, forgive me and my parents"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The meaning of the supplication \"Dhahaba adh-dhama wabtallat al-uruq wa thabata al-ajr insha'Allah\" is: \"The thirst has gone, the veins are moistened, and the reward is assured, Allah willing.\"",
+      "zorluk": "zor",
+      "kaynak": "Basic knowledge of Islamic practice"
+    },
+    {
+      "id": "oruc_044",
+      "konu": "sahur-iftar",
+      "soru": "In which sources is the hadith 'People will continue to be upon goodness as long as they hasten to break their fast' found?",
+      "secenekler": [
+        "A) Bukhari only",
+        "B) Bukhari and Muslim",
+        "C) Tirmidhi only",
+        "D) Ibn Majah only"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "This hadith is found in both Bukhari (Sawm 45) and Muslim (Siyam 48).",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Sawm 45; Muslim, Siyam 48"
+    },
+    {
+      "id": "oruc_045",
+      "konu": "sartlar",
+      "soru": "Which statement about fasting during menstruation and postpartum bleeding is correct?",
+      "secenekler": [
+        "A) Women may fast during these periods",
+        "B) Women cannot fast in this state and make up the missed fasts later",
+        "C) Fidya is sufficient for these periods",
+        "D) Kaffarah is required for these periods"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A woman who is menstruating or experiencing postpartum bleeding cannot fast; once these conditions end, she makes up the missed fasts.",
+      "zorluk": "zor",
+      "kaynak": "Basic knowledge of Islamic practice"
+    },
+    {
+      "id": "oruc_046",
+      "konu": "kaza-kefaret",
+      "soru": "What is required if a Ramadan fast is deliberately broken through sexual intercourse?",
+      "secenekler": [
+        "A) Only making up the fast is required (one day is fasted later for each missed day)",
+        "B) Only kaffarah is required (a serious obligation of expiation arises)",
+        "C) Both making up the fast and kaffarah are required (a serious obligation of expiation arises)",
+        "D) Fidya is sufficient"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "If a Ramadan fast is deliberately broken through sexual intercourse, both making up the fast and kaffarah are required (a serious obligation of expiation arises). The ruling on kaffarah for eating, drinking, and smoking is assessed differently by the schools of law.",
+      "zorluk": "zor",
+      "kaynak": "Basic knowledge of Islamic practice"
+    },
+    {
+      "id": "oruc_047",
+      "konu": "ramazan",
+      "soru": "In which sources is the hadith 'When Ramadan begins, the gates of Paradise are opened and the gates of Hell are closed' found?",
+      "secenekler": [
+        "A) Bukhari only",
+        "B) Bukhari and Muslim",
+        "C) Muslim only",
+        "D) Tirmidhi only"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "This hadith is found in both Bukhari (Sawm 5) and Muslim (Siyam 1).",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Sawm 5; Muslim, Siyam 1"
+    },
+    {
+      "id": "oruc_048",
+      "konu": "bozanlar",
+      "soru": "What is the difference between deliberately vomiting a mouthful and vomiting involuntarily?",
+      "secenekler": [
+        "A) Both break the fast",
+        "B) Neither breaks the fast",
+        "C) Deliberate vomiting breaks the fast; involuntary vomiting does not",
+        "D) Deliberate vomiting does not break the fast; involuntary vomiting does"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Deliberately vomiting a mouthful breaks the fast. Vomiting involuntarily does not break the fast.",
+      "zorluk": "zor",
+      "kaynak": "Basic knowledge of Islamic practice"
+    },
+    {
+      "id": "oruc_049",
+      "konu": "fazilet",
+      "soru": "What did the Prophet ﷺ say after 'Fasting is a shield' in the hadith?",
+      "secenekler": [
+        "A) 'Let the fasting person engage in much remembrance'",
+        "B) 'Let the fasting person give charity'",
+        "C) 'Let the fasting person refrain from foul speech'",
+        "D) 'Let the fasting person perform salah'"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Fasting is a shield. Let the fasting person refrain from foul speech.' (Bukhari, Sawm 2) — Fasting is an act of moral restraint as well as physical abstinence.",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Sawm 2"
+    },
+    {
+      "id": "oruc_050",
+      "konu": "bozanlar",
+      "soru": "Which is the most accurate statement about brushing one's teeth while fasting?",
+      "secenekler": [
+        "A) It does not break the fast if toothpaste or water does not go down the throat",
+        "B) It always breaks the fast",
+        "C) It breaks the fast only after midday",
+        "D) It definitely does not break the fast if fluoride toothpaste is used"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Brushing one's teeth without toothpaste or doing so carefully does not break the fast; if toothpaste, water, or another substance goes down the throat, the fast may be broken.",
+      "zorluk": "zor",
+      "kaynak": "Basic knowledge of Islamic practice"
+    }
+  ]
+}

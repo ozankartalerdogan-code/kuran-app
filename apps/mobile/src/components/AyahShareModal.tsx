@@ -6,6 +6,8 @@ import {
 import { useColors } from "../hooks/useColors";
 import { captureAndShareView } from "../lib/shareImage";
 import { mushafMetniHazirla } from "../lib/mushafText";
+import { useStrings, fmt, localeTag } from "../i18n";
+import componentStrings from "../i18n/strings/components";
 
 // Görsel ayet paylaşımı — "Kuran Yolu" markalı kart önizlemesi + paylaşım seçimi.
 // Kart tasarımı temadan BAĞIMSIZ sabittir (krem zemin): paylaşılan görsel her
@@ -33,6 +35,7 @@ interface Props {
 
 export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic, meal, onShareText }: Props) {
   const c = useColors();
+  const t = useStrings(componentStrings);
   // KARTTA basılan metin font uyumluluğundan geçmeli: production fontu U+06DF,
   // U+06E3 ve U+06EB yuvalarında gerçek glif taşımaz, yerlerine noktalı daire
   // (sahipsiz işaret) çizer. Mushaf sayfası ve ayet detayı bunu zaten uyguluyor;
@@ -47,7 +50,7 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
   const handleShareImage = async () => {
     if (sharing) return;
     setSharing(true);
-    const ok = await captureAndShareView(cardRef.current, `${surahName} ${ayahNumber}. Ayet`);
+    const ok = await captureAndShareView(cardRef.current, fmt(t.shareImageTitle, { name: surahName, n: ayahNumber }));
     setSharing(false);
     if (ok) onClose();
     // Başarısızsa (iptal dahil) modal açık kalır; kullanıcı tekrar deneyebilir
@@ -65,7 +68,7 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
         <ScrollView contentContainerStyle={m.scrollContent} showsVerticalScrollIndicator={false}>
           {/* Yakalanan kart — collapsable={false}: Android'de view-shot için şart */}
           <View ref={cardRef} collapsable={false} style={m.card}>
-            <Text style={m.cardHeader}>{surahName.toLocaleUpperCase("tr-TR")} · {ayahNumber}. AYET</Text>
+            <Text style={m.cardHeader}>{fmt(t.shareCardHeader, { name: surahName.toLocaleUpperCase(localeTag()), n: ayahNumber })}</Text>
             {kartArapca ? (
               <Text style={[m.cardArabic, { fontSize: arabicFontSize(kartArapca.length), lineHeight: arabicFontSize(kartArapca.length) * 1.8 }]}>
                 {kartArapca}
@@ -91,30 +94,30 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
               disabled={sharing}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel="Görsel olarak paylaş"
+              accessibilityLabel={t.shareImageA11y}
               accessibilityState={{ disabled: sharing }}
             >
               {sharing
                 ? <ActivityIndicator color="#fff" size="small" />
-                : <Text style={m.primaryBtnText}>🖼️ Görsel Olarak Paylaş</Text>}
+                : <Text style={m.primaryBtnText}>{t.shareImage}</Text>}
             </TouchableOpacity>
             <TouchableOpacity
               style={[m.secondaryBtn, { borderColor: c.border }]}
               onPress={handleShareText}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel="Metin olarak paylaş"
+              accessibilityLabel={t.shareTextA11y}
             >
-              <Text style={[m.secondaryBtnText, { color: c.textSecondary }]}>Metin Olarak Paylaş</Text>
+              <Text style={[m.secondaryBtnText, { color: c.textSecondary }]}>{t.shareText}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={m.cancelBtn}
               onPress={onClose}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Vazgeç"
+              accessibilityLabel={t.giveUp}
             >
-              <Text style={[m.cancelText, { color: c.textMuted }]}>Vazgeç</Text>
+              <Text style={[m.cancelText, { color: c.textMuted }]}>{t.giveUp}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

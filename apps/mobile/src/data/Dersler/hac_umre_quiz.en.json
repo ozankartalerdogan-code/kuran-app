@@ -1,0 +1,757 @@
+{
+  "quiz_id": "hac-umre",
+  "baslik": "Hajj & Umrah",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "hac_001",
+      "konu": "temel",
+      "soru": "Which pillar of Islam is Hajj?",
+      "secenekler": [
+        "A) 2nd.",
+        "B) 3rd.",
+        "C) 4th.",
+        "D) 5th."
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hajj is the fifth of the five pillars of Islam: the declaration of faith, salah, sawm, zakat, and Hajj.",
+      "zorluk": "kolay",
+      "kaynak": "Al Imran, 3/97"
+    },
+    {
+      "id": "hac_002",
+      "konu": "temel",
+      "soru": "How many times in a lifetime is Hajj obligatory for a Muslim?",
+      "secenekler": [
+        "A) Every year",
+        "B) 3 times",
+        "C) 5 times",
+        "D) Once"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Hajj is obligatory once in a lifetime for every Muslim who is able to perform it.",
+      "zorluk": "kolay",
+      "kaynak": "Al Imran, 3/97"
+    },
+    {
+      "id": "hac_003",
+      "konu": "arafat",
+      "soru": "On which day of Dhul-Hijjah is the standing at Arafat performed?",
+      "secenekler": [
+        "A) The 7th day",
+        "B) The 8th day",
+        "C) The 9th day",
+        "D) The 10th day"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The standing at Arafat is performed on the 9th day of Dhul-Hijjah (the Day of Arafah).",
+      "zorluk": "kolay",
+      "kaynak": "Abu Dawud, Manasik 69"
+    },
+    {
+      "id": "hac_004",
+      "konu": "tavaf",
+      "soru": "How many times is the Kaaba circled during tawaf?",
+      "secenekler": [
+        "A) 5 times",
+        "B) 6 times",
+        "C) 7 times",
+        "D) 9 times"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Kaaba is circled 7 times during tawaf. Each circuit is called a shawt.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_005",
+      "konu": "tavaf",
+      "soru": "In which direction is tawaf performed?",
+      "secenekler": [
+        "A) Clockwise",
+        "B) Counterclockwise",
+        "C) Alternating between both directions",
+        "D) From east to west"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tawaf is performed counterclockwise, with the Kaaba on one's left.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_006",
+      "konu": "say",
+      "soru": "Between which two hills is sa'y performed?",
+      "secenekler": [
+        "A) Hira and Nur",
+        "B) Safa and Marwah",
+        "C) Mina and Arafat",
+        "D) Safa and Mina"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sa'y is an act of worship performed between the hills of Safa and Marwah. Safa and Marwah are mentioned in the Quran as among the symbols of Allah.",
+      "zorluk": "kolay",
+      "kaynak": "Al-Baqarah, 2/158"
+    },
+    {
+      "id": "hac_007",
+      "konu": "say",
+      "soru": "How many lengths (shawts) does sa'y consist of?",
+      "secenekler": [
+        "A) 5",
+        "B) 6",
+        "C) 7",
+        "D) 8"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sa'y consists of 7 lengths. Going from Safa to Marwah counts as the 1st, returning from Marwah to Safa counts as the 2nd, and the 7th ends at Marwah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_008",
+      "konu": "say",
+      "soru": "At which hill does sa'y begin?",
+      "secenekler": [
+        "A) Safa",
+        "B) Marwah",
+        "C) Hira",
+        "D) Mina"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Sa'y begins at Safa, and the 7th length is completed at Marwah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_009",
+      "konu": "umre",
+      "soru": "When during the year can Umrah be performed?",
+      "secenekler": [
+        "A) Only in Dhul-Hijjah",
+        "B) Only during the Hajj season",
+        "C) At any time",
+        "D) Only in Ramadan"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Umrah can be performed at any time of the year and is not limited to a particular season.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_010",
+      "konu": "ihram",
+      "soru": "With which word does the talbiyah begin?",
+      "secenekler": [
+        "A) \"Allahu Ekber\"",
+        "B) \"Lebbeyk\"",
+        "C) \"Subhanallah\"",
+        "D) \"Alhamdulillah\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The talbiyah begins with the words \"Labbayka Allahumma labbayk...\" Meaning: \"Here I am, O Allah, here I am!\"",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_011",
+      "konu": "tavaf",
+      "soru": "What is the ruling on tawaf al-ziyarah?",
+      "secenekler": [
+        "A) Sunnah",
+        "B) Wajib",
+        "C) Fard",
+        "D) Recommended"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tawaf al-ziyarah is one of the obligatory acts of Hajj. It is performed from the days of Eid onward; performing it in the first few days is the general rule, and rulings on delaying it may vary between schools of law.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_012",
+      "konu": "mina",
+      "soru": "Where is the stoning of the devil performed?",
+      "secenekler": [
+        "A) In Mina",
+        "B) In Arafat",
+        "C) In Makkah",
+        "D) In Muzdalifah"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The stoning of the devil is performed at the Jamarat in Mina.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_013",
+      "konu": "mina",
+      "soru": "How many Jamarat are stoned during the stoning of the devil?",
+      "secenekler": [
+        "A) 1",
+        "B) 2",
+        "C) 3",
+        "D) 4"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Three Jamarat are stoned in Mina: the small, middle, and large (Aqabah).",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_014",
+      "konu": "mina",
+      "soru": "How many stones are thrown at each jamrah during the stoning of the devil?",
+      "secenekler": [
+        "A) 5",
+        "B) 6",
+        "C) 7",
+        "D) 9"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Seven stones are thrown at each jamrah, and \"Bismillah Allahu Ekber\" is said with each throw.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_015",
+      "konu": "mina",
+      "soru": "What is said while stoning the devil?",
+      "secenekler": [
+        "A) \"Allahu Ekber\"",
+        "B) \"Bismillah Allahu Ekber\"",
+        "C) \"Subhanallah\"",
+        "D) \"Lebbeyk\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Bismillah Allahu Ekber\" is said with each throw.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_016",
+      "konu": "ihram",
+      "soru": "Which statement best describes the clothing a man must wear in ihram?",
+      "secenekler": [
+        "A) A white suit",
+        "B) Two unstitched cloths; white is preferred but not required",
+        "C) A black robe",
+        "D) Regular modest clothing"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Men wrap themselves in two unstitched cloths in ihram. White is preferred but is not a requirement of ihram. Women wear their regular modest clothing.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_017",
+      "konu": "umre",
+      "soru": "How many steps does Umrah consist of?",
+      "secenekler": [
+        "A) 3",
+        "B) 4",
+        "C) 5",
+        "D) 6"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Umrah consists of 4 main steps: ihram, tawaf, sa'y, and shaving or shortening the hair.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_018",
+      "konu": "say",
+      "soru": "Whose search for water does sa'y commemorate?",
+      "secenekler": [
+        "A) Prophet Ibrahim",
+        "B) Prophet Ismail",
+        "C) Hajar",
+        "D) Khadijah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sa'y symbolizes Hajar's search for water for her child Ismail.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_019",
+      "konu": "arafat",
+      "soru": "Where do pilgrims go after the standing at Arafat?",
+      "secenekler": [
+        "A) To Mina",
+        "B) To Makkah",
+        "C) To Muzdalifah",
+        "D) To Madinah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "After the evening call to prayer, pilgrims proceed to Muzdalifah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_020",
+      "konu": "ihram",
+      "soru": "Which of the following is prohibited for a person in ihram?",
+      "secenekler": [
+        "A) Performing salah",
+        "B) Cutting hair and nails",
+        "C) Drinking water",
+        "D) Supplicating"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Cutting hair or nails, applying fragrance, hunting, and sexual intercourse are prohibited for a person in ihram.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_021",
+      "konu": "arafat",
+      "soru": "Which statement best describes the time for the standing at Arafat?",
+      "secenekler": [
+        "A) Only from morning until noon",
+        "B) It is performed during the period from noon on the Day of Arafah until dawn on the night of Eid",
+        "C) Only from evening until morning",
+        "D) Only on the day of Eid"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The time for the standing at Arafat lasts from noon on the Day of Arafah until dawn on the night of Eid. In Hanafi practice, a pilgrim who arrives at Arafat during the day is taught that remaining until sunset is wajib.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_022",
+      "konu": "tavaf",
+      "soru": "At which stone does tawaf begin?",
+      "secenekler": [
+        "A) The Black Stone",
+        "B) The Station of Ibrahim",
+        "C) The Yemeni Corner",
+        "D) The Zamzam well"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Tawaf begins at the Black Stone, and each circuit is completed at the Black Stone.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_023",
+      "konu": "farzlar",
+      "soru": "Which of the following is one of the obligatory acts of Hajj?",
+      "secenekler": [
+        "A) Sa'y",
+        "B) Stoning the devil",
+        "C) Standing at Arafat",
+        "D) Offering a sacrifice"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "According to the Hanafi school, the obligatory acts of Hajj are ihram, standing at Arafat, and tawaf al-ziyarah. Sa'y may be considered an essential pillar in other schools.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_024",
+      "konu": "umre",
+      "soru": "What is the final step of Umrah?",
+      "secenekler": [
+        "A) Entering ihram",
+        "B) Tawaf",
+        "C) Sa'y",
+        "D) Shaving or shortening the hair"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The fourth and final step of Umrah is shaving or shortening the hair. This step ends the state of ihram.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_025",
+      "konu": "mina",
+      "soru": "What is the general order of rites on the 1st day of Eid during Hajj al-Tamattu or Hajj al-Qiran?",
+      "secenekler": [
+        "A) Tawaf → Sacrifice → Shaving → Jamrah",
+        "B) Jamrah → Sacrifice → Shaving → Tawaf al-ziyarah",
+        "C) Shaving → Jamrah → Sacrifice → Tawaf",
+        "D) Sacrifice → Jamrah → Shaving → Tawaf"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The general order during Hajj al-Tamattu or Hajj al-Qiran is: Jamrah al-Aqabah → Hady (Hajj sacrifice) → Shaving → Tawaf al-ziyarah. The hady sacrifice is not wajib during Hajj al-Ifrad.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_026",
+      "konu": "ihram",
+      "soru": "How does one leave the state of ihram?",
+      "secenekler": [
+        "A) By giving salam",
+        "B) By shaving or shortening the hair",
+        "C) By leaving Makkah",
+        "D) By performing ghusl"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "One leaves the state of ihram by shaving or shortening the hair. After tawaf al-ziyarah, one has fully left the state of ihram.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_027",
+      "konu": "temel",
+      "soru": "Which of the following is a condition for Hajj to be obligatory?",
+      "secenekler": [
+        "A) Knowing Arabic",
+        "B) Being married",
+        "C) Having a safe route",
+        "D) Being over 40 years old"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The conditions for Hajj to be obligatory are: being Muslim, being of sound mind, having reached puberty, having financial means, being in good health, and having a safe route.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_028",
+      "konu": "arafat",
+      "soru": "Who said, \"Hajj is Arafat\"?",
+      "secenekler": [
+        "A) Abu Bakr",
+        "B) Umar",
+        "C) The Prophet ﷺ",
+        "D) Ali"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "\"Hajj is Arafat\" is a hadith of the Prophet ﷺ. It shows that standing at Arafat is the essence of Hajj.",
+      "zorluk": "orta",
+      "kaynak": "Abu Dawud, Manasik 69; Tirmidhi, Hajj 57"
+    },
+    {
+      "id": "hac_029",
+      "konu": "umre",
+      "soru": "Which steps do Hajj and Umrah have in common?",
+      "secenekler": [
+        "A) Standing at Arafat and tawaf",
+        "B) Stoning the pillars and tawaf",
+        "C) Ihram, tawaf, sa'y, and shaving the hair",
+        "D) Sacrifice and tawaf"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The steps common to Hajj and Umrah are ihram, tawaf, sa'y, and shaving the hair. Standing at Arafat, Muzdalifah, Mina, and stoning the pillars are found only in Hajj.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_030",
+      "konu": "tavaf",
+      "soru": "Which statement best describes the tawaf al-ziyarah?",
+      "secenekler": [
+        "A) It is performed before Hajj",
+        "B) It is the obligatory tawaf of Hajj, performed from the days of Eid onward",
+        "C) It is performed before standing at Arafat",
+        "D) It is performed only upon first arriving in Mecca"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tawaf al-ziyarah is the obligatory tawaf of Hajj. It is performed from the days of Eid onward; it is generally performed in the first few days, and the rulings on delaying it may vary according to the school of law.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_031",
+      "konu": "tavaf",
+      "soru": "When is the farewell tawaf performed?",
+      "secenekler": [
+        "A) Before Hajj",
+        "B) At Arafat",
+        "C) Before leaving Mecca",
+        "D) On the day of sacrifice"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The farewell tawaf is performed before leaving Mecca. Depending on the school of law, it is considered wajib or Sunnah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_032",
+      "konu": "ihram",
+      "soru": "What is the boundary at which one must enter ihram called?",
+      "secenekler": [
+        "A) Arafat",
+        "B) Miqat",
+        "C) Mina",
+        "D) Muzdalifah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The miqat is the boundary at which one must enter ihram for Hajj or Umrah. Ihram must be entered before crossing the miqat.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_033",
+      "konu": "temel",
+      "soru": "What does the financial means requirement for Hajj to become obligatory cover?",
+      "secenekler": [
+        "A) Travel and living expenses",
+        "B) Only the plane ticket",
+        "C) The cost of the hady sacrifice",
+        "D) Only accommodation expenses"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The financial means requirement includes being able to cover the costs of the journey there and back and living expenses in Mecca.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_034",
+      "konu": "say",
+      "soru": "What do men do between the green lights during sa'y?",
+      "secenekler": [
+        "A) Walk slowly",
+        "B) Walk quickly or jog lightly",
+        "C) Stop and pray",
+        "D) Walk backward"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "During sa'y, men walk quickly or jog lightly in the section between the green lights; women walk normally.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_035",
+      "konu": "ihram",
+      "soru": "Which of the following is NOT prohibited for a person in ihram?",
+      "secenekler": [
+        "A) Cutting one's hair",
+        "B) Applying perfume",
+        "C) Hunting",
+        "D) Making supplication"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Making supplication is not prohibited for a person in ihram. The prohibitions include cutting hair or nails, applying perfume, hunting, and sexual intercourse.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_036",
+      "konu": "mina",
+      "soru": "What is hady?",
+      "secenekler": [
+        "A) The ihram garment",
+        "B) The talbiyah supplication",
+        "C) The Hajj sacrifice offered during tamattu and qiran Hajj",
+        "D) A stone for the jamarat"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hady is the Hajj sacrifice. It is considered wajib during tamattu and qiran Hajj; a separate hady sacrifice is not wajib during ifrad Hajj.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_037",
+      "konu": "umre",
+      "soru": "According to the Prophet ﷺ, what happens to the sins committed between two Umrahs?",
+      "secenekler": [
+        "A) They must be made up",
+        "B) A ransom is paid",
+        "C) They are erased through expiation",
+        "D) Nothing happens"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet ﷺ said: \"One Umrah is an expiation for the sins committed between it and the next.\" (Bukhari, Umrah 1; Muslim, Hajj 437)",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Umrah 1; Muslim, Hajj 437"
+    },
+    {
+      "id": "hac_038",
+      "konu": "mina",
+      "soru": "How is the stoning of the pillars performed on the 2nd and 3rd days of Eid al-Adha?",
+      "secenekler": [
+        "A) Only at the Jamrat al-Aqabah",
+        "B) Only at the small jamrah",
+        "C) At all three jamarat",
+        "D) No stoning is performed"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "On the 2nd and 3rd days, seven stones are thrown at each of the three jamarat: the small, the middle, and the large (Aqabah).",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_039",
+      "konu": "umre",
+      "soru": "What is the main difference between Hajj and Umrah?",
+      "secenekler": [
+        "A) Ihram is not required for Umrah",
+        "B) Hajj is performed on specific days, while Umrah can be performed at any time",
+        "C) Tawaf is not performed during Umrah",
+        "D) There is no sa'y during Hajj"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hajj is performed on specific days of Hajj, while Umrah can be performed at any time of the year. Hajj includes Arafat, Muzdalifah, Mina, and stoning the pillars; Umrah does not.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_040",
+      "konu": "mina",
+      "soru": "What event does stoning the pillars symbolize?",
+      "secenekler": [
+        "A) Prophet Muhammad's conquest of Mecca",
+        "B) Hajar's search for water",
+        "C) Prophet Ibrahim's stoning of Satan",
+        "D) The sacrifice of Prophet Ismail"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Stoning the pillars symbolizes Prophet Ibrahim's stoning of Satan.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_041",
+      "konu": "kaynak",
+      "soru": "What is the source of the hadith, \"The reward for an accepted Hajj is nothing but Paradise\"?",
+      "secenekler": [
+        "A) Bukhari, Umrah 1; Muslim, Hajj 437",
+        "B) Abu Dawud, Manasik 1",
+        "C) Tirmidhi, Hajj 57",
+        "D) Ibn Majah, Manasik 5"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "This hadith is found in both Bukhari (Umrah 1) and Muslim (Hajj 437).",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Umrah 1; Muslim, Hajj 437"
+    },
+    {
+      "id": "hac_042",
+      "konu": "kaynak",
+      "soru": "What is the source of the hadith, \"Hajj is Arafat\"?",
+      "secenekler": [
+        "A) Bukhari, Sawm 2",
+        "B) Abu Dawud, Manasik 69; Tirmidhi, Hajj 57",
+        "C) Muslim, Hajj 412",
+        "D) Ibn Majah, Manasik 5"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The hadith \"Hajj is Arafat\" is found in Abu Dawud (Manasik 69) and Tirmidhi (Hajj 57).",
+      "zorluk": "zor",
+      "kaynak": "Abu Dawud, Manasik 69; Tirmidhi, Hajj 57"
+    },
+    {
+      "id": "hac_043",
+      "konu": "kaynak",
+      "soru": "What is the source of the hadith, \"Perform Hajj and Umrah one after the other, for they remove poverty and sins\"?",
+      "secenekler": [
+        "A) Bukhari, Umrah 1",
+        "B) Muslim, Hajj 437",
+        "C) Tirmidhi, Hajj 2",
+        "D) Ibn Majah, Manasik 5"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "This hadith is found in Tirmidhi (Hajj 2).",
+      "zorluk": "zor",
+      "kaynak": "Tirmidhi, Hajj 2"
+    },
+    {
+      "id": "hac_044",
+      "konu": "kaynak",
+      "soru": "What is the source of the hadith, \"Those performing Hajj and Umrah are delegates who come to Allah\"?",
+      "secenekler": [
+        "A) Bukhari, Umrah 1",
+        "B) Muslim, Hajj 437",
+        "C) Abu Dawud, Manasik 1",
+        "D) Ibn Majah, Manasik 5"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "This hadith is found in Ibn Majah (Manasik 5).",
+      "zorluk": "zor",
+      "kaynak": "Ibn Majah, Manasik 5"
+    },
+    {
+      "id": "hac_045",
+      "konu": "kaynak",
+      "soru": "In which verse does \"Safa and Marwah are among the symbols of Allah\" appear?",
+      "secenekler": [
+        "A) Aal Imran, 3/97",
+        "B) al-Baqarah, 2/158",
+        "C) al-Baqarah, 2/183",
+        "D) al-Hajj, 22/27"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "\"Safa and Marwah are among the symbols of Allah\" appears in verse 158 of Surah al-Baqarah.",
+      "zorluk": "zor",
+      "kaynak": "al-Baqarah, 2/158"
+    },
+    {
+      "id": "hac_046",
+      "konu": "kaynak",
+      "soru": "What is the source of the hadith, \"O people! Hajj has been made obligatory for you, so perform Hajj!\"?",
+      "secenekler": [
+        "A) Bukhari, Umrah 1",
+        "B) Muslim, Hajj 412",
+        "C) Tirmidhi, Hajj 57",
+        "D) Abu Dawud, Manasik 69"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "This hadith is found in Muslim (Hajj 412).",
+      "zorluk": "zor",
+      "kaynak": "Muslim, Hajj 412"
+    },
+    {
+      "id": "hac_047",
+      "konu": "temel",
+      "soru": "To which prophet does the practice of Hajj trace its origins before Islam?",
+      "secenekler": [
+        "A) Prophet Nuh",
+        "B) Prophet Musa",
+        "C) Prophet Ibrahim",
+        "D) Prophet Sulayman"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Hajj is an ancient act of worship that has continued since the time of Prophet Ibrahim.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "hac_048",
+      "konu": "kaynak",
+      "soru": "What is the source of the hadith, \"Whoever wishes to perform Hajj should hasten, for they may become ill or a need may arise that prevents them from going for Hajj\"?",
+      "secenekler": [
+        "A) Bukhari, Umrah 1",
+        "B) Muslim, Hajj 412",
+        "C) Tirmidhi, Hajj 57",
+        "D) Abu Dawud, Manasik 1"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "This hadith is found in Abu Dawud (Manasik 1).",
+      "zorluk": "zor",
+      "kaynak": "Abu Dawud, Manasik 1"
+    },
+    {
+      "id": "hac_049",
+      "konu": "kaynak",
+      "soru": "In which surah does the verse, \"Pilgrimage to the House of Allah is a duty owed to Allah by those who are able to make the journey\" appear?",
+      "secenekler": [
+        "A) al-Baqarah",
+        "B) Aal Imran",
+        "C) an-Nisa",
+        "D) al-Hajj"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "This verse is verse 97 of Surah Aal Imran.",
+      "zorluk": "zor",
+      "kaynak": "Aal Imran, 3/97"
+    },
+    {
+      "id": "hac_050",
+      "konu": "temel",
+      "soru": "What is the Arabic expression for \"accepted Hajj\" in the Prophet's ﷺ hadith, \"The reward for an accepted Hajj is nothing but Paradise\"?",
+      "secenekler": [
+        "A) Hajj al-akbar",
+        "B) Hajj mabrur",
+        "C) Hajj al-ifrad",
+        "D) Hajj al-qiran"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The expression \"el-hacc el-mebrur\" (Hajj mabrur) in the hadith means an accepted Hajj.",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Umrah 1; Muslim, Hajj 437"
+    }
+  ]
+}

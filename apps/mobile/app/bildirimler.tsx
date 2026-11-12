@@ -14,25 +14,21 @@ import {
   NOTIF_KEY,
   DAILY_VERSE_KEY,
   SCHED_DAY_KEY,
+  schedStamp,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
+import { useStrings, getStrings, fmt } from "../src/i18n";
+import personalStrings from "../src/i18n/strings/personal";
 
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
-
-function localDayStr(d = new Date()): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
 
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      Alert.alert(
-        "Konum İzni",
-        "Konum izni verilmedi. Namaz vakitleri İstanbul için gösterilecek.",
-        [{ text: "Tamam" }],
-      );
+      const t = getStrings(personalStrings);
+      Alert.alert(t.locTitle, t.locDenied, [{ text: t.ok }]);
       return { ...ISTANBUL, isFallback: true };
     }
     const pos = await Promise.race([
@@ -51,6 +47,7 @@ async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback
 export default function BildirimlerScreen() {
   const insets = useSafeAreaInsets();
   const c = useColors();
+  const t = useStrings(personalStrings);
 
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifLoading, setNotifLoading] = useState(false);
@@ -80,11 +77,11 @@ export default function BildirimlerScreen() {
     const granted = await requestNotificationPermission();
     if (!granted) {
       Alert.alert(
-        "Bildirim İzni Gerekli",
-        "Bildirimler için izne ihtiyaç var. Ayarlardan \"Bildirimler\"i açabilirsiniz.",
+        t.permTitle,
+        t.permBody,
         [
-          { text: "Vazgeç", style: "cancel" },
-          { text: "Ayarları Aç", onPress: () => { void Linking.openSettings(); } },
+          { text: t.giveUp, style: "cancel" },
+          { text: t.openSettings, onPress: () => { void Linking.openSettings(); } },
         ],
       );
     }
@@ -102,7 +99,7 @@ export default function BildirimlerScreen() {
     const days = await fetchPrayerDays(lat, lng);
     if (!days) throw new Error("no-times");
     await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
-    await storage.setString(SCHED_DAY_KEY, localDayStr());
+    await storage.setString(SCHED_DAY_KEY, schedStamp());
     return isFallback;
   }
 
@@ -116,14 +113,14 @@ export default function BildirimlerScreen() {
       if (val) {
         setUsingFallback(isFallback);
         const locationMsg = isFallback
-          ? "Konum izni verilmediği için namaz vakitleri İstanbul'a göre hesaplandı."
-          : "Namaz vakitleri bulunduğunuz konuma göre hesaplandı.";
-        Alert.alert("Bildirimler Açık", `Her namaz vakti girdikten kısa süre sonra, içinde namaz temalı bir ayet de bulunan tek bir hatırlatma gönderilecek.\n\n${locationMsg}`);
+          ? t.locFallbackMsg
+          : t.locOkMsg;
+        Alert.alert(t.notifOnTitle, fmt(t.notifOnBody, { loc: locationMsg }));
       } else if (!dailyVerseEnabled) {
         setUsingFallback(false);
       }
     } catch {
-      Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
+      Alert.alert(t.errorTitle, t.actionFailed);
     } finally {
       setNotifLoading(false);
     }
@@ -138,12 +135,12 @@ export default function BildirimlerScreen() {
       setDailyVerseEnabled(val);
       if (val) {
         setUsingFallback(isFallback);
-        Alert.alert("Günlük Ayet Açık", "Her gün, namaz vakitleriyle çakışmayan iki farklı saatte Günün Ayeti ve Günün Duası gönderilecek.");
+        Alert.alert(t.dailyOnTitle, t.dailyOnBody);
       } else if (!notifEnabled) {
         setUsingFallback(false);
       }
     } catch {
-      Alert.alert("Hata", "İşlem başarısız. Lütfen tekrar deneyin.");
+      Alert.alert(t.errorTitle, t.actionFailed);
     } finally {
       setDailyVerseLoading(false);
     }
@@ -151,7 +148,7 @@ export default function BildirimlerScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: "Bildirimler" }} />
+      <Stack.Screen options={{ title: t.screenTitle }} />
       <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
         {/*
           Metin duruma göre değişmeli: ilk açılışta ikisi de yalnız BİLDİRİM İZNİ
@@ -162,20 +159,20 @@ export default function BildirimlerScreen() {
         */}
         <Text style={[styles.intro, { color: c.textMuted }]}>
           {notifEnabled || dailyVerseEnabled
-            ? "İstediğin zaman buradan kapatabilirsin; ikisi birbirinden bağımsızdır."
-            : "İkisi de kapalı. Bildirim izni verilmediyse ilk kurulumda otomatik açılmamış olabilir; buradan açabilirsin. İkisi birbirinden bağımsızdır."}
+            ? t.introOn
+            : t.introOff}
         </Text>
 
         {/* Namaz Vakti Bildirimleri */}
         <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
-            <Text style={[styles.notifTitle, { color: c.text }]}>🔔 Namaz Vakti Bildirimleri</Text>
+            <Text style={[styles.notifTitle, { color: c.text }]}>{t.prayerNotifTitle}</Text>
             <Text style={[styles.notifSub, { color: c.textMuted }]}>
               {notifEnabled
                 ? usingFallback
-                  ? "İstanbul için bildirim planlandı (konum izni verilmedi)"
-                  : "Bulunduğunuz konum için bildirim planlandı"
-                : "Her namaz vakti için, içinde namaz temalı ayet bulunan hatırlatma"}
+                  ? t.prayerSubFallback
+                  : t.prayerSubLoc
+                : t.prayerSubOff}
             </Text>
           </View>
           {notifLoading
@@ -186,7 +183,7 @@ export default function BildirimlerScreen() {
                 disabled={dailyVerseLoading}
                 trackColor={{ false: c.border, true: c.accentLight }}
                 thumbColor={notifEnabled ? c.accent : c.cardAlt}
-                accessibilityLabel="Namaz vakti bildirimleri"
+                accessibilityLabel={t.prayerSwitchA11y}
               />
           }
         </View>
@@ -194,11 +191,11 @@ export default function BildirimlerScreen() {
         {/* Günlük Ayet & Dua Bildirimi (bağımsız toggle) */}
         <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
           <View style={{ flex: 1 }}>
-            <Text style={[styles.notifTitle, { color: c.text }]}>📖 Günlük Ayet & Dua</Text>
+            <Text style={[styles.notifTitle, { color: c.text }]}>{t.dailyTitle}</Text>
             <Text style={[styles.notifSub, { color: c.textMuted }]}>
               {dailyVerseEnabled
-                ? "Her gün 2 kez — namaz vakitleriyle çakışmayan saatlerde"
-                : "Günün Ayeti ve Günün Duası'nı bildirimle al"}
+                ? t.dailySubOn
+                : t.dailySubOff}
             </Text>
           </View>
           {dailyVerseLoading
@@ -209,13 +206,13 @@ export default function BildirimlerScreen() {
                 disabled={notifLoading}
                 trackColor={{ false: c.border, true: c.accentLight }}
                 thumbColor={dailyVerseEnabled ? c.accent : c.cardAlt}
-                accessibilityLabel="Günlük ayet ve dua bildirimi"
+                accessibilityLabel={t.dailySwitchA11y}
               />
           }
         </View>
 
         <Text style={[styles.note, { color: c.textMuted }]}>
-          Bildirimler için konum (yaklaşık) ve bildirim izni gerekir. Namaz vakitlerini hesaplamak için konumunuz Aladhan.com servisine gönderilir; bizim sunucularımızda saklanmaz.
+          {t.privacyNote}
         </Text>
       </ScrollView>
     </>

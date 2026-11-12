@@ -29,6 +29,7 @@
     "expo-device": "~56.0.4",
     "expo-haptics": "~56.0.3",
     "expo-linking": "~56.0.15",
+    "expo-localization": "~56.0.6",
     "expo-location": "~56.0.20",
     "expo-network": "~56.0.5",
     "expo-notifications": "~56.0.20",

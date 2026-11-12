@@ -1,0 +1,106 @@
+{
+  "ders_id": "namaz-dualar",
+  "baslik": "Salah Supplications",
+  "aciklama": "All the supplications and remembrances recited during salah, with their Turkish-style pronunciations and meanings.",
+  "kartlar": [
+    {
+      "id": "namaz_dualar_k01",
+      "tip": "metin",
+      "baslik": "Subhanaka",
+      "icerik": "Subhanaka Allahumma wa bihamdika wa tabarakasmuka wa ta'ala jadduka wa la ilaha ghayruk.\n\nMeaning: O Allah! I declare You free from all imperfection and praise You. Your name is blessed, and Your glory is exalted. There is no deity but You.\n\nWhen: Recited only in the first rak'ah, immediately after the opening takbir.\nRuling: Sunnah — omitting it does not invalidate the salah.",
+      "vurgu": "Recited only in the first rak'ah · Sunnah"
+    },
+    {
+      "id": "namaz_dualar_k02",
+      "tip": "metin",
+      "baslik": "Surah al-Fatihah",
+      "icerik": "Bismillahi'r-rahmani'r-rahim. Alhamdu lillahi rabbi'l-alamin. Ar-rahmani'r-rahim. Maliki yawmi'd-din. Iyyaka na'budu wa iyyaka nasta'in. Ihdina's-sirata'l-mustaqim. Sirata'lladhina an'amta alayhim ghayri'l-maghdubi alayhim wa la'd-dallin.\n\nMeaning: In the name of Allah, the Most Compassionate, the Most Merciful. Praise belongs to Allah, Lord of the worlds. He is the Most Compassionate, the Most Merciful. Master of the Day of Judgment. You alone we worship, and You alone we ask for help. Guide us to the straight path. The path of those You have blessed, not those who have incurred anger or those who have gone astray.\n\nWhen: Recited in every rak'ah. In salah instruction, al-Fatihah is taught as the main recitation of every rak'ah.\nRuling: Considered wajib in the Hanafi school and fard in the Shafi'i, Maliki, and Hanbali schools.\nNote: Saying 'Amin' after al-Fatihah is Sunnah. Whether Amin is said aloud or silently may vary by school.",
+      "vurgu": "Recited in every rak'ah · The ruling differs among schools"
+    },
+    {
+      "id": "namaz_dualar_k03",
+      "tip": "metin",
+      "baslik": "Remembrance in Ruku",
+      "icerik": "Subhana Rabbiya'l-azim.\n\nMeaning: My Lord, the Magnificent, is free from all imperfection.\n\nWhen: Recited in ruku, while bowing forward from the waist with the back held straight.\nHow many times: Reciting it at least once is sufficient; reciting it three times is Sunnah.\nRuling: Sunnah",
+      "vurgu": "Recited in ruku · Reciting it three times is Sunnah"
+    },
+    {
+      "id": "namaz_dualar_k04",
+      "tip": "metin",
+      "baslik": "Remembrance in Qawmah (Standing After Ruku)",
+      "icerik": "While rising from ruku:\nSami'allahu liman hamidah.\n\nMeaning: Allah hears the one who praises Him.\n\nIn qawmah (standing after ruku), once fully upright:\nRabbana wa laka'l-hamd.\n\nMeaning: Our Lord, praise belongs to You.\n\nWhen: 'Sami'allahu liman hamidah' is said while rising from ruku, and 'Rabbana wa laka'l-hamd' is recited once fully upright.\nRuling: These remembrances are strongly emphasized in Hanafi teaching; in other schools they are generally considered Sunnah. Qawmah, meaning rising from ruku and standing upright, is one of the important actions of salah.",
+      "vurgu": "Recited while rising from ruku · Details of the ruling may vary by school"
+    },
+    {
+      "id": "namaz_dualar_k05",
+      "tip": "metin",
+      "baslik": "Remembrance in Sujud",
+      "icerik": "Subhana Rabbiya'l-a'la.\n\nMeaning: My Lord, the Most High, is free from all imperfection.\n\nWhen: Recited in every sujud. Two prostrations are performed in each rak'ah.\nHow many times: Reciting it at least once is sufficient; reciting it three times is Sunnah.\nRuling: Sunnah\nNote: A servant is closest to Allah while in sujud. (Muslim, Salat 215)",
+      "vurgu": "Recited in every sujud · Reciting it three times is Sunnah · A servant is closest to Allah in sujud"
+    },
+    {
+      "id": "namaz_dualar_k06",
+      "tip": "metin",
+      "baslik": "Remembrance in Jalsah (Sitting Between the Two Prostrations)",
+      "icerik": "Rabbigfirli.\n\nMeaning: My Lord, forgive me.\n\nWhen: In every rak'ah, after performing the first prostration and rising from it, one sits briefly before going into the second prostration — it is recited at this moment.\nRuling: Sunnah",
+      "vurgu": "Recited between the two prostrations · Sunnah"
+    },
+    {
+      "id": "namaz_dualar_k07",
+      "tip": "metin",
+      "baslik": "Tahiyyat (At-tahiyyatu — Supplication While Sitting)",
+      "icerik": "At-tahiyyatu lillahi wa's-salawatu wa't-tayyibat. As-salamu alayka ayyuha'n-nabiyyu wa rahmatullahi wa barakatuh. As-salamu alayna wa ala ibadillahi's-salihin. Ashhadu an la ilaha illallah wa ashhadu anna Muhammadan abduhu wa rasuluh.\n\nMeaning: All acts of worship performed with the tongue, the body, and one's wealth belong to Allah. O Prophet! May Allah's peace, mercy, and blessings be upon you. Peace be upon us and upon Allah's righteous servants. I bear witness that there is no deity but Allah, and I bear witness that Muhammad is His servant and messenger.\n\nWhen: Recited in every sitting — both the first sitting (al-qa'dah al-ula) and the final sitting (al-qa'dah al-akhirah).\nRuling: In Hanafi teaching, reciting the Tahiyyat is taught as wajib. The final sitting itself is one of the pillars of salah.",
+      "vurgu": "Recited in every sitting · The final sitting is one of the pillars of salah"
+    },
+    {
+      "id": "namaz_dualar_k08",
+      "tip": "metin",
+      "baslik": "Allahumma Salli (Salli)",
+      "icerik": "Allahumma salli ala Muhammadin wa ala ali Muhammad. Kama sallayta ala Ibrahima wa ala ali Ibrahim. Innaka hamidun majid.\n\nMeaning: O Allah! Send blessings upon Muhammad and the family of Muhammad as You sent blessings upon Ibrahim and the family of Ibrahim. Surely You are Praiseworthy, Glorious.\n\nWhen: Recited only in the final sitting (al-qa'dah al-akhirah), immediately after the Tahiyyat.\nRuling: Sunnah",
+      "vurgu": "Only in the final sitting · After the Tahiyyat · Sunnah"
+    },
+    {
+      "id": "namaz_dualar_k09",
+      "tip": "metin",
+      "baslik": "Allahumma Barik (Barik)",
+      "icerik": "Allahumma barik ala Muhammadin wa ala ali Muhammad. Kama barakta ala Ibrahima wa ala ali Ibrahim. Innaka hamidun majid.\n\nMeaning: O Allah! Bless Muhammad and the family of Muhammad as You blessed Ibrahim and the family of Ibrahim. Surely You are Praiseworthy, Glorious.\n\nWhen: Recited only in the final sitting, immediately after Salli.\nRuling: Sunnah",
+      "vurgu": "Only in the final sitting · After Salli · Sunnah"
+    },
+    {
+      "id": "namaz_dualar_k10",
+      "tip": "metin",
+      "baslik": "Rabbena Supplications",
+      "icerik": "Rabbana Atina:\nRabbana atina fi'd-dunya hasanatan wa fi'l-akhirati hasanatan wa qina adhaba'n-nar.\n\nMeaning: Our Lord! Grant us goodness in this world and goodness in the Hereafter, and protect us from the punishment of the Fire. (al-Baqarah, 2:201)\n\nRabbana'ghfir li:\nRabbana'ghfir li wa li walidayya wa li'l-mu'minina yawma yaqumu'l-hisab.\n\nMeaning: Our Lord! Forgive me, my parents, and all the believers on the Day of Reckoning. (Ibrahim, 14:41)\n\nWhen: Both are recited in the final sitting, after Salli and Barik.\nRuling: Sunnah",
+      "vurgu": "In the final sitting · After Salli and Barik · Sunnah"
+    },
+    {
+      "id": "namaz_dualar_k11",
+      "tip": "metin",
+      "baslik": "Qunut Supplication",
+      "icerik": "Allahumma inna nasta'inuka wa nastaghfiruk. Wa nu'minu bika wa natawakkalu alayk. Wa nuthni alayka'l-khayr. Wa nashkuruka wa la nakfuruk. Wa nakhla'u wa natruku man yafjuruk. Allahumma iyyaka na'budu wa laka nusalli wa nasjudu. Wa ilayka nas'a wa nahfidu. Narju rahmataka wa nakhsha adhabak. Inna adhabaka bi'l-kuffari mulhaq.\n\nMeaning: O Allah! We ask You for help and seek Your forgiveness. We believe in You and put our trust in You. We praise You with all goodness. We thank You and are not ungrateful to You. We leave those who defy You. O Allah! We worship You alone, perform salah for You and prostrate to You. We hasten to You alone and serve You. We hope for Your mercy and fear Your punishment. Surely Your punishment reaches the disbelievers.\n\nWhen: In Hanafi practice, it is recited in the third rak'ah of Witr salah, after the additional surah or verse recited following al-Fatihah and before bowing. In the Shafi'i school, Qunut is also recited in the morning prayer.\nRuling: In the Hanafi school, reciting Qunut in Witr is considered wajib (obligatory).\nNote: If you do not yet know the Qunut supplications, you may recite a short supplication until you learn them and continue memorizing Qunut (the special supplication recited in Witr).",
+      "vurgu": "In the third rak'ah of Witr in the Hanafi school · Before bowing · Practice may vary by school"
+    },
+    {
+      "id": "namaz_dualar_k12",
+      "tip": "metin",
+      "baslik": "Remembrance After Salah",
+      "icerik": "After giving the salam:\n\nSubhanallah — I declare Allah free of all imperfection (33 times)\nAlhamdulillah — All praise belongs to Allah (33 times)\nAllahu Akbar — Allah is the Greatest (33 times)\n\nThen (once):\nLa ilaha illallahu wahdahu la sharika lah, lahu'l-mulku wa lahu'l-hamdu wa huwa ala kulli shay'in qadir.\n\nMeaning: There is no deity but Allah. He is One and has no partner. Dominion belongs to Him, praise belongs to Him, and He has power over all things.\n\nSource: Bukhari, Adhan 155; Muslim, Masajid 144",
+      "vurgu": "Subhanallah 33 · Alhamdulillah 33 · Allahu Akbar 33"
+    },
+    {
+      "id": "namaz_dualar_k13",
+      "tip": "metin",
+      "baslik": "Summary: What Is Recited and When in Salah?",
+      "icerik": "Only in the first rak'ah:\n• Subhanaka (Sunnah)\n• A'udhu billahi min ash-shaytan ir-rajim and Bismillah (in the first rak'ah in Hanafi practice)\n\nIn every rak'ah:\n• Al-Fatihah is recited; its ruling is assessed differently by the schools\n• An additional surah or verse is recited after al-Fatihah in the first two rak'ahs of obligatory prayers; it is considered wajib in the Hanafi school and Sunnah in the other schools\n\nWhile bowing:\n• Subhana Rabbiya'l-azim — at least once (reciting it three times is Sunnah)\n\nWhile rising from bowing / standing upright:\n• Sami'allahu liman hamidah → Rabbana wa laka'l-hamd\n\nWhile prostrating:\n• Subhana Rabbiya'l-a'la — at least once (reciting it three times is Sunnah)\n\nBetween the two prostrations (sitting):\n• Rabbi'ghfir li (Sunnah)\n\nIn every sitting:\n• Tahiyyat (the sitting supplication) is recited; in Hanafi teaching, it is emphasized as wajib\n\nOnly in the final sitting:\n• Salli → Barik → Rabbana Atina → Rabbana'ghfir li\n\nIn the third rak'ah of Witr:\n• In Hanafi practice, the Qunut supplication (the special supplication recited in Witr) is recited",
+      "vurgu": "The order of recitation makes learning easier · The schools differ on details of the rulings"
+    },
+    {
+      "id": "namaz_dualar_k14",
+      "tip": "metin",
+      "baslik": "Differences Between the Schools",
+      "icerik": "The four schools differ on some matters concerning supplications in salah:\n\n• The ruling on al-Fatihah: It is considered wajib in the Hanafi school and fard (obligatory) in the Shafi'i, Maliki and Hanbali schools.\n\n• The ruling on remembrance while standing after bowing: It is emphasized more strongly in the Hanafi school; in the other schools it is generally considered Sunnah.\n\n• The place of the Qunut supplication: In the Hanafi school, before bowing in the third rak'ah of Witr salah; in the Shafi'i school, after bowing in the final rak'ah of the morning prayer; in the Maliki and Hanbali schools, there are different details concerning the practice of Qunut in Witr.\n\n• Reciting Amin: In the Hanafi school, generally silently; in the Shafi'i school, aloud in prayers recited aloud; in the Hanbali school, mostly aloud in prayers recited aloud; in the Maliki school, there are differing assessments in practice and narrations.\n\n• Reciting the Basmalah: In the Hanafi and Hanbali schools, it is generally recited silently; in the Shafi'i school, it is recited aloud in prayers recited aloud; in the Maliki school, the practice of not reciting the Basmalah before al-Fatihah in obligatory prayers is well known.\n\n🎉 You have completed the Supplications in Salah lesson! You can review these supplications within the sequence of salah in the {{link:namaz-dualari|Salah Guide}}, and review the additional surahs {{link:zamm-sureler|here}}. If you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "Differences between the schools explain details of practice · Following your own school is sufficient"
+    }
+  ],
+  "quiz_havuzu_id": "namaz-dualar"
+}

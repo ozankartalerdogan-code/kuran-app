@@ -11,7 +11,9 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type TafsirResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
-import { getSimplifiedTafsir } from "../../src/data/tafsirSimplified";
+import { getSimplifiedTafsir, getSimplifiedTafsirEn } from "../../src/data/tafsirSimplified";
+import { fmt, useLang, useStrings } from "../../src/i18n";
+import tafsirStrings from "../../src/i18n/strings/tafsir";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 
 type TafsirMode = "original" | "simplified";
@@ -21,7 +23,15 @@ export default function TafsirScreen() {
   const insets = useSafeAreaInsets();
   const { surahId: rawId, name } = useLocalSearchParams<{ surahId: string; name?: string }>();
   const surahId = Number(rawId);
-  const localSimplifiedContent = surahId ? getSimplifiedTafsir(surahId) : null;
+  const lang = useLang();
+  const s = useStrings(tafsirStrings);
+  // İngilizce arayüzde sadeleştirilmiş sekme İngilizce çeviriyi gösterir; çevirisi
+  // olmayan surede Türkçe sadeleştirilmiş metne düşülür.
+  const localEnContent = lang === "en" && surahId ? getSimplifiedTafsirEn(surahId) : null;
+  const localSimplifiedContent = localEnContent ?? (surahId ? getSimplifiedTafsir(surahId) : null);
+  // İngilizce arayüzde orijinal (Türkçe) Elmalılı metni gösterilmez: yalnız
+  // İngilizce sade tefsir (114 surenin hepsinde var). İki dil aynı anda görünmez.
+  const enOnly = lang === "en" && !!localEnContent;
 
   const [tafsir, setTafsir] = useState<TafsirResponse | null | "loading">("loading");
   const [selectedMode, setSelectedMode] = useState<TafsirMode>("original");
@@ -32,6 +42,8 @@ export default function TafsirScreen() {
 
   useEffect(() => {
     if (!surahId) { setTafsir(null); return; }
+    // EN: içerik yerel, sunucudaki Türkçe metne gerek yok.
+    if (enOnly) { setTafsir(null); setFetchFailed(false); return; }
     let alive = true;
     setTafsir("loading");
     setFetchFailed(false);
@@ -58,9 +70,10 @@ export default function TafsirScreen() {
     return () => {
       alive = false;
     };
-  }, [localSimplifiedContent, surahId, reloadKey]);
+  }, [enOnly, localSimplifiedContent, surahId, reloadKey]);
 
   const availableModes = useMemo<TafsirMode[]>(() => {
+    if (enOnly) return ["simplified"];
     if (!tafsir || tafsir === "loading") return ["original"];
 
     const modes: TafsirMode[] = tafsir.availableModes?.length
@@ -72,15 +85,16 @@ export default function TafsirScreen() {
     }
 
     return modes;
-  }, [localSimplifiedContent, tafsir]);
+  }, [enOnly, localSimplifiedContent, tafsir]);
 
   const activeContent = useMemo(() => {
+    if (enOnly) return localEnContent;
     if (!tafsir || tafsir === "loading") return null;
     if (selectedMode === "simplified") {
-      return tafsir.simplifiedContent ?? localSimplifiedContent;
+      return localEnContent ?? tafsir.simplifiedContent ?? localSimplifiedContent;
     }
     return tafsir.content ?? null;
-  }, [localSimplifiedContent, selectedMode, tafsir]);
+  }, [enOnly, localEnContent, localSimplifiedContent, selectedMode, tafsir]);
 
   const paragraphs = useMemo(() => {
     if (!activeContent) return [];
@@ -90,21 +104,21 @@ export default function TafsirScreen() {
       .filter((p) => p.length > 0 && !/^[-_=*\s]+$/.test(p));
   }, [activeContent]);
 
-  const isSimplified = selectedMode === "simplified";
+  const isSimplified = enOnly || selectedMode === "simplified";
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}> 
-      <Stack.Screen options={{ title: name ? `${name} Tefsiri` : "Sure Tefsiri" }} />
+      <Stack.Screen options={{ title: name ? fmt(s.titleNamed, { name }) : s.title }} />
 
-      {tafsir === "loading" ? (
+      {tafsir === "loading" && !enOnly ? (
         <View style={styles.centered}>
           <ActivityIndicator size="large" color={c.accent} />
-          <Text style={[styles.muted, { color: c.textMuted }]}>Tefsir yükleniyor...</Text>
+          <Text style={[styles.muted, { color: c.textMuted }]}>{s.loading}</Text>
         </View>
       ) : paragraphs.length === 0 ? (
         <View style={styles.centered}>
           <Text style={[styles.muted, { color: c.textMuted }]}>
-            {fetchFailed ? "Tefsir yüklenemedi. Bağlantını kontrol et." : "Tefsir verisi bulunamadı."}
+            {fetchFailed ? s.loadFailed : s.notFound}
           </Text>
           {fetchFailed && surahId ? (
             <TouchableOpacity
@@ -112,9 +126,9 @@ export default function TafsirScreen() {
               onPress={() => setReloadKey((k) => k + 1)}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel="Tekrar dene"
+              accessibilityLabel={s.retryA11y}
             >
-              <Text style={styles.retryText}>Tekrar Dene</Text>
+              <Text style={styles.retryText}>{s.retry}</Text>
             </TouchableOpacity>
           ) : null}
         </View>
@@ -133,20 +147,20 @@ export default function TafsirScreen() {
                   onPress={() => setSelectedMode("original")}
                   activeOpacity={0.8}
                   accessibilityRole="tab"
-                  accessibilityLabel="Orijinal tefsir metni"
+                  accessibilityLabel={s.originalA11y}
                   accessibilityState={{ selected: selectedMode === "original" }}
                 >
-                  <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>Orijinal</Text>
+                  <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>{s.original}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
                   onPress={() => setSelectedMode("simplified")}
                   activeOpacity={0.8}
                   accessibilityRole="tab"
-                  accessibilityLabel="Sadeleştirilmiş tefsir metni"
+                  accessibilityLabel={s.simplifiedA11y}
                   accessibilityState={{ selected: selectedMode === "simplified" }}
                 >
-                  <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>Sadeleştirilmiş</Text>
+                  <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>{lang === "en" && !localEnContent ? s.simplifiedFallback : s.simplified}</Text>
                 </TouchableOpacity>
               </View>
             ) : null
@@ -154,8 +168,8 @@ export default function TafsirScreen() {
           ListFooterComponent={
             <Text style={[styles.sourceFooter, { color: c.textMuted, borderTopColor: c.border }]}>
               {isSimplified
-                ? "Elmalılı Hamdi Yazır tefsirinden yapay zekâ ile günümüz Türkçesine sadeleştirilmiştir."
-                : "Kaynak: Elmalılı Hamdi Yazır"}
+                ? (lang === "en" && !localEnContent ? s.footerSimplifiedFallback : s.footerSimplified)
+                : s.footerOriginal}
             </Text>
           }
           contentContainerStyle={[styles.listContent, { paddingBottom: 40 + insets.bottom }]}

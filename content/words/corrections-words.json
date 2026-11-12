@@ -1,0 +1,2019 @@
+[
+  {
+    "ar": "وَلِيَ",
+    "tr": "dost, veli",
+    "verses": [
+      "20:18",
+      "38:23",
+      "109:6"
+    ],
+    "verdict": "fix",
+    "dogru": "ve benim için, ve benim",
+    "en": "and for me, and mine",
+    "reason": "Burada وَلِيَ, bağlaç ile birinci şahıs zamirinden oluşur; veli anlamında değildir."
+  },
+  {
+    "ar": "الٓرۚ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "10:1",
+      "14:1",
+      "15:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "الٓمٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "2:1",
+      "3:1",
+      "29:1",
+      "30:1",
+      "31:1",
+      "32:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "الٓمٓرۚ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "13:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "الٓمٓصٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "7:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "حمٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "40:1",
+      "41:1",
+      "42:1",
+      "44:1",
+      "45:1",
+      "46:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "طسٓۚ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "27:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "طه",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "20:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "كٓهيعٓصٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "19:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لَنَآۖ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "5:109",
+      "6:148",
+      "66:8"
+    ],
+    "verdict": "fix",
+    "dogru": "bize, bizim için",
+    "en": "to us, for us",
+    "reason": "لَنَا birinci çoğul şahsa yönelme veya aitlik bildirir."
+  },
+  {
+    "ar": "لَنَاۚ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "6:128",
+      "28:25",
+      "48:11"
+    ],
+    "verdict": "fix",
+    "dogru": "bize, bizim için",
+    "en": "to us, for us",
+    "reason": "لَنَا birinci çoğul şahsa yönelme veya aitlik bildirir."
+  },
+  {
+    "ar": "لِيٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "5:116",
+      "10:15",
+      "12:80",
+      "20:26",
+      "40:41"
+    ],
+    "verdict": "fix",
+    "dogru": "bana, benim için",
+    "en": "to me, for me",
+    "reason": "لِي birinci tekil şahsa yönelme veya aitlik bildirir."
+  },
+  {
+    "ar": "لَّهَا",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "4:176",
+      "18:7",
+      "26:155",
+      "50:10"
+    ],
+    "verdict": "fix",
+    "dogru": "ona, onun için",
+    "en": "to her, for her",
+    "reason": "لَهَا dişil tekil zamir içerir; mukattaa harfi değildir."
+  },
+  {
+    "ar": "لَّهُمَا",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "17:23",
+      "18:82",
+      "28:19"
+    ],
+    "verdict": "fix",
+    "dogru": "onların ikisine, ikisi için",
+    "en": "to both of them, for both of them",
+    "reason": "لَهُمَا iki kişiye yönelme veya aitlik bildirir."
+  },
+  {
+    "ar": "لِّيٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "3:41",
+      "19:10",
+      "26:77"
+    ],
+    "verdict": "fix",
+    "dogru": "bana, benim için",
+    "en": "to me, for me",
+    "reason": "لِي birinci tekil şahsa yönelme veya aitlik bildirir."
+  },
+  {
+    "ar": "يسٓ",
+    "tr": "mukattaa harfi",
+    "verses": [
+      "36:1"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "كَأَن",
+    "tr": "olur",
+    "verses": [
+      "4:73",
+      "7:92",
+      "10:12",
+      "10:24",
+      "10:45",
+      "11:68",
+      "11:95",
+      "31:7",
+      "45:8"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki",
+    "en": "as if",
+    "reason": "كَأَن benzetme bildirir; 'olur' anlamında değildir."
+  },
+  {
+    "ar": "لَوۡلَا",
+    "tr": "keşke, olmasaydı",
+    "verses": [
+      "2:118",
+      "5:63",
+      "6:37",
+      "7:203",
+      "20:133",
+      "25:32",
+      "25:77",
+      "27:46",
+      "41:44",
+      "43:31",
+      "47:20",
+      "58:8",
+      "68:28"
+    ],
+    "verdict": "fix",
+    "dogru": "neden ... değil, keşke",
+    "en": "why not, if only",
+    "reason": "Bu ayetlerde لولا sorgulama veya istek bildirir; 'olmasaydı' anlamında değildir."
+  },
+  {
+    "ar": "لَوۡلَآ",
+    "tr": "keşke, olmasaydı",
+    "verses": [
+      "4:77",
+      "6:8",
+      "7:43",
+      "10:20",
+      "11:12",
+      "12:24",
+      "12:94",
+      "13:7",
+      "13:27",
+      "20:134",
+      "25:7",
+      "25:21",
+      "25:42",
+      "28:10",
+      "28:47",
+      "28:48",
+      "28:82",
+      "29:50",
+      "34:31",
+      "63:10"
+    ],
+    "verdict": "fix",
+    "dogru": "neden ... değil, keşke, olmasaydı",
+    "en": "why not, if only, if not for",
+    "reason": "Ayetlerde hem sorgulama hem de 'olmasaydı' anlamı vardır."
+  },
+  {
+    "ar": "لَّوۡلَا",
+    "tr": "keşke, olmasaydı",
+    "verses": [
+      "8:68",
+      "18:15",
+      "24:13"
+    ],
+    "verdict": "fix",
+    "dogru": "olmasaydı, neden ... değil",
+    "en": "if not for, why not",
+    "reason": "Ayetlerde hem şart hem de sorgulama anlamı vardır."
+  },
+  {
+    "ar": "لَّوۡلَآ",
+    "tr": "keşke, olmasaydı",
+    "verses": [
+      "24:12",
+      "68:49"
+    ],
+    "verdict": "fix",
+    "dogru": "neden ... değil, olmasaydı",
+    "en": "why not, if not for",
+    "reason": "Ayetlerde hem sorgulama hem de şart anlamı vardır."
+  },
+  {
+    "ar": "إِيَّاكُمۡ",
+    "tr": "ancak, sadece",
+    "verses": [
+      "34:24",
+      "34:40"
+    ],
+    "verdict": "fix",
+    "dogru": "sizi",
+    "en": "you",
+    "reason": "إِيَّاكُم ikinci çoğul şahıs zamiridir; 'sadece' anlamında değildir."
+  },
+  {
+    "ar": "إِيَّانَا",
+    "tr": "ancak, sadece",
+    "verses": [
+      "10:28",
+      "28:63"
+    ],
+    "verdict": "fix",
+    "dogru": "bizi",
+    "en": "us",
+    "reason": "إِيَّانَا birinci çoğul şahıs nesne zamiridir."
+  },
+  {
+    "ar": "إِيَّاهُ",
+    "tr": "ancak, sadece",
+    "verses": [
+      "2:172",
+      "6:41",
+      "9:114",
+      "16:114",
+      "17:23",
+      "41:37"
+    ],
+    "verdict": "fix",
+    "dogru": "onu, ona",
+    "en": "him, to him",
+    "reason": "إِيَّاهُ üçüncü tekil şahıs zamiridir; 'sadece' anlamında değildir."
+  },
+  {
+    "ar": "وَمَا",
+    "tr": "ve yalnızca",
+    "verses": [
+      "2:9",
+      "2:26",
+      "2:99",
+      "2:143",
+      "2:213",
+      "2:269",
+      "2:272",
+      "3:7",
+      "3:19",
+      "3:69",
+      "3:126",
+      "3:144",
+      "3:185",
+      "4:113",
+      "4:120",
+      "6:32",
+      "6:48",
+      "6:123",
+      "7:126",
+      "8:10",
+      "9:54",
+      "9:74",
+      "10:36",
+      "11:27",
+      "11:88",
+      "11:104",
+      "12:81",
+      "12:106",
+      "13:14",
+      "13:26",
+      "15:21",
+      "16:127",
+      "17:41",
+      "17:59",
+      "17:60",
+      "17:64",
+      "18:56",
+      "19:64",
+      "24:54",
+      "29:18",
+      "29:43",
+      "29:47",
+      "29:49",
+      "29:64",
+      "31:32",
+      "33:14",
+      "33:22",
+      "36:17",
+      "37:39",
+      "38:15",
+      "40:13",
+      "40:25",
+      "40:37",
+      "40:50",
+      "41:35",
+      "42:14",
+      "45:24",
+      "51:56",
+      "57:20",
+      "68:52",
+      "74:31",
+      "74:56",
+      "76:30",
+      "81:29",
+      "83:12",
+      "85:8",
+      "98:4"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ... değil",
+    "en": "and not",
+    "reason": "Burada مَا olumsuzluk bildirir; 'yalnızca' anlamı إِلَّا ile kurulan yapıdan gelir."
+  },
+  {
+    "ar": "وَأَنَا",
+    "tr": "ben ve ben",
+    "verses": [
+      "20:13"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ben",
+    "en": "and I",
+    "reason": "Zamir gereksiz tekrarlanmış."
+  },
+  {
+    "ar": "وَأَنَا۠",
+    "tr": "ben ve ben",
+    "verses": [
+      "7:68",
+      "7:143",
+      "10:41",
+      "10:90",
+      "21:56",
+      "21:92",
+      "23:52",
+      "60:1"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ben",
+    "en": "and I",
+    "reason": "Zamir gereksiz tekrarlanmış."
+  },
+  {
+    "ar": "بِهِۦٓۚ",
+    "tr": "cevap onunla, onun ile",
+    "verses": [
+      "10:51"
+    ],
+    "verdict": "fix",
+    "dogru": "ona",
+    "en": "in it",
+    "reason": "Kelimede cevap anlamı yoktur."
+  },
+  {
+    "ar": "وَمَا",
+    "tr": "ve olana",
+    "verses": [
+      "2:33",
+      "2:66",
+      "2:77",
+      "2:255",
+      "2:284",
+      "3:29",
+      "3:30",
+      "3:49",
+      "3:109",
+      "3:118",
+      "3:129",
+      "3:198",
+      "4:36",
+      "4:126",
+      "4:127",
+      "4:131",
+      "4:132",
+      "4:171",
+      "5:3",
+      "5:4",
+      "5:17",
+      "5:18",
+      "5:84",
+      "5:97",
+      "5:99",
+      "5:120",
+      "6:112",
+      "6:136",
+      "6:137",
+      "6:151",
+      "7:33",
+      "7:48",
+      "7:51",
+      "7:137",
+      "7:185",
+      "10:6",
+      "10:68",
+      "11:5",
+      "13:8",
+      "14:2",
+      "14:38",
+      "15:85",
+      "16:13",
+      "16:19",
+      "16:23",
+      "16:49",
+      "16:53",
+      "16:96",
+      "18:16",
+      "19:48",
+      "19:49",
+      "19:64",
+      "19:65",
+      "20:6",
+      "20:110",
+      "21:16",
+      "21:28",
+      "21:98",
+      "22:12",
+      "22:64",
+      "22:71",
+      "22:76",
+      "24:29",
+      "25:17",
+      "25:59",
+      "25:60",
+      "26:23",
+      "26:24",
+      "26:28",
+      "26:112",
+      "27:25",
+      "27:74",
+      "28:60",
+      "28:69",
+      "30:8",
+      "31:20",
+      "32:4",
+      "33:50",
+      "33:63",
+      "34:1",
+      "34:2",
+      "34:9",
+      "35:2",
+      "36:45",
+      "36:76",
+      "37:5",
+      "37:22",
+      "37:96",
+      "37:161",
+      "38:10",
+      "38:27",
+      "38:66",
+      "40:19",
+      "41:25",
+      "42:4",
+      "42:10",
+      "42:13",
+      "42:17",
+      "42:29",
+      "42:36",
+      "42:53",
+      "43:85",
+      "44:7",
+      "44:38",
+      "45:4",
+      "45:13",
+      "46:3",
+      "46:28",
+      "48:2",
+      "49:16",
+      "50:38",
+      "51:22",
+      "53:23",
+      "53:31",
+      "57:4",
+      "57:16",
+      "58:7",
+      "59:1",
+      "61:1",
+      "62:1",
+      "64:1",
+      "64:4",
+      "68:1",
+      "69:39",
+      "78:37",
+      "84:17",
+      "87:7",
+      "90:3",
+      "91:5",
+      "91:6",
+      "91:7",
+      "92:3",
+      "111:2"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ... şeyi",
+    "en": "and what",
+    "reason": "Burada olana değil, belirtilen şeye işaret eder."
+  },
+  {
+    "ar": "إِن",
+    "tr": "yalnızca",
+    "verses": [
+      "4:117",
+      "6:116",
+      "6:148",
+      "10:66",
+      "11:54",
+      "14:11",
+      "17:47",
+      "17:52",
+      "18:5",
+      "19:93",
+      "20:103",
+      "20:104",
+      "21:36",
+      "23:114",
+      "25:8",
+      "25:41",
+      "27:81",
+      "28:19",
+      "30:53",
+      "33:13",
+      "35:40",
+      "36:29",
+      "36:53",
+      "38:14",
+      "38:70",
+      "40:56",
+      "45:32",
+      "53:23",
+      "53:28"
+    ],
+    "verdict": "fix",
+    "dogru": "... değil",
+    "en": "not",
+    "reason": "İn olumsuzluk bildirir; yalnızca anlamı illâ ile birlikte oluşur."
+  },
+  {
+    "ar": "فَمَا",
+    "tr": "böylece ne",
+    "verses": [
+      "2:16",
+      "2:85",
+      "3:146",
+      "4:90",
+      "5:67",
+      "7:5",
+      "7:13",
+      "7:39",
+      "7:101",
+      "7:132",
+      "9:70",
+      "10:72",
+      "10:74",
+      "10:93",
+      "11:63",
+      "11:69",
+      "13:33",
+      "16:46",
+      "16:71",
+      "17:60",
+      "18:97",
+      "21:15",
+      "22:18",
+      "23:76",
+      "24:40",
+      "25:19",
+      "26:100",
+      "28:81",
+      "29:24",
+      "29:29",
+      "30:9",
+      "33:49",
+      "35:37",
+      "36:67",
+      "39:23",
+      "39:36",
+      "39:37",
+      "40:33",
+      "40:34",
+      "41:24",
+      "42:44",
+      "42:46",
+      "44:29",
+      "45:17",
+      "51:36",
+      "51:45",
+      "54:5",
+      "57:27",
+      "69:47",
+      "74:48",
+      "86:10"
+    ],
+    "verdict": "fix",
+    "dogru": "böylece ... değil, peki ne",
+    "en": "so not, then what",
+    "reason": "2:85'te soru, diğer örneklerde olumsuzluk bildirir."
+  },
+  {
+    "ar": "لَئِنِ",
+    "tr": "için, -e",
+    "verses": [
+      "7:90",
+      "26:29"
+    ],
+    "verdict": "fix",
+    "dogru": "eğer",
+    "en": "if",
+    "reason": "Şart bildirir."
+  },
+  {
+    "ar": "لَقَدِ",
+    "tr": "için, -e",
+    "verses": [
+      "9:48",
+      "25:21"
+    ],
+    "verdict": "fix",
+    "dogru": "andolsun ki",
+    "en": "indeed",
+    "reason": "İçin değil, pekiştirme bildirir."
+  },
+  {
+    "ar": "لَمِنَ",
+    "tr": "için, -e",
+    "verses": [
+      "2:130",
+      "2:198",
+      "2:252",
+      "7:21",
+      "7:114",
+      "10:83",
+      "12:3",
+      "12:51",
+      "15:60",
+      "16:122",
+      "21:59",
+      "24:6",
+      "24:8",
+      "26:186",
+      "29:27",
+      "36:3",
+      "37:52",
+      "37:123",
+      "37:139",
+      "38:47",
+      "39:56"
+    ],
+    "verdict": "fix",
+    "dogru": "elbette ...den",
+    "en": "surely among",
+    "reason": "Bir gruba dahil olmayı pekiştirir."
+  },
+  {
+    "ar": "لِأَنۡ",
+    "tr": "için, -e",
+    "verses": [
+      "39:12"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لِئَلَّا",
+    "tr": "için, -e",
+    "verses": [
+      "2:150",
+      "4:165"
+    ],
+    "verdict": "fix",
+    "dogru": "...maması için",
+    "en": "so that not",
+    "reason": "Olumsuz amaç bildirir."
+  },
+  {
+    "ar": "لِكَيۡ",
+    "tr": "için, -e",
+    "verses": [
+      "16:70",
+      "33:37"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لِكَيۡلَا",
+    "tr": "için, -e",
+    "verses": [
+      "22:5",
+      "33:50"
+    ],
+    "verdict": "fix",
+    "dogru": "...maması için",
+    "en": "so that not",
+    "reason": "Olumsuzluk da içerir."
+  },
+  {
+    "ar": "لَّئِنِ",
+    "tr": "için, -e",
+    "verses": [
+      "17:88"
+    ],
+    "verdict": "fix",
+    "dogru": "eğer",
+    "en": "if",
+    "reason": "Şart bildirir."
+  },
+  {
+    "ar": "لَّئِنۡ",
+    "tr": "için, -e",
+    "verses": [
+      "6:63"
+    ],
+    "verdict": "fix",
+    "dogru": "eğer",
+    "en": "if",
+    "reason": "Şart bildirir."
+  },
+  {
+    "ar": "لَّقَد",
+    "tr": "için, -e",
+    "verses": [
+      "9:117"
+    ],
+    "verdict": "fix",
+    "dogru": "andolsun ki",
+    "en": "indeed",
+    "reason": "İçin değil, pekiştirme bildirir."
+  },
+  {
+    "ar": "لَّمِنَ",
+    "tr": "için, -e",
+    "verses": [
+      "2:145",
+      "5:106",
+      "5:107",
+      "11:31",
+      "26:42",
+      "37:133"
+    ],
+    "verdict": "fix",
+    "dogru": "elbette ...den",
+    "en": "surely among",
+    "reason": "Bir gruba dahil olmayı pekiştirir."
+  },
+  {
+    "ar": "لِّئَلَّا",
+    "tr": "için, -e",
+    "verses": [
+      "57:29"
+    ],
+    "verdict": "fix",
+    "dogru": "bilmeleri için",
+    "en": "so that they may know",
+    "reason": "Bu bağlamda olumsuzluk pekiştirme işlevindedir."
+  },
+  {
+    "ar": "لِّكَيۡلَا",
+    "tr": "için, -e",
+    "verses": [
+      "3:153",
+      "57:23"
+    ],
+    "verdict": "fix",
+    "dogru": "...mamanız için",
+    "en": "so that you do not",
+    "reason": "Olumsuzluk da içerir."
+  },
+  {
+    "ar": "۞لَّئِن",
+    "tr": "için, -e",
+    "verses": [
+      "33:60"
+    ],
+    "verdict": "fix",
+    "dogru": "eğer",
+    "en": "if",
+    "reason": "Şart bildirir."
+  },
+  {
+    "ar": "مِّمَّآ",
+    "tr": "neyden",
+    "verses": [
+      "8:70",
+      "10:94",
+      "27:36",
+      "59:9"
+    ],
+    "verdict": "fix",
+    "dogru": "...den, ... şeyden",
+    "en": "from what, than what",
+    "reason": "Soru değil, belirtilen şeye işaret eder."
+  },
+  {
+    "ar": "أَيَّ",
+    "tr": "hangi",
+    "verses": [
+      "26:227"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "أَيَّتُهَا",
+    "tr": "hangi",
+    "verses": [
+      "12:70"
+    ],
+    "verdict": "fix",
+    "dogru": "ey",
+    "en": "O",
+    "reason": "Soru değil, hitap bildirir."
+  },
+  {
+    "ar": "أَيَّمَا",
+    "tr": "hangi",
+    "verses": [
+      "28:28"
+    ],
+    "verdict": "fix",
+    "dogru": "hangisini olursa olsun",
+    "en": "whichever",
+    "reason": "Soru değil, iki seçenekten herhangi birini bildirir."
+  },
+  {
+    "ar": "أَيُّ",
+    "tr": "hangi",
+    "verses": [
+      "6:19",
+      "18:12",
+      "19:73"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "أَيُّكُمۡ",
+    "tr": "hangi",
+    "verses": [
+      "9:124",
+      "11:7",
+      "27:38",
+      "67:2"
+    ],
+    "verdict": "fix",
+    "dogru": "hanginiz",
+    "en": "which of you",
+    "reason": "كُم zamiri ikinci çoğul şahsı bildirir."
+  },
+  {
+    "ar": "أَيُّنَآ",
+    "tr": "hangi",
+    "verses": [
+      "20:71"
+    ],
+    "verdict": "fix",
+    "dogru": "hangimiz",
+    "en": "which of us",
+    "reason": "نَا zamiri birinci çoğul şahsı bildirir."
+  },
+  {
+    "ar": "أَيُّهَ",
+    "tr": "hangi",
+    "verses": [
+      "24:31",
+      "55:31"
+    ],
+    "verdict": "fix",
+    "dogru": "ey",
+    "en": "O",
+    "reason": "Bu biçim hitap için kullanılır."
+  },
+  {
+    "ar": "أَيُّهَا",
+    "tr": "hangi",
+    "verses": [
+      "4:133",
+      "12:46",
+      "15:57",
+      "36:59",
+      "39:64",
+      "51:31",
+      "56:51"
+    ],
+    "verdict": "fix",
+    "dogru": "ey",
+    "en": "O",
+    "reason": "Bu biçim hitap için kullanılır."
+  },
+  {
+    "ar": "أَيُّهَآ",
+    "tr": "hangi",
+    "verses": [
+      "18:19"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "أَيُّهُم",
+    "tr": "hangi",
+    "verses": [
+      "68:40"
+    ],
+    "verdict": "fix",
+    "dogru": "onlardan hangisi",
+    "en": "which of them",
+    "reason": "هُم zamiri üçüncü çoğul şahsı bildirir."
+  },
+  {
+    "ar": "أَيُّهُمۡ",
+    "tr": "hangi",
+    "verses": [
+      "3:44",
+      "4:11",
+      "17:57",
+      "18:7",
+      "19:69"
+    ],
+    "verdict": "fix",
+    "dogru": "onlardan hangisi",
+    "en": "which of them",
+    "reason": "هُم zamiri üçüncü çoğul şahsı bildirir."
+  },
+  {
+    "ar": "أَيِّ",
+    "tr": "hangi",
+    "verses": [
+      "80:18",
+      "82:8"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "أَيّٗا",
+    "tr": "hangi",
+    "verses": [
+      "17:110"
+    ],
+    "verdict": "fix",
+    "dogru": "hangisini",
+    "en": "whichever",
+    "reason": "Burada çağrılacak olanı belirtir."
+  },
+  {
+    "ar": "بِأَييِّكُمُ",
+    "tr": "hangi",
+    "verses": [
+      "68:6"
+    ],
+    "verdict": "fix",
+    "dogru": "hanginizde",
+    "en": "in which of you",
+    "reason": "كُم ikinci çoğul şahsı, بِ ise ilişkiyi bildirir."
+  },
+  {
+    "ar": "بِأَيِّ",
+    "tr": "hangi",
+    "verses": [
+      "31:34",
+      "81:9"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "فَأَيَّ",
+    "tr": "hangi",
+    "verses": [
+      "40:81"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "فَأَيُّ",
+    "tr": "hangi",
+    "verses": [
+      "6:81"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "فَبِأَيِّ",
+    "tr": "hangi",
+    "verses": [
+      "7:185",
+      "45:6",
+      "53:55",
+      "55:13",
+      "55:16",
+      "55:18",
+      "55:21",
+      "55:23",
+      "55:25",
+      "55:28",
+      "55:30",
+      "55:32",
+      "55:34",
+      "55:36",
+      "55:38",
+      "55:40",
+      "55:42",
+      "55:45",
+      "55:47",
+      "55:49",
+      "55:51",
+      "55:53",
+      "55:55",
+      "55:57",
+      "55:59",
+      "55:61",
+      "55:63",
+      "55:65",
+      "55:67",
+      "55:69",
+      "55:71",
+      "55:73",
+      "55:75",
+      "55:77",
+      "77:50"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لِأَيِّ",
+    "tr": "hangi",
+    "verses": [
+      "77:12"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "يَـٰٓأَيَّتُهَا",
+    "tr": "hangi",
+    "verses": [
+      "89:27"
+    ],
+    "verdict": "fix",
+    "dogru": "ey",
+    "en": "O",
+    "reason": "Bu biçim hitap için kullanılır."
+  },
+  {
+    "ar": "يَـٰٓأَيُّهَ",
+    "tr": "hangi",
+    "verses": [
+      "43:49"
+    ],
+    "verdict": "fix",
+    "dogru": "ey",
+    "en": "O",
+    "reason": "Bu biçim hitap için kullanılır."
+  },
+  {
+    "ar": "لَدَا",
+    "tr": "çekişen",
+    "verses": [
+      "12:25"
+    ],
+    "verdict": "fix",
+    "dogru": "yanında",
+    "en": "at, beside",
+    "reason": "لدى yakınlık veya yer bildirir."
+  },
+  {
+    "ar": "لَدَيۡنَآ",
+    "tr": "çekişen",
+    "verses": [
+      "73:12"
+    ],
+    "verdict": "fix",
+    "dogru": "katımızda",
+    "en": "with us",
+    "reason": "لَدَيْنَا birinci çoğul şahısla yer bildirir."
+  },
+  {
+    "ar": "وَأَنَا۠",
+    "tr": "ben ve ben (ben)",
+    "verses": [
+      "12:59"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ben",
+    "en": "and I",
+    "reason": "Birinci şahıs zamiri gereksiz tekrarlanmış."
+  },
+  {
+    "ar": "وَأَنَا۠",
+    "tr": "ben ve ben (şahıs zamiri)",
+    "verses": [
+      "12:72"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ben",
+    "en": "and I",
+    "reason": "Birinci şahıs zamiri gereksiz tekrarlanmış."
+  },
+  {
+    "ar": "بِمَنِ",
+    "tr": "kiminle",
+    "verses": [
+      "53:30",
+      "53:32"
+    ],
+    "verdict": "fix",
+    "dogru": "kimi, kimin",
+    "en": "who, whom",
+    "reason": "Bu bağlamlarda «kiminle» anlamı vermez."
+  },
+  {
+    "ar": "بِمَنۡ",
+    "tr": "kiminle",
+    "verses": [
+      "17:84"
+    ],
+    "verdict": "fix",
+    "dogru": "kimin",
+    "en": "who",
+    "reason": "Burada kimin daha doğru yolda olduğu bildirilir."
+  },
+  {
+    "ar": "لَّـٰكِنَّا۠",
+    "tr": "elbette biz",
+    "verses": [
+      "18:38"
+    ],
+    "verdict": "fix",
+    "dogru": "fakat ben",
+    "en": "but I",
+    "reason": "Bu biçim birinci tekil şahıstır ve karşıtlık bildirir."
+  },
+  {
+    "ar": "وَلَٰكِنَّآ",
+    "tr": "elbette biz",
+    "verses": [
+      "28:45"
+    ],
+    "verdict": "fix",
+    "dogru": "fakat biz",
+    "en": "but we",
+    "reason": "لَكِنَّ karşıtlık bildirir."
+  },
+  {
+    "ar": "لَيۡتَنِي",
+    "tr": "keşke ben olsaydım",
+    "verses": [
+      "25:28"
+    ],
+    "verdict": "fix",
+    "dogru": "keşke ben",
+    "en": "if only I",
+    "reason": "'Olsaydım' anlamı kelimede yoktur."
+  },
+  {
+    "ar": "يَٰلَيۡتَنِي",
+    "tr": "keşke ben olsaydım",
+    "verses": [
+      "18:42",
+      "19:23",
+      "78:40"
+    ],
+    "verdict": "fix",
+    "dogru": "keşke ben",
+    "en": "if only I",
+    "reason": "'Olsaydım' anlamı kelimede yoktur."
+  },
+  {
+    "ar": "بِيَحۡيَىٰ",
+    "tr": "yaşamak, hayat",
+    "verses": [
+      "3:39"
+    ],
+    "verdict": "fix",
+    "dogru": "Yahya'yı",
+    "en": "John",
+    "reason": "Burada peygamberin özel adıdır."
+  },
+  {
+    "ar": "وَيَحۡيَىٰ",
+    "tr": "yaşamak, hayat",
+    "verses": [
+      "6:85"
+    ],
+    "verdict": "fix",
+    "dogru": "ve Yahya",
+    "en": "and John",
+    "reason": "Burada peygamberin özel adıdır."
+  },
+  {
+    "ar": "يَحۡيَىٰ",
+    "tr": "yaşamak, hayat",
+    "verses": [
+      "19:7",
+      "21:90"
+    ],
+    "verdict": "fix",
+    "dogru": "Yahya",
+    "en": "John",
+    "reason": "Burada peygamberin özel adıdır."
+  },
+  {
+    "ar": "يَٰيَحۡيَىٰ",
+    "tr": "yaşamak, hayat",
+    "verses": [
+      "19:12"
+    ],
+    "verdict": "fix",
+    "dogru": "ey Yahya",
+    "en": "O John",
+    "reason": "Peygambere ismiyle hitap edilmektedir."
+  },
+  {
+    "ar": "وَأَنَّكَ",
+    "tr": "ve sen",
+    "verses": [
+      "20:119"
+    ],
+    "verdict": "fix",
+    "dogru": "ve senin",
+    "en": "and that you",
+    "reason": "أَنَّ bağlacı da anlamda karşılanmalıdır."
+  },
+  {
+    "ar": "عَلَيۡهِمَا",
+    "tr": "onların ikisine, onlar ikisine",
+    "verses": [
+      "20:121"
+    ],
+    "verdict": "fix",
+    "dogru": "ikisinin üzerine",
+    "en": "upon both of them",
+    "reason": "Burada üzerlerine yaprak örtmelerinden söz edilir."
+  },
+  {
+    "ar": "كَيۡ",
+    "tr": "nasıl, ne şekilde, hangi yüzden",
+    "verses": [
+      "20:33"
+    ],
+    "verdict": "fix",
+    "dogru": "diye, için",
+    "en": "so that",
+    "reason": "Soru değil, amaç bildirir."
+  },
+  {
+    "ar": "بِنَا",
+    "tr": "biz, bizim, bize",
+    "verses": [
+      "20:35"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لَّهُۥۚ",
+    "tr": "cevap ona, onun için, onu",
+    "verses": [
+      "20:39"
+    ],
+    "verdict": "fix",
+    "dogru": "ona, onun için",
+    "en": "to him, for him",
+    "reason": "'Cevap' anlamı yoktur."
+  },
+  {
+    "ar": "كَيۡ",
+    "tr": "nasıl ki, çünkü, ki",
+    "verses": [
+      "20:40"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "فَهُمُ",
+    "tr": "anlar",
+    "verses": [
+      "21:34"
+    ],
+    "verdict": "fix",
+    "dogru": "öyleyse onlar",
+    "en": "then they",
+    "reason": "Fiil değil, bağlaç ve zamirdir."
+  },
+  {
+    "ar": "بِنَا",
+    "tr": "bizim, biz için, bizi",
+    "verses": [
+      "21:47"
+    ],
+    "verdict": "fix",
+    "dogru": "biz",
+    "en": "we",
+    "reason": "Burada hesap görücü olarak yeterli olanı belirtir."
+  },
+  {
+    "ar": "وَمَأۡجُوجُ",
+    "tr": "ya'cuc ve ma'cuc'un bir parçası, ya'cuc",
+    "verses": [
+      "21:96"
+    ],
+    "verdict": "fix",
+    "dogru": "ve Me'cuc",
+    "en": "and Magog",
+    "reason": "Kelime Ye'cuc'u değil, Me'cuc'u ifade eder."
+  },
+  {
+    "ar": "أَنَّهُ",
+    "tr": "nasıl",
+    "verses": [
+      "2:26",
+      "2:144",
+      "22:54",
+      "41:53",
+      "72:1",
+      "75:28"
+    ],
+    "verdict": "fix",
+    "dogru": "onun olduğunu",
+    "en": "that it is",
+    "reason": "'Nasıl' değil, bağlaç ve zamir içerir."
+  },
+  {
+    "ar": "وَأَنَّهُۥٓ",
+    "tr": "nasıl",
+    "verses": [
+      "8:24",
+      "53:50"
+    ],
+    "verdict": "fix",
+    "dogru": "ve onun",
+    "en": "and that he",
+    "reason": "'Nasıl' değil, bağlaç ve zamir içerir."
+  },
+  {
+    "ar": "وَأَنِّي",
+    "tr": "nasıl",
+    "verses": [
+      "2:47",
+      "2:122"
+    ],
+    "verdict": "fix",
+    "dogru": "ve benim",
+    "en": "and that I",
+    "reason": "Birinci tekil şahıs zamiri ve bağlaç içerir."
+  },
+  {
+    "ar": "بِأَنَّ",
+    "tr": "ile, -de",
+    "verses": [
+      "2:176",
+      "4:138",
+      "5:82",
+      "8:53",
+      "9:111",
+      "22:6",
+      "22:61",
+      "22:62",
+      "31:30",
+      "33:47",
+      "47:3",
+      "47:11",
+      "96:14",
+      "99:5"
+    ],
+    "verdict": "fix",
+    "dogru": "çünkü, olduğunu",
+    "en": "because, that",
+    "reason": "Bağlama göre sebep veya içerik bildirir."
+  },
+  {
+    "ar": "بِمَآ",
+    "tr": "ile, -de",
+    "verses": [
+      "3:151"
+    ],
+    "verdict": "fix",
+    "dogru": "sebebiyle",
+    "en": "because of",
+    "reason": "Burada sebep bildirir."
+  },
+  {
+    "ar": "وَأَنَّكُمۡ",
+    "tr": "ve siz",
+    "verses": [
+      "23:115"
+    ],
+    "verdict": "fix",
+    "dogru": "ve sizin",
+    "en": "and that you",
+    "reason": "أَنَّ bağlacı da anlamda karşılanmalıdır."
+  },
+  {
+    "ar": "۞هَيۡهَاتَ",
+    "tr": "hayır, asla, mümkün değil",
+    "verses": [
+      "23:36"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "هَيۡهَاتَ",
+    "tr": "imkansız, asla olmaz, hayır",
+    "verses": [
+      "23:36"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لَّعَلَّكُمۡ",
+    "tr": "belki, ümit ederim, umarım ki",
+    "verses": [
+      "24:1"
+    ],
+    "verdict": "fix",
+    "dogru": "umulur ki siz, belki siz",
+    "en": "perhaps you, so that you may",
+    "reason": "İkinci çoğul şahıs zamiri de anlamda karşılanmalıdır."
+  },
+  {
+    "ar": "كَأَنَّهَا",
+    "tr": "sanki o kadın gibi",
+    "verses": [
+      "24:35"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki o",
+    "en": "as if it",
+    "reason": "Dişil zamir burada camı belirtir, kadını değil."
+  },
+  {
+    "ar": "يَٰلَيۡتَنِي",
+    "tr": "ah keşke ben olsaydım",
+    "verses": [
+      "25:27"
+    ],
+    "verdict": "fix",
+    "dogru": "ah keşke ben",
+    "en": "oh, if only I",
+    "reason": "İfadede 'olsaydım' fiili yoktur."
+  },
+  {
+    "ar": "وَأَنَا۠",
+    "tr": "ben ve ben (ben + vav bağlacı)",
+    "verses": [
+      "26:20"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ben",
+    "en": "and I",
+    "reason": "'Ben' zamiri bir kez geçer."
+  },
+  {
+    "ar": "كَأَنَّهَا",
+    "tr": "sanki o kadındı",
+    "verses": [
+      "27:10"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki o",
+    "en": "as if it were",
+    "reason": "Dişil zamir burada bir kadını göstermez."
+  },
+  {
+    "ar": "وَبِمَن",
+    "tr": "kimden",
+    "verses": [
+      "27:47"
+    ],
+    "verdict": "fix",
+    "dogru": "ve kimin yüzünden",
+    "en": "and because of whom",
+    "reason": "Bağlamda 'kimden' değil, sebep bildiren bir ifade vardır."
+  },
+  {
+    "ar": "لَّعَلَّكُمۡ",
+    "tr": "belki, umarız, ümit ederiz",
+    "verses": [
+      "8:45",
+      "27:7"
+    ],
+    "verdict": "fix",
+    "dogru": "umulur ki siz, belki siz",
+    "en": "perhaps you; so that you may",
+    "reason": "Zamir ikinci çoğul şahsı gösterir; 'umarız' anlamı yoktur."
+  },
+  {
+    "ar": "كَيۡ",
+    "tr": "nasıl, ne şekilde, hangi yolla",
+    "verses": [
+      "28:13"
+    ],
+    "verdict": "fix",
+    "dogru": "diye, için",
+    "en": "so that; in order to",
+    "reason": "Kelime amaç bildirir; 'nasıl' anlamına gelmez."
+  },
+  {
+    "ar": "كَأَنَّهَا",
+    "tr": "sanki o kadın",
+    "verses": [
+      "28:31"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki o",
+    "en": "as if it were",
+    "reason": "Dişil zamir burada bir kadını göstermez."
+  },
+  {
+    "ar": "لَعَلَّهُمۡ",
+    "tr": "belki, umarım ki, ümit ederek",
+    "verses": [
+      "28:51"
+    ],
+    "verdict": "fix",
+    "dogru": "umulur ki onlar, belki onlar",
+    "en": "perhaps they; so that they may",
+    "reason": "Zamir üçüncü çoğul şahsı gösterir; 'umarım' anlamı yoktur."
+  },
+  {
+    "ar": "وَيۡكَأَنَّهُۥ",
+    "tr": "sanki, seninle birlikte, adeta",
+    "verses": [
+      "28:82"
+    ],
+    "verdict": "fix",
+    "dogru": "vay, demek ki",
+    "en": "ah, indeed",
+    "reason": "İfadede 'seninle birlikte' anlamı yoktur."
+  },
+  {
+    "ar": "وَلَكَۖ",
+    "tr": "lakin, fakat, ancak",
+    "verses": [
+      "28:9"
+    ],
+    "verdict": "fix",
+    "dogru": "ve senin için, ve sana",
+    "en": "and for you",
+    "reason": "İfade 'fakat' değil, 've senin için' demektir."
+  },
+  {
+    "ar": "وَٱلۡمَرۡوَةَ",
+    "tr": "geçmek, yürümek, harekete geçmek, gitmek",
+    "verses": [
+      "2:158"
+    ],
+    "verdict": "fix",
+    "dogru": "ve Merve",
+    "en": "and Marwah",
+    "reason": "Merve burada bir tepenin adıdır."
+  },
+  {
+    "ar": "بِأَن",
+    "tr": "ile ki",
+    "verses": [
+      "2:189",
+      "9:87",
+      "9:93"
+    ],
+    "verdict": "fix",
+    "dogru": "...mesiyle, ...mesine",
+    "en": "by; that",
+    "reason": "İfade bağlamlarda fiili isimleştirir; 'ile ki' uygun değildir."
+  },
+  {
+    "ar": "وَمَا",
+    "tr": "ve güçlükle",
+    "verses": [
+      "2:71"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ... değil",
+    "en": "and not",
+    "reason": "'Güçlükle' anlamı sonraki ifadeyle birlikte ortaya çıkar."
+  },
+  {
+    "ar": "لِّـجِبۡرِيلَ",
+    "tr": "cebrail, meleklerin adı",
+    "verses": [
+      "2:97"
+    ],
+    "verdict": "fix",
+    "dogru": "Cebrail'e",
+    "en": "to Gabriel",
+    "reason": "İfade Cebrail'e yöneliktir; 'meleklerin adı' fazladır."
+  },
+  {
+    "ar": "يَٰلَيۡتَنَآ",
+    "tr": "keşke biz de olsaydık",
+    "verses": [
+      "33:66"
+    ],
+    "verdict": "fix",
+    "dogru": "keşke biz",
+    "en": "if only we",
+    "reason": "İfadede 'olsaydık' fiili veya 'de' anlamı yoktur."
+  },
+  {
+    "ar": "لَهُۥۚ",
+    "tr": "cevap ona, onun için",
+    "verses": [
+      "34:15"
+    ],
+    "verdict": "fix",
+    "dogru": "ona, onun için",
+    "en": "to him; for him",
+    "reason": "Kelime 'cevap' anlamı içermez."
+  },
+  {
+    "ar": "فَبِمَا",
+    "tr": "ve ... ile",
+    "verses": [
+      "34:50",
+      "42:30"
+    ],
+    "verdict": "fix",
+    "dogru": "öyleyse ... ile, ... sebebiyle",
+    "en": "then through; because of",
+    "reason": "İfade bağlamlarda vasıta veya sebep bildirir."
+  },
+  {
+    "ar": "يَقۡطِينٖ",
+    "tr": "kabak, balık ağacı",
+    "verses": [
+      "37:146"
+    ],
+    "verdict": "fix",
+    "dogru": "kabak, kabak bitkisi",
+    "en": "gourd plant",
+    "reason": "'Balık ağacı' kelimenin anlamı değildir."
+  },
+  {
+    "ar": "لَّهُۥٓ",
+    "tr": "cevap onun, ona (zamir)",
+    "verses": [
+      "38:19"
+    ],
+    "verdict": "fix",
+    "dogru": "ona, onun için",
+    "en": "to him; for him",
+    "reason": "Kelime 'cevap' anlamı içermez."
+  },
+  {
+    "ar": "بِبَدۡرٖ",
+    "tr": "badr, ay ışığı, dolunay",
+    "verses": [
+      "3:123"
+    ],
+    "verdict": "fix",
+    "dogru": "Bedir'de",
+    "en": "at Badr",
+    "reason": "Burada Bedir yer adıdır."
+  },
+  {
+    "ar": "وَبِمَا",
+    "tr": "ile",
+    "verses": [
+      "3:79"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ... nedeniyle",
+    "en": "and because of",
+    "reason": "İfade bağlamda bağlaç ve sebep anlamı içerir."
+  },
+  {
+    "ar": "وَبِمَآ",
+    "tr": "ile",
+    "verses": [
+      "4:34",
+      "40:70"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ... nedeniyle, ve ...e",
+    "en": "and because of; and in what",
+    "reason": "İfade bağlama göre sebep veya ilgili şeyi belirtir ve 've' bağlacını içerir."
+  },
+  {
+    "ar": "فَمَالِ",
+    "tr": "bana ne",
+    "verses": [
+      "4:78",
+      "70:36"
+    ],
+    "verdict": "fix",
+    "dogru": "ne oluyor, nesi var",
+    "en": "what is the matter with",
+    "reason": "İfade 'bana ne' değil, birinin durumunu sorar."
+  },
+  {
+    "ar": "ٱلۡأَيۡكَةِ",
+    "tr": "orman, ağaç topluluğu, gözlük ağacı",
+    "verses": [
+      "50:14"
+    ],
+    "verdict": "fix",
+    "dogru": "orman, sık ağaçlık",
+    "en": "thicket; woodland",
+    "reason": "'Gözlük ağacı' kelimenin anlamı değildir."
+  },
+  {
+    "ar": "وَٱلۡعُزَّىٰ",
+    "tr": "güçlü, aziz",
+    "verses": [
+      "53:19"
+    ],
+    "verdict": "fix",
+    "dogru": "ve Uzzâ",
+    "en": "and al-Uzza",
+    "reason": "Burada Uzzâ bir putun özel adıdır."
+  },
+  {
+    "ar": "كَيۡ",
+    "tr": "nasıl, ne şekilde, niçin",
+    "verses": [
+      "59:7"
+    ],
+    "verdict": "fix",
+    "dogru": "diye, için",
+    "en": "so that, in order that",
+    "reason": "كَيْ burada amaç bildirir."
+  },
+  {
+    "ar": "أَحۡمَدُۖ",
+    "tr": "övgüyle",
+    "verses": [
+      "61:6"
+    ],
+    "verdict": "fix",
+    "dogru": "Ahmed",
+    "en": "Ahmad",
+    "reason": "Burada özel isimdir."
+  },
+  {
+    "ar": "يَٰلَيۡتَنِي",
+    "tr": "ah keşke benim olsaydı",
+    "verses": [
+      "69:25"
+    ],
+    "verdict": "fix",
+    "dogru": "ah keşke ben",
+    "en": "oh, if only I",
+    "reason": "'Benim olsaydı' anlamı yoktur."
+  },
+  {
+    "ar": "يَٰلَيۡتَهَا",
+    "tr": "keşke o ölmüş olsaydı",
+    "verses": [
+      "69:27"
+    ],
+    "verdict": "fix",
+    "dogru": "ah keşke o",
+    "en": "if only it",
+    "reason": "Ölüm anlamı bu kelimede yoktur."
+  },
+  {
+    "ar": "وَأَنَا۠",
+    "tr": "ben ve ben (ben kişi olarak)",
+    "verses": [
+      "6:163"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ben",
+    "en": "and I",
+    "reason": "'Ben' zamiri bir kez geçer."
+  },
+  {
+    "ar": "يَٰلَيۡتَنَا",
+    "tr": "ah keşke biz olsaydık",
+    "verses": [
+      "6:27"
+    ],
+    "verdict": "fix",
+    "dogru": "ah keşke biz",
+    "en": "oh, if only we",
+    "reason": "'Olsaydık' anlamı kelimede yoktur."
+  },
+  {
+    "ar": "بَلَىٰ",
+    "tr": "evet, hayır, peki ya",
+    "verses": [
+      "6:30"
+    ],
+    "verdict": "fix",
+    "dogru": "evet, bilakis",
+    "en": "yes, indeed",
+    "reason": "Olumsuz soruyu olumlu cevaplar; 'hayır' anlamında değildir."
+  },
+  {
+    "ar": "وَيۡلٞ",
+    "tr": "yazık, vay, felaket, bela, duhul",
+    "verses": [
+      "77:19"
+    ],
+    "verdict": "fix",
+    "dogru": "yazık, vay, felaket, bela",
+    "en": "woe, calamity",
+    "reason": "'Duhul' kelimenin anlamı değildir."
+  },
+  {
+    "ar": "كَأَنَّهُۥ",
+    "tr": "sanki o bir şeymiş gibi",
+    "verses": [
+      "77:33"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki o",
+    "en": "as if it",
+    "reason": "'Bir şey' anlamı kelimede yoktur."
+  },
+  {
+    "ar": "وَيۡلٞ",
+    "tr": "vay, yazık, felaket, berbat",
+    "verses": [
+      "77:34"
+    ],
+    "verdict": "fix",
+    "dogru": "vay, yazık, felaket",
+    "en": "woe, calamity",
+    "reason": "'Berbat' kelimenin anlamı değildir."
+  },
+  {
+    "ar": "وَعَن",
+    "tr": "hakkında",
+    "verses": [
+      "7:17"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ...den, ve tarafından",
+    "en": "and from",
+    "reason": "Burada yön bildirir."
+  },
+  {
+    "ar": "وَعَنۡ",
+    "tr": "hakkında",
+    "verses": [
+      "7:17"
+    ],
+    "verdict": "fix",
+    "dogru": "ve ...den, ve tarafından",
+    "en": "and from",
+    "reason": "Burada yön bildirir."
+  },
+  {
+    "ar": "كَأَنَّهُۥ",
+    "tr": "sanki o, öyle ise",
+    "verses": [
+      "7:171"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki o",
+    "en": "as if it",
+    "reason": "'Öyle ise' anlamı taşımaz."
+  },
+  {
+    "ar": "كَأَنَّكَ",
+    "tr": "sanki sen, adeta sen, seni sanırsın",
+    "verses": [
+      "7:187"
+    ],
+    "verdict": "fix",
+    "dogru": "sanki sen, adeta sen",
+    "en": "as if you",
+    "reason": "'Seni sanırsın' zamiri ve anlamı karıştırır."
+  },
+  {
+    "ar": "عَلَيۡهِمَا",
+    "tr": "sizin ikiniz için",
+    "verses": [
+      "7:22"
+    ],
+    "verdict": "fix",
+    "dogru": "onların ikisinin üzerine",
+    "en": "upon them both",
+    "reason": "Zamir ikinci değil, üçüncü kişi ikildir."
+  },
+  {
+    "ar": "لَكُمَا",
+    "tr": "sizin ikiniz için",
+    "verses": [
+      "7:21",
+      "7:22"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "لَّكُمَآ",
+    "tr": "sizin ikiniz için",
+    "verses": [
+      "7:22"
+    ],
+    "verdict": "ok"
+  },
+  {
+    "ar": "نَعَمۡۚ",
+    "tr": "nimet, nimet vermek",
+    "verses": [
+      "7:44"
+    ],
+    "verdict": "fix",
+    "dogru": "evet",
+    "en": "yes",
+    "reason": "Burada cevap edatıdır."
+  },
+  {
+    "ar": "إِن",
+    "tr": "mutlaka",
+    "verses": [
+      "86:4"
+    ],
+    "verdict": "fix",
+    "dogru": "değil",
+    "en": "not",
+    "reason": "Bu ayette olumsuzluk edatıdır."
+  },
+  {
+    "ar": "مِمَّ",
+    "tr": "neden",
+    "verses": [
+      "86:5"
+    ],
+    "verdict": "fix",
+    "dogru": "neyden",
+    "en": "from what",
+    "reason": "Sebebi değil, hangi şeyden olduğunu sorar."
+  },
+  {
+    "ar": "يَٰلَيۡتَنِي",
+    "tr": "keşke ben olmadım saydım",
+    "verses": [
+      "89:24"
+    ],
+    "verdict": "fix",
+    "dogru": "keşke ben",
+    "en": "if only I",
+    "reason": "'Olmadım saydım' anlamı içermez."
+  },
+  {
+    "ar": "وَٱلۡمَسِيحَ",
+    "tr": "silmek",
+    "verses": [
+      "9:31"
+    ],
+    "verdict": "fix",
+    "dogru": "ve Mesih'i",
+    "en": "and the Messiah",
+    "reason": "Kelime 'silmek' değil, 'Mesih' anlamındadır."
+  }
+]

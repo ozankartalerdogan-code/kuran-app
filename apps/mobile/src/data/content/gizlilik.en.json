@@ -1,0 +1,332 @@
+{
+  "sonGuncelleme": "Last Updated",
+  "tarih": "July 12, 2026",
+  "meta": {
+    "gelistirici": "Developer",
+    "gelistiriciAdi": "Kartal Studio",
+    "iletisim": "Contact",
+    "uygulama": "App",
+    "uygulamaAdi": "Kuran Yolu - Learn Islam"
+  },
+  "bolumler": [
+    {
+      "baslik": "1. Data Collected",
+      "ogeler": [
+        {
+          "tip": "altbaslik",
+          "metin": "Automatically collected through Firebase Analytics:"
+        },
+        {
+          "tip": "madde",
+          "metin": "App usage statistics (which screens were opened)"
+        },
+        {
+          "tip": "madde",
+          "metin": "Device type and operating system version"
+        },
+        {
+          "tip": "madde",
+          "metin": "App version"
+        },
+        {
+          "tip": "madde",
+          "metin": "Anonymous user ID"
+        },
+        {
+          "tip": "altbaslik",
+          "metin": "Stored on your device and included in the cloud backup:"
+        },
+        {
+          "tip": "madde",
+          "metin": "Favorite verses"
+        },
+        {
+          "tip": "madde",
+          "metin": "Personal notes"
+        },
+        {
+          "tip": "madde",
+          "metin": "Quran completion tracking and reading position (bookmark)"
+        },
+        {
+          "tip": "madde",
+          "metin": "Lesson and Arabic alphabet learning progress"
+        },
+        {
+          "tip": "madde",
+          "metin": "Daily streak information"
+        },
+        {
+          "tip": "madde",
+          "metin": "Some app preferences (night mode, font size, tajweed)"
+        },
+        {
+          "tip": "paragraf",
+          "metin": "This data is primarily stored on your device. The relevant verse keys may be sent to the app API to display the translations and verse information for verses you have favorited or added notes to."
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Cloud backup (Firebase):",
+              "kalin": true
+            },
+            {
+              "metin": "The data above is backed up using Google Firebase (Cloud Firestore) so that your progress is not lost if you uninstall and reinstall the app or switch to a new device. This backup is linked to an anonymous identity (Firebase Anonymous Authentication) created without requesting any identifying information such as your name, email address, or phone number. Access to your backup is restricted by security rules to your anonymous identity alone; data is encrypted in transit using HTTPS. Backup content, including your note text, is not used for advertising, profiling, or analytics and is not shared with third parties. You can permanently delete your backup and anonymous account from within the app at any time (see \"7. Account and Data Deletion\")."
+            }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Device system backup:",
+              "kalin": true
+            },
+            {
+              "metin": "If your device's system backup feature is enabled, this on-device data may also be backed up automatically: to the Google Drive account linked to your device on Android, or to your iCloud account on iOS. This backup is managed by Google or Apple and can be turned off in your device settings."
+            }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Location data:",
+              "kalin": true
+            },
+            {
+              "metin": "Approximate location (at the city level) is used for prayer times and the qibla direction; precise (GPS) location is not used. The qibla direction is calculated entirely on your device. To calculate prayer times, your approximate location is sent to the third-party service Aladhan.com. Location data is not stored on our servers."
+            }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Search data:",
+              "kalin": true
+            },
+            {
+              "metin": "When you use the search feature in the app, your search query may be sent to the app server solely to retrieve search results. Search queries are not used for ad targeting or user profiling; search text is not sent to Firebase Analytics."
+            }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Advertising ID:",
+              "kalin": true
+            },
+            {
+              "metin": "The app does not contain ads and does not collect your advertising ID."
+            }
+          ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Microphone:",
+              "kalin": true
+            },
+            {
+              "metin": "The app does not request microphone access or record audio."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baslik": "2. Use of Data",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "metin": "The data collected is used only for the following purposes:"
+        },
+        {
+          "tip": "madde",
+          "metin": "Improving app performance"
+        },
+        {
+          "tip": "madde",
+          "metin": "Detecting and fixing errors"
+        },
+        {
+          "tip": "madde",
+          "metin": "Improving the user experience"
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Your data is never sold to third parties.",
+              "kalin": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baslik": "3. Third-Party Services",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "metin": "The app uses the following third-party services:"
+        },
+        {
+          "tip": "madde",
+          "metin": "Firebase Analytics — Usage statistics"
+        },
+        {
+          "tip": "madde",
+          "metin": "Firebase Authentication — Anonymous identity for linking the cloud backup specifically to you"
+        },
+        {
+          "tip": "madde",
+          "metin": "Cloud Firestore — Cloud backup storage"
+        },
+        {
+          "tip": "madde",
+          "metin": "Sentry — Error reporting"
+        },
+        {
+          "tip": "madde",
+          "metin": "Aladhan.com — Prayer times API"
+        },
+        {
+          "tip": "madde",
+          "metin": "Turso — Database"
+        }
+      ]
+    },
+    {
+      "baslik": "4. Data Security",
+      "ogeler": [
+        {
+          "tip": "madde",
+          "metin": "All API communications are encrypted using HTTPS"
+        },
+        {
+          "tip": "madde",
+          "metin": "No user account is required; names, email addresses, and phone numbers are not collected"
+        },
+        {
+          "tip": "madde",
+          "metin": "Your note text is stored on your device and only in your personal cloud backup, which is protected by an anonymous identity; it is not used for any other purpose"
+        },
+        {
+          "tip": "madde",
+          "metin": "Verse keys for favorited verses or verses with notes may be sent to the API only to display the relevant verse information"
+        }
+      ]
+    },
+    {
+      "baslik": "5. Children's Privacy",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "metin": "The app is not intended for children under 13. We do not knowingly collect data from users under 13."
+        }
+      ]
+    },
+    {
+      "baslik": "6. Rights Under the KVKK",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "metin": "You have the following rights under the Turkish Personal Data Protection Law No. 6698 (KVKK):"
+        },
+        {
+          "tip": "madde",
+          "metin": "The right to access your data"
+        },
+        {
+          "tip": "madde",
+          "metin": "The right to request correction of your data"
+        },
+        {
+          "tip": "madde",
+          "metin": "The right to request deletion of your data"
+        }
+      ]
+    },
+    {
+      "baslik": "7. Account and Data Deletion",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "The cloud backup is linked to"
+            },
+            {
+              "metin": "an anonymous Firebase account",
+              "kalin": true
+            },
+            {
+              "metin": "that does not require identifying information. The button below permanently deletes your cloud backup and this anonymous account; deleted data cannot be recovered. Local data on your device is not affected — you can delete it by uninstalling the app or clearing the app data in your device settings."
+            }
+          ]
+        },
+        {
+          "tip": "yedekKontrol"
+        },
+        {
+          "tip": "paragraf",
+          "metin": "You can also submit your deletion request by sending an email to the contact address below."
+        }
+      ]
+    },
+    {
+      "baslik": "8. Changes",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "metin": "This privacy policy may be updated from time to time. You will be notified in the app of significant changes."
+        }
+      ]
+    },
+    {
+      "baslik": "9. Contact",
+      "ogeler": [
+        {
+          "tip": "paragraf",
+          "metin": "For questions and KVKK requests:"
+        },
+        {
+          "tip": "eposta"
+        }
+      ]
+    }
+  ],
+  "eposta": {
+    "etiket": "Send email",
+    "bulunamadiBaslik": "No email app found",
+    "bulunamadiMesaj": "You can reach us at: {email}"
+  },
+  "yedek": {
+    "kapaliParcalar": [
+      {
+        "metin": "Cloud backup is currently turned off.",
+        "kalin": true
+      },
+      {
+        "metin": "Your backup and anonymous account have been deleted; no data will be sent to the cloud until you turn it back on."
+      }
+    ],
+    "yenidenAc": "Turn cloud backup back on",
+    "acilamadiBaslik": "Could not turn it on",
+    "acilamadiMesaj": "Check your internet connection and try again.",
+    "silOnayBaslik": "Delete cloud backup?",
+    "silOnayMesaj": "Your cloud backup and anonymous account will be permanently deleted; this action cannot be undone. Data on your device will not be affected. Cloud backup will remain off until you turn it back on.",
+    "vazgec": "Cancel",
+    "sil": "Delete",
+    "silindiBaslik": "Deleted",
+    "silindiMesaj": "Your cloud backup and anonymous account have been permanently deleted.",
+    "silinemediBaslik": "Could not delete",
+    "silinemediMesaj": "Check your internet connection and try again.",
+    "yedegimiSil": "Delete my cloud backup"
+  }
+}

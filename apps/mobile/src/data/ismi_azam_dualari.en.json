@@ -1,0 +1,87 @@
+{
+  "bakara250": {
+    "id": "bakara-250",
+    "baslik": "The Supplication of Talut and His Soldiers (al-Baqarah 250)",
+    "kaynak": "The Noble Qur'an · al-Baqarah 250",
+    "guvenilirlik": "10/10",
+    "arapca": "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+    "meal": "Our Lord! Pour patience upon us, make our feet steadfast, and help us against the disbelieving people.",
+    "transkripsiyon": "Rabbenâ efrîğ aleynâ sabran ve sebbit akdâmenâ vensurnâ alel-kavmil-kâfirîn",
+    "uygulama": "Recite 3 times for steadfastness in times of difficulty and distress, and in the face of enemies and oppressors."
+  },
+  "ismiAzamDualari": [
+    {
+      "id": "ismi-azam-1",
+      "baslik": "Narrated by Buraydah ibn Husayb (r.a.)",
+      "kaynak": "Tirmidhi, Abu Dawud · Sahih",
+      "guvenilirlik": "10/10",
+      "arapca": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي أَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ الْأَحَدُ الصَّمَدُ الَّذِي لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
+      "meal": "O Allah! I ask You, bearing witness that You are Allah, the One (Ahad), the One who is in need of nothing (Samad), who neither begets nor was born, and who has no equal.",
+      "transkripsiyon": "Allahümme innî es'elüke bi-ennî eşhedü enneke ente'llâhü lâ ilâhe illâ ente'l-ehadü's-samedü'l-lezî lem yelid ve lem yûled ve lem yekün lehû küfüven ehad",
+      "uygulama": "Recite this supplication 3 times, then express your requests."
+    },
+    {
+      "id": "ismi-azam-2",
+      "baslik": "Narrated by Anas ibn Malik (r.a.)",
+      "kaynak": "Nasa'i, Ibn Majah · Sahih",
+      "guvenilirlik": "10/10",
+      "arapca": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنَّ لَكَ الْحَمْدَ لَا إِلَهَ إِلَّا أَنْتَ الْمَنَّانُ بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",
+      "meal": "O Allah! All praise is Yours; there is no deity but You. You are the Bestower of abundant blessings (Mannan), the Originator of the heavens and the earth (Badi'), the Possessor of majesty and generosity.",
+      "transkripsiyon": "Allahümme innî es'elüke bi-enne leke'l-hamdü lâ ilâhe illâ ente'l-mennânü bedîu's-semâvâti ve'l-ardı yâ ze'l-celâli ve'l-ikrâm",
+      "uygulama": "Recite this supplication 3 times, then list your requests."
+    }
+  ],
+  "korunmaDualari": [
+    {
+      "id": "korunma-sabah-aksam",
+      "baslik": "Morning and Evening Supplication for Protection",
+      "kaynak": "Abu Dawud, Tirmidhi, Ibn Majah · Sahih",
+      "guvenilirlik": "10/10",
+      "kategori": "sabah-aksam",
+      "arapca": "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+      "meal": "In the name of Allah, with whose name nothing on earth or in heaven can cause harm. He is the All-Hearing, the All-Knowing.",
+      "transkripsiyon": "Bismillâhillezî lâ yedurru me'asmihi şey'ün fil erdı ve lâ fissemâi ve hüves-semî'ul alîm",
+      "uygulama": "Recite 3 times in the morning and 3 times in the evening. Nothing can harm you."
+    },
+    {
+      "id": "korunma-evden-cikarken",
+      "baslik": "Supplication When Leaving Home",
+      "kaynak": "Abu Dawud, Tirmidhi · Sahih",
+      "guvenilirlik": "10/10",
+      "kategori": "evden-cikarken",
+      "arapca": "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "meal": "In the name of Allah. I place my trust in Allah. The strength to avoid sins and perform acts of worship comes only through Allah's help.",
+      "transkripsiyon": "Bismillâhi tevekkeltü alallâh, lâ havle ve lâ kuvvete illâ billâh",
+      "uygulama": "Recite when leaving home. You will be protected from Satan and evil and guided to the right path."
+    },
+    {
+      "id": "korunma-yatarken",
+      "baslik": "Supplication When Going to Bed",
+      "kaynak": "Bukhari, Muslim · Sahih",
+      "guvenilirlik": "10/10",
+      "kategori": "yatarken",
+      "arapca": "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
+      "meal": "My Lord! In Your name I lay down on my side, and in Your name I raise it again. If You take my soul, have mercy on it; if You release it, protect it with that by which You protect Your righteous servants.",
+      "transkripsiyon": "Bismike Rabbî vada'tü cenbî ve bike erfe'uhû, in emsekte nefsî ferhamhâ ve in erseltehâ fahfazhâ bimâ tahfazu bihî ibâdekessâlihîn",
+      "uygulama": "Recite before going to sleep. Lie on your right side and place your right hand under your cheek."
+    },
+    {
+      "id": "korunma-genel-siginma",
+      "baslik": "General Supplication for Refuge (Sayyid al-Istighfar)",
+      "kaynak": "Bukhari · Sahih",
+      "guvenilirlik": "10/10",
+      "kategori": "genel-korunma",
+      "arapca": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
+      "meal": "O Allah! You are my Lord. There is no deity but You. You created me. I am Your servant. I remain faithful to my promise and covenant with You as much as I am able. I seek refuge in You from the evil of what I have done. I acknowledge the blessings You have given me, and I acknowledge my sin. Forgive me, for none forgives sins but You.",
+      "transkripsiyon": "Allahümme ente Rabbî lâ ilâhe illâ ente halaktenî ve ene abdüke ve ene alâ ahdike ve va'dike mesteta'tü, eûzü bike min şerri mâ sana'tü, ebûü leke bi ni'metike aleyye ve ebûü bi zenbî fağfirlî feinnehû lâ yağfiruz-zünûbe illâ ente",
+      "uygulama": "Recite in the morning and evening. Its virtue: Whoever recites this supplication during the day with conviction and dies before evening will enter Paradise; whoever recites it at night with conviction and dies before morning will enter Paradise (Bukhari)."
+    }
+  ],
+  "sekineDuasi": {
+    "id": "sekine",
+    "baslik": "The Ark of Tranquility and the Supplication for Peace",
+    "arapca": "إِنَّ آيَةَ مُلْكِهِ أَنْ يَأْتِيَكُمُ التَّابُوتُ فِيهِ سَكِينَةٌ مِنْ رَبِّكُمْ وَبَقِيَّةٌ مِمَّا تَرَكَ آلُ مُوسَى وَآلُ هَارُونَ تَحْمِلُهُ الْمَلَائِكَةُ ۚ إِنَّ فِي ذَٰلِكَ لَآيَةً لَكُمْ إِنْ كُنْتُمْ مُؤْمِنِينَ",
+    "meal": "The sign of his kingship is that the Ark will come to you. In it is tranquility (peace and reassurance) from your Lord and a remnant of what the families of Musa and Harun left behind. The angels carry it. If you are believers, there is surely a sign in this for you.",
+    "aciklama": "Sakinah is the peace, tranquility, and spiritual strength that Allah sends down into the hearts of His believing servants. The Ark of Tranquility is mentioned as a symbol of this divine peace."
+  }
+}

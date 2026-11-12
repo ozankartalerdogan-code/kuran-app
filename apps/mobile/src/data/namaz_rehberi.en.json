@@ -1,0 +1,579 @@
+{
+  "namaz_rehberi": {
+    "id": "namaz_rehberi",
+    "baslik": "Salah Guide",
+    "versiyon": "1.0",
+    "olusturulma": "2026-06-16",
+    "dil": "tr",
+    "aciklama": "A step-by-step salah guide for beginners. It preserves the style of explanation common in Türkiye while also noting the main differences between the schools of law.",
+    "kaynak_not": "The content has been simplified based on the language commonly used in Islamic instructional texts in Türkiye and on foundational Sunni sources on salah. For detailed differences between the schools of law, individuals may follow their own tradition or a trusted teacher.",
+    "temel_kavramlar": {
+      "baslik": "Fard or Sunnah? What Is the Difference?",
+      "aciklama": "Some elements of salah form its basic structure; others are complementary practices taught by our Prophet. To make learning easier, this guide uses simplified language drawn from common Islamic instructional texts.",
+      "kavramlar": [
+        {
+          "id": "farz",
+          "isim": "Fard",
+          "renk": "kirmizi",
+          "aciklama": "Elements considered essential for salah to be valid. Without them, the basic structure of salah is not considered complete.",
+          "örnek": "The opening takbir, standing, bowing, prostration, and the final sitting"
+        },
+        {
+          "id": "vacip",
+          "isim": "Wajib",
+          "renk": "turuncu",
+          "aciklama": "In this guide, the label “wajib” refers to practices that are strongly required, particularly in Hanafi instructional texts. In other schools of law, the same practices may be given different legal classifications.",
+          "örnek": "Qunut in witr and additional recitation in the first two rak'ahs of fard prayers"
+        },
+        {
+          "id": "sunnet",
+          "isim": "Sunnah",
+          "renk": "yesil",
+          "aciklama": "Practices that the Prophet ﷺ performed regularly and that enhance salah. Some details may differ between the schools of law.",
+          "örnek": "Reciting Subhanaka, repeating the phrases of glorification, and certain supplications during transitions"
+        }
+      ],
+      "teselli_notu": "If you are just starting, do not worry. Learn the basic structure first, and the details will fall into place over time. Allah also knows His servant's intention and effort."
+    },
+    "farz_sunnet_namaz_farki": {
+      "baslik": "The Difference Between Fard and Sunnah Prayers",
+      "aciklama": "Some rak'ahs of the five daily prayers are fard, while others are Sunnah. What is the difference?",
+      "karsilastirma": [
+        {
+          "ozellik": "Obligation to perform",
+          "farz_namaz": "It must be performed; abandoning it is a sin",
+          "sunnet_namaz": "Performing it brings great reward, but abandoning it is not a sin"
+        },
+        {
+          "ozellik": "If missed",
+          "farz_namaz": "It must be made up later",
+          "sunnet_namaz": "It is not made up; its time passes"
+        },
+        {
+          "ozellik": "Purpose",
+          "farz_namaz": "The fundamental obligation of worship",
+          "sunnet_namaz": "It complements the fard prayer and increases reward"
+        }
+      ],
+      "vakit_rekat_tablosu": [
+        {
+          "vakit": "Fajr",
+          "sunnet": "2 Sunnah rak'ahs",
+          "farz": "2 fard rak'ahs",
+          "toplam": "4 rak'ahs"
+        },
+        {
+          "vakit": "Dhuhr",
+          "sunnet": "4 Sunnah rak'ahs before + 2 Sunnah rak'ahs after",
+          "farz": "4 fard rak'ahs",
+          "toplam": "10 rak'ahs"
+        },
+        {
+          "vakit": "Asr",
+          "sunnet": "4 Sunnah rak'ahs",
+          "farz": "4 fard rak'ahs",
+          "toplam": "8 rak'ahs"
+        },
+        {
+          "vakit": "Maghrib",
+          "sunnet": "2 Sunnah rak'ahs after",
+          "farz": "3 fard rak'ahs",
+          "toplam": "5 rak'ahs"
+        },
+        {
+          "vakit": "Isha",
+          "sunnet": "4 Sunnah rak'ahs before + 2 Sunnah rak'ahs after + 3 witr rak'ahs",
+          "farz": "4 fard rak'ahs",
+          "toplam": "13 rak'ahs"
+        }
+      ],
+      "not": "In the Hanafi practice common in Türkiye, witr prayer is considered wajib; in other Sunni schools of law, it may be described as a strongly emphasized Sunnah. This guide follows the way the daily prayers are commonly performed in Türkiye."
+    },
+    "namaz_oncesi": {
+      "baslik": "Before Starting Salah",
+      "adimlar": [
+        {
+          "id": "taharet",
+          "isim": "Wudu",
+          "durum": "farz",
+          "aciklama": "Being in a state of wudu is obligatory for performing salah. Salah without wudu is invalid."
+        },
+        {
+          "id": "kible",
+          "isim": "Facing the Qiblah",
+          "durum": "farz",
+          "aciklama": "It is obligatory to face the direction of the Kaaba (the qiblah) when performing salah."
+        },
+        {
+          "id": "niyet",
+          "isim": "Intention",
+          "durum": "farz",
+          "aciklama": "What matters is to determine in your heart which prayer you will perform. Saying it aloud is not obligatory; those who wish may also express it verbally to make learning easier.",
+          "niyet_ornekleri": [
+            {
+              "namaz": "Fard Fajr prayer",
+              "niyet": "I intend to perform today's fard Fajr prayer for the sake of Allah."
+            },
+            {
+              "namaz": "Fard Dhuhr prayer",
+              "niyet": "I intend to perform today's fard Dhuhr prayer for the sake of Allah."
+            },
+            {
+              "namaz": "Fard Asr prayer",
+              "niyet": "I intend to perform today's fard Asr prayer for the sake of Allah."
+            },
+            {
+              "namaz": "Fard Maghrib prayer",
+              "niyet": "I intend to perform today's fard Maghrib prayer for the sake of Allah."
+            },
+            {
+              "namaz": "Fard Isha prayer",
+              "niyet": "I intend to perform today's fard Isha prayer for the sake of Allah."
+            },
+            {
+              "namaz": "Witr prayer",
+              "niyet": "I intend to perform today's witr prayer for the sake of Allah."
+            }
+          ],
+          "not": "The essence of intention is in the heart. The following phrases are instructional examples, originally in Turkish, not obligatory formulas that must be memorized."
+        }
+      ]
+    },
+    "namaz_adimlari": [
+      {
+        "id": "iftitah_tekbiri",
+        "sira": 1,
+        "isim": "Opening Takbir",
+        "konum": "Qiyam (Standing)",
+        "durum": "farz",
+        "aciklama": "Raise your hands to the level of your earlobes, say 'Allahu Ekber', and fold your hands.",
+        "dua": null,
+        "dua_arapca": null,
+        "el_pozisyonu_notu": "In the Hanafi practice common in Türkiye, the hands are folded below the navel. Other Sunni schools of law may have different practices, such as folding them over or below the chest, or leaving them at the sides.",
+        "anlam_notu": "With this takbir, worldly affairs are left behind and one stands before Allah."
+      },
+      {
+        "id": "subhaneke",
+        "sira": 2,
+        "isim": "Subhanaka",
+        "konum": "Qiyam (Standing)",
+        "durum": "sunnet",
+        "ne_zaman": "It is recited only in the first rak'ah of the prayer, immediately after the opening takbir.",
+        "dua": "Subhanaka Allahumma wa bihamdika wa tabarakasmuka wa ta'ala jadduka wa la ilaha ghayruk.",
+        "dua_arapca": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَهَ غَيْرُكَ",
+        "anlam": "O Allah! I declare You free of every imperfection and praise You. Your name is blessed, and Your glory is exalted. There is no deity but You.",
+        "not": "Because it is Sunnah, forgetting it does not invalidate the prayer, but reciting it is very good."
+      },
+      {
+        "id": "euzu_besmele",
+        "sira": 3,
+        "isim": "Seeking Refuge and Saying the Basmala",
+        "konum": "Qiyam (Standing)",
+        "durum": "sunnet",
+        "ne_zaman": "It is recited only in the first rak'ah, after Subhanaka and before al-Fatihah.",
+        "dua": "A'udhu billahi min ash-shaytan ir-rajim. Bismillahi r-rahmani r-rahim.",
+        "dua_arapca": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
+        "anlam": "I seek refuge in Allah from the accursed Satan. In the name of Allah, the Most Merciful, the Most Compassionate.",
+        "not": "In the other rak'ahs, only the basmala is recited; the words seeking refuge are not recited."
+      },
+      {
+        "id": "fatiha",
+        "sira": 4,
+        "isim": "Surah al-Fatihah",
+        "konum": "Qiyam (Standing)",
+        "durum": "farz",
+        "ne_zaman": "It is recited in every rak'ah. In this guide, it is taught as the essential recitation of salah; its legal ruling and its recitation in congregational prayer may be explained differently across the schools of law.",
+        "dua": "Bismillahi r-rahmani r-rahim. Alhamdu lillahi rabb il-'alamin. Ar-rahmani r-rahim. Maliki yawm id-din. Iyyaka na'budu wa iyyaka nasta'in. Ihdina s-sirat al-mustaqim. Sirat alladhina an'amta 'alayhim ghayr il-maghdubi 'alayhim wa la d-dallin.",
+        "dua_arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+        "anlam": "In the name of Allah, the Most Merciful, the Most Compassionate. All praise belongs to Allah, Lord of the worlds. He is the Most Merciful, the Most Compassionate. Master of the Day of Judgment. You alone we worship, and You alone we ask for help. Guide us to the straight path: the path of those You have blessed, not those who have incurred anger or those who have gone astray.",
+        "not": "Saying “Amin” quietly after al-Fatihah is a common Sunnah practice. The details of recitation in congregational prayer may vary between the schools of law."
+      },
+      {
+        "id": "zamm_i_sure",
+        "sira": 5,
+        "isim": "Additional Recitation",
+        "konum": "Qiyam (Standing)",
+        "durum": "vacip",
+        "ne_zaman": "In this guide, it is taught as additional recitation after al-Fatihah in the first two rak'ahs of fard prayers and in every rak'ah of Sunnah and witr prayers. The detailed legal rulings may be expressed differently across the schools of law.",
+        "aciklama": "After al-Fatihah, at least three short verses or one short surah are recited. The most commonly chosen surahs are listed below.",
+        "sureler": [
+          {
+            "id": "ihlas",
+            "isim": "Surah al-Ikhlas (112)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ هُوَ اللَّهُ أَحَدٌ اللَّهُ الصَّمَدُ لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+            "okunusu": "Kul hüvallâhü ehad. Allâhü's-Samed. Lem yelid ve lem yûled. Ve lem yekün lehû küfüven ehad.",
+            "anlam": "Say: He is Allah, the One and Only. Allah is as-Samad (everything is in need of Him, and He is in need of nothing). He neither begets nor is born. Nothing is equal or comparable to Him.",
+            "rekat_sayisi": 4
+          },
+          {
+            "id": "felak",
+            "isim": "Surah al-Falaq (113)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+            "okunusu": "Kul eûzü bi rabbi'l-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerri'n-neffâsâti fi'l-ukad. Ve min şerri hâsidin izâ hased.",
+            "anlam": "Say: I seek refuge in the Lord of daybreak, from the evil of what He has created, from the evil of darkness when it settles, from the evil of those who blow on knots, and from the evil of the envier when they envy.",
+            "rekat_sayisi": 5
+          },
+          {
+            "id": "nas",
+            "isim": "Surah an-Nas (114)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَالنَّاسِ",
+            "okunusu": "Kul eûzü bi rabbi'n-nâs. Meliki'n-nâs. İlâhi'n-nâs. Min şerri'l-vesvâsi'l-hannâs. Ellezî yüvesvisü fî sudûri'n-nâs. Mine'l-cinneti ve'n-nâs.",
+            "anlam": "Say: I seek refuge in the Lord of mankind, the King of mankind, the God of mankind, from the evil of the stealthy whisperer, who whispers into the hearts of mankind, from among jinn and mankind.",
+            "rekat_sayisi": 6
+          },
+          {
+            "id": "kevser",
+            "isim": "Surah al-Kawthar (108)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ فَصَلِّ لِرَبِّكَ وَانْحَرْ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+            "okunusu": "İnnâ a'taynâke'l-kevser. Fe salli li rabbike ve'nhar. İnne şânieke hüve'l-ebter.",
+            "anlam": "Indeed, We have given you al-Kawthar. So pray to your Lord and offer sacrifice. Indeed, it is the one who bears hatred toward you whose line is cut off.",
+            "rekat_sayisi": 3
+          },
+          {
+            "id": "asr",
+            "isim": "Surah al-Asr (103)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ وَالْعَصْرِ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
+            "okunusu": "Ve'l-asr. İnne'l-insâne le fî hüsr. İlle'llezîne âmenû ve amilü's-sâlihâti ve tevâsav bi'l-hakkı ve tevâsav bi's-sabr.",
+            "anlam": "By time, indeed, humanity is in loss, except those who have iman and do righteous deeds, and advise one another to follow the truth, and advise one another to be patient.",
+            "rekat_sayisi": 3
+          },
+          {
+            "id": "fil",
+            "isim": "Surah al-Fil (105)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ",
+            "okunusu": "Elem tera keyfe feale rabbüke bi ashâbi'l-fîl. Elem yec'al keydehüm fî tadlîl. Ve ersele aleyhim tayran ebâbîl. Termîhim bi hicâratin min siccîl. Feceelehüm ke'asfin me'kûl.",
+            "anlam": "Have you not seen what your Lord did to the people of the elephant? Did He not make their plan fail? He sent against them flocks of birds, pelting them with stones of baked clay. Then He made them like eaten leaves of grain.",
+            "rekat_sayisi": 5
+          },
+          {
+            "id": "kureys",
+            "isim": "Surah Quraysh (106)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ فَلْيَعْبُدُوا رَبَّ هَذَا الْبَيْتِ الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ",
+            "okunusu": "Li îlâfi kureyş. Îlâfihim rihleteş-şitâi ve's-sayf. Felya'büdû rabbe hâze'l-beyt. Ellezî et'amehüm min cû'in ve âmenehüm min havf.",
+            "anlam": "For the security and accustomed ways of Quraysh, their accustomed journeys in winter and summer. So let them worship the Lord of this House, who fed them against hunger and gave them security from fear.",
+            "rekat_sayisi": 4
+          },
+          {
+            "id": "maun",
+            "isim": "Surah al-Ma'un (107)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ فَذَلِكَ الَّذِي يَدُعُّ الْيَتِيمَ وَلَا يَحُضُّ عَلَى طَعَامِ الْمِسْكِينِ فَوَيْلٌ لِّلْمُصَلِّينَ الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ الَّذِينَ هُمْ يُرَاءُونَ وَيَمْنَعُونَ الْمَاعُونَ",
+            "okunusu": "Ereeytelleziî yükezzibü bid-diyn. Fezâlike'llezî yedu'ul-yetîm. Ve lâ yehuddu alâ taâmi'l-miskîn. Fe veylün lil musallîn. Ellezîne hüm an salâtihim sâhûn. Ellezîne hüm yürâûne ve yemne'ûnel-mâ'ûn.",
+            "anlam": "Have you seen the one who denies the religion? That is the one who pushes the orphan away and does not encourage feeding the poor. So woe to those who pray but are heedless of their salah, who show off and withhold acts of kindness.",
+            "rekat_sayisi": 7
+          },
+          {
+            "id": "kafirun",
+            "isim": "Surah al-Kafirun (109)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ يَا أَيُّهَا الْكَافِرُونَ لَا أَعْبُدُ مَا تَعْبُدُونَ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ لَكُمْ دِينُكُمْ وَلِيَ دِينِ",
+            "okunusu": "Kul yâ eyyühe'l-kâfirûn. Lâ a'büdü mâ ta'büdûn. Ve lâ entüm âbidûne mâ a'büd. Ve lâ ene âbidün mâ abedtüm. Ve lâ entüm âbidûne mâ a'büd. Leküm dînüküm ve liye dîn.",
+            "anlam": "Say: O disbelievers! I do not worship what you worship, nor do you worship what I worship. I will not worship what you worship, nor will you worship what I worship. For you is your religion, and for me is mine.",
+            "rekat_sayisi": 6
+          },
+          {
+            "id": "nasr",
+            "isim": "Surah an-Nasr (110)",
+            "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا",
+            "okunusu": "İzâ câe nasrullâhi ve'l-feth. Ve raeyte'n-nâse yedhulûne fî dînillâhi efvâcâ. Fe sebbih bi hamdi rabbike vestağfirh. İnnehû kâne tevvâbâ.",
+            "anlam": "When Allah's help and victory come, and you see people entering Allah's religion in crowds, glorify your Lord with praise and seek His forgiveness. Surely He is ever accepting of repentance.",
+            "rekat_sayisi": 3
+          }
+        ]
+      },
+      {
+        "id": "ruku_tekbiri",
+        "sira": 6,
+        "isim": "Takbir for Going into Ruku",
+        "konum": "Transition",
+        "durum": "farz",
+        "aciklama": "Say 'Allahu Ekber' and bow into ruku."
+      },
+      {
+        "id": "ruku",
+        "sira": 7,
+        "isim": "Glorification in Ruku",
+        "konum": "Ruku (Bowing)",
+        "durum": "sunnet",
+        "aciklama": "Bow with your back straight, your hands on your knees, and your head level with your back.",
+        "dua": "Subhana Rabbiy al-'Azim.",
+        "dua_arapca": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
+        "anlam": "My Lord, the Most Great, is free from all imperfection.",
+        "tekrar": "It is Sunnah to say it 3 times. It may also be said more times in odd numbers (5, 7...).",
+        "farz_notu": "Going into ruku and pausing briefly with composure are obligatory. Saying the glorification is Sunnah."
+      },
+      {
+        "id": "rukudan_kalkis",
+        "sira": 8,
+        "isim": "Rising from Ruku",
+        "konum": "Transition",
+        "durum": "farz",
+        "dua": "Sami'allahu liman hamidah. — Rabbana wa laka l-hamd.",
+        "dua_arapca": "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ — رَبَّنَا وَلَكَ الْحَمْدُ",
+        "anlam": "Allah hears those who praise Him. — Our Lord, all praise belongs to You.",
+        "aciklama": "While rising from ruku, say 'Sami'allahu liman hamidah'; once fully upright, say 'Rabbana wa lakal hamd'.",
+        "durum_detay": "Rising from ruku and standing fully upright is an important part of salah. The wording and rulings concerning the remembrances recited may be explained differently by different schools of law."
+      },
+      {
+        "id": "secde_tekbiri",
+        "sira": 9,
+        "isim": "Takbir for Going into Sujud",
+        "konum": "Transition",
+        "durum": "farz",
+        "aciklama": "Say 'Allahu Ekber' and go into sujud."
+      },
+      {
+        "id": "secde",
+        "sira": 10,
+        "isim": "Glorification in Sujud",
+        "konum": "Sujud",
+        "durum": "sunnet",
+        "aciklama": "The forehead, nose, two hands, two knees, and toes touch the ground. Seven body parts make contact with the ground.",
+        "dua": "Subhana Rabbiy al-A'la.",
+        "dua_arapca": "سُبْحَانَ رَبِّيَ الْأَعْلَى",
+        "anlam": "My Lord, the Most High, is free from all imperfection.",
+        "tekrar": "It is Sunnah to say it 3 times.",
+        "farz_notu": "Going into sujud is obligatory; saying the glorification is Sunnah.",
+        "anlam_notu": "Sujud is when a servant is closest to Allah. For this reason, making supplication during sujud is very valuable."
+      },
+      {
+        "id": "iki_secde_arasi",
+        "sira": 11,
+        "isim": "Sitting Between the Two Sujuds",
+        "konum": "Sitting",
+        "durum": "farz",
+        "dua": "Rabbigfirli.",
+        "dua_arapca": "رَبِّ اغْفِرْ لِي",
+        "anlam": "My Lord, forgive me.",
+        "aciklama": "After the first sujud, rise and sit briefly, say 'Rabbigfirli', and then go into sujud again.",
+        "not": "Sit briefly and calmly between the two sujuds. The ruling on this sitting and the details of the supplication to be recited may be explained differently by different schools of law."
+      },
+      {
+        "id": "kade_i_ula",
+        "sira": 12,
+        "isim": "First Sitting (Ka'de-i Ula)",
+        "konum": "Sitting",
+        "durum": "vacip",
+        "ne_zaman": "This is done only at the end of the second rak'ah of salah consisting of 3 or 4 rak'ahs. It is not part of a 2-rak'ah salah.",
+        "aciklama": "At the end of the second rak'ah, sit, recite only Tahiyyat, and then rise. Salli and Barik are not recited in this sitting.",
+        "dua_id": "tahiyyat",
+        "not": "Only Tahiyyat is recited in this sitting; the other supplications are left for the final sitting."
+      },
+      {
+        "id": "kade_i_ahire",
+        "sira": 13,
+        "isim": "Final Sitting (Ka'de-i Ahire)",
+        "konum": "Sitting",
+        "durum": "farz",
+        "ne_zaman": "This is done after the final rak'ah of every salah.",
+        "aciklama": "This is the final sitting of the salah. All the supplications are recited here in order.",
+        "okuma_sirasi": [
+          "tahiyyat",
+          "salli",
+          "barik",
+          "rabbena_atina",
+          "rabbena_gfirli"
+        ]
+      }
+    ],
+    "dualar": [
+      {
+        "id": "tahiyyat",
+        "isim": "Tahiyyat (At-tahiyyatu)",
+        "ne_zaman": "It is recited in every sitting, both the first and the final sitting.",
+        "durum": "vacip",
+        "dua": "At-tahiyyatu lillahi wa s-salawatu wa t-tayyibat. As-salamu 'alayka ayyuhan-nabiyyu wa rahmatullahi wa barakatuh. As-salamu 'alayna wa 'ala 'ibadillah is-salihin. Ashhadu an la ilaha illallah wa ashhadu anna Muhammadan 'abduhu wa rasuluh.",
+        "dua_arapca": "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+        "anlam": "All acts of worship performed with the tongue, the body, and wealth belong to Allah. O Prophet! May Allah's peace, mercy, and blessings be upon you. Peace be upon us and upon Allah's righteous servants. I bear witness that there is no god but Allah, and I bear witness that Muhammad is His servant and messenger.",
+        "parmak_notu": "Raise the index finger when saying 'Ashhadu' and lower it when saying 'illallah'."
+      },
+      {
+        "id": "salli",
+        "isim": "Allahumma Salli (Salli)",
+        "ne_zaman": "It is recited only in the final sitting, after Tahiyyat.",
+        "durum": "sunnet",
+        "dua": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammad. Kama sallayta 'ala Ibrahima wa 'ala ali Ibrahim. Innaka hamidun majid.",
+        "dua_arapca": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        "anlam": "O Allah! Send blessings upon Muhammad and the family of Muhammad as You sent blessings upon Ibrahim and the family of Ibrahim. Surely You are Hamid, Mecid."
+      },
+      {
+        "id": "barik",
+        "isim": "Allahumma Barik (Barik)",
+        "ne_zaman": "It is recited only in the final sitting, after Salli.",
+        "durum": "sunnet",
+        "dua": "Allahumma barik 'ala Muhammadin wa 'ala ali Muhammad. Kama barakta 'ala Ibrahima wa 'ala ali Ibrahim. Innaka hamidun majid.",
+        "dua_arapca": "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        "anlam": "O Allah! Bless Muhammad and the family of Muhammad as You blessed Ibrahim and the family of Ibrahim. Surely You are Hamid, Mecid."
+      },
+      {
+        "id": "rabbena_atina",
+        "isim": "Rabbena Atina",
+        "ne_zaman": "It is recited in the final sitting, after Salli and Barik.",
+        "durum": "sunnet",
+        "dua": "Rabbana atina fi d-dunya hasanatan wa fi l-akhirati hasanatan wa qina 'adhab an-nar.",
+        "dua_arapca": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+        "anlam": "Our Lord! Give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
+        "kuran_kaynagi": "Surah al-Baqarah 2:201"
+      },
+      {
+        "id": "rabbena_gfirli",
+        "isim": "Rabbanaghfirli",
+        "ne_zaman": "It is recited in the final sitting, after Rabbena Atina.",
+        "durum": "sunnet",
+        "dua": "Rabbana ghfir li wa liwalidayya wa lil-mu'minina yawma yaqum al-hisab.",
+        "dua_arapca": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
+        "anlam": "Our Lord! Forgive me, my parents, and all the believers on the Day of Reckoning.",
+        "kuran_kaynagi": "Surah Ibrahim 14:41"
+      },
+      {
+        "id": "kunut",
+        "isim": "Qunut Supplication",
+        "ne_zaman": "In the Hanafi witr described in this guide, it is recited while standing in the final rak'ah, after the additional surah and before ruku. The Shafi'i tradition also includes qunut in the dawn prayer.",
+        "durum": "vacip",
+        "dua": "Allahumma inna nasta'inuka wa nastaghfiruk. Wa nu'minu bika wa natawakkalu 'alayka. Wa nuthni 'alayka l-khayr. Wa nashkuruka wa la nakfuruk. Wa nakhla'u wa natruku man yafjuruk. Allahumma iyyaka na'budu wa laka nusalli wa nasjudu. Wa ilayka nas'a wa nahfidu. Narju rahmataka wa nakhsha 'adhabak. Inna 'adhabaka bil-kuffari mulhaq.",
+        "dua_arapca": "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ وَنَشْكُرُكَ وَلَا نَكْفُرُكَ وَنَخْلَعُ وَنَتْرُكُ مَنْ يَفْجُرُكَ اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَى وَنَحْفِدُ نَرْجُو رَحْمَتَكَ وَنَخْشَى عَذَابَكَ إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحَقٌ",
+        "anlam": "O Allah! We seek Your help and ask Your forgiveness. We believe in You and put our trust in You. We praise You with goodness. We thank You and are not ungrateful to You. We leave those who disobey You. O Allah! You alone we worship; for You we pray and prostrate. To You alone we hasten and serve. We hope for Your mercy and fear Your punishment. Surely Your punishment reaches the disbelievers.",
+        "not": "This guide follows the Hanafi practice of qunut common in Türkiye. If you do not yet know the qunut supplication, you can continue with short supplications or “Rabbana atina” until you memorize it."
+      }
+    ],
+    "selam": {
+      "id": "selam",
+      "isim": "Salam",
+      "durum": "vacip",
+      "aciklama": "The salah is completed with salam. Salam is given to both sides.",
+      "adimlar": [
+        {
+          "sira": 1,
+          "aciklama": "Slowly turn your head to the right, directing your gaze over your right shoulder.",
+          "dua": "As-salamu 'alaykum wa rahmatullah.",
+          "dua_arapca": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+          "anlam": "May Allah's peace and mercy be upon you."
+        },
+        {
+          "sira": 2,
+          "aciklama": "Then turn your head to the left, directing your gaze over your left shoulder.",
+          "dua": "As-salamu 'alaykum wa rahmatullah.",
+          "dua_arapca": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+          "anlam": "May Allah's peace and mercy be upon you."
+        }
+      ],
+      "anlam_notu": "The salah is completed with salam. The person exits the salah and also gives salam to the angels on their right and left and, if present, to the believers in the congregation."
+    },
+    "vitir_namazi": {
+      "baslik": "How Is Witr Salah Performed?",
+      "durum": "vacip",
+      "rekat": "3 rak'ahs",
+      "ne_zaman": "It is performed after the night prayer; its time lasts throughout the night until the dawn prayer. A person who performs the night prayer (tahajjud) may delay witr until the end of the night.",
+      "aciklama": "This section describes the three-rak'ah witr in the Hanafi practice common in Türkiye. In other Sunni schools, witr may be performed in arrangements of one, three, or different numbers of rak'ahs, sometimes with separate salams. The most distinctive Hanafi feature is the recitation of the qunut supplication before ruku in the final rak'ah.",
+      "ozellikler": [
+        {
+          "baslik": "An additional surah in every rak'ah",
+          "durum": "vacip",
+          "aciklama": "Unlike obligatory salah, in all three rak'ahs of witr, a surah is recited after al-Fatihah as an additional surah."
+        },
+        {
+          "baslik": "Takbir of qunut",
+          "durum": "vacip",
+          "aciklama": "In the third rak'ah, after finishing the additional surah and before going into ruku, raise the hands to ear level, say 'Allahu Akbar', and fold the hands again."
+        },
+        {
+          "baslik": "Qunut supplication",
+          "durum": "vacip",
+          "aciklama": "After the qunut takbir, the qunut supplication is recited before going into ruku. (The qunut supplication and its meaning are available in the 'Supplications' section below.)"
+        }
+      ],
+      "adimlar": [
+        {
+          "rekat": "1st Rak'ah",
+          "durum": "vacip",
+          "aciklama": "Make the intention by saying, 'I intend to perform the Witr prayer for the sake of Allah,' and say the opening takbir (Allahu Akbar). Recite Subhanaka → A'udhu-Bismillah → al-Fatihah → an additional surah; perform ruku and two prostrations."
+        },
+        {
+          "rekat": "2nd Rak'ah",
+          "durum": "vacip",
+          "aciklama": "Recite Besmele → al-Fatihah → an additional surah; perform ruku and two prostrations. Then sit and recite only Tahiyyat, and stand for the 3rd rak'ah (Salli and Barik are not recited in this sitting)."
+        },
+        {
+          "rekat": "3rd Rak'ah",
+          "durum": "vacip",
+          "aciklama": "Recite Bismillah → al-Fatihah → an additional surah. After the additional surah, WITHOUT GOING INTO RUKU, raise the hands and say 'Allahu Akbar' (the qunut takbir), fold the hands and recite the qunut supplication. Then go into ruku with 'Allahu Akbar', perform two prostrations and move to the final sitting."
+        },
+        {
+          "rekat": "Final Sitting",
+          "durum": "farz",
+          "aciklama": "Recite Tahiyyat → Salli → Barik → Rabbana in order, then complete the prayer by giving salam first to the right and then to the left."
+        }
+      ],
+      "kunut_dua_id": "qunut",
+      "yaygin_hata": "In the Hanafi practice common in Türkiye, the point most often forgotten is that the qunut takbir and the qunut supplication in the third rak'ah come before ruku.",
+      "not": "The description of Witr in this guide is based on the Hanafi practice common in Türkiye. Those who follow the practice of a different school may encounter one salam, two salams or different placements of qunut according to their own traditions."
+    },
+    "rekat_yapisi": {
+      "baslik": "What Is Recited in Each Rak'ah?",
+      "aciklama": "This is the question that most often causes confusion. Here is a summary table:",
+      "tablo": [
+        {
+          "rekat": "1st Rak'ah",
+          "subhaneke": "✓ Recited",
+          "euzu_besmele": "✓ Recited",
+          "fatiha": "✓ Recited",
+          "zamm_i_sure": "✓ Recited (fard and Sunnah)",
+          "oturuş": "-"
+        },
+        {
+          "rekat": "2nd Rak'ah",
+          "subhaneke": "✗ Not recited",
+          "euzu_besmele": "Besmele only",
+          "fatiha": "✓ Recited",
+          "zamm_i_sure": "✓ Recited (fard and Sunnah)",
+          "oturuş": "Tahiyyat is recited (stand up in a 3- or 4-rak'ah prayer; give salam in a 2-rak'ah prayer)"
+        },
+        {
+          "rekat": "3rd Rak'ah",
+          "subhaneke": "✗ Not recited",
+          "euzu_besmele": "Besmele only",
+          "fatiha": "✓ Recited",
+          "zamm_i_sure": "✗ Not recited in fard prayer; recited in Sunnah prayer",
+          "oturuş": "-"
+        },
+        {
+          "rekat": "4th Rak'ah",
+          "subhaneke": "✗ Not recited",
+          "euzu_besmele": "Besmele only",
+          "fatiha": "✓ Recited",
+          "zamm_i_sure": "✗ Not recited in fard prayer; recited in Sunnah prayer",
+          "oturuş": "All supplications are recited (Tahiyyat + Salli + Barik + Rabbena)"
+        }
+      ],
+      "ozet_notu": "Briefly: Subhanaka and A'udhu are recited only in the first rak'ah. An additional surah is recited in the first two rak'ahs of a fard prayer and in every rak'ah of a Sunnah prayer. Al-Fatihah is recited in every rak'ah."
+    },
+    "yeni_baslayan_notu": {
+      "baslik": "I'm Just Starting; What Should I Do?",
+      "maddeler": [
+        "First learn the basic sequence of salah: takbir, standing, recitation, ruku, prostration and salam.",
+        "If you cannot memorize the qunut supplication or long supplications right away, you can start with short supplications and complete them over time.",
+        "Learning a short surah such as al-Ikhlas first, to add after al-Fatihah, will make things much easier for you.",
+        "You can add the details of Sunnah and the schools of law over time; you do not need to do everything perfectly at once when starting out.",
+        "Continuing to pray while learning what you still need to learn is better than giving it up altogether."
+      ]
+    },
+    "meta": {
+      "etiketler": [
+        "namaz",
+        "dua",
+        "farz",
+        "sünnet",
+        "vacip",
+        "rekat",
+        "zamm-ı sure",
+        "kunut",
+        "selam",
+        "niyet",
+        "vitir namazı"
+      ],
+      "ilgili_dersler": [
+        "harf_i_tarif",
+        "elif_ba"
+      ]
+    },
+    "kapsam_notu": "This guide focuses on the Hanafi teaching common in Türkiye; however, the essence and basic steps of salah are shared by all Muslims. Practices may differ between schools of law on some details, such as where the hands are folded, the rulings on al-Fatihah and the additional surah, and Witr and qunut."
+  }
+}

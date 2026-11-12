@@ -18,6 +18,10 @@ import { tajweedPartsFromSpans, TAJWEED_LEGEND } from "../src/lib/tajweed";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { useStrings, fmt } from "../src/i18n";
+import mushafStrings from "../src/i18n/strings/mushaf";
+import storageErrorStrings from "../src/i18n/strings/storageErrors";
+import { useSurahNameOf } from "../src/lib/surahNames";
 
 // ── Mushaf Sayfa Görünümü ─────────────────────────────────────────────────────
 // 604 sayfalık Medine mushafı düzeni: her sayfanın içeriği basılı mushafla
@@ -110,6 +114,9 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
   onAyetSec: (surahId: number, ayahNumber: number) => void;
 }) {
   const c = useColors();
+  const t = useStrings(mushafStrings);
+  const tj = useStrings(storageErrorStrings);
+  const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const { fontScale } = useFontScale();
   const [durum, setDurum] = useState<YuklemeDurumu>({ status: "loading" });
@@ -138,20 +145,20 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
       {durum.status === "loading" ? (
         <View style={st.center}>
           <ActivityIndicator size="large" color={c.accent} />
-          <Text style={[st.centerText, { color: c.textMuted }]}>Sayfa {page} yükleniyor…</Text>
+          <Text style={[st.centerText, { color: c.textMuted }]}>{fmt(t.pageLoading, { n: page })}</Text>
         </View>
       ) : durum.status === "error" ? (
         <View style={st.center}>
           <Ionicons name="cloud-offline-outline" size={44} color={c.textMuted} />
-          <Text style={[st.centerText, { color: c.textMuted }]}>Sayfa yüklenemedi.</Text>
+          <Text style={[st.centerText, { color: c.textMuted }]}>{t.pageError}</Text>
           <TouchableOpacity
             style={[st.retryBtn, { backgroundColor: c.accentLight }]}
             onPress={() => setDenemeNo((n) => n + 1)}
             activeOpacity={0.75}
             accessibilityRole="button"
-            accessibilityLabel="Sayfayı tekrar yükle"
+            accessibilityLabel={t.reloadPageA11y}
           >
-            <Text style={[st.retryText, { color: c.accent }]}>Tekrar Dene</Text>
+            <Text style={[st.retryText, { color: c.accent }]}>{t.retry}</Text>
           </TouchableOpacity>
         </View>
       ) : (
@@ -166,7 +173,7 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
                 <View key={`s${blok.surahId}`} style={[st.sureBasligi, { borderColor: c.isDark ? "#78716c" : "#c9a84c" }]}>
                   <Text style={[st.sureArapca, { color: c.text }]}>{blok.arabicName}</Text>
                   <Text style={[st.sureAdi, { color: c.isDark ? "#c9a84c" : "#a16207" }]}>
-                    {blok.surahId}. {blok.name} Suresi
+                    {fmt(t.surahHeading, { id: blok.surahId, name: surahNameOf(blok.surahId, blok.name) })}
                   </Text>
                   {blok.besmele && (
                     <Text style={[st.besmele, { color: c.text, fontSize: 20 * fontScale, lineHeight: 36 * fontScale }]}>
@@ -202,7 +209,7 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
                 {TAJWEED_LEGEND.map((l) => (
                   <View key={l.ad} style={st.legendItem}>
                     <View style={[st.legendDot, { backgroundColor: l.renk }]} />
-                    <Text style={[st.legendText, { color: c.textMuted }]}>{l.ad}</Text>
+                    <Text style={[st.legendText, { color: c.textMuted }]}>{(tj as unknown as Record<string, string>)[l.renk] ?? l.ad}</Text>
                   </View>
                 ))}
               </View>
@@ -226,6 +233,8 @@ export default function MushafSayfaEkrani() {
   useStreak();        // Sayfa görünümünden okumak da okuma serisini ilerletir
   useKeepAwakeSafe(); // Okuma sırasında ekran kararmasın
   const c = useColors();
+  const t = useStrings(mushafStrings);
+  const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const { fontScale, changeFontScale } = useFontScale();
@@ -354,15 +363,15 @@ export default function MushafSayfaEkrani() {
         onPress={() => sureyeGit(s.id)}
         activeOpacity={0.65}
         accessibilityRole="button"
-        accessibilityLabel={`${s.name} suresine git`}
+        accessibilityLabel={fmt(t.goToSurahA11y, { name: surahNameOf(s.id, s.name) })}
       >
         <View style={[st.sureNoBadge, { backgroundColor: aktif ? c.accent : c.cardAlt, borderColor: aktif ? c.accent : c.border }]}>
           <Text style={[st.sureNo, { color: aktif ? "#fff" : c.textMuted }]} maxFontSizeMultiplier={1.2}>{s.id}</Text>
         </View>
         <View style={st.sureOrta}>
-          <Text style={[st.sureName, { color: c.text }]} numberOfLines={1}>{s.name}</Text>
+          <Text style={[st.sureName, { color: c.text }]} numberOfLines={1}>{surahNameOf(s.id, s.name)}</Text>
           <Text style={[st.sureMeta, { color: c.textMuted }]} numberOfLines={1}>
-            {s.verseCount} ayet · Sayfa {ayetinSayfasi(s.id, 1)}
+            {fmt(t.verseCountPage, { n: s.verseCount, p: ayetinSayfasi(s.id, 1) })}
           </Text>
         </View>
         <Text style={[st.sureArap, { color: aktif ? c.accent : c.textSecondary }]} numberOfLines={1}>
@@ -370,7 +379,7 @@ export default function MushafSayfaEkrani() {
         </Text>
       </TouchableOpacity>
     );
-  }, [aktifSure, c, sureyeGit]);
+  }, [aktifSure, c, sureyeGit, t, surahNameOf]);
 
   const handleTajweedToggle = useCallback(() => {
     setTajweed((prev) => {
@@ -395,8 +404,11 @@ export default function MushafSayfaEkrani() {
   // Başlık bilgisi tamamen yerel: cüz + sayfanın başladığı sure
   const cuz = sayfaninCuzu(page);
   const surahName = useMemo(
-    () => surahList.find((s) => s.id === sayfaBasSuresi(page))?.name ?? "",
-    [surahList, page],
+    () => {
+      const s = surahList.find((x) => x.id === sayfaBasSuresi(page));
+      return s ? surahNameOf(s.id, s.name) : "";
+    },
+    [surahList, page, surahNameOf],
   );
 
   return (
@@ -405,15 +417,15 @@ export default function MushafSayfaEkrani() {
       <View style={[st.screen, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         {/* Üst bar */}
         <View style={[st.header, { backgroundColor: c.card, borderBottomColor: c.border }]}>
-          <TouchableOpacity onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
+          <TouchableOpacity onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.backA11y}>
             <Ionicons name="chevron-back" size={24} color={c.accent} />
           </TouchableOpacity>
-          <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sayfaya veya sureye git" accessibilityHint="Sayfa numarası girerek ya da sure seçerek atla">
+          <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.jumpA11y} accessibilityHint={t.jumpHint}>
             <Text style={[st.headerTitle, { color: c.text }]} numberOfLines={1}>{surahName}</Text>
             {/* Hap görünümü + büyüteç: buranın dokunulur bir "sayfaya git" olduğunu belli eder */}
             <View style={[st.headerPill, { borderColor: c.border, backgroundColor: c.cardAlt }]}>
               <Ionicons name="search" size={11} color={c.textMuted} />
-              <Text style={[st.headerSub, { color: c.textMuted }]}>Cüz {cuz} · Sayfa {page}/{SAYFA_SAYISI} ▾</Text>
+              <Text style={[st.headerSub, { color: c.textMuted }]}>{fmt(t.headerSub, { j: cuz, p: page, t: SAYFA_SAYISI })}</Text>
             </View>
           </TouchableOpacity>
           <View style={st.headerBtns}>
@@ -422,7 +434,7 @@ export default function MushafSayfaEkrani() {
               onPress={() => { logFeature("mushaf_sayfa_hatim_ac"); setHatimOpen(true); }}
               hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel="Hatim takibini aç"
+              accessibilityLabel={t.openHatimA11y}
             >
               <Ionicons name="bookmarks-outline" size={16} color={c.textSecondary} />
             </TouchableOpacity>
@@ -432,7 +444,7 @@ export default function MushafSayfaEkrani() {
               hitSlop={10} activeOpacity={0.7}
               accessibilityRole="switch"
               accessibilityState={{ checked: tajweed }}
-              accessibilityLabel="Tecvid renklendirmesini aç veya kapat"
+              accessibilityLabel={t.tajweedA11y}
             >
               <Ionicons name="color-palette-outline" size={16} color={tajweed ? c.accent : c.textSecondary} />
             </TouchableOpacity>
@@ -441,7 +453,7 @@ export default function MushafSayfaEkrani() {
               onPress={() => changeFontScale(-FONT_SCALE_STEP)}
               disabled={fontScale <= FONT_SCALE_MIN}
               hitSlop={10} activeOpacity={0.7}
-              accessibilityRole="button" accessibilityLabel="Yazıyı küçült"
+              accessibilityRole="button" accessibilityLabel={t.shrinkA11y}
               accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
             >
               <MaterialCommunityIcons name="magnify-minus-outline" size={16} color={c.textSecondary} />
@@ -451,7 +463,7 @@ export default function MushafSayfaEkrani() {
               onPress={() => changeFontScale(FONT_SCALE_STEP)}
               disabled={fontScale >= FONT_SCALE_MAX}
               hitSlop={10} activeOpacity={0.7}
-              accessibilityRole="button" accessibilityLabel="Yazıyı büyüt"
+              accessibilityRole="button" accessibilityLabel={t.growA11y}
               accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
             >
               <MaterialCommunityIcons name="magnify-plus-outline" size={16} color={c.textSecondary} />
@@ -462,18 +474,18 @@ export default function MushafSayfaEkrani() {
         {/* Sayfaya / sureye atlama — alttan panel */}
         <Modal visible={jumpOpen} transparent animationType="slide" onRequestClose={() => setJumpOpen(false)}>
           <View style={st.overlay}>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => setJumpOpen(false)} accessibilityRole="button" accessibilityLabel="Paneli kapat" />
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => setJumpOpen(false)} accessibilityRole="button" accessibilityLabel={t.closePanelA11y} />
             <View style={[st.sheet, { backgroundColor: c.bg }]}>
               <View style={[st.sheetHeader, { borderBottomColor: c.border }]}>
-                <Text style={[st.sheetTitle, { color: c.text }]}>Sayfaya veya Sureye Git</Text>
-                <TouchableOpacity onPress={() => setJumpOpen(false)} hitSlop={10} accessibilityRole="button" accessibilityLabel="Kapat">
+                <Text style={[st.sheetTitle, { color: c.text }]}>{t.jumpTitle}</Text>
+                <TouchableOpacity onPress={() => setJumpOpen(false)} hitSlop={10} accessibilityRole="button" accessibilityLabel={t.close}>
                   <Ionicons name="close" size={22} color={c.textMuted} />
                 </TouchableOpacity>
               </View>
 
               {/* Sayfa numarası */}
               <View style={[st.jumpRow, { borderBottomColor: c.border }]}>
-                <Text style={[st.jumpLabel, { color: c.textMuted }]}>Sayfa (1-{SAYFA_SAYISI}):</Text>
+                <Text style={[st.jumpLabel, { color: c.textMuted }]}>{fmt(t.pageLabel, { max: SAYFA_SAYISI })}</Text>
                 <TextInput
                   style={[st.jumpInput, { color: c.text, borderColor: c.border, backgroundColor: c.cardAlt }]}
                   value={jumpVal}
@@ -481,10 +493,10 @@ export default function MushafSayfaEkrani() {
                   keyboardType="number-pad"
                   onSubmitEditing={handleJump}
                   returnKeyType="go"
-                  accessibilityLabel="Sayfa numarası"
+                  accessibilityLabel={t.pageNumberA11y}
                 />
-                <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.accent }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sayfaya git">
-                  <Text style={st.jumpBtnText}>Git</Text>
+                <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.accent }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.goA11y}>
+                  <Text style={st.jumpBtnText}>{t.go}</Text>
                 </TouchableOpacity>
               </View>
 
@@ -493,21 +505,21 @@ export default function MushafSayfaEkrani() {
                 <View style={st.sureBos}>
                   {surahListError ? (
                     <>
-                      <Text style={[st.centerText, { color: c.textMuted }]}>Sure listesi yüklenemedi.</Text>
+                      <Text style={[st.centerText, { color: c.textMuted }]}>{t.surahListError}</Text>
                       <TouchableOpacity
                         style={[st.retryBtn, { backgroundColor: c.accentLight, marginTop: 0 }]}
                         onPress={loadSurahList}
                         activeOpacity={0.75}
                         accessibilityRole="button"
-                        accessibilityLabel="Sure listesini tekrar yükle"
+                        accessibilityLabel={t.reloadListA11y}
                       >
-                        <Text style={[st.retryText, { color: c.accent }]}>Tekrar Dene</Text>
+                        <Text style={[st.retryText, { color: c.accent }]}>{t.retry}</Text>
                       </TouchableOpacity>
                     </>
                   ) : (
                     <>
                       <ActivityIndicator size="small" color={c.accent} />
-                      <Text style={[st.centerText, { color: c.textMuted }]}>Sure listesi yükleniyor…</Text>
+                      <Text style={[st.centerText, { color: c.textMuted }]}>{t.surahListLoading}</Text>
                     </>
                   )}
                 </View>
@@ -557,18 +569,18 @@ export default function MushafSayfaEkrani() {
         {secili && (
           <View style={[st.seciliBar, { backgroundColor: c.card, borderColor: c.border, paddingBottom: Math.max(insets.bottom, 10) }]}>
             <Text style={[st.seciliText, { color: c.text }]} numberOfLines={1}>
-              {surahList.find((s) => s.id === secili.surahId)?.name ?? `Sure ${secili.surahId}`} · {secili.surahId}:{secili.ayahNumber}
+              {(() => { const sr = surahList.find((s) => s.id === secili.surahId); return sr ? surahNameOf(sr.id, sr.name) : fmt(t.surahFallback, { n: secili.surahId }); })()} · {secili.surahId}:{secili.ayahNumber}
             </Text>
             <TouchableOpacity
               style={[st.seciliBtn, { backgroundColor: c.accent }]}
               onPress={seciliDetayaGit}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel="Ayet detayına git"
+              accessibilityLabel={t.openDetailA11y}
             >
-              <Text style={st.seciliBtnText}>Detaya Git ›</Text>
+              <Text style={st.seciliBtnText}>{t.openDetail}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSecili(null)} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Seçimi kaldır">
+            <TouchableOpacity onPress={() => setSecili(null)} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.clearSelectionA11y}>
               <Ionicons name="close" size={20} color={c.textMuted} />
             </TouchableOpacity>
           </View>

@@ -4,6 +4,13 @@ import * as Location from "expo-location";
 import { Platform } from "react-native";
 import { api } from "./api";
 import { storage, STORAGE_KEYS } from "./storage";
+import { localizedMeal } from "./englishMeal";
+import { getStrings, fmt, getLang } from "../i18n";
+import notifStrings from "../i18n/strings/notifications";
+import prayerNameStrings from "../i18n/strings/prayerNames";
+import { aladhanTzParam, deviceTimeZone } from "./timeZone";
+import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
+import { dedupeVerses, pickFromPool } from "./notifVersePick";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -21,6 +28,8 @@ export type PrayerTimes = Record<string, string>;
 export const NOTIF_KEY = "namazNotifEnabled";
 export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 export const SCHED_DAY_KEY = "namazNotifSchedDay";
+// Gün + dil + saat dilimi: biri değişince (yolculuk, dil tercihi) ilk açılışta yeniden planlanır.
+export const schedStamp = () => `${localDayStr()}|${getLang()}|${deviceTimeZone()}`;
 
 const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
 
@@ -133,17 +142,19 @@ async function fetchMonthCalendar(
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const res = await fetch(
-      // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
+      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
     if (!Array.isArray(data?.data)) return null;
+    const tz = deviceTimeZone();
     const map = new Map<string, PrayerTimes>();
     for (const day of data.data) {
       const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
       if (typeof gDate === "string" && day?.timings) {
-        map.set(gDate, sanitizeTimes(day.timings));
+        const [d, m, y] = gDate.split("-").map(Number);
+        map.set(gDate, adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, tz));
       }
     }
     return map;
@@ -210,12 +221,13 @@ export async function fetchPrayerTimes(
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
     const res = await fetch(
-      // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&timezonestring=Europe%2FIstanbul`,
+      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
-    return data?.data?.timings ?? null;
+    const timings = data?.data?.timings;
+    return timings ? adjustHighLatitude(timings, lat, localYMD(today), deviceTimeZone()) : null;
   } catch {
     return null;
   } finally {
@@ -240,7 +252,7 @@ const ANDROID_CHANNEL_ID_DAILY  = "gunun-ayeti";
 async function ensureAndroidChannel(): Promise<void> {
   if (Platform.OS !== "android") return;
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_PRAYER, {
-    name:             "Namaz Vakitleri",
+    name:             getStrings(notifStrings).channelPrayer,
     importance:       Notifications.AndroidImportance.HIGH,
     // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
     // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
@@ -249,7 +261,7 @@ async function ensureAndroidChannel(): Promise<void> {
     lightColor:       "#059669",
   });
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
-    name:             "Günün Ayeti ve Duası",
+    name:             getStrings(notifStrings).channelDaily,
     importance:       Notifications.AndroidImportance.HIGH,
     // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
     // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
@@ -294,7 +306,9 @@ type ValidVakit = { key: string; label: string; hour: number; minute: number };
 
 function parseValid(times: PrayerTimes): ValidVakit[] {
   const valid: ValidVakit[] = [];
-  for (const { key, label } of VAKITLER) {
+  const names = getStrings(prayerNameStrings) as unknown as Record<string, string>;
+  for (const { key, label: trLabel } of VAKITLER) {
+    const label = names[key] ?? trLabel;
     const timeStr = times[key];
     if (!timeStr) continue;
     const [hour, minute] = timeStr.split(":").map(Number);
@@ -307,30 +321,40 @@ function parseValid(times: PrayerTimes): ValidVakit[] {
 // Namaz vakti bildirimleri: her gün × her vakit için TEK bildirim (hatırlatma +
 // namaz-taglı ayet), o günün GERÇEK vaktine göre DATE tetikleyicisiyle.
 async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
-  // Namaz-taglı ayet mealleri — vakit başına bir kez, PARALEL çek (7 gün aynı
-  // ayeti paylaşır; günlük tazelemede zaten yenilenir, 42 ayrı istek gerekmez).
-  const vakitKeys = VAKITLER.map(({ key }) => key);
-  const verses = await Promise.all(
-    vakitKeys.map((key) =>
-      api.notifications.namazVerse(key.toLowerCase()).catch(() => null)
-    )
-  );
-  const verseByKey = new Map(vakitKeys.map((key, i) => [key, verses[i]]));
+  // Namaz-taglı ayet HAVUZLARI — paralel çekilir, gün × vakit başına sırayla dağıtılır.
+  // Eskiden vakit başına tek ayet 7 günün hepsinde tekrarlanıyordu (ör. Öğle her gün aynı).
+  // Sunucu "sabah" ve "cuma" için özel etiket havuzu kullanır; diğerleri genel 'namaz' havuzu.
+  const fetchPool = (vakit: string, n: number) =>
+    Promise.all(Array.from({ length: n }, () => api.notifications.namazVerse(vakit).catch(() => null)))
+      .then((list) => dedupeVerses(list));
+  const [sabahPool, cumaPool, genelPool] = await Promise.all([
+    fetchPool("sabah", SCHEDULE_DAYS),
+    fetchPool("cuma", 2),
+    fetchPool("namaz", 12),
+  ]);
+  const OTHER_KEYS = VAKITLER.map(({ key }) => key).filter((k) => k !== "Fajr");
 
+  const ns = getStrings(notifStrings);
   const jobs: Promise<string>[] = [];
-  for (const { date, times } of days) {
+  days.forEach(({ date, times }, dayIndex) => {
     for (const { key, label, hour, minute } of parseValid(times)) {
       const trigger = dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
       if (!trigger) continue; // bugünün geçmiş vakitleri
-      const translation = verseByKey.get(key)?.translation;
+      const v =
+        key === "Fajr" ? pickFromPool(sabahPool, dayIndex, 0, 1) ?? pickFromPool(genelPool, dayIndex, 0, OTHER_KEYS.length)
+        : key === "Dhuhr" && date.getDay() === 5 && cumaPool.length > 0 ? pickFromPool(cumaPool, dayIndex, 0, 1)
+        : pickFromPool(genelPool, dayIndex, OTHER_KEYS.indexOf(key), OTHER_KEYS.length);
+      // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
+      const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
       const verseLine = translation
         ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
         : "";
       jobs.push(
         Notifications.scheduleNotificationAsync({
           content: {
-            title: `🕌 ${label} Vakti Girdi`,
-            body:  `${label} vakti girdi, namaza hazırlanabilirsiniz.${verseLine}`,
+            // Güneş namaz vakti değil: "namaza hazırlanın" yerine sabah vaktinin çıktığını söyle.
+            title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
+            body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
             sound: true,
             data:  { route: "/namaz" },
           },
@@ -338,7 +362,7 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
         })
       );
     }
-  }
+  });
   await Promise.all(jobs);
 }
 
@@ -363,17 +387,62 @@ function computeGapSlots(times: PrayerTimes): { hour: number; minute: number }[]
   return picks.map((mid) => ({ hour: Math.floor(mid / 60), minute: mid % 60 }));
 }
 
-// Günde 2 bağımsız bildirim: Günün Ayeti + Günün Duası (/api/daily), boşluk saatlerine.
-async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void> {
+const ymd = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+// Günde 2 bildirim: Günün Ayeti + Günün Duası, o günün namaz boşluk saatlerine.
+// 7 günün her biri için O GÜNÜN içeriğiyle ayrı DATE bildirimi kurulur (/daily?date=).
+// Eskiden DAILY tetikleyici bugünün içeriğini uygulama açılana dek her gün tekrarlıyordu.
+// Sunucu date parametresini tanımıyorsa (hepsi aynı gelir) veya istekler düşerse eski
+// DAILY yoluna dönülür. Toplam: 42 namaz + 14 = 56 < iOS 64 sınırı.
+async function scheduleDailyVerseNotifications(days: DayTimes[]): Promise<void> {
+  const perDay = await Promise.all(days.map((d) => api.daily.forDate(ymd(d.date)).catch(() => null)));
+  const keys = perDay.map((x) => x?.verse?.verse_key ?? null);
+  const usable = perDay.every((x) => !!x) && new Set(keys).size > 1;
+  if (!usable) return scheduleDailyVerseRepeating(days[0].times);
+
+  const ns = getStrings(notifStrings);
+  const jobs: Promise<string>[] = [];
+  days.forEach(({ date, times }, i) => {
+    const daily = perDay[i]!;
+    const slots = computeGapSlots(times);
+    const items = [
+      daily.verse?.meal ? { title: ns.dailyVerse, v: daily.verse, slot: slots[0] } : null,
+      daily.dua?.meal ? { title: ns.dailyDua, v: daily.dua, slot: slots[1] } : null,
+    ];
+    for (const x of items) {
+      if (!x || !x.slot) continue;
+      const trigger = dateTriggerAfter(date, x.slot.hour, x.slot.minute, 0, ANDROID_CHANNEL_ID_DAILY);
+      if (!trigger) continue;
+      const body = localizedMeal({ surah: x.v.surah_id, ayah: x.v.ayah_number }, x.v.meal!);
+      jobs.push(
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: x.title,
+            body:  `${body.slice(0, 150)}${body.length > 150 ? "…" : ""}`,
+            sound: true,
+            data:  { route: `/ayah/${x.v.surah_id}/${x.v.ayah_number}` },
+          },
+          trigger,
+        })
+      );
+    }
+  });
+  await Promise.all(jobs);
+}
+
+// Yedek: bugünün içeriği DAILY tetikleyiciyle (eski davranış).
+async function scheduleDailyVerseRepeating(times: PrayerTimes): Promise<void> {
   const daily = await api.daily.get().catch(() => null);
   if (!daily) return;
   const slots = computeGapSlots(times);
+  const ns = getStrings(notifStrings);
   const items = [
     daily.verse?.meal
-      ? { title: "📖 Günün Ayeti", body: daily.verse.meal, sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
+      ? { title: ns.dailyVerse, body: localizedMeal({ surah: daily.verse.surah_id, ayah: daily.verse.ayah_number }, daily.verse.meal), sid: daily.verse.surah_id, an: daily.verse.ayah_number, slot: slots[0] }
       : null,
     daily.dua?.meal
-      ? { title: "🤲 Günün Duası", body: daily.dua.meal, sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
+      ? { title: ns.dailyDua, body: localizedMeal({ surah: daily.dua.surah_id, ayah: daily.dua.ayah_number }, daily.dua.meal), sid: daily.dua.surah_id, an: daily.dua.ayah_number, slot: slots[1] }
       : null,
   ].filter((x): x is NonNullable<typeof x> => !!x && !!x.slot);
 
@@ -403,7 +472,7 @@ export async function applyNotifications(opts: {
   await Notifications.cancelAllScheduledNotificationsAsync();
   await ensureAndroidChannel();
   if (opts.prayer) await schedulePrayerNotifications(opts.days);
-  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days[0].times);
+  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days);
 }
 
 // Bildirimleri kapat
@@ -437,7 +506,7 @@ export async function enablePrayerNotificationsFirstRun(): Promise<"enabled" | "
     await Promise.all([
       storage.setString(NOTIF_KEY, "1"),
       storage.setString(DAILY_VERSE_KEY, "1"),
-      storage.setString(SCHED_DAY_KEY, localDayStr()),
+      storage.setString(SCHED_DAY_KEY, schedStamp()),
     ]);
     return "enabled";
   } catch {
@@ -505,7 +574,9 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
   const dailyOn  = dvRaw === "1";
   if (!prayerOn && !dailyOn) return;
 
-  const today = localDayStr();
+  // Damga gün + arayüz dili: sistem dili değişince ("otomatik" tercih) ilk açılışta
+  // bildirimler yeni dilde yeniden planlanır.
+  const today = schedStamp();
   const lastDay = await storage.getString(SCHED_DAY_KEY);
   if (lastDay === today) return;
 
@@ -516,4 +587,16 @@ async function ensureNotificationsFreshInner(interactive: boolean): Promise<void
     await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
     await storage.setString(SCHED_DAY_KEY, today);
   } catch { /* sessiz — eldeki planlama korunur, bir sonraki açılışta tekrar denenir */ }
+}
+
+// Dil değişince planlı bildirim metinleri eski dilde kalır: yalnız bildirimler
+// zaten yapılandırılmışsa günlük "taze" damgasını silip yeniden planlatır.
+export async function rescheduleNotificationsForLanguageChange(): Promise<void> {
+  const [pvRaw, dvRaw] = await Promise.all([
+    storage.getString(NOTIF_KEY),
+    storage.getString(DAILY_VERSE_KEY),
+  ]);
+  if (pvRaw !== "1" && dvRaw !== "1") return;
+  await storage.remove(SCHED_DAY_KEY);
+  await ensureNotificationsFresh();
 }

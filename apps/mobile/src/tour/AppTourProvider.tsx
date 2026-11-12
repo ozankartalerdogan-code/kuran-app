@@ -26,6 +26,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
 import { APP_TOUR_STEPS, type AppTourStep } from "./appTourSteps";
 import { completeAppTour, hasCompletedAppTour, resetAppTour } from "./appTourStorage";
+import { useStrings } from "../i18n";
+import tourStrings from "../i18n/strings/tour";
 
 type TargetRect = { x: number; y: number; width: number; height: number };
 type TargetHandle = { measure: () => Promise<TargetRect | null> };
@@ -326,6 +328,7 @@ function AppTourOverlay({
   onSkip: () => void;
 }) {
   const c = useColors();
+  const ts = useStrings(tourStrings) as Record<string, string>;
   const insets = useSafeAreaInsets();
   const { width, height } = Dimensions.get("window");
   const maybeRect = targetRect ?? null;
@@ -374,10 +377,10 @@ function AppTourOverlay({
   const arrowLeft = clamp(targetCenterX - cardLeft - ARROW, 18, cardWidth - 18 - ARROW * 2);
 
   const nextLabel = step.action === "finish" || stepIndex === totalSteps - 1
-    ? "Uygulamayı Keşfet"
+    ? ts.finish
     : step.action === "navigate"
-      ? "Devam Et"
-      : "Devam";
+      ? ts.cont
+      : ts.next;
 
   const dimColor = "rgba(5, 10, 20, 0.55)";
 
@@ -419,15 +422,15 @@ function AppTourOverlay({
 
         <View style={styles.cardHeader}>
           <Text style={[styles.kicker, { color: c.accent }]}>{stepIndex + 1}/{totalSteps}</Text>
-          <TouchableOpacity onPress={onSkip} hitSlop={10} accessibilityRole="button" accessibilityLabel="Rehberi geç">
-            <Text style={[styles.skipText, { color: c.textMuted }]}>Geç</Text>
+          <TouchableOpacity onPress={onSkip} hitSlop={10} accessibilityRole="button" accessibilityLabel={ts.skipA11y}>
+            <Text style={[styles.skipText, { color: c.textMuted }]}>{ts.skip}</Text>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.title, { color: c.text }]}>{step.title}</Text>
-        <Text style={[styles.description, { color: c.textSecondary }]}>{step.description}</Text>
+        <Text style={[styles.title, { color: c.text }]}>{ts[step.id + "_title"] ?? step.title}</Text>
+        <Text style={[styles.description, { color: c.textSecondary }]}>{ts[step.id + "_desc"] ?? step.description}</Text>
         {targetRect === null && step.targetId ? (
           <Text style={[styles.fallbackText, { color: c.textMuted }]}>
-            Bu alan şu an ölçülemedi; anlatıma güvenle devam edebilirsin.
+            {ts.unmeasured}
           </Text>
         ) : null}
         <View style={styles.controls}>
@@ -437,9 +440,9 @@ function AppTourOverlay({
             style={[styles.secondaryButton, { borderColor: c.border, opacity: stepIndex === 0 ? 0.45 : 1 }]}
             accessibilityRole="button"
             accessibilityState={{ disabled: stepIndex === 0 }}
-            accessibilityLabel="Önceki rehber adımı"
+            accessibilityLabel={ts.backA11y}
           >
-            <Text style={[styles.secondaryText, { color: c.text }]}>Geri</Text>
+            <Text style={[styles.secondaryText, { color: c.text }]}>{ts.back}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onNext}

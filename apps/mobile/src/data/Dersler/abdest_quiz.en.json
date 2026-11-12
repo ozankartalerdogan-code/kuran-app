@@ -1,0 +1,502 @@
+{
+  "quiz_id": "abdest-gusul",
+  "baslik": "Wudu, Ghusl and Tayammum",
+  "toplam_soru": 33,
+  "sorular": [
+    {
+      "id": "abdest_001",
+      "konu": "taharet",
+      "soru": "Which of the following is the source of the hadith of the Prophet ﷺ: «Cleanliness is half of iman»?",
+      "secenekler": [
+        "A) Bukhari, Taharah 5",
+        "B) Muslim, Taharah 1",
+        "C) Tirmidhi, Taharah 3",
+        "D) Abu Dawud, Salah 7"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The hadith «at-Tuhuru shatrul iman — Cleanliness is half of iman» is found in Muslim, Taharah 1.",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Taharah 1"
+    },
+    {
+      "id": "abdest_002",
+      "konu": "taharet",
+      "soru": "How many types of ritual impurity are there in Islam, and what are they?",
+      "secenekler": [
+        "A) One type — major impurity only",
+        "B) Two types — minor impurity and major impurity",
+        "C) Three types — bodily, material and spiritual",
+        "D) Two types — external impurity and internal impurity"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "There are two types of ritual impurity (a state of spiritual impurity that prevents worship): minor impurity, which invalidates wudu, and major impurity, which requires ghusl.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_003",
+      "konu": "taharet",
+      "soru": "How is the minor ritual impurity that invalidates wudu removed?",
+      "secenekler": [
+        "A) By performing ghusl",
+        "B) By performing wudu",
+        "C) By performing tayammum",
+        "D) By reciting a supplication"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Minor ritual impurity that invalidates wudu (a state of spiritual impurity requiring wudu) is removed by performing wudu; major impurity requires ghusl (a full-body ritual wash).",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_004",
+      "konu": "abdest_farzlari",
+      "soru": "According to the Hanafi school, how many obligatory acts of wudu are derived from al-Ma'idah 5:6?",
+      "secenekler": [
+        "A) 3",
+        "B) 4",
+        "C) 5",
+        "D) 6"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "According to the Hanafi school, there are 4 obligatory acts of wudu derived from al-Ma'idah 5:6: washing the face and arms; wiping the head; and washing the feet. In other schools, the number is assessed differently because additional elements, such as intention and sequence, are included.",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Ma'idah 5:6"
+    },
+    {
+      "id": "abdest_005",
+      "konu": "abdest_farzlari",
+      "soru": "What are the boundaries of the face to be washed during wudu?",
+      "secenekler": [
+        "A) From the eyebrows to beneath the chin, and between the ears",
+        "B) From the hairline on the forehead to beneath the chin, and between the two earlobes",
+        "C) From the forehead to the neck, and to the two earlobes",
+        "D) From the eyes to the chin, and from the cheeks to the ears"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The boundaries of the face to be washed are: from the hairline on the forehead to beneath the chin in length, and between the two earlobes in width.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice; al-Ma'idah 5:6"
+    },
+    {
+      "id": "abdest_006",
+      "konu": "abdest_farzlari",
+      "soru": "How much of the arms must be washed during wudu?",
+      "secenekler": [
+        "A) Up to the wrists",
+        "B) Up to the elbows",
+        "C) Including the elbows",
+        "D) Up to the shoulders"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Qur'an says, «Wash your hands up to the elbows»; the elbows are also included in what must be washed.",
+      "zorluk": "kolay",
+      "kaynak": "Qur'an, al-Ma'idah 5:6"
+    },
+    {
+      "id": "abdest_007",
+      "konu": "abdest_farzlari",
+      "soru": "How does wiping with wet hands differ from washing?",
+      "secenekler": [
+        "A) More water is used",
+        "B) It is done by passing wet hands over the area without making water flow",
+        "C) Soap must be used",
+        "D) Repeating it three times is obligatory"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Wiping means passing a wet hand over a body part without making water flow to wet it; unlike washing, it does not require water to flow.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_008",
+      "konu": "abdest_sunneti",
+      "soru": "Which of the following is a Sunnah act of wudu rather than an obligatory act?",
+      "secenekler": [
+        "A) Washing the face",
+        "B) Washing the arms including the elbows",
+        "C) Beginning with the basmalah",
+        "D) Washing the feet including the heels"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Beginning with the basmalah is a Sunnah act of wudu; washing the face, arms and feet is obligatory.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_009",
+      "konu": "abdest_sunneti",
+      "soru": "How many times is it Sunnah to wash each body part during wudu?",
+      "secenekler": [
+        "A) Once",
+        "B) Twice",
+        "C) 3 times",
+        "D) 5 times"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "It is Sunnah to wash each body part 3 times. The obligatory minimum is once; washing 3 times is the most virtuous.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice; Bukhari, Wudu 45"
+    },
+    {
+      "id": "abdest_010",
+      "konu": "abdest_sunneti",
+      "soru": "What is the ruling on passing the fingers between one another during wudu?",
+      "secenekler": [
+        "A) Obligatory",
+        "B) Wajib",
+        "C) Sunnah",
+        "D) Disliked"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Passing the fingers between one another is one of the Sunnah acts of wudu; it is not obligatory.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_011",
+      "konu": "abdest_bozma",
+      "soru": "Which of the following invalidates wudu?",
+      "secenekler": [
+        "A) Crying",
+        "B) Sleeping while lying down",
+        "C) Reciting a supplication",
+        "D) Speaking loudly"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Sleeping while lying down, lying on one's side or reclining invalidates wudu; the wudu of someone who merely dozes in the sitting position used in salah is not invalidated (Hanafi school).",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_012",
+      "konu": "abdest_bozma",
+      "soru": "What effect does fainting or becoming intoxicated have on wudu?",
+      "secenekler": [
+        "A) It does not invalidate wudu",
+        "B) It invalidates wudu",
+        "C) Only becoming intoxicated invalidates it",
+        "D) Only fainting invalidates it"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Both fainting and becoming intoxicated invalidate wudu; loss of reason and awareness is among the causes that invalidate wudu.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_013",
+      "konu": "abdest_bozma",
+      "soru": "Is wudu required to recite the Qur'an from memory without touching the mushaf?",
+      "secenekler": [
+        "A) Yes, it is obligatory",
+        "B) No, wudu is not required",
+        "C) It may only be recited after ghusl",
+        "D) It may only be recited at salah times"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Wudu is required to physically touch the mushaf; however, it is not required to recite the Qur'an from memory. Reciting while in a state of wudu is more virtuous.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_014",
+      "konu": "abdest_bozma",
+      "soru": "Is wudu required for the prostration of recitation, performed when a verse of prostration in the Qur'an is recited?",
+      "secenekler": [
+        "A) No, wudu is not required",
+        "B) Yes, wudu is required",
+        "C) It is required only if the verse is recited during salah",
+        "D) It is required only if the imam recites it"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Wudu is required for the prostration of recitation; it cannot be performed without wudu.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_015",
+      "konu": "gusul",
+      "soru": "Which of the following is not among the circumstances that require ghusl?",
+      "secenekler": [
+        "A) Janabah (a state of major ritual impurity requiring ghusl)",
+        "B) The end of menstruation",
+        "C) The end of postnatal bleeding",
+        "D) Passing wind"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Passing wind only invalidates wudu; it does not require ghusl. The circumstances requiring ghusl are janabah, the end of menstruation and the end of postnatal bleeding.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice; al-Ma'idah 5:6"
+    },
+    {
+      "id": "abdest_016",
+      "konu": "gusul",
+      "soru": "What purification is required after a wet dream (ejaculation during sleep)?",
+      "secenekler": [
+        "A) Wudu is sufficient",
+        "B) Ghusl is required",
+        "C) Tayammum is performed",
+        "D) Only the hands are washed"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A wet dream falls under janabah (a state of major ritual impurity requiring ghusl); ghusl is obligatory after ejaculation during sleep. (Bukhari, Ghusl 22)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Ghusl 22"
+    },
+    {
+      "id": "abdest_017",
+      "konu": "gusul",
+      "soru": "According to the Hanafi school, how many obligatory acts of ghusl are there?",
+      "secenekler": [
+        "A) 2",
+        "B) 3",
+        "C) 4",
+        "D) 5"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "According to the Hanafi school, there are 3 obligatory acts of ghusl: rinsing the mouth, drawing water into the nose and washing the entire body.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_018",
+      "konu": "gusul",
+      "soru": "What happens if an area as small as the tip of a needle remains dry during ghusl?",
+      "secenekler": [
+        "A) Ghusl is still valid",
+        "B) Only that area is washed again",
+        "C) Ghusl is invalid",
+        "D) Performing wudu is sufficient"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Washing the entire body is one of the obligatory acts of ghusl. If even an area as small as the tip of a needle remains dry, ghusl is invalid.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_019",
+      "konu": "gusul",
+      "soru": "Is it necessary to perform wudu separately after ghusl?",
+      "secenekler": [
+        "A) Yes, it is always necessary",
+        "B) No, ghusl also counts as wudu",
+        "C) It is necessary only if one will perform salah",
+        "D) It is necessary only on Fridays"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Ghusl also counts as wudu. A person who performs ghusl does not need to perform wudu separately. (Bukhari, Ghusl 1; Muslim, Hayd 35)",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Ghusl 1; Muslim, Hayd 35"
+    },
+    {
+      "id": "abdest_020",
+      "konu": "gusul",
+      "soru": "Which sequence is correct for performing ghusl in accordance with the Sunnah?",
+      "secenekler": [
+        "A) First wash the entire body, then perform wudu, then make the intention",
+        "B) Make the intention, wash the hands and private parts, perform wudu, then wash from head to toe",
+        "C) Make the intention and wash only the body; the mouth and nose are not required",
+        "D) First wash the head, then the body, and perform wudu last"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Sunnah order: make the intention → wash the hands and private parts → perform wudu (including rinsing the mouth and nose) → wash the entire body from head to toe.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Ghusl 1; Muslim, Menstruation 35"
+    },
+    {
+      "id": "abdest_021",
+      "konu": "gusul",
+      "soru": "Which substance covering the skin must be removed before ghusl?",
+      "secenekler": [
+        "A) Ordinary soap suds",
+        "B) Light and shadow",
+        "C) Substances that block water, such as nail polish, paint, or glue",
+        "D) Dry skin flakes"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Substances that block water, such as nail polish, paint, and glue, must be removed before ghusl; otherwise, water cannot reach the skin and the ghusl is invalid.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_022",
+      "konu": "gusul",
+      "soru": "What is the ruling on entering a mosque while in a state of major ritual impurity?",
+      "secenekler": [
+        "A) It is permissible",
+        "B) It is disliked",
+        "C) It is prohibited",
+        "D) It is recommended (an act that is good or rewarded)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Entering a mosque while in a state of major ritual impurity is prohibited; performing salah, reading the Qur'an with the intention of recitation (as an act of worship), and performing tawaf are also prohibited.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_023",
+      "konu": "cünüp_yasak",
+      "soru": "Which of the following may be done while in a state of major ritual impurity?",
+      "secenekler": [
+        "A) Performing salah",
+        "B) Touching the mushaf",
+        "C) Eating",
+        "D) Performing tawaf around the Ka'bah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Eating and drinking are permissible while in a state of major ritual impurity. Salah, touching the mushaf, and tawaf are acts of worship that are prohibited in this state.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_024",
+      "konu": "cünüp_yasak",
+      "soru": "What is the ruling on delaying ghusl long enough to miss a salah?",
+      "secenekler": [
+        "A) It is disliked",
+        "B) It is recommended (an act that is good or rewarded)",
+        "C) It is forbidden",
+        "D) It is Sunnah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A person in a state of major ritual impurity must perform ghusl before missing a salah; delaying ghusl long enough to miss it is forbidden.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_025",
+      "konu": "teyemmum",
+      "soru": "In which Qur'anic verse is tayammum commanded?",
+      "secenekler": [
+        "A) al-Baqarah 2:183",
+        "B) al-Ma'idah 5:6",
+        "C) an-Nisa 4:43",
+        "D) Both al-Ma'idah 5:6 and an-Nisa 4:43"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Tayammum is mentioned in both al-Ma'idah 5:6 and an-Nisa 4:43. Both verses command tayammum when water cannot be found.",
+      "zorluk": "zor",
+      "kaynak": "Qur'an, al-Ma'idah 5:6; an-Nisa 4:43"
+    },
+    {
+      "id": "abdest_026",
+      "konu": "teyemmum",
+      "soru": "Which of the following is not a circumstance that makes tayammum permissible?",
+      "secenekler": [
+        "A) Water cannot be found",
+        "B) There is a risk of becoming ill if water is used",
+        "C) Little time remains for salah",
+        "D) Water cannot be used because of extreme cold"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Having little time left for salah does not make tayammum permissible. Circumstances that make tayammum permissible include a lack of water, a risk of illness if it is used, and extreme cold.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_027",
+      "konu": "teyemmum",
+      "soru": "How many obligatory acts does tayammum have?",
+      "secenekler": [
+        "A) 2",
+        "B) 3",
+        "C) 4",
+        "D) 5"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tayammum has 3 obligatory acts: making the intention, wiping the face, and wiping the arms including the elbows.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_028",
+      "konu": "teyemmum",
+      "soru": "Which of the following cannot be used for tayammum?",
+      "secenekler": [
+        "A) Stone",
+        "B) Sand",
+        "C) Iron",
+        "D) Roofing tile"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Tayammum is performed only with clean substances from the earth, such as soil, stone, sand, brick, and roofing tile. It cannot be performed with materials such as wood, iron, or copper.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_029",
+      "konu": "teyemmum",
+      "soru": "What happens if water is found while a person who performed tayammum is performing salah?",
+      "secenekler": [
+        "A) They complete the salah; no wudu is required",
+        "B) According to the Hanafi view, the salah becomes invalid, and they perform wudu and repeat it",
+        "C) According to all schools of law, the salah is considered valid",
+        "D) They only make up the salah they performed"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "According to the Hanafi, Shafi'i, and Hanbali views, if water is found during salah, the salah becomes invalid; the person performs wudu and repeats it. According to the Maliki view, the salah is considered valid. Tayammum becomes invalid when water is found.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_030",
+      "konu": "abdest_bozma",
+      "soru": "When must a person with a chronic excuse (continuous discharge of urine or blood) renew their wudu?",
+      "secenekler": [
+        "A) Whenever they want to perform salah",
+        "B) When each salah time begins",
+        "C) When their wudu is broken during the day",
+        "D) Only for Friday salah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A person with a chronic excuse performs wudu for each salah time. This wudu remains valid throughout that time; it must be renewed when the time ends.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_031",
+      "konu": "mest_mesh",
+      "soru": "Which of the following is required for wiping with a wet hand over a khuff (special footwear or a sock that covers the foot including the ankles)?",
+      "secenekler": [
+        "A) The khuff must have been put on immediately before salah",
+        "B) The khuff must have been put on while in a state of wudu",
+        "C) The khuff must be made of leather",
+        "D) The khuff may be worn only while travelling"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "To wipe with a wet hand over a khuff (special footwear or a sock that covers the foot including the ankles), the khuff must have been put on while in a state of wudu. The period begins from the moment wudu is first broken.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_032",
+      "konu": "mest_mesh",
+      "soru": "According to the Hanafi, Shafi'i, and Hanbali schools, how long may a resident (a person who is not travelling) wipe over khuffs?",
+      "secenekler": [
+        "A) 1 day and 1 night",
+        "B) 2 days and 2 nights",
+        "C) 3 days and 3 nights",
+        "D) There is no limit"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "According to the Hanafi, Shafi'i, and Hanbali schools, the period for wiping over khuffs with a wet hand is 1 day and 1 night for a resident (a person who is not travelling) and 3 days and 3 nights for a traveller. The Maliki school sets no time limit.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic practice"
+    },
+    {
+      "id": "abdest_033",
+      "konu": "sargi_mesh",
+      "soru": "What should be done if washing a wounded or bandaged limb would cause harm?",
+      "secenekler": [
+        "A) Wudu is abandoned entirely",
+        "B) The bandage must be removed and the wound washed",
+        "C) The uninjured areas are washed, and the bandage is wiped with a wet hand",
+        "D) Only tayammum is performed, and wudu is not performed"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "If washing would cause harm, the uninjured areas are washed as usual, and the bandaged or wounded area is wiped with a wet hand. If wiping would also cause harm, that area is left untouched.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic practice"
+    }
+  ]
+}

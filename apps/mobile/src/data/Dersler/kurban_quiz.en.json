@@ -1,0 +1,462 @@
+{
+  "quiz_id": "kurban",
+  "baslik": "Qurbani",
+  "toplam_soru": 35,
+  "sorular": [
+    {
+      "id": "kurban_001",
+      "konu": "tanim",
+      "soru": "What is the element that forms the spiritual essence of Qurbani?",
+      "secenekler": [
+        "A) The meat and hide of the slaughtered animal",
+        "B) The distribution of the Qurbani meat",
+        "C) An intention made with submission",
+        "D) The size of the animal"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Qurbani is not merely an act of slaughter; it is an act of worship performed with submission. An animal slaughtered without the intention of worship does not count as Qurbani."
+    },
+    {
+      "id": "kurban_002",
+      "konu": "tanim",
+      "soru": "Why can Qurbani not be regarded merely as meat or material aid?",
+      "secenekler": [
+        "A) Because a slaughter without the intention of worship does not give Qurbani its meaning",
+        "B) Because eating its meat is not permissible",
+        "C) Because it is a practice intended only for the wealthy",
+        "D) Because the choice of animal is specified"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Qurbani is an act of worship that gains its meaning through an intention made with submission, not through the act of slaughter itself."
+    },
+    {
+      "id": "kurban_003",
+      "konu": "ibrahimin_kissasi",
+      "soru": "What is the central message of the story of Prophet Ibrahim preparing to sacrifice his son?",
+      "secenekler": [
+        "A) Slaughter technique and choice of animal",
+        "B) The importance of sharing with neighbors",
+        "C) The end of a long journey",
+        "D) Complete submission to Allah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The story of Prophet Ibrahim symbolizes complete submission to Allah, while the story of Prophet Ismail symbolizes conscious devotion to Allah."
+    },
+    {
+      "id": "kurban_004",
+      "konu": "ibrahimin_kissasi",
+      "soru": "What does Prophet Ismail's attitude in the story of the sacrifice express?",
+      "secenekler": [
+        "A) Submitting out of helplessness",
+        "B) Choosing conscious devotion and submission",
+        "C) Obeying out of fear",
+        "D) Showing respect to his father"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The story of Prophet Ismail symbolizes conscious devotion to Allah and his choice to submit."
+    },
+    {
+      "id": "kurban_005",
+      "konu": "kurbanin_ruhu",
+      "soru": "What is the main message taught by the statement, \"Neither their meat nor their blood reaches Allah\"?",
+      "secenekler": [
+        "A) It is not obligatory to offer Qurbani",
+        "B) A large animal must be sacrificed",
+        "C) The essence of Qurbani is not meat, but heartfelt taqwa and intention",
+        "D) Shedding blood has been forbidden"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The essence of Qurbani is taqwa and intention; it is the submission in the heart, not the meat or blood, that reaches Allah."
+    },
+    {
+      "id": "kurban_006",
+      "konu": "hukum",
+      "soru": "According to the Hanafi school, what is the ruling on Qurbani?",
+      "secenekler": [
+        "A) Fard",
+        "B) Wajib",
+        "C) Emphasized Sunnah",
+        "D) Recommended"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "According to the Hanafi school, Qurbani is wajib; the other schools regard it as an emphasized Sunnah."
+    },
+    {
+      "id": "kurban_007",
+      "konu": "hukum",
+      "soru": "What is the view of the non-Hanafi schools on Qurbani?",
+      "secenekler": [
+        "A) Fard",
+        "B) Wajib",
+        "C) Voluntary",
+        "D) Emphasized Sunnah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The non-Hanafi schools regard Qurbani as an emphasized Sunnah rather than wajib."
+    },
+    {
+      "id": "kurban_008",
+      "konu": "yukumluluk",
+      "soru": "Which of the following is not a condition for being obligated to offer Qurbani?",
+      "secenekler": [
+        "A) Having received higher education",
+        "B) Being of sound mind",
+        "C) Having reached puberty",
+        "D) Being a resident"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The conditions for the obligation of Qurbani are being of sound mind, having reached puberty, being a resident, and having sufficient financial means. Education is not a condition."
+    },
+    {
+      "id": "kurban_009",
+      "konu": "yukumluluk",
+      "soru": "What does 'being a resident' mean with regard to the obligation of Qurbani?",
+      "secenekler": [
+        "A) Living in a large city",
+        "B) Owning a home",
+        "C) Not being a traveler",
+        "D) Being registered as part of the local population"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Being a resident means residing in a place rather than being classified as a traveler; travelers are exempt from the obligation of Qurbani."
+    },
+    {
+      "id": "kurban_010",
+      "konu": "kesim_vakti",
+      "soru": "When should the Qurbani animal be slaughtered?",
+      "secenekler": [
+        "A) At any time on the night before Eid",
+        "B) After the Eid prayer, during the three days of Eid",
+        "C) Early in the morning before the Eid prayer",
+        "D) Only at noon on the first day"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Qurbani animal is slaughtered after the Eid prayer. Slaughtering it before the Eid prayer is invalid, and the sacrifice must be repeated."
+    },
+    {
+      "id": "kurban_011",
+      "konu": "kesim_vakti",
+      "soru": "What is the ruling for someone who slaughters a Qurbani animal before the Eid prayer?",
+      "secenekler": [
+        "A) Their Qurbani has been accepted",
+        "B) Only a Sunnah has been missed",
+        "C) Paying expiation is sufficient",
+        "D) The Qurbani is invalid and must be repeated"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "A slaughter performed before the Eid prayer does not count as Qurbani; the wajib obligation remains unfulfilled."
+    },
+    {
+      "id": "kurban_012",
+      "konu": "hayvan_turleri",
+      "soru": "Which animals may be slaughtered for Qurbani?",
+      "secenekler": [
+        "A) Sheep, goats, cattle, water buffalo, and camels",
+        "B) Only sheep and goats",
+        "C) All kinds of domestic animals",
+        "D) Sheep, goats, and chickens"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Animals that may be slaughtered for Qurbani are sheep, goats, cattle, water buffalo, and camels."
+    },
+    {
+      "id": "kurban_013",
+      "konu": "ortaklik",
+      "soru": "How many people may share a large animal for Qurbani?",
+      "secenekler": [
+        "A) 3 people",
+        "B) 5 people",
+        "C) 7 people",
+        "D) 10 people"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A maximum of 7 people may share a large animal such as cattle, water buffalo, or camels."
+    },
+    {
+      "id": "kurban_014",
+      "konu": "ortaklik",
+      "soru": "How many people may share a sheep or goat for Qurbani?",
+      "secenekler": [
+        "A) 7 people",
+        "B) 1 person",
+        "C) 3 people",
+        "D) 2 people"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A sheep or goat for Qurbani is slaughtered on behalf of only 1 person; sharing it is invalid."
+    },
+    {
+      "id": "kurban_015",
+      "konu": "yas_sarti",
+      "soru": "What is the age requirement for a sheep offered as Qurbani?",
+      "secenekler": [
+        "A) At least 6 months old",
+        "B) At least 2 years old",
+        "C) There is no age requirement",
+        "D) At least 1 year old, or a well-developed 6-month-old ram"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "A sheep must be at least 1 year old; however, a very well-developed ram may be slaughtered even if it is 6 months old."
+    },
+    {
+      "id": "kurban_016",
+      "konu": "yas_sarti",
+      "soru": "A farmer wants to offer a healthy 18-month-old bovine as Qurbani. Is this Qurbani valid?",
+      "secenekler": [
+        "A) No; cattle and water buffalo must be at least 2 years old",
+        "B) Yes; any bovine over 1 year old may be slaughtered",
+        "C) Yes; being healthy is sufficient, and there is no age requirement",
+        "D) No; only cattle over 3 years old may be slaughtered"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Cattle and water buffalo offered as Qurbani must be at least 2 years old; an 18-month-old bovine does not meet this requirement."
+    },
+    {
+      "id": "kurban_017",
+      "konu": "yas_sarti",
+      "soru": "What is the minimum age for a camel offered as Qurbani?",
+      "secenekler": [
+        "A) 2 years old",
+        "B) 5 years old",
+        "C) 3 years old",
+        "D) 4 years old"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A camel offered as Qurbani must be at least 5 years old."
+    },
+    {
+      "id": "kurban_018",
+      "konu": "et_paylasimi",
+      "soru": "If Qurbani meat is divided into three portions, to whom are the portions given?",
+      "secenekler": [
+        "A) All of it is distributed to the poor",
+        "B) All of it belongs to the household",
+        "C) One portion to the household, one to neighbors and relatives, and one to the poor",
+        "D) Two portions to the poor and one to the person offering the Qurbani"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "It is recommended to divide Qurbani meat into three portions: one for the household, one for neighbors and relatives, and one for the poor."
+    },
+    {
+      "id": "kurban_019",
+      "konu": "kusurlu_hayvan",
+      "soru": "Which of the following defects makes an animal invalid for Qurbani?",
+      "secenekler": [
+        "A) The animal is dark in color",
+        "B) The animal is male",
+        "C) The animal has eaten mainly feed",
+        "D) The animal is blind in one eye"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Animals that are blind, sick, severely lame, or extremely emaciated are invalid for Qurbani."
+    },
+    {
+      "id": "kurban_020",
+      "konu": "kusurlu_hayvan",
+      "soru": "Can an animal that is slightly lame be offered as Qurbani?",
+      "secenekler": [
+        "A) Yes, slight lameness is not considered a defect",
+        "B) No, under no circumstances",
+        "C) This applies only to large animals",
+        "D) Only in cases of necessity"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Severe lameness that prevents an animal from walking is considered a defect; slight lameness does not invalidate the Qurbani."
+    },
+    {
+      "id": "kurban_021",
+      "konu": "kesim_adabi",
+      "soru": "Why is it important to sharpen the knife well?",
+      "secenekler": [
+        "A) To make the slaughter appear quick",
+        "B) To improve the quality of the meat",
+        "C) To prevent the animal from suffering",
+        "D) Because it is a traditional habit"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Showing mercy to the living beings Allah created is a fundamental principle of Islam. Sharpening the knife well reduces the animal's suffering."
+    },
+    {
+      "id": "kurban_022",
+      "konu": "kesim_adabi",
+      "soru": "Why is sharpening the knife in front of the animal forbidden when performing Qurbani?",
+      "secenekler": [
+        "A) Because hygiene rules require it",
+        "B) To avoid frightening or tormenting the animal",
+        "C) To prevent the knife from rusting",
+        "D) Because it is a traditional practice"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Messenger of Allah instructed that the knife be sharpened out of the animal's sight; this reflects Islam's principle of mercy."
+    },
+    {
+      "id": "kurban_023",
+      "konu": "bismillah",
+      "soru": "Why is it obligatory to mention Allah's name when slaughtering for Qurbani?",
+      "secenekler": [
+        "A) For the slaughter to be halal",
+        "B) To keep one's voice loud",
+        "C) To calm the animal",
+        "D) To announce it to those nearby"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The meat of an animal slaughtered without mentioning Allah's name is not considered halal. Saying Bismillah is an integral part of the religious aspect of Qurbani."
+    },
+    {
+      "id": "kurban_024",
+      "konu": "etten_yemek",
+      "soru": "What is the ruling on a person eating the meat of their own Qurbani?",
+      "secenekler": [
+        "A) It is forbidden; all of it must be distributed",
+        "B) It should not be eaten because it is slaughtered only for the poor",
+        "C) It is obligatory, though not fard",
+        "D) It is recommended; eating its meat is in keeping with the Sunnah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "It is recommended for a person to eat from their own Qurbani, while offering it to others is part of the social aspect of this act of worship."
+    },
+    {
+      "id": "kurban_025",
+      "konu": "et_paylasimi",
+      "soru": "How is Qurbani meat traditionally recommended to be divided?",
+      "secenekler": [
+        "A) All of it is given to the poor",
+        "B) All of it is consumed by the family",
+        "C) One portion for oneself, one for neighbors, and one for those in need",
+        "D) It is distributed only to relatives"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The traditional practice is to keep one portion for oneself, give one portion to neighbors and friends, and give one portion to those in need."
+    },
+    {
+      "id": "kurban_026",
+      "konu": "toplumsal_boyut",
+      "soru": "What is the social aspect of Qurbani?",
+      "secenekler": [
+        "A) It shows that it is solely an individual act of worship",
+        "B) It includes sharing, solidarity, and reaching those in need",
+        "C) It is performed to regulate meat prices",
+        "D) It is an occasion to hold gatherings"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Qurbani includes a culture of sharing, social solidarity, and reaching those in need."
+    },
+    {
+      "id": "kurban_027",
+      "konu": "sik_hatalar",
+      "soru": "Does donating money before slaughtering an animal take the place of Qurbani?",
+      "secenekler": [
+        "A) No, Qurbani is a distinct act of worship and cannot be replaced by charity",
+        "B) Yes, it carries the same reward as Qurbani",
+        "C) It applies only to the poor",
+        "D) They are the same because the meaning is what matters"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Donating the cost of a Qurbani is a good deed; however, it does not discharge the obligation of someone for whom Qurbani is wajib."
+    },
+    {
+      "id": "kurban_028",
+      "konu": "sik_hatalar",
+      "soru": "What is the ruling on selling the hide of a Qurbani animal and keeping the money?",
+      "secenekler": [
+        "A) It is entirely permissible",
+        "B) The person offering the Qurbani may make use of the hide",
+        "C) Special permission is required only to sell the hide",
+        "D) Selling the hide is not permissible; it should be given to a charity"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The person offering the Qurbani cannot sell its hide and keep the money; it should be donated for charitable purposes."
+    },
+    {
+      "id": "kurban_029",
+      "konu": "sik_hatalar",
+      "soru": "Which of the following is a common mistake made when offering Qurbani?",
+      "secenekler": [
+        "A) Sharing a large animal among seven people",
+        "B) Checking the animal's age",
+        "C) Slaughtering it before the Eid prayer",
+        "D) Slaughtering it while saying Bismillah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Slaughtering the animal before the Eid prayer is one of the most common mistakes that invalidates Qurbani."
+    },
+    {
+      "id": "kurban_030",
+      "konu": "merhamet",
+      "soru": "Why is Islam's principle of mercy important in the slaughter of Qurbani animals?",
+      "secenekler": [
+        "A) To shorten the slaughtering time",
+        "B) To reduce the animal's suffering and show respect for the living creatures Allah has created",
+        "C) It comes from habit",
+        "D) To improve meat quality"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Mercy toward the living creatures Allah has created is one of the fundamental principles of Islam; sharpening the knife out of the animal's sight puts this understanding into practice."
+    },
+    {
+      "id": "kurban_031",
+      "konu": "teslimiyet",
+      "soru": "What lesson from the story of Prophet Ibrahim is one expected to apply in personal life?",
+      "secenekler": [
+        "A) Slaughter a larger animal every year",
+        "B) Teach children everything",
+        "C) Give more charity",
+        "D) Be willing to give up attachments for Allah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Qurbani tests where we place ourselves in relation to Allah; the lesson from the story is to be able to give up attachments for Allah."
+    },
+    {
+      "id": "kurban_032",
+      "konu": "takvim",
+      "soru": "How many days does the time for slaughtering a Qurbani animal last?",
+      "secenekler": [
+        "A) 3 days",
+        "B) 1 day",
+        "C) 2 days",
+        "D) 4 days"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The time for slaughtering a Qurbani animal begins after the Eid prayer and lasts 3 days."
+    },
+    {
+      "id": "kurban_033",
+      "konu": "hisse",
+      "soru": "Why must the shares in a large animal be equal?",
+      "secenekler": [
+        "A) To divide the meat equally",
+        "B) To be exempt from tax",
+        "C) The shares must be equal for the intention to be considered valid",
+        "D) To determine the animal's value"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "When sharing a large animal, the shares must be equal, and each person must have a separate intention; unequal shares may invalidate the Qurbani."
+    },
+    {
+      "id": "kurban_034",
+      "konu": "niyet",
+      "soru": "When should the intention be made for slaughtering a Qurbani animal?",
+      "secenekler": [
+        "A) A few days before buying the animal",
+        "B) In the heart at the time of slaughter or beforehand",
+        "C) During the Eid sermon",
+        "D) Making an intention is not required"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Qurbani is an act of worship that requires an intention; at the time of slaughter or beforehand, one must intend in the heart that it is being done to seek Allah's pleasure."
+    },
+    {
+      "id": "kurban_035",
+      "konu": "mali_yeterlilik",
+      "soru": "How is financial sufficiency defined for the obligation of Qurbani?",
+      "secenekler": [
+        "A) Being wealthy",
+        "B) Having a steady income",
+        "C) Owning property",
+        "D) Having enough wealth beyond basic needs to purchase a Qurbani animal"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "A person who has enough wealth to purchase a Qurbani animal after meeting their basic needs satisfies the condition of financial sufficiency."
+    }
+  ]
+}

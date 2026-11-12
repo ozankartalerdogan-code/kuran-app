@@ -5,18 +5,30 @@ import Constants from "expo-constants";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SOURCE_LICENSE_CONTENT, getSourceLicenseLinks } from "../../../packages/core/src/presentation/sourceLicenses";
+import { SOURCE_LICENSE_CONTENT_EN, getSourceLicenseLinksEn } from "../../../packages/core/src/presentation/sourceLicensesEn";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { useStrings, getStrings, fmt, useLang, type Lang } from "../src/i18n";
+import hakkindaStrings from "../src/i18n/strings/hakkinda";
+
+// İngilizce arayüzde kaynak/lisans metninin AI destekli İngilizce sürümü (sourceLicensesEn.ts).
+function licenseContent(lang: Lang) {
+  return lang === "en" ? SOURCE_LICENSE_CONTENT_EN : SOURCE_LICENSE_CONTENT;
+}
+function licenseLinks(lang: Lang, linkIds: readonly string[]) {
+  return lang === "en" ? getSourceLicenseLinksEn(linkIds) : getSourceLicenseLinks(linkIds);
+}
 
 const APP_VERSION = Constants.expoConfig?.version ?? "-";
 const CONTACT_MAIL = "kuranyolu.iletisim@gmail.com";
 
 async function openExternalUrl(url: string) {
+  const t = getStrings(hakkindaStrings);
   try {
     void Haptics.selectionAsync();
     const supported = await Linking.canOpenURL(url);
     if (!supported) {
-      Alert.alert("Bağlantı açılamadı", "Bu bağlantı şu anda cihazınızda açılamıyor.");
+      Alert.alert(t.linkFailTitle, t.linkFailBody);
       return;
     }
 
@@ -25,7 +37,7 @@ async function openExternalUrl(url: string) {
     if (__DEV__) {
       console.warn("Failed to open external URL", error);
     }
-    Alert.alert("Bağlantı açılamadı", "Lütfen daha sonra tekrar deneyin.");
+    Alert.alert(t.linkFailTitle, t.linkFailRetry);
   }
 }
 
@@ -46,6 +58,7 @@ function Paragraph({ children, c }: { children: React.ReactNode; c: AppColors })
 
 // İnce, kartsız akordiyon başlığı — açıldığında her kaynak ayrı kart olarak listelenir.
 function SourcesAccordion({ c }: { c: AppColors }) {
+  const t = useStrings(hakkindaStrings);
   const [open, setOpen] = useState(true);
 
   const toggle = () => {
@@ -53,6 +66,7 @@ function SourcesAccordion({ c }: { c: AppColors }) {
     setOpen((o) => !o);
   };
 
+  const lang = useLang();
   return (
     <View style={[s.accordion, { borderTopColor: c.border, borderBottomColor: c.border }]}>
       <TouchableOpacity
@@ -60,31 +74,31 @@ function SourcesAccordion({ c }: { c: AppColors }) {
         onPress={toggle}
         activeOpacity={0.6}
         accessibilityRole="button"
-        accessibilityLabel="Kaynaklar ve lisanslar"
-        accessibilityHint={open ? "Açıklamaları gizler" : "Açıklamaları gösterir"}
+        accessibilityLabel={t.sourcesA11y}
+        accessibilityHint={open ? t.hideHint : t.showHint}
         accessibilityState={{ expanded: open }}
       >
-        <Text style={[s.accordionTitle, { color: c.textSecondary }]}>Kaynaklar ve lisanslar</Text>
+        <Text style={[s.accordionTitle, { color: c.textSecondary }]}>{t.sources}</Text>
         <Text style={[s.accordionChevron, { color: c.textMuted }]}>{open ? "▴" : "▾"}</Text>
       </TouchableOpacity>
 
       {open && (
         <View style={s.accordionBody}>
-          {SOURCE_LICENSE_CONTENT.sections.map((sourceSection) => (
+          {licenseContent(lang).sections.map((sourceSection) => (
             <View
               key={sourceSection.id}
               style={[s.sourceCard, { backgroundColor: c.card, borderColor: c.border }]}
             >
               <Text style={[s.sourceSectionTitle, { color: c.text }]}>{sourceSection.title}</Text>
               <Paragraph c={c}>{sourceSection.body}</Paragraph>
-              {getSourceLicenseLinks(sourceSection.linkIds).map((link) => (
+              {licenseLinks(lang, sourceSection.linkIds).map((link) => (
                 <TouchableOpacity
                   key={link.id}
                   style={[s.sourceLink, { borderTopColor: c.border }]}
                   onPress={() => void openExternalUrl(link.url)}
                   activeOpacity={0.65}
                   accessibilityRole="link"
-                  accessibilityLabel={`${link.title} bağlantısı`}
+                  accessibilityLabel={fmt(t.linkA11y, { title: link.title })}
                 >
                   <Text style={[s.sourceLinkText, { color: c.accent }]}>
                     {link.title}{link.license ? ` · ${link.license}` : ""}
@@ -102,7 +116,9 @@ function SourcesAccordion({ c }: { c: AppColors }) {
 
 export default function HakkindaScreen() {
   const c = useColors();
+  const t = useStrings(hakkindaStrings);
   const insets = useSafeAreaInsets();
+  const lic = licenseContent(useLang());
 
   return (
     <>
@@ -112,37 +128,36 @@ export default function HakkindaScreen() {
         contentContainerStyle={[s.content, { paddingTop: insets.top + 20, paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.pageTitle, { color: c.text }]}>{SOURCE_LICENSE_CONTENT.title}</Text>
-        <Text style={[s.pageIntro, { color: c.textMuted }]}>{SOURCE_LICENSE_CONTENT.intro}</Text>
+        <Text style={[s.pageTitle, { color: c.text }]}>{lic.title}</Text>
+        <Text style={[s.pageIntro, { color: c.textMuted }]}>{lic.intro}</Text>
 
         <SourcesAccordion c={c} />
 
-        <Section title="Uygulama Hakkında">
+        <Section title={t.aboutApp}>
           <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
             <View style={s.infoRow}>
-              <Text style={[s.infoLabel, { color: c.textMuted }]}>Versiyon</Text>
+              <Text style={[s.infoLabel, { color: c.textMuted }]}>{t.version}</Text>
               <Text style={[s.infoValue, { color: c.text }]}>{APP_VERSION}</Text>
             </View>
             <View style={[s.infoRow, s.infoRowBorder, { borderColor: c.border }]}> 
-              <Text style={[s.infoLabel, { color: c.textMuted }]}>Geliştirici</Text>
-              <Text style={[s.infoValue, { color: c.text }]}>Bağımsız geliştirici</Text>
+              <Text style={[s.infoLabel, { color: c.textMuted }]}>{t.developer}</Text>
+              <Text style={[s.infoValue, { color: c.text }]}>{t.indie}</Text>
             </View>
             <Text style={[s.infoNote, { color: c.textMuted, borderTopColor: c.border }]}> 
-              Bu bölümde yer alan kaynak ve açıklamalar kullanıcıya şeffaf referans sunmak için hazırlanmıştır. Metinler
-              bilgilendirme amaçlıdır.
+              {t.aboutNote}
             </Text>
           </View>
         </Section>
 
-        <Section title="İletişim & Geri Bildirim">
+        <Section title={t.contact}>
           <View style={[s.metaBox, { backgroundColor: c.card, borderColor: c.border }]}> 
-            <Text style={[s.contactNote, { color: c.textMuted }]}>Öneri ve geri bildirimleriniz için:</Text>
+            <Text style={[s.contactNote, { color: c.textMuted }]}>{t.contactNote}</Text>
             <TouchableOpacity
               style={[s.mailBtn, { backgroundColor: c.accent + "20" }]}
               onPress={() => void openExternalUrl(`mailto:${CONTACT_MAIL}`)}
               activeOpacity={0.7}
               accessibilityRole="link"
-              accessibilityLabel="E-posta gönder"
+              accessibilityLabel={t.emailA11y}
             >
               <Text style={[s.mailBtnText, { color: c.accent }]}>{CONTACT_MAIL}</Text>
             </TouchableOpacity>

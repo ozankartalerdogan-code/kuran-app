@@ -1,0 +1,423 @@
+{
+  "quiz_id": "kitaplara-iman",
+  "baslik": "Belief in the Books",
+  "toplam_soru": 32,
+  "sorular": [
+    {
+      "id": "kitaplara_iman_001",
+      "konu": "tanim",
+      "soru": "Which article of faith is belief in the books?",
+      "secenekler": [
+        "A) The second",
+        "B) The fourth",
+        "C) The third",
+        "D) The fifth"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In the hadith of Jibril, faith is described as belief in Allah, His angels, His books, His messengers, the Last Day, and divine decree. Belief in the books is the third article."
+    },
+    {
+      "id": "kitaplara_iman_002",
+      "konu": "tanim",
+      "soru": "What is the central meaning of belief in the books?",
+      "secenekler": [
+        "A) Accepting only the Quran",
+        "B) Believing that Allah sent revelation and divine books to His messengers",
+        "C) Considering all religious texts sacred",
+        "D) Reading historical books"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "A believer has faith not only in the Quran but also in the true revelations that Allah sent before it."
+    },
+    {
+      "id": "kitaplara_iman_003",
+      "konu": "neden_kitap",
+      "soru": "What is the main reason Allah sent books to humanity?",
+      "secenekler": [
+        "A) So that people could understand one another",
+        "B) To record history",
+        "C) To develop language",
+        "D) Because human reason alone cannot find complete guidance in every matter"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Allah sent through revelation and books the guidance that human beings could not find through reason alone."
+    },
+    {
+      "id": "kitaplara_iman_004",
+      "konu": "neden_kitap",
+      "soru": "How is the relationship between a prophet and a divine book described?",
+      "secenekler": [
+        "A) The prophet conveys the message, and the book carries it",
+        "B) The book directs the prophet",
+        "C) The two act independently of each other",
+        "D) The book appears later, while the prophet comes first"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The prophet conveys the revelation, and the book carries this message; the two cannot be considered separate from each other."
+    },
+    {
+      "id": "kitaplara_iman_005",
+      "konu": "dort_kitap",
+      "soru": "What are the four major divine books explicitly named in Islamic belief?",
+      "secenekler": [
+        "A) The Zabur, the Quran, the Epistle, and the Injil",
+        "B) The Tawrah, the Injil, the Quran, and the Suhuf",
+        "C) The Tawrah, the Zabur, the Injil, and the Quran",
+        "D) The Tawrah, the Zabur, the Injil, and Hadith"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The four major divine books explicitly named are the Tawrah (Prophet Musa, peace be upon him), the Zabur (Prophet Dawud, peace be upon him), the Injil (Prophet Isa, peace be upon him), and the Quran (the Prophet Muhammad ﷺ)."
+    },
+    {
+      "id": "kitaplara_iman_006",
+      "konu": "dort_kitap",
+      "soru": "To which prophet was the Tawrah revealed?",
+      "secenekler": [
+        "A) Prophet Musa, peace be upon him",
+        "B) Prophet Ibrahim, peace be upon him",
+        "C) Prophet Dawud, peace be upon him",
+        "D) Prophet Isa, peace be upon him"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The Tawrah is the divine book revealed to Prophet Musa, peace be upon him."
+    },
+    {
+      "id": "kitaplara_iman_007",
+      "konu": "dort_kitap",
+      "soru": "What is the main characteristic that distinguishes the Zabur from the other major divine books?",
+      "secenekler": [
+        "A) It contains legal rulings",
+        "B) It describes the conditions of the Day of Judgment in detail",
+        "C) It records historical events",
+        "D) Its language consists mainly of supplication, praise, and remembrance of Allah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Zabur was given to Prophet Dawud, peace be upon him, and is described as a lyrical book consisting mainly of supplication, praise, and remembrance of Allah."
+    },
+    {
+      "id": "kitaplara_iman_008",
+      "konu": "dort_kitap",
+      "soru": "According to the Quran, what is a central characteristic of the Injil given to Prophet Isa, peace be upon him?",
+      "secenekler": [
+        "A) It completely abolished the law of Prophet Musa, peace be upon him",
+        "B) It contained guidance and light",
+        "C) It contained only moral advice",
+        "D) It formed a summary of the Quran"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran states that the Injil given to Prophet Isa, peace be upon him, contained guidance and light; this illustrates belief in the truth of earlier revelations."
+    },
+    {
+      "id": "kitaplara_iman_009",
+      "konu": "tevrat",
+      "soru": "What central truth does the Quran state about the Tawrah?",
+      "secenekler": [
+        "A) The Tawrah was never valid",
+        "B) The Tawrah is only a historical text",
+        "C) The original Tawrah contained guidance and light",
+        "D) The Tawrah is not binding on Muslims"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Quran states that the original Tawrah contained guidance and light; this teaches that it was a true book from Allah."
+    },
+    {
+      "id": "kitaplara_iman_010",
+      "konu": "zebur",
+      "soru": "What are the prominent features of the Zabur's content and language?",
+      "secenekler": [
+        "A) Accounts of war and laws",
+        "B) Rulings on trade",
+        "C) Stories of the prophets' lives",
+        "D) The language of supplication, remembrance of Allah, worship, and turning to Allah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Zabur is known for its language of supplication, remembrance of Allah, worship, and turning to Allah."
+    },
+    {
+      "id": "kitaplara_iman_011",
+      "konu": "incil",
+      "soru": "What does the Quran state about the Injil given to Prophet Isa, peace be upon him?",
+      "secenekler": [
+        "A) The original Injil contained guidance and light and confirmed the earlier revelation",
+        "B) The Injil was written entirely by humans",
+        "C) No information is given about the Injil",
+        "D) The Injil contradicts the Quran"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The Quran states that the original Injil contained guidance and light and that it confirmed the earlier revelation."
+    },
+    {
+      "id": "kitaplara_iman_012",
+      "konu": "kuran",
+      "soru": "What is the most distinctive difference between the Quran and the other divine books?",
+      "secenekler": [
+        "A) It is the longest book",
+        "B) It is the final divine book and has been preserved by Allah",
+        "C) It was sent only to the Arabs",
+        "D) It is the book that includes the most prophets"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran is the final divine book, revealed to the Prophet Muhammad ﷺ and preserved by Allah; its rulings remain valid until the Day of Judgment."
+    },
+    {
+      "id": "kitaplara_iman_013",
+      "konu": "kuran",
+      "soru": "For a Muslim, what is the final criterion in matters of belief and religion?",
+      "secenekler": [
+        "A) General historical tradition",
+        "B) The majority opinion of scholars",
+        "C) The Quran",
+        "D) The practices of earlier prophets"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Quran is the preserved final divine book; therefore, it is the final criterion in matters of belief and religion."
+    },
+    {
+      "id": "kitaplara_iman_014",
+      "konu": "kuran_onceki",
+      "soru": "How does the Quran relate to the earlier divine books?",
+      "secenekler": [
+        "A) It rejects them entirely",
+        "B) It confirms all of them as they are",
+        "C) It values only the Tawrah",
+        "D) It confirms their original revelations and serves as a guardian and criterion over them"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Quran confirms that the earlier books came from Allah; it is also a guide that serves as a guardian and criterion over them."
+    },
+    {
+      "id": "kitaplara_iman_015",
+      "konu": "kuran_onceki",
+      "soru": "What balance should a Muslim maintain when considering the earlier books?",
+      "secenekler": [
+        "A) Accept what agrees with the Quran, reject what contradicts it, and exercise caution in matters about which one has no knowledge",
+        "B) Accept everything as it is",
+        "C) Reject everything outright",
+        "D) Consider them only from an academic perspective"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The balance taught by the Prophet ﷺ is that both accepting everything outright and rejecting everything outright are wrong; the Quran is the essential criterion."
+    },
+    {
+      "id": "kitaplara_iman_016",
+      "konu": "asil_iman",
+      "soru": "What should a Muslim's belief be regarding the Tawrah, Zabur, and Injil?",
+      "secenekler": [
+        "A) To deny them",
+        "B) To regard these books in their present form as sacred",
+        "C) To believe in their original revelations from Allah",
+        "D) Never to speak about them"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Muslims believe in the original revelations of the earlier books from Allah; they speak cautiously about the present texts, using the Quran as their criterion."
+    },
+    {
+      "id": "kitaplara_iman_017",
+      "konu": "asil_iman",
+      "soru": "Why do Muslims speak cautiously about the texts of the Tawrah, Zabur, and Injil available today?",
+      "secenekler": [
+        "A) Because they are very old",
+        "B) Because the Quran is the definitive criterion and the texts may have been altered or mixed with other material",
+        "C) Because reading them is forbidden",
+        "D) Because their contents are entirely meaningless"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Muslims believe in their original revelations; however, the Quran is the definitive criterion, and the historical texts available today may have been mixed with other material."
+    },
+    {
+      "id": "kitaplara_iman_018",
+      "konu": "suhuf",
+      "soru": "What are the Suhuf?",
+      "secenekler": [
+        "A) Sections of the Quran",
+        "B) Books of hadith",
+        "C) Pre-Islamic Arabic poetry",
+        "D) Short divine scriptures given to prophets"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Suhuf are short divine scriptures given to certain prophets in addition to the major divine books; they contain brief advice and reminders of fundamental beliefs."
+    },
+    {
+      "id": "kitaplara_iman_019",
+      "konu": "suhuf",
+      "soru": "Which statement about the Suhuf is correct?",
+      "secenekler": [
+        "A) Allah also sent revelation to different prophets in the form of Suhuf",
+        "B) They are another name for the four major books",
+        "C) Allah's revelation consists only of the four major books",
+        "D) The Suhuf are part of the Quran"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Allah's revelation is not limited to the four major books; Suhuf (short divine scriptures) were also sent to various prophets."
+    },
+    {
+      "id": "kitaplara_iman_020",
+      "konu": "dil",
+      "soru": "How should a Muslim speak when talking with the People of the Book?",
+      "secenekler": [
+        "A) In a contemptuous and mocking manner",
+        "B) In a way that approves of everything",
+        "C) Respectfully, while maintaining their religious beliefs",
+        "D) In a way that rejects everything"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Being respectful does not mean blurring the boundaries of belief; one remains clear about one's own iman and speaks to people in a gracious manner."
+    },
+    {
+      "id": "kitaplara_iman_021",
+      "konu": "dil",
+      "soru": "How does the Quran describe discussion with the People of the Book?",
+      "secenekler": [
+        "A) One should never speak to them",
+        "B) Discussing with them in the best manner (not contentious argument, but the best approach)",
+        "C) Forcing them",
+        "D) Accepting all their beliefs"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran advises discussing with the People of the Book in the best manner. We use respectful language, but we do not lose sight of our guiding standard."
+    },
+    {
+      "id": "kitaplara_iman_022",
+      "konu": "peygamberler_arasi",
+      "soru": "Does a Muslim make a distinction between prophets in terms of faith?",
+      "secenekler": [
+        "A) Yes, a Muslim believes only in the Prophet Muhammad ﷺ",
+        "B) Yes, a Muslim believes only in the prophets of the Torah",
+        "C) No, but this issue is unclear",
+        "D) No, a Muslim makes no distinction between the prophets sent by Allah"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "A Muslim makes no distinction between the prophets sent by Allah in terms of faith; a Muslim believes in them all."
+    },
+    {
+      "id": "kitaplara_iman_023",
+      "konu": "vahiy_zinciri",
+      "soru": "How can Allah's fundamental approach to sending revelation to humanity be described?",
+      "secenekler": [
+        "A) He established a consistent and harmonious chain of guidance through prophets in different periods",
+        "B) He sent contradictory messages in every age",
+        "C) He confined revelation to a single period",
+        "D) He taught every prophet a completely different religion"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Divine revelation does not contradict itself; Allah established a consistent chain of guidance through prophets in different periods, and the Quran is the final link in this chain."
+    },
+    {
+      "id": "kitaplara_iman_024",
+      "konu": "tevrat",
+      "soru": "What is a Muslim's fundamental duty of belief concerning the Torah?",
+      "secenekler": [
+        "A) To put all the rulings of the Torah into practice",
+        "B) To regard the Torah as superior to the Quran",
+        "C) To believe that Musa was given a divine book",
+        "D) To read the Torah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A Muslim's fundamental duty is to believe that Musa was given a divine book; the Quran is always the final standard."
+    },
+    {
+      "id": "kitaplara_iman_025",
+      "konu": "zebur",
+      "soru": "What connection between the Zabur and the Quran is reported?",
+      "secenekler": [
+        "A) The Zabur is a translation of the Quran into Dawud's language",
+        "B) It is reported that the truth that righteous servants will inherit the earth was written in the Zabur",
+        "C) The Zabur contains quotations from the Quran",
+        "D) Both were revealed in the same period"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran reports that the truth that righteous servants will inherit the earth was written in the Zabur; this shows the continuity between earlier revelations and the Quran."
+    },
+    {
+      "id": "kitaplara_iman_026",
+      "konu": "denge",
+      "soru": "What is Islam's fundamental balance in belief in the books?",
+      "secenekler": [
+        "A) Believing in their original revelations, accepting the Quran as the final standard, and being cautious about present-day texts",
+        "B) Treating all the books as equal",
+        "C) Completely ignoring the earlier books",
+        "D) Regarding only the Quran as revelation"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The balance in belief in the books is to believe in the original forms of the earlier revelations, know that the Quran is the final and preserved book, and evaluate present-day texts against the standard of the Quran."
+    },
+    {
+      "id": "kitaplara_iman_027",
+      "konu": "kuran",
+      "soru": "What distinguishes the Quran from the earlier books?",
+      "secenekler": [
+        "A) It consists only of rules of worship",
+        "B) It is the shortest divine book",
+        "C) It is only in Arabic",
+        "D) It has been preserved by Allah and its rulings remain valid until the Day of Resurrection"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Quran is the final divine book, preserved by Allah, and its rulings remain valid until the Day of Resurrection."
+    },
+    {
+      "id": "kitaplara_iman_028",
+      "konu": "neden_kitap",
+      "soru": "What should a Muslim's general attitude toward the earlier prophets and books be?",
+      "secenekler": [
+        "A) To belittle them",
+        "B) To never speak about them",
+        "C) To see them as legitimate links in the chain of revelation and respect them",
+        "D) To accept their books as sources of Islam"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A Muslim sees the earlier prophets and the divine books sent to them as a true part of the chain of revelation and approaches them with respect."
+    },
+    {
+      "id": "kitaplara_iman_029",
+      "konu": "tanim",
+      "soru": "What is the Quranic basis for a Muslim's belief in the earlier books and prophets?",
+      "secenekler": [
+        "A) Historical curiosity",
+        "B) The Quran praises believers for believing both in what was revealed to them and in what was revealed before",
+        "C) The Prophet Muhammad ﷺ added this tradition later",
+        "D) There is no clear information about this in the Quran"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Quran includes among those it praises the believers who believe both in what was revealed to them and in what was revealed before."
+    },
+    {
+      "id": "kitaplara_iman_030",
+      "konu": "vahiy_zinciri",
+      "soru": "Which is the chronological order of the four great books, from oldest to newest?",
+      "secenekler": [
+        "A) Torah, Zabur, Injil, Quran",
+        "B) Injil, Torah, Zabur, Quran",
+        "C) Zabur, Torah, Injil, Quran",
+        "D) Quran, Injil, Zabur, Torah"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "In chronological order: Torah (Musa) → Zabur (Dawud) → Injil (Isa) → Quran (Muhammad ﷺ)."
+    },
+    {
+      "id": "kitaplara_iman_031",
+      "konu": "suhuf",
+      "soru": "What should one be careful about concerning the suhuf?",
+      "secenekler": [
+        "A) The subject of the suhuf should be completely ignored",
+        "B) The suhuf have the same status as the Quran",
+        "C) The suhuf were given only to Ibrahim",
+        "D) The number and details of the suhuf should not be presented as certain knowledge"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "One should avoid speaking as though the number of the suhuf and some historical details about them are known with certainty."
+    },
+    {
+      "id": "kitaplara_iman_032",
+      "konu": "denge",
+      "soru": "What is the limit of using respectful language concerning belief in the books?",
+      "secenekler": [
+        "A) Respect comes before everything; differences in belief should be concealed",
+        "B) Respect is shown only to Muslims",
+        "C) Respect does not require blurring the boundaries of belief; the Quran is the standard",
+        "D) Showing respect harms iman"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Being respectful does not mean blurring the boundaries of belief. A believer speaks in a gracious manner but does not lose sight of the Quran as the standard."
+    }
+  ]
+}

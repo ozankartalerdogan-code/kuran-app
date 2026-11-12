@@ -27,6 +27,7 @@ const REQUIRED_ON_SCREEN = [
   { needle: "AlQuran.cloud", why: "AlQuran.cloud tecvid verisi kaynak atfı" },
   { needle: "mustafa0x", why: "mustafa0x Quran Morphology kaynak atfı" },
   { needle: "Quranic Arabic Corpus", why: "QAC kaynak atfı" },
+  { needle: "Pickthall", why: "İngilizce meal (Pickthall 1930, Tanzil.net) kaynak atfı" },
 ];
 
 /** Ekranların merkezi içeriği render ettiği dosyalar. */
@@ -63,7 +64,7 @@ test("her iki ekran da merkezi içeriği render eder ve kopya taşımaz", () => 
     );
     assert.match(
       screen,
-      /SOURCE_LICENSE_CONTENT\.sections\.map/,
+      /(SOURCE_LICENSE_CONTENT|licenseContent\(\w+\))\.sections\.map/,
       `${relativePath} bölümleri merkezi içerikten render etmiyor`,
     );
     // Bağlantılar da merkezi listeden çözülmeli — ekran kendi listesini kurarsa
@@ -120,5 +121,26 @@ test("all central links are unique, HTTPS and resolvable by section", () => {
 
   for (const section of SOURCE_LICENSE_CONTENT.sections) {
     assert.equal(getSourceLicenseLinks(section.linkIds).length, section.linkIds.length);
+  }
+});
+
+test("English source/license content mirrors the Turkish ids, links and URLs", async () => {
+  const { SOURCE_LICENSE_CONTENT_EN, getSourceLicenseLinksEn } = await import(
+    "../../../../packages/core/src/presentation/sourceLicensesEn.ts"
+  );
+  assert.deepEqual(
+    SOURCE_LICENSE_CONTENT_EN.links.map((l: { id: string; url: string }) => [l.id, l.url]),
+    SOURCE_LICENSE_CONTENT.links.map((l) => [l.id, l.url]),
+  );
+  assert.deepEqual(
+    SOURCE_LICENSE_CONTENT_EN.sections.map((s: { id: string; linkIds: readonly string[] }) => [s.id, [...s.linkIds]]),
+    SOURCE_LICENSE_CONTENT.sections.map((s) => [s.id, [...s.linkIds]]),
+  );
+  for (const s of SOURCE_LICENSE_CONTENT_EN.sections) {
+    assert.equal(getSourceLicenseLinksEn(s.linkIds).length, s.linkIds.length);
+  }
+  const text = JSON.stringify(SOURCE_LICENSE_CONTENT_EN);
+  for (const { needle, why } of REQUIRED_ON_SCREEN) {
+    assert.ok(text.includes(needle), `İngilizce içerikte eksik: ${needle} (${why})`);
   }
 });

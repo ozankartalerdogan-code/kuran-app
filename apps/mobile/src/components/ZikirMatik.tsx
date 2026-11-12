@@ -9,6 +9,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
 import { useKeepAwakeSafe } from "../hooks/useKeepAwakeSafe";
 import { getDevotionalSourceLabel } from "../lib/sourceLabels";
+import { useStrings, useLang, fmt } from "../i18n";
+import { localizedTranslit } from "../lib/translitEn";
+import componentStrings from "../i18n/strings/components";
 
 // Modal içeriği yalnız görünürken mount olur → zikir çekilirken ekran uyanık
 // kalır, modal kapanınca serbest bırakılır. (Hook doğrudan TasbihModal gövdesine
@@ -90,6 +93,10 @@ const BeadRing = React.memo(function BeadRing({ pct, ringSize, trackColor }: { p
 
 export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const c      = useColors();
+  const t      = useStrings(componentStrings);
+  const lang   = useLang();
+  // Hazır zikir adları Türkçe okunuşla saklanır (anahtar); yalnız görüntüde çevrilir.
+  const zName  = (n: string) => localizedTranslit(n, lang);
   const insets = useSafeAreaInsets();
 
   const [zikirIdx,          setZikirIdx]          = useState(0);
@@ -271,15 +278,15 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   }, []);
 
   const saveCustom = useCallback(() => {
-    const isim  = customName.trim() || "Özel Zikir";
+    const isim  = customName.trim() || t.customDefault;
     const hedef = customTarget;
     Alert.alert(
-      "Kaydet",
-      `"${isim}" (×${hedef}) kaydedilsin mi?`,
+      t.save,
+      fmt(t.saveConfirm, { name: isim, n: hedef }),
       [
-        { text: "İptal", style: "cancel" },
+        { text: t.cancel, style: "cancel" },
         {
-          text: "Kaydet",
+          text: t.save,
           onPress: () => {
             setSavedList(prev => {
               const filtered = prev.filter(z => z.isim !== isim);
@@ -291,16 +298,16 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         },
       ]
     );
-  }, [customName, customTarget]);
+  }, [customName, customTarget, t]);
 
   const deleteCustom = useCallback((idx: number, isim: string) => {
     Alert.alert(
-      "Zikiri Sil",
-      `"${isim}" silinsin mi?`,
+      t.deleteDhikrTitle,
+      fmt(t.deleteDhikrBody, { name: isim }),
       [
-        { text: "İptal", style: "cancel" },
+        { text: t.cancel, style: "cancel" },
         {
-          text: "Sil",
+          text: t.delete,
           style: "destructive",
           onPress: () => {
             setSavedList(prev => {
@@ -352,14 +359,14 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         <View style={m.header}>
           <View style={m.headerLeft}>
             <Text style={{ fontSize: 22 }}>📿</Text>
-            <Text style={[m.headerTitle, { color: c.text }]}>Tespih</Text>
+            <Text style={[m.headerTitle, { color: c.text }]}>{t.tasbih}</Text>
             {tur > 0 && (
               <View style={[m.turBadge, { backgroundColor: LACIVERT }]}>
-                <Text style={[m.turBadgeText, { color: ALTIN }]}>{tur} tur</Text>
+                <Text style={[m.turBadgeText, { color: ALTIN }]}>{fmt(t.turBadge, { n: tur })}</Text>
               </View>
             )}
           </View>
-          <TouchableOpacity onPress={onClose} hitSlop={12} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Kapat">
+          <TouchableOpacity onPress={onClose} hitSlop={12} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.close}>
             <Ionicons name="close-circle" size={26} color={c.textMuted} />
           </TouchableOpacity>
         </View>
@@ -376,14 +383,14 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 activeOpacity={0.75}
                 accessibilityRole="button"
                 accessibilityState={{ selected: active }}
-                accessibilityLabel={z.isim}
+                accessibilityLabel={z.ozel ? t.customLabel : zName(z.isim)}
                 style={[m.pill, {
                   backgroundColor: active ? LACIVERT : (c.isDark ? "#151c2e" : "#f1f5f9"),
                   borderColor: active ? ALTIN : (c.isDark ? "#252f45" : "#cbd5e1"),
                 }]}
               >
                 {/* Pil kutusu sabit 125×80 — sistem yazı ölçeği sınırlanmazsa metin taşar */}
-                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.2}>{z.isim}</Text>
+                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.2}>{z.ozel ? t.customLabel : zName(z.isim)}</Text>
                 <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]} maxFontSizeMultiplier={1.2}>
                   ×{z.ozel ? customTarget : (targetOverrides[z.isim] ?? z.hedef)}
                 </Text>
@@ -400,11 +407,11 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
               style={[m.customNameInput, { color: c.text, borderColor: c.border }]}
               value={customName}
               onChangeText={setCustomName}
-              placeholder="Zikir adı (isteğe bağlı)"
+              placeholder={t.customNamePlaceholder}
               placeholderTextColor={c.textMuted}
             />
             <View style={m.customTargetRow}>
-              <Text style={{ fontSize: 13, color: c.textMuted }}>Hedef sayı:</Text>
+              <Text style={{ fontSize: 13, color: c.textMuted }}>{t.targetLabel}</Text>
               <TextInput
                 style={[m.customTargetInput, { color: c.text, borderColor: c.border }]}
                 value={customTargetInput}
@@ -415,8 +422,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 maxLength={4}
                 selectTextOnFocus
               />
-              <TouchableOpacity onPress={saveCustom} style={[m.saveBtn, { backgroundColor: LACIVERT }]} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel="Özel zikri kaydet">
-                <Text style={m.saveBtnText}>Kaydet</Text>
+              <TouchableOpacity onPress={saveCustom} style={[m.saveBtn, { backgroundColor: LACIVERT }]} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={t.saveCustomA11y}>
+                <Text style={m.saveBtnText}>{t.save}</Text>
               </TouchableOpacity>
             </View>
             {savedList.length > 0 && (
@@ -424,7 +431,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 {savedList.map((z, i) => (
                   <View key={i}
                     style={[m.savedRow, { backgroundColor: c.isDark ? "#151c2e" : "#f1f5f9" }]}>
-                    <TouchableOpacity style={{ flex: 1 }} onPress={() => selectSaved(z)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${z.isim} zikrini seç`}>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => selectSaved(z)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={fmt(t.selectDhikrA11y, { name: z.isim })}>
                       <Text style={[m.savedIsim, { color: c.text }]} numberOfLines={1}>{z.isim}</Text>
                     </TouchableOpacity>
                     {editTargetIdx === i ? (
@@ -443,12 +450,12 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                       <TouchableOpacity
                         onPress={() => { setEditTargetIdx(i); setEditTargetVal(String(z.hedef)); }}
                         hitSlop={6} activeOpacity={0.7}
-                        accessibilityRole="button" accessibilityLabel="Hedefi düzenle"
+                        accessibilityRole="button" accessibilityLabel={t.editTargetA11y}
                       >
                         <Text style={[m.savedHedef, { color: c.textMuted }]}>×{z.hedef} ✎</Text>
                       </TouchableOpacity>
                     )}
-                    <TouchableOpacity onPress={() => deleteCustom(i, z.isim)} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`${z.isim} zikrini sil`}>
+                    <TouchableOpacity onPress={() => deleteCustom(i, z.isim)} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={fmt(t.deleteDhikrA11y, { name: z.isim })}>
                       <Ionicons name="close-circle" size={18} color={c.textMuted} />
                     </TouchableOpacity>
                   </View>
@@ -460,7 +467,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
           <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.isDark ? "#252f45" : "#cbd5e1" }]}>
             <Text style={[m.arabicText, { color: c.text }]}>{zikir.arapca}</Text>
             <View style={m.presetSubRow}>
-              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zikir.isim} · {sourceLabel} · </Text>
+              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zName(zikir.isim)} · {sourceLabel} · </Text>
               {editingPreset ? (
                 <TextInput
                   style={[m.savedHedefInput, { color: c.text, borderColor: c.border }]}
@@ -477,9 +484,9 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 <TouchableOpacity
                   onPress={() => { setEditingPreset(true); setPresetTargetInput(String(target)); }}
                   hitSlop={6} activeOpacity={0.7}
-                  accessibilityRole="button" accessibilityLabel="Hedefi düzenle"
+                  accessibilityRole="button" accessibilityLabel={t.editTargetA11y}
                 >
-                  <Text style={[m.arabicSub, { color: ACCENT, fontWeight: "700" }]}>{target} kez ✎</Text>
+                  <Text style={[m.arabicSub, { color: ACCENT, fontWeight: "700" }]}>{fmt(t.timesEdit, { n: target })}</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -500,13 +507,13 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
               {/* Daire sabit 132px — sayaç metinleri sistem ölçeğinden sınırlı büyür */}
               <Text style={[m.countNum, { color: completing ? ALTIN : c.text }]} maxFontSizeMultiplier={1.1}>{count}</Text>
               <Text style={[m.countDen, { color: c.textMuted }]} maxFontSizeMultiplier={1.2}>/ {target}</Text>
-              {completing && <Text style={[m.doneText, { color: ALTIN }]} maxFontSizeMultiplier={1.2}>✓ Tamam</Text>}
+              {completing && <Text style={[m.doneText, { color: ALTIN }]} maxFontSizeMultiplier={1.2}>{t.done}</Text>}
             </Animated.View>
           </View>
         </View>
 
         <Text style={[m.progInfo, { color: c.textMuted, textAlign: "center", marginBottom: 8 }]}>
-          {count === 0 ? "Çekmeye başla" : completing ? "Tebrikler! 🎉" : `${Math.max(target - count, 0)} kaldı`}
+          {count === 0 ? t.startPulling : completing ? t.congrats : fmt(t.remaining, { n: Math.max(target - count, 0) })}
         </Text>
 
         {/* ── Çek Butonu ── */}
@@ -515,7 +522,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
             <Pressable
               onPress={tap}
               accessibilityRole="button"
-              accessibilityLabel={`${isOzel ? (customName || "Özel zikir") : zikir.isim} çek`}
+              accessibilityLabel={fmt(t.pullA11y, { name: isOzel ? (customName || t.customDhikr) : zName(zikir.isim) })}
               accessibilityHint={`${count} / ${target}`}
               style={({ pressed }) => [m.tapBtn, { opacity: pressed ? 0.85 : 1 }]}
             >
@@ -524,21 +531,21 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 ? <Text style={m.tapCustomName} numberOfLines={1} maxFontSizeMultiplier={1.2}>{customName}</Text>
                 : <Text style={m.tapArabic} maxFontSizeMultiplier={1.2}>اللَّه</Text>
               }
-              <Text style={m.tapLabel} maxFontSizeMultiplier={1.2}>Çek</Text>
+              <Text style={m.tapLabel} maxFontSizeMultiplier={1.2}>{t.pull}</Text>
             </Pressable>
           </Animated.View>
         </View>
 
         {/* ── Aksiyonlar ── */}
         <View style={m.actions}>
-          <TouchableOpacity onPress={resetCount} style={[m.actionBtn, { borderColor: "#fca5a5" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sayacı sıfırla">
+          <TouchableOpacity onPress={resetCount} style={[m.actionBtn, { borderColor: "#fca5a5" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.resetCountA11y}>
             <Ionicons name="refresh" size={13} color="#dc2626" />
-            <Text style={[m.actionText, { color: "#dc2626" }]}>Sayacı Sıfırla</Text>
+            <Text style={[m.actionText, { color: "#dc2626" }]}>{t.resetCount}</Text>
           </TouchableOpacity>
           {tur > 0 && (
-            <TouchableOpacity onPress={resetAll} style={[m.actionBtn, { borderColor: c.border }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Tümünü sıfırla">
+            <TouchableOpacity onPress={resetAll} style={[m.actionBtn, { borderColor: c.border }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.resetAllA11y}>
               <Ionicons name="trash-outline" size={13} color={c.textMuted} />
-              <Text style={[m.actionText, { color: c.textMuted }]}>Tümünü Sıfırla</Text>
+              <Text style={[m.actionText, { color: c.textMuted }]}>{t.resetAll}</Text>
             </TouchableOpacity>
           )}
         </View>

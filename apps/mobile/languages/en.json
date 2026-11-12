@@ -1,0 +1,5 @@
+{
+  "CFBundleDisplayName": "Kuran Yolu",
+  "NSLocationWhenInUseUsageDescription": "Used to calculate the Qibla direction and prayer times for your location. The Qibla direction is calculated on your device; for prayer times your approximate location is sent to the Aladhan.com service and is not stored on our servers.",
+  "NSMotionUsageDescription": "Motion sensors are used so the Qibla compass can show your phone's heading correctly. The data stays on your device."
+}

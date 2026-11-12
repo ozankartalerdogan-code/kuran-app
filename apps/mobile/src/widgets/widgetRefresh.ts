@@ -71,6 +71,11 @@ if (TaskManager && BackgroundTask) {
   });
 }
 
+/** Dil değişince widget'ı hemen yeni dilde çiz (arka plan görevini beklemeden). */
+export async function refreshWidgetNow(): Promise<void> {
+  try { await refreshWidget(); } catch { /* widget yok/eklenmemiş — sessiz */ }
+}
+
 export async function registerWidgetRefresh(): Promise<void> {
   if (!TaskManager || !BackgroundTask) return;
   try {

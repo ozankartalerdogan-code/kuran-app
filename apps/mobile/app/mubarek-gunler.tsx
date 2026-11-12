@@ -10,6 +10,9 @@ import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/mubarek_gunler.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getEvidenceLabel } from "../src/lib/sourceLabels";
+import { useLang, useStrings, fmt, type Lang } from "../src/i18n";
+import { localizedData } from "../src/i18n/localizedData";
+import mubarekStrings from "../src/i18n/strings/mubarekGunler";
 
 type DayanakKey = "sahih" | "tartismali" | "zayif" | "kulturel" | "uydurma";
 type IbadetDurumKey = "farz" | "vacip" | "sunnet" | "mustehap" | "tavsiye";
@@ -68,35 +71,67 @@ interface MubarekGunlerRoot {
   };
 }
 
-const ROOT = ((rawData as { mubarek_gunler?: MubarekGunlerRoot }).mubarek_gunler ?? {});
-const GUNLER: Gun[] = Array.isArray(ROOT.gunler)
-  ? ROOT.gunler.map(gun => ({
-      ...gun,
-      ibadetler: Array.isArray(gun.ibadetler) ? gun.ibadetler : [],
-      kuran_referansi: gun.kuran_referansi ?? null,
-      ozel_not: gun.ozel_not ?? null,
-    }))
-  : [];
-const OZET_TABLO: OzetRow[] = Array.isArray(ROOT.ozet_tablo) ? ROOT.ozet_tablo : [];
-const DAYANAK_SEVIYELERI: DayanakSeviye[] = Array.isArray(ROOT.dayanak_seviyeleri?.seviyeler)
-  ? ROOT.dayanak_seviyeleri.seviyeler
-  : [];
+type MubarekFile = { mubarek_gunler?: MubarekGunlerRoot };
 
-const DAYANAK: Record<DayanakKey, { label: string; bg: string; border: string; text: string }> = {
-  sahih: { label: "SAHİH", bg: "#f0fdf4", border: "#86efac", text: "#15803d" },
-  tartismali: { label: "TARTIŞMALI", bg: "#fffbeb", border: "#fcd34d", text: "#b45309" },
-  zayif: { label: "ZAYIF", bg: "#fff7ed", border: "#fdba74", text: "#c2410c" },
-  kulturel: { label: "KÜLTÜREL", bg: "#f0f9ff", border: "#7dd3fc", text: "#0369a1" },
-  uydurma: { label: "UYDURMA", bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c" },
+const pickData = localizedData<MubarekFile>(
+  rawData as MubarekFile,
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/mubarek_gunler.en.json"),
+);
+
+interface PreparedData {
+  ROOT: MubarekGunlerRoot;
+  GUNLER: Gun[];
+  OZET_TABLO: OzetRow[];
+  DAYANAK_SEVIYELERI: DayanakSeviye[];
+}
+
+const DATA_CACHE: Partial<Record<Lang, PreparedData>> = {};
+
+function buildData(lang: Lang): PreparedData {
+  const cached = DATA_CACHE[lang];
+  if (cached) return cached;
+  const ROOT = pickData(lang).mubarek_gunler ?? {};
+  const GUNLER: Gun[] = Array.isArray(ROOT.gunler)
+    ? ROOT.gunler.map(gun => ({
+        ...gun,
+        ibadetler: Array.isArray(gun.ibadetler) ? gun.ibadetler : [],
+        kuran_referansi: gun.kuran_referansi ?? null,
+        ozel_not: gun.ozel_not ?? null,
+      }))
+    : [];
+  const OZET_TABLO: OzetRow[] = Array.isArray(ROOT.ozet_tablo) ? ROOT.ozet_tablo : [];
+  const DAYANAK_SEVIYELERI: DayanakSeviye[] = Array.isArray(ROOT.dayanak_seviyeleri?.seviyeler)
+    ? ROOT.dayanak_seviyeleri.seviyeler
+    : [];
+  const result = { ROOT, GUNLER, OZET_TABLO, DAYANAK_SEVIYELERI };
+  DATA_CACHE[lang] = result;
+  return result;
+}
+
+const DAYANAK: Record<DayanakKey, { bg: string; border: string; text: string }> = {
+  sahih: { bg: "#f0fdf4", border: "#86efac", text: "#15803d" },
+  tartismali: { bg: "#fffbeb", border: "#fcd34d", text: "#b45309" },
+  zayif: { bg: "#fff7ed", border: "#fdba74", text: "#c2410c" },
+  kulturel: { bg: "#f0f9ff", border: "#7dd3fc", text: "#0369a1" },
+  uydurma: { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c" },
 };
 
-const IBADET_DURUM: Record<IbadetDurumKey, { bg: string; text: string; label: string }> = {
-  farz: { bg: "#fef2f2", text: "#b91c1c", label: "FARZ" },
-  vacip: { bg: "#fff7ed", text: "#c2410c", label: "VACİP" },
-  sunnet: { bg: "#f0fdf4", text: "#15803d", label: "SÜNNET" },
-  mustehap: { bg: "#eff6ff", text: "#1d4ed8", label: "MÜSTEHAP" },
-  tavsiye: { bg: "#f5f3ff", text: "#6d28d9", label: "TAVSİYE" },
+const IBADET_DURUM: Record<IbadetDurumKey, { bg: string; text: string }> = {
+  farz: { bg: "#fef2f2", text: "#b91c1c" },
+  vacip: { bg: "#fff7ed", text: "#c2410c" },
+  sunnet: { bg: "#f0fdf4", text: "#15803d" },
+  mustehap: { bg: "#eff6ff", text: "#1d4ed8" },
+  tavsiye: { bg: "#f5f3ff", text: "#6d28d9" },
 };
+
+const DAYANAK_LABEL_KEY = {
+  sahih: "dsSahih", tartismali: "dsTartismali", zayif: "dsZayif", kulturel: "dsKulturel", uydurma: "dsUydurma",
+} as const;
+const DURUM_LABEL_KEY = {
+  farz: "stFarz", vacip: "stVacip", sunnet: "stSunnet", mustehap: "stMustehap", tavsiye: "stTavsiye",
+} as const;
+const TIP_LABEL_KEY = { haftalik: "tipHaftalik", yillik: "tipYillik", ramazan: "tipRamazan" } as const;
 
 const TIP_EMOJI: Record<GunTip, string> = {
   haftalik: "📅",
@@ -105,16 +140,18 @@ const TIP_EMOJI: Record<GunTip, string> = {
 };
 
 function DayanakBadge({ dayanak }: { dayanak: DayanakKey }) {
+  const t = useStrings(mubarekStrings);
   const badge = DAYANAK[dayanak];
   return (
     <View style={[st.badge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-      <Text style={[st.badgeText, { color: badge.text }]}>{badge.label}</Text>
+      <Text style={[st.badgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[dayanak]]}</Text>
     </View>
   );
 }
 
 function IbadetCard({ ib }: { ib: Ibadet }) {
   const c = useColors();
+  const t = useStrings(mubarekStrings);
   const badge = ib.durum ? IBADET_DURUM[ib.durum] : undefined;
   const evidenceLabel = getEvidenceLabel(ib.hadis_kaynagi);
 
@@ -124,7 +161,7 @@ function IbadetCard({ ib }: { ib: Ibadet }) {
         <Text style={[st.ibadetIsim, { color: c.text }]}>{ib.isim}</Text>
         {badge ? (
           <View style={[st.badge, { backgroundColor: badge.bg }]}>
-            <Text style={[st.badgeText, { color: badge.text }]}>{badge.label}</Text>
+            <Text style={[st.badgeText, { color: badge.text }]}>{t[DURUM_LABEL_KEY[ib.durum as IbadetDurumKey]]}</Text>
           </View>
         ) : null}
       </View>
@@ -136,9 +173,10 @@ function IbadetCard({ ib }: { ib: Ibadet }) {
 
 function GunCard({ gun }: { gun: Gun }) {
   const c = useColors();
+  const t = useStrings(mubarekStrings);
   const [open, setOpen] = useState(false);
   const badge = DAYANAK[gun.dayanak];
-  const gunIsmi = gun.isim || "İsimsiz kayıt";
+  const gunIsmi = gun.isim || t.unnamed;
   const ibadetler = gun.ibadetler ?? [];
   const kuranRef = gun.kuran_referansi;
 
@@ -146,7 +184,7 @@ function GunCard({ gun }: { gun: Gun }) {
     void Haptics.selectionAsync();
     const parts = [`🌙 ${gunIsmi}`];
     if (gun.onem) parts.push(gun.onem);
-    parts.push("Kuran Yolu uygulamasından");
+    parts.push(t.shareFooter);
 
     try {
       await Share.share({ message: parts.join("\n\n") });
@@ -173,7 +211,7 @@ function GunCard({ gun }: { gun: Gun }) {
           style={{ flex: 1, gap: 4 }}
           accessibilityRole="button"
           accessibilityLabel={gunIsmi}
-          accessibilityHint={`Gün detayını ${open ? "kapatır" : "açar"}`}
+          accessibilityHint={open ? t.dayHintClose : t.dayHintOpen}
           accessibilityState={{ expanded: open }}
         >
           <View style={st.row}>
@@ -182,7 +220,7 @@ function GunCard({ gun }: { gun: Gun }) {
           <View style={st.row}>
             <DayanakBadge dayanak={gun.dayanak} />
             {gun.tip ? (
-              <Text style={[st.tipText, { color: c.textMuted }]}>{TIP_EMOJI[gun.tip]} {gun.tip}</Text>
+              <Text style={[st.tipText, { color: c.textMuted }]}>{TIP_EMOJI[gun.tip]} {t[TIP_LABEL_KEY[gun.tip]] ?? gun.tip}</Text>
             ) : null}
             {gun.hicri_tarih ? <Text style={[st.hicri, { color: c.textMuted }]}>{gun.hicri_tarih}</Text> : null}
           </View>
@@ -194,8 +232,8 @@ function GunCard({ gun }: { gun: Gun }) {
             hitSlop={8}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel={`${gunIsmi} bilgisini paylaş`}
-            accessibilityHint="Paylaşım menüsünü açar"
+            accessibilityLabel={fmt(t.shareA11y, { name: gunIsmi })}
+            accessibilityHint={t.shareHint}
           >
             <Ionicons name="share-social-outline" size={16} color={c.textMuted} />
           </TouchableOpacity>
@@ -204,7 +242,7 @@ function GunCard({ gun }: { gun: Gun }) {
             hitSlop={8}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel={`${gunIsmi} detayını ${open ? "kapat" : "aç"}`}
+            accessibilityLabel={fmt(open ? t.detailA11yClose : t.detailA11yOpen, { name: gunIsmi })}
             accessibilityState={{ expanded: open }}
           >
             <Text style={[st.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
@@ -218,7 +256,7 @@ function GunCard({ gun }: { gun: Gun }) {
 
           {gun.dayanak_aciklama ? (
             <View style={[st.dayanakBox, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-              <Text style={[st.dayanakLabel, { color: badge.text }]}>⚖️ Dayanak</Text>
+              <Text style={[st.dayanakLabel, { color: badge.text }]}>{t.basis}</Text>
               <Text style={[st.p, { color: c.textSecondary }]}>{gun.dayanak_aciklama}</Text>
             </View>
           ) : null}
@@ -239,7 +277,7 @@ function GunCard({ gun }: { gun: Gun }) {
 
           {ibadetler.length > 0 ? (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>🤲 İbadetler</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.worships}</Text>
               {ibadetler.map((ibadet, index) => <IbadetCard key={index} ib={ibadet} />)}
             </View>
           ) : null}
@@ -258,14 +296,17 @@ function GunCard({ gun }: { gun: Gun }) {
 export default function MubarekGunlerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const baslik = ROOT.baslik ?? "Mübarek Gün ve Geceler";
+  const t = useStrings(mubarekStrings);
+  const lang = useLang();
+  const { ROOT, GUNLER, OZET_TABLO, DAYANAK_SEVIYELERI } = buildData(lang);
+  const baslik = ROOT.baslik ?? t.title;
   const aciklama = ROOT.aciklama ?? "";
   const genelNot = ROOT.genel_not ?? "";
   const kaynakNot = ROOT.kaynak_not ?? "";
 
   return (
     <>
-      <Stack.Screen options={{ title: "Mübarek Gün ve Geceler" }} />
+      <Stack.Screen options={{ title: t.title }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
@@ -279,7 +320,7 @@ export default function MubarekGunlerScreen() {
 
         {OZET_TABLO.length > 0 ? (
           <View style={[s.ozetBox, { backgroundColor: c.card, borderColor: c.border }]}>
-            <Text style={[s.ozetTitle, { color: c.text }]}>Hızlı Bakış</Text>
+            <Text style={[s.ozetTitle, { color: c.text }]}>{t.quickLook}</Text>
             {OZET_TABLO.map((row, index) => {
               const badge = DAYANAK[row.dayanak];
               return (
@@ -287,7 +328,7 @@ export default function MubarekGunlerScreen() {
                   <Text style={[s.ozetIsim, { color: c.text }]}>{row.isim}</Text>
                   <Text style={[s.ozetHicri, { color: c.textMuted }]}>{row.hicri}</Text>
                   <View style={[s.ozetBadge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-                    <Text style={[s.ozetBadgeText, { color: badge.text }]}>{badge.label}</Text>
+                    <Text style={[s.ozetBadgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[row.dayanak]]}</Text>
                   </View>
                 </View>
               );
@@ -297,13 +338,13 @@ export default function MubarekGunlerScreen() {
 
         {DAYANAK_SEVIYELERI.length > 0 ? (
           <View style={[s.dayanakLegend, { backgroundColor: c.card, borderColor: c.border }]}>
-            <Text style={[s.ozetTitle, { color: c.text }]}>Dayanak Seviyeleri</Text>
+            <Text style={[s.ozetTitle, { color: c.text }]}>{t.basisLevels}</Text>
             {DAYANAK_SEVIYELERI.map(seviye => {
               const badge = DAYANAK[seviye.kod];
               return (
                 <View key={seviye.kod} style={s.legendRow}>
                   <View style={[s.ozetBadge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-                    <Text style={[s.ozetBadgeText, { color: badge.text }]}>{badge.label}</Text>
+                    <Text style={[s.ozetBadgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[seviye.kod]]}</Text>
                   </View>
                   <Text style={[s.legendText, { color: c.textSecondary }]}>{seviye.aciklama}</Text>
                 </View>
@@ -312,12 +353,12 @@ export default function MubarekGunlerScreen() {
           </View>
         ) : null}
 
-        <Text style={[s.sectionHead, { color: c.textMuted }]}>Gün ve Geceler ({GUNLER.length})</Text>
+        <Text style={[s.sectionHead, { color: c.textMuted }]}>{fmt(t.daysAndNights, { n: GUNLER.length })}</Text>
 
         {GUNLER.length > 0 ? (
           GUNLER.map(gun => <GunCard key={gun.id} gun={gun} />)
         ) : (
-          <Text style={[s.emptyText, { color: c.textMuted }]}>Bu bölüm için gösterilecek kayıt bulunamadı.</Text>
+          <Text style={[s.emptyText, { color: c.textMuted }]}>{t.empty}</Text>
         )}
 
         {genelNot ? (

@@ -1,0 +1,1345 @@
+{
+  "peygamber_kissalari": {
+    "id": "peygamber_kissalari",
+    "baslik": "Stories of the Prophets Mentioned in the Quran",
+    "versiyon": "1.0",
+    "olusturulma": "2026-06-19",
+    "dil": "tr",
+    "aciklama": "The stories of the 25 prophets named in the Noble Quran, together with Quranic references and lessons learned.",
+    "kaynak_not": "The stories are based primarily on verses of the Noble Quran. Authentic hadith, tafsir, and historical narrations have been used for certain details of history, geography, and names where needed; information not explicitly mentioned in the Quran is identified in notes.",
+    "toplam_peygamber": 25,
+    "not": "Prophet Muhammad ﷺ is included in this list with a brief summary; his life is covered in detail in a separate Seerah section.",
+    "peygamberler": [
+      {
+        "id": "hz_adem",
+        "isim": "Prophet Adam (peace be upon him)",
+        "unvan": "Safiyullah — the one chosen by Allah",
+        "kuranda_gecme_sayisi": 25,
+        "gondirildigi_yer": "Earth (the first human)",
+        "donem": "The beginning of humanity",
+        "kisa_ozet": "The first human and the first prophet. He was created by Allah, lived in Paradise, ate from the forbidden fruit after Satan tempted him, and was sent down to earth. He was forgiven through his repentance.",
+        "kissa": [
+          {
+            "baslik": "Creation",
+            "metin": "Allah created Prophet Adam from clay and breathed a soul into him. He commanded the angels to prostrate, and all the angels prostrated. But Iblis (Satan), out of pride, refused to prostrate: 'I am better than him. You created me from fire and created him from clay,' he said. This pride marked the beginning of Satan's going astray.",
+            "kuran_referanslari": [
+              "2:30-33",
+              "7:11-12",
+              "15:26-33",
+              "38:71-76"
+            ]
+          },
+          {
+            "baslik": "The Forbidden Fruit in Paradise",
+            "metin": "Allah placed Prophet Adam and his wife Hawwa in Paradise and commanded them to eat whatever they wished, but not to approach one tree. Satan deceived them both and made them eat the fruit of that tree; he exposed their nakedness to them, causing them shame. Allah then sent them down to earth.",
+            "kuran_referanslari": [
+              "2:35-36",
+              "7:19-25",
+              "20:115-123"
+            ]
+          },
+          {
+            "baslik": "Repentance and Forgiveness",
+            "metin": "Prophet Adam regretted his mistake and repented using words he learned from Allah: 'Our Lord! We have wronged ourselves. If You do not forgive us and have mercy on us, we will surely be among the losers.' Allah accepted this repentance and forgave him.",
+            "kuran_referanslari": [
+              "2:37",
+              "7:23"
+            ]
+          },
+          {
+            "baslik": "Habil and Qabil",
+            "metin": "Prophet Adam's two sons, Habil and Qabil, offered sacrifices to Allah. Habil's sacrifice was accepted, but Qabil's was not. Consumed by jealousy, Qabil killed his brother—the first murder on earth. Allah taught Qabil how to bury his brother's body through a crow.",
+            "kuran_referanslari": [
+              "5:27-31"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His direct creation by Allah (from clay)",
+          "The angels' prostration to him",
+          "Being taught all the names"
+        ],
+        "dersler": [
+          "Pride is Satan's greatest sin—Iblis went astray through his pride",
+          "Making mistakes is human, and repentance leads to salvation",
+          "When repentance is sincere, Allah surely forgives",
+          "Jealousy leads people to the greatest sins"
+        ],
+        "ana_sure": "al-Baqarah (2), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "2:30-37",
+          "7:11-25",
+          "15:26-44",
+          "17:61-65",
+          "18:50",
+          "20:115-123",
+          "38:71-85"
+        ],
+        "ozel_notlar": [
+          "The names Habil and Qabil do not appear in the Quran. In al-Ma'idah 27–31, they are described only as 'Adam's two sons.' These names come from the Torah and the tafsir/Isra'iliyyat tradition."
+        ]
+      },
+      {
+        "id": "hz_idris",
+        "isim": "Prophet Idris (peace be upon him)",
+        "unvan": "Prophet and truthful one",
+        "kuranda_gecme_sayisi": 2,
+        "gondirildigi_yer": "The region of Babylon (according to narration)",
+        "donem": "Before Prophet Nuh",
+        "kisa_ozet": "One of the prophets about whom very little information is given in the Quran. He is praised as truthful and patient and was raised to a high station.",
+        "kissa": [
+          {
+            "baslik": "The Quranic Account",
+            "metin": "The Quran gives very little information about Prophet Idris. He is mentioned in two verses: in Surah Maryam, it says, 'He was a truthful prophet, and We raised him to a high station.' In Surah al-Anbiya, he is mentioned among those who were patient, and it is stated that he was admitted into Allah's mercy. Beyond this, the Quran gives no detailed account of his story.",
+            "kuran_referanslari": [
+              "19:56-57",
+              "21:85-86"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His being raised to a high station"
+        ],
+        "dersler": [
+          "Truthfulness and patience are valued by Allah",
+          "The fact that not every prophet's story is told in detail does not diminish their importance"
+        ],
+        "ana_sure": "Maryam (19), al-Anbiya (21)",
+        "kuran_referanslari_ozet": [
+          "19:56-57",
+          "21:85-86"
+        ],
+        "ozel_notlar": [
+          "The information given as gondirildigi_yer, 'the region of Babylon,' does not appear in the Quran; it comes from tafsir and narrations. The Quran says only that Prophet Idris was a 'truthful prophet' and was 'raised to a high station.'"
+        ]
+      },
+      {
+        "id": "hz_nuh",
+        "isim": "Prophet Nuh (peace be upon him)",
+        "unvan": "A grateful servant",
+        "kuranda_gecme_sayisi": 43,
+        "gondirildigi_yer": "The region of Mesopotamia",
+        "donem": "Before the Flood",
+        "kisa_ozet": "He called his people to the oneness of Allah for 950 years. Very few believed. He built an ark at Allah's command, the Flood came, and the believers were saved. Even his own son was among those who drowned.",
+        "kissa": [
+          {
+            "baslik": "A Call Lasting 950 Years",
+            "metin": "Prophet Nuh called his people to Allah for 950 years. He called them night and day, openly and in secret. But his people persistently rejected him. 'We will not abandon our idols,' they said. The wealthy looked down on the poor and said, 'This man has bewitched you.' Very few people believed in Prophet Nuh.",
+            "kuran_referanslari": [
+              "71:1-28",
+              "7:59-64",
+              "10:71-73"
+            ]
+          },
+          {
+            "baslik": "The Ark and the Flood",
+            "metin": "Allah commanded Prophet Nuh to build an ark. His people mocked him: 'What use is an ark to you on land?' Prophet Nuh built the ark at Allah's command. When the Flood began, he took a pair of every living creature and the believers aboard. Water gushed from the earth, rain fell from the sky, and everything was submerged.",
+            "kuran_referanslari": [
+              "11:36-48",
+              "23:27-29",
+              "26:105-122"
+            ]
+          },
+          {
+            "baslik": "His Son's Drowning",
+            "metin": "Prophet Nuh's son had not believed. When the Flood began, Prophet Nuh called out, 'My dear son, come with us and do not be with the disbelievers.' His son said, 'I will take refuge on a mountain that will protect me from the water.' The waves came between them, and his son drowned. In anguish, Prophet Nuh prayed, 'O my Lord, my son was of my family.' Allah said, 'He is not of your family; he was a doer of evil deeds.'",
+            "kuran_referanslari": [
+              "11:42-47"
+            ]
+          },
+          {
+            "baslik": "Deliverance",
+            "metin": "The Flood ended, and the ark came to rest on Mount Judi. It was said, 'O Nuh, disembark with peace and blessings from Us upon you and those with you.'",
+            "kuran_referanslari": [
+              "11:48",
+              "23:28-29"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His deliverance from the Flood in his ark",
+          "His prayer being accepted"
+        ],
+        "dersler": [
+          "Patience—calling people for 950 years without giving up",
+          "Family ties cannot take precedence over iman—his son was among those who drowned",
+          "The end of those who reject the truth is loss",
+          "Complete submission to Allah's command leads to salvation"
+        ],
+        "ana_sure": "Nuh (71), Hud (11)",
+        "kuran_referanslari_ozet": [
+          "7:59-64",
+          "10:71-73",
+          "11:25-49",
+          "23:23-30",
+          "26:105-122",
+          "71:1-28"
+        ]
+      },
+      {
+        "id": "hz_hud",
+        "isim": "Prophet Hud (peace be upon him)",
+        "unvan": "The prophet sent to the people of 'Ad",
+        "kuranda_gecme_sayisi": 10,
+        "gondirildigi_yer": "Southern Arabia (the region of al-Ahqaf—the people of 'Ad)",
+        "donem": "After Prophet Nuh",
+        "kisa_ozet": "He was sent to the people of 'Ad, who were strong and had great buildings. He called them to the oneness of Allah; after they rejected him, a fierce wind destroyed the people.",
+        "kissa": [
+          {
+            "baslik": "Calling the People of 'Ad",
+            "metin": "The people of 'Ad were a physically strong community who built great buildings. Prophet Hud called them to Allah and asked them to abandon their idols. But his people rejected him, saying, 'Do we take you for a madman? Should we abandon our gods?'",
+            "kuran_referanslari": [
+              "7:65-72",
+              "11:50-60",
+              "26:123-140"
+            ]
+          },
+          {
+            "baslik": "Destruction",
+            "metin": "The people of 'Ad grew arrogant and rejected the message. Allah sent against them an unrelenting, ill-fated, fierce wind for 7 nights and 8 days. The people were utterly destroyed, and Prophet Hud and the believers were saved.",
+            "kuran_referanslari": [
+              "41:15-16",
+              "46:21-25",
+              "69:6-8"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His deliverance from the destruction of his people"
+        ],
+        "dersler": [
+          "Power and wealth can distance a person from Allah",
+          "Arrogance leads to destruction",
+          "Allah's punishment is inevitable"
+        ],
+        "ana_sure": "Hud (11), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "7:65-72",
+          "11:50-60",
+          "26:123-140",
+          "41:15-16",
+          "46:21-25",
+          "69:6-8"
+        ]
+      },
+      {
+        "id": "hz_salih",
+        "isim": "Prophet Salih (peace be upon him)",
+        "unvan": "The prophet sent to the people of Thamud",
+        "kuranda_gecme_sayisi": 8,
+        "gondirildigi_yer": "The region of al-Hijr, Arabia (the people of Thamud)",
+        "donem": "After Prophet Hud",
+        "kisa_ozet": "He was sent to the people of Thamud, who carved homes into rocks. A she-camel was given as a miracle. The camel was killed, and the people were destroyed.",
+        "kissa": [
+          {
+            "baslik": "Calling the People of Thamud",
+            "metin": "The people of Thamud were a strong community who carved homes into rocks. Prophet Salih called them to Allah. The people asked for a miracle. Allah sent a she-camel and said, 'This is Allah's she-camel; let her roam freely and do not harm her.'",
+            "kuran_referanslari": [
+              "7:73-79",
+              "11:61-68",
+              "26:141-159"
+            ]
+          },
+          {
+            "baslik": "The Killing of the She-Camel and the Destruction of the People",
+            "metin": "The wrongdoers among his people slaughtered the she-camel. Prophet Salih warned them: 'Enjoy yourselves for three more days, then the punishment will come.' At the end of the three days, a mighty cry (sayha) devastated the people. Prophet Salih and the believers were saved.",
+            "kuran_referanslari": [
+              "7:77-78",
+              "11:65-67",
+              "91:11-14"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The she-camel sent by Allah's permission"
+        ],
+        "dersler": [
+          "Belittling Allah's signs (miracles) leads to destruction",
+          "Wrongdoers draw others along with them — the sin of a minority affected the entire people",
+          "Heeding warnings leads to salvation"
+        ],
+        "ana_sure": "Hud (11), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "7:73-79",
+          "11:61-68",
+          "26:141-159",
+          "27:45-53",
+          "91:11-14"
+        ]
+      },
+      {
+        "id": "hz_ibrahim",
+        "isim": "Prophet Ibrahim (peace be upon him)",
+        "unvan": "Halilullah — the friend of Allah",
+        "kuranda_gecme_sayisi": 69,
+        "gondirildigi_yer": "Ur (Iraq), Canaan, Mecca",
+        "donem": "Approximately 2000 BCE",
+        "kisa_ozet": "A pioneer of tawhid. He broke the idols and was thrown into a fire, but was not burned. He prepared to sacrifice his son. He built the Kaaba with Ismail. He was remembered as one of the leaders of the hanif tradition of tawhid.",
+        "kissa": [
+          {
+            "baslik": "Breaking the Idols",
+            "metin": "Prophet Ibrahim opposed idols from his youth. When his people left the city for a festival, he entered the temple and broke all the idols except the largest one. He hung the picture with the axe around the neck of the largest idol. When they returned, they asked, 'Who did this?' Prophet Ibrahim replied, 'That large one did it; ask them,' trying to make them think through his sarcastic answer.",
+            "kuran_referanslari": [
+              "21:51-67",
+              "37:83-98"
+            ]
+          },
+          {
+            "baslik": "Thrown into the Fire",
+            "metin": "His people angrily decided to throw Prophet Ibrahim into a fire. A huge fire was lit. Allah commanded the fire, 'O fire, be coolness and safety for Ibrahim.' The fire did not burn Prophet Ibrahim. This is the greatest miracle of submission.",
+            "kuran_referanslari": [
+              "21:68-70",
+              "29:24",
+              "37:97-98"
+            ]
+          },
+          {
+            "baslik": "Separation from His Father",
+            "metin": "Prophet Ibrahim explained tawhid to his father and asked him to turn away from idols. His father refused and threatened him. Prophet Ibrahim had prayed for his father, but when it became clear that his father was an enemy of Allah, he distanced himself from him.",
+            "kuran_referanslari": [
+              "6:74-83",
+              "9:113-114",
+              "19:41-48",
+              "60:4"
+            ]
+          },
+          {
+            "baslik": "The Trial of Sacrifice",
+            "metin": "Prophet Ibrahim saw in a dream that he was sacrificing his son Ismail. He told his son, and Ismail said, 'Do what you are commanded; you will find me among the patient.' When Prophet Ibrahim laid his son down and drew the knife, Allah said, 'O Ibrahim! You have fulfilled the dream,' and sent a ram.",
+            "kuran_referanslari": [
+              "37:102-107"
+            ]
+          },
+          {
+            "baslik": "The Building of the Kaaba",
+            "metin": "Prophet Ibrahim and his son Prophet Ismail built the Kaaba by Allah's command. As they built it, they prayed, 'Our Lord, accept this from us.' Their proclamation of the Hajj also took place during this period.",
+            "kuran_referanslari": [
+              "2:125-127",
+              "22:26-27"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The fire did not burn him",
+          "The revival of four birds (to see Allah's power)",
+          "His being chosen as Allah's friend"
+        ],
+        "dersler": [
+          "Reason and observation lead to tawhid — Ibrahim sought Allah by observing the sky",
+          "Family ties cannot take precedence over iman",
+          "Complete submission — being ready to sacrifice even one's own son",
+          "Arrogance and disbelief cannot burn, even if they are fire — the fire did not burn Ibrahim"
+        ],
+        "ana_sure": "Ibrahim (14), al-Baqarah (2)",
+        "kuran_referanslari_ozet": [
+          "2:124-132",
+          "2:258-260",
+          "6:74-83",
+          "9:113-114",
+          "14:35-41",
+          "19:41-50",
+          "21:51-73",
+          "22:26-27",
+          "26:69-89",
+          "29:16-27",
+          "37:83-113",
+          "60:4"
+        ]
+      },
+      {
+        "id": "hz_lut",
+        "isim": "Prophet Lut (peace be upon him)",
+        "unvan": "The prophet sent to the people of Sodom",
+        "kuranda_gecme_sayisi": 27,
+        "gondirildigi_yer": "The city of Sodom (around the Dead Sea)",
+        "donem": "A contemporary of Prophet Ibrahim",
+        "kisa_ozet": "Prophet Ibrahim's nephew. He was sent to the people of Sodom. The people were known for all kinds of immorality, including homosexuality. They rejected his warnings, angels came, and the city was overturned.",
+        "kissa": [
+          {
+            "baslik": "Calling the People of Sodom",
+            "metin": "Prophet Lut called his people to both tawhid and moral uprightness. He warned them, saying, 'Do you commit an indecency that no one in the worlds has committed before you?' The people rejected him, saying, 'Drive him out of your city.'",
+            "kuran_referanslari": [
+              "7:80-84",
+              "11:77-83",
+              "26:160-175",
+              "27:54-58"
+            ]
+          },
+          {
+            "baslik": "The Arrival of the Angels and the Destruction",
+            "metin": "Allah sent angels as guests to Prophet Lut. The people came and wanted to harm them. The angels blinded the people's eyes. Prophet Lut and his family, except his wife, left the city at night. When morning came, the city was overturned and stones rained down upon them.",
+            "kuran_referanslari": [
+              "11:77-83",
+              "15:57-77",
+              "51:31-37"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The angels' visit as guests",
+          "His being saved from the destruction of the city"
+        ],
+        "dersler": [
+          "Moral collapse leads to the destruction of society",
+          "No intercession can be made for someone who rejects the truth, even if that person is one's spouse — his wife was destroyed because she did not believe",
+          "Transgressing Allah's limits has severe consequences"
+        ],
+        "ana_sure": "Hud (11), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "7:80-84",
+          "11:77-83",
+          "15:57-77",
+          "21:74-75",
+          "26:160-175",
+          "27:54-58",
+          "51:31-37"
+        ]
+      },
+      {
+        "id": "hz_ismail",
+        "isim": "Prophet Ismail (peace be upon him)",
+        "unvan": "Sadiq al-Wa'd — faithful to his promise",
+        "kuranda_gecme_sayisi": 12,
+        "gondirildigi_yer": "Mecca",
+        "donem": "The son of Prophet Ibrahim",
+        "kisa_ozet": "The son of Prophet Ibrahim. He was left in Mecca with his mother. He showed complete submission in the trial of sacrifice. He built the Kaaba with his father. The ancestor of the Arab prophets.",
+        "kissa": [
+          {
+            "baslik": "Left in Mecca",
+            "metin": "The Quran states that Prophet Ibrahim, by Allah's command, left some of his family in a barren valley. Reports in the prophetic biography and hadith relate that these people were Hajar and the infant Ismail, and that the water of Zamzam emerged during this hardship.",
+            "kuran_referanslari": [
+              "14:37-38"
+            ],
+            "not": "Hajar's name, the details of the conversation, and how Zamzam emerged are not explicitly mentioned in the Quran; this information is conveyed through hadith and prophetic biography reports."
+          },
+          {
+            "baslik": "The Trial of Sacrifice",
+            "metin": "Prophet Ibrahim saw in a dream that he was sacrificing him. He told his son. Prophet Ismail said, 'Do what you are commanded, dear father; you will find me among the patient.' Allah saw this submission and sent a ram.",
+            "kuran_referanslari": [
+              "37:102-107"
+            ]
+          },
+          {
+            "baslik": "The Building of the Kaaba",
+            "metin": "Together with his father, Prophet Ibrahim, he raised the foundations of the Kaaba. They prayed, 'Our Lord, accept this from us; surely You are the All-Hearing, the All-Knowing.'",
+            "kuran_referanslari": [
+              "2:127"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The emergence of the water of Zamzam (in the story of Hajar and Ismail)"
+        ],
+        "dersler": [
+          "Complete submission — 'Do what you are commanded; I will be patient'",
+          "Faithfulness to one's word is one of the greatest virtues"
+        ],
+        "ana_sure": "al-Baqarah (2), as-Saffat (37)",
+        "kuran_referanslari_ozet": [
+          "2:125-129",
+          "14:37-39",
+          "19:54-55",
+          "21:85",
+          "37:102-111",
+          "38:48"
+        ],
+        "ozel_notlar": [
+          "The Quran states that Prophet Ibrahim settled some of his family in a barren valley (Ibrahim 14:37); Hajar's name and the detailed story of Zamzam are known from hadith and prophetic biography sources."
+        ]
+      },
+      {
+        "id": "hz_ishak",
+        "isim": "Prophet Ishaq (peace be upon him)",
+        "unvan": "The son of Prophet Ibrahim",
+        "kuranda_gecme_sayisi": 15,
+        "gondirildigi_yer": "The region of Canaan (Palestine)",
+        "donem": "The son of Prophet Ibrahim",
+        "kisa_ozet": "Prophet Ibrahim's second son and Prophet Ismail's brother. His birth was announced as good news to his elderly parents. He was the father of Prophet Yaqub.",
+        "kissa": [
+          {
+            "baslik": "The Good News of His Birth",
+            "metin": "When the angels visited Prophet Ibrahim, they gave his very elderly wife, Sarah, the good news that Ishaq would be born. Sarah said in astonishment, 'I am an old woman and my husband is an old man; how can this be?' The angels replied, 'This is Allah's command.'",
+            "kuran_referanslari": [
+              "11:69-73",
+              "15:51-56",
+              "51:24-30"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His birth to elderly parents"
+        ],
+        "dersler": [
+          "Nothing is impossible for Allah",
+          "The lineage of prophethood continues — Yaqub from Ishaq, and 12 sons from Yaqub"
+        ],
+        "ana_sure": "Hud (11)",
+        "kuran_referanslari_ozet": [
+          "2:133",
+          "6:84",
+          "11:69-73",
+          "12:6",
+          "19:49",
+          "21:72",
+          "29:27",
+          "37:112-113",
+          "38:45-47"
+        ]
+      },
+      {
+        "id": "hz_yakup",
+        "isim": "Prophet Yaqub (peace be upon him)",
+        "unvan": "Israil — servant of Allah",
+        "kuranda_gecme_sayisi": 16,
+        "gondirildigi_yer": "The region of Canaan (Palestine)",
+        "donem": "The son of Prophet Ishaq",
+        "kisa_ozet": "The son of Prophet Ishaq. He grieved for years over his separation from his son, Prophet Yusuf. A symbol of patience and reliance on Allah. His 12 sons are the ancestors of the Children of Israel.",
+        "kissa": [
+          {
+            "baslik": "The Separation from Yusuf",
+            "metin": "His sons threw their younger brother, Prophet Yusuf, into a well. They brought their father a shirt stained with false blood. Prophet Yaqub said, 'No, your souls have led you to do something. Beautiful patience is needed. Allah's help is sought,' and his eyes turned white from grief.",
+            "kuran_referanslari": [
+              "12:18",
+              "12:84-86"
+            ]
+          },
+          {
+            "baslik": "Reunion in Egypt",
+            "metin": "Years later, Prophet Yusuf had become a minister in Egypt. Prophet Yaqub sensed Yusuf's scent from afar. When his sons brought Yusuf's shirt, Prophet Yaqub regained his sight. He went to Egypt and was reunited with his son.",
+            "kuran_referanslari": [
+              "12:93-99"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His sensing Yusuf's scent from afar",
+          "His sight being restored through Yusuf's shirt"
+        ],
+        "dersler": [
+          "Patience is beautiful — 'Beautiful patience'",
+          "Never despair of Allah's mercy"
+        ],
+        "ana_sure": "Yusuf (12)",
+        "kuran_referanslari_ozet": [
+          "2:132-133",
+          "6:84",
+          "12:4-100",
+          "19:6",
+          "21:72",
+          "38:45-47"
+        ]
+      },
+      {
+        "id": "hz_yusuf",
+        "isim": "Prophet Yusuf (peace be upon him)",
+        "unvan": "Siddiq — the most truthful",
+        "kuranda_gecme_sayisi": 27,
+        "gondirildigi_yer": "Canaan and Egypt",
+        "donem": "Approximately 1900–1700 BCE",
+        "kisa_ozet": "The only prophet to whom an entire surah of the Quran is dedicated. His brothers threw him into a well, he was sold into slavery and imprisoned, but he ultimately became the vizier of Egypt. 'The best of stories'.",
+        "kissa": [
+          {
+            "baslik": "The Dream and His Brothers' Jealousy",
+            "metin": "When Prophet Yusuf was young, he told his father about his dream: 11 stars, the sun and the moon were prostrating to him. His father, Prophet Yaqub, told him not to tell his brothers about it. His brothers grew jealous of Prophet Yusuf, took him into the desert and threw him into a well. A caravan found him and sold him as a slave in Egypt.",
+            "kuran_referanslari": [
+              "12:4-20"
+            ]
+          },
+          {
+            "baslik": "The Aziz's Wife's Plot",
+            "metin": "Prophet Yusuf, who grew up in the home of the Egyptian official (the Aziz) who had bought him, was handsome and trustworthy. The Aziz's wife sought to approach him. Prophet Yusuf fled and said, 'I seek refuge in Allah.' He was then falsely accused and sent to prison.",
+            "kuran_referanslari": [
+              "12:23-35"
+            ]
+          },
+          {
+            "baslik": "Interpreting Dreams in Prison",
+            "metin": "He was imprisoned with two other men. Both told him their dreams, and Prophet Yusuf interpreted them. He told one, 'You will be hanged,' and the other, 'You will serve wine to your master.' He told the prisoner who was released, 'Mention me to your master,' but the prisoner forgot. Prophet Yusuf remained in prison for years.",
+            "kuran_referanslari": [
+              "12:36-42"
+            ]
+          },
+          {
+            "baslik": "The King's Dream and His Release",
+            "metin": "The king of Egypt had a dream: 7 fat cows were eaten by 7 lean cows; there were also 7 green ears of grain and 7 dry ones. The royal court could not interpret the dream. The prisoner who had been released remembered Prophet Yusuf. Prophet Yusuf interpreted the dream as 7 years of abundance followed by 7 years of famine. The king released him from prison and placed him in charge of Egypt's storehouses.",
+            "kuran_referanslari": [
+              "12:43-57"
+            ]
+          },
+          {
+            "baslik": "Reunion with His Brothers",
+            "metin": "During the famine, his brothers came to Egypt. Prophet Yusuf recognized them but did not reveal who he was. Finally, he revealed himself: 'I am Yusuf, and this is my brother. Allah has favored us.' His brothers were ashamed. Prophet Yusuf said, 'There is no blame upon you today. May Allah forgive you.'",
+            "kuran_referanslari": [
+              "12:58-93"
+            ]
+          },
+          {
+            "baslik": "The Dream Comes True",
+            "metin": "His family came to Egypt. His mother and father fell in prostration. Prophet Yusuf said, 'My dear father! This is the interpretation of my earlier dream. My Lord has made it come true.' His childhood dream had come true exactly as he had seen it, years later.",
+            "kuran_referanslari": [
+              "12:99-101"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "Dream interpretation",
+          "His patience during his years in prison",
+          "The Aziz's wife's confession — Allah clearing him of the accusation"
+        ],
+        "dersler": [
+          "Patience and chastity are among the greatest virtues",
+          "Not responding to evil with evil — he forgave his brothers",
+          "Allah's plan is greater than a person's plan",
+          "Ease surely comes after hardship",
+          "Even a false accusation cannot destroy a person who is mindful of Allah"
+        ],
+        "ana_sure": "Yusuf (12) — the entire surah",
+        "kuran_referanslari_ozet": [
+          "12:1-111"
+        ],
+        "ozel_notlar": [
+          "The woman's name is not given in the Quran in the story of Prophet Yusuf; the widely used name 'Zulaykha' comes from the tradition of Quranic commentary and literature. In the Quran, she is generally referred to as 'the Aziz's wife.'"
+        ]
+      },
+      {
+        "id": "hz_suayb",
+        "isim": "Prophet Shuayb (peace be upon him)",
+        "unvan": "The prophet sent to the people of Madyan",
+        "kuranda_gecme_sayisi": 11,
+        "gondirildigi_yer": "Madyan (around the Gulf of Aqaba)",
+        "donem": "Close to the time of Prophet Musa; he is reported to have been his father-in-law",
+        "kisa_ozet": "The prophet who taught ethics in trade. His people cheated in their transactions and gave less than the proper measure and weight. They rejected his warnings, and a mighty blast and an earthquake destroyed them.",
+        "kissa": [
+          {
+            "baslik": "Ethics in Trade",
+            "metin": "Prophet Shuayb called on his people: 'Give full measure and weight, do not deprive people of their goods, and do not spread corruption in the land.' His people mocked him, saying, 'We will not abandon what we saw our fathers doing; you must think yourself very merciful.'",
+            "kuran_referanslari": [
+              "7:85-93",
+              "11:84-95",
+              "26:176-191"
+            ]
+          },
+          {
+            "baslik": "Destruction",
+            "metin": "When the people rejected him, a cloud that provided shade came over them. They hoped to find coolness beneath it, but fire rained down from the cloud. A violent earthquake and a blast destroyed the people.",
+            "kuran_referanslari": [
+              "7:91-93",
+              "11:94-95"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His deliverance from the destruction of his people"
+        ],
+        "dersler": [
+          "Islam commands economic justice — ethics in trade are not separate from worship",
+          "Earning a lawful livelihood is an act of worship",
+          "It is dangerous to follow inherited traditions without questioning them"
+        ],
+        "ana_sure": "Hud (11), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "7:85-93",
+          "11:84-95",
+          "26:176-191",
+          "29:36-37"
+        ],
+        "ozel_notlar": [
+          "The view that the father of the two women Prophet Musa helped in al-Qasas 28:23–28 was Prophet Shuayb is widespread, but it cannot be stated with certainty. Some Quranic commentators say that this man was a righteous elder from Madyan."
+        ]
+      },
+      {
+        "id": "hz_eyyup",
+        "isim": "Prophet Ayyub (peace be upon him)",
+        "unvan": "The patient servant",
+        "kuranda_gecme_sayisi": 4,
+        "gondirildigi_yer": "The region of al-Sham (according to reports)",
+        "donem": "Not known for certain",
+        "kisa_ozet": "He was tested with severe illness for years. He lost his wealth, his children and his health. He did not give up or complain. He turned to Allah with patience and prayer and was healed.",
+        "kissa": [
+          {
+            "baslik": "The Great Trial",
+            "metin": "Prophet Ayyub was afflicted with a severe illness that lasted for years. He lost his wealth and his children. Yet he remained patient and did not complain. The Quran praises his patience, saying, 'What an excellent servant; indeed, he was ever turning to Allah.'",
+            "kuran_referanslari": [
+              "21:83-84",
+              "38:41-44"
+            ]
+          },
+          {
+            "baslik": "Prayer and Healing",
+            "metin": "Prophet Ayyub prayed, 'My Lord! Harm has touched me, and You are the Most Merciful of those who show mercy.' Allah answered his prayer, removed his illness, and restored his family to him and gave him more besides.",
+            "kuran_referanslari": [
+              "21:83-84"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His prayer being answered and his healing",
+          "His patience despite his illness"
+        ],
+        "dersler": [
+          "Patience — turning to Allah without complaint, even in the hardest trial",
+          "Turning to Allah in times of hardship is the best way forward",
+          "Allah is with those who are patient"
+        ],
+        "ana_sure": "al-Anbiya (21), Sad (38)",
+        "kuran_referanslari_ozet": [
+          "4:163",
+          "6:84",
+          "21:83-84",
+          "38:41-44"
+        ]
+      },
+      {
+        "id": "hz_musa",
+        "isim": "Prophet Musa (peace be upon him)",
+        "unvan": "Kalimullah — the one who spoke with Allah",
+        "kuranda_gecme_sayisi": 136,
+        "gondirildigi_yer": "Egypt and the Sinai Peninsula",
+        "donem": "Approximately 1300 BCE",
+        "kisa_ozet": "The prophet mentioned most often in the Quran. He grew up in Pharaoh's palace. By Allah's permission, he performed 9 great miracles. He led the Children of Israel out of Egypt. He spoke with Allah on Sinai and received the Torah.",
+        "kissa": [
+          {
+            "baslik": "His Birth and Pharaoh's Palace",
+            "metin": "Pharaoh was having the baby boys of the Children of Israel killed. Prophet Musa's mother placed him in a chest on the Nile, and the chest reached Pharaoh's palace. They took his own mother as his wet nurse. Thus Prophet Musa grew up both in his mother's care and in Pharaoh's palace.",
+            "kuran_referanslari": [
+              "20:38-40",
+              "28:7-13"
+            ]
+          },
+          {
+            "baslik": "Flight from Egypt and Madyan",
+            "metin": "Prophet Musa accidentally killed an Egyptian and fled Egypt. He went to Madyan, met the family of a righteous elder and married one of his daughters. Although the view that this man was Prophet Shuayb is widespread, it is not certain.",
+            "kuran_referanslari": [
+              "28:14-29"
+            ]
+          },
+          {
+            "baslik": "Revelation at Mount Tur",
+            "metin": "During a journey, he saw a fire and approached it, and Allah spoke to him. 'I am your Lord, so take off your shoes; you are in the sacred valley of Tuwa. I am Allah; there is no god but Me, so worship Me.' Allah taught him to turn his staff into a dragon and to bring his hand out of his pocket.",
+            "kuran_referanslari": [
+              "20:9-24",
+              "27:7-12",
+              "28:29-35"
+            ]
+          },
+          {
+            "baslik": "The Call to Pharaoh",
+            "metin": "Allah sent Prophet Musa and Prophet Harun to Pharaoh. 'Speak to him gently; perhaps he will take heed or fear.' Pharaoh acted arrogantly: 'I am your most exalted lord.' Prophet Musa threw down his staff, and it became a snake. He brought out his hand, and it shone brilliantly white. Pharaoh's magicians were defeated and came to have iman.",
+            "kuran_referanslari": [
+              "20:42-73",
+              "26:16-51",
+              "79:17-26"
+            ]
+          },
+          {
+            "baslik": "Nine Miracles",
+            "metin": "Pharaoh refused to believe each time. Allah sent 9 miracles: the staff (a serpent), the white hand, the flood, locusts, vermin, frogs, blood, famine, and a loss of fruits. Each time he said, 'If we let Moses go, we will believe,' but when he was relieved, he broke his promise.",
+            "kuran_referanslari": [
+              "7:130-136",
+              "17:101"
+            ]
+          },
+          {
+            "baslik": "The Parting of the Sea",
+            "metin": "Pharaoh pursued the Children of Israel with his army. The sea lay before them. Prophet Moses received the command, 'Strike the sea with your staff,' and he struck it. The sea parted, and each part became like a great mountain. The Children of Israel crossed. When Pharaoh and his army followed them in, the sea closed over them.",
+            "kuran_referanslari": [
+              "2:50",
+              "20:77-79",
+              "26:52-66"
+            ]
+          },
+          {
+            "baslik": "Revelation at Sinai and the Torah",
+            "metin": "Prophet Moses spoke with Allah at Sinai for 40 nights. He received the Torah. During this time, his people began to worship the calf under the direction of Samiri. When Prophet Moses returned, he became very angry, put down the tablets, and seized his brother Aaron by the hair. They repented.",
+            "kuran_referanslari": [
+              "2:51-54",
+              "7:142-156",
+              "20:80-98"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The staff turning into a serpent",
+          "The hand shining bright white",
+          "The parting of the sea",
+          "9 great miracles",
+          "His speaking directly with Allah"
+        ],
+        "dersler": [
+          "Allah raises whom He wills wherever He wills — a prophet grew up in Pharaoh's palace",
+          "Arrogance and pride are the greatest causes of destruction — Pharaoh",
+          "The door of repentance is always open",
+          "Allah's help surely comes in a difficult task"
+        ],
+        "ana_sure": "Ta-Ha (20), al-Qasas (28), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "2:49-73",
+          "7:103-162",
+          "10:75-92",
+          "17:101-104",
+          "20:9-98",
+          "26:10-68",
+          "27:7-14",
+          "28:1-47",
+          "79:15-26"
+        ]
+      },
+      {
+        "id": "hz_harun",
+        "isim": "Prophet Aaron (peace be upon him)",
+        "unvan": "Prophet Moses's brother and helper",
+        "kuranda_gecme_sayisi": 20,
+        "gondirildigi_yer": "Egypt and Sinai",
+        "donem": "A contemporary of Prophet Moses",
+        "kisa_ozet": "Prophet Moses's elder brother. At Prophet Moses's request, he was appointed as a prophet to help him. He was more eloquent. When the people worshipped the calf while Moses was at Sinai, he could not prevent them.",
+        "kissa": [
+          {
+            "baslik": "A Prophet Appointed to Help",
+            "metin": "Prophet Moses prayed to Allah: 'Make my brother Aaron my helper and strengthen me through him.' Allah accepted this prayer and appointed Prophet Aaron as a prophet as well.",
+            "kuran_referanslari": [
+              "20:29-36",
+              "25:35",
+              "28:34-35"
+            ]
+          },
+          {
+            "baslik": "The Incident of the Calf",
+            "metin": "While Prophet Moses was at Sinai, the people worshipped a golden calf. Prophet Aaron tried to stop them, but the people did not listen. When Prophet Moses returned, he seized his brother by the hair in anger. Prophet Aaron said, 'They did not listen to me; they almost killed me.'",
+            "kuran_referanslari": [
+              "7:150-152",
+              "20:90-94"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His being chosen as a prophet"
+        ],
+        "dersler": [
+          "Mutual help and solidarity are a source of strength",
+          "Even a leader cannot always restrain his people — responsibility is individual"
+        ],
+        "ana_sure": "Ta-Ha (20), al-A'raf (7)",
+        "kuran_referanslari_ozet": [
+          "2:248",
+          "4:163",
+          "6:84",
+          "7:122-150",
+          "10:75",
+          "19:53",
+          "20:29-36",
+          "20:90-94",
+          "21:48",
+          "23:45",
+          "25:35",
+          "26:13-48",
+          "28:34-35",
+          "37:114-120"
+        ]
+      },
+      {
+        "id": "hz_davud",
+        "isim": "Prophet David (peace be upon him)",
+        "unvan": "Halifetullah — Allah's vicegerent",
+        "kuranda_gecme_sayisi": 16,
+        "gondirildigi_yer": "Jerusalem and Palestine",
+        "donem": "Approximately 1000 BCE",
+        "kisa_ozet": "As a young shepherd, he defeated Goliath. He became a king and a prophet. He was given the Zabur. Iron was made soft for him, and the mountains and birds glorified Allah with him.",
+        "kissa": [
+          {
+            "baslik": "His Defeat of Goliath",
+            "metin": "The Children of Israel, under the command of Saul, faced Goliath's army. The young Prophet David defeated and killed Goliath with his sling. Allah gave him dominion and wisdom.",
+            "kuran_referanslari": [
+              "2:251"
+            ]
+          },
+          {
+            "baslik": "Miracles",
+            "metin": "Allah made the mountains and birds glorify Him along with him. He softened iron for him and taught him to make armor. He was given the Zabur.",
+            "kuran_referanslari": [
+              "21:79-80",
+              "27:15-16",
+              "34:10-11",
+              "38:18-20"
+            ]
+          },
+          {
+            "baslik": "The Test",
+            "metin": "Prophet David once made a hasty judgment and made a mistake. He regretted it and asked Allah for forgiveness. Allah forgave him and said, 'O David! We have made you a vicegerent on earth, so judge between people with justice.'",
+            "kuran_referanslari": [
+              "38:21-26"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The mountains and birds glorifying Allah with him",
+          "The softening of iron",
+          "His receiving the Zabur",
+          "His defeat of Goliath"
+        ],
+        "dersler": [
+          "Power and dominion are gifts from Allah",
+          "Just rule is the greatest trust",
+          "A servant who makes a mistake but repents is forgiven"
+        ],
+        "ana_sure": "Sad (38), al-Anbiya (21)",
+        "kuran_referanslari_ozet": [
+          "2:251-252",
+          "4:163",
+          "5:78",
+          "6:84",
+          "17:55",
+          "21:78-80",
+          "27:15-16",
+          "34:10-13",
+          "38:17-26"
+        ]
+      },
+      {
+        "id": "hz_suleyman",
+        "isim": "Prophet Solomon (peace be upon him)",
+        "unvan": "Prophet David's son",
+        "kuranda_gecme_sayisi": 17,
+        "gondirildigi_yer": "Jerusalem",
+        "donem": "Approximately 970–930 BCE",
+        "kisa_ozet": "He became a prophet and king after his father, Prophet David. He commanded the jinn, the wind, and the birds. He learned about the Queen of Sheba from the hoopoe and invited her to the oneness of Allah.",
+        "kissa": [
+          {
+            "baslik": "Commanding the Wind and the Jinn",
+            "metin": "Allah subjected the wind to Prophet Solomon. It would travel a month's journey in the morning and a month's journey in the evening. The jinn worked under his command and built structures. In response to this blessing, Prophet Solomon was constantly grateful.",
+            "kuran_referanslari": [
+              "21:81-82",
+              "27:17",
+              "34:12-14",
+              "38:36-39"
+            ]
+          },
+          {
+            "baslik": "The Hoopoe and Bilqis",
+            "metin": "Prophet Solomon inspected the birds, and the hoopoe was absent. When it came, it said, 'I have brought you news you do not know — the Queen of Sheba worships the sun.' Prophet Solomon wrote a letter inviting Bilqis to Allah. Bilqis came with her throne. Prophet Solomon had her throne brought in the blink of an eye. When Bilqis entered his palace, she mistook the crystal floor for water and lifted her skirt; when she realized that the floor was glass, she said, 'I have wronged myself, and I submit with Solomon to Allah, Lord of the worlds,' and she believed.",
+            "kuran_referanslari": [
+              "27:20-44"
+            ],
+            "not": "The name 'Bilqis' for the Queen of Sheba does not appear in the Quran; it comes from tafsir and narrations. In the Quran, she is referred to only as the 'Queen of Sheba.'"
+          },
+          {
+            "baslik": "His Death",
+            "metin": "Prophet Solomon died while leaning on his staff, but the jinn did not realize it until a worm gnawed through his staff and caused him to fall — the jinn do not know the unseen.",
+            "kuran_referanslari": [
+              "34:14"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "Commanding the wind",
+          "Having the jinn work under his command",
+          "Knowing the language of birds",
+          "Having the Queen of Sheba's throne brought instantly"
+        ],
+        "dersler": [
+          "A great blessing calls for great gratitude",
+          "Investigating the truth (the hoopoe brought news, and Prophet Solomon verified it)",
+          "Inviting others to faith is done with wisdom, not force"
+        ],
+        "ana_sure": "an-Naml (27), Sad (38)",
+        "kuran_referanslari_ozet": [
+          "2:102",
+          "4:163",
+          "6:84",
+          "21:81-82",
+          "27:15-44",
+          "34:12-14",
+          "38:30-40"
+        ],
+        "ozel_notlar": [
+          "The Quran does not give the Queen of Sheba's name; the commonly used name 'Bilqis' comes from the tradition of tafsir and narrations. Therefore, the more direct expression is 'the Queen of Sheba.'"
+        ]
+      },
+      {
+        "id": "hz_ilyas",
+        "isim": "Prophet Elijah (peace be upon him)",
+        "unvan": "One of those sent",
+        "kuranda_gecme_sayisi": 3,
+        "gondirildigi_yer": "Among the Children of Israel (the Damascus region)",
+        "donem": "After Prophets David and Solomon",
+        "kisa_ozet": "He was sent to the Children of Israel. He rejected their worship of an idol called 'Ba'l' and invited them to Allah. His people rejected him.",
+        "kissa": [
+          {
+            "baslik": "The Quranic Account",
+            "metin": "Prophet Elijah said to his people, 'Do you worship Ba'l and forsake the best of creators? Fear Allah, your Lord.' His people denied him. Allah praised him, saying, 'Peace be upon those sent; thus do We reward those who do good.'",
+            "kuran_referanslari": [
+              "6:85",
+              "37:123-132"
+            ]
+          }
+        ],
+        "mucizeler": [],
+        "dersler": [
+          "Standing against idolatry is a fundamental duty of a prophet",
+          "Hasty judgments should not be made about those about whom little is known"
+        ],
+        "ana_sure": "as-Saffat (37)",
+        "kuran_referanslari_ozet": [
+          "6:85",
+          "37:123-132"
+        ]
+      },
+      {
+        "id": "hz_elyesa",
+        "isim": "Prophet Elisha (peace be upon him)",
+        "unvan": "One of the chosen",
+        "kuranda_gecme_sayisi": 2,
+        "gondirildigi_yer": "Among the Children of Israel",
+        "donem": "Around the time of Prophet Elijah",
+        "kisa_ozet": "His name appears in only two verses of the Quran. He is mentioned among the chosen prophets who were favored above others. His story is not given in detail in the Quran.",
+        "kissa": [
+          {
+            "baslik": "The Quranic Account",
+            "metin": "The Quran mentions Prophet Elisha in two verses: in Surah al-An'am, he is named among the prophets descended from Abraham, and in Surah Sad, among the righteous. His story is not given in detail in the Quran.",
+            "kuran_referanslari": [
+              "6:86",
+              "38:48"
+            ]
+          }
+        ],
+        "mucizeler": [],
+        "dersler": [
+          "Not every prophet's story is told in detail in the Quran — belief in all prophets in whom we must believe is essential"
+        ],
+        "ana_sure": "al-An'am (6), Sad (38)",
+        "kuran_referanslari_ozet": [
+          "6:86",
+          "38:48"
+        ]
+      },
+      {
+        "id": "hz_yunus",
+        "isim": "Prophet Jonah (peace be upon him)",
+        "unvan": "Dhu al-Nun — possessor of the fish / Sahib al-Hut",
+        "kuranda_gecme_sayisi": 4,
+        "gondirildigi_yer": "Nineveh (Iraq)",
+        "donem": "Not known for certain",
+        "kisa_ozet": "He left his people early, left the ship, and was swallowed by a fish. He prayed in the belly of the fish and was saved. His people repented and were saved from destruction.",
+        "kissa": [
+          {
+            "baslik": "His Departure from His People",
+            "metin": "Prophet Jonah invited his people to faith, but they rejected him, and he left his people without permission. He boarded a ship. Lots were drawn on the ship, his name was drawn, and he was thrown into the sea.",
+            "kuran_referanslari": [
+              "21:87",
+              "37:139-142",
+              "68:48-49"
+            ]
+          },
+          {
+            "baslik": "In the Belly of the Fish",
+            "metin": "A great fish swallowed him. In the darkness, he prayed, 'There is no god but You; glory be to You. Indeed, I was among the wrongdoers.' Allah accepted his prayer, and the fish left him on the shore.",
+            "kuran_referanslari": [
+              "21:87-88",
+              "37:143-145",
+              "10:98"
+            ]
+          },
+          {
+            "baslik": "The Repentance of His People",
+            "metin": "Prophet Yunus's people also repented. The Quran mentions them as the only people who believed when they realized they would see the punishment and whose repentance was accepted.",
+            "kuran_referanslari": [
+              "10:98",
+              "37:147-148"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His survival in the belly of the fish",
+          "The acceptance of his people's repentance"
+        ],
+        "dersler": [
+          "It is wrong to flee one's duty without waiting for Allah's permission",
+          "Prayer brings deliverance in the darkest moment",
+          "Repentance is always possible—even in the belly of a fish",
+          "A people's repentance can lead to collective deliverance"
+        ],
+        "ana_sure": "Yunus (10), as-Saffat (37)",
+        "kuran_referanslari_ozet": [
+          "4:163",
+          "6:86",
+          "10:98",
+          "21:87-88",
+          "37:139-148",
+          "68:48-50"
+        ]
+      },
+      {
+        "id": "hz_zekeriya",
+        "isim": "Prophet Zakariyya (peace be upon him)",
+        "unvan": "The father of Prophet Yahya",
+        "kuranda_gecme_sayisi": 7,
+        "gondirildigi_yer": "Jerusalem",
+        "donem": "Around the time of Prophet Isa",
+        "kisa_ozet": "In his old age, he asked Allah for a child. His wife was barren. Allah accepted his prayer and gave him the good news of Prophet Yahya.",
+        "kissa": [
+          {
+            "baslik": "His Care for Maryam",
+            "metin": "Whenever Prophet Zakariyya entered upon Maryam in the sanctuary, he found provisions (food) with her. He asked, 'Where does this come to you from?' Maryam said, 'From Allah.' Prophet Zakariyya then asked Allah for a child.",
+            "kuran_referanslari": [
+              "3:37-38"
+            ]
+          },
+          {
+            "baslik": "Prayer and Good News",
+            "metin": "Prophet Zakariyya prayed in secret: 'My Lord! My bones have weakened, my hair has turned white, and I have never been disappointed in praying to You. I fear what my relatives will do after me. My wife is barren. Grant me an heir from Yourself.' Allah gave him the good news of Prophet Yahya.",
+            "kuran_referanslari": [
+              "19:1-11",
+              "3:38-41",
+              "21:89-90"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The birth of Prophet Yahya to his elderly and barren wife"
+        ],
+        "dersler": [
+          "Never giving up asking Allah",
+          "Nothing is impossible for Allah",
+          "Praying in secret is a sign of sincerity"
+        ],
+        "ana_sure": "Maryam (19), Aal Imran (3)",
+        "kuran_referanslari_ozet": [
+          "3:37-41",
+          "6:85",
+          "19:1-11",
+          "21:89-90"
+        ]
+      },
+      {
+        "id": "hz_yahya",
+        "isim": "Prophet Yahya (peace be upon him)",
+        "unvan": "The son of Prophet Zakariyya",
+        "kuranda_gecme_sayisi": 5,
+        "gondirildigi_yer": "Jerusalem",
+        "donem": "A contemporary of Prophet Isa",
+        "kisa_ozet": "He was born to elderly and barren parents. He attained wisdom while still a child. He was praised for many virtues: he stayed away from sin, respected his parents, and was humble.",
+        "kissa": [
+          {
+            "baslik": "Praise for Him in the Quran",
+            "metin": "Allah spoke of Prophet Yahya in the Quran, addressing him: 'O Yahya! Hold firmly to the Book.' He was given wisdom as a child. He was merciful toward people, stayed away from sin, respected his parents, and was neither tyrannical nor rebellious.",
+            "kuran_referanslari": [
+              "19:12-15"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His attainment of wisdom as a child",
+          "The fact that this name had never been used before him"
+        ],
+        "dersler": [
+          "Wisdom does not depend on age",
+          "Respect for parents is a common quality of the prophets",
+          "Cultivating humility and mercy"
+        ],
+        "ana_sure": "Maryam (19), Aal Imran (3)",
+        "kuran_referanslari_ozet": [
+          "3:38-40",
+          "6:85",
+          "19:7-15",
+          "21:90"
+        ]
+      },
+      {
+        "id": "hz_zulkifl",
+        "isim": "Prophet Dhul-Kifl (peace be upon him)",
+        "unvan": "Among the patient",
+        "kuranda_gecme_sayisi": 2,
+        "gondirildigi_yer": "Not known for certain",
+        "donem": "Not known for certain",
+        "kisa_ozet": "He is mentioned by name in only two verses of the Quran. He is mentioned among those who are patient and those who do good. The Quran gives no information about his identity or story.",
+        "kissa": [
+          {
+            "baslik": "His Account in the Quran",
+            "metin": "Prophet Dhul-Kifl is mentioned in Surahs al-Anbiya and Sad among those who are patient and those who do good. Beyond this, the Quran gives no detailed information.",
+            "kuran_referanslari": [
+              "21:85-86",
+              "38:48"
+            ]
+          }
+        ],
+        "mucizeler": [],
+        "dersler": [
+          "Belief in all the prophets is essential, even when the details are unknown"
+        ],
+        "ana_sure": "al-Anbiya (21), Sad (38)",
+        "kuran_referanslari_ozet": [
+          "21:85-86",
+          "38:48"
+        ],
+        "ozel_notlar": [
+          "Scholars differ over whether Dhul-Kifl was a prophet or a righteous servant of Allah. Although he is mentioned in al-Anbiya 85 and Sad 48, he is not explicitly described as a 'prophet.' Fakhr al-Din al-Razi and Ibn Kathir regarded him as a prophet, while some scholars say he was a righteous ruler."
+        ]
+      },
+      {
+        "id": "hz_isa",
+        "isim": "Prophet Isa (peace be upon him)",
+        "unvan": "Ruhullah and Kelimetullah—the spirit and word of Allah",
+        "kuranda_gecme_sayisi": 25,
+        "gondirildigi_yer": "Palestine (Bethlehem and Jerusalem)",
+        "donem": "Approximately 4 BCE–30 CE",
+        "kisa_ozet": "He was born without a father, to his mother Maryam alone. He spoke in the cradle. He raised the dead, healed the blind, and created birds from clay. The Jews wanted to kill him, but Allah saved him and raised him up.",
+        "kissa": [
+          {
+            "baslik": "Maryam and the Birth",
+            "metin": "While Maryam was worshipping beside the sanctuary, Jibril appeared in human form. He said, 'I will give you the good news of a pure child.' Maryam said, 'No man has touched me. How can this be?' Jibril said, 'Allah creates whatever He wills; when He says “Be,” it is.' Prophet Isa was born. The Jews accused Maryam. The baby spoke in the cradle: 'I am the servant of Allah. He has given me a book and made me a prophet.'",
+            "kuran_referanslari": [
+              "3:45-47",
+              "19:16-33"
+            ]
+          },
+          {
+            "baslik": "His Miracles",
+            "metin": "By Allah's permission, Prophet Isa made a bird from clay, breathed into it, and it flew. He healed the blind and those with leprosy. He raised the dead. He brought down a table spread with food (maide) from the sky.",
+            "kuran_referanslari": [
+              "3:49",
+              "5:110-115"
+            ]
+          },
+          {
+            "baslik": "The Plot of the Jews and His Being Raised Up",
+            "metin": "The Jews wanted to kill and crucify Prophet Isa. Allah said, 'They will not kill you; I will raise you to Myself.' It was made to appear to them as though it was Prophet Isa. They thought they had killed him. Christians and Jews disagreed about this.",
+            "kuran_referanslari": [
+              "4:157-158"
+            ]
+          },
+          {
+            "baslik": "Correct Belief About Prophet Isa",
+            "metin": "The Quran clearly states that Prophet Isa is Allah's servant and prophet, that he was created like Prophet Adam when Allah said 'Be,' and that he is not the son of Allah. 'Do not say that Allah is the third of three; that is not good for you. Allah is only one God.'",
+            "kuran_referanslari": [
+              "3:59",
+              "4:171",
+              "5:72-75",
+              "19:34-36"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "His birth without a father",
+          "His speaking in the cradle",
+          "His creating a bird from clay and breathing into it",
+          "His healing the blind and those with leprosy",
+          "His raising the dead",
+          "His bringing down a table spread with food from the sky"
+        ],
+        "dersler": [
+          "Prophet Isa is Allah's servant, a prophet to be believed in, not one worthy of worship",
+          "Miracles happen by Allah's permission; a prophet cannot do anything on his own",
+          "Allah has power over all things—birth without a father is like the creation of Prophet Adam from earth"
+        ],
+        "ana_sure": "Maryam (19), Aal Imran (3)",
+        "kuran_referanslari_ozet": [
+          "2:87",
+          "2:253",
+          "3:45-59",
+          "4:157-158",
+          "4:171-172",
+          "5:17",
+          "5:72-75",
+          "5:110-118",
+          "19:16-36",
+          "43:57-65",
+          "61:6-14"
+        ]
+      },
+      {
+        "id": "hz_muhammed",
+        "isim": "Prophet Muhammad ﷺ",
+        "unvan": "Khatam al-Anbiya—the Last of the Prophets",
+        "kuranda_gecme_sayisi": 4,
+        "gondirildigi_yer": "Mecca and Medina",
+        "donem": "570–632 CE",
+        "kisa_ozet": "The last prophet. The Quran was revealed to him. For a detailed account of his life, see the Sirah section.",
+        "kissa": [
+          {
+            "baslik": "His Mention in the Quran",
+            "metin": "The name Muhammad appears in the Quran in four places: Aal Imran 144, al-Ahzab 40, Muhammad 2, and al-Fath 29. In addition, many verses of the Quran are addressed to him using 'you' and 'O Prophet.' 'Muhammad is the Messenger of Allah and the last of the prophets.'",
+            "kuran_referanslari": [
+              "3:144",
+              "33:40",
+              "47:2",
+              "48:29"
+            ]
+          }
+        ],
+        "mucizeler": [
+          "The Noble Quran (the greatest miracle)",
+          "Isra and Mi'raj",
+          "Water flowing from between his fingers",
+          "The splitting of the moon"
+        ],
+        "dersler": [
+          "His being the last prophet—no prophet will come after him",
+          "The Quran will be preserved unchanged until the Day of Judgment",
+          "He was sent to all humanity and jinn—a universal message"
+        ],
+        "ana_sure": "The entire Quran",
+        "kuran_referanslari_ozet": [
+          "3:144",
+          "33:40",
+          "47:2",
+          "48:29"
+        ],
+        "siyer_notu": "The detailed life of Prophet Muhammad is covered in a separate Sirah section.",
+        "ozel_notlar": [
+          "The name 'Muhammad' appears four times in the Quran (Aal Imran 144, al-Ahzab 40, Muhammad 2, al-Fath 29). In addition, the name 'Ahmad' appears once (as-Saff 61:6). The kuranda_gecme_sayisi field reflects only the number of occurrences of the name 'Muhammad.'"
+        ]
+      }
+    ],
+    "genel_dersler": [
+      "The message of all the prophets is the same: Allah is one; worship Him alone",
+      "Every prophet was sent to his own people; Prophet Muhammad was sent to all humanity",
+      "Prophets are human too; they cannot perform miracles without Allah's permission",
+      "Every prophet was rejected by his people—speaking the truth is difficult",
+      "Belief in all the prophets is a condition of iman—one cannot believe in some and reject others",
+      "Drawing lessons from the patience of the prophets in times of hardship is one of the greatest comforts"
+    ],
+    "kissasi_detayli_peygamberler": [
+      "hz_adem",
+      "hz_nuh",
+      "hz_ibrahim",
+      "hz_yusuf",
+      "hz_musa",
+      "hz_isa",
+      "hz_suleyman",
+      "hz_davud",
+      "hz_eyyup",
+      "hz_yunus"
+    ],
+    "kissasi_kisa_peygamberler": [
+      "hz_idris",
+      "hz_hud",
+      "hz_salih",
+      "hz_lut",
+      "hz_ismail",
+      "hz_ishak",
+      "hz_yakup",
+      "hz_suayb",
+      "hz_harun",
+      "hz_ilyas",
+      "hz_elyesa",
+      "hz_zekeriya",
+      "hz_yahya",
+      "hz_zulkifl"
+    ],
+    "meta": {
+      "etiketler": [
+        "peygamber",
+        "kıssa",
+        "kuran",
+        "siyer",
+        "tevhid",
+        "sabır",
+        "teslim"
+      ],
+      "ilgili_dosyalar": [
+        "namaz_rehberi",
+        "mubarek_gunler",
+        "ozel_namazlar"
+      ]
+    }
+  }
+}

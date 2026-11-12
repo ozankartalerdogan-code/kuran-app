@@ -14,6 +14,13 @@ import { parseDirectAyahQuery } from "../src/lib/ayahRefs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
+import { useMealOf, getEnglishMealTable } from "../src/lib/englishMeal";
+import { searchMealTable } from "../src/lib/mealLookup";
+import { getLang, getStrings, useLang, useStrings, fmt } from "../src/i18n";
+import { localizedTranslit } from "../src/lib/translitEn";
+import searchStrings from "../src/i18n/strings/search";
+import tagStrings from "../src/i18n/strings/tagLabels";
+import { useSurahNameOf, localizedSurahName } from "../src/lib/surahNames";
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
 type SearchState =
@@ -35,6 +42,7 @@ type IdleItem =
 const DEBOUNCE_MS   = 400;
 const MIN_LEN       = 2;
 const MAX_RECENT    = 5;
+const MAX_EN_HITS   = 50;
 
 // ── Veri ─────────────────────────────────────────────────────────────────────
 
@@ -70,13 +78,32 @@ function parseVerseKey(key: string) {
   return s && a ? { surahId: s, ayahNumber: a } : null;
 }
 
-function tagLabel(tag: string): string {
-  if (tag.startsWith("namaz-"))    return `Namaz · ${NAMAZ_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(6)}`;
-  if (tag.startsWith("korunma-"))  return `Korunma · ${KORUNMA_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(8)}`;
-  if (tag.startsWith("ismiazam-")) return `İsmi Azam · ${ISMIAZAM_CHIPS.find(c => c.tag === tag)?.label ?? tag.slice(9)}`;
+function chipText(tag: string, trLabel: string, s: Record<string, string>): string {
+  return s[tag] ?? trLabel;
+}
+
+// İngilizce modda eşlemesi olmayan etiket null döner (Türkçe göstermemek için gizlenir).
+function tagLabel(tag: string): string | null {
+  const s = getStrings(tagStrings) as Record<string, string>;
+  const en = getLang() === "en";
+  const groups: [string, string, { tag: string }[]][] = [
+    ["namaz-", s.namaz, NAMAZ_CHIPS], ["korunma-", s.korunma, KORUNMA_CHIPS], ["ismiazam-", s.ismiazam, ISMIAZAM_CHIPS],
+  ];
+  for (const [prefix, title, chips] of groups) {
+    if (!tag.startsWith(prefix)) continue;
+    if (chips.some(c => c.tag === tag)) return `${title} · ${chipText(tag, "", s)}`;
+    return en ? null : `${title} · ${tag.slice(prefix.length)}`;
+  }
+  if (en) return null;
   if (tag.startsWith("dua-"))      return `Dua · ${tag.slice(4)}`;
   const parts = tag.replace(/_%$/, "").split("_");
   return parts.length >= 2 ? `${parts[0]} · ${parts.slice(1).join(" ").toLocaleLowerCase("tr-TR")}` : tag;
+}
+
+// İngilizce modda sunucu aramasına ek olarak gömülü Pickthall tablosunda ara
+// (sunucu araması yalnız Türkçe). Türkçe modda hiç çalışmaz.
+function localEnglishHits(q: string): string[] {
+  return getLang() === "en" ? searchMealTable(getEnglishMealTable(), q, MAX_EN_HITS) : [];
 }
 
 async function loadRecent(): Promise<string[]> {
@@ -99,6 +126,7 @@ function ChipRow({ chips, color, onPress }: {
   color: { bg: string; border: string; text: string };
   onPress: (tag: string) => void;
 }) {
+  const ts = useStrings(tagStrings) as Record<string, string>;
   return (
     <View style={styles.chipRow}>
       {chips.map(c => (
@@ -108,27 +136,29 @@ function ChipRow({ chips, color, onPress }: {
           onPress={() => onPress(c.tag)}
           activeOpacity={0.7}
           accessibilityRole="button"
-          accessibilityLabel={c.label}
+          accessibilityLabel={chipText(c.tag, c.label, ts)}
         >
-          <Text style={[styles.chipText, { color: color.text }]}>{c.label}</Text>
+          <Text style={[styles.chipText, { color: color.text }]}>{chipText(c.tag, c.label, ts)}</Text>
         </TouchableOpacity>
       ))}
     </View>
   );
 }
 
-function SurahCard({ surahId, surahName }: { surahId: number; surahName: string }) {
+function SurahCard({ surahId, surahName: trSurahName }: { surahId: number; surahName: string }) {
   const c = useColors();
+  const surahName = useSurahNameOf()(surahId, trSurahName);
+  const ss = useStrings(searchStrings);
   return (
     <TouchableOpacity style={[styles.resultCard, styles.surahCard, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}
       onPress={() => { Keyboard.dismiss(); router.push(`/surah/${surahId}`); }} activeOpacity={0.72}
-      accessibilityRole="button" accessibilityLabel={`${surahName} suresini aç`}>
+      accessibilityRole="button" accessibilityLabel={fmt(ss.openSurahA11y, { name: surahName })}>
       <View style={styles.cardInner}>
         <View style={[styles.iconCircle, c.isDark && { backgroundColor: "#064e3b" }]}>
           <Ionicons name="book" size={22} color={c.accent} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: c.accent }]}>Sure Bulundu</Text>
+          <Text style={[styles.typeLabel, { color: c.accent }]}>{ss.surahFound}</Text>
           <Text style={[styles.cardTitle, { color: c.text }]}>{surahName}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
@@ -139,18 +169,19 @@ function SurahCard({ surahId, surahName }: { surahId: number; surahName: string 
 
 function DirectAyahCard({ surahId, ayahNumber }: { surahId: number; ayahNumber: number }) {
   const c = useColors();
+  const ss = useStrings(searchStrings);
   return (
     <TouchableOpacity style={[styles.resultCard, styles.surahCard, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}
       onPressIn={() => prefetchAyah(surahId, ayahNumber)}
       onPress={() => { Keyboard.dismiss(); router.push(`/ayah/${surahId}/${ayahNumber}`); }} activeOpacity={0.72}
-      accessibilityRole="button" accessibilityLabel={`${surahId}:${ayahNumber} ayetini aç`}>
+      accessibilityRole="button" accessibilityLabel={fmt(ss.openAyahA11y, { ref: `${surahId}:${ayahNumber}` })}>
       <View style={styles.cardInner}>
         <View style={[styles.iconCircle, c.isDark && { backgroundColor: "#064e3b" }]}>
           <Ionicons name="navigate" size={20} color={c.accent} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: c.accent }]}>Ayete Git</Text>
-          <Text style={[styles.cardTitle, { color: c.text }]}>{surahId}. Sure · {ayahNumber}. Ayet</Text>
+          <Text style={[styles.typeLabel, { color: c.accent }]}>{ss.goToAyah}</Text>
+          <Text style={[styles.cardTitle, { color: c.text }]}>{fmt(ss.surahAyah, { s: surahId, a: ayahNumber })}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
       </View>
@@ -160,6 +191,7 @@ function DirectAyahCard({ surahId, ayahNumber }: { surahId: number; ayahNumber: 
 
 function TagCard({ tag, count }: { tag: string; count: number }) {
   const c = useColors();
+  const ss = useStrings(searchStrings);
   const amber = c.isDark ? "#fcd34d" : "#a16207";
   return (
     <View style={[styles.resultCard, styles.tagCard, c.isDark && { backgroundColor: "#422006", borderColor: "#713f12" }]}>
@@ -168,20 +200,26 @@ function TagCard({ tag, count }: { tag: string; count: number }) {
           <Ionicons name="pricetag" size={20} color={amber} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: amber }]}>Tema Bulundu</Text>
-          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{tag}</Text>
-          <Text style={[styles.tagCount, { color: amber }]}>{count} ayet içeriyor</Text>
+          <Text style={[styles.typeLabel, { color: amber }]}>{ss.themeFound}</Text>
+          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{getLang() === "en" ? (tagLabel(tag) ?? "") : tag}</Text>
+          <Text style={[styles.tagCount, { color: amber }]}>{fmt(ss.tagCount, { n: count })}</Text>
         </View>
       </View>
     </View>
   );
 }
 
-function VerseCard({ verseKey, meal, surahName, readingTr }: {
+function VerseCard({ verseKey, meal: trMeal, surahName, readingTr }: {
   verseKey: string; meal: string | null; surahName: string | null; readingTr?: string | null;
 }) {
   const c = useColors();
+  const ss = useStrings(searchStrings);
+  const lang = useLang();
+  const meal = useMealOf()(verseKey, trMeal);
   const parsed = parseVerseKey(verseKey);
+  const surahNameOf = useSurahNameOf();
+  // İngilizce modda yerel Pickthall isabetlerinde (surahName null) ad tablodan gelir.
+  const shownSurah = surahNameOf(parsed?.surahId, surahName);
   return (
     <TouchableOpacity
       style={[styles.resultCard, { backgroundColor: c.card, borderColor: c.border }]}
@@ -189,31 +227,32 @@ function VerseCard({ verseKey, meal, surahName, readingTr }: {
       onPress={() => { if (!parsed) return; Keyboard.dismiss(); router.push(`/ayah/${parsed.surahId}/${parsed.ayahNumber}`); }}
       activeOpacity={0.72}
       accessibilityRole="button"
-      accessibilityLabel={`${surahName ?? verseKey}, ayeti aç`}
+      accessibilityLabel={fmt(ss.openVerseA11y, { name: shownSurah ?? verseKey })}
     >
       <View style={styles.verseHeader}>
         <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{verseKey}</Text></View>
-        {surahName ? <Text style={[styles.surahLabel, { color: c.textMuted }]} numberOfLines={1}>{surahName}{parsed ? ` · ${parsed.ayahNumber}. Ayet` : ""}</Text> : null}
+        {shownSurah ? <Text style={[styles.surahLabel, { color: c.textMuted }]} numberOfLines={1}>{shownSurah}{parsed ? fmt(ss.ayahSuffix, { a: parsed.ayahNumber }) : ""}</Text> : null}
       </View>
-      {readingTr ? <Text style={[styles.reading, { color: c.text }]} numberOfLines={2}>{readingTr}</Text> : null}
+      {readingTr ? <Text style={[styles.reading, { color: c.text }]} numberOfLines={2}>{localizedTranslit(readingTr, lang)}</Text> : null}
       {meal
         ? <Text style={[styles.meal, { color: c.textSecondary }]} numberOfLines={3}>{meal.length > 140 ? meal.slice(0, 140) + "…" : meal}</Text>
-        : <Text style={[styles.mealEmpty, { color: c.textMuted }]}>Meal bulunamadı</Text>}
+        : <Text style={[styles.mealEmpty, { color: c.textMuted }]}>{ss.noMeal}</Text>}
     </TouchableOpacity>
   );
 }
 
 function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: number; onPrev: () => void; onNext: () => void }) {
   const c = useColors();
+  const ss = useStrings(searchStrings);
   if (pages <= 1) return null;
   return (
     <View style={styles.pagination}>
-      <TouchableOpacity style={[styles.pageBtn, { backgroundColor: c.card, borderColor: c.border }, page <= 1 && styles.pageBtnOff]} onPress={onPrev} disabled={page <= 1} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Önceki sayfa" accessibilityState={{ disabled: page <= 1 }}>
-        <Text style={[styles.pageBtnText, { color: page <= 1 ? c.textMuted : c.accent }]}>← Önceki</Text>
+      <TouchableOpacity style={[styles.pageBtn, { backgroundColor: c.card, borderColor: c.border }, page <= 1 && styles.pageBtnOff]} onPress={onPrev} disabled={page <= 1} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={ss.prevA11y} accessibilityState={{ disabled: page <= 1 }}>
+        <Text style={[styles.pageBtnText, { color: page <= 1 ? c.textMuted : c.accent }]}>{ss.prev}</Text>
       </TouchableOpacity>
       <Text style={[styles.pageInfo, { color: c.textMuted }]}>{page} / {pages}</Text>
-      <TouchableOpacity style={[styles.pageBtn, { backgroundColor: c.card, borderColor: c.border }, page >= pages && styles.pageBtnOff]} onPress={onNext} disabled={page >= pages} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Sonraki sayfa" accessibilityState={{ disabled: page >= pages }}>
-        <Text style={[styles.pageBtnText, { color: page >= pages ? c.textMuted : c.accent }]}>Sonraki →</Text>
+      <TouchableOpacity style={[styles.pageBtn, { backgroundColor: c.card, borderColor: c.border }, page >= pages && styles.pageBtnOff]} onPress={onNext} disabled={page >= pages} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={ss.nextA11y} accessibilityState={{ disabled: page >= pages }}>
+        <Text style={[styles.pageBtnText, { color: page >= pages ? c.textMuted : c.accent }]}>{ss.next}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -223,6 +262,8 @@ function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: numb
 
 export default function SearchScreen() {
   const c = useColors();
+  const tagS = useStrings(tagStrings);
+  const ss = useStrings(searchStrings);
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ q?: string; tag?: string; page?: string; type?: string }>();
   const initialQuery = params.q ?? params.tag ?? "";
@@ -230,6 +271,7 @@ export default function SearchScreen() {
   const [query,        setQuery]   = useState(initialQuery);
   const [state,        setState]   = useState<SearchState>({ status: "idle" });
   const [recent,       setRecent]  = useState<string[]>([]);
+  const [enHits,       setEnHits]  = useState<string[]>([]);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef    = useRef<TextInput>(null);
 
@@ -242,7 +284,7 @@ export default function SearchScreen() {
       const res = await api.tags.filter(tag, page);
       setState({ status: "tag_results", tag, results: res.results, total: res.total, page: res.page, pages: res.pages });
     } catch {
-      setState({ status: "error", message: "Etiket sonuçları yüklenemedi." });
+      setState({ status: "error", message: getStrings(searchStrings).tagError });
     }
   }, []);
 
@@ -278,6 +320,8 @@ export default function SearchScreen() {
         setState({ status: "direct", surahId: directRef.surahId, ayahNumber: directRef.ayahNumber });
         return;
       }
+      const hits = localEnglishHits(trimmed);
+      setEnHits(hits);
       try {
         const data = await api.search.query(trimmed);
         setState({ status: "done", data });
@@ -292,7 +336,9 @@ export default function SearchScreen() {
           return next;
         });
       } catch {
-        setState({ status: "error", message: "Arama sırasında hata oluştu." });
+        // EN: gömülü Pickthall isabetleri çevrimdışı da gösterilir.
+        if (hits.length > 0) setState({ status: "done", data: { type: "none" } });
+        else setState({ status: "error", message: getStrings(searchStrings).searchError });
       }
     }, DEBOUNCE_MS);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
@@ -322,10 +368,14 @@ export default function SearchScreen() {
       return;
     }
 
+    const hits = localEnglishHits(trimmed);
+    setEnHits(hits);
     setState({ status: "loading" });
     api.search.query(trimmed)
       .then(data => { setState({ status: "done", data }); })
-      .catch(() => setState({ status: "error", message: "Arama başarısız." }));
+      .catch(() => setState(hits.length > 0
+        ? { status: "done", data: { type: "none" } }
+        : { status: "error", message: getStrings(searchStrings).searchFailed }));
   }, [query]);
 
   // Hata kutusundaki "Tekrar Dene" — son denenen işlemi (etiket filtresi ya da
@@ -353,23 +403,23 @@ export default function SearchScreen() {
   const idleItems = useMemo<IdleItem[]>(() => {
     const items: IdleItem[] = [];
     items.push({ kind: "hint", key: "hint" });
-    items.push({ kind: "chip_section", key: "st_namaz", title: "🕌 Namaz Etiketleri", chips: NAMAZ_CHIPS,
+    items.push({ kind: "chip_section", key: "st_namaz", title: tagS.namazTitle, chips: NAMAZ_CHIPS,
       color: c.isDark ? { bg: "#042f2e", border: "#115e59", text: "#5eead4" } : { bg: "#f0fdfa", border: "#5eead4", text: "#0d9488" } });
-    items.push({ kind: "chip_section", key: "st_korunma", title: "🛡️ Korunma Etiketleri", chips: KORUNMA_CHIPS,
+    items.push({ kind: "chip_section", key: "st_korunma", title: tagS.korunmaTitle, chips: KORUNMA_CHIPS,
       color: c.isDark ? { bg: "#1e1b4b", border: "#3730a3", text: "#a5b4fc" } : { bg: "#eef2ff", border: "#a5b4fc", text: "#4338ca" } });
-    items.push({ kind: "chip_section", key: "st_ismiazam", title: "✨ İsmi Azam Etiketleri", chips: ISMIAZAM_CHIPS,
+    items.push({ kind: "chip_section", key: "st_ismiazam", title: tagS.ismiazamTitle, chips: ISMIAZAM_CHIPS,
       color: c.isDark ? { bg: "#422006", border: "#713f12", text: "#fcd34d" } : { bg: "#fefce8", border: "#fde047", text: "#a16207" } });
     if (recent.length > 0) {
       items.push({ kind: "recent_header", key: "recent_hdr" });
       recent.forEach((r, i) => items.push({ kind: "recent_row", key: `recent_${i}`, item: r }));
     }
     return items;
-  }, [recent, c.isDark]);
+  }, [recent, c.isDark, tagS]);
 
   const renderIdleItem = useCallback(({ item }: { item: IdleItem }) => {
     switch (item.kind) {
       case "hint":
-        return <Text style={[styles.hint, { color: c.textMuted }]}>Sure adı · ayet metni · tema kodu (A1, F1) · etiket (sabır, namaz)</Text>;
+        return <Text style={[styles.hint, { color: c.textMuted }]}>{ss.hint}</Text>;
       case "chip_section":
         return (
           <View>
@@ -380,9 +430,9 @@ export default function SearchScreen() {
       case "recent_header":
         return (
           <View style={styles.recentHeader}>
-            <Text style={[styles.idleSection, { color: c.textMuted }]}>Son Aramalar</Text>
-            <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8} accessibilityRole="button" accessibilityLabel="Son aramaları temizle">
-              <Text style={styles.recentClear}>Temizle</Text>
+            <Text style={[styles.idleSection, { color: c.textMuted }]}>{ss.recent}</Text>
+            <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.clearRecentA11y}>
+              <Text style={styles.recentClear}>{ss.clear}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -393,7 +443,7 @@ export default function SearchScreen() {
             onPress={() => setQuery(item.item)}
             activeOpacity={0.65}
             accessibilityRole="button"
-            accessibilityLabel={`${item.item} aramasını tekrarla`}
+            accessibilityLabel={fmt(ss.repeatA11y, { q: item.item })}
           >
             <Ionicons name="time-outline" size={16} color={c.textMuted} />
             <Text style={[styles.recentText, { color: c.textSecondary }]} numberOfLines={1}>{item.item}</Text>
@@ -404,7 +454,7 @@ export default function SearchScreen() {
               }}
               hitSlop={8}
               accessibilityRole="button"
-              accessibilityLabel={`${item.item} aramasını sil`}
+              accessibilityLabel={fmt(ss.deleteA11y, { q: item.item })}
             >
               <Ionicons name="close" size={16} color={c.textMuted} />
             </TouchableOpacity>
@@ -413,7 +463,7 @@ export default function SearchScreen() {
       default:
         return null;
     }
-  }, [handleTagChip, recent, c]);
+  }, [handleTagChip, recent, c, ss]);
 
   return (
     <View style={[styles.screen, { backgroundColor: c.bg, paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -427,7 +477,7 @@ export default function SearchScreen() {
             style={[styles.input, { color: c.text }]}
             value={query}
             onChangeText={t => { setQuery(t); router.setParams({ tag: undefined, type: undefined }); }}
-            placeholder="Sure, ayet veya kelime ara…"
+            placeholder={ss.placeholder}
             placeholderTextColor={c.textMuted}
             returnKeyType="search"
             onSubmitEditing={handleSubmit}
@@ -440,7 +490,7 @@ export default function SearchScreen() {
             autoFocus={!initialQuery}
           />
           {query.length > 0 && (
-            <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel="Aramayı temizle">
+            <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.clearSearchA11y}>
               <Ionicons name="close-circle" size={18} color={c.textMuted} />
             </TouchableOpacity>
           )}
@@ -450,11 +500,13 @@ export default function SearchScreen() {
       {/* Aktif filtre göstergesi */}
       {state.status === "tag_results" && (
         <View style={styles.filterBar}>
-          <View style={[styles.filterBadge, c.isDark && { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>
-            <Text style={[styles.filterText, c.isDark && { color: "#a5b4fc" }]}>{tagLabel(state.tag)} — {state.total} ayet</Text>
-          </View>
-          <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel="Filtreyi kaldır">
-            <Text style={styles.filterClear}>Filtreyi Kaldır</Text>
+          {tagLabel(state.tag) ? (
+            <View style={[styles.filterBadge, c.isDark && { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>
+              <Text style={[styles.filterText, c.isDark && { color: "#a5b4fc" }]}>{fmt(ss.filterCount, { label: tagLabel(state.tag) ?? "", n: state.total })}</Text>
+            </View>
+          ) : <View />}
+          <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.removeFilterA11y}>
+            <Text style={styles.filterClear}>{ss.removeFilter}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -476,16 +528,28 @@ export default function SearchScreen() {
         <View style={[styles.errorBox, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
           <Ionicons name="alert-circle-outline" size={18} color={c.isDark ? "#fca5a5" : "#dc2626"} />
           <Text style={[styles.errorText, c.isDark && { color: "#fca5a5" }]}>{state.message}</Text>
-          <TouchableOpacity onPress={handleRetryError} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Tekrar dene">
-            <Text style={[styles.errorRetry, { color: c.accent }]}>Tekrar Dene</Text>
+          <TouchableOpacity onPress={handleRetryError} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={ss.retryA11y}>
+            <Text style={[styles.errorRetry, { color: c.accent }]}>{ss.retry}</Text>
           </TouchableOpacity>
         </View>
+      )}
+
+      {/* İngilizce: sunucu hatasında da cihaz üstü sonuçlar */}
+      {state.status === "error" && !isLoading && enHits.length > 0 && (
+        <FlatList
+          data={enHits}
+          keyExtractor={k => k}
+          contentContainerStyle={styles.listContent}
+          renderItem={({ item }) => <VerseCard verseKey={item} meal={null} surahName={null} />}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          keyboardShouldPersistTaps="handled"
+        />
       )}
 
       {/* Doğrudan ayet referansı ("2:255") */}
       {state.status === "direct" && !isLoading && (
         <View style={styles.singleWrap}>
-          <Text style={[styles.queryLabel, { color: c.textMuted }]}>"{query.trim()}" için sonuç:</Text>
+          <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultFor, { q: query.trim() })}</Text>
           <DirectAyahCard surahId={state.surahId} ayahNumber={state.ayahNumber} />
         </View>
       )}
@@ -522,19 +586,21 @@ export default function SearchScreen() {
         const d = state.data;
         if (d.type === "surah") return (
           <View style={styles.singleWrap}>
-            <Text style={[styles.queryLabel, { color: c.textMuted }]}>"{query.trim()}" için sonuç:</Text>
+            <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultFor, { q: query.trim() })}</Text>
             <SurahCard surahId={d.surahId} surahName={d.surahName} />
           </View>
         );
         if (d.type === "tag") return (
           <View style={styles.singleWrap}>
-            <Text style={[styles.queryLabel, { color: c.textMuted }]}>"{query.trim()}" için sonuç:</Text>
-            <TagCard tag={d.tag} count={d.count} />
+            <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultFor, { q: query.trim() })}</Text>
+            {getLang() !== "en" || tagLabel(d.tag) ? <TagCard tag={d.tag} count={d.count} /> : null}
           </View>
         );
         if (d.type === "verses") return (
           <FlatList
-            data={d.results}
+            data={enHits.length > 0
+              ? [...enHits.map(k => ({ verse_key: k, meal: null, surah_name: null })), ...d.results.filter(r => !enHits.includes(r.verse_key))]
+              : d.results}
             keyExtractor={item => item.verse_key}
             contentContainerStyle={styles.listContent}
             renderItem={({ item }) => (
@@ -549,23 +615,33 @@ export default function SearchScreen() {
                     onPress={() => { const s = d.suggestedSurah; if (s) router.push(`/surah/${s.id}`); }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
-                    accessibilityLabel={`${d.suggestedSurah.name} suresini aç`}
+                    accessibilityLabel={fmt(ss.openSurahA11y, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}
                   >
-                    <Text style={[styles.suggestionText, c.isDark && { color: "#fde68a" }]}>Bunu mu demek istediniz? </Text>
-                    <Text style={[styles.suggestionLink, c.isDark && { color: "#fbbf24" }]}>{d.suggestedSurah.name} Suresi →</Text>
+                    <Text style={[styles.suggestionText, c.isDark && { color: "#fde68a" }]}>{ss.didYouMean}</Text>
+                    <Text style={[styles.suggestionLink, c.isDark && { color: "#fbbf24" }]}>{fmt(ss.surahLink, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}</Text>
                   </TouchableOpacity>
                 )}
-                <Text style={[styles.queryLabel, { color: c.textMuted }]}>"{query.trim()}" için {d.total} sonuç{d.total > d.results.length ? ` (ilk ${d.results.length})` : ""}</Text>
+                <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultsCount, { q: query.trim(), n: d.total + enHits.filter(k => !d.results.some(r => r.verse_key === k)).length })}{d.total > d.results.length ? fmt(ss.firstN, { n: d.results.length }) : ""}</Text>
               </View>
             }
+            keyboardShouldPersistTaps="handled"
+          />
+        );
+        if (enHits.length > 0) return (
+          <FlatList
+            data={enHits}
+            keyExtractor={k => k}
+            contentContainerStyle={styles.listContent}
+            renderItem={({ item }) => <VerseCard verseKey={item} meal={null} surahName={null} />}
+            ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
             keyboardShouldPersistTaps="handled"
           />
         );
         return (
           <View style={styles.emptyWrap}>
             <Ionicons name="search-outline" size={48} color={c.border} />
-            <Text style={[styles.emptyTitle, { color: c.text }]}>Sonuç bulunamadı</Text>
-            <Text style={[styles.emptySub, { color: c.textMuted }]}>"{query.trim()}" için eşleşen bir şey bulunamadı.</Text>
+            <Text style={[styles.emptyTitle, { color: c.text }]}>{ss.noResults}</Text>
+            <Text style={[styles.emptySub, { color: c.textMuted }]}>{fmt(ss.noMatch, { q: query.trim() })}</Text>
           </View>
         );
       })()}

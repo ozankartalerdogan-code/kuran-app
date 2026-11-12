@@ -1,0 +1,501 @@
+{
+  "quiz_id": "sahabe-hayatlari",
+  "baslik": "Lives of the Companions",
+  "toplam_soru": 38,
+  "sorular": [
+    {
+      "id": "sahabe_001",
+      "konu": "tanim",
+      "soru": "Who is a Companion?",
+      "secenekler": [
+        "A) A close relative of the Prophet ﷺ",
+        "B) Anyone who memorized the Quran",
+        "C) A person who saw the Prophet ﷺ, believed in him, and died as a Muslim",
+        "D) One of the first four caliphs"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A Companion is a person who saw the Prophet ﷺ, believed in him, and died upon that faith."
+    },
+    {
+      "id": "sahabe_002",
+      "konu": "tanim",
+      "soru": "Which approach is not recommended when reading about the lives of the Companions?",
+      "secenekler": [
+        "A) Understanding their choices in their own context",
+        "B) Drawing inspiration from their lives",
+        "C) Recognizing that different characters represent different virtues",
+        "D) Seeing them as superhuman beings"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Companions were not superhuman; they were individuals who made mistakes, grew, and made choices like ordinary people. The aim is to follow their example, not turn them into legends."
+    },
+    {
+      "id": "sahabe_003",
+      "konu": "ebu_bekir",
+      "soru": "What was Abu Bakr's most distinguishing quality?",
+      "secenekler": [
+        "A) His loyalty and his affirmation of the Messenger of Allah without hesitation",
+        "B) His physical strength",
+        "C) His military victories",
+        "D) His long life"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Abu Bakr's title 'as-Siddiq' (the one who affirms the truth often) comes from his loyalty in affirming the Messenger of Allah without hesitation."
+    },
+    {
+      "id": "sahabe_004",
+      "konu": "ebu_bekir",
+      "soru": "How did Abu Bakr support Muslims who were tortured for their faith?",
+      "secenekler": [
+        "A) By assuming military leadership",
+        "B) By forming a large army",
+        "C) By buying and freeing enslaved people who were being tortured",
+        "D) By writing books"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Abu Bakr supported his faith with his wealth by buying and freeing enslaved people such as Bilal, who were tortured for believing."
+    },
+    {
+      "id": "sahabe_005",
+      "konu": "omer",
+      "soru": "Which statement best sums up the two contrasting sides of Umar's character?",
+      "secenekler": [
+        "A) Generosity and frugality",
+        "B) Silence and talkativeness",
+        "C) Courage and cowardice",
+        "D) A stern temperament and submission to the truth"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Umar appeared stern and strong on the outside, but he was exceptionally humble and submissive to the truth."
+    },
+    {
+      "id": "sahabe_006",
+      "konu": "omer",
+      "soru": "What was Umar's most important distinguishing quality in Islamic history?",
+      "secenekler": [
+        "A) His justice and determination in governing the state",
+        "B) His being the longest-serving caliph",
+        "C) His memorizing the most verses",
+        "D) His being the first Muslim"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Umar is remembered in history as an exemplary leader who combined justice, strong leadership, and submission to the truth."
+    },
+    {
+      "id": "sahabe_007",
+      "konu": "osman",
+      "soru": "What was one of Uthman's greatest contributions to Islam?",
+      "secenekler": [
+        "A) Starting the first jihad",
+        "B) Building the first mosque",
+        "C) Arranging for copies of the Quran to be made and sent to various cities",
+        "D) Resolving disputes among the Companions"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Uthman had copies of the Quran made and sent them throughout the Muslim world; through this service, he made a great contribution to preserving the Quran."
+    },
+    {
+      "id": "sahabe_008",
+      "konu": "osman",
+      "soru": "Which two virtues stand out among Uthman's personal qualities?",
+      "secenekler": [
+        "A) Courage and strength",
+        "B) Modesty and generosity",
+        "C) Intelligence and strategic thinking",
+        "D) Patience and silence"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Uthman was modest and exceptionally generous; he spent his wealth for the cause of Islam without hesitation."
+    },
+    {
+      "id": "sahabe_009",
+      "konu": "ali",
+      "soru": "What were Ali's two most distinguishing qualities?",
+      "secenekler": [
+        "A) Patience and humility",
+        "B) Generosity and modesty",
+        "C) Truthfulness and loyalty",
+        "D) Knowledge and courage"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Ali is known for his courage in embracing faith at a young age and for his deep knowledge."
+    },
+    {
+      "id": "sahabe_010",
+      "konu": "hatice",
+      "soru": "What is Khadijah's special place in Islamic history?",
+      "secenekler": [
+        "A) She was the first person to believe and comforted the Messenger of Allah on his most difficult day",
+        "B) She was the first woman to write down the Quran",
+        "C) She was the first woman to migrate",
+        "D) She was the woman who narrated the most hadiths"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Khadijah was the first person to believe and comforted the Messenger of Allah at the overwhelming moment when revelation first descended."
+    },
+    {
+      "id": "sahabe_011",
+      "konu": "aise",
+      "soru": "In what way is Aishah's contribution to Islamic knowledge most notable?",
+      "secenekler": [
+        "A) She commissioned the writing of the first copy of the Quran",
+        "B) She commanded major battles",
+        "C) She narrated many hadiths and taught knowledge to the Companions and their successors",
+        "D) She founded the first madrasa"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Aishah is among the Companions who narrated the most hadiths, and both Companions and their successors learned from her."
+    },
+    {
+      "id": "sahabe_012",
+      "konu": "bilal",
+      "soru": "What is Bilal al-Habashi's symbolic significance in Islamic history?",
+      "secenekler": [
+        "A) He was the first Companion to be martyred",
+        "B) He was the first Companion to migrate",
+        "C) He was the Companion who narrated the most hadiths",
+        "D) He preserved his faith despite severe torture and became the first muezzin"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Bilal held fast to the oneness of Allah on the scorching sand, saying 'Ehad! Ehad!', and later became the first muezzin of the Prophet's Mosque."
+    },
+    {
+      "id": "sahabe_013",
+      "konu": "bilal",
+      "soru": "What do the words Bilal spoke under torture mean?",
+      "secenekler": [
+        "A) \"May Allah save us\"",
+        "B) \"Allah is One\" — the essence of belief in His oneness",
+        "C) \"Patience is beautiful\"",
+        "D) \"I am not afraid of you\""
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Ehad! Ehad!' is a declaration that Allah is One; it is an expression of iman in its purest form."
+    },
+    {
+      "id": "sahabe_014",
+      "konu": "musab",
+      "soru": "What was Mus'ab ibn Umayr's role in Islamic history?",
+      "secenekler": [
+        "A) Bringing Islam to Medina and serving as the first envoy",
+        "B) Being elected the first caliph",
+        "C) Making the first copies of the Quran",
+        "D) Forming a large army"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Mus'ab was a young Companion raised in a wealthy family; he left his family behind, brought Islam to Medina, and was martyred at Uhud."
+    },
+    {
+      "id": "sahabe_015",
+      "konu": "musab",
+      "soru": "In which battle was Mus'ab ibn Umayr martyred?",
+      "secenekler": [
+        "A) The Battle of Badr",
+        "B) The Battle of the Trench",
+        "C) The Battle of Uhud",
+        "D) The Battle of Mu'tah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Mus'ab ibn Umayr was martyred at the Battle of Uhud without letting the banner fall from his hand."
+    },
+    {
+      "id": "sahabe_016",
+      "konu": "selman",
+      "soru": "What was Salman al-Farisi's most distinguishing quality before he came to Islam?",
+      "secenekler": [
+        "A) Being a wealthy merchant",
+        "B) Having a large army",
+        "C) Being a good farmer",
+        "D) Searching for the truth for years and learning about different religions"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Salman set out from Persia in search of the truth; he encountered various religions and communities and eventually reached the Messenger of Allah."
+    },
+    {
+      "id": "sahabe_017",
+      "konu": "selman",
+      "soru": "What was Salman al-Farisi's contribution to the Battle of the Trench?",
+      "secenekler": [
+        "A) Commanding the army",
+        "B) Proposing the idea of digging a trench",
+        "C) Leading negotiations",
+        "D) Capturing enemy spies"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "At the Battle of the Trench, the trench strategy proposed by Salman strengthened the Muslims' defense against a vastly outnumbering enemy."
+    },
+    {
+      "id": "sahabe_018",
+      "konu": "abdurrahman_avf",
+      "soru": "What was Abdurrahman ibn Awf's distinguishing quality?",
+      "secenekler": [
+        "A) Spending the wealth he earned through halal means in the cause of Allah",
+        "B) His military genius",
+        "C) His long life",
+        "D) Teaching many students"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Abdurrahman ibn Awf achieved success in trade through halal means and spent generously in the cause of Allah."
+    },
+    {
+      "id": "sahabe_019",
+      "konu": "sad_vakkas",
+      "soru": "What was the most difficult test of Sa'd ibn Abi Waqqas's faith?",
+      "secenekler": [
+        "A) Enduring torture",
+        "B) Taking command in a major battle",
+        "C) His mother refusing to eat in order to make him abandon his faith",
+        "D) Being imprisoned for many years"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sa'd's mother went on a hunger strike to make her son abandon Islam; although Sa'd loved his mother, he did not compromise his faith."
+    },
+    {
+      "id": "sahabe_020",
+      "konu": "talha",
+      "soru": "What notable action did Talha ibn Ubaydullah take unconsciously at the Battle of Uhud?",
+      "secenekler": [
+        "A) Carrying the banner",
+        "B) Killing the enemy commander",
+        "C) Rallying the retreating soldiers",
+        "D) Protecting the Messenger of Allah with his life and using his body as a shield"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "At Uhud, when the ranks were breaking apart, Talha shielded the Messenger of Allah and suffered many wounds to his body."
+    },
+    {
+      "id": "sahabe_021",
+      "konu": "zubeyr",
+      "soru": "What was notable about Zubayr ibn al-Awwam's acceptance of Islam?",
+      "secenekler": [
+        "A) He came to Islam as an adult",
+        "B) Embracing Islam at a very young age and his courage",
+        "C) Being the first Muslim in Medina",
+        "D) Taking part in many battles"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Zubayr embraced Islam at a young age and stood out for his courage."
+    },
+    {
+      "id": "sahabe_022",
+      "konu": "muaz_cebel",
+      "soru": "What was Muadh ibn Jabal's place among the Companions?",
+      "secenekler": [
+        "A) A great scholar who knew that knowledge brings responsibility",
+        "B) The strongest warrior",
+        "C) The Companion who donated the most wealth",
+        "D) The first muezzin"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Muadh ibn Jabal was a Companion who bore his knowledge with a sense of responsibility and demonstrated through his life what it means to possess knowledge."
+    },
+    {
+      "id": "sahabe_023",
+      "konu": "ubey_kab",
+      "soru": "What was Ubayy ibn Ka'b's important contribution to Islamic culture?",
+      "secenekler": [
+        "A) Establishing a large army",
+        "B) Financing the construction of the first mosque",
+        "C) Being among those who knew the Quran best and teaching it",
+        "D) Spreading Islam as a merchant"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ubayy ibn Ka'b was among the Companions who knew the Quran best, and it is known that the Messenger of Allah recommended reciting the Quran to him."
+    },
+    {
+      "id": "sahabe_024",
+      "konu": "esma",
+      "soru": "Why was Asma bint Abu Bakr given the title 'Dhat an-Nitaqayn' (the woman of two belts)?",
+      "secenekler": [
+        "A) She lived long enough to see two different generations",
+        "B) She had two sons",
+        "C) She migrated twice",
+        "D) She split her belt in two while carrying food to the Messenger of Allah and her father during the migration"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "While preparing for the migration, Asma split her belt in two to tie up the food; for this reason, she was given the title 'the woman of two belts.'"
+    },
+    {
+      "id": "sahabe_025",
+      "konu": "esma",
+      "soru": "What was Asma bint Abu Bakr's role during the migration?",
+      "secenekler": [
+        "A) Planning to mislead those pursuing the Messenger of Allah",
+        "B) Carrying food and keeping a secret",
+        "C) Delivering news to the people in Medina",
+        "D) Guiding the migration caravan"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "During the migration, Asma carried food to the Messenger of Allah and her father, kept a secret under pressure, and showed courage."
+    },
+    {
+      "id": "sahabe_026",
+      "konu": "ummu_umare",
+      "soru": "What notable action did Umm Umarah take at the Battle of Uhud?",
+      "secenekler": [
+        "A) Protecting the Messenger of Allah as the ranks fell into disarray",
+        "B) Carrying water to the wounded",
+        "C) Attacking the enemy ranks",
+        "D) Burying the martyrs after the battle"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Umm Umarah was one of the few people who stayed beside the Messenger of Allah and protected him when the ranks fell into great disarray at Uhud."
+    },
+    {
+      "id": "sahabe_027",
+      "konu": "ummu_umare",
+      "soru": "Why is Umm Umarah's example important to the Islamic understanding?",
+      "secenekler": [
+        "A) It shows that women are obliged to take part in battle",
+        "B) It proves that women are superior to men",
+        "C) It shows that responsibility depends on iman and courage, not gender",
+        "D) It shows that war is only for defensive purposes"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Umm Umarah's example shows that responsibility and courage are matters of iman, not gender."
+    },
+    {
+      "id": "sahabe_028",
+      "konu": "genel",
+      "soru": "What is the purpose of considering the different characters of the Companions together?",
+      "secenekler": [
+        "A) To show the rivalry between them",
+        "B) To show that each represents a different virtue and that everyone can find a role model suited to them",
+        "C) To choose the best among them",
+        "D) To give their historical order"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Companions offer examples whose different personalities complement one another: courageous, learned, generous, loyal, patient... Each represents a different light."
+    },
+    {
+      "id": "sahabe_029",
+      "konu": "ebu_bekir",
+      "soru": "On what basis did Abu Bakr become the first caliph?",
+      "secenekler": [
+        "A) Through his military strength",
+        "B) Through the written will of the Messenger of Allah",
+        "C) Because he was the oldest Companion",
+        "D) Through the choice of the Companions and his loyalty"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "After the death of the Messenger of Allah, Abu Bakr became the first caliph, with the Companions united in their choice of him; his loyalty and trustworthy character were decisive in that choice."
+    },
+    {
+      "id": "sahabe_030",
+      "konu": "bilal",
+      "soru": "Why is Bilal al-Habashi's story as a Companion especially meaningful?",
+      "secenekler": [
+        "A) It shows that someone of the lowest social status can rise to the highest rank through iman",
+        "B) He came from a noble family",
+        "C) He was martyred at a very young age",
+        "D) He was the Companion who took part in the most battles"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Bilal began life as a slave; through his iman, patience, and voice, he became the first muezzin in Islamic history. Iman comes before social status."
+    },
+    {
+      "id": "sahabe_031",
+      "konu": "genel",
+      "soru": "Which mistaken approach should be avoided when reading about the lives of the Companions?",
+      "secenekler": [
+        "A) Seeing their mistakes as a human reality",
+        "B) Drawing lessons to apply to our own lives",
+        "C) Seeing them as perfect beings who never made mistakes",
+        "D) Recognizing that different personalities represent different virtues"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The essential approach is to see the Companions as real people and draw inspiration from their lives, rather than turning them into legends."
+    },
+    {
+      "id": "sahabe_032",
+      "konu": "musab",
+      "soru": "What kind of life did Mus'ab ibn Umayr lead before going to Medina?",
+      "secenekler": [
+        "A) A poor shepherd",
+        "B) A wealthy and spoiled young man",
+        "C) A slave",
+        "D) A farmer"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Mus'ab grew up in one of the wealthiest families in Mecca and was known for his clothes and lifestyle. His iman led him to risk everything."
+    },
+    {
+      "id": "sahabe_033",
+      "konu": "sad_vakkas",
+      "soru": "How did Sa'd ibn Abi Waqqas respond to pressure from his mother?",
+      "secenekler": [
+        "A) He left the faith in accordance with his mother's wishes",
+        "B) He abandoned his mother and never saw her again",
+        "C) He invited his mother to Islam and persuaded her",
+        "D) He maintained his iman despite loving his mother and continued to treat her kindly"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Sa'd never denied his love for his mother, but he did not compromise his devotion to Allah either. The balance between the two reflects his character."
+    },
+    {
+      "id": "sahabe_034",
+      "konu": "hatice",
+      "soru": "What was the essence of Khadijah's words to the Messenger of Allah when revelation first came to him?",
+      "secenekler": [
+        "A) You are an honest person; Allah will not disgrace you",
+        "B) I do not support you; be thoughtful",
+        "C) This is the work of a devil",
+        "D) Let us leave Mecca immediately"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Khadijah reassured the Messenger of Allah, who was experiencing the shock of the first revelation, saying, 'You honor what is entrusted to you and speak truthfully; Allah will never disgrace you.'"
+    },
+    {
+      "id": "sahabe_035",
+      "konu": "selman",
+      "soru": "What is especially notable about Salman al-Farisi's place in Islamic history?",
+      "secenekler": [
+        "A) He was the longest-living Companion",
+        "B) He narrated the most hadiths",
+        "C) The first non-Arab Companion made an important contribution to Islam",
+        "D) He owned the most land"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Salman was Persian and represents the fact that Islam recognizes no ethnic boundaries and accepts those who seek the truth."
+    },
+    {
+      "id": "sahabe_036",
+      "konu": "aise",
+      "soru": "What was Aishah's importance in the teaching of religious knowledge?",
+      "secenekler": [
+        "A) She taught only women",
+        "B) Many people from both the Companions and the next generation learned from her",
+        "C) She was known only for her Quranic commentary",
+        "D) She founded the first madrasa"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Aishah was one of the greatest authorities on religious knowledge of her time; many people from both the Companions and the next generation came to her to learn."
+    },
+    {
+      "id": "sahabe_037",
+      "konu": "talha",
+      "soru": "What did Talhah ibn Ubaydullah and Zubayr ibn al-Awwam have in common?",
+      "secenekler": [
+        "A) Both were candidates to become the first caliph",
+        "B) Both were among the first to memorize the Quran",
+        "C) Both preached Islam in Medina",
+        "D) Both showed remarkable courage at Uhud"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "Both showed great courage at the Battle of Uhud and tried to protect the Messenger of Allah with their lives."
+    },
+    {
+      "id": "sahabe_038",
+      "konu": "genel",
+      "soru": "What is the right way to draw inspiration from the Companions?",
+      "secenekler": [
+        "A) To consider which virtues we can put into practice in our own circumstances and how",
+        "B) To imitate their every word and action exactly",
+        "C) Following only the first four caliphs as examples",
+        "D) Reading many books about them"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Drawing inspiration from the Companions involves asking how we can put their virtues into practice in today's circumstances."
+    }
+  ]
+}

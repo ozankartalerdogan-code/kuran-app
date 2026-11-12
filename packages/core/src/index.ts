@@ -76,14 +76,18 @@ export {
   CORPUS_MORPHOLOGY_VALUE_KEYS,
   CORPUS_POS_CODES,
   MORPHOLOGY_LABELS_TR,
+  MORPHOLOGY_LABELS_EN,
+  POS_LABELS_EN,
   POS_LABELS_TR,
+  formatMorphologyEn,
+  translatePosEn,
   formatMorphologyTr,
   getPosLabelTr,
   getUnknownMorphologyCodes,
   parseMorphologyForDisplay,
   translatePosTr
 } from "./presentation/morphologyLabels";
-export type { MorphologyDisplayToken } from "./presentation/morphologyLabels";
+export type { MorphologyDisplayToken, MorphologyLang } from "./presentation/morphologyLabels";
 export {
   SOURCE_LICENSE_CONTENT,
   SOURCE_LICENSE_LINKS,

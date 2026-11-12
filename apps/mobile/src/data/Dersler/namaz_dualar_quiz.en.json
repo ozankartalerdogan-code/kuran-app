@@ -1,0 +1,457 @@
+{
+  "quiz_id": "namaz-dualar",
+  "baslik": "Supplications in Salah",
+  "toplam_soru": 30,
+  "sorular": [
+    {
+      "id": "namaz_dualar_001",
+      "konu": "subhaneke",
+      "soru": "In which rak'ah of salah is Subhanaka recited?",
+      "secenekler": [
+        "A) In every rak'ah",
+        "B) Only in the first rak'ah",
+        "C) Only in the last rak'ah",
+        "D) In the first and last rak'ahs"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Subhanaka is recited only in the first rak'ah, immediately after the opening takbir. It is not recited in the other rak'ahs.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_002",
+      "konu": "subhaneke",
+      "soru": "What is the ruling on reciting Subhanaka?",
+      "secenekler": [
+        "A) Obligatory (fard)",
+        "B) Required (wajib)",
+        "C) Sunnah",
+        "D) Disliked (makruh)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Reciting Subhanaka is Sunnah. Omitting it does not invalidate salah, but reciting it brings great reward.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_003",
+      "konu": "fatiha",
+      "soru": "Which statement most accurately describes the ruling on reciting Surah al-Fatihah in salah?",
+      "secenekler": [
+        "A) It is wajib in the Hanafi school and fard in the Shafi'i, Maliki, and Hanbali schools",
+        "B) It is only Sunnah in all schools",
+        "C) It is recited only in the final sitting",
+        "D) It is not recited in salah"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "The ruling on reciting al-Fatihah differs between schools. It is considered wajib in the Hanafi school and fard in the Shafi'i, Maliki, and Hanbali schools. In practice, learners are taught to recite al-Fatihah in every rak'ah.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Adhan 95; Muslim, Salah 34"
+    },
+    {
+      "id": "namaz_dualar_004",
+      "konu": "fatiha",
+      "soru": "In Hanafi practice, what is said after Surah al-Fatihah?",
+      "secenekler": [
+        "A) Subhanallah",
+        "B) Amin",
+        "C) Alhamdulillah",
+        "D) Allahu Ekber"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Saying 'Amin' after al-Fatihah is Sunnah. In Hanafi practice, it is generally said silently; in some schools, it may be said aloud in prayers with audible recitation.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_005",
+      "konu": "ruku-secde",
+      "soru": "What does 'Subhana Rabbiyal-Azim' mean?",
+      "secenekler": [
+        "A) My Lord, the Most High, is free from imperfection",
+        "B) My Lord, the Magnificent, is free from all imperfection",
+        "C) O Allah, I declare You free from imperfection",
+        "D) My Lord, forgive me"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Subhana Rabbiyal-Azim' — My Lord, the Magnificent, is free from all imperfection. It is recited while bowing.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_006",
+      "konu": "ruku-secde",
+      "soru": "What does 'Subhana Rabbiyal-A'la' mean?",
+      "secenekler": [
+        "A) My Lord, the Magnificent, is free from all imperfection",
+        "B) My Lord, the Most High, is free from all imperfection",
+        "C) There is no god but Allah",
+        "D) My Lord, forgive me"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Subhana Rabbiyal-A'la' — My Lord, the Most High, is free from all imperfection. It is recited during prostration.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_007",
+      "konu": "ruku-secde",
+      "soru": "What is the minimum number of times the remembrance for bowing is recited?",
+      "secenekler": [
+        "A) 1",
+        "B) 3",
+        "C) 5",
+        "D) 7"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Reciting 'Subhana Rabbiyal-Azim' at least once while bowing is sufficient. Reciting it 3 times is Sunnah.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_008",
+      "konu": "ruku-secde",
+      "soru": "How many times is it Sunnah to recite the remembrance for prostration?",
+      "secenekler": [
+        "A) 1",
+        "B) 3",
+        "C) 5",
+        "D) 7"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "It is Sunnah to recite 'Subhana Rabbiyal-A'la' 3 times during prostration. Reciting it at least once is sufficient.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_009",
+      "konu": "ruku-secde",
+      "soru": "When is 'Rabbigfirli' recited?",
+      "secenekler": [
+        "A) While bowing",
+        "B) During prostration",
+        "C) Between the two prostrations (jalsah — the brief sitting between two prostrations)",
+        "D) In the final sitting"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Rabbigfirli' (My Lord, forgive me) is recited during the brief sitting between the two prostrations (jalsah — the brief sitting between two prostrations).",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_010",
+      "konu": "ruku-secde",
+      "soru": "What does 'Rabbigfirli' mean?",
+      "secenekler": [
+        "A) O Allah, I declare You free from imperfection",
+        "B) All praise belongs to You",
+        "C) My Lord, forgive me",
+        "D) There is no god but Allah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Rabbigfirli' — My Lord, forgive me. It is recited during the sitting between the two prostrations.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_011",
+      "konu": "oturus",
+      "soru": "In which sittings of salah is Tahiyyat recited?",
+      "secenekler": [
+        "A) Only in the final sitting",
+        "B) In every sitting",
+        "C) Only in the first sitting",
+        "D) Only in prayers with 4 rak'ahs"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tahiyyat (the supplication recited while sitting) is recited in every sitting of salah, both the first sitting and the final sitting.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_012",
+      "konu": "oturus",
+      "soru": "What is the ruling on reciting Tahiyyat?",
+      "secenekler": [
+        "A) Obligatory (fard)",
+        "B) Required (wajib)",
+        "C) Sunnah",
+        "D) Recommended (mustahabb)"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In Hanafi teaching, reciting Tahiyyat is taught as wajib. The final sitting itself is one of the pillars of salah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_013",
+      "konu": "oturus",
+      "soru": "What is the first word of Tahiyyat?",
+      "secenekler": [
+        "A) Allahumma",
+        "B) At-tahiyyatu",
+        "C) Ashhadu",
+        "D) As-salamu"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Tahiyyat begins with 'At-tahiyyatu lillahi...' It is recited in every sitting of salah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_014",
+      "konu": "oturus",
+      "soru": "In which sitting of salah are the Salli and Barik supplications recited?",
+      "secenekler": [
+        "A) In every sitting",
+        "B) Only in the first sitting",
+        "C) Only in the final sitting",
+        "D) They are never recited"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Salli and Barik supplications are recited only in the final sitting (qa'dah al-akhirah), after Tahiyyat.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_015",
+      "konu": "oturus",
+      "soru": "What is the ruling on reciting the Salli and Barik supplications?",
+      "secenekler": [
+        "A) Obligatory (fard)",
+        "B) Required (wajib)",
+        "C) Sunnah",
+        "D) Disliked (makruh)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Reciting Salli and Barik is Sunnah. They are recited in that order after Tahiyyat in the final sitting.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_016",
+      "konu": "kavme",
+      "soru": "What does 'Sami'allahu liman hamidah', said when rising from bowing, mean?",
+      "secenekler": [
+        "A) I declare my Magnificent Lord free from imperfection",
+        "B) Allah hears the one who praises Him",
+        "C) Our Lord, all praise belongs to You",
+        "D) Allah is the Greatest"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Sami'allahu liman hamidah' — Allah hears the one who praises Him. It is said when rising from bowing.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 122; Muslim, Salah 196"
+    },
+    {
+      "id": "namaz_dualar_017",
+      "konu": "kavme",
+      "soru": "When is 'Rabbena ve lekel hamd' recited?",
+      "secenekler": [
+        "A) When bending down to bow",
+        "B) When rising from bowing",
+        "C) Once fully upright in qawmah (the standing position after bowing)",
+        "D) When going into prostration"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "'Semi'allahu' is said when rising from bowing, followed by 'Rabbena ve lekel hamd' once fully upright in qawmah.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Adhan 122; Muslim, Salah 196"
+    },
+    {
+      "id": "namaz_dualar_018",
+      "konu": "kavme",
+      "soru": "What does 'Rabbena ve lekel hamd' mean?",
+      "secenekler": [
+        "A) Allah is the Greatest",
+        "B) Our Lord, all praise belongs to You",
+        "C) I declare You free from imperfection",
+        "D) My Lord, forgive me"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Rabbena ve lekel hamd' — 'Our Lord, all praise belongs to You.' It is said in qawmah (the standing position after bowing), once fully upright after bowing.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_019",
+      "konu": "kunut",
+      "soru": "In Hanafi practice, in which prayer is the Qunut supplication (the special supplication recited in Witr) recited?",
+      "secenekler": [
+        "A) In Fajr prayer",
+        "B) In Dhuhr prayer",
+        "C) In Witr prayer",
+        "D) In all prayers"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In Hanafi practice, the Qunut supplication (the special supplication recited in Witr) is recited in the third rak'ah of Witr prayer, before bowing. The Shafi'i school also has the practice of reciting Qunut in Fajr prayer.",
+      "zorluk": "kolay",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_020",
+      "konu": "kunut",
+      "soru": "In Hanafi practice, in which rak'ah of Witr prayer is the Qunut supplication (the special supplication recited in Witr) recited?",
+      "secenekler": [
+        "A) In the first rak'ah",
+        "B) In the second rak'ah",
+        "C) In the third (last) rak'ah",
+        "D) In every rak'ah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "In Hanafi practice, the Qunut supplication (the special supplication recited in Witr) is recited in the third rak'ah of Witr prayer, after the additional surah (the surah recited after al-Fatihah) and before bowing.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_021",
+      "konu": "subhaneke",
+      "soru": "What does the phrase 'Subhanaka Allahumma' in Subhanaka mean?",
+      "secenekler": [
+        "A) O Allah, I thank You",
+        "B) O Allah, I declare You free from imperfection",
+        "C) O Allah, I seek Your help",
+        "D) O Allah, forgive me"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'Subhanakallahumma' — 'O Allah, I declare You free from all imperfection.' Subhanaka begins with this phrase.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_022",
+      "konu": "kunut",
+      "soru": "What can someone who does not yet know the Qunut supplications do?",
+      "secenekler": [
+        "A) Recite a short supplication and continue learning Qunut",
+        "B) Give up salah entirely",
+        "C) There is no need to learn anything",
+        "D) Repeat the Qunut takbir continuously"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Someone who does not yet know the Qunut supplications may recite a short supplication until they learn them; the aim is to continue memorizing the Qunut supplications.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_023",
+      "konu": "namaz-sonrasi",
+      "soru": "How many times are Subhanallah, Alhamdulillah, and Allahu Akbar each said after salah?",
+      "secenekler": [
+        "A) 10 - 10 - 10",
+        "B) 33 - 33 - 33",
+        "C) 99 - 99 - 99",
+        "D) 7 - 7 - 7"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "After the salam, Subhanallah, Alhamdulillah and Allahu Akbar are each recited 33 times.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Adhan 155; Muslim, Masajid 144"
+    },
+    {
+      "id": "namaz_dualar_024",
+      "konu": "rabbena",
+      "soru": "From which surah of the Qur'an is the 'Rabbena Atina' supplication taken?",
+      "secenekler": [
+        "A) Surah al-Fatihah",
+        "B) Surah al-Baqarah",
+        "C) Surah Ali 'Imran",
+        "D) Surah Ibrahim"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The supplication 'Rabbana atina fid-dunya hasanatan...' is taken from verse 201 of Surah al-Baqarah.",
+      "zorluk": "zor",
+      "kaynak": "Surah al-Baqarah 2:201"
+    },
+    {
+      "id": "namaz_dualar_025",
+      "konu": "rabbena",
+      "soru": "From which surah of the Qur'an is the 'Rabbanaghfir li' supplication taken?",
+      "secenekler": [
+        "A) Surah al-Fatihah",
+        "B) Surah al-Baqarah",
+        "C) Surah Ali 'Imran",
+        "D) Surah Ibrahim"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The supplication 'Rabbanaghfir li wa li walidayya...' is taken from verse 41 of Surah Ibrahim.",
+      "zorluk": "zor",
+      "kaynak": "Surah Ibrahim 14:41"
+    },
+    {
+      "id": "namaz_dualar_026",
+      "konu": "oturus",
+      "soru": "In what order are the supplications recited after Tahiyyat in the final sitting?",
+      "secenekler": [
+        "A) Barik → Salli → Rabbena",
+        "B) Salli → Barik → Rabbena",
+        "C) Rabbena → Salli → Barik",
+        "D) Salli → Rabbena → Barik"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In the final sitting, Tahiyyat is followed by the supplications Salli, then Barik, then Rabbena, in that order.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_027",
+      "konu": "subhaneke",
+      "soru": "Which of the following is not included in the meaning of Subhanaka?",
+      "secenekler": [
+        "A) Declaring Allah free from all imperfections",
+        "B) Praising Allah",
+        "C) Asking Allah for forgiveness",
+        "D) Declaring that there is no god but You"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Subhanaka includes declaring Allah free from all imperfections, praising Him and affirming that there is no other god. Asking for forgiveness is part of 'Rabbigfirli'.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_028",
+      "konu": "ruku-secde",
+      "soru": "When is a servant closest to Allah?",
+      "secenekler": [
+        "A) While bowing",
+        "B) While standing",
+        "C) While prostrating",
+        "D) While sitting"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet ﷺ said: 'A servant is closest to Allah while prostrating.' (Muslim, Salah 215)",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Salah 215"
+    },
+    {
+      "id": "namaz_dualar_029",
+      "konu": "namaz-sonrasi",
+      "soru": "Which of the following remembrances is recited after salah rather than during it?",
+      "secenekler": [
+        "A) Subhana Rabbiyal-Azim",
+        "B) Rabbigfirli",
+        "C) Alhamdulillah (33 times)",
+        "D) Semi'allahu limen hamideh"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Alhamdulillah is recited 33 times after salah. The others are remembrances recited during salah.",
+      "zorluk": "orta",
+      "kaynak": "Basic Islamic knowledge"
+    },
+    {
+      "id": "namaz_dualar_030",
+      "konu": "oturus",
+      "soru": "In Hanafi teaching, which of the following is emphasized as wajib (obligatory) in salah?",
+      "secenekler": [
+        "A) Subhanaka",
+        "B) Tahiyyat",
+        "C) Salli",
+        "D) Barik"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In Hanafi teaching, reciting Tahiyyat is taught as wajib (obligatory). Subhanaka, Salli and Barik are Sunnah.",
+      "zorluk": "zor",
+      "kaynak": "Basic Islamic knowledge"
+    }
+  ]
+}

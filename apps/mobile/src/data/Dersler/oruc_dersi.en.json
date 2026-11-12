@@ -1,0 +1,106 @@
+{
+  "ders_id": "oruc",
+  "baslik": "Sawm (Fasting)",
+  "aciklama": "Learn the basics of sawm, one of the five pillars of Islam.",
+  "kartlar": [
+    {
+      "id": "oruc_k01",
+      "tip": "metin",
+      "baslik": "What Is Sawm?",
+      "icerik": "Sawm is the third of the five pillars of Islam. It means abstaining from eating, drinking, and sexual intercourse from imsak (the break of dawn) until iftar (sunset).\n\nVerse: \"O you who believe! Fasting has been prescribed for you as it was prescribed for those before you, so that you may guard against evil.\" (al-Baqarah, 2:183)",
+      "vurgu": "The third of the five pillars of Islam"
+    },
+    {
+      "id": "oruc_k02",
+      "tip": "metin",
+      "baslik": "The Virtue of Sawm",
+      "icerik": "Hadith Qudsi: \"The fasting person gives up food, drink, and sexual desires for My sake. Fasting is an act of worship offered directly to Me, and I Myself reward it.\" (Bukhari, Sawm 2; Muslim, Siyam 163)\n\nThe Prophet ﷺ said: \"Fasting is a shield. The fasting person should not use foul language.\" (Bukhari, Sawm 2)",
+      "vurgu": "Allah Himself gives the reward for fasting"
+    },
+    {
+      "id": "oruc_k03",
+      "tip": "metin",
+      "baslik": "Conditions That Make Sawm Obligatory",
+      "icerik": "For sawm to be obligatory upon a person, they must:\n• Be Muslim\n• Be of sound mind\n• Have reached puberty\n\nSawm is not obligatory upon a person who does not meet these three conditions. When a non-Muslim becomes Muslim, they do not need to make up past fasts.",
+      "vurgu": "Muslim · Of sound mind · Reached puberty"
+    },
+    {
+      "id": "oruc_k04",
+      "tip": "metin",
+      "baslik": "Conditions for the Validity of Sawm",
+      "icerik": "For a fast to be valid:\n• Intention: Intend in the heart to fast\n• For women, be free from menstruation and postpartum bleeding\n\nThe time for making the intention may vary according to the type of fast and the school of law. As practical and cautious guidance, the intention for a Ramadan fast is made during the night or at suhoor. In the Hanafi school, the intention for a Ramadan fast may be valid if made before the greater part of the day has passed, provided that nothing that breaks the fast was done after imsak; in the Shafi'i, Maliki, and Hanbali schools, an intention during the night is required for an obligatory fast.\n\nA woman who is menstruating or experiencing postpartum bleeding does not fast; she makes up these days later.",
+      "vurgu": "Intention is required · The safest practice is to intend during the night or at suhoor"
+    },
+    {
+      "id": "oruc_k05",
+      "tip": "metin",
+      "baslik": "Intention",
+      "icerik": "The intention for a Ramadan fast is made in the heart. Saying it aloud may help; what is required is the resolve to fast in the heart.\n\nThe safest practice is to make the intention during the night or at suhoor. Getting up for suhoor also counts as an intention. In the Hanafi school, the intention for a Ramadan fast may be valid if made before the greater part of the day has passed, provided that nothing that would break the fast was done after imsak. In the other schools, the requirement to make the intention during the night for an obligatory fast is emphasized more strongly.\n\nExample intention: \"I intend to fast tomorrow's Ramadan fast for the sake of Allah.\"",
+      "vurgu": "Intention is in the heart · Getting up for suhoor counts as an intention"
+    },
+    {
+      "id": "oruc_k06",
+      "tip": "metin",
+      "baslik": "Things That Break the Fast",
+      "icerik": "The fast is broken if these are done deliberately:\n• Eating or drinking\n• Sexual intercourse\n• Smoking\n• Vomiting a mouthful deliberately\n• Receiving a nutritional intravenous infusion or an injection with nutritional value\n\nQada (making up a missed fast later, day for day): Making up a broken fast later, day for day.\nKaffarah (a significant expiation required for deliberately breaking a Ramadan fast): An additional obligation incurred by deliberately breaking a Ramadan fast through certain serious violations.\n\nIn the Hanafi and Maliki schools, deliberately breaking a Ramadan fast by eating, drinking, smoking, or sexual intercourse requires qada and kaffarah. In the Shafi'i and Hanbali schools, kaffarah is required particularly for sexual intercourse; deliberately eating and drinking requires qada. In cases such as deliberate vomiting and nutritional injections, qada is generally required, but kaffarah is not.",
+      "vurgu": "Deliberate action is required · The schools differ on the rulings of kaffarah"
+    },
+    {
+      "id": "oruc_k07",
+      "tip": "metin",
+      "baslik": "Things That Do Not Break the Fast",
+      "icerik": "The following do not break the fast:\n• Eating or drinking forgetfully\n\nThe Prophet ﷺ said: \"Whoever eats or drinks forgetfully should complete their fast. Allah has fed them and given them drink.\" (Bukhari, Sawm 26; Muslim, Siyam 171)\n\n• Vomiting involuntarily\n• Rinsing the mouth with water and spitting it out; however, if water goes down the throat, the fast is broken and qada is required\n• Having blood drawn\n• An injection of medicine that contains no nutrients\n• Brushing the teeth with a miswak or a toothbrush without toothpaste; if toothpaste or water goes down the throat, the fast may be broken\n• Dreaming",
+      "vurgu": "Eating forgetfully does not break the fast · Care is needed to prevent anything from going down the throat"
+    },
+    {
+      "id": "oruc_k08",
+      "tip": "metin",
+      "baslik": "People Who Are Ill or Traveling",
+      "icerik": "People who are ill or traveling may choose not to fast in Ramadan; they make up the missed days later.\n\nVerse: \"Whoever is ill or on a journey shall fast an equal number of other days. Allah intends ease for you and does not intend hardship for you.\" (al-Baqarah, 2:185)\n\n• A fast missed due to a temporary illness is made up after recovery\n• A fast missed during a journey is made up after returning\n• If fasting would worsen an illness or cause serious hardship, there is a dispensation to postpone it\n• If there is no harm or excessive hardship, fasting may be virtuous\n• For those who are permanently unable to fast, the ruling of fidyah applies (feeding a person in need or giving its equivalent)",
+      "vurgu": "Allah intends ease · Qada applies for a temporary excuse, and fidyah for permanent inability"
+    },
+    {
+      "id": "oruc_k09",
+      "tip": "metin",
+      "baslik": "Qada and Kaffarah",
+      "icerik": "Qada (making up a missed fast later, day for day): Making up a missed or broken Ramadan fast later, day for day. Qada is required in cases of temporary illness, travel, menstruation or postpartum bleeding, and some situations that break the fast.\n\nKaffarah (a significant expiation required for deliberately breaking a Ramadan fast): An additional obligation incurred by deliberately breaking a Ramadan fast through a serious violation. In the Hanafi and Maliki schools, deliberately eating, drinking, or having sexual intercourse requires kaffarah; in the Shafi'i and Hanbali schools, kaffarah is associated particularly with sexual intercourse.\n\nHow kaffarah is fulfilled:\n• Fast for 60 consecutive days\n• Anyone unable to do so feeds 60 people in need\n\nIn cases of permanent weakness due to old age or an illness from which recovery is not expected, fidyah applies instead of qada (feeding a person in need or giving its equivalent).",
+      "vurgu": "Qada for a temporary excuse · Fidyah for permanent inability (feeding a person in need or giving its equivalent) · The schools differ on kaffarah"
+    },
+    {
+      "id": "oruc_k10",
+      "tip": "metin",
+      "baslik": "Fidyah",
+      "icerik": "Fidyah is required of those who cannot fast because of old age or an illness from which recovery is not possible.\n\nFidyah (feeding a person in need or giving its equivalent): For each day, feeding a person in need in the morning and evening, or giving the monetary equivalent.\n\nVerse: \"Those who are unable to fast shall feed a person in need as fidyah.\" (al-Baqarah, 2:184)\n\nFidyah is for those who are too weak to make up their fasts. Fidyah takes the place of qada; those who can make up their fasts cannot simply give fidyah.",
+      "vurgu": "Fidyah takes the place of qada; those who can make up their fasts cannot simply give fidyah"
+    },
+    {
+      "id": "oruc_k11",
+      "tip": "metin",
+      "baslik": "Suhoor and Iftar",
+      "icerik": "Suhur: The meal eaten before the time of imsak. Eating suhur is Sunnah.\nThe Prophet ﷺ said: \"Eat suhur, for there is blessing in suhur.\" (Bukhari, Sawm 20; Muslim, Siyam 45)\n\nIftar: Breaking the fast at sunset. It is Sunnah not to delay iftar.\nThe Prophet ﷺ said: \"People will continue to be upon goodness as long as they hasten to break their fast.\" (Bukhari, Sawm 45; Muslim, Siyam 48)\n\nThe following supplication may be recited at iftar:\n\"Dhahaba adh-dhama'u wabtallat al-uruqu wa thabata al-ajru in sha Allah.\"\nMeaning: \"The thirst has gone, the veins are moistened, and the reward is assured, if Allah wills.\" (Abu Dawud, Sawm 22)\n\nThe supplication \"Allahumma laka sumtu wa bika amantu wa ala rizqika aftartu\" is also commonly recited.",
+      "vurgu": "There is blessing in sahur · It is Sunnah not to delay iftar"
+    },
+    {
+      "id": "oruc_k12",
+      "tip": "metin",
+      "baslik": "The Importance of Ramadan",
+      "icerik": "Fasting in Ramadan was made obligatory in the month of Sha'ban in the second year after the Hijrah.\n\nThe Prophet ﷺ said: \"When the month of Ramadan begins, the gates of Paradise are opened and the gates of Hell are closed.\" (Bukhari, Sawm 5; Muslim, Siyam 1)\n\nLaylat al-Qadr: It is better than a thousand months. (al-Qadr, 97:3)\n\nTarawih prayer: A Sunnah prayer specific to Ramadan.",
+      "vurgu": "The gates of Paradise are opened in Ramadan — Bukhari and Muslim"
+    },
+    {
+      "id": "oruc_k13",
+      "tip": "metin",
+      "baslik": "Voluntary Fasts",
+      "icerik": "Fasts that are not obligatory but earn reward:\n• Fasting on Mondays and Thursdays — which the Prophet ﷺ regularly observed (Muslim, Siyam 197)\n• Fasting on Ashura — the 9th and 10th or the 10th and 11th days of Muharram (Muslim, Siyam 127)\n• Fasting on Arafah — the 9th day of Dhul-Hijjah, for those not performing Hajj (Muslim, Siyam 196)\n• The 13th, 14th and 15th days of each month (the White Days)\n\nObserving these fasts is recommended; not observing them is not a sin.",
+      "vurgu": "Fasting on Mondays and Thursdays is a Sunnah of the Prophet ﷺ"
+    },
+    {
+      "id": "oruc_k14",
+      "tip": "metin",
+      "baslik": "Differences Between Schools of Law",
+      "icerik": "The four schools of law hold different views on some matters related to fasting:\n\n• Circumstances requiring expiation: In the Hanafi and Maliki schools, deliberately breaking a Ramadan fast by eating, drinking, smoking or having sexual intercourse requires expiation. In the Shafi'i and Hanbali schools, expiation is particularly associated with sexual intercourse; deliberately eating or drinking requires making up the fast in these two schools.\n\n• Time for intention: In the Hanafi school, an intention for a Ramadan fast may be considered valid before most of the day has passed, provided nothing that breaks the fast has been done after imsak. In the Shafi'i, Maliki and Hanbali schools, an intention for each obligatory fast must be made during the preceding night.\n\n• Injections and medical procedures: Nutritional intravenous fluids and treatments with nutritional value break the fast. Contemporary fatwas provide detailed assessments of the ruling on non-nutritional injections given for treatment.\n\n• Brushing teeth: The fast may be broken if water, toothpaste or medicine taken into the mouth reaches the throat. Therefore, care should be taken when cleaning the mouth while fasting.\n\n🎉 You have completed the fasting lesson! For more verses and details, you can explore the {{link:ibadet-ibadetler|Worship Guide}}; if you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "Differences between schools of law explain details of practice · It is sufficient to follow your own school"
+    }
+  ],
+  "quiz_havuzu_id": "oruc"
+}

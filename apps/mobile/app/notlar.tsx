@@ -10,9 +10,13 @@ import { useNotes } from "../src/hooks/useNotes";
 import { api, prefetchAyah } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
+import { useStrings, getStrings, fmt } from "../src/i18n";
+import personalStrings from "../src/i18n/strings/personal";
+import { useSurahNameOf } from "../src/lib/surahNames";
 
 export default function NotlarScreen() {
   const c = useColors();
+  const t = useStrings(personalStrings);
   const insets = useSafeAreaInsets();
   const {
     notes,
@@ -46,14 +50,15 @@ export default function NotlarScreen() {
     retry: 1,
   });
 
+  const surahNameOf = useSurahNameOf();
   const surahNames = useMemo(() => {
     const map: Record<string, string> = {};
-    noteVerses?.forEach((v) => { if (v.surah_name) map[v.verse_key] = v.surah_name; });
+    noteVerses?.forEach((v) => { if (v.surah_name) map[v.verse_key] = surahNameOf(v.surah_id, v.surah_name); });
     return map;
-  }, [noteVerses]);
+  }, [noteVerses, surahNameOf]);
 
   const surahNamesError = isSurahNamesError
-    ? "Bazı sure adları şu anda alınamadı; notlar ayet anahtarlarıyla gösteriliyor."
+    ? t.surahNamesError
     : null;
 
   function parseKey(key: string) {
@@ -64,8 +69,8 @@ export default function NotlarScreen() {
   function formatLabel(key: string) {
     const { surahId, ayahNumber } = parseKey(key);
     const surahName = surahNames[key];
-    if (surahName) return `${surahName}, ${ayahNumber}. Ayet`;
-    return `${surahId}. Sure · ${ayahNumber}. Ayet`;
+    if (surahName) return fmt(t.noteLabelNamed, { name: surahName, n: ayahNumber });
+    return fmt(t.noteLabelId, { s: surahId, n: ayahNumber });
   }
 
   async function handleRetry() {
@@ -73,15 +78,15 @@ export default function NotlarScreen() {
   }
 
   function handleClearAll() {
-    Alert.alert("Tümünü Sil", "Tüm notları silmek istediğinize emin misiniz?", [
-      { text: "Hayır", style: "cancel" },
+    Alert.alert(t.deleteAllTitle, t.deleteAllBody, [
+      { text: t.no, style: "cancel" },
       {
-        text: "Evet",
+        text: t.yes,
         style: "destructive",
         onPress: async () => {
           const ok = await clearAll();
           if (!ok) {
-            Alert.alert("Notlar silinemedi", "Lütfen tekrar deneyin.");
+            Alert.alert(t.notesDeleteFail, t.tryAgain);
           }
         },
       },
@@ -89,15 +94,15 @@ export default function NotlarScreen() {
   }
 
   function handleDeleteOne(verseKey: string) {
-    Alert.alert("Notu Sil", "Bu notu silmek istediğinize emin misiniz?", [
-      { text: "Hayır", style: "cancel" },
+    Alert.alert(t.deleteNoteTitle, t.deleteNoteBody, [
+      { text: t.no, style: "cancel" },
       {
-        text: "Evet",
+        text: t.yes,
         style: "destructive",
         onPress: async () => {
           const ok = await saveNote(verseKey, "");
           if (!ok) {
-            Alert.alert("Not silinemedi", "Lütfen tekrar deneyin.");
+            Alert.alert(t.noteDeleteFail, t.tryAgain);
           }
         },
       },
@@ -116,10 +121,10 @@ export default function NotlarScreen() {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>⚠️</Text>
-        <Text style={[styles.emptyTitle, { color: c.text }]}>Notlar yüklenemedi</Text>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>{t.notesErrTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{notesError}</Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={handleRetry} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Tekrar dene">
-          <Text style={styles.goBtnText}>Tekrar Dene</Text>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={handleRetry} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
+          <Text style={styles.goBtnText}>{t.retry}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -129,12 +134,12 @@ export default function NotlarScreen() {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Text style={styles.emptyIcon}>📝</Text>
-        <Text style={[styles.emptyTitle, { color: c.text }]}>Henüz not eklemediniz</Text>
+        <Text style={[styles.emptyTitle, { color: c.text }]}>{t.notesEmptyTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
-          Ayet detay sayfasının altındaki not alanından not ekleyebilirsiniz.
+          {t.notesEmptySub}
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Surelere göz at">
-          <Text style={styles.goBtnText}>Surelere Göz At</Text>
+        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.browseA11y}>
+          <Text style={styles.goBtnText}>{t.browse}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -148,9 +153,9 @@ export default function NotlarScreen() {
       ListHeaderComponent={
         <View style={styles.headerWrap}>
           <View style={styles.listHeader}>
-            <Text style={[styles.noteCount, { color: c.textMuted }]}>{noteList.length} ayet için not kaydedildi</Text>
-            <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel="Tüm notları sil">
-              <Text style={styles.clearAll}>Tümünü Sil</Text>
+            <Text style={[styles.noteCount, { color: c.textMuted }]}>{fmt(t.notesCount, { n: noteList.length })}</Text>
+            <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.deleteAllNotesA11y}>
+              <Text style={styles.clearAll}>{t.deleteAll}</Text>
             </TouchableOpacity>
           </View>
           {surahNamesError ? (
@@ -167,7 +172,7 @@ export default function NotlarScreen() {
             onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)}
             activeOpacity={0.75}
             accessibilityRole="button"
-            accessibilityLabel={`${formatLabel(item.verseKey)} — notu aç`}
+            accessibilityLabel={fmt(t.openNoteA11y, { label: formatLabel(item.verseKey) })}
           >
             <View style={styles.cardHeader}>
               <View style={styles.keyBadge}>
@@ -176,7 +181,7 @@ export default function NotlarScreen() {
               <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
                 {formatLabel(item.verseKey)}
               </Text>
-              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8} accessibilityRole="button" accessibilityLabel="Notu sil">
+              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.deleteNoteA11y}>
                 <Text style={styles.deleteBtn}>🗑</Text>
               </TouchableOpacity>
             </View>

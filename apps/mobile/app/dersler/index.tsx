@@ -8,16 +8,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
-import { DERSLER_META as DERSLER, KATEGORILER } from "../../src/data/Dersler/dersler_registry";
+import { DERSLER_META as DERSLER, getDerslerMeta, getKategoriler } from "../../src/data/Dersler/dersler_registry";
+import { useLang, useStrings, fmt } from "../../src/i18n";
+import derslerStrings from "../../src/i18n/strings/dersler";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
 type SortMode = "tumu" | "sure" | "konu";
 
-const TABS: { key: SortMode; label: string }[] = [
-  { key: "tumu",  label: "Tümü" },
-  { key: "sure",  label: "Kolaydan Zora" },
-  { key: "konu",  label: "Konuya Göre" },
-];
+const TAB_KEYS: SortMode[] = ["tumu", "sure", "konu"];
 
 type Ders = typeof DERSLER[number];
 
@@ -43,9 +41,14 @@ export default function DerslerScreen() {
 
   useFocusEffect(useCallback(() => { load(); }, [load]));
 
+  const lang = useLang();
+  const t = useStrings(derslerStrings);
+  const TABS = TAB_KEYS.map((key) => ({ key, label: key === "tumu" ? t.tabAll : key === "sure" ? t.tabEasy : t.tabTopic }));
+  const derslerL = useMemo(() => getDerslerMeta(lang), [lang]);
+  const kategorilerL = useMemo(() => getKategoriler(lang), [lang]);
   const sortedData = useMemo(
-    () => sortMode === "sure" ? [...DERSLER].sort((a, b) => a.sure - b.sure) : DERSLER,
-    [sortMode],
+    () => sortMode === "sure" ? [...derslerL].sort((a, b) => a.sure - b.sure) : derslerL,
+    [sortMode, derslerL],
   );
 
   const renderCard = useCallback((item: Ders) => {
@@ -61,14 +64,14 @@ export default function DerslerScreen() {
         onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as Href); }}
         activeOpacity={0.8}
         accessibilityRole="button"
-        accessibilityLabel={`${item.baslik}, yaklaşık ${item.sure} dakika${done ? ", tamamlandı" : ""}`}
+        accessibilityLabel={fmt(done ? t.cardA11yDone : t.cardA11y, { title: item.baslik, n: item.sure })}
       >
         {done && !item.route && (
           <View style={s.badge}><Text style={s.badgeText}>✓</Text></View>
         )}
         <Text style={s.ikon}>{item.ikon}</Text>
         <Text style={[s.baslik, { color: c.text }]}>{item.baslik}</Text>
-        <Text style={s.kartBilgi}>~{item.sure} dk</Text>
+        <Text style={s.kartBilgi}>{fmt(t.cardMinutes, { n: item.sure })}</Text>
         {pct > 0 && !item.route && (
           <View style={[s.progTrack, { backgroundColor: c.border }]}>
             <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
@@ -76,7 +79,7 @@ export default function DerslerScreen() {
         )}
       </TouchableOpacity>
     );
-  }, [progress, c, firstCardTarget]);
+  }, [progress, c, firstCardTarget, t]);
 
   const renderItem = useCallback(
     ({ item }: { item: Ders }) => renderCard(item),
@@ -86,7 +89,7 @@ export default function DerslerScreen() {
   const footer = (
     <View style={s.kaynak}>
       <Text style={s.kaynakMetin}>
-        Dersler Kur'an-ı Kerim, sahih hadis kaynakları ve klasik ilmihal birikimi esas alınarak hazırlanmıştır.
+        {t.sources}
       </Text>
     </View>
   );
@@ -96,10 +99,10 @@ export default function DerslerScreen() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
-          <Text style={s.backText}>‹ Geri</Text>
+        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
+          <Text style={s.backText}>{t.backBtn}</Text>
         </TouchableOpacity>
-        <Text style={[s.headerTitle, { color: c.text }]}>Dersler</Text>
+        <Text style={[s.headerTitle, { color: c.text }]}>{t.listTitle}</Text>
         <View style={s.headerSide} />
       </View>
 
@@ -131,9 +134,9 @@ export default function DerslerScreen() {
           contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
           showsVerticalScrollIndicator={false}
         >
-          {KATEGORILER.map(kat => {
+          {kategorilerL.map(kat => {
             const katDersler = kat.ids
-              .map(id => DERSLER.find(d => d.id === id))
+              .map(id => derslerL.find(d => d.id === id))
               .filter(Boolean) as Ders[];
             const pairs = chunk(katDersler, numColumns);
             return (

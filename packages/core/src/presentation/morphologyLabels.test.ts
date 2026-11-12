@@ -8,11 +8,15 @@ import {
   CORPUS_MORPHOLOGY_CODES,
   CORPUS_MORPHOLOGY_VALUE_KEYS,
   CORPUS_POS_CODES,
+  MORPHOLOGY_LABELS_EN,
   MORPHOLOGY_LABELS_TR,
+  POS_LABELS_EN,
   POS_LABELS_TR,
+  formatMorphologyEn,
   formatMorphologyTr,
   getUnknownMorphologyCodes,
   parseMorphologyForDisplay,
+  translatePosEn,
   translatePosTr,
 } from "./morphologyLabels";
 
@@ -235,7 +239,9 @@ test("web ve mobil aynı ortak sunum helperını kullanır", () => {
   assert.match(webPage, /translatePosTr.+from "@quran-app\/core"/s);
   assert.match(mobilePage, /formatMorphologyTr, translatePosTr.+packages\/core\/src\/presentation\/morphologyLabels"/s);
   assert.match(webPage, /aria-label=\{`Kelime türü: \$\{label\}`\}/);
-  assert.match(mobilePage, /accessibilityLabel=\{`Kelime türü \$\{translatePosTr\(w\.pos\)\}`\}/);
+  // Mobil etiket metni i18n'den gelir (strings/ayah.ts wordTypeA11y: "Kelime türü {pos}");
+  // kelime türü yine ortak helper ile çözülmeli.
+  assert.match(mobilePage, /accessibilityLabel=\{fmt\(ay\.wordTypeA11y, \{ pos: translatePosTr\(w\.pos, "—", lang\) \}\)\}/);
   assert.doesNotMatch(webPage, /\{(?:part\.)?code\}\s*\(\{(?:part\.)?label\}\)/);
   assert.doesNotMatch(webPage, />\s*\{word\.morphology\}\s*</);
   assert.doesNotMatch(mobilePage, />\s*\{w\.(?:pos|morphology)\}\s*</);
@@ -291,4 +297,27 @@ test("API route ham pos ve morphology sözleşmesini sunum çevirisinden bağım
     apiRoute,
     /translatePosTr|formatMorphologyTr|MORPHOLOGY_LABELS_TR|POS_LABELS_TR/,
   );
+});
+
+test("İngilizce etiketler: POS, morfoloji ve Türkçe varsayılan değişmez", () => {
+  assert.equal(translatePosEn("N + V"), "Noun + Verb");
+  assert.equal(translatePosEn(null), "—");
+  assert.equal(translatePosTr("N"), "İsim");
+  assert.equal(
+    formatMorphologyEn("1:V:PERF | 3MS | ACT_PCPL"),
+    formatMorphologyTr("1:V:PERF | 3MS | ACT_PCPL", "en"),
+  );
+  const en = formatMorphologyEn("1:N:GEN | MS | INDEF");
+  assert.match(en, /Genitive/);
+  assert.match(en, /Masculine singular/);
+  assert.equal(formatMorphologyEn("1:N:MOOD:IND"), "Mood: Indicative mood");
+  assert.equal(
+    formatMorphologyTr("1:N:GEN"),
+    formatMorphologyTr("1:N:GEN", "tr"),
+  );
+});
+
+test("İngilizce etiket tabloları Türkçe ile aynı anahtarlara sahip", () => {
+  assert.deepEqual(Object.keys(MORPHOLOGY_LABELS_EN).sort(), Object.keys(MORPHOLOGY_LABELS_TR).sort());
+  assert.deepEqual(Object.keys(POS_LABELS_EN).sort(), Object.keys(POS_LABELS_TR).sort());
 });

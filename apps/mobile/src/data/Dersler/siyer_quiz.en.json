@@ -1,0 +1,757 @@
+{
+  "quiz_id": "siyer",
+  "baslik": "The Life of the Prophet",
+  "toplam_soru": 50,
+  "sorular": [
+    {
+      "id": "siyer_001",
+      "konu": "siyer",
+      "soru": "Which clan of which tribe did the Prophet Muhammad ﷺ belong to?",
+      "secenekler": [
+        "A) Quraysh - Banu Umayyah",
+        "B) Quraysh - Banu Hashim",
+        "C) Hawazin - Sa'd b. Bakr",
+        "D) Thaqif - Banu Uqayl"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet Muhammad ﷺ belonged to Banu Hashim, a clan of the Quraysh tribe. This clan was responsible for providing pilgrims with water and food.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_002",
+      "konu": "siyer",
+      "soru": "Where was the first revelation sent down?",
+      "secenekler": [
+        "A) Inside the Kaaba",
+        "B) At al-Aqsa Mosque",
+        "C) In the Cave of Hira",
+        "D) In the Cave of Thawr"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The first revelation was sent down through Jibril in Ramadan in 610 CE, in the Cave of Hira (Mount Nur), where the Prophet Muhammad ﷺ had withdrawn in seclusion.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Beginning of Revelation"
+    },
+    {
+      "id": "siyer_003",
+      "konu": "siyer",
+      "soru": "Which surah of the Quran was the first to be revealed?",
+      "secenekler": [
+        "A) al-Fatihah",
+        "B) al-Baqarah",
+        "C) al-Alaq",
+        "D) al-Ikhlas"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The first verse revealed was the beginning of Surah al-Alaq: 'Read in the name of your Lord who created!' It is no coincidence that the first command concerned knowledge and reading.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Beginning of Revelation"
+    },
+    {
+      "id": "siyer_004",
+      "konu": "siyer",
+      "soru": "Who was the Prophet Muhammad's ﷺ wet nurse?",
+      "secenekler": [
+        "A) Umm Ayman",
+        "B) Halimah bint Abi Dhu'ayb",
+        "C) Fatimah bint Asad",
+        "D) Asma bint Abi Bakr"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet Muhammad's ﷺ wet nurse was Halimah bint Abi Dhu'ayb of the Sa'd b. Bakr tribe. He stayed with her for about four years and learned eloquent Arabic during this time.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Sa'd, at-Tabaqat"
+    },
+    {
+      "id": "siyer_005",
+      "konu": "siyer",
+      "soru": "Where did Aminah, the mother of the Prophet Muhammad ﷺ, pass away?",
+      "secenekler": [
+        "A) In Makkah",
+        "B) In Madinah",
+        "C) In the village of Abwa",
+        "D) In Ta'if"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "When the Prophet Muhammad ﷺ was six years old, Aminah passed away in the village of Abwa on the way back from taking him to visit his relatives in Madinah.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_006",
+      "konu": "siyer",
+      "soru": "Who became the guardian of the Prophet Muhammad ﷺ?",
+      "secenekler": [
+        "A) Abu Jahl",
+        "B) Abu Sufyan",
+        "C) Abu Talib",
+        "D) Abdurrahman b. Awf"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "On his deathbed, his grandfather Abdul-Muttalib appointed his son Abu Talib as the guardian of the Prophet Muhammad ﷺ. Abu Talib loved and protected him like his own children.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_007",
+      "konu": "siyer",
+      "soru": "What does the title 'al-Amin', given to the Prophet Muhammad ﷺ by the people of Makkah, mean?",
+      "secenekler": [
+        "A) Brave",
+        "B) Trustworthy",
+        "C) Humble",
+        "D) Generous"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "'al-Amin' means trustworthy. The people of Makkah spontaneously gave the Prophet Muhammad ﷺ this title before his prophethood because of his honesty and trustworthiness.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_008",
+      "konu": "siyer",
+      "soru": "Who was the first martyr of Islam?",
+      "secenekler": [
+        "A) Bilal al-Habashi",
+        "B) Ammar b. Yasir",
+        "C) Sumayyah",
+        "D) Yasir b. Amir"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Sumayyah became known as the first martyr of Islam after she was martyred by Abu Jahl. Her husband Yasir and her son Ammar were also subjected to severe torture.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Sa'd, at-Tabaqat"
+    },
+    {
+      "id": "siyer_009",
+      "konu": "siyer",
+      "soru": "Who was the first woman to become Muslim?",
+      "secenekler": [
+        "A) Fatimah",
+        "B) Aishah",
+        "C) Khadijah",
+        "D) Asma bint Abi Bakr"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Khadijah was the first person to comfort the Prophet Muhammad ﷺ and believe in him after the first revelation. She has the honor of being the first woman to become Muslim.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Virtues"
+    },
+    {
+      "id": "siyer_010",
+      "konu": "siyer",
+      "soru": "Which Companion stayed with the Prophet ﷺ in the Cave of Thawr for three nights during the Hijrah?",
+      "secenekler": [
+        "A) Umar",
+        "B) Ali",
+        "C) Abu Bakr",
+        "D) Uthman"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Abu Bakr spent three nights with the Prophet ﷺ in the Cave of Thawr. When the Quraysh searchers reached the entrance of the cave, the Prophet ﷺ comforted him with at-Tawbah 9:40.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Virtues of the Ansar"
+    },
+    {
+      "id": "siyer_011",
+      "konu": "siyer",
+      "soru": "When the Prophet ﷺ arrived in Madinah, which Companion hosted him in his home?",
+      "secenekler": [
+        "A) Sa'd b. Ubadah",
+        "B) Abu Ayyub al-Ansari",
+        "C) As'ad b. Zurarah",
+        "D) Abdurrahman b. Awf"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet ﷺ let his camel go freely and said, 'I will stay wherever it kneels.' The camel knelt near Abu Ayyub al-Ansari's home, and he became the Prophet's host.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_012",
+      "konu": "siyer",
+      "soru": "Which Companion was the first to call the adhan?",
+      "secenekler": [
+        "A) Abdullah b. Zayd",
+        "B) Bilal al-Habashi",
+        "C) Salman al-Farisi",
+        "D) Umar"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The words of the adhan, which Abdullah b. Zayd learned in a dream, were conveyed to the Prophet ﷺ. Bilal al-Habashi became the first muezzin with his powerful voice.",
+      "zorluk": "kolay",
+      "kaynak": "Abu Dawud, Salah"
+    },
+    {
+      "id": "siyer_013",
+      "konu": "siyer",
+      "soru": "In which year did the Battle of Badr take place?",
+      "secenekler": [
+        "A) 1 AH / 622 CE",
+        "B) 2 AH / 624 CE",
+        "C) 3 AH / 625 CE",
+        "D) 5 AH / 627 CE"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Battle of Badr took place on 17 Ramadan 2 AH (13 March 624 CE). It was the first major battle in Islamic history.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Military Expeditions"
+    },
+    {
+      "id": "siyer_014",
+      "konu": "siyer",
+      "soru": "How many soldiers were in the army that conquered Makkah?",
+      "secenekler": [
+        "A) 3,000",
+        "B) 5,000",
+        "C) 10,000",
+        "D) 30,000"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet ﷺ entered Makkah with an army of 10,000. The city was conquered almost without bloodshed, and a general amnesty was declared.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Military Expeditions"
+    },
+    {
+      "id": "siyer_015",
+      "konu": "siyer",
+      "soru": "Approximately how many Muslims took part in the Farewell Hajj?",
+      "secenekler": [
+        "A) 10,000",
+        "B) 50,000",
+        "C) 100,000",
+        "D) 500,000"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Approximately 100,000 to 124,000 Muslims took part in the Farewell Hajj. It was the Prophet's ﷺ first and last Hajj.",
+      "zorluk": "kolay",
+      "kaynak": "Muslim, Hajj (narration of Jabir)"
+    },
+    {
+      "id": "siyer_016",
+      "konu": "siyer",
+      "soru": "How old was the Prophet ﷺ when he passed away?",
+      "secenekler": [
+        "A) 40",
+        "B) 50",
+        "C) 63",
+        "D) 70"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet ﷺ passed away at approximately 63 years of age on 12 Rabi al-Awwal 11 AH / 8 June 632 CE.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Military Expeditions"
+    },
+    {
+      "id": "siyer_017",
+      "konu": "siyer",
+      "soru": "Which of his wives was with the Prophet ﷺ when he passed away?",
+      "secenekler": [
+        "A) Khadijah",
+        "B) Aishah",
+        "C) Hafsah",
+        "D) Zaynab"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet ﷺ spent his final days in Aishah's room and breathed his last in her arms.",
+      "zorluk": "kolay",
+      "kaynak": "Bukhari, Military Expeditions"
+    },
+    {
+      "id": "siyer_018",
+      "konu": "siyer",
+      "soru": "What did the Prophet Muhammad ﷺ do during the rebuilding of the Kaaba when he was 35 years old?",
+      "secenekler": [
+        "A) He led the construction of the Kaaba",
+        "B) He settled the dispute over the Black Stone",
+        "C) He protected the Kaaba from the enemy",
+        "D) He installed the first door of the Kaaba"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "At the age of 35, he settled a dispute among the tribes over placing the Black Stone (the black stone at the corner of the Kaaba) in position by using a large cloth, preventing a major conflict.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_019",
+      "konu": "siyer",
+      "soru": "What was Hilf al-Fudul established to do?",
+      "secenekler": [
+        "A) Unite the Quraysh tribes",
+        "B) Protect those who had been wronged",
+        "C) Organize the administration of the Kaaba",
+        "D) Set trade rules at fairs"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Hilf al-Fudul (the Alliance of the Virtuous) was established to protect those who had been wronged after a Yemeni man suffered an injustice. The Prophet ﷺ valued such calls for justice.",
+      "zorluk": "kolay",
+      "kaynak": "Ahmad b. Hanbal, Musnad"
+    },
+    {
+      "id": "siyer_020",
+      "konu": "siyer",
+      "soru": "Why did the Prophet ﷺ have Ali sleep in his bed when he migrated?",
+      "secenekler": [
+        "A) Ali was ill and he wanted to protect him",
+        "B) To distract the assassins",
+        "C) So that he could return the entrusted belongings",
+        "D) So that he could lead the prayers"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet ﷺ had Ali sleep in his bed and covered him with his green cloak to distract the assassins keeping watch at the door.",
+      "zorluk": "kolay",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_021",
+      "konu": "siyer",
+      "soru": "In which surah of the Quran is the Event of the Elephant described?",
+      "secenekler": [
+        "A) al-Kawthar",
+        "B) al-Fil",
+        "C) al-Falaq",
+        "D) an-Nas"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Surah al-Fil (105) describes the destruction of Abrahah's army by flocks of birds. This event took place around the time of the Prophet's ﷺ birth.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Fil 105"
+    },
+    {
+      "id": "siyer_022",
+      "konu": "siyer",
+      "soru": "How many idols were in the Kaaba during the Age of Ignorance (the period of living without the guidance of revelation)?",
+      "secenekler": [
+        "A) 100",
+        "B) 200",
+        "C) 360",
+        "D) 500"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "During the Age of Ignorance, there were as many as 360 idols in the Kaaba. The most prominent were Hubal, Lat, Manat and Uzza. They were all broken during the conquest of Makkah.",
+      "zorluk": "orta",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_023",
+      "konu": "siyer",
+      "soru": "Who gave the Prophet Muhammad ﷺ the name 'Muhammad'?",
+      "secenekler": [
+        "A) His mother Aminah",
+        "B) His uncle Abu Talib",
+        "C) His grandfather Abdul-Muttalib",
+        "D) His foster mother Halimah"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet Muhammad ﷺ was named Muhammad by his grandfather Abdul-Muttalib. This name was not common among Arabs at the time.",
+      "zorluk": "orta",
+      "kaynak": "Ibn Sa'd, Tabaqat"
+    },
+    {
+      "id": "siyer_024",
+      "konu": "siyer",
+      "soru": "Where did the Muslims meet during the period of secret preaching?",
+      "secenekler": [
+        "A) Khadijah's house",
+        "B) Dar al-Arqam (Arqam's house)",
+        "C) The Cave of Hira",
+        "D) Al-Masjid al-Haram"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "During the first three years of secret preaching, the house of Arqam ibn Abi al-Arqam became known as Dar al-Arqam (Arqam's house; the first center for education and meetings).",
+      "zorluk": "orta",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_025",
+      "konu": "siyer",
+      "soru": "Who represented the Muslims who had migrated to Abyssinia before the Negus?",
+      "secenekler": [
+        "A) Abu Bakr",
+        "B) Umar",
+        "C) Ja'far ibn Abi Talib",
+        "D) Mus'ab ibn Umayr"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Ja'far ibn Abi Talib recited verses from Surah Maryam before the Negus. The Negus refused to hand the Muslims over and provided them with a safe environment.",
+      "zorluk": "orta",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_026",
+      "konu": "siyer",
+      "soru": "Which Companion bought Bilal al-Habashi and set him free?",
+      "secenekler": [
+        "A) Umar",
+        "B) Uthman",
+        "C) Abu Bakr",
+        "D) Ali"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Bilal was tortured under the scorching sun of Mecca with a large stone placed on his chest. Abu Bakr bought him and set him free.",
+      "zorluk": "orta",
+      "kaynak": "Ibn Sa'd, Tabaqat"
+    },
+    {
+      "id": "siyer_027",
+      "konu": "siyer",
+      "soru": "Whom did the Prophet ﷺ lose in the Year of Sorrow?",
+      "secenekler": [
+        "A) Hamzah and Khadijah",
+        "B) Abu Talib and Khadijah",
+        "C) Zayd and Abu Talib",
+        "D) His father Abdullah and his mother Aminah"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In the Year of Sorrow in 619 CE, the Prophet ﷺ lost his uncle and protector Abu Talib, followed by his wife Khadijah. After these two great losses, his social protection in Mecca weakened considerably.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Manaqib al-Ansar"
+    },
+    {
+      "id": "siyer_028",
+      "konu": "siyer",
+      "soru": "How many daily prayers were initially made obligatory during the Isra and Mi'raj?",
+      "secenekler": [
+        "A) 5",
+        "B) 10",
+        "C) 40",
+        "D) 50"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "The Isra is described as the night journey, and the Mi'raj as the ascent to the heavens and exalted realms. The number of daily prayers, initially set at 50, was reduced to five following reductions made on the advice of Musa.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Salah"
+    },
+    {
+      "id": "siyer_029",
+      "konu": "siyer",
+      "soru": "When Abu Bakr became worried in the Cave of Thawr, which phrase from the Quran reassured him?",
+      "secenekler": [
+        "A) al-Baqarah 2:286",
+        "B) at-Tawbah 9:40",
+        "C) az-Zumar 39:10",
+        "D) ash-Sharh 94:5"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "In at-Tawbah 9:40, this moment is described with the words, 'Do not be sad; Allah is with us.' This verse is one of the strongest examples of trust and submission during the journey of migration.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Manaqib al-Ansar"
+    },
+    {
+      "id": "siyer_030",
+      "konu": "siyer",
+      "soru": "Which was the first mosque the Prophet ﷺ had built during his journey of migration?",
+      "secenekler": [
+        "A) Al-Masjid an-Nabawi",
+        "B) Al-Masjid al-Aqsa",
+        "C) Quba Mosque",
+        "D) Al-Masjid al-Haram"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Quba Mosque, built at Quba, where the Prophet stopped before reaching Medina, is the first mosque built in Islamic history.",
+      "zorluk": "orta",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_031",
+      "konu": "siyer",
+      "soru": "Which principle was not included in the Constitution of Medina?",
+      "secenekler": [
+        "A) Recognition of freedom of religion",
+        "B) Obligation of mutual defense",
+        "C) Exile of the polytheists from the city",
+        "D) Referral of disputes to the Prophet ﷺ"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Constitution of Medina covered freedom of religion, mutual defense, and legal order. Exiling the polytheists from the city was not among its principles.",
+      "zorluk": "orta",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_032",
+      "konu": "siyer",
+      "soru": "What was one of the options offered to prisoners after the Battle of Badr?",
+      "secenekler": [
+        "A) To become Muslim",
+        "B) To be enslaved",
+        "C) To teach 10 Muslims to read and write",
+        "D) To swear never to return to Mecca"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Prophet ﷺ offered the prisoners the option of paying a ransom (a sum paid to secure release) or, according to reports, teaching 10 Muslims to read and write. This decision is cited as an example of the value placed on knowledge.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_033",
+      "konu": "siyer",
+      "soru": "What mistake caused the situation to turn around at the Battle of Uhud?",
+      "secenekler": [
+        "A) The Muslims surrendered early",
+        "B) The archers left their positions to collect spoils",
+        "C) A change of commander",
+        "D) Seeking refuge with the enemy"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet ﷺ had ordered the archers not to leave their positions. When most of them saw that the Muslims had gained the upper hand, they left their positions to collect spoils (property acquired after battle), and Khalid ibn al-Walid took advantage of the opening.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_034",
+      "konu": "siyer",
+      "soru": "Who proposed digging a trench at the Battle of the Trench?",
+      "secenekler": [
+        "A) Umar",
+        "B) Ali",
+        "C) Salman al-Farisi",
+        "D) Abu Bakr"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Persian Companion Salman al-Farisi proposed the defensive strategy of a trench, which was unfamiliar to the Arabs. Thanks to this strategy, the large coalition army could not enter Medina.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_035",
+      "konu": "siyer",
+      "soru": "Who signed the Treaty of Hudaybiyyah on behalf of the Quraysh?",
+      "secenekler": [
+        "A) Abu Jahl",
+        "B) Abu Sufyan",
+        "C) Suhayl ibn Amr",
+        "D) Amr ibn al-As"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "Suhayl ibn Amr, the representative of the Quraysh, negotiated and signed the Treaty of Hudaybiyyah with the Prophet ﷺ.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Tafsir, Surah al-Fath"
+    },
+    {
+      "id": "siyer_036",
+      "konu": "siyer",
+      "soru": "In which surah did the Quran describe the Treaty of Hudaybiyyah as 'a clear victory'?",
+      "secenekler": [
+        "A) al-Baqarah",
+        "B) al-Fath",
+        "C) at-Tawbah",
+        "D) an-Nisa"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The first verse of Surah al-Fath means, 'Indeed, We have granted you a clear victory.' This verse shows that the Treaty of Hudaybiyyah, though seemingly difficult, ultimately opened the way to great progress.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Fath 48:1"
+    },
+    {
+      "id": "siyer_037",
+      "konu": "siyer",
+      "soru": "Which ruler tore up the Prophet's ﷺ letter inviting him to Islam?",
+      "secenekler": [
+        "A) Heraclius (Byzantium)",
+        "B) The Negus (Abyssinia)",
+        "C) Khosrow (Sasanian Empire)",
+        "D) Muqawqis (Egypt)"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "The Sasanian emperor Khosrow II tore up the Prophet's ﷺ letter inviting him to Islam. This event is one of the well-known accounts concerning the letters sent to rulers inviting them to Islam.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Bad' al-Wahy"
+    },
+    {
+      "id": "siyer_038",
+      "konu": "siyer",
+      "soru": "How many idols in the Kaaba were broken at the conquest of Mecca?",
+      "secenekler": [
+        "A) 100",
+        "B) 200",
+        "C) 300",
+        "D) 360"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "At the conquest of Mecca, the 360 idols in the Kaaba were broken. As the Prophet ﷺ touched each one, he said, 'Truth has come and falsehood has vanished' (al-Isra 17:81).",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_039",
+      "konu": "siyer",
+      "soru": "What did verse 3 of Surah al-Ma'idah, revealed after the Farewell Sermon, announce?",
+      "secenekler": [
+        "A) That Hajj had been made obligatory",
+        "B) That the religion had been perfected",
+        "C) That zakat had been made obligatory",
+        "D) The ruling on jihad"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "Al-Ma'idah 5:3: 'Today I have perfected your religion for you, completed My favor upon you, and chosen Islam as your religion.' This is one of the most important verses announcing the completion of the religion.",
+      "zorluk": "orta",
+      "kaynak": "Quran, al-Ma'idah 5:3"
+    },
+    {
+      "id": "siyer_040",
+      "konu": "siyer",
+      "soru": "Who led the prayers during the Prophet's ﷺ final illness?",
+      "secenekler": [
+        "A) Umar",
+        "B) Uthman",
+        "C) Ali",
+        "D) Abu Bakr"
+      ],
+      "dogru_cevap": "D",
+      "aciklama": "When the Prophet ﷺ became unable to lead the prayers during his final illness, he appointed Abu Bakr to lead the congregation as imam.",
+      "zorluk": "orta",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_041",
+      "konu": "siyer",
+      "soru": "How many people took part in the Second Pledge of Aqabah?",
+      "secenekler": [
+        "A) 12",
+        "B) 40",
+        "C) 75",
+        "D) 100"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "A total of 75 people—73 men and 2 women—took part in the Second Pledge of Aqabah in 622 CE. A pledge is a promise of loyalty and support; this pledge laid the groundwork for the migration.",
+      "zorluk": "zor",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_042",
+      "konu": "siyer",
+      "soru": "Approximately how many people took part in the first migration to Abyssinia?",
+      "secenekler": [
+        "A) 15",
+        "B) 40",
+        "C) 75",
+        "D) 100"
+      ],
+      "dogru_cevap": "A",
+      "aciklama": "Approximately 15 people (11 men and 4 women) migrated to Abyssinia in the first group. Approximately 100 people set out in the second group.",
+      "zorluk": "zor",
+      "kaynak": "Ibn Hisham, as-Sirah"
+    },
+    {
+      "id": "siyer_043",
+      "konu": "siyer",
+      "soru": "Approximately how many Muslims were present at the Battle of Badr?",
+      "secenekler": [
+        "A) 100",
+        "B) 313",
+        "C) 500",
+        "D) 700"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "At Badr, approximately 313 Muslims defeated an army of 1,000 Quraysh. The Quran states that angels helped in this battle.",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_044",
+      "konu": "siyer",
+      "soru": "What was the name of the educational platform established next to the Prophet's Mosque?",
+      "secenekler": [
+        "A) Dar al-Arqam",
+        "B) Suffe",
+        "C) Dar al-Hikma",
+        "D) Shi'b Abi Talib"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Suffe was an educational area established next to the Prophet's Mosque where Companions known as Ahl al-Suffa studied. The mosque served as a center for worship, education, and administration.",
+      "zorluk": "zor",
+      "kaynak": "Ibn Sa'd, Tabaqat"
+    },
+    {
+      "id": "siyer_045",
+      "konu": "siyer",
+      "soru": "For approximately how many months after the migration to Medina was the qibla directed toward Jerusalem?",
+      "secenekler": [
+        "A) 6 months",
+        "B) 12 months",
+        "C) 16–17 months",
+        "D) 24 months"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "For approximately 16–17 months after arriving in Medina, salah was performed facing Jerusalem (al-Aqsa Mosque). Then, with al-Baqarah 2:144, the qibla was changed to the Kaaba.",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Salat"
+    },
+    {
+      "id": "siyer_046",
+      "konu": "siyer",
+      "soru": "Which relative of the Prophet ﷺ was martyred at the Battle of Uhud?",
+      "secenekler": [
+        "A) Zayd ibn Harithah",
+        "B) Hamza",
+        "C) Ja'far ibn Abi Talib",
+        "D) Ali"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Prophet's ﷺ uncle Hamza was martyred at the Battle of Uhud. He is remembered by the title 'Sayyid al-Shuhada' (master of the martyrs).",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_047",
+      "konu": "siyer",
+      "soru": "Who took command at the Battle of Mu'tah after three commanders were martyred in succession?",
+      "secenekler": [
+        "A) Umar",
+        "B) Ali",
+        "C) Khalid ibn al-Walid",
+        "D) Amr ibn al-As"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "After Zayd ibn Harithah, Ja'far ibn Abi Talib, and Abdullah ibn Rawahah, Khalid ibn al-Walid took command and successfully withdrew the army.",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_048",
+      "konu": "siyer",
+      "soru": "Which Companion received the title 'Seyfullah' (the sword of Allah)?",
+      "secenekler": [
+        "A) Ali",
+        "B) Umar",
+        "C) Khalid ibn al-Walid",
+        "D) Hamza"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "After his success at the Battle of Mu'tah, the Prophet ﷺ gave Khalid ibn al-Walid the title 'Seyfullah' (the sword of Allah).",
+      "zorluk": "zor",
+      "kaynak": "Bukhari, Maghazi"
+    },
+    {
+      "id": "siyer_049",
+      "konu": "siyer",
+      "soru": "Which Companion donated one-third of the army for the Expedition of Tabuk?",
+      "secenekler": [
+        "A) Abu Bakr",
+        "B) Umar",
+        "C) Uthman",
+        "D) Ali"
+      ],
+      "dogru_cevap": "C",
+      "aciklama": "At Tabuk, Abu Bakr donated all his wealth, Umar donated half of his, and Uthman donated one-third of the army. This expedition is recounted as one of the great examples of sacrifice.",
+      "zorluk": "zor",
+      "kaynak": "Contemporary Islamic sources"
+    },
+    {
+      "id": "siyer_050",
+      "konu": "siyer",
+      "soru": "Which of the following was a fundamental principle emphasized in the Farewell Sermon?",
+      "secenekler": [
+        "A) Hajj was made obligatory for all Muslims",
+        "B) The rejection of racial superiority",
+        "C) The abolition of the jizya tax",
+        "D) The cancellation of all debts"
+      ],
+      "dogru_cevap": "B",
+      "aciklama": "The Farewell Sermon emphasized that people are not superior to one another because of race, color, or ancestry, and that superiority lies in taqwa, meaning awareness of one's responsibility toward Allah.",
+      "zorluk": "zor",
+      "kaynak": "Muslim, Hajj (narration of Jabir)"
+    }
+  ]
+}

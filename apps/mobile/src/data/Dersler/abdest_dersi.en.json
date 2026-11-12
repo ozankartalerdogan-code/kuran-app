@@ -1,0 +1,141 @@
+{
+  "ders_id": "abdest-gusul",
+  "baslik": "Wudu, Ghusl and Tayammum",
+  "aciklama": "Learn the three basic methods of ritual purification in Islam: wudu, ghusl (washing the entire body), and tayammum (purification with earth when water is unavailable).",
+  "kartlar": [
+    {
+      "id": "abdest_k01",
+      "tip": "metin",
+      "baslik": "Purity Is the Foundation of Worship",
+      "icerik": "In Islam, taharah (religious purity) is a prerequisite for acts of worship. The Prophet ﷺ said, «Purity is half of iman.» (Muslim, Taharah 1)\n\nThere are two types of ritual impurity (a state of spiritual impurity that prevents acts of worship):\n• Minor impurity — conditions that invalidate wudu\n• Major impurity — conditions that require ghusl\n\nBoth are removed through the corresponding purification.",
+      "vurgu": "«At-tahuru shatrul iman — Purity is half of iman.» (Muslim, Taharah 1)"
+    },
+    {
+      "id": "abdest_k02",
+      "tip": "metin",
+      "baslik": "The Obligatory Acts of Wudu — 4 Basic Steps",
+      "icerik": "According to the Hanafi school, there are four obligatory acts derived from the verse on wudu in the Qur'an (al-Ma'idah 5/6):\n\n1. Wash the face — from the hairline on the forehead to beneath the chin, and between the two earlobes\n2. Wash the arms, including the elbows\n3. Wipe the head (passing a wet hand over it, which differs from washing) — at least one quarter of the head (Hanafi)\n4. Wash the feet, including the heels\n\nWudu is not valid unless these four obligatory acts are performed. The schools' differing views on the number of obligatory acts and the amount of the head to be wiped are covered in the final card.",
+      "vurgu": "«O you who believe! When you rise for prayer, wash your faces and hands, wipe your heads, and wash your feet.» (al-Ma'idah 5/6)"
+    },
+    {
+      "id": "abdest_k03",
+      "tip": "metin",
+      "baslik": "The Sunnahs of Wudu",
+      "icerik": "Sunnahs and important practices of etiquette that make wudu more virtuous:\n\n• Make the intention — it is Sunnah in the Hanafi school and obligatory in the Shafi'i and some other schools\n• Begin with the basmalah\n• Wash the hands up to the wrists three times\n• Mazmaza (rinsing the mouth)\n• Istinshak (drawing water into the nose)\n• Pass the fingers through the beard and between the fingers\n• Begin with the right side\n• Wash each body part three times\n• Wipe the entire head\n• Wipe the ears\n• Recite a supplication for wudu — it is recommended to supplicate while washing each body part or after completing wudu",
+      "vurgu": "Intention and the basmalah bring awareness to wudu; performing the Sunnahs beautifies wudu and increases its reward."
+    },
+    {
+      "id": "abdest_k04",
+      "tip": "metin",
+      "baslik": "Things That Invalidate Wudu",
+      "icerik": "The following invalidate wudu:\n\n• Defecating or urinating\n• Passing wind\n• Anything exiting through the urinary or anal passages\n• Sleeping outside the qa'dah position (the sitting position in salah) — sleeping while lying down, on one's side, or leaning invalidates wudu; only the wudu of a person who dozes in the qa'dah position as in salah remains valid (Hanafi)\n• Fainting or becoming intoxicated\n• The flow of impure fluids such as blood or pus (according to the Hanafi school)\n\nWhen any of these occurs, wudu must be performed again to pray salah.",
+      "vurgu": "When something invalidates wudu, one cannot pray salah or hold the mushaf."
+    },
+    {
+      "id": "abdest_k05",
+      "tip": "metin",
+      "baslik": "Acts of Worship That Require Wudu",
+      "icerik": "The following acts of worship cannot be performed without wudu:\n\n• Praying salah (al-Ma'idah 5/6; an-Nisa 4/43)\n• Touching the mushaf — reciting the Qur'an from memory is permissible (al-Waqi'ah 56/79: «None may touch it except those who are purified»)\n• Performing tawaf around the Kaaba («Tawaf is prayer» — Tirmidhi, Hajj 112; Ibn Khuzaymah, 2739)\n• Performing the prostration of recitation (the prostration made when a verse of prostration in the Qur'an is recited) — because it has the same ruling as salah\n\nIn addition, being in a state of wudu before sleep and performing a separate wudu for each prayer time are considered mustahabb (recommended acts whose omission is not sinful).",
+      "vurgu": "Wudu is required for salah, tawaf, and touching the mushaf. (al-Ma'idah 5/6; al-Waqi'ah 56/79)"
+    },
+    {
+      "id": "abdest_k06",
+      "tip": "metin",
+      "baslik": "What Is Ghusl and When Is It Required?",
+      "icerik": "Ghusl (washing the entire body) is performed to purify oneself from major ritual impurity.\n\nGhusl is required in the following situations:\n• Janabah (major impurity resulting from sexual intercourse or a wet dream — ejaculation during sleep)\n• At the end of hayd (a woman's menstrual bleeding)\n• At the end of nifas (postpartum bleeding)\n\nThe Qur'an states, «If you are in a state of janabah, purify yourselves thoroughly» (al-Ma'idah 5/6).",
+      "vurgu": "Janabah, hayd and nifas → Ghusl is obligatory. (Bukhari, Ghusl 22; Muslim, Hayd 87)"
+    },
+    {
+      "id": "abdest_k07",
+      "tip": "metin",
+      "baslik": "The Obligatory Acts of Ghusl — 3 Basic Steps",
+      "icerik": "According to the Hanafi school, ghusl has three obligatory acts; if one is omitted, the ghusl is invalid:\n\n1. Put water in the mouth (mazmaza) — rinse the entire inside of the mouth\n2. Draw water into the nose (istinshak) — clean the inside of the nose with water\n3. Wash the entire body — wash from head to toe so that no area, even the size of a needle point, remains dry\n\nSpecial attention is needed for the roots of the hair, inside the navel, behind the ears, and between the fingers and toes.",
+      "vurgu": "Substances that block water, such as nail polish, paint, and glue, must be removed beforehand; otherwise, the ghusl is invalid."
+    },
+    {
+      "id": "abdest_k08",
+      "tip": "metin",
+      "baslik": "How to Perform Ghusl (the Sunnah Method)",
+      "icerik": "The sequence for performing ghusl according to the Sunnah:\n\n1. Say the basmalah and make the intention\n2. Wash your hands and private parts (the intimate area that must be covered)\n3. Perform wudu as for salah, including mazmaza and istinshak\n4. Pour water three times over the head, then the right shoulder, and then the left shoulder, and rub the body thoroughly\n5. Wash the entire body so that no area remains dry\n\nA person who performs ghusl does not need to perform wudu separately; ghusl also takes the place of wudu. (Bukhari, Ghusl 1; Muslim, Hayd 35)",
+      "vurgu": "There is no need to perform wudu separately after ghusl — ghusl takes the place of wudu."
+    },
+    {
+      "id": "abdest_k09",
+      "tip": "metin",
+      "baslik": "Things Forbidden in a State of Janabah",
+      "icerik": "The following cannot be done while in a state of janabah:\n\n• Pray salah (al-Ma'idah 5/6; an-Nisa 4/43)\n• Recite the Qur'an with the intention of tilawah (recitation as an act of worship) — all four schools have ruled that this is forbidden\n• Touch the mushaf (al-Waqi'ah 56/79)\n• Perform tawaf around the Kaaba\n• Enter a mosque (an-Nisa 4/43: «While in a state of janabah... do not approach the place of prayer, except when passing through»)\n\nHowever, while in a state of janabah, it is permissible to say everyday expressions such as supplications, words of remembrance, and the basmalah; to eat and drink; to sleep (after washing the private parts and performing wudu); and to attend to worldly affairs.\n\nGhusl must be performed before missing a prayer time; delaying it is forbidden.",
+      "vurgu": "While in a state of janabah, salah, reciting the Qur'an with the intention of tilawah, and tawaf are forbidden. (Tirmidhi, Taharah 98; an-Nisa 4/43)"
+    },
+    {
+      "id": "abdest_k10",
+      "tip": "metin",
+      "baslik": "What Is Tayammum and When Is It Performed?",
+      "icerik": "Tayammum (ritual purification with earth when water cannot be found) is a concession Islam grants to Muslims. It takes the place of wudu and ghusl when water cannot be found or used.\n\nThe Qur'an states, «If you cannot find water, perform tayammum with clean earth» (al-Ma'idah 5/6).\n\nSituations in which tayammum is permissible:\n• Water cannot be found\n• There is a risk of becoming ill if water is used\n• Extreme cold\n• Danger on the way to water",
+      "vurgu": "«The earth has been made a place of prayer and a means of purification for me.» (Bukhari, Tayammum 1)"
+    },
+    {
+      "id": "abdest_k11",
+      "tip": "metin",
+      "baslik": "The Obligatory Acts of Tayammum and How to Perform It",
+      "icerik": "The obligatory acts of tayammum (ritual purification with earth when water cannot be used):\n1. Make the intention\n2. Wipe the face\n3. Wipe the arms, including the elbows\n\nHow to perform it:\n• Strike clean earth, stone, or sand (something clean of the earth) with both palms open, then shake them off\n• After the first strike, wipe the face\n• After the second strike, wipe the right arm with the left hand and the left arm with the right hand, including the elbows\n\nTayammum cannot be performed with materials such as wood, iron, or copper.",
+      "vurgu": "Earth, stone, sand, brick, roof tiles → Tayammum can be performed | Wood, metal → Tayammum cannot be performed"
+    },
+    {
+      "id": "abdest_k12",
+      "tip": "metin",
+      "baslik": "Things That Invalidate Tayammum",
+      "icerik": "Two things invalidate tayammum:\n\n1. Anything that invalidates wudu or ghusl also invalidates tayammum, because tayammum takes their place\n\n2. The end of the excuse that made tayammum permissible, such as:\n• Water becoming available\n• Recovery from illness\n• The cold subsiding\n\nIf water becomes available during salah, the salah is invalidated according to the Hanafi, Shafi'i, and Hanbali views; one performs wudu and repeats it. According to the Maliki school, the salah is considered valid.",
+      "vurgu": "When water becomes available, tayammum becomes invalid; wudu must be performed immediately."
+    },
+    {
+      "id": "abdest_k13",
+      "tip": "metin",
+      "baslik": "The Shared Wisdom of Wudu, Ghusl, and Tayammum",
+      "icerik": "All three methods of purification in Islam serve the same purpose: to prepare a person both physically and spiritually for worship.\n\n• Wudu is performed for the five daily prayers; it does not need to be renewed if it has not been invalidated\n• Ghusl provides complete purification from major ritual impurity\n• Tayammum ensures that worship is not interrupted under any circumstances\n\n«Allah does not wish to make things difficult for you; He wishes to purify you and complete His favor upon you.» (al-Ma'idah 5:6)",
+      "vurgu": "Islam is a religion of ease: if there is no water, perform tayammum; the obligation to worship never falls away, and Allah accepts the excuse."
+    },
+    {
+      "id": "abdest_k14",
+      "tip": "metin",
+      "baslik": "Excused Conditions and Continuous Ritual Impurity",
+      "icerik": "A person who has continuous bleeding, urinary leakage, or a similar condition is called a person with an excused condition.\n\nFor a condition to qualify as an excuse according to the Hanafi school, it must continue without interruption for an entire prayer time. If it continues without stopping throughout one prayer time, the excuse is recognized; if it occurs only once, it does not qualify.\n\nRulings for a person with an excused condition:\n• They perform wudu for each prayer time\n• This wudu is valid throughout that prayer time and must be renewed when the time ends\n• If something other than the excused condition invalidates wudu, the wudu is invalidated\n\nExample: A person with continuous urinary leakage performs a new wudu for each prayer time; this wudu covers all the prayers of that time.",
+      "vurgu": "A person with an excused condition performs a new wudu for each prayer time; this wudu covers the prayer of that time."
+    },
+    {
+      "id": "abdest_k15",
+      "tip": "metin",
+      "baslik": "Wiping Over Leather Socks",
+      "icerik": "Wiping over khuffs (special footwear or socks suitable for walking that cover the feet, including the heels) is a concession allowing one to wipe over them during wudu instead of washing the feet.\n\nGeneral conditions:\n• The khuffs must have been put on while in a state of wudu\n• They must cover the feet, including the heels\n• They must be durable enough for walking\n• They must not have a large tear that prevents water from reaching the foot\n\nDuration of wiping according to the Hanafi, Shafi'i, and Hanbali schools:\n• For a resident (someone who is not traveling): 1 day and 1 night\n• For a traveler: 3 days and 3 nights\n\nThe Maliki school sets no time limit on this matter.\n\nThe period begins when wudu is first invalidated after the khuffs have been put on. Wiping is done with a wet hand over the upper part of the khuffs.",
+      "vurgu": "If khuffs were put on while in a state of wudu, their upper surface may be wiped during the permitted period instead of washing the feet."
+    },
+    {
+      "id": "abdest_k16",
+      "tip": "metin",
+      "baslik": "Wiping Over Wounds and Dressings",
+      "icerik": "If washing a body part would cause harm because of a wound, burn, cast, bandage, or dressing, Islam grants a concession.\n\nOrder of practice:\n1. Wash the unaffected areas normally\n2. If the wounded or bandaged area cannot be washed, wipe over the dressing with a wet hand\n3. If wiping would also cause harm, leave that area untouched\n\nThe dressing does not have to have been applied while in a state of wudu. As much area as necessary may be covered; however, if the dressing extends unnecessarily over healthy skin, that area should be washed if possible.\n\nWhen the wound heals, return to normal washing.",
+      "vurgu": "The religion calls for ease: if washing would cause harm, wipe over the dressing; if wiping would also cause harm, that area is excused."
+    },
+    {
+      "id": "abdest_k17",
+      "tip": "metin",
+      "baslik": "Supplication After Wudu",
+      "icerik": "After completing wudu, the following supplication is recited:\n\nArabic:\nأَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ\n\nTransliteration:\n«Ashhadu an la ilaha illallahu wahdahu la sharika lah, wa ashhadu anna Muhammadan abduhu wa rasuluh. Allahumma ij'alni min at-tawwabina waj'alni min al-mutatahhirin.»\n\nMeaning:\n«I bear witness that there is no deity but Allah, that He has no partner, and that Muhammad is His servant and messenger. O Allah! Make me among those who repent often and those who purify themselves.»\n\nThe Prophet ﷺ said: «Whoever performs wudu and performs it well, then recites this supplication, all eight gates of Paradise will be opened for them, and they may enter through whichever gate they wish.» (Muslim, Purification 17; also Tirmidhi, Purification 55; Ibn Majah, Purification 57)",
+      "vurgu": "«Allahumma ij'alni min at-tawwabina waj'alni min al-mutatahhirin — O Allah! Make me among those who repent and those who purify themselves.» (Muslim, Purification 17)"
+    },
+    {
+      "id": "abdest_k18",
+      "tip": "metin",
+      "baslik": "For First-Time Learners — A Basic Guide to Purification",
+      "icerik": "**What do you need to do to perform wudu?**\n\n1. Wash your face\n2. Wash your arms, including your elbows\n3. Wipe part of your head with a wet hand\n4. Wash your feet, including your heels\n\nThat is all. If you have completed these 4 steps, you are in a state of wudu.\n\n---\n\n**What do you need to do to perform ghusl?**\n\n1. Take water into your mouth and rinse it\n2. Draw water into your nose and clean it\n3. Wash your entire body, leaving no dry area\n\nThat is all. Do not forget the roots of your hair, your navel, and between your fingers and toes.\n\n---\n\n**What do you do if there is no water? (Tayammum)**\n\n1. Strike clean earth, stone, or sand with both palms\n2. Wipe your face\n3. Strike again, then wipe your arms, including your elbows\n\nThat is all. When water becomes available, you need to perform wudu.\n\n---\n\nNote: This card gives beginners a summary of the most basic practice. The schools differ on whether matters such as intention, order, and continuity in wudu and tayammum are obligatory or Sunnah. The obligatory acts of ghusl are summarized here according to the Hanafi view; in the other schools, rinsing the mouth and nose is generally considered Sunnah. For the Sunnah practices, details, and differences between the schools, return to the previous and following cards.",
+      "vurgu": "This card is a quick summary; see the other cards for details of the schools and special circumstances."
+    },
+    {
+      "id": "abdest_k19",
+      "tip": "metin",
+      "baslik": "Differences Between the Schools",
+      "icerik": "Key differences of opinion among the four schools of law:\n\n**Number of obligatory acts of wudu:**\n• Hanafi: 4 obligatory acts\n• Shafi'i: 6 obligatory acts (including intention and sequence)\n• Maliki: 7 obligatory acts (including intention, continuity, and rubbing)\n• Hanbali: 6 obligatory acts\n\n**Amount of the head to be wiped:**\n• Hanafi: Wiping one quarter of the head is sufficient\n• Maliki and Hanbali: Wiping the entire head is obligatory\n• Shafi'i: Wiping a small part is sufficient\n\n**Rinsing the mouth and nose during ghusl:**\n• Hanafi: Obligatory\n• Shafi'i, Maliki, and Hanbali: Sunnah, not obligatory\n\n**Blood and pus:**\n• Hanafi: Blood and pus that flow from the body invalidate wudu\n• Shafi'i, Maliki, and Hanbali: They do not invalidate wudu\n\n**Number of prayers with tayammum:**\n• Hanafi and Maliki: As many prayers as desired may be performed as long as the tayammum remains valid\n• Shafi'i and Hanbali: Only one obligatory prayer may be performed with one tayammum\n\n**Intention and sequence:**\n• Hanafi: Intention in wudu is Sunnah; the sequence of obligatory acts is not a requirement\n• Shafi'i, Maliki, and Hanbali: Intention is obligatory; sequence is also considered obligatory, especially in the Shafi'i and Hanbali schools\n\n🎉 You have completed the wudu lesson! You can find all of these topics, along with ghusl and tayammum, in the Wudu section of the {{link:ibadet-abdest|Worship Guide}}. If you feel ready, you can test yourself using the 'Start Quiz' button below.",
+      "vurgu": "All schools of law agree that purification is obligatory and agree on its basic methods."
+    }
+  ],
+  "quiz_havuzu_id": "abdest-gusul"
+}
