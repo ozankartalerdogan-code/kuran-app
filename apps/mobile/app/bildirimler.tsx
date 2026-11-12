@@ -1,5 +1,6 @@
 import {
   View, Text, ScrollView, ActivityIndicator, StyleSheet, Switch, Alert, Linking,
+  AppState, TouchableOpacity,
 } from "react-native";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
@@ -20,6 +21,8 @@ import { storage } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 import { useStrings, getStrings, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
+import { needsExactAlarmPermission, maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
+import { openExactAlarmSettings } from "../modules/exact-alarm";
 
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
@@ -54,6 +57,17 @@ export default function BildirimlerScreen() {
   const [dailyVerseEnabled, setDailyVerseEnabled] = useState(false);
   const [dailyVerseLoading, setDailyVerseLoading] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
+  const [exactMissing, setExactMissing] = useState(false);
+
+  // "Alarmlar ve hatırlatıcılar" izni: ayardan dönünce (ön plana gelişte) yeniden oku.
+  // İzin verildiyse yeniden planlamayı _layout'taki ensureNotificationsFresh yapar
+  // (schedStamp izin durumunu içerir).
+  useEffect(() => {
+    const check = () => { void needsExactAlarmPermission().then(setExactMissing).catch(() => {}); };
+    check();
+    const sub = AppState.addEventListener("change", (st) => { if (st === "active") check(); });
+    return () => sub.remove();
+  }, [notifEnabled, dailyVerseEnabled]);
 
   // Güncel tercih durumunu oku ve göster. Otomatik-planla/tazele artık burada DEĞİL —
   // _layout.tsx her açılışta/ön plana gelişte ensureNotificationsFresh() ile app-wide
@@ -115,7 +129,9 @@ export default function BildirimlerScreen() {
         const locationMsg = isFallback
           ? t.locFallbackMsg
           : t.locOkMsg;
-        Alert.alert(t.notifOnTitle, fmt(t.notifOnBody, { loc: locationMsg }));
+        Alert.alert(t.notifOnTitle, fmt(t.notifOnBody, { loc: locationMsg }), [
+          { text: t.ok, onPress: () => { void maybePromptExactAlarm(); } },
+        ]);
       } else if (!dailyVerseEnabled) {
         setUsingFallback(false);
       }
@@ -135,7 +151,9 @@ export default function BildirimlerScreen() {
       setDailyVerseEnabled(val);
       if (val) {
         setUsingFallback(isFallback);
-        Alert.alert(t.dailyOnTitle, t.dailyOnBody);
+        Alert.alert(t.dailyOnTitle, t.dailyOnBody, [
+          { text: t.ok, onPress: () => { void maybePromptExactAlarm(); } },
+        ]);
       } else if (!notifEnabled) {
         setUsingFallback(false);
       }
@@ -211,6 +229,21 @@ export default function BildirimlerScreen() {
           }
         </View>
 
+        {exactMissing && (
+          <View style={[styles.exactCard, { backgroundColor: c.card, borderColor: c.border }]}>
+            <Text style={[styles.notifTitle, { color: c.text }]}>{t.exactCardTitle}</Text>
+            <Text style={[styles.notifSub, { color: c.textMuted }]}>{t.exactCardBody}</Text>
+            <TouchableOpacity
+              style={[styles.exactBtn, { backgroundColor: c.accent }]}
+              onPress={() => { openExactAlarmSettings(); }}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+            >
+              <Text style={styles.exactBtnText}>{t.exactCardBtn}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         <Text style={[styles.note, { color: c.textMuted }]}>
           {t.privacyNote}
         </Text>
@@ -230,5 +263,8 @@ const styles = StyleSheet.create({
   },
   notifTitle: { fontSize: 14, fontWeight: "600", color: "#1c1917", marginBottom: 2 },
   notifSub:   { fontSize: 12, color: "#78716c", lineHeight: 17 },
+  exactCard: { marginHorizontal: 12, marginBottom: 12, padding: 14, borderRadius: 12, borderWidth: 1, gap: 6 },
+  exactBtn: { alignSelf: "flex-start", marginTop: 4, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 8, minHeight: 36, justifyContent: "center" },
+  exactBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
   note: { fontSize: 11, color: "#a8a29e", paddingHorizontal: 16, paddingTop: 4, lineHeight: 16 },
 });

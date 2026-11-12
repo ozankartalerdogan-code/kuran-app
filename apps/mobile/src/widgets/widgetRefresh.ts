@@ -53,7 +53,7 @@ async function refreshWidget(): Promise<void> {
   const { buildEmirWidgetRepresentation } = require("./EmirAyetWidget");
   await AndroidWidgetModule.requestWidgetUpdate({
     widgetName: WIDGET_NAME,
-    renderWidget: () => buildEmirWidgetRepresentation(ayet),
+    renderWidget: (info: unknown) => buildEmirWidgetRepresentation(ayet, (info as { height?: number } | null)?.height),
   });
 }
 

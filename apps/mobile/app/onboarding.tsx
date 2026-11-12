@@ -16,6 +16,7 @@ import {
   rescheduleNotificationsForLanguageChange,
 } from "../src/lib/namazNotifications";
 import { refreshWidgetNow } from "../src/widgets/widgetRefresh";
+import { maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
 import { useStrings, useLang, setLangPreference, type Lang } from "../src/i18n";
 import onboardingStrings from "../src/i18n/strings/onboarding";
 
@@ -51,6 +52,8 @@ export default function OnboardingScreen() {
     // ensureNotificationsFresh aynı kurulumu sessizce tekrar dener.
     const result = await enablePrayerNotificationsFirstRun().catch(() => "error" as const);
     await finish(result);
+    // Bildirimler açıldıysa tam-vaktinde izni gerekçesiyle bir kez sorulur.
+    if (result === "enabled") setTimeout(() => { void maybePromptExactAlarm().catch(() => {}); }, 600);
   };
 
   const handleDecline = async () => {

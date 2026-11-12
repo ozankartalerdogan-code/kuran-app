@@ -15,7 +15,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
       case "WIDGET_ADDED":
       case "WIDGET_UPDATE":
       case "WIDGET_RESIZED": {
-        props.renderWidget(buildEmirWidgetRepresentation(currentEmirAyet()));
+        props.renderWidget(buildEmirWidgetRepresentation(currentEmirAyet(), props.widgetInfo.height));
         break;
       }
       case "WIDGET_CLICK": {
@@ -23,7 +23,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
         // hiç dönmeden uygulamayı doğrudan açar. Yalnız özel "REFRESH_AYET"
         // (widget üstündeki ↻ ikonu) buraya düşer.
         if (props.clickAction === "REFRESH_AYET") {
-          props.renderWidget(buildEmirWidgetRepresentation(randomEmirAyet()));
+          props.renderWidget(buildEmirWidgetRepresentation(randomEmirAyet(), props.widgetInfo.height));
         }
         break;
       }

@@ -11,6 +11,7 @@ import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
+import { canScheduleExactAlarms } from "../../modules/exact-alarm";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -28,8 +29,11 @@ export type PrayerTimes = Record<string, string>;
 export const NOTIF_KEY = "namazNotifEnabled";
 export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 export const SCHED_DAY_KEY = "namazNotifSchedDay";
-// Gün + dil + saat dilimi: biri değişince (yolculuk, dil tercihi) ilk açılışta yeniden planlanır.
-export const schedStamp = () => `${localDayStr()}|${getLang()}|${deviceTimeZone()}`;
+// Gün + dil + saat dilimi + tam-zamanlı alarm izni: biri değişince (yolculuk, dil
+// tercihi, "Alarmlar ve hatırlatıcılar" izni) ilk açılışta yeniden planlanır.
+// İzin sonradan verilirse eski (ertelenebilir) alarmlar böylece tam zamanlıya döner.
+export const schedStamp = () =>
+  `${localDayStr()}|${getLang()}|${deviceTimeZone()}|${canScheduleExactAlarms() === false ? "inexact" : "exact"}`;
 
 const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
 
