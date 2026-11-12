@@ -545,6 +545,9 @@ export const api = {
         CACHE_TTL_DAILY,
         () => withRetry((signal) => request<DailyResponse>("/daily", undefined, signal)),
       ),
+    /** Belirli günün ayet/duası (YYYY-MM-DD) — 7 günlük bildirim planı için; önbelleksiz. */
+    forDate: (date: string) =>
+      withRetry((signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(date)}`, undefined, signal)),
   },
 
   notifications: {

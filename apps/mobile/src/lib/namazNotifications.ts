@@ -387,8 +387,52 @@ function computeGapSlots(times: PrayerTimes): { hour: number; minute: number }[]
   return picks.map((mid) => ({ hour: Math.floor(mid / 60), minute: mid % 60 }));
 }
 
-// Günde 2 bağımsız bildirim: Günün Ayeti + Günün Duası (/api/daily), boşluk saatlerine.
-async function scheduleDailyVerseNotifications(times: PrayerTimes): Promise<void> {
+const ymd = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+// Günde 2 bildirim: Günün Ayeti + Günün Duası, o günün namaz boşluk saatlerine.
+// 7 günün her biri için O GÜNÜN içeriğiyle ayrı DATE bildirimi kurulur (/daily?date=).
+// Eskiden DAILY tetikleyici bugünün içeriğini uygulama açılana dek her gün tekrarlıyordu.
+// Sunucu date parametresini tanımıyorsa (hepsi aynı gelir) veya istekler düşerse eski
+// DAILY yoluna dönülür. Toplam: 42 namaz + 14 = 56 < iOS 64 sınırı.
+async function scheduleDailyVerseNotifications(days: DayTimes[]): Promise<void> {
+  const perDay = await Promise.all(days.map((d) => api.daily.forDate(ymd(d.date)).catch(() => null)));
+  const keys = perDay.map((x) => x?.verse?.verse_key ?? null);
+  const usable = perDay.every((x) => !!x) && new Set(keys).size > 1;
+  if (!usable) return scheduleDailyVerseRepeating(days[0].times);
+
+  const ns = getStrings(notifStrings);
+  const jobs: Promise<string>[] = [];
+  days.forEach(({ date, times }, i) => {
+    const daily = perDay[i]!;
+    const slots = computeGapSlots(times);
+    const items = [
+      daily.verse?.meal ? { title: ns.dailyVerse, v: daily.verse, slot: slots[0] } : null,
+      daily.dua?.meal ? { title: ns.dailyDua, v: daily.dua, slot: slots[1] } : null,
+    ];
+    for (const x of items) {
+      if (!x || !x.slot) continue;
+      const trigger = dateTriggerAfter(date, x.slot.hour, x.slot.minute, 0, ANDROID_CHANNEL_ID_DAILY);
+      if (!trigger) continue;
+      const body = localizedMeal({ surah: x.v.surah_id, ayah: x.v.ayah_number }, x.v.meal!);
+      jobs.push(
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: x.title,
+            body:  `${body.slice(0, 150)}${body.length > 150 ? "…" : ""}`,
+            sound: true,
+            data:  { route: `/ayah/${x.v.surah_id}/${x.v.ayah_number}` },
+          },
+          trigger,
+        })
+      );
+    }
+  });
+  await Promise.all(jobs);
+}
+
+// Yedek: bugünün içeriği DAILY tetikleyiciyle (eski davranış).
+async function scheduleDailyVerseRepeating(times: PrayerTimes): Promise<void> {
   const daily = await api.daily.get().catch(() => null);
   if (!daily) return;
   const slots = computeGapSlots(times);
@@ -428,7 +472,7 @@ export async function applyNotifications(opts: {
   await Notifications.cancelAllScheduledNotificationsAsync();
   await ensureAndroidChannel();
   if (opts.prayer) await schedulePrayerNotifications(opts.days);
-  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days[0].times);
+  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days);
 }
 
 // Bildirimleri kapat
