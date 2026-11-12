@@ -10,6 +10,7 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
+import { dedupeVerses, pickFromPool } from "./notifVersePick";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -320,23 +321,29 @@ function parseValid(times: PrayerTimes): ValidVakit[] {
 // Namaz vakti bildirimleri: her gün × her vakit için TEK bildirim (hatırlatma +
 // namaz-taglı ayet), o günün GERÇEK vaktine göre DATE tetikleyicisiyle.
 async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
-  // Namaz-taglı ayet mealleri — vakit başına bir kez, PARALEL çek (7 gün aynı
-  // ayeti paylaşır; günlük tazelemede zaten yenilenir, 42 ayrı istek gerekmez).
-  const vakitKeys = VAKITLER.map(({ key }) => key);
-  const verses = await Promise.all(
-    vakitKeys.map((key) =>
-      api.notifications.namazVerse(key.toLowerCase()).catch(() => null)
-    )
-  );
-  const verseByKey = new Map(vakitKeys.map((key, i) => [key, verses[i]]));
+  // Namaz-taglı ayet HAVUZLARI — paralel çekilir, gün × vakit başına sırayla dağıtılır.
+  // Eskiden vakit başına tek ayet 7 günün hepsinde tekrarlanıyordu (ör. Öğle her gün aynı).
+  // Sunucu "sabah" ve "cuma" için özel etiket havuzu kullanır; diğerleri genel 'namaz' havuzu.
+  const fetchPool = (vakit: string, n: number) =>
+    Promise.all(Array.from({ length: n }, () => api.notifications.namazVerse(vakit).catch(() => null)))
+      .then((list) => dedupeVerses(list));
+  const [sabahPool, cumaPool, genelPool] = await Promise.all([
+    fetchPool("sabah", SCHEDULE_DAYS),
+    fetchPool("cuma", 2),
+    fetchPool("namaz", 12),
+  ]);
+  const OTHER_KEYS = VAKITLER.map(({ key }) => key).filter((k) => k !== "Fajr");
 
   const ns = getStrings(notifStrings);
   const jobs: Promise<string>[] = [];
-  for (const { date, times } of days) {
+  days.forEach(({ date, times }, dayIndex) => {
     for (const { key, label, hour, minute } of parseValid(times)) {
       const trigger = dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
       if (!trigger) continue; // bugünün geçmiş vakitleri
-      const v = verseByKey.get(key);
+      const v =
+        key === "Fajr" ? pickFromPool(sabahPool, dayIndex, 0, 1) ?? pickFromPool(genelPool, dayIndex, 0, OTHER_KEYS.length)
+        : key === "Dhuhr" && date.getDay() === 5 && cumaPool.length > 0 ? pickFromPool(cumaPool, dayIndex, 0, 1)
+        : pickFromPool(genelPool, dayIndex, OTHER_KEYS.indexOf(key), OTHER_KEYS.length);
       // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
       const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
       const verseLine = translation
@@ -355,7 +362,7 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
         })
       );
     }
-  }
+  });
   await Promise.all(jobs);
 }
 
