@@ -7,6 +7,7 @@
 // üstteki "↻" (REFRESH_AYET → zamanlanmış dilimi beklemeden widget'ı yerinde
 // yeniler). Android RemoteViews'ta iç içe PendingIntent'ler birbirine karışmaz —
 // her tıklanabilir bölge kendi clickAction'ını bağımsız tetikler.
+import { localizedSurahName } from "../lib/surahNames";
 import React from "react";
 import { FlexWidget, TextWidget } from "react-native-android-widget";
 import type { EmirAyet } from "./emirRotation";
@@ -77,7 +78,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
   const meal = widgetMeal(ayet);
   const deepLink = `kuranyolu://surah/${ayet.surah_id}/ayah/${ayet.ayah_number}`;
   const badge = ayet.surah_name
-    ? `${ayet.surah_name} ${ayet.surah_id}:${ayet.ayah_number}`
+    ? `${localizedSurahName(ayet.surah_id, ayet.surah_name)} ${ayet.surah_id}:${ayet.ayah_number}`
     : `${ayet.surah_id}:${ayet.ayah_number}`;
 
   return (

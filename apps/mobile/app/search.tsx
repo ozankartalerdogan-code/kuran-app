@@ -20,7 +20,7 @@ import { getLang, getStrings, useLang, useStrings, fmt } from "../src/i18n";
 import { localizedTranslit } from "../src/lib/translitEn";
 import searchStrings from "../src/i18n/strings/search";
 import tagStrings from "../src/i18n/strings/tagLabels";
-import { useSurahNameOf } from "../src/lib/surahNames";
+import { useSurahNameOf, localizedSurahName } from "../src/lib/surahNames";
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
 type SearchState =
@@ -609,10 +609,10 @@ export default function SearchScreen() {
                     onPress={() => { const s = d.suggestedSurah; if (s) router.push(`/surah/${s.id}`); }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
-                    accessibilityLabel={fmt(ss.openSurahA11y, { name: d.suggestedSurah.name })}
+                    accessibilityLabel={fmt(ss.openSurahA11y, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}
                   >
                     <Text style={[styles.suggestionText, c.isDark && { color: "#fde68a" }]}>{ss.didYouMean}</Text>
-                    <Text style={[styles.suggestionLink, c.isDark && { color: "#fbbf24" }]}>{fmt(ss.surahLink, { name: d.suggestedSurah.name })}</Text>
+                    <Text style={[styles.suggestionLink, c.isDark && { color: "#fbbf24" }]}>{fmt(ss.surahLink, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}</Text>
                   </TouchableOpacity>
                 )}
                 <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultsCount, { q: query.trim(), n: d.total })}{d.total > d.results.length ? fmt(ss.firstN, { n: d.results.length }) : ""}</Text>

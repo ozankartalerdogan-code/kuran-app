@@ -349,7 +349,7 @@
           "reference": "1621",
           "topic": "Struggling against the nafs",
           "meaningSummary": "It is stated that a mujahid is a person who struggles against their own nafs.",
-          "grade": "Hasan-sahih ifadesi Tirmizî rivayet değerlendirmesinde geçer; Darussalam değerlendirmesinde Hasan bilgisi de bulunur.",
+          "grade": "Al-Tirmidhi grades the narration hasan-sahih; the Darussalam grading also lists it as hasan.",
           "sourceId": "tirmidhi-1621"
         }
       ],
@@ -412,7 +412,7 @@
           "reference": "5524",
           "topic": "Seeking refuge in Allah from the evil of things done and left undone",
           "meaningSummary": "It is reported that one of the supplications the Messenger of Allah frequently made was to seek refuge in Allah from the evil of things done and things not yet done.",
-          "grade": "Sahih kaynaklarda rivayet edilmiştir; Sunnah.com kaydında Nasa'i 5524 olarak yer alır.",
+          "grade": "Narrated in sahih sources; listed on Sunnah.com as al-Nasa'i 5524.",
           "sourceId": "nasai-5524"
         }
       ],
@@ -592,7 +592,7 @@
           "reference": "5524",
           "topic": "Seeking refuge in Allah from the evil of one’s deeds",
           "meaningSummary": "It is narrated that the Messenger of Allah sought refuge in Allah from the evil of what he had done and what he had not yet done.",
-          "grade": "Sahih kaynaklarda rivayet edilmiştir; Sunnah.com kaydında Nasa'i 5524 olarak yer alır.",
+          "grade": "Narrated in sahih sources; listed on Sunnah.com as al-Nasa'i 5524.",
           "sourceId": "nasai-5524"
         }
       ],
@@ -664,7 +664,7 @@
           "reference": "1621",
           "topic": "Striving against the self",
           "meaningSummary": "It is said that the mujahid is the person who strives against their own self.",
-          "grade": "Hasan-sahih ifadesi Tirmizî rivayet değerlendirmesinde geçer; Darussalam değerlendirmesinde Hasan bilgisi de bulunur.",
+          "grade": "Al-Tirmidhi grades the narration hasan-sahih; the Darussalam grading also lists it as hasan.",
           "sourceId": "tirmidhi-1621"
         },
         {
@@ -808,7 +808,7 @@
         "reference": "1621",
         "sourceName": "Sunnah.com",
         "url": "https://sunnah.com/tirmidhi:1621",
-        "grade": "Tirmizî rivayet değerlendirmesinde hasen-sahih ifadesi; Darussalam değerlendirmesinde Hasan bilgisi görülür.",
+        "grade": "Graded hasan-sahih by al-Tirmidhi; the Darussalam grading lists it as hasan.",
         "usage": "A mujahid is a person who struggles against their own nafs."
       },
       {
@@ -818,7 +818,7 @@
         "reference": "5524",
         "sourceName": "Sunnah.com",
         "url": "https://sunnah.com/nasai:5524",
-        "grade": "Sahih kaynaklarda rivayet edilmiş dua; kaynak kaydında Nasa'i 5524 olarak yer alır.",
+        "grade": "A supplication narrated in sahih sources; recorded as al-Nasa'i 5524.",
         "usage": "A supplication seeking refuge in Allah from the evil of what one has done and what one has not done."
       }
     ],

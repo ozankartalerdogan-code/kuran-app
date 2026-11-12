@@ -12,6 +12,7 @@ import { useColors } from "../src/hooks/useColors";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
 import { useStrings, getStrings, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
+import { useSurahNameOf } from "../src/lib/surahNames";
 
 export default function NotlarScreen() {
   const c = useColors();
@@ -49,11 +50,12 @@ export default function NotlarScreen() {
     retry: 1,
   });
 
+  const surahNameOf = useSurahNameOf();
   const surahNames = useMemo(() => {
     const map: Record<string, string> = {};
-    noteVerses?.forEach((v) => { if (v.surah_name) map[v.verse_key] = v.surah_name; });
+    noteVerses?.forEach((v) => { if (v.surah_name) map[v.verse_key] = surahNameOf(v.surah_id, v.surah_name); });
     return map;
-  }, [noteVerses]);
+  }, [noteVerses, surahNameOf]);
 
   const surahNamesError = isSurahNamesError
     ? t.surahNamesError

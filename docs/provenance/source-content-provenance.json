@@ -1050,8 +1050,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3151897,
-        "sha256": "e64b63dbe22dd06521deba8e02d28d8ac6b10d840c02e3fdc9455cb124292341",
+        "totalBytes": 3151738,
+        "sha256": "32d2b71bf284553d533975302c4644c26474a353e6c219d0255c11e548e41d7e",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1165,8 +1165,8 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/nefsini_tani_ders_modulu.en.json",
-            "bytes": 41711,
-            "sha256": "92628ec07d3ac00ba708ec6997f21ad7b0761f271a27f4e7e41eedd24f74d02a"
+            "bytes": 41552,
+            "sha256": "a49f9426645396a1ff4e147e60eb95586979a58b96302a8b3c8519c5586e1df5"
           },
           {
             "path": "apps/mobile/src/data/Dersler/nefsini_tani_quiz.en.json",

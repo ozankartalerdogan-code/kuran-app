@@ -230,7 +230,7 @@ if (loading) {
         ListHeaderComponent={
           <>
             <SurahHeader data={data.surah} />
-            <TafsirCard surahId={surahId} surahName={data.surah.name} />
+            <TafsirCard surahId={surahId} surahName={surahNameOf(data.surah.id, data.surah.name)} />
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}

@@ -586,9 +586,9 @@ export default function AyahDetailScreen() {
   const handleShareText = useCallback(async () => {
     if (!data) return;
     const webUrl = `${WEB_BASE_URL}/surah/${surahId}/ayah/${ayahNumber}`;
-    const title = fmt(ay.shareTitle, { name: data.surahName, n: data.ayahNumber });
+    const title = fmt(ay.shareTitle, { name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber });
     const bodyParts = [
-      fmt(ay.shareHead, { name: data.surahName, n: data.ayahNumber }),
+      fmt(ay.shareHead, { name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber }),
       data.arabicText ?? "",
       localizedTranslit(reading, lang) ?? "",
       shareMeal ?? "",
@@ -602,7 +602,7 @@ export default function AyahDetailScreen() {
     try {
       await Share.share(shareOptions);
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
-  }, [data, surahId, ayahNumber, reading, shareMeal, ay, lang]);
+  }, [data, surahId, ayahNumber, reading, shareMeal, ay, lang, surahNameOf]);
 
   // Paylaş düğmesi: görsel paylaşım modülleri build'de varsa kart önizlemesi açılır
   // (görsel/metin seçimi orada); yoksa doğrudan mevcut metin paylaşımı.
