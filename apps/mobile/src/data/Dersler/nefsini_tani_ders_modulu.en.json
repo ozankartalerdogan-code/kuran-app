@@ -48,7 +48,7 @@
     },
     {
       "order": 4,
-      "name": "Nefs-i Mutmainne",
+      "name": "Nafs al-Mutmainna",
       "meaning": "The nafs at peace",
       "quranicBasis": [
         "al-Fajr 89:27"
@@ -386,16 +386,16 @@
     {
       "id": "lesson-06-nefs-i-mutmainne",
       "order": 6,
-      "title": "Nefs-i Mutmainne: The Nafs at Peace",
+      "title": "Nafs al-Mutmainna: The Nafs at Peace",
       "estimatedMinutes": 6,
       "classification": "quranic_term",
-      "summary": "Nefs-i mutmainne is the state of the nafs that finds peace through iman, trusts Allah, and seeks steadfastness in serving Him.",
+      "summary": "Nafs al-mutmainna is the state of the nafs that finds peace through iman, trusts Allah, and seeks steadfastness in serving Him.",
       "learningObjectives": [
-        "To learn that the concept of mutmainne appears in al-Fajr 89:27.",
+        "To learn that the concept of mutmainna appears in al-Fajr 89:27.",
         "To grasp that peace is not the absence of desires, but the heart learning to trust Allah.",
         "To understand the relationship of worship, patience, and submission to peace of heart."
       ],
-      "mainMessage": "Nefs-i mutmainne is the stage at which desires have not completely disappeared, but the heart has learned to trust Allah.",
+      "mainMessage": "Nafs al-mutmainna is the stage at which desires have not completely disappeared, but the heart has learned to trust Allah.",
       "quranReferences": [
         {
           "surah": "al-Fajr",
@@ -419,7 +419,7 @@
       "appContent": {
         "intro": "Peace of heart comes not from external circumstances becoming entirely better, but from growing trust in Allah.",
         "body": [
-          "Nefs-i mutmainne is the state of the nafs that has drawn close to tranquility through iman.",
+          "Nafs al-mutmainna is the state of the nafs that has drawn close to tranquility through iman.",
           "In this state, a person does not deny difficulties, but neither are they swept away by them and forget their Lord.",
           "It is explained that this address relates to the believer who completes their worldly life with iman, respect for Allah’s commands, and compassion for creation."
         ],
@@ -442,7 +442,7 @@
         "shortDua": "O Allah, grant my heart the peace of iman and trust in You."
       },
       "safetyNotes": [
-        "The state of mutmainne should not be described as meaning that a person never feels sad or faces difficulty.",
+        "The state of mutmainna should not be described as meaning that a person never feels sad or faces difficulty.",
         "This topic should not be presented as a treatment for psychological problems."
       ]
     },

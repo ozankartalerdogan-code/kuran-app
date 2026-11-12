@@ -270,7 +270,7 @@
       {
         "id": "hz_ibrahim",
         "isim": "Prophet Ibrahim (peace be upon him)",
-        "unvan": "Halilullah — the friend of Allah",
+        "unvan": "Khalilullah — the friend of Allah",
         "kuranda_gecme_sayisi": 69,
         "gondirildigi_yer": "Ur (Iraq), Canaan, Mecca",
         "donem": "Approximately 2000 BCE",
@@ -839,7 +839,7 @@
       {
         "id": "hz_davud",
         "isim": "Prophet David (peace be upon him)",
-        "unvan": "Halifetullah — Allah's vicegerent",
+        "unvan": "Khalifatullah — Allah's vicegerent",
         "kuranda_gecme_sayisi": 16,
         "gondirildigi_yer": "Jerusalem and Palestine",
         "donem": "Approximately 1000 BCE",
@@ -1177,7 +1177,7 @@
       {
         "id": "hz_isa",
         "isim": "Prophet Isa (peace be upon him)",
-        "unvan": "Ruhullah and Kelimetullah—the spirit and word of Allah",
+        "unvan": "Ruhullah and Kalimatullah—the spirit and word of Allah",
         "kuranda_gecme_sayisi": 25,
         "gondirildigi_yer": "Palestine (Bethlehem and Jerusalem)",
         "donem": "Approximately 4 BCE–30 CE",
@@ -1193,7 +1193,7 @@
           },
           {
             "baslik": "His Miracles",
-            "metin": "By Allah's permission, Prophet Isa made a bird from clay, breathed into it, and it flew. He healed the blind and those with leprosy. He raised the dead. He brought down a table spread with food (maide) from the sky.",
+            "metin": "By Allah's permission, Prophet Isa made a bird from clay, breathed into it, and it flew. He healed the blind and those with leprosy. He raised the dead. He brought down a table spread with food (ma'idah) from the sky.",
             "kuran_referanslari": [
               "3:49",
               "5:110-115"

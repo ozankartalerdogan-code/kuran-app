@@ -654,12 +654,12 @@
       "soru": "What was the name of the educational platform established next to the Prophet's Mosque?",
       "secenekler": [
         "A) Dar al-Arqam",
-        "B) Suffe",
+        "B) Suffa",
         "C) Dar al-Hikma",
         "D) Shi'b Abi Talib"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The Suffe was an educational area established next to the Prophet's Mosque where Companions known as Ahl al-Suffa studied. The mosque served as a center for worship, education, and administration.",
+      "aciklama": "The Suffa was an educational area established next to the Prophet's Mosque where Companions known as Ahl al-Suffa studied. The mosque served as a center for worship, education, and administration.",
       "zorluk": "zor",
       "kaynak": "Ibn Sa'd, Tabaqat"
     },
@@ -711,7 +711,7 @@
     {
       "id": "siyer_048",
       "konu": "siyer",
-      "soru": "Which Companion received the title 'Seyfullah' (the sword of Allah)?",
+      "soru": "Which Companion received the title 'Sayfullah' (the sword of Allah)?",
       "secenekler": [
         "A) Ali",
         "B) Umar",
@@ -719,7 +719,7 @@
         "D) Hamza"
       ],
       "dogru_cevap": "C",
-      "aciklama": "After his success at the Battle of Mu'tah, the Prophet ﷺ gave Khalid ibn al-Walid the title 'Seyfullah' (the sword of Allah).",
+      "aciklama": "After his success at the Battle of Mu'tah, the Prophet ﷺ gave Khalid ibn al-Walid the title 'Sayfullah' (the sword of Allah).",
       "zorluk": "zor",
       "kaynak": "Bukhari, Maghazi"
     },

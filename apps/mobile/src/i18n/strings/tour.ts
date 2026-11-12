@@ -54,7 +54,7 @@ export default defineStrings({
     "home-qibla-shortcut_title": "Qibla shortcut",
     "home-qibla-shortcut_desc": "Jump quickly to the Qibla compass from this shortcut on the home screen.",
     "kuran-section_title": "Quran section",
-    "kuran-section_desc": "Mushaf reading (with Hatim tracking) and the surah list are here. You'll usually start reading from this screen.",
+    "kuran-section_desc": "Mushaf reading (with Khatm tracking) and the surah list are here. You'll usually start reading from this screen.",
     "surah-list_title": "Surah list",
     "surah-list_desc": "Search for a surah, or switch the list between Mushaf order and revelation order.",
     "surah-reader_title": "Surah screen",

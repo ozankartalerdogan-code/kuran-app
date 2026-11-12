@@ -17,7 +17,7 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { useMealOf } from "../../src/lib/englishMeal";
 import { useSurahNameOf } from "../../src/lib/surahNames";
 import { useStrings, getStrings, useLang, fmt } from "../../src/i18n";
-import { localizedTranslit } from "../../src/lib/translitEn";
+import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
 import surahStrings from "../../src/i18n/strings/surahs";
 
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
@@ -100,7 +100,7 @@ function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
   const mealOf = useMealOf();
   const lang = useLang();
   const fullMeal = mealOf({ surah: surahId, ayah: item.ayahNumber }, item.meal);
-  const readingSrc = localizedTranslit(item.reading, lang);
+  const readingSrc = localizedVerseTranslit({ surah: surahId, ayah: item.ayahNumber }, item.reading, lang);
   const reading = readingSrc ? readingSrc.slice(0, 110) : null;
   const meal    = fullMeal     ? fullMeal.slice(0, 80)      : null;
   return (

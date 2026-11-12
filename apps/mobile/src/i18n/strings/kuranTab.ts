@@ -11,7 +11,7 @@ export default defineStrings({
   en: {
     heading: "Quran",
     mushafLabel: "Read the Quran",
-    mushafSub: "604-page mushaf · resume where you left off · Hatim tracking",
+    mushafSub: "604-page mushaf · resume where you left off · Khatm tracking",
     surahLabel: "List of Surahs",
     surahSub: "114 surahs, explore verse by verse",
   },

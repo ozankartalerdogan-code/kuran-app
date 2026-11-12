@@ -9,6 +9,8 @@
 //   content/words/meanings-nogloss.tr.json     — gloss_en'i olmayan kelimelerin tekrarsız
 //       Türkçe anlamları { "<tr>": "<tr>" } → translate-json-en.mjs ile .en.json olur
 //   content/words/root-meanings.tr.json        — { "<kök>": "<tr anlam>" } → .en.json
+//   content/words/meanings-root.tr.json        — kök sayfası anlam grupları: kökü olan kelimelerin
+//       (gloss'u olsa bile) nogloss kümesinde olmayan tekrarsız Türkçe anlamları → .en.json
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -48,6 +50,12 @@ const wordsDir = path.join(ROOT, "content", "words");
 mkdirSync(wordsDir, { recursive: true });
 const meanings = Object.fromEntries([...noGloss].sort((a, b) => a.localeCompare(b, "tr")).map((m) => [m, m]));
 writeFileSync(path.join(wordsDir, "meanings-nogloss.tr.json"), JSON.stringify(meanings, null, 2) + "\n");
+
+const rootWordMeanings = db.prepare(`SELECT DISTINCT TRIM(meaning_tr) AS m FROM words
+  WHERE root IS NOT NULL AND root <> '' AND meaning_tr IS NOT NULL AND TRIM(meaning_tr) <> ''`).all()
+  .map((r) => r.m.normalize("NFC")).filter((m) => !noGloss.has(m));
+writeFileSync(path.join(wordsDir, "meanings-root.tr.json"), JSON.stringify(Object.fromEntries(
+  [...new Set(rootWordMeanings)].sort((a, b) => a.localeCompare(b, "tr")).map((m) => [m, m])), null, 2) + "\n");
 
 const roots = db.prepare(`SELECT root, MIN(meaning_tr) AS m FROM root_meanings
   WHERE meaning_tr IS NOT NULL AND meaning_tr <> '' GROUP BY root ORDER BY root`).all();

@@ -56,7 +56,7 @@
         "A) Subhanallah",
         "B) Amin",
         "C) Alhamdulillah",
-        "D) Allahu Ekber"
+        "D) Allahu Akbar"
       ],
       "dogru_cevap": "B",
       "aciklama": "Saying 'Amin' after al-Fatihah is Sunnah. In Hanafi practice, it is generally said silently; in some schools, it may be said aloud in prayers with audible recitation.",
@@ -126,7 +126,7 @@
     {
       "id": "namaz_dualar_009",
       "konu": "ruku-secde",
-      "soru": "When is 'Rabbigfirli' recited?",
+      "soru": "When is 'Rabbighfir li' recited?",
       "secenekler": [
         "A) While bowing",
         "B) During prostration",
@@ -134,14 +134,14 @@
         "D) In the final sitting"
       ],
       "dogru_cevap": "C",
-      "aciklama": "'Rabbigfirli' (My Lord, forgive me) is recited during the brief sitting between the two prostrations (jalsah — the brief sitting between two prostrations).",
+      "aciklama": "'Rabbighfir li' (My Lord, forgive me) is recited during the brief sitting between the two prostrations (jalsah — the brief sitting between two prostrations).",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "namaz_dualar_010",
       "konu": "ruku-secde",
-      "soru": "What does 'Rabbigfirli' mean?",
+      "soru": "What does 'Rabbighfir li' mean?",
       "secenekler": [
         "A) O Allah, I declare You free from imperfection",
         "B) All praise belongs to You",
@@ -149,7 +149,7 @@
         "D) There is no god but Allah"
       ],
       "dogru_cevap": "C",
-      "aciklama": "'Rabbigfirli' — My Lord, forgive me. It is recited during the sitting between the two prostrations.",
+      "aciklama": "'Rabbighfir li' — My Lord, forgive me. It is recited during the sitting between the two prostrations.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -246,7 +246,7 @@
     {
       "id": "namaz_dualar_017",
       "konu": "kavme",
-      "soru": "When is 'Rabbena ve lekel hamd' recited?",
+      "soru": "When is 'Rabbana wa laka-l-hamd' recited?",
       "secenekler": [
         "A) When bending down to bow",
         "B) When rising from bowing",
@@ -254,14 +254,14 @@
         "D) When going into prostration"
       ],
       "dogru_cevap": "C",
-      "aciklama": "'Semi'allahu' is said when rising from bowing, followed by 'Rabbena ve lekel hamd' once fully upright in qawmah.",
+      "aciklama": "'Sami'allahu' is said when rising from bowing, followed by 'Rabbana wa laka-l-hamd' once fully upright in qawmah.",
       "zorluk": "orta",
       "kaynak": "Bukhari, Adhan 122; Muslim, Salah 196"
     },
     {
       "id": "namaz_dualar_018",
       "konu": "kavme",
-      "soru": "What does 'Rabbena ve lekel hamd' mean?",
+      "soru": "What does 'Rabbana wa laka-l-hamd' mean?",
       "secenekler": [
         "A) Allah is the Greatest",
         "B) Our Lord, all praise belongs to You",
@@ -269,7 +269,7 @@
         "D) My Lord, forgive me"
       ],
       "dogru_cevap": "B",
-      "aciklama": "'Rabbena ve lekel hamd' — 'Our Lord, all praise belongs to You.' It is said in qawmah (the standing position after bowing), once fully upright after bowing.",
+      "aciklama": "'Rabbana wa laka-l-hamd' — 'Our Lord, all praise belongs to You.' It is said in qawmah (the standing position after bowing), once fully upright after bowing.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -351,7 +351,7 @@
     {
       "id": "namaz_dualar_024",
       "konu": "rabbena",
-      "soru": "From which surah of the Qur'an is the 'Rabbena Atina' supplication taken?",
+      "soru": "From which surah of the Qur'an is the 'Rabbana Atina' supplication taken?",
       "secenekler": [
         "A) Surah al-Fatihah",
         "B) Surah al-Baqarah",
@@ -383,13 +383,13 @@
       "konu": "oturus",
       "soru": "In what order are the supplications recited after Tahiyyat in the final sitting?",
       "secenekler": [
-        "A) Barik → Salli → Rabbena",
-        "B) Salli → Barik → Rabbena",
-        "C) Rabbena → Salli → Barik",
-        "D) Salli → Rabbena → Barik"
+        "A) Barik → Salli → Rabbana",
+        "B) Salli → Barik → Rabbana",
+        "C) Rabbana → Salli → Barik",
+        "D) Salli → Rabbana → Barik"
       ],
       "dogru_cevap": "B",
-      "aciklama": "In the final sitting, Tahiyyat is followed by the supplications Salli, then Barik, then Rabbena, in that order.",
+      "aciklama": "In the final sitting, Tahiyyat is followed by the supplications Salli, then Barik, then Rabbana, in that order.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -404,7 +404,7 @@
         "D) Declaring that there is no god but You"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Subhanaka includes declaring Allah free from all imperfections, praising Him and affirming that there is no other god. Asking for forgiveness is part of 'Rabbigfirli'.",
+      "aciklama": "Subhanaka includes declaring Allah free from all imperfections, praising Him and affirming that there is no other god. Asking for forgiveness is part of 'Rabbighfir li'.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -429,9 +429,9 @@
       "soru": "Which of the following remembrances is recited after salah rather than during it?",
       "secenekler": [
         "A) Subhana Rabbiyal-Azim",
-        "B) Rabbigfirli",
+        "B) Rabbighfir li",
         "C) Alhamdulillah (33 times)",
-        "D) Semi'allahu limen hamideh"
+        "D) Sami'allahu liman hamidah"
       ],
       "dogru_cevap": "C",
       "aciklama": "Alhamdulillah is recited 33 times after salah. The others are remembrances recited during salah.",

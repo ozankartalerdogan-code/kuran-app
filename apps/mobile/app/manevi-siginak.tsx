@@ -13,7 +13,7 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
 import { useStrings, useLang, fmt } from "../src/i18n";
-import { localizedTranslit } from "../src/lib/translitEn";
+import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import maneviStrings from "../src/i18n/strings/maneviSiginak";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
 import maneviTr from "../src/data/content/manevi_siginak.json";
@@ -156,7 +156,7 @@ function VerseList({ tag }: { tag: string }) {
               <View style={[sc.verseKey, { backgroundColor: c.accentLight }]}><Text style={[sc.verseKeyText, { color: c.accent }]}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
                 {v.surah_name && <Text style={[sc.verseSurah, { color: c.textMuted }]}>{surahNameOf(v.surah_id, v.surah_name)}</Text>}
-                {v.reading_tr && <Text style={[sc.verseReading, { color: c.text }]} numberOfLines={2}>{localizedTranslit(v.reading_tr, lang)}</Text>}
+                {v.reading_tr && <Text style={[sc.verseReading, { color: c.text }]} numberOfLines={2}>{localizedVerseTranslit(v.verse_key, v.reading_tr, lang)}</Text>}
                 {v.meal && <Text style={[sc.verseMeal, { color: c.textSecondary }]} numberOfLines={2}>{mealOf(v.verse_key, v.meal)}</Text>}
               </View>
             </TouchableOpacity>

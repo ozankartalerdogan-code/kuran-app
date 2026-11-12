@@ -35,7 +35,7 @@
       "id": "tecvid_k05",
       "tip": "metin",
       "baslik": "Qalqalah — The Echoing Sound",
-      "icerik": "There are 5 qalqalah letters (letters that produce a slight echoing sound when they have a sukun): ق ط ب ج د — they can be memorised as “Kutbe Cd”.\n\nWhen these letters have a sukun, meaning no vowel mark, or when stopping at the end of a word, they are pronounced with slight emphasis. The sound is neither prolonged excessively nor given a new vowel mark.\n\nImportant rule: A qalqalah letter with a shaddah (the mark indicating that it is pronounced twice) is not given an additional, unnecessary bounce when continuing. However, if one stops on a qalqalah letter with a shaddah, that is, at the end of a word, the qalqalah is heard more distinctly.\n\nExample: when stopping at the end of a word such as “hak”, final sounds like ق/ك are closed clearly; with qalqalah letters, this closure has a slight echo.",
+      "icerik": "There are 5 qalqalah letters (letters that produce a slight echoing sound when they have a sukun): ق ط ب ج د — they can be memorised as “Qutb Jad”.\n\nWhen these letters have a sukun, meaning no vowel mark, or when stopping at the end of a word, they are pronounced with slight emphasis. The sound is neither prolonged excessively nor given a new vowel mark.\n\nImportant rule: A qalqalah letter with a shaddah (the mark indicating that it is pronounced twice) is not given an additional, unnecessary bounce when continuing. However, if one stops on a qalqalah letter with a shaddah, that is, at the end of a word, the qalqalah is heard more distinctly.\n\nExample: when stopping at the end of a word such as “haqq”, final sounds like ق/ك are closed clearly; with qalqalah letters, this closure has a slight echo.",
       "vurgu": "ق ط ب ج د — a slight echoing sound with sukun or when stopping"
     },
     {
@@ -63,8 +63,8 @@
       "id": "tecvid_k09",
       "tip": "metin",
       "baslik": "Idgham — Merging One Letter into Another",
-      "icerik": "Idgham (pronouncing two letters by merging them) — When certain letters follow tanwin or nun sakinah, the nun sound merges into that letter.\n\nThere are two types:\n• Idgham with ghunnah: the letters ي م ن و (Ya, Mim, Nun, Waw — memorise as “Yemenu”). The nun merges into these letters with ghunnah.\n• Idgham without ghunnah: the letters Lam (ل) and Ra (ر). The nun merges silently into these letters.\n\nImportant rule: If tanwin or nun sakinah and an idgham letter occur together within the same word, idgham is not applied; izhar is used.",
-      "vurgu": "“Yemenu” (ي م ن و) → Idgham with ghunnah | Lam-Ra → Idgham without ghunnah"
+      "icerik": "Idgham (pronouncing two letters by merging them) — When certain letters follow tanwin or nun sakinah, the nun sound merges into that letter.\n\nThere are two types:\n• Idgham with ghunnah: the letters ي م ن و (Ya, Mim, Nun, Waw — memorise as “Yanmu”). The nun merges into these letters with ghunnah.\n• Idgham without ghunnah: the letters Lam (ل) and Ra (ر). The nun merges silently into these letters.\n\nImportant rule: If tanwin or nun sakinah and an idgham letter occur together within the same word, idgham is not applied; izhar is used.",
+      "vurgu": "“Yanmu” (ي م ن و) → Idgham with ghunnah | Lam-Ra → Idgham without ghunnah"
     },
     {
       "id": "tecvid_k10",
@@ -90,9 +90,9 @@
     {
       "id": "tecvid_k13",
       "tip": "metin",
-      "baslik": "Med-i Tabii — Basic Elongation",
-      "icerik": "Madd (elongation) is the measured lengthening of letters in certain situations. Its measure is a unit of time called the \"length of an alif.\"\n\nMed-i Tabii (natural, basic elongation): This is the simplest type of elongation. The three madd letters and their conditions are:\n• Alif (ا): Causes elongation when the preceding letter has a fatha\n• Waw (و): Causes elongation when it has a sukun and the preceding letter has a damma\n• Ya (ي): Causes elongation when it has a sukun and the preceding letter has a kasra\n\nIf no hamza (ء) or sukun follows the madd letter, it is lengthened for one alif. This elongation comes from the natural flow of the tongue and occurs without forcing it.",
-      "vurgu": "Med-i Tabii → elongation for one alif; it is the most basic rule."
+      "baslik": "Madd Tabi'i — Basic Elongation",
+      "icerik": "Madd (elongation) is the measured lengthening of letters in certain situations. Its measure is a unit of time called the \"length of an alif.\"\n\nMadd Tabi'i (natural, basic elongation): This is the simplest type of elongation. The three madd letters and their conditions are:\n• Alif (ا): Causes elongation when the preceding letter has a fatha\n• Waw (و): Causes elongation when it has a sukun and the preceding letter has a damma\n• Ya (ي): Causes elongation when it has a sukun and the preceding letter has a kasra\n\nIf no hamza (ء) or sukun follows the madd letter, it is lengthened for one alif. This elongation comes from the natural flow of the tongue and occurs without forcing it.",
+      "vurgu": "Madd Tabi'i → elongation for one alif; it is the most basic rule."
     },
     {
       "id": "tecvid_k14",
@@ -105,7 +105,7 @@
       "id": "tecvid_k15",
       "tip": "metin",
       "baslik": "Lazim, Arid and Lin Madd",
-      "icerik": "Madd Lazim (obligatory madd) occurs when an original sukun or a shadda follows a madd letter in the same word. In common Hafs teaching, it is lengthened for four alifs; this elongation is considered obligatory.\n\nMadd Arid (temporary madd) occurs when making waqf (stopping during recitation). A syllable that is normally read short may be lengthened when stopping, depending on the recitation tradition.\n\nMadd Lin occurs when a Waw or Ya has a sukun and the preceding letter has a fatha; it becomes particularly noticeable at waqf. For example, when stopping at the word خَوْف (khawf).\n\nA practical guide for beginners: Madd Tabii is short and natural; Madd Muttasil and Madd Munfasil are longer; and Madd Lazim is one of the strongest types of madd.",
+      "icerik": "Madd Lazim (obligatory madd) occurs when an original sukun or a shadda follows a madd letter in the same word. In common Hafs teaching, it is lengthened for four alifs; this elongation is considered obligatory.\n\nMadd Arid (temporary madd) occurs when making waqf (stopping during recitation). A syllable that is normally read short may be lengthened when stopping, depending on the recitation tradition.\n\nMadd Lin occurs when a Waw or Ya has a sukun and the preceding letter has a fatha; it becomes particularly noticeable at waqf. For example, when stopping at the word خَوْف (khawf).\n\nA practical guide for beginners: Madd Tabi'i is short and natural; Madd Muttasil and Madd Munfasil are longer; and Madd Lazim is one of the strongest types of madd.",
       "vurgu": "Lazim → obligatory elongation for 4 alifs | Arid and Lin → types of madd that occur or are lengthened at waqf"
     },
     {
@@ -133,8 +133,8 @@
       "id": "tecvid_k19",
       "tip": "metin",
       "baslik": "Levels of Recitation",
-      "icerik": "The Qur'an can be recited at three different speeds:\n\n• Tahkik (slowest) — Reading each letter with the greatest care and giving it its due. It is suitable for the learning stage.\n\n• Tedvir (medium speed) — A commonly used style of recitation between tahkik and hadr. It is the most suitable speed for salah.\n\n• Hadr (fast recitation) — The rules of tajweed are still observed; only the speed increases.\n\nAll three are permissible. Whatever the speed of tilawah (Qur'an recitation), the rules must be observed.",
-      "vurgu": "Tahkik (slow) → Tedvir (medium) → Hadr (fast) — all three are permissible."
+      "icerik": "The Qur'an can be recited at three different speeds:\n\n• Tahqiq (slowest) — Reading each letter with the greatest care and giving it its due. It is suitable for the learning stage.\n\n• Tadwir (medium speed) — A commonly used style of recitation between tahqiq and hadr. It is the most suitable speed for salah.\n\n• Hadr (fast recitation) — The rules of tajweed are still observed; only the speed increases.\n\nAll three are permissible. Whatever the speed of tilawah (Qur'an recitation), the rules must be observed.",
+      "vurgu": "Tahqiq (slow) → Tadwir (medium) → Hadr (fast) — all three are permissible."
     },
     {
       "id": "tecvid_k20",

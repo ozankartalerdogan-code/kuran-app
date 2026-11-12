@@ -19,7 +19,7 @@
     {
       "sira": 3,
       "arapca": "الملك",
-      "isim": "El-Melik",
+      "isim": "Al-Malik",
       "anlam": "The true Sovereign and absolute Owner of the entire universe",
       "kok": "م ل ك",
       "kokAnlam": "to own, to rule"
@@ -99,7 +99,7 @@
     {
       "sira": 13,
       "arapca": "المصور",
-      "isim": "El-Musavvir",
+      "isim": "Al-Musawwir",
       "anlam": "The One who gives every being its own distinct shape and form",
       "kok": "ص و ر",
       "kokAnlam": "to give shape and form"
@@ -187,7 +187,7 @@
     {
       "sira": 24,
       "arapca": "المعز",
-      "isim": "El-Mu'izz",
+      "isim": "Al-Mu'izz",
       "anlam": "The One who grants honor and exaltation to whom He wills",
       "kok": "ع ز ز",
       "kokAnlam": "to make mighty and honored"
@@ -195,7 +195,7 @@
     {
       "sira": 25,
       "arapca": "المذل",
-      "isim": "El-Muzill",
+      "isim": "Al-Mudhill",
       "anlam": "The One who lowers whom He wills and humiliates the oppressors",
       "kok": "ذ ل ل",
       "kokAnlam": "to lower, to humiliate"
@@ -219,7 +219,7 @@
     {
       "sira": 28,
       "arapca": "الحكم",
-      "isim": "El-Hakem",
+      "isim": "Al-Hakam",
       "anlam": "The One who gives the most just decision in every matter and whose judgment is final",
       "kok": "ح ك م",
       "kokAnlam": "to judge, to decide"
@@ -227,7 +227,7 @@
     {
       "sira": 29,
       "arapca": "العدل",
-      "isim": "El-Adl",
+      "isim": "Al-'Adl",
       "anlam": "The One who judges with absolute justice and never commits injustice",
       "kok": "ع د ل",
       "kokAnlam": "justice, balance, fairness"
@@ -283,7 +283,7 @@
     {
       "sira": 36,
       "arapca": "العلي",
-      "isim": "El-Aliyy",
+      "isim": "Al-'Aliyy",
       "anlam": "The One who is exalted above all things and cannot be compared to anything",
       "kok": "ع ل و",
       "kokAnlam": "to be exalted and high"
@@ -403,7 +403,7 @@
     {
       "sira": 51,
       "arapca": "الحق",
-      "isim": "El-Hakk",
+      "isim": "Al-Haqq",
       "anlam": "The only Reality whose existence is certain and necessary",
       "kok": "ح ق ق",
       "kokAnlam": "the real, the constant and unchanging"
@@ -419,7 +419,7 @@
     {
       "sira": 53,
       "arapca": "القوي",
-      "isim": "El-Kaviyy",
+      "isim": "Al-Qawiyy",
       "anlam": "The One of infinite power whom nothing can weaken",
       "kok": "ق و ي",
       "kokAnlam": "to be strong and powerful"
@@ -435,7 +435,7 @@
     {
       "sira": 55,
       "arapca": "الولي",
-      "isim": "El-Veliyy",
+      "isim": "Al-Waliyy",
       "anlam": "The Friend and Protector of His believing servants",
       "kok": "و ل ي",
       "kokAnlam": "to be a friend, to help and protect"
@@ -459,7 +459,7 @@
     {
       "sira": 58,
       "arapca": "المبدئ",
-      "isim": "El-Mubdi'",
+      "isim": "Al-Mubdi'",
       "anlam": "The One who brings everything into existence from nothing for the first time",
       "kok": "ب د أ",
       "kokAnlam": "to begin, to bring forth for the first time"
@@ -491,7 +491,7 @@
     {
       "sira": 62,
       "arapca": "الحي",
-      "isim": "El-Hayy",
+      "isim": "Al-Hayy",
       "anlam": "The One who possesses infinite and perfect life and never dies",
       "kok": "ح ي ي",
       "kokAnlam": "to be living and alive"
@@ -531,7 +531,7 @@
     {
       "sira": 67,
       "arapca": "الأحد",
-      "isim": "El-Ehad",
+      "isim": "Al-Ahad",
       "anlam": "The absolutely One who has no partner or equal",
       "kok": "أ ح د",
       "kokAnlam": "indivisible uniqueness, absolute oneness"
@@ -539,7 +539,7 @@
     {
       "sira": 68,
       "arapca": "الصمد",
-      "isim": "Es-Samed",
+      "isim": "As-Samad",
       "anlam": "The One whom everything needs and who needs nothing",
       "kok": "ص م د",
       "kokAnlam": "the One who needs nothing and is sought by all"
@@ -555,7 +555,7 @@
     {
       "sira": 70,
       "arapca": "المقتدر",
-      "isim": "El-Muktedir",
+      "isim": "Al-Muqtadir",
       "anlam": "The One whose might and power encompass everything completely",
       "kok": "ق د ر",
       "kokAnlam": "all-powerful, omnipotent"
@@ -563,7 +563,7 @@
     {
       "sira": 71,
       "arapca": "المقدم",
-      "isim": "El-Mukaddim",
+      "isim": "Al-Muqaddim",
       "anlam": "The One who brings forward whatever and whomever He wills",
       "kok": "ق د م",
       "kokAnlam": "to bring forward, to advance"
@@ -571,7 +571,7 @@
     {
       "sira": 72,
       "arapca": "المؤخر",
-      "isim": "El-Muahhir",
+      "isim": "Al-Mu'akhkhir",
       "anlam": "The One who puts back whatever and whomever He wills",
       "kok": "أ خ ر",
       "kokAnlam": "to put back, to place last"
@@ -579,7 +579,7 @@
     {
       "sira": 73,
       "arapca": "الأول",
-      "isim": "El-Evvel",
+      "isim": "Al-Awwal",
       "anlam": "The One who existed before everything and has no beginning",
       "kok": "أ و ل",
       "kokAnlam": "the First, without beginning"
@@ -627,7 +627,7 @@
     {
       "sira": 79,
       "arapca": "البر",
-      "isim": "El-Berr",
+      "isim": "Al-Barr",
       "anlam": "The One whose goodness and generosity are abundant and who is most gracious to His servants",
       "kok": "ب ر ر",
       "kokAnlam": "to possess goodness, grace, and faithfulness"
@@ -683,7 +683,7 @@
     {
       "sira": 86,
       "arapca": "المقسط",
-      "isim": "El-Muksit",
+      "isim": "Al-Muqsit",
       "anlam": "The One who administers complete and perfect justice in every matter",
       "kok": "ق س ط",
       "kokAnlam": "to judge with justice, to establish balance"
@@ -699,7 +699,7 @@
     {
       "sira": 88,
       "arapca": "الغني",
-      "isim": "El-Ganiyy",
+      "isim": "Al-Ghaniyy",
       "anlam": "The One who is completely independent of all needs, absolutely self-sufficient",
       "kok": "غ ن ي",
       "kokAnlam": "to be self-sufficient and in need of nothing"

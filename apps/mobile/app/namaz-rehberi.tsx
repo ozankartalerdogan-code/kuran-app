@@ -13,6 +13,7 @@ import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
 import { useLang, useStrings, fmt } from "../src/i18n";
 import { localizedTranslit } from "../src/lib/translitEn";
+import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
 import rehberStrings from "../src/i18n/strings/namazRehberi";
 // ── Tipler (gevşek — JSON'dan tek cast) ───────────────────────────────────────
@@ -168,7 +169,7 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
               <View style={[na.keyBox, { backgroundColor: c.accentLight }]}><Text style={[na.keyText, { color: c.accent }]}>{v.verse_key}</Text></View>
               <View style={{ flex: 1 }}>
                 {v.surah_name ? <Text style={[na.vSurah, { color: c.textMuted }]}>{surahNameOf(v.surah_id, v.surah_name)}</Text> : null}
-                {v.reading_tr ? <Text style={[na.vReading, { color: c.text }]} numberOfLines={2}>{localizedTranslit(v.reading_tr, lang)}</Text> : null}
+                {v.reading_tr ? <Text style={[na.vReading, { color: c.text }]} numberOfLines={2}>{localizedVerseTranslit(v.verse_key, v.reading_tr, lang)}</Text> : null}
                 {v.meal ? <Text style={[na.vMeal, { color: c.textSecondary }]} numberOfLines={2}>{mealOf(v.verse_key, v.meal)}</Text> : null}
               </View>
             </TouchableOpacity>

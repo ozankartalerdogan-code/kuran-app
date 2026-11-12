@@ -66,7 +66,7 @@
     {
       "id": "iman_005",
       "konu": "allah_tevhid",
-      "soru": "What does the word \"Samed\" in Surah al-Ikhlas mean?",
+      "soru": "What does the word \"Samad\" in Surah al-Ikhlas mean?",
       "secenekler": [
         "A) The Creator",
         "B) The Forgiver",
@@ -74,7 +74,7 @@
         "D) The One with infinite power"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Samed means the One whom every being needs and who Himself needs nothing. (al-Ikhlas 112/2)",
+      "aciklama": "Samad means the One whom every being needs and who Himself needs nothing. (al-Ikhlas 112/2)",
       "zorluk": "orta",
       "kaynak": "Quran, al-Ikhlas 112/2"
     },
@@ -146,7 +146,7 @@
         "A) Mikail",
         "B) Jibril",
         "C) Israfil",
-        "D) Azrail"
+        "D) Azrael"
       ],
       "dogru_cevap": "B",
       "aciklama": "Jibril, peace be upon him, is the great angel tasked with conveying Allah's revelation (divine knowledge from Allah) to the prophets. He is also referred to in the Quran as \"Ruh al-Qudus\" (the holy or pure spirit) and \"Ruh al-Amin\" (the trustworthy spirit).",
@@ -161,10 +161,10 @@
         "A) Jibril",
         "B) Mikail",
         "C) Israfil",
-        "D) Azrail"
+        "D) Azrael"
       ],
       "dogru_cevap": "D",
-      "aciklama": "Azrail, peace be upon him, is tasked with taking souls; he is also known as Malak al-Mawt (the angel of death).",
+      "aciklama": "Azrael, peace be upon him, is tasked with taking souls; he is also known as Malak al-Mawt (the angel of death).",
       "zorluk": "kolay",
       "kaynak": "Summary of classical Islamic catechism"
     },
@@ -201,7 +201,7 @@
     {
       "id": "iman_014",
       "konu": "melekler",
-      "soru": "What do the angels Kiramen Katibin (the noble recorders) do?",
+      "soru": "What do the angels Kiraman Katibin (the noble recorders) do?",
       "secenekler": [
         "A) Blow the trumpet",
         "B) Take souls",
@@ -209,14 +209,14 @@
         "D) Question people in the grave"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Kiramen Katibin (the noble recorders) are the angels who are on each person's right and left, recording their deeds (their good and bad actions).",
+      "aciklama": "Kiraman Katibin (the noble recorders) are the angels who are on each person's right and left, recording their deeds (their good and bad actions).",
       "zorluk": "orta",
       "kaynak": "Summary of classical Islamic catechism"
     },
     {
       "id": "iman_015",
       "konu": "melekler",
-      "soru": "What is the duty of Munker and Nakir?",
+      "soru": "What is the duty of Munkar and Nakir?",
       "secenekler": [
         "A) To record deeds",
         "B) To blow the trumpet",
@@ -224,7 +224,7 @@
         "D) To govern natural events"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Munker and Nakir are the angels tasked with questioning people in the grave. This questioning is described as taking place during the life of barzakh after death.",
+      "aciklama": "Munkar and Nakir are the angels tasked with questioning people in the grave. This questioning is described as taking place during the life of barzakh after death.",
       "zorluk": "zor",
       "kaynak": "Summary of classical Islamic catechism"
     },

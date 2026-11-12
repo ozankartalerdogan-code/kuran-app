@@ -66,7 +66,7 @@
     {
       "id": "namaz_005",
       "konu": "rukunler",
-      "soru": "What is the 'Allahu Ekber' said at the beginning of salah called?",
+      "soru": "What is the 'Allahu Akbar' said at the beginning of salah called?",
       "secenekler": [
         "A) The takbir of ruku",
         "B) The opening takbir",
@@ -74,7 +74,7 @@
         "D) The takbir of sujud"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The 'Allahu Ekber' said while raising the hands at the beginning of salah is called the opening takbir. This takbir is one of the obligatory elements of salah.",
+      "aciklama": "The 'Allahu Akbar' said while raising the hands at the beginning of salah is called the opening takbir. This takbir is one of the obligatory elements of salah.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -219,12 +219,12 @@
       "soru": "What is said when rising from ruku?",
       "secenekler": [
         "A) Subhanallah",
-        "B) Semi'allahu limen hamideh",
-        "C) Allahu Ekber",
+        "B) Sami'allahu liman hamidah",
+        "C) Allahu Akbar",
         "D) Alhamdulillah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "When rising from ruku, 'Semi'allahu limen hamideh' (Allah hears the one who praises Him) is said. Once standing upright, 'Rabbena ve lekel hamd' is said.",
+      "aciklama": "When rising from ruku, 'Sami'allahu liman hamidah' (Allah hears the one who praises Him) is said. Once standing upright, 'Rabbana wa laka-l-hamd' is said.",
       "zorluk": "orta",
       "kaynak": "Bukhari, Adhan 122; Muslim, Salat 196"
     },
@@ -314,7 +314,7 @@
         "D) Recommended (mustahabb)"
       ],
       "dogru_cevap": "C",
-      "aciklama": "The opening takbir (beginning salah by saying Allahu Ekber) is one of the obligatory elements of salah. If it is omitted, the prayer is considered invalid.",
+      "aciklama": "The opening takbir (beginning salah by saying Allahu Akbar) is one of the obligatory elements of salah. If it is omitted, the prayer is considered invalid.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -323,13 +323,13 @@
       "konu": "rukunler",
       "soru": "What is the brief sitting between the two prostrations called?",
       "secenekler": [
-        "A) Ka'de",
-        "B) Celse",
+        "A) Qa'dah",
+        "B) Jalsah",
         "C) Tashahhud",
-        "D) Kavme"
+        "D) Qawmah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The brief sitting between the two prostrations is called celse. During this sitting, 'Rabbigfirli' (My Lord, forgive me) is said.",
+      "aciklama": "The brief sitting between the two prostrations is called jalsah. During this sitting, 'Rabbi-ghfir li' (My Lord, forgive me) is said.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -338,13 +338,13 @@
       "konu": "rukunler",
       "soru": "What is standing fully upright after ruku called?",
       "secenekler": [
-        "A) Celse",
-        "B) Kavme",
-        "C) Ka'de",
+        "A) Jalsah",
+        "B) Qawmah",
+        "C) Qa'dah",
         "D) Qiyam"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Standing fully upright after rising from ruku is called kavme. During this, 'Rabbena ve lekel hamd' is recited.",
+      "aciklama": "Standing fully upright after rising from ruku is called qawmah. During this, 'Rabbana wa laka-l-hamd' is recited.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic jurisprudence"
     },
@@ -381,7 +381,7 @@
     {
       "id": "namaz_026",
       "konu": "rukunler",
-      "soru": "Where in the prayer is Ka'de-i ahire (the final sitting) performed?",
+      "soru": "Where in the prayer is Qa'dah al-akhirah (the final sitting) performed?",
       "secenekler": [
         "A) In every two rakahs",
         "B) Only in the first sitting",
@@ -389,7 +389,7 @@
         "D) After every rakah"
       ],
       "dogru_cevap": "C",
-      "aciklama": "Ka'de-i ahire (the final sitting) is the sitting in the last rakah of the prayer and is obligatory. The Tahiyyat, Salli, Barik and Rabbena supplications are recited during this sitting.",
+      "aciklama": "Qa'dah al-akhirah (the final sitting) is the sitting in the last rakah of the prayer and is obligatory. The Tahiyyat, Salli, Barik and Rabbana supplications are recited during this sitting.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -509,7 +509,7 @@
         "D) Only after the second rakah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Tahiyyat is recited in every sitting of the prayer: both in the first sitting (ka'de-i ula) and in the final sitting (ka'de-i ahire).",
+      "aciklama": "Tahiyyat is recited in every sitting of the prayer: both in the first sitting (qa'dah al-ula) and in the final sitting (qa'dah al-akhirah).",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -621,7 +621,7 @@
     {
       "id": "namaz_042",
       "konu": "okunuslar",
-      "soru": "When is 'Rabbena ve lekel hamd' said?",
+      "soru": "When is 'Rabbana wa laka-l-hamd' said?",
       "secenekler": [
         "A) While bowing into ruku",
         "B) While rising from ruku (before standing fully upright)",
@@ -629,7 +629,7 @@
         "D) While going into prostration"
       ],
       "dogru_cevap": "C",
-      "aciklama": "While rising from ruku, 'Semi'allahu limen hamideh' is said. Then, upon standing fully upright in qawmah, 'Rabbena ve lekel hamd' is recited.",
+      "aciklama": "While rising from ruku, 'Sami'allahu liman hamidah' is said. Then, upon standing fully upright in qawmah, 'Rabbana wa laka-l-hamd' is recited.",
       "zorluk": "orta",
       "kaynak": "Bukhari, Adhan 122; Muslim, Salat 196"
     },
@@ -651,7 +651,7 @@
     {
       "id": "namaz_044",
       "konu": "okunuslar",
-      "soru": "After which rakah is Ka'de-i ula (the first sitting) performed in a four-rakah obligatory prayer?",
+      "soru": "After which rakah is Qa'dah al-ula (the first sitting) performed in a four-rakah obligatory prayer?",
       "secenekler": [
         "A) After the first rakah",
         "B) After the second rakah",
@@ -659,7 +659,7 @@
         "D) After every rakah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "Ka'de-i ula (the first sitting) is performed at the end of the second rakah in four-rakah obligatory prayers. Only Tahiyyat is recited during this sitting, after which one stands up.",
+      "aciklama": "Qa'dah al-ula (the first sitting) is performed at the end of the second rakah in four-rakah obligatory prayers. Only Tahiyyat is recited during this sitting, after which one stands up.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -726,15 +726,15 @@
     {
       "id": "namaz_049",
       "konu": "okunuslar",
-      "soru": "What is recited during the first sitting (ka'de-i ula) of a four-rak'ah obligatory salah?",
+      "soru": "What is recited during the first sitting (qa'dah al-ula) of a four-rak'ah obligatory salah?",
       "secenekler": [
         "A) Tahiyyat + Salli + Barik",
         "B) Only Tahiyyat",
-        "C) Tahiyyat + Rabbena",
+        "C) Tahiyyat + Rabbana",
         "D) Fatiha + an additional surah or verse recited after Fatiha"
       ],
       "dogru_cevap": "B",
-      "aciklama": "During ka'de-i ula, the first sitting, only Tahiyyat is recited. The Salli, Barik and Rabbena supplications are recited only in the final sitting (ka'de-i ahire).",
+      "aciklama": "During qa'dah al-ula, the first sitting, only Tahiyyat is recited. The Salli, Barik and Rabbana supplications are recited only in the final sitting (qa'dah al-akhirah).",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },

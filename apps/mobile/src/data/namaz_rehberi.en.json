@@ -146,7 +146,7 @@
         "isim": "Opening Takbir",
         "konum": "Qiyam (Standing)",
         "durum": "farz",
-        "aciklama": "Raise your hands to the level of your earlobes, say 'Allahu Ekber', and fold your hands.",
+        "aciklama": "Raise your hands to the level of your earlobes, say 'Allahu Akbar', and fold your hands.",
         "dua": null,
         "dua_arapca": null,
         "el_pozisyonu_notu": "In the Hanafi practice common in Türkiye, the hands are folded below the navel. Other Sunni schools of law may have different practices, such as folding them over or below the chest, or leaving them at the sides.",
@@ -201,7 +201,7 @@
             "id": "ihlas",
             "isim": "Surah al-Ikhlas (112)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ هُوَ اللَّهُ أَحَدٌ اللَّهُ الصَّمَدُ لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
-            "okunusu": "Kul hüvallâhü ehad. Allâhü's-Samed. Lem yelid ve lem yûled. Ve lem yekün lehû küfüven ehad.",
+            "okunusu": "Qul huwa Allahu ahad. Allahu's-Samad. Lam yalid wa lam yulad. Wa lam yakun lahu kufuwan ahad.",
             "anlam": "Say: He is Allah, the One and Only. Allah is as-Samad (everything is in need of Him, and He is in need of nothing). He neither begets nor is born. Nothing is equal or comparable to Him.",
             "rekat_sayisi": 4
           },
@@ -209,7 +209,7 @@
             "id": "felak",
             "isim": "Surah al-Falaq (113)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
-            "okunusu": "Kul eûzü bi rabbi'l-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerri'n-neffâsâti fi'l-ukad. Ve min şerri hâsidin izâ hased.",
+            "okunusu": "Qul a'udhu bi rabbi'l-falaq. Min sharri ma khalaq. Wa min sharri ghasiqin idha waqab. Wa min sharri'n-naffathati fi'l-'uqad. Wa min sharri hasidin idha hasad.",
             "anlam": "Say: I seek refuge in the Lord of daybreak, from the evil of what He has created, from the evil of darkness when it settles, from the evil of those who blow on knots, and from the evil of the envier when they envy.",
             "rekat_sayisi": 5
           },
@@ -217,7 +217,7 @@
             "id": "nas",
             "isim": "Surah an-Nas (114)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَالنَّاسِ",
-            "okunusu": "Kul eûzü bi rabbi'n-nâs. Meliki'n-nâs. İlâhi'n-nâs. Min şerri'l-vesvâsi'l-hannâs. Ellezî yüvesvisü fî sudûri'n-nâs. Mine'l-cinneti ve'n-nâs.",
+            "okunusu": "Qul a'udhu bi rabbi'n-nas. Maliki'n-nas. Ilahi'n-nas. Min sharri'l-waswasi'l-khannas. Alladhi yuwaswisu fi suduri'n-nas. Mina'l-jinnati wa'n-nas.",
             "anlam": "Say: I seek refuge in the Lord of mankind, the King of mankind, the God of mankind, from the evil of the stealthy whisperer, who whispers into the hearts of mankind, from among jinn and mankind.",
             "rekat_sayisi": 6
           },
@@ -225,7 +225,7 @@
             "id": "kevser",
             "isim": "Surah al-Kawthar (108)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ فَصَلِّ لِرَبِّكَ وَانْحَرْ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
-            "okunusu": "İnnâ a'taynâke'l-kevser. Fe salli li rabbike ve'nhar. İnne şânieke hüve'l-ebter.",
+            "okunusu": "Inna a'taynaka'l-kawthar. Fa salli li rabbika wa'nhar. Inna shani'aka huwa'l-abtar.",
             "anlam": "Indeed, We have given you al-Kawthar. So pray to your Lord and offer sacrifice. Indeed, it is the one who bears hatred toward you whose line is cut off.",
             "rekat_sayisi": 3
           },
@@ -233,7 +233,7 @@
             "id": "asr",
             "isim": "Surah al-Asr (103)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ وَالْعَصْرِ إِنَّ الْإِنسَانَ لَفِي خُسْرٍ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
-            "okunusu": "Ve'l-asr. İnne'l-insâne le fî hüsr. İlle'llezîne âmenû ve amilü's-sâlihâti ve tevâsav bi'l-hakkı ve tevâsav bi's-sabr.",
+            "okunusu": "Wa'l-'asr. Inna'l-insana la fi khusr. Illa'lladhina amanu wa 'amilu's-salihati wa tawasaw bi'l-haqqi wa tawasaw bi's-sabr.",
             "anlam": "By time, indeed, humanity is in loss, except those who have iman and do righteous deeds, and advise one another to follow the truth, and advise one another to be patient.",
             "rekat_sayisi": 3
           },
@@ -241,7 +241,7 @@
             "id": "fil",
             "isim": "Surah al-Fil (105)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ",
-            "okunusu": "Elem tera keyfe feale rabbüke bi ashâbi'l-fîl. Elem yec'al keydehüm fî tadlîl. Ve ersele aleyhim tayran ebâbîl. Termîhim bi hicâratin min siccîl. Feceelehüm ke'asfin me'kûl.",
+            "okunusu": "Alam tara kayfa fa'ala rabbuka bi ashabi'l-fil. Alam yaj'al kaydahum fi tadlil. Wa arsala 'alayhim tayran ababil. Tarmihim bi hijaratin min sijjil. Faja'alahum ka'asfin ma'kul.",
             "anlam": "Have you not seen what your Lord did to the people of the elephant? Did He not make their plan fail? He sent against them flocks of birds, pelting them with stones of baked clay. Then He made them like eaten leaves of grain.",
             "rekat_sayisi": 5
           },
@@ -249,7 +249,7 @@
             "id": "kureys",
             "isim": "Surah Quraysh (106)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ فَلْيَعْبُدُوا رَبَّ هَذَا الْبَيْتِ الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ",
-            "okunusu": "Li îlâfi kureyş. Îlâfihim rihleteş-şitâi ve's-sayf. Felya'büdû rabbe hâze'l-beyt. Ellezî et'amehüm min cû'in ve âmenehüm min havf.",
+            "okunusu": "Li ilafi quraysh. Ilafihim rihlata'sh-shita'i wa's-sayf. Falya'budu rabba hadha'l-bayt. Alladhi at'amahum min ju'in wa amanahum min khawf.",
             "anlam": "For the security and accustomed ways of Quraysh, their accustomed journeys in winter and summer. So let them worship the Lord of this House, who fed them against hunger and gave them security from fear.",
             "rekat_sayisi": 4
           },
@@ -257,7 +257,7 @@
             "id": "maun",
             "isim": "Surah al-Ma'un (107)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ فَذَلِكَ الَّذِي يَدُعُّ الْيَتِيمَ وَلَا يَحُضُّ عَلَى طَعَامِ الْمِسْكِينِ فَوَيْلٌ لِّلْمُصَلِّينَ الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ الَّذِينَ هُمْ يُرَاءُونَ وَيَمْنَعُونَ الْمَاعُونَ",
-            "okunusu": "Ereeytelleziî yükezzibü bid-diyn. Fezâlike'llezî yedu'ul-yetîm. Ve lâ yehuddu alâ taâmi'l-miskîn. Fe veylün lil musallîn. Ellezîne hüm an salâtihim sâhûn. Ellezîne hüm yürâûne ve yemne'ûnel-mâ'ûn.",
+            "okunusu": "Ara'ayta'lladhi yukadhdhibu bid-din. Fadhalika'lladhi yadu''ul-yatim. Wa la yahuddu 'ala ta'ami'l-miskin. Fa waylun lil musallin. Alladhina hum 'an salatihim sahun. Alladhina hum yura'una wa yamna'una'l-ma'un.",
             "anlam": "Have you seen the one who denies the religion? That is the one who pushes the orphan away and does not encourage feeding the poor. So woe to those who pray but are heedless of their salah, who show off and withhold acts of kindness.",
             "rekat_sayisi": 7
           },
@@ -265,7 +265,7 @@
             "id": "kafirun",
             "isim": "Surah al-Kafirun (109)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ يَا أَيُّهَا الْكَافِرُونَ لَا أَعْبُدُ مَا تَعْبُدُونَ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ لَكُمْ دِينُكُمْ وَلِيَ دِينِ",
-            "okunusu": "Kul yâ eyyühe'l-kâfirûn. Lâ a'büdü mâ ta'büdûn. Ve lâ entüm âbidûne mâ a'büd. Ve lâ ene âbidün mâ abedtüm. Ve lâ entüm âbidûne mâ a'büd. Leküm dînüküm ve liye dîn.",
+            "okunusu": "Qul ya ayyuha'l-kafirun. La a'budu ma ta'budun. Wa la antum 'abiduna ma a'bud. Wa la ana 'abidun ma 'abadtum. Wa la antum 'abiduna ma a'bud. Lakum dinukum wa liya din.",
             "anlam": "Say: O disbelievers! I do not worship what you worship, nor do you worship what I worship. I will not worship what you worship, nor will you worship what I worship. For you is your religion, and for me is mine.",
             "rekat_sayisi": 6
           },
@@ -273,7 +273,7 @@
             "id": "nasr",
             "isim": "Surah an-Nasr (110)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا",
-            "okunusu": "İzâ câe nasrullâhi ve'l-feth. Ve raeyte'n-nâse yedhulûne fî dînillâhi efvâcâ. Fe sebbih bi hamdi rabbike vestağfirh. İnnehû kâne tevvâbâ.",
+            "okunusu": "Idha ja'a nasrullahi wa'l-fath. Wa ra'ayta'n-nasa yadkhuluna fi dinillahi afwaja. Fa sabbih bi hamdi rabbika wastaghfirh. Innahu kana tawwaba.",
             "anlam": "When Allah's help and victory come, and you see people entering Allah's religion in crowds, glorify your Lord with praise and seek His forgiveness. Surely He is ever accepting of repentance.",
             "rekat_sayisi": 3
           }
@@ -285,7 +285,7 @@
         "isim": "Takbir for Going into Ruku",
         "konum": "Transition",
         "durum": "farz",
-        "aciklama": "Say 'Allahu Ekber' and bow into ruku."
+        "aciklama": "Say 'Allahu Akbar' and bow into ruku."
       },
       {
         "id": "ruku",
@@ -318,7 +318,7 @@
         "isim": "Takbir for Going into Sujud",
         "konum": "Transition",
         "durum": "farz",
-        "aciklama": "Say 'Allahu Ekber' and go into sujud."
+        "aciklama": "Say 'Allahu Akbar' and go into sujud."
       },
       {
         "id": "secde",
@@ -340,16 +340,16 @@
         "isim": "Sitting Between the Two Sujuds",
         "konum": "Sitting",
         "durum": "farz",
-        "dua": "Rabbigfirli.",
+        "dua": "Rabbighfirli.",
         "dua_arapca": "رَبِّ اغْفِرْ لِي",
         "anlam": "My Lord, forgive me.",
-        "aciklama": "After the first sujud, rise and sit briefly, say 'Rabbigfirli', and then go into sujud again.",
+        "aciklama": "After the first sujud, rise and sit briefly, say 'Rabbighfirli', and then go into sujud again.",
         "not": "Sit briefly and calmly between the two sujuds. The ruling on this sitting and the details of the supplication to be recited may be explained differently by different schools of law."
       },
       {
         "id": "kade_i_ula",
         "sira": 12,
-        "isim": "First Sitting (Ka'de-i Ula)",
+        "isim": "First Sitting (Qa'dah al-Ula)",
         "konum": "Sitting",
         "durum": "vacip",
         "ne_zaman": "This is done only at the end of the second rak'ah of salah consisting of 3 or 4 rak'ahs. It is not part of a 2-rak'ah salah.",
@@ -360,7 +360,7 @@
       {
         "id": "kade_i_ahire",
         "sira": 13,
-        "isim": "Final Sitting (Ka'de-i Ahire)",
+        "isim": "Final Sitting (Qa'dah al-Akhirah)",
         "konum": "Sitting",
         "durum": "farz",
         "ne_zaman": "This is done after the final rak'ah of every salah.",
@@ -392,7 +392,7 @@
         "durum": "sunnet",
         "dua": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammad. Kama sallayta 'ala Ibrahima wa 'ala ali Ibrahim. Innaka hamidun majid.",
         "dua_arapca": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
-        "anlam": "O Allah! Send blessings upon Muhammad and the family of Muhammad as You sent blessings upon Ibrahim and the family of Ibrahim. Surely You are Hamid, Mecid."
+        "anlam": "O Allah! Send blessings upon Muhammad and the family of Muhammad as You sent blessings upon Ibrahim and the family of Ibrahim. Surely You are Hamid, Majid."
       },
       {
         "id": "barik",
@@ -401,11 +401,11 @@
         "durum": "sunnet",
         "dua": "Allahumma barik 'ala Muhammadin wa 'ala ali Muhammad. Kama barakta 'ala Ibrahima wa 'ala ali Ibrahim. Innaka hamidun majid.",
         "dua_arapca": "اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
-        "anlam": "O Allah! Bless Muhammad and the family of Muhammad as You blessed Ibrahim and the family of Ibrahim. Surely You are Hamid, Mecid."
+        "anlam": "O Allah! Bless Muhammad and the family of Muhammad as You blessed Ibrahim and the family of Ibrahim. Surely You are Hamid, Majid."
       },
       {
         "id": "rabbena_atina",
-        "isim": "Rabbena Atina",
+        "isim": "Rabbana Atina",
         "ne_zaman": "It is recited in the final sitting, after Salli and Barik.",
         "durum": "sunnet",
         "dua": "Rabbana atina fi d-dunya hasanatan wa fi l-akhirati hasanatan wa qina 'adhab an-nar.",
@@ -416,7 +416,7 @@
       {
         "id": "rabbena_gfirli",
         "isim": "Rabbanaghfirli",
-        "ne_zaman": "It is recited in the final sitting, after Rabbena Atina.",
+        "ne_zaman": "It is recited in the final sitting, after Rabbana Atina.",
         "durum": "sunnet",
         "dua": "Rabbana ghfir li wa liwalidayya wa lil-mu'minina yawma yaqum al-hisab.",
         "dua_arapca": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
@@ -489,7 +489,7 @@
         {
           "rekat": "2nd Rak'ah",
           "durum": "vacip",
-          "aciklama": "Recite Besmele → al-Fatihah → an additional surah; perform ruku and two prostrations. Then sit and recite only Tahiyyat, and stand for the 3rd rak'ah (Salli and Barik are not recited in this sitting)."
+          "aciklama": "Recite Basmala → al-Fatihah → an additional surah; perform ruku and two prostrations. Then sit and recite only Tahiyyat, and stand for the 3rd rak'ah (Salli and Barik are not recited in this sitting)."
         },
         {
           "rekat": "3rd Rak'ah",
@@ -521,7 +521,7 @@
         {
           "rekat": "2nd Rak'ah",
           "subhaneke": "✗ Not recited",
-          "euzu_besmele": "Besmele only",
+          "euzu_besmele": "Basmala only",
           "fatiha": "✓ Recited",
           "zamm_i_sure": "✓ Recited (fard and Sunnah)",
           "oturuş": "Tahiyyat is recited (stand up in a 3- or 4-rak'ah prayer; give salam in a 2-rak'ah prayer)"
@@ -529,7 +529,7 @@
         {
           "rekat": "3rd Rak'ah",
           "subhaneke": "✗ Not recited",
-          "euzu_besmele": "Besmele only",
+          "euzu_besmele": "Basmala only",
           "fatiha": "✓ Recited",
           "zamm_i_sure": "✗ Not recited in fard prayer; recited in Sunnah prayer",
           "oturuş": "-"
@@ -537,10 +537,10 @@
         {
           "rekat": "4th Rak'ah",
           "subhaneke": "✗ Not recited",
-          "euzu_besmele": "Besmele only",
+          "euzu_besmele": "Basmala only",
           "fatiha": "✓ Recited",
           "zamm_i_sure": "✗ Not recited in fard prayer; recited in Sunnah prayer",
-          "oturuş": "All supplications are recited (Tahiyyat + Salli + Barik + Rabbena)"
+          "oturuş": "All supplications are recited (Tahiyyat + Salli + Barik + Rabbana)"
         }
       ],
       "ozet_notu": "Briefly: Subhanaka and A'udhu are recited only in the first rak'ah. An additional surah is recited in the first two rak'ahs of a fard prayer and in every rak'ah of a Sunnah prayer. Al-Fatihah is recited in every rak'ah."

@@ -37,7 +37,7 @@ export default defineStrings({
     secDiscover: "🔍 Discover",
     secPersonal: "👤 Personal",
     secApp: "⚙️ App",
-    esmaLabel: "Esma-ül Hüsna",
+    esmaLabel: "Asma ul-Husna",
     esmaSub: "The 99 Names of Allah",
     siginakLabel: "Spiritual Refuge",
     siginakSub: "Prayers for protection and healing",

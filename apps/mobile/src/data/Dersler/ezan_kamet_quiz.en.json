@@ -81,7 +81,7 @@
     {
       "id": "ezan_006",
       "konu": "ezan_sozleri",
-      "soru": "How many times in total is \"Allahu Ekber\" repeated in a standard adhan, excluding the morning adhan?",
+      "soru": "How many times in total is \"Allahu Akbar\" repeated in a standard adhan, excluding the morning adhan?",
       "secenekler": [
         "A) 4 times",
         "B) 8 times",
@@ -89,14 +89,14 @@
         "D) 2 times"
       ],
       "dogru_cevap": "C",
-      "aciklama": "\"Allahu Ekber\" is repeated a total of 6 times: 4 times at the beginning of the adhan and 2 times at the end.",
+      "aciklama": "\"Allahu Akbar\" is repeated a total of 6 times: 4 times at the beginning of the adhan and 2 times at the end.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "ezan_007",
       "konu": "ezan_sozleri",
-      "soru": "What does \"Hayye ale's-salah\" mean?",
+      "soru": "What does \"Hayya 'ala-s-salah\" mean?",
       "secenekler": [
         "A) Come to prayer",
         "B) Come to salvation",
@@ -104,14 +104,14 @@
         "D) Prayer is better than sleep"
       ],
       "dogru_cevap": "A",
-      "aciklama": "\"Hayye ale's-salah\" means \"Come to prayer.\" It is repeated twice in the adhan. \"Hayye ale'l-felah\" means \"Come to salvation.\"",
+      "aciklama": "\"Hayya 'ala-s-salah\" means \"Come to prayer.\" It is repeated twice in the adhan. \"Hayya 'ala-l-falah\" means \"Come to salvation.\"",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "ezan_008",
       "konu": "ezan_sozleri",
-      "soru": "What does \"Hayye ale'l-felah\" mean?",
+      "soru": "What does \"Hayya 'ala-l-falah\" mean?",
       "secenekler": [
         "A) Come to prayer",
         "B) Allah is the greatest",
@@ -119,7 +119,7 @@
         "D) Come to salvation"
       ],
       "dogru_cevap": "D",
-      "aciklama": "\"Hayye ale'l-felah\" means \"Come to salvation.\" Felah means salvation, success, and happiness. This phrase is repeated twice in the adhan.",
+      "aciklama": "\"Hayya 'ala-l-falah\" means \"Come to salvation.\" Falah means salvation, success, and happiness. This phrase is repeated twice in the adhan.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -128,13 +128,13 @@
       "konu": "ezan_sozleri",
       "soru": "Which phrase comes immediately after the declarations of faith in the adhan?",
       "secenekler": [
-        "A) Allahu Ekber",
-        "B) Hayye ale's-salah",
-        "C) La ilahe illallah",
-        "D) Kad kameti's-salah"
+        "A) Allahu Akbar",
+        "B) Hayya 'ala-s-salah",
+        "C) La ilaha illallah",
+        "D) Qad qamati-s-salah"
       ],
       "dogru_cevap": "B",
-      "aciklama": "The order of the adhan is: Allahu Ekber → Declarations of faith → Hayye ale's-salah → Hayye ale'l-felah → Allahu Ekber → La ilahe illallah. \"Hayye ale's-salah\" comes after the declarations of faith.",
+      "aciklama": "The order of the adhan is: Allahu Akbar → Declarations of faith → Hayya 'ala-s-salah → Hayya 'ala-l-falah → Allahu Akbar → La ilaha illallah. \"Hayya 'ala-s-salah\" comes after the declarations of faith.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -149,7 +149,7 @@
         "D) 17"
       ],
       "dogru_cevap": "C",
-      "aciklama": "The standard adhan consists of 15 phrases. When \"es-Salatu hayrun mine'n-nevm\" is added twice, the morning adhan consists of 17 phrases.",
+      "aciklama": "The standard adhan consists of 15 phrases. When \"as-Salatu khayrun mina-n-nawm\" is added twice, the morning adhan consists of 17 phrases.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -158,13 +158,13 @@
       "konu": "ezan_sozleri",
       "soru": "What is the last phrase of the adhan?",
       "secenekler": [
-        "A) Allahu Ekber",
-        "B) Hayye ale'l-felah",
+        "A) Allahu Akbar",
+        "B) Hayya 'ala-l-falah",
         "C) Ashhadu anna Muhammadan Rasulullah",
-        "D) La ilahe illallah"
+        "D) La ilaha illallah"
       ],
       "dogru_cevap": "D",
-      "aciklama": "The last phrase of the adhan is \"La ilahe illallah\" (There is no god but Allah), and it is said once. The adhan ends with a declaration of the oneness of Allah.",
+      "aciklama": "The last phrase of the adhan is \"La ilaha illallah\" (There is no god but Allah), and it is said once. The adhan ends with a declaration of the oneness of Allah.",
       "zorluk": "zor",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -173,20 +173,20 @@
       "konu": "sabah_ezani",
       "soru": "Which special phrase is added to the morning adhan, unlike the adhans at other times?",
       "secenekler": [
-        "A) Es-Salatu hayrun mine'n-nevm",
-        "B) Kad kameti's-salah",
-        "C) La havle ve la kuvvete illa billah",
-        "D) Sadakte ve berirte"
+        "A) As-Salatu khayrun mina-n-nawm",
+        "B) Qad qamati-s-salah",
+        "C) La hawla wa la quwwata illa billah",
+        "D) Sadaqta wa barirta"
       ],
       "dogru_cevap": "A",
-      "aciklama": "In the morning adhan, \"es-Salatu hayrun mine'n-nevm\" (Prayer is better than sleep) is added twice after \"Hayye ale'l-felah.\" This is unique to the morning adhan.",
+      "aciklama": "In the morning adhan, \"as-Salatu khayrun mina-n-nawm\" (Prayer is better than sleep) is added twice after \"Hayya 'ala-l-falah.\" This is unique to the morning adhan.",
       "zorluk": "kolay",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "ezan_013",
       "konu": "sabah_ezani",
-      "soru": "What does \"Es-Salatu hayrun mine'n-nevm\" mean?",
+      "soru": "What does \"As-Salatu khayrun mina-n-nawm\" mean?",
       "secenekler": [
         "A) Come to salvation",
         "B) The prayer has begun",
@@ -194,14 +194,14 @@
         "D) Allah is the greatest"
       ],
       "dogru_cevap": "C",
-      "aciklama": "\"Es-Salatu hayrun mine'n-nevm\" means \"Prayer is better than sleep.\" This phrase is repeated twice in the morning adhan.",
+      "aciklama": "\"As-Salatu khayrun mina-n-nawm\" means \"Prayer is better than sleep.\" This phrase is repeated twice in the morning adhan.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "ezan_014",
       "konu": "sabah_ezani",
-      "soru": "How many times is \"es-Salatu hayrun mine'n-nevm\" recited in the morning adhan?",
+      "soru": "How many times is \"as-Salatu khayrun mina-n-nawm\" recited in the morning adhan?",
       "secenekler": [
         "A) Once",
         "B) Twice",
@@ -209,22 +209,22 @@
         "D) 4 times"
       ],
       "dogru_cevap": "B",
-      "aciklama": "\"Es-Salatu hayrun mine'n-nevm\" is recited twice in the morning adhan. This phrase is a special reminder for the morning prayer that prayer is better than sleep.",
+      "aciklama": "\"As-Salatu khayrun mina-n-nawm\" is recited twice in the morning adhan. This phrase is a special reminder for the morning prayer that prayer is better than sleep.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
     {
       "id": "ezan_015",
       "konu": "icabet",
-      "soru": "What should a person listening to the adhan say when hearing \"Hayye ale's-salah\" and \"Hayye ale'l-felah\"?",
+      "soru": "What should a person listening to the adhan say when hearing \"Hayya 'ala-s-salah\" and \"Hayya 'ala-l-falah\"?",
       "secenekler": [
-        "A) Allahu Ekber",
-        "B) Sadakte ve berirte",
-        "C) Hayye ale's-salah",
-        "D) La havle ve la kuvvete illa billah"
+        "A) Allahu Akbar",
+        "B) Sadaqta wa barirta",
+        "C) Hayya 'ala-s-salah",
+        "D) La hawla wa la quwwata illa billah"
       ],
       "dogru_cevap": "D",
-      "aciklama": "As a rule, responding to the adhan means repeating what the muezzin (the person giving the adhan) says. However, for \"Hayye ale's-salah\" and \"Hayye ale'l-felah,\" one says \"La havle ve la kuvvete illa billah\" (Power and strength come only from Allah) instead.",
+      "aciklama": "As a rule, responding to the adhan means repeating what the muezzin (the person giving the adhan) says. However, for \"Hayya 'ala-s-salah\" and \"Hayya 'ala-l-falah,\" one says \"La hawla wa la quwwata illa billah\" (Power and strength come only from Allah) instead.",
       "zorluk": "zor",
       "kaynak": "Muslim, Salat 11"
     },
@@ -235,8 +235,8 @@
       "secenekler": [
         "A) Ijaba",
         "B) Tarassul",
-        "C) Kamet",
-        "D) Tertil"
+        "C) Iqamah",
+        "D) Tartil"
       ],
       "dogru_cevap": "A",
       "aciklama": "Ijaba (repeating the appropriate responses upon hearing the adhan) is when a listener quietly repeats what the muezzin (the person giving the adhan) says. \"When you hear the adhan, say what the muezzin (the person giving the adhan) says.\" (Muslim, Salat 11)",
@@ -246,15 +246,15 @@
     {
       "id": "ezan_017",
       "konu": "icabet",
-      "soru": "What is said when \"es-Salatu hayrun mine'n-nevm\" is heard in the morning adhan?",
+      "soru": "What is said when \"as-Salatu khayrun mina-n-nawm\" is heard in the morning adhan?",
       "secenekler": [
-        "A) La havle ve la kuvvete illa billah",
-        "B) Allahu Ekber",
-        "C) Sadakte ve berirte",
-        "D) Hayye ale'l-felah"
+        "A) La hawla wa la quwwata illa billah",
+        "B) Allahu Akbar",
+        "C) Sadaqta wa barirta",
+        "D) Hayya 'ala-l-falah"
       ],
       "dogru_cevap": "C",
-      "aciklama": "When \"es-Salatu hayrun mine'n-nevm\" is heard in the morning adhan, one says \"Sadakte ve berirte\" (You have spoken truthfully and well). Unlike the other phrases, it is not repeated verbatim.",
+      "aciklama": "When \"as-Salatu khayrun mina-n-nawm\" is heard in the morning adhan, one says \"Sadaqta wa barirta\" (You have spoken truthfully and well). Unlike the other phrases, it is not repeated verbatim.",
       "zorluk": "orta",
       "kaynak": "Basic Islamic knowledge"
     },
@@ -293,20 +293,20 @@
       "konu": "kamet",
       "soru": "Which special phrase is added to the iqamah that is not in the adhan?",
       "secenekler": [
-        "A) Kad kameti's-salah",
-        "B) Es-Salatu hayrun mine'n-nevm",
-        "C) La havle ve la kuvvete illa billah",
-        "D) Sadakte ve berirte"
+        "A) Qad qamati-s-salah",
+        "B) As-Salatu khayrun mina-n-nawm",
+        "C) La hawla wa la quwwata illa billah",
+        "D) Sadaqta wa barirta"
       ],
       "dogru_cevap": "A",
-      "aciklama": "The same words as the adhan are recited in the iqamah; the only difference is that \"Kad kameti's-salah\" (The prayer has begun) is added twice after \"Hayye ale'l-felah\".",
+      "aciklama": "The same words as the adhan are recited in the iqamah; the only difference is that \"Qad qamati-s-salah\" (The prayer has begun) is added twice after \"Hayya 'ala-l-falah\".",
       "zorluk": "kolay",
       "kaynak": "Abu Dawud, Salat 28"
     },
     {
       "id": "ezan_021",
       "konu": "kamet",
-      "soru": "What does \"Kad kameti's-salah\" mean?",
+      "soru": "What does \"Qad qamati-s-salah\" mean?",
       "secenekler": [
         "A) Allah is the greatest",
         "B) Come to prayer",
@@ -314,7 +314,7 @@
         "D) Prayer is better than sleep"
       ],
       "dogru_cevap": "C",
-      "aciklama": "\"Kad kameti's-salah\" means \"The prayer has begun.\" This phrase appears only in the iqamah and informs the congregation that the prayer has begun.",
+      "aciklama": "\"Qad qamati-s-salah\" means \"The prayer has begun.\" This phrase appears only in the iqamah and informs the congregation that the prayer has begun.",
       "zorluk": "orta",
       "kaynak": "Abu Dawud, Salat 28"
     },
@@ -351,7 +351,7 @@
     {
       "id": "ezan_024",
       "konu": "kamet",
-      "soru": "How many times is \"Kad kameti's-salah\" repeated in the iqamah?",
+      "soru": "How many times is \"Qad qamati-s-salah\" repeated in the iqamah?",
       "secenekler": [
         "A) 2 times",
         "B) 1 time",
@@ -359,7 +359,7 @@
         "D) 3 times"
       ],
       "dogru_cevap": "A",
-      "aciklama": "\"Kad kameti's-salah\" is repeated twice in the iqamah. This is consistent with most of the phrases of the adhan being recited twice each.",
+      "aciklama": "\"Qad qamati-s-salah\" is repeated twice in the iqamah. This is consistent with most of the phrases of the adhan being recited twice each.",
       "zorluk": "zor",
       "kaynak": "Abu Dawud, Salat 28"
     },
@@ -445,7 +445,7 @@
       "secenekler": [
         "A) Ijaba",
         "B) Tarassul",
-        "C) Tertil",
+        "C) Tartil",
         "D) Tarji"
       ],
       "dogru_cevap": "B",

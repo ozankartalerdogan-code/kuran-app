@@ -3,7 +3,7 @@
     "title": "Selected Hadiths",
     "subtitle": "A collection of sayings of the Prophet Muhammad ﷺ arranged by topic",
     "description": "The hadiths in this module are drawn primarily from Bukhari and Muslim, with some taken from well-known narrations in major hadith sources such as Tirmidhi, Abu Dawud, Ibn Majah and Ahmad ibn Hanbal. The aim is to offer a reliable and instructive selection arranged by topic.",
-    "reliability_standard": "The hadiths were selected from major hadith sources wherever possible. Narrations with a direct numbered citation are displayed through sunnah_url, while some entries retain an explanatory source note at the thematic level.",
+    "reliability_standard": "The hadiths were selected from major hadith sources wherever possible. Narrations with a direct numbered citation are displayed with a Sunnah.com link, while some entries retain an explanatory source note at the thematic level.",
     "sources": [
       "Sahih al-Bukhari",
       "Sahih Muslim",
@@ -1154,7 +1154,7 @@
     {
       "id": "ana-rahmi-kader",
       "topic_id": "kader",
-      "turkish_text": "Each of you is a nutfe (the first fertilized cell) in your mother's womb for forty days, then an alaka (an embryo attached to the womb) for forty days, then a mudga (a piece of flesh in which the early forms of organs appear) for forty days. Then Allah sends an angel; the soul is breathed into the person, and the angel is commanded to write down four things: their provision, the end of their life, the deeds they will do, and whether they will be happy or unhappy.",
+      "turkish_text": "Each of you is a nutfah (the first fertilized cell) in your mother's womb for forty days, then an alaqah (an embryo attached to the womb) for forty days, then a mudghah (a piece of flesh in which the early forms of organs appear) for forty days. Then Allah sends an angel; the soul is breathed into the person, and the angel is commanded to write down four things: their provision, the end of their life, the deeds they will do, and whether they will be happy or unhappy.",
       "narrator": "Abdullah ibn Mas'ud (may Allah be pleased with him)",
       "source_bukhari": "Bukhari, Beginning of Creation, 3208",
       "source_muslim": "Muslim, Divine Decree, 2643",
@@ -1787,7 +1787,7 @@
       "source_muslim": "Muslim, Paradise, 2823",
       "sunnah_url": "https://sunnah.com/bukhari:6487",
       "key_lesson": "The path to Paradise often passes through hardships and things the self does not desire; the path to Hell is paved with desires that readily appeal to it.",
-      "info_note": "The self (nefis): The whole of a person's inner self, desires, and emotions. This hadith explains why acts of worship sometimes feel difficult while evil appears attractive. The path to Paradise is hidden in things that require struggle.",
+      "info_note": "The self (nafs): The whole of a person's inner self, desires, and emotions. This hadith explains why acts of worship sometimes feel difficult while evil appears attractive. The path to Paradise is hidden in things that require struggle.",
       "tags": [
         "cennet",
         "cehennem",
@@ -2025,7 +2025,7 @@
       "source_muslim": "Muslim, Drinks, 2018",
       "sunnah_url": "https://sunnah.com/muslim:2018",
       "key_lesson": "Saying the basmala when entering the home and eating is a spiritual shield that prevents Satan from entering that space.",
-      "info_note": "Basmala: 'Bismillahirrahmanirrahim' — 'In the name of Allah, the Most Merciful, the Most Compassionate.' Beginning every task with the basmala means opening it to Allah's blessing and protection.",
+      "info_note": "Basmala: 'Bismillahir-Rahmanir-Rahim' — 'In the name of Allah, the Most Merciful, the Most Compassionate.' Beginning every task with the basmala means opening it to Allah's blessing and protection.",
       "tags": [
         "seytan",
         "besmele",

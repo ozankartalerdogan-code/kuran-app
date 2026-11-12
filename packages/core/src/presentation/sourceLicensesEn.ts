@@ -21,6 +21,12 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
     "license": "Public domain"
   },
   {
+    "id": "translit-en",
+    "title": "English Transliteration — AlQuran Cloud / Quran.com",
+    "url": "https://alquran.cloud/terms-and-conditions",
+    "license": "With attribution"
+  },
+  {
     "id": "semar-ketir",
     "title": "Semar Ketir digital Quran data",
     "url": "https://github.com/kurancilar/json",
@@ -72,10 +78,11 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "meal-tafsir",
     "title": "Translation and commentary",
-    "body": "Elmalılı Hamdi Yazır's Hak Dini Kur'an Dili is the only translation used for the Turkish Quran translation. When the mobile app interface is in English, Marmaduke Pickthall's public-domain translation \"The Meaning of the Glorious Koran\" (1930) is displayed; the digital text is taken from Tanzil.net. Semar Ketir's MIT-licensed work was used in the chain of digital copies. Simplified explanations are re-prepared for Kuran Yolu with AI assistance and human review; they are for informational purposes and do not constitute fatwas. Four translation sources previously retained for comparison — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk, and Diyanet Vakfı — have been completely removed from the runtime environment (removed_from_runtime); no text from these sources is displayed in the app anymore. Their records are retained in provenance documents only to keep the source history transparent.",
+    "body": "Elmalılı Hamdi Yazır's Hak Dini Kur'an Dili is the only translation used for the Turkish Quran translation. When the mobile app interface is in English, Marmaduke Pickthall's public-domain translation \"The Meaning of the Glorious Koran\" (1930) is displayed; the digital text is taken from Tanzil.net. In the same mode, the English transliteration of the verses is displayed from the \"English Transliteration\" text obtained via AlQuran Cloud and also used on Quran.com (verse page, surah list, verse of the day, search, Spiritual Refuge, Ism al-A'zam and Prayer Guide verses). Semar Ketir's MIT-licensed work was used in the chain of digital copies. Simplified explanations are re-prepared for Kuran Yolu with AI assistance and human review; they are for informational purposes and do not constitute fatwas. Four translation sources previously retained for comparison — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk, and Diyanet Vakfı — have been completely removed from the runtime environment; no text from these sources is displayed in the app anymore. Their records are retained in provenance documents only to keep the source history transparent.",
     "linkIds": [
       "elmalili",
       "pickthall",
+      "translit-en",
       "semar-ketir"
     ]
   },
@@ -102,7 +109,7 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "project-content",
     "title": "Kuran Yolu and AI-assisted content",
-    "body": "Turkish word meanings, transliteration, simplified explanations, hadith translations, accounts of the Prophet's life and religious stories, lesson research, cards, quizzes, Elifba audio, some images, and meanings of supplications and remembrances were prepared for Kuran Yolu with assistance from AI tools and reviewed by humans where possible. The worship guides were written by the project. The lessons, quizzes, Elif-Ba lessons, simplified commentary, supplications and remembrances, hadith, Seerah, prophets' stories, worship guides, Esma ul-Husna and interface texts in the mobile app's English interface were translated into English from this Turkish content using AI tools (AI-assisted translation). In English mode, word meanings use the existing English word glosses (gloss_en); meanings of words without a gloss, root meanings and the word-for-word (literal) translation were translated into English from the app's Turkish texts using AI tools. Clearly wrong Turkish word and root meanings found during this work were also corrected; the translations have passed automated structure and consistency checks, and human review is not yet complete. Source and production records are kept in the central provenance manifest.",
+    "body": "Turkish word meanings, transliteration, simplified explanations, hadith translations, accounts of the Prophet's life and religious stories, lesson research, cards, quizzes, Elifba audio, some images, and meanings of supplications and remembrances were prepared for Kuran Yolu with assistance from AI tools and reviewed by humans where possible. The worship guides were written by the project. The lessons, quizzes, Elif-Ba lessons, simplified commentary, supplications and remembrances, hadith, Seerah, prophets' stories, worship guides, Asma ul-Husna and interface texts in the mobile app's English interface were translated into English from this Turkish content using AI tools (AI-assisted translation). In English mode, word meanings use the existing English word glosses; meanings of words without a gloss, root meanings and the word-for-word (literal) translation were translated into English from the app's Turkish texts using AI tools. Clearly wrong Turkish word and root meanings found during this work were also corrected; the translations have passed automated structure and consistency checks, and human review is not yet complete. Source and production records are kept in the central provenance manifest.",
     "linkIds": []
   },
   {

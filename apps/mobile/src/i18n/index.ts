@@ -105,12 +105,7 @@ export function useStrings<T>(table: StringTable<T>): Widen<T> {
   return (lang === "en" ? table.en : table.tr) as Widen<T>;
 }
 
-/** "{name}" yer tutucularını doldurur. */
-export function fmt(template: string, params: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (m, k: string) =>
-    params[k] !== undefined ? String(params[k]) : m,
-  );
-}
+export { fmt } from "./fmt";
 
 /** Tarih/sayı biçimlendirme için locale etiketi. */
 export function localeTag(lang: Lang = current): string {

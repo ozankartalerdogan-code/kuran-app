@@ -11,6 +11,10 @@ const SRC = "data/translations/en.pickthall/en.pickthall.txt";
 const OUT = "apps/mobile/src/data/meal_en_pickthall.json";
 const EXPECTED_SHA256 = "4aabbfa9d96796f5a6b0217d2c39dce1a3084f772bf6f2650e37082a774e3cc7";
 
+// Kaynak dizgi hataları (SOURCE.md'de listelendi).
+const FIXES = { "12:22": ["And And when", "And when"] };
+const used = new Set();
+
 const raw = readFileSync(SRC);
 const sha = createHash("sha256").update(raw).digest("hex");
 if (sha !== EXPECTED_SHA256) throw new Error(`Kaynak hash uyuşmuyor: ${sha}`);
@@ -25,7 +29,9 @@ for (const line of raw.toString("utf8").split(/\r?\n/)) {
   const row = out[Number(s) - 1];
   if (!row || Number(a) < 1 || Number(a) > row.length) throw new Error(`Geçersiz ayet: ${s}:${a}`);
   if (row[Number(a) - 1] !== null) throw new Error(`Mükerrer ayet: ${s}:${a}`);
-  const t = text.trim();
+  let t = text.trim();
+  const fix = FIXES[`${s}:${a}`];
+  if (fix) { const b = t; t = t.replace(fix[0], fix[1]); if (t === b) throw new Error(`Düzeltme uygulanamadı: ${s}:${a}`); used.add(`${s}:${a}`); }
   if (!t) throw new Error(`Boş ayet: ${s}:${a}`);
   row[Number(a) - 1] = t;
 }
@@ -33,6 +39,8 @@ for (const line of raw.toString("utf8").split(/\r?\n/)) {
 const missing = [];
 out.forEach((row, i) => row.forEach((t, j) => { if (t === null) missing.push(`${i + 1}:${j + 1}`); }));
 if (missing.length) throw new Error(`Eksik ayetler: ${missing.slice(0, 10).join(", ")}`);
+
+if (used.size !== Object.keys(FIXES).length) throw new Error("Kullanılmayan düzeltme var");
 
 const total = out.reduce((n, r) => n + r.length, 0);
 if (out.length !== 114 || total !== 6236) throw new Error(`Beklenmeyen sayı: ${out.length}/${total}`);
