@@ -88,11 +88,11 @@ function VakitTablosu() {
       activeOpacity={0.8}
       onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: MOTTO.surahId, ayahNumber: MOTTO.ayahNumber } })}
       accessibilityRole="button"
-      accessibilityLabel={fmt(t.openVerseA11y, { label: MOTTO.label })}
+      accessibilityLabel={fmt(t.openVerseA11y, { label: `${sureAdi(MOTTO.surahId)} ${MOTTO.surahId}:${MOTTO.ayahNumber}` })}
     >
       <View style={vt.mottoHead}>
         <Text style={[vt.mottoEtiket, { color: c.accent }]}>{t.mottoLabel}</Text>
-        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{MOTTO.label}</Text></View>
+        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{sureAdi(MOTTO.surahId)} {MOTTO.surahId}:{MOTTO.ayahNumber}</Text></View>
       </View>
       <Text style={[vt.mottoArabic, { color: c.text }]}>{MOTTO.arabic}</Text>
       <Text style={[vt.mottoMeal, { color: c.textSecondary }]}>“{mealOf({ surah: MOTTO.surahId, ayah: MOTTO.ayahNumber }, MOTTO.meal)}”</Text>

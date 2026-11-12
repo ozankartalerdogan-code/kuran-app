@@ -899,7 +899,8 @@ export default function AyahDetailScreen() {
               </View>
             ) : null}
 
-            {data.meal ? (
+            {/* EN modda yalnız İngilizce meal: iki dil aynı anda gösterilmez. */}
+            {enMeal ? null : data.meal ? (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>Elmalılı H. Yazır</Text>
                 <Text style={[styles.mealText, scaledText.meal, { color: colors.textSecondary }]}>{data.meal}</Text>

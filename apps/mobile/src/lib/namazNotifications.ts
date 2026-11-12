@@ -329,7 +329,9 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
     for (const { key, label, hour, minute } of parseValid(times)) {
       const trigger = dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
       if (!trigger) continue; // bugünün geçmiş vakitleri
-      const translation = verseByKey.get(key)?.translation;
+      const v = verseByKey.get(key);
+      // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
+      const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
       const verseLine = translation
         ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
         : "";
