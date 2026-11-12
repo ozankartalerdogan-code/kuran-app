@@ -9,6 +9,7 @@ import { getStrings, fmt, getLang } from "../i18n";
 import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
+import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -140,17 +141,19 @@ async function fetchMonthCalendar(
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const res = await fetch(
-      // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&${aladhanTzParam()}`,
+      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
     if (!Array.isArray(data?.data)) return null;
+    const tz = deviceTimeZone();
     const map = new Map<string, PrayerTimes>();
     for (const day of data.data) {
       const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
       if (typeof gDate === "string" && day?.timings) {
-        map.set(gDate, sanitizeTimes(day.timings));
+        const [d, m, y] = gDate.split("-").map(Number);
+        map.set(gDate, adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, tz));
       }
     }
     return map;
@@ -217,12 +220,13 @@ export async function fetchPrayerTimes(
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
     const res = await fetch(
-      // school=0: Türkiye genelinde yaygın ikindi yöntemi (school=1/Hanefi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=13&school=0&midnightMode=0&${aladhanTzParam()}`,
+      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
-    return data?.data?.timings ?? null;
+    const timings = data?.data?.timings;
+    return timings ? adjustHighLatitude(timings, lat, localYMD(today), deviceTimeZone()) : null;
   } catch {
     return null;
   } finally {

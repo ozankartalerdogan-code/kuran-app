@@ -4,7 +4,8 @@ import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
 import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
-import { aladhanTzParam } from "../lib/timeZone";
+import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
+import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
 
 interface DailyVerse {
   verse_key: string;
@@ -347,14 +348,15 @@ export function useDailyContent(): UseDailyContentResult {
     const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
 
     fetch(
-      // school=0: Türkiye genelinde yaygın ikindi yöntemini hesaplar (school=1/Hanefi İkindi'yi ~1 saat geç verir)
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&method=13&school=0&midnightMode=0&${aladhanTzParam()}`,
+      // Yöntem/ikindi/temkin: lib/prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
       { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
     )
       .then((r) => r.json())
       .then((d) => {
         clearTimeout(prayerTimeoutId);
         if (!isCurrent()) return;
+        if (d?.data?.timings) d.data.timings = adjustHighLatitude(d.data.timings, coords.lat, localYMD(new Date()), deviceTimeZone());
         if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
           setPrayers(d.data.timings);
           const hijri = parseHijri(d.data.date?.hijri);
