@@ -74,6 +74,15 @@ function unwrap(prev: number, next0to360: number): number {
 
 // Hizalama eşiği — Kabe oku bu kadar derece içindeyse "hizalı" sayılır.
 const ALIGN_DEG = 5;
+// Çıkış eşiği daha geniş (histerezis): sensör gürültüsü (±1–2°) sınırda hizalı/hizasız
+// arasında hızlı gidip gelmeye (titreşim + renk/yazı yanıp sönmesi) yol açmasın.
+const UNALIGN_DEG = 6.5; // süzülmüş ibre kıpırtısı ~0.3° (A35 ölçümü); geniş pay yeşil bölgeyi kaydırıyor
+const HAPTIC_COOLDOWN_MS = 2000;
+const DEADBAND_DEG = 0.5; // bunun altındaki yön değişimi ekrana yansımaz (sensör kıpırtısı)
+// Sensör örnekleme aralığı ve ibre animasyon süresi. 100 ms'de (10 Hz) hızlı dönüşte
+// örnekler arası 20–40° atlıyor, ibre basamaklı/titrek görünüyordu (A35'te ölçüldü).
+const SENSOR_MS = 50;
+const ANIM_MS = 70;
 
 // 8 yönlü pusula gülü + 30°'lik tik açıları
 const DIRS = [
@@ -133,6 +142,8 @@ export default function KibleScreen() {
   const headingRef = useRef(0); // unwrapped heading (JS — hizalama hesabı için)
   const needleRef  = useRef(0); // unwrapped Kabe ibresi açısı
   const alignedRef = useRef(false);
+  const lastHapticRef = useRef(0);
+  const firstHeadingRef = useRef(true); // ilk ölçüm süzgeçsiz (ibre 0°'den süzülerek gelmesin)
   // getLocation() çok adımlı async (izin + 3 aşamalı konum denemesi, ~25 sn'e kadar
   // sürebilir); kullanıcı bu sırada ekrandan çıkarsa Alert/navigation/setState'in
   // artık ilgisiz bir ekranda tetiklenmesini önler.
@@ -154,31 +165,45 @@ export default function KibleScreen() {
 
     let active = true;
     gotData.current = false;
+    firstHeadingRef.current = true;
 
     // Nihai yön (0–360) → yumuşatma + akıcı animasyon + hizalama kontrolü
     const onDeg = (deg: number) => {
       if (!active || !(deg >= 0)) return;
       gotData.current = true;
       headingBuf.current = [...headingBuf.current.slice(-(SMOOTH_N - 1)), deg];
-      const avg = avgAngles(headingBuf.current); // 0–360
+      const raw = avgAngles(headingBuf.current); // 0–360
 
-      const nextH = unwrap(headingRef.current, avg);
+      // Uyarlanır alçak geçiren süzgeç: büyük dönüşte hızlı takip, dururken sensör
+      // gürültüsünü güçlü bastır; ölü bölge altındaki kıpırtı ekrana hiç yansımasın.
+      const target = unwrap(headingRef.current, raw);
+      const diff = target - headingRef.current;
+      if (!firstHeadingRef.current && Math.abs(diff) < DEADBAND_DEG) return;
+      const k = firstHeadingRef.current ? 1 : Math.min(1, 0.12 + Math.abs(diff) / 40);
+      firstHeadingRef.current = false;
+      const nextH = headingRef.current + diff * k;
+      const avg = ((nextH % 360) + 360) % 360;
       headingRef.current = nextH;
-      Animated.timing(headingAnim, { toValue: nextH, duration: 120, easing: Easing.linear, useNativeDriver: true }).start();
+      Animated.timing(headingAnim, { toValue: nextH, duration: ANIM_MS, easing: Easing.linear, useNativeDriver: true }).start();
 
       const q = qiblaRef.current;
       if (q !== null) {
         const needle0 = (q - avg + 360) % 360; // 0–360
         const nextN = unwrap(needleRef.current, needle0);
         needleRef.current = nextN;
-        Animated.timing(needleAnim, { toValue: nextN, duration: 120, easing: Easing.linear, useNativeDriver: true }).start();
+        Animated.timing(needleAnim, { toValue: nextN, duration: ANIM_MS, easing: Easing.linear, useNativeDriver: true }).start();
 
         // Hizalama: ibre ±ALIGN_DEG içindeyse → haptic (yalnız ilk girişte) + görsel vurgu
-        const aligned = needle0 <= ALIGN_DEG || needle0 >= 360 - ALIGN_DEG;
+        const off = Math.min(needle0, 360 - needle0); // Kabe'den sapma, 0–180
+        const aligned = alignedRef.current ? off <= UNALIGN_DEG : off <= ALIGN_DEG;
         if (aligned !== alignedRef.current) {
           alignedRef.current = aligned;
           setIsAligned(aligned);
-          if (aligned) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+          const now = Date.now();
+          if (aligned && now - lastHapticRef.current >= HAPTIC_COOLDOWN_MS) {
+            lastHapticRef.current = now;
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+          }
         }
       }
       setCompassOk(true);
@@ -227,8 +252,8 @@ export default function KibleScreen() {
     // doğrudan addListener dene; exception = modül build'de yok (no-mod).
     const startMagnetometer = () => {
       try {
-        Accelerometer.setUpdateInterval(100);
-        Magnetometer.setUpdateInterval(100);
+        Accelerometer.setUpdateInterval(SENSOR_MS);
+        Magnetometer.setUpdateInterval(SENSOR_MS);
         subsRef.current.push(Accelerometer.addListener(d => { accRef.current = d; }));
         subsRef.current.push(Magnetometer.addListener(({ x, y, z }) => onMag(x, y, z)));
       } catch {
@@ -247,7 +272,7 @@ export default function KibleScreen() {
       startLocationHeading();
     } else if (USE_DEVICE_MOTION) {
       try {
-        DeviceMotion.setUpdateInterval(100);
+        DeviceMotion.setUpdateInterval(SENSOR_MS);
         subsRef.current.push(
           DeviceMotion.addListener((d) => { if (d?.rotation) onDeviceMotion(d.rotation.alpha); }),
         );
