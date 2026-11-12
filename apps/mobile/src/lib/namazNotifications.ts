@@ -341,8 +341,9 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
       jobs.push(
         Notifications.scheduleNotificationAsync({
           content: {
-            title: fmt(ns.prayerTitle, { label }),
-            body:  `${fmt(ns.prayerBody, { label })}${verseLine}`,
+            // Güneş namaz vakti değil: "namaza hazırlanın" yerine sabah vaktinin çıktığını söyle.
+            title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
+            body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
             sound: true,
             data:  { route: "/namaz" },
           },
