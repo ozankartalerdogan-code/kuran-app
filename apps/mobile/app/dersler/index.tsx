@@ -9,7 +9,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERSLER_META as DERSLER, getDerslerMeta, getKategoriler } from "../../src/data/Dersler/dersler_registry";
-import { useLang, useStrings, fmt } from "../../src/i18n";
+import { useLang, useStrings, fmt, caps } from "../../src/i18n";
 import derslerStrings from "../../src/i18n/strings/dersler";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 
@@ -141,7 +141,7 @@ export default function DerslerScreen() {
             const pairs = chunk(katDersler, numColumns);
             return (
               <View key={kat.label}>
-                <Text style={[s.sectionHeader, { color: c.textMuted }]}>{kat.label}</Text>
+                <Text style={[s.sectionHeader, { color: c.textMuted }]}>{caps(kat.label)}</Text>
                 {pairs.map((pair, i) => (
                   <View key={i} style={s.row}>
                     {pair.map(item => renderCard(item))}

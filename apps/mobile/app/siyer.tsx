@@ -7,7 +7,7 @@ import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/siyer_i_nebi.json";
-import { useLang, useStrings, fmt, type Lang } from "../src/i18n";
+import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import siyerStrings from "../src/i18n/strings/siyer";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -138,7 +138,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
 
           {event.quran_refs.length > 0 && (
             <View style={ev.section}>
-              <Text style={[ev.sectionLabel, { color: c.accent }]}>{t.quranRefs}</Text>
+              <Text style={[ev.sectionLabel, { color: c.accent }]}>{caps(t.quranRefs)}</Text>
               <View style={ev.chipRow}>
                 {event.quran_refs.map(r => <QuranRefChip key={r} refKey={r} />)}
               </View>
@@ -147,7 +147,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
 
           {event.key_lessons.length > 0 && (
             <View style={ev.section}>
-              <Text style={[ev.sectionLabel, { color: c.accent }]}>{t.lessons}</Text>
+              <Text style={[ev.sectionLabel, { color: c.accent }]}>{caps(t.lessons)}</Text>
               {event.key_lessons.map((lesson, index) => (
                 <Text key={index} style={[ev.lesson, { color: c.textSecondary }]}>• {lesson}</Text>
               ))}
@@ -242,7 +242,7 @@ export default function SiyerScreen() {
           </View>
         </View>
 
-        <Text style={[s.sectionHead, { color: c.textMuted }]}>{t.periods}</Text>
+        <Text style={[s.sectionHead, { color: c.textMuted }]}>{caps(t.periods)}</Text>
 
         {PERIODS.map(period => <PeriodAccordion key={period.id} period={period} events={eventsByPeriod[period.id] ?? []} />)}
 

@@ -26,7 +26,7 @@ export default defineStrings({
     namesTitle: "Esmaül Hüsna", namesDesc: "Allah'ın 99 ismi",
     storiesTitle: "Peygamber Kıssaları", storiesDesc: "25 peygamberin kıssası",
     siyerTitle: "Siyer-i Nebî", siyerDesc: "Hz. Muhammed'in hayatı",
-    hadithTitle: "Hadisler", hadithDesc: "114 seçme sahih hadis",
+    hadithTitle: "Hadisler", hadithDesc: "219 seçme hadis, 27 konu",
     blessedTitle: "Mübarek Günler", blessedDesc: "Kandiller ve fazileti",
     // widget-ekle
     widgetTitle: "Ana Ekran Widget'ı",
@@ -73,7 +73,7 @@ export default defineStrings({
     namesTitle: "Asma ul-Husna", namesDesc: "The 99 Names of Allah",
     storiesTitle: "Stories of the Prophets", storiesDesc: "Stories of 25 prophets",
     siyerTitle: "Seerah (Life of the Prophet)", siyerDesc: "The life of the Prophet Muhammad",
-    hadithTitle: "Hadiths", hadithDesc: "114 selected authentic hadiths",
+    hadithTitle: "Hadiths", hadithDesc: "219 selected hadiths, 27 topics",
     blessedTitle: "Blessed Days", blessedDesc: "Holy nights and their virtues",
     widgetTitle: "Home Screen Widget",
     widgetSecAyahs: "Verses of Command",

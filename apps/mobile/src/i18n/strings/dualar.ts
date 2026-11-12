@@ -8,6 +8,7 @@ export default defineStrings({
     detailA11y: "Açıklama ve fazileti",
     less: "▲ Daha az",
     more: "▼ Açıklama ve fazileti",
+    categoryA11y: "{name}, {n} dua",
   },
   en: {
     title: "Duas & Dhikr",
@@ -16,5 +17,6 @@ export default defineStrings({
     detailA11y: "Explanation and virtues",
     less: "▲ Show less",
     more: "▼ Explanation and virtues",
+    categoryA11y: "{name}, {n} duas",
   },
 });

@@ -7,7 +7,7 @@ import type { ComponentProps } from "react";
 import { useColors } from "../../src/hooks/useColors";
 import { useAppTour, useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { useStrings, getLangPreference, setLangPreference, useLang } from "../../src/i18n";
+import { useStrings, getLangPreference, setLangPreference, useLang, caps } from "../../src/i18n";
 import type { LangPreference } from "../../src/i18n";
 import dahaFazlaStrings from "../../src/i18n/strings/dahaFazla";
 import { rescheduleNotificationsForLanguageChange } from "../../src/lib/namazNotifications";
@@ -100,7 +100,7 @@ export default function DahaFazlaTab() {
         {SECTIONS.map((section, si) => (
           <View key={si} {...(si === 2 ? appSectionTarget : {})} style={si > 0 ? s.section : undefined}>
             <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
-              <Text style={[s.sectionTitle, { color: c.textMuted }]}>{section.title}</Text>
+              <Text style={[s.sectionTitle, { color: c.textMuted }]}>{caps(section.title)}</Text>
             </View>
             <View style={s.cards}>
               {section.items.map((item, ii) => (
@@ -129,7 +129,7 @@ export default function DahaFazlaTab() {
 
         <View style={s.section}>
           <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
-            <Text style={[s.sectionTitle, { color: c.textMuted }]}>{str.langLabel}</Text>
+            <Text style={[s.sectionTitle, { color: c.textMuted }]}>{caps(str.langLabel)}</Text>
           </View>
           <View style={[s.card, { backgroundColor: c.card, borderColor: c.border, flexDirection: "column", alignItems: "stretch", gap: 10 }]}>
             <Text style={[s.sub, { color: c.textMuted, marginTop: 0 }]}>{str.langSub}</Text>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
-  View, Text, TouchableOpacity, StyleSheet,
+  View, Text, TouchableOpacity, StyleSheet, ScrollView,
   ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing, Platform,
 } from "react-native";
 import { Stack, router } from "expo-router";
@@ -10,8 +10,9 @@ import { Magnetometer, Accelerometer, DeviceMotion } from "expo-sensors";
 import * as Haptics from "expo-haptics";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useColors } from "../src/hooks/useColors";
-import { useStrings, getStrings } from "../src/i18n";
+import { useStrings, getStrings, fmt, localeTag, caps } from "../src/i18n";
 import kibleStrings from "../src/i18n/strings/kible";
+import { magneticDeclination } from "../src/lib/geomagnetism";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -44,14 +45,6 @@ function calcQibla(lat: number, lng: number): number {
   const x    = Math.sin(dLng) * Math.cos(φ2);
   const y    = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(dLng);
   return (toDeg(Math.atan2(x, y)) + 360) % 360;
-}
-
-// Manyetik sapma (deklinasyon) — pusula manyetik kuzeyi, kıble gerçek kuzeyi kullanır.
-// Türkiye için kaba yaklaşım (2025): doğuya gidildikçe ~+4.5° → +7°E artar.
-// gerçek_yön = manyetik_yön + sapma. (Türkiye dışında kabaca; uygulama TR odaklı.)
-function calcDeclination(lat: number, lng: number): number {
-  const d = 4.5 + (lng - 27) * 0.15;
-  return Math.max(0, Math.min(8, d)); // makul aralığa sıkıştır
 }
 
 function calcDist(lat: number, lng: number): number {
@@ -128,7 +121,6 @@ export default function KibleScreen() {
   const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
-  const [cityName, setCityName]   = useState("");
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
   const [isAligned, setIsAligned] = useState(false);
@@ -360,12 +352,12 @@ export default function KibleScreen() {
       return;
     }
 
-    declRef.current = calcDeclination(coords.latitude, coords.longitude);
+    // Manyetik sapma: pusula manyetik kuzeyi, kıble gerçek kuzeyi kullanır (NOAA WMM2025, dünya geneli).
+    declRef.current = magneticDeclination(coords.latitude, coords.longitude);
     const q = calcQibla(coords.latitude, coords.longitude);
     qiblaRef.current = q;
     setQibla(q);
     setDistance(calcDist(coords.latitude, coords.longitude));
-    setCityName("Konumunuz");
     setStep("compass");
   }, [goHome]);
 
@@ -401,8 +393,14 @@ export default function KibleScreen() {
   return (
     <>
       <Stack.Screen options={{ title: ks.screenTitle }} />
-      <View style={[s.container, dark && { backgroundColor: "#042f2e" }, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}>
+      <View style={[s.container, dark && { backgroundColor: "#042f2e" }]}>
         <BgGradient isDark={dark} />
+        {/* Küçük ekranda uyarı kutusu çıkınca "Konumu Yenile" taşmasın diye kaydırılabilir. */}
+        <ScrollView
+          style={s.scroll}
+          contentContainerStyle={[s.scrollContent, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}
+          showsVerticalScrollIndicator={false}
+        >
 
         {/* Kalibrasyon — sade tek satır */}
         {showCalib && (
@@ -412,9 +410,9 @@ export default function KibleScreen() {
           </TouchableOpacity>
         )}
 
-        <Text style={[s.cityLabel, dark && { color: "#ccfbf1" }]}>{cityName}</Text>
+        <Text style={[s.cityLabel, dark && { color: "#ccfbf1" }]}>{ks.yourLocation}</Text>
         {distance != null && (
-          <Text style={[s.distText, dark && { color: "#5eead4" }]}>Kabe'ye {Math.round(distance).toLocaleString("tr-TR")} km</Text>
+          <Text style={[s.distText, dark && { color: "#5eead4" }]}>{fmt(ks.distanceToKaaba, { d: Math.round(distance).toLocaleString(localeTag()) })}</Text>
         )}
 
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
@@ -471,7 +469,7 @@ export default function KibleScreen() {
         <View style={[s.badge, dark && { backgroundColor: "#134e4a", borderColor: "#0f766e" }, isAligned && [s.badgeOk, dark && { backgroundColor: "#064e3b", borderColor: "#34d399" }]]}>
           <Text style={[s.badgeNum, dark && { color: "#a7f3d0" }, isAligned && [s.badgeNumOk, dark && { color: "#6ee7b7" }]]}>{Math.round(qibla ?? 0)}°</Text>
           <Text style={[s.badgeSub, dark && { color: "#5eead4" }, isAligned && [s.badgeSubOk, dark && { color: "#34d399" }]]}>
-            {isAligned ? ks.aligned : ks.northToKaaba}
+            {caps(isAligned ? ks.aligned : ks.northToKaaba)}
           </Text>
         </View>
 
@@ -498,6 +496,7 @@ export default function KibleScreen() {
         >
           <Text style={[s.backBtnText, { color: c.accent }]}>{ks.refresh}</Text>
         </TouchableOpacity>
+        </ScrollView>
       </View>
     </>
   );
@@ -506,7 +505,9 @@ export default function KibleScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", padding: 20, paddingBottom: 40 },
+  container: { flex: 1, backgroundColor: "#f0fdfa" },
+  scroll: { flex: 1, alignSelf: "stretch" },
+  scrollContent: { flexGrow: 1, alignItems: "center", paddingHorizontal: 20 },
   centered:  { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", justifyContent: "center", gap: 12 },
   loadingText: { fontSize: 16, fontWeight: "600", color: "#134e4a", marginTop: 8 },
   loadingSub:  { fontSize: 12, color: "#5eead4" },

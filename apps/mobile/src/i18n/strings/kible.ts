@@ -7,6 +7,8 @@ export default defineStrings({
     permBody: "Kıble pusulası için konum iznine ihtiyaç var.\n\nAyarlar → Uygulama → Kuran Yolu → İzinler → Konum → İzin Ver",
     goSettings: "Ayarlara Git",
     ok: "Tamam",
+    yourLocation: "Konumunuz",
+    distanceToKaaba: "Kabe'ye {d} km",
     noLocTitle: "Konum Alınamadı",
     noLocBody: "GPS sinyali bulunamadı.\n\n• Açık alanda deneyin\n• WiFi veya mobil veriyi açın\n• Telefon ayarlarından konum servisini etkinleştirin",
     locating: "Konumunuz alınıyor…",
@@ -43,6 +45,8 @@ export default defineStrings({
     hint: "📱 Turn your phone; when the 🕋 needle lines up with the red ▼ at the top, you are facing the Kaaba",
     refreshA11y: "Refresh location",
     refresh: "🔄 Refresh Location",
+    yourLocation: "Your location",
+    distanceToKaaba: "{d} km to the Kaaba",
     K: "N", KD: "NE", D: "E", GD: "SE", G: "S", GB: "SW", B: "W", KB: "NW",
   },
 });

@@ -18,6 +18,17 @@ const FIXES = {
   "12:22": ["bukmanw", "hukmanw"],
   "12:97": ["zunoo =banaaa", "zunoobanaaa"],
   "25:34": [/\s*\)section 3\)$/, ""],
+  // Harf tekrarı/yanlış harf dizgi hataları (cihaz testinde 2:255 ile fark edildi).
+  "2:79": ["aydddhim", "aydeehim"],
+  "2:255": ["wa mww khalfahum", "wa maa khalfahum"],
+  "4:85": ["saiyi'atanny-yakul", "saiyi'atany-yakul"],
+  "6:77": ["falammmmaaa", "falammaaa"],
+  "16:12": ["sakkhkhara", "sakhkhara"],
+  "25:59": ["summmmastawaa", "summastawaa"],
+  "27:8": ["finnnnaari", "fin naari"],
+  "32:4": ["minw-wwaliyyinw-wala", "minw-waliyyinw wa laa"],
+  "33:39": ["yakkhshawna", "yakhshawna"],
+  "75:36": ["anyytraka", "any-yutraka"],
 };
 
 const raw = readFileSync(SRC);

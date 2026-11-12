@@ -9,7 +9,7 @@ import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/peygamber_kissalari.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
-import { useLang, useStrings, fmt } from "../src/i18n";
+import { useLang, useStrings, fmt, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import kissalarStrings from "../src/i18n/strings/peygamberKissalari";
 
@@ -159,7 +159,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Kuran referansları */}
           {p.kuran_referanslari_ozet && p.kuran_referanslari_ozet.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.quranRefs}</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.quranRefs)}</Text>
               <View style={st.refRow}>
                 {p.kuran_referanslari_ozet.map(r => <RefChip key={r} refKey={r} />)}
               </View>
@@ -169,7 +169,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Kıssalar */}
           {p.kissa.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.stories}</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.stories)}</Text>
               {p.kissa.map((k, i) => <KissaCard key={i} kissa={k} />)}
             </View>
           )}
@@ -177,7 +177,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Mucizeler */}
           {p.mucizeler && p.mucizeler.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.miracles}</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.miracles)}</Text>
               {p.mucizeler.map((m, i) => (
                 <Text key={i} style={[st.bullet, { color: c.textSecondary }]}>• {m}</Text>
               ))}
@@ -187,7 +187,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Dersler */}
           {p.dersler && p.dersler.length > 0 && (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.lessons}</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.lessons)}</Text>
               {p.dersler.map((d, i) => (
                 <Text key={i} style={[st.bullet, { color: c.textSecondary }]}>• {d}</Text>
               ))}
@@ -206,7 +206,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
                 accessibilityHint={notesOpen ? t.notesHintClose : t.notesHintOpen}
                 accessibilityState={{ expanded: notesOpen }}
               >
-                <Text style={[st.sectionLabel, { color: c.accent }]}>{t.notes}</Text>
+                <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.notes)}</Text>
                 <Text style={[st.chev, { color: c.textMuted }]}>{notesOpen ? "▲" : "▼"}</Text>
               </TouchableOpacity>
               {notesOpen && p.ozel_notlar.map((n, i) => (
@@ -265,7 +265,7 @@ export default function PeygamberKissalariScreen() {
         )}
 
         <Text style={[s.sectionHead, { color: c.textMuted }]}>
-          {fmt(t.prophets, { n: PEYGAMBERLER.length })}
+          {caps(fmt(t.prophets, { n: PEYGAMBERLER.length }))}
         </Text>
 
         {PEYGAMBERLER.map(p => <PeygamberCard key={p.id} p={p} />)}

@@ -37,12 +37,19 @@ import { formatMorphologyTr, translatePosTr } from "../../../../../packages/core
 import { pickAttributionFreeMealText } from "../../../../../packages/core/src/presentation/combinedMealBlocks";
 import { englishMeal, EN_MEAL_SOURCE } from "../../../src/lib/englishMeal";
 import { literalEn } from "../../../src/lib/literalEn";
-import { useLang, useStrings, getStrings, fmt } from "../../../src/i18n";
+import { useLang, useStrings, getStrings, fmt, caps } from "../../../src/i18n";
 import { localizedVerseTranslit, EN_TRANSLIT_SOURCE } from "../../../src/lib/verseTranslitEn";
 import { wordMeaningEn, rootMeaningEn } from "../../../src/lib/wordMeaningsEn";
 import ayahStrings from "../../../src/i18n/strings/ayah";
 import storageErrorStrings from "../../../src/i18n/strings/storageErrors";
 import { useSurahNameOf } from "../../../src/lib/surahNames";
+
+// Latin satırda Arapça kök/lemma sonrası " · " ayırıcısı sağdan-sola akışa kapılıp
+// yer değiştirmesin ("Lemma: · بَلَغ3rd person"): her Arapça kümeden sonra LRM.
+const ARABIC_RUN = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFC]+/g;
+function ltrAfterArabic(s: string): string {
+  return s.replace(ARABIC_RUN, (m) => m + "\u200E");
+}
 
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
@@ -739,8 +746,9 @@ export default function AyahDetailScreen() {
       <Stack.Screen options={{ title: headerTitle }} />
       <ScrollView
         {...tourScroll}
-        style={[styles.scroll, { backgroundColor: colors.bg }]}
-        contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 8, paddingBottom: 24 }]}
+        // Üst boşluk kaydırılan içeriğin dışında: okunuş durum çubuğunun altına girmesin.
+        style={[styles.scroll, { backgroundColor: colors.bg, marginTop: insets.top }]}
+        contentContainerStyle={[styles.scrollContent, { paddingTop: 8, paddingBottom: 24 }]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
@@ -948,7 +956,7 @@ export default function AyahDetailScreen() {
                       {/* Anlam */}
                       <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                         <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                          {ay.meaning}
+                          {caps(ay.meaning)}
                         </Text>
                         <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
                           {displayWordMeaning(lang, data.verseKey, w) ?? ay.noMeaning}
@@ -963,7 +971,7 @@ export default function AyahDetailScreen() {
                           accessibilityLabel={fmt(ay.wordTypeA11y, { pos: translatePosTr(w.pos, "—", lang) })}
                         >
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                            {ay.type}
+                            {caps(ay.type)}
                           </Text>
                       <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
                         {translatePosTr(w.pos, "—", lang)}
@@ -975,10 +983,10 @@ export default function AyahDetailScreen() {
                       {formatMorphologyTr(w.morphology, lang) ? (
                         <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                           <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                            {ay.morphology}
+                            {caps(ay.morphology)}
                           </Text>
                           <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
-                            {formatMorphologyTr(w.morphology, lang)}
+                            {ltrAfterArabic(formatMorphologyTr(w.morphology, lang))}
                           </Text>
                         </View>
                       ) : null}
@@ -986,7 +994,7 @@ export default function AyahDetailScreen() {
                       {/* Kök */}
                       <View style={[styles.wordDetailRow, { borderTopColor: colors.border }]}>
                         <Text style={[styles.wordDetailLabel, { color: colors.textMuted }]}>
-                          {ay.root}
+                          {caps(ay.root)}
                         </Text>
                         {isRootClickable(w) ? (
                           <TouchableOpacity
