@@ -36,8 +36,10 @@ import { TAJWEED_LEGEND } from "../../../src/lib/tajweed";
 import { formatMorphologyTr, translatePosTr } from "../../../../../packages/core/src/presentation/morphologyLabels";
 import { pickAttributionFreeMealText } from "../../../../../packages/core/src/presentation/combinedMealBlocks";
 import { englishMeal, EN_MEAL_SOURCE } from "../../../src/lib/englishMeal";
+import { literalEn } from "../../../src/lib/literalEn";
 import { useLang, useStrings, getStrings, fmt } from "../../../src/i18n";
 import { localizedTranslit } from "../../../src/lib/translitEn";
+import { wordMeaningEn, rootMeaningEn } from "../../../src/lib/wordMeaningsEn";
 import ayahStrings from "../../../src/i18n/strings/ayah";
 import { useSurahNameOf } from "../../../src/lib/surahNames";
 
@@ -99,16 +101,32 @@ function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: The
 
 // ── Ham Anlam Özeti bileşeni ──────────────────────────────────────────────────
 
+// İngilizce arayüzde İngilizce anlam; yoksa Türkçe (iki dil yan yana gösterilmez).
+function displayWordMeaning(
+  lang: string,
+  verseKey: string,
+  w: AyahDetailResponse["words"][number],
+): string | null {
+  if (lang === "en") {
+    const en = wordMeaningEn(verseKey, w.wordIndex, w.meaningTr);
+    if (en) return en;
+  }
+  return w.meaningTr;
+}
+
 function RawMeaningSummary({
   words,
+  verseKey,
   colors,
 }: {
   words: AyahDetailResponse["words"];
+  verseKey: string;
   colors: ThemeColors;
 }) {
   const ay = useStrings(ayahStrings);
+  const lang = useLang();
   const meanings = words
-    .map((w) => w.meaningTr?.trim())
+    .map((w) => displayWordMeaning(lang, verseKey, w)?.trim())
     .filter((m): m is string => typeof m === "string" && m.length > 0);
 
   if (meanings.length === 0) return null;
@@ -140,6 +158,7 @@ function UniqueRootList({
   colors: ThemeColors;
 }) {
   const ay = useStrings(ayahStrings);
+  const lang = useLang();
   const rootMap = new Map<string, number>();
   for (const w of words) {
     if (w.root?.trim()) {
@@ -161,7 +180,8 @@ function UniqueRootList({
   return (
     <View style={styles.rootsGrid}>
       {roots.map(([root, count]) => {
-        const meaning = rootMeanings[root];
+        const meaningTr = rootMeanings[root];
+        const meaning = (lang === "en" ? rootMeaningEn(root, meaningTr ?? null) : null) ?? meaningTr;
         return (
           <TouchableOpacity
             key={root}
@@ -553,6 +573,11 @@ export default function AyahDetailScreen() {
     () => (lang === "en" && data ? englishMeal(data.verseKey) : null),
     [lang, data]
   );
+  // Literal çeviri: EN modda yalnız İngilizce karşılık (yoksa bölüm gizlenir), TR'de sunucu metni.
+  const literalText = useMemo(
+    () => (!data ? null : lang === "en" ? literalEn(data.verseKey) : data.literalCeviri || null),
+    [lang, data]
+  );
   const shareMeal = useMemo(
     () => enMeal ?? (data ? pickAttributionFreeMealText(data.verseKey, data.meal, data.literalCeviri) : null),
     [data, enMeal]
@@ -920,7 +945,7 @@ export default function AyahDetailScreen() {
                           {ay.meaning}
                         </Text>
                         <Text style={[styles.wordDetailValue, { color: colors.textSecondary }]}>
-                          {w.meaningTr ?? ay.noMeaning}
+                          {displayWordMeaning(lang, data.verseKey, w) ?? ay.noMeaning}
                         </Text>
                       </View>
 
@@ -1002,20 +1027,22 @@ export default function AyahDetailScreen() {
           <View style={styles.tabContent}>
 
             {/* Literal Çeviri */}
-            {data.literalCeviri ? (
+            {literalText ? (
               <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>{ay.literalTitle}</Text>
                 <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
                   {ay.literalSub}
                 </Text>
                 <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
-                  {data.literalCeviri}
+                  {literalText}
                 </Text>
               </View>
             ) : null}
 
-            {/* Fark Analizi */}
-            {data.farkAnalizi ? (
+            {/* Fark Analizi — İngilizce modda gizli: Türkçe meal ile Türkçe literal farkını
+                karşılaştırır, İngilizcede anlamsız. İleride İngilizceye özgü analiz
+                (Pickthall ile İngilizce literal) eklenecek. */}
+            {lang !== "en" && data.farkAnalizi ? (
               <View style={[styles.analysisCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.analysisCardTitle, { color: colors.textPrimary }]}>{ay.diffTitle}</Text>
                 <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted }]}>
@@ -1029,11 +1056,11 @@ export default function AyahDetailScreen() {
 
 
             {/* Ham Anlam Özeti */}
-            <RawMeaningSummary words={data.words} colors={colors} />
+            <RawMeaningSummary words={data.words} verseKey={data.verseKey} colors={colors} />
 
             {/* Tema Etiketleri — atama doğruluğu teyit edilene kadar kullanıcıya gizli.
                 Etiket verisi ve tag'e göre arama DB'de duruyor; yalnızca bu kart gizlendi. */}
-            {SHOW_THEME_TAGS && (data.anaTema || data.altTaglar?.length > 0) && (
+            {SHOW_THEME_TAGS && lang !== "en" && (data.anaTema || data.altTaglar?.length > 0) && (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>{ay.themeTags}</Text>
                 <View style={styles.tagRow}>
@@ -1065,7 +1092,7 @@ export default function AyahDetailScreen() {
             )}
 
             {/* Hiç veri yoksa */}
-            {!data.literalCeviri && !data.farkAnalizi && data.words.filter((w) => w.meaningTr?.trim()).length === 0 && (
+            {!literalText && !(lang !== "en" && data.farkAnalizi) && data.words.filter((w) => displayWordMeaning(lang, data.verseKey, w)?.trim()).length === 0 && (
               <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
                 <Text style={[styles.emptyText, { color: colors.textMuted }]}>
                   {ay.noAnalysis}

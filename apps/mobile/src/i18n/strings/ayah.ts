@@ -150,7 +150,7 @@ export default defineStrings({
     noWordData: "No word analysis data.",
     rootsTitle: "ROOTS",
     literalTitle: "Literal Translation",
-    literalSub: "Word-for-word rendering",
+    literalSub: "AI-assisted English rendering of the app's Turkish literal translation",
     diffTitle: "Difference Analysis",
     diffSub: "Differences in meaning between the translation and the literal rendering",
     themeTags: "THEME TAGS",

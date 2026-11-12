@@ -82,11 +82,19 @@ function chipText(tag: string, trLabel: string, s: Record<string, string>): stri
   return s[tag] ?? trLabel;
 }
 
-function tagLabel(tag: string): string {
+// İngilizce modda eşlemesi olmayan etiket null döner (Türkçe göstermemek için gizlenir).
+function tagLabel(tag: string): string | null {
   const s = getStrings(tagStrings) as Record<string, string>;
-  if (tag.startsWith("namaz-"))    return `${s.namaz} · ${NAMAZ_CHIPS.find(c => c.tag === tag) ? chipText(tag, "", s) : tag.slice(6)}`;
-  if (tag.startsWith("korunma-"))  return `${s.korunma} · ${KORUNMA_CHIPS.find(c => c.tag === tag) ? chipText(tag, "", s) : tag.slice(8)}`;
-  if (tag.startsWith("ismiazam-")) return `${s.ismiazam} · ${ISMIAZAM_CHIPS.find(c => c.tag === tag) ? chipText(tag, "", s) : tag.slice(9)}`;
+  const en = getLang() === "en";
+  const groups: [string, string, { tag: string }[]][] = [
+    ["namaz-", s.namaz, NAMAZ_CHIPS], ["korunma-", s.korunma, KORUNMA_CHIPS], ["ismiazam-", s.ismiazam, ISMIAZAM_CHIPS],
+  ];
+  for (const [prefix, title, chips] of groups) {
+    if (!tag.startsWith(prefix)) continue;
+    if (chips.some(c => c.tag === tag)) return `${title} · ${chipText(tag, "", s)}`;
+    return en ? null : `${title} · ${tag.slice(prefix.length)}`;
+  }
+  if (en) return null;
   if (tag.startsWith("dua-"))      return `Dua · ${tag.slice(4)}`;
   const parts = tag.replace(/_%$/, "").split("_");
   return parts.length >= 2 ? `${parts[0]} · ${parts.slice(1).join(" ").toLocaleLowerCase("tr-TR")}` : tag;
@@ -193,7 +201,7 @@ function TagCard({ tag, count }: { tag: string; count: number }) {
         </View>
         <View style={styles.cardBody}>
           <Text style={[styles.typeLabel, { color: amber }]}>{ss.themeFound}</Text>
-          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{tag}</Text>
+          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{getLang() === "en" ? (tagLabel(tag) ?? "") : tag}</Text>
           <Text style={[styles.tagCount, { color: amber }]}>{fmt(ss.tagCount, { n: count })}</Text>
         </View>
       </View>
@@ -486,9 +494,11 @@ export default function SearchScreen() {
       {/* Aktif filtre göstergesi */}
       {state.status === "tag_results" && (
         <View style={styles.filterBar}>
-          <View style={[styles.filterBadge, c.isDark && { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>
-            <Text style={[styles.filterText, c.isDark && { color: "#a5b4fc" }]}>{fmt(ss.filterCount, { label: tagLabel(state.tag), n: state.total })}</Text>
-          </View>
+          {tagLabel(state.tag) ? (
+            <View style={[styles.filterBadge, c.isDark && { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>
+              <Text style={[styles.filterText, c.isDark && { color: "#a5b4fc" }]}>{fmt(ss.filterCount, { label: tagLabel(state.tag) ?? "", n: state.total })}</Text>
+            </View>
+          ) : <View />}
           <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.removeFilterA11y}>
             <Text style={styles.filterClear}>{ss.removeFilter}</Text>
           </TouchableOpacity>
@@ -577,7 +587,7 @@ export default function SearchScreen() {
         if (d.type === "tag") return (
           <View style={styles.singleWrap}>
             <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultFor, { q: query.trim() })}</Text>
-            <TagCard tag={d.tag} count={d.count} />
+            {getLang() !== "en" || tagLabel(d.tag) ? <TagCard tag={d.tag} count={d.count} /> : null}
           </View>
         );
         if (d.type === "verses") return (

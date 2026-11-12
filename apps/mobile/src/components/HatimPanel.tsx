@@ -21,6 +21,7 @@ import {
   type Hatim, type HatimStore,
 } from "../lib/hatim";
 import { ayetinSayfasi } from "../lib/mushafSayfa";
+import { useSurahNameOf } from "../lib/surahNames";
 import { logFeature } from "../lib/analytics";
 import { READING_MAX_WIDTH } from "../lib/layout";
 import { useStrings, fmt, localeTag } from "../i18n";
@@ -40,6 +41,7 @@ type Props = {
 export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
   const c = useColors();
   const t = useStrings(componentStrings);
+  const surahNameOf = useSurahNameOf();
   const loc = localeTag();
   const insets = useSafeAreaInsets();
   const [store, setStore]     = useState<HatimStore>(EMPTY_HATIM_STORE);
@@ -223,7 +225,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                           </View>
                           <View style={{ flex: 1 }}>
                             <Text style={[st.juzTitle, { color: done ? green : c.text }]}>{fmt(t.juzTitle, { n: juz.juz })}</Text>
-                            <Text style={[st.juzRange, { color: c.textMuted }]}>{juz.startName} {juz.startAyah} – {juz.endName} {juz.endAyah}</Text>
+                            <Text style={[st.juzRange, { color: c.textMuted }]}>{surahNameOf(juz.startSurah, juz.startName)} {juz.startAyah} – {surahNameOf(juz.endSurah, juz.endName)} {juz.endAyah}</Text>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity

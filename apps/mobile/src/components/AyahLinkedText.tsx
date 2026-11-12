@@ -11,6 +11,8 @@ import { router } from "expo-router";
 import { parseAyahRefs } from "../lib/ayahRefs";
 import { splitInternalTokens, resolveInternalLink } from "../lib/internalLinks";
 import { api } from "../lib/api";
+import { useStrings, fmt } from "../i18n";
+import componentStrings from "../i18n/strings/components";
 
 type Props = {
   children: string;
@@ -25,6 +27,7 @@ const linkTextStyle = (color: string): TextStyle => ({
 });
 
 export function AyahLinkedText({ children, style, linkColor = "#c9a84c" }: Props) {
+  const cs = useStrings(componentStrings);
   const text = children ?? "";
   const parts = splitInternalTokens(text);
 
@@ -45,7 +48,7 @@ export function AyahLinkedText({ children, style, linkColor = "#c9a84c" }: Props
           style={linkTextStyle(linkColor)}
           onPress={() => router.push(href as never)}
           accessibilityRole="link"
-          accessibilityLabel={`${part.label} — aç`}
+          accessibilityLabel={fmt(cs.linkOpenA11y, { label: part.label })}
         >
           {part.label}
         </Text>,

@@ -48,8 +48,32 @@ function widgetMeal(ayet: EmirAyet): string {
   }
 }
 
+// Widget metinleri (a11y + hata) — meal ile aynı gerekçeyle tembel require; olmazsa Türkçe.
+type WidgetStr = {
+  widgetOpenA11y: string; widgetRefreshA11y: string; widgetErrorA11y: string; widgetErrorText: string;
+  fill: (tpl: string, p: Record<string, string>) => string;
+};
+function widgetStrings(): WidgetStr {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+    const i18n = require("../i18n") as typeof import("../i18n");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+    const cs = (require("../i18n/strings/components") as typeof import("../i18n/strings/components")).default;
+    return { ...i18n.getStrings(cs), fill: i18n.fmt };
+  } catch {
+    return {
+      widgetOpenA11y: "{badge}. {meal}. Ayeti uygulamada açmak için dokun.",
+      widgetRefreshA11y: "Başka bir emir ayeti göster",
+      widgetErrorA11y: "İçerik yüklenemedi, Kuran Yolu uygulamasını açmak için dokun",
+      widgetErrorText: "İçerik yüklenemedi. Açmak için dokunun.",
+      fill: (tpl, p) => tpl.replace(/\{(\w+)\}/g, (_, k: string) => p[k] ?? ""),
+    };
+  }
+}
+
 export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; theme?: Theme }) {
   const c = PALETTES[theme];
+  const ws = widgetStrings();
   const meal = widgetMeal(ayet);
   const deepLink = `kuranyolu://surah/${ayet.surah_id}/ayah/${ayet.ayah_number}`;
   const badge = ayet.surah_name
@@ -60,7 +84,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
     <FlexWidget
       clickAction="OPEN_URI"
       clickActionData={{ uri: deepLink }}
-      accessibilityLabel={`${badge}. ${meal}. Ayeti uygulamada açmak için dokun.`}
+      accessibilityLabel={ws.fill(ws.widgetOpenA11y, { badge, meal })}
       style={{
         height: "match_parent",
         width: "match_parent",
@@ -90,7 +114,7 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
             glifinin kendisi (~14sp) dokunması zor bir hedef olurdu. */}
         <FlexWidget
           clickAction="REFRESH_AYET"
-          accessibilityLabel="Başka bir emir ayeti göster"
+          accessibilityLabel={ws.widgetRefreshA11y}
           style={{ width: 36, height: 36, alignItems: "center", justifyContent: "center" }}
         >
           <TextWidget text="↻" style={{ color: c.textMuted, fontSize: 16 }} />
@@ -118,10 +142,11 @@ export function EmirAyetWidget({ ayet, theme = "light" }: { ayet: EmirAyet; them
 // placeholder'da sonsuza dek takılı kalmaması için — dokununca yine de uygulamayı açar.
 function EmirAyetWidgetFallback({ theme = "light" }: { theme?: Theme }) {
   const c = PALETTES[theme];
+  const ws = widgetStrings();
   return (
     <FlexWidget
       clickAction="OPEN_APP"
-      accessibilityLabel="İçerik yüklenemedi, Kuran Yolu uygulamasını açmak için dokun"
+      accessibilityLabel={ws.widgetErrorA11y}
       style={{
         height: "match_parent",
         width: "match_parent",
@@ -135,7 +160,7 @@ function EmirAyetWidgetFallback({ theme = "light" }: { theme?: Theme }) {
       }}
     >
       <TextWidget
-        text="İçerik yüklenemedi. Açmak için dokunun."
+        text={ws.widgetErrorText}
         style={{ color: c.textMuted, fontSize: 12, textAlign: "center" }}
         maxLines={3}
       />

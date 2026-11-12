@@ -16,12 +16,13 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { useStrings, getStrings, fmt } from "../src/i18n";
+import { useStrings, getStrings, useLang, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
 export default function FavorilerScreen() {
   const c = useColors();
   const t = useStrings(personalStrings);
   const mealOf = useMealOf();
+  const isEn = useLang() === "en";
   const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const {
@@ -97,7 +98,7 @@ export default function FavorilerScreen() {
       {item.meal && (
         <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{mealOf(item.verse_key, item.meal)}</Text>
       )}
-      {(item.ana_tema || item.alt_taglar?.length > 0) && (
+      {!isEn && (item.ana_tema || item.alt_taglar?.length > 0) && (
         <View style={styles.tagRow}>
           {item.ana_tema && (
             <TouchableOpacity
@@ -125,7 +126,7 @@ export default function FavorilerScreen() {
         </View>
       )}
     </TouchableOpacity>
-  ), [c, handleRemoveOne, mealOf, surahNameOf, t]);
+  ), [c, handleRemoveOne, isEn, mealOf, surahNameOf, t]);
 
   if (!loaded || loading) {
     return (

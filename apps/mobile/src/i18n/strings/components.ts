@@ -66,6 +66,11 @@ export default defineStrings({
     shareTextA11y: "Metin olarak paylaş",
     shareText: "Metin Olarak Paylaş",
     giveUp: "Vazgeç",
+    linkOpenA11y: "{label} — aç",
+    widgetOpenA11y: "{badge}. {meal}. Ayeti uygulamada açmak için dokun.",
+    widgetRefreshA11y: "Başka bir emir ayeti göster",
+    widgetErrorA11y: "İçerik yüklenemedi, Kuran Yolu uygulamasını açmak için dokun",
+    widgetErrorText: "İçerik yüklenemedi. Açmak için dokunun.",
   },
   en: {
     close: "Close",
@@ -128,5 +133,10 @@ export default defineStrings({
     shareTextA11y: "Share as text",
     shareText: "Share as Text",
     giveUp: "Cancel",
+    linkOpenA11y: "{label} — open",
+    widgetOpenA11y: "{badge}. {meal}. Tap to open the verse in the app.",
+    widgetRefreshA11y: "Show another command verse",
+    widgetErrorA11y: "Content could not be loaded. Tap to open the Kuran Yolu app",
+    widgetErrorText: "Content could not be loaded. Tap to open.",
   },
 });

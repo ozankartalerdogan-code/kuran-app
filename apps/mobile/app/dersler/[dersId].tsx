@@ -20,7 +20,8 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { getDers, getQuizFor, getBaslik } from "../../src/data/Dersler/dersler_registry";
-import { useLang } from "../../src/i18n";
+import { useLang, useStrings, fmt } from "../../src/i18n";
+import derslerStrings from "../../src/i18n/strings/dersler";
 import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
@@ -78,21 +79,22 @@ function scoreEmoji(score: number, total: number) {
 // ─── Yakında ekranı ───────────────────────────────────────────────────────
 
 function YakindaEkran({ baslik }: { baslik: string }) {
+  const t = useStrings(derslerStrings);
   const insets = useSafeAreaInsets();
   const c = useColors();
   return (
     <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
-          <Text style={s.accent}>‹ Geri</Text>
+        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
+          <Text style={s.accent}>{t.backBtn}</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
         <View style={s.headerSide} />
       </View>
       <View style={s.center}>
         <Text style={{ fontSize: 56 }}>📚</Text>
-        <Text style={[s.placeholderText, { color: c.textMuted }]}>Bu ders içeriği şu anda görüntülenemiyor.</Text>
+        <Text style={[s.placeholderText, { color: c.textMuted }]}>{t.unavailable}</Text>
       </View>
     </View>
   );
@@ -127,6 +129,7 @@ export default function DersDetayScreen() {
 
   const dersKey  = dersId ?? "";
   const lang     = useLang();
+  const t        = useStrings(derslerStrings);
   const dersData = getDers(dersKey, lang);
   const quizData = getQuizFor(dersKey, lang);
   // Normalize bozuk soruları eler; hasQuiz gerçek kullanılabilir soru sayısına
@@ -283,8 +286,8 @@ export default function DersDetayScreen() {
             <Text style={s.accent}>‹ Geri</Text>
           </TouchableOpacity>
           <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Kart moduna geç">
-            <Text style={[s.accent, { fontSize: 12 }]}>Kart Modu</Text>
+          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.cardModeA11y}>
+            <Text style={[s.accent, { fontSize: 12 }]}>{t.cardMode}</Text>
           </TouchableOpacity>
         </View>
 
@@ -304,8 +307,8 @@ export default function DersDetayScreen() {
           ))}
 
           {hasQuiz && (
-            <TouchableOpacity style={[s.nextBtn, { marginTop: 28 }]} onPress={startQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Teste başla">
-              <Text style={s.nextBtnText}>Teste Başla</Text>
+            <TouchableOpacity style={[s.nextBtn, { marginTop: 28 }]} onPress={startQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.startQuizA11y}>
+              <Text style={s.nextBtnText}>{t.startQuiz}</Text>
             </TouchableOpacity>
           )}
         </ScrollView>
@@ -329,7 +332,7 @@ export default function DersDetayScreen() {
         <View style={s.contentColumn}>
         <View style={[s.header, { borderBottomColor: c.border }]}>
           <View style={s.headerSide} />
-          <Text style={[s.headerTitle, { color: c.text }]}>Sonuç</Text>
+          <Text style={[s.headerTitle, { color: c.text }]}>{t.result}</Text>
           <View style={s.headerSide} />
         </View>
 
@@ -351,9 +354,9 @@ export default function DersDetayScreen() {
               <Text style={s.scoreEmoji}>{emoji}</Text>
             )}
             <Text style={[s.scoreText, { color: c.text }]}>
-              {score} / {qTotal} doğru
+              {fmt(t.scoreCorrect, { score, total: qTotal })}
             </Text>
-            <Text style={[s.scorePct, { color: c.textMuted }]}>%{pct} başarı</Text>
+            <Text style={[s.scorePct, { color: c.textMuted }]}>{fmt(t.scorePct, { pct })}</Text>
             <View style={[s.scoreBarTrack, { backgroundColor: c.border }]}>
               <View style={[s.scoreBarFill, { width: barW }]} />
             </View>
@@ -363,13 +366,13 @@ export default function DersDetayScreen() {
           {wrongAnswers.length > 0 && (
             <View style={{ marginTop: 20 }}>
               <Text style={[s.wrongTitle, { color: c.textMuted }]}>
-                Yanlış Cevapladıkların ({wrongAnswers.length})
+                {fmt(t.wrongTitle, { n: wrongAnswers.length })}
               </Text>
               {wrongAnswers.map((q, i) => (
                 <View key={q.id} style={[s.wrongCard, { backgroundColor: c.card, borderColor: c.border }]}>
                   <Text style={[s.wrongQ, { color: c.text }]}>{i + 1}. {q.soru}</Text>
                   <Text style={s.wrongCorrect}>
-                    ✓ Doğru cevap: {q.cevaplar.find(c => c.harf === q.dogru)?.metin}
+                    {fmt(t.correctAnswer, { answer: q.cevaplar.find(c => c.harf === q.dogru)?.metin ?? "" })}
                   </Text>
                   {q.aciklama ? (
                     <Text style={[s.wrongAciklama, { color: c.textMuted }]}>{q.aciklama}</Text>
@@ -387,12 +390,12 @@ export default function DersDetayScreen() {
             onPress={returnToLesson}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel="Derse dön"
+            accessibilityLabel={t.backToLessonA11y}
           >
-            <Text style={[s.prevBtnText, { color: c.text }]}>Derse Dön</Text>
+            <Text style={[s.prevBtnText, { color: c.text }]}>{t.backToLesson}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[s.nextBtn, { flex: 1 }]} onPress={retryQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Testi tekrar çöz">
-            <Text style={s.nextBtnText}>Tekrar Çöz</Text>
+          <TouchableOpacity style={[s.nextBtn, { flex: 1 }]} onPress={retryQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
+            <Text style={s.nextBtnText}>{t.retry}</Text>
           </TouchableOpacity>
         </View>
         </View>
@@ -439,12 +442,12 @@ export default function DersDetayScreen() {
             onPress={returnToLesson}
             activeOpacity={0.7}
             accessibilityRole="button"
-            accessibilityLabel="Derse dön"
+            accessibilityLabel={t.backToLessonA11y}
           >
-            <Text style={s.accent} numberOfLines={1}>← Derse Dön</Text>
+            <Text style={s.accent} numberOfLines={1}>{t.backToLessonArrow}</Text>
           </TouchableOpacity>
           <Text style={[s.headerTitle, { color: c.text }]}>
-            Soru {qIndex + 1}/{qTotal}
+            {fmt(t.questionOf, { i: qIndex + 1, n: qTotal })}
           </Text>
           <View style={s.headerSide} />
         </View>
@@ -509,10 +512,10 @@ export default function DersDetayScreen() {
             activeOpacity={0.8}
             accessibilityRole="button"
             accessibilityState={{ disabled: !showResult }}
-            accessibilityLabel={qIndex + 1 >= qTotal ? "Sonuçları gör" : "Sonraki soru"}
+            accessibilityLabel={qIndex + 1 >= qTotal ? t.seeResultsA11y : t.nextQuestionA11y}
           >
             <Text style={s.nextBtnText}>
-              {qIndex + 1 >= qTotal ? "Sonuçları Gör" : "Sonraki Soru →"}
+              {qIndex + 1 >= qTotal ? t.seeResults : t.nextQuestion}
             </Text>
           </TouchableOpacity>
         </View>
@@ -530,13 +533,13 @@ export default function DersDetayScreen() {
       <View style={s.contentColumn}>
       {/* Header */}
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
-          <Text style={s.accent}>‹ Geri</Text>
+        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
+          <Text style={s.accent}>{t.backBtn}</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? "Kart moduna geç" : "Tümünü oku"}>
+        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}>
           <Text style={[s.accent, { fontSize: 12 }]}>
-            {readMode ? "Kart Modu" : "Tümünü Oku"}
+            {readMode ? t.cardMode : t.readAll}
           </Text>
         </TouchableOpacity>
       </View>
@@ -564,7 +567,7 @@ export default function DersDetayScreen() {
               source={gorselSrc}
               style={s.gorselImg}
               resizeMode="cover"
-              alt="Ders görseli"
+              alt={t.lessonImageAlt}
             />
           </View>
         )}
@@ -586,10 +589,10 @@ export default function DersDetayScreen() {
           disabled={isFirst}
           activeOpacity={0.7}
           accessibilityRole="button"
-          accessibilityLabel="Önceki kart"
+          accessibilityLabel={t.prevCardA11y}
           accessibilityState={{ disabled: isFirst }}
         >
-          <Text style={[s.prevBtnText, { color: isFirst ? c.textMuted : "#c9a84c" }]}>← Önceki</Text>
+          <Text style={[s.prevBtnText, { color: isFirst ? c.textMuted : "#c9a84c" }]}>{t.prevCard}</Text>
         </TouchableOpacity>
 
         {isLast ? (
@@ -599,14 +602,14 @@ export default function DersDetayScreen() {
             disabled={!hasQuiz}
             activeOpacity={0.8}
             accessibilityRole="button"
-            accessibilityLabel="Teste başla"
+            accessibilityLabel={t.startQuizA11y}
             accessibilityState={{ disabled: !hasQuiz }}
           >
-            <Text style={s.nextBtnText}>Teste Başla</Text>
+            <Text style={s.nextBtnText}>{t.startQuiz}</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity {...lessonNextTarget} style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Sonraki kart">
-            <Text style={s.nextBtnText}>Sonraki →</Text>
+          <TouchableOpacity {...lessonNextTarget} style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.nextCardA11y}>
+            <Text style={s.nextBtnText}>{t.nextCard}</Text>
           </TouchableOpacity>
         )}
       </View>

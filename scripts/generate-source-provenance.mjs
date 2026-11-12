@@ -323,6 +323,40 @@ const entries = [
     ]),
   },
   {
+    id: "ai-english-word-meanings-literal-v1",
+    sourceUrls: [],
+    classification: "user-declared-ai-assisted-project-output",
+    sourceContribution: "Existing per-word English glosses (gloss_en, attributed in the word-by-word source entries) exported read-only from the local DB; the app's Turkish word meanings, root meanings and Turkish literal translation.",
+    projectContribution: "English meanings for words without gloss_en, English root meanings, an AI-assisted English rendering of the Turkish literal translation, and corrections of clearly wrong Turkish word/root meanings found during translation.",
+    toolModel: "OpenAI Codex gpt-6.1-terra (word/root meanings, error review); Gemini 3.8 Flash (Medium) via agy (literal translation)",
+    method: "Batch translation and two-stage error review 2026-11-12 (first pass per Turkish meaning, second pass per Arabic form/root with Quranic verse context); build-time validation (no missing keys, no Turkish letters, untranslated-value check); corrections applied with exact-match UPDATEs after a DB backup.",
+    generatedAt: "2026-11-12",
+    humanReview: "Spot checks only; full human review pending.",
+    exactResearchUrlHistoryPreserved: false,
+    evidenceGap: RESEARCH_HISTORY_GAP,
+    artifacts: artifactGroup([
+      "scripts/export-word-meanings-en-source.mjs",
+      "scripts/build-word-meanings-en.mjs",
+      "scripts/translate-literal-en.mjs",
+      "scripts/review-word-meanings-tr.mjs",
+      "scripts/review-word-meanings-tr-stage2.mjs",
+      "scripts/review-root-meanings-tr-stage2.mjs",
+      "scripts/apply-word-corrections.mjs",
+      "apps/mobile/src/data/wordMeaningsEn.json",
+      "content/ayah-literal/literal.tr.json",
+      ...readdirSync(path.join(REPO_ROOT, "content/words"))
+        .filter((f) => f.endsWith(".json"))
+        .sort()
+        .map((f) => `content/words/${f}`),
+      ...["apps/mobile/src/data/wordGlossEn", "apps/mobile/src/data/literalEn"].flatMap((dir) =>
+        readdirSync(path.join(REPO_ROOT, dir))
+          .filter((f) => f.endsWith(".json"))
+          .sort()
+          .map((f) => `${dir}/${f}`),
+      ),
+    ]),
+  },
+  {
     id: "codex-hadith-translations",
     sourceUrls: [],
     classification: "user-declared-ai-assisted-project-output",

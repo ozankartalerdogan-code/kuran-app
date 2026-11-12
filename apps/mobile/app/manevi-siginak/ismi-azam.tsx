@@ -63,7 +63,7 @@ function useColors() {
 
 // ── Bileşenler ──────────────────────────────────────────────────────────────
 
-function StepList({ steps, colors }: { steps: string[]; colors: ReturnType<typeof useColors> }) {
+function StepList({ steps, colors }: { steps: readonly string[]; colors: ReturnType<typeof useColors> }) {
   return (
     <View style={{ gap: 8 }}>
       {steps.map((s, i) => (
@@ -78,7 +78,7 @@ function StepList({ steps, colors }: { steps: string[]; colors: ReturnType<typeo
   );
 }
 
-function BulletList({ items, colors }: { items: string[]; colors: ReturnType<typeof useColors> }) {
+function BulletList({ items, colors }: { items: readonly string[]; colors: ReturnType<typeof useColors> }) {
   return (
     <View style={{ gap: 6 }}>
       {items.map((item, i) => (
@@ -227,6 +227,19 @@ function ayetKey(ref: string): string | null {
   return /\b(\d{1,3}:\d{1,3})\b/.exec(ref)?.[1] ?? null;
 }
 
+// Görünen ref etiketi: TR'de olduğu gibi; EN'de refEn ya da "Al-Hadid 57:1" biçimi.
+// (Kısmi-ayet denetimi ayetKey içinde Türkçe ref üzerinden yapılır.)
+function refLabel(
+  a: { ref: string; refEn?: string },
+  lang: string,
+  surahNameOf: (id: number, tr: string) => string,
+): string {
+  if (lang !== "en") return a.ref;
+  if (a.refEn) return a.refEn;
+  const m = /^(.*?)\s*(\d{1,3}):(\d{1,3})$/.exec(a.ref);
+  return m ? `${surahNameOf(Number(m[2]), m[1])} ${m[2]}:${m[3]}` : a.ref;
+}
+
 // ── Metot Kutusu (Hadis metodları için, Arapça yoksa) ───────────────────────
 
 function MetotKutusu({
@@ -235,12 +248,13 @@ function MetotKutusu({
 }: {
   baslik: string; kaynak: string; aciklama: string; uygulama: string;
   colors: ReturnType<typeof useColors>; puan?: "10/10" | "8/10";
-  ayetler?: { arapca: string; transkripsiyon: string; anlam: string; ref: string }[];
+  ayetler?: { arapca: string; transkripsiyon: string; anlam: string; ref: string; refEn?: string; anlamEn?: string }[];
   accordion?: boolean;
 }) {
   const mealOf = useMealOf();
   const ia = useStrings(ismiStrings);
   const lang = useLang();
+  const surahNameOf = useSurahNameOf();
   const [expanded, setExpanded] = React.useState(false);
   const isSekiz    = puan === "8/10";
   const bg         = isSekiz ? colors.violetBg      : colors.amberBg;
@@ -281,7 +295,7 @@ function MetotKutusu({
       {/* Ayet metinleri — DuaKartiFull tarzında */}
       {showAyetler && ayetler && ayetler.map((a, i) => (
         <View key={i} style={{ marginBottom: 14 }}>
-          <Text style={[styles.badgeText, { color: labelColor, marginBottom: 6 }]}>{a.ref}</Text>
+          <Text style={[styles.badgeText, { color: labelColor, marginBottom: 6 }]}>{refLabel(a, lang, surahNameOf)}</Text>
           <View style={[styles.arabicBox, { borderColor: border }]}>
             <Text style={[styles.arabicText, { color: colors.text, writingDirection: "rtl" as const }]}>
               {a.arapca}
@@ -291,7 +305,7 @@ function MetotKutusu({
             <Text style={{ fontWeight: "700" }}>{ia.reading}</Text>{localizedTranslit(a.transkripsiyon, lang)}
           </Text>
           <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
-            <Text style={{ fontWeight: "700" }}>{ia.meaning}</Text>{mealOf(ayetKey(a.ref), a.anlam)}
+            <Text style={{ fontWeight: "700" }}>{ia.meaning}</Text>{mealOf(ayetKey(a.ref), lang === "en" ? (a.anlamEn ?? a.anlam) : a.anlam)}
           </Text>
         </View>
       ))}
@@ -462,19 +476,16 @@ export default function IsmiAzamScreen() {
                 {/* Kişisel not */}
         <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}> 
           <Text style={[styles.bodyText, { color: colors.amberText }]}> 
-            <Text style={{ fontWeight: "700" }}>Not: </Text>
-            İsmi Azam, sadece harflerin dizilişine indirgenmez; kulun ihlas, teslimiyet ve dua haliyle Rabbine yönelişini de hatırlatır.
-            Kelimeler kadar, o kelimeleri taşıyan kalbin duruşu da önemlidir.
+            <Text style={{ fontWeight: "700" }}>{ia.noteLabel}</Text>
+            {ia.noteBody}
           </Text>
         </View>
 
                 {/* Ulema açıklaması */}
         <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}> 
-          <Text style={[styles.kutuBaslik, { color: colors.amberText }]}>Alimlerin Ortak Kanaati</Text>
+          <Text style={[styles.kutuBaslik, { color: colors.amberText }]}>{ia.ulemaTitle}</Text>
           <Text style={[styles.bodyText, { color: colors.textSecondary }]}> 
-            Birçok alim, İsmi Azam bahsinde rivayetle gelen lafızları muhafaza ederken bu konuyu sadece bir harf formülüne indirgememenin daha isabetli olduğunu söyler.
-            Bu yüzden burada sahih rivayetle gelen duaları aynen koruyor; irfani açıklamaları ise kalbi hazırlayan bir çerçeve olarak sunuyoruz.
-            Mesele yalnızca hangi ismi söylediğin değil; o ismi <Text style={{ fontWeight: "700" }}>hangi kalple söylediğin</Text>dir.
+            {ia.ulemaA}<Text style={{ fontWeight: "700" }}>{ia.ulemaB}</Text>{ia.ulemaC}
           </Text>
         </View>
 
@@ -485,9 +496,9 @@ export default function IsmiAzamScreen() {
               <Text>🟢</Text>
               <Text style={[styles.badgeScore, { color: colors.emeraldText }]}>10/10</Text>
             </View>
-            <Text style={[styles.guvenTitle, { color: colors.text }]}>Kesin Sünnet / Kur'an</Text>
+            <Text style={[styles.guvenTitle, { color: colors.text }]}>{ia.trust10Title}</Text>
             <Text style={[styles.guvenDesc, { color: colors.textMuted }]}>
-              Hz. Peygamber'in bizzat "İsmi Azam" dediği, sahih hadislerle sabit ayet ve dualar.
+              {ia.trust10Desc}
             </Text>
           </View>
           <View style={[styles.guvenCard, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
@@ -495,23 +506,18 @@ export default function IsmiAzamScreen() {
               <Text>🟡</Text>
               <Text style={[styles.badgeScore, { color: colors.amberText }]}>8/10</Text>
             </View>
-            <Text style={[styles.guvenTitle, { color: colors.text }]}>Meşru ve Makbul</Text>
+            <Text style={[styles.guvenTitle, { color: colors.text }]}>{ia.trust8Title}</Text>
             <Text style={[styles.guvenDesc, { color: colors.textMuted }]}>
-              Sahabe ve ulema tertibi; sahih ayet ve esmalardan oluşan, alimlerce kabul görmüş uygulamalar.
+              {ia.trust8Desc}
             </Text>
           </View>
         </View>
 
         {/* ── Bölüm 1: Sahih İsmi Azam ──────────────────────────────── */}
-        <Text style={[styles.bolumBaslik, { color: colors.text }]}>🟢 Sahih İsmi Azam — Rivayetler ve Metodlar</Text>
+        <Text style={[styles.bolumBaslik, { color: colors.text }]}>{ia.sec1Title}</Text>
 
-        <Kutu baslik="İrfani Şart — Nasıl Dua Edilir?" colors={colors}>
-          <StepList steps={[
-            "Abdest al, 2 rekat hacet namazı kıl.",
-            "Kalbini dünyalıklardan arındır. İsmi Azam, ağızdan çıkan kelime değil, kalbin ulaştığı bir «hal»dir.",
-            "Allah'tan başka hiçbir şeyi düşünme. O'nu görüyormuş gibi bir ihlas haline gir.",
-            "Niyet et: «Allah'ım, senin yüce isimlerine sığındım. Acziyetimi itiraf ediyor, yalnız senden istiyorum.»",
-          ]} colors={colors} />
+        <Kutu baslik={ia.irfaniTitle} colors={colors}>
+          <StepList steps={ia.irfaniSteps} colors={colors} />
         </Kutu>
 
         {ismiAzamDualari.map((dua) => (
@@ -519,15 +525,17 @@ export default function IsmiAzamScreen() {
         ))}
 
         <MetotKutusu
-          baslik="el-Hayyü'l-Kayyûm Sırrı — Übey b. Kâ'b Rivayeti"
-          kaynak="Tirmizî · Sahih"
-          aciklama="Hz. Peygamber, İsmi Azam'ın Bakara, Âl-i İmrân ve Tâhâ surelerinde olduğunu bildirmiştir. Bu üç surede ortak olan vasıf: «el-Hayyü'l-Kayyûm» — Ebedî diri, her şeyi ayakta tutan."
-          uygulama="«Yâ Hayyü, Yâ Kayyûm» diyerek Allah'a yönel; aşağıdaki üç ayeti sırasıyla oku."
+          baslik={ia.hayyTitle}
+          kaynak={ia.hayySource}
+          aciklama={ia.hayyDesc}
+          uygulama={ia.hayyPractice}
           accordion
           colors={colors}
           ayetler={[
             {
               ref: "Bakara 2:255 — Âyetü'l-Kürsî (başı)",
+              refEn: ia.hayyRef1,
+              anlamEn: ia.hayyMeaning1,
               arapca: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
               transkripsiyon: "Allâhü lâ ilâhe illâ hüvel-Hayyül-Kayyûm",
               anlam: "Allah, O'ndan başka ilah yoktur; O Hayy (diri) ve Kayyûm (her şeyi ayakta tutan)'dur.",
@@ -548,10 +556,10 @@ export default function IsmiAzamScreen() {
         />
 
         <MetotKutusu
-          baslik="Esma binti Yezid (r.anha) Rivayeti"
-          kaynak="İbn Mâce · Sahih"
-          aciklama="Hz. Peygamber şöyle buyurdu: «Allah'ın İsmi Azam'ı şu iki ayettedir: Bakara 163 ve Âl-i İmrân 2.»"
-          uygulama="Bu iki ayeti 3'er defa oku; ardından «Yâ Rahmân, Yâ Rahîm, Yâ Hayy, Yâ Kayyûm» diyerek dua et."
+          baslik={ia.asmaTitle}
+          kaynak={ia.asmaSource}
+          aciklama={ia.asmaDesc}
+          uygulama={ia.asmaPractice}
           accordion
           colors={colors}
           ayetler={[
@@ -571,10 +579,10 @@ export default function IsmiAzamScreen() {
         />
 
         <MetotKutusu
-          baslik="Hz. Ali (r.a.) Tavsiyesi"
-          kaynak="Sahih Sahabi Uygulaması"
-          aciklama="Hz. Ali şöyle buyurdu: «Allah'a İsmi Azam'ı ile dua etmek istediğinde, Hadid Suresi'nin ilk on ayetini ve Haşr Suresi'nin son üç ayetini oku.» (Toplam 13 ayet)"
-          uygulama="Hadid 1–10 ardından Haşr 22–24 oku; secdede isteklerini dile getir."
+          baslik={ia.aliTitle}
+          kaynak={ia.aliSource}
+          aciklama={ia.aliDesc}
+          uygulama={ia.aliPractice}
           puan="8/10"
           accordion
           colors={colors}
@@ -660,16 +668,16 @@ export default function IsmiAzamScreen() {
           ]}
         />
 
-        <VerseSubHeader label="İsmi Azam Ayetleri" colors={colors} />
-        <TagVerseAccordion tag="ismiazam-ayet" label="İsmi Azam Ayetlerini Aç" colors={colors} renk="amber" />
+        <VerseSubHeader label={ia.subHeader1} colors={colors} />
+        <TagVerseAccordion tag="ismiazam-ayet" label={ia.openAcc1} colors={colors} renk="amber" />
 
         {/* ── Bölüm 2: Sekine Duası ─────────────────────────────────── */}
-        <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>🌀 Sekine Bölümü — 19 Ayet Tertibi</Text>
+        <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>{ia.sec2Title}</Text>
 
         {/* Tabut-u Sekine */}
         <View style={[styles.kutu, { backgroundColor: colors.violetBg, borderColor: colors.violetBorder }]}>
           <Text style={[styles.duaBaslik, { color: colors.violetText, marginBottom: 8 }]}>
-            📦 Tabut-u Sekine Nedir?
+            {ia.tabutTitle}
           </Text>
 
           {/* Arapça RTL */}
@@ -692,52 +700,34 @@ export default function IsmiAzamScreen() {
         {/* Bakara 250 */}
         <DuaKartiFull dua={bakara250} colors={colors} ayet="2:250" />
 
-        <Kutu baslik="Çerçeve Notu" colors={colors} renk="violet">
+        <Kutu baslik={ia.frameTitle} colors={colors} renk="violet">
           <Text style={[styles.inlineNote, { color: colors.textSecondary }]}>
-            Bu bölümdeki 19'lu tertip, sahih hadisle sabit tek zorunlu biçim olarak değil; sahih ayetler ve esmâlarla kurulmuş yaygın bir manevi okuma düzeni olarak sunulmaktadır.
+            {ia.frameBody}
           </Text>
         </Kutu>
 
-        <Kutu baslik="Hazırlık" colors={colors} renk="violet">
-          <StepList steps={[
-            "Zihnini dünya gailelerinden arındır, kalbini Allah'ın rızasına odakla.",
-            "7 kez «Estağfirullah el-Azîm» oku.",
-            "7 kez salavat getir.",
-            "10 kez «Allahu Ekber» de.",
-          ]} colors={colors} />
+        <Kutu baslik={ia.prepTitle} colors={colors} renk="violet">
+          <StepList steps={ia.prepSteps} colors={colors} />
         </Kutu>
 
-        <Kutu baslik="Dairesel Zikir Tertibi" colors={colors} renk="violet">
-          <StepList steps={[
-            "Besmele çek.",
-            "Şu 6 esmayı oku: «Ferdün, Hayyün, Kayyûmün, Hakemün, Adlün, Kuddûsün».",
-            "Hemen ardından listedeki ilk Sekine ayetini oku.",
-            "Bu üçlüyü (Besmele + 6 Esma + Ayet) 19 kez tekrar ederek bir okuma halkası oluştur.",
-            "Aynı döngüyü listedeki diğer ayetler için de sürdür.",
-            "Uygulamada kimi kişiler bunu günlere bölerek, kimileri tek oturuşta okuyarak tamamlar.",
-          ]} colors={colors} />
+        <Kutu baslik={ia.circleTitle} colors={colors} renk="violet">
+          <StepList steps={ia.circleSteps} colors={colors} />
         </Kutu>
 
         <View style={[styles.kutu, { backgroundColor: colors.violetBg, borderColor: colors.violetBorder }]}>
-          <Text style={[styles.kutuBaslik, { color: colors.violetText }]}>Tevafuk Notu</Text>
-          <BulletList items={[
-            "Besmele 19 harftir.",
-            "6 esma (Ferdün, Hayyün, Kayyûmün, Hakemün, Adlün, Kuddûsün) toplam 19 harftir.",
-            "Sekine listesindeki ayet sayısı 19'dur.",
-            "Bazı uygulamalarda bu tevafuk, manevi tamamlanmayı hatırlatan bir işaret olarak yorumlanır.",
-          ]} colors={colors} />
+          <Text style={[styles.kutuBaslik, { color: colors.violetText }]}>{ia.tevafukTitle}</Text>
+          <BulletList items={ia.tevafukItems} colors={colors} />
         </View>
 
-        <VerseSubHeader label="Sekine Duası Ayetleri (Sırasıyla)" colors={colors} />
-        <TagVerseAccordion tag="ismiazam-sekine" label="Sekine Ayetlerini Aç" colors={colors} renk="violet" />
+        <VerseSubHeader label={ia.subHeader2} colors={colors} />
+        <TagVerseAccordion tag="ismiazam-sekine" label={ia.openAcc2} colors={colors} renk="violet" />
 
         {/* ── Bölüm 3: Günlük Korunma Duaları ────────────────────────── */}
-        <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>🛡️ Günlük Korunma Duaları</Text>
+        <Text style={[styles.bolumBaslik, { color: colors.text, marginTop: 8 }]}>{ia.sec3Title}</Text>
 
-        <Kutu baslik="Korunma Duaları Hakkında" colors={colors}>
+        <Kutu baslik={ia.aboutTitle} colors={colors}>
           <Text style={[styles.bodyText, { color: colors.textSecondary }]}>
-            Aşağıdaki dualar, Peygamber Efendimiz'in (s.a.v.) bizzat okuduğu ve ümmetine tavsiye ettiği,
-            sahih hadislerle sabit günlük korunma dualarıdır. Her biri 10/10 güvenilirlik puanına sahiptir.
+            {ia.aboutBody}
           </Text>
         </Kutu>
 
@@ -748,7 +738,7 @@ export default function IsmiAzamScreen() {
         {/* Tavsiye */}
         <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
           <Text style={[styles.bodyText, { color: colors.amberText, textAlign: "center", fontWeight: "600" }]}>
-            📿 Bu duaları günlük rutininize ekleyin. Allah'ın izniyle sizi görünmez kazalardan ve şerlerden muhafaza eder.
+            {ia.advice}
           </Text>
         </View>
 

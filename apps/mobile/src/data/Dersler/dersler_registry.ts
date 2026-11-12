@@ -40,7 +40,22 @@ function formatRefs(
     .filter(Boolean);
 }
 
-function buildModuleLessonBody(lesson: Record<string, unknown>): string {
+// Modül derslerinin kart etiketleri; İngilizce modda (.en.json) İngilizce kurulur.
+const MODULE_LABELS = {
+  tr: {
+    symptoms: "Belirtiler:", treatment: "Neler yapılabilir:", practice: "Uygulama:",
+    reflection: "Muhasebe sorusu:", shortDua: "Kısa dua:", quranRefs: "Ayet dayanakları:",
+    hadithRefs: "Hadis dayanakları:", lesson: "Ders", howToRead: "Bu Ders Nasıl Okunmalı?",
+  },
+  en: {
+    symptoms: "Signs:", treatment: "What can be done:", practice: "Practice:",
+    reflection: "Self-reflection question:", shortDua: "Short dua:", quranRefs: "Qur'anic references:",
+    hadithRefs: "Hadith references:", lesson: "Lesson", howToRead: "How to Read This Lesson",
+  },
+} as const;
+
+function buildModuleLessonBody(lesson: Record<string, unknown>, lang: Lang = "tr"): string {
+  const L = MODULE_LABELS[lang === "en" ? "en" : "tr"];
   const appContent = toRecord(lesson.appContent);
   const body = toStringList(appContent?.body);
   const symptoms = toStringList(appContent?.symptoms);
@@ -66,13 +81,13 @@ function buildModuleLessonBody(lesson: Record<string, unknown>): string {
   if (summary) sections.push(summary);
   if (intro && intro !== summary) sections.push(intro);
   if (body.length > 0) sections.push(body.map((item) => `\u2022 ${item}`).join("\n"));
-  if (symptoms.length > 0) sections.push(`Belirtiler:\n${symptoms.map((item) => `\u2022 ${item}`).join("\n")}`);
-  if (treatment.length > 0) sections.push(`Neler yap\u0131labilir:\n${treatment.map((item) => `\u2022 ${item}`).join("\n")}`);
-  if (practice) sections.push(`Uygulama:\n${practice}`);
-  if (reflection) sections.push(`Muhasebe sorusu:\n${reflection}`);
-  if (shortDua) sections.push(`K\u0131sa dua:\n${shortDua}`);
-  if (quranRefs.length > 0) sections.push(`Ayet dayanaklar\u0131:\n\u2022 ${quranRefs.join("\n\u2022 ")}`);
-  if (hadithRefs.length > 0) sections.push(`Hadis dayanaklar\u0131:\n\u2022 ${hadithRefs.join("\n\u2022 ")}`);
+  if (symptoms.length > 0) sections.push(`${L.symptoms}\n${symptoms.map((item) => `\u2022 ${item}`).join("\n")}`);
+  if (treatment.length > 0) sections.push(`${L.treatment}\n${treatment.map((item) => `\u2022 ${item}`).join("\n")}`);
+  if (practice) sections.push(`${L.practice}\n${practice}`);
+  if (reflection) sections.push(`${L.reflection}\n${reflection}`);
+  if (shortDua) sections.push(`${L.shortDua}\n${shortDua}`);
+  if (quranRefs.length > 0) sections.push(`${L.quranRefs}\n\u2022 ${quranRefs.join("\n\u2022 ")}`);
+  if (hadithRefs.length > 0) sections.push(`${L.hadithRefs}\n\u2022 ${hadithRefs.join("\n\u2022 ")}`);
 
   return sections.join("\n\n");
 }
@@ -81,7 +96,7 @@ function buildModuleLessonBody(lesson: Record<string, unknown>): string {
 // dizi tasavvufi tasnifin Kur'an'da zorunlu tek şema gibi görünmesini önlemek için
 // dersin İLK kartı olarak gösterilir — aksi halde bu not yalnız JSON'da kalır,
 // kullanıcı hiç görmez.
-function buildMethodologyIntroCard(raw: unknown, moduleId: string) {
+function buildMethodologyIntroCard(raw: unknown, moduleId: string, lang: Lang = "tr") {
   const methodology = toRecord(toRecord(raw)?.methodology);
   if (!methodology) return null;
   const notice = typeof methodology.importantNotice === "string" ? methodology.importantNotice : "";
@@ -91,13 +106,13 @@ function buildMethodologyIntroCard(raw: unknown, moduleId: string) {
   return {
     id: `${moduleId}_metodoloji`,
     tip: "metin",
-    baslik: "Bu Ders Nasıl Okunmalı?",
+    baslik: MODULE_LABELS[lang === "en" ? "en" : "tr"].howToRead,
     icerik: parts.join("\n\n"),
     vurgu: notice || classification,
   };
 }
 
-function normalizeLessonModule(raw: unknown, fallbackIcon: string) {
+function normalizeLessonModule(raw: unknown, fallbackIcon: string, lang: Lang = "tr") {
   const r = toRecord(raw);
   if (r?.kartlar) return raw;
 
@@ -105,21 +120,21 @@ function normalizeLessonModule(raw: unknown, fallbackIcon: string) {
   const baslik = typeof r?.title === "string" ? r.title : moduleId;
   const aciklama = typeof r?.subtitle === "string" ? r.subtitle : "";
   const lessons = Array.isArray(r?.lessons) ? r.lessons : [];
-  const methodologyCard = buildMethodologyIntroCard(raw, moduleId);
+  const methodologyCard = buildMethodologyIntroCard(raw, moduleId, lang);
 
   const lessonCards = lessons
     .map((item: unknown, index: number) => {
       const lesson = toRecord(item);
       if (!lesson) return null;
       const lessonId = typeof lesson.id === "string" ? lesson.id : `${moduleId}_k${String(index + 1).padStart(2, "0")}`;
-      const lessonTitle = typeof lesson.title === "string" ? lesson.title : `Ders ${index + 1}`;
+      const lessonTitle = typeof lesson.title === "string" ? lesson.title : `${MODULE_LABELS[lang === "en" ? "en" : "tr"].lesson} ${index + 1}`;
       const summary = typeof lesson.summary === "string" ? lesson.summary : "";
       const mainMessage = typeof lesson.mainMessage === "string" ? lesson.mainMessage : "";
       return {
         id: lessonId,
         tip: "metin",
         baslik: lessonTitle,
-        icerik: buildModuleLessonBody(lesson),
+        icerik: buildModuleLessonBody(lesson, lang),
         vurgu: mainMessage || summary || lessonTitle,
       };
     })
@@ -231,7 +246,7 @@ const RAW_KAYITLAR: Kayit[] = [
     },
     dersEn: () => {
       const m = safeRequire(() => require("./nefsini_tani_ders_modulu.en.json"), "nefsini_tani_ders_modulu.en");
-      return m ? normalizeLessonModule(m, "🪞") : null;
+      return m ? normalizeLessonModule(m, "🪞", "en") : null;
     },
     quizEn: () => {
       const m = safeRequire(() => require("./nefsini_tani_quiz.en.json"), "nefsini_tani_quiz.en");

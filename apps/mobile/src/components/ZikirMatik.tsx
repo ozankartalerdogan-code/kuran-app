@@ -9,7 +9,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
 import { useKeepAwakeSafe } from "../hooks/useKeepAwakeSafe";
 import { getDevotionalSourceLabel } from "../lib/sourceLabels";
-import { useStrings, fmt } from "../i18n";
+import { useStrings, useLang, fmt } from "../i18n";
+import { localizedTranslit } from "../lib/translitEn";
 import componentStrings from "../i18n/strings/components";
 
 // Modal içeriği yalnız görünürken mount olur → zikir çekilirken ekran uyanık
@@ -93,6 +94,9 @@ const BeadRing = React.memo(function BeadRing({ pct, ringSize, trackColor }: { p
 export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const c      = useColors();
   const t      = useStrings(componentStrings);
+  const lang   = useLang();
+  // Hazır zikir adları Türkçe okunuşla saklanır (anahtar); yalnız görüntüde çevrilir.
+  const zName  = (n: string) => localizedTranslit(n, lang);
   const insets = useSafeAreaInsets();
 
   const [zikirIdx,          setZikirIdx]          = useState(0);
@@ -379,14 +383,14 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 activeOpacity={0.75}
                 accessibilityRole="button"
                 accessibilityState={{ selected: active }}
-                accessibilityLabel={z.ozel ? t.customLabel : z.isim}
+                accessibilityLabel={z.ozel ? t.customLabel : zName(z.isim)}
                 style={[m.pill, {
                   backgroundColor: active ? LACIVERT : (c.isDark ? "#151c2e" : "#f1f5f9"),
                   borderColor: active ? ALTIN : (c.isDark ? "#252f45" : "#cbd5e1"),
                 }]}
               >
                 {/* Pil kutusu sabit 125×80 — sistem yazı ölçeği sınırlanmazsa metin taşar */}
-                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.2}>{z.ozel ? t.customLabel : z.isim}</Text>
+                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.2}>{z.ozel ? t.customLabel : zName(z.isim)}</Text>
                 <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]} maxFontSizeMultiplier={1.2}>
                   ×{z.ozel ? customTarget : (targetOverrides[z.isim] ?? z.hedef)}
                 </Text>
@@ -463,7 +467,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
           <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.isDark ? "#252f45" : "#cbd5e1" }]}>
             <Text style={[m.arabicText, { color: c.text }]}>{zikir.arapca}</Text>
             <View style={m.presetSubRow}>
-              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zikir.isim} · {sourceLabel} · </Text>
+              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zName(zikir.isim)} · {sourceLabel} · </Text>
               {editingPreset ? (
                 <TextInput
                   style={[m.savedHedefInput, { color: c.text, borderColor: c.border }]}
@@ -518,7 +522,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
             <Pressable
               onPress={tap}
               accessibilityRole="button"
-              accessibilityLabel={fmt(t.pullA11y, { name: isOzel ? (customName || t.customDhikr) : zikir.isim })}
+              accessibilityLabel={fmt(t.pullA11y, { name: isOzel ? (customName || t.customDhikr) : zName(zikir.isim) })}
               accessibilityHint={`${count} / ${target}`}
               style={({ pressed }) => [m.tapBtn, { opacity: pressed ? 0.85 : 1 }]}
             >

@@ -13,6 +13,7 @@ import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
+import { rootMeaningEn, meaningTextEn } from "../../../src/lib/wordMeaningsEn";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
 import { useStrings, getStrings, fmt, useLang } from "../../../src/i18n";
 import rootStrings from "../../../src/i18n/strings/root";
@@ -155,6 +156,9 @@ const MeaningGroup = memo(function MeaningGroup({
   c: AppColors;
 }) {
   const t = useStrings(rootStrings);
+  const lang = useLang();
+  // Grup anahtarı Türkçe kalır (toggle/gruplama); yalnız görünen metin İngilizceye çevrilir.
+  const shown = (lang === "en" ? meaningTextEn(meaning) : null) ?? meaning;
   return (
     <View style={[s.accordionCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
@@ -162,13 +166,13 @@ const MeaningGroup = memo(function MeaningGroup({
         onPress={() => onToggle(meaning)}
         activeOpacity={0.7}
         accessibilityRole="button"
-        accessibilityLabel={fmt(t.meaningGroupA11y, { meaning })}
+        accessibilityLabel={fmt(t.meaningGroupA11y, { meaning: shown })}
         accessibilityHint={fmt(t.groupHint, { n: verses.length, action: isOpen ? t.actionClose : t.actionOpen })}
         accessibilityState={{ expanded: isOpen }}
       >
         <View style={{ flex: 1 }}>
           <Text style={[s.accordionTitle, { color: c.text }]}>
-            {meaning}
+            {shown}
             <Text style={[s.accordionCount, { color: c.accent }]}>{fmt(t.versesCount, { n: verses.length })}</Text>
           </Text>
           <Text style={[s.accordionForms, { color: c.textMuted }]} numberOfLines={1}>
@@ -210,6 +214,7 @@ const MeaningGroup = memo(function MeaningGroup({
 export default function RootDetailScreen() {
   const c = useColors();
   const t = useStrings(rootStrings);
+  const lang = useLang();
   const insets = useSafeAreaInsets();
   const heatmapTarget = useTourTarget("root.heatmap");
   const tourScroll = useTourScroller<FlatList>();
@@ -325,7 +330,8 @@ export default function RootDetailScreen() {
 
   // Başlık daima kökün sözlük anlamı (liste kartıyla aynı kaynak). Boşsa,
   // kelime düzeyi anlamına DÜŞMÜYORUZ — aksi halde başlık listeyle çelişir.
-  const displayMeaning = data.meaningTr;
+  const displayMeaning =
+    (lang === "en" ? rootMeaningEn(root, data.meaningTr) : null) ?? data.meaningTr;
 
   return (
     <>

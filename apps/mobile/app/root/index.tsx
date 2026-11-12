@@ -13,7 +13,8 @@ import { router, Stack } from "expo-router";
 import { api, type RootItem } from "../../src/lib/api";
 import { useColors, type AppColors } from "../../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { useStrings, getStrings, fmt } from "../../src/i18n";
+import { useStrings, getStrings, fmt, useLang } from "../../src/i18n";
+import { rootMeaningEn } from "../../src/lib/wordMeaningsEn";
 import rootStrings from "../../src/i18n/strings/root";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 
@@ -32,6 +33,16 @@ const Separator = () => {
 
 const arCollator = new Intl.Collator("ar");
 const trCollator = new Intl.Collator("tr");
+const enCollator = new Intl.Collator("en");
+
+// İngilizce arayüzde İngilizce kök anlamı; yoksa Türkçe (yan yana gösterilmez).
+function rootMeaningText(item: RootItem, lang: string): string {
+  if (lang === "en") {
+    const en = rootMeaningEn(item.root, item.meaning_tr);
+    if (en) return en;
+  }
+  return item.meaning_tr;
+}
 
 // Arapça arama normalizasyonu: hemze/elif varyantları, elif maksura, te marbuta
 // ve harekeleri sadeleştir → kullanıcı "اله" yazınca "أله" kökünü de bulur.
@@ -46,6 +57,8 @@ function normalizeArabic(value: string): string {
 
 const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; onPress: (root: string) => void; c: AppColors }) {
   const t = useStrings(rootStrings);
+  const lang = useLang();
+  const meaning = rootMeaningText(item, lang);
   return (
     <TouchableOpacity
       style={[s.card, { backgroundColor: c.card }]}
@@ -53,11 +66,11 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
       activeOpacity={0.75}
       accessibilityRole="button"
       accessibilityLabel={fmt(t.rootA11y, { root: item.root })}
-      accessibilityHint={fmt(t.rootHint, { meaning: item.meaning_tr, n: item.frequency })}
+      accessibilityHint={fmt(t.rootHint, { meaning, n: item.frequency })}
     >
       <View style={s.cardLeft}>
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
-        <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{item.meaning_tr}</Text>
+        <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{meaning}</Text>
       </View>
       <View style={[s.freqBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
         <Text style={[s.freqText, c.isDark && { color: "#6ee7b7" }]}>{item.frequency}</Text>
@@ -69,6 +82,7 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
 export default function RootListScreen() {
   const c = useColors();
   const t = useStrings(rootStrings);
+  const lang = useLang();
   const insets = useSafeAreaInsets();
   const listTarget = useTourTarget("root.list");
   const [roots, setRoots] = useState<RootItem[]>([]);
@@ -104,11 +118,12 @@ export default function RootListScreen() {
     let list = [...roots];
     if (search.trim()) {
       const rawQuery = search.trim();
-      const query = rawQuery.toLocaleLowerCase("tr-TR");
+      const locale = lang === "en" ? "en-US" : "tr-TR";
+      const query = rawQuery.toLocaleLowerCase(locale);
       const arQuery = normalizeArabic(rawQuery);
       list = list.filter((item) =>
         normalizeArabic(item.root).includes(arQuery) ||
-        item.meaning_tr.toLocaleLowerCase("tr-TR").includes(query),
+        rootMeaningText(item, lang).toLocaleLowerCase(locale).includes(query),
       );
     }
     switch (sort) {
@@ -119,11 +134,13 @@ export default function RootListScreen() {
         list.sort((a, b) => arCollator.compare(a.root, b.root));
         break;
       case "meaning":
-        list.sort((a, b) => trCollator.compare(a.meaning_tr, b.meaning_tr));
+        list.sort((a, b) =>
+          (lang === "en" ? enCollator : trCollator).compare(rootMeaningText(a, lang), rootMeaningText(b, lang)),
+        );
         break;
     }
     return list;
-  }, [roots, search, sort]);
+  }, [roots, search, sort, lang]);
 
   const handlePress = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);

@@ -20,8 +20,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 115183,
-    "sha256": "b36582de27e92769aa845ce43eb091ffa2ab17b1f7d62ebb9581cdb05035fd88",
+    "totalBytes": 115564,
+    "sha256": "a65ff34bfeb86842d8150c314abebec89007c3ec967fdfc3185896b66e925491",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -90,8 +90,8 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 6053,
-        "sha256": "a7097ed271af57f333fadd9b3b0440e948634e0c6c6b49196729cc995e9a258e"
+        "bytes": 6434,
+        "sha256": "717b20e1eb475f7ff9f065c2cf1986e36d4b0f923e4211a0a6706243f9bfc1d6"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
@@ -1050,8 +1050,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3151560,
-        "sha256": "099a3ce2b345b011ada99d801d5a2fae3a419ed7f9ad981f82cac79dcb782dd7",
+        "totalBytes": 3151897,
+        "sha256": "e64b63dbe22dd06521deba8e02d28d8ac6b10d840c02e3fdc9455cb124292341",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1305,8 +1305,8 @@
           },
           {
             "path": "packages/core/src/presentation/sourceLicensesEn.ts",
-            "bytes": 6174,
-            "sha256": "36aac6cb10212265bbdca7d89d082d247855d8e93bbc88f01db78715651c7111"
+            "bytes": 6511,
+            "sha256": "aa4e00f431fe2a61b05045cc17ed5625806d29e2ee41314081336a2679807435"
           },
           {
             "path": "scripts/build-elifba-en.mjs",
@@ -1332,6 +1332,1251 @@
             "path": "scripts/translate-tafsir-en.mjs",
             "bytes": 6530,
             "sha256": "10e9ca5d309a76ddb2b70fa660e8bdb705a1ce9d25d22a608ac7a391404e7541"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ai-english-word-meanings-literal-v1",
+      "sourceUrls": [],
+      "classification": "user-declared-ai-assisted-project-output",
+      "sourceContribution": "Existing per-word English glosses (gloss_en, attributed in the word-by-word source entries) exported read-only from the local DB; the app's Turkish word meanings, root meanings and Turkish literal translation.",
+      "projectContribution": "English meanings for words without gloss_en, English root meanings, an AI-assisted English rendering of the Turkish literal translation, and corrections of clearly wrong Turkish word/root meanings found during translation.",
+      "toolModel": "OpenAI Codex gpt-6.1-terra (word/root meanings, error review); Gemini 3.8 Flash (Medium) via agy (literal translation)",
+      "method": "Batch translation and two-stage error review 2026-11-12 (first pass per Turkish meaning, second pass per Arabic form/root with Quranic verse context); build-time validation (no missing keys, no Turkish letters, untranslated-value check); corrections applied with exact-match UPDATEs after a DB backup.",
+      "generatedAt": "2026-11-12",
+      "humanReview": "Spot checks only; full human review pending.",
+      "exactResearchUrlHistoryPreserved": false,
+      "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
+      "artifacts": {
+        "fileCount": 245,
+        "totalBytes": 4130738,
+        "sha256": "373a94d6758fedacc2e4fb5aeb2c5cb67a19aa5dcf6e6c17cbe9484722d4ac9e",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/literalEn/001.json",
+            "bytes": 408,
+            "sha256": "830bd16ef6620ce3901444fa77336ea71453e157a630d2a2eab5b9ad4bd6b499"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/002.json",
+            "bytes": 63974,
+            "sha256": "fc179f66b4dee89ddfe8c0bd821e4b7ddec45562d2a6ab6bdd3eaf86af582b5d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/003.json",
+            "bytes": 37266,
+            "sha256": "49156cdd1d700badbf7bbb1da99216844fc5e200871542e7a3d0aee9482a482d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/004.json",
+            "bytes": 38686,
+            "sha256": "8997dc87bd377fa2e48973c510ba47fd0d9f2197a21dc61187a1d81822282216"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/005.json",
+            "bytes": 29228,
+            "sha256": "a5301f975ddaba50d9e2bb5e6552f5eea9335151880a04066be735d94e0e880a"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/006.json",
+            "bytes": 32990,
+            "sha256": "2c0d34961da20708a7ce0fdd6a5143b969771a0556b5e479f33720d8bd89478c"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/007.json",
+            "bytes": 36196,
+            "sha256": "3af83def07211997c9d57f4522394c715565113684e0247240011b4836cbde24"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/008.json",
+            "bytes": 13535,
+            "sha256": "e02412511c8fa017a1443fe469c875f08629673a99ac87fcaa594364d20e1bac"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/009.json",
+            "bytes": 27277,
+            "sha256": "93d8da5bf9b5efd82be163d31469d6c18394525d4af3210082582fa8f75a1156"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/010.json",
+            "bytes": 18892,
+            "sha256": "29f0291fda6daf1dc047a296684f3f72eb8482d4cfbcc58cc192d1fef856f158"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/011.json",
+            "bytes": 20224,
+            "sha256": "86b29c7f01bb896d5695e065855f51077de0a25df145d3998e8cb633d42bf92d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/012.json",
+            "bytes": 18548,
+            "sha256": "8b1ec7b6ecc4587f7b4a1b62e90ebaa8e11e1d56c99da0300ff9b193e4c09e3e"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/013.json",
+            "bytes": 8914,
+            "sha256": "316d32b518d0dfba5046f17f8fb84e0035dbf0c3b11b750f753703048d7b1ad8"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/014.json",
+            "bytes": 8989,
+            "sha256": "2463e286ba663d80ff0ca3af10cf518f30ccc92b951524dec5b91baf508e3893"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/015.json",
+            "bytes": 8210,
+            "sha256": "47596b612d7c50eb497bedbb27d387060f65fdffd1069938c9a113680c79d672"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/016.json",
+            "bytes": 19778,
+            "sha256": "045e81101c36aca56bbfc0a6f7753c45a7b90d0b51b98bceb89ea4c8b6af870e"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/017.json",
+            "bytes": 16643,
+            "sha256": "df47216a3be43cc9cde920ee74800c23c22032d54689ee5d5261a44ef6ccdd3d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/018.json",
+            "bytes": 17644,
+            "sha256": "5ab85bbd38f2afbb651331a817c544cb5f03bb3e2327c4b296cafcd3862af354"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/019.json",
+            "bytes": 10771,
+            "sha256": "97a83f2f1dbb4dc98b8d9d051ba1baa0e50ac8cb0997fa8428e0199e961fabb5"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/020.json",
+            "bytes": 15532,
+            "sha256": "d0f41a728e19d760f67a92c5af1ab679e258768901c1ca6f3c35ebfc46132f65"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/021.json",
+            "bytes": 13236,
+            "sha256": "4bac673b69c68f791d101214412c23f587daa1b696e25ba15c9e54b9eb6f88c9"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/022.json",
+            "bytes": 13365,
+            "sha256": "f0eae2b6f88092b5a2e6e368ec90f49cc2b5b0c4560f5f87170ebbe494f218dc"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/023.json",
+            "bytes": 12168,
+            "sha256": "f4bca030541433bea921154bf967d26457e8246bc2e86348f80aceb04e00db71"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/024.json",
+            "bytes": 13978,
+            "sha256": "58a65d2d27c58e22d3c12b09c364499055d45025825056009da4a877ed7b261b"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/025.json",
+            "bytes": 9987,
+            "sha256": "3946c80840289c15ca3e0123f69c8b290155a05e796107dc4c0c444f06e922c8"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/026.json",
+            "bytes": 16162,
+            "sha256": "c5f238f90de74ed99a99850aa22178b1c340fb18bcb00f15c4ba3ae61ffa1fbd"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/027.json",
+            "bytes": 12773,
+            "sha256": "10002737a9dac40f4944b3d055730122853d75bac6fa48883593b6395716ebff"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/028.json",
+            "bytes": 15130,
+            "sha256": "5a3d0093414e778ea6659aa7f1238f20d37d6fb4f2ab132f7ce51334b46fde4f"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/029.json",
+            "bytes": 10577,
+            "sha256": "2fbcf8994a96e69e0330d270681363a2eac59781ffd5c5b4209381395845cd3f"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/030.json",
+            "bytes": 8686,
+            "sha256": "d1767a6c43b45f040c45515f2031669ca8bd9f734507adce9c47e3ed6b6f83ef"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/031.json",
+            "bytes": 5609,
+            "sha256": "80d0757719f9d051104f1f16e0e29d62c62899a72d2eda892e2404ae1e3a4680"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/032.json",
+            "bytes": 4036,
+            "sha256": "6a83d6073bb456fc72abdb51ca97ede63bae5f1f6e9d8b5d62fcf05db9250a1a"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/033.json",
+            "bytes": 13905,
+            "sha256": "e1bbe169e1719fe8ace70f8938c28748de3f05bda7bdcff0c3415925a088adab"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/034.json",
+            "bytes": 9083,
+            "sha256": "b96bccd987bc05d13b5eebd456ae3f42698f7ea9ddaec74a292da90195d928cf"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/035.json",
+            "bytes": 8242,
+            "sha256": "fbdcdd9c66e2c04f4bf909435746251046e92a46fd0e008ca438d776c4d7e5e9"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/036.json",
+            "bytes": 8155,
+            "sha256": "97456d84ae0767bbd1c72fd5c94cfcf191993715b34d11310b2f042ff760b8f4"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/037.json",
+            "bytes": 11373,
+            "sha256": "77eb8ec3f0fd43345122a36ebc7a0475592436397a58a4aeebe492aed2c96075"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/038.json",
+            "bytes": 8614,
+            "sha256": "68c0770e18c73400e9f57283bc865711daf3e1f7aa42a70d79555c4b60c3b800"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/039.json",
+            "bytes": 12443,
+            "sha256": "92246b2d98aaa5988d80b180897f6e265e55c291d566bb291d91d7d931509595"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/040.json",
+            "bytes": 13124,
+            "sha256": "cf92093915469c50813174480599ea296322a829757fee9d13a182218306803e"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/041.json",
+            "bytes": 8731,
+            "sha256": "b4f85bbfb88571e2c4ef5d0c398366fedd3d7ca288337bfcc7c12676b8da301c"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/042.json",
+            "bytes": 9069,
+            "sha256": "8d9e890374e8f77b16df9d69d4e2826fc3c91ea2eff8b9302c2fd5dab021e9a7"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/043.json",
+            "bytes": 9836,
+            "sha256": "4cbc213b16c398be1385dc091d806e74740abd09872aa1d3d5cfef2c3d856167"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/044.json",
+            "bytes": 4336,
+            "sha256": "958548022e499af668dd7f56f6db81c9c67d044ec8d127d64d54978cee929b74"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/045.json",
+            "bytes": 5367,
+            "sha256": "5c8bc85387c9d4ce7aa5ae79063e81a7caca45effbd880c34caa5864ecd6fa93"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/046.json",
+            "bytes": 6859,
+            "sha256": "86323d80475f49d7b7662450c2684963670434a655c41e8341c5f64ad4a1c0d0"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/047.json",
+            "bytes": 6040,
+            "sha256": "a01be5b25270c3f9100ab6a84c688ed99907979cbe7d36609a42ab2e724c5027"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/048.json",
+            "bytes": 6190,
+            "sha256": "55fb1db8e2d5098bf47a10cb53e774b5bee4b5dd36e99782c5981baea20415a5"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/049.json",
+            "bytes": 3667,
+            "sha256": "6e7418896567486badc40737e17bb448fe8e527cf91fccd680e5767968691faf"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/050.json",
+            "bytes": 4042,
+            "sha256": "eb4b650e052b0dd04bebb7f9c416e5d25ba85b404a7cc965ddeb8f7ba0277770"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/051.json",
+            "bytes": 4441,
+            "sha256": "f6e8a7ea11e6404833bf484f42f7a41d9e19467b110ad482a91e2cb0fa372f7f"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/052.json",
+            "bytes": 3813,
+            "sha256": "1bc2904c0d8ed9a57bcae166b96a567ecd26fd77ffb42d7f4fdfcd20c78d7aca"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/053.json",
+            "bytes": 4346,
+            "sha256": "47ad85258aa9936e2fabdd38f14fec63234f7a493377f8b515eabd7f21519b2f"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/054.json",
+            "bytes": 4455,
+            "sha256": "ae919b845064b9265be7ae997c1d3cf0011db048fe326e5af1bb1f39d16b310d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/055.json",
+            "bytes": 4839,
+            "sha256": "865f54de7e2a30e6bd325d6f30f27c73f0c9ab3c131cb2a9ebd7c3d3d32ab1d8"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/056.json",
+            "bytes": 5158,
+            "sha256": "ead11953db595af691799c404e6dad612f90f1c34f1532aa0e59c9b8f88591a7"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/057.json",
+            "bytes": 6442,
+            "sha256": "d6dffa39d01e04b1b60534500c74d83948c509ec193d10395c1d9d113dbb734d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/058.json",
+            "bytes": 4999,
+            "sha256": "c4ba7f2a6502fa9a77ffb48bbe87a4491accfa4236b991e4bb80d6bdf1ee3f75"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/059.json",
+            "bytes": 5000,
+            "sha256": "440dae6ca1f74f04865bde7a38d94bebfd4e2071d25414203d1b7c00bd6fe090"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/060.json",
+            "bytes": 3661,
+            "sha256": "d8958aeff711814de270eac142eb4a03edcd662d30b8e92c4da0100d92ae6697"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/061.json",
+            "bytes": 2270,
+            "sha256": "128f9c25ba10bd34ea0db0f9f2e62ef2fdb83a5d868caf68ed474787b891b38a"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/062.json",
+            "bytes": 1808,
+            "sha256": "7aa190fc4dbc6c1a9995bb105aab8cab63ffa3e3276e2b14316971ed0e5a1845"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/063.json",
+            "bytes": 2039,
+            "sha256": "ee15f55611aede1ecfe288d125314540feda08a981468e60dadd0c065dc4d827"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/064.json",
+            "bytes": 2683,
+            "sha256": "4352acc0f521507e1c6ecba5bf399cafecac98752486f5cf16526956a26bf248"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/065.json",
+            "bytes": 2983,
+            "sha256": "82b5372c17ac926ff02a06c7846df79efe58e849271679a728d7f0d80e050fc2"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/066.json",
+            "bytes": 2724,
+            "sha256": "6d22a6aee0817e727a3ed7111ae157c115710e15eb4dc97275c9e1480e68fcb9"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/067.json",
+            "bytes": 3550,
+            "sha256": "e4dea32197de45128468923c4ff3c4a0ede337a5ff5427a592cab8e58b71df07"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/068.json",
+            "bytes": 3868,
+            "sha256": "d6172c183ab46795a6f44e950af6fe417a93b93aba46a1f167938d46f3502c53"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/069.json",
+            "bytes": 3313,
+            "sha256": "fa053f4e8031d5e7c39f19c36239ed6749a3212c5e16df9bc6570c104c57b8a4"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/070.json",
+            "bytes": 2804,
+            "sha256": "d8cde528c29c3e3b480d12d512e97cdb2edfa404418510b121c7b9b453230236"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/071.json",
+            "bytes": 2527,
+            "sha256": "d6500e8901f37a6a2ed80688c7e640dbcd437130223fa55f491d772523792464"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/072.json",
+            "bytes": 3272,
+            "sha256": "6c161b4932b1f28b67647386732c8b14cc1964982ec7cfbf7793688d1e17ec37"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/073.json",
+            "bytes": 2274,
+            "sha256": "286a5eb4d851656a30cd0d47627eda53da33f6cd4109214cb1cd4a5a8e1d66e1"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/074.json",
+            "bytes": 3219,
+            "sha256": "26834395d228b5e9b63923d0887a0694c5a07a90b866d826be5dc5f984fa491a"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/075.json",
+            "bytes": 2122,
+            "sha256": "170e0acabf04e0d2bb078c9d58ff8579d8e9df2008fc8c4a6964d86b076e6c24"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/076.json",
+            "bytes": 2742,
+            "sha256": "c9f881a73d3bdcaae5e088b1cb247f20c3d1721aa0235c61ccaf60bc3a4b7d74"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/077.json",
+            "bytes": 2553,
+            "sha256": "a67522376ee20e00bb475d6fce684ce70fcb7009f90982002e01915b225884c7"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/078.json",
+            "bytes": 2310,
+            "sha256": "67e47b70043e4d7752a210ac0a0d2c345439975c3909e22e3c1c93b5ba960260"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/079.json",
+            "bytes": 2379,
+            "sha256": "3fa0ce50a13335fe826f50e0d72379b1ed2988b914217632c64c04c125b907c1"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/080.json",
+            "bytes": 2004,
+            "sha256": "794e7d4cfc826246b368b1a59afb3d48d870dc0843b815ae007d506fb6bd1c97"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/081.json",
+            "bytes": 1366,
+            "sha256": "72ebea31653de20d14203e5dcaa33aadb7775c8437a957367709bc768adf0011"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/082.json",
+            "bytes": 1046,
+            "sha256": "8c0a3a6564bd08c846dac428432b6bcf046076e148f805ecf2de978bc1b51c9c"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/083.json",
+            "bytes": 2153,
+            "sha256": "f8c38eefda61e883e36ab826d402bb08b738625cf7608458fcea5e17a37d46a7"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/084.json",
+            "bytes": 1406,
+            "sha256": "38eea9f598ce2bf1ff7fbac1e8dba760b8739889092588e001ecb478ce714242"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/085.json",
+            "bytes": 1424,
+            "sha256": "9af4c54b84a85ab37a9fca5294131c1f7683cff10fb196957e5e7526b02c0e46"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/086.json",
+            "bytes": 801,
+            "sha256": "9117fa72a37c7ff49f0754a245d3a58b9dd6e042a539e0a2b21ee1bc64310ede"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/087.json",
+            "bytes": 1057,
+            "sha256": "030b74891c001abd0567ba19dcd59d33106b7cb2a92e2f8f16a444f7954f03e2"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/088.json",
+            "bytes": 1189,
+            "sha256": "27035758fef40121e3585754f8769648b579e44084d85e6e1a9c4d31f9c23d73"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/089.json",
+            "bytes": 1695,
+            "sha256": "ac0fc63eea8d2e1d3819cf319e2eab3815fa0c01885b2e23451d94754a948fa4"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/090.json",
+            "bytes": 1056,
+            "sha256": "56715de3084a72982a0e4bd00eef693a7c1b90ecee103168228ded0428fc960b"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/091.json",
+            "bytes": 863,
+            "sha256": "84b0bc43643654dd917fdd1192ae90d11ca27e95421c2e5f22a5b77571c4198f"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/092.json",
+            "bytes": 1114,
+            "sha256": "90abfd9049e844851c235472f3282e28c2e1566584aaf6d5b54f90ef1b78cef3"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/093.json",
+            "bytes": 587,
+            "sha256": "bc9e4700d4a3290e89fc4050e1e55a17314bcdaf7f71f8ccdf2b13c30de112fc"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/094.json",
+            "bytes": 380,
+            "sha256": "197133d514cdc01887226010a289af68d8ea3f838e18073d1afb647f30109332"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/095.json",
+            "bytes": 438,
+            "sha256": "29512d94bd8ff5a1584cb5099bf01e5d41e012fc89fd69f806a6f2a820cf3268"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/096.json",
+            "bytes": 892,
+            "sha256": "176de5a91d4d96cab64e0cd9d670324f0cbc0b91c519b77b3388f3bb0eeab20a"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/097.json",
+            "bytes": 333,
+            "sha256": "2d9abeed9ab67648298397f1dad2dd01d58c27762bc33970d81e236668c35c38"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/098.json",
+            "bytes": 980,
+            "sha256": "5bcca36e0bd6552563af56dac623684afc2692e05f320660a20c9d3895bfd136"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/099.json",
+            "bytes": 403,
+            "sha256": "96ab3cf7a676e2b5bb45ff11f575660bdce8e23bf6c08e1543926019f718b451"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/100.json",
+            "bytes": 649,
+            "sha256": "c33b227b1455ed1bc7fb651ae96571d1a25c2dfc38063e2712c5b7c3044a6c1c"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/101.json",
+            "bytes": 478,
+            "sha256": "e3d633c319a6c9c777f7ae36d74d84f05b774da2cc444d12c351c7dc9c60fc34"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/102.json",
+            "bytes": 436,
+            "sha256": "0a956eea7aacaee02daade3b8a4a202c0a06eeabefd8ad0f43ec4828fb3d8bde"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/103.json",
+            "bytes": 208,
+            "sha256": "792a5f16217909b58e968be0f9c909e99d13d64a9ba3c483e53991c35a16e9b5"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/104.json",
+            "bytes": 429,
+            "sha256": "cde7f760270b80e0f9b01a27b08c324245910f84b9b00279a397c65971b19615"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/105.json",
+            "bytes": 304,
+            "sha256": "6c0d54277fce55fe2e0e9aa663f22a389a55164b54aa6df3559a1d8cf47052eb"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/106.json",
+            "bytes": 221,
+            "sha256": "288a16860b6cb88ee48b4a4d00ed4a7427a2da3a97017d90c0d22660e13348f7"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/107.json",
+            "bytes": 300,
+            "sha256": "35eaf58fdee4192fa7962f9ec9391c98d2da13649ff1a9567727110911f8d5c6"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/108.json",
+            "bytes": 177,
+            "sha256": "564c2ed7a710a528fe7bda455eedb61f82de43e9dd104e61676c74815cee992d"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/109.json",
+            "bytes": 303,
+            "sha256": "cd15f979d191a28f1bb4e16537da3d13db2969b7fda9f264ed3db3a4fcd53a2e"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/110.json",
+            "bytes": 243,
+            "sha256": "43bf67ab3cc6f2ad5c1bbcacd78deb76bcb24f0f4f78ac1bb89db8bef0142291"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/111.json",
+            "bytes": 272,
+            "sha256": "ab39bdbdb3948e2360670cb185f003b16fd6628001cdd3a8da438dedaadfd897"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/112.json",
+            "bytes": 153,
+            "sha256": "88a94851dc93ab1f43c8cd00812bdf0c533e610369b66b7cdc003e05d62354bc"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/113.json",
+            "bytes": 279,
+            "sha256": "1f6521e60422dab82772d7a850bd99969520b99cc240c0c8a01d323c46e0b17a"
+          },
+          {
+            "path": "apps/mobile/src/data/literalEn/114.json",
+            "bytes": 265,
+            "sha256": "c82482069cf3e4fa5317a49a8902e3a640f92ffa6b4edce1fec9d1e8347ad7e0"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/001.json",
+            "bytes": 626,
+            "sha256": "e3a929d5ae6a35efadb23fbf23d94142b0fc6f1c503938029ca366420d3400d1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/002.json",
+            "bytes": 103253,
+            "sha256": "4fa635470d192ad9d2a7104e6e73f6789a42f403d73b7646fbb5fc25ad9af828"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/003.json",
+            "bytes": 59263,
+            "sha256": "0dcbe3f7b73133b9e794fdfac5aaf08d7a13f807fcedbf54600ab9990d464658"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/004.json",
+            "bytes": 63153,
+            "sha256": "2469a8b145f94a4a793feac57b99025ba331cf7dbad11259d4e6f13ff547393b"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/005.json",
+            "bytes": 46121,
+            "sha256": "a798510a49e1c05f57c0cda1bba6f96310e0e4385ca65b5982feaa375e0f901f"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/006.json",
+            "bytes": 50950,
+            "sha256": "301bf94cea532108fb08c50fee19c46ac3b29c321ed7d4a6efae1e3c001fb1ea"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/007.json",
+            "bytes": 56457,
+            "sha256": "50e6f7fc5ff2bae09feef9a925f53cb296638cb846ebc9e49be78e0240017f15"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/008.json",
+            "bytes": 20686,
+            "sha256": "39e4dbc21caec206ff4bf433c9760be9a742969ad8ee72b2ee4c058623b2ff49"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/009.json",
+            "bytes": 44580,
+            "sha256": "dca5a1bb79cbadfcbb4891074b49f544bb497f2965ecb2f925e07a27a1cdfbe6"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/010.json",
+            "bytes": 30474,
+            "sha256": "dff96d8df8225ef7f5a8db926346b0ad33b79b77d3ce84087308314b573fcad0"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/011.json",
+            "bytes": 31680,
+            "sha256": "5ea1f5d16454b5ff7dfc248529fc23f57e1bb369338200bbc59fe88f8836070c"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/012.json",
+            "bytes": 29631,
+            "sha256": "a8a14eaab4108716bd9d0dc70b626d91bbf4037483f70527ac6a7cbb32e796e3"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/013.json",
+            "bytes": 15026,
+            "sha256": "72c4495af034c8d68e7c9b1653c103cb6462bbcc98b92a35cfd96b58839ce188"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/014.json",
+            "bytes": 14993,
+            "sha256": "423cd4f10b500768679d56036438a8bf057d2b81d0e048a9befe794bff7fec4e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/015.json",
+            "bytes": 10793,
+            "sha256": "a87177b00d40a2e6ed79eb9a83cbd66d4f2855c1eccaf829be0a30c05e4d13bc"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/016.json",
+            "bytes": 32039,
+            "sha256": "82dcdab452955fea7c06faa118c831c3f1985c22de9440fc2d1167f68d4a6993"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/017.json",
+            "bytes": 27826,
+            "sha256": "0375ebfd77edcd064a14a34b843ec5e9cc357b400d7d4a3f437ec5d034fdb389"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/018.json",
+            "bytes": 27971,
+            "sha256": "98112c6271e4440bf5e81a0cc5b59b1276d4ced74bbbf66bf09c1c0e2c0aff62"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/019.json",
+            "bytes": 17030,
+            "sha256": "5b74e7d38f24e6c5b1853b10a7b40daae59effd04c9246b5088bfcf45f87160c"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/020.json",
+            "bytes": 22351,
+            "sha256": "93131929d29acf954ca1c5005389c0dc4eaa7016343fda53e0bb2310f05b5bf1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/021.json",
+            "bytes": 18987,
+            "sha256": "2a14004ffa354efaa8f82fcb3e677c3c9832495ccb3297115341573429d319d2"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/022.json",
+            "bytes": 21835,
+            "sha256": "8eada695a6504d18db9492f9554bfae5d5cc59db6e3d75130da7cd24515bc78d"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/023.json",
+            "bytes": 17324,
+            "sha256": "91293c1938ee8728a7d96c4480e08c99aba2d40928c1fae0f41d2c2f048ddb8d"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/024.json",
+            "bytes": 23242,
+            "sha256": "900f65e13de30d1bd7f1ca1e54f11809d2b8c92641f203b84a5bcde63ab6217c"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/025.json",
+            "bytes": 16300,
+            "sha256": "bc66a8c92bc47134b3025a38845458e16e76a662ded65d6cea00b85d89f9f70a"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/026.json",
+            "bytes": 21943,
+            "sha256": "ea0d61a09e7b9234b33b1374909398b50474fce6f2e360b3b3c81ed936ed6d6b"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/027.json",
+            "bytes": 19105,
+            "sha256": "58cff1c7e33a97194b09a77c55205ad4ce24490d75bf0bf78e2753db93bef3e1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/028.json",
+            "bytes": 23235,
+            "sha256": "a009daaa1a81fff1ee6bea0f7986a656074b8bdfb21d11389d3db1bc652771c4"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/029.json",
+            "bytes": 16849,
+            "sha256": "c604dd6e3b32b1f5c016483b89b82454c092ac2176b887865a4e46ae288c3fae"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/030.json",
+            "bytes": 14087,
+            "sha256": "2b23b4eabc0ff0c2bd0001a5e90d360df713d2da0538fe14f9ed6ccea4d00f66"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/031.json",
+            "bytes": 9042,
+            "sha256": "3da468392cfb2b220d5165d649c62e2f2a5a102b143a033d92679c70e32ffa3d"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/032.json",
+            "bytes": 6252,
+            "sha256": "78ec57f229f025766cf338b436eaf89f2162921d19f3334df52a5e04c423565e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/033.json",
+            "bytes": 23875,
+            "sha256": "675206cfb6883151357568542e125388b085a8d8d481c3ae5afcbe503eab426e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/034.json",
+            "bytes": 14530,
+            "sha256": "47b9bea1a9c48979b3595367ca511d660693c7617f03c71f66106ad43064f7e3"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/035.json",
+            "bytes": 13371,
+            "sha256": "17cf6625bfbc228506eb67f261cbd14266d484b3c6e1b2f6882dfe274869038b"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/036.json",
+            "bytes": 11744,
+            "sha256": "ce4b84f389b4a3a5c2af226f25e947ccfdbaff374b3f3c6f69532d048e48203d"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/037.json",
+            "bytes": 14798,
+            "sha256": "26ae9b545f766b77e7da54be33ad682fdfa36dfaf881ea6b808bfa449c261ff3"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/038.json",
+            "bytes": 12558,
+            "sha256": "56c809d560f7c87752df714bb0041daba49b4fda99cf0fc7a96596f7b58cc223"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/039.json",
+            "bytes": 20697,
+            "sha256": "241c4eb5cf88966390e6536ed640f6ccda3fcd6250839ce3851cf114214c6119"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/040.json",
+            "bytes": 21150,
+            "sha256": "b69152ae5ad6f68fff4e9abd67e321331d2aa34eaf9538cb0c47f6329faa2353"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/041.json",
+            "bytes": 13500,
+            "sha256": "774af7d34679e5a58fe5c72a77aa405010b6c72c8f35ba810109968e576c1e9d"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/042.json",
+            "bytes": 14024,
+            "sha256": "a9b33de1e7cccfb20cd61582d7d987191cf6a8df6b8555e490f892ee3d16640f"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/043.json",
+            "bytes": 13898,
+            "sha256": "3e6e38a1d2c13d151d899dc28575525f16fc9016a20013d6f233479349c03959"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/044.json",
+            "bytes": 5762,
+            "sha256": "a539adac76b809266192c6dc502372c2006e91883b596698b7a55b0fc6e8a3ee"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/045.json",
+            "bytes": 8498,
+            "sha256": "0efb73692b37077a469a9fc41ae20c08fe443e4a5ae5b1e8e934d2ceeb0399d6"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/046.json",
+            "bytes": 10966,
+            "sha256": "1b67130852855eb2fe48a571b85cc31dbe69479b1263455082d116d829dcaa7a"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/047.json",
+            "bytes": 9875,
+            "sha256": "40eafe0a924ed01ba0e19a12157fe8b867470245e49bf6c855b39eb16cae872e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/048.json",
+            "bytes": 10909,
+            "sha256": "0528eaa30131706fe5a7b77bf2a2de09d4d748450e2f8296eae00f43933c0218"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/049.json",
+            "bytes": 6165,
+            "sha256": "80ab34ffa22bc87b15ef3b1519d3226fe27c2f083f8f4ffc75b57b55bc9d6b9e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/050.json",
+            "bytes": 5917,
+            "sha256": "c98137b3dce6780e551eeb42f553107acf612b1f7a6357269700fcc11569f6f9"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/051.json",
+            "bytes": 5995,
+            "sha256": "5792fecf0c94dae34b6cf33959688a33f6ac5459e9abc3ea9094e1cae1e8f9ca"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/052.json",
+            "bytes": 5435,
+            "sha256": "e9ec144093cbefe206f14bd092df3af5bb9a9bf17646f83cb890e9942ac54f6a"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/053.json",
+            "bytes": 5770,
+            "sha256": "9f3d62035c6474d9ae573b98b78d690d1b48c6d797513d4cdc269eae535c2c62"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/054.json",
+            "bytes": 6318,
+            "sha256": "b825cfc3da139164830d81d9551478991ce4684e8468bb949bceda79aebca19e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/055.json",
+            "bytes": 6821,
+            "sha256": "5fd4515f85c1b12f1f792874a1fa39e2fa7f975a61d8d2eb2972da28d48cdca1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/056.json",
+            "bytes": 6763,
+            "sha256": "c2d2dfb323ca8104b22076b37fadc38bef7fa106575c3b2c8706a2793506c332"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/057.json",
+            "bytes": 10411,
+            "sha256": "cbe26945a17f75cdfa80680819c5f3d013a508c3a08069586c3bc0a4f406a936"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/058.json",
+            "bytes": 8344,
+            "sha256": "5c399a342c1aae381cae8b1c5a428481d816b2ecc1146bac6ec0941a758dd97f"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/059.json",
+            "bytes": 7674,
+            "sha256": "b216d639c04234a12d0391771e60d1d261dce085722cd1e1a1709b7302c075fd"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/060.json",
+            "bytes": 5867,
+            "sha256": "8b8188a4b5ffc3697497bd2173f453c0c367000b53ff349432c365609f4838bc"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/061.json",
+            "bytes": 3687,
+            "sha256": "b4005b1f5ad60904976eece485e13c00d592c84b169a3fa96a785ea5cda43c08"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/062.json",
+            "bytes": 2964,
+            "sha256": "e32dec356f7951488068ef4298d2a005d678e4fa70ff05c3783e7fe0df077ed1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/063.json",
+            "bytes": 3023,
+            "sha256": "d38e0ca6ce0070c6ab5b304381af57b061e005cc94e586e0622926365206ac8b"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/064.json",
+            "bytes": 4460,
+            "sha256": "8123fc731c517c080b3c9dbabe41ed502497fca256e3c00c4af305531adf6494"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/065.json",
+            "bytes": 5005,
+            "sha256": "c4aadcdf18b34339f5126f1c4f437e6b65d152411c39da80c663c82d27b13217"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/066.json",
+            "bytes": 4340,
+            "sha256": "825ab947b4dcf6e5da80682de5400399d9a68ccfd39b34c5d9b0c2a9e584f592"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/067.json",
+            "bytes": 5482,
+            "sha256": "0d2bd667ae1370aee52c6bb944fc97dc898589cfa131fbfade1aa823446ea547"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/068.json",
+            "bytes": 5024,
+            "sha256": "df4bf659c18a3e578cadb44c2825e468f7537cced1b20e106d6895a0fe59ceb1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/069.json",
+            "bytes": 4351,
+            "sha256": "1ea84354d3090d00a2c5001f9bdb872dc49e7ae8606e66511cf213b1e33845c4"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/070.json",
+            "bytes": 3918,
+            "sha256": "f82fc068ecd1632f1d257ec9935235195b7e76a9828bdd8c76792b0520bbb0e8"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/071.json",
+            "bytes": 3733,
+            "sha256": "c291fa0627718452ce7f62c1d4207f4d83c10c1fae73c093bffd00b0815d2fa4"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/072.json",
+            "bytes": 4389,
+            "sha256": "fec625f72f819cd0d16758c5843ff44eb93983e2f5894d13477578886dc1b7c3"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/073.json",
+            "bytes": 3581,
+            "sha256": "f92a1744173813a40f204a78aa0b8b50f90b23740d9b691eb0e8446d3ff45c8a"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/074.json",
+            "bytes": 4276,
+            "sha256": "b356fa062a8622ce1f73b7f9e6324e472dfe11feb7d857f29d95c6db69089036"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/075.json",
+            "bytes": 2695,
+            "sha256": "8dc6ae2037cbffd3b5baf805bde6614c8a69adb27cd7f440fcbd5af39bbb13a6"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/076.json",
+            "bytes": 4314,
+            "sha256": "29120072380430a987e7fbc6fc332715d9534c66af28914ef6dbbb4e61e9cb2a"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/077.json",
+            "bytes": 3056,
+            "sha256": "b6a3262ab98f0dd3a6d7f99d708b3530fcc6e0b29a25bce5f1dc81633e86fb0f"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/078.json",
+            "bytes": 3397,
+            "sha256": "de2b5e99e46df65484974a263545e9505df0a59531e34ea2822c23322dbfb9a8"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/079.json",
+            "bytes": 3320,
+            "sha256": "521d185ae69e596887f8327ad49e3da0e669ea4d3f3eb814169cfa4f4f31002f"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/080.json",
+            "bytes": 2340,
+            "sha256": "353d6b76b39777dca3bce70e680cebd6a5a6e26a68a4de1c1d4d670a4f5c10f0"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/081.json",
+            "bytes": 1940,
+            "sha256": "ef8ceade7c2681472298265fc71342e65af7fe7e9a3dc08bd664f031851de614"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/082.json",
+            "bytes": 1338,
+            "sha256": "b4eaab6ce0eaf131c2382536d6dcc3f3155beecc621546337bb06ba235d7582e"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/083.json",
+            "bytes": 2816,
+            "sha256": "cee0fe27b06162ceaa09beea86b829c374367f94845817c3389f329410ae14d5"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/084.json",
+            "bytes": 1906,
+            "sha256": "bdf609636e6cb885eef99ec37608f64eb19fa42d49289bd10b23bc0099cd2236"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/085.json",
+            "bytes": 1791,
+            "sha256": "d88322066fb8ec5e68f91e24c4029d922aa5bde5e1c2a0d06a20ac9e7438844b"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/086.json",
+            "bytes": 987,
+            "sha256": "b8bba547fd935fb824939b04fcf41a402f8bd7416dea45924630e5462e666c60"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/087.json",
+            "bytes": 1340,
+            "sha256": "c7753487bc9c2117b5fca82140b74da29553f3672886144b30c8db87f54acc22"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/088.json",
+            "bytes": 1592,
+            "sha256": "b0bb1c16e29b8f5305cc0dc096e41ba977fadafb3e8f2a379c70694d477dd480"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/089.json",
+            "bytes": 2331,
+            "sha256": "5d5a431f05396faba4f11f16f714ceb8a427ed1e733407b3ca03bc6e7456ebbe"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/090.json",
+            "bytes": 1321,
+            "sha256": "55d846d532858e6ab4c88559d55390e4b97a68d4ba30a6b84f844c4c8c95b62c"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/091.json",
+            "bytes": 1108,
+            "sha256": "100253bb66602b3a05b4e018dff53881d4d5e12194abbb6c4c2492d906e3bbd4"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/092.json",
+            "bytes": 1438,
+            "sha256": "92931e0ffacafe2a0ecf2c685582702c80a7d3fd92deed05fbb679d517c3b986"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/093.json",
+            "bytes": 803,
+            "sha256": "c358fab6d49d21748c3658d3ef704deca12dcb1b626f657f009ddc77dcba33c8"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/094.json",
+            "bytes": 451,
+            "sha256": "30d9be962dcddb5fc20874b9950d28b7db9a94a80eaad199aa94203039ee1271"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/095.json",
+            "bytes": 606,
+            "sha256": "8c1d992038536e3b856e15f85fc2df6bee9497c0823003ab86942a4749157c63"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/096.json",
+            "bytes": 1260,
+            "sha256": "c9be20e711328ae31d653117c9e3b030204608492040db6da899f3efc6fb24d3"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/097.json",
+            "bytes": 488,
+            "sha256": "dfd74ffe4ebaeedfa3dd610f635abd856975703ab411e1e9fad2b7023013a981"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/098.json",
+            "bytes": 1571,
+            "sha256": "87bcc6dcf7502fd6e394618721f2ea125b9b3d42c00bd608f3a6a6fed83c9c53"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/099.json",
+            "bytes": 637,
+            "sha256": "bddf293d1239fda796cfd247fce593beac172b2226631c208e1b2922be84510f"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/100.json",
+            "bytes": 671,
+            "sha256": "da843520dcc1f3e2be63060ddcc64d305a383d5956b8725885fe83405453acc4"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/101.json",
+            "bytes": 663,
+            "sha256": "bb364cb1bd3498671a4b679cc85fe1c5b56c5461448b1d1995de5448dcd22053"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/102.json",
+            "bytes": 451,
+            "sha256": "e1057540d6051203a053e037865c28bede46d571e25b4de730b751bfef719ea0"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/103.json",
+            "bytes": 298,
+            "sha256": "c7f8fcf57379817558ddbb12f52e13bca797d26207d51fba41e547fc5ba8ba11"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/104.json",
+            "bytes": 542,
+            "sha256": "1ba0f9b5a82be3999fc018fde93dfdc980d3d7312ddcd326989d4503baefdcd4"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/105.json",
+            "bytes": 418,
+            "sha256": "7c09d0f2b6e1ce55f5849b3107a431e32fe7cc9cba2f1955f44342debdf9350c"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/106.json",
+            "bytes": 346,
+            "sha256": "63bcdbf876fbcae1c738b46905053d7f4679fa229c08cf13f1b6b4f9b92560f1"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/107.json",
+            "bytes": 445,
+            "sha256": "5fe8981d2d4f65e98f4b1443fa0be4b9953d0edd138cd459d7b3c43420e5fa49"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/108.json",
+            "bytes": 177,
+            "sha256": "c7d802a5fe36e398ad20f271f4077109f66eb20eea2eacba4b7ef8a11cc42355"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/109.json",
+            "bytes": 302,
+            "sha256": "fd7d35a1729dff9e100c0eca52b71130b2e4eaec5742491d2f228fafa08341c2"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/110.json",
+            "bytes": 417,
+            "sha256": "7da45e2c0639f207f6bb351886bafe2bcd882eadfa1ddf632e3f41b1549a1ea6"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/111.json",
+            "bytes": 410,
+            "sha256": "e26b82c3b1dbb71dc07c0bba5a67fd3d38d863732022255a3e5296410b70e195"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/112.json",
+            "bytes": 226,
+            "sha256": "11a87d0b7ae4de83d703a0cd75c16e4bae83a71abe936d350798e933490e4319"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/113.json",
+            "bytes": 394,
+            "sha256": "8b2548d24910a0e752065b533bdbb8a476ec73dee94c930553737ceed3a1e1bf"
+          },
+          {
+            "path": "apps/mobile/src/data/wordGlossEn/114.json",
+            "bytes": 415,
+            "sha256": "e24b378c6611726b40bf8e91f35e37a058cec1cd1e99b62f5c14e98d8ba12003"
+          },
+          {
+            "path": "apps/mobile/src/data/wordMeaningsEn.json",
+            "bytes": 103602,
+            "sha256": "0be8f57693f740d39a1a74721e7ea2e763d4ede24a22a63ac6fa8641d1a5464e"
+          },
+          {
+            "path": "content/ayah-literal/literal.tr.json",
+            "bytes": 1175865,
+            "sha256": "32ac87b3816b8256cddac66505dc583e9cf27a59d48e2969e839ab2b7842b8c7"
+          },
+          {
+            "path": "content/words/corrections-roots.json",
+            "bytes": 40419,
+            "sha256": "0314828705abbecca3c41cd9522ef34ce0798b633ab96e67fba260ec65d43afe"
+          },
+          {
+            "path": "content/words/corrections-words.json",
+            "bytes": 39612,
+            "sha256": "cd197b3b85ade12a9cf589b5059ffe208c2e09a6d0cf10ea64eb8d51341fd195"
+          },
+          {
+            "path": "content/words/meanings-nogloss.tr.en.json",
+            "bytes": 31556,
+            "sha256": "748f7ef2afdf0be008ef38e8f3410895b0a797c0af514c3b0f7770c5429caa5a"
+          },
+          {
+            "path": "content/words/meanings-nogloss.tr.json",
+            "bytes": 28853,
+            "sha256": "9a6a00f3bc478ec4e479823f01ffce52edf115bf0613fa3059568ba35790f0f5"
+          },
+          {
+            "path": "content/words/review-roots.json",
+            "bytes": 235523,
+            "sha256": "59bf0b9eaab901aadd2a7cb8eca4b06dcc0c7043611abbaff03a41f3aa9f92d8"
+          },
+          {
+            "path": "content/words/review-words.json",
+            "bytes": 125667,
+            "sha256": "2ab92d4397c95875fd34f6e17a05997b2305ef04addcfdaae4d19a072a08583b"
+          },
+          {
+            "path": "content/words/root-meanings.tr.en.json",
+            "bytes": 70641,
+            "sha256": "6e7b39d74fd4fd93c2db50ed73d5c28f906ed6789152b579f7097f23859772e4"
+          },
+          {
+            "path": "content/words/root-meanings.tr.json",
+            "bytes": 70966,
+            "sha256": "3688b0e9236af70b8d2d6b061f8f24a05b7c6011ae4dd707fdc4a67e043b7b97"
+          },
+          {
+            "path": "scripts/apply-word-corrections.mjs",
+            "bytes": 5509,
+            "sha256": "c88010edcff0f597b17d97f3c392ed9d9a80558ba78b5af2091475d058a34f36"
+          },
+          {
+            "path": "scripts/build-word-meanings-en.mjs",
+            "bytes": 2032,
+            "sha256": "a8b26e0d5914c8802918ee44f0c6895ccb7646c46629457676141b7cef03a429"
+          },
+          {
+            "path": "scripts/export-word-meanings-en-source.mjs",
+            "bytes": 2866,
+            "sha256": "783d722de4fa72bb8f8b546828cb3029b2ac712214884226a59492e69f1858bd"
+          },
+          {
+            "path": "scripts/review-root-meanings-tr-stage2.mjs",
+            "bytes": 4558,
+            "sha256": "7f260296eecb6b10167abe25bed3448bf62083a760dd242bfd42d7df40e3afd9"
+          },
+          {
+            "path": "scripts/review-word-meanings-tr-stage2.mjs",
+            "bytes": 4485,
+            "sha256": "d7825d79899e653b8953b53885dbb5f82b9df4d6bc84d434db0566571dd4b6cd"
+          },
+          {
+            "path": "scripts/review-word-meanings-tr.mjs",
+            "bytes": 4445,
+            "sha256": "50bc94b7fa1e4ec29d7e930f2349d0db9401b3806b1d3ae764a7e6cadec18cc3"
+          },
+          {
+            "path": "scripts/translate-literal-en.mjs",
+            "bytes": 7160,
+            "sha256": "42cb39b9b5ebbe76e94c0f81a92acb95c00dde9399657550ced9795806eaeabb"
           }
         ]
       }

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import * as Location from "expo-location";
-import { getStrings } from "../i18n";
+import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 
 interface DailyVerse {
@@ -59,10 +59,11 @@ export interface UseDailyContentResult {
 }
 
 const ISTANBUL = { lat: 41.0082, lon: 28.9784, city: "İstanbul" };
-const PRAYER_LABELS: Record<string, string> = {
-  Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle",
-  Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı",
-};
+// Dile göre vakit adları (TR: İmsak…, EN: Fajr…) — her render'da güncel dil okunur.
+function prayerLabels(): Record<string, string> {
+  const pn = getStrings(prayerNameStrings);
+  return { Fajr: pn.Fajr, Sunrise: pn.Sunrise, Dhuhr: pn.Dhuhr, Asr: pn.Asr, Maghrib: pn.Maghrib, Isha: pn.Isha };
+}
 
 interface PrayerCache {
   date: string;
@@ -109,7 +110,8 @@ export function useDailyContent(): UseDailyContentResult {
   const [error, setError] = useState<string | null>(null);
 
   const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
-  const prayerCity = prayerCityState;
+  const prayerCity = prayerCityState === ISTANBUL.city && getLang() === "en" ? "Istanbul" : prayerCityState;
+  const PRAYER_LABELS = prayerLabels();
 
   // Canlı geri sayım için tik — 30 sn'de bir yeniden render tetikler, nextPrayer
   // aşağıda her render'da yeniden hesaplandığı için kalan süre kendiliğinden

@@ -1,0 +1,1280 @@
+[
+  {
+    "root": "أبب",
+    "tr": "kapı, açmak, girdi",
+    "verdict": "fix",
+    "dogru": "ot, mera, hayvan yemi",
+    "en": "herbage, pasture, fodder",
+    "reason": "Kur'an'daki أَبّ ot veya hayvan yemi demektir; kapı ve açmakla ilgili değildir."
+  },
+  {
+    "root": "أدد",
+    "tr": "sayı, hesap, hazırlık, güç",
+    "verdict": "fix",
+    "dogru": "çok kötü, korkunç iş",
+    "en": "a terrible, atrocious thing",
+    "reason": "إِدّ büyük bir kötülüğü ifade eder; sayı ve hesapla ilgili değildir."
+  },
+  {
+    "root": "أزز",
+    "tr": "sızmak, sesle hareket etmek, hışıltı çıkarmak, uğultu",
+    "verdict": "fix",
+    "dogru": "kışkırtmak, harekete geçirmek, uğultu çıkarmak",
+    "en": "to incite, stir up, make a buzzing sound",
+    "reason": "Kur'an'daki kullanım kışkırtmayı ifade eder; sızmak bu anlama karşılık gelmez."
+  },
+  {
+    "root": "أسن",
+    "tr": "asan, dişler, yaşlılık, kuvvet",
+    "verdict": "fix",
+    "dogru": "bozulmak, kokmak",
+    "en": "to become stagnant or foul-smelling",
+    "reason": "آسِن suyun bozulmasını ifade eder; diş ve kuvvetle ilgili değildir."
+  },
+  {
+    "root": "ألل",
+    "tr": "ilahi, tanrı, Allah",
+    "verdict": "fix",
+    "dogru": "akrabalık, bağ, antlaşma",
+    "en": "kinship, bond, covenant",
+    "reason": "Bu ayetlerde إِلّ akrabalık bağı veya antlaşma demektir."
+  },
+  {
+    "root": "أمت",
+    "tr": "ümmet, millet, toplum, cemaat",
+    "verdict": "fix",
+    "dogru": "engebe, tümsek, yükseklik",
+    "en": "unevenness, mound, elevation",
+    "reason": "أَمْت yerin engebesini ifade eder; ümmet anlamına gelmez."
+  },
+  {
+    "root": "أمد",
+    "tr": "uzatmak, vermek, yardım etmek, ömür vermek",
+    "verdict": "fix",
+    "dogru": "süre, vade, zaman sınırı",
+    "en": "duration, term, time limit",
+    "reason": "أَمَد süre veya sınır demektir; yardım etmekle ilgili değildir."
+  },
+  {
+    "root": "أمو",
+    "tr": "emek, işçi, hizmetçi, köle",
+    "verdict": "fix",
+    "dogru": "cariye, kadın köle",
+    "en": "female slave, bondwoman",
+    "reason": "أَمَة kadın köle demektir; emek veya işçi anlamına gelmez."
+  },
+  {
+    "root": "أنم",
+    "tr": "uyumak, uyku, uyuması",
+    "verdict": "fix",
+    "dogru": "insanlar, yaratılmışlar",
+    "en": "humankind, creatures",
+    "reason": "الْأَنَام yaratılmışları ifade eder; uyku ile ilgili değildir."
+  },
+  {
+    "root": "الو",
+    "tr": "geri durmak / kusur etmemek",
+    "verdict": "fix",
+    "dogru": "geri durmak, kusur etmek",
+    "en": "to hold back, fall short",
+    "reason": "Kök kusur etmeyi ifade eder; kusur etmemek olumsuzluk gerektirir."
+  },
+  {
+    "root": "بدا",
+    "tr": "başlamak / ortaya çıkmak",
+    "verdict": "fix",
+    "dogru": "ortaya çıkmak, görünmek",
+    "en": "to appear, become apparent",
+    "reason": "Başlamak anlamı بدأ köküyle ilgilidir."
+  },
+  {
+    "root": "بصل",
+    "tr": "soğan, pırasa",
+    "verdict": "ok"
+  },
+  {
+    "root": "بغل",
+    "tr": "koltuk altı, kol, yanı",
+    "verdict": "fix",
+    "dogru": "katır",
+    "en": "mule",
+    "reason": "بِغَال katırlar demektir; koltuk altıyla ilgili değildir."
+  },
+  {
+    "root": "بقع",
+    "tr": "benekli, lekeli, dağınık, saçak",
+    "verdict": "fix",
+    "dogru": "yer, bölge; benek, leke",
+    "en": "place, patch of ground; spot",
+    "reason": "Bu ayette بُقْعَة belirli bir yer veya bölgeyi ifade eder; saçak anlamı ilgili değildir."
+  },
+  {
+    "root": "بنن",
+    "tr": "inşa etmek, kurmak, yapılandırmak, oluşturmak",
+    "verdict": "fix",
+    "dogru": "parmaklar, parmak uçları",
+    "en": "fingers, fingertips",
+    "reason": "بَنَان parmakları veya parmak uçlarını ifade eder; inşa etmekle ilgili değildir."
+  },
+  {
+    "root": "بول",
+    "tr": "hâl/durum; iş/akıbet",
+    "verdict": "ok"
+  },
+  {
+    "root": "ترق",
+    "tr": "parlamak, ışık saçmak, aydınlanmak, doğmak",
+    "verdict": "fix",
+    "dogru": "köprücük kemiği",
+    "en": "collarbone",
+    "reason": "التَّرَاقِي köprücük kemikleri demektir; parlamakla ilgili değildir."
+  },
+  {
+    "root": "تفث",
+    "tr": "tükürmek, tükürük",
+    "verdict": "fix",
+    "dogru": "kir; bedensel kirleri gidermek",
+    "en": "bodily dirt; to remove bodily dirt",
+    "reason": "تَفَث hac sırasında giderilen bedensel kirleri ifade eder; tükürük değildir."
+  },
+  {
+    "root": "تين",
+    "tr": "incir, cins, tür, nevi",
+    "verdict": "fix",
+    "dogru": "incir",
+    "en": "fig",
+    "reason": "تِين incir demektir; cins ve tür anlamları ilgili değildir."
+  },
+  {
+    "root": "ثبي",
+    "tr": "sabıt kalmak, kalıcı olmak, yerleşmek",
+    "verdict": "fix",
+    "dogru": "topluluk, grup",
+    "en": "group, company",
+    "reason": "ثُبَات gruplar demektir; sabit kalmakla ilgili değildir."
+  },
+  {
+    "root": "ثجج",
+    "tr": "kalın, yoğun, kalabalık",
+    "verdict": "fix",
+    "dogru": "bol bol akmak, dökülmek",
+    "en": "to pour or flow abundantly",
+    "reason": "Ayette suyun bolca dökülmesi anlatılır."
+  },
+  {
+    "root": "ثرب",
+    "tr": "dövmek, vurmak, çarpmak, yatmak",
+    "verdict": "fix",
+    "dogru": "kınamak, azarlamak",
+    "en": "to reproach, rebuke",
+    "reason": "Ayette kınama anlamındadır."
+  },
+  {
+    "root": "ثعب",
+    "tr": "yılan, ayakkabı, çizme",
+    "verdict": "fix",
+    "dogru": "yılan",
+    "en": "serpent, snake",
+    "reason": "Ayette yılan anlamındadır; ayakkabı ve çizme ilgisizdir."
+  },
+  {
+    "root": "ثيب",
+    "tr": "elbise, giysi, örtü, giydirmek",
+    "verdict": "fix",
+    "dogru": "daha önce evlenmiş kadın, dul",
+    "en": "previously married woman",
+    "reason": "Ayette daha önce evlenmiş kadınları ifade eder."
+  },
+  {
+    "root": "جبن",
+    "tr": "coğrafya, taraf, yön, cihet",
+    "verdict": "fix",
+    "dogru": "alın, alnın yanı",
+    "en": "forehead, side of the forehead",
+    "reason": "Ayette alın anlamındadır."
+  },
+  {
+    "root": "جذو",
+    "tr": "gövde, gövdenin, kesik, kes",
+    "verdict": "fix",
+    "dogru": "kor, ateş parçası",
+    "en": "ember, burning brand",
+    "reason": "Ayette ateşten alınan bir kor parçası kastedilir."
+  },
+  {
+    "root": "جفن",
+    "tr": "göz kapağı, kirpik",
+    "verdict": "fix",
+    "dogru": "büyük çanak, kap",
+    "en": "large bowl, dish",
+    "reason": "Ayette جفان büyük çanaklar demektir."
+  },
+  {
+    "root": "جني",
+    "tr": "cinn, cin, cinler, yaratılmış varlık",
+    "verdict": "fix",
+    "dogru": "meyve devşirmek, toplamak; meyve",
+    "en": "to pick or gather fruit; fruit",
+    "reason": "Ayetlerde meyve ve meyve devşirme anlamıyla ilgilidir."
+  },
+  {
+    "root": "جوف",
+    "tr": "boşluk, iç, oyuk, kavs",
+    "verdict": "ok"
+  },
+  {
+    "root": "جوو",
+    "tr": "açlık, kıtlık, sıkıntı, zorluk",
+    "verdict": "fix",
+    "dogru": "hava, gökyüzü boşluğu",
+    "en": "air, expanse of the sky",
+    "reason": "Ayette gökyüzü boşluğu kastedilir."
+  },
+  {
+    "root": "جيد",
+    "tr": "iyi, güzel, başarılı, layık",
+    "verdict": "fix",
+    "dogru": "boyun, gerdan",
+    "en": "neck",
+    "reason": "Ayette جِيد boyun demektir."
+  },
+  {
+    "root": "حبك",
+    "tr": "sevgi, sevmek, sevme, muhabbat",
+    "verdict": "fix",
+    "dogru": "dokumak, sağlam örmek; yollar",
+    "en": "to weave firmly; paths",
+    "reason": "Ayetteki kelime sevgiyle değil, gökteki yollar veya örgülerle ilgilidir."
+  },
+  {
+    "root": "حدب",
+    "tr": "kambur, höklü, kıvrılmış, bükülmüş",
+    "verdict": "fix",
+    "dogru": "kambur, tümsek, yüksek yer",
+    "en": "hump, elevation",
+    "reason": "Ayette yüksek yer anlamındadır; 'höklü' geçerli bir sözcük değildir."
+  },
+  {
+    "root": "حرد",
+    "tr": "alaşmak, uzaklaşmak, döndürmek",
+    "verdict": "fix",
+    "dogru": "amaçlamak, kararlı olmak; engellemek",
+    "en": "to resolve, intend; to withhold",
+    "reason": "Verilen anlamlar ayetteki kararlılık veya engelleme anlamını karşılamaz."
+  },
+  {
+    "root": "حنذ",
+    "tr": "et pişirmek, kokuşmak, çürümek",
+    "verdict": "fix",
+    "dogru": "eti kızartmak, közde pişirmek",
+    "en": "to roast meat",
+    "reason": "Ayette kızartılmış et anlatılır; kokuşmak ve çürümek ilgisizdir."
+  },
+  {
+    "root": "حوب",
+    "tr": "sevmek, hoşlanmak, isteme, arzu",
+    "verdict": "fix",
+    "dogru": "günah, suç",
+    "en": "sin, offense",
+    "reason": "Ayette günah anlamındadır; sevgiyle ilgili değildir."
+  },
+  {
+    "root": "حير",
+    "tr": "şaşırmak, karışıklık, cehaletine düşmek, şüpheye düşmek",
+    "verdict": "fix",
+    "dogru": "şaşırmak, şaşkınlığa düşmek",
+    "en": "to be bewildered, perplexed",
+    "reason": "'Cehaletine düşmek' anlamlı bir Türkçe ifade değildir."
+  },
+  {
+    "root": "ختر",
+    "tr": "seçmek, tercih etmek, seçkin, seçilmiş",
+    "verdict": "fix",
+    "dogru": "hainlik etmek, ahdini bozmak",
+    "en": "to betray, break a covenant",
+    "reason": "Ayette hainlik anlamındadır; seçmekle ilgili değildir."
+  },
+  {
+    "root": "خضد",
+    "tr": "kökü Kuran'da kullanılmamaktadır. Bu kök için bir anlam belirlenemez",
+    "verdict": "fix",
+    "dogru": "dikenini kesmek, dikensiz bırakmak",
+    "en": "to remove thorns",
+    "reason": "Kök ayette dikensiz anlamındaki مَخْضُود kelimesinde geçer."
+  },
+  {
+    "root": "خطا",
+    "tr": "hata etmek",
+    "verdict": "fix",
+    "dogru": "adım atmak, yürümek",
+    "en": "to step, walk",
+    "reason": "خطا adım atmakla, خطأ ise hata etmekle ilgilidir."
+  },
+  {
+    "root": "خمص",
+    "tr": "eksik, noksan, kusurlu, yetersiz",
+    "verdict": "fix",
+    "dogru": "açlık, aç kalmak",
+    "en": "hunger; to be hungry",
+    "reason": "Kök burada açlığı ifade eder; kusurlu veya yetersiz anlamında değildir."
+  },
+  {
+    "root": "خمط",
+    "tr": "pislik, kötü koku, çirkinlik, iğrenç",
+    "verdict": "fix",
+    "dogru": "acı meyve, acı meyveli ağaç",
+    "en": "bitter fruit; a bitter-fruited tree",
+    "reason": "Burada acı meyve veya acı meyveli ağaç ifade edilir."
+  },
+  {
+    "root": "خور",
+    "tr": "yemek, içmek, tüketmek, yiyecek",
+    "verdict": "fix",
+    "dogru": "böğürmek, böğürtü",
+    "en": "to low; lowing",
+    "reason": "Kök sığırın böğürmesiyle ilgilidir."
+  },
+  {
+    "root": "خيب",
+    "tr": "aksatmak",
+    "verdict": "fix",
+    "dogru": "umduğunu bulamamak, hüsrana uğramak",
+    "en": "to fail, be disappointed",
+    "reason": "Aksatmak değil, başarısızlığa veya hayal kırıklığına uğramaktır."
+  },
+  {
+    "root": "دخن",
+    "tr": "millet, tahıl, darı",
+    "verdict": "fix",
+    "dogru": "duman",
+    "en": "smoke",
+    "reason": "Kur'an'daki kullanım dumandır."
+  },
+  {
+    "root": "درا",
+    "tr": "savmak / uzaklaştırmak",
+    "verdict": "fix",
+    "dogru": "bilmek, haberdar olmak",
+    "en": "to know, be aware",
+    "reason": "Savmak anlamı درأ köküne aittir."
+  },
+  {
+    "root": "دسر",
+    "tr": "düşkün olmak, niyetlenme, tasarlama, kötülük",
+    "verdict": "fix",
+    "dogru": "itmek, çakmak; çivi, bağ",
+    "en": "to push, drive in; nail, fastening",
+    "reason": "Kur'an'daki kullanım çivi veya bağları ifade eder."
+  },
+  {
+    "root": "دهق",
+    "tr": "demirleme, sıkıştırma, bastırma, ezme",
+    "verdict": "fix",
+    "dogru": "doldurmak, dolu olmak",
+    "en": "to fill; to be full",
+    "reason": "Kur'an'daki kullanım doluluğu ifade eder; demirleme anlamı ilgili değildir."
+  },
+  {
+    "root": "دهم",
+    "tr": "vermek, hediye etmek, bahşetmek, vermişti",
+    "verdict": "fix",
+    "dogru": "koyu yeşil olmak, kararmak",
+    "en": "to be dark green, darken",
+    "reason": "Kök vermeyi değil, koyu renkli olmayı ifade eder."
+  },
+  {
+    "root": "دهي",
+    "tr": "akıl ver, zekâ, anlayış",
+    "verdict": "fix",
+    "dogru": "büyük musibet, şiddetli felaket",
+    "en": "a great calamity; to be grievous",
+    "reason": "Kur'an'daki kullanım şiddetli musibetle ilgilidir; akıl vermek anlamında değildir."
+  },
+  {
+    "root": "ذرا",
+    "tr": "yaratmak / çoğaltmak",
+    "verdict": "fix",
+    "dogru": "savurmak, saçmak",
+    "en": "to scatter, winnow",
+    "reason": "Yaratmak anlamı ذرأ köküne aittir."
+  },
+  {
+    "root": "رحق",
+    "tr": "hak, hakikat, gerçek, doğru",
+    "verdict": "fix",
+    "dogru": "saf içecek, halis şarap",
+    "en": "pure drink, choice wine",
+    "reason": "رحيق halis içecektir; hak ve hakikat anlamına gelmez."
+  },
+  {
+    "root": "ردأ",
+    "tr": "geri çevirmek, engellemek, karşı koymak",
+    "verdict": "fix",
+    "dogru": "yardım etmek, desteklemek; yardımcı",
+    "en": "to help, support; helper",
+    "reason": "Kur'an'daki kullanım yardımcı ve destekçi anlamındadır."
+  },
+  {
+    "root": "رعد",
+    "tr": "gök gürültüsü, yıldırım, şimşek, gürültü",
+    "verdict": "fix",
+    "dogru": "gök gürültüsü, gürlemek",
+    "en": "thunder; to thunder",
+    "reason": "Kök gök gürültüsünü ifade eder; şimşek ve yıldırım ayrı anlamlardır."
+  },
+  {
+    "root": "رفد",
+    "tr": "refid etmek, yardım etmek, destek olmak, kaynaktan beslemek",
+    "verdict": "fix",
+    "dogru": "yardım etmek, desteklemek; bağış",
+    "en": "to aid, give; gift",
+    "reason": "“Refid etmek” Türkçede anlamlı bir karşılık değildir."
+  },
+  {
+    "root": "رمح",
+    "tr": "mızrak, kılıç, silah",
+    "verdict": "fix",
+    "dogru": "mızrak",
+    "en": "spear",
+    "reason": "رمح mızrak demektir; kılıç anlamına gelmez."
+  },
+  {
+    "root": "رمد",
+    "tr": "ateş, kızıl ateş, alev",
+    "verdict": "fix",
+    "dogru": "kül",
+    "en": "ashes",
+    "reason": "رماد ateş veya alev değil, küldür."
+  },
+  {
+    "root": "رهو",
+    "tr": "kaçmak, kaçışmak, firar etmek, uzaklaşmak",
+    "verdict": "fix",
+    "dogru": "durgun, sakin; açık, aralanmış",
+    "en": "still, calm; parted",
+    "reason": "Burada denizin durgun veya açık bırakılması ifade edilir."
+  },
+  {
+    "root": "ريش",
+    "tr": "tüy, kanat, pul",
+    "verdict": "ok"
+  },
+  {
+    "root": "زبن",
+    "tr": "dil, konuşma, lisan, söz",
+    "verdict": "fix",
+    "dogru": "itmek, uzaklaştırmak; zebaniler",
+    "en": "to push away; guards of Hell",
+    "reason": "Kök dil veya konuşma anlamına gelmez."
+  },
+  {
+    "root": "زرب",
+    "tr": "darbe vur, çarptı, vurdu",
+    "verdict": "fix",
+    "dogru": "halı, yaygı",
+    "en": "carpet, rug",
+    "reason": "Verilen anlam, vurmak anlamındaki ضرب ile karıştırılmıştır."
+  },
+  {
+    "root": "زلم",
+    "tr": "zulm, haksızlık, zalimlık, baskı",
+    "verdict": "fix",
+    "dogru": "fal okları",
+    "en": "divining arrows",
+    "reason": "Zulüm anlamı ظلم köküne aittir."
+  },
+  {
+    "root": "زنم",
+    "tr": "dövmek, çarpmak, vurmak, hırpalamak",
+    "verdict": "fix",
+    "dogru": "işaretli; soyu belirsiz kimse",
+    "en": "marked; a person of dubious lineage",
+    "reason": "Verilen vurma anlamları bu kullanımla ilgili değildir."
+  },
+  {
+    "root": "زهر",
+    "tr": "zehir, çiçek, çiçeğin güzelliği",
+    "verdict": "fix",
+    "dogru": "çiçek, güzellik, parlaklık",
+    "en": "flower; beauty, splendor",
+    "reason": "Zehir bu kökün anlamı değildir."
+  },
+  {
+    "root": "زول",
+    "tr": "son vermek",
+    "verdict": "fix",
+    "dogru": "yok olmak, ortadan kalkmak, yerinden oynamak",
+    "en": "to cease, disappear, move from a place",
+    "reason": "Kök, son vermeyi değil ortadan kalkmayı veya yerinden oynamayı ifade eder."
+  },
+  {
+    "root": "سام",
+    "tr": "usandırmak / yormak",
+    "verdict": "fix",
+    "dogru": "maruz bırakmak, eziyet etmek",
+    "en": "to inflict, subject to",
+    "reason": "Usandırmak anlamı سئم köküyle ilgilidir."
+  },
+  {
+    "root": "سحل",
+    "tr": "sürüklemek, çekmek, sürüyüp götürmek, hızlıca çekmek",
+    "verdict": "fix",
+    "dogru": "kıyı, sahil",
+    "en": "shore, bank",
+    "reason": "Ayetteki ساحل kıyı anlamındadır."
+  },
+  {
+    "root": "سدي",
+    "tr": "tıkamak, kapatmak, engel olmak",
+    "verdict": "fix",
+    "dogru": "başıboş bırakmak, ihmal etmek",
+    "en": "to leave unattended, neglect",
+    "reason": "Tıkamak anlamı سدد köküyle ilgilidir."
+  },
+  {
+    "root": "سرد",
+    "tr": "sürü, sevk etmek, göndermek, yollamak",
+    "verdict": "fix",
+    "dogru": "örmek, halkaları birbirine geçirmek",
+    "en": "to weave, link together",
+    "reason": "Ayette zırh halkalarının birbirine geçirilmesi anlatılır."
+  },
+  {
+    "root": "سردق",
+    "tr": "çadır, seramik ürün, gözlük",
+    "verdict": "fix",
+    "dogru": "çadır; kuşatan perde, örtü",
+    "en": "canopy; enclosing curtain",
+    "reason": "Seramik ürün ve gözlük bu kelimenin anlamları değildir."
+  },
+  {
+    "root": "سفع",
+    "tr": "sürüklemek / yakalamak",
+    "verdict": "ok"
+  },
+  {
+    "root": "سقم",
+    "tr": "hastalık, rahatsızlık, bozukluk, şüphe",
+    "verdict": "fix",
+    "dogru": "hastalık, rahatsızlık",
+    "en": "illness, sickness",
+    "reason": "Şüphe bu kökün anlamı değildir."
+  },
+  {
+    "root": "سكب",
+    "tr": "döklek, akıtmak, dökmek, saçmak",
+    "verdict": "fix",
+    "dogru": "akıtmak, dökmek, saçmak",
+    "en": "to pour, spill",
+    "reason": "Döklek burada anlamlı bir karşılık değildir."
+  },
+  {
+    "root": "سمد",
+    "tr": "samad, sonsuz, kendine yeterli, ihtiyaçsız",
+    "verdict": "fix",
+    "dogru": "gaflet içinde olmak, oyalanmak",
+    "en": "to be heedless, amuse oneself",
+    "reason": "Samed ve ihtiyaçsız anlamları صمد köküyle ilgilidir."
+  },
+  {
+    "root": "سمك",
+    "tr": "balık, yağ, kalınlık",
+    "verdict": "fix",
+    "dogru": "yükseklik, tavan; balık",
+    "en": "height, ceiling; fish",
+    "reason": "Yağ bu kökün anlamı değildir."
+  },
+  {
+    "root": "سنم",
+    "tr": "put, heykel, mimar",
+    "verdict": "fix",
+    "dogru": "hörgüç, yüksek yer; yükselmek",
+    "en": "hump, elevated place; to rise",
+    "reason": "Put anlamındaki صنم farklı bir kelimedir; mimar da bu kökün anlamı değildir."
+  },
+  {
+    "root": "سيب",
+    "tr": "sebep, neden, yol, bırakmak",
+    "verdict": "fix",
+    "dogru": "bırakmak, salıvermek",
+    "en": "to leave, release",
+    "reason": "Sebep, neden ve yol anlamları سبب köküyle karıştırılmıştır."
+  },
+  {
+    "root": "شطأ",
+    "tr": "şaşırtmak, aldatmak, hile yapmak, yanıltmak",
+    "verdict": "fix",
+    "dogru": "kıyı, kenar; filiz, sürgün",
+    "en": "shore, edge; shoot, sprout",
+    "reason": "Verilen anlamlar ayetlerdeki kıyı ve filiz kullanımlarıyla ilgili değildir."
+  },
+  {
+    "root": "شفق",
+    "tr": "korku duymak / şafak",
+    "verdict": "ok"
+  },
+  {
+    "root": "شكس",
+    "tr": "şaks, yarılmak, çatlamak, parçalanmak",
+    "verdict": "fix",
+    "dogru": "çekişmek, geçimsiz olmak",
+    "en": "to quarrel, be ill-tempered",
+    "reason": "Kök yarılmayı değil, geçimsizlik ve çekişmeyi ifade eder."
+  },
+  {
+    "root": "شمت",
+    "tr": "sevindirmek / düşmana sevinç vermek",
+    "verdict": "ok"
+  },
+  {
+    "root": "شوظ",
+    "tr": "şaşkınlık, hayret, korkutucu görünüm",
+    "verdict": "fix",
+    "dogru": "alev, ateş alevi",
+    "en": "flame, blaze",
+    "reason": "شواظ, şaşkınlık değil, alev demektir."
+  },
+  {
+    "root": "شوك",
+    "tr": "dikenli, diken, kırmızı, zehirli",
+    "verdict": "fix",
+    "dogru": "diken; güç, silahlı kuvvet",
+    "en": "thorn; strength, armed force",
+    "reason": "Ayette güç ve silahlı kuvvet anlamındadır; kırmızı ve zehirli karşılıkları uygun değildir."
+  },
+  {
+    "root": "صخخ",
+    "tr": "sert, kaba, soyutlama, ayırma",
+    "verdict": "fix",
+    "dogru": "sağır edici ses, şiddetli çığlık",
+    "en": "deafening sound, piercing cry",
+    "reason": "Ayette sağır edici sesi ifade eder; soyutlama ve ayırma anlamları uygun değildir."
+  },
+  {
+    "root": "صفح",
+    "tr": "affetmek / yüz çevirmeden geçmek",
+    "verdict": "fix",
+    "dogru": "affetmek, görmezden gelmek, yüz çevirmek",
+    "en": "to pardon, overlook, turn away",
+    "reason": "Yüz çevirmeden geçmek ifadesi anlamı tersine çevirir."
+  },
+  {
+    "root": "صفصف",
+    "tr": "düz arazi, saf, temiz, açık yer",
+    "verdict": "ok"
+  },
+  {
+    "root": "صفن",
+    "tr": "saf, saflaştır, arındır, temizle",
+    "verdict": "fix",
+    "dogru": "ayakta durmak; atın bir ayağını kaldırarak durması",
+    "en": "to stand; to stand with one foot raised",
+    "reason": "صفن, saflaştırmayı değil, ayette atların duruşunu ifade eder."
+  },
+  {
+    "root": "صلصل",
+    "tr": "çinleme sesi, çıngıltı, tıngırtı",
+    "verdict": "fix",
+    "dogru": "çınlamak; ses veren kuru çamur",
+    "en": "to ring; sounding dry clay",
+    "reason": "Ayette ses veren kuru çamur anlamındadır; çinleme Türkçe bir kelime değildir."
+  },
+  {
+    "root": "صمع",
+    "tr": "işitmek, duymak, dinlemek, saymak",
+    "verdict": "fix",
+    "dogru": "manastır, keşiş hücresi",
+    "en": "monastery, hermit's cell",
+    "reason": "صمع, işitmek veya saymak değil, ayette manastır anlamındadır."
+  },
+  {
+    "root": "صوع",
+    "tr": "sağlık, iyilik, doğruluk, salah",
+    "verdict": "fix",
+    "dogru": "su kabı, ölçü kabı",
+    "en": "cup, measuring vessel",
+    "reason": "صواع, sağlık veya iyilik değil, kap anlamındadır."
+  },
+  {
+    "root": "صوف",
+    "tr": "suf, yün, ipek, kumaş",
+    "verdict": "fix",
+    "dogru": "yün",
+    "en": "wool",
+    "reason": "صوف yün demektir; ipek anlamına gelmez."
+  },
+  {
+    "root": "صيص",
+    "tr": "tencere, çanak, kazan",
+    "verdict": "fix",
+    "dogru": "kale, sığınak",
+    "en": "fortress, stronghold",
+    "reason": "Ayette kale anlamındadır; tencere veya kazan değildir."
+  },
+  {
+    "root": "ضبح",
+    "tr": "dabbah etmek, boğazlamak, kesip parçalamak",
+    "verdict": "fix",
+    "dogru": "solumak, soluk soluğa koşmak",
+    "en": "to pant, breathe hard",
+    "reason": "ضبح, boğazlamak değil, koşarken solumak anlamındadır."
+  },
+  {
+    "root": "ضنن",
+    "tr": "zannetmek, sanmak, zan, kuşku",
+    "verdict": "fix",
+    "dogru": "cimrilik etmek, esirgemek",
+    "en": "to be stingy, withhold",
+    "reason": "ضنن, zanla değil, cimrilik ve esirgemeyle ilgilidir."
+  },
+  {
+    "root": "طرو",
+    "tr": "taze, yeni, çiçek, bitki",
+    "verdict": "ok"
+  },
+  {
+    "root": "طلح",
+    "tr": "acı ağaç, şifalı bitki",
+    "verdict": "fix",
+    "dogru": "akasya ağacı; muz ağacı",
+    "en": "acacia tree; banana tree",
+    "reason": "Ayetteki طلح için akasya ve muz ağacı yorumları vardır."
+  },
+  {
+    "root": "طلل",
+    "tr": "ızıl, harabeler, kalıntılar, işaretler",
+    "verdict": "fix",
+    "dogru": "hafif yağmur, çisenti",
+    "en": "light rain, drizzle",
+    "reason": "Ayette hafif yağmur anlamındadır; ızıl Türkçe bir kelime değildir."
+  },
+  {
+    "root": "ظمأ",
+    "tr": "susuzluk, susuz kalmak, susamak, haus",
+    "verdict": "fix",
+    "dogru": "susuzluk, susuz kalmak, susamak",
+    "en": "thirst; to be thirsty",
+    "reason": "Haus Türkçe bir karşılık değildir."
+  },
+  {
+    "root": "عرجن",
+    "tr": "arcinlik, sarılmış bez, ince kumaş",
+    "verdict": "fix",
+    "dogru": "hurma salkımının sapı, eğri hurma dalı",
+    "en": "date-palm stalk",
+    "reason": "عرجون, bez veya kumaş değil, hurma salkımının sapıdır."
+  },
+  {
+    "root": "عرر",
+    "tr": "çıplak, soyunmuş, açık",
+    "verdict": "fix",
+    "dogru": "zarar, sıkıntı; yardım istemek",
+    "en": "harm, trouble; to seek help",
+    "reason": "Ayetteki kullanımlar zarar ve yardım isteyen yoksulla ilgilidir; çıplaklık anlamında değildir."
+  },
+  {
+    "root": "عرم",
+    "tr": "kesilmek, koparmak, yok etmek, helak etmek",
+    "verdict": "fix",
+    "dogru": "set, bent; şiddetli sel",
+    "en": "dam; violent flood",
+    "reason": "Verilen kesmek ve koparmak anlamları ayetteki kullanımla uyuşmaz."
+  },
+  {
+    "root": "عيل",
+    "tr": "yüklenmek, yüklemek, sorumlu kılmak, düşürmek",
+    "verdict": "fix",
+    "dogru": "yoksul olmak, muhtaç olmak",
+    "en": "to be poor, be in need",
+    "reason": "Ayetteki kullanımlar yoksulluk ve muhtaçlıkla ilgilidir."
+  },
+  {
+    "root": "غزو",
+    "tr": "fetih, savaş, akın, baskın",
+    "verdict": "ok"
+  },
+  {
+    "root": "غوط",
+    "tr": "batı, çukur, alçak yer, vadi",
+    "verdict": "fix",
+    "dogru": "çukur, alçak yer; tuvalet",
+    "en": "low-lying ground; place of relieving oneself",
+    "reason": "Batı yönü bu kökün anlamı değildir."
+  },
+  {
+    "root": "فتأ",
+    "tr": "fetva vermek, hüküm bildirmek, soru sormak",
+    "verdict": "fix",
+    "dogru": "durmak, kesilmek, sona ermek",
+    "en": "to cease, stop",
+    "reason": "Fetva vermek فتأ kökünün anlamı değildir."
+  },
+  {
+    "root": "فتا",
+    "tr": "durmak / kesilmek",
+    "verdict": "fix",
+    "dogru": "genç olmak; gençlik",
+    "en": "to be young; youth",
+    "reason": "Durmak ve kesilmek فتأ köküne aittir."
+  },
+  {
+    "root": "فرث",
+    "tr": "fırth, kusma, kusuk, mide çıkıntısı",
+    "verdict": "fix",
+    "dogru": "işkembe içeriği, yarı sindirilmiş besin",
+    "en": "partly digested stomach contents",
+    "reason": "فرث işkembe içeriğidir; verilen karşılıklar yanlıştır ve “fırth” Türkçe bir sözcük değildir."
+  },
+  {
+    "root": "فصم",
+    "tr": "çatlamak, yarılmak, kütleşmek, ayrılmak",
+    "verdict": "fix",
+    "dogru": "çatlamak, yarılmak, kopmak",
+    "en": "to crack, split, break apart",
+    "reason": "Kütleşmek kökün anlamıyla ilgisizdir."
+  },
+  {
+    "root": "فظظ",
+    "tr": "korumak, saklamak, hafızada tutmak, ezberlemek",
+    "verdict": "fix",
+    "dogru": "kaba, sert olmak",
+    "en": "to be harsh, rude",
+    "reason": "Korumak ve ezberlemek حفظ köküyle ilgilidir."
+  },
+  {
+    "root": "فقع",
+    "tr": "patlama yeri, mantar, çıkma",
+    "verdict": "fix",
+    "dogru": "parlak sarı olmak",
+    "en": "to be bright yellow",
+    "reason": "Ayette renk parlaklığını ifade eder; verilen anlamlar bu kullanımı karşılamaz."
+  },
+  {
+    "root": "فلن",
+    "tr": "bölmek, ayırmak, yarıştırmak, açmak",
+    "verdict": "fix",
+    "dogru": "filan kimse",
+    "en": "so-and-so",
+    "reason": "فلان belirsiz bir kişiyi belirtir."
+  },
+  {
+    "root": "فني",
+    "tr": "teknik, sanat, zanaat, beceri",
+    "verdict": "fix",
+    "dogru": "yok olmak, tükenmek",
+    "en": "to perish, pass away",
+    "reason": "فني yok olmakla ilgilidir; sanat ve beceri anlamına gelmez."
+  },
+  {
+    "root": "فوم",
+    "tr": "ağız, köpük, balık ağzı",
+    "verdict": "fix",
+    "dogru": "sarımsak, buğday",
+    "en": "garlic; wheat",
+    "reason": "فوم sarımsak veya buğday olarak açıklanır."
+  },
+  {
+    "root": "قثأ",
+    "tr": "kavun, hıyar, kabak",
+    "verdict": "ok"
+  },
+  {
+    "root": "قرد",
+    "tr": "maymun, değiştirmek",
+    "verdict": "fix",
+    "dogru": "maymun",
+    "en": "monkey, ape",
+    "reason": "Değiştirmek قرد kökünün anlamı değildir."
+  },
+  {
+    "root": "قسس",
+    "tr": "sertlik, katılık, zorbalık, baskı",
+    "verdict": "fix",
+    "dogru": "papaz, rahip",
+    "en": "priest",
+    "reason": "Ayetteki قسيس rahip anlamındadır."
+  },
+  {
+    "root": "قسطس",
+    "tr": "hoş kokulu bir bitki",
+    "verdict": "fix",
+    "dogru": "terazi, tartı",
+    "en": "balance, scales",
+    "reason": "قسطاس ayetlerde terazi anlamındadır."
+  },
+  {
+    "root": "قفل",
+    "tr": "kilitlemek, mühürlemek, kapatmak, kufal",
+    "verdict": "fix",
+    "dogru": "kilitlemek, kapatmak; kilit",
+    "en": "to lock, close; lock",
+    "reason": "“Kufal” anlamlı bir Türkçe karşılık değildir."
+  },
+  {
+    "root": "قمل",
+    "tr": "bit, bit çıkarmak, çıban",
+    "verdict": "fix",
+    "dogru": "bit, bitlenmek",
+    "en": "lice; to become infested with lice",
+    "reason": "Çıban kökün bu kullanımıyla ilgisizdir."
+  },
+  {
+    "root": "قنو",
+    "tr": "itaat et, boyun eğ, alçak gönüllülük",
+    "verdict": "fix",
+    "dogru": "hurma salkımı",
+    "en": "date cluster",
+    "reason": "İtaat ve boyun eğme قنت köküyle ilgilidir."
+  },
+  {
+    "root": "قني",
+    "tr": "kanaat etmek, yetinmek, kanaatkar olmak",
+    "verdict": "ok"
+  },
+  {
+    "root": "قوب",
+    "tr": "eğmek, kıvırmak, çökmek, yıkılmak",
+    "verdict": "fix",
+    "dogru": "ölçü, mesafe, uzunluk",
+    "en": "measure, distance, length",
+    "reason": "Ayette قَاب, yay uzunluğu ölçüsündeki mesafeyi ifade eder."
+  },
+  {
+    "root": "قوع",
+    "tr": "düşmek, yağmur yağmak, olmak, vuku bulmak",
+    "verdict": "fix",
+    "dogru": "düz ve alçak arazi, ova",
+    "en": "level, low-lying ground; plain",
+    "reason": "Ayette düz arazi anlamındadır; düşmek ve vuku bulmak وقع köküne aittir."
+  },
+  {
+    "root": "كثب",
+    "tr": "yakın, yakınlaş, yaklaş, cezambil",
+    "verdict": "fix",
+    "dogru": "kum yığını, kum tepesi",
+    "en": "a heap or dune of sand",
+    "reason": "Ayette kum yığınını ifade eder; “cezambil” anlamlı bir karşılık değildir."
+  },
+  {
+    "root": "كسد",
+    "tr": "kıstmak, engel olmak, tıkamak, daralmak",
+    "verdict": "fix",
+    "dogru": "durgunlaşmak, satılmamak, rağbet görmemek",
+    "en": "to stagnate; to remain unsold",
+    "reason": "Ayette ticaretin durgunlaşması söz konusudur; verilen karşılıklar bunu ifade etmez."
+  },
+  {
+    "root": "كلح",
+    "tr": "acı, bitter, ekşi, tatsız",
+    "verdict": "fix",
+    "dogru": "yüzünü buruşturmak, dişlerini göstermek",
+    "en": "to grimace; to bare the teeth",
+    "reason": "Ayette tat değil, yüzün aldığı ifade anlatılır."
+  },
+  {
+    "root": "كلو",
+    "tr": "yemek, yiyecek, gıda, beslenme",
+    "verdict": "fix",
+    "dogru": "ikisi, her ikisi",
+    "en": "both; each of the two",
+    "reason": "كلا ve كلتا ayetlerde “her ikisi” anlamındadır; yemekle ilgili değildir."
+  },
+  {
+    "root": "كهن",
+    "tr": "eski, yaşlı, antika, kadim",
+    "verdict": "fix",
+    "dogru": "kâhin, kâhinlik etmek",
+    "en": "soothsayer; to practice divination",
+    "reason": "Ayette kâhinlik söz konusudur; eskilikle ilgili değildir."
+  },
+  {
+    "root": "لحي",
+    "tr": "et, gövde, yaşayan, hayat",
+    "verdict": "fix",
+    "dogru": "sakal, çene",
+    "en": "beard; jaw",
+    "reason": "Ayette sakal anlamındadır; hayatla ilgili değildir."
+  },
+  {
+    "root": "لقب",
+    "tr": "lakab, unvan, ad, geçmiş ad",
+    "verdict": "fix",
+    "dogru": "lakap, unvan, ad",
+    "en": "nickname, title",
+    "reason": "“Geçmiş ad” ilgisiz bir karşılıktır."
+  },
+  {
+    "root": "لقح",
+    "tr": "hasat, ürün, mahsul, bitki",
+    "verdict": "fix",
+    "dogru": "aşılamak, döllemek",
+    "en": "to pollinate, fertilize",
+    "reason": "Ayette aşılayıcı rüzgârlar anlatılır; hasat veya ürün anlamında değildir."
+  },
+  {
+    "root": "لمح",
+    "tr": "göz atmak, hızlıca bakış, seçme, işaret etme",
+    "verdict": "ok"
+  },
+  {
+    "root": "متن",
+    "tr": "metin, yazı, ibadet metni",
+    "verdict": "fix",
+    "dogru": "sağlam olmak, güçlü olmak",
+    "en": "to be firm, strong",
+    "reason": "Ayetlerde sağlamlık ve güç ifade edilir; yazılı metin anlamında değildir."
+  },
+  {
+    "root": "مجد",
+    "tr": "şeref, izzet, yücelik, nur",
+    "verdict": "fix",
+    "dogru": "şeref, izzet, yücelik",
+    "en": "glory, honor",
+    "reason": "Şeref ve yücelik uygundur; “nur” ise ilgisizdir."
+  },
+  {
+    "root": "مجس",
+    "tr": "dokunmak, hissetmek, araştırmak, yoklamak",
+    "verdict": "fix",
+    "dogru": "Mecusiler",
+    "en": "Magians, Zoroastrians",
+    "reason": "Ayette Mecusiler kastedilir; dokunmak veya yoklamak değildir."
+  },
+  {
+    "root": "مخر",
+    "tr": "gecikme, erteleme, geri bırakma, gecikmek",
+    "verdict": "fix",
+    "dogru": "suyu yararak ilerlemek, yarıp geçmek",
+    "en": "to cleave through water",
+    "reason": "Ayetlerde gemilerin suyu yararak ilerlemesi anlatılır."
+  },
+  {
+    "root": "مرو",
+    "tr": "geçmek, yürümek, harekete geçmek, gitmek",
+    "verdict": "fix",
+    "dogru": "çakmak taşı, Merve",
+    "en": "flint; Marwah",
+    "reason": "Ayette Merve tepesinin adı geçer; yürümek anlamında değildir."
+  },
+  {
+    "root": "مشج",
+    "tr": "tarak, taramak, dişleri ayırmak, çıtlatmak",
+    "verdict": "fix",
+    "dogru": "karıştırmak, karışım",
+    "en": "to mix; mixture",
+    "reason": "Ayette karışım anlamındadır; tarakla ilgili değildir."
+  },
+  {
+    "root": "مكو",
+    "tr": "durma, kalma, oturma, yerleş",
+    "verdict": "fix",
+    "dogru": "ıslık çalmak, ıslık",
+    "en": "to whistle; whistling",
+    "reason": "Ayette ıslık anlamındadır; kalmak veya yerleşmek değildir."
+  },
+  {
+    "root": "ملق",
+    "tr": "yaratmak, yaratış, biçim, oluşturmak",
+    "verdict": "fix",
+    "dogru": "yoksullaşmak, yoksulluk",
+    "en": "to become impoverished; poverty",
+    "reason": "Ayetlerde yoksulluk anlamındadır; yaratmakla ilgili değildir."
+  },
+  {
+    "root": "نحب",
+    "tr": "sevmek, sevgi, arzu, hoşlanmak",
+    "verdict": "fix",
+    "dogru": "adak, söz; ölmek",
+    "en": "vow, pledge; to die",
+    "reason": "Sevgi ve arzu bu kökün ayetteki anlamıyla ilgili değildir."
+  },
+  {
+    "root": "نحل",
+    "tr": "arı, bal, organize etmek, düzenlemek",
+    "verdict": "fix",
+    "dogru": "arı; bağışlamak, gönülden vermek",
+    "en": "bee; to give freely",
+    "reason": "Organize etmek ve düzenlemek bu kullanımlarla ilgili değildir."
+  },
+  {
+    "root": "نسب",
+    "tr": "neseb, soyut, atıfetme, bağlama",
+    "verdict": "fix",
+    "dogru": "nesep, soy, soy bağı",
+    "en": "lineage, kinship",
+    "reason": "Soyut ve atıfetme burada uygun değildir."
+  },
+  {
+    "root": "نسر",
+    "tr": "kartal, nesr, dağıtma, saçma",
+    "verdict": "fix",
+    "dogru": "akbaba; Nesr",
+    "en": "vulture; Nasr",
+    "reason": "Ayette Nesr özel addır; dağıtmak ve saçmak başka bir kökle ilgilidir."
+  },
+  {
+    "root": "نطح",
+    "tr": "cornering, köşeye sıkıştırma, başla vurmak",
+    "verdict": "fix",
+    "dogru": "boynuzlamak, kafa vurmak",
+    "en": "to butt, gore",
+    "reason": "Köşeye sıkıştırmak kökün anlamı değildir."
+  },
+  {
+    "root": "نمم",
+    "tr": "artırmak, çoğaltmak, büyütmek",
+    "verdict": "fix",
+    "dogru": "söz taşımak, dedikodu yapmak",
+    "en": "to carry tales, gossip",
+    "reason": "Artmak ve büyümek farklı bir kökle ilgilidir."
+  },
+  {
+    "root": "نوأ",
+    "tr": "uyku, uyulamak, dinlenme, huzur",
+    "verdict": "fix",
+    "dogru": "yük altında zorlanmak; güçlükle kalkmak",
+    "en": "to struggle under a burden",
+    "reason": "Ayette ağırlık altında zorlanma söz konusudur; uyku anlamı uygun değildir."
+  },
+  {
+    "root": "نوش",
+    "tr": "içmek, içki, tat almak, zehir",
+    "verdict": "fix",
+    "dogru": "uzanıp almak, erişmek, elde etmek",
+    "en": "to reach for, obtain",
+    "reason": "Ayette erişip alma anlamındadır; içki ve zehirle ilgili değildir."
+  },
+  {
+    "root": "هبو",
+    "tr": "inmek, düşmek, alçalmak, sekmek",
+    "verdict": "fix",
+    "dogru": "toz, ince zerreler; toz gibi dağılmak",
+    "en": "fine dust; to scatter as dust",
+    "reason": "Ayetlerde ince toz anlamındadır; inmek ve alçalmak uygun değildir."
+  },
+  {
+    "root": "هطع",
+    "tr": "yağmur yağdırmak, yağmur, sağanak",
+    "verdict": "fix",
+    "dogru": "aceleyle koşmak, bakışını yöneltmek",
+    "en": "to hurry, look intently",
+    "reason": "Ayetlerde aceleyle yönelmeyi ifade eder; yağmur anlamında değildir."
+  },
+  {
+    "root": "همد",
+    "tr": "hediye vermek, bağışlamak",
+    "verdict": "fix",
+    "dogru": "sönmek, durulmak, kuruyup cansızlaşmak",
+    "en": "to die down, become lifeless",
+    "reason": "Ayette toprağın kuruyup cansızlaşmasını anlatır; hediye vermekle ilgili değildir."
+  },
+  {
+    "root": "همن",
+    "tr": "hamm, dönem, zaman, devir",
+    "verdict": "fix",
+    "dogru": "gözetmek, korumak",
+    "en": "to watch over, guard",
+    "reason": "Ayetlerde gözetme ve koruma anlamındadır; zamanla veya Hâmân adıyla ilgili değildir."
+  },
+  {
+    "root": "هيل",
+    "tr": "eğmek, çevirmek, döndürmek, sapitmak",
+    "verdict": "fix",
+    "dogru": "dökmek, saçmak",
+    "en": "to pour, scatter",
+    "reason": "Ayette kumun dökülüp dağılmasını anlatır; eğmek ve saptırmak uygun değildir."
+  },
+  {
+    "root": "وأد",
+    "tr": "gömüp öldürmek, canlı gömmek, boğmak, öldürmek",
+    "verdict": "ok"
+  },
+  {
+    "root": "وأل",
+    "tr": "sormak, soruşturmak, merak etmek, araştırmak",
+    "verdict": "fix",
+    "dogru": "sığınmak, kurtulmak; sığınak",
+    "en": "to seek refuge, escape; refuge",
+    "reason": "Ayette sığınak veya kaçış yeri anlamındadır; sormakla ilgili değildir."
+  },
+  {
+    "root": "وتن",
+    "tr": "boyun damarı, kalp damarı",
+    "verdict": "fix",
+    "dogru": "kalpten çıkan ana damar, aort",
+    "en": "aorta, main artery",
+    "reason": "وتين kalbe bağlı ana damardır; boyun damarı değildir."
+  },
+  {
+    "root": "وثن",
+    "tr": "put, mabet, ilah",
+    "verdict": "fix",
+    "dogru": "put, tapınılan nesne",
+    "en": "idol",
+    "reason": "وثن put anlamındadır; mabet anlamına gelmez."
+  },
+  {
+    "root": "ودق",
+    "tr": "doğru, samimi, sadık",
+    "verdict": "fix",
+    "dogru": "yağmur",
+    "en": "rain",
+    "reason": "Ayetlerde yağmur anlamındadır; doğruluk ve sadakatle ilgili değildir."
+  },
+  {
+    "root": "ورق",
+    "tr": "yaprak, kağıt, sayfa, derisi",
+    "verdict": "fix",
+    "dogru": "yaprak; gümüş, gümüş para",
+    "en": "leaf; silver, silver coin",
+    "reason": "Ayetlerde yaprak ve gümüş para anlamları vardır; deri anlamı uygun değildir."
+  },
+  {
+    "root": "وشي",
+    "tr": "dönerken taşıyan, işleme, nakış",
+    "verdict": "fix",
+    "dogru": "alaca işaret, leke; süslemek, nakış işlemek",
+    "en": "mark, blemish; to adorn, embroider",
+    "reason": "Ayette renk farkı veya leke anlamındadır; dönerken taşımakla ilgili değildir."
+  },
+  {
+    "root": "وصد",
+    "tr": "vasıtlaştırmak, bağlamak, ulaştırmak",
+    "verdict": "fix",
+    "dogru": "kapatmak, kapayıp örtmek",
+    "en": "to close, shut",
+    "reason": "Kök kapatmayı ifade eder; ulaştırmak وصل köküyle ilgilidir."
+  },
+  {
+    "root": "وضن",
+    "tr": "ağırlık, ağır, yük, tartı",
+    "verdict": "fix",
+    "dogru": "örmek, birbirine geçirerek dokumak",
+    "en": "to weave, interlace",
+    "reason": "Kök örme ve dokumayı ifade eder; ağırlık veya tartı anlamına gelmez."
+  },
+  {
+    "root": "وفد",
+    "tr": "heyetçi, temsilci, vefdi",
+    "verdict": "fix",
+    "dogru": "heyet, elçiler",
+    "en": "delegation, envoys",
+    "reason": "Kullanım bir heyeti ifade eder; ‘vefdi’ kök anlamı olarak uygun değildir."
+  },
+  {
+    "root": "وقذ",
+    "tr": "atmak, fırlatmak, vurmak, saçmak",
+    "verdict": "fix",
+    "dogru": "vurmak, vurarak öldürmek",
+    "en": "to strike, beat to death",
+    "reason": "Kök darbeyle vurmayı ifade eder; atmak ve saçmak anlamları ilgisizdir."
+  },
+  {
+    "root": "ينع",
+    "tr": "yanakta, yanakları",
+    "verdict": "fix",
+    "dogru": "olgunlaşmak, olgunlaşma",
+    "en": "to ripen; ripening",
+    "reason": "Kök meyvenin olgunlaşmasını ifade eder; yanak anlamına gelmez."
+  }
+]
