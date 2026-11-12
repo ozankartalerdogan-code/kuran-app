@@ -50,7 +50,7 @@ export default defineStrings({
     notifLabel: "Notifications",
     notifSub: "Prayer time and daily verse notifications",
     widgetLabel: "Home Screen Widget",
-    widgetSub: "Follow the verses of command from your home screen",
+    widgetSub: "Follow the Verses of Command on your home screen",
     aboutLabel: "Sources and Notes",
     aboutSub: "Sources, notes, version info",
     privacyLabel: "Privacy Policy",

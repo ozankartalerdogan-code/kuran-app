@@ -8,7 +8,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { useStrings } from "../../src/i18n";
+import { useStrings, caps } from "../../src/i18n";
 import ogrenStrings from "../../src/i18n/strings/ogrenTab";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
@@ -81,7 +81,7 @@ export default function OgrenTab() {
         {SECTIONS.map((section, si) => (
           <View key={si} style={si > 0 ? s.section : s.firstSection}>
             <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
-              <Text style={[s.sectionTitle, { color: c.textMuted }]}>{section.title}</Text>
+              <Text style={[s.sectionTitle, { color: c.textMuted }]}>{caps(section.title)}</Text>
             </View>
             <View style={s.cards}>
               {section.items.map(item => (

@@ -23,7 +23,7 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
   {
     "id": "translit-en",
     "title": "English Transliteration — AlQuran Cloud / Quran.com",
-    "url": "https://alquran.cloud/terms-and-conditions",
+    "url": "https://api.alquran.cloud/v1/quran/en.transliteration",
     "license": "With attribution"
   },
   {
@@ -78,7 +78,7 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "meal-tafsir",
     "title": "Translation and commentary",
-    "body": "Elmalılı Hamdi Yazır's Hak Dini Kur'an Dili is the only translation used for the Turkish Quran translation. When the mobile app interface is in English, Marmaduke Pickthall's public-domain translation \"The Meaning of the Glorious Koran\" (1930) is displayed; the digital text is taken from Tanzil.net. In the same mode, the English transliteration of the verses is displayed from the \"English Transliteration\" text obtained via AlQuran Cloud and also used on Quran.com (verse page, surah list, verse of the day, search, Spiritual Refuge, Ism al-A'zam and Prayer Guide verses). Semar Ketir's MIT-licensed work was used in the chain of digital copies. Simplified explanations are re-prepared for Kuran Yolu with AI assistance and human review; they are for informational purposes and do not constitute fatwas. Four translation sources previously retained for comparison — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk, and Diyanet Vakfı — have been completely removed from the runtime environment; no text from these sources is displayed in the app anymore. Their records are retained in provenance documents only to keep the source history transparent.",
+    "body": "Elmalılı Hamdi Yazır's Hak Dini Kur'an Dili is the only translation used for the Turkish Quran translation. When the mobile app interface is in English, Marmaduke Pickthall's public-domain translation \"The Meaning of the Glorious Koran\" (1930) is displayed; the digital text is taken from Tanzil.net. In the same mode, the English transliteration of the verses is displayed from the \"English Transliteration\" text obtained via AlQuran Cloud and also used on Quran.com (verse page, surah list, verse and dua of the day, search, Spiritual Refuge, Ism al-A'zam and Prayer Guide verses). Semar Ketir's MIT-licensed work was used in the chain of digital copies. Simplified explanations are re-prepared for Kuran Yolu with AI assistance and human review; they are for informational purposes and do not constitute fatwas. Four translation sources previously retained for comparison — Ali Bulaç, Diyanet İşleri, Yaşar Nuri Öztürk, and Diyanet Vakfı — have been completely removed from the runtime environment; no text from these sources is displayed in the app anymore. Their records are retained in source documentation only to keep the source history transparent.",
     "linkIds": [
       "elmalili",
       "pickthall",

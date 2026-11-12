@@ -12,7 +12,7 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { useStrings, useLang, fmt } from "../src/i18n";
+import { useStrings, useLang, fmt, caps } from "../src/i18n";
 import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import maneviStrings from "../src/i18n/strings/maneviSiginak";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
@@ -224,7 +224,7 @@ export default function ManeviSiginakScreen() {
           <Text style={[s.featuredArrow, c.isDark && { color: "#fbbf24" }]}>→</Text>
         </TouchableOpacity>
 
-        <Text style={[s.sectionLabel, { color: c.textMuted }]}>{ms.guides}</Text>
+        <Text style={[s.sectionLabel, { color: c.textMuted }]}>{caps(ms.guides)}</Text>
 
         {/* Bolum 1: Genel Korunma */}
         <Bolum emoji="⚔️" baslik={ms.b1} color="#6ee7b7">
@@ -290,7 +290,7 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* YAP / YAPMA */}
-        <Text style={[s.sectionLabel, { color: c.textMuted }]}>{D.yapYapma.etiket}</Text>
+        <Text style={[s.sectionLabel, { color: c.textMuted }]}>{caps(D.yapYapma.etiket)}</Text>
         <View style={[s.mitCard, { backgroundColor: c.card }, c.isDark && { borderColor: "#166534" }]}>
           <Text style={[s.mitTitle, c.isDark && { color: "#6ee7b7" }]}>{D.yapYapma.yapBaslik}</Text>
           {D.yapYapma.yap.map((i, idx) => <Text key={idx} style={[s.mitGreen, c.isDark && { color: "#86efac" }]}>✓ {i}</Text>)}

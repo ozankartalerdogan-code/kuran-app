@@ -8,7 +8,7 @@ import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import dualarRaw from "../src/data/dualar.json";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
-import { useStrings, useLang } from "../src/i18n";
+import { useStrings, useLang, fmt } from "../src/i18n";
 import { localizedTranslit } from "../src/lib/translitEn";
 import dualarStrings from "../src/i18n/strings/dualar";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -112,10 +112,11 @@ function DuaCard({ dua }: { dua: Dua }) {
 
 function KategoriAccordion({ kat, defaultOpen }: { kat: Kategori; defaultOpen?: boolean }) {
   const c = useColors();
+  const t = useStrings(dualarStrings);
   const [open, setOpen] = useState(!!defaultOpen);
   return (
     <View style={[s.katCard, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity style={s.katHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={`${kat.isim}, ${kat.dualar.length} dua`}>
+      <TouchableOpacity style={s.katHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={fmt(t.categoryA11y, { name: kat.isim, n: kat.dualar.length })}>
         <View style={s.katKod}><Text style={s.katKodText}>{kat.kod}</Text></View>
         <Text style={[s.katTitle, { color: c.text }]}>{kat.isim}</Text>
         <View style={[s.katCount, { backgroundColor: c.cardAlt }]}><Text style={[s.katCountText, { color: c.textMuted }]}>{kat.dualar.length}</Text></View>

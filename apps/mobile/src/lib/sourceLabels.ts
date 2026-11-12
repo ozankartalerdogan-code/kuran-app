@@ -9,7 +9,8 @@ function normalizeLabelValue(value?: string | null): string {
     .replace(/[\u2019]/g, "'");
 }
 
-const QURAN_RE = /kuran|kur'an|ayet|sure|suresi|fatiha|ayetul kursi|ihlas|felak|nas|bakara|enbiya|muminun|ibrahim|al-i imran|kasas|zuhruf/;
+// Kelime başı sınırı: "rivayeti" içindeki "ayet", "sürekli" içindeki "sure" eşleşmesin.
+const QURAN_RE = /(?<![a-z])(?:kuran|kur'an|ayet|sure(?:si)?(?![a-z])|fatiha|ayetul kursi|ihlas|felak|nas(?![a-z])|bakara|enbiya|muminun|ibrahim|al-i imran|kasas|zuhruf)/;
 const SALAVAT_RE = /salavat|salli|barik|allahumme salli|vesile/;
 const ISTIGFAR_RE = /istigfar|estagfir|seyyidul istigfar/;
 const ZIKIR_RE = /zikir|tesbih|subhan|elhamdulillah|allahu ekber|la ilahe|la havle|hasbunallah|euzu billah/;

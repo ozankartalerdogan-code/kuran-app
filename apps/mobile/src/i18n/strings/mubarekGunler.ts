@@ -27,8 +27,8 @@ export default defineStrings({
     stSunnet: "SÜNNET",
     stMustehap: "MÜSTEHAP",
     stTavsiye: "TAVSİYE",
-    tipHaftalik: "haftalik",
-    tipYillik: "yillik",
+    tipHaftalik: "haftalık",
+    tipYillik: "yıllık",
     tipRamazan: "ramazan",
   },
   en: {

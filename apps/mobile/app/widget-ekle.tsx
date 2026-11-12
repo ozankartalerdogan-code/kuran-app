@@ -4,14 +4,14 @@ import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
-import { useStrings } from "../src/i18n";
+import { useStrings, caps } from "../src/i18n";
 import misc1Strings from "../src/i18n/strings/misc1";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const c = useColors();
   return (
     <View style={s.section}>
-      <Text style={[s.sectionTitle, { color: c.accent }]}>{title}</Text>
+      <Text style={[s.sectionTitle, { color: c.accent }]}>{caps(title)}</Text>
       {children}
     </View>
   );
@@ -38,8 +38,9 @@ export default function WidgetEkleScreen() {
     <>
       <Stack.Screen options={{ headerShown: false }} />
       <ScrollView
-        style={{ flex: 1, backgroundColor: c.bg }}
-        contentContainerStyle={[s.content, { paddingTop: insets.top + 20, paddingBottom: 32 + insets.bottom }]}
+        // Üst boşluk kaydırılan içeriğin dışında: metin durum çubuğunun altına girmesin.
+        style={{ flex: 1, backgroundColor: c.bg, marginTop: insets.top }}
+        contentContainerStyle={[s.content, { paddingTop: 20, paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.pageTitle, { color: c.text }]}>{t.widgetTitle}</Text>

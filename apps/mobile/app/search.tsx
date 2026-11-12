@@ -16,7 +16,7 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 import { useMealOf, getEnglishMealTable } from "../src/lib/englishMeal";
 import { searchMealTable } from "../src/lib/mealLookup";
-import { getLang, getStrings, useLang, useStrings, fmt } from "../src/i18n";
+import { getLang, getStrings, useLang, useStrings, fmt, caps } from "../src/i18n";
 import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import searchStrings from "../src/i18n/strings/search";
 import tagStrings from "../src/i18n/strings/tagLabels";
@@ -158,7 +158,7 @@ function SurahCard({ surahId, surahName: trSurahName }: { surahId: number; surah
           <Ionicons name="book" size={22} color={c.accent} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: c.accent }]}>{ss.surahFound}</Text>
+          <Text style={[styles.typeLabel, { color: c.accent }]}>{caps(ss.surahFound)}</Text>
           <Text style={[styles.cardTitle, { color: c.text }]}>{surahName}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
@@ -180,7 +180,7 @@ function DirectAyahCard({ surahId, ayahNumber }: { surahId: number; ayahNumber: 
           <Ionicons name="navigate" size={20} color={c.accent} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: c.accent }]}>{ss.goToAyah}</Text>
+          <Text style={[styles.typeLabel, { color: c.accent }]}>{caps(ss.goToAyah)}</Text>
           <Text style={[styles.cardTitle, { color: c.text }]}>{fmt(ss.surahAyah, { s: surahId, a: ayahNumber })}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
@@ -200,7 +200,7 @@ function TagCard({ tag, count }: { tag: string; count: number }) {
           <Ionicons name="pricetag" size={20} color={amber} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: amber }]}>{ss.themeFound}</Text>
+          <Text style={[styles.typeLabel, { color: amber }]}>{caps(ss.themeFound)}</Text>
           <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{getLang() === "en" ? (tagLabel(tag) ?? "") : tag}</Text>
           <Text style={[styles.tagCount, { color: amber }]}>{fmt(ss.tagCount, { n: count })}</Text>
         </View>
@@ -423,14 +423,14 @@ export default function SearchScreen() {
       case "chip_section":
         return (
           <View>
-            <Text style={[styles.idleSection, { color: c.textMuted }]}>{item.title}</Text>
+            <Text style={[styles.idleSection, { color: c.textMuted }]}>{caps(item.title)}</Text>
             <ChipRow chips={item.chips} color={item.color} onPress={handleTagChip} />
           </View>
         );
       case "recent_header":
         return (
           <View style={styles.recentHeader}>
-            <Text style={[styles.idleSection, { color: c.textMuted }]}>{ss.recent}</Text>
+            <Text style={[styles.idleSection, { color: c.textMuted }]}>{caps(ss.recent)}</Text>
             <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.clearRecentA11y}>
               <Text style={styles.recentClear}>{ss.clear}</Text>
             </TouchableOpacity>

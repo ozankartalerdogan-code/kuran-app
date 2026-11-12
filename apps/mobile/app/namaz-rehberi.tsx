@@ -11,7 +11,7 @@ import { getDevotionalSourceLabel, getEvidenceLabel } from "../src/lib/sourceLab
 
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { useLang, useStrings, fmt } from "../src/i18n";
+import { useLang, useStrings, fmt, caps } from "../src/i18n";
 import { localizedTranslit } from "../src/lib/translitEn";
 import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
@@ -190,7 +190,7 @@ function VakitTablosu() {
     <View>
       <TouchableOpacity style={[na.motto, { backgroundColor: c.isDark ? "#022c22" : "#ecfdf5", borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]} activeOpacity={0.8} onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}`)} accessibilityRole="button" accessibilityLabel={fmt(tx.mottoA11y, { label: mottoLabel })}>
         <View style={na.mottoHead}>
-          <Text style={[na.mottoEtiket, { color: c.accent }]}>{tx.mottoTitle}</Text>
+          <Text style={[na.mottoEtiket, { color: c.accent }]}>{caps(tx.mottoTitle)}</Text>
           <View style={[na.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[na.mottoKeyText, { color: c.accent }]}>{mottoLabel}</Text></View>
         </View>
         <Text style={[na.mottoArabic, { color: c.text }]}>{MOTTO.arabic}</Text>
@@ -199,7 +199,7 @@ function VakitTablosu() {
 
       <View style={[na.vtCard, { backgroundColor: c.card, borderColor: c.border }]}>
         <View style={[na.vtHeader, { borderBottomColor: c.border }]}>
-          <Text style={[na.vtHeaderTitle, { color: c.textMuted }]}>{tx.vakitHeader}</Text>
+          <Text style={[na.vtHeaderTitle, { color: c.textMuted }]}>{caps(tx.vakitHeader)}</Text>
         </View>
         {VAKIT_ROWS.map(v => (
           <View key={v.id} style={[na.vtRow, { backgroundColor: c.isDark ? c.cardAlt : v.bg, borderLeftColor: v.border, borderBottomColor: c.border }]}>
@@ -303,7 +303,7 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
         <Text style={[s.intro, { color: c.textSecondary }]}>{R.aciklama}</Text>
         {R.kapsam_notu ? (
           <View style={[s.scopeBox, c.isDark && { backgroundColor: "#172554", borderColor: "#1e40af" }]}>
-            <Text style={[s.scopeTitle, c.isDark && { color: "#93c5fd" }]}>{tx.scopeNote}</Text>
+            <Text style={[s.scopeTitle, c.isDark && { color: "#93c5fd" }]}>{caps(tx.scopeNote)}</Text>
             <Text style={[s.scopeText, { color: c.textSecondary }]}>{R.kapsam_notu}</Text>
           </View>
         ) : null}
@@ -364,7 +364,7 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               {a.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{a.aciklama}</Text> : null}
               {a.niyet_ornekleri?.length ? (
                 <View style={s.exampleWrap}>
-                  <Text style={[s.miniLabel, { color: c.accent }]}>{tx.sampleIntentions}</Text>
+                  <Text style={[s.miniLabel, { color: c.accent }]}>{caps(tx.sampleIntentions)}</Text>
                   {a.niyet_ornekleri.map((ornek, idx) => (
                     <View key={idx} style={[s.exampleCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
                       <Text style={[s.exampleTitle, { color: c.text }]}>{ornek.namaz}</Text>
@@ -622,7 +622,7 @@ function Niyet({ niyet }: { niyet?: NiyetData }) {
     <>
       {Object.entries(niyet).filter(([k]) => k !== "not").map(([k, v]) => (
         <View key={k} style={{ marginTop: 6 }}>
-          <Text style={[s.miniLabel, { color: c.accent }]}>{k in NIYET_LABEL_KEY ? tx[NIYET_LABEL_KEY[k as keyof typeof NIYET_LABEL_KEY]] : k}</Text>
+          <Text style={[s.miniLabel, { color: c.accent }]}>{caps(k in NIYET_LABEL_KEY ? tx[NIYET_LABEL_KEY[k as keyof typeof NIYET_LABEL_KEY]] : k)}</Text>
           <Text style={[s.niyet, { backgroundColor: c.cardAlt, borderColor: c.border, color: c.text }]}>“{String(v)}”</Text>
         </View>
       ))}
@@ -657,10 +657,10 @@ function KilinicObject({ obj }: { obj: KilinicObj }) {
     <>
       {obj.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{obj.aciklama}</Text> : null}
       {Array.isArray(obj["1_rekat"]) ? (
-        <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>{tx.rakat1}</Text><Bullets items={obj["1_rekat"]} /></View>
+        <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>{caps(tx.rakat1)}</Text><Bullets items={obj["1_rekat"]} /></View>
       ) : null}
       {Array.isArray(obj["2_rekat"]) ? (
-        <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>{tx.rakat2}</Text><Bullets items={obj["2_rekat"]} /></View>
+        <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>{caps(tx.rakat2)}</Text><Bullets items={obj["2_rekat"]} /></View>
       ) : null}
       {Array.isArray(obj.adimlar) ? <View style={s.item}><Bullets items={obj.adimlar} /></View> : null}
       {obj.tavsiye_edilen_sureler ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>📖 {obj.tavsiye_edilen_sureler}</Text> : null}
@@ -713,15 +713,15 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
       </View>
       {n.durum_aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{n.durum_aciklama}</Text> : null}
 
-      {neZaman ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>{tx.whenQ}</Text><Text style={[s.p, { color: c.textSecondary }]}>{neZaman}</Text></>) : null}
+      {neZaman ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>{caps(tx.whenQ)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{neZaman}</Text></>) : null}
       {n.vakit ? <Text style={[s.small, { color: c.textMuted }]}>{fmt(tx.timeLine, { x: n.vakit })}</Text> : null}
-      {n.sebep ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>{tx.reason}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.sebep}</Text></>) : null}
+      {n.sebep ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>{caps(tx.reason)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.sebep}</Text></>) : null}
 
       {n.mezhep_gorusleri ? <Text style={[s.note, s.mezhep, c.isDark && { color: "#c7d2fe", backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>⚖️ {n.mezhep_gorusleri}</Text> : null}
 
       {n.kuran_referansi ? (
         <View style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
-          <Text style={[s.miniLabel, { color: c.accent }]}>{n.kuran_referansi.sure} {n.kuran_referansi.ayet}</Text>
+          <Text style={[s.miniLabel, { color: c.accent }]}>{caps(n.kuran_referansi.sure)} {caps(n.kuran_referansi.ayet)}</Text>
           <Text style={[s.p, { color: c.textSecondary }]}>{n.kuran_referansi.metin}</Text>
         </View>
       ) : null}
@@ -746,8 +746,8 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
 
       {(n.kilinic || n.kilinic_hanafi || n.kilinic_safii_hanbeli) ? <Text style={[s.subHead, { color: c.text }]}>{tx.howTo}</Text> : null}
       {n.kilinic ? <Kilinic data={n.kilinic} /> : null}
-      {n.kilinic_hanafi ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>{tx.hanafi}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_hanafi}</Text></>) : null}
-      {n.kilinic_safii_hanbeli ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>{tx.shafiHanbali}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_safii_hanbeli}</Text></>) : null}
+      {n.kilinic_hanafi ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>{caps(tx.hanafi)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_hanafi}</Text></>) : null}
+      {n.kilinic_safii_hanbeli ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>{caps(tx.shafiHanbali)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_safii_hanbeli}</Text></>) : null}
       {n.tavsiye_edilen_sureler ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>📖 {n.tavsiye_edilen_sureler}</Text> : null}
 
       {n.teheccud_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>{tx.teheccudDua}</Text><DuaObj obj={n.teheccud_duasi} /></>) : null}

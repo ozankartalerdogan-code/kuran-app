@@ -2,8 +2,8 @@
   "meta": {
     "title": "Seçme Hadisler",
     "subtitle": "Hz. Muhammed'in (s.a.v.) sözlerinden konu bazlı derleme",
-    "description": "Bu modüldeki hadisler ağırlıklı olarak Buhârî ve Müslimden, bir kısmı ise Tirmizî, Ebû Dâvûd, İbn Mâce ve Ahmed b. Hanbel gibi temel hadis kaynaklarındaki yaygın rivayetlerden derlenmiştir. Amaç, konu bazlı güvenilir ve öğretici bir seçki sunmaktır.",
-    "reliability_standard": "Hadisler mümkün olduğunca temel hadis kaynaklarından seçildi; ekranda doğrudan numaralı atıf bulunan rivayetler sunnah_url üzerinden gösterilir, bazı kayıtlarda ise tema düzeyinde açıklayıcı kaynak notu korunur.",
+    "description": "Bu modüldeki hadisler ağırlıklı olarak Buhârî ve Müslim'den, bir kısmı ise Tirmizî, Ebû Dâvûd, İbn Mâce ve Ahmed b. Hanbel gibi temel hadis kaynaklarındaki yaygın rivayetlerden derlenmiştir. Amaç, konu bazlı güvenilir ve öğretici bir seçki sunmaktır.",
+    "reliability_standard": "Hadisler mümkün olduğunca temel hadis kaynaklarından seçildi; ekranda doğrudan numaralı atıf bulunan rivayetler Sunnah.com bağlantısıyla gösterilir, bazı kayıtlarda ise tema düzeyinde açıklayıcı kaynak notu korunur.",
     "sources": [
       "Sahîh-i Buhârî",
       "Sahîh-i Müslim",

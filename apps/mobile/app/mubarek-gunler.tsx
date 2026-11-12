@@ -10,7 +10,7 @@ import { useColors } from "../src/hooks/useColors";
 import rawData from "../src/data/mubarek_gunler.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getEvidenceLabel } from "../src/lib/sourceLabels";
-import { useLang, useStrings, fmt, type Lang } from "../src/i18n";
+import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import mubarekStrings from "../src/i18n/strings/mubarekGunler";
 
@@ -256,7 +256,7 @@ function GunCard({ gun }: { gun: Gun }) {
 
           {gun.dayanak_aciklama ? (
             <View style={[st.dayanakBox, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-              <Text style={[st.dayanakLabel, { color: badge.text }]}>{t.basis}</Text>
+              <Text style={[st.dayanakLabel, { color: badge.text }]}>{caps(t.basis)}</Text>
               <Text style={[st.p, { color: c.textSecondary }]}>{gun.dayanak_aciklama}</Text>
             </View>
           ) : null}
@@ -265,7 +265,7 @@ function GunCard({ gun }: { gun: Gun }) {
             <View style={[st.kuranBox, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
               {kuranRef.sure && kuranRef.ayet ? (
                 <Text style={[st.kuranRef, { color: c.accent }]}>
-                  📖 {kuranRef.sure} {String(kuranRef.ayet)}
+                  📖 {caps(kuranRef.sure)} {caps(String(kuranRef.ayet))}
                 </Text>
               ) : null}
               {kuranRef.metin ? <Text style={[st.p, { color: c.text }]}>{`"${kuranRef.metin}"`}</Text> : null}
@@ -277,7 +277,7 @@ function GunCard({ gun }: { gun: Gun }) {
 
           {ibadetler.length > 0 ? (
             <View style={st.section}>
-              <Text style={[st.sectionLabel, { color: c.accent }]}>{t.worships}</Text>
+              <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.worships)}</Text>
               {ibadetler.map((ibadet, index) => <IbadetCard key={index} ib={ibadet} />)}
             </View>
           ) : null}
@@ -353,7 +353,7 @@ export default function MubarekGunlerScreen() {
           </View>
         ) : null}
 
-        <Text style={[s.sectionHead, { color: c.textMuted }]}>{fmt(t.daysAndNights, { n: GUNLER.length })}</Text>
+        <Text style={[s.sectionHead, { color: c.textMuted }]}>{caps(fmt(t.daysAndNights, { n: GUNLER.length }))}</Text>
 
         {GUNLER.length > 0 ? (
           GUNLER.map(gun => <GunCard key={gun.id} gun={gun} />)

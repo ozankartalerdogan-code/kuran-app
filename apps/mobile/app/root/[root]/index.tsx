@@ -15,7 +15,7 @@ import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
 import { rootMeaningEn, meaningTextEn } from "../../../src/lib/wordMeaningsEn";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
-import { useStrings, getStrings, fmt, useLang } from "../../../src/i18n";
+import { useStrings, getStrings, fmt, useLang, caps } from "../../../src/i18n";
 import rootStrings from "../../../src/i18n/strings/root";
 
 function lerpHex(from: string, to: string, t: number): string {
@@ -353,7 +353,7 @@ export default function RootDetailScreen() {
               <Text style={[s.rootTitle, { color: c.text }]}>{data.root}</Text>
               {displayMeaning ? (
                 <>
-                  <Text style={[s.meaningLabel, { color: c.textMuted }]}>{t.rootMeaning}</Text>
+                  <Text style={[s.meaningLabel, { color: c.textMuted }]}>{caps(t.rootMeaning)}</Text>
                   <Text style={[s.meaning, { color: c.textSecondary }]}>{displayMeaning}</Text>
                 </>
               ) : null}

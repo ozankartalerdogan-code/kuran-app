@@ -107,6 +107,15 @@ export function useStrings<T>(table: StringTable<T>): Widen<T> {
 
 export { fmt } from "./fmt";
 
+/**
+ * textTransform:"uppercase" olan metinler için: Android büyük harfe çevirirken cihaz
+ * dilini kullanır; Türkçe telefonda İngilizce "i" → "İ" olur (GUİDES). İngilizcede
+ * metni JS'de önceden büyütürüz ("I" Türkçe kuralda da "I" kalır). Türkçede değişmez.
+ */
+export function caps<T>(value: T): T {
+  return current === "en" && typeof value === "string" ? (value.toUpperCase() as T) : value;
+}
+
 /** Tarih/sayı biçimlendirme için locale etiketi. */
 export function localeTag(lang: Lang = current): string {
   return lang === "en" ? "en-US" : "tr-TR";

@@ -11,7 +11,7 @@ import { logScreen } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useTourTarget, useTourScroller } from "../src/tour/AppTourProvider";
 import rawData from "../src/data/hadisler_v2.json";
-import { useLang, useStrings, fmt, type Lang } from "../src/i18n";
+import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import hadislerStrings from "../src/i18n/strings/hadisler";
 
@@ -393,12 +393,12 @@ export default function HadislerScreen() {
 
         {META.reliability_standard ? (
           <View style={[s.stdBox, { backgroundColor: c.card, borderColor: c.border }]}>
-            <Text style={[s.stdLabel, { color: c.accent }]}>{t.reliability}</Text>
+            <Text style={[s.stdLabel, { color: c.accent }]}>{caps(t.reliability)}</Text>
             <Text style={[s.stdText, { color: c.textSecondary }]}>{META.reliability_standard}</Text>
           </View>
         ) : null}
 
-        <Text style={[s.sectionHead, { color: c.textMuted }]}>{t.topics}</Text>
+        <Text style={[s.sectionHead, { color: c.textMuted }]}>{caps(t.topics)}</Text>
 
         {GROUPED.length > 0 ? (
           GROUPED.map((group, index) => (

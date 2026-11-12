@@ -9,7 +9,7 @@ import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { useStrings } from "../../src/i18n";
+import { useStrings, caps } from "../../src/i18n";
 import ibadetStrings from "../../src/i18n/strings/ibadetTab";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
@@ -84,7 +84,7 @@ export default function IbadetTab() {
         {SECTIONS.map((section, si) => (
           <View key={si} {...(si === 0 ? ibadetTarget : {})} style={si > 0 ? s.section : undefined}>
             <View style={[s.sectionHeader, { borderBottomColor: c.border }]}>
-              <Text style={[s.sectionTitle, { color: c.textMuted }]}>{section.title}</Text>
+              <Text style={[s.sectionTitle, { color: c.textMuted }]}>{caps(section.title)}</Text>
             </View>
             <View style={s.cards}>
               {section.items.map((item, ii) => (

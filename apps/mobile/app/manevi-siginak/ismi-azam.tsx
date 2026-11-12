@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { getDevotionalSourceLabel } from "../../src/lib/sourceLabels";
 import { useMealOf } from "../../src/lib/englishMeal";
-import { useStrings, getStrings, useLang, fmt } from "../../src/i18n";
+import { useStrings, getStrings, useLang, fmt, caps } from "../../src/i18n";
 import { localizedTranslit } from "../../src/lib/translitEn";
 import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
 import { localizedData, useLocalizedData } from "../../src/i18n/localizedData";
@@ -106,7 +106,7 @@ function Kutu({
   return (
     <View style={[styles.kutu, { backgroundColor: boxBg, borderColor: boxBorder }]}>
       {baslik ? (
-        <Text style={[styles.kutuBaslik, { color: labelColor }]}>{baslik}</Text>
+        <Text style={[styles.kutuBaslik, { color: labelColor }]}>{caps(baslik)}</Text>
       ) : null}
       {children}
     </View>
@@ -131,7 +131,7 @@ function DuaKartiFull({ dua, colors, ayet }: { dua: DuaKarti; colors: ReturnType
       {/* Başlık */}
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
         <Text>{emoji}</Text>
-        <Text style={[styles.duaBaslik, { color: colors.amberText, flex: 1 }]}>{dua.baslik}</Text>
+        <Text style={[styles.duaBaslik, { color: colors.amberText, flex: 1 }]}>{caps(dua.baslik)}</Text>
         <View style={[styles.badge, { backgroundColor: scoreBg }]}>
           <Text style={[styles.badgeText, { color: scoreColor }]}>{dua.guvenilirlik}</Text>
         </View>
@@ -184,7 +184,7 @@ function KorunmaKarti({ dua, colors }: { dua: KorunmaDuasi; colors: ReturnType<t
       {/* Başlık */}
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
         <Text>🟢</Text>
-        <Text style={[styles.duaBaslik, { color: colors.emeraldText, flex: 1 }]}>{dua.baslik}</Text>
+        <Text style={[styles.duaBaslik, { color: colors.emeraldText, flex: 1 }]}>{caps(dua.baslik)}</Text>
         <View style={[styles.badge, { backgroundColor: colors.scoreGreenBg, borderColor: colors.emeraldBorder }]}>
           <Text style={[styles.badgeText, { color: colors.scoreGreenText }]}>10/10</Text>
         </View>
@@ -270,7 +270,7 @@ function MetotKutusu({
       {/* Başlık */}
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
         <Text>{emoji}</Text>
-        <Text style={[styles.duaBaslik, { color: labelColor, flex: 1 }]}>{baslik}</Text>
+        <Text style={[styles.duaBaslik, { color: labelColor, flex: 1 }]}>{caps(baslik)}</Text>
         <View style={[styles.badge, { backgroundColor: bg, borderColor: border }]}>
           <Text style={[styles.badgeText, { color: labelColor }]}>{sourceLabel}</Text>
         </View>
@@ -320,7 +320,7 @@ function MetotKutusu({
 
 function VerseSubHeader({ label, colors }: { label: string; colors: ReturnType<typeof useColors> }) {
   return (
-    <Text style={[styles.subHeader, { color: colors.textMuted }]}>{label}</Text>
+    <Text style={[styles.subHeader, { color: colors.textMuted }]}>{caps(label)}</Text>
   );
 }
 
@@ -380,7 +380,7 @@ function TagVerseAccordion({
     <View style={[styles.kutu, { backgroundColor: boxBg, borderColor: boxBorder }]}> 
       <TouchableOpacity style={styles.verseAccHeader} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded }} accessibilityLabel={label}>
         <View style={styles.verseAccTitleWrap}>
-          <Text style={[styles.verseAccTitle, { color: labelColor }]}>{label}</Text>
+          <Text style={[styles.verseAccTitle, { color: labelColor }]}>{caps(label)}</Text>
           <Text style={[styles.verseAccMeta, { color: colors.textMuted }]}>{countLabel}</Text>
         </View>
         <View style={[styles.badge, { backgroundColor: badgeBg, borderColor: boxBorder }]}> 
@@ -484,7 +484,7 @@ export default function IsmiAzamScreen() {
 
                 {/* Ulema açıklaması */}
         <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}> 
-          <Text style={[styles.kutuBaslik, { color: colors.amberText }]}>{ia.ulemaTitle}</Text>
+          <Text style={[styles.kutuBaslik, { color: colors.amberText }]}>{caps(ia.ulemaTitle)}</Text>
           <Text style={[styles.bodyText, { color: colors.textSecondary }]}> 
             {ia.ulemaA}<Text style={{ fontWeight: "700" }}>{ia.ulemaB}</Text>{ia.ulemaC}
           </Text>
@@ -678,7 +678,7 @@ export default function IsmiAzamScreen() {
         {/* Tabut-u Sekine */}
         <View style={[styles.kutu, { backgroundColor: colors.violetBg, borderColor: colors.violetBorder }]}>
           <Text style={[styles.duaBaslik, { color: colors.violetText, marginBottom: 8 }]}>
-            {ia.tabutTitle}
+            {caps(ia.tabutTitle)}
           </Text>
 
           {/* Arapça RTL */}
@@ -716,7 +716,7 @@ export default function IsmiAzamScreen() {
         </Kutu>
 
         <View style={[styles.kutu, { backgroundColor: colors.violetBg, borderColor: colors.violetBorder }]}>
-          <Text style={[styles.kutuBaslik, { color: colors.violetText }]}>{ia.tevafukTitle}</Text>
+          <Text style={[styles.kutuBaslik, { color: colors.violetText }]}>{caps(ia.tevafukTitle)}</Text>
           <BulletList items={ia.tevafukItems} colors={colors} />
         </View>
 

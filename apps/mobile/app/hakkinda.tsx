@@ -8,7 +8,7 @@ import { SOURCE_LICENSE_CONTENT, getSourceLicenseLinks } from "../../../packages
 import { SOURCE_LICENSE_CONTENT_EN, getSourceLicenseLinksEn } from "../../../packages/core/src/presentation/sourceLicensesEn";
 import { useColors, type AppColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
-import { useStrings, getStrings, fmt, useLang, type Lang } from "../src/i18n";
+import { useStrings, getStrings, fmt, useLang, type Lang, caps } from "../src/i18n";
 import hakkindaStrings from "../src/i18n/strings/hakkinda";
 
 // İngilizce arayüzde kaynak/lisans metninin AI destekli İngilizce sürümü (sourceLicensesEn.ts).
@@ -46,7 +46,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
   return (
     <View style={s.section}>
-      <Text style={[s.sectionTitle, { color: c.accent }]}>{title}</Text>
+      <Text style={[s.sectionTitle, { color: c.accent }]}>{caps(title)}</Text>
       {children}
     </View>
   );
@@ -124,8 +124,9 @@ export default function HakkindaScreen() {
     <>
       <Stack.Screen options={{ headerShown: false }} />
       <ScrollView
-        style={{ flex: 1, backgroundColor: c.bg }}
-        contentContainerStyle={[s.content, { paddingTop: insets.top + 20, paddingBottom: 32 + insets.bottom }]}
+        // Üst boşluk kaydırılan içeriğin dışında: metin durum çubuğunun altına girmesin.
+        style={{ flex: 1, backgroundColor: c.bg, marginTop: insets.top }}
+        contentContainerStyle={[s.content, { paddingTop: 20, paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.pageTitle, { color: c.text }]}>{lic.title}</Text>

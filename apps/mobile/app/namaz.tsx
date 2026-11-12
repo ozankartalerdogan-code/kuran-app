@@ -11,8 +11,8 @@ import { useColors } from "../src/hooks/useColors";
 
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { useStrings, useLang, fmt } from "../src/i18n";
-import { localizedTranslit } from "../src/lib/translitEn";
+import { useStrings, useLang, fmt, caps } from "../src/i18n";
+import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import namazStrings from "../src/i18n/strings/namaz";
 // ── Namaz Vakitleri Tablosu ───────────────────────────────────────────────────
 
@@ -91,7 +91,7 @@ function VakitTablosu() {
       accessibilityLabel={fmt(t.openVerseA11y, { label: `${sureAdi(MOTTO.surahId)} ${MOTTO.surahId}:${MOTTO.ayahNumber}` })}
     >
       <View style={vt.mottoHead}>
-        <Text style={[vt.mottoEtiket, { color: c.accent }]}>{t.mottoLabel}</Text>
+        <Text style={[vt.mottoEtiket, { color: c.accent }]}>{caps(t.mottoLabel)}</Text>
         <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{sureAdi(MOTTO.surahId)} {MOTTO.surahId}:{MOTTO.ayahNumber}</Text></View>
       </View>
       <Text style={[vt.mottoArabic, { color: c.text }]}>{MOTTO.arabic}</Text>
@@ -102,7 +102,7 @@ function VakitTablosu() {
       {/* Başlık */}
       <View style={[vt.baslik, { backgroundColor: c.cardAlt, borderBottomColor: c.border }]}>
         <Text style={vt.baslikIkon}>🕐</Text>
-        <Text style={[vt.baslikMetin, { color: c.textMuted }]}>{t.tableTitle}</Text>
+        <Text style={[vt.baslikMetin, { color: c.textMuted }]}>{caps(t.tableTitle)}</Text>
         <View style={[vt.adetBadge, { backgroundColor: c.accentLight }]}>
           <Text style={[vt.adetText, { color: c.accent }]}>
             {fmt(t.verseCount, { n: Object.values(allVakitVerse).reduce((s, a) => s + a.length, 0) })}
@@ -213,7 +213,7 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
                 <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{item.verse_key}</Text></View>
                 {item.surah_name && <Text style={[styles.surahLabel, { color: c.textMuted }]}>{surahNameOf(item.surah_id, item.surah_name)}</Text>}
               </View>
-              {item.reading_tr && <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>{localizedTranslit(item.reading_tr, lang)}</Text>}
+              {item.reading_tr && <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>{localizedVerseTranslit(item.verse_key, item.reading_tr, lang)}</Text>}
               {item.meal && <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={2}>{mealOf(item.verse_key, item.meal)}</Text>}
             </TouchableOpacity>
           ))}

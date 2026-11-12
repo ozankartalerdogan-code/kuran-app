@@ -20,7 +20,7 @@ import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { getDers, getQuizFor, getBaslik } from "../../src/data/Dersler/dersler_registry";
-import { useLang, useStrings, fmt } from "../../src/i18n";
+import { useLang, useStrings, fmt, caps } from "../../src/i18n";
 import derslerStrings from "../../src/i18n/strings/dersler";
 import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
@@ -366,7 +366,7 @@ export default function DersDetayScreen() {
           {wrongAnswers.length > 0 && (
             <View style={{ marginTop: 20 }}>
               <Text style={[s.wrongTitle, { color: c.textMuted }]}>
-                {fmt(t.wrongTitle, { n: wrongAnswers.length })}
+                {caps(fmt(t.wrongTitle, { n: wrongAnswers.length }))}
               </Text>
               {wrongAnswers.map((q, i) => (
                 <View key={q.id} style={[s.wrongCard, { backgroundColor: c.card, borderColor: c.border }]}>
