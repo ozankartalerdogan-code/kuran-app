@@ -63,6 +63,22 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
     "id": "alquran-terms",
     "title": "AlQuran.cloud Terms of Use",
     "url": "https://alquran.cloud/terms-and-conditions"
+  },
+  {
+    "id": "diyanet-awqat",
+    "title": "Presidency of Religious Affairs of Türkiye (Diyanet) — Awqat Salah",
+    "url": "https://awqatsalah.diyanet.gov.tr"
+  },
+  {
+    "id": "aladhan",
+    "title": "Aladhan Prayer Times API",
+    "url": "https://aladhan.com/prayer-times-api"
+  },
+  {
+    "id": "geonames",
+    "title": "GeoNames",
+    "url": "https://www.geonames.org/",
+    "license": "CC BY 4.0"
   }
 ];
 
@@ -104,6 +120,16 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
     "linkIds": [
       "alquran-tajweed",
       "alquran-terms"
+    ]
+  },
+  {
+    "id": "prayer-times",
+    "title": "Prayer times",
+    "body": "Prayer times are obtained per city from the Awqat Salah service of the Presidency of Religious Affairs of Türkiye (Diyanet); when this service is unavailable or there is no Diyanet city nearby, the Aladhan service is used as a fallback. The city coordinates used to find the Diyanet city nearest to you were matched and verified by Kuran Yolu using GeoNames data (CC BY 4.0).",
+    "linkIds": [
+      "diyanet-awqat",
+      "aladhan",
+      "geonames"
     ]
   },
   {

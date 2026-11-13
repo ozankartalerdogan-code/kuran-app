@@ -28,6 +28,8 @@ const REQUIRED_ON_SCREEN = [
   { needle: "mustafa0x", why: "mustafa0x Quran Morphology kaynak atfı" },
   { needle: "Quranic Arabic Corpus", why: "QAC kaynak atfı" },
   { needle: "Pickthall", why: "İngilizce meal (Pickthall 1930, Tanzil.net) kaynak atfı" },
+  { needle: "GeoNames", why: "Diyanet şehir koordinatları — GeoNames CC BY 4.0 atıf şartı" },
+  { needle: "Awqat Salah", why: "Namaz vakitleri kaynak atfı (Awqat Salah)" },
 ];
 
 /** Ekranların merkezi içeriği render ettiği dosyalar. */
