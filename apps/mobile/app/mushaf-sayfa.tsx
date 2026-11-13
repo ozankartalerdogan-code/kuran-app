@@ -267,6 +267,7 @@ export default function MushafSayfaEkrani() {
     if (Number.isInteger(paramPage) && paramPage >= 1 && paramPage <= SAYFA_SAYISI) {
       setPage(paramPage);
       setInitialPage(paramPage);
+      storage.setString(STORAGE_KEYS.mushafPage, String(paramPage)).catch(() => {});
       logFeature("mushaf_sayfa_ac", { sayfa: String(paramPage) });
       return;
     }
