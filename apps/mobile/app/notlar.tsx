@@ -41,7 +41,6 @@ export default function NotlarScreen() {
 
   const {
     data: noteVerses,
-    isLoading: metaLoading,
     isError: isSurahNamesError,
   } = useQuery({
     queryKey: ["note-verses", noteKeys],
@@ -110,7 +109,8 @@ export default function NotlarScreen() {
     ]);
   }
 
-  if (!loaded || notesLoading || metaLoading) {
+  // Yerel notlar hazırsa iskelet göstermeyiz; ayet bilgisi (metaLoading) beklenmez.
+  if (!loaded || notesLoading) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: 14 }]}>
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}

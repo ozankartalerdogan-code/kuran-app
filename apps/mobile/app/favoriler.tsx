@@ -129,7 +129,8 @@ export default function FavorilerScreen() {
     </TouchableOpacity>
   ), [c, handleRemoveOne, isEn, mealOf, surahNameOf, t]);
 
-  if (!loaded || loading) {
+  // Yerel favori yoksa ağ isteğini beklemeden doğrudan boş durumu göster.
+  if (!loaded || (favorites.length > 0 && loading)) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: 14 }]}>
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
