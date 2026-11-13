@@ -1,7 +1,7 @@
 {
   "total": 8606,
-  "matched": 7616,
-  "unmatched": 990,
+  "matched": 7622,
+  "unmatched": 984,
   "byCountry": {
     "NORTH CYPRUS": {
       "total": 20,
@@ -9,7 +9,7 @@
     },
     "TÜRKİYE": {
       "total": 869,
-      "matched": 863
+      "matched": 869
     },
     "MONACO": {
       "total": 1,
@@ -878,42 +878,6 @@
       "cityName": "TATLISU",
       "stateName": "KUZEY KIBRIS",
       "countryCode": "NORTH CYPRUS"
-    },
-    {
-      "cityId": 9336,
-      "cityName": "BÜYÜK ORHAN",
-      "stateName": "BURSA",
-      "countryCode": "TÜRKİYE"
-    },
-    {
-      "cityId": 9344,
-      "cityName": "MUSTAFA KEMALPAŞA",
-      "stateName": "BURSA",
-      "countryCode": "TÜRKİYE"
-    },
-    {
-      "cityId": 9530,
-      "cityName": "ŞARKİ KARAAĞAÇ",
-      "stateName": "ISPARTA",
-      "countryCode": "TÜRKİYE"
-    },
-    {
-      "cityId": 9534,
-      "cityName": "YENİSAR BADEMLİ",
-      "stateName": "ISPARTA",
-      "countryCode": "TÜRKİYE"
-    },
-    {
-      "cityId": 9875,
-      "cityName": "M.EREĞLİSİ",
-      "stateName": "TEKİRDAĞ",
-      "countryCode": "TÜRKİYE"
-    },
-    {
-      "cityId": 9954,
-      "cityName": "KARADENİZ EREĞLİ",
-      "stateName": "ZONGULDAK",
-      "countryCode": "TÜRKİYE"
     },
     {
       "cityId": 13711,
@@ -8197,7 +8161,7 @@
   "methodCounts": {
     "unique": 4723,
     "tr-il-merkezi": 81,
-    "tr-adm2": 778,
+    "tr-adm2": 784,
     "tr-ppl": 4,
     "dominant-pop": 441,
     "state-nearest": 1589

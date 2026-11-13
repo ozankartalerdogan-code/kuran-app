@@ -302,3 +302,12 @@ test("matchOtherCountryCities tek eyalette belirsiz adayı reddeder, baskını s
   assert.equal(matches.get(11).geonameId, 12);
   assert.equal(matches.get(11).method, "dominant-pop");
 });
+
+test("turkeyNameVariants boşluksuz yazım ve takma ad üretir", async () => {
+  const { turkeyNameVariants } = await import("./diyanetCityMatch.mjs");
+  assert.ok(turkeyNameVariants("BÜYÜK ORHAN").includes("BUYUKORHAN"));
+  assert.ok(turkeyNameVariants("ŞARKİ KARAAĞAÇ").includes("SARKIKARAAGAC"));
+  assert.ok(turkeyNameVariants("M.EREĞLİSİ").includes("MARMARA EREGLISI"));
+  assert.ok(turkeyNameVariants("KARADENİZ EREĞLİ").includes("EREGLI"));
+  assert.equal(turkeyNameVariants("KARTAL")[0], "KARTAL");
+});

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-13T21:09:50.735Z",
+  "generatedAt": "2026-11-13T21:22:48.478Z",
   "source": "awqatsalah.diyanet.gov.tr + GeoNames cities500 (CC BY 4.0)",
   "count": 8606,
-  "matched": 7616,
+  "matched": 7622,
   "cities": [
     {
       "cityId": 15153,
@@ -3316,11 +3316,11 @@
       "countryId": 2,
       "countryName": "TÜRKİYE",
       "countryCode": "TÜRKİYE",
-      "lat": null,
-      "lon": null,
-      "tz": null,
-      "geonameId": null,
-      "matchMethod": null
+      "lat": 39.78223,
+      "lon": 28.89338,
+      "tz": "Europe/Istanbul",
+      "geonameId": 8632540,
+      "matchMethod": "tr-adm2"
     },
     {
       "cityId": 9337,
@@ -3436,11 +3436,11 @@
       "countryId": 2,
       "countryName": "TÜRKİYE",
       "countryCode": "TÜRKİYE",
-      "lat": null,
-      "lon": null,
-      "tz": null,
-      "geonameId": null,
-      "matchMethod": null
+      "lat": 40.04973,
+      "lon": 28.41833,
+      "tz": "Europe/Istanbul",
+      "geonameId": 8632536,
+      "matchMethod": "tr-adm2"
     },
     {
       "cityId": 9345,
@@ -6421,11 +6421,11 @@
       "countryId": 2,
       "countryName": "TÜRKİYE",
       "countryCode": "TÜRKİYE",
-      "lat": null,
-      "lon": null,
-      "tz": null,
-      "geonameId": null,
-      "matchMethod": null
+      "lat": 38.09023,
+      "lon": 31.37696,
+      "tz": "Europe/Istanbul",
+      "geonameId": 8632171,
+      "matchMethod": "tr-adm2"
     },
     {
       "cityId": 9531,
@@ -6481,11 +6481,11 @@
       "countryId": 2,
       "countryName": "TÜRKİYE",
       "countryCode": "TÜRKİYE",
-      "lat": null,
-      "lon": null,
-      "tz": null,
-      "geonameId": null,
-      "matchMethod": null
+      "lat": 37.71936,
+      "lon": 31.37182,
+      "tz": "Europe/Istanbul",
+      "geonameId": 8632170,
+      "matchMethod": "tr-adm2"
     },
     {
       "cityId": 17816,
@@ -12061,11 +12061,11 @@
       "countryId": 2,
       "countryName": "TÜRKİYE",
       "countryCode": "TÜRKİYE",
-      "lat": null,
-      "lon": null,
-      "tz": null,
-      "geonameId": null,
-      "matchMethod": null
+      "lat": 40.98021,
+      "lon": 27.94102,
+      "tz": "Europe/Istanbul",
+      "geonameId": 8632555,
+      "matchMethod": "tr-adm2"
     },
     {
       "cityId": 9876,
@@ -13322,11 +13322,11 @@
       "countryId": 2,
       "countryName": "TÜRKİYE",
       "countryCode": "TÜRKİYE",
-      "lat": null,
-      "lon": null,
-      "tz": null,
-      "geonameId": null,
-      "matchMethod": null
+      "lat": 41.23807,
+      "lon": 31.60581,
+      "tz": "Europe/Istanbul",
+      "geonameId": 7733006,
+      "matchMethod": "tr-adm2"
     },
     {
       "cityId": 9955,

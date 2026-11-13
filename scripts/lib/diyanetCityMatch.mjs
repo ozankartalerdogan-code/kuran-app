@@ -191,6 +191,25 @@ function admin1MatchesState(row, stateNameNorm, admin1NameByKey) {
   );
 }
 
+// Diyanet'in TR ilçe yazımı GeoNames'ten farklı olanlar (normalize edilmiş).
+const TR_NAME_ALIASES = {
+  "M EREGLISI": "MARMARA EREGLISI",
+  "KARADENIZ EREGLI": "EREGLI",
+};
+
+// TR'ye özgü: "BÜYÜK ORHAN" → "BUYUKORHAN" gibi boşluksuz yazım ve takma adlar.
+// Yalnız il içinde aranır, bu yüzden genişletmek başka ile düşürmez.
+export function turkeyNameVariants(cityName) {
+  const result = nameVariants(cityName);
+  for (const variant of result.slice()) {
+    const joined = variant.replace(/ /g, "");
+    if (joined && !result.includes(joined)) result.push(joined);
+    const alias = TR_NAME_ALIASES[variant];
+    if (alias && !result.includes(alias)) result.push(alias);
+  }
+  return result;
+}
+
 export function matchTurkeyCityDetailed(city, ctx) {
   if (!city || !ctx) return { match: null, ambiguousCount: 0 };
 
@@ -200,7 +219,7 @@ export function matchTurkeyCityDetailed(city, ctx) {
 
   const rawName = city.cityName ?? city.name ?? "";
   const cityNameNorm = normalizePlaceName(rawName);
-  const variants = nameVariants(rawName);
+  const variants = turkeyNameVariants(rawName);
 
   if (cityNameNorm === stateNameNorm) {
     const capitals = ctx.capitalRowsByAdmin1?.get(code);
