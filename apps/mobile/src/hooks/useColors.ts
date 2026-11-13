@@ -12,6 +12,10 @@ export type AppColors = {
   textMuted: string;
   accent: string;
   accentLight: string;
+  actionBg: string;
+  actionText: string;
+  overlay: string;
+  tourOverlay: string;
   isDark: boolean;
 };
 
@@ -27,6 +31,10 @@ const light: AppColors = {
   textMuted:     "#78716c",
   accent:        "#059669",
   accentLight:   "#d1fae5",
+  actionBg:      "#047857",
+  actionText:    "#ffffff",
+  overlay:       "rgba(5,10,20,0.65)",
+  tourOverlay:   "rgba(5,10,20,0.65)",
   isDark:        false,
 };
 
@@ -40,6 +48,10 @@ const dark: AppColors = {
   textMuted:     "#a8a29e",
   accent:        "#10b981",
   accentLight:   "#064e3b",
+  actionBg:      "#10b981",
+  actionText:    "#052e21",
+  overlay:       "rgba(0,0,0,0.72)",
+  tourOverlay:   "rgba(0,0,0,0.48)",
   isDark:        true,
 };
 

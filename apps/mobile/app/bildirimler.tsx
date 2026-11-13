@@ -1,5 +1,7 @@
+import { overlayAlert } from "../src/tour/overlayAlert";
+import { withOverlayBusy } from "../src/tour/overlayBusy";
 import {
-  View, Text, ScrollView, ActivityIndicator, StyleSheet, Switch, Alert, Linking,
+  View, Text, ScrollView, ActivityIndicator, StyleSheet, Switch, Linking,
   AppState, TouchableOpacity,
 } from "react-native";
 import * as Location from "expo-location";
@@ -9,13 +11,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import {
   requestNotificationPermission,
-  fetchPrayerDays,
-  applyNotifications,
-  cancelNamazNotifications,
+  changeNotificationPreference,
   NOTIF_KEY,
   DAILY_VERSE_KEY,
-  SCHED_DAY_KEY,
-  schedStamp,
 } from "../src/lib/namazNotifications";
 import { storage } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
@@ -28,10 +26,10 @@ const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
   try {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync());
     if (status !== "granted") {
       const t = getStrings(personalStrings);
-      Alert.alert(t.locTitle, t.locDenied, [{ text: t.ok }]);
+      await new Promise<void>(resolve => overlayAlert(t.locTitle, t.locDenied, [{ text: t.ok, onPress: () => resolve() }], { cancelable: true, onDismiss: resolve }));
       return { ...ISTANBUL, isFallback: true };
     }
     const pos = await Promise.race([
@@ -56,6 +54,7 @@ export default function BildirimlerScreen() {
   const [notifLoading, setNotifLoading] = useState(false);
   const [dailyVerseEnabled, setDailyVerseEnabled] = useState(false);
   const [dailyVerseLoading, setDailyVerseLoading] = useState(false);
+  const [prefsLoaded, setPrefsLoaded] = useState(false);
   const [usingFallback, setUsingFallback] = useState(false);
   const [exactMissing, setExactMissing] = useState(false);
 
@@ -75,22 +74,27 @@ export default function BildirimlerScreen() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [pv, dv] = await Promise.all([
-        storage.getString(NOTIF_KEY),
-        storage.getString(DAILY_VERSE_KEY),
-      ]);
-      if (cancelled) return;
-      setNotifEnabled(pv === "1");
-      setDailyVerseEnabled(dv === "1");
+      try {
+        const [pv, dv] = await Promise.all([
+          storage.getString(NOTIF_KEY),
+          storage.getString(DAILY_VERSE_KEY),
+        ]);
+        if (cancelled) return;
+        setNotifEnabled(pv === "1");
+        setDailyVerseEnabled(dv === "1");
+      } finally {
+        if (!cancelled) setPrefsLoaded(true);
+      }
     })();
     return () => { cancelled = true; };
   }, []);
 
   // Bildirim izni iste; reddedilirse ayarlara yönlendiren uyarı göster.
   async function ensurePermission(): Promise<boolean> {
-    const granted = await requestNotificationPermission();
+    // Sistem izin penceresi açıkken rehber/değerlendirme/exact-alarm istemi çıkmaz.
+    const granted = await withOverlayBusy(requestNotificationPermission);
     if (!granted) {
-      Alert.alert(
+      overlayAlert(
         t.permTitle,
         t.permBody,
         [
@@ -102,41 +106,27 @@ export default function BildirimlerScreen() {
     return granted;
   }
 
-  // Ortak: iki toggle durumuna göre bildirimleri yeniden kur (cancelAll orkestratörde).
-  async function rescheduleNotifs(prayerOn: boolean, dailyOn: boolean): Promise<boolean> {
-    if (!prayerOn && !dailyOn) {
-      await cancelNamazNotifications();
-      await storage.remove(SCHED_DAY_KEY);
-      return false;
-    }
-    const { lat, lng, isFallback } = await getUserLocation();
-    const days = await fetchPrayerDays(lat, lng);
-    if (!days) throw new Error("no-times");
-    await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
-    await storage.setString(SCHED_DAY_KEY, schedStamp());
-    return isFallback;
-  }
-
   async function toggleNotif(val: boolean) {
     setNotifLoading(true);
     try {
-      if (val && !(await ensurePermission())) { setNotifLoading(false); return; }
-      const isFallback = await rescheduleNotifs(val, dailyVerseEnabled);
-      await storage.setString(NOTIF_KEY, val ? "1" : "0");
+      const { granted, isFallback } = await changeNotificationPreference(NOTIF_KEY, val, ensurePermission, getUserLocation);
+      if (!granted) return;
       setNotifEnabled(val);
       if (val) {
         setUsingFallback(isFallback);
         const locationMsg = isFallback
           ? t.locFallbackMsg
           : t.locOkMsg;
-        Alert.alert(t.notifOnTitle, fmt(t.notifOnBody, { loc: locationMsg }), [
+        overlayAlert(t.notifOnTitle, fmt(t.notifOnBody, { loc: locationMsg }), [
           { text: t.ok, onPress: () => { void maybePromptExactAlarm(); } },
         ]);
       } else if (!dailyVerseEnabled) {
         setUsingFallback(false);
       }
     } catch {
-      Alert.alert(t.errorTitle, t.actionFailed);
+      const [pv, dv] = await Promise.all([storage.getString(NOTIF_KEY), storage.getString(DAILY_VERSE_KEY)]);
+      setNotifEnabled(pv === "1"); setDailyVerseEnabled(dv === "1");
+      overlayAlert(t.errorTitle, t.actionFailed);
     } finally {
       setNotifLoading(false);
     }
@@ -145,20 +135,21 @@ export default function BildirimlerScreen() {
   async function toggleDailyVerse(val: boolean) {
     setDailyVerseLoading(true);
     try {
-      if (val && !(await ensurePermission())) { setDailyVerseLoading(false); return; }
-      const isFallback = await rescheduleNotifs(notifEnabled, val);
-      await storage.setString(DAILY_VERSE_KEY, val ? "1" : "0");
+      const { granted, isFallback } = await changeNotificationPreference(DAILY_VERSE_KEY, val, ensurePermission, getUserLocation);
+      if (!granted) return;
       setDailyVerseEnabled(val);
       if (val) {
         setUsingFallback(isFallback);
-        Alert.alert(t.dailyOnTitle, t.dailyOnBody, [
+        overlayAlert(t.dailyOnTitle, t.dailyOnBody, [
           { text: t.ok, onPress: () => { void maybePromptExactAlarm(); } },
         ]);
       } else if (!notifEnabled) {
         setUsingFallback(false);
       }
     } catch {
-      Alert.alert(t.errorTitle, t.actionFailed);
+      const [pv, dv] = await Promise.all([storage.getString(NOTIF_KEY), storage.getString(DAILY_VERSE_KEY)]);
+      setNotifEnabled(pv === "1"); setDailyVerseEnabled(dv === "1");
+      overlayAlert(t.errorTitle, t.actionFailed);
     } finally {
       setDailyVerseLoading(false);
     }
@@ -175,11 +166,13 @@ export default function BildirimlerScreen() {
           koşulsuz "varsayılan olarak açıktır" demek yanıltıcıydı: kullanıcı
           kapalı toggle'ları görüp nedenini anlayamıyordu.
         */}
-        <Text style={[styles.intro, { color: c.textMuted }]}>
-          {notifEnabled || dailyVerseEnabled
-            ? t.introOn
-            : t.introOff}
-        </Text>
+        {prefsLoaded && (
+          <Text style={[styles.intro, { color: c.textMuted }]}>
+            {notifEnabled || dailyVerseEnabled
+              ? t.introOn
+              : t.introOff}
+          </Text>
+        )}
 
         {/* Namaz Vakti Bildirimleri */}
         <View style={[styles.notifCard, { backgroundColor: c.card, borderColor: c.accentLight }]}>
@@ -193,7 +186,7 @@ export default function BildirimlerScreen() {
                 : t.prayerSubOff}
             </Text>
           </View>
-          {notifLoading
+          {notifLoading || !prefsLoaded
             ? <ActivityIndicator color="#059669" />
             : <Switch
                 value={notifEnabled}
@@ -216,7 +209,7 @@ export default function BildirimlerScreen() {
                 : t.dailySubOff}
             </Text>
           </View>
-          {dailyVerseLoading
+          {dailyVerseLoading || !prefsLoaded
             ? <ActivityIndicator color="#059669" />
             : <Switch
                 value={dailyVerseEnabled}

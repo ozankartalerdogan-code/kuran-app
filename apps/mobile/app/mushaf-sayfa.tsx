@@ -417,7 +417,7 @@ export default function MushafSayfaEkrani() {
       <View style={[st.screen, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         {/* Üst bar */}
         <View style={[st.header, { backgroundColor: c.card, borderBottomColor: c.border }]}>
-          <TouchableOpacity onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.backA11y}>
+          <TouchableOpacity style={st.backBtn} onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.backA11y}>
             <Ionicons name="chevron-back" size={24} color={c.accent} />
           </TouchableOpacity>
           <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.jumpA11y} accessibilityHint={t.jumpHint}>
@@ -609,7 +609,8 @@ const st = StyleSheet.create({
   },
   headerSub:   { fontSize: 11 },
   headerBtns:  { flexDirection: "row", gap: 6 },
-  fontBtn:     { borderRadius: 14, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 5, minWidth: 34, alignItems: "center" },
+  fontBtn:     { borderRadius: 14, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 5, minWidth: 36, minHeight: 34, alignItems: "center", justifyContent: "center" },
+  backBtn:     { minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },
   fontBtnOff:  { opacity: 0.35 },
 
   jumpRow:   { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14, paddingVertical: 10, borderBottomWidth: 1 },

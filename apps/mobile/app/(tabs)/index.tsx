@@ -1,3 +1,5 @@
+import { beginOverlay, isOverlayBusy } from "../../src/tour/overlayBusy";
+import { HomeWelcomeCards } from "../../src/components/onboarding/HomeWelcomeCards";
 import React, { useState, useCallback, useRef, useEffect, useMemo, type ComponentProps } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
@@ -14,18 +16,8 @@ import { ErrorBoundary } from "../../src/components/ErrorBoundary";
 import { SkeletonAyetCard } from "../../src/components/SkeletonLoader";
 import { api } from "../../src/lib/api";
 import * as Haptics from 'expo-haptics';
-// UIManager.hasViewManagerConfig ön-kontrolü kasten kaldırıldı: RN'in yeni
-// mimarisinde (Fabric/Bridgeless) o kontrol "unstable" bir API'ye dayanıyor ve
-// native global henüz kurulmamışsa modül yüklenirken throw edip native modül
-// gerçekten linkli olsa bile LottieView'i sessizce null bırakabiliyor. Bunun
-// yerine JS tarafı koşulsuz import ediliyor; native eksikse hata render
-// sırasında oluşur ve aşağıda ErrorBoundary ile yakalanır.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let LottieView: any = null;
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  LottieView = require('lottie-react-native').default;
-} catch (_e) { /* noop */ }
+// Seri kartındaki Lottie alev animasyonu kaldırıldı (düşük donanımda nokta kadar
+// görünüyordu); yerine sabit rozet var. lottie-react-native paketi başka ekranlarda kullanılıyor.
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { TasbihModal } from '../../src/components/ZikirMatik';
 import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
@@ -137,36 +129,29 @@ function HomeContent() {
   const qiblaTarget = useTourTarget("home.quick.qibla");
   const tourScroll = useTourScroller();
 
-  const openTasbih = useCallback(() => setTasbihOpen(true), []);
+  const modalEnd = useRef<(() => void) | null>(null);
+  const modalMounted = useRef(true);
+  const acquireModal = useCallback(() => {
+    if (!modalMounted.current || isOverlayBusy()) return false;
+    modalEnd.current = beginOverlay();
+    return true;
+  }, []);
+  useEffect(() => {
+    if (!tasbihOpen && !selectedMood) { modalEnd.current?.(); modalEnd.current = null; }
+  }, [tasbihOpen, selectedMood]);
+  useEffect(() => {
+    modalMounted.current = true;
+    return () => { modalMounted.current = false; modalEnd.current?.(); modalEnd.current = null; };
+  }, []);
+  const openTasbih = useCallback(() => { if (acquireModal()) setTasbihOpen(true); }, [acquireModal]);
 
   const handleSearchPress = useCallback(() => {
     logFeature("home_search");
     router.push("/search" as Href);
   }, []);
 
+  // Kur'an-ı Kerim ve Öğren alt sekmelerle aynı işi yaptığı için hızlı kartlardan çıkarıldı.
   const QUICK_ACTIONS: QuickAction[] = useMemo(() => [
-    {
-      id: "quran",
-      icon: "book-outline",
-      label: hs.quran,
-      route: "/sure-listesi",
-      bg: "#d1fae5",
-      iconBg: "#ecfdf5",
-      iconColor: "#15803d",
-      darkIconBg: "#14532d",
-      darkIconColor: "#86efac",
-    },
-    {
-      id: "learn",
-      icon: "school-outline",
-      label: hs.learn,
-      route: "/ne-ogreneyim",
-      bg: "#fef3c7",
-      iconBg: "#fffbeb",
-      iconColor: "#b45309",
-      darkIconBg: "#92400e",
-      darkIconColor: "#fde68a",
-    },
     {
       id: "tasbih",
       icon: "radio-button-on-outline",
@@ -213,7 +198,7 @@ function HomeContent() {
       });
       if (!result?.surah_id || !result?.ayah_number) throw new Error("empty result");
       moodSeen.current[tag] = [...(moodSeen.current[tag] ?? []), result.verse_key];
-      setSelectedMood({ ...mood, ...result });
+      if (acquireModal()) setSelectedMood({ ...mood, ...result });
     } catch {
       // Fallback: tag aramasına git
       logFeature(AnalyticsEvents.ARAMA);
@@ -221,7 +206,7 @@ function HomeContent() {
     } finally {
       setMoodLoading(null);
     }
-  }, [moodLoading]);
+  }, [moodLoading, acquireModal]);
 
   const closeMoodCard = useCallback(() => setSelectedMood(null), []);
 
@@ -283,20 +268,14 @@ function HomeContent() {
         </View>
       )}
 
+      <HomeWelcomeCards />
+
       {/* Streak + Gece modu */}
       <View style={[styles.streakCard, { backgroundColor: c.isDark ? "#431407" : "#fff7ed", borderColor: c.isDark ? "#7c2d12" : "#fed7aa" }]}>
-        {streak.current > 0 && LottieView ? (
-          <ErrorBoundary fallback={<Text style={styles.streakEmoji}>🔥</Text>}>
-            <LottieView
-              source={require('../../assets/flamefire.json')}
-              autoPlay
-              loop
-              style={{ width: 40, height: 40 }}
-            />
-          </ErrorBoundary>
-        ) : (
-          <Text style={styles.streakEmoji}>🔥</Text>
-        )}
+        {/* Sabit alev rozeti — animasyonsuz, her donanımda aynı boyutta görünür */}
+        <View style={[styles.streakBadge, { backgroundColor: c.isDark ? "#7c2d12" : "#ffedd5" }]}>
+          <Ionicons name="flame" size={22} color="#f97316" />
+        </View>
         <View style={{ flex: 1 }}>
           {streak.current > 0 ? (
             <>
@@ -351,30 +330,7 @@ function HomeContent() {
         )}
       </TouchableOpacity>
 
-      {/* Ruh Haline Göre */}
-      <Text style={[styles.sectionLabel, { color: c.textMuted }]}>{hs.moodSection}</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
-        {RUH_HALI.map(m => (
-          <TouchableOpacity
-            key={m.tag}
-            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderColor: c.isDark ? c.border : m.border, opacity: moodLoading === m.tag ? 0.6 : 1 }]}
-            onPress={() => handleMoodPress(m)}
-            activeOpacity={0.7}
-            disabled={!!moodLoading}
-            accessibilityRole="button"
-            accessibilityLabel={moodLabel(m)}
-            accessibilityState={{ disabled: !!moodLoading, busy: moodLoading === m.tag }}
-          >
-            {moodLoading === m.tag
-              ? <ActivityIndicator size="small" color={c.text} />
-              : <Text style={{ fontSize: 18 }}>{m.emoji}</Text>
-            }
-            <Text style={[styles.moodLabel, { color: c.text }]}>{moodLabel(m)}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      {/* Namaz Vakitleri */}
+      {/* Namaz Vakitleri (Ruh hâline göre bölümünün üstünde) */}
       <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
           <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>{hs.prayerTimes}</Text>
@@ -395,11 +351,15 @@ function HomeContent() {
           </Text>
         </View>
         {!prayers && prayerLoading ? (
-          <ActivityIndicator color="#4f46e5" style={{ marginVertical: 8 }} />
+          <View style={styles.prayerPlaceholder}>
+            <ActivityIndicator color="#4f46e5" />
+          </View>
         ) : !prayers ? (
-          <Text style={[styles.verseMeal, { color: c.isDark ? "#c7d2fe" : "#4338ca", marginVertical: 8 }]}>
-            {hs.prayerFail}
-          </Text>
+          <View style={styles.prayerPlaceholder}>
+            <Text style={[styles.verseMeal, { color: c.isDark ? "#c7d2fe" : "#4338ca" }]}>
+              {hs.prayerFail}
+            </Text>
+          </View>
         ) : (
           <View style={styles.prayerRow}>
             {PRAYER_ORDER.map((key, idx) => {
@@ -428,6 +388,29 @@ function HomeContent() {
           </View>
         )}
       </View>
+
+      {/* Ruh Haline Göre */}
+      <Text style={[styles.sectionLabel, { color: c.textMuted }]}>{hs.moodSection}</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
+        {RUH_HALI.map(m => (
+          <TouchableOpacity
+            key={m.tag}
+            style={[styles.moodChip, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderColor: c.isDark ? c.border : m.border, opacity: moodLoading === m.tag ? 0.6 : 1 }]}
+            onPress={() => handleMoodPress(m)}
+            activeOpacity={0.7}
+            disabled={!!moodLoading}
+            accessibilityRole="button"
+            accessibilityLabel={moodLabel(m)}
+            accessibilityState={{ disabled: !!moodLoading, busy: moodLoading === m.tag }}
+          >
+            {moodLoading === m.tag
+              ? <ActivityIndicator size="small" color={c.text} />
+              : <Text style={{ fontSize: 18 }}>{m.emoji}</Text>
+            }
+            <Text style={[styles.moodLabel, { color: c.text }]}>{moodLabel(m)}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
 
       {/* Günün Duası */}
       <TouchableOpacity
@@ -547,7 +530,7 @@ const styles = StyleSheet.create({
     borderRadius: 14, padding: 14,
     borderWidth: 1, marginBottom: 12,
   },
-  streakEmoji: { fontSize: 26 },
+  streakBadge: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
   streakTitle: { fontSize: 14, fontWeight: "700" },
   streakSub:   { fontSize: 11, marginTop: 2 },
 
@@ -564,6 +547,8 @@ const styles = StyleSheet.create({
   countdownCity: { fontWeight: "700" },
   countdownStrong: { fontWeight: "800" },
   prayerRow:  { flexDirection: "row", marginTop: 10 },
+  // Yüklenirken/hatada yükseklik, dolu satırla aynı kalsın (içerik zıplamasın)
+  prayerPlaceholder: { minHeight: 72, marginTop: 10, alignItems: "center", justifyContent: "center" },
   prayerItem: {
     flex: 1, alignItems: "center", gap: 3, paddingVertical: 9,
     marginHorizontal: 2.5, borderRadius: 12, borderWidth: 1,

@@ -23,7 +23,8 @@ import { getDers, getQuizFor, getBaslik } from "../../src/data/Dersler/dersler_r
 import { useLang, useStrings, fmt, caps } from "../../src/i18n";
 import derslerStrings from "../../src/i18n/strings/dersler";
 import { normalizeQuizSorular, shuffleQuizOptions, type QuizSoru } from "../../src/lib/quizUtils";
-import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useContextualHint } from "../../src/tour/useContextualHint";
+import { ContextualHintCard, ContextualHintHelp } from "../../src/tour/ContextualHintCard";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
 
@@ -117,7 +118,6 @@ export default function DersDetayScreen() {
   const { dersId } = useLocalSearchParams<{ dersId: string }>();
   const insets = useSafeAreaInsets();
   const c = useColors();
-  const lessonNextTarget = useTourTarget("lesson.next");
 
   // Ders state
   const [dersIndex, setDersIndex] = useState(0);
@@ -191,6 +191,9 @@ export default function DersDetayScreen() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
 
+  const hint = useContextualHint("lessonProgress", hydrated && !readMode && !quizMode &&
+    !!dersData?.kartlar?.[dersIndex] && dersIndex < dersData.kartlar.length - 1,
+    `${dersKey}:${dersIndex}:${readMode}:${quizMode}`);
   if (!dersData) return <YakindaEkran baslik={baslik} />;
 
   // ── Ders verileri ──
@@ -204,6 +207,7 @@ export default function DersDetayScreen() {
 
   // ── Ders handlers ──
   const navigateDers = (dir: 1 | -1) => {
+    hint.targetAction();
     const next = dersIndex + dir;
     if (next < 0 || next >= total) return;
     Haptics.selectionAsync();
@@ -539,7 +543,7 @@ export default function DersDetayScreen() {
   // DERS EKRANI
   // ═══════════════════════════════════════════════════════
   return (
-    <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]} {...panResponder.panHandlers}>
+    <View ref={hint.viewportRef} style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]} {...panResponder.panHandlers}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={s.contentColumn}>
       {/* Header */}
@@ -562,12 +566,14 @@ export default function DersDetayScreen() {
 
       {/* Kart başlığı — her zaman görünür */}
       <View style={s.kartBaslikBox}>
-        <Text style={[s.kartBaslikBig, { color: c.text }]}>{kart?.baslik ?? ""}</Text>
+        <Text style={[s.kartBaslikBig, { flex: 1, color: c.text }]}>{kart?.baslik ?? ""}</Text>
+        <ContextualHintHelp hint={hint} />
       </View>
 
       {/* Kart içeriği */}
       <ScrollView
         ref={dersScrollRef}
+        {...hint.scrollProps}
         style={{ flex: 1 }}
         contentContainerStyle={s.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -585,13 +591,13 @@ export default function DersDetayScreen() {
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
           <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>
         </View>
+        {/* Vurgu kaydırılan alanın içinde: büyük yazıda sabit kutu alanı daraltıp metni kesmesin */}
+        <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
+          <Text style={s.vurguText}>✦  {kart?.vurgu ?? ""}</Text>
+        </View>
       </ScrollView>
 
-      {/* Vurgu — navRow üstünde her zaman sabit */}
-      <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginHorizontal: 20, marginBottom: 8 }]}>
-        <Text style={s.vurguText}>✦  {kart?.vurgu ?? ""}</Text>
-      </View>
-
+      {hint.display && <View style={{ marginBottom: 8, marginHorizontal: 18 }}><ContextualHintCard hint={hint} /></View>}
       {/* Navigasyon */}
       <View style={[s.navRow, { borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
         <TouchableOpacity
@@ -619,7 +625,7 @@ export default function DersDetayScreen() {
             <Text style={s.nextBtnText}>{t.startQuiz}</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity {...lessonNextTarget} style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.nextCardA11y}>
+          <TouchableOpacity {...hint.targetProps} style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.nextCardA11y}>
             <Text style={s.nextBtnText}>{t.nextCard}</Text>
           </TouchableOpacity>
         )}
@@ -649,17 +655,17 @@ const s = StyleSheet.create({
   progressTrack: { height: 5, marginHorizontal: 16, borderRadius: 3, marginBottom: 6 },
   progressFill:  { height: 5, backgroundColor: "#c9a84c", borderRadius: 3 },
 
-  scrollContent: { flexGrow: 1, padding: 16, paddingBottom: 16 },
+  scrollContent: { flexGrow: 1, padding: 16, paddingBottom: 24 },
 
   // Ders
-  kartBaslikBox: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 10 },
+  kartBaslikBox: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 10, flexDirection: "row", alignItems: "flex-start", gap: 8 },
   kartBaslikBig: { fontSize: 24, fontWeight: "800", lineHeight: 32 },
   gorselFrame:   {
     width: "100%", maxWidth: "100%", aspectRatio: 1.83, borderRadius: 14,
     marginBottom: 16, alignSelf: "stretch", overflow: "hidden", backgroundColor: "#ffffff",
   },
   gorselImg:     { width: "100%", height: "100%" },
-  kartCard:      { flex: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
+  kartCard:      { flexGrow: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
   kartIcerik:    { fontSize: 15, lineHeight: 26 },
   vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },
   vurguText:     { fontSize: 15, color: "#c9a84c", fontWeight: "700", lineHeight: 24 },

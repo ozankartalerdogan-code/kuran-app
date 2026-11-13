@@ -48,7 +48,7 @@ export default defineStrings({
     deleteNoteA11y: "Notu sil",
     // bildirimler
     locTitle: "Konum İzni",
-    locDenied: "Konum izni verilmedi. Namaz vakitleri İstanbul için gösterilecek.",
+    locDenied: "Konum izni verilmedi. Namaz vakitleri İstanbul için gösterilecek; konum iznini sonradan cihaz ayarlarından verebilirsin.",
     ok: "Tamam",
     permTitle: "Bildirim İzni Gerekli",
     permBody: "Bildirimler için izne ihtiyaç var. Ayarlardan \"Bildirimler\"i açabilirsiniz.",
@@ -126,7 +126,7 @@ export default defineStrings({
     openNoteA11y: "{label} — open note",
     deleteNoteA11y: "Delete note",
     locTitle: "Location Permission",
-    locDenied: "Location permission was not granted. Prayer times will be shown for Istanbul.",
+    locDenied: "Location permission was not granted. Prayer times will be shown for Istanbul; you can grant location permission later in your device settings.",
     ok: "OK",
     permTitle: "Notification Permission Required",
     permBody: "Notifications need permission. You can enable \"Notifications\" in Settings.",

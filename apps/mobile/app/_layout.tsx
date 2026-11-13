@@ -1,6 +1,6 @@
-import { Stack, router, useNavigationContainerRef } from "expo-router";
+import { Stack, router, useNavigationContainerRef, useRootNavigationState, usePathname, useGlobalSearchParams } from "expo-router";
 import type { Href } from "expo-router";
-import { maybeAskReview, trackAppOpen } from '../src/hooks/useStoreReview';
+import { trackAppOpen } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { AppState } from "react-native";
@@ -8,10 +8,13 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
-import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback } from "react";
+import React, { Component, type ErrorInfo, type ReactNode, useState, useEffect, useCallback, useRef } from "react";
 import ErrorFallback from "../src/components/ErrorFallback";
 import { AppSplash } from "../src/components/AppSplash";
-import { AppTourProvider } from "../src/tour/AppTourProvider";
+import { needsWelcome } from "../src/lib/onboardingPolicy";
+import { useOverlayBusy, isOverlayBusy } from "../src/tour/overlayBusy";
+import { PendingNavigation } from "../src/lib/pendingNavigation";
+import { useAppTour, AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotifications";
 import { maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
 // Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
@@ -133,22 +136,74 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-function AppContent({ needsOnboarding }: { needsOnboarding: boolean }) {
-  // Header/StatusBar uygulama temasını izler — "auto" yalnız sistem temasını
-  // izlerdi, ana sayfadaki manuel tema düğmesi header'ları etkilemezdi.
+function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolean; response: Notifications.NotificationResponse | null | undefined }) {
+  const navigation = useRootNavigationState();
+  const pathname = usePathname();
+  const params = useGlobalSearchParams();
+  const { onboarded } = useAppTour();
+  const pending = useRef(new PendingNavigation());
+  useEffect(() => {
+    if (!navigation?.key) return;
+    // Derin bağlantı karşılama ekranına geçmeden önce saklanır.
+    if (needsOnboarding && !onboarded && pathname !== "/onboarding" && pathname !== "/") {
+      const query = new URLSearchParams();
+      for (const [key, value] of Object.entries(params)) {
+        if (Array.isArray(value)) value.forEach(item => query.append(key, item));
+        else if (value !== undefined) query.set(key, value);
+      }
+      pending.current.remember(`${pathname}${query.size ? `?${query}` : ""}`);
+    }
+    if (response) {
+      const request = response.notification.request;
+      const data = request.content.data as Record<string, unknown>;
+      const target = data?.surahId && data?.ayahNumber ? `/ayah/${data.surahId}/${data.ayahNumber}`
+        : typeof data?.route === "string" ? data.route : null;
+      if (target) pending.current.remember(target, `${request.identifier}:${response.notification.date}:${response.actionIdentifier}`);
+    }
+    if (needsOnboarding && !onboarded) {
+      if (pathname !== "/onboarding") router.replace("/onboarding");
+      return;
+    }
+    const target = pending.current.take(!!navigation.key, onboarded);
+    if (target) {
+      if (pathname === "/onboarding") router.replace(target as Href);
+      else router.push(target as Href);
+      void Notifications.clearLastNotificationResponseAsync().catch(() => {});
+    } else if (onboarded && pathname === "/onboarding") router.replace("/(tabs)");
+  }, [navigation?.key, needsOnboarding, onboarded, pathname, params, response]);
+  return null;
+}
+
+// Bu bileşen yalnız splash bitip Stack kurulduğunda mount olur.
+function ExactAlarmOpeningPrompt() {
+  const { onboarded } = useAppTour();
+  const navigation = useRootNavigationState();
+  const pathname = usePathname();
+  const busy = useOverlayBusy();
+  const [foreground, setForeground] = useState(AppState.currentState === "active");
+  useEffect(() => {
+    const sub = AppState.addEventListener("change", state => setForeground(state === "active"));
+    return () => sub.remove();
+  }, []);
+  useEffect(() => {
+    if (!navigation?.key || !onboarded || pathname === "/onboarding" || !foreground || busy) return;
+    const timer = setTimeout(() => {
+      if (AppState.currentState === "active" && !isOverlayBusy()) void maybePromptExactAlarm().catch(() => {});
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, [navigation?.key, onboarded, pathname, foreground, busy]);
+  return null;
+}
+
+function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; response: Notifications.NotificationResponse | null | undefined }) {
   const c = useColors();
   const t = useStrings(layoutStrings);
-
-  // İlk kurulum: Stack mount olduktan sonra onboarding'e geç (izinler orada,
-  // bağlam içinde istenir). replace → geri tuşu onboarding'e dönemez.
-  useEffect(() => {
-    if (needsOnboarding) router.replace("/onboarding");
-  }, [needsOnboarding]);
-
   return (
     <SafeAreaProvider>
       <StatusBar style={c.isDark ? "light" : "dark"} />
       <AppTourProvider>
+      <NavigationGate needsOnboarding={needsOnboarding} response={response} />
+      <ExactAlarmOpeningPrompt />
       <Stack
         initialRouteName="(tabs)"
         screenOptions={{
@@ -221,14 +276,17 @@ function RootLayout() {
       try {
         const done = await storage.getString(STORAGE_KEYS.onboarding);
         if (done === "1") { setNeedsOnboarding(false); return; }
-        // Güncelleme yapan MEVCUT kullanıcı: bildirim tercihi zaten yazılmış —
-        // onboarding'i sessizce tamamlanmış say, karşılama ekranıyla rahatsız etme.
-        const notifPref = await storage.getString(NOTIF_KEY);
-        if (notifPref !== null) {
-          storage.setString(STORAGE_KEYS.onboarding, "1").catch(() => {});
+        const [notifPref, legacyTour, started, guideRaw] = await Promise.all([
+          storage.getString(NOTIF_KEY), storage.getString(STORAGE_KEYS.appTour),
+          storage.getString(STORAGE_KEYS.onboardingStarted), storage.getString(STORAGE_KEYS.guideState),
+        ]);
+        if (!needsWelcome(done, started, notifPref, legacyTour, guideRaw)) {
+          await storage.setString(STORAGE_KEYS.onboarding, "1");
           setNeedsOnboarding(false);
           return;
         }
+        // İzinlerden önce işaretlenir; yarım kurulum eski kullanıcı sayılmaz.
+        await storage.setString(STORAGE_KEYS.onboardingStarted, "1");
         setNeedsOnboarding(true);
       } catch {
         setNeedsOnboarding(false); // okunamadı — kullanıcıyı bloklamak yerine normal aç
@@ -254,18 +312,10 @@ function RootLayout() {
     SplashScreen.hideAsync().catch(() => {});
   }, []);
 
-  // Açılış sayacı hemen ilerler; puanlama SORUSU ise splash/onboarding bitip
-  // kullanıcı gerçekten uygulamadayken (ready + kısa gecikme) sorulur. Play
-  // In-App Review tek atımlık — cold start'ta splash üstüne sorup hakkı yakma.
+  // Açılış sayacı hemen ilerler; değerlendirme istemini AppTourProvider koordine eder.
   useEffect(() => {
     trackAppOpen();
   }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    const timer = setTimeout(() => { maybeAskReview(); }, 12_000);
-    return () => clearTimeout(timer);
-  }, [ready]);
 
   // Bulut yedek: anonim oturum aç, ilk kurulumda ilerlemeyi geri yükle, sonrasında
   // değişiklikleri debounce'la Firestore'a yaz. Native modül yoksa (eski build)
@@ -273,23 +323,6 @@ function RootLayout() {
   useEffect(() => {
     initCloudBackup().catch((err) => { Sentry.captureException(err); });
   }, []);
-
-  useEffect(() => {
-    // Bildirime tıklanınca ilgili ekrana git. useLastNotificationResponse hem
-    // uygulama açıkken/arka plandayken tıklamayı HEM DE uygulama tamamen
-    // kapalıyken bildirimle açılmayı (cold start) yakalar — eski manuel
-    // addNotificationResponseReceivedListener cold start'ı kaçırıyordu.
-    if (!lastNotificationResponse) return;
-    const data = lastNotificationResponse.notification.request.content.data as Record<string, unknown>;
-    const t = setTimeout(() => {
-      if (data?.surahId && data?.ayahNumber) {
-        router.push(`/ayah/${data.surahId}/${data.ayahNumber}` as Href);
-      } else if (data?.route) {
-        router.push(data.route as Href);
-      }
-    }, 500); // Stack mount'u için kısa bekleme
-    return () => clearTimeout(t);
-  }, [lastNotificationResponse]);
 
   // Bildirimleri (namaz vakti + günlük ayet/dua) her açılışta VE her arka plandan
   // öne gelişte taze tut — ilk hiç açılışta varsayılan AÇIK dener, sonrasında
@@ -302,9 +335,6 @@ function RootLayout() {
     // (aksi halde bir kullanıcıda bildirimler hiç planlanmasa bile fark edilmez).
     const reportUnexpected = (err: unknown) => { Sentry.captureException(err); };
     ensureNotificationsFresh().catch(reportUnexpected);
-    // Bildirimleri zaten açık olan (güncellemeyle gelen) kullanıcıya tam-vaktinde
-    // alarm iznini bir kez sor; açılış ekranı geçsin diye biraz bekle.
-    const exactT = setTimeout(() => { void maybePromptExactAlarm().catch(() => {}); }, 2500);
     // Uygulama kapalıyken de tazeleme: OS'e periyodik arka plan görevi kaydet
     // (yeni build gerektirir; eski build'de sessiz no-op).
     registerBackgroundRefresh().catch(reportUnexpected);
@@ -313,7 +343,7 @@ function RootLayout() {
     const sub = AppState.addEventListener("change", (state) => {
       if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
     });
-    return () => { sub.remove(); clearTimeout(exactT); };
+    return () => { sub.remove(); };
   }, []);
 
   if (!ready) return <AppSplash onFinish={handleSplashFinish} />;
@@ -321,7 +351,7 @@ function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <AppContent needsOnboarding={needsOnboarding === true} />
+        <AppContent needsOnboarding={needsOnboarding === true} response={lastNotificationResponse} />
       </ErrorBoundary>
     </QueryClientProvider>
   );

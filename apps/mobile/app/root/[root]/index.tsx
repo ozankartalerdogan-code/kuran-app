@@ -12,7 +12,9 @@ import { api, prefetchAyah, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
-import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
+import { useContextualHint } from "../../../src/tour/useContextualHint";
+import { ContextualHintCard, ContextualHintHelp } from "../../../src/tour/ContextualHintCard";
+import { beginOverlay } from "../../../src/tour/overlayBusy";
 import { rootMeaningEn, meaningTextEn } from "../../../src/lib/wordMeaningsEn";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
 import { useStrings, getStrings, fmt, useLang, caps } from "../../../src/i18n";
@@ -65,8 +67,9 @@ const SURAH_SHORT: Record<number, string> = {
 const HeatGrid = memo(function HeatGrid({
   distribution,
   maxCount,
-  c,
+  c, hint,
 }: {
+  hint: ReturnType<typeof useContextualHint>;
   distribution: Record<number, number>;
   maxCount: number;
   c: AppColors;
@@ -74,7 +77,9 @@ const HeatGrid = memo(function HeatGrid({
   const t = useStrings(rootStrings);
   const lang = useLang();
   const [modalInfo, setModalInfo] = useState<{ surahId: number; count: number } | null>(null);
+  useEffect(() => { if (modalInfo) return beginOverlay(); }, [modalInfo]);
 
+  const firstFilled = Array.from({ length: 114 }, (_, i) => i + 1).find(id => distribution[id] > 0);
   return (
     <>
       <View style={hg.grid}>
@@ -86,8 +91,9 @@ const HeatGrid = memo(function HeatGrid({
           return (
             <TouchableOpacity
               key={id}
+              {...(id === firstFilled ? hint.targetProps : {})}
               style={[hg.cell, { backgroundColor: cell.bg }]}
-              onPress={() => count > 0 && setModalInfo({ surahId: id, count })}
+              onPress={() => { hint.targetAction(); if (count > 0) setModalInfo({ surahId: id, count }); }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={fmt(t.surahA11y, { n: id, name: lang === "en" ? "" : (SURAH_SHORT[id] ?? "") }).trim()}
@@ -216,14 +222,13 @@ export default function RootDetailScreen() {
   const t = useStrings(rootStrings);
   const lang = useLang();
   const insets = useSafeAreaInsets();
-  const heatmapTarget = useTourTarget("root.heatmap");
-  const tourScroll = useTourScroller<FlatList>();
   const { root: encodedRoot } = useLocalSearchParams<{ root: string | string[] }>();
   const rawRoot = Array.isArray(encodedRoot) ? encodedRoot[0] : encodedRoot;
   const root = rawRoot ? decodeURIComponent(rawRoot) : "";
 
   const [data, setData] = useState<RootDetail | null>(null);
   const [loading, setLoading] = useState(true);
+  const hint = useContextualHint("rootMap", !loading && !!data && Object.values(data.distribution).some(count => count > 0), root);
   const [error, setError] = useState<string | null>(null);
   const [openMeaning, setOpenMeaning] = useState<string | null>(null);
   const [othersOpen, setOthersOpen] = useState(false);
@@ -337,7 +342,8 @@ export default function RootDetailScreen() {
     <>
       <Stack.Screen options={{ title: root }} />
       <FlatList
-        {...tourScroll}
+        ref={hint.viewportRef}
+        {...hint.scrollProps}
         style={[s.container, { backgroundColor: c.bg }]}
         contentContainerStyle={[s.content, { paddingBottom: 40 + insets.bottom }]}
         data={groups.primary}
@@ -367,10 +373,16 @@ export default function RootDetailScreen() {
               </View>
             </View>
 
-            <View {...heatmapTarget} style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
-              <Text style={[s.sectionTitle, { color: c.text }]}>{t.distribution}</Text>
-              <Text style={[s.sectionHint, { color: c.textMuted }]}>{t.distributionHint}</Text>
-              <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} />
+            <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
+              <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8 }}>
+                <View style={{ flex: 1 }}>
+                  <Text style={[s.sectionTitle, { color: c.text }]}>{t.distribution}</Text>
+                  <Text style={[s.sectionHint, { color: c.textMuted }]}>{t.distributionHint}</Text>
+                </View>
+                <ContextualHintHelp hint={hint} />
+              </View>
+              {hint.display && <View style={{ marginVertical: 8 }}><ContextualHintCard hint={hint} /></View>}
+              <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} hint={hint} />
             </View>
 
             {groups.primary.length > 0 && (
@@ -477,8 +489,8 @@ const s = StyleSheet.create({
 
 const hg = StyleSheet.create({
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 2 },
-  cell: { width: "8%", aspectRatio: 1, borderRadius: 3, alignItems: "center", justifyContent: "center" },
-  cellText: { fontSize: 7, color: "#a8a29e", fontWeight: "500" },
+  cell: { width: "9.4%", aspectRatio: 1, borderRadius: 3, alignItems: "center", justifyContent: "center" },
+  cellText: { fontSize: 9, color: "#a8a29e", fontWeight: "500" },
 
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
   modalCard: { backgroundColor: "#fffdf6", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200, borderWidth: 1 },

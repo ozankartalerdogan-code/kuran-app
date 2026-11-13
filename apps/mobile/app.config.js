@@ -12,7 +12,7 @@ module.exports = {
     name: 'Kuran Yolu',
     slug: 'kuran-analiz',
     scheme: 'kuranyolu',
-    version: '1.2.0',
+    version: '1.2.1',
     sdkVersion: '56.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',

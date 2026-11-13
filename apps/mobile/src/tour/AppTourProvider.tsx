@@ -1,493 +1,221 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
-import {
-  Animated,
-  Dimensions,
-  InteractionManager,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
-  type ViewStyle,
-} from "react-native";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
+import { AccessibilityInfo, AppState, findNodeHandle, ScrollView, View, type ViewStyle } from "react-native";
 import { router, usePathname } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useColors } from "../hooks/useColors";
-import { APP_TOUR_STEPS, type AppTourStep } from "./appTourSteps";
-import { completeAppTour, hasCompletedAppTour, resetAppTour } from "./appTourStorage";
-import { useStrings } from "../i18n";
-import tourStrings from "../i18n/strings/tour";
+import { APP_TOUR_STEPS } from "./appTourSteps";
+import { loadGuideState, saveGuideStatus } from "./appTourStorage";
+import { AUTOMATIC_HINTS_ENABLED, HintSession, shouldOfferGuide, isExistingGuideUser, parseSeenHints, type GuideState, type GuideStatus } from "./tourPolicy";
+import { TourOverlay } from "./TourOverlay";
+import type { Rect } from "./tourGeometry";
+import { logFeature } from "../lib/analytics";
+import { maybeAskReview } from "../hooks/useStoreReview";
 
-type TargetRect = { x: number; y: number; width: number; height: number };
-type TargetHandle = { measure: () => Promise<TargetRect | null> };
-type ScrollHandle = { scrollBy: (delta: number) => void };
+import { storage, STORAGE_KEYS } from "../lib/storage";
+import { isOverlayBusy, useOverlayBusy, beginOverlay, withOverlayBusy } from "./overlayBusy";
+import type { ContextualHint } from "./contextualHints";
 
-type AppTourContextValue = {
-  isActive: boolean;
-  restartTour: () => Promise<void>;
+type TargetHandle = { measure: () => Promise<Rect | null>; focus: () => void };
+type TourContext = {
+  isActive: boolean; offerVisible: boolean; onboarded: boolean;
+  restartTour: () => Promise<void>; dismissOffer: () => void;
+  completeOnboarding: () => void;
+  hintBlocked: boolean; hintRevision: number;
+  showHint: (hint: ContextualHint, visitCount: number, manual: boolean) => boolean;
+  noteInteraction: () => void;
   registerTarget: (id: string, handle: TargetHandle) => void;
-  unregisterTarget: (id: string) => void;
-  registerScroller: (route: string, handle: ScrollHandle) => void;
-  unregisterScroller: (route: string) => void;
+  unregisterTarget: (id: string, handle: TargetHandle) => void;
 };
-
-const AppTourContext = createContext<AppTourContextValue>({
-  isActive: false,
-  restartTour: async () => {},
-  registerTarget: () => {},
-  unregisterTarget: () => {},
-  registerScroller: () => {},
-  unregisterScroller: () => {},
+const AppTourContext = createContext<TourContext>({
+  isActive: false, offerVisible: false, onboarded: false,
+  restartTour: async () => {}, dismissOffer: () => {}, completeOnboarding: () => {},
+  registerTarget: () => {}, unregisterTarget: () => {},
+  hintBlocked: true, hintRevision: 0, showHint: () => false, noteInteraction: () => {},
 });
 
-function normalizePath(path: string): string {
-  if (!path || path === "/(tabs)") return "/";
-  // Arapça kök rotaları (/root/خلق) yüzde-kodlanmış gelebilir; iki tarafı da
-  // aynı biçime indirmek için çöz. Aksi halde encoded pathname ile ham route
-  // asla eşleşmez ve düzeltici yönlendirme sonsuz döngüye girer.
-  let p = path;
-  try { p = decodeURIComponent(path); } catch { /* bozuk kodlama → olduğu gibi */ }
-  return p.endsWith("/") && p.length > 1 ? p.slice(0, -1) : p;
-}
-
-function navigateTo(path: string): void {
-  (router.push as unknown as (href: string) => void)(path);
-}
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
-}
-
-function isUsableRect(rect: TargetRect | null): rect is TargetRect {
-  return !!rect && rect.width > 4 && rect.height > 4;
-}
-
-const SPOT_PAD = 10;
-const CARD_MARGIN = 16;
-const ARROW = 11;
-
 export function AppTourProvider({ children }: { children: ReactNode }) {
-  const pathname = normalizePath(usePathname());
+  const pathname = usePathname();
   const targets = useRef(new Map<string, TargetHandle>());
-  const scrollers = useRef(new Map<string, ScrollHandle>());
-  const [isActive, setIsActive] = useState(false);
+  const [targetRevision, setTargetRevision] = useState(0);
+  const [state, setState] = useState<GuideState | null>(null);
+  const [onboarded, setOnboarded] = useState(false);
+  const onboardingFinished = useRef(false);
+  const [isActive, setActive] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [targetRect, setTargetRect] = useState<TargetRect | null | undefined>(undefined);
-  const checkedStartup = useRef(false);
+  const [visit, setVisit] = useState(0);
+  const step = APP_TOUR_STEPS[stepIndex];
+  const activeRef = useRef(false);
+  const reachedHome = useRef(false);
+  const reviewBusy = useRef(false);
+  const reviewAttempted = useRef(false);
+  const busy = useOverlayBusy();
+  const [foreground, setForeground] = useState(AppState.currentState === "active");
+  const [hintRevision, reviseHints] = useState(0);
+  const hintSession = useRef(new HintSession());
+  const seenReady = useRef(false);
+  const existingCohort = useRef(true);
+  const hintBlocked = busy || isActive || !onboarded || !foreground || pathname === "/onboarding";
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", next => setForeground(next === "active"));
+    return () => subscription.remove();
+  }, []);
+  useEffect(() => {
+    if (!isActive && onboarded && pathname !== "/onboarding") return;
+    return beginOverlay();
+  }, [isActive, onboarded, pathname]);
+  useEffect(() => {
+    storage.getJSON(STORAGE_KEYS.contextualHints).then(raw => {
+      hintSession.current.seen = parseSeenHints(raw);
+      seenReady.current = true;
+      reviseHints(v => v + 1);
+    }).catch(() => { /* Depo okunamazsa otomatik ipucu açılmaz. */ });
+  }, []);
+  const noteInteraction = useCallback(() => {
+    if (!activeRef.current && !isOverlayBusy() && !hintSession.current.interactedSinceGuide) {
+      hintSession.current.interactedSinceGuide = true;
+      reviseHints(v => v + 1);
+    }
+  }, []);
+  const previousPath = useRef(pathname);
+  useEffect(() => {
+    if (previousPath.current !== pathname) noteInteraction();
+    previousPath.current = pathname;
+  }, [pathname, noteInteraction]);
+  const showHint = useCallback((hint: ContextualHint, visitCount: number, manual: boolean) => {
+    if (hintBlocked || isOverlayBusy() || activeRef.current) return false;
+    if (!manual && !seenReady.current) return false;
+    if (!hintSession.current.show(hint, { enabled: AUTOMATIC_HINTS_ENABLED,
+      existingUser: existingCohort.current, focused: true, dataReady: true,
+      targetVisible: true, overlayOpen: false, hintsThisVisit: visitCount }, manual)) return false;
+    if (!manual) {
+      // Yazımlar sıraya alınır; sonraki ipucu önceki kaydı ezmez.
+      const snapshot = { ...hintSession.current.seen };
+      hintWrites.current = hintWrites.current.then(() => storage.setJSON(STORAGE_KEYS.contextualHints, snapshot)).catch(() => {});
+    }
+    void logFeature("hint_show", { id: hint.id });
+    return true;
+  }, [hintBlocked]);
+  const hintWrites = useRef(Promise.resolve());
+  const offerLogged = useRef(false);
+  const offered = shouldOfferGuide(state, onboarded);
+  const offerVisible = offered && pathname === "/" && !isActive;
 
-  const step = isActive ? APP_TOUR_STEPS[stepIndex] : null;
+  useEffect(() => {
+    let cancelled = false;
+    loadGuideState().then(({ state: saved, onboarded: done }) => {
+      if (!cancelled) { existingCohort.current = isExistingGuideUser(saved); setState(saved); setOnboarded(done || onboardingFinished.current); }
+    }).catch(() => {
+      if (!cancelled) {
+        setState({ version: 7, status: "existingUser" });
+        setOnboarded(true);
+      }
+    });
+    return () => { cancelled = true; };
+  }, []);
+  const persist = useCallback((status: GuideStatus) => {
+    // Mevcut kullanıcı manuel rehberi bitirse de kohort bilgisi korunur.
+    if (existingCohort.current) return;
+    setState({ version: 7, status });
+    void saveGuideStatus(status).catch(() => {});
+  }, []);
+  const completeOnboarding = useCallback(() => {
+    onboardingFinished.current = true;
+    setOnboarded(true);
+  }, []);
+  useEffect(() => {
+    if (offerVisible && !offerLogged.current) {
+      offerLogged.current = true;
+      void logFeature("guide_offer");
+    }
+  }, [offerVisible]);
+  // Değerlendirme, onboarding ve rehber kararı bitmeden açılmaz.
+  useEffect(() => {
+    if (!state || !onboarded || offered || hintBlocked || reviewAttempted.current) return;
+    const timer = setTimeout(() => {
+      if (isOverlayBusy() || activeRef.current) return;
+      reviewAttempted.current = true;
+      reviewBusy.current = true;
+      void withOverlayBusy(maybeAskReview).finally(() => { reviewBusy.current = false; });
+    }, 12_000);
+    return () => clearTimeout(timer);
+  }, [state, onboarded, offered, hintBlocked, pathname]);
 
+  const close = useCallback((completed = false) => {
+    if (!activeRef.current) return;
+    hintSession.current.interactedSinceGuide = false;
+    activeRef.current = false;
+    setActive(false);
+    persist(completed ? "completed" : "skipped");
+    void logFeature(completed ? "guide_finish" : "guide_close");
+    // Örtü kalktıktan sonra odak son hedefe döner.
+    if (pathname === "/") requestAnimationFrame(() => targets.current.get(step.targetId)?.focus());
+  }, [persist, step.targetId, pathname]);
+  useEffect(() => {
+    if (!isActive) return;
+    if (pathname === "/") reachedHome.current = true;
+    else if (reachedHome.current) close();
+  }, [pathname, isActive, close]);
+  const restartTour = useCallback(async () => {
+    if (activeRef.current || reviewBusy.current || isOverlayBusy() || !onboarded) return;
+    reachedHome.current = pathname === "/";
+    activeRef.current = true;
+    setStepIndex(0);
+    setVisit(v => v + 1);
+    setActive(true);
+    void logFeature("guide_start");
+    // Yalnız açık kullanıcı isteği ana sekmeye döner; adımlar gezinmez.
+    if (pathname !== "/") router.navigate("/(tabs)");
+  }, [onboarded, pathname]);
+  const dismissOffer = useCallback(() => {
+    persist("offerDismissed");
+    void logFeature("guide_close", { source: "offer" });
+  }, [persist]);
   const registerTarget = useCallback((id: string, handle: TargetHandle) => {
     targets.current.set(id, handle);
+    setTargetRevision(v => v + 1);
   }, []);
-  const unregisterTarget = useCallback((id: string) => {
-    targets.current.delete(id);
-  }, []);
-  const registerScroller = useCallback((route: string, handle: ScrollHandle) => {
-    scrollers.current.set(route, handle);
-  }, []);
-  const unregisterScroller = useCallback((route: string) => {
-    scrollers.current.delete(route);
-  }, []);
-
-  const startTour = useCallback(() => {
-    setStepIndex(0);
-    setIsActive(true);
-  }, []);
-
-  const restartTour = useCallback(async () => {
-    await resetAppTour();
-    navigateTo(APP_TOUR_STEPS[0].route);
-    // Farklı bir sekmeden (Daha Fazla) başlatıldığında home tab'a geçiş + mount +
-    // anchor kaydı zaman alır. İlk-run'daki 650ms gecikmeyi burada da uygula ki
-    // ilk hedefler ölçülebilsin (aksi halde oklar yanlış/boşa konumlanıyordu).
-    setTimeout(() => startTour(), 650);
-  }, [startTour]);
-
-  const finishTour = useCallback(async () => {
-    setIsActive(false);
-    setTargetRect(undefined);
-    await completeAppTour();
-  }, []);
-
-  // İlk açılışta (tamamlanmamışsa) turu otomatik başlat.
-  useEffect(() => {
-    if (checkedStartup.current || pathname === "/onboarding") return;
-    checkedStartup.current = true;
-
-    let cancelled = false;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    hasCompletedAppTour()
-      .then((completed) => {
-        if (cancelled || completed) return;
-        timer = setTimeout(() => { if (!cancelled) startTour(); }, 650);
-      })
-      .catch(() => {});
-
-    return () => { cancelled = true; if (timer) clearTimeout(timer); };
-  }, [pathname, startTour]);
-
-  // Adımın ekranında değilsek o ekrana götür (geri/ileri sonrası düzeltici).
-  useEffect(() => {
-    if (!step || pathname === "/onboarding") return;
-    const targetRoute = normalizePath(step.route);
-    if (pathname !== targetRoute) navigateTo(targetRoute);
-  }, [pathname, step]);
-
-  // Hedefi ölç — gerekirse fold dışındaki hedefi scroll ile görünür yap, sonra ölç.
-  useEffect(() => {
-    if (!step) return;
-    let cancelled = false;
-    setTargetRect(undefined);
-
-    if (!step.targetId) {
-      setTargetRect(null);
-      return () => { cancelled = true; };
+  const unregisterTarget = useCallback((id: string, handle: TargetHandle) => {
+    if (targets.current.get(id) === handle) {
+      targets.current.delete(id);
+      setTargetRevision(v => v + 1);
     }
-
-    const { height } = Dimensions.get("window");
-
-    const tryMeasure = async (attempt: number): Promise<void> => {
-      if (cancelled || !step.targetId) return;
-      const handle = targets.current.get(step.targetId);
-      const rect = (await handle?.measure()) ?? null;
-      if (cancelled) return;
-
-      if (isUsableRect(rect)) {
-        // Hedef rahat görünür bantta değilse (çok yukarı / fold altında),
-        // ilgili ekranın scroll'unu hedef üst-üçte bir gelecek şekilde kaydır.
-        const scroller = scrollers.current.get(pathname);
-        const desiredY = 170;
-        const tooHigh = rect.y < 100;
-        const tooLow = rect.y + rect.height > height - 285;
-        if (scroller && (tooHigh || tooLow) && attempt < 3) {
-          const delta = rect.y - desiredY;
-          if (Math.abs(delta) > 50) {
-            scroller.scrollBy(delta);
-            setTimeout(() => { void tryMeasure(attempt + 1); }, 420);
-            return;
-          }
-        }
-        setTargetRect(rect);
-        return;
-      }
-
-      if (attempt < 5) {
-        setTimeout(() => { void tryMeasure(attempt + 1); }, attempt === 0 ? 140 : 240);
-      } else {
-        setTargetRect(null);
-      }
-    };
-
-    const handle = InteractionManager.runAfterInteractions(() => { void tryMeasure(0); });
-    return () => { cancelled = true; handle.cancel?.(); };
-  }, [step, pathname]);
-
-  const goNext = useCallback(() => {
-    if (!step) return;
-    if (step.action === "finish" || stepIndex >= APP_TOUR_STEPS.length - 1) {
-      void finishTour();
-      return;
-    }
-    const next = stepIndex + 1;
-    setStepIndex(next);
-    navigateTo(APP_TOUR_STEPS[next].route);
-  }, [finishTour, step, stepIndex]);
-
-  const goBack = useCallback(() => {
-    if (stepIndex <= 0) return;
-    const prev = stepIndex - 1;
-    setStepIndex(prev);
-    navigateTo(APP_TOUR_STEPS[prev].route);
-  }, [stepIndex]);
-
-  const value = useMemo<AppTourContextValue>(() => ({
-    isActive,
-    restartTour,
-    registerTarget,
-    unregisterTarget,
-    registerScroller,
-    unregisterScroller,
-  }), [isActive, restartTour, registerTarget, unregisterTarget, registerScroller, unregisterScroller]);
-
+  }, []);
+  const value = useMemo(() => ({ isActive, offerVisible, onboarded, restartTour, dismissOffer,
+    completeOnboarding, registerTarget, unregisterTarget, hintBlocked, hintRevision, showHint, noteInteraction }),
+    [isActive, offerVisible, onboarded, restartTour, dismissOffer, completeOnboarding, registerTarget, unregisterTarget, hintBlocked, hintRevision, showHint, noteInteraction]);
   return (
     <AppTourContext.Provider value={value}>
-      <View style={styles.root}>
-        {children}
-        {step ? (
-          <AppTourOverlay
-            step={step}
-            stepIndex={stepIndex}
-            totalSteps={APP_TOUR_STEPS.length}
-            targetRect={targetRect}
-            onBack={goBack}
-            onNext={goNext}
-            onSkip={finishTour}
-          />
-        ) : null}
+      <View style={{ flex: 1 }} onTouchStart={noteInteraction}>
+        <View style={{ flex: 1 }} accessibilityElementsHidden={isActive}
+          importantForAccessibility={isActive ? "no-hide-descendants" : "auto"}>{children}</View>
+        {isActive && <TourOverlay key={`${visit}:${stepIndex}`} step={step} stepIndex={stepIndex}
+          ready={pathname === "/"} targetRevision={targetRevision}
+          measureTarget={() => targets.current.get(step.targetId)?.measure() ?? Promise.resolve(null)}
+          onClose={() => close()} onBack={() => setStepIndex(i => Math.max(0, i - 1))}
+          onNext={() => stepIndex === APP_TOUR_STEPS.length - 1 ? close(true) : setStepIndex(i => i + 1)} />}
       </View>
     </AppTourContext.Provider>
   );
 }
-
-export function useAppTour() {
-  return useContext(AppTourContext);
-}
-
-export function useTourTarget(id: string) {
+export function useAppTour() { return useContext(AppTourContext); }
+export function useTourTarget(id: string, focusRef?: RefObject<View | null>) {
   const { registerTarget, unregisterTarget } = useAppTour();
   const ref = useRef<View>(null);
-
-  const measure = useCallback(() => new Promise<TargetRect | null>((resolve) => {
-    const node = ref.current as unknown as {
-      measureInWindow?: (cb: (x: number, y: number, w: number, h: number) => void) => void;
-    } | null;
-    if (!node?.measureInWindow) { resolve(null); return; }
-    node.measureInWindow((x, y, width, height) => {
-      if (!Number.isFinite(x + y + width + height)) { resolve(null); return; }
-      resolve({ x, y, width, height });
-    });
-  }), []);
-
   useEffect(() => {
-    registerTarget(id, { measure });
-    return () => unregisterTarget(id);
-  }, [id, measure, registerTarget, unregisterTarget]);
-
+    const handle: TargetHandle = {
+      measure: () => new Promise(resolve => {
+        if (!ref.current) { resolve(null); return; }
+        ref.current.measureInWindow((x, y, width, height) => resolve({ x, y, width, height }));
+      }),
+      // Odak gerçek (erişilebilir) hedefe gider; ölçüm sarmalayıcısı yalnız yedek.
+      focus: () => { const node = findNodeHandle(focusRef?.current ?? ref.current); if (node) AccessibilityInfo.setAccessibilityFocus(node); },
+    };
+    registerTarget(id, handle);
+    return () => unregisterTarget(id, handle);
+  }, [id, focusRef, registerTarget, unregisterTarget]);
   return { ref, collapsable: false as const };
 }
-
-// Ekranın ana ScrollView/FlatList'ine spread edilir; fold dışı hedefleri tur
-// otomatik görünür hale getirebilsin diye scroll yeteneğini kaydeder.
-// ScrollView (scrollTo) ve FlatList (scrollToOffset) ikisiyle de çalışır.
-type ScrollableNode = {
-  scrollTo?: (opts: { y: number; animated?: boolean }) => void;
-  scrollToOffset?: (opts: { offset: number; animated?: boolean }) => void;
-};
-
-export function useTourScroller<T = ScrollView>() {
-  const { registerScroller, unregisterScroller } = useAppTour();
-  const pathname = normalizePath(usePathname());
-  const ref = useRef<T>(null);
-  const offset = useRef(0);
-
-  const onScroll = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    offset.current = e.nativeEvent.contentOffset.y;
-  }, []);
-
-  const scrollBy = useCallback((delta: number) => {
-    const node = ref.current as ScrollableNode | null;
-    const y = Math.max(0, offset.current + delta);
-    if (node?.scrollTo) node.scrollTo({ y, animated: true });
-    else node?.scrollToOffset?.({ offset: y, animated: true });
-  }, []);
-
-  useEffect(() => {
-    registerScroller(pathname, { scrollBy });
-    return () => unregisterScroller(pathname);
-  }, [pathname, scrollBy, registerScroller, unregisterScroller]);
-
-  return { ref, onScroll, scrollEventThrottle: 32 };
-}
-
+// Eski ekranların ref ve kaydırma sözleşmesi korunur; rehber ekranları kaydırmaz.
+export function useTourScroller<T = ScrollView>() { return { ref: useRef<T>(null), scrollEventThrottle: 32 }; }
 export function TourTarget({ id, children, style }: { id: string; children: ReactNode; style?: ViewStyle }) {
   const target = useTourTarget(id);
-  return (
-    <View {...target} style={style}>
-      {children}
-    </View>
-  );
+  return <View {...target} style={style}>{children}</View>;
 }
-
-function AppTourOverlay({
-  step,
-  stepIndex,
-  totalSteps,
-  targetRect,
-  onBack,
-  onNext,
-  onSkip,
-}: {
-  step: AppTourStep;
-  stepIndex: number;
-  totalSteps: number;
-  targetRect: TargetRect | null | undefined;
-  onBack: () => void;
-  onNext: () => void;
-  onSkip: () => void;
-}) {
-  const c = useColors();
-  const ts = useStrings(tourStrings) as Record<string, string>;
-  const insets = useSafeAreaInsets();
-  const { width, height } = Dimensions.get("window");
-  const maybeRect = targetRect ?? null;
-  const rect = isUsableRect(maybeRect) ? maybeRect : null;
-
-  // Hedef dikdörtgeni (pad'li, ekran içine sıkıştırılmış).
-  const spot = rect
-    ? {
-        x: clamp(rect.x - SPOT_PAD, 6, width - 40),
-        y: clamp(rect.y - SPOT_PAD, insets.top + 2, height - 40),
-        w: clamp(rect.width + SPOT_PAD * 2, 36, width - 12),
-        h: clamp(rect.height + SPOT_PAD * 2, 36, height - insets.top - insets.bottom),
-      }
-    : null;
-
-  // Pozisyon DOĞRUDAN ölçümden (animasyon yok → her zaman doğru yer).
-  // Yeni adımda tüm overlay yumuşak fade-in olur.
-  const fade = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    fade.setValue(0);
-    Animated.timing(fade, { toValue: 1, duration: 220, useNativeDriver: true }).start();
-  }, [fade, step.id]);
-
-  // Kart konumu — gerçek yükseklik ölçülür (sihirli sayı yok).
-  const [cardH, setCardH] = useState(0);
-  const cardWidth = Math.min(width - CARD_MARGIN * 2, 360);
-  const cardLeft = CARD_MARGIN;
-  const ch = cardH || 210;
-
-  let cardTop: number;
-  let arrowSide: "up" | "down" | null = null;
-  if (step.placement === "center" || !spot) {
-    cardTop = clamp(height * 0.3, insets.top + 60, height - insets.bottom - ch - 16);
-  } else {
-    const below = spot.y + spot.h + ARROW + 6;
-    const above = spot.y - ch - ARROW - 6;
-    const fitsBelow = below + ch < height - insets.bottom - 12;
-    const fitsAbove = above > insets.top + 12;
-    if (step.placement === "top" && fitsAbove) { cardTop = above; arrowSide = "down"; }
-    else if (fitsBelow) { cardTop = below; arrowSide = "up"; }
-    else if (fitsAbove) { cardTop = above; arrowSide = "down"; }
-    else { cardTop = clamp(height * 0.3, insets.top + 60, height - insets.bottom - ch - 16); }
-  }
-
-  const targetCenterX = spot ? spot.x + spot.w / 2 : width / 2;
-  const arrowLeft = clamp(targetCenterX - cardLeft - ARROW, 18, cardWidth - 18 - ARROW * 2);
-
-  const nextLabel = step.action === "finish" || stepIndex === totalSteps - 1
-    ? ts.finish
-    : step.action === "navigate"
-      ? ts.cont
-      : ts.next;
-
-  const dimColor = "rgba(5, 10, 20, 0.55)";
-
-  return (
-    <Animated.View style={[StyleSheet.absoluteFill, styles.overlay, { opacity: fade }]} pointerEvents="box-none">
-      {/* Üniform karartma — dikdörtgen highlight kaldırıldı; hedefi ok + kart gösterir. */}
-      <View style={[StyleSheet.absoluteFill, { backgroundColor: dimColor }]} pointerEvents="none" />
-
-      <View
-        onLayout={(e) => setCardH(e.nativeEvent.layout.height)}
-        style={[
-          styles.card,
-          {
-            top: cardTop,
-            left: cardLeft,
-            width: cardWidth,
-            backgroundColor: c.card,
-            borderColor: c.isDark ? "rgba(16,185,129,0.5)" : "rgba(5,150,105,0.35)",
-          },
-        ]}
-      >
-        {/* Hedefe işaret eden ok (beak) */}
-        {arrowSide ? (
-          <View
-            pointerEvents="none"
-            style={[
-              styles.arrow,
-              {
-                left: arrowLeft,
-                backgroundColor: c.card,
-                borderColor: c.isDark ? "rgba(16,185,129,0.5)" : "rgba(5,150,105,0.35)",
-                ...(arrowSide === "up"
-                  ? { top: -ARROW + 1, borderTopWidth: 1, borderLeftWidth: 1 }
-                  : { bottom: -ARROW + 1, borderBottomWidth: 1, borderRightWidth: 1 }),
-              },
-            ]}
-          />
-        ) : null}
-
-        <View style={styles.cardHeader}>
-          <Text style={[styles.kicker, { color: c.accent }]}>{stepIndex + 1}/{totalSteps}</Text>
-          <TouchableOpacity onPress={onSkip} hitSlop={10} accessibilityRole="button" accessibilityLabel={ts.skipA11y}>
-            <Text style={[styles.skipText, { color: c.textMuted }]}>{ts.skip}</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={[styles.title, { color: c.text }]}>{ts[step.id + "_title"] ?? step.title}</Text>
-        <Text style={[styles.description, { color: c.textSecondary }]}>{ts[step.id + "_desc"] ?? step.description}</Text>
-        {targetRect === null && step.targetId ? (
-          <Text style={[styles.fallbackText, { color: c.textMuted }]}>
-            {ts.unmeasured}
-          </Text>
-        ) : null}
-        <View style={styles.controls}>
-          <TouchableOpacity
-            onPress={onBack}
-            disabled={stepIndex === 0}
-            style={[styles.secondaryButton, { borderColor: c.border, opacity: stepIndex === 0 ? 0.45 : 1 }]}
-            accessibilityRole="button"
-            accessibilityState={{ disabled: stepIndex === 0 }}
-            accessibilityLabel={ts.backA11y}
-          >
-            <Text style={[styles.secondaryText, { color: c.text }]}>{ts.back}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={onNext}
-            style={[styles.primaryButton, { backgroundColor: c.accent }]}
-            accessibilityRole="button"
-            accessibilityLabel={nextLabel}
-          >
-            <Text style={styles.primaryText}>{nextLabel}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Animated.View>
-  );
-}
-
-const styles = StyleSheet.create({
-  root: { flex: 1 },
-  overlay: { zIndex: 9999, elevation: 9999 },
-  arrow: {
-    position: "absolute",
-    width: ARROW * 2,
-    height: ARROW * 2,
-    transform: [{ rotate: "45deg" }],
-    borderRadius: 3,
-  },
-  card: {
-    position: "absolute",
-    borderRadius: 20,
-    borderWidth: 1,
-    padding: 18,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 18,
-  },
-  cardHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
-  kicker: { fontSize: 12, fontWeight: "800", letterSpacing: 0.5 },
-  skipText: { fontSize: 13, fontWeight: "700" },
-  title: { fontSize: 19, fontWeight: "800", marginBottom: 8 },
-  description: { fontSize: 14, lineHeight: 21 },
-  fallbackText: { fontSize: 12, lineHeight: 18, marginTop: 10, fontStyle: "italic" },
-  controls: { flexDirection: "row", gap: 10, marginTop: 18 },
-  secondaryButton: { paddingVertical: 12, paddingHorizontal: 16, borderWidth: 1, borderRadius: 12 },
-  secondaryText: { fontSize: 14, fontWeight: "700" },
-  primaryButton: { flex: 1, paddingVertical: 12, paddingHorizontal: 16, borderRadius: 12, alignItems: "center" },
-  primaryText: { color: "#fff", fontSize: 14, fontWeight: "800" },
-});

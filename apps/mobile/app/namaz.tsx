@@ -119,7 +119,12 @@ function VakitTablosu() {
             <View style={[vt.vakitSol, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderLeftColor: m.border }]}>
               <Text style={{ fontSize: 22 }}>{m.ikon}</Text>
               <View style={[vt.vakitBadge, { backgroundColor: m.badge }]}>
-                <Text style={[vt.vakitBadgeText, { color: m.badgeText }]}>{t[m.ad]}</Text>
+                <Text
+                  style={[vt.vakitBadgeText, { color: m.badgeText }]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.7}
+                >{t[m.ad]}</Text>
               </View>
               <Text style={[vt.vakitAdet, { color: c.textMuted }]}>{fmt(t.verseCount, { n: verses.length })}</Text>
             </View>
@@ -303,7 +308,7 @@ const vt = StyleSheet.create({
   adetText:      { fontSize:10, fontWeight:"600", color:"#059669" },
   vakitSatir:    { flexDirection:"row" },
   vakitSatirBorder: { borderTopWidth:1, borderTopColor:"#e7dfcc" },
-  vakitSol:      { width:72, borderLeftWidth:4, paddingHorizontal:8, paddingVertical:10, alignItems:"center", gap:4 },
+  vakitSol:      { width:84, borderLeftWidth:4, paddingHorizontal:8, paddingVertical:10, alignItems:"center", gap:4 },
   vakitBadge:    { borderRadius:6, paddingHorizontal:6, paddingVertical:2 },
   vakitBadgeText:{ fontSize:10, fontWeight:"700" },
   vakitAdet:     { fontSize:9, color:"#a8a29e" },

@@ -1,3 +1,7 @@
+import { useContextualHint } from "../../../src/tour/useContextualHint";
+import { ContextualHintCard, ContextualHintHelp } from "../../../src/tour/ContextualHintCard";
+import { beginOverlay, withOverlayBusy } from "../../../src/tour/overlayBusy";
+import { overlayAlert } from "../../../src/tour/overlayAlert";
 import {
   ScrollView,
   View,
@@ -6,7 +10,6 @@ import {
   TouchableOpacity,
   Share,
   StyleSheet,
-  Alert,
   Platform,
   Keyboard,
   Dimensions,
@@ -412,6 +415,7 @@ export default function AyahDetailScreen() {
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [reading, setReading] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const hint = useContextualHint("ayahTabs", !loading && !!data, `${surahId}:${ayahNumber}`, tourScroll.ref);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
   // Sure/ayet atlama çubuğu — yapışkan alt bardaki "x / y" sayacına dokununca açılır.
@@ -569,6 +573,36 @@ export default function AyahDetailScreen() {
     ? fmt(ay.headerTitle, { name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber })
     : ay.detailTitle;
 
+  // Ekranın kendi üst çubuğu (Stack header kapalı): geri düğmesi + "Sure · Ayet" başlığı.
+  // Geçmiş yoksa (derin bağlantı) sekmelere düşer.
+  const handleBack = () => {
+    if (router.canGoBack()) router.back();
+    else router.replace("/(tabs)");
+  };
+  const topBar = (
+    <View
+      style={[
+        styles.topBar,
+        { paddingTop: insets.top + 4, backgroundColor: colors.bg, borderBottomColor: colors.border },
+      ]}
+    >
+      <TouchableOpacity
+        onPress={handleBack}
+        style={styles.topBarBtn}
+        hitSlop={8}
+        activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={ay.backA11y}
+      >
+        <Ionicons name="chevron-back" size={24} color={colors.textPrimary} />
+      </TouchableOpacity>
+      <Text style={[styles.topBarTitle, { color: colors.textPrimary }]} numberOfLines={1}>
+        {headerTitle}
+      </Text>
+      <View style={styles.topBarBtn} />
+    </View>
+  );
+
   const navToRoot = useCallback((root: string) => {
     router.push(`/root/${encodeURIComponent(root)}`);
   }, []);
@@ -609,13 +643,14 @@ export default function AyahDetailScreen() {
       ? { title, message: bodyParts.join("\n\n"), url: webUrl }
       : { title, message: [...bodyParts, webUrl].join("\n\n") };
     try {
-      await Share.share(shareOptions);
+      await withOverlayBusy(() => Share.share(shareOptions));
     } catch { /* kullanıcı iptal etti / paylaşım hatası — sessiz geç */ }
   }, [data, surahId, ayahNumber, reading, shareMeal, ay, lang, surahNameOf]);
 
   // Paylaş düğmesi: görsel paylaşım modülleri build'de varsa kart önizlemesi açılır
   // (görsel/metin seçimi orada); yoksa doğrudan mevcut metin paylaşımı.
   const [shareOpen, setShareOpen] = useState(false);
+  useEffect(() => { if (shareOpen) return beginOverlay(); }, [shareOpen]);
   const handleShare = useCallback(() => {
     if (!data) return;
     logFeature(AnalyticsEvents.PAYLASIM);
@@ -633,7 +668,7 @@ export default function AyahDetailScreen() {
     if (!notesLoaded) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const ok = await saveNote(verseKey, noteDraft);
-    if (!ok) { Alert.alert(ay.noteSaveFailTitle, ay.tryAgain); return; }
+    if (!ok) { overlayAlert(ay.noteSaveFailTitle, ay.tryAgain); return; }
     setNoteSaved(true);
     if (noteSavedTimerRef.current) clearTimeout(noteSavedTimerRef.current);
     noteSavedTimerRef.current = setTimeout(() => setNoteSaved(false), 2000);
@@ -661,7 +696,7 @@ export default function AyahDetailScreen() {
 
   const handleDeleteNote = useCallback(() => {
     if (!notesLoaded) return;
-    Alert.alert(
+    overlayAlert(
       ay.deleteNoteTitle,
       ay.deleteNoteBody,
       [
@@ -675,7 +710,7 @@ export default function AyahDetailScreen() {
             const ok = await saveNote(verseKey, "");
             if (!ok) {
               setNoteDraft(previousDraft);
-              Alert.alert(ay.noteDeleteFailTitle, ay.tryAgain);
+              overlayAlert(ay.noteDeleteFailTitle, ay.tryAgain);
               return;
             }
             setNoteDraft("");
@@ -691,13 +726,16 @@ export default function AyahDetailScreen() {
     return (
       <>
         <Stack.Screen options={{ title: ay.detailTitle }} />
-        <View style={{ flex: 1, backgroundColor: colors.bg, padding: 16, paddingTop: insets.top + 16, gap: 14 }}>
+        <View style={{ flex: 1, backgroundColor: colors.bg }}>
+        {topBar}
+        <View style={{ flex: 1, padding: 16, gap: 14 }}>
           {/* Arapça metin — sağa dayalı */}
           <SkeletonBox width="88%" height={38} borderRadius={8} style={{ alignSelf: "flex-end" }} />
           <SkeletonBox width="66%" height={26} borderRadius={8} style={{ alignSelf: "flex-end", marginBottom: 4 }} />
           {/* okunuş + meal kartları */}
           <SkeletonAyetCard />
           <SkeletonAyetCard />
+        </View>
         </View>
       </>
     );
@@ -744,10 +782,12 @@ export default function AyahDetailScreen() {
   return (
     <>
       <Stack.Screen options={{ title: headerTitle }} />
+      {topBar}
       <ScrollView
-        {...tourScroll}
-        // Üst boşluk kaydırılan içeriğin dışında: okunuş durum çubuğunun altına girmesin.
-        style={[styles.scroll, { backgroundColor: colors.bg, marginTop: insets.top }]}
+        {...hint.scrollProps}
+        ref={hint.viewportRef}
+        // Üst boşluk artık üst çubukta (topBar, insets.top dahil).
+        style={[styles.scroll, { backgroundColor: colors.bg }]}
         contentContainerStyle={[styles.scrollContent, { paddingTop: 8, paddingBottom: 24 }]}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -864,6 +904,7 @@ export default function AyahDetailScreen() {
               <Text style={[styles.mushafBtnText, { color: colors.textSecondary }]}>{ay.openInMushaf}</Text>
             </TouchableOpacity>
             <View style={{ flex: 1 }} />
+            <ContextualHintHelp hint={hint} />
             <TouchableOpacity
               style={[styles.iconBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
               onPress={handleShare}
@@ -899,7 +940,10 @@ export default function AyahDetailScreen() {
         </View>
 
         {/* ═══ Sekmeler ═══ */}
-        <SegmentedTabs active={activeTab} onChange={setActiveTab} colors={colors} analysisTarget={analysisTabTarget} />
+        <View {...hint.targetProps}>
+          <SegmentedTabs active={activeTab} onChange={(tab) => { hint.targetAction(); setActiveTab(tab); }} colors={colors} analysisTarget={analysisTabTarget} />
+        </View>
+        {hint.display && <View style={{ marginVertical: 8 }}><ContextualHintCard hint={hint} /></View>}
 
         {/* ═══ Sekme İçerikleri ═══ */}
         {activeTab === "meal" && (
@@ -1310,14 +1354,14 @@ const styles = StyleSheet.create({
 
   // ── Eylem satırı (kâğıt kartının alt kenarında) ──
   paperActions: {
-    width: "100%", flexDirection: "row", alignItems: "center", gap: 8,
+    width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 8,
   },
   mushafBtn: {
-    flexDirection: "row", alignItems: "center", gap: 6,
+    maxWidth: "100%", flexDirection: "row", alignItems: "center", gap: 6,
     borderRadius: 19, borderWidth: 1,
     paddingHorizontal: 14, minHeight: 38,
   },
-  mushafBtnText: { fontSize: 13, fontWeight: "600" },
+  mushafBtnText: { flexShrink: 1, fontSize: 13, fontWeight: "600" },
   iconBtn: {
     width: 38, height: 38, borderRadius: 19, borderWidth: 1,
     alignItems: "center", justifyContent: "center",
@@ -1348,7 +1392,7 @@ const styles = StyleSheet.create({
   fontBtn: {
     borderRadius: 16, borderWidth: 1,
     paddingHorizontal: 10, paddingVertical: 6,
-    minWidth: 40, alignItems: "center",
+    minWidth: 40, minHeight: 32, alignItems: "center", justifyContent: "center",
   },
   fontBtnDisabled: { opacity: 0.35 },
   tajToggle: {
@@ -1362,8 +1406,14 @@ const styles = StyleSheet.create({
     marginTop: 14, marginBottom: 12,
   },
   readingText: {
-    fontSize: 15, lineHeight: 24, textAlign: "center", fontStyle: "italic",
+    fontSize: 15, lineHeight: 24, textAlign: "left", fontStyle: "italic", width: "100%",
   },
+  topBar: {
+    flexDirection: "row", alignItems: "center", gap: 4,
+    paddingHorizontal: 8, paddingBottom: 6, borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  topBarBtn: { minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },
+  topBarTitle: { flex: 1, textAlign: "center", fontSize: 16, fontWeight: "700" },
 
   // ── Sekmeler ──
   tabBar: {

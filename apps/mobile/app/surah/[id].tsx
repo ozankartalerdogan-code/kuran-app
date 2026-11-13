@@ -13,21 +13,29 @@ import { useColors } from "../../src/hooks/useColors";
 import { SkeletonListItem } from "../../src/components/SkeletonLoader";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { logScreen } from "../../src/lib/analytics";
-import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { useContextualHint } from "../../src/tour/useContextualHint";
+import { ContextualHintCard, ContextualHintHelp } from "../../src/tour/ContextualHintCard";
 import { useMealOf } from "../../src/lib/englishMeal";
 import { useSurahNameOf } from "../../src/lib/surahNames";
 import { useStrings, getStrings, useLang, fmt } from "../../src/i18n";
 import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
 import surahStrings from "../../src/i18n/strings/surahs";
 
+// Uzun metni kelime sınırında kısaltır; performans için kısaltma korunur.
+function clipWords(s: string, max: number): string {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${lastSpace > 0 ? cut.slice(0, lastSpace) : cut}…`;
+}
+
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
 function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string }) {
   const c = useColors();
   const t = useStrings(surahStrings);
-  const readerTarget = useTourTarget("surah.reader");
   return (
-    <View {...readerTarget} style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
+    <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
         style={tf.header}
         onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
@@ -101,8 +109,8 @@ function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
   const lang = useLang();
   const fullMeal = mealOf({ surah: surahId, ayah: item.ayahNumber }, item.meal);
   const readingSrc = localizedVerseTranslit({ surah: surahId, ayah: item.ayahNumber }, item.reading, lang);
-  const reading = readingSrc ? readingSrc.slice(0, 110) : null;
-  const meal    = fullMeal     ? fullMeal.slice(0, 80)      : null;
+  const reading = readingSrc ? clipWords(readingSrc, 140) : null;
+  const meal    = fullMeal     ? clipWords(fullMeal, 120)  : null;
   return (
     <TouchableOpacity
       style={[styles.row, { backgroundColor: c.card }]}
@@ -117,13 +125,13 @@ function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
       </View>
       <View style={styles.rowContent}>
         {reading && (
-          <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>
-            {reading}{(readingSrc?.length ?? 0) > 110 ? "…" : ""}
+          <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2} ellipsizeMode="tail">
+            {reading}
           </Text>
         )}
         {meal && (
-          <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={1}>
-            {meal}{(fullMeal?.length ?? 0) > 80 ? "…" : ""}
+          <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={2} ellipsizeMode="tail">
+            {meal}
           </Text>
         )}
         {!reading && !meal && <Text style={[styles.mealText, { color: c.textMuted }]}>—</Text>}
@@ -146,6 +154,7 @@ export default function SurahDetailScreen() {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
+  const hint = useContextualHint("surahInteraction", !loading && !error && !!data?.verses.length, String(surahId));
 
   useEffect(() => { logScreen('SureDetay'); }, []);
 
@@ -169,9 +178,10 @@ export default function SurahDetailScreen() {
   // Yer imi MANUEL — sure açmak/ayete tıklamak artık otomatik yer imi koymaz.
   const handleAyahPress = useCallback(
     (ayahNumber: number) => {
+      hint.targetAction();
       router.push(`/ayah/${surahId}/${ayahNumber}`);
     },
-    [surahId],
+    [surahId, hint.targetAction],
   );
 
   const handleAyahPrefetch = useCallback(
@@ -180,10 +190,12 @@ export default function SurahDetailScreen() {
   );
 
   const renderItem = useCallback(
-    ({ item }: { item: VerseItem }) => (
-      <VerseRow item={item} surahId={surahId} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
+    ({ item, index }: { item: VerseItem; index: number }) => (
+      <View {...(index === 0 ? hint.targetProps : {})}>
+        <VerseRow item={item} surahId={surahId} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
+      </View>
     ),
-    [surahId, handleAyahPress, handleAyahPrefetch],
+    [surahId, handleAyahPress, handleAyahPrefetch, hint.targetProps],
   );
 
   const keyExtractor = useCallback(
@@ -222,8 +234,11 @@ if (loading) {
 
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}>
-      <Stack.Screen options={{ title: surahNameOf(data.surah.id, data.surah.name) }} />
+      <Stack.Screen options={{ title: surahNameOf(data.surah.id, data.surah.name),
+        headerRight: () => <ContextualHintHelp hint={hint} /> }} />
       <FlatList
+        ref={hint.viewportRef}
+        {...hint.scrollProps}
         data={data.verses}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
@@ -231,6 +246,9 @@ if (loading) {
           <>
             <SurahHeader data={data.surah} />
             <TafsirCard surahId={surahId} surahName={surahNameOf(data.surah.id, data.surah.name)} />
+            {hint.display && <View style={{ marginHorizontal: 12, marginBottom: 8 }}>
+              <ContextualHintCard hint={hint} />
+            </View>}
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}

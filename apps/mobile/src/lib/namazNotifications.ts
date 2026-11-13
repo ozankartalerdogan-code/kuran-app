@@ -1,3 +1,6 @@
+import { SerialQueue, settleJobs } from "./serialQueue";
+import { PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, shouldRefreshNotifications } from "./notificationRecovery";
+import { withOverlayBusy } from "../tour/overlayBusy";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as Location from "expo-location";
@@ -78,12 +81,11 @@ async function getLocationSilent(): Promise<Coords> {
   }
 }
 
-// İzin İSTEYEREK konum getirir — yalnız ilk-hiç-açılış otomatik-etkinleştirmesinde
-// kullanılır (kullanıcı henüz hiçbir yerde karar vermemişse gerçek OS izin
-// penceresini açar). Reddedilirse/hata olursa sessizce İstanbul'a düşer.
+// Konum izni yalnız kullanıcının başlattığı bildirim kurulumunda istenir.
+// Reddedilirse/hata olursa İstanbul kullanılır.
 async function getLocationRequesting(): Promise<Coords> {
   try {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync());
     if (status !== "granted") return ISTANBUL_FALLBACK;
     const pos = await Promise.race([
       Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
@@ -112,7 +114,7 @@ export async function requestNotificationPermission(): Promise<boolean> {
   const { status: existing } = await Notifications.getPermissionsAsync();
   if (existing === "granted") return true;
 
-  const { status } = await Notifications.requestPermissionsAsync();
+  const { status } = await withOverlayBusy(() => Notifications.requestPermissionsAsync());
   return status === "granted";
 }
 
@@ -324,7 +326,7 @@ function parseValid(times: PrayerTimes): ValidVakit[] {
 
 // Namaz vakti bildirimleri: her gün × her vakit için TEK bildirim (hatırlatma +
 // namaz-taglı ayet), o günün GERÇEK vaktine göre DATE tetikleyicisiyle.
-async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
+async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications.NotificationRequestInput[]> {
   // Namaz-taglı ayet HAVUZLARI — paralel çekilir, gün × vakit başına sırayla dağıtılır.
   // Eskiden vakit başına tek ayet 7 günün hepsinde tekrarlanıyordu (ör. Öğle her gün aynı).
   // Sunucu "sabah" ve "cuma" için özel etiket havuzu kullanır; diğerleri genel 'namaz' havuzu.
@@ -339,7 +341,7 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
   const OTHER_KEYS = VAKITLER.map(({ key }) => key).filter((k) => k !== "Fajr");
 
   const ns = getStrings(notifStrings);
-  const jobs: Promise<string>[] = [];
+  const jobs: Notifications.NotificationRequestInput[] = [];
   days.forEach(({ date, times }, dayIndex) => {
     for (const { key, label, hour, minute } of parseValid(times)) {
       const trigger = dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
@@ -354,7 +356,7 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
         ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
         : "";
       jobs.push(
-        Notifications.scheduleNotificationAsync({
+        {
           content: {
             // Güneş namaz vakti değil: "namaza hazırlanın" yerine sabah vaktinin çıktığını söyle.
             title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
@@ -363,11 +365,11 @@ async function schedulePrayerNotifications(days: DayTimes[]): Promise<void> {
             data:  { route: "/namaz" },
           },
           trigger,
-        })
+        }
       );
     }
   });
-  await Promise.all(jobs);
+  return jobs;
 }
 
 // Günlük ayet bildirimlerini, namaz vakitleri arasındaki en büyük 2 boşluğun ortasına
@@ -399,17 +401,18 @@ const ymd = (d: Date) =>
 // Eskiden DAILY tetikleyici bugünün içeriğini uygulama açılana dek her gün tekrarlıyordu.
 // Sunucu date parametresini tanımıyorsa (hepsi aynı gelir) veya istekler düşerse eski
 // DAILY yoluna dönülür. Toplam: 42 namaz + 14 = 56 < iOS 64 sınırı.
-async function scheduleDailyVerseNotifications(days: DayTimes[]): Promise<void> {
+async function buildDailyVerseNotifications(days: DayTimes[]): Promise<Notifications.NotificationRequestInput[]> {
   const perDay = await Promise.all(days.map((d) => api.daily.forDate(ymd(d.date)).catch(() => null)));
   const keys = perDay.map((x) => x?.verse?.verse_key ?? null);
   const usable = perDay.every((x) => !!x) && new Set(keys).size > 1;
-  if (!usable) return scheduleDailyVerseRepeating(days[0].times);
+  if (!usable) return buildDailyVerseRepeating(days[0].times);
 
   const ns = getStrings(notifStrings);
-  const jobs: Promise<string>[] = [];
+  const jobs: Notifications.NotificationRequestInput[] = [];
   days.forEach(({ date, times }, i) => {
     const daily = perDay[i]!;
     const slots = computeGapSlots(times);
+    if (!daily.verse?.meal || !daily.dua?.meal) throw new Error("daily-content-incomplete");
     const items = [
       daily.verse?.meal ? { title: ns.dailyVerse, v: daily.verse, slot: slots[0] } : null,
       daily.dua?.meal ? { title: ns.dailyDua, v: daily.dua, slot: slots[1] } : null,
@@ -420,7 +423,7 @@ async function scheduleDailyVerseNotifications(days: DayTimes[]): Promise<void> 
       if (!trigger) continue;
       const body = localizedMeal({ surah: x.v.surah_id, ayah: x.v.ayah_number }, x.v.meal!);
       jobs.push(
-        Notifications.scheduleNotificationAsync({
+        {
           content: {
             title: x.title,
             body:  `${body.slice(0, 150)}${body.length > 150 ? "…" : ""}`,
@@ -428,17 +431,17 @@ async function scheduleDailyVerseNotifications(days: DayTimes[]): Promise<void> 
             data:  { route: `/ayah/${x.v.surah_id}/${x.v.ayah_number}` },
           },
           trigger,
-        })
+        }
       );
     }
   });
-  await Promise.all(jobs);
+  return jobs;
 }
 
 // Yedek: bugünün içeriği DAILY tetikleyiciyle (eski davranış).
-async function scheduleDailyVerseRepeating(times: PrayerTimes): Promise<void> {
+async function buildDailyVerseRepeating(times: PrayerTimes): Promise<Notifications.NotificationRequestInput[]> {
   const daily = await api.daily.get().catch(() => null);
-  if (!daily) return;
+  if (!daily) throw new Error("daily-content-unavailable");
   const slots = computeGapSlots(times);
   const ns = getStrings(notifStrings);
   const items = [
@@ -450,8 +453,9 @@ async function scheduleDailyVerseRepeating(times: PrayerTimes): Promise<void> {
       : null,
   ].filter((x): x is NonNullable<typeof x> => !!x && !!x.slot);
 
-  const jobs = items.map((x) =>
-    Notifications.scheduleNotificationAsync({
+  if (items.length !== 2) throw new Error("daily-content-incomplete");
+  const jobs: Notifications.NotificationRequestInput[] = items.map((x) =>
+    ({
       content: {
         title: x.title,
         body:  `${x.body.slice(0, 150)}${x.body.length > 150 ? "…" : ""}`,
@@ -461,146 +465,155 @@ async function scheduleDailyVerseRepeating(times: PrayerTimes): Promise<void> {
       trigger: dailyTriggerBefore(x.slot.hour, x.slot.minute, 0, ANDROID_CHANNEL_ID_DAILY),
     })
   );
-  await Promise.all(jobs);
+  return jobs;
 }
 
-// Orkestratör: cancelAll bir kez → iki bildirim türünü bağımsız toggle'lara göre planlar.
-// Namaz bildirimleri 7 günün gerçek vakitlerine (DATE), günlük ayet/dua bugünün
-// boşluk saatlerine (DAILY) kurulur.
-export async function applyNotifications(opts: {
-  days: DayTimes[];
-  prayer: boolean;
-  dailyVerse: boolean;
-}): Promise<void> {
-  if (opts.days.length === 0) return;
+// Bütün tercih, planlama, iptal ve damga işlemleri tek sıradan geçer.
+const notificationQueue = new SerialQueue();
+let coldStartPending = true;
+type PlanOptions = { days: DayTimes[]; prayer: boolean; dailyVerse: boolean };
+async function applyNotificationsInner(opts: PlanOptions, cachedRequests?: Notifications.NotificationRequestInput[]): Promise<void> {
+  if ((opts.prayer || opts.dailyVerse) && opts.days.length === 0) throw new Error("no-times");
+  await storage.remove(SCHED_DAY_KEY);
+  // İçerik ve kanal hazırlığı başarısızsa mevcut plan henüz silinmemiştir.
+  const requests: Notifications.NotificationRequestInput[] = cachedRequests ?? [];
+  if (!cachedRequests && opts.prayer) requests.push(...await buildPrayerNotifications(opts.days));
+  if (!cachedRequests && opts.dailyVerse) requests.push(...await buildDailyVerseNotifications(opts.days));
+  if (requests.length) await ensureAndroidChannel();
+  const rollback = (opts.prayer || opts.dailyVerse)
+    ? readNotificationRollback(await storage.getString(PLAN_CACHE_KEY).catch(() => null), opts.prayer, opts.dailyVerse)
+    : [];
   await Notifications.cancelAllScheduledNotificationsAsync();
-  await ensureAndroidChannel();
-  if (opts.prayer) await schedulePrayerNotifications(opts.days);
-  if (opts.dailyVerse) await scheduleDailyVerseNotifications(opts.days);
+  try {
+    await settleJobs(requests.map(request => Notifications.scheduleNotificationAsync(request)));
+  } catch (error) {
+    // Yarım plan bir sonraki denemede çift bildirim oluşturmamalı.
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    await settleJobs(rollback.map(request => Notifications.scheduleNotificationAsync(request)));
+    throw error;
+  }
+  if ((opts.prayer || opts.dailyVerse) && !cachedRequests) {
+    // Yalnız başarıyla kurulmuş plan saklanır; önbellek hatası çalışan planı bozmaz.
+    await storage.setJSON(PLAN_CACHE_KEY, { version: 1, stamp: schedStamp(), ...opts, requests }).catch(() => {});
+  }
+}
+export function applyNotifications(opts: PlanOptions): Promise<void> {
+  return notificationQueue.run(() => applyNotificationsInner(opts));
+}
+export function cancelNamazNotifications(): Promise<void> {
+  return notificationQueue.run(() => applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }));
 }
 
-// Bildirimleri kapat
-export async function cancelNamazNotifications(): Promise<void> {
-  await Notifications.cancelAllScheduledNotificationsAsync();
+// Ayar ekranının kararı kuyruğa giriş sırasıyla kaydedilir; ağ hatası tercihi geri almaz.
+export function changeNotificationPreference(
+  key: typeof NOTIF_KEY | typeof DAILY_VERSE_KEY, enabled: boolean,
+  permission: () => Promise<boolean>,
+  location: () => Promise<Coords & { isFallback: boolean }>,
+): Promise<{ granted: boolean; isFallback: boolean }> {
+  return notificationQueue.run(async () => {
+    if (enabled && !(await permission())) return { granted: false, isFallback: false };
+    await storage.setString(key, enabled ? "1" : "0");
+    await storage.remove(SCHED_DAY_KEY);
+    const [pv, dv] = await Promise.all([storage.getString(NOTIF_KEY), storage.getString(DAILY_VERSE_KEY)]);
+    if (pv !== "1" && dv !== "1") {
+      await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+      return { granted: true, isFallback: false };
+    }
+    // Kapatılan tür ağdan bağımsız iptal edilir; diğer türün mevcut planı korunur.
+    if (!enabled) {
+      const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+      await settleJobs(scheduled.filter(request => {
+        const prayer = request.content.data?.route === "/namaz";
+        return key === NOTIF_KEY ? prayer : !prayer;
+      }).map(request => Notifications.cancelScheduledNotificationAsync(request.identifier)));
+    }
+    const coords = await location();
+    const days = await fetchPrayerDays(coords.lat, coords.lng);
+    if (!days?.length) throw new Error("no-times");
+    await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" });
+    await storage.setString(SCHED_DAY_KEY, schedStamp());
+    return { granted: true, isFallback: coords.isFallback };
+  });
 }
 
-// ── Onboarding ilk-kurulum akışı ─────────────────────────────────────────────
-// "Namaz vakitlerini hatırlatalım mı?" sorusuna EVET: izinleri bağlam içinde
-// ister, 7 günü planlar. Dönüş:
-//  - "enabled": bildirimler kuruldu (tercihler açık yazıldı)
-//  - "denied":  bildirim izni reddedildi (tercihler kapalı yazıldı — tekrar sorulmaz;
-//               Bildirimler ekranından elle açılabilir)
-//  - "error":   ağ vb. hata — tercih YAZILMAZ, sonraki açılışta otomatik tekrar denenir
-export async function enablePrayerNotificationsFirstRun(): Promise<"enabled" | "denied" | "error"> {
-  const notifGranted = await requestNotificationPermission();
-  // Konum bildirimden BAĞIMSIZ istenir — namaz vakitleri ve kıble için de gerekli;
-  // reddedilirse İstanbul'a düşülür.
-  const { lat, lng } = await getLocationRequesting();
-  if (!notifGranted) {
-    await Promise.all([
-      storage.setString(NOTIF_KEY, "0"),
-      storage.setString(DAILY_VERSE_KEY, "0"),
-    ]);
+type FirstRunResult = "enabled" | "denied" | "error";
+async function enablePrayerNotificationsFirstRunInner(): Promise<FirstRunResult> {
+  const granted = await requestNotificationPermission();
+  await Promise.all([
+    storage.setString(NOTIF_KEY, granted ? "1" : "0"),
+    storage.setString(DAILY_VERSE_KEY, granted ? "1" : "0"),
+  ]);
+  await storage.remove(SCHED_DAY_KEY);
+  if (!granted) {
+    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
     return "denied";
   }
+  const { lat, lng } = await getLocationRequesting();
   try {
     const days = await fetchPrayerDays(lat, lng);
-    if (!days) return "error";
-    await applyNotifications({ days, prayer: true, dailyVerse: true });
-    await Promise.all([
-      storage.setString(NOTIF_KEY, "1"),
-      storage.setString(DAILY_VERSE_KEY, "1"),
-      storage.setString(SCHED_DAY_KEY, schedStamp()),
-    ]);
+    if (!days?.length) return "error";
+    await applyNotificationsInner({ days, prayer: true, dailyVerse: true });
+    await storage.setString(SCHED_DAY_KEY, schedStamp());
     return "enabled";
-  } catch {
-    return "error";
-  }
+  } catch { return "error"; }
+}
+export function enablePrayerNotificationsFirstRun(): Promise<FirstRunResult> {
+  return notificationQueue.run(enablePrayerNotificationsFirstRunInner);
+}
+export function declinePrayerNotifications(): Promise<void> {
+  return notificationQueue.run(async () => {
+    await Promise.all([storage.setString(NOTIF_KEY, "0"), storage.setString(DAILY_VERSE_KEY, "0")]);
+    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+  });
 }
 
-// Onboarding "Şimdi değil": tercihleri kapalı yaz — ilk-kurulum dalı bir daha
-// otomatik istemez; kullanıcı Bildirimler ekranından her zaman açabilir.
-export async function declinePrayerNotifications(): Promise<void> {
-  await Promise.all([
-    storage.setString(NOTIF_KEY, "0"),
-    storage.setString(DAILY_VERSE_KEY, "0"),
-  ]);
-}
-
-// App-wide "her zaman taze tut" — _layout.tsx her açılışta (+ arka plandan öne
-// gelince) çağırır. İKİ İŞİ VAR:
-//  1) İLK HİÇ AÇILIŞ (iki tercih anahtarı da hiç yazılmamış): bildirimler
-//     VARSAYILAN AÇIK denenir (izin verilirse); kullanıcı sonra Bildirimler
-//     ekranından kapatabilir.
-//  2) Zaten yapılandırılmışsa: içerik/saatler GÜNDE EN AZ BİR KEZ tazelenir.
-//     Eskiden bu kontrol yalnız Bildirimler ekranı açılınca çalışıyordu — kullanıcı
-//     o ekranı bir daha hiç açmazsa namaz vakti bildirim SAATLERİ (gün be gün kayar)
-//     ve günlük ayet/dua İÇERİĞİ (DAILY tetikleyici ilk planlanan içeriği sonsuza
-//     dek tekrarlar) donuk kalıyordu. Artık uygulama her ön plana geçtiğinde kontrol
-//     edilir → gerçekten "günlük" ve doğru saatli kalır.
-// Eşzamanlı çağrıları SERİLEŞTİR: _layout mount + AppState "active" neredeyse
-// aynı anda tetikliyor → iki applyNotifications yarışıp (biri cancelAll yaparken
-// diğeri henüz schedule etmemişse) ÇİFT bildirim planlanıyordu. In-flight promise
-// paylaşımıyla ikinci çağrı birincinin sonucunu bekler (ikinci applyNotifications
-// çalışmaz); birinci SCHED_DAY_KEY'i yazınca sonraki açılışlar zaten erken döner.
-let freshInFlight: Promise<void> | null = null;
-
-// interactive:false → arka plan görevinden çağrı; OS izin pencereleri AÇILAMAZ,
-// bu yüzden ilk-kurulum (izin isteyen) dal atlanır, yalnız mevcut planlama tazelenir.
+// Yenileme tercihi sıradaki işi başladığında okur; eski bir snapshot son kararı ezmez.
+// interactive:false (arka plan görevi) izin penceresi açamaz; ilk kurulum dalı atlanır.
 export function ensureNotificationsFresh(opts?: { interactive?: boolean }): Promise<void> {
-  if (freshInFlight) return freshInFlight;
-  freshInFlight = ensureNotificationsFreshInner(opts?.interactive ?? true)
-    .finally(() => { freshInFlight = null; });
-  return freshInFlight;
+  return notificationQueue.run(async () => {
+    const interactive = opts?.interactive ?? true;
+    const coldStart = interactive && coldStartPending;
+    if (interactive) coldStartPending = false;
+    // Açılıştaki ilk render'a fırsat ver; bütün iş yine aynı kuyruğun içindedir.
+    if (coldStart) await new Promise<void>(resolve => setTimeout(resolve, 0));
+    await ensureNotificationsFreshInner(interactive, coldStart);
+  });
 }
-
-async function ensureNotificationsFreshInner(interactive: boolean): Promise<void> {
-  const [pvRaw, dvRaw] = await Promise.all([
-    storage.getString(NOTIF_KEY),
-    storage.getString(DAILY_VERSE_KEY),
-  ]);
-
-  if (pvRaw === null && dvRaw === null) {
-    // İlk kurulum izin pencereleri gerektirir — arka planda yapılamaz, gerçek
-    // bir uygulama açılışını bekle.
-    if (!interactive) return;
-    // Onboarding tamamlanmadıysa izinleri BURADA isteme — soru onboarding'de
-    // bağlam içinde soruluyor ("Namaz vakitlerini hatırlatalım mı?") ve tercihi
-    // o akış yazıyor. Bu dal yalnız onboarding bitmiş ama tercih yazılamamışsa
-    // (ör. o sırada ağ hatası) devreye giren tekrar-deneme yoludur.
-    const onboarded = await storage.getString(STORAGE_KEYS.onboarding);
-    if (onboarded !== "1") return;
-    await enablePrayerNotificationsFirstRun();
+async function ensureNotificationsFreshInner(interactive = false, coldStart = false): Promise<void> {
+  const [pv, dv] = await Promise.all([storage.getString(NOTIF_KEY), storage.getString(DAILY_VERSE_KEY)]);
+  if (pv === null && dv === null) {
+    // Onboarding bitmiş ama tercih yazılamamışsa (ör. izin sırasında hata) tekrar-deneme yolu;
+    // onboarding sürerken izin burada istenmez.
+    if (interactive && await storage.getString(STORAGE_KEYS.onboarding) === "1") await enablePrayerNotificationsFirstRunInner();
     return;
   }
-
-  const prayerOn = pvRaw === "1";
-  const dailyOn  = dvRaw === "1";
-  if (!prayerOn && !dailyOn) return;
-
-  // Damga gün + arayüz dili: sistem dili değişince ("otomatik" tercih) ilk açılışta
-  // bildirimler yeni dilde yeniden planlanır.
-  const today = schedStamp();
-  const lastDay = await storage.getString(SCHED_DAY_KEY);
-  if (lastDay === today) return;
-
+  if (pv !== "1" && dv !== "1") {
+    if (pv !== null || dv !== null) await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+    return;
+  }
+  const stamp = schedStamp();
+  const savedStamp = await storage.getString(SCHED_DAY_KEY);
+  if (!shouldRefreshNotifications(true, coldStart, savedStamp, stamp)) return;
   try {
-    const { lat, lng } = await getLocationSilent();
-    const days = await fetchPrayerDays(lat, lng);
-    if (!days) return;
-    await applyNotifications({ days, prayer: prayerOn, dailyVerse: dailyOn });
-    await storage.setString(SCHED_DAY_KEY, today);
-  } catch { /* sessiz — eldeki planlama korunur, bir sonraki açılışta tekrar denenir */ }
+    // Force-stop AlarmManager'ı boşaltabilir; Expo'nun deposundaki liste kanıt değildir.
+    // Başarısız kurtarmada aynı süreçteki sonraki yenileme de tekrar deneyebilsin.
+    await storage.remove(SCHED_DAY_KEY);
+    const cached = coldStart && savedStamp === stamp
+      ? readNotificationPlan(await storage.getString(PLAN_CACHE_KEY).catch(() => null), stamp, pv === "1", dv === "1")
+      : null;
+    let days = cached?.days;
+    if (!days) {
+      const { lat, lng } = await getLocationSilent();
+      days = await fetchPrayerDays(lat, lng) ?? undefined;
+    }
+    if (!days?.length) return;
+    await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, cached?.requests);
+    await storage.setString(SCHED_DAY_KEY, stamp);
+  } catch { /* Damga yazılmaz; sonraki yenileme yeniden dener. */ }
 }
-
-// Dil değişince planlı bildirim metinleri eski dilde kalır: yalnız bildirimler
-// zaten yapılandırılmışsa günlük "taze" damgasını silip yeniden planlatır.
-export async function rescheduleNotificationsForLanguageChange(): Promise<void> {
-  const [pvRaw, dvRaw] = await Promise.all([
-    storage.getString(NOTIF_KEY),
-    storage.getString(DAILY_VERSE_KEY),
-  ]);
-  if (pvRaw !== "1" && dvRaw !== "1") return;
-  await storage.remove(SCHED_DAY_KEY);
-  await ensureNotificationsFresh();
+export function rescheduleNotificationsForLanguageChange(): Promise<void> {
+  return notificationQueue.run(async () => {
+    await storage.remove(SCHED_DAY_KEY);
+    await ensureNotificationsFreshInner();
+  });
 }
