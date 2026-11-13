@@ -1,4 +1,3 @@
-export const APP_TOUR_VERSION = 7;
 export const APP_TOUR_STEPS = [
   { id: "quran", targetId: "tab.kuran" },
   { id: "learn", targetId: "tab.ogren" },

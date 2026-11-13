@@ -3,9 +3,9 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Platform } from "
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
-import type { ComponentProps } from "react";
+import { useRef, type ComponentProps } from "react";
 import { useColors } from "../../src/hooks/useColors";
-import { useAppTour, useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
+import { useAppTour, useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, getLangPreference, setLangPreference, useLang, caps } from "../../src/i18n";
 import type { LangPreference } from "../../src/i18n";
@@ -76,7 +76,7 @@ export default function DahaFazlaTab() {
   const { restartTour } = useAppTour();
   const appSectionTarget = useTourTarget("more.appSection");
   const restartTourTarget = useTourTarget("more.restartTour");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
 
   function handlePress(item: Item) {
     if (item.action === "restartTour") {
@@ -90,7 +90,8 @@ export default function DahaFazlaTab() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
-        {...tourScroll}
+        ref={scrollRef}
+        scrollEventThrottle={32}
         style={{ flex: 1 }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}

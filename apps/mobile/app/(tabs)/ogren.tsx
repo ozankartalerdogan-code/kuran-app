@@ -3,10 +3,10 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
-import type { ComponentProps } from "react";
+import { useRef, type ComponentProps } from "react";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
-import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, caps } from "../../src/i18n";
 import ogrenStrings from "../../src/i18n/strings/ogrenTab";
@@ -47,11 +47,12 @@ export default function OgrenTab() {
   const SECTIONS = buildSections(t);
   const derslerTarget = useTourTarget("learn.dersler");
   const hadithTarget = useTourTarget("learn.hadith");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
-        {...tourScroll}
+        ref={scrollRef}
+        scrollEventThrottle={32}
         style={{ flex: 1 }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}

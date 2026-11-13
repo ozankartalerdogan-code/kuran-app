@@ -28,7 +28,7 @@ import { useStreak } from "../../../src/hooks/useStreak";
 import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
 import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
-import { useTourTarget, useTourScroller } from "../../../src/tour/AppTourProvider";
+import { useTourTarget } from "../../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../../src/lib/storage";
 import { AyahShareModal } from "../../../src/components/AyahShareModal";
@@ -400,7 +400,7 @@ export default function AyahDetailScreen() {
   const insets = useSafeAreaInsets();
   const ayahTarget = useTourTarget("ayah.main");
   const analysisTabTarget = useTourTarget("ayah.analysis");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
 
   const { surahId: rawS, ayahNumber: rawA } =
     useLocalSearchParams<{ surahId: string; ayahNumber: string }>();
@@ -415,7 +415,7 @@ export default function AyahDetailScreen() {
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
   const [reading, setReading] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const hint = useContextualHint("ayahTabs", !loading && !!data, `${surahId}:${ayahNumber}`, tourScroll.ref);
+  const hint = useContextualHint("ayahTabs", !loading && !!data, `${surahId}:${ayahNumber}`, scrollRef);
   const [error, setError]     = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("meal");
   // Sure/ayet atlama çubuğu — yapışkan alt bardaki "x / y" sayacına dokununca açılır.
@@ -1188,7 +1188,7 @@ export default function AyahDetailScreen() {
             textAlignVertical="top"
             // Edge-to-edge'de klavye pencereyi daraltmadığından not alanı klavyenin
             // altında kalabilir; odaklanınca (klavye yerleştikten sonra) sona kaydır.
-            onFocus={() => setTimeout(() => tourScroll.ref.current?.scrollToEnd({ animated: true }), 250)}
+            onFocus={() => setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 250)}
           />
           <View style={styles.noteActions}>
             {noteDraft.trim().length > 0 && (

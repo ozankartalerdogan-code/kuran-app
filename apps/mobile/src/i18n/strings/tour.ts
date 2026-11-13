@@ -2,7 +2,7 @@ import { defineStrings } from "../index";
 export default defineStrings({
   tr: {
     acknowledge: "Tamam", targetUnavailable: "Bu bölüm şu anda gösterilemiyor. Adımı atlayabilir veya rehberi kapatabilirsin.", skipStep: "Adımı atla",
-    hintHelp: "Bu bölüm için yardım", hintDismiss: "İpucunu kapat",
+    hintDismiss: "İpucunu kapat",
     surahInteractionHelp: "Ayet listesi yardımı", ayahTabsHelp: "Sekmeler hakkında yardım",
     rootMapHelp: "Kök haritası yardımı", lessonProgressHelp: "Ders kartları yardımı",
     surahInteraction: "Meal ve ayrıntıları açmak için bir ayete dokun.",
@@ -18,7 +18,7 @@ export default defineStrings({
   },
   en: {
     acknowledge: "OK", targetUnavailable: "This section is unavailable right now. Skip this step or close the guide.", skipStep: "Skip step",
-    hintHelp: "Help for this section", hintDismiss: "Dismiss hint",
+    hintDismiss: "Dismiss hint",
     surahInteractionHelp: "Verse list help", ayahTabsHelp: "Help with tabs",
     rootMapHelp: "Root map help", lessonProgressHelp: "Lesson cards help",
     surahInteraction: "Tap a verse to open its translation and details.",

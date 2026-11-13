@@ -2,13 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } fro
 import { useFocusEffect } from "expo-router";
 import { AccessibilityInfo, findNodeHandle, useWindowDimensions } from "react-native";
 import { useAppTour, useTourTarget } from "./AppTourProvider";
-import { CONTEXTUAL_HINTS } from "./contextualHints";
+import { CONTEXTUAL_HINTS, type HintId } from "./contextualHints";
 import { AUTOMATIC_HINTS_ENABLED, canOpenHint, hintTargetVisible, hintAutoAnchorVisible } from "./tourPolicy";
 import { isOverlayBusy, beginContextualHint } from "./overlayBusy";
 import { logFeature } from "../lib/analytics";
 import type { Rect } from "./tourGeometry";
 
-export type HintId = "surahInteraction" | "ayahTabs" | "lessonProgress" | "rootMap";
 type Measurable = { measureInWindow?: (callback: (x: number, y: number, width: number, height: number) => void) => void;
   getNativeScrollRef?: () => Measurable };
 function measure(node: Measurable | null): Promise<Rect | null> {
@@ -21,7 +20,7 @@ function measure(node: Measurable | null): Promise<Rect | null> {
 
 export function useContextualHint<T>(id: HintId, dataReady: boolean, dataKey: string,
   externalScrollRef?: RefObject<T | null>, autoAnchor?: RefObject<Measurable | null>) {
-  const hint = CONTEXTUAL_HINTS.find(item => item.id === id)!;
+  const hint = CONTEXTUAL_HINTS[id];
   const target = useTourTarget(hint.targetId);
   const [focused, setFocused] = useState(false);
   useFocusEffect(useCallback(() => {

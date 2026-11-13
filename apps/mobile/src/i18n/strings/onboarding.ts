@@ -10,7 +10,7 @@ export default defineStrings({
     permissionDenied: "Bildirimler kapalı. İstersen daha sonra Bildirimler’den açabilirsin.",
     setupFailed: "Hatırlatmalar hazırlanamadı. Uygulamaya devam edebilir, Bildirimler’den tekrar deneyebilirsin.",
     preferenceTitle: "Başlangıç noktan", readAction: "Kur’an okumaya başla", understandAction: "Bir sure seç",
-    lettersAction: "Harfleri öğrenmeye başla", change: "Değiştir", close: "Kapat", dismissStartingPoint: "Başlangıç kartını kapat",
+    lettersAction: "Harfleri öğrenmeye başla", change: "Değiştir", dismissStartingPoint: "Başlangıç kartını kapat",
   },
   en: {
     welcome: "Welcome to Kuran Yolu", startQuestion: "Where would you like to start today?",
@@ -22,6 +22,6 @@ export default defineStrings({
     permissionDenied: "Notifications are off. You can enable them later in Notifications.",
     setupFailed: "Reminders couldn’t be set up. Continue to the app and try again in Notifications.",
     preferenceTitle: "Your starting point", readAction: "Start reading the Quran", understandAction: "Choose a surah",
-    lettersAction: "Start learning the letters", change: "Change", close: "Close", dismissStartingPoint: "Dismiss starting point",
+    lettersAction: "Start learning the letters", change: "Change", dismissStartingPoint: "Dismiss starting point",
   },
 });

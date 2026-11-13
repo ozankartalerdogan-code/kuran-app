@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 import type { DimensionValue } from "react-native";
 import type { Href } from "expo-router";
@@ -11,7 +11,7 @@ import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERSLER_META as DERSLER, getDerslerMeta, getKategoriler } from "../../src/data/Dersler/dersler_registry";
 import { useLang, useStrings, fmt, caps } from "../../src/i18n";
 import derslerStrings from "../../src/i18n/strings/dersler";
-import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 
 type SortMode = "tumu" | "sure" | "konu";
 
@@ -37,7 +37,7 @@ export default function DerslerScreen() {
   const { progress, load } = useDersProgress();
   const [sortMode, setSortMode] = useState<SortMode>("tumu");
   const firstCardTarget = useTourTarget("dersler.firstCard");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
 
   useFocusEffect(useCallback(() => { load(); }, [load]));
 
@@ -129,7 +129,8 @@ export default function DerslerScreen() {
 
       {sortMode === "konu" ? (
         <ScrollView
-          {...tourScroll}
+          ref={scrollRef}
+          scrollEventThrottle={32}
           contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
           showsVerticalScrollIndicator={false}
         >

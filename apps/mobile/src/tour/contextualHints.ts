@@ -1,10 +1,11 @@
+export type HintId = "surahInteraction" | "ayahTabs" | "lessonProgress" | "rootMap";
 export type ContextualHint = {
-  id: string; targetId: string; screen: string; priority: number; contentVersion: number;
+  id: HintId; targetId: string; contentVersion: number;
 };
 // Kimlikler ve içerik sürümleri cihazdaki görülme kaydının sözleşmesidir.
-export const CONTEXTUAL_HINTS: readonly ContextualHint[] = [
-  { id: "surahInteraction", targetId: "surah.reader", screen: "surah", priority: 1, contentVersion: 1 },
-  { id: "ayahTabs", targetId: "ayah.tabs", screen: "ayah", priority: 1, contentVersion: 1 },
-  { id: "lessonProgress", targetId: "lesson.next", screen: "ders-detay", priority: 1, contentVersion: 1 },
-  { id: "rootMap", targetId: "root.heatmap", screen: "root-detail", priority: 1, contentVersion: 1 },
-];
+export const CONTEXTUAL_HINTS: Record<HintId, ContextualHint> = {
+  surahInteraction: { id: "surahInteraction", targetId: "surah.reader", contentVersion: 1 },
+  ayahTabs: { id: "ayahTabs", targetId: "ayah.tabs", contentVersion: 1 },
+  lessonProgress: { id: "lessonProgress", targetId: "lesson.next", contentVersion: 1 },
+  rootMap: { id: "rootMap", targetId: "root.heatmap", contentVersion: 1 },
+};

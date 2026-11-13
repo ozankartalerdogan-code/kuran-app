@@ -159,13 +159,7 @@ export default function BildirimlerScreen() {
     <>
       <Stack.Screen options={{ title: t.screenTitle }} />
       <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 32 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}>
-        {/*
-          Metin duruma göre değişmeli: ilk açılışta ikisi de yalnız BİLDİRİM İZNİ
-          VERİLİRSE açılır (enablePrayerNotificationsFirstRun). İzin reddedilirse
-          tercihler kapalı yazılır ve bir daha otomatik sorulmaz — o durumda
-          koşulsuz "varsayılan olarak açıktır" demek yanıltıcıydı: kullanıcı
-          kapalı toggle'ları görüp nedenini anlayamıyordu.
-        */}
+        {/* Bildirimler kullanıcı açıp izin verdiğinde etkinleşir; metin kayıtlı tercihleri yansıtır. */}
         {prefsLoaded && (
           <Text style={[styles.intro, { color: c.textMuted }]}>
             {notifEnabled || dailyVerseEnabled

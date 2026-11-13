@@ -1,9 +1,9 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
-import { AccessibilityInfo, AppState, findNodeHandle, ScrollView, View, type ViewStyle } from "react-native";
+import { AccessibilityInfo, AppState, findNodeHandle, View } from "react-native";
 import { router, usePathname } from "expo-router";
 import { APP_TOUR_STEPS } from "./appTourSteps";
 import { loadGuideState, saveGuideStatus } from "./appTourStorage";
-import { AUTOMATIC_HINTS_ENABLED, HintSession, shouldOfferGuide, isExistingGuideUser, readSeenHints, type GuideState, type GuideStatus } from "./tourPolicy";
+import { APP_TOUR_VERSION, AUTOMATIC_HINTS_ENABLED, HintSession, shouldOfferGuide, isExistingGuideUser, readSeenHints, type GuideState, type GuideStatus } from "./tourPolicy";
 import { TourOverlay } from "./TourOverlay";
 import type { Rect } from "./tourGeometry";
 import { logFeature } from "../lib/analytics";
@@ -64,7 +64,7 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
   }, [isActive, onboarded, pathname]);
   useEffect(() => {
     storage.getString(STORAGE_KEYS.contextualHints).then(raw => {
-      hintSession.current.seen = readSeenHints(raw, CONTEXTUAL_HINTS);
+      hintSession.current.seen = readSeenHints(raw, Object.values(CONTEXTUAL_HINTS));
       seenReady.current = true;
       reviseHints(v => v + 1);
     }).catch(() => { /* Depo okunamazsa otomatik ipucu açılmaz. */ });
@@ -105,7 +105,7 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
       if (!cancelled) { existingCohort.current = isExistingGuideUser(saved); setState(saved); setOnboarded(done || onboardingFinished.current); }
     }).catch(() => {
       if (!cancelled) {
-        setState({ version: 7, status: "existingUser" });
+        setState({ version: APP_TOUR_VERSION, status: "existingUser" });
         setOnboarded(true);
       }
     });
@@ -114,7 +114,7 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
   const persist = useCallback((status: GuideStatus) => {
     // Mevcut kullanıcı manuel rehberi bitirse de kohort bilgisi korunur.
     if (existingCohort.current) return;
-    setState({ version: 7, status });
+    setState({ version: APP_TOUR_VERSION, status });
     void saveGuideStatus(status).catch(() => {});
   }, []);
   const completeOnboarding = useCallback(() => {
@@ -222,10 +222,4 @@ export function useTourTarget(id: string, focusRef?: RefObject<View | null>) {
     return () => unregisterTarget(id, handle);
   }, [id, focusRef, registerTarget, unregisterTarget]);
   return { ref, collapsable: false as const };
-}
-// Eski ekranların ref ve kaydırma sözleşmesi korunur; rehber ekranları kaydırmaz.
-export function useTourScroller<T = ScrollView>() { return { ref: useRef<T>(null), scrollEventThrottle: 32 }; }
-export function TourTarget({ id, children, style }: { id: string; children: ReactNode; style?: ViewStyle }) {
-  const target = useTourTarget(id);
-  return <View {...target} style={style}>{children}</View>;
 }

@@ -1,6 +1,5 @@
 import { storage, STORAGE_KEYS } from "../lib/storage";
-import { APP_TOUR_VERSION } from "./appTourSteps";
-import { resolveGuideState, type GuideState, type GuideStatus } from "./tourPolicy";
+import { APP_TOUR_VERSION, resolveGuideState, type GuideState, type GuideStatus } from "./tourPolicy";
 
 export async function loadGuideState(): Promise<{ state: GuideState; onboarded: boolean }> {
   const [raw, legacy, done] = await Promise.all([

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, Share,
 } from "react-native";
@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
-import { useTourTarget, useTourScroller } from "../src/tour/AppTourProvider";
+import { useTourTarget } from "../src/tour/AppTourProvider";
 import rawData from "../src/data/hadisler_v2.json";
 import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
@@ -357,7 +357,7 @@ export default function HadislerScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const topicsTarget = useTourTarget("hadith.topics");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
   const t = useStrings(hadislerStrings);
   const lang = useLang();
   const { META, TOPICS, HADITHS, GROUPED } = buildHadithData(lang);
@@ -371,7 +371,8 @@ export default function HadislerScreen() {
     <>
       <Stack.Screen options={{ title: t.title }} />
       <ScrollView
-        {...tourScroll}
+        ref={scrollRef}
+        scrollEventThrottle={32}
         style={{ flex: 1, backgroundColor: c.bg }}
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}

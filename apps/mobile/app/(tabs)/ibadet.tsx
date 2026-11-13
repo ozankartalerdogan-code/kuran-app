@@ -4,10 +4,10 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
-import type { ComponentProps } from "react";
+import { useRef, type ComponentProps } from "react";
 import { useColors } from "../../src/hooks/useColors";
 import { TasbihModal } from "../../src/components/ZikirMatik";
-import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, caps } from "../../src/i18n";
 import ibadetStrings from "../../src/i18n/strings/ibadetTab";
@@ -22,7 +22,6 @@ type Item = {
   label: string;
   sub: string;
   route?: string;
-  params?: Record<string, string>;
   onPress?: () => void;
 };
 
@@ -31,7 +30,7 @@ export default function IbadetTab() {
   const t = useStrings(ibadetStrings);
   const [tasbihOpen, setTasbihOpen] = useState(false);
   const ibadetTarget = useTourTarget("ibadet.main");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
 
   const SECTIONS: { title: string; items: Item[] }[] = [
     {
@@ -49,21 +48,11 @@ export default function IbadetTab() {
         { icon: "radio-button-on-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: t.tasbihLabel, sub: t.tasbihSub, onPress: () => setTasbihOpen(true) },
       ],
     },
-    {
-      title: t.secOther,
-      items: [
-        { icon: "body-outline", iconBg: "#fef3c7", iconColor: "#b45309", darkIconBg: "#92400e", darkIconColor: "#fde68a", label: t.ozelLabel, sub: t.ozelSub, route: "/namaz-rehberi", params: { tab: "ozel" } },
-      ],
-    },
   ];
 
   function handlePress(item: Item) {
     if (item.onPress) {
       item.onPress();
-      return;
-    }
-    if (item.params) {
-      router.push({ pathname: item.route, params: item.params } as Href);
       return;
     }
     if (item.route) {
@@ -74,7 +63,8 @@ export default function IbadetTab() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
       <ScrollView
-        {...tourScroll}
+        ref={scrollRef}
+        scrollEventThrottle={32}
         style={{ flex: 1 }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}

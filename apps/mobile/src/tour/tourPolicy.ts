@@ -1,3 +1,4 @@
+export const APP_TOUR_VERSION = 7;
 export type GuideStatus = "eligible" | "legacyHandled" | "existingUser" | "offerDismissed" | "skipped" | "completed";
 export type GuideState = { version: number; status: GuideStatus };
 const statuses: GuideStatus[] = ["eligible", "legacyHandled", "existingUser", "offerDismissed", "skipped", "completed"];
@@ -7,13 +8,13 @@ export function resolveGuideState(raw: string | null, legacy: string | null, onb
     try {
       const value = JSON.parse(raw);
       if (value && Number.isInteger(value.version) && value.version > 0 && statuses.includes(value.status)) {
-        if (value.status === "eligible" && legacy !== null) return { version: 7, status: "legacyHandled" };
+        if (value.status === "eligible" && legacy !== null) return { version: APP_TOUR_VERSION, status: "legacyHandled" };
         return { version: value.version, status: value.status };
       }
     } catch { /* Bozuk kayıt yeni kullanıcı daveti üretmez. */ }
-    return { version: 7, status: "existingUser" };
+    return { version: APP_TOUR_VERSION, status: "existingUser" };
   }
-  return { version: 7, status: legacy !== null ? "legacyHandled" : onboarded ? "existingUser" : "eligible" };
+  return { version: APP_TOUR_VERSION, status: legacy !== null ? "legacyHandled" : onboarded ? "existingUser" : "eligible" };
 }
 
 export function shouldOfferGuide(state: GuideState | null, onboarded: boolean): boolean {

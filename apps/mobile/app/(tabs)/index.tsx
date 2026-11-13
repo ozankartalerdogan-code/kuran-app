@@ -20,7 +20,7 @@ import * as Haptics from 'expo-haptics';
 // görünüyordu); yerine sabit rozet var. lottie-react-native paketi başka ekranlarda kullanılıyor.
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { TasbihModal } from '../../src/components/ZikirMatik';
-import { useTourTarget, useTourScroller } from "../../src/tour/AppTourProvider";
+import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 // Günün Ayeti/Duası kartları UthmanicHafs ile basılır; o font U+06DF, U+06E3 ve
 // U+06EB yuvarlak/işmam yuvalarında gerçek glif taşımaz ve yerlerine noktalı
@@ -127,7 +127,7 @@ function HomeContent() {
   const [tasbihOpen, setTasbihOpen]   = useState(false);
   const prayerTarget = useTourTarget("home.prayerTimes");
   const qiblaTarget = useTourTarget("home.quick.qibla");
-  const tourScroll = useTourScroller();
+  const scrollRef = useRef<ScrollView>(null);
 
   const modalEnd = useRef<(() => void) | null>(null);
   const modalMounted = useRef(true);
@@ -232,7 +232,8 @@ function HomeContent() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
     <ScrollView
-      {...tourScroll}
+      ref={scrollRef}
+      scrollEventThrottle={32}
       style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
