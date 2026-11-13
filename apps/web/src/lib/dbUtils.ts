@@ -178,6 +178,35 @@ export function getDataSource(): {
   return { source: "local-app.db", detail: DB_PATH };
 }
 
+/**
+ * Yalnız Turso üzerinde parametreli yazma çalıştırır.
+ * Yerel app.db salt-okunur açıldığı için Turso yoksa hata fırlatır.
+ */
+export async function dbRun(sql: string, ...args: unknown[]): Promise<void> {
+  if (!USE_TURSO) {
+    throw new Error("dbRun yalniz Turso veri kaynaginda kullanilabilir");
+  }
+  await ensureTursoIndexes();
+  const client = getTursoClient();
+  await client.execute({ sql, args: args as InArgs });
+}
+
+/**
+ * Yalnız Turso üzerinde tek yazma batch'i çalıştırır.
+ */
+export async function dbBatch(stmts: { sql: string; args: unknown[] }[]): Promise<void> {
+  if (!USE_TURSO) {
+    throw new Error("dbBatch yalniz Turso veri kaynaginda kullanilabilir");
+  }
+  if (stmts.length === 0) return;
+  await ensureTursoIndexes();
+  const client = getTursoClient();
+  await client.batch(
+    stmts.map((stmt) => ({ sql: stmt.sql, args: stmt.args as InArgs })),
+    "write",
+  );
+}
+
 export async function dbGet<T>(sql: string, ...args: unknown[]): Promise<T | undefined> {
   if (USE_TURSO) {
     await ensureTursoIndexes();

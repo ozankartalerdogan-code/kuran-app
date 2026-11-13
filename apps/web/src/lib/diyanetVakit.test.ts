@@ -11,6 +11,7 @@ import {
   normalizeDiyanetDay,
   parseDiyanetHijri,
   roundCoord,
+  tzOffsetMin,
   type DiyanetCity,
 } from "./diyanetVakit.ts";
 
@@ -153,6 +154,15 @@ test("parseDiyanetHijri: gecerli ve gecersiz degerler", () => {
   assert.equal(parseDiyanetHijri("abc"), null);
   assert.equal(parseDiyanetHijri(null), null);
   assert.equal(parseDiyanetHijri(undefined), null);
+});
+
+test("tzOffsetMin: yaz saati, sabit, negatif farklar ve gecersiz bolge", () => {
+  assert.equal(tzOffsetMin("Europe/Berlin", new Date("2026-07-01T12:00:00Z")), 120);
+  assert.equal(tzOffsetMin("Europe/Berlin", new Date("2026-12-01T12:00:00Z")), 60);
+  assert.equal(tzOffsetMin("Asia/Kolkata", new Date("2026-07-01T12:00:00Z")), 330);
+  assert.equal(tzOffsetMin("America/St_Johns", new Date("2026-01-15T12:00:00Z")), -210);
+  assert.equal(tzOffsetMin("UTC", new Date("2026-01-15T12:00:00Z")), 0);
+  assert.equal(tzOffsetMin("Yok/Boyle", new Date("2026-01-15T12:00:00Z")), null);
 });
 
 test("formatOffset: tam ve kesirli saat farklari", () => {

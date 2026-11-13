@@ -147,6 +147,30 @@ export function parseDiyanetHijri(
   return { day, month, year };
 }
 
+export function tzOffsetMin(tz: string, at: Date): number | null {
+  try {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: tz,
+      timeZoneName: "longOffset",
+    }).formatToParts(at);
+
+    const name = parts.find((part) => part.type === "timeZoneName")?.value;
+    if (!name) return null;
+    if (name === "GMT" || name === "UTC") return 0;
+
+    const match = /^(?:GMT|UTC)([+-])(\d{1,2})(?::(\d{2}))?$/.exec(name);
+    if (!match) return null;
+
+    const sign = match[1] === "-" ? -1 : 1;
+    const hours = Number(match[2]);
+    const minutes = Number(match[3] ?? "0");
+
+    return sign * (hours * 60 + minutes);
+  } catch {
+    return null;
+  }
+}
+
 export function formatOffset(min: number): string {
   if (!Number.isFinite(min)) return "+00:00";
   const total = Math.round(min);
