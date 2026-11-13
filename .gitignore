@@ -35,6 +35,9 @@ GoogleService-Info.plist
 # (farklı SHA), yani yeniden indirmek bu dosyayı geri getirmez. CC BY 3.0
 # birebir yeniden dağıtıma izin veriyor; atıf NOTICE ve licenses/ altında.
 !/data/vendor/
+# İSTİSNA: Diyanet Awqat Salah yer listesi (scripts/diyanet-crawl-places.mjs);
+# .crawl-cache alt klasörü data/diyanet/.gitignore ile hariç.
+!/data/diyanet/
 /data2/
 /elmalili-fix/
 
