@@ -77,10 +77,25 @@ const tf = StyleSheet.create({
 
 function RevelationBadge({ place }: { place: "Mekke" | "Medine" }) {
   const t = useStrings(surahStrings);
+  const c = useColors();
   const isMekki = place === "Mekke";
   return (
-    <View style={[styles.badge, isMekki ? styles.badgeMekki : styles.badgeMedine]}>
-      <Text style={[styles.badgeText, isMekki ? styles.badgeMekkiText : styles.badgeMedineText]}>
+    <View
+      style={[
+        styles.badge,
+        isMekki
+          ? (c.isDark ? styles.badgeMekkiDark : styles.badgeMekki)
+          : (c.isDark ? styles.badgeMedineDark : styles.badgeMedine),
+      ]}
+    >
+      <Text
+        style={[
+          styles.badgeText,
+          isMekki
+            ? (c.isDark ? styles.badgeMekkiTextDark : styles.badgeMekkiText)
+            : (c.isDark ? styles.badgeMedineTextDark : styles.badgeMedineText),
+        ]}
+      >
         {isMekki ? t.mekke : t.medine}
       </Text>
     </View>
@@ -403,11 +418,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical:   3,
   },
-  badgeMekki:      { backgroundColor: "#d1fae5" },
-  badgeMedine:     { backgroundColor: "#ffedd5" },
-  badgeText:       { fontSize: 11, fontWeight: "600" },
-  badgeMekkiText:  { color: "#065f46" },
-  badgeMedineText: { color: "#9a3412" },
+  badgeMekki:          { backgroundColor: "#d1fae5" },
+  badgeMekkiDark:      { backgroundColor: "#064e3b" },
+  badgeMedine:         { backgroundColor: "#ffedd5" },
+  badgeMedineDark:     { backgroundColor: "#431407" },
+  badgeText:           { fontSize: 11, fontWeight: "600" },
+  badgeMekkiText:      { color: "#065f46" },
+  badgeMekkiTextDark:  { color: "#6ee7b7" },
+  badgeMedineText:     { color: "#9a3412" },
+  badgeMedineTextDark: { color: "#fdba74" },
 
   // ── Liste ──
   listContent: { paddingBottom: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },

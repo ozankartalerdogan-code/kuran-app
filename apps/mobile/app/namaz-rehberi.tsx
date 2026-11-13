@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect, type ComponentProps } from "react";
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah } from "../src/lib/api";
@@ -266,13 +267,15 @@ function DuaBlock({ arapca, okunus, anlam, kaynak }: { arapca?: string | null; o
   );
 }
 
-function Section({ emoji, title, defaultOpen, children }: { emoji: string; title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+type IoniconName = ComponentProps<typeof Ionicons>["name"];
+
+function Section({ emoji, icon, title, defaultOpen, children }: { emoji?: string; icon?: IoniconName; title: string; defaultOpen?: boolean; children: React.ReactNode }) {
   const c = useColors();
   const [open, setOpen] = useState(!!defaultOpen);
   return (
     <View style={[s.sec, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={s.secHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={title}>
-        <Text style={s.secEmoji}>{emoji}</Text>
+        {icon ? <Ionicons name={icon} size={18} color={c.accent} /> : emoji ? <Text style={s.secEmoji}>{emoji}</Text> : null}
         <Text style={[s.secTitle, { color: c.text }]}>{title}</Text>
         <Text style={[s.secChev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
@@ -584,10 +587,20 @@ const OZEL_DURUM_DARK: Record<string, { bg: string; border: string; text: string
   sunnet:           { bg: "#052e16", border: "#166534", text: "#86efac" },
 };
 
-const OZEL_EMOJI: Record<string, string> = {
-  cenaze_namazi: "🕊️", bayram_namazi: "🎉", teheccud_namazi: "🌌", kusluk_namazi: "🌅",
-  istihare_namazi: "🤔", teravih_namazi: "🌙", tahiyyetul_mescid: "🕌", kusuf_husuf: "🌑",
-  istiska_namazi: "🌧️", sukur_secdesi: "🙏", tovbe_namazi: "💧", hacet_namazi: "🤲",
+// Özel namaz kart başlıkları için emoji yerine Ionicons ikon eşlemesi
+const OZEL_ICON: Record<string, IoniconName> = {
+  cenaze_namazi: "leaf-outline",
+  bayram_namazi: "sparkles-outline",
+  teheccud_namazi: "cloudy-night-outline",
+  kusluk_namazi: "sunny-outline",
+  istihare_namazi: "compass-outline",
+  teravih_namazi: "moon-outline",
+  tahiyyetul_mescid: "home-outline",
+  kusuf_husuf: "contrast-outline",
+  istiska_namazi: "rainy-outline",
+  sukur_secdesi: "heart-outline",
+  tovbe_namazi: "refresh-outline",
+  hacet_namazi: "hand-left-outline",
 };
 
 const NIYET_LABEL_KEY = {
@@ -706,7 +719,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
   const tx = useStrings(rehberStrings);
   const neZaman = n.ne_zaman_kilinir ?? n.ne_zaman_yapilir;
   return (
-    <Section emoji={OZEL_EMOJI[n.id] ?? "🕌"} title={n.isim}>
+    <Section icon={OZEL_ICON[n.id] ?? "book-outline"} title={n.isim}>
       <View style={[s.itemHead, { marginBottom: 2 }]}>
         <OzelDurumBadge durum={n.durum} />
         {n.rekat ? <Text style={[s.rekatBilgi, { color: c.textMuted }]}>{n.rekat}</Text> : null}
@@ -787,7 +800,7 @@ function OzelNamazlarTab() {
     <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
       <Text style={[s.intro, { color: c.textSecondary }]}>{O.aciklama}</Text>
 
-      <Section emoji="📊" title={tx.quickLook}>
+      <Section icon="grid-outline" title={tx.quickLook}>
         {O.hizli_bakis_tablosu.map((row, i) => (
           <View key={i} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
             <Text style={[s.kavramIsim, { color: c.text }]}>{row.isim}</Text>

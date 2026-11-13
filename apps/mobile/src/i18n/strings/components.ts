@@ -6,7 +6,7 @@ export default defineStrings({
     close: "Kapat",
     // hatim
     hatimCloseA11y: "Hatim panelini kapat",
-    hatimTitle: "📖 Hatim Takibi",
+    hatimTitle: "Hatim Takibi",
     hatimNone: "Aktif hatim yok",
     hatimStartA11y: "Yeni hatim başlat",
     hatimStart: "+ Yeni Hatim Başlat",
@@ -75,7 +75,7 @@ export default defineStrings({
   en: {
     close: "Close",
     hatimCloseA11y: "Close the Khatm panel",
-    hatimTitle: "📖 Khatm Tracker",
+    hatimTitle: "Khatm Tracker",
     hatimNone: "No active Khatm",
     hatimStartA11y: "Start a new Khatm",
     hatimStart: "+ Start a New Khatm",

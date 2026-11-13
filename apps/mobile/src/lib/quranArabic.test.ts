@@ -5,12 +5,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { lookupMeal, type MealTable } from "./mealLookup.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const table = JSON.parse(readFileSync(join(here, "../data/quran_arabic.json"), "utf8")) as MealTable;
+const quranArabicRaw = readFileSync(join(here, "../data/quran_arabic.json"));
+const table = JSON.parse(quranArabicRaw.toString("utf8")) as MealTable;
+
+// Betik (scripts/build-mobile-arabic.mjs) yeniden çalıştırılırsa bu sabit güncellenmeli.
+const EXPECTED_QURAN_ARABIC_SHA256 = "f0c4287905b3335d8c22f757fa4e1ced348c925705954069e7dc793aa53509dc";
 const mushafData = JSON.parse(readFileSync(join(here, "../data/mushaf_sayfalari.json"), "utf8")) as {
   sureAyetSayilari: number[];
 };
@@ -95,3 +100,38 @@ test("sınır dışı → null", () => {
   assert.equal(arabicAt(115, 1), null);
   assert.equal(arabicAt(-1, 1), null);
 });
+
+test("quran_arabic.json SHA-256 sabiti ve build-mobile-arabic.mjs çıktısı ile birebir tutarlı", () => {
+  const actualSha = createHash("sha256").update(quranArabicRaw).digest("hex");
+  assert.equal(actualSha, EXPECTED_QURAN_ARABIC_SHA256);
+
+  // Tanzil vendor kaynağı mevcutsa scripts/build-mobile-arabic.mjs dönüşümünün
+  // repodaki quran_arabic.json ile bayt-bayt aynı çıktıyı ürettiğini doğrula.
+  const vendorPath = join(here, "../../../../data/vendor/tanzil/uthmani-1.1/quran-uthmani.txt");
+  let source = "";
+  try {
+    source = readFileSync(vendorPath, "utf8");
+  } catch {
+    return;
+  }
+  const built: string[][] = mushafData.sureAyetSayilari.map((c) => new Array<string>(c));
+  for (const line of source.split("\n")) {
+    if (!line || line.startsWith("#")) continue;
+    const first = line.indexOf("|");
+    const second = line.indexOf("|", first + 1);
+    const surahId = Number(line.slice(0, first));
+    const ayahNumber = Number(line.slice(first + 1, second));
+    let text = line.slice(second + 1);
+    if (ayahNumber === 1 && surahId !== 1 && surahId !== 9) {
+      const chars = Array.from(text);
+      const spaces: number[] = [];
+      for (let i = 0; i < chars.length && spaces.length < 4; i += 1) {
+        if (chars[i] === " ") spaces.push(i);
+      }
+      text = chars.slice(spaces[3] + 1).join("");
+    }
+    built[surahId - 1][ayahNumber - 1] = text;
+  }
+  assert.equal(JSON.stringify(built) + "\n", quranArabicRaw.toString("utf8"));
+});
+

@@ -132,7 +132,10 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
         <View style={[st.sheet, { backgroundColor: c.bg, paddingBottom: insets.bottom + 8 }]}>
           {/* Panel başlığı */}
           <View style={[st.sheetHeader, { borderBottomColor: c.border }]}>
-            <Text style={[st.sheetTitle, { color: c.text }]}>{t.hatimTitle}</Text>
+            <View style={st.sheetTitleRow}>
+              <Ionicons name="book-outline" size={18} color={c.accent} />
+              <Text style={[st.sheetTitle, { color: c.text }]}>{t.hatimTitle}</Text>
+            </View>
             <TouchableOpacity onPress={onClose} hitSlop={10} accessibilityRole="button" accessibilityLabel={t.close}>
               <Ionicons name="close" size={22} color={c.textMuted} />
             </TouchableOpacity>
@@ -300,6 +303,7 @@ const st = StyleSheet.create({
     flexDirection: "row", alignItems: "center", justifyContent: "space-between",
     paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
   },
+  sheetTitleRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   sheetTitle: { fontSize: 16, fontWeight: "700" },
   loading:    { padding: 40, alignItems: "center" },
   content:    { padding: 16, paddingBottom: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },

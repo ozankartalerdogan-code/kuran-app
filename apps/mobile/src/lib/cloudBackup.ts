@@ -50,6 +50,7 @@ const BACKUP_KEYS: string[] = [
   STORAGE_KEYS.nightMode,
   STORAGE_KEYS.tajweed,
   STORAGE_KEYS.ayahFontScale,
+  STORAGE_KEYS.surahArabic,
 ];
 
 const RESTORE_DONE_KEY = "cloud_restore_done_v1";

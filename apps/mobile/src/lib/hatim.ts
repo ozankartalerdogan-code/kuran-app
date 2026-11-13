@@ -69,6 +69,13 @@ export function parseHatimStore(raw: string | null): HatimStore {
   }
 }
 
+/** Aktif hatimde okunan cüz sayısı (0..30); aktif hatim yoksa veya veri bozuksa null. */
+export function parseActiveHatimProgress(rawHatim: string | null): number | null {
+  const store = parseHatimStore(rawHatim);
+  const current = store.hatims.find((h) => h.id === store.currentId) ?? null;
+  return current ? current.readJuz.length : null;
+}
+
 export function hatimFmt(iso: string, locale = "tr-TR"): string {
   return new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
 }

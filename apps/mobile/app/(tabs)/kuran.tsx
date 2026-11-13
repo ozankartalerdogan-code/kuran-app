@@ -11,8 +11,9 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, fmt } from "../../src/i18n";
 import kuranStrings from "../../src/i18n/strings/kuranTab";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
-import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, ayetinSayfasi } from "../../src/lib/mushafSayfa";
-import { parseHatimStore } from "../../src/lib/hatim";
+import { sayfaninCuzu, sayfaBasSuresi, ayetinSayfasi } from "../../src/lib/mushafSayfa";
+import { parseSavedPage } from "../../src/lib/resumeReading";
+import { parseActiveHatimProgress } from "../../src/lib/hatim";
 import { useSurahNameOf } from "../../src/lib/surahNames";
 import { api, type SurahListItem } from "../../src/lib/api";
 
@@ -74,30 +75,12 @@ type ResumeState = {
   hatimDone: number | null;
 };
 
-function parseSavedPage(rawPage: string | null, bookmark: string | null): number | null {
-  const saved = Number(rawPage);
-  if (Number.isInteger(saved) && saved >= 1 && saved <= SAYFA_SAYISI) {
-    return saved;
-  }
-  const [bs, ba] = (bookmark ?? "").split(":").map(Number);
-  if (Number.isInteger(bs) && bs >= 1 && bs <= 114 && Number.isInteger(ba) && ba >= 1) {
-    return ayetinSayfasi(bs, ba);
-  }
-  return null;
-}
-
-function parseActiveHatimProgress(rawHatim: string | null): number | null {
-  const store = parseHatimStore(rawHatim);
-  const current = store.hatims.find((h) => h.id === store.currentId) ?? null;
-  return current ? current.readJuz.length : null;
-}
-
 function readResumeSync(): ResumeState {
   const rawPage = storage.getStringSync(STORAGE_KEYS.mushafPage);
   const bookmark = rawPage ? null : storage.getJSONSync<string>(STORAGE_KEYS.mushafBookmark);
   const rawHatim = storage.getStringSync(STORAGE_KEYS.hatimTracking);
   return {
-    page: parseSavedPage(rawPage, bookmark),
+    page: parseSavedPage(rawPage, bookmark, ayetinSayfasi),
     hatimDone: parseActiveHatimProgress(rawHatim),
   };
 }
@@ -143,7 +126,7 @@ export default function KuranTab() {
           ]);
           if (!active) return;
           setResume({
-            page: parseSavedPage(rawPage, bookmark),
+            page: parseSavedPage(rawPage, bookmark, ayetinSayfasi),
             hatimDone: parseActiveHatimProgress(rawHatim),
           });
         } catch {
