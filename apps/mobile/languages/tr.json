@@ -1,5 +1,7 @@
 {
-  "CFBundleDisplayName": "Kuran Yolu",
-  "NSLocationWhenInUseUsageDescription": "Kıble yönü ve namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Kıble yönü cihazda hesaplanır; namaz vakitleri için yaklaşık konumunuz Aladhan.com servisine gönderilir, sunucularımızda saklanmaz.",
-  "NSMotionUsageDescription": "Kıble pusulasının telefonunuzun yönünü doğru gösterebilmesi için hareket sensörleri kullanılır. Veriler cihazda kalır."
+  "ios": {
+    "CFBundleDisplayName": "Kuran Yolu",
+    "NSLocationWhenInUseUsageDescription": "Kıble yönü ve namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Kıble yönü cihazda hesaplanır; namaz vakitleri için yaklaşık konumunuz Aladhan.com servisine gönderilir, sunucularımızda saklanmaz.",
+    "NSMotionUsageDescription": "Kıble pusulasının telefonunuzun yönünü doğru gösterebilmesi için hareket sensörleri kullanılır. Veriler cihazda kalır."
+  }
 }
