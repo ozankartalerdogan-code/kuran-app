@@ -317,7 +317,10 @@ function HomeContent() {
         accessibilityState={{ disabled: !verse }}
       >
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>{hs.verseOfDay}</Text>
+          <View style={styles.titleRow}>
+            <Ionicons name="sparkles-outline" size={15} color={c.isDark ? "#fbbf24" : "#92400e"} />
+            <Text style={[styles.cardBadge, { color: c.isDark ? "#fbbf24" : "#92400e" }]}>{hs.verseOfDay}</Text>
+          </View>
           {verse && <Text style={[styles.cardRef, { color: c.isDark ? "#d97706" : "#a16207" }]}>{surahNameOf(verse.surah_id, verse.surah_name)} · {verse.surah_id}:{verse.ayah_number}</Text>}
         </View>
         {!verse ? (
@@ -334,7 +337,10 @@ function HomeContent() {
       {/* Namaz Vakitleri (Ruh hâline göre bölümünün üstünde) */}
       <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: c.isDark ? "#0f0a2a" : "#eef2ff", borderColor: c.isDark ? "#3730a3" : "#a5b4fc" }]}>
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>{hs.prayerTimes}</Text>
+          <View style={styles.titleRow}>
+            <Ionicons name="moon-outline" size={15} color={c.isDark ? "#818cf8" : "#3730a3"} />
+            <Text style={[styles.cardBadge, { color: c.isDark ? "#818cf8" : "#3730a3" }]}>{hs.prayerTimes}</Text>
+          </View>
           {/* Bildirim ayarları /bildirimler ekranında yönetilir — buraya kısayol. */}
           <TouchableOpacity onPress={() => router.push("/bildirimler")} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={hs.prayerNotifA11y}>
             <Ionicons name="notifications-outline" size={19} color={c.isDark ? "#818cf8" : "#3730a3"} />
@@ -391,7 +397,10 @@ function HomeContent() {
       </View>
 
       {/* Ruh Haline Göre */}
-      <Text style={[styles.sectionLabel, { color: c.textMuted }]}>{hs.moodSection}</Text>
+      <View style={[styles.titleRow, styles.sectionHeader]}>
+        <Ionicons name="chatbubble-ellipses-outline" size={15} color={c.textMuted} />
+        <Text style={[styles.sectionLabel, { color: c.textMuted }]}>{hs.moodSection}</Text>
+      </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
         {RUH_HALI.map(m => (
           <TouchableOpacity
@@ -424,7 +433,10 @@ function HomeContent() {
         accessibilityState={{ disabled: !dua }}
       >
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>{hs.duaOfDay}</Text>
+          <View style={styles.titleRow}>
+            <Ionicons name="hand-left-outline" size={15} color={c.isDark ? "#2dd4bf" : "#0f766e"} />
+            <Text style={[styles.cardBadge, { color: c.isDark ? "#2dd4bf" : "#0f766e" }]}>{hs.duaOfDay}</Text>
+          </View>
           {dua && <Text style={[styles.cardRef, { color: c.isDark ? "#14b8a6" : "#0d9488" }]}>{surahNameOf(dua.surah_id, dua.surah_name)} · {dua.surah_id}:{dua.ayah_number}</Text>}
         </View>
         {!dua ? (
@@ -537,6 +549,7 @@ const styles = StyleSheet.create({
 
   verseCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
   cardHeader:{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
+  titleRow:  { flexDirection: "row", alignItems: "center", gap: 6 },
   cardBadge: { fontSize: 13, fontWeight: "700" },
   cardRef:   { fontSize: 11 },
   verseReading: { fontSize: 13, fontStyle: "italic", marginBottom: 6, lineHeight: 20 },
@@ -569,7 +582,8 @@ const styles = StyleSheet.create({
   duaArabic: { fontSize: 18, textAlign: "right", writingDirection: "rtl", lineHeight: 36, marginBottom: 8, fontFamily: "UthmanicHafs" },
 
   themeBtn:     { width: 36, height: 36, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
-  sectionLabel: { fontSize: 13, fontWeight: "700", marginBottom: 8 },
+  sectionHeader:{ marginBottom: 8 },
+  sectionLabel: { fontSize: 13, fontWeight: "700" },
   moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, borderRadius: 20, borderWidth: 1.5, paddingHorizontal: 14, paddingVertical: 10, marginRight: 8 },
   moodLabel: { fontSize: 13, fontWeight: "600" },
   moodModalBackdrop: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "rgba(0,0,0,0.45)" },
