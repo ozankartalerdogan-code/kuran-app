@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useLocalSearchParams, router, Stack } from "expo-router";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
@@ -19,6 +19,9 @@ import { useMealOf } from "../../src/lib/englishMeal";
 import { useSurahNameOf } from "../../src/lib/surahNames";
 import { useStrings, getStrings, useLang, fmt } from "../../src/i18n";
 import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
+import { arabicVerseText } from "../../src/lib/quranArabic";
+import { mushafMetniHazirla } from "../../src/lib/mushafText";
+import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import surahStrings from "../../src/i18n/strings/surahs";
 
 // Uzun metni kelime sınırında kısaltır; performans için kısaltma korunur.
@@ -79,7 +82,15 @@ function RevelationBadge({ place }: { place: "Mekke" | "Medine" }) {
   );
 }
 
-function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
+function SurahHeader({
+  data,
+  showArabic,
+  onToggleArabic,
+}: {
+  data: VerseListResponse["surah"];
+  showArabic: boolean;
+  onToggleArabic: () => void;
+}) {
   const surahNameOf = useSurahNameOf();
   const t = useStrings(surahStrings);
   const c = useColors();
@@ -90,6 +101,30 @@ function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
       <View style={styles.headerMeta}>
         <Text style={[styles.headerMetaText, { color: c.textMuted }]}>{fmt(t.verseCount, { n: data.verseCount })}</Text>
         <RevelationBadge place={data.revelationPlace} />
+        <TouchableOpacity
+          style={[
+            styles.arabicToggleBtn,
+            {
+              backgroundColor: showArabic ? c.accentLight : c.cardAlt,
+              borderColor: showArabic ? c.accent : c.border,
+            },
+          ]}
+          onPress={onToggleArabic}
+          activeOpacity={0.75}
+          hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+          accessibilityRole="button"
+          accessibilityLabel={t.arabicToggleA11y}
+          accessibilityState={{ selected: showArabic }}
+        >
+          <Text
+            style={[
+              styles.arabicToggleText,
+              { color: showArabic ? c.accent : c.textMuted },
+            ]}
+          >
+            {t.arabicToggle}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -98,15 +133,19 @@ function SurahHeader({ data }: { data: VerseListResponse["surah"] }) {
 interface VerseRowProps {
   item: VerseItem;
   surahId: number;
+  showArabic: boolean;
   onPress: (ayahNumber: number) => void;
   onPressIn?: (ayahNumber: number) => void;
 }
 
-function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
+const VerseRow = memo(function VerseRow({ item, surahId, showArabic, onPress, onPressIn }: VerseRowProps) {
   const c = useColors();
   const t = useStrings(surahStrings);
   const mealOf = useMealOf();
   const lang = useLang();
+  const rawArabic = showArabic ? arabicVerseText(surahId, item.ayahNumber) : null;
+  // Önce kelime sınırında kısalt, sonra KFGQPC uyumu ve vakıf öncesi NBSP uygula
+  const arabic  = rawArabic    ? mushafMetniHazirla(clipWords(rawArabic, 120)) : null;
   const fullMeal = mealOf({ surah: surahId, ayah: item.ayahNumber }, item.meal);
   const readingSrc = localizedVerseTranslit({ surah: surahId, ayah: item.ayahNumber }, item.reading, lang);
   const reading = readingSrc ? clipWords(readingSrc, 140) : null;
@@ -124,6 +163,11 @@ function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
         <Text style={[styles.numberText, { color: c.textMuted }]}>{item.ayahNumber}</Text>
       </View>
       <View style={styles.rowContent}>
+        {arabic && (
+          <Text style={[styles.arabicText, { color: c.text }]} numberOfLines={1} ellipsizeMode="tail">
+            {arabic}
+          </Text>
+        )}
         {reading && (
           <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2} ellipsizeMode="tail">
             {reading}
@@ -134,11 +178,11 @@ function VerseRow({ item, surahId, onPress, onPressIn }: VerseRowProps) {
             {meal}
           </Text>
         )}
-        {!reading && !meal && <Text style={[styles.mealText, { color: c.textMuted }]}>—</Text>}
+        {!arabic && !reading && !meal && <Text style={[styles.mealText, { color: c.textMuted }]}>—</Text>}
       </View>
     </TouchableOpacity>
   );
-}
+});
 
 // ── Ana ekran ─────────────────────────────────────────────────────────────────
 
@@ -154,9 +198,29 @@ export default function SurahDetailScreen() {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
+  // Arapça ayet satırı tercihi: "0" = kapalı, varsayılan açık
+  const [showArabic, setShowArabic] = useState(
+    () => storage.getStringSync(STORAGE_KEYS.surahArabic) !== "0",
+  );
   const hint = useContextualHint("surahInteraction", !loading && !error && !!data?.verses.length, String(surahId));
 
   useEffect(() => { logScreen('SureDetay'); }, []);
+
+  useEffect(() => {
+    let active = true;
+    storage.getString(STORAGE_KEYS.surahArabic).then((v) => {
+      if (active && v !== null) setShowArabic(v !== "0");
+    }).catch(() => {});
+    return () => { active = false; };
+  }, []);
+
+  const handleToggleArabic = useCallback(() => {
+    setShowArabic((prev) => {
+      const next = !prev;
+      storage.setString(STORAGE_KEYS.surahArabic, next ? "1" : "0").catch(() => {});
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     if (!surahId) {
@@ -191,9 +255,15 @@ export default function SurahDetailScreen() {
 
   const renderItem = useCallback(
     ({ item }: { item: VerseItem }) => (
-      <VerseRow item={item} surahId={surahId} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
+      <VerseRow
+        item={item}
+        surahId={surahId}
+        showArabic={showArabic}
+        onPress={handleAyahPress}
+        onPressIn={handleAyahPrefetch}
+      />
     ),
-    [surahId, handleAyahPress, handleAyahPrefetch],
+    [surahId, showArabic, handleAyahPress, handleAyahPrefetch],
   );
 
   const keyExtractor = useCallback(
@@ -242,7 +312,11 @@ if (loading) {
         renderItem={renderItem}
         ListHeaderComponent={
           <>
-            <SurahHeader data={data.surah} />
+            <SurahHeader
+              data={data.surah}
+              showArabic={showArabic}
+              onToggleArabic={handleToggleArabic}
+            />
             <TafsirCard surahId={surahId} surahName={surahNameOf(data.surah.id, data.surah.name)} />
           </>
         }
@@ -299,9 +373,25 @@ const styles = StyleSheet.create({
   headerMeta: {
     flexDirection:  "row",
     alignItems:     "center",
+    flexWrap:       "wrap",
+    justifyContent: "center",
     gap:            8,
   },
   headerMetaText: { fontSize: 13, color: "#78716c" },
+  arabicToggleBtn: {
+    minHeight:         44,
+    minWidth:          44,
+    paddingHorizontal: 12,
+    paddingVertical:   6,
+    borderRadius:      12,
+    borderWidth:       1,
+    alignItems:        "center",
+    justifyContent:    "center",
+  },
+  arabicToggleText: {
+    fontSize:   12,
+    fontWeight: "600",
+  },
 
   badge: {
     borderRadius:      10,
@@ -330,6 +420,14 @@ const styles = StyleSheet.create({
   rowContent: {
     flex:  1,
     gap:   3,
+  },
+
+  arabicText: {
+    fontFamily:       "UthmanicHafs",
+    fontSize:         20,
+    lineHeight:       34,
+    writingDirection: "rtl",
+    textAlign:        "right",
   },
 
   readingText: {

@@ -26,6 +26,8 @@ export default defineStrings({
     versesError: "Ayetler yüklenemedi. Bağlantını kontrol et.",
     surahTitle: "Sure",
     dataError: "Veri yüklenemedi.",
+    arabicToggle: "ع Arapça",
+    arabicToggleA11y: "Arapça ayet satırını göster veya gizle",
   },
   en: {
     mekke: "Meccan",
@@ -51,5 +53,7 @@ export default defineStrings({
     versesError: "Couldn't load verses. Check your connection.",
     surahTitle: "Surah",
     dataError: "Couldn't load data.",
+    arabicToggle: "ع Arabic",
+    arabicToggleA11y: "Show or hide Arabic verse line",
   },
 });

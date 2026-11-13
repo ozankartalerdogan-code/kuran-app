@@ -23,6 +23,7 @@ export const STORAGE_KEYS = {
   hatimTracking:   "hatimTakibi",
   tajweed:         "tajweedEnabled",
   ayahFontScale:   "ayahFontScale",
+  surahArabic:     "surahArabicEnabled",
 } as const;
 
 // ── MMKV — güvenli (build-gated) yükleme ───────────────────────────────────────
