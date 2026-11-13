@@ -79,10 +79,9 @@ const HeatGrid = memo(function HeatGrid({
   const [modalInfo, setModalInfo] = useState<{ surahId: number; count: number } | null>(null);
   useEffect(() => { if (modalInfo) return beginOverlay(); }, [modalInfo]);
 
-  const firstFilled = Array.from({ length: 114 }, (_, i) => i + 1).find(id => distribution[id] > 0);
   return (
     <>
-      <View style={hg.grid}>
+      <View {...hint.targetProps} style={hg.grid}>
         {Array.from({ length: 114 }, (_, i) => i + 1).map((id) => {
           const count = distribution[id] ?? 0;
           const cell = heatCell(count, maxCount, c.isDark);
@@ -91,7 +90,6 @@ const HeatGrid = memo(function HeatGrid({
           return (
             <TouchableOpacity
               key={id}
-              {...(id === firstFilled ? hint.targetProps : {})}
               style={[hg.cell, { backgroundColor: cell.bg }]}
               onPress={() => { hint.targetAction(); if (count > 0) setModalInfo({ surahId: id, count }); }}
               activeOpacity={0.7}

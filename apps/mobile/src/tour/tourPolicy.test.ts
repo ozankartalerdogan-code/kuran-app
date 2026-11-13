@@ -73,12 +73,44 @@ test("manuel yardım kota, kohort, etkileşim ve görülmeden bağımsızdır; h
   }
 });
 
-test("hedef gerçek görünür alanda olmalı; kırpılmış veya sıfır ölçüm ertelenir", () => {
+test("tam görünür hedef kabul edilir; küçük hedefin dikey kırpılması ertelenir", () => {
   const viewport = { x: 0, y: 80, width: 360, height: 600 };
   const target = { x: 12, y: 100, width: 336, height: 70 };
   assert.equal(hintTargetVisible(target, viewport), true);
-  for (const change of [{ y: 79 }, { y: 650 }, { x: -1 }, { width: 360 }, { width: 0 }, { height: 0 }]) {
+  for (const change of [{ y: 79 }, { y: 645 }, { x: -2 }, { width: 360 }]) {
     assert.equal(hintTargetVisible({ ...target, ...change }, viewport), false);
+  }
+});
+
+test("viewport'tan uzun hedef yeterli kısmı görünürse kabul edilir", () => {
+  const viewport = { x: 0, y: 80, width: 360, height: 600 };
+  const target = { x: 12, y: -200, width: 336, height: 1000 };
+  assert.equal(hintTargetVisible(target, viewport), true);
+  assert.equal(hintTargetVisible({ ...target, y: 530 }, viewport), true);
+  assert.equal(hintTargetVisible({ ...target, y: -770 }, viewport), true);
+  assert.equal(hintTargetVisible({ ...target, y: 531 }, viewport), false);
+  assert.equal(hintTargetVisible({ ...target, y: -771 }, viewport), false);
+});
+
+test("kısa viewport'ta anlamlı görünürlük en az 48 birim gerektirir", () => {
+  const viewport = { x: 0, y: 0, width: 360, height: 100 };
+  const target = { x: 12, y: 52, width: 336, height: 300 };
+  assert.equal(hintTargetVisible(target, viewport), true);
+  assert.equal(hintTargetVisible({ ...target, y: 53 }, viewport), false);
+});
+
+test("görünür genişlik viewport ile sınırlıdır ve yalnız bir birim tolerans tanır", () => {
+  const viewport = { x: 0, y: 80, width: 360, height: 600 };
+  assert.equal(hintTargetVisible({ x: -20, y: 100, width: 400, height: 70 }, viewport), true);
+  assert.equal(hintTargetVisible({ x: -1, y: 100, width: 336, height: 70 }, viewport), true);
+  assert.equal(hintTargetVisible({ x: -2, y: 100, width: 336, height: 70 }, viewport), false);
+});
+
+test("hedefin veya viewport'un sıfır boyutu görünür sayılmaz", () => {
+  const rect = { x: 0, y: 0, width: 360, height: 600 };
+  for (const size of [{ width: 0 }, { height: 0 }]) {
+    assert.equal(hintTargetVisible({ ...rect, ...size }, rect), false);
+    assert.equal(hintTargetVisible(rect, { ...rect, ...size }), false);
   }
 });
 

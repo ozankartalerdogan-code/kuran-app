@@ -39,6 +39,12 @@ Bazı içerik ve araçlar çevrimdışı çalışır; bazıları internet bağla
 **Anahtar kelimeler**
 mushaf,tecvid,meal,tefsir,namaz vakti,ezan,kıble,dua,hadis,hatim,elifba,arapça,siyer,ilmihal
 
+**Bu sürümdeki yenilikler (1.2.1)**
+• Yeni karşılama ekranı: ne yapmak istediğini seç, uygulama seni oradan başlatsın.
+• Ana sekmeleri tanıtan kısa rehber ve ekranlarda "?" yardım ipuçları.
+• Namaz vakti bildirimleri daha güvenilir: uygulama kapatılsa bile açılışta yeniden kuruluyor.
+• Ayet ekranına geri düğmesi, büyük yazı boyutunda daha düzgün görünüm ve küçük iyileştirmeler.
+
 **Bu sürümdeki yenilikler (1.2.0)**
 • İngilizce arayüz ve M. M. Pickthall'ın İngilizce Kuran meali eklendi.
 • Yurt dışında namaz vakitleri iyileştirildi; yüksek enlemli şehirlerde imsak ve yatsı daha doğru hesaplanıyor.

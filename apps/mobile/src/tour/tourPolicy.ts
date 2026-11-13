@@ -41,8 +41,13 @@ export function canOpenHint(c: Pick<HintContext, "focused" | "dataReady" | "targ
 }
 export function hintTargetVisible(target: { x: number; y: number; width: number; height: number },
   viewport: { x: number; y: number; width: number; height: number }): boolean {
-  return target.width > 0 && target.height > 0 && target.x >= viewport.x && target.y >= viewport.y &&
-    target.x + target.width <= viewport.x + viewport.width && target.y + target.height <= viewport.y + viewport.height;
+  if (target.width <= 0 || target.height <= 0 || viewport.width <= 0 || viewport.height <= 0) return false;
+  const intersectionHeight = Math.max(0, Math.min(target.y + target.height, viewport.y + viewport.height) -
+    Math.max(target.y, viewport.y));
+  const intersectionWidth = Math.max(0, Math.min(target.x + target.width, viewport.x + viewport.width) -
+    Math.max(target.x, viewport.x));
+  return intersectionHeight >= Math.min(target.height, Math.max(48, viewport.height * 0.25)) &&
+    intersectionWidth >= Math.min(target.width, viewport.width) - 1;
 }
 export function parseSeenHints(raw: unknown): Record<string, number> {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};

@@ -190,12 +190,10 @@ export default function SurahDetailScreen() {
   );
 
   const renderItem = useCallback(
-    ({ item, index }: { item: VerseItem; index: number }) => (
-      <View {...(index === 0 ? hint.targetProps : {})}>
-        <VerseRow item={item} surahId={surahId} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
-      </View>
+    ({ item }: { item: VerseItem }) => (
+      <VerseRow item={item} surahId={surahId} onPress={handleAyahPress} onPressIn={handleAyahPrefetch} />
     ),
-    [surahId, handleAyahPress, handleAyahPrefetch, hint.targetProps],
+    [surahId, handleAyahPress, handleAyahPrefetch],
   );
 
   const keyExtractor = useCallback(
@@ -233,7 +231,7 @@ if (loading) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: c.bg }]}>
+    <View {...hint.targetProps} style={[styles.container, { backgroundColor: c.bg }]}>
       <Stack.Screen options={{ title: surahNameOf(data.surah.id, data.surah.name),
         headerRight: () => <ContextualHintHelp hint={hint} /> }} />
       <FlatList
@@ -246,9 +244,6 @@ if (loading) {
           <>
             <SurahHeader data={data.surah} />
             <TafsirCard surahId={surahId} surahName={surahNameOf(data.surah.id, data.surah.name)} />
-            {hint.display && <View style={{ marginHorizontal: 12, marginBottom: 8 }}>
-              <ContextualHintCard hint={hint} />
-            </View>}
           </>
         }
         ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: c.border }]} />}
@@ -258,6 +253,9 @@ if (loading) {
         maxToRenderPerBatch={15}
         removeClippedSubviews
       />
+      {hint.display && <View style={[styles.hintCard, { backgroundColor: c.accentLight, shadowColor: c.text }]}>
+        <ContextualHintCard hint={hint} />
+      </View>}
     </View>
   );
 }
@@ -266,6 +264,8 @@ if (loading) {
 
 const styles = StyleSheet.create({
   container:   { flex: 1, backgroundColor: "#f5f0e8" },
+  hintCard:    { position: "absolute", top: 8, left: 12, right: 12, zIndex: 1, elevation: 4,
+    borderRadius: 12, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.12, shadowRadius: 4 },
   centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 20, backgroundColor: "#f5f0e8" },
   loadingText: { marginTop: 12, color: "#78716c", fontSize: 14 },
   errorText:   { color: "#dc2626", fontSize: 14, textAlign: "center" },

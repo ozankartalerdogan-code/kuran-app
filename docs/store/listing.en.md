@@ -36,6 +36,12 @@ Some content and tools are available offline; others require an internet connect
 **Keywords**  
 quran,mushaf,tajweed,arabic,prayer,qibla,dua,hadith,tafsir,lessons,hatim (72)
 
+**What's New for version 1.2.1**  
+• New welcome screen: choose what you want to do and start right there.
+• A short guide to the main tabs, plus "?" help tips on screens.
+• More reliable prayer time notifications, restored on launch even after the app is force-closed.
+• Back button on the verse screen, better layout with large text, and other small improvements.
+
 **What's New for version 1.2.0**  
 • English interface and M. M. Pickthall's English translation of the Quran.
 • Improved prayer times abroad, with more accurate Fajr and Isha at high latitudes.
