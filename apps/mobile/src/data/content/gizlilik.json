@@ -1,6 +1,6 @@
 {
   "sonGuncelleme": "Son Güncelleme",
-  "tarih": "12 Temmuz 2026",
+  "tarih": "14 Kasım 2026",
   "meta": {
     "gelistirici": "Geliştirici",
     "gelistiriciAdi": "Kartal Studio",
@@ -46,7 +46,7 @@
           "tip": "paragraf",
           "parcalar": [
             { "metin": "Konum verisi:", "kalin": true },
-            { "metin": "Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitlerini hesaplamak için yaklaşık konumunuz, üçüncü taraf Aladhan.com servisine gönderilir. Konum verisi bizim sunucularımızda saklanmaz." }
+            { "metin": "Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitleri için konumunuz yaklaşık 1 km hassasiyete yuvarlanarak uygulama sunucumuza gönderilir; sunucu bunu yalnızca size en yakın Diyanet İşleri Başkanlığı şehrini bulmak için kullanır ve vakitleri Diyanet'ten şehir bazında alır (konumunuz Diyanet'e gönderilmez). Bu hizmete ulaşılamazsa veya yakınınızda bir Diyanet şehri yoksa, yaklaşık konumunuz üçüncü taraf Aladhan.com servisine gönderilir. Konumunuz sunucularımızda kaydedilmez; yalnızca barındırma sağlayıcımızın (Vercel) standart, kısa süreli istek kayıtlarında geçici olarak yer alabilir. Bulunan şehir ve vakitler cihazınızda saklanır." }
           ]
         },
         {
@@ -90,7 +90,9 @@
         { "tip": "madde", "metin": "Firebase Authentication — Bulut yedeğin size özel eşleştirilmesi için anonim kimlik" },
         { "tip": "madde", "metin": "Cloud Firestore — Bulut yedek depolama" },
         { "tip": "madde", "metin": "Sentry — Hata raporlama" },
-        { "tip": "madde", "metin": "Aladhan.com — Namaz vakitleri API" },
+        { "tip": "madde", "metin": "Diyanet İşleri Başkanlığı — Namaz vakitleri (şehir bazında; konumunuz gönderilmez)" },
+        { "tip": "madde", "metin": "Aladhan.com — Yedek namaz vakitleri API" },
+        { "tip": "madde", "metin": "Vercel — Uygulama sunucusu (barındırma)" },
         { "tip": "madde", "metin": "Turso — Veritabanı" }
       ]
     },
