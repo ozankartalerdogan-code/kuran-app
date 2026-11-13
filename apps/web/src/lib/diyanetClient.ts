@@ -7,12 +7,22 @@ export type DiyanetAuthState = {
 
 export class DiyanetUpstreamError extends Error {
   status: number;
+  /** Teşhis için kısa ayrıntı (ör. "TimeoutError", "ECONNRESET", "breaker"); kimlik bilgisi İÇERMEZ. */
+  detail: string;
 
-  constructor(status: number, message = "Diyanet istegi basarisiz") {
+  constructor(status: number, message = "Diyanet istegi basarisiz", detail = "") {
     super(message);
     this.name = "DiyanetUpstreamError";
     this.status = status;
+    this.detail = detail;
   }
+}
+
+function errorDetail(error: unknown): string {
+  if (!(error instanceof Error)) return "unknown";
+  const cause = (error as Error & { cause?: { code?: unknown } }).cause;
+  const code = cause && typeof cause.code === "string" ? cause.code : "";
+  return code ? `${error.name}:${code}` : error.name;
 }
 
 const DEFAULT_BASE_URL = "https://awqatsalah.diyanet.gov.tr";
@@ -65,13 +75,13 @@ export function createDiyanetClient(deps: {
     try {
       return await serialized(() => {
         // Kuyrukta beklerken devre açıldıysa Diyanet'e hiç gitme.
-        if (coolingDown()) throw new DiyanetUpstreamError(0);
+        if (coolingDown()) throw new DiyanetUpstreamError(0, undefined, "breaker");
         return deps.fetch(url, { ...init, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
       });
     } catch (error) {
       if (error instanceof DiyanetUpstreamError) throw error;
       cooldownUntil = deps.now() + COOLDOWN_SECONDS;
-      throw new DiyanetUpstreamError(0);
+      throw new DiyanetUpstreamError(0, undefined, errorDetail(error));
     }
   }
 
@@ -272,11 +282,16 @@ export function createDiyanetClient(deps: {
     startYmd: string,
     endYmd: string,
   ): Promise<unknown[]> {
-    if (coolingDown()) throw new DiyanetUpstreamError(0);
+    if (coolingDown()) throw new DiyanetUpstreamError(0, undefined, "breaker");
     try {
       return await fetchDateRangeOnce(cityId, startYmd, endYmd);
     } catch (error) {
-      if (error instanceof DiyanetUpstreamError && isTripStatus(error.status)) {
+      // Devre zaten açıkken reddedilen istekler süreyi UZATMAZ.
+      if (
+        error instanceof DiyanetUpstreamError &&
+        error.detail !== "breaker" &&
+        isTripStatus(error.status)
+      ) {
         cooldownUntil = Math.max(cooldownUntil, deps.now() + COOLDOWN_SECONDS);
       }
       throw error;

@@ -12,7 +12,7 @@ import {
   createDiyanetClient,
   DiyanetUpstreamError,
 } from "../../../lib/diyanetClient";
-import { createVakitService } from "../../../lib/vakitService";
+import { createVakitService, UpstreamUnavailableError } from "../../../lib/vakitService";
 import { getVakitStore } from "../../../lib/vakitStore";
 
 const cities = decodeCities(citiesJson);
@@ -114,9 +114,11 @@ export async function GET(req: NextRequest) {
       { headers: result.complete ? COMPLETE_CACHE : PARTIAL_CACHE },
     );
   } catch (error) {
-    const status = error instanceof DiyanetUpstreamError ? error.status : 0;
-    const name = error instanceof Error ? error.name : "Error";
-    console.error(`[api/vakit] ${name} status=${status} cityId=${city.id}`);
+    const upstream = error instanceof UpstreamUnavailableError ? error.upstream : error;
+    const status = upstream instanceof DiyanetUpstreamError ? upstream.status : 0;
+    const detail = upstream instanceof DiyanetUpstreamError ? upstream.detail : "";
+    const name = upstream instanceof Error ? upstream.name : "Error";
+    console.error(`[api/vakit] ${name} status=${status} detail=${detail} cityId=${city.id}`);
 
     return NextResponse.json(
       { error: "upstream_unavailable", fallback: "aladhan" },

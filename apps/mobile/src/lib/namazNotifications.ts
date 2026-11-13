@@ -13,6 +13,8 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
+import { getDiyanetDays } from "./diyanetPrayer";
+import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
 
@@ -184,8 +186,10 @@ function ddmmyyyy(d: Date): string {
   return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
 }
 
-// Bugünden itibaren SCHEDULE_DAYS günün vakitlerini getirir. Takvim ucu
-// başarısız olursa tek günlük uca düşer (eski davranış, en azından bugün doğru).
+// Bugünden itibaren SCHEDULE_DAYS günün vakitlerini getirir. ÖNCE kendi
+// sunucumuzdaki Diyanet vakitleri denenir; eksik kalan günler için mevcut
+// Aladhan takvim yolu (yalnız o aylar) kullanılır. Hiç gün çözülemezse eski
+// davranış: takvim → tek günlük yedek.
 export async function fetchPrayerDays(
   lat: number,
   lng: number,
@@ -196,28 +200,43 @@ export async function fetchPrayerDays(
     d.setDate(today.getDate() + i);
     return d;
   });
+  const wantedYmd = wanted.map(localYmdStr);
 
-  // Pencere ay sınırını aşabilir → gereken her ay için tek takvim isteği.
-  const months = new Map<string, { year: number; month: number }>();
-  for (const d of wanted) {
-    months.set(`${d.getFullYear()}-${d.getMonth() + 1}`, { year: d.getFullYear(), month: d.getMonth() + 1 });
-  }
-  const calendars = await Promise.all(
-    [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month))
+  const diyanet = await getDiyanetDays(
+    lat,
+    lng,
+    deviceOffsetMin(),
+    wantedYmd,
+    diyanetDeps(),
   );
-  const byDate = new Map<string, PrayerTimes>();
-  for (const cal of calendars) {
-    if (cal) for (const [k, v] of cal) byDate.set(k, v);
+
+  const missing = wanted.filter((_, i) => !diyanet.has(wantedYmd[i]));
+  const aladhan = new Map<string, PrayerTimes>();
+  if (missing.length > 0) {
+    // Pencere ay sınırını aşabilir → yalnız eksik günlerin ayları için istek.
+    const months = new Map<string, { year: number; month: number }>();
+    for (const d of missing) {
+      months.set(`${d.getFullYear()}-${d.getMonth() + 1}`, {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+      });
+    }
+    const calendars = await Promise.all(
+      [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month))
+    );
+    for (const cal of calendars) {
+      if (cal) for (const [k, v] of cal) aladhan.set(k, v);
+    }
   }
 
   const days: DayTimes[] = [];
-  for (const d of wanted) {
-    const times = byDate.get(ddmmyyyy(d));
+  wanted.forEach((d, i) => {
+    const times = diyanet.get(wantedYmd[i])?.times ?? aladhan.get(ddmmyyyy(d));
     if (times) days.push({ date: d, times });
-  }
+  });
   if (days.length > 0) return days;
 
-  // Takvim alınamadı → tek günlük yedek.
+  // Hiç gün çözülemedi → tek günlük yedek (eski davranış, en azından bugün doğru).
   const single = await fetchPrayerTimes(lat, lng);
   return single ? [{ date: today, times: single }] : null;
 }

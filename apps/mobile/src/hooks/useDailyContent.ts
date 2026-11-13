@@ -6,6 +6,8 @@ import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
+import { getDiyanetDays } from "../lib/diyanetPrayer";
+import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
 
 interface DailyVerse {
   verse_key: string;
@@ -145,6 +147,7 @@ export function useDailyContent(): UseDailyContentResult {
     let verseDone = false;
     let duaDone = false;
     let prayerDone = false;
+    let aladhanStarted = false;
     let anyContentLoaded = false;
     let loadFailed = false;
 
@@ -343,55 +346,93 @@ export function useDailyContent(): UseDailyContentResult {
     // artık namaz fetch'ini başlatma ve state'e dokunma.
     if (!isCurrent()) return;
 
-    const ts = buildDateStr();
     const prayerAC = new AbortController();
-    const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
 
-    fetch(
-      // Yöntem/ikindi/temkin: lib/prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
-      `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
-      { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
-    )
-      .then((r) => r.json())
-      .then((d) => {
-        clearTimeout(prayerTimeoutId);
-        if (!isCurrent()) return;
-        if (d?.data?.timings) d.data.timings = adjustHighLatitude(d.data.timings, coords.lat, localYMD(new Date()), deviceTimeZone());
-        if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
-          setPrayers(d.data.timings);
-          const hijri = parseHijri(d.data.date?.hijri);
-          if (hijri) setHijriDate(hijri);
-          markSuccess();
-          storage.setJSON(STORAGE_KEYS.prayerCache, {
-            date: todayKey(),
-            timings: d.data.timings,
-            hijri,
-          }).catch(() => {});
-        } else {
-          markFailure();
-        }
-        prayerDone = true;
-        setPrayerLoading(false);
-        tryFinishLoading();
-      })
-      .catch(() => {
-        clearTimeout(prayerTimeoutId);
-        if (!isCurrent()) return;
-        markFailure();
-        prayerDone = true;
-        setPrayerLoading(false);
-        tryFinishLoading();
-      });
-
-    // Safety timeout: en geç 10 saniye sonra loading'i kapat
+    // Safety timeout: en geç 10 saniye sonra loading'i kapat. Diyanet denemesi
+    // ~14 sn sürebildiğinden bu ZAMANLAYICI Diyanet'ten ÖNCE kurulur; loading
+    // kapansa da geç gelen sonuç prayers'ı yine set eder. Aladhan henüz
+    // başlamadıysa AbortController'a dokunma (sonradan taze istek başlayabilsin).
     safetyTimerRef.current = setTimeout(() => {
       if (!isCurrent()) return;
       if (!verseDone) setVerseLoading(false);
       if (!duaDone) setDuaLoading(false);
-      if (!prayerDone) { prayerAC.abort(); setPrayerLoading(false); }
+      if (!prayerDone) {
+        if (aladhanStarted) prayerAC.abort();
+        setPrayerLoading(false);
+      }
       if (loadFailed && !anyContentLoaded) setError("Gunluk icerik yuklenemedi.");
       setLoading(false);
     }, 10_000);
+
+    // ÖNCE kendi sunucumuzdaki Diyanet vakitleri. Bugün çözülemezse mevcut
+    // Aladhan yoluna düşülür. Diyanet yolu en kötü ~14 sn sürebilir; güvenlik
+    // zamanlayıcısı loading'i kapatsa bile sonuç gelince prayers yine set edilir.
+    const diyanetDate = localYmdStr(new Date());
+    const diyanetDay = (
+      await getDiyanetDays(
+        coords.lat,
+        coords.lon,
+        deviceOffsetMin(),
+        [diyanetDate],
+        diyanetDeps(),
+      )
+    ).get(diyanetDate);
+    if (!isCurrent()) return;
+
+    if (diyanetDay) {
+      // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.
+      setPrayers(diyanetDay.times);
+      if (diyanetDay.hijri) setHijriDate(diyanetDay.hijri);
+      markSuccess();
+      storage.setJSON(STORAGE_KEYS.prayerCache, {
+        date: todayKey(),
+        timings: diyanetDay.times,
+        hijri: diyanetDay.hijri,
+      }).catch(() => {});
+      prayerDone = true;
+      setPrayerLoading(false);
+      tryFinishLoading();
+    } else {
+      const ts = buildDateStr();
+      const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
+      aladhanStarted = true;
+
+      fetch(
+        // Yöntem/ikindi/temkin: lib/prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+        `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
+        { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
+      )
+        .then((r) => r.json())
+        .then((d) => {
+          clearTimeout(prayerTimeoutId);
+          if (!isCurrent()) return;
+          if (d?.data?.timings) d.data.timings = adjustHighLatitude(d.data.timings, coords.lat, localYMD(new Date()), deviceTimeZone());
+          if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
+            setPrayers(d.data.timings);
+            const hijri = parseHijri(d.data.date?.hijri);
+            if (hijri) setHijriDate(hijri);
+            markSuccess();
+            storage.setJSON(STORAGE_KEYS.prayerCache, {
+              date: todayKey(),
+              timings: d.data.timings,
+              hijri,
+            }).catch(() => {});
+          } else {
+            markFailure();
+          }
+          prayerDone = true;
+          setPrayerLoading(false);
+          tryFinishLoading();
+        })
+        .catch(() => {
+          clearTimeout(prayerTimeoutId);
+          if (!isCurrent()) return;
+          markFailure();
+          prayerDone = true;
+          setPrayerLoading(false);
+          tryFinishLoading();
+        });
+    }
   }, []);
 
   useEffect(() => {

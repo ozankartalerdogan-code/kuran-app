@@ -20,9 +20,13 @@ export interface VakitStore {
 }
 
 export class UpstreamUnavailableError extends Error {
-  constructor(message = "Diyanet kaynagi kullanilamiyor") {
+  /** Alttaki hata (teşhis için; route yalnız sınıf/status/detail loglar). */
+  upstream: unknown;
+
+  constructor(message = "Diyanet kaynagi kullanilamiyor", upstream: unknown = null) {
     super(message);
     this.name = "UpstreamUnavailableError";
+    this.upstream = upstream;
   }
 }
 
@@ -164,11 +168,11 @@ export function createVakitService(deps: {
     try {
       const loaded = await loadMonth(cityId, month, start, end, expectedDays);
       return { days: loaded.days, complete: loaded.complete, fromCache: false };
-    } catch {
+    } catch (error) {
       if (cachedDays.length > 0) {
         return { days: cachedDays, complete: false, fromCache: true };
       }
-      throw new UpstreamUnavailableError();
+      throw new UpstreamUnavailableError(undefined, error);
     }
   }
 
