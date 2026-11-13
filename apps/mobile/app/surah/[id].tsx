@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
   FlatList,
   View,
@@ -47,7 +48,10 @@ function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string
         accessibilityLabel={t.tafsirA11y}
       >
         <View>
-          <Text style={[tf.title, { color: c.text }]}>{t.tafsirTitle}</Text>
+          <View style={tf.titleRow}>
+            <Ionicons name="library-outline" size={16} color={c.accent} />
+            <Text style={[tf.title, { color: c.text }]}>{t.tafsirTitle}</Text>
+          </View>
           <Text style={[tf.sub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
         </View>
         <Text style={[tf.chevron, { color: c.accent }]}>›</Text>
@@ -57,14 +61,15 @@ function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string
 }
 
 const tf = StyleSheet.create({
-  box:     { margin: 12, borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", backgroundColor: "#fffdf6", overflow: "hidden" },
-  header:  { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
-  title:   { fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  sub:     { fontSize: 11, color: "#a8a29e", marginTop: 1 },
-  chevron: { color: "#059669", fontSize: 16 },
-  body:    { paddingHorizontal: 14, paddingBottom: 14 },
-  text:    { fontSize: 13, lineHeight: 22, color: "#44403c" },
-  empty:   { fontSize: 13, color: "#a8a29e", fontStyle: "italic" },
+  box:      { margin: 12, borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", backgroundColor: "#fffdf6", overflow: "hidden" },
+  header:   { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
+  titleRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  title:    { fontSize: 14, fontWeight: "700", color: "#1c1917" },
+  sub:      { fontSize: 11, color: "#a8a29e", marginTop: 1 },
+  chevron:  { color: "#059669", fontSize: 16 },
+  body:     { paddingHorizontal: 14, paddingBottom: 14 },
+  text:     { fontSize: 13, lineHeight: 22, color: "#44403c" },
+  empty:    { fontSize: 13, color: "#a8a29e", fontStyle: "italic" },
 });
 
 
@@ -411,7 +416,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection:     "row",
     alignItems:        "center",
-    minHeight:         88,
+    minHeight:         64,
     paddingHorizontal: 16,
     paddingVertical:   10,
     backgroundColor:   "#fffdf6",
@@ -431,7 +436,6 @@ const styles = StyleSheet.create({
   },
 
   readingText: {
-    flex:       1,
     fontSize:   13,
     lineHeight: 19,
     color:      "#1c1917",

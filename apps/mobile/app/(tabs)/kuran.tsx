@@ -166,12 +166,6 @@ export default function KuranTab() {
     router.push("/mushaf-sayfa");
   };
 
-  const handleResumeHatimPress = () => {
-    if (!resume.page) return;
-    logFeature("kuran_tab_card", { card: "resume_hatim", page: String(resume.page) });
-    router.push({ pathname: "/mushaf-sayfa", params: { hatim: "1" } });
-  };
-
   const resumeSurahId = resume.page ? sayfaBasSuresi(resume.page) : null;
   const resumeTrName = resumeSurahId
     ? (surahList.find((x) => x.id === resumeSurahId)?.name ?? "")
@@ -183,6 +177,11 @@ export default function KuranTab() {
         ? fmt(t.resumeMeta, { surah: resumeSurahName, page: resume.page, juz: resumeJuz })
         : fmt(t.resumeMetaNoSurah, { page: resume.page, juz: resumeJuz }))
     : "";
+  const resumeHatimText =
+    resume.hatimDone !== null ? fmt(t.resumeHatimBadge, { done: resume.hatimDone }) : null;
+  const resumeA11yMeta = resumeHatimText
+    ? `${resumeMetaText} · ${resumeHatimText}`
+    : resumeMetaText;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }} edges={["top"]}>
@@ -206,7 +205,7 @@ export default function KuranTab() {
               onPress={handleResumePress}
               activeOpacity={0.8}
               accessibilityRole="button"
-              accessibilityLabel={fmt(t.resumeA11y, { meta: resumeMetaText })}
+              accessibilityLabel={fmt(t.resumeA11y, { meta: resumeA11yMeta })}
             >
               <View
                 style={[
@@ -223,8 +222,8 @@ export default function KuranTab() {
               <View style={{ flex: 1 }}>
                 <View style={s.resumeTopRow}>
                   <Text style={[s.label, { color: c.text, flexShrink: 1 }]}>{t.resumeLabel}</Text>
-                  {resume.hatimDone !== null && (
-                    <TouchableOpacity
+                  {resumeHatimText !== null && (
+                    <View
                       style={[
                         s.hatimBadge,
                         {
@@ -232,11 +231,6 @@ export default function KuranTab() {
                           borderColor: c.isDark ? RESUME_THEME.darkBorder : RESUME_THEME.border,
                         },
                       ]}
-                      onPress={handleResumeHatimPress}
-                      activeOpacity={0.75}
-                      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                      accessibilityRole="button"
-                      accessibilityLabel={fmt(t.resumeHatimA11y, { done: resume.hatimDone })}
                     >
                       <Text
                         style={[
@@ -244,9 +238,9 @@ export default function KuranTab() {
                           { color: c.isDark ? RESUME_THEME.darkIconColor : RESUME_THEME.iconColor },
                         ]}
                       >
-                        {fmt(t.resumeHatimBadge, { done: resume.hatimDone })}
+                        {resumeHatimText}
                       </Text>
-                    </TouchableOpacity>
+                    </View>
                   )}
                 </View>
                 <Text style={[s.sub, { color: c.textMuted }]}>{resumeMetaText}</Text>
