@@ -3,9 +3,9 @@ import { defineStrings } from "../index";
 export default defineStrings({
   tr: {
     heading: "İbadet",
-    secGuides: "📚 Rehberler",
-    secTools: "🧰 Araçlar",
-    secOther: "🔖 Diğer",
+    secGuides: "Rehberler",
+    secTools: "Araçlar",
+    secOther: "Diğer",
     namazRehberiLabel: "Namaz Rehberi",
     namazRehberiSub: "Nasıl kılınır, özel namazlar",
     dualarLabel: "Dualar ve Zikirler",
@@ -21,9 +21,9 @@ export default defineStrings({
   },
   en: {
     heading: "Worship",
-    secGuides: "📚 Guides",
-    secTools: "🧰 Tools",
-    secOther: "🔖 Other",
+    secGuides: "Guides",
+    secTools: "Tools",
+    secOther: "Other",
     namazRehberiLabel: "Prayer Guide",
     namazRehberiSub: "How to pray, special prayers",
     dualarLabel: "Duas and Dhikr",

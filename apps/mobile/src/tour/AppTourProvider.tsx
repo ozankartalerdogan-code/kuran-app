@@ -3,15 +3,16 @@ import { AccessibilityInfo, AppState, findNodeHandle, ScrollView, View, type Vie
 import { router, usePathname } from "expo-router";
 import { APP_TOUR_STEPS } from "./appTourSteps";
 import { loadGuideState, saveGuideStatus } from "./appTourStorage";
-import { AUTOMATIC_HINTS_ENABLED, HintSession, shouldOfferGuide, isExistingGuideUser, parseSeenHints, type GuideState, type GuideStatus } from "./tourPolicy";
+import { AUTOMATIC_HINTS_ENABLED, HintSession, shouldOfferGuide, isExistingGuideUser, readSeenHints, type GuideState, type GuideStatus } from "./tourPolicy";
 import { TourOverlay } from "./TourOverlay";
 import type { Rect } from "./tourGeometry";
 import { logFeature } from "../lib/analytics";
 import { maybeAskReview } from "../hooks/useStoreReview";
+import { REVIEW_WAIT_MS, subscribeReviewCompletion } from "../hooks/storeReviewPolicy";
 
 import { storage, STORAGE_KEYS } from "../lib/storage";
-import { isOverlayBusy, useOverlayBusy, beginOverlay, withOverlayBusy } from "./overlayBusy";
-import type { ContextualHint } from "./contextualHints";
+import { isOverlayBusy, isContextualHintOpen, useOverlayBusy, beginOverlay } from "./overlayBusy";
+import { CONTEXTUAL_HINTS, type ContextualHint } from "./contextualHints";
 
 type TargetHandle = { measure: () => Promise<Rect | null>; focus: () => void };
 type TourContext = {
@@ -62,8 +63,8 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
     return beginOverlay();
   }, [isActive, onboarded, pathname]);
   useEffect(() => {
-    storage.getJSON(STORAGE_KEYS.contextualHints).then(raw => {
-      hintSession.current.seen = parseSeenHints(raw);
+    storage.getString(STORAGE_KEYS.contextualHints).then(raw => {
+      hintSession.current.seen = readSeenHints(raw, CONTEXTUAL_HINTS);
       seenReady.current = true;
       reviseHints(v => v + 1);
     }).catch(() => { /* Depo okunamazsa otomatik ipucu açılmaz. */ });
@@ -126,16 +127,25 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
       void logFeature("guide_offer");
     }
   }, [offerVisible]);
-  // Değerlendirme, onboarding ve rehber kararı bitmeden açılmaz.
+  // Sonuç ekranı kapanırsa veya bir örtü açılırsa bu fırsat iptal edilir.
   useEffect(() => {
-    if (!state || !onboarded || offered || hintBlocked || reviewAttempted.current) return;
-    const timer = setTimeout(() => {
-      if (isOverlayBusy() || activeRef.current) return;
-      reviewAttempted.current = true;
-      reviewBusy.current = true;
-      void withOverlayBusy(maybeAskReview).finally(() => { reviewBusy.current = false; });
-    }, 12_000);
-    return () => clearTimeout(timer);
+    if (!state || !onboarded || offered || hintBlocked) return;
+    const pending = new Set<() => void>();
+    const unsubscribe = subscribeReviewCompletion(() => {
+      let cancelled = false;
+      const eligible = () => !cancelled && AppState.currentState === "active" &&
+        !isOverlayBusy() && !isContextualHintOpen() && !activeRef.current;
+      const timer = setTimeout(() => {
+        if (!eligible() || reviewAttempted.current) return;
+        reviewAttempted.current = true;
+        reviewBusy.current = true;
+        void maybeAskReview(eligible).finally(() => { reviewBusy.current = false; });
+      }, REVIEW_WAIT_MS);
+      const cancel = () => { cancelled = true; clearTimeout(timer); pending.delete(cancel); };
+      pending.add(cancel);
+      return cancel;
+    });
+    return () => { unsubscribe(); pending.forEach(cancel => cancel()); };
   }, [state, onboarded, offered, hintBlocked, pathname]);
 
   const close = useCallback((completed = false) => {

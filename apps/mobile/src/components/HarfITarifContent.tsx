@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../hooks/useColors";
 import { useStrings, useLang, fmt } from "../i18n";
 import { useLocalizedData } from "../i18n/localizedData";
@@ -15,6 +16,9 @@ type C = ReturnType<typeof useColors>;
 
 const TIP_COLOR = { semsiye: "#b45309", kameriye: "#4338ca" } as const;
 const TIP_BG    = { semsiye: "#fef3c7", kameriye: "#e0e7ff" } as const;
+// Koyu tema muadilleri (yarı saydam zemin + açık metin)
+const TIP_COLOR_DARK = { semsiye: "#fcd34d", kameriye: "#a5b4fc" } as const;
+const TIP_BG_DARK    = { semsiye: "#fbbf2426", kameriye: "#818cf826" } as const;
 
 function parseOptions(soru: string): [string, string] | null {
   const parts = soru.includes(",") ? soru.split(",") : soru.split(/\s+or\s+/i);
@@ -36,9 +40,10 @@ function Card({ c, baslik, alt, children }: { c: C; baslik: string; alt?: string
 
 function Tag({ tip }: { tip: "semsiye" | "kameriye" }) {
   const t = useStrings(harfStrings);
+  const c = useColors();
   return (
-    <View style={[s.tag, { backgroundColor: TIP_BG[tip] }]}>
-      <Text style={[s.tagText, { color: TIP_COLOR[tip] }]}>{tip === "semsiye" ? t.sun : t.moon}</Text>
+    <View style={[s.tag, { backgroundColor: c.isDark ? TIP_BG_DARK[tip] : TIP_BG[tip] }]}>
+      <Text style={[s.tagText, { color: c.isDark ? TIP_COLOR_DARK[tip] : TIP_COLOR[tip] }]}>{tip === "semsiye" ? t.sun : t.moon}</Text>
     </View>
   );
 }
@@ -56,8 +61,8 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
           const isPicked  = picked === opt;
           let bg = c.card, brd = c.border, col = c.text;
           if (picked) {
-            if (isCorrect)       { bg = "#dcfce7"; brd = "#86efac"; col = "#15803d"; }
-            else if (isPicked)   { bg = "#fee2e2"; brd = "#fca5a5"; col = "#b91c1c"; }
+            if (isCorrect)       { bg = c.isDark ? "#4ade8026" : "#dcfce7"; brd = c.isDark ? "#4ade80" : "#86efac"; col = c.isDark ? "#86efac" : "#15803d"; }
+            else if (isPicked)   { bg = c.isDark ? "#f8717126" : "#fee2e2"; brd = c.isDark ? "#f87171" : "#fca5a5"; col = c.isDark ? "#fca5a5" : "#b91c1c"; }
             else                 { col = c.textMuted; }
           }
           return (
@@ -125,8 +130,8 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
         ))}
       </View>
       {done === sorular.length ? (
-        <View style={s.quizDone}>
-          <Text style={s.quizDoneText}>
+        <View style={[s.quizDone, c.isDark && { backgroundColor: "#4ade8026", borderColor: "#4ade80" }]}>
+          <Text style={[s.quizDoneText, c.isDark && { color: "#86efac" }]}>
             {fmt(t.finished, { c: correct, n: sorular.length })}{correct === sorular.length ? t.perfect : t.again}
           </Text>
           <TouchableOpacity
@@ -154,8 +159,8 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {b.ornek ? (
             <View style={{ marginTop: 10, gap: 6 }}>
-              <View style={[s.pill, { backgroundColor: "#dcfce7" }]}><Text style={[s.pillText, { color: "#15803d" }]}>{b.ornek.dogru}</Text></View>
-              <View style={[s.pill, { backgroundColor: "#fee2e2" }]}><Text style={[s.pillText, { color: "#b91c1c" }]}>{b.ornek.yanlis}</Text></View>
+              <View style={[s.pill, { backgroundColor: c.isDark ? "#4ade8026" : "#dcfce7" }]}><Text style={[s.pillText, { color: c.isDark ? "#86efac" : "#15803d" }]}>{b.ornek.dogru}</Text></View>
+              <View style={[s.pill, { backgroundColor: c.isDark ? "#f8717126" : "#fee2e2" }]}><Text style={[s.pillText, { color: c.isDark ? "#fca5a5" : "#b91c1c" }]}>{b.ornek.yanlis}</Text></View>
               <Text style={[s.aciklama, { color: c.textMuted }]}>{b.ornek.aciklama}</Text>
             </View>
           ) : null}
@@ -166,9 +171,9 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Card c={c} baslik={b.baslik}>
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {b.hafiza_ipucu ? (
-            <View style={s.ipucu}>
-              <Text style={s.ipucuLabel}>{t.memoryTip}</Text>
-              <Text style={[s.body, { color: "#78350f" }]}>{b.hafiza_ipucu}</Text>
+            <View style={[s.ipucu, c.isDark && { backgroundColor: "#fbbf2418", borderColor: "#fbbf2466" }]}>
+              <Text style={[s.ipucuLabel, c.isDark && { color: "#fbbf24" }]}>{t.memoryTip}</Text>
+              <Text style={[s.body, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{b.hafiza_ipucu}</Text>
             </View>
           ) : null}
           {b.gorsel_aciklama ? <Text style={[s.mono, { backgroundColor: c.bg, color: c.text }]}>{b.gorsel_aciklama}</Text> : null}
@@ -180,14 +185,16 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Card c={c} baslik={b.baslik} alt={b.alt_baslik}>
           <View style={s.grid}>
             {(b.harfler ?? []).map((h, i) => (
-              <View key={i} style={[s.harfBox, { backgroundColor: isS ? "#fffbeb" : "#eef2ff", borderColor: isS ? "#fde68a" : "#c7d2fe" }]}>
+              <View key={i} style={[s.harfBox, c.isDark
+                ? { backgroundColor: isS ? "#fbbf2414" : "#818cf814", borderColor: isS ? "#fbbf2455" : "#818cf855" }
+                : { backgroundColor: isS ? "#fffbeb" : "#eef2ff", borderColor: isS ? "#fde68a" : "#c7d2fe" }]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                   <Text style={[s.harfAd, { color: c.text }]}>{h.ad}</Text>
-                  {/* harfBox açık zeminli (fffbeb/eef2ff) — koyu harf rengi bilinçli, temadan bağımsız */}
-                  <Text style={s.harfArapca}>{h.arapca}</Text>
+                  {/* Açık temada açık zemin üstünde koyu harf; koyu temada tema metni */}
+                  <Text style={[s.harfArapca, c.isDark && { color: c.text }]}>{h.arapca}</Text>
                 </View>
                 <Text style={[s.okunus, { color: c.textMuted }]}>{localizedTranslit(h.okunusu, lang)}</Text>
-                {h.ornek_esma ? <Text style={s.esma}>{h.ornek_esma}</Text> : null}
+                {h.ornek_esma ? <Text style={[s.esma, c.isDark && { color: "#34d399" }]}>{h.ornek_esma}</Text> : null}
               </View>
             ))}
           </View>
@@ -223,8 +230,8 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Card c={c} baslik={b.baslik}>
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {(b.not || b.gorsel_ipucu) ? (
-            <View style={s.notBox}>
-              <Text style={[s.aciklama, { color: "#3730a3" }]}>{b.not || b.gorsel_ipucu}</Text>
+            <View style={[s.notBox, c.isDark && { backgroundColor: "#818cf826" }]}>
+              <Text style={[s.aciklama, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>{b.not || b.gorsel_ipucu}</Text>
             </View>
           ) : null}
         </Card>
@@ -258,11 +265,23 @@ export function HarfITarifContent({ paddingTop = 16, paddingBottom = 40 }: { pad
       contentContainerStyle={{ padding: 16, paddingTop, paddingBottom }}
       showsVerticalScrollIndicator={false}
     >
-      <Text style={[s.title, { color: c.text }]}>☀️🌙 {d.baslik}</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <View style={{ flexDirection: "row", gap: 2 }}>
+          <Ionicons name="sunny-outline" size={20} color={c.text} />
+          <Ionicons name="moon-outline" size={20} color={c.text} />
+        </View>
+        <Text style={[s.title, { color: c.text, flexShrink: 1 }]}>{d.baslik}</Text>
+      </View>
       <Text style={[s.sub, { color: c.textMuted }]}>{d.aciklama}</Text>
       <View style={{ flexDirection: "row", gap: 8, marginTop: 8, marginBottom: 14, flexWrap: "wrap" }}>
-        <View style={[s.meta, { backgroundColor: c.card }]}><Text style={[s.metaText, { color: c.textMuted }]}>⏱️ {d.sure}</Text></View>
-        <View style={[s.meta, { backgroundColor: c.card }]}><Text style={[s.metaText, { color: c.textMuted }]}>📋 {d.on_kosul}</Text></View>
+        <View style={[s.meta, s.metaRow, { backgroundColor: c.card }]}>
+          <Ionicons name="time-outline" size={13} color={c.textMuted} />
+          <Text style={[s.metaText, { color: c.textMuted }]}>{d.sure}</Text>
+        </View>
+        <View style={[s.meta, s.metaRow, { backgroundColor: c.card }]}>
+          <Ionicons name="list-outline" size={13} color={c.textMuted} />
+          <Text style={[s.metaText, { color: c.textMuted }]}>{d.on_kosul}</Text>
+        </View>
       </View>
       {d.bolumler.map((b) => <Bolum key={b.id} b={b} c={c} />)}
     </ScrollView>
@@ -273,6 +292,7 @@ const s = StyleSheet.create({
   title:       { fontSize: 20, fontWeight: "700" },
   sub:         { fontSize: 13, marginTop: 4, lineHeight: 19 },
   meta:        { borderRadius: 999, paddingHorizontal: 10, paddingVertical: 5 },
+  metaRow:     { flexDirection: "row", alignItems: "center", gap: 4 },
   metaText:    { fontSize: 11, fontWeight: "600" },
   card:        { borderRadius: 16, borderWidth: 1, padding: 16, marginBottom: 12 },
   h2:          { fontSize: 16, fontWeight: "700" },

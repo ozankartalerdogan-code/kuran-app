@@ -1,6 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { beginOverlay, isOverlayBusy, withOverlayBusy } from "./overlayBusy.ts";
+import { beginOverlay, isOverlayBusy, withOverlayBusy, beginContextualHint, isContextualHintOpen } from "./overlayBusy.ts";
+
+test("ipucu değerlendirmeyi engellerken kendi örtü kapısını kapatmaz", () => {
+  const first = beginContextualHint();
+  const second = beginContextualHint();
+  assert.equal(isContextualHintOpen(), true);
+  assert.equal(isOverlayBusy(), false);
+  first();
+  first();
+  assert.equal(isContextualHintOpen(), true);
+  second();
+  assert.equal(isContextualHintOpen(), false);
+});
 
 test("bir örtü kapanınca diğer örtünün engeli korunur; kapatma idempotenttir", () => {
   const first = beginOverlay();

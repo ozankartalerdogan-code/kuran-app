@@ -256,13 +256,19 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
       {open ? (
         <View style={[hd.body, { borderTopColor: c.border }]}>
           {hadith.key_lesson ? (
-            <View style={hd.lessonBox}>
-              <Text style={hd.lessonText}>💎 {hadith.key_lesson}</Text>
+            <View style={[hd.lessonBox, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}>
+              <View style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
+                <Ionicons name="diamond-outline" size={14} color={c.isDark ? "#86efac" : "#15803d"} style={{ marginTop: 2 }} />
+                <Text style={[hd.lessonText, { flex: 1 }, c.isDark && { color: "#86efac" }]}>{hadith.key_lesson}</Text>
+              </View>
             </View>
           ) : null}
           {hadith.info_note ? (
-            <View style={hd.noteBox}>
-              <Text style={hd.noteText}>ℹ️ {hadith.info_note}</Text>
+            <View style={[hd.noteBox, c.isDark && { backgroundColor: "#431407", borderColor: "#9a3412" }]}>
+              <View style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
+                <Ionicons name="information-circle-outline" size={14} color={c.isDark ? "#fdba74" : "#9a3412"} style={{ marginTop: 2 }} />
+                <Text style={[hd.noteText, { flex: 1 }, c.isDark && { color: "#fdba74" }]}>{hadith.info_note}</Text>
+              </View>
             </View>
           ) : null}
         </View>
@@ -289,8 +295,8 @@ function TopicAccordion({ topic }: { topic: TopicWithHadiths }) {
       >
         <Text style={[tp.name, { color: c.text }]}>{topic.name}</Text>
         <View style={tp.right}>
-          <View style={tp.badge}>
-            <Text style={tp.badgeText}>{topic.hadiths.length}</Text>
+          <View style={[tp.badge, c.isDark && { backgroundColor: "#2e1065" }]}>
+            <Text style={[tp.badgeText, c.isDark && { color: "#c4b5fd" }]}>{topic.hadiths.length}</Text>
           </View>
           <Text style={[tp.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
         </View>
@@ -331,8 +337,8 @@ function GroupAccordion({ group }: { group: GroupData }) {
       >
         <Text style={[gr.name, { color: c.text }]}>{groupName}</Text>
         <View style={gr.right}>
-          <View style={gr.badge}>
-            <Text style={gr.badgeText}>{fmt(t.hadithCount, { n: total })}</Text>
+          <View style={[gr.badge, c.isDark && { backgroundColor: c.cardAlt }]}>
+            <Text style={[gr.badgeText, c.isDark && { color: c.textSecondary }]}>{fmt(t.hadithCount, { n: total })}</Text>
           </View>
           <Text style={[gr.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
         </View>

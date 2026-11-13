@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { resolveGuideState, shouldOfferGuide, shouldShowHint, isExistingGuideUser, canOpenHint,
-  HintSession, hintTargetVisible, parseSeenHints, type HintContext, type GuideStatus } from "./tourPolicy.ts";
+  HintSession, hintTargetVisible, hintAutoAnchorVisible, readSeenHints, parseSeenHints, type HintContext, type GuideStatus } from "./tourPolicy.ts";
 
 test("eski 6, daha eski ve bozuk eski kayıtlar davet oluşturmaz", () => {
   for (const legacy of ["6", "1", "true", "", "{bozuk"]) {
@@ -162,4 +162,27 @@ test("eski kayıt varsa bekleyen yeni davet de bastırılır", () => {
   const state = resolveGuideState('{"version":7,"status":"eligible"}', "6", true);
   assert.equal(state.status, "legacyHandled");
   assert.equal(shouldOfferGuide(state, true), false);
+});
+
+
+test("otomatik kök ipucu görünür başlık gerektirir; haritanın altı yeterli değildir", () => {
+  const bounds = { x: 0, y: 0, width: 360, height: 600 };
+  assert.equal(hintTargetVisible({ x: 0, y: -200, width: 360, height: 500 }, bounds), true);
+  assert.equal(hintAutoAnchorVisible({ x: 0, y: -248, width: 360, height: 48 }, bounds), false);
+  assert.equal(hintAutoAnchorVisible({ x: 0, y: 100, width: 360, height: 48 }, bounds), true);
+  assert.equal(hintAutoAnchorVisible(null, bounds), false);
+});
+
+test("bozuk JSON ipuçlarını görülmüş sayar; eksik ve geçerli kayıt korunur", () => {
+  const hints = [{ id: "rootMap", contentVersion: 1 }, { id: "lessonProgress", contentVersion: 2 }];
+  assert.deepEqual(readSeenHints(null, hints), {});
+  assert.deepEqual(readSeenHints('{}', hints), {});
+  assert.deepEqual(readSeenHints('{"rootMap":1}', hints), { rootMap: 1 });
+  for (const raw of ['', '{', 'null', '[]', '"bad"']) {
+    const session = new HintSession();
+    session.seen = readSeenHints(raw, hints);
+    assert.deepEqual(session.seen, { rootMap: 1, lessonProgress: 2 });
+    assert.equal(session.show(hints[0], ready, false), false);
+    assert.equal(session.show(hints[0], ready, true), true);
+  }
 });

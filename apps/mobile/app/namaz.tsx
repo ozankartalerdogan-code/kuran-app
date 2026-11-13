@@ -118,9 +118,10 @@ function VakitTablosu() {
             {/* Sol — vakit adı */}
             <View style={[vt.vakitSol, { backgroundColor: c.isDark ? c.cardAlt : m.bg, borderLeftColor: m.border }]}>
               <Text style={{ fontSize: 22 }}>{m.ikon}</Text>
-              <View style={[vt.vakitBadge, { backgroundColor: m.badge }]}>
+              {/* Koyu temada parlak pastel yerine düşük doygunluklu koyu zemin + açık vurgu metni */}
+              <View style={[vt.vakitBadge, { backgroundColor: c.isDark ? `${m.border}33` : m.badge }]}>
                 <Text
-                  style={[vt.vakitBadgeText, { color: m.badgeText }]}
+                  style={[vt.vakitBadgeText, { color: c.isDark ? m.border : m.badgeText }]}
                   numberOfLines={1}
                   adjustsFontSizeToFit
                   minimumFontScale={0.7}

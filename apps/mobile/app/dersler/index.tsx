@@ -70,13 +70,12 @@ export default function DerslerScreen() {
           <View style={s.badge}><Text style={s.badgeText}>✓</Text></View>
         )}
         <Text style={s.ikon}>{item.ikon}</Text>
-        <Text style={[s.baslik, { color: c.text }]}>{item.baslik}</Text>
+        <Text style={[s.baslik, { color: c.text }]} numberOfLines={2}>{item.baslik}</Text>
         <Text style={s.kartBilgi}>{fmt(t.cardMinutes, { n: item.sure })}</Text>
-        {pct > 0 && !item.route && (
-          <View style={[s.progTrack, { backgroundColor: c.border }]}>
-            <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
-          </View>
-        )}
+        {/* Çubuk her kartta yer tutar; yan yana kartların boyu eşit kalsın */}
+        <View style={[s.progTrack, { backgroundColor: c.border, opacity: pct > 0 && !item.route ? 1 : 0 }]}>
+          <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
+        </View>
       </TouchableOpacity>
     );
   }, [progress, c, firstCardTarget, t]);
@@ -202,7 +201,7 @@ const s = StyleSheet.create({
   badge:         { position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: 10, backgroundColor: "#4ade80", alignItems: "center", justifyContent: "center" },
   badgeText:     { fontSize: 11, color: "#fff", fontWeight: "800" },
   ikon:          { fontSize: 36 },
-  baslik:        { fontSize: 14, fontWeight: "700", textAlign: "center" },
+  baslik:        { fontSize: 14, fontWeight: "700", textAlign: "center", lineHeight: 18, minHeight: 36 },
   kartBilgi:     { fontSize: 11, color: "#c9a84c", fontWeight: "600" },
   progTrack:     { alignSelf: "stretch", height: 3, borderRadius: 2 },
   progFill:      { height: 3, borderRadius: 2 },

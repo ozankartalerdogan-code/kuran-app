@@ -4,6 +4,7 @@ import {
 import { FlashList } from "@shopify/flash-list";
 import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
 import { router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../src/hooks/useNotes";
@@ -120,7 +121,7 @@ export default function NotlarScreen() {
   if (notesError) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Text style={styles.emptyIcon}>⚠️</Text>
+        <Ionicons name="alert-circle-outline" size={48} color={c.textMuted} />
         <Text style={[styles.emptyTitle, { color: c.text }]}>{t.notesErrTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{notesError}</Text>
         <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={handleRetry} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
@@ -133,7 +134,7 @@ export default function NotlarScreen() {
   if (noteList.length === 0) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Text style={styles.emptyIcon}>📝</Text>
+        <Ionicons name="document-text-outline" size={48} color={c.textMuted} />
         <Text style={[styles.emptyTitle, { color: c.text }]}>{t.notesEmptyTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           {t.notesEmptySub}
@@ -175,14 +176,14 @@ export default function NotlarScreen() {
             accessibilityLabel={fmt(t.openNoteA11y, { label: formatLabel(item.verseKey) })}
           >
             <View style={styles.cardHeader}>
-              <View style={styles.keyBadge}>
-                <Text style={styles.keyText}>{item.verseKey}</Text>
+              <View style={[styles.keyBadge, c.isDark && { backgroundColor: "#422006" }]}>
+                <Text style={[styles.keyText, c.isDark && { color: "#fde047" }]}>{item.verseKey}</Text>
               </View>
               <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
                 {formatLabel(item.verseKey)}
               </Text>
               <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.deleteNoteA11y}>
-                <Text style={styles.deleteBtn}>🗑</Text>
+                <Ionicons name="trash-outline" size={18} color={c.textMuted} style={styles.deleteBtn} />
               </TouchableOpacity>
             </View>
             <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
@@ -199,7 +200,6 @@ export default function NotlarScreen() {
 const styles = StyleSheet.create({
   centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, gap: 10 },
   loadingContainer:{ flex: 1, padding: 12, gap: 10 },
-  emptyIcon:       { fontSize: 48 },
   emptyTitle:      { fontSize: 18, fontWeight: "700", color: "#1c1917" },
   emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },
   goBtn:           { backgroundColor: "#b45309", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10, marginTop: 6 },
@@ -221,6 +221,6 @@ const styles = StyleSheet.create({
   keyBadge:    { backgroundColor: "#fef9c3", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
   keyText:     { fontSize: 11, fontWeight: "700", color: "#854d0e" },
   verseLabel:  { fontSize: 13, color: "#78716c", flex: 1 },
-  deleteBtn:   { fontSize: 14, padding: 4 },
+  deleteBtn:   { padding: 4 },
   noteText:    { fontSize: 14, lineHeight: 22, color: "#292524", fontStyle: "italic" },
 });

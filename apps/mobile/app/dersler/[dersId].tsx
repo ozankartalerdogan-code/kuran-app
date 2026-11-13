@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
   ScrollView, Image, PanResponder, Animated,
@@ -14,7 +14,8 @@ try {
   if (UIManager.hasViewManagerConfig?.("LottieAnimationView")) LottieView = mod;
 } catch (_e) { /* noop */ }
 
-import { Stack, router, useLocalSearchParams } from "expo-router";
+import { Stack, router, useLocalSearchParams, useFocusEffect } from "expo-router";
+import { notifyReviewCompletion } from "../../src/hooks/storeReviewPolicy";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useColors } from "../../src/hooks/useColors";
@@ -134,6 +135,9 @@ export default function DersDetayScreen() {
   const [showResult, setShowResult]                 = useState(false);
   const [score, setScore]                           = useState(0);
   const [quizFinished, setQuizFinished]             = useState(false);
+  useFocusEffect(useCallback(() => {
+    if (quizFinished) return notifyReviewCompletion();
+  }, [quizFinished]));
   const [wrongAnswers, setWrongAnswers]             = useState<QuizSoru[]>([]);
   const quizOpacity = useRef(new Animated.Value(1)).current;
   const quizAnimStyle = { opacity: quizOpacity };

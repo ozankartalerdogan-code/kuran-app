@@ -3,6 +3,7 @@ import {
   StyleSheet, Alert,
 } from "react-native";
 import { useCallback } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { FlashList } from "@shopify/flash-list";
 import { router, useFocusEffect } from "expo-router";
@@ -83,8 +84,8 @@ export default function FavorilerScreen() {
       accessibilityLabel={fmt(t.favOpenA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key, n: item.ayah_number })}
     >
       <View style={styles.cardHeader}>
-        <View style={styles.keyBadge}>
-          <Text style={styles.keyText}>{item.verse_key}</Text>
+        <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}>
+          <Text style={[styles.keyText, c.isDark && { color: "#6ee7b7" }]}>{item.verse_key}</Text>
         </View>
         {item.surah_name && (
           <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
@@ -92,7 +93,7 @@ export default function FavorilerScreen() {
           </Text>
         )}
         <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn} accessibilityRole="button" accessibilityLabel={t.removeFavA11y}>
-          <Text style={{ fontSize: 18 }}>❤️</Text>
+          <Ionicons name="heart" size={20} color={c.isDark ? "#fb7185" : "#e11d48"} accessible={false} />
         </TouchableOpacity>
       </View>
       {item.meal && (
@@ -102,25 +103,25 @@ export default function FavorilerScreen() {
         <View style={styles.tagRow}>
           {item.ana_tema && (
             <TouchableOpacity
-              style={[styles.tag, styles.tagPrimary]}
+              style={[styles.tag, styles.tagPrimary, c.isDark && { backgroundColor: c.accentLight, borderColor: "#065f46" }]}
               onPress={() => { if (item.ana_tema) router.push(`/search?tag=${encodeURIComponent(item.ana_tema)}&page=1`); }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={fmt(t.searchTagA11y, { tag: item.ana_tema })}
             >
-              <Text style={styles.tagTextPrimary}>{item.ana_tema}</Text>
+              <Text style={[styles.tagTextPrimary, c.isDark && { color: "#6ee7b7" }]}>{item.ana_tema}</Text>
             </TouchableOpacity>
           )}
           {item.alt_taglar?.slice(0, 3).map(tag => (
             <TouchableOpacity
               key={tag}
-              style={styles.tag}
+              style={[styles.tag, { backgroundColor: c.cardAlt, borderColor: c.border }]}
               onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={fmt(t.searchTagA11y, { tag })}
             >
-              <Text style={styles.tagText}>{tag}</Text>
+              <Text style={[styles.tagText, { color: c.textMuted }]}>{tag}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -139,7 +140,7 @@ export default function FavorilerScreen() {
   if (requestError && favorites.length > 0) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Text style={styles.emptyIcon}>⚠️</Text>
+        <Ionicons name="alert-circle-outline" size={48} color={c.textMuted} />
         <Text style={[styles.emptyTitle, { color: c.text }]}>{t.favErrTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{requestError}</Text>
         <TouchableOpacity
@@ -158,7 +159,7 @@ export default function FavorilerScreen() {
   if (favorites.length === 0) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Text style={styles.emptyIcon}>🤍</Text>
+        <Ionicons name="heart-outline" size={48} color={c.textMuted} />
         <Text style={[styles.emptyTitle, { color: c.text }]}>{t.favEmptyTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           {t.favEmptySub}
@@ -192,7 +193,6 @@ export default function FavorilerScreen() {
 const styles = StyleSheet.create({
   centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, backgroundColor: "#f5f0e8", gap: 10 },
   loadingContainer:{ flex: 1, padding: 12, gap: 10, backgroundColor: "#f5f0e8" },
-  emptyIcon:       { fontSize: 48 },
   emptyTitle:      { fontSize: 18, fontWeight: "700", color: "#1c1917" },
   emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },
   goBtn:           { backgroundColor: "#059669", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10, marginTop: 6 },

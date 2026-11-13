@@ -4,6 +4,7 @@ import {
   ActivityIndicator, StyleSheet,
 } from "react-native";
 import { useQuery } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
 import { router, Stack, useFocusEffect } from "expo-router";
 import type { DimensionValue } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -76,6 +77,8 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
   quizScore: QuizScore | null; onClose: () => void;
   onFlashcard: () => void; onQuiz: () => void;
 }) {
+  const c = useColors();
+  const d = c.isDark; // koyu temada açık pastel zeminler koyu muadile geçer
   const ep = useStrings(elifbaStrings);
   const pct = ders.harf_sayisi > 0 ? Math.round((seenCount / ders.harf_sayisi) * 100) : 0;
   const sev = SEVIYE_COLOR[ders.seviye] ?? SEVIYE_COLOR.temel;
@@ -84,24 +87,24 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
   return (
     <Modal transparent animationType="fade" onRequestClose={onClose}>
       <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel={ep.close}>
-        <TouchableOpacity style={pp.card} activeOpacity={1} accessible={false}>
+        <TouchableOpacity style={[pp.card, { backgroundColor: c.card, borderColor: c.border }]} activeOpacity={1} accessible={false}>
 
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 12 }}>
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 }}>
-                <View style={[pp.badge, { backgroundColor: "#f5f0e8" }]}>
-                  <Text style={[pp.badgeText, { color: "#78716c" }]}>{fmt(ep.lessonN, { n: ders.konu_sirasi })}</Text>
+                <View style={[pp.badge, { backgroundColor: c.cardAlt }]}>
+                  <Text style={[pp.badgeText, { color: c.textMuted }]}>{fmt(ep.lessonN, { n: ders.konu_sirasi })}</Text>
                 </View>
-                <View style={[pp.badge, { backgroundColor: sev.bg }]}>
-                  <Text style={[pp.badgeText, { color: sev.text }]}>{({ "başlangıç": ep.levelBaslangic, temel: ep.levelTemel, orta: ep.levelOrta } as Record<string, string>)[ders.seviye] ?? ders.seviye}</Text>
+                <View style={[pp.badge, { backgroundColor: d ? sev.text + "33" : sev.bg }]}>
+                  <Text style={[pp.badgeText, { color: d ? sev.bg : sev.text }]}>{({ "başlangıç": ep.levelBaslangic, temel: ep.levelTemel, orta: ep.levelOrta } as Record<string, string>)[ders.seviye] ?? ders.seviye}</Text>
                 </View>
                 {status === "completed" && (
-                  <View style={[pp.badge, { backgroundColor: "#d1fae5" }]}>
-                    <Text style={[pp.badgeText, { color: "#065f46" }]}>{ep.completed}</Text>
+                  <View style={[pp.badge, { backgroundColor: c.accentLight }]}>
+                    <Text style={[pp.badgeText, { color: d ? "#6ee7b7" : "#065f46" }]}>{ep.completed}</Text>
                   </View>
                 )}
               </View>
-              <Text style={pp.title}>{shortBaslik(ders.baslik)}</Text>
+              <Text style={[pp.title, { color: c.text }]}>{shortBaslik(ders.baslik)}</Text>
             </View>
             <TouchableOpacity
               onPress={onClose}
@@ -114,31 +117,31 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
-            <Text style={pp.label}>{fmt(ep.cards, { a: seenCount, b: ders.harf_sayisi })}</Text>
+            <Text style={[pp.label, { color: c.textMuted }]}>{fmt(ep.cards, { a: seenCount, b: ders.harf_sayisi })}</Text>
             {pct === 100 && <Text style={[pp.label, { color: "#059669", fontWeight: "700" }]}>✓</Text>}
           </View>
-          <View style={pp.bar}><View style={[pp.fill, { width: `${pct}%` as DimensionValue }]} /></View>
+          <View style={[pp.bar, { backgroundColor: c.cardAlt }]}><View style={[pp.fill, { width: `${pct}%` as DimensionValue }]} /></View>
 
           {quizScore ? (
-            <View style={[pp.infoBox, { backgroundColor: "#eff6ff", marginTop: 8 }]}>
-              <Text style={{ fontSize: 13, color: "#1d4ed8" }}>
+            <View style={[pp.infoBox, { backgroundColor: d ? "#172554" : "#eff6ff", marginTop: 8 }]}>
+              <Text style={{ fontSize: 13, color: d ? "#93c5fd" : "#1d4ed8" }}>
                 {ep.quizPrefix}{quizScore.score}/{quizScore.total}
                 {quizScore.score >= QUIZ_PASS
                   ? <Text style={{ color: "#059669", fontWeight: "700" }}>{ep.passed}</Text>
-                  : <Text style={{ color: "#78716c" }}>{ep.tryAgainDash}</Text>}
+                  : <Text style={{ color: c.textMuted }}>{ep.tryAgainDash}</Text>}
               </Text>
             </View>
           ) : status !== "locked" ? (
-            <View style={[pp.infoBox, { backgroundColor: "#fef9c3", marginTop: 8 }]}>
-              <Text style={{ fontSize: 12, color: "#854d0e" }}>
+            <View style={[pp.infoBox, { backgroundColor: d ? "#422006" : "#fef9c3", marginTop: 8 }]}>
+              <Text style={{ fontSize: 12, color: d ? "#fde047" : "#854d0e" }}>
                 {fmt(ep.passHint, { n: QUIZ_PASS })}
               </Text>
             </View>
           ) : null}
 
           {status === "locked" && (
-            <View style={[pp.infoBox, { backgroundColor: "#f5f5f4", marginTop: 8 }]}>
-              <Text style={{ fontSize: 12, color: "#78716c" }}>{ep.lockedHint}</Text>
+            <View style={[pp.infoBox, { backgroundColor: c.cardAlt, marginTop: 8 }]}>
+              <Text style={{ fontSize: 12, color: c.textMuted }}>{ep.lockedHint}</Text>
             </View>
           )}
 
@@ -178,8 +181,8 @@ function PathNode({ ders, status, pct, onPress }: {
   const isComp   = status === "completed";
   const isActive = status === "active";
   const isLocked = status === "locked";
-  const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : "#d1d5db";
-  const border   = isComp ? "#047857" : isActive ? "#d97706" : "#9ca3af";
+  const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : (c.isDark ? "#44403c" : "#d1d5db");
+  const border   = isComp ? "#047857" : isActive ? "#d97706" : (c.isDark ? "#57534e" : "#9ca3af");
   const statusLabel = isComp ? ep.stCompleted : isActive ? ep.stActive : ep.stLocked;
   const dersAdi = shortBaslik(ders.baslik);
 
@@ -195,10 +198,14 @@ function PathNode({ ders, status, pct, onPress }: {
       accessibilityState={{ disabled: isLocked }}
     >
       <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
-        <Text style={nd.icon}>{isComp ? "⭐" : isActive ? "▶" : "🔒"}</Text>
+        <Ionicons
+          name={isComp ? "star" : isActive ? "play" : "lock-closed"}
+          size={20}
+          color={isLocked ? (c.isDark ? "#a8a29e" : "#6b7280") : "#fff"}
+        />
       </View>
       {!isLocked && (
-        <View style={nd.barBg}>
+        <View style={[nd.barBg, { backgroundColor: c.cardAlt }]}>
           <View style={[nd.barFill, {
             width: `${pct}%` as DimensionValue,
             backgroundColor: isComp ? "#059669" : "#f59e0b",
@@ -293,7 +300,7 @@ export default function OgrenScreen() {
             />
             {i < nodes.length - 1 && (
               <View style={[s.hLine, {
-                backgroundColor: statuses[origIdx] === "completed" ? "#059669" : "#e5e7eb",
+                backgroundColor: statuses[origIdx] === "completed" ? "#059669" : (c.isDark ? "#44403c" : "#e5e7eb"),
               }]} />
             )}
           </React.Fragment>
@@ -323,7 +330,7 @@ export default function OgrenScreen() {
                 accessibilityLabel={fmt(ep.tabA11y, { label: ep[t.label] })}
                 accessibilityState={{ selected: active }}
               >
-                <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>{ep[t.label]}</Text>
+                <Text style={[s.tabText, { color: active ? (c.isDark ? "#c9a84c" : "#0a1628") : c.textMuted }]}>{ep[t.label]}</Text>
               </TouchableOpacity>
             );
           })}
@@ -360,7 +367,7 @@ export default function OgrenScreen() {
                     <Text style={[s.overallTitle, { color: c.text }]}>{ep.progress}</Text>
                     <Text style={[s.overallCount, { color: c.accent }]}>{fmt(ep.lessonsCount, { a: completedCount, b: dersler.length })}</Text>
                   </View>
-                  <View style={s.overallBar}>
+                  <View style={[s.overallBar, { backgroundColor: c.cardAlt }]}>
                     <View style={[s.overallFill, { width: `${overallPct}%` as DimensionValue }]} />
                   </View>
                   {overallPct === 100 && (
@@ -376,7 +383,7 @@ export default function OgrenScreen() {
                       {rowIdx < rows.length - 1 && (
                         <VLineRow
                           side={rowIdx % 2 === 0 ? "right" : "left"}
-                          color={statuses[Math.min((rowIdx + 1) * COLS - 1, dersler.length - 1)] === "completed" ? "#059669" : "#e5e7eb"}
+                          color={statuses[Math.min((rowIdx + 1) * COLS - 1, dersler.length - 1)] === "completed" ? "#059669" : (c.isDark ? "#44403c" : "#e5e7eb")}
                         />
                       )}
                     </React.Fragment>
@@ -453,7 +460,6 @@ const nd = StyleSheet.create({
     width: 52, height: 52, borderRadius: 26, borderWidth: 2.5,
     alignItems: "center", justifyContent: "center",
   },
-  icon:    { fontSize: 20 },
   barBg:   { width: 44, height: 3, backgroundColor: "#f5f0e8", borderRadius: 2, marginTop: 5, overflow: "hidden" },
   barFill: { height: "100%", borderRadius: 2 },
   label:   { fontSize: 9, fontWeight: "600", textAlign: "center", marginTop: 4, lineHeight: 13, paddingHorizontal: 2 },

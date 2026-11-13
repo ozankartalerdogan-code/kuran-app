@@ -2,6 +2,14 @@ import { useSyncExternalStore } from "react";
 
 const locks = new Set<symbol>();
 const listeners = new Set<() => void>();
+const contextualHints = new Set<symbol>();
+export const isContextualHintOpen = () => contextualHints.size > 0;
+// İpucu kendisini engellemeden değerlendirme isteğini durdurur.
+export function beginContextualHint() {
+  const token = Symbol();
+  contextualHints.add(token);
+  return () => { contextualHints.delete(token); };
+}
 export const isOverlayBusy = () => locks.size > 0;
 const notify = () => listeners.forEach(listener => listener());
 export function beginOverlay() {

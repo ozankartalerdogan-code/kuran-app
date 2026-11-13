@@ -49,6 +49,22 @@ export function hintTargetVisible(target: { x: number; y: number; width: number;
   return intersectionHeight >= Math.min(target.height, Math.max(48, viewport.height * 0.25)) &&
     intersectionWidth >= Math.min(target.width, viewport.width) - 1;
 }
+export function hintAutoAnchorVisible(anchor: import("./tourGeometry").Rect | null,
+  bounds: import("./tourGeometry").Rect): boolean {
+  return !!anchor && anchor.width > 0 && anchor.height > 0 && anchor.x >= bounds.x &&
+    anchor.y >= bounds.y && anchor.x + anchor.width <= bounds.x + bounds.width &&
+    anchor.y + anchor.height < bounds.y + bounds.height;
+}
+
+export function readSeenHints(raw: string | null, hints: readonly { id: string; contentVersion: number }[]): Record<string, number> {
+  if (raw === null) return {};
+  try {
+    const value: unknown = JSON.parse(raw);
+    if (value && typeof value === "object" && !Array.isArray(value)) return parseSeenHints(value);
+  } catch { /* Bozuk kayıt otomatik ipuçlarını yeniden açmaz. */ }
+  return Object.fromEntries(hints.map(hint => [hint.id, hint.contentVersion]));
+}
+
 export function parseSeenHints(raw: unknown): Record<string, number> {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
   return Object.fromEntries(Object.entries(raw).filter(([, value]) => Number.isInteger(value) && Number(value) > 0));

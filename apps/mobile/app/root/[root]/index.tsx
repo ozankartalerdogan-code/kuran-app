@@ -67,9 +67,10 @@ const SURAH_SHORT: Record<number, string> = {
 const HeatGrid = memo(function HeatGrid({
   distribution,
   maxCount,
-  c, hint,
+  c, targetProps, targetAction,
 }: {
-  hint: ReturnType<typeof useContextualHint>;
+  targetProps: ReturnType<typeof useContextualHint>["targetProps"];
+  targetAction: () => void;
   distribution: Record<number, number>;
   maxCount: number;
   c: AppColors;
@@ -81,7 +82,7 @@ const HeatGrid = memo(function HeatGrid({
 
   return (
     <>
-      <View {...hint.targetProps} style={hg.grid}>
+      <View {...targetProps} style={hg.grid}>
         {Array.from({ length: 114 }, (_, i) => i + 1).map((id) => {
           const count = distribution[id] ?? 0;
           const cell = heatCell(count, maxCount, c.isDark);
@@ -91,7 +92,7 @@ const HeatGrid = memo(function HeatGrid({
             <TouchableOpacity
               key={id}
               style={[hg.cell, { backgroundColor: cell.bg }]}
-              onPress={() => { hint.targetAction(); if (count > 0) setModalInfo({ surahId: id, count }); }}
+              onPress={() => { targetAction(); if (count > 0) setModalInfo({ surahId: id, count }); }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={fmt(t.surahA11y, { n: id, name: lang === "en" ? "" : (SURAH_SHORT[id] ?? "") }).trim()}
@@ -226,7 +227,8 @@ export default function RootDetailScreen() {
 
   const [data, setData] = useState<RootDetail | null>(null);
   const [loading, setLoading] = useState(true);
-  const hint = useContextualHint("rootMap", !loading && !!data && Object.values(data.distribution).some(count => count > 0), root);
+  const autoAnchor = useRef<View>(null);
+  const hint = useContextualHint("rootMap", !loading && !!data && Object.values(data.distribution).some(count => count > 0), root, undefined, autoAnchor);
   const [error, setError] = useState<string | null>(null);
   const [openMeaning, setOpenMeaning] = useState<string | null>(null);
   const [othersOpen, setOthersOpen] = useState(false);
@@ -372,7 +374,7 @@ export default function RootDetailScreen() {
             </View>
 
             <View style={[s.section, { backgroundColor: c.card, borderColor: c.border }]}>
-              <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8 }}>
+              <View ref={autoAnchor} collapsable={false} style={{ flexDirection: "row", alignItems: "flex-start", gap: 8 }}>
                 <View style={{ flex: 1 }}>
                   <Text style={[s.sectionTitle, { color: c.text }]}>{t.distribution}</Text>
                   <Text style={[s.sectionHint, { color: c.textMuted }]}>{t.distributionHint}</Text>
@@ -380,7 +382,7 @@ export default function RootDetailScreen() {
                 <ContextualHintHelp hint={hint} />
               </View>
               {hint.display && <View style={{ marginVertical: 8 }}><ContextualHintCard hint={hint} /></View>}
-              <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} hint={hint} />
+              <HeatGrid distribution={data.distribution} maxCount={maxCount} c={c} targetProps={hint.targetProps} targetAction={hint.targetAction} />
             </View>
 
             {groups.primary.length > 0 && (

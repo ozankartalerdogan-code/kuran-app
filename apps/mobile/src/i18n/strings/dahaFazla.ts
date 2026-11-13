@@ -3,9 +3,9 @@ import { defineStrings } from "../index";
 export default defineStrings({
   tr: {
     heading: "Daha Fazla",
-    secDiscover: "🔍 Keşfet",
-    secPersonal: "👤 Kişisel",
-    secApp: "⚙️ Uygulama",
+    secDiscover: "Keşfet",
+    secPersonal: "Kişisel",
+    secApp: "Uygulama",
     esmaLabel: "Esmaül Hüsna",
     esmaSub: "Allah'ın 99 ismi",
     siginakLabel: "Manevi Sığınak",
@@ -34,9 +34,9 @@ export default defineStrings({
   },
   en: {
     heading: "More",
-    secDiscover: "🔍 Discover",
-    secPersonal: "👤 Personal",
-    secApp: "⚙️ App",
+    secDiscover: "Discover",
+    secPersonal: "Personal",
+    secApp: "App",
     esmaLabel: "Asma ul-Husna",
     esmaSub: "The 99 Names of Allah",
     siginakLabel: "Spiritual Refuge",
