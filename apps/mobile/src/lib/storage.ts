@@ -11,6 +11,7 @@ export const STORAGE_KEYS = {
   nightMode:       "nightMode",
   elifbaProgress:  "elifbaProgress",
   quizScores:      "elifbaQuizScores",
+  elifbaSrs:       "elifbaSrs",
   recentSearches:  "recentSearches",
   prayerCache:     "prayerTimesCache",
   derslerProgress: "derslerProgress",

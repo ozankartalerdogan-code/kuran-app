@@ -45,6 +45,7 @@ const BACKUP_KEYS: string[] = [
   STORAGE_KEYS.mushafPage,
   STORAGE_KEYS.elifbaProgress,
   STORAGE_KEYS.quizScores,
+  STORAGE_KEYS.elifbaSrs,
   STORAGE_KEYS.derslerProgress,
   STORAGE_KEYS.hatimTracking,
   STORAGE_KEYS.nightMode,
