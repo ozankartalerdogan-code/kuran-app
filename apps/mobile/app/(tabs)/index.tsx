@@ -531,7 +531,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  content:   { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  content:   { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
   searchBar:  { flexDirection: "row", alignItems: "center", gap: 10, borderRadius: 14,
                 borderWidth: 1.5, paddingVertical: 13, paddingHorizontal: 14, marginBottom: 12 },
@@ -597,7 +597,8 @@ const styles = StyleSheet.create({
   moodAyahLinkText: { fontSize: 13, fontWeight: "800" },
   moodMeal: { fontSize: 15, lineHeight: 24 },
 
-  quickWidget: { borderRadius: 16, borderWidth: 1, padding: 14, marginBottom: 16 },
+  // Sayfanın son kartı: alttaki boşluğu yalnız içerik dolgusu (paddingBottom) verir
+  quickWidget: { borderRadius: 16, borderWidth: 1, padding: 14 },
   quickTitle:  { fontSize: 13, fontWeight: "600", textAlign: "center", marginBottom: 12 },
   quickGrid:   { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   quickBtn:    { flexBasis: "48%", flexGrow: 1, borderRadius: 14, padding: 14, alignItems: "center", gap: 8 },
