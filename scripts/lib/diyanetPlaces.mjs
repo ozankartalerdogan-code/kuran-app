@@ -12,8 +12,13 @@ export function parseEnvFile(text) {
     if (!key) continue;
 
     let value = line.slice(separator + 1).trim();
-    if (value.startsWith('"') || value.startsWith("'")) value = value.slice(1);
-    if (value.endsWith('"') || value.endsWith("'")) value = value.slice(0, -1);
+    if (value.length >= 2) {
+      const first = value[0];
+      const last = value[value.length - 1];
+      if ((first === '"' || first === "'") && first === last) {
+        value = value.slice(1, -1);
+      }
+    }
 
     result[key] = value;
   }

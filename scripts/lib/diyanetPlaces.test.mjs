@@ -27,6 +27,16 @@ test("parseEnvFile yorumları, tırnakları ve \\r\\n satırlarını işler", ()
   });
 });
 
+test("parseEnvFile yalnız eşleşen tırnakları kaldırır", () => {
+  const text = ["KEY1=abc'", 'KEY2="a b"', "KEY3='x\""].join("\n");
+
+  assert.deepEqual(parseEnvFile(text), {
+    KEY1: "abc'",
+    KEY2: "a b",
+    KEY3: "'x\"",
+  });
+});
+
 test("normalizePlaceList geçerli listeyi normalize eder", () => {
   const result = normalizePlaceList({
     data: [
