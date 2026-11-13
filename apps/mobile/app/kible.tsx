@@ -13,6 +13,8 @@ import { useColors } from "../src/hooks/useColors";
 import { useStrings, getStrings, fmt, localeTag, caps } from "../src/i18n";
 import kibleStrings from "../src/i18n/strings/kible";
 import { magneticDeclination } from "../src/lib/geomagnetism";
+import { chooseQuickFix } from "../src/lib/qiblaLocation";
+import { getSavedCoords, rememberCoords } from "../src/lib/namazNotifications";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
@@ -130,6 +132,9 @@ export default function KibleScreen() {
   const [step, setStep]           = useState<Step>("locating");
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
+  // Yaklaşık (eski/kayıtlı) konumla açıldı; arka planda yenileniyor.
+  const [approx, setApprox]       = useState(false);
+  const refineRun = useRef(0);
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
   const [isAligned, setIsAligned] = useState(false);
@@ -310,6 +315,8 @@ export default function KibleScreen() {
   // Konum al — Balanced doğruluk, 3 aşamalı fallback
   const getLocation = useCallback(async () => {
     setStep("locating");
+    refineRun.current += 1; // önceki arka plan yenilemesini geçersiz kıl
+    setApprox(false);
     alignedRef.current = false;
     setIsAligned(false);
 
@@ -330,13 +337,44 @@ export default function KibleScreen() {
       return;
     }
 
-    let coords: { latitude: number; longitude: number } | null = null;
+    // Hesaplanan yönü ekrana uygular (anlık konum ve arka plan yenilemesi ortak kullanır).
+    const apply = (c: { latitude: number; longitude: number }) => {
+      // Manyetik sapma: pusula manyetik kuzeyi, kıble gerçek kuzeyi kullanır (NOAA WMM2025, dünya geneli).
+      declRef.current = magneticDeclination(c.latitude, c.longitude);
+      const q = calcQibla(c.latitude, c.longitude);
+      qiblaRef.current = q;
+      setQibla(q);
+      setDistance(calcDist(c.latitude, c.longitude));
+    };
 
-    // 1. Son bilinen konum (anlık)
-    try {
-      const last = await Location.getLastKnownPositionAsync({ maxAge: 4 * 3600 * 1000 });
-      if (last?.coords) coords = last.coords;
-    } catch { /* ignore */ }
+    // 1. Anlık konum: son bilinen (yaşı ne olursa olsun) ya da uygulamanın kaydettiği konum.
+    //    Pusula hemen açılır; konum eskiyse arka planda yenilenir.
+    let last: Location.LocationObject | null = null;
+    try { last = await Location.getLastKnownPositionAsync(); } catch { /* ignore */ }
+    const quick = chooseQuickFix(last, await getSavedCoords(), Date.now());
+    if (!isMountedRef.current) return;
+    if (quick) {
+      apply(quick.coords);
+      setApprox(quick.refine);
+      setStep("compass");
+      if (!quick.refine) return;
+      const runId = ++refineRun.current;
+      try {
+        const pos = await Promise.race([
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+          new Promise<null>(r => setTimeout(() => r(null), 20000)),
+        ]);
+        if (!isMountedRef.current || runId !== refineRun.current) return;
+        if (pos && "coords" in pos) {
+          apply(pos.coords);
+          rememberCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        }
+      } catch { /* yaklaşık konumla devam */ }
+      if (isMountedRef.current && runId === refineRun.current) setApprox(false);
+      return;
+    }
+
+    let coords: { latitude: number; longitude: number } | null = null;
 
     // 2. Balanced (ağ + GPS, Android uyumlu)
     if (!coords) {
@@ -377,12 +415,9 @@ export default function KibleScreen() {
       return;
     }
 
-    // Manyetik sapma: pusula manyetik kuzeyi, kıble gerçek kuzeyi kullanır (NOAA WMM2025, dünya geneli).
-    declRef.current = magneticDeclination(coords.latitude, coords.longitude);
-    const q = calcQibla(coords.latitude, coords.longitude);
-    qiblaRef.current = q;
-    setQibla(q);
-    setDistance(calcDist(coords.latitude, coords.longitude));
+    apply(coords);
+    rememberCoords({ lat: coords.latitude, lng: coords.longitude });
+    setApprox(false);
     setStep("compass");
   }, [goHome]);
 
@@ -438,6 +473,9 @@ export default function KibleScreen() {
         <Text style={[s.cityLabel, dark && { color: "#ccfbf1" }]}>{ks.yourLocation}</Text>
         {distance != null && (
           <Text style={[s.distText, dark && { color: "#5eead4" }]}>{fmt(ks.distanceToKaaba, { d: Math.round(distance).toLocaleString(localeTag()) })}</Text>
+        )}
+        {approx && (
+          <Text style={[s.loadingSub, dark && { color: "#2dd4bf" }]} accessibilityLiveRegion="polite">{ks.approxLocation}</Text>
         )}
 
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}

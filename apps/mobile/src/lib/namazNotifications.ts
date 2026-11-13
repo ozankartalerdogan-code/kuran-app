@@ -47,8 +47,17 @@ const LAST_COORDS_KEY = "lastKnownCoords";
 
 type Coords = { lat: number; lng: number };
 
-function rememberCoords(c: Coords): void {
+export function rememberCoords(c: Coords): void {
   storage.setJSON(LAST_COORDS_KEY, c).catch(() => {});
+}
+
+// Son kaydedilen konum (yoksa null) — kıble ekranının anında açılması için.
+export async function getSavedCoords(): Promise<Coords | null> {
+  try {
+    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
+    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
+  } catch { /* okunamadı */ }
+  return null;
 }
 
 async function savedCoordsOrIstanbul(): Promise<Coords> {
