@@ -6,11 +6,12 @@ import { Stack, router } from "expo-router";
 import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
-import rawData from "../src/data/siyer_i_nebi.json";
 import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import siyerStrings from "../src/i18n/strings/siyer";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+
+type RawSiyerData = typeof import("../src/data/siyer_i_nebi.json");
 
 interface Period {
   id: string; order: number; name: string;
@@ -36,8 +37,12 @@ function ensureStringArray(value: unknown): string[] {
   return value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const pickData = localizedData<unknown>(rawData, () => require("../src/data/siyer_i_nebi.en.json"));
+const pickData = localizedData<unknown>(
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/siyer_i_nebi.json"),
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/siyer_i_nebi.en.json"),
+);
 
 interface SiyerData {
   META: Meta;
@@ -51,7 +56,7 @@ const DATA_CACHE: Partial<Record<Lang, SiyerData>> = {};
 function buildSiyerData(lang: Lang): SiyerData {
   const cached = DATA_CACHE[lang];
   if (cached) return cached;
-  const ROOT = pickData(lang) as typeof rawData;
+  const ROOT = pickData(lang) as RawSiyerData;
   const META: Meta = {
     title: ROOT.meta?.title ?? "Siyer-i Nebi",
     subtitle: ROOT.meta?.subtitle ?? "",

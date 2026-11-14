@@ -10,13 +10,16 @@ import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useTourTarget } from "../src/tour/AppTourProvider";
-import rawData from "../src/data/hadisler_v2.json";
 import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import hadislerStrings from "../src/i18n/strings/hadisler";
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const pickData = localizedData<HadithData>(rawData as HadithData, () => require("../src/data/hadisler_v2.en.json"));
+const pickData = localizedData<HadithData>(
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/hadisler_v2.json"),
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/hadisler_v2.en.json"),
+);
 
 // `group` alanı çevrilmedi (anahtar); İngilizce görünen adlar:
 const GROUP_NAMES_EN: Record<string, string> = {

@@ -178,7 +178,6 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
 function ExactAlarmOpeningPrompt() {
   const { onboarded } = useAppTour();
   const navigation = useRootNavigationState();
-  const pathname = usePathname();
   const busy = useOverlayBusy();
   const [foreground, setForeground] = useState(AppState.currentState === "active");
   useEffect(() => {
@@ -186,12 +185,12 @@ function ExactAlarmOpeningPrompt() {
     return () => sub.remove();
   }, []);
   useEffect(() => {
-    if (!navigation?.key || !onboarded || pathname === "/onboarding" || !foreground || busy) return;
+    if (!navigation?.key || !onboarded || !foreground || busy) return;
     const timer = setTimeout(() => {
       if (AppState.currentState === "active" && !isOverlayBusy()) void maybePromptExactAlarm().catch(() => {});
     }, 2500);
     return () => clearTimeout(timer);
-  }, [navigation?.key, onboarded, pathname, foreground, busy]);
+  }, [navigation?.key, onboarded, foreground, busy]);
   return null;
 }
 
