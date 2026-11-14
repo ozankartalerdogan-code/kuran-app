@@ -12,6 +12,7 @@ import {
   getManualCity,
   haversineKm,
   isoToLocalHm,
+  prayerCityStampPart,
   resolveDiyanetCity,
   roundCoord2,
   searchDiyanetCities,
@@ -478,4 +479,52 @@ test("searchDiyanetCities: q encodeURIComponent ile kodlanır", async () => {
   await searchDiyanetCities("şan", h.deps);
 
   assert.equal(h.calls[0].path, "/vakit/sehirler?q=%C5%9Fan");
+});
+
+test("prayerCityStampPart: elle şehir → 'm<id>'", async () => {
+  const h = makeDeps({ [DIYANET_MANUAL_CITY_KEY]: MANUAL });
+  assert.equal(await prayerCityStampPart(h.deps), `m${MANUAL.id}`);
+});
+
+test("prayerCityStampPart: önbellekte şehir → 'c<id>'", async () => {
+  const h = makeDeps({ [DIYANET_CITY_KEY]: citySeed() });
+  assert.equal(await prayerCityStampPart(h.deps), `c${CITY.id}`);
+});
+
+test("prayerCityStampPart: önbellekte city:null → '-'", async () => {
+  const h = makeDeps({ [DIYANET_CITY_KEY]: citySeed({ city: null }) });
+  assert.equal(await prayerCityStampPart(h.deps), "-");
+});
+
+test("prayerCityStampPart: hiç kayıt yok → '-'", async () => {
+  const h = makeDeps();
+  assert.equal(await prayerCityStampPart(h.deps), "-");
+});
+
+test("prayerCityStampPart: bozuk JSON/kayıt → '-'", async () => {
+  const h = makeDeps({ [DIYANET_CITY_KEY]: "{bozuk" });
+  assert.equal(await prayerCityStampPart(h.deps), "-");
+
+  const bad = makeDeps({ [DIYANET_CITY_KEY]: { lat: "x", city: CITY } });
+  assert.equal(await prayerCityStampPart(bad.deps), "-");
+});
+
+test("prayerCityStampPart: elle şehir önbelleğe göre önceliklidir", async () => {
+  const h = makeDeps({
+    [DIYANET_MANUAL_CITY_KEY]: MANUAL,
+    [DIYANET_CITY_KEY]: citySeed({ city: { ...CITY, id: 99999 } }),
+  });
+  assert.equal(await prayerCityStampPart(h.deps), `m${MANUAL.id}`);
+});
+
+test("prayerCityStampPart: okuma fırlatsa bile '-'", async () => {
+  const deps: DiyanetPrayerDeps = {
+    getJson: async () => ({ status: 500, body: null }),
+    readStore: async () => {
+      throw new Error("patladı");
+    },
+    writeStore: async () => {},
+    nowMs: () => BASE,
+  };
+  assert.equal(await prayerCityStampPart(deps), "-");
 });

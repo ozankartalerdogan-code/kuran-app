@@ -219,6 +219,20 @@ export async function searchDiyanetCities(
   return out;
 }
 
+/** Bildirim damgası için şehir parçası: elle şehir → "m<id>", otomatik önbellekteki şehir → "c<id>", yoksa/şehir null/bozuksa → "-". Asla fırlatmaz. */
+export async function prayerCityStampPart(
+  deps: DiyanetPrayerDeps,
+): Promise<string> {
+  try {
+    const manual = await getManualCity(deps);
+    if (manual !== null) return `m${manual.id}`;
+    const cached = parseCityCache(await safeRead(deps, DIYANET_CITY_KEY));
+    return cached?.city ? `c${cached.city.id}` : "-";
+  } catch {
+    return "-";
+  }
+}
+
 function parseCityCache(value: unknown): CityCache | null {
   if (!isRecord(value)) return null;
   if (

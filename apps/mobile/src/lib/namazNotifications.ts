@@ -13,7 +13,7 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
-import { getDiyanetDays, getManualCity } from "./diyanetPrayer";
+import { getDiyanetDays, getManualCity, prayerCityStampPart } from "./diyanetPrayer";
 import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
@@ -34,11 +34,14 @@ export type PrayerTimes = Record<string, string>;
 export const NOTIF_KEY = "namazNotifEnabled";
 export const DAILY_VERSE_KEY = "dailyVerseNotifEnabled";
 export const SCHED_DAY_KEY = "namazNotifSchedDay";
-// Gün + dil + saat dilimi + tam-zamanlı alarm izni: biri değişince (yolculuk, dil
-// tercihi, "Alarmlar ve hatırlatıcılar" izni) ilk açılışta yeniden planlanır.
-// İzin sonradan verilirse eski (ertelenebilir) alarmlar böylece tam zamanlıya döner.
+// Gün + dil + saat dilimi + tam-zamanlı alarm izni + şehir: biri değişince (yolculuk,
+// dil tercihi, "Alarmlar ve hatırlatıcılar" izni, elle/otomatik şehir değişimi) ilk
+// açılışta yeniden planlanır. İzin sonradan verilirse eski (ertelenebilir) alarmlar
+// böylece tam zamanlıya döner.
 export const schedStamp = () =>
   `${localDayStr()}|${getLang()}|${deviceTimeZone()}|${canScheduleExactAlarms() === false ? "inexact" : "exact"}`;
+const fullSchedStamp = async () =>
+  `${schedStamp()}|${await prayerCityStampPart(diyanetDeps()).catch(() => "-")}`;
 
 const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
 
@@ -526,7 +529,7 @@ async function applyNotificationsInner(opts: PlanOptions, cachedRequests?: Notif
   }
   if ((opts.prayer || opts.dailyVerse) && !cachedRequests) {
     // Yalnız başarıyla kurulmuş plan saklanır; önbellek hatası çalışan planı bozmaz.
-    await storage.setJSON(PLAN_CACHE_KEY, { version: 1, stamp: schedStamp(), ...opts, requests }).catch(() => {});
+    await storage.setJSON(PLAN_CACHE_KEY, { version: 1, stamp: await fullSchedStamp(), ...opts, requests }).catch(() => {});
   }
 }
 export function applyNotifications(opts: PlanOptions): Promise<void> {
@@ -563,7 +566,7 @@ export function changeNotificationPreference(
     const days = await fetchPrayerDays(coords.lat, coords.lng);
     if (!days?.length) throw new Error("no-times");
     await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" });
-    await storage.setString(SCHED_DAY_KEY, schedStamp());
+    await storage.setString(SCHED_DAY_KEY, await fullSchedStamp());
     return { granted: true, isFallback: coords.isFallback };
   });
 }
@@ -585,7 +588,7 @@ async function enablePrayerNotificationsFirstRunInner(): Promise<FirstRunResult>
     const days = await fetchPrayerDays(lat, lng);
     if (!days?.length) return "error";
     await applyNotificationsInner({ days, prayer: true, dailyVerse: true });
-    await storage.setString(SCHED_DAY_KEY, schedStamp());
+    await storage.setString(SCHED_DAY_KEY, await fullSchedStamp());
     return "enabled";
   } catch { return "error"; }
 }
@@ -623,7 +626,7 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
     if (pv !== null || dv !== null) await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
     return;
   }
-  const stamp = schedStamp();
+  const stamp = await fullSchedStamp();
   const savedStamp = await storage.getString(SCHED_DAY_KEY);
   if (!shouldRefreshNotifications(true, coldStart, savedStamp, stamp)) return;
   try {
@@ -640,7 +643,7 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
     }
     if (!days?.length) return;
     await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, cached?.requests);
-    await storage.setString(SCHED_DAY_KEY, stamp);
+    await storage.setString(SCHED_DAY_KEY, await fullSchedStamp());
   } catch { /* Damga yazılmaz; sonraki yenileme yeniden dener. */ }
 }
 export function rescheduleNotifications(): Promise<void> {
