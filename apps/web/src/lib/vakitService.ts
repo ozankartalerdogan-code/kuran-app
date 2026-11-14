@@ -95,8 +95,31 @@ function rawToStoredDay(
   };
 }
 
+const COMPLETE_MONTH_STALE_SECONDS = 14 * 86400;
+const STALE_RETRY_COOLDOWN_SECONDS = 300;
+
 function isValidMonthDate(date: string, startYmd: string, endYmd: string): boolean {
   return date.length === 10 && date >= startYmd && date <= endYmd;
+}
+
+function isCurrentOrNextMonth(month: string, nowSec: number): boolean {
+  const year = Number(month.slice(0, 4));
+  const monthNum = Number(month.slice(5, 7));
+  if (!Number.isInteger(year) || !Number.isInteger(monthNum)) return false;
+  const nowDate = new Date(nowSec * 1000);
+  const currentIdx = nowDate.getUTCFullYear() * 12 + nowDate.getUTCMonth();
+  const requestedIdx = year * 12 + (monthNum - 1);
+  return requestedIdx === currentIdx || requestedIdx === currentIdx + 1;
+}
+
+function oldestFetchedAt(
+  cachedMap: Map<string, { stored: StoredDay; day: VakitDay }>,
+): number {
+  let oldest = Infinity;
+  for (const { stored } of cachedMap.values()) {
+    if (stored.fetchedAt < oldest) oldest = stored.fetchedAt;
+  }
+  return oldest;
 }
 
 function normalizeStoredDays(
@@ -121,8 +144,10 @@ export function createVakitService(deps: {
   normalize: (raw: unknown) => VakitDay | null;
   monthDateRange: (month: string) => { start: string; end: string };
   now: () => number;
+  staleAfterSeconds?: number;
 }): { getMonth(cityId: number, month: string): Promise<{ days: VakitDay[]; complete: boolean; fromCache: boolean }> } {
-  const inflight = new Map<string, Promise<{ days: VakitDay[]; complete: boolean }>>();
+  const inflight = new Map<string, Promise<{ days: VakitDay[]; complete: boolean; updatedCount: number }>>();
+  const staleRetryAfter = new Map<string, number>();
 
   function loadMonth(
     cityId: number,
@@ -131,7 +156,7 @@ export function createVakitService(deps: {
     endYmd: string,
     expectedDays: number,
     initialCached: Map<string, { stored: StoredDay; day: VakitDay }>,
-  ): Promise<{ days: VakitDay[]; complete: boolean }> {
+  ): Promise<{ days: VakitDay[]; complete: boolean; updatedCount: number }> {
     const key = `${cityId}:${month}`;
     const existing = inflight.get(key);
     if (existing) return existing;
@@ -141,12 +166,14 @@ export function createVakitService(deps: {
         const raws = await deps.fetchDateRange(cityId, startYmd, endYmd);
         const fetchedAt = deps.now();
         const merged = new Map<string, { stored: StoredDay; day: VakitDay }>(initialCached);
+        let updatedCount = 0;
 
         for (const raw of raws) {
           const parsed = rawToStoredDay(raw, cityId, deps.normalize, fetchedAt);
           if (parsed === null) continue;
           if (!isValidMonthDate(parsed.day.date, startYmd, endYmd)) continue;
           merged.set(parsed.day.date, parsed);
+          updatedCount += 1;
         }
 
         const entries = [...merged.values()].sort((a, b) => byDate(a.day, b.day));
@@ -161,7 +188,7 @@ export function createVakitService(deps: {
           // Önbellek yazımı başarısız olsa da istek yanıtı bozulmaz.
         }
 
-        return { days, complete: days.length === expectedDays };
+        return { days, complete: days.length === expectedDays, updatedCount };
       })
       .finally(() => {
         if (inflight.get(key) === run) inflight.delete(key);
@@ -177,22 +204,39 @@ export function createVakitService(deps: {
   ): Promise<{ days: VakitDay[]; complete: boolean; fromCache: boolean }> {
     const { start, end } = deps.monthDateRange(month);
     const expectedDays = Number(end.slice(8, 10));
+    const key = `${cityId}:${month}`;
 
     // Önbellek okunamazsa (ör. veritabanı kesintisi) boş say ve Diyanet'e git.
     const cached = await deps.store.getDays(cityId, start, end).catch(() => [] as StoredDay[]);
     const cachedMap = normalizeStoredDays(cached, start, end, deps.normalize);
     const cachedDays = [...cachedMap.values()].map((entry) => entry.day).sort(byDate);
+    const isCompleteCache = cachedDays.length === expectedDays;
 
-    if (cachedDays.length === expectedDays) {
-      return { days: cachedDays, complete: true, fromCache: true };
+    if (isCompleteCache) {
+      const now = deps.now();
+      const staleAfter = deps.staleAfterSeconds ?? COMPLETE_MONTH_STALE_SECONDS;
+      const isStale = now - oldestFetchedAt(cachedMap) >= staleAfter;
+      const retryAfter = staleRetryAfter.get(key) ?? 0;
+
+      if (!isStale || !isCurrentOrNextMonth(month, now) || now < retryAfter) {
+        return { days: cachedDays, complete: true, fromCache: true };
+      }
     }
 
     try {
       const loaded = await loadMonth(cityId, month, start, end, expectedDays, cachedMap);
+      if (isCompleteCache && loaded.updatedCount < expectedDays) {
+        staleRetryAfter.set(key, deps.now() + STALE_RETRY_COOLDOWN_SECONDS);
+      } else {
+        staleRetryAfter.delete(key);
+      }
       return { days: loaded.days, complete: loaded.complete, fromCache: false };
     } catch (error) {
+      if (isCompleteCache) {
+        staleRetryAfter.set(key, deps.now() + STALE_RETRY_COOLDOWN_SECONDS);
+      }
       if (cachedDays.length > 0) {
-        return { days: cachedDays, complete: false, fromCache: true };
+        return { days: cachedDays, complete: isCompleteCache, fromCache: true };
       }
       throw new UpstreamUnavailableError(undefined, error);
     }

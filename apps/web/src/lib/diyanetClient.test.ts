@@ -396,3 +396,97 @@ test("kuyrukta bekleyen istekler devre acilinca Diyanet'e gitmez", async () => {
   assert.ok(results.every((r) => r.status === "rejected"));
   assert.equal(fake.calls.length, 1);
 });
+
+test("sinir asiminda (acquireSlot false) Diyanet cagrilmaz ve devre acilmaz", async () => {
+  const fake = createFetch(() => jsonResponse(dateRangeBody()));
+  let allow = false;
+  let released = 0;
+
+  const client = createDiyanetClient({
+    fetch: fake.fn,
+    now: () => 1_800_000_000,
+    credentials: () => ({ email: "kullanici", password: "gizli-sifre" }),
+    loadAuth: async () => authState(),
+    saveAuth: async () => undefined,
+    baseUrl: "https://example.test",
+    acquireSlot: async () => {
+      if (!allow) return false;
+      return () => {
+        released += 1;
+      };
+    },
+  });
+
+  await assert.rejects(
+    client.fetchDateRange(11002, "2026-12-01", "2026-12-31"),
+    (error: unknown) =>
+      error instanceof DiyanetUpstreamError &&
+      error.status === 429 &&
+      error.detail === "rate_limit",
+  );
+  assert.equal(fake.calls.length, 0);
+  assert.equal(released, 0);
+
+  allow = true;
+  const data = await client.fetchDateRange(11002, "2026-12-01", "2026-12-31");
+  assert.equal(data.length, 1);
+  assert.equal(fake.calls.length, 1);
+  assert.equal(released, 1);
+});
+
+test("kuyruk kapasitesi (maxQueue) asildiginda Diyanet cagrilmaz", async () => {
+  const fake = createFetch(() => jsonResponse(dateRangeBody()), 15);
+
+  const client = createDiyanetClient({
+    fetch: fake.fn,
+    now: () => 1_800_000_000,
+    credentials: () => ({ email: "kullanici", password: "gizli-sifre" }),
+    loadAuth: async () => authState(),
+    saveAuth: async () => undefined,
+    baseUrl: "https://example.test",
+    maxQueue: 2,
+  });
+
+  const results = await Promise.allSettled([
+    client.fetchDateRange(1, "2026-12-01", "2026-12-31"),
+    client.fetchDateRange(2, "2026-12-01", "2026-12-31"),
+    client.fetchDateRange(3, "2026-12-01", "2026-12-31"),
+  ]);
+
+  assert.equal(results[0]?.status, "fulfilled");
+  assert.equal(results[1]?.status, "fulfilled");
+  assert.equal(results[2]?.status, "rejected");
+  if (results[2]?.status === "rejected") {
+    assert.ok(results[2].reason instanceof DiyanetUpstreamError);
+    assert.equal(results[2].reason.detail, "queue_full");
+  }
+  assert.equal(fake.calls.length, 2);
+});
+
+test("minIntervalMs ardisik istekler arasinda bekleme uygular", async () => {
+  const fake = createFetch(() => jsonResponse(dateRangeBody()));
+  let currentMs = 1_000_000;
+  const slept: number[] = [];
+
+  const client = createDiyanetClient({
+    fetch: fake.fn,
+    now: () => 1_800_000_000,
+    credentials: () => ({ email: "kullanici", password: "gizli-sifre" }),
+    loadAuth: async () => authState(),
+    saveAuth: async () => undefined,
+    baseUrl: "https://example.test",
+    minIntervalMs: 200,
+    nowMs: () => currentMs,
+    sleep: async (ms) => {
+      slept.push(ms);
+      currentMs += ms;
+    },
+  });
+
+  await client.fetchDateRange(1, "2026-12-01", "2026-12-31");
+  currentMs += 50;
+  await client.fetchDateRange(2, "2026-12-01", "2026-12-31");
+
+  assert.deepEqual(slept, [150]);
+  assert.equal(fake.calls.length, 2);
+});

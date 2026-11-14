@@ -13,7 +13,11 @@ import {
 const cities = decodeCities(citiesJson);
 
 const CACHE_HEADERS = {
-  "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
+  "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=86400",
+};
+
+const NOT_FOUND_CACHE_HEADERS = {
+  "Cache-Control": "public, s-maxage=3600",
 };
 
 function parseNumber(value: string | null): number | null {
@@ -59,7 +63,7 @@ export async function GET(req: NextRequest) {
   if (nearest === null) {
     return NextResponse.json(
       { error: "no_city" },
-      { status: 404, headers: CACHE_HEADERS },
+      { status: 404, headers: NOT_FOUND_CACHE_HEADERS },
     );
   }
 

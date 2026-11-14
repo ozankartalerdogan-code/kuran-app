@@ -336,3 +336,103 @@ test("depoda bozuk satir varken ham satir sayisi 30 olsa da complete:true sayilm
   assert.equal(result.complete, true);
   assert.equal(result.days.length, 30);
 });
+
+test("eski tam ay (gecerli veya sonraki ay, >=14 gun) bir kez yeniden cekilir", async () => {
+  const nowNov2026 = Math.floor(Date.UTC(2026, 10, 15) / 1000);
+  const staleFetchedAt = nowNov2026 - 15 * 86400;
+  const dates = monthDates("2026-11");
+  const initial = dates.map((date) => ({
+    ...storedDay(11002, date),
+    fetchedAt: staleFetchedAt,
+  }));
+  const fake = makeStore(initial);
+  let calls = 0;
+
+  const service = createVakitService({
+    store: fake.store,
+    fetchDateRange: async () => {
+      calls += 1;
+      return dates.map((date) => ({ ...rawDay(date), fajr: "05:30" }));
+    },
+    normalize: normalizeDiyanetDay,
+    monthDateRange,
+    now: () => nowNov2026,
+  });
+
+  const first = await service.getMonth(11002, "2026-11");
+  assert.equal(calls, 1);
+  assert.equal(first.complete, true);
+  assert.equal(first.fromCache, false);
+  assert.equal(first.days[0]?.times.imsak, "2026-11-01T05:30:00+01:00");
+
+  const second = await service.getMonth(11002, "2026-11");
+  assert.equal(calls, 1, "taze tam ay tekrar cekilmemeli");
+  assert.equal(second.complete, true);
+  assert.equal(second.fromCache, true);
+});
+
+test("eski tam ay yenilemesi basarisizsa (veya sinir asiminda) eski tam veri doner", async () => {
+  const nowNov2026 = Math.floor(Date.UTC(2026, 10, 15) / 1000);
+  const staleFetchedAt = nowNov2026 - 15 * 86400;
+  const dates = monthDates("2026-12"); // sonraki ay
+  const initial = dates.map((date) => ({
+    ...storedDay(11002, date),
+    fetchedAt: staleFetchedAt,
+  }));
+  const fake = makeStore(initial);
+  let calls = 0;
+
+  const service = createVakitService({
+    store: fake.store,
+    fetchDateRange: async () => {
+      calls += 1;
+      throw new Error("rate_limit");
+    },
+    normalize: normalizeDiyanetDay,
+    monthDateRange,
+    now: () => nowNov2026,
+  });
+
+  const first = await service.getMonth(11002, "2026-12");
+  assert.equal(calls, 1);
+  assert.equal(first.complete, true);
+  assert.equal(first.fromCache, true);
+  assert.equal(first.days.length, 31);
+
+  const second = await service.getMonth(11002, "2026-12");
+  assert.equal(calls, 1, "hata sonrasi bekleme suresinde tekrar Diyanet'e gidilmemeli");
+  assert.equal(second.complete, true);
+  assert.equal(second.fromCache, true);
+});
+
+test("eski tam ay gecerli ve sonraki ay disindaysa Diyanet cagrilmaz", async () => {
+  const nowNov2026 = Math.floor(Date.UTC(2026, 10, 15) / 1000);
+  const staleFetchedAt = nowNov2026 - 30 * 86400;
+  const octDates = monthDates("2026-10");
+  const janDates = monthDates("2027-01");
+  const fake = makeStore([
+    ...octDates.map((date) => ({ ...storedDay(11002, date), fetchedAt: staleFetchedAt })),
+    ...janDates.map((date) => ({ ...storedDay(11002, date), fetchedAt: staleFetchedAt })),
+  ]);
+  let calls = 0;
+
+  const service = createVakitService({
+    store: fake.store,
+    fetchDateRange: async () => {
+      calls += 1;
+      return [];
+    },
+    normalize: normalizeDiyanetDay,
+    monthDateRange,
+    now: () => nowNov2026,
+  });
+
+  const prevMonth = await service.getMonth(11002, "2026-10");
+  const twoMonthsAhead = await service.getMonth(11002, "2027-01");
+
+  assert.equal(calls, 0);
+  assert.equal(prevMonth.complete, true);
+  assert.equal(prevMonth.fromCache, true);
+  assert.equal(twoMonthsAhead.complete, true);
+  assert.equal(twoMonthsAhead.fromCache, true);
+});
