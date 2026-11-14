@@ -2,6 +2,8 @@ export const dynamic = "force-dynamic";
 export const preferredRegion = "fra1";
 
 import { NextRequest, NextResponse } from "next/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 import citiesJson from "../../../data/diyanetCities.json";
 import {
   decodeCities,
@@ -28,6 +30,51 @@ const PARTIAL_CACHE = {
   "Cache-Control": "public, s-maxage=600",
 };
 
+const USE_REDIS = !!(
+  process.env.UPSTASH_REDIS_REST_URL &&
+  process.env.UPSTASH_REDIS_REST_TOKEN
+);
+
+const diyanetRedis = USE_REDIS ? Redis.fromEnv() : null;
+const diyanetRatelimit = diyanetRedis
+  ? new Ratelimit({
+      redis: diyanetRedis,
+      limiter: Ratelimit.slidingWindow(30, "60 s"),
+      prefix: "diyanet:rl",
+    })
+  : null;
+
+const LOCK_TTL_SECONDS = 15;
+
+async function acquireDiyanetSlot(
+  cityId: number,
+  startYmd: string,
+): Promise<boolean | (() => Promise<void>)> {
+  if (!diyanetRedis || !diyanetRatelimit) return true;
+
+  const lockKey = `diyanet:lock:${cityId}:${startYmd}`;
+  try {
+    const locked = await diyanetRedis.set(lockKey, "1", {
+      nx: true,
+      ex: LOCK_TTL_SECONDS,
+    });
+    if (!locked) return false;
+
+    const { success } = await diyanetRatelimit.limit("global");
+    if (!success) {
+      await diyanetRedis.del(lockKey).catch(() => undefined);
+      return false;
+    }
+
+    return async () => {
+      await diyanetRedis.del(lockKey).catch(() => undefined);
+    };
+  } catch {
+    // Paylaşılan altyapı geçici olarak erişilemezse tek örnek sınırına düş.
+    return true;
+  }
+}
+
 let service: ReturnType<typeof createVakitService> | null = null;
 
 function getService(): ReturnType<typeof createVakitService> {
@@ -45,6 +92,9 @@ function getService(): ReturnType<typeof createVakitService> {
     },
     loadAuth: () => store.loadAuth(),
     saveAuth: (state) => store.saveAuth(state),
+    acquireSlot: (cityId, startYmd) => acquireDiyanetSlot(cityId, startYmd),
+    maxQueue: 10,
+    minIntervalMs: 200,
   });
 
   service = createVakitService({

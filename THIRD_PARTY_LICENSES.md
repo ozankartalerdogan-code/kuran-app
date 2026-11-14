@@ -86,6 +86,13 @@
 - Copyright: Copyright (c) 2015 Semar Ketir
 - Full text: `licenses/SEMAR-KETIR-MIT.txt`
 
+## Prayer Times — Diyanet Awqat Salah and GeoNames
+
+- Prayer times: Presidency of Religious Affairs of Türkiye (Diyanet), Awqat Salah service — https://awqatsalah.diyanet.gov.tr (fetched per city by the Kuran Yolu server; Aladhan API used as fallback — https://aladhan.com/prayer-times-api).
+- City coordinates: GeoNames (https://www.geonames.org/), cities500 and TR datasets.
+- License: Creative Commons Attribution 4.0 International (GeoNames).
+- Change notice: Diyanet city names were matched to GeoNames places and the coordinates verified by Kuran Yolu (`scripts/build-diyanet-coords.mjs`, `scripts/diyanet-verify-coords.mjs`); the result is `apps/web/src/data/diyanetCities.json`.
+
 ## Bundled Fonts
 
 - Amiri: Copyright 2010-2022 The Amiri Project Authors; SIL OFL 1.1.

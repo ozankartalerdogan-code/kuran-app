@@ -20,8 +20,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 116165,
-    "sha256": "8f38b7da92f9aed3187e8fa52be41b8690585ddc4ff0cc60c4bafcb5592e70fc",
+    "totalBytes": 117802,
+    "sha256": "13fd02449086c23a297298e21a91153f070a5ef868ac92006f1fa049355f7e36",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -90,13 +90,13 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 6911,
-        "sha256": "70ff9a2b5022560173527eadc0f464668fe92062fa11930664b7380a82e0e858"
+        "bytes": 7853,
+        "sha256": "1d64e5bba377a02d38d8446f087b698f4913a9bc13c7234f4e5837030f1e5714"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
-        "bytes": 7305,
-        "sha256": "96b4ea1566f2ecfec6bd7b2470c4c14047a01e36fb01369c18c64d880f25dc21"
+        "bytes": 8000,
+        "sha256": "e37884decdba5e3b9f344e5dea2c5e25be9e055a762f281163722f7eb0da2295"
       }
     ]
   },
@@ -1050,13 +1050,13 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3150465,
-        "sha256": "fd0d53956d2964d0c64ecc75e1c7f12b897a720084d7a96a7f8ce0a0c5ddea3b",
+        "totalBytes": 3152204,
+        "sha256": "69b63245d7a40391bd9f0b7e5ca4b49e98e4cb85ffbf94296f8adb233c3feb16",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
-            "bytes": 10823,
-            "sha256": "451d6e651b3d71ca7d4e0591160589d137fca9ec3c00d9f28c2678624259c06d"
+            "bytes": 11613,
+            "sha256": "4fccbb48ccf18970e2e48f9c868b9e69aea24bdf70f0b65095ae7b56391cc0a3"
           },
           {
             "path": "apps/mobile/src/data/content/harf_i_tarif.en.json",
@@ -1305,8 +1305,8 @@
           },
           {
             "path": "packages/core/src/presentation/sourceLicensesEn.ts",
-            "bytes": 6989,
-            "sha256": "886e1861547ae20749861066b98913558965207073cb934cbed3078677487ffd"
+            "bytes": 7938,
+            "sha256": "9d00af663bd202a943ab4309f42207c4c66e52908416f1c3f3b94cb9569f4716"
           },
           {
             "path": "scripts/build-elifba-en.mjs",
@@ -3044,14 +3044,24 @@
       "exactResearchUrlHistoryPreserved": false,
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
-        "fileCount": 45,
-        "totalBytes": 4429666,
-        "sha256": "594a6cb4492edcd7b2256d530227a7be225c0ce0016979a14f32ad873acc70d9",
+        "fileCount": 53,
+        "totalBytes": 5809915,
+        "sha256": "ca6c0434f3e6dc2bfb1e94886f8a955d850ace3d106adffd6ecd6b76f2df30c8",
         "files": [
+          {
+            "path": "apps/mobile/assets/images/namaz/celse_en.jpg",
+            "bytes": 184132,
+            "sha256": "35541c3556ad459e28eb3fc2605e6ec97c0898c68582cfba0aef48d03cd44ba3"
+          },
           {
             "path": "apps/mobile/assets/images/namaz/celse.jpg",
             "bytes": 286669,
             "sha256": "ef672fbe2bd4a8a761935827b5465968bb6c21f5f851de528f990fbf353a071f"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/kavme_en.jpg",
+            "bytes": 161022,
+            "sha256": "026c5344a2b13befdfc3c4d2c76ba7834a233cf1fe45b21804aadfcdd0122fd2"
           },
           {
             "path": "apps/mobile/assets/images/namaz/kavme.jpg",
@@ -3059,9 +3069,19 @@
             "sha256": "5cdb116d9ca66c98c8e17344d489ee2e7a63fe76910e73ba998f0abcc182d55b"
           },
           {
+            "path": "apps/mobile/assets/images/namaz/kiyam_en.jpg",
+            "bytes": 160636,
+            "sha256": "4f1e03c7f1cab85b782d54d5c76466a70364fb03699c342350a6f0224e18a179"
+          },
+          {
             "path": "apps/mobile/assets/images/namaz/kiyam.jpg",
             "bytes": 243508,
             "sha256": "f50fdc88b446a2ad85e950b0979aac373cd707abd756a602a008886c4a3a2029"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/ruku_en.jpg",
+            "bytes": 171052,
+            "sha256": "f92af8e89805cb4e35cba70698905f20a3d4219522df56b8f1e811dafe4662ad"
           },
           {
             "path": "apps/mobile/assets/images/namaz/ruku.jpg",
@@ -3069,9 +3089,19 @@
             "sha256": "43bbe5377f195e8a0dd7755f2ac355a95b50f67a7e4e9d775aa88121b0c29bf1"
           },
           {
+            "path": "apps/mobile/assets/images/namaz/secde_en.jpg",
+            "bytes": 203298,
+            "sha256": "c058082ed36f8cb988f5166bbc6beeb1874613ab4ad87915dc8f2fec6e6dd21c"
+          },
+          {
             "path": "apps/mobile/assets/images/namaz/secde.jpg",
             "bytes": 299330,
             "sha256": "e2e195326cd1b92299e2fc4fc2a7aff73d019cd4e65b89b890902fa682f12a6b"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/selam_en.jpg",
+            "bytes": 180293,
+            "sha256": "16ab1917ed8031d29e5a3bd25d5093ac81b5eaf4bf107ad4512f804760eb95fc"
           },
           {
             "path": "apps/mobile/assets/images/namaz/selam.jpg",
@@ -3079,9 +3109,19 @@
             "sha256": "b8c69fff104fcfbe1ff902077bbf00ea14431b50a65a5894bb932f6c5ac4b5b9"
           },
           {
+            "path": "apps/mobile/assets/images/namaz/tekbir_en.jpg",
+            "bytes": 154478,
+            "sha256": "14358645906b4264f01149d99bc47ebf6e3812db3bd29a580b7e5ee621e240d9"
+          },
+          {
             "path": "apps/mobile/assets/images/namaz/tekbir.jpg",
             "bytes": 232630,
             "sha256": "85ece7d59776aaa1697eb0d20d670f70c541cfbeff010c2e4f82a5426301bc60"
+          },
+          {
+            "path": "apps/mobile/assets/images/namaz/tesehhud_en.jpg",
+            "bytes": 165338,
+            "sha256": "a023febd6ff544d6713a2be532a3ce08d07891ef624d7edb973514c9cfca4f49"
           },
           {
             "path": "apps/mobile/assets/images/namaz/tesehhud.jpg",

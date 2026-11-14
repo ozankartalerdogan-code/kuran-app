@@ -33,6 +33,9 @@ const REQUEST_TIMEOUT_MS = 10000;
 // Diyanet yanıt vermezse (ağ/zaman aşımı, 429, 5xx) bu süre boyunca hiç gidilmez;
 // aksi halde sıralı kuyrukta her istek 10 sn bekleyip birikir.
 const COOLDOWN_SECONDS = 60;
+const DEFAULT_MAX_QUEUE = 10;
+
+export type DiyanetSlotRelease = () => Promise<void> | void;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -45,17 +48,38 @@ export function createDiyanetClient(deps: {
   loadAuth: () => Promise<DiyanetAuthState | null>;
   saveAuth: (s: DiyanetAuthState) => Promise<void>;
   baseUrl?: string;
+  acquireSlot?: (
+    cityId: number,
+    startYmd: string,
+    endYmd: string,
+  ) => Promise<boolean | DiyanetSlotRelease>;
+  maxQueue?: number;
+  minIntervalMs?: number;
+  nowMs?: () => number;
+  sleep?: (ms: number) => Promise<void>;
 }): { fetchDateRange(cityId: number, startYmd: string, endYmd: string): Promise<unknown[]> } {
   const baseUrl = (deps.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
+  const maxQueue = deps.maxQueue ?? DEFAULT_MAX_QUEUE;
+  const minIntervalMs = deps.minIntervalMs ?? 0;
+  const nowMs = deps.nowMs ?? (() => Date.now());
+  const sleep =
+    deps.sleep ??
+    ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
 
   let memory: DiyanetAuthState | null = null;
   let tokenInFlight: Promise<DiyanetAuthState> | null = null;
 
   let tail: Promise<unknown> = Promise.resolve();
+  let queued = 0;
+  let lastFetchAtMs = 0;
   let cooldownUntil = 0;
 
   function isTripStatus(status: number): boolean {
     return status === 0 || status === 429 || status >= 500;
+  }
+
+  function isLocalThrottleDetail(detail: string): boolean {
+    return detail === "breaker" || detail === "rate_limit" || detail === "queue_full";
   }
 
   function coolingDown(): boolean {
@@ -63,26 +87,42 @@ export function createDiyanetClient(deps: {
   }
 
   function serialized<T>(task: () => Promise<T>): Promise<T> {
+    if (queued >= maxQueue) {
+      return Promise.reject(new DiyanetUpstreamError(429, undefined, "queue_full"));
+    }
+    queued += 1;
     const run = tail.then(task, task);
     tail = run.then(
-      () => undefined,
-      () => undefined,
+      () => {
+        queued -= 1;
+      },
+      () => {
+        queued -= 1;
+      },
     );
     return run;
   }
 
   async function doFetch(url: string, init: RequestInit): Promise<Response> {
-    try {
-      return await serialized(() => {
-        // Kuyrukta beklerken devre açıldıysa Diyanet'e hiç gitme.
-        if (coolingDown()) throw new DiyanetUpstreamError(0, undefined, "breaker");
-        return deps.fetch(url, { ...init, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
-      });
-    } catch (error) {
-      if (error instanceof DiyanetUpstreamError) throw error;
-      cooldownUntil = deps.now() + COOLDOWN_SECONDS;
-      throw new DiyanetUpstreamError(0, undefined, errorDetail(error));
-    }
+    return serialized(async () => {
+      // Kuyrukta beklerken devre açıldıysa Diyanet'e hiç gitme.
+      if (coolingDown()) throw new DiyanetUpstreamError(0, undefined, "breaker");
+      if (minIntervalMs > 0 && lastFetchAtMs > 0) {
+        const waitMs = minIntervalMs - (nowMs() - lastFetchAtMs);
+        if (waitMs > 0) {
+          await sleep(waitMs);
+          if (coolingDown()) throw new DiyanetUpstreamError(0, undefined, "breaker");
+        }
+      }
+      lastFetchAtMs = nowMs();
+      try {
+        return await deps.fetch(url, { ...init, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+      } catch (error) {
+        if (error instanceof DiyanetUpstreamError) throw error;
+        cooldownUntil = deps.now() + COOLDOWN_SECONDS;
+        throw new DiyanetUpstreamError(0, undefined, errorDetail(error));
+      }
+    });
   }
 
   async function readJson(res: Response): Promise<unknown> {
@@ -283,18 +323,39 @@ export function createDiyanetClient(deps: {
     endYmd: string,
   ): Promise<unknown[]> {
     if (coolingDown()) throw new DiyanetUpstreamError(0, undefined, "breaker");
+    if (queued >= maxQueue) throw new DiyanetUpstreamError(429, undefined, "queue_full");
+
+    let releaseSlot: DiyanetSlotRelease | null = null;
+    if (deps.acquireSlot) {
+      const slot = await deps.acquireSlot(cityId, startYmd, endYmd);
+      if (slot === false) {
+        throw new DiyanetUpstreamError(429, undefined, "rate_limit");
+      }
+      if (typeof slot === "function") {
+        releaseSlot = slot;
+      }
+    }
+
     try {
       return await fetchDateRangeOnce(cityId, startYmd, endYmd);
     } catch (error) {
-      // Devre zaten açıkken reddedilen istekler süreyi UZATMAZ.
+      // Devre zaten açıkken veya hız/kuyruk sınırında reddedilen istekler süreyi UZATMAZ.
       if (
         error instanceof DiyanetUpstreamError &&
-        error.detail !== "breaker" &&
+        !isLocalThrottleDetail(error.detail) &&
         isTripStatus(error.status)
       ) {
         cooldownUntil = Math.max(cooldownUntil, deps.now() + COOLDOWN_SECONDS);
       }
       throw error;
+    } finally {
+      if (releaseSlot) {
+        try {
+          await releaseSlot();
+        } catch {
+          // Kilit bırakma hatası yanıtı bozmaz.
+        }
+      }
     }
   }
 

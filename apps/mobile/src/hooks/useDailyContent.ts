@@ -6,7 +6,13 @@ import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
-import { getDiyanetDays } from "../lib/diyanetPrayer";
+import {
+  getDiyanetDays,
+  getManualCity,
+  isTurkeyCountry,
+  prayerCityStampPart,
+  titleCaseTr,
+} from "../lib/diyanetPrayer";
 import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
 
 interface DailyVerse {
@@ -73,6 +79,7 @@ interface PrayerCache {
   date: string;
   timings: PrayerTimes;
   hijri?: HijriDate | null;
+  cityKey?: string;
 }
 
 function isValidPrayerTimes(data: unknown): data is PrayerTimes {
@@ -128,6 +135,9 @@ export function useDailyContent(): UseDailyContentResult {
   const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMountedRef = useRef(true);
   const loadIdRef = useRef(0);
+  // Diyanet günü bulunduysa şehir etiketi ondan gelir; geç gelen reverseGeocode
+  // sonucu bu etiketi ezmesin.
+  const diyanetCityRef = useRef(false);
 
   const load = useCallback(async () => {
     // Her load'a kimlik ver: unmount olduysa ya da daha yeni bir load (ör.
@@ -143,6 +153,7 @@ export function useDailyContent(): UseDailyContentResult {
     setDuaLoading(true);
     setPrayerLoading(true);
     setLoading(true);
+    diyanetCityRef.current = false;
 
     let verseDone = false;
     let duaDone = false;
@@ -195,7 +206,12 @@ export function useDailyContent(): UseDailyContentResult {
       }
     } catch { /* ignore */ }
 
-    // 1. Namaz vakitlerini önce cache'den yükle (anında)
+    // 1. Namaz vakitlerini önce cache'den yükle (anında). Önbellek yalnız gerçekten
+    //    aynı şehre aitse kullanılır (cityKey); elle şehir seçildiğinde eski şehrin
+    //    vakitleri yeni şehir adı altında gösterilmez.
+    const manualCity = await getManualCity(diyanetDeps());
+    const activeCityKey = await prayerCityStampPart(diyanetDeps());
+    let prayerCacheUsed = false;
     try {
       const raw = await storage.getString(STORAGE_KEYS.prayerCache);
       if (raw) {
@@ -205,15 +221,28 @@ export function useDailyContent(): UseDailyContentResult {
           cached &&
           typeof cached === "object" &&
           (cached as PrayerCache).date === todayKey() &&
+          (cached as PrayerCache).cityKey === activeCityKey &&
           isValidPrayerTimes((cached as PrayerCache).timings)
         ) {
           setPrayers((cached as PrayerCache).timings);
           if ((cached as PrayerCache).hijri) setHijriDate((cached as PrayerCache).hijri ?? null);
+          prayerCacheUsed = true;
           markSuccess();
         }
       }
     } catch {
       // stale cache — ignore
+    }
+
+    // Önbellek bu yükleme turunun aktif şehriyle uyuşmadıysa (ör. yeni elle
+    // şehir seçildi veya elle şehirden Otomatik'e dönüldü), eski şehrin
+    // vakitleri ekranda kalmasın; yeni vakit gelene kadar yükleniyor/hata gösterilir.
+    if (!prayerCacheUsed && isCurrent()) {
+      setPrayers(null);
+      setHijriDate(null);
+      if (manualCity === null) {
+        setPrayerCityState(ISTANBUL.city);
+      }
     }
 
     // 2. Günün Ayeti + Günün Duası — geniş havuzdan tarih bazlı seçim
@@ -315,6 +344,18 @@ export function useDailyContent(): UseDailyContentResult {
     // önbelleklediği "son bilinen konum"u dener (anında); yoksa canlı GPS fix ister.
     const coords = await (async () => {
       try {
+        // Elle seçilmiş şehir varsa GPS/reverseGeocode'a hiç gidilmez.
+        if (manualCity !== null) {
+          if (isCurrent()) {
+            setPrayerCityState(
+              titleCaseTr(manualCity.name, isTurkeyCountry(manualCity.country)),
+            );
+          }
+          return { lat: manualCity.lat, lon: manualCity.lon };
+        }
+      } catch { /* ignore */ }
+
+      try {
         const { status } = await Location.getForegroundPermissionsAsync();
         if (status !== "granted") return ISTANBUL;
 
@@ -330,7 +371,7 @@ export function useDailyContent(): UseDailyContentResult {
           const { latitude, longitude } = pos.coords;
           Location.reverseGeocodeAsync({ latitude, longitude })
             .then((geo) => {
-              if (!isCurrent()) return;
+              if (!isCurrent() || diyanetCityRef.current) return;
               const place = geo[0];
               const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
               if (cityName) setPrayerCityState(cityName);
@@ -381,6 +422,13 @@ export function useDailyContent(): UseDailyContentResult {
 
     if (diyanetDay) {
       // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.
+      diyanetCityRef.current = true;
+      setPrayerCityState(
+        titleCaseTr(
+          diyanetDay.city.name,
+          isTurkeyCountry(diyanetDay.city.country),
+        ),
+      );
       setPrayers(diyanetDay.times);
       if (diyanetDay.hijri) setHijriDate(diyanetDay.hijri);
       markSuccess();
@@ -388,12 +436,17 @@ export function useDailyContent(): UseDailyContentResult {
         date: todayKey(),
         timings: diyanetDay.times,
         hijri: diyanetDay.hijri,
+        cityKey: await prayerCityStampPart(diyanetDeps()),
       }).catch(() => {});
       prayerDone = true;
       setPrayerLoading(false);
       tryFinishLoading();
     } else {
       const ts = buildDateStr();
+      // Aladhan yedek vakitleri de aynı şehir damgasıyla önbelleğe yazılır ki
+      // sonraki açılışta yanlış şehre ait kayıt kullanılmasın.
+      const fallbackCityKey = await prayerCityStampPart(diyanetDeps());
+      if (!isCurrent()) return;
       const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
       aladhanStarted = true;
 
@@ -416,6 +469,7 @@ export function useDailyContent(): UseDailyContentResult {
               date: todayKey(),
               timings: d.data.timings,
               hijri,
+              cityKey: fallbackCityKey,
             }).catch(() => {});
           } else {
             markFailure();

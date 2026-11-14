@@ -93,6 +93,24 @@ async function loadGeonamesFile(path, isoFilter) {
   return rows;
 }
 
+function isVerifyResultCurrent(city, result) {
+  if (
+    typeof result.lat !== "number" ||
+    typeof result.lon !== "number" ||
+    typeof result.tz !== "string" ||
+    typeof city.lat !== "number" ||
+    typeof city.lon !== "number" ||
+    typeof city.tz !== "string"
+  ) {
+    return false;
+  }
+  return (
+    Math.abs(city.lat - result.lat) <= 1e-6 &&
+    Math.abs(city.lon - result.lon) <= 1e-6 &&
+    city.tz === result.tz
+  );
+}
+
 function printSummary(report) {
   const matchedPercent =
     report.total === 0 ? 0 : (report.matched / report.total) * 100;
@@ -262,13 +280,20 @@ async function main() {
   }
 
   let rejectedSolar = null;
+  let rejectedTzCount = 0;
+  let staleVerifyCount = 0;
   try {
     const verify = JSON.parse(readFileSync(verifyPath, "utf8"));
     if (verify && verify.results && typeof verify.results === "object") {
       rejectedSolar = [];
       for (const city of cities) {
+        if (city.lat === null || city.lon === null) continue;
         const result = verify.results[city.cityId];
         if (!result) continue;
+        if (!isVerifyResultCurrent(city, result)) {
+          staleVerifyCount += 1;
+          continue;
+        }
 
         if (result.status === "fail") {
           city.lat = null;
@@ -283,6 +308,12 @@ async function main() {
             dSunrise: result.dSunrise ?? null,
             dSunset: result.dSunset ?? null,
           });
+        } else if (result.tzMismatch === true) {
+          city.lat = null;
+          city.lon = null;
+          city.tz = null;
+          city.matchMethod = "rejected-tz-mismatch";
+          rejectedTzCount += 1;
         } else if (result.status === "pass") {
           city.verified = true;
         }
@@ -328,6 +359,8 @@ async function main() {
   printSummary(report);
   if (rejectedSolar) {
     console.log(`Solar doğrulama ile reddedilen: ${rejectedSolar.length}`);
+    console.log(`Saat dilimi uyuşmazlığı (tzMismatch) ile çıkarılan: ${rejectedTzCount}`);
+    console.log(`Eşleşmesi değiştiği için geçersiz sayılan doğrulama: ${staleVerifyCount}`);
   }
 }
 

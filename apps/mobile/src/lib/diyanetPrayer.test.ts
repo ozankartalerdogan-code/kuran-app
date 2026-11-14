@@ -6,14 +6,21 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   DIYANET_CITY_KEY,
+  DIYANET_MANUAL_CITY_KEY,
   DIYANET_MONTHS_KEY,
   getDiyanetDays,
+  getManualCity,
   haversineKm,
+  isTurkeyCountry,
   isoToLocalHm,
+  prayerCityStampPart,
   resolveDiyanetCity,
   roundCoord2,
+  searchDiyanetCities,
+  setManualCity,
+  titleCaseTr,
 } from "./diyanetPrayer.ts";
-import type { DiyanetCityRef, DiyanetPrayerDeps } from "./diyanetPrayer.ts";
+import type { DiyanetCityRef, DiyanetPrayerDeps, ManualCity } from "./diyanetPrayer.ts";
 
 const CITY: DiyanetCityRef = {
   id: 11002,
@@ -380,4 +387,159 @@ test("getDiyanetDays hiçbir durumda fırlatmaz", async () => {
 
   const result = await getDiyanetDays(LAT, LON, OFFSET, ["2026-11-13"], deps);
   assert.equal(result.size, 0);
+});
+
+const MANUAL: ManualCity = { ...CITY, lat: 40.99, lon: 29.03 };
+
+test("elle şehir varken resolveDiyanetCity ağa çıkmaz ve onu döndürür", async () => {
+  const h = makeDeps({ [DIYANET_MANUAL_CITY_KEY]: MANUAL });
+  h.setReply(() => {
+    throw new Error("ağa çıkılmamalı");
+  });
+
+  const city = await resolveDiyanetCity(LAT, LON, OFFSET, h.deps);
+
+  assert.deepEqual(city, CITY);
+  assert.equal(h.calls.length, 0);
+});
+
+test("setManualCity kaydeder; null sonrası normal akışa döner", async () => {
+  const h = makeDeps();
+  h.setReply(() => ({ status: 200, body: { city: CITY } }));
+
+  await setManualCity(MANUAL, h.deps);
+  assert.deepEqual(await getManualCity(h.deps), MANUAL);
+  h.resetCalls();
+  assert.deepEqual(await resolveDiyanetCity(LAT, LON, OFFSET, h.deps), CITY);
+  assert.equal(h.calls.length, 0);
+
+  await setManualCity(null, h.deps);
+  assert.equal(h.store.get(DIYANET_MANUAL_CITY_KEY), null);
+  assert.equal(await getManualCity(h.deps), null);
+
+  h.resetCalls();
+  assert.deepEqual(await resolveDiyanetCity(LAT, LON, OFFSET, h.deps), CITY);
+  assert.equal(h.cityCalls().length, 1);
+});
+
+test("getManualCity bozuk/eksik kayıtta null döner", async () => {
+  const h = makeDeps({ [DIYANET_MANUAL_CITY_KEY]: { id: 1, name: "X" } });
+  assert.equal(await getManualCity(h.deps), null);
+});
+
+test("titleCaseTr örnekleri", () => {
+  assert.equal(titleCaseTr("BÜYÜKÇEKMECE"), "Büyükçekmece");
+  assert.equal(titleCaseTr("İSTANBUL"), "İstanbul");
+  assert.equal(titleCaseTr("GULF SHORES"), "Gulf Shores");
+  assert.equal(titleCaseTr("NORDRHEIN-WESTFALEN"), "Nordrhein-Westfalen");
+  assert.equal(titleCaseTr("ŞANLIURFA"), "Şanlıurfa");
+  assert.equal(titleCaseTr("IĞDIR"), "Iğdır");
+  assert.equal(titleCaseTr("  İSTANBUL  "), "İstanbul");
+});
+
+test("titleCaseTr turkish=true: Türkçe I/İ doğru küçülür", () => {
+  assert.equal(titleCaseTr("AYDIN", true), "Aydın");
+  assert.equal(titleCaseTr("ISPARTA", true), "Isparta");
+  assert.equal(titleCaseTr("İSTANBUL", true), "İstanbul");
+  assert.equal(titleCaseTr("IĞDIR", true), "Iğdır");
+  assert.equal(titleCaseTr("TÜRKİYE", true), "Türkiye");
+});
+
+test("isTurkeyCountry: yalnız TÜRKİYE true", () => {
+  assert.equal(isTurkeyCountry("TÜRKİYE"), true);
+  assert.equal(isTurkeyCountry(" Türkiye "), true);
+  assert.equal(isTurkeyCountry("ALMANYA"), false);
+});
+
+test("searchDiyanetCities: kısa sorgu boş liste, ağ yok", async () => {
+  const h = makeDeps();
+  assert.deepEqual(await searchDiyanetCities(" a ", h.deps), []);
+  assert.equal(h.calls.length, 0);
+});
+
+test("searchDiyanetCities: 200 → geçerli öğeler parse edilir", async () => {
+  const h = makeDeps();
+  h.setReply(() => ({
+    status: 200,
+    body: {
+      cities: [
+        MANUAL,
+        { id: 2, name: "EKSİK" },
+        { ...MANUAL, id: 3, name: "BERLİN", lat: "x" },
+      ],
+    },
+  }));
+
+  const cities = await searchDiyanetCities("ber", h.deps);
+
+  assert.deepEqual(cities, [MANUAL]);
+  assert.equal(h.calls[0].timeoutMs, 6000);
+});
+
+test("searchDiyanetCities: 500 → null, fırlatan getJson → null", async () => {
+  const h = makeDeps();
+  h.setReply(() => ({ status: 500, body: null }));
+  assert.equal(await searchDiyanetCities("ber", h.deps), null);
+
+  h.setReply(() => {
+    throw new Error("offline");
+  });
+  assert.equal(await searchDiyanetCities("ber", h.deps), null);
+});
+
+test("searchDiyanetCities: q encodeURIComponent ile kodlanır", async () => {
+  const h = makeDeps();
+  h.setReply(() => ({ status: 200, body: { cities: [] } }));
+
+  await searchDiyanetCities("şan", h.deps);
+
+  assert.equal(h.calls[0].path, "/vakit/sehirler?q=%C5%9Fan");
+});
+
+test("prayerCityStampPart: elle şehir → 'm<id>'", async () => {
+  const h = makeDeps({ [DIYANET_MANUAL_CITY_KEY]: MANUAL });
+  assert.equal(await prayerCityStampPart(h.deps), `m${MANUAL.id}`);
+});
+
+test("prayerCityStampPart: önbellekte şehir → 'c<id>'", async () => {
+  const h = makeDeps({ [DIYANET_CITY_KEY]: citySeed() });
+  assert.equal(await prayerCityStampPart(h.deps), `c${CITY.id}`);
+});
+
+test("prayerCityStampPart: önbellekte city:null → '-'", async () => {
+  const h = makeDeps({ [DIYANET_CITY_KEY]: citySeed({ city: null }) });
+  assert.equal(await prayerCityStampPart(h.deps), "-");
+});
+
+test("prayerCityStampPart: hiç kayıt yok → '-'", async () => {
+  const h = makeDeps();
+  assert.equal(await prayerCityStampPart(h.deps), "-");
+});
+
+test("prayerCityStampPart: bozuk JSON/kayıt → '-'", async () => {
+  const h = makeDeps({ [DIYANET_CITY_KEY]: "{bozuk" });
+  assert.equal(await prayerCityStampPart(h.deps), "-");
+
+  const bad = makeDeps({ [DIYANET_CITY_KEY]: { lat: "x", city: CITY } });
+  assert.equal(await prayerCityStampPart(bad.deps), "-");
+});
+
+test("prayerCityStampPart: elle şehir önbelleğe göre önceliklidir", async () => {
+  const h = makeDeps({
+    [DIYANET_MANUAL_CITY_KEY]: MANUAL,
+    [DIYANET_CITY_KEY]: citySeed({ city: { ...CITY, id: 99999 } }),
+  });
+  assert.equal(await prayerCityStampPart(h.deps), `m${MANUAL.id}`);
+});
+
+test("prayerCityStampPart: okuma fırlatsa bile '-'", async () => {
+  const deps: DiyanetPrayerDeps = {
+    getJson: async () => ({ status: 500, body: null }),
+    readStore: async () => {
+      throw new Error("patladı");
+    },
+    writeStore: async () => {},
+    nowMs: () => BASE,
+  };
+  assert.equal(await prayerCityStampPart(deps), "-");
 });

@@ -1,6 +1,6 @@
 {
   "sonGuncelleme": "Last Updated",
-  "tarih": "July 12, 2026",
+  "tarih": "November 14, 2026",
   "meta": {
     "gelistirici": "Developer",
     "gelistiriciAdi": "Kartal Studio",
@@ -96,7 +96,7 @@
               "kalin": true
             },
             {
-              "metin": "Approximate location (at the city level) is used for prayer times and the qibla direction; precise (GPS) location is not used. The qibla direction is calculated entirely on your device. To calculate prayer times, your approximate location is sent to the third-party service Aladhan.com. Location data is not stored on our servers."
+              "metin": "Approximate location (at the city level) is used for prayer times and the qibla direction; precise (GPS) location is not used. The qibla direction is calculated entirely on your device. For prayer times, your location is rounded to roughly 1 km and sent to our app server, which uses it only to find the nearest city of the Presidency of Religious Affairs of Türkiye (Diyanet) and then fetches that city's times from Diyanet (your location is not sent to Diyanet). If this service is unavailable or there is no Diyanet city near you, your approximate location is sent to the third-party service Aladhan.com instead. Your location is not recorded on our servers; it may only appear temporarily in the standard, short-lived request logs of our hosting provider (Vercel). The matched city and prayer times are stored on your device."
             }
           ]
         },
@@ -193,7 +193,15 @@
         },
         {
           "tip": "madde",
-          "metin": "Aladhan.com — Prayer times API"
+          "metin": "Diyanet (Presidency of Religious Affairs of Türkiye) — Prayer times (per city; your location is not sent)"
+        },
+        {
+          "tip": "madde",
+          "metin": "Aladhan.com — Fallback prayer times API"
+        },
+        {
+          "tip": "madde",
+          "metin": "Vercel — App server (hosting)"
         },
         {
           "tip": "madde",

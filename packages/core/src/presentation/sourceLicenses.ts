@@ -74,6 +74,22 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     title: "AlQuran.cloud Kullanım Şartları",
     url: "https://alquran.cloud/terms-and-conditions",
   },
+  {
+    id: "diyanet-awqat",
+    title: "T.C. Diyanet İşleri Başkanlığı — Awqat Salah",
+    url: "https://awqatsalah.diyanet.gov.tr",
+  },
+  {
+    id: "aladhan",
+    title: "Aladhan Prayer Times API",
+    url: "https://aladhan.com/prayer-times-api",
+  },
+  {
+    id: "geonames",
+    title: "GeoNames",
+    url: "https://www.geonames.org/",
+    license: "CC BY 4.0",
+  },
 ] as const;
 
 export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
@@ -104,6 +120,13 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     body:
       "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. Tanınan 86.595 kaynak kümesinin 79.343'ü hizalanmıştır (%91,6254); 14 ayette 23 manuel span eklenmiştir.",
     linkIds: ["alquran-tajweed", "alquran-terms"],
+  },
+  {
+    id: "prayer-times",
+    title: "Namaz vakitleri",
+    body:
+      "Namaz vakitleri, T.C. Diyanet İşleri Başkanlığı'nın Awqat Salah servisinden şehir bazında alınır; bu servise ulaşılamadığında veya yakında bir Diyanet şehri bulunmadığında Aladhan servisi yedek olarak kullanılır. Size en yakın Diyanet şehrini bulmak için kullanılan şehir koordinatları GeoNames verisinden (CC BY 4.0) yararlanılarak Kuran Yolu tarafından eşleştirilmiş ve doğrulanmıştır.",
+    linkIds: ["diyanet-awqat", "aladhan", "geonames"],
   },
   {
     id: "project-content",

@@ -36,7 +36,9 @@ import { useStrings, useLang, fmt, localeTag } from "../../src/i18n";
 import { localizedVerseTranslit } from "../../src/lib/verseTranslitEn";
 import moodStrings from "../../src/i18n/strings/moods";
 import homeStrings from "../../src/i18n/strings/home";
+import sehirSecStrings from "../../src/i18n/strings/sehirSec";
 import prayerNameStrings from "../../src/i18n/strings/prayerNames";
+import { consumePrayerCityChanged } from "../../src/lib/prayerCityEvents";
 const PRAYER_ORDER = ["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
 
 const PRAYER_ICONS: Record<string, IoniconName> = {
@@ -96,6 +98,7 @@ function HomeContent() {
   const surahNameOf = useSurahNameOf();
   const moodS = useStrings(moodStrings) as Record<string, string>;
   const hs = useStrings(homeStrings) as Record<string, string>;
+  const cityS = useStrings(sehirSecStrings) as Record<string, string>;
   const pn = useStrings(prayerNameStrings) as unknown as Record<string, string>;
   const moodLabel = (m: { tag: string; label: string }) => moodS[m.tag] ?? m.label;
   // Salt gösterim — seriyi yalnız gerçek okuma (ayet ekranı) ilerletir;
@@ -104,6 +107,10 @@ function HomeContent() {
   // Ana sayfa tab olarak takılı kalır; ayet okuyup dönünce seri kartı güncellensin.
   useFocusEffect(useCallback(() => { refreshStreak(); }, [refreshStreak]));
   const { verse, dua, prayers, hijriDate, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading, refresh: refreshDaily } = useDailyContent();
+  // Şehir seçiminden dönünce namaz vakitlerini yenile.
+  useFocusEffect(useCallback(() => {
+    if (consumePrayerCityChanged()) void refreshDaily();
+  }, [refreshDaily]));
   // Miladi tarih cihaz saatinden anında hesaplanır (ağdan bağımsız); Hicri tarih
   // namaz vakti API yanıtıyla birlikte gelir (aynı Gregorian tarihe göre hesaplanır,
   // bu yüzden ikisi asla birbirinden sapmaz).
@@ -348,14 +355,22 @@ function HomeContent() {
         </View>
         <View style={styles.countdownRow}>
           <Ionicons name="time-outline" size={14} color={c.isDark ? "#818cf8" : "#4338ca"} />
-          <Text numberOfLines={1} style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
-            <Text style={styles.countdownCity}>{prayerCity}</Text>
-            {nextPrayer ? (
-              <>
-                {" · "}{pn["to" + nextPrayer.key] ?? nextPrayer.label}{hs.countdownBefore} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin, hs)}</Text>{hs.countdownAfter}
-              </>
-            ) : null}
-          </Text>
+          <TouchableOpacity
+            onPress={() => router.push("/sehir-sec")}
+            hitSlop={6}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel={cityS.changeCityA11y}
+            style={styles.cityBtn}
+          >
+            <Text numberOfLines={1} style={[styles.countdownCity, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>{prayerCity}</Text>
+            <Ionicons name="chevron-down" size={12} color={c.isDark ? "#818cf8" : "#4338ca"} />
+          </TouchableOpacity>
+          {nextPrayer ? (
+            <Text numberOfLines={1} style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
+              {" · "}{pn["to" + nextPrayer.key] ?? nextPrayer.label}{hs.countdownBefore} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin, hs)}</Text>{hs.countdownAfter}
+            </Text>
+          ) : null}
         </View>
         {!prayers && prayerLoading ? (
           <View style={styles.prayerPlaceholder}>
@@ -557,6 +572,7 @@ const styles = StyleSheet.create({
 
   prayerCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
   countdownRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  cityBtn: { flexDirection: "row", alignItems: "center", gap: 2, flexShrink: 1 },
   countdown: { fontSize: 14, flexShrink: 1 },
   countdownCity: { fontWeight: "700" },
   countdownStrong: { fontWeight: "800" },

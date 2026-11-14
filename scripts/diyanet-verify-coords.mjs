@@ -17,12 +17,41 @@ const CACHE_DIR = path.join(DATA_DIR, ".crawl-cache");
 const PLACES_PATH = path.join(DATA_DIR, "places-with-coords.json");
 const OUTPUT_PATH = path.join(DATA_DIR, "coords-verify.json");
 
+const ALLOWED_ERROR_CODES = new Set([
+  "BAD_ARGS",
+  "ENV_READ_FAILED",
+  "MISSING_CREDENTIALS",
+  "AUTH_FAILED",
+  "UPSTREAM_STOPPED",
+  "UPSTREAM_HTTP_ERROR",
+  "INVALID_JSON",
+  "NO_CITIES",
+  "INVALID_DAILY_RESPONSE",
+  "ECONNRESET",
+  "ECONNREFUSED",
+  "ETIMEDOUT",
+  "ENOTFOUND",
+  "UND_ERR_CONNECT_TIMEOUT",
+  "ABORT_ERR",
+]);
+
 class VerifyError extends Error {
-  constructor(message, exitCode) {
+  constructor(message, exitCode, code = "VERIFY_ERROR", status = 0) {
     super(message);
     this.name = "VerifyError";
     this.exitCode = exitCode;
+    this.code = ALLOWED_ERROR_CODES.has(code) ? code : "VERIFY_ERROR";
+    this.status = Number.isInteger(status) ? status : 0;
   }
+}
+
+function safeErrorCode(error) {
+  if (error instanceof VerifyError) return error.code;
+  const rawCode =
+    (error && typeof error.code === "string" && error.code) ||
+    (error && error.cause && typeof error.cause.code === "string" && error.cause.code) ||
+    "";
+  return ALLOWED_ERROR_CODES.has(rawCode) ? rawCode : "UNKNOWN_ERROR";
 }
 
 let accessToken = null;
@@ -171,8 +200,12 @@ async function login(credentials) {
   const json = await readJsonResponse(response);
 
   if (!response.ok || !json || json.success !== true || !json.data?.accessToken) {
-    const message = json?.message ? `: ${json.message}` : "";
-    throw new VerifyError(`Giriş başarısız (HTTP ${response.status})${message}`, 2);
+    throw new VerifyError(
+      `Giriş başarısız (HTTP ${response.status}, code=AUTH_FAILED)`,
+      2,
+      "AUTH_FAILED",
+      response.status,
+    );
   }
 
   accessToken = json.data.accessToken;
@@ -215,23 +248,30 @@ async function apiGet(pathname, credentials) {
   const json = await readJsonResponse(response);
 
   if (response.status === 403 || response.status === 429 || response.status >= 500) {
-    const message = json?.message ? `: ${json.message}` : "";
     throw new VerifyError(
-      `${pathname} ucunda durdu (HTTP ${response.status})${message}. Sonuçlar yazıldı.`,
+      `${pathname} ucunda durdu (HTTP ${response.status}, code=UPSTREAM_STOPPED). Sonuçlar yazıldı.`,
       2,
+      "UPSTREAM_STOPPED",
+      response.status,
     );
   }
 
   if (!response.ok) {
-    const message = json?.message ? `: ${json.message}` : "";
     throw new VerifyError(
-      `${pathname} isteği başarısız (HTTP ${response.status})${message}`,
+      `${pathname} isteği başarısız (HTTP ${response.status}, code=UPSTREAM_HTTP_ERROR)`,
       2,
+      "UPSTREAM_HTTP_ERROR",
+      response.status,
     );
   }
 
   if (!json) {
-    throw new VerifyError(`${pathname} yanıtı geçerli JSON değil.`, 2);
+    throw new VerifyError(
+      `${pathname} yanıtı geçerli JSON değil (HTTP ${response.status}, code=INVALID_JSON).`,
+      2,
+      "INVALID_JSON",
+      response.status,
+    );
   }
 
   return json;
@@ -481,6 +521,10 @@ async function main() {
 
       results[city.cityId] = {
         status,
+        lat: city.lat,
+        lon: city.lon,
+        tz: city.tz ?? null,
+        geonameId: city.geonameId ?? null,
         dSunrise: cmp ? round(cmp.dSunrise, 2) : null,
         dSunset: cmp ? round(cmp.dSunset, 2) : null,
         solvedLat: solved ? round(solved.lat, 4) : null,
@@ -534,6 +578,10 @@ async function main() {
 
 main().catch((error) => {
   const exitCode = error instanceof VerifyError ? error.exitCode : 1;
-  console.error(error && error.message ? error.message : String(error));
+  if (error instanceof VerifyError) {
+    console.error(error.message);
+  } else {
+    console.error(`Beklenmeyen hata (code=${safeErrorCode(error)})`);
+  }
   process.exitCode = exitCode;
 });
