@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -49,6 +49,7 @@ export default function SehirSecScreen() {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState<SearchState>({ status: "idle" });
   const [selecting, setSelecting] = useState(false);
+  const busyRef = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -94,7 +95,8 @@ export default function SehirSecScreen() {
 
   const choose = useCallback(
     async (city: ManualCity | null) => {
-      if (selecting) return;
+      if (busyRef.current) return;
+      busyRef.current = true;
       setSelecting(true);
       try {
         await setManualCity(city, diyanetDeps());
@@ -104,9 +106,10 @@ export default function SehirSecScreen() {
         router.back();
       } finally {
         setSelecting(false);
+        busyRef.current = false;
       }
     },
-    [selecting],
+    [],
   );
 
   const isAuto = manual === null;
