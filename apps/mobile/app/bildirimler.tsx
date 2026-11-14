@@ -21,10 +21,18 @@ import { useStrings, getStrings, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
 import { needsExactAlarmPermission, maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
 import { openExactAlarmSettings } from "../modules/exact-alarm";
+import { getManualCity } from "../src/lib/diyanetPrayer";
+import { diyanetDeps } from "../src/lib/diyanetPrayerDeps";
 
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
+  // Elle seçilmiş şehir varsa izin isteme/GPS yok; Diyanet ve Aladhan yedek
+  // yolu aynı koordinatı kullanır.
+  const manual = await getManualCity(diyanetDeps());
+  if (manual !== null) {
+    return { lat: manual.lat, lng: manual.lon, isFallback: false };
+  }
   try {
     const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync());
     if (status !== "granted") {

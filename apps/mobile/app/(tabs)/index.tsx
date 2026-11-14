@@ -363,7 +363,7 @@ function HomeContent() {
             accessibilityLabel={cityS.changeCityA11y}
             style={styles.cityBtn}
           >
-            <Text numberOfLines={1} style={styles.countdownCity}>{prayerCity}</Text>
+            <Text numberOfLines={1} style={[styles.countdownCity, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>{prayerCity}</Text>
             <Ionicons name="chevron-down" size={12} color={c.isDark ? "#818cf8" : "#4338ca"} />
           </TouchableOpacity>
           {nextPrayer ? (

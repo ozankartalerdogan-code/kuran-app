@@ -11,6 +11,7 @@ import {
   getDiyanetDays,
   getManualCity,
   haversineKm,
+  isTurkeyCountry,
   isoToLocalHm,
   prayerCityStampPart,
   resolveDiyanetCity,
@@ -434,6 +435,20 @@ test("titleCaseTr örnekleri", () => {
   assert.equal(titleCaseTr("ŞANLIURFA"), "Şanlıurfa");
   assert.equal(titleCaseTr("IĞDIR"), "Iğdır");
   assert.equal(titleCaseTr("  İSTANBUL  "), "İstanbul");
+});
+
+test("titleCaseTr turkish=true: Türkçe I/İ doğru küçülür", () => {
+  assert.equal(titleCaseTr("AYDIN", true), "Aydın");
+  assert.equal(titleCaseTr("ISPARTA", true), "Isparta");
+  assert.equal(titleCaseTr("İSTANBUL", true), "İstanbul");
+  assert.equal(titleCaseTr("IĞDIR", true), "Iğdır");
+  assert.equal(titleCaseTr("TÜRKİYE", true), "Türkiye");
+});
+
+test("isTurkeyCountry: yalnız TÜRKİYE true", () => {
+  assert.equal(isTurkeyCountry("TÜRKİYE"), true);
+  assert.equal(isTurkeyCountry(" Türkiye "), true);
+  assert.equal(isTurkeyCountry("ALMANYA"), false);
 });
 
 test("searchDiyanetCities: kısa sorgu boş liste, ağ yok", async () => {

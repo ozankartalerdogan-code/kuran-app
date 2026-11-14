@@ -6,7 +6,13 @@ import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
-import { getDiyanetDays, getManualCity, titleCaseTr } from "../lib/diyanetPrayer";
+import {
+  getDiyanetDays,
+  getManualCity,
+  isTurkeyCountry,
+  prayerCityStampPart,
+  titleCaseTr,
+} from "../lib/diyanetPrayer";
 import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
 
 interface DailyVerse {
@@ -73,6 +79,7 @@ interface PrayerCache {
   date: string;
   timings: PrayerTimes;
   hijri?: HijriDate | null;
+  cityKey?: string;
 }
 
 function isValidPrayerTimes(data: unknown): data is PrayerTimes {
@@ -199,7 +206,12 @@ export function useDailyContent(): UseDailyContentResult {
       }
     } catch { /* ignore */ }
 
-    // 1. Namaz vakitlerini önce cache'den yükle (anında)
+    // 1. Namaz vakitlerini önce cache'den yükle (anında). Önbellek yalnız gerçekten
+    //    aynı şehre aitse kullanılır (cityKey); elle şehir seçildiğinde eski şehrin
+    //    vakitleri yeni şehir adı altında gösterilmez.
+    const manualCity = await getManualCity(diyanetDeps());
+    const activeCityKey = await prayerCityStampPart(diyanetDeps());
+    let prayerCacheUsed = false;
     try {
       const raw = await storage.getString(STORAGE_KEYS.prayerCache);
       if (raw) {
@@ -209,15 +221,28 @@ export function useDailyContent(): UseDailyContentResult {
           cached &&
           typeof cached === "object" &&
           (cached as PrayerCache).date === todayKey() &&
+          (cached as PrayerCache).cityKey === activeCityKey &&
           isValidPrayerTimes((cached as PrayerCache).timings)
         ) {
           setPrayers((cached as PrayerCache).timings);
           if ((cached as PrayerCache).hijri) setHijriDate((cached as PrayerCache).hijri ?? null);
+          prayerCacheUsed = true;
           markSuccess();
         }
       }
     } catch {
       // stale cache — ignore
+    }
+
+    // Önbellek bu yükleme turunun aktif şehriyle uyuşmadıysa (ör. yeni elle
+    // şehir seçildi veya elle şehirden Otomatik'e dönüldü), eski şehrin
+    // vakitleri ekranda kalmasın; yeni vakit gelene kadar yükleniyor/hata gösterilir.
+    if (!prayerCacheUsed && isCurrent()) {
+      setPrayers(null);
+      setHijriDate(null);
+      if (manualCity === null) {
+        setPrayerCityState(ISTANBUL.city);
+      }
     }
 
     // 2. Günün Ayeti + Günün Duası — geniş havuzdan tarih bazlı seçim
@@ -320,10 +345,13 @@ export function useDailyContent(): UseDailyContentResult {
     const coords = await (async () => {
       try {
         // Elle seçilmiş şehir varsa GPS/reverseGeocode'a hiç gidilmez.
-        const manual = await getManualCity(diyanetDeps());
-        if (manual !== null) {
-          if (isCurrent()) setPrayerCityState(titleCaseTr(manual.name));
-          return { lat: manual.lat, lon: manual.lon };
+        if (manualCity !== null) {
+          if (isCurrent()) {
+            setPrayerCityState(
+              titleCaseTr(manualCity.name, isTurkeyCountry(manualCity.country)),
+            );
+          }
+          return { lat: manualCity.lat, lon: manualCity.lon };
         }
       } catch { /* ignore */ }
 
@@ -395,7 +423,12 @@ export function useDailyContent(): UseDailyContentResult {
     if (diyanetDay) {
       // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.
       diyanetCityRef.current = true;
-      setPrayerCityState(titleCaseTr(diyanetDay.city.name));
+      setPrayerCityState(
+        titleCaseTr(
+          diyanetDay.city.name,
+          isTurkeyCountry(diyanetDay.city.country),
+        ),
+      );
       setPrayers(diyanetDay.times);
       if (diyanetDay.hijri) setHijriDate(diyanetDay.hijri);
       markSuccess();
@@ -403,12 +436,17 @@ export function useDailyContent(): UseDailyContentResult {
         date: todayKey(),
         timings: diyanetDay.times,
         hijri: diyanetDay.hijri,
+        cityKey: await prayerCityStampPart(diyanetDeps()),
       }).catch(() => {});
       prayerDone = true;
       setPrayerLoading(false);
       tryFinishLoading();
     } else {
       const ts = buildDateStr();
+      // Aladhan yedek vakitleri de aynı şehir damgasıyla önbelleğe yazılır ki
+      // sonraki açılışta yanlış şehre ait kayıt kullanılmasın.
+      const fallbackCityKey = await prayerCityStampPart(diyanetDeps());
+      if (!isCurrent()) return;
       const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
       aladhanStarted = true;
 
@@ -431,6 +469,7 @@ export function useDailyContent(): UseDailyContentResult {
               date: todayKey(),
               timings: d.data.timings,
               hijri,
+              cityKey: fallbackCityKey,
             }).catch(() => {});
           } else {
             markFailure();

@@ -16,6 +16,7 @@ import { useStrings, fmt } from "../src/i18n";
 import sehirSecStrings from "../src/i18n/strings/sehirSec";
 import {
   getManualCity,
+  isTurkeyCountry,
   searchDiyanetCities,
   setManualCity,
   titleCaseTr,
@@ -33,9 +34,10 @@ type SearchState =
   | { status: "done"; cities: ManualCity[] };
 
 function subtitleOf(city: ManualCity): string {
-  const name = titleCaseTr(city.name);
-  const state = titleCaseTr(city.state);
-  const country = titleCaseTr(city.country);
+  const tr = isTurkeyCountry(city.country);
+  const name = titleCaseTr(city.name, tr);
+  const state = titleCaseTr(city.state, tr);
+  const country = titleCaseTr(city.country, tr);
   const parts = state === name ? [country] : [state, country];
   return parts.filter((part) => part.length > 0).join(", ");
 }
@@ -177,7 +179,7 @@ export default function SehirSecScreen() {
       {search.status === "done" &&
         search.cities.map((city) => {
           const isSelected = manual?.id === city.id;
-          const name = titleCaseTr(city.name);
+          const name = titleCaseTr(city.name, isTurkeyCountry(city.country));
           const subtitle = subtitleOf(city);
           return (
             <TouchableOpacity

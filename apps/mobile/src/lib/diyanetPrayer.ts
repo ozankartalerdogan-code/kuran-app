@@ -137,7 +137,7 @@ function parseManualCity(value: unknown): ManualCity | null {
 /** Büyük harfli Diyanet/GeoNames adını görüntüleme biçimine çevirir. */
 const TURKISH_UPPER = /[ÇĞİÖŞÜ]/;
 
-export function titleCaseTr(upper: string): string {
+export function titleCaseTr(upper: string, turkish?: boolean): string {
   const trimmed = upper.trim();
   if (trimmed === "") return "";
 
@@ -146,11 +146,13 @@ export function titleCaseTr(upper: string): string {
 
   const flush = () => {
     if (word === "") return;
-    // Türkçeye özgü harf içeren sözcüklerde Türkçe küçültme (I→ı, İ→i);
-    // aksi halde nötr küçültme — "NORDRHEIN" gibi yabancı adlarda I→i kalır.
-    const lower = TURKISH_UPPER.test(word)
-      ? word.toLocaleLowerCase("tr")
-      : word.toLowerCase();
+    // turkish=true → her sözcükte Türkçe küçültme (AYDIN→Aydın, ISPARTA→Isparta).
+    // Aksi halde sezgisel yol: Türkçeye özgü harf içeren sözcüklerde Türkçe
+    // küçültme (I→ı, İ→i); yabancı adlarda nötr küçültme (I→i).
+    const lower =
+      turkish === true || TURKISH_UPPER.test(word)
+        ? word.toLocaleLowerCase("tr")
+        : word.toLowerCase();
     out += lower.charAt(0).toLocaleUpperCase("tr") + lower.slice(1);
     word = "";
   };
@@ -165,6 +167,11 @@ export function titleCaseTr(upper: string): string {
   }
   flush();
   return out;
+}
+
+/** Ülke alanı Türkiye mi? (trim + Türkçe büyük harf karşılaştırması) */
+export function isTurkeyCountry(country: string): boolean {
+  return country.trim().toLocaleUpperCase("tr") === "TÜRKİYE";
 }
 
 /** Elle seçilmiş şehir; bozuk/eksik kayıt → null. */
