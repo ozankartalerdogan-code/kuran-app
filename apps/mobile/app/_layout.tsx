@@ -233,6 +233,7 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
         <Stack.Screen name="root/index"                           options={{ title: t.roots, headerBackTitle: t.back }} />
         <Stack.Screen name="root/[root]/index"                    options={{ headerBackTitle: t.backRoots }} />
         <Stack.Screen name="kible"                                options={{ title: t.qibla, headerBackTitle: t.back }} />
+        <Stack.Screen name="sehir-sec"                             options={{ title: t.prayerCity, headerBackTitle: t.back }} />
         <Stack.Screen name="hatim"                                options={{ headerShown: false }} />
         <Stack.Screen name="siyer"                                options={{ title: t.siyer, headerBackTitle: t.back }} />
         <Stack.Screen name="peygamber-kissalari"                  options={{ title: t.stories, headerBackTitle: t.back }} />

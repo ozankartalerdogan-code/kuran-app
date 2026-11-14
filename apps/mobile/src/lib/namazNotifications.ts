@@ -13,7 +13,7 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
-import { getDiyanetDays } from "./diyanetPrayer";
+import { getDiyanetDays, getManualCity } from "./diyanetPrayer";
 import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
@@ -76,6 +76,8 @@ function localDayStr(d = new Date()): string {
 
 // İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
 async function getLocationSilent(): Promise<Coords> {
+  const manual = await getManualCity(diyanetDeps());
+  if (manual !== null) return { lat: manual.lat, lng: manual.lon };
   try {
     const { status } = await Location.getForegroundPermissionsAsync();
     if (status !== "granted") return savedCoordsOrIstanbul();
@@ -95,6 +97,8 @@ async function getLocationSilent(): Promise<Coords> {
 // Konum izni yalnız kullanıcının başlattığı bildirim kurulumunda istenir.
 // Reddedilirse/hata olursa İstanbul kullanılır.
 async function getLocationRequesting(): Promise<Coords> {
+  const manual = await getManualCity(diyanetDeps());
+  if (manual !== null) return { lat: manual.lat, lng: manual.lon };
   try {
     const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync());
     if (status !== "granted") return ISTANBUL_FALLBACK;
@@ -639,9 +643,12 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
     await storage.setString(SCHED_DAY_KEY, stamp);
   } catch { /* Damga yazılmaz; sonraki yenileme yeniden dener. */ }
 }
-export function rescheduleNotificationsForLanguageChange(): Promise<void> {
+export function rescheduleNotifications(): Promise<void> {
   return notificationQueue.run(async () => {
     await storage.remove(SCHED_DAY_KEY);
     await ensureNotificationsFreshInner();
   });
+}
+export function rescheduleNotificationsForLanguageChange(): Promise<void> {
+  return rescheduleNotifications();
 }

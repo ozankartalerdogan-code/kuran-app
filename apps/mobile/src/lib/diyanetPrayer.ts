@@ -16,6 +16,9 @@ export type DiyanetCityRef = {
   tz: string;
 };
 
+/** Kullanıcının elle seçtiği şehir — Diyanet şehir referansı + koordinatı. */
+export type ManualCity = DiyanetCityRef & { lat: number; lon: number };
+
 export type PrayerTimesHm = {
   Fajr: string;
   Sunrise: string;
@@ -43,9 +46,11 @@ export type DiyanetPrayerDeps = {
 
 export const DIYANET_CITY_KEY = "diyanetCityV1";
 export const DIYANET_MONTHS_KEY = "diyanetMonthsV1";
+export const DIYANET_MANUAL_CITY_KEY = "diyanetManualCityV1";
 
 const CITY_REUSE_KM = 15;
 const CITY_TIMEOUT_MS = 6000;
+const CITY_SEARCH_TIMEOUT_MS = 6000;
 const MONTH_TIMEOUT_MS = 8000;
 const DAY_MS = 86_400_000;
 const CITY_TTL_MS = 30 * DAY_MS;
@@ -122,6 +127,98 @@ function parseCity(value: unknown): DiyanetCityRef | null {
   return { id: id as number, name, state, country, tz };
 }
 
+function parseManualCity(value: unknown): ManualCity | null {
+  const city = parseCity(value);
+  if (city === null || !isRecord(value)) return null;
+  if (!isFiniteNumber(value.lat) || !isFiniteNumber(value.lon)) return null;
+  return { ...city, lat: value.lat, lon: value.lon };
+}
+
+/** Büyük harfli Diyanet/GeoNames adını görüntüleme biçimine çevirir. */
+const TURKISH_UPPER = /[ÇĞİÖŞÜ]/;
+
+export function titleCaseTr(upper: string): string {
+  const trimmed = upper.trim();
+  if (trimmed === "") return "";
+
+  let out = "";
+  let word = "";
+
+  const flush = () => {
+    if (word === "") return;
+    // Türkçeye özgü harf içeren sözcüklerde Türkçe küçültme (I→ı, İ→i);
+    // aksi halde nötr küçültme — "NORDRHEIN" gibi yabancı adlarda I→i kalır.
+    const lower = TURKISH_UPPER.test(word)
+      ? word.toLocaleLowerCase("tr")
+      : word.toLowerCase();
+    out += lower.charAt(0).toLocaleUpperCase("tr") + lower.slice(1);
+    word = "";
+  };
+
+  for (const ch of trimmed) {
+    if (ch === "-" || /\s/.test(ch)) {
+      flush();
+      out += ch;
+    } else {
+      word += ch;
+    }
+  }
+  flush();
+  return out;
+}
+
+/** Elle seçilmiş şehir; bozuk/eksik kayıt → null. */
+export async function getManualCity(
+  deps: DiyanetPrayerDeps,
+): Promise<ManualCity | null> {
+  return parseManualCity(await safeRead(deps, DIYANET_MANUAL_CITY_KEY));
+}
+
+/** Elle seçilmiş şehri kaydeder; null → kaydı siler. */
+export async function setManualCity(
+  city: ManualCity | null,
+  deps: DiyanetPrayerDeps,
+): Promise<void> {
+  await safeWrite(deps, DIYANET_MANUAL_CITY_KEY, city);
+}
+
+/**
+ * Diyanet şehirlerinde ad araması yapar. Kısa sorgu → boş liste; ağ/sunucu
+ * sorunu → null. ASLA fırlatmaz.
+ */
+export async function searchDiyanetCities(
+  q: string,
+  deps: DiyanetPrayerDeps,
+): Promise<ManualCity[] | null> {
+  const query = q.trim();
+  if (query.length < 2) return [];
+
+  let res: { status: number; body: unknown };
+  try {
+    res = await deps.getJson(
+      `/vakit/sehirler?q=${encodeURIComponent(query)}`,
+      CITY_SEARCH_TIMEOUT_MS,
+    );
+  } catch {
+    return null;
+  }
+
+  if (
+    res.status !== 200 ||
+    !isRecord(res.body) ||
+    !Array.isArray(res.body.cities)
+  ) {
+    return null;
+  }
+
+  const out: ManualCity[] = [];
+  for (const raw of res.body.cities) {
+    const city = parseManualCity(raw);
+    if (city !== null) out.push(city);
+  }
+  return out;
+}
+
 function parseCityCache(value: unknown): CityCache | null {
   if (!isRecord(value)) return null;
   if (
@@ -174,6 +271,17 @@ export async function resolveDiyanetCity(
   offMin: number,
   deps: DiyanetPrayerDeps,
 ): Promise<DiyanetCityRef | null | undefined> {
+  const manual = await getManualCity(deps);
+  if (manual !== null) {
+    return {
+      id: manual.id,
+      name: manual.name,
+      state: manual.state,
+      country: manual.country,
+      tz: manual.tz,
+    };
+  }
+
   const rLat = roundCoord2(lat);
   const rLon = roundCoord2(lon);
   const now = deps.nowMs();

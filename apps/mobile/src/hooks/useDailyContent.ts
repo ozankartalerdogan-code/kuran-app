@@ -6,7 +6,7 @@ import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
-import { getDiyanetDays } from "../lib/diyanetPrayer";
+import { getDiyanetDays, getManualCity, titleCaseTr } from "../lib/diyanetPrayer";
 import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
 
 interface DailyVerse {
@@ -128,6 +128,9 @@ export function useDailyContent(): UseDailyContentResult {
   const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMountedRef = useRef(true);
   const loadIdRef = useRef(0);
+  // Diyanet günü bulunduysa şehir etiketi ondan gelir; geç gelen reverseGeocode
+  // sonucu bu etiketi ezmesin.
+  const diyanetCityRef = useRef(false);
 
   const load = useCallback(async () => {
     // Her load'a kimlik ver: unmount olduysa ya da daha yeni bir load (ör.
@@ -143,6 +146,7 @@ export function useDailyContent(): UseDailyContentResult {
     setDuaLoading(true);
     setPrayerLoading(true);
     setLoading(true);
+    diyanetCityRef.current = false;
 
     let verseDone = false;
     let duaDone = false;
@@ -315,6 +319,15 @@ export function useDailyContent(): UseDailyContentResult {
     // önbelleklediği "son bilinen konum"u dener (anında); yoksa canlı GPS fix ister.
     const coords = await (async () => {
       try {
+        // Elle seçilmiş şehir varsa GPS/reverseGeocode'a hiç gidilmez.
+        const manual = await getManualCity(diyanetDeps());
+        if (manual !== null) {
+          if (isCurrent()) setPrayerCityState(titleCaseTr(manual.name));
+          return { lat: manual.lat, lon: manual.lon };
+        }
+      } catch { /* ignore */ }
+
+      try {
         const { status } = await Location.getForegroundPermissionsAsync();
         if (status !== "granted") return ISTANBUL;
 
@@ -330,7 +343,7 @@ export function useDailyContent(): UseDailyContentResult {
           const { latitude, longitude } = pos.coords;
           Location.reverseGeocodeAsync({ latitude, longitude })
             .then((geo) => {
-              if (!isCurrent()) return;
+              if (!isCurrent() || diyanetCityRef.current) return;
               const place = geo[0];
               const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
               if (cityName) setPrayerCityState(cityName);
@@ -381,6 +394,8 @@ export function useDailyContent(): UseDailyContentResult {
 
     if (diyanetDay) {
       // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.
+      diyanetCityRef.current = true;
+      setPrayerCityState(titleCaseTr(diyanetDay.city.name));
       setPrayers(diyanetDay.times);
       if (diyanetDay.hijri) setHijriDate(diyanetDay.hijri);
       markSuccess();
