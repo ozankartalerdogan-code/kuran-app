@@ -132,7 +132,7 @@ test("eksik onbellek: bir kez fetch + putDays, gunler sirali", async () => {
   assert.equal(result.days.length, 30);
   assert.equal(result.days[0]?.date, "2026-11-01");
   assert.equal(result.days[29]?.date, "2026-11-30");
-  assert.equal(fake.putCalls[0]?.[0]?.date, "2026-11-30");
+  assert.equal(fake.putCalls[0]?.[0]?.date, "2026-11-01");
   assert.equal(fake.putCalls[0]?.[0]?.fajr, "05:25");
   assert.equal(fake.putCalls[0]?.[0]?.fetchedAt, NOW);
 });
@@ -251,4 +251,88 @@ test("yaz saati: 24.10 +02:00, 25.10 +01:00 ve onbellekten ayni donus", async ()
     cached.days.find((day) => day.date === "2026-10-25")?.times.imsak,
     "2026-10-25T05:25:00+01:00",
   );
+});
+
+test("tekrarli tarih: 30 kayitta ayni tarih iki kez gelirse tekillestirilir ve complete:false", async () => {
+  const dates = monthDates("2026-11");
+  // 30. günü çıkarıp 1. günü iki kez gönderiyoruz (toplam 30 ham kayıt ama 29 benzersiz gün)
+  const raws = [...dates.slice(0, 29).map((date) => rawDay(date)), rawDay("2026-11-01")];
+  const fake = makeStore();
+
+  const service = makeService(fake.store, async () => raws);
+  const result = await service.getMonth(11002, "2026-11");
+
+  assert.equal(result.complete, false);
+  assert.equal(result.days.length, 29);
+  assert.equal(fake.putCalls[0]?.length, 29);
+});
+
+test("baska aya ait gun ve gecersiz gun atilir", async () => {
+  const dates = monthDates("2026-11");
+  const raws = [
+    ...dates.slice(0, 28).map((date) => rawDay(date)),
+    rawDay("2026-10-31"),
+    rawDay("2026-12-01"),
+    { invalid: true },
+  ];
+  const fake = makeStore();
+
+  const service = makeService(fake.store, async () => raws);
+  const result = await service.getMonth(11002, "2026-11");
+
+  assert.equal(result.complete, false);
+  assert.equal(result.days.length, 28);
+  assert.ok(result.days.every((d) => d.date.startsWith("2026-11-")));
+});
+
+test("depoda 20 gun + Diyanet 5 gun (cakisan 2) -> 23 gun doner ve yeni gelen ezer", async () => {
+  const dates = monthDates("2026-11");
+  const initialStored = dates.slice(0, 20).map((date) => storedDay(11002, date));
+  const fake = makeStore(initialStored);
+
+  // Diyanet 19, 20 (çakışan 2) ve 21, 22, 23 (yeni 3) olmak üzere 5 gün döndürür;
+  // çakışan 2026-11-20 günü için farklı fajr saati verelim.
+  const updated20 = { ...rawDay("2026-11-20"), fajr: "05:40" };
+  const raws = [
+    rawDay("2026-11-19"),
+    updated20,
+    rawDay("2026-11-21"),
+    rawDay("2026-11-22"),
+    rawDay("2026-11-23"),
+  ];
+
+  const service = makeService(fake.store, async () => raws);
+  const result = await service.getMonth(11002, "2026-11");
+
+  assert.equal(result.complete, false);
+  assert.equal(result.fromCache, false);
+  assert.equal(result.days.length, 23);
+  assert.equal(
+    result.days.find((d) => d.date === "2026-11-20")?.times.imsak,
+    "2026-11-20T05:40:00+01:00",
+  );
+  assert.equal(fake.putCalls.length, 1);
+  assert.equal(fake.putCalls[0]?.length, 23);
+});
+
+test("depoda bozuk satir varken ham satir sayisi 30 olsa da complete:true sayilmaz, tam ay birlesimle complete:true olur", async () => {
+  const dates = monthDates("2026-11");
+  const broken: StoredDay = { ...storedDay(11002, "2026-11-30"), fajr: "gecersiz" };
+  const initialStored = [
+    ...dates.slice(0, 29).map((date) => storedDay(11002, date)),
+    broken,
+  ];
+  const fake = makeStore(initialStored);
+  let calls = 0;
+
+  const service = makeService(fake.store, async () => {
+    calls += 1;
+    return [rawDay("2026-11-30")];
+  });
+
+  const result = await service.getMonth(11002, "2026-11");
+
+  assert.equal(calls, 1);
+  assert.equal(result.complete, true);
+  assert.equal(result.days.length, 30);
 });

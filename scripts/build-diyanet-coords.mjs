@@ -262,6 +262,7 @@ async function main() {
   }
 
   let rejectedSolar = null;
+  let rejectedTzCount = 0;
   try {
     const verify = JSON.parse(readFileSync(verifyPath, "utf8"));
     if (verify && verify.results && typeof verify.results === "object") {
@@ -283,6 +284,12 @@ async function main() {
             dSunrise: result.dSunrise ?? null,
             dSunset: result.dSunset ?? null,
           });
+        } else if (result.tzMismatch === true) {
+          city.lat = null;
+          city.lon = null;
+          city.tz = null;
+          city.matchMethod = "rejected-tz-mismatch";
+          rejectedTzCount += 1;
         } else if (result.status === "pass") {
           city.verified = true;
         }
@@ -328,6 +335,7 @@ async function main() {
   printSummary(report);
   if (rejectedSolar) {
     console.log(`Solar doğrulama ile reddedilen: ${rejectedSolar.length}`);
+    console.log(`Saat dilimi uyuşmazlığı (tzMismatch) ile çıkarılan: ${rejectedTzCount}`);
   }
 }
 

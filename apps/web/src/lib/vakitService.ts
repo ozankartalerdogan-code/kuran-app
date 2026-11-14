@@ -95,6 +95,26 @@ function rawToStoredDay(
   };
 }
 
+function isValidMonthDate(date: string, startYmd: string, endYmd: string): boolean {
+  return date.length === 10 && date >= startYmd && date <= endYmd;
+}
+
+function normalizeStoredDays(
+  rows: StoredDay[],
+  startYmd: string,
+  endYmd: string,
+  normalize: (raw: unknown) => VakitDay | null,
+): Map<string, { stored: StoredDay; day: VakitDay }> {
+  const byDateMap = new Map<string, { stored: StoredDay; day: VakitDay }>();
+  for (const stored of rows) {
+    if (!isValidMonthDate(stored.date, startYmd, endYmd)) continue;
+    const day = storedToVakit(stored, normalize);
+    if (day === null || day.date !== stored.date) continue;
+    byDateMap.set(day.date, { stored, day });
+  }
+  return byDateMap;
+}
+
 export function createVakitService(deps: {
   store: VakitStore;
   fetchDateRange: (cityId: number, startYmd: string, endYmd: string) => Promise<unknown[]>;
@@ -110,6 +130,7 @@ export function createVakitService(deps: {
     startYmd: string,
     endYmd: string,
     expectedDays: number,
+    initialCached: Map<string, { stored: StoredDay; day: VakitDay }>,
   ): Promise<{ days: VakitDay[]; complete: boolean }> {
     const key = `${cityId}:${month}`;
     const existing = inflight.get(key);
@@ -119,20 +140,23 @@ export function createVakitService(deps: {
       .then(async () => {
         const raws = await deps.fetchDateRange(cityId, startYmd, endYmd);
         const fetchedAt = deps.now();
-        const stored: StoredDay[] = [];
-        const days: VakitDay[] = [];
+        const merged = new Map<string, { stored: StoredDay; day: VakitDay }>(initialCached);
 
         for (const raw of raws) {
           const parsed = rawToStoredDay(raw, cityId, deps.normalize, fetchedAt);
           if (parsed === null) continue;
-          stored.push(parsed.stored);
-          days.push(parsed.day);
+          if (!isValidMonthDate(parsed.day.date, startYmd, endYmd)) continue;
+          merged.set(parsed.day.date, parsed);
         }
 
-        days.sort(byDate);
+        const entries = [...merged.values()].sort((a, b) => byDate(a.day, b.day));
+        const stored = entries.map((entry) => entry.stored);
+        const days = entries.map((entry) => entry.day);
 
         try {
-          await deps.store.putDays(stored);
+          if (stored.length > 0) {
+            await deps.store.putDays(stored);
+          }
         } catch {
           // Önbellek yazımı başarısız olsa da istek yanıtı bozulmaz.
         }
@@ -156,17 +180,15 @@ export function createVakitService(deps: {
 
     // Önbellek okunamazsa (ör. veritabanı kesintisi) boş say ve Diyanet'e git.
     const cached = await deps.store.getDays(cityId, start, end).catch(() => [] as StoredDay[]);
-    const cachedDays = cached
-      .map((day) => storedToVakit(day, deps.normalize))
-      .filter((day): day is VakitDay => day !== null)
-      .sort(byDate);
+    const cachedMap = normalizeStoredDays(cached, start, end, deps.normalize);
+    const cachedDays = [...cachedMap.values()].map((entry) => entry.day).sort(byDate);
 
-    if (cached.length === expectedDays) {
+    if (cachedDays.length === expectedDays) {
       return { days: cachedDays, complete: true, fromCache: true };
     }
 
     try {
-      const loaded = await loadMonth(cityId, month, start, end, expectedDays);
+      const loaded = await loadMonth(cityId, month, start, end, expectedDays, cachedMap);
       return { days: loaded.days, complete: loaded.complete, fromCache: false };
     } catch (error) {
       if (cachedDays.length > 0) {
