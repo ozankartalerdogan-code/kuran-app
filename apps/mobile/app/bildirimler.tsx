@@ -12,6 +12,8 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import {
   requestNotificationPermission,
   changeNotificationPreference,
+  rememberCoords,
+  getSavedCoords,
   NOTIF_KEY,
   DAILY_VERSE_KEY,
 } from "../src/lib/namazNotifications";
@@ -26,6 +28,18 @@ import { diyanetDeps } from "../src/lib/diyanetPrayerDeps";
 
 const ISTANBUL = { lat: 41.0082, lng: 28.9784 };
 
+async function checkLocationFallback(): Promise<boolean> {
+  try {
+    if (await getManualCity(diyanetDeps()) !== null) return false;
+    const { status } = await Location.getForegroundPermissionsAsync();
+    if (status === "granted") return false;
+    if (await getSavedCoords() !== null) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback: boolean }> {
   // Elle seçilmiş şehir varsa izin isteme/GPS yok; Diyanet ve Aladhan yedek
   // yolu aynı koordinatı kullanır.
@@ -33,23 +47,29 @@ async function getUserLocation(): Promise<{ lat: number; lng: number; isFallback
   if (manual !== null) {
     return { lat: manual.lat, lng: manual.lon, isFallback: false };
   }
+  const fallbackOrSaved = async () => {
+    const saved = await getSavedCoords();
+    return saved ? { ...saved, isFallback: false } : { ...ISTANBUL, isFallback: true };
+  };
   try {
     const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync());
     if (status !== "granted") {
       const t = getStrings(personalStrings);
       await new Promise<void>(resolve => overlayAlert(t.locTitle, t.locDenied, [{ text: t.ok, onPress: () => resolve() }], { cancelable: true, onDismiss: resolve }));
-      return { ...ISTANBUL, isFallback: true };
+      return fallbackOrSaved();
     }
     const pos = await Promise.race([
       Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
       new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
     ]);
     if (!pos || !("coords" in pos)) {
-      return { ...ISTANBUL, isFallback: true };
+      return fallbackOrSaved();
     }
-    return { lat: pos.coords.latitude, lng: pos.coords.longitude, isFallback: false };
+    const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    rememberCoords(coords);
+    return { ...coords, isFallback: false };
   } catch {
-    return { ...ISTANBUL, isFallback: true };
+    return fallbackOrSaved();
   }
 }
 
@@ -66,14 +86,18 @@ export default function BildirimlerScreen() {
   const [usingFallback, setUsingFallback] = useState(false);
   const [exactMissing, setExactMissing] = useState(false);
 
-  // "Alarmlar ve hatırlatıcılar" izni: ayardan dönünce (ön plana gelişte) yeniden oku.
+  // "Alarmlar ve hatırlatıcılar" izni ile konum fallback durumunu açılışta ve ön plana gelişte oku.
   // İzin verildiyse yeniden planlamayı _layout'taki ensureNotificationsFresh yapar
   // (schedStamp izin durumunu içerir).
   useEffect(() => {
-    const check = () => { void needsExactAlarmPermission().then(setExactMissing).catch(() => {}); };
+    let cancelled = false;
+    const check = () => {
+      void needsExactAlarmPermission().then((missing) => { if (!cancelled) setExactMissing(missing); }).catch(() => {});
+      void checkLocationFallback().then((fallback) => { if (!cancelled) setUsingFallback(fallback); }).catch(() => {});
+    };
     check();
     const sub = AppState.addEventListener("change", (st) => { if (st === "active") check(); });
-    return () => sub.remove();
+    return () => { cancelled = true; sub.remove(); };
   }, [notifEnabled, dailyVerseEnabled]);
 
   // Güncel tercih durumunu oku ve göster. Otomatik-planla/tazele artık burada DEĞİL —

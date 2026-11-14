@@ -548,20 +548,34 @@ export function changeNotificationPreference(
   return notificationQueue.run(async () => {
     if (enabled && !(await permission())) return { granted: false, isFallback: false };
     await storage.setString(key, enabled ? "1" : "0");
-    await storage.remove(SCHED_DAY_KEY);
     const [pv, dv] = await Promise.all([storage.getString(NOTIF_KEY), storage.getString(DAILY_VERSE_KEY)]);
     if (pv !== "1" && dv !== "1") {
       await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
       return { granted: true, isFallback: false };
     }
-    // Kapatılan tür ağdan bağımsız iptal edilir; diğer türün mevcut planı korunur.
+    // Kapatılan tür ağ ve konumdan bağımsız iptal edilir; diğer türün mevcut planı korunur.
     if (!enabled) {
       const scheduled = await Notifications.getAllScheduledNotificationsAsync();
       await settleJobs(scheduled.filter(request => {
         const prayer = request.content.data?.route === "/namaz";
         return key === NOTIF_KEY ? prayer : !prayer;
       }).map(request => Notifications.cancelScheduledNotificationAsync(request.identifier)));
+      const cachedPlan = await storage.getJSON<Record<string, unknown>>(PLAN_CACHE_KEY).catch(() => null);
+      if (cachedPlan && cachedPlan.version === 1 && Array.isArray(cachedPlan.requests)) {
+        const filtered = cachedPlan.requests.filter((request) => {
+          const route = (request as { content?: { data?: { route?: unknown } } })?.content?.data?.route;
+          return typeof route === "string" && (route === "/namaz" ? pv === "1" : dv === "1");
+        });
+        await storage.setJSON(PLAN_CACHE_KEY, {
+          ...cachedPlan,
+          prayer: pv === "1",
+          dailyVerse: dv === "1",
+          requests: filtered,
+        }).catch(() => {});
+      }
+      return { granted: true, isFallback: false };
     }
+    await storage.remove(SCHED_DAY_KEY);
     const coords = await location();
     const days = await fetchPrayerDays(coords.lat, coords.lng);
     if (!days?.length) throw new Error("no-times");
