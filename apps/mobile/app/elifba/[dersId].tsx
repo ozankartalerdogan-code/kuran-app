@@ -6,7 +6,6 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { logScreen } from '../../src/lib/analytics';
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { api, type ElifbaHarf } from "../../src/lib/api";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
@@ -22,62 +21,11 @@ import {
 } from "../../src/lib/elifbaProgress";
 import { normalizeQuizQuestions, type QuizQuestion } from "../../src/lib/elifbaQuizSession";
 import { ElifbaQuizView } from "../../src/components/ElifbaQuizView";
-import { AUDIO_BASE_URL } from "../../src/lib/runtimeConfig";
+import { playHarfSes, stopHarfSes } from "../../src/lib/elifbaAudio";
+import { buildListeningItems, type ListeningItem } from "../../src/lib/elifbaListening";
 import { useStrings, useLang, fmt } from "../../src/i18n";
 import { localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
 import elifbaStrings from "../../src/i18n/strings/elifba";
-
-const AUDIO_BASE = AUDIO_BASE_URL;
-
-function harfSesUrl(harfId: number): string {
-  return `${AUDIO_BASE}/audio/elifba/harf_${String(harfId).padStart(2, "0")}.mp3`;
-}
-
-let harfPlayer: AudioPlayer | null = null;
-let audioModeSet = false;
-
-function playHarfSes(harfId: number, onError?: () => void): () => void {
-  let cancelled = false;
-  let sub: { remove(): void } | null = null;
-  let timer: ReturnType<typeof setTimeout> | null = null;
-
-  (async () => {
-    try {
-      if (!audioModeSet) {
-        await setAudioModeAsync({ playsInSilentMode: true });
-        audioModeSet = true;
-      }
-      if (cancelled) return;
-      if (harfPlayer) {
-        try { harfPlayer.remove(); } catch { /* yoksay */ }
-      }
-      const player = createAudioPlayer(harfSesUrl(harfId));
-      harfPlayer = player;
-
-      // .play() ağ hatasında THROW ETMEZ; başarısızlık ya status.error ile gelir
-      // ya da ses hiç yüklenmez (internet yok). İkisini de yakalayıp geri bildir.
-      let done = false, ok = false;
-      const fail = () => { if (!done && !cancelled) { done = true; onError?.(); } };
-      sub = player.addListener("playbackStatusUpdate", (status) => {
-        if (status.isLoaded && status.playing) ok = true;
-        if (status.error) fail();
-      });
-      // 3 sn içinde yüklenip çalmadıysa (offline/askıda) başarısız say + listener temizle.
-      // Kart değişip playHarfSes iptal edilirse bu timer da cancelled kontrolüyle no-op olur.
-      timer = setTimeout(() => { if (!ok) fail(); try { sub?.remove(); } catch { /* yoksay */ } }, 3000);
-
-      player.play();
-    } catch {
-      if (!cancelled) onError?.();
-    }
-  })();
-
-  return () => {
-    cancelled = true;
-    if (timer) clearTimeout(timer);
-    try { sub?.remove(); } catch { /* yoksay */ }
-  };
-}
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
@@ -381,9 +329,145 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   );
 }
 
+// ── Dinleme Testi ────────────────────────────────────────────────────────────
+
+function ListeningView({ harfler, onFinish }: {
+  harfler: ElifbaHarf[]; onFinish: () => void;
+}) {
+  const c = useColors();
+  const ep = useStrings(elifbaStrings);
+  const [items, setItems]           = useState<ListeningItem[] | null>(null);
+  const [sessionKey, setSessionKey] = useState(0);
+  const [srsReady, setSrsReady]     = useState(false);
+  const [srsError, setSrsError]     = useState(false);
+  const [writeError, setWriteError] = useState(false);
+  const srsRef = useRef<ElifbaSrsMap>({});
+  const srsLoadFailedRef = useRef(false);
+  const answeredRef = useRef<Set<string>>(new Set());
+  const writeQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const failedSnapshotRef = useRef<ElifbaSrsMap | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    setSrsError(false);
+    srsLoadFailedRef.current = false;
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then((raw) => {
+        if (!isMounted) return;
+        srsRef.current = parseElifbaSrs(raw);
+        setSrsReady(true);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        srsRef.current = {};
+        srsLoadFailedRef.current = true;
+        setSrsError(true);
+        setSrsReady(true);
+      });
+    return () => { isMounted = false; };
+  }, []);
+
+  useEffect(() => {
+    if (!srsReady) return;
+    answeredRef.current = new Set();
+    setItems(buildListeningItems(harfler, Math.random));
+    setSessionKey((k) => k + 1);
+  }, [harfler, srsReady]);
+
+  const persistSrs = useCallback((snapshot: ElifbaSrsMap) => {
+    writeQueueRef.current = writeQueueRef.current.then(async () => {
+      try {
+        await storage.setJSON(STORAGE_KEYS.elifbaSrs, snapshot);
+        failedSnapshotRef.current = null;
+        setWriteError(false);
+      } catch {
+        failedSnapshotRef.current = snapshot;
+        setWriteError(true);
+      }
+    });
+  }, []);
+
+  const handleAnswer = useCallback((item: ListeningItem, correct: boolean) => {
+    if (answeredRef.current.has(item.itemId)) return;
+    answeredRef.current.add(item.itemId);
+    if (srsLoadFailedRef.current) return;
+    const nowSec = Math.floor(Date.now() / 1000);
+    const next = updateElifbaSrs(srsRef.current, item.itemId, correct, nowSec);
+    srsRef.current = next;
+    persistSrs(next);
+  }, [persistSrs]);
+
+  const retrySrs = useCallback(() => {
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then((raw) => {
+        srsRef.current = parseElifbaSrs(raw);
+        srsLoadFailedRef.current = false;
+        setSrsError(false);
+      })
+      .catch(() => setSrsError(true));
+  }, []);
+
+  const retryWrite = useCallback(() => {
+    const snapshot = failedSnapshotRef.current;
+    if (snapshot) persistSrs(snapshot);
+  }, [persistSrs]);
+
+  const playAudio = useCallback(
+    (harfId: number, onError: () => void) => playHarfSes(harfId, onError),
+    [],
+  );
+
+  if (!srsReady || items === null) {
+    return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      {srsError && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
+            {ep.srsLoadError}
+          </Text>
+          <TouchableOpacity
+            style={qv.retryBtn}
+            onPress={retrySrs}
+            accessibilityRole="button"
+            accessibilityLabel={ep.srsLoadRetryA11y}
+          >
+            <Text style={qv.retryText}>{ep.retry}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {writeError && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
+            {ep.srsWriteError}
+          </Text>
+          <TouchableOpacity
+            style={qv.retryBtn}
+            onPress={retryWrite}
+            accessibilityRole="button"
+            accessibilityLabel={ep.srsWriteRetryA11y}
+          >
+            <Text style={qv.retryText}>{ep.retry}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      <ElifbaQuizView
+        key={sessionKey}
+        kind="listening"
+        items={items}
+        onAnswer={handleAnswer}
+        onPlayAudio={playAudio}
+        onFinish={onFinish}
+      />
+    </View>
+  );
+}
+
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
-type Mode = "flashcard" | "quiz";
+type Mode = "flashcard" | "quiz" | "listen";
 
 export default function DersScreen() {
   const { dersId: raw, mode: initialMode, baslik: rawBaslik } = useLocalSearchParams<{
@@ -397,14 +481,7 @@ export default function DersScreen() {
 
   // Harf sesi modül seviyesinde tutuluyor (playHarfSes); ekrandan çıkarken
   // hâlâ çalıyorsa durdur — aksi halde başka bir ekrana geçince de öter.
-  useEffect(() => {
-    return () => {
-      if (harfPlayer) {
-        try { harfPlayer.remove(); } catch { /* yoksay */ }
-        harfPlayer = null;
-      }
-    };
-  }, []);
+  useEffect(() => () => { stopHarfSes(); }, []);
 
   const lang = useLang();
   const [harflerRaw, setHarfler] = useState<ElifbaHarf[]>([]);
@@ -492,7 +569,12 @@ export default function DersScreen() {
             accessibilityLabel={fmt(ep.cardsModeA11y, { pct })}
             accessibilityState={{ selected: mode === "flashcard" }}
           >
-            <Text style={[styles.modeBtnText, { color: c.textSecondary }, mode === "flashcard" && styles.modeBtnTextActive]}>
+            <Text
+              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "flashcard" && styles.modeBtnTextActive]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
               {fmt(ep.cardsMode, { pct })}
             </Text>
           </TouchableOpacity>
@@ -503,13 +585,36 @@ export default function DersScreen() {
             accessibilityLabel={ep.quizModeA11y}
             accessibilityState={{ selected: mode === "quiz" }}
           >
-            <Text style={[styles.modeBtnText, { color: c.textSecondary }, mode === "quiz" && styles.modeBtnTextActive]}>
+            <Text
+              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "quiz" && styles.modeBtnTextActive]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
               {ep.quizBtn}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "listen" && styles.modeBtnActive]}
+            onPress={() => setMode("listen")}
+            accessibilityRole="tab"
+            accessibilityLabel={ep.listenModeA11y}
+            accessibilityState={{ selected: mode === "listen" }}
+          >
+            <Text
+              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "listen" && styles.modeBtnTextActive]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
+              {ep.listenBtn}
             </Text>
           </TouchableOpacity>
         </View>
 
-        {mode === "flashcard" ? (
+        {mode === "listen" ? (
+          <ListeningView harfler={harfler} onFinish={() => router.back()} />
+        ) : mode === "flashcard" ? (
           harfler.length > 0 ? (
             <>
               <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
@@ -579,7 +684,7 @@ const styles = StyleSheet.create({
   modeBar:   { flexDirection:"row", margin:12, gap:8 },
   modeBtn:   { flex:1, paddingVertical:10, borderRadius:10, backgroundColor:"#fffdf6", borderWidth:1, borderColor:"#e7dfcc", alignItems:"center" },
   modeBtnActive: { backgroundColor:"#059669", borderColor:"#059669" },
-  modeBtnText:   { fontSize:13, fontWeight:"600", color:"#44403c" },
+  modeBtnText:   { fontSize:12, fontWeight:"600", color:"#44403c", textAlign:"center" },
   modeBtnTextActive: { color:"#fff" },
   counter:   { textAlign:"center", fontSize:12, color:"#a8a29e", marginBottom:4 },
   dots:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:7, paddingHorizontal:16, marginTop:14 },
