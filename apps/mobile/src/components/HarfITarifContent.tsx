@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../hooks/useColors";
 import { useStrings, useLang, fmt } from "../i18n";
 import { useLocalizedData } from "../i18n/localizedData";
 import { localizedTranslit } from "../lib/translitEn";
+import { storage, STORAGE_KEYS } from "../lib/storage";
+import {
+  parseElifbaQuizScores,
+  type ElifbaQuizScore,
+} from "../lib/elifbaProgress";
+import {
+  HARF_I_TARIF_SCORE_ID,
+  mergeHarfITarifScore,
+  summarizeHarfITarif,
+} from "../lib/harfITarifScore";
 import harfStrings from "../i18n/strings/harfITarif";
 import {
   harfITarifDersi,
@@ -96,8 +106,77 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
   const sorular = b.sorular ?? [];
   const [started, setStarted] = useState(false);
   const [ans, setAns]         = useState<Record<string, boolean>>({});
+  const [last, setLast]       = useState<ElifbaQuizScore | null>(null);
+  const [scoreError, setScoreError] = useState(false);
+  const savedRef = useRef(false);
+  const snapshotRef = useRef<ElifbaQuizScore | null>(null);
   const done    = Object.keys(ans).length;
   const correct = Object.values(ans).filter(Boolean).length;
+
+  const persist = useCallback(async (snapshot: ElifbaQuizScore) => {
+    setScoreError(false);
+    try {
+      const raw = await storage.getJSON<unknown>(STORAGE_KEYS.quizScores);
+      const merged = mergeHarfITarifScore(parseElifbaQuizScores(raw), snapshot);
+      await storage.setJSON(STORAGE_KEYS.quizScores, merged);
+      setLast(merged[HARF_I_TARIF_SCORE_ID]);
+    } catch {
+      setScoreError(true);
+    }
+  }, []);
+
+  const loadLast = useCallback(() => {
+    storage.getJSON<unknown>(STORAGE_KEYS.quizScores)
+      .then((raw) => {
+        setLast(parseElifbaQuizScores(raw)[HARF_I_TARIF_SCORE_ID] ?? null);
+        setScoreError(false);
+      })
+      .catch(() => setScoreError(true));
+  }, []);
+
+  useEffect(() => { loadLast(); }, [loadLast]);
+
+  useEffect(() => {
+    if (!started || done !== sorular.length || savedRef.current) return;
+    savedRef.current = true;
+    const snapshot = summarizeHarfITarif(sorular.map((q) => q.id), ans);
+    if (!snapshot) {
+      savedRef.current = false;
+      return;
+    }
+    snapshotRef.current = snapshot;
+    void persist(snapshot);
+  }, [started, done, sorular, ans, persist]);
+
+  const retryScore = useCallback(() => {
+    const snapshot = snapshotRef.current;
+    if (snapshot) void persist(snapshot);
+    else loadLast();
+  }, [persist, loadLast]);
+
+  const restart = useCallback(() => {
+    savedRef.current = false;
+    snapshotRef.current = null;
+    setScoreError(false);
+    setStarted(false);
+    setAns({});
+  }, []);
+
+  const errorNotice = scoreError ? (
+    <View style={[s.scoreError, { backgroundColor: c.card, borderColor: c.border }]}>
+      <Text style={[s.scoreErrorText, { color: c.text }]} accessibilityLiveRegion="polite">
+        {t.saveError}
+      </Text>
+      <TouchableOpacity
+        style={s.retryScoreBtn}
+        onPress={retryScore}
+        accessibilityRole="button"
+        accessibilityLabel={t.retrySaveA11y}
+      >
+        <Text style={s.retryScoreText}>{t.retrySave}</Text>
+      </TouchableOpacity>
+    </View>
+  ) : null;
 
   if (!started) {
     return (
@@ -105,6 +184,12 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Text style={[s.quizStartInfo, { color: c.textMuted }]}>
           {fmt(t.quizInfo, { n: sorular.length })}
         </Text>
+        {last ? (
+          <Text style={[s.lastScore, { color: c.textMuted }]} accessibilityLiveRegion="polite">
+            {fmt(t.lastScore, { s: last.score, t: last.total })}
+          </Text>
+        ) : null}
+        {errorNotice}
         <TouchableOpacity
           style={s.quizStartBtn}
           onPress={() => setStarted(true)}
@@ -124,6 +209,7 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Text style={[s.quizBarText, { color: c.text }]}>{fmt(t.answered, { a: done, b: sorular.length })}</Text>
         <Text style={[s.quizBarText, { color: "#059669", fontWeight: "700" }]}>{fmt(t.correct, { n: correct })}</Text>
       </View>
+      {errorNotice}
       <View style={{ gap: 10, marginTop: 10 }}>
         {sorular.map((q, i) => (
           <QuizItem key={q.id} q={q} idx={i} c={c} onAnswer={(ok) => setAns((p) => ({ ...p, [q.id]: ok }))} />
@@ -134,9 +220,14 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
           <Text style={[s.quizDoneText, c.isDark && { color: "#86efac" }]}>
             {fmt(t.finished, { c: correct, n: sorular.length })}{correct === sorular.length ? t.perfect : t.again}
           </Text>
+          {last ? (
+            <Text style={[s.lastScore, { color: c.textMuted }]} accessibilityLiveRegion="polite">
+              {fmt(t.lastScore, { s: last.score, t: last.total })}
+            </Text>
+          ) : null}
           <TouchableOpacity
             style={[s.quizStartBtn, { marginTop: 10 }]}
-            onPress={() => { setStarted(false); setAns({}); }}
+            onPress={restart}
             activeOpacity={0.8}
             accessibilityRole="button"
             accessibilityLabel={t.restartA11y}
@@ -316,6 +407,11 @@ const s = StyleSheet.create({
   tagText:     { fontSize: 10, fontWeight: "700" },
   quizStart:       { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 4, alignItems: "center", gap: 12 },
   quizStartInfo:   { fontSize: 13 },
+  lastScore:       { fontSize: 13, fontWeight: "600", textAlign: "center" },
+  scoreError:      { alignSelf: "stretch", borderWidth: 1, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, gap: 8, alignItems: "center" },
+  scoreErrorText:  { fontSize: 13, textAlign: "center" },
+  retryScoreBtn:   { backgroundColor: "#4f46e5", borderRadius: 10, paddingVertical: 9, paddingHorizontal: 20 },
+  retryScoreText:  { color: "#fff", fontSize: 13, fontWeight: "700" },
   quizStartBtn:    { backgroundColor: "#4f46e5", borderRadius: 12, paddingVertical: 12, paddingHorizontal: 32 },
   quizStartBtnText:{ color: "#fff", fontSize: 14, fontWeight: "700" },
   quizBar:     { flexDirection: "row", justifyContent: "space-between", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10 },
