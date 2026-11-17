@@ -168,3 +168,45 @@ test("at taşıyan plan kabul edilir; bozuk at reddedilir", () => {
     assert.equal(read(bad), null);
   }
 });
+
+test("carry taşıyan plan kabul edilir; bozuk veya eksik carry reddedilir", () => {
+  const at = {
+    Fajr: Date.parse("2026-11-13T05:30:00+03:00"),
+    Sunrise: Date.parse("2026-11-13T07:00:00+03:00"),
+    Dhuhr: Date.parse("2026-11-13T12:30:00+03:00"),
+    Asr: Date.parse("2026-11-13T15:00:00+03:00"),
+    Maghrib: Date.parse("2026-11-13T18:00:00+03:00"),
+    Isha: Date.parse("2026-11-13T20:00:00+03:00"),
+  };
+  const carry = { Isha: Date.parse("2026-11-13T23:30:00+03:00") };
+  const value = fixture();
+  value.days = [{ date: day.toISOString(), times: { ...times }, at, carry }];
+  const prayerRequests = value.requests.filter(r => r.content.data.route === "/namaz");
+  Object.values(at).forEach((ms, i) => {
+    Object.assign(prayerRequests[i].trigger, { date: new Date(ms + 120_000).toISOString() });
+  });
+  value.requests.push({
+    content: { title: "Vakit", body: "Namaz", sound: true, data: { route: "/namaz" } },
+    trigger: { type: "date", date: new Date(carry.Isha + 120_000).toISOString(), channelId: "namaz-vakitleri" },
+  });
+
+  const plan = read(value);
+  assert.ok(plan);
+  assert.deepEqual(plan.days[0].carry, carry);
+
+  const withoutCarryRequest = JSON.parse(JSON.stringify(value));
+  withoutCarryRequest.requests.pop();
+  assert.equal(read(withoutCarryRequest), null);
+
+  for (const broken of [
+    "bozuk",
+    { Isha: "x" },
+    { Isha: null },
+    { Bilinmeyen: 1 },
+    { Fajr: "2026-11-13T05:30:00+03:00" },
+  ]) {
+    const bad = fixture();
+    bad.days = [{ date: day.toISOString(), times: { ...times }, at, carry: broken }];
+    assert.equal(read(bad), null);
+  }
+});

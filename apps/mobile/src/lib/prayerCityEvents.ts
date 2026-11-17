@@ -14,3 +14,23 @@ export function consumePrayerCityChanged(): boolean {
   changed = false;
   return value;
 }
+
+// Diyanet günleri önbelleğe yazıldığında ana sayfaya haber veren dinleyiciler.
+const diyanetDaysCachedListeners = new Set<() => void>();
+
+export function onDiyanetDaysCached(listener: () => void): () => void {
+  diyanetDaysCachedListeners.add(listener);
+  return () => {
+    diyanetDaysCachedListeners.delete(listener);
+  };
+}
+
+export function notifyDiyanetDaysCached(): void {
+  for (const listener of diyanetDaysCachedListeners) {
+    try {
+      listener();
+    } catch {
+      /* dinleyici hatası diğerlerini etkilemesin */
+    }
+  }
+}

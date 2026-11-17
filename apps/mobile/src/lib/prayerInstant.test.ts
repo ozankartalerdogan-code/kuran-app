@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   addDaysYmd,
   formatHmInZone,
+  futureCarry,
   instantsFromDiyanetIso,
   instantsFromWallTimes,
   notificationAtMs,
@@ -157,6 +158,33 @@ test("notificationAtMs: offset uygulanır; eşit/geçmiş an planlanmaz", () => 
     notificationAtMs(at, 0, at - 1),
     at,
   );
+});
+
+test("futureCarry: yalnız bildirimi hâlâ gelecekte olan önceki gün anlarını taşır", () => {
+  // New York 16 Kasım akşam/yatsı → İstanbul 17 Kasım 01:00/02:00.
+  const prev = {
+    Fajr: Date.parse("2026-11-16T05:30:00-05:00"),
+    Sunrise: Date.parse("2026-11-16T07:00:00-05:00"),
+    Dhuhr: Date.parse("2026-11-16T12:30:00-05:00"),
+    Asr: Date.parse("2026-11-16T15:00:00-05:00"),
+    Maghrib: Date.parse("2026-11-16T18:00:00-05:00"),
+    Isha: Date.parse("2026-11-16T20:00:00-05:00"),
+  };
+  // İstanbul 17 Kasım 00:30: akşam (02:00) ve yatsı (04:00) gelecekte.
+  assert.deepEqual(futureCarry(prev, Date.parse("2026-11-17T00:30:00+03:00"), 2), {
+    Maghrib: prev.Maghrib,
+    Isha: prev.Isha,
+  });
+  // Akşamın bildirimi (02:02) henüz gelmediyse an geçmiş olsa da taşınır.
+  assert.deepEqual(futureCarry(prev, Date.parse("2026-11-17T02:01:00+03:00"), 2), {
+    Maghrib: prev.Maghrib,
+    Isha: prev.Isha,
+  });
+  // Bildirim anı tam eşitse planlanmaz.
+  assert.deepEqual(futureCarry(prev, prev.Isha + 120_000, 2), {});
+  assert.deepEqual(futureCarry(prev, prev.Isha + 120_001, 2), {});
+  // Hepsi geçmişse boş.
+  assert.deepEqual(futureCarry(prev, Date.parse("2026-11-17T23:00:00+03:00"), 2), {});
 });
 
 test("Türkiye birebir: cihaz dilimi = şehir dilimi iken anlar, HH:MM ve adet değişmez", () => {

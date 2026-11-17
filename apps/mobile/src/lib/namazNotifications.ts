@@ -13,10 +13,11 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
-import { formatHmInZone, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
+import { formatHmInZone, futureCarry, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
 import type { PrayerInstants } from "./prayerInstant";
 import { getDiyanetDays, getManualCity, prayerCityStampPart } from "./diyanetPrayer";
 import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
+import { notifyDiyanetDaysCached } from "./prayerCityEvents";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
 
@@ -140,7 +141,8 @@ export async function requestNotificationPermission(): Promise<boolean> {
 
 // Bir güne ait vakitler + o günün takvim tarihi (çok-günlü planlama için).
 // `at`: vakitlerin mutlak anları; varsa tetikleyiciler cihaz diliminden bağımsız kurulur.
-export type DayTimes = { date: Date; times: PrayerTimes; at?: PrayerInstants };
+// `carry`: uzak saat diliminde önceki şehir gününden bugüne taşan, hâlâ gelecekteki anlar.
+export type DayTimes = { date: Date; times: PrayerTimes; at?: PrayerInstants; carry?: Partial<PrayerInstants> };
 
 // Kaç gün ileriye planlanır. 6 vakit × 7 gün + 2 günlük ayet/dua = 44 bildirim —
 // iOS'un 64 planlı bildirim limitinin altında. Eskiden DAILY tetikleyici tek
@@ -232,19 +234,30 @@ export async function fetchPrayerDays(
     return d;
   });
   const wantedYmd = wanted.map(localYmdStr);
+  const deviceTz = deviceTimeZone();
+  const cityTz = await aladhanCityTimeZone(lat, lng);
+  // Şehir dilimi cihazdan gerideyse önceki şehir gününün geç vakitleri cihazın
+  // bugününe taşar; o günü de isteyip yalnız gelecekteki anları taşırız.
+  // Türkiye'de dilimler eşittir → ek istek yok, davranış birebir aynı kalır.
+  const previousDay = cityTz !== deviceTz;
+  const prevDate = new Date(today);
+  if (previousDay) prevDate.setDate(today.getDate() - 1);
+  const prevYmd = previousDay ? localYmdStr(prevDate) : null;
+  const requestDates = prevYmd ? [prevDate, ...wanted] : wanted;
+  const requestYmd = prevYmd ? [prevYmd, ...wantedYmd] : wantedYmd;
 
   const diyanet = await getDiyanetDays(
     lat,
     lng,
     deviceOffsetMin(),
-    wantedYmd,
+    requestYmd,
     diyanetDeps(),
   );
+  if (diyanet.size > 0) notifyDiyanetDaysCached();
 
-  const missing = wanted.filter((_, i) => !diyanet.has(wantedYmd[i]));
+  const missing = requestDates.filter((_, i) => !diyanet.has(requestYmd[i]));
   const aladhan = new Map<string, CalendarDay>();
   if (missing.length > 0) {
-    const cityTz = await aladhanCityTimeZone(lat, lng);
     // Pencere ay sınırını aşabilir → yalnız eksik günlerin ayları için istek.
     const months = new Map<string, { year: number; month: number }>();
     for (const d of missing) {
@@ -262,7 +275,6 @@ export async function fetchPrayerDays(
   }
 
   const days: DayTimes[] = [];
-  const deviceTz = deviceTimeZone();
   wanted.forEach((d, i) => {
     const diyanetDay = diyanet.get(wantedYmd[i]);
     if (diyanetDay) {
@@ -278,6 +290,18 @@ export async function fetchPrayerDays(
     }
     days.push({ date: d, times, at });
   });
+
+  if (previousDay && prevYmd && days.length > 0) {
+    const prevDiyanet = diyanet.get(prevYmd);
+    const prevAt = prevDiyanet
+      ? instantsFromDiyanetIso(prevDiyanet.rawTimes)
+      : aladhan.get(ddmmyyyy(prevDate))?.at ?? null;
+    if (prevAt) {
+      const carry = futureCarry(prevAt, Date.now(), NOTIFY_AFTER_MIN);
+      if (Object.keys(carry).length > 0) days[0] = { ...days[0], carry };
+    }
+  }
+
   if (days.length > 0) return days;
 
   // Hiç gün çözülemedi → tek günlük yedek (eski davranış, en azından bugün doğru).
@@ -425,6 +449,34 @@ async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications
   const ns = getStrings(notifStrings);
   const jobs: Notifications.NotificationRequestInput[] = [];
   const nowMs = Date.now();
+  const makePrayerJob = (
+    key: string,
+    label: string,
+    trigger: NonNullable<ReturnType<typeof dateTriggerAtMs>>,
+    dayIndex: number,
+    friday: boolean,
+  ): Notifications.NotificationRequestInput => {
+    const v =
+      key === "Fajr" ? pickFromPool(sabahPool, dayIndex, 0, 1) ?? pickFromPool(genelPool, dayIndex, 0, OTHER_KEYS.length)
+      : key === "Dhuhr" && friday && cumaPool.length > 0 ? pickFromPool(cumaPool, dayIndex, 0, 1)
+      : pickFromPool(genelPool, dayIndex, OTHER_KEYS.indexOf(key), OTHER_KEYS.length);
+    // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
+    const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
+    const verseLine = translation
+      ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
+      : "";
+    return {
+      content: {
+        // Güneş namaz vakti değil: "namaza hazırlanın" yerine sabah vaktinin çıktığını söyle.
+        title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
+        body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
+        sound: true,
+        data:  { route: "/namaz" },
+      },
+      trigger,
+    };
+  };
+
   days.forEach(({ date, times, at }, dayIndex) => {
     for (const { key, label, hour, minute } of parseValid(times)) {
       const instant = at?.[key as keyof PrayerInstants];
@@ -432,29 +484,25 @@ async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications
         ? dateTriggerAtMs(notificationAtMs(instant, NOTIFY_AFTER_MIN, nowMs), ANDROID_CHANNEL_ID_PRAYER)
         : dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
       if (!trigger) continue; // bugünün geçmiş vakitleri
-      const v =
-        key === "Fajr" ? pickFromPool(sabahPool, dayIndex, 0, 1) ?? pickFromPool(genelPool, dayIndex, 0, OTHER_KEYS.length)
-        : key === "Dhuhr" && date.getDay() === 5 && cumaPool.length > 0 ? pickFromPool(cumaPool, dayIndex, 0, 1)
-        : pickFromPool(genelPool, dayIndex, OTHER_KEYS.indexOf(key), OTHER_KEYS.length);
-      // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
-      const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
-      const verseLine = translation
-        ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
-        : "";
-      jobs.push(
-        {
-          content: {
-            // Güneş namaz vakti değil: "namaza hazırlanın" yerine sabah vaktinin çıktığını söyle.
-            title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
-            body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
-            sound: true,
-            data:  { route: "/namaz" },
-          },
-          trigger,
-        }
-      );
+      jobs.push(makePrayerJob(key, label, trigger, dayIndex, date.getDay() === 5));
     }
   });
+
+  // İlk günün önceki şehir gününden taşan anları: aynı içerik kuralı, dayIndex 0,
+  // cuma kuralı uygulanmaz. Her an için en fazla bir tetikleyici kurulur.
+  const carry = days.length > 0 ? days[0].carry : undefined;
+  if (carry) {
+    for (const { key, label } of parseValid(days[0].times)) {
+      const instant = carry[key as keyof PrayerInstants];
+      if (typeof instant !== "number") continue;
+      const trigger = dateTriggerAtMs(
+        notificationAtMs(instant, NOTIFY_AFTER_MIN, nowMs),
+        ANDROID_CHANNEL_ID_PRAYER,
+      );
+      if (!trigger) continue;
+      jobs.push(makePrayerJob(key, label, trigger, 0, false));
+    }
+  }
   return jobs;
 }
 

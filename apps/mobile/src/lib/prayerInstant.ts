@@ -268,3 +268,21 @@ export function notificationAtMs(
   const at = atMs + offsetMin * 60_000;
   return at > nowMs ? at : null;
 }
+
+/**
+ * Önceki şehir gününün anlarından bildirimi hâlâ gelecekte olanları seçer
+ * (atMs + offsetMin > nowMs). Uzak saat diliminde gün sınırını aşan vakitlerin
+ * plana taşınması için kullanılır.
+ */
+export function futureCarry(
+  prev: PrayerInstants,
+  nowMs: number,
+  offsetMin: number,
+): Partial<PrayerInstants> {
+  const out: Partial<PrayerInstants> = {};
+  const offsetMs = offsetMin * 60_000;
+  for (const key of PRAYER_KEYS) {
+    if (prev[key] + offsetMs > nowMs) out[key] = prev[key];
+  }
+  return out;
+}

@@ -107,21 +107,21 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
   const [started, setStarted] = useState(false);
   const [ans, setAns]         = useState<Record<string, boolean>>({});
   const [last, setLast]       = useState<ElifbaQuizScore | null>(null);
-  const [scoreError, setScoreError] = useState(false);
+  const [scoreError, setScoreError] = useState<null | "save" | "load">(null);
   const savedRef = useRef(false);
   const snapshotRef = useRef<ElifbaQuizScore | null>(null);
   const done    = Object.keys(ans).length;
   const correct = Object.values(ans).filter(Boolean).length;
 
   const persist = useCallback(async (snapshot: ElifbaQuizScore) => {
-    setScoreError(false);
+    setScoreError(null);
     try {
       const raw = await storage.getJSON<unknown>(STORAGE_KEYS.quizScores);
       const merged = mergeHarfITarifScore(parseElifbaQuizScores(raw), snapshot);
       await storage.setJSON(STORAGE_KEYS.quizScores, merged);
       setLast(merged[HARF_I_TARIF_SCORE_ID]);
     } catch {
-      setScoreError(true);
+      setScoreError("save");
     }
   }, []);
 
@@ -129,9 +129,9 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
     storage.getJSON<unknown>(STORAGE_KEYS.quizScores)
       .then((raw) => {
         setLast(parseElifbaQuizScores(raw)[HARF_I_TARIF_SCORE_ID] ?? null);
-        setScoreError(false);
+        setScoreError(null);
       })
-      .catch(() => setScoreError(true));
+      .catch(() => setScoreError("load"));
   }, []);
 
   useEffect(() => { loadLast(); }, [loadLast]);
@@ -157,7 +157,7 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
   const restart = useCallback(() => {
     savedRef.current = false;
     snapshotRef.current = null;
-    setScoreError(false);
+    setScoreError(null);
     setStarted(false);
     setAns({});
   }, []);
@@ -165,7 +165,7 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
   const errorNotice = scoreError ? (
     <View style={[s.scoreError, { backgroundColor: c.card, borderColor: c.border }]}>
       <Text style={[s.scoreErrorText, { color: c.text }]} accessibilityLiveRegion="polite">
-        {t.saveError}
+        {scoreError === "load" ? t.loadError : t.saveError}
       </Text>
       <TouchableOpacity
         style={s.retryScoreBtn}
