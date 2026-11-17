@@ -3,28 +3,25 @@ import {
   StyleSheet, ScrollView,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let LottieView: any = null;
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const mod = require('lottie-react-native').default;
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { UIManager } = require('react-native');
-  if (UIManager.hasViewManagerConfig?.('LottieAnimationView')) LottieView = mod;
-} catch (_e) { /* noop */ }
 import { logScreen } from '../../src/lib/analytics';
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
-import { api, type ElifbaHarf, type ElifbaQuizSoru } from "../../src/lib/api";
+import { api, type ElifbaHarf } from "../../src/lib/api";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { useColors } from "../../src/hooks/useColors";
 import {
   parseElifbaProgress,
   parseElifbaQuizScores,
+  parseElifbaSrs,
+  selectQuizQuestionsWithSrs,
+  updateElifbaSrs,
   type ElifbaProgress,
+  type ElifbaSrsMap,
 } from "../../src/lib/elifbaProgress";
+import { normalizeQuizQuestions, type QuizQuestion } from "../../src/lib/elifbaQuizSession";
+import { ElifbaQuizView } from "../../src/components/ElifbaQuizView";
 import { AUDIO_BASE_URL } from "../../src/lib/runtimeConfig";
 import { useStrings, useLang, fmt } from "../../src/i18n";
 import { localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
@@ -210,91 +207,121 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
 
 // ── Quiz ──────────────────────────────────────────────────────────────────────
 
-function normalizeQuizSorular(data: ElifbaQuizSoru[]): ElifbaQuizSoru[] {
-  return data
-    .map((soru) => {
-      const secenekler = Array.isArray(soru.secenekler)
-        ? soru.secenekler.filter((secenek): secenek is string => typeof secenek === "string" && secenek.trim().length > 0)
-        : [];
-      const uniqueSecenekler = Array.from(new Set(secenekler));
-      if (!soru.soru || !soru.dogru_cevap || !uniqueSecenekler.includes(soru.dogru_cevap)) return null;
-      return { ...soru, secenekler: uniqueSecenekler };
-    })
-    .filter((soru): soru is ElifbaQuizSoru => soru !== null);
-}
-
 function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const lang = useLang();
-  const [sorular, setSorular] = useState<ElifbaQuizSoru[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState(false);
-  const [idx, setIdx]         = useState(0);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [answered, setAnswered] = useState(false);
-  const [score, setScore]     = useState(0);
-  const [done, setDone]       = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
-  const confettiTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [pool, setPool]           = useState<QuizQuestion[] | null>(null);
+  const [poolLoading, setPoolLoading] = useState(true);
+  const [poolError, setPoolError] = useState(false);
+  const [srsReady, setSrsReady]   = useState(false);
+  const [srsError, setSrsError]   = useState(false);
+  const [questions, setQuestions] = useState<QuizQuestion[] | null>(null);
+  const [sessionKey, setSessionKey] = useState(0);
+  const [writeError, setWriteError] = useState(false);
   const requestIdRef = useRef(0);
+  const srsRef = useRef<ElifbaSrsMap>({});
+  const srsLoadFailedRef = useRef(false);
+  const answeredIdsRef = useRef<Set<number>>(new Set());
+  const writeQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const failedSnapshotRef = useRef<ElifbaSrsMap | null>(null);
 
   const loadQuiz = useCallback(() => {
     const requestId = requestIdRef.current + 1;
     requestIdRef.current = requestId;
-    setLoading(true);
-    setError(false);
-    setIdx(0);
-    setSelected(null);
-    setAnswered(false);
-    setScore(0);
-    setDone(false);
-    setShowConfetti(false);
+    setPoolLoading(true);
+    setPoolError(false);
+    setPool(null);
+    setQuestions(null);
     api.elifba.quiz(dersId)
       .then((data) => {
         if (requestIdRef.current !== requestId) return;
-        const arr = normalizeQuizSorular(localizeQuiz(data, lang));
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        setSorular(arr.slice(0, 15));
+        setPool(normalizeQuizQuestions(localizeQuiz(data, lang)));
       })
       .catch(() => {
-        if (requestIdRef.current === requestId) setError(true);
+        if (requestIdRef.current === requestId) setPoolError(true);
       })
       .finally(() => {
-        if (requestIdRef.current === requestId) setLoading(false);
+        if (requestIdRef.current === requestId) setPoolLoading(false);
       });
   }, [dersId, lang]);
 
   useEffect(() => { loadQuiz(); }, [loadQuiz]);
 
-  useEffect(() => () => {
-    requestIdRef.current += 1;
-    if (confettiTimer.current) clearTimeout(confettiTimer.current);
+  useEffect(() => {
+    let isMounted = true;
+    setSrsError(false);
+    srsLoadFailedRef.current = false;
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then((raw) => {
+        if (!isMounted) return;
+        srsRef.current = parseElifbaSrs(raw);
+        setSrsReady(true);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        // Okuma başarısızsa boş haritayla devam et; kullanıcıya görünür retry sun.
+        srsRef.current = {};
+        srsLoadFailedRef.current = true;
+        setSrsError(true);
+        setSrsReady(true);
+      });
+    return () => { isMounted = false; };
   }, []);
 
-  const soru = sorular[idx];
+  useEffect(() => {
+    if (!srsReady || pool === null) return;
+    answeredIdsRef.current = new Set();
+    setQuestions(selectQuizQuestionsWithSrs(pool, srsRef.current, 15));
+    setSessionKey((k) => k + 1);
+  }, [pool, srsReady]);
 
-  function handleSelect(s: string) {
-    if (answered) return;
-    setSelected(s);
-    setAnswered(true);
-    if (s === soru?.dogru_cevap) {
-      setScore((p) => p + 1);
-      setShowConfetti(true);
-      confettiTimer.current = setTimeout(() => setShowConfetti(false), 1500);
-    }
+  useEffect(() => () => { requestIdRef.current += 1; }, []);
+
+  const persistSrs = useCallback((snapshot: ElifbaSrsMap) => {
+    writeQueueRef.current = writeQueueRef.current.then(async () => {
+      try {
+        await storage.setJSON(STORAGE_KEYS.elifbaSrs, snapshot);
+        failedSnapshotRef.current = null;
+        setWriteError(false);
+      } catch {
+        failedSnapshotRef.current = snapshot;
+        setWriteError(true);
+      }
+    });
+  }, []);
+
+  const handleAnswer = useCallback((q: QuizQuestion, correct: boolean) => {
+    // Aynı karede gelen ikinci dokunuşu tek soru bazında kes.
+    if (answeredIdsRef.current.has(q.quiz_id)) return;
+    answeredIdsRef.current.add(q.quiz_id);
+    // Okuma hatasında diskteki geçmişi ezmemek için SRS'i güncellemiyoruz.
+    if (srsLoadFailedRef.current) return;
+    const nowSec = Math.floor(Date.now() / 1000);
+    const next = updateElifbaSrs(srsRef.current, `q:${q.quiz_id}`, correct, nowSec);
+    srsRef.current = next;
+    persistSrs(next);
+  }, [persistSrs]);
+
+  const retrySrs = useCallback(() => {
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then((raw) => {
+        srsRef.current = parseElifbaSrs(raw);
+        srsLoadFailedRef.current = false;
+        setSrsError(false);
+      })
+      .catch(() => setSrsError(true));
+  }, []);
+
+  const retryWrite = useCallback(() => {
+    const snapshot = failedSnapshotRef.current;
+    if (snapshot) persistSrs(snapshot);
+  }, [persistSrs]);
+
+  if (poolLoading || !srsReady) {
+    return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
   }
-
-  function handleNext() {
-    if (idx + 1 >= sorular.length) setDone(true);
-    else { setIdx((i) => i + 1); setSelected(null); setAnswered(false); }
-  }
-
-  if (loading) return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
-  if (error) return (
+  if (poolError) return (
     <View style={qv.errBox}>
       <Text style={qv.errEmoji}>📚</Text>
       <Text style={[qv.noQ, { color: c.textMuted }]}>{ep.quizError}</Text>
@@ -308,103 +335,48 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
       </TouchableOpacity>
     </View>
   );
-  if (sorular.length === 0) return <Text style={[qv.noQ, { color: c.textMuted }]}>{ep.noQuestions}</Text>;
-  if (done) {
-    const pct = Math.round((score / sorular.length) * 100);
-    return (
-      <View style={qv.done}>
-        <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>
-        <Text style={[qv.doneTitle, { color: c.text }]}>{pct >= 80 ? ep.great : pct >= 60 ? ep.good : ep.tryAgain}</Text>
-        <Text style={[qv.doneSub, { color: c.textMuted }]}>{fmt(ep.scoreLine, { s: score, t: sorular.length, p: pct })}</Text>
-        <TouchableOpacity
-          style={qv.doneBtn}
-          onPress={() => onFinish(score, sorular.length)}
-          accessibilityRole="button"
-          accessibilityLabel={ep.backToLessonsA11y}
-        >
-          <Text style={qv.doneBtnText}>{ep.backToLessons}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  const isArabic = (t: string) => /[؀-ۿ]/.test(t);
-  const isPureArabic = (t: string) => isArabic(t) && !/[a-zA-ZçğıöşüÇĞİÖŞÜ]/.test(t);
-
-  function renderSoru(text: string) {
-    const lines = text.split("\n").filter((l) => l.trim() !== "");
-    const arabicLines = lines.filter((l) => isPureArabic(l));
-    const otherLines  = lines.filter((l) => !isPureArabic(l));
-    return (
-      <>
-        {arabicLines.map((line, i) => (
-          <Text key={`ar-${i}`} style={[qv.soruArabicLine, { color: c.text }]}>{line}</Text>
-        ))}
-        {otherLines.map((line, i) => (
-          <Text key={`tr-${i}`} style={[qv.soruText, { color: c.text }]}>{line}</Text>
-        ))}
-      </>
-    );
+  if (questions === null) {
+    return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
   }
 
   return (
-    <View style={qv.container}>
-      <Text style={qv.progress}>{fmt(ep.questionProgress, { i: idx + 1, n: sorular.length, s: score })}</Text>
-      <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
-        {renderSoru(soru.soru)}
-      </View>
-      <View style={qv.options}>
-        {soru.secenekler.map((s) => {
-          const isRight    = s === soru.dogru_cevap;
-          const isSelected = s === selected;
-          let bg = c.card;
-          if (answered) {
-            if (isRight) bg = c.isDark ? "#052e22" : "#dcfce7";
-            else if (isSelected) bg = c.isDark ? "#450a0a" : "#fee2e2";
-          }
-          return (
-            <TouchableOpacity
-              key={s}
-              style={[qv.option, { backgroundColor: bg, borderColor: c.border }]}
-              onPress={() => handleSelect(s)}
-              disabled={answered}
-              activeOpacity={0.75}
-              accessibilityRole="button"
-              accessibilityLabel={fmt(ep.answerA11y, { s })}
-              accessibilityState={{ disabled: answered, selected: isSelected }}
-            >
-              <Text style={[qv.optionText, { color: c.text }, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
-                {answered && isRight ? "✓ " : ""}{s}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-      {answered && soru.ipucu && selected !== soru.dogru_cevap && (
-        <View style={[qv.ipucu, c.isDark && { backgroundColor: "#422006" }]}>
-          <Text style={[qv.ipucuText, c.isDark && { color: "#fde68a" }]}>💡 {soru.ipucu}</Text>
+    <View style={{ flex: 1 }}>
+      {srsError && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
+            {ep.srsLoadError}
+          </Text>
+          <TouchableOpacity
+            style={qv.retryBtn}
+            onPress={retrySrs}
+            accessibilityRole="button"
+            accessibilityLabel={ep.srsLoadRetryA11y}
+          >
+            <Text style={qv.retryText}>{ep.retry}</Text>
+          </TouchableOpacity>
         </View>
       )}
-      {answered && (
-        <TouchableOpacity
-          style={qv.nextBtn}
-          onPress={handleNext}
-          accessibilityRole="button"
-          accessibilityLabel={idx + 1 >= sorular.length ? ep.seeResultsA11y : ep.nextQuestionA11y}
-        >
-          <Text style={qv.nextBtnText}>{idx + 1 >= sorular.length ? ep.seeResults : ep.next}</Text>
-        </TouchableOpacity>
-      )}
-      {showConfetti && LottieView && (
-        <View style={qv.confettiWrap} pointerEvents="none">
-          <LottieView
-            source={require('../../assets/Success-celebration.json')}
-            autoPlay
-            loop={false}
-            style={qv.confetti}
-          />
+      {writeError && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
+            {ep.srsWriteError}
+          </Text>
+          <TouchableOpacity
+            style={qv.retryBtn}
+            onPress={retryWrite}
+            accessibilityRole="button"
+            accessibilityLabel={ep.srsWriteRetryA11y}
+          >
+            <Text style={qv.retryText}>{ep.retry}</Text>
+          </TouchableOpacity>
         </View>
       )}
+      <ElifbaQuizView
+        key={sessionKey}
+        questions={questions}
+        onAnswer={handleAnswer}
+        onFinish={onFinish}
+      />
     </View>
   );
 }
@@ -652,30 +624,11 @@ const fc = StyleSheet.create({
 });
 
 const qv = StyleSheet.create({
-  container:   { flex:1, padding:16, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
   noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
   errBox:      { flex:1, alignItems:"center", justifyContent:"center", padding:24 },
   errEmoji:    { fontSize:40, marginBottom:8 },
-  retryBtn:    { backgroundColor:"#059669", paddingHorizontal:24, paddingVertical:11, borderRadius:10, marginTop:20 },
+  retryBtn:    { backgroundColor:"#059669", paddingHorizontal:24, paddingVertical:11, borderRadius:10, marginTop:12, alignSelf:"center" },
   retryText:   { color:"#fff", fontSize:14, fontWeight:"700" },
-  progress:    { fontSize:12, color:"#a8a29e", textAlign:"center", marginBottom:12 },
-  soruBox:        { backgroundColor:"#fffdf6", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7dfcc", gap:10 },
-  soruText:       { fontSize:15, lineHeight:24, color:"#1c1917" },
-  soruArabic:     { fontSize:24, textAlign:"right", fontFamily:"Amiri", writingDirection:"rtl" },
-  soruArabicLine: { fontSize:36, textAlign:"center", fontFamily:"Amiri", writingDirection:"rtl", color:"#1c1917", marginTop:4 },
-  options:     { gap:8, marginBottom:10 },
-  option:      { borderRadius:12, padding:14, borderWidth:1, borderColor:"#e7dfcc" },
-  optionText:  { fontSize:14, color:"#1c1917" },
-  ipucu:       { backgroundColor:"#fef9c3", borderRadius:10, padding:12, marginBottom:10 },
-  ipucuText:   { fontSize:13, color:"#854d0e", lineHeight:20 },
-  nextBtn:     { backgroundColor:"#059669", borderRadius:12, padding:14, alignItems:"center", marginTop:4 },
-  nextBtnText: { color:"#fff", fontSize:14, fontWeight:"700" },
-  confettiWrap:{ position:"absolute", top:120, left:16, right:16, height:220, alignItems:"center", justifyContent:"center" },
-  confetti:    { width:220, height:220 },
-  done:        { flex:1, alignItems:"center", justifyContent:"center", gap:12, padding:32 },
-  doneEmoji:   { fontSize:56 },
-  doneTitle:   { fontSize:22, fontWeight:"700", color:"#1c1917" },
-  doneSub:     { fontSize:15, color:"#78716c" },
-  doneBtn:     { backgroundColor:"#059669", borderRadius:12, paddingHorizontal:32, paddingVertical:13, marginTop:8 },
-  doneBtnText: { color:"#fff", fontSize:14, fontWeight:"700" },
+  notice:      { marginHorizontal:12, marginTop:12, padding:12, borderRadius:10, borderWidth:1, gap:6 },
+  noticeText:  { fontSize:13, lineHeight:19 },
 });
