@@ -696,7 +696,7 @@ export default function DersScreen() {
   const handleQuizFinish = useCallback(async (s: number, t: number) => {
     const prev = parseElifbaQuizScores(await storage.getJSON<unknown>(STORAGE_KEYS.quizScores));
     await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: { score: s, total: t } }).catch(() => {});
-    router.back();
+    router.dismissTo("/elifba");
   }, [dersId]);
 
   if (loading) {
@@ -788,9 +788,9 @@ export default function DersScreen() {
         </View>
 
         {mode === "exercise" && canExercise ? (
-          <ExerciseView questions={exerciseQuestions} onFinish={() => router.back()} />
+          <ExerciseView questions={exerciseQuestions} onFinish={() => router.dismissTo("/elifba")} />
         ) : mode === "listen" && canListen ? (
-          <ListeningView harfler={harfler} onFinish={() => router.back()} />
+          <ListeningView harfler={harfler} onFinish={() => router.dismissTo("/elifba")} />
         ) : mode === "flashcard" ? (
           harfler.length > 0 ? (
             <>

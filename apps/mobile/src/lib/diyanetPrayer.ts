@@ -181,12 +181,12 @@ export async function getManualCity(
   return parseManualCity(await safeRead(deps, DIYANET_MANUAL_CITY_KEY));
 }
 
-/** Elle seçilmiş şehri kaydeder; null → kaydı siler. */
+/** Elle seçilmiş şehri kaydeder; null → kaydı siler. Yazma hatasında fırlatır. */
 export async function setManualCity(
   city: ManualCity | null,
   deps: DiyanetPrayerDeps,
 ): Promise<void> {
-  await safeWrite(deps, DIYANET_MANUAL_CITY_KEY, city);
+  await deps.writeStore(DIYANET_MANUAL_CITY_KEY, city);
 }
 
 /**

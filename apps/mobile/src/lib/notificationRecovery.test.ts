@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readNotificationPlan, readNotificationRollback, shouldRefreshNotifications } from "./notificationRecovery.ts";
+import { readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery.ts";
 
 const day = new Date(2026, 10, 13, 12);
 const now = new Date(2026, 10, 13, 0);
@@ -29,6 +29,15 @@ test("soğuk açılış aynı damgada yeniler, aynı süreçte ön plana geliş 
   assert.equal(shouldRefreshNotifications(true, false, null, stamp), true);
   assert.equal(shouldRefreshNotifications(true, false, "eski", stamp), true);
   for (const cold of [true, false]) assert.equal(shouldRefreshNotifications(false, cold, null, stamp), false);
+});
+
+test("planlama sırasında damga değişse bile yazılan damga başlangıçtaki olur", async () => {
+  const start = `${stamp}|m1`;
+  let current = start;
+  const pending = resolvePlanStamp(start, async () => current);
+  current = `${stamp}|m2`;
+  assert.equal(await pending, start);
+  assert.equal(await resolvePlanStamp(null, async () => current), current);
 });
 
 test("başarılı plan günlerini ve tetikleyici tarihlerini Date olarak geri okur", () => {

@@ -7,6 +7,15 @@ export function shouldRefreshNotifications(enabled: boolean, coldStart: boolean,
   return enabled && (coldStart || savedStamp !== stamp);
 }
 
+// Planlama işinin başında okunan damga iş boyunca kullanılır: iş sürerken şehir/dil
+// değişse bile yazılan damga başlangıçtaki kalır (eski plana yeni şehir damgası yazılmaz).
+export async function resolvePlanStamp(
+  startStamp: string | null,
+  readStamp: () => Promise<string>,
+): Promise<string> {
+  return startStamp ?? readStamp();
+}
+
 type CachedPlan = { days: DayTimes[]; requests: NotificationRequestInput[] };
 const prayerKeys = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"];
 const record = (value: unknown): value is Record<string, unknown> =>

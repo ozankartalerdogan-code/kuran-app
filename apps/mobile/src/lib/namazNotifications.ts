@@ -1,5 +1,5 @@
 import { SerialQueue, settleJobs } from "./serialQueue";
-import { PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, shouldRefreshNotifications } from "./notificationRecovery";
+import { PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery";
 import { withOverlayBusy } from "../tour/overlayBusy";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
@@ -507,7 +507,7 @@ async function buildDailyVerseRepeating(times: PrayerTimes): Promise<Notificatio
 const notificationQueue = new SerialQueue();
 let coldStartPending = true;
 type PlanOptions = { days: DayTimes[]; prayer: boolean; dailyVerse: boolean };
-async function applyNotificationsInner(opts: PlanOptions, cachedRequests?: Notifications.NotificationRequestInput[]): Promise<void> {
+async function applyNotificationsInner(opts: PlanOptions, stamp: string | null, cachedRequests?: Notifications.NotificationRequestInput[]): Promise<void> {
   if ((opts.prayer || opts.dailyVerse) && opts.days.length === 0) throw new Error("no-times");
   await storage.remove(SCHED_DAY_KEY);
   // İçerik ve kanal hazırlığı başarısızsa mevcut plan henüz silinmemiştir.
@@ -529,14 +529,17 @@ async function applyNotificationsInner(opts: PlanOptions, cachedRequests?: Notif
   }
   if ((opts.prayer || opts.dailyVerse) && !cachedRequests) {
     // Yalnız başarıyla kurulmuş plan saklanır; önbellek hatası çalışan planı bozmaz.
-    await storage.setJSON(PLAN_CACHE_KEY, { version: 1, stamp: await fullSchedStamp(), ...opts, requests }).catch(() => {});
+    await storage.setJSON(PLAN_CACHE_KEY, { version: 1, stamp: await resolvePlanStamp(stamp, fullSchedStamp), ...opts, requests }).catch(() => {});
   }
 }
 export function applyNotifications(opts: PlanOptions): Promise<void> {
-  return notificationQueue.run(() => applyNotificationsInner(opts));
+  return notificationQueue.run(async () => {
+    const stamp = await fullSchedStamp();
+    await applyNotificationsInner(opts, stamp);
+  });
 }
 export function cancelNamazNotifications(): Promise<void> {
-  return notificationQueue.run(() => applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }));
+  return notificationQueue.run(() => applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null));
 }
 
 // Ayar ekranının kararı kuyruğa giriş sırasıyla kaydedilir; ağ hatası tercihi geri almaz.
@@ -550,7 +553,7 @@ export function changeNotificationPreference(
     await storage.setString(key, enabled ? "1" : "0");
     const [pv, dv] = await Promise.all([storage.getString(NOTIF_KEY), storage.getString(DAILY_VERSE_KEY)]);
     if (pv !== "1" && dv !== "1") {
-      await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+      await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
       return { granted: true, isFallback: false };
     }
     // Kapatılan tür ağ ve konumdan bağımsız iptal edilir; diğer türün mevcut planı korunur.
@@ -575,12 +578,14 @@ export function changeNotificationPreference(
       }
       return { granted: true, isFallback: false };
     }
+    // Planlama işinin başında bir kez okunur; iş sürerken şehir değişse bile bu damga yazılır.
+    const stamp = await fullSchedStamp();
     await storage.remove(SCHED_DAY_KEY);
     const coords = await location();
     const days = await fetchPrayerDays(coords.lat, coords.lng);
     if (!days?.length) throw new Error("no-times");
-    await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" });
-    await storage.setString(SCHED_DAY_KEY, await fullSchedStamp());
+    await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, stamp);
+    await storage.setString(SCHED_DAY_KEY, stamp);
     return { granted: true, isFallback: coords.isFallback };
   });
 }
@@ -594,15 +599,18 @@ async function enablePrayerNotificationsFirstRunInner(): Promise<FirstRunResult>
   ]);
   await storage.remove(SCHED_DAY_KEY);
   if (!granted) {
-    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
     return "denied";
   }
+  // Planlama başlamadan önce bir kez okunur; konum/şehir çözümü sürerken değişse bile
+  // yazılan damga bu işin başındaki değer olur.
+  const stamp = await fullSchedStamp();
   const { lat, lng } = await getLocationRequesting();
   try {
     const days = await fetchPrayerDays(lat, lng);
     if (!days?.length) return "error";
-    await applyNotificationsInner({ days, prayer: true, dailyVerse: true });
-    await storage.setString(SCHED_DAY_KEY, await fullSchedStamp());
+    await applyNotificationsInner({ days, prayer: true, dailyVerse: true }, stamp);
+    await storage.setString(SCHED_DAY_KEY, stamp);
     return "enabled";
   } catch { return "error"; }
 }
@@ -612,7 +620,7 @@ export function enablePrayerNotificationsFirstRun(): Promise<FirstRunResult> {
 export function declinePrayerNotifications(): Promise<void> {
   return notificationQueue.run(async () => {
     await Promise.all([storage.setString(NOTIF_KEY, "0"), storage.setString(DAILY_VERSE_KEY, "0")]);
-    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
   });
 }
 
@@ -637,7 +645,7 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
     return;
   }
   if (pv !== "1" && dv !== "1") {
-    if (pv !== null || dv !== null) await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false });
+    if (pv !== null || dv !== null) await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
     return;
   }
   const stamp = await fullSchedStamp();
@@ -656,8 +664,8 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
       days = await fetchPrayerDays(lat, lng) ?? undefined;
     }
     if (!days?.length) return;
-    await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, cached?.requests);
-    await storage.setString(SCHED_DAY_KEY, await fullSchedStamp());
+    await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, stamp, cached?.requests);
+    await storage.setString(SCHED_DAY_KEY, stamp);
   } catch { /* Damga yazılmaz; sonraki yenileme yeniden dener. */ }
 }
 export function rescheduleNotifications(): Promise<void> {

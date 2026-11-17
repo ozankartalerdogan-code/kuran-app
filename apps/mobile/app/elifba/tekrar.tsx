@@ -162,7 +162,7 @@ export default function TekrarScreen() {
   }, [persistSrs]);
 
   const retryLoad = useCallback(() => { setReloadKey((key) => key + 1); }, []);
-  const handleFinish = useCallback(() => { router.back(); }, []);
+  const handleFinish = useCallback(() => { router.dismissTo("/elifba"); }, []);
 
   const isEmpty = !poolLoading && !poolError
     && (lessonIds.length === 0 || (questions !== null && questions.length === 0));

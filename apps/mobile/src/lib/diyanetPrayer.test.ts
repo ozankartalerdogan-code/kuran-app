@@ -427,6 +427,17 @@ test("getManualCity bozuk/eksik kayıtta null döner", async () => {
   assert.equal(await getManualCity(h.deps), null);
 });
 
+test("setManualCity yazma hatasını yutar değil fırlatır", async () => {
+  const h = makeDeps();
+  const deps: DiyanetPrayerDeps = {
+    ...h.deps,
+    writeStore: async () => {
+      throw new Error("disk dolu");
+    },
+  };
+  await assert.rejects(() => setManualCity(MANUAL, deps), /disk dolu/);
+});
+
 test("titleCaseTr örnekleri", () => {
   assert.equal(titleCaseTr("BÜYÜKÇEKMECE"), "Büyükçekmece");
   assert.equal(titleCaseTr("İSTANBUL"), "İstanbul");
