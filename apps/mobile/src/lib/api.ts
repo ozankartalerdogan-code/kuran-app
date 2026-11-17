@@ -162,6 +162,7 @@ export type ElifbaDers = {
   konu_sirasi: number;
   seviye: string;
   harf_sayisi: number;
+  icerik_json?: string | null;
 };
 
 export type ElifbaHarf = {

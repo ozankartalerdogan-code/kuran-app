@@ -25,6 +25,8 @@ import { playHarfSes, stopHarfSes } from "../../src/lib/elifbaAudio";
 import { buildListeningItems, type ListeningItem } from "../../src/lib/elifbaListening";
 import { useStrings, useLang, fmt } from "../../src/i18n";
 import { localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
+import { parseDersIcerik, type DersIcerik } from "../../src/lib/elifbaLessonContent";
+import { ElifbaLessonContent } from "../../src/components/ElifbaLessonContent";
 import elifbaStrings from "../../src/i18n/strings/elifba";
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
@@ -495,6 +497,7 @@ export default function DersScreen() {
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
+  const [dersIcerik, setDersIcerik] = useState<DersIcerik | null>(null);
   const progressRef             = useRef<ElifbaProgress>({});
 
   useEffect(() => {
@@ -516,6 +519,21 @@ export default function DersScreen() {
       .catch(() => {});
     return () => { isMounted = false; };
   }, [dersId, reloadKey]);
+
+  useEffect(() => {
+    let isMounted = true;
+    setDersIcerik(null);
+    api.elifba.dersler()
+      .then((list) => {
+        if (!isMounted) return;
+        const ders = list.find((d) => d.id === dersId);
+        setDersIcerik(ders ? parseDersIcerik(ders.icerik_json) : null);
+      })
+      .catch(() => {
+        if (isMounted) setDersIcerik(null);
+      });
+    return () => { isMounted = false; };
+  }, [dersId]);
 
   const markSeen = useCallback((harfId: number) => {
     setSeenIds((prev) => {
@@ -621,6 +639,7 @@ export default function DersScreen() {
         ) : mode === "flashcard" ? (
           harfler.length > 0 ? (
             <>
+              {dersIcerik && <ElifbaLessonContent icerik={dersIcerik} lang={lang} />}
               <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
               <Flashcard
                 harf={harfler[idx]}

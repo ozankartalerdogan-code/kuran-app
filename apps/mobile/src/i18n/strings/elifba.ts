@@ -104,6 +104,8 @@ export default defineStrings({
     herIkisiLabel: "her ikisi",
     birlesenLabel: "birleşen",
     birlesmeyenLabel: "birleşmeyen",
+    examplesTitle: "Örnekler",
+    moreText: "Devamı",
   },
   en: {
     screenTitle: "Elifba",
@@ -204,5 +206,7 @@ export default defineStrings({
     herIkisiLabel: "both",
     birlesenLabel: "connecting",
     birlesmeyenLabel: "non-connecting",
+    examplesTitle: "Examples",
+    moreText: "More",
   },
 });
