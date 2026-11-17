@@ -20,6 +20,11 @@ import {
   type ElifbaSrsMap,
 } from "../../src/lib/elifbaProgress";
 import { normalizeQuizQuestions, type QuizQuestion } from "../../src/lib/elifbaQuizSession";
+import {
+  buildExerciseQuestions,
+  type ReviewedExercise,
+} from "../../src/lib/elifbaExerciseGen";
+import exercisesData from "../../src/data/elifba.exercises.json";
 import { ElifbaQuizView } from "../../src/components/ElifbaQuizView";
 import { playHarfSes, stopHarfSes } from "../../src/lib/elifbaAudio";
 import { buildListeningItems, type ListeningItem } from "../../src/lib/elifbaListening";
@@ -28,6 +33,8 @@ import { localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
 import { parseDersIcerik, type DersIcerik } from "../../src/lib/elifbaLessonContent";
 import { ElifbaLessonContent } from "../../src/components/ElifbaLessonContent";
 import elifbaStrings from "../../src/i18n/strings/elifba";
+
+const reviewedExercises = exercisesData as unknown as ReviewedExercise[];
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
@@ -331,6 +338,129 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   );
 }
 
+// ── Alıştırma ────────────────────────────────────────────────────────────────
+
+function ExerciseView({ questions, onFinish }: {
+  questions: QuizQuestion[]; onFinish: () => void;
+}) {
+  const c = useColors();
+  const ep = useStrings(elifbaStrings);
+  const [srsReady, setSrsReady] = useState(false);
+  const [srsError, setSrsError] = useState(false);
+  const [writeError, setWriteError] = useState(false);
+  const srsRef = useRef<ElifbaSrsMap>({});
+  const srsLoadFailedRef = useRef(false);
+  const answeredIdsRef = useRef<Set<number>>(new Set());
+  const writeQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const failedSnapshotRef = useRef<ElifbaSrsMap | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    setSrsError(false);
+    srsLoadFailedRef.current = false;
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then((raw) => {
+        if (!isMounted) return;
+        srsRef.current = parseElifbaSrs(raw);
+        setSrsReady(true);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        // Okuma başarısızsa diskteki geçmişi ezmemek için SRS yazılmaz.
+        srsRef.current = {};
+        srsLoadFailedRef.current = true;
+        setSrsError(true);
+        setSrsReady(true);
+      });
+    return () => { isMounted = false; };
+  }, []);
+
+  const persistSrs = useCallback((snapshot: ElifbaSrsMap) => {
+    writeQueueRef.current = writeQueueRef.current.then(async () => {
+      try {
+        await storage.setJSON(STORAGE_KEYS.elifbaSrs, snapshot);
+        failedSnapshotRef.current = null;
+        setWriteError(false);
+      } catch {
+        failedSnapshotRef.current = snapshot;
+        setWriteError(true);
+      }
+    });
+  }, []);
+
+  const handleAnswer = useCallback((q: QuizQuestion, correct: boolean) => {
+    if (answeredIdsRef.current.has(q.quiz_id)) return;
+    answeredIdsRef.current.add(q.quiz_id);
+    if (srsLoadFailedRef.current) return;
+    const nowSec = Math.floor(Date.now() / 1000);
+    const next = updateElifbaSrs(srsRef.current, `exercise:${q.quiz_id}`, correct, nowSec);
+    srsRef.current = next;
+    persistSrs(next);
+  }, [persistSrs]);
+
+  const retrySrs = useCallback(() => {
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then((raw) => {
+        srsRef.current = parseElifbaSrs(raw);
+        srsLoadFailedRef.current = false;
+        setSrsError(false);
+      })
+      .catch(() => setSrsError(true));
+  }, []);
+
+  const retryWrite = useCallback(() => {
+    const snapshot = failedSnapshotRef.current;
+    if (snapshot) persistSrs(snapshot);
+  }, [persistSrs]);
+
+  if (!srsReady) {
+    return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
+  }
+  if (questions.length === 0) {
+    return <Text style={[qv.noQ, { color: c.textMuted }]}>{ep.noQuestions}</Text>;
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      {srsError && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
+            {ep.srsLoadError}
+          </Text>
+          <TouchableOpacity
+            style={qv.retryBtn}
+            onPress={retrySrs}
+            accessibilityRole="button"
+            accessibilityLabel={ep.srsLoadRetryA11y}
+          >
+            <Text style={qv.retryText}>{ep.retry}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {writeError && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
+            {ep.srsWriteError}
+          </Text>
+          <TouchableOpacity
+            style={qv.retryBtn}
+            onPress={retryWrite}
+            accessibilityRole="button"
+            accessibilityLabel={ep.srsWriteRetryA11y}
+          >
+            <Text style={qv.retryText}>{ep.retry}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      <ElifbaQuizView
+        questions={questions}
+        onAnswer={handleAnswer}
+        onFinish={onFinish}
+      />
+    </View>
+  );
+}
+
 // ── Dinleme Testi ────────────────────────────────────────────────────────────
 
 function ListeningView({ harfler, onFinish }: {
@@ -469,7 +599,7 @@ function ListeningView({ harfler, onFinish }: {
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
-type Mode = "flashcard" | "quiz" | "listen";
+type Mode = "flashcard" | "quiz" | "listen" | "exercise";
 
 export default function DersScreen() {
   const { dersId: raw, mode: initialMode, baslik: rawBaslik } = useLocalSearchParams<{
@@ -490,6 +620,11 @@ export default function DersScreen() {
   const harfler = useMemo(() => localizeHarfler(harflerRaw, lang), [harflerRaw, lang]);
   // 4 farklı harfi olmayan derslerde (ör. Med Harfleri) dinleme sorusu kurulamaz; sekmeyi gizle.
   const canListen = useMemo(() => buildListeningItems(harfler, () => 0).length > 0, [harfler]);
+  const exerciseQuestions = useMemo(
+    () => buildExerciseQuestions(reviewedExercises, dersId, lang),
+    [dersId, lang],
+  );
+  const canExercise = exerciseQuestions.length > 0;
   const [loading, setLoading]   = useState(true);
   // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
   const [loadError, setLoadError] = useState(false);
@@ -614,6 +749,24 @@ export default function DersScreen() {
               {ep.quizBtn}
             </Text>
           </TouchableOpacity>
+          {canExercise && (
+          <TouchableOpacity
+            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "exercise" && styles.modeBtnActive]}
+            onPress={() => setMode("exercise")}
+            accessibilityRole="tab"
+            accessibilityLabel={ep.exerciseModeA11y}
+            accessibilityState={{ selected: mode === "exercise" }}
+          >
+            <Text
+              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "exercise" && styles.modeBtnTextActive]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
+              {ep.exerciseBtn}
+            </Text>
+          </TouchableOpacity>
+          )}
           {canListen && (
           <TouchableOpacity
             style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "listen" && styles.modeBtnActive]}
@@ -634,7 +787,9 @@ export default function DersScreen() {
           )}
         </View>
 
-        {mode === "listen" && canListen ? (
+        {mode === "exercise" && canExercise ? (
+          <ExerciseView questions={exerciseQuestions} onFinish={() => router.back()} />
+        ) : mode === "listen" && canListen ? (
           <ListeningView harfler={harfler} onFinish={() => router.back()} />
         ) : mode === "flashcard" ? (
           harfler.length > 0 ? (
