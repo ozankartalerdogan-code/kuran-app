@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readNotificationPlan, readNotificationRollback, shouldRefreshNotifications } from "./notificationRecovery.ts";
+import { readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery.ts";
 
 const day = new Date(2026, 10, 13, 12);
 const now = new Date(2026, 10, 13, 0);
@@ -29,6 +29,15 @@ test("soğuk açılış aynı damgada yeniler, aynı süreçte ön plana geliş 
   assert.equal(shouldRefreshNotifications(true, false, null, stamp), true);
   assert.equal(shouldRefreshNotifications(true, false, "eski", stamp), true);
   for (const cold of [true, false]) assert.equal(shouldRefreshNotifications(false, cold, null, stamp), false);
+});
+
+test("planlama sırasında damga değişse bile yazılan damga başlangıçtaki olur", async () => {
+  const start = `${stamp}|m1`;
+  let current = start;
+  const pending = resolvePlanStamp(start, async () => current);
+  current = `${stamp}|m2`;
+  assert.equal(await pending, start);
+  assert.equal(await resolvePlanStamp(null, async () => current), current);
 });
 
 test("başarılı plan günlerini ve tetikleyici tarihlerini Date olarak geri okur", () => {
@@ -125,5 +134,79 @@ test("yalnız namaz veya yalnız günlük ayet tercihiyle plan okunabilir", () =
     value.dailyVerse = !prayer;
     value.requests = value.requests.filter(r => (r.content.data.route === "/namaz") === prayer);
     assert.ok(readNotificationPlan(JSON.stringify(value), stamp, prayer, !prayer, now));
+  }
+});
+
+test("at taşıyan plan kabul edilir; bozuk at reddedilir", () => {
+  const at = {
+    Fajr: Date.parse("2026-11-13T05:30:00+03:00"),
+    Sunrise: Date.parse("2026-11-13T07:00:00+03:00"),
+    Dhuhr: Date.parse("2026-11-13T12:30:00+03:00"),
+    Asr: Date.parse("2026-11-13T15:00:00+03:00"),
+    Maghrib: Date.parse("2026-11-13T18:00:00+03:00"),
+    Isha: Date.parse("2026-11-13T20:00:00+03:00"),
+  };
+  const value = fixture();
+  value.days = [{ date: day.toISOString(), times: { ...times }, at }];
+  const prayerRequests = value.requests.filter(r => r.content.data.route === "/namaz");
+  Object.values(at).forEach((ms, i) => {
+    Object.assign(prayerRequests[i].trigger, { date: new Date(ms + 120_000).toISOString() });
+  });
+
+  const plan = read(value);
+  assert.ok(plan);
+  assert.deepEqual(plan.days[0].at, at);
+
+  for (const broken of [
+    { ...at, Fajr: "x" },
+    { ...at, Dhuhr: null },
+    { ...at, Isha: undefined },
+    "bozuk",
+  ]) {
+    const bad = fixture();
+    bad.days = [{ date: day.toISOString(), times: { ...times }, at: broken }];
+    assert.equal(read(bad), null);
+  }
+});
+
+test("carry taşıyan plan kabul edilir; bozuk veya eksik carry reddedilir", () => {
+  const at = {
+    Fajr: Date.parse("2026-11-13T05:30:00+03:00"),
+    Sunrise: Date.parse("2026-11-13T07:00:00+03:00"),
+    Dhuhr: Date.parse("2026-11-13T12:30:00+03:00"),
+    Asr: Date.parse("2026-11-13T15:00:00+03:00"),
+    Maghrib: Date.parse("2026-11-13T18:00:00+03:00"),
+    Isha: Date.parse("2026-11-13T20:00:00+03:00"),
+  };
+  const carry = { Isha: Date.parse("2026-11-13T23:30:00+03:00") };
+  const value = fixture();
+  value.days = [{ date: day.toISOString(), times: { ...times }, at, carry }];
+  const prayerRequests = value.requests.filter(r => r.content.data.route === "/namaz");
+  Object.values(at).forEach((ms, i) => {
+    Object.assign(prayerRequests[i].trigger, { date: new Date(ms + 120_000).toISOString() });
+  });
+  value.requests.push({
+    content: { title: "Vakit", body: "Namaz", sound: true, data: { route: "/namaz" } },
+    trigger: { type: "date", date: new Date(carry.Isha + 120_000).toISOString(), channelId: "namaz-vakitleri" },
+  });
+
+  const plan = read(value);
+  assert.ok(plan);
+  assert.deepEqual(plan.days[0].carry, carry);
+
+  const withoutCarryRequest = JSON.parse(JSON.stringify(value));
+  withoutCarryRequest.requests.pop();
+  assert.equal(read(withoutCarryRequest), null);
+
+  for (const broken of [
+    "bozuk",
+    { Isha: "x" },
+    { Isha: null },
+    { Bilinmeyen: 1 },
+    { Fajr: "2026-11-13T05:30:00+03:00" },
+  ]) {
+    const bad = fixture();
+    bad.days = [{ date: day.toISOString(), times: { ...times }, at, carry: broken }];
+    assert.equal(read(bad), null);
   }
 });

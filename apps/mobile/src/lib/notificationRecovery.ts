@@ -1,10 +1,20 @@
 import type { NotificationRequestInput } from "expo-notifications";
 import type { DayTimes } from "./namazNotifications";
+import type { PrayerInstants } from "./prayerInstant";
 
 export const PLAN_CACHE_KEY = "namazNotifPlanCacheV1";
 
 export function shouldRefreshNotifications(enabled: boolean, coldStart: boolean, savedStamp: string | null, stamp: string): boolean {
   return enabled && (coldStart || savedStamp !== stamp);
+}
+
+// Planlama işinin başında okunan damga iş boyunca kullanılır: iş sürerken şehir/dil
+// değişse bile yazılan damga başlangıçtaki kalır (eski plana yeni şehir damgası yazılmaz).
+export async function resolvePlanStamp(
+  startStamp: string | null,
+  readStamp: () => Promise<string>,
+): Promise<string> {
+  return startStamp ?? readStamp();
 }
 
 type CachedPlan = { days: DayTimes[]; requests: NotificationRequestInput[] };
@@ -20,7 +30,7 @@ export function readNotificationPlan(raw: string | null, stamp: string, prayer: 
     if (!raw) return null;
     const value: unknown = JSON.parse(raw);
     if (!record(value) || value.version !== 1 || value.stamp !== stamp || value.prayer !== prayer || value.dailyVerse !== dailyVerse) return null;
-    if (!Array.isArray(value.days) || value.days.length < 1 || value.days.length > 7 || !Array.isArray(value.requests) || value.requests.length > 56) return null;
+    if (!Array.isArray(value.days) || value.days.length < 1 || value.days.length > 7 || !Array.isArray(value.requests) || value.requests.length > 62) return null;
     const days: DayTimes[] = [];
     const dates = new Set<string>();
     for (const day of value.days) {
@@ -36,7 +46,37 @@ export function readNotificationPlan(raw: string | null, stamp: string, prayer: 
         if (typeof time !== "string" || !/^([01]?\d|2[0-3]):[0-5]\d$/.test(time)) return null;
         times[key] = time;
       }
-      days.push({ date, times });
+      let at: PrayerInstants | undefined;
+      if (day.at !== undefined) {
+        if (!record(day.at)) return null;
+        const parsed: Record<string, number> = {};
+        for (const key of prayerKeys) {
+          const value = day.at[key];
+          if (typeof value !== "number" || !Number.isFinite(value)) return null;
+          parsed[key] = value;
+        }
+        at = parsed as PrayerInstants;
+      }
+      let carry: Partial<PrayerInstants> | undefined;
+      if (day.carry !== undefined) {
+        if (!record(day.carry)) return null;
+        const sourceKeys = Object.keys(day.carry);
+        if (sourceKeys.length > prayerKeys.length) return null;
+        const parsed: Partial<PrayerInstants> = {};
+        for (const key of prayerKeys) {
+          if (!(key in day.carry)) continue;
+          const value = day.carry[key];
+          if (typeof value !== "number" || !Number.isFinite(value)) return null;
+          parsed[key as keyof PrayerInstants] = value;
+        }
+        // Tanınmayan anahtar (sayı uyuşmazlığı) bozuk carry sayılır.
+        if (Object.keys(parsed).length !== sourceKeys.length) return null;
+        carry = parsed;
+      }
+      const entry: DayTimes = { date, times };
+      if (at !== undefined) entry.at = at;
+      if (carry !== undefined) entry.carry = carry;
+      days.push(entry);
     }
     if (!dates.has(stamp.split("|")[0])) return null;
     const firstDay = new Date(days[0].date);
@@ -77,12 +117,22 @@ export function readNotificationPlan(raw: string | null, stamp: string, prayer: 
     // Geçmiş bildirimler elenebilir; kaynak planda etkin türün kayıp olması bozulmadır.
     if (dailyVerse && dailyRequests === 0) return null;
     if (prayer) {
-      const expected = days.flatMap(day => prayerKeys.map(key => {
-        const [h, m] = day.times[key].split(":").map(Number);
-        const date = new Date(day.date);
-        date.setHours(h, m + 2, 0, 0);
-        return date.getTime();
-      })).filter(time => time > now.getTime()).sort((a, b) => a - b);
+      const expected = days.flatMap(day => {
+        const scheduled = prayerKeys.map(key => {
+          if (day.at) return day.at[key as keyof PrayerInstants] + 2 * 60_000;
+          const [h, m] = day.times[key].split(":").map(Number);
+          const date = new Date(day.date);
+          date.setHours(h, m + 2, 0, 0);
+          return date.getTime();
+        });
+        const carried = day.carry
+          ? prayerKeys.flatMap(key => {
+              const value = day.carry?.[key as keyof PrayerInstants];
+              return value === undefined ? [] : [value + 2 * 60_000];
+            })
+          : [];
+        return [...scheduled, ...carried];
+      }).filter(time => time > now.getTime()).sort((a, b) => a - b);
       const actual = requests.filter(r => r.content.data?.route === "/namaz").map(r =>
         (r.trigger as { date: Date }).date.getTime()).sort((a, b) => a - b);
       if (JSON.stringify(expected) !== JSON.stringify(actual)) return null;

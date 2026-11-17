@@ -12,8 +12,10 @@ import {
   isTurkeyCountry,
   prayerCityStampPart,
   titleCaseTr,
+  type DiyanetDayOut,
 } from "../lib/diyanetPrayer";
 import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
+import { getDiyanetDaysCachedVersion, onDiyanetDaysCached } from "../lib/prayerCityEvents";
 
 interface DailyVerse {
   verse_key: string;
@@ -138,6 +140,26 @@ export function useDailyContent(): UseDailyContentResult {
   // Diyanet günü bulunduysa şehir etiketi ondan gelir; geç gelen reverseGeocode
   // sonucu bu etiketi ezmesin.
   const diyanetCityRef = useRef(false);
+  // Bu load'da vakitler Aladhan yedeğinden geldiyse işaretlenir; Diyanet önbelleği
+  // hazır olduğunda ana sayfa tek turda kendini düzeltir.
+  const prayerFellBackRef = useRef(false);
+  const coordsRef = useRef<{ lat: number; lon: number } | null>(null);
+
+  const applyDiyanetDay = useCallback(async (day: DiyanetDayOut) => {
+    diyanetCityRef.current = true;
+    setPrayerCityState(
+      titleCaseTr(day.city.name, isTurkeyCountry(day.city.country)),
+    );
+    setPrayers(day.times);
+    if (day.hijri) setHijriDate(day.hijri);
+    storage.setJSON(STORAGE_KEYS.prayerCache, {
+      date: todayKey(),
+      timings: day.times,
+      hijri: day.hijri,
+      cityKey: await prayerCityStampPart(diyanetDeps()),
+    }).catch(() => {});
+    prayerFellBackRef.current = false;
+  }, []);
 
   const load = useCallback(async () => {
     // Her load'a kimlik ver: unmount olduysa ya da daha yeni bir load (ör.
@@ -154,6 +176,8 @@ export function useDailyContent(): UseDailyContentResult {
     setPrayerLoading(true);
     setLoading(true);
     diyanetCityRef.current = false;
+    prayerFellBackRef.current = false;
+    coordsRef.current = null;
 
     let verseDone = false;
     let duaDone = false;
@@ -387,6 +411,8 @@ export function useDailyContent(): UseDailyContentResult {
     // artık namaz fetch'ini başlatma ve state'e dokunma.
     if (!isCurrent()) return;
 
+    coordsRef.current = { lat: coords.lat, lon: coords.lon };
+
     const prayerAC = new AbortController();
 
     // Safety timeout: en geç 10 saniye sonra loading'i kapat. Diyanet denemesi
@@ -409,7 +435,8 @@ export function useDailyContent(): UseDailyContentResult {
     // Aladhan yoluna düşülür. Diyanet yolu en kötü ~14 sn sürebilir; güvenlik
     // zamanlayıcısı loading'i kapatsa bile sonuç gelince prayers yine set edilir.
     const diyanetDate = localYmdStr(new Date());
-    const diyanetDay = (
+    const cachedVersionBefore = getDiyanetDaysCachedVersion();
+    const readDiyanetToday = async () => (
       await getDiyanetDays(
         coords.lat,
         coords.lon,
@@ -418,30 +445,26 @@ export function useDailyContent(): UseDailyContentResult {
         diyanetDeps(),
       )
     ).get(diyanetDate);
+    let diyanetDay = await readDiyanetToday();
     if (!isCurrent()) return;
+    // Bu istek sürerken bildirim planı Diyanet'i önbelleğe aldıysa (olay kaçtı)
+    // Aladhan'a düşmeden önce bir kez önbellekten yeniden oku.
+    if (!diyanetDay && getDiyanetDaysCachedVersion() !== cachedVersionBefore) {
+      diyanetDay = await readDiyanetToday();
+      if (!isCurrent()) return;
+    }
 
     if (diyanetDay) {
       // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.
-      diyanetCityRef.current = true;
-      setPrayerCityState(
-        titleCaseTr(
-          diyanetDay.city.name,
-          isTurkeyCountry(diyanetDay.city.country),
-        ),
-      );
-      setPrayers(diyanetDay.times);
-      if (diyanetDay.hijri) setHijriDate(diyanetDay.hijri);
+      await applyDiyanetDay(diyanetDay);
       markSuccess();
-      storage.setJSON(STORAGE_KEYS.prayerCache, {
-        date: todayKey(),
-        timings: diyanetDay.times,
-        hijri: diyanetDay.hijri,
-        cityKey: await prayerCityStampPart(diyanetDeps()),
-      }).catch(() => {});
       prayerDone = true;
       setPrayerLoading(false);
       tryFinishLoading();
     } else {
+      // Diyanet bu turda çözülemedi: bildirim planı Diyanet'i önbelleğe alırsa
+      // (Aladhan yanıtından önce ya da sonra) ana sayfa kendini düzeltsin.
+      prayerFellBackRef.current = true;
       const ts = buildDateStr();
       // Aladhan yedek vakitleri de aynı şehir damgasıyla önbelleğe yazılır ki
       // sonraki açılışta yanlış şehre ait kayıt kullanılmasın.
@@ -460,6 +483,13 @@ export function useDailyContent(): UseDailyContentResult {
           clearTimeout(prayerTimeoutId);
           if (!isCurrent()) return;
           if (d?.data?.timings) d.data.timings = adjustHighLatitude(d.data.timings, coords.lat, localYMD(new Date()), deviceTimeZone());
+          // Bu arada Diyanet yeniden denemesi başarılı olduysa Aladhan onu ezmesin.
+          if (diyanetCityRef.current) {
+            prayerDone = true;
+            setPrayerLoading(false);
+            tryFinishLoading();
+            return;
+          }
           if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
             setPrayers(d.data.timings);
             const hijri = parseHijri(d.data.date?.hijri);
@@ -497,6 +527,33 @@ export function useDailyContent(): UseDailyContentResult {
       if (safetyTimerRef.current) clearTimeout(safetyTimerRef.current);
     };
   }, [load]);
+
+  // Bildirim planı Diyanet gününü önbelleğe aldığında, ana sayfa Aladhan yedeğinde
+  // kaldıysa aynı koordinatla Diyanet'i yeniden iste (önbellekten hızlı döner).
+  // Tek tur: uygulama Diyanet'i yazarken yeniden haber vermez.
+  useEffect(() => {
+    return onDiyanetDaysCached(() => {
+      if (!prayerFellBackRef.current || !isMountedRef.current) return;
+      const coords = coordsRef.current;
+      if (!coords) return;
+      const retryLoadId = loadIdRef.current;
+      const date = localYmdStr(new Date());
+      void getDiyanetDays(
+        coords.lat,
+        coords.lon,
+        deviceOffsetMin(),
+        [date],
+        diyanetDeps(),
+      )
+        .then(async (days) => {
+          if (!isMountedRef.current || loadIdRef.current !== retryLoadId) return;
+          const day = days.get(date);
+          if (!day) return;
+          await applyDiyanetDay(day);
+        })
+        .catch(() => {});
+    });
+  }, [applyDiyanetDay]);
 
   const nextPrayer = prayers
     ? (() => {

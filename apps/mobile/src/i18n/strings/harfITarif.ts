@@ -17,6 +17,11 @@ export default defineStrings({
     restartA11y: "Harf-i Tarif testini tekrar başlat",
     restart: "↺ Tekrar",
     memoryTip: "💡 HAFIZA İPUCU",
+    lastScore: "Son tamamlanan test: {s}/{t}",
+    saveError: "Sonuç kaydedilemedi.",
+    loadError: "Son sonuç okunamadı.",
+    retrySaveA11y: "Test sonucunu kaydetmeyi tekrar dene",
+    retrySave: "Tekrar dene",
   },
   en: {
     sun: "☀️ Sun letters (Shamsi)",
@@ -33,5 +38,10 @@ export default defineStrings({
     restartA11y: "Restart the definite article quiz",
     restart: "↺ Retry",
     memoryTip: "💡 MEMORY TIP",
+    lastScore: "Last completed quiz: {s}/{t}",
+    saveError: "Couldn't save your result.",
+    loadError: "Couldn't load your last result.",
+    retrySaveA11y: "Retry saving the quiz result",
+    retrySave: "Retry",
   },
 });

@@ -155,10 +155,7 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
     }
     if (response) {
       const request = response.notification.request;
-      const data = request.content.data as Record<string, unknown>;
-      const target = data?.surahId && data?.ayahNumber ? `/ayah/${data.surahId}/${data.ayahNumber}`
-        : typeof data?.route === "string" ? data.route : null;
-      if (target) pending.current.remember(target, `${request.identifier}:${response.notification.date}:${response.actionIdentifier}`);
+      pending.current.remember("/(tabs)", `${request.identifier}:${response.notification.date}:${response.actionIdentifier}`);
     }
     if (needsOnboarding && !onboarded) {
       if (pathname !== "/onboarding") router.replace("/onboarding");
@@ -167,7 +164,11 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
     const target = pending.current.take(!!navigation.key, onboarded);
     if (target) {
       if (pathname === "/onboarding") router.replace(target as Href);
-      else router.push(target as Href);
+      else if (target === "/(tabs)" || target === "/") {
+        if (pathname !== "/") router.navigate("/(tabs)");
+      } else {
+        router.push(target as Href);
+      }
       void Notifications.clearLastNotificationResponseAsync().catch(() => {});
     } else if (onboarded && pathname === "/onboarding") router.replace("/(tabs)");
   }, [navigation?.key, needsOnboarding, onboarded, pathname, params, response]);
@@ -178,7 +179,6 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
 function ExactAlarmOpeningPrompt() {
   const { onboarded } = useAppTour();
   const navigation = useRootNavigationState();
-  const pathname = usePathname();
   const busy = useOverlayBusy();
   const [foreground, setForeground] = useState(AppState.currentState === "active");
   useEffect(() => {
@@ -186,12 +186,12 @@ function ExactAlarmOpeningPrompt() {
     return () => sub.remove();
   }, []);
   useEffect(() => {
-    if (!navigation?.key || !onboarded || pathname === "/onboarding" || !foreground || busy) return;
+    if (!navigation?.key || !onboarded || !foreground || busy) return;
     const timer = setTimeout(() => {
       if (AppState.currentState === "active" && !isOverlayBusy()) void maybePromptExactAlarm().catch(() => {});
     }, 2500);
     return () => clearTimeout(timer);
-  }, [navigation?.key, onboarded, pathname, foreground, busy]);
+  }, [navigation?.key, onboarded, foreground, busy]);
   return null;
 }
 

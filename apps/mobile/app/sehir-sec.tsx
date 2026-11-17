@@ -51,6 +51,7 @@ export default function SehirSecScreen() {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState<SearchState>({ status: "idle" });
   const [selecting, setSelecting] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   const busyRef = useRef(false);
 
   useEffect(() => {
@@ -100,12 +101,15 @@ export default function SehirSecScreen() {
       if (busyRef.current) return;
       busyRef.current = true;
       setSelecting(true);
+      setSaveError(false);
       try {
         await setManualCity(city, diyanetDeps());
         setManual(city);
         markPrayerCityChanged();
         void rescheduleNotifications();
         router.back();
+      } catch {
+        setSaveError(true);
       } finally {
         setSelecting(false);
         busyRef.current = false;
@@ -164,6 +168,14 @@ export default function SehirSecScreen() {
         />
       </View>
 
+      {saveError && (
+        <Text
+          style={[s.message, { color: "#dc2626" }]}
+          accessibilityLiveRegion="polite"
+        >
+          {t.saveError}
+        </Text>
+      )}
       {search.status === "loading" && (
         <ActivityIndicator style={s.loading} color={c.accent} />
       )}
@@ -195,7 +207,7 @@ export default function SehirSecScreen() {
               activeOpacity={0.8}
               disabled={selecting}
               accessibilityRole="button"
-              accessibilityLabel={fmt(t.selectCityA11y, { name })}
+              accessibilityLabel={fmt(t.selectCityA11y, { name: subtitle ? `${name}, ${subtitle}` : name })}
               accessibilityState={{ selected: isSelected, disabled: selecting }}
             >
               <View style={s.flex}>

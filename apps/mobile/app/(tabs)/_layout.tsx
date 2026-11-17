@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, type ComponentProps } from "react";
+import type React from "react";
 import { useColors } from "../../src/hooks/useColors";
 import { useStrings } from "../../src/i18n";
 import tabStrings from "../../src/i18n/strings/tabs";
@@ -38,6 +39,13 @@ function TourTabButton({ targetId, ...props }: ComponentProps<typeof PlatformPre
   );
 }
 
+type TabButtonProps = ComponentProps<typeof PlatformPressable>;
+const TOUR_TAB_BUTTONS: Partial<Record<string, (props: TabButtonProps) => React.JSX.Element>> = {
+  kuran: (props) => <TourTabButton {...props} targetId="tab.kuran" />,
+  ogren: (props) => <TourTabButton {...props} targetId="tab.ogren" />,
+  "daha-fazla": (props) => <TourTabButton {...props} targetId="tab.daha-fazla" />,
+};
+
 export default function TabsLayout() {
   const c = useColors();
   const s = useStrings(tabStrings);
@@ -67,8 +75,7 @@ export default function TabsLayout() {
           name={tab.name}
           options={{
             title: s[tab.titleKey],
-            tabBarButton: ["kuran", "ogren", "daha-fazla"].includes(tab.name)
-              ? (props) => <TourTabButton {...props} targetId={`tab.${tab.name}`} /> : undefined,
+            tabBarButton: TOUR_TAB_BUTTONS[tab.name],
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons
                 name={focused ? tab.iconActive : tab.icon}

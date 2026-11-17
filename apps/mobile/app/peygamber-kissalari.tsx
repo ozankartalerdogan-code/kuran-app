@@ -6,7 +6,6 @@ import { Stack, router } from "expo-router";
 import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
-import rawData from "../src/data/peygamber_kissalari.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 import { useLang, useStrings, fmt, caps } from "../src/i18n";
@@ -14,7 +13,8 @@ import { localizedData } from "../src/i18n/localizedData";
 import kissalarStrings from "../src/i18n/strings/peygamberKissalari";
 
 const pickData = localizedData<{ peygamber_kissalari: PeygamberKissalariMeta }>(
-  rawData as { peygamber_kissalari: PeygamberKissalariMeta },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/peygamber_kissalari.json"),
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   () => require("../src/data/peygamber_kissalari.en.json"),
 );

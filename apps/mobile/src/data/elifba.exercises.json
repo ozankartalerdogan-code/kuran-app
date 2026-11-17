@@ -1,0 +1,588 @@
+[
+  {
+    "key": "p7-d2-1",
+    "lessonId": 2,
+    "kind": "position",
+    "source": {
+      "path": "data/elifba_harfler.json",
+      "line": 19
+    },
+    "arabic": "ب",
+    "tr": {
+      "prompt": "Be harfinin iki yandan bağlanan orta biçimi hangisidir?",
+      "options": [
+        "بـ",
+        "ـبـ",
+        "ـب"
+      ],
+      "answer": "ـبـ",
+      "hint": "Ortadaki biçimde harfin hem sağında hem solunda bağlantı çizgisi vardır."
+    },
+    "en": {
+      "prompt": "Which is the medial form of Ba when joined on both sides?",
+      "options": [
+        "بـ",
+        "ـبـ",
+        "ـب"
+      ],
+      "answer": "ـبـ",
+      "hint": "The medial form has a joining stroke on both the right and the left."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100001
+  },
+  {
+    "key": "p7-d2-2",
+    "lessonId": 2,
+    "kind": "position",
+    "source": {
+      "path": "data/elifba_harfler.json",
+      "line": 32
+    },
+    "arabic": "ت",
+    "tr": {
+      "prompt": "Te harfinin önceki harfe bağlanan son biçimi hangisidir?",
+      "options": [
+        "ـتـ",
+        "تـ",
+        "ـت"
+      ],
+      "answer": "ـت",
+      "hint": "Sondaki biçim sağdan önceki harfe bağlanır; solunda devam çizgisi bulunmaz."
+    },
+    "en": {
+      "prompt": "Which is the final form of Ta when joined to the preceding letter?",
+      "options": [
+        "ـتـ",
+        "تـ",
+        "ـت"
+      ],
+      "answer": "ـت",
+      "hint": "The final form joins to the preceding letter on the right, with no continuing stroke on the left."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100002
+  },
+  {
+    "key": "p7-d3-1",
+    "lessonId": 3,
+    "kind": "mark",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 45,
+      "page": 13
+    },
+    "arabic": "رَزَقَ",
+    "tr": {
+      "prompt": "İlk harf olan Ra üzerindeki harekenin adı nedir?",
+      "options": [
+        "Üstün (fetha)",
+        "Esre (kesra)",
+        "Ötre (damme)"
+      ],
+      "answer": "Üstün (fetha)",
+      "hint": "Ra harfinin üstündeki kısa eğik çizgiye bak."
+    },
+    "en": {
+      "prompt": "What is the vowel mark on the first letter, Ra?",
+      "options": [
+        "Fatha",
+        "Kasra",
+        "Damma"
+      ],
+      "answer": "Fatha",
+      "hint": "Look at the short slanting stroke above Ra."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100003
+  },
+  {
+    "key": "p7-d3-2",
+    "lessonId": 3,
+    "kind": "mark",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 45,
+      "page": 13
+    },
+    "arabic": "شَهِدَ",
+    "tr": {
+      "prompt": "Ortadaki He harfinin altındaki harekenin adı nedir?",
+      "options": [
+        "Ötre (damme)",
+        "Esre (kesra)",
+        "Üstün (fetha)"
+      ],
+      "answer": "Esre (kesra)",
+      "hint": "Ortadaki harfin altındaki kısa çizgi esredir."
+    },
+    "en": {
+      "prompt": "What is the vowel mark below the middle letter, Ha?",
+      "options": [
+        "Damma",
+        "Kasra",
+        "Fatha"
+      ],
+      "answer": "Kasra",
+      "hint": "The short stroke below the middle letter is kasra."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100004
+  },
+  {
+    "key": "p7-d4-1",
+    "lessonId": 4,
+    "kind": "reading",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 51,
+      "page": 14
+    },
+    "arabic": "إِبْ",
+    "tr": {
+      "prompt": "Bu hece nasıl okunur?",
+      "options": [
+        "ib",
+        "eb",
+        "bi"
+      ],
+      "answer": "ib",
+      "hint": "Baştaki esre i sesi verir; sondaki Be cezimli olduğu için ona yeni ünlü eklenmez."
+    },
+    "en": {
+      "prompt": "How is this syllable read?",
+      "options": [
+        "ib",
+        "eb",
+        "bi"
+      ],
+      "answer": "ib",
+      "hint": "The kasra on the first letter gives an i sound; the final Ba has sukun, so no new vowel is added."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100005
+  },
+  {
+    "key": "p7-d4-2",
+    "lessonId": 4,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 57,
+      "page": 15
+    },
+    "arabic": "قُلْ",
+    "tr": {
+      "prompt": "Sondaki Lam cezimli olduğu için nasıl okunur?",
+      "options": [
+        "Lamdan sonra yeni bir ünlü eklenmeden",
+        "Lama yeni bir esre sesi eklenerek",
+        "Lam iki kez okunarak"
+      ],
+      "answer": "Lamdan sonra yeni bir ünlü eklenmeden",
+      "hint": "Cezimli harf önceki harfin harekesiyle birleşir; kendisine yeni bir hareke sesi verilmez."
+    },
+    "en": {
+      "prompt": "How is the final Lam read because it has sukun?",
+      "options": [
+        "Without adding a new vowel after Lam",
+        "By adding a new kasra vowel to Lam",
+        "By pronouncing Lam twice"
+      ],
+      "answer": "Without adding a new vowel after Lam",
+      "hint": "A letter with sukun joins the preceding vowel; it is not given a new vowel of its own."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100006
+  },
+  {
+    "key": "p7-d5-1",
+    "lessonId": 5,
+    "kind": "mark",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 69,
+      "page": 17
+    },
+    "arabic": "جَنَّةُ",
+    "tr": {
+      "prompt": "Nun üzerindeki, harfin tekrarını gösteren işaretin adı nedir?",
+      "options": [
+        "Cezm",
+        "Şedde",
+        "Tenvin"
+      ],
+      "answer": "Şedde",
+      "hint": "Nun üzerindeki küçük kıvrımlı işaret şeddedir."
+    },
+    "en": {
+      "prompt": "What is the mark on Nun that indicates doubling the letter?",
+      "options": [
+        "Sukun",
+        "Shadda",
+        "Tanwin"
+      ],
+      "answer": "Shadda",
+      "hint": "The small curved mark above Nun is shadda."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100007
+  },
+  {
+    "key": "p7-d5-2",
+    "lessonId": 5,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 69,
+      "page": 17
+    },
+    "arabic": "حَقَّ",
+    "tr": {
+      "prompt": "Şeddeli Kaf nasıl okunur?",
+      "options": [
+        "Tek bir kısa harf gibi",
+        "İlki cezimli, ikincisi harekeli iki aynı harf gibi",
+        "Kaf tamamen atlanarak"
+      ],
+      "answer": "İlki cezimli, ikincisi harekeli iki aynı harf gibi",
+      "hint": "Şedde, harfi önceki sesle birleştirir ve kendi harekesiyle tekrar okutur."
+    },
+    "en": {
+      "prompt": "How is the Qaf with shadda pronounced?",
+      "options": [
+        "As a single short consonant",
+        "As two identical consonants, the first with sukun and the second with a vowel",
+        "By omitting Qaf entirely"
+      ],
+      "answer": "As two identical consonants, the first with sukun and the second with a vowel",
+      "hint": "Shadda joins the letter to the preceding sound and repeats it with its own vowel."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100008
+  },
+  {
+    "key": "p7-d6-1",
+    "lessonId": 6,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 81,
+      "page": 19
+    },
+    "arabic": "قَالَ",
+    "tr": {
+      "prompt": "Bu kelimede Kafın üstün sesini uzatan med harfi hangisidir?",
+      "options": [
+        "Elif",
+        "Vav",
+        "Ye"
+      ],
+      "answer": "Elif",
+      "hint": "Üstünlü Kafın ardından harekesiz Elif gelir."
+    },
+    "en": {
+      "prompt": "Which madd letter lengthens the fatha vowel of Qaf in this word?",
+      "options": [
+        "Alif",
+        "Waw",
+        "Ya"
+      ],
+      "answer": "Alif",
+      "hint": "Qaf with fatha is followed by an Alif without a vowel mark."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100009
+  },
+  {
+    "key": "p7-d6-2",
+    "lessonId": 6,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 57,
+      "page": 15
+    },
+    "arabic": "يَوْمَ",
+    "tr": {
+      "prompt": "Bu kelimedeki Vav med harfi görevi yapar mı?",
+      "options": [
+        "Evet; önceki sesi med ile uzatır",
+        "Hayır; önceki harf üstünlü, Vav cezimlidir"
+      ],
+      "answer": "Hayır; önceki harf üstünlü, Vav cezimlidir",
+      "hint": "Vavın med olması için önceki harfin ötreli olması gerekir; burada önceki harf üstünlüdür."
+    },
+    "en": {
+      "prompt": "Does Waw function as a madd letter in this word?",
+      "options": [
+        "Yes; it lengthens the preceding vowel as madd",
+        "No; the preceding letter has fatha and Waw has sukun"
+      ],
+      "answer": "No; the preceding letter has fatha and Waw has sukun",
+      "hint": "For Waw to function as a madd letter, the preceding letter must have damma; here it has fatha."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100010
+  },
+  {
+    "key": "p7-d7-1",
+    "lessonId": 7,
+    "kind": "mark",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 93,
+      "page": 21
+    },
+    "arabic": "أَحَدٌ",
+    "tr": {
+      "prompt": "Sondaki Dal üzerindeki tenvinin adı nedir?",
+      "options": [
+        "İki üstün",
+        "İki esre",
+        "İki ötre"
+      ],
+      "answer": "İki ötre",
+      "hint": "Son harfin üstünde çift ötre bulunur; soru yalnız işaretin adını sorar."
+    },
+    "en": {
+      "prompt": "What is the tanwin mark on the final Dal called?",
+      "options": [
+        "Fathatan (double fatha)",
+        "Kasratan (double kasra)",
+        "Dammatan (double damma)"
+      ],
+      "answer": "Dammatan (double damma)",
+      "hint": "There is a double damma above the final letter; this question asks only for the mark’s name."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100011
+  },
+  {
+    "key": "p7-d7-2",
+    "lessonId": 7,
+    "kind": "mark",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 93,
+      "page": 21
+    },
+    "arabic": "عَادٍ",
+    "tr": {
+      "prompt": "Sondaki Dal altındaki tenvinin adı nedir?",
+      "options": [
+        "İki esre",
+        "İki ötre",
+        "İki üstün"
+      ],
+      "answer": "İki esre",
+      "hint": "Son harfin altında çift esre bulunur; soru yalnız işaretin adını sorar."
+    },
+    "en": {
+      "prompt": "What is the tanwin mark below the final Dal called?",
+      "options": [
+        "Kasratan (double kasra)",
+        "Dammatan (double damma)",
+        "Fathatan (double fatha)"
+      ],
+      "answer": "Kasratan (double kasra)",
+      "hint": "There is a double kasra below the final letter; this question asks only for the mark’s name."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100012
+  },
+  {
+    "key": "p7-d8-1",
+    "lessonId": 8,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 99,
+      "page": 22
+    },
+    "arabic": "",
+    "tr": {
+      "prompt": "Kaynak açıklamasına göre kasr ne anlama gelir?",
+      "options": [
+        "Uzatılmaz",
+        "İki kez okunur",
+        "Her zaman uzatılır"
+      ],
+      "answer": "Uzatılmaz",
+      "hint": "Bu soru işaretin çizimini değil, kaynakta yazılı kasr tanımını sorar."
+    },
+    "en": {
+      "prompt": "According to the source explanation, what does qasr mean?",
+      "options": [
+        "Do not lengthen",
+        "Pronounce twice",
+        "Always lengthen"
+      ],
+      "answer": "Do not lengthen",
+      "hint": "This question asks about the written definition of qasr, rather than the shape of its sign."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100013
+  },
+  {
+    "key": "p7-d8-2",
+    "lessonId": 8,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 99,
+      "page": 22
+    },
+    "arabic": "",
+    "tr": {
+      "prompt": "Kaynak açıklamasına göre asar işareti neyi gösterir?",
+      "options": [
+        "Harfin atlanacağını",
+        "Harfin uzatılacağını",
+        "Harfin iki ayrı harf olarak okunacağını"
+      ],
+      "answer": "Harfin uzatılacağını",
+      "hint": "Kaynak, med harfi bulunsa da bulunmasa da ilgili harfin uzatılacağını söyler."
+    },
+    "en": {
+      "prompt": "According to the source explanation, what does the asar sign indicate?",
+      "options": [
+        "That the letter is omitted",
+        "That the letter is lengthened",
+        "That the letter is pronounced as two separate consonants"
+      ],
+      "answer": "That the letter is lengthened",
+      "hint": "The source says that the letter is lengthened whether or not a madd letter is present."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100014
+  },
+  {
+    "key": "p7-d9-1",
+    "lessonId": 9,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 105,
+      "page": 23
+    },
+    "arabic": "الله",
+    "tr": {
+      "prompt": "Gösterilen Allah adına bu derste verilen özel ad nedir?",
+      "options": [
+        "Lafzatullah",
+        "Tenvin",
+        "Cezm"
+      ],
+      "answer": "Lafzatullah",
+      "hint": "Kaynak, Allah kelimesinin bu özel adla anıldığını söyler; harekesiz örnekten kalınlık kararı istenmez."
+    },
+    "en": {
+      "prompt": "What special term does this lesson use for the displayed name Allah?",
+      "options": [
+        "Lafzatullah",
+        "Tanwin",
+        "Sukun"
+      ],
+      "answer": "Lafzatullah",
+      "hint": "The source gives this special term for the word Allah; no thickness of pronunciation is inferred from this unvowelled example."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100015
+  },
+  {
+    "key": "p7-d9-2",
+    "lessonId": 9,
+    "kind": "rule",
+    "source": {
+      "path": "data/diyanetelifba.json",
+      "line": 117,
+      "page": 25
+    },
+    "arabic": "بِاللَّهِ",
+    "tr": {
+      "prompt": "Bu örnekte lafzatullahtaki Lam kalın mı, ince mi okunur?",
+      "options": [
+        "İnce",
+        "Kalın"
+      ],
+      "answer": "İnce",
+      "hint": "Lafzatullahtan önceki Bi hecesi esrelidir; bu nedenle Lam ince okunur."
+    },
+    "en": {
+      "prompt": "In this example, is the Lam in lafzatullah pronounced thin or thick?",
+      "options": [
+        "Thin",
+        "Thick"
+      ],
+      "answer": "Thin",
+      "hint": "The preceding syllable Bi has kasra, so the Lam is pronounced thin."
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "jalek",
+      "date": "2026-11-17"
+    },
+    "quizId": 100016
+  }
+]

@@ -10,7 +10,7 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, fmt } from "../../src/i18n";
 import kuranStrings from "../../src/i18n/strings/kuranTab";
-import { storage, STORAGE_KEYS } from "../../src/lib/storage";
+import { storage, STORAGE_KEYS, usingMmkv } from "../../src/lib/storage";
 import { sayfaninCuzu, sayfaBasSuresi, ayetinSayfasi } from "../../src/lib/mushafSayfa";
 import { parseSavedPage } from "../../src/lib/resumeReading";
 import { parseActiveHatimProgress } from "../../src/lib/hatim";
@@ -116,7 +116,11 @@ export default function KuranTab() {
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      setResume(readResumeSync());
+      const applyResume = (next: ResumeState) => {
+        setResume(prev => (prev.page === next.page && prev.hatimDone === next.hatimDone ? prev : next));
+      };
+      applyResume(readResumeSync());
+      if (usingMmkv) return;
       (async () => {
         try {
           const [rawPage, bookmark, rawHatim] = await Promise.all([
@@ -125,7 +129,7 @@ export default function KuranTab() {
             storage.getString(STORAGE_KEYS.hatimTracking),
           ]);
           if (!active) return;
-          setResume({
+          applyResume({
             page: parseSavedPage(rawPage, bookmark, ayetinSayfasi),
             hatimDone: parseActiveHatimProgress(rawHatim),
           });

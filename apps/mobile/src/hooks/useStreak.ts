@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 
 type StreakData = {
@@ -42,18 +42,35 @@ function isValidStreakData(data: unknown): data is StreakData {
   );
 }
 
+function readInitialStreak(record: boolean): { data: StreakData; loaded: boolean } {
+  if (record) return { data: DEFAULT, loaded: false };
+  const saved = storage.getJSONSync<StreakData>(STORAGE_KEYS.streak);
+  if (!isValidStreakData(saved)) return { data: DEFAULT, loaded: false };
+  const alive = !!saved.lastDate && diffDays(saved.lastDate, todayStr()) <= 1;
+  return { data: alive ? saved : { ...saved, current: 0 }, loaded: true };
+}
+
+function isSameStreak(a: StreakData, b: StreakData): boolean {
+  return a.lastDate === b.lastDate && a.current === b.current && a.longest === b.longest;
+}
+
 // record=true (varsayılan): bugünü "okundu" sayar ve seriyi ilerletip KAYDEDER —
 // yalnız gerçek okuma ekranları (ayet detayı) kullanmalı.
 // record=false: salt gösterim — hiçbir şey yazmaz. Ana sayfa bunu kullanır;
 // eskiden ana sayfa da kaydettiği için uygulamayı açmak "okuma" sayılıyordu.
 export function useStreak(options?: { record?: boolean }): UseStreakResult {
   const record = options?.record ?? true;
-  const [streak, setStreak] = useState<StreakData>(DEFAULT);
-  const [loading, setLoading] = useState<boolean>(true);
+  const initialRef = useRef<{ data: StreakData; loaded: boolean } | null>(null);
+  if (initialRef.current === null) {
+    initialRef.current = readInitialStreak(record);
+  }
+  const [streak, setStreak] = useState<StreakData>(initialRef.current.data);
+  const [loading, setLoading] = useState<boolean>(!initialRef.current.loaded);
   const [error, setError] = useState<string | null>(null);
+  const hasLoadedRef = useRef<boolean>(initialRef.current.loaded);
 
   const compute = useCallback(async () => {
-    setLoading(true);
+    if (!hasLoadedRef.current) setLoading(true);
     setError(null);
     try {
       const saved = await storage.getJSON<StreakData>(STORAGE_KEYS.streak, DEFAULT);
@@ -69,7 +86,9 @@ export function useStreak(options?: { record?: boolean }): UseStreakResult {
         // rekor korunur; yazma yalnız gerçek okumada olur).
         const alive =
           !!safe.lastDate && diffDays(safe.lastDate, today) <= 1;
-        setStreak(alive ? safe : { ...safe, current: 0 });
+        const result = alive ? safe : { ...safe, current: 0 };
+        setStreak(prev => (isSameStreak(prev, result) ? prev : result));
+        hasLoadedRef.current = true;
         return;
       }
 
@@ -98,7 +117,8 @@ export function useStreak(options?: { record?: boolean }): UseStreakResult {
       }
 
       await storage.setJSON(STORAGE_KEYS.streak, next);
-      setStreak(next);
+      setStreak(prev => (isSameStreak(prev, next) ? prev : next));
+      hasLoadedRef.current = true;
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Streak yüklenemedi";
       setError(msg);

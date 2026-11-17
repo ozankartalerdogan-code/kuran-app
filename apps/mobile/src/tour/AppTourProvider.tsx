@@ -25,6 +25,14 @@ type TourContext = {
   registerTarget: (id: string, handle: TargetHandle) => void;
   unregisterTarget: (id: string, handle: TargetHandle) => void;
 };
+type TargetRegistryContextValue = {
+  registerTarget: (id: string, handle: TargetHandle) => void;
+  unregisterTarget: (id: string, handle: TargetHandle) => void;
+};
+const TargetRegistryContext = createContext<TargetRegistryContextValue>({
+  registerTarget: () => {},
+  unregisterTarget: () => {},
+});
 const AppTourContext = createContext<TourContext>({
   isActive: false, offerVisible: false, onboarded: false,
   restartTour: async () => {}, dismissOffer: () => {}, completeOnboarding: () => {},
@@ -34,6 +42,8 @@ const AppTourContext = createContext<TourContext>({
 
 export function AppTourProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const pathnameRef = useRef(pathname);
+  pathnameRef.current = pathname;
   const targets = useRef(new Map<string, TargetHandle>());
   const [targetRevision, setTargetRevision] = useState(0);
   const [state, setState] = useState<GuideState | null>(null);
@@ -156,8 +166,8 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
     persist(completed ? "completed" : "skipped");
     void logFeature(completed ? "guide_finish" : "guide_close");
     // Örtü kalktıktan sonra odak son hedefe döner.
-    if (pathname === "/") requestAnimationFrame(() => targets.current.get(step.targetId)?.focus());
-  }, [persist, step.targetId, pathname]);
+    if (pathnameRef.current === "/") requestAnimationFrame(() => targets.current.get(step.targetId)?.focus());
+  }, [persist, step.targetId]);
   useEffect(() => {
     if (!isActive) return;
     if (pathname === "/") reachedHome.current = true;
@@ -165,49 +175,54 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
   }, [pathname, isActive, close]);
   const restartTour = useCallback(async () => {
     if (activeRef.current || reviewBusy.current || isOverlayBusy() || !onboarded) return;
-    reachedHome.current = pathname === "/";
+    const currentPath = pathnameRef.current;
+    reachedHome.current = currentPath === "/";
     activeRef.current = true;
     setStepIndex(0);
     setVisit(v => v + 1);
+    setTargetRevision(v => v + 1);
     setActive(true);
     void logFeature("guide_start");
     // Yalnız açık kullanıcı isteği ana sekmeye döner; adımlar gezinmez.
-    if (pathname !== "/") router.navigate("/(tabs)");
-  }, [onboarded, pathname]);
+    if (currentPath !== "/") router.navigate("/(tabs)");
+  }, [onboarded]);
   const dismissOffer = useCallback(() => {
     persist("offerDismissed");
     void logFeature("guide_close", { source: "offer" });
   }, [persist]);
   const registerTarget = useCallback((id: string, handle: TargetHandle) => {
     targets.current.set(id, handle);
-    setTargetRevision(v => v + 1);
+    if (activeRef.current) setTargetRevision(v => v + 1);
   }, []);
   const unregisterTarget = useCallback((id: string, handle: TargetHandle) => {
     if (targets.current.get(id) === handle) {
       targets.current.delete(id);
-      setTargetRevision(v => v + 1);
+      if (activeRef.current) setTargetRevision(v => v + 1);
     }
   }, []);
+  const registryValue = useMemo(() => ({ registerTarget, unregisterTarget }), [registerTarget, unregisterTarget]);
   const value = useMemo(() => ({ isActive, offerVisible, onboarded, restartTour, dismissOffer,
     completeOnboarding, registerTarget, unregisterTarget, hintBlocked, hintRevision, showHint, noteInteraction }),
     [isActive, offerVisible, onboarded, restartTour, dismissOffer, completeOnboarding, registerTarget, unregisterTarget, hintBlocked, hintRevision, showHint, noteInteraction]);
   return (
     <AppTourContext.Provider value={value}>
-      <View style={{ flex: 1 }} onTouchStart={noteInteraction}>
-        <View style={{ flex: 1 }} accessibilityElementsHidden={isActive}
-          importantForAccessibility={isActive ? "no-hide-descendants" : "auto"}>{children}</View>
-        {isActive && <TourOverlay key={`${visit}:${stepIndex}`} step={step} stepIndex={stepIndex}
-          ready={pathname === "/"} targetRevision={targetRevision}
-          measureTarget={() => targets.current.get(step.targetId)?.measure() ?? Promise.resolve(null)}
-          onClose={() => close()} onBack={() => setStepIndex(i => Math.max(0, i - 1))}
-          onNext={() => stepIndex === APP_TOUR_STEPS.length - 1 ? close(true) : setStepIndex(i => i + 1)} />}
-      </View>
+      <TargetRegistryContext.Provider value={registryValue}>
+        <View style={{ flex: 1 }} onTouchStart={noteInteraction}>
+          <View style={{ flex: 1 }} accessibilityElementsHidden={isActive}
+            importantForAccessibility={isActive ? "no-hide-descendants" : "auto"}>{children}</View>
+          {isActive && <TourOverlay key={`${visit}:${stepIndex}`} step={step} stepIndex={stepIndex}
+            ready={pathname === "/"} targetRevision={targetRevision}
+            measureTarget={() => targets.current.get(step.targetId)?.measure() ?? Promise.resolve(null)}
+            onClose={() => close()} onBack={() => setStepIndex(i => Math.max(0, i - 1))}
+            onNext={() => stepIndex === APP_TOUR_STEPS.length - 1 ? close(true) : setStepIndex(i => i + 1)} />}
+        </View>
+      </TargetRegistryContext.Provider>
     </AppTourContext.Provider>
   );
 }
 export function useAppTour() { return useContext(AppTourContext); }
 export function useTourTarget(id: string, focusRef?: RefObject<View | null>) {
-  const { registerTarget, unregisterTarget } = useAppTour();
+  const { registerTarget, unregisterTarget } = useContext(TargetRegistryContext);
   const ref = useRef<View>(null);
   useEffect(() => {
     const handle: TargetHandle = {

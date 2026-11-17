@@ -6,7 +6,6 @@ import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { logScreen } from "../src/lib/analytics";
-import dualarRaw from "../src/data/dualar.json";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
 import { useStrings, useLang, fmt } from "../src/i18n";
 import { localizedTranslit } from "../src/lib/translitEn";
@@ -21,8 +20,9 @@ interface Dua {
 interface Kategori { kod: string; isim: string; dualar: Dua[] }
 interface DualarData { baslik: string; aciklama: string; kategoriler: Kategori[] }
 
-const pickDualar = localizedData(
-  dualarRaw as unknown as DualarData,
+const pickDualar = localizedData<DualarData>(
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  () => require("../src/data/dualar.json"),
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   () => require("../src/data/dualar.en.json"),
 );

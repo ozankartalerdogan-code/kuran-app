@@ -8,10 +8,21 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 import type { Lang } from "../../i18n";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 // dersEn/quizEn: İngilizce arayüz için AI destekli çeviriler (<ad>.en.json,
 // scripts/translate-json-en.mjs). Tembel yüklenir; yoksa/bozuksa Türkçe gösterilir.
-type Kayit = { id: string; ikon: string; sure: number; kategori: string; ders: any; quiz: () => any; dersEn?: () => any; quizEn?: () => any };
+type Kayit = {
+  id: string;
+  baslik: string;
+  baslikEn: string;
+  kartSayisi: number;
+  ikon: string;
+  sure: number;
+  kategori: string;
+  ders: () => unknown;
+  quiz: () => unknown;
+  dersEn?: () => unknown;
+  quizEn?: () => unknown;
+};
 
 // For cards that route elsewhere instead of using local lesson JSON.
 type EkstraKart = { id: string; baslik: string; ikon: string; kartSayisi: number; birim: string; sure: number; route: string };
@@ -218,28 +229,29 @@ function isValidDers(ders: unknown): boolean {
   return !!r && typeof r.baslik === "string" && Array.isArray(r.kartlar) && r.kartlar.length > 0;
 }
 
-const nefsiniTaniDersModule = safeRequire(() => require("./nefsini_tani_ders_modulu.json"), "nefsini_tani_ders_modulu");
-const nefsiniTaniDers = nefsiniTaniDersModule ? normalizeLessonModule(nefsiniTaniDersModule, "🪞") : null;
-
 const RAW_KAYITLAR: Kayit[] = [
-  { id: "namaz",         ikon: "\uD83D\uDD4C", sure: 15, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dersi.json"), "namaz_dersi"),                quiz: () => require("./namaz_quiz.json"), dersEn: () => require("./namaz_dersi.en.json"), quizEn: () => require("./namaz_quiz.en.json") },
-  { id: "namaz-dualar",  ikon: "\uD83D\uDCFF", sure: 10, kategori: "ibadet", ders: safeRequire(() => require("./namaz_dualar_dersi.json"), "namaz_dualar_dersi"),  quiz: () => require("./namaz_dualar_quiz.json"), dersEn: () => require("./namaz_dualar_dersi.en.json"), quizEn: () => require("./namaz_dualar_quiz.en.json") },
-  { id: "oruc",          ikon: "\uD83C\uDF19", sure:  8, kategori: "ibadet", ders: safeRequire(() => require("./oruc_dersi.json"), "oruc_dersi"),                  quiz: () => require("./oruc_quiz.json"), dersEn: () => require("./oruc_dersi.en.json"), quizEn: () => require("./oruc_quiz.en.json") },
-  { id: "kurban",        ikon: "\uD83D\uDC11", sure: 12, kategori: "ibadet", ders: safeRequire(() => require("./kurban_dersi.json"), "kurban_dersi"),              quiz: () => require("./kurban_quiz.json"), dersEn: () => require("./kurban_dersi.en.json"), quizEn: () => require("./kurban_quiz.en.json") },
-  { id: "hac-umre",      ikon: "\uD83D\uDD4B", sure:  9, kategori: "ibadet", ders: safeRequire(() => require("./hac_umre_dersi.json"), "hac_umre_dersi"),          quiz: () => require("./hac_umre_quiz.json"), dersEn: () => require("./hac_umre_dersi.en.json"), quizEn: () => require("./hac_umre_quiz.en.json") },
-  { id: "iman-esaslari", ikon: "\uD83D\uDCD6", sure: 10, kategori: "akaid",  ders: safeRequire(() => require("./iman_esaslari_dersi.json"), "iman_esaslari_dersi"), quiz: () => require("./iman_esaslari_quiz.json"), dersEn: () => require("./iman_esaslari_dersi.en.json"), quizEn: () => require("./iman_esaslari_quiz.en.json") },
-  { id: "kitaplara-iman", ikon: "\uD83D\uDCDA", sure: 8, kategori: "akaid",  ders: safeRequire(() => require("./kitaplara_iman_dersi.json"), "kitaplara_iman_dersi"), quiz: () => require("./kitaplara_iman_quiz.json"), dersEn: () => require("./kitaplara_iman_dersi.en.json"), quizEn: () => require("./kitaplara_iman_quiz.en.json") },
+  { id: "namaz",            baslik: "Namaz",                                      baslikEn: "Salah",                                        kartSayisi: 30, ikon: "\uD83D\uDD4C", sure: 15,                 kategori: "ibadet", ders: () => require("./namaz_dersi.json"),                quiz: () => require("./namaz_quiz.json"),                dersEn: () => require("./namaz_dersi.en.json"),                quizEn: () => require("./namaz_quiz.en.json") },
+  { id: "namaz-dualar",     baslik: "Namaz Duaları",                              baslikEn: "Salah Supplications",                          kartSayisi: 14, ikon: "\uD83D\uDCFF", sure: 10,                 kategori: "ibadet", ders: () => require("./namaz_dualar_dersi.json"),         quiz: () => require("./namaz_dualar_quiz.json"),         dersEn: () => require("./namaz_dualar_dersi.en.json"),         quizEn: () => require("./namaz_dualar_quiz.en.json") },
+  { id: "oruc",             baslik: "Oruç",                                       baslikEn: "Sawm (Fasting)",                               kartSayisi: 14, ikon: "\uD83C\uDF19", sure:  8,                 kategori: "ibadet", ders: () => require("./oruc_dersi.json"),                 quiz: () => require("./oruc_quiz.json"),                 dersEn: () => require("./oruc_dersi.en.json"),                 quizEn: () => require("./oruc_quiz.en.json") },
+  { id: "kurban",           baslik: "Kurban",                                     baslikEn: "Qurbani",                                      kartSayisi: 16, ikon: "\uD83D\uDC11", sure: 12,                 kategori: "ibadet", ders: () => require("./kurban_dersi.json"),               quiz: () => require("./kurban_quiz.json"),               dersEn: () => require("./kurban_dersi.en.json"),               quizEn: () => require("./kurban_quiz.en.json") },
+  { id: "hac-umre",         baslik: "Hac & Umre",                                 baslikEn: "Hajj & Umrah",                                 kartSayisi: 15, ikon: "\uD83D\uDD4B", sure:  9,                 kategori: "ibadet", ders: () => require("./hac_umre_dersi.json"),             quiz: () => require("./hac_umre_quiz.json"),             dersEn: () => require("./hac_umre_dersi.en.json"),             quizEn: () => require("./hac_umre_quiz.en.json") },
+  { id: "iman-esaslari",    baslik: "İman Esasları",                              baslikEn: "Articles of Faith",                            kartSayisi: 15, ikon: "\uD83D\uDCD6", sure: 10,                 kategori: "akaid",  ders: () => require("./iman_esaslari_dersi.json"),        quiz: () => require("./iman_esaslari_quiz.json"),        dersEn: () => require("./iman_esaslari_dersi.en.json"),        quizEn: () => require("./iman_esaslari_quiz.en.json") },
+  { id: "kitaplara-iman",   baslik: "Kitaplara İman",                             baslikEn: "Belief in the Books",                          kartSayisi: 12, ikon: "\uD83D\uDCDA", sure:  8,                 kategori: "akaid",  ders: () => require("./kitaplara_iman_dersi.json"),       quiz: () => require("./kitaplara_iman_quiz.json"),       dersEn: () => require("./kitaplara_iman_dersi.en.json"),       quizEn: () => require("./kitaplara_iman_quiz.en.json") },
   {
     id: "nefsini-tani",
+    baslik: "Nefsini Tanı",
+    baslikEn: "Know Your Nafs",
+    kartSayisi: 11,
     ikon: "\uD83E\uDE9E",
     // estimateSure: diger derslerle ayni kart-basi sure oranini kullanir (bkz.
     // yukarida DAKIKA_PER_KART). Modulun kendi estimatedMinutes toplami (~57 dk)
     // diger derslerin 7-16 dk araligina gore asiri sapiyordu.
-    sure: estimateSure(
-      Array.isArray(toRecord(nefsiniTaniDers)?.kartlar) ? (toRecord(nefsiniTaniDers)!.kartlar as unknown[]).length : 11,
-    ),
+    sure: estimateSure(11),
     kategori: "ahlak",
-    ders: nefsiniTaniDers,
+    ders: () => {
+      const m = safeRequire(() => require("./nefsini_tani_ders_modulu.json"), "nefsini_tani_ders_modulu");
+      return m ? normalizeLessonModule(m, "🪞") : null;
+    },
     quiz: () => {
       const m = safeRequire(() => require("./nefsini_tani_quiz.json"), "nefsini_tani_quiz");
       return m ? normalizeQuizModule(m, "nefsini-tani", "Nefsini Tan\u0131") : null;
@@ -253,33 +265,61 @@ const RAW_KAYITLAR: Kayit[] = [
       return m ? normalizeQuizModule(m, "nefsini-tani", "Know Your Nafs") : null;
     },
   },
-  { id: "guzel-ahlak", ikon: "\uD83E\uDD1D", sure: 12, kategori: "ahlak", ders: safeRequire(() => require("./guzel_ahlak_dersi.json"), "guzel_ahlak_dersi"), quiz: () => require("./guzel_ahlak_quiz.json"), dersEn: () => require("./guzel_ahlak_dersi.en.json"), quizEn: () => require("./guzel_ahlak_quiz.en.json") },
-  { id: "peygamberler",  ikon: "\u2B50",       sure: 14, kategori: "siyer",  ders: safeRequire(() => require("./peygamber_kissalari_dersi.json"), "peygamber_kissalari_dersi"), quiz: () => require("./peygamber_kissalari_quiz.json"), dersEn: () => require("./peygamber_kissalari_dersi.en.json"), quizEn: () => require("./peygamber_kissalari_quiz.en.json") },
-  { id: "sahabe-hayatlari", ikon: "\uD83D\uDD4A", sure: 16, kategori: "siyer", ders: safeRequire(() => require("./sahabe_hayatlari_dersi.json"), "sahabe_hayatlari_dersi"), quiz: () => require("./sahabe_hayatlari_quiz.json"), dersEn: () => require("./sahabe_hayatlari_dersi.en.json"), quizEn: () => require("./sahabe_hayatlari_quiz.en.json") },
-  { id: "siyer",         ikon: "\uD83C\uDF3F", sure: 10, kategori: "siyer",  ders: safeRequire(() => require("./siyer_dersi.json"), "siyer_dersi"),                quiz: () => require("./siyer_quiz.json"), dersEn: () => require("./siyer_dersi.en.json"), quizEn: () => require("./siyer_quiz.en.json") },
-  { id: "tecvid",        ikon: "\uD83D\uDCDC", sure: 12, kategori: "kuran",  ders: safeRequire(() => require("./tecvid_dersi.json"), "tecvid_dersi"),              quiz: () => require("./tecvid_quiz.json"), dersEn: () => require("./tecvid_dersi.en.json"), quizEn: () => require("./tecvid_quiz.en.json") },
-  { id: "abdest-gusul",  ikon: "\uD83D\uDCA7", sure: 10, kategori: "ibadet", ders: safeRequire(() => require("./abdest_dersi.json"), "abdest_dersi"),              quiz: () => require("./abdest_quiz.json"), dersEn: () => require("./abdest_dersi.en.json"), quizEn: () => require("./abdest_quiz.en.json") },
-  { id: "ezan-kamet",    ikon: "\uD83D\uDD0A", sure:  7, kategori: "ibadet", ders: safeRequire(() => require("./ezan_kamet_dersi.json"), "ezan_kamet_dersi"),      quiz: () => require("./ezan_kamet_quiz.json"), dersEn: () => require("./ezan_kamet_dersi.en.json"), quizEn: () => require("./ezan_kamet_quiz.en.json") },
-  { id: "zekat",         ikon: "\uD83E\uDD32", sure:  7, kategori: "ibadet", ders: safeRequire(() => require("./zekat_dersi.json"), "zekat_dersi"),                quiz: () => require("./zekat_quiz.json"), dersEn: () => require("./zekat_dersi.en.json"), quizEn: () => require("./zekat_quiz.en.json") },
+  { id: "guzel-ahlak",      baslik: "Güzel Ahlak",                                baslikEn: "Good Character",                               kartSayisi: 18, ikon: "\uD83E\uDD1D", sure: 12,                 kategori: "ahlak",  ders: () => require("./guzel_ahlak_dersi.json"),          quiz: () => require("./guzel_ahlak_quiz.json"),          dersEn: () => require("./guzel_ahlak_dersi.en.json"),          quizEn: () => require("./guzel_ahlak_quiz.en.json") },
+  { id: "peygamberler",     baslik: "Peygamber Kıssaları",                        baslikEn: "Stories of the Prophets",                      kartSayisi: 27, ikon: "\u2B50",       sure: 14,                 kategori: "siyer",  ders: () => require("./peygamber_kissalari_dersi.json"),  quiz: () => require("./peygamber_kissalari_quiz.json"),  dersEn: () => require("./peygamber_kissalari_dersi.en.json"),  quizEn: () => require("./peygamber_kissalari_quiz.en.json") },
+  { id: "sahabe-hayatlari", baslik: "Sahabe Hayatları",                           baslikEn: "Lives of the Companions",                      kartSayisi: 20, ikon: "\uD83D\uDD4A", sure: 16,                 kategori: "siyer",  ders: () => require("./sahabe_hayatlari_dersi.json"),     quiz: () => require("./sahabe_hayatlari_quiz.json"),     dersEn: () => require("./sahabe_hayatlari_dersi.en.json"),     quizEn: () => require("./sahabe_hayatlari_quiz.en.json") },
+  { id: "siyer",            baslik: "Siyer-i Nebi",                               baslikEn: "The Life of the Prophet",                      kartSayisi: 18, ikon: "\uD83C\uDF3F", sure: 10,                 kategori: "siyer",  ders: () => require("./siyer_dersi.json"),                quiz: () => require("./siyer_quiz.json"),                dersEn: () => require("./siyer_dersi.en.json"),                quizEn: () => require("./siyer_quiz.en.json") },
+  { id: "tecvid",           baslik: "Tecvid",                                     baslikEn: "Tajweed",                                      kartSayisi: 20, ikon: "\uD83D\uDCDC", sure: 12,                 kategori: "kuran",  ders: () => require("./tecvid_dersi.json"),               quiz: () => require("./tecvid_quiz.json"),               dersEn: () => require("./tecvid_dersi.en.json"),               quizEn: () => require("./tecvid_quiz.en.json") },
+  { id: "abdest-gusul",     baslik: "Abdest, Gusül ve Teyemmüm",                  baslikEn: "Wudu, Ghusl and Tayammum",                     kartSayisi: 19, ikon: "\uD83D\uDCA7", sure: 10,                 kategori: "ibadet", ders: () => require("./abdest_dersi.json"),               quiz: () => require("./abdest_quiz.json"),               dersEn: () => require("./abdest_dersi.en.json"),               quizEn: () => require("./abdest_quiz.en.json") },
+  { id: "ezan-kamet",       baslik: "Ezan ve Kamet (namaza başlama çağrısı)",     baslikEn: "Adhan and Iqamah (the call to begin prayer)",  kartSayisi: 12, ikon: "\uD83D\uDD0A", sure:  7,                 kategori: "ibadet", ders: () => require("./ezan_kamet_dersi.json"),           quiz: () => require("./ezan_kamet_quiz.json"),           dersEn: () => require("./ezan_kamet_dersi.en.json"),           quizEn: () => require("./ezan_kamet_quiz.en.json") },
+  { id: "zekat",            baslik: "Zekat",                                      baslikEn: "Zakat",                                        kartSayisi: 13, ikon: "\uD83E\uDD32", sure:  7,                 kategori: "ibadet", ders: () => require("./zekat_dersi.json"),                quiz: () => require("./zekat_quiz.json"),                dersEn: () => require("./zekat_dersi.en.json"),                quizEn: () => require("./zekat_quiz.en.json") },
 ];
 
-// Yaln\u0131zca ge\u00E7erli dersleri tut \u2192 bozuk/eksik ders t\u00FCm b\u00F6l\u00FCm\u00FC d\u00FC\u015F\u00FCrmez, sadece gizlenir.
-const KAYITLAR: Kayit[] = RAW_KAYITLAR.filter((k) => {
-  if (isValidDers(k.ders)) return true;
-  console.warn(`[dersler] ge\u00E7ersiz/eksik ders atland\u0131: ${k.id}`);
-  return false;
-});
+// Ders ve quiz JSON'ları tembel yüklenir; geçersizlik kontrolü ilk erişimde yapılır.
+const KAYITLAR: Kayit[] = RAW_KAYITLAR;
 
 const EKSTRA_KARTLAR: EkstraKart[] = [
   { id: "elifba", baslik: "Elif-Ba", ikon: "\uD83D\uDD24", kartSayisi: 9, birim: "ders", sure: 20, route: "/elifba" },
 ];
 
+const KAYIT_BY_ID = new Map(KAYITLAR.map((k) => [k.id, k]));
+const dersTrCache = new Map<string, unknown>();
+const dersEnCache = new Map<string, unknown>();
+const quizCache = new Map<string, unknown>();
+const quizEnCache = new Map<string, unknown>();
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const DERS_DATA: Record<string, any> = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.ders]));
+export function getDers(id: string, lang: Lang = "tr"): any {
+  if (lang === "en") {
+    if (!dersEnCache.has(id)) {
+      const loader = KAYIT_BY_ID.get(id)?.dersEn;
+      const d = loader ? safeRequire(loader, `${id}-ders.en`) : null;
+      dersEnCache.set(id, isValidDers(d) ? d : null);
+    }
+    const enDers = dersEnCache.get(id);
+    if (enDers != null) return enDers;
+  }
+  if (!dersTrCache.has(id)) {
+    const loader = KAYIT_BY_ID.get(id)?.ders;
+    const d = loader ? safeRequire(loader, `${id}-ders`) : null;
+    dersTrCache.set(id, isValidDers(d) ? d : null);
+  }
+  return dersTrCache.get(id) ?? undefined;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const DERS_DATA: Record<string, any> = {};
+for (const k of KAYITLAR) {
+  Object.defineProperty(DERS_DATA, k.id, {
+    enumerable: true,
+    configurable: true,
+    get: () => getDers(k.id, "tr"),
+  });
+}
+
 // Quiz JSON'ları TEMBEL: yalnız teste girince (getQuiz) yüklenir → Dersler listesi
 // ve ders okuma ~340KB quiz parse'ını atlar (ilk açılış stall'unu azaltır).
 const QUIZ_LOADERS = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.quiz])) as Record<string, () => unknown>;
-const quizCache = new Map<string, unknown>();
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getQuiz(id: string): any {
   if (!quizCache.has(id)) {
@@ -287,22 +327,6 @@ export function getQuiz(id: string): any {
     quizCache.set(id, loader ? safeRequire(loader, `${id}-quiz`) : null);
   }
   return quizCache.get(id);
-}
-// ── Dile göre erişim (İngilizce arayüz) ─────────────────────────────────────
-// Türkçe yol değişmez: lang "tr" iken mevcut DERS_DATA/getQuiz/BASLIKLAR döner.
-const KAYIT_BY_ID = new Map(KAYITLAR.map((k) => [k.id, k]));
-const dersEnCache = new Map<string, unknown>();
-const quizEnCache = new Map<string, unknown>();
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getDers(id: string, lang: Lang = "tr"): any {
-  if (lang !== "en") return DERS_DATA[id];
-  if (!dersEnCache.has(id)) {
-    const loader = KAYIT_BY_ID.get(id)?.dersEn;
-    const d = loader ? safeRequire(loader, `${id}-ders.en`) : null;
-    dersEnCache.set(id, isValidDers(d) ? d : null);
-  }
-  return dersEnCache.get(id) ?? DERS_DATA[id];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -316,9 +340,9 @@ export function getQuizFor(id: string, lang: Lang = "tr"): any {
 }
 
 export function getBaslik(id: string, lang: Lang = "tr"): string {
-  if (lang !== "en") return BASLIKLAR[id] ?? id;
-  const b = toRecord(getDers(id, "en"))?.baslik;
-  return typeof b === "string" ? b : (BASLIKLAR[id] ?? id);
+  const k = KAYIT_BY_ID.get(id);
+  if (!k) return id;
+  return lang === "en" ? k.baslikEn : k.baslik;
 }
 
 const EKSTRA_BASLIK_EN: Record<string, string> = { elifba: "Arabic Alphabet (Elif-Ba)" };
@@ -340,15 +364,14 @@ export function getKategoriler(lang: Lang = "tr"): typeof KATEGORILER {
   return KATEGORILER.map((k) => ({ ...k, label: KATEGORI_EN[k.label] ?? k.label }));
 }
 
-export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map((k) => [k.id, (k.ders?.baslik as string) ?? k.id]));
+export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.baslik]));
 
 export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayisi: number; birim?: string; sure: number; route?: string }[] = [
   ...KAYITLAR.map((k) => ({
     id: k.id,
-    baslik: (k.ders?.baslik as string) ?? k.id,
+    baslik: k.baslik,
     ikon: k.ikon,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    kartSayisi: ((k.ders?.kartlar as any[]) ?? []).length,
+    kartSayisi: k.kartSayisi,
     sure: k.sure,
   })),
   ...EKSTRA_KARTLAR.map((e) => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, route: e.route })),

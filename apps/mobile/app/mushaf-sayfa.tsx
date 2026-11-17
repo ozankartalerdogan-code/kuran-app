@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   View, Text, FlatList, ScrollView, TouchableOpacity, TextInput,
-  ActivityIndicator, StyleSheet, useWindowDimensions, Modal,
-  type NativeScrollEvent, type NativeSyntheticEvent,
+  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -106,9 +105,10 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][numbe
   return <>{metin}</>;
 }
 
-const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, secili, onAyetSec }: {
+const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, tajweed, secili, onAyetSec }: {
   page: number;
   width: number;
+  height: number;
   tajweed: boolean;
   secili: SeciliAyet;
   onAyetSec: (surahId: number, ayahNumber: number) => void;
@@ -141,7 +141,7 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
     : { backgroundColor: "#fffdf6", borderColor: "#e7dfcc" };
 
   return (
-    <View style={{ width, flex: 1 }}>
+    <View style={{ width, height: height > 0 ? height : "100%" }}>
       {durum.status === "loading" ? (
         <View style={st.center}>
           <ActivityIndicator size="large" color={c.accent} />
@@ -166,6 +166,7 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, tajweed, 
           style={{ flex: 1 }}
           contentContainerStyle={[st.pageScroll, { paddingBottom: insets.bottom + 20 }]}
           showsVerticalScrollIndicator={false}
+          nestedScrollEnabled
         >
           <View style={[st.kagit, kagit]}>
             {durum.bloklar.map((blok, i) =>
@@ -252,6 +253,13 @@ export default function MushafSayfaEkrani() {
   const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
   const [initialPage, setInitialPage] = useState<number | null>(null);
+  const [listHeight, setListHeight] = useState(0);
+
+  // PanResponder bir kez kurulur; güncel sayfa ve genişliği ref'ten okur.
+  const pageRef = useRef(1);
+  const widthRef = useRef(width);
+  useEffect(() => { pageRef.current = page; }, [page]);
+  useEffect(() => { widthRef.current = width; }, [width]);
 
   // Sure listesi düşerse atlama paneli sonsuz "yükleniyor"da kalmasın — hata
   // durumu + tekrar dene (sayfa numarasıyla atlama zaten çalışmaya devam eder).
@@ -303,13 +311,72 @@ export default function MushafSayfaEkrani() {
     listRef.current?.scrollToIndex({ index: p - 1, animated });
   }, []);
 
-  const onMomentumEnd = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const index = Math.round(e.nativeEvent.contentOffset.x / width);
-    const p = Math.min(SAYFA_SAYISI, Math.max(1, index + 1));
-    setPage(p);
-    setSecili(null); // sayfa değişince seçim ve eylem çubuğu kapanır
-    storage.setString(STORAGE_KEYS.mushafPage, String(p)).catch(() => {});
-  }, [width]);
+  // Sayfa çevirme tamamen JS'te: yerel yatay kaydırma kapalı olduğu için
+  // Android'in dokunuşu x farkına göre erken kapması sorunu oluşmaz.
+  const suruklemeBaslangicRef = useRef(0);
+  // RN capture ile sahiplenince gestureState'i sıfırlar; yakalama öncesi dx'i ve zamanı ref'te tutuyoruz.
+  const yakalamaDxRef = useRef(0);
+  const yakalamaZamaniRef = useRef(0);
+  const yakalanmaliMi = (g: { dx: number; dy: number }) => {
+    const yakala = Math.abs(g.dx) > 24 && Math.abs(g.dx) > Math.abs(g.dy) * 2;
+    if (yakala) {
+      yakalamaDxRef.current = g.dx;
+      yakalamaZamaniRef.current = Date.now();
+    }
+    return yakala;
+  };
+  const bitirSurukleme = (dx: number, vx: number, sureMs: number) => {
+    const w = widthRef.current;
+    const p = pageRef.current;
+    let hedef = p;
+    if (Math.abs(dx) > w * 0.25) {
+      // Parmak SAĞA (dx>0) → SONRAKİ sayfa; inverted listede index/offset artar.
+      hedef = p + (dx > 0 ? 1 : -1);
+    } else if (Math.abs(vx) > 0.3) {
+      hedef = p + (vx > 0 ? 1 : -1);
+    } else if (Math.abs(dx) > 40 && sureMs < 250) {
+      // Hızlı fiske: hız sıfırlansa da mesafe + kısa süre yeter.
+      hedef = p + (dx > 0 ? 1 : -1);
+    }
+    yakalamaDxRef.current = 0;
+    sayfayaGit(hedef, true);
+  };
+  const panResponder = useRef(
+    PanResponder.create({
+      // Ayete dokunma seçimi bozulmasın: başlangıçta sahiplenme yok.
+      onStartShouldSetPanResponder: () => false,
+      onStartShouldSetPanResponderCapture: () => false,
+      // Yalnız belirgin yatay hareket sayfa çevirir; dikey/çapraz iç ScrollView'de kalır.
+      onMoveShouldSetPanResponder: (_, g) => yakalanmaliMi(g),
+      onMoveShouldSetPanResponderCapture: (_, g) => yakalanmaliMi(g),
+      // Yatay sürükleme başladıysa bırakma.
+      onPanResponderTerminationRequest: () => false,
+      onPanResponderGrant: () => {
+        suruklemeBaslangicRef.current = (pageRef.current - 1) * widthRef.current;
+      },
+      onPanResponderMove: (_, g) => {
+        // inverted liste: parmak SAĞA (dx>0) → SONRAKİ sayfa (offset artar).
+        const toplamDx = yakalamaDxRef.current + g.dx;
+        const w = widthRef.current;
+        const max = (SAYFA_SAYISI - 1) * w;
+        const offset = Math.max(0, Math.min(max, suruklemeBaslangicRef.current + toplamDx));
+        listRef.current?.scrollToOffset({ offset, animated: false });
+      },
+      onPanResponderRelease: (_, g) =>
+        bitirSurukleme(
+          yakalamaDxRef.current + g.dx,
+          g.vx,
+          Date.now() - yakalamaZamaniRef.current,
+        ),
+      onPanResponderTerminate: (_, g) =>
+        bitirSurukleme(
+          yakalamaDxRef.current + g.dx,
+          g.vx,
+          Date.now() - yakalamaZamaniRef.current,
+        ),
+    }),
+  ).current;
+
 
   // Dokun = seç/vurgula; aynı ayete tekrar dokunmak seçimi kaldırır.
   const onAyetSec = useCallback((surahId: number, ayahNumber: number) => {
@@ -393,9 +460,16 @@ export default function MushafSayfaEkrani() {
 
   const renderItem = useCallback(
     ({ item }: { item: number }) => (
-      <MushafSayfasi page={item} width={width} tajweed={tajweed} secili={secili} onAyetSec={onAyetSec} />
+      <MushafSayfasi
+        page={item}
+        width={width}
+        height={listHeight}
+        tajweed={tajweed}
+        secili={secili}
+        onAyetSec={onAyetSec}
+      />
     ),
-    [width, tajweed, secili, onAyetSec],
+    [width, listHeight, tajweed, secili, onAyetSec],
   );
   const getItemLayout = useCallback(
     (_: unknown, index: number) => ({ length: width, offset: width * index, index }),
@@ -547,23 +621,30 @@ export default function MushafSayfaEkrani() {
         {initialPage === null ? (
           <View style={st.center}><ActivityIndicator size="large" color={c.accent} /></View>
         ) : (
-          <FlatList
-            ref={listRef}
-            data={TUM_SAYFALAR}
-            horizontal
-            inverted
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(n) => String(n)}
-            renderItem={renderItem}
-            getItemLayout={getItemLayout}
-            initialScrollIndex={initialPage - 1}
-            onMomentumScrollEnd={onMomentumEnd}
-            initialNumToRender={1}
-            maxToRenderPerBatch={2}
-            windowSize={3}
-            removeClippedSubviews
-          />
+          <View style={{ flex: 1 }} {...panResponder.panHandlers}>
+            <FlatList
+              ref={listRef}
+              style={{ flex: 1 }}
+              data={TUM_SAYFALAR}
+              horizontal
+              inverted
+              pagingEnabled
+              scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(n) => String(n)}
+              renderItem={renderItem}
+              getItemLayout={getItemLayout}
+              initialScrollIndex={initialPage - 1}
+              onLayout={(e) => {
+                const h = Math.round(e.nativeEvent.layout.height);
+                if (h > 0 && h !== listHeight) setListHeight(h);
+              }}
+              initialNumToRender={1}
+              maxToRenderPerBatch={2}
+              windowSize={3}
+              removeClippedSubviews
+            />
+          </View>
         )}
 
         {/* Seçili ayet eylem çubuğu — dokun=seç, detaya gitme ikinci adım */}

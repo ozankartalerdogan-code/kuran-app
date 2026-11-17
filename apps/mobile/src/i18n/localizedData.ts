@@ -5,18 +5,25 @@ import { useLang, type Lang } from "./index";
 
 export type LocalizedData<T> = (lang: Lang) => T;
 
-export function localizedData<T>(tr: T, en: () => unknown): LocalizedData<T> {
-  let cached: T | null | undefined;
+export function localizedData<T>(tr: T | (() => T), en: () => unknown): LocalizedData<T> {
+  let cachedTr: T | undefined;
+  let cachedEn: T | null | undefined;
+  const getTr = (): T => {
+    if (cachedTr === undefined) {
+      cachedTr = typeof tr === "function" ? (tr as () => T)() : tr;
+    }
+    return cachedTr;
+  };
   return (lang) => {
-    if (lang !== "en") return tr;
-    if (cached === undefined) {
+    if (lang !== "en") return getTr();
+    if (cachedEn === undefined) {
       try {
-        cached = (en() as T) ?? null;
+        cachedEn = (en() as T) ?? null;
       } catch {
-        cached = null;
+        cachedEn = null;
       }
     }
-    return cached ?? tr;
+    return cachedEn ?? getTr();
   };
 }
 

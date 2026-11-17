@@ -1,154 +1,345 @@
 /**
- * _build-elifba-quiz.mjs — Elifba quiz havuzunu şablonla üretir.
- * Ders başına 45 soru (çeşitli tip, akıllı çeldirici). app.db + Turso'ya yazar.
+ * _build-elifba-quiz.mjs — Onaylı Elif-Ba sorularını DB'ye güvenli aktarır.
  *
- *   node scripts/_build-elifba-quiz.mjs --dry      # önizleme (yazmaz)
- *   node --env-file=apps/web/.env.local scripts/_build-elifba-quiz.mjs   # yaz + Turso sync
+ * Varsayılan çalışma salt okunur plandır:
+ *   node scripts/_build-elifba-quiz.mjs --dry --target local
+ *
+ * Yazma yalnız açık onayla ve tek hedefte yapılır:
+ *   node scripts/_build-elifba-quiz.mjs --apply --target local
+ *   node --env-file=apps/web/.env.local scripts/_build-elifba-quiz.mjs --apply --target turso
+ *
+ * Mevcut 1..405 kayıtları silinmez, güncellenmez veya yeniden numaralandırılmaz.
+ * Yalnız plan içindeki yeni quiz_id'ler tek transaction/batch ile eklenir.
  */
 import { DatabaseSync } from "node:sqlite";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { makeWritePlan, QUIZ_TYPE } from "./lib/elifbaQuizWritePlan.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const DRY = process.argv.includes("--dry");
-const POOL_PER_LESSON = 45;
+const DB_PATH = path.join(ROOT, "data", "app.db");
+const REVIEWED_PATH = path.join(ROOT, "content", "elifba", "exercises.reviewed.json");
+const EN_DICT_PATH = path.join(ROOT, "apps", "mobile", "src", "data", "elifba.en.json");
+const TARGETS = new Set(["local", "turso"]);
+const COLUMNS = "quiz_id, lesson_id, soru_tipi, soru, secenekler, dogru_cevap, ipucu, zorluk";
+const INSERT_SQL = `INSERT INTO elifba_quiz (${COLUMNS}) VALUES (?,?,?,?,?,?,?,?)`;
 
-const db = new DatabaseSync(path.join(ROOT, "data", "app.db"));
-const harfler = db.prepare(
-  "SELECT harf_id, harf_adi, harf_sesi, tek_basina, basta, ortada, sonda, mahrec, kalin_ince, grup FROM elifba_harfler ORDER BY harf_id",
-).all();
-const byId = new Map(harfler.map((h) => [h.harf_id, h]));
-const lessonLetters = {}; // lesson_id -> [harf_id]
-for (const r of db.prepare("SELECT ders_id, harf_id FROM elifba_harf_ders ORDER BY ders_id, harf_id").all()) {
-  (lessonLetters[r.ders_id] ??= []).push(r.harf_id);
+function fail(message) {
+  console.error(`Hata: ${message}`);
+  process.exit(2);
 }
 
-const allSesler = [...new Set(harfler.map((h) => h.harf_sesi))];
-const allMahrec = [...new Set(harfler.map((h) => h.mahrec))];
+function parseArgs(argv) {
+  let apply = false;
+  let dry = false;
+  let target;
 
-// ── Görsel benzerlik grupları (akıllı çeldirici) ─────────────────────────────
-const SIMILAR = [
-  [2, 3, 4, 25, 28], [5, 6, 7], [8, 9], [10, 11], [12, 13], [14, 15],
-  [16, 17], [18, 19], [20, 21], [22, 23], [1, 29], [24, 25], [26, 27],
-];
-function similarIds(id) {
-  const set = new Set();
-  for (const g of SIMILAR) if (g.includes(id)) g.forEach((x) => x !== id && set.add(x));
-  return [...set];
-}
-
-// ── Yardımcılar ───────────────────────────────────────────────────────────────
-let seed = 12345;
-function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
-function shuffle(a) { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; }
-function sample(arr, n, exclude = []) {
-  const pool = shuffle(arr.filter((x) => !exclude.includes(x)));
-  return pool.slice(0, n);
-}
-// benzer harflerden, eksikse rastgele harflerden n çeldirici (id listesi)
-// pred: opsiyonel filtre (ör. sadece birleşen harfler — başta-şekli soruları için)
-function distractorLetters(id, n, pred = null) {
-  const ok = (x) => x !== id && (!pred || pred(byId.get(x)));
-  let ids = shuffle(similarIds(id).filter(ok));
-  if (ids.length < n) {
-    const rest = shuffle(harfler.map((h) => h.harf_id).filter((x) => ok(x) && !ids.includes(x)));
-    ids = [...ids, ...rest];
-  }
-  return ids.slice(0, n).map((x) => byId.get(x));
-}
-const isConnecting = (h) => h.grup === "birlesen";
-const KI = { ince: "İnce okunur", "kalın": "Kalın okunur", "her ikisi": "Hem kalın hem ince okunabilir" };
-
-// secenekler benzersiz olmalı + correct içinde olmalı; değilse soruyu atla (null)
-function makeQ(type, h, soru, correct, distractors, ipucu, zorluk) {
-  const opts = [correct, ...distractors];
-  const uniq = [...new Set(opts)];
-  if (uniq.length < opts.length || !uniq.includes(correct)) return null; // belirsiz/çakışan → atla
-  return { _key: `${type}:${h.harf_id}`, soru_tipi: "coktan_secmeli", soru, secenekler: shuffle(uniq), dogru_cevap: correct, ipucu, zorluk };
-}
-
-// ── Soru üreticileri (bir harf → 0..1 soru) ──────────────────────────────────
-const GEN = [
-  (h) => makeQ("glif_ad", h, `Bu harfin Türkçe adı nedir?\n\n${h.tek_basina}`, h.harf_adi,
-    distractorLetters(h.harf_id, 3).map((d) => d.harf_adi), `Bu harf "${h.harf_sesi}" sesine karşılık gelir.`, 1),
-  (h) => makeQ("ad_glif", h, `'${h.harf_adi}' harfinin Arapça yazılışı hangisidir?`, h.tek_basina,
-    distractorLetters(h.harf_id, 3).map((d) => d.tek_basina), `${h.harf_adi}, "${h.harf_sesi}" sesidir.`, 1),
-  (h) => makeQ("glif_ses", h, `Bu harf hangi sese karşılık gelir?\n\n${h.tek_basina}`, h.harf_sesi,
-    sample(allSesler, 3, [h.harf_sesi]), `Bu harfin adı "${h.harf_adi}".`, 2),
-  (h) => h.grup === "birlesen"
-    ? makeQ("basta", h, `'${h.harf_adi}' (${h.tek_basina}) harfinin kelime BAŞINDAKİ şekli hangisidir?`, h.basta,
-        distractorLetters(h.harf_id, 3, isConnecting).map((d) => d.basta), `Başta gelen harfler sonraki harfe bağlanır.`, 2)
-    : null,
-  (h) => makeQ("kalin_ince", h, `'${h.harf_adi}' (${h.tek_basina}) harfi nasıl okunur?`, KI[h.kalin_ince],
-    Object.values(KI).filter((v) => v !== KI[h.kalin_ince]), `Kalın harfler dolgun, ince harfler yumuşak okunur.`, 2),
-  (h) => makeQ("birlesme", h, `'${h.harf_adi}' (${h.tek_basina}) harfi kendinden SONRAKİ harfle birleşir mi?`,
-    h.grup === "birlesen" ? "Evet, birleşir" : "Hayır, birleşmez", [h.grup === "birlesen" ? "Hayır, birleşmez" : "Evet, birleşir"],
-    `Bir harf sonraki harfe bitişik yazılabiliyorsa birleşir.`, 1),
-  (h) => makeQ("ayirt", h, `Aşağıdakilerden hangisi '${h.harf_adi}' harfidir?`, h.tek_basina,
-    distractorLetters(h.harf_id, 3).map((d) => d.tek_basina), `${h.harf_adi}, "${h.harf_sesi}" sesini verir.`, 2),
-];
-
-function genForLetters(ids) {
-  const out = [];
-  for (const id of ids) {
-    const h = byId.get(id);
-    for (const g of GEN) { const q = g(h); if (q) out.push(q); }
-  }
-  return out;
-}
-
-// ── Ders havuzları ────────────────────────────────────────────────────────────
-const allIds = harfler.map((h) => h.harf_id);
-const lessons = Object.keys(lessonLetters).map(Number).sort((a, b) => a - b);
-const result = {}; // lesson -> [q]
-
-for (const L of lessons) {
-  const own = lessonLetters[L];
-  let cands = shuffle(genForLetters(own));
-  if (cands.length < POOL_PER_LESSON) {
-    const others = allIds.filter((x) => !own.includes(x));
-    const keys = new Set(cands.map((c) => c._key));
-    for (const q of shuffle(genForLetters(others))) {
-      if (cands.length >= POOL_PER_LESSON) break;
-      if (!keys.has(q._key)) { cands.push(q); keys.add(q._key); }
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (arg === "--apply") apply = true;
+    else if (arg === "--dry") dry = true;
+    else if (arg === "--target") {
+      target = argv[i + 1];
+      i += 1;
+    } else if (arg.startsWith("--target=")) {
+      target = arg.slice("--target=".length);
+    } else {
+      fail(`bilinmeyen argüman: ${arg}`);
     }
   }
-  result[L] = cands.slice(0, POOL_PER_LESSON);
+
+  if (apply && dry) fail("--apply ve --dry birlikte kullanılamaz");
+  if (!target) fail("--target local|turso zorunlu");
+  if (!TARGETS.has(target)) fail(`geçersiz hedef: ${target}`);
+
+  return { apply, target };
 }
 
-// ── Rapor ─────────────────────────────────────────────────────────────────────
-console.log("=== Ders başına üretilen soru ===");
-for (const L of lessons) console.log(`  Ders ${L}: ${result[L].length} soru`);
-console.log("\n=== Ders 1 örnek 4 soru ===");
-result[1].slice(0, 4).forEach((q) => console.log(`  [${q.soru_tipi}/${q.zorluk}] ${q.soru.replace(/\n+/g, " ")}\n     şıklar: ${q.secenekler.join(" | ")}  ✓ ${q.dogru_cevap}`));
-const total = lessons.reduce((s, L) => s + result[L].length, 0);
-console.log(`\nTOPLAM: ${total} soru`);
-
-if (DRY) { console.log("\n(DRY — yazılmadı)"); process.exit(0); }
-
-// ── app.db'ye yaz ─────────────────────────────────────────────────────────────
-db.exec("DELETE FROM elifba_quiz");
-const ins = db.prepare("INSERT INTO elifba_quiz (quiz_id, lesson_id, soru_tipi, soru, secenekler, dogru_cevap, ipucu, zorluk) VALUES (?,?,?,?,?,?,?,?)");
-let qid = 1;
-const rowsForTurso = [];
-for (const L of lessons) for (const q of result[L]) {
-  const sec = JSON.stringify(q.secenekler);
-  ins.run(qid, L, q.soru_tipi, q.soru, sec, q.dogru_cevap, q.ipucu, q.zorluk);
-  rowsForTurso.push([qid, L, q.soru_tipi, q.soru, sec, q.dogru_cevap, q.ipucu, q.zorluk]);
-  qid++;
+// Paket 7 onaylı metnini DB satırına çevirir. `buildExerciseQuestions`
+// (apps/mobile/src/lib/elifbaExerciseGen.ts) ile aynı biçim: Arapça varsa
+// soru metninin sonuna "\n" + Arapça eklenir.
+function buildSoru(prompt, arabic) {
+  return arabic.length > 0 ? `${prompt}\n${arabic}` : prompt;
 }
-console.log(`\n✅ app.db: ${qid - 1} soru yazıldı.`);
 
-// ── Turso'ya sync ─────────────────────────────────────────────────────────────
-const url = process.env.TURSO_DB_URL, authToken = process.env.TURSO_AUTH_TOKEN;
-if (!url || !authToken) { console.log("⚠️  TURSO env yok → Turso sync atlandı (app.db güncel)."); process.exit(0); }
-const { createClient } = await import("@libsql/client");
-const turso = createClient({ url, authToken });
-await turso.execute("DELETE FROM elifba_quiz");
-const stmts = rowsForTurso.map((r) => ({
-  sql: "INSERT INTO elifba_quiz (quiz_id, lesson_id, soru_tipi, soru, secenekler, dogru_cevap, ipucu, zorluk) VALUES (?,?,?,?,?,?,?,?)",
-  args: r,
-}));
-for (let i = 0; i < stmts.length; i += 100) await turso.batch(stmts.slice(i, i + 100), "write");
-const n = Number((await turso.execute("SELECT COUNT(*) n FROM elifba_quiz")).rows[0].n);
-console.log(`✅ Turso: ${n} soru senkron.`);
+function loadApprovedRows() {
+  const exercises = JSON.parse(fs.readFileSync(REVIEWED_PATH, "utf8"));
+  if (!Array.isArray(exercises)) fail("exercises.reviewed.json bir dizi olmalı");
+
+  return exercises.map((row) => ({
+    quiz_id: row.quizId,
+    lesson_id: row.lessonId,
+    soru_tipi: QUIZ_TYPE,
+    soru: buildSoru(row.tr.prompt, row.arabic),
+    secenekler: [...row.tr.options],
+    dogru_cevap: row.tr.answer,
+    ipucu: row.tr.hint,
+    zorluk: 1,
+    en: {
+      soru: buildSoru(row.en.prompt, row.arabic),
+      secenekler: [...row.en.options],
+      dogru_cevap: row.en.answer,
+      ipucu: row.en.hint,
+    },
+  }));
+}
+
+function readLocalRows(db) {
+  return db.prepare(`SELECT ${COLUMNS} FROM elifba_quiz ORDER BY quiz_id`).all();
+}
+
+async function createTursoClient() {
+  const url = process.env.TURSO_DB_URL;
+  const authToken = process.env.TURSO_AUTH_TOKEN;
+  if (!url || !authToken) fail("Turso hedefi için TURSO_DB_URL ve TURSO_AUTH_TOKEN gerekli");
+  const { createClient } = await import("@libsql/client");
+  return createClient({ url, authToken });
+}
+
+async function readTursoRows(turso) {
+  const result = await turso.execute(`SELECT ${COLUMNS} FROM elifba_quiz ORDER BY quiz_id`);
+  return result.rows;
+}
+
+function loadEnDictionary() {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(EN_DICT_PATH, "utf8"));
+    return parsed && typeof parsed === "object" ? parsed.strings ?? {} : {};
+  } catch {
+    return {};
+  }
+}
+
+function reportEnCoverage(approvedRows) {
+  const dictionary = loadEnDictionary();
+  const missing = [];
+  let covered = 0;
+
+  for (const row of approvedRows) {
+    const keys = [
+      ...new Set([row.soru, ...row.secenekler, row.dogru_cevap, row.ipucu]),
+    ].filter((key) => typeof key === "string" && key.length > 0);
+    const absent = keys.filter(
+      (key) => !Object.prototype.hasOwnProperty.call(dictionary, key) || !dictionary[key],
+    );
+    if (absent.length === 0) covered += 1;
+    else missing.push({ quiz_id: row.quiz_id, missing: absent.length });
+  }
+
+  return { total: approvedRows.length, covered, missing };
+}
+
+function printPlan(plan, existingRows, approvedRows) {
+  const coverage = reportEnCoverage(approvedRows);
+  const projectedByLesson = new Map();
+  for (const row of existingRows) {
+    projectedByLesson.set(row.lesson_id, (projectedByLesson.get(row.lesson_id) ?? 0) + 1);
+  }
+  for (const row of plan.inserts) {
+    projectedByLesson.set(row.lesson_id, (projectedByLesson.get(row.lesson_id) ?? 0) + 1);
+  }
+
+  console.log("=== Elif-Ba quiz yazma planı (salt okunur) ===");
+  console.log(`Mevcut kayıt: ${existingRows.length}`);
+  console.log(`Eklenecek yeni kayıt: ${plan.inserts.length}`);
+  console.log(`Değişmeyen (no-op): ${plan.unchanged}`);
+  console.log(`Çakışma/hata: ${plan.errors.length}`);
+  console.log(`Beklenen yeni toplam: ${existingRows.length + plan.inserts.length}`);
+  console.log(
+    `Ders dağılımı (mevcut → yeni): ${[...projectedByLesson.entries()]
+      .sort((a, b) => a[0] - b[0])
+      .map(([lesson, total]) => `D${lesson}: ${total}`)
+      .join(", ")}`,
+  );
+
+  if (plan.inserts.length > 0) {
+    console.log("\nEklenecek ID'ler:");
+    console.log(`  ${plan.inserts.map((row) => `${row.quiz_id}→D${row.lesson_id}`).join(", ")}`);
+  }
+
+  console.log("\nEN sözlük kapsamı (yeni sorular):");
+  console.log(
+    `  Tam kapsanan: ${coverage.covered}/${coverage.total}; eksik: ${coverage.missing.length}`,
+  );
+  if (coverage.missing.length > 0) {
+    console.log(
+      `  Eksik ID'ler: ${coverage.missing.map((item) => `${item.quiz_id}(${item.missing})`).join(", ")}`,
+    );
+  }
+
+  if (plan.errors.length > 0) {
+    console.log("\nHatalar:");
+    for (const error of plan.errors) console.log(`  - ${error}`);
+  }
+}
+
+function fingerprint(row) {
+  return JSON.stringify([
+    row.lesson_id,
+    row.soru_tipi,
+    row.soru,
+    row.secenekler,
+    row.dogru_cevap,
+    row.ipucu ?? null,
+    row.zorluk,
+  ]);
+}
+
+function verifyPostflight(beforeRows, afterRows, plan) {
+  const problems = [];
+  const afterById = new Map(afterRows.map((row) => [Number(row.quiz_id), row]));
+
+  if (afterRows.length !== beforeRows.length + plan.inserts.length) {
+    problems.push(
+      `kayıt sayısı beklenen ${beforeRows.length + plan.inserts.length}, bulunan ${afterRows.length}`,
+    );
+  }
+
+  for (const row of beforeRows) {
+    const after = afterById.get(Number(row.quiz_id));
+    if (!after || fingerprint(after) !== fingerprint(row)) {
+      problems.push(`mevcut ${row.quiz_id} içeriği değişti`);
+    }
+  }
+
+  for (const inserted of plan.inserts) {
+    const after = afterById.get(inserted.quiz_id);
+    if (!after) {
+      problems.push(`yeni ${inserted.quiz_id} yazılmadı`);
+      continue;
+    }
+    const options = JSON.parse(inserted.secenekler);
+    if (!options.includes(inserted.dogru_cevap)) {
+      problems.push(`yeni ${inserted.quiz_id} doğru cevabı şıklarda değil`);
+    }
+  }
+
+  return problems;
+}
+
+async function applyLocal(approvedRows) {
+  const db = new DatabaseSync(DB_PATH);
+  let transactionOpen = false;
+  try {
+    db.exec("BEGIN IMMEDIATE");
+    transactionOpen = true;
+    const beforeRows = readLocalRows(db);
+    const plan = makeWritePlan(beforeRows, approvedRows);
+
+    if (plan.errors.length > 0) {
+      db.exec("ROLLBACK");
+      transactionOpen = false;
+      printPlan(plan, beforeRows, approvedRows);
+      fail("plan hatalı; hiçbir satır yazılmadı");
+    }
+    if (plan.inserts.length === 0) {
+      db.exec("ROLLBACK");
+      transactionOpen = false;
+      console.log(`Yazılacak yeni kayıt yok (no-op ${plan.unchanged}).`);
+      return;
+    }
+
+    const insert = db.prepare(INSERT_SQL);
+    for (const row of plan.inserts) {
+      insert.run(
+        row.quiz_id,
+        row.lesson_id,
+        row.soru_tipi,
+        row.soru,
+        row.secenekler,
+        row.dogru_cevap,
+        row.ipucu,
+        row.zorluk,
+      );
+    }
+    db.exec("COMMIT");
+    transactionOpen = false;
+
+    const afterRows = readLocalRows(db);
+    const problems = verifyPostflight(beforeRows, afterRows, plan);
+    if (problems.length > 0) fail(`yazma sonrası doğrulama başarısız: ${problems.join("; ")}`);
+
+    console.log(`✅ local: ${plan.inserts.length} soru eklendi, toplam ${afterRows.length}.`);
+  } catch (error) {
+    if (transactionOpen) {
+      try {
+        db.exec("ROLLBACK");
+      } catch {
+        // rollback hatası asıl hatayı gölgelemesin
+      }
+    }
+    throw error;
+  } finally {
+    db.close();
+  }
+}
+
+async function applyTurso(approvedRows) {
+  const turso = await createTursoClient();
+  const beforeRows = await readTursoRows(turso);
+  const plan = makeWritePlan(beforeRows, approvedRows);
+
+  if (plan.errors.length > 0) {
+    printPlan(plan, beforeRows, approvedRows);
+    fail("plan hatalı; hiçbir satır yazılmadı");
+  }
+  if (plan.inserts.length === 0) {
+    console.log(`Yazılacak yeni kayıt yok (no-op ${plan.unchanged}).`);
+    return;
+  }
+
+  const statements = plan.inserts.map((row) => ({
+    sql: INSERT_SQL,
+    args: [
+      row.quiz_id,
+      row.lesson_id,
+      row.soru_tipi,
+      row.soru,
+      row.secenekler,
+      row.dogru_cevap,
+      row.ipucu,
+      row.zorluk,
+    ],
+  }));
+  await turso.batch(statements, "write");
+
+  const afterRows = await readTursoRows(turso);
+  const problems = verifyPostflight(beforeRows, afterRows, plan);
+  if (problems.length > 0) fail(`yazma sonrası doğrulama başarısız: ${problems.join("; ")}`);
+
+  console.log(`✅ turso: ${plan.inserts.length} soru eklendi, toplam ${afterRows.length}.`);
+}
+
+async function main() {
+  const { apply, target } = parseArgs(process.argv.slice(2));
+  const approvedRows = loadApprovedRows();
+
+  if (apply) {
+    if (target === "local") await applyLocal(approvedRows);
+    else await applyTurso(approvedRows);
+    return;
+  }
+
+  if (target === "local") {
+    const db = new DatabaseSync(DB_PATH, { readOnly: true });
+    try {
+      if (!db.isOpen) fail("app.db salt okunur açılamadı");
+      const existingRows = readLocalRows(db);
+      const plan = makeWritePlan(existingRows, approvedRows);
+      printPlan(plan, existingRows, approvedRows);
+      if (plan.errors.length > 0) process.exitCode = 1;
+    } finally {
+      db.close();
+    }
+    return;
+  }
+
+  const turso = await createTursoClient();
+  const existingRows = await readTursoRows(turso);
+  const plan = makeWritePlan(existingRows, approvedRows);
+  printPlan(plan, existingRows, approvedRows);
+  if (plan.errors.length > 0) process.exitCode = 1;
+}
+
+await main();
