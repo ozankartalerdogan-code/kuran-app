@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   View, Text, FlatList, ScrollView, TouchableOpacity, TextInput,
-  ActivityIndicator, StyleSheet, useWindowDimensions, Modal,
-  type NativeScrollEvent, type NativeSyntheticEvent,
+  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -106,14 +105,13 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][numbe
   return <>{metin}</>;
 }
 
-const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, tajweed, secili, onAyetSec, onDikeyKilit }: {
+const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, tajweed, secili, onAyetSec }: {
   page: number;
   width: number;
   height: number;
   tajweed: boolean;
   secili: SeciliAyet;
   onAyetSec: (surahId: number, ayahNumber: number) => void;
-  onDikeyKilit: (kilitli: boolean) => void;
 }) {
   const c = useColors();
   const t = useStrings(mushafStrings);
@@ -123,7 +121,6 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
   const { fontScale } = useFontScale();
   const [durum, setDurum] = useState<YuklemeDurumu>({ status: "loading" });
   const [denemeNo, setDenemeNo] = useState(0);
-  const touchBaslangicRef = useRef<{ x: number; y: number; kilit: "yok" | "dikey" | "yatay" } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -170,41 +167,6 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
           contentContainerStyle={[st.pageScroll, { paddingBottom: insets.bottom + 20 }]}
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled
-          directionalLockEnabled
-          onTouchStart={(e) => {
-            const t0 = e.nativeEvent.touches[0];
-            if (t0) {
-              touchBaslangicRef.current = { x: t0.pageX, y: t0.pageY, kilit: "yok" };
-            }
-          }}
-          onTouchMove={(e) => {
-            const b = touchBaslangicRef.current;
-            const t0 = e.nativeEvent.touches[0];
-            if (!b || !t0 || b.kilit !== "yok") return;
-            const dx = Math.abs(t0.pageX - b.x);
-            const dy = Math.abs(t0.pageY - b.y);
-            if (dy > 5 && dy > dx * 1.2) {
-              b.kilit = "dikey";
-              onDikeyKilit(true);
-            } else if (dx > 5 && dx > dy * 1.2) {
-              b.kilit = "yatay";
-              onDikeyKilit(false);
-            }
-          }}
-          onTouchEnd={() => {
-            touchBaslangicRef.current = null;
-            onDikeyKilit(false);
-          }}
-          onTouchCancel={() => {
-            touchBaslangicRef.current = null;
-            onDikeyKilit(false);
-          }}
-          onScrollBeginDrag={() => onDikeyKilit(true)}
-          onScrollEndDrag={(e) => {
-            const vy = Math.abs(e.nativeEvent.velocity?.y ?? 0);
-            if (vy < 0.05) onDikeyKilit(false);
-          }}
-          onMomentumScrollEnd={() => onDikeyKilit(false)}
         >
           <View style={[st.kagit, kagit]}>
             {durum.bloklar.map((blok, i) =>
@@ -292,10 +254,12 @@ export default function MushafSayfaEkrani() {
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
   const [initialPage, setInitialPage] = useState<number | null>(null);
   const [listHeight, setListHeight] = useState(0);
-  const [yatayKaydirmaAcik, setYatayKaydirmaAcik] = useState(true);
-  const handleDikeyKilit = useCallback((kilitli: boolean) => {
-    setYatayKaydirmaAcik((prev) => (prev === !kilitli ? prev : !kilitli));
-  }, []);
+
+  // PanResponder bir kez kurulur; güncel sayfa ve genişliği ref'ten okur.
+  const pageRef = useRef(1);
+  const widthRef = useRef(width);
+  useEffect(() => { pageRef.current = page; }, [page]);
+  useEffect(() => { widthRef.current = width; }, [width]);
 
   // Sure listesi düşerse atlama paneli sonsuz "yükleniyor"da kalmasın — hata
   // durumu + tekrar dene (sayfa numarasıyla atlama zaten çalışmaya devam eder).
@@ -347,13 +311,72 @@ export default function MushafSayfaEkrani() {
     listRef.current?.scrollToIndex({ index: p - 1, animated });
   }, []);
 
-  const onMomentumEnd = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const index = Math.round(e.nativeEvent.contentOffset.x / width);
-    const p = Math.min(SAYFA_SAYISI, Math.max(1, index + 1));
-    setPage(p);
-    setSecili(null); // sayfa değişince seçim ve eylem çubuğu kapanır
-    storage.setString(STORAGE_KEYS.mushafPage, String(p)).catch(() => {});
-  }, [width]);
+  // Sayfa çevirme tamamen JS'te: yerel yatay kaydırma kapalı olduğu için
+  // Android'in dokunuşu x farkına göre erken kapması sorunu oluşmaz.
+  const suruklemeBaslangicRef = useRef(0);
+  // RN capture ile sahiplenince gestureState'i sıfırlar; yakalama öncesi dx'i ve zamanı ref'te tutuyoruz.
+  const yakalamaDxRef = useRef(0);
+  const yakalamaZamaniRef = useRef(0);
+  const yakalanmaliMi = (g: { dx: number; dy: number }) => {
+    const yakala = Math.abs(g.dx) > 24 && Math.abs(g.dx) > Math.abs(g.dy) * 2;
+    if (yakala) {
+      yakalamaDxRef.current = g.dx;
+      yakalamaZamaniRef.current = Date.now();
+    }
+    return yakala;
+  };
+  const bitirSurukleme = (dx: number, vx: number, sureMs: number) => {
+    const w = widthRef.current;
+    const p = pageRef.current;
+    let hedef = p;
+    if (Math.abs(dx) > w * 0.25) {
+      // Parmak SAĞA (dx>0) → SONRAKİ sayfa; inverted listede index/offset artar.
+      hedef = p + (dx > 0 ? 1 : -1);
+    } else if (Math.abs(vx) > 0.3) {
+      hedef = p + (vx > 0 ? 1 : -1);
+    } else if (Math.abs(dx) > 40 && sureMs < 250) {
+      // Hızlı fiske: hız sıfırlansa da mesafe + kısa süre yeter.
+      hedef = p + (dx > 0 ? 1 : -1);
+    }
+    yakalamaDxRef.current = 0;
+    sayfayaGit(hedef, true);
+  };
+  const panResponder = useRef(
+    PanResponder.create({
+      // Ayete dokunma seçimi bozulmasın: başlangıçta sahiplenme yok.
+      onStartShouldSetPanResponder: () => false,
+      onStartShouldSetPanResponderCapture: () => false,
+      // Yalnız belirgin yatay hareket sayfa çevirir; dikey/çapraz iç ScrollView'de kalır.
+      onMoveShouldSetPanResponder: (_, g) => yakalanmaliMi(g),
+      onMoveShouldSetPanResponderCapture: (_, g) => yakalanmaliMi(g),
+      // Yatay sürükleme başladıysa bırakma.
+      onPanResponderTerminationRequest: () => false,
+      onPanResponderGrant: () => {
+        suruklemeBaslangicRef.current = (pageRef.current - 1) * widthRef.current;
+      },
+      onPanResponderMove: (_, g) => {
+        // inverted liste: parmak SAĞA (dx>0) → SONRAKİ sayfa (offset artar).
+        const toplamDx = yakalamaDxRef.current + g.dx;
+        const w = widthRef.current;
+        const max = (SAYFA_SAYISI - 1) * w;
+        const offset = Math.max(0, Math.min(max, suruklemeBaslangicRef.current + toplamDx));
+        listRef.current?.scrollToOffset({ offset, animated: false });
+      },
+      onPanResponderRelease: (_, g) =>
+        bitirSurukleme(
+          yakalamaDxRef.current + g.dx,
+          g.vx,
+          Date.now() - yakalamaZamaniRef.current,
+        ),
+      onPanResponderTerminate: (_, g) =>
+        bitirSurukleme(
+          yakalamaDxRef.current + g.dx,
+          g.vx,
+          Date.now() - yakalamaZamaniRef.current,
+        ),
+    }),
+  ).current;
+
 
   // Dokun = seç/vurgula; aynı ayete tekrar dokunmak seçimi kaldırır.
   const onAyetSec = useCallback((surahId: number, ayahNumber: number) => {
@@ -444,10 +467,9 @@ export default function MushafSayfaEkrani() {
         tajweed={tajweed}
         secili={secili}
         onAyetSec={onAyetSec}
-        onDikeyKilit={handleDikeyKilit}
       />
     ),
-    [width, listHeight, tajweed, secili, onAyetSec, handleDikeyKilit],
+    [width, listHeight, tajweed, secili, onAyetSec],
   );
   const getItemLayout = useCallback(
     (_: unknown, index: number) => ({ length: width, offset: width * index, index }),
@@ -599,29 +621,30 @@ export default function MushafSayfaEkrani() {
         {initialPage === null ? (
           <View style={st.center}><ActivityIndicator size="large" color={c.accent} /></View>
         ) : (
-          <FlatList
-            ref={listRef}
-            style={{ flex: 1 }}
-            data={TUM_SAYFALAR}
-            horizontal
-            inverted
-            pagingEnabled
-            scrollEnabled={yatayKaydirmaAcik}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(n) => String(n)}
-            renderItem={renderItem}
-            getItemLayout={getItemLayout}
-            initialScrollIndex={initialPage - 1}
-            onMomentumScrollEnd={onMomentumEnd}
-            onLayout={(e) => {
-              const h = Math.round(e.nativeEvent.layout.height);
-              if (h > 0 && h !== listHeight) setListHeight(h);
-            }}
-            initialNumToRender={1}
-            maxToRenderPerBatch={2}
-            windowSize={3}
-            removeClippedSubviews
-          />
+          <View style={{ flex: 1 }} {...panResponder.panHandlers}>
+            <FlatList
+              ref={listRef}
+              style={{ flex: 1 }}
+              data={TUM_SAYFALAR}
+              horizontal
+              inverted
+              pagingEnabled
+              scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(n) => String(n)}
+              renderItem={renderItem}
+              getItemLayout={getItemLayout}
+              initialScrollIndex={initialPage - 1}
+              onLayout={(e) => {
+                const h = Math.round(e.nativeEvent.layout.height);
+                if (h > 0 && h !== listHeight) setListHeight(h);
+              }}
+              initialNumToRender={1}
+              maxToRenderPerBatch={2}
+              windowSize={3}
+              removeClippedSubviews
+            />
+          </View>
         )}
 
         {/* Seçili ayet eylem çubuğu — dokun=seç, detaya gitme ikinci adım */}
