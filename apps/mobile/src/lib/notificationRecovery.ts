@@ -1,5 +1,6 @@
 import type { NotificationRequestInput } from "expo-notifications";
 import type { DayTimes } from "./namazNotifications";
+import type { PrayerInstants } from "./prayerInstant";
 
 export const PLAN_CACHE_KEY = "namazNotifPlanCacheV1";
 
@@ -45,7 +46,18 @@ export function readNotificationPlan(raw: string | null, stamp: string, prayer: 
         if (typeof time !== "string" || !/^([01]?\d|2[0-3]):[0-5]\d$/.test(time)) return null;
         times[key] = time;
       }
-      days.push({ date, times });
+      let at: PrayerInstants | undefined;
+      if (day.at !== undefined) {
+        if (!record(day.at)) return null;
+        const parsed: Record<string, number> = {};
+        for (const key of prayerKeys) {
+          const value = day.at[key];
+          if (typeof value !== "number" || !Number.isFinite(value)) return null;
+          parsed[key] = value;
+        }
+        at = parsed as PrayerInstants;
+      }
+      days.push(at === undefined ? { date, times } : { date, times, at });
     }
     if (!dates.has(stamp.split("|")[0])) return null;
     const firstDay = new Date(days[0].date);
@@ -87,6 +99,7 @@ export function readNotificationPlan(raw: string | null, stamp: string, prayer: 
     if (dailyVerse && dailyRequests === 0) return null;
     if (prayer) {
       const expected = days.flatMap(day => prayerKeys.map(key => {
+        if (day.at) return day.at[key as keyof PrayerInstants] + 2 * 60_000;
         const [h, m] = day.times[key].split(":").map(Number);
         const date = new Date(day.date);
         date.setHours(h, m + 2, 0, 0);

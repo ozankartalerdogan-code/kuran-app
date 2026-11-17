@@ -8,6 +8,7 @@
  * yolunu dener; çağıran taraf başarısız olursa Aladhan'a düşer.
  */
 
+
 export type DiyanetCityRef = {
   id: number;
   name: string;
@@ -30,6 +31,8 @@ export type PrayerTimesHm = {
 
 export type DiyanetDayOut = {
   times: PrayerTimesHm;
+  /** Sunucunun ham ISO vakitleri (mutlak an hesabı için; bkz. prayerInstant.instantsFromDiyanetIso). */
+  rawTimes: unknown;
   hijri: { day: number; monthNumber: number; year: number } | null;
   city: DiyanetCityRef;
 };
@@ -566,7 +569,12 @@ export async function getDiyanetDays(
         if (!isRecord(raw)) continue;
         const times = convertTimes(raw.times);
         if (times === null) continue; // herhangi bir vakit çözülemezse günü atla
-        out.set(date, { times, hijri: convertHijri(raw.hijri), city });
+        out.set(date, {
+          times,
+          rawTimes: raw.times,
+          hijri: convertHijri(raw.hijri),
+          city,
+        });
       }
     }
 

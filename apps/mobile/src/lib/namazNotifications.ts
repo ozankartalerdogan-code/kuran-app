@@ -13,6 +13,8 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
+import { formatHmInZone, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
+import type { PrayerInstants } from "./prayerInstant";
 import { getDiyanetDays, getManualCity, prayerCityStampPart } from "./diyanetPrayer";
 import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
@@ -39,7 +41,7 @@ export const SCHED_DAY_KEY = "namazNotifSchedDay";
 // açılışta yeniden planlanır. İzin sonradan verilirse eski (ertelenebilir) alarmlar
 // böylece tam zamanlıya döner.
 export const schedStamp = () =>
-  `${localDayStr()}|${getLang()}|${deviceTimeZone()}|${canScheduleExactAlarms() === false ? "inexact" : "exact"}`;
+  `${localDayStr()}|${getLang()}|${deviceTimeZone()}|${canScheduleExactAlarms() === false ? "inexact" : "exact"}|t2`;
 const fullSchedStamp = async () =>
   `${schedStamp()}|${await prayerCityStampPart(diyanetDeps()).catch(() => "-")}`;
 
@@ -137,7 +139,8 @@ export async function requestNotificationPermission(): Promise<boolean> {
 }
 
 // Bir güne ait vakitler + o günün takvim tarihi (çok-günlü planlama için).
-export type DayTimes = { date: Date; times: PrayerTimes };
+// `at`: vakitlerin mutlak anları; varsa tetikleyiciler cihaz diliminden bağımsız kurulur.
+export type DayTimes = { date: Date; times: PrayerTimes; at?: PrayerInstants };
 
 // Kaç gün ileriye planlanır. 6 vakit × 7 gün + 2 günlük ayet/dua = 44 bildirim —
 // iOS'un 64 planlı bildirim limitinin altında. Eskiden DAILY tetikleyici tek
@@ -155,30 +158,51 @@ function sanitizeTimes(raw: Record<string, string>): PrayerTimes {
   return out;
 }
 
+// Aladhan takvim günü: şehrin duvar saatleri + varsa mutlak anlar.
+type CalendarDay = { times: PrayerTimes; at: PrayerInstants | null };
+
+// Aladhan sorgusu için şehir dilimi: elle seçilen şehir bu koordinattaysa onun dilimi,
+// aksi halde cihazın dilimi. (Türkiye'de ikisi de Europe/Istanbul'dur.)
+async function aladhanCityTimeZone(lat: number, lng: number): Promise<string> {
+  try {
+    const manual = await getManualCity(diyanetDeps());
+    if (
+      manual !== null &&
+      Math.abs(manual.lat - lat) < 1e-6 &&
+      Math.abs(manual.lon - lng) < 1e-6
+    ) {
+      return manual.tz;
+    }
+  } catch { /* cihaz dilimine düş */ }
+  return deviceTimeZone();
+}
+
 // Aladhan takvim ucundan bir ayın tüm günlerini çek (tek istek/ay).
 async function fetchMonthCalendar(
   lat: number,
   lng: number,
   year: number,
   month: number, // 1-12
-): Promise<Map<string, PrayerTimes> | null> {
+  cityTz: string,
+): Promise<Map<string, CalendarDay> | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const res = await fetch(
       // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
-      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
+      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(cityTz)}&timezonestring=${encodeURIComponent(cityTz)}`,
       { headers: { "Accept": "application/json" }, signal: controller.signal }
     );
     const data = await res.json();
     if (!Array.isArray(data?.data)) return null;
-    const tz = deviceTimeZone();
-    const map = new Map<string, PrayerTimes>();
+    const map = new Map<string, CalendarDay>();
     for (const day of data.data) {
       const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
       if (typeof gDate === "string" && day?.timings) {
         const [d, m, y] = gDate.split("-").map(Number);
-        map.set(gDate, adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, tz));
+        const times = adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, cityTz);
+        const ymd = `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        map.set(gDate, { times, at: instantsFromWallTimes(ymd, times, cityTz) });
       }
     }
     return map;
@@ -218,8 +242,9 @@ export async function fetchPrayerDays(
   );
 
   const missing = wanted.filter((_, i) => !diyanet.has(wantedYmd[i]));
-  const aladhan = new Map<string, PrayerTimes>();
+  const aladhan = new Map<string, CalendarDay>();
   if (missing.length > 0) {
+    const cityTz = await aladhanCityTimeZone(lat, lng);
     // Pencere ay sınırını aşabilir → yalnız eksik günlerin ayları için istek.
     const months = new Map<string, { year: number; month: number }>();
     for (const d of missing) {
@@ -229,7 +254,7 @@ export async function fetchPrayerDays(
       });
     }
     const calendars = await Promise.all(
-      [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month))
+      [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month, cityTz))
     );
     for (const cal of calendars) {
       if (cal) for (const [k, v] of cal) aladhan.set(k, v);
@@ -237,9 +262,21 @@ export async function fetchPrayerDays(
   }
 
   const days: DayTimes[] = [];
+  const deviceTz = deviceTimeZone();
   wanted.forEach((d, i) => {
-    const times = diyanet.get(wantedYmd[i])?.times ?? aladhan.get(ddmmyyyy(d));
-    if (times) days.push({ date: d, times });
+    const diyanetDay = diyanet.get(wantedYmd[i]);
+    if (diyanetDay) {
+      days.push({ date: d, times: diyanetDay.times, at: instantsFromDiyanetIso(diyanetDay.rawTimes) ?? undefined });
+      return;
+    }
+    const cal = aladhan.get(ddmmyyyy(d));
+    if (!cal || cal.at === null) return;
+    const at = cal.at;
+    const times: PrayerTimes = {};
+    for (const { key } of VAKITLER) {
+      times[key] = formatHmInZone(at[key as keyof PrayerInstants], deviceTz);
+    }
+    days.push({ date: d, times, at });
   });
   if (days.length > 0) return days;
 
@@ -340,6 +377,16 @@ function dateTriggerAfter(day: Date, hour: number, minute: number, offsetMin: nu
   } as const;
 }
 
+// Mutlak andan DATE tetikleyicisi (epoch zaten offset uygulanmış; null = geçmiş).
+function dateTriggerAtMs(atMs: number | null, channelId: string) {
+  if (atMs === null) return null;
+  return {
+    type: Notifications.SchedulableTriggerInputTypes.DATE,
+    date: new Date(atMs),
+    channelId, // iOS'ta yok sayılır
+  } as const;
+}
+
 // Günlük namaz bildirimlerini planla. Her vakit için TEK bildirim (vakit
 // girdikten NOTIFY_AFTER_MIN dk sonra): hatırlatma + namaz-taglı ayet meali
 // birlikte (her yeniden planlamada rastgele → dinamik).
@@ -377,9 +424,13 @@ async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications
 
   const ns = getStrings(notifStrings);
   const jobs: Notifications.NotificationRequestInput[] = [];
-  days.forEach(({ date, times }, dayIndex) => {
+  const nowMs = Date.now();
+  days.forEach(({ date, times, at }, dayIndex) => {
     for (const { key, label, hour, minute } of parseValid(times)) {
-      const trigger = dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
+      const instant = at?.[key as keyof PrayerInstants];
+      const trigger = typeof instant === "number"
+        ? dateTriggerAtMs(notificationAtMs(instant, NOTIFY_AFTER_MIN, nowMs), ANDROID_CHANNEL_ID_PRAYER)
+        : dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
       if (!trigger) continue; // bugünün geçmiş vakitleri
       const v =
         key === "Fajr" ? pickFromPool(sabahPool, dayIndex, 0, 1) ?? pickFromPool(genelPool, dayIndex, 0, OTHER_KEYS.length)
