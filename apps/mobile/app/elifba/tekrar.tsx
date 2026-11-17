@@ -157,8 +157,9 @@ export default function TekrarScreen() {
   }, [questions]);
 
   const retryWrite = useCallback(() => {
-    const snapshot = failedSnapshotRef.current;
-    if (snapshot) persistSrs(snapshot);
+    // Eski başarısız anlık görüntüyü değil güncel durumu yaz: arada verilen
+    // cevaplar kaybolmasın (kuyrukta eski sürüm yenisinin ardından yazılmasın).
+    if (failedSnapshotRef.current) persistSrs(srsRef.current);
   }, [persistSrs]);
 
   const retryLoad = useCallback(() => { setReloadKey((key) => key + 1); }, []);

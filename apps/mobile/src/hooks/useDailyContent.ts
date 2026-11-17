@@ -15,7 +15,7 @@ import {
   type DiyanetDayOut,
 } from "../lib/diyanetPrayer";
 import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
-import { onDiyanetDaysCached } from "../lib/prayerCityEvents";
+import { getDiyanetDaysCachedVersion, onDiyanetDaysCached } from "../lib/prayerCityEvents";
 
 interface DailyVerse {
   verse_key: string;
@@ -435,7 +435,8 @@ export function useDailyContent(): UseDailyContentResult {
     // Aladhan yoluna düşülür. Diyanet yolu en kötü ~14 sn sürebilir; güvenlik
     // zamanlayıcısı loading'i kapatsa bile sonuç gelince prayers yine set edilir.
     const diyanetDate = localYmdStr(new Date());
-    const diyanetDay = (
+    const cachedVersionBefore = getDiyanetDaysCachedVersion();
+    const readDiyanetToday = async () => (
       await getDiyanetDays(
         coords.lat,
         coords.lon,
@@ -444,7 +445,14 @@ export function useDailyContent(): UseDailyContentResult {
         diyanetDeps(),
       )
     ).get(diyanetDate);
+    let diyanetDay = await readDiyanetToday();
     if (!isCurrent()) return;
+    // Bu istek sürerken bildirim planı Diyanet'i önbelleğe aldıysa (olay kaçtı)
+    // Aladhan'a düşmeden önce bir kez önbellekten yeniden oku.
+    if (!diyanetDay && getDiyanetDaysCachedVersion() !== cachedVersionBefore) {
+      diyanetDay = await readDiyanetToday();
+      if (!isCurrent()) return;
+    }
 
     if (diyanetDay) {
       // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.

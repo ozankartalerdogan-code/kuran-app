@@ -25,7 +25,15 @@ export function onDiyanetDaysCached(listener: () => void): () => void {
   };
 }
 
+let diyanetDaysCachedVersion = 0;
+
+/** Her notifyDiyanetDaysCached çağrısında artar; arada olay kaçtı mı diye bakmak için. */
+export function getDiyanetDaysCachedVersion(): number {
+  return diyanetDaysCachedVersion;
+}
+
 export function notifyDiyanetDaysCached(): void {
+  diyanetDaysCachedVersion += 1;
   for (const listener of diyanetDaysCachedListeners) {
     try {
       listener();

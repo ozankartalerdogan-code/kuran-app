@@ -231,3 +231,8 @@ test("Türkiye birebir: 3 il × 7 gün Diyanet ISO → yeni tetik = eski HH:MM +
     }
   }
 });
+
+test("intlZoneSupported: Node'un Intl'i dilim dönüşümünü doğru yapar", async () => {
+  const { intlZoneSupported } = await import("./prayerInstant.ts");
+  assert.equal(intlZoneSupported(), true);
+});

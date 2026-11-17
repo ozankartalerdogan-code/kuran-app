@@ -13,7 +13,7 @@ import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { aladhanTzParam, deviceTimeZone } from "./timeZone";
 import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
-import { formatHmInZone, futureCarry, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
+import { formatHmInZone, futureCarry, intlZoneSupported, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
 import type { PrayerInstants } from "./prayerInstant";
 import { getDiyanetDays, getManualCity, prayerCityStampPart } from "./diyanetPrayer";
 import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
@@ -166,6 +166,8 @@ type CalendarDay = { times: PrayerTimes; at: PrayerInstants | null };
 // Aladhan sorgusu için şehir dilimi: elle seçilen şehir bu koordinattaysa onun dilimi,
 // aksi halde cihazın dilimi. (Türkiye'de ikisi de Europe/Istanbul'dur.)
 async function aladhanCityTimeZone(lat: number, lng: number): Promise<string> {
+  // Intl dilim dönüşümü güvenilmezse eski davranış: her şey cihaz diliminde.
+  if (!intlZoneSupported()) return deviceTimeZone();
   try {
     const manual = await getManualCity(diyanetDeps());
     if (
@@ -204,7 +206,7 @@ async function fetchMonthCalendar(
         const [d, m, y] = gDate.split("-").map(Number);
         const times = adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, cityTz);
         const ymd = `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-        map.set(gDate, { times, at: instantsFromWallTimes(ymd, times, cityTz) });
+        map.set(gDate, { times, at: intlZoneSupported() ? instantsFromWallTimes(ymd, times, cityTz) : null });
       }
     }
     return map;
@@ -282,7 +284,13 @@ export async function fetchPrayerDays(
       return;
     }
     const cal = aladhan.get(ddmmyyyy(d));
-    if (!cal || cal.at === null) return;
+    if (!cal) return;
+    if (cityTz === deviceTz) {
+      // Aynı dilim (Türkiye): saatler olduğu gibi; an hesaplanamadıysa eski setHours yolu.
+      days.push(cal.at ? { date: d, times: cal.times, at: cal.at } : { date: d, times: cal.times });
+      return;
+    }
+    if (cal.at === null) return;
     const at = cal.at;
     const times: PrayerTimes = {};
     for (const { key } of VAKITLER) {

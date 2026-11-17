@@ -259,6 +259,27 @@ export function instantsFromDiyanetIso(raw: unknown): PrayerInstants | null {
   return out;
 }
 
+let intlZoneOk: boolean | null = null;
+
+/**
+ * Çalışma ortamının Intl saat dilimi dönüşümünü doğru yaptığını bilinen değerlerle
+ * bir kez sınar (formatToParts/timeZone/hourCycle desteği). false ise çağıran eski
+ * cihaz-yerel yola düşmeli; sessizce yanlış an üretilmez.
+ */
+export function intlZoneSupported(): boolean {
+  if (intlZoneOk !== null) return intlZoneOk;
+  try {
+    intlZoneOk =
+      zonedWallTimeToEpoch("2026-01-15", "18:00", "Europe/Istanbul") === Date.parse("2026-01-15T18:00:00+03:00") &&
+      zonedWallTimeToEpoch("2026-07-15", "00:30", "America/New_York") === Date.parse("2026-07-15T00:30:00-04:00") &&
+      formatHmInZone(Date.parse("2026-01-15T23:05:00Z"), "Asia/Tokyo") === "08:05" &&
+      formatHmInZone(Date.parse("2026-01-15T22:00:00Z"), "Europe/Istanbul") === "01:00";
+  } catch {
+    intlZoneOk = false;
+  }
+  return intlZoneOk;
+}
+
 /** Bildirim anı = atMs + offsetMin dk; nowMs'e eşit/geçmişse null. */
 export function notificationAtMs(
   atMs: number,

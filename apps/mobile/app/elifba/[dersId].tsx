@@ -271,8 +271,9 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
   }, []);
 
   const retryWrite = useCallback(() => {
-    const snapshot = failedSnapshotRef.current;
-    if (snapshot) persistSrs(snapshot);
+    // Eski başarısız anlık görüntüyü değil güncel durumu yaz: arada verilen
+    // cevaplar kaybolmasın (kuyrukta eski sürüm yenisinin ardından yazılmasın).
+    if (failedSnapshotRef.current) persistSrs(srsRef.current);
   }, [persistSrs]);
 
   if (poolLoading || !srsReady) {
@@ -409,8 +410,9 @@ function ExerciseView({ questions, onFinish }: {
   }, []);
 
   const retryWrite = useCallback(() => {
-    const snapshot = failedSnapshotRef.current;
-    if (snapshot) persistSrs(snapshot);
+    // Eski başarısız anlık görüntüyü değil güncel durumu yaz: arada verilen
+    // cevaplar kaybolmasın (kuyrukta eski sürüm yenisinin ardından yazılmasın).
+    if (failedSnapshotRef.current) persistSrs(srsRef.current);
   }, [persistSrs]);
 
   if (!srsReady) {
@@ -540,8 +542,9 @@ function ListeningView({ harfler, onFinish }: {
   }, []);
 
   const retryWrite = useCallback(() => {
-    const snapshot = failedSnapshotRef.current;
-    if (snapshot) persistSrs(snapshot);
+    // Eski başarısız anlık görüntüyü değil güncel durumu yaz: arada verilen
+    // cevaplar kaybolmasın (kuyrukta eski sürüm yenisinin ardından yazılmasın).
+    if (failedSnapshotRef.current) persistSrs(srsRef.current);
   }, [persistSrs]);
 
   const playAudio = useCallback(
