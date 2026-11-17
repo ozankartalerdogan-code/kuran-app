@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import {
   View, Text, TouchableOpacity, ScrollView, Modal,
   ActivityIndicator, StyleSheet,
@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, Stack, useFocusEffect } from "expo-router";
 import type { DimensionValue } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { api, type ElifbaDers } from "../../src/lib/api";
+import { api, type ElifbaDers, type ElifbaQuizSoru } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { useStrings, useLang, fmt } from "../../src/i18n";
@@ -18,9 +18,18 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import {
   parseElifbaProgress,
   parseElifbaQuizScores,
+  parseElifbaSrs,
+  computeLessonBadge,
+  type ElifbaLessonBadge,
   type ElifbaProgress,
   type ElifbaQuizScore,
+  type ElifbaSrsMap,
 } from "../../src/lib/elifbaProgress";
+import {
+  countLessonWrong,
+  indexLessonQuestions,
+  resolveLessonBadge,
+} from "../../src/lib/elifbaReview";
 import { HarfITarifContent } from "../../src/components/HarfITarifContent";
 
 type TabKey = "elifba" | "harfi-tarif";
@@ -32,6 +41,12 @@ const TABS: { key: TabKey; label: string }[] = [
 const QUIZ_PASS = 10;
 const NODE_W   = 72;
 const COLS     = 3;
+
+const BADGE_ICON = {
+  pass: "ribbon-outline",
+  master: "medal",
+  crown: "trophy",
+} as const;
 
 type LessonStatus = "completed" | "active" | "locked";
 type QuizScore    = ElifbaQuizScore;
@@ -173,8 +188,9 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
 
 // ── Path Node ─────────────────────────────────────────────────────────────────
 
-function PathNode({ ders, status, pct, onPress }: {
-  ders: ElifbaDers; status: LessonStatus; pct: number; onPress: () => void;
+function PathNode({ ders, status, pct, badge, onPress }: {
+  ders: ElifbaDers; status: LessonStatus; pct: number;
+  badge: ElifbaLessonBadge; onPress: () => void;
 }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
@@ -185,6 +201,9 @@ function PathNode({ ders, status, pct, onPress }: {
   const border   = isComp ? "#047857" : isActive ? "#d97706" : (c.isDark ? "#57534e" : "#9ca3af");
   const statusLabel = isComp ? ep.stCompleted : isActive ? ep.stActive : ep.stLocked;
   const dersAdi = shortBaslik(ders.baslik);
+  const badgeLabel = badge === "pass" ? ep.badgePass : badge === "master" ? ep.badgeMaster : badge === "crown" ? ep.badgeCrown : null;
+  const nodeLabel = fmt(ep.nodeA11y, { name: dersAdi, status: statusLabel, pct })
+    + (badgeLabel ? ` · ${fmt(ep.badgeSuffix, { badge: badgeLabel })}` : "");
 
   return (
     <TouchableOpacity
@@ -193,16 +212,23 @@ function PathNode({ ders, status, pct, onPress }: {
       disabled={isLocked}
       activeOpacity={isLocked ? 1 : 0.75}
       accessibilityRole="button"
-      accessibilityLabel={fmt(ep.nodeA11y, { name: dersAdi, status: statusLabel, pct })}
+      accessibilityLabel={nodeLabel}
       accessibilityHint={isLocked ? ep.nodeHintLocked : ep.nodeHint}
       accessibilityState={{ disabled: isLocked }}
     >
-      <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
-        <Ionicons
-          name={isComp ? "star" : isActive ? "play" : "lock-closed"}
-          size={20}
-          color={isLocked ? (c.isDark ? "#a8a29e" : "#6b7280") : "#fff"}
-        />
+      <View style={nd.circleWrap}>
+        <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
+          <Ionicons
+            name={isComp ? "star" : isActive ? "play" : "lock-closed"}
+            size={20}
+            color={isLocked ? (c.isDark ? "#a8a29e" : "#6b7280") : "#fff"}
+          />
+        </View>
+        {badge !== "none" && (
+          <View style={[nd.badge, { backgroundColor: c.card, borderColor: c.border }]}>
+            <Ionicons name={BADGE_ICON[badge]} size={12} color={c.accent} />
+          </View>
+        )}
       </View>
       {!isLocked && (
         <View style={[nd.barBg, { backgroundColor: c.cardAlt }]}>
@@ -260,20 +286,86 @@ export default function OgrenScreen() {
 
   const [progress, setProgress]     = useState<ElifbaProgress>({});
   const [quizScores, setQuizScores] = useState<Record<string, QuizScore>>({});
+  const [srs, setSrs]               = useState<ElifbaSrsMap>({});
   const [popupId, setPopupId]       = useState<number | null>(null);
+  const [quizPools, setQuizPools]   = useState<Record<number, ElifbaQuizSoru[]>>({});
+  const [quizFailed, setQuizFailed] = useState<number[]>([]);
+  const quizRequestRef              = useRef(0);
 
   const loadProgress = useCallback(() => {
     storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
       .then(p => setProgress(parseElifbaProgress(p))).catch(() => {});
     storage.getJSON<unknown>(STORAGE_KEYS.quizScores)
       .then(q => setQuizScores(parseElifbaQuizScores(q))).catch(() => {});
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaSrs)
+      .then(raw => setSrs(parseElifbaSrs(raw))).catch(() => setSrs({}));
   }, []);
 
   useFocusEffect(loadProgress);
 
+  const lessonIds = useMemo(() => dersler.map(d => d.id), [dersler]);
+
+  const fetchQuizPools = useCallback((ids: number[], merge: boolean) => {
+    if (ids.length === 0) return;
+    const requestId = quizRequestRef.current + 1;
+    quizRequestRef.current = requestId;
+    void Promise.all(ids.map(async (id) => {
+      try {
+        return { id, pool: await api.elifba.quiz(id) };
+      } catch {
+        return { id, pool: null };
+      }
+    })).then((results) => {
+      if (quizRequestRef.current !== requestId) return;
+      setQuizPools(prev => {
+        const next: Record<number, ElifbaQuizSoru[]> = merge ? { ...prev } : {};
+        for (const result of results) if (result.pool) next[result.id] = result.pool;
+        return next;
+      });
+      setQuizFailed(prev => {
+        const next = merge ? new Set(prev) : new Set<number>();
+        for (const result of results) {
+          if (result.pool) next.delete(result.id);
+          else next.add(result.id);
+        }
+        return [...next];
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    setQuizPools({});
+    setQuizFailed([]);
+    fetchQuizPools(lessonIds, false);
+  }, [lessonIds, fetchQuizPools]);
+
   const statuses = dersler.map((d, i) => getStatus(d, i, dersler, progress, quizScores));
   const completedCount = statuses.filter(st => st === "completed").length;
   const overallPct = dersler.length > 0 ? Math.round((completedCount / dersler.length) * 100) : 0;
+
+  const catalog = useMemo(() => indexLessonQuestions(Object.values(quizPools)), [quizPools]);
+  const failedQuizLessons = useMemo(() => new Set(quizFailed), [quizFailed]);
+  const wrongCounts = useMemo(() => {
+    const counts: Record<number, number> = {};
+    for (const d of dersler) counts[d.id] = countLessonWrong(srs, catalog, d.id);
+    return counts;
+  }, [dersler, srs, catalog]);
+  const badges: ElifbaLessonBadge[] = dersler.map((d) => {
+    const lessonPool = quizPools[d.id];
+    // Havuz henüz yüklenmediyse yanlış sayısı bilinmez; taç gösterme.
+    const catalogComplete = lessonPool !== undefined && !failedQuizLessons.has(d.id)
+      && lessonPool.every((q) => catalog[`q:${q.quiz_id}`] === d.id);
+    return resolveLessonBadge(
+      quizScores[String(d.id)],
+      wrongCounts[d.id] ?? 0,
+      catalogComplete,
+      computeLessonBadge,
+    );
+  });
+  const reviewableLessonIds = dersler
+    .filter((d, i) => statuses[i] !== "locked" && !failedQuizLessons.has(d.id))
+    .map(d => d.id);
+  const reviewCount = reviewableLessonIds.reduce((sum, id) => sum + (wrongCounts[id] ?? 0), 0);
 
   type RowNode = { ders: ElifbaDers; origIdx: number };
   const rows: RowNode[][] = [];
@@ -296,6 +388,7 @@ export default function OgrenScreen() {
               ders={ders}
               status={statuses[origIdx]}
               pct={getPct(ders)}
+              badge={badges[origIdx]}
               onPress={() => setPopupId(ders.id)}
             />
             {i < nodes.length - 1 && (
@@ -375,6 +468,37 @@ export default function OgrenScreen() {
                   )}
                 </View>
 
+                {reviewCount > 0 && (
+                  <TouchableOpacity
+                    style={[s.reviewBtn, { backgroundColor: c.card, borderColor: c.border }]}
+                    onPress={() => router.push({
+                      pathname: "/elifba/tekrar",
+                      params: { lessons: reviewableLessonIds.join(",") },
+                    })}
+                    activeOpacity={0.75}
+                    accessibilityRole="button"
+                    accessibilityLabel={fmt(ep.reviewButtonA11y, { n: reviewCount })}
+                  >
+                    <Ionicons name="refresh" size={18} color={c.accent} />
+                    <Text style={[s.reviewBtnText, { color: c.accent }]}>
+                      {fmt(ep.reviewButton, { n: reviewCount })}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+
+                {quizFailed.length > 0 && (
+                  <View style={[s.catalogNotice, { backgroundColor: c.card, borderColor: c.border }]}>
+                    <Text style={[s.catalogNoticeText, { color: c.textMuted }]}>{ep.catalogIncomplete}</Text>
+                    <TouchableOpacity
+                      onPress={() => fetchQuizPools(quizFailed, true)}
+                      accessibilityRole="button"
+                      accessibilityLabel={ep.catalogRetryA11y}
+                    >
+                      <Text style={[s.catalogRetryText, { color: c.accent }]}>{ep.retry}</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+
                 {/* Yol haritası — dinamik, yılan şeklinde */}
                 <View style={s.path}>
                   {rows.map((row, rowIdx) => (
@@ -449,6 +573,16 @@ const s = StyleSheet.create({
   overallBar:   { height: 10, backgroundColor: "#f5f0e8", borderRadius: 5, overflow: "hidden" },
   overallFill:  { height: "100%", backgroundColor: "#059669", borderRadius: 5 },
   overallDone:  { textAlign: "center", fontSize: 12, fontWeight: "700", color: "#059669", marginTop: 6 },
+  reviewBtn: {
+    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8,
+    borderRadius: 12, borderWidth: 1, paddingVertical: 12, marginBottom: 16,
+  },
+  reviewBtnText: { fontSize: 14, fontWeight: "700" },
+  catalogNotice: {
+    borderRadius: 10, borderWidth: 1, padding: 12, marginBottom: 16, gap: 6,
+  },
+  catalogNoticeText: { fontSize: 12, lineHeight: 18 },
+  catalogRetryText: { fontSize: 12, fontWeight: "700" },
   path:  { paddingVertical: 4 },
   row:   { flexDirection: "row", alignItems: "flex-start" },
   hLine: { flex: 1, height: 3, marginTop: 25, borderRadius: 2 },
@@ -456,8 +590,14 @@ const s = StyleSheet.create({
 
 const nd = StyleSheet.create({
   wrap:    { width: NODE_W, alignItems: "center", paddingVertical: 4 },
+  circleWrap: { position: "relative" },
   circle:  {
     width: 52, height: 52, borderRadius: 26, borderWidth: 2.5,
+    alignItems: "center", justifyContent: "center",
+  },
+  badge:   {
+    position: "absolute", top: -4, right: -4,
+    width: 20, height: 20, borderRadius: 10, borderWidth: 1,
     alignItems: "center", justifyContent: "center",
   },
   barBg:   { width: 44, height: 3, backgroundColor: "#f5f0e8", borderRadius: 2, marginTop: 5, overflow: "hidden" },
