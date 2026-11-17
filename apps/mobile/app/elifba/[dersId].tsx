@@ -486,6 +486,8 @@ export default function DersScreen() {
   const lang = useLang();
   const [harflerRaw, setHarfler] = useState<ElifbaHarf[]>([]);
   const harfler = useMemo(() => localizeHarfler(harflerRaw, lang), [harflerRaw, lang]);
+  // 4 farklı harfi olmayan derslerde (ör. Med Harfleri) dinleme sorusu kurulamaz; sekmeyi gizle.
+  const canListen = useMemo(() => buildListeningItems(harfler, () => 0).length > 0, [harfler]);
   const [loading, setLoading]   = useState(true);
   // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
   const [loadError, setLoadError] = useState(false);
@@ -594,6 +596,7 @@ export default function DersScreen() {
               {ep.quizBtn}
             </Text>
           </TouchableOpacity>
+          {canListen && (
           <TouchableOpacity
             style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "listen" && styles.modeBtnActive]}
             onPress={() => setMode("listen")}
@@ -610,9 +613,10 @@ export default function DersScreen() {
               {ep.listenBtn}
             </Text>
           </TouchableOpacity>
+          )}
         </View>
 
-        {mode === "listen" ? (
+        {mode === "listen" && canListen ? (
           <ListeningView harfler={harfler} onFinish={() => router.back()} />
         ) : mode === "flashcard" ? (
           harfler.length > 0 ? (
