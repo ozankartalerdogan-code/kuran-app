@@ -32,7 +32,11 @@ const nextConfig = {
   // değişen ACAO'nun paylaşımlı cache'e düşmesi bu yüzden Vary ile değil,
   // middleware'de Cache-Control'ü private'a çekerek engelleniyor —
   // bkz. apps/web/src/middleware.ts applyCors().
-  // CSP ayrı iş: layout.tsx içinde inline script'ler var.
+  // 'unsafe-inline': Next App Router RSC inline script'leri ve layout tema/SW script'i için;
+  // nonce tüm sayfaları dinamik yapar, statik önbellek kaybolur.
+  // connect-src: HomeNamazWidget (Aladhan), KibleClient (Nominatim).
+  // worker-src blob: canvas-confetti worker'ı için.
+  // Şimdilik Report-Only; tarayıcı konsolunda ihlal yoksa başlık adı Content-Security-Policy yapılacak.
   async headers() {
     return [
       {
@@ -42,6 +46,23 @@ const nextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
+          {
+            key: "Content-Security-Policy-Report-Only",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data:",
+              "font-src 'self'",
+              "connect-src 'self' https://api.aladhan.com https://nominatim.openstreetmap.org",
+              "media-src 'self'",
+              "worker-src 'self' blob:",
+              "frame-ancestors 'self'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "object-src 'none'",
+            ].join("; "),
+          },
         ],
       },
     ];
