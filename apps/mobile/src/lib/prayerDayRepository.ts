@@ -118,7 +118,7 @@ export function createPrayerDayRepository(deps: PrayerDayRepoDeps) {
         for (const value of stored.records) {
           if (typeof value !== "object" || value === null) continue;
           const r = value as PrayerDayRecord;
-          if (!validDate(r.sourceDate) || typeof r.cityKey !== "string" || typeof r.cityTimeZone !== "string" ||
+          if (!validDate(r.sourceDate) || typeof r.cityKey !== "string" || r.cityKey.startsWith("geo:") || typeof r.cityTimeZone !== "string" ||
             (r.source !== "diyanet" && r.source !== "aladhan") || !validInstants(r.atMs) ||
             !Number.isFinite(r.fetchedAt) || (r.hijri != null && !validHijri(r.hijri)) ||
             (r.cityDisplayName !== undefined && typeof r.cityDisplayName !== "string")) continue;
@@ -132,7 +132,8 @@ export function createPrayerDayRepository(deps: PrayerDayRepoDeps) {
   }
 
   function persist(): Promise<void> {
-    const json = JSON.stringify({ version: 1, records: [...cache.values()] });
+    // Coordinate-derived identities are process-local, including their revisions.
+    const json = JSON.stringify({ version: 1, records: [...cache.values()].filter(record => !record.cityKey.startsWith("geo:")) });
     // Serialize writes so an older snapshot cannot finish after a newer snapshot.
     writes = writes.then(() => deps.storageSet(STORE_KEY, json)).catch(() => {});
     return writes;

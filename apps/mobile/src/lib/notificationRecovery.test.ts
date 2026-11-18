@@ -8,8 +8,8 @@ const stamp = "2026-11-13|tr|Europe/Istanbul|exact";
 const times = { Fajr: "05:30", Sunrise: "07:00", Dhuhr: "12:30", Asr: "15:00", Maghrib: "18:00", Isha: "20:00" };
 function fixture() {
   return {
-    version: 1, stamp, prayer: true, dailyVerse: true,
-    days: [{ date: day.toISOString(), times: { ...times } }],
+    version: 2, stamp, prayer: true, dailyVerse: true,
+    days: [{ date: day.toISOString(), times: { ...times }, at: Object.fromEntries(Object.entries(times).map(([key, time]) => { const [h, m] = time.split(":").map(Number); const date = new Date(day); date.setHours(h, m, 0, 0); return [key, date.getTime()]; })) }],
     requests: [
       ...Object.values(times).map(time => {
         const [h, m] = time.split(":").map(Number);
@@ -22,6 +22,16 @@ function fixture() {
   };
 }
 const read = (value: unknown, at = now) => readNotificationPlan(JSON.stringify(value), stamp, true, true, at);
+
+test("v1 and v2 without epoch instants are rejected; wall times cannot change epoch validation", () => {
+  assert.equal(read({ ...fixture(), version: 1 }), null);
+  const missing = fixture();
+  delete (missing.days[0] as { at?: unknown }).at;
+  assert.equal(read(missing), null);
+  const differentWallTimes = fixture();
+  differentWallTimes.days[0].times.Fajr = "04:00";
+  assert.ok(read(differentWallTimes));
+});
 
 test("soğuk açılış aynı damgada yeniler, aynı süreçte ön plana geliş yenilemez", () => {
   assert.equal(shouldRefreshNotifications(true, true, stamp, stamp), true);
@@ -69,7 +79,7 @@ test("son günlük bildirim de geçmişse boş kalan geçerli plan için ağ ger
 
 test("boş, bozuk veya farklı sürümlü önbellek mevcut fetch yoluna düşer", () => {
   for (const raw of [null, "", "{", "null", "[]", "42"]) assert.equal(readNotificationPlan(raw, stamp, true, true, now), null);
-  assert.equal(read({ ...fixture(), version: 2 }), null);
+  assert.equal(read({ ...fixture(), version: 1 }), null);
   assert.equal(read({ ...fixture(), days: [] }), null);
   assert.equal(read({ ...fixture(), requests: [] }), null);
 });
