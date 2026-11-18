@@ -255,3 +255,39 @@ test("ensureMonth keeps at most 62 records per cityKey, dropping oldest dates ac
   assert.equal(records.length, 62);
   assert.equal(records.some((r: { sourceDate: string }) => r.sourceDate.startsWith("2026-09")), false);
 });
+
+
+test("offline month boundary returns cached today even when tomorrow is unavailable", async () => {
+  const first = setup({ fetchDiyanetMonth: async () => [{ sourceDate: "2026-11-30", times: WALL }] });
+  const today = await first.repo.getDayTimes(CONTEXT, "2026-11-30");
+  const { repo } = setup({ storageGet: async () => first.stored(),
+    fetchDiyanetMonth: async () => { throw Error("offline"); },
+    fetchAladhanMonth: async () => { throw Error("offline"); } });
+  const days = await repo.ensureDays(CONTEXT, ["2026-11-30", "2026-12-01"]);
+  assert.deepEqual([...days], [["2026-11-30", today]]);
+  await assert.rejects(repo.ensureDays(CONTEXT, ["2026-12-01"]), /unavailable/);
+  assert.deepEqual([...await repo.ensureDays(CONTEXT, [])], []);
+});
+
+test("global cap keeps three cities by latest fetch, with at most 62 days each, including hydration", async () => {
+  let now = 0;
+  const h = setup({ nowMs: () => ++now, fetchDiyanetMonth: async (_c, month) => {
+    const days: PrayerDayInput[] = [];
+    for (let date = `${month}-01`; date.startsWith(`${month}-`); date = addDaysYmd(date, 1)) days.push({ sourceDate: date, times: WALL });
+    return days;
+  } });
+  for (const cityKey of ["m1", "m2", "m3"]) {
+    for (const month of ["2026-09", "2026-10", "2026-11"]) await h.repo.ensureMonth({ ...CONTEXT, cityKey }, month);
+  }
+  // Refresh city 1 after cities 2 and 3; city 2 should be evicted next.
+  await h.repo.ensureMonth({ ...CONTEXT, cityKey: "m1" }, "2026-12");
+  await h.repo.ensureMonth({ ...CONTEXT, cityKey: "m4" }, "2026-11");
+  const records = JSON.parse(h.stored()!).records;
+  assert.deepEqual([...new Set(records.map((r: any) => r.cityKey))].sort(), ["m1", "m3", "m4"]);
+  for (const cityKey of ["m1", "m3", "m4"]) assert.ok(records.filter((r: any) => r.cityKey === cityKey).length <= 62);
+  const overflow = { ...records[0], cityKey: "old", fetchedAt: -1 };
+  const hydrated = setup({ storageGet: async () => JSON.stringify({ version: 1, records: [...records, overflow] }),
+    fetchDiyanetMonth: async () => [], fetchAladhanMonth: async () => [] });
+  await hydrated.repo.ensureMonth({ ...CONTEXT, cityKey: "m4" }, "2026-12");
+  assert.equal(JSON.parse(hydrated.stored()!).records.some((r: any) => r.cityKey === "old"), false);
+});

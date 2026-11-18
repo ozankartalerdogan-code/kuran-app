@@ -168,3 +168,176 @@ function computeGapSlots(times: PrayerTimes): { hour: number; minute: number }[]
 
 
 export { buildPrayerNotifications, computeGapSlots };
+
+// Frozen master calendar and fallback path for transport/epoch parity.
+import { adjustHighLatitude, aladhanMethodQuery } from "./prayerMethod";
+import { deviceTimeZone } from "./timeZone";
+import { getManualCity, getDiyanetDays } from "./diyanetPrayer";
+import { diyanetDeps, deviceOffsetMin, localYmdStr } from "./diyanetPrayerDeps";
+const notifyDiyanetDaysCached = () => {};
+const fetchPrayerTimes = async () => null;
+function sanitizeTimes(raw: Record<string, string>): PrayerTimes {
+  const out: PrayerTimes = {};
+  for (const [k, v] of Object.entries(raw)) {
+    const m = typeof v === "string" ? v.match(/^(\d{1,2}:\d{2})/) : null;
+    if (m) out[k] = m[1];
+  }
+  return out;
+}
+
+// Aladhan takvim günü: şehrin duvar saatleri + varsa mutlak anlar.
+type CalendarDay = { times: PrayerTimes; at: PrayerInstants | null };
+
+// Aladhan sorgusu için şehir dilimi: elle seçilen şehir bu koordinattaysa onun dilimi,
+// aksi halde cihazın dilimi. (Türkiye'de ikisi de Europe/Istanbul'dur.)
+async function aladhanCityTimeZone(lat: number, lng: number): Promise<string> {
+  // Intl dilim dönüşümü güvenilmezse eski davranış: her şey cihaz diliminde.
+  if (!intlZoneSupported()) return deviceTimeZone();
+  try {
+    const manual = await getManualCity(diyanetDeps());
+    if (
+      manual !== null &&
+      Math.abs(manual.lat - lat) < 1e-6 &&
+      Math.abs(manual.lon - lng) < 1e-6
+    ) {
+      return manual.tz;
+    }
+  } catch { /* cihaz dilimine düş */ }
+  return deviceTimeZone();
+}
+
+// Aladhan takvim ucundan bir ayın tüm günlerini çek (tek istek/ay).
+async function fetchMonthCalendar(
+  lat: number,
+  lng: number,
+  year: number,
+  month: number, // 1-12
+  cityTz: string,
+): Promise<Map<string, CalendarDay> | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(
+      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(cityTz)}&timezonestring=${encodeURIComponent(cityTz)}`,
+      { headers: { "Accept": "application/json" }, signal: controller.signal }
+    );
+    const data = await res.json();
+    if (!Array.isArray(data?.data)) return null;
+    const map = new Map<string, CalendarDay>();
+    for (const day of data.data) {
+      const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
+      if (typeof gDate === "string" && day?.timings) {
+        const [d, m, y] = gDate.split("-").map(Number);
+        const times = adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, cityTz);
+        const ymd = `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        map.set(gDate, { times, at: intlZoneSupported() ? instantsFromWallTimes(ymd, times, cityTz) : null });
+      }
+    }
+    return map;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function ddmmyyyy(d: Date): string {
+  return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
+}
+
+// Bugünden itibaren SCHEDULE_DAYS günün vakitlerini getirir. ÖNCE kendi
+// sunucumuzdaki Diyanet vakitleri denenir; eksik kalan günler için mevcut
+// Aladhan takvim yolu (yalnız o aylar) kullanılır. Hiç gün çözülemezse eski
+// davranış: takvim → tek günlük yedek.
+export async function fetchPrayerDays(
+  lat: number,
+  lng: number,
+): Promise<DayTimes[] | null> {
+  const today = new Date();
+  const wanted: Date[] = Array.from({ length: SCHEDULE_DAYS }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    return d;
+  });
+  const wantedYmd = wanted.map(localYmdStr);
+  const deviceTz = deviceTimeZone();
+  const cityTz = await aladhanCityTimeZone(lat, lng);
+  // Şehir dilimi cihazdan gerideyse önceki şehir gününün geç vakitleri cihazın
+  // bugününe taşar; o günü de isteyip yalnız gelecekteki anları taşırız.
+  // Türkiye'de dilimler eşittir → ek istek yok, davranış birebir aynı kalır.
+  const previousDay = cityTz !== deviceTz;
+  const prevDate = new Date(today);
+  if (previousDay) prevDate.setDate(today.getDate() - 1);
+  const prevYmd = previousDay ? localYmdStr(prevDate) : null;
+  const requestDates = prevYmd ? [prevDate, ...wanted] : wanted;
+  const requestYmd = prevYmd ? [prevYmd, ...wantedYmd] : wantedYmd;
+
+  const diyanet = await getDiyanetDays(
+    lat,
+    lng,
+    deviceOffsetMin(),
+    requestYmd,
+    diyanetDeps(),
+  );
+  if (diyanet.size > 0) notifyDiyanetDaysCached();
+
+  const missing = requestDates.filter((_, i) => !diyanet.has(requestYmd[i]));
+  const aladhan = new Map<string, CalendarDay>();
+  if (missing.length > 0) {
+    // Pencere ay sınırını aşabilir → yalnız eksik günlerin ayları için istek.
+    const months = new Map<string, { year: number; month: number }>();
+    for (const d of missing) {
+      months.set(`${d.getFullYear()}-${d.getMonth() + 1}`, {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+      });
+    }
+    const calendars = await Promise.all(
+      [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month, cityTz))
+    );
+    for (const cal of calendars) {
+      if (cal) for (const [k, v] of cal) aladhan.set(k, v);
+    }
+  }
+
+  const days: DayTimes[] = [];
+  wanted.forEach((d, i) => {
+    const diyanetDay = diyanet.get(wantedYmd[i]);
+    if (diyanetDay) {
+      days.push({ date: d, times: diyanetDay.times, at: instantsFromDiyanetIso(diyanetDay.rawTimes) ?? undefined });
+      return;
+    }
+    const cal = aladhan.get(ddmmyyyy(d));
+    if (!cal) return;
+    if (cityTz === deviceTz) {
+      // Aynı dilim (Türkiye): saatler olduğu gibi; an hesaplanamadıysa eski setHours yolu.
+      days.push(cal.at ? { date: d, times: cal.times, at: cal.at } : { date: d, times: cal.times });
+      return;
+    }
+    if (cal.at === null) return;
+    const at = cal.at;
+    const times: PrayerTimes = {};
+    for (const { key } of VAKITLER) {
+      times[key] = formatHmInZone(at[key as keyof PrayerInstants], deviceTz);
+    }
+    days.push({ date: d, times, at });
+  });
+
+  if (previousDay && prevYmd && days.length > 0) {
+    const prevDiyanet = diyanet.get(prevYmd);
+    const prevAt = prevDiyanet
+      ? instantsFromDiyanetIso(prevDiyanet.rawTimes)
+      : aladhan.get(ddmmyyyy(prevDate))?.at ?? null;
+    if (prevAt) {
+      const carry = futureCarry(prevAt, Date.now(), NOTIFY_AFTER_MIN);
+      if (Object.keys(carry).length > 0) days[0] = { ...days[0], carry };
+    }
+  }
+
+  if (days.length > 0) return days;
+
+  // Hiç gün çözülemedi → tek günlük yedek (eski davranış, en azından bugün doğru).
+  const single = await fetchPrayerTimes(lat, lng);
+  return single ? [{ date: today, times: single }] : null;
+}

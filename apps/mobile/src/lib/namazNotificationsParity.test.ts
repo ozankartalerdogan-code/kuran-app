@@ -3,6 +3,8 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import * as ts from "typescript";
 import * as instants from "./prayerInstant.ts";
+import * as method from "./prayerMethod.ts";
+import * as diyanet from "./diyanetPrayer.ts";
 import * as recovery from "./notificationRecovery.ts";
 import * as queue from "./serialQueue.ts";
 import { createPrayerDayRepository } from "./prayerDayRepository.ts";
@@ -36,18 +38,32 @@ function load(source: string, deps: Record<string, unknown>) {
   return mod.exports;
 }
 
-function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolean; noCity?: boolean; zone?: string; intl?: boolean } = {}) {
+function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolean; noCity?: boolean; zone?: string; intl?: boolean; aladhan?: boolean; now?: number; scheduleFail?: boolean; writeFail?: boolean; contentFail?: boolean } = {}) {
   const values = new Map<string, any>([["namazNotifEnabled", "1"], ["dailyVerseNotifEnabled", "0"]]);
   const writes: string[] = [];
   let cancels = 0, subscribes = 0, fills = 0;
+  let failed = false;
+  const urls: string[] = [];
+  const calendarFetch: typeof fetch = async url => {
+    urls.push(String(url));
+    const path = new URL(String(url)).pathname.split("/");
+    const month = `${path.at(-2)}-${path.at(-1)!.padStart(2, "0")}`;
+    return new Response(JSON.stringify({ data: city.days.filter(day => day.sourceDate.startsWith(month)).map(day => ({
+      date: { gregorian: { date: day.sourceDate.split("-").reverse().join("-") } },
+      timings: Object.fromEntries(instants.PRAYER_KEYS.map((key, i) => [key, `${Object.values(day.rawIso)[i].slice(11, 16)} (+03)`])),
+    })) }));
+  };
+  const adapters = load(readFileSync(new URL("./prayerDayRepositoryAdapters.ts", import.meta.url), "utf8"), {
+    "./prayerInstant": instants, "./prayerMethod": method, "./diyanetPrayer": diyanet,
+  });
   const scheduled: any[] = [];
   const listeners: ((event: any) => void)[] = [];
   const repo = createPrayerDayRepository({
-    instants, nowMs: () => NOW,
+    instants, nowMs: () => options.now ?? NOW,
     storageGet: async key => values.get(key) ?? null,
     storageSet: async (key, json) => { values.set(key, json); },
-    fetchDiyanetMonth: async () => { fills++; if (options.fail) throw Error("offline"); return city.days; },
-    fetchAladhanMonth: async () => { throw Error("offline"); },
+    fetchDiyanetMonth: async () => { fills++; if (options.fail || options.aladhan) throw Error("offline"); return city.days; },
+    fetchAladhanMonth: async (context, month) => { if (options.aladhan) return adapters.fetchAladhanMonthInputs(context, month, calendarFetch); throw Error("offline"); },
   });
   const contexts: any[] = [];
   const repository = { ...repo,
@@ -55,29 +71,30 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     subscribe: (fn: (event: any) => void) => { subscribes++; listeners.push(fn); return repo.subscribe(fn); },
   };
   const storage = {
-    getString: async (key: string) => values.get(key) ?? null,
+    getString: async (key: string) => { const value = values.get(key); return value == null ? null : typeof value === "string" ? value : JSON.stringify(value); },
     getJSON: async (key: string) => values.get(key) ?? null,
     setString: async (key: string, value: any) => { writes.push(key); values.set(key, value); },
-    setJSON: async (key: string, value: any) => { writes.push(key); values.set(key, value); },
+    setJSON: async (key: string, value: any) => { if (options.writeFail && key === recovery.PLAN_CACHE_KEY) throw Error("storage"); writes.push(key); values.set(key, value); },
     remove: async (key: string) => { values.delete(key); },
   };
   const dependencies = {
-    "./serialQueue": queue, "./notificationRecovery": recovery,
+    "./prayerMethod": method, "./serialQueue": queue, "./notificationRecovery": recovery,
     "../tour/overlayBusy": { withOverlayBusy: (fn: any) => fn() },
     "expo-notifications": {
       SchedulableTriggerInputTypes: { DATE: "date", DAILY: "daily" },
       cancelAllScheduledNotificationsAsync: async () => { cancels++; scheduled.length = 0; },
-      scheduleNotificationAsync: async (request: any) => { scheduled.push(request); return "id"; },
+      scheduleNotificationAsync: async (request: any) => { if (options.scheduleFail && !failed) { failed = true; throw Error("native"); } scheduled.push(request); return "id"; },
     },
     "expo-device": { isDevice: true }, "expo-location": { getForegroundPermissionsAsync: async () => ({ status: "denied" }) },
     "react-native": { Platform: { OS: "ios" } },
-    "./api": { api: { notifications: { namazVerse: async () => null } } },
+    "./api": { api: { notifications: { namazVerse: () => { if (options.contentFail) throw Error("content"); return Promise.resolve(null); } } } },
     "./storage": { storage, STORAGE_KEYS: {} }, "./englishMeal": { localizedMeal: () => "" },
-    "../i18n": { getStrings: () => ({}), fmt: () => "", getLang: () => "tr" },
+    "../i18n": { getStrings: () => ({ sunriseTitle: "Sunrise", sunriseBody: "Sunrise" }), fmt: () => "", getLang: () => "tr" },
     "../i18n/strings/notifications": {}, "../i18n/strings/prayerNames": {},
     "./timeZone": { deviceTimeZone: () => ZONE },
     "./prayerInstant": { ...instants, intlZoneSupported: () => options.intl !== false },
     "./diyanetPrayer": {
+      getDiyanetDays: async () => new Map(),
       getManualCity: async () => options.automatic ? null : { ...city, tz: options.zone ?? city.tz },
       resolveDiyanetCity: async () => options.noCity ? null : { ...city, tz: options.zone ?? city.tz },
       prayerCityStampPart: async () => options.noCity ? "-" : `${options.automatic ? "c" : "m"}${city.id}`,
@@ -95,7 +112,7 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     ...dependencies, "./prayerContextDeps": contextDeps,
   });
   const legacy = load(readFileSync(new URL("./__fixtures__/namazNotificationsLegacy.ts.txt", import.meta.url), "utf8"), dependencies);
-  return { app, legacy, values, writes, scheduled, contexts, emit: (event: any) => listeners.forEach(fn => fn(event)),
+  return { app, legacy, calendarFetch, urls, values, writes, scheduled, contexts, emit: (event: any) => listeners.forEach(fn => fn(event)),
     counts: () => ({ cancels, subscribes, fills }) };
 }
 
@@ -226,3 +243,87 @@ test("production repository dependencies preserve local setHours when Intl is un
   }
   assert.equal(convert("2026-11-18", { ...times, Fajr: "bad" }, ZONE), null);
 }));
+
+
+for (const start of ["2026-11-18", "2026-11-30"]) test(`Aladhan fallback ${start}: master URLs and trigger epochs match across months`, async () => {
+  const now = Date.parse(`${start}T00:00:00+03:00`);
+  await fixedTime(async () => {
+    const city = { ...fixtures[0], days: fixtures[0].days.map((day, i) => {
+      const sourceDate = instants.addDaysYmd(start, i);
+      return { sourceDate, rawIso: Object.fromEntries(Object.entries(day.rawIso).map(([key, iso]) =>
+        [key, sourceDate + iso.slice(10)])) };
+    }) };
+    const h = setup(city, { aladhan: true, now });
+    const nativeFetch = globalThis.fetch;
+    globalThis.fetch = h.calendarFetch;
+    try {
+      const oldDays = await h.legacy.fetchPrayerDays(city.lat, city.lon);
+      const oldUrls = h.urls.splice(0);
+      const newDays = await h.app.fetchPrayerDays(city.lat, city.lon);
+      assert.equal(newDays.length, 7);
+      assert.equal(oldUrls.length, start.endsWith("30") ? 2 : 1);
+      // Boolean comparisons keep coordinate values out of assertion logs.
+      assert.ok(JSON.stringify(h.urls.slice().sort()) === JSON.stringify(oldUrls.sort()));
+      for (const url of h.urls) {
+        const params = new URL(url).searchParams;
+        assert.ok(params.get("latitude") === `${city.lat}` && params.get("longitude") === `${city.lon}`);
+      }
+      const epochs = (jobs: any[]) => jobs.map(job => job.trigger.date.getTime());
+      const expected = epochs(await h.legacy.buildPrayerNotifications(oldDays));
+      assert.equal(expected.length, 42);
+      assert.deepEqual(epochs(await h.app.buildPrayerNotifications(newDays)), expected);
+    } finally { globalThis.fetch = nativeFetch; }
+  }, now);
+});
+
+async function legacyRestoreFixture(h: ReturnType<typeof setup>, wallOnly = false) {
+  const days = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+  const requests = await h.app.buildPrayerNotifications(days);
+  const value = { version: 1, stamp: "2026-11-18|legacy", prayer: true, dailyVerse: false,
+    days: days.map((day: any) => wallOnly ? { date: day.date, times: day.times } : day), requests };
+  h.values.set(recovery.LEGACY_PLAN_CACHE_KEY, JSON.stringify(value));
+  return requests;
+}
+
+test("first v2 native failure restores v1, including legacy Aladhan wall-only days", async () => fixedTime(async () => {
+  for (const wallOnly of [false, true]) {
+    const h = setup(fixtures[0], { scheduleFail: true });
+    const previous = await legacyRestoreFixture(h, wallOnly);
+    await h.app.ensureNotificationsFresh();
+    assert.equal(h.counts().cancels, 2);
+    assert.deepEqual(h.scheduled, previous);
+    assert.equal(h.values.has(recovery.PLAN_CACHE_KEY), false);
+    assert.equal(h.values.has(recovery.LEGACY_PLAN_CACHE_KEY), true);
+    await h.app.ensureNotificationsFresh();
+    assert.equal(h.values.get(recovery.PLAN_CACHE_KEY).version, 2);
+    assert.equal(h.values.has(recovery.LEGACY_PLAN_CACHE_KEY), false);
+  }
+}));
+
+test("v1 survives failed v2 storage write and request construction never cancels alarms", async () => fixedTime(async () => {
+  const h = setup(fixtures[0], { writeFail: true });
+  await legacyRestoreFixture(h);
+  await h.app.ensureNotificationsFresh();
+  assert.equal(h.values.has(recovery.LEGACY_PLAN_CACHE_KEY), true);
+  assert.equal(h.values.has(recovery.PLAN_CACHE_KEY), false);
+  const incomplete = setup(fixtures[0], { contentFail: true });
+  incomplete.scheduled.push({ identifier: "existing" });
+  await incomplete.app.ensureNotificationsFresh();
+  assert.equal(incomplete.counts().cancels, 0);
+  assert.deepEqual(incomplete.scheduled, [{ identifier: "existing" }]);
+}));
+
+test("offline boundary planner uses today's partial window under its existing sufficiency rule", async () => {
+  const now = Date.parse("2026-11-30T00:00:00+03:00");
+  await fixedTime(async () => {
+    const city = { ...fixtures[0], days: [{ sourceDate: "2026-11-30", rawIso: Object.fromEntries(
+      Object.entries(fixtures[0].days[0].rawIso).map(([key, iso]) => [key, "2026-11-30" + iso.slice(10)])) }] };
+    const options = { now, fail: false };
+    const h = setup(city, options);
+    await h.app.fetchPrayerDays(city.lat, city.lon);
+    options.fail = true;
+    await h.app.ensureNotificationsFresh();
+    assert.equal(h.counts().cancels, 1);
+    assert.equal(h.scheduled.length, 6);
+  }, now);
+});

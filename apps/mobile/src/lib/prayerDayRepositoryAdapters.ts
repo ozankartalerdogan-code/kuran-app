@@ -1,5 +1,5 @@
 /** Platform-free adapters; transport and Diyanet storage are injected for tests. */
-import { getDiyanetDays, roundCoord2 } from "./diyanetPrayer";
+import { getDiyanetDays } from "./diyanetPrayer";
 import type { DiyanetPrayerDeps } from "./diyanetPrayer";
 import { adjustHighLatitude, aladhanMethodQuery } from "./prayerMethod";
 import { addDaysYmd } from "./prayerInstant";
@@ -26,7 +26,13 @@ export function aladhanCalendarInputs(body: unknown, context: PrayerContext): Pr
       const match = typeof value === "string" ? value.match(/^(\d{1,2}:\d{2})/) : null;
       if (match) times[key] = match[1];
     }
-    inputs.push({ sourceDate, times: adjustHighLatitude(times, context.lat,
+    const h = day.date.hijri;
+    const hijri = isRecord(h) && isRecord(h.month)
+      ? { day: Number(h.day), monthNumber: Number(h.month.number), year: Number(h.year) } : null;
+    const validHijri = hijri && Number.isInteger(hijri.day) && hijri.day >= 1 && hijri.day <= 30 &&
+      Number.isInteger(hijri.monthNumber) && hijri.monthNumber >= 1 && hijri.monthNumber <= 12 &&
+      Number.isInteger(hijri.year) && hijri.year > 0;
+    inputs.push({ sourceDate, ...(validHijri ? { hijri } : {}), times: adjustHighLatitude(times, context.lat,
       { year: Number(y), month: Number(m), day: Number(d) }, context.cityTimeZone) });
   }
   return inputs;
@@ -39,8 +45,8 @@ export async function fetchDiyanetMonthInputs(
   for (let date = `${month}-01`; date.startsWith(`${month}-`); date = addDaysYmd(date, 1)) {
     dates.push(date);
   }
-  const days = await getDiyanetDays(context.lat, context.lon, context.offMin, dates, deps);
-  return [...days].map(([sourceDate, day]) => ({ sourceDate,
+  const days = await getDiyanetDays(context.lat, context.lon, context.offMin, dates, deps, context.diyanetCity ?? null);
+  return [...days].filter(([, day]) => context.cityKey === `m${day.city.id}` || context.cityKey === `c${day.city.id}`).map(([sourceDate, day]) => ({ sourceDate,
     rawIso: day.rawTimes, hijri: day.hijri, cityDisplayName: day.city.name }));
 }
 
@@ -52,7 +58,7 @@ export async function fetchAladhanMonthInputs(
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const response = await fetchCalendar(
-      `https://api.aladhan.com/v1/calendar/${year}/${monthNumber}?latitude=${roundCoord2(context.lat)}&longitude=${roundCoord2(context.lon)}&${aladhanMethodQuery(context.cityTimeZone)}&timezonestring=${encodeURIComponent(context.cityTimeZone)}`,
+      `https://api.aladhan.com/v1/calendar/${year}/${monthNumber}?latitude=${context.lat}&longitude=${context.lon}&${aladhanMethodQuery(context.cityTimeZone)}&timezonestring=${encodeURIComponent(context.cityTimeZone)}`,
       { headers: { Accept: "application/json" }, signal: controller.signal },
     );
     if (!response.ok) throw new Error(`Aladhan calendar HTTP ${response.status}`);

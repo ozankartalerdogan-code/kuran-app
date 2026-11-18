@@ -17,6 +17,7 @@ export type PrayerDayRecord = {
 
 export type PrayerContext = {
   cityKey: string;
+  diyanetCity?: import("./diyanetPrayer").DiyanetCityRef | null;
   lat: number;
   lon: number;
   cityTimeZone: string;
@@ -101,7 +102,12 @@ export function createPrayerDayRepository(deps: PrayerDayRepoDeps) {
       days.push(record);
       cities.set(record.cityKey, days);
     }
-    for (const days of cities.values()) {
+    const recentCities = [...cities.entries()].sort((a, b) =>
+      Math.max(...b[1].map(day => day.fetchedAt)) - Math.max(...a[1].map(day => day.fetchedAt)) || a[0].localeCompare(b[0]));
+    for (const [, days] of recentCities.slice(3)) {
+      for (const day of days) cache.delete(keyOf(day, day.sourceDate));
+    }
+    for (const [, days] of recentCities.slice(0, 3)) {
       days.sort((a, b) => b.sourceDate.localeCompare(a.sourceDate) || a.cityTimeZone.localeCompare(b.cityTimeZone));
       for (const day of days.slice(MAX_DAYS)) cache.delete(keyOf(day, day.sourceDate));
     }
@@ -211,12 +217,13 @@ export function createPrayerDayRepository(deps: PrayerDayRepoDeps) {
 
   async function ensureDays(context: PrayerContext, sourceDates: readonly string[]): Promise<ReadonlyMap<string, PrayerDayRecord>> {
     if (!sourceDates.every(validDate)) throw new RangeError("Invalid prayer date");
-    await Promise.all([...new Set(sourceDates.map((date) => date.slice(0, 7)))].map((month) => ensureMonth(context, month)));
+    await Promise.allSettled([...new Set(sourceDates.map((date) => date.slice(0, 7)))].map((month) => ensureMonth(context, month)));
     const result = new Map<string, PrayerDayRecord>();
     for (const date of sourceDates) {
       const record = cache.get(keyOf(context, date));
       if (record) result.set(date, record);
     }
+    if (sourceDates.length && result.size === 0) throw new Error("Prayer month unavailable");
     return result;
   }
 

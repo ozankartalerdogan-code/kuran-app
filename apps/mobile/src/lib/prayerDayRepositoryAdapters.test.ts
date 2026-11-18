@@ -60,7 +60,7 @@ test("Aladhan ignores malformed calendar entries", () => {
   }
 });
 
-test("Aladhan transport uses the notification method parameters, rounded location and timezone", async () => {
+test("Aladhan transport uses the notification method parameters, raw location and timezone", async () => {
   for (const cityTimeZone of ["Europe/Istanbul", "Europe/Berlin"]) {
     const c = { ...context, cityTimeZone };
     let calls = 0;
@@ -69,10 +69,10 @@ test("Aladhan transport uses the notification method parameters, rounded locatio
       const actual = new URL(String(url));
       assert.equal(actual.origin + actual.pathname, "https://api.aladhan.com/v1/calendar/2026/6");
       const expected = new URLSearchParams(aladhanMethodQuery(cityTimeZone));
-      expected.set("latitude", String(Math.round(c.lat * 100) / 100));
-      expected.set("longitude", String(Math.round(c.lon * 100) / 100));
+      expected.set("latitude", String(c.lat));
+      expected.set("longitude", String(c.lon));
       expected.set("timezonestring", cityTimeZone);
-      assert.deepEqual([...actual.searchParams].sort(), [...expected].sort());
+      assert.ok(JSON.stringify([...actual.searchParams].sort()) === JSON.stringify([...expected].sort()));
       assert.deepEqual(init?.headers, { Accept: "application/json" });
       assert.ok(init?.signal instanceof AbortSignal);
       return new Response(JSON.stringify(calendar));
@@ -101,14 +101,6 @@ test("Diyanet month reuses city/month requests, timeouts and cache, retaining ra
   const deps: DiyanetPrayerDeps = {
     getJson: async (path, timeout) => {
       calls.push({ path, timeout });
-      if (path.startsWith("/vakit/sehir?")) {
-        // Compare privately; no coordinate values are printed or logged.
-        const params = new URL(`https://example.invalid${path}`).searchParams;
-        assert.ok(params.get("lat") === String(Math.round(context.lat * 100) / 100));
-        assert.ok(params.get("lon") === String(Math.round(context.lon * 100) / 100));
-        assert.equal(params.get("off"), "180");
-        return { status: 200, body: { city } };
-      }
       assert.equal(path, "/vakit?cityId=34&month=2026-02");
       return { status: 200, body: { complete: true, days: [
         { date, times: iso, hijri: { day: 11, month: 9, year: 1447 } },
@@ -120,14 +112,14 @@ test("Diyanet month reuses city/month requests, timeouts and cache, retaining ra
     writeStore: async (key, value) => { store.set(key, value); },
     nowMs: () => Date.parse("2026-02-01T00:00:00Z"),
   };
-  const inputs = await fetchDiyanetMonthInputs(context, "2026-02", deps);
+  const inputs = await fetchDiyanetMonthInputs({ ...context, cityKey: "m34", diyanetCity: city }, "2026-02", deps);
   assert.deepEqual(inputs, [{ sourceDate: date, rawIso: iso, cityDisplayName: city.name,
     hijri: { day: 11, monthNumber: 9, year: 1447 } }]);
   assert.ok("rawIso" in inputs[0]);
   assert.equal(instantsFromDiyanetIso(inputs[0].rawIso)?.Dhuhr, Date.parse(iso.ogle));
-  assert.deepEqual(calls.map(({ timeout }) => timeout), [6000, 8000]);
-  assert.deepEqual(await fetchDiyanetMonthInputs(context, "2026-02", deps), inputs);
-  assert.equal(calls.length, 2);
+  assert.deepEqual(calls.map(({ timeout }) => timeout), [8000]);
+  assert.deepEqual(await fetchDiyanetMonthInputs({ ...context, cityKey: "m34", diyanetCity: city }, "2026-02", deps), inputs);
+  assert.equal(calls.length, 1);
 });
 
 test("Diyanet unavailable city returns no inputs", async () => {
@@ -135,4 +127,42 @@ test("Diyanet unavailable city returns no inputs", async () => {
     getJson: async () => { throw new Error("offline"); },
     readStore: async () => null, writeStore: async () => {}, nowMs: () => 0,
   }), []);
+});
+
+
+test("Diyanet binds both manual and automatic contexts despite a global city switch", async () => {
+  const city = { id: 34, name: "A", state: "", country: "T?rkiye", tz: "Europe/Istanbul" };
+  const rawTimes = Object.fromEntries(["imsak", "gunes", "ogle", "ikindi", "aksam", "yatsi"]
+    .map((key, i) => [key, `2026-06-21T${Object.values(wall)[i]}:00+03:00`]));
+  const deps: DiyanetPrayerDeps = {
+    readStore: async key => {
+      assert.notEqual(key, "diyanetManualCityV1", "must not re-read the global selection B");
+      return null;
+    },
+    writeStore: async () => {}, nowMs: () => 0,
+    getJson: async path => {
+      assert.equal(path, "/vakit?cityId=34&month=2026-06");
+      return { status: 200, body: { complete: true, days: [{ date: "2026-06-21", times: rawTimes }] } };
+    },
+  };
+  for (const prefix of ["m", "c"]) {
+    const bound = { ...context, cityKey: `${prefix}34`, diyanetCity: city };
+    assert.equal((await fetchDiyanetMonthInputs(bound, "2026-06", deps)).length, 1);
+    assert.deepEqual(await fetchDiyanetMonthInputs({ ...bound, cityKey: `${prefix}6` }, "2026-06", deps), []);
+  }
+});
+
+test("Aladhan maps numeric Hijri fields and omits invalid Hijri without losing prayer times", () => {
+  for (const [raw, expected] of [
+    [{ day: "11", month: { number: 9 }, year: "1447" }, { day: 11, monthNumber: 9, year: 1447 }],
+    ...[null, {}, { day: 31, month: { number: 9 }, year: 1447 },
+      { day: 1, month: { number: 13 }, year: 1447 }, { day: 1.5, month: { number: 1 }, year: 1447 },
+      { day: 1, month: { number: 1 }, year: 0 }].map(h => [h, undefined]),
+  ]) {
+    const input = aladhanCalendarInputs({ data: [{ ...calendar.data[0],
+      date: { ...calendar.data[0].date, hijri: raw } }] }, context)[0];
+    assert.deepEqual(input.hijri, expected);
+    assert.ok("times" in input);
+    assert.deepEqual(input.times, wall);
+  }
 });

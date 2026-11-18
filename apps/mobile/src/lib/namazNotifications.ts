@@ -2,7 +2,7 @@ import { buildPrayerContext, getLocationSilent, rememberCoords, ISTANBUL_FALLBAC
 import type { Coords } from "./prayerContextDeps";
 export { getSavedCoords, rememberCoords } from "./prayerContextDeps";
 import { SerialQueue, settleJobs } from "./serialQueue";
-import { PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery";
+import { LEGACY_PLAN_CACHE_KEY, PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery";
 import { withOverlayBusy } from "../tour/overlayBusy";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
@@ -463,8 +463,10 @@ async function applyNotificationsInner(opts: PlanOptions, stamp: string | null, 
   if (!cachedRequests && opts.prayer) requests.push(...await buildPrayerNotifications(opts.days));
   if (!cachedRequests && opts.dailyVerse) requests.push(...await buildDailyVerseNotifications(opts.days));
   if (requests.length) await ensureAndroidChannel();
+  const v2 = await storage.getString(PLAN_CACHE_KEY).catch(() => null);
+  const restoreSource = v2 ?? await storage.getString(LEGACY_PLAN_CACHE_KEY).catch(() => null);
   const rollback = (opts.prayer || opts.dailyVerse)
-    ? readNotificationRollback(await storage.getString(PLAN_CACHE_KEY).catch(() => null), opts.prayer, opts.dailyVerse)
+    ? readNotificationRollback(restoreSource, opts.prayer, opts.dailyVerse)
     : [];
   await Notifications.cancelAllScheduledNotificationsAsync();
   try {
@@ -482,7 +484,7 @@ async function applyNotificationsInner(opts: PlanOptions, stamp: string | null, 
       days: opts.days.map(day => ({ ...day, revision: day.revision?.includes("geo:")
         ? stampForDays("", [day]).split("repo2:")[1] : day.revision })),
       requests,
-    }).catch(() => {});
+    }).then(() => storage.remove(LEGACY_PLAN_CACHE_KEY)).catch(() => {});
   }
 }
 export function applyNotifications(opts: PlanOptions): Promise<void> {

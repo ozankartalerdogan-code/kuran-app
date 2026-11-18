@@ -2,6 +2,7 @@ import type { NotificationRequestInput } from "expo-notifications";
 import type { DayTimes } from "./namazNotifications";
 import type { PrayerInstants } from "./prayerInstant";
 
+export const LEGACY_PLAN_CACHE_KEY = "namazNotifPlanCacheV1";
 export const PLAN_CACHE_KEY = "namazNotifPlanCacheV2";
 
 export function shouldRefreshNotifications(enabled: boolean, coldStart: boolean, savedStamp: string | null, stamp: string): boolean {
@@ -26,10 +27,14 @@ const clockPart = (value: unknown, max: number): value is number =>
 
 // JSON içindeki tarihler geri canlandırılır; bozuk/eski/farklı tercihe ait plan kullanılmaz.
 export function readNotificationPlan(raw: string | null, stamp: string, prayer: boolean, dailyVerse: boolean, now = new Date()): CachedPlan | null {
+  return parseNotificationPlan(raw, stamp, prayer, dailyVerse, now, false);
+}
+
+function parseNotificationPlan(raw: string | null, stamp: string, prayer: boolean, dailyVerse: boolean, now: Date, legacy: boolean): CachedPlan | null {
   try {
     if (!raw) return null;
     const value: unknown = JSON.parse(raw);
-    if (!record(value) || value.version !== 2 || value.stamp !== stamp || value.prayer !== prayer || value.dailyVerse !== dailyVerse) return null;
+    if (!record(value) || value.version !== (legacy ? 1 : 2) || value.stamp !== stamp || value.prayer !== prayer || value.dailyVerse !== dailyVerse) return null;
     if (!Array.isArray(value.days) || value.days.length < 1 || value.days.length > 7 || !Array.isArray(value.requests) || value.requests.length > 62) return null;
     const days: DayTimes[] = [];
     const dates = new Set<string>();
@@ -45,6 +50,14 @@ export function readNotificationPlan(raw: string | null, stamp: string, prayer: 
         const time = day.times[key];
         if (typeof time !== "string" || !/^([01]?\d|2[0-3]):[0-5]\d$/.test(time)) return null;
         times[key] = time;
+      }
+      if (legacy && day.at === undefined) {
+        day.at = Object.fromEntries(prayerKeys.map(key => {
+          const local = new Date(date);
+          const [hour, minute] = times[key].split(":").map(Number);
+          local.setHours(hour, minute, 0, 0);
+          return [key, local.getTime()];
+        }));
       }
       if (!record(day.at)) return null;
       const parsedAt: Record<string, number> = {};
@@ -139,7 +152,7 @@ export function readNotificationRollback(raw: string | null, prayer: boolean, da
   try {
     const value = JSON.parse(raw ?? "null");
     if (!record(value) || typeof value.stamp !== "string" || typeof value.prayer !== "boolean" || typeof value.dailyVerse !== "boolean") return [];
-    const plan = readNotificationPlan(raw, value.stamp, value.prayer, value.dailyVerse, now);
+    const plan = parseNotificationPlan(raw, value.stamp, value.prayer, value.dailyVerse, now, value.version === 1);
     return plan?.requests.filter(r => r.content.data?.route === "/namaz" ? prayer : dailyVerse) ?? [];
   } catch { return []; }
 }

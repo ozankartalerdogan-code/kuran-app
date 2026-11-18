@@ -83,6 +83,7 @@ export async function buildPrayerContext(lat: number, lng: number): Promise<Pray
   const deviceTz = deviceTimeZone();
   return {
     cityKey: city ? `${matchesManual ? "m" : "c"}${city.id}` : `geo:${roundCoord2(lat).toFixed(2)},${roundCoord2(lng).toFixed(2)}`,
+    diyanetCity: city,
     lat, lon: lng, cityTimeZone: intlZoneSupported() ? city?.tz ?? deviceTz : deviceTz,
     deviceTimeZone: deviceTz, offMin, nowMs: Date.now(),
   };
