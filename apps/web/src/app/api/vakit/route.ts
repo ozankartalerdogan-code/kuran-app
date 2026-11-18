@@ -16,6 +16,8 @@ import {
 } from "../../../lib/diyanetClient";
 import { createVakitService, UpstreamUnavailableError } from "../../../lib/vakitService";
 import { getVakitStore } from "../../../lib/vakitStore";
+import { acquireDiyanetSlot } from "../../../lib/diyanetSlot";
+import { vakitUnavailableResponse } from "../../../lib/vakitResponse";
 
 const cities = decodeCities(citiesJson);
 const cityById = new Map(cities.map((city) => [city.id, city]));
@@ -44,37 +46,6 @@ const diyanetRatelimit = diyanetRedis
     })
   : null;
 
-const LOCK_TTL_SECONDS = 15;
-
-async function acquireDiyanetSlot(
-  cityId: number,
-  startYmd: string,
-): Promise<boolean | (() => Promise<void>)> {
-  if (!diyanetRedis || !diyanetRatelimit) return true;
-
-  const lockKey = `diyanet:lock:${cityId}:${startYmd}`;
-  try {
-    const locked = await diyanetRedis.set(lockKey, "1", {
-      nx: true,
-      ex: LOCK_TTL_SECONDS,
-    });
-    if (!locked) return false;
-
-    const { success } = await diyanetRatelimit.limit("global");
-    if (!success) {
-      await diyanetRedis.del(lockKey).catch(() => undefined);
-      return false;
-    }
-
-    return async () => {
-      await diyanetRedis.del(lockKey).catch(() => undefined);
-    };
-  } catch {
-    // Paylaşılan altyapı geçici olarak erişilemezse tek örnek sınırına düş.
-    return true;
-  }
-}
-
 let service: ReturnType<typeof createVakitService> | null = null;
 
 function getService(): ReturnType<typeof createVakitService> {
@@ -92,7 +63,8 @@ function getService(): ReturnType<typeof createVakitService> {
     },
     loadAuth: () => store.loadAuth(),
     saveAuth: (state) => store.saveAuth(state),
-    acquireSlot: (cityId, startYmd) => acquireDiyanetSlot(cityId, startYmd),
+    acquireSlot: (cityId, startYmd) =>
+      acquireDiyanetSlot(diyanetRedis, diyanetRatelimit, cityId, startYmd),
     maxQueue: 10,
     minIntervalMs: 200,
   });
@@ -166,13 +138,10 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     const upstream = error instanceof UpstreamUnavailableError ? error.upstream : error;
     const status = upstream instanceof DiyanetUpstreamError ? upstream.status : 0;
-    const detail = upstream instanceof DiyanetUpstreamError ? upstream.detail : "";
     const name = upstream instanceof Error ? upstream.name : "Error";
-    console.error(`[api/vakit] ${name} status=${status} detail=${detail} cityId=${city.id}`);
+    // Ayrıntı metni (upstream gövdesi) loglanmaz; şehir kimliği hassas değil, hata ayıklama için kalır.
+    console.error(`[api/vakit] ${name} status=${status} cityId=${city.id}`);
 
-    return NextResponse.json(
-      { error: "upstream_unavailable", fallback: "aladhan" },
-      { status: 503, headers: { "Cache-Control": "no-store" } },
-    );
+    return vakitUnavailableResponse();
   }
 }

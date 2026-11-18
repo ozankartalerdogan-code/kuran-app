@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis }     from "@upstash/redis";
+import { API_LIMIT, createApiRateLimit } from "./lib/apiRateLimit";
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
 //
@@ -84,26 +85,12 @@ const USE_REDIS = !!(
 const ratelimit = USE_REDIS
   ? new Ratelimit({
       redis:   Redis.fromEnv(),
-      limiter: Ratelimit.slidingWindow(200, "60 s"),
+      limiter: Ratelimit.slidingWindow(API_LIMIT, "60 s"),
       prefix:  "ratelimit",
     })
   : null;
 
-// In-memory fallback (yalnızca local dev — serverless'ta çalışmaz)
-interface Entry { count: number; resetAt: number }
-const devMap = new Map<string, Entry>();
-
-function devLimit(ip: string): boolean {
-  const now   = Date.now();
-  const entry = devMap.get(ip);
-  if (!entry || now > entry.resetAt) {
-    devMap.set(ip, { count: 1, resetAt: now + 60_000 });
-    return true;        // allowed
-  }
-  if (entry.count >= 200) return false;  // blocked
-  entry.count++;
-  return true;
-}
+const limitApiRequest = createApiRateLimit(ratelimit);
 
 // ── Middleware ────────────────────────────────────────────────────────────────
 
@@ -121,54 +108,31 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     "unknown";
 
   // ── Rate limit kontrolü ──────────────────────────────────────────────────
-  if (ratelimit) {
-    // Upstash Redis (production)
-    let result;
-    try {
-      result = await ratelimit.limit(ip);
-    } catch (err) {
-      // Redis kesintisinde namaz vakti/Elif-Ba mobil API'leri durmasın; Vercel firewall ayrı katman.
-      console.error("[middleware] rate limit kontrolü başarısız, istek geçiriliyor:", err instanceof Error ? err.message : String(err));
-      return applyCors(NextResponse.next(), cors);
-    }
-    const { success, limit, reset, remaining } = result;
+  const result = await limitApiRequest(ip);
+  const { success, limit, reset, remaining } = result;
 
-    if (!success) {
-      return new NextResponse(
-        JSON.stringify({ error: "Çok fazla istek. Lütfen bir dakika bekleyin." }),
-        {
-          status: 429,
-          headers: {
-            ...cors,
-            "Content-Type":  "application/json",
-            "Retry-After":   "60",
-            "X-RateLimit-Limit":     String(limit),
-            "X-RateLimit-Reset":     String(reset),
-            "X-RateLimit-Remaining": String(remaining),
-          },
-        },
-      );
-    }
-
-    const res = applyCors(NextResponse.next(), cors);
-    res.headers.set("X-RateLimit-Limit",     String(limit));
-    res.headers.set("X-RateLimit-Remaining", String(remaining));
-    res.headers.set("X-RateLimit-Reset",     String(reset));
-    return res;
-  }
-
-  // In-memory fallback (local dev)
-  if (!devLimit(ip)) {
+  if (!success) {
     return new NextResponse(
       JSON.stringify({ error: "Çok fazla istek. Lütfen bir dakika bekleyin." }),
       {
         status: 429,
-        headers: { ...cors, "Content-Type": "application/json", "Retry-After": "60" },
+        headers: {
+          ...cors,
+          "Content-Type":  "application/json",
+          "Retry-After":   "60",
+          "X-RateLimit-Limit":     String(limit),
+          "X-RateLimit-Reset":     String(reset),
+          "X-RateLimit-Remaining": String(remaining),
+        },
       },
     );
   }
 
-  return applyCors(NextResponse.next(), cors);
+  const res = applyCors(NextResponse.next(), cors);
+  res.headers.set("X-RateLimit-Limit",     String(limit));
+  res.headers.set("X-RateLimit-Remaining", String(remaining));
+  res.headers.set("X-RateLimit-Reset",     String(reset));
+  return res;
 }
 
 export const config = {
