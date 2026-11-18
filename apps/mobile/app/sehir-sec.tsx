@@ -25,6 +25,10 @@ import type { ManualCity } from "../src/lib/diyanetPrayer";
 import { diyanetDeps } from "../src/lib/diyanetPrayerDeps";
 import { markPrayerCityChanged } from "../src/lib/prayerCityEvents";
 import { rescheduleNotifications } from "../src/lib/namazNotifications";
+import { createLatestCityPicker } from "../src/lib/prayerCitySelection";
+import { buildPrayerContext, getLocationSilent } from "../src/lib/prayerContextDeps";
+import { getPrayerDayRepository } from "../src/lib/prayerDayRepositoryDeps";
+import { addDaysYmd, prayerDateInZone } from "../src/lib/prayerInstant";
 
 type SearchState =
   | { status: "idle" }
@@ -52,13 +56,36 @@ export default function SehirSecScreen() {
   const [search, setSearch] = useState<SearchState>({ status: "idle" });
   const [selecting, setSelecting] = useState(false);
   const [saveError, setSaveError] = useState(false);
-  const busyRef = useRef(false);
+  const pickStartedRef = useRef(false);
+  const [pickCity] = useState(() => createLatestCityPicker<ManualCity | null>({
+    save: (city) => setManualCity(city, diyanetDeps()),
+    warm: async (city, isCurrent) => {
+      // Warming is best effort: a saved choice still works offline.
+      try {
+        const coords = city ? { lat: city.lat, lng: city.lon } : await getLocationSilent();
+        if (!isCurrent()) return;
+        const context = await buildPrayerContext(coords.lat, coords.lng);
+        if (!isCurrent()) return;
+        const today = prayerDateInZone(context.nowMs, context.cityTimeZone);
+        await getPrayerDayRepository().ensureDays(context, [today, addDaysYmd(today, 1)]);
+      } catch { /* Notification refresh can retry the repository read. */ }
+    },
+    complete: (city) => {
+      setManual(city);
+      markPrayerCityChanged();
+      // The public entry point uses the existing notification SerialQueue.
+      void rescheduleNotifications().catch(() => {});
+      router.back();
+    },
+    onError: () => setSaveError(true),
+    onSettled: () => setSelecting(false),
+  }));
 
   useEffect(() => {
     let active = true;
     getManualCity(diyanetDeps())
       .then((city) => {
-        if (active) setManual(city);
+        if (active && !pickStartedRef.current) setManual(city);
       })
       .catch(() => {});
     return () => {
@@ -98,24 +125,12 @@ export default function SehirSecScreen() {
 
   const choose = useCallback(
     async (city: ManualCity | null) => {
-      if (busyRef.current) return;
-      busyRef.current = true;
+      pickStartedRef.current = true;
       setSelecting(true);
       setSaveError(false);
-      try {
-        await setManualCity(city, diyanetDeps());
-        setManual(city);
-        markPrayerCityChanged();
-        void rescheduleNotifications();
-        router.back();
-      } catch {
-        setSaveError(true);
-      } finally {
-        setSelecting(false);
-        busyRef.current = false;
-      }
+      await pickCity(city);
     },
-    [],
+    [pickCity],
   );
 
   const isAuto = manual === null;
