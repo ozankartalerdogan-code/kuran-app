@@ -617,7 +617,11 @@ export function buildMainMeaningAxisForProfile(
     case "yol_hidayet":
       return ["Veriler bu ayette yol, nimet ve sapma uyarısı ekseninin öne çıktığını gösteriyor."];
     case "uyari_inkar":
-      if (signals && !hasAnyToken(signals, ["kalp", "isitme", "gorme", "perde", "muhur"])) {
+      if (
+        signals &&
+        !hasAnyToken(signals, ["kalp", "isitme", "gorme", "perde", "muhur"]) &&
+        !hasAnyArabicSignal(signals, ["قلب", "سمع", "بصر", "ختم", "غشو"])
+      ) {
         return ["Veriler bu ayette inkâr, uyarı ve sonuç ekseninin öne çıktığını gösteriyor."];
       }
       return ["Veriler bu ayette kalp, işitme, görme ve sonuç uyarısı ekseninin öne çıktığını gösteriyor."];
