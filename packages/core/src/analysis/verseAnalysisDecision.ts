@@ -273,6 +273,13 @@ function hasAnyToken(signals: DecisionSignals, values: string[]): boolean {
   return values.some((value) => signals.tokens.has(normalizeText(value)));
 }
 
+function hasAnyTokenPrefix(signals: DecisionSignals, prefixes: string[]): boolean {
+  return prefixes.some((prefix) => {
+    const normalizedPrefix = normalizeText(prefix);
+    return [...signals.tokens].some((token) => token.startsWith(normalizedPrefix));
+  });
+}
+
 function countTokens(signals: DecisionSignals, values: string[]): number {
   return values.filter((value) => signals.tokens.has(normalizeText(value))).length;
 }
@@ -620,7 +627,7 @@ export function buildMainMeaningAxisForProfile(
       if (
         signals &&
         !hasAnyToken(signals, ["kalp", "isitme", "gorme", "perde", "muhur"]) &&
-        !hasAnyArabicSignal(signals, ["قلب", "سمع", "بصر", "ختم", "غشو"])
+        !hasAnyTokenPrefix(signals, ["kalp", "kalb"])
       ) {
         return ["Veriler bu ayette inkâr, uyarı ve sonuç ekseninin öne çıktığını gösteriyor."];
       }
