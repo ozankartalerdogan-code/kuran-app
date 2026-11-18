@@ -1,6 +1,28 @@
 import type { PrayerDayRecord, PrayerContext, PrayerDayEvent } from "./prayerDayRepository";
 import type { PrayerKey } from "./prayerInstant";
 
+export const HOME_LOCATION_REFRESH_MS = 60_000;
+
+export function shouldRefreshHomeLocation(prevKey: string | undefined, nextKey: string, lastMs: number, nowMs: number): boolean {
+  return prevKey !== undefined && prevKey !== nextKey && nowMs - lastMs >= HOME_LOCATION_REFRESH_MS;
+}
+
+/** Ignore Aladhan's calendar (including cached records); it can differ from Diyanet.
+ * Convert the record's Gregorian day in UTC so device timezone cannot shift it.
+ */
+export function homeHijriDate(record: Pick<PrayerDayRecord, "source" | "sourceDate" | "hijri">): PrayerDayRecord["hijri"] {
+  if (record.source === "diyanet" && record.hijri) return record.hijri;
+  try {
+    const formatter = new Intl.DateTimeFormat("en-u-ca-islamic-nu-latn", {
+      day: "numeric", month: "numeric", year: "numeric", timeZone: "UTC",
+    });
+    if (formatter.resolvedOptions().calendar !== "islamic") return null;
+    const parts = formatter.formatToParts(new Date(`${record.sourceDate}T12:00:00Z`));
+    const part = (type: string) => Number(parts.find(p => p.type === type)?.value);
+    return { day: part("day"), monthNumber: part("month"), year: part("year") };
+  } catch { return null; }
+}
+
 /** Select the earliest future instant, including tomorrow's actual Fajr. */
 export function nextPrayerFromInstants(records: readonly PrayerDayRecord[], nowMs: number) {
   let next: { key: PrayerKey; atMs: number; record: PrayerDayRecord; remainingMin: number } | null = null;

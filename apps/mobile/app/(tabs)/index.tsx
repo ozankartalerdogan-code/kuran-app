@@ -106,14 +106,13 @@ function HomeContent() {
   const { streak, refresh: refreshStreak } = useStreak({ record: false });
   // Ana sayfa tab olarak takılı kalır; ayet okuyup dönünce seri kartı güncellensin.
   useFocusEffect(useCallback(() => { refreshStreak(); }, [refreshStreak]));
-  const { verse, dua, prayers, hijriDate, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading, refresh: refreshDaily } = useDailyContent();
+  const { verse, dua, prayers, hijriDate, nextPrayer, prayerCity, PRAYER_LABELS, error, verseLoading, duaLoading, prayerLoading, refresh: refreshDaily, refreshHomeLocation } = useDailyContent();
   // Şehir seçiminden dönünce namaz vakitlerini yenile.
   useFocusEffect(useCallback(() => {
     if (consumePrayerCityChanged()) void refreshDaily();
-  }, [refreshDaily]));
-  // Miladi tarih cihaz saatinden anında hesaplanır (ağdan bağımsız); Hicri tarih
-  // namaz vakti API yanıtıyla birlikte gelir (aynı Gregorian tarihe göre hesaplanır,
-  // bu yüzden ikisi asla birbirinden sapmaz).
+    else void refreshHomeLocation();
+  }, [refreshDaily, refreshHomeLocation]));
+  // Hicri tarih namaz gününe aittir; Aladhan günlerinde yerel takvim kullanılır.
   const gregorianToday = useMemo(
     () => new Date().toLocaleDateString(localeTag(), { day: "numeric", month: "long", year: "numeric" }),
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { nextPrayerFromInstants, watchHomePrayerDays } from "./homePrayer.ts";
+import { homeHijriDate, nextPrayerFromInstants, shouldRefreshHomeLocation, watchHomePrayerDays } from "./homePrayer.ts";
 import { instantsFromWallTimes, formatHmInZone, prayerDateInZone } from "./prayerInstant.ts";
 import type { PrayerContext, PrayerDayRecord, PrayerDayEvent } from "./prayerDayRepository.ts";
 
@@ -9,6 +9,35 @@ function day(date: string, zone = "Europe/Istanbul", source: PrayerDayRecord["so
   return { sourceDate: date, cityKey: "m34", cityTimeZone: zone, source, revision: source,
     atMs: instantsFromWallTimes(date, wall, zone)!, hijri: null, fetchedAt: 0 };
 }
+
+test("home Hijri ignores fresh or cached Aladhan dates and matches Diyanet reference days", () => {
+  // Nov 18: device report's live Berlin/Istanbul reference.
+  // Feb 28: prayerDayRepositoryAdapters.test.ts Diyanet fixture.
+  // Other references: https://namazvakitleri.diyanet.gov.tr/tr-TR/9364/orta-namaz-vakitleri
+  // and https://namazvakitleri.diyanet.gov.tr/en-US/9770/camas-prayer-times
+  for (const [date, expected] of [
+    ["2026-11-18", { day: 9, monthNumber: 6, year: 1448 }],
+    ["2026-11-10", { day: 1, monthNumber: 6, year: 1448 }],
+    ["2026-02-28", { day: 11, monthNumber: 9, year: 1447 }],
+    ["2026-03-20", { day: 1, monthNumber: 10, year: 1447 }],
+  ] as const) {
+    for (const hijri of [null, { day: 8, monthNumber: 6, year: 1448 }]) {
+      assert.deepEqual(homeHijriDate({ source: "aladhan", sourceDate: date, hijri }), expected);
+    }
+    assert.deepEqual(homeHijriDate({ source: "diyanet", sourceDate: date, hijri: expected }), expected);
+    assert.deepEqual(homeHijriDate({ source: "diyanet", sourceDate: date, hijri: null }), expected);
+  }
+  const official = { day: 1, monthNumber: 9, year: 1447 };
+  assert.deepEqual(homeHijriDate({ source: "diyanet", sourceDate: "2026-02-19", hijri: official }), official);
+});
+
+test("home location refresh requires an existing changed city and a full 60 seconds", () => {
+  assert.equal(shouldRefreshHomeLocation("geo:berlin", "c16309", 1000, 61_000), true);
+  assert.equal(shouldRefreshHomeLocation("geo:berlin", "c16309", 1000, 60_999), false);
+  assert.equal(shouldRefreshHomeLocation("c16309", "c16309", 1000, 120_000), false);
+  assert.equal(shouldRefreshHomeLocation(undefined, "c16309", 1000, 120_000), false);
+  assert.equal(shouldRefreshHomeLocation("geo:berlin", "c16309", 1000, 0), false);
+});
 
 test("Istanbul: unchanged HH:MM and minute rounding on a DST-free day", () => {
   const record = day("2026-03-29");
