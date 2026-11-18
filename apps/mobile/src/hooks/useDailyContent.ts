@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { AppState } from "react-native";
 import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
 import { storage } from "../lib/storage";
 import * as Location from "expo-location";
@@ -8,9 +9,9 @@ import { getManualCity, isTurkeyCountry, titleCaseTr } from "../lib/diyanetPraye
 import { diyanetDeps } from "../lib/diyanetPrayerDeps";
 import { buildPrayerContext, getHomeLocation } from "../lib/prayerContextDeps";
 import { getPrayerDayRepository } from "../lib/prayerDayRepositoryDeps";
-import type { PrayerDayRecord } from "../lib/prayerDayRepository";
+import type { PrayerContext, PrayerDayRecord } from "../lib/prayerDayRepository";
 import { addDaysYmd, prayerDateInZone, formatHmInZone, intlZoneSupported, PRAYER_KEYS } from "../lib/prayerInstant";
-import { nextPrayerFromInstants, watchHomePrayerDays } from "../lib/homePrayer";
+import { HOME_LOCATION_REFRESH_MS, homeHijriDate, nextPrayerFromInstants, shouldRefreshHomeLocation, watchHomePrayerDays } from "../lib/homePrayer";
 
 function prayerTime(atMs: number, zone: string): string {
   if (intlZoneSupported()) return formatHmInZone(atMs, zone);
@@ -59,6 +60,7 @@ export interface UseDailyContentResult {
   prayerLoading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
+  refreshHomeLocation: () => Promise<void>;
 }
 
 const ISTANBUL = { lat: 41.0082, lon: 28.9784, city: "İstanbul" };
@@ -110,6 +112,43 @@ export function useDailyContent(): UseDailyContentResult {
   const [prayerDays, setPrayerDays] = useState<readonly PrayerDayRecord[]>([]);
   const [prayerWindow, setPrayerWindow] = useState<{ date: string; zone: string } | null>(null);
   const prayerSubscriptionRef = useRef<(() => void) | null>(null);
+  const prayerContextRef = useRef<PrayerContext | null>(null);
+  const lastLocationCheckRef = useRef(0);
+  const locationCheckInFlightRef = useRef(false);
+
+  const watchPrayers = useCallback((context: PrayerContext, coords: { lat: number; lng: number },
+    isCurrent: () => boolean, onSuccess: () => void, onError: () => void) => {
+    prayerSubscriptionRef.current?.();
+    prayerContextRef.current = context;
+    diyanetCityRef.current = false;
+    const isActive = () => isCurrent() && prayerContextRef.current === context;
+    if (!context.cityKey.startsWith("m")) {
+      Location.reverseGeocodeAsync({ latitude: coords.lat, longitude: coords.lng })
+        .then(geo => {
+          if (!isActive() || diyanetCityRef.current) return;
+          const place = geo[0];
+          const name = place?.city ?? place?.subregion ?? place?.region;
+          if (name) setPrayerCityState(name);
+        }).catch(() => {});
+    }
+    const today = prayerDateInZone(Date.now(), context.cityTimeZone);
+    setPrayerWindow({ date: today, zone: context.cityTimeZone });
+    prayerSubscriptionRef.current = watchHomePrayerDays(
+      getPrayerDayRepository(), context, [today, addDaysYmd(today, 1)], isActive,
+      records => {
+        setPrayerDays(records);
+        const day = records.find(record => record.sourceDate === today);
+        if (!day) { onError(); return; }
+        setPrayers(Object.fromEntries(PRAYER_KEYS.map(key => [key, prayerTime(day.atMs[key], day.cityTimeZone)])) as unknown as PrayerTimes);
+        setHijriDate(homeHijriDate(day));
+        diyanetCityRef.current = day.source === "diyanet";
+        if (day.source === "diyanet" && day.cityDisplayName) {
+          setPrayerCityState(titleCaseTr(day.cityDisplayName, context.cityTimeZone === "Europe/Istanbul"));
+        }
+        onSuccess();
+      }, onError,
+    );
+  }, []);
 
   const load = useCallback(async () => {
     // Her load'a kimlik ver: unmount olduysa ya da daha yeni bir load (ör.
@@ -128,6 +167,7 @@ export function useDailyContent(): UseDailyContentResult {
     diyanetCityRef.current = false;
     prayerSubscriptionRef.current?.();
     prayerSubscriptionRef.current = null;
+    prayerContextRef.current = null;
 
     let verseDone = false;
     let duaDone = false;
@@ -281,15 +321,6 @@ export function useDailyContent(): UseDailyContentResult {
     // Konum çözümü eski ana sayfa davranışıyla aynı; context kurucusu bildirimlerle ortak.
     const coords = await getHomeLocation();
     if (!isCurrent()) return;
-    if (!manualCity) {
-      Location.reverseGeocodeAsync({ latitude: coords.lat, longitude: coords.lng })
-        .then(geo => {
-          if (!isCurrent() || diyanetCityRef.current) return;
-          const place = geo[0];
-          const name = place?.city ?? place?.subregion ?? place?.region;
-          if (name) setPrayerCityState(name);
-        }).catch(() => {});
-    }
     safetyTimerRef.current = setTimeout(() => {
       if (!isCurrent()) return;
       if (!verseDone) setVerseLoading(false);
@@ -302,23 +333,10 @@ export function useDailyContent(): UseDailyContentResult {
     try {
       const context = await buildPrayerContext(coords.lat, coords.lng);
       if (!isCurrent()) return;
-      const today = prayerDateInZone(Date.now(), context.cityTimeZone);
-      const dates = [today, addDaysYmd(today, 1)];
-      setPrayerWindow({ date: today, zone: context.cityTimeZone });
-      prayerSubscriptionRef.current = watchHomePrayerDays(
-        getPrayerDayRepository(), context, dates, isCurrent,
-        records => {
-          setPrayerDays(records);
-          const day = records.find(record => record.sourceDate === today);
-          if (day) {
-            setPrayers(Object.fromEntries(PRAYER_KEYS.map(key => [key, prayerTime(day.atMs[key], day.cityTimeZone)])) as unknown as PrayerTimes);
-            setHijriDate(day.hijri);
-            diyanetCityRef.current = day.source === "diyanet";
-            if (day.source === "diyanet" && day.cityDisplayName) {
-              setPrayerCityState(titleCaseTr(day.cityDisplayName, context.cityTimeZone === "Europe/Istanbul"));
-            }
-            markSuccess();
-          } else markFailure();
+      lastLocationCheckRef.current = Date.now();
+      watchPrayers(context, coords, isCurrent,
+        () => {
+          markSuccess();
           prayerDone = true;
           setPrayerLoading(false);
           tryFinishLoading();
@@ -337,7 +355,39 @@ export function useDailyContent(): UseDailyContentResult {
       setPrayerLoading(false);
       tryFinishLoading();
     }
-  }, []);
+  }, [watchPrayers]);
+
+  const refreshHomeLocation = useCallback(async () => {
+    const now = Date.now();
+    if (!prayerContextRef.current || locationCheckInFlightRef.current ||
+      now - lastLocationCheckRef.current < HOME_LOCATION_REFRESH_MS) return;
+    const lastCheck = lastLocationCheckRef.current;
+    lastLocationCheckRef.current = now;
+    locationCheckInFlightRef.current = true;
+    const loadId = loadIdRef.current;
+    const previous = prayerContextRef.current;
+    const isCurrent = () => isMountedRef.current && loadIdRef.current === loadId;
+    try {
+      if (await getManualCity(diyanetDeps())) return;
+      // Read only the OS cache: no permission prompt or wait for a GPS fix.
+      const position = await Location.getLastKnownPositionAsync({ maxAge: 10 * 60 * 1000 });
+      if (!position || !isCurrent()) return;
+      const coords = { lat: position.coords.latitude, lng: position.coords.longitude };
+      if (coords.lat === previous.lat && coords.lng === previous.lon) return;
+      const context = await buildPrayerContext(coords.lat, coords.lng);
+      if (!isCurrent() || await getManualCity(diyanetDeps()) || !isCurrent()) return;
+      if (!shouldRefreshHomeLocation(previous.cityKey, context.cityKey, lastCheck, now)) return;
+      watchPrayers(context, coords, isCurrent, () => setPrayerLoading(false), () => setPrayerLoading(false));
+    } catch { /* Keep the current card if location resolution fails. */ }
+    finally { locationCheckInFlightRef.current = false; }
+  }, [watchPrayers]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", state => {
+      if (state === "active") void refreshHomeLocation();
+    });
+    return () => subscription.remove();
+  }, [refreshHomeLocation]);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -382,5 +432,6 @@ export function useDailyContent(): UseDailyContentResult {
     prayerLoading,
     error,
     refresh,
+    refreshHomeLocation,
   };
 }
