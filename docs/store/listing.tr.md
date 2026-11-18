@@ -1,7 +1,7 @@
 # Kuran Yolu — Türkçe mağaza metni (taslak)
 
 > Taslak: 2026-11-12, listing.en.md'nin Türkçe karşılığı + bugünkü yenilikler.
-> Kural: Namaz vakitleri için "Diyanet ile birebir/aynı" denmez; mağaza metninde Diyanet adı geçmez.
+> Kural (1.2.1 sonrası): Vakitler artık Diyanet API'sinden geliyor; kaynak olarak "Diyanet İşleri Başkanlığı verileriyle" denebilir, Diyanet'in onayı/ortaklığı ima edilmez.
 > "Tam vaktinde bildirim" (SCHEDULE_EXACT_ALARM) yalnız Android'de; iOS notlarında yok.
 
 ## App Store (iOS)
@@ -56,6 +56,12 @@ mushaf,tecvid,meal,tefsir,namaz vakti,ezan,kıble,dua,hadis,hatim,elifba,arapça
 > - "Yaklaşık konumunuza göre, yurt dışında da namaz vakitlerini görüntüleyin."
 > - "Türkçe ve İngilizce arayüzle kullanılabilir; İngilizce arayüzde M. M. Pickthall'ın 1930 tarihli İngilizce Kuran meali yer alır."
 > Aşağıdaki Play metni kullanılmadı (yalnız sürüm notları geçerli).
+>
+> 2026-11-18 Play TR güncellemesi (taslak kaydedildi, ASO):
+> - Kısa açıklama: "Kuran meali, kelime kök analizi, namaz vakitleri, kıble ve elifba tek uygulamada" (80)
+> - "Namaz vakitlerini Diyanet İşleri Başkanlığı verileriyle görüntüleyin; şehrinizi konumunuzla otomatik bulun ya da dünyanın her yerinden elle seçin."
+> - "İsteğe bağlı namaz vakti bildirimleri alın; bildirimler yurt dışında ve farklı saat dilimlerinde de doğru zamanda gelir."
+> - "Elif-Ba (elifba) dersleriyle Arapça harfleri ve temel okuma kurallarını öğrenin; Dinle-Seç alıştırmaları, yanlışlarınızı tekrar ettiren çalışmalar ve ders rozetleriyle pekiştirin."
 
 **Başlık**
 Kuran Yolu
