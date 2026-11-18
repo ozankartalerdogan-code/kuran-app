@@ -324,6 +324,9 @@ if (loading) {
     <View {...hint.targetProps} style={[styles.container, { backgroundColor: c.bg }]}>
       <Stack.Screen options={{ title: surahNameOf(data.surah.id, data.surah.name),
         headerRight: () => <ContextualHintHelp hint={hint} /> }} />
+      {hint.display && <View style={[styles.hintCard, { backgroundColor: c.accentLight, shadowColor: c.text }]}>
+        <ContextualHintCard hint={hint} />
+      </View>}
       <FlatList
         ref={hint.viewportRef}
         {...hint.scrollProps}
@@ -347,9 +350,6 @@ if (loading) {
         maxToRenderPerBatch={15}
         removeClippedSubviews
       />
-      {hint.display && <View style={[styles.hintCard, { backgroundColor: c.accentLight, shadowColor: c.text }]}>
-        <ContextualHintCard hint={hint} />
-      </View>}
     </View>
   );
 }
@@ -358,7 +358,7 @@ if (loading) {
 
 const styles = StyleSheet.create({
   container:   { flex: 1, backgroundColor: "#f5f0e8" },
-  hintCard:    { position: "absolute", top: 8, left: 12, right: 12, zIndex: 1, elevation: 4,
+  hintCard:    { marginHorizontal: 12, marginTop: 8, elevation: 4,
     borderRadius: 12, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.12, shadowRadius: 4 },
   centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 20, backgroundColor: "#f5f0e8" },
   loadingText: { marginTop: 12, color: "#78716c", fontSize: 14 },
