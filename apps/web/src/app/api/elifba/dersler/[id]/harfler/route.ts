@@ -17,9 +17,9 @@ type Harf = {
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const dersId = Number(params.id);
+  const dersId = Number((await params).id);
   if (!Number.isInteger(dersId) || dersId < 1) {
     return NextResponse.json({ error: "Geçersiz ders ID" }, { status: 400 });
   }

@@ -123,7 +123,15 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   // ── Rate limit kontrolü ──────────────────────────────────────────────────
   if (ratelimit) {
     // Upstash Redis (production)
-    const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+    let result;
+    try {
+      result = await ratelimit.limit(ip);
+    } catch (err) {
+      // Redis kesintisinde namaz vakti/Elif-Ba mobil API'leri durmasın; Vercel firewall ayrı katman.
+      console.error("[middleware] rate limit kontrolü başarısız, istek geçiriliyor:", err instanceof Error ? err.message : String(err));
+      return applyCors(NextResponse.next(), cors);
+    }
+    const { success, limit, reset, remaining } = result;
 
     if (!success) {
       return new NextResponse(
