@@ -32,5 +32,13 @@
     "*.js",
     "*.mjs",
     "next-env.d.ts"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.dbtests.ts", "**/*.test.ts"],
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
+    }
   ]
 }

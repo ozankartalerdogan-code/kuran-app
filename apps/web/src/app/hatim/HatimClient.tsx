@@ -209,19 +209,23 @@ export function HatimClient() {
               Tamamlanan Hatimler ({completed.length})
             </h2>
             <div className="space-y-2">
-              {completed.map((h, i) => (
+              {completed.map((h, i) => {
+                const completedDate = h.completedDate;
+                if (completedDate === null) throw new Error("HatimClient: unexpected missing completedDate");
+                return (
                 <div key={h.id} className="flex items-center justify-between rounded-xl border border-stone-200 bg-white px-4 py-3 dark:border-stone-700 dark:bg-stone-900">
                   <div>
                     <span className="text-sm font-semibold text-stone-700 dark:text-stone-300">{completed.length - i}. Hatim</span>
                     <p className="text-xs text-stone-400 dark:text-stone-500">
-                      {formatDate(h.startDate)} → {formatDate(h.completedDate!)}
+                      {formatDate(h.startDate)} → {formatDate(completedDate)}
                     </p>
                   </div>
                   <span className="text-xs font-semibold text-navy-600 dark:text-navy-400">
-                    {daysBetween(h.startDate, h.completedDate!)} gün
+                    {daysBetween(h.startDate, completedDate)} gün
                   </span>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

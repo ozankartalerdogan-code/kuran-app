@@ -41,7 +41,7 @@ function getTursoClient(): Client {
     const url = (process.env.TURSO_DB_URL ?? "").replace(/^libsql:\/\//, "https://");
     _tursoClient = createClient({
       url,
-      authToken: process.env.TURSO_AUTH_TOKEN!,
+      authToken: process.env.TURSO_AUTH_TOKEN,
       fetch: ((...args: Parameters<typeof fetch>) => {
         const [input, init] = args;
         return fetch(input, { ...init, cache: "no-store" });

@@ -67,16 +67,34 @@ export function decodeCities(json: unknown): DiyanetCity[] {
   if (missingField) return [];
 
   const cities: DiyanetCity[] = [];
+  const idIndex = index.get("id");
+  const nameIndex = index.get("name");
+  const stateIndex = index.get("state");
+  const countryIndex = index.get("country");
+  const latIndex = index.get("lat");
+  const lonIndex = index.get("lon");
+  const tzIndex = index.get("tz");
+  if (
+    idIndex === undefined ||
+    nameIndex === undefined ||
+    stateIndex === undefined ||
+    countryIndex === undefined ||
+    latIndex === undefined ||
+    lonIndex === undefined ||
+    tzIndex === undefined
+  ) {
+    throw new Error("decodeCities: unexpected missing field index");
+  }
   for (const row of json.rows) {
     if (!Array.isArray(row)) continue;
 
-    const id = row[index.get("id")!];
-    const name = row[index.get("name")!];
-    const state = row[index.get("state")!];
-    const country = row[index.get("country")!];
-    const lat = row[index.get("lat")!];
-    const lon = row[index.get("lon")!];
-    const tz = row[index.get("tz")!];
+    const id = row[idIndex];
+    const name = row[nameIndex];
+    const state = row[stateIndex];
+    const country = row[countryIndex];
+    const lat = row[latIndex];
+    const lon = row[lonIndex];
+    const tz = row[tzIndex];
 
     if (!Number.isInteger(id) || typeof id !== "number") continue;
     if (!isNonEmptyString(name) || typeof state !== "string" || typeof country !== "string") continue;
@@ -105,14 +123,16 @@ export function findNearestCity(
   opts?: { maxKm?: number; utcOffsetMin?: number; offsetOf?: (tz: string) => number | null },
 ): { city: DiyanetCity; distanceKm: number } | null {
   const maxKm = opts?.maxKm ?? 50;
-  const filterByOffset = opts?.utcOffsetMin !== undefined && typeof opts?.offsetOf === "function";
+  const offsetOf = opts?.offsetOf;
+  const utcOffsetMin = opts?.utcOffsetMin;
+  const filterByOffset = utcOffsetMin !== undefined && typeof offsetOf === "function";
 
   let best: { city: DiyanetCity; distanceKm: number } | null = null;
 
   for (const city of cities) {
-    if (filterByOffset) {
-      const cityOffset = opts!.offsetOf!(city.tz);
-      if (cityOffset !== null && cityOffset !== opts!.utcOffsetMin) continue;
+    if (filterByOffset && offsetOf && utcOffsetMin !== undefined) {
+      const cityOffset = offsetOf(city.tz);
+      if (cityOffset !== null && cityOffset !== utcOffsetMin) continue;
     }
 
     const distanceKm = haversineKm(lat, lon, city.lat, city.lon);
