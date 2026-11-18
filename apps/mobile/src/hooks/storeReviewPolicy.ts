@@ -1,4 +1,4 @@
-export const REVIEW_WAIT_MS = 12_000;
+export const REVIEW_WAIT_MS = 3_000;
 
 export function shouldRequestReview(c: {
   opens: number; asked: boolean; completed: boolean; eligible: boolean; waitedMs: number;

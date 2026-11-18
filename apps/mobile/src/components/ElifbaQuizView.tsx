@@ -2,6 +2,7 @@ import {
   View, Text, TouchableOpacity, StyleSheet, ActivityIndicator,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useFocusEffect } from "expo-router";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
 try {
@@ -12,6 +13,7 @@ try {
   if (UIManager.hasViewManagerConfig?.("LottieAnimationView")) LottieView = mod;
 } catch (_e) { /* noop */ }
 import { useColors } from "../hooks/useColors";
+import { notifyReviewCompletion } from "../hooks/storeReviewPolicy";
 import { useStrings, fmt } from "../i18n";
 import elifbaStrings from "../i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../lib/layout";
@@ -44,6 +46,9 @@ function DoneScreen({ score, total, onFinish }: {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const pct = Math.round((score / total) * 100);
+  useFocusEffect(useCallback(() => {
+    if (pct >= 60) return notifyReviewCompletion();
+  }, [pct]));
   return (
     <View style={qv.done}>
       <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>

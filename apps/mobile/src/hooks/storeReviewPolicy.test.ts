@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { shouldRequestReview, REVIEW_WAIT_MS, notifyReviewCompletion, subscribeReviewCompletion } from "./storeReviewPolicy.ts";
 
 test("değerlendirme tamamlanma, üç açılış, boş örtü ve bekleme ister", () => {
+  assert.equal(REVIEW_WAIT_MS, 3_000);
   const ready = { opens: 3, asked: false, completed: true, eligible: true, waitedMs: REVIEW_WAIT_MS };
   assert.equal(shouldRequestReview(ready), true);
   assert.equal(shouldRequestReview({ ...ready, opens: 4 }), true);
