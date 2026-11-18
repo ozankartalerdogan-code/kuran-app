@@ -1,5 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { createDiyanetClient } from "./diyanetClient.ts";
+import { acquireDiyanetSlot } from "./diyanetSlot.ts";
+import { vakitUnavailableResponse } from "./vakitResponse.ts";
 import { monthDateRange, normalizeDiyanetDay } from "./diyanetVakit.ts";
 import {
   createVakitService,
@@ -89,6 +92,62 @@ function makeService(
     monthDateRange,
     now: () => NOW,
   });
+}
+
+for (const failure of ["lock", "budget", "timeout"] as const) {
+  for (const cache of ["partial", "stale", "empty"] as const) {
+    test(`Redis ${failure} failure + ${cache} cache never calls Diyanet`, async () => {
+      const now = Math.floor(Date.UTC(2026, 10, 15) / 1000);
+      const initial = cache === "empty" ? [] : (cache === "partial"
+        ? [storedDay(11002, "2026-11-01")]
+        : monthDates("2026-11").map((date) => ({
+          ...storedDay(11002, date), fetchedAt: now - 15 * 86400,
+        })));
+      let fetchCalls = 0;
+      let slotCalls = 0;
+      const client = createDiyanetClient({
+        fetch: async () => { fetchCalls++; throw new Error("unexpected upstream fetch"); },
+        now: () => now,
+        credentials: () => ({ email: "test", password: "test" }),
+        loadAuth: async () => null,
+        saveAuth: async () => undefined,
+        acquireSlot: async (cityId, startYmd) => {
+          slotCalls++;
+          return acquireDiyanetSlot({
+            set: async () => {
+              if (failure === "lock") throw new Error("Redis unavailable");
+              return "OK";
+            },
+            del: async () => 1,
+          }, { limit: async () => {
+            if (failure === "budget") throw new Error("Redis quota exhausted");
+            return { success: true, reason: "timeout" };
+          } }, cityId, startYmd);
+        },
+      });
+      const service = createVakitService({
+        store: makeStore(initial).store,
+        fetchDateRange: client.fetchDateRange,
+        normalize: normalizeDiyanetDay,
+        monthDateRange,
+        now: () => now,
+      });
+      if (cache === "empty") {
+        await assert.rejects(service.getMonth(11002, "2026-11"), UpstreamUnavailableError);
+        const response = vakitUnavailableResponse();
+        assert.equal(response.status, 503);
+        assert.equal(response.headers.get("Cache-Control"), "no-store");
+        assert.deepEqual(await response.json(), { error: "upstream_unavailable", fallback: "aladhan" });
+      } else {
+        const result = await service.getMonth(11002, "2026-11");
+        assert.equal(result.fromCache, true);
+        assert.equal(result.complete, cache === "stale");
+        assert.equal(result.days.length, initial.length);
+      }
+      assert.equal(slotCalls, 1);
+      assert.equal(fetchCalls, 0);
+    });
+  }
 }
 
 test("tam onbellek: Diyanet'e gidilmez", async () => {
