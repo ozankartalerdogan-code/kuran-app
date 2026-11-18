@@ -155,7 +155,9 @@ The iOS bundle identifier is `com.kuranapp.mobile`; App Store preparations
 (permission descriptions, privacy manifest, Firebase plist) are completed,
 and submission is handled via the `submit.production` profile in `eas.json`.
 
-TODO: Document the App Store release status.
+Release status (November 2026): Android 1.2.0 is live on Google Play; 1.2.1
+(versionCode 21) is in Play review. The App Store submission is pending the
+Apple 4.2 appeal. Release notes are on GitHub Releases (`v1.2.0`, `v1.2.1`).
 
 ## Licenses and Third-Party Sources
 
@@ -182,7 +184,8 @@ Full notices are located in `NOTICE`, `THIRD_PARTY_LICENSES.md`, and under
 texts are in `licenses/PACKAGE-LICENSE-TEXTS.txt`.
 
 Exact provenance and redistribution conditions for classical hadith references,
-Sunnah.com links, Aladhan API usage, and distributed audio/visuals must be
+Sunnah.com links, Diyanet and Aladhan prayer-time API usage, and distributed
+audio/visuals must be
 finalized. Generation and evidence constraints for AI-assisted content are
 recorded in the provenance manifest.
 
