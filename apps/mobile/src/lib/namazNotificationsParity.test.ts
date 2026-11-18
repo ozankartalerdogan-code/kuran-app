@@ -90,7 +90,10 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     "../../modules/exact-alarm": { canScheduleExactAlarms: () => true },
   };
   const source = readFileSync(new URL("./namazNotifications.ts", import.meta.url), "utf8");
-  const app = load(source + "\nexport { buildPrayerNotifications, computeGapSlots };", dependencies);
+  const contextDeps = load(readFileSync(new URL("./prayerContextDeps.ts", import.meta.url), "utf8"), dependencies);
+  const app = load(source + "\nexport { buildPrayerNotifications, computeGapSlots };", {
+    ...dependencies, "./prayerContextDeps": contextDeps,
+  });
   const legacy = load(readFileSync(new URL("./__fixtures__/namazNotificationsLegacy.ts.txt", import.meta.url), "utf8"), dependencies);
   return { app, legacy, values, writes, scheduled, contexts, emit: (event: any) => listeners.forEach(fn => fn(event)),
     counts: () => ({ cancels, subscribes, fills }) };

@@ -186,6 +186,16 @@ export function formatHmInZone(atMs: number, timeZone: string): string {
   return `${String(parts.hour).padStart(2, "0")}:${String(parts.minute).padStart(2, "0")}`;
 }
 
+/** City calendar date, with the same legacy device-local fallback as prayer times. */
+export function prayerDateInZone(atMs: number, timeZone: string): string {
+  const parts = intlZoneSupported() ? zonedParts(atMs, timeZone) : null;
+  const local = new Date(atMs);
+  const year = parts?.year ?? local.getFullYear();
+  const month = parts?.month ?? local.getMonth() + 1;
+  const day = parts?.day ?? local.getDate();
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
 /** Takvim günü ekle ("2026-12-31", 1 → "2027-01-01"). Saat hesabı yok. */
 export function addDaysYmd(ymd: string, days: number): string {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd);

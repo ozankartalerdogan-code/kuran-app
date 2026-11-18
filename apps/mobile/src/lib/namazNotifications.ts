@@ -1,3 +1,6 @@
+import { buildPrayerContext, getLocationSilent, rememberCoords, ISTANBUL_FALLBACK } from "./prayerContextDeps";
+import type { Coords } from "./prayerContextDeps";
+export { getSavedCoords, rememberCoords } from "./prayerContextDeps";
 import { SerialQueue, settleJobs } from "./serialQueue";
 import { PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery";
 import { withOverlayBusy } from "../tour/overlayBusy";
@@ -14,10 +17,10 @@ import prayerNameStrings from "../i18n/strings/prayerNames";
 import { deviceTimeZone } from "./timeZone";
 import { formatHmInZone, futureCarry, intlZoneSupported, notificationAtMs } from "./prayerInstant";
 import type { PrayerInstants } from "./prayerInstant";
-import { getManualCity, prayerCityStampPart, resolveDiyanetCity, roundCoord2 } from "./diyanetPrayer";
-import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
+import { getManualCity, prayerCityStampPart } from "./diyanetPrayer";
+import { diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
 import { getPrayerDayRepository } from "./prayerDayRepositoryDeps";
-import type { PrayerContext, PrayerDayRecord } from "./prayerDayRepository";
+import type { PrayerDayRecord } from "./prayerDayRepository";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
 
@@ -65,58 +68,8 @@ function stampForDays(start: string, days: DayTimes[]): string {
   return `${base}|repo2:${sources}:${(hash >>> 0).toString(16)}`;
 }
 
-const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
-
-// Başarılı her konum çözümü buraya yazılır. Canlı konum alınamadığında (özellikle
-// ARKA PLAN görevi: yalnız-ön-plan izinle GPS çağrısı başarısız olur) İstanbul'a
-// düşmeden önce kullanıcının son bilinen konumu kullanılır.
-const LAST_COORDS_KEY = "lastKnownCoords";
-
-type Coords = { lat: number; lng: number };
-
-export function rememberCoords(c: Coords): void {
-  storage.setJSON(LAST_COORDS_KEY, c).catch(() => {});
-}
-
-// Son kaydedilen konum (yoksa null) — kıble ekranının anında açılması için.
-export async function getSavedCoords(): Promise<Coords | null> {
-  try {
-    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
-    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
-  } catch { /* okunamadı */ }
-  return null;
-}
-
-async function savedCoordsOrIstanbul(): Promise<Coords> {
-  try {
-    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
-    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
-  } catch { /* okunamadı — İstanbul'a düş */ }
-  return ISTANBUL_FALLBACK;
-}
-
 function localDayStr(d = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
-// İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
-async function getLocationSilent(): Promise<Coords> {
-  const manual = await getManualCity(diyanetDeps());
-  if (manual !== null) return { lat: manual.lat, lng: manual.lon };
-  try {
-    const { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== "granted") return savedCoordsOrIstanbul();
-    const pos = await Promise.race([
-      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-      new Promise<null>((r) => setTimeout(() => r(null), 8000)),
-    ]);
-    if (!pos || !("coords" in pos)) return savedCoordsOrIstanbul();
-    const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    rememberCoords(c);
-    return c;
-  } catch {
-    return savedCoordsOrIstanbul();
-  }
 }
 
 // Konum izni yalnız kullanıcının başlattığı bildirim kurulumunda istenir.
@@ -176,22 +129,9 @@ export type DayTimes = {
 // 10+ dk şaşabiliyordu. Şimdi 7 günün GERÇEK vakitleri ayrı ayrı planlanır.
 const SCHEDULE_DAYS = 7;
 
-async function notificationPrayerContext(lat: number, lng: number): Promise<PrayerContext> {
-  const deps = diyanetDeps();
-  const manual = await getManualCity(deps);
-  const matchesManual = manual !== null && Math.abs(manual.lat - lat) < 1e-6 && Math.abs(manual.lon - lng) < 1e-6;
-  const offMin = deviceOffsetMin();
-  const city = matchesManual ? manual : await resolveDiyanetCity(lat, lng, offMin, deps);
-  const deviceTz = deviceTimeZone();
-  return {
-    cityKey: city ? `${matchesManual ? "m" : "c"}${city.id}` : `geo:${roundCoord2(lat).toFixed(2)},${roundCoord2(lng).toFixed(2)}`,
-    lat, lon: lng, cityTimeZone: intlZoneSupported() ? city?.tz ?? deviceTz : deviceTz,
-    deviceTimeZone: deviceTz, offMin, nowMs: Date.now(),
-  };
-}
 
 export async function fetchPrayerDays(lat: number, lng: number): Promise<DayTimes[] | null> {
-  const context = await notificationPrayerContext(lat, lng);
+  const context = await buildPrayerContext(lat, lng);
   activeCityKey = context.cityKey;
   subscribeToPrayerRepository();
   const today = new Date(context.nowMs);
