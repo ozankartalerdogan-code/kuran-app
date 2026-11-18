@@ -9,10 +9,10 @@ import { JuzTracker } from "./JuzTracker";
 import { ayetinSayfasi } from "../../../../lib/mushafSayfaUtils";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     surahId: string;
     ayahNumber: string;
-  };
+  }>;
 }
 
 function parsePositiveInteger(value: string): number | null {
@@ -24,7 +24,7 @@ interface SurahRow { id: number; adi_turkce: string; adi_arapca: string | null; 
 interface VerseRow { arabic_text: string | null; }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const surahId = parsePositiveInteger(params.surahId);
+  const surahId = parsePositiveInteger((await params).surahId);
   if (!surahId) return { title: "Mushaf" };
   const surah = await dbGet<SurahRow>("SELECT id, adi_turkce, ayet_sayisi, adi_arapca FROM sureler WHERE id = ?", surahId);
   return {
@@ -63,8 +63,9 @@ function NavButton({
 }
 
 export default async function MushafPage({ params }: PageProps) {
-  const surahId = parsePositiveInteger(params.surahId);
-  const ayahNumber = parsePositiveInteger(params.ayahNumber);
+  const { surahId: rawSurahId, ayahNumber: rawAyahNumber } = await params;
+  const surahId = parsePositiveInteger(rawSurahId);
+  const ayahNumber = parsePositiveInteger(rawAyahNumber);
 
   if (!surahId || !ayahNumber) redirect("/mushaf/1/1");
 
