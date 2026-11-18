@@ -47,7 +47,9 @@ export default async function ElifbaPage() {
   const harflerByDers = new Map<number, HarfDersRow[]>();
   for (const row of allHarfler) {
     if (!harflerByDers.has(row.ders_id)) harflerByDers.set(row.ders_id, []);
-    harflerByDers.get(row.ders_id)!.push(row);
+    const harfler = harflerByDers.get(row.ders_id);
+    if (harfler === undefined) throw new Error("ElifbaPage: unexpected missing harfler list");
+    harfler.push(row);
   }
 
   const derslerWithHarfler: DersWithHarfler[] = dersler.map((ders) => ({

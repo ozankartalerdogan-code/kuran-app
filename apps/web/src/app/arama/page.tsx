@@ -66,6 +66,8 @@ export default async function AramaPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
   const q = typeof resolvedSearchParams?.q === "string" ? resolvedSearchParams.q.trim() : "";
   redirect(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
+  // Aşağısı redirect() (never) sonrası ulaşılamaz kod: TS burada null daraltması yapmadığı için `!` gerekiyor.
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
   const { surahMatch, results } = q.length >= 2
     ? await runQuery(q)

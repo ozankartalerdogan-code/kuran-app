@@ -111,7 +111,7 @@ function useHarfAudio(harfId: number) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
 
-  function play(e: React.MouseEvent) {
+  function play(_e: React.MouseEvent) {
     if (!audioRef.current) {
       audioRef.current = new Audio(
         `/audio/elifba/harf_${String(harfId).padStart(2, "0")}.mp3`,
@@ -733,7 +733,7 @@ function OverallProgress({
   mounted: boolean;
 }) {
   if (!mounted) return null;
-  const completed = dersler.filter((d, i) =>
+  const completed = dersler.filter((d, _i) =>
     checkCompleted(d, progress, quizScores)
   ).length;
   const pct = Math.round((completed / dersler.length) * 100);
@@ -842,7 +842,7 @@ export function ElifbaClient({ dersler }: { dersler: DersWithHarfler[] }) {
       if (seen.length + 1 >= selectedDers.harfler.length && !QUIZ_LESSON_IDS.has(selectedDers.id)) {
         setStarBursts((s) => new Set(s).add(selectedDers.id));
         setTimeout(() => {
-          setStarBursts((s) => { const n = new Set(s); n.delete(selectedDers.id!); return n; });
+          setStarBursts((s) => { const n = new Set(s); n.delete(selectedDers.id); return n; });
         }, 800);
       }
     }
