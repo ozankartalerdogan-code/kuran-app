@@ -486,10 +486,11 @@ export async function getDiyanetDays(
   offMin: number,
   dates: string[],
   deps: DiyanetPrayerDeps,
+  resolvedCity?: DiyanetCityRef | null,
 ): Promise<Map<string, DiyanetDayOut>> {
   const out = new Map<string, DiyanetDayOut>();
   try {
-    const city = await resolveDiyanetCity(lat, lon, offMin, deps);
+    const city = resolvedCity === undefined ? await resolveDiyanetCity(lat, lon, offMin, deps) : resolvedCity;
     if (!city) return out;
 
     const datesByMonth = new Map<string, string[]>();

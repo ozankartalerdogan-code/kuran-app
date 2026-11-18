@@ -1,21 +1,22 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { api, dailyCacheVkey, dailyCacheKey } from "../lib/api";
-import { storage, STORAGE_KEYS } from "../lib/storage";
+import { storage } from "../lib/storage";
 import * as Location from "expo-location";
 import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
-import { aladhanTzParam, deviceTimeZone } from "../lib/timeZone";
-import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "../lib/prayerMethod";
-import {
-  getDiyanetDays,
-  getManualCity,
-  isTurkeyCountry,
-  prayerCityStampPart,
-  titleCaseTr,
-  type DiyanetDayOut,
-} from "../lib/diyanetPrayer";
-import { diyanetDeps, deviceOffsetMin, localYmdStr } from "../lib/diyanetPrayerDeps";
-import { getDiyanetDaysCachedVersion, onDiyanetDaysCached } from "../lib/prayerCityEvents";
+import { getManualCity, isTurkeyCountry, titleCaseTr } from "../lib/diyanetPrayer";
+import { diyanetDeps } from "../lib/diyanetPrayerDeps";
+import { buildPrayerContext, getHomeLocation } from "../lib/prayerContextDeps";
+import { getPrayerDayRepository } from "../lib/prayerDayRepositoryDeps";
+import type { PrayerDayRecord } from "../lib/prayerDayRepository";
+import { addDaysYmd, prayerDateInZone, formatHmInZone, intlZoneSupported, PRAYER_KEYS } from "../lib/prayerInstant";
+import { nextPrayerFromInstants, watchHomePrayerDays } from "../lib/homePrayer";
+
+function prayerTime(atMs: number, zone: string): string {
+  if (intlZoneSupported()) return formatHmInZone(atMs, zone);
+  const local = new Date(atMs);
+  return `${String(local.getHours()).padStart(2, "0")}:${String(local.getMinutes()).padStart(2, "0")}`;
+}
 
 interface DailyVerse {
   verse_key: string;
@@ -44,16 +45,6 @@ export function formatHijriDate(h: HijriDate | null): string {
   return `${h.day} ${monthName} ${h.year}`;
 }
 
-function parseHijri(raw: unknown): HijriDate | null {
-  if (!raw || typeof raw !== "object") return null;
-  const h = raw as Record<string, unknown>;
-  const day = Number(h.day);
-  const year = Number(h.year);
-  const monthNumber = Number((h.month as Record<string, unknown> | undefined)?.number);
-  if (!Number.isFinite(day) || !Number.isFinite(year) || !Number.isFinite(monthNumber)) return null;
-  return { day, monthNumber, year };
-}
-
 export interface UseDailyContentResult {
   verse: DailyVerse | null;
   dua: DailyVerse | null;
@@ -77,21 +68,6 @@ function prayerLabels(): Record<string, string> {
   return { Fajr: pn.Fajr, Sunrise: pn.Sunrise, Dhuhr: pn.Dhuhr, Asr: pn.Asr, Maghrib: pn.Maghrib, Isha: pn.Isha };
 }
 
-interface PrayerCache {
-  date: string;
-  timings: PrayerTimes;
-  hijri?: HijriDate | null;
-  cityKey?: string;
-}
-
-function isValidPrayerTimes(data: unknown): data is PrayerTimes {
-  if (!data || typeof data !== "object") return false;
-  const d = data as Record<string, unknown>;
-  return ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"].every(
-    (k) => typeof d[k] === "string",
-  );
-}
-
 function isValidDailyVerse(data: unknown): data is DailyVerse {
   if (!data || typeof data !== "object") return false;
   const d = data as Record<string, unknown>;
@@ -100,15 +76,6 @@ function isValidDailyVerse(data: unknown): data is DailyVerse {
     typeof d.surah_id === "number" &&
     typeof d.ayah_number === "number"
   );
-}
-
-function todayKey() {
-  const d = new Date();
-  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-}
-
-function buildDateStr(): string {
-  return `${new Date().getDate().toString().padStart(2, "0")}-${(new Date().getMonth() + 1).toString().padStart(2, "0")}-${new Date().getFullYear()}`;
 }
 
 export function useDailyContent(): UseDailyContentResult {
@@ -128,8 +95,8 @@ export function useDailyContent(): UseDailyContentResult {
 
   // Canlı geri sayım için tik — 30 sn'de bir yeniden render tetikler, nextPrayer
   // aşağıda her render'da yeniden hesaplandığı için kalan süre kendiliğinden
-  // güncellenir. Ağ isteği/başka yan etki YOKTUR, yalnız render.
-  const [nowTick, setNowTick] = useState(() => Date.now());
+  // güncellenir. Şehirde gün değişirse aşağıdaki effect gün penceresini yeniler.
+  const [, setNowTick] = useState(() => Date.now());
   useEffect(() => {
     const id = setInterval(() => setNowTick(Date.now()), 30_000);
     return () => clearInterval(id);
@@ -140,26 +107,9 @@ export function useDailyContent(): UseDailyContentResult {
   // Diyanet günü bulunduysa şehir etiketi ondan gelir; geç gelen reverseGeocode
   // sonucu bu etiketi ezmesin.
   const diyanetCityRef = useRef(false);
-  // Bu load'da vakitler Aladhan yedeğinden geldiyse işaretlenir; Diyanet önbelleği
-  // hazır olduğunda ana sayfa tek turda kendini düzeltir.
-  const prayerFellBackRef = useRef(false);
-  const coordsRef = useRef<{ lat: number; lon: number } | null>(null);
-
-  const applyDiyanetDay = useCallback(async (day: DiyanetDayOut) => {
-    diyanetCityRef.current = true;
-    setPrayerCityState(
-      titleCaseTr(day.city.name, isTurkeyCountry(day.city.country)),
-    );
-    setPrayers(day.times);
-    if (day.hijri) setHijriDate(day.hijri);
-    storage.setJSON(STORAGE_KEYS.prayerCache, {
-      date: todayKey(),
-      timings: day.times,
-      hijri: day.hijri,
-      cityKey: await prayerCityStampPart(diyanetDeps()),
-    }).catch(() => {});
-    prayerFellBackRef.current = false;
-  }, []);
+  const [prayerDays, setPrayerDays] = useState<readonly PrayerDayRecord[]>([]);
+  const [prayerWindow, setPrayerWindow] = useState<{ date: string; zone: string } | null>(null);
+  const prayerSubscriptionRef = useRef<(() => void) | null>(null);
 
   const load = useCallback(async () => {
     // Her load'a kimlik ver: unmount olduysa ya da daha yeni bir load (ör.
@@ -176,13 +126,12 @@ export function useDailyContent(): UseDailyContentResult {
     setPrayerLoading(true);
     setLoading(true);
     diyanetCityRef.current = false;
-    prayerFellBackRef.current = false;
-    coordsRef.current = null;
+    prayerSubscriptionRef.current?.();
+    prayerSubscriptionRef.current = null;
 
     let verseDone = false;
     let duaDone = false;
     let prayerDone = false;
-    let aladhanStarted = false;
     let anyContentLoaded = false;
     let loadFailed = false;
 
@@ -230,44 +179,13 @@ export function useDailyContent(): UseDailyContentResult {
       }
     } catch { /* ignore */ }
 
-    // 1. Namaz vakitlerini önce cache'den yükle (anında). Önbellek yalnız gerçekten
-    //    aynı şehre aitse kullanılır (cityKey); elle şehir seçildiğinde eski şehrin
-    //    vakitleri yeni şehir adı altında gösterilmez.
     const manualCity = await getManualCity(diyanetDeps());
-    const activeCityKey = await prayerCityStampPart(diyanetDeps());
-    let prayerCacheUsed = false;
-    try {
-      const raw = await storage.getString(STORAGE_KEYS.prayerCache);
-      if (raw) {
-        const cached: unknown = JSON.parse(raw);
-        if (
-          isCurrent() &&
-          cached &&
-          typeof cached === "object" &&
-          (cached as PrayerCache).date === todayKey() &&
-          (cached as PrayerCache).cityKey === activeCityKey &&
-          isValidPrayerTimes((cached as PrayerCache).timings)
-        ) {
-          setPrayers((cached as PrayerCache).timings);
-          if ((cached as PrayerCache).hijri) setHijriDate((cached as PrayerCache).hijri ?? null);
-          prayerCacheUsed = true;
-          markSuccess();
-        }
-      }
-    } catch {
-      // stale cache — ignore
-    }
-
-    // Önbellek bu yükleme turunun aktif şehriyle uyuşmadıysa (ör. yeni elle
-    // şehir seçildi veya elle şehirden Otomatik'e dönüldü), eski şehrin
-    // vakitleri ekranda kalmasın; yeni vakit gelene kadar yükleniyor/hata gösterilir.
-    if (!prayerCacheUsed && isCurrent()) {
-      setPrayers(null);
-      setHijriDate(null);
-      if (manualCity === null) {
-        setPrayerCityState(ISTANBUL.city);
-      }
-    }
+    if (!isCurrent()) return;
+    setPrayers(null);
+    setPrayerDays([]);
+    setPrayerWindow(null);
+    setHijriDate(null);
+    setPrayerCityState(manualCity ? titleCaseTr(manualCity.name, isTurkeyCountry(manualCity.country)) : ISTANBUL.city);
 
     // 2. Günün Ayeti + Günün Duası — geniş havuzdan tarih bazlı seçim
     api.daily
@@ -360,162 +278,64 @@ export function useDailyContent(): UseDailyContentResult {
           });
       });
 
-    // 4. Namaz vakitlerini gerçek konumla çek. Ana sayfada izin İSTEMEYİZ; yalnız
-    //    önceden verilmişse kullanırız (izin asıl context'inde — kıble / namaz
-    //    bildirimi açılırken — istenir). Yoksa sessizce İstanbul'a düşeriz.
-    // Şehir adı (reverse geocode) namaz vakti isteğini BLOKE ETMEZ — arka planda
-    // ayrı çözülür, gelince yalnız görünen etiketi günceller. Konum de önce OS'un
-    // önbelleklediği "son bilinen konum"u dener (anında); yoksa canlı GPS fix ister.
-    const coords = await (async () => {
-      try {
-        // Elle seçilmiş şehir varsa GPS/reverseGeocode'a hiç gidilmez.
-        if (manualCity !== null) {
-          if (isCurrent()) {
-            setPrayerCityState(
-              titleCaseTr(manualCity.name, isTurkeyCountry(manualCity.country)),
-            );
-          }
-          return { lat: manualCity.lat, lon: manualCity.lon };
-        }
-      } catch { /* ignore */ }
-
-      try {
-        const { status } = await Location.getForegroundPermissionsAsync();
-        if (status !== "granted") return ISTANBUL;
-
-        const lastKnown = await Location.getLastKnownPositionAsync({
-          maxAge: 10 * 60 * 1000, // 10 dk içindeyse taze say
-        }).catch(() => null);
-
-        const pos = lastKnown ?? await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>((r) => setTimeout(() => r(null), 15000)),
-        ]);
-        if (pos && "coords" in pos) {
-          const { latitude, longitude } = pos.coords;
-          Location.reverseGeocodeAsync({ latitude, longitude })
-            .then((geo) => {
-              if (!isCurrent() || diyanetCityRef.current) return;
-              const place = geo[0];
-              const cityName = place?.city ?? place?.subregion ?? place?.region ?? null;
-              if (cityName) setPrayerCityState(cityName);
-            })
-            .catch(() => { /* ignore — İstanbul etiketiyle kalır */ });
-          return { lat: latitude, lon: longitude };
-        }
-      } catch { /* ignore */ }
-      return ISTANBUL;
-    })();
-
-    // Konum çözümü 15 sn'e kadar sürebilir; bu sırada unmount/yeni-load olduysa
-    // artık namaz fetch'ini başlatma ve state'e dokunma.
+    // Konum çözümü eski ana sayfa davranışıyla aynı; context kurucusu bildirimlerle ortak.
+    const coords = await getHomeLocation();
     if (!isCurrent()) return;
-
-    coordsRef.current = { lat: coords.lat, lon: coords.lon };
-
-    const prayerAC = new AbortController();
-
-    // Safety timeout: en geç 10 saniye sonra loading'i kapat. Diyanet denemesi
-    // ~14 sn sürebildiğinden bu ZAMANLAYICI Diyanet'ten ÖNCE kurulur; loading
-    // kapansa da geç gelen sonuç prayers'ı yine set eder. Aladhan henüz
-    // başlamadıysa AbortController'a dokunma (sonradan taze istek başlayabilsin).
+    if (!manualCity) {
+      Location.reverseGeocodeAsync({ latitude: coords.lat, longitude: coords.lng })
+        .then(geo => {
+          if (!isCurrent() || diyanetCityRef.current) return;
+          const place = geo[0];
+          const name = place?.city ?? place?.subregion ?? place?.region;
+          if (name) setPrayerCityState(name);
+        }).catch(() => {});
+    }
     safetyTimerRef.current = setTimeout(() => {
       if (!isCurrent()) return;
       if (!verseDone) setVerseLoading(false);
       if (!duaDone) setDuaLoading(false);
-      if (!prayerDone) {
-        if (aladhanStarted) prayerAC.abort();
-        setPrayerLoading(false);
-      }
+      if (!prayerDone) setPrayerLoading(false);
       if (loadFailed && !anyContentLoaded) setError("Gunluk icerik yuklenemedi.");
       setLoading(false);
     }, 10_000);
 
-    // ÖNCE kendi sunucumuzdaki Diyanet vakitleri. Bugün çözülemezse mevcut
-    // Aladhan yoluna düşülür. Diyanet yolu en kötü ~14 sn sürebilir; güvenlik
-    // zamanlayıcısı loading'i kapatsa bile sonuç gelince prayers yine set edilir.
-    const diyanetDate = localYmdStr(new Date());
-    const cachedVersionBefore = getDiyanetDaysCachedVersion();
-    const readDiyanetToday = async () => (
-      await getDiyanetDays(
-        coords.lat,
-        coords.lon,
-        deviceOffsetMin(),
-        [diyanetDate],
-        diyanetDeps(),
-      )
-    ).get(diyanetDate);
-    let diyanetDay = await readDiyanetToday();
-    if (!isCurrent()) return;
-    // Bu istek sürerken bildirim planı Diyanet'i önbelleğe aldıysa (olay kaçtı)
-    // Aladhan'a düşmeden önce bir kez önbellekten yeniden oku.
-    if (!diyanetDay && getDiyanetDaysCachedVersion() !== cachedVersionBefore) {
-      diyanetDay = await readDiyanetToday();
+    try {
+      const context = await buildPrayerContext(coords.lat, coords.lng);
       if (!isCurrent()) return;
-    }
-
-    if (diyanetDay) {
-      // Diyanet kendi kuralını uygular: adjustHighLatitude BURADA uygulanmaz.
-      await applyDiyanetDay(diyanetDay);
-      markSuccess();
-      prayerDone = true;
-      setPrayerLoading(false);
-      tryFinishLoading();
-    } else {
-      // Diyanet bu turda çözülemedi: bildirim planı Diyanet'i önbelleğe alırsa
-      // (Aladhan yanıtından önce ya da sonra) ana sayfa kendini düzeltsin.
-      prayerFellBackRef.current = true;
-      const ts = buildDateStr();
-      // Aladhan yedek vakitleri de aynı şehir damgasıyla önbelleğe yazılır ki
-      // sonraki açılışta yanlış şehre ait kayıt kullanılmasın.
-      const fallbackCityKey = await prayerCityStampPart(diyanetDeps());
-      if (!isCurrent()) return;
-      const prayerTimeoutId = setTimeout(() => prayerAC.abort(), 8_000);
-      aladhanStarted = true;
-
-      fetch(
-        // Yöntem/ikindi/temkin: lib/prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
-        `https://api.aladhan.com/v1/timings/${ts}?latitude=${coords.lat}&longitude=${coords.lon}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
-        { headers: { "Accept": "application/json" }, signal: prayerAC.signal },
-      )
-        .then((r) => r.json())
-        .then((d) => {
-          clearTimeout(prayerTimeoutId);
-          if (!isCurrent()) return;
-          if (d?.data?.timings) d.data.timings = adjustHighLatitude(d.data.timings, coords.lat, localYMD(new Date()), deviceTimeZone());
-          // Bu arada Diyanet yeniden denemesi başarılı olduysa Aladhan onu ezmesin.
-          if (diyanetCityRef.current) {
-            prayerDone = true;
-            setPrayerLoading(false);
-            tryFinishLoading();
-            return;
-          }
-          if (d?.data?.timings && isValidPrayerTimes(d.data.timings)) {
-            setPrayers(d.data.timings);
-            const hijri = parseHijri(d.data.date?.hijri);
-            if (hijri) setHijriDate(hijri);
+      const today = prayerDateInZone(Date.now(), context.cityTimeZone);
+      const dates = [today, addDaysYmd(today, 1)];
+      setPrayerWindow({ date: today, zone: context.cityTimeZone });
+      prayerSubscriptionRef.current = watchHomePrayerDays(
+        getPrayerDayRepository(), context, dates, isCurrent,
+        records => {
+          setPrayerDays(records);
+          const day = records.find(record => record.sourceDate === today);
+          if (day) {
+            setPrayers(Object.fromEntries(PRAYER_KEYS.map(key => [key, prayerTime(day.atMs[key], day.cityTimeZone)])) as unknown as PrayerTimes);
+            setHijriDate(day.hijri);
+            diyanetCityRef.current = day.source === "diyanet";
+            if (day.source === "diyanet" && day.cityDisplayName) {
+              setPrayerCityState(titleCaseTr(day.cityDisplayName, context.cityTimeZone === "Europe/Istanbul"));
+            }
             markSuccess();
-            storage.setJSON(STORAGE_KEYS.prayerCache, {
-              date: todayKey(),
-              timings: d.data.timings,
-              hijri,
-              cityKey: fallbackCityKey,
-            }).catch(() => {});
-          } else {
-            markFailure();
-          }
+          } else markFailure();
           prayerDone = true;
           setPrayerLoading(false);
           tryFinishLoading();
-        })
-        .catch(() => {
-          clearTimeout(prayerTimeoutId);
-          if (!isCurrent()) return;
+        },
+        () => {
           markFailure();
           prayerDone = true;
           setPrayerLoading(false);
           tryFinishLoading();
-        });
+        },
+      );
+    } catch {
+      if (!isCurrent()) return;
+      markFailure();
+      prayerDone = true;
+      setPrayerLoading(false);
+      tryFinishLoading();
     }
   }, []);
 
@@ -524,60 +344,25 @@ export function useDailyContent(): UseDailyContentResult {
     load();
     return () => {
       isMountedRef.current = false;
+      prayerSubscriptionRef.current?.();
       if (safetyTimerRef.current) clearTimeout(safetyTimerRef.current);
     };
   }, [load]);
 
-  // Bildirim planı Diyanet gününü önbelleğe aldığında, ana sayfa Aladhan yedeğinde
-  // kaldıysa aynı koordinatla Diyanet'i yeniden iste (önbellekten hızlı döner).
-  // Tek tur: uygulama Diyanet'i yazarken yeniden haber vermez.
+  // Refill the city calendar window when a mounted home crosses midnight.
+  const displayedDate = prayerWindow?.date;
+  const currentDate = prayerWindow ? prayerDateInZone(Date.now(), prayerWindow.zone) : undefined;
   useEffect(() => {
-    return onDiyanetDaysCached(() => {
-      if (!prayerFellBackRef.current || !isMountedRef.current) return;
-      const coords = coordsRef.current;
-      if (!coords) return;
-      const retryLoadId = loadIdRef.current;
-      const date = localYmdStr(new Date());
-      void getDiyanetDays(
-        coords.lat,
-        coords.lon,
-        deviceOffsetMin(),
-        [date],
-        diyanetDeps(),
-      )
-        .then(async (days) => {
-          if (!isMountedRef.current || loadIdRef.current !== retryLoadId) return;
-          const day = days.get(date);
-          if (!day) return;
-          await applyDiyanetDay(day);
-        })
-        .catch(() => {});
-    });
-  }, [applyDiyanetDay]);
+    if (displayedDate && currentDate && displayedDate !== currentDate) void load();
+  }, [displayedDate, currentDate, load]);
 
-  const nextPrayer = prayers
-    ? (() => {
-        const now = new Date(nowTick);
-        const nowMin = now.getHours() * 60 + now.getMinutes();
-        for (const key of ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"]) {
-          const [h, m] = (prayers[key as keyof PrayerTimes] ?? "")
-            .split(":")
-            .map(Number);
-          if (!isNaN(h) && h * 60 + m > nowMin) {
-            return {
-              key,
-              label: PRAYER_LABELS[key],
-              time: prayers[key as keyof PrayerTimes],
-              remainingMin: h * 60 + m - nowMin,
-            };
-          }
-        }
-        // Bugünün tüm vakitleri geçti → yarınki İmsak'a kalan süre.
-        const [fh, fm] = (prayers.Fajr ?? "").split(":").map(Number);
-        const toFajr = isNaN(fh) ? 0 : 24 * 60 - nowMin + fh * 60 + fm;
-        return { key: "Fajr", label: PRAYER_LABELS["Fajr"], time: prayers.Fajr, remainingMin: toFajr };
-      })()
-    : null;
+  const next = nextPrayerFromInstants(prayerDays, Date.now());
+  const nextPrayer = next ? {
+    key: next.key,
+    label: PRAYER_LABELS[next.key],
+    time: prayerTime(next.atMs, next.record.cityTimeZone),
+    remainingMin: next.remainingMin,
+  } : null;
 
   const refresh = useCallback(async () => {
     await load();

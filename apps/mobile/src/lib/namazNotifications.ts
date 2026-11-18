@@ -1,5 +1,8 @@
+import { buildPrayerContext, getLocationSilent, rememberCoords, ISTANBUL_FALLBACK } from "./prayerContextDeps";
+import type { Coords } from "./prayerContextDeps";
+export { getSavedCoords, rememberCoords } from "./prayerContextDeps";
 import { SerialQueue, settleJobs } from "./serialQueue";
-import { PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery";
+import { LEGACY_PLAN_CACHE_KEY, PLAN_CACHE_KEY, readNotificationPlan, readNotificationRollback, resolvePlanStamp, shouldRefreshNotifications } from "./notificationRecovery";
 import { withOverlayBusy } from "../tour/overlayBusy";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
@@ -11,13 +14,13 @@ import { localizedMeal } from "./englishMeal";
 import { getStrings, fmt, getLang } from "../i18n";
 import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
-import { aladhanTzParam, deviceTimeZone } from "./timeZone";
-import { adjustHighLatitude, aladhanMethodQuery, localYMD } from "./prayerMethod";
-import { formatHmInZone, futureCarry, intlZoneSupported, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
+import { deviceTimeZone } from "./timeZone";
+import { formatHmInZone, futureCarry, intlZoneSupported, notificationAtMs } from "./prayerInstant";
 import type { PrayerInstants } from "./prayerInstant";
-import { getDiyanetDays, getManualCity, prayerCityStampPart } from "./diyanetPrayer";
-import { deviceOffsetMin, diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
-import { notifyDiyanetDaysCached } from "./prayerCityEvents";
+import { getManualCity, prayerCityStampPart } from "./diyanetPrayer";
+import { diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
+import { getPrayerDayRepository } from "./prayerDayRepositoryDeps";
+import type { PrayerDayRecord } from "./prayerDayRepository";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
 
@@ -43,61 +46,30 @@ export const SCHED_DAY_KEY = "namazNotifSchedDay";
 // böylece tam zamanlıya döner.
 export const schedStamp = () =>
   `${localDayStr()}|${getLang()}|${deviceTimeZone()}|${canScheduleExactAlarms() === false ? "inexact" : "exact"}|t2`;
-const fullSchedStamp = async () =>
-  `${schedStamp()}|${await prayerCityStampPart(diyanetDeps()).catch(() => "-")}`;
+let activePlan: { base: string; signature: string } | undefined;
+const fullSchedStamp = async () => {
+  const cityKey = await prayerCityStampPart(diyanetDeps()).catch(() => "-");
+  if (cityKey !== "-") activeCityKey = cityKey;
+  const base = `${schedStamp()}|${cityKey}`;
+  if (activePlan?.base === base) return `${base}|repo2:${activePlan.signature}`;
+  const cached = await storage.getJSON<{ version: number; stamp: string }>(PLAN_CACHE_KEY).catch(() => null);
+  return cached?.version === 2 && typeof cached.stamp === "string" && cached.stamp.startsWith(`${base}|repo2:`)
+    ? cached.stamp : `${base}|repo2:none`;
+};
 
-const ISTANBUL_FALLBACK = { lat: 41.0082, lng: 28.9784 };
-
-// Başarılı her konum çözümü buraya yazılır. Canlı konum alınamadığında (özellikle
-// ARKA PLAN görevi: yalnız-ön-plan izinle GPS çağrısı başarısız olur) İstanbul'a
-// düşmeden önce kullanıcının son bilinen konumu kullanılır.
-const LAST_COORDS_KEY = "lastKnownCoords";
-
-type Coords = { lat: number; lng: number };
-
-export function rememberCoords(c: Coords): void {
-  storage.setJSON(LAST_COORDS_KEY, c).catch(() => {});
-}
-
-// Son kaydedilen konum (yoksa null) — kıble ekranının anında açılması için.
-export async function getSavedCoords(): Promise<Coords | null> {
-  try {
-    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
-    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
-  } catch { /* okunamadı */ }
-  return null;
-}
-
-async function savedCoordsOrIstanbul(): Promise<Coords> {
-  try {
-    const saved = await storage.getJSON<Coords>(LAST_COORDS_KEY);
-    if (saved && typeof saved.lat === "number" && typeof saved.lng === "number") return saved;
-  } catch { /* okunamadı — İstanbul'a düş */ }
-  return ISTANBUL_FALLBACK;
+// Hash source/revision before persisting: geo city keys must stay in memory.
+function stampForDays(start: string, days: DayTimes[]): string {
+  const base = start.split("|repo2:")[0];
+  let hash = 2166136261;
+  for (const text of days.map(day => `${day.source}:${day.revision}`)) {
+    for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 16777619);
+  }
+  const sources = [...new Set(days.map(day => day.source ?? "unknown"))].sort().join("+");
+  return `${base}|repo2:${sources}:${(hash >>> 0).toString(16)}`;
 }
 
 function localDayStr(d = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
-// İzin SORMADAN mevcut izni okuyarak konum getirir (sessiz arka plan yenilemesi için).
-async function getLocationSilent(): Promise<Coords> {
-  const manual = await getManualCity(diyanetDeps());
-  if (manual !== null) return { lat: manual.lat, lng: manual.lon };
-  try {
-    const { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== "granted") return savedCoordsOrIstanbul();
-    const pos = await Promise.race([
-      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-      new Promise<null>((r) => setTimeout(() => r(null), 8000)),
-    ]);
-    if (!pos || !("coords" in pos)) return savedCoordsOrIstanbul();
-    const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    rememberCoords(c);
-    return c;
-  } catch {
-    return savedCoordsOrIstanbul();
-  }
 }
 
 // Konum izni yalnız kullanıcının başlattığı bildirim kurulumunda istenir.
@@ -142,7 +114,14 @@ export async function requestNotificationPermission(): Promise<boolean> {
 // Bir güne ait vakitler + o günün takvim tarihi (çok-günlü planlama için).
 // `at`: vakitlerin mutlak anları; varsa tetikleyiciler cihaz diliminden bağımsız kurulur.
 // `carry`: uzak saat diliminde önceki şehir gününden bugüne taşan, hâlâ gelecekteki anlar.
-export type DayTimes = { date: Date; times: PrayerTimes; at?: PrayerInstants; carry?: Partial<PrayerInstants> };
+export type DayTimes = {
+  date: Date;
+  times: PrayerTimes;
+  at?: PrayerInstants;
+  carry?: Partial<PrayerInstants>;
+  source?: PrayerDayRecord["source"];
+  revision?: string;
+};
 
 // Kaç gün ileriye planlanır. 6 vakit × 7 gün + 2 günlük ayet/dua = 44 bildirim —
 // iOS'un 64 planlı bildirim limitinin altında. Eskiden DAILY tetikleyici tek
@@ -150,206 +129,46 @@ export type DayTimes = { date: Date; times: PrayerTimes; at?: PrayerInstants; ca
 // 10+ dk şaşabiliyordu. Şimdi 7 günün GERÇEK vakitleri ayrı ayrı planlanır.
 const SCHEDULE_DAYS = 7;
 
-// Aladhan takvim yanıtındaki saatler "05:03 (+03)" biçiminde gelebilir → "05:03"e indir.
-function sanitizeTimes(raw: Record<string, string>): PrayerTimes {
-  const out: PrayerTimes = {};
-  for (const [k, v] of Object.entries(raw)) {
-    const m = typeof v === "string" ? v.match(/^(\d{1,2}:\d{2})/) : null;
-    if (m) out[k] = m[1];
-  }
-  return out;
-}
 
-// Aladhan takvim günü: şehrin duvar saatleri + varsa mutlak anlar.
-type CalendarDay = { times: PrayerTimes; at: PrayerInstants | null };
-
-// Aladhan sorgusu için şehir dilimi: elle seçilen şehir bu koordinattaysa onun dilimi,
-// aksi halde cihazın dilimi. (Türkiye'de ikisi de Europe/Istanbul'dur.)
-async function aladhanCityTimeZone(lat: number, lng: number): Promise<string> {
-  // Intl dilim dönüşümü güvenilmezse eski davranış: her şey cihaz diliminde.
-  if (!intlZoneSupported()) return deviceTimeZone();
-  try {
-    const manual = await getManualCity(diyanetDeps());
-    if (
-      manual !== null &&
-      Math.abs(manual.lat - lat) < 1e-6 &&
-      Math.abs(manual.lon - lng) < 1e-6
-    ) {
-      return manual.tz;
-    }
-  } catch { /* cihaz dilimine düş */ }
-  return deviceTimeZone();
-}
-
-// Aladhan takvim ucundan bir ayın tüm günlerini çek (tek istek/ay).
-async function fetchMonthCalendar(
-  lat: number,
-  lng: number,
-  year: number,
-  month: number, // 1-12
-  cityTz: string,
-): Promise<Map<string, CalendarDay> | null> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 8000);
-  try {
-    const res = await fetch(
-      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
-      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(cityTz)}&timezonestring=${encodeURIComponent(cityTz)}`,
-      { headers: { "Accept": "application/json" }, signal: controller.signal }
-    );
-    const data = await res.json();
-    if (!Array.isArray(data?.data)) return null;
-    const map = new Map<string, CalendarDay>();
-    for (const day of data.data) {
-      const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
-      if (typeof gDate === "string" && day?.timings) {
-        const [d, m, y] = gDate.split("-").map(Number);
-        const times = adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, cityTz);
-        const ymd = `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-        map.set(gDate, { times, at: intlZoneSupported() ? instantsFromWallTimes(ymd, times, cityTz) : null });
-      }
-    }
-    return map;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-function ddmmyyyy(d: Date): string {
-  return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
-}
-
-// Bugünden itibaren SCHEDULE_DAYS günün vakitlerini getirir. ÖNCE kendi
-// sunucumuzdaki Diyanet vakitleri denenir; eksik kalan günler için mevcut
-// Aladhan takvim yolu (yalnız o aylar) kullanılır. Hiç gün çözülemezse eski
-// davranış: takvim → tek günlük yedek.
-export async function fetchPrayerDays(
-  lat: number,
-  lng: number,
-): Promise<DayTimes[] | null> {
-  const today = new Date();
-  const wanted: Date[] = Array.from({ length: SCHEDULE_DAYS }, (_, i) => {
+export async function fetchPrayerDays(lat: number, lng: number): Promise<DayTimes[] | null> {
+  const context = await buildPrayerContext(lat, lng);
+  activeCityKey = context.cityKey;
+  subscribeToPrayerRepository();
+  const today = new Date(context.nowMs);
+  const wanted = Array.from({ length: SCHEDULE_DAYS }, (_, i) => {
     const d = new Date(today);
     d.setDate(today.getDate() + i);
     return d;
   });
-  const wantedYmd = wanted.map(localYmdStr);
-  const deviceTz = deviceTimeZone();
-  const cityTz = await aladhanCityTimeZone(lat, lng);
-  // Şehir dilimi cihazdan gerideyse önceki şehir gününün geç vakitleri cihazın
-  // bugününe taşar; o günü de isteyip yalnız gelecekteki anları taşırız.
-  // Türkiye'de dilimler eşittir → ek istek yok, davranış birebir aynı kalır.
-  const previousDay = cityTz !== deviceTz;
+  const previousDay = context.cityTimeZone !== context.deviceTimeZone;
   const prevDate = new Date(today);
-  if (previousDay) prevDate.setDate(today.getDate() - 1);
-  const prevYmd = previousDay ? localYmdStr(prevDate) : null;
-  const requestDates = prevYmd ? [prevDate, ...wanted] : wanted;
-  const requestYmd = prevYmd ? [prevYmd, ...wantedYmd] : wantedYmd;
-
-  const diyanet = await getDiyanetDays(
-    lat,
-    lng,
-    deviceOffsetMin(),
-    requestYmd,
-    diyanetDeps(),
-  );
-  if (diyanet.size > 0) notifyDiyanetDaysCached();
-
-  const missing = requestDates.filter((_, i) => !diyanet.has(requestYmd[i]));
-  const aladhan = new Map<string, CalendarDay>();
-  if (missing.length > 0) {
-    // Pencere ay sınırını aşabilir → yalnız eksik günlerin ayları için istek.
-    const months = new Map<string, { year: number; month: number }>();
-    for (const d of missing) {
-      months.set(`${d.getFullYear()}-${d.getMonth() + 1}`, {
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-      });
-    }
-    const calendars = await Promise.all(
-      [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month, cityTz))
-    );
-    for (const cal of calendars) {
-      if (cal) for (const [k, v] of cal) aladhan.set(k, v);
-    }
-  }
-
-  const days: DayTimes[] = [];
-  wanted.forEach((d, i) => {
-    const diyanetDay = diyanet.get(wantedYmd[i]);
-    if (diyanetDay) {
-      days.push({ date: d, times: diyanetDay.times, at: instantsFromDiyanetIso(diyanetDay.rawTimes) ?? undefined });
-      return;
-    }
-    const cal = aladhan.get(ddmmyyyy(d));
-    if (!cal) return;
-    if (cityTz === deviceTz) {
-      // Aynı dilim (Türkiye): saatler olduğu gibi; an hesaplanamadıysa eski setHours yolu.
-      days.push(cal.at ? { date: d, times: cal.times, at: cal.at } : { date: d, times: cal.times });
-      return;
-    }
-    if (cal.at === null) return;
-    const at = cal.at;
-    const times: PrayerTimes = {};
-    for (const { key } of VAKITLER) {
-      times[key] = formatHmInZone(at[key as keyof PrayerInstants], deviceTz);
-    }
-    days.push({ date: d, times, at });
+  prevDate.setDate(today.getDate() - 1);
+  const dates = (previousDay ? [prevDate, ...wanted] : wanted).map(localYmdStr);
+  const records = await getPrayerDayRepository().ensureDays(context, dates);
+  const days: DayTimes[] = wanted.flatMap(date => {
+    const record = records.get(localYmdStr(date));
+    if (!record) return [];
+    const times = Object.fromEntries(VAKITLER.map(({ key }) => {
+      const ms = record.atMs[key as keyof PrayerInstants];
+      const local = new Date(ms);
+      return [key, intlZoneSupported() ? formatHmInZone(ms, context.deviceTimeZone)
+        : `${String(local.getHours()).padStart(2, "0")}:${String(local.getMinutes()).padStart(2, "0")}`];
+    }));
+    return [{ date, times, at: { ...record.atMs }, source: record.source, revision: record.revision }];
   });
-
-  if (previousDay && prevYmd && days.length > 0) {
-    const prevDiyanet = diyanet.get(prevYmd);
-    const prevAt = prevDiyanet
-      ? instantsFromDiyanetIso(prevDiyanet.rawTimes)
-      : aladhan.get(ddmmyyyy(prevDate))?.at ?? null;
-    if (prevAt) {
-      const carry = futureCarry(prevAt, Date.now(), NOTIFY_AFTER_MIN);
-      if (Object.keys(carry).length > 0) days[0] = { ...days[0], carry };
+  if (days.length === 0) return null;
+  const prev = previousDay ? records.get(localYmdStr(prevDate)) : undefined;
+  if (prev) {
+    const carry = futureCarry({ ...prev.atMs }, Date.now(), NOTIFY_AFTER_MIN);
+    if (Object.keys(carry).length > 0) {
+      days[0].carry = carry;
+      days[0].revision += `:${prev.source}:${prev.revision}`;
     }
   }
-
-  if (days.length > 0) return days;
-
-  // Hiç gün çözülemedi → tek günlük yedek (eski davranış, en azından bugün doğru).
-  const single = await fetchPrayerTimes(lat, lng);
-  return single ? [{ date: today, times: single }] : null;
+  return days;
 }
 
-// Aladhan API'den namaz vakitlerini al (tek gün — yedek yol ve ana sayfa kullanımı)
-export async function fetchPrayerTimes(
-  lat: number,
-  lng: number
-): Promise<PrayerTimes | null> {
-  // Kötü ağda donmayı önlemek için 8 sn timeout (AbortController — RN'de geniş uyumlu).
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 8000);
-  try {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const yyyy = today.getFullYear();
-    const res = await fetch(
-      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
-      `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(deviceTimeZone())}&${aladhanTzParam()}`,
-      { headers: { "Accept": "application/json" }, signal: controller.signal }
-    );
-    const data = await res.json();
-    const timings = data?.data?.timings;
-    return timings ? adjustHighLatitude(timings, lat, localYMD(today), deviceTimeZone()) : null;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-// Vakit başlangıcından kaç dakika SONRA tek bildirim gider (hatırlatma +
-// namaz-taglı ayet birlikte). Bilerek "önce" değil "sonra": "5 dk kaldı" gibi
-// bir metin, cihaz Doze/pil optimizasyonuyla bildirimi geç teslim ederse
-// (vakit çoktan geçmişken hâlâ "yaklaşıyor" der) yanlış görünüyordu. "X vakti
-// girdi" ifadesi zamanında da gelse geç de gelse hep doğru okunur.
+// One notification two minutes after the prayer starts, including carried instants.
 const NOTIFY_AFTER_MIN = 2;
 
 // Android 8+ bildirim kanalları — yüksek öncelik (heads-up + ses). Olmadan bildirimler
@@ -613,6 +432,28 @@ async function buildDailyVerseRepeating(times: PrayerTimes): Promise<Notificatio
 // Bütün tercih, planlama, iptal ve damga işlemleri tek sıradan geçer.
 const notificationQueue = new SerialQueue();
 let coldStartPending = true;
+let activeCityKey: string | undefined;
+let repositorySubscribed = false;
+let upgradePending = false;
+function subscribeToPrayerRepository(): void {
+  if (repositorySubscribed) return;
+  repositorySubscribed = true;
+  getPrayerDayRepository().subscribe(event => {
+    if (!event.upgradedToDiyanet || event.cityKey !== activeCityKey || upgradePending) return;
+    upgradePending = true;
+    const cityKey = event.cityKey;
+    setTimeout(() => {
+      void notificationQueue.run(async () => {
+        try {
+          const currentCity = await prayerCityStampPart(diyanetDeps());
+          if (activeCityKey !== cityKey || (currentCity !== "-" && currentCity !== cityKey)) return;
+          await storage.remove(SCHED_DAY_KEY);
+          await ensureNotificationsFreshInner();
+        } finally { upgradePending = false; }
+      }).catch(() => {});
+    }, 0);
+  });
+}
 type PlanOptions = { days: DayTimes[]; prayer: boolean; dailyVerse: boolean };
 async function applyNotificationsInner(opts: PlanOptions, stamp: string | null, cachedRequests?: Notifications.NotificationRequestInput[]): Promise<void> {
   if ((opts.prayer || opts.dailyVerse) && opts.days.length === 0) throw new Error("no-times");
@@ -622,8 +463,10 @@ async function applyNotificationsInner(opts: PlanOptions, stamp: string | null, 
   if (!cachedRequests && opts.prayer) requests.push(...await buildPrayerNotifications(opts.days));
   if (!cachedRequests && opts.dailyVerse) requests.push(...await buildDailyVerseNotifications(opts.days));
   if (requests.length) await ensureAndroidChannel();
+  const v2 = await storage.getString(PLAN_CACHE_KEY).catch(() => null);
+  const restoreSource = v2 ?? await storage.getString(LEGACY_PLAN_CACHE_KEY).catch(() => null);
   const rollback = (opts.prayer || opts.dailyVerse)
-    ? readNotificationRollback(await storage.getString(PLAN_CACHE_KEY).catch(() => null), opts.prayer, opts.dailyVerse)
+    ? readNotificationRollback(restoreSource, opts.prayer, opts.dailyVerse)
     : [];
   await Notifications.cancelAllScheduledNotificationsAsync();
   try {
@@ -636,13 +479,18 @@ async function applyNotificationsInner(opts: PlanOptions, stamp: string | null, 
   }
   if ((opts.prayer || opts.dailyVerse) && !cachedRequests) {
     // Yalnız başarıyla kurulmuş plan saklanır; önbellek hatası çalışan planı bozmaz.
-    await storage.setJSON(PLAN_CACHE_KEY, { version: 1, stamp: await resolvePlanStamp(stamp, fullSchedStamp), ...opts, requests }).catch(() => {});
+    await storage.setJSON(PLAN_CACHE_KEY, {
+      version: 2, stamp: await resolvePlanStamp(stamp, fullSchedStamp), ...opts,
+      days: opts.days.map(day => ({ ...day, revision: day.revision?.includes("geo:")
+        ? stampForDays("", [day]).split("repo2:")[1] : day.revision })),
+      requests,
+    }).then(() => storage.remove(LEGACY_PLAN_CACHE_KEY)).catch(() => {});
   }
 }
 export function applyNotifications(opts: PlanOptions): Promise<void> {
   return notificationQueue.run(async () => {
     const stamp = await fullSchedStamp();
-    await applyNotificationsInner(opts, stamp);
+    await applyNotificationsInner(opts, stampForDays(stamp, opts.days));
   });
 }
 export function cancelNamazNotifications(): Promise<void> {
@@ -671,7 +519,7 @@ export function changeNotificationPreference(
         return key === NOTIF_KEY ? prayer : !prayer;
       }).map(request => Notifications.cancelScheduledNotificationAsync(request.identifier)));
       const cachedPlan = await storage.getJSON<Record<string, unknown>>(PLAN_CACHE_KEY).catch(() => null);
-      if (cachedPlan && cachedPlan.version === 1 && Array.isArray(cachedPlan.requests)) {
+      if (cachedPlan && cachedPlan.version === 2 && Array.isArray(cachedPlan.requests)) {
         const filtered = cachedPlan.requests.filter((request) => {
           const route = (request as { content?: { data?: { route?: unknown } } })?.content?.data?.route;
           return typeof route === "string" && (route === "/namaz" ? pv === "1" : dv === "1");
@@ -686,13 +534,15 @@ export function changeNotificationPreference(
       return { granted: true, isFallback: false };
     }
     // Planlama işinin başında bir kez okunur; iş sürerken şehir değişse bile bu damga yazılır.
-    const stamp = await fullSchedStamp();
+    let stamp = await fullSchedStamp();
     await storage.remove(SCHED_DAY_KEY);
     const coords = await location();
     const days = await fetchPrayerDays(coords.lat, coords.lng);
     if (!days?.length) throw new Error("no-times");
+    stamp = stampForDays(stamp, days);
     await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, stamp);
     await storage.setString(SCHED_DAY_KEY, stamp);
+    activePlan = { base: stamp.split("|repo2:")[0], signature: stamp.split("|repo2:")[1] };
     return { granted: true, isFallback: coords.isFallback };
   });
 }
@@ -711,13 +561,15 @@ async function enablePrayerNotificationsFirstRunInner(): Promise<FirstRunResult>
   }
   // Planlama başlamadan önce bir kez okunur; konum/şehir çözümü sürerken değişse bile
   // yazılan damga bu işin başındaki değer olur.
-  const stamp = await fullSchedStamp();
+  let stamp = await fullSchedStamp();
   const { lat, lng } = await getLocationRequesting();
   try {
     const days = await fetchPrayerDays(lat, lng);
     if (!days?.length) return "error";
+    stamp = stampForDays(stamp, days);
     await applyNotificationsInner({ days, prayer: true, dailyVerse: true }, stamp);
     await storage.setString(SCHED_DAY_KEY, stamp);
+    activePlan = { base: stamp.split("|repo2:")[0], signature: stamp.split("|repo2:")[1] };
     return "enabled";
   } catch { return "error"; }
 }
@@ -755,7 +607,7 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
     if (pv !== null || dv !== null) await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
     return;
   }
-  const stamp = await fullSchedStamp();
+  let stamp = await fullSchedStamp();
   const savedStamp = await storage.getString(SCHED_DAY_KEY);
   if (!shouldRefreshNotifications(true, coldStart, savedStamp, stamp)) return;
   try {
@@ -771,8 +623,10 @@ async function ensureNotificationsFreshInner(interactive = false, coldStart = fa
       days = await fetchPrayerDays(lat, lng) ?? undefined;
     }
     if (!days?.length) return;
+    if (!cached) stamp = stampForDays(stamp, days);
     await applyNotificationsInner({ days, prayer: pv === "1", dailyVerse: dv === "1" }, stamp, cached?.requests);
     await storage.setString(SCHED_DAY_KEY, stamp);
+    activePlan = { base: stamp.split("|repo2:")[0], signature: stamp.split("|repo2:")[1] };
   } catch { /* Damga yazılmaz; sonraki yenileme yeniden dener. */ }
 }
 export function rescheduleNotifications(): Promise<void> {
@@ -784,3 +638,5 @@ export function rescheduleNotifications(): Promise<void> {
 export function rescheduleNotificationsForLanguageChange(): Promise<void> {
   return rescheduleNotifications();
 }
+
+subscribeToPrayerRepository();

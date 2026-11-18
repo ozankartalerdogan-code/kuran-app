@@ -1,0 +1,343 @@
+// Frozen pre-Task-3 pure trigger computations from HEAD.
+import * as Notifications from "expo-notifications";
+import { api } from "./api";
+import { localizedMeal } from "./englishMeal";
+import { getStrings, fmt, getLang } from "../i18n";
+import notifStrings from "../i18n/strings/notifications";
+import prayerNameStrings from "../i18n/strings/prayerNames";
+import { formatHmInZone, futureCarry, intlZoneSupported, instantsFromDiyanetIso, instantsFromWallTimes, notificationAtMs } from "./prayerInstant";
+import type { PrayerInstants } from "./prayerInstant";
+import { dedupeVerses, pickFromPool } from "./notifVersePick";
+
+const VAKITLER = [
+  { key: "Fajr",    label: "İmsak" },
+  { key: "Sunrise", label: "Güneş" },
+  { key: "Dhuhr",   label: "Öğle"  },
+  { key: "Asr",     label: "İkindi" },
+  { key: "Maghrib", label: "Akşam" },
+  { key: "Isha",    label: "Yatsı"  },
+];
+
+export type PrayerTimes = Record<string, string>;
+
+
+const SCHEDULE_DAYS = 7;
+const NOTIFY_AFTER_MIN = 2;
+const ANDROID_CHANNEL_ID_PRAYER = "namaz-vakitleri";
+export type DayTimes = { date: Date; times: PrayerTimes; at?: PrayerInstants; carry?: Partial<PrayerInstants> };
+function dateTriggerAfter(day: Date, hour: number, minute: number, offsetMin: number, channelId: string) {
+  const at = new Date(day);
+  at.setHours(hour, minute + offsetMin, 0, 0);
+  if (at.getTime() <= Date.now()) return null;
+  return {
+    type: Notifications.SchedulableTriggerInputTypes.DATE,
+    date: at,
+    channelId, // iOS'ta yok sayılır
+  } as const;
+}
+
+// Mutlak andan DATE tetikleyicisi (epoch zaten offset uygulanmış; null = geçmiş).
+
+function dateTriggerAtMs(atMs: number | null, channelId: string) {
+  if (atMs === null) return null;
+  return {
+    type: Notifications.SchedulableTriggerInputTypes.DATE,
+    date: new Date(atMs),
+    channelId, // iOS'ta yok sayılır
+  } as const;
+}
+
+// Günlük namaz bildirimlerini planla. Her vakit için TEK bildirim (vakit
+// girdikten NOTIFY_AFTER_MIN dk sonra): hatırlatma + namaz-taglı ayet meali
+// birlikte (her yeniden planlamada rastgele → dinamik).
+
+type ValidVakit = { key: string; label: string; hour: number; minute: number };
+
+function parseValid(times: PrayerTimes): ValidVakit[] {
+  const valid: ValidVakit[] = [];
+  const names = getStrings(prayerNameStrings) as unknown as Record<string, string>;
+  for (const { key, label: trLabel } of VAKITLER) {
+    const label = names[key] ?? trLabel;
+    const timeStr = times[key];
+    if (!timeStr) continue;
+    const [hour, minute] = timeStr.split(":").map(Number);
+    if (Number.isNaN(hour) || Number.isNaN(minute)) continue;
+    valid.push({ key, label, hour, minute });
+  }
+  return valid;
+}
+
+// Namaz vakti bildirimleri: her gün × her vakit için TEK bildirim (hatırlatma +
+// namaz-taglı ayet), o günün GERÇEK vaktine göre DATE tetikleyicisiyle.
+
+async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications.NotificationRequestInput[]> {
+  // Namaz-taglı ayet HAVUZLARI — paralel çekilir, gün × vakit başına sırayla dağıtılır.
+  // Eskiden vakit başına tek ayet 7 günün hepsinde tekrarlanıyordu (ör. Öğle her gün aynı).
+  // Sunucu "sabah" ve "cuma" için özel etiket havuzu kullanır; diğerleri genel 'namaz' havuzu.
+  const fetchPool = (vakit: string, n: number) =>
+    Promise.all(Array.from({ length: n }, () => api.notifications.namazVerse(vakit).catch(() => null)))
+      .then((list) => dedupeVerses(list));
+  const [sabahPool, cumaPool, genelPool] = await Promise.all([
+    fetchPool("sabah", SCHEDULE_DAYS),
+    fetchPool("cuma", 2),
+    fetchPool("namaz", 12),
+  ]);
+  const OTHER_KEYS = VAKITLER.map(({ key }) => key).filter((k) => k !== "Fajr");
+
+  const ns = getStrings(notifStrings);
+  const jobs: Notifications.NotificationRequestInput[] = [];
+  const nowMs = Date.now();
+  const makePrayerJob = (
+    key: string,
+    label: string,
+    trigger: NonNullable<ReturnType<typeof dateTriggerAtMs>>,
+    dayIndex: number,
+    friday: boolean,
+  ): Notifications.NotificationRequestInput => {
+    const v =
+      key === "Fajr" ? pickFromPool(sabahPool, dayIndex, 0, 1) ?? pickFromPool(genelPool, dayIndex, 0, OTHER_KEYS.length)
+      : key === "Dhuhr" && friday && cumaPool.length > 0 ? pickFromPool(cumaPool, dayIndex, 0, 1)
+      : pickFromPool(genelPool, dayIndex, OTHER_KEYS.indexOf(key), OTHER_KEYS.length);
+    // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
+    const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
+    const verseLine = translation
+      ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
+      : "";
+    return {
+      content: {
+        // Güneş namaz vakti değil: "namaza hazırlanın" yerine sabah vaktinin çıktığını söyle.
+        title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
+        body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
+        sound: true,
+        data:  { route: "/namaz" },
+      },
+      trigger,
+    };
+  };
+
+  days.forEach(({ date, times, at }, dayIndex) => {
+    for (const { key, label, hour, minute } of parseValid(times)) {
+      const instant = at?.[key as keyof PrayerInstants];
+      const trigger = typeof instant === "number"
+        ? dateTriggerAtMs(notificationAtMs(instant, NOTIFY_AFTER_MIN, nowMs), ANDROID_CHANNEL_ID_PRAYER)
+        : dateTriggerAfter(date, hour, minute, NOTIFY_AFTER_MIN, ANDROID_CHANNEL_ID_PRAYER);
+      if (!trigger) continue; // bugünün geçmiş vakitleri
+      jobs.push(makePrayerJob(key, label, trigger, dayIndex, date.getDay() === 5));
+    }
+  });
+
+  // İlk günün önceki şehir gününden taşan anları: aynı içerik kuralı, dayIndex 0,
+  // cuma kuralı uygulanmaz. Her an için en fazla bir tetikleyici kurulur.
+  const carry = days.length > 0 ? days[0].carry : undefined;
+  if (carry) {
+    for (const { key, label } of parseValid(days[0].times)) {
+      const instant = carry[key as keyof PrayerInstants];
+      if (typeof instant !== "number") continue;
+      const trigger = dateTriggerAtMs(
+        notificationAtMs(instant, NOTIFY_AFTER_MIN, nowMs),
+        ANDROID_CHANNEL_ID_PRAYER,
+      );
+      if (!trigger) continue;
+      jobs.push(makePrayerJob(key, label, trigger, 0, false));
+    }
+  }
+  return jobs;
+}
+
+// Günlük ayet bildirimlerini, namaz vakitleri arasındaki en büyük 2 boşluğun ortasına
+// yerleştir → namaz bildirimleriyle çakışmaz. (En az 2 vakit yoksa makul sabit saatler.)
+
+function computeGapSlots(times: PrayerTimes): { hour: number; minute: number }[] {
+  const mins: number[] = [];
+  for (const { key } of VAKITLER) {
+    const t = times[key];
+    if (!t) continue;
+    const [h, m] = t.split(":").map(Number);
+    if (!Number.isNaN(h) && !Number.isNaN(m)) mins.push(h * 60 + m);
+  }
+  mins.sort((a, b) => a - b);
+  if (mins.length < 2) return [{ hour: 10, minute: 30 }, { hour: 20, minute: 0 }];
+  const gaps: { size: number; mid: number }[] = [];
+  for (let i = 0; i < mins.length - 1; i++) {
+    gaps.push({ size: mins[i + 1] - mins[i], mid: Math.round((mins[i] + mins[i + 1]) / 2) });
+  }
+  gaps.sort((a, b) => b.size - a.size);
+  const picks = gaps.slice(0, 2).map((g) => g.mid).sort((a, b) => a - b);
+  return picks.map((mid) => ({ hour: Math.floor(mid / 60), minute: mid % 60 }));
+}
+
+
+export { buildPrayerNotifications, computeGapSlots };
+
+// Frozen master calendar and fallback path for transport/epoch parity.
+import { adjustHighLatitude, aladhanMethodQuery } from "./prayerMethod";
+import { deviceTimeZone } from "./timeZone";
+import { getManualCity, getDiyanetDays } from "./diyanetPrayer";
+import { diyanetDeps, deviceOffsetMin, localYmdStr } from "./diyanetPrayerDeps";
+const notifyDiyanetDaysCached = () => {};
+const fetchPrayerTimes = async () => null;
+function sanitizeTimes(raw: Record<string, string>): PrayerTimes {
+  const out: PrayerTimes = {};
+  for (const [k, v] of Object.entries(raw)) {
+    const m = typeof v === "string" ? v.match(/^(\d{1,2}:\d{2})/) : null;
+    if (m) out[k] = m[1];
+  }
+  return out;
+}
+
+// Aladhan takvim günü: şehrin duvar saatleri + varsa mutlak anlar.
+type CalendarDay = { times: PrayerTimes; at: PrayerInstants | null };
+
+// Aladhan sorgusu için şehir dilimi: elle seçilen şehir bu koordinattaysa onun dilimi,
+// aksi halde cihazın dilimi. (Türkiye'de ikisi de Europe/Istanbul'dur.)
+async function aladhanCityTimeZone(lat: number, lng: number): Promise<string> {
+  // Intl dilim dönüşümü güvenilmezse eski davranış: her şey cihaz diliminde.
+  if (!intlZoneSupported()) return deviceTimeZone();
+  try {
+    const manual = await getManualCity(diyanetDeps());
+    if (
+      manual !== null &&
+      Math.abs(manual.lat - lat) < 1e-6 &&
+      Math.abs(manual.lon - lng) < 1e-6
+    ) {
+      return manual.tz;
+    }
+  } catch { /* cihaz dilimine düş */ }
+  return deviceTimeZone();
+}
+
+// Aladhan takvim ucundan bir ayın tüm günlerini çek (tek istek/ay).
+async function fetchMonthCalendar(
+  lat: number,
+  lng: number,
+  year: number,
+  month: number, // 1-12
+  cityTz: string,
+): Promise<Map<string, CalendarDay> | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(
+      // Yöntem/ikindi/temkin: prayerMethod.ts (Türkiye method=13, yurt dışı Diyanet'e yakın kural)
+      `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lng}&${aladhanMethodQuery(cityTz)}&timezonestring=${encodeURIComponent(cityTz)}`,
+      { headers: { "Accept": "application/json" }, signal: controller.signal }
+    );
+    const data = await res.json();
+    if (!Array.isArray(data?.data)) return null;
+    const map = new Map<string, CalendarDay>();
+    for (const day of data.data) {
+      const gDate = day?.date?.gregorian?.date; // "DD-MM-YYYY"
+      if (typeof gDate === "string" && day?.timings) {
+        const [d, m, y] = gDate.split("-").map(Number);
+        const times = adjustHighLatitude(sanitizeTimes(day.timings), lat, { year: y, month: m, day: d }, cityTz);
+        const ymd = `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        map.set(gDate, { times, at: intlZoneSupported() ? instantsFromWallTimes(ymd, times, cityTz) : null });
+      }
+    }
+    return map;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function ddmmyyyy(d: Date): string {
+  return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
+}
+
+// Bugünden itibaren SCHEDULE_DAYS günün vakitlerini getirir. ÖNCE kendi
+// sunucumuzdaki Diyanet vakitleri denenir; eksik kalan günler için mevcut
+// Aladhan takvim yolu (yalnız o aylar) kullanılır. Hiç gün çözülemezse eski
+// davranış: takvim → tek günlük yedek.
+export async function fetchPrayerDays(
+  lat: number,
+  lng: number,
+): Promise<DayTimes[] | null> {
+  const today = new Date();
+  const wanted: Date[] = Array.from({ length: SCHEDULE_DAYS }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    return d;
+  });
+  const wantedYmd = wanted.map(localYmdStr);
+  const deviceTz = deviceTimeZone();
+  const cityTz = await aladhanCityTimeZone(lat, lng);
+  // Şehir dilimi cihazdan gerideyse önceki şehir gününün geç vakitleri cihazın
+  // bugününe taşar; o günü de isteyip yalnız gelecekteki anları taşırız.
+  // Türkiye'de dilimler eşittir → ek istek yok, davranış birebir aynı kalır.
+  const previousDay = cityTz !== deviceTz;
+  const prevDate = new Date(today);
+  if (previousDay) prevDate.setDate(today.getDate() - 1);
+  const prevYmd = previousDay ? localYmdStr(prevDate) : null;
+  const requestDates = prevYmd ? [prevDate, ...wanted] : wanted;
+  const requestYmd = prevYmd ? [prevYmd, ...wantedYmd] : wantedYmd;
+
+  const diyanet = await getDiyanetDays(
+    lat,
+    lng,
+    deviceOffsetMin(),
+    requestYmd,
+    diyanetDeps(),
+  );
+  if (diyanet.size > 0) notifyDiyanetDaysCached();
+
+  const missing = requestDates.filter((_, i) => !diyanet.has(requestYmd[i]));
+  const aladhan = new Map<string, CalendarDay>();
+  if (missing.length > 0) {
+    // Pencere ay sınırını aşabilir → yalnız eksik günlerin ayları için istek.
+    const months = new Map<string, { year: number; month: number }>();
+    for (const d of missing) {
+      months.set(`${d.getFullYear()}-${d.getMonth() + 1}`, {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+      });
+    }
+    const calendars = await Promise.all(
+      [...months.values()].map(({ year, month }) => fetchMonthCalendar(lat, lng, year, month, cityTz))
+    );
+    for (const cal of calendars) {
+      if (cal) for (const [k, v] of cal) aladhan.set(k, v);
+    }
+  }
+
+  const days: DayTimes[] = [];
+  wanted.forEach((d, i) => {
+    const diyanetDay = diyanet.get(wantedYmd[i]);
+    if (diyanetDay) {
+      days.push({ date: d, times: diyanetDay.times, at: instantsFromDiyanetIso(diyanetDay.rawTimes) ?? undefined });
+      return;
+    }
+    const cal = aladhan.get(ddmmyyyy(d));
+    if (!cal) return;
+    if (cityTz === deviceTz) {
+      // Aynı dilim (Türkiye): saatler olduğu gibi; an hesaplanamadıysa eski setHours yolu.
+      days.push(cal.at ? { date: d, times: cal.times, at: cal.at } : { date: d, times: cal.times });
+      return;
+    }
+    if (cal.at === null) return;
+    const at = cal.at;
+    const times: PrayerTimes = {};
+    for (const { key } of VAKITLER) {
+      times[key] = formatHmInZone(at[key as keyof PrayerInstants], deviceTz);
+    }
+    days.push({ date: d, times, at });
+  });
+
+  if (previousDay && prevYmd && days.length > 0) {
+    const prevDiyanet = diyanet.get(prevYmd);
+    const prevAt = prevDiyanet
+      ? instantsFromDiyanetIso(prevDiyanet.rawTimes)
+      : aladhan.get(ddmmyyyy(prevDate))?.at ?? null;
+    if (prevAt) {
+      const carry = futureCarry(prevAt, Date.now(), NOTIFY_AFTER_MIN);
+      if (Object.keys(carry).length > 0) days[0] = { ...days[0], carry };
+    }
+  }
+
+  if (days.length > 0) return days;
+
+  // Hiç gün çözülemedi → tek günlük yedek (eski davranış, en azından bugün doğru).
+  const single = await fetchPrayerTimes(lat, lng);
+  return single ? [{ date: today, times: single }] : null;
+}
