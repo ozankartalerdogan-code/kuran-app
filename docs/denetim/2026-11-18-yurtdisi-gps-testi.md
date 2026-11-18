@@ -136,3 +136,19 @@ Dosyalar: `docs/denetim/yurtdisi-gps-2026-11-18/` (720×1600 PNG).
 | [09-son-ana-sayfa.png](yurtdisi-gps-2026-11-18/09-son-ana-sayfa.png) | Geri yüklenmiş Büyükçekmece, aynı altı vakit, Yatsı'ya 30 dk |
 
 Berlin/Londra/Mekke ekran görüntüsü yoktur; sahte şehir etkinleştirilemedi.
+
+## Ek — Claude'un elle yaptığı GPS testi (18.11.2026, 18:57–19:08)
+
+Fake GPS koordinat girişiyle (Search → Coordinates) çalıştırıldı; cihaz saat dilimi Europe/Istanbul bırakıldı (sistem ayarına dokunulmadı). Referans: canlı `/api/v1/vakit?cityId=…&month=2026-11` (Diyanet).
+
+| Şehir | Uygulama (İstanbul saati) | Diyanet (İstanbul saatine çevrilmiş) | Sonuç |
+|---|---|---|---|
+| Mekke (21.4225, 39.8262) | 05:16 06:26 12:11 15:20 17:45 18:51; etiket "Mekke"; hicri 9 | aynı; hicri 9 | PASS — birebir; bildirim planı `c16309`, kaynak diyanet |
+| Berlin (52.52, 13.405) | 07:32 09:26 13:56 15:53 18:16 20:03; etiket "Berlin"; hicri **8** | 07:32 09:26 13:57 15:52 18:17 19:58; hicri 9 | Vakitler ≤5 dk (yatsı +5) — kabul; Diyanet eşleşmesi yok (off filtresi, beklenen) |
+
+Bulgular:
+- **P3 — Aladhan yedeğinde hicri tarih 1 gün geride** (Berlin: 8 vs Diyanet 9). Aladhan hicri eşlemesi `prayerDayRepositoryAdapters.ts` içinde; Diyanet ile aynı gün için tutarsız.
+- **P3 — Konum değişince ön plana dönüşte yenilenmiyor:** Berlin→Mekke sonrası uygulama öne alındığında kart Berlin'de kaldı; JS reload sonrası Mekke'ye geçti. `getHomeLocation` son konumu (≤10 dk) kullanıyor; AppState foreground'da yeniden bağlam kurulmuyor olabilir.
+- Londra ve Berlin+Berlin saat dilimi senaryosu kullanıcı kararıyla atlandı (gerçek yolcuda saat dilimi otomatik değişir).
+
+Geri yükleme: Fake GPS kendi stop düğmesiyle durduruldu (force-stop yok). Şehir UI'dan Büyükçekmece (9537) seçildi; `namazNotifSchedDay` = başlangıçla aynı (`m9537|repo2:diyanet:8e5fdd6f`), kart vakitleri başlangıçla aynı.
