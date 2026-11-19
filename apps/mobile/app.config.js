@@ -12,7 +12,7 @@ module.exports = {
     name: 'Kuran Yolu',
     slug: 'kuran-analiz',
     scheme: 'kuranyolu',
-    version: '1.2.2',
+    version: '1.2.3',
     sdkVersion: '56.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
@@ -154,14 +154,19 @@ module.exports = {
       // değil) react-native-android-widget'ın WorkManager Worker sınıfını (arka
       // plan widget güncellemesi) reflection ile bulamayıp sessizce silebiliyor —
       // kütüphane kendi consumer-proguard kuralını içermiyor. Bu kurallar
-      // minifyEnabled kapalıyken zararsız durur, açılırsa koruma sağlar.
+      // Release R8 açıkken bu reflection giriş noktaları korunmalıdır.
       [
         'expo-build-properties',
         {
           android: {
+            enableMinifyInReleaseBuilds: true,
+            enableShrinkResourcesInReleaseBuilds: true,
             extraProguardRules:
               '-keep class * extends androidx.work.ListenableWorker { public <init>(android.content.Context, androidx.work.WorkerParameters); }\n' +
-              '-keep class com.reactnativeandroidwidget.** { *; }',
+              '-keep class com.reactnativeandroidwidget.** { *; }\n' +
+              // expo-task-manager arka plan görevinde uygulamayı bu sınıfla başlatır; sınıf adı
+              // yalnız manifest meta-data'sında geçtiği için R8 siliyordu (A03'te ClassNotFound).
+              '-keep class expo.modules.adapters.react.apploader.RNHeadlessAppLoader { *; }',
           },
           // iOS: React Native Firebase statik framework ister; RNFB pod'ları
           // precompiled RN ile modular-header çakışması yaşamasın diye statik linklenir.
