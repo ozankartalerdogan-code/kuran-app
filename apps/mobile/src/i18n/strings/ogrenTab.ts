@@ -18,6 +18,8 @@ export default defineStrings({
     hadisSub: "219 seçme hadis, 27 konu",
     rootLabel: "Kelime Kökü Analizi",
     rootSub: "Ayetleri kök bazında incele",
+    topicsLabel: "Konular",
+    topicsSub: "Ayetleri konularına göre keşfet",
   },
   en: {
     heading: "Learn",
@@ -36,5 +38,7 @@ export default defineStrings({
     hadisSub: "219 selected hadiths, 27 topics",
     rootLabel: "Word Root Analysis",
     rootSub: "Explore verses by word root",
+    topicsLabel: "Topics",
+    topicsSub: "Explore verses by topic",
   },
 });

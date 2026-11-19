@@ -21,6 +21,7 @@ import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import searchStrings from "../src/i18n/strings/search";
 import tagStrings from "../src/i18n/strings/tagLabels";
 import { useSurahNameOf, localizedSurahName } from "../src/lib/surahNames";
+import { getThemeTitle, hasThemeTitle, resolveThemeCode, THEME_TAGS_ENABLED, TAXONOMY_IS_PLACEHOLDER } from "../src/lib/themes";
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
 type SearchState =
@@ -79,7 +80,7 @@ function parseVerseKey(key: string) {
 }
 
 function chipText(tag: string, trLabel: string, s: Record<string, string>): string {
-  return s[tag] ?? trLabel;
+  return s[tag] ?? (trLabel || getThemeTitle(tag, getLang()));
 }
 
 // İngilizce modda eşlemesi olmayan etiket null döner (Türkçe göstermemek için gizlenir).
@@ -94,10 +95,13 @@ function tagLabel(tag: string): string | null {
     if (chips.some(c => c.tag === tag)) return `${title} · ${chipText(tag, "", s)}`;
     return en ? null : `${title} · ${tag.slice(prefix.length)}`;
   }
-  if (en) return null;
-  if (tag.startsWith("dua-"))      return `Dua · ${tag.slice(4)}`;
-  const parts = tag.replace(/_%$/, "").split("_");
-  return parts.length >= 2 ? `${parts[0]} · ${parts.slice(1).join(" ").toLocaleLowerCase("tr-TR")}` : tag;
+  // Tema taksonomisi (level1/level2; eski kodlar migration ile eşlenir). İngilizcede
+  // yalnız gerçek (EN başlıklı) taksonomi varsa ya da geliştirme bayrağı açıkken.
+  const known = hasThemeTitle(tag);
+  if (en && !(known && (!TAXONOMY_IS_PLACEHOLDER || THEME_TAGS_ENABLED))) return null;
+  if (!known && tag.startsWith("dua-")) return `Dua · ${getThemeTitle(tag.slice(4), "tr")}`;
+  // Silinmiş eski kod: yine okunur yedek başlık (ham kod gösterilmez).
+  return getThemeTitle(resolveThemeCode(tag) ?? tag, en ? "en" : "tr");
 }
 
 // İngilizce modda sunucu aramasına ek olarak gömülü Pickthall tablosunda ara
@@ -201,7 +205,7 @@ function TagCard({ tag, count }: { tag: string; count: number }) {
         </View>
         <View style={styles.cardBody}>
           <Text style={[styles.typeLabel, { color: amber }]}>{caps(ss.themeFound)}</Text>
-          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{getLang() === "en" ? (tagLabel(tag) ?? "") : tag}</Text>
+          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{tagLabel(tag) ?? ""}</Text>
           <Text style={[styles.tagCount, { color: amber }]}>{fmt(ss.tagCount, { n: count })}</Text>
         </View>
       </View>

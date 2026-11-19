@@ -10,6 +10,7 @@ import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, caps } from "../../src/i18n";
 import ogrenStrings from "../../src/i18n/strings/ogrenTab";
+import { THEME_TAGS_ENABLED } from "../../src/lib/themes";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
 type LearnItem = {
@@ -27,6 +28,10 @@ const buildSections = (t: Record<string, string>) => [
   {
     title: t.secMid,
     items: [
+      // Konular (tema etiketleri): doğrulama bitene kadar yalnız geliştirme build'inde.
+      ...(THEME_TAGS_ENABLED
+        ? [{ icon: "pricetags-outline", iconBg: "#e0f2fe", iconColor: "#0369a1", darkIconBg: "#0c4a6e", darkIconColor: "#7dd3fc", label: t.topicsLabel, sub: t.topicsSub, route: "/konular" } satisfies LearnItem]
+        : []),
       { icon: "people-outline", iconBg: "#dcfce7", iconColor: "#15803d", darkIconBg: "#14532d", darkIconColor: "#86efac", label: t.kissalarLabel, sub: t.kissalarSub, route: "/peygamber-kissalari" },
       { icon: "moon-outline", iconBg: "#ede9fe", iconColor: "#7c3aed", darkIconBg: "#4c1d95", darkIconColor: "#c4b5fd", label: t.siyerLabel, sub: t.siyerSub, route: "/siyer" },
       { icon: "calendar-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: t.mubarekLabel, sub: t.mubarekSub, route: "/mubarek-gunler" },

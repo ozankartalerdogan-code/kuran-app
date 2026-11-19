@@ -1,0 +1,303 @@
+{
+ "version": 0,
+ "_placeholder": true,
+ "groups": [
+  {
+   "code": "A",
+   "tr": "İnanç Esasları",
+   "en": "İnanç Esasları"
+  },
+  {
+   "code": "B",
+   "tr": "İbadet",
+   "en": "İbadet"
+  },
+  {
+   "code": "C",
+   "tr": "Ahlak & Değerler",
+   "en": "Ahlak & Değerler"
+  },
+  {
+   "code": "D",
+   "tr": "Hukuk & Toplum",
+   "en": "Hukuk & Toplum"
+  },
+  {
+   "code": "E",
+   "tr": "Kâinat & İnsan",
+   "en": "Kâinat & İnsan"
+  },
+  {
+   "code": "F",
+   "tr": "Kıssalar & Tarih",
+   "en": "Kıssalar & Tarih"
+  },
+  {
+   "code": "G",
+   "tr": "Kur'an & Dinlerarası",
+   "en": "Kur'an & Dinlerarası"
+  }
+ ],
+ "level1": [
+  {
+   "code": "A1_ALLAH_ULUHIYET",
+   "group": "A",
+   "tr": "Allah & Uluhiyet",
+   "en": "Allah & Uluhiyet",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "A2_VAHIY_KITAPLAR",
+   "group": "A",
+   "tr": "Vahiy & Kitaplar",
+   "en": "Vahiy & Kitaplar",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "A3_NUBUVVET_PEYGAMBERLIK",
+   "group": "A",
+   "tr": "Peygamberlik",
+   "en": "Peygamberlik",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "A4_MELEKLER_GAYB_ALEMI",
+   "group": "A",
+   "tr": "Melekler & Gayb",
+   "en": "Melekler & Gayb",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "A5_KADER_ILAHI_TAKDIR",
+   "group": "A",
+   "tr": "Kader ve İrade",
+   "en": "Kader ve İrade",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "A6_AHIRET_MEAD",
+   "group": "A",
+   "tr": "Ahiret Hayatı",
+   "en": "Ahiret Hayatı",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "B1_TAHARET_TEMIZLIK",
+   "group": "B",
+   "tr": "Taharet & Temizlik",
+   "en": "Taharet & Temizlik",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "B2_SERI_IBADETLER",
+   "group": "B",
+   "tr": "Şer'i İbadetler (Namaz, Oruç...)",
+   "en": "Şer'i İbadetler (Namaz, Oruç...)",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "B3_KALBI_IBADETLER",
+   "group": "B",
+   "tr": "Kalbi İbadetler (Dua, Tövbe...)",
+   "en": "Kalbi İbadetler (Dua, Tövbe...)",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": true
+  },
+  {
+   "code": "C1_BIREYSEL_ERDEMLER",
+   "group": "C",
+   "tr": "Bireysel Erdemler",
+   "en": "Bireysel Erdemler",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "C2_BIREYSEL_REZILETLER",
+   "group": "C",
+   "tr": "Bireysel Reziletler",
+   "en": "Bireysel Reziletler",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "C3_ILETISIM_SOZ_AHLAKI",
+   "group": "C",
+   "tr": "İletişim & Söz Ahlakı",
+   "en": "İletişim & Söz Ahlakı",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "C4_ILIM_AKIL_TEFEKKUR",
+   "group": "C",
+   "tr": "İlim, Akıl & Tefekkür",
+   "en": "İlim, Akıl & Tefekkür",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "D1_AILE_HUKUKU",
+   "group": "D",
+   "tr": "Aile Hukuku",
+   "en": "Aile Hukuku",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "D2_CINSEL_AHLAK",
+   "group": "D",
+   "tr": "Cinsel Ahlak",
+   "en": "Cinsel Ahlak",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "D3_CEZA_HUKUKU_HUDUD",
+   "group": "D",
+   "tr": "Ceza Hukuku & Hudud",
+   "en": "Ceza Hukuku & Hudud",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "D4_IKTISADI_HAYAT",
+   "group": "D",
+   "tr": "İktisadi Hayat",
+   "en": "İktisadi Hayat",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "D5_TOPLUMSAL_DUZEN",
+   "group": "D",
+   "tr": "Toplumsal Düzen",
+   "en": "Toplumsal Düzen",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "D6_HELAL_HARAM",
+   "group": "D",
+   "tr": "Helal & Haramlar",
+   "en": "Helal & Haramlar",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "E1_KEVNI_AYETLER",
+   "group": "E",
+   "tr": "Evren ve Kevni Ayetler",
+   "en": "Evren ve Kevni Ayetler",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "E2_INSANIN_MAHIYETI",
+   "group": "E",
+   "tr": "İnsanın Mahiyeti",
+   "en": "İnsanın Mahiyeti",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "E3_TARIH_SUNNETULLAH",
+   "group": "E",
+   "tr": "Tarih & Sünnetullah",
+   "en": "Tarih & Sünnetullah",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "F1_PEYGAMBER_KISSALARI",
+   "group": "F",
+   "tr": "Peygamber Kıssaları",
+   "en": "Peygamber Kıssaları",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "F2_HELAK_KAVIMLER",
+   "group": "F",
+   "tr": "Helak Kavimler",
+   "en": "Helak Kavimler",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "F3_SIYER_SAHABE",
+   "group": "F",
+   "tr": "Siyer & Sahabe",
+   "en": "Siyer & Sahabe",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "G1_KURAN_HAKKINDA",
+   "group": "G",
+   "tr": "Kur'an Hakkında",
+   "en": "Kur'an Hakkında",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "G2_DINLER_MENSUPLARI",
+   "group": "G",
+   "tr": "Dinlerin Mensupları",
+   "en": "Dinlerin Mensupları",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  },
+  {
+   "code": "G3_MESELLER_TEMSILLER",
+   "group": "G",
+   "tr": "Meseller & Temsiller",
+   "en": "Meseller & Temsiller",
+   "descTr": "",
+   "descEn": "",
+   "sensitive": false
+  }
+ ],
+ "level2": [],
+ "migration": {
+  "level1": {
+   "C4_ILIM_AKIL_TEFEKKÜR": "C4_ILIM_AKIL_TEFEKKUR"
+  },
+  "level2": {}
+ },
+ "_note": "GECICI: content/themes/taxonomy.placeholder.json kopyasi. scripts/themes/build_bundles.py gercek dosyayi uretince uzerine yazilir."
+}
