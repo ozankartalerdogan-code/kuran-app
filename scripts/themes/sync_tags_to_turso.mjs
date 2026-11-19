@@ -54,7 +54,7 @@ function writeAll(state, keys) {
     const t = tagsBy.get(k);
     if (t) s.push({ sql: `INSERT INTO verse_tags (verse_key, ana_tema, alt_taglar, updated_at) VALUES (?,?,?,?)
       ON CONFLICT(verse_key) DO UPDATE SET ana_tema=excluded.ana_tema, alt_taglar=excluded.alt_taglar, updated_at=excluded.updated_at`,
-      args: [k, t.ana_tema, t.alt_taglar, t.updated_at] });
+      args: [k, t.ana_tema ?? "", t.alt_taglar, t.updated_at] }); // Turso'da ana_tema NOT NULL: "yok" = ''
     else s.push({ sql: "DELETE FROM verse_tags WHERE verse_key = ?", args: [k] });
     s.push({ sql: "DELETE FROM verse_tag_items WHERE verse_key = ?", args: [k] });
     for (const it of itemsBy.get(k) ?? []) s.push({ sql: "INSERT INTO verse_tag_items (verse_key, tag, isim, aciklama) VALUES (?,?,?,?)", args: [k, it.tag, it.isim, it.aciklama] });
@@ -62,7 +62,7 @@ function writeAll(state, keys) {
   return s;
 }
 
-const sig = (t, items) => JSON.stringify([t?.ana_tema ?? null, t?.alt_taglar ?? null, (items ?? []).map((i) => [i.tag, i.isim ?? null, i.aciklama ?? null]).sort()]);
+const sig = (t, items) => JSON.stringify([t ? (t.ana_tema || "") : null, t?.alt_taglar ?? null, (items ?? []).map((i) => [i.tag, i.isim ?? null, i.aciklama ?? null]).sort()]);
 function index(state) {
   const items = new Map();
   for (const r of state.items) (items.get(r.verse_key) ?? items.set(r.verse_key, []).get(r.verse_key)).push(r);
