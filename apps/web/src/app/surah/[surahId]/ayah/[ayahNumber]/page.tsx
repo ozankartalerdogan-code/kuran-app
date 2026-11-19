@@ -7,6 +7,7 @@ import { getAyahDetailFromDb } from "../../../../../lib/getAyahDetailFromDb";
 import { dbAll, dbGet } from "../../../../../lib/dbUtils";
 import { NUZUL } from "../../../../../data/nuzul";
 import { cleanMealText } from "../../../../../lib/cleanMeal";
+import { getThemeTitle } from "../../../../../lib/themes";
 import type { Metadata } from "next";
 import type {
   AvailabilityStatus,
@@ -1319,7 +1320,7 @@ export default async function Page({ params, searchParams: searchParamsPromise }
                     href={`/search?tag=${encodeURIComponent(detail.ayah.anaTema)}`}
                     className="inline-flex items-center rounded-xl border border-navy-200 bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-700 transition-colors hover:bg-navy-100"
                   >
-                    {detail.ayah.anaTema.replace(/_/g, " ")}
+                    {getThemeTitle(detail.ayah.anaTema, "tr")}
                   </Link>
                 </div>
               ) : null}
@@ -1331,7 +1332,7 @@ export default async function Page({ params, searchParams: searchParamsPromise }
                       href={`/search?tag=${encodeURIComponent(tag)}`}
                       className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 transition-colors hover:bg-sky-100"
                     >
-                      {tag}
+                      {getThemeTitle(tag, "tr")}
                     </Link>
                   ))}
                 </div>

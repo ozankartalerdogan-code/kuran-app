@@ -2,194 +2,129 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import {
   Sparkles, Orbit, Moon, HandHeart, Brain, Scale,
   Star, Gem, Globe, BookOpen, Scroll, Shield, MoonStar, LayoutGrid, Sprout,
   type LucideIcon,
 } from "lucide-react";
+import { getGroups, getLevel1ByGroup, getThemeTitle } from "../../lib/themes";
 
 // ── Tip tanımları ─────────────────────────────────────────────────────────────
 
 interface ThemeCard {
   kod:      string;
-  baslik:   string;
   aciklama: string;
   gradient: string;
   ikon:     LucideIcon;
-  ayet:     number;
 }
 
 interface AkordeonTema {
   kod:   string;
   isim:  string;
-  ayet:  number;
+  ayet?: number;
 }
 
 interface AkordeonGrup {
+  kod:     string;
   baslik:  string;
   ikon:    LucideIcon;
   temalar: AkordeonTema[];
 }
 
+type ThemeCounts = Record<string, number>;
+
 // ── Öne çıkan 6 tema kartı ────────────────────────────────────────────────────
+// Başlıklar ve ayet sayıları taksonomi/API'den gelir; burada yalnız sunum seçimi var.
 
 // Marka kimliği: gökkuşağı gradyanlar yerine lacivert-altın ailesi (premium dil)
 const FEATURED_THEMES: ThemeCard[] = [
   {
     kod:      "A1_ALLAH_ULUHIYET",
-    baslik:   "Allah & Uluhiyet",
     aciklama: "Allah'ın isim, sıfat ve birliği",
     gradient: "from-navy-950 to-navy-700",
     ikon:     Sparkles,
-    ayet:     619,
   },
   {
     kod:      "E1_KEVNI_AYETLER",
-    baslik:   "Evren ve Yaratılış",
     aciklama: "Göklerin, yerin ve tabiatın varoluşundaki ilahi deliller",
     gradient: "from-navy-800 to-navy-500",
     ikon:     Orbit,
-    ayet:     320,
   },
   {
     kod:      "A6_AHIRET_MEAD",
-    baslik:   "Ahiret & Ötesi",
     aciklama: "Ölüm, kıyamet, cennet ve cehennem",
     gradient: "from-navy-900 to-navy-600",
     ikon:     Moon,
-    ayet:     1393,
   },
   {
     kod:      "B2_SERI_IBADETLER",
-    baslik:   "İbadetler",
     aciklama: "Namaz, oruç, zekât, hac",
     gradient: "from-gold-800 to-gold-600",
     ikon:     HandHeart,
-    ayet:     123,
   },
-  // Kural 1: E1 mükerreri → E2_INSANIN_MAHIYETI
   {
     kod:      "E2_INSANIN_MAHIYETI",
-    baslik:   "İnsan ve Mahiyeti",
     aciklama: "İnsanın yaratılış aşamaları, nefis, ruh ve fıtrat analizleri",
     gradient: "from-navy-700 to-navy-400",
     ikon:     Brain,
-    ayet:     103,
   },
   {
     kod:      "D5_TOPLUMSAL_DUZEN",
-    baslik:   "Toplum & Adalet",
     aciklama: "Adalet, şura, emanet, fitne",
     gradient: "from-gold-950 to-gold-700",
     ikon:     Scale,
-    ayet:     182,
   },
 ];
 
-// ── Akordeon — tüm temalar + ayet sayıları ────────────────────────────────────
-// Kural 3: Ayet sayıları eklendi, A1 de dahil edildi
-
-const AKORDEON_GRUPLARI: AkordeonGrup[] = [
-  {
-    baslik: "A — İnanç Esasları",
-    ikon:   Star,
-    temalar: [
-      { kod: "A1_ALLAH_ULUHIYET",        isim: "Allah & Uluhiyet",                    ayet: 619  },
-      { kod: "A2_VAHIY_KITAPLAR",        isim: "Vahiy & Kitaplar",                    ayet: 332  },
-      { kod: "A3_NUBUVVET_PEYGAMBERLIK", isim: "Peygamberlik",                        ayet: 286  },
-      { kod: "A4_MELEKLER_GAYB_ALEMI",   isim: "Melekler & Gayb",                     ayet: 163  },
-      { kod: "A5_KADER_ILAHI_TAKDIR",    isim: "Kader ve İrade",                      ayet: 137  },
-      { kod: "A6_AHIRET_MEAD",           isim: "Ahiret Hayatı",                       ayet: 1393 },
-    ],
-  },
-  {
-    baslik: "B — İbadet",
-    ikon:   HandHeart,
-    temalar: [
-      { kod: "B1_TAHARET_TEMIZLIK", isim: "Taharet & Temizlik",                       ayet: 7   },
-      { kod: "B2_SERI_IBADETLER",   isim: "Şer'i İbadetler (Namaz, Oruç...)",         ayet: 123 },
-      { kod: "B3_KALBI_IBADETLER",  isim: "Kalbi İbadetler (Dua, Tövbe...)",          ayet: 192 },
-    ],
-  },
-  {
-    baslik: "C — Ahlak & Değerler",
-    ikon:   Gem,
-    temalar: [
-      { kod: "C1_BIREYSEL_ERDEMLER",   isim: "Bireysel Erdemler",                     ayet: 204 },
-      { kod: "C2_BIREYSEL_REZILETLER", isim: "Bireysel Reziletler",                   ayet: 398 },
-      { kod: "C3_ILETISIM_SOZ_AHLAKI", isim: "İletişim & Söz Ahlakı",                ayet: 46  },
-      { kod: "C4_ILIM_AKIL_TEFEKKUR",  isim: "İlim, Akıl & Tefekkür",                ayet: 53  },
-    ],
-  },
-  {
-    baslik: "D — Hukuk & Toplum",
-    ikon:   Scale,
-    temalar: [
-      { kod: "D1_AILE_HUKUKU",       isim: "Aile Hukuku",                             ayet: 98  },
-      { kod: "D2_CINSEL_AHLAK",      isim: "Cinsel Ahlak",                            ayet: 29  },
-      { kod: "D3_CEZA_HUKUKU_HUDUD", isim: "Ceza Hukuku & Hudud",                    ayet: 37  },
-      { kod: "D4_IKTISADI_HAYAT",    isim: "İktisadi Hayat",                          ayet: 116 },
-      { kod: "D5_TOPLUMSAL_DUZEN",   isim: "Toplumsal Düzen",                         ayet: 182 },
-      { kod: "D6_HELAL_HARAM",       isim: "Helal & Haramlar",                        ayet: 46  },
-    ],
-  },
-  {
-    baslik: "E — Kâinat & İnsan",
-    ikon:   Globe,
-    temalar: [
-      { kod: "E1_KEVNI_AYETLER",     isim: "Evren ve Kevni Ayetler",                  ayet: 320 },
-      { kod: "E2_INSANIN_MAHIYETI",  isim: "İnsanın Mahiyeti",                        ayet: 103 },
-      { kod: "E3_TARIH_SUNNETULLAH", isim: "Tarih & Sünnetullah",                     ayet: 148 },
-    ],
-  },
-  {
-    baslik: "F — Kıssalar & Tarih",
-    ikon:   BookOpen,
-    temalar: [
-      { kod: "F1_PEYGAMBER_KISSALARI", isim: "Peygamber Kıssaları",                   ayet: 802 },
-      { kod: "F2_HELAK_KAVIMLER",      isim: "Helak Kavimler",                        ayet: 151 },
-      { kod: "F3_SIYER_SAHABE",        isim: "Siyer & Sahabe",                        ayet: 29  },
-    ],
-  },
-  {
-    baslik: "G — Kur'an & Dinlerarası",
-    ikon:   Scroll,
-    temalar: [
-      { kod: "G1_KURAN_HAKKINDA",     isim: "Kur'an Hakkında",                        ayet: 39  },
-      { kod: "G2_DINLER_MENSUPLARI",  isim: "Dinlerin Mensupları",                    ayet: 140 },
-      { kod: "G3_MESELLER_TEMSILLER", isim: "Meseller & Temsiller",                   ayet: 43  },
-    ],
-  },
-];
+const GROUP_ICONS: Record<string, LucideIcon> = {
+  A: Star,
+  B: HandHeart,
+  C: Gem,
+  D: Scale,
+  E: Globe,
+  F: BookOpen,
+  G: Scroll,
+};
 
 // ── Alt bileşenler ────────────────────────────────────────────────────────────
 
-function ThemeCardGrid({ onTagClick }: { onTagClick: (tag: string) => void }) {
+function ThemeCardGrid({
+  onTagClick,
+  counts,
+}: {
+  onTagClick: (tag: string) => void;
+  counts: ThemeCounts | null;
+}) {
   return (
     <section>
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-stone-600 dark:text-stone-400">
         Öne Çıkan Temalar
       </h2>
       <div className="stagger-children grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {FEATURED_THEMES.map((t) => (
-          <button
-            key={t.kod}
-            onClick={() => onTagClick(t.kod)}
-            className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${t.gradient} p-4 text-left shadow-md ring-1 ring-white/10 transition-transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0`}
-          >
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
-              <t.ikon aria-hidden="true" className="h-5 w-5 text-gold-200" strokeWidth={1.75} />
-            </span>
-            <p className="mt-2 text-sm font-bold leading-tight text-white">{t.baslik}</p>
-            <p className="mt-1 text-xs leading-snug text-white/75 line-clamp-2">{t.aciklama}</p>
-            <span className="mt-2.5 inline-block rounded-full bg-white/15 px-2 py-0.5 text-xs font-semibold tracking-wide text-gold-200">
-              {t.ayet.toLocaleString("tr-TR")} ayet
-            </span>
-            <span className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/10" />
-          </button>
-        ))}
+        {FEATURED_THEMES.map((t) => {
+          const ayet = counts?.[t.kod];
+          return (
+            <button
+              key={t.kod}
+              onClick={() => onTagClick(t.kod)}
+              className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${t.gradient} p-4 text-left shadow-md ring-1 ring-white/10 transition-transform hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0`}
+            >
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
+                <t.ikon aria-hidden="true" className="h-5 w-5 text-gold-200" strokeWidth={1.75} />
+              </span>
+              <p className="mt-2 text-sm font-bold leading-tight text-white">{getThemeTitle(t.kod, "tr")}</p>
+              <p className="mt-1 text-xs leading-snug text-white/75 line-clamp-2">{t.aciklama}</p>
+              {ayet !== undefined ? (
+                <span className="mt-2.5 inline-block rounded-full bg-white/15 px-2 py-0.5 text-xs font-semibold tracking-wide text-gold-200">
+                  {ayet.toLocaleString("tr-TR")} ayet
+                </span>
+              ) : null}
+              <span className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/10" />
+            </button>
+          );
+        })}
       </div>
     </section>
   );
@@ -203,7 +138,8 @@ function AkordeonItem({
   onTagClick: (tag: string) => void;
 }) {
   const [acik, setAcik] = useState(false);
-  const toplamAyet = grup.temalar.reduce((s, t) => s + t.ayet, 0);
+  const sayilarHazir = grup.temalar.every((t) => t.ayet !== undefined);
+  const toplamAyet = grup.temalar.reduce((s, t) => s + (t.ayet ?? 0), 0);
 
   return (
     <div className="overflow-hidden rounded-lg border border-stone-200 bg-white">
@@ -217,9 +153,11 @@ function AkordeonItem({
           <span className="text-sm font-semibold text-stone-800 truncate">{grup.baslik}</span>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500">
-            {toplamAyet.toLocaleString("tr-TR")} ayet
-          </span>
+          {sayilarHazir ? (
+            <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500">
+              {toplamAyet.toLocaleString("tr-TR")} ayet
+            </span>
+          ) : null}
           <svg
             className={`h-4 w-4 shrink-0 text-stone-400 transition-transform duration-200 ${acik ? "rotate-180" : ""}`}
             fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
@@ -241,9 +179,11 @@ function AkordeonItem({
                 <span className="text-xs font-medium text-stone-700 group-hover:text-navy-700">
                   {t.isim}
                 </span>
-                <span className="shrink-0 rounded-full bg-white border border-stone-200 px-2 py-0.5 text-xs text-stone-500">
-                  {t.ayet.toLocaleString("tr-TR")}
-                </span>
+                {t.ayet !== undefined ? (
+                  <span className="shrink-0 rounded-full bg-white border border-stone-200 px-2 py-0.5 text-xs text-stone-500">
+                    {t.ayet.toLocaleString("tr-TR")}
+                  </span>
+                ) : null}
               </button>
             ))}
           </div>
@@ -268,6 +208,35 @@ const TABS: { id: Tab; label: string; ikon: LucideIcon }[] = [
 export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactNode; namazBolumu?: ReactNode }) {
   const router = useRouter();
   const [aktifTab, setAktifTab] = useState<Tab>("temalar");
+  const [counts, setCounts] = useState<ThemeCounts | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/tags/counts")
+      .then((res) => (res.ok ? (res.json() as Promise<{ counts?: ThemeCounts }>) : null))
+      .then((data) => {
+        if (!cancelled && data?.counts) setCounts(data.counts);
+      })
+      .catch(() => {
+        // Sayılar alınamazsa kartlarda ayet sayısı gösterilmez.
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  const groups = useMemo<AkordeonGrup[]>(
+    () =>
+      getGroups().map((group) => ({
+        kod: group.code,
+        baslik: `${group.code} — ${group.tr}`,
+        ikon: GROUP_ICONS[group.code] ?? LayoutGrid,
+        temalar: getLevel1ByGroup(group.code).map((theme) => ({
+          kod: theme.code,
+          isim: getThemeTitle(theme.code, "tr"),
+          ayet: counts?.[theme.code],
+        })),
+      })),
+    [counts]
+  );
 
   const handleTagClick = useCallback((tag: string) => {
     router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`);
@@ -317,7 +286,7 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
         {aktifTab === "temalar" && (
         <div>
           <div className="space-y-8">
-            <ThemeCardGrid onTagClick={handleTagClick} />
+            <ThemeCardGrid onTagClick={handleTagClick} counts={counts} />
 
             {/* Özel rehber sayfaları */}
             <section>
@@ -443,8 +412,8 @@ export function DiscoverContent({ duaBolumu, namazBolumu }: { duaBolumu?: ReactN
                 Tüm Temalar
               </h2>
               <div className="space-y-2">
-                {AKORDEON_GRUPLARI.map((g) => (
-                  <AkordeonItem key={g.baslik} grup={g} onTagClick={handleTagClick} />
+                {groups.map((g) => (
+                  <AkordeonItem key={g.kod} grup={g} onTagClick={handleTagClick} />
                 ))}
               </div>
             </section>
