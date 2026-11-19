@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { type NextRequest, NextResponse } from "next/server";
 import { dbGet } from "../../../../lib/dbUtils";
 import { cleanMealText } from "../../../../lib/cleanMeal";
+import { getAltTagNeedles, getAnaTemaVariants, mapLegacyCode } from "../../../../lib/themes";
 
 interface RandomVerseRow {
   verse_key:   string;
@@ -56,6 +57,7 @@ export async function GET(
       kind === "ana" ? true :
       kind === "tag" ? false :
       /^[A-G]\d_/i.test(tag) ||
+      /^[A-G]\d_/i.test(mapLegacyCode(tag) ?? "") ||
       (await dbGet("SELECT 1 FROM verse_tags WHERE ana_tema = ? LIMIT 1", tag.toUpperCase())) !== undefined;
 
     const placeholders = excludeKeys.length
@@ -67,9 +69,11 @@ export async function GET(
     if (isAnaTema) {
       const upper       = tag.toUpperCase();
       const isExact     = upper.includes("_") && !upper.endsWith("_");
-      const likePattern = upper.endsWith("_") ? `${upper}%` : isExact ? upper : `${upper}_%`;
-      const cmp         = isExact ? "= ?" : "LIKE ?";
-      const bindVal     = isExact ? upper : likePattern;
+      const likePattern = upper.endsWith("_") ? `${upper}%` : `${upper}_%`;
+      // Tam kod: güncel + eski varyantlar (DB senkronundan önce ve sonra çalışır).
+      const anaVariants = isExact ? getAnaTemaVariants(tag) : [];
+      const cmp         = isExact ? `IN (${anaVariants.map(() => "?").join(",")})` : "LIKE ?";
+      const bindVals    = isExact ? anaVariants : [likePattern];
 
       row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
@@ -85,9 +89,10 @@ export async function GET(
           ${placeholders}
           ORDER  BY RANDOM()
           LIMIT  1
-        `, bindVal, ...excludeKeys);
+        `, ...bindVals, ...excludeKeys);
     } else {
-      const needle = tag.toLocaleLowerCase("tr-TR");
+      // Eski ad (sabır) veya yeni kod (sabir) gelebilir; ikisi de eşleşsin.
+      const needles = getAltTagNeedles(tag);
 
       row = await dbGet<RandomVerseRow>(`
           SELECT v.verse_key, v.surah_id, v.ayah_number,
@@ -99,11 +104,11 @@ export async function GET(
           JOIN   sureler s  ON s.id = v.surah_id
           LEFT JOIN translations yt ON yt.verse_key = v.verse_key
                  AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
-          WHERE  vi.tag = ?
+          WHERE  vi.tag IN (${needles.map(() => "?").join(",")})
           ${placeholders}
           ORDER  BY RANDOM()
           LIMIT  1
-        `, needle, ...excludeKeys);
+        `, ...needles, ...excludeKeys);
     }
 
     if (!row) {

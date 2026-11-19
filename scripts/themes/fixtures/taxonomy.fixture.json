@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "groups": [
+    {"code": "A", "tr": "İnanç Esasları", "en": "Faith"},
+    {"code": "B", "tr": "İbadet", "en": "Worship"},
+    {"code": "C", "tr": "Ahlak", "en": "Ethics"}
+  ],
+  "level1": [
+    {"code": "A1_ALLAH_ULUHIYET", "group": "A", "tr": "Allah & Uluhiyet", "en": "Allah and Divinity", "descTr": "Allah'ın birliği, isim ve sıfatları", "descEn": "Oneness, names and attributes of Allah", "sensitive": true},
+    {"code": "A6_AHIRET_MEAD", "group": "A", "tr": "Ahiret", "en": "Hereafter", "descTr": "Kıyamet, hesap, cennet, cehennem", "descEn": "Resurrection, judgement", "sensitive": true},
+    {"code": "B2_SERI_IBADETLER", "group": "B", "tr": "İbadetler", "en": "Acts of Worship", "descTr": "Namaz, oruç, zekât, hac", "descEn": "Prayer, fasting", "sensitive": true},
+    {"code": "B3_KALBI_IBADETLER", "group": "B", "tr": "Dua & Kalbi İbadetler", "en": "Supplication", "descTr": "Dua, tövbe, zikir, tevekkül", "descEn": "Prayer, repentance", "sensitive": true},
+    {"code": "C1_BIREYSEL_ERDEMLER", "group": "C", "tr": "Erdemler", "en": "Virtues", "descTr": "Sabır, şükür, doğruluk", "descEn": "Patience, gratitude", "sensitive": false},
+    {"code": "C4_ILIM_AKIL_TEFEKKUR", "group": "C", "tr": "İlim & Tefekkür", "en": "Knowledge", "descTr": "Akıl, düşünme, ilim", "descEn": "Reason, reflection", "sensitive": false}
+  ],
+  "level2": [
+    {"code": "rahmet", "parents": ["A1_ALLAH_ULUHIYET"], "tr": "Rahmet", "en": "Mercy", "sensitive": true},
+    {"code": "hamd", "parents": ["B3_KALBI_IBADETLER"], "tr": "Hamd", "en": "Praise", "sensitive": false},
+    {"code": "hidayet", "parents": ["A1_ALLAH_ULUHIYET"], "tr": "Hidayet", "en": "Guidance", "sensitive": false},
+    {"code": "ibadet", "parents": ["B2_SERI_IBADETLER"], "tr": "İbadet", "en": "Worship", "sensitive": true},
+    {"code": "hesap-gunu", "parents": ["A6_AHIRET_MEAD"], "tr": "Hesap Günü", "en": "Day of Judgement", "sensitive": false},
+    {"code": "sapiklik", "parents": ["C1_BIREYSEL_ERDEMLER"], "tr": "Sapıklık", "en": "Misguidance", "sensitive": false},
+    {"code": "tevekkul", "parents": ["B3_KALBI_IBADETLER"], "tr": "Tevekkül", "en": "Trust in Allah", "sensitive": false},
+    {"code": "sabir", "parents": ["C1_BIREYSEL_ERDEMLER"], "tr": "Sabır", "en": "Patience", "sensitive": false},
+    {"code": "imtihan", "parents": ["C1_BIREYSEL_ERDEMLER"], "tr": "İmtihan", "en": "Trial", "sensitive": false},
+    {"code": "dua-bagislanma", "parents": ["B3_KALBI_IBADETLER"], "tr": "Bağışlanma Duası", "en": "Prayer for Forgiveness", "sensitive": true},
+    {"code": "dua-korunma", "parents": ["B3_KALBI_IBADETLER"], "tr": "Korunma Duası", "en": "Prayer for Protection", "sensitive": true},
+    {"code": "namaz-vakit", "parents": ["B2_SERI_IBADETLER"], "tr": "Namaz Vakitleri", "en": "Prayer Times", "sensitive": true}
+  ],
+  "migration": {
+    "level1": {"C4_ILIM_AKIL_TEFEKKÜR": "C4_ILIM_AKIL_TEFEKKUR", "B1_TAHARET_TEMIZLIK": "B2_SERI_IBADETLER", "D9_ESKI": null},
+    "level2": {"sabır": "sabir", "deneme": "imtihan", "yol": null, "dua-bağışlanma": "dua-bagislanma"}
+  }
+}

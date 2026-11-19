@@ -46,6 +46,7 @@ import { wordMeaningEn, rootMeaningEn } from "../../../src/lib/wordMeaningsEn";
 import ayahStrings from "../../../src/i18n/strings/ayah";
 import storageErrorStrings from "../../../src/i18n/strings/storageErrors";
 import { useSurahNameOf } from "../../../src/lib/surahNames";
+import { THEME_TAGS_ENABLED, getVerseThemes, normalizeVerseThemes, getThemeTitle } from "../../../src/lib/themes";
 
 // Latin satırda Arapça kök/lemma sonrası " · " ayırıcısı sağdan-sola akışa kapılıp
 // yer değiştirmesin ("Lemma: · بَلَغ3rd person"): her Arapça kümeden sonra LRM.
@@ -57,9 +58,8 @@ function ltrAfterArabic(s: string): string {
 // Collator bir kez oluştur — localeCompare(x, "ar") her çağrıda yeni collator yaratır
 const arCollator = new Intl.Collator("ar");
 
-// Analiz sekmesindeki "TEMA ETİKETLERİ" kartını göster/gizle. Etiket atamalarının
-// doğruluğu teyit edilene kadar kullanıcıya kapalı. Doğrulanınca true yapılabilir.
-const SHOW_THEME_TAGS = false;
+// Analiz sekmesindeki "TEMA ETİKETLERİ" kartı: tek anahtar src/lib/themes.ts
+// THEME_TAGS_ENABLED (doğrulama bitene kadar yalnız __DEV__).
 
 // ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
@@ -621,6 +621,13 @@ export default function AyahDetailScreen() {
     () => (!data ? null : lang === "en" ? literalEn(data.verseKey) : data.literalCeviri || null),
     [lang, data]
   );
+  // Tema etiketleri: çevrimdışı paket (ilk çağrıda tembel yüklenir), pakette yoksa API alanları.
+  const verseThemes = useMemo(() => {
+    if (!THEME_TAGS_ENABLED || !data) return null;
+    const local = getVerseThemes(data.verseKey);
+    if (local.main || local.subs.length > 0) return local;
+    return normalizeVerseThemes(data.anaTema, data.altTaglar);
+  }, [data]);
   const shareMeal = useMemo(
     () => enMeal ?? (data ? pickAttributionFreeMealText(data.verseKey, data.meal, data.literalCeviri) : null),
     [data, enMeal]
@@ -1116,35 +1123,36 @@ export default function AyahDetailScreen() {
             {/* Ham Anlam Özeti */}
             <RawMeaningSummary words={data.words} verseKey={data.verseKey} colors={colors} />
 
-            {/* Tema Etiketleri — atama doğruluğu teyit edilene kadar kullanıcıya gizli.
-                Etiket verisi ve tag'e göre arama DB'de duruyor; yalnızca bu kart gizlendi. */}
-            {SHOW_THEME_TAGS && lang !== "en" && (data.anaTema || data.altTaglar?.length > 0) && (
+            {/* Tema Etiketleri — THEME_TAGS_ENABLED kapalıyken (release) gizli. Veri çevrimdışı
+                paketten (verseThemes.json); pakette yoksa API'nin ana_tema/alt_taglar alanı. */}
+            {verseThemes && (verseThemes.main || verseThemes.subs.length > 0) && (
               <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
                 <Text style={[styles.sectionTitle, { color: colors.accent }]}>{ay.themeTags}</Text>
                 <View style={styles.tagRow}>
-                  {data.anaTema && (
-                    <TouchableOpacity
-                      style={[styles.tag, styles.tagPrimary]}
-                      onPress={() => { if (data.anaTema) router.push(`/search?tag=${encodeURIComponent(data.anaTema)}&page=1`); }}
-                      activeOpacity={0.7}
-                      accessibilityRole="button"
-                      accessibilityLabel={fmt(ay.searchTagA11y, { tag: data.anaTema })}
-                    >
-                      <Text style={styles.tagTextPrimary}>{data.anaTema}</Text>
-                    </TouchableOpacity>
-                  )}
-                  {data.altTaglar?.map(tag => (
-                    <TouchableOpacity
-                      key={tag}
-                      style={styles.tag}
-                      onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-                      activeOpacity={0.7}
-                      accessibilityRole="button"
-                      accessibilityLabel={fmt(ay.searchTagA11y, { tag })}
-                    >
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </TouchableOpacity>
-                  ))}
+                  {[verseThemes.main, ...verseThemes.subs].map((code, i) => {
+                    if (!code) return null;
+                    const primary = i === 0;
+                    const title = getThemeTitle(code, lang);
+                    return (
+                      <TouchableOpacity
+                        key={code}
+                        style={[
+                          styles.tag,
+                          primary && styles.tagPrimary,
+                          isDark && (primary
+                            ? { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }
+                            : { backgroundColor: "#082f49", borderColor: "#075985" }),
+                        ]}
+                        onPress={() => router.push(`/search?tag=${encodeURIComponent(code)}&page=1`)}
+                        hitSlop={{ top: 4, bottom: 4 }}
+                        activeOpacity={0.7}
+                        accessibilityRole="button"
+                        accessibilityLabel={fmt(ay.searchTagA11y, { tag: title })}
+                      >
+                        <Text style={[primary ? styles.tagTextPrimary : styles.tagText, isDark && { color: primary ? "#c7d2fe" : "#7dd3fc" }]}>{title}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
                 </View>
               </View>
             )}
@@ -1569,10 +1577,10 @@ const styles = StyleSheet.create({
 
   // ── Tema Etiketleri ──
   tagRow:         { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 8 },
-  tag:            { borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4, backgroundColor: "#f0f9ff", borderWidth: 1, borderColor: "#bae6fd" },
+  tag:            { borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, minHeight: 36, justifyContent: "center", backgroundColor: "#f0f9ff", borderWidth: 1, borderColor: "#bae6fd" },
   tagPrimary:     { backgroundColor: "#eef2ff", borderColor: "#c7d2fe" },
-  tagText:        { fontSize: 11, color: "#0369a1", fontWeight: "500" },
-  tagTextPrimary: { fontSize: 11, color: "#4338ca", fontWeight: "600" },
+  tagText:        { fontSize: 13, color: "#0369a1", fontWeight: "500" },
+  tagTextPrimary: { fontSize: 13, color: "#4338ca", fontWeight: "600" },
 
   // ── Kişisel Not ──
   noteBox: {
