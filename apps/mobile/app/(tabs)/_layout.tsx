@@ -75,9 +75,12 @@ export default function TabsLayout() {
           name={tab.name}
           options={{
             title: s[tab.titleKey],
+            tabBarAccessibilityLabel: s[tab.titleKey],
             tabBarButton: TOUR_TAB_BUTTONS[tab.name],
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons
+                accessible={false}
+                importantForAccessibility="no-hide-descendants"
                 name={focused ? tab.iconActive : tab.icon}
                 size={size}
                 color={color}

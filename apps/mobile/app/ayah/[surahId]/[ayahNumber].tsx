@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Pressable,
   Share,
   StyleSheet,
   Platform,
@@ -1041,17 +1042,16 @@ export default function AyahDetailScreen() {
                           {caps(ay.root)}
                         </Text>
                         {isRootClickable(w) ? (
-                          <TouchableOpacity
+                          <Pressable
                             onPress={() => navToRoot(w.root)}
-                            activeOpacity={0.6}
-                            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                            accessibilityRole="button"
-                            accessibilityLabel={fmt(ay.inspectRootA11y, { root: w.root })}
+                            style={{ minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" }}
+                            accessibilityRole="link"
+                            accessibilityLabel={fmt(ay.rootLinkA11y, { root: w.root })}
                           >
                             <Text style={[styles.rootLink, { color: colors.accent }]}>
                               {w.root}
                             </Text>
-                          </TouchableOpacity>
+                          </Pressable>
                         ) : (
                           <Text style={[styles.wordDetailValue, { color: colors.textMuted }]}>
                             {getRootDisplayText(w, ay)}

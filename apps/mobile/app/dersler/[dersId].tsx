@@ -18,6 +18,8 @@ import { Stack, router, useLocalSearchParams, useFocusEffect } from "expo-router
 import { notifyReviewCompletion } from "../../src/hooks/storeReviewPolicy";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
+import { QuizFeedback } from "../../src/components/QuizFeedback";
+import quizFeedbackStrings from "../../src/i18n/strings/quizFeedback";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { getDers, getQuizFor, getBaslik } from "../../src/data/Dersler/dersler_registry";
@@ -145,6 +147,7 @@ export default function DersDetayScreen() {
   const dersKey  = dersId ?? "";
   const lang     = useLang();
   const t        = useStrings(derslerStrings);
+  const feedback = useStrings(quizFeedbackStrings);
   const dersData = getDers(dersKey, lang);
   const quizData = getQuizFor(dersKey, lang);
   // Normalize bozuk soruları eler; hasQuiz gerçek kullanılabilir soru sayısına
@@ -237,6 +240,7 @@ export default function DersDetayScreen() {
     setQuizMode(true);
   };
 
+
   const handleAnswerSelect = (harf: string) => {
     if (selectedAnswer) return;
     Haptics.selectionAsync();
@@ -305,7 +309,7 @@ export default function DersDetayScreen() {
             <Text style={s.accent}>‹ Geri</Text>
           </TouchableOpacity>
           <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.cardModeA11y}>
+          <TouchableOpacity onPress={() => setReadMode(false)} style={[s.headerSide, { alignItems: "flex-end" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.cardModeA11y}>
             <Text style={[s.accent, { fontSize: 12 }]}>{t.cardMode}</Text>
           </TouchableOpacity>
         </View>
@@ -390,7 +394,7 @@ export default function DersDetayScreen() {
               {wrongAnswers.map((q, i) => (
                 <View key={q.id} style={[s.wrongCard, { backgroundColor: c.card, borderColor: c.border }]}>
                   <Text style={[s.wrongQ, { color: c.text }]}>{i + 1}. {q.soru}</Text>
-                  <Text style={s.wrongCorrect}>
+                  <Text style={[s.wrongCorrect, { color: c.successText }]}>
                     {fmt(t.correctAnswer, { answer: q.cevaplar.find(c => c.harf === q.dogru)?.metin ?? "" })}
                   </Text>
                   {q.aciklama ? (
@@ -489,6 +493,7 @@ export default function DersDetayScreen() {
           ) : null}
         </View>
 
+        <QuizFeedback answered={showResult} correct={selectedAnswer === question.dogru} answer={`${question.dogru}, ${question.cevaplar.find(a => a.harf === question.dogru)?.metin ?? ""}`} questionKey={qIndex} />
         {/* Şıklar */}
         <View style={[s.answersContainer, { paddingHorizontal: 20 }]}>
           {question.cevaplar.map((cevap) => (
@@ -507,7 +512,7 @@ export default function DersDetayScreen() {
               activeOpacity={0.75}
               accessibilityRole="button"
               accessibilityState={{ disabled: !!selectedAnswer, selected: selectedAnswer === cevap.harf }}
-              accessibilityLabel={`${cevap.harf}: ${cevap.metin}`}
+              accessibilityLabel={`${cevap.harf}: ${cevap.metin}${showResult && cevap.harf === question.dogru ? `. ${feedback.correctOption}` : showResult && cevap.harf === selectedAnswer ? `. ${feedback.wrongSelection}` : ""}`}
             >
               <View style={[s.answerHarf, { borderColor: answerBorderColor(cevap.harf) }]}>
                 <Text style={[s.answerHarfText, { color: answerTextColor(cevap.harf) }]} maxFontSizeMultiplier={1.2}>
@@ -556,7 +561,7 @@ export default function DersDetayScreen() {
           <Text style={s.accent}>{t.backBtn}</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}>
+        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={[s.headerSide, { alignItems: "flex-end" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}>
           <Text style={[s.accent, { fontSize: 12 }]}>
             {readMode ? t.cardMode : t.readAll}
           </Text>
@@ -652,7 +657,7 @@ const s = StyleSheet.create({
     flexDirection: "row", alignItems: "center",
     paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
   },
-  headerSide:    { width: 72 },
+  headerSide:    { width: 72, minHeight: 44, justifyContent: "center", marginVertical: -12 },
   headerTitle:   { flex: 1, fontSize: 17, fontWeight: "800", textAlign: "center" },
   accent:        { fontSize: 14, color: "#c9a84c", fontWeight: "600" },
 
@@ -714,7 +719,7 @@ const s = StyleSheet.create({
   wrongTitle:    { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   wrongCard:     { borderRadius: 12, borderWidth: 1, padding: 14, marginBottom: 10, gap: 6 },
   wrongQ:        { fontSize: 14, fontWeight: "700", lineHeight: 20 },
-  wrongCorrect:  { fontSize: 13, color: "#4ade80", fontWeight: "600" },
+  wrongCorrect:  { fontSize: 13, fontWeight: "600" },
   wrongAciklama: { fontSize: 12, lineHeight: 18 },
 
   // Navigasyon

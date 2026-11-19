@@ -12,6 +12,8 @@ try {
   const { UIManager } = require("react-native");
   if (UIManager.hasViewManagerConfig?.("LottieAnimationView")) LottieView = mod;
 } catch (_e) { /* noop */ }
+import { QuizFeedback } from "./QuizFeedback";
+import quizFeedbackStrings from "../i18n/strings/quizFeedback";
 import { useColors } from "../hooks/useColors";
 import { notifyReviewCompletion } from "../hooks/storeReviewPolicy";
 import { useStrings, fmt } from "../i18n";
@@ -31,7 +33,7 @@ export type ElifbaQuizViewProps =
       kind: "listening";
       items: ListeningItem[];
       onAnswer: (item: ListeningItem, correct: boolean) => void;
-      onPlayAudio: (harfId: number, onError: () => void) => () => void;
+      onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
       onFinish: (score: number, total: number) => void;
     };
 
@@ -75,6 +77,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
   const ep = useStrings(elifbaStrings);
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const feedback = useStrings(quizFeedbackStrings);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
@@ -155,6 +158,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
       <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
         {renderSoru(soru.soru)}
       </View>
+      <QuizFeedback answered={answered} correct={selected === soru.dogru_cevap} answer={soru.dogru_cevap} questionKey={idx} />
       <View style={qv.options}>
         {soru.secenekler.map((s) => {
           const isRight    = s === soru.dogru_cevap;
@@ -172,7 +176,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
               disabled={answered}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={fmt(ep.answerA11y, { s })}
+              accessibilityLabel={`${fmt(ep.answerA11y, { s })}${answered && isRight ? `. ${feedback.correctOption}` : answered && isSelected ? `. ${feedback.wrongSelection}` : ""}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
               <Text style={[qv.optionText, { color: c.text }, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
@@ -219,13 +223,15 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
   isLast: boolean;
   onAnswer: (item: ListeningItem, correct: boolean) => void;
   onNext: () => void;
-  onPlayAudio: (harfId: number, onError: () => void) => () => void;
+  onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
 }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const feedback = useStrings(quizFeedbackStrings);
   const [answered, setAnswered] = useState(false);
   const [fallback, setFallback] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const cancelPlayRef = useRef<(() => void) | null>(null);
   const answeredLockRef = useRef(false);
 
@@ -235,7 +241,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
       cancelPlayRef.current?.();
       cancelPlayRef.current = null;
       if (!answeredLockRef.current) setFallback(true);
-    });
+    }, setPlaying);
   }, [item.audioHarfId, onPlayAudio]);
 
   useEffect(() => {
@@ -273,13 +279,16 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
               onPress={startPlay}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={ep.listenPlayA11y}
+              disabled={playing}
+              accessibilityState={{ busy: playing, selected: playing, disabled: playing }}
+              accessibilityLabel={playing ? ep.playing : ep.listenPlayA11y}
             >
-              <Text style={qv.playBtnText}>{ep.listenPlay}</Text>
+              <Text style={qv.playBtnText}>{playing ? ep.playing : ep.listenPlay}</Text>
             </TouchableOpacity>
           </>
         )}
       </View>
+      <QuizFeedback answered={answered} correct={selectedId === item.correctId} answer={item.options.find(o => o.id === item.correctId)?.label ?? item.fallbackLabel} questionKey={item.itemId} />
       <View style={qv.options}>
         {item.options.map((option) => {
           const isRight = option.id === item.correctId;
@@ -297,7 +306,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
               disabled={answered}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={fmt(ep.answerA11y, { s: option.label })}
+              accessibilityLabel={`${fmt(ep.answerA11y, { s: option.label })}${answered && isRight ? `. ${feedback.correctOption}` : answered && isSelected ? `. ${feedback.wrongSelection}` : ""}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
               <Text style={[qv.optionText, { color: c.text }, isArabic(option.label) && { fontSize: 20, textAlign: "center" }]}>
@@ -324,7 +333,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
 function ListeningRun({ items, onAnswer, onPlayAudio, onFinish }: {
   items: ListeningItem[];
   onAnswer: (item: ListeningItem, correct: boolean) => void;
-  onPlayAudio: (harfId: number, onError: () => void) => () => void;
+  onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
   onFinish: (score: number, total: number) => void;
 }) {
   const c = useColors();

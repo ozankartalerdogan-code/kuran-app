@@ -319,7 +319,7 @@ function HomeContent() {
         activeOpacity={0.85}
         disabled={!verse}
         accessibilityRole="button"
-        accessibilityLabel={hs.openVerseA11y}
+        accessibilityLabel={verse ? `${hs.openVerseA11y}. ${surahNameOf(verse.surah_id, verse.surah_name)} ${verse.surah_id}:${verse.ayah_number}. ${mealOf({ surah: verse.surah_id, ayah: verse.ayah_number }, verse.meal ?? "").slice(0, 200)}` : hs.openVerseA11y}
         accessibilityState={{ disabled: !verse }}
       >
         <View style={styles.cardHeader}>
@@ -443,7 +443,7 @@ function HomeContent() {
         activeOpacity={0.85}
         disabled={!dua}
         accessibilityRole="button"
-        accessibilityLabel={hs.openDuaA11y}
+        accessibilityLabel={dua ? `${hs.openDuaA11y}. ${surahNameOf(dua.surah_id, dua.surah_name)} ${dua.surah_id}:${dua.ayah_number}. ${mealOf({ surah: dua.surah_id, ayah: dua.ayah_number }, dua.meal ?? "").slice(0, 200)}` : hs.openDuaA11y}
         accessibilityState={{ disabled: !dua }}
       >
         <View style={styles.cardHeader}>

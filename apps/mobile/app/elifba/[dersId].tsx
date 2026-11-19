@@ -49,6 +49,7 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
   };
   const [flipped, setFlipped] = useState(false);
   const [sesHata, setSesHata] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const sesHataTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelPlayRef = useRef<(() => void) | null>(null);
   const cardLabel = flipped
@@ -73,7 +74,7 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
       setSesHata(true);
       if (sesHataTimer.current) clearTimeout(sesHataTimer.current);
       sesHataTimer.current = setTimeout(() => setSesHata(false), 3000);
-    });
+    }, setPlaying);
   }, [harf.harf_id]);
 
   return (
@@ -83,9 +84,11 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
         onPress={handlePlay}
         activeOpacity={0.7}
         accessibilityRole="button"
-        accessibilityLabel={fmt(ep.listenA11y, { name: harf.harf_adi })}
+        disabled={playing}
+        accessibilityState={{ busy: playing, selected: playing, disabled: playing }}
+        accessibilityLabel={playing ? ep.playing : fmt(ep.listenA11y, { name: harf.harf_adi })}
       >
-        <Text style={fc.playIcon}>🔊</Text>
+        <Text style={playing ? { color: c.text, fontSize: 14 } : fc.playIcon}>{playing ? ep.playing : "🔊"}</Text>
       </TouchableOpacity>
 
       {sesHata && (
@@ -548,7 +551,7 @@ function ListeningView({ harfler, onFinish }: {
   }, [persistSrs]);
 
   const playAudio = useCallback(
-    (harfId: number, onError: () => void) => playHarfSes(harfId, onError),
+    (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => playHarfSes(harfId, onError, onPlayingChange),
     [],
   );
 
@@ -634,6 +637,10 @@ export default function DersScreen() {
   const [reloadKey, setReloadKey] = useState(0);
   const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
+  const lettersRef = useRef<ScrollView>(null);
+  useEffect(() => {
+    lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: true });
+  }, [idx, mode]);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
   const [dersIcerik, setDersIcerik] = useState<DersIcerik | null>(null);
   const progressRef             = useRef<ElifbaProgress>({});
@@ -806,7 +813,13 @@ export default function DersScreen() {
                 isLast={idx === harfler.length - 1}
               />
               {harfler.length <= 30 && (
-                <View style={styles.dots}>
+                <ScrollView
+                  ref={lettersRef}
+                  horizontal
+                  style={{ flexGrow: 0, flexShrink: 0 }}
+                  contentContainerStyle={styles.letters}
+                  onContentSizeChange={() => lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: false })}
+                >
                   {harfler.map((h, i) => (
                     <TouchableOpacity
                       key={h.harf_id}
@@ -817,17 +830,12 @@ export default function DersScreen() {
                       accessibilityRole="button"
                       accessibilityLabel={fmt(ep.goToLetterA11y, { name: h.harf_adi })}
                       accessibilityState={{ selected: i === idx }}
-                      style={[
-                        styles.dot,
-                        i === idx
-                          ? styles.dotActive
-                          : seenIds.includes(h.harf_id)
-                            ? styles.dotSeen
-                            : styles.dotEmpty,
-                      ]}
-                    />
+                      style={[styles.letterChip, { backgroundColor: i === idx ? c.accentLight : c.card, borderColor: i === idx ? c.accent : c.border }]}
+                    >
+                      <Text style={{ color: i === idx ? c.successText : c.text, fontSize: 22, fontFamily: "Amiri" }}>{h.tek_basina}</Text>
+                    </TouchableOpacity>
                   ))}
-                </View>
+                </ScrollView>
               )}
             </>
           ) : (
@@ -868,11 +876,8 @@ const styles = StyleSheet.create({
   modeBtnText:   { fontSize:12, fontWeight:"600", color:"#44403c", textAlign:"center" },
   modeBtnTextActive: { color:"#fff" },
   counter:   { textAlign:"center", fontSize:12, color:"#a8a29e", marginBottom:4 },
-  dots:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:7, paddingHorizontal:16, marginTop:14 },
-  dot:       { width:10, height:10, borderRadius:5 },
-  dotActive: { backgroundColor:"#059669", transform:[{ scale:1.35 }] },
-  dotSeen:   { backgroundColor:"#a7f3d0" },
-  dotEmpty:  { backgroundColor:"#d6d3d1" },
+  letters: { flexDirection: "row", gap: 7, paddingHorizontal: 16, paddingVertical: 8 },
+  letterChip: { width: 44, minHeight: 44, alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: 8 },
 });
 
 const fc = StyleSheet.create({

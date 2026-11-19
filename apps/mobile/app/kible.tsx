@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet, ScrollView,
-  ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing, Platform,
+  ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing, Platform, AccessibilityInfo,
 } from "react-native";
 import { Stack, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -435,6 +435,20 @@ export default function KibleScreen() {
   const needleCounter = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "-1deg"], extrapolate: "extend" });  // -needle (emoji dik kalır)
   const tailRotate    = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["180deg", "181deg"], extrapolate: "extend" }); // needle+180
 
+  const alignmentState = compassOk === true ? isAligned : null;
+  const previousAlignment = useRef<boolean | null>(null);
+  const compassSummary = fmt(ks.compassSummary, {
+    degrees: Math.round(qibla ?? 0),
+    state: alignmentState === null ? ks.alignmentUnavailable : alignmentState ? ks.facingKaaba : ks.notFacingKaaba,
+  });
+  useEffect(() => {
+    const previous = previousAlignment.current;
+    previousAlignment.current = alignmentState;
+    if (previous !== null && alignmentState !== null && previous !== alignmentState) {
+      AccessibilityInfo.announceForAccessibility(compassSummary);
+    }
+  }, [alignmentState, compassSummary]);
+
   // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
   if (step === "locating") {
     return (
@@ -479,7 +493,7 @@ export default function KibleScreen() {
         )}
 
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
-        <View style={[s.compassWrap, { width: OUTER, height: OUTER }]}>
+        <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[s.compassWrap, { width: OUTER, height: OUTER }]}>
 
           {/* Sabit lubber göstergesi — telefonun baktığı yön (dönmez) */}
           <View style={s.lubber}>
@@ -497,6 +511,8 @@ export default function KibleScreen() {
             {DIRS.map((d) => (
               <View key={d.l} style={[s.dirLayer, { transform: [{ rotate: `${d.b}deg` }] }]}>
                 <Animated.Text
+                  accessible={false}
+                  importantForAccessibility="no"
                   style={[
                     s.dir,
                     d.major ? s.dirMajor : s.dirMinor,
@@ -520,7 +536,7 @@ export default function KibleScreen() {
             {/* Kabe oku */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: needleRotate }] }]}>
               <View style={[s.kaabaBadge, dark && { backgroundColor: "#0f172a", borderColor: "#10b981" }, isAligned && [s.kaabaBadgeOk, dark && { backgroundColor: "#064e3b" }]]}>
-                <Animated.Text style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
+                <Animated.Text accessible={false} importantForAccessibility="no" style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
               <View style={[s.needleUp, dark && { backgroundColor: "#10b981" }, isAligned && s.needleUpOk, { height: FACE / 2 - 56 }]} />
             </Animated.View>
@@ -530,8 +546,8 @@ export default function KibleScreen() {
 
         {/* Açı */}
         <View style={[s.badge, dark && { backgroundColor: "#134e4a", borderColor: "#0f766e" }, isAligned && [s.badgeOk, dark && { backgroundColor: "#064e3b", borderColor: "#34d399" }]]}>
-          <Text style={[s.badgeNum, dark && { color: "#a7f3d0" }, isAligned && [s.badgeNumOk, dark && { color: "#6ee7b7" }]]}>{Math.round(qibla ?? 0)}°</Text>
-          <Text style={[s.badgeSub, dark && { color: "#5eead4" }, isAligned && [s.badgeSubOk, dark && { color: "#34d399" }]]}>
+          <Text accessible accessibilityLabel={compassSummary} style={[s.badgeNum, dark && { color: "#a7f3d0" }, isAligned && [s.badgeNumOk, dark && { color: "#6ee7b7" }]]}>{Math.round(qibla ?? 0)}°</Text>
+          <Text accessible={false} importantForAccessibility="no" style={[s.badgeSub, dark && { color: "#5eead4" }, isAligned && [s.badgeSubOk, dark && { color: "#34d399" }]]}>
             {caps(isAligned ? ks.aligned : ks.northToKaaba)}
           </Text>
         </View>
