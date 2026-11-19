@@ -344,6 +344,7 @@ async function withCache<T>(
   rawKey: string,
   ttl: number,
   fetcher: () => Promise<T>,
+  shouldStore: (data: T) => boolean = () => true,
 ): Promise<T> {
   const key = vkey(rawKey);
   // Önce cache dene
@@ -359,7 +360,7 @@ async function withCache<T>(
   const promise = (async () => {
     // Network'ten al, cache'e yaz
     const data = await fetcher();
-    storage.setJSON(key, { ts: Date.now(), data }).catch(() => {});
+    if (shouldStore(data)) storage.setJSON(key, { ts: Date.now(), data }).catch(() => {});
     return data;
   })();
   inflight.set(key, promise);
@@ -374,9 +375,10 @@ async function withCacheFallback<T>(
   key: string,
   ttl: number,
   fetcher: () => Promise<T>,
+  shouldStore?: (data: T) => boolean,
 ): Promise<T> {
   try {
-    return await withCache(key, ttl, fetcher);
+    return await withCache(key, ttl, fetcher, shouldStore);
   } catch (err) {
     // Network hata → cache'den sun (eski olsa bile) — aynı sürümlü anahtar
     try {
@@ -458,9 +460,12 @@ export const api = {
     // Tag içeriği statiktir (bir temaya bağlı ayetler değişmez) → 7 gün cache +
     // ağ hatasında eski cache'ten sun. Manevi Sığınak, İsm-i Azam, Namaz Rehberi,
     // Namaz ekranları bunu kullanır; her kategoride ağ beklemesi biter.
+    // Boş sonuç cache'lenmez: sunucu henüz yeni etiket kodlarını bilmiyorsa
+    // (web/Turso yayını gecikirse) cihaz 7 gün "0 ayet"e kilitlenmesin.
+    // t2: tema etiketi yenilemesi — eski koddan kalmış boş/bayat kayıtlar okunmaz.
     filter: (tag: string, page = 1) =>
       withCacheFallback(
-        `cache_tags_${tag}_p${page}`,
+        `cache_tags_t2_${tag}_p${page}`,
         CACHE_TTL_STATIC,
         () => withRetry((signal) =>
           request<TagFilterResponse>(
@@ -469,6 +474,7 @@ export const api = {
             signal,
           ),
         ),
+        (res) => res.total > 0,
       ),
   },
 

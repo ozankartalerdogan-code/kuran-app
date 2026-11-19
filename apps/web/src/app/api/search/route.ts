@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import type { SearchResponse, SuggestedSurah } from "./search-types";
 import { dbAll, dbGet } from "../../../lib/dbUtils";
 import { sanitizeSearchQuery, expandSearchPatterns, escapeFts, stripSurahSuffix } from "../../../lib/ftsQuery";
+import { getAltTagNeedles, getAnaTemaVariants, mapLegacyCode } from "../../../lib/themes";
 
 export type { SearchResponse };
 
@@ -40,17 +41,27 @@ function findSurahMatch(q: string, surahs: SurahRow[]): SurahRow | null {
 
 // ── Tag eşleştirme ────────────────────────────────────────────────────────────
 
-interface TagMatch { tag: string; tagType: "ana_tema" | "alt_tag"; count: number }
+// `needles`: DB sorgusunda kullanılacak güncel + eski (legacy) kod varyantları.
+// Yanıttaki `tag` güncel koddur; /api/tags/filter her iki biçimi de kabul eder.
+interface TagMatch { tag: string; tagType: "ana_tema" | "alt_tag"; count: number; needles: string[] }
+
+function inList(values: string[]): string {
+  return values.map(() => "?").join(",");
+}
 
 async function findTagMatch(q: string): Promise<TagMatch | null> {
   const upper = q.toUpperCase();
   const lower = q.toLocaleLowerCase("tr-TR");
+  const mapped = mapLegacyCode(q);
+  if (!q.trim()) return null;
 
+  const anaVariants = getAnaTemaVariants(q);
   const exact = await dbGet<CountRow>(
-    "SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema = ?", upper
+    `SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema IN (${inList(anaVariants)})`, ...anaVariants
   );
   if ((exact?.total ?? 0) > 0) {
-    return { tag: upper, tagType: "ana_tema", count: exact?.total ?? 0 };
+    const tag = mapped && /^[A-G]\d_/i.test(mapped) ? mapped.toUpperCase() : upper;
+    return { tag, tagType: "ana_tema", count: exact?.total ?? 0, needles: anaVariants };
   }
 
   if (/^[A-Ga-g]\d$/i.test(q)) {
@@ -58,15 +69,19 @@ async function findTagMatch(q: string): Promise<TagMatch | null> {
       "SELECT COUNT(*) AS total FROM verse_tags WHERE ana_tema LIKE ?", `${upper}_%`
     );
     if ((prefix?.total ?? 0) > 0) {
-      return { tag: `${upper}_%`, tagType: "ana_tema", count: prefix?.total ?? 0 };
+      return { tag: `${upper}_%`, tagType: "ana_tema", count: prefix?.total ?? 0, needles: [] };
     }
   }
 
+  // "sabır" (eski) ve "sabir" (yeni) aynı ayetleri bulsun.
+  const altNeedles = getAltTagNeedles(q);
   const altTag = await dbGet<TagCountRow>(
-    "SELECT COUNT(*) AS total FROM verse_tag_items WHERE tag = ?", lower
+    `SELECT COUNT(DISTINCT verse_key) AS total FROM verse_tag_items WHERE tag IN (${inList(altNeedles)})`,
+    ...altNeedles
   );
   if ((altTag?.total ?? 0) > 0) {
-    return { tag: lower, tagType: "alt_tag", count: altTag?.total ?? 0 };
+    const tag = mapped ? mapped.toLocaleLowerCase("tr-TR") : lower;
+    return { tag, tagType: "alt_tag", count: altTag?.total ?? 0, needles: altNeedles };
   }
 
   return null;
@@ -226,10 +241,11 @@ export async function GET(
             JOIN   sureler s ON s.id = v.surah_id
             LEFT   JOIN translations yt ON yt.verse_key = v.verse_key
                    AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
-            WHERE  vti.tag = ?
+            WHERE  vti.tag IN (${inList(tagMatch.needles)})
+            GROUP  BY vti.verse_key
             ORDER  BY v.surah_id, v.ayah_number
             LIMIT  ?
-          `, tagMatch.tag, VERSE_LIMIT);
+          `, ...tagMatch.needles, VERSE_LIMIT);
         if (verseRows.length > 0) {
           return NextResponse.json({ type: "verses", results: verseRows, total: tagMatch.count }, SEARCH_CACHE);
         }

@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { dbGet } from "../../../../lib/dbUtils";
 import { cleanMealText } from "../../../../lib/cleanMeal";
+import { getAltTagNeedles } from "../../../../lib/themes";
 
 interface NamazVerseRow {
   verse_key: string;
@@ -28,12 +29,18 @@ function randomOffset(total: number): number {
 export async function GET(req: NextRequest) {
   const vakit = req.nextUrl.searchParams.get("vakit")?.toLocaleLowerCase("tr") ?? null;
 
+  // Yeni taksonomi kodları; getAltTagNeedles eski (senkron öncesi) adları da ekler.
+  // fecr/sabah/cuma taksonomiden düştü → en yakın küratörlü kod (namaz-vakit/namaz-cuma).
+  // cemaat'in yeni karşılığı yok (kardeslik-birlik düşmanlık/çekişme de içerdiği için alınmadı);
+  // yalnızca senkron öncesi satırlar için ham adıyla kalır.
   let vakitTags: string[] = [];
   if (vakit === "sabah") {
-    vakitTags = ["sabır", "huşu", "fecr", "sabah", "dua"];
+    vakitTags = getAltTagNeedles("sabir", "husu-korku", "dua", "namaz-vakit", "sabır", "huşu", "fecr", "sabah");
   } else if (vakit === "cuma") {
-    vakitTags = ["cuma", "cemaat"];
+    vakitTags = getAltTagNeedles("namaz-cuma", "cuma", "cemaat");
   }
+  const namazTags = getAltTagNeedles("namaz");
+  const namazIn = namazTags.map(() => "?").join(",");
 
   try {
     let verse: NamazVerseRow | undefined;
@@ -42,15 +49,15 @@ export async function GET(req: NextRequest) {
       const inPlaceholders = vakitTags.map(() => "?").join(",");
 
       const countRow = await dbGet<{ total: number }>(
-        `SELECT COUNT(*) AS total
+        `SELECT COUNT(DISTINCT ti_namaz.verse_key) AS total
          FROM verse_tag_items ti_namaz
-         WHERE ti_namaz.tag = 'namaz'
+         WHERE ti_namaz.tag IN (${namazIn})
            AND EXISTS (
              SELECT 1 FROM verse_tag_items ti_vakit
              WHERE ti_vakit.verse_key = ti_namaz.verse_key
                AND ti_vakit.tag IN (${inPlaceholders})
            )`,
-        ...vakitTags,
+        ...namazTags, ...vakitTags,
       );
       const total = countRow?.total ?? 0;
 
@@ -61,7 +68,7 @@ export async function GET(req: NextRequest) {
            FROM verse_tag_items ti_namaz
            JOIN verses v ON v.verse_key = ti_namaz.verse_key
            LEFT JOIN translations yt ON yt.verse_key = v.verse_key
-           WHERE ti_namaz.tag = 'namaz'
+           WHERE ti_namaz.tag IN (${namazIn})
              AND EXISTS (
                SELECT 1 FROM verse_tag_items ti_vakit
                WHERE ti_vakit.verse_key = ti_namaz.verse_key
@@ -70,14 +77,15 @@ export async function GET(req: NextRequest) {
            GROUP BY v.verse_key
            ORDER BY ti_namaz.verse_key
            LIMIT 1 OFFSET ?`,
-          ...vakitTags, randomOffset(total),
+          ...namazTags, ...vakitTags, randomOffset(total),
         );
       }
     }
 
     if (!verse) {
       const countRow = await dbGet<{ total: number }>(
-        `SELECT COUNT(*) AS total FROM verse_tag_items WHERE tag = 'namaz'`,
+        `SELECT COUNT(DISTINCT verse_key) AS total FROM verse_tag_items WHERE tag IN (${namazIn})`,
+        ...namazTags,
       );
       const total = countRow?.total ?? 0;
 
@@ -87,11 +95,11 @@ export async function GET(req: NextRequest) {
          FROM verse_tag_items ti
          JOIN verses v ON v.verse_key = ti.verse_key
          LEFT JOIN translations yt ON yt.verse_key = v.verse_key
-         WHERE ti.tag = 'namaz'
+         WHERE ti.tag IN (${namazIn})
          GROUP BY v.verse_key
          ORDER BY ti.verse_key
          LIMIT 1 OFFSET ?`,
-        randomOffset(total),
+        ...namazTags, randomOffset(total),
       );
     }
 

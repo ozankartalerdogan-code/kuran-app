@@ -42,7 +42,10 @@ function loadApi(source: string, persisted: Map<string, unknown>) {
   };
   new Function("require", "exports", "module", compiled)(localRequire, mod.exports, mod);
   return {
-    api: mod.exports.api as { mushaf: { page: (page: number) => Promise<unknown> } },
+    api: mod.exports.api as {
+      mushaf: { page: (page: number) => Promise<unknown> };
+      tags: { filter: (tag: string, page?: number) => Promise<{ total: number }> };
+    },
     readKeys,
     writtenKeys,
   };
@@ -142,4 +145,28 @@ test("tajweedSpans kullanılıyorsa mushaf cache sürümü en az 4 olmalı", () 
     Number(cacheKeyVersion) >= 4,
     `tajweedSpans kullanılıyor ama cache anahtarı v${cacheKeyVersion}: en az v4 olmalı`,
   );
+});
+
+test("boş etiket sonucu cache'lenmez, dolu sonuç cache'lenir", async () => {
+  const source = readFileSync(API_SOURCE_PATH, "utf8");
+  const persisted = new Map<string, unknown>();
+  const { api, writtenKeys } = loadApi(source, persisted);
+  const originalFetch = globalThis.fetch;
+  let total = 0;
+  let calls = 0;
+  globalThis.fetch = (async () => {
+    calls++;
+    return { ok: true, json: async () => ({ type: "tag_results", tag: "tevekkul", tagType: "alt_tag", results: [], total, page: 1, pages: 1 }) } as Response;
+  }) as typeof fetch;
+  try {
+    assert.equal((await api.tags.filter("tevekkul", 1)).total, 0);
+    assert.deepEqual(writtenKeys, [], "0 sonuç cihazda saklanmamalı");
+    total = 5;
+    assert.equal((await api.tags.filter("tevekkul", 1)).total, 5, "boş sonuçtan sonra ağa yeniden çıkmalı");
+    assert.equal(calls, 2);
+    assert.equal(writtenKeys.length, 1);
+    assert.match(writtenKeys[0], /cache_tags_t2_tevekkul_p1$/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
