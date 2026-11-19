@@ -65,10 +65,12 @@ export async function maybeAskReview(eligible: () => boolean) {
 export async function openStoreListing(): Promise<void> {
   try {
     await storage.setString(REVIEW_RATED_KEY, 'true');
+    // https önce: market:// Samsung'da Galaxy Store'u da aday yapıp "Şununla aç"
+    // seçicisi çıkarıyor; play.google.com bağlantısı doğrudan Play Store'da açılır.
     try {
-      await Linking.openURL(StoreReview?.storeUrl() || 'market://details?id=com.kuranapp.mobile');
+      await Linking.openURL(StoreReview?.storeUrl() || 'https://play.google.com/store/apps/details?id=com.kuranapp.mobile');
     } catch {
-      await Linking.openURL('https://play.google.com/store/apps/details?id=com.kuranapp.mobile');
+      await Linking.openURL('market://details?id=com.kuranapp.mobile');
     }
   } catch {
     // Mağaza açılamazsa sessiz geç.
