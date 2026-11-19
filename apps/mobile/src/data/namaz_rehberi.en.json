@@ -185,7 +185,7 @@
         "ne_zaman": "It is recited in every rak'ah. In this guide, it is taught as the essential recitation of salah; its legal ruling and its recitation in congregational prayer may be explained differently across the schools of law.",
         "dua": "Bismillahi r-rahmani r-rahim. Alhamdu lillahi rabb il-'alamin. Ar-rahmani r-rahim. Maliki yawm id-din. Iyyaka na'budu wa iyyaka nasta'in. Ihdina s-sirat al-mustaqim. Sirat alladhina an'amta 'alayhim ghayr il-maghdubi 'alayhim wa la d-dallin.",
         "dua_arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
-        "anlam": "In the name of Allah, the Most Merciful, the Most Compassionate. All praise belongs to Allah, Lord of the worlds. He is the Most Merciful, the Most Compassionate. Master of the Day of Judgment. You alone we worship, and You alone we ask for help. Guide us to the straight path: the path of those You have blessed, not those who have incurred anger or those who have gone astray.",
+        "anlam": "In the name of Allah, the Most Merciful, the Most Compassionate. All praise belongs to Allah, Rabb of the worlds. He is the Most Merciful, the Most Compassionate. Master of the Day of Judgment. You alone we worship, and You alone we ask for help. Guide us to the straight path: the path of those You have blessed, not those who have incurred anger or those who have gone astray.",
         "not": "Saying “Amin” quietly after al-Fatihah is a common Sunnah practice. The details of recitation in congregational prayer may vary between the schools of law."
       },
       {
@@ -210,7 +210,7 @@
             "isim": "Surah al-Falaq (113)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
             "okunusu": "Qul a'udhu bi rabbi'l-falaq. Min sharri ma khalaq. Wa min sharri ghasiqin idha waqab. Wa min sharri'n-naffathati fi'l-'uqad. Wa min sharri hasidin idha hasad.",
-            "anlam": "Say: I seek refuge in the Lord of daybreak, from the evil of what He has created, from the evil of darkness when it settles, from the evil of those who blow on knots, and from the evil of the envier when they envy.",
+            "anlam": "Say: I seek refuge in the Rabb of daybreak, from the evil of what He has created, from the evil of darkness when it settles, from the evil of those who blow on knots, and from the evil of the envier when they envy.",
             "rekat_sayisi": 5
           },
           {
@@ -218,7 +218,7 @@
             "isim": "Surah an-Nas (114)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَالنَّاسِ",
             "okunusu": "Qul a'udhu bi rabbi'n-nas. Maliki'n-nas. Ilahi'n-nas. Min sharri'l-waswasi'l-khannas. Alladhi yuwaswisu fi suduri'n-nas. Mina'l-jinnati wa'n-nas.",
-            "anlam": "Say: I seek refuge in the Lord of mankind, the King of mankind, the God of mankind, from the evil of the stealthy whisperer, who whispers into the hearts of mankind, from among jinn and mankind.",
+            "anlam": "Say: I seek refuge in the Rabb of mankind, the King of mankind, the God of mankind, from the evil of the stealthy whisperer, who whispers into the hearts of mankind, from among jinn and mankind.",
             "rekat_sayisi": 6
           },
           {
@@ -226,7 +226,7 @@
             "isim": "Surah al-Kawthar (108)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ فَصَلِّ لِرَبِّكَ وَانْحَرْ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
             "okunusu": "Inna a'taynaka'l-kawthar. Fa salli li rabbika wa'nhar. Inna shani'aka huwa'l-abtar.",
-            "anlam": "Indeed, We have given you al-Kawthar. So pray to your Lord and offer sacrifice. Indeed, it is the one who bears hatred toward you whose line is cut off.",
+            "anlam": "Indeed, We have given you al-Kawthar. So pray to your Rabb and offer sacrifice. Indeed, it is the one who bears hatred toward you whose line is cut off.",
             "rekat_sayisi": 3
           },
           {
@@ -242,7 +242,7 @@
             "isim": "Surah al-Fil (105)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ",
             "okunusu": "Alam tara kayfa fa'ala rabbuka bi ashabi'l-fil. Alam yaj'al kaydahum fi tadlil. Wa arsala 'alayhim tayran ababil. Tarmihim bi hijaratin min sijjil. Faja'alahum ka'asfin ma'kul.",
-            "anlam": "Have you not seen what your Lord did to the people of the elephant? Did He not make their plan fail? He sent against them flocks of birds, pelting them with stones of baked clay. Then He made them like eaten leaves of grain.",
+            "anlam": "Have you not seen what your Rabb did to the people of the elephant? Did He not make their plan fail? He sent against them flocks of birds, pelting them with stones of baked clay. Then He made them like eaten leaves of grain.",
             "rekat_sayisi": 5
           },
           {
@@ -250,7 +250,7 @@
             "isim": "Surah Quraysh (106)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ لِإِيلَافِ قُرَيْشٍ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ فَلْيَعْبُدُوا رَبَّ هَذَا الْبَيْتِ الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ",
             "okunusu": "Li ilafi quraysh. Ilafihim rihlata'sh-shita'i wa's-sayf. Falya'budu rabba hadha'l-bayt. Alladhi at'amahum min ju'in wa amanahum min khawf.",
-            "anlam": "For the security and accustomed ways of Quraysh, their accustomed journeys in winter and summer. So let them worship the Lord of this House, who fed them against hunger and gave them security from fear.",
+            "anlam": "For the security and accustomed ways of Quraysh, their accustomed journeys in winter and summer. So let them worship the Rabb of this House, who fed them against hunger and gave them security from fear.",
             "rekat_sayisi": 4
           },
           {
@@ -274,7 +274,7 @@
             "isim": "Surah an-Nasr (110)",
             "arapca": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا",
             "okunusu": "Idha ja'a nasrullahi wa'l-fath. Wa ra'ayta'n-nasa yadkhuluna fi dinillahi afwaja. Fa sabbih bi hamdi rabbika wastaghfirh. Innahu kana tawwaba.",
-            "anlam": "When Allah's help and victory come, and you see people entering Allah's religion in crowds, glorify your Lord with praise and seek His forgiveness. Surely He is ever accepting of repentance.",
+            "anlam": "When Allah's help and victory come, and you see people entering Allah's religion in crowds, glorify your Rabb with praise and seek His forgiveness. Surely He is ever accepting of repentance.",
             "rekat_sayisi": 3
           }
         ]
@@ -296,7 +296,7 @@
         "aciklama": "Bow with your back straight, your hands on your knees, and your head level with your back.",
         "dua": "Subhana Rabbiy al-'Azim.",
         "dua_arapca": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
-        "anlam": "My Lord, the Most Great, is free from all imperfection.",
+        "anlam": "My Rabb, the Most Great, is free from all imperfection.",
         "tekrar": "It is Sunnah to say it 3 times. It may also be said more times in odd numbers (5, 7...).",
         "farz_notu": "Going into ruku and pausing briefly with composure are obligatory. Saying the glorification is Sunnah."
       },
@@ -308,7 +308,7 @@
         "durum": "farz",
         "dua": "Sami'allahu liman hamidah. — Rabbana wa laka l-hamd.",
         "dua_arapca": "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ — رَبَّنَا وَلَكَ الْحَمْدُ",
-        "anlam": "Allah hears those who praise Him. — Our Lord, all praise belongs to You.",
+        "anlam": "Allah hears those who praise Him. — Our Rabb, all praise belongs to You.",
         "aciklama": "While rising from ruku, say 'Sami'allahu liman hamidah'; once fully upright, say 'Rabbana wa lakal hamd'.",
         "durum_detay": "Rising from ruku and standing fully upright is an important part of salah. The wording and rulings concerning the remembrances recited may be explained differently by different schools of law."
       },
@@ -329,7 +329,7 @@
         "aciklama": "The forehead, nose, two hands, two knees, and toes touch the ground. Seven body parts make contact with the ground.",
         "dua": "Subhana Rabbiy al-A'la.",
         "dua_arapca": "سُبْحَانَ رَبِّيَ الْأَعْلَى",
-        "anlam": "My Lord, the Most High, is free from all imperfection.",
+        "anlam": "My Rabb, the Most High, is free from all imperfection.",
         "tekrar": "It is Sunnah to say it 3 times.",
         "farz_notu": "Going into sujud is obligatory; saying the glorification is Sunnah.",
         "anlam_notu": "Sujud is when a servant is closest to Allah. For this reason, making supplication during sujud is very valuable."
@@ -342,7 +342,7 @@
         "durum": "farz",
         "dua": "Rabbighfirli.",
         "dua_arapca": "رَبِّ اغْفِرْ لِي",
-        "anlam": "My Lord, forgive me.",
+        "anlam": "My Rabb, forgive me.",
         "aciklama": "After the first sujud, rise and sit briefly, say 'Rabbighfirli', and then go into sujud again.",
         "not": "Sit briefly and calmly between the two sujuds. The ruling on this sitting and the details of the supplication to be recited may be explained differently by different schools of law."
       },
@@ -410,7 +410,7 @@
         "durum": "sunnet",
         "dua": "Rabbana atina fi d-dunya hasanatan wa fi l-akhirati hasanatan wa qina 'adhab an-nar.",
         "dua_arapca": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
-        "anlam": "Our Lord! Give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
+        "anlam": "Our Rabb! Give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
         "kuran_kaynagi": "Surah al-Baqarah 2:201"
       },
       {
@@ -420,7 +420,7 @@
         "durum": "sunnet",
         "dua": "Rabbana ghfir li wa liwalidayya wa lil-mu'minina yawma yaqum al-hisab.",
         "dua_arapca": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
-        "anlam": "Our Lord! Forgive me, my parents, and all the believers on the Day of Reckoning.",
+        "anlam": "Our Rabb! Forgive me, my parents, and all the believers on the Day of Reckoning.",
         "kuran_kaynagi": "Surah Ibrahim 14:41"
       },
       {
