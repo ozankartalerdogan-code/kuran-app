@@ -22,11 +22,14 @@ import {
   normalizeVerseThemes as normalizeCore,
   countVersesByMain,
   topSubsForMain as topSubsCore,
+  countDuaVerses as countDuaCore,
   type ThemeLang,
   type ThemeTaxonomy,
   type VerseThemesBundle,
   type VerseThemes,
 } from "./themesCore";
+
+export { isDuaCode, groupSubtopics, stripDuaPrefix, sortDuaCodes } from "./themesCore";
 
 export type { ThemeLang, ThemeGroup, ThemeLevel1, ThemeLevel2, VerseThemes } from "./themesCore";
 
@@ -104,4 +107,11 @@ export function getSubTopics(main: string, limit = 12): string[] {
     topSubsCache.set(main, top);
   }
   return top.map((t) => t.code);
+}
+
+let duaVerses: number | null = null;
+/** En az bir `dua-*` alt etiketi olan ayet sayısı (paketten, bir kez hesaplanır). */
+export function getDuaVerseCount(): number {
+  if (duaVerses === null) duaVerses = countDuaCore(idx, loadBundle());
+  return duaVerses;
 }

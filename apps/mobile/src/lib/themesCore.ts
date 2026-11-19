@@ -188,3 +188,47 @@ export function topSubsForMain(
     .sort((a, b) => b.count - a.count || a.code.localeCompare(b.code))
     .slice(0, limit);
 }
+
+// ── Dualar: `dua-*` alt konuları Konular ekranında tek başlık altında ────────
+// (tema-sozlesme.md, Kullanıcı kararları 2026-11-19; kodlar korunur.)
+
+const DUA_PREFIX = "dua-";
+
+/** Kürasyonlu dua alt konusu mu (`dua-` önekli level2)? */
+export function isDuaCode(code: string): boolean {
+  return code.startsWith(DUA_PREFIX);
+}
+
+/** Alt konu kodlarını ayırır: diğerleri (sıra korunur) + dualar. */
+export function groupSubtopics(codes: readonly string[]): { regular: string[]; duas: string[] } {
+  const regular: string[] = [];
+  const duas: string[] = [];
+  for (const c of codes) (isDuaCode(c) ? duas : regular).push(c);
+  return { regular, duas };
+}
+
+/** "Dua: Bağışlanma" → "Bağışlanma" (başlık zaten "Dualar" altında). Önek yoksa aynen. */
+export function stripDuaPrefix(title: string): string {
+  const s = title.replace(/^\s*dua\s*:\s*/i, "");
+  return s.trim() ? s : title;
+}
+
+/** Dua kodlarını görünen başlığa göre dil yereline uygun sıralar. */
+export function sortDuaCodes(
+  codes: readonly string[], titleOf: (code: string) => string, lang: ThemeLang,
+): { code: string; title: string }[] {
+  const collator = new Intl.Collator(lang === "en" ? "en" : "tr", { sensitivity: "base" });
+  return codes
+    .map((code) => ({ code, title: stripDuaPrefix(titleOf(code)) }))
+    .sort((a, b) => collator.compare(a.title, b.title) || a.code.localeCompare(b.code));
+}
+
+/** En az bir `dua-*` alt etiketi olan ayet sayısı (paketten; eski kodlar eşlenir). */
+export function countDuaVerses(idx: ThemeIndex, bundle: VerseThemesBundle): number {
+  let n = 0;
+  for (const row of Object.values(bundle.t ?? {})) {
+    if (!row || row.length < 2) continue;
+    if (normalizeSubs(idx, row.slice(1), null).some(isDuaCode)) n++;
+  }
+  return n;
+}

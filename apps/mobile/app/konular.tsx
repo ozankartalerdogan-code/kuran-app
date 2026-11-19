@@ -21,6 +21,7 @@ import { useSurahNameOf } from "../src/lib/surahNames";
 import {
   getGroups, getLevel1ByGroup, getThemeTitle, getThemeDescription, getThemeKind,
   getVerseCountsByMain, getSubTopics, resolveThemeCode, THEME_TAGS_ENABLED,
+  groupSubtopics, sortDuaCodes, getDuaVerseCount,
 } from "../src/lib/themes";
 
 export default function KonularScreen() {
@@ -120,7 +121,14 @@ function TopicDetail({ code }: { code: string | null }) {
   const insets = useSafeAreaInsets();
   const valid = !!code && getThemeKind(code) !== null;
   const desc = code ? getThemeDescription(code, lang) : null;
-  const subs = useMemo(() => (code && getThemeKind(code) === "level1" ? getSubTopics(code) : []), [code]);
+  // dua-* alt konuları tek "Dualar" başlığı altında (tema-sozlesme.md, 2026-11-19).
+  const { regular: subs, duas: duaCodes } = useMemo(
+    () => groupSubtopics(code && getThemeKind(code) === "level1" ? getSubTopics(code) : []),
+    [code],
+  );
+  const duas = useMemo(() => sortDuaCodes(duaCodes, (d) => getThemeTitle(d, lang), lang), [duaCodes, lang]);
+  const duaVerseCount = useMemo(() => (duas.length > 0 ? getDuaVerseCount() : 0), [duas.length]);
+  const [duasOpen, setDuasOpen] = useState(false);
   const [st, setSt] = useState<ListState>(INITIAL);
   const reqId = useRef(0);
 
@@ -178,6 +186,43 @@ function TopicDetail({ code }: { code: string | null }) {
               );
             })}
           </View>
+        </View>
+      )}
+      {duas.length > 0 && (
+        <View style={s.section}>
+          <TouchableOpacity
+            style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}
+            onPress={() => setDuasOpen((o) => !o)}
+            activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: duasOpen }}
+            accessibilityLabel={fmt(t.duasToggleA11y, { d: duas.length })}
+            accessibilityHint={t.duasToggleHint}
+          >
+            <View style={{ flex: 1 }}>
+              <Text style={[s.label, { color: c.text }]}>{t.duas}</Text>
+              <Text style={[s.count, { color: c.accent }]}>
+                {fmt(t.duaSummary, { d: duas.length, n: duaVerseCount })}
+              </Text>
+            </View>
+            <Ionicons name={duasOpen ? "chevron-up" : "chevron-down"} size={20} color={c.textMuted} />
+          </TouchableOpacity>
+          {duasOpen && (
+            <View style={s.chipRow}>
+              {duas.map(({ code: dua, title: name }) => (
+                <TouchableOpacity
+                  key={dua}
+                  style={[s.chip, { backgroundColor: c.isDark ? "#082f49" : "#f0f9ff", borderColor: c.isDark ? "#075985" : "#bae6fd" }]}
+                  onPress={() => router.push(`/search?tag=${encodeURIComponent(dua)}&page=1` as Href)}
+                  activeOpacity={0.7}
+                  accessibilityRole="button"
+                  accessibilityLabel={fmt(t.searchDuaA11y, { name })}
+                >
+                  <Text style={[s.chipText, { color: c.isDark ? "#7dd3fc" : "#0369a1" }]}>{name}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
         </View>
       )}
       <Text style={[s.sectionTitle, s.versesTitle, { color: c.textMuted }]} accessibilityRole="header">

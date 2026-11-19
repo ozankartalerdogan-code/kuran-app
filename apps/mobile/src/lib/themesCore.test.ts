@@ -11,6 +11,7 @@ import {
   createThemeIndex, resolveThemeCode, getThemeTitle, getThemeDescription, humanizeThemeCode,
   getThemeKind, getGroups, getLevel1ByGroup, getLevel2ForParent, lookupVerseThemes,
   normalizeVerseThemes, countVersesByMain, topSubsForMain,
+  isDuaCode, groupSubtopics, stripDuaPrefix, sortDuaCodes, countDuaVerses,
   type ThemeTaxonomy, type VerseThemesBundle,
 } from "./themesCore.ts";
 
@@ -123,4 +124,42 @@ test("gömülü themeTaxonomy.json + verseThemes.json sözleşmeye uyar", () => 
     const v = lookupVerseThemes(ri, realBundle, key);
     if (v.main) assert.ok(!getThemeTitle(ri, v.main, "tr").includes("_"), key);
   }
+});
+
+test("dua-* alt konuları ayrılır, önek atılır, TR sırası", () => {
+  assert.equal(isDuaCode("dua-affetme"), true);
+  assert.equal(isDuaCode("dualar"), false);
+  assert.equal(isDuaCode("sabir"), false);
+  assert.deepEqual(
+    groupSubtopics(["sabir", "dua-sukur", "tevekkul", "dua-affetme"]),
+    { regular: ["sabir", "tevekkul"], duas: ["dua-sukur", "dua-affetme"] },
+  );
+  assert.deepEqual(groupSubtopics([]), { regular: [], duas: [] });
+  assert.equal(stripDuaPrefix("Dua: Bağışlanma ve Af"), "Bağışlanma ve Af");
+  assert.equal(stripDuaPrefix("Sabır"), "Sabır");
+  assert.equal(stripDuaPrefix("Dua:"), "Dua:");
+  const titles: Record<string, string> = { "dua-c": "Dua: Şükür", "dua-a": "Dua: Çocuk", "dua-b": "Dua: Sabır", "dua-d": "Dua: İlim" };
+  assert.deepEqual(
+    sortDuaCodes(Object.keys(titles), (c) => titles[c], "tr").map((d) => d.title),
+    ["Çocuk", "İlim", "Sabır", "Şükür"],
+  );
+});
+
+test("dua ayeti sayımı: en az bir dua-* alt etiketi olan ayetler", () => {
+  const b: VerseThemesBundle = {
+    v: 1,
+    t: {
+      "1:5": ["B3_KALBI_IBADETLER", "dua-yardim", "dua-hidayet"],
+      "2:201": ["B3_KALBI_IBADETLER", "dua-dunya-ahiret"],
+      "2:255": ["A1_ALLAH_ULUHIYET", "tevhid"],
+      "3:8": [null, "dua-sebat"],
+    },
+  };
+  assert.equal(countDuaVerses(idx, b), 3);
+  assert.equal(countDuaVerses(idx, { v: 1, t: {} }), 0);
+  const realTax = readJson<ThemeTaxonomy>("../data/themeTaxonomy.json");
+  const realBundle = readJson<VerseThemesBundle>("../data/verseThemes.json");
+  const duas = realTax.level2.filter((t) => isDuaCode(t.code));
+  assert.ok(duas.length >= 80, `dua sayısı ${duas.length}`);
+  assert.ok(countDuaVerses(createThemeIndex(realTax), realBundle) > 0);
 });
