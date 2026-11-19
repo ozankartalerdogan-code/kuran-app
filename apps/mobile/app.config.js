@@ -132,6 +132,8 @@ module.exports = {
       // app CMake yeniden yapılandırması silinmiş JNI kaynaklarını tüketmeye
       // çalışıyor. Bkz. plugins/with-native-clean-codegen-ordering.js.
       './plugins/with-native-clean-codegen-ordering',
+      // Wi-Fi ve dikey ekranı "isteğe bağlı" beyan eder (Play uyumluluk uyarısı).
+      './plugins/with-android-optional-features',
       'expo-router',
       // Cihaz dilini okur (src/i18n) — Türkçe dışı cihazlarda arayüz İngilizce.
       'expo-localization',
