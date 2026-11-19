@@ -36,7 +36,7 @@ const nextConfig = {
   // nonce tüm sayfaları dinamik yapar, statik önbellek kaybolur.
   // connect-src: HomeNamazWidget (Aladhan), KibleClient (Nominatim).
   // worker-src blob: canvas-confetti worker'ı için.
-  // Şimdilik Report-Only; tarayıcı konsolunda ihlal yoksa başlık adı Content-Security-Policy yapılacak.
+  // 2026-11-19: Report-Only ölçümünde (38 sayfa, istemci içi gezinme + ihlal dinleyicisi) 0 ihlal → engelleme modu.
   async headers() {
     return [
       {
@@ -47,7 +47,7 @@ const nextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
           {
-            key: "Content-Security-Policy-Report-Only",
+            key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline'",
