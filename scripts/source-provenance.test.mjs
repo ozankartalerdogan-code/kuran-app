@@ -40,6 +40,12 @@ function verifyArtifactGroup(group) {
   return verified;
 }
 
+test("mobile offline TR provenance hashes match all packaged artifacts", () => {
+  const entry = manifest.entries.find(entry => entry.id === "mobile-offline-tr");
+  assert.ok(entry);
+  assert.equal(verifyArtifactGroup(entry.artifacts), entry.artifacts.fileCount);
+});
+
 test("all provenance file hashes and group hashes match the current workspace", () => {
   for (const entry of manifest.entries) verifyArtifactGroup(entry.artifacts);
 

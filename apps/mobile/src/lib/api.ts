@@ -1,3 +1,4 @@
+import { offlineSurahs, offlineVerses, offlineMushafPage } from "./offlineTr";
 import { storage } from "./storage";
 import { API_BASE_URL } from "./runtimeConfig";
 
@@ -376,6 +377,7 @@ async function withCacheFallback<T>(
   ttl: number,
   fetcher: () => Promise<T>,
   shouldStore?: (data: T) => boolean,
+  offline?: () => T | null,
 ): Promise<T> {
   try {
     return await withCache(key, ttl, fetcher, shouldStore);
@@ -385,6 +387,8 @@ async function withCacheFallback<T>(
       const cached = await storage.getJSON<{ ts: number; data: T }>(vkey(key));
       if (cached) return cached.data;
     } catch { /* ignore */ }
+    const embedded = offline?.();
+    if (embedded != null) return embedded;
     throw err;
   }
 }
@@ -398,6 +402,7 @@ export const api = {
         "cache_surahs",
         CACHE_TTL_STATIC,
         () => withRetry((signal) => request<SurahListItem[]>("/surahs", undefined, signal)),
+        undefined, offlineSurahs,
       ),
   },
 
@@ -420,6 +425,7 @@ export const api = {
         () => withRetry((signal) =>
           request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
         ),
+        undefined, () => offlineVerses(surahId),
       ),
   },
 
@@ -435,6 +441,7 @@ export const api = {
         () => withRetry((signal) =>
           request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
         ),
+        undefined, () => offlineMushafPage(page),
       ),
   },
 

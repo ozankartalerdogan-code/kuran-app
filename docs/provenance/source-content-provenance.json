@@ -3430,6 +3430,801 @@
           }
         ]
       }
+    },
+    {
+      "id": "mobile-offline-tr",
+      "sourceUrls": [
+        "https://tanzil.net/docs/Text_License",
+        "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi",
+        "https://github.com/kurancilar/json",
+        "https://alquran.cloud/tajweed-guide",
+        "https://alquran.cloud/terms-and-conditions"
+      ],
+      "classification": "lossless-packaging-of-existing-runtime-content",
+      "sourceContribution": "Existing Elmalılı meal, canonical Tanzil Arabic, AlQuran.cloud raw tajweed markup and Kuran Yolu aligned tajweed spans; see the corresponding source entries for attribution and license limits.",
+      "projectContribution": "Offline mobile packaging, Turkish readings and literal translations already present in the local database; no new source or license claim.",
+      "toolModel": "scripts/build-mobile-offline-tr.mjs; shared packages/core/src/mushafCompat.ts",
+      "method": "Read-only SQLite snapshot; actual local web route handlers; compact independent inputs with shared lossless decoder. All 604 pages and 114 surahs deepStrictEqual the route responses. Arabic exact comparison: 6124/6236 match mobile quran_arabic.json; 112 differing opening verses are retained verbatim as overrides. Raw tajweed markup is preserved for API compatibility. Source licenses and existing coverage limitations remain applicable.",
+      "generatedAt": "2026-11-20",
+      "humanReview": "Automated full response equivalence and fixed route golden regression tests; no additional scholarly review claimed.",
+      "exactResearchUrlHistoryPreserved": true,
+      "artifacts": {
+        "fileCount": 154,
+        "totalBytes": 6276839,
+        "sha256": "bb0dc8d05e2288656f7e5f70446afe9c7cff93da6b78df780ee612eea7be36b6",
+        "files": [
+          {
+            "path": "apps/mobile/src/data/mushaf_sayfalari.json",
+            "bytes": 5365,
+            "sha256": "0d31fc57c423d415fdb13195ccb158d255a927d26c60d2337ff4854d37482cc8"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/index.ts",
+            "bytes": 8367,
+            "sha256": "cf740bc03c55cfcd6f3db6c60fee1ce3bf0cb4022d7cb8c02ad8cb5a3bbb048f"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz01.json",
+            "bytes": 81580,
+            "sha256": "ecd538b906b168d20b4baf60819f349a75afc2f09f448bfc08226349c6e8f186"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz02.json",
+            "bytes": 85772,
+            "sha256": "fb88376d83e8a2715ee5067b2db2240f8d897ff43a4ba92c299cd17b48335d03"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz03.json",
+            "bytes": 89143,
+            "sha256": "99258971a9674dbc4dd6cf64535b1415a715c12968e01965b11fece2f045d4d2"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz04.json",
+            "bytes": 79875,
+            "sha256": "78b1837c6ae2885b5036d2f8c74cf5d1688cd27ab45dc957b7408c255bcdd438"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz05.json",
+            "bytes": 81533,
+            "sha256": "98924056964d0c6547c20098c568473327430131b30faf209a4957d052d7913c"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz06.json",
+            "bytes": 84905,
+            "sha256": "06fdf4b7a1710117817893ab1591ccac7b56f192bc5d76695612970b1270512a"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz07.json",
+            "bytes": 87620,
+            "sha256": "fe1c8f68b6f25696c57bcf724f49e7f555ad277406f63b9e633f9e93fa153b59"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz08.json",
+            "bytes": 83274,
+            "sha256": "cbe5530fd8bcf96a9f142c49b0a9944ee0e6e1d9decefc127090379c7f304b99"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz09.json",
+            "bytes": 81208,
+            "sha256": "ad5234fe5ad6a0d66cd70f57086fe1eeea6c3398b2643fd9541c3da905d2a5ce"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz10.json",
+            "bytes": 80446,
+            "sha256": "b6f7b4e84b20f57385b097d48928bca658d8a4b504aea08698716b8e2c9b3d62"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz11.json",
+            "bytes": 83804,
+            "sha256": "4afe1f1656428d7ddc7e2c2aa47df9d236e7799b62b6beeb357c83215700c2a2"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz12.json",
+            "bytes": 84844,
+            "sha256": "0dc70b4d2cdfbc7ac1d61c104922935436062005efaee8a924775d2b412ffaf9"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz13.json",
+            "bytes": 83618,
+            "sha256": "f590fab571fa575c95f87607538faf1c2b0d87a1877b0f54b3a67e09cd2b36fd"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz14.json",
+            "bytes": 81674,
+            "sha256": "9bf67c3be6170ed2937c16b959445726652f2755e6bdaa525380a55f89f7ed75"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz15.json",
+            "bytes": 81085,
+            "sha256": "c3a3a34c12c285c42f95487fb7ca967626527d4712424625425d9168f53774bc"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz16.json",
+            "bytes": 79324,
+            "sha256": "f6dc35bd69601db1c8ffb5acf6a49fa24e59b49ee927265fbf93b8098a491796"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz17.json",
+            "bytes": 82131,
+            "sha256": "3cb7266b631d000f34c13233f5ccbace443f72e74910a94fb5a085090cf9bcc5"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz18.json",
+            "bytes": 86278,
+            "sha256": "b8c25720fbb1c75663d624bc233a90fb81d82729089ed62357313a1e207df22c"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz19.json",
+            "bytes": 82235,
+            "sha256": "7d56401048f1d1f35d8b32c0bcf3f322719da08ccebed6d522877f0fa5871fa6"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz20.json",
+            "bytes": 82257,
+            "sha256": "1b4df873f5d9ca496a537a36eae256db0d6b0fe89e0bffadba22b8bdd9683b9d"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz21.json",
+            "bytes": 85418,
+            "sha256": "9aa2ad5f1c82860c353b4b8c277e01410b8cffa3fef7a1a2a0560aca2399ccef"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz22.json",
+            "bytes": 85648,
+            "sha256": "51873989d9aa228f65da20e1a3c28b79485848449b776f594b355babae971757"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz23.json",
+            "bytes": 88726,
+            "sha256": "59cf8a40b951e3b529d92c763f266efb9b41d2d8024304c038d77a742b4cef85"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz24.json",
+            "bytes": 81823,
+            "sha256": "4fb6ba2133d609ab96b082bf0d2b7f578b2cc1bae27676c4a5812a2dd4ebec4f"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz25.json",
+            "bytes": 90440,
+            "sha256": "200e6ce18ac99a0355b16516088739a92d45f09a1e7be8e0be74e90728357561"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz26.json",
+            "bytes": 84116,
+            "sha256": "9a7581d95a578bb357c16b9a4638883f4fa584e8f591ea7ec0dd209a08115dc1"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz27.json",
+            "bytes": 87240,
+            "sha256": "5b28a9bbc75a85db3202de555d4aceff91afa05cecfb2db11c950a38da5c38b3"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz28.json",
+            "bytes": 91568,
+            "sha256": "7b536e143de95e21b305b45defa6bcc03ee57e68fa41f61349013496b7ae5113"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz29.json",
+            "bytes": 87169,
+            "sha256": "a73c205d07e831b6f35d57520d380ec104cf0ad61406dbc2dc35f98f52dbdc51"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/mushaf/juz30.json",
+            "bytes": 81375,
+            "sha256": "ccc8d4e14617c640de6afaee3e9111c2f573ae00f2fa5ac75d979a283cbd8b0d"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/rules.json",
+            "bytes": 273,
+            "sha256": "7129017c3801a01a9685048b254de8326773512fda30893484ccd6edee8306c6"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/surahs.json",
+            "bytes": 13497,
+            "sha256": "b83fa9dc56dff56ac6331c5c3639946f6231918e3338bd44da45f374af6740e3"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/001.json",
+            "bytes": 935,
+            "sha256": "3a66b90ea5868ffc96762137244c9696ef899c2fa5c7d3f0b4081778074794a3"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/002.json",
+            "bytes": 177308,
+            "sha256": "5b55a0c078745416c20e7d3ef0b89c83f56e76a9478ca7e82f97bf9a190aeae1"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/003.json",
+            "bytes": 100589,
+            "sha256": "f9bcb8e94784062290a4cb1f3b92032f5af253c225ea7b42fd16047fe8c4d4fe"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/004.json",
+            "bytes": 107870,
+            "sha256": "ca76c4628dcbcd54c7243668eb0d3f14dd59b120c043dea1a6be23629e28c87c"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/005.json",
+            "bytes": 77275,
+            "sha256": "89d1bc7ff61a3c7d9e7b6236c014de6a793a94f4b4c3a6f49c0fcd00edca7750"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/006.json",
+            "bytes": 87141,
+            "sha256": "22d4c722af4fc7741ec61ef07d107dfa39ba401afa72e72713f3837daa1fba0b"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/007.json",
+            "bytes": 98452,
+            "sha256": "0893fccffd4e37c23f7e64fdb2b74af396eaf3b2ca3bc7d3ed0ef49ee3fcde6c"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/008.json",
+            "bytes": 37219,
+            "sha256": "d3e737c7a19eeac78a1676e5f3e3edbeffc188a0b49b4816aa3dde8e052bc69a"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/009.json",
+            "bytes": 75169,
+            "sha256": "07513753f7855c222bd24bf1325c05ada90c9fced4b68342d649100d0195714a"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/010.json",
+            "bytes": 51973,
+            "sha256": "d0dfacb867736f9127579877ef3de2dd70398154a001cc6651a8aaef48022f98"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/011.json",
+            "bytes": 56407,
+            "sha256": "ae7240724e4a079e6e9296a7ab8606ac7050cd3202e42ef63e628e4d0725f9be"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/012.json",
+            "bytes": 52293,
+            "sha256": "4c509e798ceaacf977aa4b552fb83304a36a9085287942657d108ad6aed5f84a"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/013.json",
+            "bytes": 24467,
+            "sha256": "61c8a460c216b83f4a3cf7bb1c2d8475d214751171ab55f3d4d29e20f9c14cec"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/014.json",
+            "bytes": 23787,
+            "sha256": "04104efc151b2ce2453e4c982960eb224181c12eff8a8cfd179f2b49342f6f33"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/015.json",
+            "bytes": 21452,
+            "sha256": "fd9ba9f1a3239734cddc6907eeb63bbd7714546eeef6b2d933853606a19d7c76"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/016.json",
+            "bytes": 54364,
+            "sha256": "1fe91ff39e021370d33cab5d51c2f551dfa6d4dfd0f732e439e8e5d545b62547"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/017.json",
+            "bytes": 46231,
+            "sha256": "aa657c5ef7c7814031019277f0e3da508cd7c90e15b5cb779fe8022faa3513be"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/018.json",
+            "bytes": 47458,
+            "sha256": "dcc78c2fbdd71d4f38ddb27c8a4ce1a5a29aa79fc7a9a0e1125316b3a45cd974"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/019.json",
+            "bytes": 29735,
+            "sha256": "47265cb3d2080d789f52973eb044320c3b854a450808e44dafa9ec96e707c040"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/020.json",
+            "bytes": 40538,
+            "sha256": "c69280e297cc00134ffbaeacaa2d28f8657e5440005fa05b63fbb4f7c7520800"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/021.json",
+            "bytes": 36116,
+            "sha256": "1c74873a97cc8a5b2112c443d10ef60d740352fdf48ae39b2ed78eb0a4a5f9dd"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/022.json",
+            "bytes": 36467,
+            "sha256": "8de1cd84a74888cab68e52e4571e2b6f5f45dc01695c7378b518eee11e26cd26"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/023.json",
+            "bytes": 32497,
+            "sha256": "e17a79653a5cb654ca85e04785a66c249886b0035d1623dc59e4422df3bfae34"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/024.json",
+            "bytes": 39059,
+            "sha256": "2a30ffb2d68868dc4c3f59d97742e14795f48572fd6db4d446ff49995c6a4513"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/025.json",
+            "bytes": 26885,
+            "sha256": "96ecceb371adbadbebd9b49b831fff2bf94ba4d2d04ff6de3d743cc6f9cbcd16"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/026.json",
+            "bytes": 42435,
+            "sha256": "04158e3cd1d3ea01ee84ea7471c54ef6e3d43820082645f00e39ccd4bb2a2faf"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/027.json",
+            "bytes": 34256,
+            "sha256": "544a9e073bd7099c13133e7a098bcab88fdf85ff854a38b23ec9d7ac0b906216"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/028.json",
+            "bytes": 40682,
+            "sha256": "eb3221a361cad24ea4130bf1bf437718924e61f382c46cc222503883582f3b63"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/029.json",
+            "bytes": 28945,
+            "sha256": "96f2b4ccfbbf7a40caae722403303dcc88ed8d4203a1321b3c4f5b1d0f27903d"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/030.json",
+            "bytes": 23686,
+            "sha256": "b35c552b075a079be5409fde5fc373ade0cb082f0ff7814d1b27919b15eabcea"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/031.json",
+            "bytes": 15530,
+            "sha256": "9ddd4c3ce6fa2a528e3e87775ea26e6cdcc36e6de7f1e03862339c66ca8c9d55"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/032.json",
+            "bytes": 10943,
+            "sha256": "545ea75e535c5fb69cc30799bf07166ffbd02f3313171ef138147e5e15d7c1b1"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/033.json",
+            "bytes": 37530,
+            "sha256": "0e8b6dd03c8507c0da12bbe972db61275b042f745f7b6ef61f7701266d427345"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/034.json",
+            "bytes": 24800,
+            "sha256": "6a75cad67fad23a7fa972aac0d62ef3066d88eaf331bddb49d5ca3564d0da0fb"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/035.json",
+            "bytes": 22023,
+            "sha256": "d3a7de4889c882a016df762ce40428a190f75bf0e4cb406314d92c1a7dbf489e"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/036.json",
+            "bytes": 22134,
+            "sha256": "91be738ae1ab47d7340fa5da62dce8ef4c1fcc467afcabd74fbe89522d5f7921"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/037.json",
+            "bytes": 31846,
+            "sha256": "bebb341864d007fa49e3f85d450d81958cc3cc9a64113a83012f6b64f065da28"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/038.json",
+            "bytes": 22712,
+            "sha256": "74a5da92e744af9f3bb9b2795c87267586ffa0315c0c38912890d573e1dfc724"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/039.json",
+            "bytes": 33293,
+            "sha256": "e11adf9db51d8dd81f73f4244f9f7ef4d6d31e2b04243e4e8a49e1d20a3686cc"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/040.json",
+            "bytes": 35249,
+            "sha256": "2e0335f6a4377cd0e7de553c94ac1d86b013bd2c0d18589fb28dae2963221067"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/041.json",
+            "bytes": 23537,
+            "sha256": "f817d038d45254efc24250a72bb14581381c1a53d5a8664e387d457c8a191589"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/042.json",
+            "bytes": 24375,
+            "sha256": "824ee0c948b26911f708f67285ea21df337a49b93e7ca6354c34cb02efccb2e2"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/043.json",
+            "bytes": 26854,
+            "sha256": "64ce43d7a39dae5a3169e9080346f738eee23629e8860ca2340e4afa5de15e61"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/044.json",
+            "bytes": 11812,
+            "sha256": "30db2d439c8d1ab88912c9859fa62a6a58f7d0f24b55886639ae7db17a96d3e3"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/045.json",
+            "bytes": 14360,
+            "sha256": "cc34ad7f9223115ae7adba652846cba8ef15db1b61d5a776ed9d25fef93a4a2c"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/046.json",
+            "bytes": 18844,
+            "sha256": "d9a32af7daf6866ed136cbfc3892c3b8e4d223244bc875c78724cd0d9ea8547c"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/047.json",
+            "bytes": 17005,
+            "sha256": "71fdec17ccd0ad4de1ad55870a77756bd85d9741e493d1eb9f072d05c5bbfed8"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/048.json",
+            "bytes": 16466,
+            "sha256": "66e0d6b65a265056bd7f497e45982c86d251cdbc95d37bf59041137d4f213f01"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/049.json",
+            "bytes": 9796,
+            "sha256": "58263d774071d8da8760c7c6ef1791f60752c58ae72fa5ac476bd857108e2d22"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/050.json",
+            "bytes": 11462,
+            "sha256": "667f4a486346ed4066ce0611ab4d67305dccda2f4a6d86c9d69545b92edde5d0"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/051.json",
+            "bytes": 12405,
+            "sha256": "8567be29a9bb7828ed383dfa507f3944e06b839d454d008fe16c6630c0490f1b"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/052.json",
+            "bytes": 9988,
+            "sha256": "4feaa42da3b9f81f94467fcac16d7959236a97662facbef499a82052415f5920"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/053.json",
+            "bytes": 10532,
+            "sha256": "92818c0feddcb5c999420e4b8a49a427637bc40da4c25501defd49ceb6368fc7"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/054.json",
+            "bytes": 11580,
+            "sha256": "3342faf9c5800968b5d6a9db95462caa0222fd1b70dc41af73e56389664e7375"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/055.json",
+            "bytes": 11801,
+            "sha256": "78edb7a951eef8a2baa1a7d70e659dc7acd9437ef33c1e0cbaba54b34464a2cc"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/056.json",
+            "bytes": 12200,
+            "sha256": "14cbf5a3cd1d1891a80d5256462162979a9589a217ea0fa6ac97790e6cd82b0e"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/057.json",
+            "bytes": 16204,
+            "sha256": "ab1bed74d43644eb422028a80bdf1233a5975719d5576aef32adbe9c2565c635"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/058.json",
+            "bytes": 13199,
+            "sha256": "8763ccfda1d9f84ffc43278af8c09a0a0749d8e1fc07d57b9dfbdcbca3952c88"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/059.json",
+            "bytes": 12837,
+            "sha256": "b4de9811fbc88ceb442b7d306a73dcedbc1274d9ca03f51312c22eed15fa048b"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/060.json",
+            "bytes": 9591,
+            "sha256": "aa2f60becfd109f62f10fe5bbb01e0b35b2fd0d0eb6d9c84064fe097d6c18cdb"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/061.json",
+            "bytes": 5858,
+            "sha256": "c9e60afc08301f2231a2eed0bab11a573788c01497cd7b0c9a5ee61e786e2c62"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/062.json",
+            "bytes": 4825,
+            "sha256": "388faec3881427740b92c27a8647e3f15a9f00e6bbf62b8bfd222afd67afb1e4"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/063.json",
+            "bytes": 5245,
+            "sha256": "a28e2efecaefdff53bfc793cbfdb56f5c5415efebdc32edc20333695ee61a944"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/064.json",
+            "bytes": 7145,
+            "sha256": "149b55d5b1099d0535bfc5db70d2db9be7027cf053210071c4fbecce9d2f5646"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/065.json",
+            "bytes": 8057,
+            "sha256": "32f5063db5192e643911709c71a925e74933fba1143d654ca75cb398edfe5541"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/066.json",
+            "bytes": 7285,
+            "sha256": "79a2e1d947cbd8e79d9a5c66191801e34b111329729a1ec9a929307513a17d7d"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/067.json",
+            "bytes": 9232,
+            "sha256": "2e58bba67abb73187047b651b5ff8d00c6dfa4c4c11c9a8b7edfe6af97aacd28"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/068.json",
+            "bytes": 9471,
+            "sha256": "a2deca1307b6fed6e423cab45f912f81b7f3f2e67bbf33f8cfaa677d7050b80e"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/069.json",
+            "bytes": 7933,
+            "sha256": "3101fc6cd768c3a33c4e56548c3bba936e28c83465d46daf221132056ecd1ce9"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/070.json",
+            "bytes": 6561,
+            "sha256": "daeb1c5e10570d85d82ed5ca1494c67b24244c3f5578a73d48d2fd561afcf872"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/071.json",
+            "bytes": 6547,
+            "sha256": "e9c4ef2dc364b2297d9deca107d36f528d7310ed49d9f0563d38f6d6862d172e"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/072.json",
+            "bytes": 8250,
+            "sha256": "f8751e24e0c15db36a3400700a46193824f9f4134fcdac3005064a4a2f909a4b"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/073.json",
+            "bytes": 5921,
+            "sha256": "a201e0f5044c6a28bbff97f1c0b777b91dc5ab4b29f7fecd0258ba2cd46cd9de"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/074.json",
+            "bytes": 7445,
+            "sha256": "46f91cd9cd3d2c3c560b0ecba2bd0275e16fc48708c2c4b5d5a0e8ac1ca1f5c6"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/075.json",
+            "bytes": 5080,
+            "sha256": "cd7948a4acf898ff7319945439ffb575c1ea748dc01156685a1081176882bdf3"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/076.json",
+            "bytes": 7410,
+            "sha256": "b6d64cf8e6238f2c0965200deca63edfaf949eafd4b1192bd799c5682f83355b"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/077.json",
+            "bytes": 6028,
+            "sha256": "06b501e1a4513b22e887293b36a9516e03ee98604010575283e0755a82404bed"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/078.json",
+            "bytes": 5563,
+            "sha256": "bf8046659e4b825b0dbe8f8296294b56462e956e11d50ebc8cfdaaf2376b8bc9"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/079.json",
+            "bytes": 5705,
+            "sha256": "80e2e1a4debcda27aa75ae4e93bb358a4d0c4b6a589ea512faa1c9ddf0f541ff"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/080.json",
+            "bytes": 4380,
+            "sha256": "1665622021b284f7faac71fe1a074d9bf32625206ad7101d61b15a65644a678d"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/081.json",
+            "bytes": 3514,
+            "sha256": "790757a1daf8a0badfb651c09143ea56302d7bdac78121f21b024188dfb4a5f6"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/082.json",
+            "bytes": 2501,
+            "sha256": "80fa146509986a425bf414954ee7703ada683bc99aef87751d9b5beafe6e7c71"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/083.json",
+            "bytes": 5414,
+            "sha256": "2e8ec070ded06db14d129447128308bf6a30fca678028ff18fe94e75d7a98d02"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/084.json",
+            "bytes": 3188,
+            "sha256": "63b9ca63769fe539edbf4fc736ac3371ceb7fc7279e769332b2e733b1df06667"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/085.json",
+            "bytes": 3096,
+            "sha256": "cc0c77ac1dd61aee9f02cbcd2605854a79569804aa37dd4eb5d432a07fd09867"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/086.json",
+            "bytes": 2043,
+            "sha256": "0afd8baf97879cd7f7791f7e173b62ea1bbe7388f41e731f394b84d5504191ce"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/087.json",
+            "bytes": 2321,
+            "sha256": "ccb28581bd62502db24ed79fb11ef80662ba34d62a97144a23e666e3a82629b2"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/088.json",
+            "bytes": 2832,
+            "sha256": "502a5a8b3f243df70354b6d7b46af01aa1ce77f87fa5c8a80abd7a73880e5324"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/089.json",
+            "bytes": 4123,
+            "sha256": "2004c047522117e3c457bbf2ce96964b80321ef760283741d26f26cccaab8e7f"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/090.json",
+            "bytes": 2491,
+            "sha256": "bd1698d65d565bcc53452d02da81f446fef72ac1237e8f5409c66318a83431f9"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/091.json",
+            "bytes": 1999,
+            "sha256": "bcd23a4f7e14c9a994dfd58034d09fbd6825f75b71f723f00cce8c9a38b82a82"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/092.json",
+            "bytes": 2584,
+            "sha256": "7737d3637c4e46380f20da1615642cc3351cd7fcb02c36c08c769b3df7b298c9"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/093.json",
+            "bytes": 1224,
+            "sha256": "664c6b6d4d2d7f7101584e79f88a25c7f3c25287f6fa0da0680030dbb28a4a27"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/094.json",
+            "bytes": 900,
+            "sha256": "4edd58c6263cb4ee76ada08431370d42a9c135d46cdca293297709925c772620"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/095.json",
+            "bytes": 993,
+            "sha256": "d167761686c46055c4dd34b67e322c39e13d7cb2cf8ea29dcbf0621f32acae05"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/096.json",
+            "bytes": 2469,
+            "sha256": "423f883642107a10e6128ff59650c29a3cb5dedac91188e093959ce02a96fe24"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/097.json",
+            "bytes": 779,
+            "sha256": "3820343fe3d6c4c8c0fe330073134508e9f0ad933c70adbc4dba5eae6e10be3e"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/098.json",
+            "bytes": 2725,
+            "sha256": "e89d2ac1588e104b2f79367f66f7f54d2ba03487c2b67723475616bcf8539772"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/099.json",
+            "bytes": 1196,
+            "sha256": "0d19b66423be940ed846731c9b710a539a3f40d8bcca27d03ddd6d3f9dcc50f4"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/100.json",
+            "bytes": 1402,
+            "sha256": "da0fcfcd42de8a358f7fb47b8f399f4bd85c9963612ab12253d56c6d3a05baf2"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/101.json",
+            "bytes": 1526,
+            "sha256": "5a7fd69aa4c398b4df39deb6baf769e666fb81c0a2466b9bc9ac832653cc8efd"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/102.json",
+            "bytes": 1113,
+            "sha256": "418c4a5fb32ed2153c66db9fff153f031af0ee982d2159ed83591a3a291be737"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/103.json",
+            "bytes": 523,
+            "sha256": "53148e1e534fbb7a83a282fc48d023c01a2bdcb7a719941bf165ebd74451f606"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/104.json",
+            "bytes": 1512,
+            "sha256": "a63606da1e6f10363e0af814c4f34f8d5d1e2c6ccacb924fc54e018d71cd92da"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/105.json",
+            "bytes": 740,
+            "sha256": "ff540005d7fee33ccb8828437855a4b84c9826fdab0a987372dd81b88f38289f"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/106.json",
+            "bytes": 674,
+            "sha256": "ef899f16ffed050fe175c9459965e4a9c2b20b6bb1f70e740aa5a4497239c5c9"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/107.json",
+            "bytes": 714,
+            "sha256": "9c550f3fdab12a8feb1a176305ada04d9b193f77e43a78b555736a29b3b4f066"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/108.json",
+            "bytes": 366,
+            "sha256": "f3bc9ae394a7a473ca39690a2bfa5131af25ba7e43a3dac0cffe3faac917d541"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/109.json",
+            "bytes": 691,
+            "sha256": "711e01c2039f98f674a4c8f0c37e4e98e35abf0d76675ae81bdaf3d0498113aa"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/110.json",
+            "bytes": 602,
+            "sha256": "461e285ab9af153ee9fec0a7cca069632d576e042d9e39e97e36817b7aeabe0f"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/111.json",
+            "bytes": 628,
+            "sha256": "04c878390dafc2f436146608b099e789dfc4c2058c7b3b199001b009d42a71c6"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/112.json",
+            "bytes": 408,
+            "sha256": "d954122cc65d88896bff9a4d582788959b0ed1be3a780c1a5c31b339d199df9f"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/113.json",
+            "bytes": 633,
+            "sha256": "fb218eeab44a17db613a1cfa0b5e8ce4254585997925c213ff9c0da3255d5cc7"
+          },
+          {
+            "path": "apps/mobile/src/data/offlineTr/verses/114.json",
+            "bytes": 595,
+            "sha256": "889fad93b546caed75197ab89ee900ae29c3bb9826f0d0fb8373cecbdd1ccaa0"
+          },
+          {
+            "path": "apps/mobile/src/data/quran_arabic.json",
+            "bytes": 1363621,
+            "sha256": "f0c4287905b3335d8c22f757fa4e1ced348c925705954069e7dc793aa53509dc"
+          },
+          {
+            "path": "apps/mobile/src/lib/__fixtures__/offlineTr.golden.json",
+            "bytes": 41411,
+            "sha256": "319c2fca61b5ed4a394e731bab4ff97175fdca9ce8d81fa5942d83be9128381c"
+          },
+          {
+            "path": "apps/mobile/src/lib/offlineTr.ts",
+            "bytes": 964,
+            "sha256": "dbc222238954e9973e09beb5bdcbdb4599f826188ec8abf1c75350f5b9ed5170"
+          },
+          {
+            "path": "apps/mobile/src/lib/offlineTrCodec.ts",
+            "bytes": 2001,
+            "sha256": "103d7bf54f17b8152032abd5686fa6d3e055a7310a2387c4eade2c2c02905e02"
+          },
+          {
+            "path": "packages/core/src/mushafCompat.ts",
+            "bytes": 8318,
+            "sha256": "153fd860744a8bb12ec50eae65fba36c4ada1ed0c69da662d254889fc203a2a1"
+          },
+          {
+            "path": "scripts/build-mobile-offline-tr.mjs",
+            "bytes": 11834,
+            "sha256": "c96d5a2049300f0b2a7962622296381e1ab150489e019f209f1b78fd2e602fd5"
+          }
+        ]
+      }
     }
   ]
 }

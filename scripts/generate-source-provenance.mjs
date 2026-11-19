@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -80,6 +80,51 @@ function artifactGroup(paths, extraAbsentPaths = []) {
   };
 }
 
+
+function offlineTrEntry() {
+  return {
+    id: "mobile-offline-tr",
+    sourceUrls: [
+      "https://tanzil.net/docs/Text_License",
+      "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi",
+      "https://github.com/kurancilar/json",
+      "https://alquran.cloud/tajweed-guide",
+      "https://alquran.cloud/terms-and-conditions",
+    ],
+    classification: "lossless-packaging-of-existing-runtime-content",
+    sourceContribution: "Existing Elmalılı meal, canonical Tanzil Arabic, AlQuran.cloud raw tajweed markup and Kuran Yolu aligned tajweed spans; see the corresponding source entries for attribution and license limits.",
+    projectContribution: "Offline mobile packaging, Turkish readings and literal translations already present in the local database; no new source or license claim.",
+    toolModel: "scripts/build-mobile-offline-tr.mjs; shared packages/core/src/mushafCompat.ts",
+    method: "Read-only SQLite snapshot; actual local web route handlers; compact independent inputs with shared lossless decoder. All 604 pages and 114 surahs deepStrictEqual the route responses. Arabic exact comparison: 6124/6236 match mobile quran_arabic.json; 112 differing opening verses are retained verbatim as overrides. Raw tajweed markup is preserved for API compatibility. Source licenses and existing coverage limitations remain applicable.",
+    generatedAt: "2026-11-20",
+    humanReview: "Automated full response equivalence and fixed route golden regression tests; no additional scholarly review claimed.",
+    exactResearchUrlHistoryPreserved: true,
+    artifacts: artifactGroup([
+      ...walk("apps/mobile/src/data/offlineTr"),
+      "apps/mobile/src/data/quran_arabic.json",
+      "apps/mobile/src/data/mushaf_sayfalari.json",
+      "apps/mobile/src/lib/offlineTr.ts",
+      "apps/mobile/src/lib/offlineTrCodec.ts",
+      "apps/mobile/src/lib/__fixtures__/offlineTr.golden.json",
+      "packages/core/src/mushafCompat.ts",
+      "scripts/build-mobile-offline-tr.mjs",
+    ]),
+  };
+}
+
+// Worktrees omit historical vendor inputs. Update this new entry without
+// re-hashing or discarding unrelated historical provenance evidence.
+if (process.argv.includes("--offline-tr-only")) {
+  const manifest = JSON.parse(readFileSync(OUTPUT_PATH, "utf8"));
+  manifest.entries = manifest.entries.filter(entry => entry.id !== "mobile-offline-tr");
+  manifest.entries.push(offlineTrEntry());
+  const output = `${JSON.stringify(manifest, null, 2)}\n`;
+  writeFileSync(`${OUTPUT_PATH}.tmp`, output, "utf8");
+  renameSync(`${OUTPUT_PATH}.tmp`, OUTPUT_PATH);
+  console.log("Updated mobile-offline-tr provenance; retained historical entries.");
+  process.exit(0);
+}
+
 const lessonFiles = [
   ...walk("apps/mobile/src/data/Dersler", (file) => /(?:_dersi|_ders_modulu)\.json$/u.test(file)),
   ...walk("apps/web/src/data/dersler", (file) => /(?:_dersi|_ders_modulu)\.json$/u.test(file)),
@@ -134,6 +179,8 @@ const entries = [
     exactResearchUrlHistoryPreserved: true,
     artifacts: artifactGroup(elmaliliDigital),
   },
+
+  offlineTrEntry(),
   {
     id: "pickthall-tanzil-en",
     sourceUrls: [

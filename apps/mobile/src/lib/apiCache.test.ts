@@ -36,6 +36,7 @@ function loadApi(source: string, persisted: Map<string, unknown>) {
   }).outputText;
   const mod = { exports: {} as Record<string, unknown> };
   const localRequire = (id: string) => {
+    if (id === "./offlineTr") return { offlineSurahs: () => null, offlineVerses: () => null, offlineMushafPage: () => null };
     if (id === "./storage") return { storage };
     if (id === "./runtimeConfig") return { API_BASE_URL: "https://api.example.test/v1" };
     throw new Error(`Unexpected api dependency: ${id}`);

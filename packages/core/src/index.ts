@@ -1,4 +1,6 @@
 export { getSurahs } from "./quran/getSurahs";
+export { buildMushafVerse } from "./mushafCompat";
+export type { BasmalaRange, MushafVerseInput, MushafVersePayload, QuranTajweedSpan } from "./mushafCompat";
 export { getAyah } from "./quran/getAyah";
 export { getSurahContext } from "./quran/getSurahContext";
 export { getAyahDetail } from "./analysis/getAyahDetail";
