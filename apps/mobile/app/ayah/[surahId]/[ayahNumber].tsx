@@ -328,6 +328,9 @@ function SegmentedTabs({
             accessibilityLabel={t.label}
           >
             <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
               style={[
                 styles.tabLabel,
                 { color: isActive ? "#ffffff" : colors.textSecondary },
@@ -1382,6 +1385,7 @@ const styles = StyleSheet.create({
     fontSize: 30, lineHeight: 58,
     fontFamily: "UthmanicHafs", textAlign: "right",
     writingDirection: "rtl", width: "100%",
+    paddingHorizontal: 8, overflow: "visible",
   },
   legend:     { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 12 },
   legendItem: { flexDirection: "row", alignItems: "center", gap: 5 },

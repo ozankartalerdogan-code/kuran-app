@@ -3,7 +3,7 @@ import { HomeWelcomeCards } from "../../src/components/onboarding/HomeWelcomeCar
 import React, { useState, useCallback, useRef, useEffect, useMemo, type ComponentProps } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, ActivityIndicator, Modal,
-  RefreshControl,
+  RefreshControl, PixelRatio, useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useFocusEffect } from "expo-router";
@@ -92,6 +92,8 @@ type QuickAction = {
 };
 
 function HomeContent() {
+  const { fontScale } = useWindowDimensions();
+  const largePrayerText = Math.max(fontScale, PixelRatio.getFontScale()) >= 1.3;
   const c          = useColors();
   const lang = useLang();
   const mealOf = useMealOf();
@@ -352,7 +354,7 @@ function HomeContent() {
             <Ionicons name="notifications-outline" size={19} color={c.isDark ? "#818cf8" : "#3730a3"} />
           </TouchableOpacity>
         </View>
-        <View style={styles.countdownRow}>
+        <View style={[styles.countdownRow, largePrayerText && { flexWrap: "wrap" }]}>
           <Ionicons name="time-outline" size={14} color={c.isDark ? "#818cf8" : "#4338ca"} />
           <TouchableOpacity
             onPress={() => router.push("/sehir-sec")}
@@ -366,8 +368,8 @@ function HomeContent() {
             <Ionicons name="chevron-down" size={12} color={c.isDark ? "#818cf8" : "#4338ca"} />
           </TouchableOpacity>
           {nextPrayer ? (
-            <Text numberOfLines={1} style={[styles.countdown, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
-              {" · "}{pn["to" + nextPrayer.key] ?? nextPrayer.label}{hs.countdownBefore} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin, hs)}</Text>{hs.countdownAfter}
+            <Text numberOfLines={largePrayerText ? undefined : 1} style={[styles.countdown, largePrayerText && { width: "100%" }, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>
+              {largePrayerText ? "" : " · "}{pn["to" + nextPrayer.key] ?? nextPrayer.label}{hs.countdownBefore} <Text style={styles.countdownStrong}>{formatRemaining(nextPrayer.remainingMin, hs)}</Text>{hs.countdownAfter}
             </Text>
           ) : null}
         </View>
@@ -382,7 +384,7 @@ function HomeContent() {
             </Text>
           </View>
         ) : (
-          <View style={styles.prayerRow}>
+          <View style={[styles.prayerRow, largePrayerText && { flexWrap: "wrap", rowGap: 6 }]}>
             {PRAYER_ORDER.map((key, idx) => {
               const isNext = nextPrayer?.key === key;
               // nextPrayerIdx===0 (Fajr) bilerek "geçti" saymıyoruz — hem gün henüz Fajr'a
@@ -392,6 +394,7 @@ function HomeContent() {
               return (
                 <View key={key} style={[
                   styles.prayerItem,
+                  largePrayerText && { flex: 0, width: "33.333%", marginHorizontal: 0 },
                   { backgroundColor: c.isDark ? "#1e1b4b" : "#fff", borderColor: c.isDark ? "#3730a3" : "#e0e7ff" },
                   isNext && styles.prayerItemActive,
                   isPassed && styles.prayerItemPassed,
@@ -401,8 +404,8 @@ function HomeContent() {
                     size={15}
                     color={isNext ? "#fff" : (c.isDark ? "#a5b4fc" : "#6366f1")}
                   />
-                  <Text numberOfLines={1} style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{pn[key] ?? PRAYER_LABELS[key]}</Text>
-                  <Text numberOfLines={1} style={[styles.prayerTime, { color: c.isDark ? "#c7d2fe" : "#312e81" }, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
+                  <Text numberOfLines={largePrayerText ? undefined : 1} style={[styles.prayerLabel, { color: c.isDark ? "#a5b4fc" : "#6366f1" }, isNext && styles.prayerLabelActive]}>{pn[key] ?? PRAYER_LABELS[key]}</Text>
+                  <Text style={[styles.prayerTime, { textAlign: "center", width: "100%" }, { color: c.isDark ? "#c7d2fe" : "#312e81" }, isNext && styles.prayerTimeActive]}>{prayers[key as keyof typeof prayers]}</Text>
                 </View>
               );
             })}

@@ -1,7 +1,8 @@
 import {
-  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator,
+  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, ScrollView,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
@@ -73,6 +74,8 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
   onAnswer: (q: QuizQuestion, correct: boolean) => void;
   onFinish: (score: number, total: number) => void;
 }) {
+  const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const [idx, setIdx] = useState(0);
@@ -153,7 +156,16 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
   }
 
   return (
-    <View style={qv.container}>
+    <ScrollView
+      key={idx}
+      ref={scrollRef}
+      style={qv.scroll}
+      contentContainerStyle={[qv.content, { paddingBottom: 16 + insets.bottom }]}
+      onContentSizeChange={() => {
+        if (answered) scrollRef.current?.scrollToEnd({ animated: true });
+        else scrollRef.current?.scrollTo({ y: 0, animated: false });
+      }}
+    >
       <Text style={qv.progress}>{fmt(ep.questionProgress, { i: idx + 1, n: questions.length, s: score })}</Text>
       <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
         {renderSoru(soru.soru)}
@@ -211,7 +223,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
           />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -225,6 +237,8 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
   onNext: () => void;
   onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
 }) {
+  const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -263,7 +277,12 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
   }
 
   return (
-    <>
+    <ScrollView
+      ref={scrollRef}
+      style={qv.scroll}
+      contentContainerStyle={[qv.content, { paddingBottom: 16 + insets.bottom }]}
+      onContentSizeChange={() => { if (answered) scrollRef.current?.scrollToEnd({ animated: true }); }}
+    >
       <Text style={qv.progress}>{fmt(ep.questionProgress, { i: index + 1, n: total, s: score })}</Text>
       <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
         {fallback ? (
@@ -326,7 +345,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
           <Text style={qv.nextBtnText}>{isLast ? ep.seeResults : ep.next}</Text>
         </TouchableOpacity>
       )}
-    </>
+    </ScrollView>
   );
 }
 
@@ -400,7 +419,9 @@ function ListeningRun({ items, onAnswer, onPlayAudio, onFinish }: {
 }
 
 const qv = StyleSheet.create({
-  container:   { flex:1, padding:16, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
+  container:   { flex:1, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
+  scroll:      { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
+  content:     { padding: 16 },
   noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
   progress:    { fontSize:12, color:"#a8a29e", textAlign:"center", marginBottom:12 },
   soruBox:        { backgroundColor:"#fffdf6", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7dfcc", gap:10 },
