@@ -60,7 +60,7 @@ function ltrAfterArabic(s: string): string {
 const arCollator = new Intl.Collator("ar");
 
 // Analiz sekmesindeki "TEMA ETİKETLERİ" kartı: tek anahtar src/lib/themes.ts
-// THEME_TAGS_ENABLED (doğrulama bitene kadar yalnız __DEV__).
+// THEME_TAGS_ENABLED (1.2.3'ten itibaren açık).
 
 // ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
