@@ -163,3 +163,29 @@ export function getGroups(): ThemeGroup[] {
 export function getLevel1ByGroup(groupCode: string): ThemeLevel1[] {
   return taxonomy.level1.filter((theme) => theme.group === groupCode);
 }
+
+/**
+ * Alt etiket (verse_tag_items.tag) sorguları için IN (...) listesi üretir:
+ * her kodun güncel karşılığı + ona taşınan eski kodlar + kodun kendisi
+ * (silinmiş/eşlemesiz eski kodlar senkron öncesi satırlarla eşleşmeye devam etsin).
+ * Küçük harfe (tr-TR) çevrilir ve tekilleştirilir.
+ */
+export function getAltTagNeedles(...codes: string[]): string[] {
+  const out = new Set<string>();
+  for (const code of codes) {
+    const trimmed = code.trim();
+    if (!trimmed) continue;
+    out.add(trimmed.toLocaleLowerCase("tr-TR"));
+    for (const variant of getThemeCodeVariants(trimmed)) {
+      out.add(variant.toLocaleLowerCase("tr-TR"));
+    }
+  }
+  return [...out];
+}
+
+/** Ana tema (verse_tags.ana_tema) tam eşleşme sorguları için büyük harfli varyant listesi. */
+export function getAnaTemaVariants(code: string): string[] {
+  const upper = code.trim().toUpperCase();
+  if (!upper) return [];
+  return [...new Set([upper, ...getThemeCodeVariants(upper).map((c) => c.toUpperCase())])];
+}
