@@ -164,6 +164,9 @@ module.exports = {
             extraProguardRules:
               '-keep class * extends androidx.work.ListenableWorker { public <init>(android.content.Context, androidx.work.WorkerParameters); }\n' +
               '-keep class com.reactnativeandroidwidget.** { *; }\n' +
+              // WidgetTickReceiver resolves these generated providers with Class.forName.
+              '-keep class **.widget.NamazSerit { *; }\n' +
+              '-keep class **.widget.NamazOdak { *; }\n' +
               // expo-task-manager arka plan görevinde uygulamayı bu sınıfla başlatır; sınıf adı
               // yalnız manifest meta-data'sında geçtiği için R8 siliyordu (A03'te ClassNotFound).
               '-keep class expo.modules.adapters.react.apploader.RNHeadlessAppLoader { *; }',

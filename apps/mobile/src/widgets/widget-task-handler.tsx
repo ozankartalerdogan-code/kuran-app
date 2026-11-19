@@ -2,6 +2,9 @@
 // tıklama) burada tek noktadan handle edilir. Native taraf bunu headless JS görevi
 // olarak tetikler — index.js'te registerWidgetTaskHandler ile kaydedilir.
 import type { WidgetTaskHandlerProps } from "react-native-android-widget";
+import { getWidgetInfo } from "react-native-android-widget";
+import { cancelWidgetTick } from "../../modules/exact-alarm";
+import { planPrayerWidgetTick } from "./widgetTick";
 import { buildEmirWidgetRepresentation } from "./EmirAyetWidget";
 import { currentEmirAyet, randomEmirAyet, WIDGET_NAME } from "./emirRotation";
 import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
@@ -12,7 +15,13 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
     const prayerName = PRAYER_WIDGET_NAMES.find(name => name === props.widgetInfo.widgetName);
     if (prayerName) {
       if (["WIDGET_ADDED", "WIDGET_UPDATE", "WIDGET_RESIZED"].includes(props.widgetAction)) {
-        props.renderWidget(buildNamazWidgetRepresentation(prayerName, await readNamazWidgetData()));
+        const data = await readNamazWidgetData();
+        props.renderWidget(buildNamazWidgetRepresentation(prayerName, data));
+        planPrayerWidgetTick(data);
+      } else if (props.widgetAction === "WIDGET_DELETED") {
+        const remaining = (await Promise.all(PRAYER_WIDGET_NAMES.map(name => getWidgetInfo(name)))).flat();
+        // Some launchers may still report the ID whose deletion is in flight.
+        if (!remaining.some(info => info.widgetId !== props.widgetInfo.widgetId)) cancelWidgetTick();
       }
       return;
     }

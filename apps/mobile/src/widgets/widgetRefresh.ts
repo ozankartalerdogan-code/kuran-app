@@ -10,6 +10,8 @@
 import { Platform } from "react-native";
 import { currentEmirAyet, WIDGET_NAME } from "./emirRotation";
 import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
+import { planPrayerWidgetTick } from "./widgetTick";
+import { cancelWidgetTick } from "../../modules/exact-alarm";
 
 type TaskManagerLike = {
   defineTask: (name: string, fn: () => Promise<unknown>) => void;
@@ -20,6 +22,8 @@ type BackgroundTaskLike = {
   BackgroundTaskResult: { Success: unknown; Failed: unknown };
 };
 type AndroidWidgetLike = {
+  getWidgetInfo: typeof import("react-native-android-widget").getWidgetInfo;
+  requestWidgetUpdateById: typeof import("react-native-android-widget").requestWidgetUpdateById;
   requestWidgetUpdate: (props: {
     widgetName: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,12 +65,19 @@ async function refreshWidget(): Promise<void> {
 async function refreshPrayerWidgets(): Promise<void> {
   const widgetModule = AndroidWidgetModule;
   if (!widgetModule) return;
+  const widgets = (await Promise.all(PRAYER_WIDGET_NAMES.map(name => widgetModule.getWidgetInfo(name)))).flat();
+  if (!widgets.length) {
+    cancelWidgetTick();
+    return;
+  }
   const data = await readNamazWidgetData();
   // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
   const { buildNamazWidgetRepresentation } = require("./NamazWidget") as typeof import("./NamazWidget");
-  await Promise.all(PRAYER_WIDGET_NAMES.map(widgetName => widgetModule.requestWidgetUpdate({
-    widgetName, renderWidget: () => buildNamazWidgetRepresentation(widgetName, data),
+  await Promise.all(widgets.map(info => widgetModule.requestWidgetUpdateById({
+    widgetName: info.widgetName, widgetId: info.widgetId,
+    renderWidget: () => buildNamazWidgetRepresentation(info.widgetName as typeof PRAYER_WIDGET_NAMES[number], data),
   })));
+  planPrayerWidgetTick(data);
 }
 
 export async function refreshPrayerWidgetsNow(): Promise<void> {
