@@ -297,11 +297,12 @@ export default function SearchScreen() {
     if (params.type === 'tag' && params.q) {
       const page = parseInt(params.page ?? "1", 10) || 1;
       fetchTagResults(params.q, page);
-      setQuery(params.q);
+      // Kutuda ham kod (dua-aile) yerine okunur başlık; bilinmeyen kod aynen kalır.
+      setQuery(tagLabel(params.q) ?? params.q);
     } else if (params.tag) {
       const page = parseInt(params.page ?? "1", 10) || 1;
       fetchTagResults(params.tag, page);
-      setQuery(params.tag);
+      setQuery(tagLabel(params.tag) ?? params.tag);
     } else if (params.q) {
       setQuery(params.q);
     }
