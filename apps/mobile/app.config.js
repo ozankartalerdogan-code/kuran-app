@@ -3,7 +3,7 @@ const path = require('path');
 // iOS konum izni metni — hem infoPlist'te hem expo-location plugin'inde aynı
 // metin kullanılır (plugin aksi halde İngilizce varsayılan metni yazıyor).
 const LOCATION_USAGE_TR =
-  'Kıble yönü ve namaz vakitlerini konumunuza göre hesaplamak için kullanılır. Kıble yönü cihazda hesaplanır; namaz vakitleri için yaklaşık konumunuz Aladhan.com servisine gönderilir, sunucularımızda saklanmaz.';
+  "Namaz vakitleri için yaklaşık konumunuz en yakın Diyanet şehrini bulmak üzere sunucumuza, veri yoksa yaklaşık hesaplama için Aladhan.com'a gönderilir. Sunucumuzda saklanmaz. Kıble yönü cihazda hesaplanır.";
 const MOTION_USAGE_TR =
   'Kıble pusulasının telefonunuzun yönünü doğru gösterebilmesi için hareket sensörleri kullanılır. Veriler cihazda kalır.';
 
@@ -12,7 +12,7 @@ module.exports = {
     name: 'Kuran Yolu',
     slug: 'kuran-analiz',
     scheme: 'kuranyolu',
-    version: '1.2.1',
+    version: '1.2.2',
     sdkVersion: '56.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
