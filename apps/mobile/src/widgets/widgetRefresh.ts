@@ -9,6 +9,7 @@
 // başarısız olur → no-op. (storage/Sentry/backgroundRefresh ile aynı build-gated desen.)
 import { Platform } from "react-native";
 import { currentEmirAyet, WIDGET_NAME } from "./emirRotation";
+import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
 
 type TaskManagerLike = {
   defineTask: (name: string, fn: () => Promise<unknown>) => void;
@@ -57,13 +58,28 @@ async function refreshWidget(): Promise<void> {
   });
 }
 
+async function refreshPrayerWidgets(): Promise<void> {
+  const widgetModule = AndroidWidgetModule;
+  if (!widgetModule) return;
+  const data = await readNamazWidgetData();
+  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+  const { buildNamazWidgetRepresentation } = require("./NamazWidget") as typeof import("./NamazWidget");
+  await Promise.all(PRAYER_WIDGET_NAMES.map(widgetName => widgetModule.requestWidgetUpdate({
+    widgetName, renderWidget: () => buildNamazWidgetRepresentation(widgetName, data),
+  })));
+}
+
+export async function refreshPrayerWidgetsNow(): Promise<void> {
+  try { await refreshPrayerWidgets(); } catch { /* unavailable native module / no widgets */ }
+}
+
 // Görev tanımı GLOBAL kapsamda yapılmalı — Android uygulamayı arka planda
 // headless başlattığında da tanımlı olsun (bileşen içinde tanımlansaydı olmazdı).
 if (TaskManager && BackgroundTask) {
   const BT = BackgroundTask;
   TaskManager.defineTask(TASK_NAME, async () => {
     try {
-      await refreshWidget();
+      await Promise.all([refreshWidget(), refreshPrayerWidgets()]);
       return BT.BackgroundTaskResult.Success;
     } catch {
       return BT.BackgroundTaskResult.Failed;
@@ -77,6 +93,7 @@ export async function refreshWidgetNow(): Promise<void> {
 }
 
 export async function registerWidgetRefresh(): Promise<void> {
+  void refreshPrayerWidgetsNow();
   if (!TaskManager || !BackgroundTask) return;
   try {
     const registered = await TaskManager.isTaskRegisteredAsync(TASK_NAME);

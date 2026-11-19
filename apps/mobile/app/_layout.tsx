@@ -20,7 +20,7 @@ import { maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
 // Import yan etkisi önemli: arka plan görevi tanımı global kapsamda kurulur.
 import { registerBackgroundRefresh } from "../src/lib/backgroundRefresh";
 // Import yan etkisi önemli: widget arka plan görevi tanımı global kapsamda kurulur.
-import { registerWidgetRefresh } from "../src/widgets/widgetRefresh";
+import { registerWidgetRefresh, refreshPrayerWidgetsNow } from "../src/widgets/widgetRefresh";
 import { initCloudBackup } from "../src/lib/cloudBackup";
 import { useColors } from "../src/hooks/useColors";
 import { useStrings } from "../src/i18n";
@@ -342,7 +342,10 @@ function RootLayout() {
     // Emir Ayetleri widget'ını da aynı şekilde tazele (yeni build gerektirir).
     registerWidgetRefresh().catch(reportUnexpected);
     const sub = AppState.addEventListener("change", (state) => {
-      if (state === "active") ensureNotificationsFresh().catch(reportUnexpected);
+      if (state === "active") {
+        ensureNotificationsFresh().catch(reportUnexpected);
+        void refreshPrayerWidgetsNow();
+      }
     });
     return () => { sub.remove(); };
   }, []);

@@ -233,6 +233,16 @@ module.exports = {
               en: { label: 'Verses of Command', description: 'Quran verses in the imperative mood, rotating 6 times a day.' },
               tr: { label: 'Emir Ayetleri', description: 'Kur\'an\'dan emir kipiyle gelen ayetler, günde 6 kez döner.' },
             },
+            {
+              name: 'NamazSerit',
+              en: { label: 'Prayer Times', description: 'Six prayer times and the next prayer, available offline. 4×1 strip.' },
+              tr: { label: 'Namaz Vakitleri', description: 'Altı vakit ve sıradaki namaz, çevrimdışı kullanılabilir. 4×1 şerit.' },
+            },
+            {
+              name: 'NamazOdak',
+              en: { label: 'Next Prayer', description: 'Next prayer time, remaining time and daily progress. 2×1.' },
+              tr: { label: 'Sıradaki Vakit', description: 'Sıradaki namaz, kalan süre ve günün ilerleyişi. 2×1.' },
+            },
           ],
         },
       ],
@@ -254,6 +264,20 @@ module.exports = {
               targetCellHeight: 2,
               resizeMode: 'horizontal|vertical',
               updatePeriodMillis: 14400000, // 4 saat = günde 6 dilim (Android minimumu 30 dk)
+            },
+            {
+              name: 'NamazSerit',
+              label: '@string/widget_namazserit_label',
+              description: 'Six prayer times and the next prayer, available offline. 4×1 strip.',
+              minWidth: '250dp', minHeight: '50dp', targetCellWidth: 4, targetCellHeight: 1,
+              resizeMode: 'horizontal', updatePeriodMillis: 1800000,
+            },
+            {
+              name: 'NamazOdak',
+              label: '@string/widget_namazodak_label',
+              description: 'Next prayer time, remaining time and daily progress. 2×1.',
+              minWidth: '110dp', minHeight: '50dp', targetCellWidth: 2, targetCellHeight: 1,
+              resizeMode: 'horizontal', updatePeriodMillis: 1800000,
             },
           ],
         },

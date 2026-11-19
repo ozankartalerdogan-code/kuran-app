@@ -4,13 +4,20 @@
 import type { WidgetTaskHandlerProps } from "react-native-android-widget";
 import { buildEmirWidgetRepresentation } from "./EmirAyetWidget";
 import { currentEmirAyet, randomEmirAyet, WIDGET_NAME } from "./emirRotation";
+import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
+import { buildNamazWidgetRepresentation } from "./NamazWidget";
 
 export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
-  // Bu görev şu an tek bir widget türü için kayıtlı, ama ileride ikinci bir
-  // widget eklenirse yanlış bileşeni render etmesin diye ada göre erken çıkış.
-  if (props.widgetInfo.widgetName !== WIDGET_NAME) return;
-
   try {
+    const prayerName = PRAYER_WIDGET_NAMES.find(name => name === props.widgetInfo.widgetName);
+    if (prayerName) {
+      if (["WIDGET_ADDED", "WIDGET_UPDATE", "WIDGET_RESIZED"].includes(props.widgetAction)) {
+        props.renderWidget(buildNamazWidgetRepresentation(prayerName, await readNamazWidgetData()));
+      }
+      return;
+    }
+    if (props.widgetInfo.widgetName !== WIDGET_NAME) return;
+
     switch (props.widgetAction) {
       case "WIDGET_ADDED":
       case "WIDGET_UPDATE":

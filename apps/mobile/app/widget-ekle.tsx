@@ -53,6 +53,12 @@ export default function WidgetEkleScreen() {
           </View>
         </Section>
 
+        <Section title={t.widgetSecPrayer}>
+          <View style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}>
+            <Text style={[s.paragraph, { color: c.textSecondary }]}>{t.widgetPrayerDesc}</Text>
+          </View>
+        </Section>
+
         {isAndroid ? (
           <Section title={t.widgetHow}>
             <View style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}>

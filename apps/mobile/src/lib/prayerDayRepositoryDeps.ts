@@ -37,5 +37,21 @@ export function prayerDayRepositoryDeps(): PrayerDayRepoDeps {
 let repository: ReturnType<typeof createPrayerDayRepository> | undefined;
 
 export function getPrayerDayRepository(): ReturnType<typeof createPrayerDayRepository> {
-  return repository ??= createPrayerDayRepository(prayerDayRepositoryDeps());
+  if (!repository) {
+    repository = createPrayerDayRepository(prayerDayRepositoryDeps());
+    let refreshQueued = false;
+    repository.subscribe(() => {
+      // A month fill emits one event per day; coalesce that synchronous burst.
+      if (refreshQueued) return;
+      refreshQueued = true;
+      void Promise.resolve().then(() => {
+        refreshQueued = false;
+        // Lazy import avoids a repository/widget initialization cycle in headless JS.
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+        const { refreshPrayerWidgetsNow } = require("../widgets/widgetRefresh") as typeof import("../widgets/widgetRefresh");
+        return refreshPrayerWidgetsNow();
+      }).catch(() => {});
+    });
+  }
+  return repository;
 }

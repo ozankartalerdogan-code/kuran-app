@@ -47,15 +47,15 @@ let current: Lang = preference === "system" ? detectSystemLang() : preference;
 const listeners = new Set<() => void>();
 
 // MMKV yoksa senkron okuma null döner; tercihi async olarak bir kez yükle.
-if (preference === "system") {
-  storage.getString(PREF_KEY).then((v) => {
+export const languageReady: Promise<void> = preference === "system"
+  ? storage.getString(PREF_KEY).then((v) => {
     if ((v === "tr" || v === "en") && v !== current) {
       preference = v;
       current = v;
       listeners.forEach((l) => l());
     }
-  }).catch(() => {});
-}
+  }).catch(() => {})
+  : Promise.resolve();
 
 export function getLang(): Lang {
   return current;
