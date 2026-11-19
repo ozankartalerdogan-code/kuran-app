@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import type { Href } from "expo-router";
 import { useRef, type ComponentProps } from "react";
 import { useColors } from "../../src/hooks/useColors";
+import { openStoreListing } from "../../src/hooks/useStoreReview";
 import { useAppTour, useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, getLangPreference, setLangPreference, useLang, caps } from "../../src/i18n";
@@ -25,7 +26,7 @@ type Item = {
   label: string;
   sub: string;
   route?: string;
-  action?: "restartTour";
+  action?: "restartTour" | "rateApp";
 };
 
 function buildSections(s: Strings): { title: string; items: Item[] }[] {
@@ -56,6 +57,9 @@ function buildSections(s: Strings): { title: string; items: Item[] }[] {
         : []),
       { icon: "information-circle-outline", iconBg: "#dbeafe", iconColor: "#1d4ed8", darkIconBg: "#1e3a8a", darkIconColor: "#93c5fd", label: s.aboutLabel, sub: s.aboutSub, route: "/hakkinda" },
       { icon: "lock-closed-outline", iconBg: "#e5e7eb", iconColor: "#4b5563", darkIconBg: "#292524", darkIconColor: "#d6d3d1", label: s.privacyLabel, sub: s.privacySub, route: "/gizlilik" },
+      ...(Platform.OS === "android"
+        ? [{ icon: "star-outline", iconBg: "#fef9c3", iconColor: "#a16207", darkIconBg: "#713f12", darkIconColor: "#fde68a", label: s.rateLabel, sub: s.rateSub, action: "rateApp" } satisfies Item]
+        : []),
       { icon: "refresh-circle-outline", iconBg: "#cffafe", iconColor: "#0f766e", darkIconBg: "#134e4a", darkIconColor: "#99f6e4", label: s.tourLabel, sub: s.tourSub, action: "restartTour" },
     ],
   },
@@ -79,6 +83,10 @@ export default function DahaFazlaTab() {
   const scrollRef = useRef<ScrollView>(null);
 
   function handlePress(item: Item) {
+    if (item.action === "rateApp") {
+      void openStoreListing();
+      return;
+    }
     if (item.action === "restartTour") {
       void restartTour();
       return;
