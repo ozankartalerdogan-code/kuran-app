@@ -53,3 +53,10 @@ Dizinin ilk öğesi level1 kodu (yoksa `null`), kalanlar level2 kodları. Etiket
 - `getVerseThemes(verseKey) -> { main: string|null, subs: string[] }` (mobilde paketten, çevrimdışı).
 - Liste/sayfalı ayet sonuçları: mevcut `/api/tags/filter?tag=` uç noktası (kod parametresi yeni ASCII kodlar; eski kodlar migration ile eşlenir).
 - Bayrak: `SHOW_THEME_TAGS` doğrulama eşiği geçilene kadar `false` kalır; geliştirme için `__DEV__` altında açılabilir.
+
+## Kullanıcı kararları (2026-11-19)
+
+- İngilizce peygamber adları: `Moses (Musa)` biçimi.
+- Hz. Musa / Hz. Harun ve Hz. İshak / Hz. Yakup **ayrı** alt konular (`hz-musa`, `hz-harun`, `hz-ishak`, `hz-yakup`).
+- 85 `dua-*` alt konusu Konular ekranında **tek "Dualar" başlığı** altında toplanır (kodlar korunur).
+- `dua-tevekkul` içindeki dua olmayan emir ayetleri `tevekkul` konusuna taşınır (etiketleme adımında ayet ayet karar).

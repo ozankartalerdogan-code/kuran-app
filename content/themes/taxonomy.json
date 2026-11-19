@@ -1439,12 +1439,21 @@
    "sensitive": true
   },
   {
-   "code": "hz-ishak-yakup",
+   "code": "hz-ishak",
    "parents": [
     "F1_PEYGAMBER_KISSALARI"
    ],
-   "tr": "Hz. İshak ve Hz. Yakup",
-   "en": "Isaac and Jacob (Ishaq & Yaqub)",
+   "tr": "Hz. İshak",
+   "en": "Isaac (Ishaq)",
+   "sensitive": true
+  },
+  {
+   "code": "hz-yakup",
+   "parents": [
+    "F1_PEYGAMBER_KISSALARI"
+   ],
+   "tr": "Hz. Yakup",
+   "en": "Jacob (Yaqub)",
    "sensitive": true
   },
   {
@@ -1475,12 +1484,21 @@
    "sensitive": true
   },
   {
+   "code": "hz-harun",
+   "parents": [
+    "F1_PEYGAMBER_KISSALARI"
+   ],
+   "tr": "Hz. Harun",
+   "en": "Aaron (Harun)",
+   "sensitive": true
+  },
+  {
    "code": "hz-musa",
    "parents": [
     "F1_PEYGAMBER_KISSALARI"
    ],
-   "tr": "Hz. Musa ve Hz. Harun",
-   "en": "Moses and Aaron (Musa & Harun)",
+   "tr": "Hz. Musa",
+   "en": "Moses (Musa)",
    "sensitive": true
   },
   {
@@ -3864,7 +3882,7 @@
    "harf_i_mukatta": null,
    "harf_i_mukattaa": null,
    "harf_i_mukattaat": null,
-   "harun": "hz-musa",
+   "harun": "hz-harun",
    "harut": null,
    "haset": "korunma-hased",
    "hasetçi": null,
@@ -4133,7 +4151,7 @@
    "is_bitirme": null,
    "is_kolaylastırma": null,
    "isa": "hz-isa",
-   "ishak": "hz-ishak-yakup",
+   "ishak": "hz-ishak",
    "isim": null,
    "isimler": null,
    "isitici": null,
@@ -5452,8 +5470,8 @@
    "yakinlik": null,
    "yaklasma": null,
    "yaklaşma": null,
-   "yakub": "hz-ishak-yakup",
-   "yakup": "hz-ishak-yakup",
+   "yakub": "hz-yakup",
+   "yakup": "hz-yakup",
    "yakup_ailesi": null,
    "yakut": null,
    "yakîn": null,
