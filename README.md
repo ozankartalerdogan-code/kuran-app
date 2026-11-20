@@ -7,7 +7,7 @@ tecvid gösterimi, tefsir açıklamaları, Elifba ve ders içerikleri, dua ve ib
 rehberleri ile namaz vakitlerini bir araya getiren web ve mobil uygulamasıdır.
 
 Proje, npm workspaces kullanan bir TypeScript monoreposudur. Web uygulaması
-Next.js 14 ve React 18; mobil uygulama Expo SDK 56, React Native ve React 19
+Next.js 15 ve React 19; mobil uygulama Expo SDK 56, React Native ve React 19
 kullanır. Kesin bağımlılık sürümleri package.json dosyaları ve
 package-lock.json içinde tutulur.
 
@@ -149,9 +149,10 @@ iOS paket kimliği `com.kuranapp.mobile`; App Store hazırlığı (izin metinler
 privacy manifest, Firebase plist) yapılmıştır, gönderim `eas.json` içindeki
 `submit.production` profiliyle yapılır.
 
-Yayın durumu (Kasım 2026): Android 1.2.0 Google Play'de yayında; 1.2.1
-(versionCode 21) Play incelemesinde. App Store gönderimi Apple 4.2 itiraz
-sürecinde bekliyor. Sürüm notları GitHub Releases altındadır (`v1.2.0`, `v1.2.1`).
+Yayın durumu (20 Kasım 2026): Android 1.2.2 (versionCode 22) Google Play'de
+yayında; 1.2.3 (versionCode 23) Play incelemesinde. App Store gönderimi Apple
+4.2 itiraz sürecinde bekliyor. Sürüm notları GitHub Releases altındadır
+(`v1.2.0` … `v1.2.3`).
 
 ## Lisans ve üçüncü taraf kaynaklar
 
