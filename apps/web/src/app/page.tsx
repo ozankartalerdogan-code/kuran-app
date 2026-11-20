@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {dbGet } from "../lib/dbUtils";
 import { dailyVerseKey } from "../lib/dailyVersePool";
+import { dailyDuaKey } from "../lib/dailyDua";
 import { HomeNamazWidget, type PrayerTimes } from "./HomeNamazWidget";
 import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
@@ -64,7 +65,7 @@ interface DailyVerse {
 
 interface DailyDua {
   verse_key: string;
-  tag: string;
+  tag: string | null;
   arabic_text: string | null;
   reading_tr: string | null;
   meal: string | null;
@@ -133,7 +134,8 @@ async function getIstanbulPrayerTimes(): Promise<PrayerTimes | null> {
 }
 
 // "dua-tevekkul" → "Tevekkul" | "dua-anne-baba" → "Anne Baba"
-function formatDuaTag(tag: string): string {
+function formatDuaTag(tag: string | null): string {
+  if (!tag) return "Dua";
   return tag
     .replace(/^dua-/, "")
     .split("-")
@@ -232,55 +234,26 @@ export default async function HomePage() {
   }
 
   // ── Günün Duası ──────────────────────────────────────────────────────
-  // verse_tag_items'daki dua-* etiketli ayetlerden tarih-bazlı seed ile seç.
-  // Herkes aynı gün aynı duayı görsün.
-  // İçerik güvencesi: dua-tesbih/dua-zikir etiketleri zikir HAKKINDAKİ ayetleri de
-  // içeriyordu (örn. 62:9 cuma emri) — bunlar dışlanır ve ayetin gerçekten bir
-  // yakarış içermesi istenir (Rabbenâ / vokatif Rabbi / Allahumme / eûzü / hasbünâ).
-  const DUA_VOCATIVE_COND = `(
-       v.arabic_text LIKE '%رَبَّن%'    OR v.arabic_text LIKE '%رَّبَّن%'
-    OR v.arabic_text LIKE '%اللَّهُمَّ%' OR v.arabic_text LIKE '%أَعُوذُ%'
-    OR v.arabic_text LIKE '%رَبِّ %'    OR v.arabic_text LIKE '%رَّبِّ %'
-    OR v.arabic_text LIKE '%حَسْبُنَا%'  OR v.arabic_text LIKE '%حَسْبِيَ%'
-    OR v.arabic_text LIKE '%غُفْرَانَكَ%'
-  )`;
-  const duaTotalRow = await dbGet<{ cnt: number }>(`
-      SELECT COUNT(DISTINCT vti.verse_key) AS cnt
-      FROM verse_tag_items vti
-      JOIN verses v ON v.verse_key = vti.verse_key
-      WHERE vti.tag LIKE 'dua-%'
-        AND vti.tag NOT IN ('dua-tesbih','dua-zikir')
-        AND v.arabic_text IS NOT NULL
-        AND v.reading_tr IS NOT NULL
-        AND v.literal_ceviri IS NOT NULL
-        AND ${DUA_VOCATIVE_COND}
-    `);
-  const duaTotal  = duaTotalRow?.cnt ?? 81;
-  const duaOffset = getDailyOffset(duaTotal);
-
-  const dailyDua = await dbGet<DailyDua>(`
+  // Seçilmiş dua havuzundan (src/lib/dailyDua.ts; /api/daily ile aynı seçim).
+  // Herkes aynı gün aynı duayı görür.
+  const duaKey = dailyDuaKey();
+  const dailyDua = duaKey ? await dbGet<DailyDua>(`
       SELECT
-        vti.verse_key,
-        MIN(vti.tag)       AS tag,
+        v.verse_key,
+        (SELECT MIN(t.tag) FROM verse_tag_items t
+          WHERE t.verse_key = v.verse_key AND t.tag LIKE 'dua-%') AS tag,
         v.arabic_text,
         v.reading_tr,
         v.literal_ceviri   AS meal,
         v.surah_id,
         v.ayah_number,
         s.adi_turkce       AS surah_name
-      FROM verse_tag_items vti
-      JOIN   verses       v ON v.verse_key  = vti.verse_key
-      LEFT JOIN sureler   s ON s.id         = v.surah_id
-      WHERE vti.tag LIKE 'dua-%'
-        AND vti.tag NOT IN ('dua-tesbih','dua-zikir')
+      FROM verses v
+      LEFT JOIN sureler s ON s.id = v.surah_id
+      WHERE v.verse_key = ?
         AND v.arabic_text IS NOT NULL
-        AND v.reading_tr IS NOT NULL
         AND v.literal_ceviri IS NOT NULL
-        AND ${DUA_VOCATIVE_COND}
-      GROUP BY vti.verse_key
-      ORDER BY vti.verse_key
-      LIMIT 1 OFFSET ?
-    `, duaOffset);
+    `, duaKey).catch(() => undefined) : undefined;
 
   const hijriDate     = getHijriDate();
   const gregorianDate = getGregorianDate();

@@ -5,6 +5,7 @@ import { dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
 import { getDailyOffset, parseDailyDate } from "../../../lib/dailyDate";
 import { dailyVerseKey } from "../../../lib/dailyVersePool";
+import { dailyDuaKey } from "../../../lib/dailyDua";
 
 interface VerseRow {
   verse_key: string;
@@ -49,37 +50,13 @@ export async function GET(req: NextRequest) {
       getDailyOffset(totalRow?.cnt ?? 4000, day)).catch(() => undefined);
   }
 
+  // Günün Duası: seçilmiş dua havuzundan (web ana sayfasıyla aynı seçim).
   async function pickDua(): Promise<VerseRow | undefined> {
-    const duaTotalRow = await dbGet<{ cnt: number }>(
-      `SELECT COUNT(DISTINCT vti.verse_key) AS cnt
-       FROM   verse_tag_items vti
-       JOIN   verses v ON v.verse_key = vti.verse_key
-       WHERE  vti.tag LIKE 'dua-%'
-         AND  v.arabic_text IS NOT NULL
-         AND  v.reading_tr  IS NOT NULL
-         AND  v.literal_ceviri IS NOT NULL`
-    ).catch(() => undefined);
-    const duaOffset = getDailyOffset(duaTotalRow?.cnt ?? 255, day);
-    return dbGet<VerseRow>(
-      `SELECT vti.verse_key, v.surah_id, v.ayah_number,
-              s.adi_turkce AS surah_name,
-              v.arabic_text, v.reading_tr,
-              COALESCE(yt.text, v.literal_ceviri, v.primary_translation) AS meal
-       FROM   verse_tag_items vti
-       JOIN   verses    v  ON v.verse_key = vti.verse_key
-       LEFT JOIN sureler s ON s.id = v.surah_id
-       LEFT JOIN translations yt ON yt.verse_key = v.verse_key
-              AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
-       WHERE  vti.tag LIKE 'dua-%'
-         AND  v.arabic_text IS NOT NULL
-         AND  v.reading_tr  IS NOT NULL
-         AND  v.literal_ceviri IS NOT NULL
-       GROUP  BY vti.verse_key
-       ORDER  BY vti.verse_key
-       LIMIT  1 OFFSET ?`,
-      duaOffset
-    ).catch(() => undefined);
+    const key = dailyDuaKey(day);
+    if (!key) return undefined;
+    return dbGet<VerseRow>(`${VERSE_SELECT} AND v.verse_key = ?`, key).catch(() => undefined);
   }
+
 
   const [verse, dua] = await Promise.all([pickVerse(), pickDua()]);
 
