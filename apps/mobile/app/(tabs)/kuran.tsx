@@ -315,7 +315,7 @@ export default function KuranTab() {
                     accessibilityRole="button"
                     accessibilityLabel={fmt(t.juzA11y, { n: j.juz, surah: surahNameOf(j.startSurah, j.startName) }) + (read ? t.juzRead : "")}
                   >
-                    <Text style={[s.juzNumber, { color: read ? (c.isDark ? "#a7f3d0" : "#065f46") : c.text }]}>{j.juz}</Text>
+                    <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[s.juzNumber, { color: read ? (c.isDark ? "#a7f3d0" : "#065f46") : c.text }]}>{j.juz}</Text>
                   </TouchableOpacity>
                 );
               })}

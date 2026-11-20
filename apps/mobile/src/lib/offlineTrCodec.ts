@@ -24,13 +24,14 @@ export function decodeMushafPage(
   page: number, juz: number, start: number[], rows: CompactVerse[],
   surahs: SurahListItem[], arabic: string[][], rules: RuleTable,
 ) {
+  if (rows.length === 0) return null;
   let [surahId, ayahNumber] = start;
   const firstSurah = surahId;
   const verses = rows.map((row) => {
     const [spans, range, arabicTajweed] = row;
     const verse = buildMushafVerse({
       surahId, ayahNumber,
-      arabicText: row.length === 4 ? row[3]! : arabic[surahId - 1][ayahNumber - 1],
+      arabicText: row[3] ?? arabic[surahId - 1][ayahNumber - 1],
       arabicTajweed,
       basmalaRange: range && { kind: range[0], startCp: range[1], endCp: range[2], bodyStartCp: range[3] },
       spans: spans.map(([startCp, endCp, ruleIndex]) => ({

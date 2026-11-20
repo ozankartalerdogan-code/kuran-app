@@ -1,5 +1,6 @@
 package expo.modules.exactalarm
 
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.BroadcastReceiver
@@ -12,7 +13,9 @@ class WidgetTickReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     if (intent.action != tickAction(context) &&
       intent.action != Intent.ACTION_TIME_CHANGED &&
-      intent.action != Intent.ACTION_TIMEZONE_CHANGED) return
+      intent.action != Intent.ACTION_TIMEZONE_CHANGED &&
+      intent.action != Intent.ACTION_MY_PACKAGE_REPLACED &&
+      intent.action != AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED) return
 
     val manager = AppWidgetManager.getInstance(context)
     for (name in arrayOf("NamazSerit", "NamazOdak")) {

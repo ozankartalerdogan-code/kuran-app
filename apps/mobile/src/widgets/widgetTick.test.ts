@@ -67,7 +67,7 @@ function harness(atMs: number | null) {
 
 test("foreground plans after both draws: next prayer or next clock minute", async t => {
   t.mock.method(Date, "now", () => 1_000);
-  for (const [prayer, expected] of [[50_000, 50_000], [900_000, 60_500]]) {
+  for (const [prayer, expected] of [[50_000, 50_500], [900_000, 60_500]]) {
     const h = harness(prayer);
     await h.refresh.refreshPrayerWidgetsNow();
     assert.deepEqual(h.events, ["draw:1", "draw:2", expected]);
@@ -95,7 +95,7 @@ test("headless added/update/resized continues chain after render for both prayer
   t.mock.method(Date, "now", () => 1_000);
   for (const name of dataApi.PRAYER_WIDGET_NAMES) {
     for (const action of ["WIDGET_ADDED", "WIDGET_UPDATE", "WIDGET_RESIZED"] as const) {
-      for (const [prayer, expected] of [[50_000, 50_000], [900_000, 60_500], [null, "cancel"]] as const) {
+      for (const [prayer, expected] of [[50_000, 50_500], [900_000, 60_500], [null, "cancel"]] as const) {
         const h = harness(prayer);
         await h.handler.widgetTaskHandler(h.props(action, name));
         assert.deepEqual(h.events, ["render", expected]);

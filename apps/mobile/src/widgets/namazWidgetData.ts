@@ -36,7 +36,7 @@ const MINUTE_MS = 60_000;
 const TICK_LAG_MS = 500;
 export function nextWidgetRefreshAt(nowMs: number, nextPrayerAtMs?: number | null): number {
   const nextMinute = Math.floor((nowMs - TICK_LAG_MS) / MINUTE_MS) * MINUTE_MS + MINUTE_MS + TICK_LAG_MS;
-  return Math.min(nextMinute, Math.max(nowMs, nextPrayerAtMs ?? Infinity));
+  return Math.min(nextMinute, Math.max(nowMs + TICK_LAG_MS, (nextPrayerAtMs ?? Infinity) + TICK_LAG_MS));
 }
 
 export type PrayerSegment = { state: "past" | "current" | "future"; fraction: number };
@@ -62,7 +62,7 @@ export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: 
   const next = city ? nextPrayerFromInstants(records, nowMs) : null;
   if (!next) return { lang, emptyText, prayer: null };
   const today = prayerDateInZone(nowMs, next.record.cityTimeZone);
-  const display = records.find(r => r.sourceDate === today && nowMs < r.atMs.Isha) ?? next.record;
+  const display = next.record;
   const dateRecord = records.find(r => r.sourceDate === today);
   const hijri = dateRecord ? homeHijriDate(dateRecord) : null;
   const hijriText = hijri ? `${hijri.day} ${MONTHS[lang][hijri.monthNumber - 1]}` : "";

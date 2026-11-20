@@ -32,16 +32,18 @@ const cases = [
 for (const [name, call, embedded] of cases) {
   test(`${name}: network failure and empty cache uses embedded data`, async t => {
     const { api, writes } = loadApi();
-    t.mock.method(globalThis, "fetch", async () => { throw new TypeError("offline"); });
+    const fetch = t.mock.method(globalThis, "fetch", async () => { throw new TypeError("offline"); });
     assert.deepEqual(await call(api), embedded());
+    assert.equal(fetch.mock.callCount(), 1);
     assert.equal(writes.length, 0);
   });
 
   test(`${name}: successful API takes precedence`, async t => {
-    const { api } = loadApi();
+    const { api, writes } = loadApi();
     const fresh = { source: "API" };
     t.mock.method(globalThis, "fetch", async () => ({ ok: true, json: async () => fresh }));
     assert.equal(await call(api), fresh);
+    assert.equal(writes.length, 1);
   });
 
   test(`${name}: stale cache takes precedence over embedded data`, async t => {
@@ -51,6 +53,33 @@ for (const [name, call, embedded] of cases) {
     assert.equal(await call(api), stale);
   });
 }
+
+test("embedded endpoint aborts a stalled request after four seconds with no retry", async t => {
+  const { api, writes } = loadApi();
+  const fetch = t.mock.method(globalThis, "fetch", async (_url, init) => new Promise<Response>((_resolve, reject) => {
+    init?.signal?.addEventListener("abort", () => reject(new DOMException("timeout", "AbortError")), { once: true });
+  }));
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const result = api.surahs.list();
+  // Allow the cache read and fetch setup to finish before advancing the clock.
+  await Promise.resolve();
+  await Promise.resolve();
+  assert.equal(fetch.mock.callCount(), 1);
+  t.mock.timers.tick(3_999);
+  assert.equal(fetch.mock.calls[0].arguments[1]?.signal?.aborted, false);
+  t.mock.timers.tick(1);
+  assert.deepEqual(await result, offline.offlineSurahs());
+  assert.equal(fetch.mock.callCount(), 1);
+  assert.equal(writes.length, 0);
+});
+
+test("endpoint without embedded provider retains three network attempts", async t => {
+  const { api } = loadApi();
+  const error = new TypeError("offline");
+  const fetch = t.mock.method(globalThis, "fetch", async () => { throw error; });
+  await assert.rejects(api.ayah.get(1, 1), err => err === error);
+  assert.equal(fetch.mock.callCount(), 3);
+});
 
 const missingCases = [
   ["verses 999", (api: Api) => api.verses.bySurah(999)],

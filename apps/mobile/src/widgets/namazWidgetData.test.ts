@@ -114,15 +114,36 @@ test("overnight focus interval spans actual Isha to Fajr across midnight", () =>
   assert.equal(api.focusSegments([tomorrow], tomorrow, "Fajr", middle)[5].fraction, 0);
 });
 
-test("next refresh ticks just after each clock minute, or at the prayer, never in the past", () => {
+test("next refresh ticks just after each clock minute or prayer, never in the past", () => {
   assert.equal(api.nextWidgetRefreshAt(1_000), 60_500);
   assert.equal(api.nextWidgetRefreshAt(60_200), 60_500);
   assert.equal(api.nextWidgetRefreshAt(60_500), 120_500);
-  assert.equal(api.nextWidgetRefreshAt(1_000, 50_000), 50_000);
+  assert.equal(api.nextWidgetRefreshAt(1_000, 50_000), 50_500);
   assert.equal(api.nextWidgetRefreshAt(1_000, 400_000), 60_500);
-  assert.equal(api.nextWidgetRefreshAt(1_000, 500), 1_000);
+  assert.equal(api.nextWidgetRefreshAt(1_000, 500), 1_500);
   const p = api.buildNamazWidgetData(records, "İstanbul", today.atMs.Dhuhr - 10_000, "tr").prayer!;
-  assert.equal(p.refreshAtMs, today.atMs.Dhuhr);
+  assert.equal(p.refreshAtMs, today.atMs.Dhuhr + 500);
+});
+
+test("prayer transition shares the minute tick and schedules no second tick 500 ms later", () => {
+  const prayerAt = today.atMs.Dhuhr;
+  const tick = api.nextWidgetRefreshAt(prayerAt - 59_500, prayerAt);
+  assert.equal(tick, prayerAt + 500);
+  const p = api.buildNamazWidgetData(records, "Istanbul", tick, "en").prayer!;
+  assert.equal(p.name, "Asr");
+  assert.equal(p.refreshAtMs, prayerAt + 60_500);
+  assert.equal(api.nextWidgetRefreshAt(prayerAt - 40, prayerAt), tick);
+});
+
+test("Isha after midnight displays yesterday's cells and highlights Isha", () => {
+  const lateIsha = { ...yesterday, atMs: { ...yesterday.atMs, Isha: at("00:15:00") } };
+  const differentToday = { ...today, atMs: { ...today.atMs, Fajr: today.atMs.Fajr + 120_000 } };
+  const p = api.buildNamazWidgetData([lateIsha, differentToday, tomorrow], "Istanbul", at("00:05:00"), "en").prayer!;
+  assert.equal(p.name, "Isha");
+  assert.equal(p.countdown, "Isha in 10m");
+  assert.deepEqual(p.cells.map(c => c.time), [...Object.values(wall).slice(0, 5), "00:15"]);
+  assert.deepEqual(p.cells.map(c => c.next), [false, false, false, false, false, true]);
+  assert.deepEqual(p.cells.map(c => c.past), [true, true, true, true, true, false]);
 });
 
 test("offline cached read hydrates repository without network; active manual city wins", async () => {

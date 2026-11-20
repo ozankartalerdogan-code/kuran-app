@@ -33,8 +33,9 @@ export function playHarfSes(harfId: number, onError?: () => void, onPlayingChang
 
   const cleanup = () => {
     if (timer) clearTimeout(timer);
-    sub?.remove();
+    const s = sub;
     sub = null;
+    try { s?.remove(); } catch { /* yoksay */ }
     if (ownedPlayer) {
       const player = ownedPlayer;
       ownedPlayer = null;
@@ -44,6 +45,7 @@ export function playHarfSes(harfId: number, onError?: () => void, onPlayingChang
     if (cancelCurrent === cancel) cancelCurrent = null;
   };
   const cancel = () => {
+    if (cancelled) return;
     cancelled = true;
     cleanup();
     onPlayingChange?.(false);

@@ -48,10 +48,13 @@ let languageState: LanguageState = {
   current: initialPreference === "system" ? detectSystemLang() : initialPreference,
 };
 const listeners = new Set<() => void>();
+let prefGeneration = 0;
+const startupGeneration = prefGeneration;
 
 // MMKV yoksa senkron okuma null döner; tercihi async olarak bir kez yükle.
 export const languageReady: Promise<void> = languageState.preference === "system"
   ? storage.getString(PREF_KEY).then((v) => {
+    if (prefGeneration !== startupGeneration) return;
     if (v === "tr" || v === "en") {
       const next = updateLanguageState(languageState, v, languageState.current);
       if (next !== languageState) {
@@ -71,6 +74,7 @@ export function getLangPreference(): LangPreference {
 }
 
 export async function setLangPreference(pref: LangPreference): Promise<void> {
+  prefGeneration++;
   languageState = updateLanguageState(languageState, pref, pref === "system" ? detectSystemLang() : pref);
   if (pref === "system") await storage.remove(PREF_KEY);
   else await storage.setString(PREF_KEY, pref);

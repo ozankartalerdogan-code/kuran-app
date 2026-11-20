@@ -75,11 +75,12 @@ async function request<T>(
 async function withRetry<T>(
   fn: (signal: AbortSignal) => Promise<T>,
   retries = MAX_RETRIES,
+  initialTimeoutMs = TIMEOUT_MS,
 ): Promise<T> {
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController();
     // timeout: 10 sn → 15 sn → 22.5 sn
-    const timeoutMs = TIMEOUT_MS * Math.pow(1.5, attempt);
+    const timeoutMs = initialTimeoutMs * Math.pow(1.5, attempt);
     const timer = setTimeout(() => controller.abort(), timeoutMs);
 
     try {
@@ -375,12 +376,12 @@ async function withCache<T>(
 async function withCacheFallback<T>(
   key: string,
   ttl: number,
-  fetcher: () => Promise<T>,
+  fetcher: (signal?: AbortSignal) => Promise<T>,
   shouldStore?: (data: T) => boolean,
   offline?: () => T | null,
 ): Promise<T> {
   try {
-    return await withCache(key, ttl, fetcher, shouldStore);
+    return await withCache(key, ttl, offline ? () => withRetry(fetcher, 0, 4_000) : fetcher, shouldStore);
   } catch (err) {
     // Network hata → cache'den sun (eski olsa bile) — aynı sürümlü anahtar
     try {
@@ -401,7 +402,7 @@ export const api = {
       withCacheFallback(
         "cache_surahs",
         CACHE_TTL_STATIC,
-        () => withRetry((signal) => request<SurahListItem[]>("/surahs", undefined, signal)),
+        (signal) => request<SurahListItem[]>("/surahs", undefined, signal),
         undefined, offlineSurahs,
       ),
   },
@@ -422,9 +423,7 @@ export const api = {
       withCacheFallback(
         `cache_verses_${surahId}`,
         CACHE_TTL_STATIC,
-        () => withRetry((signal) =>
-          request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
-        ),
+        (signal) => request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
         undefined, () => offlineVerses(surahId),
       ),
   },
@@ -438,9 +437,7 @@ export const api = {
       withCacheFallback(
         `cache_mushaf_v4_p${page}`,
         CACHE_TTL_STATIC,
-        () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
-        ),
+        (signal) => request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
         undefined, () => offlineMushafPage(page),
       ),
   },
