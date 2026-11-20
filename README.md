@@ -6,6 +6,27 @@ Kuran Yolu; Kur’an okuma, Elmalılı Hamdi Yazır meali, kelime ve kök analiz
 tecvid gösterimi, tefsir açıklamaları, Elifba ve ders içerikleri, dua ve ibadet
 rehberleri ile namaz vakitlerini bir araya getiren web ve mobil uygulamasıdır.
 
+## Özellikler
+
+- **Kur'an ve meal:** Sure listesi ve ayet ayet okuma; Elmalılı Hamdi Yazır meali,
+  okunuş ve tefsir açıklamaları; arama, favoriler, notlar ve hatim takibi.
+- **Tecvidli Mushaf:** Sayfa sayfa Mushaf görünümü, renkli tecvid ve 30 cüz
+  ızgarası (okunan cüzler işaretli).
+- **Kelime ve kök analizi:** Her kelimenin anlamı, kökü ve dil bilgisi; kök
+  haritası ve aynı kökten gelen kelimeler.
+- **Çevrimdışı kullanım:** Meal ve tecvidli Mushaf uygulamaya gömülüdür; internet
+  yokken de açılır.
+- **Konu etiketleri:** Ayetlerde tema etiketleri ve konulara göre gezinme
+  (Konular ekranı).
+- **Elif-Ba ve dersler:** Harf kartları ve sesleri, testler, dinle-seç ve tekrar
+  modları, "Sınavla geç"; konu dersleri.
+- **Namaz vakitleri:** Diyanet verisi (yoksa Aladhan), dünya genelinde şehir
+  seçimi, vakit bildirimleri ve Android ana ekran widget'ları; kıble pusulası.
+- **Dua ve ibadet rehberleri:** Dualar, Esmâ-ül Hüsnâ, hadisler, namaz ve ibadet
+  rehberi, mübarek günler, siyer, peygamber kıssaları, Manevi Sığınak.
+- **Günün içeriği:** Seçilmiş havuzdan Günün Ayeti ve Günün Duası.
+- **Dil:** Türkçe ve İngilizce arayüz (İngilizcede Pickthall meali).
+
 Proje, npm workspaces kullanan bir TypeScript monoreposudur. Web uygulaması
 Next.js 15 ve React 19; mobil uygulama Expo SDK 56, React Native ve React 19
 kullanır. Kesin bağımlılık sürümleri package.json dosyaları ve

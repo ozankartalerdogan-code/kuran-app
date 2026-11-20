@@ -7,6 +7,27 @@ Elmalılı Hamdi Yazır Turkish translation (meal), word and root analysis,
 tajweed visualization, tafsir explanations, Elifba and lesson content,
 supplication and worship guides, and prayer times.
 
+## Features
+
+- **Quran and translation:** Surah list and verse-by-verse reading; Elmalılı
+  Hamdi Yazır Turkish translation, transliteration and tafsir notes; search,
+  favorites, notes and khatm tracking.
+- **Tajweed Mushaf:** Page-by-page Mushaf view with color-coded tajweed and a
+  30-juz grid (read juz marked).
+- **Word and root analysis:** Meaning, root and grammar of every word; root map
+  and words sharing the same root.
+- **Offline use:** The translation and tajweed Mushaf are bundled with the app
+  and open without an internet connection.
+- **Topic tags:** Theme tags on verses and browsing by topic (Topics screen).
+- **Elif-Ba and lessons:** Letter cards and sounds, quizzes, listen-and-choose
+  and review modes, "Test out"; topic lessons.
+- **Prayer times:** Diyanet data (Aladhan as fallback), worldwide city
+  selection, prayer notifications and Android home screen widgets; Qibla compass.
+- **Supplication and worship guides:** Duas, Asma ul-Husna, hadiths, prayer and
+  worship guides, blessed days, Seerah, stories of the prophets, Spiritual Refuge.
+- **Daily content:** Verse and Dua of the Day from a curated selection.
+- **Language:** Turkish and English interface (Pickthall translation in English).
+
 The project is a TypeScript monorepo using npm workspaces. The web application
 uses Next.js 15 and React 19; the mobile application uses Expo SDK 56,
 React Native, and React 19. Exact dependency versions are maintained in
