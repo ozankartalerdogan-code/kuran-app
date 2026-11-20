@@ -76,9 +76,13 @@ export function getLangPreference(): LangPreference {
 export async function setLangPreference(pref: LangPreference): Promise<void> {
   prefGeneration++;
   languageState = updateLanguageState(languageState, pref, pref === "system" ? detectSystemLang() : pref);
-  if (pref === "system") await storage.remove(PREF_KEY);
-  else await storage.setString(PREF_KEY, pref);
-  listeners.forEach((l) => l());
+  try {
+    if (pref === "system") await storage.remove(PREF_KEY);
+    else await storage.setString(PREF_KEY, pref);
+  } finally {
+    // Kayıt başarısız olsa da arayüz bellekteki dille aynı kalsın.
+    listeners.forEach((l) => l());
+  }
 }
 
 function subscribe(cb: () => void): () => void {

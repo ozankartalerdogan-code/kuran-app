@@ -54,23 +54,23 @@ for (const [name, call, embedded] of cases) {
   });
 }
 
-test("embedded endpoint aborts a stalled request after four seconds with no retry", async t => {
+test("embedded endpoint serves embedded data after four seconds and still caches a late response", async t => {
   const { api, writes } = loadApi();
-  const fetch = t.mock.method(globalThis, "fetch", async (_url, init) => new Promise<Response>((_resolve, reject) => {
-    init?.signal?.addEventListener("abort", () => reject(new DOMException("timeout", "AbortError")), { once: true });
-  }));
+  let respond: ((r: Response) => void) | undefined;
+  const fetch = t.mock.method(globalThis, "fetch", async () => new Promise<Response>((resolve) => { respond = resolve; }));
   t.mock.timers.enable({ apis: ["setTimeout"] });
   const result = api.surahs.list();
-  // Allow the cache read and fetch setup to finish before advancing the clock.
   await Promise.resolve();
   await Promise.resolve();
   assert.equal(fetch.mock.callCount(), 1);
-  t.mock.timers.tick(3_999);
-  assert.equal(fetch.mock.calls[0].arguments[1]?.signal?.aborted, false);
-  t.mock.timers.tick(1);
+  t.mock.timers.tick(4_000);
   assert.deepEqual(await result, offline.offlineSurahs());
-  assert.equal(fetch.mock.callCount(), 1);
+  assert.equal(fetch.mock.calls[0].arguments[1]?.signal?.aborted, false);
   assert.equal(writes.length, 0);
+  respond?.({ ok: true, json: async () => [{ id: 1 }] } as unknown as Response);
+  for (let i = 0; i < 10 && writes.length === 0; i++) await new Promise<void>((r) => setImmediate(r));
+  assert.equal(writes.length, 1);
+  assert.equal(fetch.mock.callCount(), 1);
 });
 
 test("endpoint without embedded provider retains three network attempts", async t => {

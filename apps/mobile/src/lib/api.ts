@@ -373,6 +373,9 @@ async function withCache<T>(
   }
 }
 
+const OFFLINE_WAIT_MS = 4_000;
+const OFFLINE_SLOW = Symbol("offline-slow");
+
 async function withCacheFallback<T>(
   key: string,
   ttl: number,
@@ -381,7 +384,20 @@ async function withCacheFallback<T>(
   offline?: () => T | null,
 ): Promise<T> {
   try {
-    return await withCache(key, ttl, offline ? () => withRetry(fetcher, 0, 4_000) : fetcher, shouldStore);
+    if (!offline) return await withCache(key, ttl, fetcher, shouldStore);
+    // Gömülü veri varken kullanıcı ağı en çok OFFLINE_WAIT_MS bekler. İstek arka planda
+    // (tek deneme, normal zaman aşımı) sürer; yavaş ağda geç gelen yanıt yine önbelleğe yazılır.
+    const network = withCache(key, ttl, () => withRetry(fetcher, 0), shouldStore);
+    network.catch(() => { /* sonuç aşağıda ele alınır */ });
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const slow = new Promise<typeof OFFLINE_SLOW>((resolve) => { timer = setTimeout(() => resolve(OFFLINE_SLOW), OFFLINE_WAIT_MS); });
+    try {
+      const result = await Promise.race([network, slow]);
+      if (result !== OFFLINE_SLOW) return result as T;
+      throw new Error("offline-fallback-timeout");
+    } finally {
+      clearTimeout(timer);
+    }
   } catch (err) {
     // Network hata → cache'den sun (eski olsa bile) — aynı sürümlü anahtar
     try {

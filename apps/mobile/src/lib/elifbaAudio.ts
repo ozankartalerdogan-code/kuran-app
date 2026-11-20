@@ -32,6 +32,8 @@ export function playHarfSes(harfId: number, onError?: () => void, onPlayingChang
   let ownedPlayer: AudioPlayer | null = null;
 
   const cleanup = () => {
+    // Doğal bitiş/hata da oynatmayı kapatır: eski cancel referansı sonradan yeni sesi etkilemesin.
+    cancelled = true;
     if (timer) clearTimeout(timer);
     const s = sub;
     sub = null;
