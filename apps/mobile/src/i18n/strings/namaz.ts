@@ -3,8 +3,7 @@ import { defineStrings } from "../index";
 export default defineStrings({
   tr: {
     screenTitle: "Namaz Hakkında",
-    openVerseA11y: "{label} ayetini aç",
-    openVerseNamedA11y: "{name}, {label} ayetini aç",
+    openVerseNamedA11y: "{name} suresi {label}. ayeti aç",
     surahFallback: "Sure {n}",
     mottoLabel: "Namaz Vakitlere Bağlı Bir Farzdır",
     tableTitle: "Namaz Vakitleri & Teheccüd",
@@ -35,12 +34,10 @@ export default defineStrings({
     retryA11y: "Tekrar dene",
     retry: "Tekrar Dene",
     noContent: "İçerik bulunamadı.",
-    openVerseShortA11y: "{name}, ayeti aç",
   },
   en: {
     screenTitle: "About Prayer",
-    openVerseA11y: "Open verse {label}",
-    openVerseNamedA11y: "{name}, open verse {label}",
+    openVerseNamedA11y: "Open {name}, verse {label}",
     surahFallback: "Surah {n}",
     mottoLabel: "Prayer Is an Obligation Bound to Fixed Times",
     tableTitle: "Prayer Times & Tahajjud",
@@ -71,6 +68,5 @@ export default defineStrings({
     retryA11y: "Try again",
     retry: "Try Again",
     noContent: "No content found.",
-    openVerseShortA11y: "{name}, open verse",
   },
 });

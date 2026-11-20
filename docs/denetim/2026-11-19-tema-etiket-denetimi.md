@@ -18,3 +18,5 @@ Kabul eşiği (≥%90 FIT, ≤%2 WRONG, hassas WRONG 0) 2. turda sağlandı.
 Not: 2. tur denetçilerine bağlam kişi etiketleri ve kürasyonlu dua listeleri için açıklama eklendi (1. tur denetçisi `ismiazam-sekine`'yi yanlış okudu).
 
 Kalan zayıflar (WEAK, düzeltme isteğe bağlı): 70:27 ana tema, 70:3 alt etiket yok, 89:12 helak kavimleri, 75:5 ahiret/ba's eksik, 26:123 ve 26:141 `yalan-iftira` yerine `kafirler`, 49:6 ana tema.
+
+**Düzeltildi (2026-11-19):** 7 WEAK ayet `scripts/themes/fix_weak_2026_11_19.py` ile güncellendi (agy gemini-3.8-flash-high önerisi, Claude incelemesi: 70:3'ten `cehennem`, 49:6'dan `fitne` çıkarıldı). 70:27 ve 75:5 → A6 Ahiret; 89:12 → F2 Helak Edilen Kavimler; 26:123/26:141 `kafirler`; 49:6 → C3 İletişim ve Söz Ahlakı; 70:3 → `ilah`, `ars`.

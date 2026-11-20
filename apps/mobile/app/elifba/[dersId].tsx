@@ -1,6 +1,6 @@
 import {
   View, Text, TouchableOpacity, ActivityIndicator,
-  StyleSheet, ScrollView,
+  StyleSheet, ScrollView, useWindowDimensions,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { logScreen } from '../../src/lib/analytics';
@@ -11,6 +11,8 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { useColors } from "../../src/hooks/useColors";
 import {
+  ELIFBA_QUIZ_PASS,
+  mergeQuizScore,
   parseElifbaProgress,
   parseElifbaQuizScores,
   parseElifbaSrs,
@@ -38,9 +40,7 @@ const reviewedExercises = exercisesData as unknown as ReviewedExercise[];
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
-function Flashcard({ harf, onNext, onPrev, isLast }: {
-  harf: ElifbaHarf; onNext: () => void; onPrev: () => void; isLast: boolean;
-}) {
+function Flashcard({ harf }: { harf: ElifbaHarf }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const badgeLabels: Record<string, string> = {
@@ -49,6 +49,7 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
   };
   const [flipped, setFlipped] = useState(false);
   const [sesHata, setSesHata] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const sesHataTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelPlayRef = useRef<(() => void) | null>(null);
   const cardLabel = flipped
@@ -73,7 +74,7 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
       setSesHata(true);
       if (sesHataTimer.current) clearTimeout(sesHataTimer.current);
       sesHataTimer.current = setTimeout(() => setSesHata(false), 3000);
-    });
+    }, setPlaying);
   }, [harf.harf_id]);
 
   return (
@@ -83,9 +84,11 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
         onPress={handlePlay}
         activeOpacity={0.7}
         accessibilityRole="button"
-        accessibilityLabel={fmt(ep.listenA11y, { name: harf.harf_adi })}
+        disabled={playing}
+        accessibilityState={{ busy: playing, selected: playing, disabled: playing }}
+        accessibilityLabel={playing ? ep.playing : fmt(ep.listenA11y, { name: harf.harf_adi })}
       >
-        <Text style={fc.playIcon}>🔊</Text>
+        <Text style={playing ? { color: c.text, fontSize: 14 } : fc.playIcon}>{playing ? ep.playing : "🔊"}</Text>
       </TouchableOpacity>
 
       {sesHata && (
@@ -114,7 +117,7 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
             <Text style={[fc.hint, { color: c.textMuted }]}>{ep.flipText}</Text>
           </>
         ) : (
-          <ScrollView contentContainerStyle={fc.backContent}>
+          <View style={fc.backContent}>
             <Text style={[fc.arabicSmall, { color: c.text }]}>{harf.tek_basina}</Text>
             <Text style={[fc.harfAdi, c.isDark && { color: "#6ee7b7" }]}>{harf.harf_adi}</Text>
             <Text style={[fc.harfSesi, { color: c.accent }]}>{harf.harf_sesi}</Text>
@@ -135,36 +138,16 @@ function Flashcard({ harf, onNext, onPrev, isLast }: {
                 <Text style={fc.badgeText}>{badgeLabels[harf.grup] ?? harf.grup}</Text>
               </View>
             </View>
-          </ScrollView>
+          </View>
         )}
       </TouchableOpacity>
-      <View style={fc.navRow}>
-        <TouchableOpacity
-          style={[fc.navBtn, { backgroundColor: c.card, borderColor: c.border }]}
-          onPress={onPrev}
-          accessibilityRole="button"
-          accessibilityLabel={ep.prevLetterA11y}
-        >
-          <Text style={[fc.navBtnText, { color: c.textSecondary }]}>{ep.prev}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[fc.navBtn, fc.navBtnActive]}
-          onPress={onNext}
-          accessibilityRole="button"
-          accessibilityLabel={isLast ? ep.toQuizA11y : ep.nextLetterA11y}
-        >
-          <Text style={[fc.navBtnText, { color: "#fff" }]}>
-            {isLast ? ep.toQuiz : ep.next}
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
 
 // ── Quiz ──────────────────────────────────────────────────────────────────────
 
-function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
+function QuizView({ dersId, onFinish, isBypass = false }: { dersId: number; isBypass?: boolean; onFinish: (s: number, t: number) => void }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const lang = useLang();
@@ -329,7 +312,15 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
           </TouchableOpacity>
         </View>
       )}
+      {isBypass && questions.length > 0 && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]}>
+            {fmt(ep.bypassBanner, { n: ELIFBA_QUIZ_PASS, total: questions.length })}
+          </Text>
+        </View>
+      )}
       <ElifbaQuizView
+        isBypass={isBypass}
         key={sessionKey}
         questions={questions}
         onAnswer={handleAnswer}
@@ -548,7 +539,7 @@ function ListeningView({ harfler, onFinish }: {
   }, [persistSrs]);
 
   const playAudio = useCallback(
-    (harfId: number, onError: () => void) => playHarfSes(harfId, onError),
+    (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => playHarfSes(harfId, onError, onPlayingChange),
     [],
   );
 
@@ -605,11 +596,13 @@ function ListeningView({ harfler, onFinish }: {
 type Mode = "flashcard" | "quiz" | "listen" | "exercise";
 
 export default function DersScreen() {
-  const { dersId: raw, mode: initialMode, baslik: rawBaslik } = useLocalSearchParams<{
-    dersId: string; mode?: string; baslik?: string;
+  const { dersId: raw, mode: initialMode, baslik: rawBaslik, bypass: rawBypass } = useLocalSearchParams<{
+    dersId: string; mode?: string; baslik?: string; bypass?: string;
   }>();
   const dersId = Number(raw);
+  const isBypass = rawBypass === "1";
   const insets = useSafeAreaInsets();
+  const { fontScale } = useWindowDimensions();
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   useEffect(() => { logScreen('ElifBaDers'); }, []);
@@ -632,8 +625,12 @@ export default function DersScreen() {
   // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
   const [loadError, setLoadError] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
-  const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
+  const [mode, setMode]         = useState<Mode>(isBypass || initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
+  const lettersRef = useRef<ScrollView>(null);
+  useEffect(() => {
+    lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: true });
+  }, [idx, mode]);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
   const [dersIcerik, setDersIcerik] = useState<DersIcerik | null>(null);
   const progressRef             = useRef<ElifbaProgress>({});
@@ -697,10 +694,16 @@ export default function DersScreen() {
   }, [harfler, idx, markSeen]);
 
   const handleQuizFinish = useCallback(async (s: number, t: number) => {
-    const prev = parseElifbaQuizScores(await storage.getJSON<unknown>(STORAGE_KEYS.quizScores));
-    await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: { score: s, total: t } }).catch(() => {});
+    if (!isBypass || s >= ELIFBA_QUIZ_PASS) {
+      const prev = parseElifbaQuizScores(await storage.getJSON<unknown>(STORAGE_KEYS.quizScores));
+      const next = isBypass
+        ? mergeQuizScore(prev[String(dersId)], { score: s, total: t, bypass: true })
+        // Sınavla geçilmiş derste normal test tekrarı bayrağı silmesin (ders yeniden kilitlenmesin).
+        : { score: s, total: t, ...(prev[String(dersId)]?.bypass === true ? { bypass: true } : {}) };
+      await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: next }).catch(() => {});
+    }
     router.dismissTo("/elifba");
-  }, [dersId]);
+  }, [dersId, isBypass]);
 
   if (loading) {
     return (
@@ -717,9 +720,9 @@ export default function DersScreen() {
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <View style={[styles.container, { paddingBottom: insets.bottom, backgroundColor: c.bg }]}>
+      <View style={[styles.container, { backgroundColor: c.bg }]}>
         {/* Mod seçici */}
-        <View style={styles.modeBar}>
+        {!isBypass && <View style={styles.modeBar}>
           <TouchableOpacity
             style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "flashcard" && styles.modeBtnActive]}
             onPress={() => setMode("flashcard")}
@@ -788,7 +791,7 @@ export default function DersScreen() {
             </Text>
           </TouchableOpacity>
           )}
-        </View>
+        </View>}
 
         {mode === "exercise" && canExercise ? (
           <ExerciseView questions={exerciseQuestions} onFinish={() => router.dismissTo("/elifba")} />
@@ -797,16 +800,21 @@ export default function DersScreen() {
         ) : mode === "flashcard" ? (
           harfler.length > 0 ? (
             <>
-              {dersIcerik && <ElifbaLessonContent icerik={dersIcerik} lang={lang} />}
-              <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
-              <Flashcard
-                harf={harfler[idx]}
-                onNext={handleNext}
-                onPrev={handlePrev}
-                isLast={idx === harfler.length - 1}
-              />
+              <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+                {dersIcerik && <ElifbaLessonContent icerik={dersIcerik} lang={lang} />}
+                <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
+                <Flashcard
+                  harf={harfler[idx]}
+                />
+              </ScrollView>
               {harfler.length <= 30 && (
-                <View style={styles.dots}>
+                <ScrollView
+                  ref={lettersRef}
+                  horizontal
+                  style={{ height: 16 + Math.max(44, 60 * fontScale), flexGrow: 0, flexShrink: 0 }}
+                  contentContainerStyle={styles.letters}
+                  onContentSizeChange={() => lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: false })}
+                >
                   {harfler.map((h, i) => (
                     <TouchableOpacity
                       key={h.harf_id}
@@ -817,18 +825,35 @@ export default function DersScreen() {
                       accessibilityRole="button"
                       accessibilityLabel={fmt(ep.goToLetterA11y, { name: h.harf_adi })}
                       accessibilityState={{ selected: i === idx }}
-                      style={[
-                        styles.dot,
-                        i === idx
-                          ? styles.dotActive
-                          : seenIds.includes(h.harf_id)
-                            ? styles.dotSeen
-                            : styles.dotEmpty,
-                      ]}
-                    />
+                      style={[styles.letterChip, { backgroundColor: i === idx ? c.accentLight : c.card, borderColor: i === idx ? c.accent : c.border }]}
+                    >
+                      <Text style={{ color: i === idx ? c.successText : c.text, fontSize: 22, fontFamily: "Amiri" }}>{h.tek_basina}</Text>
+                    </TouchableOpacity>
                   ))}
-                </View>
+                </ScrollView>
               )}
+              <View style={{ paddingHorizontal: 16, paddingBottom: insets.bottom + 16, flexShrink: 0, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" }}>
+                <View style={fc.navRow}>
+                  <TouchableOpacity
+                    style={[fc.navBtn, { backgroundColor: c.card, borderColor: c.border }]}
+                    onPress={handlePrev}
+                    accessibilityRole="button"
+                    accessibilityLabel={ep.prevLetterA11y}
+                  >
+                    <Text style={[fc.navBtnText, { color: c.textSecondary }]}>{ep.prev}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[fc.navBtn, fc.navBtnActive]}
+                    onPress={handleNext}
+                    accessibilityRole="button"
+                    accessibilityLabel={idx === harfler.length - 1 ? ep.toQuizA11y : ep.nextLetterA11y}
+                  >
+                    <Text style={[fc.navBtnText, { color: "#fff" }]}>
+                      {idx === harfler.length - 1 ? ep.toQuiz : ep.next}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </>
           ) : (
             <View style={[styles.centered, { backgroundColor: c.bg }]}>
@@ -849,7 +874,7 @@ export default function DersScreen() {
             </View>
           )
         ) : (
-          <QuizView dersId={dersId} onFinish={handleQuizFinish} />
+          <QuizView dersId={dersId} isBypass={isBypass} onFinish={handleQuizFinish} />
         )}
       </View>
     </>
@@ -868,15 +893,12 @@ const styles = StyleSheet.create({
   modeBtnText:   { fontSize:12, fontWeight:"600", color:"#44403c", textAlign:"center" },
   modeBtnTextActive: { color:"#fff" },
   counter:   { textAlign:"center", fontSize:12, color:"#a8a29e", marginBottom:4 },
-  dots:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:7, paddingHorizontal:16, marginTop:14 },
-  dot:       { width:10, height:10, borderRadius:5 },
-  dotActive: { backgroundColor:"#059669", transform:[{ scale:1.35 }] },
-  dotSeen:   { backgroundColor:"#a7f3d0" },
-  dotEmpty:  { backgroundColor:"#d6d3d1" },
+  letters: { flexDirection: "row", gap: 7, paddingHorizontal: 16, paddingVertical: 8 },
+  letterChip: { width: 44, minHeight: 44, alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: 8 },
 });
 
 const fc = StyleSheet.create({
-  container:   { flex:1, padding:16, alignItems:"center", width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
+  container:   { flexGrow:1, padding:16, alignItems:"center", width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
   playBtn:     { alignSelf:"flex-end", padding:10, marginBottom:4 },
   playIcon:    { fontSize:28 },
   sesHata:     { fontSize:12, color:"#dc2626", textAlign:"center", marginBottom:8, paddingHorizontal:8 },
@@ -895,12 +917,12 @@ const fc = StyleSheet.create({
   hint:        { fontSize:12, color:"#a8a29e", marginTop:8 },
   harfAdi:     { fontSize:22, fontWeight:"700", color:"#065f46" },
   harfSesi:    { fontSize:15, color:"#059669" },
-  formsRow:    { flexDirection:"row", gap:12, marginTop:4 },
+  formsRow:    { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:12, marginTop:4 },
   formBox:     { alignItems:"center", backgroundColor:"#fffdf6", borderRadius:10, padding:10, minWidth:60 },
   formLabel:   { fontSize:9, fontWeight:"700", color:"#a8a29e", letterSpacing:0.5, marginBottom:4 },
   formChar:    { fontSize:22, color:"#1c1917" },
   mahrec:      { fontSize:12, color:"#78716c", textAlign:"center" },
-  badges:      { flexDirection:"row", gap:8 },
+  badges:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:8 },
   badge:       { borderRadius:8, paddingHorizontal:10, paddingVertical:4 },
   badgeText:   { fontSize:11, fontWeight:"600", color:"#44403c" },
   navRow:        { flexDirection:"row", gap:10, marginTop:16, width:"100%" },

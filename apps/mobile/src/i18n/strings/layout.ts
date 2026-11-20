@@ -35,7 +35,7 @@ export default defineStrings({
     backRoots: "Roots",
     backLessons: "Lessons",
     backMushaf: "Mushaf",
-    elifba: "Learn Elifba",
+    elifba: "Learn Elif-Ba",
     worshipGuide: "Worship Guide",
     prayerWorship: "Prayer & Worship",
     notifications: "Notifications",

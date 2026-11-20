@@ -1,3 +1,4 @@
+import { offlineSurahs, offlineVerses, offlineMushafPage } from "./offlineTr";
 import { storage } from "./storage";
 import { API_BASE_URL } from "./runtimeConfig";
 
@@ -74,11 +75,12 @@ async function request<T>(
 async function withRetry<T>(
   fn: (signal: AbortSignal) => Promise<T>,
   retries = MAX_RETRIES,
+  initialTimeoutMs = TIMEOUT_MS,
 ): Promise<T> {
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController();
     // timeout: 10 sn → 15 sn → 22.5 sn
-    const timeoutMs = TIMEOUT_MS * Math.pow(1.5, attempt);
+    const timeoutMs = initialTimeoutMs * Math.pow(1.5, attempt);
     const timer = setTimeout(() => controller.abort(), timeoutMs);
 
     try {
@@ -371,20 +373,39 @@ async function withCache<T>(
   }
 }
 
+const OFFLINE_WAIT_MS = 4_000;
+const OFFLINE_SLOW = Symbol("offline-slow");
+
 async function withCacheFallback<T>(
   key: string,
   ttl: number,
-  fetcher: () => Promise<T>,
+  fetcher: (signal?: AbortSignal) => Promise<T>,
   shouldStore?: (data: T) => boolean,
+  offline?: () => T | null,
 ): Promise<T> {
   try {
-    return await withCache(key, ttl, fetcher, shouldStore);
+    if (!offline) return await withCache(key, ttl, fetcher, shouldStore);
+    // Gömülü veri varken kullanıcı ağı en çok OFFLINE_WAIT_MS bekler. İstek arka planda
+    // (tek deneme, normal zaman aşımı) sürer; yavaş ağda geç gelen yanıt yine önbelleğe yazılır.
+    const network = withCache(key, ttl, () => withRetry(fetcher, 0), shouldStore);
+    network.catch(() => { /* sonuç aşağıda ele alınır */ });
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const slow = new Promise<typeof OFFLINE_SLOW>((resolve) => { timer = setTimeout(() => resolve(OFFLINE_SLOW), OFFLINE_WAIT_MS); });
+    try {
+      const result = await Promise.race([network, slow]);
+      if (result !== OFFLINE_SLOW) return result as T;
+      throw new Error("offline-fallback-timeout");
+    } finally {
+      clearTimeout(timer);
+    }
   } catch (err) {
     // Network hata → cache'den sun (eski olsa bile) — aynı sürümlü anahtar
     try {
       const cached = await storage.getJSON<{ ts: number; data: T }>(vkey(key));
       if (cached) return cached.data;
     } catch { /* ignore */ }
+    const embedded = offline?.();
+    if (embedded != null) return embedded;
     throw err;
   }
 }
@@ -397,7 +418,8 @@ export const api = {
       withCacheFallback(
         "cache_surahs",
         CACHE_TTL_STATIC,
-        () => withRetry((signal) => request<SurahListItem[]>("/surahs", undefined, signal)),
+        (signal) => request<SurahListItem[]>("/surahs", undefined, signal),
+        undefined, offlineSurahs,
       ),
   },
 
@@ -417,9 +439,8 @@ export const api = {
       withCacheFallback(
         `cache_verses_${surahId}`,
         CACHE_TTL_STATIC,
-        () => withRetry((signal) =>
-          request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
-        ),
+        (signal) => request<VerseListResponse>(`/verses?surah_id=${surahId}`, undefined, signal),
+        undefined, () => offlineVerses(surahId),
       ),
   },
 
@@ -432,9 +453,8 @@ export const api = {
       withCacheFallback(
         `cache_mushaf_v4_p${page}`,
         CACHE_TTL_STATIC,
-        () => withRetry((signal) =>
-          request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
-        ),
+        (signal) => request<MushafPageResponse>(`/mushaf?page=${page}&v=4`, undefined, signal),
+        undefined, () => offlineMushafPage(page),
       ),
   },
 
@@ -546,12 +566,17 @@ export const api = {
   },
 
   daily: {
-    get: () =>
-      withCacheFallback(
-        dailyCacheKey(),
+    // Yerel gün sunucuya da gönderilir: tarihsiz istekte sunucu kendi (UTC) gününü
+    // kullanıyordu; Türkiye'de 00:00–03:00 arası önbellek anahtarı bugün, içerik dün oluyordu.
+    get: () => {
+      const key = dailyCacheKey();
+      const day = key.slice("cache_daily_".length);
+      return withCacheFallback(
+        key,
         CACHE_TTL_DAILY,
-        () => withRetry((signal) => request<DailyResponse>("/daily", undefined, signal)),
-      ),
+        () => withRetry((signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(day)}`, undefined, signal)),
+      );
+    },
     /** Belirli günün ayet/duası (YYYY-MM-DD) — 7 günlük bildirim planı için; önbelleksiz. */
     forDate: (date: string) =>
       withRetry((signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(date)}`, undefined, signal)),

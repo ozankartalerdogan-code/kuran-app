@@ -29,6 +29,7 @@ import { createLatestCityPicker } from "../src/lib/prayerCitySelection";
 import { buildPrayerContext, getLocationSilent } from "../src/lib/prayerContextDeps";
 import { getPrayerDayRepository } from "../src/lib/prayerDayRepositoryDeps";
 import { addDaysYmd, prayerDateInZone } from "../src/lib/prayerInstant";
+import { refreshPrayerWidgetsNow } from "../src/widgets/widgetRefresh";
 
 type SearchState =
   | { status: "idle" }
@@ -73,6 +74,7 @@ export default function SehirSecScreen() {
     complete: (city) => {
       setManual(city);
       markPrayerCityChanged();
+      void refreshPrayerWidgetsNow();
       // The public entry point uses the existing notification SerialQueue.
       void rescheduleNotifications().catch(() => {});
       router.back();

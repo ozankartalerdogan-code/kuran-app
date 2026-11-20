@@ -35,10 +35,10 @@ export type { ThemeLang, ThemeGroup, ThemeLevel1, ThemeLevel2, VerseThemes } fro
 
 /**
  * Tema etiketi arayüzünün TEK anahtarı (ayet kartı, Konular ekranı, Öğren girişi).
- * Doğrulama eşiği geçilene kadar yalnız geliştirme build'inde (__DEV__) açık;
- * release build'de false. Yayına alırken burayı `true` yap.
+ * 2026-11-19: denetim geçti (%94,7 FIT, 0 WRONG), web + Turso canlıda → 1.2.3'ten itibaren açık.
+ * Sorun çıkarsa `__DEV__` yapıp yeni sürüm çıkarmak arayüzü gizler.
  */
-export const THEME_TAGS_ENABLED: boolean = __DEV__;
+export const THEME_TAGS_ENABLED: boolean = true;
 
 const taxonomy = taxonomyJson as unknown as ThemeTaxonomy & { _placeholder?: unknown };
 const idx = createThemeIndex(taxonomy);

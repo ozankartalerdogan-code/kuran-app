@@ -11,11 +11,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers, type ElifbaQuizSoru } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
-import { useStrings, useLang, fmt } from "../../src/i18n";
+import { useStrings, useLang, fmt, caps } from "../../src/i18n";
 import { localizeDersler } from "../../src/lib/elifbaEn";
 import elifbaStrings from "../../src/i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import {
+  ELIFBA_QUIZ_PASS,
+  getLessonStatus as getStatus,
+  type ElifbaLessonStatus as LessonStatus,
   parseElifbaProgress,
   parseElifbaQuizScores,
   parseElifbaSrs,
@@ -38,7 +41,6 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: "harfi-tarif", label: "tabTarif" },
 ];
 
-const QUIZ_PASS = 10;
 const NODE_W   = 72;
 const COLS     = 3;
 
@@ -48,7 +50,6 @@ const BADGE_ICON = {
   crown: "trophy",
 } as const;
 
-type LessonStatus = "completed" | "active" | "locked";
 type QuizScore    = ElifbaQuizScore;
 
 const SEVIYE_COLOR: Record<string, { bg: string; text: string }> = {
@@ -61,36 +62,10 @@ function shortBaslik(b: string) {
   return b.replace(/^\d+\.\s*(KONU|LESSON):\s*/i, "");
 }
 
-function checkCompleted(
-  ders: ElifbaDers,
-  progress: Record<string, number[]>,
-  quizScores: Record<string, QuizScore>,
-): boolean {
-  const seen      = progress[String(ders.id)] ?? [];
-  const flashDone = ders.harf_sayisi > 0 && seen.length >= ders.harf_sayisi;
-  const qs        = quizScores[String(ders.id)];
-  return flashDone && !!qs && qs.score >= QUIZ_PASS;
-}
-
-function getStatus(
-  ders: ElifbaDers,
-  idx: number,
-  all: ElifbaDers[],
-  progress: Record<string, number[]>,
-  quizScores: Record<string, QuizScore>,
-): LessonStatus {
-  if (checkCompleted(ders, progress, quizScores)) return "completed";
-  if (idx === 0) return "active";
-  if (checkCompleted(all[idx - 1], progress, quizScores)) return "active";
-  return "locked";
-}
-
-// ── Ders Popup ────────────────────────────────────────────────────────────────
-
-function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard, onQuiz }: {
+function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard, onQuiz, onBypassQuiz }: {
   ders: ElifbaDers; status: LessonStatus; seenCount: number;
   quizScore: QuizScore | null; onClose: () => void;
-  onFlashcard: () => void; onQuiz: () => void;
+  onFlashcard: () => void; onQuiz: () => void; onBypassQuiz: () => void;
 }) {
   const c = useColors();
   const d = c.isDark; // koyu temada açık pastel zeminler koyu muadile geçer
@@ -141,7 +116,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
             <View style={[pp.infoBox, { backgroundColor: d ? "#172554" : "#eff6ff", marginTop: 8 }]}>
               <Text style={{ fontSize: 13, color: d ? "#93c5fd" : "#1d4ed8" }}>
                 {ep.quizPrefix}{quizScore.score}/{quizScore.total}
-                {quizScore.score >= QUIZ_PASS
+                {quizScore.score >= ELIFBA_QUIZ_PASS
                   ? <Text style={{ color: "#059669", fontWeight: "700" }}>{ep.passed}</Text>
                   : <Text style={{ color: c.textMuted }}>{ep.tryAgainDash}</Text>}
               </Text>
@@ -149,7 +124,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
           ) : status !== "locked" ? (
             <View style={[pp.infoBox, { backgroundColor: d ? "#422006" : "#fef9c3", marginTop: 8 }]}>
               <Text style={{ fontSize: 12, color: d ? "#fde047" : "#854d0e" }}>
-                {fmt(ep.passHint, { n: QUIZ_PASS })}
+                {fmt(ep.passHint, { n: ELIFBA_QUIZ_PASS })}
               </Text>
             </View>
           ) : null}
@@ -158,6 +133,18 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
             <View style={[pp.infoBox, { backgroundColor: c.cardAlt, marginTop: 8 }]}>
               <Text style={{ fontSize: 12, color: c.textMuted }}>{ep.lockedHint}</Text>
             </View>
+          )}
+
+          {status === "locked" && (
+            <TouchableOpacity
+              style={[pp.btnIndigo, { flex: 0, flexDirection: "row", justifyContent: "center", gap: 8, marginTop: 14 }]}
+              onPress={onBypassQuiz}
+              accessibilityRole="button"
+              accessibilityLabel={fmt(ep.bypassA11y, { name: dersAdi })}
+            >
+              <Ionicons name="school-outline" size={18} color="#fff" />
+              <Text style={pp.btnText}>{ep.bypassBtn}</Text>
+            </TouchableOpacity>
           )}
 
           {status !== "locked" && (
@@ -195,6 +182,7 @@ function PathNode({ ders, status, pct, badge, onPress }: {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const isComp   = status === "completed";
+  const lang = useLang();
   const isActive = status === "active";
   const isLocked = status === "locked";
   const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : (c.isDark ? "#44403c" : "#d1d5db");
@@ -209,12 +197,10 @@ function PathNode({ ders, status, pct, badge, onPress }: {
     <TouchableOpacity
       style={nd.wrap}
       onPress={onPress}
-      disabled={isLocked}
-      activeOpacity={isLocked ? 1 : 0.75}
+      activeOpacity={0.75}
       accessibilityRole="button"
       accessibilityLabel={nodeLabel}
       accessibilityHint={isLocked ? ep.nodeHintLocked : ep.nodeHint}
-      accessibilityState={{ disabled: isLocked }}
     >
       <View style={nd.circleWrap}>
         <View style={[nd.circle, { backgroundColor: bg, borderColor: border }]}>
@@ -243,7 +229,7 @@ function PathNode({ ders, status, pct, badge, onPress }: {
           "ASAR, MED ve KASR"ı "ASAR, MED ve" yapıp bağlaçla bitiriyordu (9 dersten
           yalnız o 3 kelimeden uzun olduğu için hata tek satırda görünür kalmıştı). */}
       <Text style={[nd.label, { color: isLocked ? c.textMuted : c.textSecondary }]} numberOfLines={3}>
-        {shortBaslik(ders.baslik)}
+        {lang === "tr" ? dersAdi.toLocaleUpperCase("tr-TR") : caps(dersAdi)}
       </Text>
     </TouchableOpacity>
   );
@@ -529,6 +515,13 @@ export default function OgrenScreen() {
                     router.push({
                       pathname: "/elifba/[dersId]",
                       params: { dersId: String(popupDers.id), baslik: shortBaslik(popupDers.baslik) },
+                    });
+                  }}
+                  onBypassQuiz={() => {
+                    setPopupId(null);
+                    router.push({
+                      pathname: "/elifba/[dersId]",
+                      params: { dersId: String(popupDers.id), mode: "quiz", bypass: "1", baslik: shortBaslik(popupDers.baslik) },
                     });
                   }}
                   onQuiz={() => {

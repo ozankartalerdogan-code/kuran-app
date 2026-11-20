@@ -12,7 +12,7 @@ module.exports = {
     name: 'Kuran Yolu',
     slug: 'kuran-analiz',
     scheme: 'kuranyolu',
-    version: '1.2.2',
+    version: '1.2.3',
     sdkVersion: '56.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
@@ -132,6 +132,8 @@ module.exports = {
       // app CMake yeniden yapılandırması silinmiş JNI kaynaklarını tüketmeye
       // çalışıyor. Bkz. plugins/with-native-clean-codegen-ordering.js.
       './plugins/with-native-clean-codegen-ordering',
+      // Wi-Fi ve dikey ekranı "isteğe bağlı" beyan eder (Play uyumluluk uyarısı).
+      './plugins/with-android-optional-features',
       'expo-router',
       // Cihaz dilini okur (src/i18n) — Türkçe dışı cihazlarda arayüz İngilizce.
       'expo-localization',
@@ -152,14 +154,22 @@ module.exports = {
       // değil) react-native-android-widget'ın WorkManager Worker sınıfını (arka
       // plan widget güncellemesi) reflection ile bulamayıp sessizce silebiliyor —
       // kütüphane kendi consumer-proguard kuralını içermiyor. Bu kurallar
-      // minifyEnabled kapalıyken zararsız durur, açılırsa koruma sağlar.
+      // Release R8 açıkken bu reflection giriş noktaları korunmalıdır.
       [
         'expo-build-properties',
         {
           android: {
+            enableMinifyInReleaseBuilds: true,
+            enableShrinkResourcesInReleaseBuilds: true,
             extraProguardRules:
               '-keep class * extends androidx.work.ListenableWorker { public <init>(android.content.Context, androidx.work.WorkerParameters); }\n' +
-              '-keep class com.reactnativeandroidwidget.** { *; }',
+              '-keep class com.reactnativeandroidwidget.** { *; }\n' +
+              // WidgetTickReceiver resolves these generated providers with Class.forName.
+              '-keep class **.widget.NamazSerit { *; }\n' +
+              '-keep class **.widget.NamazOdak { *; }\n' +
+              // expo-task-manager arka plan görevinde uygulamayı bu sınıfla başlatır; sınıf adı
+              // yalnız manifest meta-data'sında geçtiği için R8 siliyordu (A03'te ClassNotFound).
+              '-keep class expo.modules.adapters.react.apploader.RNHeadlessAppLoader { *; }',
           },
           // iOS: React Native Firebase statik framework ister; RNFB pod'ları
           // precompiled RN ile modular-header çakışması yaşamasın diye statik linklenir.
@@ -226,6 +236,16 @@ module.exports = {
               en: { label: 'Verses of Command', description: 'Quran verses in the imperative mood, rotating 6 times a day.' },
               tr: { label: 'Emir Ayetleri', description: 'Kur\'an\'dan emir kipiyle gelen ayetler, günde 6 kez döner.' },
             },
+            {
+              name: 'NamazSerit',
+              en: { label: 'Prayer Times', description: 'Six prayer times and the next prayer, available offline. 4×1 strip.' },
+              tr: { label: 'Namaz Vakitleri', description: 'Altı vakit ve sıradaki namaz, çevrimdışı kullanılabilir. 4×1 şerit.' },
+            },
+            {
+              name: 'NamazOdak',
+              en: { label: 'Next Prayer', description: 'Next prayer time, remaining time and daily progress. 2×1.' },
+              tr: { label: 'Sıradaki Vakit', description: 'Sıradaki namaz, kalan süre ve günün ilerleyişi. 2×1.' },
+            },
           ],
         },
       ],
@@ -247,6 +267,22 @@ module.exports = {
               targetCellHeight: 2,
               resizeMode: 'horizontal|vertical',
               updatePeriodMillis: 14400000, // 4 saat = günde 6 dilim (Android minimumu 30 dk)
+            },
+            {
+              name: 'NamazSerit',
+              label: '@string/widget_namazserit_label',
+              description: 'Six prayer times and the next prayer, available offline. 4×1 strip.',
+              minWidth: '250dp', minHeight: '50dp', targetCellWidth: 4, targetCellHeight: 1,
+              resizeMode: 'horizontal', updatePeriodMillis: 1800000,
+              previewImage: './assets/images/widget/namazserit_preview.png',
+            },
+            {
+              name: 'NamazOdak',
+              label: '@string/widget_namazodak_label',
+              description: 'Next prayer time, remaining time and daily progress. 2×1.',
+              minWidth: '110dp', minHeight: '50dp', targetCellWidth: 2, targetCellHeight: 1,
+              resizeMode: 'horizontal', updatePeriodMillis: 1800000,
+              previewImage: './assets/images/widget/namazodak_preview.png',
             },
           ],
         },

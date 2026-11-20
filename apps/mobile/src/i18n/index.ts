@@ -19,9 +19,9 @@
 // React dışı (bildirim, widget, util) kodda: getStrings(namazStrings).
 import { useSyncExternalStore } from "react";
 import { storage } from "../lib/storage";
+import { updateLanguageState, type Lang, type LangPreference, type LanguageState } from "./languageState";
 
-export type Lang = "tr" | "en";
-export type LangPreference = Lang | "system";
+export type { Lang, LangPreference } from "./languageState";
 
 const PREF_KEY = "uiLanguage";
 
@@ -42,35 +42,47 @@ function readPref(): LangPreference {
   return v === "tr" || v === "en" ? v : "system";
 }
 
-let preference: LangPreference = readPref();
-let current: Lang = preference === "system" ? detectSystemLang() : preference;
+const initialPreference = readPref();
+let languageState: LanguageState = {
+  preference: initialPreference,
+  current: initialPreference === "system" ? detectSystemLang() : initialPreference,
+};
 const listeners = new Set<() => void>();
+let prefGeneration = 0;
+const startupGeneration = prefGeneration;
 
 // MMKV yoksa senkron okuma null döner; tercihi async olarak bir kez yükle.
-if (preference === "system") {
-  storage.getString(PREF_KEY).then((v) => {
-    if ((v === "tr" || v === "en") && v !== current) {
-      preference = v;
-      current = v;
-      listeners.forEach((l) => l());
+export const languageReady: Promise<void> = languageState.preference === "system"
+  ? storage.getString(PREF_KEY).then((v) => {
+    if (prefGeneration !== startupGeneration) return;
+    if (v === "tr" || v === "en") {
+      const next = updateLanguageState(languageState, v, languageState.current);
+      if (next !== languageState) {
+        languageState = next;
+        listeners.forEach((l) => l());
+      }
     }
-  }).catch(() => {});
-}
+  }).catch(() => {})
+  : Promise.resolve();
 
 export function getLang(): Lang {
-  return current;
+  return languageState.current;
 }
 
 export function getLangPreference(): LangPreference {
-  return preference;
+  return languageState.preference;
 }
 
 export async function setLangPreference(pref: LangPreference): Promise<void> {
-  preference = pref;
-  current = pref === "system" ? detectSystemLang() : pref;
-  if (pref === "system") await storage.remove(PREF_KEY);
-  else await storage.setString(PREF_KEY, pref);
-  listeners.forEach((l) => l());
+  prefGeneration++;
+  languageState = updateLanguageState(languageState, pref, pref === "system" ? detectSystemLang() : pref);
+  try {
+    if (pref === "system") await storage.remove(PREF_KEY);
+    else await storage.setString(PREF_KEY, pref);
+  } finally {
+    // Kayıt başarısız olsa da arayüz bellekteki dille aynı kalsın.
+    listeners.forEach((l) => l());
+  }
 }
 
 function subscribe(cb: () => void): () => void {
@@ -80,6 +92,10 @@ function subscribe(cb: () => void): () => void {
 
 export function useLang(): Lang {
   return useSyncExternalStore(subscribe, getLang, getLang);
+}
+
+export function useLangPreference(): LangPreference {
+  return useSyncExternalStore(subscribe, getLangPreference, getLangPreference);
 }
 
 type Widen<T> = { [K in keyof T]: T[K] extends readonly unknown[] ? readonly string[] : string };
@@ -97,7 +113,7 @@ export function defineStrings<const T extends Record<string, string | readonly s
 }
 
 export function getStrings<T>(table: StringTable<T>): Widen<T> {
-  return (current === "en" ? table.en : table.tr) as Widen<T>;
+  return (getLang() === "en" ? table.en : table.tr) as Widen<T>;
 }
 
 export function useStrings<T>(table: StringTable<T>): Widen<T> {
@@ -113,10 +129,10 @@ export { fmt } from "./fmt";
  * metni JS'de önceden büyütürüz ("I" Türkçe kuralda da "I" kalır). Türkçede değişmez.
  */
 export function caps<T>(value: T): T {
-  return current === "en" && typeof value === "string" ? (value.toUpperCase() as T) : value;
+  return getLang() === "en" && typeof value === "string" ? (value.toUpperCase() as T) : value;
 }
 
 /** Tarih/sayı biçimlendirme için locale etiketi. */
-export function localeTag(lang: Lang = current): string {
+export function localeTag(lang: Lang = getLang()): string {
   return lang === "en" ? "en-US" : "tr-TR";
 }

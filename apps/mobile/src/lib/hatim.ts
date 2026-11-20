@@ -83,3 +83,18 @@ export function hatimFmt(iso: string, locale = "tr-TR"): string {
 export function hatimGunSayisi(a: string, b: string): number {
   return Math.round((new Date(b).getTime() - new Date(a).getTime()) / 86400000);
 }
+
+// Kur'an sekmesi özeti: aktif hatimdeki geçerli (1-30) cüzler.
+export type HatimSummary = { done: number; readJuz: Set<number> };
+
+export function summarizeHatim(raw: string | null): HatimSummary | null {
+  const store = parseHatimStore(raw);
+  const current = store.hatims.find(h => h.id === store.currentId);
+  if (!current) return null;
+  const readJuz = new Set(current.readJuz.filter(n => Number.isInteger(n) && n >= 1 && n <= 30));
+  return { done: readJuz.size, readJuz };
+}
+
+export function countFavorites(value: unknown): number {
+  return Array.isArray(value) && value.every(item => typeof item === "string") ? value.length : 0;
+}

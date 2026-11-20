@@ -150,7 +150,7 @@ export default function TafsirScreen() {
                   accessibilityLabel={s.originalA11y}
                   accessibilityState={{ selected: selectedMode === "original" }}
                 >
-                  <Text style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>{s.original}</Text>
+                  <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>{s.original}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
@@ -160,7 +160,7 @@ export default function TafsirScreen() {
                   accessibilityLabel={s.simplifiedA11y}
                   accessibilityState={{ selected: selectedMode === "simplified" }}
                 >
-                  <Text style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>{lang === "en" && !localEnContent ? s.simplifiedFallback : s.simplified}</Text>
+                  <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>{lang === "en" && !localEnContent ? s.simplifiedFallback : s.simplified}</Text>
                 </TouchableOpacity>
               </View>
             ) : null
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     alignItems: "center",
+    justifyContent: "center",
   },
   tabActive: {
     backgroundColor: "#c9a84c",

@@ -13,7 +13,7 @@ import kuranStrings from "../../src/i18n/strings/kuranTab";
 import { storage, STORAGE_KEYS, usingMmkv } from "../../src/lib/storage";
 import { sayfaninCuzu, sayfaBasSuresi, ayetinSayfasi } from "../../src/lib/mushafSayfa";
 import { parseSavedPage } from "../../src/lib/resumeReading";
-import { parseActiveHatimProgress } from "../../src/lib/hatim";
+import { JUZ_DATA, summarizeHatim, countFavorites, type HatimSummary } from "../../src/lib/hatim";
 import { useSurahNameOf } from "../../src/lib/surahNames";
 import { api, type SurahListItem } from "../../src/lib/api";
 
@@ -70,18 +70,20 @@ const CARDS: KuranCard[] = [
   },
 ];
 
-type ResumeState = {
+type KuranTabState = {
   page: number | null;
-  hatimDone: number | null;
+  hatim: HatimSummary | null;
+  favCount: number;
 };
 
-function readResumeSync(): ResumeState {
+function readKuranTabSync(): KuranTabState {
   const rawPage = storage.getStringSync(STORAGE_KEYS.mushafPage);
   const bookmark = rawPage ? null : storage.getJSONSync<string>(STORAGE_KEYS.mushafBookmark);
   const rawHatim = storage.getStringSync(STORAGE_KEYS.hatimTracking);
   return {
     page: parseSavedPage(rawPage, bookmark, ayetinSayfasi),
-    hatimDone: parseActiveHatimProgress(rawHatim),
+    hatim: summarizeHatim(rawHatim),
+    favCount: countFavorites(storage.getJSONSync<unknown>(STORAGE_KEYS.favorites)),
   };
 }
 
@@ -101,7 +103,7 @@ export default function KuranTab() {
   const t = useStrings(kuranStrings);
   const surahNameOf = useSurahNameOf();
   const surahListTarget = useTourTarget("kuran.surahList");
-  const [resume, setResume] = useState<ResumeState>(readResumeSync);
+  const [resume, setResume] = useState<KuranTabState>(readKuranTabSync);
   const [surahList, setSurahList] = useState<SurahListItem[]>([]);
 
   useEffect(() => {
@@ -116,22 +118,22 @@ export default function KuranTab() {
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      const applyResume = (next: ResumeState) => {
-        setResume(prev => (prev.page === next.page && prev.hatimDone === next.hatimDone ? prev : next));
-      };
-      applyResume(readResumeSync());
+      const applyResume = (next: KuranTabState) => setResume(next);
+      if (usingMmkv) applyResume(readKuranTabSync());
       if (usingMmkv) return;
       (async () => {
         try {
-          const [rawPage, bookmark, rawHatim] = await Promise.all([
+          const [rawPage, bookmark, rawHatim, favorites] = await Promise.all([
             storage.getString(STORAGE_KEYS.mushafPage),
             storage.getJSON<string>(STORAGE_KEYS.mushafBookmark),
             storage.getString(STORAGE_KEYS.hatimTracking),
+            storage.getJSON<unknown>(STORAGE_KEYS.favorites),
           ]);
           if (!active) return;
           applyResume({
             page: parseSavedPage(rawPage, bookmark, ayetinSayfasi),
-            hatimDone: parseActiveHatimProgress(rawHatim),
+            hatim: summarizeHatim(rawHatim),
+            favCount: countFavorites(favorites),
           });
         } catch {
           // Depolama okuma hatasında senkron durumu koru
@@ -165,7 +167,10 @@ export default function KuranTab() {
         : fmt(t.resumeMetaNoSurah, { page: resume.page, juz: resumeJuz }))
     : "";
   const resumeHatimText =
-    resume.hatimDone !== null ? fmt(t.resumeHatimBadge, { done: resume.hatimDone }) : null;
+    resume.hatim !== null ? fmt(t.resumeHatimBadge, { done: resume.hatim.done }) : null;
+  const currentJuz = resume.page ? sayfaninCuzu(resume.page) : null;
+  const hatimSubtitle = resume.hatim ? fmt(t.hatimProgress, { done: resume.hatim.done }) : t.hatimEmpty;
+  const favoritesSubtitle = resume.favCount ? fmt(t.favoritesCount, { n: resume.favCount }) : t.favoritesEmpty;
   const resumeA11yMeta = resumeHatimText
     ? `${resumeMetaText} · ${resumeHatimText}`
     : resumeMetaText;
@@ -257,6 +262,65 @@ export default function KuranTab() {
               <Text style={[s.chev, { color: c.textMuted }]}>›</Text>
             </TouchableOpacity>
           ))}
+          <View style={s.quickRow}>
+            <TouchableOpacity
+              style={[s.card, s.quickCard, { backgroundColor: c.card, borderColor: c.border }]}
+              onPress={() => router.push("/mushaf-sayfa?hatim=1")}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel={`${t.hatimTitle}, ${hatimSubtitle}`}
+            >
+              <View style={[s.iconWrap, { backgroundColor: c.accentLight }]}>
+                <Ionicons name="checkmark-done-outline" size={22} color={c.accent} />
+              </View>
+              <Text style={[s.label, { color: c.text }]}>{t.hatimTitle}</Text>
+              <Text style={[s.sub, { color: c.textMuted }]}>{hatimSubtitle}</Text>
+              {resume.hatim !== null && (
+                <View style={[s.progressTrack, { backgroundColor: c.accentLight }]}>
+                  <View style={[s.progressFill, { backgroundColor: c.accent, width: `${resume.hatim.done / 30 * 100}%` }]} />
+                </View>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[s.card, s.quickCard, { backgroundColor: c.card, borderColor: c.border }]}
+              onPress={() => router.push("/favoriler")}
+              activeOpacity={0.8}
+              accessibilityRole="button"
+              accessibilityLabel={`${t.favoritesTitle}, ${favoritesSubtitle}`}
+            >
+              <View style={[s.iconWrap, { backgroundColor: c.isDark ? "#451a03" : "#fef3c7" }]}>
+                <Ionicons name="heart-outline" size={22} color={c.isDark ? "#fcd34d" : "#b45309"} />
+              </View>
+              <Text style={[s.label, { color: c.text }]}>{t.favoritesTitle}</Text>
+              <Text style={[s.sub, { color: c.textMuted }]}>{favoritesSubtitle}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <Text accessibilityRole="header" style={[s.sectionTitle, { color: c.textMuted }]}>{t.juzTitle}</Text>
+        <View style={s.juzGrid}>
+          {Array.from({ length: 5 }, (_, row) => (
+            <View key={row} style={s.juzRow}>
+              {JUZ_DATA.slice(row * 6, row * 6 + 6).map(j => {
+                const read = resume.hatim?.readJuz.has(j.juz) ?? false;
+                return (
+                  <TouchableOpacity
+                    key={j.juz}
+                    style={[s.juzButton, {
+                      backgroundColor: read ? c.accentLight : c.card,
+                      borderColor: currentJuz === j.juz ? c.accent : "transparent",
+                    }]}
+                    activeOpacity={0.8}
+                    onPress={() => router.push(`/mushaf-sayfa?sayfa=${ayetinSayfasi(j.startSurah, j.startAyah)}`)}
+                    accessibilityRole="button"
+                    accessibilityLabel={fmt(t.juzA11y, { n: j.juz, surah: surahNameOf(j.startSurah, j.startName) }) + (read ? t.juzRead : "")}
+                  >
+                    <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} maxFontSizeMultiplier={1.3} style={[s.juzNumber, { color: read ? (c.isDark ? "#a7f3d0" : "#065f46") : c.text }]}>{j.juz}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -267,6 +331,15 @@ const s = StyleSheet.create({
   content: { padding: 16, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   heading: { fontSize: 28, fontWeight: "800", marginBottom: 16 },
   cards: { gap: 10 },
+  quickRow: { flexDirection: "row", gap: 10 },
+  quickCard: { flex: 1, flexDirection: "column", alignItems: "flex-start", gap: 4, paddingHorizontal: 12 },
+  progressTrack: { height: 4, width: "100%", borderRadius: 2, overflow: "hidden", marginTop: 6 },
+  progressFill: { height: "100%", borderRadius: 2 },
+  sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.6, marginTop: 24, marginBottom: 12 },
+  juzGrid: { gap: 6 },
+  juzRow: { flexDirection: "row", gap: 4 },
+  juzButton: { flex: 1, aspectRatio: 1, minWidth: 44, minHeight: 44, borderRadius: 12, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  juzNumber: { fontSize: 22, fontWeight: "700" },
   card: {
     flexDirection: "row",
     alignItems: "center",

@@ -2,15 +2,31 @@
 // tıklama) burada tek noktadan handle edilir. Native taraf bunu headless JS görevi
 // olarak tetikler — index.js'te registerWidgetTaskHandler ile kaydedilir.
 import type { WidgetTaskHandlerProps } from "react-native-android-widget";
+import { getWidgetInfo } from "react-native-android-widget";
+import { cancelWidgetTick } from "../../modules/exact-alarm";
+import { planPrayerWidgetTick } from "./widgetTick";
 import { buildEmirWidgetRepresentation } from "./EmirAyetWidget";
 import { currentEmirAyet, randomEmirAyet, WIDGET_NAME } from "./emirRotation";
+import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
+import { buildNamazWidgetRepresentation } from "./NamazWidget";
 
 export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
-  // Bu görev şu an tek bir widget türü için kayıtlı, ama ileride ikinci bir
-  // widget eklenirse yanlış bileşeni render etmesin diye ada göre erken çıkış.
-  if (props.widgetInfo.widgetName !== WIDGET_NAME) return;
-
   try {
+    const prayerName = PRAYER_WIDGET_NAMES.find(name => name === props.widgetInfo.widgetName);
+    if (prayerName) {
+      if (["WIDGET_ADDED", "WIDGET_UPDATE", "WIDGET_RESIZED"].includes(props.widgetAction)) {
+        const data = await readNamazWidgetData();
+        props.renderWidget(buildNamazWidgetRepresentation(prayerName, data, props.widgetInfo.height));
+        planPrayerWidgetTick(data);
+      } else if (props.widgetAction === "WIDGET_DELETED") {
+        const remaining = (await Promise.all(PRAYER_WIDGET_NAMES.map(name => getWidgetInfo(name)))).flat();
+        // Some launchers may still report the ID whose deletion is in flight.
+        if (!remaining.some(info => info.widgetId !== props.widgetInfo.widgetId)) cancelWidgetTick();
+      }
+      return;
+    }
+    if (props.widgetInfo.widgetName !== WIDGET_NAME) return;
+
     switch (props.widgetAction) {
       case "WIDGET_ADDED":
       case "WIDGET_UPDATE":
@@ -31,7 +47,9 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
       default:
         break;
     }
-  } catch {
+  } catch (error) {
+    // Log only (logcat ReactNativeJS) so an empty widget is diagnosable.
+    console.warn("[widget]", props.widgetInfo.widgetName, props.widgetAction, error);
     // Headless görevde sessiz kal — widget bir sonraki tetiklemede (periyodik
     // güncelleme veya uygulama açılışı) tekrar denenir, uygulamayı etkilemez.
   }

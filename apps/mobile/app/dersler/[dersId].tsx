@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  ScrollView, Image, PanResponder, Animated,
+  ScrollView, Image, PanResponder, Animated, useWindowDimensions,
 } from "react-native";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +18,8 @@ import { Stack, router, useLocalSearchParams, useFocusEffect } from "expo-router
 import { notifyReviewCompletion } from "../../src/hooks/storeReviewPolicy";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
+import { QuizFeedback } from "../../src/components/QuizFeedback";
+import quizFeedbackStrings from "../../src/i18n/strings/quizFeedback";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { getDers, getQuizFor, getBaslik } from "../../src/data/Dersler/dersler_registry";
@@ -102,7 +104,7 @@ function YakindaEkran({ baslik }: { baslik: string }) {
         <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
           <Text style={s.accent}>{t.backBtn}</Text>
         </TouchableOpacity>
-        <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
+        <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
         <View style={s.headerSide} />
       </View>
       <View style={s.center}>
@@ -123,6 +125,10 @@ export default function DersDetayScreen() {
   // Ders state
   const [dersIndex, setDersIndex] = useState(0);
   const dersScrollRef = useRef<ScrollView>(null);
+  const quizScrollRef = useRef<ScrollView>(null);
+  const [quizFooterHeight, setQuizFooterHeight] = useState(0);
+  const { width, fontScale } = useWindowDimensions();
+  const compactQuizBack = width / fontScale < 300;
 
   // Okuma modu
   const [readMode, setReadMode] = useState(false);
@@ -145,6 +151,7 @@ export default function DersDetayScreen() {
   const dersKey  = dersId ?? "";
   const lang     = useLang();
   const t        = useStrings(derslerStrings);
+  const feedback = useStrings(quizFeedbackStrings);
   const dersData = getDers(dersKey, lang);
   const quizData = getQuizFor(dersKey, lang);
   // Normalize bozuk soruları eler; hasQuiz gerçek kullanılabilir soru sayısına
@@ -237,6 +244,7 @@ export default function DersDetayScreen() {
     setQuizMode(true);
   };
 
+
   const handleAnswerSelect = (harf: string) => {
     if (selectedAnswer) return;
     Haptics.selectionAsync();
@@ -304,9 +312,9 @@ export default function DersDetayScreen() {
           <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
             <Text style={s.accent}>‹ Geri</Text>
           </TouchableOpacity>
-          <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-          <TouchableOpacity onPress={() => setReadMode(false)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.cardModeA11y}>
-            <Text style={[s.accent, { fontSize: 12 }]}>{t.cardMode}</Text>
+          <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
+          <TouchableOpacity onPress={() => setReadMode(false)} style={[s.headerSide, { alignItems: "flex-end" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.cardModeA11y}>
+            <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.accent, { fontSize: 12, width: "100%" }]}>{t.cardMode}</Text>
           </TouchableOpacity>
         </View>
 
@@ -351,7 +359,7 @@ export default function DersDetayScreen() {
         <View style={s.contentColumn}>
         <View style={[s.header, { borderBottomColor: c.border }]}>
           <View style={s.headerSide} />
-          <Text style={[s.headerTitle, { color: c.text }]}>{t.result}</Text>
+          <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{t.result}</Text>
           <View style={s.headerSide} />
         </View>
 
@@ -390,7 +398,7 @@ export default function DersDetayScreen() {
               {wrongAnswers.map((q, i) => (
                 <View key={q.id} style={[s.wrongCard, { backgroundColor: c.card, borderColor: c.border }]}>
                   <Text style={[s.wrongQ, { color: c.text }]}>{i + 1}. {q.soru}</Text>
-                  <Text style={s.wrongCorrect}>
+                  <Text style={[s.wrongCorrect, { color: c.successText }]}>
                     {fmt(t.correctAnswer, { answer: q.cevaplar.find(c => c.harf === q.dogru)?.metin ?? "" })}
                   </Text>
                   {q.aciklama ? (
@@ -457,15 +465,15 @@ export default function DersDetayScreen() {
         {/* Header */}
         <View style={[s.header, { borderBottomColor: c.border }]}>
           <TouchableOpacity
-            style={[s.headerSide, { width: 96 }]}
+            style={[s.headerSide, { width: compactQuizBack ? 44 : 96 }]}
             onPress={returnToLesson}
             activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel={t.backToLessonA11y}
           >
-            <Text style={s.accent} numberOfLines={1}>{t.backToLessonArrow}</Text>
+            <Text style={s.accent} numberOfLines={1}>{compactQuizBack ? "←" : t.backToLessonArrow}</Text>
           </TouchableOpacity>
-          <Text style={[s.headerTitle, { color: c.text }]}>
+          <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>
             {fmt(t.questionOf, { i: qIndex + 1, n: qTotal })}
           </Text>
           <View style={s.headerSide} />
@@ -478,52 +486,69 @@ export default function DersDetayScreen() {
 
         {/* Soru kartı + şıklar — fade animasyonlu */}
         <Animated.View style={[s.quizBody, quizAnimStyle]}>
-        <View style={s.quizQuestionContent}>
-          <View style={s.questionCard}>
-            <Text style={s.questionText}>{question.soru}</Text>
-          </View>
-          {showResult && question.aciklama ? (
-            <View style={[s.aciklamaBox, { borderColor: "#c9a84c", backgroundColor: c.cardAlt }]}>
-              <Text style={[s.aciklamaText, { color: c.textSecondary }]}>{question.aciklama}</Text>
+        <ScrollView
+          key={qIndex}
+          style={{ flex: 1 }}
+          ref={quizScrollRef}
+          contentContainerStyle={{ paddingBottom: quizFooterHeight + insets.bottom }}
+          onContentSizeChange={() => {
+            if (showResult) quizScrollRef.current?.scrollToEnd({ animated: true });
+            else quizScrollRef.current?.scrollTo({ y: 0, animated: false });
+          }}
+        >
+          <View style={s.quizQuestionContent}>
+            <View style={s.questionCard}>
+              <Text style={s.questionText}>{question.soru}</Text>
             </View>
-          ) : null}
-        </View>
+          </View>
 
-        {/* Şıklar */}
-        <View style={[s.answersContainer, { paddingHorizontal: 20 }]}>
-          {question.cevaplar.map((cevap) => (
-            <TouchableOpacity
-              key={cevap.harf}
-              style={[
-                s.answerBtn,
-                {
-                  backgroundColor: answerBg(cevap.harf),
-                  borderColor: answerBorderColor(cevap.harf),
-                  opacity: showResult && cevap.harf !== question.dogru && cevap.harf !== selectedAnswer ? 0.45 : 1,
-                },
-              ]}
-              onPress={() => handleAnswerSelect(cevap.harf)}
-              disabled={!!selectedAnswer}
-              activeOpacity={0.75}
-              accessibilityRole="button"
-              accessibilityState={{ disabled: !!selectedAnswer, selected: selectedAnswer === cevap.harf }}
-              accessibilityLabel={`${cevap.harf}: ${cevap.metin}`}
-            >
-              <View style={[s.answerHarf, { borderColor: answerBorderColor(cevap.harf) }]}>
-                <Text style={[s.answerHarfText, { color: answerTextColor(cevap.harf) }]} maxFontSizeMultiplier={1.2}>
-                  {cevap.harf}
+          {/* Şıklar */}
+          <View style={[s.answersContainer, { paddingHorizontal: 20 }]}>
+            {question.cevaplar.map((cevap) => (
+              <TouchableOpacity
+                key={cevap.harf}
+                style={[
+                  s.answerBtn,
+                  {
+                    backgroundColor: answerBg(cevap.harf),
+                    borderColor: answerBorderColor(cevap.harf),
+                    opacity: showResult && cevap.harf !== question.dogru && cevap.harf !== selectedAnswer ? 0.45 : 1,
+                  },
+                ]}
+                onPress={() => handleAnswerSelect(cevap.harf)}
+                disabled={!!selectedAnswer}
+                activeOpacity={0.75}
+                accessibilityRole="button"
+                accessibilityState={{ disabled: !!selectedAnswer, selected: selectedAnswer === cevap.harf }}
+                accessibilityLabel={`${cevap.harf}: ${cevap.metin}${showResult && cevap.harf === question.dogru ? `. ${feedback.correctOption}` : showResult && cevap.harf === selectedAnswer ? `. ${feedback.wrongSelection}` : ""}`}
+              >
+                <View style={[s.answerHarf, { borderColor: answerBorderColor(cevap.harf) }]}>
+                  <Text style={[s.answerHarfText, { color: answerTextColor(cevap.harf) }]} maxFontSizeMultiplier={1.2}>
+                    {cevap.harf}
+                  </Text>
+                </View>
+                <Text style={[s.answerMetin, { color: answerTextColor(cevap.harf), flex: 1 }]}>
+                  {cevap.metin}
                 </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <View style={{ paddingHorizontal: 16 }}>
+            {showResult && question.aciklama ? (
+              <View style={[s.aciklamaBox, { borderColor: "#c9a84c", backgroundColor: c.cardAlt }]}>
+                <Text style={[s.aciklamaText, { color: c.textSecondary }]}>{question.aciklama}</Text>
               </View>
-              <Text style={[s.answerMetin, { color: answerTextColor(cevap.harf), flex: 1 }]}>
-                {cevap.metin}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+            ) : null}
+            <QuizFeedback answered={showResult} correct={selectedAnswer === question.dogru} answer={`${question.dogru}, ${question.cevaplar.find(a => a.harf === question.dogru)?.metin ?? ""}`} questionKey={qIndex} />
+          </View>
+        </ScrollView>
         </Animated.View>
 
         {/* Sonraki — her zaman altta sabit, cevap seçilince aktifleşir */}
-        <View style={[s.navRow, { borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
+        <View
+          onLayout={e => setQuizFooterHeight(e.nativeEvent.layout.height - insets.bottom)}
+          style={[s.navRow, { position: "absolute", bottom: 0, left: 0, right: 0, backgroundColor: c.bg, borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}
+        >
           <TouchableOpacity
             style={[s.nextBtn, !showResult && { opacity: 0.35 }]}
             onPress={showResult ? nextQuestion : undefined}
@@ -555,9 +580,9 @@ export default function DersDetayScreen() {
         <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
           <Text style={s.accent}>{t.backBtn}</Text>
         </TouchableOpacity>
-        <Text style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={{ width: 72, alignItems: "flex-end" }} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}>
-          <Text style={[s.accent, { fontSize: 12 }]}>
+        <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
+        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={[s.headerSide, { alignItems: "flex-end" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}>
+          <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.accent, { fontSize: 12, width: "100%" }]}>
             {readMode ? t.cardMode : t.readAll}
           </Text>
         </TouchableOpacity>
@@ -595,6 +620,7 @@ export default function DersDetayScreen() {
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
           <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>
         </View>
+        <View style={{ flexGrow: 1 }} />
         {/* Vurgu kaydırılan alanın içinde: büyük yazıda sabit kutu alanı daraltıp metni kesmesin */}
         <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
           <Text style={s.vurguText}>✦  {kart?.vurgu ?? ""}</Text>
@@ -652,7 +678,7 @@ const s = StyleSheet.create({
     flexDirection: "row", alignItems: "center",
     paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
   },
-  headerSide:    { width: 72 },
+  headerSide:    { width: 72, minHeight: 44, justifyContent: "center", marginVertical: -12 },
   headerTitle:   { flex: 1, fontSize: 17, fontWeight: "800", textAlign: "center" },
   accent:        { fontSize: 14, color: "#c9a84c", fontWeight: "600" },
 
@@ -669,7 +695,7 @@ const s = StyleSheet.create({
     marginBottom: 16, alignSelf: "stretch", overflow: "hidden", backgroundColor: "#ffffff",
   },
   gorselImg:     { width: "100%", height: "100%" },
-  kartCard:      { flexGrow: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
+  kartCard:      { borderRadius: 14, borderWidth: 1, padding: 20 },
   kartIcerik:    { fontSize: 15, lineHeight: 26 },
   vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },
   vurguText:     { fontSize: 15, color: "#c9a84c", fontWeight: "700", lineHeight: 24 },
@@ -714,7 +740,7 @@ const s = StyleSheet.create({
   wrongTitle:    { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   wrongCard:     { borderRadius: 12, borderWidth: 1, padding: 14, marginBottom: 10, gap: 6 },
   wrongQ:        { fontSize: 14, fontWeight: "700", lineHeight: 20 },
-  wrongCorrect:  { fontSize: 13, color: "#4ade80", fontWeight: "600" },
+  wrongCorrect:  { fontSize: 13, fontWeight: "600" },
   wrongAciklama: { fontSize: 12, lineHeight: 18 },
 
   // Navigasyon

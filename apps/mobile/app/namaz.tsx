@@ -18,33 +18,33 @@ import namazStrings from "../src/i18n/strings/namaz";
 
 const VAKIT_KEYS: Record<string, { surahId: number; ayahNumber: number; label: string }[]> = {
   sabah:   [
-    { surahId: 17, ayahNumber: 78,  label: "17:78"  },
-    { surahId: 20, ayahNumber: 130, label: "20:130" },
-    { surahId: 50, ayahNumber: 39,  label: "50:39"  },
+    { surahId: 17, ayahNumber: 78,  label: "78"  },
+    { surahId: 20, ayahNumber: 130, label: "130" },
+    { surahId: 50, ayahNumber: 39,  label: "39"  },
   ],
   ogle:    [
-    { surahId: 30, ayahNumber: 18,  label: "30:18"  },
-    { surahId: 17, ayahNumber: 78,  label: "17:78"  },
+    { surahId: 30, ayahNumber: 18,  label: "18"  },
+    { surahId: 17, ayahNumber: 78,  label: "78"  },
   ],
   ikindi:  [
-    { surahId: 2,  ayahNumber: 238, label: "2:238"  },
-    { surahId: 20, ayahNumber: 130, label: "20:130" },
-    { surahId: 50, ayahNumber: 39,  label: "50:39"  },
+    { surahId: 2,  ayahNumber: 238, label: "238"  },
+    { surahId: 20, ayahNumber: 130, label: "130" },
+    { surahId: 50, ayahNumber: 39,  label: "39"  },
   ],
   aksam:   [
-    { surahId: 11, ayahNumber: 114, label: "11:114" },
-    { surahId: 30, ayahNumber: 17,  label: "30:17"  },
+    { surahId: 11, ayahNumber: 114, label: "114" },
+    { surahId: 30, ayahNumber: 17,  label: "17"  },
   ],
   yatsi:   [
-    { surahId: 24, ayahNumber: 58,  label: "24:58"  },
-    { surahId: 17, ayahNumber: 78,  label: "17:78"  },
-    { surahId: 11, ayahNumber: 114, label: "11:114" },
+    { surahId: 24, ayahNumber: 58,  label: "58"  },
+    { surahId: 17, ayahNumber: 78,  label: "78"  },
+    { surahId: 11, ayahNumber: 114, label: "114" },
   ],
   teheccud: [
-    { surahId: 17, ayahNumber: 79,  label: "17:79"    },
-    { surahId: 73, ayahNumber: 2,   label: "73:2-3"   },
-    { surahId: 25, ayahNumber: 64,  label: "25:64"    },
-    { surahId: 51, ayahNumber: 17,  label: "51:17-18" },
+    { surahId: 17, ayahNumber: 79,  label: "79"    },
+    { surahId: 73, ayahNumber: 2,   label: "2-3"   },
+    { surahId: 25, ayahNumber: 64,  label: "64"    },
+    { surahId: 51, ayahNumber: 17,  label: "17-18" },
   ],
 };
 
@@ -52,7 +52,6 @@ const VAKIT_KEYS: Record<string, { surahId: number; ayahNumber: number; label: s
 const MOTTO = {
   surahId: 4,
   ayahNumber: 103,
-  label: "Nisâ 4:103",
   arabic: "فَإِذَا قَضَيْتُمُ ٱلصَّلَوٰةَ فَٱذْكُرُوا۟ ٱللَّهَ قِيَـٰمًا وَقُعُودًا وَعَلَىٰ جُنُوبِكُمْ ۚ فَإِذَا ٱطْمَأْنَنتُمْ فَأَقِيمُوا۟ ٱلصَّلَوٰةَ ۚ إِنَّ ٱلصَّلَوٰةَ كَانَتْ عَلَى ٱلْمُؤْمِنِينَ كِتَـٰبًا مَّوْقُوتًا",
   meal: "Namazı kıldıktan sonra; ayakta, otururken ve yan yatarken Allah'ı anın. Güvene kavuştuğunuzda namazı gereğince kılın. Şüphesiz namaz, müminlere belirli vakitlerde farz kılınmıştır.",
 };
@@ -88,11 +87,11 @@ function VakitTablosu() {
       activeOpacity={0.8}
       onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: MOTTO.surahId, ayahNumber: MOTTO.ayahNumber } })}
       accessibilityRole="button"
-      accessibilityLabel={fmt(t.openVerseA11y, { label: `${sureAdi(MOTTO.surahId)} ${MOTTO.surahId}:${MOTTO.ayahNumber}` })}
+      accessibilityLabel={fmt(t.openVerseNamedA11y, { name: sureAdi(MOTTO.surahId), label: MOTTO.ayahNumber })}
     >
       <View style={vt.mottoHead}>
         <Text style={[vt.mottoEtiket, { color: c.accent }]}>{caps(t.mottoLabel)}</Text>
-        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{sureAdi(MOTTO.surahId)} {MOTTO.surahId}:{MOTTO.ayahNumber}</Text></View>
+        <View style={[vt.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[vt.mottoKeyText, { color: c.accent }]}>{sureAdi(MOTTO.surahId)} {MOTTO.ayahNumber}</Text></View>
       </View>
       <Text style={[vt.mottoArabic, { color: c.text }]}>{MOTTO.arabic}</Text>
       <Text style={[vt.mottoMeal, { color: c.textSecondary }]}>“{mealOf({ surah: MOTTO.surahId, ayah: MOTTO.ayahNumber }, MOTTO.meal)}”</Text>
@@ -132,11 +131,10 @@ function VakitTablosu() {
             {/* Sağ — ayetler */}
             <View style={vt.vakitSag}>
               {verses.map((v: { surahId: number; ayahNumber: number; label: string }) => (
-                <TouchableOpacity key={v.label} style={vt.ayetRow}
+                <TouchableOpacity key={`${v.surahId}:${v.ayahNumber}`} style={vt.ayetRow}
                   onPress={() => router.push({ pathname: "/ayah/[surahId]/[ayahNumber]", params: { surahId: v.surahId, ayahNumber: v.ayahNumber } })} activeOpacity={0.7}
                   accessibilityRole="button" accessibilityLabel={fmt(t.openVerseNamedA11y, { name: sureAdi(v.surahId), label: v.label })}>
-                  <View style={[vt.keyBadge, { backgroundColor: c.cardAlt }]}><Text style={[vt.keyText, { color: c.textMuted }]}>{v.label}</Text></View>
-                  <Text style={[vt.sureName, { color: c.text }]}>{sureAdi(v.surahId)}</Text>
+                  <Text style={[vt.sureName, { color: c.text }]}>{sureAdi(v.surahId)} <Text style={{ color: c.textMuted }}>{v.label}</Text></Text>
                   <Text style={[vt.arrow, { color: c.textMuted }]}>›</Text>
                 </TouchableOpacity>
               ))}
@@ -210,19 +208,22 @@ const NamazAccordion = memo(function NamazAccordion({ tag, label, emoji, desc }:
             </View>
           ) : fetched && verses.length === 0 ? (
             <Text style={[styles.accordionEmpty, { color: c.textMuted }]}>{t.noContent}</Text>
-          ) : verses.map((item) => (
+          ) : verses.map((item) => {
+            const name = surahNameOf(item.surah_id, item.surah_name || SURE_ADI[item.surah_id] || fmt(t.surahFallback, { n: item.surah_id }));
+            const ayah = item.verse_key.split(":")[1] || item.ayah_number;
+            return (
             <TouchableOpacity key={item.verse_key} style={[styles.verseCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}
               onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
               onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)} activeOpacity={0.75}
-              accessibilityRole="button" accessibilityLabel={fmt(t.openVerseShortA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key })}>
+              accessibilityRole="button" accessibilityLabel={fmt(t.openVerseNamedA11y, { name, label: ayah })}>
               <View style={styles.verseHeader}>
-                <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{item.verse_key}</Text></View>
-                {item.surah_name && <Text style={[styles.surahLabel, { color: c.textMuted }]}>{surahNameOf(item.surah_id, item.surah_name)}</Text>}
+                <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{name} {ayah}</Text></View>
               </View>
               {item.reading_tr && <Text style={[styles.readingText, { color: c.text }]} numberOfLines={2}>{localizedVerseTranslit(item.verse_key, item.reading_tr, lang)}</Text>}
               {item.meal && <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={2}>{mealOf(item.verse_key, item.meal)}</Text>}
             </TouchableOpacity>
-          ))}
+            );
+          })}
         </View>
       )}
     </View>

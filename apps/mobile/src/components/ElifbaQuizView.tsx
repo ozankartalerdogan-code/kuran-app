@@ -1,7 +1,8 @@
 import {
-  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator,
+  View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, ScrollView,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
@@ -12,17 +13,21 @@ try {
   const { UIManager } = require("react-native");
   if (UIManager.hasViewManagerConfig?.("LottieAnimationView")) LottieView = mod;
 } catch (_e) { /* noop */ }
+import { QuizFeedback } from "./QuizFeedback";
+import quizFeedbackStrings from "../i18n/strings/quizFeedback";
 import { useColors } from "../hooks/useColors";
 import { notifyReviewCompletion } from "../hooks/storeReviewPolicy";
 import { useStrings, fmt } from "../i18n";
 import elifbaStrings from "../i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../lib/layout";
+import { ELIFBA_QUIZ_PASS } from "../lib/elifbaProgress";
 import type { QuizQuestion } from "../lib/elifbaQuizSession";
 import type { ListeningItem } from "../lib/elifbaListening";
 
 export type ElifbaQuizViewProps =
   | {
       kind?: "quiz";
+      isBypass?: boolean;
       questions: QuizQuestion[];
       onAnswer: (q: QuizQuestion, correct: boolean) => void;
       onFinish: (score: number, total: number) => void;
@@ -31,7 +36,7 @@ export type ElifbaQuizViewProps =
       kind: "listening";
       items: ListeningItem[];
       onAnswer: (item: ListeningItem, correct: boolean) => void;
-      onPlayAudio: (harfId: number, onError: () => void) => () => void;
+      onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
       onFinish: (score: number, total: number) => void;
     };
 
@@ -40,20 +45,28 @@ export function ElifbaQuizView(props: ElifbaQuizViewProps) {
   return <QuestionRun {...props} />;
 }
 
-function DoneScreen({ score, total, onFinish }: {
+function DoneScreen({ score, total, onFinish, isBypass = false }: {
+  isBypass?: boolean;
   score: number; total: number; onFinish: (score: number, total: number) => void;
 }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const pct = Math.round((score / total) * 100);
+  // Sınavla geçişte başarı eşiği ders geçme eşiğidir; kalınca kutlama ve puan isteği yok.
+  const passed = isBypass ? score >= ELIFBA_QUIZ_PASS : pct >= 60;
   useFocusEffect(useCallback(() => {
-    if (pct >= 60) return notifyReviewCompletion();
-  }, [pct]));
+    if (passed) return notifyReviewCompletion();
+  }, [passed]));
   return (
     <View style={qv.done}>
-      <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>
-      <Text style={[qv.doneTitle, { color: c.text }]}>{pct >= 80 ? ep.great : pct >= 60 ? ep.good : ep.tryAgain}</Text>
+      <Text style={qv.doneEmoji}>{passed ? "🎉" : "📚"}</Text>
+      <Text style={[qv.doneTitle, { color: c.text }]}>{!passed ? ep.tryAgain : pct >= 80 ? ep.great : ep.good}</Text>
       <Text style={[qv.doneSub, { color: c.textMuted }]}>{fmt(ep.scoreLine, { s: score, t: total, p: pct })}</Text>
+      {isBypass && score < ELIFBA_QUIZ_PASS && (
+        <Text style={[qv.doneSub, { color: c.textMuted, textAlign: "center" }]}>
+          {fmt(ep.bypassFailed, { n: ELIFBA_QUIZ_PASS })}
+        </Text>
+      )}
       <TouchableOpacity
         style={qv.doneBtn}
         onPress={() => onFinish(score, total)}
@@ -66,15 +79,19 @@ function DoneScreen({ score, total, onFinish }: {
   );
 }
 
-function QuestionRun({ questions, onAnswer, onFinish }: {
+function QuestionRun({ questions, onAnswer, onFinish, isBypass }: {
+  isBypass?: boolean;
   questions: QuizQuestion[];
   onAnswer: (q: QuizQuestion, correct: boolean) => void;
   onFinish: (score: number, total: number) => void;
 }) {
+  const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const feedback = useStrings(quizFeedbackStrings);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
@@ -127,7 +144,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
   }
   if (!soru) return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
   if (done) {
-    return <DoneScreen score={score} total={questions.length} onFinish={onFinish} />;
+    return <DoneScreen score={score} total={questions.length} onFinish={onFinish} isBypass={isBypass} />;
   }
 
   const isArabic = (t: string) => /[؀-ۿ]/.test(t);
@@ -150,11 +167,21 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
   }
 
   return (
-    <View style={qv.container}>
+    <ScrollView
+      key={idx}
+      ref={scrollRef}
+      style={qv.scroll}
+      contentContainerStyle={[qv.content, { paddingBottom: 16 + insets.bottom }]}
+      onContentSizeChange={() => {
+        if (answered) scrollRef.current?.scrollToEnd({ animated: true });
+        else scrollRef.current?.scrollTo({ y: 0, animated: false });
+      }}
+    >
       <Text style={qv.progress}>{fmt(ep.questionProgress, { i: idx + 1, n: questions.length, s: score })}</Text>
       <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
         {renderSoru(soru.soru)}
       </View>
+      <QuizFeedback answered={answered} correct={selected === soru.dogru_cevap} answer={soru.dogru_cevap} questionKey={idx} />
       <View style={qv.options}>
         {soru.secenekler.map((s) => {
           const isRight    = s === soru.dogru_cevap;
@@ -172,7 +199,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
               disabled={answered}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={fmt(ep.answerA11y, { s })}
+              accessibilityLabel={`${fmt(ep.answerA11y, { s })}${answered && isRight ? `. ${feedback.correctOption}` : answered && isSelected ? `. ${feedback.wrongSelection}` : ""}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
               <Text style={[qv.optionText, { color: c.text }, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
@@ -207,7 +234,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
           />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -219,13 +246,17 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
   isLast: boolean;
   onAnswer: (item: ListeningItem, correct: boolean) => void;
   onNext: () => void;
-  onPlayAudio: (harfId: number, onError: () => void) => () => void;
+  onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
 }) {
+  const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const feedback = useStrings(quizFeedbackStrings);
   const [answered, setAnswered] = useState(false);
   const [fallback, setFallback] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const cancelPlayRef = useRef<(() => void) | null>(null);
   const answeredLockRef = useRef(false);
 
@@ -235,7 +266,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
       cancelPlayRef.current?.();
       cancelPlayRef.current = null;
       if (!answeredLockRef.current) setFallback(true);
-    });
+    }, setPlaying);
   }, [item.audioHarfId, onPlayAudio]);
 
   useEffect(() => {
@@ -257,7 +288,12 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
   }
 
   return (
-    <>
+    <ScrollView
+      ref={scrollRef}
+      style={qv.scroll}
+      contentContainerStyle={[qv.content, { paddingBottom: 16 + insets.bottom }]}
+      onContentSizeChange={() => { if (answered) scrollRef.current?.scrollToEnd({ animated: true }); }}
+    >
       <Text style={qv.progress}>{fmt(ep.questionProgress, { i: index + 1, n: total, s: score })}</Text>
       <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
         {fallback ? (
@@ -273,13 +309,16 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
               onPress={startPlay}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={ep.listenPlayA11y}
+              disabled={playing}
+              accessibilityState={{ busy: playing, selected: playing, disabled: playing }}
+              accessibilityLabel={playing ? ep.playing : ep.listenPlayA11y}
             >
-              <Text style={qv.playBtnText}>{ep.listenPlay}</Text>
+              <Text style={qv.playBtnText}>{playing ? ep.playing : ep.listenPlay}</Text>
             </TouchableOpacity>
           </>
         )}
       </View>
+      <QuizFeedback answered={answered} correct={selectedId === item.correctId} answer={item.options.find(o => o.id === item.correctId)?.label ?? item.fallbackLabel} questionKey={item.itemId} />
       <View style={qv.options}>
         {item.options.map((option) => {
           const isRight = option.id === item.correctId;
@@ -297,7 +336,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
               disabled={answered}
               activeOpacity={0.75}
               accessibilityRole="button"
-              accessibilityLabel={fmt(ep.answerA11y, { s: option.label })}
+              accessibilityLabel={`${fmt(ep.answerA11y, { s: option.label })}${answered && isRight ? `. ${feedback.correctOption}` : answered && isSelected ? `. ${feedback.wrongSelection}` : ""}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
               <Text style={[qv.optionText, { color: c.text }, isArabic(option.label) && { fontSize: 20, textAlign: "center" }]}>
@@ -317,14 +356,14 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
           <Text style={qv.nextBtnText}>{isLast ? ep.seeResults : ep.next}</Text>
         </TouchableOpacity>
       )}
-    </>
+    </ScrollView>
   );
 }
 
 function ListeningRun({ items, onAnswer, onPlayAudio, onFinish }: {
   items: ListeningItem[];
   onAnswer: (item: ListeningItem, correct: boolean) => void;
-  onPlayAudio: (harfId: number, onError: () => void) => () => void;
+  onPlayAudio: (harfId: number, onError: () => void, onPlayingChange?: (playing: boolean) => void) => () => void;
   onFinish: (score: number, total: number) => void;
 }) {
   const c = useColors();
@@ -391,7 +430,9 @@ function ListeningRun({ items, onAnswer, onPlayAudio, onFinish }: {
 }
 
 const qv = StyleSheet.create({
-  container:   { flex:1, padding:16, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
+  container:   { flex:1, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
+  scroll:      { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
+  content:     { padding: 16 },
   noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
   progress:    { fontSize:12, color:"#a8a29e", textAlign:"center", marginBottom:12 },
   soruBox:        { backgroundColor:"#fffdf6", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7dfcc", gap:10 },

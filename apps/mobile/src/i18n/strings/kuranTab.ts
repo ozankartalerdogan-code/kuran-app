@@ -2,6 +2,15 @@ import { defineStrings } from "../index";
 
 export default defineStrings({
   tr: {
+    hatimTitle: "Hatim",
+    hatimProgress: "{done}/30 cüz",
+    hatimEmpty: "Yeni hatim başlat",
+    favoritesTitle: "Favoriler",
+    favoritesCount: "{n} ayet",
+    favoritesEmpty: "Henüz yok",
+    juzTitle: "Cüzler",
+    juzA11y: "{n}. cüz, {surah} suresinden başlar",
+    juzRead: ", okundu",
     heading: "Kur'an-ı Kerim",
     mushafLabel: "Kur'an Oku",
     mushafSub: "604 sayfalık mushaf · hatim takibi",
@@ -14,6 +23,15 @@ export default defineStrings({
     resumeA11y: "Kaldığın yerden devam et: {meta}",
   },
   en: {
+    hatimTitle: "Khatm",
+    hatimProgress: "{done}/30 juz",
+    hatimEmpty: "Start a new khatm",
+    favoritesTitle: "Favorites",
+    favoritesCount: "{n} verses",
+    favoritesEmpty: "None yet",
+    juzTitle: "Juz",
+    juzA11y: "Juz {n}, starts at {surah}",
+    juzRead: ", read",
     heading: "Quran",
     mushafLabel: "Read the Quran",
     mushafSub: "604-page mushaf · Khatm tracking",

@@ -8,11 +8,11 @@ import { useColors } from "../../src/hooks/useColors";
 import { openStoreListing } from "../../src/hooks/useStoreReview";
 import { useAppTour, useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { useStrings, getLangPreference, setLangPreference, useLang, caps } from "../../src/i18n";
+import { useStrings, useLangPreference, setLangPreference, caps } from "../../src/i18n";
 import type { LangPreference } from "../../src/i18n";
 import dahaFazlaStrings from "../../src/i18n/strings/dahaFazla";
 import { rescheduleNotificationsForLanguageChange } from "../../src/lib/namazNotifications";
-import { refreshWidgetNow } from "../../src/widgets/widgetRefresh";
+import { refreshWidgetNow, refreshPrayerWidgetsNow } from "../../src/widgets/widgetRefresh";
 
 type Strings = Record<string, string>;
 
@@ -69,9 +69,8 @@ function buildSections(s: Strings): { title: string; items: Item[] }[] {
 export default function DahaFazlaTab() {
   const c = useColors();
   const str = useStrings(dahaFazlaStrings);
-  useLang();
   const SECTIONS = buildSections(str);
-  const langPref = getLangPreference();
+  const langPref = useLangPreference();
   const langOptions: { value: LangPreference; label: string }[] = [
     { value: "system", label: str.langSystem },
     { value: "tr", label: str.langTr },
@@ -148,7 +147,7 @@ export default function DahaFazlaTab() {
                 return (
                   <TouchableOpacity
                     key={opt.value}
-                    onPress={() => { void setLangPreference(opt.value).then(() => Promise.all([rescheduleNotificationsForLanguageChange(), refreshWidgetNow()])).catch(() => {}); }}
+                    onPress={() => { void setLangPreference(opt.value).then(() => Promise.all([rescheduleNotificationsForLanguageChange(), refreshWidgetNow(), refreshPrayerWidgetsNow()])).catch(() => {}); }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
                     accessibilityState={{ selected: active }}

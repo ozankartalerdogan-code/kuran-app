@@ -11,6 +11,7 @@ export type AppColors = {
   textSecondary: string;
   textMuted: string;
   accent: string;
+  successText: string;
   accentLight: string;
   actionBg: string;
   actionText: string;
@@ -30,6 +31,7 @@ const light: AppColors = {
   textSecondary: "#44403c",
   textMuted:     "#78716c",
   accent:        "#059669",
+  successText:   "#166534",
   accentLight:   "#d1fae5",
   actionBg:      "#047857",
   actionText:    "#ffffff",
@@ -47,6 +49,7 @@ const dark: AppColors = {
   textSecondary: "#d6d3d1",
   textMuted:     "#a8a29e",
   accent:        "#10b981",
+  successText:   "#86efac",
   accentLight:   "#064e3b",
   actionBg:      "#10b981",
   actionText:    "#052e21",

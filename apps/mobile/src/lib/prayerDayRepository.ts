@@ -236,5 +236,14 @@ export function createPrayerDayRepository(deps: PrayerDayRepoDeps) {
     return () => { listeners.delete(listener); };
   }
 
-  return { getDayTimes, ensureDays, ensureMonth, subscribe };
+  /** Local-only read: never starts a fetch or changes the selected city. */
+  async function readCachedDays(context: Pick<PrayerContext, "cityKey" | "cityTimeZone">, dates: readonly string[]): Promise<PrayerDayRecord[]> {
+    await hydrate();
+    return dates.flatMap(date => {
+      const record = cache.get(keyOf(context, date));
+      return record ? [record] : [];
+    });
+  }
+
+  return { getDayTimes, ensureDays, ensureMonth, readCachedDays, subscribe };
 }

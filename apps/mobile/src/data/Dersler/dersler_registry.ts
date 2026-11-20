@@ -351,7 +351,7 @@ const KATEGORI_EN: Record<string, string> = {
   "İman & Akaid": "Faith & Creed",
   "Ahlak & Terbiye": "Character & Self-Discipline",
   "Tarih & Siyer": "History & Seerah",
-  "Kur'an & Elifba": "Quran & Alphabet",
+  "Kur'an & Elif-Ba": "Quran & Alphabet",
 };
 
 export function getDerslerMeta(lang: Lang = "tr"): typeof DERSLER_META {
@@ -382,5 +382,5 @@ export const KATEGORILER: { label: string; ids: string[] }[] = [
   { label: "\u0130man & Akaid",    ids: ["iman-esaslari", "kitaplara-iman"] },
   { label: "Ahlak & Terbiye",       ids: ["nefsini-tani", "guzel-ahlak"] },
   { label: "Tarih & Siyer",         ids: ["peygamberler", "sahabe-hayatlari", "siyer"] },
-  { label: "Kur'an & Elifba",       ids: ["tecvid", "elifba"] },
+  { label: "Kur'an & Elif-Ba",       ids: ["tecvid", "elifba"] },
 ];

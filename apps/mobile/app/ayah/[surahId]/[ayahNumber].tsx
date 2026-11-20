@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Pressable,
   Share,
   StyleSheet,
   Platform,
@@ -59,7 +60,7 @@ function ltrAfterArabic(s: string): string {
 const arCollator = new Intl.Collator("ar");
 
 // Analiz sekmesindeki "TEMA ETİKETLERİ" kartı: tek anahtar src/lib/themes.ts
-// THEME_TAGS_ENABLED (doğrulama bitene kadar yalnız __DEV__).
+// THEME_TAGS_ENABLED (1.2.3'ten itibaren açık).
 
 // ── Yardımcı: Köksüz kelimeler için etiket ────────────────────────────────────
 
@@ -327,6 +328,9 @@ function SegmentedTabs({
             accessibilityLabel={t.label}
           >
             <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
               style={[
                 styles.tabLabel,
                 { color: isActive ? "#ffffff" : colors.textSecondary },
@@ -1048,17 +1052,16 @@ export default function AyahDetailScreen() {
                           {caps(ay.root)}
                         </Text>
                         {isRootClickable(w) ? (
-                          <TouchableOpacity
+                          <Pressable
                             onPress={() => navToRoot(w.root)}
-                            activeOpacity={0.6}
-                            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                            accessibilityRole="button"
-                            accessibilityLabel={fmt(ay.inspectRootA11y, { root: w.root })}
+                            style={{ minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" }}
+                            accessibilityRole="link"
+                            accessibilityLabel={fmt(ay.rootLinkA11y, { root: w.root })}
                           >
                             <Text style={[styles.rootLink, { color: colors.accent }]}>
                               {w.root}
                             </Text>
-                          </TouchableOpacity>
+                          </Pressable>
                         ) : (
                           <Text style={[styles.wordDetailValue, { color: colors.textMuted }]}>
                             {getRootDisplayText(w, ay)}
@@ -1390,6 +1393,7 @@ const styles = StyleSheet.create({
     fontSize: 30, lineHeight: 58,
     fontFamily: "UthmanicHafs", textAlign: "right",
     writingDirection: "rtl", width: "100%",
+    paddingHorizontal: 8, overflow: "visible",
   },
   legend:     { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 12 },
   legendItem: { flexDirection: "row", alignItems: "center", gap: 5 },
