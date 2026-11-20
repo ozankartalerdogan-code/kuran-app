@@ -38,6 +38,18 @@ const missingVendorFiles = VENDOR_FILES.filter((file) => !fs.existsSync(file));
 const vendorGate = missingVendorFiles.length > 0
   ? { skip: `Tanzil vendor anlık görüntüsü yok (${missingVendorFiles.map((f) => path.relative(ROOT, f).replaceAll("\\", "/")).join(", ")}) — kanonik metin doğrulamaları atlandı` }
   : {};
+// Üretilmiş runtime verisi (data/generated/quran) ve yerel DB (data/app.db) de
+// gitignore'lıdır; CI checkout'unda yoktur. Bunları okuyan testler ayrıca bu
+// kapıya bağlıdır; yalnız vendor dosyasını okuyanlar vendorGate ile koşmaya devam eder.
+const DATA_FILES = [
+  ...VENDOR_FILES,
+  path.join(ROOT, "data", "generated", "quran", "verses.json"),
+  LOCAL_DB_PATH,
+];
+const missingDataFiles = DATA_FILES.filter((file) => !fs.existsSync(file));
+const dataGate = missingDataFiles.length > 0
+  ? { skip: `yerel veri yok (${missingDataFiles.map((f) => path.relative(ROOT, f).replaceAll("\\", "/")).join(", ")}) — üretilmiş veri/DB doğrulamaları atlandı` }
+  : {};
 
 function dbVerses() {
   const db = new DatabaseSync(LOCAL_DB_PATH, { readOnly: true });
@@ -69,7 +81,7 @@ test("immutable Tanzil vendor file keeps the declared full-file SHA-256", vendor
   assert.equal(sha256(bytes), EXPECTED_SHA);
 });
 
-test("all 6,236 generated ayahs reconstruct the immutable source bytes", vendorGate, () => {
+test("all 6,236 generated ayahs reconstruct the immutable source bytes", dataGate, () => {
   const source = readCanonicalSource();
   const generated = readJson("verses.json");
   assert.equal(generated.length, 6236);
@@ -87,7 +99,7 @@ test("all 6,236 generated ayahs reconstruct the immutable source bytes", vendorG
   assert.equal(sha256(sourceRowsToBytes(generated, source.sourceSuffix)), EXPECTED_SHA);
 });
 
-test("local DB arabic_text is byte/code-point identical in all 6,236 ayahs", vendorGate, () => {
+test("local DB arabic_text is byte/code-point identical in all 6,236 ayahs", dataGate, () => {
   const source = readCanonicalSource();
   const rows = dbVerses();
   assert.equal(rows.length, 6236);
@@ -119,7 +131,7 @@ test("basmala metadata is source-derived and every split reconstructs its ayah",
   assert.equal(codePoints(verse95).slice(0, range95.endCp).join(""), "بِّسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ");
 });
 
-test("raw combining sequences and Quran mark inventories are unchanged", vendorGate, () => {
+test("raw combining sequences and Quran mark inventories are unchanged", dataGate, () => {
   const source = readCanonicalSource().verses;
   const generated = readJson("verses.json");
   const db = dbVerses();
@@ -137,7 +149,7 @@ test("raw combining sequences and Quran mark inventories are unchanged", vendorG
   assert.ok(byKey.get("2:14").includes("ءَامَنَّا"));
 });
 
-test("generated tajweed spans are in bounds and cannot mutate canonical text", vendorGate, () => {
+test("generated tajweed spans are in bounds and cannot mutate canonical text", dataGate, () => {
   const verses = readJson("verses.json");
   const byKey = new Map(verses.map((verse) => [verse.verseKey, verse.arabicText]));
   const generated = readJson("tajweed-spans.json");
@@ -156,7 +168,7 @@ test("generated tajweed spans are in bounds and cannot mutate canonical text", v
   }
 });
 
-test("tajweed alignment failures are explicit uncolored ranges and never receive a color span", vendorGate, () => {
+test("tajweed alignment failures are explicit uncolored ranges and never receive a color span", dataGate, () => {
   const verses = readJson("verses.json");
   const byKey = new Map(verses.map((verse) => [verse.verseKey, verse.arabicText]));
   const spansByKey = new Map(readJson("tajweed-spans.json").verses.map((verse) => [verse.verseKey, verse.spans]));
@@ -246,7 +258,7 @@ test("builder has no production write path and source is never a write target", 
   assert.doesNotMatch(script, /\.normalize\s*\(/);
 });
 
-test("fresh runtime build is deterministic", vendorGate, () => {
+test("fresh runtime build is deterministic", dataGate, () => {
   const runtime = buildRuntimeData();
   assert.equal(runtime.source.sourceSha256, EXPECTED_SHA);
   assert.equal(runtime.source.verses.length, 6236);
@@ -271,7 +283,7 @@ const VERIFIED_OVERRIDE_EXPECTATIONS = {
 };
 
 for (const [verseKey, expected] of Object.entries(VERIFIED_OVERRIDE_EXPECTATIONS)) {
-  test(`verified Tajweed override preserves the exact canonical span for ${verseKey}`, vendorGate, () => {
+  test(`verified Tajweed override preserves the exact canonical span for ${verseKey}`, dataGate, () => {
     const source = readCanonicalSource();
     const text = source.verses.find((verse) => verse.verseKey === verseKey).arabicText;
     const generated = readJson("tajweed-spans.json").verses.find((verse) => verse.verseKey === verseKey).spans;
@@ -293,7 +305,7 @@ for (const [verseKey, expected] of Object.entries(VERIFIED_OVERRIDE_EXPECTATIONS
   });
 }
 
-test("verified Tajweed overrides are deterministic and leave every non-target verse unchanged", vendorGate, () => {
+test("verified Tajweed overrides are deterministic and leave every non-target verse unchanged", dataGate, () => {
   const base = buildRuntimeData({ applyOverrides: false });
   const final = buildRuntimeData();
   const expectedKeys = new Set(Object.keys(VERIFIED_OVERRIDE_EXPECTATIONS));
