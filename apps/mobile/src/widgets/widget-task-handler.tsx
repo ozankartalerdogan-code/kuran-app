@@ -47,7 +47,9 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
       default:
         break;
     }
-  } catch {
+  } catch (error) {
+    // Log only (logcat ReactNativeJS) so an empty widget is diagnosable.
+    console.warn("[widget]", props.widgetInfo.widgetName, props.widgetAction, error);
     // Headless görevde sessiz kal — widget bir sonraki tetiklemede (periyodik
     // güncelleme veya uygulama açılışı) tekrar denenir, uygulamayı etkilemez.
   }

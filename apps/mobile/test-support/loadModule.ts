@@ -12,7 +12,8 @@ export function loadModule<T>(filename: string, mocks: Record<string, unknown> =
     const mod = { exports: {} };
     cache.set(filename, mod);
     const compiled = ts.transpileModule(readFileSync(filename, "utf8"), {
-      compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+      fileName: filename,
+      compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.React },
     }).outputText;
     const localRequire = (id: string) => {
       if (Object.hasOwn(mocks, id)) return mocks[id];
