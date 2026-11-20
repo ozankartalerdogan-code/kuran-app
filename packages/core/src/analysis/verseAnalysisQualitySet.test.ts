@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
-import { buildVerseAnalysisContext } from "./verseAnalysisContext";
 import { buildMainMeaningAxisForProfile, selectVerseAnalysisProfile } from "./verseAnalysisDecision";
 import { verseAnalysisQualitySet } from "./verseAnalysisQualitySet";
 
@@ -35,6 +34,9 @@ describe("verseAnalysisQualitySet", {
 }, () => {
   for (const qualityCase of verseAnalysisQualitySet) {
     it(`${qualityCase.verseKey} — ${qualityCase.shortNote}`, { timeout: 30000 }, async () => {
+      // Modül yüklenirken veri dosyalarını okur; DB yokken (CI) hiç yüklenmesin diye
+      // statik değil, burada içe aktarılır.
+      const { buildVerseAnalysisContext } = await import("./verseAnalysisContext");
       const context = await buildVerseAnalysisContext(qualityCase.surahId, qualityCase.ayahNumber);
       const profile = selectVerseAnalysisProfile(context);
 
