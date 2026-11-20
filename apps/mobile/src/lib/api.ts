@@ -553,12 +553,17 @@ export const api = {
   },
 
   daily: {
-    get: () =>
-      withCacheFallback(
-        dailyCacheKey(),
+    // Yerel gün sunucuya da gönderilir: tarihsiz istekte sunucu kendi (UTC) gününü
+    // kullanıyordu; Türkiye'de 00:00–03:00 arası önbellek anahtarı bugün, içerik dün oluyordu.
+    get: () => {
+      const key = dailyCacheKey();
+      const day = key.slice("cache_daily_".length);
+      return withCacheFallback(
+        key,
         CACHE_TTL_DAILY,
-        () => withRetry((signal) => request<DailyResponse>("/daily", undefined, signal)),
-      ),
+        () => withRetry((signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(day)}`, undefined, signal)),
+      );
+    },
     /** Belirli günün ayet/duası (YYYY-MM-DD) — 7 günlük bildirim planı için; önbelleksiz. */
     forDate: (date: string) =>
       withRetry((signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(date)}`, undefined, signal)),
