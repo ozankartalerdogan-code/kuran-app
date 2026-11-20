@@ -18,3 +18,20 @@ export function getDailyOffset(total: number, day?: { y: number; m: number; d: n
   const seed = y * 10000 + m * 100 + d;
   return seed % total;
 }
+
+const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
+
+/**
+ * Günün Ayeti havuzunda günün sırası. Ardışık günler havuzun içinde altın oran
+ * adımıyla dağılır (aynı surenin peş peşe ayetleri art arda gelmez) ve adım havuz
+ * büyüklüğüyle aralarında asal olduğu için n gün boyunca aynı ayet tekrar etmez.
+ */
+export function getDailyPoolIndex(n: number, day?: { y: number; m: number; d: number } | null): number {
+  if (!Number.isInteger(n) || n <= 0) return 0;
+  const now = new Date();
+  const { y, m, d } = day ?? { y: now.getFullYear(), m: now.getMonth() + 1, d: now.getDate() };
+  const dayNumber = Math.floor(Date.UTC(y, m - 1, d) / 86_400_000);
+  let step = Math.max(1, Math.round(n * 0.618));
+  while (gcd(step, n) !== 1) step++;
+  return (dayNumber * step) % n;
+}

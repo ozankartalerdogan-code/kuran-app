@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { dbGet } from "../../../lib/dbUtils";
 import { cleanMealText } from "../../../lib/cleanMeal";
 import { getDailyOffset, parseDailyDate } from "../../../lib/dailyDate";
+import { dailyVerseKey } from "../../../lib/dailyVersePool";
 
 interface VerseRow {
   verse_key: string;
@@ -22,30 +23,7 @@ export type DailyResponse = {
 
 export async function GET(req: NextRequest) {
   const day = parseDailyDate(req.nextUrl.searchParams.get("date"));
-  const [totalRow, duaTotalRow] = await Promise.all([
-    dbGet<{ cnt: number }>(
-      `SELECT COUNT(*) AS cnt FROM verses
-       WHERE arabic_text IS NOT NULL AND reading_tr IS NOT NULL AND literal_ceviri IS NOT NULL`
-    ).catch(() => undefined),
-    dbGet<{ cnt: number }>(
-      `SELECT COUNT(DISTINCT vti.verse_key) AS cnt
-       FROM   verse_tag_items vti
-       JOIN   verses v ON v.verse_key = vti.verse_key
-       WHERE  vti.tag LIKE 'dua-%'
-         AND  v.arabic_text IS NOT NULL
-         AND  v.reading_tr  IS NOT NULL
-         AND  v.literal_ceviri IS NOT NULL`
-    ).catch(() => undefined),
-  ]);
-
-  const total    = totalRow?.cnt    ?? 4000;
-  const duaTotal = duaTotalRow?.cnt ?? 255;
-  const offset    = getDailyOffset(total, day);
-  const duaOffset = getDailyOffset(duaTotal, day);
-
-  const [verse, dua] = await Promise.all([
-    dbGet<VerseRow>(
-      `SELECT v.verse_key, v.surah_id, v.ayah_number,
+  const VERSE_SELECT = `SELECT v.verse_key, v.surah_id, v.ayah_number,
               s.adi_turkce AS surah_name,
               v.arabic_text, v.reading_tr,
               COALESCE(yt.text, v.literal_ceviri, v.primary_translation) AS meal
@@ -53,12 +31,36 @@ export async function GET(req: NextRequest) {
        JOIN   sureler s ON s.id = v.surah_id
        LEFT JOIN translations yt ON yt.verse_key = v.verse_key
               AND (yt.source = 'yazir' OR yt.source LIKE '%#yazir')
-       WHERE  v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL AND v.literal_ceviri IS NOT NULL
-       ORDER  BY v.verse_key
-       LIMIT 1 OFFSET ?`,
-      offset
-    ).catch(() => undefined),
-    dbGet<VerseRow>(
+       WHERE  v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL AND v.literal_ceviri IS NOT NULL`;
+
+  // Günün Ayeti: seçilmiş havuzdan (tek başına anlamlı ayetler). Satır gelmezse
+  // eski davranış: tüm ayetlerden tarih tohumlu seçim.
+  async function pickVerse(): Promise<VerseRow | undefined> {
+    const key = dailyVerseKey(day);
+    if (key) {
+      const row = await dbGet<VerseRow>(`${VERSE_SELECT} AND v.verse_key = ?`, key).catch(() => undefined);
+      if (row) return row;
+    }
+    const totalRow = await dbGet<{ cnt: number }>(
+      `SELECT COUNT(*) AS cnt FROM verses
+       WHERE arabic_text IS NOT NULL AND reading_tr IS NOT NULL AND literal_ceviri IS NOT NULL`
+    ).catch(() => undefined);
+    return dbGet<VerseRow>(`${VERSE_SELECT} ORDER BY v.verse_key LIMIT 1 OFFSET ?`,
+      getDailyOffset(totalRow?.cnt ?? 4000, day)).catch(() => undefined);
+  }
+
+  async function pickDua(): Promise<VerseRow | undefined> {
+    const duaTotalRow = await dbGet<{ cnt: number }>(
+      `SELECT COUNT(DISTINCT vti.verse_key) AS cnt
+       FROM   verse_tag_items vti
+       JOIN   verses v ON v.verse_key = vti.verse_key
+       WHERE  vti.tag LIKE 'dua-%'
+         AND  v.arabic_text IS NOT NULL
+         AND  v.reading_tr  IS NOT NULL
+         AND  v.literal_ceviri IS NOT NULL`
+    ).catch(() => undefined);
+    const duaOffset = getDailyOffset(duaTotalRow?.cnt ?? 255, day);
+    return dbGet<VerseRow>(
       `SELECT vti.verse_key, v.surah_id, v.ayah_number,
               s.adi_turkce AS surah_name,
               v.arabic_text, v.reading_tr,
@@ -76,8 +78,10 @@ export async function GET(req: NextRequest) {
        ORDER  BY vti.verse_key
        LIMIT  1 OFFSET ?`,
       duaOffset
-    ).catch(() => undefined),
-  ]);
+    ).catch(() => undefined);
+  }
+
+  const [verse, dua] = await Promise.all([pickVerse(), pickDua()]);
 
   const body: DailyResponse = {
     verse: verse ? { ...verse, meal: cleanMealText(verse.meal) } : null,
