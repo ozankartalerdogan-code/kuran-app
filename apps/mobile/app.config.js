@@ -274,6 +274,7 @@ module.exports = {
               description: 'Six prayer times and the next prayer, available offline. 4×1 strip.',
               minWidth: '250dp', minHeight: '50dp', targetCellWidth: 4, targetCellHeight: 1,
               resizeMode: 'horizontal', updatePeriodMillis: 1800000,
+              previewImage: './assets/images/widget/namazserit_preview.png',
             },
             {
               name: 'NamazOdak',
@@ -281,6 +282,7 @@ module.exports = {
               description: 'Next prayer time, remaining time and daily progress. 2×1.',
               minWidth: '110dp', minHeight: '50dp', targetCellWidth: 2, targetCellHeight: 1,
               resizeMode: 'horizontal', updatePeriodMillis: 1800000,
+              previewImage: './assets/images/widget/namazodak_preview.png',
             },
           ],
         },
