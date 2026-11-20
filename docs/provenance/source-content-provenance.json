@@ -3440,8 +3440,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 4,
-        "totalBytes": 258562,
-        "sha256": "c865cc0b46150e9d4121acf2b7099affda24e0f2a83cc3de57c4e999d0513cba",
+        "totalBytes": 255854,
+        "sha256": "7b4d52684f3247f47764d80c59ef25c07112300ec0402d4be45230e8eb3b1dd1",
         "files": [
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.json",
@@ -3450,8 +3450,8 @@
           },
           {
             "path": "apps/mobile/src/data/siyer_i_nebi.json",
-            "bytes": 69660,
-            "sha256": "5302bcd91edba66400672bd13fcf1241194832931df6251b76a99602f8083c1c"
+            "bytes": 68306,
+            "sha256": "a805e3e04b918bf2bbba5dbf1ccc1311b580a73afdb27fa4e0105c8de77b4587"
           },
           {
             "path": "apps/web/src/data/peygamber_kissalari.json",
@@ -3460,8 +3460,8 @@
           },
           {
             "path": "apps/web/src/data/siyer_i_nebi.json",
-            "bytes": 69660,
-            "sha256": "5302bcd91edba66400672bd13fcf1241194832931df6251b76a99602f8083c1c"
+            "bytes": 68306,
+            "sha256": "a805e3e04b918bf2bbba5dbf1ccc1311b580a73afdb27fa4e0105c8de77b4587"
           }
         ]
       }
@@ -4127,13 +4127,13 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 9,
-        "totalBytes": 1803143,
-        "sha256": "83a9ca88abe8a9899b878297930200f9da7c9ec27c37fda2684e7d5a16d80a10",
+        "totalBytes": 1799569,
+        "sha256": "e887fee986b47f336db307f06b14ab66b9f0252ab214f240d95bb6d3838e4d1d",
         "files": [
           {
             "path": "apps/mobile/src/data/dualar.json",
-            "bytes": 112791,
-            "sha256": "cb20ed03cb54d781a81750178d455d6c26cce6ec8a87bad87fbfeba3ec6279d1"
+            "bytes": 111578,
+            "sha256": "588430af9dc4cdb929f507d0d7a2b7b854e92e93ed9430152af79c4088c66b78"
           },
           {
             "path": "apps/mobile/src/data/ismi_azam_dualari.ts",
@@ -4147,13 +4147,13 @@
           },
           {
             "path": "apps/mobile/src/data/ozel_namazlar.json",
-            "bytes": 41614,
-            "sha256": "9501dc8496b5b1b45234a0b16cd1ebcd123258b74588434be032df075e9adc3b"
+            "bytes": 41040,
+            "sha256": "dbb93e38213d2fe63553e257beaa607d66751c3bf58d22c680f46ce2c675b2d0"
           },
           {
             "path": "apps/web/src/data/dualar.json",
-            "bytes": 112791,
-            "sha256": "cb20ed03cb54d781a81750178d455d6c26cce6ec8a87bad87fbfeba3ec6279d1"
+            "bytes": 111578,
+            "sha256": "588430af9dc4cdb929f507d0d7a2b7b854e92e93ed9430152af79c4088c66b78"
           },
           {
             "path": "apps/web/src/data/namaz_rehberi.json",
@@ -4162,8 +4162,8 @@
           },
           {
             "path": "apps/web/src/data/ozel_namazlar.json",
-            "bytes": 41614,
-            "sha256": "9501dc8496b5b1b45234a0b16cd1ebcd123258b74588434be032df075e9adc3b"
+            "bytes": 41040,
+            "sha256": "dbb93e38213d2fe63553e257beaa607d66751c3bf58d22c680f46ce2c675b2d0"
           },
           {
             "path": "content/tafsir/simplified-surah.json",
