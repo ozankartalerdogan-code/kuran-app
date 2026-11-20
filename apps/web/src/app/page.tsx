@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {dbGet } from "../lib/dbUtils";
+import { dailyVerseKey } from "../lib/dailyVersePool";
 import { HomeNamazWidget, type PrayerTimes } from "./HomeNamazWidget";
 import { SearchBar } from "./components/SearchBar";
 import { StreakDisplay } from "./StreakDisplay";
@@ -209,23 +210,26 @@ export default async function HomePage() {
   // ── Günün Ayeti ─────────────────────────────────────────────────────
   // literal_ceviri alanını kullan — her satır tek ayete karşılık gelir
   // arabic_text + reading_tr + literal_ceviri hepsi aynı verses satırından → her zaman tutarlı
-  const totalRow = await dbGet<{ cnt: number }>(
-    `SELECT COUNT(*) AS cnt FROM verses
-     WHERE arabic_text IS NOT NULL AND reading_tr IS NOT NULL AND literal_ceviri IS NOT NULL`
-  ).catch(() => undefined);
-  const total = totalRow?.cnt ?? 4000;
-  const offset = getDailyOffset(total);
-
-  const dailyVerse = await dbGet<DailyVerse>(
-    `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr,
+  // Önce seçilmiş havuz (tek başına anlamlı ayetler; /api/daily ile aynı seçim),
+  // satır gelmezse eski tüm-ayet seçimi.
+  const DAILY_VERSE_SELECT = `SELECT v.surah_id, v.ayah_number, v.arabic_text, v.reading_tr,
             v.literal_ceviri AS primary_translation,
             s.adi_turkce AS surah_name
      FROM verses v
      JOIN sureler s ON s.id = v.surah_id
-     WHERE v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL AND v.literal_ceviri IS NOT NULL
-     LIMIT 1 OFFSET ?`,
-    offset
-  ).catch(() => undefined);
+     WHERE v.arabic_text IS NOT NULL AND v.reading_tr IS NOT NULL AND v.literal_ceviri IS NOT NULL`;
+  const poolKey = dailyVerseKey();
+  let dailyVerse = poolKey
+    ? await dbGet<DailyVerse>(`${DAILY_VERSE_SELECT} AND v.verse_key = ?`, poolKey).catch(() => undefined)
+    : undefined;
+  if (!dailyVerse) {
+    const totalRow = await dbGet<{ cnt: number }>(
+      `SELECT COUNT(*) AS cnt FROM verses
+       WHERE arabic_text IS NOT NULL AND reading_tr IS NOT NULL AND literal_ceviri IS NOT NULL`
+    ).catch(() => undefined);
+    dailyVerse = await dbGet<DailyVerse>(`${DAILY_VERSE_SELECT} LIMIT 1 OFFSET ?`,
+      getDailyOffset(totalRow?.cnt ?? 4000)).catch(() => undefined);
+  }
 
   // ── Günün Duası ──────────────────────────────────────────────────────
   // verse_tag_items'daki dua-* etiketli ayetlerden tarih-bazlı seed ile seç.

@@ -20,3 +20,22 @@ test("getDailyOffset: tarih verilmezse bugünkü tohum (eski davranış), günle
   assert.notEqual(getDailyOffset(4000, { y: 2026, m: 11, d: 12 }), getDailyOffset(4000, { y: 2026, m: 11, d: 13 }));
   assert.equal(getDailyOffset(0, null), 0);
 });
+
+test("getDailyPoolIndex: havuz büyüklüğü kadar ardışık günde tekrar yok, yayılır", async () => {
+  const { getDailyPoolIndex } = await import("./dailyDate.ts");
+  const n = 387;
+  const seen = new Set<number>();
+  const start = Date.UTC(2026, 10, 20);
+  let prev = -1, adjacent = 0;
+  for (let i = 0; i < n; i++) {
+    const dt = new Date(start + i * 86_400_000);
+    const idx = getDailyPoolIndex(n, { y: dt.getUTCFullYear(), m: dt.getUTCMonth() + 1, d: dt.getUTCDate() });
+    assert.ok(idx >= 0 && idx < n);
+    seen.add(idx);
+    if (prev >= 0 && Math.abs(idx - prev) <= 2) adjacent++;
+    prev = idx;
+  }
+  assert.equal(seen.size, n);
+  assert.equal(adjacent, 0);
+  assert.equal(getDailyPoolIndex(0), 0);
+});
