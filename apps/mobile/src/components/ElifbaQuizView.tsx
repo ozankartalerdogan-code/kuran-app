@@ -52,13 +52,15 @@ function DoneScreen({ score, total, onFinish, isBypass = false }: {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const pct = Math.round((score / total) * 100);
+  // Sınavla geçişte başarı eşiği ders geçme eşiğidir; kalınca kutlama ve puan isteği yok.
+  const passed = isBypass ? score >= ELIFBA_QUIZ_PASS : pct >= 60;
   useFocusEffect(useCallback(() => {
-    if (pct >= 60) return notifyReviewCompletion();
-  }, [pct]));
+    if (passed) return notifyReviewCompletion();
+  }, [passed]));
   return (
     <View style={qv.done}>
-      <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>
-      <Text style={[qv.doneTitle, { color: c.text }]}>{pct >= 80 ? ep.great : pct >= 60 ? ep.good : ep.tryAgain}</Text>
+      <Text style={qv.doneEmoji}>{passed ? "🎉" : "📚"}</Text>
+      <Text style={[qv.doneTitle, { color: c.text }]}>{!passed ? ep.tryAgain : pct >= 80 ? ep.great : ep.good}</Text>
       <Text style={[qv.doneSub, { color: c.textMuted }]}>{fmt(ep.scoreLine, { s: score, t: total, p: pct })}</Text>
       {isBypass && score < ELIFBA_QUIZ_PASS && (
         <Text style={[qv.doneSub, { color: c.textMuted, textAlign: "center" }]}>
@@ -69,9 +71,9 @@ function DoneScreen({ score, total, onFinish, isBypass = false }: {
         style={qv.doneBtn}
         onPress={() => onFinish(score, total)}
         accessibilityRole="button"
-        accessibilityLabel={isBypass ? ep.bypassBack : ep.backToLessonsA11y}
+        accessibilityLabel={ep.backToLessonsA11y}
       >
-        <Text style={qv.doneBtnText}>{isBypass ? ep.bypassBack : ep.backToLessons}</Text>
+        <Text style={qv.doneBtnText}>{ep.backToLessons}</Text>
       </TouchableOpacity>
     </View>
   );

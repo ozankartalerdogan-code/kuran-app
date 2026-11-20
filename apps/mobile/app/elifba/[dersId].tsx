@@ -312,7 +312,7 @@ function QuizView({ dersId, onFinish, isBypass = false }: { dersId: number; isBy
           </TouchableOpacity>
         </View>
       )}
-      {isBypass && (
+      {isBypass && questions.length > 0 && (
         <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
           <Text style={[qv.noticeText, { color: c.text }]}>
             {fmt(ep.bypassBanner, { n: ELIFBA_QUIZ_PASS, total: questions.length })}
