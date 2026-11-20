@@ -52,3 +52,9 @@ for (const name of ["NamazSerit", "NamazOdak"] as const) {
   });
 }
 
+test("current-slice fill uses integer weights and drops empty parts", () => {
+  assert.deepEqual(view.fillParts(0.328), [["done", 328], ["rest", 672]]);
+  assert.deepEqual(view.fillParts(0), [["rest", 1000]]);
+  assert.deepEqual(view.fillParts(1), [["done", 1000]]);
+  assert.deepEqual(view.fillParts(1.4), [["done", 1000]]);
+});

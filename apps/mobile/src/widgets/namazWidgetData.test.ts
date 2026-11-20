@@ -97,6 +97,23 @@ test("remaining floors minutes, clamps negatives and covers hour/minute/now boun
   assert.equal(api.buildNamazWidgetData(records, "İstanbul", today.atMs.Dhuhr - 1, "en").prayer!.remainingLabel, "now");
 });
 
+test("focus segments use elapsed ratio, past intervals and future tracks", () => {
+  const middle = (today.atMs.Sunrise + today.atMs.Dhuhr) / 2;
+  const segments = api.focusSegments(records, today, "Dhuhr", middle);
+  assert.deepEqual(segments.map(s => s.state), ["past", "current", "future", "future", "future", "future"]);
+  assert.equal(segments[1].fraction, 0.5);
+  assert.equal(api.focusSegments(records, today, "Sunrise", today.atMs.Fajr)[0].fraction, 0);
+  assert.equal(api.focusSegments(records, today, "Dhuhr", today.atMs.Dhuhr)[1].fraction, 1);
+});
+
+test("overnight focus interval spans actual Isha to Fajr across midnight", () => {
+  const middle = (today.atMs.Isha + tomorrow.atMs.Fajr) / 2;
+  const segments = api.focusSegments(records, tomorrow, "Fajr", middle);
+  assert.deepEqual(segments.map(s => s.state), ["future", "future", "future", "future", "future", "current"]);
+  assert.equal(segments[5].fraction, 0.5);
+  assert.equal(api.focusSegments([tomorrow], tomorrow, "Fajr", middle)[5].fraction, 0);
+});
+
 test("next refresh ticks just after each clock minute, or at the prayer, never in the past", () => {
   assert.equal(api.nextWidgetRefreshAt(1_000), 60_500);
   assert.equal(api.nextWidgetRefreshAt(60_200), 60_500);

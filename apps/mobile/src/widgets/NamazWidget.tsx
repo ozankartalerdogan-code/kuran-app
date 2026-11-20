@@ -13,12 +13,11 @@ type Theme = keyof typeof PALETTES;
 // first ADDED render may report less), so the card keeps this height, sits
 // centered in the cell, and only shrinks when the cell is smaller. Device fonts
 // render taller than the HTML draft: Odak uses 6/7 padding and 20/14sp (draft
-// 9/10, 22/15) so its rows fit 74dp (verified on A03). The draft's 6-slice
-// progress bar was dropped (user decision 2026-11-20): it repeated the
-// remaining-time label and was hard to read at 3dp.
-// Note: the library passes flex to LinearLayout weight via getInt, so only
-// integer flex values work.
-const CARD_HEIGHT = { NamazSerit: 74, NamazOdak: 74 } as const;
+// 9/10, 22/15) and an 80dp card so label and progress bar fit (verified on A03).
+const CARD_HEIGHT = { NamazSerit: 74, NamazOdak: 80 } as const;
+// The library passes flex to LinearLayout weight via getInt, so fractional
+// weights truncate to 0; scale the current-slice fill to integer weights.
+const WEIGHT_SCALE = 1000;
 
 export function NamazWidget({ data, widgetName, theme, cellHeight }: { data: NamazWidgetData; widgetName: PrayerWidgetName; theme: Theme; cellHeight?: number }) {
   const c = PALETTES[theme];
@@ -52,10 +51,21 @@ export function NamazWidget({ data, widgetName, theme, cellHeight }: { data: Nam
           <TextWidget text={p.time} maxLines={1} style={{ fontSize: 20, fontWeight: "700", letterSpacing: -0.2, color: c.accent, marginLeft: 6 }} />
         </FlexWidget>,
         <TextWidget key="left" text={p.remainingLabel} maxLines={1} style={{ fontSize: 10.5, color: c.muted }} />,
+        <FlexWidget key="bar" style={{ width: "match_parent", flexDirection: "row", flexGap: 3 }}>
+          {p.segments.map((segment, i) => <FlexWidget key={i} style={{ flex: 1, width: 0, height: 3, borderRadius: 2, overflow: "hidden", flexDirection: "row", backgroundColor: segment.state === "past" ? c.past : c.track }}>
+            {segment.state === "current" ? fillParts(segment.fraction).map(([key, weight]) =>
+              <FlexWidget key={key} style={{ width: 0, height: 3, flex: weight, ...(key === "done" ? { backgroundColor: c.accent } : {}) }} />) : null}
+          </FlexWidget>)}
+        </FlexWidget>,
       ]}
     </FlexWidget>
     </FlexWidget>
   );
+}
+
+export function fillParts(fraction: number): ["done" | "rest", number][] {
+  const done = Math.round(Math.max(0, Math.min(1, fraction)) * WEIGHT_SCALE);
+  return ([["done", done], ["rest", WEIGHT_SCALE - done]] as ["done" | "rest", number][]).filter(([, w]) => w > 0);
 }
 
 export function buildNamazWidgetRepresentation(widgetName: PrayerWidgetName, data: NamazWidgetData, cellHeight?: number) {
