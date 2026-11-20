@@ -114,10 +114,12 @@ test("overnight focus interval spans actual Isha to Fajr across midnight", () =>
   assert.equal(api.focusSegments([tomorrow], tomorrow, "Fajr", middle)[5].fraction, 0);
 });
 
-test("next refresh chooses prayer or five minutes and never schedules in the past", () => {
-  assert.equal(api.nextWidgetRefreshAt(1_000), 301_000);
+test("next refresh ticks just after each clock minute, or at the prayer, never in the past", () => {
+  assert.equal(api.nextWidgetRefreshAt(1_000), 60_500);
+  assert.equal(api.nextWidgetRefreshAt(60_200), 60_500);
+  assert.equal(api.nextWidgetRefreshAt(60_500), 120_500);
   assert.equal(api.nextWidgetRefreshAt(1_000, 50_000), 50_000);
-  assert.equal(api.nextWidgetRefreshAt(1_000, 400_000), 301_000);
+  assert.equal(api.nextWidgetRefreshAt(1_000, 400_000), 60_500);
   assert.equal(api.nextWidgetRefreshAt(1_000, 500), 1_000);
   const p = api.buildNamazWidgetData(records, "İstanbul", today.atMs.Dhuhr - 10_000, "tr").prayer!;
   assert.equal(p.refreshAtMs, today.atMs.Dhuhr);

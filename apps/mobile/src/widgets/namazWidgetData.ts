@@ -29,8 +29,14 @@ export function prayerToLabel(key: PrayerKey, lang: Lang): string {
 }
 
 /** Native alarm integration (2b) can use this without loading React or storage. */
+// Remaining time is floored to whole minutes and prayer times sit on minute
+// boundaries, so the label changes exactly at each clock minute. Tick just
+// after the boundary (small lag so the floor has already flipped).
+const MINUTE_MS = 60_000;
+const TICK_LAG_MS = 500;
 export function nextWidgetRefreshAt(nowMs: number, nextPrayerAtMs?: number | null): number {
-  return Math.min(nowMs + 5 * 60_000, Math.max(nowMs, nextPrayerAtMs ?? Infinity));
+  const nextMinute = Math.floor((nowMs - TICK_LAG_MS) / MINUTE_MS) * MINUTE_MS + MINUTE_MS + TICK_LAG_MS;
+  return Math.min(nextMinute, Math.max(nowMs, nextPrayerAtMs ?? Infinity));
 }
 
 export type PrayerSegment = { state: "past" | "current" | "future"; fraction: number };
