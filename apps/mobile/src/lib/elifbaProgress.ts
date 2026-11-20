@@ -1,6 +1,44 @@
 export type ElifbaProgress = Record<string, number[]>;
-export type ElifbaQuizScore = { score: number; total: number };
+export const ELIFBA_QUIZ_PASS = 10;
+export type ElifbaQuizScore = { score: number; total: number; bypass?: boolean };
 export type ElifbaQuizScores = Record<string, ElifbaQuizScore>;
+
+export type ElifbaLessonStatus = "completed" | "active" | "locked";
+
+export function isLessonCompleted(
+  harfSayisi: number,
+  seenIds: readonly number[],
+  quizScore?: ElifbaQuizScore,
+): boolean {
+  const flashDone = harfSayisi > 0 && seenIds.length >= harfSayisi;
+  return !!quizScore && quizScore.score >= ELIFBA_QUIZ_PASS
+    && (flashDone || quizScore.bypass === true);
+}
+
+export function getLessonStatus(
+  ders: { id: number; harf_sayisi: number },
+  idx: number,
+  all: readonly { id: number; harf_sayisi: number }[],
+  progress: ElifbaProgress,
+  quizScores: ElifbaQuizScores,
+): ElifbaLessonStatus {
+  const completed = (lesson: typeof ders) => isLessonCompleted(
+    lesson.harf_sayisi, progress[String(lesson.id)] ?? [], quizScores[String(lesson.id)],
+  );
+  if (completed(ders)) return "completed";
+  if (idx === 0 || completed(all[idx - 1])) return "active";
+  return "locked";
+}
+
+// Test-out saves preserve the best score while granting card-free completion.
+// Normal quizzes keep their existing replacement behavior at the call site.
+export function mergeQuizScore(prev: ElifbaQuizScore | undefined, next: ElifbaQuizScore): ElifbaQuizScore {
+  const best = prev && prev.score > next.score ? prev : next;
+  return {
+    ...best,
+    ...(prev?.bypass === true || next.bypass === true ? { bypass: true } : {}),
+  };
+}
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -47,6 +85,7 @@ export function parseElifbaQuizScores(raw: unknown): ElifbaQuizScores {
       scores[lessonId] = {
         score: Math.min(Math.round(score), Math.round(total)),
         total: Math.round(total),
+        ...(value.bypass === true ? { bypass: true } : {}),
       };
     }
   }
@@ -200,7 +239,7 @@ export function computeLessonBadge(score: number, total: number, box1Count: numb
   }
 
   const s = (score * 15) / total;
-  if (s < 10) return "none";
+  if (s < ELIFBA_QUIZ_PASS) return "none";
   if (s < 13) return "pass";
   if (s < 15) return "master";
   return box1Count === 0 ? "crown" : "master";

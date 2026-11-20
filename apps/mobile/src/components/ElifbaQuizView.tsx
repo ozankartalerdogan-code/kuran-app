@@ -20,12 +20,14 @@ import { notifyReviewCompletion } from "../hooks/storeReviewPolicy";
 import { useStrings, fmt } from "../i18n";
 import elifbaStrings from "../i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../lib/layout";
+import { ELIFBA_QUIZ_PASS } from "../lib/elifbaProgress";
 import type { QuizQuestion } from "../lib/elifbaQuizSession";
 import type { ListeningItem } from "../lib/elifbaListening";
 
 export type ElifbaQuizViewProps =
   | {
       kind?: "quiz";
+      isBypass?: boolean;
       questions: QuizQuestion[];
       onAnswer: (q: QuizQuestion, correct: boolean) => void;
       onFinish: (score: number, total: number) => void;
@@ -43,7 +45,8 @@ export function ElifbaQuizView(props: ElifbaQuizViewProps) {
   return <QuestionRun {...props} />;
 }
 
-function DoneScreen({ score, total, onFinish }: {
+function DoneScreen({ score, total, onFinish, isBypass = false }: {
+  isBypass?: boolean;
   score: number; total: number; onFinish: (score: number, total: number) => void;
 }) {
   const c = useColors();
@@ -57,19 +60,25 @@ function DoneScreen({ score, total, onFinish }: {
       <Text style={qv.doneEmoji}>{pct >= 60 ? "🎉" : "📚"}</Text>
       <Text style={[qv.doneTitle, { color: c.text }]}>{pct >= 80 ? ep.great : pct >= 60 ? ep.good : ep.tryAgain}</Text>
       <Text style={[qv.doneSub, { color: c.textMuted }]}>{fmt(ep.scoreLine, { s: score, t: total, p: pct })}</Text>
+      {isBypass && score < ELIFBA_QUIZ_PASS && (
+        <Text style={[qv.doneSub, { color: c.textMuted, textAlign: "center" }]}>
+          {fmt(ep.bypassFailed, { n: ELIFBA_QUIZ_PASS })}
+        </Text>
+      )}
       <TouchableOpacity
         style={qv.doneBtn}
         onPress={() => onFinish(score, total)}
         accessibilityRole="button"
-        accessibilityLabel={ep.backToLessonsA11y}
+        accessibilityLabel={isBypass ? ep.bypassBack : ep.backToLessonsA11y}
       >
-        <Text style={qv.doneBtnText}>{ep.backToLessons}</Text>
+        <Text style={qv.doneBtnText}>{isBypass ? ep.bypassBack : ep.backToLessons}</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-function QuestionRun({ questions, onAnswer, onFinish }: {
+function QuestionRun({ questions, onAnswer, onFinish, isBypass }: {
+  isBypass?: boolean;
   questions: QuizQuestion[];
   onAnswer: (q: QuizQuestion, correct: boolean) => void;
   onFinish: (score: number, total: number) => void;
@@ -133,7 +142,7 @@ function QuestionRun({ questions, onAnswer, onFinish }: {
   }
   if (!soru) return <ActivityIndicator size="large" color={c.accent} style={{ marginTop: 40 }} />;
   if (done) {
-    return <DoneScreen score={score} total={questions.length} onFinish={onFinish} />;
+    return <DoneScreen score={score} total={questions.length} onFinish={onFinish} isBypass={isBypass} />;
   }
 
   const isArabic = (t: string) => /[؀-ۿ]/.test(t);

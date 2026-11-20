@@ -7,7 +7,57 @@ import {
   computeLessonBadge,
   parseElifbaProgress,
   parseElifbaQuizScores,
+  isLessonCompleted,
+  getLessonStatus,
+  mergeQuizScore,
 } from "./elifbaProgress.ts";
+
+test("parseElifbaQuizScores: preserves only literal true bypass", () => {
+  for (const bypass of [true, false, "true", "x", 1, null, undefined]) {
+    assert.deepEqual(parseElifbaQuizScores({ "4": { score: 10, total: 15, bypass } }), {
+      "4": { score: 10, total: 15, ...(bypass === true ? { bypass: true } : {}) },
+    });
+  }
+});
+
+test("isLessonCompleted: passing bypass completes unseen cards", () => {
+  assert.equal(isLessonCompleted(28, [], { score: 10, total: 15, bypass: true }), true);
+  assert.equal(isLessonCompleted(28, [], { score: 9, total: 15, bypass: true }), false);
+  assert.equal(isLessonCompleted(28, [], { score: 10, total: 15 }), false);
+});
+
+test("isLessonCompleted: normal completion still needs cards and a passing score", () => {
+  assert.equal(isLessonCompleted(2, [1, 2], { score: 10, total: 15 }), true);
+  assert.equal(isLessonCompleted(2, [1, 2], { score: 9, total: 15 }), false);
+  assert.equal(isLessonCompleted(2, [1, 2]), false);
+  assert.equal(isLessonCompleted(0, [], { score: 10, total: 15 }), false);
+});
+
+test("getLessonStatus: bypassing lesson 4 opens only its successor", () => {
+  const lessons = Array.from({ length: 6 }, (_, i) => ({ id: i + 1, harf_sayisi: 28 }));
+  const scores = parseElifbaQuizScores({ "4": { score: 10, total: 15, bypass: true } });
+  assert.deepEqual(lessons.map((lesson, idx) => getLessonStatus(lesson, idx, lessons, {}, scores)),
+    ["active", "locked", "locked", "completed", "active", "locked"]);
+  scores["4"].score = 9;
+  assert.equal(getLessonStatus(lessons[4], 4, lessons, {}, scores), "locked");
+});
+
+test("mergeQuizScore: bypass preserves a higher normal score and its total", () => {
+  const prev = Object.freeze({ score: 14, total: 15 });
+  const next = Object.freeze({ score: 10, total: 15, bypass: true });
+  const merged = mergeQuizScore(prev, next);
+  assert.deepEqual(merged, { score: 14, total: 15, bypass: true });
+  assert.equal(isLessonCompleted(28, [], merged), true);
+  assert.deepEqual(prev, { score: 14, total: 15 });
+  assert.deepEqual(mergeQuizScore({ score: 18, total: 20 }, next), { score: 18, total: 20, bypass: true });
+});
+
+test("mergeQuizScore: new, equal and higher bypass scores are retained", () => {
+  const next = { score: 12, total: 15, bypass: true };
+  assert.deepEqual(mergeQuizScore(undefined, next), next);
+  assert.deepEqual(mergeQuizScore({ score: 10, total: 15 }, next), next);
+  assert.deepEqual(mergeQuizScore({ score: 12, total: 15 }, next), next);
+});
 
 test("parseElifbaSrs: düz nesne olmayan girdiler boş harita döner", () => {
   for (const raw of [null, undefined, [], ["q:1"], "metin", 42, true]) {

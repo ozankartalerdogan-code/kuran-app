@@ -11,6 +11,8 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { useColors } from "../../src/hooks/useColors";
 import {
+  ELIFBA_QUIZ_PASS,
+  mergeQuizScore,
   parseElifbaProgress,
   parseElifbaQuizScores,
   parseElifbaSrs,
@@ -145,7 +147,7 @@ function Flashcard({ harf }: { harf: ElifbaHarf }) {
 
 // ── Quiz ──────────────────────────────────────────────────────────────────────
 
-function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, t: number) => void }) {
+function QuizView({ dersId, onFinish, isBypass = false }: { dersId: number; isBypass?: boolean; onFinish: (s: number, t: number) => void }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const lang = useLang();
@@ -310,7 +312,15 @@ function QuizView({ dersId, onFinish }: { dersId: number; onFinish: (s: number, 
           </TouchableOpacity>
         </View>
       )}
+      {isBypass && (
+        <View style={[qv.notice, { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text style={[qv.noticeText, { color: c.text }]}>
+            {fmt(ep.bypassBanner, { n: ELIFBA_QUIZ_PASS, total: questions.length })}
+          </Text>
+        </View>
+      )}
       <ElifbaQuizView
+        isBypass={isBypass}
         key={sessionKey}
         questions={questions}
         onAnswer={handleAnswer}
@@ -586,10 +596,11 @@ function ListeningView({ harfler, onFinish }: {
 type Mode = "flashcard" | "quiz" | "listen" | "exercise";
 
 export default function DersScreen() {
-  const { dersId: raw, mode: initialMode, baslik: rawBaslik } = useLocalSearchParams<{
-    dersId: string; mode?: string; baslik?: string;
+  const { dersId: raw, mode: initialMode, baslik: rawBaslik, bypass: rawBypass } = useLocalSearchParams<{
+    dersId: string; mode?: string; baslik?: string; bypass?: string;
   }>();
   const dersId = Number(raw);
+  const isBypass = rawBypass === "1";
   const insets = useSafeAreaInsets();
   const { fontScale } = useWindowDimensions();
   const c = useColors();
@@ -614,7 +625,7 @@ export default function DersScreen() {
   // Hata yutulursa boş liste "harf verisi bulunamadı" gibi görünür — ayrı durum + retry.
   const [loadError, setLoadError] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
-  const [mode, setMode]         = useState<Mode>(initialMode === "quiz" ? "quiz" : "flashcard");
+  const [mode, setMode]         = useState<Mode>(isBypass || initialMode === "quiz" ? "quiz" : "flashcard");
   const [idx, setIdx]           = useState(0);
   const lettersRef = useRef<ScrollView>(null);
   useEffect(() => {
@@ -683,10 +694,16 @@ export default function DersScreen() {
   }, [harfler, idx, markSeen]);
 
   const handleQuizFinish = useCallback(async (s: number, t: number) => {
-    const prev = parseElifbaQuizScores(await storage.getJSON<unknown>(STORAGE_KEYS.quizScores));
-    await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: { score: s, total: t } }).catch(() => {});
+    if (!isBypass || s >= ELIFBA_QUIZ_PASS) {
+      const prev = parseElifbaQuizScores(await storage.getJSON<unknown>(STORAGE_KEYS.quizScores));
+      const next = isBypass
+        ? mergeQuizScore(prev[String(dersId)], { score: s, total: t, bypass: true })
+        // Sınavla geçilmiş derste normal test tekrarı bayrağı silmesin (ders yeniden kilitlenmesin).
+        : { score: s, total: t, ...(prev[String(dersId)]?.bypass === true ? { bypass: true } : {}) };
+      await storage.setJSON(STORAGE_KEYS.quizScores, { ...prev, [String(dersId)]: next }).catch(() => {});
+    }
     router.dismissTo("/elifba");
-  }, [dersId]);
+  }, [dersId, isBypass]);
 
   if (loading) {
     return (
@@ -705,7 +722,7 @@ export default function DersScreen() {
       <Stack.Screen options={{ title }} />
       <View style={[styles.container, { backgroundColor: c.bg }]}>
         {/* Mod seçici */}
-        <View style={styles.modeBar}>
+        {!isBypass && <View style={styles.modeBar}>
           <TouchableOpacity
             style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "flashcard" && styles.modeBtnActive]}
             onPress={() => setMode("flashcard")}
@@ -774,7 +791,7 @@ export default function DersScreen() {
             </Text>
           </TouchableOpacity>
           )}
-        </View>
+        </View>}
 
         {mode === "exercise" && canExercise ? (
           <ExerciseView questions={exerciseQuestions} onFinish={() => router.dismissTo("/elifba")} />
@@ -857,7 +874,7 @@ export default function DersScreen() {
             </View>
           )
         ) : (
-          <QuizView dersId={dersId} onFinish={handleQuizFinish} />
+          <QuizView dersId={dersId} isBypass={isBypass} onFinish={handleQuizFinish} />
         )}
       </View>
     </>
