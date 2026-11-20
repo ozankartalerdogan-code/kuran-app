@@ -620,6 +620,7 @@ export default function DersDetayScreen() {
         <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
           <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>
         </View>
+        <View style={{ flexGrow: 1 }} />
         {/* Vurgu kaydırılan alanın içinde: büyük yazıda sabit kutu alanı daraltıp metni kesmesin */}
         <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
           <Text style={s.vurguText}>✦  {kart?.vurgu ?? ""}</Text>
@@ -694,7 +695,7 @@ const s = StyleSheet.create({
     marginBottom: 16, alignSelf: "stretch", overflow: "hidden", backgroundColor: "#ffffff",
   },
   gorselImg:     { width: "100%", height: "100%" },
-  kartCard:      { flexGrow: 1, borderRadius: 14, borderWidth: 1, padding: 20, justifyContent: "center" },
+  kartCard:      { borderRadius: 14, borderWidth: 1, padding: 20 },
   kartIcerik:    { fontSize: 15, lineHeight: 26 },
   vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },
   vurguText:     { fontSize: 15, color: "#c9a84c", fontWeight: "700", lineHeight: 24 },

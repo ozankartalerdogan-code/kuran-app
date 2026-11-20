@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaDers, type ElifbaQuizSoru } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
-import { useStrings, useLang, fmt } from "../../src/i18n";
+import { useStrings, useLang, fmt, caps } from "../../src/i18n";
 import { localizeDersler } from "../../src/lib/elifbaEn";
 import elifbaStrings from "../../src/i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
@@ -195,6 +195,7 @@ function PathNode({ ders, status, pct, badge, onPress }: {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   const isComp   = status === "completed";
+  const lang = useLang();
   const isActive = status === "active";
   const isLocked = status === "locked";
   const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : (c.isDark ? "#44403c" : "#d1d5db");
@@ -243,7 +244,7 @@ function PathNode({ ders, status, pct, badge, onPress }: {
           "ASAR, MED ve KASR"ı "ASAR, MED ve" yapıp bağlaçla bitiriyordu (9 dersten
           yalnız o 3 kelimeden uzun olduğu için hata tek satırda görünür kalmıştı). */}
       <Text style={[nd.label, { color: isLocked ? c.textMuted : c.textSecondary }]} numberOfLines={3}>
-        {shortBaslik(ders.baslik)}
+        {lang === "tr" ? dersAdi.toLocaleUpperCase("tr-TR") : caps(dersAdi)}
       </Text>
     </TouchableOpacity>
   );
