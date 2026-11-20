@@ -39,22 +39,6 @@ export function nextWidgetRefreshAt(nowMs: number, nextPrayerAtMs?: number | nul
   return Math.min(nextMinute, Math.max(nowMs, nextPrayerAtMs ?? Infinity));
 }
 
-export type PrayerSegment = { state: "past" | "current" | "future"; fraction: number };
-export function focusSegments(records: readonly PrayerDayRecord[], display: PrayerDayRecord, nextKey: PrayerKey, nowMs: number): PrayerSegment[] {
-  const nextIndex = PRAYER_KEYS.indexOf(nextKey);
-  // Segment i is the interval from prayer i to prayer i+1. Before Fajr,
-  // the previous day's Isha→Fajr interval is the last segment.
-  const current = nextIndex === 0 ? 5 : nextIndex - 1;
-  const end = display.atMs[nextKey];
-  const start = nextIndex === 0
-    ? records.find(r => r.sourceDate === addDaysYmd(display.sourceDate, -1))?.atMs.Isha
-    : display.atMs[PRAYER_KEYS[current]];
-  const fraction = start === undefined || end <= start ? 0 : Math.max(0, Math.min(1, (nowMs - start) / (end - start)));
-  return PRAYER_KEYS.map((_, i) => ({
-    state: i === current ? "current" : nextIndex > 0 && i < current ? "past" : "future",
-    fraction: i === current ? fraction : nextIndex > 0 && i < current ? 1 : 0,
-  }));
-}
 
 export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: string, nowMs: number, lang: Lang) {
   if (lang === "en") city = city.replace(/İ/g, "I");
@@ -82,7 +66,6 @@ export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: 
       next: next.record.sourceDate === display.sourceDate && key === next.key,
       past: display.atMs[key] <= nowMs,
     })),
-    segments: focusSegments(records, next.record, next.key, nowMs),
   } };
 }
 export type NamazWidgetData = ReturnType<typeof buildNamazWidgetData>;

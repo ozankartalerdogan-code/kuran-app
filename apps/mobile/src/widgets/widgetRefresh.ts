@@ -75,7 +75,7 @@ async function refreshPrayerWidgets(): Promise<void> {
   const { buildNamazWidgetRepresentation } = require("./NamazWidget") as typeof import("./NamazWidget");
   await Promise.all(widgets.map(info => widgetModule.requestWidgetUpdateById({
     widgetName: info.widgetName, widgetId: info.widgetId,
-    renderWidget: () => buildNamazWidgetRepresentation(info.widgetName as typeof PRAYER_WIDGET_NAMES[number], data),
+    renderWidget: () => buildNamazWidgetRepresentation(info.widgetName as typeof PRAYER_WIDGET_NAMES[number], data, info.height),
   })));
   planPrayerWidgetTick(data);
 }

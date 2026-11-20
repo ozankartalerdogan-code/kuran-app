@@ -16,7 +16,7 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
     if (prayerName) {
       if (["WIDGET_ADDED", "WIDGET_UPDATE", "WIDGET_RESIZED"].includes(props.widgetAction)) {
         const data = await readNamazWidgetData();
-        props.renderWidget(buildNamazWidgetRepresentation(prayerName, data));
+        props.renderWidget(buildNamazWidgetRepresentation(prayerName, data, props.widgetInfo.height));
         planPrayerWidgetTick(data);
       } else if (props.widgetAction === "WIDGET_DELETED") {
         const remaining = (await Promise.all(PRAYER_WIDGET_NAMES.map(name => getWidgetInfo(name)))).flat();

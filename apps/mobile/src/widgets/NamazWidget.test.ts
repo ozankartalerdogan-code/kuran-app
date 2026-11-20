@@ -31,17 +31,24 @@ const texts = (n: Node): string[] => [...(n.props?.text ? [n.props.text] : []), 
 for (const name of ["NamazSerit", "NamazOdak"] as const) {
   test(`${name} builds a real widget tree in light and dark, with and without data`, () => {
     for (const data of [dataApi.buildNamazWidgetData(records, "İstanbul", now, "tr"), dataApi.buildNamazWidgetData([], "", now, "tr")]) {
-      const rep = view.buildNamazWidgetRepresentation(name, data);
-      for (const theme of ["light", "dark"] as const) {
-        const tree = buildWidgetTree(rep[theme]) as Node;
+      for (const cellHeight of [undefined, 68, 107]) for (const theme of ["light", "dark"] as const) {
+        const tree = buildWidgetTree(view.buildNamazWidgetRepresentation(name, data, cellHeight)[theme]) as Node;
         assert.equal(tree.type, "LinearLayoutWidget");
         const all = texts(tree);
+        // Native side reads weight with getInt: a fraction would silently become 0.
+        const weights = (n: Node): unknown[] => [...("weight" in (n.props as object) ? [(n.props as { weight: unknown }).weight] : []), ...(n.children ?? []).flatMap(weights)];
+        for (const w of weights(tree)) assert.ok(Number.isInteger(w) && (w as number) > 0, `weight ${w}`);
         if (!data.prayer) assert.deepEqual(all, ["Vakitler için uygulamayı açın"]);
         else if (name === "NamazSerit") {
           assert.ok(all.includes("Öğle'ye 1 sa 38 dk"));
           for (const t of Object.values(wall)) assert.ok(all.includes(t), t);
         } else assert.deepEqual(all, ["SIRADAKİ · İSTANBUL", "Öğle", "12:53", "1 sa 38 dk kaldı"]);
       }
+      // The card never grows past the draft height and shrinks to small cells.
+      const card = (h?: number) => (buildWidgetTree(view.buildNamazWidgetRepresentation(name, data, h).light) as Node & { children: Node[] }).children[0].props as Record<string, unknown>;
+      assert.notDeepEqual(card(107), card(68));
+      assert.deepEqual(card(107), card(undefined));
     }
   });
 }
+
