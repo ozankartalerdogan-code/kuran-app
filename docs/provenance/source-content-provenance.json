@@ -20,13 +20,13 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 117802,
-    "sha256": "13fd02449086c23a297298e21a91153f070a5ef868ac92006f1fa049355f7e36",
+    "totalBytes": 117395,
+    "sha256": "a1776670e5a4e20f85bcede732ff3273f0efffcbac4d7615161bc451ae610d67",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
-        "bytes": 9108,
-        "sha256": "4b4811ff287bb9916d181e1a54e3fde2a98861c62fb8315ec497307af8d8c4cc"
+        "bytes": 8701,
+        "sha256": "6252edce526e0dbfd693499e501b7f90a8a92c1bfdd4ca1365ac9240100bc007"
       },
       {
         "path": "apps/web/src/app/hakkinda/page.tsx",
@@ -749,8 +749,8 @@
       "exactResearchUrlHistoryPreserved": true,
       "artifacts": {
         "fileCount": 154,
-        "totalBytes": 6277007,
-        "sha256": "e82820061849247714c8a6bf8ad94cddabe09869512094034abe45462f67a9f3",
+        "totalBytes": 6276499,
+        "sha256": "e02979a191003f4e9c5c3d2953cd68dc0268ad7d8462e5056b9a6514a5cb1dc1",
         "files": [
           {
             "path": "apps/mobile/src/data/mushaf_sayfalari.json",
@@ -1024,8 +1024,8 @@
           },
           {
             "path": "apps/mobile/src/data/offlineTr/verses/021.json",
-            "bytes": 36116,
-            "sha256": "1c74873a97cc8a5b2112c443d10ef60d740352fdf48ae39b2ed78eb0a4a5f9dd"
+            "bytes": 35608,
+            "sha256": "73b1310979dd07710d5a50f12f03927c370ad8aa5d13129eb3733356fbdf7682"
           },
           {
             "path": "apps/mobile/src/data/offlineTr/verses/022.json",
