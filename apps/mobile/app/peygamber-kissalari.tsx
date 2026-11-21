@@ -54,22 +54,23 @@ interface PeygamberKissalariMeta {
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
 function RefChip({ refKey }: { refKey: string }) {
+  const c = useColors();
   const t = useStrings(kissalarStrings);
   const parts = refKey.split(":");
   const surah = Number(parts[0]);
   const ayah = Number(parts[1]?.split("-")[0]);
   const valid = surah > 0 && ayah > 0;
-  if (!valid) return <Text style={st.chip}>{refKey}</Text>;
+  if (!valid) return <Text style={[st.chip, { color: c.textMuted }]}>{refKey}</Text>;
   return (
     <TouchableOpacity
-      style={st.refChip}
+      style={[st.refChip, { backgroundColor: c.emeraldBg, borderColor: c.emeraldBorder }]}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as Href)}
       activeOpacity={0.75}
       accessibilityRole="button"
       accessibilityLabel={fmt(t.refA11y, { ref: refKey })}
       accessibilityHint={t.refHint}
     >
-      <Text style={st.refChipText}>{refKey}</Text>
+      <Text style={[st.refChipText, { color: c.emeraldText }]}>{refKey}</Text>
     </TouchableOpacity>
   );
 }
@@ -101,8 +102,8 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
             </View>
           )}
           {kissa.not && (
-            <View style={st.notBox}>
-              <Text style={st.notText}>ℹ️ {kissa.not}</Text>
+            <View style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
+              <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {kissa.not}</Text>
             </View>
           )}
         </View>
@@ -133,8 +134,8 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <Text style={[st.isim, { color: c.text }]}>{p.isim}</Text>
             {p.kuranda_gecme_sayisi != null && (
-              <View style={st.sayiBadge}>
-                <Text style={st.sayiBadgeText}>{p.kuranda_gecme_sayisi}×</Text>
+              <View style={[st.sayiBadge, { backgroundColor: c.violetBg }]}>
+                <Text style={[st.sayiBadgeText, { color: c.violetText }]}>{p.kuranda_gecme_sayisi}×</Text>
               </View>
             )}
           </View>
@@ -210,8 +211,8 @@ function PeygamberCard({ p }: { p: Peygamber }) {
                 <Text style={[st.chev, { color: c.textMuted }]}>{notesOpen ? "▲" : "▼"}</Text>
               </TouchableOpacity>
               {notesOpen && p.ozel_notlar.map((n, i) => (
-                <View key={i} style={st.notBox}>
-                  <Text style={st.notText}>ℹ️ {n}</Text>
+                <View key={i} style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
+                  <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {n}</Text>
                 </View>
               ))}
             </View>
@@ -308,8 +309,8 @@ const st = StyleSheet.create({
   ozet:       { fontSize: 12, lineHeight: 18, marginTop: 2 },
   chev:       { fontSize: 11, marginTop: 3 },
 
-  sayiBadge:     { backgroundColor: "#ede9fe", borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 },
-  sayiBadgeText: { fontSize: 10, fontWeight: "700", color: "#6d28d9" },
+  sayiBadge:     { borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 },
+  sayiBadgeText: { fontSize: 10, fontWeight: "700" },
 
   metaBox:  { borderRadius: 10, borderWidth: 1, padding: 10, gap: 4 },
   metaRow:  { fontSize: 12, lineHeight: 18 },
@@ -319,9 +320,9 @@ const st = StyleSheet.create({
   notesHeader:  { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 10, borderWidth: 1, paddingHorizontal: 11, paddingVertical: 10 },
 
   refRow:   { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 2 },
-  chip:     { fontSize: 11, color: "#64748b" },
-  refChip:  { backgroundColor: "#d1fae5", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: "#6ee7b7" },
-  refChipText: { fontSize: 12, fontWeight: "700", color: "#065f46" },
+  chip:     { fontSize: 11 },
+  refChip:  { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
+  refChipText: { fontSize: 12, fontWeight: "700" },
 
   kissaCard:   { borderRadius: 10, borderWidth: 1, marginBottom: 4, overflow: "hidden" },
   kissaHeader: { flexDirection: "row", alignItems: "center", padding: 11, gap: 8 },
@@ -331,7 +332,7 @@ const st = StyleSheet.create({
 
   bullet: { fontSize: 12.5, lineHeight: 19 },
 
-  notBox:  { backgroundColor: "#fff7ed", borderRadius: 8, padding: 9, borderWidth: 1, borderColor: "#fdba74" },
-  notText: { fontSize: 11.5, color: "#9a3412", lineHeight: 17 },
+  notBox:  { borderRadius: 8, padding: 9, borderWidth: 1 },
+  notText: { fontSize: 11.5, lineHeight: 17 },
 });
 

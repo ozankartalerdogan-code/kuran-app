@@ -91,19 +91,20 @@ function buildSiyerData(lang: Lang): SiyerData {
 }
 
 function QuranRefChip({ refKey }: { refKey: string }) {
+  const c = useColors();
   const t = useStrings(siyerStrings);
   const [surah, ayah] = refKey.split(":").map(Number);
-  if (!surah || !ayah) return <Text style={ev.chip}>{refKey}</Text>;
+  if (!surah || !ayah) return <Text style={[ev.chip, { color: c.textMuted }]}>{refKey}</Text>;
   return (
     <TouchableOpacity
-      style={ev.refChip}
+      style={[ev.refChip, { backgroundColor: c.emeraldBg, borderColor: c.emeraldBorder }]}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as Href)}
       activeOpacity={0.75}
       accessibilityRole="button"
       accessibilityLabel={fmt(t.refA11y, { ref: refKey })}
       accessibilityHint={t.refHint}
     >
-      <Text style={ev.refChipText}>{refKey}</Text>
+      <Text style={[ev.refChipText, { color: c.emeraldText }]}>{refKey}</Text>
     </TouchableOpacity>
   );
 }
@@ -164,8 +165,8 @@ function EventCard({ event }: { event: SiyerEvent }) {
           )}
 
           {event.reliability_note ? (
-            <View style={ev.reliabilityBox}>
-              <Text style={ev.reliabilityText}>⚠️ {event.reliability_note}</Text>
+            <View style={[ev.reliabilityBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
+              <Text style={[ev.reliabilityText, { color: c.noteText }]}>⚠️ {event.reliability_note}</Text>
             </View>
           ) : null}
         </View>
@@ -195,8 +196,8 @@ function PeriodAccordion({ period, events }: { period: Period; events: SiyerEven
           <Text style={[pd.name, { color: c.text }]}>{period.name}</Text>
           <Text style={[pd.range, { color: c.textMuted }]}>{period.date_range}</Text>
         </View>
-        <View style={pd.badge}>
-          <Text style={pd.badgeText}>{events.length}</Text>
+        <View style={[pd.badge, { backgroundColor: c.neutralBadgeBg }]}>
+          <Text style={[pd.badgeText, { color: c.neutralBadgeText }]}>{events.length}</Text>
         </View>
         <Text style={[pd.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
       </TouchableOpacity>
@@ -281,8 +282,8 @@ const pd = StyleSheet.create({
   header:  { flexDirection: "row", alignItems: "center", gap: 12, padding: 14 },
   name:    { fontSize: 14, fontWeight: "700" },
   range:   { fontSize: 11, marginTop: 1 },
-  badge:   { backgroundColor: "#f1f5f9", borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3 },
-  badgeText: { fontSize: 10, fontWeight: "700", color: "#475569" },
+  badge:   { borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3 },
+  badgeText: { fontSize: 10, fontWeight: "700" },
   chev:    { fontSize: 11 },
   body:    { borderTopWidth: 1, padding: 12, gap: 8 },
   empty:   { fontSize: 12, fontStyle: "italic" },
@@ -302,13 +303,13 @@ const ev = StyleSheet.create({
   sectionLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.5 },
 
   chipRow:  { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 2 },
-  chip:     { fontSize: 11, color: "#64748b" },
-  refChip:  { backgroundColor: "#d1fae5", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: "#6ee7b7" },
-  refChipText: { fontSize: 12, fontWeight: "700", color: "#065f46" },
+  chip:     { fontSize: 11 },
+  refChip:  { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
+  refChipText: { fontSize: 12, fontWeight: "700" },
 
   lesson:  { fontSize: 12.5, lineHeight: 19 },
   sources: { fontSize: 10.5, fontStyle: "italic" },
 
-  reliabilityBox:  { backgroundColor: "#fff7ed", borderRadius: 8, padding: 9, borderWidth: 1, borderColor: "#fdba74" },
-  reliabilityText: { fontSize: 11.5, color: "#9a3412", lineHeight: 17 },
+  reliabilityBox:  { borderRadius: 8, padding: 9, borderWidth: 1 },
+  reliabilityText: { fontSize: 11.5, lineHeight: 17 },
 });

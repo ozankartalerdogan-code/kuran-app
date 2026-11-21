@@ -270,8 +270,8 @@ function HomeContent() {
       </Text>
 
       {error && (
-        <View style={[styles.errorBanner, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
-          <Text style={[styles.errorBannerText, c.isDark && { color: "#fca5a5" }]}>
+        <View style={[styles.errorBanner, { backgroundColor: c.errorBg, borderColor: c.errorBorder }]}>
+          <Text style={[styles.errorBannerText, { color: c.errorText }]}>
             {hs.dailyError}
           </Text>
         </View>
@@ -622,7 +622,7 @@ const styles = StyleSheet.create({
   quickBtn:    { flexBasis: "48%", flexGrow: 1, borderRadius: 14, padding: 14, alignItems: "center", gap: 8 },
   quickIconWrap: { width: 42, height: 42, borderRadius: 21, alignItems: "center", justifyContent: "center" },
   quickLabel:  { fontSize: 12, fontWeight: "600", textAlign: "center" },
-  errorBanner:     { backgroundColor: "#fef2f2", borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1, borderColor: "#fca5a5" },
-  errorBannerText: { fontSize: 13, color: "#b91c1c", textAlign: "center" },
+  errorBanner:     { borderRadius: 10, padding: 12, marginBottom: 10, borderWidth: 1 },
+  errorBannerText: { fontSize: 13, textAlign: "center" },
 });
 

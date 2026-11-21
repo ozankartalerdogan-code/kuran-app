@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useColors } from "../src/hooks/useColors";
+import { useColors, type AppColors } from "../src/hooks/useColors";
 import rawData from "../src/data/mubarek_gunler.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getEvidenceLabel } from "../src/lib/sourceLabels";
@@ -109,21 +109,25 @@ function buildData(lang: Lang): PreparedData {
   return result;
 }
 
-const DAYANAK: Record<DayanakKey, { bg: string; border: string; text: string }> = {
-  sahih: { bg: "#f0fdf4", border: "#86efac", text: "#15803d" },
-  tartismali: { bg: "#fffbeb", border: "#fcd34d", text: "#b45309" },
-  zayif: { bg: "#fff7ed", border: "#fdba74", text: "#c2410c" },
-  kulturel: { bg: "#f0f9ff", border: "#7dd3fc", text: "#0369a1" },
-  uydurma: { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c" },
-};
+function getDayanakColors(c: AppColors): Record<DayanakKey, { bg: string; border: string; text: string }> {
+  return {
+    sahih:      { bg: c.greenBg,  border: c.greenBorder,  text: c.greenText },
+    tartismali: { bg: c.amberBg,  border: c.amberBorder,  text: c.amberText },
+    zayif:      { bg: c.orangeBg, border: c.orangeBorder, text: c.orangeText },
+    kulturel:   { bg: c.skyBg,    border: c.skyBorder,    text: c.skyText },
+    uydurma:    { bg: c.errorBg,  border: c.errorBorder,  text: c.errorText },
+  };
+}
 
-const IBADET_DURUM: Record<IbadetDurumKey, { bg: string; text: string }> = {
-  farz: { bg: "#fef2f2", text: "#b91c1c" },
-  vacip: { bg: "#fff7ed", text: "#c2410c" },
-  sunnet: { bg: "#f0fdf4", text: "#15803d" },
-  mustehap: { bg: "#eff6ff", text: "#1d4ed8" },
-  tavsiye: { bg: "#f5f3ff", text: "#6d28d9" },
-};
+function getIbadetDurumColors(c: AppColors): Record<IbadetDurumKey, { bg: string; text: string }> {
+  return {
+    farz:     { bg: c.errorBg,  text: c.errorText },
+    vacip:    { bg: c.orangeBg, text: c.orangeText },
+    sunnet:   { bg: c.greenBg,  text: c.greenText },
+    mustehap: { bg: c.blueBg,   text: c.blueText },
+    tavsiye:  { bg: c.violetBg, text: c.violetText },
+  };
+}
 
 const DAYANAK_LABEL_KEY = {
   sahih: "dsSahih", tartismali: "dsTartismali", zayif: "dsZayif", kulturel: "dsKulturel", uydurma: "dsUydurma",
@@ -140,8 +144,9 @@ const TIP_EMOJI: Record<GunTip, string> = {
 };
 
 function DayanakBadge({ dayanak }: { dayanak: DayanakKey }) {
+  const c = useColors();
   const t = useStrings(mubarekStrings);
-  const badge = DAYANAK[dayanak];
+  const badge = getDayanakColors(c)[dayanak];
   return (
     <View style={[st.badge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
       <Text style={[st.badgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[dayanak]]}</Text>
@@ -152,7 +157,7 @@ function DayanakBadge({ dayanak }: { dayanak: DayanakKey }) {
 function IbadetCard({ ib }: { ib: Ibadet }) {
   const c = useColors();
   const t = useStrings(mubarekStrings);
-  const badge = ib.durum ? IBADET_DURUM[ib.durum] : undefined;
+  const badge = ib.durum ? getIbadetDurumColors(c)[ib.durum] : undefined;
   const evidenceLabel = getEvidenceLabel(ib.hadis_kaynagi);
 
   return (
@@ -175,7 +180,7 @@ function GunCard({ gun }: { gun: Gun }) {
   const c = useColors();
   const t = useStrings(mubarekStrings);
   const [open, setOpen] = useState(false);
-  const badge = DAYANAK[gun.dayanak];
+  const badge = getDayanakColors(c)[gun.dayanak];
   const gunIsmi = gun.isim || t.unnamed;
   const ibadetler = gun.ibadetler ?? [];
   const kuranRef = gun.kuran_referansi;
@@ -283,8 +288,8 @@ function GunCard({ gun }: { gun: Gun }) {
           ) : null}
 
           {gun.ozel_not ? (
-            <View style={st.notBox}>
-              <Text style={st.notText}>ℹ️ {gun.ozel_not}</Text>
+            <View style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
+              <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {gun.ozel_not}</Text>
             </View>
           ) : null}
         </View>
@@ -322,7 +327,7 @@ export default function MubarekGunlerScreen() {
           <View style={[s.ozetBox, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.ozetTitle, { color: c.text }]}>{t.quickLook}</Text>
             {OZET_TABLO.map((row, index) => {
-              const badge = DAYANAK[row.dayanak];
+              const badge = getDayanakColors(c)[row.dayanak];
               return (
                 <View key={`${row.isim}-${index}`} style={[s.ozetRow, { borderBottomColor: c.border }]}>
                   <Text style={[s.ozetIsim, { color: c.text }]}>{row.isim}</Text>
@@ -340,7 +345,7 @@ export default function MubarekGunlerScreen() {
           <View style={[s.dayanakLegend, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.ozetTitle, { color: c.text }]}>{t.basisLevels}</Text>
             {DAYANAK_SEVIYELERI.map(seviye => {
-              const badge = DAYANAK[seviye.kod];
+              const badge = getDayanakColors(c)[seviye.kod];
               return (
                 <View key={seviye.kod} style={s.legendRow}>
                   <View style={[s.ozetBadge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
@@ -362,8 +367,8 @@ export default function MubarekGunlerScreen() {
         )}
 
         {genelNot ? (
-          <View style={st.notBox}>
-            <Text style={st.notText}>ℹ️ {genelNot}</Text>
+          <View style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
+            <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {genelNot}</Text>
           </View>
         ) : null}
 
@@ -434,6 +439,6 @@ const st = StyleSheet.create({
   small: { fontSize: 11.5, lineHeight: 17 },
   kaynak: { fontSize: 10.5, fontStyle: "italic" },
 
-  notBox: { backgroundColor: "#fff7ed", borderRadius: 8, padding: 9, borderWidth: 1, borderColor: "#fdba74" },
-  notText: { fontSize: 11.5, color: "#9a3412", lineHeight: 17 },
+  notBox: { borderRadius: 8, padding: 9, borderWidth: 1 },
+  notText: { fontSize: 11.5, lineHeight: 17 },
 });

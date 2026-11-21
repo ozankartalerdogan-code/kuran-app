@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, useColorScheme } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { router } from "expo-router";
 import { useState } from "react";
 import { useStrings } from "../i18n";
 import misc1Strings from "../i18n/strings/misc1";
+import { useColors } from "../hooks/useColors";
 
 interface ErrorFallbackProps {
   error: Error;
@@ -11,14 +12,13 @@ interface ErrorFallbackProps {
 
 export default function ErrorFallback({ error, resetError }: ErrorFallbackProps) {
   const t = useStrings(misc1Strings);
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
+  const c = useColors();
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <View style={[styles.container, isDark && styles.containerDark]}>
-      <Text style={[styles.title, isDark && styles.textDark]}>{t.errTitle}</Text>
-      <Text style={[styles.message, isDark && styles.textDark]}>
+    <View style={[styles.container, { backgroundColor: c.bg }]}>
+      <Text style={[styles.title, { color: c.text }]}>{t.errTitle}</Text>
+      <Text style={[styles.message, { color: c.textSecondary }]}>
         {t.errFallbackMsg}
       </Text>
 
@@ -43,18 +43,18 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
             accessibilityRole="button"
             accessibilityState={{ expanded: showDetails }}
           >
-            <Text style={[styles.detailToggleText, isDark && styles.textDark]}>
+            <Text style={[styles.detailToggleText, { color: c.textMuted }]}>
               {showDetails ? t.hideDetails : t.showDetails}
             </Text>
           </TouchableOpacity>
 
           {showDetails && (
-            <ScrollView style={styles.detailContainer}>
-              <Text style={[styles.detailText, isDark && styles.textDark]}>
+            <ScrollView style={[styles.detailContainer, { backgroundColor: c.cardAlt }]}>
+              <Text style={[styles.detailText, { color: c.text }]}>
                 {error?.message || t.unknownError}
               </Text>
               {error?.stack != null && (
-                <Text style={[styles.detailText, styles.stackText, isDark && styles.textDark]}>
+                <Text style={[styles.detailText, styles.stackText, { color: c.text }]}>
                   {error.stack}
                 </Text>
               )}
@@ -69,27 +69,18 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f9fa",
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
   },
-  containerDark: {
-    backgroundColor: "#121212",
-  },
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#1a1a2e",
     marginBottom: 12,
     textAlign: "center",
   },
-  textDark: {
-    color: "#e0e0e0",
-  },
   message: {
     fontSize: 16,
-    color: "#555",
     textAlign: "center",
     marginBottom: 32,
     lineHeight: 22,
@@ -117,20 +108,17 @@ const styles = StyleSheet.create({
   },
   detailToggleText: {
     fontSize: 14,
-    color: "#777",
     textDecorationLine: "underline",
   },
   detailContainer: {
     marginTop: 12,
     maxHeight: 200,
     width: "100%",
-    backgroundColor: "#eee",
     borderRadius: 8,
     padding: 12,
   },
   detailText: {
     fontSize: 12,
-    color: "#333",
     fontFamily: "monospace",
   },
   stackText: {

@@ -71,7 +71,7 @@ export default function DerslerScreen() {
         )}
         <Text style={s.ikon}>{item.ikon}</Text>
         <Text style={[s.baslik, { color: c.text }]} numberOfLines={2}>{item.baslik}</Text>
-        <Text style={s.kartBilgi}>{fmt(t.cardMinutes, { n: item.sure })}</Text>
+        <Text style={[s.kartBilgi, { color: c.goldText }]}>{fmt(t.cardMinutes, { n: item.sure })}</Text>
         {/* Çubuk her kartta yer tutar; yan yana kartların boyu eşit kalsın */}
         <View style={[s.progTrack, { backgroundColor: c.border, opacity: pct > 0 && !item.route ? 1 : 0 }]}>
           <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
@@ -99,7 +99,7 @@ export default function DerslerScreen() {
 
       <View style={[s.header, { borderBottomColor: c.border }]}>
         <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
-          <Text style={s.backText}>{t.backBtn}</Text>
+          <Text style={[s.backText, { color: c.goldText }]}>{t.backBtn}</Text>
         </TouchableOpacity>
         <Text style={[s.headerTitle, { color: c.text }]}>{t.listTitle}</Text>
         <View style={s.headerSide} />
@@ -178,7 +178,7 @@ const s = StyleSheet.create({
   },
   headerTitle:   { flex: 1, fontSize: 20, fontWeight: "800", textAlign: "center" },
   headerSide:    { width: 60 },
-  backText:      { fontSize: 16, color: "#c9a84c", fontWeight: "600" },
+  backText:      { fontSize: 16, fontWeight: "600" },
 
   tabRow:        {
     flexDirection: "row", gap: 8,
@@ -203,7 +203,7 @@ const s = StyleSheet.create({
   badgeText:     { fontSize: 11, color: "#fff", fontWeight: "800" },
   ikon:          { fontSize: 36 },
   baslik:        { fontSize: 14, fontWeight: "700", textAlign: "center", lineHeight: 18, minHeight: 36 },
-  kartBilgi:     { fontSize: 11, color: "#c9a84c", fontWeight: "600" },
+  kartBilgi:     { fontSize: 11, fontWeight: "600" },
   progTrack:     { alignSelf: "stretch", height: 3, borderRadius: 2 },
   progFill:      { height: 3, borderRadius: 2 },
 

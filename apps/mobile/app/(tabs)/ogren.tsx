@@ -78,7 +78,7 @@ export default function OgrenTab() {
             <Ionicons name="library-outline" size={20} color={c.isDark ? "#fde68a" : "#c9a84c"} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={s.derslerTitle}>{t.derslerTitle}</Text>
+            <Text style={[s.derslerTitle, { color: c.goldText }]}>{t.derslerTitle}</Text>
             <Text style={[s.derslerSub, { color: c.textMuted }]}>{t.derslerSub}</Text>
           </View>
           <Text style={s.chev}>›</Text>
@@ -151,6 +151,6 @@ const s = StyleSheet.create({
     marginBottom: 20,
   },
   derslerIconWrap: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
-  derslerTitle: { fontSize: 16, fontWeight: "800", color: "#c9a84c", marginBottom: 4 },
+  derslerTitle: { fontSize: 16, fontWeight: "800", marginBottom: 4 },
   derslerSub: { fontSize: 12 },
 });

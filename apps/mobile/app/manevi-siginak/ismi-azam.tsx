@@ -59,6 +59,7 @@ function useColors() {
     scoreGreenText: dark ? "#6ee7b7" : "#065f46",
     scoreYellowBg:  dark ? "#451a03" : "#fef3c7",
     scoreYellowText:dark ? "#fcd34d" : "#92400e",
+    meaningText:    dark ? "#d6d3d1" : "#57534e",
   };
 }
 
@@ -154,8 +155,8 @@ function DuaKartiFull({ dua, colors, ayet }: { dua: DuaKarti; colors: ReturnType
         <Text style={{ fontWeight: "700" }}>{ia.reading}</Text>{localizedTranslit(dua.transkripsiyon, lang)}
       </Text>
 
-      {/* Meal — altta, silik */}
-      <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
+      {/* Meal — altta */}
+      <Text style={[styles.duaAnlam, { color: colors.meaningText }]}>
         <Text style={{ fontWeight: "700" }}>{ia.meaning}</Text>{ayet ? mealOf(ayet, dua.meal) : dua.meal}
       </Text>
 
@@ -209,8 +210,8 @@ function KorunmaKarti({ dua, colors }: { dua: KorunmaDuasi; colors: ReturnType<t
         <Text style={{ fontWeight: "700" }}>{ia.reading}</Text>{localizedTranslit(dua.transkripsiyon, lang)}
       </Text>
 
-      {/* Meal — altta, silik */}
-      <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
+      {/* Meal — altta */}
+      <Text style={[styles.duaAnlam, { color: colors.meaningText }]}>
         <Text style={{ fontWeight: "700" }}>{ia.meaning}</Text>{dua.meal}
       </Text>
 
@@ -305,7 +306,7 @@ function MetotKutusu({
           <Text style={[styles.duaOkunus, { color: colors.textSecondary }]}>
             <Text style={{ fontWeight: "700" }}>{ia.reading}</Text>{localizedTranslit(a.transkripsiyon, lang)}
           </Text>
-          <Text style={[styles.duaAnlam, { color: colors.textMuted }]}>
+          <Text style={[styles.duaAnlam, { color: colors.meaningText }]}>
             <Text style={{ fontWeight: "700" }}>{ia.meaning}</Text>{mealOf(ayetKey(a.ref), lang === "en" ? (a.anlamEn ?? a.anlam) : a.anlam)}
           </Text>
         </View>
@@ -690,7 +691,7 @@ export default function IsmiAzamScreen() {
             </Text>
           </View>
 
-          <Text style={[styles.duaAnlam, { color: colors.textSecondary }]}>
+          <Text style={[styles.duaAnlam, { color: colors.meaningText }]}>
             <Text style={{ fontWeight: "700" }}>{ia.sekineMeaning}</Text>{mealOf("2:248", sekineDuasi.meal)}
           </Text>
           <Text style={[styles.duaUygulama, { color: colors.violetText }]}>
