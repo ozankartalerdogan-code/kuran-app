@@ -1,6 +1,5 @@
 ﻿import React, { useState } from "react";
 import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Stack } from "expo-router";
 import Constants from "expo-constants";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -121,15 +120,11 @@ export default function HakkindaScreen() {
   const lic = licenseContent(useLang());
 
   return (
-    <>
-      <Stack.Screen options={{ headerShown: false }} />
       <ScrollView
-        // Üst boşluk kaydırılan içeriğin dışında: metin durum çubuğunun altına girmesin.
-        style={{ flex: 1, backgroundColor: c.bg, marginTop: insets.top }}
-        contentContainerStyle={[s.content, { paddingTop: 20, paddingBottom: 32 + insets.bottom }]}
+        style={{ flex: 1, backgroundColor: c.bg }}
+        contentContainerStyle={[s.content, { paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.pageTitle, { color: c.text }]}>{lic.title}</Text>
         <Text style={[s.pageIntro, { color: c.textMuted }]}>{lic.intro}</Text>
 
         <SourcesAccordion c={c} />
@@ -165,20 +160,18 @@ export default function HakkindaScreen() {
           </View>
         </Section>
       </ScrollView>
-    </>
   );
 }
 
 const s = StyleSheet.create({
   content: { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  pageTitle: { fontSize: 28, fontWeight: "800", marginBottom: 20 },
-  pageIntro: { fontSize: 14, lineHeight: 21, marginTop: -10, marginBottom: 4 },
+  pageIntro: { fontSize: 14, lineHeight: 21, marginBottom: 4 },
   section: { marginTop: 24 },
   sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   paragraph: { fontSize: 14, lineHeight: 22, paddingHorizontal: 2, marginBottom: 12 },
   // Kartsız ince akordiyon: yalnız üst/alt kıl çizgi, dolgu/kenarlık/radius yok.
   accordion: {
-    marginTop: 24,
+    marginTop: 16,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },

@@ -29,6 +29,9 @@ export default defineStrings({
     names: "Esmaül Hüsna",
     harfITarif: "Harf-i Tarif",
     privacy: "Gizlilik Politikası",
+    about: "Kaynaklar ve Açıklamalar",
+    prayerGuide: "Namaz Rehberi",
+    widgets: "Ana Ekran Widget'ları",
   },
   en: {
     back: "Back",
@@ -57,5 +60,8 @@ export default defineStrings({
     names: "Asma ul-Husna",
     harfITarif: "Letter Guide (Harf-i Tarif)",
     privacy: "Privacy Policy",
+    about: "Sources and Notes",
+    prayerGuide: "Prayer Guide",
+    widgets: "Home Screen Widgets",
   },
 });

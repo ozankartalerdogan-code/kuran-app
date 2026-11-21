@@ -244,8 +244,9 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
         <Stack.Screen name="favoriler"                           options={{ title: t.favorites, headerBackTitle: t.back }} />
         <Stack.Screen name="notlar"                              options={{ title: t.notes, headerBackTitle: t.back }} />
         <Stack.Screen name="ne-ogreneyim"                        options={{ headerShown: false }} />
-        <Stack.Screen name="hakkinda"                            options={{ headerShown: false }} />
-        <Stack.Screen name="namaz-rehberi"                       options={{ headerShown: false }} />
+        <Stack.Screen name="hakkinda"                            options={{ title: t.about, headerBackTitle: t.back }} />
+        <Stack.Screen name="namaz-rehberi"                       options={{ title: t.prayerGuide, headerBackTitle: t.back }} />
+        <Stack.Screen name="widget-ekle"                         options={{ title: t.widgets, headerBackTitle: t.back }} />
         <Stack.Screen name="dualar"                              options={{ title: t.duas, headerBackTitle: t.back }} />
         <Stack.Screen name="esma"                                options={{ title: t.names, headerBackTitle: t.back }} />
         <Stack.Screen name="elifba/harf-i-tarif"                 options={{ title: t.harfITarif, headerBackTitle: t.back }} />

@@ -10,16 +10,18 @@ import type { AppTourStep } from "./appTourSteps";
 import { clipTarget, placeTourCard, tourSpotlight, type Rect } from "./tourGeometry";
 import { Entrance, Icon, PolishButton, StepIndicator } from "../components/onboarding/Polish";
 import { logFeature } from "../lib/analytics";
+import { handleTourBackPress, registerFocusedBackHandler } from "./backHandlerPolicy";
 
 type Props = {
-  step: AppTourStep; stepIndex: number; ready: boolean; targetRevision: number;
+  step: AppTourStep; stepIndex: number; ready: boolean; targetRevision: number; active?: boolean;
   measureTarget: () => Promise<Rect | null>; onClose: () => void; onBack: () => void; onNext: () => void;
 };
-export function TourOverlay({ step, stepIndex, ready, targetRevision, measureTarget, onClose, onBack, onNext }: Props) {
+export function TourOverlay({ step, stepIndex, ready, targetRevision, active = true, measureTarget, onClose, onBack, onNext }: Props) {
   const c = useColors(), t = useStrings(strings), insets = useSafeAreaInsets();
   const { width, height, fontScale } = useWindowDimensions();
   const root = useRef<View>(null), title = useRef<Text>(null);
   const latestMeasure = useRef(measureTarget); latestMeasure.current = measureTarget;
+  const latestOnClose = useRef(onClose); latestOnClose.current = onClose;
   const [frame, setFrame] = useState<Rect | null>(null);
   const [measurementKey, setMeasurementKey] = useState("");
   const currentKey = `${ready}:${targetRevision}:${width}:${height}:${fontScale}:${insets.top}:${insets.bottom}`;
@@ -32,10 +34,9 @@ export function TourOverlay({ step, stepIndex, ready, targetRevision, measureTar
     const sub = AppState.addEventListener("change", state => setForeground(state === "active"));
     return () => sub.remove();
   }, []);
-  useEffect(() => {
-    const subscription = BackHandler.addEventListener("hardwareBackPress", () => { onClose(); return true; });
-    return () => subscription.remove();
-  }, [onClose]);
+  useEffect(() => registerFocusedBackHandler(BackHandler, active, () =>
+    handleTourBackPress(active, () => latestOnClose.current()),
+  ), [active]);
   useEffect(() => {
     let cancelled = false;
     setTarget(null); setFrame(null); setUnavailable(false);

@@ -7,10 +7,10 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useStrings, caps } from "../src/i18n";
 import misc1Strings from "../src/i18n/strings/misc1";
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, first = false, children }: { title: string; first?: boolean; children: React.ReactNode }) {
   const c = useColors();
   return (
-    <View style={s.section}>
+    <View style={[s.section, first && s.firstSection]}>
       <Text style={[s.sectionTitle, { color: c.accent }]}>{caps(title)}</Text>
       {children}
     </View>
@@ -36,16 +36,13 @@ export default function WidgetEkleScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen options={{ title: t.widgetTitle }} />
       <ScrollView
-        // Üst boşluk kaydırılan içeriğin dışında: metin durum çubuğunun altına girmesin.
-        style={{ flex: 1, backgroundColor: c.bg, marginTop: insets.top }}
-        contentContainerStyle={[s.content, { paddingTop: 20, paddingBottom: 32 + insets.bottom }]}
+        style={{ flex: 1, backgroundColor: c.bg }}
+        contentContainerStyle={[s.content, { paddingBottom: 32 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[s.pageTitle, { color: c.text }]}>{t.widgetTitle}</Text>
-
-        <Section title={t.widgetSecAyahs}>
+        <Section title={t.widgetSecAyahs} first>
           <View style={[s.card, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.paragraph, { color: c.textSecondary }]}>
               {t.widgetDesc}
@@ -84,8 +81,8 @@ export default function WidgetEkleScreen() {
 
 const s = StyleSheet.create({
   content: { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  pageTitle: { fontSize: 28, fontWeight: "800", marginBottom: 20 },
   section: { marginTop: 24 },
+  firstSection: { marginTop: 0 },
   sectionTitle: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
   card: { borderRadius: 12, borderWidth: 1, padding: 14 },
   paragraph: { fontSize: 14, lineHeight: 22 },

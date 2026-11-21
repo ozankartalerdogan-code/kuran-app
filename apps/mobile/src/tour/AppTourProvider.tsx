@@ -200,6 +200,7 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
       if (activeRef.current) setTargetRevision(v => v + 1);
     }
   }, []);
+  const handleClose = useCallback(() => close(), [close]);
   const registryValue = useMemo(() => ({ registerTarget, unregisterTarget }), [registerTarget, unregisterTarget]);
   const value = useMemo(() => ({ isActive, offerVisible, onboarded, restartTour, dismissOffer,
     completeOnboarding, registerTarget, unregisterTarget, hintBlocked, hintRevision, showHint, noteInteraction }),
@@ -211,9 +212,9 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
           <View style={{ flex: 1 }} accessibilityElementsHidden={isActive}
             importantForAccessibility={isActive ? "no-hide-descendants" : "auto"}>{children}</View>
           {isActive && <TourOverlay key={`${visit}:${stepIndex}`} step={step} stepIndex={stepIndex}
-            ready={pathname === "/"} targetRevision={targetRevision}
+            ready={pathname === "/"} targetRevision={targetRevision} active={isActive}
             measureTarget={() => targets.current.get(step.targetId)?.measure() ?? Promise.resolve(null)}
-            onClose={() => close()} onBack={() => setStepIndex(i => Math.max(0, i - 1))}
+            onClose={handleClose} onBack={() => setStepIndex(i => Math.max(0, i - 1))}
             onNext={() => stepIndex === APP_TOUR_STEPS.length - 1 ? close(true) : setStepIndex(i => i + 1)} />}
         </View>
       </TargetRegistryContext.Provider>

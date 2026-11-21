@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AccessibilityInfo, BackHandler, findNodeHandle, ScrollView, Text, Pressable, useWindowDimensions, View } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
@@ -12,6 +12,7 @@ import { StartPreferenceOptions } from "../src/components/onboarding/StartPrefer
 import { OnboardingFooter } from "../src/components/onboarding/OnboardingFooter";
 import { loadStartPreference, saveStartPreference, type StartPreference } from "../src/lib/startPreference";
 import { useAppTour } from "../src/tour/AppTourProvider";
+import { handleOnboardingBackPress, registerFocusedBackHandler } from "../src/tour/backHandlerPolicy";
 
 export default function OnboardingScreen() {
   const c = useColors(), t = useStrings(strings), lang = useLang(), insets = useSafeAreaInsets();
@@ -31,24 +32,39 @@ export default function OnboardingScreen() {
     setPreference(value);
     preferenceWrites.current = preferenceWrites.current.then(() => saveStartPreference(value)).catch(() => {});
   };
-  const locked = useRef(false), title = useRef<Text>(null);
+  const locked = useRef(false), completed = useRef(false), title = useRef<Text>(null);
   const scroll = useRef<ScrollView>(null);
   const { fontScale } = useWindowDimensions();
+  const backState = useRef({ step, result });
+  backState.current = { step, result };
   useEffect(() => {
     scroll.current?.scrollTo({ y: 0, animated: false });
     const task = requestAnimationFrame(() => { const node = findNodeHandle(title.current); if (node) AccessibilityInfo.setAccessibilityFocus(node); });
     return () => cancelAnimationFrame(task);
   }, [step, result]);
-  useEffect(() => {
-    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
-      if (!locked.current && step === 2 && !result) setStep(1);
-      return true;
-    });
-    return () => sub.remove();
-  }, [step, result]);
+  useFocusEffect(useCallback(() => {
+    let focused = true;
+    const unregister = registerFocusedBackHandler(BackHandler, true, () =>
+      handleOnboardingBackPress(
+        {
+          focused,
+          completed: completed.current,
+          locked: locked.current,
+          step: backState.current.step,
+          hasResult: !!backState.current.result,
+        },
+        () => setStep(1),
+      ),
+    );
+    return () => {
+      focused = false;
+      unregister();
+    };
+  }, []));
   const finish = async () => {
     await preferenceWrites.current;
     await storage.setString(STORAGE_KEYS.onboarding, "1").catch(() => {});
+    completed.current = true;
     completeOnboarding();
   };
   const enable = async () => {

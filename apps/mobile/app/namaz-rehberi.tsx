@@ -822,7 +822,6 @@ export default function NamazRehberiScreen() {
   const c = useColors();
   const tx = useStrings(rehberStrings);
 
-  const insets = useSafeAreaInsets();
   const { tab: initialTab, bolum } = useLocalSearchParams<{ tab?: string; bolum?: string }>();
   const focusZamm = bolum === "zamm";
   const [tab, setTab] = useState<"rehber" | "ayetler" | "ozel">(
@@ -831,7 +830,7 @@ export default function NamazRehberiScreen() {
   return (
     <>
       <Stack.Screen options={{ title: tx.title }} />
-      <View style={[s.tabWrap, { backgroundColor: c.bg, paddingTop: insets.top + 10 }]}>
+      <View style={[s.tabWrap, { backgroundColor: c.bg }]}>
         <View style={[s.segment, { backgroundColor: c.cardAlt }]}>
           {([["rehber", tx.tabGuide], ["ayetler", tx.tabVerses], ["ozel", tx.tabSpecial]] as const).map(([id, lbl]) => {
             const active = tab === id;
