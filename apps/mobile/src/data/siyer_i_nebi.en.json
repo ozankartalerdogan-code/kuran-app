@@ -86,7 +86,7 @@
       "title": "Pre-Islamic Arabia",
       "date_miladi": "6th century",
       "date_hijri": null,
-      "description": "At the time of Prophet Muhammad's birth, the Arabian Peninsula had a tribal structure and lacked political unity. Most of the peninsula was desert; its main settlements were Mecca, Yathrib, and Taif in the Hijaz. Society was divided into free people, mawali, and slaves; women and girls were not valued, and baby girls were buried alive. Polygamy, blood feuds, interest, and the slave trade were widespread.\n\nReligiously, idol worship was dominant. There were as many as 360 idols in and around the Kaaba; the principal ones were Hubal, Lat, Manat, and Uzza. There were also a small number of Hanifs who believed in one God. Fairs such as Ukaz and Dhu'l-Majaz fostered both commercial and cultural unity. The revolution that Islam would bring to this society takes on meaning against this dark background.",
+      "description": "At the time of Prophet Muhammad's birth, the Arabian Peninsula had a tribal structure and lacked political unity. Most of the peninsula was desert; its main settlements were Mecca, Yathrib, and Taif in the Hijaz. Society was divided into free people, mawali, and slaves; women and girls were not valued, and baby girls were buried alive. Polygamy, blood feuds, interest, and the slave trade were widespread.\n\nReligiously, idol worship was dominant. There were as many as 360 idols in and around the Kaaba, the greatest of which was Hubal. Lat in Ta'if, Uzza in Nakhlah, and Manat in Qudayd were the other idols most revered by the Arabs. There were also a small number of Hanifs who believed in one God. Fairs such as Ukaz and Dhu'l-Majaz fostered both commercial and cultural unity. The revolution that Islam would bring to this society takes on meaning against this dark background.",
       "quran_refs": [
         "16:58",
         "81:8"
@@ -123,7 +123,7 @@
         "The historical roots of tawhid",
         "The Abrahamic heritage of the Kaaba"
       ],
-      "reliability_note": "Some reports about the origin of the Black Stone have weak chains of transmission.",
+      "reliability_note": "Some reports about the Kaaba's first construction and the origin of the Black Stone have weak chains of transmission.",
       "tags": [
         "Kabe",
         "İbrahim",
@@ -162,7 +162,7 @@
       "title": "The Incident of the Elephant",
       "date_miladi": "around 570 CE",
       "date_hijri": null,
-      "description": "Abraha, the Abyssinian (Aksumite) governor of Yemen, had a great cathedral built in Sana'a and tried to draw pilgrims there. When he failed, he set out to destroy the Kaaba with a large army equipped with elephants. As the army approached Mecca, the leading elephant, Mahmud, refused to advance.\n\nAs described in Surah al-Fil of the Quran, Allah sent birds called ababil; these birds destroyed the army by pelting it with stones of baked clay (sijjil). Abd al-Muttalib's reply to Abraha is well known: 'I am the owner of the camels; the owner of the Kaaba will protect it.' This event took place shortly before Prophet Muhammad's birth and was regarded in Islamic tradition as a sign of the Prophet's coming.",
+      "description": "Abraha, the Abyssinian (Aksumite) governor of Yemen, had a great cathedral built in Sana'a and tried to draw pilgrims there. When he failed, he set out to destroy the Kaaba with a large army equipped with elephants. As the army approached Mecca, the leading elephant, Mahmud, refused to advance.\n\nAs described in Surah al-Fil of the Quran, Allah sent flocks of birds (tayran ababil); these birds destroyed the army by pelting it with stones of baked clay (sijjil). Abd al-Muttalib's reply to Abraha is well known: 'I am the owner of the camels; the owner of the Kaaba will protect it.' This event took place shortly before Prophet Muhammad's birth and was regarded in Islamic tradition as a sign of the Prophet's coming.",
       "quran_refs": [
         "105:1",
         "105:2",
@@ -176,7 +176,7 @@
         "The fate of arrogance and injustice",
         "Divine power in the face of human power"
       ],
-      "reliability_note": "The exact date of the event is disputed: various dates have been given, including 547, 552, 563, 569, 570, and 571. The prevailing view is that it took place approximately 50–55 days before the Prophet's birth. The nature of the ababil birds and precisely what sijjil was are debated.",
+      "reliability_note": "The exact date of the event is disputed: various dates have been given, including 547, 552, 563, 569, 570, and 571. The prevailing view is that it took place approximately 50–55 days before the Prophet's birth. The nature of these birds and precisely what sijjil was are debated.",
       "tags": [
         "Ebrehe",
         "fil",
@@ -192,7 +192,7 @@
       "title": "The Birth of Prophet Muhammad",
       "date_miladi": "571 CE (disputed)",
       "date_hijri": "The Year of the Elephant, Rabi al-Awwal",
-      "description": "According to the prevailing view, Prophet Muhammad was born in the Banu Hashim quarter of Mecca on a Monday morning, the 12th of Rabi al-Awwal, approximately 50–55 days after the Incident of the Elephant. His father Abdullah had died in Medina (Yathrib) approximately two months before he was born; his estate consisted of five camels, a flock of sheep, and the slave woman Umm Ayman (Barakah).\n\nHis grandfather Abd al-Muttalib named him 'Muhammad.' This name was not common among the Arabs at that time. His mother Aminah reported that she named him 'Ahmad.' Although certain things are reported to have happened at his birth, the vast majority of these reports do not have reliable chains of transmission.",
+      "description": "According to the prevailing view, Prophet Muhammad was born in the Banu Hashim quarter of Mecca on a Monday morning, the 12th of Rabi al-Awwal, approximately 50–55 days after the Incident of the Elephant. His father Abdullah had died in Medina (Yathrib) approximately two months before he was born; his estate consisted of five camels, a flock of sheep, and the slave woman Umm Ayman (Barakah).\n\nHis grandfather Abd al-Muttalib named him 'Muhammad.' This name was not common among the Arabs at that time. It is reported that his mother Aminah named him 'Ahmad.' Although certain extraordinary events are reported to have happened at his birth, the vast majority of these reports do not have reliable chains of transmission.",
       "quran_refs": [],
       "hadith_sources": [
         "Ibn Sa'd, Tabaqat, I, 100–101"
@@ -238,7 +238,7 @@
       "title": "Shaqq al-Sadr: The Opening of the Chest",
       "date_miladi": "approximately 575 CE",
       "date_hijri": null,
-      "description": "It is narrated that, while the Prophet Muhammad ﷺ was with Halimah, two angels came, opened his chest, washed his heart with Zamzam water, and removed the portion of impurity within it (the share of Satan). When his foster siblings saw this event and reported it, Halimah became worried and returned the child to his mother Aminah.\n\nSurah ash-Sharh has been interpreted as a metaphorical indication of this event. In Muslim, the hadith of Jibril opening his chest before the Mi'raj is recorded as authentic.",
+      "description": "It is narrated that, while the Prophet Muhammad ﷺ was with Halimah, Jibril came, opened his chest, removed a clot from his heart saying, 'This is Satan's share of you,' and washed his heart with Zamzam water. When his foster siblings saw this event and reported it, Halimah became worried and returned the child to his mother Aminah.\n\nThis childhood event is narrated in Muslim from Anas ibn Malik with an authentic chain; it is also separately reported that his chest was opened again on the night of the Mi'raj. Surah ash-Sharh has been interpreted as a metaphorical indication of this event.",
       "quran_refs": [],
       "hadith_sources": [
         "Muslim, Iman, 261"
@@ -247,7 +247,7 @@
         "The Prophet's spiritual preparation",
         "Every prophet is prepared in a way specific to his mission"
       ],
-      "reliability_note": "The hadith of Shaqq al-Sadr in Muslim concerns the Mi'raj and is authentic. The account of Shaqq al-Sadr during childhood, however, comes through weaker chains of narration. Some scholars regard the use of ash-Sharh 94:1 as evidence for this event as a metaphorical interpretation.",
+      "reliability_note": "The childhood Shaqq al-Sadr is recorded in Muslim (Iman, 261) with an authentic chain; the opening of the chest on the night of the Mi'raj appears separately in the Isra narrations of Bukhari and Muslim. Details such as 'two angels' come from Ibn Ishaq's sira account. Some scholars regard the use of ash-Sharh 94:1 as evidence for this event as a metaphorical interpretation.",
       "tags": [
         "şakk-ı sadr",
         "mucize",
@@ -261,7 +261,7 @@
       "title": "The Deaths of His Mother and Grandfather",
       "date_miladi": "577–579 CE",
       "date_hijri": null,
-      "description": "When the Prophet Muhammad ﷺ was six years old, his mother Aminah took him to visit his paternal relatives in Medina. On the return journey, she fell ill and died in the village of Abwa, between Mecca and Medina. After his mother was buried, the child returned to his grandfather Abd al-Muttalib.\n\nHe spent two years receiving Abd al-Muttalib's special care and affection, but his grandfather also died when he was eight. On his deathbed, Abd al-Muttalib appointed his son Abu Talib as the child's guardian. Abu Talib and his wife Fatimah bint Asad cared for him, with Fatimah becoming like a second mother to him. The Quran addresses his orphanhood alongside Allah's protection (ad-Duha 93:6).",
+      "description": "When the Prophet Muhammad ﷺ was six years old, his mother Aminah took him to visit their relatives in Medina, the Banu al-Najjar (the maternal uncles of his grandfather Abd al-Muttalib). On the return journey, she fell ill and died in the village of Abwa, between Mecca and Medina. After his mother was buried there, his nurse Umm Ayman brought the child back to his grandfather Abd al-Muttalib in Mecca.\n\nHe spent two years receiving Abd al-Muttalib's special care and affection, but his grandfather also died when he was eight. On his deathbed, Abd al-Muttalib appointed his son Abu Talib as the child's guardian. Abu Talib and his wife Fatimah bint Asad cared for him, with Fatimah becoming like a second mother to him. The Quran addresses his orphanhood alongside Allah's protection (ad-Duha 93:6).",
       "quran_refs": [
         "93:6"
       ],
@@ -307,7 +307,7 @@
       "title": "Hilf al-Fudul: The Alliance of the Virtuous",
       "date_miladi": "approximately 590 CE",
       "date_hijri": null,
-      "description": "After Yemenis defrauded a Meccan merchant, representatives of several tribes gathered at the home of Abdullah ibn Jud'an and swore to protect those who suffered injustice under all circumstances. This agreement was called 'Hilf al-Fudul.'\n\nThe Prophet Muhammad ﷺ, who was a young man at the time, also attended this gathering. Years later, after declaring his prophethood, he said: 'I took part in an alliance in the house of Abdullah ibn Jud'an that I would not wish to break even in exchange for red camels. If I were invited to such a society in Islam, I would join it again.' These words show how Islam's universal understanding of justice recognizes even the good values of the Age of Ignorance.",
+      "description": "After the Meccan al-As ibn Wa'il took goods from a Yemeni merchant of the Zubayd tribe and refused to pay, representatives of several tribes gathered at the home of Abdullah ibn Jud'an and swore to protect those who suffered injustice under all circumstances. This agreement was called 'Hilf al-Fudul.'\n\nThe Prophet Muhammad ﷺ, who was a young man at the time, also attended this gathering. Years later, after declaring his prophethood, he said: 'I took part in an alliance in the house of Abdullah ibn Jud'an that I would not wish to break even in exchange for red camels. If I were invited to such a society in Islam, I would join it again.' These words show how Islam's universal understanding of justice recognizes even the good values of the Age of Ignorance.",
       "quran_refs": [],
       "hadith_sources": [
         "Ahmad ibn Hanbal, Musnad, I, 190",
@@ -379,7 +379,7 @@
       "title": "The Cave of Hira: The First Revelation",
       "date_miladi": "610 CE",
       "date_hijri": "The first year of prophethood, Ramadan",
-      "description": "At the age of 40, the Prophet Muhammad ﷺ met Jibril for the first time during Ramadan in the Cave of Hira (Mount Nur), where he often withdrew in seclusion. The angel held him tightly and said three times, 'Read!' Each time, the Prophet Muhammad ﷺ replied, 'I cannot read.' Then the first five verses of Surah al-Alaq were revealed: 'Read in the name of your Lord who created!'\n\nThe Prophet Muhammad ﷺ returned home frightened, with trembling hands. Khadijah wrapped him up and comforted him, saying, 'Allah will never disgrace you; you are kind to your relatives, speak the truth, and bear the burdens of the weak.' She then took him to her cousin Waraqah ibn Nawfal, who said, 'This is the Namus (Jibril) who came to Musa,' and told him that he needed to prepare for a great mission. This moment is the most critical starting point in Islamic history.",
+      "description": "At the age of 40, the Prophet Muhammad ﷺ met Jibril for the first time during Ramadan in the Cave of Hira (Mount Nur), where he often withdrew in seclusion. The angel held him tightly and said three times, 'Read!' Each time, the Prophet Muhammad ﷺ replied, 'I cannot read.' Then the first five verses of Surah al-Alaq were revealed: 'Read in the name of your Lord who created!'\n\nThe Prophet Muhammad ﷺ returned home frightened and trembling. Khadijah wrapped him up and comforted him, saying, 'Allah will never disgrace you; you are kind to your relatives, speak the truth, and bear the burdens of the weak.' She then took him to her cousin Waraqah ibn Nawfal, who said, 'This is the Namus (Jibril) who came to Musa,' and told him that he needed to prepare for a great mission. This moment is the most critical starting point in Islamic history.",
       "quran_refs": [
         "96:1",
         "96:2",
@@ -440,7 +440,7 @@
       "hadith_sources": [],
       "key_lessons": [
         "The importance of gradual preaching",
-        "Inviting others to Islam before establishing a trustworthy setting",
+        "Building a trusted circle before inviting openly",
         "The need for each period to have its own strategy"
       ],
       "reliability_note": null,
@@ -484,7 +484,7 @@
       "title": "The Torture of the First Muslims",
       "date_miladi": "613–619 CE",
       "date_hijri": "Years 3–9 of prophethood",
-      "description": "The pressure exerted by the Quraysh was directed particularly at vulnerable and enslaved Muslims. Bilal al-Habashi was tortured under the scorching sun of Makkah with a large stone placed on his chest; Abu Bakr bought him in order to set him free. Ammar ibn Yasir, his mother Sumayyah, and his father Yasir were subjected to severe torture. Sumayyah was martyred by Abu Jahl's spear and became known as the first martyr of Islam.\n\nWhenever Ammar was tortured, the Prophet ﷺ would say to him, 'Be patient, O family of Abu Yasir! Your promised destination is Paradise.' The acceptance of iman by Hamzah and Umar brought the Muslims considerable strength and honor.",
+      "description": "The pressure exerted by the Quraysh was directed particularly at vulnerable and enslaved Muslims. Bilal al-Habashi was tortured under the scorching sun of Makkah with a large stone placed on his chest; Abu Bakr bought him in order to set him free. Ammar ibn Yasir, his mother Sumayyah, and his father Yasir were subjected to severe torture. Sumayyah was martyred by Abu Jahl's spear and became known as the first martyr of Islam.\n\nWhenever the Prophet ﷺ passed by Ammar and his family as they were being tortured, he would say, 'Be patient, O family of Yasir! Your promised destination is Paradise.' The acceptance of iman by Hamzah and Umar brought the Muslims considerable strength and honor.",
       "quran_refs": [
         "16:106"
       ],
@@ -533,7 +533,7 @@
       "period_id": "mekke-donemi",
       "title": "The Social and Economic Boycott",
       "date_miladi": "616–619 CE",
-      "date_hijri": "Years 6–9 of prophethood",
+      "date_hijri": "Years 7–10 of prophethood",
       "description": "The Quraysh imposed a comprehensive social and economic boycott on the clans of Hashim and al-Muttalib in order to have the Prophet Muhammad ﷺ and the Muslims handed over to them. The terms of the boycott were written on a document and hung in the Kaaba: no one was to trade with them, enter into marriage contracts with them, or meet with them.\n\nThe Muslims remained confined for approximately three years in a valley called Shi'b Abi Talib. Sources report that, amid hunger and deprivation, they even ate tree leaves. The boycott ended when the consciences of some members of the Quraysh were troubled; it is reported that the document had been destroyed by moths.",
       "quran_refs": [],
       "hadith_sources": [],
@@ -556,7 +556,7 @@
       "title": "The Year of Sorrow: The Deaths of His Uncle and Wife",
       "date_miladi": "619 CE",
       "date_hijri": "10th year of prophethood",
-      "description": "Shortly after the boycott ended, the Prophet ﷺ lost two of his greatest sources of support in succession, causing the year to be named 'Am al-Huzn' (the Year of Sorrow). First, his uncle and protector Abu Talib died without having become a Muslim. Then his wife Khadijah, the first Muslim and his greatest supporter, died at the age of 65.\n\nKhadijah's death coincided with 10 Ramadan; she was buried in the Jannat al-Mu'alla cemetery in Makkah. With these two losses, the Prophet's ﷺ social protection in Makkah weakened considerably, and attacks by the polytheists increased.",
+      "description": "Shortly after the boycott ended, the Prophet ﷺ lost two of his greatest sources of support in succession, causing the year to be named 'Am al-Huzn' (the Year of Sorrow). First, his uncle and protector Abu Talib died without having become a Muslim. Then his wife Khadijah, the first Muslim and his greatest supporter, died at the age of 65.\n\nKhadijah died in Ramadan of the 10th year of prophethood; she was buried in the Jannat al-Mu'alla cemetery in Makkah. With these two losses, the Prophet's ﷺ social protection in Makkah weakened considerably, and attacks by the polytheists increased.",
       "quran_refs": [],
       "hadith_sources": [
         "Bukhari, Manaqib al-Ansar, 20"
@@ -580,9 +580,12 @@
       "title": "The Journey to Ta'if",
       "date_miladi": "619 CE",
       "date_hijri": "The 10th year of prophethood",
-      "description": "When support in Mecca weakened, the Prophet ﷺ went to Ta'if with his freedman Zayd ibn Harithah. The leaders of the Thaqif tribe humiliated him and turned him away; they also had the rabble stone him. Muhammad ﷺ had to leave Ta'if with his feet bleeding.\n\nOn the return journey, a slave named Addas offered him grapes. When the Prophet said the Basmalah, Addas was surprised and asked him about it, and the Prophet told him about himself and the Prophet Jesus. Addas immediately became Muslim. On returning to Mecca, he was able to enter under the protection of Mut'im ibn Adi, who was not yet Muslim. This difficult experience shows the depth of forgiveness and mercy: 'If Allah does not bring forth believers from this generation, He will bring them forth from their descendants.'",
+      "description": "When support in Mecca weakened, the Prophet ﷺ went to Ta'if with his freedman Zayd ibn Harithah. The leaders of the Thaqif tribe humiliated him and turned him away; they also had the rabble stone him. Muhammad ﷺ had to leave Ta'if with his feet bleeding.\n\nOn the return journey, a slave named Addas offered him grapes. When the Prophet said the Basmalah, Addas was surprised and asked him about it, and the Prophet told him about himself and the Prophet Jesus. Addas immediately became Muslim. On returning to Mecca, he was able to enter under the protection of Mut'im ibn Adi, who was not a Muslim. This difficult experience shows the depth of forgiveness and mercy. When the angel of the mountains offered to destroy the people, the Prophet ﷺ said: 'Rather, I hope that Allah will bring forth from their descendants people who will worship Allah alone, associating nothing with Him.'",
       "quran_refs": [],
-      "hadith_sources": [],
+      "hadith_sources": [
+        "Bukhari, Bad' al-Khalq, 7",
+        "Muslim, Jihad, 111"
+      ],
       "key_lessons": [
         "Determination to overcome rejection",
         "Mercy: refraining from curses and forgiving",
@@ -619,7 +622,7 @@
         "The unity of the prophets and the inclusiveness of Islam",
         "Ease after hardship"
       ],
-      "reliability_note": "The date is disputed. The 11th or 12th year before the Hijrah and the 27th of Rajab are commonly cited, but they are not certain. Scholars of Quranic interpretation have debated whether the Isra and Mi'raj took place in body and soul or in a dream; the majority hold that they took place in body and soul.",
+      "reliability_note": "The date is disputed. The 11th or 12th year of prophethood (1–2 years before the Hijrah) and the 27th of Rajab are commonly cited, but they are not certain. Scholars of Quranic interpretation have debated whether the Isra and Mi'raj took place in body and soul or in a dream; the majority hold that they took place in body and soul.",
       "tags": [
         "İsra",
         "Mirac",
@@ -633,7 +636,7 @@
       "period_id": "mekke-donemi",
       "title": "The Pledges of Aqabah",
       "date_miladi": "621–622 CE",
-      "date_hijri": "The 11th–12th years of prophethood",
+      "date_hijri": "The 12th–13th years of prophethood",
       "description": "The First Pledge of Aqabah (621, 12 people): They pledged not to associate partners with Allah, steal, commit adultery, kill children, make false accusations, or oppose what is good. This pledge is also called 'Bay'at an-Nisa' (the pledge of women) because it did not include a condition to fight. Mus'ab ibn Umayr was sent to Medina as the first 'teacher' to teach Islam.\n\nThe Second Pledge of Aqabah (622, 75 people: 73 men + 2 women): This time, an obligation to fight was added; it is known as 'Bay'at al-Harb.' Twelve naqibs (representatives) were chosen, and As'ad ibn Zurarah became chief of the representatives. This pledge is considered the practical beginning of the Hijrah.",
       "quran_refs": [],
       "hadith_sources": [],
@@ -657,7 +660,7 @@
       "title": "The Assassination Plot and the Beginning of the Hijrah",
       "date_miladi": "622 CE, the month of Safar",
       "date_hijri": "The 13th year of prophethood",
-      "description": "The leaders of the Quraysh gathered at Dar al-Nadwah and decided to kill Muhammad ﷺ. They planned to choose one young man from each tribe to attack him together, so that the blood feud could not be placed on a single tribe.\n\nAllah informed the Prophet ﷺ of this plan through Gabriel. He had Ali lie in his bed, covered him with his green cloak, and left the house while reciting verse 9 of Ya-Sin; the guards at the door could not see him. He met Abu Bakr, and they began the journey of the Hijrah.",
+      "description": "The leaders of the Quraysh gathered at Dar al-Nadwah and decided to kill Muhammad ﷺ. They planned to choose one young man from each tribe to attack him together, so that the blood feud could not be placed on a single tribe.\n\nAllah informed the Prophet ﷺ of this plan through Gabriel. The Prophet ﷺ had Ali lie in his bed, covered him with his green cloak, and left the house while reciting verse 9 of Ya-Sin; the guards at the door could not see him. He met Abu Bakr, and they began the journey of the Hijrah.",
       "quran_refs": [
         "8:30",
         "36:9"
@@ -683,7 +686,7 @@
       "title": "Three Days in the Cave of Thawr",
       "date_miladi": "622 CE",
       "date_hijri": "1 Rabi al-Awwal, year 1",
-      "description": "The Prophet ﷺ and Abu Bakr took refuge in a cave on Mount Thawr, south of Mecca, and stayed there for three nights. The Quraysh searchers came as far as the entrance to the cave. When Abu Bakr became worried, the Prophet ﷺ comforted him with verse 40 of at-Tawbah: 'Do not grieve; Allah is with us.'\n\nDuring this time, Abdullah ibn Abu Bakr brought news during the day, his sister Asma brought food, and Amir ibn Fuhayrah used his flock to cover their tracks. Abdullah ibn Urayqit, who was not yet Muslim but was trustworthy, was hired as a guide.",
+      "description": "The Prophet ﷺ and Abu Bakr took refuge in a cave on Mount Thawr, south of Mecca, and stayed there for three nights. The Quraysh searchers came as far as the entrance to the cave. When Abu Bakr became worried, the Prophet ﷺ comforted him, saying, 'Do not grieve; Allah is with us.' This moment was later recalled in verse 40 of at-Tawbah.\n\nDuring this time, Abdullah ibn Abu Bakr brought news during the day, his sister Asma brought food, and Amir ibn Fuhayrah used his flock to cover their tracks. Abdullah ibn Urayqit, who was not yet Muslim but was trustworthy, was hired as a guide.",
       "quran_refs": [
         "9:40"
       ],
@@ -695,7 +698,7 @@
         "A moment that tested friendship and loyalty",
         "Allah's help arriving at the most critical moment"
       ],
-      "reliability_note": "The report that a spider spun a web and a dove built a nest at the cave entrance is well known, but its chain of transmission is considered weak. Verse 40 of at-Tawbah is authentic.",
+      "reliability_note": "The report that a spider spun a web and a dove built a nest at the cave entrance is well known, but its chain of transmission is considered weak. The moment itself is recorded in the Quran (at-Tawbah 40), and the report in Bukhari is authentic.",
       "tags": [
         "Sevr",
         "Ebu Bekir",
@@ -716,7 +719,7 @@
       "hadith_sources": [],
       "key_lessons": [
         "Building a community centered on the mosque",
-        "Humility: letting the camel choose instead of a person",
+        "Leaving the choice to Allah so that no one is offended",
         "Friday as a symbol of a new beginning"
       ],
       "reliability_note": null,
@@ -807,7 +810,7 @@
       "title": "The Establishment of the Adhan",
       "date_miladi": "622–623 CE",
       "date_hijri": "1 AH",
-      "description": "The Muslims discussed how to call people to salah; suggestions such as a bell, a horn, and a fire were rejected. During this time, Abdullah b. Zayd al-Ansari learned the words of the adhan in a dream. The Prophet ﷺ said, 'This is a true dream,' and instructed him to teach it to Bilal. Bilal al-Habashi became the first muezzin.\n\nUmar had seen the same dream, but Abdullah acted first. When the adhan was first called at the Prophet's Mosque, there was great excitement in Madinah. Bilal continued in this role throughout his life, with his powerful voice that carried over long distances.",
+      "description": "The Muslims discussed how to call people to salah; suggestions such as a bell, a horn, and a fire were rejected. During this time, Abdullah b. Zayd al-Ansari learned the words of the adhan in a dream. The Prophet ﷺ said, 'This is a true dream,' and instructed him to teach it to Bilal. Bilal al-Habashi became the first muezzin.\n\nUmar had seen the same dream, but Abdullah acted first. When the adhan was first called at the Prophet's Mosque, there was great excitement in Madinah. Bilal continued in this role throughout the Prophet's ﷺ lifetime, with his powerful voice that carried over long distances.",
       "quran_refs": [
         "5:58",
         "62:9"
@@ -895,7 +898,7 @@
       "title": "The Battle of Uhud",
       "date_miladi": "23 March 625 CE",
       "date_hijri": "7 Shawwal 3 AH",
-      "description": "The Quraysh came with an army of approximately 3,000 to avenge Badr. The Muslims numbered approximately 700; moreover, Abdullah b. Ubayy left the battlefield with 300 hypocrites. At first, the Muslims had the upper hand.\n\nThe Prophet ﷺ had given the archers strict orders: 'Whatever happens, do not leave your positions.' Seeing that the Muslims had gained the upper hand, most of the archers left their positions to collect spoils. Khalid b. Walid took advantage of this opening and attacked from behind, turning the situation around. Approximately 70 Companions, including Hamzah, were martyred. The Prophet's ﷺ tooth was broken and his face was wounded, but he did not fall into enemy hands.",
+      "description": "The Quraysh came with an army of approximately 3,000 to avenge Badr. The Muslims set out from Madinah with approximately 1,000 men; when Abdullah b. Ubayy turned back with 300 hypocrites, approximately 700 remained. At first, the Muslims had the upper hand.\n\nThe Prophet ﷺ had given the archers strict orders: 'Whatever happens, do not leave your positions.' Seeing that the Muslims had gained the upper hand, most of the archers left their positions to collect spoils. Khalid b. Walid took advantage of this opening and attacked from behind, turning the situation around. Approximately 70 Companions, including Hamzah, were martyred. The Prophet's ﷺ tooth was broken and his face was wounded, but he did not fall into enemy hands.",
       "quran_refs": [
         "3:121",
         "3:139",
@@ -968,7 +971,7 @@
         "Enduring together in unity",
         "Innovative methods of defense"
       ],
-      "reliability_note": "The date was 5 Shawwal / March 627 CE; different reports give the duration of the siege as 20 to 27 days.",
+      "reliability_note": "The date was Shawwal 5 AH / March 627 CE; different reports give the duration of the siege as 20 to 27 days.",
       "tags": [
         "Hendek",
         "Ahzab",
@@ -982,8 +985,8 @@
       "period_id": "medine-savaslar",
       "title": "The Banu Qurayzah Affair",
       "date_miladi": "627 CE",
-      "date_hijri": "5 Dhu al-Qi'dah",
-      "description": "During the siege of the Trench, the Jewish tribe of Banu Qurayzah violated the Charter of Medina, attempted to strike the Muslims from behind, and cooperated with the enemy. After the siege of the Trench was lifted, Banu Qurayzah were besieged for 25 days and surrendered.\n\nThe fate of the tribe was decided by the arbitrator they had chosen, Sa'd ibn Mu'adh; Sa'd was then on his deathbed from a wound dating back to Uhud. His judgment corresponded to the ruling applied in the Torah to tribes that committed treachery.",
+      "date_hijri": "Dhu al-Qi'dah 5 AH",
+      "description": "During the siege of the Trench, the Jewish tribe of Banu Qurayzah violated the Charter of Medina, attempted to strike the Muslims from behind, and cooperated with the enemy. After the siege of the Trench was lifted, Banu Qurayzah were besieged for 25 days and surrendered.\n\nThe fate of the tribe was decided by the arbitrator they had chosen, Sa'd ibn Mu'adh; Sa'd was then on his deathbed from a wound he had received at the Trench. His judgment corresponded to the ruling applied in the Torah to tribes that committed treachery.",
       "quran_refs": [
         "33:26"
       ],
@@ -1007,7 +1010,7 @@
       "period_id": "medine-savaslar",
       "title": "The Treaty of Hudaybiyyah",
       "date_miladi": "March 628 CE",
-      "date_hijri": "6 Dhu al-Qi'dah",
+      "date_hijri": "Dhu al-Qi'dah 6 AH",
       "description": "The Prophet ﷺ set out with approximately 1,400–1,500 Companions to perform Umrah; the Quraysh prevented them from entering Mecca. After lengthy negotiations, the Treaty of Hudaybiyyah was signed with Suhayl ibn Amr. Its terms were: they would return without performing Umrah that year and perform a three-day Umrah the following year; there would be no fighting for 10 years; anyone who fled from Mecca to Medina would be returned, but anyone who fled from Medina to Mecca would not be returned; and tribes could ally with whichever side they wished.\n\nSome Companions considered these terms unfavorable; even Umar objected. In time, however, it became clear that the treaty had opened the door to a great opportunity: the number of people who embraced Islam in the following two years exceeded the total for the previous 18 years. The Quran described this treaty as 'a clear victory.'",
       "quran_refs": [
         "48:1",
@@ -1036,7 +1039,7 @@
       "period_id": "genisleme-fetih-son",
       "title": "The Conquest of Khaybar",
       "date_miladi": "628 CE",
-      "date_hijri": "7 Muharram",
+      "date_hijri": "Muharram 7 AH",
       "description": "Khaybar, 150 km from Medina, was where Banu Nadir had settled after betraying the Charter of Medina, and it had become a center of incitement against the Muslims. The Prophet ﷺ set out on an expedition with a force of approximately 1,600; the fortresses were conquered one by one.\n\nAli's conquest of the fortress of Qamus is well known; according to a report, he tore off its gate and used it as a shield. The land was left in Jewish hands to cultivate for a time in return for half of its produce. This arrangement continued after the death of the Prophet ﷺ until the time of Umar. Ja'far ibn Abi Talib and the Muslims returning from Abyssinia also shared in the joy of this conquest.",
       "quran_refs": [
         "48:18",
@@ -1085,11 +1088,34 @@
       ]
     },
     {
+      "id": "umretul-kaza",
+      "period_id": "genisleme-fetih-son",
+      "title": "The Make-up Umrah",
+      "date_miladi": "629 CE",
+      "date_hijri": "Dhu al-Qi'dah 7 AH",
+      "description": "As required by the Treaty of Hudaybiyyah, the Muslims visited the Ka'bah the following year. The Prophet ﷺ and approximately 2,000 Muslims entered Mecca; the Quraysh vacated the city. During the three-day visit, they performed tawaf around the Ka'bah and sa'y.\n\nBilal al-Habashi called the adhan from atop the Ka'bah; for Bilal, who had been degraded as a slave for years, this was one of the greatest moments in history. The Quraysh had effectively recognized the Muslims' right to worship at the Ka'bah.",
+      "quran_refs": [
+        "48:27"
+      ],
+      "hadith_sources": [],
+      "key_lessons": [
+        "Keeping one's word",
+        "A quiet declaration of Islam's growing strength"
+      ],
+      "reliability_note": null,
+      "tags": [
+        "Umretü'l-Kaza",
+        "umre",
+        "Kabe",
+        "Bilal"
+      ]
+    },
+    {
       "id": "mute-savasi",
       "period_id": "genisleme-fetih-son",
       "title": "The Battle of Mu'tah",
       "date_miladi": "629 CE",
-      "date_hijri": "8 Jumada al-Ula",
+      "date_hijri": "Jumada al-Ula 8 AH",
       "description": "Harith ibn Umayr, the envoy whom the Prophet ﷺ sent to Busra, was killed by a Ghassanid ruler. Following this violation of an envoy's immunity, an army of 3,000 was dispatched to Mu'tah; this was the first armed encounter with the Christian Byzantines and Ghassanids.\n\nAfter three commanders were martyred in succession, Khalid ibn al-Walid took command and successfully withdrew the army. That day in Medina, the Prophet ﷺ described the commanders' martyrdom as though he could see it; he gave Khalid the title 'Sayfullah' (the Sword of Allah).",
       "quran_refs": [],
       "hadith_sources": [
@@ -1111,35 +1137,12 @@
       ]
     },
     {
-      "id": "umretul-kaza",
-      "period_id": "genisleme-fetih-son",
-      "title": "The Make-up Umrah",
-      "date_miladi": "629 CE",
-      "date_hijri": "7 Dhu al-Qi'dah",
-      "description": "As required by the Treaty of Hudaybiyyah, the Muslims visited the Ka'bah the following year. The Prophet ﷺ and approximately 2,000 Muslims entered Mecca; the Quraysh vacated the city. During the three-day visit, they performed tawaf around the Ka'bah and sa'y.\n\nBilal al-Habashi called the adhan from atop the Ka'bah; for Bilal, who had been degraded as a slave for years, this was one of the greatest moments in history. The Quraysh had effectively recognized the Muslims' right to worship at the Ka'bah.",
-      "quran_refs": [
-        "48:27"
-      ],
-      "hadith_sources": [],
-      "key_lessons": [
-        "Keeping one's word",
-        "A quiet declaration of Islam's growing strength"
-      ],
-      "reliability_note": null,
-      "tags": [
-        "Umretü'l-Kaza",
-        "umre",
-        "Kabe",
-        "Bilal"
-      ]
-    },
-    {
       "id": "mekke-fethi",
       "period_id": "genisleme-fetih-son",
       "title": "The Conquest of Mecca",
       "date_miladi": "11 January 630 CE",
       "date_hijri": "20 Ramadan 8 AH",
-      "description": "The Treaty of Hudaybiyyah was broken when Banu Bakr, an ally of the Quraysh, attacked Khuza'ah. The Prophet ﷺ made preparations in secret and set out with an army of 10,000. Abu Sufyan was captured while scouting around Medina; he embraced Islam through the mediation of Abbas.\n\nThe army entered Mecca from four directions under the order: 'Do not use the sword unless you are attacked.' The city was conquered almost without bloodshed. At the Ka'bah, the Prophet ﷺ declared a general amnesty with words recalling what Yusuf had said to his brothers: 'Go, you are all free.' The 360 idols in the Ka'bah were broken as the words 'Truth has come, and falsehood has vanished' (al-Isra 81) were recited. Bilal called the adhan from the roof of the Ka'bah.",
+      "description": "The Treaty of Hudaybiyyah was broken when Banu Bakr, an ally of the Quraysh, attacked Khuza'ah. The Prophet ﷺ made preparations in secret and set out with an army of 10,000. Abu Sufyan was captured while scouting at Marr al-Zahran near Mecca; he embraced Islam through the mediation of Abbas.\n\nThe army entered Mecca from four directions under the order: 'Do not use the sword unless you are attacked.' The city was conquered almost without bloodshed. At the Ka'bah, the Prophet ﷺ declared a general amnesty with words recalling what Yusuf had said to his brothers: 'Go, you are all free.' The 360 idols in the Ka'bah were broken as the words 'Truth has come, and falsehood has vanished' (al-Isra 81) were recited. Bilal called the adhan from the roof of the Ka'bah.",
       "quran_refs": [
         "17:81",
         "110:1",
@@ -1169,8 +1172,8 @@
       "period_id": "genisleme-fetih-son",
       "title": "The Battle of Hunayn and the Siege of Ta'if",
       "date_miladi": "January–February 630 CE",
-      "date_hijri": "8 Shawwal",
-      "description": "Approximately 17 days after the conquest of Mecca, the Hawazin and Thaqif tribes ambushed the Muslim army of 12,000. Confident in its superior numbers, the army initially panicked (at-Tawbah 25); the Prophet ﷺ did not retreat. When Abbas called out loudly, 'O people of Aqabah!', the Companions gathered, and victory was won.\n\nThe fleeing enemy took refuge in Ta'if. The Muslims besieged the fortress, using a catapult for the first time, but could not capture it; the siege was lifted. About a year later, the people of Ta'if embraced Islam of their own accord.",
+      "date_hijri": "Shawwal 8 AH",
+      "description": "Approximately 17 days after the conquest of Mecca, the Hawazin and Thaqif tribes ambushed the Muslim army of 12,000. Confident in its superior numbers, the army initially panicked (at-Tawbah 25); the Prophet ﷺ did not retreat. When Abbas called out loudly, 'O companions of the Samurah tree (of the Pledge of Ridwan)!', the Companions gathered, and victory was won.\n\nThe fleeing enemy took refuge in Ta'if. The Muslims besieged the fortress, using a catapult for the first time, but could not capture it; the siege was lifted. About a year later, the people of Ta'if embraced Islam of their own accord.",
       "quran_refs": [
         "9:25",
         "9:26"
@@ -1196,7 +1199,7 @@
       "title": "The Expedition of Tabuk",
       "date_miladi": "630 CE",
       "date_hijri": "Rajab 9 AH",
-      "description": "Upon hearing that the Byzantines were preparing a major campaign, the Muslims set out for Tabuk with an army of approximately 30,000 called 'Jaysh al-Usrah' (the Army of Hardship). The hardship of the expedition was reflected in the financial sacrifices made: Abu Bakr donated all his wealth, Umar half of his, and Uthman provided for one third of the army.\n\nThe Byzantines signed non-aggression agreements, and no battle took place. However, this expedition exposed the hypocrites; those who stayed behind without an excuse were exposed in the Qur'an without being named. It was the last major military expedition in which the Prophet ﷺ participated.",
+      "description": "Upon hearing that the Byzantines were preparing a major campaign, the Muslims set out for Tabuk with an army of approximately 30,000 called 'Jaysh al-Usrah' (the Army of Hardship). The hardship of the expedition was reflected in the financial sacrifices made: Abu Bakr donated all his wealth, Umar half of his, and Uthman provided for one third of the army.\n\nThe Byzantine army did not appear, and no battle took place; peace agreements in return for jizyah were made with local settlements such as Ayla, Adhruh, and Jarba. However, this expedition exposed the hypocrites; those who stayed behind without an excuse were exposed in the Qur'an without being named. It was the last major military expedition in which the Prophet ﷺ participated.",
       "quran_refs": [
         "9:38",
         "9:81",
@@ -1262,7 +1265,7 @@
         "Equality: differences in color, race, and language are not grounds for superiority",
         "The completion of the religion and increased responsibility"
       ],
-      "reliability_note": "The text of the sermon appears in different narrations; the version compiled in al-Jahiz's al-Bayan wa at-Tabyin combines separate addresses delivered at Arafat, Mina, and Aqabah.",
+      "reliability_note": "The text of the sermon appears in different narrations; the version compiled in al-Jahiz's al-Bayan wa at-Tabyin combines separate addresses delivered at Arafat and Mina.",
       "tags": [
         "Veda Haccı",
         "Veda Hutbesi",
@@ -1300,7 +1303,7 @@
       "title": "The Death of the Prophet ﷺ",
       "date_miladi": "8 June 632 CE",
       "date_hijri": "12 Rabi al-Awwal 11 AH",
-      "description": "About three months after the Farewell Hajj, the Prophet ﷺ fell ill. He spent his final days in Aishah's room; during his illness, Abu Bakr led the prayers. Shortly before his death, he came out to the mosque, looked at the congregation, and smiled; this was the last time he was seen.\n\nOn Monday before noon, he breathed his last in Aishah's arms. Among his final words were 'ar-Rafiq al-A'la' (I wish to be with the Most Exalted Companion) and 'Prayer and those under your care (the weak).' He lived approximately 63 solar years and approximately 63 lunar years.",
+      "description": "About three months after the Farewell Hajj, the Prophet ﷺ fell ill. He spent his final days in Aishah's room; during his illness, Abu Bakr led the prayers. Shortly before his death, he came out to the mosque, looked at the congregation, and smiled; this was the last time he was seen.\n\nOn Monday before noon, he breathed his last in Aishah's arms. Among his final words were 'ar-Rafiq al-A'la' (I wish to be with the Most Exalted Companion) and 'Prayer and those under your care (the weak).' He lived approximately 63 lunar (Hijri) years, or about 61 solar years.",
       "quran_refs": [
         "3:144",
         "39:30"
