@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import type { Href } from "expo-router";
 import { useRef } from "react";
 import { useColors } from "../../src/hooks/useColors";
-import { TasbihModal } from "../../src/components/ZikirMatik";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings } from "../../src/i18n";
@@ -24,7 +22,6 @@ type Item = {
 export default function IbadetTab() {
   const c = useColors();
   const t = useStrings(ibadetStrings);
-  const [tasbihOpen, setTasbihOpen] = useState(false);
   const ibadetTarget = useTourTarget("ibadet.main");
   const scrollRef = useRef<ScrollView>(null);
 
@@ -41,7 +38,7 @@ export default function IbadetTab() {
       title: t.secTools,
       items: [
         { icon: "compass-outline", tone: "amber", label: t.kibleLabel, sub: t.kibleSub, route: "/kible" },
-        { icon: "radio-button-on-outline", tone: "emerald", label: t.tasbihLabel, sub: t.tasbihSub, onPress: () => setTasbihOpen(true) },
+        { icon: "radio-button-on-outline", tone: "emerald", label: t.tasbihLabel, sub: t.tasbihSub, onPress: () => router.push("/tespih") },
       ],
     },
   ];
@@ -79,7 +76,6 @@ export default function IbadetTab() {
         ))}
       </ScrollView>
 
-      <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
     </SafeAreaView>
   );
 }

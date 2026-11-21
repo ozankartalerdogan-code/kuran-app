@@ -2,7 +2,7 @@ import {
   View, Text, TouchableOpacity,
   StyleSheet, Alert,
 } from "react-native";
-import { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { FlashList } from "@shopify/flash-list";
@@ -20,11 +20,106 @@ import { useSurahNameOf } from "../src/lib/surahNames";
 import { useStrings, useLang, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
 import { Badge, Button, space } from "../src/components/ui";
+import { THEME_TAGS_ENABLED, getVerseThemes, normalizeVerseThemes, getThemeTitle, type ThemeLang } from "../src/lib/themes";
+
+type PersonalCardStrings = {
+  favOpenA11y: string;
+  favSurahLine: string;
+  removeFavA11y: string;
+  searchTagA11y: string;
+};
+
+const FavoriteCard = React.memo(function FavoriteCard({
+  item,
+  c,
+  t,
+  lang,
+  mealOf,
+  surahNameOf,
+  onRemove,
+}: {
+  item: FavoriteVerse;
+  c: ReturnType<typeof useColors>;
+  t: PersonalCardStrings;
+  lang: ThemeLang;
+  mealOf: ReturnType<typeof useMealOf>;
+  surahNameOf: ReturnType<typeof useSurahNameOf>;
+  onRemove: (verseKey: string) => void;
+}) {
+  const verseThemes = useMemo(() => {
+    if (!THEME_TAGS_ENABLED) return null;
+    const verseKey = `${item.surah_id}:${item.ayah_number}`;
+    const local = getVerseThemes(verseKey);
+    if (local.main || local.subs.length > 0) return local;
+    return normalizeVerseThemes(item.ana_tema, item.alt_taglar);
+  }, [item.surah_id, item.ayah_number, item.ana_tema, item.alt_taglar]);
+
+  return (
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
+      onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
+      onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
+      activeOpacity={0.75}
+      accessibilityRole="button"
+      accessibilityLabel={fmt(t.favOpenA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key, n: item.ayah_number })}
+    >
+      <View style={styles.cardHeader}>
+        <Badge label={item.verse_key} tone="emerald" style={styles.keyBadge} />
+        {item.surah_name && (
+          <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
+            {fmt(t.favSurahLine, { name: surahNameOf(item.surah_id, item.surah_name) ?? "", n: item.ayah_number })}
+          </Text>
+        )}
+        <TouchableOpacity onPress={() => onRemove(item.verse_key)} hitSlop={12} style={styles.actionBtn} accessibilityRole="button" accessibilityLabel={t.removeFavA11y}>
+          <Ionicons name="heart" size={20} color={c.errorText} accessible={false} />
+        </TouchableOpacity>
+      </View>
+      {item.meal && (
+        <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{mealOf(item.verse_key, item.meal)}</Text>
+      )}
+      {verseThemes && (verseThemes.main || verseThemes.subs.length > 0) && (
+        <View style={styles.tagRow}>
+          {verseThemes.main && (() => {
+            const code = verseThemes.main;
+            const title = getThemeTitle(code, lang);
+            return (
+              <TouchableOpacity
+                onPress={() => router.push(`/search?tag=${encodeURIComponent(code)}&page=1`)}
+                activeOpacity={0.7}
+                hitSlop={6}
+                accessibilityRole="button"
+                accessibilityLabel={fmt(t.searchTagA11y, { tag: title })}
+              >
+                <Badge label={title} tone="emerald" />
+              </TouchableOpacity>
+            );
+          })()}
+          {verseThemes.subs.slice(0, 3).map((code) => {
+            const title = getThemeTitle(code, lang);
+            return (
+              <TouchableOpacity
+                key={code}
+                onPress={() => router.push(`/search?tag=${encodeURIComponent(code)}&page=1`)}
+                activeOpacity={0.7}
+                hitSlop={6}
+                accessibilityRole="button"
+                accessibilityLabel={fmt(t.searchTagA11y, { tag: title })}
+              >
+                <Badge label={title} tone="neutral" />
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      )}
+    </TouchableOpacity>
+  );
+});
+
 export default function FavorilerScreen() {
   const c = useColors();
   const t = useStrings(personalStrings);
   const mealOf = useMealOf();
-  const isEn = useLang() === "en";
+  const lang = useLang();
   const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const {
@@ -76,57 +171,16 @@ export default function FavorilerScreen() {
   }, [toggle, t]);
 
   const renderItem = useCallback(({ item }: { item: FavoriteVerse }) => (
-    <TouchableOpacity
-      style={[styles.card, { backgroundColor: c.card, borderColor: c.border }]}
-      onPressIn={() => prefetchAyah(item.surah_id, item.ayah_number)}
-      onPress={() => router.push(`/ayah/${item.surah_id}/${item.ayah_number}`)}
-      activeOpacity={0.75}
-      accessibilityRole="button"
-      accessibilityLabel={fmt(t.favOpenA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key, n: item.ayah_number })}
-    >
-      <View style={styles.cardHeader}>
-        <Badge label={item.verse_key} tone="emerald" style={styles.keyBadge} />
-        {item.surah_name && (
-          <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
-            {fmt(t.favSurahLine, { name: surahNameOf(item.surah_id, item.surah_name) ?? "", n: item.ayah_number })}
-          </Text>
-        )}
-        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={12} style={styles.actionBtn} accessibilityRole="button" accessibilityLabel={t.removeFavA11y}>
-          <Ionicons name="heart" size={20} color={c.errorText} accessible={false} />
-        </TouchableOpacity>
-      </View>
-      {item.meal && (
-        <Text style={[styles.mealText, { color: c.textSecondary }]} numberOfLines={3}>{mealOf(item.verse_key, item.meal)}</Text>
-      )}
-      {!isEn && (item.ana_tema || item.alt_taglar?.length > 0) && (
-        <View style={styles.tagRow}>
-          {item.ana_tema && (
-            <TouchableOpacity
-              onPress={() => { if (item.ana_tema) router.push(`/search?tag=${encodeURIComponent(item.ana_tema)}&page=1`); }}
-              activeOpacity={0.7}
-              hitSlop={6}
-              accessibilityRole="button"
-              accessibilityLabel={fmt(t.searchTagA11y, { tag: item.ana_tema })}
-            >
-              <Badge label={item.ana_tema} tone="emerald" />
-            </TouchableOpacity>
-          )}
-          {item.alt_taglar?.slice(0, 3).map(tag => (
-            <TouchableOpacity
-              key={tag}
-              onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
-              activeOpacity={0.7}
-              hitSlop={6}
-              accessibilityRole="button"
-              accessibilityLabel={fmt(t.searchTagA11y, { tag })}
-            >
-              <Badge label={tag} tone="neutral" />
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
-    </TouchableOpacity>
-  ), [c, handleRemoveOne, isEn, mealOf, surahNameOf, t]);
+    <FavoriteCard
+      item={item}
+      c={c}
+      t={t}
+      lang={lang}
+      mealOf={mealOf}
+      surahNameOf={surahNameOf}
+      onRemove={handleRemoveOne}
+    />
+  ), [c, handleRemoveOne, lang, mealOf, surahNameOf, t]);
 
   // Yerel favori yoksa ağ isteğini beklemeden doğrudan boş durumu göster.
   if (!loaded || (favorites.length > 0 && loading)) {

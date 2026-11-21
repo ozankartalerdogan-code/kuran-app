@@ -19,7 +19,6 @@ import * as Haptics from 'expo-haptics';
 // Seri kartındaki Lottie alev animasyonu kaldırıldı (düşük donanımda nokta kadar
 // görünüyordu); yerine sabit rozet var. lottie-react-native paketi başka ekranlarda kullanılıyor.
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
-import { TasbihModal } from '../../src/components/ZikirMatik';
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { CloseButton, featureColors, space, toneColors, type IoniconName, type Tone } from "../../src/components/ui";
@@ -129,7 +128,6 @@ function HomeContent() {
   }, [refreshDaily, refreshStreak]);
   const [moodLoading, setMoodLoading] = useState<string | null>(null);
   const [selectedMood, setSelectedMood] = useState<MoodResult | null>(null);
-  const [tasbihOpen, setTasbihOpen]   = useState(false);
   const prayerTarget = useTourTarget("home.prayerTimes");
   const qiblaTarget = useTourTarget("home.quick.qibla");
   const scrollRef = useRef<ScrollView>(null);
@@ -142,13 +140,13 @@ function HomeContent() {
     return true;
   }, []);
   useEffect(() => {
-    if (!tasbihOpen && !selectedMood) { modalEnd.current?.(); modalEnd.current = null; }
-  }, [tasbihOpen, selectedMood]);
+    if (!selectedMood) { modalEnd.current?.(); modalEnd.current = null; }
+  }, [selectedMood]);
   useEffect(() => {
     modalMounted.current = true;
     return () => { modalMounted.current = false; modalEnd.current?.(); modalEnd.current = null; };
   }, []);
-  const openTasbih = useCallback(() => { if (acquireModal()) setTasbihOpen(true); }, [acquireModal]);
+  const openTasbih = useCallback(() => { router.push("/tespih"); }, []);
 
   const handleSearchPress = useCallback(() => {
     logFeature("home_search");
@@ -479,7 +477,6 @@ function HomeContent() {
         </View>
       </View>
     </ScrollView>
-    <TasbihModal visible={tasbihOpen} onClose={() => setTasbihOpen(false)} />
     <Modal
       visible={!!selectedMood}
       transparent

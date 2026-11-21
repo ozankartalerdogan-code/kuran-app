@@ -12,7 +12,6 @@ export default defineStrings({
     esmaEmpty: "Sonuç bulunamadı.",
     // ne-ogreneyim
     backA11y: "Geri",
-    back: "‹ Geri",
     learnTitle: "Ne öğrenmek istiyorsun?",
     learnSub: "Bir konu seç",
     lessonsTitle: "Dersler", lessonsDesc: "Kart kart öğren, kendini test et",
@@ -61,7 +60,6 @@ export default defineStrings({
     esmaRoot: "ROOT",
     esmaEmpty: "No results found.",
     backA11y: "Back",
-    back: "‹ Back",
     learnTitle: "What would you like to learn?",
     learnSub: "Choose a topic",
     lessonsTitle: "Lessons", lessonsDesc: "Learn card by card, test yourself",

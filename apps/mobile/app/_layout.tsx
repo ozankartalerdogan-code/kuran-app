@@ -214,6 +214,7 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
         }}
       >
         <Stack.Screen name="(tabs)"                         options={{ headerShown: false }} />
+        <Stack.Screen name="tespih"                         options={{ headerShown: false, animation: "slide_from_bottom" }} />
         <Stack.Screen name="onboarding"                     options={{ headerShown: false, gestureEnabled: false }} />
         <Stack.Screen name="surah/[id]"                     options={{ headerBackTitle: t.back }} />
         <Stack.Screen name="ayah/[surahId]/[ayahNumber]"    options={{ headerShown: false }} />

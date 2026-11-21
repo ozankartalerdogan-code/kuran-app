@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
-  View, Text, Modal, TouchableOpacity, StyleSheet,
+  View, Text, TouchableOpacity, StyleSheet,
   Animated, Platform, Pressable, ScrollView, TextInput, Alert,
 } from "react-native";
 import { storage } from "../lib/storage";
@@ -14,9 +14,7 @@ import { localizedTranslit } from "../lib/translitEn";
 import componentStrings from "../i18n/strings/components";
 import { Badge, Button, CloseButton, radius } from "./ui";
 
-// Modal içeriği yalnız görünürken mount olur → zikir çekilirken ekran uyanık
-// kalır, modal kapanınca serbest bırakılır. (Hook doğrudan TasbihModal gövdesine
-// konsaydı bileşen hep mount olduğu için ekran sürekli uyanık kalırdı.)
+// Route açıkken ekran uyanık kalır; kapanıp unmount olunca serbest bırakılır.
 function KeepAwakeWhileOpen() {
   useKeepAwakeSafe();
   return null;
@@ -91,7 +89,7 @@ const BeadRing = React.memo(function BeadRing({
   );
 });
 
-export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: () => void }) {
+export function TasbihScreen({ onClose }: { onClose: () => void }) {
   const c      = useColors();
   const t      = useStrings(componentStrings);
   const lang   = useLang();
@@ -112,6 +110,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const [targetOverrides,   setTargetOverrides]    = useState<Record<string, number>>({}); // hazır zikir → özel hedef
   const [editingPreset,     setEditingPreset]      = useState(false);
   const [presetTargetInput, setPresetTargetInput]  = useState("");
+  const [stateLoaded,       setStateLoaded]        = useState(false);
+  const pendingSaveRef = useRef<(() => void) | null>(null);
 
   const zikir  = ZİKİRLER[zikirIdx];
   const isOzel = zikir.ozel === true;
@@ -157,16 +157,29 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         const cnt = typeof st.count === "number" && st.count > 0 ? st.count : 0;
         setCount(cnt >= loadedTarget ? 0 : cnt);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setStateLoaded(true));
   }, []);
 
   // Aktif sayımı kaydet (debounce — her çekişte disk yazımını önler)
   useEffect(() => {
-    const t = setTimeout(() => {
+    if (!stateLoaded) return;
+    const save = () => {
       storage.setString(STATE_KEY, JSON.stringify({ zikirIdx, count, tur, customName, customTarget })).catch(() => {});
+    };
+    pendingSaveRef.current = save;
+    const t = setTimeout(() => {
+      save();
+      pendingSaveRef.current = null;
     }, 400);
     return () => clearTimeout(t);
-  }, [zikirIdx, count, tur, customName, customTarget]);
+  }, [stateLoaded, zikirIdx, count, tur, customName, customTarget]);
+
+  // Route kapanırken debounce süresi dolmamış son sayımı da koru.
+  useEffect(() => () => {
+    pendingSaveRef.current?.();
+    pendingSaveRef.current = null;
+  }, []);
 
   const playFeedback = useCallback((success: boolean) => {
     if (Platform.OS === "web") {
@@ -345,7 +358,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
   const CIRCLE_SZ  = 132;
 
   return (
-    <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
+    <>
       <KeepAwakeWhileOpen />
       <View style={[m.screen, {
         backgroundColor: c.bg,
@@ -562,7 +575,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         </View>
 
       </View>
-    </Modal>
+    </>
   );
 }
 
