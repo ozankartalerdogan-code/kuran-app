@@ -27,7 +27,23 @@ const HEAVY = 'خصضغطقظ';
 // Türkçe Elif-Ba yazımı: harf harf eşleme (çok harfli dizilerin sonradan değiştirilmesi
 // "dkh" → "dh" → "z" gibi yanlış birleşmeler üretiyordu).
 export const CONS_TR = { ...CONS, 'ث':'s','ج':'c','ح':'h','خ':'h','ذ':'z','ش':'ş','ص':'s','ض':'d','ط':'t',
-  'ظ':'z','ع':"'",'غ':'ğ','ق':'k','و':'v','ء':"'",'أ':"'",'إ':"'",'ؤ':"'",'ئ':"'",'ا':"'" };
+  'ظ':'z','ع':"'",'غ':'g','ق':'k','و':'v','ء':"'",'أ':"'",'إ':"'",'ؤ':"'",'ئ':"'",'ا':"'" };
+
+// Diyanet Elif-Ba (Etkinliklerle Elif-Bâ, s. 19–21, 144): üstün ince harfte "e", kalın harfte "a";
+// esre kalın harfte "i-ı arası" (TTS için "ı"); ötre "u"; iki üstün "en"/"an".
+// ر üstün/ötreyle kalın okunur; ع Türkçe okunuş geleneğinde "a" ile yazılır (aleyhim, amile).
+// Ardından cezimli kalın harf gelen ünlü de kalınlaşır (أَطْ "at", أَسْ "es"): hece tablosunda harf farkı duyulsun.
+const KALIN = 'خصضطظغق';
+const ACIK = 'حع'; // üstünü Türkçe okunuşta "a" yazılır (Muhammed, hasene, aleyhim); esresi ince kalır
+function trSesli(vowel, c, ch, i) {
+  let j = i + 1;
+  while (j < ch.length && !(ch[j] in CONS_TR)) j++;
+  const sonrakiCezimli = ch[j + 1] === 'ْ' && ch[j] ? ch[j] : '-';
+  const kalin = KALIN.includes(c) || (c === 'ر' && !/^i/.test(vowel)) || KALIN.includes(sonrakiCezimli);
+  if (kalin) return vowel.replace(/^i/, 'ı');
+  if (ACIK.includes(c) || ACIK.includes(sonrakiCezimli)) return vowel;
+  return vowel.replace(/^a/, 'e');
+}
 
 export function transliterate(word, cons = CONS) {
   const CONS = cons;
@@ -43,12 +59,13 @@ export function transliterate(word, cons = CONS) {
     if (!(c in CONS)) continue;
     const marks = [];
     while (i + 1 < ch.length && /[ً-ْٰ]/u.test(ch[i + 1])) marks.push(ch[++i]);
-    const vowel = marks.map(m => VOW[m] ?? (m === 'ٰ' ? 'ā' : '')).join('');
+    let vowel = marks.map(m => VOW[m] ?? (m === 'ٰ' ? 'ā' : '')).join('');
+    if (cons === CONS_TR && vowel) vowel = trSesli(vowel, c, ch, i);
     const shadda = marks.includes('ّ');
     const bare = !vowel && !marks.includes('ْ') && !shadda;
     // Harekesiz med harfi: üstün+elif/ye(ى) → ā, esre+ye → ī, ötre+vav → ū.
-    if (bare && /[اى]/u.test(c) && out.endsWith('a')) { out = `${out.slice(0, -1)}ā`; continue; }
-    if (bare && c === 'ي' && out.endsWith('i')) { out = `${out.slice(0, -1)}ī`; continue; }
+    if (bare && /[اى]/u.test(c) && /[ae]$/.test(out)) { out = `${out.slice(0, -1)}ā`; continue; }
+    if (bare && c === 'ي' && /[iı]$/.test(out)) { out = `${out.slice(0, -1)}ī`; continue; }
     if (bare && c === 'و' && out.endsWith('u')) { out = `${out.slice(0, -1)}ū`; continue; }
     if (bare && c === 'ا') continue;
     const base = CONS[c];
