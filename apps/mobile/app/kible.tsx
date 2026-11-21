@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
-  View, Text, TouchableOpacity, StyleSheet, ScrollView,
+  View, Text, StyleSheet, ScrollView,
   ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing, Platform, AccessibilityInfo,
 } from "react-native";
 import { Stack, router } from "expo-router";
@@ -9,7 +9,9 @@ import * as Location from "expo-location";
 import { Magnetometer, Accelerometer, DeviceMotion } from "expo-sensors";
 import * as Haptics from "expo-haptics";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
+import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../src/hooks/useColors";
+import { Button, Callout, CloseButton, calloutColors, radius, space } from "../src/components/ui";
 import { useStrings, getStrings, fmt, localeTag, caps } from "../src/i18n";
 import kibleStrings from "../src/i18n/strings/kible";
 import { magneticDeclination } from "../src/lib/geomagnetism";
@@ -99,24 +101,10 @@ const DIRS = [
 ];
 const TICKS = Array.from({ length: 12 }, (_, i) => i * 30);
 
-// Yumuşak dikey degrade — expo-linear-gradient yok, katmanlı taklit (build gerektirmez)
-// Karanlık modda aynı yeşil kimlik koyu teal tonlarına iner (tasarım bozulmaz).
-const BgGradient = React.memo(function BgGradient({ isDark }: { isDark: boolean }) {
-  const from = isDark ? [4, 47, 46]   : [240, 253, 250]; // #042f2e / #f0fdfa
-  const to   = isDark ? [19, 78, 74]  : [167, 243, 208]; // #134e4a / #a7f3d0
-  const N = 14;
-  return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="none">
-      {Array.from({ length: N }, (_, i) => {
-        const t = i / (N - 1);
-        const r = Math.round(from[0] + (to[0] - from[0]) * t);
-        const g = Math.round(from[1] + (to[1] - from[1]) * t);
-        const b = Math.round(from[2] + (to[2] - from[2]) * t);
-        return <View key={i} style={{ flex: 1, backgroundColor: `rgb(${r},${g},${b})` }} />;
-      })}
-    </View>
-  );
-});
+// Pusulada kuzey işareti kırmızısı (tik, "K" harfi, üstteki ▼). Ipucu metni "kırmızı ▼"
+// dediği için hata belirteci yerine bilinçli sabit; koyu temada okunur açık ton.
+const NORTH_LIGHT = "#dc2626";
+const NORTH_DARK  = "#f87171";
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
@@ -449,15 +437,23 @@ export default function KibleScreen() {
     }
   }, [alignmentState, compassSummary]);
 
+  // ── Görünüm renkleri (yalnız stil; sensör/animasyon mantığına bağlı değil) ──
+  const north = dark ? NORTH_DARK : NORTH_LIGHT;
+  const faceBg = isAligned ? c.greenBg : c.card;
+  const kaabaBg = isAligned ? (dark ? c.greenText : c.emeraldBg) : (dark ? c.textSecondary : c.card);
+  const kaabaBorder = isAligned ? (dark ? c.accent : c.actionBg) : c.accent;
+  const needleColor = isAligned ? (dark ? c.greenText : c.actionBg) : c.accent;
+  const calib = calloutColors(c, "warning");
+
   // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
   if (step === "locating") {
     return (
       <>
         <Stack.Screen options={{ title: ks.screenTitle }} />
-        <View style={[s.centered, dark && { backgroundColor: "#042f2e" }, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+        <View style={[s.centered, { backgroundColor: c.bg, paddingBottom: insets.bottom }]}>
           <ActivityIndicator size="large" color={c.accent} />
-          <Text style={[s.loadingText, dark && { color: "#ccfbf1" }]}>{ks.locating}</Text>
-          <Text style={[s.loadingSub, dark && { color: "#2dd4bf" }]}>{ks.locatingSub}</Text>
+          <Text style={[s.loadingText, { color: c.text }]}>{ks.locating}</Text>
+          <Text style={[s.loadingSub, { color: c.textSecondary }]}>{ks.locatingSub}</Text>
         </View>
       </>
     );
@@ -467,29 +463,29 @@ export default function KibleScreen() {
   return (
     <>
       <Stack.Screen options={{ title: ks.screenTitle }} />
-      <View style={[s.container, dark && { backgroundColor: "#042f2e" }]}>
-        <BgGradient isDark={dark} />
+      <View style={[s.container, { backgroundColor: c.bg }]}>
         {/* Küçük ekranda uyarı kutusu çıkınca "Konumu Yenile" taşmasın diye kaydırılabilir. */}
         <ScrollView
           style={s.scroll}
-          contentContainerStyle={[s.scrollContent, { paddingTop: insets.top, paddingBottom: 40 + insets.bottom }]}
+          contentContainerStyle={[s.scrollContent, { paddingBottom: 40 + insets.bottom }]}
           showsVerticalScrollIndicator={false}
         >
 
-        {/* Kalibrasyon — sade tek satır */}
+        {/* Kalibrasyon — sade tek satır (uyarı tonu + ortak kapat düğmesi) */}
         {showCalib && (
-          <TouchableOpacity style={[s.calibSlim, dark && { backgroundColor: "#422006", borderColor: "#713f12" }]} onPress={() => setShowCalib(false)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={ks.calibA11y}>
-            <Text style={[s.calibSlimText, dark && { color: "#fde68a" }]}>{ks.calibPre}<Text style={{ fontWeight: "800" }}>{ks.calibBold}</Text>{ks.calibPost}</Text>
-            <Text style={[s.calibSlimX, dark && { color: "#fbbf24" }]}>✕</Text>
-          </TouchableOpacity>
+          <View style={[s.calibSlim, { backgroundColor: calib.bg, borderColor: calib.border }]}>
+            <Ionicons name="sync-outline" size={18} color={calib.text} accessible={false} importantForAccessibility="no" />
+            <Text style={[s.calibSlimText, { color: calib.text }]}>{ks.calibPre}<Text style={{ fontWeight: "800" }}>{ks.calibBold}</Text>{ks.calibPost}</Text>
+            <CloseButton onPress={() => setShowCalib(false)} accessibilityLabel={ks.calibA11y} />
+          </View>
         )}
 
-        <Text style={[s.cityLabel, dark && { color: "#ccfbf1" }]}>{ks.yourLocation}</Text>
+        <Text style={[s.cityLabel, { color: c.text }]}>{ks.yourLocation}</Text>
         {distance != null && (
-          <Text style={[s.distText, dark && { color: "#5eead4" }]}>{fmt(ks.distanceToKaaba, { d: Math.round(distance).toLocaleString(localeTag()) })}</Text>
+          <Text style={[s.distText, { color: c.textSecondary }]}>{fmt(ks.distanceToKaaba, { d: Math.round(distance).toLocaleString(localeTag()) })}</Text>
         )}
         {approx && (
-          <Text style={[s.loadingSub, dark && { color: "#2dd4bf" }]} accessibilityLiveRegion="polite">{ks.approxLocation}</Text>
+          <Text style={[s.loadingSub, s.approx, { color: c.textSecondary }]} accessibilityLiveRegion="polite">{ks.approxLocation}</Text>
         )}
 
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
@@ -497,15 +493,15 @@ export default function KibleScreen() {
 
           {/* Sabit lubber göstergesi — telefonun baktığı yön (dönmez) */}
           <View style={s.lubber}>
-            <View style={s.lubberHalo} />
-            <View style={s.lubberTri} />
+            <View style={[s.lubberHalo, { borderTopColor: c.bg }]} />
+            <View style={[s.lubberTri, { borderTopColor: north }]} />
           </View>
 
           {/* ÜST KADRAN = dönen pusula gülü. Harfler konumları döner ama dik kalır. */}
-          <Animated.View style={[s.rose, dark && { backgroundColor: "#1e293b", borderColor: "#475569" }, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: roseRotate }] }]}>
+          <Animated.View style={[s.rose, { backgroundColor: dark ? c.cardAlt : c.border, borderColor: dark ? c.border : c.textMuted }, { width: OUTER, height: OUTER, borderRadius: OUTER / 2, transform: [{ rotate: roseRotate }] }]}>
             {TICKS.map((a) => (
               <View key={`t${a}`} style={[s.tickLayer, { transform: [{ rotate: `${a}deg` }] }]}>
-                <View style={[s.tickMark, a % 90 === 0 ? s.tickMajor : null, dark && a !== 0 ? { backgroundColor: a % 90 === 0 ? "#cbd5e1" : "#64748b" } : null, a === 0 ? s.tickN : null]} />
+                <View style={[s.tickMark, a % 90 === 0 ? s.tickMajor : null, { backgroundColor: a === 0 ? north : a % 90 === 0 ? c.textSecondary : c.textMuted }]} />
               </View>
             ))}
             {DIRS.map((d) => (
@@ -516,8 +512,7 @@ export default function KibleScreen() {
                   style={[
                     s.dir,
                     d.major ? s.dirMajor : s.dirMinor,
-                    d.b === 0 ? s.dirN : null,
-                    dark ? { color: d.b === 0 ? "#f87171" : d.major ? "#e2e8f0" : "#94a3b8" } : null,
+                    { color: d.b === 0 ? north : d.major ? c.text : c.textSecondary },
                     { transform: [{ rotate: headingAnim.interpolate({ inputRange: [0, 1], outputRange: [`${-d.b}deg`, `${1 - d.b}deg`], extrapolate: "extend" }) }] },
                   ]}
                 >
@@ -528,53 +523,50 @@ export default function KibleScreen() {
           </Animated.View>
 
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
-          <View style={[s.face, dark && { backgroundColor: "#0f172a", borderColor: "#334155" }, isAligned && s.faceOk, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
+          <View style={[s.face, { backgroundColor: faceBg, borderColor: isAligned ? c.accent : c.border }, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             {/* Kuyruk (zıt yön) — denge için */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: tailRotate }] }]}>
-              <View style={[s.needleTail, dark && { backgroundColor: "#475569" }, { height: FACE / 2 - 34 }]} />
+              <View style={[s.needleTail, { backgroundColor: c.border }, { height: FACE / 2 - 34 }]} />
             </Animated.View>
             {/* Kabe oku */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: needleRotate }] }]}>
-              <View style={[s.kaabaBadge, dark && { backgroundColor: "#0f172a", borderColor: "#10b981" }, isAligned && [s.kaabaBadgeOk, dark && { backgroundColor: "#064e3b" }]]}>
+              <View style={[s.kaabaBadge, { backgroundColor: kaabaBg, borderColor: kaabaBorder }]}>
                 <Animated.Text accessible={false} importantForAccessibility="no" style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
-              <View style={[s.needleUp, dark && { backgroundColor: "#10b981" }, isAligned && s.needleUpOk, { height: FACE / 2 - 56 }]} />
+              <View style={[s.needleUp, { backgroundColor: needleColor }, { height: FACE / 2 - 56 }]} />
             </Animated.View>
-            <View style={[s.centerHub, dark && { borderColor: "#0f172a", backgroundColor: "#10b981" }]} />
+            <View style={[s.centerHub, { backgroundColor: needleColor, borderColor: faceBg }]} />
           </View>
         </View>
 
         {/* Açı */}
-        <View style={[s.badge, dark && { backgroundColor: "#134e4a", borderColor: "#0f766e" }, isAligned && [s.badgeOk, dark && { backgroundColor: "#064e3b", borderColor: "#34d399" }]]}>
-          <Text accessible accessibilityLabel={compassSummary} style={[s.badgeNum, dark && { color: "#a7f3d0" }, isAligned && [s.badgeNumOk, dark && { color: "#6ee7b7" }]]}>{Math.round(qibla ?? 0)}°</Text>
-          <Text accessible={false} importantForAccessibility="no" style={[s.badgeSub, dark && { color: "#5eead4" }, isAligned && [s.badgeSubOk, dark && { color: "#34d399" }]]}>
-            {caps(isAligned ? ks.aligned : ks.northToKaaba)}
-          </Text>
+        <View style={[s.badge, isAligned ? { backgroundColor: c.greenBg, borderColor: c.greenBorder } : { backgroundColor: c.card, borderColor: c.border }]}>
+          <Text accessible accessibilityLabel={compassSummary} style={[s.badgeNum, { color: isAligned ? c.greenText : c.text }]}>{Math.round(qibla ?? 0)}°</Text>
+          <View style={s.badgeSubRow} accessible={false} importantForAccessibility="no-hide-descendants">
+            {isAligned && <Ionicons name="checkmark-circle" size={14} color={c.greenText} />}
+            <Text style={[s.badgeSub, { color: isAligned ? c.greenText : c.textSecondary }]}>
+              {caps(isAligned ? ks.aligned : ks.northToKaaba)}
+            </Text>
+          </View>
         </View>
 
         {/* Durum */}
         {compassOk === false && (
-          <View style={[s.infoBox, dark ? { borderColor: "#7f1d1d", backgroundColor: "#450a0a" } : { borderColor: "#fca5a5", backgroundColor: "#fff1f2" }]}>
-            <Text style={[s.infoText, { color: dark ? "#fca5a5" : "#991b1b" }]}>
-              {ks.noCompass}
-            </Text>
-          </View>
+          <Callout tone="error" style={s.infoBox}>{ks.noCompass}</Callout>
         )}
         {compassOk === true && (
-          <View style={[s.infoBox, dark && { backgroundColor: "#042f2e", borderColor: "#0f766e" }]}>
-            <Text style={[s.infoText, dark && { color: "#99f6e4" }]}>{ks.hint}</Text>
-          </View>
+          <Callout tone="neutral" icon="compass-outline" style={s.infoBox}>{ks.hint}</Callout>
         )}
 
-        <TouchableOpacity
-          style={s.backBtn}
+        <Button
+          variant="ghost"
+          tone="accent"
+          icon="refresh-outline"
+          label={ks.refresh}
           onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(); }}
-          activeOpacity={0.7}
-          accessibilityRole="button"
           accessibilityLabel={ks.refreshA11y}
-        >
-          <Text style={[s.backBtnText, { color: c.accent }]}>{ks.refresh}</Text>
-        </TouchableOpacity>
+          style={s.refreshBtn}
+        />
         </ScrollView>
       </View>
     </>
@@ -582,103 +574,95 @@ export default function KibleScreen() {
 }
 
 // ── Stiller ───────────────────────────────────────────────────────────────────
+// Renkler satır içinde belirteçlerden gelir; burada yalnız ölçü/yerleşim var.
+// Pusula ölçüleri (OUTER/FACE, tik/harf paddingTop, ibre boyları, rozet 46×46) cihazda
+// ayarlandı — değiştirme.
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f0fdfa" },
+  container: { flex: 1 },
   scroll: { flex: 1, alignSelf: "stretch" },
-  scrollContent: { flexGrow: 1, alignItems: "center", paddingHorizontal: 20 },
-  centered:  { flex: 1, backgroundColor: "#f0fdfa", alignItems: "center", justifyContent: "center", gap: 12 },
-  loadingText: { fontSize: 16, fontWeight: "600", color: "#134e4a", marginTop: 8 },
-  loadingSub:  { fontSize: 12, color: "#5eead4" },
+  scrollContent: { flexGrow: 1, alignItems: "center", paddingHorizontal: space.gutter, paddingTop: space.sm },
+  centered:  { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
+  loadingText: { fontSize: 16, fontWeight: "600", marginTop: 8 },
+  loadingSub:  { fontSize: 12 },
+  approx:      { textAlign: "center", marginBottom: space.xs },
 
   // Sade kalibrasyon çubuğu
   calibSlim: {
-    width: "100%", flexDirection: "row", alignItems: "center", gap: 8,
-    backgroundColor: "#fefce8", borderRadius: 10, borderWidth: 1, borderColor: "#fde68a",
-    paddingVertical: 9, paddingHorizontal: 12, marginBottom: 12,
+    width: "100%", flexDirection: "row", alignItems: "center", gap: space.xs,
+    borderRadius: radius.md, borderWidth: 1,
+    paddingLeft: space.sm, paddingRight: space.xxs, paddingVertical: space.xxs, marginBottom: space.sm,
   },
-  calibSlimText: { flex: 1, fontSize: 12, color: "#92400e", lineHeight: 17 },
-  calibSlimX:    { fontSize: 13, color: "#a16207", fontWeight: "700", paddingHorizontal: 2 },
+  calibSlimText: { flex: 1, fontSize: 12, lineHeight: 17 },
 
-  cityLabel: { fontSize: 15, fontWeight: "700", color: "#134e4a", marginBottom: 2, marginTop: 2 },
-  distText:  { fontSize: 13, color: "#0d9488", marginBottom: 18 },
+  cityLabel: { fontSize: 15, fontWeight: "700", marginBottom: 2, marginTop: 2 },
+  distText:  { fontSize: 13, marginBottom: 18 },
 
   // Pusula kapsayıcısı (sabit)
   compassWrap: { alignItems: "center", justifyContent: "center", position: "relative" },
 
-  // Sabit lubber göstergesi — beyaz konturlu üçgen (telefon yönü)
+  // Sabit lubber göstergesi — zemin renginde konturlu kırmızı üçgen (telefon yönü)
   lubber:     { position: "absolute", top: -9, zIndex: 20, alignItems: "center" },
   lubberHalo: {
     position: "absolute", top: 0,
     width: 0, height: 0, borderLeftWidth: 13, borderRightWidth: 13, borderTopWidth: 20,
-    borderLeftColor: "transparent", borderRightColor: "transparent", borderTopColor: "#ffffff",
+    borderLeftColor: "transparent", borderRightColor: "transparent",
   },
   lubberTri: {
     marginTop: 2.5,
     width: 0, height: 0, borderLeftWidth: 9.5, borderRightWidth: 9.5, borderTopWidth: 15,
-    borderLeftColor: "transparent", borderRightColor: "transparent", borderTopColor: "#dc2626",
+    borderLeftColor: "transparent", borderRightColor: "transparent",
   },
 
-  // Üst kadran = dönen pusula gülü (gümüş/metalik bezel)
+  // Üst kadran = dönen pusula gülü (taş bezel)
   rose: {
-    backgroundColor: "#e4e7ec", borderWidth: 2, borderColor: "#9aa3b2",
+    borderWidth: 2,
     alignItems: "center", justifyContent: "center",
-    shadowColor: "#475569", shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.18, shadowRadius: 6, elevation: 3,
+    shadowColor: "#000", shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12, shadowRadius: 6, elevation: 3,
   },
 
-  // Tikler — koyu slate, gümüş bant üzerinde net görünür
+  // Tikler
   tickLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 5 },
-  tickMark:  { width: 2, height: 8, backgroundColor: "#8b95a7", borderRadius: 1 },
-  tickMajor: { width: 3, height: 13, backgroundColor: "#3f4a5e" },
-  tickN:     { backgroundColor: "#dc2626" },
+  tickMark:  { width: 2, height: 8, borderRadius: 1 },
+  tickMajor: { width: 3, height: 13 },
 
-  // Yön harfleri — koyu, gümüş üzerinde okunur; harf dik kalır
+  // Yön harfleri — harf dik kalır
   dirLayer:  { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 21 },
-  dir:       { color: "#1e293b", textAlign: "center" },
+  dir:       { textAlign: "center" },
   dirMajor:  { fontSize: 17, fontWeight: "800" },
-  dirMinor:  { fontSize: 11, fontWeight: "700", color: "#5b677a" },
-  dirN:      { color: "#dc2626" },
+  dirMinor:  { fontSize: 11, fontWeight: "700" },
 
   // İç daire = ibre yüzeyi (gülden bağımsız döner)
   face: {
-    backgroundColor: "#fff", borderWidth: 4, borderColor: "#cbd5e1",
+    borderWidth: 4,
     alignItems: "center", justifyContent: "center", position: "absolute",
     shadowColor: "#000", shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.12, shadowRadius: 12, elevation: 8,
   },
-  faceOk: { borderColor: "#34d399" }, // hizalı: yeşil çerçeve
 
   // İbreyi tam kaplayan dönen katman — merkez etrafında döner
   needleLayer: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "flex-start", paddingTop: 6 },
   kaabaBadge: {
-    width: 46, height: 46, borderRadius: 23, backgroundColor: "#fff",
-    borderWidth: 2, borderColor: "#059669", alignItems: "center", justifyContent: "center",
+    width: 46, height: 46, borderRadius: 23,
+    borderWidth: 2, alignItems: "center", justifyContent: "center",
     shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.18, shadowRadius: 4, elevation: 4,
   },
-  kaabaBadgeOk: { borderColor: "#34d399", backgroundColor: "#ecfdf5" },
-  needleUp:   { width: 4, backgroundColor: "#059669", borderRadius: 2, marginTop: -1 },
-  needleUpOk: { backgroundColor: "#34d399" },
-  needleTail: { width: 4, backgroundColor: "#cbd5e1", borderRadius: 2, marginTop: 6 },
-  centerHub:  { position: "absolute", width: 16, height: 16, borderRadius: 8, backgroundColor: "#059669", borderWidth: 3, borderColor: "#fff" },
+  needleUp:   { width: 4, borderRadius: 2, marginTop: -1 },
+  needleTail: { width: 4, borderRadius: 2, marginTop: 6 },
+  centerHub:  { position: "absolute", width: 16, height: 16, borderRadius: 8, borderWidth: 3 },
 
   needleEmoji: { fontSize: 26 },
 
-  // Derece kartı — şık beyaz kart
+  // Derece kartı — hizasızken nötr, hizalanınca yeşil (yalnız renk değişir, ölçü sabit)
   badge: {
-    marginTop: 22, backgroundColor: "#fff", borderRadius: 18, paddingHorizontal: 34, paddingVertical: 12,
-    alignItems: "center", borderWidth: 1, borderColor: "#a7f3d0",
-    shadowColor: "#0f766e", shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.12, shadowRadius: 8, elevation: 4,
+    marginTop: 22, borderRadius: radius.lg, paddingHorizontal: 34, paddingVertical: 12,
+    alignItems: "center", borderWidth: 1,
   },
-  badgeNum: { fontSize: 38, fontWeight: "800", color: "#065f46", letterSpacing: 0.5 },
-  badgeSub: { fontSize: 11, color: "#0d9488", marginTop: 1, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase" },
-  badgeOk:    { borderColor: "#34d399", backgroundColor: "#ecfdf5" }, // hizalı: yeşil kart
-  badgeNumOk: { color: "#047857" },
-  badgeSubOk: { color: "#059669" },
+  badgeNum: { fontSize: 38, fontWeight: "800", letterSpacing: 0.5 },
+  badgeSubRow: { flexDirection: "row", alignItems: "center", gap: space.xxs, marginTop: 1, minHeight: 16 },
+  badgeSub: { fontSize: 11, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase" },
 
-  infoBox:  { backgroundColor: "#ecfdf5", borderRadius: 10, padding: 12, marginTop: 12, width: "100%", borderWidth: 1, borderColor: "#a7f3d0" },
-  infoText: { fontSize: 13, color: "#065f46", textAlign: "center", lineHeight: 20 },
-
-  backBtn:     { marginTop: 16, paddingVertical: 10, paddingHorizontal: 20 },
-  backBtnText: { fontSize: 14, color: "#059669", fontWeight: "600" },
+  infoBox:  { marginTop: space.sm, width: "100%" },
+  refreshBtn: { marginTop: space.md },
 });
