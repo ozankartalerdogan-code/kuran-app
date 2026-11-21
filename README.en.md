@@ -176,8 +176,8 @@ The iOS bundle identifier is `com.kuranapp.mobile`; App Store preparations
 (permission descriptions, privacy manifest, Firebase plist) are completed,
 and submission is handled via the `submit.production` profile in `eas.json`.
 
-Release status (20 November 2026): Android 1.2.2 (versionCode 22) is live on
-Google Play; 1.2.3 (versionCode 23) is in Play review. The App Store submission
+Release status (21 November 2026): Android 1.2.3 (versionCode 23) is live on
+Google Play. The App Store submission
 is pending the Apple 4.2 appeal. Release notes are on GitHub Releases
 (`v1.2.0` … `v1.2.3`).
 

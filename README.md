@@ -170,8 +170,8 @@ iOS paket kimliği `com.kuranapp.mobile`; App Store hazırlığı (izin metinler
 privacy manifest, Firebase plist) yapılmıştır, gönderim `eas.json` içindeki
 `submit.production` profiliyle yapılır.
 
-Yayın durumu (20 Kasım 2026): Android 1.2.2 (versionCode 22) Google Play'de
-yayında; 1.2.3 (versionCode 23) Play incelemesinde. App Store gönderimi Apple
+Yayın durumu (21 Kasım 2026): Android 1.2.3 (versionCode 23) Google Play'de
+yayında. App Store gönderimi Apple
 4.2 itiraz sürecinde bekliyor. Sürüm notları GitHub Releases altındadır
 (`v1.2.0` … `v1.2.3`).
 
