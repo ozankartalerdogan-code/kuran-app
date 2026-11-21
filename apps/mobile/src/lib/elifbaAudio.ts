@@ -1,5 +1,6 @@
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from "expo-audio";
 import { AUDIO_BASE_URL } from "./runtimeConfig";
+import kelimeSesleri from "../data/elifba_kelime_ses.json";
 
 const AUDIO_BASE = AUDIO_BASE_URL;
 
@@ -25,6 +26,21 @@ export function stopHarfSes(): void {
 }
 
 export function playHarfSes(harfId: number, onError?: () => void, onPlayingChange?: (playing: boolean) => void): () => void {
+  return playSes(harfSesUrl(harfId), onError, onPlayingChange);
+}
+
+export function kelimeSesId(arapca: string): string | null {
+  const word = arapca.normalize("NFC");
+  return Object.hasOwn(kelimeSesleri, word) ? (kelimeSesleri as Record<string, string>)[word] : null;
+}
+
+export function playKelimeSes(arapca: string, onError?: () => void, onPlayingChange?: (playing: boolean) => void): () => void {
+  const id = kelimeSesId(arapca);
+  if (!id) return () => {};
+  return playSes(`${AUDIO_BASE}/audio/elifba/kelime/${id}.mp3`, onError, onPlayingChange);
+}
+
+function playSes(url: string, onError?: () => void, onPlayingChange?: (playing: boolean) => void): () => void {
   stopHarfSes();
   let cancelled = false;
   let sub: { remove(): void } | null = null;
@@ -61,7 +77,7 @@ export function playHarfSes(harfId: number, onError?: () => void, onPlayingChang
         audioModeSet = true;
       }
       if (cancelled) return;
-      const player = createAudioPlayer(harfSesUrl(harfId));
+      const player = createAudioPlayer(url);
       harfPlayer = player;
       ownedPlayer = player;
 

@@ -203,6 +203,14 @@ test("buildExerciseQuestions: boş Arapça geçerlidir ve yalnız soru metni gö
   );
 
   assert.equal(question.soru, "Kural nedir?");
+  assert.equal(question.exerciseArabic, "");
+});
+
+test("buildExerciseQuestions preserves the Arabic audio source in both languages", () => {
+  const row = make({ arabic: "رَزَقَ" });
+  for (const lang of ["tr", "en"] as const) {
+    assert.equal(buildExerciseQuestions([row], row.lessonId, lang)[0].exerciseArabic, row.arabic);
+  }
 });
 
 test("buildExerciseQuestions: yalnız onaylı kayıtları kullanır", () => {

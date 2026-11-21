@@ -5,6 +5,8 @@ import { useStrings, type Lang } from "../i18n";
 import elifbaStrings from "../i18n/strings/elifba";
 import { READING_MAX_WIDTH } from "../lib/layout";
 import { MAX_LESSON_TERMS, type DersIcerik } from "../lib/elifbaLessonContent";
+import { ElifbaWordAudioButton } from "./ElifbaWordAudioButton";
+import { space } from "./ui";
 
 type Props = {
   icerik: DersIcerik;
@@ -70,12 +72,10 @@ export function ElifbaLessonContent({ icerik, lang }: Props) {
             {words.map((word) => (
               <View
                 key={word}
-                accessible
-                accessibilityRole="text"
-                accessibilityLabel={word}
                 style={[st.chip, { backgroundColor: c.cardAlt, borderColor: c.border }]}
               >
                 <Text style={[st.chipText, { color: c.text }]}>{word}</Text>
+                <ElifbaWordAudioButton word={word} />
               </View>
             ))}
           </ScrollView>
@@ -101,6 +101,6 @@ const st = StyleSheet.create({
   wordsBlock: { gap: 4 },
   title: { fontSize: 10, fontWeight: "700", letterSpacing: 0.5 },
   chips: { flexDirection: "row", gap: 8, paddingVertical: 2, paddingRight: 8 },
-  chip: { borderRadius: 14, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 6 },
+  chip: { flexDirection: "row", alignItems: "center", gap: space.xxs, borderRadius: 14, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 6 },
   chipText: { fontFamily: "Amiri", fontSize: 18, writingDirection: "rtl" },
 });

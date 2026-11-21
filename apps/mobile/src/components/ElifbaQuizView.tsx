@@ -25,6 +25,7 @@ import { READING_MAX_WIDTH } from "../lib/layout";
 import { ELIFBA_QUIZ_PASS } from "../lib/elifbaProgress";
 import type { QuizQuestion } from "../lib/elifbaQuizSession";
 import type { ListeningItem } from "../lib/elifbaListening";
+import { ElifbaWordAudioButton } from "./ElifbaWordAudioButton";
 
 export type ElifbaQuizViewProps =
   | {
@@ -170,7 +171,12 @@ function QuestionRun({ questions, onAnswer, onFinish, isBypass }: {
     const otherLines  = lines.filter((l) => !isPureArabic(l));
     return (
       <>
-        {arabicLines.map((line, i) => (
+        {arabicLines.map((line, i) => line === soru.exerciseArabic ? (
+          <View key={`ar-${i}`} style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", gap: space.xxs }}>
+            <Text style={[qv.soruArabicLine, { color: c.text, flexShrink: 1 }]}>{line}</Text>
+            <ElifbaWordAudioButton key={`${soru.quiz_id}-${i}`} word={line} />
+          </View>
+        ) : (
           <Text key={`ar-${i}`} style={[qv.soruArabicLine, { color: c.text }]}>{line}</Text>
         ))}
         {otherLines.map((line, i) => (

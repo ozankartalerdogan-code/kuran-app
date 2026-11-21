@@ -4,6 +4,7 @@ export type QuizQuestion = {
   quiz_id: number;
   lesson_id: number;
   soru: string;
+  exerciseArabic?: string;
   secenekler: string[];
   dogru_cevap: string;
   ipucu: string | null;

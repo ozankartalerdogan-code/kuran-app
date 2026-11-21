@@ -207,6 +207,7 @@ export function buildExerciseQuestions(
         quiz_id: row.quizId,
         lesson_id: row.lessonId,
         soru: row.arabic.length > 0 ? `${text.prompt}\n${row.arabic}` : text.prompt,
+        exerciseArabic: row.arabic,
         secenekler: [...text.options],
         dogru_cevap: text.answer,
         ipucu: text.hint,
