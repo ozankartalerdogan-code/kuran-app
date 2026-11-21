@@ -157,7 +157,7 @@ function PeygamberCard({ p }: { p: Peygamber }) {
             </View>
           )}
 
-          {/* Kuran referansları */}
+          {/* Kur'an referansları */}
           {p.kuran_referanslari_ozet && p.kuran_referanslari_ozet.length > 0 && (
             <View style={st.section}>
               <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.quranRefs)}</Text>

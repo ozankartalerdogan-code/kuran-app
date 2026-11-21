@@ -6,7 +6,7 @@
     "olusturulma": "2026-06-20",
     "dil": "tr",
     "aciklama": "Günlük beş vakit dışında kılınan özel namazlar; kılınış sebebi, vakti, rekat sayısı, mezhep görüşleri ve dualarıyla birlikte detaylı rehber.",
-    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları ve klasik fıkıh birikimi esas alınarak derlenmiştir.",
+    "kaynak_not": "İçerik Kur'an-ı Kerim, sahih hadis kaynakları ve klasik fıkıh birikimi esas alınarak derlenmiştir.",
     "namazlar": [
       {
         "id": "cenaze_namazi",
@@ -70,7 +70,7 @@
           "not": "Cenaze duasını henüz ezberleyememişler bu kısa duayı okuyabilir."
         },
         "ozel_notlar": [
-          "Cenaze namazında Fatiha ve Kuran okumak caiz değildir — dua niyetiyle ayet okunabilir.",
+          "Cenaze namazında Fatiha ve Kur'an okumak caiz değildir — dua niyetiyle ayet okunabilir.",
           "Cenaze namazı 3 saf halinde kılınması menduptur.",
           "Aynı cenaze için namaz bir kez kılınır, tekrarı mekruhtur.",
           "Birden fazla cenaze için mümkünse ayrı ayrı namaz kılmak daha faziletlidir.",

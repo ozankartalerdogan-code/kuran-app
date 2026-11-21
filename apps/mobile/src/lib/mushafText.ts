@@ -24,7 +24,7 @@ export function arapRakam(n: number): string {
 const VAKIF_ONCESI_BOSLUK = / (?=[ۖ-ۜ])/g;
 
 // Tanzil → KFGQPC işaret uyumu: KFGQPC HAFS fontu (paketteki v09 VE resmî v22
-// dahil) Tanzil kodlamasındaki üç Kuran işareti için gerçek glif İÇERMEZ — o
+// dahil) Tanzil kodlamasındaki üç Kur'an işareti için gerçek glif İÇERMEZ — o
 // cmap yuvalarında satır içi "noktalı daire + siyah top" placeholder çizimi
 // vardır (cihazda siyah leke olarak görülür; fontTools/HarfBuzz/PIL ile
 // kanıtlandı — U+06DF glifinin advance genişliği 1442, elifin dört katı).

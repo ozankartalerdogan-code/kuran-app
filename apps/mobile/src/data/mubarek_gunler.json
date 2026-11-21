@@ -6,14 +6,14 @@
     "olusturulma": "2026-06-19",
     "dil": "tr",
     "aciklama": "İslam'da önem taşıyan gün ve geceler; dini dayanakları, tarihleri ve o gecelere özel ibadetleriyle birlikte.",
-    "kaynak_not": "İçerik Kuran-ı Kerim, sahih hadis kaynakları ve klasik İslami kaynaklar esas alınarak hazırlanmıştır.",
+    "kaynak_not": "İçerik Kur'an-ı Kerim, sahih hadis kaynakları ve klasik İslami kaynaklar esas alınarak hazırlanmıştır.",
     "dayanak_seviyeleri": {
       "aciklama": "Her gün ve gecenin dini dayanağını şu şekilde belirtiyoruz:",
       "seviyeler": [
         {
           "kod": "sahih",
-          "etiket": "✅ Kuran ve Sahih Hadis",
-          "aciklama": "Kuran'da açıkça geçiyor veya Buhari/Müslim gibi güvenilir hadis kaynaklarında sabit."
+          "etiket": "✅ Kur'an ve Sahih Hadis",
+          "aciklama": "Kur'an'da açıkça geçiyor veya Buhari/Müslim gibi güvenilir hadis kaynaklarında sabit."
         },
         {
           "kod": "tartismali",
@@ -43,7 +43,7 @@
         "isim": "Cuma Günü",
         "tip": "haftalik",
         "dayanak": "sahih",
-        "dayanak_aciklama": "Kuran'da Cuma Suresi'nde açıkça geçiyor. Buhari ve Müslim'de pek çok sahih hadisle sabittir.",
+        "dayanak_aciklama": "Kur'an'da Cuma Suresi'nde açıkça geçiyor. Buhari ve Müslim'de pek çok sahih hadisle sabittir.",
         "kuran_referansi": {
           "sure": "Cuma",
           "ayet": 9,
@@ -57,7 +57,7 @@
             "isim": "Cuma Namazı",
             "durum": "farz",
             "aciklama": "Öğle vakti kılınan Cuma namazı erkekler için farzdır. İmamın hutbe okumasından sonra iki rekat kılınır.",
-            "hadis_kaynagi": "Kuran, Cuma Suresi 9. ayet"
+            "hadis_kaynagi": "Kur'an, Cuma Suresi 9. ayet"
           },
           {
             "isim": "Kehf Suresi Okumak",
@@ -189,20 +189,20 @@
         "isim": "Kadir Gecesi",
         "tip": "yillik",
         "dayanak": "sahih",
-        "dayanak_aciklama": "Kuran'da Kadir Suresi'nde açıkça geçmektedir. Buhari ve Müslim'de sahih hadislerle sabittir.",
+        "dayanak_aciklama": "Kur'an'da Kadir Suresi'nde açıkça geçmektedir. Buhari ve Müslim'de sahih hadislerle sabittir.",
         "kuran_referansi": {
           "sure": "Kadir",
           "ayet": "1-5",
-          "metin": "Şüphesiz biz onu (Kuran'ı) Kadir gecesinde indirdik. Kadir gecesi nedir, bilir misin? Kadir gecesi bin aydan daha hayırlıdır."
+          "metin": "Şüphesiz biz onu (Kur'an'ı) Kadir gecesinde indirdik. Kadir gecesi nedir, bilir misin? Kadir gecesi bin aydan daha hayırlıdır."
         },
         "hicri_tarih": "Ramazan ayının son on günündeki tek gecelerde — özellikle 27. gecesinde aranır",
-        "onem": "Kuran'ın indirilmeye başlandığı gecedir. 'Bin aydan daha hayırlı' olduğu Kuran'da bildirilmiştir. Bu gece ibadet etmek bin aydan — yani 83 yıldan — daha değerlidir.",
+        "onem": "Kur'an'ın indirilmeye başlandığı gecedir. 'Bin aydan daha hayırlı' olduğu Kur'an'da bildirilmiştir. Bu gece ibadet etmek bin aydan — yani 83 yıldan — daha değerlidir.",
         "tarihsel_bilgi": "Hz. Peygamber bu geceyi tam olarak söylememiş, Ramazan'ın son on günündeki tek gecelerde aranmasını tavsiye etmiştir. Özellikle 27. gecesi olduğu yaygın kanaat olmakla birlikte kesin değildir — bu bilerek gizlenmiş bir lütuftur.",
         "ibadetler": [
           {
             "isim": "Geceyi İhya Etmek",
             "durum": "sunnet",
-            "aciklama": "Kadir Gecesi'ni namaz, Kuran okuma, dua ve zikir ile geçirmek çok değerlidir. Hz. Peygamber son on günde ibadetini artırır, itikafa girerdi.",
+            "aciklama": "Kadir Gecesi'ni namaz, Kur'an okuma, dua ve zikir ile geçirmek çok değerlidir. Hz. Peygamber son on günde ibadetini artırır, itikafa girerdi.",
             "hadis_kaynagi": "Buhari, Müslim (sahih)"
           },
           {
@@ -212,9 +212,9 @@
             "hadis_kaynagi": "Tirmizi (sahih)"
           },
           {
-            "isim": "Kuran Okumak",
+            "isim": "Kur'an Okumak",
             "durum": "sunnet",
-            "aciklama": "Kuran'ın indirildiği bu gecede Kuran okumak çok değerlidir.",
+            "aciklama": "Kur'an'ın indirildiği bu gecede Kur'an okumak çok değerlidir.",
             "hadis_kaynagi": "Genel sünnet"
           },
           {
@@ -231,21 +231,21 @@
         "isim": "Ramazan Ayı",
         "tip": "yillik",
         "dayanak": "sahih",
-        "dayanak_aciklama": "Kuran'da Bakara Suresi'nde açıkça geçmektedir. Oruç İslam'ın beş şartından biridir.",
+        "dayanak_aciklama": "Kur'an'da Bakara Suresi'nde açıkça geçmektedir. Oruç İslam'ın beş şartından biridir.",
         "kuran_referansi": {
           "sure": "Bakara",
           "ayet": 185,
-          "metin": "Ramazan ayı, insanlara yol gösterici, doğrunun ve doğruyu eğriden ayırmanın açık delilleri olarak Kuran'ın indirildiği aydır."
+          "metin": "Ramazan ayı, insanlara yol gösterici, doğrunun ve doğruyu eğriden ayırmanın açık delilleri olarak Kur'an'ın indirildiği aydır."
         },
         "hicri_tarih": "Hicri takvimin 9. ayı — her yıl değişir",
-        "onem": "Kuran'ın indirilmeye başlandığı aydır. Oruç bu ayda farzdır. Hz. Peygamber 'Ramazan geldiğinde cennet kapıları açılır, cehennem kapıları kapanır ve şeytanlar zincire vurulur' buyurmuştur.",
+        "onem": "Kur'an'ın indirilmeye başlandığı aydır. Oruç bu ayda farzdır. Hz. Peygamber 'Ramazan geldiğinde cennet kapıları açılır, cehennem kapıları kapanır ve şeytanlar zincire vurulur' buyurmuştur.",
         "tarihsel_bilgi": "Oruç hicretten yaklaşık 18 ay sonra Şaban ayında farz kılınmıştır. Hz. Peygamber 23 yıllık peygamberlik hayatında 9 Ramazan orucu tutmuştur.",
         "ibadetler": [
           {
             "isim": "Ramazan Orucu",
             "durum": "farz",
             "aciklama": "Ramazan ayı boyunca oruç tutmak her Müslümana farzdır. Sahurla başlar, akşam ezanıyla açılır.",
-            "hadis_kaynagi": "Kuran, Bakara 183-185"
+            "hadis_kaynagi": "Kur'an, Bakara 183-185"
           },
           {
             "isim": "Teravih Namazı",
@@ -254,9 +254,9 @@
             "hadis_kaynagi": "Buhari, Müslim (sahih)"
           },
           {
-            "isim": "Kuran Hatmi",
+            "isim": "Kur'an Hatmi",
             "durum": "sunnet",
-            "aciklama": "Hz. Peygamber her Ramazan Cebrail ile Kuran'ı baştan sona gözden geçirirdi. Ramazan'da Kuran okumayı artırmak sünnettir.",
+            "aciklama": "Hz. Peygamber her Ramazan Cebrail ile Kur'an'ı baştan sona gözden geçirirdi. Ramazan'da Kur'an okumayı artırmak sünnettir.",
             "hadis_kaynagi": "Buhari (sahih)"
           },
           {
@@ -321,7 +321,7 @@
         "isim": "Miraç Kandili",
         "tip": "yillik",
         "dayanak": "tartismali",
-        "dayanak_aciklama": "Miraç olayının kendisi kesinlikle gerçektir — Kuran'da İsra Suresi'nin 1. ayetinde ve pek çok sahih hadiste geçmektedir. Ancak bu olayın Recep ayının 27. gecesine denk geldiğinin kesin bir hadis dayanağı bulunmamaktadır. Tarih sonradan belirlenmiştir. Ayrıca bu geceye özel bir ibadet emredilmemiştir.",
+        "dayanak_aciklama": "Miraç olayının kendisi kesinlikle gerçektir — Kur'an'da İsra Suresi'nin 1. ayetinde ve pek çok sahih hadiste geçmektedir. Ancak bu olayın Recep ayının 27. gecesine denk geldiğinin kesin bir hadis dayanağı bulunmamaktadır. Tarih sonradan belirlenmiştir. Ayrıca bu geceye özel bir ibadet emredilmemiştir.",
         "kuran_referansi": {
           "sure": "İsra",
           "ayet": 1,
@@ -338,9 +338,9 @@
             "hadis_kaynagi": "Bu geceye özel sahih hadis yok; genel nafile namaz fazileti için Müslim"
           },
           {
-            "isim": "Kuran Okumak",
+            "isim": "Kur'an Okumak",
             "durum": "tavsiye",
-            "aciklama": "Bu geceyi Kuran okuyarak, dua ederek geçirmek güzeldir.",
+            "aciklama": "Bu geceyi Kur'an okuyarak, dua ederek geçirmek güzeldir.",
             "hadis_kaynagi": "Genel sünnet"
           },
           {
@@ -362,7 +362,7 @@
           "sure": "Duhan",
           "ayet": 3,
           "metin": "Şüphesiz biz onu mübarek bir gecede indirdik.",
-          "not": "Alimlerin büyük çoğunluğu (İbn Abbas, Katade, cumhur) buradaki 'mübarek gece'nin Kadir Gecesi olduğu görüşündedir; zira Kuran Bakara 185'te ramazanda, Kadir 1'de Kadir gecesinde indirildiği açıkça belirtilir. Berat Gecesi olduğunu söyleyen azınlık görüş ise İkrime ve bir kısım alimlere aittir."
+          "not": "Alimlerin büyük çoğunluğu (İbn Abbas, Katade, cumhur) buradaki 'mübarek gece'nin Kadir Gecesi olduğu görüşündedir; zira Kur'an Bakara 185'te ramazanda, Kadir 1'de Kadir gecesinde indirildiği açıkça belirtilir. Berat Gecesi olduğunu söyleyen azınlık görüş ise İkrime ve bir kısım alimlere aittir."
         },
         "hicri_tarih": "Şaban ayının 15. gecesi",
         "onem": "Şaban ayının ortasındaki bu geceye tarih boyunca önem verilmiştir. Bu geceyle ilgili bazı rivayetlerde ilahi rahmet ve mağfiretin genişliği vurgulanır; ancak geceye dair bütün ayrıntılar sahih hadislerle kesinleşmiş değildir.",
@@ -394,7 +394,7 @@
         "isim": "Mevlid Kandili",
         "tip": "yillik",
         "dayanak": "kulturel",
-        "dayanak_aciklama": "Hz. Peygamber'in doğum günü olarak kutlanan bu gecenin Kuran'da veya sahih hadislerde dini bir emir ya da tavsiye olarak geçmesi söz konusu değildir. Hz. Peygamber ve sahabeleri bu geceyi özel bir ibadet olarak kutlamazdı. Osmanlı döneminde camilerin kandille aydınlatılmasıyla kandil geleneği başlamış, Müslümanlar arasında yaygınlaşmıştır.",
+        "dayanak_aciklama": "Hz. Peygamber'in doğum günü olarak kutlanan bu gecenin Kur'an'da veya sahih hadislerde dini bir emir ya da tavsiye olarak geçmesi söz konusu değildir. Hz. Peygamber ve sahabeleri bu geceyi özel bir ibadet olarak kutlamazdı. Osmanlı döneminde camilerin kandille aydınlatılmasıyla kandil geleneği başlamış, Müslümanlar arasında yaygınlaşmıştır.",
         "kuran_referansi": null,
         "hicri_tarih": "Rebiülevvel ayının 12. gecesi",
         "onem": "Hz. Peygamber'in dünyaya teşrif ettiği ay olarak kutlanmaktadır. Ona duyulan sevginin ve minnetin bir ifadesidir.",
@@ -404,7 +404,7 @@
             "isim": "Hz. Peygamber'e Salavat Getirmek",
             "durum": "sunnet",
             "aciklama": "Hz. Peygamber'e salavat getirmek her zaman değerlidir ve sahih hadislerle sabittir. Bu geceye özel değil, her an yapılabilir.",
-            "hadis_kaynagi": "Kuran, Ahzab 56; Buhari, Müslim (sahih)"
+            "hadis_kaynagi": "Kur'an, Ahzab 56; Buhari, Müslim (sahih)"
           },
           {
             "isim": "Hz. Peygamber'in Hayatını Okumak ve Öğrenmek",
@@ -435,7 +435,7 @@
           {
             "isim": "Genel Nafile İbadet",
             "durum": "tavsiye",
-            "aciklama": "Bu geceye özel bir ibadet emredilmemiştir ve sahih değildir. Ancak her gece nafile namaz kılmak, Kuran okumak ve dua etmek güzeldir.",
+            "aciklama": "Bu geceye özel bir ibadet emredilmemiştir ve sahih değildir. Ancak her gece nafile namaz kılmak, Kur'an okumak ve dua etmek güzeldir.",
             "hadis_kaynagi": "Genel nafile ibadete dair sahih hadisler — bu geceye özgü değil"
           }
         ],
@@ -478,7 +478,7 @@
         "isim": "Zilhicce'nin İlk On Günü (Eyyâm-ı Aşere)",
         "tip": "yillik",
         "dayanak": "sahih",
-        "dayanak_aciklama": "Kuran'da Fecr Suresi 1-2. ayetlerde geçen 'on gece'nin Zilhicce'nin ilk on günü olduğu İbn Abbas başta olmak üzere sahabe ve alimlerin büyük çoğunluğunun görüşüdür. Buhari'de sahih hadislerle sabittir.",
+        "dayanak_aciklama": "Kur'an'da Fecr Suresi 1-2. ayetlerde geçen 'on gece'nin Zilhicce'nin ilk on günü olduğu İbn Abbas başta olmak üzere sahabe ve alimlerin büyük çoğunluğunun görüşüdür. Buhari'de sahih hadislerle sabittir.",
         "kuran_referansi": {
           "sure": "Fecr",
           "ayet": "1-2",
@@ -486,7 +486,7 @@
         },
         "hicri_tarih": "Zilhicce ayının 1-10. günleri (10. gün Kurban Bayramı)",
         "onem": "Hz. Peygamber 'Sâlih amellerin Allah'a en sevimli olduğu günler bu on gündür' buyurmuştur. Arefe günü (9. gün) ve Kurban Bayramı (10. gün) bu dönem içindedir.",
-        "tarihsel_bilgi": "Bu on gün içinde hac ibadeti yapılır. Müslümanlar oruç, zikir, tekbir, sadaka ve Kuran okuyarak bu günleri ihya eder. Kurban ibadeti de bu dönemin en önemli amellerindendir.",
+        "tarihsel_bilgi": "Bu on gün içinde hac ibadeti yapılır. Müslümanlar oruç, zikir, tekbir, sadaka ve Kur'an okuyarak bu günleri ihya eder. Kurban ibadeti de bu dönemin en önemli amellerindendir.",
         "ibadetler": [
           {
             "isim": "Oruç (1-9. günler)",

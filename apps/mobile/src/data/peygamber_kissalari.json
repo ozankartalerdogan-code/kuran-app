@@ -1,12 +1,12 @@
 {
   "peygamber_kissalari": {
     "id": "peygamber_kissalari",
-    "baslik": "Kuran'da Geçen Peygamberlerin Kıssaları",
+    "baslik": "Kur'an'da Geçen Peygamberlerin Kıssaları",
     "versiyon": "1.0",
     "olusturulma": "2026-06-19",
     "dil": "tr",
-    "aciklama": "Kuran-ı Kerim'de ismi geçen 25 peygamberin kıssaları, Kuran referansları ve öğrenilen derslerle birlikte.",
-    "kaynak_not": "Kıssalar öncelikle Kuran-ı Kerim ayetlerine dayanır. Gerekli görülen bazı tarih, coğrafya ve isim detaylarında sahih hadis, tefsir ve tarih rivayetlerinden yararlanılmış; Kuran'da açıkça geçmeyen bilgiler notlarla belirtilmiştir.",
+    "aciklama": "Kur'an-ı Kerim'de ismi geçen 25 peygamberin kıssaları, Kur'an referansları ve öğrenilen derslerle birlikte.",
+    "kaynak_not": "Kıssalar öncelikle Kur'an-ı Kerim ayetlerine dayanır. Gerekli görülen bazı tarih, coğrafya ve isim detaylarında sahih hadis, tefsir ve tarih rivayetlerinden yararlanılmış; Kur'an'da açıkça geçmeyen bilgiler notlarla belirtilmiştir.",
     "toplam_peygamber": 25,
     "not": "Hz. Muhammed (s.a.v.) bu listede kısa bir özetle yer alır; detaylı hayatı ayrı Siyer bölümünde ele alınmaktadır.",
     "peygamberler": [
@@ -76,7 +76,7 @@
           "38:71-85"
         ],
         "ozel_notlar": [
-          "Habil ve Kabil isimleri Kuran'da geçmez. Maide 27-31'de yalnızca 'Adem'in iki oğlu' olarak anlatılır. Bu isimler Tevrat ve tefsir/İsrailiyat geleneğinden gelmektedir."
+          "Habil ve Kabil isimleri Kur'an'da geçmez. Maide 27-31'de yalnızca 'Adem'in iki oğlu' olarak anlatılır. Bu isimler Tevrat ve tefsir/İsrailiyat geleneğinden gelmektedir."
         ]
       },
       {
@@ -86,11 +86,11 @@
         "kuranda_gecme_sayisi": 2,
         "gondirildigi_yer": "Babil bölgesi (rivayete göre)",
         "donem": "Hz. Nuh'tan önce",
-        "kisa_ozet": "Kuran'da çok az bilgi verilen peygamberlerden. Doğru sözlü ve sabırlı biri olarak övülmüş, yüksek bir makama yükseltilmiştir.",
+        "kisa_ozet": "Kur'an'da çok az bilgi verilen peygamberlerden. Doğru sözlü ve sabırlı biri olarak övülmüş, yüksek bir makama yükseltilmiştir.",
         "kissa": [
           {
-            "baslik": "Kuran'daki Anlatım",
-            "metin": "Kuran Hz. İdris hakkında çok az bilgi verir. İki ayette geçer: Meryem Suresi'nde 'O doğru sözlü bir peygamberdi, biz onu yüksek bir makama yükselttik' buyurulur. Enbiya Suresi'nde ise sabredenler arasında zikredilir ve Allah'ın rahmetine kavuşturulduğu bildirilir. Bunun ötesinde Kuran'da detaylı bir kıssası yoktur.",
+            "baslik": "Kur'an'daki Anlatım",
+            "metin": "Kur'an Hz. İdris hakkında çok az bilgi verir. İki ayette geçer: Meryem Suresi'nde 'O doğru sözlü bir peygamberdi, biz onu yüksek bir makama yükselttik' buyurulur. Enbiya Suresi'nde ise sabredenler arasında zikredilir ve Allah'ın rahmetine kavuşturulduğu bildirilir. Bunun ötesinde Kur'an'da detaylı bir kıssası yoktur.",
             "kuran_referanslari": [
               "19:56-57",
               "21:85-86"
@@ -110,7 +110,7 @@
           "21:85-86"
         ],
         "ozel_notlar": [
-          "gondirildigi_yer olarak verilen 'Babil bölgesi' bilgisi Kuran'da geçmez; tefsir ve rivayet kaynaklıdır. Kuran Hz. İdris hakkında yalnızca 'doğru sözlü peygamber' ve 'yüksek makama yükseltildi' bilgisini verir."
+          "gondirildigi_yer olarak verilen 'Babil bölgesi' bilgisi Kur'an'da geçmez; tefsir ve rivayet kaynaklıdır. Kur'an Hz. İdris hakkında yalnızca 'doğru sözlü peygamber' ve 'yüksek makama yükseltildi' bilgisini verir."
         ]
       },
       {
@@ -536,7 +536,7 @@
         "kuranda_gecme_sayisi": 27,
         "gondirildigi_yer": "Kenan ve Mısır",
         "donem": "Yaklaşık M.Ö. 1900-1700",
-        "kisa_ozet": "Kuran'da tüm suresi ona ayrılan tek peygamber. Kardeşleri tarafından kuyuya atıldı, köle olarak satıldı, zindana atıldı ama nihayetinde Mısır'ın veziri oldu. 'Kıssaların en güzeli'.",
+        "kisa_ozet": "Kur'an'da tüm suresi ona ayrılan tek peygamber. Kardeşleri tarafından kuyuya atıldı, köle olarak satıldı, zindana atıldı ama nihayetinde Mısır'ın veziri oldu. 'Kıssaların en güzeli'.",
         "kissa": [
           {
             "baslik": "Rüya ve Kardeşlerin Kıskançlığı",
@@ -658,7 +658,7 @@
         "kissa": [
           {
             "baslik": "Büyük Sınav",
-            "metin": "Hz. Eyüp'e ağır hastalık isabet etti, yıllarca sürdü. Malını ve çocuklarını kaybetti. Ama sabretti ve şikayet etmedi. Kuran onun sabrını 'ne güzel kul, çünkü o çok yönelendi' diye övmektedir.",
+            "metin": "Hz. Eyüp'e ağır hastalık isabet etti, yıllarca sürdü. Malını ve çocuklarını kaybetti. Ama sabretti ve şikayet etmedi. Kur'an onun sabrını 'ne güzel kul, çünkü o çok yönelendi' diye övmektedir.",
             "kuran_referanslari": [
               "21:83-84",
               "38:41-44"
@@ -696,7 +696,7 @@
         "kuranda_gecme_sayisi": 136,
         "gondirildigi_yer": "Mısır ve Sina yarımadası",
         "donem": "Yaklaşık M.Ö. 1300",
-        "kisa_ozet": "Kuran'da en çok adı geçen peygamber. Firavun'un sarayında büyüdü. Allah'ın izniyle 9 büyük mucize gösterdi. İsrailoğullarını Mısır'dan çıkardı. Sina'da Allah ile konuştu, Tevrat aldı.",
+        "kisa_ozet": "Kur'an'da en çok adı geçen peygamber. Firavun'un sarayında büyüdü. Allah'ın izniyle 9 büyük mucize gösterdi. İsrailoğullarını Mısır'dan çıkardı. Sina'da Allah ile konuştu, Tevrat aldı.",
         "kissa": [
           {
             "baslik": "Doğumu ve Firavun'un Sarayı",
@@ -919,7 +919,7 @@
             "kuran_referanslari": [
               "27:20-44"
             ],
-            "not": "Sebe Melikesi’nin ismi olan ‘Belkıs’ Kuran’da geçmez; tefsir ve rivayet kaynaklıdır. Kuran’da yalnızca ‘Sebe melikesi’ olarak anılır."
+            "not": "Sebe Melikesi’nin ismi olan ‘Belkıs’ Kur'an’da geçmez; tefsir ve rivayet kaynaklıdır. Kur'an’da yalnızca ‘Sebe melikesi’ olarak anılır."
           },
           {
             "baslik": "Vefatı",
@@ -964,7 +964,7 @@
         "kisa_ozet": "İsrailoğullarına gönderildi. 'Ba'l' adlı puta tapmalarını reddederek onları Allah'a davet etti. Kavmi reddetti.",
         "kissa": [
           {
-            "baslik": "Kuran'daki Anlatım",
+            "baslik": "Kur'an'daki Anlatım",
             "metin": "Hz. İlyas kavmine 'Ba'l'a mı ibadet ediyorsunuz, en güzel yaratanı bırakıp? Rabbiniz olan Allah'tan korkun' dedi. Kavmi yalanladı. Allah onu 'gönderilenlere selam olsun, iyilik yapanları böyle mükafatlandırırız' diyerek övdü.",
             "kuran_referanslari": [
               "6:85",
@@ -990,11 +990,11 @@
         "kuranda_gecme_sayisi": 2,
         "gondirildigi_yer": "İsrailoğulları arasında",
         "donem": "Hz. İlyas dönemine yakın",
-        "kisa_ozet": "Kuran'da yalnızca iki ayette ismi geçer. Seçilmiş ve üstün tutulmuş peygamberler arasında zikredilir. Detaylı kıssası Kuran'da yer almaz.",
+        "kisa_ozet": "Kur'an'da yalnızca iki ayette ismi geçer. Seçilmiş ve üstün tutulmuş peygamberler arasında zikredilir. Detaylı kıssası Kur'an'da yer almaz.",
         "kissa": [
           {
-            "baslik": "Kuran'daki Anlatım",
-            "metin": "Kuran Hz. Elyesa'yı iki ayette zikreder: En'am Suresi'nde İbrahim soyundan gelen peygamberler arasında, Sad Suresi'nde ise hayırlılar arasında anılır. Kuran'da detaylı kıssası verilmemiştir.",
+            "baslik": "Kur'an'daki Anlatım",
+            "metin": "Kur'an Hz. Elyesa'yı iki ayette zikreder: En'am Suresi'nde İbrahim soyundan gelen peygamberler arasında, Sad Suresi'nde ise hayırlılar arasında anılır. Kur'an'da detaylı kıssası verilmemiştir.",
             "kuran_referanslari": [
               "6:86",
               "38:48"
@@ -1003,7 +1003,7 @@
         ],
         "mucizeler": [],
         "dersler": [
-          "Her peygamberin kıssası Kuran'da detaylı anlatılmamıştır — iman edilmesi gereken tüm peygamberlere iman esastır"
+          "Her peygamberin kıssası Kur'an'da detaylı anlatılmamıştır — iman edilmesi gereken tüm peygamberlere iman esastır"
         ],
         "ana_sure": "Enam (6), Sad (38)",
         "kuran_referanslari_ozet": [
@@ -1040,7 +1040,7 @@
           },
           {
             "baslik": "Kavminin Tövbesi",
-            "metin": "Hz. Yunus'un kavmi de tövbe etti. Kuran'da azabı göreceklerini anlayınca iman eden ve tövbesi kabul edilen tek kavim olarak geçer.",
+            "metin": "Hz. Yunus'un kavmi de tövbe etti. Kur'an'da azabı göreceklerini anlayınca iman eden ve tövbesi kabul edilen tek kavim olarak geçer.",
             "kuran_referanslari": [
               "10:98",
               "37:147-148"
@@ -1119,8 +1119,8 @@
         "kisa_ozet": "Yaşlı ve kısır anne-babadan doğdu. Daha çocukken hikmete erişti. Pek çok erdemle övüldü: günahlardan uzak, ana babasına saygılı, mütevazı.",
         "kissa": [
           {
-            "baslik": "Kuran'daki Övgüsü",
-            "metin": "Allah Hz. Yahya'yı Kuran'da 'Ey Yahya! Kitabı kuvvetle tut' diye seslenerek anlattı. Çocukken ona hikmet verildi. İnsanlara karşı merhametli, günahlardan uzak, ana babasına saygılı, zorba ve asi değildi.",
+            "baslik": "Kur'an'daki Övgüsü",
+            "metin": "Allah Hz. Yahya'yı Kur'an'da 'Ey Yahya! Kitabı kuvvetle tut' diye seslenerek anlattı. Çocukken ona hikmet verildi. İnsanlara karşı merhametli, günahlardan uzak, ana babasına saygılı, zorba ve asi değildi.",
             "kuran_referanslari": [
               "19:12-15"
             ]
@@ -1150,11 +1150,11 @@
         "kuranda_gecme_sayisi": 2,
         "gondirildigi_yer": "Kesin bilinmiyor",
         "donem": "Kesin bilinmiyor",
-        "kisa_ozet": "Kuran'da yalnızca iki ayette adı geçer. Sabredenler ve iyilik yapanlar arasında zikredilir. Kimliği ve kıssası hakkında Kuran'da bilgi yoktur.",
+        "kisa_ozet": "Kur'an'da yalnızca iki ayette adı geçer. Sabredenler ve iyilik yapanlar arasında zikredilir. Kimliği ve kıssası hakkında Kur'an'da bilgi yoktur.",
         "kissa": [
           {
-            "baslik": "Kuran'daki Anlatım",
-            "metin": "Hz. Zülkifl Enbiya ve Sad Surelerinde, sabırlılar ve iyilik yapanlar arasında zikredilmiştir. Bunun ötesinde Kuran'da detaylı bilgi verilmemiştir.",
+            "baslik": "Kur'an'daki Anlatım",
+            "metin": "Hz. Zülkifl Enbiya ve Sad Surelerinde, sabırlılar ve iyilik yapanlar arasında zikredilmiştir. Bunun ötesinde Kur'an'da detaylı bilgi verilmemiştir.",
             "kuran_referanslari": [
               "21:85-86",
               "38:48"
@@ -1208,7 +1208,7 @@
           },
           {
             "baslik": "Hz. İsa Hakkında Doğru İnanç",
-            "metin": "Kuran Hz. İsa'nın Allah'ın kulu ve peygamberi olduğunu, Allah'ın 'ol' demesiyle Hz. Adem gibi yaratıldığını, Allah'ın oğlu olmadığını açıkça bildirir. 'Allah üçün üçüncüsüdür demeyiniz, bu sizin için hayırlı olmaz. Allah yalnızca bir ilahtır.'",
+            "metin": "Kur'an Hz. İsa'nın Allah'ın kulu ve peygamberi olduğunu, Allah'ın 'ol' demesiyle Hz. Adem gibi yaratıldığını, Allah'ın oğlu olmadığını açıkça bildirir. 'Allah üçün üçüncüsüdür demeyiniz, bu sizin için hayırlı olmaz. Allah yalnızca bir ilahtır.'",
             "kuran_referanslari": [
               "3:59",
               "4:171",
@@ -1252,11 +1252,11 @@
         "kuranda_gecme_sayisi": 4,
         "gondirildigi_yer": "Mekke ve Medine",
         "donem": "M.S. 570-632",
-        "kisa_ozet": "Son peygamber. Kuran kendisine vahyedildi. Detaylı hayatı için Siyer bölümüne bakınız.",
+        "kisa_ozet": "Son peygamber. Kur'an kendisine vahyedildi. Detaylı hayatı için Siyer bölümüne bakınız.",
         "kissa": [
           {
-            "baslik": "Kuran'daki Zikri",
-            "metin": "Hz. Muhammed'in adı Kuran'da 4 yerde geçer: Ali İmran 144, Ahzab 40, Muhammed 2, Fetih 29. Bunların dışında 'Sen' ve 'Ey Peygamber' hitaplarıyla Kuran'ın pek çok ayeti ona yöneliktir. 'Muhammed Allah'ın elçisidir, peygamberlerin sonuncusudur.'",
+            "baslik": "Kur'an'daki Zikri",
+            "metin": "Hz. Muhammed'in adı Kur'an'da 4 yerde geçer: Ali İmran 144, Ahzab 40, Muhammed 2, Fetih 29. Bunların dışında 'Sen' ve 'Ey Peygamber' hitaplarıyla Kur'an'ın pek çok ayeti ona yöneliktir. 'Muhammed Allah'ın elçisidir, peygamberlerin sonuncusudur.'",
             "kuran_referanslari": [
               "3:144",
               "33:40",
@@ -1266,17 +1266,17 @@
           }
         ],
         "mucizeler": [
-          "Kuran-ı Kerim (en büyük mucize)",
+          "Kur'an-ı Kerim (en büyük mucize)",
           "İsra ve Miraç",
           "Parmakların arasından su akması",
           "Ayın yarılması"
         ],
         "dersler": [
           "Son peygamber olması — sonrasında peygamber gelmeyecek",
-          "Kuran kıyamete kadar değişmeden korunacak",
+          "Kur'an kıyamete kadar değişmeden korunacak",
           "Tüm insanlığa ve cinlere gönderildi — evrensel mesaj"
         ],
-        "ana_sure": "Tüm Kuran",
+        "ana_sure": "Tüm Kur'an",
         "kuran_referanslari_ozet": [
           "3:144",
           "33:40",
@@ -1285,7 +1285,7 @@
         ],
         "siyer_notu": "Hz. Muhammed'in detaylı hayatı ayrı Siyer bölümünde ele alınmaktadır.",
         "ozel_notlar": [
-          "Kuran'da 'Muhammed' ismi 4 kez geçer (Al-i İmran 144, Ahzab 40, Muhammed 2, Fetih 29). Bunun yanı sıra 'Ahmed' ismiyle de 1 kez geçer (Saf 61:6). kuranda_gecme_sayisi alanı yalnızca 'Muhammed' isminin geçiş sayısını yansıtmaktadır."
+          "Kur'an'da 'Muhammed' ismi 4 kez geçer (Al-i İmran 144, Ahzab 40, Muhammed 2, Fetih 29). Bunun yanı sıra 'Ahmed' ismiyle de 1 kez geçer (Saf 61:6). kuranda_gecme_sayisi alanı yalnızca 'Muhammed' isminin geçiş sayısını yansıtmaktadır."
         ]
       }
     ],
