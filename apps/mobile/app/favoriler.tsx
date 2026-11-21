@@ -17,8 +17,9 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { useStrings, getStrings, useLang, fmt } from "../src/i18n";
+import { useStrings, useLang, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
+import { Badge, Button, space } from "../src/components/ui";
 export default function FavorilerScreen() {
   const c = useColors();
   const t = useStrings(personalStrings);
@@ -84,16 +85,14 @@ export default function FavorilerScreen() {
       accessibilityLabel={fmt(t.favOpenA11y, { name: surahNameOf(item.surah_id, item.surah_name) ?? item.verse_key, n: item.ayah_number })}
     >
       <View style={styles.cardHeader}>
-        <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}>
-          <Text style={[styles.keyText, c.isDark && { color: "#6ee7b7" }]}>{item.verse_key}</Text>
-        </View>
+        <Badge label={item.verse_key} tone="emerald" style={styles.keyBadge} />
         {item.surah_name && (
           <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
             {fmt(t.favSurahLine, { name: surahNameOf(item.surah_id, item.surah_name) ?? "", n: item.ayah_number })}
           </Text>
         )}
-        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={8} style={styles.heartBtn} accessibilityRole="button" accessibilityLabel={t.removeFavA11y}>
-          <Ionicons name="heart" size={20} color={c.isDark ? "#fb7185" : "#e11d48"} accessible={false} />
+        <TouchableOpacity onPress={() => handleRemoveOne(item.verse_key)} hitSlop={12} style={styles.actionBtn} accessibilityRole="button" accessibilityLabel={t.removeFavA11y}>
+          <Ionicons name="heart" size={20} color={c.errorText} accessible={false} />
         </TouchableOpacity>
       </View>
       {item.meal && (
@@ -103,25 +102,25 @@ export default function FavorilerScreen() {
         <View style={styles.tagRow}>
           {item.ana_tema && (
             <TouchableOpacity
-              style={[styles.tag, styles.tagPrimary, c.isDark && { backgroundColor: c.accentLight, borderColor: "#065f46" }]}
               onPress={() => { if (item.ana_tema) router.push(`/search?tag=${encodeURIComponent(item.ana_tema)}&page=1`); }}
               activeOpacity={0.7}
+              hitSlop={6}
               accessibilityRole="button"
               accessibilityLabel={fmt(t.searchTagA11y, { tag: item.ana_tema })}
             >
-              <Text style={[styles.tagTextPrimary, c.isDark && { color: "#6ee7b7" }]}>{item.ana_tema}</Text>
+              <Badge label={item.ana_tema} tone="emerald" />
             </TouchableOpacity>
           )}
           {item.alt_taglar?.slice(0, 3).map(tag => (
             <TouchableOpacity
               key={tag}
-              style={[styles.tag, { backgroundColor: c.cardAlt, borderColor: c.border }]}
               onPress={() => router.push(`/search?tag=${encodeURIComponent(tag)}&page=1`)}
               activeOpacity={0.7}
+              hitSlop={6}
               accessibilityRole="button"
               accessibilityLabel={fmt(t.searchTagA11y, { tag })}
             >
-              <Text style={[styles.tagText, { color: c.textMuted }]}>{tag}</Text>
+              <Badge label={tag} tone="neutral" />
             </TouchableOpacity>
           ))}
         </View>
@@ -132,7 +131,7 @@ export default function FavorilerScreen() {
   // Yerel favori yoksa ağ isteğini beklemeden doğrudan boş durumu göster.
   if (!loaded || (favorites.length > 0 && loading)) {
     return (
-      <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: 14 }]}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
@@ -144,15 +143,13 @@ export default function FavorilerScreen() {
         <Ionicons name="alert-circle-outline" size={48} color={c.textMuted} />
         <Text style={[styles.emptyTitle, { color: c.text }]}>{t.favErrTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{requestError}</Text>
-        <TouchableOpacity
-          style={[styles.goBtn, { backgroundColor: c.accent }]}
+        <Button
+          variant="primary"
+          label={t.retry}
           onPress={handleRetry}
-          activeOpacity={0.8}
-          accessibilityRole="button"
           accessibilityLabel={t.retryA11y}
-        >
-          <Text style={styles.goBtnText}>{t.retry}</Text>
-        </TouchableOpacity>
+          style={styles.emptyBtn}
+        />
       </View>
     );
   }
@@ -165,9 +162,13 @@ export default function FavorilerScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           {t.favEmptySub}
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: c.accent }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.browseA11y}>
-          <Text style={styles.goBtnText}>{t.browse}</Text>
-        </TouchableOpacity>
+        <Button
+          variant="primary"
+          label={t.browse}
+          onPress={() => router.push("/sure-listesi")}
+          accessibilityLabel={t.browseA11y}
+          style={styles.emptyBtn}
+        />
       </View>
     );
   }
@@ -176,13 +177,17 @@ export default function FavorilerScreen() {
     <FlashList
       data={verses}
       keyExtractor={(v) => v.verse_key}
-      contentContainerStyle={[styles.list, { paddingTop: 14, paddingBottom: insets.bottom + 32 }]}
+      contentContainerStyle={[styles.list, { paddingBottom: insets.bottom + space.xl }]}
       ListHeaderComponent={
         <View style={styles.listHeader}>
           <Text style={[styles.count, { color: c.textMuted }]}>{fmt(t.favCount, { n: favorites.length })}</Text>
-          <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.clearAllFavA11y}>
-            <Text style={styles.clearAll}>{t.clearAllTitle}</Text>
-          </TouchableOpacity>
+          <Button
+            variant="ghost"
+            tone="danger"
+            label={t.clearAllTitle}
+            onPress={handleClearAll}
+            accessibilityLabel={t.clearAllFavA11y}
+          />
         </View>
       }
       renderItem={renderItem}
@@ -192,32 +197,21 @@ export default function FavorilerScreen() {
 }
 
 const styles = StyleSheet.create({
-  centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, backgroundColor: "#f5f0e8", gap: 10 },
-  loadingContainer:{ flex: 1, padding: 12, gap: 10, backgroundColor: "#f5f0e8" },
-  emptyTitle:      { fontSize: 18, fontWeight: "700", color: "#1c1917" },
-  emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },
-  goBtn:           { backgroundColor: "#059669", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10, marginTop: 6 },
-  goBtnText:       { color: "#fff", fontWeight: "700", fontSize: 14 },
+  centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: space.xl, gap: 10 },
+  loadingContainer:{ flex: 1, paddingHorizontal: space.gutter, paddingTop: space.md, gap: 10, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  emptyTitle:      { fontSize: 18, fontWeight: "700", textAlign: "center" },
+  emptySub:        { fontSize: 13, textAlign: "center", lineHeight: 20 },
+  emptyBtn:        { marginTop: 6 },
   // Arka plan bilinçli YOK: Stack contentStyle (c.bg) görünür — gece modunda
   // sabit krem kalmasın (boş/hata durumları zaten c.bg override'ı kullanıyor).
-  list:            { padding: 12, paddingBottom: 32, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  list:            { paddingHorizontal: space.gutter, paddingTop: space.md, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   listHeader:      { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
-  count:           { fontSize: 13, color: "#78716c", fontWeight: "500" },
-  clearAll:        { fontSize: 13, color: "#ef4444", fontWeight: "600" },
-  card: {
-    backgroundColor: "#fffdf6", borderRadius: 14, padding: 14,
-    borderWidth: 1, borderColor: "#e7dfcc",
-    shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1,
-  },
-  cardHeader:  { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
-  keyBadge:    { backgroundColor: "#d1fae5", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
-  keyText:     { fontSize: 11, fontWeight: "700", color: "#065f46" },
-  surahText:   { fontSize: 13, color: "#78716c", flex: 1 },
-  heartBtn:    { padding: 2 },
-  mealText:    { fontSize: 14, lineHeight: 22, color: "#292524", marginBottom: 8 },
-  tagRow:      { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 2 },
-  tag:         { borderRadius: 20, paddingHorizontal: 10, paddingVertical: 3, backgroundColor: "#f5f0e8", borderWidth: 1, borderColor: "#e7dfcc" },
-  tagPrimary:  { backgroundColor: "#d1fae5", borderColor: "#6ee7b7" },
-  tagText:     { fontSize: 11, color: "#78716c", fontWeight: "500" },
-  tagTextPrimary: { fontSize: 11, color: "#065f46", fontWeight: "600" },
+  count:           { fontSize: 13, fontWeight: "500" },
+  card:            { borderRadius: 14, paddingVertical: 14, paddingHorizontal: space.gutter, borderWidth: 1 },
+  cardHeader:      { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
+  keyBadge:        { alignSelf: "center" },
+  surahText:       { fontSize: 13, flex: 1 },
+  actionBtn:       { padding: 2 },
+  mealText:        { fontSize: 14, lineHeight: 22 },
+  tagRow:          { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 10 },
 });

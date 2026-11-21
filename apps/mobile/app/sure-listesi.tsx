@@ -15,32 +15,15 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useSurahNameOf } from "../src/lib/surahNames";
 import { useStrings, getStrings, fmt } from "../src/i18n";
 import surahStrings from "../src/i18n/strings/surahs";
-
-function PlaceBadge({ place, c }: { place: "Mekke" | "Medine"; c: AppColors }) {
-  const t = useStrings(surahStrings);
-  const isMekki = place === "Mekke";
-  return (
-    <View style={[styles.badge, {
-      backgroundColor: isMekki
-        ? (c.isDark ? "#064e3b" : "#d1fae5")
-        : (c.isDark ? "#431407" : "#ffedd5"),
-    }]}>
-      <Text style={[styles.badgeText, {
-        color: isMekki
-          ? (c.isDark ? "#6ee7b7" : "#065f46")
-          : (c.isDark ? "#fca5a5" : "#9a3412"),
-      }]}>
-        {isMekki ? t.mekke : t.medine}
-      </Text>
-    </View>
-  );
-}
+import { Badge, Button, Tabs, space, toneColors } from "../src/components/ui";
 
 const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahListItem; c: AppColors; sortMode: "mushaf" | "nuzul" }) {
   const surahNameOf = useSurahNameOf();
   const t = useStrings(surahStrings);
   const circleNum    = sortMode === "nuzul" ? (NUZUL[item.id] ?? item.id) : item.id;
   const secondaryNum = sortMode === "nuzul" ? item.id : (NUZUL[item.id] ?? null);
+  const isMekki      = item.revelationPlace === "Mekke";
+  const violet       = toneColors(c, "violet");
 
   return (
     <TouchableOpacity
@@ -50,14 +33,14 @@ const SurahRow = memo(function SurahRow({ item, c, sortMode }: { item: SurahList
       accessibilityRole="button"
       accessibilityLabel={fmt(t.surahA11y, { n: item.id, name: surahNameOf(item.id, item.name) })}
     >
-      <View style={[styles.rowNumber, { backgroundColor: c.isDark ? c.cardAlt : sortMode === "nuzul" ? "#ede9fe" : "#f5f0e8" }]}>
-        <Text style={[styles.numberText, { color: sortMode === "nuzul" ? "#7c3aed" : c.textMuted }]} maxFontSizeMultiplier={1.2}>{circleNum}</Text>
+      <View style={[styles.rowNumber, { backgroundColor: sortMode === "nuzul" ? violet.bg : c.cardAlt }]}>
+        <Text style={[styles.numberText, { color: sortMode === "nuzul" ? violet.fg : c.textMuted }]} maxFontSizeMultiplier={1.2}>{circleNum}</Text>
       </View>
       <View style={styles.rowCenter}>
         <Text style={[styles.surahName, { color: c.text }]}>{surahNameOf(item.id, item.name)}</Text>
         <View style={styles.rowMeta}>
           <Text style={[styles.metaText, { color: c.textMuted }]}>{fmt(t.verseCount, { n: item.verseCount })}</Text>
-          <PlaceBadge place={item.revelationPlace} c={c} />
+          <Badge label={isMekki ? t.mekke : t.medine} tone={isMekki ? "amber" : "emerald"} style={styles.placeBadge} />
           {secondaryNum != null && (
             <Text style={[styles.nuzulText, { color: c.textMuted }]}>
               {sortMode === "nuzul" ? fmt(t.mushafNo, { n: secondaryNum }) : fmt(t.nuzulNo, { n: secondaryNum })}
@@ -131,16 +114,14 @@ export default function SureListesiScreen() {
   if (error) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error}</Text>
-        <TouchableOpacity
-          style={[styles.retryBtn, { backgroundColor: c.accent }]}
+        <Text style={[styles.errorText, { color: c.errorText }]}>{error}</Text>
+        <Button
+          variant="primary"
+          label={t.retry}
           onPress={() => { setLoading(true); setReloadKey((k) => k + 1); }}
-          activeOpacity={0.8}
-          accessibilityRole="button"
           accessibilityLabel={t.retryA11y}
-        >
-          <Text style={styles.retryText}>{t.retry}</Text>
-        </TouchableOpacity>
+          style={{ marginTop: 14 }}
+        />
       </View>
     );
   }
@@ -158,23 +139,15 @@ export default function SureListesiScreen() {
           clearButtonMode="while-editing"
           returnKeyType="search"
         />
-        <View style={[styles.toggleRow, { backgroundColor: c.cardAlt }]}>
-          {(["mushaf", "nuzul"] as const).map(mode => (
-            <TouchableOpacity
-              key={mode}
-              style={[styles.toggleBtn, sortMode === mode && { backgroundColor: c.accent }]}
-              onPress={() => setSortMode(mode)}
-              activeOpacity={0.8}
-              accessibilityRole="button"
-              accessibilityState={{ selected: sortMode === mode }}
-              accessibilityLabel={mode === "mushaf" ? t.mushafOrderA11y : t.nuzulOrderA11y}
-            >
-              <Text style={[styles.toggleText, { color: sortMode === mode ? "#fff" : c.textMuted }]}>
-                {mode === "mushaf" ? t.mushafOrder : t.nuzulOrder}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+        <Tabs
+          variant="segmented"
+          value={sortMode}
+          onChange={setSortMode}
+          items={[
+            { key: "mushaf", label: t.mushafOrder, accessibilityLabel: t.mushafOrderA11y },
+            { key: "nuzul", label: t.nuzulOrder, accessibilityLabel: t.nuzulOrderA11y },
+          ]}
+        />
       </View>
       <FlashList
         data={filtered}
@@ -207,31 +180,25 @@ const styles = StyleSheet.create({
   container:    { flex: 1 },
   centerWrap:   { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   centered:     { flex: 1, alignItems: "center", justifyContent: "center", padding: 20 },
-  errorText:    { color: "#dc2626", fontSize: 14, textAlign: "center" },
-  retryBtn:     { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10, marginTop: 14 },
-  retryText:    { color: "#fff", fontSize: 14, fontWeight: "700" },
-  searchWrapper:{ paddingHorizontal: 16, paddingVertical: 10 },
+  errorText:    { fontSize: 14, textAlign: "center" },
+  searchWrapper:{ paddingHorizontal: space.gutter, paddingVertical: 10 },
   searchInput:  { borderRadius: 10, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 9, fontSize: 14, marginBottom: 8 },
-  toggleRow:    { flexDirection: "row", borderRadius: 10, padding: 3, gap: 3 },
-  toggleBtn:    { flex: 1, paddingVertical: 7, borderRadius: 8, alignItems: "center" },
-  toggleText:   { fontSize: 12, fontWeight: "600" },
   listContent:  { paddingBottom: 20, flexGrow: 1 },
   emptyState:   { flex: 1, alignItems: "center", justifyContent: "center", padding: 40, gap: 8 },
   emptyText:    { fontSize: 15, fontWeight: "600", textAlign: "center" },
   emptySubText: { fontSize: 13, textAlign: "center" },
   separator:    { height: 1, marginLeft: 72 },
-  row:          { flexDirection: "row", alignItems: "center", minHeight: 44, paddingVertical: 12, paddingHorizontal: 16 },
-  rowNumber:    { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center", marginRight: 12 },
+  row:          { flexDirection: "row", alignItems: "center", minHeight: 56, paddingVertical: space.sm, paddingHorizontal: space.gutter },
+  rowNumber:    { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center", marginRight: space.sm },
   numberText:   { fontSize: 13, fontWeight: "700" },
   rowCenter:    { flex: 1, gap: 3 },
   surahName:    { fontSize: 15, fontWeight: "600" },
   rowMeta:      { flexDirection: "row", alignItems: "center", gap: 6, flexWrap: "wrap" },
   metaText:     { fontSize: 12 },
+  placeBadge:   { alignSelf: "center" },
   nuzulText:    { fontSize: 11 },
   // flexShrink: 0 — rowCenter flex:1 ile alanı aldığı için, varsayılan
   // flexShrink:1 bu Text'i sıkıştırıp kırpıyordu. Tek kelimelik adlar sığdığı
   // için hata yalnız boşluk içeren tek isimde ("آل عمران" -> "آل") görünüyordu.
   arabicName:   { fontSize: 20, fontFamily: "Amiri", writingDirection: "rtl", textAlign: "right", marginLeft: 8, flexShrink: 0 },
-  badge:        { borderRadius: 10, paddingHorizontal: 7, paddingVertical: 2 },
-  badgeText:    { fontSize: 10, fontWeight: "600" },
 });

@@ -11,9 +11,11 @@ import { useNotes } from "../src/hooks/useNotes";
 import { api, prefetchAyah } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
 import { SkeletonListItem } from "../src/components/SkeletonLoader";
-import { useStrings, getStrings, fmt } from "../src/i18n";
+import { useStrings, fmt } from "../src/i18n";
 import personalStrings from "../src/i18n/strings/personal";
 import { useSurahNameOf } from "../src/lib/surahNames";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { Badge, Button, space } from "../src/components/ui";
 
 export default function NotlarScreen() {
   const c = useColors();
@@ -112,7 +114,7 @@ export default function NotlarScreen() {
   // Yerel notlar hazırsa iskelet göstermeyiz; ayet bilgisi (metaLoading) beklenmez.
   if (!loaded || notesLoading) {
     return (
-      <View style={[styles.loadingContainer, { backgroundColor: c.bg, paddingTop: 14 }]}>
+      <View style={[styles.loadingContainer, { backgroundColor: c.bg }]}>
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
     );
@@ -124,9 +126,13 @@ export default function NotlarScreen() {
         <Ionicons name="alert-circle-outline" size={48} color={c.textMuted} />
         <Text style={[styles.emptyTitle, { color: c.text }]}>{t.notesErrTitle}</Text>
         <Text style={[styles.emptySub, { color: c.textMuted }]}>{notesError}</Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={handleRetry} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
-          <Text style={styles.goBtnText}>{t.retry}</Text>
-        </TouchableOpacity>
+        <Button
+          variant="primary"
+          label={t.retry}
+          onPress={handleRetry}
+          accessibilityLabel={t.retryA11y}
+          style={styles.emptyBtn}
+        />
       </View>
     );
   }
@@ -139,9 +145,13 @@ export default function NotlarScreen() {
         <Text style={[styles.emptySub, { color: c.textMuted }]}>
           {t.notesEmptySub}
         </Text>
-        <TouchableOpacity style={[styles.goBtn, { backgroundColor: "#b45309" }]} onPress={() => router.push("/sure-listesi")} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.browseA11y}>
-          <Text style={styles.goBtnText}>{t.browse}</Text>
-        </TouchableOpacity>
+        <Button
+          variant="primary"
+          label={t.browse}
+          onPress={() => router.push("/sure-listesi")}
+          accessibilityLabel={t.browseA11y}
+          style={styles.emptyBtn}
+        />
       </View>
     );
   }
@@ -150,14 +160,18 @@ export default function NotlarScreen() {
     <FlashList
       data={noteList}
       keyExtractor={(item) => item.verseKey}
-      contentContainerStyle={[styles.list, { paddingTop: 14, paddingBottom: insets.bottom + 32 }]}
+      contentContainerStyle={[styles.list, { paddingBottom: insets.bottom + space.xl }]}
       ListHeaderComponent={
         <View style={styles.headerWrap}>
           <View style={styles.listHeader}>
-            <Text style={[styles.noteCount, { color: c.textMuted }]}>{fmt(t.notesCount, { n: noteList.length })}</Text>
-            <TouchableOpacity onPress={handleClearAll} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.deleteAllNotesA11y}>
-              <Text style={styles.clearAll}>{t.deleteAll}</Text>
-            </TouchableOpacity>
+            <Text style={[styles.count, { color: c.textMuted }]}>{fmt(t.notesCount, { n: noteList.length })}</Text>
+            <Button
+              variant="ghost"
+              tone="danger"
+              label={t.deleteAll}
+              onPress={handleClearAll}
+              accessibilityLabel={t.deleteAllNotesA11y}
+            />
           </View>
           {surahNamesError ? (
             <Text style={[styles.infoText, { color: c.textMuted }]}>{surahNamesError}</Text>
@@ -176,14 +190,12 @@ export default function NotlarScreen() {
             accessibilityLabel={fmt(t.openNoteA11y, { label: formatLabel(item.verseKey) })}
           >
             <View style={styles.cardHeader}>
-              <View style={[styles.keyBadge, c.isDark && { backgroundColor: "#422006" }]}>
-                <Text style={[styles.keyText, c.isDark && { color: "#fde047" }]}>{item.verseKey}</Text>
-              </View>
-              <Text style={[styles.verseLabel, { color: c.textMuted }]} numberOfLines={1}>
+              <Badge label={item.verseKey} tone="emerald" style={styles.keyBadge} />
+              <Text style={[styles.surahText, { color: c.textMuted }]} numberOfLines={1}>
                 {formatLabel(item.verseKey)}
               </Text>
-              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.deleteNoteA11y}>
-                <Ionicons name="trash-outline" size={18} color={c.textMuted} style={styles.deleteBtn} />
+              <TouchableOpacity onPress={() => handleDeleteOne(item.verseKey)} hitSlop={12} style={styles.actionBtn} accessibilityRole="button" accessibilityLabel={t.deleteNoteA11y}>
+                <Ionicons name="trash-outline" size={20} color={c.textMuted} accessible={false} />
               </TouchableOpacity>
             </View>
             <Text style={[styles.noteText, { color: c.textSecondary }]} numberOfLines={4}>
@@ -198,29 +210,22 @@ export default function NotlarScreen() {
 }
 
 const styles = StyleSheet.create({
-  centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, gap: 10 },
-  loadingContainer:{ flex: 1, padding: 12, gap: 10 },
-  emptyTitle:      { fontSize: 18, fontWeight: "700", color: "#1c1917" },
-  emptySub:        { fontSize: 13, color: "#78716c", textAlign: "center", lineHeight: 20 },
-  goBtn:           { backgroundColor: "#b45309", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 10, marginTop: 6 },
-  goBtnText:       { color: "#fff", fontWeight: "700", fontSize: 14 },
+  centered:        { flex: 1, alignItems: "center", justifyContent: "center", padding: space.xl, gap: 10 },
+  loadingContainer:{ flex: 1, paddingHorizontal: space.gutter, paddingTop: space.md, gap: 10, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  emptyTitle:      { fontSize: 18, fontWeight: "700", textAlign: "center" },
+  emptySub:        { fontSize: 13, textAlign: "center", lineHeight: 20 },
+  emptyBtn:        { marginTop: 6 },
   // Arka plan bilinçli YOK: Stack contentStyle (c.bg) görünür — gece modunda
   // sabit krem kalmasın (boş/hata durumları zaten c.bg override'ı kullanıyor).
-  list:            { padding: 12, paddingBottom: 32 },
+  list:            { paddingHorizontal: space.gutter, paddingTop: space.md, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   headerWrap:      { marginBottom: 10 },
   listHeader:      { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  noteCount:       { fontSize: 13, color: "#78716c", fontWeight: "500" },
-  clearAll:        { fontSize: 13, color: "#ef4444", fontWeight: "600" },
+  count:           { fontSize: 13, fontWeight: "500" },
   infoText:        { fontSize: 12, lineHeight: 18, marginTop: 8 },
-  card: {
-    backgroundColor: "#fffdf6", borderRadius: 14, padding: 14,
-    borderWidth: 1, borderColor: "#e7dfcc",
-    shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1,
-  },
-  cardHeader:  { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
-  keyBadge:    { backgroundColor: "#fef9c3", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
-  keyText:     { fontSize: 11, fontWeight: "700", color: "#854d0e" },
-  verseLabel:  { fontSize: 13, color: "#78716c", flex: 1 },
-  deleteBtn:   { padding: 4 },
-  noteText:    { fontSize: 14, lineHeight: 22, color: "#292524", fontStyle: "italic" },
+  card:            { borderRadius: 14, paddingVertical: 14, paddingHorizontal: space.gutter, borderWidth: 1 },
+  cardHeader:      { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 },
+  keyBadge:        { alignSelf: "center" },
+  surahText:       { fontSize: 13, flex: 1 },
+  actionBtn:       { padding: 2 },
+  noteText:        { fontSize: 14, lineHeight: 22, fontStyle: "italic" },
 });
