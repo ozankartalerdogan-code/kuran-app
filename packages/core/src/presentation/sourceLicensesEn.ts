@@ -86,7 +86,7 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "quran-text",
     "title": "Quran text",
-    "body": "The Arabic Quran text is taken from Tanzil Quran Text Uthmani version 1.1. The canonical Unicode text is preserved unchanged; the on-screen font and compatibility processing used only for display do not alter the source text.",
+    "body": "The Arabic Quran text is taken from Tanzil Quran Text Uthmani version 1.1. Its letters and marks are stored exactly as published; font and display adjustments on screen never change the original text.",
     "linkIds": [
       "tanzil"
     ]
@@ -105,7 +105,7 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "morphology",
     "title": "Word morphology",
-    "body": "Word morphology was prepared using Quranic Arabic Corpus and CAMeL sources, together with Kuran Yolu's processes for canonical token alignment, Unicode normalization, contextual selection, error correction, and manual verification. The final data is not an exact copy of the source files.",
+    "body": "Word morphology was prepared using Quranic Arabic Corpus and CAMeL sources, together with Kuran Yolu's own steps for matching words to the original text, standardizing character codes, choosing the right analysis for each context, fixing errors, and checking by hand. The final data is not an exact copy of the source files.",
     "linkIds": [
       "qac",
       "mustafa0x",
@@ -116,7 +116,7 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "tajweed",
     "title": "Tajweed",
-    "body": "Tajweed markings were realigned with the canonical Tanzil text using AlQuran.cloud tajweed markers and prepared with Kuran Yolu's span/coordinate system, color mapping, safety checks, and manual corrections. Of the 86,595 recognized source clusters, 79,343 were aligned (91.6254%); 23 manual spans were added across 14 verses.",
+    "body": "Tajweed markings were placed onto the app's Tanzil text using the tajweed markers from AlQuran.cloud, and prepared by Kuran Yolu with coloring, checks, and manual corrections. Of the 86,595 markings in the source, 79,343 (91.6%) could be placed on the text; 23 markings were added by hand across 14 verses.",
     "linkIds": [
       "alquran-tajweed",
       "alquran-terms"
@@ -135,7 +135,7 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "project-content",
     "title": "Kuran Yolu and AI-assisted content",
-    "body": "Turkish word meanings, transliteration, simplified explanations, hadith translations, accounts of the Prophet's life and religious stories, lesson research, cards, quizzes, Elifba audio, some images, and meanings of supplications and remembrances were prepared for Kuran Yolu with assistance from AI tools and reviewed by humans where possible. The worship guides were written by the project. The lessons, quizzes, Elif-Ba lessons, simplified commentary, supplications and remembrances, hadith, Seerah, prophets' stories, worship guides, Asma ul-Husna and interface texts in the mobile app's English interface were translated into English from this Turkish content using AI tools (AI-assisted translation). In English mode, word meanings use the existing English word glosses; meanings of words without a gloss, root meanings and the word-for-word (literal) translation were translated into English from the app's Turkish texts using AI tools. Clearly wrong Turkish word and root meanings found during this work were also corrected; the translations have passed automated structure and consistency checks, and human review is not yet complete. Source and production records are kept in the central provenance manifest.",
+    "body": "Turkish word meanings, transliteration, simplified explanations, hadith translations, accounts of the Prophet's life and religious stories, lesson research, cards, quizzes, Elifba audio, some images, and meanings of supplications and remembrances were prepared for Kuran Yolu with assistance from AI tools and reviewed by humans where possible. The worship guides were written by the project. The lessons, quizzes, Elif-Ba lessons, simplified commentary, supplications and remembrances, hadith, Seerah, prophets' stories, worship guides, Asma ul-Husna and interface texts in the mobile app's English interface were translated into English from this Turkish content using AI tools (AI-assisted translation). In English mode, word meanings use the existing English word glosses; meanings of words without a gloss, root meanings and the word-for-word (literal) translation were translated into English from the app's Turkish texts using AI tools. Clearly wrong Turkish word and root meanings found during this work were also corrected; the translations have passed automated structure and consistency checks, and human review is not yet complete. Source and production records are kept in the project's source record file.",
     "linkIds": []
   },
   {

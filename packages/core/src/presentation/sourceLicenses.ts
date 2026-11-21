@@ -97,7 +97,7 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "quran-text",
     title: "Kur'an metni",
     body:
-      "Arapça Kur'an metni, Tanzil Quran Text Uthmani 1.1 sürümünden alınır. Canonical Unicode metin değiştirilmeden korunur; ekrandaki font ve yalnız gösterime yönelik uyumluluk işlemleri kaynak metni değiştirmez.",
+      "Arapça Kur'an metni, Tanzil Quran Text Uthmani 1.1 sürümünden alınır. Metnin harfleri ve işaretleri hiç değiştirilmeden saklanır; ekranda düzgün görünmesi için yapılan yazı tipi ayarları asıl metne dokunmaz.",
     linkIds: ["tanzil"],
   },
   {
@@ -111,14 +111,14 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "morphology",
     title: "Kelime morfolojisi",
     body:
-      "Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu'nun canonical token hizalama, Unicode normalizasyonu, bağlamsal seçim, hata düzeltme ve manuel doğrulama süreçleriyle hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.",
+      "Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu tarafından kelimeleri asıl metinle eşleştirme, harf kodlarını tek biçime getirme, bağlama göre doğru çözümlemeyi seçme, hata düzeltme ve elle kontrol adımlarıyla hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.",
     linkIds: ["qac", "mustafa0x", "camel-tools", "camel-morph"],
   },
   {
     id: "tajweed",
     title: "Tecvid",
     body:
-      "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. Tanınan 86.595 kaynak kümesinin 79.343'ü hizalanmıştır (%91,6254); 14 ayette 23 manuel span eklenmiştir.",
+      "Tecvid işaretleri, AlQuran.cloud'daki tecvid işaretlerinden yararlanılarak uygulamadaki Tanzil metnine yeniden yerleştirilmiş; renklendirme, kontroller ve elle düzeltmelerle Kuran Yolu tarafından hazırlanmıştır. Kaynaktaki 86.595 tecvid işaretinin 79.343'ü (%91,6) metne yerleştirilebilmiştir; 14 ayette 23 işaret elle eklenmiştir.",
     linkIds: ["alquran-tajweed", "alquran-terms"],
   },
   {
@@ -132,7 +132,7 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "project-content",
     title: "Kuran Yolu ve AI destekli içerikler",
     body:
-      "Türkçe kelime anlamları, transliterasyon, sade açıklamalar, hadis tercümeleri, siyer ve kıssa anlatımları, ders araştırmaları, kartlar, quizler, Elifba sesleri, bazı görseller, dua ve zikir anlamları AI araçlarından destek alınarak Kuran Yolu için hazırlanmış ve mümkün olan bölümlerde insan kontrolünden geçirilmiştir. İbadet rehberleri proje tarafından yazılmıştır. Mobil uygulamanın İngilizce arayüzündeki ders, quiz, Elif-Ba, sade tefsir, dua ve zikir, hadis, siyer, kıssa, ibadet rehberi, Esmaül Hüsna ve arayüz metinleri bu Türkçe içeriklerden AI araçlarıyla İngilizceye çevrilmiştir (AI-assisted translation). İngilizce modda kelime anlamları mevcut İngilizce kelime glosları (gloss_en) üzerinden gösterilir; glosu olmayan kelimelerin anlamları, kök anlamları ve kelime kelime (literal) çeviri uygulamanın Türkçe metinlerinden AI araçlarıyla İngilizceye çevrilmiştir. Bu çeviri sırasında açıkça hatalı bulunan Türkçe kelime ve kök anlamları da düzeltilmiştir; çeviriler otomatik yapı ve tutarlılık kontrollerinden geçmiştir, insan incelemesi henüz tamamlanmamıştır. Kaynak ve üretim kayıtları merkezi provenance manifestinde tutulur.",
+      "Türkçe kelime anlamları, okunuşlar (transliterasyon), sade açıklamalar, hadis tercümeleri, siyer ve kıssa anlatımları, ders araştırmaları, kartlar, quizler, Elifba sesleri, bazı görseller, dua ve zikir anlamları AI araçlarından destek alınarak Kuran Yolu için hazırlanmış ve mümkün olan bölümlerde insan kontrolünden geçirilmiştir. İbadet rehberleri proje tarafından yazılmıştır. Mobil uygulamanın İngilizce arayüzündeki ders, quiz, Elif-Ba, sade tefsir, dua ve zikir, hadis, siyer, kıssa, ibadet rehberi, Esmaül Hüsna ve arayüz metinleri bu Türkçe içeriklerden AI araçlarıyla İngilizceye çevrilmiştir (AI-assisted translation). İngilizce modda kelime anlamları hazır İngilizce kelime karşılıklarından gösterilir; karşılığı olmayan kelimelerin anlamları, kök anlamları ve kelime kelime (literal) çeviri uygulamanın Türkçe metinlerinden AI araçlarıyla İngilizceye çevrilmiştir. Bu çeviri sırasında açıkça hatalı bulunan Türkçe kelime ve kök anlamları da düzeltilmiştir; çeviriler otomatik tutarlılık kontrollerinden geçmiştir, ancak bir insanın tek tek okuyup kontrol etmesi henüz bitmemiştir. Kaynak ve üretim kayıtları projenin kaynak kayıt dosyasında tutulur.",
     linkIds: [],
   },
   {
