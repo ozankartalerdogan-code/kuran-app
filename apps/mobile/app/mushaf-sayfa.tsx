@@ -21,6 +21,7 @@ import { useStrings, fmt } from "../src/i18n";
 import mushafStrings from "../src/i18n/strings/mushaf";
 import storageErrorStrings from "../src/i18n/strings/storageErrors";
 import { useSurahNameOf } from "../src/lib/surahNames";
+import { Button, Callout, paperColors } from "../src/components/ui";
 
 // ── Mushaf Sayfa Görünümü ─────────────────────────────────────────────────────
 // 604 sayfalık Medine mushafı düzeni: her sayfanın içeriği basılı mushafla
@@ -138,9 +139,7 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
     lineHeight: 44 * fontScale,
   }), [fontScale]);
 
-  const kagit = c.isDark
-    ? { backgroundColor: "#1c1917", borderColor: "#44403c" }
-    : { backgroundColor: "#fffdf6", borderColor: "#e7dfcc" };
+  const p = paperColors(c);
 
   return (
     <View style={{ width, height: height > 0 ? height : "100%" }}>
@@ -152,16 +151,13 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
       ) : durum.status === "error" ? (
         <View style={st.center}>
           <Ionicons name="cloud-offline-outline" size={44} color={c.textMuted} />
-          <Text style={[st.centerText, { color: c.textMuted }]}>{t.pageError}</Text>
-          <TouchableOpacity
-            style={[st.retryBtn, { backgroundColor: c.accentLight }]}
+          <Callout tone="error">{t.pageError}</Callout>
+          <Button
+            variant="secondary"
+            label={t.retry}
             onPress={() => setDenemeNo((n) => n + 1)}
-            activeOpacity={0.75}
-            accessibilityRole="button"
             accessibilityLabel={t.reloadPageA11y}
-          >
-            <Text style={[st.retryText, { color: c.accent }]}>{t.retry}</Text>
-          </TouchableOpacity>
+          />
         </View>
       ) : (
         <ScrollView
@@ -170,12 +166,12 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled
         >
-          <View style={[st.kagit, kagit]}>
+          <View style={[st.kagit, { backgroundColor: p.bg, borderColor: p.border }]}>
             {durum.bloklar.map((blok, i) =>
               blok.tip === "sure" ? (
-                <View key={`s${blok.surahId}`} style={[st.sureBasligi, { borderColor: c.isDark ? "#78716c" : "#c9a84c" }]}>
+                <View key={`s${blok.surahId}`} style={[st.sureBasligi, { borderColor: p.goldBorder }]}>
                   <Text style={[st.sureArapca, { color: c.text }]}>{blok.arabicName}</Text>
-                  <Text style={[st.sureAdi, { color: c.isDark ? "#c9a84c" : "#a16207" }]}>
+                  <Text style={[st.sureAdi, { color: p.gold }]}>
                     {fmt(t.surahHeading, { id: blok.surahId, name: surahNameOf(blok.surahId, blok.name) })}
                   </Text>
                   {blok.besmele && (
@@ -435,8 +431,8 @@ export default function MushafSayfaEkrani() {
         accessibilityRole="button"
         accessibilityLabel={fmt(t.goToSurahA11y, { name: surahNameOf(s.id, s.name) })}
       >
-        <View style={[st.sureNoBadge, { backgroundColor: aktif ? c.accent : c.cardAlt, borderColor: aktif ? c.accent : c.border }]}>
-          <Text style={[st.sureNo, { color: aktif ? "#fff" : c.textMuted }]} maxFontSizeMultiplier={1.2}>{s.id}</Text>
+        <View style={[st.sureNoBadge, { backgroundColor: aktif ? c.actionBg : c.cardAlt, borderColor: aktif ? c.actionBg : c.border }]}>
+          <Text style={[st.sureNo, { color: aktif ? c.actionText : c.textMuted }]} maxFontSizeMultiplier={1.2}>{s.id}</Text>
         </View>
         <View style={st.sureOrta}>
           <Text style={[st.sureName, { color: c.text }]} numberOfLines={1}>{surahNameOf(s.id, s.name)}</Text>
@@ -580,8 +576,8 @@ export default function MushafSayfaEkrani() {
                   accessibilityLabel={t.pageNumberA11y}
                   accessibilityHint={fmt(t.pageNumberHint, { max: SAYFA_SAYISI })}
                 />
-                <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.accent }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.goA11y}>
-                  <Text style={st.jumpBtnText}>{t.go}</Text>
+                <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.actionBg }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.goA11y}>
+                  <Text style={[st.jumpBtnText, { color: c.actionText }]}>{t.go}</Text>
                 </TouchableOpacity>
               </View>
 
@@ -589,18 +585,15 @@ export default function MushafSayfaEkrani() {
               {surahList.length === 0 ? (
                 <View style={st.sureBos}>
                   {surahListError ? (
-                    <>
-                      <Text style={[st.centerText, { color: c.textMuted }]}>{t.surahListError}</Text>
-                      <TouchableOpacity
-                        style={[st.retryBtn, { backgroundColor: c.accentLight, marginTop: 0 }]}
+                    <View style={{ flex: 1, gap: 10, alignItems: "center" }}>
+                      <Callout tone="error" style={{ alignSelf: "stretch" }}>{t.surahListError}</Callout>
+                      <Button
+                        variant="secondary"
+                        label={t.retry}
                         onPress={loadSurahList}
-                        activeOpacity={0.75}
-                        accessibilityRole="button"
                         accessibilityLabel={t.reloadListA11y}
-                      >
-                        <Text style={[st.retryText, { color: c.accent }]}>{t.retry}</Text>
-                      </TouchableOpacity>
-                    </>
+                      />
+                    </View>
                   ) : (
                     <>
                       <ActivityIndicator size="small" color={c.accent} />
@@ -664,13 +657,13 @@ export default function MushafSayfaEkrani() {
               {(() => { const sr = surahList.find((s) => s.id === secili.surahId); return sr ? surahNameOf(sr.id, sr.name) : fmt(t.surahFallback, { n: secili.surahId }); })()} · {secili.surahId}:{secili.ayahNumber}
             </Text>
             <TouchableOpacity
-              style={[st.seciliBtn, { backgroundColor: c.accent }]}
+              style={[st.seciliBtn, { backgroundColor: c.actionBg }]}
               onPress={seciliDetayaGit}
               activeOpacity={0.8}
               accessibilityRole="button"
               accessibilityLabel={t.openDetailA11y}
             >
-              <Text style={st.seciliBtnText}>{t.openDetail}</Text>
+              <Text style={[st.seciliBtnText, { color: c.actionText }]}>{t.openDetail}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setSecili(null)} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.clearSelectionA11y}>
               <Ionicons name="close" size={20} color={c.textMuted} />
@@ -709,7 +702,7 @@ const st = StyleSheet.create({
   jumpLabel: { fontSize: 12, fontWeight: "500" },
   jumpInput: { flex: 1, borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, textAlign: "center" },
   jumpBtn:   { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 8 },
-  jumpBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+  jumpBtnText: { fontSize: 13, fontWeight: "700" },
 
   // ── Sayfa/Sure paneli ──
   overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)" },
@@ -737,8 +730,6 @@ const st = StyleSheet.create({
 
   center:     { flex: 1, alignItems: "center", justifyContent: "center", gap: 10, padding: 24 },
   centerText: { fontSize: 13 },
-  retryBtn:   { paddingHorizontal: 18, paddingVertical: 9, borderRadius: 10, marginTop: 4 },
-  retryText:  { fontSize: 13, fontWeight: "700" },
 
   pageScroll: { padding: 12, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   kagit: {
@@ -774,5 +765,5 @@ const st = StyleSheet.create({
   },
   seciliText:    { flex: 1, fontSize: 13, fontWeight: "600" },
   seciliBtn:     { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10 },
-  seciliBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+  seciliBtnText: { fontSize: 13, fontWeight: "700" },
 });

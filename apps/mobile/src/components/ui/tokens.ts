@@ -79,3 +79,10 @@ export function featureColors(c: AppColors) {
   const k = c.isDark ? "dark" : "light";
   return { streak: FEATURE.streak[k], verse: FEATURE.verse[k], prayer: FEATURE.prayer[k], dua: FEATURE.dua[k] };
 }
+
+/** Mushaf "kâğıt" estetiği (Mushaf sayfa görünümü + Ayet ekranı Arapça kartı): zemin, kenar, sure başlığı altını. */
+export function paperColors(c: AppColors) {
+  return c.isDark
+    ? { bg: "#1c1917", border: "#44403c", gold: "#c9a84c", goldBorder: "#78716c" }
+    : { bg: "#fffdf6", border: "#e7dfcc", gold: "#a16207", goldBorder: "#c9a84c" };
+}

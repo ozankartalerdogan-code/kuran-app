@@ -23,7 +23,8 @@ import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonL
 import { TajweedText } from "../../../src/components/TajweedText";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
-import { useColors } from "../../../src/hooks/useColors";
+import { useColors, type AppColors } from "../../../src/hooks/useColors";
+import { Button, Callout, paperColors, toneColors } from "../../../src/components/ui";
 import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
 import * as Haptics from 'expo-haptics';
@@ -90,7 +91,7 @@ function isRootClickable(
 
 // Tefsir ayrı ekranda (/tafsir/[surahId]) gösteriliyor; ayet sayfasında tekrar
 // etmemek için akordiyon yerine o ekrana giden link.
-function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: ThemeColors }) {
+function SurahAboutAccordion({ surahId, colors }: { surahId: number; colors: ScreenColors }) {
   const ay = useStrings(ayahStrings);
   return (
     <TouchableOpacity
@@ -133,7 +134,7 @@ function RawMeaningSummary({
 }: {
   words: AyahDetailResponse["words"];
   verseKey: string;
-  colors: ThemeColors;
+  colors: ScreenColors;
 }) {
   const ay = useStrings(ayahStrings);
   const lang = useLang();
@@ -167,7 +168,7 @@ function UniqueRootList({
 }: {
   words: AyahDetailResponse["words"];
   rootMeanings: Record<string, string>;
-  colors: ThemeColors;
+  colors: ScreenColors;
 }) {
   const ay = useStrings(ayahStrings);
   const lang = useLang();
@@ -224,7 +225,7 @@ function UniqueRootList({
 // ── Hızlı Ayet Atlama ────────────────────────────────────────────────────────
 
 function AyahJumpBar({ surahId, current, total, colors, onJump }: {
-  surahId: number; current: number; total: number; colors: ThemeColors; onJump: () => void;
+  surahId: number; current: number; total: number; colors: ScreenColors; onJump: () => void;
 }) {
   const ay = useStrings(ayahStrings);
   const [surahVal, setSurahVal] = useState(String(surahId));
@@ -282,8 +283,8 @@ function AyahJumpBar({ surahId, current, total, colors, onJump }: {
         accessibilityLabel={ay.ayahNumberInputA11y}
         accessibilityHint={ay.ayahNumberInputHint}
       />
-      <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={ay.goA11y}>
-        <Text style={styles.jumpBtnText}>{ay.go}</Text>
+      <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.actionBg }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={ay.goA11y}>
+        <Text style={[styles.jumpBtnText, { color: colors.actionText }]}>{ay.go}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -301,7 +302,7 @@ function SegmentedTabs({
 }: {
   active: TabId;
   onChange: (id: TabId) => void;
-  colors: ThemeColors;
+  colors: ScreenColors;
   analysisTarget?: ReturnType<typeof useTourTarget>;
 }) {
   const ay = useStrings(ayahStrings);
@@ -322,7 +323,7 @@ function SegmentedTabs({
             {...(t.id === "analysis" && analysisTarget ? analysisTarget : {})}
             style={[
               styles.tabItem,
-              isActive && { backgroundColor: colors.accent },
+              isActive && { backgroundColor: colors.actionBg, borderColor: colors.border },
               isActive && styles.tabItemActive,
             ]}
             onPress={() => onChange(t.id)}
@@ -337,7 +338,7 @@ function SegmentedTabs({
               minimumFontScale={0.7}
               style={[
                 styles.tabLabel,
-                { color: isActive ? "#ffffff" : colors.textSecondary },
+                { color: isActive ? colors.actionText : colors.textSecondary },
               ]}
             >
               {t.label}
@@ -351,60 +352,33 @@ function SegmentedTabs({
 
 // ── Tema Renkleri ─────────────────────────────────────────────────────────────
 
-interface ThemeColors {
-  bg: string;
-  card: string;
-  surfaceAlt: string;
-  border: string;
-  textPrimary: string;
-  textSecondary: string;
-  textMuted: string;
-  accent: string;
-  accentLight: string;
-  error: string;
+function mapColors(c: AppColors) {
+  return {
+    bg: c.bg,
+    card: c.card,
+    surfaceAlt: c.cardAlt,
+    border: c.border,
+    textPrimary: c.text,
+    textSecondary: c.textSecondary,
+    textMuted: c.textMuted,
+    accent: c.accent,
+    accentLight: c.greenBg,
+    error: c.errorText,
+    actionBg: c.actionBg,
+    actionText: c.actionText,
+  };
 }
 
-// Ortak useColors paletiyle hizalı (bkz. src/hooks/useColors.ts) + ekrana özgü
-// `error`. Ayrı tutulmasının tek sebebi alan adları (textPrimary vb.).
-const lightColors: ThemeColors = {
-  bg:           "#f5f0e8",
-  card:         "#fffdf6",
-  surfaceAlt:   "#f5f0e8",
-  border:       "#e7dfcc",
-  textPrimary:  "#1c1917",
-  textSecondary:"#44403c",
-  textMuted:    "#78716c",
-  accent:       "#059669",
-  accentLight:  "#d1fae5",
-  error:        "#dc2626",
-};
-
-const darkColors: ThemeColors = {
-  bg:           "#0f0f0f",
-  card:         "#1c1917",
-  surfaceAlt:   "#292524",
-  border:       "#44403c",
-  textPrimary:  "#fafaf9",
-  textSecondary:"#d6d3d1",
-  textMuted:    "#a8a29e",
-  accent:       "#10b981",
-  accentLight:  "#064e3b",
-  error:        "#f87171",
-};
+type ScreenColors = ReturnType<typeof mapColors>;
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
 export default function AyahDetailScreen() {
   // Uygulama temasını izle (useColors) — doğrudan useColorScheme kullanılsaydı
   // ana sayfadaki tema düğmesi bu ekranı etkilemezdi (yalnız sistem temasını izlerdi).
-  const { isDark } = useColors();
-  const colors = isDark ? darkColors : lightColors;
-  // Mushaf sayfa görünümüyle aynı "kâğıt" estetiği (bkz. mushaf-sayfa.tsx kagit/sureBasligi)
-  const paper = isDark
-    ? { backgroundColor: "#1c1917", borderColor: "#44403c" }
-    : { backgroundColor: "#fffdf6", borderColor: "#e7dfcc" };
-  const gold = isDark ? "#c9a84c" : "#a16207";
-  const goldBorder = isDark ? "#78716c" : "#c9a84c";
+  const c = useColors();
+  const colors = useMemo(() => mapColors(c), [c]);
+  const p = paperColors(c);
   const insets = useSafeAreaInsets();
   const ayahTarget = useTourTarget("ayah.main");
   const analysisTabTarget = useTourTarget("ayah.analysis");
@@ -763,31 +737,23 @@ export default function AyahDetailScreen() {
         <Stack.Screen options={{ title: ay.errorTitle }} />
         <View style={[styles.centered, { backgroundColor: colors.bg }]}>
           <Ionicons name="cloud-offline-outline" size={44} color={colors.textMuted} />
-          <Text style={[styles.errorText, { color: colors.error }]}>
-            {error ?? ay.dataError}
-          </Text>
+          <Callout tone="error">{error ?? ay.dataError}</Callout>
           {surahId && ayahNumber ? (
-            <TouchableOpacity
+            <Button
+              variant="secondary"
+              icon="refresh"
+              label={ay.retry}
               onPress={() => setReloadKey((k) => k + 1)}
-              style={[styles.backBtn, { backgroundColor: colors.accent }]}
-              activeOpacity={0.7}
-              accessibilityRole="button"
               accessibilityLabel={ay.retryA11y}
-            >
-              <Ionicons name="refresh" size={16} color="#fff" />
-              <Text style={styles.backBtnText}>{ay.retry}</Text>
-            </TouchableOpacity>
+            />
           ) : null}
-          <TouchableOpacity
+          <Button
+            variant="secondary"
+            icon="chevron-back"
+            label={ay.back}
             onPress={() => router.back()}
-            style={[styles.backBtn, { backgroundColor: colors.surfaceAlt, borderWidth: 1, borderColor: colors.border }]}
-            activeOpacity={0.7}
-            accessibilityRole="button"
             accessibilityLabel={ay.backA11y}
-          >
-            <Ionicons name="chevron-back" size={16} color={colors.textSecondary} />
-            <Text style={[styles.backBtnText, { color: colors.textSecondary }]}>{ay.back}</Text>
-          </TouchableOpacity>
+          />
         </View>
       </>
     );
@@ -808,13 +774,13 @@ export default function AyahDetailScreen() {
         keyboardShouldPersistTaps="handled"
       >
         {/* ═══ Mushaf Kartı — sayfa görünümüyle aynı kâğıt estetiği ═══ */}
-        <View {...ayahTarget} style={[styles.paperCard, paper]}>
+        <View {...ayahTarget} style={[styles.paperCard, { backgroundColor: p.bg, borderColor: p.border }]}>
           {/* Sure başlığı süslemesi (mushaftaki sureBasligi ile aynı) */}
-          <View style={[styles.sureBasligi, { borderColor: goldBorder }]}>
+          <View style={[styles.sureBasligi, { borderColor: p.goldBorder }]}>
             <Text style={[styles.sureArapca, { color: colors.textPrimary }]} numberOfLines={1}>
               {data.arabicName}
             </Text>
-            <Text style={[styles.sureAdi, { color: gold }]} numberOfLines={1}>
+            <Text style={[styles.sureAdi, { color: p.gold }]} numberOfLines={1}>
               {fmt(ay.surahTitleLine, { id: data.surahId, name: surahNameOf(data.surahId, data.surahName), n: data.ayahNumber })}
             </Text>
           </View>
@@ -879,13 +845,13 @@ export default function AyahDetailScreen() {
             ) : (
               data.arabicText ? mushafMetniHazirla(data.arabicText) : "—"
             )}
-            <Text style={{ color: gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
+            <Text style={{ color: p.gold }}>{` ﴿${arapRakam(data.ayahNumber)}﴾`}</Text>
           </Text>
 
           {/* Okunuş — aynı kâğıtta, ince ayraçla */}
           {reading ? (
             <>
-              <View style={[styles.arabicDivider, { backgroundColor: paper.borderColor }]} />
+              <View style={[styles.arabicDivider, { backgroundColor: p.border }]} />
               <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{localizedVerseTranslit({ surah: surahId, ayah: ayahNumber }, reading, lang)}</Text>
               {lang === "en" ? (
                 <Text style={{ fontSize: 10, marginTop: 4, color: colors.textMuted }}>{`Transliteration: ${EN_TRANSLIT_SOURCE}`}</Text>
@@ -906,7 +872,7 @@ export default function AyahDetailScreen() {
           ) : null}
 
           {/* Eylemler — ayrı kart yerine kâğıdın alt kenarında ince satır */}
-          <View style={[styles.arabicDivider, { backgroundColor: paper.borderColor }]} />
+          <View style={[styles.arabicDivider, { backgroundColor: p.border }]} />
           <View style={styles.paperActions}>
             <TouchableOpacity
               style={[styles.mushafBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
@@ -1140,15 +1106,13 @@ export default function AyahDetailScreen() {
                     if (!code) return null;
                     const primary = i === 0;
                     const title = getThemeTitle(code, lang);
+                    const tagTone = toneColors(c, primary ? "violet" : "sky");
                     return (
                       <TouchableOpacity
                         key={code}
                         style={[
                           styles.tag,
-                          primary && styles.tagPrimary,
-                          isDark && (primary
-                            ? { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }
-                            : { backgroundColor: "#082f49", borderColor: "#075985" }),
+                          { backgroundColor: tagTone.bg, borderColor: colors.border },
                         ]}
                         onPress={() => router.push(`/search?tag=${encodeURIComponent(code)}&page=1`)}
                         hitSlop={{ top: 4, bottom: 4 }}
@@ -1156,7 +1120,7 @@ export default function AyahDetailScreen() {
                         accessibilityRole="button"
                         accessibilityLabel={fmt(ay.searchTagA11y, { tag: title })}
                       >
-                        <Text style={[primary ? styles.tagTextPrimary : styles.tagText, isDark && { color: primary ? "#c7d2fe" : "#7dd3fc" }]}>{title}</Text>
+                        <Text style={[primary ? styles.tagTextPrimary : styles.tagText, { color: tagTone.fg }]}>{title}</Text>
                       </TouchableOpacity>
                     );
                   })}
@@ -1217,13 +1181,13 @@ export default function AyahDetailScreen() {
               </TouchableOpacity>
             )}
             <TouchableOpacity
-              style={[styles.noteSaveBtn, { backgroundColor: colors.accent }]}
+              style={[styles.noteSaveBtn, { backgroundColor: colors.actionBg }]}
               onPress={handleSaveNote}
               activeOpacity={0.8}
               accessibilityRole="button"
               accessibilityLabel={ay.saveNoteA11y}
             >
-              <Text style={styles.noteSaveBtnText}>{ay.save}</Text>
+              <Text style={[styles.noteSaveBtnText, { color: colors.actionText }]}>{ay.save}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -1259,7 +1223,7 @@ export default function AyahDetailScreen() {
             <TouchableOpacity
               style={[
                 styles.navBtn,
-                { backgroundColor: data.prevAyah ? colors.accent : colors.border },
+                { backgroundColor: data.prevAyah ? colors.actionBg : colors.border },
               ]}
               onPress={handlePrev}
               disabled={!data.prevAyah}
@@ -1268,11 +1232,11 @@ export default function AyahDetailScreen() {
               accessibilityLabel={ay.prevA11y}
               accessibilityState={{ disabled: !data.prevAyah }}
             >
-              <Ionicons name="chevron-back" size={16} color={data.prevAyah ? "#fff" : colors.textMuted} />
+              <Ionicons name="chevron-back" size={16} color={data.prevAyah ? colors.actionText : colors.textMuted} />
               <Text
                 style={[
                   styles.navBtnText,
-                  !data.prevAyah && { color: colors.textMuted },
+                  { color: data.prevAyah ? colors.actionText : colors.textMuted },
                 ]}
               >
                 {ay.prev}
@@ -1309,7 +1273,7 @@ export default function AyahDetailScreen() {
             <TouchableOpacity
               style={[
                 styles.navBtn,
-                { backgroundColor: data.nextAyah ? colors.accent : colors.border },
+                { backgroundColor: data.nextAyah ? colors.actionBg : colors.border },
               ]}
               onPress={handleNext}
               disabled={!data.nextAyah}
@@ -1321,12 +1285,12 @@ export default function AyahDetailScreen() {
               <Text
                 style={[
                   styles.navBtnText,
-                  !data.nextAyah && { color: colors.textMuted },
+                  { color: data.nextAyah ? colors.actionText : colors.textMuted },
                 ]}
               >
                 {ay.next}
               </Text>
-              <Ionicons name="chevron-forward" size={16} color={data.nextAyah ? "#fff" : colors.textMuted} />
+              <Ionicons name="chevron-forward" size={16} color={data.nextAyah ? colors.actionText : colors.textMuted} />
             </TouchableOpacity>
           </View>
         </View>
@@ -1355,13 +1319,6 @@ const styles = StyleSheet.create({
     padding: 20, gap: 12,
   },
   loadingText: { marginTop: 12, fontSize: 14 },
-  errorText:   { fontSize: 14, textAlign: "center" },
-  backBtn: {
-    marginTop: 4, paddingHorizontal: 20, paddingVertical: 10,
-    minHeight: 44, borderRadius: 8,
-    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 4,
-  },
-  backBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
   // ── Scroll ──
   scroll:        { flex: 1 },
@@ -1442,8 +1399,7 @@ const styles = StyleSheet.create({
     minHeight: 38,
   },
   tabItemActive: {
-    shadowColor: "#000", shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1, shadowRadius: 2, elevation: 2,
+    borderWidth: 1,
   },
   tabLabel: { fontSize: 13, fontWeight: "600" },
 
@@ -1558,7 +1514,7 @@ const styles = StyleSheet.create({
     minHeight: 44, borderRadius: 8,
     flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 2,
   },
-  navBtnText: { fontSize: 14, fontWeight: "600", color: "#fff" },
+  navBtnText: { fontSize: 14, fontWeight: "600" },
   navCenterWrap: { flex: 1, alignItems: "center", gap: 6 },
   navCenterRow: { flexDirection: "row", alignItems: "center", gap: 4 },
   navCenter: { fontSize: 13, fontWeight: "500" },
@@ -1573,7 +1529,7 @@ const styles = StyleSheet.create({
   jumpLabel:  { fontSize: 12, fontWeight: "500", flexShrink: 0 },
   jumpInput:  { borderWidth: 1, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 5, fontSize: 14, minWidth: 44, maxWidth: 64, textAlign: "center", flexShrink: 1 },
   jumpBtn:    { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 8, flexShrink: 0 },
-  jumpBtnText:{ color: "#fff", fontSize: 13, fontWeight: "700" },
+  jumpBtnText:{ fontSize: 13, fontWeight: "700" },
 
   // ── Sure Accordion ──
   accordionBox:     { borderRadius: 12, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
@@ -1585,10 +1541,9 @@ const styles = StyleSheet.create({
 
   // ── Tema Etiketleri ──
   tagRow:         { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 8 },
-  tag:            { borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, minHeight: 36, justifyContent: "center", backgroundColor: "#f0f9ff", borderWidth: 1, borderColor: "#bae6fd" },
-  tagPrimary:     { backgroundColor: "#eef2ff", borderColor: "#c7d2fe" },
-  tagText:        { fontSize: 13, color: "#0369a1", fontWeight: "500" },
-  tagTextPrimary: { fontSize: 13, color: "#4338ca", fontWeight: "600" },
+  tag:            { borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, minHeight: 36, justifyContent: "center", borderWidth: 1 },
+  tagText:        { fontSize: 13, fontWeight: "500" },
+  tagTextPrimary: { fontSize: 13, fontWeight: "600" },
 
   // ── Kişisel Not ──
   noteBox: {
@@ -1607,7 +1562,7 @@ const styles = StyleSheet.create({
   noteActions:     { flexDirection: "row", justifyContent: "flex-end", alignItems: "center", gap: 12 },
   noteDelete:      { fontSize: 13, fontWeight: "600" },
   noteSaveBtn:     { paddingHorizontal: 20, paddingVertical: 9, borderRadius: 8 },
-  noteSaveBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
+  noteSaveBtnText: { fontSize: 13, fontWeight: "700" },
 
   // (geriye dönük uyumluluk)
   wordRoot: {
