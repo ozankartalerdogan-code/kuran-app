@@ -1845,8 +1845,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3152196,
-        "sha256": "143e34fcd5e9d8b0fb1ccd0cdf9bb9e2c394e01c843eae10dba0676d345d6a12",
+        "totalBytes": 3152418,
+        "sha256": "8277b38b8b175da91028dd2c485739098abc008ac16b33fb33313a124839da11",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1856,7 +1856,7 @@
           {
             "path": "apps/mobile/src/data/content/harf_i_tarif.en.json",
             "bytes": 15814,
-            "sha256": "3fa6f29d49deb413ddbb13be609f1b0b80c5c19d90a948841dd3bd5d22fd2f2e"
+            "sha256": "3bef0febad599fd425ccd1eec8d1b7a166da1fdf468261f61c7957d8e1bc3840"
           },
           {
             "path": "apps/mobile/src/data/content/ibadet_rehberi.en.json",
@@ -2055,8 +2055,8 @@
           },
           {
             "path": "apps/mobile/src/data/mubarek_gunler.en.json",
-            "bytes": 37078,
-            "sha256": "023c863c67fc1e02fa97e04c2faa1a38ef0cd4778c69575d7f092e42f6addfed"
+            "bytes": 37284,
+            "sha256": "31e7fedcfda2868cd923c0e51110418183231a5ad01858c7af038cb1f93cd887"
           },
           {
             "path": "apps/mobile/src/data/namaz_rehberi.en.json",
@@ -2065,8 +2065,8 @@
           },
           {
             "path": "apps/mobile/src/data/ozel_namazlar.en.json",
-            "bytes": 44291,
-            "sha256": "fb72c0e46bcf36e2fe55f78fa2a7069f857478948c4fe2cee0755deacfcc590c"
+            "bytes": 44307,
+            "sha256": "0b6b5fbdef62bd2db5d04800859a1c259954fb0ebfd8cb25ec21396321eded28"
           },
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.en.json",
@@ -3440,13 +3440,13 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 4,
-        "totalBytes": 255854,
-        "sha256": "7b4d52684f3247f47764d80c59ef25c07112300ec0402d4be45230e8eb3b1dd1",
+        "totalBytes": 255863,
+        "sha256": "917abadc78b0e2a9dace1a052c4a81a5f2491ed2b93915f8279a49f06d1f9abe",
         "files": [
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.json",
-            "bytes": 59621,
-            "sha256": "d112197232a6f78e85b7420f2671dcd5756e5955d7e3896b74d7efb5ff3bac20"
+            "bytes": 59630,
+            "sha256": "c92e329e4feb2ee903d6596cc31b30562fd5419e2ae91409ff8f86cba14e085d"
           },
           {
             "path": "apps/mobile/src/data/siyer_i_nebi.json",
@@ -4127,13 +4127,13 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 9,
-        "totalBytes": 1799569,
-        "sha256": "e887fee986b47f336db307f06b14ab66b9f0252ab214f240d95bb6d3838e4d1d",
+        "totalBytes": 1799567,
+        "sha256": "2532b0799a6d15ea3f2f74bd4e79e5ef5c406c9b87ef8788b40a76350ce513eb",
         "files": [
           {
             "path": "apps/mobile/src/data/dualar.json",
-            "bytes": 111578,
-            "sha256": "588430af9dc4cdb929f507d0d7a2b7b854e92e93ed9430152af79c4088c66b78"
+            "bytes": 111562,
+            "sha256": "8e18311e67b289bf4f5db069313208a6aa5bb513798c99cae7b7fecfca4cb318"
           },
           {
             "path": "apps/mobile/src/data/ismi_azam_dualari.ts",
@@ -4147,8 +4147,8 @@
           },
           {
             "path": "apps/mobile/src/data/ozel_namazlar.json",
-            "bytes": 41040,
-            "sha256": "dbb93e38213d2fe63553e257beaa607d66751c3bf58d22c680f46ce2c675b2d0"
+            "bytes": 41054,
+            "sha256": "cdcfb27b8956f60d2b29b0abe9cca2971ce7bc852666f4c4ebbcf2fa913156c3"
           },
           {
             "path": "apps/web/src/data/dualar.json",
