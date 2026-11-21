@@ -30,6 +30,17 @@ export function getLessonStatus(
   return "locked";
 }
 
+/**
+ * Kilitli bir ders yalnız seviye testi (mode=quiz & bypass=1) ile açılabilir.
+ */
+export function canOpenLesson(
+  status: ElifbaLessonStatus,
+  options?: { mode?: string; bypass?: string },
+): boolean {
+  if (status !== "locked") return true;
+  return options?.mode === "quiz" && options?.bypass === "1";
+}
+
 // Test-out saves preserve the best score while granting card-free completion.
 // Normal quizzes keep their existing replacement behavior at the call site.
 export function mergeQuizScore(prev: ElifbaQuizScore | undefined, next: ElifbaQuizScore): ElifbaQuizScore {

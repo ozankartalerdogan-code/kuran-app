@@ -3,8 +3,10 @@ import {
   StyleSheet, ScrollView, useWindowDimensions,
 } from "react-native";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
 import { logScreen } from '../../src/lib/analytics';
-import { router, Stack, useLocalSearchParams } from "expo-router";
+import { router, Stack, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, type ElifbaHarf } from "../../src/lib/api";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
@@ -12,6 +14,8 @@ import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { useColors } from "../../src/hooks/useColors";
 import {
   ELIFBA_QUIZ_PASS,
+  canOpenLesson,
+  getLessonStatus,
   mergeQuizScore,
   parseElifbaProgress,
   parseElifbaQuizScores,
@@ -19,6 +23,7 @@ import {
   selectQuizQuestionsWithSrs,
   updateElifbaSrs,
   type ElifbaProgress,
+  type ElifbaQuizScores,
   type ElifbaSrsMap,
 } from "../../src/lib/elifbaProgress";
 import { normalizeQuizQuestions, type QuizQuestion } from "../../src/lib/elifbaQuizSession";
@@ -31,18 +36,24 @@ import { ElifbaQuizView } from "../../src/components/ElifbaQuizView";
 import { playHarfSes, stopHarfSes } from "../../src/lib/elifbaAudio";
 import { buildListeningItems, type ListeningItem } from "../../src/lib/elifbaListening";
 import { useStrings, useLang, fmt } from "../../src/i18n";
-import { localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
-import { parseDersIcerik, type DersIcerik } from "../../src/lib/elifbaLessonContent";
+import { localizeDersler, localizeHarfler, localizeQuiz } from "../../src/lib/elifbaEn";
+import { parseDersIcerik } from "../../src/lib/elifbaLessonContent";
 import { ElifbaLessonContent } from "../../src/components/ElifbaLessonContent";
 import elifbaStrings from "../../src/i18n/strings/elifba";
+
+function shortBaslik(b: string) {
+  return b.replace(/^\d+\.\s*(KONU|LESSON):\s*/i, "");
+}
 
 const reviewedExercises = exercisesData as unknown as ReviewedExercise[];
 
 // ── Flashcard ─────────────────────────────────────────────────────────────────
 
-function Flashcard({ harf }: { harf: ElifbaHarf }) {
+function Flashcard({ harf, cardHeight = 220 }: { harf: ElifbaHarf; cardHeight?: number }) {
   const c = useColors();
   const ep = useStrings(elifbaStrings);
+  const isCompact = cardHeight < 200;
+  const arabicSize = cardHeight >= 210 ? 96 : Math.max(52, Math.round((cardHeight - 56) * 0.56));
   const badgeLabels: Record<string, string> = {
     "kalın": ep.kalinLabel, ince: ep.inceLabel, "her ikisi": ep.herIkisiLabel,
     birlesen: ep.birlesenLabel, birlesmeyen: ep.birlesmeyenLabel,
@@ -78,9 +89,9 @@ function Flashcard({ harf }: { harf: ElifbaHarf }) {
   }, [harf.harf_id]);
 
   return (
-    <View style={fc.container}>
+    <View style={[fc.container, isCompact && { paddingVertical: 8 }]}>
       <TouchableOpacity
-        style={fc.playBtn}
+        style={[fc.playBtn, isCompact && { padding: 6, marginBottom: 2 }]}
         onPress={handlePlay}
         activeOpacity={0.7}
         accessibilityRole="button"
@@ -100,6 +111,8 @@ function Flashcard({ harf }: { harf: ElifbaHarf }) {
       <TouchableOpacity
         style={[
           flipped ? fc.cardBack : fc.cardFront,
+          { minHeight: cardHeight },
+          isCompact && (flipped ? { padding: 14 } : { paddingVertical: 14, paddingHorizontal: 20 }),
           flipped
             ? c.isDark && { backgroundColor: "#052e22", borderColor: "#065f46" }
             : { backgroundColor: c.card, borderColor: c.border },
@@ -113,8 +126,18 @@ function Flashcard({ harf }: { harf: ElifbaHarf }) {
       >
         {!flipped ? (
           <>
-            <Text style={[fc.arabicChar, { color: c.text }]}>{harf.tek_basina}</Text>
-            <Text style={[fc.hint, { color: c.textMuted }]}>{ep.flipText}</Text>
+            <Text
+              style={[fc.arabicChar, { color: c.text, fontSize: arabicSize }]}
+              allowFontScaling={false}
+            >
+              {harf.tek_basina}
+            </Text>
+            <Text
+              style={[fc.hint, { color: c.textMuted }, isCompact && { marginTop: 4 }]}
+              numberOfLines={2}
+            >
+              {ep.flipText}
+            </Text>
           </>
         ) : (
           <View style={fc.backContent}>
@@ -602,7 +625,7 @@ export default function DersScreen() {
   const dersId = Number(raw);
   const isBypass = rawBypass === "1";
   const insets = useSafeAreaInsets();
-  const { fontScale } = useWindowDimensions();
+  const { height: windowHeight, fontScale } = useWindowDimensions();
   const c = useColors();
   const ep = useStrings(elifbaStrings);
   useEffect(() => { logScreen('ElifBaDers'); }, []);
@@ -612,6 +635,29 @@ export default function DersScreen() {
   useEffect(() => () => { stopHarfSes(); }, []);
 
   const lang = useLang();
+  const {
+    data: derslerRaw,
+    isLoading: derslerLoading,
+    isError: derslerError,
+    refetch: refetchDersler,
+  } = useQuery({
+    queryKey: ["elifba-dersler"],
+    queryFn: () => api.elifba.dersler(),
+    staleTime: 60 * 60 * 1000,
+  });
+  const dersler = useMemo(() => localizeDersler(derslerRaw ?? [], lang), [derslerRaw, lang]);
+  const currentIdx = useMemo(() => dersler.findIndex((d) => d.id === dersId), [dersler, dersId]);
+  const currentDers = currentIdx >= 0 ? dersler[currentIdx] : null;
+  const prevDers = currentIdx > 0 ? dersler[currentIdx - 1] : null;
+  const currentDersRaw = useMemo(
+    () => (derslerRaw ?? []).find((d) => d.id === dersId) ?? null,
+    [derslerRaw, dersId],
+  );
+  const dersIcerik = useMemo(
+    () => (currentDersRaw ? parseDersIcerik(currentDersRaw.icerik_json) : null),
+    [currentDersRaw],
+  );
+
   const [harflerRaw, setHarfler] = useState<ElifbaHarf[]>([]);
   const harfler = useMemo(() => localizeHarfler(harflerRaw, lang), [harflerRaw, lang]);
   // 4 farklı harfi olmayan derslerde (ör. Med Harfleri) dinleme sorusu kurulamaz; sekmeyi gizle.
@@ -632,43 +678,52 @@ export default function DersScreen() {
     lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: true });
   }, [idx, mode]);
   const [seenIds, setSeenIds]   = useState<number[]>([]);
-  const [dersIcerik, setDersIcerik] = useState<DersIcerik | null>(null);
+  const [progress, setProgress] = useState<ElifbaProgress>({});
+  const [quizScores, setQuizScores] = useState<ElifbaQuizScores>({});
+  const [progressReady, setProgressReady] = useState(false);
+  const [scoresReady, setScoresReady]     = useState(false);
   const progressRef             = useRef<ElifbaProgress>({});
+
+  useEffect(() => {
+    setMode(isBypass || initialMode === "quiz" ? "quiz" : "flashcard");
+    setIdx(0);
+  }, [dersId, initialMode, isBypass]);
 
   useEffect(() => {
     let isMounted = true;
     setLoading(true);
     setLoadError(false);
+    setHarfler([]);
     api.elifba.harfler(dersId)
       .then((h) => { if (isMounted) setHarfler(h); })
       .catch(() => { if (isMounted) setLoadError(true); })
-      .finally(() => setLoading(false));
-    storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
-      .then((rawProgress) => {
-        if (isMounted) {
-          const parsedProgress = parseElifbaProgress(rawProgress);
-          progressRef.current = parsedProgress;
-          setSeenIds(parsedProgress[String(dersId)] ?? []);
-        }
-      })
-      .catch(() => {});
+      .finally(() => { if (isMounted) setLoading(false); });
     return () => { isMounted = false; };
   }, [dersId, reloadKey]);
 
-  useEffect(() => {
+  const loadProgressAndScores = useCallback(() => {
     let isMounted = true;
-    setDersIcerik(null);
-    api.elifba.dersler()
-      .then((list) => {
+    storage.getJSON<unknown>(STORAGE_KEYS.elifbaProgress)
+      .then((rawProgress) => {
         if (!isMounted) return;
-        const ders = list.find((d) => d.id === dersId);
-        setDersIcerik(ders ? parseDersIcerik(ders.icerik_json) : null);
+        const parsedProgress = parseElifbaProgress(rawProgress);
+        progressRef.current = parsedProgress;
+        setProgress(parsedProgress);
+        setSeenIds(parsedProgress[String(dersId)] ?? []);
       })
-      .catch(() => {
-        if (isMounted) setDersIcerik(null);
-      });
+      .catch(() => {})
+      .finally(() => { if (isMounted) setProgressReady(true); });
+    storage.getJSON<unknown>(STORAGE_KEYS.quizScores)
+      .then((rawScores) => {
+        if (!isMounted) return;
+        setQuizScores(parseElifbaQuizScores(rawScores));
+      })
+      .catch(() => {})
+      .finally(() => { if (isMounted) setScoresReady(true); });
     return () => { isMounted = false; };
   }, [dersId]);
+
+  useFocusEffect(loadProgressAndScores);
 
   const markSeen = useCallback((harfId: number) => {
     setSeenIds((prev) => {
@@ -676,6 +731,7 @@ export default function DersScreen() {
       const next = [...prev, harfId];
       const updated = { ...progressRef.current, [String(dersId)]: next };
       progressRef.current = updated;
+      setProgress(updated);
       storage.setJSON(STORAGE_KEYS.elifbaProgress, updated).catch(() => {});
       return next;
     });
@@ -705,17 +761,128 @@ export default function DersScreen() {
     router.dismissTo("/elifba");
   }, [dersId, isBypass]);
 
-  if (loading) {
+  const dersTitle = currentDers ? shortBaslik(currentDers.baslik) : null;
+  const title = dersTitle ?? rawBaslik ?? fmt(ep.lessonFallbackN, { n: dersId });
+  const statusLoading = derslerLoading || !progressReady || !scoresReady;
+  const lessonStatus = useMemo(
+    () => (currentDers ? getLessonStatus(currentDers, currentIdx, dersler, progress, quizScores) : null),
+    [currentDers, currentIdx, dersler, progress, quizScores],
+  );
+  const canOpen = lessonStatus !== null && canOpenLesson(lessonStatus, { mode: initialMode, bypass: rawBypass });
+
+  if (statusLoading) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
-        <Stack.Screen options={{ title: rawBaslik ?? ep.lessonFallback }} />
+        <Stack.Screen options={{ title: dersTitle ?? rawBaslik ?? ep.lessonFallback }} />
         <ActivityIndicator size="large" color={c.accent} />
       </View>
     );
   }
 
-  const title = rawBaslik ?? fmt(ep.lessonFallbackN, { n: dersId });
+  if (derslerError && !currentDers) {
+    return (
+      <View style={[styles.centered, styles.lockedWrap, { backgroundColor: c.bg }]}>
+        <Stack.Screen options={{ title }} />
+        <Text style={[styles.noData, { color: c.textMuted }]}>{ep.loadError}</Text>
+        <TouchableOpacity
+          style={[qv.retryBtn, { backgroundColor: c.accent }]}
+          onPress={() => { void refetchDersler(); }}
+          accessibilityRole="button"
+          accessibilityLabel={ep.reloadA11y}
+        >
+          <Text style={qv.retryText}>{ep.retry}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (!currentDers) {
+    return (
+      <View style={[styles.centered, styles.lockedWrap, { backgroundColor: c.bg }]}>
+        <Stack.Screen options={{ title }} />
+        <Text style={[styles.noData, { color: c.textMuted }]}>{ep.noLessons}</Text>
+        <TouchableOpacity
+          style={[qv.retryBtn, { backgroundColor: c.accent }]}
+          onPress={() => router.dismissTo("/elifba")}
+          accessibilityRole="button"
+          accessibilityLabel={ep.backToLessonsA11y}
+        >
+          <Text style={qv.retryText}>{ep.backToLessons}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (!canOpen) {
+    const prevName = prevDers ? shortBaslik(prevDers.baslik) : null;
+    return (
+      <View style={[styles.centered, styles.lockedWrap, { backgroundColor: c.bg, paddingBottom: insets.bottom + 24 }]}>
+        <Stack.Screen options={{ title }} />
+        <View style={[styles.lockCard, { backgroundColor: c.card, borderColor: c.border }]}>
+          <View style={[styles.lockIconWrap, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+            <Ionicons name="lock-closed" size={30} color={c.textMuted} />
+          </View>
+          <Text style={[styles.lockTitle, { color: c.text }]}>{ep.lockedTitle}</Text>
+          <Text style={[styles.lockHint, { color: c.textMuted }]}>
+            {prevName ? fmt(ep.lockedPrevHint, { name: prevName }) : ep.lockedDefaultHint}
+          </Text>
+          <View style={styles.lockActions}>
+            {prevDers && prevName && (
+              <TouchableOpacity
+                style={[styles.lockBtnSecondary, { backgroundColor: c.cardAlt, borderColor: c.border }]}
+                onPress={() => router.replace({
+                  pathname: "/elifba/[dersId]",
+                  params: { dersId: String(prevDers.id), baslik: prevName },
+                })}
+                activeOpacity={0.75}
+                accessibilityRole="button"
+                accessibilityLabel={fmt(ep.goToPrevLessonA11y, { name: prevName })}
+              >
+                <Text style={[styles.lockBtnSecondaryText, { color: c.text }]}>{ep.goToPrevLesson}</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={[styles.lockBtnPrimary, { backgroundColor: c.actionBg }]}
+              onPress={() => router.replace({
+                pathname: "/elifba/[dersId]",
+                params: {
+                  dersId: String(currentDers.id),
+                  mode: "quiz",
+                  bypass: "1",
+                  baslik: shortBaslik(currentDers.baslik),
+                },
+              })}
+              activeOpacity={0.75}
+              accessibilityRole="button"
+              accessibilityLabel={fmt(ep.bypassQuizA11y, { name: shortBaslik(currentDers.baslik) })}
+            >
+              <Text style={[styles.lockBtnPrimaryText, { color: c.actionText }]}>{ep.bypassQuizBtn}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  if (loading) {
+    return (
+      <View style={[styles.centered, { backgroundColor: c.bg }]}>
+        <Stack.Screen options={{ title }} />
+        <ActivityIndicator size="large" color={c.accent} />
+      </View>
+    );
+  }
+
   const pct   = harfler.length > 0 ? Math.round((seenIds.length / harfler.length) * 100) : 0;
+  const lettersStripHeight = 16 + Math.max(44, Math.round(46 * fontScale));
+  const chromeHeight = insets.top + insets.bottom + 56
+    + (isBypass ? 0 : 56)
+    + (harfler.length <= 30 ? lettersStripHeight : 0)
+    + 80;
+  const lessonEstimate = dersIcerik ? Math.round(148 * Math.min(fontScale, 1.35)) : 0;
+  const cardHeight = Math.max(148, Math.min(220, windowHeight - chromeHeight - lessonEstimate - 72));
+  const isCompact = cardHeight < 200;
+  const prevDisabled = idx === 0;
 
   return (
     <>
@@ -805,13 +972,14 @@ export default function DersScreen() {
                 <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
                 <Flashcard
                   harf={harfler[idx]}
+                  cardHeight={cardHeight}
                 />
               </ScrollView>
               {harfler.length <= 30 && (
                 <ScrollView
                   ref={lettersRef}
                   horizontal
-                  style={{ height: 16 + Math.max(44, 60 * fontScale), flexGrow: 0, flexShrink: 0 }}
+                  style={{ height: lettersStripHeight, flexGrow: 0, flexShrink: 0 }}
                   contentContainerStyle={styles.letters}
                   onContentSizeChange={() => lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: false })}
                 >
@@ -832,13 +1000,15 @@ export default function DersScreen() {
                   ))}
                 </ScrollView>
               )}
-              <View style={{ paddingHorizontal: 16, paddingBottom: insets.bottom + 16, flexShrink: 0, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" }}>
-                <View style={fc.navRow}>
+              <View style={{ paddingHorizontal: 16, paddingBottom: insets.bottom + (isCompact ? 10 : 16), flexShrink: 0, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" }}>
+                <View style={[fc.navRow, isCompact && { marginTop: 8 }]}>
                   <TouchableOpacity
-                    style={[fc.navBtn, { backgroundColor: c.card, borderColor: c.border }]}
+                    style={[fc.navBtn, { backgroundColor: c.card, borderColor: c.border }, prevDisabled && fc.navBtnDisabled]}
                     onPress={handlePrev}
+                    disabled={prevDisabled}
                     accessibilityRole="button"
                     accessibilityLabel={ep.prevLetterA11y}
+                    accessibilityState={{ disabled: prevDisabled }}
                   >
                     <Text style={[fc.navBtnText, { color: c.textSecondary }]}>{ep.prev}</Text>
                   </TouchableOpacity>
@@ -886,6 +1056,28 @@ export default function DersScreen() {
 const styles = StyleSheet.create({
   container: { flex:1, backgroundColor:"#f5f0e8" },
   centered:  { flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"#f5f0e8" },
+  lockedWrap: { paddingHorizontal: 20 },
+  lockCard: {
+    width: "100%", maxWidth: READING_MAX_WIDTH, borderRadius: 20, borderWidth: 1,
+    padding: 24, alignItems: "center", gap: 12,
+  },
+  lockIconWrap: {
+    width: 64, height: 64, borderRadius: 32, borderWidth: 1,
+    alignItems: "center", justifyContent: "center", marginBottom: 4,
+  },
+  lockTitle: { fontSize: 18, fontWeight: "700", textAlign: "center" },
+  lockHint: { fontSize: 14, lineHeight: 20, textAlign: "center" },
+  lockActions: { width: "100%", gap: 10, marginTop: 8 },
+  lockBtnSecondary: {
+    width: "100%", borderRadius: 12, borderWidth: 1, paddingVertical: 13,
+    paddingHorizontal: 16, alignItems: "center",
+  },
+  lockBtnSecondaryText: { fontSize: 14, fontWeight: "700" },
+  lockBtnPrimary: {
+    width: "100%", borderRadius: 12, paddingVertical: 13,
+    paddingHorizontal: 16, alignItems: "center",
+  },
+  lockBtnPrimaryText: { fontSize: 14, fontWeight: "700" },
   noData:    { color:"#78716c", fontSize:14, textAlign:"center" },
   modeBar:   { flexDirection:"row", margin:12, gap:8 },
   modeBtn:   { flex:1, paddingVertical:10, borderRadius:10, backgroundColor:"#fffdf6", borderWidth:1, borderColor:"#e7dfcc", alignItems:"center" },
@@ -927,6 +1119,7 @@ const fc = StyleSheet.create({
   badgeText:   { fontSize:11, fontWeight:"600", color:"#44403c" },
   navRow:        { flexDirection:"row", gap:10, marginTop:16, width:"100%" },
   navBtn:        { flex:1, borderRadius:12, paddingVertical:13, borderWidth:1, borderColor:"#e7dfcc", backgroundColor:"#fffdf6", alignItems:"center" },
+  navBtnDisabled:{ opacity:0.4 },
   navBtnActive:  { backgroundColor:"#059669", borderColor:"#059669" },
   navBtnText:    { fontSize:14, fontWeight:"700", color:"#44403c" },
 });

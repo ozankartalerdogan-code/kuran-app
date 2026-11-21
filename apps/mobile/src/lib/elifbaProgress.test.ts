@@ -9,6 +9,7 @@ import {
   parseElifbaQuizScores,
   isLessonCompleted,
   getLessonStatus,
+  canOpenLesson,
   mergeQuizScore,
 } from "./elifbaProgress.ts";
 
@@ -40,6 +41,20 @@ test("getLessonStatus: bypassing lesson 4 opens only its successor", () => {
     ["active", "locked", "locked", "completed", "active", "locked"]);
   scores["4"].score = 9;
   assert.equal(getLessonStatus(lessons[4], 4, lessons, {}, scores), "locked");
+});
+
+test("canOpenLesson: locked lesson only opens with quiz + bypass=1", () => {
+  assert.equal(canOpenLesson("locked"), false);
+  assert.equal(canOpenLesson("locked", {}), false);
+  assert.equal(canOpenLesson("locked", { mode: "flashcard" }), false);
+  assert.equal(canOpenLesson("locked", { mode: "quiz" }), false);
+  assert.equal(canOpenLesson("locked", { bypass: "1" }), false);
+  assert.equal(canOpenLesson("locked", { mode: "flashcard", bypass: "1" }), false);
+  assert.equal(canOpenLesson("locked", { mode: "quiz", bypass: "1" }), true);
+  assert.equal(canOpenLesson("active"), true);
+  assert.equal(canOpenLesson("active", { mode: "quiz" }), true);
+  assert.equal(canOpenLesson("completed"), true);
+  assert.equal(canOpenLesson("completed", { mode: "quiz", bypass: "1" }), true);
 });
 
 test("mergeQuizScore: bypass preserves a higher normal score and its total", () => {
