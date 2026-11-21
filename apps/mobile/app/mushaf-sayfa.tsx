@@ -13,7 +13,7 @@ import { useStreak } from "../src/hooks/useStreak";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../src/lib/mushafSayfa";
-import { tajweedPartsFromSpans, TAJWEED_LEGEND } from "../src/lib/tajweed";
+import { joinAcrossColorBoundaries, tajweedPartsFromSpans, TAJWEED_LEGEND } from "../src/lib/tajweed";
 import { HatimPanel } from "../src/components/HatimPanel";
 import { logFeature } from "../src/lib/analytics";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -88,7 +88,9 @@ function AyetMetni({ ayet, tajweed }: { ayet: MushafPageResponse["verses"][numbe
   // 1:1 ve uzunluk korur — tajweedSpans'in kod noktası indeksleri kaymaz.
   const metin = useMemo(() => mushafMetniHazirla(ayet.arabic ?? ""), [ayet.arabic]);
   const parcalar = useMemo(
-    () => (tajweed && ayet.tajweedSpans?.length ? tajweedPartsFromSpans(metin, ayet.tajweedSpans) : null),
+    () => (tajweed && ayet.tajweedSpans?.length
+      ? joinAcrossColorBoundaries(tajweedPartsFromSpans(metin, ayet.tajweedSpans))
+      : null),
     [tajweed, metin, ayet.tajweedSpans],
   );
   if (parcalar) {

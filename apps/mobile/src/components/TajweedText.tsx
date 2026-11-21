@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, StyleProp, TextStyle } from "react-native";
-import { tajweedPartsFromSpans, type TajweedSpan } from "../lib/tajweed";
+import { joinAcrossColorBoundaries, tajweedPartsFromSpans, type TajweedSpan } from "../lib/tajweed";
 
 // Tecvid bölme/renk mantığı SAF modülde (lib/tajweed.ts) — test edilir.
 //
@@ -19,7 +19,9 @@ export function TajweedText({
   spans?: readonly TajweedSpan[];
   style?: StyleProp<TextStyle>;
 }) {
-  const parcalar = spans?.length ? tajweedPartsFromSpans(text, spans) : null;
+  const parcalar = spans?.length
+    ? joinAcrossColorBoundaries(tajweedPartsFromSpans(text, spans))
+    : null;
   return (
     <Text style={style} selectable>
       {parcalar

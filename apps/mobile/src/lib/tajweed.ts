@@ -120,6 +120,98 @@ export function tajweedPartsFromSpans(
   return parts;
 }
 
+const ZWJ = "\u200D";
+
+/**
+ * Temel Arapça harf aralıkları (rakamlar, boşluklar, durak/ayet sonu
+ * işaretleri ve noktalama hariç). Tatweel (U+0640) Kur'an metninde çift yönlü
+ * bağlanan taşıyıcı olarak geçtiğinden harf sayılır.
+ */
+const ARAPCA_HARF = /^[\u0621-\u063A\u0640-\u064A\u066E-\u066F\u0671-\u06D3\u06D5\u06EE-\u06EF\u06FA-\u06FC\u06FF\u0750-\u077F\u08A0-\u08FF]$/;
+
+/**
+ * Sola (kelimedeki bir sonraki harfe) bağlanmayan Arapça harfler.
+ *
+ * Arapça sağdan sola yazıldığı için iki komşu harfin birleşebilmesi, önceki
+ * (sağdaki) harfin sola bağlanabilmesine bağlıdır. Bu kümedeki harfler yalnızca
+ * sağdan bağ alır (ا أ إ آ ٱ د ذ ر ز و ؤ ة ى vb.) ya da hemze (ء) gibi hiç
+ * bağlanmaz; renk sınırının solunda yer aldıklarında ZWJ eklenmez.
+ */
+const SOLA_BAGLANMAYAN = new Set([
+  // Hemze (hiçbir yönden bağlanmaz)
+  "ء", "\u0674",
+  // Elif ailesi (ا أ إ آ ٱ ve türevleri)
+  "ا", "أ", "إ", "آ", "ٱ", "\u0672", "\u0673", "\u0675",
+  // Te merbûta ve yalnızca sağdan bağlanan he/ae biçimleri
+  "ة", "\u06C0", "\u06C3", "\u06D5",
+  // Dal / Zel ailesi
+  "د", "ذ",
+  "\u0688", "\u0689", "\u068A", "\u068B", "\u068C", "\u068D", "\u068E", "\u068F", "\u0690",
+  "\u06EE",
+  // Ra / Ze ailesi
+  "ر", "ز",
+  "\u0691", "\u0692", "\u0693", "\u0694", "\u0695", "\u0696", "\u0697", "\u0698", "\u0699",
+  "\u06EF",
+  // Vav ailesi
+  "و", "ؤ",
+  "\u0676", "\u0677",
+  "\u06C4", "\u06C5", "\u06C6", "\u06C7", "\u06C8", "\u06C9", "\u06CA", "\u06CB", "\u06CF",
+  // Elif-i maksûre ve yalnızca sağdan bağlanan ye biçimleri
+  "ى", "\u06D2", "\u06D3",
+]);
+
+/**
+ * Sağdan da (önceki harfe) bağlanmayan Arapça harfler.
+ * Hemze (ء) iki yöne de bağlanmadığı için sonraki parçanın başında olduğunda
+ * önceki parçanın sonuna ZWJ eklemek yanlış bağlantı çıkıntısı üretir.
+ */
+const SAGDAN_BAGLANMAYAN = new Set(["ء", "\u0674"]);
+
+function tabanHarfBul(text: string, sondan: boolean): string | null {
+  const cps = Array.from(text);
+  if (sondan) {
+    for (let i = cps.length - 1; i >= 0; i--) {
+      if (!BIRLESEN.test(cps[i])) return cps[i];
+    }
+  } else {
+    for (let i = 0; i < cps.length; i++) {
+      if (!BIRLESEN.test(cps[i])) return cps[i];
+    }
+  }
+  return null;
+}
+
+/**
+ * Kelime ortasından geçen renk sınırlarına Sıfır Genişlikli Birleştirici
+ * (ZWJ, U+200D) ekler.
+ *
+ * Android'de iç içe `<Text>` sınırları Arapça harf şekillendirmesini (shaping)
+ * böler; sınırın iki yanındaki harfler izole biçimde çizilir. Önceki parçanın
+ * son taban harfi sola bağlanabilen bir Arapça harf VE sonraki parçanın ilk
+ * taban harfi sağdan bağlanabilen bir Arapça harf olduğunda sınırın iki
+ * tarafına `\u200D` eklenir. Kod noktası indekslemesinden sonra çalışmalıdır.
+ */
+export function joinAcrossColorBoundaries(parts: readonly TajweedPart[]): TajweedPart[] {
+  if (parts.length <= 1) return parts.map((p) => ({ ...p }));
+
+  const out = parts.map((p) => ({ ...p }));
+  for (let i = 0; i < parts.length - 1; i++) {
+    const onceki = parts[i];
+    const sonraki = parts[i + 1];
+    if (onceki.color === sonraki.color) continue;
+
+    const son = tabanHarfBul(onceki.t, true);
+    const ilk = tabanHarfBul(sonraki.t, false);
+    if (!son || !ilk) continue;
+    if (!ARAPCA_HARF.test(son) || SOLA_BAGLANMAYAN.has(son)) continue;
+    if (!ARAPCA_HARF.test(ilk) || SAGDAN_BAGLANMAYAN.has(ilk)) continue;
+
+    out[i].t += ZWJ;
+    out[i + 1].t = ZWJ + out[i + 1].t;
+  }
+  return out;
+}
+
 // NOT: AlQuran markup parser'ı (parseTajweed) kaldırıldı. Markup metni canonical
 // Tanzil metninden farklıydı ve grup sınırları harf/hareke arasından geçtiği için
 // ekranda sahipsiz işaret üretiyordu. Render artık yalnız canonical metin +

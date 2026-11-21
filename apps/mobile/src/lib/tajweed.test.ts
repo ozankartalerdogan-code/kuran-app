@@ -9,7 +9,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { tajweedPartsFromSpans, RENK, TAJWEED_LEGEND } from "./tajweed.ts";
+import { joinAcrossColorBoundaries, tajweedPartsFromSpans, RENK, TAJWEED_LEGEND } from "./tajweed.ts";
 
 test("her tecvid kodu RENK tablosunda karşılık bulur (sarkık kod yok)", () => {
   // Span'ların taşıdığı tüm kural harfleri renklenebilmeli.
@@ -145,4 +145,137 @@ test("rengi boş span RENK tablosundan kuralla renklenir", () => {
     { startCp: 0, endCp: 1, rule: "q", color: "" },
   ]);
   assert.equal(parts[0].color, RENK.q);
+});
+
+// ── Kelime içi renk sınırlarında ZWJ birleştirme ──────────────────────────────
+
+test("(a) kelime içi renk sınırında her iki tarafa ZWJ eklenir", () => {
+  // بِسْمِ: `بِسْ` (renksiz) + `مِ` (yeşil) → س sola bağlanır, م sağdan bağlanır.
+  const ham = tajweedPartsFromSpans("بِسْمِ", [
+    { startCp: 4, endCp: 6, rule: "g", color: "#16a34a" },
+  ]);
+  const sonuc = joinAcrossColorBoundaries(ham);
+  assert.deepEqual(sonuc, [
+    { color: null, t: "بِسْ\u200D" },
+    { color: "#16a34a", t: "\u200Dمِ" },
+  ]);
+
+  // Ardışık 3 parçada ortadaki parça iki ucundan da ZWJ alır ve girdi mutate edilmez.
+  const ucParca = [
+    { color: null, t: "نَسْ" },
+    { color: "#16a34a", t: "تَعِ" },
+    { color: "#e11d48", t: "ينُ" },
+  ];
+  assert.deepEqual(joinAcrossColorBoundaries(ucParca), [
+    { color: null, t: "نَسْ\u200D" },
+    { color: "#16a34a", t: "\u200Dتَعِ\u200D" },
+    { color: "#e11d48", t: "\u200Dينُ" },
+  ]);
+  assert.equal(ucParca[1].t, "تَعِ");
+});
+
+test("(b) önceki taban harf sola bağlanmayan harf ise ZWJ eklenmez", () => {
+  for (const h of ["ا", "أ", "إ", "آ", "ٱ", "د", "ذ", "ر", "ز", "و", "ؤ", "ة", "ى", "ء"]) {
+    const sonuc = joinAcrossColorBoundaries([
+      { color: null, t: h },
+      { color: "#e11d48", t: "م" },
+    ]);
+    assert.deepEqual(sonuc, [
+      { color: null, t: h },
+      { color: "#e11d48", t: "م" },
+    ], `'${h}' sonrası ZWJ eklenmemeli`);
+  }
+
+  // Sonraki parçanın başındaki yalnız hemze (ء) sağdan da bağlanmaz.
+  assert.deepEqual(
+    joinAcrossColorBoundaries([
+      { color: "#e11d48", t: "يُضِيٓ" },
+      { color: null, t: "ءُ" },
+    ]),
+    [
+      { color: "#e11d48", t: "يُضِيٓ" },
+      { color: null, t: "ءُ" },
+    ],
+  );
+});
+
+test("(c) boşluk, rakam veya ayet sonu işareti sınırında ZWJ eklenmez", () => {
+  const boslukSon = joinAcrossColorBoundaries([
+    { color: null, t: "بِسْمِ " },
+    { color: "#16a34a", t: "ٱللَّهِ" },
+  ]);
+  assert.equal(boslukSon.some((p) => p.t.includes("\u200D")), false);
+
+  const boslukBas = joinAcrossColorBoundaries([
+    { color: "#16a34a", t: "بِسْمِ" },
+    { color: null, t: " ٱللَّهِ" },
+  ]);
+  assert.equal(boslukBas.some((p) => p.t.includes("\u200D")), false);
+
+  const ayetSonu = joinAcrossColorBoundaries([
+    { color: "#e11d48", t: "عَلَيْهِمْ" },
+    { color: null, t: "۝" },
+  ]);
+  assert.equal(ayetSonu.some((p) => p.t.includes("\u200D")), false);
+
+  const rakam = joinAcrossColorBoundaries([
+    { color: "#e11d48", t: "عَلَيْهِمْ" },
+    { color: null, t: "١" },
+  ]);
+  assert.equal(rakam.some((p) => p.t.includes("\u200D")), false);
+});
+
+test("(d) harekeli harfte (harf+fetha sınırı) doğru taban harfe bakılır", () => {
+  // ب + fetha → taban harf ب (sola bağlanır) → ZWJ eklenir
+  assert.deepEqual(
+    joinAcrossColorBoundaries([
+      { color: null, t: "بَ" },
+      { color: "#16a34a", t: "يْتِ" },
+    ]),
+    [
+      { color: null, t: "بَ\u200D" },
+      { color: "#16a34a", t: "\u200Dيْتِ" },
+    ],
+  );
+
+  // د + fetha → taban harf د (bağlanmaz) → ZWJ eklenmez
+  assert.deepEqual(
+    joinAcrossColorBoundaries([
+      { color: null, t: "دَ" },
+      { color: "#16a34a", t: "خَلَ" },
+    ]),
+    [
+      { color: null, t: "دَ" },
+      { color: "#16a34a", t: "خَلَ" },
+    ],
+  );
+
+  // ذ + fetha + hançer elif (U+0670) → taban harf ذ (bağlanmaz) → ZWJ eklenmez
+  assert.deepEqual(
+    joinAcrossColorBoundaries([
+      { color: null, t: "ذَٰ" },
+      { color: "#16a34a", t: "لِكَ" },
+    ]),
+    [
+      { color: null, t: "ذَٰ" },
+      { color: "#16a34a", t: "لِكَ" },
+    ],
+  );
+});
+
+test("(e) ZWJ'ler çıkarılınca parçaların birleşimi orijinal metne eşittir", () => {
+  const metin = "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ";
+  const ham = tajweedPartsFromSpans(metin, [
+    { startCp: 4, endCp: 6, rule: "g", color: "#16a34a" },   // بِسْمِ içinde مِ
+    { startCp: 22, endCp: 26, rule: "n", color: "#e11d48" }, // ٱلرَّحْمَـٰنِ içinde مَـٰ
+  ]);
+  const birlesik = joinAcrossColorBoundaries(ham);
+
+  assert.equal(birlesik.length, ham.length);
+  assert.ok(birlesik.some((p) => p.t.includes("\u200D")));
+  for (let i = 0; i < ham.length; i++) {
+    assert.equal(birlesik[i].color, ham[i].color);
+    assert.equal(birlesik[i].t.replace(/\u200D/g, ""), ham[i].t);
+  }
+  assert.equal(birlesik.map((p) => p.t).join("").replace(/\u200D/g, ""), metin);
 });
