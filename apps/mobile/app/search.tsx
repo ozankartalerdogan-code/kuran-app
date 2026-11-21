@@ -22,6 +22,7 @@ import searchStrings from "../src/i18n/strings/search";
 import tagStrings from "../src/i18n/strings/tagLabels";
 import { useSurahNameOf, localizedSurahName } from "../src/lib/surahNames";
 import { getThemeTitle, hasThemeTitle, resolveThemeCode, THEME_TAGS_ENABLED, TAXONOMY_IS_PLACEHOLDER } from "../src/lib/themes";
+import { Badge, Button, Callout, radius, space, toneColors } from "../src/components/ui";
 // ── Tipler ────────────────────────────────────────────────────────────────────
 
 type SearchState =
@@ -143,7 +144,7 @@ async function saveRecent(list: string[]) {
 
 function SkeletonCard() {
   const c = useColors();
-  return <View style={[sk.card, { backgroundColor: c.isDark ? c.cardAlt : "#e7dfcc" }]} />;
+  return <View style={[sk.card, { backgroundColor: c.cardAlt, borderColor: c.border }]} />;
 }
 
 function ChipRow({ chips, color, onPress }: {
@@ -170,21 +171,41 @@ function ChipRow({ chips, color, onPress }: {
   );
 }
 
-function SurahCard({ surahId, surahName: trSurahName }: { surahId: number; surahName: string }) {
+function GreenHighlightCard({
+  icon,
+  iconSize,
+  typeLabel,
+  title,
+  onPress,
+  onPressIn,
+  accessibilityLabel,
+}: {
+  icon: "book" | "navigate";
+  iconSize: number;
+  typeLabel: string;
+  title: string;
+  onPress: () => void;
+  onPressIn?: () => void;
+  accessibilityLabel: string;
+}) {
   const c = useColors();
-  const surahName = useSurahNameOf()(surahId, trSurahName);
-  const ss = useStrings(searchStrings);
+  const emerald = toneColors(c, "emerald");
   return (
-    <TouchableOpacity style={[styles.resultCard, styles.surahCard, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}
-      onPress={() => { Keyboard.dismiss(); router.push(`/surah/${surahId}`); }} activeOpacity={0.72}
-      accessibilityRole="button" accessibilityLabel={fmt(ss.openSurahA11y, { name: surahName })}>
+    <TouchableOpacity
+      style={[styles.resultCard, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}
+      onPressIn={onPressIn}
+      onPress={onPress}
+      activeOpacity={0.72}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+    >
       <View style={styles.cardInner}>
-        <View style={[styles.iconCircle, c.isDark && { backgroundColor: "#064e3b" }]}>
-          <Ionicons name="book" size={22} color={c.accent} />
+        <View style={[styles.iconCircle, { backgroundColor: emerald.bg }]}>
+          <Ionicons name={icon} size={iconSize} color={emerald.fg} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: c.accent }]}>{caps(ss.surahFound)}</Text>
-          <Text style={[styles.cardTitle, { color: c.text }]}>{surahName}</Text>
+          <Text style={[styles.typeLabel, { color: c.greenText }]}>{typeLabel}</Text>
+          <Text style={[styles.cardTitle, { color: c.text }]}>{title}</Text>
         </View>
         <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
       </View>
@@ -192,42 +213,50 @@ function SurahCard({ surahId, surahName: trSurahName }: { surahId: number; surah
   );
 }
 
-function DirectAyahCard({ surahId, ayahNumber }: { surahId: number; ayahNumber: number }) {
-  const c = useColors();
+function SurahCard({ surahId, surahName: trSurahName }: { surahId: number; surahName: string }) {
+  const surahName = useSurahNameOf()(surahId, trSurahName);
   const ss = useStrings(searchStrings);
   return (
-    <TouchableOpacity style={[styles.resultCard, styles.surahCard, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}
+    <GreenHighlightCard
+      icon="book"
+      iconSize={22}
+      typeLabel={caps(ss.surahFound)}
+      title={surahName}
+      onPress={() => { Keyboard.dismiss(); router.push(`/surah/${surahId}`); }}
+      accessibilityLabel={fmt(ss.openSurahA11y, { name: surahName })}
+    />
+  );
+}
+
+function DirectAyahCard({ surahId, ayahNumber }: { surahId: number; ayahNumber: number }) {
+  const ss = useStrings(searchStrings);
+  return (
+    <GreenHighlightCard
+      icon="navigate"
+      iconSize={20}
+      typeLabel={caps(ss.goToAyah)}
+      title={fmt(ss.surahAyah, { s: surahId, a: ayahNumber })}
       onPressIn={() => prefetchAyah(surahId, ayahNumber)}
-      onPress={() => { Keyboard.dismiss(); router.push(`/ayah/${surahId}/${ayahNumber}`); }} activeOpacity={0.72}
-      accessibilityRole="button" accessibilityLabel={fmt(ss.openAyahA11y, { ref: `${surahId}:${ayahNumber}` })}>
-      <View style={styles.cardInner}>
-        <View style={[styles.iconCircle, c.isDark && { backgroundColor: "#064e3b" }]}>
-          <Ionicons name="navigate" size={20} color={c.accent} />
-        </View>
-        <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: c.accent }]}>{caps(ss.goToAyah)}</Text>
-          <Text style={[styles.cardTitle, { color: c.text }]}>{fmt(ss.surahAyah, { s: surahId, a: ayahNumber })}</Text>
-        </View>
-        <Ionicons name="chevron-forward" size={20} color={c.textMuted} />
-      </View>
-    </TouchableOpacity>
+      onPress={() => { Keyboard.dismiss(); router.push(`/ayah/${surahId}/${ayahNumber}`); }}
+      accessibilityLabel={fmt(ss.openAyahA11y, { ref: `${surahId}:${ayahNumber}` })}
+    />
   );
 }
 
 function TagCard({ tag, count }: { tag: string; count: number }) {
   const c = useColors();
   const ss = useStrings(searchStrings);
-  const amber = c.isDark ? "#fcd34d" : "#a16207";
+  const amber = toneColors(c, "amber");
   return (
-    <View style={[styles.resultCard, styles.tagCard, c.isDark && { backgroundColor: "#422006", borderColor: "#713f12" }]}>
+    <View style={[styles.resultCard, { backgroundColor: c.amberBg, borderColor: c.amberBorder }]}>
       <View style={styles.cardInner}>
-        <View style={[styles.iconCircle, { backgroundColor: c.isDark ? "#451a03" : "#fef9c3" }]}>
-          <Ionicons name="pricetag" size={20} color={amber} />
+        <View style={[styles.iconCircle, { backgroundColor: amber.bg }]}>
+          <Ionicons name="pricetag" size={20} color={amber.fg} />
         </View>
         <View style={styles.cardBody}>
-          <Text style={[styles.typeLabel, { color: amber }]}>{caps(ss.themeFound)}</Text>
-          <Text style={[styles.cardTitle, { color: c.isDark ? "#fde68a" : "#713f12" }]}>{tagLabel(tag) ?? ""}</Text>
-          <Text style={[styles.tagCount, { color: amber }]}>{fmt(ss.tagCount, { n: count })}</Text>
+          <Text style={[styles.typeLabel, { color: c.amberText }]}>{caps(ss.themeFound)}</Text>
+          <Text style={[styles.cardTitle, { color: c.goldText }]}>{tagLabel(tag) ?? ""}</Text>
+          <Text style={[styles.tagCount, { color: c.amberText }]}>{fmt(ss.tagCount, { n: count })}</Text>
         </View>
       </View>
     </View>
@@ -255,7 +284,7 @@ function VerseCard({ verseKey, meal: trMeal, surahName, readingTr }: {
       accessibilityLabel={fmt(ss.openVerseA11y, { name: shownSurah ?? verseKey })}
     >
       <View style={styles.verseHeader}>
-        <View style={[styles.keyBadge, { backgroundColor: c.accentLight }]}><Text style={[styles.keyText, { color: c.accent }]}>{verseKey}</Text></View>
+        <Badge label={verseKey} tone="emerald" />
         {shownSurah ? <Text style={[styles.surahLabel, { color: c.textMuted }]} numberOfLines={1}>{shownSurah}{parsed ? fmt(ss.ayahSuffix, { a: parsed.ayahNumber }) : ""}</Text> : null}
       </View>
       {readingTr ? <Text style={[styles.reading, { color: c.text }]} numberOfLines={2}>{localizedVerseTranslit(verseKey, readingTr, lang)}</Text> : null}
@@ -272,13 +301,21 @@ function Pagination({ page, pages, onPrev, onNext }: { page: number; pages: numb
   if (pages <= 1) return null;
   return (
     <View style={styles.pagination}>
-      <TouchableOpacity style={[styles.pageBtn, { backgroundColor: c.card, borderColor: c.border }, page <= 1 && styles.pageBtnOff]} onPress={onPrev} disabled={page <= 1} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={ss.prevA11y} accessibilityState={{ disabled: page <= 1 }}>
-        <Text style={[styles.pageBtnText, { color: page <= 1 ? c.textMuted : c.accent }]}>{ss.prev}</Text>
-      </TouchableOpacity>
+      <Button
+        variant="secondary"
+        label={ss.prev}
+        onPress={onPrev}
+        disabled={page <= 1}
+        accessibilityLabel={ss.prevA11y}
+      />
       <Text style={[styles.pageInfo, { color: c.textMuted }]}>{page} / {pages}</Text>
-      <TouchableOpacity style={[styles.pageBtn, { backgroundColor: c.card, borderColor: c.border }, page >= pages && styles.pageBtnOff]} onPress={onNext} disabled={page >= pages} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={ss.nextA11y} accessibilityState={{ disabled: page >= pages }}>
-        <Text style={[styles.pageBtnText, { color: page >= pages ? c.textMuted : c.accent }]}>{ss.next}</Text>
-      </TouchableOpacity>
+      <Button
+        variant="secondary"
+        label={ss.next}
+        onPress={onNext}
+        disabled={page >= pages}
+        accessibilityLabel={ss.nextA11y}
+      />
     </View>
   );
 }
@@ -451,20 +488,23 @@ export default function SearchScreen() {
   // Idle ekran FlatList verisi — yalnız etiket grupları + son aramalar
   // (özel koleksiyon kartları kaldırıldı; aynı sayfalara "Daha Fazla"dan ulaşılıyor)
   const idleItems = useMemo<IdleItem[]>(() => {
+    const emerald = toneColors(c, "emerald");
+    const violet = toneColors(c, "violet");
+    const amber = toneColors(c, "amber");
     const items: IdleItem[] = [];
     items.push({ kind: "hint", key: "hint" });
     items.push({ kind: "chip_section", key: "st_namaz", title: tagS.namazTitle, chips: NAMAZ_CHIPS,
-      color: c.isDark ? { bg: "#042f2e", border: "#115e59", text: "#5eead4" } : { bg: "#f0fdfa", border: "#5eead4", text: "#0d9488" } });
+      color: { bg: emerald.bg, border: c.border, text: emerald.fg } });
     items.push({ kind: "chip_section", key: "st_korunma", title: tagS.korunmaTitle, chips: KORUNMA_CHIPS,
-      color: c.isDark ? { bg: "#1e1b4b", border: "#3730a3", text: "#a5b4fc" } : { bg: "#eef2ff", border: "#a5b4fc", text: "#4338ca" } });
+      color: { bg: violet.bg, border: c.border, text: violet.fg } });
     items.push({ kind: "chip_section", key: "st_ismiazam", title: tagS.ismiazamTitle, chips: ISMIAZAM_CHIPS,
-      color: c.isDark ? { bg: "#422006", border: "#713f12", text: "#fcd34d" } : { bg: "#fefce8", border: "#fde047", text: "#a16207" } });
+      color: { bg: amber.bg, border: c.border, text: amber.fg } });
     if (recent.length > 0) {
       items.push({ kind: "recent_header", key: "recent_hdr" });
       recent.forEach((r, i) => items.push({ kind: "recent_row", key: `recent_${i}`, item: r }));
     }
     return items;
-  }, [recent, c.isDark, tagS]);
+  }, [recent, c, tagS]);
 
   const renderIdleItem = useCallback(({ item }: { item: IdleItem }) => {
     switch (item.kind) {
@@ -481,9 +521,13 @@ export default function SearchScreen() {
         return (
           <View style={styles.recentHeader}>
             <Text style={[styles.idleSection, { color: c.textMuted }]}>{caps(ss.recent)}</Text>
-            <TouchableOpacity onPress={() => { setRecent([]); saveRecent([]); }} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.clearRecentA11y}>
-              <Text style={styles.recentClear}>{ss.clear}</Text>
-            </TouchableOpacity>
+            <Button
+              variant="ghost"
+              tone="danger"
+              label={ss.clear}
+              onPress={() => { setRecent([]); saveRecent([]); }}
+              accessibilityLabel={ss.clearRecentA11y}
+            />
           </View>
         );
       case "recent_row":
@@ -551,13 +595,20 @@ export default function SearchScreen() {
       {state.status === "tag_results" && (
         <View style={styles.filterBar}>
           {tagLabel(state.tag) ? (
-            <View style={[styles.filterBadge, c.isDark && { backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>
-              <Text style={[styles.filterText, c.isDark && { color: "#a5b4fc" }]}>{fmt(ss.filterCount, { label: tagLabel(state.tag) ?? "", n: state.total })}</Text>
+            <View style={{ flex: 1, minWidth: 0 }}>
+              <Badge
+                tone="violet"
+                label={fmt(ss.filterCount, { label: tagLabel(state.tag) ?? "", n: state.total })}
+              />
             </View>
-          ) : <View />}
-          <TouchableOpacity onPress={handleClear} hitSlop={8} accessibilityRole="button" accessibilityLabel={ss.removeFilterA11y}>
-            <Text style={styles.filterClear}>{ss.removeFilter}</Text>
-          </TouchableOpacity>
+          ) : <View style={{ flex: 1 }} />}
+          <Button
+            variant="ghost"
+            tone="danger"
+            label={ss.removeFilter}
+            onPress={handleClear}
+            accessibilityLabel={ss.removeFilterA11y}
+          />
         </View>
       )}
 
@@ -567,7 +618,7 @@ export default function SearchScreen() {
           data={[1, 2, 3, 4]}
           keyExtractor={(i) => String(i)}
           renderItem={() => <SkeletonCard />}
-          contentContainerStyle={{ padding: 14, gap: 10 }}
+          contentContainerStyle={{ padding: space.gutter, gap: 10 }}
           scrollEnabled={false}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         />
@@ -575,13 +626,18 @@ export default function SearchScreen() {
 
       {/* Hata */}
       {state.status === "error" && !isLoading && (
-        <View style={[styles.errorBox, c.isDark && { backgroundColor: "#450a0a", borderColor: "#7f1d1d" }]}>
-          <Ionicons name="alert-circle-outline" size={18} color={c.isDark ? "#fca5a5" : "#dc2626"} />
-          <Text style={[styles.errorText, c.isDark && { color: "#fca5a5" }]}>{state.message}</Text>
-          <TouchableOpacity onPress={handleRetryError} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={ss.retryA11y}>
-            <Text style={[styles.errorRetry, { color: c.accent }]}>{ss.retry}</Text>
-          </TouchableOpacity>
-        </View>
+        <Callout tone="error" style={styles.errorCallout}>
+          <View style={styles.errorRow}>
+            <Text style={[styles.errorText, { color: c.errorText }]}>{state.message}</Text>
+            <Button
+              variant="ghost"
+              tone="accent"
+              label={ss.retry}
+              onPress={handleRetryError}
+              accessibilityLabel={ss.retryA11y}
+            />
+          </View>
+        </Callout>
       )}
 
       {/* İngilizce: sunucu hatasında da cihaz üstü sonuçlar */}
@@ -661,14 +717,17 @@ export default function SearchScreen() {
               <View style={{ marginBottom: 8 }}>
                 {d.suggestedSurah && (
                   <TouchableOpacity
-                    style={[styles.suggestionBox, c.isDark && { backgroundColor: "#422006", borderColor: "#713f12" }]}
                     onPress={() => { const s = d.suggestedSurah; if (s) router.push(`/surah/${s.id}`); }}
                     activeOpacity={0.8}
                     accessibilityRole="button"
                     accessibilityLabel={fmt(ss.openSurahA11y, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}
                   >
-                    <Text style={[styles.suggestionText, c.isDark && { color: "#fde68a" }]}>{ss.didYouMean}</Text>
-                    <Text style={[styles.suggestionLink, c.isDark && { color: "#fbbf24" }]}>{fmt(ss.surahLink, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}</Text>
+                    <Callout tone="warning" icon={false} style={styles.suggestionCallout}>
+                      <View style={styles.suggestionRow}>
+                        <Text style={[styles.suggestionText, { color: c.amberText }]}>{ss.didYouMean}</Text>
+                        <Text style={[styles.suggestionLink, { color: c.goldText }]}>{fmt(ss.surahLink, { name: localizedSurahName(d.suggestedSurah.id, d.suggestedSurah.name) })}</Text>
+                      </View>
+                    </Callout>
                   </TouchableOpacity>
                 )}
                 <Text style={[styles.queryLabel, { color: c.textMuted }]}>{fmt(ss.resultsCount, { q: query.trim(), n: d.total + enHits.filter(k => !d.results.some(r => r.verse_key === k)).length })}{d.total > d.results.length ? fmt(ss.firstN, { n: d.results.length }) : ""}</Text>
@@ -689,7 +748,7 @@ export default function SearchScreen() {
         );
         return (
           <View style={styles.emptyWrap}>
-            <Ionicons name="search-outline" size={48} color={c.border} />
+            <Ionicons name="search-outline" size={48} color={c.textMuted} />
             <Text style={[styles.emptyTitle, { color: c.text }]}>{ss.noResults}</Text>
             <Text style={[styles.emptySub, { color: c.textMuted }]}>{fmt(ss.noMatch, { q: query.trim() })}</Text>
           </View>
@@ -718,71 +777,61 @@ export default function SearchScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  screen:   { flex: 1, backgroundColor: "#f5f0e8" },
+  screen:   { flex: 1 },
   centerWrap: { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
-  barWrap:  { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4 },
-  bar:      { flexDirection: "row", alignItems: "center", backgroundColor: "#fffdf6", borderRadius: 16, borderWidth: 1, borderColor: "#e7dfcc", paddingHorizontal: 14, paddingVertical: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 2 },
-  input:    { flex: 1, fontSize: 16, color: "#1c1917", paddingVertical: 10 },
+  barWrap:  { paddingHorizontal: space.gutter, paddingTop: space.sm, paddingBottom: space.xxs },
+  bar:      { flexDirection: "row", alignItems: "center", borderRadius: radius.lg, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 5 },
+  input:    { flex: 1, fontSize: 16, paddingVertical: 10 },
 
-  filterBar:   { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingBottom: 8, gap: 10 },
-  filterBadge: { flex: 1, backgroundColor: "#eef2ff", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#a5b4fc" },
-  filterText:  { fontSize: 12, fontWeight: "600", color: "#4338ca" },
-  filterClear: { fontSize: 12, color: "#ef4444", fontWeight: "600" },
+  filterBar:   { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: space.gutter, paddingBottom: space.xs, gap: 10 },
 
-  errorBox:  { flexDirection: "row", alignItems: "center", gap: 8, margin: 14, backgroundColor: "#fef2f2", borderRadius: 12, padding: 14, borderWidth: 1, borderColor: "#fecaca" },
-  errorText: { fontSize: 13, color: "#dc2626", flex: 1 },
-  errorRetry:{ fontSize: 13, fontWeight: "700" },
+  errorCallout: { marginHorizontal: space.gutter, marginVertical: space.sm },
+  errorRow:     { flexDirection: "row", alignItems: "center", gap: space.xs },
+  errorText:    { fontSize: 13, lineHeight: 20, flex: 1 },
 
-  listContent: { paddingHorizontal: 14, paddingTop: 4, paddingBottom: 32 },
-  singleWrap:  { padding: 14 },
-  queryLabel:  { fontSize: 12, color: "#a8a29e", marginBottom: 6, paddingLeft: 2 },
+  listContent: { paddingHorizontal: space.gutter, paddingTop: space.xxs, paddingBottom: space.xl },
+  singleWrap:  { padding: space.gutter },
+  queryLabel:  { fontSize: 12, marginBottom: 6, paddingLeft: 2 },
 
-  resultCard: { backgroundColor: "#fffdf6", borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", padding: 14, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.03, shadowRadius: 4, elevation: 1 },
-  surahCard:  { backgroundColor: "#f0fdf4", borderColor: "#bbf7d0" },
-  tagCard:    { backgroundColor: "#fefce8", borderColor: "#fef08a" },
-  cardInner:  { flexDirection: "row", alignItems: "center", gap: 12 },
-  iconCircle: { width: 44, height: 44, borderRadius: 22, backgroundColor: "#ecfdf5", alignItems: "center", justifyContent: "center" },
+  resultCard: { borderRadius: radius.lg, borderWidth: 1, padding: 14 },
+  cardInner:  { flexDirection: "row", alignItems: "center", gap: space.sm },
+  iconCircle: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
   cardBody:   { flex: 1, gap: 2 },
-  typeLabel:  { fontSize: 10, fontWeight: "700", color: "#059669", textTransform: "uppercase", letterSpacing: 0.6 },
-  cardTitle:  { fontSize: 17, fontWeight: "700", color: "#1c1917" },
-  tagCount:   { fontSize: 12, color: "#a16207", marginTop: 1 },
+  typeLabel:  { fontSize: 10, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.6 },
+  cardTitle:  { fontSize: 17, fontWeight: "700" },
+  tagCount:   { fontSize: 12, marginTop: 1 },
 
-  verseHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 6 },
-  keyBadge:    { backgroundColor: "#d1fae5", borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
-  keyText:     { fontSize: 11, fontWeight: "700", color: "#065f46" },
-  surahLabel:  { fontSize: 13, color: "#78716c", flex: 1 },
-  reading:     { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20, marginBottom: 4 },
-  meal:        { fontSize: 14, lineHeight: 22, color: "#292524" },
-  mealEmpty:   { fontSize: 14, color: "#a8a29e", fontStyle: "italic" },
+  verseHeader: { flexDirection: "row", alignItems: "center", gap: space.xs, marginBottom: 6 },
+  surahLabel:  { fontSize: 13, flex: 1 },
+  reading:     { fontSize: 13, fontStyle: "italic", lineHeight: 20, marginBottom: 4 },
+  meal:        { fontSize: 14, lineHeight: 22 },
+  mealEmpty:   { fontSize: 14, fontStyle: "italic" },
 
-  suggestionBox:  { flexDirection: "row", alignItems: "center", flexWrap: "wrap", backgroundColor: "#fffbeb", borderRadius: 10, padding: 10, marginBottom: 8, borderWidth: 1, borderColor: "#fde68a" },
-  suggestionText: { fontSize: 13, color: "#92400e" },
-  suggestionLink: { fontSize: 13, fontWeight: "700", color: "#b45309" },
+  suggestionCallout: { marginBottom: space.xs },
+  suggestionRow:     { flexDirection: "row", alignItems: "center", flexWrap: "wrap" },
+  suggestionText:    { fontSize: 13 },
+  suggestionLink:    { fontSize: 13, fontWeight: "700" },
 
-  pagination:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 16 },
-  pageBtn:       { backgroundColor: "#fffdf6", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 9, borderWidth: 1, borderColor: "#e7dfcc" },
-  pageBtnOff:    { opacity: 0.4 },
-  pageBtnText:   { fontSize: 13, fontWeight: "600", color: "#059669" },
-  pageInfo:      { fontSize: 13, color: "#78716c" },
+  pagination: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: space.md },
+  pageInfo:   { fontSize: 13 },
 
-  emptyWrap:  { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, gap: 12 },
-  emptyTitle: { fontSize: 17, fontWeight: "700", color: "#44403c" },
-  emptySub:   { fontSize: 13, color: "#a8a29e", textAlign: "center", lineHeight: 20 },
+  emptyWrap:  { flex: 1, alignItems: "center", justifyContent: "center", padding: space.xl, gap: space.sm },
+  emptyTitle: { fontSize: 17, fontWeight: "700" },
+  emptySub:   { fontSize: 13, textAlign: "center", lineHeight: 20 },
 
-  idleContent: { padding: 14, paddingBottom: 40 },
-  hint:        { fontSize: 12, color: "#a8a29e", textAlign: "center", marginBottom: 16, lineHeight: 18 },
-  idleSection: { fontSize: 11, fontWeight: "700", color: "#78716c", textTransform: "uppercase", letterSpacing: 0.8, marginTop: 16, marginBottom: 8 },
+  idleContent: { padding: space.gutter, paddingBottom: 40 },
+  hint:        { fontSize: 12, textAlign: "center", marginBottom: space.md, lineHeight: 18 },
+  idleSection: { fontSize: 11, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.8, marginTop: space.md, marginBottom: space.xs },
 
-  chipRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  chipRow: { flexDirection: "row", flexWrap: "wrap", gap: space.xs },
   chip:    { borderRadius: 20, borderWidth: 1, paddingHorizontal: 12, paddingVertical: 9 },
   chipText:{ fontSize: 12, fontWeight: "600" },
 
   recentHeader:{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  recentClear: { fontSize: 12, color: "#ef4444", fontWeight: "600" },
-  recentRow:   { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: "#f0ede8" },
-  recentText:  { flex: 1, fontSize: 14, color: "#44403c" },
+  recentRow:   { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 12, borderBottomWidth: 1 },
+  recentText:  { flex: 1, fontSize: 14 },
 });
 
 const sk = StyleSheet.create({
-  card: { height: 90, backgroundColor: "#e7dfcc", borderRadius: 14, opacity: 0.5 },
+  card: { height: 90, borderRadius: radius.lg, borderWidth: 1, opacity: 0.5 },
 });

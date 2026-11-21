@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import {
   FlatList,
   View,
@@ -24,6 +23,7 @@ import { arabicVerseText } from "../../src/lib/quranArabic";
 import { mushafMetniHazirla } from "../../src/lib/mushafText";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import surahStrings from "../../src/i18n/strings/surahs";
+import { Badge, Button, MenuCard, radius, space, toneColors } from "../../src/components/ui";
 
 // Uzun metni kelime sınırında kısaltır; performans için kısaltma korunur.
 function clipWords(s: string, max: number): string {
@@ -36,70 +36,27 @@ function clipWords(s: string, max: number): string {
 // Tefsir kartı — yerinde durur, tıklayınca ayrı tefsir sayfasına yönlendirir.
 // (1.7MB metni tek <Text>'e basmak RN'i kilitlediği için ayrı ekranda pencereli render edilir.)
 function TafsirCard({ surahId, surahName }: { surahId: number; surahName: string }) {
-  const c = useColors();
   const t = useStrings(surahStrings);
   return (
-    <View style={[tf.box, { backgroundColor: c.card, borderColor: c.border }]}>
-      <TouchableOpacity
-        style={tf.header}
-        onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
-        activeOpacity={0.75}
-        accessibilityRole="button"
-        accessibilityLabel={t.tafsirA11y}
-      >
-        <View>
-          <View style={tf.titleRow}>
-            <Ionicons name="library-outline" size={16} color={c.accent} />
-            <Text style={[tf.title, { color: c.text }]}>{t.tafsirTitle}</Text>
-          </View>
-          <Text style={[tf.sub, { color: c.textMuted }]}>Elmalılı Hamdi Yazır</Text>
-        </View>
-        <Text style={[tf.chevron, { color: c.accent }]}>›</Text>
-      </TouchableOpacity>
-    </View>
+    <MenuCard
+      title={t.tafsirTitle}
+      subtitle="Elmalılı Hamdi Yazır"
+      icon="library-outline"
+      iconTone="emerald"
+      onPress={() => router.push({ pathname: "/tafsir/[surahId]", params: { surahId, name: surahName } })}
+      accessibilityLabel={t.tafsirA11y}
+      style={styles.tafsirCard}
+    />
   );
 }
-
-const tf = StyleSheet.create({
-  box:      { margin: 12, borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", backgroundColor: "#fffdf6", overflow: "hidden" },
-  header:   { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 14 },
-  titleRow: { flexDirection: "row", alignItems: "center", gap: 6 },
-  title:    { fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  sub:      { fontSize: 11, color: "#a8a29e", marginTop: 1 },
-  chevron:  { color: "#059669", fontSize: 16 },
-  body:     { paddingHorizontal: 14, paddingBottom: 14 },
-  text:     { fontSize: 13, lineHeight: 22, color: "#44403c" },
-  empty:    { fontSize: 13, color: "#a8a29e", fontStyle: "italic" },
-});
 
 
 // ── Bileşenler ────────────────────────────────────────────────────────────────
 
 function RevelationBadge({ place }: { place: "Mekke" | "Medine" }) {
   const t = useStrings(surahStrings);
-  const c = useColors();
   const isMekki = place === "Mekke";
-  return (
-    <View
-      style={[
-        styles.badge,
-        isMekki
-          ? (c.isDark ? styles.badgeMekkiDark : styles.badgeMekki)
-          : (c.isDark ? styles.badgeMedineDark : styles.badgeMedine),
-      ]}
-    >
-      <Text
-        style={[
-          styles.badgeText,
-          isMekki
-            ? (c.isDark ? styles.badgeMekkiTextDark : styles.badgeMekkiText)
-            : (c.isDark ? styles.badgeMedineTextDark : styles.badgeMedineText),
-        ]}
-      >
-        {isMekki ? t.mekke : t.medine}
-      </Text>
-    </View>
-  );
+  return <Badge label={isMekki ? t.mekke : t.medine} tone={isMekki ? "amber" : "emerald"} style={{ alignSelf: "center" }} />;
 }
 
 function SurahHeader({
@@ -114,6 +71,7 @@ function SurahHeader({
   const surahNameOf = useSurahNameOf();
   const t = useStrings(surahStrings);
   const c = useColors();
+  const emerald = toneColors(c, "emerald");
   return (
     <View style={[styles.header, { backgroundColor: c.card, borderBottomColor: c.border }]}>
       <Text style={[styles.headerArabic, { color: c.text }]} numberOfLines={1}>{data.arabicName}</Text>
@@ -125,8 +83,8 @@ function SurahHeader({
           style={[
             styles.arabicToggleBtn,
             {
-              backgroundColor: showArabic ? c.accentLight : c.cardAlt,
-              borderColor: showArabic ? c.accent : c.border,
+              backgroundColor: showArabic ? emerald.bg : c.cardAlt,
+              borderColor: showArabic ? c.greenBorder : c.border,
             },
           ]}
           onPress={onToggleArabic}
@@ -139,7 +97,7 @@ function SurahHeader({
           <Text
             style={[
               styles.arabicToggleText,
-              { color: showArabic ? c.accent : c.textMuted },
+              { color: showArabic ? emerald.fg : c.textSecondary },
             ]}
           >
             {t.arabicToggle}
@@ -293,7 +251,7 @@ export default function SurahDetailScreen() {
 
 if (loading) {
     return (
-      <View style={[styles.centered, { backgroundColor: c.bg, alignItems: 'stretch', justifyContent: 'flex-start', padding: 12, paddingTop: 12 }]}>
+      <View style={[styles.centered, { backgroundColor: c.bg, alignItems: "stretch", justifyContent: "flex-start", padding: space.gutter, paddingTop: space.gutter }]}>
         <Stack.Screen options={{ title: t.surahTitle }} />
         {[1, 2, 3, 4, 5].map(i => <SkeletonListItem key={i} />)}
       </View>
@@ -304,17 +262,15 @@ if (loading) {
     return (
       <View style={[styles.centered, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title: t.surahTitle }} />
-        <Text style={[styles.errorText, c.isDark && { color: "#f87171" }]}>{error ?? t.dataError}</Text>
+        <Text style={[styles.errorText, { color: c.errorText }]}>{error ?? t.dataError}</Text>
         {surahId ? (
-          <TouchableOpacity
-            style={[styles.retryBtn, { backgroundColor: c.accent }]}
+          <Button
+            variant="primary"
+            label={t.retry}
             onPress={() => setReloadKey((k) => k + 1)}
-            activeOpacity={0.8}
-            accessibilityRole="button"
             accessibilityLabel={t.retryA11y}
-          >
-            <Text style={styles.retryText}>{t.retry}</Text>
-          </TouchableOpacity>
+            style={{ marginTop: 14 }}
+          />
         ) : null}
       </View>
     );
@@ -324,7 +280,7 @@ if (loading) {
     <View {...hint.targetProps} style={[styles.container, { backgroundColor: c.bg }]}>
       <Stack.Screen options={{ title: surahNameOf(data.surah.id, data.surah.name),
         headerRight: () => <ContextualHintHelp hint={hint} /> }} />
-      {hint.display && <View style={[styles.hintCard, { backgroundColor: c.accentLight, shadowColor: c.text }]}>
+      {hint.display && <View style={[styles.hintCard, { borderColor: c.greenBorder }]}>
         <ContextualHintCard hint={hint} />
       </View>}
       <FlatList
@@ -357,53 +313,46 @@ if (loading) {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container:   { flex: 1, backgroundColor: "#f5f0e8" },
-  hintCard:    { marginHorizontal: 12, marginTop: 8, elevation: 4,
-    borderRadius: 12, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.12, shadowRadius: 4 },
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 20, backgroundColor: "#f5f0e8" },
-  loadingText: { marginTop: 12, color: "#78716c", fontSize: 14 },
-  errorText:   { color: "#dc2626", fontSize: 14, textAlign: "center" },
-  retryBtn:    { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10, marginTop: 14 },
-  retryText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
+  container:  { flex: 1 },
+  hintCard:   { marginHorizontal: space.gutter, marginTop: space.xs, borderRadius: radius.lg, borderWidth: 1, overflow: "hidden" },
+  tafsirCard: { marginHorizontal: space.gutter, marginTop: space.sm, marginBottom: space.xs },
+  centered:   { flex: 1, alignItems: "center", justifyContent: "center", padding: 20 },
+  errorText:  { fontSize: 14, textAlign: "center" },
 
   // ── Header ──
   header: {
-    alignItems:       "center",
-    backgroundColor:  "#fffdf6",
-    paddingVertical:  24,
+    alignItems:        "center",
+    paddingVertical:   space.lg,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#e7dfcc",
-    marginBottom:      8,
+    marginBottom:      space.xs,
   },
   headerArabic: {
-    fontSize:   32,
-    color:      "#1c1917",
-    fontFamily: "Amiri",
+    fontSize:         32,
+    fontFamily:       "Amiri",
     writingDirection: "rtl",
-    textAlign: "center",
-    marginBottom: 6,
+    textAlign:        "center",
+    marginBottom:     6,
   },
   headerName: {
-    fontSize:   20,
-    fontWeight: "700",
-    color:      "#1c1917",
-    marginBottom: 8,
+    fontSize:     20,
+    fontWeight:   "700",
+    marginBottom: space.xs,
   },
   headerMeta: {
     flexDirection:  "row",
     alignItems:     "center",
     flexWrap:       "wrap",
     justifyContent: "center",
-    gap:            8,
+    gap:            space.xs,
   },
-  headerMetaText: { fontSize: 13, color: "#78716c" },
+  headerMetaText: { fontSize: 13 },
   arabicToggleBtn: {
     minHeight:         44,
     minWidth:          44,
-    paddingHorizontal: 12,
+    paddingHorizontal: space.sm,
     paddingVertical:   6,
-    borderRadius:      12,
+    borderRadius:      radius.md,
     borderWidth:       1,
     alignItems:        "center",
     justifyContent:    "center",
@@ -413,37 +362,21 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  badge: {
-    borderRadius:      10,
-    paddingHorizontal: 8,
-    paddingVertical:   3,
-  },
-  badgeMekki:          { backgroundColor: "#d1fae5" },
-  badgeMekkiDark:      { backgroundColor: "#064e3b" },
-  badgeMedine:         { backgroundColor: "#ffedd5" },
-  badgeMedineDark:     { backgroundColor: "#431407" },
-  badgeText:           { fontSize: 11, fontWeight: "600" },
-  badgeMekkiText:      { color: "#065f46" },
-  badgeMekkiTextDark:  { color: "#6ee7b7" },
-  badgeMedineText:     { color: "#9a3412" },
-  badgeMedineTextDark: { color: "#fdba74" },
-
   // ── Liste ──
-  listContent: { paddingBottom: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  separator:   { height: 1, backgroundColor: "#e7dfcc", marginLeft: 68 },
+  listContent: { paddingBottom: space.lg, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  separator:   { height: 1, marginLeft: 68 },
 
   row: {
     flexDirection:     "row",
     alignItems:        "center",
     minHeight:         64,
-    paddingHorizontal: 16,
+    paddingHorizontal: space.gutter,
     paddingVertical:   10,
-    backgroundColor:   "#fffdf6",
   },
 
   rowContent: {
-    flex:  1,
-    gap:   3,
+    flex: 1,
+    gap:  3,
   },
 
   arabicText: {
@@ -457,25 +390,22 @@ const styles = StyleSheet.create({
   readingText: {
     fontSize:   13,
     lineHeight: 19,
-    color:      "#1c1917",
     fontStyle:  "italic",
   },
 
   numberCircle: {
-    width:            40,
-    height:           40,
-    borderRadius:     20,
-    backgroundColor:  "#f5f0e8",
-    alignItems:       "center",
-    justifyContent:   "center",
-    marginRight:      12,
-    flexShrink:       0,
+    width:          40,
+    height:         40,
+    borderRadius:   20,
+    alignItems:     "center",
+    justifyContent: "center",
+    marginRight:    space.sm,
+    flexShrink:     0,
   },
-  numberText: { fontSize: 12, fontWeight: "700", color: "#78716c" },
+  numberText: { fontSize: 12, fontWeight: "700" },
 
   mealText: {
     fontSize:   11,
     lineHeight: 20,
-    color:      "#44403c",
   },
 });
