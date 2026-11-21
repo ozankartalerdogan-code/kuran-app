@@ -124,16 +124,17 @@
         "kissa": [
           {
             "baslik": "950 Yıllık Davet",
-            "metin": "Hz. Nuh kavmini 950 yıl boyunca Allah'a çağırdı. Gece gündüz, açıktan ve gizlice davet etti. Ama kavmi ısrarla reddetti. 'Putlarımızı bırakmayacağız' dediler. Zenginler fakirleri küçümseyerek 'Bu adam sizi büyüledi' dedi. Hz. Nuh'a çok az kişi iman etti.",
+            "metin": "Hz. Nuh kavmini 950 yıl boyunca Allah'a çağırdı. Gece gündüz, açıktan ve gizlice davet etti. Ama kavmi ısrarla reddetti. 'Putlarımızı bırakmayacağız' dediler. İleri gelenler, ona uyan fakirleri küçümsedi ve Hz. Nuh'a 'Delidir' dediler. Hz. Nuh'a çok az kişi iman etti.",
             "kuran_referanslari": [
               "71:1-28",
               "7:59-64",
-              "10:71-73"
+              "10:71-73",
+              "29:14"
             ]
           },
           {
             "baslik": "Gemi ve Tufan",
-            "metin": "Allah Hz. Nuh'a gemi yapmasını emretti. Kavmi alay etti: 'Karada ne işin var geminin?' Hz. Nuh Allah'ın emriyle gemi inşa etti. Tufan başladığında her canlıdan bir çift ve iman edenleri gemiye aldı. Yerden su fışkırdı, gökten yağmur yağdı, her yer su altında kaldı.",
+            "metin": "Allah Hz. Nuh'a gemi yapmasını emretti. Kavminin ileri gelenleri, yanından her geçişlerinde onunla alay etti. Hz. Nuh Allah'ın emriyle gemi inşa etti. Tufan başladığında her canlıdan bir çift ve iman edenleri gemiye aldı. Yerden su fışkırdı, gökten yağmur yağdı, her yer su altında kaldı.",
             "kuran_referanslari": [
               "11:36-48",
               "23:27-29",
@@ -152,7 +153,8 @@
             "metin": "Tufan sona erdi, gemi Cudi dağına oturdu. 'Ey Nuh, sana ve seninle olanlara bizden selam ve bereketlerle in' buyuruldu.",
             "kuran_referanslari": [
               "11:48",
-              "23:28-29"
+              "23:28-29",
+              "11:44"
             ]
           }
         ],
@@ -173,6 +175,7 @@
           "11:25-49",
           "23:23-30",
           "26:105-122",
+          "29:14",
           "71:1-28"
         ]
       },
@@ -196,7 +199,7 @@
           },
           {
             "baslik": "Helak",
-            "metin": "Ad kavmi büyüklendi ve reddetti. Allah üzerlerine 7 gece 8 gün aralıksız uğursuz, şiddetli bir rüzgar gönderdi. Kavim kökten yok edildi, Hz. Hud ve iman edenler kurtuldu.",
+            "metin": "Ad kavmi büyüklendi ve reddetti. Allah üzerlerine uğursuz günlerde 7 gece 8 gün aralıksız esen şiddetli bir rüzgar gönderdi. Kavim kökten yok edildi, Hz. Hud ve iman edenler kurtuldu.",
             "kuran_referanslari": [
               "41:15-16",
               "46:21-25",
@@ -278,7 +281,7 @@
         "kissa": [
           {
             "baslik": "Putları Kırması",
-            "metin": "Hz. İbrahim gençliğinden beri putlara karşı çıktı. Kavmi bayram için şehri terk edince, mabede girerek büyük put hariç hepsini kırdı. Baltalı resmi büyük putun boynuna astı. Döndüklerinde 'Kim yaptı bunu?' diye sordular. Hz. İbrahim 'Şu büyük put yaptı, onlara sorun' dedi, alaycı bir cevapla onları düşündürmeye çalıştı.",
+            "metin": "Hz. İbrahim gençliğinden beri putlara karşı çıktı. Kavmi bayram için şehri terk edince, mabede girerek büyük put hariç hepsini kırdı. Baltayı büyük putun boynuna astı. Döndüklerinde 'Kim yaptı bunu?' diye sordular. Hz. İbrahim 'Şu büyük put yaptı, onlara sorun' dedi, alaycı bir cevapla onları düşündürmeye çalıştı.",
             "kuran_referanslari": [
               "21:51-67",
               "37:83-98"
@@ -357,7 +360,7 @@
         "kissa": [
           {
             "baslik": "Sodom Kavmine Davet",
-            "metin": "Hz. Lut kavmini hem tevhide hem de ahlaki düzgünlüğe çağırdı. 'Alemlerden hiçbirinin yapmadığı fahişeliği mi yapıyorsunuz?' diyerek uyardı. Kavim 'Şehrinden çıkar onu' diyerek reddetti.",
+            "metin": "Hz. Lut kavmini hem tevhide hem de ahlaki düzgünlüğe çağırdı. 'Alemlerden hiçbirinin yapmadığı fahişeliği mi yapıyorsunuz?' diyerek uyardı. Kavim 'Lût ailesini şehrinizden çıkarın' diyerek reddetti.",
             "kuran_referanslari": [
               "7:80-84",
               "11:77-83",
@@ -371,7 +374,8 @@
             "kuran_referanslari": [
               "11:77-83",
               "15:57-77",
-              "51:31-37"
+              "51:31-37",
+              "54:37"
             ]
           }
         ],
@@ -392,7 +396,8 @@
           "21:74-75",
           "26:160-175",
           "27:54-58",
-          "51:31-37"
+          "51:31-37",
+          "54:37"
         ]
       },
       {
@@ -451,7 +456,7 @@
         "id": "hz_ishak",
         "isim": "Hz. İshak (a.s.)",
         "unvan": "Hz. İbrahim'in oğlu",
-        "kuranda_gecme_sayisi": 15,
+        "kuranda_gecme_sayisi": 17,
         "gondirildigi_yer": "Kenan bölgesi (Filistin)",
         "donem": "Hz. İbrahim'in oğlu",
         "kisa_ozet": "Hz. İbrahim'in ikinci oğlu, Hz. İsmail'in kardeşi. Yaşlı anne ve babasına müjdelenerek dünyaya geldi. Hz. Yakup'un babasıdır.",
@@ -497,7 +502,7 @@
         "kissa": [
           {
             "baslik": "Yusuf'un Ayrılığı",
-            "metin": "Oğulları küçük kardeşleri Hz. Yusuf'u kuyuya attılar. Yalancı kanla boyanmış gömleği babalarına getirdiler. Hz. Yakup 'Hayır, nefisleriniz sizi bir işe sürükledi. Güzel bir sabır (gerekli). Allah'tan yardım istenir' dedi ve gözleri üzüntüden aktı.",
+            "metin": "Oğulları küçük kardeşleri Hz. Yusuf'u kuyuya attılar. Yalancı kanla boyanmış gömleği babalarına getirdiler. Hz. Yakup 'Hayır, nefisleriniz sizi bir işe sürükledi. Güzel bir sabır (gerekli). Allah'tan yardım istenir' dedi. Yıllar süren hasretle, üzüntüden gözlerine ak düştü.",
             "kuran_referanslari": [
               "12:18",
               "12:84-86"
@@ -516,7 +521,7 @@
           "Yusuf'un gömleğiyle gözlerinin açılması"
         ],
         "dersler": [
-          "Sabır güzeldir — 'Cemil sabır'",
+          "Sabır güzeldir — 'Sabr-ı cemîl' (güzel sabır)",
           "Allah'ın rahmetinden ümit kesilmez"
         ],
         "ana_sure": "Yusuf (12)",
@@ -575,7 +580,7 @@
           },
           {
             "baslik": "Rüyanın Gerçekleşmesi",
-            "metin": "Ailesi Mısır'a geldi. Annesi ve babası secdeye kapandı. Hz. Yusuf: 'Babacığım! İşte bu, önceki rüyamın yorumudur. Rabbim onu gerçekleştirdi' dedi. Çocukluğundaki rüya yıllar sonra aynen gerçekleşmişti.",
+            "metin": "Ailesi Mısır'a geldi. Annesi, babası ve kardeşleri secdeye kapandı. Hz. Yusuf: 'Babacığım! İşte bu, önceki rüyamın yorumudur. Rabbim onu gerçekleştirdi' dedi. Çocukluğundaki rüya yıllar sonra aynen gerçekleşmişti.",
             "kuran_referanslari": [
               "12:99-101"
             ]
@@ -621,10 +626,11 @@
           },
           {
             "baslik": "Helak",
-            "metin": "Kavim reddedince gölgelik bir bulut üzerlerine geldi. İçinde serinlik umdular ama buluttan ateş yağdı. Şiddetli bir deprem ve ses kavmi yok etti.",
+            "metin": "Kavim reddedince onları 'gölge gününün azabı' yakaladı (Şuarâ 26:189). Şiddetli bir deprem ve ses kavmi yok etti.",
             "kuran_referanslari": [
               "7:91-93",
-              "11:94-95"
+              "11:94-95",
+              "26:189"
             ]
           }
         ],
@@ -654,11 +660,11 @@
         "kuranda_gecme_sayisi": 4,
         "gondirildigi_yer": "Şam bölgesi (rivayete göre)",
         "donem": "Kesin bilinmiyor",
-        "kisa_ozet": "Ağır hastalıkla yıllarca sınandı. Malını, çocuklarını ve sağlığını kaybetti. Yılmadı, şikayet etmedi. Sabır ve duayla Allah'a yöneldi, şifa buldu.",
+        "kisa_ozet": "Ağır hastalıkla yıllarca sınandı. Sağlığını kaybetti; rivayete göre malını ve çocuklarını da kaybetti. Yılmadı, şikayet etmedi. Sabır ve duayla Allah'a yöneldi, şifa buldu.",
         "kissa": [
           {
             "baslik": "Büyük Sınav",
-            "metin": "Hz. Eyüp'e ağır hastalık isabet etti, yıllarca sürdü. Malını ve çocuklarını kaybetti. Ama sabretti ve şikayet etmedi. Kur'an onun sabrını 'ne güzel kul, çünkü o çok yönelendi' diye övmektedir.",
+            "metin": "Hz. Eyüp'e ağır hastalık isabet etti, yıllarca sürdü. Rivayete göre malını ve çocuklarını da kaybetti. Ama sabretti ve şikayet etmedi. Kur'an onun sabrını 'ne güzel kul, çünkü o çok yönelendi' diye övmektedir.",
             "kuran_referanslari": [
               "21:83-84",
               "38:41-44"
@@ -715,7 +721,7 @@
           },
           {
             "baslik": "Tür Dağı'nda Vahiy",
-            "metin": "Bir yolculukta ateş görüp yaklaştığında Allah ile konuştu. 'Ben senin Rabbim, ayakkabılarını çıkar, sen kutsal Tuva vadisinde sin. Ben Allah'ım, benden başka ilah yoktur, bana ibadet et.' Allah ona asasını ejderhaya dönüştürmesini, elini cebinden çıkarmasını öğretti.",
+            "metin": "Bir yolculukta ateş görüp yaklaştığında Allah ile konuştu. 'Ben senin Rabbinim, ayakkabılarını çıkar, sen kutsal Tuva vadisindesin. Ben Allah'ım, benden başka ilah yoktur, bana ibadet et.' Allah ona asasını ejderhaya dönüştürmesini, elini cebinden çıkarmasını öğretti.",
             "kuran_referanslari": [
               "20:9-24",
               "27:7-12",
@@ -733,7 +739,7 @@
           },
           {
             "baslik": "Dokuz Mucize",
-            "metin": "Firavun her seferinde iman etmedi. Allah 9 mucize gönderdi: asa (yılan), beyaz el, tufan, çekirge, haşerat, kurbağa, kan, kıtlık ve meyvelerin azalması. Her seferinde 'Musayı gönderirsek inanacağız' dedi, kurtulunca sözünden döndü.",
+            "metin": "Firavun her seferinde iman etmedi. Allah 9 mucize gönderdi: asa (yılan), beyaz el, tufan, çekirge, haşerat, kurbağa, kan, kıtlık ve meyvelerin azalması. Her seferinde 'Azabı üzerimizden kaldırırsan sana inanacağız ve İsrailoğullarını seninle göndereceğiz' dedi, kurtulunca sözünden döndü.",
             "kuran_referanslari": [
               "7:130-136",
               "17:101"
@@ -804,7 +810,7 @@
           },
           {
             "baslik": "Buzağı Olayı",
-            "metin": "Hz. Musa Sina'deyken kavim altın buzağıya taptı. Hz. Harun engellemeye çalıştı ama kavim dinlemedi. Hz. Musa döndüğünde öfkeyle kardeşinin saçını tuttu. Hz. Harun 'Seni dinlemediler, az kalsın beni öldüreceklerdi' dedi.",
+            "metin": "Hz. Musa Sina'dayken kavim altın buzağıya taptı. Hz. Harun engellemeye çalıştı ama kavim dinlemedi. Hz. Musa döndüğünde öfkeyle kardeşinin saçını tuttu. Hz. Harun 'Seni dinlemediler, az kalsın beni öldüreceklerdi' dedi.",
             "kuran_referanslari": [
               "7:150-152",
               "20:90-94"
@@ -847,7 +853,7 @@
         "kissa": [
           {
             "baslik": "Calut'u Yenmesi",
-            "metin": "İsrailoğulları Tâlut komutasında Calut'un ordusuyla karşılaştı. Genç Hz. Davud Calut'u sapanıyla yendi ve öldürdü. Allah ona mülk ve hikmet verdi.",
+            "metin": "İsrailoğulları Tâlut komutasında Calut'un ordusuyla karşılaştı. Genç Hz. Davud, Allah'ın izniyle Calut'u öldürdü. Allah ona mülk ve hikmet verdi.",
             "kuran_referanslari": [
               "2:251"
             ]
@@ -857,9 +863,9 @@
             "metin": "Allah dağları ve kuşları onunla birlikte tesbih ettirdi. Demiri ona yumuşattı, zırh yapmasını öğretti. Zebur kendisine verildi.",
             "kuran_referanslari": [
               "21:79-80",
-              "27:15-16",
               "34:10-11",
-              "38:18-20"
+              "38:18-20",
+              "17:55"
             ]
           },
           {
@@ -909,7 +915,7 @@
             "kuran_referanslari": [
               "21:81-82",
               "27:17",
-              "34:12-14",
+              "34:12-13",
               "38:36-39"
             ]
           },
@@ -1077,7 +1083,7 @@
         "kisa_ozet": "Yaşlılığında Allah'tan çocuk diledi. Eşi kısırdı. Allah duasını kabul etti ve Hz. Yahya'yı müjdeledi.",
         "kissa": [
           {
-            "baslik": "Hz. Meryem'e Bakışı",
+            "baslik": "Hz. Meryem'in Bakımı",
             "metin": "Hz. Zekeriya mabeddeki Hz. Meryem'in yanına girdiğinde her seferinde yanında rızık (yiyecek) bulurdu. 'Bu sana nereden geliyor?' diye sordu. 'Allah'tan' dedi Meryem. Hz. Zekeriya bunun üzerine Allah'tan çocuk diledi.",
             "kuran_referanslari": [
               "3:37-38"
@@ -1085,7 +1091,7 @@
           },
           {
             "baslik": "Dua ve Müjde",
-            "metin": "Hz. Zekeriya gizlice dua etti: 'Rabbim! Kemiklerim zayıfladı, saçlarım ağardı, senden dilekte bulunmakla hiç mahrum olmadım. Benden sonra akrabalarımın yapacağından korktum. Eşim de kısırdı. Bana senin katından bir veli ver.' Allah ona Hz. Yahya'yı müjdeledi.",
+            "metin": "Hz. Zekeriya gizlice dua etti: 'Rabbim! Kemiklerim zayıfladı, saçlarım ağardı, senden dilekte bulunmakla hiç mahrum olmadım. Benden sonra yerime geçecek akrabalarımdan endişe ediyorum. Eşim de kısırdı. Bana senin katından bir veli ver.' Allah ona Hz. Yahya'yı müjdeledi.",
             "kuran_referanslari": [
               "19:1-11",
               "3:38-41",
@@ -1181,7 +1187,7 @@
         "kuranda_gecme_sayisi": 25,
         "gondirildigi_yer": "Filistin (Beytüllahm ve Kudüs)",
         "donem": "Yaklaşık M.Ö. 4 — M.S. 30",
-        "kisa_ozet": "Babasız, yalnızca annesi Hz. Meryem'den doğdu. Beşikte konuştu. Ölüleri diriltti, körleri iyileştirdi, kuşları balçıktan yarattı. Yahudiler onu öldürmek istedi ama Allah onu kurtarıp yükseltti.",
+        "kisa_ozet": "Babasız, yalnızca annesi Hz. Meryem'den doğdu. Beşikte konuştu. Ölüleri diriltti, körleri iyileştirdi, Allah'ın izniyle balçıktan yaptığı kuşa can verildi. Yahudiler onu öldürmek istedi ama Allah onu kurtarıp yükseltti.",
         "kissa": [
           {
             "baslik": "Hz. Meryem ve Doğum",
@@ -1193,7 +1199,7 @@
           },
           {
             "baslik": "Mucizeleri",
-            "metin": "Hz. İsa Allah'ın izniyle: balçıktan kuş yapıp üfledi ve uçtu. Körü ve alacayı iyileştirdi. Ölüleri diriltti. Gökyüzünden sofra (maide) indirdi.",
+            "metin": "Hz. İsa Allah'ın izniyle: balçıktan kuş yapıp üfledi ve uçtu. Körü ve alacayı iyileştirdi. Ölüleri diriltti. Havarilerin isteği üzerine dua etti, Allah da gökten bir sofra (mâide) indirdi.",
             "kuran_referanslari": [
               "3:49",
               "5:110-115"
@@ -1201,14 +1207,14 @@
           },
           {
             "baslik": "Yahudilerin Tuzağı ve Yükseltilmesi",
-            "metin": "Yahudiler Hz. İsa'yı öldürmek ve çarmıha germek istediler. Allah 'Seni öldürmeyecekler, seni kendime yükselteceğim' dedi. Onlara Hz. İsa gibi gösterildi. Onu öldürdüklerini zannettiler. Hristiyanlar ve Yahudiler bu konuda ihtilafa düştüler.",
+            "metin": "Yahudiler Hz. İsa'yı öldürmek ve çarmıha germek istediler. Allah onu onların tuzağından korudu ve kendi katına yükseltti. Onlara Hz. İsa gibi gösterildi. Onu öldürdüklerini zannettiler. Hristiyanlar ve Yahudiler bu konuda ihtilafa düştüler.",
             "kuran_referanslari": [
               "4:157-158"
             ]
           },
           {
             "baslik": "Hz. İsa Hakkında Doğru İnanç",
-            "metin": "Kur'an Hz. İsa'nın Allah'ın kulu ve peygamberi olduğunu, Allah'ın 'ol' demesiyle Hz. Adem gibi yaratıldığını, Allah'ın oğlu olmadığını açıkça bildirir. 'Allah üçün üçüncüsüdür demeyiniz, bu sizin için hayırlı olmaz. Allah yalnızca bir ilahtır.'",
+            "metin": "Kur'an Hz. İsa'nın Allah'ın kulu ve peygamberi olduğunu, Allah'ın 'ol' demesiyle Hz. Adem gibi yaratıldığını, Allah'ın oğlu olmadığını açıkça bildirir. 'Üç (ilah) demeyin; kendi iyiliğiniz için buna son verin. Allah ancak tek bir ilahtır.' (Nisâ 4:171)",
             "kuran_referanslari": [
               "3:59",
               "4:171",
@@ -1220,13 +1226,13 @@
         "mucizeler": [
           "Babasız doğması",
           "Beşikte konuşması",
-          "Balçıktan kuş yaratıp üflemesi",
+          "Allah'ın izniyle balçıktan kuş biçimi yapıp üflemesi",
           "Körü ve alacayı iyileştirmesi",
           "Ölüleri diriltmesi",
-          "Gökten sofra indirmesi"
+          "Duası üzerine gökten sofra indirilmesi"
         ],
         "dersler": [
-          "Hz. İsa Allah'ın kuludur, ibadete layık değil inanılacak peygamberdir",
+          "Hz. İsa Allah'ın kuludur; kulluk edilecek bir ilah değil, iman edilecek bir peygamberdir",
           "Mucizeler Allah'ın izniyle gerçekleşir, peygamber kendi başına bir şey yapamaz",
           "Allah her şeye kadirdir — babasız doğum Hz. Adem'in topraktan yaratılması gibidir"
         ],
