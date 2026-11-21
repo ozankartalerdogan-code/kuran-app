@@ -72,6 +72,27 @@ const ISMIAZAM_CHIPS = [
   { tag: "ismiazam-sekine", label: "Sekine Duası" },
 ];
 
+const NETWORK_MSG_RE = /network request failed|failed to fetch|networkerror|network error|load failed|offline|internet|timed out|timeout|zaman aşımı|econnrefused|enotfound|enetunreach|err_network/i;
+const NETWORK_CODES = new Set(["ENOTFOUND", "ECONNREFUSED", "ENETUNREACH", "ECONNRESET", "ETIMEDOUT", "ERR_NETWORK"]);
+
+function isNetworkError(err: unknown): boolean {
+  if (err && typeof err === "object") {
+    const e = err as { name?: unknown; message?: unknown; status?: unknown; code?: unknown };
+    if (e.name === "ApiError") return e.status === 408;
+    if (e.name === "AbortError" || e.name === "TimeoutError") return true;
+    // TypeError tek başına ağ hatası sayılmaz (kod hatası da olabilir); RN'de
+    // ağ kopukluğu "Network request failed" mesajıyla gelir → aşağıdaki desen yakalar.
+    if (typeof e.code === "string" && NETWORK_CODES.has(e.code)) return true;
+    if (typeof e.message === "string" && NETWORK_MSG_RE.test(e.message)) return true;
+  }
+  return typeof navigator !== "undefined" && navigator.onLine === false;
+}
+
+function searchErrorMessage(err: unknown, fallbackKey: "searchError" | "searchFailed" | "tagError"): string {
+  const s = getStrings(searchStrings);
+  return isNetworkError(err) ? s.networkError : s[fallbackKey];
+}
+
 // ── Yardımcılar ───────────────────────────────────────────────────────────────
 
 function parseVerseKey(key: string) {
@@ -276,19 +297,25 @@ export default function SearchScreen() {
   const [state,        setState]   = useState<SearchState>({ status: "idle" });
   const [recent,       setRecent]  = useState<string[]>([]);
   const [enHits,       setEnHits]  = useState<string[]>([]);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef    = useRef<TextInput>(null);
+  const debounceRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const inputRef     = useRef<TextInput>(null);
+  const requestIdRef = useRef(0);
 
   // Son aramaları yükle
   useEffect(() => { loadRecent().then(setRecent); }, []);
+  useEffect(() => () => { requestIdRef.current += 1; }, []);
 
   const fetchTagResults = useCallback(async (tag: string, page: number) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const reqId = ++requestIdRef.current;
     setState({ status: "loading" });
     try {
       const res = await api.tags.filter(tag, page);
+      if (reqId !== requestIdRef.current) return;
       setState({ status: "tag_results", tag, results: res.results, total: res.total, page: res.page, pages: res.pages });
-    } catch {
-      setState({ status: "error", message: getStrings(searchStrings).tagError });
+    } catch (err) {
+      if (reqId !== requestIdRef.current) return;
+      setState({ status: "error", message: searchErrorMessage(err, "tagError") });
     }
   }, []);
 
@@ -313,10 +340,16 @@ export default function SearchScreen() {
     if (params.tag || params.type === 'tag') return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = query.trim();
-    if (trimmed.length < MIN_LEN) { setState({ status: "idle" }); return; }
+    if (trimmed.length < MIN_LEN) {
+      requestIdRef.current += 1;
+      setState({ status: "idle" });
+      return;
+    }
 
+    const reqId = ++requestIdRef.current;
     setState({ status: "loading" });
     debounceRef.current = setTimeout(async () => {
+      if (reqId !== requestIdRef.current) return;
       // "2:255" / "2/255" gibi doğrudan ayet referansı → yönlendirme YOK, "Ayete
       // Git" kartı gösterilir. (Anında yönlendirme "2:2"de tetiklenip 2:25/2:255'e
       // yazarak ulaşmayı imkânsız kılıyordu; Enter ise handleSubmit'te direkt gider.)
@@ -329,6 +362,7 @@ export default function SearchScreen() {
       setEnHits(hits);
       try {
         const data = await api.search.query(trimmed);
+        if (reqId !== requestIdRef.current) return;
         setState({ status: "done", data });
         // Kullanıcının yazdığı arama metni analytics'e gönderilmez — yalnızca
         // özelliğin kullanıldığı işaretlenir (privacy sayfasıyla uyumlu).
@@ -340,16 +374,19 @@ export default function SearchScreen() {
           saveRecent(next);
           return next;
         });
-      } catch {
+      } catch (err) {
+        if (reqId !== requestIdRef.current) return;
         // EN: gömülü Pickthall isabetleri çevrimdışı da gösterilir.
         if (hits.length > 0) setState({ status: "done", data: { type: "none" } });
-        else setState({ status: "error", message: getStrings(searchStrings).searchError });
+        else setState({ status: "error", message: searchErrorMessage(err, "searchError") });
       }
     }, DEBOUNCE_MS);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [query, params.tag, params.type]);
 
   const handleClear = useCallback(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    requestIdRef.current += 1;
     setQuery("");
     setState({ status: "idle" });
     router.setParams({ tag: undefined, q: undefined, page: undefined, type: undefined });
@@ -368,19 +405,27 @@ export default function SearchScreen() {
 
     const directRef = parseDirectAyahQuery(trimmed);
     if (directRef) {
+      requestIdRef.current += 1;
       Keyboard.dismiss();
       router.push(`/ayah/${directRef.surahId}/${directRef.ayahNumber}`);
       return;
     }
 
+    const reqId = ++requestIdRef.current;
     const hits = localEnglishHits(trimmed);
     setEnHits(hits);
     setState({ status: "loading" });
     api.search.query(trimmed)
-      .then(data => { setState({ status: "done", data }); })
-      .catch(() => setState(hits.length > 0
-        ? { status: "done", data: { type: "none" } }
-        : { status: "error", message: getStrings(searchStrings).searchFailed }));
+      .then(data => {
+        if (reqId !== requestIdRef.current) return;
+        setState({ status: "done", data });
+      })
+      .catch((err) => {
+        if (reqId !== requestIdRef.current) return;
+        setState(hits.length > 0
+          ? { status: "done", data: { type: "none" } }
+          : { status: "error", message: searchErrorMessage(err, "searchFailed") });
+      });
   }, [query]);
 
   // Hata kutusundaki "Tekrar Dene" — son denenen işlemi (etiket filtresi ya da

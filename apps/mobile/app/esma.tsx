@@ -11,6 +11,7 @@ import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useStrings, useLang } from "../src/i18n";
 import { localizedTranslit } from "../src/lib/translitEn";
+import { normalizeSearchText } from "../src/lib/searchNormalize";
 import misc1Strings from "../src/i18n/strings/misc1";
 
 const pickEsma = localizedData(
@@ -19,9 +20,7 @@ const pickEsma = localizedData(
   () => (require("../src/data/esmaulHusna.en.json") as { ESMA_UL_HUSNA: EsmaItem[] }).ESMA_UL_HUSNA,
 );
 
-function norm(s: string) {
-  return s.toLocaleLowerCase("tr-TR").trim();
-}
+const norm = normalizeSearchText;
 
 export default function EsmaScreen() {
   const c = useColors();

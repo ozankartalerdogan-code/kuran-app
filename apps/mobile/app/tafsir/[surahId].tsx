@@ -60,11 +60,12 @@ export default function TafsirScreen() {
       .catch(() => {
         if (!alive) return;
         setFetchFailed(true);
-        setTafsir(
-          localSimplifiedContent
-            ? { content: null, simplifiedContent: localSimplifiedContent, availableModes: ["original", "simplified"] }
-            : null
-        );
+        if (localSimplifiedContent) {
+          setSelectedMode("simplified");
+          setTafsir({ content: null, simplifiedContent: localSimplifiedContent, availableModes: ["original", "simplified"] });
+        } else {
+          setTafsir(null);
+        }
       });
 
     return () => {
@@ -106,6 +107,31 @@ export default function TafsirScreen() {
 
   const isSimplified = enOnly || selectedMode === "simplified";
 
+  const modeTabs = availableModes.length > 1 ? (
+    <View style={[styles.tabRow, { borderColor: c.border, backgroundColor: c.card }]}>
+      <TouchableOpacity
+        style={[styles.tab, selectedMode === "original" && styles.tabActive]}
+        onPress={() => setSelectedMode("original")}
+        activeOpacity={0.8}
+        accessibilityRole="tab"
+        accessibilityLabel={s.originalA11y}
+        accessibilityState={{ selected: selectedMode === "original" }}
+      >
+        <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>{s.original}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
+        onPress={() => setSelectedMode("simplified")}
+        activeOpacity={0.8}
+        accessibilityRole="tab"
+        accessibilityLabel={s.simplifiedA11y}
+        accessibilityState={{ selected: selectedMode === "simplified" }}
+      >
+        <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>{lang === "en" && !localEnContent ? s.simplifiedFallback : s.simplified}</Text>
+      </TouchableOpacity>
+    </View>
+  ) : null;
+
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}> 
       <Stack.Screen options={{ title: name ? fmt(s.titleNamed, { name }) : s.title }} />
@@ -116,21 +142,26 @@ export default function TafsirScreen() {
           <Text style={[styles.muted, { color: c.textMuted }]}>{s.loading}</Text>
         </View>
       ) : paragraphs.length === 0 ? (
-        <View style={styles.centered}>
-          <Text style={[styles.muted, { color: c.textMuted }]}>
-            {fetchFailed ? s.loadFailed : s.notFound}
-          </Text>
-          {fetchFailed && surahId ? (
-            <TouchableOpacity
-              style={[styles.retryBtn, { backgroundColor: c.accent }]}
-              onPress={() => setReloadKey((k) => k + 1)}
-              activeOpacity={0.8}
-              accessibilityRole="button"
-              accessibilityLabel={s.retryA11y}
-            >
-              <Text style={styles.retryText}>{s.retry}</Text>
-            </TouchableOpacity>
-          ) : null}
+        <View style={styles.emptyContainer}>
+          {modeTabs ? <View style={styles.tabsWrap}>{modeTabs}</View> : null}
+          <View style={styles.centered}>
+            <Text style={[styles.muted, { color: c.textMuted }]}>
+              {fetchFailed
+                ? (selectedMode === "original" && localSimplifiedContent ? s.originalRequiresInternet : s.loadFailed)
+                : s.notFound}
+            </Text>
+            {fetchFailed && surahId ? (
+              <TouchableOpacity
+                style={[styles.retryBtn, { backgroundColor: c.accent }]}
+                onPress={() => setReloadKey((k) => k + 1)}
+                activeOpacity={0.8}
+                accessibilityRole="button"
+                accessibilityLabel={s.retryA11y}
+              >
+                <Text style={styles.retryText}>{s.retry}</Text>
+              </TouchableOpacity>
+            ) : null}
+          </View>
         </View>
       ) : (
         <FlatList
@@ -139,32 +170,7 @@ export default function TafsirScreen() {
           renderItem={({ item }) => (
             <Text style={[styles.para, { color: c.textSecondary }]}>{item}</Text>
           )}
-          ListHeaderComponent={
-            availableModes.length > 1 ? (
-              <View style={[styles.tabRow, { borderColor: c.border, backgroundColor: c.card }]}>
-                <TouchableOpacity
-                  style={[styles.tab, selectedMode === "original" && styles.tabActive]}
-                  onPress={() => setSelectedMode("original")}
-                  activeOpacity={0.8}
-                  accessibilityRole="tab"
-                  accessibilityLabel={s.originalA11y}
-                  accessibilityState={{ selected: selectedMode === "original" }}
-                >
-                  <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[styles.tabText, { color: selectedMode === "original" ? "#0a1628" : c.textMuted }]}>{s.original}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.tab, selectedMode === "simplified" && styles.tabActive]}
-                  onPress={() => setSelectedMode("simplified")}
-                  activeOpacity={0.8}
-                  accessibilityRole="tab"
-                  accessibilityLabel={s.simplifiedA11y}
-                  accessibilityState={{ selected: selectedMode === "simplified" }}
-                >
-                  <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7} style={[styles.tabText, { color: selectedMode === "simplified" ? "#0a1628" : c.textMuted }]}>{lang === "en" && !localEnContent ? s.simplifiedFallback : s.simplified}</Text>
-                </TouchableOpacity>
-              </View>
-            ) : null
-          }
+          ListHeaderComponent={modeTabs}
           ListFooterComponent={
             <Text style={[styles.sourceFooter, { color: c.textMuted, borderTopColor: c.border }]}>
               {isSimplified
@@ -185,6 +191,8 @@ export default function TafsirScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  emptyContainer: { flex: 1 },
+  tabsWrap: { paddingHorizontal: 16, paddingTop: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24, gap: 12 },
   muted: { fontSize: 14, fontStyle: "italic", textAlign: "center" },
   retryBtn: { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10, marginTop: 4 },
