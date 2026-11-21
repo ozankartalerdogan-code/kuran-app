@@ -72,7 +72,7 @@ export default defineStrings({
     sec3Title: "🛡️ Günlük Korunma Duaları",
     aboutTitle: "Korunma Duaları Hakkında",
     aboutBody: "Aşağıdaki dualar, Peygamber Efendimiz'in (s.a.v.) bizzat okuduğu ve ümmetine tavsiye ettiği, sahih hadislerle sabit günlük korunma dualarıdır. Her biri 10/10 güvenilirlik puanına sahiptir.",
-    advice: "📿 Bu duaları günlük rutininize ekleyin. Allah'ın izniyle sizi görünmez kazalardan ve şerlerden muhafaza eder.",
+    advice: "📿 Bu duaları günlük rutinine ekle. Allah'ın izniyle seni görünmez kazalardan ve şerlerden muhafaza eder.",
   },
   en: {
     screenTitle: "Ism al-A'zam and Sakinah",

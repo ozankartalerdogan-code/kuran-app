@@ -3,8 +3,8 @@ import { defineStrings } from "../index";
 export default defineStrings({
   tr: {
     linkFailTitle: "Bağlantı açılamadı",
-    linkFailBody: "Bu bağlantı şu anda cihazınızda açılamıyor.",
-    linkFailRetry: "Lütfen daha sonra tekrar deneyin.",
+    linkFailBody: "Bu bağlantı şu anda cihazında açılamıyor.",
+    linkFailRetry: "Lütfen daha sonra tekrar dene.",
     sourcesA11y: "Kaynaklar ve lisanslar",
     hideHint: "Açıklamaları gizler",
     showHint: "Açıklamaları gösterir",
@@ -16,7 +16,7 @@ export default defineStrings({
     indie: "Kartal Studio",
     aboutNote: "Bu bölümde yer alan kaynak ve açıklamalar kullanıcıya şeffaf referans sunmak için hazırlanmıştır. Metinler bilgilendirme amaçlıdır.",
     contact: "İletişim & Geri Bildirim",
-    contactNote: "Öneri ve geri bildirimleriniz için:",
+    contactNote: "Öneri ve geri bildirimlerin için:",
     emailA11y: "E-posta gönder",
   },
   en: {

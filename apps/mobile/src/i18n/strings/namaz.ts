@@ -30,7 +30,7 @@ export default defineStrings({
     tKorkuDesc: "2 ayet — savaş ve tehlike anında namaz",
     tSefer: "Seferi Namaz",
     tSeferDesc: "1 ayet — yolculukta kısaltma",
-    loadError: "İçerik yüklenemedi. Lütfen tekrar deneyin.",
+    loadError: "İçerik yüklenemedi. Lütfen tekrar dene.",
     retryA11y: "Tekrar dene",
     retry: "Tekrar Dene",
     noContent: "İçerik bulunamadı.",

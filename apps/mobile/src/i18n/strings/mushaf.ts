@@ -22,7 +22,7 @@ export default defineStrings({
     close: "Kapat",
     pageLabel: "Sayfa (1-{max}):",
     pageNumberA11y: "Sayfa numarası",
-    pageNumberHint: "1 ile {max} arasında bir sayfa numarası girin",
+    pageNumberHint: "1 ile {max} arasında bir sayfa numarası gir",
     goA11y: "Sayfaya git",
     go: "Git",
     surahListError: "Sure listesi yüklenemedi.",

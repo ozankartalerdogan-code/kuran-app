@@ -6,7 +6,7 @@ export default defineStrings({
     channelPrayer: "Namaz Vakitleri",
     channelDaily: "Günün Ayeti ve Duası",
     prayerTitle: "🕌 {label} Vakti Girdi",
-    prayerBody: "{label} vakti girdi, namaza hazırlanabilirsiniz.",
+    prayerBody: "{label} vakti girdi, namaza hazırlanabilirsin.",
     // Güneş bir namaz vakti değil: sabah namazının vakti çıkar, kerahat vakti başlar.
     sunriseTitle: "🌅 Güneş Doğdu",
     sunriseBody: "Güneş doğdu, sabah namazı vakti çıktı.",

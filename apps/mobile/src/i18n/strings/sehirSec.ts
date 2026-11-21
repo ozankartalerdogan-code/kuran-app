@@ -9,7 +9,7 @@ export default defineStrings({
     autoSub: "Vakitler bulunduğun yere en yakın Diyanet şehrinden",
     noResults: "Sonuç bulunamadı",
     searchError: "Arama yapılamadı, internet bağlantını kontrol et.",
-    saveError: "Şehir kaydedilemedi. Tekrar deneyin.",
+    saveError: "Şehir kaydedilemedi. Tekrar dene.",
     minChars: "En az 2 harf yaz",
     source: "Vakitler: T.C. Diyanet İşleri Başkanlığı (veri yoksa yaklaşık hesap)",
     searchA11y: "Şehir ara",

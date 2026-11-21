@@ -34,7 +34,7 @@ export default defineStrings({
     retryA11y: "Tekrar dene",
     retry: "Tekrar Dene",
     resultFor: "\"{q}\" için sonuç:",
-    didYouMean: "Bunu mu demek istediniz? ",
+    didYouMean: "Bunu mu demek istedin? ",
     surahLink: "{name} Suresi →",
     resultsCount: "\"{q}\" için {n} sonuç",
     firstN: " (ilk {n})",
