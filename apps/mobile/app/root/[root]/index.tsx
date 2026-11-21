@@ -19,6 +19,12 @@ import { rootMeaningEn, meaningTextEn } from "../../../src/lib/wordMeaningsEn";
 import { groupRootMeanings, type Verse } from "../../../src/lib/rootMeaningGroups";
 import { useStrings, getStrings, fmt, useLang, caps } from "../../../src/i18n";
 import rootStrings from "../../../src/i18n/strings/root";
+import { offlineSurahs } from "../../../src/lib/offlineTr";
+import { useSurahNameOf } from "../../../src/lib/surahNames";
+
+const SURAH_TR_NAMES: Record<number, string> = Object.fromEntries(
+  (offlineSurahs() ?? []).map((item) => [item.id, item.name]),
+);
 
 function lerpHex(from: string, to: string, t: number): string {
   const a = parseInt(from.slice(1), 16);
@@ -49,21 +55,6 @@ function heatCell(count: number, max: number, isDark: boolean): { bg: string; te
   };
 }
 
-const SURAH_SHORT: Record<number, string> = {
-  1: "Fât", 2: "Bak", 3: "Âl", 4: "Nis", 5: "Mâi", 6: "En'", 7: "A'r", 8: "Enf", 9: "Tev", 10: "Yun",
-  11: "Hûd", 12: "Yus", 13: "Ra'd", 14: "İbr", 15: "Hicr", 16: "Nah", 17: "İsr", 18: "Keh", 19: "Mer", 20: "Tâh",
-  21: "Enb", 22: "Hac", 23: "Mü'", 24: "Nur", 25: "Fur", 26: "Şua", 27: "Nem", 28: "Kas", 29: "Ank", 30: "Rum",
-  31: "Luk", 32: "Sec", 33: "Ahz", 34: "Seb", 35: "Fâtr", 36: "Yas", 37: "Saf", 38: "Sâd", 39: "Zum", 40: "Mü'",
-  41: "Fus", 42: "Şur", 43: "Zuh", 44: "Duh", 45: "Câs", 46: "Ahk", 47: "Muh", 48: "Fet", 49: "Huc", 50: "Kâf",
-  51: "Zâr", 52: "Tûr", 53: "Nec", 54: "Kam", 55: "Rah", 56: "Vâk", 57: "Had", 58: "Muc", 59: "Haş", 60: "Mum",
-  61: "Saf", 62: "Cum", 63: "Mun", 64: "Teğ", 65: "Tal", 66: "Tah", 67: "Mül", 68: "Kal", 69: "Hak", 70: "Mea",
-  71: "Nuh", 72: "Cin", 73: "Müz", 74: "Müd", 75: "Kıy", 76: "İns", 77: "Mür", 78: "Neb", 79: "Nâz", 80: "Abs",
-  81: "Tek", 82: "İnf", 83: "Mut", 84: "İnş", 85: "Bur", 86: "Târ", 87: "A'l", 88: "Gaş", 89: "Fec", 90: "Bel",
-  91: "Şem", 92: "Ley", 93: "Duh", 94: "İnş", 95: "Tîn", 96: "Ala", 97: "Kad", 98: "Bey", 99: "Zel", 100: "Âdi",
-  101: "Kâr", 102: "Tek", 103: "Asr", 104: "Hüm", 105: "Fil", 106: "Kur", 107: "Mâu", 108: "Kev", 109: "Kâf", 110: "Nas",
-  111: "Teb", 112: "İhl", 113: "Fel", 114: "Nas",
-};
-
 const HeatGrid = memo(function HeatGrid({
   distribution,
   maxCount,
@@ -76,7 +67,7 @@ const HeatGrid = memo(function HeatGrid({
   c: AppColors;
 }) {
   const t = useStrings(rootStrings);
-  const lang = useLang();
+  const surahNameOf = useSurahNameOf();
   const [modalInfo, setModalInfo] = useState<{ surahId: number; count: number } | null>(null);
   useEffect(() => { if (modalInfo) return beginOverlay(); }, [modalInfo]);
 
@@ -87,6 +78,10 @@ const HeatGrid = memo(function HeatGrid({
           const count = distribution[id] ?? 0;
           const cell = heatCell(count, maxCount, c.isDark);
           const isDisabled = count === 0;
+          const fullName = surahNameOf(id, SURAH_TR_NAMES[id] ?? String(id));
+          const a11yLabel = count > 0
+            ? fmt(t.surahFullOccA11y, { n: id, name: fullName, count })
+            : fmt(t.surahFullA11y, { n: id, name: fullName });
 
           return (
             <TouchableOpacity
@@ -95,12 +90,21 @@ const HeatGrid = memo(function HeatGrid({
               onPress={() => { targetAction(); if (count > 0) setModalInfo({ surahId: id, count }); }}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={fmt(t.surahA11y, { n: id, name: lang === "en" ? "" : (SURAH_SHORT[id] ?? "") }).trim()}
+              accessibilityLabel={a11yLabel}
               accessibilityHint={isDisabled ? t.notInSurah : fmt(t.occurrencesHint, { n: count })}
               accessibilityState={{ disabled: isDisabled }}
             >
-              <Text style={[hg.cellText, { color: cell.text }]}>
-                {lang === "en" ? id : (SURAH_SHORT[id] ?? id)}
+              <Text style={[hg.cellNum, { color: cell.text }]} maxFontSizeMultiplier={1.2}>
+                {id}
+              </Text>
+              <Text
+                style={[hg.cellText, { color: cell.text }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+                maxFontSizeMultiplier={1.2}
+              >
+                {fullName}
               </Text>
             </TouchableOpacity>
           );
@@ -488,9 +492,19 @@ const s = StyleSheet.create({
 });
 
 const hg = StyleSheet.create({
-  grid: { flexDirection: "row", flexWrap: "wrap", gap: 2 },
-  cell: { width: "9.4%", aspectRatio: 1, borderRadius: 3, alignItems: "center", justifyContent: "center" },
-  cellText: { fontSize: 9, color: "#a8a29e", fontWeight: "500" },
+  grid: { flexDirection: "row", flexWrap: "wrap", gap: 4 },
+  cell: {
+    width: "15.6%",
+    minWidth: 48,
+    minHeight: 48,
+    borderRadius: 6,
+    paddingHorizontal: 2,
+    paddingVertical: 6,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cellNum: { fontSize: 9, fontWeight: "700", opacity: 0.85 },
+  cellText: { fontSize: 11, color: "#a8a29e", fontWeight: "600", textAlign: "center" },
 
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
   modalCard: { backgroundColor: "#fffdf6", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200, borderWidth: 1 },

@@ -18,6 +18,8 @@ export default defineStrings({
     noResults: "Sonuç bulunamadı",
     // detail
     surahA11y: "{n}. sure {name}",
+    surahFullA11y: "{n}. sure, {name}",
+    surahFullOccA11y: "{n}. sure, {name}, {count} geçiş",
     notInSurah: "Bu surede bu kök geçmiyor",
     occurrencesHint: "{n} geçiş bilgisini açar",
     closeInfoA11y: "Sure bilgi penceresini kapat",
@@ -66,6 +68,8 @@ export default defineStrings({
     sortA11y: "Sort by {label}",
     noResults: "No results found",
     surahA11y: "Surah {n} {name}",
+    surahFullA11y: "Surah {n}, {name}",
+    surahFullOccA11y: "Surah {n}, {name}, {count} occurrences",
     notInSurah: "This root does not occur in this surah",
     occurrencesHint: "Opens details for {n} occurrences",
     closeInfoA11y: "Close the surah info window",

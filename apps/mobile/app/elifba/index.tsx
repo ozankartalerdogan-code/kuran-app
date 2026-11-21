@@ -98,7 +98,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
             </View>
             <TouchableOpacity
               onPress={onClose}
-              style={{ padding: 4 }}
+              style={{ minWidth: 48, minHeight: 48, alignItems: "center", justifyContent: "center", marginTop: -8, marginRight: -8 }}
               accessibilityRole="button"
               accessibilityLabel={fmt(ep.closeLessonA11y, { name: dersAdi })}
             >

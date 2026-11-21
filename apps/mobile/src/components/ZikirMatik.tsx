@@ -372,7 +372,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         </View>
 
         {/* ── Zikir Seçici ── */}
-        <View style={{ height: 90 }}>
+        <View style={{ flexShrink: 0 }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={m.presetsRow}>
           {ZİKİRLER.map((z, i) => {
             const active = zikirIdx === i;
@@ -389,9 +389,9 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                   borderColor: active ? ALTIN : (c.isDark ? "#252f45" : "#cbd5e1"),
                 }]}
               >
-                {/* Pil kutusu sabit 125×80 — sistem yazı ölçeği sınırlanmazsa metin taşar */}
-                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.2}>{z.ozel ? t.customLabel : zName(z.isim)}</Text>
-                <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]} maxFontSizeMultiplier={1.2}>
+                {/* Pil kutusu en az 125×80 — uzun zikir adları çok satıra sarar */}
+                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.3}>{z.ozel ? t.customLabel : zName(z.isim)}</Text>
+                <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]} maxFontSizeMultiplier={1.3}>
                   ×{z.ozel ? customTarget : (targetOverrides[z.isim] ?? z.hedef)}
                 </Text>
               </TouchableOpacity>
@@ -421,6 +421,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 keyboardType="number-pad"
                 maxLength={4}
                 selectTextOnFocus
+                accessibilityLabel={t.targetCountInputA11y}
+                accessibilityHint={t.targetCountInputHint}
               />
               <TouchableOpacity onPress={saveCustom} style={[m.saveBtn, { backgroundColor: LACIVERT }]} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={t.saveCustomA11y}>
                 <Text style={m.saveBtnText}>{t.save}</Text>
@@ -445,6 +447,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                         maxLength={4}
                         autoFocus
                         selectTextOnFocus
+                        accessibilityLabel={fmt(t.dhikrTargetInputA11y, { name: z.isim })}
+                        accessibilityHint={t.targetCountInputHint}
                       />
                     ) : (
                       <TouchableOpacity
@@ -479,6 +483,8 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                   maxLength={4}
                   autoFocus
                   selectTextOnFocus
+                  accessibilityLabel={fmt(t.dhikrTargetInputA11y, { name: zName(zikir.isim) })}
+                  accessibilityHint={t.targetCountInputHint}
                 />
               ) : (
                 <TouchableOpacity
@@ -565,8 +571,8 @@ const m = StyleSheet.create({
   turBadgeText:{ fontSize: 12, fontWeight: "700" },
 
   presetsRow:  { paddingBottom: 12, gap: 7, flexDirection: "row" },
-  pill:        { borderRadius: 14, borderWidth: 1.5, paddingHorizontal: 10, paddingVertical: 8, flexDirection: "column", alignItems: "center", justifyContent: "center", height: 80, width: 125, gap: 3 },
-  pillLabel:   { fontSize: 13, fontWeight: "700", textAlign: "center" },
+  pill:        { borderRadius: 14, borderWidth: 1.5, paddingHorizontal: 10, paddingVertical: 8, flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 80, minWidth: 125, maxWidth: 170, gap: 3 },
+  pillLabel:   { fontSize: 13, fontWeight: "700", textAlign: "center", flexShrink: 1 },
   pillTarget:  { fontSize: 11, fontWeight: "600" },
 
   arabicCard:  { borderRadius: 12, borderWidth: 1.5, paddingVertical: 10, paddingHorizontal: 16, alignItems: "center", marginBottom: 18 },
@@ -610,6 +616,6 @@ const m = StyleSheet.create({
   tapCustomName:{ fontSize: 12, fontWeight: "700", color: ALTIN, textAlign: "center", maxWidth: 90, marginBottom: 2 },
 
   actions:    { flexDirection: "row", justifyContent: "center", gap: 10, marginTop: 6 },
-  actionBtn:  { flexDirection: "row", alignItems: "center", gap: 4, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, borderWidth: 1.5 },
+  actionBtn:  { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 4, minWidth: 48, minHeight: 48, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 24, borderWidth: 1.5 },
   actionText: { fontSize: 11, fontWeight: "700" },
 });

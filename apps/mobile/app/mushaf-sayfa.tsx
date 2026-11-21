@@ -502,7 +502,14 @@ export default function MushafSayfaEkrani() {
             {/* Hap görünümü + büyüteç: buranın dokunulur bir "sayfaya git" olduğunu belli eder */}
             <View style={[st.headerPill, { borderColor: c.border, backgroundColor: c.cardAlt }]}>
               <Ionicons name="search" size={11} color={c.textMuted} />
-              <Text style={[st.headerSub, { color: c.textMuted }]}>{fmt(t.headerSub, { j: cuz, p: page, t: SAYFA_SAYISI })}</Text>
+              <Text
+                style={[st.headerSub, { color: c.textMuted }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
+                {fmt(t.headerSub, { j: cuz, p: page, t: SAYFA_SAYISI })}
+              </Text>
             </View>
           </TouchableOpacity>
           <View style={st.headerBtns}>
@@ -571,6 +578,7 @@ export default function MushafSayfaEkrani() {
                   onSubmitEditing={handleJump}
                   returnKeyType="go"
                   accessibilityLabel={t.pageNumberA11y}
+                  accessibilityHint={fmt(t.pageNumberHint, { max: SAYFA_SAYISI })}
                 />
                 <TouchableOpacity style={[st.jumpBtn, { backgroundColor: c.accent }]} onPress={handleJump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.goA11y}>
                   <Text style={st.jumpBtnText}>{t.go}</Text>
@@ -685,13 +693,13 @@ const st = StyleSheet.create({
     flexDirection: "row", alignItems: "center", gap: 10,
     paddingHorizontal: 12, paddingVertical: 8, borderBottomWidth: 1,
   },
-  headerMid:   { flex: 1, alignItems: "center" },
-  headerTitle: { fontSize: 15, fontWeight: "700" },
+  headerMid:   { flex: 1, minWidth: 0, alignItems: "center" },
+  headerTitle: { fontSize: 15, fontWeight: "700", maxWidth: "100%" },
   headerPill:  {
-    flexDirection: "row", alignItems: "center", gap: 4,
+    flexDirection: "row", alignItems: "center", gap: 4, maxWidth: "100%",
     borderWidth: 1, borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2, marginTop: 2,
   },
-  headerSub:   { fontSize: 11 },
+  headerSub:   { fontSize: 11, flexShrink: 1 },
   headerBtns:  { flexDirection: "row", gap: 6 },
   fontBtn:     { borderRadius: 14, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 5, minWidth: 36, minHeight: 34, alignItems: "center", justifyContent: "center" },
   backBtn:     { minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },

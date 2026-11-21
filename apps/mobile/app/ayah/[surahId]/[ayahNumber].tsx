@@ -266,6 +266,8 @@ function AyahJumpBar({ surahId, current, total, colors, onJump }: {
         submitBehavior="submit"
         returnKeyType="next"
         selectTextOnFocus
+        accessibilityLabel={ay.surahNumberInputA11y}
+        accessibilityHint={ay.surahNumberInputHint}
       />
       <Text style={[styles.jumpLabel, { color: colors.textMuted }]}>{ay.ayahLabel}</Text>
       <TextInput
@@ -277,6 +279,8 @@ function AyahJumpBar({ surahId, current, total, colors, onJump }: {
         onSubmitEditing={jump}
         returnKeyType="go"
         selectTextOnFocus
+        accessibilityLabel={ay.ayahNumberInputA11y}
+        accessibilityHint={ay.ayahNumberInputHint}
       />
       <TouchableOpacity style={[styles.jumpBtn, { backgroundColor: colors.accent }]} onPress={jump} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={ay.goA11y}>
         <Text style={styles.jumpBtnText}>{ay.go}</Text>
@@ -826,7 +830,7 @@ export default function AyahDetailScreen() {
                 ]}
                 onPress={handleTajweedToggle}
                 activeOpacity={0.75}
-                hitSlop={6}
+                hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
                 accessibilityRole="switch"
                 accessibilityState={{ checked: tajweed }}
                 accessibilityLabel={ay.tajweedToggleA11y}
@@ -845,7 +849,7 @@ export default function AyahDetailScreen() {
                 onPress={() => changeFontScale(-FONT_SCALE_STEP)}
                 disabled={fontScale <= FONT_SCALE_MIN}
                 activeOpacity={0.7}
-                hitSlop={6}
+                hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
                 accessibilityRole="button"
                 accessibilityLabel={ay.shrinkA11y}
                 accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
@@ -857,7 +861,7 @@ export default function AyahDetailScreen() {
                 onPress={() => changeFontScale(FONT_SCALE_STEP)}
                 disabled={fontScale >= FONT_SCALE_MAX}
                 activeOpacity={0.7}
-                hitSlop={6}
+                hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
                 accessibilityRole="button"
                 accessibilityLabel={ay.growA11y}
                 accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
@@ -919,7 +923,7 @@ export default function AyahDetailScreen() {
             <TouchableOpacity
               style={[styles.iconBtn, { backgroundColor: colors.surfaceAlt, borderColor: colors.border }]}
               onPress={handleShare}
-              hitSlop={6}
+              hitSlop={{ top: 8, bottom: 8, left: 5, right: 5 }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityLabel={ay.shareA11y}
@@ -935,7 +939,7 @@ export default function AyahDetailScreen() {
               ]}
               onPress={handleToggleFav}
               disabled={!favLoaded}
-              hitSlop={6}
+              hitSlop={{ top: 8, bottom: 8, left: 5, right: 5 }}
               activeOpacity={0.7}
               accessibilityRole="button"
               accessibilityState={{ selected: isFavorite(verseKey), disabled: !favLoaded }}

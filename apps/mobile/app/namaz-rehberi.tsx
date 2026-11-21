@@ -836,7 +836,14 @@ export default function NamazRehberiScreen() {
             const active = tab === id;
             return (
               <TouchableOpacity key={id} style={[s.segBtn, active && [s.segBtnActive, { backgroundColor: c.card }]]} onPress={() => setTab(id)} activeOpacity={0.85} accessibilityRole="tab" accessibilityState={{ selected: active }} accessibilityLabel={lbl}>
-                <Text style={[s.segLabel, { color: active ? c.accent : c.textMuted }]} numberOfLines={1}>{lbl}</Text>
+                <Text
+                  style={[s.segLabel, { color: active ? c.accent : c.textMuted }]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.7}
+                >
+                  {lbl}
+                </Text>
               </TouchableOpacity>
             );
           })}
@@ -911,7 +918,7 @@ const s = StyleSheet.create({
   // Üst sekme
   tabWrap:      { paddingHorizontal: 14, paddingTop: 10, paddingBottom: 8 },
   segment:      { flexDirection: "row", borderRadius: 12, padding: 4, gap: 4 },
-  segBtn:       { flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: 9, borderRadius: 9 },
+  segBtn:       { flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: 9, paddingHorizontal: 6, borderRadius: 9 },
   segBtnActive: { shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.12, shadowRadius: 3, elevation: 2 },
   segLabel:     { fontSize: 12, fontWeight: "700" },
 });

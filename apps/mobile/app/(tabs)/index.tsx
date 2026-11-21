@@ -298,7 +298,7 @@ function HomeContent() {
         <TouchableOpacity
           onPress={toggleTheme}
           activeOpacity={0.75}
-          hitSlop={6}
+          hitSlop={8}
           accessibilityRole="button"
           accessibilityLabel={c.isDark ? hs.toLight : hs.toDark}
           style={[styles.themeBtn, {
