@@ -24,9 +24,20 @@ const VOW = { 'َ':'a','ِ':'i','ُ':'u','ً':'an','ٍ':'in','ٌ':'un' };
 const HEAVY = 'خصضغطقظ';
 
 // Harekeli yazıdan kurallı Latin okunuş (talimat ipucu; ses metni değil).
-export function transliterate(word) {
+// Türkçe Elif-Ba yazımı: harf harf eşleme (çok harfli dizilerin sonradan değiştirilmesi
+// "dkh" → "dh" → "z" gibi yanlış birleşmeler üretiyordu).
+export const CONS_TR = { ...CONS, 'ث':'s','ج':'c','ح':'h','خ':'h','ذ':'z','ش':'ş','ص':'s','ض':'d','ط':'t',
+  'ظ':'z','ع':"'",'غ':'ğ','ق':'k','و':'v','ء':"'",'أ':"'",'إ':"'",'ؤ':"'",'ئ':"'",'ا':"'" };
+
+export function transliterate(word, cons = CONS) {
+  const CONS = cons;
   const ch = [...word.normalize('NFC')];
   let out = '';
+  // Baştaki harekesiz (vasıl) elif: ardından cezimli/şeddeli harf gelir → "el-" / "i-" ile başlar.
+  if (ch[0] === 'ا' && !/[ً-ْ]/u.test(ch[1] ?? '')) {
+    out = ch[1] === 'ل' ? (cons === CONS_TR ? 'e' : 'a') : 'i';
+    ch.shift();
+  }
   for (let i = 0; i < ch.length; i++) {
     const c = ch[i];
     if (!(c in CONS)) continue;
