@@ -17,6 +17,41 @@ For example رَزَقَ is razaqa, NOT razaq; أَحَدٌ is ahadun, NOT ahad.
 Respect sukun, shadda and natural madd lengths. No introduction, translation,
 letter names, repetition, music, or extra words. This is a single-word exercise.`;
 
+const CONS = { 'ب':'b','ت':'t','ث':'th','ج':'j','ح':'ḥ','خ':'kh','د':'d','ذ':'dh','ر':'r','ز':'z','س':'s',
+  'ش':'sh','ص':'ṣ','ض':'ḍ','ط':'ṭ','ظ':'ẓ','ع':'ʿ','غ':'gh','ف':'f','ق':'q','ك':'k','ل':'l','م':'m',
+  'ن':'n','ه':'h','و':'w','ي':'y','ء':'ʾ','أ':'ʾ','إ':'ʾ','ؤ':'ʾ','ئ':'ʾ','ة':'t','ا':'ʾ','ى':'y' };
+const VOW = { 'َ':'a','ِ':'i','ُ':'u','ً':'an','ٍ':'in','ٌ':'un' };
+const HEAVY = 'خصضغطقظ';
+
+// Harekeli yazıdan kurallı Latin okunuş (talimat ipucu; ses metni değil).
+export function transliterate(word) {
+  const ch = [...word.normalize('NFC')];
+  let out = '';
+  for (let i = 0; i < ch.length; i++) {
+    const c = ch[i];
+    if (!(c in CONS)) continue;
+    const marks = [];
+    while (i + 1 < ch.length && /[ً-ْٰ]/u.test(ch[i + 1])) marks.push(ch[++i]);
+    const vowel = marks.map(m => VOW[m] ?? (m === 'ٰ' ? 'ā' : '')).join('');
+    const shadda = marks.includes('ّ');
+    const bare = !vowel && !marks.includes('ْ') && !shadda;
+    // Harekesiz med harfi: üstün+elif/ye(ى) → ā, esre+ye → ī, ötre+vav → ū.
+    if (bare && /[اى]/u.test(c) && out.endsWith('a')) { out = `${out.slice(0, -1)}ā`; continue; }
+    if (bare && c === 'ي' && out.endsWith('i')) { out = `${out.slice(0, -1)}ī`; continue; }
+    if (bare && c === 'و' && out.endsWith('u')) { out = `${out.slice(0, -1)}ū`; continue; }
+    if (bare && c === 'ا') continue;
+    const base = CONS[c];
+    out += (shadda ? base + base : base) + vowel;
+  }
+  return out;
+}
+
+export function styleFor(word) {
+  const heavy = [...new Set([...word].filter(c => HEAVY.includes(c)))];
+  return `${PROMPT}\nTarget pronunciation (scholarly transliteration): "${transliterate(word)}".`
+    + (heavy.length ? `\nThe letters ${heavy.join(' ')} are heavy (mufakhkham): pronounce them emphatically with an open back "a", never a thin "e".` : '');
+}
+
 export function extractWords(data) {
   const seen = new Set();
   const result = [];
@@ -197,7 +232,7 @@ async function main() {
         response = await request('interactions', {
           model: model.replace(/^models\//, ''),
           input: [{ type: 'user_input', content: [{ type: 'text', text: word.arapca,
-            annotations: [{ type: 'speech_metadata', style: PROMPT }] }] }],
+            annotations: [{ type: 'speech_metadata', style: styleFor(word.arapca) }] }] }],
           response_format: { type: 'audio' },
           generation_config: { speech_config: [{ voice: values.voice }] },
         });
