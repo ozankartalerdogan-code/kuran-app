@@ -13,6 +13,7 @@ import { splitInternalTokens, resolveInternalLink } from "../lib/internalLinks";
 import { api } from "../lib/api";
 import { useStrings, fmt } from "../i18n";
 import componentStrings from "../i18n/strings/components";
+import { useColors } from "../hooks/useColors";
 
 type Props = {
   children: string;
@@ -26,8 +27,11 @@ const linkTextStyle = (color: string): TextStyle => ({
   textDecorationLine: "underline",
 });
 
-export function AyahLinkedText({ children, style, linkColor = "#c9a84c" }: Props) {
+export function AyahLinkedText({ children, style, linkColor: linkColorProp }: Props) {
   const cs = useStrings(componentStrings);
+  // Açık temada #c9a84c ~2:1 kontrast veriyordu → tema altını (açık #92400e, koyu #c9a84c)
+  const themeGold = useColors().goldText;
+  const linkColor = linkColorProp ?? themeGold;
   const text = children ?? "";
   const parts = splitInternalTokens(text);
 

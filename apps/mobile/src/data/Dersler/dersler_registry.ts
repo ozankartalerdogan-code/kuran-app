@@ -7,6 +7,7 @@
 // Bu dosya doğası gereği yerel JSON dersleri require ile yükler (Metro bundle).
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 import type { Lang } from "../../i18n";
+import type { IoniconName, Tone } from "../../components/ui/tokens";
 
 // dersEn/quizEn: İngilizce arayüz için AI destekli çeviriler (<ad>.en.json,
 // scripts/translate-json-en.mjs). Tembel yüklenir; yoksa/bozuksa Türkçe gösterilir.
@@ -15,7 +16,7 @@ type Kayit = {
   baslik: string;
   baslikEn: string;
   kartSayisi: number;
-  ikon: string;
+  ikon: IoniconName;
   sure: number;
   kategori: string;
   ders: () => unknown;
@@ -25,7 +26,7 @@ type Kayit = {
 };
 
 // For cards that route elsewhere instead of using local lesson JSON.
-type EkstraKart = { id: string; baslik: string; ikon: string; kartSayisi: number; birim: string; sure: number; route: string };
+type EkstraKart = { id: string; baslik: string; ikon: IoniconName; kartSayisi: number; birim: string; sure: number; route: string };
 
 function toStringList(value: unknown): string[] {
   return Array.isArray(value)
@@ -230,19 +231,19 @@ function isValidDers(ders: unknown): boolean {
 }
 
 const RAW_KAYITLAR: Kayit[] = [
-  { id: "namaz",            baslik: "Namaz",                                      baslikEn: "Salah",                                        kartSayisi: 30, ikon: "\uD83D\uDD4C", sure: 15,                 kategori: "ibadet", ders: () => require("./namaz_dersi.json"),                quiz: () => require("./namaz_quiz.json"),                dersEn: () => require("./namaz_dersi.en.json"),                quizEn: () => require("./namaz_quiz.en.json") },
-  { id: "namaz-dualar",     baslik: "Namaz Duaları",                              baslikEn: "Salah Supplications",                          kartSayisi: 14, ikon: "\uD83D\uDCFF", sure: 10,                 kategori: "ibadet", ders: () => require("./namaz_dualar_dersi.json"),         quiz: () => require("./namaz_dualar_quiz.json"),         dersEn: () => require("./namaz_dualar_dersi.en.json"),         quizEn: () => require("./namaz_dualar_quiz.en.json") },
-  { id: "oruc",             baslik: "Oruç",                                       baslikEn: "Sawm (Fasting)",                               kartSayisi: 14, ikon: "\uD83C\uDF19", sure:  8,                 kategori: "ibadet", ders: () => require("./oruc_dersi.json"),                 quiz: () => require("./oruc_quiz.json"),                 dersEn: () => require("./oruc_dersi.en.json"),                 quizEn: () => require("./oruc_quiz.en.json") },
-  { id: "kurban",           baslik: "Kurban",                                     baslikEn: "Qurbani",                                      kartSayisi: 16, ikon: "\uD83D\uDC11", sure: 12,                 kategori: "ibadet", ders: () => require("./kurban_dersi.json"),               quiz: () => require("./kurban_quiz.json"),               dersEn: () => require("./kurban_dersi.en.json"),               quizEn: () => require("./kurban_quiz.en.json") },
-  { id: "hac-umre",         baslik: "Hac & Umre",                                 baslikEn: "Hajj & Umrah",                                 kartSayisi: 15, ikon: "\uD83D\uDD4B", sure:  9,                 kategori: "ibadet", ders: () => require("./hac_umre_dersi.json"),             quiz: () => require("./hac_umre_quiz.json"),             dersEn: () => require("./hac_umre_dersi.en.json"),             quizEn: () => require("./hac_umre_quiz.en.json") },
-  { id: "iman-esaslari",    baslik: "İman Esasları",                              baslikEn: "Articles of Faith",                            kartSayisi: 15, ikon: "\uD83D\uDCD6", sure: 10,                 kategori: "akaid",  ders: () => require("./iman_esaslari_dersi.json"),        quiz: () => require("./iman_esaslari_quiz.json"),        dersEn: () => require("./iman_esaslari_dersi.en.json"),        quizEn: () => require("./iman_esaslari_quiz.en.json") },
-  { id: "kitaplara-iman",   baslik: "Kitaplara İman",                             baslikEn: "Belief in the Books",                          kartSayisi: 12, ikon: "\uD83D\uDCDA", sure:  8,                 kategori: "akaid",  ders: () => require("./kitaplara_iman_dersi.json"),       quiz: () => require("./kitaplara_iman_quiz.json"),       dersEn: () => require("./kitaplara_iman_dersi.en.json"),       quizEn: () => require("./kitaplara_iman_quiz.en.json") },
+  { id: "namaz",            baslik: "Namaz",                                      baslikEn: "Salah",                                        kartSayisi: 30, ikon: "accessibility-outline", sure: 15,                 kategori: "ibadet", ders: () => require("./namaz_dersi.json"),                quiz: () => require("./namaz_quiz.json"),                dersEn: () => require("./namaz_dersi.en.json"),                quizEn: () => require("./namaz_quiz.en.json") },
+  { id: "namaz-dualar",     baslik: "Namaz Duaları",                              baslikEn: "Salah Supplications",                          kartSayisi: 14, ikon: "rose-outline", sure: 10,                 kategori: "ibadet", ders: () => require("./namaz_dualar_dersi.json"),         quiz: () => require("./namaz_dualar_quiz.json"),         dersEn: () => require("./namaz_dualar_dersi.en.json"),         quizEn: () => require("./namaz_dualar_quiz.en.json") },
+  { id: "oruc",             baslik: "Oruç",                                       baslikEn: "Sawm (Fasting)",                               kartSayisi: 14, ikon: "moon-outline", sure:  8,                 kategori: "ibadet", ders: () => require("./oruc_dersi.json"),                 quiz: () => require("./oruc_quiz.json"),                 dersEn: () => require("./oruc_dersi.en.json"),                 quizEn: () => require("./oruc_quiz.en.json") },
+  { id: "kurban",           baslik: "Kurban",                                     baslikEn: "Qurbani",                                      kartSayisi: 16, ikon: "paw-outline", sure: 12,                 kategori: "ibadet", ders: () => require("./kurban_dersi.json"),               quiz: () => require("./kurban_quiz.json"),               dersEn: () => require("./kurban_dersi.en.json"),               quizEn: () => require("./kurban_quiz.en.json") },
+  { id: "hac-umre",         baslik: "Hac & Umre",                                 baslikEn: "Hajj & Umrah",                                 kartSayisi: 15, ikon: "cube-outline", sure:  9,                 kategori: "ibadet", ders: () => require("./hac_umre_dersi.json"),             quiz: () => require("./hac_umre_quiz.json"),             dersEn: () => require("./hac_umre_dersi.en.json"),             quizEn: () => require("./hac_umre_quiz.en.json") },
+  { id: "iman-esaslari",    baslik: "İman Esasları",                              baslikEn: "Articles of Faith",                            kartSayisi: 15, ikon: "shield-checkmark-outline", sure: 10,                 kategori: "akaid",  ders: () => require("./iman_esaslari_dersi.json"),        quiz: () => require("./iman_esaslari_quiz.json"),        dersEn: () => require("./iman_esaslari_dersi.en.json"),        quizEn: () => require("./iman_esaslari_quiz.en.json") },
+  { id: "kitaplara-iman",   baslik: "Kitaplara İman",                             baslikEn: "Belief in the Books",                          kartSayisi: 12, ikon: "library-outline", sure:  8,                 kategori: "akaid",  ders: () => require("./kitaplara_iman_dersi.json"),       quiz: () => require("./kitaplara_iman_quiz.json"),       dersEn: () => require("./kitaplara_iman_dersi.en.json"),       quizEn: () => require("./kitaplara_iman_quiz.en.json") },
   {
     id: "nefsini-tani",
     baslik: "Nefsini Tanı",
     baslikEn: "Know Your Nafs",
     kartSayisi: 11,
-    ikon: "\uD83E\uDE9E",
+    ikon: "person-circle-outline",
     // estimateSure: diger derslerle ayni kart-basi sure oranini kullanir (bkz.
     // yukarida DAKIKA_PER_KART). Modulun kendi estimatedMinutes toplami (~57 dk)
     // diger derslerin 7-16 dk araligina gore asiri sapiyordu.
@@ -250,7 +251,7 @@ const RAW_KAYITLAR: Kayit[] = [
     kategori: "ahlak",
     ders: () => {
       const m = safeRequire(() => require("./nefsini_tani_ders_modulu.json"), "nefsini_tani_ders_modulu");
-      return m ? normalizeLessonModule(m, "🪞") : null;
+      return m ? normalizeLessonModule(m, "person-circle-outline") : null;
     },
     quiz: () => {
       const m = safeRequire(() => require("./nefsini_tani_quiz.json"), "nefsini_tani_quiz");
@@ -258,28 +259,28 @@ const RAW_KAYITLAR: Kayit[] = [
     },
     dersEn: () => {
       const m = safeRequire(() => require("./nefsini_tani_ders_modulu.en.json"), "nefsini_tani_ders_modulu.en");
-      return m ? normalizeLessonModule(m, "🪞", "en") : null;
+      return m ? normalizeLessonModule(m, "person-circle-outline", "en") : null;
     },
     quizEn: () => {
       const m = safeRequire(() => require("./nefsini_tani_quiz.en.json"), "nefsini_tani_quiz.en");
       return m ? normalizeQuizModule(m, "nefsini-tani", "Know Your Nafs") : null;
     },
   },
-  { id: "guzel-ahlak",      baslik: "Güzel Ahlak",                                baslikEn: "Good Character",                               kartSayisi: 18, ikon: "\uD83E\uDD1D", sure: 12,                 kategori: "ahlak",  ders: () => require("./guzel_ahlak_dersi.json"),          quiz: () => require("./guzel_ahlak_quiz.json"),          dersEn: () => require("./guzel_ahlak_dersi.en.json"),          quizEn: () => require("./guzel_ahlak_quiz.en.json") },
-  { id: "peygamberler",     baslik: "Peygamber Kıssaları",                        baslikEn: "Stories of the Prophets",                      kartSayisi: 27, ikon: "\u2B50",       sure: 14,                 kategori: "siyer",  ders: () => require("./peygamber_kissalari_dersi.json"),  quiz: () => require("./peygamber_kissalari_quiz.json"),  dersEn: () => require("./peygamber_kissalari_dersi.en.json"),  quizEn: () => require("./peygamber_kissalari_quiz.en.json") },
-  { id: "sahabe-hayatlari", baslik: "Sahabe Hayatları",                           baslikEn: "Lives of the Companions",                      kartSayisi: 20, ikon: "\uD83D\uDD4A", sure: 16,                 kategori: "siyer",  ders: () => require("./sahabe_hayatlari_dersi.json"),     quiz: () => require("./sahabe_hayatlari_quiz.json"),     dersEn: () => require("./sahabe_hayatlari_dersi.en.json"),     quizEn: () => require("./sahabe_hayatlari_quiz.en.json") },
-  { id: "siyer",            baslik: "Siyer-i Nebi",                               baslikEn: "The Life of the Prophet",                      kartSayisi: 18, ikon: "\uD83C\uDF3F", sure: 10,                 kategori: "siyer",  ders: () => require("./siyer_dersi.json"),                quiz: () => require("./siyer_quiz.json"),                dersEn: () => require("./siyer_dersi.en.json"),                quizEn: () => require("./siyer_quiz.en.json") },
-  { id: "tecvid",           baslik: "Tecvid",                                     baslikEn: "Tajweed",                                      kartSayisi: 20, ikon: "\uD83D\uDCDC", sure: 12,                 kategori: "kuran",  ders: () => require("./tecvid_dersi.json"),               quiz: () => require("./tecvid_quiz.json"),               dersEn: () => require("./tecvid_dersi.en.json"),               quizEn: () => require("./tecvid_quiz.en.json") },
-  { id: "abdest-gusul",     baslik: "Abdest, Gusül ve Teyemmüm",                  baslikEn: "Wudu, Ghusl and Tayammum",                     kartSayisi: 19, ikon: "\uD83D\uDCA7", sure: 10,                 kategori: "ibadet", ders: () => require("./abdest_dersi.json"),               quiz: () => require("./abdest_quiz.json"),               dersEn: () => require("./abdest_dersi.en.json"),               quizEn: () => require("./abdest_quiz.en.json") },
-  { id: "ezan-kamet",       baslik: "Ezan ve Kamet (namaza başlama çağrısı)",     baslikEn: "Adhan and Iqamah (the call to begin prayer)",  kartSayisi: 12, ikon: "\uD83D\uDD0A", sure:  7,                 kategori: "ibadet", ders: () => require("./ezan_kamet_dersi.json"),           quiz: () => require("./ezan_kamet_quiz.json"),           dersEn: () => require("./ezan_kamet_dersi.en.json"),           quizEn: () => require("./ezan_kamet_quiz.en.json") },
-  { id: "zekat",            baslik: "Zekât",                                      baslikEn: "Zakat",                                        kartSayisi: 13, ikon: "\uD83E\uDD32", sure:  7,                 kategori: "ibadet", ders: () => require("./zekat_dersi.json"),                quiz: () => require("./zekat_quiz.json"),                dersEn: () => require("./zekat_dersi.en.json"),                quizEn: () => require("./zekat_quiz.en.json") },
+  { id: "guzel-ahlak",      baslik: "Güzel Ahlak",                                baslikEn: "Good Character",                               kartSayisi: 18, ikon: "heart-outline", sure: 12,                 kategori: "ahlak",  ders: () => require("./guzel_ahlak_dersi.json"),          quiz: () => require("./guzel_ahlak_quiz.json"),          dersEn: () => require("./guzel_ahlak_dersi.en.json"),          quizEn: () => require("./guzel_ahlak_quiz.en.json") },
+  { id: "peygamberler",     baslik: "Peygamber Kıssaları",                        baslikEn: "Stories of the Prophets",                      kartSayisi: 27, ikon: "people-outline",       sure: 14,                 kategori: "siyer",  ders: () => require("./peygamber_kissalari_dersi.json"),  quiz: () => require("./peygamber_kissalari_quiz.json"),  dersEn: () => require("./peygamber_kissalari_dersi.en.json"),  quizEn: () => require("./peygamber_kissalari_quiz.en.json") },
+  { id: "sahabe-hayatlari", baslik: "Sahabe Hayatları",                           baslikEn: "Lives of the Companions",                      kartSayisi: 20, ikon: "people-circle-outline", sure: 16,                 kategori: "siyer",  ders: () => require("./sahabe_hayatlari_dersi.json"),     quiz: () => require("./sahabe_hayatlari_quiz.json"),     dersEn: () => require("./sahabe_hayatlari_dersi.en.json"),     quizEn: () => require("./sahabe_hayatlari_quiz.en.json") },
+  { id: "siyer",            baslik: "Siyer-i Nebi",                               baslikEn: "The Life of the Prophet",                      kartSayisi: 18, ikon: "map-outline", sure: 10,                 kategori: "siyer",  ders: () => require("./siyer_dersi.json"),                quiz: () => require("./siyer_quiz.json"),                dersEn: () => require("./siyer_dersi.en.json"),                quizEn: () => require("./siyer_quiz.en.json") },
+  { id: "tecvid",           baslik: "Tecvid",                                     baslikEn: "Tajweed",                                      kartSayisi: 20, ikon: "color-palette-outline", sure: 12,                 kategori: "kuran",  ders: () => require("./tecvid_dersi.json"),               quiz: () => require("./tecvid_quiz.json"),               dersEn: () => require("./tecvid_dersi.en.json"),               quizEn: () => require("./tecvid_quiz.en.json") },
+  { id: "abdest-gusul",     baslik: "Abdest, Gusül ve Teyemmüm",                  baslikEn: "Wudu, Ghusl and Tayammum",                     kartSayisi: 19, ikon: "water-outline", sure: 10,                 kategori: "ibadet", ders: () => require("./abdest_dersi.json"),               quiz: () => require("./abdest_quiz.json"),               dersEn: () => require("./abdest_dersi.en.json"),               quizEn: () => require("./abdest_quiz.en.json") },
+  { id: "ezan-kamet",       baslik: "Ezan ve Kamet (namaza başlama çağrısı)",     baslikEn: "Adhan and Iqamah (the call to begin prayer)",  kartSayisi: 12, ikon: "megaphone-outline", sure:  7,                 kategori: "ibadet", ders: () => require("./ezan_kamet_dersi.json"),           quiz: () => require("./ezan_kamet_quiz.json"),           dersEn: () => require("./ezan_kamet_dersi.en.json"),           quizEn: () => require("./ezan_kamet_quiz.en.json") },
+  { id: "zekat",            baslik: "Zekât",                                      baslikEn: "Zakat",                                        kartSayisi: 13, ikon: "hand-left-outline", sure:  7,                 kategori: "ibadet", ders: () => require("./zekat_dersi.json"),                quiz: () => require("./zekat_quiz.json"),                dersEn: () => require("./zekat_dersi.en.json"),                quizEn: () => require("./zekat_quiz.en.json") },
 ];
 
 // Ders ve quiz JSON'ları tembel yüklenir; geçersizlik kontrolü ilk erişimde yapılır.
 const KAYITLAR: Kayit[] = RAW_KAYITLAR;
 
 const EKSTRA_KARTLAR: EkstraKart[] = [
-  { id: "elifba", baslik: "Elif-Ba", ikon: "\uD83D\uDD24", kartSayisi: 9, birim: "ders", sure: 20, route: "/elifba" },
+  { id: "elifba", baslik: "Elif-Ba", ikon: "text-outline", kartSayisi: 9, birim: "ders", sure: 20, route: "/elifba" },
 ];
 
 const KAYIT_BY_ID = new Map(KAYITLAR.map((k) => [k.id, k]));
@@ -366,16 +367,20 @@ export function getKategoriler(lang: Lang = "tr"): typeof KATEGORILER {
 
 export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.baslik]));
 
-export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayisi: number; birim?: string; sure: number; hasQuiz?: boolean; route?: string }[] = [
+/** Ders kartı ikon dairesi tonu — kategoriye göre (tasarım sistemi Tur 3). */
+const KATEGORI_TON: Record<string, Tone> = { ibadet: "emerald", akaid: "sky", ahlak: "violet", siyer: "amber", kuran: "emerald" };
+
+export const DERSLER_META: { id: string; baslik: string; ikon: IoniconName; ton: Tone; kartSayisi: number; birim?: string; sure: number; hasQuiz?: boolean; route?: string }[] = [
   ...KAYITLAR.map((k) => ({
     id: k.id,
     baslik: k.baslik,
     ikon: k.ikon,
+    ton: KATEGORI_TON[k.kategori] ?? "neutral",
     kartSayisi: k.kartSayisi,
     sure: k.sure,
     hasQuiz: true,
   })),
-  ...EKSTRA_KARTLAR.map((e) => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, hasQuiz: false, route: e.route })),
+  ...EKSTRA_KARTLAR.map((e) => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, ton: "emerald" as Tone, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, hasQuiz: false, route: e.route })),
 ];
 
 export const KATEGORILER: { label: string; ids: string[] }[] = [

@@ -14,7 +14,7 @@ try {
   if (UIManager.hasViewManagerConfig?.("LottieAnimationView")) LottieView = mod;
 } catch (_e) { /* noop */ }
 
-import { Stack, router, useLocalSearchParams, useFocusEffect } from "expo-router";
+import { Stack, useLocalSearchParams, useFocusEffect } from "expo-router";
 import { notifyReviewCompletion } from "../../src/hooks/storeReviewPolicy";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
@@ -30,6 +30,7 @@ import { useContextualHint } from "../../src/tour/useContextualHint";
 import { ContextualHintCard, ContextualHintHelp } from "../../src/tour/ContextualHintCard";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { AyahLinkedText } from "../../src/components/AyahLinkedText";
+import { BackButton, Button, Callout, radius, space } from "../../src/components/ui";
 
 // Quiz geçme oranı: bu orandaki doğru → ders "tamamlandı" sayılır + kutlama.
 // Mutlak sayı değil oran — soru havuzu 10'un altına düşerse eşik ulaşılamaz olmasın.
@@ -101,9 +102,9 @@ function YakindaEkran({ baslik }: { baslik: string }) {
     <View style={[s.container, { backgroundColor: c.bg, paddingTop: insets.top }]}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
-          <Text style={s.accent}>{t.backBtn}</Text>
-        </TouchableOpacity>
+        <View style={s.headerSide}>
+          <BackButton accessibilityLabel={t.back} />
+        </View>
         <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
         <View style={s.headerSide} />
       </View>
@@ -309,13 +310,17 @@ export default function DersDetayScreen() {
         <Stack.Screen options={{ headerShown: false }} />
         <View style={s.contentColumn}>
         <View style={[s.header, { borderBottomColor: c.border }]}>
-          <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel="Geri">
-            <Text style={s.accent}>‹ Geri</Text>
-          </TouchableOpacity>
+          <View style={s.headerSide}>
+            <BackButton accessibilityLabel={t.back} />
+          </View>
           <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-          <TouchableOpacity onPress={() => setReadMode(false)} style={[s.headerSide, { alignItems: "flex-end" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.cardModeA11y}>
-            <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.accent, { fontSize: 12, width: "100%" }]}>{t.cardMode}</Text>
-          </TouchableOpacity>
+          <Button
+            variant="ghost"
+            tone="accent"
+            label={t.cardMode}
+            onPress={() => setReadMode(false)}
+            accessibilityLabel={t.cardModeA11y}
+          />
         </View>
 
         <ScrollView
@@ -326,17 +331,22 @@ export default function DersDetayScreen() {
             <View key={k.id}>
               <Text style={[s.readBaslik, { color: c.text }]}>{k.baslik ?? ""}</Text>
               <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{k.icerik ?? ""}</AyahLinkedText>
-              <View style={[s.vurguBox, { backgroundColor: "rgba(201,168,76,0.10)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
-                <Text style={s.vurguText}>✦  {k.vurgu ?? ""}</Text>
+              <View style={[s.vurguBox, { backgroundColor: c.amberBg, borderLeftColor: c.amberBorder, marginTop: space.sm }]}>
+                <Text style={[s.vurguText, { color: c.goldText }]}>✦  {k.vurgu ?? ""}</Text>
               </View>
               {i < kartlar.length - 1 && <View style={[s.readDivider, { backgroundColor: c.border }]} />}
             </View>
           ))}
 
           {hasQuiz && (
-            <TouchableOpacity style={[s.nextBtn, { marginTop: 28 }]} onPress={startQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.startQuizA11y}>
-              <Text style={s.nextBtnText}>{t.startQuiz}</Text>
-            </TouchableOpacity>
+            <Button
+              variant="primary"
+              fullWidth
+              label={t.startQuiz}
+              onPress={startQuiz}
+              accessibilityLabel={t.startQuizA11y}
+              style={{ marginTop: 28 }}
+            />
           )}
         </ScrollView>
         </View>
@@ -369,7 +379,7 @@ export default function DersDetayScreen() {
           showsVerticalScrollIndicator={false}
         >
           {/* Skor */}
-          <View style={[s.scoreCard, { backgroundColor: c.card }]}>
+          <View style={[s.scoreCard, { backgroundColor: c.card, borderColor: c.border }]}>
             {LottieView && score >= quizPass ? (
               <LottieView
                 source={require("../../assets/Success-celebration.json")}
@@ -384,8 +394,8 @@ export default function DersDetayScreen() {
               {fmt(t.scoreCorrect, { score, total: qTotal })}
             </Text>
             <Text style={[s.scorePct, { color: c.textMuted }]}>{fmt(t.scorePct, { pct })}</Text>
-            <View style={[s.scoreBarTrack, { backgroundColor: c.border }]}>
-              <View style={[s.scoreBarFill, { width: barW }]} />
+            <View style={[s.scoreBarTrack, { backgroundColor: c.cardAlt }]}>
+              <View style={[s.scoreBarFill, { width: barW, backgroundColor: c.accent }]} />
             </View>
           </View>
 
@@ -412,18 +422,20 @@ export default function DersDetayScreen() {
 
         {/* Alt butonlar */}
         <View style={[s.navRow, { borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
-          <TouchableOpacity
-            style={[s.prevBtn, { borderColor: c.border, flex: 1 }]}
+          <Button
+            variant="secondary"
+            label={t.backToLesson}
             onPress={returnToLesson}
-            activeOpacity={0.7}
-            accessibilityRole="button"
             accessibilityLabel={t.backToLessonA11y}
-          >
-            <Text style={[s.prevBtnText, { color: c.text }]}>{t.backToLesson}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[s.nextBtn, { flex: 1 }]} onPress={retryQuiz} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
-            <Text style={s.nextBtnText}>{t.retry}</Text>
-          </TouchableOpacity>
+            style={{ flex: 1 }}
+          />
+          <Button
+            variant="primary"
+            label={t.retry}
+            onPress={retryQuiz}
+            accessibilityLabel={t.retryA11y}
+            style={{ flex: 1 }}
+          />
         </View>
         </View>
       </View>
@@ -440,21 +452,22 @@ export default function DersDetayScreen() {
 
     const answerBg = (harf: string) => {
       if (!showResult) return c.card;
-      if (harf === question.dogru) return "#2d6a4f";
-      if (harf === selectedAnswer) return "#6b2d2d";
+      if (harf === question.dogru) return c.greenBg;
+      if (harf === selectedAnswer) return c.errorBg;
       return c.card;
     };
 
     const answerTextColor = (harf: string) => {
       if (!showResult) return c.text;
-      if (harf === question.dogru || harf === selectedAnswer) return "#ffffff";
-      return c.textMuted;
+      if (harf === question.dogru) return c.greenText;
+      if (harf === selectedAnswer) return c.errorText;
+      return c.text;
     };
 
     const answerBorderColor = (harf: string) => {
       if (!showResult) return c.border;
-      if (harf === question.dogru) return "#2d6a4f";
-      if (harf === selectedAnswer) return "#6b2d2d";
+      if (harf === question.dogru) return c.greenBorder;
+      if (harf === selectedAnswer) return c.errorBorder;
       return c.border;
     };
 
@@ -464,15 +477,14 @@ export default function DersDetayScreen() {
         <View style={s.contentColumn}>
         {/* Header */}
         <View style={[s.header, { borderBottomColor: c.border }]}>
-          <TouchableOpacity
-            style={[s.headerSide, { width: compactQuizBack ? 44 : 96 }]}
+          <Button
+            variant="ghost"
+            tone="accent"
+            label={compactQuizBack ? undefined : t.backToLessonArrow}
+            icon={compactQuizBack ? "arrow-back" : undefined}
             onPress={returnToLesson}
-            activeOpacity={0.7}
-            accessibilityRole="button"
             accessibilityLabel={t.backToLessonA11y}
-          >
-            <Text style={s.accent} numberOfLines={1}>{compactQuizBack ? "←" : t.backToLessonArrow}</Text>
-          </TouchableOpacity>
+          />
           <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>
             {fmt(t.questionOf, { i: qIndex + 1, n: qTotal })}
           </Text>
@@ -480,8 +492,8 @@ export default function DersDetayScreen() {
         </View>
 
         {/* Progress */}
-        <View style={[s.progressTrack, { backgroundColor: c.border }]}>
-          <View style={[s.progressFill, { width: qProgressW }]} />
+        <View style={[s.progressTrack, { backgroundColor: c.cardAlt }]}>
+          <View style={[s.progressFill, { width: qProgressW, backgroundColor: c.accent }]} />
         </View>
 
         {/* Soru kartı + şıklar — fade animasyonlu */}
@@ -497,13 +509,13 @@ export default function DersDetayScreen() {
           }}
         >
           <View style={s.quizQuestionContent}>
-            <View style={s.questionCard}>
-              <Text style={s.questionText}>{question.soru}</Text>
+            <View style={[s.questionCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.questionText, { color: c.text }]}>{question.soru}</Text>
             </View>
           </View>
 
           {/* Şıklar */}
-          <View style={[s.answersContainer, { paddingHorizontal: 20 }]}>
+          <View style={s.answersContainer}>
             {question.cevaplar.map((cevap) => (
               <TouchableOpacity
                 key={cevap.harf}
@@ -533,11 +545,11 @@ export default function DersDetayScreen() {
               </TouchableOpacity>
             ))}
           </View>
-          <View style={{ paddingHorizontal: 16 }}>
+          <View style={{ paddingHorizontal: space.gutter }}>
             {showResult && question.aciklama ? (
-              <View style={[s.aciklamaBox, { borderColor: "#c9a84c", backgroundColor: c.cardAlt }]}>
-                <Text style={[s.aciklamaText, { color: c.textSecondary }]}>{question.aciklama}</Text>
-              </View>
+              <Callout tone="info" style={s.aciklamaBox}>
+                {question.aciklama}
+              </Callout>
             ) : null}
             <QuizFeedback answered={showResult} correct={selectedAnswer === question.dogru} answer={`${question.dogru}, ${question.cevaplar.find(a => a.harf === question.dogru)?.metin ?? ""}`} questionKey={qIndex} />
           </View>
@@ -549,19 +561,14 @@ export default function DersDetayScreen() {
           onLayout={e => setQuizFooterHeight(e.nativeEvent.layout.height - insets.bottom)}
           style={[s.navRow, { position: "absolute", bottom: 0, left: 0, right: 0, backgroundColor: c.bg, borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}
         >
-          <TouchableOpacity
-            style={[s.nextBtn, !showResult && { opacity: 0.35 }]}
-            onPress={showResult ? nextQuestion : undefined}
+          <Button
+            variant="primary"
+            label={qIndex + 1 >= qTotal ? t.seeResults : t.nextQuestion}
+            onPress={nextQuestion}
             disabled={!showResult}
-            activeOpacity={0.8}
-            accessibilityRole="button"
-            accessibilityState={{ disabled: !showResult }}
             accessibilityLabel={qIndex + 1 >= qTotal ? t.seeResultsA11y : t.nextQuestionA11y}
-          >
-            <Text style={s.nextBtnText}>
-              {qIndex + 1 >= qTotal ? t.seeResults : t.nextQuestion}
-            </Text>
-          </TouchableOpacity>
+            style={{ flex: 1 }}
+          />
         </View>
         </View>
       </View>
@@ -577,20 +584,22 @@ export default function DersDetayScreen() {
       <View style={s.contentColumn}>
       {/* Header */}
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
-          <Text style={s.accent}>{t.backBtn}</Text>
-        </TouchableOpacity>
+        <View style={s.headerSide}>
+          <BackButton accessibilityLabel={t.back} />
+        </View>
         <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.headerTitle, { color: c.text }]}>{baslik}</Text>
-        <TouchableOpacity onPress={() => setReadMode(r => !r)} style={[s.headerSide, { alignItems: "flex-end" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}>
-          <Text adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={[s.accent, { fontSize: 12, width: "100%" }]}>
-            {readMode ? t.cardMode : t.readAll}
-          </Text>
-        </TouchableOpacity>
+        <Button
+          variant="ghost"
+          tone="accent"
+          label={readMode ? t.cardMode : t.readAll}
+          onPress={() => setReadMode(r => !r)}
+          accessibilityLabel={readMode ? t.cardModeA11y : t.readAllA11y}
+        />
       </View>
 
       {/* Progress */}
-      <View style={[s.progressTrack, { backgroundColor: c.border }]}>
-        <View style={[s.progressFill, { width: dersProgressW }]} />
+      <View style={[s.progressTrack, { backgroundColor: c.cardAlt }]}>
+        <View style={[s.progressFill, { width: dersProgressW, backgroundColor: c.accent }]} />
       </View>
 
       {/* Kart başlığı — her zaman görünür */}
@@ -608,7 +617,7 @@ export default function DersDetayScreen() {
         showsVerticalScrollIndicator={false}
       >
         {gorselSrc && (
-          <View style={s.gorselFrame}>
+          <View style={[s.gorselFrame, { backgroundColor: c.card, borderColor: c.border }]}>
             <Image
               source={gorselSrc}
               style={s.gorselImg}
@@ -617,47 +626,46 @@ export default function DersDetayScreen() {
             />
           </View>
         )}
-        <View style={[s.kartCard, { backgroundColor: c.card, borderColor: "#c9a84c" }]}>
+        <View style={[s.kartCard, { backgroundColor: c.card, borderColor: c.border }]}>
           <AyahLinkedText style={[s.kartIcerik, { color: c.textSecondary }]}>{kart?.icerik ?? ""}</AyahLinkedText>
         </View>
         <View style={{ flexGrow: 1 }} />
         {/* Vurgu kaydırılan alanın içinde: büyük yazıda sabit kutu alanı daraltıp metni kesmesin */}
-        <View style={[s.vurguBox, { backgroundColor: "rgba(201, 168, 76, 0.12)", borderLeftColor: "#c9a84c", marginTop: 12 }]}>
-          <Text style={s.vurguText}>✦  {kart?.vurgu ?? ""}</Text>
+        <View style={[s.vurguBox, { backgroundColor: c.amberBg, borderLeftColor: c.amberBorder, marginTop: space.sm }]}>
+          <Text style={[s.vurguText, { color: c.goldText }]}>✦  {kart?.vurgu ?? ""}</Text>
         </View>
       </ScrollView>
 
-      {hint.display && <View style={{ marginBottom: 8, marginHorizontal: 18 }}><ContextualHintCard hint={hint} /></View>}
+      {hint.display && <View style={{ marginBottom: space.xs, marginHorizontal: space.gutter }}><ContextualHintCard hint={hint} /></View>}
       {/* Navigasyon */}
       <View style={[s.navRow, { borderTopColor: c.border, paddingBottom: insets.bottom + 8 }]}>
-        <TouchableOpacity
-          style={[s.prevBtn, { borderColor: isFirst ? c.border : "#c9a84c" }]}
+        <Button
+          variant="secondary"
+          label={t.prevCard}
           onPress={() => navigateDers(-1)}
           disabled={isFirst}
-          activeOpacity={0.7}
-          accessibilityRole="button"
           accessibilityLabel={t.prevCardA11y}
-          accessibilityState={{ disabled: isFirst }}
-        >
-          <Text style={[s.prevBtnText, { color: isFirst ? c.textMuted : "#c9a84c" }]}>{t.prevCard}</Text>
-        </TouchableOpacity>
+        />
 
         {isLast ? (
-          <TouchableOpacity
-            style={[s.nextBtn, !hasQuiz && { opacity: 0.45 }]}
-            onPress={hasQuiz ? startQuiz : undefined}
+          <Button
+            variant="primary"
+            label={t.startQuiz}
+            onPress={startQuiz}
             disabled={!hasQuiz}
-            activeOpacity={0.8}
-            accessibilityRole="button"
             accessibilityLabel={t.startQuizA11y}
-            accessibilityState={{ disabled: !hasQuiz }}
-          >
-            <Text style={s.nextBtnText}>{t.startQuiz}</Text>
-          </TouchableOpacity>
+            style={{ flex: 1 }}
+          />
         ) : (
-          <TouchableOpacity {...hint.targetProps} style={s.nextBtn} onPress={() => navigateDers(1)} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={t.nextCardA11y}>
-            <Text style={s.nextBtnText}>{t.nextCard}</Text>
-          </TouchableOpacity>
+          <View {...hint.targetProps} style={{ flex: 1 }}>
+            <Button
+              variant="primary"
+              fullWidth
+              label={t.nextCard}
+              onPress={() => navigateDers(1)}
+              accessibilityLabel={t.nextCardA11y}
+            />
+          </View>
         )}
       </View>
       </View>
@@ -675,83 +683,77 @@ const s = StyleSheet.create({
   contentColumn: { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
 
   header:        {
-    flexDirection: "row", alignItems: "center",
-    paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
+    flexDirection: "row", alignItems: "center", gap: space.xs,
+    paddingHorizontal: space.gutter, paddingVertical: space.xs, borderBottomWidth: 1,
   },
-  headerSide:    { width: 72, minHeight: 44, justifyContent: "center", marginVertical: -12 },
+  headerSide:    { width: 48, minHeight: 48, justifyContent: "center" },
   headerTitle:   { flex: 1, fontSize: 17, fontWeight: "800", textAlign: "center" },
-  accent:        { fontSize: 14, color: "#c9a84c", fontWeight: "600" },
 
-  progressTrack: { height: 5, marginHorizontal: 16, borderRadius: 3, marginBottom: 6 },
-  progressFill:  { height: 5, backgroundColor: "#c9a84c", borderRadius: 3 },
+  progressTrack: { height: 5, marginHorizontal: space.gutter, borderRadius: 3, marginBottom: 6 },
+  progressFill:  { height: 5, borderRadius: 3 },
 
-  scrollContent: { flexGrow: 1, padding: 16, paddingBottom: 24 },
+  scrollContent: { flexGrow: 1, padding: space.gutter, paddingBottom: space.lg },
 
   // Ders
-  kartBaslikBox: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 10, flexDirection: "row", alignItems: "flex-start", gap: 8 },
+  kartBaslikBox: { paddingHorizontal: space.gutter, paddingTop: 14, paddingBottom: 10, flexDirection: "row", alignItems: "flex-start", gap: 8 },
   kartBaslikBig: { fontSize: 24, fontWeight: "800", lineHeight: 32 },
   gorselFrame:   {
-    width: "100%", maxWidth: "100%", aspectRatio: 1.83, borderRadius: 14,
-    marginBottom: 16, alignSelf: "stretch", overflow: "hidden", backgroundColor: "#ffffff",
+    width: "100%", maxWidth: "100%", aspectRatio: 1.83, borderRadius: radius.lg, borderWidth: 1,
+    marginBottom: space.md, alignSelf: "stretch", overflow: "hidden",
   },
   gorselImg:     { width: "100%", height: "100%" },
-  kartCard:      { borderRadius: 14, borderWidth: 1, padding: 20 },
+  kartCard:      { borderRadius: radius.lg, borderWidth: 1, padding: 20 },
   kartIcerik:    { fontSize: 15, lineHeight: 26 },
-  vurguBox:      { borderLeftWidth: 5, borderRadius: 10, padding: 16 },
-  vurguText:     { fontSize: 15, color: "#c9a84c", fontWeight: "700", lineHeight: 24 },
+  vurguBox:      { borderLeftWidth: 5, borderRadius: radius.md, padding: space.md },
+  vurguText:     { fontSize: 15, fontWeight: "700", lineHeight: 24 },
 
   // Quiz — soru
   questionCard:  {
-    backgroundColor: "#0f2040", borderRadius: 16, padding: 20, marginBottom: 20,
+    borderRadius: radius.lg, borderWidth: 1, padding: 20, marginBottom: 20,
   },
-  questionText:  { fontSize: 18, fontWeight: "700", color: "#ffffff", lineHeight: 28 },
+  questionText:  { fontSize: 18, fontWeight: "700", lineHeight: 28 },
 
   quizBody:       { flex: 1, justifyContent: "flex-start" },
-  quizQuestionContent: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
-  answersContainer: { gap: 10, marginBottom: 8, paddingTop: 4 },
+  quizQuestionContent: { paddingHorizontal: space.gutter, paddingTop: space.md, paddingBottom: space.xs },
+  answersContainer: { paddingHorizontal: space.gutter, gap: 10, marginBottom: space.xs, paddingTop: space.xxs },
   answerBtn:     {
-    flexDirection: "row", alignItems: "center", gap: 12,
-    borderRadius: 12, borderWidth: 1.5, paddingVertical: 14, paddingHorizontal: 14,
+    flexDirection: "row", alignItems: "center", gap: space.sm,
+    borderRadius: radius.lg, borderWidth: 1, paddingVertical: 14, paddingHorizontal: 14,
   },
   answerHarf:    {
-    width: 32, height: 32, borderRadius: 16, borderWidth: 1.5,
+    width: 32, height: 32, borderRadius: 16, borderWidth: 1,
     alignItems: "center", justifyContent: "center",
   },
   answerHarfText:{ fontSize: 13, fontWeight: "800" },
   answerMetin:   { fontSize: 14, fontWeight: "500", lineHeight: 20 },
 
-  aciklamaBox:   { borderWidth: 1.5, borderRadius: 12, padding: 14, marginTop: 12 },
-  aciklamaText:  { fontSize: 14, lineHeight: 22, marginBottom: 4 },
+  aciklamaBox:   { marginTop: space.sm, marginBottom: space.xs },
 
   // Okuma modu
-  readContent:   { padding: 20, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  readBaslik:    { fontSize: 20, fontWeight: "800", lineHeight: 28, marginBottom: 12 },
+  readContent:   { padding: space.gutter, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  readBaslik:    { fontSize: 20, fontWeight: "800", lineHeight: 28, marginBottom: space.sm },
   readDivider:   { height: 1, marginVertical: 28, opacity: 0.4 },
 
   // Sonuç
-  scoreCard:     { borderRadius: 16, padding: 24, alignItems: "center", gap: 8 },
+  scoreCard:     { borderRadius: radius.lg, borderWidth: 1, padding: space.lg, alignItems: "center", gap: space.xs },
   resultLottie:  { width: 96, height: 96, alignSelf: "center" },
   scoreEmoji:    { fontSize: 52 },
   scoreText:     { fontSize: 28, fontWeight: "800" },
   scorePct:      { fontSize: 15, fontWeight: "600" },
-  scoreBarTrack: { alignSelf: "stretch", height: 8, borderRadius: 4, marginTop: 8, overflow: "hidden" },
-  scoreBarFill:  { height: 8, backgroundColor: "#c9a84c", borderRadius: 4 },
+  scoreBarTrack: { alignSelf: "stretch", height: 8, borderRadius: 4, marginTop: space.xs, overflow: "hidden" },
+  scoreBarFill:  { height: 8, borderRadius: 4 },
 
   wrongTitle:    { fontSize: 13, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 10 },
-  wrongCard:     { borderRadius: 12, borderWidth: 1, padding: 14, marginBottom: 10, gap: 6 },
+  wrongCard:     { borderRadius: radius.lg, borderWidth: 1, padding: 14, marginBottom: 10, gap: 6 },
   wrongQ:        { fontSize: 14, fontWeight: "700", lineHeight: 20 },
   wrongCorrect:  { fontSize: 13, fontWeight: "600" },
   wrongAciklama: { fontSize: 12, lineHeight: 18 },
 
   // Navigasyon
   navRow:        {
-    flexDirection: "row", gap: 12,
-    paddingHorizontal: 16, paddingTop: 12, borderTopWidth: 1,
+    flexDirection: "row", gap: space.sm,
+    paddingHorizontal: space.gutter, paddingTop: space.sm, borderTopWidth: 1,
   },
-  prevBtn:       { paddingVertical: 14, paddingHorizontal: 18, borderRadius: 12, borderWidth: 1 },
-  prevBtnText:   { fontSize: 14, fontWeight: "700" },
-  nextBtn:       { flex: 1, paddingVertical: 14, borderRadius: 12, backgroundColor: "#c9a84c", alignItems: "center" },
-  nextBtnText:   { fontSize: 14, fontWeight: "700", color: "#0a1628" },
 
   placeholderText: { fontSize: 16, fontWeight: "500" },
 });

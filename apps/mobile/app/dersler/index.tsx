@@ -6,12 +6,14 @@ import { FlashList } from "@shopify/flash-list";
 import { Stack, router, useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
+import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "../../src/hooks/useColors";
 import { useDersProgress } from "../../src/hooks/useDersProgress";
 import { DERSLER_META as DERSLER, getDerslerMeta, getKategoriler } from "../../src/data/Dersler/dersler_registry";
 import { useLang, useStrings, fmt, caps } from "../../src/i18n";
 import derslerStrings from "../../src/i18n/strings/dersler";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { BackButton, Callout, Tabs, radius, space, toneColors } from "../../src/components/ui";
 
 type SortMode = "tumu" | "sure" | "konu";
 
@@ -55,28 +57,33 @@ export default function DerslerScreen() {
     const p = progress[item.id];
     const pct = p && !item.route ? Math.min(1, (p.gorülen + 1) / item.kartSayisi) : 0;
     const done = (!item.route && p?.quizBitti) ?? false;
+    const tone = toneColors(c, item.ton);
 
     return (
       <TouchableOpacity
         key={item.id}
         {...(item.id === "namaz" ? firstCardTarget : {})}
-        style={[s.card, { backgroundColor: c.card, borderColor: done ? "#4ade80" : "#c9a84c" }]}
+        style={[s.card, { backgroundColor: c.card, borderColor: done ? c.greenBorder : c.border }]}
         onPress={() => { Haptics.selectionAsync(); router.push((item.route ?? "/dersler/" + item.id) as Href); }}
         activeOpacity={0.8}
         accessibilityRole="button"
         accessibilityLabel={fmt(done ? t.cardA11yDone : t.cardA11y, { title: item.baslik, n: item.sure })}
       >
         {done && !item.route && (
-          <View style={s.badge}><Text style={s.badgeText}>✓</Text></View>
+          <View style={[s.badge, { backgroundColor: c.greenText }]}>
+            <Text style={[s.badgeText, { color: c.bg }]}>✓</Text>
+          </View>
         )}
-        <Text style={s.ikon}>{item.ikon}</Text>
+        <View style={[s.ikonCircle, { backgroundColor: tone.bg }]}>
+          <Ionicons name={item.ikon} size={28} color={tone.fg} accessible={false} importantForAccessibility="no" />
+        </View>
         <Text style={[s.baslik, { color: c.text }]} numberOfLines={2}>{item.baslik}</Text>
-        <Text style={[s.kartBilgi, { color: c.goldText }]}>
+        <Text style={[s.kartBilgi, { color: c.textMuted }]}>
           {fmt(t.cardMinutes, { n: item.sure })}{item.hasQuiz ? t.cardQuizSuffix : ""}
         </Text>
         {/* Çubuk her kartta yer tutar; yan yana kartların boyu eşit kalsın */}
-        <View style={[s.progTrack, { backgroundColor: c.border, opacity: pct > 0 && !item.route ? 1 : 0 }]}>
-          <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />
+        <View style={[s.progTrack, { backgroundColor: c.cardAlt, opacity: pct > 0 && !item.route ? 1 : 0 }]}>
+          <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? c.greenText : c.accent }]} />
         </View>
       </TouchableOpacity>
     );
@@ -88,11 +95,9 @@ export default function DerslerScreen() {
   );
 
   const footer = (
-    <View style={s.kaynak}>
-      <Text style={s.kaynakMetin}>
-        {t.sources}
-      </Text>
-    </View>
+    <Callout tone="neutral" style={s.kaynak}>
+      {t.sources}
+    </Callout>
   );
 
   return (
@@ -100,33 +105,21 @@ export default function DerslerScreen() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <View style={[s.header, { borderBottomColor: c.border }]}>
-        <TouchableOpacity onPress={() => router.back()} style={s.headerSide} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.back}>
-          <Text style={[s.backText, { color: c.goldText }]}>{t.backBtn}</Text>
-        </TouchableOpacity>
+        <View style={s.headerSide}>
+          <BackButton accessibilityLabel={t.back} />
+        </View>
         <Text style={[s.headerTitle, { color: c.text }]}>{t.listTitle}</Text>
         <View style={s.headerSide} />
       </View>
 
       {/* Sıralama sekmeleri */}
       <View style={[s.tabRow, { borderBottomColor: c.border }]}>
-        {TABS.map(tab => {
-          const active = sortMode === tab.key;
-          return (
-            <TouchableOpacity
-              key={tab.key}
-              style={[s.tab, active && s.tabActive]}
-              onPress={() => { Haptics.selectionAsync(); setSortMode(tab.key); }}
-              activeOpacity={0.7}
-              accessibilityRole="tab"
-              accessibilityState={{ selected: active }}
-              accessibilityLabel={tab.label}
-            >
-              <Text style={[s.tabText, { color: active ? "#0a1628" : c.textMuted }]}>
-                {tab.label}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+        <Tabs
+          items={TABS}
+          value={sortMode}
+          onChange={(key) => { Haptics.selectionAsync(); setSortMode(key); }}
+          variant="segmented"
+        />
       </View>
 
       {sortMode === "konu" ? (
@@ -163,7 +156,7 @@ export default function DerslerScreen() {
           numColumns={numColumns}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
+          contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={footer}
         />
@@ -176,41 +169,32 @@ const s = StyleSheet.create({
   container:     { flex: 1 },
   header:        {
     flexDirection: "row", alignItems: "center",
-    paddingHorizontal: 16, paddingVertical: 14, borderBottomWidth: 1,
+    paddingHorizontal: space.gutter, paddingVertical: space.xs, borderBottomWidth: 1,
   },
   headerTitle:   { flex: 1, fontSize: 20, fontWeight: "800", textAlign: "center" },
-  headerSide:    { width: 60 },
-  backText:      { fontSize: 16, fontWeight: "600" },
+  headerSide:    { width: 48 },
 
   tabRow:        {
-    flexDirection: "row", gap: 8,
-    paddingHorizontal: 14, paddingVertical: 10, borderBottomWidth: 1,
+    paddingHorizontal: space.gutter, paddingVertical: space.sm, borderBottomWidth: 1,
   },
-  tab:           {
-    flex: 1, paddingVertical: 7, borderRadius: 20,
-    alignItems: "center", backgroundColor: "transparent",
-  },
-  tabActive:     { backgroundColor: "#c9a84c" },
-  tabText:       { fontSize: 12, fontWeight: "700" },
 
-  listContent:   { paddingHorizontal: 12, paddingTop: 12 },
+  listContent:   { paddingHorizontal: space.gutter - 6, paddingTop: space.sm },
   row:           { flexDirection: "row" },
   card:          {
-    flex: 1, margin: 6, borderRadius: 14, borderWidth: 1.5,
-    alignItems: "center", paddingVertical: 22, paddingHorizontal: 10, gap: 8,
+    flex: 1, margin: 6, borderRadius: radius.lg, borderWidth: 1,
+    alignItems: "center", paddingVertical: 22, paddingHorizontal: 10, gap: space.xs,
   },
   cardSpacer:    { flex: 1, margin: 6 },
 
-  badge:         { position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: 10, backgroundColor: "#4ade80", alignItems: "center", justifyContent: "center" },
-  badgeText:     { fontSize: 11, color: "#fff", fontWeight: "800" },
-  ikon:          { fontSize: 36 },
+  badge:         { position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: 10, alignItems: "center", justifyContent: "center" },
+  badgeText:     { fontSize: 11, fontWeight: "800" },
+  ikonCircle:    { width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center" },
   baslik:        { fontSize: 14, fontWeight: "700", textAlign: "center", lineHeight: 18, minHeight: 36 },
   kartBilgi:     { fontSize: 11, fontWeight: "600" },
   progTrack:     { alignSelf: "stretch", height: 3, borderRadius: 2 },
   progFill:      { height: 3, borderRadius: 2 },
 
-  sectionHeader: { fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.8, marginTop: 16, marginBottom: 4, marginHorizontal: 6 },
+  sectionHeader: { fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.8, marginTop: space.md, marginBottom: space.xxs, marginHorizontal: 6 },
 
-  kaynak:        { marginTop: 16, marginHorizontal: 6, paddingVertical: 14, paddingHorizontal: 16, borderRadius: 10, borderWidth: 1, borderColor: "#c9a84c22", backgroundColor: "#c9a84c0a" },
-  kaynakMetin:   { fontSize: 11, color: "#888", textAlign: "center", lineHeight: 17 },
+  kaynak:        { marginTop: space.md, marginHorizontal: 6 },
 });
