@@ -1,8 +1,10 @@
+export type KaynakTuru = "kuran" | "sahih" | "hasen" | "gelenek";
+
 export interface DuaKarti {
   id: string;
   baslik: string;
   kaynak: string;
-  guvenilirlik: "10/10" | "8/10";
+  tur: KaynakTuru;
   arapca: string;
   meal: string;
   transkripsiyon: string;
@@ -25,26 +27,26 @@ export const ismiAzamDualari: DuaKarti[] = [
   {
     id: "ismi-azam-1",
     baslik: "Büreyde b. Husayb (r.a.) Rivayeti",
-    kaynak: "Tirmizî, Ebû Dâvûd · Sahih",
-    guvenilirlik: "10/10",
+    kaynak: "Ebû Dâvûd, Tirmizî",
+    tur: "sahih",
     arapca:
       "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي أَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ الْأَحَدُ الصَّمَدُ الَّذِي لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
     meal: "Allah'ım! Senin tek (Ahad) ve hiçbir şeye muhtaç olmayan (Samed), doğurmamış, doğmamış ve hiçbir dengi bulunmayan mutlak Allah olduğuna şehadet ederek senden istiyorum.",
     transkripsiyon:
       "Allahümme innî es'elüke bi-ennî eşhedü enneke ente'llâhü lâ ilâhe illâ ente'l-ehadü's-samedü'l-lezî lem yelid ve lem yûled ve lem yekün lehû küfüven ehad",
-    uygulama: "Bu duayı 3 defa oku, ardından isteklerini dile getir.",
+    uygulama: "İhlasla oku, ardından isteklerini Allah'a arz et.",
   },
   {
     id: "ismi-azam-2",
     baslik: "Enes b. Malik (r.a.) Rivayeti",
-    kaynak: "Nesâî, İbn Mâce · Sahih",
-    guvenilirlik: "10/10",
+    kaynak: "Ebû Dâvûd, Tirmizî, Nesâî, İbn Mâce",
+    tur: "sahih",
     arapca:
       "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنَّ لَكَ الْحَمْدَ لَا إِلَهَ إِلَّا أَنْتَ الْمَنَّانُ بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",
     meal: "Allah'ım! Hamd sanadır, senden başka ilah yoktur. Sen bol nimet veren (Mennân), gökleri ve yeri yoktan var eden (Bedî'), celal ve ikram sahibisin.",
     transkripsiyon:
       "Allahümme innî es'elüke bi-enne leke'l-hamdü lâ ilâhe illâ ente'l-mennânü bedîu's-semâvâti ve'l-ardı yâ ze'l-celâli ve'l-ikrâm",
-    uygulama: "Bu duayı 3 defa oku, ardından isteklerini sırala.",
+    uygulama: "İhlasla oku, ardından isteklerini Allah'a arz et.",
   },
 ];
 
@@ -52,34 +54,34 @@ export const korunmaDualari: KorunmaDuasi[] = [
   {
     id: "korunma-sabah-aksam",
     baslik: "Sabah-Akşam Korunma Duası",
-    kaynak: "Ebû Dâvûd, Tirmizî, İbn Mâce · Sahih",
-    guvenilirlik: "10/10",
+    kaynak: "Ebû Dâvûd, Tirmizî, İbn Mâce",
+    tur: "sahih",
     kategori: "sabah-aksam",
     arapca:
       "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
     meal: "Yerde ve gökte hiçbir şeyin O'nun adıyla zarar veremeyeceği Allah'ın adıyla. O her şeyi işiten ve bilendir.",
     transkripsiyon:
       "Bismillâhillezî lâ yedurru me'asmihi şey'ün fil erdı ve lâ fissemâi ve hüves-semî'ul alîm",
-    uygulama: "Sabah ve akşam 3'er defa oku. Hiçbir şey sana zarar veremez.",
+    uygulama: "Sabah ve akşam 3'er defa okunması tavsiye edilir. Rivayette bu duayı okuyana Allah'ın izniyle zarar gelmeyeceği bildirilmiştir (Ebû Dâvûd, Tirmizî).",
   },
   {
     id: "korunma-evden-cikarken",
     baslik: "Evden Çıkarken Okunacak Dua",
-    kaynak: "Ebû Dâvûd, Tirmizî · Sahih",
-    guvenilirlik: "10/10",
+    kaynak: "Ebû Dâvûd, Tirmizî",
+    tur: "sahih",
     kategori: "evden-cikarken",
     arapca:
       "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
     meal: "Allah'ın adıyla. Allah'a tevekkül ettim. Günahlardan kaçacak ve ibadet edecek güç, ancak Allah'ın yardımıyladır.",
     transkripsiyon:
       "Bismillâhi tevekkeltü alallâh, lâ havle ve lâ kuvvete illâ billâh",
-    uygulama: "Evden çıkarken oku. Şeytandan, kötülüklerden korunur ve doğru yola iletilirsin.",
+    uygulama: "Evden çıkarken okunur. Rivayette bu duayı okuyana 'doğru yola iletildin, korundun ve sana yetildi' denileceği ve şeytanın ondan uzaklaşacağı bildirilmiştir (Ebû Dâvûd, Tirmizî).",
   },
   {
     id: "korunma-yatarken",
     baslik: "Yatarken Okunacak Dua",
-    kaynak: "Buhârî, Müslim · Sahih",
-    guvenilirlik: "10/10",
+    kaynak: "Buhârî, Müslim",
+    tur: "sahih",
     kategori: "yatarken",
     arapca:
       "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ إِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
@@ -91,8 +93,8 @@ export const korunmaDualari: KorunmaDuasi[] = [
   {
     id: "korunma-genel-siginma",
     baslik: "Genel Sığınma Duası (Seyyidü'l-İstiğfar)",
-    kaynak: "Buhârî · Sahih",
-    guvenilirlik: "10/10",
+    kaynak: "Buhârî",
+    tur: "sahih",
     kategori: "genel-korunma",
     arapca:
       "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
@@ -116,8 +118,8 @@ export const sekineDuasi: SekineDuasi = {
 export const bakara250: DuaKarti = {
   id: "bakara-250",
   baslik: "Talut ve Askerlerinin Duası (Bakara 250)",
-  kaynak: "Kur'ân-ı Kerîm · Bakara 250",
-  guvenilirlik: "10/10",
+  kaynak: "Bakara 2:250",
+  tur: "kuran",
   arapca:
     "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
   meal: "Rabbimiz! Üzerimize sabır yağdır, ayaklarımızı sabit kıl ve kâfirler topluluğuna karşı bize yardım et.",

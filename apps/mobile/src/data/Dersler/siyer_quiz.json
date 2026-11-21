@@ -6,7 +6,7 @@
     {
       "id": "siyer_001",
       "konu": "siyer",
-      "soru": "Hz. Muhammed hangi kabilenin hangi koluna mensuptur?",
+      "soru": "Hz. Muhammed (s.a.v.) hangi kabilenin hangi koluna mensuptur?",
       "secenekler": ["A) Kureyş - Ümeyye oğulları", "B) Kureyş - Hâşimoğulları", "C) Hevâzin - Sa'd b. Bekr", "D) Sakîf - Benî Ukayl"],
       "dogru_cevap": "B",
       "aciklama": "Hz. Muhammed, Kureyş kabilesinin Hâşimoğulları koluna mensuptur. Bu kol, hacılara su ve yiyecek ikramı görevini yürütürdü.",
@@ -19,7 +19,7 @@
       "soru": "İlk vahiy nerede nazil oldu?",
       "secenekler": ["A) Kâbe'nin içinde", "B) Mescid-i Aksâ'da", "C) Hira Mağarası'nda", "D) Sevr Mağarası'nda"],
       "dogru_cevap": "C",
-      "aciklama": "İlk vahiy, 610 M'de Hz. Muhammed'in inzivaya çekildiği Hira Mağarası'nda (Nur Dağı) Ramazan ayında Cebrâil aracılığıyla nazil oldu.",
+      "aciklama": "İlk vahiy, 610 M'de Hz. Muhammed'in (s.a.v.) inzivaya çekildiği Hira Mağarası'nda (Nur Dağı) Ramazan ayında Cebrâil aracılığıyla nazil oldu.",
       "zorluk": "kolay",
       "kaynak": "Buhârî, Bed'ü'l-vahy"
     },
@@ -36,7 +36,7 @@
     {
       "id": "siyer_004",
       "konu": "siyer",
-      "soru": "Hz. Muhammed'in sütannesi kimdir?",
+      "soru": "Hz. Muhammed'in (s.a.v.) sütannesi kimdir?",
       "secenekler": ["A) Ümmü Eymen", "B) Halîme bint Ebî Züeyb", "C) Fâtıma bint Esed", "D) Esmâ bint Ebî Bekir"],
       "dogru_cevap": "B",
       "aciklama": "Hz. Muhammed'in sütannesi, Sa'd b. Bekr kabilesinden Halîme bint Ebî Züeyb'dir. Yaklaşık dört yıl onun yanında kaldı ve fasih Arapçayı bu dönemde öğrendi.",
@@ -46,7 +46,7 @@
     {
       "id": "siyer_005",
       "konu": "siyer",
-      "soru": "Hz. Muhammed'in annesi Âmine nerede vefat etti?",
+      "soru": "Hz. Muhammed'in (s.a.v.) annesi Âmine nerede vefat etti?",
       "secenekler": ["A) Mekke'de", "B) Medine'de", "C) Ebvâ köyünde", "D) Tâif'te"],
       "dogru_cevap": "C",
       "aciklama": "Âmine, Hz. Muhammed 6 yaşındayken onu Medine'deki akrabalarına götürdükten sonra dönüş yolunda Ebvâ köyünde vefat etti.",
@@ -56,7 +56,7 @@
     {
       "id": "siyer_006",
       "konu": "siyer",
-      "soru": "Hz. Muhammed'in vasîliğini kim üstlendi?",
+      "soru": "Hz. Muhammed'in (s.a.v.) vasîliğini kim üstlendi?",
       "secenekler": ["A) Ebû Cehil", "B) Ebû Süfyân", "C) Ebû Tâlib", "D) Abdurrahman b. Avf"],
       "dogru_cevap": "C",
       "aciklama": "Dedesi Abdülmuttalib ölüm döşeğinde oğlu Ebû Tâlib'i Hz. Muhammed'in vasîsi olarak belirledi. Ebû Tâlib onu kendi çocukları gibi sevip korudu.",
@@ -66,7 +66,7 @@
     {
       "id": "siyer_007",
       "konu": "siyer",
-      "soru": "Hz. Muhammed'e Mekke toplumu tarafından verilen 'el-Emîn' lakabı ne anlama gelir?",
+      "soru": "Hz. Muhammed'e (s.a.v.) Mekke toplumu tarafından verilen 'el-Emîn' lakabı ne anlama gelir?",
       "secenekler": ["A) Cesur", "B) Güvenilir", "C) Alçakgönüllü", "D) Cömert"],
       "dogru_cevap": "B",
       "aciklama": "'el-Emîn' güvenilir demektir. Bu lakap, Hz. Muhammed'in dürüstlüğü ve güvenilirliği sayesinde peygamberlikten önce Mekke toplumu tarafından kendiliğinden verildi.",
@@ -89,7 +89,7 @@
       "soru": "Kadınlardan ilk Müslüman olan kimdir?",
       "secenekler": ["A) Hz. Fâtıma", "B) Hz. Âişe", "C) Hz. Hatice", "D) Esmâ bint Ebî Bekir"],
       "dogru_cevap": "C",
-      "aciklama": "Hz. Hatice, ilk vahyin ardından Hz. Muhammed'i teskin eden ve ona inanan ilk kişidir. Kadınlardan ilk Müslüman olma şerefini taşır.",
+      "aciklama": "Hz. Hatice, ilk vahyin ardından Hz. Muhammed'i (s.a.v.) teskin eden ve ona inanan ilk kişidir. Kadınlardan ilk Müslüman olma şerefini taşır.",
       "zorluk": "kolay",
       "kaynak": "Buhârî, Menâkıb"
     },
@@ -176,7 +176,7 @@
     {
       "id": "siyer_018",
       "konu": "siyer",
-      "soru": "Hz. Muhammed 35 yaşında yaşanan Kâbe yeniden inşası sırasında ne yaptı?",
+      "soru": "Hz. Muhammed (s.a.v.) 35 yaşında yaşanan Kâbe yeniden inşası sırasında ne yaptı?",
       "secenekler": ["A) Kâbe'nin inşaatına öncülük etti", "B) Hacerü'l-Esved anlaşmazlığını çözdü", "C) Kâbe'yi düşmandan korudu", "D) Kâbe'ye ilk kapıyı taktı"],
       "dogru_cevap": "B",
       "aciklama": "35 yaşında, Hacerü'l-Esved'in (Kâbe'nin köşesindeki siyah taş) yerine konulması meselesinde kabileler arasında çıkan anlaşmazlığı büyük bir örtü kullanarak çözdü ve büyük bir çatışmayı önledi.",
@@ -226,7 +226,7 @@
     {
       "id": "siyer_023",
       "konu": "siyer",
-      "soru": "Hz. Muhammed'e 'Muhammed' adını kim verdi?",
+      "soru": "Hz. Muhammed'e (s.a.v.) 'Muhammed' adını kim verdi?",
       "secenekler": ["A) Annesi Âmine", "B) Amcası Ebû Tâlib", "C) Dedesi Abdülmuttalib", "D) Sütannesi Halîme"],
       "dogru_cevap": "C",
       "aciklama": "Hz. Muhammed'e 'Muhammed' adını dedesi Abdülmuttalib verdi. Bu isim o dönem Arapları arasında yaygın değildi.",

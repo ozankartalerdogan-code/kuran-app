@@ -71,7 +71,9 @@ export default function DerslerScreen() {
         )}
         <Text style={s.ikon}>{item.ikon}</Text>
         <Text style={[s.baslik, { color: c.text }]} numberOfLines={2}>{item.baslik}</Text>
-        <Text style={[s.kartBilgi, { color: c.goldText }]}>{fmt(t.cardMinutes, { n: item.sure })}</Text>
+        <Text style={[s.kartBilgi, { color: c.goldText }]}>
+          {fmt(t.cardMinutes, { n: item.sure })}{item.hasQuiz ? t.cardQuizSuffix : ""}
+        </Text>
         {/* Çubuk her kartta yer tutar; yan yana kartların boyu eşit kalsın */}
         <View style={[s.progTrack, { backgroundColor: c.border, opacity: pct > 0 && !item.route ? 1 : 0 }]}>
           <View style={[s.progFill, { width: `${Math.round(pct * 100)}%` as DimensionValue, backgroundColor: done ? "#4ade80" : "#c9a84c" }]} />

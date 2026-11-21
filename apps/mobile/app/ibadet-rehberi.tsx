@@ -218,6 +218,18 @@ function IbadetlerSekme() {
         <Text style={[s.altBaslik, { color: c.text }]}>{ib.basicsAndSunnahs}</Text>
         <MaddeListe maddeler={D.namaz.maddeler} />
         <AyetListesi ayetler={D.namaz.ayetler} />
+        <View style={s.guideFooter}>
+          <Text style={[s.maddeDetay, { color: c.textMuted }]}>{ib.prayerSummaryNote}</Text>
+          <TouchableOpacity
+            style={[s.linkBtn, { backgroundColor: c.cardAlt, borderColor: c.border }]}
+            onPress={() => router.push("/namaz-rehberi" as Href)}
+            activeOpacity={0.75}
+            accessibilityRole="button"
+            accessibilityLabel={ib.prayerGuideLink}
+          >
+            <Text style={[s.linkBtnText, { color: c.accent }]}>{ib.prayerGuideLink}</Text>
+          </TouchableOpacity>
+        </View>
       </BolumCard>
 
       {/* ORUÇ */}
@@ -418,5 +430,9 @@ const s = StyleSheet.create({
   bozanBox:   { backgroundColor:"#fee2e2", borderRadius:8, padding:10, gap:3 },
   bozanTitle: { fontSize:12, fontWeight:"700", color:"#991b1b", marginBottom:2 },
   bozanText:  { fontSize:12, color:"#7f1d1d", lineHeight:18 },
+
+  guideFooter: { gap:6, marginTop:2 },
+  linkBtn:     { borderRadius:10, borderWidth:1, paddingVertical:10, paddingHorizontal:12, alignItems:"center" },
+  linkBtnText: { fontSize:12, fontWeight:"700", textAlign:"center" },
 });
 

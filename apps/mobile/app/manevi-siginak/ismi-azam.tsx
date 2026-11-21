@@ -6,7 +6,6 @@ import { useColors as useGlobalColors } from "../../src/hooks/useColors";
 import { Stack, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { getDevotionalSourceLabel } from "../../src/lib/sourceLabels";
 import { useMealOf } from "../../src/lib/englishMeal";
 import { useStrings, getStrings, useLang, fmt, caps } from "../../src/i18n";
 import { localizedTranslit } from "../../src/lib/translitEn";
@@ -21,6 +20,7 @@ import {
   korunmaDualari as korunmaDualariTr,
   sekineDuasi as sekineDuasiTr,
   type DuaKarti,
+  type KaynakTuru,
   type KorunmaDuasi,
 } from "../../src/data/ismi_azam_dualari";
 
@@ -93,12 +93,40 @@ function BulletList({ items, colors }: { items: readonly string[]; colors: Retur
   );
 }
 
+function turMeta(
+  tur: KaynakTuru,
+  colors: ReturnType<typeof useColors>,
+  ia: { badgeKuran: string; badgeSahih: string; badgeHasen: string; badgeGelenek: string },
+) {
+  switch (tur) {
+    case "kuran":
+      return { label: ia.badgeKuran, emoji: "🟢", bg: colors.scoreGreenBg, text: colors.scoreGreenText, border: colors.emeraldBorder };
+    case "sahih":
+      return { label: ia.badgeSahih, emoji: "🟢", bg: colors.scoreGreenBg, text: colors.scoreGreenText, border: colors.emeraldBorder };
+    case "hasen":
+      return { label: ia.badgeHasen, emoji: "🟡", bg: colors.scoreYellowBg, text: colors.scoreYellowText, border: colors.amberBorder };
+    case "gelenek":
+      return { label: ia.badgeGelenek, emoji: "🟣", bg: colors.violetBg, text: colors.violetText, border: colors.violetBorder };
+  }
+}
+
+function TurBadge({ tur, colors }: { tur: KaynakTuru; colors: ReturnType<typeof useColors> }) {
+  const ia = useStrings(ismiStrings);
+  const meta = turMeta(tur, colors, ia);
+  return (
+    <View style={[styles.badge, { backgroundColor: meta.bg, borderColor: meta.border }]}>
+      <Text style={[styles.badgeText, { color: meta.text }]}>{meta.label}</Text>
+    </View>
+  );
+}
+
 function Kutu({
-  baslik, children, colors, renk,
+  baslik, children, colors, renk, tur, kaynak,
 }: {
   baslik: string; children: React.ReactNode; colors: ReturnType<typeof useColors>;
-  renk?: "stone" | "amber" | "violet";
+  renk?: "stone" | "amber" | "violet"; tur?: KaynakTuru; kaynak?: string;
 }) {
+  const ia = useStrings(ismiStrings);
   const isAmber  = renk === "amber";
   const isViolet = renk === "violet";
   const labelColor = isAmber ? colors.amberText : isViolet ? colors.violetText : colors.textMuted;
@@ -107,7 +135,13 @@ function Kutu({
   return (
     <View style={[styles.kutu, { backgroundColor: boxBg, borderColor: boxBorder }]}>
       {baslik ? (
-        <Text style={[styles.kutuBaslik, { color: labelColor }]}>{caps(baslik)}</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: kaynak ? 4 : 10, flexWrap: "wrap" }}>
+          <Text style={[styles.kutuBaslik, { color: labelColor, flex: 1, marginBottom: 0 }]}>{caps(baslik)}</Text>
+          {tur ? <TurBadge tur={tur} colors={colors} /> : null}
+        </View>
+      ) : null}
+      {kaynak ? (
+        <Text style={[styles.sourceLine, { color: colors.textSecondary }]}>{fmt(ia.sourceLine, { source: kaynak })}</Text>
       ) : null}
       {children}
     </View>
@@ -121,25 +155,17 @@ function DuaKartiFull({ dua, colors, ayet }: { dua: DuaKarti; colors: ReturnType
   const mealOf = useMealOf();
   const ia = useStrings(ismiStrings);
   const lang = useLang();
-  const is10 = dua.guvenilirlik === "10/10";
-  const emoji = is10 ? "🟢" : "🟡";
-  const scoreColor = is10 ? colors.scoreGreenText : colors.scoreYellowText;
-  const scoreBg    = is10 ? colors.scoreGreenBg   : colors.scoreYellowBg;
-  const sourceLabel = getDevotionalSourceLabel({ title: dua.baslik, source: dua.kaynak });
+  const meta = turMeta(dua.tur, colors, ia);
 
   return (
     <View style={[styles.kutu, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
       {/* Başlık */}
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
-        <Text>{emoji}</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+        <Text>{meta.emoji}</Text>
         <Text style={[styles.duaBaslik, { color: colors.amberText, flex: 1 }]}>{caps(dua.baslik)}</Text>
-        <View style={[styles.badge, { backgroundColor: scoreBg }]}>
-          <Text style={[styles.badgeText, { color: scoreColor }]}>{dua.guvenilirlik}</Text>
-        </View>
-        <View style={[styles.badge, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
-          <Text style={[styles.badgeText, { color: colors.amberText }]}>{sourceLabel}</Text>
-        </View>
+        <TurBadge tur={dua.tur} colors={colors} />
       </View>
+      <Text style={[styles.sourceLine, { color: colors.textSecondary }]}>{fmt(ia.sourceLine, { source: dua.kaynak })}</Text>
 
       {/* Arapça RTL */}
       <View style={[styles.arabicBox, { borderColor: colors.amberBorder }]}>
@@ -180,21 +206,21 @@ const korunmaKategoriKey: Record<KorunmaDuasi["kategori"], "catMorningEvening" |
 function KorunmaKarti({ dua, colors }: { dua: KorunmaDuasi; colors: ReturnType<typeof useColors> }) {
   const ia = useStrings(ismiStrings);
   const lang = useLang();
+  const meta = turMeta(dua.tur, colors, ia);
   return (
     <View style={[styles.kutu, { backgroundColor: colors.emeraldBg, borderColor: colors.emeraldBorder }]}>
       {/* Başlık */}
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
-        <Text>🟢</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+        <Text>{meta.emoji}</Text>
         <Text style={[styles.duaBaslik, { color: colors.emeraldText, flex: 1 }]}>{caps(dua.baslik)}</Text>
-        <View style={[styles.badge, { backgroundColor: colors.scoreGreenBg, borderColor: colors.emeraldBorder }]}>
-          <Text style={[styles.badgeText, { color: colors.scoreGreenText }]}>10/10</Text>
-        </View>
+        <TurBadge tur={dua.tur} colors={colors} />
         <View style={[styles.badge, { backgroundColor: colors.blueBg, borderColor: colors.blueBorder }]}>
           <Text style={[styles.badgeText, { color: colors.blueText }]}>
             {ia[korunmaKategoriKey[dua.kategori]]}
           </Text>
         </View>
       </View>
+      <Text style={[styles.sourceLine, { color: colors.textSecondary }]}>{fmt(ia.sourceLine, { source: dua.kaynak })}</Text>
 
       {/* Arapça RTL */}
       <View style={[styles.arabicBox, { borderColor: colors.emeraldBorder }]}>
@@ -245,11 +271,11 @@ function refLabel(
 // ── Metot Kutusu (Hadis metodları için, Arapça yoksa) ───────────────────────
 
 function MetotKutusu({
-  baslik, kaynak, aciklama, uygulama, colors, puan,
+  baslik, kaynak, aciklama, uygulama, colors, tur,
   ayetler, accordion,
 }: {
   baslik: string; kaynak: string; aciklama: string; uygulama: string;
-  colors: ReturnType<typeof useColors>; puan?: "10/10" | "8/10";
+  colors: ReturnType<typeof useColors>; tur: KaynakTuru;
   ayetler?: { arapca: string; transkripsiyon: string; anlam: string; ref: string; refEn?: string; anlamEn?: string }[];
   accordion?: boolean;
 }) {
@@ -258,24 +284,22 @@ function MetotKutusu({
   const lang = useLang();
   const surahNameOf = useSurahNameOf();
   const [expanded, setExpanded] = React.useState(false);
-  const isSekiz    = puan === "8/10";
-  const bg         = isSekiz ? colors.violetBg      : colors.amberBg;
-  const border     = isSekiz ? colors.violetBorder  : colors.amberBorder;
-  const labelColor = isSekiz ? colors.violetText    : colors.amberText;
-  const emoji      = isSekiz ? "🟡" : "🟢";
+  const isGelenek  = tur === "gelenek";
+  const bg         = isGelenek ? colors.violetBg      : colors.amberBg;
+  const border     = isGelenek ? colors.violetBorder  : colors.amberBorder;
+  const labelColor = isGelenek ? colors.violetText    : colors.amberText;
+  const meta       = turMeta(tur, colors, ia);
   const showAyetler = !accordion || expanded;
-  const sourceLabel = getDevotionalSourceLabel({ title: baslik, source: kaynak });
 
   return (
     <View style={[styles.kutu, { backgroundColor: bg, borderColor: border }]}>
       {/* Başlık */}
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
-        <Text>{emoji}</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+        <Text>{meta.emoji}</Text>
         <Text style={[styles.duaBaslik, { color: labelColor, flex: 1 }]}>{caps(baslik)}</Text>
-        <View style={[styles.badge, { backgroundColor: bg, borderColor: border }]}>
-          <Text style={[styles.badgeText, { color: labelColor }]}>{sourceLabel}</Text>
-        </View>
+        <TurBadge tur={tur} colors={colors} />
       </View>
+      <Text style={[styles.sourceLine, { color: colors.textSecondary }]}>{fmt(ia.sourceLine, { source: kaynak })}</Text>
       <Text style={[styles.bodyText, { color: colors.textSecondary, marginBottom: 10 }]}>{aciklama}</Text>
 
       {/* Accordion toggle */}
@@ -491,31 +515,14 @@ export default function IsmiAzamScreen() {
           </Text>
         </View>
 
-        {/* Güvenilirlik Badgeleri */}
-        <View style={styles.badgeGrid}>
-          <View style={[styles.guvenCard, { backgroundColor: colors.emeraldBg, borderColor: colors.emeraldBorder }]}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
-              <Text>🟢</Text>
-              <Text style={[styles.badgeScore, { color: colors.emeraldText }]}>10/10</Text>
-            </View>
-            <Text style={[styles.guvenTitle, { color: colors.text }]}>{ia.trust10Title}</Text>
-            <Text style={[styles.guvenDesc, { color: colors.textMuted }]}>
-              {ia.trust10Desc}
-            </Text>
-          </View>
-          <View style={[styles.guvenCard, { backgroundColor: colors.amberBg, borderColor: colors.amberBorder }]}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4 }}>
-              <Text>🟡</Text>
-              <Text style={[styles.badgeScore, { color: colors.amberText }]}>8/10</Text>
-            </View>
-            <Text style={[styles.guvenTitle, { color: colors.text }]}>{ia.trust8Title}</Text>
-            <Text style={[styles.guvenDesc, { color: colors.textMuted }]}>
-              {ia.trust8Desc}
-            </Text>
-          </View>
+        {/* Kaynak etiketleme bilgisi */}
+        <View style={[styles.kutu, { backgroundColor: colors.cardBg, borderColor: colors.cardBorder }]}>
+          <Text style={[styles.bodyText, { color: colors.textSecondary }]}>
+            {ia.sourceInfo}
+          </Text>
         </View>
 
-        {/* ── Bölüm 1: Sahih İsm-i Azam ──────────────────────────────── */}
+        {/* ── Bölüm 1: İsm-i Azam ────────────────────────────────────── */}
         <Text style={[styles.bolumBaslik, { color: colors.text }]}>{ia.sec1Title}</Text>
 
         <Kutu baslik={ia.irfaniTitle} colors={colors}>
@@ -531,6 +538,7 @@ export default function IsmiAzamScreen() {
           kaynak={ia.hayySource}
           aciklama={ia.hayyDesc}
           uygulama={ia.hayyPractice}
+          tur="hasen"
           accordion
           colors={colors}
           ayetler={[
@@ -562,6 +570,7 @@ export default function IsmiAzamScreen() {
           kaynak={ia.asmaSource}
           aciklama={ia.asmaDesc}
           uygulama={ia.asmaPractice}
+          tur="hasen"
           accordion
           colors={colors}
           ayetler={[
@@ -585,7 +594,7 @@ export default function IsmiAzamScreen() {
           kaynak={ia.aliSource}
           aciklama={ia.aliDesc}
           uygulama={ia.aliPractice}
-          puan="8/10"
+          tur="gelenek"
           accordion
           colors={colors}
           ayetler={[
@@ -678,9 +687,13 @@ export default function IsmiAzamScreen() {
 
         {/* Tabut-u Sekine */}
         <View style={[styles.kutu, { backgroundColor: colors.violetBg, borderColor: colors.violetBorder }]}>
-          <Text style={[styles.duaBaslik, { color: colors.violetText, marginBottom: 8 }]}>
-            {caps(ia.tabutTitle)}
-          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+            <Text style={[styles.duaBaslik, { color: colors.violetText, flex: 1 }]}>
+              {caps(ia.tabutTitle)}
+            </Text>
+            <TurBadge tur="kuran" colors={colors} />
+          </View>
+          <Text style={[styles.sourceLine, { color: colors.textSecondary }]}>{fmt(ia.sourceLine, { source: ia.tabutSource })}</Text>
 
           {/* Arapça RTL */}
           <View style={[styles.arabicBox, { borderColor: colors.violetBorder }]}>
@@ -712,7 +725,7 @@ export default function IsmiAzamScreen() {
           <StepList steps={ia.prepSteps} colors={colors} />
         </Kutu>
 
-        <Kutu baslik={ia.circleTitle} colors={colors} renk="violet">
+        <Kutu baslik={ia.circleTitle} colors={colors} renk="violet" tur="gelenek" kaynak={ia.sekineSource}>
           <StepList steps={ia.circleSteps} colors={colors} />
         </Kutu>
 
@@ -784,6 +797,7 @@ const styles = StyleSheet.create({
   },
 
   duaBaslik:   { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 1 },
+  sourceLine:  { fontSize: 11, fontWeight: "600", marginBottom: 10 },
   duaOkunus:   { fontSize: 13, lineHeight: 20, fontWeight: "600", marginBottom: 6 },
   duaAnlam:    { fontSize: 11, lineHeight: 17, fontStyle: "italic", marginBottom: 4 },
   duaUygulama: { fontSize: 12, lineHeight: 19 },
@@ -798,12 +812,6 @@ const styles = StyleSheet.create({
   bolumBaslik: {
     fontSize: 15, fontWeight: "700", marginTop: 8, marginBottom: 10,
   },
-
-  badgeGrid:    { flexDirection: "row", gap: 10, marginBottom: 20 },
-  guvenCard:    { flex: 1, borderRadius: 14, borderWidth: 1, padding: 12 },
-  badgeScore:   { fontSize: 12, fontWeight: "800" },
-  guvenTitle:   { fontSize: 11, fontWeight: "700", marginBottom: 2 },
-  guvenDesc:    { fontSize: 10, lineHeight: 15 },
   verseAccHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
   verseAccTitleWrap: { flex: 1, gap: 4 },
   verseAccTitle: { fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.8 },

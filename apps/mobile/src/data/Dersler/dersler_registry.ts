@@ -366,15 +366,16 @@ export function getKategoriler(lang: Lang = "tr"): typeof KATEGORILER {
 
 export const BASLIKLAR: Record<string, string> = Object.fromEntries(KAYITLAR.map((k) => [k.id, k.baslik]));
 
-export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayisi: number; birim?: string; sure: number; route?: string }[] = [
+export const DERSLER_META: { id: string; baslik: string; ikon: string; kartSayisi: number; birim?: string; sure: number; hasQuiz?: boolean; route?: string }[] = [
   ...KAYITLAR.map((k) => ({
     id: k.id,
     baslik: k.baslik,
     ikon: k.ikon,
     kartSayisi: k.kartSayisi,
     sure: k.sure,
+    hasQuiz: true,
   })),
-  ...EKSTRA_KARTLAR.map((e) => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, route: e.route })),
+  ...EKSTRA_KARTLAR.map((e) => ({ id: e.id, baslik: e.baslik, ikon: e.ikon, kartSayisi: e.kartSayisi, birim: e.birim, sure: e.sure, hasQuiz: false, route: e.route })),
 ];
 
 export const KATEGORILER: { label: string; ids: string[] }[] = [

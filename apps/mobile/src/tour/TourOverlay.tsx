@@ -6,11 +6,18 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
 import { fmt, useStrings } from "../i18n";
 import strings from "../i18n/strings/tour";
-import type { AppTourStep } from "./appTourSteps";
+import { APP_TOUR_STEPS, type AppTourStep } from "./appTourSteps";
 import { clipTarget, placeTourCard, tourSpotlight, type Rect } from "./tourGeometry";
-import { Entrance, Icon, PolishButton, StepIndicator } from "../components/onboarding/Polish";
+import { Entrance, Icon, PolishButton, StepIndicator, type IconName } from "../components/onboarding/Polish";
 import { logFeature } from "../lib/analytics";
 import { handleTourBackPress, registerFocusedBackHandler } from "./backHandlerPolicy";
+
+const STEP_ICONS: Record<AppTourStep["id"], IconName> = {
+  quran: "book-outline",
+  learn: "school-outline",
+  worship: "moon-outline",
+  more: "menu-outline",
+};
 
 type Props = {
   step: AppTourStep; stepIndex: number; ready: boolean; targetRevision: number; active?: boolean;
@@ -106,19 +113,19 @@ export function TourOverlay({ step, stepIndex, ready, targetRevision, active = t
           <ScrollView bounces={false} scrollEnabled={scrollWholeCard} style={{ flexShrink: 1 }}
             contentContainerStyle={scrollWholeCard ? undefined : { maxHeight: Math.max(0, placement.maxHeight - 42) }}>
           <View style={s.row}>
-            <StepIndicator step={stepIndex + 1} total={3} label={fmt(t.stepProgress, { step: stepIndex + 1, total: 3 })} />
+            <StepIndicator step={stepIndex + 1} total={APP_TOUR_STEPS.length} label={fmt(t.stepProgress, { step: stepIndex + 1, total: APP_TOUR_STEPS.length })} />
             <PolishButton icon="close" accessibilityLabel={t.closeGuide} onPress={onClose} />
           </View>
           <ScrollView bounces={false} scrollEnabled={!scrollWholeCard} style={{ flexShrink: scrollWholeCard ? 0 : 1 }} contentContainerStyle={{ paddingTop: 12 }}>
             <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: c.accentLight, justifyContent: "center", alignItems: "center", marginBottom: 12 }}>
-              <Icon name={stepIndex === 0 ? "book-outline" : stepIndex === 1 ? "school-outline" : "menu-outline"} color={c.actionBg} />
+              <Icon name={STEP_ICONS[step.id]} color={c.actionBg} />
             </View>
             <Text ref={title} accessible accessibilityRole="header" style={[s.title, { color: c.text }]}>{t[`${step.id}_title`]}</Text>
             <Text style={[s.body, { color: c.textSecondary }]}>{t[`${step.id}_desc`]}</Text>
           </ScrollView>
           <View style={{ flexDirection: fontScale >= 1.3 || placement.width < 320 ? "column" : "row", gap: 12, marginTop: 20 }}>
             {stepIndex > 0 && <PolishButton style={{ minWidth: 88 }} icon="chevron-back" label={t.back} onPress={onBack} />}
-            <PolishButton primary style={fontScale < 1.3 && placement.width >= 320 ? { flex: 1 } : undefined} label={stepIndex === 2 ? t.finish : t.next} onPress={onNext} />
+            <PolishButton primary style={fontScale < 1.3 && placement.width >= 320 ? { flex: 1 } : undefined} label={stepIndex === APP_TOUR_STEPS.length - 1 ? t.finish : t.next} onPress={onNext} />
           </View>
           </ScrollView>
         </Entrance>

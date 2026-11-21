@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect, type ComponentProps } 
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
+import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah } from "../src/lib/api";
 import { useColors } from "../src/hooks/useColors";
@@ -494,6 +495,16 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
           <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>📌 {R.rekat_yapisi.ozet_notu}</Text>
         </Section>
 
+        <TouchableOpacity
+          style={[s.lessonLink, { backgroundColor: c.card, borderColor: c.border }]}
+          onPress={() => router.push("/dersler/namaz" as Href)}
+          activeOpacity={0.75}
+          accessibilityRole="button"
+          accessibilityLabel={tx.lessonQuizLink}
+        >
+          <Text style={[s.lessonLinkText, { color: c.accent }]}>{tx.lessonQuizLink}</Text>
+        </TouchableOpacity>
+
         <Text style={[s.kaynakNot, { color: c.textMuted }]}>{R.kaynak_not}</Text>
       </ScrollView>
   );
@@ -901,6 +912,8 @@ const s = StyleSheet.create({
   rekatBilgi: { fontSize: 12, fontWeight: "600" },
 
   madde: { fontSize: 13, lineHeight: 21, marginTop: 6 },
+  lessonLink: { borderRadius: 12, borderWidth: 1, paddingVertical: 12, paddingHorizontal: 14, marginTop: 4, alignItems: "center" },
+  lessonLinkText: { fontSize: 13, fontWeight: "700", textAlign: "center" },
   kaynakNot: { fontSize: 11, fontStyle: "italic", marginTop: 16, textAlign: "center" },
   compareCard: { borderRadius: 10, borderWidth: 1, padding: 10, marginTop: 8 },
   compareTitle: { fontSize: 12.5, fontWeight: "700", marginBottom: 2 },

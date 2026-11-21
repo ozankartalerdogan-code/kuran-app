@@ -1845,8 +1845,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3152410,
-        "sha256": "6c5d6e24cd0aba3163ed11e10b9f2d091a970cf15fcdca93d8949e205521452b",
+        "totalBytes": 3152546,
+        "sha256": "45eebb20514b590575f033c02cfb31993deab5051c5412c92e0cae01a7ef7a69",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -2050,8 +2050,8 @@
           },
           {
             "path": "apps/mobile/src/data/ismi_azam_dualari.en.json",
-            "bytes": 8117,
-            "sha256": "79a9086fc0bde9fe8b702bb37d513da3ecd80d6d9edd01d50c6ecff1dd95498f"
+            "bytes": 8253,
+            "sha256": "0fc624559ddfefb7a88f7a7a1741e501be6ec073ad00d1af2a9611a33817b1fb"
           },
           {
             "path": "apps/mobile/src/data/mubarek_gunler.en.json",
@@ -3440,18 +3440,18 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 4,
-        "totalBytes": 255903,
-        "sha256": "640ce20c5bdd1840d38c54f635e73190c351f1b96a045da23fc58c41193c15f0",
+        "totalBytes": 256074,
+        "sha256": "3cb4ec09f0824f1cd0e5483cfe59ffc11ecad6ee6684937afa7c797beba89ce4",
         "files": [
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.json",
-            "bytes": 59670,
-            "sha256": "48715af3080b284079fadf2ccd2da03a30304ba3e6365ae1f270b388cc0f0624"
+            "bytes": 59679,
+            "sha256": "6a6c0e8f93149a29d15e78afbb8b017ec19edbc3afbdc17b45b42e52771be75e"
           },
           {
             "path": "apps/mobile/src/data/siyer_i_nebi.json",
-            "bytes": 68306,
-            "sha256": "a805e3e04b918bf2bbba5dbf1ccc1311b580a73afdb27fa4e0105c8de77b4587"
+            "bytes": 68468,
+            "sha256": "dbfd4598496d06185ddd244414a97cc4da4ce049b37255a60e97bdccd49226c4"
           },
           {
             "path": "apps/web/src/data/peygamber_kissalari.json",
@@ -3480,8 +3480,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 32,
-        "totalBytes": 503848,
-        "sha256": "bee4454cabc0b0421a77a16037d28464778e13033ceed940089a862d530f5718",
+        "totalBytes": 503965,
+        "sha256": "c6bb1c38957b7031c359b8be52867b2aa6d9945311faad15b38de45fb95189b8",
         "files": [
           {
             "path": "apps/mobile/src/data/Dersler/abdest_dersi.json",
@@ -3490,8 +3490,8 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/ezan_kamet_dersi.json",
-            "bytes": 10213,
-            "sha256": "51d20d9a77318ba1210b1521a02e37d448e712f72e07735826eb1d08631b782a"
+            "bytes": 10222,
+            "sha256": "349af4499f897758085b7d5cd0fbf9a757b79bfeb4d6b409bc94216d521782fd"
           },
           {
             "path": "apps/mobile/src/data/Dersler/guzel_ahlak_dersi.json",
@@ -3505,13 +3505,13 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/iman_esaslari_dersi.json",
-            "bytes": 12320,
-            "sha256": "a45944f358b362bb9b8e5b6791f7456eb60e2f161650b45629d817461752ffa3"
+            "bytes": 12329,
+            "sha256": "efe8f6e834e37524a76734e747bfd7c561baee60fe953f6950d2af016b7c91a5"
           },
           {
             "path": "apps/mobile/src/data/Dersler/kitaplara_iman_dersi.json",
-            "bytes": 7975,
-            "sha256": "a031303de29c2226413f66816474a7006375f0a9198fa1532753bfad243a8b4c"
+            "bytes": 7993,
+            "sha256": "631836e601b08f634b4e491db274cf26bab885992f0a91d67b0f4b33e307b704"
           },
           {
             "path": "apps/mobile/src/data/Dersler/kurban_dersi.json",
@@ -3540,8 +3540,8 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/peygamber_kissalari_dersi.json",
-            "bytes": 24757,
-            "sha256": "5342d46bae9411edb030d0e2e5d83597a7e5ca35eb4faf3ada961e0f3a511bbd"
+            "bytes": 24766,
+            "sha256": "be4e38115b25d4925a1d06fdb4eddbbed64d9526537315f260d6d0c36b6ff66b"
           },
           {
             "path": "apps/mobile/src/data/Dersler/sahabe_hayatlari_dersi.json",
@@ -3550,8 +3550,8 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/siyer_dersi.json",
-            "bytes": 19224,
-            "sha256": "a12b5843235678f5fcbbf4429a204f75e74ad535bfa574486cabef0e9b950556"
+            "bytes": 19296,
+            "sha256": "3e8d4d22da9e7c0ed81a93ce2580eca35f0dabb822c0c896c2ddc50bf909f85a"
           },
           {
             "path": "apps/mobile/src/data/Dersler/tecvid_dersi.json",
@@ -3660,8 +3660,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 32,
-        "totalBytes": 720180,
-        "sha256": "65747e5e9186363ea21456488eced8e81be5bf0c38ae011066a4cb6d8a1c0886",
+        "totalBytes": 720279,
+        "sha256": "e0ec81d06c5ecf8db8001c0e47931409aa57893d9343932a926747c5da856fa2",
         "files": [
           {
             "path": "apps/mobile/src/data/Dersler/abdest_quiz.json",
@@ -3685,13 +3685,13 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/iman_esaslari_quiz.json",
-            "bytes": 28155,
-            "sha256": "216479c98e723e342c322cd8797abef914e602836ed2c57565be0264409227af"
+            "bytes": 28164,
+            "sha256": "ca247568d38dceece316aa6217fe0833df483dd8e9cc5f26dec1dfe21b29b62b"
           },
           {
             "path": "apps/mobile/src/data/Dersler/kitaplara_iman_quiz.json",
-            "bytes": 18391,
-            "sha256": "1fc036c355c5ab56cf50ed4ba7326398a8ffbd2b0a9dbb3414d2b45d0bf94114"
+            "bytes": 18400,
+            "sha256": "88055111230db281ae38e759ec57fd821bfd9ce89e9886a8c3c3d6a536c7f30c"
           },
           {
             "path": "apps/mobile/src/data/Dersler/kurban_quiz.json",
@@ -3730,8 +3730,8 @@
           },
           {
             "path": "apps/mobile/src/data/Dersler/siyer_quiz.json",
-            "bytes": 25956,
-            "sha256": "99df3bea0a6146b6cc6a9a5b34c6b02bbc4a8c469ef4e448bcd270e1b8a53b6e"
+            "bytes": 26037,
+            "sha256": "a18030620948831978b4a97f20c41c3bc227a26e2f86c067bee6317a03324628"
           },
           {
             "path": "apps/mobile/src/data/Dersler/tecvid_quiz.json",
@@ -4127,8 +4127,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 9,
-        "totalBytes": 1799569,
-        "sha256": "cb159514f6c30363d23b178c35644db9bddd3afa86e7b65669d1bf38ec44a8df",
+        "totalBytes": 1799705,
+        "sha256": "bed0932d1d2a42dcf3f31ec5492b78233d339f6ca7877de2c78d8a06ea0f7039",
         "files": [
           {
             "path": "apps/mobile/src/data/dualar.json",
@@ -4137,8 +4137,8 @@
           },
           {
             "path": "apps/mobile/src/data/ismi_azam_dualari.ts",
-            "bytes": 8221,
-            "sha256": "93eef46a900aafbc06e8e25e1ef44c6104ece5baeba561d0f51bc0e503bb6ef0"
+            "bytes": 8357,
+            "sha256": "e712b7791c525d379177d90888e478a12c795db8d066cd277098095a56ca4a26"
           },
           {
             "path": "apps/mobile/src/data/namaz_rehberi.json",

@@ -43,6 +43,7 @@ type TabButtonProps = ComponentProps<typeof PlatformPressable>;
 const TOUR_TAB_BUTTONS: Partial<Record<string, (props: TabButtonProps) => React.JSX.Element>> = {
   kuran: (props) => <TourTabButton {...props} targetId="tab.kuran" />,
   ogren: (props) => <TourTabButton {...props} targetId="tab.ogren" />,
+  ibadet: (props) => <TourTabButton {...props} targetId="tab.ibadet" />,
   "daha-fazla": (props) => <TourTabButton {...props} targetId="tab.daha-fazla" />,
 };
 

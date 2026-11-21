@@ -56,6 +56,7 @@ export default defineStrings({
     fatiha: "Fatiha: {x}",
     zamm: "Zamm-ı sure: {x}",
     sitting: "Oturuş: {x}",
+    lessonQuizLink: "Bilgini pekiştirmek ister misin? → Namaz Dersi ve Testi",
     // Özel namazlar
     quickLook: "Hızlı Bakış",
     whenQ: "🕐 Ne Zaman?",
@@ -136,6 +137,7 @@ export default defineStrings({
     fatiha: "Fatiha: {x}",
     zamm: "Additional surah: {x}",
     sitting: "Sitting: {x}",
+    lessonQuizLink: "Want to reinforce what you learned? → Prayer Lesson and Quiz",
     quickLook: "At a Glance",
     whenQ: "🕐 When?",
     timeLine: "Time: {x}",

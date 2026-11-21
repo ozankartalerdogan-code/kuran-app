@@ -19,7 +19,7 @@
       "order": 1,
       "name": "Doğum Öncesi Dönem",
       "date_range": "6. yüzyıl öncesi – 570 M",
-      "summary": "Cahiliye Arabistanı'nın sosyal ve dinî yapısı, Hz. Muhammed'in soyu ve Fil Olayı.",
+      "summary": "Cahiliye Arabistanı'nın sosyal ve dinî yapısı, Hz. Muhammed'in (s.a.v.) soyu ve Fil Olayı.",
       "icon": "🕌"
     },
     {
@@ -27,7 +27,7 @@
       "order": 2,
       "name": "Doğum ve Çocukluk",
       "date_range": "570 – 580 M",
-      "summary": "Hz. Muhammed'in doğumu, sütannesi Halîme'nin yanındaki yıllar ve yakınlarının vefatı.",
+      "summary": "Hz. Muhammed'in (s.a.v.) doğumu, sütannesi Halîme'nin yanındaki yıllar ve yakınlarının vefatı.",
       "icon": "🌙"
     },
     {
@@ -86,7 +86,7 @@
       "title": "Cahiliye Arabistanı",
       "date_miladi": "6. yüzyıl",
       "date_hijri": null,
-      "description": "Hz. Muhammed'in doğduğu dönemde Arap yarımadası, kabile esasına dayalı ve siyasî birlikten yoksun bir yapıya sahipti. Yarımada çoğunlukla çöldü; başlıca yerleşim merkezleri Hicaz'da Mekke, Yesrib ve Tâif idi. Toplum hürler, mevâlî ve köleler şeklinde tabakalaşmıştı; kadın ve kız çocuklarına değer verilmez, kız çocukları diri diri toprağa gömülürdü. Çok eşlilik, kan davası, faiz ve köle ticareti yaygındı.\n\nDinî açıdan putperestlik hâkimdi. Kâbe ve çevresinde sayıları 360'a ulaşan put bulunuyordu; başlıcaları Hubel, Lât, Menât ve Uzzâ idi. Bununla birlikte az sayıda tek tanrı inancındaki Hanîf de mevcuttu. Ukâz ve Zülmecâz gibi panayırlar hem ticarî hem kültürel birlik sağlardı. İslâm'ın bu topluma getireceği devrim, tam da bu karanlık arka plana karşı anlam kazanır.",
+      "description": "Hz. Muhammed'in (s.a.v.) doğduğu dönemde Arap yarımadası, kabile esasına dayalı ve siyasî birlikten yoksun bir yapıya sahipti. Yarımada çoğunlukla çöldü; başlıca yerleşim merkezleri Hicaz'da Mekke, Yesrib ve Tâif idi. Toplum hürler, mevâlî ve köleler şeklinde tabakalaşmıştı; kadın ve kız çocuklarına değer verilmez, kız çocukları diri diri toprağa gömülürdü. Çok eşlilik, kan davası, faiz ve köle ticareti yaygındı.\n\nDinî açıdan putperestlik hâkimdi. Kâbe ve çevresinde sayıları 360'a ulaşan put bulunuyordu; başlıcaları Hubel, Lât, Menât ve Uzzâ idi. Bununla birlikte az sayıda tek tanrı inancındaki Hanîf de mevcuttu. Ukâz ve Zülmecâz gibi panayırlar hem ticarî hem kültürel birlik sağlardı. İslâm'ın bu topluma getireceği devrim, tam da bu karanlık arka plana karşı anlam kazanır.",
       "quran_refs": [
         "16:58",
         "81:8"
@@ -112,7 +112,7 @@
       "title": "Kâbe ve Kureyş'in Yükselişi",
       "date_miladi": "5. yüzyıl",
       "date_hijri": null,
-      "description": "Kâbe, İslâm inancına göre Hz. İbrahim ve oğlu Hz. İsmail tarafından inşa edilmiş tevhîdin ilk evidir. Kureyş kabilesi, Kusay b. Kilâb döneminde (yaklaşık 5. yüzyıl) Kâbe'nin idaresini ele geçirerek Mekke'nin hâkim gücü hâline geldi. Hac ve panayırlar sayesinde Mekke dinî ve ticarî merkez oldu.\n\nKureyş, Kâbe'nin koruyuculuğu sebebiyle diğer kabileler nezdinde büyük itibar görürdü. Bu itibar, Hz. Muhammed'in peygamberlik sonrası tebliği için hem bir kapı hem de bir engel olacaktı.",
+      "description": "Kâbe, İslâm inancına göre Hz. İbrahim ve oğlu Hz. İsmail tarafından inşa edilmiş tevhîdin ilk evidir. Kureyş kabilesi, Kusay b. Kilâb döneminde (yaklaşık 5. yüzyıl) Kâbe'nin idaresini ele geçirerek Mekke'nin hâkim gücü hâline geldi. Hac ve panayırlar sayesinde Mekke dinî ve ticarî merkez oldu.\n\nKureyş, Kâbe'nin koruyuculuğu sebebiyle diğer kabileler nezdinde büyük itibar görürdü. Bu itibar, Hz. Muhammed'in (s.a.v.) peygamberlik sonrası tebliği için hem bir kapı hem de bir engel olacaktı.",
       "quran_refs": [
         "2:125",
         "2:127",
@@ -135,7 +135,7 @@
     {
       "id": "hasimogullari-soy",
       "period_id": "dogum-oncesi",
-      "title": "Hz. Muhammed'in Soyu",
+      "title": "Hz. Muhammed'in (s.a.v.) Soyu",
       "date_miladi": "6. yüzyıl",
       "date_hijri": null,
       "description": "Hz. Muhammed, Kureyş'in Hâşimoğulları koluna mensuptur. Babası Abdullah b. Abdülmuttalib, annesi Âmine bint Vehb'dir. Dedesi Abdülmuttalib, Mekke'nin en saygın şahsiyetlerindendi; Zemzem kuyusunu yeniden kazdırdığıyla da bilinir.\n\nHâşimoğulları, Kâbe'nin su ve yiyecek ikramından sorumlu hacılara hizmet (sikâye ve rifâde) görevini üstlendiğinden diğer Kureyş kolları arasında özel bir yere sahipti. Bu soyun seçkinliği Kur'an'da değil, rivayet geleneğinde yer alır.",
@@ -162,7 +162,7 @@
       "title": "Fil Olayı",
       "date_miladi": "yaklaşık 570 M",
       "date_hijri": null,
-      "description": "Yemen'in Habeş (Aksum) valisi Ebrehe, San'a'da büyük bir katedral yaptırmış ve hac trafiğini oraya çekmeye çalışmıştı. Başarısız olunca fillerle donanmış büyük bir orduyla Kâbe'yi yıkmak için yola çıktı. Ordu Mekke'ye yaklaştığında öndeki fil Mahmûd ilerlemeyi reddetti.\n\nKur'an'ın Fîl Sûresi'nde anlatıldığı üzere, Allah ebâbîl adlı kuşları gönderdi; bu kuşlar pişmiş tuğla (siccîl) taşlar atarak orduyu helak etti. Abdülmuttalib'in Ebrehe'ye verdiği karşılık meşhurdur: 'Ben develerin sahibiyim; Kâbe'nin sahibi onu korur.' Bu olay, Hz. Muhammed'in doğumundan kısa süre önce yaşandı ve İslâm geleneğinde Peygamber'in geleceğine işaret eden bir işaret olarak değerlendirildi.",
+      "description": "Yemen'in Habeş (Aksum) valisi Ebrehe, San'a'da büyük bir katedral yaptırmış ve hac trafiğini oraya çekmeye çalışmıştı. Başarısız olunca fillerle donanmış büyük bir orduyla Kâbe'yi yıkmak için yola çıktı. Ordu Mekke'ye yaklaştığında öndeki fil Mahmûd ilerlemeyi reddetti.\n\nKur'an'ın Fîl Sûresi'nde anlatıldığı üzere, Allah ebâbîl adlı kuşları gönderdi; bu kuşlar pişmiş tuğla (siccîl) taşlar atarak orduyu helak etti. Abdülmuttalib'in Ebrehe'ye verdiği karşılık meşhurdur: 'Ben develerin sahibiyim; Kâbe'nin sahibi onu korur.' Bu olay, Hz. Muhammed'in (s.a.v.) doğumundan kısa süre önce yaşandı ve İslâm geleneğinde Peygamber'in geleceğine işaret eden bir işaret olarak değerlendirildi.",
       "quran_refs": [
         "105:1",
         "105:2",
@@ -189,7 +189,7 @@
     {
       "id": "dogum",
       "period_id": "dogum-cocukluk",
-      "title": "Hz. Muhammed'in Doğumu",
+      "title": "Hz. Muhammed'in (s.a.v.) Doğumu",
       "date_miladi": "571 M (tartışmalı)",
       "date_hijri": "Fil Yılı, Rebîülevvel",
       "description": "Hz. Muhammed, yaygın kabule göre Fil Vak'ası'ndan yaklaşık 50-55 gün sonra Rebîülevvel ayının 12'sinde, Pazartesi sabahı Mekke'de Hâşimoğulları Mahallesi'nde dünyaya geldi. Babası Abdullah, henüz doğmadan yaklaşık iki ay önce Medine'de (Yesrib) vefat etmişti; mirası beş deve, bir koyun sürüsü ve cariye Ümmü Eymen'den (Bereke) ibaretti.\n\nDedesi Abdülmuttalib ona 'Muhammed' adını verdi. Bu isim, o dönem Arapları arasında yaygın değildi. Annesi Âmine ise 'Ahmed' adını verdiğini rivayet eder. Doğum esnasında bazı şeyler rivayet edilse de bunların büyük çoğunluğu güvenilir isnada sahip değildir.",
@@ -216,7 +216,7 @@
       "title": "Sütannesi Halîme'nin Yanında",
       "date_miladi": "571 – 576 M",
       "date_hijri": null,
-      "description": "Dönemin geleneğine göre Mekke çocukları çöl havasında büyümeleri ve fasih Arapça öğrenmeleri için sütannelere verilirdi. Hz. Muhammed'i önce annesi, ardından Ebû Leheb'in cariyesi Süveybe emzirdi. Sonrasında Sa'd b. Bekr kabilesinden Halîme bint Ebî Züeyb ona sütanne oldu.\n\nHalîme, küçük Muhammed'i evine götürdükten sonra bereketli bir dönem yaşadığını anlatır; hayvanların sütü arttı, kıtlık dönemi kolay atlatıldı. Süt kardeşleri Abdullah, Üneyse ve Şeymâ'dır. Yaklaşık 4-5 yıl bu ortamda kalan Hz. Muhammed, fasih Hevâzin Arapçasını burada öğrendi.",
+      "description": "Dönemin geleneğine göre Mekke çocukları çöl havasında büyümeleri ve fasih Arapça öğrenmeleri için sütannelere verilirdi. Hz. Muhammed'i (s.a.v.) önce annesi, ardından Ebû Leheb'in cariyesi Süveybe emzirdi. Sonrasında Sa'd b. Bekr kabilesinden Halîme bint Ebî Züeyb ona sütanne oldu.\n\nHalîme, küçük Muhammed'i evine götürdükten sonra bereketli bir dönem yaşadığını anlatır; hayvanların sütü arttı, kıtlık dönemi kolay atlatıldı. Süt kardeşleri Abdullah, Üneyse ve Şeymâ'dır. Yaklaşık 4-5 yıl bu ortamda kalan Hz. Muhammed, fasih Hevâzin Arapçasını burada öğrendi.",
       "quran_refs": [],
       "hadith_sources": [],
       "key_lessons": [
@@ -238,7 +238,7 @@
       "title": "Şakk-ı Sadr: Göğsün Açılması",
       "date_miladi": "yaklaşık 575 M",
       "date_hijri": null,
-      "description": "Halîme'nin yanındayken iki meleğin gelerek Hz. Muhammed'in göğsünü açtığı, kalbini zemzemle yıkadığı ve içindeki kir payını (hakk-ı şeytan) çıkardığı rivayet edilir. Bu olayı gören süt kardeşlerinin haber vermesi üzerine Halîme endişelenmiş ve çocuğu annesi Âmine'ye teslim etmiştir.\n\nBu hadise için İnşirâh Sûresi mecazî bir işaret olarak yorumlanmış; Müslim'de ise Mi'rac öncesi Cebrâil'in göğsü açması hadisi sahih olarak geçmektedir.",
+      "description": "Halîme'nin yanındayken iki meleğin gelerek Hz. Muhammed'in (s.a.v.) göğsünü açtığı, kalbini zemzemle yıkadığı ve içindeki kir payını (hakk-ı şeytan) çıkardığı rivayet edilir. Bu olayı gören süt kardeşlerinin haber vermesi üzerine Halîme endişelenmiş ve çocuğu annesi Âmine'ye teslim etmiştir.\n\nBu hadise için İnşirâh Sûresi mecazî bir işaret olarak yorumlanmış; Müslim'de ise Mi'rac öncesi Cebrâil'in göğsü açması hadisi sahih olarak geçmektedir.",
       "quran_refs": [],
       "hadith_sources": [
         "Müslim, Îmân, 261"
@@ -261,7 +261,7 @@
       "title": "Annesi ve Dedesinin Vefatı",
       "date_miladi": "577 – 579 M",
       "date_hijri": null,
-      "description": "Hz. Muhammed 6 yaşındayken annesi Âmine, onu Medine'deki baba tarafı akrabalarına götürmüş; dönüş yolunda Mekke ile Medine arasındaki Ebvâ köyünde hastalanarak vefat etmiştir. Çocuk, annesi elinde defnedilerek dedesi Abdülmuttalib'in yanına döndü.\n\nAbdülmuttalib'in özel ilgi ve sevgisiyle iki yıl geçirdi; ancak 8 yaşındayken dede de vefat etti. Ölüm döşeğinde Abdülmuttalib, oğlu Ebû Tâlib'i çocuğun vasîsi olarak belirledi. Ebû Tâlib ve yengesi Fâtıma bint Esed ona ikinci anne gibi baktı. Kur'an bu yetimliği Allah'ın korumasıyla ele alır (Duhâ 93:6).",
+      "description": "Hz. Muhammed (s.a.v.) 6 yaşındayken annesi Âmine, onu Medine'deki baba tarafı akrabalarına götürmüş; dönüş yolunda Mekke ile Medine arasındaki Ebvâ köyünde hastalanarak vefat etmiştir. Çocuk, annesi elinde defnedilerek dedesi Abdülmuttalib'in yanına döndü.\n\nAbdülmuttalib'in özel ilgi ve sevgisiyle iki yıl geçirdi; ancak 8 yaşındayken dede de vefat etti. Ölüm döşeğinde Abdülmuttalib, oğlu Ebû Tâlib'i çocuğun vasîsi olarak belirledi. Ebû Tâlib ve yengesi Fâtıma bint Esed ona ikinci anne gibi baktı. Kur'an bu yetimliği Allah'ın korumasıyla ele alır (Duhâ 93:6).",
       "quran_refs": [
         "93:6"
       ],
@@ -307,7 +307,7 @@
       "title": "Hilfü'l-Fudûl: Erdemliler İttifakı",
       "date_miladi": "yaklaşık 590 M",
       "date_hijri": null,
-      "description": "Yemenlilerin Mekke'li bir tüccarı dolandırması üzerine Abdullah b. Cüd'ân'ın evinde bir araya gelen bazı kabile temsilcileri, haksızlığa uğrayanları her koşulda koruyacaklarına yemin ettiler. Bu anlaşmaya 'Hilfü'l-Fudûl' adı verildi.\n\nGençlik çağındaki Hz. Muhammed de bu toplantıya katıldı ve yıllar sonra peygamberliğini ilan ettikten sonra şöyle dedi: 'Abdullah b. Cüd'ân'ın evinde öyle bir ittifaka katıldım ki kırmızı develer karşılığında bile olsa onu bozmak istemezdim. İslâm'da da böyle bir cemiyete çağrılsam yine katılırım.' Bu söz, İslâm'ın evrensel adalet anlayışını Câhiliye'nin bile güzel değerleriyle bağdaştırdığını gösterir.",
+      "description": "Yemenlilerin Mekke'li bir tüccarı dolandırması üzerine Abdullah b. Cüd'ân'ın evinde bir araya gelen bazı kabile temsilcileri, haksızlığa uğrayanları her koşulda koruyacaklarına yemin ettiler. Bu anlaşmaya 'Hilfü'l-Fudûl' adı verildi.\n\nGençlik çağındaki Hz. Muhammed (s.a.v.) de bu toplantıya katıldı ve yıllar sonra peygamberliğini ilan ettikten sonra şöyle dedi: 'Abdullah b. Cüd'ân'ın evinde öyle bir ittifaka katıldım ki kırmızı develer karşılığında bile olsa onu bozmak istemezdim. İslâm'da da böyle bir cemiyete çağrılsam yine katılırım.' Bu söz, İslâm'ın evrensel adalet anlayışını Câhiliye'nin bile güzel değerleriyle bağdaştırdığını gösterir.",
       "quran_refs": [],
       "hadith_sources": [
         "Ahmed b. Hanbel, Müsned, I, 190",
@@ -332,7 +332,7 @@
       "title": "Hz. Hatice ile Evlilik",
       "date_miladi": "yaklaşık 595 M",
       "date_hijri": null,
-      "description": "25 yaşındaki Hz. Muhammed, dürüstlüğü ve güvenilirliği sebebiyle kazandığı 'el-Emîn' lakabının etkisiyle dul bir iş kadını olan Hz. Hatice bint Huveylid'in ticaret kervanını yönetme teklifini kabul etti. Şam seferinden kârlı dönen Hz. Muhammed'in karakterine hayran kalan Hatice, evlilik teklifini aracıyla iletti; Hz. Muhammed kabul etti.\n\nBu evlilikten Kâsım, Zeyneb, Rukıyye, Ümmü Külsûm, Fâtıma ve Abdullah (Tayyib/Tâhir) olmak üzere altı çocuk dünyaya geldi; Kâsım ve Abdullah küçük yaşta vefat etti. Hz. Hatice, Peygamber'in en büyük destekçisi ve ilk Müslüman olma onuruna sahiptir. Hz. Muhammed onun sağlığında başka eş almadı; vefatından sonra da onu en güzel şekilde andı.",
+      "description": "25 yaşındaki Hz. Muhammed (s.a.v.), dürüstlüğü ve güvenilirliği sebebiyle kazandığı 'el-Emîn' lakabının etkisiyle dul bir iş kadını olan Hz. Hatice bint Huveylid'in ticaret kervanını yönetme teklifini kabul etti. Şam seferinden kârlı dönen Hz. Muhammed'in karakterine hayran kalan Hatice, evlilik teklifini aracıyla iletti; Hz. Muhammed kabul etti.\n\nBu evlilikten Kâsım, Zeyneb, Rukıyye, Ümmü Külsûm, Fâtıma ve Abdullah (Tayyib/Tâhir) olmak üzere altı çocuk dünyaya geldi; Kâsım ve Abdullah küçük yaşta vefat etti. Hz. Hatice, Peygamber'in en büyük destekçisi ve ilk Müslüman olma onuruna sahiptir. Hz. Muhammed onun sağlığında başka eş almadı; vefatından sonra da onu en güzel şekilde andı.",
       "quran_refs": [],
       "hadith_sources": [
         "Buhârî, Menâkıbu'l-ensâr, 20"
@@ -356,7 +356,7 @@
       "title": "Kâbe'nin Yeniden İnşası ve Hacerü'l-Esved",
       "date_miladi": "yaklaşık 605 M",
       "date_hijri": null,
-      "description": "35 yaşındayken sel zararı görerek yıkılan Kâbe yeniden inşa edildi. Hacerü'l-Esved'in yerine konulması meselesinde Mekke'nin dört büyük kabilesi arasında kılıçların çekilmek üzere olduğu bir anlaşmazlık çıktı; her kabile bu şerefe sahip olmak istiyordu.\n\nEn yaşlı kişinin vereceği karar beklendi; o da ilk içeri giren olsun dedi. Hz. Muhammed içeri girince herkes sevindi. Çözümü şu oldu: Büyük bir örtü getirdi, taşı ortasına koydu ve dört kabilenin temsilcilerinin örtünün köşelerinden tutmasını sağladı. Taş yerine yaklaştığında bizzat Hacerü'l-Esved'i alıp yerine yerleştirdi. Böylece büyük bir kabile çatışmasını önledi. Bu olay, onun peygamberlik öncesinde bile toplumun doğal hakemi ve problem çözücüsü olduğunu gösterir.",
+      "description": "35 yaşındayken sel zararı görerek yıkılan Kâbe yeniden inşa edildi. Hacerü'l-Esved'in yerine konulması meselesinde Mekke'nin dört büyük kabilesi arasında kılıçların çekilmek üzere olduğu bir anlaşmazlık çıktı; her kabile bu şerefe sahip olmak istiyordu.\n\nEn yaşlı kişinin vereceği karar beklendi; o da ilk içeri giren olsun dedi. Hz. Muhammed (s.a.v.) içeri girince herkes sevindi. Çözümü şu oldu: Büyük bir örtü getirdi, taşı ortasına koydu ve dört kabilenin temsilcilerinin örtünün köşelerinden tutmasını sağladı. Taş yerine yaklaştığında bizzat Hacerü'l-Esved'i alıp yerine yerleştirdi. Böylece büyük bir kabile çatışmasını önledi. Bu olay, onun peygamberlik öncesinde bile toplumun doğal hakemi ve problem çözücüsü olduğunu gösterir.",
       "quran_refs": [],
       "hadith_sources": [],
       "key_lessons": [
@@ -379,7 +379,7 @@
       "title": "Hira Mağarası: İlk Vahiy",
       "date_miladi": "610 M",
       "date_hijri": "Nübüvvetin 1. yılı, Ramazan",
-      "description": "40 yaşındaki Hz. Muhammed, sıkça inzivaya çekildiği Hira Mağarası'nda (Nur Dağı) Ramazan ayında Cebrâil ile ilk kez karşılaştı. Melek onu sıkıştırarak üç kez 'Oku!' dedi; Hz. Muhammed her seferinde 'Ben okuma bilmem' karşılığını verdi. Ardından Alak Sûresi'nin ilk beş ayeti nazil oldu: 'Yaratan Rabbinin adıyla oku!'\n\nKorku ve titreyen elleriyle eve dönen Hz. Muhammed'i Hz. Hatice sardı, teskin etti; 'Allah seni asla küçük düşürmez; sen akrabana iyilik eder, doğruyu söyler, zayıfı yüklenirsin' dedi. Ardından onu amcaoğlu Varaka b. Nevfel'e götürdü; Varaka, 'Bu, Mûsâ'ya gelen Nâmûs'tur (Cebrâil)' dedi ve büyük bir davaya hazırlanması gerektiğini söyledi. Bu an, İslâm tarihinin en kritik başlangıç noktasıdır.",
+      "description": "40 yaşındaki Hz. Muhammed (s.a.v.), sıkça inzivaya çekildiği Hira Mağarası'nda (Nur Dağı) Ramazan ayında Cebrâil ile ilk kez karşılaştı. Melek onu sıkıştırarak üç kez 'Oku!' dedi; Hz. Muhammed her seferinde 'Ben okuma bilmem' karşılığını verdi. Ardından Alak Sûresi'nin ilk beş ayeti nazil oldu: 'Yaratan Rabbinin adıyla oku!'\n\nKorku ve titreyen elleriyle eve dönen Hz. Muhammed'i Hz. Hatice sardı, teskin etti; 'Allah seni asla küçük düşürmez; sen akrabana iyilik eder, doğruyu söyler, zayıfı yüklenirsin' dedi. Ardından onu amcaoğlu Varaka b. Nevfel'e götürdü; Varaka, 'Bu, Mûsâ'ya gelen Nâmûs'tur (Cebrâil)' dedi ve büyük bir davaya hazırlanması gerektiğini söyledi. Bu an, İslâm tarihinin en kritik başlangıç noktasıdır.",
       "quran_refs": [
         "96:1",
         "96:2",
@@ -534,7 +534,7 @@
       "title": "Sosyal ve Ekonomik Boykot",
       "date_miladi": "616 – 619 M",
       "date_hijri": "Nübüvvetin 6-9. yılları",
-      "description": "Kureyş, Hz. Muhammed'i ve Müslümanları teslim almak amacıyla Hâşimoğulları ve Muttaliboğulları'na kapsamlı bir sosyal ve ekonomik boykot uyguladı. Boykot şartları bir sahifeye yazılarak Kâbe'ye asıldı: kimse onlarla alışveriş yapmayacak, evlenme akdi kurmayacak, görüşmeyecekti.\n\nMüslümanlar yaklaşık üç yıl Şi'b-i Ebî Tâlib denilen vadide mahsur kaldı; açlık ve yokluk içinde ağaç yaprakları bile yediklerini kaynaklar aktarır. Boykot, bazı Kureyşlilerin vicdanının sızlamasıyla son buldu; sahifenin güvenin yemesiyle tahrip edildiği anlatılır.",
+      "description": "Kureyş, Hz. Muhammed'i (s.a.v.) ve Müslümanları teslim almak amacıyla Hâşimoğulları ve Muttaliboğulları'na kapsamlı bir sosyal ve ekonomik boykot uyguladı. Boykot şartları bir sahifeye yazılarak Kâbe'ye asıldı: kimse onlarla alışveriş yapmayacak, evlenme akdi kurmayacak, görüşmeyecekti.\n\nMüslümanlar yaklaşık üç yıl Şi'b-i Ebî Tâlib denilen vadide mahsur kaldı; açlık ve yokluk içinde ağaç yaprakları bile yediklerini kaynaklar aktarır. Boykot, bazı Kureyşlilerin vicdanının sızlamasıyla son buldu; sahifenin güvenin yemesiyle tahrip edildiği anlatılır.",
       "quran_refs": [],
       "hadith_sources": [],
       "key_lessons": [
@@ -580,7 +580,7 @@
       "title": "Tâif Yolculuğu",
       "date_miladi": "619 M",
       "date_hijri": "Nübüvvetin 10. yılı",
-      "description": "Mekke'deki destek zayıflayınca Hz. Peygamber, azatlısı Zeyd b. Hârise ile birlikte Tâif'e gitti. Sakîf kabilesinin ileri gelenleri onu aşağıladı ve geri çevirdiler; üstelik ayak takımına taşlattılar. Hz. Muhammed'in ayakları kanaya kanaya Tâif'i terk etmesi gerekti.\n\nBu yolculuktan dönerken köle Addâs üzüm ikram etti; Peygamber 'Besmele' çekince Addâs şaşırıp sordu, o da kendisini ve İsa peygamberi anlattı; Addâs hemen Müslüman oldu. Mekke'ye dönerken Mut'im b. Adî'nin (henüz Müslüman olmayan biri) himayesiyle girebildi. Bu zorlu deneyim, affın ve merhametin ne denli derin olduğunu gösterir: 'Allah bu nesli değilse neslinden iman edenleri çıkarır.'",
+      "description": "Mekke'deki destek zayıflayınca Hz. Peygamber, azatlısı Zeyd b. Hârise ile birlikte Tâif'e gitti. Sakîf kabilesinin ileri gelenleri onu aşağıladı ve geri çevirdiler; üstelik ayak takımına taşlattılar. Hz. Muhammed'in (s.a.v.) ayakları kanaya kanaya Tâif'i terk etmesi gerekti.\n\nBu yolculuktan dönerken köle Addâs üzüm ikram etti; Peygamber 'Besmele' çekince Addâs şaşırıp sordu, o da kendisini ve İsa peygamberi anlattı; Addâs hemen Müslüman oldu. Mekke'ye dönerken Mut'im b. Adî'nin (henüz Müslüman olmayan biri) himayesiyle girebildi. Bu zorlu deneyim, affın ve merhametin ne denli derin olduğunu gösterir: 'Allah bu nesli değilse neslinden iman edenleri çıkarır.'",
       "quran_refs": [],
       "hadith_sources": [],
       "key_lessons": [
@@ -603,7 +603,7 @@
       "title": "İsrâ ve Mi'rac",
       "date_miladi": "620 / 621 M (tartışmalı)",
       "date_hijri": "Nübüvvetin 11. yılı civarı",
-      "description": "Hüzün Yılı'nın ardından Allah, Peygamber'ini yüceltti. Mescid-i Harâm'dan Mescid-i Aksâ'ya bir gece yolculuğu (isrâ) gerçekleşti; ardından Cebrâil rehberliğinde yedinci semaya kadar yükselen mi'rac yaşandı. Bu yolculukta Hz. Muhammed tüm peygamberlerle buluştu, cennet ve cehennemi gördü ve ilâhî hitaba mazhar oldu.\n\nEn önemli sonuç: beş vakit namaz farz kılındı. Başlangıçta 50 vakit olarak belirlenen namaz, Hz. Mûsâ'nın tavsiyesiyle indirimler sonucunda beşe indi. Sabah Mekke'de bu olayı anlatan Hz. Peygamber'e Kureyş inanmadı; Hz. Ebû Bekir ise 'O söylediyse doğrudur' diyerek 'Sıddîk' lakabını hak etti.",
+      "description": "Hüzün Yılı'nın ardından Allah, Peygamber'ini yüceltti. Mescid-i Harâm'dan Mescid-i Aksâ'ya bir gece yolculuğu (isrâ) gerçekleşti; ardından Cebrâil rehberliğinde yedinci semaya kadar yükselen mi'rac yaşandı. Bu yolculukta Hz. Muhammed (s.a.v.) tüm peygamberlerle buluştu, cennet ve cehennemi gördü ve ilâhî hitaba mazhar oldu.\n\nEn önemli sonuç: beş vakit namaz farz kılındı. Başlangıçta 50 vakit olarak belirlenen namaz, Hz. Mûsâ'nın tavsiyesiyle indirimler sonucunda beşe indi. Sabah Mekke'de bu olayı anlatan Hz. Peygamber'e Kureyş inanmadı; Hz. Ebû Bekir ise 'O söylediyse doğrudur' diyerek 'Sıddîk' lakabını hak etti.",
       "quran_refs": [
         "17:1",
         "53:1",
@@ -657,7 +657,7 @@
       "title": "Suikast Girişimi ve Hicretin Başlangıcı",
       "date_miladi": "622 M, Safer ayı",
       "date_hijri": "Nübüvvetin 13. yılı",
-      "description": "Kureyş'in ileri gelenleri Dârünnedve'de toplandı; Hz. Muhammed'i öldürme kararı alındı. Her kabileden bir genç seçilip birlikte saldırması planlandı; böylece kan davası tek bir kabilenin üzerine yıkılamayacaktı.\n\nAllah bu planı Cebrâil aracılığıyla Hz. Peygamber'e bildirdi. Hz. Ali'yi kendi yatağına yatırdı, yeşil hırkasını örttü ve Yâsîn 9 okuyarak evden çıktı; kapıdaki nöbetçiler onu göremedi. Hz. Ebû Bekir ile buluşup hicret yolculuğuna başladılar.",
+      "description": "Kureyş'in ileri gelenleri Dârünnedve'de toplandı; Hz. Muhammed'i (s.a.v.) öldürme kararı alındı. Her kabileden bir genç seçilip birlikte saldırması planlandı; böylece kan davası tek bir kabilenin üzerine yıkılamayacaktı.\n\nAllah bu planı Cebrâil aracılığıyla Hz. Peygamber'e bildirdi. Hz. Ali'yi kendi yatağına yatırdı, yeşil hırkasını örttü ve Yâsîn 9 okuyarak evden çıktı; kapıdaki nöbetçiler onu göremedi. Hz. Ebû Bekir ile buluşup hicret yolculuğuna başladılar.",
       "quran_refs": [
         "8:30",
         "36:9"
