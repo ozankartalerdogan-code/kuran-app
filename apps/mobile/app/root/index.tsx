@@ -17,6 +17,7 @@ import { useStrings, getStrings, fmt, useLang } from "../../src/i18n";
 import { rootMeaningEn } from "../../src/lib/wordMeaningsEn";
 import rootStrings from "../../src/i18n/strings/root";
 import { useTourTarget } from "../../src/tour/AppTourProvider";
+import { Button, Tabs, type TabItem } from "../../src/components/ui";
 
 type SortKey = "frequency" | "alphabetical" | "meaning";
 
@@ -28,7 +29,7 @@ const SORT_KEYS: Record<SortKey, "sortFrequency" | "sortAlphabetical" | "sortMea
 
 const Separator = () => {
   const c = useColors();
-  return <View style={[s.sep, { backgroundColor: c.cardAlt }]} />;
+  return <View style={[s.sep, { backgroundColor: c.border }]} />;
 };
 
 const arCollator = new Intl.Collator("ar");
@@ -72,8 +73,8 @@ const RootRow = memo(function RootRow({ item, onPress, c }: { item: RootItem; on
         <Text style={[s.rootText, { color: c.text }]}>{item.root}</Text>
         <Text style={[s.meaningText, { color: c.textMuted }]} numberOfLines={1}>{meaning}</Text>
       </View>
-      <View style={[s.freqBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
-        <Text style={[s.freqText, c.isDark && { color: "#6ee7b7" }]}>{item.frequency}</Text>
+      <View style={[s.freqBadge, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}>
+        <Text style={[s.freqText, { color: c.greenText }]}>{item.frequency}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -146,6 +147,15 @@ export default function RootListScreen() {
     router.push(`/root/${encodeURIComponent(root)}`);
   }, []);
 
+  const sortTabs = useMemo<TabItem<SortKey>[]>(
+    () => (Object.keys(SORT_KEYS) as SortKey[]).map((key) => ({
+      key,
+      label: t[SORT_KEYS[key]],
+      accessibilityLabel: fmt(t.sortA11y, { label: t[SORT_KEYS[key]] }),
+    })),
+    [t],
+  );
+
   const renderItem = useCallback(
     ({ item }: { item: RootItem }) => <RootRow item={item} onPress={handlePress} c={c} />,
     [c, handlePress],
@@ -167,17 +177,15 @@ export default function RootListScreen() {
       <>
         <Stack.Screen options={{ title: t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
-          <Text style={s.errorText}>{error}</Text>
-          <TouchableOpacity
-            style={s.retryBtn}
+          <Text style={[s.errorText, { color: c.errorText }]}>{error}</Text>
+          <Button
+            variant="primary"
+            label={t.retry}
             onPress={() => { void fetchRoots(); }}
-            activeOpacity={0.75}
-            accessibilityRole="button"
             accessibilityLabel={t.retryListA11y}
             accessibilityHint={t.retryListHint}
-          >
-            <Text style={s.retryBtnText}>{t.retry}</Text>
-          </TouchableOpacity>
+            style={{ marginTop: 16 }}
+          />
         </View>
       </>
     );
@@ -202,21 +210,7 @@ export default function RootListScreen() {
         </View>
 
         <View style={s.sortRow}>
-          {(Object.keys(SORT_KEYS) as SortKey[]).map((key) => (
-            <TouchableOpacity
-              key={key}
-              style={[s.sortBtn, { backgroundColor: c.card, borderColor: c.border }, sort === key && s.sortBtnActive]}
-              onPress={() => setSort(key)}
-              activeOpacity={0.75}
-              accessibilityRole="button"
-              accessibilityLabel={fmt(t.sortA11y, { label: t[SORT_KEYS[key]] })}
-              accessibilityState={{ selected: sort === key }}
-            >
-              <Text style={[s.sortBtnText, { color: c.text }, sort === key && s.sortBtnTextActive]}>
-                {t[SORT_KEYS[key]]}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          <Tabs variant="segmented" items={sortTabs} value={sort} onChange={setSort} />
         </View>
 
         <FlashList
@@ -226,7 +220,7 @@ export default function RootListScreen() {
           keyboardShouldPersistTaps="handled"
           ListEmptyComponent={
             <View style={s.centered}>
-              <Text style={s.emptyText}>{t.noResults}</Text>
+              <Text style={[s.emptyText, { color: c.textMuted }]}>{t.noResults}</Text>
             </View>
           }
           ItemSeparatorComponent={Separator}
@@ -239,37 +233,30 @@ export default function RootListScreen() {
 }
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f0e8" },
+  container: { flex: 1 },
   centerWrap: { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
-  errorText: { color: "#dc2626", fontSize: 14, textAlign: "center" },
-  emptyText: { color: "#78716c", fontSize: 14 },
-  retryBtn: { marginTop: 16, backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 20, paddingVertical: 10 },
-  retryBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
+  errorText: { fontSize: 14, textAlign: "center" },
+  emptyText: { fontSize: 14 },
 
-  searchBar: { margin: 12, backgroundColor: "#fffdf6", borderRadius: 12, borderWidth: 1, borderColor: "#e7dfcc", paddingHorizontal: 14, paddingVertical: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 3, elevation: 1 },
-  searchInput: { fontSize: 14, color: "#1c1917", padding: 0 },
+  searchBar: { margin: 12, borderRadius: 12, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 10 },
+  searchInput: { fontSize: 14, padding: 0 },
 
-  sortRow: { flexDirection: "row", gap: 8, paddingHorizontal: 12, marginBottom: 4 },
-  sortBtn: { flex: 1, paddingVertical: 7, borderRadius: 8, backgroundColor: "#fffdf6", borderWidth: 1, borderColor: "#e7dfcc", alignItems: "center" },
-  sortBtnActive: { backgroundColor: "#059669", borderColor: "#059669" },
-  sortBtnText: { fontSize: 12, fontWeight: "600", color: "#44403c" },
-  sortBtnTextActive: { color: "#fff" },
+  sortRow: { paddingHorizontal: 12, marginBottom: 4 },
 
   list: { paddingHorizontal: 12, paddingBottom: 32 },
-  sep: { height: 1, backgroundColor: "#f5f5f4", marginLeft: 72 },
+  sep: { height: 1, marginLeft: 72 },
 
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fffdf6",
     paddingHorizontal: 16,
     paddingVertical: 13,
     borderRadius: 12,
   },
   cardLeft: { flex: 1 },
-  rootText: { fontSize: 22, color: "#1c1917", marginBottom: 3 },
-  meaningText: { fontSize: 12, color: "#78716c" },
-  freqBadge: { backgroundColor: "#f0fdf4", borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: "#86efac" },
-  freqText: { fontSize: 12, fontWeight: "700", color: "#065f46" },
+  rootText: { fontSize: 22, marginBottom: 3 },
+  meaningText: { fontSize: 12 },
+  freqBadge: { borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
+  freqText: { fontSize: 12, fontWeight: "700" },
 });

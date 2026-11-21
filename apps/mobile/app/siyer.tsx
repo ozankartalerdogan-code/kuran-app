@@ -4,12 +4,14 @@ import {
 } from "react-native";
 import { Stack, router } from "expo-router";
 import type { Href } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import siyerStrings from "../src/i18n/strings/siyer";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { Badge, radius, space, toneColors, type IoniconName, type Tone } from "../src/components/ui";
 
 type RawSiyerData = typeof import("../src/data/siyer_i_nebi.json");
 
@@ -90,6 +92,18 @@ function buildSiyerData(lang: Lang): SiyerData {
   return result;
 }
 
+const PERIOD_VISUAL: Record<string, { icon: IoniconName; tone: Tone }> = {
+  "dogum-oncesi":        { icon: "compass-outline",    tone: "amber" },
+  "dogum-cocukluk":      { icon: "moon-outline",       tone: "violet" },
+  "genclik":             { icon: "star-outline",       tone: "amber" },
+  "mekke-donemi":        { icon: "book-outline",       tone: "emerald" },
+  "hicret":              { icon: "trail-sign-outline", tone: "sky" },
+  "medine-ilk-yillar":   { icon: "people-outline",     tone: "emerald" },
+  "medine-savaslar":     { icon: "shield-outline",     tone: "amber" },
+  "genisleme-fetih-son": { icon: "globe-outline",      tone: "sky" },
+};
+const DEFAULT_PERIOD_VISUAL: { icon: IoniconName; tone: Tone } = { icon: "bookmark-outline", tone: "neutral" };
+
 function QuranRefChip({ refKey }: { refKey: string }) {
   const c = useColors();
   const t = useStrings(siyerStrings);
@@ -100,6 +114,7 @@ function QuranRefChip({ refKey }: { refKey: string }) {
       style={[ev.refChip, { backgroundColor: c.emeraldBg, borderColor: c.emeraldBorder }]}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as Href)}
       activeOpacity={0.75}
+      hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
       accessibilityRole="button"
       accessibilityLabel={fmt(t.refA11y, { ref: refKey })}
       accessibilityHint={t.refHint}
@@ -135,7 +150,7 @@ function EventCard({ event }: { event: SiyerEvent }) {
             </Text>
           ) : null}
         </View>
-        <Text style={[ev.chev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
 
       {open && (
@@ -161,12 +176,16 @@ function EventCard({ event }: { event: SiyerEvent }) {
           )}
 
           {event.hadith_sources.length > 0 && (
-            <Text style={[ev.sources, { color: c.textMuted }]}>📚 {event.hadith_sources.join(", ")}</Text>
+            <View style={ev.metaRow}>
+              <Ionicons name="library-outline" size={14} color={c.textMuted} style={ev.metaIcon} accessible={false} importantForAccessibility="no" />
+              <Text style={[ev.sources, { color: c.textMuted, flex: 1 }]}>{event.hadith_sources.join(", ")}</Text>
+            </View>
           )}
 
           {event.reliability_note ? (
-            <View style={[ev.reliabilityBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
-              <Text style={[ev.reliabilityText, { color: c.noteText }]}>⚠️ {event.reliability_note}</Text>
+            <View style={[ev.reliabilityBox, { backgroundColor: c.amberBg, borderColor: c.amberBorder }]}>
+              <Ionicons name="warning-outline" size={14} color={c.amberText} style={ev.metaIcon} accessible={false} importantForAccessibility="no" />
+              <Text style={[ev.reliabilityText, { color: c.amberText, flex: 1 }]}>{event.reliability_note}</Text>
             </View>
           ) : null}
         </View>
@@ -179,6 +198,8 @@ function PeriodAccordion({ period, events }: { period: Period; events: SiyerEven
   const c = useColors();
   const t = useStrings(siyerStrings);
   const [open, setOpen] = useState(false);
+  const visual = PERIOD_VISUAL[period.id] ?? DEFAULT_PERIOD_VISUAL;
+  const tColors = toneColors(c, visual.tone);
 
   return (
     <View style={[pd.card, { backgroundColor: c.card, borderColor: c.border }]}>
@@ -191,15 +212,15 @@ function PeriodAccordion({ period, events }: { period: Period; events: SiyerEven
         accessibilityHint={open ? t.periodHintClose : t.periodHintOpen}
         accessibilityState={{ expanded: open }}
       >
-        <Text style={{ fontSize: 22 }}>{period.icon}</Text>
+        <View style={[pd.iconWrap, { backgroundColor: tColors.bg }]}>
+          <Ionicons name={visual.icon} size={20} color={tColors.fg} accessible={false} importantForAccessibility="no" />
+        </View>
         <View style={{ flex: 1, gap: 2 }}>
           <Text style={[pd.name, { color: c.text }]}>{period.name}</Text>
           <Text style={[pd.range, { color: c.textMuted }]}>{period.date_range}</Text>
         </View>
-        <View style={[pd.badge, { backgroundColor: c.neutralBadgeBg }]}>
-          <Text style={[pd.badgeText, { color: c.neutralBadgeText }]}>{events.length}</Text>
-        </View>
-        <Text style={[pd.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+        <Badge label={String(events.length)} tone="neutral" style={{ alignSelf: "center" }} />
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
 
       {open && (
@@ -222,6 +243,7 @@ export default function SiyerScreen() {
   const t = useStrings(siyerStrings);
   const lang = useLang();
   const { META, PERIODS, EVENTS, eventsByPeriod } = buildSiyerData(lang);
+  const heroTone = toneColors(c, "amber");
 
   return (
     <>
@@ -231,19 +253,21 @@ export default function SiyerScreen() {
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
-        <View style={[s.heroCard, { backgroundColor: "#0f172a" }]}>
-          <Text style={s.heroIcon}>☪️</Text>
-          <Text style={s.heroTitle}>{META.title}</Text>
-          <Text style={s.heroSub}>{META.subtitle}</Text>
-          <Text style={s.heroDesc}>{META.description}</Text>
+        <View style={[s.heroCard, { backgroundColor: c.card, borderColor: c.border }]}>
+          <View style={[s.heroIconWrap, { backgroundColor: heroTone.bg }]}>
+            <Ionicons name="trail-sign-outline" size={28} color={heroTone.fg} accessible={false} importantForAccessibility="no" />
+          </View>
+          <Text style={[s.heroTitle, { color: c.text }]}>{META.title}</Text>
+          <Text style={[s.heroSub, { color: c.textSecondary }]}>{META.subtitle}</Text>
+          <Text style={[s.heroDesc, { color: c.textSecondary }]}>{META.description}</Text>
           <View style={s.stats}>
-            <View style={s.statChip}>
-              <Text style={s.statNum}>{PERIODS.length}</Text>
-              <Text style={s.statLbl}>{t.statPeriod}</Text>
+            <View style={[s.statChip, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.statNum, { color: c.text }]}>{PERIODS.length}</Text>
+              <Text style={[s.statLbl, { color: c.textMuted }]}>{t.statPeriod}</Text>
             </View>
-            <View style={s.statChip}>
-              <Text style={s.statNum}>{EVENTS.length}</Text>
-              <Text style={s.statLbl}>{t.statEvent}</Text>
+            <View style={[s.statChip, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.statNum, { color: c.text }]}>{EVENTS.length}</Text>
+              <Text style={[s.statLbl, { color: c.textMuted }]}>{t.statEvent}</Text>
             </View>
           </View>
         </View>
@@ -261,41 +285,36 @@ export default function SiyerScreen() {
 }
 
 const s = StyleSheet.create({
-  content:     { padding: 14, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  heroCard:    { borderRadius: 16, padding: 18, marginBottom: 14, gap: 6, alignItems: "center" },
-  heroIcon:    { fontSize: 36, marginBottom: 4 },
-  heroTitle:   { fontSize: 22, fontWeight: "800", color: "#f8fafc", textAlign: "center" },
-  // Kontrast: #64748b koyu hero zemininde 3.58:1 kalıyordu (WCAG AA eşiği 4.5:1).
-  // heroDesc #94a3b8'e (6.65:1), heroSub hiyerarşi için #cbd5e1'e (11.49:1) alındı.
-  heroSub:     { fontSize: 13, color: "#cbd5e1", textAlign: "center" },
-  heroDesc:    { fontSize: 12, color: "#94a3b8", lineHeight: 18, textAlign: "center", marginTop: 4 },
-  stats:    { flexDirection: "row", gap: 10, marginTop: 8 },
-  statChip: { backgroundColor: "#16213e", borderRadius: 10, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
-  statNum:  { fontSize: 18, fontWeight: "800", color: "#e2e8f0" },
-  statLbl:  { fontSize: 10, color: "#94a3b8" },
+  content:     { padding: space.gutter, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  heroCard:    { borderRadius: radius.lg, borderWidth: 1, padding: 18, marginBottom: 14, gap: 6, alignItems: "center" },
+  heroIconWrap:{ width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", marginBottom: 4 },
+  heroTitle:   { fontSize: 22, fontWeight: "800", textAlign: "center" },
+  heroSub:     { fontSize: 13, textAlign: "center" },
+  heroDesc:    { fontSize: 12, lineHeight: 18, textAlign: "center", marginTop: 4 },
+  stats:       { flexDirection: "row", gap: 10, marginTop: 8 },
+  statChip:    { borderRadius: radius.md, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
+  statNum:     { fontSize: 18, fontWeight: "800" },
+  statLbl:     { fontSize: 10 },
   sectionHead: { fontSize: 11, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 10, marginTop: 4 },
   sources:     { fontSize: 10.5, fontStyle: "italic", textAlign: "center", marginTop: 18, lineHeight: 16 },
 });
 
 const pd = StyleSheet.create({
-  card:    { borderRadius: 14, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
-  header:  { flexDirection: "row", alignItems: "center", gap: 12, padding: 14 },
-  name:    { fontSize: 14, fontWeight: "700" },
-  range:   { fontSize: 11, marginTop: 1 },
-  badge:   { borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3 },
-  badgeText: { fontSize: 10, fontWeight: "700" },
-  chev:    { fontSize: 11 },
-  body:    { borderTopWidth: 1, padding: 12, gap: 8 },
-  empty:   { fontSize: 12, fontStyle: "italic" },
-  summary: { fontSize: 12.5, lineHeight: 19, marginBottom: 4, fontStyle: "italic" },
+  card:     { borderRadius: radius.lg, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
+  header:   { minHeight: 48, flexDirection: "row", alignItems: "center", gap: space.sm, padding: 14 },
+  iconWrap: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" },
+  name:     { fontSize: 14, fontWeight: "700" },
+  range:    { fontSize: 11, marginTop: 1 },
+  body:     { borderTopWidth: 1, padding: 12, gap: 8 },
+  empty:    { fontSize: 12, fontStyle: "italic" },
+  summary:  { fontSize: 12.5, lineHeight: 19, marginBottom: 4, fontStyle: "italic" },
 });
 
 const ev = StyleSheet.create({
-  card:    { borderRadius: 12, borderWidth: 1, marginBottom: 6, overflow: "hidden" },
-  header:  { flexDirection: "row", alignItems: "center", gap: 10, padding: 12 },
+  card:    { borderRadius: radius.lg, borderWidth: 1, marginBottom: 6, overflow: "hidden" },
+  header:  { minHeight: 48, flexDirection: "row", alignItems: "center", gap: 10, padding: 12 },
   title:   { fontSize: 13.5, fontWeight: "700" },
   date:    { fontSize: 11 },
-  chev:    { fontSize: 11 },
   body:    { borderTopWidth: 1, padding: 12, gap: 10 },
   desc:    { fontSize: 12.5, lineHeight: 20 },
 
@@ -304,12 +323,14 @@ const ev = StyleSheet.create({
 
   chipRow:  { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 2 },
   chip:     { fontSize: 11 },
-  refChip:  { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
+  refChip:  { borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
   refChipText: { fontSize: 12, fontWeight: "700" },
 
-  lesson:  { fontSize: 12.5, lineHeight: 19 },
-  sources: { fontSize: 10.5, fontStyle: "italic" },
+  lesson:   { fontSize: 12.5, lineHeight: 19 },
+  metaRow:  { flexDirection: "row", alignItems: "flex-start", gap: space.xs },
+  metaIcon: { marginTop: 2 },
+  sources:  { fontSize: 11, lineHeight: 16, fontStyle: "italic" },
 
-  reliabilityBox:  { borderRadius: 8, padding: 9, borderWidth: 1 },
+  reliabilityBox:  { flexDirection: "row", alignItems: "flex-start", gap: space.xs, borderRadius: radius.sm, padding: 9, borderWidth: 1 },
   reliabilityText: { fontSize: 11.5, lineHeight: 17 },
 });

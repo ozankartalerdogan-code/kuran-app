@@ -32,7 +32,7 @@
     ],
     "uyari": {
       "renk": "red",
-      "mesaj": "🔴 Warning: Going to jinn healers, mediums, and charlatans can lead to shirk. Seek healing from Allah alone!"
+      "mesaj": "Warning: Going to jinn healers, mediums, and charlatans can lead to shirk. Seek healing from Allah alone!"
     }
   },
   "b3": {
@@ -57,7 +57,7 @@
     ],
     "uyari": {
       "renk": "red",
-      "mesaj": "🔴 Note: Wearing an evil eye bead and having lead poured are prohibited. Protection comes from Allah alone."
+      "mesaj": "Note: Wearing an evil eye bead and having lead poured are prohibited. Protection comes from Allah alone."
     }
   },
   "b4": {
@@ -76,7 +76,7 @@
     ],
     "uyari": {
       "renk": "amber",
-      "mesaj": "🟢 Note (Muslim, Ibn Majah): Jibril's Ruqyah for the Evil Eye is also recited against envy; the same supplication may be repeated 7 times."
+      "mesaj": "Note (Muslim, Ibn Majah): Jibril's Ruqyah for the Evil Eye is also recited against envy; the same supplication may be repeated 7 times."
     }
   },
   "b5": {
@@ -94,7 +94,7 @@
     ],
     "uyari": {
       "renk": "amber",
-      "mesaj": "⚠️ Note: Intrusive thoughts are a sign of the presence of iman. Do not dwell on them; seek refuge in Allah and move on."
+      "mesaj": "Note: Intrusive thoughts are a sign of the presence of iman. Do not dwell on them; seek refuge in Allah and move on."
     }
   },
   "b6": {
@@ -114,7 +114,7 @@
     },
     "uyari": {
       "renk": "amber",
-      "mesaj": "⚠️ Warning: Do not neglect to see a doctor. Medical treatment and the Qur'an are not mutually exclusive."
+      "mesaj": "Warning: Do not neglect to see a doctor. Medical treatment and the Qur'an are not mutually exclusive."
     },
     "not": "The following suggestions for spiritual distress are supportive and do not replace medical or psychological support.",
     "b": [
@@ -126,7 +126,7 @@
   },
   "yapYapma": {
     "etiket": "MYTH BUSTER — DO / DON'T",
-    "yapBaslik": "🟢 DO — Permissible Methods",
+    "yapBaslik": "DO — Permissible Methods",
     "yap": [
       "Recite supplications from the Qur'an yourself — the most reliable source.",
       "Seek healing and protection from Allah alone.",
@@ -135,7 +135,7 @@
       "When intrusive thoughts come, recite the A'udhu and Bismillah: «A'udhu billahi min ash-shaytan ir-rajim. Bismillahir-rahmanir-rahim.»",
       "When ill: Use both medical care and the Qur'an together."
     ],
-    "yapmaBaslik": "🔴 DON'T — Prohibited Practices",
+    "yapmaBaslik": "DON'T — Prohibited Practices",
     "yapma": [
       {
         "item": "Evil Eye Bead",

@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { useColors } from "../hooks/useColors";
+import { Button, CloseButton, radius, space } from "./ui";
 import {
   JUZ_DATA, EMPTY_HATIM_STORE, parseHatimStore, hatimFmt, hatimGunSayisi,
   type Hatim, type HatimStore,
@@ -122,51 +123,49 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
     prevProgress.current = progress;
   }, [progress, mounted]);
 
-  const green     = "#059669";
-  const greenSoft = c.isDark ? "#065f46" : "#d1fae5";
-
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <View style={st.overlay}>
+      <View style={[st.overlay, { backgroundColor: c.overlay }]}>
         <TouchableOpacity style={{ flex: 1 }} onPress={onClose} accessibilityRole="button" accessibilityLabel={t.hatimCloseA11y} />
-        <View style={[st.sheet, { backgroundColor: c.bg, paddingBottom: insets.bottom + 8 }]}>
+        <View style={[st.sheet, { backgroundColor: c.card, borderColor: c.border, paddingBottom: insets.bottom + 8 }]}>
           {/* Panel başlığı */}
           <View style={[st.sheetHeader, { borderBottomColor: c.border }]}>
             <View style={st.sheetTitleRow}>
-              <Ionicons name="book-outline" size={18} color={c.accent} />
+              <Ionicons name="book-outline" size={18} color={c.accent} accessible={false} importantForAccessibility="no" />
               <Text style={[st.sheetTitle, { color: c.text }]}>{t.hatimTitle}</Text>
             </View>
-            <TouchableOpacity onPress={onClose} hitSlop={10} accessibilityRole="button" accessibilityLabel={t.close}>
-              <Ionicons name="close" size={22} color={c.textMuted} />
-            </TouchableOpacity>
+            <CloseButton onPress={onClose} accessibilityLabel={t.close} />
           </View>
 
           {!mounted ? (
-            <View style={st.loading}><ActivityIndicator size="large" color={green} /></View>
+            <View style={st.loading}><ActivityIndicator size="large" color={c.accent} /></View>
           ) : (
             <ScrollView contentContainerStyle={st.content} showsVerticalScrollIndicator={false}>
               {!current ? (
                 <View style={[st.emptyCard, { backgroundColor: c.card, borderColor: c.border }]}>
                   <Text style={[st.emptyText, { color: c.textMuted }]}>{t.hatimNone}</Text>
-                  <TouchableOpacity style={st.startBtn} onPress={startHatim} accessibilityRole="button" accessibilityLabel={t.hatimStartA11y}>
-                    <Text style={st.startBtnText}>{t.hatimStart}</Text>
-                  </TouchableOpacity>
+                  <Button variant="primary" label={t.hatimStart} onPress={startHatim} accessibilityLabel={t.hatimStartA11y} />
                 </View>
               ) : (
                 <>
                   {/* İlerleme */}
                   <View style={[st.progressCard, { backgroundColor: c.card, borderColor: c.border }]}>
                     <View style={st.progressRow}>
-                      <View>
+                      <View style={{ flex: 1 }}>
                         <Text style={[st.progressDate, { color: c.textMuted }]}>{fmt(t.hatimStarted, { date: hatimFmt(current.startDate, loc) })}</Text>
                         {current.completedDate && (
-                          <Text style={st.completedText}>{fmt(t.hatimDone, { n: hatimGunSayisi(current.startDate, current.completedDate) })}</Text>
+                          <View style={st.completedRow}>
+                            <Ionicons name="checkmark-circle-outline" size={14} color={c.greenText} accessible={false} importantForAccessibility="no" />
+                            <Text style={[st.completedText, { color: c.greenText }]}>
+                              {fmt(t.hatimDone, { n: hatimGunSayisi(current.startDate, current.completedDate) })}
+                            </Text>
+                          </View>
                         )}
                       </View>
-                      <Text style={st.progressCount}>{progress}/30</Text>
+                      <Text style={[st.progressCount, { color: c.accent }]}>{progress}/30</Text>
                     </View>
-                    <View style={[st.progressBg, { backgroundColor: greenSoft }]}>
-                      <View style={[st.progressFill, { width: `${pct}%` as DimensionValue }]} />
+                    <View style={[st.progressBg, { backgroundColor: c.border }]}>
+                      <View style={[st.progressFill, { backgroundColor: c.accent, width: `${pct}%` as DimensionValue }]} />
                     </View>
                     <Text style={[st.progressPct, { color: c.textMuted }]}>%{pct}</Text>
 
@@ -180,7 +179,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                           hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                           style={st.actionBtn}
                         >
-                          <Text style={st.actionText}>{t.hatimReset}</Text>
+                          <Text style={[st.actionText, { color: c.errorText }]}>{t.hatimReset}</Text>
                         </TouchableOpacity>
                       ) : (
                         <>
@@ -192,7 +191,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                             style={st.actionBtn}
                           >
-                            <Text style={[st.actionText, { color: "#dc2626", fontWeight: "700" }]}>{t.yes}</Text>
+                            <Text style={[st.actionText, { color: c.errorText, fontWeight: "700" }]}>{t.yes}</Text>
                           </TouchableOpacity>
                           <TouchableOpacity
                             onPress={() => setConfirm(false)}
@@ -201,7 +200,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                             style={st.actionBtn}
                           >
-                            <Text style={st.actionText}>{t.no}</Text>
+                            <Text style={[st.actionText, { color: c.textSecondary }]}>{t.no}</Text>
                           </TouchableOpacity>
                         </>
                       )}
@@ -212,7 +211,15 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                   {JUZ_DATA.map((juz) => {
                     const done = current.readJuz.includes(juz.juz);
                     return (
-                      <View key={juz.juz} style={[st.juzRow, { backgroundColor: c.card, borderColor: c.border }, done && { backgroundColor: c.isDark ? "#052e16" : "#f0fdf4", borderColor: c.isDark ? "#166534" : "#bbf7d0" }]}>
+                      <View
+                        key={juz.juz}
+                        style={[
+                          st.juzRow,
+                          done
+                            ? { backgroundColor: c.greenBg, borderColor: c.greenBorder }
+                            : { backgroundColor: c.cardAlt, borderColor: c.border },
+                        ]}
+                      >
                         <TouchableOpacity
                           style={st.juzMain}
                           onPress={() => toggleJuz(juz.juz)}
@@ -221,24 +228,36 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                           accessibilityState={{ checked: done }}
                           accessibilityLabel={fmt(t.juzMarkA11y, { n: juz.juz })}
                         >
-                          <View style={[st.juzCheck, { borderColor: c.border }, done && st.juzCheckDone]}>
-                            <Text style={[st.juzNum, { color: c.textMuted }, done && st.juzNumDone]} maxFontSizeMultiplier={1.2}>
-                              {done ? "✓" : juz.juz}
-                            </Text>
+                          <View
+                            style={[
+                              st.juzCheck,
+                              done
+                                ? { backgroundColor: c.greenBg, borderColor: c.greenBorder }
+                                : { backgroundColor: c.cardAlt, borderColor: c.border },
+                            ]}
+                          >
+                            {done ? (
+                              <Ionicons name="checkmark" size={16} color={c.greenText} accessible={false} importantForAccessibility="no" />
+                            ) : (
+                              <Text style={[st.juzNum, { color: c.text }]} maxFontSizeMultiplier={1.2}>
+                                {juz.juz}
+                              </Text>
+                            )}
                           </View>
                           <View style={{ flex: 1 }}>
-                            <Text style={[st.juzTitle, { color: done ? green : c.text }]}>{fmt(t.juzTitle, { n: juz.juz })}</Text>
+                            <Text style={[st.juzTitle, { color: done ? c.greenText : c.text }]}>{fmt(t.juzTitle, { n: juz.juz })}</Text>
                             <Text style={[st.juzRange, { color: c.textMuted }]}>{surahNameOf(juz.startSurah, juz.startName)} {juz.startAyah} – {surahNameOf(juz.endSurah, juz.endName)} {juz.endAyah}</Text>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity
-                          style={[st.juzReadBtn, { borderLeftColor: c.border }]}
+                          style={[st.juzReadBtn, { borderLeftColor: done ? c.greenBorder : c.border }]}
                           onPress={() => okuJuz(juz)}
                           activeOpacity={0.7}
                           accessibilityRole="button"
                           accessibilityLabel={fmt(t.juzReadA11y, { n: juz.juz })}
                         >
-                          <Text style={st.juzReadBtnText}>{t.juzRead}</Text>
+                          <Text style={[st.juzReadBtnText, { color: c.accent }]}>{t.juzRead}</Text>
+                          <Ionicons name="chevron-forward" size={16} color={c.accent} accessible={false} importantForAccessibility="no" />
                         </TouchableOpacity>
                       </View>
                     );
@@ -254,9 +273,13 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
                     <View key={h.id} style={[st.historyRow, { backgroundColor: c.card, borderColor: c.border }]}>
                       <View>
                         <Text style={[st.historyLabel, { color: c.text }]}>{fmt(t.hatimOrdinal, { n: completed.length - i })}</Text>
-                        <Text style={[st.historyDates, { color: c.textMuted }]}>{hatimFmt(h.startDate, loc)} → {hatimFmt(h.completedDate, loc)}</Text>
+                        <View style={st.historyDatesRow}>
+                          <Text style={[st.historyDates, { color: c.textMuted }]}>{hatimFmt(h.startDate, loc)}</Text>
+                          <Ionicons name="arrow-forward" size={12} color={c.textMuted} accessible={false} importantForAccessibility="no" />
+                          <Text style={[st.historyDates, { color: c.textMuted }]}>{hatimFmt(h.completedDate, loc)}</Text>
+                        </View>
                       </View>
-                      <Text style={st.historyDays}>{fmt(t.daysUnit, { n: hatimGunSayisi(h.startDate, h.completedDate) })}</Text>
+                      <Text style={[st.historyDays, { color: c.accent }]}>{fmt(t.daysUnit, { n: hatimGunSayisi(h.startDate, h.completedDate) })}</Text>
                     </View>
                   ))}
                 </View>
@@ -268,27 +291,27 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
 
       {/* Hatim tamamlama kutlaması */}
       <Modal visible={showCelebration} transparent animationType="fade" onRequestClose={() => setShowCelebration(false)}>
-        <View style={st.celebrationOverlay}>
-          <View style={[st.celebrationCard, { backgroundColor: c.card }]}>
-            {LottieView && (
+        <View style={[st.celebrationOverlay, { backgroundColor: c.overlay }]}>
+          <View style={[st.celebrationCard, { backgroundColor: c.card, borderColor: c.border }]}>
+            {LottieView ? (
               <LottieView
                 source={require("../../assets/Star-Blast.json")}
                 autoPlay
                 loop={false}
                 style={{ width: 200, height: 200 }}
               />
+            ) : (
+              <Ionicons name="trophy-outline" size={40} color={c.goldText} style={{ marginTop: space.xs }} accessible={false} importantForAccessibility="no" />
             )}
             <Text style={[st.celebrationTitle, { color: c.text }]}>{t.congrats}</Text>
-            <Text style={[st.celebrationSub, { color: c.textMuted }]}>{t.hatimCongrats}</Text>
-            <TouchableOpacity
-              style={[st.celebrationBtn, { backgroundColor: c.accent }]}
+            <Text style={[st.celebrationSub, { color: c.textSecondary }]}>{t.hatimCongrats}</Text>
+            <Button
+              variant="primary"
+              fullWidth
+              label={t.ok}
               onPress={() => setShowCelebration(false)}
-              activeOpacity={0.85}
-              accessibilityRole="button"
               accessibilityLabel={t.celebrationCloseA11y}
-            >
-              <Text style={st.celebrationBtnText}>{t.ok}</Text>
-            </TouchableOpacity>
+            />
           </View>
         </View>
       </Modal>
@@ -297,57 +320,50 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
 }
 
 const st = StyleSheet.create({
-  overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)" },
-  sheet:   { maxHeight: "82%", borderTopLeftRadius: 20, borderTopRightRadius: 20, overflow: "hidden" },
-  sheetHeader: {
-    flexDirection: "row", alignItems: "center", justifyContent: "space-between",
-    paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
-  },
-  sheetTitleRow: { flexDirection: "row", alignItems: "center", gap: 8 },
-  sheetTitle: { fontSize: 16, fontWeight: "700" },
-  loading:    { padding: 40, alignItems: "center" },
-  content:    { padding: 16, paddingBottom: 24, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  overlay:         { flex: 1 },
+  sheet:           { maxHeight: "82%", borderTopLeftRadius: 20, borderTopRightRadius: 20, borderTopWidth: 1, overflow: "hidden" },
+  sheetHeader:     { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: space.gutter, paddingRight: space.xs, paddingVertical: space.xs, borderBottomWidth: 1 },
+  sheetTitleRow:   { flexDirection: "row", alignItems: "center", gap: space.xs },
+  sheetTitle:      { fontSize: 16, fontWeight: "700" },
+  loading:         { padding: 40, alignItems: "center" },
+  content:         { padding: space.gutter, paddingBottom: space.lg, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  emptyCard:    { borderRadius: 16, padding: 24, alignItems: "center", borderWidth: 1 },
-  emptyText:    { fontSize: 15, marginBottom: 16 },
-  startBtn:     { backgroundColor: "#059669", borderRadius: 12, paddingHorizontal: 24, paddingVertical: 12 },
-  startBtnText: { color: "#fff", fontWeight: "700", fontSize: 14 },
+  emptyCard:       { borderRadius: radius.lg, padding: space.lg, alignItems: "center", borderWidth: 1 },
+  emptyText:       { fontSize: 15, marginBottom: space.md },
 
-  progressCard: { borderRadius: 16, padding: 16, marginBottom: 12, borderWidth: 1 },
-  progressRow:  { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
-  progressDate: { fontSize: 12 },
-  completedText:{ fontSize: 12, color: "#059669", fontWeight: "600", marginTop: 2 },
-  progressCount:{ fontSize: 28, fontWeight: "700", color: "#059669" },
-  progressBg:   { height: 8, borderRadius: 4, overflow: "hidden" },
-  progressFill: { height: 8, backgroundColor: "#059669", borderRadius: 4 },
+  progressCard:    { borderRadius: radius.lg, padding: space.md, marginBottom: space.sm, borderWidth: 1 },
+  progressRow:     { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
+  progressDate:    { fontSize: 12 },
+  completedRow:    { flexDirection: "row", alignItems: "center", gap: space.xxs, marginTop: 2 },
+  completedText:   { fontSize: 12, fontWeight: "600" },
+  progressCount:   { fontSize: 28, fontWeight: "700" },
+  progressBg:      { height: 8, borderRadius: 4, overflow: "hidden" },
+  progressFill:    { height: 8, borderRadius: 4 },
   progressPct:     { fontSize: 11, textAlign: "right", marginTop: 2 },
-  progressActions: { flexDirection: "row", gap: 16, marginTop: 10, alignItems: "center" },
+  progressActions: { flexDirection: "row", gap: space.md, marginTop: 10, alignItems: "center" },
   actionBtn:       { paddingVertical: 6, paddingHorizontal: 4 },
-  actionText:      { fontSize: 13, color: "#ef4444" },
+  actionText:      { fontSize: 13 },
   confirmText:     { fontSize: 12, flex: 1 },
 
-  juzRow:     { flexDirection: "row", alignItems: "center", borderRadius: 12, marginBottom: 6, borderWidth: 1, overflow: "hidden" },
-  juzMain:    { flex: 1, flexDirection: "row", alignItems: "center", gap: 12, padding: 12 },
-  juzReadBtn: { paddingHorizontal: 12, paddingVertical: 12, borderLeftWidth: 1, justifyContent: "center" },
-  juzReadBtnText: { fontSize: 12, fontWeight: "700", color: "#059669" },
-  juzCheck:     { width: 32, height: 32, borderRadius: 16, borderWidth: 2, alignItems: "center", justifyContent: "center" },
-  juzCheckDone: { backgroundColor: "#059669", borderColor: "#059669" },
-  juzNum:     { fontSize: 13, fontWeight: "700" },
-  juzNumDone: { color: "#fff" },
-  juzTitle:   { fontSize: 13, fontWeight: "600" },
-  juzRange:   { fontSize: 11, marginTop: 1 },
+  juzRow:          { flexDirection: "row", alignItems: "center", borderRadius: radius.lg, marginBottom: 6, borderWidth: 1, overflow: "hidden" },
+  juzMain:         { flex: 1, minHeight: 48, flexDirection: "row", alignItems: "center", gap: space.sm, padding: space.sm },
+  juzReadBtn:      { minHeight: 48, flexDirection: "row", alignItems: "center", gap: 2, paddingHorizontal: space.sm, paddingVertical: space.sm, borderLeftWidth: 1 },
+  juzReadBtnText:  { fontSize: 12, fontWeight: "700" },
+  juzCheck:        { width: 32, height: 32, borderRadius: 16, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
+  juzNum:          { fontSize: 13, fontWeight: "700" },
+  juzTitle:        { fontSize: 13, fontWeight: "600" },
+  juzRange:        { fontSize: 11, marginTop: 1 },
 
-  historySection: { marginTop: 20 },
-  historyTitle:   { fontSize: 14, fontWeight: "700", marginBottom: 8 },
-  historyRow:     { flexDirection: "row", justifyContent: "space-between", borderRadius: 10, padding: 12, marginBottom: 6, borderWidth: 1 },
-  historyLabel:   { fontSize: 13, fontWeight: "600" },
-  historyDates:   { fontSize: 11, marginTop: 1 },
-  historyDays:    { fontSize: 13, fontWeight: "600", color: "#059669" },
+  historySection:  { marginTop: 20 },
+  historyTitle:    { fontSize: 14, fontWeight: "700", marginBottom: space.xs },
+  historyRow:      { flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: radius.lg, padding: space.sm, marginBottom: 6, borderWidth: 1 },
+  historyLabel:    { fontSize: 13, fontWeight: "600" },
+  historyDatesRow: { flexDirection: "row", alignItems: "center", gap: space.xxs, marginTop: 2 },
+  historyDates:    { fontSize: 11 },
+  historyDays:     { fontSize: 13, fontWeight: "600" },
 
-  celebrationOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
-  celebrationCard:    { borderRadius: 24, padding: 32, alignItems: "center", width: "82%", maxWidth: 340 },
-  celebrationTitle:   { fontSize: 24, fontWeight: "700", marginTop: 8, marginBottom: 6 },
-  celebrationSub:     { fontSize: 15, textAlign: "center", marginBottom: 24 },
-  celebrationBtn:     { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 48 },
-  celebrationBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  celebrationOverlay: { flex: 1, alignItems: "center", justifyContent: "center" },
+  celebrationCard:    { borderRadius: radius.lg, borderWidth: 1, padding: space.xl, alignItems: "center", width: "82%", maxWidth: 340 },
+  celebrationTitle:   { fontSize: 24, fontWeight: "700", marginTop: space.xs, marginBottom: 6 },
+  celebrationSub:     { fontSize: 15, textAlign: "center", marginBottom: space.lg },
 });

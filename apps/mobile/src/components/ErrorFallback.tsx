@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useStrings } from "../i18n";
 import misc1Strings from "../i18n/strings/misc1";
 import { useColors } from "../hooks/useColors";
+import { Button } from "./ui";
 
 interface ErrorFallbackProps {
   error: Error;
@@ -22,18 +23,21 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
         {t.errFallbackMsg}
       </Text>
 
-      <TouchableOpacity style={styles.button} onPress={resetError} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
-        <Text style={styles.buttonText}>{t.retry}</Text>
-      </TouchableOpacity>
+      <Button
+        variant="primary"
+        label={t.retry}
+        onPress={resetError}
+        accessibilityLabel={t.retryA11y}
+        style={styles.actionBtn}
+      />
 
-      <TouchableOpacity
-        style={[styles.button, styles.homeButton]}
+      <Button
+        variant="secondary"
+        label={t.home}
         onPress={() => router.replace("/")}
-        accessibilityRole="button"
         accessibilityLabel={t.homeA11y}
-      >
-        <Text style={styles.buttonText}>{t.home}</Text>
-      </TouchableOpacity>
+        style={styles.actionBtn}
+      />
 
       {__DEV__ && (
         <>
@@ -85,22 +89,9 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     lineHeight: 22,
   },
-  button: {
-    backgroundColor: "#2e7d32",
-    paddingHorizontal: 28,
-    paddingVertical: 14,
-    borderRadius: 10,
+  actionBtn: {
     marginBottom: 12,
     minWidth: 200,
-    alignItems: "center",
-  },
-  homeButton: {
-    backgroundColor: "#1565c0",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
   },
   detailToggle: {
     marginTop: 24,

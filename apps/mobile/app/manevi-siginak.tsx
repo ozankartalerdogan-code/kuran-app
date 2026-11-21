@@ -3,16 +3,22 @@ import {
   View, Text, ScrollView, TouchableOpacity,
   ActivityIndicator, StyleSheet,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { router, Stack } from "expo-router";
 import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { api, prefetchAyah, type TagFilterResult } from "../src/lib/api";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import {
+  Badge, Button, Callout, MenuCard, SectionHeader,
+  radius, space, toneColors,
+  type IoniconName, type Tone,
+} from "../src/components/ui";
 
 import { useMealOf } from "../src/lib/englishMeal";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { useStrings, useLang, fmt, caps } from "../src/i18n";
+import { useStrings, useLang, fmt } from "../src/i18n";
 import { localizedVerseTranslit } from "../src/lib/verseTranslitEn";
 import maneviStrings from "../src/i18n/strings/maneviSiginak";
 import { localizedData, useLocalizedData } from "../src/i18n/localizedData";
@@ -41,32 +47,29 @@ const pickManevi = localizedData(
   () => require("../src/data/content/manevi_siginak.en.json"),
 );
 
+
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
+const SCORE_TONE: Record<"10/10" | "8/10" | "0/10", Tone | "error"> = {
+  "10/10": "emerald",
+  "8/10": "amber",
+  "0/10": "error",
+};
+
 function ScoreBadge({ score }: { score: "10/10" | "8/10" | "0/10" }) {
-  const c = useColors();
-  const cfg = c.isDark
-    ? { "10/10": { emoji: "🟢", bg: "#064e3b", color: "#6ee7b7" },
-        "8/10":  { emoji: "🟡", bg: "#451a03", color: "#fcd34d" },
-        "0/10":  { emoji: "🔴", bg: "#450a0a", color: "#fca5a5" } }[score]
-    : { "10/10": { emoji: "🟢", bg: "#d1fae5", color: "#065f46" },
-        "8/10":  { emoji: "🟡", bg: "#fef3c7", color: "#92400e" },
-        "0/10":  { emoji: "🔴", bg: "#fee2e2", color: "#991b1b" } }[score];
-  return (
-    <View style={[sc.badge, { backgroundColor: cfg.bg }]}>
-      <Text style={[sc.badgeText, { color: cfg.color }]}>{cfg.emoji} {score}</Text>
-    </View>
-  );
+  return <Badge label={score} tone={SCORE_TONE[score]} />;
 }
 
 function StepList({ steps }: { steps: string[] }) {
   const c = useColors();
   return (
     <View style={sc.stepList}>
-      {steps.map((s, i) => (
+      {steps.map((step, i) => (
         <View key={i} style={sc.stepRow}>
-          <View style={[sc.stepNum, { backgroundColor: c.accent }]}><Text style={sc.stepNumText}>{i + 1}</Text></View>
-          <Text style={[sc.stepText, { color: c.text }]}>{s}</Text>
+          <View style={[sc.stepNum, { backgroundColor: c.accent }]}>
+            <Text style={[sc.stepNumText, { color: c.actionText }]}>{i + 1}</Text>
+          </View>
+          <Text style={[sc.stepText, { color: c.text }]}>{step}</Text>
         </View>
       ))}
     </View>
@@ -76,24 +79,20 @@ function StepList({ steps }: { steps: string[] }) {
 function HadisBox({ baslik, arapca, anlam, uygulama }: { baslik: string; arapca: string; anlam: string; uygulama?: string }) {
   const c = useColors();
   return (
-    <View style={[sc.hadisBox, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}>
-      <Text style={[sc.hadisBaslik, c.isDark && { color: "#6ee7b7" }]}>📖 {baslik}</Text>
+    <View style={[sc.hadisBox, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}>
+      <View style={sc.hadisHeadRow}>
+        <Ionicons name="book-outline" size={16} color={c.greenText} accessible={false} importantForAccessibility="no" />
+        <Text style={[sc.hadisBaslik, { color: c.greenText }]}>{baslik}</Text>
+      </View>
       <Text style={[sc.hadisArapca, { color: c.text }]}>{arapca}</Text>
-      <Text style={[sc.hadisAnlam, c.isDark && { color: "#86efac" }]}>"{anlam}"</Text>
+      <Text style={[sc.hadisAnlam, { color: c.textSecondary }]}>"{anlam}"</Text>
       {uygulama && <Text style={[sc.hadisUyg, { color: c.accent }]}>{uygulama}</Text>}
     </View>
   );
 }
 
 function UyariBox({ mesaj, renk = "amber" }: { mesaj: string; renk?: "red" | "amber" }) {
-  const c = useColors();
-  const bg    = renk === "red"
-    ? (c.isDark ? "#450a0a" : "#fee2e2")
-    : (c.isDark ? "#451a03" : "#fef3c7");
-  const color = renk === "red"
-    ? (c.isDark ? "#fca5a5" : "#991b1b")
-    : (c.isDark ? "#fcd34d" : "#92400e");
-  return <View style={[sc.uyari, { backgroundColor: bg }]}><Text style={[sc.uyariText, { color }]}>{mesaj}</Text></View>;
+  return <Callout tone={renk === "red" ? "error" : "warning"}>{mesaj}</Callout>;
 }
 
 function VerseList({ tag }: { tag: string }) {
@@ -129,20 +128,21 @@ function VerseList({ tag }: { tag: string }) {
   }, [open, fetched, fetchVerses]);
 
   return (
-    <View style={[sc.verseSection, { borderTopColor: c.isDark ? c.border : "#f0fdf4" }]}>
+    <View style={[sc.verseSection, { borderTopColor: c.border }]}>
       <TouchableOpacity style={sc.verseSectionBtn} onPress={toggle} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={ms.relatedA11y}>
-        <Text style={[sc.verseSectionLabel, { color: c.accent }]}>{ms.related}</Text>
-        <Text style={[sc.verseSectionChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
+        <View style={sc.verseSectionTitleRow}>
+          <Ionicons name="book-outline" size={16} color={c.accent} accessible={false} importantForAccessibility="no" />
+          <Text style={[sc.verseSectionLabel, { color: c.accent }]}>{ms.related}</Text>
+        </View>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
       {open && (
         <View>
           {loading && <ActivityIndicator color={c.accent} style={{ marginVertical: 8 }} />}
           {!loading && error && (
             <View style={sc.verseFeedback}>
-              <Text style={sc.verseErrorText}>{ms.versesError}</Text>
-              <TouchableOpacity style={[sc.verseRetryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={ms.retryA11y}>
-                <Text style={sc.verseRetryText}>{ms.retry}</Text>
-              </TouchableOpacity>
+              <Text style={[sc.verseErrorText, { color: c.errorText }]}>{ms.versesError}</Text>
+              <Button variant="secondary" label={ms.retry} onPress={fetchVerses} accessibilityLabel={ms.retryA11y} />
             </View>
           )}
           {!loading && !error && fetched && verses.length === 0 && (
@@ -172,15 +172,18 @@ function VerseList({ tag }: { tag: string }) {
 
 // ── Bolum Accordion ───────────────────────────────────────────────────────────
 
-function Bolum({ emoji, baslik, color, children }: { emoji: string; baslik: string; color: string; children: React.ReactNode }) {
+function Bolum({ icon, tone, baslik, children }: { icon: IoniconName; tone: Tone; baslik: string; children: React.ReactNode }) {
   const c = useColors();
   const [open, setOpen] = useState(false);
+  const tColors = toneColors(c, tone);
   return (
-    <View style={[s.bolum, { backgroundColor: c.card, borderColor: c.border, borderLeftColor: color }]}>
+    <View style={[s.bolum, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={s.bolumHeader} onPress={() => setOpen(p => !p)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={baslik}>
-        <Text style={{ fontSize: 22 }}>{emoji}</Text>
+        <View style={[s.bolumIconWrap, { backgroundColor: tColors.bg }]}>
+          <Ionicons name={icon} size={22} color={tColors.fg} accessible={false} importantForAccessibility="no" />
+        </View>
         <Text style={[s.bolumTitle, { color: c.text }]}>{baslik}</Text>
-        <Text style={[s.bolumChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
       {open && <View style={[s.bolumBody, { borderTopColor: c.border }]}>{children}</View>}
     </View>
@@ -194,15 +197,23 @@ export default function ManeviSiginakScreen() {
   const ms = useStrings(maneviStrings);
   const D = useLocalizedData(pickManevi);
   const insets = useSafeAreaInsets();
+  const heroTone = toneColors(c, "emerald");
   return (
     <>
       <Stack.Screen options={{ title: ms.screenTitle }} />
-      <ScrollView style={[s.container, { backgroundColor: c.bg }]} contentContainerStyle={{ paddingBottom: 40 + insets.bottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={[s.container, { backgroundColor: c.bg }]}
+        contentContainerStyle={[s.scrollContent, { paddingBottom: 40 + insets.bottom }]}
+        showsVerticalScrollIndicator={false}
+      >
 
         {/* Başlık */}
-        <View style={[s.header, { backgroundColor: c.card }]}>
+        <View style={s.header}>
+          <View style={[s.heroCircle, { backgroundColor: heroTone.bg }]}>
+            <Ionicons name="shield-checkmark-outline" size={28} color={heroTone.fg} accessible={false} importantForAccessibility="no" />
+          </View>
           <Text style={[s.headerTitle, { color: c.text }]}>{ms.header}</Text>
-          <Text style={[s.headerSub, { color: c.textMuted }]}>{ms.headerSub}</Text>
+          <Text style={[s.headerSub, { color: c.textSecondary }]}>{ms.headerSub}</Text>
         </View>
 
         {/* Güvenilirlik Sistemi */}
@@ -214,27 +225,26 @@ export default function ManeviSiginakScreen() {
         </View>
 
         {/* İsm-i Azam linki */}
-        <TouchableOpacity style={[s.featuredCard, c.isDark && { backgroundColor: "#422006", borderColor: "#78350f" }]} onPress={() => router.push("/manevi-siginak/ismi-azam")} activeOpacity={0.85} accessibilityRole="button" accessibilityLabel={ms.featuredA11y}>
+        <MenuCard
+          icon="sparkles-outline"
+          iconTone="amber"
+          title={ms.featuredTitle}
+          subtitle={ms.featuredSub}
+          onPress={() => router.push("/manevi-siginak/ismi-azam")}
+          accessibilityLabel={ms.featuredA11y}
+        />
 
-          <Text style={{ fontSize: 32 }}>✨</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={[s.featuredTitle, { color: c.text }]}>{ms.featuredTitle}</Text>
-            <Text style={[s.featuredSub, { color: c.textMuted }]}>{ms.featuredSub}</Text>
-          </View>
-          <Text style={[s.featuredArrow, c.isDark && { color: "#fbbf24" }]}>→</Text>
-        </TouchableOpacity>
-
-        <Text style={[s.sectionLabel, { color: c.textMuted }]}>{caps(ms.guides)}</Text>
+        <SectionHeader title={ms.guides} />
 
         {/* Bolum 1: Genel Korunma */}
-        <Bolum emoji="⚔️" baslik={ms.b1} color="#6ee7b7">
+        <Bolum icon="shield-checkmark-outline" tone="emerald" baslik={ms.b1}>
           <StepList steps={D.b1.adimlar} />
           <HadisBox {...D.b1.hadis} />
           <VerseList tag="korunma-genel" />
         </Bolum>
 
         {/* Bolum 2: Büyü ve Sihir */}
-        <Bolum emoji="🔱" baslik={ms.b2} color="#93c5fd">
+        <Bolum icon="shield-half-outline" tone="violet" baslik={ms.b2}>
           <View style={s.scoreInline}><ScoreBadge score="8/10" /><Text style={[s.scoreInlineText, { color: c.textSecondary }]}>{D.b2.not}</Text></View>
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b2a}</Text>
           <StepList steps={D.b2.a} />
@@ -247,7 +257,7 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* Bolum 3: Nazar */}
-        <Bolum emoji="👁️" baslik={ms.b3} color="#fcd34d">
+        <Bolum icon="eye-outline" tone="amber" baslik={ms.b3}>
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b3a}</Text>
           <StepList steps={D.b3.a} />
           <HadisBox {...D.b3.hadis} />
@@ -258,7 +268,7 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* Bolum 4: Hased */}
-        <Bolum emoji="💚" baslik={ms.b4} color="#86efac">
+        <Bolum icon="heart-dislike-outline" tone="amber" baslik={ms.b4}>
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b4a}</Text>
           <StepList steps={D.b4.a} />
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b4b}</Text>
@@ -268,7 +278,7 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* Bolum 5: Vesvese */}
-        <Bolum emoji="🌪️" baslik={ms.b5} color="#c4b5fd">
+        <Bolum icon="cloudy-outline" tone="violet" baslik={ms.b5}>
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b5a}</Text>
           <StepList steps={D.b5.a} />
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b5b}</Text>
@@ -278,7 +288,7 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* Bolum 6: Şifa */}
-        <Bolum emoji="💊" baslik={ms.b6} color="#fca5a5">
+        <Bolum icon="medkit-outline" tone="sky" baslik={ms.b6}>
           <Text style={[s.boxTitle, { color: c.text }]}>{ms.b6a}</Text>
           <StepList steps={D.b6.a} />
           <HadisBox {...D.b6.hadis} />
@@ -290,23 +300,31 @@ export default function ManeviSiginakScreen() {
         </Bolum>
 
         {/* YAP / YAPMA */}
-        <Text style={[s.sectionLabel, { color: c.textMuted }]}>{caps(D.yapYapma.etiket)}</Text>
-        <View style={[s.mitCard, { backgroundColor: c.card }, c.isDark && { borderColor: "#166534" }]}>
-          <Text style={[s.mitTitle, c.isDark && { color: "#6ee7b7" }]}>{D.yapYapma.yapBaslik}</Text>
-          {D.yapYapma.yap.map((i, idx) => <Text key={idx} style={[s.mitGreen, c.isDark && { color: "#86efac" }]}>✓ {i}</Text>)}
+        <SectionHeader title={D.yapYapma.etiket} />
+        <View style={[s.mitCard, { backgroundColor: c.card, borderColor: c.greenBorder }]}>
+          <Text style={[s.mitTitle, { color: c.greenText }]}>{D.yapYapma.yapBaslik}</Text>
+          {D.yapYapma.yap.map((item, idx) => (
+            <View key={idx} style={s.mitItemRow}>
+              <Ionicons name="checkmark" size={16} color={c.greenText} style={s.mitIcon} accessible={false} importantForAccessibility="no" />
+              <Text style={[s.mitItemText, { color: c.text }]}>{item}</Text>
+            </View>
+          ))}
         </View>
-        <View style={[s.mitCard, { backgroundColor: c.card, borderColor: c.isDark ? "#7f1d1d" : "#fca5a5" }]}>
-          <Text style={[s.mitTitle, { color: c.isDark ? "#fca5a5" : "#991b1b" }]}>{D.yapYapma.yapmaBaslik}</Text>
+        <View style={[s.mitCard, { backgroundColor: c.card, borderColor: c.errorBorder }]}>
+          <Text style={[s.mitTitle, { color: c.errorText }]}>{D.yapYapma.yapmaBaslik}</Text>
           {D.yapYapma.yapma.map((m, idx) => (
-            <View key={idx} style={[s.mitDetailRow, c.isDark && { borderTopColor: "#450a0a" }]}>
-              <Text style={[s.mitRed, c.isDark && { color: "#fca5a5" }]}>✗ {m.item}</Text>
+            <View key={idx} style={[s.mitDetailRow, { borderTopColor: c.border }]}>
+              <View style={s.mitItemRow}>
+                <Ionicons name="close" size={16} color={c.errorText} style={s.mitIcon} accessible={false} importantForAccessibility="no" />
+                <Text style={[s.mitRed, { color: c.text }]}>{m.item}</Text>
+              </View>
               <Text style={[s.mitDetailAciklama, { color: c.textMuted }]}>{m.aciklama}</Text>
             </View>
           ))}
         </View>
 
-        <View style={[s.footer, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}>
-          <Text style={[s.footerText, c.isDark && { color: "#86efac" }]}>
+        <View style={[s.footer, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}>
+          <Text style={[s.footerText, { color: c.greenText }]}>
             {`"${D.footer}"`}
           </Text>
         </View>
@@ -319,78 +337,68 @@ export default function ManeviSiginakScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f0e8" },
+  container:     { flex: 1 },
+  scrollContent: { paddingHorizontal: space.gutter, paddingTop: space.xs, gap: space.sm, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  header:      { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fffdf6", marginBottom: 8 },
-  headerTitle: { fontSize: 22, fontWeight: "700", color: "#1c1917" },
-  headerSub:   { fontSize: 12, color: "#78716c", marginTop: 4, textAlign: "center" },
+  header:      { alignItems: "center", paddingVertical: space.md, paddingHorizontal: space.sm },
+  heroCircle:  { width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", marginBottom: space.sm },
+  headerTitle: { fontSize: 22, fontWeight: "700", textAlign: "center" },
+  headerSub:   { fontSize: 13, marginTop: space.xxs, textAlign: "center", lineHeight: 19 },
 
-  scoreCard:  { backgroundColor: "#fffdf6", margin: 12, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: "#e7dfcc", gap: 8 },
-  scoreTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
-  scoreRow:   { flexDirection: "row", alignItems: "center", gap: 8 },
-  scoreDesc:  { fontSize: 13, color: "#44403c" },
+  scoreCard:  { borderRadius: radius.lg, padding: 14, borderWidth: 1, gap: space.xs },
+  scoreTitle: { fontSize: 13, fontWeight: "700", marginBottom: space.xxs },
+  scoreRow:   { flexDirection: "row", alignItems: "center", gap: space.xs },
+  scoreDesc:  { flex: 1, fontSize: 13 },
 
-  featuredCard:  { backgroundColor: "#fef3c7", margin: 12, borderRadius: 16, padding: 16, flexDirection: "row", alignItems: "center", gap: 12, borderWidth: 1, borderColor: "#fcd34d" },
-  featuredTitle: { fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  featuredSub:   { fontSize: 11, color: "#78716c", marginTop: 2 },
-  featuredArrow: { fontSize: 20, color: "#d97706" },
+  bolum:         { borderRadius: radius.lg, borderWidth: 1, overflow: "hidden" },
+  bolumHeader:   { flexDirection: "row", alignItems: "center", gap: space.sm, padding: 14, minHeight: 44 },
+  bolumIconWrap: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" },
+  bolumTitle:    { flex: 1, fontSize: 15, fontWeight: "700" },
+  bolumBody:     { borderTopWidth: 1, padding: 14, gap: 10 },
 
-  sectionLabel: { fontSize: 11, fontWeight: "700", color: "#78716c", letterSpacing: 1, textTransform: "uppercase", marginHorizontal: 12, marginTop: 16, marginBottom: 8 },
+  boxTitle:        { fontSize: 13, fontWeight: "700", marginTop: 4, marginBottom: 2 },
+  scoreInline:     { flexDirection: "row", alignItems: "flex-start", gap: space.xs, marginBottom: 4 },
+  scoreInlineText: { flex: 1, fontSize: 12, lineHeight: 18 },
 
-  bolum:       { margin: 12, marginBottom: 6, borderRadius: 14, borderWidth: 1, borderColor: "#e7dfcc", borderLeftWidth: 4, backgroundColor: "#fffdf6", overflow: "hidden" },
-  bolumHeader: { flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
-  bolumTitle:  { flex: 1, fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  bolumChev:   { fontSize: 14, color: "#059669" },
-  bolumBody:   { borderTopWidth: 1, borderTopColor: "#f5f5f4", padding: 12, gap: 10 },
+  mitCard:           { borderRadius: radius.lg, padding: 14, borderWidth: 1, gap: 6 },
+  mitTitle:          { fontSize: 13, fontWeight: "700", marginBottom: 4 },
+  mitItemRow:        { flexDirection: "row", alignItems: "flex-start", gap: space.xs },
+  mitIcon:           { marginTop: 2 },
+  mitItemText:       { flex: 1, fontSize: 13, lineHeight: 20 },
+  mitRed:            { flex: 1, fontSize: 13, lineHeight: 20, fontWeight: "600" },
+  mitDetailRow:      { borderTopWidth: 1, paddingTop: 6, marginTop: 2 },
+  mitDetailAciklama: { fontSize: 11, marginTop: 2, marginLeft: 24, lineHeight: 16 },
 
-  boxTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginTop: 4, marginBottom: 2 },
-  scoreInline: { flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 10 },
-  scoreInlineText: { flex: 1, fontSize: 12, color: "#57534e", lineHeight: 18 },
-
-  mitCard:  { margin: 12, marginBottom: 6, borderRadius: 14, padding: 14, backgroundColor: "#fffdf6", borderWidth: 1, borderColor: "#86efac", gap: 4 },
-  mitTitle: { fontSize: 13, fontWeight: "700", color: "#065f46", marginBottom: 6 },
-  mitGreen: { fontSize: 13, color: "#166534", lineHeight: 20 },
-  mitRed:   { fontSize: 13, color: "#991b1b", lineHeight: 20, fontWeight: "600" },
-  mitDetailRow:    { borderTopWidth: 1, borderTopColor: "#fee2e2", paddingTop: 6, marginTop: 2 },
-  mitDetailAciklama: { fontSize: 11, color: "#78716c", marginTop: 1, lineHeight: 16 },
-
-  footer:     { margin: 16, padding: 14, backgroundColor: "#f0fdf4", borderRadius: 12, borderWidth: 1, borderColor: "#bbf7d0" },
-  footerText: { fontSize: 13, color: "#166534", fontStyle: "italic", textAlign: "center", lineHeight: 20 },
+  footer:     { marginTop: space.xs, padding: 14, borderRadius: radius.lg, borderWidth: 1 },
+  footerText: { fontSize: 13, fontStyle: "italic", textAlign: "center", lineHeight: 20 },
 });
 
 const sc = StyleSheet.create({
-  badge:     { borderRadius: 20, paddingHorizontal: 8, paddingVertical: 3 },
-  badgeText: { fontSize: 12, fontWeight: "700" },
+  stepList:    { gap: space.xs, marginVertical: 4 },
+  stepRow:     { flexDirection: "row", alignItems: "flex-start", gap: space.xs },
+  stepNum:     { width: 20, height: 20, borderRadius: 10, alignItems: "center", justifyContent: "center", marginTop: 1 },
+  stepNumText: { fontSize: 11, fontWeight: "700" },
+  stepText:    { flex: 1, fontSize: 13, lineHeight: 20 },
 
-  stepList: { gap: 8, marginVertical: 4 },
-  stepRow:  { flexDirection: "row", alignItems: "flex-start", gap: 8 },
-  stepNum:  { width: 20, height: 20, borderRadius: 10, backgroundColor: "#059669", alignItems: "center", justifyContent: "center", marginTop: 1 },
-  stepNumText: { fontSize: 11, fontWeight: "700", color: "#fff" },
-  stepText: { flex: 1, fontSize: 13, color: "#1c1917", lineHeight: 20 },
+  hadisBox:     { borderRadius: radius.md, padding: space.sm, borderWidth: 1, gap: 4 },
+  hadisHeadRow: { flexDirection: "row", alignItems: "center", gap: space.xs },
+  hadisBaslik:  { flex: 1, fontSize: 12, fontWeight: "700" },
+  hadisArapca:  { fontSize: 16, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", lineHeight: 28 },
+  hadisAnlam:   { fontSize: 12, fontStyle: "italic" },
+  hadisUyg:     { fontSize: 11 },
 
-  hadisBox:    { backgroundColor: "#f0fdf4", borderRadius: 10, padding: 12, borderWidth: 1, borderColor: "#86efac", gap: 4 },
-  hadisBaslik: { fontSize: 12, fontWeight: "700", color: "#065f46" },
-  hadisArapca: { fontSize: 16, color: "#1c1917", textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", lineHeight: 28 },
-  hadisAnlam:  { fontSize: 12, color: "#166534", fontStyle: "italic" },
-  hadisUyg:    { fontSize: 11, color: "#059669" },
-
-  uyari:     { borderRadius: 10, padding: 10 },
-  uyariText: { fontSize: 12, lineHeight: 18 },
-
-  verseFeedback:   { alignItems: "center", paddingVertical: 10, gap: 6 },
-  verseErrorText:  { fontSize: 12, color: "#dc2626" },
-  verseRetryBtn:   { backgroundColor: "#059669", borderRadius: 8, paddingHorizontal: 14, paddingVertical: 5 },
-  verseRetryText:  { fontSize: 12, fontWeight: "700", color: "#fff" },
-  verseEmptyText:  { fontSize: 12, color: "#78716c", paddingVertical: 8, textAlign: "center" },
-  verseHintText:   { fontSize: 11, color: "#78716c", paddingTop: 8, textAlign: "center", lineHeight: 16 },
-  verseSection:    { borderTopWidth: 1, borderTopColor: "#f0fdf4", marginTop: 4 },
-  verseSectionBtn: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10 },
-  verseSectionLabel: { fontSize: 12, fontWeight: "700", color: "#059669" },
-  verseSectionChev:  { fontSize: 12, color: "#059669" },
-  verseRow:  { flexDirection: "row", alignItems: "flex-start", gap: 8, paddingVertical: 6, borderBottomWidth: 1, borderBottomColor: "#f5f5f4" },
-  verseKey:  { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2, marginTop: 2 },
-  verseKeyText: { fontSize: 10, fontWeight: "700", color: "#065f46" },
-  verseSurah:   { fontSize: 10, color: "#78716c" },
-  verseReading: { fontSize: 13, color: "#1c1917", fontStyle: "italic", lineHeight: 20, marginTop: 1 },
-  verseMeal:    { fontSize: 11, color: "#57534e", lineHeight: 17, marginTop: 1 },
+  verseFeedback:       { alignItems: "center", paddingVertical: 10, gap: space.xs },
+  verseErrorText:      { fontSize: 12 },
+  verseEmptyText:      { fontSize: 12, paddingVertical: 8, textAlign: "center" },
+  verseHintText:       { fontSize: 11, paddingTop: 8, textAlign: "center", lineHeight: 16 },
+  verseSection:        { borderTopWidth: 1, marginTop: 4 },
+  verseSectionBtn:     { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10, minHeight: 44 },
+  verseSectionTitleRow:{ flexDirection: "row", alignItems: "center", gap: space.xs, flex: 1 },
+  verseSectionLabel:   { fontSize: 12, fontWeight: "700" },
+  verseRow:            { flexDirection: "row", alignItems: "flex-start", gap: space.xs, paddingVertical: 8, minHeight: 44, borderBottomWidth: 1 },
+  verseKey:            { borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2, marginTop: 2 },
+  verseKeyText:        { fontSize: 10, fontWeight: "700" },
+  verseSurah:          { fontSize: 10 },
+  verseReading:        { fontSize: 13, fontStyle: "italic", lineHeight: 20, marginTop: 1 },
+  verseMeal:           { fontSize: 11, lineHeight: 17, marginTop: 1 },
 });

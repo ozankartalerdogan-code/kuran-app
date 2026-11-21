@@ -13,6 +13,7 @@ import { useTourTarget } from "../src/tour/AppTourProvider";
 import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import hadislerStrings from "../src/i18n/strings/hadisler";
+import { Badge, Callout, radius, space, toneColors } from "../src/components/ui";
 
 const pickData = localizedData<HadithData>(
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -212,12 +213,12 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
   }
 
   return (
-    <View style={[hd.card, { backgroundColor: c.bg, borderColor: c.border }]}>
+    <View style={[hd.card, { backgroundColor: c.card, borderColor: c.border }]}>
       <View style={hd.header}>
         <TouchableOpacity
           onPress={() => setOpen(current => !current)}
           activeOpacity={0.75}
-          style={{ flex: 1 }}
+          style={{ flex: 1, minHeight: 44, justifyContent: "center" }}
           accessibilityRole="button"
           accessibilityLabel={narrator}
           accessibilityHint={open ? t.detailHintClose : t.detailHintOpen}
@@ -230,7 +231,7 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <TouchableOpacity
             onPress={handleShare}
-            hitSlop={8}
+            hitSlop={14}
             activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel={fmt(t.shareA11y, { n: narrator })}
@@ -240,13 +241,13 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setOpen(current => !current)}
-            hitSlop={8}
+            hitSlop={14}
             activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel={open ? t.detailClose : t.detailOpen}
             accessibilityState={{ expanded: open }}
           >
-            <Text style={[hd.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+            <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
           </TouchableOpacity>
         </View>
       </View>
@@ -259,20 +260,14 @@ function HadithCard({ hadith }: { hadith: Hadith }) {
       {open ? (
         <View style={[hd.body, { borderTopColor: c.border }]}>
           {hadith.key_lesson ? (
-            <View style={[hd.lessonBox, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]}>
-              <View style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
-                <Ionicons name="diamond-outline" size={14} color={c.isDark ? "#86efac" : "#15803d"} style={{ marginTop: 2 }} />
-                <Text style={[hd.lessonText, { flex: 1 }, c.isDark && { color: "#86efac" }]}>{hadith.key_lesson}</Text>
-              </View>
-            </View>
+            <Callout tone="success" icon="diamond-outline">
+              {hadith.key_lesson}
+            </Callout>
           ) : null}
           {hadith.info_note ? (
-            <View style={[hd.noteBox, c.isDark && { backgroundColor: "#431407", borderColor: "#9a3412" }]}>
-              <View style={{ flexDirection: "row", gap: 6, alignItems: "flex-start" }}>
-                <Ionicons name="information-circle-outline" size={14} color={c.isDark ? "#fdba74" : "#9a3412"} style={{ marginTop: 2 }} />
-                <Text style={[hd.noteText, { flex: 1 }, c.isDark && { color: "#fdba74" }]}>{hadith.info_note}</Text>
-              </View>
-            </View>
+            <Callout tone="info">
+              {hadith.info_note}
+            </Callout>
           ) : null}
         </View>
       ) : null}
@@ -298,10 +293,8 @@ function TopicAccordion({ topic }: { topic: TopicWithHadiths }) {
       >
         <Text style={[tp.name, { color: c.text }]}>{topic.name}</Text>
         <View style={tp.right}>
-          <View style={[tp.badge, c.isDark && { backgroundColor: "#2e1065" }]}>
-            <Text style={[tp.badgeText, c.isDark && { color: "#c4b5fd" }]}>{topic.hadiths.length}</Text>
-          </View>
-          <Text style={[tp.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+          <Badge label={String(topic.hadiths.length)} tone="violet" style={{ alignSelf: "center" }} />
+          <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
         </View>
       </TouchableOpacity>
 
@@ -340,10 +333,8 @@ function GroupAccordion({ group }: { group: GroupData }) {
       >
         <Text style={[gr.name, { color: c.text }]}>{groupName}</Text>
         <View style={gr.right}>
-          <View style={[gr.badge, c.isDark && { backgroundColor: c.cardAlt }]}>
-            <Text style={[gr.badgeText, c.isDark && { color: c.textSecondary }]}>{fmt(t.hadithCount, { n: total })}</Text>
-          </View>
-          <Text style={[gr.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+          <Badge label={fmt(t.hadithCount, { n: total })} tone="neutral" style={{ alignSelf: "center" }} />
+          <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
         </View>
       </TouchableOpacity>
 
@@ -365,6 +356,7 @@ export default function HadislerScreen() {
   const lang = useLang();
   const { META, TOPICS, HADITHS, GROUPED } = buildHadithData(lang);
   const sources = ensureStringArray(META.sources);
+  const heroTone = toneColors(c, "emerald");
 
   useEffect(() => {
     logScreen("Hadisler");
@@ -380,23 +372,25 @@ export default function HadislerScreen() {
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
-        <View style={s.hero}>
-          <Text style={s.heroIcon}>📿</Text>
-          <Text style={s.heroTitle}>{META.title ?? t.defaultTitle}</Text>
-          {META.subtitle ? <Text style={s.heroSub}>{META.subtitle}</Text> : null}
-          {META.description ? <Text style={s.heroDesc}>{META.description}</Text> : null}
+        <View style={[s.hero, { backgroundColor: c.card, borderColor: c.border }]}>
+          <View style={[s.heroIconWrap, { backgroundColor: heroTone.bg }]}>
+            <Ionicons name="chatbubble-ellipses-outline" size={28} color={heroTone.fg} accessible={false} importantForAccessibility="no" />
+          </View>
+          <Text style={[s.heroTitle, { color: c.text }]}>{META.title ?? t.defaultTitle}</Text>
+          {META.subtitle ? <Text style={[s.heroSub, { color: c.textSecondary }]}>{META.subtitle}</Text> : null}
+          {META.description ? <Text style={[s.heroDesc, { color: c.textSecondary }]}>{META.description}</Text> : null}
           <View style={s.stats}>
-            <View style={s.statChip}>
-              <Text style={s.statNum}>{HADITHS.length}</Text>
-              <Text style={s.statLbl}>{t.statHadith}</Text>
+            <View style={[s.statChip, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.statNum, { color: c.text }]}>{HADITHS.length}</Text>
+              <Text style={[s.statLbl, { color: c.textMuted }]}>{t.statHadith}</Text>
             </View>
-            <View style={s.statChip}>
-              <Text style={s.statNum}>{TOPICS.length}</Text>
-              <Text style={s.statLbl}>{t.statTopic}</Text>
+            <View style={[s.statChip, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.statNum, { color: c.text }]}>{TOPICS.length}</Text>
+              <Text style={[s.statLbl, { color: c.textMuted }]}>{t.statTopic}</Text>
             </View>
-            <View style={s.statChip}>
-              <Text style={s.statNum}>{GROUPED.length}</Text>
-              <Text style={s.statLbl}>{t.statGroup}</Text>
+            <View style={[s.statChip, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.statNum, { color: c.text }]}>{GROUPED.length}</Text>
+              <Text style={[s.statLbl, { color: c.textMuted }]}>{t.statGroup}</Text>
             </View>
           </View>
         </View>
@@ -429,22 +423,19 @@ export default function HadislerScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  content: { padding: space.gutter, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  hero: { borderRadius: 16, padding: 18, marginBottom: 12, alignItems: "center", backgroundColor: "#1a1a2e", gap: 5 },
-  heroIcon: { fontSize: 34, marginBottom: 2 },
-  heroTitle: { fontSize: 18, fontWeight: "800", color: "#e2e8f0", textAlign: "center" },
-  // Kontrast: #64748b koyu hero zemininde (#1a1a2e) 3.58:1 kalıyordu, WCAG AA
-  // normal metin eşiği 4.5:1. heroDesc #94a3b8'e (6.65:1) çekildi; hiyerarşi
-  // korunsun diye heroSub bir ton açıldı (#cbd5e1, 11.49:1).
-  heroSub: { fontSize: 12, color: "#cbd5e1", textAlign: "center" },
-  heroDesc: { fontSize: 11.5, color: "#94a3b8", lineHeight: 17, textAlign: "center", marginTop: 2 },
+  hero: { borderRadius: radius.lg, borderWidth: 1, padding: 18, marginBottom: space.sm, alignItems: "center", gap: 6 },
+  heroIconWrap: { width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", marginBottom: 4 },
+  heroTitle: { fontSize: 18, fontWeight: "800", textAlign: "center" },
+  heroSub: { fontSize: 12, textAlign: "center" },
+  heroDesc: { fontSize: 12, lineHeight: 18, textAlign: "center", marginTop: 2 },
   stats: { flexDirection: "row", gap: 10, marginTop: 8 },
-  statChip: { backgroundColor: "#16213e", borderRadius: 10, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
-  statNum: { fontSize: 18, fontWeight: "800", color: "#e2e8f0" },
-  statLbl: { fontSize: 10, color: "#94a3b8" },
+  statChip: { borderRadius: radius.md, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
+  statNum: { fontSize: 18, fontWeight: "800" },
+  statLbl: { fontSize: 10 },
 
-  stdBox: { borderRadius: 12, borderWidth: 1, padding: 12, marginBottom: 10, gap: 4 },
+  stdBox: { borderRadius: radius.lg, borderWidth: 1, padding: 12, marginBottom: 10, gap: 4 },
   stdLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
   stdText: { fontSize: 13, lineHeight: 20 },
 
@@ -454,40 +445,29 @@ const s = StyleSheet.create({
 });
 
 const gr = StyleSheet.create({
-  card: { borderRadius: 14, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
-  header: { flexDirection: "row", alignItems: "center", padding: 14, gap: 10 },
+  card: { borderRadius: radius.lg, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
+  header: { minHeight: 48, flexDirection: "row", alignItems: "center", padding: 14, gap: 10 },
   name: { flex: 1, fontSize: 14, fontWeight: "700" },
   right: { flexDirection: "row", alignItems: "center", gap: 8 },
-  badge: { backgroundColor: "#f1f5f9", borderRadius: 10, paddingHorizontal: 9, paddingVertical: 3 },
-  badgeText: { fontSize: 10, fontWeight: "700", color: "#475569" },
-  chev: { fontSize: 11 },
   body: { borderTopWidth: 1, padding: 10, gap: 6 },
 });
 
 const tp = StyleSheet.create({
-  card: { borderRadius: 11, borderWidth: 1, overflow: "hidden" },
-  header: { flexDirection: "row", alignItems: "center", padding: 12, gap: 8 },
+  card: { borderRadius: radius.lg, borderWidth: 1, overflow: "hidden" },
+  header: { minHeight: 44, flexDirection: "row", alignItems: "center", padding: 12, gap: 8 },
   name: { flex: 1, fontSize: 13, fontWeight: "600" },
   right: { flexDirection: "row", alignItems: "center", gap: 6 },
-  badge: { backgroundColor: "#ede9fe", borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 },
-  badgeText: { fontSize: 10, fontWeight: "700", color: "#6d28d9" },
-  chev: { fontSize: 10 },
   body: { borderTopWidth: 1, padding: 10, gap: 8 },
   intro: { fontSize: 12, lineHeight: 18, fontStyle: "italic", marginBottom: 4 },
   empty: { fontSize: 12, lineHeight: 18, fontStyle: "italic" },
 });
 
 const hd = StyleSheet.create({
-  card: { borderRadius: 10, borderWidth: 1, overflow: "hidden", marginBottom: 2 },
+  card: { borderRadius: radius.lg, borderWidth: 1, overflow: "hidden", marginBottom: 2 },
   header: { flexDirection: "row", alignItems: "flex-start", gap: 8, padding: 11 },
   text: { flex: 1, fontSize: 13, lineHeight: 20, fontStyle: "italic" },
-  chev: { fontSize: 10, marginTop: 4 },
   foot: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 11, paddingBottom: 9, flexWrap: "wrap" },
   narrator: { fontSize: 11, fontWeight: "700" },
   source: { fontSize: 10.5 },
   body: { borderTopWidth: 1, padding: 10, gap: 6 },
-  lessonBox: { backgroundColor: "#f0fdf4", borderRadius: 8, padding: 9, borderWidth: 1, borderColor: "#86efac" },
-  lessonText: { fontSize: 12, color: "#15803d", lineHeight: 18 },
-  noteBox: { backgroundColor: "#fff7ed", borderRadius: 8, padding: 9, borderWidth: 1, borderColor: "#fdba74" },
-  noteText: { fontSize: 11.5, color: "#9a3412", lineHeight: 17 },
 });

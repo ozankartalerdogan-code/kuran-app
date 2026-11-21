@@ -4,6 +4,7 @@ import {
 } from "react-native";
 import { Stack, router } from "expo-router";
 import type { Href } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -11,6 +12,7 @@ import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useLang, useStrings, fmt, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import kissalarStrings from "../src/i18n/strings/peygamberKissalari";
+import { Badge, Callout, radius, space, toneColors, type IoniconName } from "../src/components/ui";
 
 const pickData = localizedData<{ peygamber_kissalari: PeygamberKissalariMeta }>(
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -53,6 +55,16 @@ interface PeygamberKissalariMeta {
 
 // ── Yardımcı bileşenler ───────────────────────────────────────────────────────
 
+function MetaLine({ icon, text }: { icon: IoniconName; text: string }) {
+  const c = useColors();
+  return (
+    <View style={st.metaLine}>
+      <Ionicons name={icon} size={14} color={c.textMuted} style={st.metaIcon} accessible={false} importantForAccessibility="no" />
+      <Text style={[st.metaRow, { color: c.textSecondary, flex: 1 }]}>{text}</Text>
+    </View>
+  );
+}
+
 function RefChip({ refKey }: { refKey: string }) {
   const c = useColors();
   const t = useStrings(kissalarStrings);
@@ -66,6 +78,7 @@ function RefChip({ refKey }: { refKey: string }) {
       style={[st.refChip, { backgroundColor: c.emeraldBg, borderColor: c.emeraldBorder }]}
       onPress={() => router.push(`/ayah/${surah}/${ayah}` as Href)}
       activeOpacity={0.75}
+      hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }}
       accessibilityRole="button"
       accessibilityLabel={fmt(t.refA11y, { ref: refKey })}
       accessibilityHint={t.refHint}
@@ -80,7 +93,7 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
   const t = useStrings(kissalarStrings);
   const [open, setOpen] = useState(false);
   return (
-    <View style={[st.kissaCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+    <View style={[st.kissaCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity
         style={st.kissaHeader}
         onPress={() => setOpen(o => !o)}
@@ -91,7 +104,7 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
         accessibilityState={{ expanded: open }}
       >
         <Text style={[st.kissaBaslik, { color: c.text }]}>{kissa.baslik}</Text>
-        <Text style={[st.chev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
       {open && (
         <View style={[st.kissaBody, { borderTopColor: c.border }]}>
@@ -101,11 +114,7 @@ function KissaCard({ kissa }: { kissa: Kissa }) {
               {kissa.kuran_referanslari.map(r => <RefChip key={r} refKey={r} />)}
             </View>
           )}
-          {kissa.not && (
-            <View style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
-              <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {kissa.not}</Text>
-            </View>
-          )}
+          {kissa.not && <Callout tone="info">{kissa.not}</Callout>}
         </View>
       )}
     </View>
@@ -131,18 +140,16 @@ function PeygamberCard({ p }: { p: Peygamber }) {
         accessibilityState={{ expanded: open }}
       >
         <View style={{ flex: 1, gap: 3 }}>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <Text style={[st.isim, { color: c.text }]}>{p.isim}</Text>
             {p.kuranda_gecme_sayisi != null && (
-              <View style={[st.sayiBadge, { backgroundColor: c.violetBg }]}>
-                <Text style={[st.sayiBadgeText, { color: c.violetText }]}>{p.kuranda_gecme_sayisi}×</Text>
-              </View>
+              <Badge label={`${p.kuranda_gecme_sayisi}×`} tone="violet" style={{ alignSelf: "center" }} />
             )}
           </View>
           {p.unvan ? <Text style={[st.unvan, { color: c.accent }]}>{p.unvan}</Text> : null}
           {p.kisa_ozet ? <Text style={[st.ozet, { color: c.textMuted }]} numberOfLines={open ? undefined : 2}>{p.kisa_ozet}</Text> : null}
         </View>
-        <Text style={[st.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} style={{ marginTop: 2 }} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
 
       {open && (
@@ -151,9 +158,9 @@ function PeygamberCard({ p }: { p: Peygamber }) {
           {/* Meta bilgi */}
           {(p.gondirildigi_yer || p.donem || p.ana_sure) && (
             <View style={[st.metaBox, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
-              {p.gondirildigi_yer ? <Text style={[st.metaRow, { color: c.textSecondary }]}>📍 {p.gondirildigi_yer}</Text> : null}
-              {p.donem ? <Text style={[st.metaRow, { color: c.textSecondary }]}>🕐 {p.donem}</Text> : null}
-              {p.ana_sure ? <Text style={[st.metaRow, { color: c.textSecondary }]}>📖 {p.ana_sure}</Text> : null}
+              {p.gondirildigi_yer ? <MetaLine icon="location-outline" text={p.gondirildigi_yer} /> : null}
+              {p.donem ? <MetaLine icon="time-outline" text={p.donem} /> : null}
+              {p.ana_sure ? <MetaLine icon="book-outline" text={p.ana_sure} /> : null}
             </View>
           )}
 
@@ -208,12 +215,10 @@ function PeygamberCard({ p }: { p: Peygamber }) {
                 accessibilityState={{ expanded: notesOpen }}
               >
                 <Text style={[st.sectionLabel, { color: c.accent }]}>{caps(t.notes)}</Text>
-                <Text style={[st.chev, { color: c.textMuted }]}>{notesOpen ? "▲" : "▼"}</Text>
+                <Ionicons name={notesOpen ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
               </TouchableOpacity>
               {notesOpen && p.ozel_notlar.map((n, i) => (
-                <View key={i} style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
-                  <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {n}</Text>
-                </View>
+                <Callout key={i} tone="info">{n}</Callout>
               ))}
             </View>
           )}
@@ -233,6 +238,7 @@ export default function PeygamberKissalariScreen() {
   const lang = useLang();
   const META = pickData(lang).peygamber_kissalari;
   const PEYGAMBERLER: Peygamber[] = META.peygamberler;
+  const heroTone = toneColors(c, "violet");
 
   return (
     <>
@@ -243,14 +249,16 @@ export default function PeygamberKissalariScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Hero */}
-        <View style={s.hero}>
-          <Text style={s.heroIcon}>🕌</Text>
-          <Text style={s.heroTitle}>{META.baslik}</Text>
-          <Text style={s.heroDesc}>{META.aciklama}</Text>
+        <View style={[s.hero, { backgroundColor: c.card, borderColor: c.border }]}>
+          <View style={[s.heroIconWrap, { backgroundColor: heroTone.bg }]}>
+            <Ionicons name="library-outline" size={28} color={heroTone.fg} accessible={false} importantForAccessibility="no" />
+          </View>
+          <Text style={[s.heroTitle, { color: c.text }]}>{META.baslik}</Text>
+          <Text style={[s.heroDesc, { color: c.textSecondary }]}>{META.aciklama}</Text>
           <View style={s.heroStats}>
-            <View style={s.statChip}>
-              <Text style={s.statNum}>{META.toplam_peygamber}</Text>
-              <Text style={s.statLabel}>{t.statProphet}</Text>
+            <View style={[s.statChip, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+              <Text style={[s.statNum, { color: c.text }]}>{META.toplam_peygamber}</Text>
+              <Text style={[s.statLabel, { color: c.textMuted }]}>{t.statProphet}</Text>
             </View>
           </View>
         </View>
@@ -280,18 +288,18 @@ export default function PeygamberKissalariScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  content:    { padding: 14, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  content:    { padding: space.gutter, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  hero:       { borderRadius: 16, padding: 18, marginBottom: 12, alignItems: "center", backgroundColor: "#1e1b4b", gap: 6 },
-  heroIcon:   { fontSize: 36, marginBottom: 2 },
-  heroTitle:  { fontSize: 18, fontWeight: "800", color: "#e0e7ff", textAlign: "center" },
-  heroDesc:   { fontSize: 12, color: "#818cf8", lineHeight: 18, textAlign: "center" },
-  heroStats:  { flexDirection: "row", gap: 12, marginTop: 6 },
-  statChip:   { backgroundColor: "#312e81", borderRadius: 10, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
-  statNum:    { fontSize: 18, fontWeight: "800", color: "#e0e7ff" },
-  statLabel:  { fontSize: 10, color: "#a5b4fc" },
+  hero:         { borderRadius: radius.lg, borderWidth: 1, padding: 18, marginBottom: space.sm, alignItems: "center", gap: 6 },
+  heroIconWrap: { width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", marginBottom: 4 },
+  heroTitle:    { fontSize: 18, fontWeight: "800", textAlign: "center" },
+  heroDesc:     { fontSize: 12, lineHeight: 18, textAlign: "center" },
+  heroStats:    { flexDirection: "row", gap: 12, marginTop: 6 },
+  statChip:     { borderRadius: radius.md, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 6, alignItems: "center" },
+  statNum:      { fontSize: 18, fontWeight: "800" },
+  statLabel:    { fontSize: 10 },
 
-  genelBox:   { borderRadius: 12, borderWidth: 1, padding: 14, marginBottom: 12, gap: 4 },
+  genelBox:   { borderRadius: radius.lg, borderWidth: 1, padding: 14, marginBottom: space.sm, gap: 4 },
   genelTitle: { fontSize: 13, fontWeight: "700", marginBottom: 4 },
   genelItem:  { fontSize: 12.5, lineHeight: 19 },
 
@@ -300,39 +308,34 @@ const s = StyleSheet.create({
 });
 
 const st = StyleSheet.create({
-  card:       { borderRadius: 14, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
-  cardHeader: { flexDirection: "row", alignItems: "flex-start", gap: 10, padding: 14 },
+  card:       { borderRadius: radius.lg, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
+  cardHeader: { minHeight: 44, flexDirection: "row", alignItems: "flex-start", gap: 10, padding: 14 },
   cardBody:   { borderTopWidth: 1, padding: 14, gap: 12 },
 
   isim:       { fontSize: 15, fontWeight: "800" },
   unvan:      { fontSize: 11, fontWeight: "600" },
   ozet:       { fontSize: 12, lineHeight: 18, marginTop: 2 },
-  chev:       { fontSize: 11, marginTop: 3 },
 
-  sayiBadge:     { borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 },
-  sayiBadgeText: { fontSize: 10, fontWeight: "700" },
-
-  metaBox:  { borderRadius: 10, borderWidth: 1, padding: 10, gap: 4 },
+  metaBox:  { borderRadius: radius.md, borderWidth: 1, padding: 10, gap: 4 },
+  metaLine: { flexDirection: "row", alignItems: "flex-start", gap: space.xs },
+  metaIcon: { marginTop: 2 },
   metaRow:  { fontSize: 12, lineHeight: 18 },
 
   section:      { gap: 6 },
   sectionLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
-  notesHeader:  { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: 10, borderWidth: 1, paddingHorizontal: 11, paddingVertical: 10 },
+  notesHeader:  { minHeight: 44, flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderRadius: radius.md, borderWidth: 1, paddingHorizontal: 11, paddingVertical: 10 },
 
   refRow:   { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 2 },
   chip:     { fontSize: 11 },
-  refChip:  { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
+  refChip:  { borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
   refChipText: { fontSize: 12, fontWeight: "700" },
 
-  kissaCard:   { borderRadius: 10, borderWidth: 1, marginBottom: 4, overflow: "hidden" },
-  kissaHeader: { flexDirection: "row", alignItems: "center", padding: 11, gap: 8 },
+  kissaCard:   { borderRadius: radius.lg, borderWidth: 1, marginBottom: 4, overflow: "hidden" },
+  kissaHeader: { minHeight: 44, flexDirection: "row", alignItems: "center", padding: 11, gap: 8 },
   kissaBaslik: { flex: 1, fontSize: 13, fontWeight: "600" },
   kissaBody:   { borderTopWidth: 1, padding: 11, gap: 8 },
   metin:       { fontSize: 12.5, lineHeight: 20 },
 
   bullet: { fontSize: 12.5, lineHeight: 19 },
-
-  notBox:  { borderRadius: 8, padding: 9, borderWidth: 1 },
-  notText: { fontSize: 11.5, lineHeight: 17 },
 });
 

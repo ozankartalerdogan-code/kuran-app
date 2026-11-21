@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
+import { Button } from "../src/components/ui";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { useLang, useStrings, fmt, caps } from "../src/i18n";
 import konularStrings from "../src/i18n/strings/konular";
@@ -175,13 +176,13 @@ function TopicDetail({ code }: { code: string | null }) {
               return (
                 <TouchableOpacity
                   key={sub}
-                  style={[s.chip, { backgroundColor: c.isDark ? "#082f49" : "#f0f9ff", borderColor: c.isDark ? "#075985" : "#bae6fd" }]}
+                  style={[s.chip, { backgroundColor: c.skyBg, borderColor: c.skyBorder }]}
                   onPress={() => router.push(`/search?tag=${encodeURIComponent(sub)}&page=1` as Href)}
                   activeOpacity={0.7}
                   accessibilityRole="button"
                   accessibilityLabel={fmt(t.searchSubA11y, { name })}
                 >
-                  <Text style={[s.chipText, { color: c.isDark ? "#7dd3fc" : "#0369a1" }]}>{name}</Text>
+                  <Text style={[s.chipText, { color: c.skyText }]}>{name}</Text>
                 </TouchableOpacity>
               );
             })}
@@ -212,13 +213,13 @@ function TopicDetail({ code }: { code: string | null }) {
               {duas.map(({ code: dua, title: name }) => (
                 <TouchableOpacity
                   key={dua}
-                  style={[s.chip, { backgroundColor: c.isDark ? "#082f49" : "#f0f9ff", borderColor: c.isDark ? "#075985" : "#bae6fd" }]}
+                  style={[s.chip, { backgroundColor: c.skyBg, borderColor: c.skyBorder }]}
                   onPress={() => router.push(`/search?tag=${encodeURIComponent(dua)}&page=1` as Href)}
                   activeOpacity={0.7}
                   accessibilityRole="button"
                   accessibilityLabel={fmt(t.searchDuaA11y, { name })}
                 >
-                  <Text style={[s.chipText, { color: c.isDark ? "#7dd3fc" : "#0369a1" }]}>{name}</Text>
+                  <Text style={[s.chipText, { color: c.skyText }]}>{name}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -238,26 +239,22 @@ function TopicDetail({ code }: { code: string | null }) {
       ) : st.error ? (
         <View style={{ alignItems: "center", gap: 8 }}>
           <Text style={[s.sub, { color: c.textMuted, textAlign: "center" }]}>{t.loadError}</Text>
-          <TouchableOpacity
-            style={[s.moreBtn, { borderColor: c.border, backgroundColor: c.card }]}
+          <Button
+            variant="primary"
+            label={t.retry}
             onPress={() => load(st.page + 1)}
-            accessibilityRole="button"
             accessibilityLabel={t.retryA11y}
-          >
-            <Text style={[s.moreText, { color: c.accent }]}>{t.retry}</Text>
-          </TouchableOpacity>
+          />
         </View>
       ) : st.results.length === 0 ? (
         <Text style={[s.sub, { color: c.textMuted, textAlign: "center" }]}>{t.empty}</Text>
       ) : st.page < st.pages ? (
-        <TouchableOpacity
-          style={[s.moreBtn, { borderColor: c.border, backgroundColor: c.card }]}
+        <Button
+          variant="secondary"
+          label={t.loadMore}
           onPress={() => load(st.page + 1)}
-          accessibilityRole="button"
           accessibilityLabel={t.loadMoreA11y}
-        >
-          <Text style={[s.moreText, { color: c.accent }]}>{t.loadMore}</Text>
-        </TouchableOpacity>
+        />
       ) : null}
     </View>
   );
@@ -325,8 +322,6 @@ const s = StyleSheet.create({
   chip: { minHeight: 44, justifyContent: "center", borderRadius: 22, borderWidth: 1, paddingHorizontal: 14 },
   chipText: { fontSize: 14, fontWeight: "600" },
   footer: { paddingVertical: 20, alignItems: "center" },
-  moreBtn: { minHeight: 44, minWidth: 160, borderRadius: 22, borderWidth: 1, paddingHorizontal: 18, alignItems: "center", justifyContent: "center" },
-  moreText: { fontSize: 14, fontWeight: "700" },
   verseCard: { borderRadius: 12, borderWidth: 1, padding: 14, minHeight: 44 },
   verseHeader: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 6 },
   keyBadge: { borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2 },

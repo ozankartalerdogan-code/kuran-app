@@ -7,9 +7,11 @@ import {
   StyleSheet, Modal, FlatList,
 } from "react-native";
 import { useState, useEffect, useMemo, useCallback, memo, useRef } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { api, prefetchAyah, type RootDetail } from "../../../src/lib/api";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
+import { Button } from "../../../src/components/ui";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../../../src/lib/layout";
 import { useContextualHint } from "../../../src/tour/useContextualHint";
@@ -34,24 +36,20 @@ function lerpHex(from: string, to: string, t: number): string {
   return `rgb(${ch(16)},${ch(8)},${ch(0)})`;
 }
 
-// Tema zümrütüne oturan ısı rampası: boş hücre krem/taş, dolu hücreler
+const HEAT_LIGHT = { from: "#d1fae5", to: "#059669", textHigh: "#ffffff", textLow: "#065f46" } as const;
+const HEAT_DARK  = { from: "#0d3b2e", to: "#10b981", textHigh: "#022c22", textLow: "#a7f3d0" } as const;
+
+// Tema zümrütüne oturan ısı rampası: boş hücre c.cardAlt / c.textMuted, dolu hücreler
 // açık zümrütten accent'e. sqrt ile düşük geçişler de seçilebilir kalır.
-function heatCell(count: number, max: number, isDark: boolean): { bg: string; text: string } {
+function heatCell(count: number, max: number, c: AppColors): { bg: string; text: string } {
   if (count === 0) {
-    return isDark
-      ? { bg: "#292524", text: "#78716c" }
-      : { bg: "#ede6d6", text: "#a8a29e" };
+    return { bg: c.cardAlt, text: c.textMuted };
   }
   const t = Math.sqrt(Math.min(count / Math.max(max, 1), 1));
-  if (isDark) {
-    return {
-      bg: lerpHex("#0d3b2e", "#10b981", t),
-      text: t > 0.6 ? "#022c22" : "#a7f3d0",
-    };
-  }
+  const palette = c.isDark ? HEAT_DARK : HEAT_LIGHT;
   return {
-    bg: lerpHex("#d1fae5", "#059669", t),
-    text: t > 0.6 ? "#ffffff" : "#065f46",
+    bg: lerpHex(palette.from, palette.to, t),
+    text: t > 0.6 ? palette.textHigh : palette.textLow,
   };
 }
 
@@ -76,7 +74,7 @@ const HeatGrid = memo(function HeatGrid({
       <View {...targetProps} style={hg.grid}>
         {Array.from({ length: 114 }, (_, i) => i + 1).map((id) => {
           const count = distribution[id] ?? 0;
-          const cell = heatCell(count, maxCount, c.isDark);
+          const cell = heatCell(count, maxCount, c);
           const isDisabled = count === 0;
           const fullName = surahNameOf(id, SURAH_TR_NAMES[id] ?? String(id));
           const a11yLabel = count > 0
@@ -118,7 +116,7 @@ const HeatGrid = memo(function HeatGrid({
         onRequestClose={() => setModalInfo(null)}
       >
         <TouchableOpacity
-          style={hg.modalOverlay}
+          style={[hg.modalOverlay, { backgroundColor: c.overlay }]}
           activeOpacity={1}
           onPress={() => setModalInfo(null)}
           accessibilityRole="button"
@@ -129,17 +127,15 @@ const HeatGrid = memo(function HeatGrid({
               <>
                 <Text style={[hg.modalSurah, { color: c.text }]}>{fmt(t.surahN, { n: modalInfo.surahId })}</Text>
                 <Text style={[hg.modalCount, { color: c.textMuted }]}>{fmt(t.occurrences, { n: modalInfo.count })}</Text>
-                <TouchableOpacity
-                  style={[hg.modalBtn, { backgroundColor: c.accent }]}
+                <Button
+                  variant="primary"
+                  label={t.goToSurah}
                   onPress={() => {
                     setModalInfo(null);
                     router.push(`/surah/${modalInfo.surahId}`);
                   }}
-                  accessibilityRole="button"
                   accessibilityLabel={fmt(t.goToSurahA11y, { n: modalInfo.surahId })}
-                >
-                  <Text style={hg.modalBtnText}>{t.goToSurah}</Text>
-                </TouchableOpacity>
+                />
               </>
             )}
           </View>
@@ -188,17 +184,15 @@ const MeaningGroup = memo(function MeaningGroup({
             {forms.join(" · ")}
           </Text>
         </View>
-        <Text style={[s.accordionChevron, isOpen && { transform: [{ rotate: "180deg" }] }]}>
-          ▼
-        </Text>
+        <Ionicons name={isOpen ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
 
       {isOpen && (
-        <View style={[s.versesWrap, { borderTopColor: c.cardAlt }]}>
+        <View style={[s.versesWrap, { borderTopColor: c.border }]}>
           {verses.slice(0, 80).map((verse, index) => (
             <TouchableOpacity
               key={index}
-              style={[s.verseChip, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}
+              style={[s.verseChip, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}
               onPressIn={() => prefetchAyah(verse.surahId, verse.ayahNumber)}
               onPress={() => router.push(`/ayah/${verse.surahId}/${verse.ayahNumber}`)}
               activeOpacity={0.7}
@@ -206,7 +200,7 @@ const MeaningGroup = memo(function MeaningGroup({
               accessibilityLabel={fmt(t.verseA11y, { s: verse.surahId, a: verse.ayahNumber })}
               accessibilityHint={t.opensVerse}
             >
-              <Text style={[s.verseChipText, c.isDark && { color: "#6ee7b7" }]}>{verse.surahId}:{verse.ayahNumber}</Text>
+              <Text style={[s.verseChipText, { color: c.greenText }]}>{verse.surahId}:{verse.ayahNumber}</Text>
             </TouchableOpacity>
           ))}
           {verses.length > 80 && (
@@ -297,7 +291,7 @@ export default function RootDetailScreen() {
       <>
         <Stack.Screen options={{ title: root || t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
-          <ActivityIndicator size="large" color="#059669" />
+          <ActivityIndicator size="large" color={c.accent} />
         </View>
       </>
     );
@@ -308,24 +302,20 @@ export default function RootDetailScreen() {
       <>
         <Stack.Screen options={{ title: root || t.title }} />
         <View style={[s.centered, { backgroundColor: c.bg }]}>
-          <Text style={s.errorText}>{error ?? t.dataError}</Text>
+          <Text style={[s.errorText, { color: c.errorText }]}>{error ?? t.dataError}</Text>
           <View style={s.errorActions}>
-            <TouchableOpacity
-              style={s.retryBtn}
+            <Button
+              variant="primary"
+              label={t.retry}
               onPress={() => { void fetchDetail(root); }}
-              accessibilityRole="button"
               accessibilityLabel={t.retryDetailA11y}
-            >
-              <Text style={s.retryBtnText}>{t.retry}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={s.backBtn}
+            />
+            <Button
+              variant="secondary"
+              label={t.back}
               onPress={() => router.back()}
-              accessibilityRole="button"
               accessibilityLabel={t.backA11y}
-            >
-              <Text style={s.backBtnText}>{t.back}</Text>
-            </TouchableOpacity>
+            />
           </View>
         </View>
       </>
@@ -369,9 +359,9 @@ export default function RootDetailScreen() {
               ) : null}
               <View style={s.statsRow}>
                 {([[totalOccurrences, t.statOcc], [surahCount, t.statSurah], [uniqueForms, t.statDerived]] as const).map(([num, label]) => (
-                  <View key={label} style={[s.statBadge, { backgroundColor: c.accentLight, borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]}>
-                    <Text style={[s.statNum, c.isDark && { color: "#6ee7b7" }]}>{num}</Text>
-                    <Text style={[s.statLabel, c.isDark && { color: "#34d399" }]}>{label}</Text>
+                  <View key={label} style={[s.statBadge, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}>
+                    <Text style={[s.statNum, { color: c.greenText }]}>{num}</Text>
+                    <Text style={[s.statLabel, { color: c.greenText }]}>{label}</Text>
                   </View>
                 ))}
               </View>
@@ -424,7 +414,7 @@ export default function RootDetailScreen() {
                 <Text style={[s.otherToggleText, { color: c.textMuted }]}>
                   {fmt(t.others, { n: groups.others.length })}
                 </Text>
-                <Text style={[s.otherToggleChevron, { color: c.textMuted }, othersOpen && { transform: [{ rotate: "180deg" }] }]}>▾</Text>
+                <Ionicons name={othersOpen ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
               </TouchableOpacity>
 
               {othersOpen &&
@@ -448,47 +438,41 @@ export default function RootDetailScreen() {
 }
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f0e8" },
+  container: { flex: 1 },
   content: { paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   centered: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
-  errorText: { color: "#dc2626", fontSize: 14, textAlign: "center" },
+  errorText: { fontSize: 14, textAlign: "center" },
   errorActions: { flexDirection: "row", gap: 12, marginTop: 16 },
-  retryBtn: { backgroundColor: "#059669", borderRadius: 8, paddingHorizontal: 20, paddingVertical: 10 },
-  retryBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
-  backBtn: { backgroundColor: "#0f766e", borderRadius: 8, paddingHorizontal: 20, paddingVertical: 10 },
-  backBtnText: { color: "#fff", fontSize: 14, fontWeight: "600" },
 
-  header: { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, backgroundColor: "#fffdf6", marginBottom: 8 },
-  rootTitle: { fontSize: 40, color: "#1c1917", marginBottom: 8 },
-  meaningLabel: { fontSize: 10, fontWeight: "700", letterSpacing: 0.5, textTransform: "uppercase", color: "#a8a29e", marginBottom: 2 },
-  meaning: { fontSize: 16, color: "#44403c", marginBottom: 12 },
+  header: { alignItems: "center", paddingVertical: 24, paddingHorizontal: 16, marginBottom: 8 },
+  rootTitle: { fontSize: 40, marginBottom: 8 },
+  meaningLabel: { fontSize: 10, fontWeight: "700", letterSpacing: 0.5, textTransform: "uppercase", marginBottom: 2 },
+  meaning: { fontSize: 16, marginBottom: 12 },
   statsRow: { flexDirection: "row", gap: 16 },
-  statBadge: { alignItems: "center", backgroundColor: "#f0fdf4", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8, borderWidth: 1, borderColor: "#86efac" },
-  statNum: { fontSize: 18, fontWeight: "700", color: "#065f46" },
-  statLabel: { fontSize: 10, color: "#059669", marginTop: 1 },
+  statBadge: { alignItems: "center", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8, borderWidth: 1 },
+  statNum: { fontSize: 18, fontWeight: "700" },
+  statLabel: { fontSize: 10, marginTop: 1 },
 
-  section: { marginHorizontal: 12, marginBottom: 16, backgroundColor: "#fffdf6", borderRadius: 14, padding: 16, borderWidth: 1, borderColor: "#e7dfcc" },
-  sectionTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginBottom: 4 },
-  sectionHint: { fontSize: 11, color: "#a8a29e", marginBottom: 12 },
-  groupsTitle: { fontSize: 13, fontWeight: "700", color: "#1c1917", marginHorizontal: 12, marginTop: 4, marginBottom: 2 },
-  groupsHint: { fontSize: 11, color: "#a8a29e", marginHorizontal: 12, marginBottom: 8, lineHeight: 15 },
+  section: { marginHorizontal: 12, marginBottom: 16, borderRadius: 14, padding: 16, borderWidth: 1 },
+  sectionTitle: { fontSize: 13, fontWeight: "700", marginBottom: 4 },
+  sectionHint: { fontSize: 11, marginBottom: 12 },
+  groupsTitle: { fontSize: 13, fontWeight: "700", marginHorizontal: 12, marginTop: 4, marginBottom: 2 },
+  groupsHint: { fontSize: 11, marginHorizontal: 12, marginBottom: 8, lineHeight: 15 },
 
-  otherWrap: { marginTop: 10, marginHorizontal: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#e7dfcc" },
+  otherWrap: { marginTop: 10, marginHorizontal: 12, paddingTop: 4, borderTopWidth: 1 },
   otherToggle: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 5, paddingVertical: 10 },
-  otherToggleText: { fontSize: 12.5, fontWeight: "600", color: "#a8a29e", letterSpacing: 0.2 },
-  otherToggleChevron: { fontSize: 9, color: "#a8a29e" },
+  otherToggleText: { fontSize: 12.5, fontWeight: "600", letterSpacing: 0.2 },
 
-  accordionCard: { borderWidth: 1, borderColor: "#e7dfcc", borderRadius: 10, overflow: "hidden", backgroundColor: "#fffdf6", marginHorizontal: 12, marginBottom: 6 },
+  accordionCard: { borderWidth: 1, borderRadius: 14, overflow: "hidden", marginHorizontal: 12, marginBottom: 6 },
   accordionHeader: { flexDirection: "row", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12, gap: 8 },
-  accordionTitle: { fontSize: 14, fontWeight: "700", color: "#1c1917" },
-  accordionCount: { fontSize: 13, fontWeight: "400", color: "#059669" },
-  accordionForms: { fontSize: 12, color: "#a8a29e", marginTop: 2, textAlign: "right" },
-  accordionChevron: { fontSize: 10, color: "#a8a29e" },
-  versesWrap: { flexDirection: "row", flexWrap: "wrap", gap: 6, paddingHorizontal: 14, paddingBottom: 12, paddingTop: 4, borderTopWidth: 1, borderTopColor: "#f5f0e8" },
-  verseChip: { backgroundColor: "#f0fdf4", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#86efac" },
-  verseChipText: { fontSize: 12, color: "#065f46", fontWeight: "600" },
+  accordionTitle: { fontSize: 14, fontWeight: "700" },
+  accordionCount: { fontSize: 13, fontWeight: "400" },
+  accordionForms: { fontSize: 12, marginTop: 2, textAlign: "right" },
+  versesWrap: { flexDirection: "row", flexWrap: "wrap", gap: 6, paddingHorizontal: 14, paddingBottom: 12, paddingTop: 4, borderTopWidth: 1 },
+  verseChip: { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1 },
+  verseChipText: { fontSize: 12, fontWeight: "600" },
   verseMore: { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, justifyContent: "center" },
-  verseMoreText: { fontSize: 12, color: "#a8a29e", fontStyle: "italic" },
+  verseMoreText: { fontSize: 12, fontStyle: "italic" },
 });
 
 const hg = StyleSheet.create({
@@ -504,12 +488,10 @@ const hg = StyleSheet.create({
     justifyContent: "center",
   },
   cellNum: { fontSize: 9, fontWeight: "700", opacity: 0.85 },
-  cellText: { fontSize: 11, color: "#a8a29e", fontWeight: "600", textAlign: "center" },
+  cellText: { fontSize: 11, fontWeight: "600", textAlign: "center" },
 
-  modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", alignItems: "center", justifyContent: "center" },
-  modalCard: { backgroundColor: "#fffdf6", borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200, borderWidth: 1 },
-  modalSurah: { fontSize: 18, fontWeight: "700", color: "#1c1917", marginBottom: 6 },
-  modalCount: { fontSize: 14, color: "#78716c", marginBottom: 16 },
-  modalBtn: { backgroundColor: "#059669", borderRadius: 10, paddingHorizontal: 24, paddingVertical: 10 },
-  modalBtnText: { color: "#fff", fontWeight: "600" },
+  modalOverlay: { flex: 1, alignItems: "center", justifyContent: "center" },
+  modalCard: { borderRadius: 16, padding: 24, alignItems: "center", minWidth: 200, borderWidth: 1 },
+  modalSurah: { fontSize: 18, fontWeight: "700", marginBottom: 6 },
+  modalCount: { fontSize: 14, marginBottom: 16 },
 });

@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { getStrings } from "../i18n";
+import { View, Text, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useStrings } from "../i18n";
 import misc1Strings from "../i18n/strings/misc1";
+import { useColors } from "../hooks/useColors";
+import { Button, toneColors } from "./ui";
 
 // _layout.tsx'teki Sentry.init() zaten çalıştı (singleton) — burada yalnız
 // captureException'a erişmek için aynı build-gated require deseni tekrarlanır.
@@ -24,6 +27,22 @@ interface State {
   hasError: boolean;
 }
 
+function ErrorBoundaryView({ onReset }: { onReset: () => void }) {
+  const c = useColors();
+  const t = useStrings(misc1Strings);
+  const tone = toneColors(c, "amber");
+  return (
+    <View style={[styles.container, { backgroundColor: c.card }]}>
+      <View style={[styles.iconWrap, { backgroundColor: tone.bg }]}>
+        <Ionicons name="warning-outline" size={28} color={tone.fg} accessible={false} importantForAccessibility="no" />
+      </View>
+      <Text style={[styles.title, { color: c.text }]}>{t.errTitle}</Text>
+      <Text style={[styles.sub, { color: c.textSecondary }]}>{t.errBoundarySub}</Text>
+      <Button variant="primary" label={t.retry} onPress={onReset} accessibilityLabel={t.retryA11y} />
+    </View>
+  );
+}
+
 export class ErrorBoundary extends React.Component<Props, State> {
   state: State = { hasError: false };
 
@@ -41,27 +60,15 @@ export class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback;
-      const t = getStrings(misc1Strings);
-      return (
-        <View style={styles.container}>
-          <Text style={styles.emoji}>⚠️</Text>
-          <Text style={styles.title}>{t.errTitle}</Text>
-          <Text style={styles.sub}>{t.errBoundarySub}</Text>
-          <TouchableOpacity style={styles.btn} onPress={this.reset} accessibilityRole="button" accessibilityLabel={t.retryA11y}>
-            <Text style={styles.btnText}>{t.retry}</Text>
-          </TouchableOpacity>
-        </View>
-      );
+      return <ErrorBoundaryView onReset={this.reset} />;
     }
     return this.props.children;
   }
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32, backgroundColor: "#fffdf6" },
-  emoji:     { fontSize: 48, marginBottom: 16 },
-  title:     { fontSize: 18, fontWeight: "700", color: "#1c1917", marginBottom: 8 },
-  sub:       { fontSize: 14, color: "#78716c", textAlign: "center", marginBottom: 24 },
-  btn:       { backgroundColor: "#4f46e5", paddingHorizontal: 24, paddingVertical: 12, borderRadius: 10 },
-  btnText:   { color: "#fff", fontWeight: "600", fontSize: 14 },
+  container: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
+  iconWrap:  { width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", marginBottom: 16 },
+  title:     { fontSize: 18, fontWeight: "700", marginBottom: 8 },
+  sub:       { fontSize: 14, textAlign: "center", marginBottom: 24 },
 });

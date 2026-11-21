@@ -13,6 +13,7 @@ import { getEvidenceLabel } from "../src/lib/sourceLabels";
 import { useLang, useStrings, fmt, type Lang, caps } from "../src/i18n";
 import { localizedData } from "../src/i18n/localizedData";
 import mubarekStrings from "../src/i18n/strings/mubarekGunler";
+import { Badge, Callout, radius, space, toneColors, type IoniconName, type Tone } from "../src/components/ui";
 
 type DayanakKey = "sahih" | "tartismali" | "zayif" | "kulturel" | "uydurma";
 type IbadetDurumKey = "farz" | "vacip" | "sunnet" | "mustehap" | "tavsiye";
@@ -119,15 +120,21 @@ function getDayanakColors(c: AppColors): Record<DayanakKey, { bg: string; border
   };
 }
 
-function getIbadetDurumColors(c: AppColors): Record<IbadetDurumKey, { bg: string; text: string }> {
-  return {
-    farz:     { bg: c.errorBg,  text: c.errorText },
-    vacip:    { bg: c.orangeBg, text: c.orangeText },
-    sunnet:   { bg: c.greenBg,  text: c.greenText },
-    mustehap: { bg: c.blueBg,   text: c.blueText },
-    tavsiye:  { bg: c.violetBg, text: c.violetText },
-  };
-}
+const DAYANAK_BADGE_TONE: Record<DayanakKey, Tone | "error"> = {
+  sahih:      "emerald",
+  tartismali: "amber",
+  zayif:      "amber",
+  kulturel:   "sky",
+  uydurma:    "error",
+};
+
+const IBADET_DURUM_TONE: Record<IbadetDurumKey, Tone | "error"> = {
+  farz:     "error",
+  vacip:    "amber",
+  sunnet:   "emerald",
+  mustehap: "sky",
+  tavsiye:  "violet",
+};
 
 const DAYANAK_LABEL_KEY = {
   sahih: "dsSahih", tartismali: "dsTartismali", zayif: "dsZayif", kulturel: "dsKulturel", uydurma: "dsUydurma",
@@ -137,41 +144,37 @@ const DURUM_LABEL_KEY = {
 } as const;
 const TIP_LABEL_KEY = { haftalik: "tipHaftalik", yillik: "tipYillik", ramazan: "tipRamazan" } as const;
 
-const TIP_EMOJI: Record<GunTip, string> = {
-  haftalik: "📅",
-  yillik: "🌙",
-  ramazan: "🌟",
+const TIP_VISUAL: Record<GunTip, { icon: IoniconName; tone: Tone }> = {
+  haftalik: { icon: "calendar-outline", tone: "sky" },
+  yillik:   { icon: "moon-outline",     tone: "violet" },
+  ramazan:  { icon: "star-outline",     tone: "amber" },
 };
 
 function DayanakBadge({ dayanak }: { dayanak: DayanakKey }) {
-  const c = useColors();
   const t = useStrings(mubarekStrings);
-  const badge = getDayanakColors(c)[dayanak];
-  return (
-    <View style={[st.badge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-      <Text style={[st.badgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[dayanak]]}</Text>
-    </View>
-  );
+  return <Badge label={t[DAYANAK_LABEL_KEY[dayanak]]} tone={DAYANAK_BADGE_TONE[dayanak]} style={{ alignSelf: "center" }} />;
 }
 
 function IbadetCard({ ib }: { ib: Ibadet }) {
   const c = useColors();
   const t = useStrings(mubarekStrings);
-  const badge = ib.durum ? getIbadetDurumColors(c)[ib.durum] : undefined;
   const evidenceLabel = getEvidenceLabel(ib.hadis_kaynagi);
 
   return (
-    <View style={[st.ibadetCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
+    <View style={[st.ibadetCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <View style={st.ibadetHeader}>
         <Text style={[st.ibadetIsim, { color: c.text }]}>{ib.isim}</Text>
-        {badge ? (
-          <View style={[st.badge, { backgroundColor: badge.bg }]}>
-            <Text style={[st.badgeText, { color: badge.text }]}>{t[DURUM_LABEL_KEY[ib.durum as IbadetDurumKey]]}</Text>
-          </View>
+        {ib.durum ? (
+          <Badge label={t[DURUM_LABEL_KEY[ib.durum]]} tone={IBADET_DURUM_TONE[ib.durum]} style={{ alignSelf: "center" }} />
         ) : null}
       </View>
       {ib.aciklama ? <Text style={[st.p, { color: c.textSecondary }]}>{ib.aciklama}</Text> : null}
-      {ib.hadis_kaynagi ? <Text style={[st.kaynak, { color: c.textMuted }]}>📚 {evidenceLabel}</Text> : null}
+      {ib.hadis_kaynagi ? (
+        <View style={st.metaRow}>
+          <Ionicons name="library-outline" size={14} color={c.textMuted} style={st.metaIcon} accessible={false} importantForAccessibility="no" />
+          <Text style={[st.kaynak, { color: c.textMuted, flex: 1 }]}>{evidenceLabel}</Text>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -213,7 +216,7 @@ function GunCard({ gun }: { gun: Gun }) {
         <TouchableOpacity
           onPress={() => setOpen(current => !current)}
           activeOpacity={0.75}
-          style={{ flex: 1, gap: 4 }}
+          style={{ flex: 1, gap: 4, minHeight: 44, justifyContent: "center" }}
           accessibilityRole="button"
           accessibilityLabel={gunIsmi}
           accessibilityHint={open ? t.dayHintClose : t.dayHintOpen}
@@ -224,9 +227,15 @@ function GunCard({ gun }: { gun: Gun }) {
           </View>
           <View style={st.row}>
             <DayanakBadge dayanak={gun.dayanak} />
-            {gun.tip ? (
-              <Text style={[st.tipText, { color: c.textMuted }]}>{TIP_EMOJI[gun.tip]} {t[TIP_LABEL_KEY[gun.tip]] ?? gun.tip}</Text>
-            ) : null}
+            {gun.tip ? (() => {
+              const tipVis = TIP_VISUAL[gun.tip];
+              return (
+                <View style={st.tipRow}>
+                  <Ionicons name={tipVis.icon} size={18} color={toneColors(c, tipVis.tone).fg} accessible={false} importantForAccessibility="no" />
+                  <Text style={[st.tipText, { color: c.textMuted }]}>{t[TIP_LABEL_KEY[gun.tip]] ?? gun.tip}</Text>
+                </View>
+              );
+            })() : null}
             {gun.hicri_tarih ? <Text style={[st.hicri, { color: c.textMuted }]}>{gun.hicri_tarih}</Text> : null}
           </View>
         </TouchableOpacity>
@@ -234,7 +243,7 @@ function GunCard({ gun }: { gun: Gun }) {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <TouchableOpacity
             onPress={handleShare}
-            hitSlop={8}
+            hitSlop={14}
             activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel={fmt(t.shareA11y, { name: gunIsmi })}
@@ -244,13 +253,13 @@ function GunCard({ gun }: { gun: Gun }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setOpen(current => !current)}
-            hitSlop={8}
+            hitSlop={14}
             activeOpacity={0.7}
             accessibilityRole="button"
             accessibilityLabel={fmt(open ? t.detailA11yClose : t.detailA11yOpen, { name: gunIsmi })}
             accessibilityState={{ expanded: open }}
           >
-            <Text style={[st.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+            <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
           </TouchableOpacity>
         </View>
       </View>
@@ -269,9 +278,12 @@ function GunCard({ gun }: { gun: Gun }) {
           {kuranRef && (kuranRef.metin || kuranRef.not || (kuranRef.sure && kuranRef.ayet)) ? (
             <View style={[st.kuranBox, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
               {kuranRef.sure && kuranRef.ayet ? (
-                <Text style={[st.kuranRef, { color: c.accent }]}>
-                  📖 {caps(kuranRef.sure)} {caps(String(kuranRef.ayet))}
-                </Text>
+                <View style={st.metaRow}>
+                  <Ionicons name="book-outline" size={14} color={c.textMuted} style={st.metaIcon} accessible={false} importantForAccessibility="no" />
+                  <Text style={[st.kuranRef, { color: c.accent, flex: 1 }]}>
+                    {caps(kuranRef.sure)} {caps(String(kuranRef.ayet))}
+                  </Text>
+                </View>
               ) : null}
               {kuranRef.metin ? <Text style={[st.p, { color: c.text }]}>{`"${kuranRef.metin}"`}</Text> : null}
               {kuranRef.not ? <Text style={[st.small, { color: c.textMuted }]}>{kuranRef.not}</Text> : null}
@@ -287,11 +299,7 @@ function GunCard({ gun }: { gun: Gun }) {
             </View>
           ) : null}
 
-          {gun.ozel_not ? (
-            <View style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
-              <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {gun.ozel_not}</Text>
-            </View>
-          ) : null}
+          {gun.ozel_not ? <Callout tone="info">{gun.ozel_not}</Callout> : null}
         </View>
       ) : null}
     </View>
@@ -308,6 +316,7 @@ export default function MubarekGunlerScreen() {
   const aciklama = ROOT.aciklama ?? "";
   const genelNot = ROOT.genel_not ?? "";
   const kaynakNot = ROOT.kaynak_not ?? "";
+  const heroTone = toneColors(c, "violet");
 
   return (
     <>
@@ -317,44 +326,36 @@ export default function MubarekGunlerScreen() {
         contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
-        <View style={s.hero}>
-          <Text style={s.heroIcon}>🌙</Text>
-          <Text style={s.heroTitle}>{baslik}</Text>
-          {aciklama ? <Text style={s.heroDesc}>{aciklama}</Text> : null}
+        <View style={[s.hero, { backgroundColor: c.card, borderColor: c.border }]}>
+          <View style={[s.heroIconWrap, { backgroundColor: heroTone.bg }]}>
+            <Ionicons name="moon-outline" size={28} color={heroTone.fg} accessible={false} importantForAccessibility="no" />
+          </View>
+          <Text style={[s.heroTitle, { color: c.text }]}>{baslik}</Text>
+          {aciklama ? <Text style={[s.heroDesc, { color: c.textSecondary }]}>{aciklama}</Text> : null}
         </View>
 
         {OZET_TABLO.length > 0 ? (
           <View style={[s.ozetBox, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.ozetTitle, { color: c.text }]}>{t.quickLook}</Text>
-            {OZET_TABLO.map((row, index) => {
-              const badge = getDayanakColors(c)[row.dayanak];
-              return (
-                <View key={`${row.isim}-${index}`} style={[s.ozetRow, { borderBottomColor: c.border }]}>
-                  <Text style={[s.ozetIsim, { color: c.text }]}>{row.isim}</Text>
-                  <Text style={[s.ozetHicri, { color: c.textMuted }]}>{row.hicri}</Text>
-                  <View style={[s.ozetBadge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-                    <Text style={[s.ozetBadgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[row.dayanak]]}</Text>
-                  </View>
-                </View>
-              );
-            })}
+            {OZET_TABLO.map((row, index) => (
+              <View key={`${row.isim}-${index}`} style={[s.ozetRow, { borderBottomColor: c.border }]}>
+                <Text style={[s.ozetIsim, { color: c.text }]}>{row.isim}</Text>
+                <Text style={[s.ozetHicri, { color: c.textMuted }]}>{row.hicri}</Text>
+                <DayanakBadge dayanak={row.dayanak} />
+              </View>
+            ))}
           </View>
         ) : null}
 
         {DAYANAK_SEVIYELERI.length > 0 ? (
           <View style={[s.dayanakLegend, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.ozetTitle, { color: c.text }]}>{t.basisLevels}</Text>
-            {DAYANAK_SEVIYELERI.map(seviye => {
-              const badge = getDayanakColors(c)[seviye.kod];
-              return (
-                <View key={seviye.kod} style={s.legendRow}>
-                  <View style={[s.ozetBadge, { backgroundColor: badge.bg, borderColor: badge.border }]}>
-                    <Text style={[s.ozetBadgeText, { color: badge.text }]}>{t[DAYANAK_LABEL_KEY[seviye.kod]]}</Text>
-                  </View>
-                  <Text style={[s.legendText, { color: c.textSecondary }]}>{seviye.aciklama}</Text>
-                </View>
-              );
-            })}
+            {DAYANAK_SEVIYELERI.map(seviye => (
+              <View key={seviye.kod} style={s.legendRow}>
+                <DayanakBadge dayanak={seviye.kod} />
+                <Text style={[s.legendText, { color: c.textSecondary }]}>{seviye.aciklama}</Text>
+              </View>
+            ))}
           </View>
         ) : null}
 
@@ -366,11 +367,7 @@ export default function MubarekGunlerScreen() {
           <Text style={[s.emptyText, { color: c.textMuted }]}>{t.empty}</Text>
         )}
 
-        {genelNot ? (
-          <View style={[st.notBox, { backgroundColor: c.noteBg, borderColor: c.noteBorder }]}>
-            <Text style={[st.notText, { color: c.noteText }]}>ℹ️ {genelNot}</Text>
-          </View>
-        ) : null}
+        {genelNot ? <Callout tone="info" style={{ marginTop: space.xs }}>{genelNot}</Callout> : null}
 
         {kaynakNot ? <Text style={[s.kaynak, { color: c.textMuted }]}>{kaynakNot}</Text> : null}
       </ScrollView>
@@ -379,24 +376,20 @@ export default function MubarekGunlerScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  content: { padding: space.gutter, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 
-  hero: { borderRadius: 16, padding: 18, marginBottom: 12, alignItems: "center", backgroundColor: "#0f172a", gap: 6 },
-  heroIcon: { fontSize: 36, marginBottom: 2 },
-  heroTitle: { fontSize: 18, fontWeight: "800", color: "#e2e8f0", textAlign: "center" },
-  // Kontrast: #64748b koyu hero zemininde (#0f172a) 3.75:1 kalıyordu, WCAG AA
-  // normal metin eşiği 4.5:1. #94a3b8 ile 7.13:1'e çıkıyor.
-  heroDesc: { fontSize: 12, color: "#94a3b8", lineHeight: 18, textAlign: "center" },
+  hero: { borderRadius: radius.lg, borderWidth: 1, padding: 18, marginBottom: space.sm, alignItems: "center", gap: 6 },
+  heroIconWrap: { width: 56, height: 56, borderRadius: 28, alignItems: "center", justifyContent: "center", marginBottom: 4 },
+  heroTitle: { fontSize: 18, fontWeight: "800", textAlign: "center" },
+  heroDesc: { fontSize: 12, lineHeight: 18, textAlign: "center" },
 
-  ozetBox: { borderRadius: 14, borderWidth: 1, padding: 14, marginBottom: 10 },
+  ozetBox: { borderRadius: radius.lg, borderWidth: 1, padding: 14, marginBottom: 10 },
   ozetTitle: { fontSize: 13, fontWeight: "700", marginBottom: 10 },
   ozetRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 7, borderBottomWidth: 1 },
   ozetIsim: { flex: 1, fontSize: 12.5, fontWeight: "600" },
   ozetHicri: { fontSize: 10.5, flexShrink: 1 },
-  ozetBadge: { borderRadius: 6, borderWidth: 1, paddingHorizontal: 6, paddingVertical: 2 },
-  ozetBadgeText: { fontSize: 9, fontWeight: "800", letterSpacing: 0.3 },
 
-  dayanakLegend: { borderRadius: 14, borderWidth: 1, padding: 14, marginBottom: 10, gap: 8 },
+  dayanakLegend: { borderRadius: radius.lg, borderWidth: 1, padding: 14, marginBottom: 10, gap: 8 },
   legendRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   legendText: { flex: 1, fontSize: 11.5, lineHeight: 17 },
 
@@ -406,39 +399,35 @@ const s = StyleSheet.create({
 });
 
 const st = StyleSheet.create({
-  card: { borderRadius: 14, borderWidth: 1, borderLeftWidth: 4, marginBottom: 8, overflow: "hidden" },
+  card: { borderRadius: radius.lg, borderWidth: 1, borderLeftWidth: 4, marginBottom: 8, overflow: "hidden" },
   cardHeader: { flexDirection: "row", alignItems: "flex-start", gap: 10, padding: 14 },
   body: { borderTopWidth: 1, padding: 14, gap: 12 },
 
   row: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 6 },
   isim: { fontSize: 14, fontWeight: "700", flexShrink: 1 },
-  chev: { fontSize: 11, marginTop: 3 },
 
+  tipRow: { flexDirection: "row", alignItems: "center", gap: space.xxs },
   tipText: { fontSize: 10.5 },
   hicri: { fontSize: 10.5 },
 
-  badge: { borderRadius: 6, borderWidth: 1, paddingHorizontal: 6, paddingVertical: 2 },
-  badgeText: { fontSize: 9, fontWeight: "800", letterSpacing: 0.3 },
-
   onem: { fontSize: 13, lineHeight: 20, fontStyle: "italic" },
 
-  dayanakBox: { borderRadius: 10, borderWidth: 1, padding: 11, gap: 4 },
+  dayanakBox: { borderRadius: radius.md, borderWidth: 1, padding: 11, gap: 4 },
   dayanakLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
 
-  kuranBox: { borderRadius: 10, borderWidth: 1, padding: 11, gap: 5 },
+  kuranBox: { borderRadius: radius.md, borderWidth: 1, padding: 11, gap: 5 },
   kuranRef: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
 
   section: { gap: 6 },
   sectionLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4 },
 
-  ibadetCard: { borderRadius: 10, borderWidth: 1, padding: 11, marginBottom: 4, gap: 4 },
+  ibadetCard: { borderRadius: radius.lg, borderWidth: 1, padding: 11, marginBottom: 4, gap: 4 },
   ibadetHeader: { flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap" },
   ibadetIsim: { fontSize: 13, fontWeight: "700", flex: 1 },
 
+  metaRow: { flexDirection: "row", alignItems: "flex-start", gap: space.xs },
+  metaIcon: { marginTop: 2 },
   p: { fontSize: 12.5, lineHeight: 20 },
   small: { fontSize: 11.5, lineHeight: 17 },
   kaynak: { fontSize: 10.5, fontStyle: "italic" },
-
-  notBox: { borderRadius: 8, padding: 9, borderWidth: 1 },
-  notText: { fontSize: 11.5, lineHeight: 17 },
 });

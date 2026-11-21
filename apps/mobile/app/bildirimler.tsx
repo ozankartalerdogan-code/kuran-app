@@ -2,13 +2,14 @@ import { overlayAlert } from "../src/tour/overlayAlert";
 import { withOverlayBusy } from "../src/tour/overlayBusy";
 import {
   View, Text, ScrollView, ActivityIndicator, StyleSheet, Switch, Linking,
-  AppState, TouchableOpacity,
+  AppState,
 } from "react-native";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
+import { Button } from "../src/components/ui";
 import {
   requestNotificationPermission,
   changeNotificationPreference,
@@ -213,7 +214,7 @@ export default function BildirimlerScreen() {
             </Text>
           </View>
           {notifLoading || !prefsLoaded
-            ? <ActivityIndicator color="#059669" />
+            ? <ActivityIndicator color={c.accent} />
             : <Switch
                 value={notifEnabled}
                 onValueChange={toggleNotif}
@@ -236,7 +237,7 @@ export default function BildirimlerScreen() {
             </Text>
           </View>
           {dailyVerseLoading || !prefsLoaded
-            ? <ActivityIndicator color="#059669" />
+            ? <ActivityIndicator color={c.accent} />
             : <Switch
                 value={dailyVerseEnabled}
                 onValueChange={toggleDailyVerse}
@@ -252,14 +253,12 @@ export default function BildirimlerScreen() {
           <View style={[styles.exactCard, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[styles.notifTitle, { color: c.text }]}>{t.exactCardTitle}</Text>
             <Text style={[styles.notifSub, { color: c.textMuted }]}>{t.exactCardBody}</Text>
-            <TouchableOpacity
-              style={[styles.exactBtn, { backgroundColor: c.accent }]}
+            <Button
+              variant="primary"
+              label={t.exactCardBtn}
               onPress={() => { openExactAlarmSettings(); }}
-              activeOpacity={0.8}
-              accessibilityRole="button"
-            >
-              <Text style={styles.exactBtnText}>{t.exactCardBtn}</Text>
-            </TouchableOpacity>
+              style={{ alignSelf: "flex-start", marginTop: 4 }}
+            />
           </View>
         )}
 
@@ -272,18 +271,16 @@ export default function BildirimlerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f0e8" },
-  intro: { fontSize: 13, color: "#78716c", paddingHorizontal: 16, paddingTop: 14, lineHeight: 19 },
+  container: { flex: 1 },
+  intro: { fontSize: 13, paddingHorizontal: 16, paddingTop: 14, lineHeight: 19 },
   notifCard: {
     flexDirection: "row", alignItems: "center", gap: 12,
     margin: 12, padding: 14,
-    backgroundColor: "#fffdf6", borderRadius: 12,
-    borderWidth: 1, borderColor: "#d1fae5",
+    borderRadius: 12,
+    borderWidth: 1,
   },
-  notifTitle: { fontSize: 14, fontWeight: "600", color: "#1c1917", marginBottom: 2 },
-  notifSub:   { fontSize: 12, color: "#78716c", lineHeight: 17 },
+  notifTitle: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
+  notifSub:   { fontSize: 12, lineHeight: 17 },
   exactCard: { marginHorizontal: 12, marginBottom: 12, padding: 14, borderRadius: 12, borderWidth: 1, gap: 6 },
-  exactBtn: { alignSelf: "flex-start", marginTop: 4, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 8, minHeight: 36, justifyContent: "center" },
-  exactBtnText: { color: "#fff", fontSize: 13, fontWeight: "700" },
-  note: { fontSize: 11, color: "#a8a29e", paddingHorizontal: 16, paddingTop: 4, lineHeight: 16 },
+  note: { fontSize: 11, paddingHorizontal: 16, paddingTop: 4, lineHeight: 16 },
 });
