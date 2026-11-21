@@ -14,7 +14,7 @@ export default defineStrings({
     kibleLabel: "Kıble",
     kibleSub: "Kabe yönünü bul",
     tasbihLabel: "Tespih",
-    tasbihSub: "Dijital zikir matik",
+    tasbihSub: "Dijital zikirmatik",
   },
   en: {
     heading: "Worship",

@@ -18,6 +18,7 @@
 //
 // React dışı (bildirim, widget, util) kodda: getStrings(namazStrings).
 import { useSyncExternalStore } from "react";
+import { capsText } from "./capsText";
 import { storage } from "../lib/storage";
 import { updateLanguageState, type Lang, type LangPreference, type LanguageState } from "./languageState";
 
@@ -126,10 +127,10 @@ export { fmt } from "./fmt";
 /**
  * textTransform:"uppercase" olan metinler için: Android büyük harfe çevirirken cihaz
  * dilini kullanır; Türkçe telefonda İngilizce "i" → "İ" olur (GUİDES). İngilizcede
- * metni JS'de önceden büyütürüz ("I" Türkçe kuralda da "I" kalır). Türkçede değişmez.
+ * metni JS'de önceden büyütürüz ("I" Türkçe kuralda da "I" kalır). Türkçede tr-TR kuralıyla büyütülür.
  */
 export function caps<T>(value: T): T {
-  return getLang() === "en" && typeof value === "string" ? (value.toUpperCase() as T) : value;
+  return typeof value === "string" ? (capsText(value, getLang()) as T) : value;
 }
 
 /** Tarih/sayı biçimlendirme için locale etiketi. */
