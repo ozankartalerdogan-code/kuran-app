@@ -213,7 +213,7 @@ export default function ManeviSiginakScreen() {
           <View style={s.scoreRow}><ScoreBadge score="0/10"  /><Text style={[s.scoreDesc, { color: c.textSecondary }]}>{ms.score0}</Text></View>
         </View>
 
-        {/* İsmi Azam linki */}
+        {/* İsm-i Azam linki */}
         <TouchableOpacity style={[s.featuredCard, c.isDark && { backgroundColor: "#422006", borderColor: "#78350f" }]} onPress={() => router.push("/manevi-siginak/ismi-azam")} activeOpacity={0.85} accessibilityRole="button" accessibilityLabel={ms.featuredA11y}>
 
           <Text style={{ fontSize: 32 }}>✨</Text>

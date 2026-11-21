@@ -515,7 +515,7 @@ export default function IsmiAzamScreen() {
           </View>
         </View>
 
-        {/* ── Bölüm 1: Sahih İsmi Azam ──────────────────────────────── */}
+        {/* ── Bölüm 1: Sahih İsm-i Azam ──────────────────────────────── */}
         <Text style={[styles.bolumBaslik, { color: colors.text }]}>{ia.sec1Title}</Text>
 
         <Kutu baslik={ia.irfaniTitle} colors={colors}>

@@ -12,7 +12,7 @@ export default defineStrings({
     prayerWorship: "Namaz & İbadet",
     notifications: "Bildirimler",
     refuge: "Manevi Sığınak",
-    ismiAzam: "İsmi Azam ve Sekine",
+    ismiAzam: "İsm-i Azam ve Sekine",
     search: "Arama",
     mushaf: "Mushaf",
     roots: "Kelime Kökleri",

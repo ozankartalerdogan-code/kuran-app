@@ -6,10 +6,10 @@ export default defineStrings({
   tr: {
     namaz: "Namaz",
     korunma: "Korunma",
-    ismiazam: "İsmi Azam",
+    ismiazam: "İsm-i Azam",
     namazTitle: "🕌 Namaz Etiketleri",
     korunmaTitle: "🛡️ Korunma Etiketleri",
-    ismiazamTitle: "✨ İsmi Azam Etiketleri",
+    ismiazamTitle: "✨ İsm-i Azam Etiketleri",
     "namaz-genel": "Genel",
     "namaz-vakit": "Vakit",
     "namaz-husu": "Huşu",
@@ -24,7 +24,7 @@ export default defineStrings({
     "korunma-hased": "Hased",
     "korunma-siginma": "Sığınma",
     "korunma-sifa": "Şifa",
-    "ismiazam-ayet": "İsmi Azam Ayetleri",
+    "ismiazam-ayet": "İsm-i Azam Ayetleri",
     "ismiazam-sekine": "Sekine Duası",
   },
   en: {

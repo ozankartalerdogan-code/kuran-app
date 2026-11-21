@@ -10,7 +10,7 @@ export default defineStrings({
     esmaSub: "Allah'ın 99 ismi",
     siginakLabel: "Manevi Sığınak",
     siginakSub: "Korunma ve şifa duaları",
-    ismiAzamLabel: "İsmi Azam",
+    ismiAzamLabel: "İsm-i Azam ve Sekine",
     ismiAzamSub: "Sekine ve korunma duaları",
     favLabel: "Favorilerim",
     favSub: "Kaydettiğin ayetler",

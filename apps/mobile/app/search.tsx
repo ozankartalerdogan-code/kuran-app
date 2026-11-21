@@ -68,7 +68,7 @@ const KORUNMA_CHIPS = [
 ];
 
 const ISMIAZAM_CHIPS = [
-  { tag: "ismiazam-ayet",   label: "İsmi Azam Ayetleri" },
+  { tag: "ismiazam-ayet",   label: "İsm-i Azam Ayetleri" },
   { tag: "ismiazam-sekine", label: "Sekine Duası" },
 ];
 
