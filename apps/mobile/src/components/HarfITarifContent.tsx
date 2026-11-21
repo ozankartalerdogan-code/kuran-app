@@ -21,14 +21,9 @@ import {
   type HarfTarifBolum,
   type HarfTarifSoru,
 } from "../data/harfITarifDersi";
+import { Button, Callout, radius, space, toneColors } from "./ui";
 
 type C = ReturnType<typeof useColors>;
-
-const TIP_COLOR = { semsiye: "#b45309", kameriye: "#4338ca" } as const;
-const TIP_BG    = { semsiye: "#fef3c7", kameriye: "#e0e7ff" } as const;
-// Koyu tema muadilleri (yarı saydam zemin + açık metin)
-const TIP_COLOR_DARK = { semsiye: "#fcd34d", kameriye: "#a5b4fc" } as const;
-const TIP_BG_DARK    = { semsiye: "#fbbf2426", kameriye: "#818cf826" } as const;
 
 function parseOptions(soru: string): [string, string] | null {
   const parts = soru.includes(",") ? soru.split(",") : soru.split(/\s+or\s+/i);
@@ -51,9 +46,10 @@ function Card({ c, baslik, alt, children }: { c: C; baslik: string; alt?: string
 function Tag({ tip }: { tip: "semsiye" | "kameriye" }) {
   const t = useStrings(harfStrings);
   const c = useColors();
+  const tone = toneColors(c, tip === "semsiye" ? "amber" : "violet");
   return (
-    <View style={[s.tag, { backgroundColor: c.isDark ? TIP_BG_DARK[tip] : TIP_BG[tip] }]}>
-      <Text style={[s.tagText, { color: c.isDark ? TIP_COLOR_DARK[tip] : TIP_COLOR[tip] }]}>{tip === "semsiye" ? t.sun : t.moon}</Text>
+    <View style={[s.tag, { backgroundColor: tone.bg }]}>
+      <Text style={[s.tagText, { color: tone.fg }]}>{tip === "semsiye" ? t.sun : t.moon}</Text>
     </View>
   );
 }
@@ -65,14 +61,14 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
   return (
     <View style={[s.qBox, { borderColor: c.border }]}>
       <Text style={[s.qText, { color: c.text }]}>{idx + 1}. {q.harf}</Text>
-      <View style={{ flexDirection: "row", gap: 8, marginTop: 8 }}>
+      <View style={{ flexDirection: "row", gap: space.xs, marginTop: space.xs }}>
         {opts.map((opt) => {
           const isCorrect = opt === q.dogru_cevap;
           const isPicked  = picked === opt;
           let bg = c.card, brd = c.border, col = c.text;
           if (picked) {
-            if (isCorrect)       { bg = c.isDark ? "#4ade8026" : "#dcfce7"; brd = c.isDark ? "#4ade80" : "#86efac"; col = c.isDark ? "#86efac" : "#15803d"; }
-            else if (isPicked)   { bg = c.isDark ? "#f8717126" : "#fee2e2"; brd = c.isDark ? "#f87171" : "#fca5a5"; col = c.isDark ? "#fca5a5" : "#b91c1c"; }
+            if (isCorrect)       { bg = c.greenBg; brd = c.greenBorder; col = c.greenText; }
+            else if (isPicked)   { bg = c.errorBg; brd = c.errorBorder; col = c.errorText; }
             else                 { col = c.textMuted; }
           }
           return (
@@ -92,7 +88,7 @@ function QuizItem({ q, idx, c, onAnswer }: { q: HarfTarifSoru; idx: number; c: C
         })}
       </View>
       {picked ? (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginTop: space.xs, flexWrap: "wrap" }}>
           <Tag tip={q.tip} />
           <Text style={[s.aciklama, { color: c.textMuted, flex: 1 }]}>{q.aciklama}</Text>
         </View>
@@ -167,14 +163,12 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
       <Text style={[s.scoreErrorText, { color: c.text }]} accessibilityLiveRegion="polite">
         {scoreError === "load" ? t.loadError : t.saveError}
       </Text>
-      <TouchableOpacity
-        style={s.retryScoreBtn}
+      <Button
+        variant="secondary"
+        label={t.retrySave}
         onPress={retryScore}
-        accessibilityRole="button"
         accessibilityLabel={t.retrySaveA11y}
-      >
-        <Text style={s.retryScoreText}>{t.retrySave}</Text>
-      </TouchableOpacity>
+      />
     </View>
   ) : null;
 
@@ -190,15 +184,12 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
           </Text>
         ) : null}
         {errorNotice}
-        <TouchableOpacity
-          style={s.quizStartBtn}
+        <Button
+          variant="primary"
+          label={t.start}
           onPress={() => setStarted(true)}
-          activeOpacity={0.8}
-          accessibilityRole="button"
           accessibilityLabel={t.startA11y}
-        >
-          <Text style={s.quizStartBtnText}>{t.start}</Text>
-        </TouchableOpacity>
+        />
       </View>
     );
   }
@@ -207,7 +198,7 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
     <>
       <View style={[s.quizBar, { backgroundColor: c.bg }]}>
         <Text style={[s.quizBarText, { color: c.text }]}>{fmt(t.answered, { a: done, b: sorular.length })}</Text>
-        <Text style={[s.quizBarText, { color: "#059669", fontWeight: "700" }]}>{fmt(t.correct, { n: correct })}</Text>
+        <Text style={[s.quizBarText, { color: c.greenText, fontWeight: "700" }]}>{fmt(t.correct, { n: correct })}</Text>
       </View>
       {errorNotice}
       <View style={{ gap: 10, marginTop: 10 }}>
@@ -216,25 +207,25 @@ function Quiz({ b, c }: { b: HarfTarifBolum; c: C }) {
         ))}
       </View>
       {done === sorular.length ? (
-        <View style={[s.quizDone, c.isDark && { backgroundColor: "#4ade8026", borderColor: "#4ade80" }]}>
-          <Text style={[s.quizDoneText, c.isDark && { color: "#86efac" }]}>
-            {fmt(t.finished, { c: correct, n: sorular.length })}{correct === sorular.length ? t.perfect : t.again}
-          </Text>
-          {last ? (
-            <Text style={[s.lastScore, { color: c.textMuted }]} accessibilityLiveRegion="polite">
-              {fmt(t.lastScore, { s: last.score, t: last.total })}
+        <Callout tone="success" style={{ marginTop: 14 }}>
+          <View style={{ gap: space.xs }}>
+            <Text style={[s.quizDoneText, { color: c.greenText }]}>
+              {fmt(t.finished, { c: correct, n: sorular.length })}{correct === sorular.length ? t.perfect : t.again}
             </Text>
-          ) : null}
-          <TouchableOpacity
-            style={[s.quizStartBtn, { marginTop: 10 }]}
-            onPress={restart}
-            activeOpacity={0.8}
-            accessibilityRole="button"
-            accessibilityLabel={t.restartA11y}
-          >
-            <Text style={s.quizStartBtnText}>{t.restart}</Text>
-          </TouchableOpacity>
-        </View>
+            {last ? (
+              <Text style={[s.lastScore, { color: c.textMuted }]} accessibilityLiveRegion="polite">
+                {fmt(t.lastScore, { s: last.score, t: last.total })}
+              </Text>
+            ) : null}
+            <Button
+              variant="primary"
+              label={t.restart}
+              onPress={restart}
+              accessibilityLabel={t.restartA11y}
+              style={{ marginTop: space.xxs }}
+            />
+          </View>
+        </Callout>
       ) : null}
     </>
   );
@@ -250,8 +241,8 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {b.ornek ? (
             <View style={{ marginTop: 10, gap: 6 }}>
-              <View style={[s.pill, { backgroundColor: c.isDark ? "#4ade8026" : "#dcfce7" }]}><Text style={[s.pillText, { color: c.isDark ? "#86efac" : "#15803d" }]}>{b.ornek.dogru}</Text></View>
-              <View style={[s.pill, { backgroundColor: c.isDark ? "#f8717126" : "#fee2e2" }]}><Text style={[s.pillText, { color: c.isDark ? "#fca5a5" : "#b91c1c" }]}>{b.ornek.yanlis}</Text></View>
+              <View style={[s.pill, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]}><Text style={[s.pillText, { color: c.greenText }]}>{b.ornek.dogru}</Text></View>
+              <View style={[s.pill, { backgroundColor: c.errorBg, borderColor: c.errorBorder }]}><Text style={[s.pillText, { color: c.errorText }]}>{b.ornek.yanlis}</Text></View>
               <Text style={[s.aciklama, { color: c.textMuted }]}>{b.ornek.aciklama}</Text>
             </View>
           ) : null}
@@ -262,30 +253,29 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Card c={c} baslik={b.baslik}>
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {b.hafiza_ipucu ? (
-            <View style={[s.ipucu, c.isDark && { backgroundColor: "#fbbf2418", borderColor: "#fbbf2466" }]}>
-              <Text style={[s.ipucuLabel, c.isDark && { color: "#fbbf24" }]}>{t.memoryTip}</Text>
-              <Text style={[s.body, { color: c.isDark ? "#fde68a" : "#78350f" }]}>{b.hafiza_ipucu}</Text>
-            </View>
+            <Callout tone="warning" icon="bulb-outline" title={t.memoryTip} style={{ marginTop: 10 }}>
+              {b.hafiza_ipucu}
+            </Callout>
           ) : null}
           {b.gorsel_aciklama ? <Text style={[s.mono, { backgroundColor: c.bg, color: c.text }]}>{b.gorsel_aciklama}</Text> : null}
         </Card>
       );
     case "liste": {
       const isS = b.id === "semsiye_harfler";
+      const tone = toneColors(c, isS ? "amber" : "violet");
       return (
         <Card c={c} baslik={b.baslik} alt={b.alt_baslik}>
           <View style={s.grid}>
             {(b.harfler ?? []).map((h, i) => (
               <View key={i} style={[s.harfBox, c.isDark
-                ? { backgroundColor: isS ? "#fbbf2414" : "#818cf814", borderColor: isS ? "#fbbf2455" : "#818cf855" }
-                : { backgroundColor: isS ? "#fffbeb" : "#eef2ff", borderColor: isS ? "#fde68a" : "#c7d2fe" }]}>
+                ? { backgroundColor: c.cardAlt, borderColor: tone.bg } // koyuda dolu ton kartı fazla baskın; ton kenarda
+                : { backgroundColor: tone.bg, borderColor: c.border }]}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                   <Text style={[s.harfAd, { color: c.text }]}>{h.ad}</Text>
-                  {/* Açık temada açık zemin üstünde koyu harf; koyu temada tema metni */}
-                  <Text style={[s.harfArapca, c.isDark && { color: c.text }]}>{h.arapca}</Text>
+                  <Text style={[s.harfArapca, { color: c.text }]}>{h.arapca}</Text>
                 </View>
                 <Text style={[s.okunus, { color: c.textMuted }]}>{localizedTranslit(h.okunusu, lang)}</Text>
-                {h.ornek_esma ? <Text style={[s.esma, c.isDark && { color: "#34d399" }]}>{h.ornek_esma}</Text> : null}
+                {h.ornek_esma ? <Text style={[s.esma, { color: c.greenText }]}>{h.ornek_esma}</Text> : null}
               </View>
             ))}
           </View>
@@ -321,9 +311,9 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Card c={c} baslik={b.baslik}>
           {b.icerik ? <Text style={[s.body, { color: c.textSecondary ?? c.textMuted }]}>{b.icerik}</Text> : null}
           {(b.not || b.gorsel_ipucu) ? (
-            <View style={[s.notBox, c.isDark && { backgroundColor: "#818cf826" }]}>
-              <Text style={[s.aciklama, { color: c.isDark ? "#c7d2fe" : "#3730a3" }]}>{b.not || b.gorsel_ipucu}</Text>
-            </View>
+            <Callout tone="info" style={{ marginTop: 10 }}>
+              {b.not || b.gorsel_ipucu}
+            </Callout>
           ) : null}
         </Card>
       );
@@ -334,8 +324,8 @@ function Bolum({ b, c }: { b: HarfTarifBolum; c: C }) {
         <Card c={c} baslik={b.baslik}>
           <View style={{ gap: 6 }}>
             {(b.maddeler ?? []).map((m, i) => (
-              <View key={i} style={{ flexDirection: "row", gap: 8 }}>
-                <Text style={{ color: "#059669", marginTop: 1 }}>•</Text>
+              <View key={i} style={{ flexDirection: "row", gap: space.xs }}>
+                <Text style={{ color: c.accent, marginTop: 1 }}>•</Text>
                 <Text style={[s.body, { color: c.textSecondary ?? c.textMuted, flex: 1 }]}>{m}</Text>
               </View>
             ))}
@@ -353,10 +343,10 @@ export function HarfITarifContent({ paddingTop = 16, paddingBottom = 40 }: { pad
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: c.bg }}
-      contentContainerStyle={{ padding: 16, paddingTop, paddingBottom }}
+      contentContainerStyle={{ padding: space.gutter, paddingTop, paddingBottom }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: space.xs }}>
         <View style={{ flexDirection: "row", gap: 2 }}>
           <Ionicons name="sunny-outline" size={20} color={c.text} />
           <Ionicons name="moon-outline" size={20} color={c.text} />
@@ -364,12 +354,12 @@ export function HarfITarifContent({ paddingTop = 16, paddingBottom = 40 }: { pad
         <Text style={[s.title, { color: c.text, flexShrink: 1 }]}>{d.baslik}</Text>
       </View>
       <Text style={[s.sub, { color: c.textMuted }]}>{d.aciklama}</Text>
-      <View style={{ flexDirection: "row", gap: 8, marginTop: 8, marginBottom: 14, flexWrap: "wrap" }}>
-        <View style={[s.meta, s.metaRow, { backgroundColor: c.card }]}>
+      <View style={{ flexDirection: "row", gap: space.xs, marginTop: space.xs, marginBottom: 14, flexWrap: "wrap" }}>
+        <View style={[s.meta, s.metaRow, { backgroundColor: c.card, borderColor: c.border, borderWidth: 1 }]}>
           <Ionicons name="time-outline" size={13} color={c.textMuted} />
           <Text style={[s.metaText, { color: c.textMuted }]}>{d.sure}</Text>
         </View>
-        <View style={[s.meta, s.metaRow, { backgroundColor: c.card }]}>
+        <View style={[s.meta, s.metaRow, { backgroundColor: c.card, borderColor: c.border, borderWidth: 1 }]}>
           <Ionicons name="list-outline" size={13} color={c.textMuted} />
           <Text style={[s.metaText, { color: c.textMuted }]}>{d.on_kosul}</Text>
         </View>
@@ -382,44 +372,36 @@ export function HarfITarifContent({ paddingTop = 16, paddingBottom = 40 }: { pad
 const s = StyleSheet.create({
   title:       { fontSize: 20, fontWeight: "700" },
   sub:         { fontSize: 13, marginTop: 4, lineHeight: 19 },
-  meta:        { borderRadius: 999, paddingHorizontal: 10, paddingVertical: 5 },
+  meta:        { borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 5 },
   metaRow:     { flexDirection: "row", alignItems: "center", gap: 4 },
   metaText:    { fontSize: 11, fontWeight: "600" },
-  card:        { borderRadius: 16, borderWidth: 1, padding: 16, marginBottom: 12 },
+  card:        { borderRadius: radius.lg, borderWidth: 1, padding: space.md, marginBottom: space.sm },
   h2:          { fontSize: 16, fontWeight: "700" },
   alt:         { fontSize: 12, marginTop: 2 },
   body:        { fontSize: 13.5, lineHeight: 20 },
-  ipucu:       { marginTop: 10, borderRadius: 12, borderWidth: 1, borderColor: "#fcd34d", backgroundColor: "#fffbeb", padding: 12 },
-  ipucuLabel:  { fontSize: 10, fontWeight: "700", letterSpacing: 1, color: "#b45309", marginBottom: 4 },
-  mono:        { marginTop: 8, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 8, fontSize: 12, fontFamily: "monospace" },
-  grid:        { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  harfBox:     { width: "47.5%", borderWidth: 1, borderRadius: 12, paddingHorizontal: 10, paddingVertical: 8 },
+  mono:        { marginTop: space.xs, borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: space.xs, fontSize: 12, fontFamily: "monospace" },
+  grid:        { flexDirection: "row", flexWrap: "wrap", gap: space.xs },
+  harfBox:     { width: "47.5%", borderWidth: 1, borderRadius: radius.md, paddingHorizontal: 10, paddingVertical: space.xs },
   harfAd:      { fontSize: 14, fontWeight: "700" },
-  harfArapca:  { fontSize: 20, fontFamily: "Amiri", writingDirection: "rtl", color: "#1c1917" },
+  harfArapca:  { fontSize: 20, fontFamily: "Amiri", writingDirection: "rtl" },
   okunus:      { fontSize: 12, marginTop: 2 },
-  esma:        { fontSize: 11, color: "#047857", marginTop: 4, lineHeight: 15 },
-  ornekBox:    { borderWidth: 1, borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10 },
-  pill:        { borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8 },
+  esma:        { fontSize: 11, marginTop: 4, lineHeight: 15 },
+  ornekBox:    { borderWidth: 1, borderRadius: radius.md, paddingHorizontal: space.sm, paddingVertical: 10 },
+  pill:        { borderRadius: radius.md, borderWidth: 1, paddingHorizontal: space.sm, paddingVertical: space.xs },
   pillText:    { fontSize: 14, fontWeight: "700" },
   aciklama:    { fontSize: 12, lineHeight: 17 },
-  notBox:      { marginTop: 10, borderRadius: 10, backgroundColor: "#e0e7ff", paddingHorizontal: 12, paddingVertical: 8 },
-  tag:         { borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
+  tag:         { borderRadius: radius.pill, paddingHorizontal: space.xs, paddingVertical: 3 },
   tagText:     { fontSize: 10, fontWeight: "700" },
-  quizStart:       { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 4, alignItems: "center", gap: 12 },
+  quizStart:       { borderRadius: radius.md, paddingVertical: 14, paddingHorizontal: space.xxs, alignItems: "center", gap: space.sm },
   quizStartInfo:   { fontSize: 13 },
-  lastScore:       { fontSize: 13, fontWeight: "600", textAlign: "center" },
-  scoreError:      { alignSelf: "stretch", borderWidth: 1, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, gap: 8, alignItems: "center" },
+  lastScore:       { fontSize: 13, fontWeight: "600" },
+  scoreError:      { alignSelf: "stretch", borderWidth: 1, borderRadius: radius.md, paddingHorizontal: space.sm, paddingVertical: 10, gap: space.xs, alignItems: "center" },
   scoreErrorText:  { fontSize: 13, textAlign: "center" },
-  retryScoreBtn:   { backgroundColor: "#4f46e5", borderRadius: 10, paddingVertical: 9, paddingHorizontal: 20 },
-  retryScoreText:  { color: "#fff", fontSize: 13, fontWeight: "700" },
-  quizStartBtn:    { backgroundColor: "#4f46e5", borderRadius: 12, paddingVertical: 12, paddingHorizontal: 32 },
-  quizStartBtnText:{ color: "#fff", fontSize: 14, fontWeight: "700" },
-  quizBar:     { flexDirection: "row", justifyContent: "space-between", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10 },
+  quizBar:     { flexDirection: "row", justifyContent: "space-between", borderRadius: radius.md, paddingHorizontal: 14, paddingVertical: 10 },
   quizBarText: { fontSize: 13, fontWeight: "600" },
-  qBox:        { borderWidth: 1, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12 },
+  qBox:        { borderWidth: 1, borderRadius: radius.md, paddingHorizontal: 14, paddingVertical: space.sm },
   qText:       { fontSize: 14, fontWeight: "600" },
-  opt:         { flex: 1, borderWidth: 1, borderRadius: 12, paddingVertical: 10, alignItems: "center" },
+  opt:         { flex: 1, borderWidth: 1, borderRadius: radius.md, paddingVertical: 10, alignItems: "center" },
   optText:     { fontSize: 14, fontWeight: "600" },
-  quizDone:    { marginTop: 14, borderRadius: 12, borderWidth: 1, borderColor: "#86efac", backgroundColor: "#dcfce7", paddingHorizontal: 14, paddingVertical: 12 },
-  quizDoneText:{ textAlign: "center", fontSize: 14, fontWeight: "700", color: "#15803d" },
+  quizDoneText:{ fontSize: 14, fontWeight: "700" },
 });

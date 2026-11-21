@@ -34,6 +34,17 @@ import {
   resolveLessonBadge,
 } from "../../src/lib/elifbaReview";
 import { HarfITarifContent } from "../../src/components/HarfITarifContent";
+import {
+  Badge,
+  Button,
+  Callout,
+  CloseButton,
+  Tabs,
+  radius,
+  space,
+  type TabItem,
+  type Tone,
+} from "../../src/components/ui";
 
 type TabKey = "elifba" | "harfi-tarif";
 const TABS: { key: TabKey; label: string }[] = [
@@ -52,10 +63,10 @@ const BADGE_ICON = {
 
 type QuizScore    = ElifbaQuizScore;
 
-const SEVIYE_COLOR: Record<string, { bg: string; text: string }> = {
-  "başlangıç": { bg: "#dbeafe", text: "#1d4ed8" },
-  temel:       { bg: "#fef3c7", text: "#b45309" },
-  orta:        { bg: "#f3e8ff", text: "#7e22ce" },
+const SEVIYE_TONE: Record<string, Tone> = {
+  "başlangıç": "sky",
+  temel:       "amber",
+  orta:        "violet",
 };
 
 function shortBaslik(b: string) {
@@ -68,103 +79,92 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
   onFlashcard: () => void; onQuiz: () => void; onBypassQuiz: () => void;
 }) {
   const c = useColors();
-  const d = c.isDark; // koyu temada açık pastel zeminler koyu muadile geçer
   const ep = useStrings(elifbaStrings);
   const pct = ders.harf_sayisi > 0 ? Math.round((seenCount / ders.harf_sayisi) * 100) : 0;
-  const sev = SEVIYE_COLOR[ders.seviye] ?? SEVIYE_COLOR.temel;
+  const seviyeTone = SEVIYE_TONE[ders.seviye] ?? "amber";
+  const seviyeLabel = ({ "başlangıç": ep.levelBaslangic, temel: ep.levelTemel, orta: ep.levelOrta } as Record<string, string>)[ders.seviye] ?? ders.seviye;
   const dersAdi = shortBaslik(ders.baslik);
 
   return (
     <Modal transparent animationType="fade" onRequestClose={onClose}>
-      <TouchableOpacity style={pp.overlay} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel={ep.close}>
+      <TouchableOpacity style={[pp.overlay, { backgroundColor: c.overlay }]} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel={ep.close}>
         <TouchableOpacity style={[pp.card, { backgroundColor: c.card, borderColor: c.border }]} activeOpacity={1} accessible={false}>
 
-          <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 12 }}>
+          <View style={{ flexDirection: "row", alignItems: "flex-start", gap: space.xs, marginBottom: space.sm }}>
             <View style={{ flex: 1 }}>
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 }}>
-                <View style={[pp.badge, { backgroundColor: c.cardAlt }]}>
-                  <Text style={[pp.badgeText, { color: c.textMuted }]}>{fmt(ep.lessonN, { n: ders.konu_sirasi })}</Text>
-                </View>
-                <View style={[pp.badge, { backgroundColor: d ? sev.text + "33" : sev.bg }]}>
-                  <Text style={[pp.badgeText, { color: d ? sev.bg : sev.text }]}>{({ "başlangıç": ep.levelBaslangic, temel: ep.levelTemel, orta: ep.levelOrta } as Record<string, string>)[ders.seviye] ?? ders.seviye}</Text>
-                </View>
+              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: space.xxs, marginBottom: 6 }}>
+                <Badge label={fmt(ep.lessonN, { n: ders.konu_sirasi })} tone="neutral" />
+                <Badge label={seviyeLabel} tone={seviyeTone} />
                 {status === "completed" && (
-                  <View style={[pp.badge, { backgroundColor: c.accentLight }]}>
-                    <Text style={[pp.badgeText, { color: d ? "#6ee7b7" : "#065f46" }]}>{ep.completed}</Text>
-                  </View>
+                  <Badge label={ep.completed} tone="emerald" />
                 )}
               </View>
-              <Text style={[pp.title, { color: c.text }]}>{shortBaslik(ders.baslik)}</Text>
+              <Text style={[pp.title, { color: c.text }]}>{dersAdi}</Text>
             </View>
-            <TouchableOpacity
+            <CloseButton
               onPress={onClose}
-              style={{ minWidth: 48, minHeight: 48, alignItems: "center", justifyContent: "center", marginTop: -8, marginRight: -8 }}
-              accessibilityRole="button"
               accessibilityLabel={fmt(ep.closeLessonA11y, { name: dersAdi })}
-            >
-              <Text style={{ fontSize: 16, color: "#9ca3af" }}>✕</Text>
-            </TouchableOpacity>
+              style={{ marginTop: -8, marginRight: -8 }}
+            />
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
             <Text style={[pp.label, { color: c.textMuted }]}>{fmt(ep.cards, { a: seenCount, b: ders.harf_sayisi })}</Text>
-            {pct === 100 && <Text style={[pp.label, { color: "#059669", fontWeight: "700" }]}>✓</Text>}
+            {pct === 100 && <Text style={[pp.label, { color: c.greenText, fontWeight: "700" }]}>✓</Text>}
           </View>
-          <View style={[pp.bar, { backgroundColor: c.cardAlt }]}><View style={[pp.fill, { width: `${pct}%` as DimensionValue }]} /></View>
+          <View style={[pp.bar, { backgroundColor: c.cardAlt }]}>
+            <View style={[pp.fill, { width: `${pct}%` as DimensionValue, backgroundColor: c.accent }]} />
+          </View>
 
           {quizScore ? (
-            <View style={[pp.infoBox, { backgroundColor: d ? "#172554" : "#eff6ff", marginTop: 8 }]}>
-              <Text style={{ fontSize: 13, color: d ? "#93c5fd" : "#1d4ed8" }}>
+            <Callout tone="info" style={{ marginTop: space.xs }}>
+              <Text style={{ fontSize: 13, lineHeight: 19, color: c.text }}>
                 {ep.quizPrefix}{quizScore.score}/{quizScore.total}
                 {quizScore.score >= ELIFBA_QUIZ_PASS
-                  ? <Text style={{ color: "#059669", fontWeight: "700" }}>{ep.passed}</Text>
+                  ? <Text style={{ color: c.greenText, fontWeight: "700" }}>{ep.passed}</Text>
                   : <Text style={{ color: c.textMuted }}>{ep.tryAgainDash}</Text>}
               </Text>
-            </View>
+            </Callout>
           ) : status !== "locked" ? (
-            <View style={[pp.infoBox, { backgroundColor: d ? "#422006" : "#fef9c3", marginTop: 8 }]}>
-              <Text style={{ fontSize: 12, color: d ? "#fde047" : "#854d0e" }}>
-                {fmt(ep.passHint, { n: ELIFBA_QUIZ_PASS })}
-              </Text>
-            </View>
+            <Callout tone="warning" style={{ marginTop: space.xs }}>
+              {fmt(ep.passHint, { n: ELIFBA_QUIZ_PASS })}
+            </Callout>
           ) : null}
 
           {status === "locked" && (
-            <View style={[pp.infoBox, { backgroundColor: c.cardAlt, marginTop: 8 }]}>
-              <Text style={{ fontSize: 12, color: c.textMuted }}>{ep.lockedHint}</Text>
-            </View>
+            <Callout tone="neutral" style={{ marginTop: space.xs }}>
+              {ep.lockedHint}
+            </Callout>
           )}
 
           {status === "locked" && (
-            <TouchableOpacity
-              style={[pp.btnIndigo, { flex: 0, flexDirection: "row", justifyContent: "center", gap: 8, marginTop: 14 }]}
+            <Button
+              variant="secondary"
+              icon="school-outline"
+              fullWidth
+              label={ep.bypassBtn}
               onPress={onBypassQuiz}
-              accessibilityRole="button"
               accessibilityLabel={fmt(ep.bypassA11y, { name: dersAdi })}
-            >
-              <Ionicons name="school-outline" size={18} color="#fff" />
-              <Text style={pp.btnText}>{ep.bypassBtn}</Text>
-            </TouchableOpacity>
+              style={{ marginTop: 14 }}
+            />
           )}
 
           {status !== "locked" && (
-            <View style={{ flexDirection: "row", gap: 8, marginTop: 14 }}>
-              <TouchableOpacity
-                style={pp.btnGreen}
+            <View style={{ flexDirection: "row", gap: space.xs, marginTop: 14 }}>
+              <Button
+                variant="primary"
+                label={ep.cardsBtn}
                 onPress={onFlashcard}
-                accessibilityRole="button"
                 accessibilityLabel={fmt(ep.openCardsA11y, { name: dersAdi })}
-              >
-                <Text style={pp.btnText}>{ep.cardsBtn}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={pp.btnIndigo}
+                style={{ flex: 1 }}
+              />
+              <Button
+                variant="secondary"
+                label={ep.quizBtn}
                 onPress={onQuiz}
-                accessibilityRole="button"
                 accessibilityLabel={fmt(ep.openQuizA11y, { name: dersAdi })}
-              >
-                <Text style={pp.btnText}>{ep.quizBtn}</Text>
-              </TouchableOpacity>
+                style={{ flex: 1 }}
+              />
             </View>
           )}
         </TouchableOpacity>
@@ -185,8 +185,9 @@ function PathNode({ ders, status, pct, badge, onPress }: {
   const lang = useLang();
   const isActive = status === "active";
   const isLocked = status === "locked";
-  const bg       = isComp ? "#059669" : isActive ? "#f59e0b" : (c.isDark ? "#44403c" : "#d1d5db");
-  const border   = isComp ? "#047857" : isActive ? "#d97706" : (c.isDark ? "#57534e" : "#9ca3af");
+  const bg        = isComp ? c.actionBg    : isActive ? c.goldText    : c.cardAlt;
+  const border    = isComp ? c.greenBorder : isActive ? c.amberBorder : c.border;
+  const iconColor = isComp ? c.actionText  : isActive ? c.bg          : c.textMuted;
   const statusLabel = isComp ? ep.stCompleted : isActive ? ep.stActive : ep.stLocked;
   const dersAdi = shortBaslik(ders.baslik);
   const badgeLabel = badge === "pass" ? ep.badgePass : badge === "master" ? ep.badgeMaster : badge === "crown" ? ep.badgeCrown : null;
@@ -207,7 +208,7 @@ function PathNode({ ders, status, pct, badge, onPress }: {
           <Ionicons
             name={isComp ? "star" : isActive ? "play" : "lock-closed"}
             size={20}
-            color={isLocked ? (c.isDark ? "#a8a29e" : "#6b7280") : "#fff"}
+            color={iconColor}
           />
         </View>
         {badge !== "none" && (
@@ -220,7 +221,7 @@ function PathNode({ ders, status, pct, badge, onPress }: {
         <View style={[nd.barBg, { backgroundColor: c.cardAlt }]}>
           <View style={[nd.barFill, {
             width: `${pct}%` as DimensionValue,
-            backgroundColor: isComp ? "#059669" : "#f59e0b",
+            backgroundColor: isComp ? c.accent : c.goldText,
           }]} />
         </View>
       )}
@@ -379,7 +380,7 @@ export default function OgrenScreen() {
             />
             {i < nodes.length - 1 && (
               <View style={[s.hLine, {
-                backgroundColor: statuses[origIdx] === "completed" ? "#059669" : (c.isDark ? "#44403c" : "#e5e7eb"),
+                backgroundColor: statuses[origIdx] === "completed" ? c.accent : c.border,
               }]} />
             )}
           </React.Fragment>
@@ -389,6 +390,11 @@ export default function OgrenScreen() {
   }
 
   const popupDers = dersler.find(d => d.id === popupId) ?? null;
+  const tabItems: TabItem<TabKey>[] = TABS.map(t => ({
+    key: t.key,
+    label: ep[t.label],
+    accessibilityLabel: fmt(ep.tabA11y, { label: ep[t.label] }),
+  }));
 
   return (
     <>
@@ -396,45 +402,28 @@ export default function OgrenScreen() {
       <View style={{ flex: 1, backgroundColor: c.bg }}>
 
         {/* Üst sekme bar — her zaman görünür */}
-        <View style={[s.tabRow, { paddingTop: insets.top, borderBottomColor: c.border }]}>
-          {TABS.map(t => {
-            const active = tab === t.key;
-            return (
-              <TouchableOpacity
-                key={t.key}
-                style={[s.tabBtn, active && s.tabBtnActive]}
-                onPress={() => setTab(t.key)}
-                activeOpacity={0.7}
-                accessibilityRole="tab"
-                accessibilityLabel={fmt(ep.tabA11y, { label: ep[t.label] })}
-                accessibilityState={{ selected: active }}
-              >
-                <Text style={[s.tabText, { color: active ? (c.isDark ? "#c9a84c" : "#0a1628") : c.textMuted }]}>{ep[t.label]}</Text>
-              </TouchableOpacity>
-            );
-          })}
+        <View style={[s.tabWrap, { paddingTop: insets.top + space.xs }]}>
+          <Tabs variant="segmented" items={tabItems} value={tab} onChange={setTab} />
         </View>
 
         {/* Elif-Ba içeriği */}
         {tab === "elifba" && (
           loading ? (
             <View style={s.centered}>
-              <ActivityIndicator size="large" color="#059669" />
+              <ActivityIndicator size="large" color={c.accent} />
             </View>
           ) : (error || dersler.length === 0) ? (
             <View style={s.centered}>
-              <Text style={s.errEmoji}>📚</Text>
+              <Ionicons name="book-outline" size={44} color={c.textMuted} style={{ marginBottom: space.sm }} accessible={false} importantForAccessibility="no" />
               <Text style={[s.errText, { color: c.text }]}>
                 {error ? ep.loadError : ep.noLessons}
               </Text>
-              <TouchableOpacity
-                style={[s.retryBtn, { backgroundColor: c.accent }]}
+              <Button
+                variant="primary"
+                label={ep.retry}
                 onPress={() => { void loadDersler(); }}
-                accessibilityRole="button"
                 accessibilityLabel={ep.reloadA11y}
-              >
-                <Text style={s.retryText}>{ep.retry}</Text>
-              </TouchableOpacity>
+              />
             </View>
           ) : (
             <>
@@ -442,15 +431,18 @@ export default function OgrenScreen() {
 
                 {/* Genel ilerleme */}
                 <View style={[s.overallCard, { backgroundColor: c.card, borderColor: c.border }]}>
-                  <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 8 }}>
-                    <Text style={[s.overallTitle, { color: c.text }]}>{ep.progress}</Text>
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: space.xs }}>
+                    <View style={{ flexDirection: "row", alignItems: "center", gap: space.xs }}>
+                      <Ionicons name="trophy-outline" size={18} color={c.goldText} accessible={false} importantForAccessibility="no" />
+                      <Text style={[s.overallTitle, { color: c.text }]}>{ep.progress}</Text>
+                    </View>
                     <Text style={[s.overallCount, { color: c.accent }]}>{fmt(ep.lessonsCount, { a: completedCount, b: dersler.length })}</Text>
                   </View>
                   <View style={[s.overallBar, { backgroundColor: c.cardAlt }]}>
-                    <View style={[s.overallFill, { width: `${overallPct}%` as DimensionValue }]} />
+                    <View style={[s.overallFill, { width: `${overallPct}%` as DimensionValue, backgroundColor: c.accent }]} />
                   </View>
                   {overallPct === 100 && (
-                    <Text style={s.overallDone}>{ep.allDone}</Text>
+                    <Text style={[s.overallDone, { color: c.greenText }]}>{ep.allDone}</Text>
                   )}
                 </View>
 
@@ -493,7 +485,7 @@ export default function OgrenScreen() {
                       {rowIdx < rows.length - 1 && (
                         <VLineRow
                           side={rowIdx % 2 === 0 ? "right" : "left"}
-                          color={statuses[Math.min((rowIdx + 1) * COLS - 1, dersler.length - 1)] === "completed" ? "#059669" : (c.isDark ? "#44403c" : "#e5e7eb")}
+                          color={statuses[Math.min((rowIdx + 1) * COLS - 1, dersler.length - 1)] === "completed" ? c.accent : c.border}
                         />
                       )}
                     </React.Fragment>
@@ -549,40 +541,34 @@ export default function OgrenScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  tabRow:      { flexDirection: "row", borderBottomWidth: 1 },
-  tabBtn:      { flex: 1, paddingVertical: 12, alignItems: "center" },
-  tabBtnActive:{ borderBottomWidth: 2, borderBottomColor: "#c9a84c" },
-  tabText:     { fontSize: 14, fontWeight: "700" },
-  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
-  errEmoji:    { fontSize: 40, marginBottom: 12 },
+  tabWrap:     { paddingHorizontal: space.gutter, paddingBottom: space.xs, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  centered:    { flex: 1, alignItems: "center", justifyContent: "center", padding: space.lg },
   errText:     { fontSize: 15, lineHeight: 22, textAlign: "center", marginBottom: 20 },
-  retryBtn:    { paddingHorizontal: 24, paddingVertical: 11, borderRadius: 10 },
-  retryText:   { color: "#fff", fontSize: 14, fontWeight: "700" },
   scroll:      { flex: 1 },
-  content:     { padding: 16, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
-  overallCard: { borderRadius: 14, padding: 14, marginBottom: 24, borderWidth: 1 },
+  content:     { padding: space.gutter, paddingBottom: 48, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  overallCard: { borderRadius: radius.lg, padding: 14, marginBottom: space.lg, borderWidth: 1 },
   overallTitle: { fontSize: 14, fontWeight: "700" },
   overallCount: { fontSize: 13, fontWeight: "600" },
-  overallBar:   { height: 10, backgroundColor: "#f5f0e8", borderRadius: 5, overflow: "hidden" },
-  overallFill:  { height: "100%", backgroundColor: "#059669", borderRadius: 5 },
-  overallDone:  { textAlign: "center", fontSize: 12, fontWeight: "700", color: "#059669", marginTop: 6 },
+  overallBar:   { height: 10, borderRadius: 5, overflow: "hidden" },
+  overallFill:  { height: "100%", borderRadius: 5 },
+  overallDone:  { textAlign: "center", fontSize: 12, fontWeight: "700", marginTop: 6 },
   reviewBtn: {
-    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8,
-    borderRadius: 12, borderWidth: 1, paddingVertical: 12, marginBottom: 16,
+    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: space.xs,
+    borderRadius: radius.lg, borderWidth: 1, paddingVertical: space.sm, marginBottom: space.md,
   },
   reviewBtnText: { fontSize: 14, fontWeight: "700" },
   catalogNotice: {
-    borderRadius: 10, borderWidth: 1, padding: 12, marginBottom: 16, gap: 6,
+    borderRadius: radius.lg, borderWidth: 1, padding: space.sm, marginBottom: space.md, gap: 6,
   },
   catalogNoticeText: { fontSize: 12, lineHeight: 18 },
   catalogRetryText: { fontSize: 12, fontWeight: "700" },
-  path:  { paddingVertical: 4 },
+  path:  { paddingVertical: space.xxs },
   row:   { flexDirection: "row", alignItems: "flex-start" },
   hLine: { flex: 1, height: 3, marginTop: 25, borderRadius: 2 },
 });
 
 const nd = StyleSheet.create({
-  wrap:    { width: NODE_W, alignItems: "center", paddingVertical: 4 },
+  wrap:    { width: NODE_W, alignItems: "center", paddingVertical: space.xxs },
   circleWrap: { position: "relative" },
   circle:  {
     width: 52, height: 52, borderRadius: 26, borderWidth: 2.5,
@@ -593,25 +579,19 @@ const nd = StyleSheet.create({
     width: 20, height: 20, borderRadius: 10, borderWidth: 1,
     alignItems: "center", justifyContent: "center",
   },
-  barBg:   { width: 44, height: 3, backgroundColor: "#f5f0e8", borderRadius: 2, marginTop: 5, overflow: "hidden" },
+  barBg:   { width: 44, height: 3, borderRadius: 2, marginTop: 5, overflow: "hidden" },
   barFill: { height: "100%", borderRadius: 2 },
-  label:   { fontSize: 9, fontWeight: "600", textAlign: "center", marginTop: 4, lineHeight: 13, paddingHorizontal: 2 },
+  label:   { fontSize: 9, fontWeight: "600", textAlign: "center", marginTop: space.xxs, lineHeight: 13, paddingHorizontal: 2 },
 });
 
 const pp = StyleSheet.create({
-  overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)", alignItems: "center", justifyContent: "center", padding: 16 },
+  overlay: { flex: 1, alignItems: "center", justifyContent: "center", padding: space.gutter },
   card:    {
-    width: "100%", maxWidth: 360, backgroundColor: "#fffdf6",
-    borderRadius: 20, padding: 18, borderWidth: 1, borderColor: "#e7dfcc",
+    width: "100%", maxWidth: 360,
+    borderRadius: radius.lg, padding: 18, borderWidth: 1,
   },
-  title:     { fontSize: 15, fontWeight: "700", color: "#1c1917" },
-  badge:     { borderRadius: 20, paddingHorizontal: 8, paddingVertical: 2 },
-  badgeText: { fontSize: 10, fontWeight: "700" },
-  label:     { fontSize: 12, color: "#78716c", marginBottom: 4 },
-  bar:       { height: 6, backgroundColor: "#f5f0e8", borderRadius: 3, overflow: "hidden" },
-  fill:      { height: "100%", backgroundColor: "#059669", borderRadius: 3 },
-  infoBox:   { borderRadius: 10, padding: 10 },
-  btnGreen:  { flex: 1, backgroundColor: "#059669", borderRadius: 12, paddingVertical: 11, alignItems: "center" },
-  btnIndigo: { flex: 1, backgroundColor: "#4f46e5", borderRadius: 12, paddingVertical: 11, alignItems: "center" },
-  btnText:   { color: "#fff", fontSize: 13, fontWeight: "700" },
+  title:     { fontSize: 15, fontWeight: "700" },
+  label:     { fontSize: 12, marginBottom: 4 },
+  bar:       { height: 6, borderRadius: 3, overflow: "hidden" },
+  fill:      { height: "100%", borderRadius: 3 },
 });

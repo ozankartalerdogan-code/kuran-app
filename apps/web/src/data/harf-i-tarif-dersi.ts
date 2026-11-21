@@ -322,7 +322,7 @@ export const HARF_I_TARIF_DERSI: HarfTarifDers = {
       "tip": "baglam",
       "baslik": "Tecvidle Bağlantısı",
       "icerik": "Bu kural tecvid ilminde 'idğam' (harfin birbirine girmesi) olarak geçer. Şemsiye harflerde 'l' sesi bir sonraki harfe idğam olur — yani kaybolur ve o harf şeddeli okunur. Kuran okurken bu şeddeleri göreceksin.",
-      "gorsel_ipucu": "Mushaf'ta şemsiye harfin üzerinde شَّ gibi şedde (ّ) işareti görürsün."
+      "gorsel_ipucu": "Mushaf'ta şemsiye harfin üzerinde شَّ gibi şedde işareti görürsün."
     },
     {
       "id": "quiz",

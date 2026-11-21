@@ -40,6 +40,7 @@ import { localizeDersler, localizeHarfler, localizeQuiz } from "../../src/lib/el
 import { parseDersIcerik } from "../../src/lib/elifbaLessonContent";
 import { ElifbaLessonContent } from "../../src/components/ElifbaLessonContent";
 import elifbaStrings from "../../src/i18n/strings/elifba";
+import { Badge, Button, Callout, Tabs, radius, space, type TabItem } from "../../src/components/ui";
 
 function shortBaslik(b: string) {
   return b.replace(/^\d+\.\s*(KONU|LESSON):\s*/i, "");
@@ -91,7 +92,7 @@ function Flashcard({ harf, cardHeight = 220 }: { harf: ElifbaHarf; cardHeight?: 
   return (
     <View style={[fc.container, isCompact && { paddingVertical: 8 }]}>
       <TouchableOpacity
-        style={[fc.playBtn, isCompact && { padding: 6, marginBottom: 2 }]}
+        style={[fc.playBtn, isCompact && { marginBottom: 2 }]}
         onPress={handlePlay}
         activeOpacity={0.7}
         accessibilityRole="button"
@@ -99,13 +100,17 @@ function Flashcard({ harf, cardHeight = 220 }: { harf: ElifbaHarf; cardHeight?: 
         accessibilityState={{ busy: playing, selected: playing, disabled: playing }}
         accessibilityLabel={playing ? ep.playing : fmt(ep.listenA11y, { name: harf.harf_adi })}
       >
-        <Text style={playing ? { color: c.text, fontSize: 14 } : fc.playIcon}>{playing ? ep.playing : "🔊"}</Text>
+        {playing ? (
+          <Text style={{ color: c.text, fontSize: 14 }}>{ep.playing}</Text>
+        ) : (
+          <Ionicons name="volume-high-outline" size={28} color={c.accent} accessible={false} importantForAccessibility="no" />
+        )}
       </TouchableOpacity>
 
       {sesHata && (
-        <Text style={fc.sesHata} accessibilityLiveRegion="polite">
-          {ep.audioError}
-        </Text>
+        <View accessibilityLiveRegion="polite" style={fc.sesHataWrap}>
+          <Callout tone="error">{ep.audioError}</Callout>
+        </View>
       )}
 
       <TouchableOpacity
@@ -114,7 +119,7 @@ function Flashcard({ harf, cardHeight = 220 }: { harf: ElifbaHarf; cardHeight?: 
           { minHeight: cardHeight },
           isCompact && (flipped ? { padding: 14 } : { paddingVertical: 14, paddingHorizontal: 20 }),
           flipped
-            ? c.isDark && { backgroundColor: "#052e22", borderColor: "#065f46" }
+            ? { backgroundColor: c.greenBg, borderColor: c.greenBorder }
             : { backgroundColor: c.card, borderColor: c.border },
         ]}
         onPress={() => setFlipped((f) => !f)}
@@ -142,11 +147,11 @@ function Flashcard({ harf, cardHeight = 220 }: { harf: ElifbaHarf; cardHeight?: 
         ) : (
           <View style={fc.backContent}>
             <Text style={[fc.arabicSmall, { color: c.text }]}>{harf.tek_basina}</Text>
-            <Text style={[fc.harfAdi, c.isDark && { color: "#6ee7b7" }]}>{harf.harf_adi}</Text>
+            <Text style={[fc.harfAdi, { color: c.greenText }]}>{harf.harf_adi}</Text>
             <Text style={[fc.harfSesi, { color: c.accent }]}>{harf.harf_sesi}</Text>
             <View style={fc.formsRow}>
               {[[ep.fBegin, harf.basta], [ep.fMid, harf.ortada], [ep.fEnd, harf.sonda]].map(([l, v]) => (
-                <View key={l} style={[fc.formBox, { backgroundColor: c.card }]}>
+                <View key={l} style={[fc.formBox, { backgroundColor: c.cardAlt }]}>
                   <Text style={[fc.formLabel, { color: c.textMuted }]}>{l}</Text>
                   <Text style={[fc.formChar, { color: c.text }]}>{v}</Text>
                 </View>
@@ -154,12 +159,14 @@ function Flashcard({ harf, cardHeight = 220 }: { harf: ElifbaHarf; cardHeight?: 
             </View>
             <Text style={[fc.mahrec, { color: c.textMuted }]}>{fmt(ep.makhraj, { m: harf.mahrec })}</Text>
             <View style={fc.badges}>
-              <View style={[fc.badge, { backgroundColor: harf.kalin_ince === "kalın" ? "#fef3c7" : "#dbeafe" }]}>
-                <Text style={fc.badgeText}>{badgeLabels[harf.kalin_ince] ?? harf.kalin_ince}</Text>
-              </View>
-              <View style={[fc.badge, { backgroundColor: "#f0fdf4" }]}>
-                <Text style={fc.badgeText}>{badgeLabels[harf.grup] ?? harf.grup}</Text>
-              </View>
+              <Badge
+                label={badgeLabels[harf.kalin_ince] ?? harf.kalin_ince}
+                tone={harf.kalin_ince === "kalın" ? "amber" : harf.kalin_ince === "ince" ? "sky" : "emerald"}
+              />
+              <Badge
+                label={badgeLabels[harf.grup] ?? harf.grup}
+                tone="emerald"
+              />
             </View>
           </View>
         )}
@@ -287,16 +294,15 @@ function QuizView({ dersId, onFinish, isBypass = false }: { dersId: number; isBy
   }
   if (poolError) return (
     <View style={qv.errBox}>
-      <Text style={qv.errEmoji}>📚</Text>
+      <Ionicons name="book-outline" size={40} color={c.textMuted} accessible={false} importantForAccessibility="no" style={qv.errIcon} />
       <Text style={[qv.noQ, { color: c.textMuted }]}>{ep.quizError}</Text>
-      <TouchableOpacity
-        style={qv.retryBtn}
+      <Button
+        variant="secondary"
+        label={ep.retry}
         onPress={loadQuiz}
-        accessibilityRole="button"
         accessibilityLabel={ep.reloadQuizA11y}
-      >
-        <Text style={qv.retryText}>{ep.retry}</Text>
-      </TouchableOpacity>
+        style={{ marginTop: space.sm }}
+      />
     </View>
   );
   if (questions === null) {
@@ -310,14 +316,13 @@ function QuizView({ dersId, onFinish, isBypass = false }: { dersId: number; isBy
           <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
             {ep.srsLoadError}
           </Text>
-          <TouchableOpacity
-            style={qv.retryBtn}
+          <Button
+            variant="secondary"
+            label={ep.retry}
             onPress={retrySrs}
-            accessibilityRole="button"
             accessibilityLabel={ep.srsLoadRetryA11y}
-          >
-            <Text style={qv.retryText}>{ep.retry}</Text>
-          </TouchableOpacity>
+            style={{ alignSelf: "flex-start" }}
+          />
         </View>
       )}
       {writeError && (
@@ -325,14 +330,13 @@ function QuizView({ dersId, onFinish, isBypass = false }: { dersId: number; isBy
           <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
             {ep.srsWriteError}
           </Text>
-          <TouchableOpacity
-            style={qv.retryBtn}
+          <Button
+            variant="secondary"
+            label={ep.retry}
             onPress={retryWrite}
-            accessibilityRole="button"
             accessibilityLabel={ep.srsWriteRetryA11y}
-          >
-            <Text style={qv.retryText}>{ep.retry}</Text>
-          </TouchableOpacity>
+            style={{ alignSelf: "flex-start" }}
+          />
         </View>
       )}
       {isBypass && questions.length > 0 && (
@@ -443,14 +447,13 @@ function ExerciseView({ questions, onFinish }: {
           <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
             {ep.srsLoadError}
           </Text>
-          <TouchableOpacity
-            style={qv.retryBtn}
+          <Button
+            variant="secondary"
+            label={ep.retry}
             onPress={retrySrs}
-            accessibilityRole="button"
             accessibilityLabel={ep.srsLoadRetryA11y}
-          >
-            <Text style={qv.retryText}>{ep.retry}</Text>
-          </TouchableOpacity>
+            style={{ alignSelf: "flex-start" }}
+          />
         </View>
       )}
       {writeError && (
@@ -458,14 +461,13 @@ function ExerciseView({ questions, onFinish }: {
           <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
             {ep.srsWriteError}
           </Text>
-          <TouchableOpacity
-            style={qv.retryBtn}
+          <Button
+            variant="secondary"
+            label={ep.retry}
             onPress={retryWrite}
-            accessibilityRole="button"
             accessibilityLabel={ep.srsWriteRetryA11y}
-          >
-            <Text style={qv.retryText}>{ep.retry}</Text>
-          </TouchableOpacity>
+            style={{ alignSelf: "flex-start" }}
+          />
         </View>
       )}
       <ElifbaQuizView
@@ -577,14 +579,13 @@ function ListeningView({ harfler, onFinish }: {
           <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
             {ep.srsLoadError}
           </Text>
-          <TouchableOpacity
-            style={qv.retryBtn}
+          <Button
+            variant="secondary"
+            label={ep.retry}
             onPress={retrySrs}
-            accessibilityRole="button"
             accessibilityLabel={ep.srsLoadRetryA11y}
-          >
-            <Text style={qv.retryText}>{ep.retry}</Text>
-          </TouchableOpacity>
+            style={{ alignSelf: "flex-start" }}
+          />
         </View>
       )}
       {writeError && (
@@ -592,14 +593,13 @@ function ListeningView({ harfler, onFinish }: {
           <Text style={[qv.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
             {ep.srsWriteError}
           </Text>
-          <TouchableOpacity
-            style={qv.retryBtn}
+          <Button
+            variant="secondary"
+            label={ep.retry}
             onPress={retryWrite}
-            accessibilityRole="button"
             accessibilityLabel={ep.srsWriteRetryA11y}
-          >
-            <Text style={qv.retryText}>{ep.retry}</Text>
-          </TouchableOpacity>
+            style={{ alignSelf: "flex-start" }}
+          />
         </View>
       )}
       <ElifbaQuizView
@@ -784,14 +784,13 @@ export default function DersScreen() {
       <View style={[styles.centered, styles.lockedWrap, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title }} />
         <Text style={[styles.noData, { color: c.textMuted }]}>{ep.loadError}</Text>
-        <TouchableOpacity
-          style={[qv.retryBtn, { backgroundColor: c.accent }]}
+        <Button
+          variant="secondary"
+          label={ep.retry}
           onPress={() => { void refetchDersler(); }}
-          accessibilityRole="button"
           accessibilityLabel={ep.reloadA11y}
-        >
-          <Text style={qv.retryText}>{ep.retry}</Text>
-        </TouchableOpacity>
+          style={{ marginTop: space.sm }}
+        />
       </View>
     );
   }
@@ -801,14 +800,13 @@ export default function DersScreen() {
       <View style={[styles.centered, styles.lockedWrap, { backgroundColor: c.bg }]}>
         <Stack.Screen options={{ title }} />
         <Text style={[styles.noData, { color: c.textMuted }]}>{ep.noLessons}</Text>
-        <TouchableOpacity
-          style={[qv.retryBtn, { backgroundColor: c.accent }]}
+        <Button
+          variant="secondary"
+          label={ep.backToLessons}
           onPress={() => router.dismissTo("/elifba")}
-          accessibilityRole="button"
           accessibilityLabel={ep.backToLessonsA11y}
-        >
-          <Text style={qv.retryText}>{ep.backToLessons}</Text>
-        </TouchableOpacity>
+          style={{ marginTop: space.sm }}
+        />
       </View>
     );
   }
@@ -828,21 +826,21 @@ export default function DersScreen() {
           </Text>
           <View style={styles.lockActions}>
             {prevDers && prevName && (
-              <TouchableOpacity
-                style={[styles.lockBtnSecondary, { backgroundColor: c.cardAlt, borderColor: c.border }]}
+              <Button
+                variant="secondary"
+                fullWidth
+                label={ep.goToPrevLesson}
                 onPress={() => router.replace({
                   pathname: "/elifba/[dersId]",
                   params: { dersId: String(prevDers.id), baslik: prevName },
                 })}
-                activeOpacity={0.75}
-                accessibilityRole="button"
                 accessibilityLabel={fmt(ep.goToPrevLessonA11y, { name: prevName })}
-              >
-                <Text style={[styles.lockBtnSecondaryText, { color: c.text }]}>{ep.goToPrevLesson}</Text>
-              </TouchableOpacity>
+              />
             )}
-            <TouchableOpacity
-              style={[styles.lockBtnPrimary, { backgroundColor: c.actionBg }]}
+            <Button
+              variant="primary"
+              fullWidth
+              label={ep.bypassQuizBtn}
               onPress={() => router.replace({
                 pathname: "/elifba/[dersId]",
                 params: {
@@ -852,12 +850,8 @@ export default function DersScreen() {
                   baslik: shortBaslik(currentDers.baslik),
                 },
               })}
-              activeOpacity={0.75}
-              accessibilityRole="button"
               accessibilityLabel={fmt(ep.bypassQuizA11y, { name: shortBaslik(currentDers.baslik) })}
-            >
-              <Text style={[styles.lockBtnPrimaryText, { color: c.actionText }]}>{ep.bypassQuizBtn}</Text>
-            </TouchableOpacity>
+            />
           </View>
         </View>
       </View>
@@ -883,82 +877,19 @@ export default function DersScreen() {
   const cardHeight = Math.max(148, Math.min(220, windowHeight - chromeHeight - lessonEstimate - 72));
   const isCompact = cardHeight < 200;
   const prevDisabled = idx === 0;
+  const modeItems: TabItem<Mode>[] = [
+    { key: "flashcard", label: fmt(ep.cardsMode, { pct }), icon: "layers-outline", accessibilityLabel: fmt(ep.cardsModeA11y, { pct }) },
+    { key: "quiz", label: ep.quizBtn, icon: "help-circle-outline", accessibilityLabel: ep.quizModeA11y },
+    ...(canExercise ? [{ key: "exercise" as const, label: ep.exerciseBtn, icon: "create-outline" as const, accessibilityLabel: ep.exerciseModeA11y }] : []),
+    ...(canListen ? [{ key: "listen" as const, label: ep.listenBtn, icon: "headset-outline" as const, accessibilityLabel: ep.listenModeA11y }] : []),
+  ];
 
   return (
     <>
       <Stack.Screen options={{ title }} />
       <View style={[styles.container, { backgroundColor: c.bg }]}>
         {/* Mod seçici */}
-        {!isBypass && <View style={styles.modeBar}>
-          <TouchableOpacity
-            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "flashcard" && styles.modeBtnActive]}
-            onPress={() => setMode("flashcard")}
-            accessibilityRole="tab"
-            accessibilityLabel={fmt(ep.cardsModeA11y, { pct })}
-            accessibilityState={{ selected: mode === "flashcard" }}
-          >
-            <Text
-              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "flashcard" && styles.modeBtnTextActive]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.8}
-            >
-              {fmt(ep.cardsMode, { pct })}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "quiz" && styles.modeBtnActive]}
-            onPress={() => setMode("quiz")}
-            accessibilityRole="tab"
-            accessibilityLabel={ep.quizModeA11y}
-            accessibilityState={{ selected: mode === "quiz" }}
-          >
-            <Text
-              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "quiz" && styles.modeBtnTextActive]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.8}
-            >
-              {ep.quizBtn}
-            </Text>
-          </TouchableOpacity>
-          {canExercise && (
-          <TouchableOpacity
-            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "exercise" && styles.modeBtnActive]}
-            onPress={() => setMode("exercise")}
-            accessibilityRole="tab"
-            accessibilityLabel={ep.exerciseModeA11y}
-            accessibilityState={{ selected: mode === "exercise" }}
-          >
-            <Text
-              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "exercise" && styles.modeBtnTextActive]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.8}
-            >
-              {ep.exerciseBtn}
-            </Text>
-          </TouchableOpacity>
-          )}
-          {canListen && (
-          <TouchableOpacity
-            style={[styles.modeBtn, { backgroundColor: c.card, borderColor: c.border }, mode === "listen" && styles.modeBtnActive]}
-            onPress={() => setMode("listen")}
-            accessibilityRole="tab"
-            accessibilityLabel={ep.listenModeA11y}
-            accessibilityState={{ selected: mode === "listen" }}
-          >
-            <Text
-              style={[styles.modeBtnText, { color: c.textSecondary }, mode === "listen" && styles.modeBtnTextActive]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.8}
-            >
-              {ep.listenBtn}
-            </Text>
-          </TouchableOpacity>
-          )}
-        </View>}
+        {!isBypass && <Tabs variant="pill" items={modeItems} value={mode} onChange={setMode} style={styles.modeBar} />}
 
         {mode === "exercise" && canExercise ? (
           <ExerciseView questions={exerciseQuestions} onFinish={() => router.dismissTo("/elifba")} />
@@ -969,7 +900,7 @@ export default function DersScreen() {
             <>
               <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
                 {dersIcerik && <ElifbaLessonContent icerik={dersIcerik} lang={lang} />}
-                <Text style={styles.counter}>{idx + 1} / {harfler.length}</Text>
+                <Text style={[styles.counter, { color: c.textMuted }]}>{idx + 1} / {harfler.length}</Text>
                 <Flashcard
                   harf={harfler[idx]}
                   cardHeight={cardHeight}
@@ -993,35 +924,30 @@ export default function DersScreen() {
                       accessibilityRole="button"
                       accessibilityLabel={fmt(ep.goToLetterA11y, { name: h.harf_adi })}
                       accessibilityState={{ selected: i === idx }}
-                      style={[styles.letterChip, { backgroundColor: i === idx ? c.accentLight : c.card, borderColor: i === idx ? c.accent : c.border }]}
+                      style={[styles.letterChip, { backgroundColor: i === idx ? c.greenBg : c.card, borderColor: i === idx ? c.greenBorder : c.border }]}
                     >
-                      <Text style={{ color: i === idx ? c.successText : c.text, fontSize: 22, fontFamily: "Amiri" }}>{h.tek_basina}</Text>
+                      <Text style={{ color: i === idx ? c.greenText : c.text, fontSize: 22, fontFamily: "Amiri", lineHeight: 34, includeFontPadding: false, marginTop: -6 }}>{h.tek_basina}</Text>
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
               )}
               <View style={{ paddingHorizontal: 16, paddingBottom: insets.bottom + (isCompact ? 10 : 16), flexShrink: 0, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" }}>
                 <View style={[fc.navRow, isCompact && { marginTop: 8 }]}>
-                  <TouchableOpacity
-                    style={[fc.navBtn, { backgroundColor: c.card, borderColor: c.border }, prevDisabled && fc.navBtnDisabled]}
+                  <Button
+                    variant="secondary"
+                    label={ep.prev}
                     onPress={handlePrev}
                     disabled={prevDisabled}
-                    accessibilityRole="button"
                     accessibilityLabel={ep.prevLetterA11y}
-                    accessibilityState={{ disabled: prevDisabled }}
-                  >
-                    <Text style={[fc.navBtnText, { color: c.textSecondary }]}>{ep.prev}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[fc.navBtn, fc.navBtnActive]}
+                    style={{ flex: 1 }}
+                  />
+                  <Button
+                    variant="primary"
+                    label={idx === harfler.length - 1 ? ep.toQuiz : ep.next}
                     onPress={handleNext}
-                    accessibilityRole="button"
                     accessibilityLabel={idx === harfler.length - 1 ? ep.toQuizA11y : ep.nextLetterA11y}
-                  >
-                    <Text style={[fc.navBtnText, { color: "#fff" }]}>
-                      {idx === harfler.length - 1 ? ep.toQuiz : ep.next}
-                    </Text>
-                  </TouchableOpacity>
+                    style={{ flex: 1 }}
+                  />
                 </View>
               </View>
             </>
@@ -1031,15 +957,13 @@ export default function DersScreen() {
                 {loadError ? ep.lettersError : ep.noLetters}
               </Text>
               {loadError && (
-                <TouchableOpacity
-                  style={qv.retryBtn}
+                <Button
+                  variant="secondary"
+                  label={ep.retry}
                   onPress={() => setReloadKey((k) => k + 1)}
-                  activeOpacity={0.75}
-                  accessibilityRole="button"
                   accessibilityLabel={ep.retryA11y}
-                >
-                  <Text style={qv.retryText}>{ep.retry}</Text>
-                </TouchableOpacity>
+                  style={{ marginTop: space.sm }}
+                />
               )}
             </View>
           )
@@ -1054,82 +978,58 @@ export default function DersScreen() {
 // ── Stiller ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container: { flex:1, backgroundColor:"#f5f0e8" },
-  centered:  { flex:1, alignItems:"center", justifyContent:"center", backgroundColor:"#f5f0e8" },
+  container: { flex:1 },
+  centered:  { flex:1, alignItems:"center", justifyContent:"center" },
   lockedWrap: { paddingHorizontal: 20 },
   lockCard: {
-    width: "100%", maxWidth: READING_MAX_WIDTH, borderRadius: 20, borderWidth: 1,
-    padding: 24, alignItems: "center", gap: 12,
+    width: "100%", maxWidth: READING_MAX_WIDTH, borderRadius: radius.lg, borderWidth: 1,
+    padding: space.lg, alignItems: "center", gap: space.sm,
   },
   lockIconWrap: {
     width: 64, height: 64, borderRadius: 32, borderWidth: 1,
-    alignItems: "center", justifyContent: "center", marginBottom: 4,
+    alignItems: "center", justifyContent: "center", marginBottom: space.xxs,
   },
   lockTitle: { fontSize: 18, fontWeight: "700", textAlign: "center" },
   lockHint: { fontSize: 14, lineHeight: 20, textAlign: "center" },
-  lockActions: { width: "100%", gap: 10, marginTop: 8 },
-  lockBtnSecondary: {
-    width: "100%", borderRadius: 12, borderWidth: 1, paddingVertical: 13,
-    paddingHorizontal: 16, alignItems: "center",
-  },
-  lockBtnSecondaryText: { fontSize: 14, fontWeight: "700" },
-  lockBtnPrimary: {
-    width: "100%", borderRadius: 12, paddingVertical: 13,
-    paddingHorizontal: 16, alignItems: "center",
-  },
-  lockBtnPrimaryText: { fontSize: 14, fontWeight: "700" },
-  noData:    { color:"#78716c", fontSize:14, textAlign:"center" },
-  modeBar:   { flexDirection:"row", margin:12, gap:8 },
-  modeBtn:   { flex:1, paddingVertical:10, borderRadius:10, backgroundColor:"#fffdf6", borderWidth:1, borderColor:"#e7dfcc", alignItems:"center" },
-  modeBtnActive: { backgroundColor:"#059669", borderColor:"#059669" },
-  modeBtnText:   { fontSize:12, fontWeight:"600", color:"#44403c", textAlign:"center" },
-  modeBtnTextActive: { color:"#fff" },
-  counter:   { textAlign:"center", fontSize:12, color:"#a8a29e", marginBottom:4 },
-  letters: { flexDirection: "row", gap: 7, paddingHorizontal: 16, paddingVertical: 8 },
-  letterChip: { width: 44, minHeight: 44, alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: 8 },
+  lockActions: { width: "100%", gap: 10, marginTop: space.xs },
+  noData:    { fontSize:14, textAlign:"center" },
+  modeBar:   { margin:space.sm },
+  counter:   { textAlign:"center", fontSize:12, marginBottom:space.xxs },
+  letters: { flexDirection: "row", gap: 7, paddingHorizontal: space.gutter, paddingVertical: space.xs },
+  letterChip: { width: 44, minHeight: 44, alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: radius.sm },
 });
 
 const fc = StyleSheet.create({
-  container:   { flexGrow:1, padding:16, alignItems:"center", width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
-  playBtn:     { alignSelf:"flex-end", padding:10, marginBottom:4 },
-  playIcon:    { fontSize:28 },
-  sesHata:     { fontSize:12, color:"#dc2626", textAlign:"center", marginBottom:8, paddingHorizontal:8 },
+  container:   { flexGrow:1, padding:space.gutter, alignItems:"center", width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
+  playBtn:     { alignSelf:"flex-end", minWidth:48, minHeight:48, alignItems:"center", justifyContent:"center", paddingHorizontal:space.xs, marginBottom:space.xxs },
+  sesHataWrap: { width:"100%", marginBottom:space.xs },
   cardFront: {
-    width:"100%", minHeight:220, backgroundColor:"#fffdf6", borderRadius:20, borderWidth:1, borderColor:"#e7dfcc",
-    alignItems:"center", justifyContent:"center", padding:24,
-    shadowColor:"#000", shadowOffset:{width:0,height:2}, shadowOpacity:0.06, shadowRadius:8, elevation:3,
+    width:"100%", minHeight:220, borderRadius:radius.lg, borderWidth:1,
+    alignItems:"center", justifyContent:"center", padding:space.lg,
   },
   cardBack: {
-    width:"100%", minHeight:220, backgroundColor:"#f0fdf4", borderRadius:20, borderWidth:1.5, borderColor:"#86efac",
-    padding:20, shadowColor:"#000", shadowOffset:{width:0,height:2}, shadowOpacity:0.06, shadowRadius:8, elevation:3,
+    width:"100%", minHeight:220, borderRadius:radius.lg, borderWidth:1,
+    padding:20,
   },
-  backContent: { alignItems:"center", gap:8 },
-  arabicChar:  { fontSize:96, color:"#1c1917", fontFamily:"Amiri", writingDirection:"rtl" },
-  arabicSmall: { fontSize:48, color:"#1c1917", fontFamily:"Amiri", writingDirection:"rtl" },
-  hint:        { fontSize:12, color:"#a8a29e", marginTop:8 },
-  harfAdi:     { fontSize:22, fontWeight:"700", color:"#065f46" },
-  harfSesi:    { fontSize:15, color:"#059669" },
-  formsRow:    { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:12, marginTop:4 },
-  formBox:     { alignItems:"center", backgroundColor:"#fffdf6", borderRadius:10, padding:10, minWidth:60 },
-  formLabel:   { fontSize:9, fontWeight:"700", color:"#a8a29e", letterSpacing:0.5, marginBottom:4 },
-  formChar:    { fontSize:22, color:"#1c1917" },
-  mahrec:      { fontSize:12, color:"#78716c", textAlign:"center" },
-  badges:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:8 },
-  badge:       { borderRadius:8, paddingHorizontal:10, paddingVertical:4 },
-  badgeText:   { fontSize:11, fontWeight:"600", color:"#44403c" },
-  navRow:        { flexDirection:"row", gap:10, marginTop:16, width:"100%" },
-  navBtn:        { flex:1, borderRadius:12, paddingVertical:13, borderWidth:1, borderColor:"#e7dfcc", backgroundColor:"#fffdf6", alignItems:"center" },
-  navBtnDisabled:{ opacity:0.4 },
-  navBtnActive:  { backgroundColor:"#059669", borderColor:"#059669" },
-  navBtnText:    { fontSize:14, fontWeight:"700", color:"#44403c" },
+  backContent: { alignItems:"center", gap:space.xs },
+  arabicChar:  { fontSize:96, fontFamily:"Amiri", writingDirection:"rtl" },
+  arabicSmall: { fontSize:48, fontFamily:"Amiri", writingDirection:"rtl" },
+  hint:        { fontSize:12, marginTop:space.xs },
+  harfAdi:     { fontSize:22, fontWeight:"700" },
+  harfSesi:    { fontSize:15 },
+  formsRow:    { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:space.sm, marginTop:space.xxs },
+  formBox:     { alignItems:"center", borderRadius:10, padding:10, minWidth:60 },
+  formLabel:   { fontSize:9, fontWeight:"700", letterSpacing:0.5, marginBottom:space.xxs },
+  formChar:    { fontSize:22 },
+  mahrec:      { fontSize:12, textAlign:"center" },
+  badges:      { flexDirection:"row", flexWrap:"wrap", justifyContent:"center", gap:space.xs },
+  navRow:      { flexDirection:"row", gap:10, marginTop:space.md, width:"100%" },
 });
 
 const qv = StyleSheet.create({
-  noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
-  errBox:      { flex:1, alignItems:"center", justifyContent:"center", padding:24 },
-  errEmoji:    { fontSize:40, marginBottom:8 },
-  retryBtn:    { backgroundColor:"#059669", paddingHorizontal:24, paddingVertical:11, borderRadius:10, marginTop:12, alignSelf:"center" },
-  retryText:   { color:"#fff", fontSize:14, fontWeight:"700" },
-  notice:      { marginHorizontal:12, marginTop:12, padding:12, borderRadius:10, borderWidth:1, gap:6 },
+  noQ:         { textAlign:"center", marginTop:40, lineHeight:22 },
+  errBox:      { flex:1, alignItems:"center", justifyContent:"center", padding:space.lg },
+  errIcon:     { marginBottom:space.xs },
+  notice:      { marginHorizontal:space.sm, marginTop:space.sm, padding:space.sm, borderRadius:radius.lg, borderWidth:1, gap:6 },
   noticeText:  { fontSize:13, lineHeight:19 },
 });

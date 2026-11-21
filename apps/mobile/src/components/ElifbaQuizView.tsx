@@ -4,6 +4,7 @@ import {
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let LottieView: any = null;
 try {
@@ -15,7 +16,8 @@ try {
 } catch (_e) { /* noop */ }
 import { QuizFeedback } from "./QuizFeedback";
 import quizFeedbackStrings from "../i18n/strings/quizFeedback";
-import { useColors } from "../hooks/useColors";
+import { useColors, type AppColors } from "../hooks/useColors";
+import { Button, Callout, radius, space } from "./ui";
 import { notifyReviewCompletion } from "../hooks/storeReviewPolicy";
 import { useStrings, fmt } from "../i18n";
 import elifbaStrings from "../i18n/strings/elifba";
@@ -45,6 +47,13 @@ export function ElifbaQuizView(props: ElifbaQuizViewProps) {
   return <QuestionRun {...props} />;
 }
 
+function getOptionColors(c: AppColors, answered: boolean, isRight: boolean, isSelected: boolean) {
+  if (!answered) return { bg: c.card, border: c.border, fg: c.text };
+  if (isRight) return { bg: c.greenBg, border: c.greenBorder, fg: c.greenText };
+  if (isSelected) return { bg: c.errorBg, border: c.errorBorder, fg: c.errorText };
+  return { bg: c.card, border: c.border, fg: c.text };
+}
+
 function DoneScreen({ score, total, onFinish, isBypass = false }: {
   isBypass?: boolean;
   score: number; total: number; onFinish: (score: number, total: number) => void;
@@ -59,22 +68,27 @@ function DoneScreen({ score, total, onFinish, isBypass = false }: {
   }, [passed]));
   return (
     <View style={qv.done}>
-      <Text style={qv.doneEmoji}>{passed ? "🎉" : "📚"}</Text>
+      <Ionicons
+        name={passed ? "trophy-outline" : "book-outline"}
+        size={56}
+        color={passed ? c.accent : c.textMuted}
+        accessible={false}
+        importantForAccessibility="no"
+      />
       <Text style={[qv.doneTitle, { color: c.text }]}>{!passed ? ep.tryAgain : pct >= 80 ? ep.great : ep.good}</Text>
-      <Text style={[qv.doneSub, { color: c.textMuted }]}>{fmt(ep.scoreLine, { s: score, t: total, p: pct })}</Text>
+      <Text style={[qv.doneSub, { color: c.textSecondary }]}>{fmt(ep.scoreLine, { s: score, t: total, p: pct })}</Text>
       {isBypass && score < ELIFBA_QUIZ_PASS && (
-        <Text style={[qv.doneSub, { color: c.textMuted, textAlign: "center" }]}>
+        <Text style={[qv.doneSub, { color: c.textSecondary, textAlign: "center" }]}>
           {fmt(ep.bypassFailed, { n: ELIFBA_QUIZ_PASS })}
         </Text>
       )}
-      <TouchableOpacity
-        style={qv.doneBtn}
+      <Button
+        variant="primary"
+        label={ep.backToLessons}
         onPress={() => onFinish(score, total)}
-        accessibilityRole="button"
         accessibilityLabel={ep.backToLessonsA11y}
-      >
-        <Text style={qv.doneBtnText}>{ep.backToLessons}</Text>
-      </TouchableOpacity>
+        style={{ marginTop: space.xs, paddingHorizontal: space.xl }}
+      />
     </View>
   );
 }
@@ -177,24 +191,20 @@ function QuestionRun({ questions, onAnswer, onFinish, isBypass }: {
         else scrollRef.current?.scrollTo({ y: 0, animated: false });
       }}
     >
-      <Text style={qv.progress}>{fmt(ep.questionProgress, { i: idx + 1, n: questions.length, s: score })}</Text>
-      <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
+      <Text style={[qv.progress, { color: c.textMuted }]}>{fmt(ep.questionProgress, { i: idx + 1, n: questions.length, s: score })}</Text>
+      <View style={[qv.soruBox, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
         {renderSoru(soru.soru)}
       </View>
-      <QuizFeedback answered={answered} correct={selected === soru.dogru_cevap} answer={soru.dogru_cevap} questionKey={idx} />
+      <QuizFeedback answered={answered} correct={selected === soru.dogru_cevap} answer={soru.dogru_cevap} questionKey={idx} style={{ marginBottom: space.sm }} />
       <View style={qv.options}>
         {soru.secenekler.map((s) => {
           const isRight    = s === soru.dogru_cevap;
           const isSelected = s === selected;
-          let bg = c.card;
-          if (answered) {
-            if (isRight) bg = c.isDark ? "#052e22" : "#dcfce7";
-            else if (isSelected) bg = c.isDark ? "#450a0a" : "#fee2e2";
-          }
+          const opt = getOptionColors(c, answered, isRight, isSelected);
           return (
             <TouchableOpacity
               key={s}
-              style={[qv.option, { backgroundColor: bg, borderColor: c.border }]}
+              style={[qv.option, { backgroundColor: opt.bg, borderColor: opt.border }]}
               onPress={() => handleSelect(s)}
               disabled={answered}
               activeOpacity={0.75}
@@ -202,7 +212,7 @@ function QuestionRun({ questions, onAnswer, onFinish, isBypass }: {
               accessibilityLabel={`${fmt(ep.answerA11y, { s })}${answered && isRight ? `. ${feedback.correctOption}` : answered && isSelected ? `. ${feedback.wrongSelection}` : ""}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
-              <Text style={[qv.optionText, { color: c.text }, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
+              <Text style={[qv.optionText, { color: opt.fg }, isArabic(s) && { fontSize: 20, textAlign: "center" }]}>
                 {answered && isRight ? "✓ " : ""}{s}
               </Text>
             </TouchableOpacity>
@@ -210,19 +220,19 @@ function QuestionRun({ questions, onAnswer, onFinish, isBypass }: {
         })}
       </View>
       {answered && soru.ipucu && selected !== soru.dogru_cevap && (
-        <View style={[qv.ipucu, c.isDark && { backgroundColor: "#422006" }]}>
-          <Text style={[qv.ipucuText, c.isDark && { color: "#fde68a" }]}>💡 {soru.ipucu}</Text>
-        </View>
+        <Callout tone="warning" icon="bulb-outline" style={qv.ipucu}>
+          {soru.ipucu}
+        </Callout>
       )}
       {answered && (
-        <TouchableOpacity
-          style={qv.nextBtn}
+        <Button
+          variant="primary"
+          fullWidth
+          label={idx + 1 >= questions.length ? ep.seeResults : ep.next}
           onPress={handleNext}
-          accessibilityRole="button"
           accessibilityLabel={idx + 1 >= questions.length ? ep.seeResultsA11y : ep.nextQuestionA11y}
-        >
-          <Text style={qv.nextBtnText}>{idx + 1 >= questions.length ? ep.seeResults : ep.next}</Text>
-        </TouchableOpacity>
+          style={{ marginTop: space.xxs }}
+        />
       )}
       {showConfetti && LottieView && (
         <View style={qv.confettiWrap} pointerEvents="none">
@@ -294,8 +304,8 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
       contentContainerStyle={[qv.content, { paddingBottom: 16 + insets.bottom }]}
       onContentSizeChange={() => { if (answered) scrollRef.current?.scrollToEnd({ animated: true }); }}
     >
-      <Text style={qv.progress}>{fmt(ep.questionProgress, { i: index + 1, n: total, s: score })}</Text>
-      <View style={[qv.soruBox, { backgroundColor: c.card, borderColor: c.border }]}>
+      <Text style={[qv.progress, { color: c.textMuted }]}>{fmt(ep.questionProgress, { i: index + 1, n: total, s: score })}</Text>
+      <View style={[qv.soruBox, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
         {fallback ? (
           <>
             <Text style={[qv.soruText, { color: c.text }]}>{ep.listeningPrompt}</Text>
@@ -304,34 +314,28 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
         ) : (
           <>
             <Text style={[qv.soruText, { color: c.text }]}>{ep.listeningPromptAudio}</Text>
-            <TouchableOpacity
-              style={qv.playBtn}
+            <Button
+              variant="primary"
+              fullWidth
+              icon="volume-high-outline"
+              label={playing ? ep.playing : ep.listenPlay}
               onPress={startPlay}
-              activeOpacity={0.75}
-              accessibilityRole="button"
               disabled={playing}
-              accessibilityState={{ busy: playing, selected: playing, disabled: playing }}
               accessibilityLabel={playing ? ep.playing : ep.listenPlayA11y}
-            >
-              <Text style={qv.playBtnText}>{playing ? ep.playing : ep.listenPlay}</Text>
-            </TouchableOpacity>
+            />
           </>
         )}
       </View>
-      <QuizFeedback answered={answered} correct={selectedId === item.correctId} answer={item.options.find(o => o.id === item.correctId)?.label ?? item.fallbackLabel} questionKey={item.itemId} />
+      <QuizFeedback answered={answered} correct={selectedId === item.correctId} answer={item.options.find(o => o.id === item.correctId)?.label ?? item.fallbackLabel} questionKey={item.itemId} style={{ marginBottom: space.sm }} />
       <View style={qv.options}>
         {item.options.map((option) => {
           const isRight = option.id === item.correctId;
           const isSelected = option.id === selectedId;
-          let bg = c.card;
-          if (answered) {
-            if (isRight) bg = c.isDark ? "#052e22" : "#dcfce7";
-            else if (isSelected) bg = c.isDark ? "#450a0a" : "#fee2e2";
-          }
+          const opt = getOptionColors(c, answered, isRight, isSelected);
           return (
             <TouchableOpacity
               key={option.id}
-              style={[qv.option, { backgroundColor: bg, borderColor: c.border }]}
+              style={[qv.option, { backgroundColor: opt.bg, borderColor: opt.border }]}
               onPress={() => handleSelect(option.id)}
               disabled={answered}
               activeOpacity={0.75}
@@ -339,7 +343,7 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
               accessibilityLabel={`${fmt(ep.answerA11y, { s: option.label })}${answered && isRight ? `. ${feedback.correctOption}` : answered && isSelected ? `. ${feedback.wrongSelection}` : ""}`}
               accessibilityState={{ disabled: answered, selected: isSelected }}
             >
-              <Text style={[qv.optionText, { color: c.text }, isArabic(option.label) && { fontSize: 20, textAlign: "center" }]}>
+              <Text style={[qv.optionText, { color: opt.fg }, isArabic(option.label) && { fontSize: 20, textAlign: "center" }]}>
                 {answered && isRight ? "✓ " : ""}{option.label}
               </Text>
             </TouchableOpacity>
@@ -347,14 +351,14 @@ function ListeningQuestion({ item, index, total, score, isLast, onAnswer, onNext
         })}
       </View>
       {answered && (
-        <TouchableOpacity
-          style={qv.nextBtn}
+        <Button
+          variant="primary"
+          fullWidth
+          label={isLast ? ep.seeResults : ep.next}
           onPress={onNext}
-          accessibilityRole="button"
           accessibilityLabel={isLast ? ep.seeResultsA11y : ep.nextQuestionA11y}
-        >
-          <Text style={qv.nextBtnText}>{isLast ? ep.seeResults : ep.next}</Text>
-        </TouchableOpacity>
+          style={{ marginTop: space.xxs }}
+        />
       )}
     </ScrollView>
   );
@@ -432,28 +436,20 @@ function ListeningRun({ items, onAnswer, onPlayAudio, onFinish }: {
 const qv = StyleSheet.create({
   container:   { flex:1, width:"100%", maxWidth:READING_MAX_WIDTH, alignSelf:"center" },
   scroll:      { flex: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
-  content:     { padding: 16 },
-  noQ:         { textAlign:"center", marginTop:40, color:"#78716c", lineHeight:22 },
-  progress:    { fontSize:12, color:"#a8a29e", textAlign:"center", marginBottom:12 },
-  soruBox:        { backgroundColor:"#fffdf6", borderRadius:14, padding:20, marginBottom:12, borderWidth:1, borderColor:"#e7dfcc", gap:10 },
-  soruText:       { fontSize:15, lineHeight:24, color:"#1c1917" },
-  soruArabicLine: { fontSize:36, textAlign:"center", fontFamily:"Amiri", writingDirection:"rtl", color:"#1c1917", marginTop:4 },
-  fallbackName:   { fontSize:24, fontWeight:"700", textAlign:"center", color:"#1c1917" },
-  playBtn:        { backgroundColor:"#059669", borderRadius:12, paddingVertical:12, alignItems:"center" },
-  playBtnText:    { color:"#fff", fontSize:14, fontWeight:"700" },
-  options:     { gap:8, marginBottom:10 },
-  option:      { borderRadius:12, padding:14, borderWidth:1, borderColor:"#e7dfcc" },
-  optionText:  { fontSize:14, color:"#1c1917" },
-  ipucu:       { backgroundColor:"#fef9c3", borderRadius:10, padding:12, marginBottom:10 },
-  ipucuText:   { fontSize:13, color:"#854d0e", lineHeight:20 },
-  nextBtn:     { backgroundColor:"#059669", borderRadius:12, padding:14, alignItems:"center", marginTop:4 },
-  nextBtnText: { color:"#fff", fontSize:14, fontWeight:"700" },
-  confettiWrap:{ position:"absolute", top:120, left:16, right:16, height:220, alignItems:"center", justifyContent:"center" },
+  content:     { padding: space.gutter },
+  noQ:         { textAlign:"center", marginTop:40, lineHeight:22 },
+  progress:    { fontSize:12, textAlign:"center", marginBottom:space.sm },
+  soruBox:        { borderRadius:radius.lg, padding:20, marginBottom:space.sm, borderWidth:1, gap:10 },
+  soruText:       { fontSize:15, lineHeight:24 },
+  soruArabicLine: { fontSize:56, textAlign:"center", fontFamily:"Amiri", writingDirection:"rtl", marginTop:space.xxs },
+  fallbackName:   { fontSize:24, fontWeight:"700", textAlign:"center" },
+  options:     { gap:space.xs, marginBottom:10 },
+  option:      { borderRadius:radius.md, padding:14, borderWidth:1 },
+  optionText:  { fontSize:14 },
+  ipucu:       { marginBottom:10 },
+  confettiWrap:{ position:"absolute", top:120, left:space.gutter, right:space.gutter, height:220, alignItems:"center", justifyContent:"center" },
   confetti:    { width:220, height:220 },
-  done:        { flex:1, alignItems:"center", justifyContent:"center", gap:12, padding:32 },
-  doneEmoji:   { fontSize:56 },
-  doneTitle:   { fontSize:22, fontWeight:"700", color:"#1c1917" },
-  doneSub:     { fontSize:15, color:"#78716c" },
-  doneBtn:     { backgroundColor:"#059669", borderRadius:12, paddingHorizontal:32, paddingVertical:13, marginTop:8 },
-  doneBtnText: { color:"#fff", fontSize:14, fontWeight:"700" },
+  done:        { flex:1, alignItems:"center", justifyContent:"center", gap:space.sm, padding:space.xl },
+  doneTitle:   { fontSize:22, fontWeight:"700" },
+  doneSub:     { fontSize:15 },
 });
