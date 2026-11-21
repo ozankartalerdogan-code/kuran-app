@@ -1,11 +1,12 @@
-import React, { useState, useCallback, useRef, useEffect, type ComponentProps } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import type { Href } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah } from "../src/lib/api";
-import { useColors } from "../src/hooks/useColors";
+import { useColors, type AppColors } from "../src/hooks/useColors";
+import { Button, Callout, MenuCard, Tabs, radius, space, toneColors, type IoniconName, type Tone } from "../src/components/ui";
 import rehberRaw from "../src/data/namaz_rehberi.json";
 import ozelRaw from "../src/data/ozel_namazlar.json";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -55,38 +56,28 @@ const pickRehber = localizedData<RehberFile>(
   () => require("../src/data/namaz_rehberi.en.json"),
 );
 
-const DURUM: Record<string, { bg: string; border: string; text: string }> = {
-  farz:   { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c" },
-  vacip:  { bg: "#fff7ed", border: "#fdba74", text: "#c2410c" },
-  sunnet: { bg: "#f0fdf4", border: "#86efac", text: "#15803d" },
-};
-
 const DURUM_LABEL_KEY = { farz: "dFarz", vacip: "dVacip", sunnet: "dSunnet" } as const;
 const OZEL_DURUM_LABEL_KEY = {
   farz_i_kifaye: "dFarzKifaye", vacip: "dVacip", sunnet_i_muekked: "dMuekked", sunnet_musteap: "dMustehap", sunnet: "dSunnet",
 } as const;
 
-// Karanlık modda pastel zeminlerin koyu karşılıkları
-const DURUM_DARK: Record<string, { bg: string; border: string; text: string }> = {
-  farz:   { bg: "#450a0a", border: "#7f1d1d", text: "#fca5a5" },
-  vacip:  { bg: "#431407", border: "#7c2d12", text: "#fdba74" },
-  sunnet: { bg: "#052e16", border: "#166534", text: "#86efac" },
-};
-
-function durumRenk(key: string, isDark: boolean) {
-  const base = DURUM[key];
-  if (!base) return undefined;
-  return isDark ? { ...base, ...DURUM_DARK[key] } : base;
+function durumRenk(key: string, c: AppColors) {
+  switch (key) {
+    case "farz": return { bg: c.errorBg, border: c.errorBorder, text: c.errorText };
+    case "vacip": return { bg: c.orangeBg, border: c.orangeBorder, text: c.orangeText };
+    case "sunnet": return { bg: c.greenBg, border: c.greenBorder, text: c.greenText };
+    default: return undefined;
+  }
 }
 
 // ── "Namaz Ayetleri" sekmesi verisi (Keşfet'ten taşındı) ──────────────────────
-const VAKIT_ROWS = [
-  { id: "sabah",    ikon: "🌅", adKey: "vSabah" as const,    bg: "#f0f9ff", border: "#7dd3fc", keys: ["17:78", "20:130", "50:39"] },
-  { id: "ogle",     ikon: "☀️", adKey: "vOgle" as const,     bg: "#fffbeb", border: "#fcd34d", keys: ["30:18", "17:78"] },
-  { id: "ikindi",   ikon: "🌤️", adKey: "vIkindi" as const,   bg: "#fff7ed", border: "#fdba74", keys: ["2:238", "20:130", "50:39"] },
-  { id: "aksam",    ikon: "🌆", adKey: "vAksam" as const,    bg: "#fff1f2", border: "#fda4af", keys: ["11:114", "30:17"] },
-  { id: "yatsi",    ikon: "🌙", adKey: "vYatsi" as const,    bg: "#eef2ff", border: "#a5b4fc", keys: ["24:58", "17:78", "11:114"] },
-  { id: "teheccud", ikon: "🌌", adKey: "vTeheccud" as const, bg: "#f5f3ff", border: "#c4b5fd", keys: ["17:79", "73:2-3", "25:64", "51:17-18"] },
+const VAKIT_ROWS: Array<{ id: string; icon: IoniconName; tone: Tone; adKey: "vSabah" | "vOgle" | "vIkindi" | "vAksam" | "vYatsi" | "vTeheccud"; keys: string[] }> = [
+  { id: "sabah",    icon: "partly-sunny-outline", tone: "sky",    adKey: "vSabah",    keys: ["17:78", "20:130", "50:39"] },
+  { id: "ogle",     icon: "sunny-outline",        tone: "amber",  adKey: "vOgle",     keys: ["30:18", "17:78"] },
+  { id: "ikindi",   icon: "partly-sunny-outline", tone: "amber",  adKey: "vIkindi",   keys: ["2:238", "20:130", "50:39"] },
+  { id: "aksam",    icon: "cloudy-night-outline", tone: "violet", adKey: "vAksam",    keys: ["11:114", "30:17"] },
+  { id: "yatsi",    icon: "moon-outline",         tone: "violet", adKey: "vYatsi",    keys: ["24:58", "17:78", "11:114"] },
+  { id: "teheccud", icon: "star-outline",         tone: "sky",    adKey: "vTeheccud", keys: ["17:79", "73:2-3", "25:64", "51:17-18"] },
 ];
 
 const MOTTO = {
@@ -95,12 +86,12 @@ const MOTTO = {
   meal: "Namazı kıldıktan sonra; ayakta, otururken ve yan yatarken Allah'ı anın. Güvene kavuştuğunuzda namazı gereğince kılın. Şüphesiz namaz, müminlere belirli vakitlerde farz kılınmıştır.",
 };
 
-const NAMAZ_CATS = [
-  { emoji: "🕌", id: "namaz-genel",    labelKey: "catGenel" as const,     tag: "namaz-genel",    renk: "#e0e7ff" },
-  { emoji: "⏰", id: "namaz-vakit",    labelKey: "catVakit" as const, tag: "namaz-vakit",    renk: "#fef3c7" },
-  { emoji: "🧘", id: "namaz-husu",     labelKey: "catHusu" as const,     tag: "namaz-husu",     renk: "#f0fdf4" },
-  { emoji: "🌌", id: "namaz-teheccud", labelKey: "catTeheccud" as const,        tag: "namaz-teheccud", renk: "#ede9fe" },
-  { emoji: "📅", id: "namaz-cuma",     labelKey: "catCuma" as const,     tag: "namaz-cuma",     renk: "#dbeafe" },
+const NAMAZ_CATS: Array<{ icon: IoniconName; tone: Tone; id: string; labelKey: "catGenel" | "catVakit" | "catHusu" | "catTeheccud" | "catCuma"; tag: string }> = [
+  { icon: "accessibility-outline", tone: "emerald", id: "namaz-genel",    labelKey: "catGenel",    tag: "namaz-genel" },
+  { icon: "alarm-outline",         tone: "amber",   id: "namaz-vakit",    labelKey: "catVakit",    tag: "namaz-vakit" },
+  { icon: "leaf-outline",          tone: "emerald", id: "namaz-husu",     labelKey: "catHusu",     tag: "namaz-husu" },
+  { icon: "star-outline",          tone: "violet",  id: "namaz-teheccud", labelKey: "catTeheccud", tag: "namaz-teheccud" },
+  { icon: "calendar-outline",      tone: "sky",     id: "namaz-cuma",     labelKey: "catCuma",     tag: "namaz-cuma" },
 ];
 
 function parseKey(key: string) {
@@ -112,12 +103,13 @@ function parseKey(key: string) {
 
 interface VerseRow { verse_key: string; surah_id: number; ayah_number: number; surah_name: string | null; reading_tr: string | null; meal: string | null }
 
-function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: string; tag: string; renk: string }) {
+function TagAccordion({ icon, tone, label, tag }: { icon: IoniconName; tone: Tone; label: string; tag: string }) {
   const c = useColors();
   const tx = useStrings(rehberStrings);
   const lang = useLang();
   const mealOf = useMealOf();
   const surahNameOf = useSurahNameOf();
+  const t = toneColors(c, tone);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [verses, setVerses] = useState<VerseRow[]>([]);
@@ -148,21 +140,21 @@ function TagAccordion({ emoji, label, tag, renk }: { emoji: string; label: strin
   }, [open, fetched, fetchVerses]);
 
   return (
-    <View style={[na.accCard, { backgroundColor: c.card, borderColor: c.border, borderLeftColor: renk }]}>
+    <View style={[na.accCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={na.accHeader} onPress={onPress} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={label}>
-        <Text style={{ fontSize: 20 }}>{emoji}</Text>
+        <View style={[s.toneCircle, { backgroundColor: t.bg }]}>
+          <Ionicons name={icon} size={20} color={t.fg} accessible={false} importantForAccessibility="no" />
+        </View>
         <Text style={[na.accTitle, { color: c.text }]}>{label}</Text>
-        <Text style={[na.accChev, { color: c.accent }]}>{open ? "▲" : "▼"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
       {open && (
         <View style={[na.accBody, { borderTopColor: c.border }]}>
           {loading && <ActivityIndicator color={c.accent} style={{ marginVertical: 10 }} />}
           {!loading && error && (
             <View style={na.errorWrap}>
-              <Text style={[na.empty, { color: c.isDark ? "#fca5a5" : "#dc2626" }]}>{tx.versesFailed}</Text>
-              <TouchableOpacity style={[na.retryBtn, { backgroundColor: c.accent }]} onPress={fetchVerses} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={tx.retryA11y}>
-                <Text style={na.retryText}>{tx.retry}</Text>
-              </TouchableOpacity>
+              <Text style={[na.empty, { color: c.errorText }]}>{tx.versesFailed}</Text>
+              <Button variant="secondary" label={tx.retry} onPress={fetchVerses} accessibilityLabel={tx.retryA11y} />
             </View>
           )}
           {!loading && !error && fetched && verses.length === 0 && <Text style={[na.empty, { color: c.textMuted }]}>{tx.noVerses}</Text>}
@@ -190,7 +182,7 @@ function VakitTablosu() {
   const mottoLabel = fmt(tx.mottoLabel, { sure: surahNameOf(MOTTO.surahId, "Nisâ") });
   return (
     <View>
-      <TouchableOpacity style={[na.motto, { backgroundColor: c.isDark ? "#022c22" : "#ecfdf5", borderColor: c.isDark ? "#065f46" : "#a7f3d0" }]} activeOpacity={0.8} onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}`)} accessibilityRole="button" accessibilityLabel={fmt(tx.mottoA11y, { label: mottoLabel })}>
+      <TouchableOpacity style={[na.motto, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]} activeOpacity={0.8} onPress={() => router.push(`/ayah/${MOTTO.surahId}/${MOTTO.ayahNumber}`)} accessibilityRole="button" accessibilityLabel={fmt(tx.mottoA11y, { label: mottoLabel })}>
         <View style={na.mottoHead}>
           <Text style={[na.mottoEtiket, { color: c.accent }]}>{caps(tx.mottoTitle)}</Text>
           <View style={[na.mottoKey, { backgroundColor: c.accentLight }]}><Text style={[na.mottoKeyText, { color: c.accent }]}>{mottoLabel}</Text></View>
@@ -201,27 +193,34 @@ function VakitTablosu() {
 
       <View style={[na.vtCard, { backgroundColor: c.card, borderColor: c.border }]}>
         <View style={[na.vtHeader, { borderBottomColor: c.border }]}>
+          <Ionicons name="time-outline" size={15} color={c.textMuted} accessible={false} importantForAccessibility="no" />
           <Text style={[na.vtHeaderTitle, { color: c.textMuted }]}>{caps(tx.vakitHeader)}</Text>
         </View>
-        {VAKIT_ROWS.map(v => (
-          <View key={v.id} style={[na.vtRow, { backgroundColor: c.isDark ? c.cardAlt : v.bg, borderLeftColor: v.border, borderBottomColor: c.border }]}>
-            <View style={na.vtVakit}>
-              <Text style={{ fontSize: 20 }}>{v.ikon}</Text>
-              <Text style={[na.vtVakitAd, { color: c.text }]}>{tx[v.adKey]}</Text>
-              <Text style={[na.vtVakitSayi, { color: c.textMuted }]}>{fmt(tx.verseCount, { n: v.keys.length })}</Text>
+        {VAKIT_ROWS.map((v, idx) => {
+          const tone = toneColors(c, v.tone);
+          const isLast = idx === VAKIT_ROWS.length - 1;
+          return (
+            <View key={v.id} style={[na.vtRow, !isLast && { borderBottomWidth: 1, borderBottomColor: c.border }]}>
+              <View style={na.vtVakit}>
+                <View style={[s.toneCircle, { backgroundColor: tone.bg }]}>
+                  <Ionicons name={v.icon} size={20} color={tone.fg} accessible={false} importantForAccessibility="no" />
+                </View>
+                <Text style={[na.vtVakitAd, { color: c.text }]}>{tx[v.adKey]}</Text>
+                <Text style={[na.vtVakitSayi, { color: c.textMuted }]}>{fmt(tx.verseCount, { n: v.keys.length })}</Text>
+              </View>
+              <View style={na.vtKeys}>
+                {v.keys.map(k => {
+                  const { surahId, ayahNumber } = parseKey(k);
+                  return (
+                    <TouchableOpacity key={k} style={[na.vtChip, { backgroundColor: c.greenBg, borderColor: c.greenBorder }]} onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={fmt(tx.verseOpenA11y, { k })}>
+                      <Text style={[na.vtChipText, { color: c.greenText }]}>{k}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
             </View>
-            <View style={na.vtKeys}>
-              {v.keys.map(k => {
-                const { surahId, ayahNumber } = parseKey(k);
-                return (
-                  <TouchableOpacity key={k} style={[na.vtChip, c.isDark && { backgroundColor: "#052e16", borderColor: "#166534" }]} onPress={() => router.push(`/ayah/${surahId}/${ayahNumber}`)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={fmt(tx.verseOpenA11y, { k })}>
-                    <Text style={[na.vtChipText, c.isDark && { color: "#86efac" }]}>{k}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </View>
-        ))}
+          );
+        })}
       </View>
     </View>
   );
@@ -235,7 +234,7 @@ function AyetlerTab() {
     <ScrollView style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
       <VakitTablosu />
       <Text style={[s.subHead, { color: c.text, marginTop: 18 }]}>{tx.prayerVerses}</Text>
-      {NAMAZ_CATS.map(cat => <TagAccordion key={cat.id} emoji={cat.emoji} label={tx[cat.labelKey]} tag={cat.tag} renk={cat.renk} />)}
+      {NAMAZ_CATS.map(cat => <TagAccordion key={cat.id} icon={cat.icon} tone={cat.tone} label={tx[cat.labelKey]} tag={cat.tag} />)}
     </ScrollView>
   );
 }
@@ -244,7 +243,7 @@ function AyetlerTab() {
 function DurumBadge({ durum }: { durum?: string }) {
   const c = useColors();
   const tx = useStrings(rehberStrings);
-  const d = durum ? durumRenk(durum, c.isDark) : undefined;
+  const d = durum ? durumRenk(durum, c) : undefined;
   if (!d) return null;
   return (
     <View style={[s.badge, { backgroundColor: d.bg, borderColor: d.border }]}>
@@ -268,17 +267,15 @@ function DuaBlock({ arapca, okunus, anlam, kaynak }: { arapca?: string | null; o
   );
 }
 
-type IoniconName = ComponentProps<typeof Ionicons>["name"];
-
-function Section({ emoji, icon, title, defaultOpen, children }: { emoji?: string; icon?: IoniconName; title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+function Section({ icon, title, defaultOpen, children }: { icon?: IoniconName; title: string; defaultOpen?: boolean; children: React.ReactNode }) {
   const c = useColors();
   const [open, setOpen] = useState(!!defaultOpen);
   return (
     <View style={[s.sec, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={s.secHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={title}>
-        {icon ? <Ionicons name={icon} size={18} color={c.accent} /> : emoji ? <Text style={s.secEmoji}>{emoji}</Text> : null}
+        {icon ? <Ionicons name={icon} size={18} color={c.accent} accessible={false} importantForAccessibility="no" /> : null}
         <Text style={[s.secTitle, { color: c.text }]}>{title}</Text>
-        <Text style={[s.secChev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
       {open && <View style={s.secBody}>{children}</View>}
     </View>
@@ -306,24 +303,26 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
       <ScrollView ref={scrollRef} style={{ flex: 1, backgroundColor: c.bg }} contentContainerStyle={[s.content, { paddingBottom: insets.bottom + 40 }]} showsVerticalScrollIndicator={false}>
         <Text style={[s.intro, { color: c.textSecondary }]}>{R.aciklama}</Text>
         {R.kapsam_notu ? (
-          <View style={[s.scopeBox, c.isDark && { backgroundColor: "#172554", borderColor: "#1e40af" }]}>
-            <Text style={[s.scopeTitle, c.isDark && { color: "#93c5fd" }]}>{caps(tx.scopeNote)}</Text>
-            <Text style={[s.scopeText, { color: c.textSecondary }]}>{R.kapsam_notu}</Text>
-          </View>
+          <Callout tone="info" title={caps(tx.scopeNote)} style={{ marginBottom: 14 }}>
+            {R.kapsam_notu}
+          </Callout>
         ) : null}
 
         {/* Yeni başlayan — en üstte, ilk gördükleri yer (varsayılan açık) */}
-        <Section emoji="🌱" title={R.yeni_baslayan_notu.baslik}>
+        <Section icon="leaf-outline" title={R.yeni_baslayan_notu.baslik}>
           {R.yeni_baslayan_notu.maddeler.map((m, i) => (
-            <Text key={i} style={[s.madde, { color: c.textSecondary }]}>✓ {m}</Text>
+            <View key={i} style={s.checkRow}>
+              <Ionicons name="checkmark" size={16} color={c.accent} style={{ marginTop: 2 }} accessible={false} importantForAccessibility="no" />
+              <Text style={[s.madde, { color: c.textSecondary, flex: 1, marginTop: 0 }]}>{m}</Text>
+            </View>
           ))}
         </Section>
 
         {/* Kavramlar */}
-        <Section emoji="📘" title={R.temel_kavramlar.baslik}>
+        <Section icon="school-outline" title={R.temel_kavramlar.baslik}>
           <Text style={[s.p, { color: c.textSecondary }]}>{R.temel_kavramlar.aciklama}</Text>
           {R.temel_kavramlar.kavramlar.map(k => {
-            const d = durumRenk(k.id, c.isDark);
+            const d = durumRenk(k.id, c);
             return (
               <View key={k.id} style={[s.kavram, { backgroundColor: d?.bg ?? c.cardAlt, borderColor: d?.border ?? c.border }]}>
                 <Text style={[s.kavramIsim, { color: d?.text ?? c.text }]}>{k.isim}</Text>
@@ -332,11 +331,13 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               </View>
             );
           })}
-          <Text style={[s.teselli, c.isDark && { color: "#6ee7b7", backgroundColor: "#022c22" }]}>💚 {R.temel_kavramlar.teselli_notu}</Text>
+          <Callout tone="success" icon="heart-outline" style={{ marginTop: space.sm }}>
+            {R.temel_kavramlar.teselli_notu}
+          </Callout>
         </Section>
 
         {/* Vakit & rekat */}
-        <Section emoji="🕐" title={tx.timesAndRakats}>
+        <Section icon="time-outline" title={tx.timesAndRakats}>
           {R.farz_sunnet_namaz_farki.karsilastirma?.map(row => (
             <View key={row.ozellik} style={[s.compareCard, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
               <Text style={[s.compareTitle, { color: c.text }]}>{row.ozellik}</Text>
@@ -354,11 +355,11 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               <Text style={[s.vakitToplam, { color: c.accent }]}>{v.toplam}</Text>
             </View>
           ))}
-          <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {R.farz_sunnet_namaz_farki.not}</Text>
+          <Callout tone="neutral" style={{ marginTop: space.xs }}>{R.farz_sunnet_namaz_farki.not}</Callout>
         </Section>
 
         {/* Namaza başlamadan önce */}
-        <Section emoji="🧼" title={R.namaz_oncesi.baslik}>
+        <Section icon="water-outline" title={R.namaz_oncesi.baslik}>
           {R.namaz_oncesi.adimlar.map((a, i) => (
             <View key={i} style={s.item}>
               <View style={s.itemHead}>
@@ -382,7 +383,7 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
         </Section>
 
         {/* Adım adım namaz */}
-        <Section emoji="🕌" title={tx.stepByStep}>
+        <Section icon="accessibility-outline" title={tx.stepByStep}>
           {R.namaz_adimlari.map((a, i) => (
             <View key={a.id ?? i} style={s.item}>
               <View style={s.itemHead}>
@@ -393,11 +394,16 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               {a.ne_zaman ? <Text style={[s.small, { color: c.textMuted }]}>{a.ne_zaman}</Text> : null}
               {a.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{a.aciklama}</Text> : null}
               <DuaBlock arapca={a.dua_arapca} okunus={a.dua} anlam={a.anlam} />
-              {a.tekrar ? <Text style={[s.small, { color: c.textMuted }]}>🔁 {a.tekrar}</Text> : null}
-              {a.farz_notu ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {a.farz_notu}</Text> : null}
-              {a.durum_detay ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {a.durum_detay}</Text> : null}
-              {a.not ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {a.not}</Text> : null}
-              {a.anlam_notu ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>💡 {a.anlam_notu}</Text> : null}
+              {a.tekrar ? (
+                <View style={s.inlineIconRow}>
+                  <Ionicons name="repeat-outline" size={14} color={c.textMuted} accessible={false} importantForAccessibility="no" />
+                  <Text style={[s.small, { color: c.textMuted, flex: 1, marginTop: 0 }]}>{a.tekrar}</Text>
+                </View>
+              ) : null}
+              {a.farz_notu ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{a.farz_notu}</Callout> : null}
+              {a.durum_detay ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{a.durum_detay}</Callout> : null}
+              {a.not ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{a.not}</Callout> : null}
+              {a.anlam_notu ? <Callout tone="neutral" icon="bulb-outline" style={{ marginTop: space.xs }}>{a.anlam_notu}</Callout> : null}
               {a.sureler ? <Text style={[s.small, { color: c.accent }]}>{tx.surasBelow}</Text> : null}
             </View>
           ))}
@@ -405,7 +411,7 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
 
         {/* Zamm-ı Sureler — ayrı bölüm (derin link hedefi) */}
         <View onLayout={(e) => { zammY.current = e.nativeEvent.layout.y; }}>
-        <Section emoji="📖" title={fmt(tx.zammTitle, { n: zammSureler.length })} defaultOpen={focusZamm}>
+        <Section icon="book-outline" title={fmt(tx.zammTitle, { n: zammSureler.length })} defaultOpen={focusZamm}>
           <Text style={[s.p, { color: c.textSecondary }]}>{tx.zammIntro}</Text>
           {zammSureler.map(su => (
             <View key={su.id} style={s.item}>
@@ -417,7 +423,7 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
         </View>
 
         {/* Dualar */}
-        <Section emoji="📿" title={tx.prayerDuas}>
+        <Section icon="reader-outline" title={tx.prayerDuas}>
           {R.dualar.map((d, i) => (
             <View key={d.id ?? i} style={s.item}>
               <View style={s.itemHead}>
@@ -426,14 +432,14 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               </View>
               {d.ne_zaman ? <Text style={[s.small, { color: c.textMuted }]}>{d.ne_zaman}</Text> : null}
               <DuaBlock arapca={d.dua_arapca} okunus={d.dua} anlam={d.anlam} kaynak={d.kuran_kaynagi} />
-              {d.parmak_notu ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>👉 {d.parmak_notu}</Text> : null}
-              {d.not ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {d.not}</Text> : null}
+              {d.parmak_notu ? <Callout tone="neutral" icon="hand-right-outline" style={{ marginTop: space.xs }}>{d.parmak_notu}</Callout> : null}
+              {d.not ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{d.not}</Callout> : null}
             </View>
           ))}
         </Section>
 
         {/* Selam */}
-        <Section emoji="🤲" title={R.selam.isim}>
+        <Section icon="hand-left-outline" title={R.selam.isim}>
           <Text style={[s.p, { color: c.textSecondary }]}>{R.selam.aciklama}</Text>
           {R.selam.adimlar.map((a, i) => (
             <View key={i} style={s.item}>
@@ -441,11 +447,11 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               <DuaBlock arapca={a.dua_arapca} okunus={a.dua} anlam={a.anlam} />
             </View>
           ))}
-          <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>💡 {R.selam.anlam_notu}</Text>
+          <Callout tone="neutral" icon="bulb-outline" style={{ marginTop: space.xs }}>{R.selam.anlam_notu}</Callout>
         </Section>
 
         {/* VİTİR NAMAZI */}
-        <Section emoji="🌙" title={R.vitir_namazi.baslik}>
+        <Section icon="moon-outline" title={R.vitir_namazi.baslik}>
           <View style={s.itemHead}>
             <DurumBadge durum={R.vitir_namazi.durum} />
             <Text style={[s.rekatBilgi, { color: c.textMuted }]}>{R.vitir_namazi.rekat}</Text>
@@ -475,12 +481,12 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
             </View>
           ))}
 
-          <Text style={[s.note, s.warn, c.isDark && { color: "#fdba74", backgroundColor: "#431407", borderColor: "#7c2d12" }]}>⚠️ {R.vitir_namazi.yaygin_hata}</Text>
-          <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {R.vitir_namazi.not}</Text>
+          <Callout tone="warning" style={{ marginTop: space.xs }}>{R.vitir_namazi.yaygin_hata}</Callout>
+          <Callout tone="neutral" style={{ marginTop: space.xs }}>{R.vitir_namazi.not}</Callout>
         </Section>
 
         {/* Rekat yapısı */}
-        <Section emoji="📋" title={R.rekat_yapisi.baslik}>
+        <Section icon="list-outline" title={R.rekat_yapisi.baslik}>
           <Text style={[s.p, { color: c.textSecondary }]}>{R.rekat_yapisi.aciklama}</Text>
           {R.rekat_yapisi.tablo.map(t => (
             <View key={t.rekat} style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
@@ -492,18 +498,18 @@ function GuideTab({ focusZamm }: { focusZamm?: boolean }) {
               <Text style={[s.small, { color: c.textSecondary }]}>{fmt(tx.sitting, { x: t["oturuş"] })}</Text>
             </View>
           ))}
-          <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>📌 {R.rekat_yapisi.ozet_notu}</Text>
+          <Callout tone="neutral" icon="pin-outline" style={{ marginTop: space.xs }}>{R.rekat_yapisi.ozet_notu}</Callout>
         </Section>
 
-        <TouchableOpacity
-          style={[s.lessonLink, { backgroundColor: c.card, borderColor: c.border }]}
+        <MenuCard
+          icon="school-outline"
+          iconTone="emerald"
+          title={tx.lessonQuizLink}
+          subtitle={tx.lessonQuizSub}
           onPress={() => router.push("/dersler/namaz" as Href)}
-          activeOpacity={0.75}
-          accessibilityRole="button"
-          accessibilityLabel={tx.lessonQuizLink}
-        >
-          <Text style={[s.lessonLinkText, { color: c.accent }]}>{tx.lessonQuizLink}</Text>
-        </TouchableOpacity>
+          accessibilityLabel={`${tx.lessonQuizLink}. ${tx.lessonQuizSub}`}
+          style={{ marginTop: 4 }}
+        />
 
         <Text style={[s.kaynakNot, { color: c.textMuted }]}>{R.kaynak_not}</Text>
       </ScrollView>
@@ -582,21 +588,16 @@ function durumText(text: string | undefined, lang: string): string {
   return DURUM_TEXT_EN.reduce((acc, [re, to]) => acc.replace(re, to), text);
 }
 
-const OZEL_DURUM: Record<string, { bg: string; border: string; text: string }> = {
-  farz_i_kifaye:    { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c" },
-  vacip:            { bg: "#fff7ed", border: "#fdba74", text: "#c2410c" },
-  sunnet_i_muekked: { bg: "#eff6ff", border: "#93c5fd", text: "#1d4ed8" },
-  sunnet_musteap:   { bg: "#f0fdf4", border: "#86efac", text: "#15803d" },
-  sunnet:           { bg: "#f0fdf4", border: "#86efac", text: "#15803d" },
-};
-
-const OZEL_DURUM_DARK: Record<string, { bg: string; border: string; text: string }> = {
-  farz_i_kifaye:    { bg: "#450a0a", border: "#7f1d1d", text: "#fca5a5" },
-  vacip:            { bg: "#431407", border: "#7c2d12", text: "#fdba74" },
-  sunnet_i_muekked: { bg: "#172554", border: "#1e40af", text: "#93c5fd" },
-  sunnet_musteap:   { bg: "#052e16", border: "#166534", text: "#86efac" },
-  sunnet:           { bg: "#052e16", border: "#166534", text: "#86efac" },
-};
+function ozelDurumRenk(durum: string | undefined, c: AppColors) {
+  switch (durum) {
+    case "farz_i_kifaye": return { bg: c.errorBg, border: c.errorBorder, text: c.errorText };
+    case "vacip": return { bg: c.orangeBg, border: c.orangeBorder, text: c.orangeText };
+    case "sunnet_i_muekked": return { bg: c.skyBg, border: c.skyBorder, text: c.skyText };
+    case "sunnet_musteap":
+    case "sunnet": return { bg: c.greenBg, border: c.greenBorder, text: c.greenText };
+    default: return undefined;
+  }
+}
 
 // Özel namaz kart başlıkları için emoji yerine Ionicons ikon eşlemesi
 const OZEL_ICON: Record<string, IoniconName> = {
@@ -621,8 +622,7 @@ const NIYET_LABEL_KEY = {
 function OzelDurumBadge({ durum }: { durum?: string }) {
   const c = useColors();
   const tx = useStrings(rehberStrings);
-  const base = durum ? OZEL_DURUM[durum] : undefined;
-  const d = base && durum && c.isDark ? { ...base, ...OZEL_DURUM_DARK[durum] } : base;
+  const d = ozelDurumRenk(durum, c);
   if (!d) return null;
   return (
     <View style={[s.badge, { backgroundColor: d.bg, borderColor: d.border }]}>
@@ -650,7 +650,7 @@ function Niyet({ niyet }: { niyet?: NiyetData }) {
           <Text style={[s.niyet, { backgroundColor: c.cardAlt, borderColor: c.border, color: c.text }]}>“{String(v)}”</Text>
         </View>
       ))}
-      {niyet.not ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {niyet.not}</Text> : null}
+      {niyet.not ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{niyet.not}</Callout> : null}
     </>
   );
 }
@@ -668,8 +668,8 @@ function StepBlock({ step }: { step: Step }) {
       {step.dua_2 ? <DuaBlock arapca={step.dua_2_arapca} okunus={step.dua_2} /> : null}
       {step.tesbih ? <Text style={[s.okunus, { color: c.text }]}>{localizedTranslit(step.tesbih, lang)}</Text> : null}
       {step.selam ? <Text style={[s.okunus, { color: c.text }]}>{localizedTranslit(step.selam, lang)}</Text> : null}
-      {step.bilmeyenler_icin ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {step.bilmeyenler_icin}</Text> : null}
-      {step.not ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {step.not}</Text> : null}
+      {step.bilmeyenler_icin ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{step.bilmeyenler_icin}</Callout> : null}
+      {step.not ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{step.not}</Callout> : null}
     </View>
   );
 }
@@ -687,8 +687,8 @@ function KilinicObject({ obj }: { obj: KilinicObj }) {
         <View style={s.item}><Text style={[s.miniLabel, { color: c.accent }]}>{caps(tx.rakat2)}</Text><Bullets items={obj["2_rekat"]} /></View>
       ) : null}
       {Array.isArray(obj.adimlar) ? <View style={s.item}><Bullets items={obj.adimlar} /></View> : null}
-      {obj.tavsiye_edilen_sureler ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>📖 {obj.tavsiye_edilen_sureler}</Text> : null}
-      {obj.not ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {obj.not}</Text> : null}
+      {obj.tavsiye_edilen_sureler ? <Callout tone="neutral" icon="book-outline" style={{ marginTop: space.xs }}>{obj.tavsiye_edilen_sureler}</Callout> : null}
+      {obj.not ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{obj.not}</Callout> : null}
     </>
   );
 }
@@ -714,15 +714,14 @@ function DuaObj({ obj, anlamFallback }: { obj?: DuaLike; anlamFallback?: string 
     <>
       {obj.baslik ? <Text style={[s.subHead, { color: c.text }]}>{obj.baslik}</Text> : null}
       <DuaBlock arapca={obj.dua_arapca} okunus={obj.dua} anlam={obj.anlam ?? anlamFallback} kaynak={obj.kaynagi ?? obj.dua_kaynagi ?? obj.kaynak} />
-      {obj.not ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {obj.not}</Text> : null}
+      {obj.not ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{obj.not}</Callout> : null}
     </>
   );
 }
 
 function Fazilet({ data }: { data: string | string[] }) {
-  const c = useColors();
   const arr = Array.isArray(data) ? data : [data];
-  return <>{arr.map((f, i) => <Text key={i} style={[s.fazilet, c.isDark && { color: "#6ee7b7", backgroundColor: "#022c22" }]}>💎 {f}</Text>)}</>;
+  return <>{arr.map((f, i) => <Callout key={i} tone="success" icon="sparkles-outline" style={{ marginTop: 6 }}>{f}</Callout>)}</>;
 }
 
 function OzelNamazCard({ n }: { n: OzelNamaz }) {
@@ -737,11 +736,19 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
       </View>
       {n.durum_aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{n.durum_aciklama}</Text> : null}
 
-      {neZaman ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>{caps(tx.whenQ)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{neZaman}</Text></>) : null}
+      {neZaman ? (
+        <>
+          <View style={[s.inlineIconRow, { marginTop: 10 }]}>
+            <Ionicons name="time-outline" size={14} color={c.accent} accessible={false} importantForAccessibility="no" />
+            <Text style={[s.miniLabel, { color: c.accent, marginTop: 0, marginBottom: 0 }]}>{caps(tx.whenQ)}</Text>
+          </View>
+          <Text style={[s.p, { color: c.textSecondary }]}>{neZaman}</Text>
+        </>
+      ) : null}
       {n.vakit ? <Text style={[s.small, { color: c.textMuted }]}>{fmt(tx.timeLine, { x: n.vakit })}</Text> : null}
       {n.sebep ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 10 }]}>{caps(tx.reason)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.sebep}</Text></>) : null}
 
-      {n.mezhep_gorusleri ? <Text style={[s.note, s.mezhep, c.isDark && { color: "#c7d2fe", backgroundColor: "#1e1b4b", borderColor: "#3730a3" }]}>⚖️ {n.mezhep_gorusleri}</Text> : null}
+      {n.mezhep_gorusleri ? <Callout tone="info" icon="git-branch-outline" style={{ marginTop: 10 }}>{n.mezhep_gorusleri}</Callout> : null}
 
       {n.kuran_referansi ? (
         <View style={[s.kavram, { backgroundColor: c.cardAlt, borderColor: c.border }]}>
@@ -758,7 +765,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
               <Text style={[s.kavramIsim, { color: c.text }]}>{ce.isim}</Text>
               {ce.hicri_tarih ? <Text style={[s.small, { color: c.textMuted }]}>{ce.hicri_tarih}</Text> : null}
               {ce.aciklama ? <Text style={[s.p, { color: c.textSecondary }]}>{ce.aciklama}</Text> : null}
-              {ce.tekbir_notu ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>ℹ️ {ce.tekbir_notu}</Text> : null}
+              {ce.tekbir_notu ? <Callout tone="neutral" style={{ marginTop: space.xs }}>{ce.tekbir_notu}</Callout> : null}
             </View>
           ))}
         </View>
@@ -772,7 +779,7 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
       {n.kilinic ? <Kilinic data={n.kilinic} /> : null}
       {n.kilinic_hanafi ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>{caps(tx.hanafi)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_hanafi}</Text></>) : null}
       {n.kilinic_safii_hanbeli ? (<><Text style={[s.miniLabel, { color: c.accent, marginTop: 6 }]}>{caps(tx.shafiHanbali)}</Text><Text style={[s.p, { color: c.textSecondary }]}>{n.kilinic_safii_hanbeli}</Text></>) : null}
-      {n.tavsiye_edilen_sureler ? <Text style={[s.note, { color: c.textSecondary, backgroundColor: c.cardAlt }]}>📖 {n.tavsiye_edilen_sureler}</Text> : null}
+      {n.tavsiye_edilen_sureler ? <Callout tone="neutral" icon="book-outline" style={{ marginTop: space.xs }}>{n.tavsiye_edilen_sureler}</Callout> : null}
 
       {n.teheccud_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>{tx.teheccudDua}</Text><DuaObj obj={n.teheccud_duasi} /></>) : null}
       {n.istihare_duasi ? (<><Text style={[s.subHead, { color: c.text }]}>{tx.istihareDua}</Text><DuaObj obj={n.istihare_duasi} /></>) : null}
@@ -796,7 +803,12 @@ function OzelNamazCard({ n }: { n: OzelNamaz }) {
 
       {Array.isArray(n.ozel_notlar) ? (<><Text style={[s.subHead, { color: c.text }]}>{tx.specialNotes}</Text><Bullets items={n.ozel_notlar} /></>) : null}
 
-      {n.hadis_kaynagi ? <Text style={[s.kaynakChip, { color: c.accent }]}>📚 {getEvidenceLabel(n.hadis_kaynagi)}</Text> : null}
+      {n.hadis_kaynagi ? (
+        <View style={[s.inlineIconRow, { marginTop: space.xs }]}>
+          <Ionicons name="library-outline" size={14} color={c.accent} accessible={false} importantForAccessibility="no" />
+          <Text style={[s.kaynakChip, { color: c.accent, marginTop: 0, flex: 1 }]}>{getEvidenceLabel(n.hadis_kaynagi)}</Text>
+        </View>
+      ) : null}
     </Section>
   );
 }
@@ -842,23 +854,16 @@ export default function NamazRehberiScreen() {
     <>
       <Stack.Screen options={{ title: tx.title }} />
       <View style={[s.tabWrap, { backgroundColor: c.bg }]}>
-        <View style={[s.segment, { backgroundColor: c.cardAlt }]}>
-          {([["rehber", tx.tabGuide], ["ayetler", tx.tabVerses], ["ozel", tx.tabSpecial]] as const).map(([id, lbl]) => {
-            const active = tab === id;
-            return (
-              <TouchableOpacity key={id} style={[s.segBtn, active && [s.segBtnActive, { backgroundColor: c.card }]]} onPress={() => setTab(id)} activeOpacity={0.85} accessibilityRole="tab" accessibilityState={{ selected: active }} accessibilityLabel={lbl}>
-                <Text
-                  style={[s.segLabel, { color: active ? c.accent : c.textMuted }]}
-                  numberOfLines={1}
-                  adjustsFontSizeToFit
-                  minimumFontScale={0.7}
-                >
-                  {lbl}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+        <Tabs
+          variant="segmented"
+          value={tab}
+          onChange={setTab}
+          items={[
+            { key: "rehber", label: tx.tabGuide },
+            { key: "ayetler", label: tx.tabVerses },
+            { key: "ozel", label: tx.tabSpecial },
+          ]}
+        />
       </View>
       {tab === "rehber" ? <GuideTab focusZamm={focusZamm} /> : tab === "ayetler" ? <AyetlerTab /> : <OzelNamazlarTab />}
     </>
@@ -866,18 +871,17 @@ export default function NamazRehberiScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  content: { padding: space.gutter, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   intro:   { fontSize: 13, lineHeight: 20, marginBottom: 14 },
-  scopeBox: { backgroundColor: "#eff6ff", borderRadius: 12, borderWidth: 1, borderColor: "#bfdbfe", padding: 12, marginBottom: 14 },
-  scopeTitle: { fontSize: 11, fontWeight: "800", color: "#1d4ed8", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 4 },
-  scopeText: { fontSize: 12.5, lineHeight: 19 },
 
-  sec:      { borderRadius: 14, borderWidth: 1, marginBottom: 10, overflow: "hidden" },
+  sec:      { borderRadius: radius.lg, borderWidth: 1, marginBottom: 10, overflow: "hidden" },
   secHeader:{ flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
-  secEmoji: { fontSize: 18 },
   secTitle: { flex: 1, fontSize: 14, fontWeight: "700" },
-  secChev:  { fontSize: 12 },
   secBody:  { paddingHorizontal: 14, paddingBottom: 14, gap: 2 },
+
+  toneCircle: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" },
+  checkRow: { flexDirection: "row", alignItems: "flex-start", gap: space.sm, marginTop: 6 },
+  inlineIconRow: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 4 },
 
   p:     { fontSize: 13, lineHeight: 20, marginTop: 4 },
   small: { fontSize: 11.5, lineHeight: 17, marginTop: 2 },
@@ -892,28 +896,21 @@ const s = StyleSheet.create({
   konum:     { fontSize: 11, fontWeight: "600", marginTop: 1 },
 
   duaBox:  { borderRadius: 10, borderWidth: 1, padding: 11, marginTop: 6, gap: 4 },
-  arabic:  { fontSize: 21, lineHeight: 38, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", color: "#1c1917" },
+  arabic:  { fontSize: 21, lineHeight: 38, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri" },
   okunus:  { fontSize: 13, lineHeight: 20, fontStyle: "italic" },
   anlam:   { fontSize: 12.5, lineHeight: 19 },
-  kaynakChip: { fontSize: 10, fontWeight: "700", color: "#047857", marginTop: 2 },
+  kaynakChip: { fontSize: 10, fontWeight: "700", marginTop: 2 },
 
   kavram:    { borderRadius: 10, borderWidth: 1, padding: 11, marginTop: 8 },
   kavramIsim:{ fontSize: 13.5, fontWeight: "800", marginBottom: 2 },
 
-  teselli: { fontSize: 12.5, lineHeight: 19, color: "#047857", backgroundColor: "#f0fdf4", borderRadius: 10, padding: 11, marginTop: 12 },
-
   vakitRow:   { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 9, borderBottomWidth: 1 },
   vakitAd:    { fontSize: 13, fontWeight: "700", width: 56 },
-  vakitToplam:{ fontSize: 11, fontWeight: "700", color: "#059669" },
-
-  note: { fontSize: 12, lineHeight: 18, color: "#57534e", backgroundColor: "#f5f5f4", borderRadius: 8, padding: 9, marginTop: 8 },
-  warn: { color: "#9a3412", backgroundColor: "#fff7ed", borderWidth: 1, borderColor: "#fdba74" },
+  vakitToplam:{ fontSize: 11, fontWeight: "700" },
 
   rekatBilgi: { fontSize: 12, fontWeight: "600" },
 
   madde: { fontSize: 13, lineHeight: 21, marginTop: 6 },
-  lessonLink: { borderRadius: 12, borderWidth: 1, paddingVertical: 12, paddingHorizontal: 14, marginTop: 4, alignItems: "center" },
-  lessonLinkText: { fontSize: 13, fontWeight: "700", textAlign: "center" },
   kaynakNot: { fontSize: 11, fontStyle: "italic", marginTop: 16, textAlign: "center" },
   compareCard: { borderRadius: 10, borderWidth: 1, padding: 10, marginTop: 8 },
   compareTitle: { fontSize: 12.5, fontWeight: "700", marginBottom: 2 },
@@ -925,50 +922,41 @@ const s = StyleSheet.create({
   // Özel Namazlar sekmesi
   miniLabel: { fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0.4, marginTop: 6, marginBottom: 2 },
   niyet:     { fontSize: 13, lineHeight: 20, fontStyle: "italic", borderRadius: 10, borderWidth: 1, padding: 11, marginTop: 4 },
-  mezhep:    { color: "#3730a3", backgroundColor: "#eef2ff", borderWidth: 1, borderColor: "#c7d2fe", marginTop: 10 },
-  fazilet:   { fontSize: 12.5, lineHeight: 19, color: "#047857", backgroundColor: "#f0fdf4", borderRadius: 10, padding: 10, marginTop: 6 },
 
   // Üst sekme
-  tabWrap:      { paddingHorizontal: 14, paddingTop: 10, paddingBottom: 8 },
-  segment:      { flexDirection: "row", borderRadius: 12, padding: 4, gap: 4 },
-  segBtn:       { flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: 9, paddingHorizontal: 6, borderRadius: 9 },
-  segBtnActive: { shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.12, shadowRadius: 3, elevation: 2 },
-  segLabel:     { fontSize: 12, fontWeight: "700" },
+  tabWrap: { paddingHorizontal: space.gutter, paddingTop: 10, paddingBottom: space.xs },
 });
 
 // "Namaz Ayetleri" sekmesi stilleri
 const na = StyleSheet.create({
-  motto:        { borderRadius: 14, borderWidth: 1, borderColor: "#a7f3d0", backgroundColor: "#ecfdf5", padding: 14, marginBottom: 10 },
+  motto:        { borderRadius: radius.lg, borderWidth: 1, padding: 14, marginBottom: 10 },
   mottoHead:    { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
-  mottoEtiket:  { flex: 1, fontSize: 10, fontWeight: "700", color: "#059669", textTransform: "uppercase", letterSpacing: 0.5 },
-  mottoKey:     { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 },
-  mottoKeyText: { fontSize: 10, fontWeight: "700", color: "#047857" },
-  mottoArabic:  { fontSize: 20, lineHeight: 36, color: "#1c1917", textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", marginBottom: 8 },
+  mottoEtiket:  { flex: 1, fontSize: 10, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5 },
+  mottoKey:     { borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 },
+  mottoKeyText: { fontSize: 10, fontWeight: "700" },
+  mottoArabic:  { fontSize: 20, lineHeight: 36, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", marginBottom: 8 },
   mottoMeal:    { fontSize: 13, lineHeight: 20, fontStyle: "italic" },
 
-  vtCard:        { borderRadius: 14, borderWidth: 1, overflow: "hidden", marginBottom: 8 },
-  vtHeader:      { padding: 12, borderBottomWidth: 1 },
-  vtHeaderTitle: { fontSize: 12, fontWeight: "700", color: "#44403c", textTransform: "uppercase", letterSpacing: 0.5 },
-  vtRow:         { flexDirection: "row", borderBottomWidth: 1, borderLeftWidth: 4 },
-  vtVakit:       { width: 84, alignItems: "center", justifyContent: "center", paddingVertical: 12, gap: 3 },
-  vtVakitAd:     { fontSize: 11, fontWeight: "700", color: "#374151" },
-  vtVakitSayi:   { fontSize: 10, color: "#9ca3af" },
+  vtCard:        { borderRadius: radius.lg, borderWidth: 1, overflow: "hidden", marginBottom: 8 },
+  vtHeader:      { flexDirection: "row", alignItems: "center", gap: 6, padding: 12, borderBottomWidth: 1 },
+  vtHeaderTitle: { flex: 1, fontSize: 12, fontWeight: "700", textTransform: "uppercase", letterSpacing: 0.5 },
+  vtRow:         { flexDirection: "row" },
+  vtVakit:       { width: 92, alignItems: "center", justifyContent: "center", paddingVertical: 12, paddingHorizontal: 6, gap: 4 },
+  vtVakitAd:     { fontSize: 11, fontWeight: "700", textAlign: "center" },
+  vtVakitSayi:   { fontSize: 10 },
   vtKeys:        { flex: 1, flexDirection: "row", flexWrap: "wrap", gap: 6, padding: 10, alignContent: "center" },
-  vtChip:        { backgroundColor: "#f0fdf4", borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1, borderColor: "#86efac" },
-  vtChipText:    { fontSize: 12, color: "#065f46", fontWeight: "600" },
+  vtChip:        { borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: 5, borderWidth: 1 },
+  vtChipText:    { fontSize: 12, fontWeight: "600" },
 
-  accCard:   { borderRadius: 12, borderWidth: 1, borderLeftWidth: 4, marginBottom: 8, overflow: "hidden" },
-  accHeader: { flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
+  accCard:   { borderRadius: radius.lg, borderWidth: 1, marginBottom: 8, overflow: "hidden" },
+  accHeader: { flexDirection: "row", alignItems: "center", gap: space.sm, padding: 14 },
   accTitle:  { flex: 1, fontSize: 14, fontWeight: "600" },
-  accChev:   { fontSize: 12 },
   accBody:   { borderTopWidth: 1, padding: 10 },
   empty:     { fontSize: 13, padding: 8 },
   errorWrap: { alignItems: "center", gap: 6, paddingVertical: 6 },
-  retryBtn:  { borderRadius: 8, paddingHorizontal: 16, paddingVertical: 7 },
-  retryText: { fontSize: 12, fontWeight: "700", color: "#fff" },
   verseRow:  { flexDirection: "row", alignItems: "flex-start", gap: 10, paddingVertical: 8, borderBottomWidth: 1 },
-  keyBox:    { backgroundColor: "#d1fae5", borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, marginTop: 2 },
-  keyText:   { fontSize: 11, fontWeight: "700", color: "#065f46" },
+  keyBox:    { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, marginTop: 2 },
+  keyText:   { fontSize: 11, fontWeight: "700" },
   vSurah:    { fontSize: 11, marginBottom: 1 },
   vReading:  { fontSize: 13, fontStyle: "italic", lineHeight: 20 },
   vMeal:     { fontSize: 11, lineHeight: 17, marginTop: 1 },

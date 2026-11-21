@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Share } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Share, type StyleProp, type TextStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
@@ -12,6 +12,7 @@ import { localizedTranslit } from "../src/lib/translitEn";
 import dualarStrings from "../src/i18n/strings/dualar";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getDevotionalSourceLabel, getNarrationBadgeLabel } from "../src/lib/sourceLabels";
+import { Badge, radius, space, type IoniconName, type Tone } from "../src/components/ui";
 
 interface Dua {
   baslik: string; arapca: string; okunus: string; anlam: string; kaynak: string;
@@ -27,22 +28,26 @@ const pickDualar = localizedData<DualarData>(
   () => require("../src/data/dualar.en.json"),
 );
 
-// derece rozeti rengi
-function derecRenk(derece: string) {
-  if (/[kq]ur'?an/i.test(derece)) return { bg: "#eef2ff", border: "#a5b4fc", text: "#4338ca" };
-  if (/sahih/i.test(derece))   return { bg: "#f0fdf4", border: "#86efac", text: "#15803d" };
-  if (/hasan/i.test(derece))   return { bg: "#fff7ed", border: "#fdba74", text: "#c2410c" };
-  return { bg: "#f1f5f9", border: "#cbd5e1", text: "#475569" };
+function derecTone(derece: string): Tone {
+  if (/[kq]ur'?an/i.test(derece)) return "violet";
+  if (/sahih/i.test(derece))   return "emerald";
+  if (/hasan/i.test(derece))   return "amber";
+  return "neutral";
 }
 
 function DerecBadge({ derece }: { derece: string }) {
   if (!derece) return null;
-  const col = derecRenk(derece);
   const label = getNarrationBadgeLabel(derece);
   if (!label) return null;
+  return <Badge label={label} tone={derecTone(derece)} style={{ alignSelf: "center" }} />;
+}
+
+function MetaLine({ icon, text, textStyle }: { icon: IoniconName; text: string; textStyle?: StyleProp<TextStyle> }) {
+  const c = useColors();
   return (
-    <View style={[s.derec, { backgroundColor: col.bg, borderColor: col.border }]}>
-      <Text style={[s.derecText, { color: col.text }]}>{label}</Text>
+    <View style={s.metaRow}>
+      <Ionicons name={icon} size={14} color={c.textMuted} style={s.metaIcon} accessible={false} importantForAccessibility="no" />
+      <Text style={[{ flex: 1 }, textStyle]}>{text}</Text>
     </View>
   );
 }
@@ -82,26 +87,40 @@ function DuaCard({ dua }: { dua: Dua }) {
         /[؀-ۿ]/.test(dua.arapca)
           // Kart zemini temaya bağlı (c.card) — sabit koyu renk gece modunda kaybolurdu.
           ? <Text style={[s.arabic, { color: c.text }]}>{dua.arapca}</Text>
-          : <Text style={[s.refNote, { backgroundColor: c.cardAlt, color: c.textSecondary }]}>📎 {dua.arapca}</Text>
+          : (
+            <View style={[s.refNoteBox, { backgroundColor: c.cardAlt }]}>
+              <MetaLine icon="link-outline" text={dua.arapca} textStyle={[s.refNote, { color: c.textSecondary }]} />
+            </View>
+          )
       ) : null}
       {dua.okunus ? <Text style={[s.okunus, { color: c.text }]}>{localizedTranslit(dua.okunus, lang)}</Text> : null}
       {dua.anlam ? <Text style={[s.anlam, { color: c.textSecondary }]}>{dua.anlam}</Text> : null}
 
-      <View style={[s.metaBox, { backgroundColor: c.cardAlt }]}>
-        {dua.kaynak ? <Text style={[s.meta, { color: c.textMuted }]}>📖 {sourceLabel}</Text> : null}
-        {dua.neZaman ? <Text style={[s.meta, { color: c.textMuted }]}>🕐 {dua.neZaman}</Text> : null}
-      </View>
+      {(dua.kaynak || dua.neZaman) ? (
+        <View style={[s.metaBox, { backgroundColor: c.cardAlt }]}>
+          {dua.kaynak ? <MetaLine icon="book-outline" text={sourceLabel} textStyle={[s.meta, { color: c.textMuted }]} /> : null}
+          {dua.neZaman ? <MetaLine icon="time-outline" text={dua.neZaman} textStyle={[s.meta, { color: c.textMuted }]} /> : null}
+        </View>
+      ) : null}
 
       {hasDetay && (
         <>
-          <TouchableOpacity onPress={() => setDetay(d => !d)} activeOpacity={0.7} accessibilityRole="button" accessibilityState={{ expanded: detay }} accessibilityLabel={t.detailA11y}>
+          <TouchableOpacity
+            onPress={() => setDetay(d => !d)}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: detay }}
+            accessibilityLabel={t.detailA11y}
+            style={s.detayToggleRow}
+          >
+            <Ionicons name={detay ? "chevron-up" : "chevron-down"} size={14} color={c.accent} accessible={false} importantForAccessibility="no" />
             <Text style={[s.detayToggle, { color: c.accent }]}>{detay ? t.less : t.more}</Text>
           </TouchableOpacity>
           {detay && (
             <View style={s.detayBox}>
               {dua.aciklama ? <Text style={[s.detay, { color: c.textSecondary }]}>{dua.aciklama}</Text> : null}
-              {dua.tekrar ? <Text style={[s.detay, { color: c.textMuted }]}>🔁 {dua.tekrar}</Text> : null}
-              {dua.not ? <Text style={[s.detay, { color: c.textMuted }]}>📌 {dua.not}</Text> : null}
+              {dua.tekrar ? <MetaLine icon="repeat-outline" text={dua.tekrar} textStyle={[s.detay, { color: c.textMuted }]} /> : null}
+              {dua.not ? <MetaLine icon="pin-outline" text={dua.not} textStyle={[s.detay, { color: c.textMuted }]} /> : null}
             </View>
           )}
         </>
@@ -117,10 +136,12 @@ function KategoriAccordion({ kat, defaultOpen }: { kat: Kategori; defaultOpen?: 
   return (
     <View style={[s.katCard, { backgroundColor: c.card, borderColor: c.border }]}>
       <TouchableOpacity style={s.katHeader} onPress={() => setOpen(o => !o)} activeOpacity={0.75} accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={fmt(t.categoryA11y, { name: kat.isim, n: kat.dualar.length })}>
-        <View style={s.katKod}><Text style={s.katKodText}>{kat.kod}</Text></View>
+        <View style={[s.katKod, { backgroundColor: c.actionBg }]}>
+          <Text style={[s.katKodText, { color: c.actionText }]}>{kat.kod}</Text>
+        </View>
         <Text style={[s.katTitle, { color: c.text }]}>{kat.isim}</Text>
-        <View style={[s.katCount, { backgroundColor: c.cardAlt }]}><Text style={[s.katCountText, { color: c.textMuted }]}>{kat.dualar.length}</Text></View>
-        <Text style={[s.chev, { color: c.textMuted }]}>{open ? "▲" : "▼"}</Text>
+        <Badge tone="neutral" label={String(kat.dualar.length)} style={{ alignSelf: "center" }} />
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
       {open && (
         <View style={s.katBody}>
@@ -134,7 +155,7 @@ function KategoriAccordion({ kat, defaultOpen }: { kat: Kategori; defaultOpen?: 
 export default function DualarScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  useEffect(() => { logScreen('Dualar'); }, []);
+  useEffect(() => { logScreen("Dualar"); }, []);
   const D = useLocalizedData(pickDualar);
   const t = useStrings(dualarStrings);
   return (
@@ -142,7 +163,7 @@ export default function DualarScreen() {
       <Stack.Screen options={{ title: t.title }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
-        contentContainerStyle={[s.content, { paddingTop: 8, paddingBottom: insets.bottom + 40 }]}
+        contentContainerStyle={[s.content, { paddingTop: space.xs, paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.intro, { color: c.textSecondary }]}>{D.aciklama}</Text>
@@ -153,37 +174,35 @@ export default function DualarScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 14, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  content: { padding: space.gutter, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   intro:   { fontSize: 12.5, lineHeight: 19, marginBottom: 14 },
 
   // Kategori akordiyon
-  katCard:   { borderRadius: 14, borderWidth: 1, marginBottom: 10, overflow: "hidden" },
-  katHeader: { flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
-  katKod:    { width: 26, height: 26, borderRadius: 13, backgroundColor: "#059669", alignItems: "center", justifyContent: "center" },
-  katKodText:{ fontSize: 13, fontWeight: "800", color: "#fff" },
-  katTitle:  { flex: 1, fontSize: 14, fontWeight: "700" },
-  katCount:  { borderRadius: 10, paddingHorizontal: 8, paddingVertical: 2 },
-  katCountText: { fontSize: 11, fontWeight: "700" },
-  chev:      { fontSize: 12 },
-  katBody:   { paddingHorizontal: 12, paddingBottom: 12, gap: 10 },
+  katCard:    { borderRadius: radius.lg, borderWidth: 1, marginBottom: 10, overflow: "hidden" },
+  katHeader:  { flexDirection: "row", alignItems: "center", gap: 10, padding: 14 },
+  katKod:     { width: 26, height: 26, borderRadius: 13, alignItems: "center", justifyContent: "center" },
+  katKodText: { fontSize: 13, fontWeight: "800" },
+  katTitle:   { flex: 1, fontSize: 14, fontWeight: "700" },
+  katBody:    { paddingHorizontal: space.sm, paddingBottom: space.sm, gap: 10 },
 
   // Dua kartı
-  duaCard:   { borderRadius: 12, borderWidth: 1, padding: 13 },
-  duaHead:   { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" },
+  duaCard:   { borderRadius: radius.lg, borderWidth: 1, padding: 13 },
+  duaHead:   { flexDirection: "row", alignItems: "center", gap: space.xs, marginBottom: space.xs, flexWrap: "wrap" },
   duaBaslik: { flex: 1, fontSize: 14, fontWeight: "700" },
 
-  derec:     { borderRadius: 6, borderWidth: 1, paddingHorizontal: 7, paddingVertical: 1 },
-  derecText: { fontSize: 9.5, fontWeight: "800", letterSpacing: 0.3 },
+  arabic:     { fontSize: 21, lineHeight: 40, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", marginBottom: space.xs },
+  refNoteBox: { borderRadius: radius.sm, padding: 10, marginBottom: space.xs },
+  refNote:    { fontSize: 13, lineHeight: 20 },
+  okunus:     { fontSize: 13, lineHeight: 21, fontStyle: "italic", marginBottom: 6 },
+  anlam:      { fontSize: 12.5, lineHeight: 19, marginBottom: space.xs },
 
-  arabic:  { fontSize: 21, lineHeight: 40, textAlign: "right", writingDirection: "rtl", fontFamily: "Amiri", color: "#1c1917", marginBottom: 8 },
-  refNote: { fontSize: 13, lineHeight: 20, borderRadius: 8, padding: 10, marginBottom: 8 },
-  okunus:  { fontSize: 13, lineHeight: 21, fontStyle: "italic", marginBottom: 6 },
-  anlam:   { fontSize: 12.5, lineHeight: 19, marginBottom: 8 },
+  metaBox:  { borderRadius: radius.sm, padding: 9, gap: space.xxs },
+  metaRow:  { flexDirection: "row", alignItems: "flex-start", gap: space.xs },
+  metaIcon: { marginTop: 2 },
+  meta:     { fontSize: 11, lineHeight: 16 },
 
-  metaBox: { borderRadius: 8, padding: 9, gap: 3 },
-  meta:    { fontSize: 11, lineHeight: 16 },
-
-  detayToggle: { fontSize: 12, fontWeight: "700", marginTop: 8 },
-  detayBox:    { marginTop: 6, gap: 5 },
-  detay:       { fontSize: 12, lineHeight: 18 },
+  detayToggleRow: { flexDirection: "row", alignItems: "center", gap: space.xxs, marginTop: space.xs },
+  detayToggle:    { fontSize: 12, fontWeight: "700" },
+  detayBox:       { marginTop: 6, gap: 5 },
+  detay:          { fontSize: 12, lineHeight: 18 },
 });

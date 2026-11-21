@@ -12,6 +12,7 @@ import { getDevotionalSourceLabel } from "../lib/sourceLabels";
 import { useStrings, useLang, fmt } from "../i18n";
 import { localizedTranslit } from "../lib/translitEn";
 import componentStrings from "../i18n/strings/components";
+import { Badge, Button, CloseButton, radius } from "./ui";
 
 // Modal içeriği yalnız görünürken mount olur → zikir çekilirken ekran uyanık
 // kalır, modal kapanınca serbest bırakılır. (Hook doğrudan TasbihModal gövdesine
@@ -50,24 +51,23 @@ const ZİKİRLER: Zikir[] = [
   { isim: "Özel",                              arapca: "",                                             hedef: 33,  kaynak: "", ozel: true },
 ];
 
-const LACIVERT  = "#0a1628";
-const ALTIN     = "#c9a84c";
-const ACCENT    = "#059669";
 const BEAD_COUNT = 40;
 
-function interpColor(t: number): string {
-  const r = Math.round(5   + (201 - 5)   * t);
-  const g = Math.round(150 + (168 - 150) * t);
-  const b = Math.round(105 + (76  - 105) * t);
-  return `rgb(${r},${g},${b})`;
-}
-
-const BeadRing = React.memo(function BeadRing({ pct, ringSize, trackColor }: { pct: number; ringSize: number; trackColor: string }) {
+const BeadRing = React.memo(function BeadRing({
+  pct,
+  ringSize,
+  trackColor,
+  activeColor,
+}: {
+  pct: number;
+  ringSize: number;
+  trackColor: string;
+  activeColor: string;
+}) {
   const center    = ringSize / 2;
   const radius    = ringSize / 2 - 10;
   const beadSize  = 8;
   const activeCnt = Math.round(pct * BEAD_COUNT);
-  const fillColor = interpColor(pct);
 
   return (
     <View style={{ width: ringSize, height: ringSize, position: "absolute" }}>
@@ -82,7 +82,7 @@ const BeadRing = React.memo(function BeadRing({ pct, ringSize, trackColor }: { p
               position: "absolute",
               left: x, top: y,
               width: beadSize, height: beadSize, borderRadius: beadSize / 2,
-              backgroundColor: i < activeCnt ? fillColor : trackColor,
+              backgroundColor: i < activeCnt ? activeColor : trackColor,
             }}
           />
         );
@@ -341,8 +341,6 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
     setEditTargetIdx(null);
   }, [editTargetVal]);
 
-  const bgColor    = c.isDark ? "#0a0f1a" : "#f8f9fc";
-  const trackColor = c.isDark ? "#1e2535" : "#e2e8f0";
   const RING_SIZE  = 172;
   const CIRCLE_SZ  = 132;
 
@@ -350,7 +348,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
     <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
       <KeepAwakeWhileOpen />
       <View style={[m.screen, {
-        backgroundColor: bgColor,
+        backgroundColor: c.bg,
         paddingTop: insets.top + 8,
         paddingBottom: insets.bottom + 14,
       }]}>
@@ -358,17 +356,12 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         {/* ── Başlık ── */}
         <View style={m.header}>
           <View style={m.headerLeft}>
-            <Text style={{ fontSize: 22 }}>📿</Text>
             <Text style={[m.headerTitle, { color: c.text }]}>{t.tasbih}</Text>
             {tur > 0 && (
-              <View style={[m.turBadge, { backgroundColor: LACIVERT }]}>
-                <Text style={[m.turBadgeText, { color: ALTIN }]}>{fmt(t.turBadge, { n: tur })}</Text>
-              </View>
+              <Badge label={fmt(t.turBadge, { n: tur })} tone="emerald" style={{ alignSelf: "center" }} />
             )}
           </View>
-          <TouchableOpacity onPress={onClose} hitSlop={12} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.close}>
-            <Ionicons name="close-circle" size={26} color={c.textMuted} />
-          </TouchableOpacity>
+          <CloseButton onPress={onClose} accessibilityLabel={t.close} />
         </View>
 
         {/* ── Zikir Seçici ── */}
@@ -385,13 +378,13 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 accessibilityState={{ selected: active }}
                 accessibilityLabel={z.ozel ? t.customLabel : zName(z.isim)}
                 style={[m.pill, {
-                  backgroundColor: active ? LACIVERT : (c.isDark ? "#151c2e" : "#f1f5f9"),
-                  borderColor: active ? ALTIN : (c.isDark ? "#252f45" : "#cbd5e1"),
+                  backgroundColor: active ? c.greenBg : c.card,
+                  borderColor: active ? c.greenBorder : c.border,
                 }]}
               >
                 {/* Pil kutusu en az 125×80 — uzun zikir adları çok satıra sarar */}
-                <Text style={[m.pillLabel, { color: active ? ALTIN : c.text }]} maxFontSizeMultiplier={1.3}>{z.ozel ? t.customLabel : zName(z.isim)}</Text>
-                <Text style={[m.pillTarget, { color: active ? "rgba(201,168,76,0.75)" : c.textMuted }]} maxFontSizeMultiplier={1.3}>
+                <Text style={[m.pillLabel, { color: active ? c.greenText : c.text }]} maxFontSizeMultiplier={1.3}>{z.ozel ? t.customLabel : zName(z.isim)}</Text>
+                <Text style={[m.pillTarget, { color: active ? c.greenText : c.textMuted }]} maxFontSizeMultiplier={1.3}>
                   ×{z.ozel ? customTarget : (targetOverrides[z.isim] ?? z.hedef)}
                 </Text>
               </TouchableOpacity>
@@ -402,7 +395,7 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
 
         {/* ── Arapça / Özel ── */}
         {isOzel ? (
-          <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.isDark ? "#252f45" : "#cbd5e1" }]}>
+          <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.border }]}>
             <TextInput
               style={[m.customNameInput, { color: c.text, borderColor: c.border }]}
               value={customName}
@@ -424,15 +417,19 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 accessibilityLabel={t.targetCountInputA11y}
                 accessibilityHint={t.targetCountInputHint}
               />
-              <TouchableOpacity onPress={saveCustom} style={[m.saveBtn, { backgroundColor: LACIVERT }]} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={t.saveCustomA11y}>
-                <Text style={m.saveBtnText}>{t.save}</Text>
-              </TouchableOpacity>
+              <Button
+                variant="primary"
+                label={t.save}
+                onPress={saveCustom}
+                accessibilityLabel={t.saveCustomA11y}
+                style={m.saveBtn}
+              />
             </View>
             {savedList.length > 0 && (
               <View style={[m.savedSep, { borderTopColor: c.border }]}>
                 {savedList.map((z, i) => (
                   <View key={i}
-                    style={[m.savedRow, { backgroundColor: c.isDark ? "#151c2e" : "#f1f5f9" }]}>
+                    style={[m.savedRow, { backgroundColor: c.cardAlt }]}>
                     <TouchableOpacity style={{ flex: 1 }} onPress={() => selectSaved(z)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={fmt(t.selectDhikrA11y, { name: z.isim })}>
                       <Text style={[m.savedIsim, { color: c.text }]} numberOfLines={1}>{z.isim}</Text>
                     </TouchableOpacity>
@@ -454,9 +451,11 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                       <TouchableOpacity
                         onPress={() => { setEditTargetIdx(i); setEditTargetVal(String(z.hedef)); }}
                         hitSlop={6} activeOpacity={0.7}
+                        style={m.inlineEditBtn}
                         accessibilityRole="button" accessibilityLabel={t.editTargetA11y}
                       >
-                        <Text style={[m.savedHedef, { color: c.textMuted }]}>×{z.hedef} ✎</Text>
+                        <Text style={[m.savedHedef, { color: c.textMuted }]}>×{z.hedef}</Text>
+                        <Ionicons name="pencil-outline" size={13} color={c.textMuted} accessible={false} importantForAccessibility="no" />
                       </TouchableOpacity>
                     )}
                     <TouchableOpacity onPress={() => deleteCustom(i, z.isim)} hitSlop={8} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={fmt(t.deleteDhikrA11y, { name: z.isim })}>
@@ -468,10 +467,10 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
             )}
           </View>
         ) : (
-          <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.isDark ? "#252f45" : "#cbd5e1" }]}>
+          <View style={[m.arabicCard, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[m.arabicText, { color: c.text }]}>{zikir.arapca}</Text>
             <View style={m.presetSubRow}>
-              <Text style={[m.arabicSub, { color: c.textMuted }]}>{zName(zikir.isim)} · {sourceLabel} · </Text>
+              <Text style={[m.arabicSub, { color: c.textMuted, marginTop: 0 }]}>{zName(zikir.isim)} · {sourceLabel} · </Text>
               {editingPreset ? (
                 <TextInput
                   style={[m.savedHedefInput, { color: c.text, borderColor: c.border }]}
@@ -490,9 +489,13 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
                 <TouchableOpacity
                   onPress={() => { setEditingPreset(true); setPresetTargetInput(String(target)); }}
                   hitSlop={6} activeOpacity={0.7}
+                  style={m.inlineEditBtn}
                   accessibilityRole="button" accessibilityLabel={t.editTargetA11y}
                 >
-                  <Text style={[m.arabicSub, { color: ACCENT, fontWeight: "700" }]}>{fmt(t.timesEdit, { n: target })}</Text>
+                  <Text style={[m.arabicSub, { color: c.accent, fontWeight: "700", marginTop: 0 }]}>
+                    {fmt(t.timesEdit, { n: target })}
+                  </Text>
+                  <Ionicons name="pencil-outline" size={14} color={c.accent} accessible={false} importantForAccessibility="no" />
                 </TouchableOpacity>
               )}
             </View>
@@ -502,18 +505,17 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
         {/* ── Bead Ring + Sayaç ── */}
         <View style={m.circleArea}>
           <View style={{ width: RING_SIZE, height: RING_SIZE, alignItems: "center", justifyContent: "center" }}>
-            <BeadRing pct={pct} ringSize={RING_SIZE} trackColor={trackColor} />
+            <BeadRing pct={pct} ringSize={RING_SIZE} trackColor={c.border} activeColor={c.accent} />
             <Animated.View style={[m.circle, {
               width: CIRCLE_SZ, height: CIRCLE_SZ, borderRadius: CIRCLE_SZ / 2,
-              backgroundColor: completing ? (c.isDark ? "#0d1f0d" : "#ecfdf5") : c.card,
-              borderColor: completing ? ALTIN : (c.isDark ? "#1f2f45" : "#e2e8f0"),
-              shadowColor: completing ? ALTIN : LACIVERT,
+              backgroundColor: completing ? c.greenBg : c.card,
+              borderColor: completing ? c.goldText : c.border,
               transform: [{ scale: scaleAnim }],
             }]}>
               {/* Daire sabit 132px — sayaç metinleri sistem ölçeğinden sınırlı büyür */}
-              <Text style={[m.countNum, { color: completing ? ALTIN : c.text }]} maxFontSizeMultiplier={1.1}>{count}</Text>
+              <Text style={[m.countNum, { color: c.text }]} maxFontSizeMultiplier={1.1}>{count}</Text>
               <Text style={[m.countDen, { color: c.textMuted }]} maxFontSizeMultiplier={1.2}>/ {target}</Text>
-              {completing && <Text style={[m.doneText, { color: ALTIN }]} maxFontSizeMultiplier={1.2}>{t.done}</Text>}
+              {completing && <Text style={[m.doneText, { color: c.greenText }]} maxFontSizeMultiplier={1.2}>{t.done}</Text>}
             </Animated.View>
           </View>
         </View>
@@ -530,23 +532,26 @@ export function TasbihModal({ visible, onClose }: { visible: boolean; onClose: (
               accessibilityRole="button"
               accessibilityLabel={fmt(t.pullA11y, { name: isOzel ? (customName || t.customDhikr) : zName(zikir.isim) })}
               accessibilityHint={`${count} / ${target}`}
-              style={({ pressed }) => [m.tapBtn, { opacity: pressed ? 0.85 : 1 }]}
+              style={({ pressed }) => [
+                m.tapBtn,
+                { backgroundColor: c.card, borderColor: c.goldText, opacity: pressed ? 0.85 : 1 },
+              ]}
             >
               {/* Buton sabit 120px daire — metinler sistem ölçeğinden sınırlı büyür */}
               {isOzel && customName
-                ? <Text style={m.tapCustomName} numberOfLines={1} maxFontSizeMultiplier={1.2}>{customName}</Text>
-                : <Text style={m.tapArabic} maxFontSizeMultiplier={1.2}>اللَّه</Text>
+                ? <Text style={[m.tapCustomName, { color: c.goldText }]} numberOfLines={1} maxFontSizeMultiplier={1.2}>{customName}</Text>
+                : <Text style={[m.tapArabic, { color: c.goldText }]} maxFontSizeMultiplier={1.2}>اللَّه</Text>
               }
-              <Text style={m.tapLabel} maxFontSizeMultiplier={1.2}>{t.pull}</Text>
+              <Text style={[m.tapLabel, { color: c.goldText }]} maxFontSizeMultiplier={1.2}>{t.pull}</Text>
             </Pressable>
           </Animated.View>
         </View>
 
         {/* ── Aksiyonlar ── */}
         <View style={m.actions}>
-          <TouchableOpacity onPress={resetCount} style={[m.actionBtn, { borderColor: "#fca5a5" }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.resetCountA11y}>
-            <Ionicons name="refresh" size={13} color="#dc2626" />
-            <Text style={[m.actionText, { color: "#dc2626" }]}>{t.resetCount}</Text>
+          <TouchableOpacity onPress={resetCount} style={[m.actionBtn, { borderColor: c.errorBorder }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.resetCountA11y}>
+            <Ionicons name="refresh" size={13} color={c.errorText} />
+            <Text style={[m.actionText, { color: c.errorText }]}>{t.resetCount}</Text>
           </TouchableOpacity>
           {tur > 0 && (
             <TouchableOpacity onPress={resetAll} style={[m.actionBtn, { borderColor: c.border }]} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.resetAllA11y}>
@@ -567,26 +572,24 @@ const m = StyleSheet.create({
   header:      { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 12 },
   headerLeft:  { flexDirection: "row", alignItems: "center", gap: 8 },
   headerTitle: { fontSize: 19, fontWeight: "700" },
-  turBadge:    { borderRadius: 20, paddingHorizontal: 10, paddingVertical: 3 },
-  turBadgeText:{ fontSize: 12, fontWeight: "700" },
 
   presetsRow:  { paddingBottom: 12, gap: 7, flexDirection: "row" },
-  pill:        { borderRadius: 14, borderWidth: 1.5, paddingHorizontal: 10, paddingVertical: 8, flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 80, minWidth: 125, maxWidth: 170, gap: 3 },
+  pill:        { borderRadius: radius.lg, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 8, flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 80, minWidth: 125, maxWidth: 170, gap: 3 },
   pillLabel:   { fontSize: 13, fontWeight: "700", textAlign: "center", flexShrink: 1 },
   pillTarget:  { fontSize: 11, fontWeight: "600" },
 
-  arabicCard:  { borderRadius: 12, borderWidth: 1.5, paddingVertical: 10, paddingHorizontal: 16, alignItems: "center", marginBottom: 18 },
+  arabicCard:  { borderRadius: radius.lg, borderWidth: 1, paddingVertical: 10, paddingHorizontal: 16, alignItems: "center", marginBottom: 18 },
   arabicText:  { fontSize: 28, fontFamily: "Amiri", writingDirection: "rtl", textAlign: "center", lineHeight: 46 },
   arabicSub:   { fontSize: 11, marginTop: 2, textAlign: "center" },
   presetSubRow:{ flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "wrap", marginTop: 2 },
+  inlineEditBtn:{ flexDirection: "row", alignItems: "center", gap: 4 },
 
-  customNameInput:   { width: "100%", borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, marginBottom: 8 },
+  customNameInput:   { width: "100%", borderWidth: 1, borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, marginBottom: 8 },
   customTargetRow:   { flexDirection: "row", alignItems: "center", gap: 8 },
-  customTargetInput: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, width: 64, textAlign: "center" },
-  saveBtn:           { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 8, marginLeft: "auto" },
-  saveBtnText:       { fontSize: 13, fontWeight: "700", color: ALTIN },
+  customTargetInput: { borderWidth: 1, borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: 6, fontSize: 14, width: 64, textAlign: "center" },
+  saveBtn:           { marginLeft: "auto", minHeight: 44, paddingHorizontal: 16 },
   savedSep:          { marginTop: 10, paddingTop: 10, borderTopWidth: StyleSheet.hairlineWidth, gap: 6, width: "100%" },
-  savedRow:          { flexDirection: "row", alignItems: "center", gap: 8, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 7 },
+  savedRow:          { flexDirection: "row", alignItems: "center", gap: 8, borderRadius: radius.sm, paddingHorizontal: 10, paddingVertical: 7 },
   savedIsim:         { flex: 1, fontSize: 13, fontWeight: "600" },
   savedHedef:        { fontSize: 12, fontWeight: "500" },
   savedHedefInput:   { borderWidth: 1, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, fontSize: 12, width: 54, textAlign: "center" },
@@ -595,7 +598,6 @@ const m = StyleSheet.create({
   circle:      {
     borderWidth: 3,
     alignItems: "center", justifyContent: "center",
-    shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.15, shadowRadius: 12, elevation: 6,
   },
   countNum:    { fontSize: 56, fontWeight: "900", lineHeight: 62 },
   countDen:    { fontSize: 14, fontWeight: "600" },
@@ -606,14 +608,11 @@ const m = StyleSheet.create({
   tapBtn:  {
     width: 120, height: 120, borderRadius: 60,
     alignItems: "center", justifyContent: "center",
-    backgroundColor: LACIVERT,
-    borderWidth: 2, borderColor: ALTIN,
-    shadowColor: LACIVERT, shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.4, shadowRadius: 12, elevation: 10,
+    borderWidth: 2,
   },
-  tapArabic:    { fontSize: 26, color: ALTIN, fontFamily: "Amiri", lineHeight: 38 },
-  tapLabel:     { fontSize: 15, fontWeight: "800", color: ALTIN, letterSpacing: 1 },
-  tapCustomName:{ fontSize: 12, fontWeight: "700", color: ALTIN, textAlign: "center", maxWidth: 90, marginBottom: 2 },
+  tapArabic:    { fontSize: 26, fontFamily: "Amiri", lineHeight: 38 },
+  tapLabel:     { fontSize: 15, fontWeight: "800", letterSpacing: 1 },
+  tapCustomName:{ fontSize: 12, fontWeight: "700", textAlign: "center", maxWidth: 90, marginBottom: 2 },
 
   actions:    { flexDirection: "row", justifyContent: "center", gap: 10, marginTop: 6 },
   actionBtn:  { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 4, minWidth: 48, minHeight: 48, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 24, borderWidth: 1.5 },
