@@ -85,4 +85,6 @@ async function main() {
   console.log(`Bitti: ${made} yeni dosya.`);
 }
 
-main().catch(e => { console.error(e.message); process.exitCode = 1; });
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  main().catch(e => { console.error(e.message); process.exitCode = 1; });
+}

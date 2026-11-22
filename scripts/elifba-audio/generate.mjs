@@ -39,7 +39,9 @@ function trSesli(vowel, c, ch, i) {
   let j = i + 1;
   while (j < ch.length && !(ch[j] in CONS_TR)) j++;
   const sonrakiCezimli = ch[j + 1] === 'ْ' && ch[j] ? ch[j] : '-';
-  const kalin = KALIN.includes(c) || (c === 'ر' && !/^i/.test(vowel)) || KALIN.includes(sonrakiCezimli);
+  // Cezimli ر, önündeki üstün/ötreyle kalın okunur (أَرْ "ar", أَرْسَلَ "arsele"; Neon 22 Kasım).
+  const kalin = KALIN.includes(c) || (c === 'ر' && !/^i/.test(vowel)) || KALIN.includes(sonrakiCezimli)
+    || (sonrakiCezimli === 'ر' && !/^i/.test(vowel));
   if (kalin) return vowel.replace(/^i/, 'ı');
   if (ACIK.includes(c) || ACIK.includes(sonrakiCezimli)) return vowel;
   return vowel.replace(/^a/, 'e');
