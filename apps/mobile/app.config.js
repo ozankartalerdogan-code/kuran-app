@@ -53,12 +53,14 @@ module.exports = {
       // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). MMKV/AsyncStorage
       // (UserDefaults), expo-file-system (dosya zamanı/disk alanı) ve RN/Sentry
       // (sistem açılış süresi) bu API'leri kullanıyor; yalnız app-içi amaçlar.
+      // 0A2A.1/3B52.1/85F4.1 SDK nedenlerini expo-file-system kendi PrivacyInfo.xcprivacy
+      // dosyasında beyan eder; uygulama manifesti yalnız uygulama nedenlerini taşır.
       privacyManifests: {
         NSPrivacyTracking: false,
         NSPrivacyAccessedAPITypes: [
           { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults', NSPrivacyAccessedAPITypeReasons: ['CA92.1'] },
-          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp', NSPrivacyAccessedAPITypeReasons: ['0A2A.1', '3B52.1', 'C617.1'] },
-          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace', NSPrivacyAccessedAPITypeReasons: ['E174.1', '85F4.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp', NSPrivacyAccessedAPITypeReasons: ['C617.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace', NSPrivacyAccessedAPITypeReasons: ['E174.1'] },
           { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategorySystemBootTime', NSPrivacyAccessedAPITypeReasons: ['35F9.1'] },
         ],
       },
@@ -209,18 +211,21 @@ module.exports = {
       // (mikrofon) iznini ekleme. Aksi halde expo-audio varsayılan olarak ekliyor;
       // reklamsız/minimal-izin app için gereksiz + Play Veri Güvenliği'nde mikrofon
       // beyanı gerektirirdi. MODIFY_AUDIO_SETTINGS (normal izin) korunur.
+      // iOS'ta NSMicrophoneUsageDescription da eklenmesin.
       // iOS: expo-audio'nun eklediği arka plan "audio" modunu kaldırır (yalnız iOS).
       // expo-audio'dan ÖNCE listelenmeli: config mod'ları ters sırada çalışır,
       // bu plugin'in Info.plist mod'u expo-audio'nunkinden sonra işlesin.
       './plugins/with-ios-no-background-audio',
-      ['expo-audio', { recordAudioAndroid: false }],
+      ['expo-audio', { recordAudioAndroid: false, microphonePermission: false }],
       '@react-native-firebase/app',
       // iOS: reklam kimliği (IDFA) desteği olmadan kur — Android'de AD_ID engelli;
       // reklamsız app, ATT izni ve App Store "tracking" beyanı gerekmesin.
       ['@react-native-firebase/analytics', { ios: { withoutAdIdSupport: true } }],
       // Bulut yedek (anonim auth + Firestore tek doküman) — src/lib/cloudBackup.ts.
       // Firestore'un ayrı config plugin'i yok; native kodu paket kurulumuyla gelir.
-      '@react-native-firebase/auth',
+      // Uygulama yalnız anonim giriş kullanır; reCAPTCHA/telefon doğrulaması yok.
+      // Eklentinin AppDelegate'e yaptığı openURL yaması gereksiz ve kırılgan.
+      ['@react-native-firebase/auth', { ios: { captchaOpenUrlFix: false } }],
       // Sentry: org/project burada (commit'li, EAS'e gider); AUTH TOKEN ise EAS
       // secret'ı (SENTRY_AUTH_TOKEN) — source map upload için. Olaylar 'react-native'
       // projesine gidiyor (DSN), source map de oraya yüklenmeli.

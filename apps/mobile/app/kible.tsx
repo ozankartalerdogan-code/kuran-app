@@ -315,7 +315,7 @@ export default function KibleScreen() {
       const t = getStrings(kibleStrings);
       Alert.alert(
         t.permTitle,
-        t.permBody,
+        Platform.OS === "ios" ? t.permBodyIos : t.permBody,
         [
           { text: t.goSettings, onPress: () => Linking.openSettings() },
           { text: t.ok, style: "cancel" },
@@ -375,12 +375,12 @@ export default function KibleScreen() {
       } catch { /* ignore */ }
     }
 
-    // 3. GPS (yüksek doğruluk, uzun bekleme) — 2. adım ağ tabanlı hızlı denemeydi;
-    // burada gerçek uydu sabitlemesi için daha fazla süre tanınır (iç mekan/zayıf sinyalde işe yarar).
+    // 3. Gizlilik metni hassas konum kullanılmadığını söylüyor; Balanced korunur.
+    // Bu adım yalnız uzun bekleme süreli son denemedir.
     if (!coords) {
       try {
         const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High }),
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
           new Promise<null>(r => setTimeout(() => r(null), 25000)),
         ]);
         if (pos && "coords" in pos) coords = pos.coords;

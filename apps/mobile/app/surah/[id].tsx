@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { useLocalSearchParams, router, Stack } from "expo-router";
 import { useState, useEffect, useCallback, memo } from "react";
@@ -304,7 +305,7 @@ if (loading) {
         initialNumToRender={20}
         windowSize={5}
         maxToRenderPerBatch={15}
-        removeClippedSubviews
+        removeClippedSubviews={Platform.OS === "android"}
       />
     </View>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   View, Text, FlatList, ScrollView, TouchableOpacity, TextInput,
-  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder,
+  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder, Platform,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -645,7 +645,7 @@ export default function MushafSayfaEkrani() {
               initialNumToRender={1}
               maxToRenderPerBatch={2}
               windowSize={3}
-              removeClippedSubviews
+              removeClippedSubviews={Platform.OS === "android"}
             />
           </View>
         )}
