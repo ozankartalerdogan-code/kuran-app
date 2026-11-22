@@ -249,10 +249,11 @@ export default function MushafSayfaEkrani() {
   const [hatimOpen, setHatimOpen] = useState(() => hatimParam === "1");
   // Tecvid renklendirmesi — ayet ekranı ve mushaf moduyla ORTAK kalıcı tercih.
   const [tajweed, setTajweed] = useState(true);
+  const tajweedTouchedRef = useRef(false);
   useEffect(() => {
     let alive = true;
     storage.getString(STORAGE_KEYS.tajweed).then((v) => {
-      if (alive && v != null) setTajweed(v !== "0");
+      if (alive && v != null && !tajweedTouchedRef.current) setTajweed(v !== "0");
     }).catch(() => {});
     return () => { alive = false; };
   }, []);
@@ -455,6 +456,7 @@ export default function MushafSayfaEkrani() {
   }, [aktifSure, c, sureyeGit, t, surahNameOf]);
 
   const handleTajweedToggle = useCallback(() => {
+    tajweedTouchedRef.current = true;
     setTajweed((prev) => {
       const next = !prev;
       storage.setString(STORAGE_KEYS.tajweed, next ? "1" : "0").catch(() => {});

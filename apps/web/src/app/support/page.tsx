@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Destek / Support — Kuran Yolu",
+  title: "Destek / Support",
   description: "Kuran Yolu için iletişim ve sık sorulan sorular. Contact and frequently asked questions for Kuran Yolu.",
 };
 
@@ -20,7 +20,7 @@ export default function SupportPage() {
         <strong>İletişim:</strong> <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a></p>
 
         <h3 className={sectionTitleClass}>Verilerim nerede saklanıyor?</h3>
-        <p>Favorileriniz, notlarınız ve ilerleme bilgileriniz öncelikle cihazınızda saklanır. İsteğe bağlı bulut yedeği, kimlik bilgisi istemeyen anonim bir Firebase hesabıyla eşleştirilir.</p>
+        <p>Favorileriniz, notlarınız ve ilerleme bilgileriniz cihazınızda saklanır ve kimlik bilgisi istemeyen anonim bir Firebase hesabıyla otomatik olarak buluta yedeklenir. Yedeği uygulama içinden istediğiniz an silebilirsiniz; sildiğinizde yedekleme kapanır.</p>
 
         <h3 className={sectionTitleClass}>Bulut yedeğimi ve verilerimi nasıl silerim?</h3>
         <p>Uygulamada <strong>Daha Fazla → Gizlilik Politikası → 7. Hesap ve Veri Silme</strong> bölümünü açın. <strong>Bulut yedeğimi sil</strong> düğmesine dokunun ve <strong>Sil</strong> ile onaylayın. Bulut yedeğiniz ve anonim hesabınız kalıcı olarak silinir; bulut yedekleme siz yeniden açana kadar kapalı kalır. Cihazınızdaki veriler etkilenmez. Yerel verileri uygulamayı kaldırarak veya cihaz ayarlarından uygulama verilerini temizleyerek silebilirsiniz.</p>
@@ -40,7 +40,7 @@ export default function SupportPage() {
         <strong>Contact:</strong> <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a></p>
 
         <h3 className={sectionTitleClass}>Where is my data stored?</h3>
-        <p>Your favorites, notes, and progress are primarily stored on your device. Optional cloud backup is linked to an anonymous Firebase account that does not require identifying information.</p>
+        <p>Your favorites, notes, and progress are stored on your device and automatically backed up to the cloud using an anonymous Firebase account that does not require identifying information. You can delete the backup from within the app at any time; deleting it turns off cloud backup.</p>
 
         <h3 className={sectionTitleClass}>How do I delete my cloud backup and data?</h3>
         <p>In the app, open <strong>More → Privacy Policy → 7. Account and Data Deletion</strong>. Tap <strong>Delete my cloud backup</strong> and confirm with <strong>Delete</strong>. Your cloud backup and anonymous account are permanently deleted; cloud backup remains off until you turn it back on. Data on your device is not affected. You can delete local data by uninstalling the app or clearing the app data in your device settings.</p>

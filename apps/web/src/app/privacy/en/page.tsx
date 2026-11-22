@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Kuran Yolu",
+  title: "Privacy Policy",
   description: "Kuran Yolu privacy policy: data collected, cloud backup, third-party services, and account and data deletion.",
   alternates: { languages: { tr: "/privacy", en: "/privacy/en" } },
 };

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Gizlilik Politikası — Kuran Yolu",
+  title: "Gizlilik Politikası",
   description: "Kuran Yolu gizlilik politikası: toplanan veriler, bulut yedekleme, üçüncü taraf hizmetler, hesap ve veri silme.",
   alternates: { languages: { tr: "/privacy", en: "/privacy/en" } },
 };

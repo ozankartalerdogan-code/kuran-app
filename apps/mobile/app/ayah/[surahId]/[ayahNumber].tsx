@@ -421,18 +421,20 @@ export default function AyahDetailScreen() {
   const [noteSaved, setNoteSaved] = useState(false);
   // Tecvid renklendirmesi aç/kapa — kalıcı tercih ("0" = kapalı, varsayılan açık).
   const [tajweed, setTajweed] = useState(true);
+  const tajweedTouchedRef = useRef(false);
 
   useEffect(() => { logScreen("AyetDetay"); }, []);
 
   useEffect(() => {
     let alive = true;
     storage.getString(STORAGE_KEYS.tajweed).then((v) => {
-      if (alive && v != null) setTajweed(v !== "0");
+      if (alive && v != null && !tajweedTouchedRef.current) setTajweed(v !== "0");
     });
     return () => { alive = false; };
   }, []);
 
   const handleTajweedToggle = useCallback(() => {
+    tajweedTouchedRef.current = true;
     setTajweed((prev) => {
       const next = !prev;
       storage.setString(STORAGE_KEYS.tajweed, next ? "1" : "0");

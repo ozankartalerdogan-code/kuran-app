@@ -30,7 +30,7 @@ async function openExternalUrl(url: string) {
     if (__DEV__) {
       console.warn("Failed to open external URL", error);
     }
-    Alert.alert(t.linkFailTitle, t.linkFailRetry);
+    Alert.alert(t.linkFailTitle, t.linkFailBody);
   }
 }
 
