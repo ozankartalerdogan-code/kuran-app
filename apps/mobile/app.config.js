@@ -50,7 +50,7 @@ module.exports = {
         CFBundleLocalizations: ['tr', 'en'],
         CFBundleAllowMixedLocalizations: true,
       },
-      // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). MMKV/AsyncStorage
+      // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). AsyncStorage
       // (UserDefaults), expo-file-system (dosya zamanı/disk alanı) ve RN/Sentry
       // (sistem açılış süresi) bu API'leri kullanıyor; yalnız app-içi amaçlar.
       // 0A2A.1/3B52.1/85F4.1 SDK nedenlerini expo-file-system kendi PrivacyInfo.xcprivacy
@@ -67,7 +67,7 @@ module.exports = {
     },
     android: {
       package: 'com.kuranapp.mobile',
-      // Android Auto Backup (bedava): favori/not/ilerleme (MMKV) kullanıcının
+      // Android Auto Backup (bedava): favori/not/ilerleme (AsyncStorage) kullanıcının
       // Google Drive'ına yedeklenir → kaldır-kur / yeni telefonda kısmi kurtarma.
       // Bizim sunucumuz yok; yedek Google tarafından yönetilir.
       allowBackup: true,

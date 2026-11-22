@@ -1,7 +1,7 @@
 // Görsel paylaşım altyapısı — react-native-view-shot + expo-sharing NATIVE
 // modüllerdir; mevcut dev build'de yoksa require patlar → null'a düşer ve
 // çağıran taraf metin paylaşımına devam eder (build-gated guard deseni,
-// bkz. useKeepAwakeSafe / storage MMKV guard'ı).
+// bkz. useKeepAwakeSafe içindeki güvenli yükleme).
 
 type CaptureRefFn = (
   ref: unknown,

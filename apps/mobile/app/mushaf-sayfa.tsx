@@ -248,7 +248,14 @@ export default function MushafSayfaEkrani() {
   // ?hatim=1 ile açılırsa (eski /hatim rotasından yönlendirme) panel direkt açılır.
   const [hatimOpen, setHatimOpen] = useState(() => hatimParam === "1");
   // Tecvid renklendirmesi — ayet ekranı ve mushaf moduyla ORTAK kalıcı tercih.
-  const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
+  const [tajweed, setTajweed] = useState(true);
+  useEffect(() => {
+    let alive = true;
+    storage.getString(STORAGE_KEYS.tajweed).then((v) => {
+      if (alive && v != null) setTajweed(v !== "0");
+    }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
   const [initialPage, setInitialPage] = useState<number | null>(null);
   const [listHeight, setListHeight] = useState(0);

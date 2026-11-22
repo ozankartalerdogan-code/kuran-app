@@ -420,7 +420,7 @@ export default function AyahDetailScreen() {
   const [noteDraft, setNoteDraft] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
   // Tecvid renklendirmesi aç/kapa — kalıcı tercih ("0" = kapalı, varsayılan açık).
-  const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
+  const [tajweed, setTajweed] = useState(true);
 
   useEffect(() => { logScreen("AyetDetay"); }, []);
 

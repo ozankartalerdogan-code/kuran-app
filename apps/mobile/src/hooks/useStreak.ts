@@ -42,12 +42,8 @@ function isValidStreakData(data: unknown): data is StreakData {
   );
 }
 
-function readInitialStreak(record: boolean): { data: StreakData; loaded: boolean } {
-  if (record) return { data: DEFAULT, loaded: false };
-  const saved = storage.getJSONSync<StreakData>(STORAGE_KEYS.streak);
-  if (!isValidStreakData(saved)) return { data: DEFAULT, loaded: false };
-  const alive = !!saved.lastDate && diffDays(saved.lastDate, todayStr()) <= 1;
-  return { data: alive ? saved : { ...saved, current: 0 }, loaded: true };
+function readInitialStreak(): { data: StreakData; loaded: boolean } {
+  return { data: DEFAULT, loaded: false };
 }
 
 function isSameStreak(a: StreakData, b: StreakData): boolean {
@@ -62,7 +58,7 @@ export function useStreak(options?: { record?: boolean }): UseStreakResult {
   const record = options?.record ?? true;
   const initialRef = useRef<{ data: StreakData; loaded: boolean } | null>(null);
   if (initialRef.current === null) {
-    initialRef.current = readInitialStreak(record);
+    initialRef.current = readInitialStreak();
   }
   const [streak, setStreak] = useState<StreakData>(initialRef.current.data);
   const [loading, setLoading] = useState<boolean>(!initialRef.current.loaded);

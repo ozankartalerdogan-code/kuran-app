@@ -178,9 +178,7 @@ export default function SurahDetailScreen() {
   const [error, setError]       = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
   // Arapça ayet satırı tercihi: "0" = kapalı, varsayılan açık
-  const [showArabic, setShowArabic] = useState(
-    () => storage.getStringSync(STORAGE_KEYS.surahArabic) !== "0",
-  );
+  const [showArabic, setShowArabic] = useState(true);
   const hint = useContextualHint("surahInteraction", !loading && !error && !!data?.verses.length, String(surahId));
 
   useEffect(() => { logScreen('SureDetay'); }, []);
