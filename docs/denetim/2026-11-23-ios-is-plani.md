@@ -6,6 +6,16 @@ Kural: Her aşama ayrı dalda, küçük commit'lerle; master'a birleştirme, bul
 
 **Sıra değişikliği (Neon):** TestFlight iç testi App Review'a gitmez ve itirazı etkilemez → Aşama 1–4 itiraz beklenirken yapılır; yalnız Aşama 5 (incelemeye gönderme) itiraz sonucunu bekler.
 
+## İlerleme (23 Kasım, dal feat/ios-hazirlik)
+
+- [x] Aşama 1 — e8b2f1f9 (introspect: mikrofon yok, privacy nedenleri doğru; test:mobile 550/550)
+- [x] Aşama 2 — 496f002b (MMKV + Nitro kaldırıldı; Mushaf tecvid tercihi yüklenmiyordu, düzeltildi). A03'te temiz debug derleme üstüne kurulum: 25 kullanıcı anahtarı birebir aynı, seri/şehir/sayfa/hatim/favori yerinde, tecvid kapalı tercihi korunuyor. Not: paket kaldırınca `android/app/.cxx` silinmeli (yoksa `clean` CMake'te düşer).
+- [x] 3.1/3.2 — EAS production'da GOOGLE_SERVICES_PLIST, SENTRY_AUTH_TOKEN, EXPO_PUBLIC_SENTRY_DSN var. 3.4 ikon 1024², alfa yok. iOS uzak derleme no 4 → sıradaki 5.
+- [ ] 3.3 Push yeteneği, 3.5 ascAppId/appleTeamId — kullanıcı (App Store Connect oturumu gerekli).
+- [x] Aşama 5 hazırlık — /privacy/en ve /support (ed465856, canlıya master birleştirmesiyle); İngilizce inceleme notu docs/store/listing.en.md.
+- [ ] Aşama 4 — EAS iOS bulut derlemesi: kullanıcı onayı bekliyor.
+- [ ] Widget kaydı cihaz testi (1.5) — vc 25 kilit ekranı widget testiyle.
+
 ---
 
 ## Aşama 1 — Kesin düzeltmeler (kod; Android vc 25 ile birlikte çıkabilir)

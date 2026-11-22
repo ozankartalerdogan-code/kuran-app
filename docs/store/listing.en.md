@@ -6,6 +6,23 @@
 
 ## App Store (iOS)
 
+**URLs** (2026-11-23, feat/ios-hazirlik; canlıya alınınca geçerli)  
+Privacy Policy (EN): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy/en  
+Privacy Policy (TR): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy  
+Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
+
+**App Review Notes** (taslak — gönderimden önce ekran adlarını TestFlight derlemesinde doğrula)
+
+> No account or login is required. The app works offline for reading; prayer times need a one-time network fetch.
+>
+> Suggested 60-second tour (set the device language to English, or use More → Language):
+> 1. Quran tab → "Read Quran": the full 604-page mushaf is bundled and works in airplane mode, with tajweed colors and hatim (completion) tracking.
+> 2. Tap any verse → verse screen: word-by-word morphology, Arabic roots, tafsir, and a shareable verse image card.
+> 3. Learn tab: structured lessons with quizzes, and "Arabic Alphabet (Elif-Ba)" for learning Arabic letters step by step.
+> 4. Worship tab: Qibla compass (uses the device compass and approximate location), tasbih counter, and daily prayer times with optional local notifications.
+>
+> Location is requested only as approximate location for prayer times and Qibla. Analytics (Firebase) and crash reports (Sentry) are anonymous; no tracking, no ads, no in-app purchases.
+
 **Name**  
 Kuran Yolu (10)
 
