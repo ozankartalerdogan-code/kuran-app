@@ -1,74 +1,83 @@
-# iOS Hazırlık İş Planı (23 Kasım 2026)
+# iOS Hazırlık İş Planı (23 Kasım 2026, Neon incelemesiyle güncel)
 
-Kaynak: Neon iOS uyumluluk raporu (`2026-11-23-neon-ios-uyumluluk.md`), bulgular Claude tarafından kodda doğrulandı.
+Kaynaklar: Neon iOS uyumluluk raporu (`2026-11-23-neon-ios-uyumluluk.md`) ve Neon plan incelemesi (`2026-11-23-neon-ios-plan-incelemesi.md`). Bulgular Claude tarafından kodda doğrulandı.
 Durum: Android 1.2.4 (vc 24) Play incelemesinde. iOS'ta Apple 4.2 itirazı (11 Kasım) cevap bekliyor; 1.2.1 ve sonrası iOS'a gönderilmedi.
-Kural: Her aşama ayrı dalda, küçük commit'lerle; master'a birleştirme ve App Store gönderimi kullanıcı onayıyla.
+Kural: Her aşama ayrı dalda, küçük commit'lerle; master'a birleştirme, bulut derleme ve App Store gönderimi kullanıcı onayıyla.
+
+**Sıra değişikliği (Neon):** TestFlight iç testi App Review'a gitmez ve itirazı etkilemez → Aşama 1–4 itiraz beklenirken yapılır; yalnız Aşama 5 (incelemeye gönderme) itiraz sonucunu bekler.
 
 ---
 
-## Aşama 1 — Kesin düzeltmeler (kod, ~1 saat, Android'e etkisi yok ya da zararsız)
+## Aşama 1 — Kesin düzeltmeler (kod; Android vc 25 ile birlikte çıkabilir)
 
 | # | İş | Dosya | Doğrulama |
 |---|----|-------|-----------|
-| 1.1 | iOS mikrofon iznini kapat: `['expo-audio', { recordAudioAndroid: false, microphonePermission: false }]` | `apps/mobile/app.config.js:216` | `npx expo config --type introspect` çıktısında `NSMicrophoneUsageDescription` olmamalı |
-| 1.2 | Kıble izin metnini platforma göre ayır (iOS: "Ayarlar → Kuran Yolu → Konum") — TR + EN | `src/i18n/strings/kible.ts:7,36`, `app/kible.tsx` | Typecheck + Android'de metin değişmemeli |
-| 1.3 | "Hakkında" e-posta: `canOpenURL` yerine doğrudan `openURL` + hata yakalama (gizlilik.tsx'teki gibi) | `app/hakkinda.tsx:26-36` | Android'de e-posta uygulaması açılıyor mu |
-| 1.4 | Gizlilik bildiriminden gereksiz nedenleri temizle: FileTimestamp → `['C617.1']`, DiskSpace → `['E174.1']` (önce kullanılan SDK'ların kendi manifestlerine bak) | `app.config.js:60-61` | introspect çıktısı |
-| 1.5 | `index.js` widget kaydını `Platform.OS === 'android'` ile sar | `apps/mobile/index.js:10-18` | Android'de widget güncellemesi çalışıyor mu (A03) |
+| 1.1 | iOS mikrofon iznini kapat: `['expo-audio', { recordAudioAndroid: false, microphonePermission: false }]` | `apps/mobile/app.config.js:216` | `npx expo config --type introspect` çıktısında `NSMicrophoneUsageDescription` yok |
+| 1.2 | Kıble izin metni: `permBodyIos` (TR "Ayarlar → Kuran Yolu → Konum", EN "Settings → Kuran Yolu → Location"), iOS'ta onu göster. 3. konum denemesi `Accuracy.High` → `Balanced` (gizlilik metni "hassas konum yok" diyor) | `src/i18n/strings/kible.ts:7,36`, `app/kible.tsx:318,383` | Typecheck (tr/en anahtarları eşleşmeli) + Android'de metin aynı |
+| 1.3 | "Hakkında" e-posta: `canOpenURL` kaldır, doğrudan `openURL` + `catch` içinde uyarı (gizlilik.tsx deseni). Apple belgesi: kayıtsız şemada `canOpenURL` hep `false` | `app/hakkinda.tsx:24-41` | Android'de e-posta uygulaması açılıyor |
+| 1.4 | Gizlilik bildirimi: FileTimestamp → `['C617.1']`, DiskSpace → `['E174.1']` (`0A2A.1`/`85F4.1` yalnız SDK'lara ait; expo-file-system kendi manifestinde zaten beyan ediyor) | `app.config.js:60-61` | introspect çıktısı |
+| 1.5 | `index.js` widget kaydını `Platform.OS === 'android'` ile sar | `apps/mobile/index.js:10-18` | A03: widget ekle + ↻ + vakit güncellemesi |
+| 1.6 | Firebase Auth: `['@react-native-firebase/auth', { ios: { captchaOpenUrlFix: false } }]` (yalnız anonim giriş; AppDelegate yaması riski ilk derlemeden önce kalkar) | `app.config.js:223` | introspect / prebuild |
+| 1.7 | `removeClippedSubviews={Platform.OS === "android"}` (search.tsx'teki gibi) | `mushaf-sayfa.tsx:648`, `surah/[id].tsx:307`, `tafsir/[surahId].tsx:179`, `root/[root]/index.tsx:349` | Android'de davranış aynı |
 
-## Aşama 2 — Depolama (MMKV) kararı (dikkatli, ayrı dal)
+## Aşama 2 — MMKV'yi kaldır (KARAR: Seçenek A — Claude + Neon)
 
-Sorun: `storage.ts` `new MMKV()` çağırıyor; react-native-mmkv 4.3.2'de bu çalışmıyor (`createMMKV()` gerekli). Hata yutuluyor → MMKV hiçbir zaman açılmamış, tüm veri AsyncStorage'da. Çökme yok, veri kaybı yok.
+- Bugün MMKV hiç açılmıyor (`new MMKV()` v4'te yok); her şey zaten AsyncStorage'da → kaldırmak davranışı değiştirmez.
+- B (düzeltmek) neden riskli (Neon, kodda görüldü): `remove()` yalnız MMKV'den siliyor, AsyncStorage'daki eski kopya sonraki okumada geri "diriliyor" (bulut yedeği kapatma bayrağı, dil seçimi, bildirim damgası); ilk açılışta Kuran sekmesi migrasyon bitmeden boş görünebilir.
+- Yapılacak: `react-native-mmkv` + `react-native-nitro-modules` paketlerini kaldır (başka kullanan yok, doğrulandı); `src/lib/storage.ts` sadeleştir; `app/(tabs)/kuran.tsx` içindeki `usingMmkv` dalını kaldır; `*Sync` okuma yardımcıları `null` dönecek şekilde bırakılabilir ya da temizlenir.
+- Kazanç: iOS'ta Nitro + `useFrameworks: 'static'` derleme riski kalkar, Android AAB küçülür.
+- Dikkat: Kaldırınca temiz prebuild + temiz Gradle derlemesi (eski CMake/JNI artığı kalmasın); A03'te vc 24 → yeni sürüm yükseltme testi (favori, not, hatim, dil, tema korunuyor mu).
 
-Seçenekler:
-- **A (önerilen, düşük risk):** MMKV'yi kaldır; storage.ts'yi yalnız AsyncStorage'a sadeleştir. Davranış bugünkünün aynısı olur, iOS'taki Nitro/static framework derleme riski de ortadan kalkar.
-- **B:** `createMMKV()` ile düzelt. RİSK: Migrasyon yalnız `STORAGE_KEYS` anahtarlarını taşıyor; doğrudan AsyncStorage'a yazılan başka anahtarlar varsa (ör. `elifbaQuizScores`, `namazNotifEnabled`) okuma MMKV'ye geçince kaybolmuş gibi görünebilir. Seçilirse önce tüm anahtar listesi çıkarılmalı ve güncelleme testi (eski sürümden yükseltme) A03'te yapılmalı.
+## Aşama 3 — EAS / Apple ön kontrol
 
-Karar: kullanıcı (öneri A).
+| # | İş | Sahip |
+|---|----|-------|
+| 3.1 | EAS'te `GOOGLE_SERVICES_PLIST` (file) var mı — `npx eas env:list --environment production`; yoksa Firebase'den plist indirilip yüklenir | Kullanıcı penceresi |
+| 3.2 | `SENTRY_AUTH_TOKEN` ve `EXPO_PUBLIC_SENTRY_DSN` EAS'te var mı | Kullanıcı penceresi |
+| 3.3 | Apple Developer: `com.kuranapp.mobile` App ID'de Push Notifications açık mı | Chrome / Claude |
+| 3.4 | `assets/icon.png` 1024×1024, saydamlıksız | Claude |
+| 3.5 | `eas.json` → `submit.production.ios` içine `ascAppId` + `appleTeamId`; `eas build:version:get -p ios` ile derleme numarası çakışması yok | Claude + kullanıcı |
+| 3.6 | Kök ve mobil `expo` sürüm eşitleme (~56.0.12 / ~56.0.15) → **vc 25'ten ayrı dal, sonra** | Claude |
 
-## Aşama 3 — EAS iOS ön kontrol (kullanıcı penceresinde, etkileşimli)
+## Aşama 4 — İlk iOS derlemesi + iPhone'suz test (itirazı beklemeden)
 
-| # | İş | Not |
-|---|----|-----|
-| 3.1 | EAS'te `GOOGLE_SERVICES_PLIST` (file) ortam değişkeni var mı? `npx eas env:list --environment production` | Yoksa Firebase panelinden plist indirilip EAS'e yüklenir (kullanıcı) |
-| 3.2 | `SENTRY_AUTH_TOKEN` EAS'te var mı? (eas.json'da otomatik yükleme açık) | Yoksa iOS derlemesi arşiv adımında düşebilir |
-| 3.3 | Apple Developer: `com.kuranapp.mobile` App ID'de Push Notifications yeteneği açık mı | expo-notifications `aps-environment` ekliyor |
-| 3.4 | `assets/icon.png` 1024×1024 ve saydamlıksız mı | Claude yerelde kontrol edebilir |
-| 3.5 | Kök ve mobil `package.json` expo sürümlerini eşitle (~56.0.12 / ~56.0.15) | Lockfile değişir → ayrı commit |
+- `eas build -p ios --profile production` → TestFlight iç test (kullanıcı onayıyla; bulut kotası).
+- Test yolu (fiziksel iPhone yok varsayımıyla):
+  1. **BrowserStack App Live** (gerçek bulut iPhone, tarayıcıdan): arayüz, açık/koyu tema, TR/EN, çentik boşlukları, Mushaf sayfa çevirme, e-posta bağlantısı, sahte konumla namaz vakti, bildirim izni. Pusula dönüşü burada test EDİLEMEZ.
+  2. **Tanıdık bir iPhone'a TestFlight** (~15 dk): Kıble pusulasını çevirme, kilit ekranında bildirim gelişi.
+  3. Simülatör yalnız mağaza ekran görüntüsü için (bildirim/pusula çalışmaz).
 
-## Aşama 4 — İlk iOS test derlemesi (EAS bulut, TestFlight)
+## Aşama 5 — App Store gönderimi (itiraz sonuçlanınca)
 
-- `eas build -p ios --profile production` (kullanıcı onayıyla; bulut derleme kotası kullanır).
-- Neon'un "muhtemel" iki riski burada görülür: Nitro modülleri + `useFrameworks: 'static'` (Aşama 2-A seçilirse ortadan kalkar) ve Firebase Auth'un AppDelegate yaması. Düşerse çözüm: `['@react-native-firebase/auth', { ios: { captchaOpenUrlFix: false } }]` (uygulama yalnız anonim giriş kullanıyor).
-- TestFlight'ta gerçek iPhone'da kontrol: Mushaf sayfa çevirme, Kıble pusulası, namaz bildirimleri, açık/koyu tema, İngilizce dil, e-posta bağlantısı.
-- iPhone yoksa: kullanıcıyla nasıl test edileceğine karar verilecek.
-
-## Aşama 5 — App Store gönderimi (Apple itirazı sonuçlanınca)
-
-- App Store Connect "App Privacy" beyanı: Firebase Analytics, Sentry (çökme), anonim kullanıcı kimliği, yaklaşık konum, bulut yedeği (favori/not) — gizlilik metniyle birebir.
-- Yaş derecelendirmesi yeni sosyal medya soruları (ertelenen listede).
-- İnceleme notu (İngilizce): 60 saniyelik test rotası (çevrimdışı Mushaf + Hatim, ayet → kelime/kök analizi + paylaşım kartı, Kıble + Tespih, namaz vakitleri + bildirim, Elif-Ba + dersler).
+- **Sürüm:** iOS'ta da Android'deki sürüm (1.2.4, vc 25 çıktıysa 1.2.5); derleme numarası EAS uzak sayaçtan.
+- **Ekran görüntüleri:** TR ve EN mağaza sayfası için ayrı, gerçek arayüz (iPhone 6.9" 1320×2868 veya 6.3"). iPad gerekmez (`supportsTablet: false`; prebuild sonrası `TARGETED_DEVICE_FAMILY=1` doğrula).
+- **URL'ler:** Web gizlilik sayfası (`apps/web/src/app/privacy`) yalnız Türkçe → İngilizce sürüm (veya TR/EN geçişi) eklenmeli; çalışan bir Destek URL'si (iletişim + kısa yardım) gerekli.
+- **App Privacy beyanı:** Ürün etkileşimi (Firebase Analytics), çökme/tanılama (Sentry), kullanıcı kimliği (anonim UID), yaklaşık konum, diğer kullanıcı içeriği (bulut yedeği favori/not) — hepsi "Sana bağlı değil", "İzleme yok".
+- **Yaş derecelendirmesi:** 2026 anketi (sosyal medya, paylaşılan konum soruları dahil) → 4+; "Made for Kids" İŞARETLENMEZ.
+- Gerekmeyenler: Sign in with Apple (yalnız anonim giriş), şifreleme beyanı (`usesNonExemptEncryption: false` hazır).
+- **İnceleme notu (İngilizce):** 60 saniyelik test rotası (çevrimdışı Mushaf + Hatim, ayet → kelime/kök analizi + paylaşım kartı, Kıble + Tespih, namaz vakitleri + bildirim, Elif-Ba + dersler).
 - İtiraz kabul → bu sürümle güncelleme; ret → bu sürümle yeni gönderim. Tekrar 4.2 gelirse en etkili ek: iOS widget'ı (WidgetKit) ya da tilavet sesi.
 
-## Aşama 6 — Sonra (iOS'u engellemeyen iyileştirmeler)
+## Aşama 6 — Yayın sonrası / iOS'u engellemeyenler
 
-- Bildirime dokununca ilgili ekrana gitme (`_layout.tsx:156-159`), eski `shouldShowAlert` alanını kaldır.
-- Sentry Metro ayarı (`getSentryExpoConfig`) — iOS hata izlerinin okunması için.
-- Elif-Ba ve Arama ekranlarında çentikli iPhone'larda üstte fazla boşluk (`insets.top`) — TestFlight'ta görülürse.
-- Mushaf / Sure / Tefsir listelerinde `removeClippedSubviews` iOS'ta kapatılsın (TestFlight'ta sorun görülürse).
-- Yayın sonrası `ios.appStoreUrl`, iOS'ta "Uygulamayı puanla" düğmesi; widget ekranındaki "yalnız Android" metni.
+- iOS'ta "Uygulamayı puanla" açılmadan önce: `dahaFazla.ts:28,61` "Google Play" metni platforma göre, `useStoreReview.ts:71-73` App Store bağlantısı; `ios.appStoreUrl`.
+- Bildirime dokununca ilgili ekrana gitme (`_layout.tsx:156-159`), eski `shouldShowAlert` alanı.
+- Sentry Metro ayarı (`getSentryExpoConfig`) — ayrı dal, tam Android testiyle.
+- Elif-Ba / Arama ekranında çentikli iPhone'da üst boşluk (`insets.top`) — BrowserStack'te görülürse.
+- Widget ekranındaki "yalnız Android" metni; hesap silmede `user.delete()` hatası yutulmasın (log).
 
 ---
 
-## Android tarafı (aynı dönemde, vc 25)
+## Android tarafı (vc 25)
 
+- Aşama 1 + Aşama 2 vc 25'e girer (temiz derleme + A03 yükseltme ve widget testi, açık/koyu tema görsel kontrol).
 - Widget'lar kilit ekranında: `widgetCategory="home_screen|keyguard"` (config plugin'den üret), A03/A35'te dene.
-- Aşama 1 ve 2'deki değişiklikler Android'e de girer → vc 25 derlemesinden önce A03'te açık/koyu tema görsel kontrolü.
+- 3.6 (expo sürüm eşitleme) ve Sentry Metro ayarı vc 25'e GİRMEZ.
 
 ## Sıra ve sahipler
 
-1. Aşama 1 → Claude (onaysız dal + commit), A03 kontrolü.
-2. Aşama 2 → karar kullanıcıda, uygulama Claude.
-3. Aşama 3 → 3.1–3.3 kullanıcı penceresinde / Apple portalında, 3.4–3.5 Claude.
-4. Aşama 4 → bulut derleme kullanıcı onayıyla.
+1. Aşama 1 → Claude (dal + commit), A03 kontrolü.
+2. Aşama 2 → Claude, A03 yükseltme testi.
+3. Aşama 3 → 3.1–3.2 kullanıcı penceresi, 3.3 Chrome, 3.4–3.5 Claude.
+4. Aşama 4 → bulut derleme kullanıcı onayıyla; BrowserStack hesabı/tanıdık iPhone kullanıcıda.
 5. Aşama 5 → Apple itirazı sonucuna bağlı.
