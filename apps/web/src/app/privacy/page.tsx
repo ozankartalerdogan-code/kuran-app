@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Gizlilik Politikası — Kuran Yolu",
+  description: "Kuran Yolu gizlilik politikası: toplanan veriler, bulut yedekleme, üçüncü taraf hizmetler, hesap ve veri silme.",
+  alternates: { languages: { tr: "/privacy", en: "/privacy/en" } },
+};
+
 const sectionTitleClass = "mt-10 scroll-mt-28 font-display text-xl font-bold text-navy-900 dark:text-stone-100";
 
 export default function PrivacyPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 text-stone-700 dark:text-stone-300 sm:px-6 [&_a]:font-medium [&_a]:text-navy-700 [&_a]:underline [&_a]:underline-offset-2 dark:[&_a]:text-navy-300 [&_li]:pl-1 [&_ol]:ml-6 [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_p]:mt-3 [&_p]:leading-7 [&_strong]:font-semibold [&_strong]:text-stone-900 dark:[&_strong]:text-stone-100 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:space-y-1.5">
+      <p className="mb-4 text-sm"><Link href="/privacy/en" hrefLang="en" lang="en">English</Link></p>
       <h1 className="font-display text-3xl font-bold tracking-tight text-navy-900 dark:text-stone-50">Gizlilik Politikası</h1>
       <p className="mb-10 text-sm text-stone-500 dark:text-stone-400">Son Güncelleme: 14 Kasım 2026</p>
 

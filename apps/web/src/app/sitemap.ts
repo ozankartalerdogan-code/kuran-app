@@ -58,6 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/mushaf-sayfa", "weekly", 0.6],
     ["/kible", "monthly", 0.4],
     ["/privacy", "yearly", 0.2],
+    ["/privacy/en", "yearly", 0.2],
+    ["/support", "yearly", 0.2],
     ["/hakkinda", "yearly", 0.2],
   ];
   const entries: MetadataRoute.Sitemap = staticPaths.map(([p, changeFrequency, priority]) => ({
