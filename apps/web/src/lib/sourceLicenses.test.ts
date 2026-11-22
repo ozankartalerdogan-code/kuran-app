@@ -104,11 +104,11 @@ test("required morphology and tajweed disclosures stay exact", () => {
 
   assert.equal(
     morphology?.body,
-    "Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu'nun canonical token hizalama, Unicode normalizasyonu, bağlamsal seçim, hata düzeltme ve manuel doğrulama süreçleriyle hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.",
+    "Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu tarafından kelimeleri asıl metinle eşleştirme, harf kodlarını tek biçime getirme, bağlama göre doğru çözümlemeyi seçme, hata düzeltme ve elle kontrol adımlarıyla hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.",
   );
   assert.equal(
     tajweed?.body,
-    "Tecvid işaretleri, AlQuran.cloud tecvid markerlarından yararlanılarak canonical Tanzil metnine yeniden hizalanmış; Kuran Yolu'nun span/koordinat sistemi, renk eşlemesi, güvenlik kontrolleri ve manuel düzeltmeleriyle hazırlanmıştır. Tanınan 86.595 kaynak kümesinin 79.343'ü hizalanmıştır (%91,6254); 14 ayette 23 manuel span eklenmiştir.",
+    "Tecvid işaretleri, AlQuran.cloud'daki tecvid işaretlerinden yararlanılarak uygulamadaki Tanzil metnine yeniden yerleştirilmiş; renklendirme, kontroller ve elle düzeltmelerle Kuran Yolu tarafından hazırlanmıştır. Kaynaktaki 86.595 tecvid işaretinin 79.343'ü (%91,6) metne yerleştirilebilmiştir; 14 ayette 23 işaret elle eklenmiştir.",
   );
 });
 

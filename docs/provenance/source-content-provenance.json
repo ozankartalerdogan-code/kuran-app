@@ -1845,8 +1845,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3152546,
-        "sha256": "45eebb20514b590575f033c02cfb31993deab5051c5412c92e0cae01a7ef7a69",
+        "totalBytes": 3153987,
+        "sha256": "1bd1ea6d5c2ca4a9080edca73a0aa0660090a322064722926e6e53df3684dee0",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -1855,8 +1855,8 @@
           },
           {
             "path": "apps/mobile/src/data/content/harf_i_tarif.en.json",
-            "bytes": 15814,
-            "sha256": "3bef0febad599fd425ccd1eec8d1b7a166da1fdf468261f61c7957d8e1bc3840"
+            "bytes": 15809,
+            "sha256": "a495d71792ae0f54498484cfb56ede3c4bc8666d307d93dfcb390773afe9e223"
           },
           {
             "path": "apps/mobile/src/data/content/ibadet_rehberi.en.json",
@@ -1865,8 +1865,8 @@
           },
           {
             "path": "apps/mobile/src/data/content/manevi_siginak.en.json",
-            "bytes": 9212,
-            "sha256": "b04e6a9f922323d34b39f97b335e3b20fae94c0f87f78796b81a1499b8351c84"
+            "bytes": 9173,
+            "sha256": "87ef202c54bd8aefb6b31262864c0a485fc17c707231e9c316fe008276c8259b"
           },
           {
             "path": "apps/mobile/src/data/Dersler/abdest_dersi.en.json",
@@ -2070,13 +2070,13 @@
           },
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.en.json",
-            "bytes": 63629,
-            "sha256": "5b009e0c7b255e4c93c329b4a0ee967c114a5add2611519813a411e481039ca3"
+            "bytes": 64058,
+            "sha256": "d9e2b43c3bbc87218a29e78b068ce8a609664b902342e90f03cbeae3973f6428"
           },
           {
             "path": "apps/mobile/src/data/siyer_i_nebi.en.json",
-            "bytes": 70874,
-            "sha256": "8401914466b971f826a8e11da5b0462e6545e95cec212ab1a8bdebb09a640b7e"
+            "bytes": 71930,
+            "sha256": "4d7e7a2f20912865b5ccc40238eca0003cc40cca5ddcdbb048cd0512acec058f"
           },
           {
             "path": "content/elifba/letters.en.json",
@@ -3440,28 +3440,28 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 4,
-        "totalBytes": 256074,
-        "sha256": "3cb4ec09f0824f1cd0e5483cfe59ffc11ecad6ee6684937afa7c797beba89ce4",
+        "totalBytes": 259598,
+        "sha256": "9b151eda3b3c2b90ad45e7c513be0df0c8c0ff7bdc19fa2a3c1f8d8b0fc88228",
         "files": [
           {
             "path": "apps/mobile/src/data/peygamber_kissalari.json",
-            "bytes": 59679,
-            "sha256": "6a6c0e8f93149a29d15e78afbb8b017ec19edbc3afbdc17b45b42e52771be75e"
+            "bytes": 60203,
+            "sha256": "304fef07ef9a0b813216ebaec3c4ce4b0724655f53eb17545a89440e3f08fbca"
           },
           {
             "path": "apps/mobile/src/data/siyer_i_nebi.json",
-            "bytes": 68468,
-            "sha256": "dbfd4598496d06185ddd244414a97cc4da4ce049b37255a60e97bdccd49226c4"
+            "bytes": 69706,
+            "sha256": "dfce2fbea77b2267a598e40f43d63b31a81e77a69bd95e0d4da9b47d4f61cd65"
           },
           {
             "path": "apps/web/src/data/peygamber_kissalari.json",
-            "bytes": 59621,
-            "sha256": "d112197232a6f78e85b7420f2671dcd5756e5955d7e3896b74d7efb5ff3bac20"
+            "bytes": 60145,
+            "sha256": "29118e7e7467458dc5d41e665aef44377718abc1f4cc846fa4eecda182746b80"
           },
           {
             "path": "apps/web/src/data/siyer_i_nebi.json",
-            "bytes": 68306,
-            "sha256": "a805e3e04b918bf2bbba5dbf1ccc1311b580a73afdb27fa4e0105c8de77b4587"
+            "bytes": 69544,
+            "sha256": "ea6ba11c9fce709b20037a73726d18b2808de8da3d974fd88f02f914e7154812"
           }
         ]
       }
