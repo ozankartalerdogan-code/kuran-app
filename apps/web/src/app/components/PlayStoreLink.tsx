@@ -47,7 +47,7 @@ export function PlayStoreLink({
         href={href}
         target="_blank"
         rel="noopener"
-        className="mt-4 inline-flex min-h-9 items-center rounded-xl bg-navy-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-navy-800 dark:bg-gold-500 dark:text-navy-950 dark:hover:bg-gold-400"
+        className="mt-4 inline-flex min-h-9 items-center rounded-xl bg-navy-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-navy-700 dark:bg-gold-500 dark:text-navy-950 dark:hover:bg-gold-400"
       >
         Google Play&apos;de aç
       </a>
