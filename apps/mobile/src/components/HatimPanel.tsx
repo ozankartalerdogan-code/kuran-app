@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { useColors } from "../hooks/useColors";
+import { notifyReviewCompletion } from "../hooks/storeReviewPolicy";
 import { Button, CloseButton, radius, space } from "./ui";
 import {
   JUZ_DATA, EMPTY_HATIM_STORE, parseHatimStore, hatimFmt, hatimGunSayisi,
@@ -49,10 +50,14 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
   const [mounted, setMounted] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [reviewMoment, setReviewMoment] = useState(0);
   const prevProgress = useRef(0);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible) {
+      setReviewMoment(0);
+      return;
+    }
     let isMounted = true;
     storage.getString(STORAGE_KEYS.hatimTracking)
       .then((v) => {
@@ -95,6 +100,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
     });
     logFeature("hatim_toggle_juz", { juz: String(n), status });
     if (completedNow) logFeature("hatim_complete");
+    if (status === "read" && !completedNow) setReviewMoment((m) => m + 1);
     persist({ ...store, hatims: next });
   };
 
@@ -122,6 +128,16 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
     }
     prevProgress.current = progress;
   }, [progress, mounted]);
+
+  // Cüz okundu işaretlendiğinde panel açıksa puan isteme fırsatı bildir.
+  useEffect(() => {
+    if (reviewMoment > 0 && visible) return notifyReviewCompletion();
+  }, [reviewMoment, visible]);
+
+  // Hatim tamamlama kutlaması gösterilirken puan isteme fırsatı bildir.
+  useEffect(() => {
+    if (showCelebration) return notifyReviewCompletion();
+  }, [showCelebration]);
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>

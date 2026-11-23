@@ -44,6 +44,7 @@ import { ShareButton } from "./ShareButton";
 // Next 15: `ssr: false` Server Component'te kullanılamaz — tembel client
 // import'ları LazyClientWidgets sınırına taşındı (davranış aynı).
 import { NoteEditor, StreakTracker } from "./LazyClientWidgets";
+import { PlayStoreLink } from "../../../../components/PlayStoreLink";
 
 type SectionStatus = "ready" | "partially_ready" | "missing";
 
@@ -1505,6 +1506,8 @@ export default async function Page({ params, searchParams: searchParamsPromise }
         <NoteEditor verseKey={`${surahId}:${ayahNumber}`} />
 
         <StreakTracker />
+
+        <PlayStoreLink medium="ayah_banner" variant="card" />
 
         {/* Uzun sayfanın sonunda da gezinme — yukarı kaydırmadan sonraki ayete geç */}
         <AyahNavigation previous={previousAyah} next={nextAyah} />

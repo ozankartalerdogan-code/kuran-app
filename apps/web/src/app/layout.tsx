@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Lora, Figtree } from "next/font/google";
 import { NavbarMenu } from "./NavbarMenu";
+import { PlayStoreLink } from "./components/PlayStoreLink";
 import "./globals.css";
 
 // Marka tipografisi — next/font: build sırasında indirilir, self-host edilir,
@@ -142,6 +143,9 @@ export default function RootLayout({
                   <li><Link href="/manevi-siginak/zikirmatik" className="inline-flex min-h-8 items-center hover:text-white hover:underline">Zikirmatik</Link></li>
                 </ul>
               </nav>
+            </div>
+            <div className="mt-8">
+              <PlayStoreLink medium="footer" variant="footer" />
             </div>
             <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-navy-800 pt-5 text-xs text-navy-300">
               <span>© {new Date().getFullYear()} Kuran Yolu</span>
