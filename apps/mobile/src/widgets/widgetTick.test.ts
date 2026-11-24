@@ -49,6 +49,7 @@ function harness(atMs: number | null) {
     "./namazWidgetData": { ...dataApi, readNamazWidgetData: async () => data },
     "./NamazWidget": { buildNamazWidgetRepresentation: () => ({}) },
     "./EmirAyetWidget": {}, "./emirRotation": {},
+    "./widgetTheme": { readWidgetThemePreference: async () => null, applyWidgetTheme: <T,>(pair: T) => pair },
   };
   const refresh = load<typeof import("./widgetRefresh")>("./widgetRefresh.ts", modules);
   const handler = load<typeof import("./widget-task-handler")>("./widget-task-handler.tsx", modules);

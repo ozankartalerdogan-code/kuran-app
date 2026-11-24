@@ -12,6 +12,7 @@ import { currentEmirAyet, WIDGET_NAME } from "./emirRotation";
 import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
 import { planPrayerWidgetTick } from "./widgetTick";
 import { cancelWidgetTick } from "../../modules/exact-alarm";
+import { applyWidgetTheme, readWidgetThemePreference } from "./widgetTheme";
 
 type TaskManagerLike = {
   defineTask: (name: string, fn: () => Promise<unknown>) => void;
@@ -54,11 +55,15 @@ const TASK_NAME = "emir-widget-tazeleme";
 async function refreshWidget(): Promise<void> {
   if (!AndroidWidgetModule) return;
   const ayet = currentEmirAyet();
+  const pref = await readWidgetThemePreference();
   // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-  const { buildEmirWidgetRepresentation } = require("./EmirAyetWidget");
+  const { buildEmirWidgetRepresentation } = require("./EmirAyetWidget") as typeof import("./EmirAyetWidget");
   await AndroidWidgetModule.requestWidgetUpdate({
     widgetName: WIDGET_NAME,
-    renderWidget: (info: unknown) => buildEmirWidgetRepresentation(ayet, (info as { height?: number } | null)?.height),
+    renderWidget: (info: unknown) => applyWidgetTheme(
+      buildEmirWidgetRepresentation(ayet, (info as { height?: number } | null)?.height),
+      pref,
+    ),
   });
 }
 
@@ -70,12 +75,15 @@ async function refreshPrayerWidgets(): Promise<void> {
     cancelWidgetTick();
     return;
   }
-  const data = await readNamazWidgetData();
+  const [data, pref] = await Promise.all([readNamazWidgetData(), readWidgetThemePreference()]);
   // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
   const { buildNamazWidgetRepresentation } = require("./NamazWidget") as typeof import("./NamazWidget");
   await Promise.all(widgets.map(info => widgetModule.requestWidgetUpdateById({
     widgetName: info.widgetName, widgetId: info.widgetId,
-    renderWidget: () => buildNamazWidgetRepresentation(info.widgetName as typeof PRAYER_WIDGET_NAMES[number], data, info.height),
+    renderWidget: () => applyWidgetTheme(
+      buildNamazWidgetRepresentation(info.widgetName as typeof PRAYER_WIDGET_NAMES[number], data, info.height),
+      pref,
+    ),
   })));
   planPrayerWidgetTick(data);
 }

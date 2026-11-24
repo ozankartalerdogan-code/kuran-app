@@ -1,4 +1,4 @@
-import { Appearance, useColorScheme } from "react-native";
+import { Appearance, Platform, useColorScheme } from "react-native";
 import { useSyncExternalStore } from "react";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 
@@ -185,7 +185,13 @@ export function toggleTheme() {
   const effective = override ?? (Appearance.getColorScheme() ?? "light");
   const next = effective === "dark" ? "light" : "dark";
   override = next;
-  storage.setJSON(STORAGE_KEYS.nightMode, next).catch(() => {});
+  storage.setJSON(STORAGE_KEYS.nightMode, next).then(() => {
+    if (Platform.OS !== "android") return;
+    // Lazy import avoids loading widget modules on iOS or creating import cycles.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+    const { refreshWidgetNow, refreshPrayerWidgetsNow } = require("../widgets/widgetRefresh") as typeof import("../widgets/widgetRefresh");
+    return Promise.all([refreshWidgetNow(), refreshPrayerWidgetsNow()]);
+  }).catch(() => {});
   notify();
 }
 
