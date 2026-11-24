@@ -6,6 +6,8 @@
 
 ## App Store (iOS)
 
+> 2026-11-24 ASC (canlı taslak): Ad "Kuran Yolu – İslamı Öğren"; Alt başlık "Meal, Tefsir, Namaz Vakti, Dua" (önceden BOŞTU); Anahtar kelimeler "kıble,hadis,ezan,elifba,esmaül hüsna,hatim,tecvid,zikirmatik,widget,arapça,mushaf,kuranı kerim" (alt başlıktakiler tekrar edilmez). Açıklamada "15 konu"→"16 konu", "tamamen Türkçe arayüz"→"Türkçe ve İngilizce".
+
 **Ad**
 Kuran Yolu
 

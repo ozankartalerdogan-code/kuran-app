@@ -37,35 +37,76 @@ Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 >
 > Privacy: location is requested only as approximate location, for prayer times and Qibla. Analytics (Firebase) and crash reports (Sentry) are anonymous; no tracking. An optional anonymous cloud backup (Firebase anonymous sign-in) keeps favorites, notes and progress, and can be deleted at any time under More > Privacy Policy.
 
+> 2026-11-24: App Store Connect'e English (U.S.) yerelleştirmesi olarak KAYDEDİLDİ (ASO düzeni). Aşağısı ASC'deki ile birebir.
+
 **Name**  
-Kuran Yolu (10)
+Kuran Yolu: Quran & Prayer (26)
 
 **Subtitle**  
-Quran, Prayer & Learning (24)
+Tafsir, Qibla, Duas & Lessons (29)
 
 **Promotional Text**  
-Read the Quran, study Arabic, take lesson quizzes, follow prayer times and track your hatim in one app. (103)
+Read the Quran word by word, learn Islam with short lessons and quizzes, see prayer times on your Home Screen widget and find the qibla. Free, with no ads. (155)
 
 **Description**
 
-Read, learn and build your daily practice with Kuran Yolu. Explore the Quran alongside lessons, prayer tools and resources for reflection.
+Kuran Yolu is a simple, ad-free app for anyone who wants to read the Quran, understand it and learn Islam step by step. No account needed.
 
-READ AND EXPLORE  
-Read the Quran in a mushaf view with tajweed colors. Explore verses with word-by-word morphology, roots and tafsir. The English interface uses M. M. Pickthall's 1930 English translation of the Quran.
+QURAN AND READING
+- All 114 surahs: Arabic text with M. M. Pickthall's English translation (1930)
+- Word analysis: the root, meaning and morphology of every word
+- Root explorer: a word's derivatives and where they appear in the Quran
+- Tafsir: Elmalılı Hamdi Yazır's commentary on all 114 surahs in a simplified form
+- Mushaf page view and color-coded tajweed reading
+- Smart search across words, translation and themes
 
-LEARN AT YOUR PACE  
-Study structured lessons and test your understanding with quizzes. Explore Elifba lessons for learning Arabic letters and reading.
+LEARN
+- Card-based lessons: 16 topics, more than 260 lesson cards and a quiz in every lesson
+- Topics include salah (prayer), wudu, fasting, zakat, hajj and umrah, qurbani, the articles of faith, good character, tajweed, the life of the Prophet (seerah), the lives of the Companions, stories of the prophets and more
+- Elif-Ba: lessons for learning the Arabic alphabet, letter quizzes and audio
 
-SUPPORT YOUR PRACTICE  
-Check prayer times, set notifications and use the qibla compass. Prayer times are also calculated for your location abroad. Track your progress through a hatim, save favorites and keep notes. Add the prayer times widget to your Home Screen or Lock Screen to see the next prayer and a countdown at a glance.
+WORSHIP GUIDES
+- Prayer guide: how to pray step by step, prayer supplications, short surahs and special prayers
+- Worship guide: the pillars of Islam and faith, wudu, ghusl, tayammum, fasting, zakat, hajj and qurbani
 
-FIND MORE TO READ  
-Browse duas, hadith, seerah, stories of the prophets and worship guides.
+DUAS AND DHIKR
+- 89 duas in 23 categories
+- Spiritual refuge: duas for protection and healing, the Greatest Name and the Sakinah verses
+- Digital tasbih counter
 
-Some content and tools are available offline; others require an internet connection. English lessons, tafsir and other content are AI-assisted translations of the app's Turkish content. (1116)
+ISLAMIC KNOWLEDGE
+- Asma ul-Husna: the 99 Names of Allah with Arabic script, meaning and root
+- Seerah: the life of the Prophet Muhammad (peace be upon him)
+- Stories of 25 prophets
+- 219 selected hadiths in 27 topics, mostly from Bukhari and Muslim
+- Blessed days and nights and their virtues
+
+TOOLS
+- Qibla compass
+- Prayer times for your location, anywhere in the world
+- Prayer time notifications (each with a verse) and optional daily verse and dua notifications
+- Verse of the Day and Dua of the Day
+- Prayer times widget: the next prayer and a countdown on your Home Screen and Lock Screen
+
+PERSONAL
+- Favorites and personal notes
+- Khatm (hatim) tracking and a daily reading streak
+- Your progress is kept safe with an anonymous cloud backup that you can delete from inside the app at any time
+
+WHY KURAN YOLU?
+- No ads
+- Privacy-friendly: no advertising ID, no tracking; location is used only approximately, for prayer times and the qibla
+- Much of the app works offline (lessons, tafsir and duas are stored on the device)
+- Clean, modern interface in English and Turkish
+
+English lessons, tafsir and other content are AI-assisted translations of the app's Turkish content.
+
+May Allah make this app a means of bringing us closer to the Quran and to knowledge.
+
+(2606)
 
 **Keywords**  
-quran,mushaf,tajweed,arabic,prayer,qibla,dua,hadith,tafsir,lessons,hatim (72)
+muslim,islam,salah,namaz,mushaf,tajweed,arabic,hadith,dua,widget,learn,alphabet,koran,tasbih,dhikr (98)
 
 **What's New for version 1.2.1**  
 • New welcome screen: choose what you want to do and start right there.
