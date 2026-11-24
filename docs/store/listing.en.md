@@ -124,7 +124,7 @@ muslim,islam,salah,namaz,mushaf,tajweed,arabic,hadith,dua,widget,learn,alphabet,
 > 2026-11-12: en-US çevirisi Play Console'a taslak olarak girildi (incelemeye gönderilmedi).
 > 2026-11-18: Play en-US güncellendi (Diyanet vakitleri, şehir seçimi, Elifba alıştırmaları; ASO kısa açıklama) — taslak.
 > 2026-11-23: Claude + Neon ASO güncellemesi; yeni başlık/kısa/tam açıklama + 4 İngilizce ekran görüntüsü ve kendi özellik grafiği ile İNCELEMEYE GÖNDERİLDİ. Aşağıdaki metin Play'deki ile birebir.
-> 2026-11-24: A03'te gerçek İngilizce ekranlar çekildi (dersler, Elif-Ba, sure meali, tesbih, tefsir, Esma). Play en-US ekran görüntüleri 4→8 (TASLAK kaydedildi, incelemeye gönderilmedi); App Store English (U.S.) 10 görsel (1206×2622). Betikler: Masaüstü/kuran-yolu-magaza-gorselleri/v2/olustur_v2.py + olustur_ios.py.
+> 2026-11-24: A03'te gerçek İngilizce ekranlar çekildi (dersler, Elif-Ba, sure meali, tesbih, tefsir, Esma). Play en-US ekran görüntüleri 4→8 (24 Kas İNCELEMEYE GÖNDERİLDİ; YZ beyanı: etiketleme); App Store English (U.S.) 10 görsel (1206×2622). Betikler: Masaüstü/kuran-yolu-magaza-gorselleri/v2/olustur_v2.py + olustur_ios.py.
 
 **Title**  
 Kuran Yolu: Quran, Prayer Time (30)
