@@ -30,7 +30,8 @@ module.exports = {
       // yatay moda hiç geçilemez, gerçekte tablet deneyimi yok.
       supportsTablet: false,
       bundleIdentifier: 'com.kuranapp.mobile',
-      // TODO(iOS): appleTeamId — App Store Connect'ten
+      // Apple Developer > Membership details. @bacons/apple-targets widget hedefini bu takımla imzalar.
+      appleTeamId: 'B58BQR745Y',
       entitlements: {
         'com.apple.security.application-groups': ['group.com.kuranapp.mobile'],
       },
