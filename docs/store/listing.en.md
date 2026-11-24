@@ -11,31 +11,31 @@ Privacy Policy (EN): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy/e
 Privacy Policy (TR): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy  
 Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 
-**App Review Notes** (yeniden yazıldı — Guideline 4.2 itirazı için)
+**App Review Notes** (Guideline 4.2 itirazı — App Store Connect alanı DÜZ METİN; `> ` işaretlerini atıp yapıştır. Köşeli parantezli satırı iOS widget derlemede yoksa SİL.)
 
-> Kuran Yolu is a daily worship and learning utility—not a static book or web wrapper. No account or login is required, and there are no ads or in-app purchases.
+> Kuran Yolu is a daily worship and learning utility, not a static book or web wrapper. No account or login is required, and there are no ads or in-app purchases. After a short welcome screen, the app opens in English on any device not set to Turkish (manual switch: More > Language).
 >
-> Device-native and interactive tools (English UI labels):
-> - **Offline Mushaf**: **Quran → Read the Quran** loads the bundled 604-page mushaf and Pickthall's 1930 translation in airplane mode, with tajweed colors and page/surah jump.
-> - **Prayer Notifications**: **More → Notifications** (or the bell icon on **Home → Prayer Times**) schedules up to 7 days of local alerts after each prayer begins.
-> - **Qibla Compass**: **Worship → Qibla** (or **Home → Qibla**) uses the device compass and approximate location to point to the Kaaba with haptic alignment feedback.
-> - **Tasbih Counter**: **Worship → Tasbih** (or **Home → Tasbih**) offers a tap-to-count bead ring with haptic feedback, round tracking, and custom targets saved locally.
-> - **Khatm Tracker**: **Quran → Khatm** (or the bookmark icon in **Read the Quran**) marks any of the 30 juz as read and jumps to its starting page.
-> - **Lessons & Elif-Ba**: **Learn → Lessons** offers **Card Mode** and **Start Quiz** tests. **Arabic Alphabet (Elif-Ba)** adds 9 lessons with audio flashcards, **Practice**, **Listen**, **Quiz**, and mistake review.
-> - **Words, Roots & Verse Cards**: Tap a verse in **Read the Quran → View Details ›** (or **List of Surahs**) for **Words**/**Roots** morphology and a shareable verse image card.
-> - **Favorites, Notes & Bookmarks**: Heart verses to **More → My Favorites**, write **Personal Notes** (**More → My Notes**), and resume via **Continue Where You Left Off** on **Quran**.
-> - `[IF IOS WIDGET SHIPS]` **Home Screen Widget**: View daily prayer times and next prayer countdown on the iOS Home Screen.
+> Device-native and interactive tools:
+> - Prayer times and local notifications: Home shows today's prayer times with a live countdown to the next prayer; tap the city name to search and choose another city. The bell icon (or More > Notifications) schedules up to 7 days of local prayer alerts, plus an optional "Daily Verse & Dua" notification.
+> - Qibla compass: Worship > Qibla (or Home > Qibla) uses the device compass and approximate location to point to the Kaaba, with haptic feedback when aligned.
+> - Lessons and quizzes (offline): Learn > Lessons has 16 bundled lessons in swipeable card view (Read All switches to a scrolling view); tap Start Quiz at the end of a lesson.
+> - Arabic Alphabet (Elif-Ba): 9 lessons with letter audio, Practice, Listen (on multi-letter lessons such as Lesson 1), Quiz and mistake review. Lesson data and audio are downloaded on first use, so this section needs an internet connection.
+> - Tasbih counter: Worship > Tasbih (or Home > Tasbih) is a tap-to-count bead ring with haptic feedback, round tracking and custom targets saved on the device.
+> - Khatm tracker: Quran > Khatm (or the bookmark icon in Read the Quran): tap "+ Start a New Khatm", then mark any of the 30 juz as read and jump to its first page.
+> - Offline Quran: Quran > Read the Quran opens the bundled 604-page Arabic mushaf with tajweed colors and works in airplane mode. Tap a verse > View Details (or use Quran > List of Surahs) for the bundled M. M. Pickthall (1930) English translation.
+> - Verse tools: on a verse's details screen, Words and Roots show word-by-word morphology (loaded online), the share icon creates a verse image card, the heart saves it to More > My Favorites, and Personal Note saves a note (More > My Notes).
+> - [IF IOS WIDGET SHIPS] Home Screen widget: shows the next prayer time and a countdown on the iOS Home Screen.
 >
-> Suggested 60-second tour (set language via **More → Language → English**):
-> 1. **Home**: Check **Prayer Times** (bell icon for **Notifications**); open **Qibla** or **Tasbih**.
-> 2. **Quran → Read the Quran**: Swipe the offline mushaf, open **Khatm Tracker**, or tap a verse → **View Details ›**.
-> 3. **Verse Details**: Check **Words**/**Roots**, tap share for a verse image card, or save a favorite and **Personal Note**.
-> 4. **Learn → Lessons**: Try **Card Mode** and **Start Quiz**, or open **Arabic Alphabet (Elif-Ba)** for flashcards, **Practice**, **Listen**, and **Quiz**.
-> 5. **More**: Check **My Favorites**, **My Notes**, and **Notifications**.
+> Suggested 60-second tour:
+> 1. Home: see the prayer countdown, tap the bell to turn on notifications, then open Qibla.
+> 2. Learn > Lessons: open a lesson, swipe the cards, tap Start Quiz on the last card.
+> 3. Worship > Tasbih: tap the bead ring to count.
+> 4. Quran > Read the Quran: swipe pages (works in airplane mode), tap a verse > View Details, then try Words, share and the heart.
+> 5. Quran > Khatm: start a khatm and mark a juz.
 >
-> Content: 114 surahs (6,236 verses, 604 pages), 15 lessons with quizzes, 9 Elif-Ba lessons, 89 duas, 219 hadiths, 99 Names of Allah, 25 prophet stories, 13 blessed days.
+> Also included: 89 duas, 219 hadiths, 99 Names of Allah and 25 prophet stories.
 >
-> Location is requested only as approximate location for prayer times and Qibla. Analytics (Firebase) and crash reports (Sentry) are anonymous; no tracking, no ads, no in-app purchases.
+> Privacy: location is requested only as approximate location, for prayer times and Qibla. Analytics (Firebase) and crash reports (Sentry) are anonymous; no tracking. An optional anonymous cloud backup (Firebase anonymous sign-in) keeps favorites, notes and progress, and can be deleted at any time under More > Privacy Policy.
 
 **Name**  
 Kuran Yolu (10)
