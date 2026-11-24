@@ -257,6 +257,10 @@ module.exports = {
       // Android ana ekran widget'ı — "Emir Ayetleri" (bkz. src/widgets/). Sadece
       // Android'de native kod ekler, iOS/web build'ini etkilemez.
       // 'name' değeri src/widgets/emirRotation.ts'teki WIDGET_NAME ile AYNI OLMALI.
+      // Widget'ların kilit ekranında da (keyguard) eklenebilmesi için widgetCategory'ye
+      // "keyguard" ekler. 'react-native-android-widget'tan ÖNCE gelmeli: Expo mod'ları
+      // sondan başa çalıştırır, böylece XML dosyaları üretildikten SONRA güncellenir.
+      './plugins/with-widget-keyguard',
       [
         'react-native-android-widget',
         {
