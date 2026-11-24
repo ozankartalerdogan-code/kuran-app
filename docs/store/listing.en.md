@@ -11,7 +11,7 @@ Privacy Policy (EN): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy/e
 Privacy Policy (TR): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy  
 Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 
-**App Review Notes** (Guideline 4.2 itirazı — App Store Connect alanı DÜZ METİN; `> ` işaretlerini atıp yapıştır. Köşeli parantezli satırı iOS widget derlemede yoksa SİL.)
+**App Review Notes** (Guideline 4.2 itirazı — App Store Connect alanı DÜZ METİN; `> ` işaretlerini atıp yapıştır.)
 
 > Kuran Yolu is a daily worship and learning utility, not a static book or web wrapper. No account or login is required, and there are no ads or in-app purchases. After a short welcome screen, the app opens in English on any device not set to Turkish (manual switch: More > Language).
 >
@@ -24,7 +24,7 @@ Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 > - Khatm tracker: Quran > Khatm (or the bookmark icon in Read the Quran): tap "+ Start a New Khatm", then mark any of the 30 juz as read and jump to its first page.
 > - Offline Quran: Quran > Read the Quran opens the bundled 604-page Arabic mushaf with tajweed colors and works in airplane mode. Tap a verse > View Details (or use Quran > List of Surahs) for the bundled M. M. Pickthall (1930) English translation.
 > - Verse tools: on a verse's details screen, Words and Roots show word-by-word morphology (loaded online), the share icon creates a verse image card, the heart saves it to More > My Favorites, and Personal Note saves a note (More > My Notes).
-> - [IF IOS WIDGET SHIPS] Home Screen widget: shows the next prayer time and a countdown on the iOS Home Screen.
+> - Prayer widget: shows the next prayer time and a countdown on the Home Screen (small and medium) and on the Lock Screen. Long-press the Home Screen, tap Edit > Add Widget and search "Kuran Yolu".
 >
 > Suggested 60-second tour:
 > 1. Home: see the prayer countdown, tap the bell to turn on notifications, then open Qibla.
