@@ -11,15 +11,29 @@ Privacy Policy (EN): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy/e
 Privacy Policy (TR): https://kuran-app-web-ozan-s-projects8.vercel.app/privacy  
 Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 
-**App Review Notes** (taslak — gönderimden önce ekran adlarını TestFlight derlemesinde doğrula)
+**App Review Notes** (yeniden yazıldı — Guideline 4.2 itirazı için)
 
-> No account or login is required. The app works offline for reading; prayer times need a one-time network fetch.
+> Kuran Yolu is a daily worship and learning utility—not a static book or web wrapper. No account or login is required, and there are no ads or in-app purchases.
 >
-> Suggested 60-second tour (set the device language to English, or use More → Language):
-> 1. Quran tab → "Read Quran": the full 604-page mushaf is bundled and works in airplane mode, with tajweed colors and hatim (completion) tracking.
-> 2. Tap any verse → verse screen: word-by-word morphology, Arabic roots, tafsir, and a shareable verse image card.
-> 3. Learn tab: structured lessons with quizzes, and "Arabic Alphabet (Elif-Ba)" for learning Arabic letters step by step.
-> 4. Worship tab: Qibla compass (uses the device compass and approximate location), tasbih counter, and daily prayer times with optional local notifications.
+> Device-native and interactive tools (English UI labels):
+> - **Offline Mushaf**: **Quran → Read the Quran** loads the bundled 604-page mushaf and Pickthall's 1930 translation in airplane mode, with tajweed colors and page/surah jump.
+> - **Prayer Notifications**: **More → Notifications** (or the bell icon on **Home → Prayer Times**) schedules up to 7 days of local alerts after each prayer begins.
+> - **Qibla Compass**: **Worship → Qibla** (or **Home → Qibla**) uses the device compass and approximate location to point to the Kaaba with haptic alignment feedback.
+> - **Tasbih Counter**: **Worship → Tasbih** (or **Home → Tasbih**) offers a tap-to-count bead ring with haptic feedback, round tracking, and custom targets saved locally.
+> - **Khatm Tracker**: **Quran → Khatm** (or the bookmark icon in **Read the Quran**) marks any of the 30 juz as read and jumps to its starting page.
+> - **Lessons & Elif-Ba**: **Learn → Lessons** offers **Card Mode** and **Start Quiz** tests. **Arabic Alphabet (Elif-Ba)** adds 9 lessons with audio flashcards, **Practice**, **Listen**, **Quiz**, and mistake review.
+> - **Words, Roots & Verse Cards**: Tap a verse in **Read the Quran → View Details ›** (or **List of Surahs**) for **Words**/**Roots** morphology and a shareable verse image card.
+> - **Favorites, Notes & Bookmarks**: Heart verses to **More → My Favorites**, write **Personal Notes** (**More → My Notes**), and resume via **Continue Where You Left Off** on **Quran**.
+> - `[IF IOS WIDGET SHIPS]` **Home Screen Widget**: View daily prayer times and next prayer countdown on the iOS Home Screen.
+>
+> Suggested 60-second tour (set language via **More → Language → English**):
+> 1. **Home**: Check **Prayer Times** (bell icon for **Notifications**); open **Qibla** or **Tasbih**.
+> 2. **Quran → Read the Quran**: Swipe the offline mushaf, open **Khatm Tracker**, or tap a verse → **View Details ›**.
+> 3. **Verse Details**: Check **Words**/**Roots**, tap share for a verse image card, or save a favorite and **Personal Note**.
+> 4. **Learn → Lessons**: Try **Card Mode** and **Start Quiz**, or open **Arabic Alphabet (Elif-Ba)** for flashcards, **Practice**, **Listen**, and **Quiz**.
+> 5. **More**: Check **My Favorites**, **My Notes**, and **Notifications**.
+>
+> Content: 114 surahs (6,236 verses, 604 pages), 15 lessons with quizzes, 9 Elif-Ba lessons, 89 duas, 219 hadiths, 99 Names of Allah, 25 prophet stories, 13 blessed days.
 >
 > Location is requested only as approximate location for prayer times and Qibla. Analytics (Firebase) and crash reports (Sentry) are anonymous; no tracking, no ads, no in-app purchases.
 
