@@ -57,12 +57,12 @@ LEARN AT YOUR PACE
 Study structured lessons and test your understanding with quizzes. Explore Elifba lessons for learning Arabic letters and reading.
 
 SUPPORT YOUR PRACTICE  
-Check prayer times, set notifications and use the qibla compass. Prayer times are also calculated for your location abroad. Track your progress through a hatim, save favorites and keep notes.
+Check prayer times, set notifications and use the qibla compass. Prayer times are also calculated for your location abroad. Track your progress through a hatim, save favorites and keep notes. Add the prayer times widget to your Home Screen or Lock Screen to see the next prayer and a countdown at a glance.
 
 FIND MORE TO READ  
 Browse duas, hadith, seerah, stories of the prophets and worship guides.
 
-Some content and tools are available offline; others require an internet connection. English lessons, tafsir and other content are AI-assisted translations of the app's Turkish content. (942)
+Some content and tools are available offline; others require an internet connection. English lessons, tafsir and other content are AI-assisted translations of the app's Turkish content. (1116)
 
 **Keywords**  
 quran,mushaf,tajweed,arabic,prayer,qibla,dua,hadith,tafsir,lessons,hatim (72)

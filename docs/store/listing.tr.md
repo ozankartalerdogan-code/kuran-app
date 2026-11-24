@@ -17,6 +17,8 @@ Kuran okuyun, Arapça öğrenin, ders testleri çözün, namaz vakitlerini takip
 
 **Açıklama**
 
+> 2026-11-24: App Store Connect'teki canlı açıklama bu taslaktan FARKLI (madde işaretli uzun metin). Oraya yalnız ARAÇLAR'a "- Namaz vakti widget'ı: ana ekranda ve kilit ekranında sıradaki vakit ve geri sayım" satırı eklendi. App Store'da yalnız Türkçe yerelleştirme var; İngilizce eklenmedi.
+
 Kuran Yolu ile okuyun, öğrenin ve günlük ibadetinizi düzenleyin. Kuran'ı dersler, namaz araçları ve tefekkür kaynaklarıyla birlikte keşfedin.
 
 OKU VE KEŞFET
@@ -26,7 +28,7 @@ KENDİ HIZINDA ÖĞREN
 Konu konu derslerle çalışın, öğrendiklerinizi testlerle pekiştirin. Elifba dersleriyle Arap harflerini ve okumayı öğrenin.
 
 İBADETİNE DESTEK
-Namaz vakitlerini görün, bildirim kurun ve kıble pusulasını kullanın. Yurt dışında da konumunuza göre namaz vakitleri hesaplanır. Hatim ilerlemenizi takip edin, favorilerinizi kaydedin, notlar alın.
+Namaz vakitlerini görün, bildirim kurun ve kıble pusulasını kullanın. Yurt dışında da konumunuza göre namaz vakitleri hesaplanır. Hatim ilerlemenizi takip edin, favorilerinizi kaydedin, notlar alın. Namaz vakti widget'ını ana ekrana veya kilit ekranına ekleyerek sıradaki vakti ve kalan süreyi bir bakışta görün.
 
 DAHA FAZLA OKU
 Dualar, hadisler, siyer, peygamber kıssaları ve ibadet rehberlerine göz atın.
