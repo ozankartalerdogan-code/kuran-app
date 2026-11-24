@@ -27,3 +27,11 @@ export function notifyReviewCompletion() {
   const cleanups = [...listeners].map(listener => listener());
   return () => cleanups.forEach(cleanup => cleanup());
 }
+
+export function isStreakReviewMoment(
+  prev: { lastDate: string | null; current: number },
+  next: { lastDate: string | null; current: number },
+): boolean {
+  return prev.lastDate !== null && prev.lastDate !== next.lastDate
+    && next.current === prev.current + 1 && next.current >= 3;
+}

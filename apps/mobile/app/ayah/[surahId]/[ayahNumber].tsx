@@ -27,6 +27,7 @@ import { useColors, type AppColors } from "../../../src/hooks/useColors";
 import { Button, Callout, paperColors, toneColors } from "../../../src/components/ui";
 import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
+import { notifyReviewCompletion } from "../../../src/hooks/storeReviewPolicy";
 import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../../src/lib/analytics';
 import { WEB_BASE_URL } from "../../../src/lib/runtimeConfig";
@@ -391,7 +392,10 @@ export default function AyahDetailScreen() {
 
   const { getNote, saveNote, loaded: notesLoaded } = useNotes();
   const { isFavorite, toggle: toggleFav, loaded: favLoaded } = useFavorites();
-  useStreak(); // Ayet görüntülenince okuma serisini güncelle
+  const { reviewMoment } = useStreak(); // Ayet görüntülenince okuma serisini güncelle
+  useEffect(() => { if (reviewMoment > 0) return notifyReviewCompletion(); }, [reviewMoment]);
+  const [shareMoment, setShareMoment] = useState(0);
+  useEffect(() => { if (shareMoment > 0) return notifyReviewCompletion(); }, [shareMoment]);
   const verseKey = `${surahId}:${ayahNumber}`;
 
   const [data, setData]       = useState<AyahDetailResponse | null>(null);
@@ -1307,6 +1311,7 @@ export default function AyahDetailScreen() {
         arabic={data.arabicText}
         meal={shareMeal}
         onShareText={handleShareText}
+        onShared={() => setShareMoment(n => n + 1)}
       />
     </>
   );

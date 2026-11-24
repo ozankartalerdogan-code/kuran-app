@@ -10,6 +10,7 @@ import { api, type MushafPageResponse, type SurahListItem } from "../src/lib/api
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 import { useStreak } from "../src/hooks/useStreak";
+import { notifyReviewCompletion } from "../src/hooks/storeReviewPolicy";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../src/lib/mushafSayfa";
@@ -229,7 +230,8 @@ const TUM_SAYFALAR = Array.from({ length: SAYFA_SAYISI }, (_, i) => i + 1);
 const SURE_ROW_H = 58;
 
 export default function MushafSayfaEkrani() {
-  useStreak();        // Sayfa görünümünden okumak da okuma serisini ilerletir
+  const { reviewMoment } = useStreak();        // Sayfa görünümünden okumak da okuma serisini ilerletir
+  useEffect(() => { if (reviewMoment > 0) return notifyReviewCompletion(); }, [reviewMoment]);
   useKeepAwakeSafe(); // Okuma sırasında ekran kararmasın
   const c = useColors();
   const t = useStrings(mushafStrings);

@@ -31,9 +31,10 @@ interface Props {
   arabic: string | null;
   meal: string | null;
   onShareText: () => void; // metin paylaşımı (mevcut davranış) — fallback ve seçenek
+  onShared?: () => void;
 }
 
-export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic, meal, onShareText }: Props) {
+export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic, meal, onShareText, onShared }: Props) {
   const c = useColors();
   const t = useStrings(componentStrings);
   // KARTTA basılan metin font uyumluluğundan geçmeli: production fontu U+06DF,
@@ -52,7 +53,10 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
     setSharing(true);
     const ok = await captureAndShareView(cardRef.current, fmt(t.shareImageTitle, { name: surahName, n: ayahNumber }));
     setSharing(false);
-    if (ok) onClose();
+    if (ok) {
+      onShared?.();
+      onClose();
+    }
     // Başarısızsa (iptal dahil) modal açık kalır; kullanıcı tekrar deneyebilir
     // veya metin paylaşımını seçebilir.
   };

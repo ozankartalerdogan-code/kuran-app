@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { storage, STORAGE_KEYS } from "../lib/storage";
+import { isStreakReviewMoment } from "./storeReviewPolicy";
 
 type StreakData = {
   lastDate:   string | null; // "YYYY-MM-DD"
@@ -12,6 +13,7 @@ export interface UseStreakResult {
   loading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
+  reviewMoment: number;
 }
 
 const DEFAULT: StreakData = { lastDate: null, current: 0, longest: 0 };
@@ -63,6 +65,7 @@ export function useStreak(options?: { record?: boolean }): UseStreakResult {
   const [streak, setStreak] = useState<StreakData>(initialRef.current.data);
   const [loading, setLoading] = useState<boolean>(!initialRef.current.loaded);
   const [error, setError] = useState<string | null>(null);
+  const [reviewMoment, setReviewMoment] = useState(0);
   const hasLoadedRef = useRef<boolean>(initialRef.current.loaded);
 
   const compute = useCallback(async () => {
@@ -114,6 +117,9 @@ export function useStreak(options?: { record?: boolean }): UseStreakResult {
 
       await storage.setJSON(STORAGE_KEYS.streak, next);
       setStreak(prev => (isSameStreak(prev, next) ? prev : next));
+      if (isStreakReviewMoment(safe, next)) {
+        setReviewMoment(m => m + 1);
+      }
       hasLoadedRef.current = true;
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Streak yüklenemedi";
@@ -131,5 +137,5 @@ export function useStreak(options?: { record?: boolean }): UseStreakResult {
     await compute();
   }, [compute]);
 
-  return { streak, loading, error, refresh };
+  return { streak, loading, error, refresh, reviewMoment };
 }

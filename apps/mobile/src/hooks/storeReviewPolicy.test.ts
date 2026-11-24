@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseLastAsked, shouldRequestReview, REVIEW_WAIT_MS, REVIEW_INTERVAL_MS, notifyReviewCompletion, subscribeReviewCompletion } from "./storeReviewPolicy.ts";
+import { parseLastAsked, shouldRequestReview, REVIEW_WAIT_MS, REVIEW_INTERVAL_MS, notifyReviewCompletion, subscribeReviewCompletion, isStreakReviewMoment } from "./storeReviewPolicy.ts";
 
 test("değerlendirme tamamlanma, üç açılış, boş örtü ve bekleme ister", () => {
   assert.equal(REVIEW_WAIT_MS, 3_000);
@@ -44,4 +44,35 @@ test("sonuç ekranından çıkış fırsatı iptal eder; abonelik temizlenir", (
   unsubscribe();
   notifyReviewCompletion();
   assert.equal(completions, 1);
+});
+
+test("3 günlük ve üzeri ardışık okuma serisi değerlendirme anı üretir", () => {
+  assert.equal(
+    isStreakReviewMoment({ lastDate: "2026-11-23", current: 2 }, { lastDate: "2026-11-24", current: 3 }),
+    true,
+  );
+  assert.equal(
+    isStreakReviewMoment({ lastDate: "2026-11-23", current: 3 }, { lastDate: "2026-11-24", current: 4 }),
+    true,
+  );
+  assert.equal(
+    isStreakReviewMoment({ lastDate: "2026-11-23", current: 1 }, { lastDate: "2026-11-24", current: 2 }),
+    false,
+  );
+  assert.equal(
+    isStreakReviewMoment({ lastDate: "2026-11-24", current: 3 }, { lastDate: "2026-11-24", current: 3 }),
+    false,
+  );
+  assert.equal(
+    isStreakReviewMoment({ lastDate: "2026-11-20", current: 4 }, { lastDate: "2026-11-24", current: 1 }),
+    false,
+  );
+  assert.equal(
+    isStreakReviewMoment({ lastDate: null, current: 0 }, { lastDate: "2026-11-24", current: 1 }),
+    false,
+  );
+  assert.equal(
+    isStreakReviewMoment({ lastDate: null, current: 0 }, { lastDate: "2026-11-24", current: 3 }),
+    false,
+  );
 });
