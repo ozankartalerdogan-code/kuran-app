@@ -368,7 +368,7 @@ enum NamazCalculator {
         let minutes = max(0, Int(floor(remainingMs / 60_000.0)))
         let hours = minutes / 60
         let rest = minutes % 60
-        return String(format: "%d:%02d", hours, rest)
+        return "\(hours):" + (rest < 10 ? "0" : "") + "\(rest)"
     }
 
     static func ymdString(from date: Date, timeZoneIdentifier: String) -> String {
