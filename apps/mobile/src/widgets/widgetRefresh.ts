@@ -13,6 +13,7 @@ import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
 import { planPrayerWidgetTick } from "./widgetTick";
 import { cancelWidgetTick } from "../../modules/exact-alarm";
 import { applyWidgetTheme, readWidgetThemePreference } from "./widgetTheme";
+import { writeIosWidgetPayload } from "./iosWidget";
 
 type TaskManagerLike = {
   defineTask: (name: string, fn: () => Promise<unknown>) => void;
@@ -68,6 +69,10 @@ async function refreshWidget(): Promise<void> {
 }
 
 async function refreshPrayerWidgets(): Promise<void> {
+  if (Platform.OS === "ios") {
+    await writeIosWidgetPayload();
+    return;
+  }
   const widgetModule = AndroidWidgetModule;
   if (!widgetModule) return;
   const widgets = (await Promise.all(PRAYER_WIDGET_NAMES.map(name => widgetModule.getWidgetInfo(name)))).flat();

@@ -8,12 +8,17 @@ import type { Lang } from "../i18n";
 
 export const PRAYER_WIDGET_NAMES = ["NamazSerit", "NamazOdak"] as const;
 export type PrayerWidgetName = typeof PRAYER_WIDGET_NAMES[number];
-const TR_NAMES = { Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle", Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı" };
+export const TR_NAMES: Record<PrayerKey, string> = { Fajr: "İmsak", Sunrise: "Güneş", Dhuhr: "Öğle", Asr: "İkindi", Maghrib: "Akşam", Isha: "Yatsı" };
 const TR_TO = { Fajr: "İmsak'a", Sunrise: "Güneş'e", Dhuhr: "Öğle'ye", Asr: "İkindi'ye", Maghrib: "Akşam'a", Isha: "Yatsı'ya" };
-const MONTHS = {
+export const MONTHS = {
   tr: ["Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemaziyelevvel", "Cemaziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"],
   en: ["Muharram", "Safar", "Rabi' al-awwal", "Rabi' al-thani", "Jumada al-awwal", "Jumada al-thani", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"],
 };
+
+export function hijriText(record: Pick<PrayerDayRecord, "source" | "sourceDate" | "hijri">, lang: Lang): string {
+  const hijri = homeHijriDate(record);
+  return hijri ? `${hijri.day} ${MONTHS[lang][hijri.monthNumber - 1]}` : "";
+}
 
 export function formatPrayerRemaining(remainingMs: number, lang: Lang): string {
   const minutes = Math.max(0, Math.floor(remainingMs / 60_000));
@@ -64,15 +69,14 @@ export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: 
   const today = prayerDateInZone(nowMs, next.record.cityTimeZone);
   const display = next.record;
   const dateRecord = records.find(r => r.sourceDate === today);
-  const hijri = dateRecord ? homeHijriDate(dateRecord) : null;
-  const hijriText = hijri ? `${hijri.day} ${MONTHS[lang][hijri.monthNumber - 1]}` : "";
+  const hijriLabel = dateRecord ? hijriText(dateRecord, lang) : "";
   const name = lang === "tr" ? TR_NAMES[next.key] : next.key;
   const time = formatHmInZone(next.atMs, next.record.cityTimeZone) ?? "";
   const remaining = formatPrayerRemaining(next.atMs - nowMs, lang);
   const countdown = lang === "tr" ? `${prayerToLabel(next.key, lang)} ${remaining}` : `${name} in ${remaining}`;
   const remainingLabel = remaining === "şimdi" || remaining === "now" ? remaining : lang === "tr" ? `${remaining} kaldı` : `in ${remaining}`;
   return { lang, emptyText, prayer: {
-    city, heading: [city, hijriText].filter(Boolean).join(" · "),
+    city, heading: [city, hijriLabel].filter(Boolean).join(" · "),
     focusHeading: `${lang === "tr" ? "Sıradaki" : "Next"} · ${city}`.toLocaleUpperCase(lang === "tr" ? "tr-TR" : "en-US"),
     name, time, countdown, remainingLabel, atMs: next.atMs,
     refreshAtMs: nextWidgetRefreshAt(nowMs, next.atMs),
@@ -87,8 +91,12 @@ export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: 
 }
 export type NamazWidgetData = ReturnType<typeof buildNamazWidgetData>;
 
+export type PrayerWidgetSource =
+  | { lang: Lang; city: string; tz: string; records: PrayerDayRecord[] }
+  | { lang: Lang; city: ""; tz: ""; records: [] };
+
 /** All native/storage imports are lazy; no location resolution or network calls. */
-export async function readNamazWidgetData(nowMs = Date.now()): Promise<NamazWidgetData> {
+export async function readPrayerWidgetSource(nowMs: number, dayOffsets: readonly number[]): Promise<PrayerWidgetSource> {
   let lang: Lang = "tr";
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
@@ -100,13 +108,23 @@ export async function readNamazWidgetData(nowMs = Date.now()): Promise<NamazWidg
     const manual = await storage.getJSON<DiyanetCityRef>("diyanetManualCityV1");
     const cached = manual ? null : await storage.getJSON<{ city: DiyanetCityRef | null }>("diyanetCityV1");
     const city = manual ?? cached?.city;
-    if (!city || !Number.isFinite(city.id) || !city.name || !city.tz) return buildNamazWidgetData([], "", nowMs, lang);
+    if (!city || !Number.isFinite(city.id) || !city.name || !city.tz) return { lang, city: "", tz: "", records: [] };
     // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
     const { getPrayerDayRepository } = require("../lib/prayerDayRepositoryDeps") as typeof import("../lib/prayerDayRepositoryDeps");
     const today = prayerDateInZone(nowMs, city.tz);
-    const records = await getPrayerDayRepository().readCachedDays({ cityKey: `${manual ? "m" : "c"}${city.id}`, cityTimeZone: city.tz },
-      [addDaysYmd(today, -1), today, addDaysYmd(today, 1)]);
+    const dates = dayOffsets.map(offset => (offset === 0 ? today : addDaysYmd(today, offset)));
+    const records = await getPrayerDayRepository().readCachedDays(
+      { cityKey: `${manual ? "m" : "c"}${city.id}`, cityTimeZone: city.tz },
+      dates,
+    );
     const name = titleCaseTr(city.name, isTurkeyCountry(city.country));
-    return buildNamazWidgetData(records, name, nowMs, lang);
-  } catch { return buildNamazWidgetData([], "", nowMs, lang); }
+    return { lang, city: name, tz: city.tz, records };
+  } catch {
+    return { lang, city: "", tz: "", records: [] };
+  }
+}
+
+export async function readNamazWidgetData(nowMs = Date.now()): Promise<NamazWidgetData> {
+  const source = await readPrayerWidgetSource(nowMs, [-1, 0, 1]);
+  return buildNamazWidgetData(source.records, source.city, nowMs, source.lang);
 }

@@ -30,6 +30,10 @@ module.exports = {
       // yatay moda hiç geçilemez, gerçekte tablet deneyimi yok.
       supportsTablet: false,
       bundleIdentifier: 'com.kuranapp.mobile',
+      // TODO(iOS): appleTeamId — App Store Connect'ten
+      entitlements: {
+        'com.apple.security.application-groups': ['group.com.kuranapp.mobile'],
+      },
       // Firebase iOS yapılandırması: Android'deki google-services.json ile aynı
       // desen — EAS'te file-type env (GOOGLE_SERVICES_PLIST), yerelde gitignore'lı
       // dosya. Commit'lenmez.
@@ -207,6 +211,8 @@ module.exports = {
       // (Android WorkManager / iOS BGTaskScheduler). iOS tarafına UIBackgroundModes
       // "processing" + BGTaskSchedulerPermittedIdentifiers ekler.
       'expo-background-task',
+      // iOS widget uzantısı: targets/ klasörünü Xcode hedefi yapar (targets/namaz-widget).
+      '@bacons/apple-targets',
       // App yalnızca ses ÇALAR (Kur'an tilaveti), kayıt YAPMAZ → RECORD_AUDIO
       // (mikrofon) iznini ekleme. Aksi halde expo-audio varsayılan olarak ekliyor;
       // reklamsız/minimal-izin app için gereksiz + Play Veri Güvenliği'nde mikrofon
