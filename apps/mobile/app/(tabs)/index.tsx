@@ -21,7 +21,7 @@ import * as Haptics from 'expo-haptics';
 import { logScreen, logFeature, AnalyticsEvents } from '../../src/lib/analytics';
 import { useTourTarget } from "../../src/tour/AppTourProvider";
 import { READING_MAX_WIDTH } from "../../src/lib/layout";
-import { CloseButton, featureColors, space, toneColors, type IoniconName, type Tone } from "../../src/components/ui";
+import { Button, CloseButton, featureColors, space, toneColors, type IoniconName, type Tone } from "../../src/components/ui";
 // Günün Ayeti/Duası kartları UthmanicHafs ile basılır; o font U+06DF, U+06E3 ve
 // U+06EB yuvarlak/işmam yuvalarında gerçek glif taşımaz ve yerlerine noktalı
 // daire çizer (U+06DF tek başına korpüste ~3988 yerde geçer, çoğul -û ekinde).
@@ -330,6 +330,7 @@ function HomeContent() {
       </TouchableOpacity>
 
       {/* Namaz Vakitleri (Ruh hâline göre bölümünün üstünde) */}
+      {!verse && !verseLoading && <Button variant="secondary" label={hs.retry} onPress={handleRefresh} />}
       <View {...prayerTarget} style={[styles.prayerCard, { backgroundColor: f.prayer.bg, borderColor: f.prayer.border }]}>
         <View style={styles.cardHeader}>
           <View style={styles.titleRow}>
@@ -369,6 +370,7 @@ function HomeContent() {
             <Text style={[styles.verseMeal, { color: f.prayer.body }]}>
               {hs.prayerFail}
             </Text>
+            <Button variant="secondary" label={hs.retry} onPress={handleRefresh} />
           </View>
         ) : (
           <View style={[styles.prayerRow, largePrayerText && { flexWrap: "wrap", rowGap: 6 }]}>
@@ -455,6 +457,7 @@ function HomeContent() {
       </TouchableOpacity>
 
       {/* Bugün ne yapmak istiyorsun? */}
+      {!dua && !duaLoading && <Button variant="secondary" label={hs.retry} onPress={handleRefresh} />}
       <View style={[styles.quickWidget, { backgroundColor: c.card, borderColor: c.border }]}>
         <Text style={[styles.quickTitle, { color: c.textMuted }]}>{hs.quickTitle}</Text>
         <View style={styles.quickGrid}>

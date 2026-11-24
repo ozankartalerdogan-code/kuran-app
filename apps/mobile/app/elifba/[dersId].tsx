@@ -643,6 +643,7 @@ export default function DersScreen() {
   } = useQuery({
     queryKey: ["elifba-dersler"],
     queryFn: () => api.elifba.dersler(),
+    retry: false, // API istemcisi zaten sınırlı tekrar yapar.
     staleTime: 60 * 60 * 1000,
   });
   const dersler = useMemo(() => localizeDersler(derslerRaw ?? [], lang), [derslerRaw, lang]);

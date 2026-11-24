@@ -2,6 +2,7 @@ import { defineStrings } from "../index";
 
 export default defineStrings({
   tr: {
+    retry: "Tekrar dene",
     screenTitle: "Kıble Yönü",
     permTitle: "Konum İzni Gerekli",
     permBody: "Kıble pusulası için konum iznine ihtiyaç var.\n\nAyarlar → Uygulama → Kuran Yolu → İzinler → Konum → İzin Ver",
@@ -13,7 +14,7 @@ export default defineStrings({
     noLocTitle: "Konum Alınamadı",
     noLocBody: "GPS sinyali bulunamadı.\n\n• Açık alanda dene\n• Wi-Fi veya mobil veriyi aç\n• Telefon ayarlarından konum servisini etkinleştir",
     locating: "Konumun alınıyor…",
-    locatingSub: "Bu işlem 10–25 saniye sürebilir",
+    locatingSub: "Bu işlem yaklaşık 12 saniye sürebilir",
     approxLocation: "Son konumunla gösteriliyor, güncelleniyor…",
     calibA11y: "Kalibrasyon uyarısını kapat",
     calibPre: "Doğruluk için telefonu ",
@@ -32,6 +33,7 @@ export default defineStrings({
     K: "K", KD: "KD", D: "D", GD: "GD", G: "G", GB: "GB", B: "B", KB: "KB",
   },
   en: {
+    retry: "Try again",
     screenTitle: "Qibla Direction",
     permTitle: "Location Permission Required",
     permBody: "The Qibla compass needs location permission.\n\nSettings → Apps → Kuran Yolu → Permissions → Location → Allow",
@@ -41,7 +43,7 @@ export default defineStrings({
     noLocTitle: "Couldn't Get Location",
     noLocBody: "No GPS signal found.\n\n• Try an open area\n• Turn on Wi-Fi or mobile data\n• Enable location services in your phone settings",
     locating: "Getting your location…",
-    locatingSub: "This may take 10–25 seconds",
+    locatingSub: "This may take about 12 seconds",
     approxLocation: "Showing your last location, updating…",
     calibA11y: "Dismiss the calibration notice",
     calibPre: "For accuracy, move your phone in a ",

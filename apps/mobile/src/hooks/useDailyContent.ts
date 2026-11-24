@@ -190,6 +190,15 @@ export function useDailyContent(): UseDailyContentResult {
       }
     };
 
+    // GPS ve şehir çözümü de bu bütçeye dahildir; zamanlayıcı onların sonrasına kalmaz.
+    safetyTimerRef.current = setTimeout(() => {
+      if (!isCurrent()) return;
+      if (!verseDone) setVerseLoading(false);
+      if (!duaDone) setDuaLoading(false);
+      if (!prayerDone) setPrayerLoading(false);
+      setLoading(false);
+    }, 12_000);
+
     // 0. Günün ayeti + duasını anında göster — bugünün cache'ini doğrudan oku
     try {
       const cacheKey = dailyCacheKey();
@@ -321,15 +330,6 @@ export function useDailyContent(): UseDailyContentResult {
     // Konum çözümü eski ana sayfa davranışıyla aynı; context kurucusu bildirimlerle ortak.
     const coords = await getHomeLocation();
     if (!isCurrent()) return;
-    safetyTimerRef.current = setTimeout(() => {
-      if (!isCurrent()) return;
-      if (!verseDone) setVerseLoading(false);
-      if (!duaDone) setDuaLoading(false);
-      if (!prayerDone) setPrayerLoading(false);
-      if (loadFailed && !anyContentLoaded) setError("Gunluk icerik yuklenemedi.");
-      setLoading(false);
-    }, 10_000);
-
     try {
       const context = await buildPrayerContext(coords.lat, coords.lng);
       if (!isCurrent()) return;
