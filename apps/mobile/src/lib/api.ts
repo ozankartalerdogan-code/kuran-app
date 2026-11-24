@@ -323,7 +323,7 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 
 // Cache sürümü — artırınca tüm eski yerel cache'ler geçersiz olur.
 // (v2: gloss/literal/fark analizi büyük veri güncellemesi)
-const CACHE_VERSION = "v4"; // v4: AsyncStorage → MMKV geçişi, eski cache biçimi geçersiz
+const CACHE_VERSION = "v4"; // Geçmişteki depolama denemesinin sürümü; veri uyumu için korunur.
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 // Diğer modüllerin (örn. useDailyContent) aynı sürümlü anahtarı hardcode etmeden
 // okuyabilmesi için dışa açılır — sürüm ileride tekrar artınca burada da otomatik değişir.
@@ -448,7 +448,7 @@ export const api = {
     // v=4: render artık canonical `arabic` + `tajweedSpans` kullanıyor (markup
     // metni değil). tajweedSpans eski cihaz cache'inde YOK; sürüm artırılmazsa
     // eski kayıtlar renksiz ve yanlış metinle sunulurdu.
-    // Parametre CDN cache'ini, anahtar da yerel MMKV cache'ini yeniler.
+    // Parametre CDN önbelleğini, anahtar da yerel AsyncStorage önbelleğini yeniler.
     page: (page: number) =>
       withCacheFallback(
         `cache_mushaf_v4_p${page}`,

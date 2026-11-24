@@ -52,36 +52,64 @@ mushaf,tecvid,meal,tefsir,namaz vakti,ezan,kıble,dua,hadis,hatim,elifba,arapça
 
 ## Google Play
 
-> 2026-11-12 KARAR: Play'de mevcut TR metin (başlık "Kuran Yolu – İslamı Öğren", 2.400 karakterlik açıklama) korundu; yalnız iki satır değişti ve taslak kaydedildi:
-> - "Yaklaşık konumunuza göre, yurt dışında da namaz vakitlerini görüntüleyin."
-> - "Türkçe ve İngilizce arayüzle kullanılabilir; İngilizce arayüzde M. M. Pickthall'ın 1930 tarihli İngilizce Kuran meali yer alır."
-> Aşağıdaki Play metni kullanılmadı (yalnız sürüm notları geçerli).
->
-> 2026-11-18 Play TR güncellemesi (taslak kaydedildi, ASO):
-> - Kısa açıklama: "Kuran meali, kelime kök analizi, namaz vakitleri, kıble ve elifba tek uygulamada" (80)
-> - "Namaz vakitlerini Diyanet İşleri Başkanlığı verileriyle görüntüleyin; şehrinizi konumunuzla otomatik bulun ya da dünyanın her yerinden elle seçin."
-> - "İsteğe bağlı namaz vakti bildirimleri alın; bildirimler yurt dışında ve farklı saat dilimlerinde de doğru zamanda gelir."
-> - "Elif-Ba (elifba) dersleriyle Arapça harfleri ve temel okuma kurallarını öğrenin; Dinle-Seç alıştırmaları, yanlışlarınızı tekrar ettiren çalışmalar ve ders rozetleriyle pekiştirin."
+> Geçmiş: 2026-11-12 ve 2026-11-18'de yalnız birkaç satır değişti (Diyanet vakitleri, şehir seçimi, Elif-Ba alıştırmaları, ASO kısa açıklama).
+> 2026-11-23: Claude + Neon ASO güncellemesi; yeni başlık/kısa/tam açıklama + 8 yeni ekran görüntüsü (mushaf, kelime, vakit, widget, Elif-Ba, tefsir, kıble, koyu tema) ve yeni özellik grafiği ile İNCELEMEYE GÖNDERİLDİ. Aşağıdaki metin Play'deki ile birebir.
+> Görsel kaynakları ve üretim betiği: masaüstü `kuran-yolu-magaza-gorselleri`.
 
 **Başlık**
-Kuran Yolu
+Kuran Yolu: Meal, Namaz, Kıble (30)
 
 **Kısa açıklama**
-Kuran okuyun, testlerle öğrenin; namaz vakitlerini ve kıbleyi takip edin.
+Reklamsız Kuran oku: tecvitli mushaf, kelime meali, namaz vakitleri ve elifba. (78)
 
 **Tam açıklama**
 
-Kuran Yolu; Kuran okumayı, öğrenmeyi ve günlük ibadeti tek bir mobil uygulamada bir araya getirir.
+Kuran Yolu, Kur'an-ı Kerim'i yalnızca okumakla kalmayıp anlamını ve kelimelerin dil yapısını keşfetmek isteyenler için tasarlanmıştır. Elmalılı Hamdi Yazır meali, kelime kelime inceleme, Arapça kök analizi, tefsir ve öğrenme içerikleriyle kapsamlı bir Kur'an deneyimi sunar. Tamamen ücretsiz ve reklamsızdır; 604 sayfalık tecvitli Mushaf internet olmadan da çalışır.
 
-Kuran'ı tecvid renkli mushaf görünümünde okuyun. Ayetleri kelime kelime morfoloji, kökler ve tefsirle inceleyin.
+KUR'AN-I KERİM
 
-Konu konu dersler ve testlerle çalışın; Elifba dersleriyle Arap harflerini ve okumayı öğrenin. Okurken hatminizi takip edin, favorilerinizi kaydedin ve notlar alın.
+114 surenin tamamını Arapça metin ve Türkçe meal ile okuyun.
+Sure, cüz ve sayfa üzerinden kolayca gezinin.
+Her kelimenin Arapça kökünü, anlamını ve dil bilgisi özelliklerini inceleyin.
+Aynı kökten türeyen kelimelerin geçtiği diğer ayetleri keşfedin.
+Elmalılı Hamdi Yazır'ın orijinal tefsirini ve Kuran Yolu'nun sade açıklamalarını okuyun.
+Mushaf modu ile geleneksel sayfa görünümünde okuyun.
+Tecvit renklerini tercihinize göre açıp kapatın.
+Hatim ilerlemenizi takip edin ve kaldığınız yerden devam edin.
+Ayetleri favorilerinize ekleyin ve kişisel notlar alın.
+Kelime, meal, konu ve kök üzerinden Kur'an'da arama yapın.
 
-Namaz vakitlerini görün, bildirim kurun ve pusulayla kıbleyi bulun. Yurt dışında da konumunuza göre namaz vakitleri hesaplanır. Dualar, hadisler, siyer, peygamber kıssaları ve ibadet rehberlerine göz atın. Android'de ana ekrana emir ayetlerini gösteren bir widget ekleyin.
+ÖĞREN
 
-Uygulama Türkçe ve İngilizce kullanılabilir. İngilizce arayüzde M. M. Pickthall'ın 1930 tarihli İngilizce Kuran meali yer alır.
+Elif-Ba (elifba) dersleriyle Arapça harfleri ve temel okuma kurallarını öğrenin; Dinle-Seç alıştırmaları, yanlışlarınızı tekrar ettiren çalışmalar ve ders rozetleriyle pekiştirin.
+Namaz, abdest, gusül, oruç, zekat, hac ve umre gibi temel ibadetleri çalışın.
+İman esasları, güzel ahlak, siyer ve sahabe hayatları gibi konuları kartlarla öğrenin.
+Ders sonlarındaki testlerle bilgilerinizi pekiştirin.
+Kur'an kelimelerinin köklerinden yararlanarak Arapça kelime dağarcığınızı geliştirin.
 
-Bazı içerik ve araçlar çevrimdışı çalışır; bazıları internet bağlantısı gerektirir. İngilizce dersler, tefsir ve diğer içerikler, uygulamanın Türkçe içeriğinin yapay zekâ destekli çevirisidir.
+İBADET VE GÜNLÜK REHBER
+
+Cihaz sensörlerinden yararlanan kıble pusulasıyla yönünüzü bulun.
+Namaz vakitlerini Diyanet İşleri Başkanlığı verileriyle görüntüleyin; şehrinizi konumunuzla otomatik bulun ya da dünyanın her yerinden elle seçin.
+İsteğe bağlı namaz vakti bildirimleri alın; bildirimler yurt dışında ve farklı saat dilimlerinde de doğru zamanda gelir.
+Namaz rehberlerine, dualara ve namaz surelerine ulaşın.
+Manevi Sığınak, İsm-i Azam ve zikir içeriklerini inceleyin.
+Dijital zikir sayacını (zikirmatik), Esmaül Hüsna, sahih hadisler ve mübarek günler bölümlerini kullanın.
+Android ana ekranınıza Namaz Vakitleri, Sıradaki Vakit ve Emir Ayetleri widget'larını ekleyin.
+
+NEDEN KURAN YOLU?
+
+Tamamen reklamsızdır.
+Reklam kimliği toplamaz.
+Hassas konum izni istemez.
+Namaz vakitleri için kullanılan yaklaşık konum sunucularımızda saklanmaz.
+Favori, not ve ilerleme verileriniz anonim olarak yedeklenir; yedeği istediğiniz an uygulama içinden silebilirsiniz.
+Karanlık mod desteğine sahip sade ve modern bir tasarım sunar.
+Türkçe ve İngilizce arayüzle kullanılabilir; İngilizce arayüzde M. M. Pickthall'ın 1930 tarihli İngilizce Kuran meali yer alır.
+
+Kuran Yolu; meal okumak, ayetlerin kelime köklerini araştırmak, tefsir incelemek, hatim ilerlemesini takip etmek, namaz vakitlerini görüntülemek veya İslam'ı adım adım öğrenmek isteyen herkes için kapsamlı ve reklamsız bir Kur'an ve ibadet rehberidir.
+
+(2901 karakter)
 
 **Sürüm notları (tr-TR)**
 • İngilizce arayüz ve İngilizce Kuran meali (M. M. Pickthall) eklendi.

@@ -4,7 +4,7 @@
  */
 import {
   View, Text, TouchableOpacity, ActivityIndicator,
-  StyleSheet, Modal, FlatList,
+  StyleSheet, Modal, FlatList, Platform,
 } from "react-native";
 import { useState, useEffect, useMemo, useCallback, memo, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -346,7 +346,7 @@ export default function RootDetailScreen() {
         initialNumToRender={8}
         maxToRenderPerBatch={8}
         windowSize={7}
-        removeClippedSubviews
+        removeClippedSubviews={Platform.OS === "android"}
         ListHeaderComponent={
           <>
             <View style={[s.header, { backgroundColor: c.card }]}>

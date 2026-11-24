@@ -4,9 +4,10 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { useLocalSearchParams, router, Stack } from "expo-router";
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useEffect, useCallback, useRef, memo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, prefetchAyah, type VerseItem, type VerseListResponse } from "../../src/lib/api";
 import { useColors } from "../../src/hooks/useColors";
@@ -177,9 +178,8 @@ export default function SurahDetailScreen() {
   const [error, setError]       = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
   // Arapça ayet satırı tercihi: "0" = kapalı, varsayılan açık
-  const [showArabic, setShowArabic] = useState(
-    () => storage.getStringSync(STORAGE_KEYS.surahArabic) !== "0",
-  );
+  const [showArabic, setShowArabic] = useState(true);
+  const showArabicTouchedRef = useRef(false);
   const hint = useContextualHint("surahInteraction", !loading && !error && !!data?.verses.length, String(surahId));
 
   useEffect(() => { logScreen('SureDetay'); }, []);
@@ -187,12 +187,13 @@ export default function SurahDetailScreen() {
   useEffect(() => {
     let active = true;
     storage.getString(STORAGE_KEYS.surahArabic).then((v) => {
-      if (active && v !== null) setShowArabic(v !== "0");
+      if (active && v !== null && !showArabicTouchedRef.current) setShowArabic(v !== "0");
     }).catch(() => {});
     return () => { active = false; };
   }, []);
 
   const handleToggleArabic = useCallback(() => {
+    showArabicTouchedRef.current = true;
     setShowArabic((prev) => {
       const next = !prev;
       storage.setString(STORAGE_KEYS.surahArabic, next ? "1" : "0").catch(() => {});
@@ -304,7 +305,7 @@ if (loading) {
         initialNumToRender={20}
         windowSize={5}
         maxToRenderPerBatch={15}
-        removeClippedSubviews
+        removeClippedSubviews={Platform.OS === "android"}
       />
     </View>
   );

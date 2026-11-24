@@ -10,7 +10,6 @@ function loadLanguage() {
     react: { useSyncExternalStore: () => {} },
     "expo-localization": { getLocales: () => [{ languageCode: "tr" }] },
     "../lib/storage": { storage: {
-      getStringSync: () => null,
       getString: () => read,
       setString: async () => {},
       remove: async () => {},

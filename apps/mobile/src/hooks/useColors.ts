@@ -153,19 +153,11 @@ function notify() {
   listeners.forEach(fn => fn());
 }
 
-// Persisted theme is loaded once through the shared storage adapter.
+// Kayıtlı tema paylaşılan depolama katmanından bir kez yüklenir.
 function ensureLoaded() {
   if (loaded) return;
   loaded = true;
-  // Önce senkron dene (MMKV) — tema İLK boyamadan önce hazır olsun. Async'e
-  // kalırsa ilk kareler açık temayla çizilir: karanlık modda skeleton/yükleme
-  // ekranı beyaz yanıp söner.
-  const sync = storage.getJSONSync<"light" | "dark">(STORAGE_KEYS.nightMode);
-  if (sync) {
-    override = sync;
-    return;
-  }
-  // MMKV yoksa (Expo Go / eski build) AsyncStorage'dan asenkron yükle.
+  // Başlangıçta sistem teması kullanılır; kayıtlı tercih AsyncStorage'dan yüklenir.
   storage
     .getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
     .then((value) => {

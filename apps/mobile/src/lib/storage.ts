@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import type { MMKV as MMKVType } from "react-native-mmkv";
 
 export const STORAGE_KEYS = {
   favorites:       "favoriteVerses",
@@ -26,54 +24,6 @@ export const STORAGE_KEYS = {
   ayahFontScale:   "ayahFontScale",
   surahArabic:     "surahArabicEnabled",
 } as const;
-
-// ── MMKV — güvenli (build-gated) yükleme ───────────────────────────────────────
-// MMKV native modüldür; yeni bir dev/prod build gelene kadar (Expo Go veya
-// mmkv'siz build) require başarısız olur. Bu durumda mmkv=null kalır ve tüm
-// işlemler eskisi gibi AsyncStorage'a düşer → uygulama çökmez, geri dönüşlüdür.
-let mmkv: MMKVType | null = null;
-try {
-  const { MMKV } = require("react-native-mmkv");
-  mmkv = new MMKV();
-} catch {
-  mmkv = null;
-}
-
-export const usingMmkv = mmkv !== null;
-
-// ── AsyncStorage → MMKV tek seferlik migrasyon ─────────────────────────────────
-// Kullanıcının favori/not/ilerleme verisi eskiden AsyncStorage'daydı. MMKV ayrı
-// bir depo olduğu için ilk açılışta bu anahtarları taşırız (yalnız kullanıcı
-// verisi; cache_* anahtarları zaten yeniden çekilir, taşınmaz).
-const MIGRATION_FLAG = "__mmkv_migrated_v1";
-let migrated = mmkv?.getBoolean(MIGRATION_FLAG) ?? false;
-let migrationPromise: Promise<void> | null = null;
-
-export function runMigration(): Promise<void> {
-  const m = mmkv;
-  if (!m || migrated) return Promise.resolve();
-  if (migrationPromise) return migrationPromise;
-  migrationPromise = (async () => {
-    try {
-      const keys = Object.values(STORAGE_KEYS);
-      const pairs = await AsyncStorage.multiGet(keys);
-      for (const [k, v] of pairs) {
-        if (v != null && !m.contains(k)) m.set(k, v);
-      }
-      // Bayrağı YALNIZ başarılı kopyalamadan sonra koy — hata olursa tekrar
-      // denensin (aksi halde eksik migrasyon kalıcı hale gelirdi).
-      m.set(MIGRATION_FLAG, true);
-      migrated = true;
-    } catch (err) {
-      logStorageWarning("migrate", "(all)", err);
-    }
-  })();
-  return migrationPromise;
-}
-
-// Modül yüklenince migrasyonu başlat (fire-and-forget). Async okumalar migrasyon
-// bitene kadar ayrıca AsyncStorage'a düşerek boş-ilk-açılış sorununu önler.
-runMigration();
 
 export class StorageQuotaError extends Error {
   constructor(
@@ -125,36 +75,11 @@ function notifyChange(key: string): void {
 }
 
 export const storage = {
-  // Senkron okuma — yalnız MMKV varken gerçek değer döner (tema/gece modu gibi
-  // ilk-boyama anahtarları için). MMKV yoksa null (AsyncStorage sync okuyamaz).
-  getStringSync(key: string): string | null {
-    if (mmkv) return mmkv.getString(key) ?? null;
-    return null;
-  },
-
-  getJSONSync<T>(key: string, defaultValue: T | null = null): T | null {
-    const raw = this.getStringSync(key);
-    if (!raw) return defaultValue;
-    return safeParse<T>(raw) ?? defaultValue;
-  },
-
   async getString(key: string): Promise<string | null> {
-    if (mmkv) {
-      const v = mmkv.getString(key);
-      if (v != null) return v;
-      // MMKV'de yoksa eski depoya (AsyncStorage) düş — KALICI emniyet ağı.
-      // Bulursa MMKV'ye taşı (tembel migrasyon). Böylece hiçbir anahtar,
-      // toplu migrasyonun yarışı/hatası yüzünden kaybolmaz; veri AsyncStorage'da
-      // durduğu sürece bir sonraki okumada kendiliğinden geri gelir.
-      const legacy = await AsyncStorage.getItem(key);
-      if (legacy != null) { mmkv.set(key, legacy); return legacy; }
-      return null;
-    }
     return AsyncStorage.getItem(key);
   },
 
   async setString(key: string, value: string): Promise<void> {
-    if (mmkv) { mmkv.set(key, value); notifyChange(key); return; }
     await AsyncStorage.setItem(key, value);
     notifyChange(key);
   },
@@ -175,15 +100,12 @@ export const storage = {
   },
 
   async remove(key: string): Promise<void> {
-    if (mmkv) { mmkv.remove(key); notifyChange(key); return; }
     await AsyncStorage.removeItem(key);
     notifyChange(key);
   },
 
   async removeMany(keys: string[]): Promise<void> {
-    const m = mmkv;
-    if (m) { keys.forEach((k) => m.remove(k)); }
-    else { await AsyncStorage.multiRemove(keys); }
+    await AsyncStorage.multiRemove(keys);
     keys.forEach(notifyChange);
   },
 };
