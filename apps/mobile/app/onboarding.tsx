@@ -72,10 +72,14 @@ export default function OnboardingScreen() {
     locked.current = true; setBusy(true);
     await preferenceWrites.current;
     let timer: ReturnType<typeof setTimeout> | undefined;
-    // Yetkilendirilmiş planlama arka planda sürebilir; içerik erişimi onu beklemez.
+    // Sistem izinleri yanıtlandıktan sonra GPS/ağ/planlama için 12 sn tanı.
+    let startSlowTimer!: () => void;
+    const slow = new Promise<"slow">((resolve) => {
+      startSlowTimer = () => { timer = setTimeout(() => resolve("slow"), 12_000); };
+    });
     const outcome = await Promise.race([
-      enablePrayerNotificationsFirstRun().catch(() => "error" as const),
-      new Promise<"slow">((resolve) => { timer = setTimeout(() => resolve("slow"), 12_000); }),
+      enablePrayerNotificationsFirstRun({ onPermissionsResolved: startSlowTimer }).catch(() => "error" as const),
+      slow,
     ]);
     clearTimeout(timer);
     if (outcome === "enabled") { await finish(); return; }

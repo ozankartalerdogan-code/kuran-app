@@ -1,6 +1,23 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseLastAsked, shouldRequestReview, REVIEW_WAIT_MS, REVIEW_INTERVAL_MS, notifyReviewCompletion, subscribeReviewCompletion, isStreakReviewMoment } from "./storeReviewPolicy.ts";
+import { parseLastAsked, shouldRequestReview, REVIEW_WAIT_MS, REVIEW_INTERVAL_MS, notifyReviewCompletion, subscribeReviewCompletion, isStreakReviewMoment, reviewSubscriptionBlocked } from "./storeReviewPolicy.ts";
+
+test("örtü değişimleri tamamlanma aboneliğini kesmez; rehber, arka plan ve onboarding engeller", () => {
+  const ready = { isActive: false, foreground: true, pathname: "/ayah/1/1", busy: false };
+  assert.equal(reviewSubscriptionBlocked(ready), false);
+  ready.busy = true;
+  assert.equal(reviewSubscriptionBlocked(ready), false);
+  for (const change of [{ isActive: true }, { foreground: false }, { pathname: "/onboarding" }]) {
+    assert.equal(reviewSubscriptionBlocked({ ...ready, ...change }), true);
+  }
+  let completions = 0;
+  const unsubscribe = !reviewSubscriptionBlocked(ready)
+    ? subscribeReviewCompletion(() => { completions++; return () => {}; }) : () => {};
+  const leave = notifyReviewCompletion();
+  assert.equal(completions, 1);
+  leave();
+  unsubscribe();
+});
 
 test("değerlendirme tamamlanma, üç açılış, boş örtü ve bekleme ister", () => {
   assert.equal(REVIEW_WAIT_MS, 3_000);

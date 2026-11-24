@@ -1,6 +1,11 @@
 export const REVIEW_WAIT_MS = 3_000;
 export const REVIEW_INTERVAL_MS = 3 * 24 * 60 * 60 * 1000;
 
+// Örtüler aboneliği kesmez; yalnız bekleme sonundaki uygunluk kontrolünü engeller.
+export function reviewSubscriptionBlocked(c: { isActive: boolean; foreground: boolean; pathname: string }): boolean {
+  return c.isActive || !c.foreground || c.pathname === "/onboarding";
+}
+
 export function parseLastAsked(raw: string | null | undefined, nowMs: number): number | null {
   if (raw == null || raw.trim() === '') return null;
   if (raw === 'true') return nowMs;

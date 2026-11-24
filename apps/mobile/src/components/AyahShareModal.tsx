@@ -53,11 +53,13 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
     setSharing(true);
     const ok = await captureAndShareView(cardRef.current, fmt(t.shareImageTitle, { name: surahName, n: ayahNumber }));
     setSharing(false);
+    // iOS expo-sharing iptalde de resolve olur; bunu tamamlanma sayıyoruz.
+    // Sistem puan isteminin gösterilip gösterilmeyeceğini Apple kendi sınırlar.
     if (ok) {
       onShared?.();
       onClose();
     }
-    // Başarısızsa (iptal dahil) modal açık kalır; kullanıcı tekrar deneyebilir
+    // Başarısızsa modal açık kalır; kullanıcı tekrar deneyebilir
     // veya metin paylaşımını seçebilir.
   };
 

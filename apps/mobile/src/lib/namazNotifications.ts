@@ -74,11 +74,16 @@ function localDayStr(d = new Date()): string {
 
 // Konum izni yalnız kullanıcının başlattığı bildirim kurulumunda istenir.
 // Reddedilirse/hata olursa İstanbul kullanılır.
-async function getLocationRequesting(): Promise<Coords> {
+async function getLocationRequesting(onPermissionsResolved: () => void): Promise<Coords> {
   const manual = await getManualCity(diyanetDeps());
-  if (manual !== null) return { lat: manual.lat, lng: manual.lon };
+  if (manual !== null) {
+    onPermissionsResolved();
+    return { lat: manual.lat, lng: manual.lon };
+  }
   try {
-    const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync());
+    // GPS bekleyişi sayaca dahil, sistem izin penceresi dahil değildir.
+    const { status } = await withOverlayBusy(() => Location.requestForegroundPermissionsAsync())
+      .finally(onPermissionsResolved);
     if (status !== "granted") return ISTANBUL_FALLBACK;
     const pos = await Promise.race([
       Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
@@ -548,33 +553,46 @@ export function changeNotificationPreference(
 }
 
 type FirstRunResult = "enabled" | "denied" | "error";
-async function enablePrayerNotificationsFirstRunInner(): Promise<FirstRunResult> {
-  const granted = await requestNotificationPermission();
-  await Promise.all([
-    storage.setString(NOTIF_KEY, granted ? "1" : "0"),
-    storage.setString(DAILY_VERSE_KEY, granted ? "1" : "0"),
-  ]);
-  await storage.remove(SCHED_DAY_KEY);
-  if (!granted) {
-    await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
-    return "denied";
-  }
-  // Planlama başlamadan önce bir kez okunur; konum/şehir çözümü sürerken değişse bile
-  // yazılan damga bu işin başındaki değer olur.
-  let stamp = await fullSchedStamp();
-  const { lat, lng } = await getLocationRequesting();
+type FirstRunOptions = { onPermissionsResolved?: () => void };
+async function enablePrayerNotificationsFirstRunInner(opts?: FirstRunOptions): Promise<FirstRunResult> {
+  let resolved = false;
+  const permissionsResolved = () => {
+    if (resolved) return;
+    resolved = true;
+    opts?.onPermissionsResolved?.();
+  };
   try {
-    const days = await fetchPrayerDays(lat, lng);
-    if (!days?.length) return "error";
-    stamp = stampForDays(stamp, days);
-    await applyNotificationsInner({ days, prayer: true, dailyVerse: true }, stamp);
-    await storage.setString(SCHED_DAY_KEY, stamp);
-    activePlan = { base: stamp.split("|repo2:")[0], signature: stamp.split("|repo2:")[1] };
-    return "enabled";
-  } catch { return "error"; }
+    const granted = await requestNotificationPermission();
+    if (!granted) permissionsResolved();
+    await Promise.all([
+      storage.setString(NOTIF_KEY, granted ? "1" : "0"),
+      storage.setString(DAILY_VERSE_KEY, granted ? "1" : "0"),
+    ]);
+    await storage.remove(SCHED_DAY_KEY);
+    if (!granted) {
+      await applyNotificationsInner({ days: [], prayer: false, dailyVerse: false }, null);
+      return "denied";
+    }
+    // Planlama başlamadan önce bir kez okunur; konum/şehir çözümü sürerken değişse bile
+    // yazılan damga bu işin başındaki değer olur.
+    let stamp = await fullSchedStamp();
+    const { lat, lng } = await getLocationRequesting(permissionsResolved);
+    try {
+      const days = await fetchPrayerDays(lat, lng);
+      if (!days?.length) return "error";
+      stamp = stampForDays(stamp, days);
+      await applyNotificationsInner({ days, prayer: true, dailyVerse: true }, stamp);
+      await storage.setString(SCHED_DAY_KEY, stamp);
+      activePlan = { base: stamp.split("|repo2:")[0], signature: stamp.split("|repo2:")[1] };
+      return "enabled";
+    } catch { return "error"; }
+  } finally {
+    // İzin API'si veya yerel veri okuması hata verse de çağıranı bekletme.
+    permissionsResolved();
+  }
 }
-export function enablePrayerNotificationsFirstRun(): Promise<FirstRunResult> {
-  return notificationQueue.run(enablePrayerNotificationsFirstRunInner);
+export function enablePrayerNotificationsFirstRun(opts?: FirstRunOptions): Promise<FirstRunResult> {
+  return notificationQueue.run(() => enablePrayerNotificationsFirstRunInner(opts));
 }
 export function declinePrayerNotifications(): Promise<void> {
   return notificationQueue.run(async () => {

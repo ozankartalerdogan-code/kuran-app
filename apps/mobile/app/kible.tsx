@@ -349,6 +349,18 @@ export default function KibleScreen() {
       setDistance(calcDist(c.latitude, c.longitude));
     };
 
+    const currentPosition = async (timeoutMs: number) => {
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      try {
+        return await Promise.race([
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+          new Promise<null>(resolve => { timer = setTimeout(() => resolve(null), timeoutMs); }),
+        ]);
+      } finally {
+        clearTimeout(timer);
+      }
+    };
+
     // 1. Anlık konum: son bilinen (yaşı ne olursa olsun) ya da uygulamanın kaydettiği konum.
     //    Pusula hemen açılır; konum eskiyse arka planda yenilenir.
     let last: Location.LocationObject | null = null;
@@ -361,10 +373,7 @@ export default function KibleScreen() {
       setStep("compass");
       if (!quick.refine) return;
       try {
-        const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>(r => setTimeout(() => r(null), 20000)),
-        ]);
+        const pos = await currentPosition(20000);
         if (!isMountedRef.current || runId !== refineRun.current) return;
         if (pos && "coords" in pos) {
           apply(pos.coords);
@@ -380,10 +389,7 @@ export default function KibleScreen() {
     // 2. Balanced (ağ + GPS, Android uyumlu)
     if (!coords) {
       try {
-        const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>(r => setTimeout(() => r(null), 15000)),
-        ]);
+        const pos = await currentPosition(15000);
         if (pos && "coords" in pos) coords = pos.coords;
       } catch { /* ignore */ }
     }
@@ -393,10 +399,7 @@ export default function KibleScreen() {
     if (!isCurrent()) return;
     if (!coords) {
       try {
-        const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>(r => setTimeout(() => r(null), 25000)),
-        ]);
+        const pos = await currentPosition(25000);
         if (pos && "coords" in pos) coords = pos.coords;
       } catch { /* ignore */ }
     }
@@ -453,10 +456,16 @@ export default function KibleScreen() {
   // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
   if (step === "error") {
     return (
-      <View style={[s.centered, { backgroundColor: c.bg, paddingBottom: insets.bottom }]}>
-        <Callout tone="error">{ks.noLocBody}</Callout>
-        <Button variant="secondary" label={ks.retry} onPress={getLocation} />
-      </View>
+      <>
+        <Stack.Screen options={{ title: ks.screenTitle }} />
+        <View style={[s.centered, { backgroundColor: c.bg, paddingBottom: insets.bottom, paddingHorizontal: space.gutter }]}>
+          <Callout tone="error">{ks.noLocBody}</Callout>
+          <View style={s.errorActions}>
+            <Button variant="secondary" label={ks.retry} onPress={getLocation} />
+            <Button variant="secondary" label={ks.goSettings} onPress={() => { void Linking.openSettings(); }} />
+          </View>
+        </View>
+      </>
     );
   }
   if (step === "locating") {
@@ -595,6 +604,7 @@ const s = StyleSheet.create({
   container: { flex: 1 },
   scroll: { flex: 1, alignSelf: "stretch" },
   scrollContent: { flexGrow: 1, alignItems: "center", paddingHorizontal: space.gutter, paddingTop: space.sm },
+  errorActions: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: space.xs },
   centered:  { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
   loadingText: { fontSize: 16, fontWeight: "600", marginTop: 8 },
   loadingSub:  { fontSize: 12 },

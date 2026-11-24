@@ -1,5 +1,5 @@
 import { storage } from '../lib/storage';
-import { Linking } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import { parseLastAsked, shouldRequestReview, REVIEW_WAIT_MS } from './storeReviewPolicy';
 import { withOverlayBusy } from '../tour/overlayBusy';
 
@@ -65,6 +65,11 @@ export async function maybeAskReview(eligible: () => boolean) {
 export async function openStoreListing(): Promise<void> {
   try {
     await storage.setString(REVIEW_RATED_KEY, 'true');
+    if (Platform.OS === 'ios') {
+      const url = StoreReview?.storeUrl();
+      if (url) await Linking.openURL(url);
+      return;
+    }
     // https önce: market:// Samsung'da Galaxy Store'u da aday yapıp "Şununla aç"
     // seçicisi çıkarıyor; play.google.com bağlantısı doğrudan Play Store'da açılır.
     try {
