@@ -2,37 +2,26 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { effectiveScreenRotation, headingForScreen } from "./qiblaScreenRotation.ts";
 
-test("iOS dikey arayüzde fiziksel cihaz dönüşünü yok sayar", () => {
-  for (const orientation of [0, 90, -90, 180]) {
-    assert.equal(effectiveScreenRotation("ios", orientation, false), 0);
+test("iOS her fiziksel cihaz yönünde ekran telafisini sıfır tutar", () => {
+  for (const orientation of [0, 90, -90, 180, undefined, 45, 270, -180, NaN, Infinity]) {
+    assert.equal(effectiveScreenRotation("ios", orientation), 0);
   }
 });
 
-test("iOS yatay arayüzde yalnız iki yatay dönüşü kullanır", () => {
-  assert.equal(effectiveScreenRotation("ios", 90, true), 90);
-  assert.equal(effectiveScreenRotation("ios", -90, true), -90);
-  assert.equal(effectiveScreenRotation("ios", 180, true), 0);
-  assert.equal(effectiveScreenRotation("ios", 0, true), 0);
-});
-
-test("Android arayüz oranından bağımsız olarak ekran dönüşünü korur", () => {
-  for (const uiLandscape of [false, true]) {
-    for (const orientation of [0, 90, 180, -90] as const) {
-      assert.equal(effectiveScreenRotation("android", orientation, uiLandscape), orientation);
-    }
+test("Android ekran dönüşünü korur", () => {
+  for (const orientation of [0, 90, 180, -90] as const) {
+    assert.equal(effectiveScreenRotation("android", orientation), orientation);
   }
 });
 
 test("bilinmeyen dönüş veya platform telafi uygulamaz", () => {
-  for (const uiLandscape of [false, true]) {
-    for (const platform of ["ios", "android", "web"]) {
-      for (const orientation of [undefined, 45, 270, -180, NaN, Infinity]) {
-        assert.equal(effectiveScreenRotation(platform, orientation, uiLandscape), 0);
-      }
+  for (const platform of ["ios", "android", "web"]) {
+    for (const orientation of [undefined, 45, 270, -180, NaN, Infinity]) {
+      assert.equal(effectiveScreenRotation(platform, orientation), 0);
     }
-    for (const orientation of [0, 90, 180, -90]) {
-      assert.equal(effectiveScreenRotation("web", orientation, uiLandscape), 0);
-    }
+  }
+  for (const orientation of [0, 90, 180, -90]) {
+    assert.equal(effectiveScreenRotation("web", orientation), 0);
   }
 });
 

@@ -20,12 +20,12 @@ export function headingForScreen(
 export function effectiveScreenRotation(
   platform: "ios" | "android" | string,
   orientation: number | undefined,
-  uiLandscape: boolean,
 ): 0 | 90 | 180 | -90 {
   if (platform === "ios") {
-    // UIDevice fiziksel yönü bildirir; dikey kilitli arayüz dönmüş sayılmaz.
-    if (!uiLandscape) return 0;
-    return orientation === 90 || orientation === -90 ? orientation : 0;
+    // iPad açılınca arayüz yönü expo-screen-orientation ile alınacak:
+    // UIInterfaceOrientation: LANDSCAPE_RIGHT→+90, LANDSCAPE_LEFT→-90, PORTRAIT_DOWN→180.
+    // DeviceMotion orientation iOS'ta fiziksel yön, işareti ters ve faceUp'ta 0 — KULLANMA.
+    return 0;
   }
   if (platform === "android") {
     // display.rotation doğrudan arayüzün dönüşüdür.

@@ -110,8 +110,6 @@ type Step = "locating" | "compass" | "error";
 
 export default function KibleScreen() {
   const { width, height } = useWindowDimensions();
-  const uiLandscapeRef = useRef(width > height);
-  uiLandscapeRef.current = width > height;
   // Dikey telefonda mevcut ölçü birebir korunur; yatayda kısa kenar da sınırlar.
   const SIZE = Math.min(width - 48, height * (width > height ? 0.48 : 1), 300);
   const OUTER = SIZE + 44;
@@ -183,7 +181,6 @@ export default function KibleScreen() {
       deg = headingForScreen(deg, effectiveScreenRotation(
         Platform.OS,
         Date.now() - lastOrientationAt <= 1500 ? screenRotation : undefined,
-        uiLandscapeRef.current,
       ));
       gotData.current = true;
       headingBuf.current = [...headingBuf.current.slice(-(SMOOTH_N - 1)), deg];
@@ -281,19 +278,21 @@ export default function KibleScreen() {
     let dmFallbackTimer: ReturnType<typeof setTimeout> | null = null;
     const useDeviceMotionHeading = Platform.OS !== "ios" && USE_DEVICE_MOTION;
     let dmStarted = false;
-    // Ekran dönüşü, heading kaynağından bağımsızdır (iOS / mag / location dahil).
-    try {
-      DeviceMotion.setUpdateInterval(SENSOR_MS);
-      subsRef.current.push(DeviceMotion.addListener(d => {
-        if (!active) return;
-        screenRotation = d?.orientation;
-        lastOrientationAt = Date.now();
-        if (useDeviceMotionHeading && d?.rotation) onDeviceMotion(d.rotation.alpha);
-      }));
-      dmStarted = true;
-    } catch {
-      screenRotation = 0;
-      lastOrientationAt = 0;
+    // Android'de ekran dönüşü, heading kaynağından bağımsızdır (mag / location dahil).
+    if (Platform.OS === "android") {
+      try {
+        DeviceMotion.setUpdateInterval(SENSOR_MS);
+        subsRef.current.push(DeviceMotion.addListener(d => {
+          if (!active) return;
+          screenRotation = d?.orientation;
+          lastOrientationAt = Date.now();
+          if (useDeviceMotionHeading && d?.rotation) onDeviceMotion(d.rotation.alpha);
+        }));
+        dmStarted = true;
+      } catch {
+        screenRotation = 0;
+        lastOrientationAt = 0;
+      }
     }
     if (Platform.OS === "ios") {
       // iOS'ta DeviceMotion.rotation.alpha = CMAttitude.yaw (xMagneticNorthZVertical:
@@ -480,7 +479,7 @@ export default function KibleScreen() {
       <>
         <Stack.Screen options={{ title: ks.screenTitle }} />
         <View style={[s.centered, { backgroundColor: c.bg, paddingBottom: insets.bottom, paddingHorizontal: space.gutter }]}>
-          <Callout tone="error">{ks.noLocBody}</Callout>
+          <Callout tone="error" style={s.errorBox}>{ks.noLocBody}</Callout>
           <View style={s.errorActions}>
             <Button variant="secondary" label={ks.retry} onPress={getLocation} />
             <Button variant="secondary" label={ks.goSettings} onPress={() => { void Linking.openSettings(); }} />
@@ -625,6 +624,7 @@ const s = StyleSheet.create({
   container: { flex: 1 },
   scroll: { flex: 1, alignSelf: "stretch" },
   scrollContent: { flexGrow: 1, alignItems: "center", paddingHorizontal: space.gutter, paddingTop: space.sm },
+  errorBox: { width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   errorActions: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: space.xs },
   centered:  { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
   loadingText: { fontSize: 16, fontWeight: "600", marginTop: 8 },
