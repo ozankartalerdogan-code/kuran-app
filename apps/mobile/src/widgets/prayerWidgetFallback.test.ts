@@ -68,11 +68,13 @@ test("writer keeps at most 16 distinct days in [-1..14]; parser rejects oversize
   assert.equal(api.parseFallbackSnapshot(JSON.stringify({ ...parsed, records: [day(), day()] }), nowMs), null);
 });
 
-test("snapshot expires strictly after 14 days and future/invalid clocks fail closed", () => {
+test("snapshot expires strictly after 14 days; clock rollback allows at most 5 minutes", () => {
   const json = api.serializeFallbackSnapshot(snapshot());
   assert.ok(api.parseFallbackSnapshot(json, nowMs + 14 * DAY_MS));
   assert.equal(api.parseFallbackSnapshot(json, nowMs + 14 * DAY_MS + 1), null);
-  assert.equal(api.parseFallbackSnapshot(json, nowMs - 1), null);
+  assert.ok(api.parseFallbackSnapshot(json, nowMs - 1));
+  assert.ok(api.parseFallbackSnapshot(json, nowMs - 5 * 60_000));
+  assert.equal(api.parseFallbackSnapshot(json, nowMs - 5 * 60_000 - 1), null);
   assert.equal(api.parseFallbackSnapshot(json, NaN), null);
 });
 

@@ -27,6 +27,7 @@ struct NamazWidgetPayload: Codable, Equatable, Sendable {
     let theme: String?
     let city: String
     let tz: String
+    let approximate: Bool?
     let emptyText: String
     let focusHeading: String
     let nextLabel: String
@@ -125,6 +126,7 @@ struct NamazWidgetPayload: Codable, Equatable, Sendable {
             theme: nil,
             city: isTr ? "İstanbul" : "Istanbul",
             tz: tz,
+            approximate: nil,
             emptyText: defaultEmptyText(isTurkish: isTr),
             focusHeading: isTr ? "SIRADAKİ · İSTANBUL" : "NEXT · ISTANBUL",
             nextLabel: isTr ? "SIRADAKİ" : "NEXT",
@@ -158,6 +160,7 @@ struct PrayerCell: Identifiable, Equatable, Sendable {
 
 struct ComputedPrayerState: Equatable, Sendable {
     let city: String
+    let approximate: Bool
     let nextLabel: String
     let heading: String
     let name: String
@@ -203,6 +206,19 @@ enum NamazCalculator {
             )
         }
 
+        if payload.approximate == true {
+            guard let payloadTz = TimeZone(identifier: payload.tz),
+                  payloadTz.secondsFromGMT(for: now) == TimeZone.current.secondsFromGMT(for: now)
+            else {
+                return NamazViewState(
+                    lang: payload.lang,
+                    theme: payload.theme,
+                    emptyText: resolvedEmptyText,
+                    prayer: nil
+                )
+            }
+        }
+
         let nowMs = now.timeIntervalSince1970 * 1000.0
         guard let match = nextPrayer(in: payload.days, nowMs: nowMs),
               let nextIndex = match.day.prayers.firstIndex(where: { $0.key == match.prayer.key && $0.atMs == match.prayer.atMs })
@@ -221,7 +237,8 @@ enum NamazCalculator {
 
         let todayYmd = ymdString(from: now, timeZoneIdentifier: payload.tz)
         let todayHijri = payload.days.first(where: { $0.date == todayYmd })?.hijri ?? ""
-        let heading = [trimmedCity, todayHijri].filter { !$0.isEmpty }.joined(separator: " · ")
+        let displayCity = payload.approximate == true ? "\(trimmedCity) (~)" : trimmedCity
+        let heading = [displayCity, todayHijri].filter { !$0.isEmpty }.joined(separator: " · ")
 
         let name = payload.names[next.key.rawValue] ?? next.key.rawValue
         let toLabel = payload.toLabels[next.key.rawValue] ?? name
@@ -257,6 +274,7 @@ enum NamazCalculator {
             emptyText: resolvedEmptyText,
             prayer: ComputedPrayerState(
                 city: trimmedCity,
+                approximate: payload.approximate == true,
                 nextLabel: payload.nextLabel,
                 heading: heading,
                 name: name,

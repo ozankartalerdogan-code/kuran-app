@@ -117,7 +117,6 @@ export function useDailyContent(): UseDailyContentResult {
   const prayerContextRef = useRef<PrayerContext | null>(null);
   const lastLocationCheckRef = useRef(0);
   const locationCheckInFlightRef = useRef(false);
-  const fallbackSignatureRef = useRef("");
   const fallbackWriteRef = useRef<Promise<void>>(Promise.resolve());
 
   const watchPrayers = useCallback((context: PrayerContext, coords: { lat: number; lng: number },
@@ -130,6 +129,7 @@ export function useDailyContent(): UseDailyContentResult {
     // not a resolved name for this context.
     let cityLabel = "";
     let hasAladhan = false;
+    let lastFallbackSignature = "";
     const syncFallback = () => {
       if (!context.cityKey.startsWith("geo:") || !hasAladhan || !cityLabel.trim()) return;
       const city = cityLabel === ISTANBUL.city && getLang() === "en" ? "Istanbul" : cityLabel;
@@ -147,24 +147,33 @@ export function useDailyContent(): UseDailyContentResult {
         const serialized = serializeFallbackSnapshot(snapshot);
         if (!serialized) return;
         const contentSignature = JSON.stringify({ ...JSON.parse(serialized), writtenAtMs: 0 });
-        if (contentSignature === fallbackSignatureRef.current) return;
+        if (contentSignature === lastFallbackSignature) return;
         await writePrayerWidgetFallback(snapshot);
-        fallbackSignatureRef.current = contentSignature;
+        lastFallbackSignature = contentSignature;
         if (isActive()) await refreshPrayerWidgetsNow();
       }).catch(() => {});
+    };
+    const applyLocationLabel = () => {
+      if (!isActive() || diyanetCityRef.current || !context.cityKey.startsWith("geo:")) return;
+      cityLabel = getLang() === "tr" ? "Konumunuz" : "Your location";
+      setPrayerCityState(cityLabel);
+      syncFallback();
     };
     if (!context.cityKey.startsWith("m")) {
       Location.reverseGeocodeAsync({ latitude: coords.lat, longitude: coords.lng })
         .then(geo => {
           if (!isActive() || diyanetCityRef.current) return;
           const place = geo[0];
-          const name = place?.city ?? place?.subregion ?? place?.region;
+          const name = [place?.city, place?.subregion, place?.region, place?.country]
+            .find(value => value?.trim());
           if (name) {
             cityLabel = name;
             setPrayerCityState(name);
             syncFallback();
+          } else {
+            applyLocationLabel();
           }
-        }).catch(() => {});
+        }).catch(applyLocationLabel);
     }
     const today = prayerDateInZone(Date.now(), context.cityTimeZone);
     setPrayerWindow({ date: today, zone: context.cityTimeZone });
@@ -180,9 +189,10 @@ export function useDailyContent(): UseDailyContentResult {
         hasAladhan = day.source === "aladhan";
         if (day.source === "diyanet") {
           fallbackWriteRef.current = fallbackWriteRef.current.then(async () => {
-            if (!isActive() || fallbackSignatureRef.current === "diyanet") return;
+            if (!isActive() || lastFallbackSignature === "diyanet") return;
             await clearPrayerWidgetFallback();
-            fallbackSignatureRef.current = "diyanet";
+            lastFallbackSignature = "diyanet";
+            if (isActive()) await refreshPrayerWidgetsNow();
           }).catch(() => {});
         } else {
           syncFallback();

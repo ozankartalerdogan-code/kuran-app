@@ -118,6 +118,13 @@ struct SmallNamazView: View {
                         .foregroundStyle(palette.muted)
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
+                    if prayer.approximate {
+                        Text("(~)")
+                            .font(.system(size: 11))
+                            .foregroundStyle(palette.muted)
+                            .fixedSize(horizontal: true, vertical: false)
+                            .layoutPriority(1)
+                    }
                 }
 
                 Spacer(minLength: 0)

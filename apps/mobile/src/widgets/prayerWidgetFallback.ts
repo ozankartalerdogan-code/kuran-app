@@ -28,7 +28,7 @@ function cityLabel(value: unknown): value is string {
 /** Rebuild every field: repository revisions can contain coordinate identities too. */
 function normalize(value: unknown, nowMs: number, truncate: boolean): PrayerWidgetFallbackV1 | null {
   if (!object(value) || value.v !== 1 || !cityLabel(value.city) || typeof value.tz !== "string" ||
-    !finite(value.writtenAtMs) || !finite(nowMs) || value.writtenAtMs > nowMs ||
+    !finite(value.writtenAtMs) || !finite(nowMs) || value.writtenAtMs > nowMs + 5 * 60_000 ||
     nowMs - value.writtenAtMs > 14 * DAY_MS || !Array.isArray(value.records) ||
     (!truncate && value.records.length > MAX_DAYS)) return null;
   try {

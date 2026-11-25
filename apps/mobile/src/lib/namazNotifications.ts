@@ -162,7 +162,7 @@ export async function fetchPrayerDays(lat: number, lng: number): Promise<DayTime
           { cityKey: context.cityKey, cityTimeZone: context.cityTimeZone },
           Array.from({ length: 16 }, (_, i) => addDaysYmd(date, i - 1)),
         )).filter(record => record.source === "aladhan");
-        if (cached.length) await writePrayerWidgetFallback({
+        if (cached.length && !(await getManualCity(diyanetDeps()))) await writePrayerWidgetFallback({
           city: snapshot.city, tz: context.cityTimeZone, writtenAtMs, records: cached,
         });
       }

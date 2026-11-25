@@ -19,6 +19,7 @@ export type IosWidgetPayload = {
   theme: "light" | "dark" | null;
   city: string;
   tz: string;
+  approximate?: boolean;
   emptyText: string;
   focusHeading: string;
   nextLabel: string;
@@ -45,8 +46,7 @@ type BuildIosWidgetPayloadInput = {
 
 export function buildIosWidgetPayload(input: BuildIosWidgetPayloadInput): IosWidgetPayload {
   const { lang, theme, nowMs } = input;
-  const cityName = input.city ? (lang === "en" ? input.city.replace(/İ/g, "I") : input.city) : "";
-  const city = cityName && input.approximate ? `${cityName} (~)` : cityName;
+  const city = input.city ? (lang === "en" ? input.city.replace(/İ/g, "I") : input.city) : "";
   const tz = city ? input.tz : "";
   const emptyText = lang === "tr" ? "Vakitler için uygulamayı açın" : "Open the app to load prayer times";
   const focusHeading = city
@@ -93,6 +93,7 @@ export function buildIosWidgetPayload(input: BuildIosWidgetPayloadInput): IosWid
     theme,
     city,
     tz,
+    ...(input.approximate && city ? { approximate: true } : {}),
     emptyText,
     focusHeading,
     nextLabel: lang === "tr" ? "SIRADAKİ" : "NEXT",

@@ -63,22 +63,27 @@ const today = day("2026-11-19");
 const tomorrow = day("2026-11-20");
 const nowMs = Date.parse("2026-11-19T11:15:00+03:00");
 
-test("approximate true/false: TR ve EN işaretleri, a11y ve v1 şeması", () => {
+test("approximate true/false: temiz şehir, TR/EN a11y ve geriye uyumlu v1 şeması", () => {
   for (const lang of ["tr", "en"] as const) {
     const input = { records: [today], city: "İstanbul", tz: "Europe/Istanbul", lang, theme: null, nowMs };
     const regular = api.buildIosWidgetPayload({ ...input, approximate: false });
     const approximate = api.buildIosWidgetPayload({ ...input, approximate: true });
     assert.deepEqual(regular, api.buildIosWidgetPayload(input));
-    assert.equal(approximate.city, `${regular.city} (~)`);
-    assert.equal(approximate.focusHeading, `${regular.focusHeading} (~)`);
+    assert.equal(approximate.city, regular.city);
+    assert.equal(approximate.focusHeading, regular.focusHeading);
     assert.equal(approximate.a11yNext, `${lang === "tr" ? "Yaklaşık vakitler." : "Approximate times."} ${regular.a11yNext}`);
-    assert.deepEqual(Object.keys(approximate), Object.keys(regular));
+    assert.equal(approximate.approximate, true);
+    assert.equal(Object.hasOwn(regular, "approximate"), false);
+    assert.deepEqual(JSON.parse(JSON.stringify(approximate)), {
+      ...regular, approximate: true, a11yNext: approximate.a11yNext,
+    });
     assert.equal(approximate.v, 1);
     assert.deepEqual(approximate.days, regular.days);
     const empty = api.buildIosWidgetPayload({ ...input, city: "", approximate: true });
     assert.equal(empty.city, "");
     assert.equal(empty.focusHeading, "");
     assert.equal(empty.a11yNext, regular.a11yNext);
+    assert.equal(Object.hasOwn(empty, "approximate"), false);
   }
 });
 
@@ -99,7 +104,8 @@ test("writeIosWidgetPayload: kaynağın approximate alanını payload'a geçirir
     },
   });
   await iosApi.writeIosWidgetPayload(nowMs);
-  assert.equal(payload?.city, "Berlin (~)");
+  assert.equal(payload?.city, "Berlin");
+  assert.equal(payload?.approximate, true);
   assert.match(payload!.a11yNext, /Approximate times\./);
 });
 
