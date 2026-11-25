@@ -18,6 +18,11 @@ import { magneticDeclination } from "../src/lib/geomagnetism";
 import { calcQibla, calcDist } from "../src/lib/qiblaMath";
 import { chooseQuickFix } from "../src/lib/qiblaLocation";
 import { effectiveScreenRotation, headingForScreen } from "../src/lib/qiblaScreenRotation";
+import {
+  createWarningState, selectActiveWarning, isSensorUnreliable, setLocationStale,
+  stepAccuracy, stepTilt, stepMagnetic, calcTiltFromAccel, calcTiltFromRotation, calcMagneticMagnitude,
+  type QiblaWarningKind, type QiblaWarningState,
+} from "../src/lib/qiblaWarnings";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getSavedCoords, rememberCoords } from "../src/lib/namazNotifications";
 
@@ -68,6 +73,15 @@ const DEADBAND_DEG = 0.5; // bunun altındaki yön değişimi ekrana yansımaz (
 // örnekler arası 20–40° atlıyor, ibre basamaklı/titrek görünüyordu (A35'te ölçüldü).
 const SENSOR_MS = 50;
 const ANIM_MS = 70;
+const MAG_MONITOR_MS = 500;
+const TILT_IOS_MS = 200;
+
+const WARNING_CONTENT = {
+  tilted: { text: "warnTilted", a11y: "warnTiltedA11y", icon: "phone-portrait-outline" },
+  magnetic_interference: { text: "warnMagnetic", a11y: "warnMagneticA11y", icon: "magnet-outline" },
+  low_accuracy: { text: "warnLowAccuracy", a11y: "warnLowAccuracyA11y", icon: "sync-outline" },
+  stale_location: { text: "warnStaleLocation", a11y: "warnStaleLocationA11y", icon: "location-outline" },
+} as const;
 
 // 8 yönlü pusula gülü + 30°'lik tik açıları
 const DIRS = [
@@ -107,8 +121,7 @@ export default function KibleScreen() {
   const [permissionReady, setPermissionReady] = useState(false);
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
-  // Yaklaşık (eski/kayıtlı) konumla açıldı; arka planda yenileniyor.
-  const [approx, setApprox]       = useState(false);
+  const [locationState, setLocationState] = useState<"fresh" | "updating" | "stale">("fresh");
   const refineRun = useRef(0);
   useEffect(() => {
     if (step !== "locating" || !permissionReady) return;
@@ -121,6 +134,10 @@ export default function KibleScreen() {
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
   const [isAligned, setIsAligned] = useState(false);
+  const warningStateRef = useRef(createWarningState());
+  const [activeWarning, setActiveWarning] = useState<QiblaWarningKind | null>(null);
+  const activeWarningRef = useRef<QiblaWarningKind | null>(null);
+  const compassOkRef = useRef<boolean | null>(null);
 
   const headingBuf = useRef<number[]>([]);
   const gotData    = useRef(false);
@@ -147,6 +164,26 @@ export default function KibleScreen() {
   const headingAnim = useRef(new Animated.Value(0)).current; // unwrapped heading
   const needleAnim  = useRef(new Animated.Value(0)).current; // unwrapped ibre açısı
 
+  const syncWarning = useCallback((nextState: QiblaWarningState) => {
+    warningStateRef.current = nextState;
+    const compassAvailable = compassOkRef.current !== false;
+    const next = selectActiveWarning(nextState, compassAvailable);
+    if (next === activeWarningRef.current) return;
+    activeWarningRef.current = next;
+    setActiveWarning(next);
+    if (isSensorUnreliable(next) && alignedRef.current) {
+      alignedRef.current = false;
+      setIsAligned(false);
+    }
+  }, []);
+
+  const setCompassStatus = useCallback((ok: boolean | null) => {
+    if (compassOkRef.current === ok) return;
+    compassOkRef.current = ok;
+    setCompassOk(ok);
+    syncWarning(warningStateRef.current);
+  }, [syncWarning]);
+
   // Aynı ibre/hizalama hesabı hem heading hem konum değişiminde çalışır.
   const updateNeedle = useCallback((q: number, avg: number) => {
     const needle0 = (q - avg + 360) % 360; // 0–360
@@ -156,7 +193,8 @@ export default function KibleScreen() {
 
     // Hizalama: ibre ±ALIGN_DEG içindeyse → haptic (yalnız ilk girişte) + görsel vurgu
     const off = Math.min(needle0, 360 - needle0); // Kabe'den sapma, 0–180
-    const aligned = alignedRef.current ? off <= UNALIGN_DEG : off <= ALIGN_DEG;
+    const aligned = !isSensorUnreliable(activeWarningRef.current)
+      && (alignedRef.current ? off <= UNALIGN_DEG : off <= ALIGN_DEG);
     if (aligned !== alignedRef.current) {
       alignedRef.current = aligned;
       setIsAligned(aligned);
@@ -170,6 +208,7 @@ export default function KibleScreen() {
 
   // Heading — Magnetometer (varsa, güvenilir) → yoksa watchHeadingAsync'e düş.
   useEffect(() => {
+    syncWarning(setLocationStale(createWarningState(), warningStateRef.current.locationStale));
     if (step !== "compass") return;
 
     let active = true;
@@ -206,13 +245,15 @@ export default function KibleScreen() {
       if (q !== null) {
         updateNeedle(q, avg);
       }
-      setCompassOk(true);
+      setCompassStatus(true);
     };
 
     // Tilt telafili manyetik yön: ivmeölçer ile eğim düzeltmesi.
     // Telefon düz tutulurken sonuç eskisiyle birebir (pitch=roll=0 → atan2(mx,my));
     // telefon eğikken yön hatası belirgin biçimde azalır.
     const onMag = (mx: number, my: number, mz: number) => {
+      if (!active) return;
+      syncWarning(stepMagnetic(warningStateRef.current, calcMagneticMagnitude(mx, my, mz), Date.now()));
       const { x: ax, y: ay, z: az } = accRef.current;
       const norm = Math.hypot(ax, ay, az) || 1;
       const axn = ax / norm, ayn = ay / norm;
@@ -240,21 +281,42 @@ export default function KibleScreen() {
     // tilt-telafili), Android'de yedek. trueHeading yoksa (-1) manyetik yöne
     // deklinasyon eklenir — diğer yollarla aynı gerçek-kuzey referansı.
     const startLocationHeading = () => {
-      Location.watchHeadingAsync(h => onDeg(
-        h.trueHeading >= 0 ? h.trueHeading : (h.magHeading + declRef.current + 360) % 360,
-      ))
+      Location.watchHeadingAsync(h => {
+        if (!active) return;
+        syncWarning(stepAccuracy(warningStateRef.current, h.accuracy, Date.now()));
+        gotData.current = true;
+        setCompassStatus(true);
+        // Doğruluk düşük/0 olsa da ibre dönmeye devam eder (uyarı şeridi + hizalama durur);
+        // kalibrasyonsuz iPhone'da ibre donup "uygulama kilitlendi" izlenimi vermesin.
+        const deg = h.trueHeading >= 0 ? h.trueHeading : (h.magHeading + declRef.current + 360) % 360;
+        if (!Number.isFinite(deg) || h.magHeading < 0) return;
+        onDeg(deg);
+      })
         .then(sub => { if (active) subsRef.current.push(sub); else sub.remove(); })
-        .catch(() => { if (active) setCompassOk(false); });
+        .catch(() => { if (active) setCompassStatus(false); });
     };
 
     // Manyetometre + ivmeölçer (tilt-telafili) — kanıtlanmış yol; DeviceMotion
     // yoksa/veri vermezse buna düşülür. isAvailableAsync Android'de güvenilmez →
     // doğrudan addListener dene; exception = modül build'de yok (no-mod).
+    let magMonitorSub: { remove: () => void } | null = null;
+    let magnetometerStarted = false;
     const startMagnetometer = () => {
+      if (magMonitorSub) {
+        magMonitorSub.remove();
+        subsRef.current = subsRef.current.filter(sub => sub !== magMonitorSub);
+        magMonitorSub = null;
+      }
+      magnetometerStarted = true;
       try {
         Accelerometer.setUpdateInterval(SENSOR_MS);
         Magnetometer.setUpdateInterval(SENSOR_MS);
-        subsRef.current.push(Accelerometer.addListener(d => { accRef.current = d; }));
+        subsRef.current.push(Accelerometer.addListener(d => {
+          if (!active) return;
+          accRef.current = d;
+          syncWarning(stepTilt(warningStateRef.current,
+            calcTiltFromAccel(accRef.current.x, accRef.current.y, accRef.current.z), Date.now()));
+        }));
         subsRef.current.push(Magnetometer.addListener(({ x, y, z }) => onMag(x, y, z)));
       } catch {
         startLocationHeading(); // expo-sensors yoksa son çare
@@ -274,6 +336,10 @@ export default function KibleScreen() {
           if (!active) return;
           screenRotation = d?.orientation;
           lastOrientationAt = Date.now();
+          if (!magnetometerStarted && d?.rotation) {
+            syncWarning(stepTilt(warningStateRef.current,
+              calcTiltFromRotation(d.rotation.beta, d.rotation.gamma), Date.now()));
+          }
           if (useDeviceMotionHeading && d?.rotation) onDeviceMotion(d.rotation.alpha);
         }));
         dmStarted = true;
@@ -288,7 +354,22 @@ export default function KibleScreen() {
       // DM_OFFSET Android'e göre ayarlı. iOS'un kendi heading servisi doğrudan
       // pusula yönü verir; platform farkı taşımaz.
       startLocationHeading();
+      try {
+        Accelerometer.setUpdateInterval(TILT_IOS_MS);
+        subsRef.current.push(Accelerometer.addListener(({ x, y, z }) => {
+          if (!active) return;
+          syncWarning(stepTilt(warningStateRef.current, calcTiltFromAccel(x, y, z), Date.now()));
+        }));
+      } catch { /* Yardımcı eğim sensörü kullanılamasa da heading devam eder. */ }
     } else if (useDeviceMotionHeading && dmStarted) {
+      try {
+        Magnetometer.setUpdateInterval(MAG_MONITOR_MS);
+        magMonitorSub = Magnetometer.addListener(({ x, y, z }) => {
+          if (!active) return;
+          syncWarning(stepMagnetic(warningStateRef.current, calcMagneticMagnitude(x, y, z), Date.now()));
+        });
+        subsRef.current.push(magMonitorSub);
+      } catch { /* Yardımcı manyetik izleme heading akışını durdurmaz. */ }
       dmFallbackTimer = setTimeout(() => {
         if (active && !gotData.current) startMagnetometer();
       }, 1500);
@@ -298,7 +379,7 @@ export default function KibleScreen() {
 
     // 3 sn içinde veri gelmezse net bildir: donanım yok / no-mod=build sorunu
     const noDataTimer = setTimeout(() => {
-      if (active && !gotData.current) setCompassOk(false);
+      if (active && !gotData.current) setCompassStatus(false);
     }, 3000);
 
     return () => {
@@ -308,8 +389,9 @@ export default function KibleScreen() {
       subsRef.current.forEach(sub => sub.remove());
       subsRef.current = [];
       headingBuf.current = [];
+      warningStateRef.current = setLocationStale(createWarningState(), warningStateRef.current.locationStale);
     };
-  }, [step, headingAnim, updateNeedle]);
+  }, [step, headingAnim, updateNeedle, syncWarning, setCompassStatus]);
 
   // Pick ekranı yok — hata/iptal durumunda ana sayfaya dön, uyarı orada görünür
   const goHome = useCallback(() => {
@@ -320,6 +402,8 @@ export default function KibleScreen() {
   // Konum al — Balanced doğruluk, 3 aşamalı fallback
   // force: "Konumu Yenile" — son bilinen konum taze olsa da yeni konum istenir (yolculukta eski konum kalmasın).
   const getLocation = useCallback(async (force = false) => {
+    setLocationState("fresh");
+    syncWarning(setLocationStale(warningStateRef.current, false));
     setStep("locating");
     setPermissionReady(false);
     const runId = ++refineRun.current;
@@ -359,6 +443,8 @@ export default function KibleScreen() {
       qiblaRef.current = q;
       setQibla(q);
       setDistance(calcDist(c.latitude, c.longitude));
+      setLocationState("fresh");
+      syncWarning(setLocationStale(warningStateRef.current, false));
       if (gotData.current) updateNeedle(q, ((headingRef.current % 360) + 360) % 360);
       return true;
     };
@@ -383,7 +469,7 @@ export default function KibleScreen() {
     if (!isCurrent()) return;
     if (quick) {
       if (!apply(quick.coords)) return;
-      setApprox(quick.refine || force);
+      setLocationState(quick.refine || force ? "updating" : "fresh");
       setStep("compass");
       if (!quick.refine && !force) return;
       try {
@@ -392,9 +478,15 @@ export default function KibleScreen() {
         if (pos && "coords" in pos) {
           if (!apply(pos.coords)) return;
           rememberCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-          setApprox(false);
+        } else {
+          setLocationState("stale");
+          syncWarning(setLocationStale(warningStateRef.current, true));
         }
-      } catch { /* yaklaşık konumla devam */ }
+      } catch {
+        if (!isCurrent()) return;
+        setLocationState("stale");
+        syncWarning(setLocationStale(warningStateRef.current, true));
+      }
       return;
     }
 
@@ -427,9 +519,8 @@ export default function KibleScreen() {
 
     if (!apply(coords)) return;
     rememberCoords({ lat: coords.latitude, lng: coords.longitude });
-    setApprox(false);
     setStep("compass");
-  }, [goHome, updateNeedle]);
+  }, [goHome, updateNeedle, syncWarning]);
 
   // Ekrana girince doğrudan konumdan pusulaya geç (ana menüden tıklayınca)
   const autoStarted = useRef(false);
@@ -445,11 +536,14 @@ export default function KibleScreen() {
   const needleCounter = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "-1deg"], extrapolate: "extend" });  // -needle (emoji dik kalır)
   const tailRotate    = needleAnim.interpolate({ inputRange: [0, 1], outputRange: ["180deg", "181deg"], extrapolate: "extend" }); // needle+180
 
-  const alignmentState = compassOk === true ? isAligned : null;
+  const sensorUnreliable = isSensorUnreliable(activeWarning);
+  const warningContent = activeWarning ? WARNING_CONTENT[activeWarning] : null;
+  const alignmentState = compassOk === true && !sensorUnreliable ? isAligned : null;
   const previousAlignment = useRef<boolean | null>(null);
   const compassSummary = fmt(ks.compassSummary, {
     degrees: Math.round(qibla ?? 0),
-    state: alignmentState === null ? ks.alignmentUnavailable : alignmentState ? ks.facingKaaba : ks.notFacingKaaba,
+    state: sensorUnreliable ? ks.alignmentPaused
+      : alignmentState === null ? ks.alignmentUnavailable : alignmentState ? ks.facingKaaba : ks.notFacingKaaba,
   });
   useEffect(() => {
     const previous = previousAlignment.current;
@@ -508,7 +602,13 @@ export default function KibleScreen() {
         >
 
         {/* Kalibrasyon — sade tek satır (uyarı tonu + ortak kapat düğmesi) */}
-        {showCalib && (
+        {warningContent ? (
+          <View accessible accessibilityLiveRegion="polite" accessibilityLabel={ks[warningContent.a11y]}
+            style={[s.calibSlim, { backgroundColor: calib.bg, borderColor: calib.border }]}>
+            <Ionicons name={warningContent.icon} size={18} color={calib.text} accessible={false} importantForAccessibility="no" />
+            <Text style={[s.calibSlimText, { color: calib.text }]}>{ks[warningContent.text]}</Text>
+          </View>
+        ) : showCalib && (
           <View style={[s.calibSlim, { backgroundColor: calib.bg, borderColor: calib.border }]}>
             <Ionicons name="sync-outline" size={18} color={calib.text} accessible={false} importantForAccessibility="no" />
             <Text style={[s.calibSlimText, { color: calib.text }]}>{ks.calibPre}<Text style={{ fontWeight: "800" }}>{ks.calibBold}</Text>{ks.calibPost}</Text>
@@ -520,7 +620,7 @@ export default function KibleScreen() {
         {distance != null && (
           <Text style={[s.distText, { color: c.textSecondary }]}>{fmt(ks.distanceToKaaba, { d: Math.round(distance).toLocaleString(localeTag()) })}</Text>
         )}
-        {approx && (
+        {locationState === "updating" && (
           <Text style={[s.loadingSub, s.approx, { color: c.textSecondary }]} accessibilityLiveRegion="polite">{ks.approxLocation}</Text>
         )}
 
@@ -561,11 +661,11 @@ export default function KibleScreen() {
           {/* İÇ DAİRE = Kabe ibresi (ayrı döner) + merkez göbeği */}
           <View style={[s.face, { backgroundColor: faceBg, borderColor: isAligned ? c.accent : c.border }, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             {/* Kuyruk (zıt yön) — denge için */}
-            <Animated.View style={[s.needleLayer, { transform: [{ rotate: tailRotate }] }]}>
+            <Animated.View style={[s.needleLayer, { opacity: sensorUnreliable ? 0.55 : 1, transform: [{ rotate: tailRotate }] }]}>
               <View style={[s.needleTail, { backgroundColor: c.border }, { height: Math.max(0, FACE / 2 - 34) }]} />
             </Animated.View>
             {/* Kabe oku */}
-            <Animated.View style={[s.needleLayer, { transform: [{ rotate: needleRotate }] }]}>
+            <Animated.View style={[s.needleLayer, { opacity: sensorUnreliable ? 0.55 : 1, transform: [{ rotate: needleRotate }] }]}>
               <View style={[s.kaabaBadge, { backgroundColor: kaabaBg, borderColor: kaabaBorder }]}>
                 <Animated.Text accessible={false} importantForAccessibility="no" style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
@@ -599,7 +699,7 @@ export default function KibleScreen() {
           tone="accent"
           icon="refresh-outline"
           label={ks.refresh}
-          onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(true); }}
+          onPress={() => { setCompassStatus(null); setShowCalib(true); getLocation(true); }}
           accessibilityLabel={ks.refreshA11y}
           style={s.refreshBtn}
         />
