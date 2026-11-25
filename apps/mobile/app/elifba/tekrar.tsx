@@ -9,6 +9,7 @@ import { useColors } from "../../src/hooks/useColors";
 import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { useLang, useStrings } from "../../src/i18n";
 import elifbaStrings from "../../src/i18n/strings/elifba";
+import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import {
   parseElifbaSrs,
   updateElifbaSrs,
@@ -172,6 +173,7 @@ export default function TekrarScreen() {
     <>
       <Stack.Screen options={{ title: ep.reviewTitle }} />
       <View style={[s.container, { backgroundColor: c.bg, paddingBottom: insets.bottom }]}>
+        <View style={s.noticeWrap}>
         {srsError && (
           <View style={[s.notice, { backgroundColor: c.card, borderColor: c.border }]}>
             <Text style={[s.noticeText, { color: c.text }]} accessibilityLiveRegion="polite">
@@ -202,6 +204,7 @@ export default function TekrarScreen() {
             </TouchableOpacity>
           </View>
         )}
+        </View>
 
         {poolLoading || !srsReady ? (
           <ActivityIndicator size="large" color={c.accent} style={s.loading} />
@@ -255,5 +258,6 @@ const s = StyleSheet.create({
   retryBtnCompact: { paddingVertical: 8, marginTop: 4 },
   retryText: { color: "#fff", fontSize: 14, fontWeight: "700" },
   notice:    { marginHorizontal: 12, marginTop: 12, padding: 12, borderRadius: 10, borderWidth: 1, gap: 6 },
+  noticeWrap: { width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   noticeText: { fontSize: 13, lineHeight: 19 },
 });
