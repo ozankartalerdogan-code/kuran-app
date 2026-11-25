@@ -661,7 +661,8 @@ export default function MushafSayfaEkrani() {
           <View
             style={{ flex: 1 }}
             onLayout={(e) => {
-              const w = Math.round(e.nativeEvent.layout.width);
+              // Yuvarlama YOK: kesirli genişlikte sayfa başına kayma 604 sayfada birikirdi.
+              const w = e.nativeEvent.layout.width;
               if (w > 0 && w !== listWidth) setListWidth(w);
             }}
             {...panResponder.panHandlers}
