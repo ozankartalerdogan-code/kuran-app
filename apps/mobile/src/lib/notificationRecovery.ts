@@ -124,7 +124,10 @@ function parseNotificationPlan(raw: string | null, stamp: string, prayer: boolea
       } else if (trigger.type === "daily" && route !== "/namaz" && clockPart(trigger.hour, 23) && clockPart(trigger.minute, 59)) {
         restored = { type: "daily", hour: trigger.hour, minute: trigger.minute, channelId } as NotificationRequestInput["trigger"];
       } else return null;
-      requests.push({ content: { title: content.title, body: content.body, sound: true, ...(route === "/namaz" ? { interruptionLevel: "timeSensitive" as const } : {}), data: { route } }, trigger: restored });
+      const open = content.data.open;
+      const openMatch = typeof open === "string" ? /^\/ayah\/\d+\/\d+$/.exec(open) : null;
+      const data = route === "/namaz" && openMatch && openMatch[0] === open ? { route, open } : { route };
+      requests.push({ content: { title: content.title, body: content.body, sound: true, ...(route === "/namaz" ? { interruptionLevel: "timeSensitive" as const } : {}), data }, trigger: restored });
     }
     // Geçmiş bildirimler elenebilir; kaynak planda etkin türün kayıp olması bozulmadır.
     if (dailyVerse && dailyRequests === 0) return null;

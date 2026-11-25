@@ -2,6 +2,28 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { notificationTarget } from "./notificationTarget.ts";
 
+test("gecerli open ayeti route ve eski alanlardan once acilir", () => {
+  for (const data of [
+    { route: "/namaz" }, { route: "/ayah/1/1" },
+    { surahId: 1, ayahNumber: 1 }, {},
+  ]) {
+    assert.equal(notificationTarget({ ...data, open: "/ayah/002/0255" }), "/ayah/2/255");
+  }
+  assert.equal(notificationTarget({ route: "/namaz", open: "/ayah/114/999" }), "/ayah/114/999");
+});
+
+test("gecersiz open yok sayilir ve mevcut hedefe donulur", () => {
+  for (const open of [null, undefined, 42, {}, [], "", "/namaz", "/ayah/0/1",
+    "/ayah/115/1", "/ayah/2/0", "/ayah/2/-1", "/ayah/2/1.5", "/ayah/2/9007199254740992",
+    "/ayah/2/255?x=1", "/ayah/2/255#verse", "/ayah/2/255/", "/ayah/2/255\n",
+    "https://example.com/ayah/2/255"]) {
+    assert.equal(notificationTarget({ route: "/namaz", open }), "/namaz");
+    assert.equal(notificationTarget({ route: "/ayah/1/1", open }), "/ayah/1/1");
+    assert.equal(notificationTarget({ surahId: 1, ayahNumber: 1, open }), "/ayah/1/1");
+    assert.equal(notificationTarget({ open }), "/(tabs)");
+  }
+});
+
 test("namaz ve ayet rotalari kabul edilir, bastaki sifirlar normalize edilir", () => {
   const cases: [unknown, string][] = [
     [{ route: "/namaz" }, "/namaz"],

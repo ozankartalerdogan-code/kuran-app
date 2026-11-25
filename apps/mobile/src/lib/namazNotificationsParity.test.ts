@@ -148,6 +148,7 @@ test("vakitler (Güneş dahil) timeSensitive ve tek satır aralıklı; günlük 
     assert.equal(jobs.filter((job: any) => job.content.title === "Sunrise").length, 7);
     for (const { content } of jobs) {
       assert.equal(content.interruptionLevel, "timeSensitive");
+      assert.deepEqual(content.data, verseMeal ? { route: "/namaz", open: "/ayah/1/1" } : { route: "/namaz" });
       assert.equal(content.body.includes("\n\n"), false);
       const base = content.title === "Sunrise" ? "Sunrise" : "Prayer body";
       assert.equal(content.body, base + (verseMeal ? `\n📖 ${verseMeal.slice(0, 150)}${verseMeal.length > 150 ? "…" : ""}` : ""));

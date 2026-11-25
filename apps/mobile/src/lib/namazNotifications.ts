@@ -306,7 +306,7 @@ async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications
         body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
         sound: true,
         interruptionLevel: "timeSensitive",
-        data:  { route: "/namaz" },
+        data:  { route: "/namaz", ...(translation && v ? { open: `/ayah/${v.surah_id}/${v.ayah_number}` } : {}) },
       },
       trigger,
     };

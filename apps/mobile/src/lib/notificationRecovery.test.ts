@@ -23,6 +23,34 @@ function fixture() {
 }
 const read = (value: unknown, at = now) => readNotificationPlan(JSON.stringify(value), stamp, true, true, at);
 
+test("vakit planinda open korunur; gunluk ayet planina tasinmaz", () => {
+  const value = fixture();
+  for (const request of value.requests) Object.assign(request.content.data, { open: "/ayah/2/255" });
+  const plan = read(value);
+  assert.ok(plan);
+  assert.deepEqual(plan.requests[0].content.data, { route: "/namaz", open: "/ayah/2/255" });
+  assert.deepEqual(plan.requests[6].content.data, { route: "/ayah/1/1" });
+  assert.deepEqual(readNotificationRollback(JSON.stringify(value), true, false, now)[0].content.data,
+    { route: "/namaz", open: "/ayah/2/255" });
+});
+
+test("open icermeyen eski plan gecerlidir", () => {
+  const plan = read(fixture());
+  assert.ok(plan);
+  assert.deepEqual(plan.requests[0].content.data, { route: "/namaz" });
+});
+
+test("bozuk open plani reddetmeden dusurulur", () => {
+  for (const open of [null, 42, {}, [], "", "/namaz", "/ayah/2", "/ayah/a/1",
+    "/ayah/2/-1", "/ayah/2/255?x=1", "/ayah/2/255/", "/ayah/2/255\n"]) {
+    const value = fixture();
+    Object.assign(value.requests[0].content.data, { open });
+    const plan = read(value);
+    assert.ok(plan);
+    assert.deepEqual(plan.requests[0].content.data, { route: "/namaz" });
+  }
+});
+
 test("v1 and v2 without epoch instants are rejected; wall times cannot change epoch validation", () => {
   assert.equal(read({ ...fixture(), version: 1 }), null);
   const missing = fixture();

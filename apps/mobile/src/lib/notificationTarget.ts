@@ -10,6 +10,14 @@ function positiveInteger(value: unknown): number | null {
 export function notificationTarget(data: unknown): string {
   if (data === null || typeof data !== "object" || Array.isArray(data)) return HOME;
   const payload = data as Record<string, unknown>;
+  if (typeof payload.open === "string") {
+    const match = /^\/ayah\/(\d+)\/(\d+)$/.exec(payload.open);
+    if (match && match[0] === payload.open) {
+      const surah = positiveInteger(match[1]);
+      const ayah = positiveInteger(match[2]);
+      if (surah !== null && surah <= 114 && ayah !== null) return `/ayah/${surah}/${ayah}`;
+    }
+  }
   let surahId: unknown;
   let ayahNumber: unknown;
 
