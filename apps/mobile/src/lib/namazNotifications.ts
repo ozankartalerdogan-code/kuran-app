@@ -217,11 +217,13 @@ async function ensureAndroidChannel(): Promise<void> {
   // Mevcut v2 veya eski kanalın kullanıcı önem/sessizleştirme tercihini koru.
   const existingV2 = await Notifications.getNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY).catch(() => null);
   const legacy = existingV2 ? null : await Notifications.getNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY_LEGACY).catch(() => null);
+  // Yalnız geçerli NONE..DEFAULT aralığı taşınır; UNKNOWN/UNSPECIFIED Android'de kanal hatası verir.
+  const { NONE, DEFAULT } = Notifications.AndroidImportance;
+  const keep = (importance: number | undefined, max: number) =>
+    typeof importance === "number" && importance >= NONE && importance <= max ? importance : DEFAULT;
   const dailyImportance = existingV2
-    ? existingV2.importance
-    : legacy && legacy.importance < Notifications.AndroidImportance.DEFAULT
-      ? legacy.importance
-      : Notifications.AndroidImportance.DEFAULT;
+    ? keep(existingV2.importance, Notifications.AndroidImportance.MAX)
+    : keep(legacy?.importance, DEFAULT);
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
     name:             getStrings(notifStrings).channelDaily,
     importance:       dailyImportance,
