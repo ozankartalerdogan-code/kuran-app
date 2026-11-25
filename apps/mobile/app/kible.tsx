@@ -318,7 +318,8 @@ export default function KibleScreen() {
   }, []);
 
   // Konum al — Balanced doğruluk, 3 aşamalı fallback
-  const getLocation = useCallback(async () => {
+  // force: "Konumu Yenile" — son bilinen konum taze olsa da yeni konum istenir (yolculukta eski konum kalmasın).
+  const getLocation = useCallback(async (force = false) => {
     setStep("locating");
     setPermissionReady(false);
     const runId = ++refineRun.current;
@@ -382,9 +383,9 @@ export default function KibleScreen() {
     if (!isCurrent()) return;
     if (quick) {
       if (!apply(quick.coords)) return;
-      setApprox(quick.refine);
+      setApprox(quick.refine || force);
       setStep("compass");
-      if (!quick.refine) return;
+      if (!quick.refine && !force) return;
       try {
         const pos = await currentPosition(20000);
         if (!isMountedRef.current || runId !== refineRun.current) return;
@@ -598,7 +599,7 @@ export default function KibleScreen() {
           tone="accent"
           icon="refresh-outline"
           label={ks.refresh}
-          onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(); }}
+          onPress={() => { setCompassOk(null); setShowCalib(true); getLocation(true); }}
           accessibilityLabel={ks.refreshA11y}
           style={s.refreshBtn}
         />
