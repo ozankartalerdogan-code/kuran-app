@@ -17,7 +17,7 @@ import {
 } from "react-native";
 import { Stack, useLocalSearchParams, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { SkeletonAyetCard, SkeletonBox } from "../../../src/components/SkeletonLoader";
 import { TajweedText } from "../../../src/components/TajweedText";
@@ -817,7 +817,7 @@ export default function AyahDetailScreen() {
                 accessibilityLabel={ay.shrinkA11y}
                 accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
               >
-                <MaterialCommunityIcons name="magnify-minus-outline" size={17} color={colors.textSecondary} />
+                <Text style={{ fontSize: 14, fontWeight: "700", color: colors.textSecondary }}>A−</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.fontBtn, { borderColor: colors.border }, fontScale >= FONT_SCALE_MAX && styles.fontBtnDisabled]}
@@ -829,7 +829,7 @@ export default function AyahDetailScreen() {
                 accessibilityLabel={ay.growA11y}
                 accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
               >
-                <MaterialCommunityIcons name="magnify-plus-outline" size={17} color={colors.textSecondary} />
+                <Text style={{ fontSize: 14, fontWeight: "700", color: colors.textSecondary }}>A+</Text>
               </TouchableOpacity>
             </View>
           </View>
