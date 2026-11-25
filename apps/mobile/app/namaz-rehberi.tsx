@@ -924,7 +924,7 @@ const s = StyleSheet.create({
   niyet:     { fontSize: 13, lineHeight: 20, fontStyle: "italic", borderRadius: 10, borderWidth: 1, padding: 11, marginTop: 4 },
 
   // Üst sekme
-  tabWrap: { paddingHorizontal: space.gutter, paddingTop: 10, paddingBottom: space.xs },
+  tabWrap: { paddingHorizontal: space.gutter, paddingTop: 10, paddingBottom: space.xs, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
 });
 
 // "Namaz Ayetleri" sekmesi stilleri

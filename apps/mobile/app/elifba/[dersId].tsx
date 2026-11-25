@@ -911,7 +911,7 @@ export default function DersScreen() {
                 <ScrollView
                   ref={lettersRef}
                   horizontal
-                  style={{ height: lettersStripHeight, flexGrow: 0, flexShrink: 0 }}
+                  style={{ height: lettersStripHeight, flexGrow: 0, flexShrink: 0, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" }}
                   contentContainerStyle={styles.letters}
                   onContentSizeChange={() => lettersRef.current?.scrollTo({ x: Math.max(0, idx * 51 - 16), animated: false })}
                 >
