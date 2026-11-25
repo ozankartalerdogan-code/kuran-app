@@ -122,6 +122,9 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
   const tj = useStrings(storageErrorStrings);
   const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
+  const { width: winW, height: winH } = useWindowDimensions();
+  // Dikey tablette geniş dikey alanı verimli kullanmak için taban yazı ve kart boyutu büyütülür.
+  const dikeyTablet = Math.min(winW, winH) >= 600 && winH > winW;
   const { fontScale } = useFontScale();
   const [durum, setDurum] = useState<YuklemeDurumu>({ status: "loading" });
   const [denemeNo, setDenemeNo] = useState(0);
@@ -136,9 +139,9 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
   }, [page, denemeNo]);
 
   const arabicStyle = useMemo(() => ({
-    fontSize: 23 * fontScale,
-    lineHeight: 44 * fontScale,
-  }), [fontScale]);
+    fontSize: (dikeyTablet ? 28 : 23) * fontScale,
+    lineHeight: (dikeyTablet ? 52 : 44) * fontScale,
+  }), [fontScale, dikeyTablet]);
 
   const p = paperColors(c);
 
@@ -163,7 +166,7 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
       ) : (
         <ScrollView
           style={{ flex: 1 }}
-          contentContainerStyle={[st.pageScroll, { paddingBottom: insets.bottom + 20 }]}
+          contentContainerStyle={[st.pageScroll, dikeyTablet && st.pageScrollTablet, { paddingBottom: insets.bottom + 20 }]}
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled
         >
@@ -171,18 +174,28 @@ const MushafSayfasi = React.memo(function MushafSayfasi({ page, width, height, t
             {durum.bloklar.map((blok, i) =>
               blok.tip === "sure" ? (
                 <View key={`s${blok.surahId}`} style={[st.sureBasligi, { borderColor: p.goldBorder }]}>
-                  <Text style={[st.sureArapca, { color: c.text }]}>{blok.arabicName}</Text>
+                  <Text style={[st.sureArapca, dikeyTablet && st.sureArapcaTablet, { color: c.text }]}>{blok.arabicName}</Text>
                   <Text style={[st.sureAdi, { color: p.gold }]}>
                     {fmt(t.surahHeading, { id: blok.surahId, name: surahNameOf(blok.surahId, blok.name) })}
                   </Text>
                   {blok.besmele && (
-                    <Text style={[st.besmele, { color: c.text, fontSize: 20 * fontScale, lineHeight: 36 * fontScale }]}>
+                    <Text
+                      maxFontSizeMultiplier={1.25}
+                      style={[
+                        st.besmele,
+                        {
+                          color: c.text,
+                          fontSize: (dikeyTablet ? 24 : 20) * fontScale,
+                          lineHeight: (dikeyTablet ? 43 : 36) * fontScale,
+                        },
+                      ]}
+                    >
                       {BESMELE}
                     </Text>
                   )}
                 </View>
               ) : (
-                <Text key={`m${i}`} style={[st.arabic, arabicStyle, { color: c.text }]}>
+                <Text key={`m${i}`} maxFontSizeMultiplier={1.25} style={[st.arabic, arabicStyle, { color: c.text }]}>
                   {blok.ayetler.map((a) => {
                     const isSecili = ayniAyet(secili, a.surahId, a.ayahNumber);
                     return (
@@ -761,6 +774,7 @@ const st = StyleSheet.create({
   centerText: { fontSize: 13 },
 
   pageScroll: { padding: 12, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
+  pageScrollTablet: { maxWidth: 760, paddingHorizontal: 24 },
   kagit: {
     borderRadius: 14, borderWidth: 1, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 10,
   },
@@ -770,6 +784,7 @@ const st = StyleSheet.create({
     paddingVertical: 8, paddingHorizontal: 12, marginVertical: 10,
   },
   sureArapca: { fontFamily: "Amiri-Bold", fontSize: 22, lineHeight: 38 },
+  sureArapcaTablet: { fontSize: 26, lineHeight: 45 },
   sureAdi:    { fontSize: 11, fontWeight: "700", letterSpacing: 0.4, marginTop: 1 },
   besmele:    { fontFamily: "UthmanicHafs", textAlign: "center", marginTop: 6 },
 
