@@ -115,12 +115,14 @@ export default function DerslerScreen() {
 
       {/* Sıralama sekmeleri */}
       <View style={[s.tabRow, { borderBottomColor: c.border }]}>
-        <Tabs
-          items={TABS}
-          value={sortMode}
-          onChange={(key) => { Haptics.selectionAsync(); setSortMode(key); }}
-          variant="segmented"
-        />
+        <View style={s.tabInner}>
+          <Tabs
+            items={TABS}
+            value={sortMode}
+            onChange={(key) => { Haptics.selectionAsync(); setSortMode(key); }}
+            variant="segmented"
+          />
+        </View>
       </View>
 
       {sortMode === "konu" ? (
@@ -180,6 +182,9 @@ const s = StyleSheet.create({
   tabRow:        {
     paddingHorizontal: space.gutter, paddingVertical: space.sm, borderBottomWidth: 1,
   },
+
+  // Sekmeler tablette ızgarayla aynı genişlikte ortalanır; alt çizgi tam genişlik kalır.
+  tabInner:      { width: "100%", maxWidth: GRID_MAX_WIDTH, alignSelf: "center" },
 
   listWrap:      { flex: 1, width: "100%", maxWidth: GRID_MAX_WIDTH, alignSelf: "center" },
   listContent:   { paddingHorizontal: space.gutter - 6, paddingTop: space.sm, maxWidth: GRID_MAX_WIDTH, width: "100%", alignSelf: "center" },
