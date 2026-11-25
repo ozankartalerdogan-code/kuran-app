@@ -13,6 +13,7 @@ export const FONT_SCALE_STEP = 0.15;
 // günceller, açık sayfa hiç yeniden çizilmezdi.
 let scale = 1;
 let loaded = false;
+let touched = false;
 const listeners = new Set<() => void>();
 
 function notify() {
@@ -26,6 +27,7 @@ function ensureLoaded() {
   storage
     .getString(STORAGE_KEYS.ayahFontScale)
     .then((raw) => {
+      if (touched) return;
       const v = Number(raw);
       if (v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX && v !== scale) {
         scale = v;
@@ -48,6 +50,7 @@ export function changeFontScale(delta: number) {
   const next =
     Math.round(Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, scale + delta)) * 100) / 100;
   if (next === scale) return;
+  touched = true;
   scale = next;
   storage.setString(STORAGE_KEYS.ayahFontScale, String(next)).catch(() => {});
   notify();

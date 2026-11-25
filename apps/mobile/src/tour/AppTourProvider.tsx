@@ -151,7 +151,7 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
         if (!eligible() || reviewAttempted.current) return;
         reviewAttempted.current = true;
         reviewBusy.current = true;
-        void maybeAskReview(eligible).finally(() => { reviewBusy.current = false; });
+        void maybeAskReview(eligible).finally(() => { reviewBusy.current = false; }).catch(() => {});
       }, REVIEW_WAIT_MS);
       const cancel = () => { cancelled = true; clearTimeout(timer); pending.delete(cancel); };
       pending.add(cancel);

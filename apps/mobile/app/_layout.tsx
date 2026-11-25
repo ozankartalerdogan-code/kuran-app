@@ -317,7 +317,7 @@ function RootLayout() {
 
   // Açılış sayacı hemen ilerler; değerlendirme istemini AppTourProvider koordine eder.
   useEffect(() => {
-    trackAppOpen();
+    trackAppOpen().catch(() => {});
   }, []);
 
   // Bulut yedek: anonim oturum aç, ilk kurulumda ilerlemeyi geri yükle, sonrasında

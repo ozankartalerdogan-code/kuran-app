@@ -147,6 +147,7 @@ const dark: AppColors = {
 // okumasını/effect'ini kurmaz; tema bir kez yüklenir, değişimler yayınlanır.
 let override: "light" | "dark" | null = null;
 let loaded = false;
+let touched = false;
 const listeners = new Set<() => void>();
 
 function notify() {
@@ -161,6 +162,7 @@ function ensureLoaded() {
   storage
     .getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
     .then((value) => {
+      if (touched) return;
       if (value && value !== override) {
         override = value;
         notify();
@@ -184,6 +186,7 @@ export function toggleTheme() {
   // değişmezdi (düğme "bozuk" hissederdi).
   const effective = override ?? (Appearance.getColorScheme() ?? "light");
   const next = effective === "dark" ? "light" : "dark";
+  touched = true;
   override = next;
   storage.setJSON(STORAGE_KEYS.nightMode, next).then(() => {
     // Android: widget'ları yeniden çizer; iOS: App Group'a yeni temayı yazar (iOS widget'ı).

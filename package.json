@@ -15,7 +15,7 @@
     "build": "npm run build -ws --if-present",
     "typecheck": "npm run typecheck -ws --if-present",
     "test": "node --test \"apps/web/src/lib/**/*.test.ts\"",
-    "test:mobile": "node --test \"apps/mobile/src/**/*.test.ts\"",
+    "test:mobile": "node --test \"apps/mobile/src/**/*.test.ts\" \"apps/mobile/plugins/*.test.js\"",
     "test:core": "npm run test -w @quran-app/core",
     "test:data": "npm run test -w @quran-app/web",
     "verify:live": "node scripts/verify-live.mjs",
