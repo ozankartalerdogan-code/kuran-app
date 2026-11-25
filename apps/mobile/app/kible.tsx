@@ -15,6 +15,7 @@ import { Button, Callout, CloseButton, calloutColors, radius, space } from "../s
 import { useStrings, getStrings, fmt, localeTag, caps } from "../src/i18n";
 import kibleStrings from "../src/i18n/strings/kible";
 import { magneticDeclination } from "../src/lib/geomagnetism";
+import { calcQibla, calcDist } from "../src/lib/qiblaMath";
 import { chooseQuickFix } from "../src/lib/qiblaLocation";
 import { effectiveScreenRotation, headingForScreen } from "../src/lib/qiblaScreenRotation";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
@@ -22,7 +23,6 @@ import { getSavedCoords, rememberCoords } from "../src/lib/namazNotifications";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
-const MECCA     = { lat: 21.4225, lng: 39.8262 };
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
 const MAG_OFFSET = 0; // Magnetometer yön düzeltmesi (gerekirse cihazda ince ayar)
 
@@ -36,27 +36,10 @@ const USE_DEVICE_MOTION = true;
 const DM_SIGN   = -1; // W3C alpha (saat yönü tersi) → pusula (saat yönü)
 const DM_OFFSET = 0;
 
-// ── Kıble hesabı (büyük çember yönü) ─────────────────────────────────────────
+// ── Açı yardımcıları ─────────────────────────────────────────────────────────
 
 function toRad(d: number) { return d * Math.PI / 180; }
 function toDeg(r: number) { return r * 180 / Math.PI; }
-
-function calcQibla(lat: number, lng: number): number {
-  const dLng = toRad(MECCA.lng - lng);
-  const φ1   = toRad(lat), φ2 = toRad(MECCA.lat);
-  const x    = Math.sin(dLng) * Math.cos(φ2);
-  const y    = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(dLng);
-  return (toDeg(Math.atan2(x, y)) + 360) % 360;
-}
-
-function calcDist(lat: number, lng: number): number {
-  const R    = 6371;
-  const dLat = toRad(MECCA.lat - lat);
-  const dLng = toRad(MECCA.lng - lng);
-  const a    = Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat)) * Math.cos(toRad(MECCA.lat)) * Math.sin(dLng / 2) ** 2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
 
 // Açı ortalaması (0–360 wrap-around güvenli)
 function avgAngles(angles: number[]): number {
@@ -132,7 +115,7 @@ export default function KibleScreen() {
     const timer = setTimeout(() => {
       refineRun.current += 1; // Geç konum sonucu hata/yeniden deneme ekranını ezmesin.
       setStep("error");
-    }, 12_000);
+    }, 45_000); // 15 sn + 25 sn denemeler ve kayıtlı konumu okuma payı.
     return () => clearTimeout(timer);
   }, [step, permissionReady]);
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
@@ -149,7 +132,7 @@ export default function KibleScreen() {
   const alignedRef = useRef(false);
   const lastHapticRef = useRef(0);
   const firstHeadingRef = useRef(true); // ilk ölçüm süzgeçsiz (ibre 0°'den süzülerek gelmesin)
-  // getLocation() çok adımlı async (izin + 3 aşamalı konum denemesi, ~25 sn'e kadar
+  // getLocation() çok adımlı async (izin + 3 aşamalı konum denemesi, ~45 sn'e kadar
   // sürebilir); kullanıcı bu sırada ekrandan çıkarsa Alert/navigation/setState'in
   // artık ilgisiz bir ekranda tetiklenmesini önler.
   const isMountedRef = useRef(true);
@@ -163,6 +146,27 @@ export default function KibleScreen() {
   // useNativeDriver ile dönüş native thread'de, JS re-render olmadan).
   const headingAnim = useRef(new Animated.Value(0)).current; // unwrapped heading
   const needleAnim  = useRef(new Animated.Value(0)).current; // unwrapped ibre açısı
+
+  // Aynı ibre/hizalama hesabı hem heading hem konum değişiminde çalışır.
+  const updateNeedle = useCallback((q: number, avg: number) => {
+    const needle0 = (q - avg + 360) % 360; // 0–360
+    const nextN = unwrap(needleRef.current, needle0);
+    needleRef.current = nextN;
+    Animated.timing(needleAnim, { toValue: nextN, duration: ANIM_MS, easing: Easing.linear, useNativeDriver: true }).start();
+
+    // Hizalama: ibre ±ALIGN_DEG içindeyse → haptic (yalnız ilk girişte) + görsel vurgu
+    const off = Math.min(needle0, 360 - needle0); // Kabe'den sapma, 0–180
+    const aligned = alignedRef.current ? off <= UNALIGN_DEG : off <= ALIGN_DEG;
+    if (aligned !== alignedRef.current) {
+      alignedRef.current = aligned;
+      setIsAligned(aligned);
+      const now = Date.now();
+      if (aligned && now - lastHapticRef.current >= HAPTIC_COOLDOWN_MS) {
+        lastHapticRef.current = now;
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      }
+    }
+  }, [needleAnim]);
 
   // Heading — Magnetometer (varsa, güvenilir) → yoksa watchHeadingAsync'e düş.
   useEffect(() => {
@@ -200,23 +204,7 @@ export default function KibleScreen() {
 
       const q = qiblaRef.current;
       if (q !== null) {
-        const needle0 = (q - avg + 360) % 360; // 0–360
-        const nextN = unwrap(needleRef.current, needle0);
-        needleRef.current = nextN;
-        Animated.timing(needleAnim, { toValue: nextN, duration: ANIM_MS, easing: Easing.linear, useNativeDriver: true }).start();
-
-        // Hizalama: ibre ±ALIGN_DEG içindeyse → haptic (yalnız ilk girişte) + görsel vurgu
-        const off = Math.min(needle0, 360 - needle0); // Kabe'den sapma, 0–180
-        const aligned = alignedRef.current ? off <= UNALIGN_DEG : off <= ALIGN_DEG;
-        if (aligned !== alignedRef.current) {
-          alignedRef.current = aligned;
-          setIsAligned(aligned);
-          const now = Date.now();
-          if (aligned && now - lastHapticRef.current >= HAPTIC_COOLDOWN_MS) {
-            lastHapticRef.current = now;
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
-          }
-        }
+        updateNeedle(q, avg);
       }
       setCompassOk(true);
     };
@@ -321,7 +309,7 @@ export default function KibleScreen() {
       subsRef.current = [];
       headingBuf.current = [];
     };
-  }, [step, headingAnim, needleAnim]);
+  }, [step, headingAnim, updateNeedle]);
 
   // Pick ekranı yok — hata/iptal durumunda ana sayfaya dön, uyarı orada görünür
   const goHome = useCallback(() => {
@@ -335,7 +323,6 @@ export default function KibleScreen() {
     setPermissionReady(false);
     const runId = ++refineRun.current;
     const isCurrent = () => isMountedRef.current && runId === refineRun.current;
-    setApprox(false);
     alignedRef.current = false;
     setIsAligned(false);
 
@@ -361,12 +348,18 @@ export default function KibleScreen() {
 
     // Hesaplanan yönü ekrana uygular (anlık konum ve arka plan yenilemesi ortak kullanır).
     const apply = (c: { latitude: number; longitude: number }) => {
+      const q = calcQibla(c.latitude, c.longitude);
+      if (q === null) {
+        setStep("error");
+        return false;
+      }
       // Manyetik sapma: pusula manyetik kuzeyi, kıble gerçek kuzeyi kullanır (NOAA WMM2025, dünya geneli).
       declRef.current = magneticDeclination(c.latitude, c.longitude);
-      const q = calcQibla(c.latitude, c.longitude);
       qiblaRef.current = q;
       setQibla(q);
       setDistance(calcDist(c.latitude, c.longitude));
+      if (gotData.current) updateNeedle(q, ((headingRef.current % 360) + 360) % 360);
+      return true;
     };
 
     const currentPosition = async (timeoutMs: number) => {
@@ -388,7 +381,7 @@ export default function KibleScreen() {
     const quick = chooseQuickFix(last, await getSavedCoords(), Date.now());
     if (!isCurrent()) return;
     if (quick) {
-      apply(quick.coords);
+      if (!apply(quick.coords)) return;
       setApprox(quick.refine);
       setStep("compass");
       if (!quick.refine) return;
@@ -396,11 +389,11 @@ export default function KibleScreen() {
         const pos = await currentPosition(20000);
         if (!isMountedRef.current || runId !== refineRun.current) return;
         if (pos && "coords" in pos) {
-          apply(pos.coords);
+          if (!apply(pos.coords)) return;
           rememberCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+          setApprox(false);
         }
       } catch { /* yaklaşık konumla devam */ }
-      if (isMountedRef.current && runId === refineRun.current) setApprox(false);
       return;
     }
 
@@ -431,11 +424,11 @@ export default function KibleScreen() {
       return;
     }
 
-    apply(coords);
+    if (!apply(coords)) return;
     rememberCoords({ lat: coords.latitude, lng: coords.longitude });
     setApprox(false);
     setStep("compass");
-  }, [goHome]);
+  }, [goHome, updateNeedle]);
 
   // Ekrana girince doğrudan konumdan pusulaya geç (ana menüden tıklayınca)
   const autoStarted = useRef(false);

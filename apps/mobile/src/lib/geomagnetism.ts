@@ -141,7 +141,8 @@ export function magneticDeclination(lat: number, lng: number, year: number = dec
   // Kutuplarda Y bileşeni tanımsız; çok yakınına kırp.
   const phi = Math.max(-89.999, Math.min(89.999, lat)) * DEG;
   const lam = lng * DEG;
-  const dt = year - WMM_EPOCH;
+  // WMM2030 yayınlanınca katsayıları güncelle (2029 sonu)
+  const dt = Math.max(2025.0, Math.min(2030.0, year)) - WMM_EPOCH;
 
   // Jeodezik → jeosentrik küresel koordinat.
   const sinPhi = Math.sin(phi);

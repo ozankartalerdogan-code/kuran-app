@@ -121,6 +121,14 @@ test("örnek şehirler makul aralıkta", () => {
   assert.ok(ny < -11 && ny > -14, `New York ${ny}`);
 });
 
+test("model dışındaki yıllar geçerlilik sınırlarına kırpılır", () => {
+  for (const [year, boundary] of [[2035, 2030], [1970, 2025]]) {
+    const got = magneticDeclination(41.0082, 28.9784, year);
+    assert.ok(Number.isFinite(got));
+    assert.equal(got, magneticDeclination(41.0082, 28.9784, boundary));
+  }
+});
+
 test("decimalYear", () => {
   assert.equal(decimalYear(new Date(Date.UTC(2026, 0, 1))), 2026);
   assert.ok(Math.abs(decimalYear(new Date(Date.UTC(2026, 6, 2, 12))) - 2026.5) < 0.002);
