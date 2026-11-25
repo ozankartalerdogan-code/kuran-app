@@ -15,6 +15,16 @@ function load(native: Record<string, unknown> = {}) {
   const modules: Record<string, unknown> = { "../lib/homePrayer": homePrayer, "../lib/prayerInstant": instants, "../lib/diyanetPrayer": diyanet, ...native };
   const mod = { exports: {} };
   new Function("require", "exports", "module", compiled)((id: string) => {
+    if (id === "./prayerWidgetFallback" && !(id in modules)) {
+      const fallbackSource = readFileSync(new URL("./prayerWidgetFallback.ts", import.meta.url), "utf8");
+      const fallbackCompiled = ts.transpileModule(fallbackSource, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
+      const fallback = { exports: {} };
+      new Function("require", "exports", "module", fallbackCompiled)((name: string) => {
+        if (!(name in modules)) throw new Error(`Native module unavailable: ${name}`);
+        return modules[name];
+      }, fallback.exports, fallback);
+      return fallback.exports;
+    }
     if (!(id in modules)) throw new Error(`Native module unavailable: ${id}`);
     return modules[id];
   }, mod.exports, mod);
@@ -204,4 +214,74 @@ test("corrupt storage and geo-only persisted records cannot load an unrelated ci
     fetchDiyanetMonth: async () => assert.fail("network"), fetchAladhanMonth: async () => assert.fail("network"),
   });
   assert.deepEqual(await repo.readCachedDays({ cityKey: "geo:41,29", cityTimeZone: "Europe/Istanbul" }, [today.sourceDate]), []);
+});
+
+test("TR regression: manual and automatic Diyanet cities never read fallback, even with empty records", async () => {
+  const city = { id: 34, name: "İSTANBUL", country: "TÜRKİYE", tz: "Europe/Istanbul" };
+  for (const manual of [true, false]) for (const cachedRecords of [records, []]) {
+    const reads: string[] = [];
+    let fallbackReads = 0;
+    const api = load({
+      "../i18n": { getLang: () => "tr" },
+      "../lib/storage": { storage: {
+        getJSON: async (key: string) => { reads.push(key); return key === "diyanetManualCityV1" ? manual ? city : null : { city }; },
+        getString: async () => { fallbackReads++; throw Error("fallback must not be read"); },
+      } },
+      "./prayerWidgetFallback": { readPrayerWidgetFallback: async () => { fallbackReads++; throw Error("fallback must not be read"); } },
+      "../lib/prayerDayRepositoryDeps": { getPrayerDayRepository: () => ({ readCachedDays: async () => cachedRecords }) },
+    });
+    const result = await api.readPrayerWidgetSource(at("11:15:00"), [-1, 0, 1]);
+    assert.equal(result.city, "İstanbul");
+    assert.equal(result.approximate, false);
+    assert.equal(fallbackReads, 0);
+    assert.deepEqual(reads, manual ? ["diyanetManualCityV1"] : ["diyanetManualCityV1", "diyanetCityV1"]);
+  }
+});
+
+function fallbackReader(tz = "Europe/Istanbul", json?: string | null) {
+  const stored = json === undefined ? JSON.stringify({ v: 1, city: "Berlin", tz: "Europe/Istanbul", writtenAtMs: at("10:00:00"),
+    records: records.map(r => ({ ...r, source: "aladhan", cityKey: "fallback", revision: "fallback" })) }) : json;
+  return load({
+    "../i18n": { getLang: () => "tr" },
+    "../lib/storage": { storage: {
+      getJSON: async (key: string) => key === "diyanetManualCityV1" ? null : { city: null },
+      getString: async (key: string) => { assert.equal(key, "prayerWidgetFallbackV1"); return stored; },
+    } },
+    "../lib/timeZone": { deviceTimeZone: () => tz },
+  });
+}
+
+test("null Diyanet city reads validated fallback, filters dates and propagates approximate to widget", async () => {
+  const api = fallbackReader();
+  const source = await api.readPrayerWidgetSource(at("11:15:00"), [0]);
+  assert.equal(source.city, "Berlin");
+  assert.equal(source.approximate, true);
+  assert.deepEqual(source.records.map(r => r.sourceDate), [today.sourceDate]);
+  const result = await api.readNamazWidgetData(at("11:15:00"));
+  assert.ok(result.prayer?.heading.includes("Berlin (~)"));
+  assert.ok(result.prayer?.accessibilityLabel.includes("Yaklaşık vakitler."));
+});
+
+test("timezone mismatch, missing matching days, stale/corrupt/absent fallback preserve existing empty message", async () => {
+  for (const api of [fallbackReader("Europe/Berlin"), fallbackReader("Europe/Istanbul", null), fallbackReader("Europe/Istanbul", "{")]) {
+    const result = await api.readNamazWidgetData(at("11:15:00"));
+    assert.equal(result.prayer, null);
+    assert.equal(result.emptyText, "Vakitler için uygulamayı açın");
+  }
+  assert.equal((await fallbackReader().readPrayerWidgetSource(at("11:15:00"), [5])).city, "");
+  assert.equal((await fallbackReader().readNamazWidgetData(at("11:15:00") + 15 * 86_400_000)).prayer, null);
+});
+
+test("approximate TR/EN labels add compact marker and a11y while preserving times and layout data", () => {
+  for (const lang of ["tr", "en"] as const) {
+    const exact = api.buildNamazWidgetData(records, "İstanbul", at("11:15:00"), lang).prayer!;
+    const approx = api.buildNamazWidgetData(records, "İstanbul", at("11:15:00"), lang, true).prayer!;
+    assert.ok(approx.heading.includes("(~)"));
+    assert.ok(approx.focusHeading.includes("(~)"));
+    const suffix = lang === "tr" ? "Yaklaşık vakitler." : "Approximate times.";
+    assert.equal(approx.accessibilityLabel, `${exact.accessibilityLabel} ${suffix}`);
+    assert.ok(!exact.heading.includes("~"));
+    assert.ok(!exact.focusHeading.includes("~"));
+    assert.deepEqual({ ...approx, heading: exact.heading, focusHeading: exact.focusHeading, accessibilityLabel: exact.accessibilityLabel }, exact);
+  }
 });

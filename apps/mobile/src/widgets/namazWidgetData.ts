@@ -61,7 +61,7 @@ export function focusSegments(records: readonly PrayerDayRecord[], display: Pray
   }));
 }
 
-export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: string, nowMs: number, lang: Lang) {
+export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: string, nowMs: number, lang: Lang, approximate = false) {
   if (lang === "en") city = city.replace(/İ/g, "I");
   const emptyText = lang === "tr" ? "Vakitler için uygulamayı açın" : "Open the app to load prayer times";
   const next = city ? nextPrayerFromInstants(records, nowMs) : null;
@@ -75,12 +75,13 @@ export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: 
   const remaining = formatPrayerRemaining(next.atMs - nowMs, lang);
   const countdown = lang === "tr" ? `${prayerToLabel(next.key, lang)} ${remaining}` : `${name} in ${remaining}`;
   const remainingLabel = remaining === "şimdi" || remaining === "now" ? remaining : lang === "tr" ? `${remaining} kaldı` : `in ${remaining}`;
+  const headingCity = approximate ? `${city} (~)` : city;
   return { lang, emptyText, prayer: {
-    city, heading: [city, hijriLabel].filter(Boolean).join(" · "),
-    focusHeading: `${lang === "tr" ? "Sıradaki" : "Next"} · ${city}`.toLocaleUpperCase(lang === "tr" ? "tr-TR" : "en-US"),
+    city, heading: [headingCity, hijriLabel].filter(Boolean).join(" · "),
+    focusHeading: `${lang === "tr" ? "Sıradaki" : "Next"} · ${headingCity}`.toLocaleUpperCase(lang === "tr" ? "tr-TR" : "en-US"),
     name, time, countdown, remainingLabel, atMs: next.atMs,
     refreshAtMs: nextWidgetRefreshAt(nowMs, next.atMs),
-    accessibilityLabel: `${city}. ${lang === "tr" ? "Sıradaki vakit" : "Next prayer"}: ${name}, ${time}. ${remainingLabel}.`,
+    accessibilityLabel: `${city}. ${lang === "tr" ? "Sıradaki vakit" : "Next prayer"}: ${name}, ${time}. ${remainingLabel}.${approximate ? lang === "tr" ? " Yaklaşık vakitler." : " Approximate times." : ""}`,
     cells: PRAYER_KEYS.map(key => ({ key, name: lang === "tr" ? TR_NAMES[key] : key,
       time: formatHmInZone(display.atMs[key], display.cityTimeZone) ?? "",
       next: next.record.sourceDate === display.sourceDate && key === next.key,
@@ -92,8 +93,8 @@ export function buildNamazWidgetData(records: readonly PrayerDayRecord[], city: 
 export type NamazWidgetData = ReturnType<typeof buildNamazWidgetData>;
 
 export type PrayerWidgetSource =
-  | { lang: Lang; city: string; tz: string; records: PrayerDayRecord[] }
-  | { lang: Lang; city: ""; tz: ""; records: [] };
+  | { lang: Lang; city: string; tz: string; records: PrayerDayRecord[]; approximate?: boolean }
+  | { lang: Lang; city: ""; tz: ""; records: []; approximate?: boolean };
 
 /** All native/storage imports are lazy; no location resolution or network calls. */
 export async function readPrayerWidgetSource(nowMs: number, dayOffsets: readonly number[]): Promise<PrayerWidgetSource> {
@@ -108,6 +109,20 @@ export async function readPrayerWidgetSource(nowMs: number, dayOffsets: readonly
     const manual = await storage.getJSON<DiyanetCityRef>("diyanetManualCityV1");
     const cached = manual ? null : await storage.getJSON<{ city: DiyanetCityRef | null }>("diyanetCityV1");
     const city = manual ?? cached?.city;
+    if (!city) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+      const { readPrayerWidgetFallback } = require("./prayerWidgetFallback") as typeof import("./prayerWidgetFallback");
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+      const { deviceTimeZone } = require("../lib/timeZone") as typeof import("../lib/timeZone");
+      const snapshot = await readPrayerWidgetFallback(nowMs);
+      if (snapshot && snapshot.tz === deviceTimeZone()) {
+        const today = prayerDateInZone(nowMs, snapshot.tz);
+        const dates = new Set(dayOffsets.map(offset => addDaysYmd(today, offset)));
+        const records = snapshot.records.filter(record => dates.has(record.sourceDate));
+        if (records.length) return { lang, city: snapshot.city, tz: snapshot.tz, records, approximate: true };
+      }
+      return { lang, city: "", tz: "", records: [] };
+    }
     if (!city || !Number.isFinite(city.id) || !city.name || !city.tz) return { lang, city: "", tz: "", records: [] };
     // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
     const { getPrayerDayRepository } = require("../lib/prayerDayRepositoryDeps") as typeof import("../lib/prayerDayRepositoryDeps");
@@ -118,7 +133,7 @@ export async function readPrayerWidgetSource(nowMs: number, dayOffsets: readonly
       dates,
     );
     const name = titleCaseTr(city.name, isTurkeyCountry(city.country));
-    return { lang, city: name, tz: city.tz, records };
+    return { lang, city: name, tz: city.tz, records, approximate: false };
   } catch {
     return { lang, city: "", tz: "", records: [] };
   }
@@ -126,5 +141,5 @@ export async function readPrayerWidgetSource(nowMs: number, dayOffsets: readonly
 
 export async function readNamazWidgetData(nowMs = Date.now()): Promise<NamazWidgetData> {
   const source = await readPrayerWidgetSource(nowMs, [-1, 0, 1]);
-  return buildNamazWidgetData(source.records, source.city, nowMs, source.lang);
+  return buildNamazWidgetData(source.records, source.city, nowMs, source.lang, source.approximate);
 }
